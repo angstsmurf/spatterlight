@@ -850,7 +850,8 @@ extern scr_bool run_task_run_by_index (scr_gameref_t game, scr_int task);
 extern void run_npc_walk_task (scr_gameref_t game, scr_int walktask);
 extern void run_event_task (scr_gameref_t game, scr_int eventtask);
 extern scr_bool run_does_command_match (scr_gameref_t game,
-                                       const scr_char *string);
+                                        const scr_char *string,
+                                        scr_bool check_restrictions = FALSE);
 extern void run_set_task_class_filter (scr_int mode);
 extern scr_bool run_in_priority_pass (void);
 extern const scr_char *run_get_dispatch_input (void);
@@ -916,6 +917,7 @@ extern const scr_char *task_get_hint_unsubtle (scr_gameref_t game, scr_int task)
 extern scr_bool task_can_run_task_directional (scr_gameref_t game,
                                               scr_int task, scr_bool forwards);
 extern scr_bool task_can_run_task (scr_gameref_t game, scr_int task);
+extern scr_bool task_where_allows_run (scr_gameref_t game, scr_int task);
 extern scr_bool task_is_room_refused (scr_gameref_t game,
                                       scr_int task, scr_bool forwards);
 extern scr_bool task_is_done_refused (scr_gameref_t game, scr_int task);

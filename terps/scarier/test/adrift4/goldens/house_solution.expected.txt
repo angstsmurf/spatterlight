@@ -1469,7 +1469,8 @@ all you produce some wood.
 A gust of air blows down the chimney.
 
 > put wood in fireplace
-You are not holding the wood.
+(Taking the wood first)
+Your hands are full.  You are not holding the wood.
 
 > put newspaper under firewood
 You tear off some pages and stuff them into the fireplace.

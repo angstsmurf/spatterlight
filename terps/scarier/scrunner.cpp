@@ -2193,9 +2193,33 @@ run_task_passes_class_filter (scr_gameref_t game, scr_int task)
  * (it may set referenced-object/NPC/variable state via uip_match()), but this
  * is harmless: the probe runs before input is submitted, and the real command
  * pass that follows re-matches and overwrites that state.
+ *
+ * With check_restrictions set, the probe is run400's task pre-matcher
+ * Proc_19_35_453C50 (mdlSpreadTheLoad.bas:26153) called with its second
+ * argument 1, as the put handler's implicit-take gate calls it @46E2C7.  That
+ * routine makes two passes over the tasks, and neither ignores restrictions:
+ *
+ *   1. @453B00-453C0B: a task in scope for the room whose state allows a run
+ *      ((not done Or repeatable) Or (done And reversible)) is a hit only if
+ *      restriction_walk Proc_19_64_455C60 PASSES and a pattern matches.
+ *   2. Proc_19_68_45404C(1, mode) @453C34: a pattern-matching task in scope
+ *      whose lowest failing restriction has a NON-EMPTY FailMessage
+ *      (Proc_19_2_481DA0(task, i, 1) records it @481D99; the hit is the
+ *      message buffer having changed, @453FA1 and @45403A), or, with no
+ *      failing restriction, whose RepeatText (text index 2) is non-empty
+ *      @453FE2-454028.  A failing restriction with an empty message drops
+ *      the task and the walk moves on to the next one @453FC6->454034.
+ *
+ * Measured live 2026-09-06 on House.taf (Adrift_91.txt-Adrift_93.txt): at
+ * the fireplace, "put wood in fireplace" with the wood on the floor matches
+ * task 60 "* %object%" (a take-flagged task restricted to the house
+ * spinning, FailMessage empty), and run400 still prints "(Taking the wood
+ * first)" -- the restriction-blind probe used to count that task as a hit
+ * and skip the take.
  */
 scr_bool
-run_does_command_match (scr_gameref_t game, const scr_char *string)
+run_does_command_match (scr_gameref_t game, const scr_char *string,
+                        scr_bool check_restrictions)
 {
   scr_int task_count, task, direction;
 
@@ -2212,9 +2236,55 @@ run_does_command_match (scr_gameref_t game, const scr_char *string)
   task_count = gs_task_count (game);
   for (task = 0; task < task_count; task++)
     {
-      if (!task_can_run_task (game, task))
-        continue;
       if (!run_task_passes_class_filter (game, task))
+        continue;
+
+      if (check_restrictions)
+        {
+          const scr_char *fail_message;
+          scr_bool matched_forwards, matched_reverse, pass;
+
+          /*
+           * The Runner's pre-matcher, both passes.  Only the room scope is
+           * fixed; the task's state and its restrictions decide together.
+           */
+          if (!task_where_allows_run (game, task))
+            continue;
+
+          matched_forwards = run_match_task_commands (game, task, string,
+                                                      TRUE, FALSE);
+          matched_reverse = !matched_forwards
+                            && task_can_run_task_directional (game, task,
+                                                              FALSE)
+                            && run_match_task_commands (game, task, string,
+                                                        FALSE, FALSE);
+          if (!matched_forwards && !matched_reverse)
+            continue;
+
+          if (!restr_eval_task_restrictions (game, task,
+                                             &pass, &fail_message))
+            pass = TRUE, fail_message = NULL;
+
+          if (pass)
+            {
+              /*
+               * First pass: a runnable task whose restrictions pass.  Our
+               * state test also admits a spent task with a RepeatText,
+               * which is the fallback pass's other hit.
+               */
+              if (matched_reverse
+                  || task_can_run_task_directional (game, task, TRUE))
+                return TRUE;
+            }
+          else if (fail_message)
+            {
+              /* Fallback pass: the failing restriction has a message. */
+              return TRUE;
+            }
+          continue;
+        }
+
+      if (!task_can_run_task (game, task))
         continue;
 
       /* A match in either direction means the game claims this command. */

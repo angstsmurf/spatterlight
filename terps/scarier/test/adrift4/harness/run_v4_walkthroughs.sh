@@ -6979,22 +6979,33 @@ onnafa_solution.txt|ONNAFA.TAF|your score turned out at 76|SCR_SKIP_WAITKEY=1
 # 284 commands, and no refusal lines beyond the handful of scripted
 # door-poking probes already present in the exploration prefix.
 #
-# 2026-09-06, UNWINNABLE under the 4.0 put precedence model (marker
-# downgraded, feed kept).  The fire needs task 459, `[put/place/drop] {some}
-# [wood] {in/into/in to} {the} [fireplace/fire place]`, and no spelling
-# reaches it in 4.0: `place` is House's own synonym for `put`, so every
-# spelling enters the put parser.  Wood on the floor: the implicit-take gate
-# pre-matches only take-flagged tasks (mode 1) and hits task 60 `*take
-# *cathy*`/`# get objects while house spin`, so no auto-take, and the handler
-# prints "You are not holding the wood." and claims.  Wood held (needs a
-# hand freed first): the canonical rebuild is "put the wood in the
-# fireplace", which task 459 does not match ("the" before wood), so the
-# library put completes and the fire puzzle is dead ("You need some wood or
-# coal to make a proper fire.").  The author's four heavy-object fireplace
-# tasks say they saw 459 fire somewhere, so this is the TOP Wine candidate:
-# in run400, `use axe on dining table`, then `put wood in fireplace` with
-# and without a free hand.  Reached 30/30 before the port only through
-# Scarier's old silent-literal peek.
+# 2026-09-06, UNWINNABLE under the 4.0 put precedence model, MEASURED in
+# run400 the same day (wine Adrift_91.txt-Adrift_93.txt; marker downgraded,
+# feed kept).  The fire needs task 459, `[put/place/drop] {some} [wood]
+# {in/into/in to} {the} [fireplace/fire place]`, and no spelling reaches it
+# in 4.0: `place` is House's own synonym for `put`, so every spelling enters
+# the put parser.  Wood on the floor, hands full of the axe: run400 prints
+# "(Taking the wood first)" then "Your hands are full.  You are not holding
+# the wood." -- the implicit take IS attempted.  Task 60 `* %object%`
+# (`# get objects while house spin`, take-flagged) pattern-matches the line,
+# but its one restriction (task 119 "house spin" done) fails with an EMPTY
+# FailMessage, and run400's pre-matcher Proc_19_35_453C50 is restriction-
+# aware: pass one wants the restrictions to pass, the fallback wants the
+# lowest failing restriction's message non-empty.  Before 2026-09-06 Scarier
+# pre-matched restriction-blind, counted task 60 as a hit and printed only
+# "You are not holding the wood."; ported, this row now matches the Runner
+# line for line.  Wood held (after `drop axe`): the canonical rebuild is
+# "put the wood in the fireplace", which task 459 does not match ("the"
+# before wood), so the library put completes -- `put wood in fireplace`,
+# `place ...`, `drop wood in fireplace`, `put some wood into the fire place`
+# all answer "You put the wood inside the fireplace." in run400 (Adrift_92)
+# -- and the fire puzzle is dead ("You need some wood or coal to make a
+# proper fire.").  Reached 30/30 before the put-precedence port only through
+# Scarier's old silent-literal peek.  Also measured: every move in run400
+# pops an "evaluate error - Out of stack space" alert, because House's ALR
+# rewrites "You move" to "%drunk%" and the string variable drunk is "You
+# move"; Scarier's bounded expansion prints "%drunk% east." instead
+# (deliberate deviation, see notes/WINE-TRANSCRIPTS-TODO.md).
 house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
 # Full win (85/85, best ending, top rank "So good you must have cheated"):
 # David Whyld's studio-director comedy sim "TO THE MOON AND BACK" (in-game

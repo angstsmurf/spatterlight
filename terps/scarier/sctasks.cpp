@@ -292,7 +292,7 @@ task_state_allows_run (scr_gameref_t game, scr_int task, scr_bool forwards)
  * The other half: TRUE if the player is standing in a room the task's Where
  * room list covers.
  */
-static scr_bool
+scr_bool
 task_where_allows_run (scr_gameref_t game, scr_int task)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);

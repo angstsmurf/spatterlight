@@ -332,6 +332,7 @@ was re-blessed, with the evidence in the row's comment block in
 | `frog.taf` | 4.00 | `Adrift_76_frog.txt` | clean: 10/10 echoed, tail only |
 | `SPAM.taf` | 4.00 | `Adrift_77_spam.txt` | 15/15 echoed; ONE divergence, now **FIXED** -- `ask about ingredients` prints its `(Nobody)` echo BEFORE the task's text, not after.  See the dated section: the echo is a direct display call, the task text is buffered |
 | `sommeril.taf` | 4.00 | `Adrift_78_sommeril.txt`, `Adrift_79_somm_npcprobe.txt`, `Adrift_80_somm_placemat.txt` | 79/79 echoed.  Three findings, two of them now **FIXED** -- the `(GARGOYLE)` echo ordering (same fix as `SPAM`), the every-line last-named-character register, and the **trailing space in a task command pattern**, which run400 requires the input to have. … |
+| `House.taf` | 4.00 | `Adrift_91.txt`, `Adrift_92.txt`, `Adrift_93.txt` (checkpoint drives from a Scarier-made `.tas`, `#restore` after the title menu's `2`) | the put/task precedence model **confirmed** and one gate rule **corrected and FIXED**: at the fireplace with the wood on the floor and the axe in hand, `put wood in fireplace` / `place wood in fireplace` print `(Taking the wood first)` then `Your hands are full.  You are not holding the wood.`; with the wood held every spelling (`put`, `place`, `drop wood in fireplace`, `put some wood into the fire place`) is the library put, task 459 never fires, `light fire` refuses with `You need some wood or coal to make a proper fire.` -- **House is unwinnable in run400**.  Scarier used to skip the implicit take because take-flagged task 60 `* %object%` pre-matched: run400's pre-matcher is restriction-aware, and task 60's silently-failing restriction drops it.  Every move pops an `evaluate error - Out of stack space` alert (the `%drunk%` ALR loop, see "Deliberate deviations").  One NEW open divergence: `get cathy` there is `Take what?` in run400 and the library's "I don't think Cathy would appreciate being handled." in Scarier (see "Still open") |
 
 
 ## Candidates
@@ -700,6 +701,11 @@ and decompile addresses are in the harness row comments and in git history.
   a size/capacity refusal prints and lets the task follow on one line, the
   implicit take is gated on a mode-1 task pre-match, and the pre-matcher's
   take/put class filter (task bytes 104/105).  See "Ported 2026-09-06".
+- The task pre-matcher (`Proc_19_35_453C50`) is restriction-aware: pass one
+  wants a runnable task whose restrictions PASS; the fallback wants the
+  lowest failing restriction's FailMessage non-empty, or a spent task's
+  RepeatText.  A task restricted with no message never pre-matches (House
+  task 60, measured 2026-09-06).
 - Bracketed References echo removed; the bracket checkbox governed
   "(Getting off the stool first)" and two more lines.
 
@@ -724,6 +730,11 @@ and decompile addresses are in the harness row comments and in git history.
 - **ALR Originals that span the joined paragraph** (Vagabond room 4,
   thetest): the Runner joins the whole turn into one paragraph so a
   two-sentence Original matches; Scarier sections the NPC line.
+- **House's `%drunk%` ALR loop.**  House.taf rewrites "You move" to
+  `%drunk%` and the string variable `drunk` is "You move", so every move in
+  run400 pops an `evaluate error - Out of stack space` alert (dismissed,
+  the turn then prints nothing for the move).  Scarier's bounded expansion
+  prints the literal `%drunk% east.` instead.  Measured 2026-09-06.
 - **run400 "Which <term>.  <list>?" disambiguation wording** (shadricks
   `climb tree`; 4 goldens, 6 lines).  Unported because the expensive half
   is the two-pass Short/alias narrowing that decides `<term>`; the
@@ -798,6 +809,18 @@ Engine leads, measured or half-measured, none blocking:
   (19 rollable events), `Pieces of eden`, `The Fly Human`, `The Foggy
   Banana Adventure`, `hyper_b_s`; `sophie` measured for its first fifty
   commands only, `CIBASS` partial, the `great.taf` car chase unmeasurable.
+- **House `get cathy` at the Dining room fireplace (Adrift_93 turn 3):**
+  run400 prints `Take what?`, Scarier the library's take-NPC line "I don't
+  think Cathy would appreciate being handled."  Tasks 190 (`*get *cathy* `,
+  trailing space) and 240 (`[get/take/...] [cathy]`) pattern-match on both
+  sides and fail their restrictions silently (empty FailMessage on the
+  failing one).  run400's characters handler (`Proc_19_0_480674` @47F710)
+  does accept `take`/`get`/`pick up` and prints the "handled" line only
+  when the NPC is in the current room AND `MemVar_4941F8 = 0`; which of the
+  two conditions fails here (Cathy displaced in the restored save, or a
+  flag left by the silent task) is not yet known.  Not the put question;
+  needs its own probe (`take cathy`, `x cathy`, `get cathy` in a fresh
+  room where Cathy is provably present).
 
 ## Ported 2026-09-06: the 4.0 put/task precedence split
 
@@ -837,7 +860,10 @@ probes:**
    `get the X` / `get the X from the Y` task attempt, then the library take
    -- but ONLY if no task pre-matches the typed line in mode 1.  A hit
    leaves the piece unheld and the handler prints `<player> not holding
-   the X.` and claims.
+   the X.` and claims.  **Corrected 2026-09-06 after the House measurement:
+   the pre-match is restriction-aware** (see the House subsection below);
+   `lib_task_prematches_input()` now calls `run_does_command_match(game,
+   line, TRUE)`.
 5. The pre-matcher's mode byte (`Proc_21_57_4494FC` on task record bytes
    104/105, computed at LOAD @4931B5/@493225): mode 1 considers only tasks
    with a command pattern containing `get`/`take`/`pick` (substring), mode
@@ -853,19 +879,16 @@ rows re-blessed, with the reasoning in each row's harness comment:
 `place hand on green plate`), `thelasthour` (take-flag quirk through an
 alternate command), `ShadricksUnderground` (feed names the boulder),
 `sophie`/`sophie_comp` (feed names the crystal colours), and `house`, which
-is UNWINNABLE under the model and had its marker downgraded.
+is UNWINNABLE under the model and had its marker downgraded (confirmed in
+run400 the next day, below).
 
 **Wine candidates opened by the port** (all run400; every line below is a
 model prediction, not a measurement):
 
-- **House, TOP**: `use axe on dining table`, then `put wood in fireplace`
-  with hands full (prediction: "You are not holding the wood.", task 459
-  never runs) and again with a hand freed (prediction: the library put,
-  "You put the wood inside the fireplace.", and later `light fire` refused
-  with "You need some wood or coal to make a proper fire.").  The author's
-  four heavy-object fireplace tasks (459-463) say they saw the task fire in
-  some Runner; if run400 fires it, the take-flag model or the canonical
-  form is wrong.
+- ~~**House, TOP**~~ **MEASURED 2026-09-06**, see the subsection below:
+  the put half of the prediction held (library put, task 459 never runs,
+  `light fire` refused), the hands-full half did not -- run400 attempts the
+  take.
 - **thelasthour**: `put knife in hole` with the knife on the floor after
   the mouse scene (prediction: "I am not holding the little knife." because
   task 16's alternate `get {the} [supper/soup/dinner]` flags it take-like).
@@ -886,6 +909,46 @@ model prediction, not a measurement):
 - The substring rule itself: a task `[read] the getaway note` (contains
   "get") should be considered by the take gate; a task `put the X in the Y`
   should NOT suppress an implicit take.
+
+### Measured 2026-09-06: House, and the pre-matcher is restriction-aware
+
+Three checkpoint drives (`Adrift_91`-`93`; a Scarier-made `.tas` restored
+in run400, because the `%drunk%` alert on every move desyncs a full replay).
+At the fireplace, wood on the floor, axe in hand:
+
+```
+> put wood in fireplace
+(Taking the wood first)
+Your hands are full.  You are not holding the wood.
+```
+
+and after `drop axe` + `take wood`, every spelling is the library put
+("You put the wood inside the fireplace."); `put newspaper under firewood`
+then `light fire` answers "You need some wood or coal to make a proper
+fire."  House is unwinnable in run400 4.00, as the model said.
+
+What the model got wrong: it predicted NO take attempt, because
+take-flagged task 60 `* %object%` (`# get objects while house spin`)
+pattern-matches the line and the pre-match was read as restriction-blind.
+Read off `Proc_19_35_453C50` and its fallback `Proc_19_68_45404C`
+(`~/Adrift_decompile`, banners corrected the same day):
+
+- pass one: a task in scope, state-runnable, whose `restriction_walk`
+  PASSES and whose pattern matches;
+- fallback (`arg_10 = 1`, which the take gate passes): a pattern-matching
+  task in scope is a hit only if its LOWEST failing restriction has a
+  non-empty FailMessage (`Proc_19_2_481DA0(task, i, 1)` stores it; the
+  hit is "the message buffer changed"), or, with nothing failing, a
+  non-empty RepeatText.
+
+Task 60's one restriction (task 119 "house spin" done) fails with an empty
+message, so run400 never sees it and takes the wood.  Ported the same day:
+`run_does_command_match()` gained a `check_restrictions` flag, used only by
+`lib_task_prematches_input()`; the letter-expansion probe in `scinterf.cpp`
+stays restriction-blind.  Corpus 428/428, `house` re-blessed to the two
+Runner lines (marker unchanged).  Scarier's `restr_eval_task_restrictions()`
+already returned exactly that lowest-failing message, so the port is a
+dozen lines.
 
 ## REFERENCE -- run370 facts established while chasing arlo
 

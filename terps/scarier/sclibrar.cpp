@@ -5625,9 +5625,12 @@ lib_definite_prefix (const scr_char *prefix, scr_char *buffer, size_t size)
  * lib_task_prematches_input()
  *
  * run400's task pre-matcher Proc_19_35_453C50 on the typed line: does any
- * task pattern match it, restrictions ignored?  Object references are left
- * exactly as they were.  class_filter is the pre-matcher's mode byte -- 1
- * for the take-family look-ups, 2 for the put/drop family, 0 for none; see
+ * task in scope pattern-match it with its restrictions passing, or fail a
+ * restriction that has a message to print?  (Not "restrictions ignored", as
+ * this used to say; see run_does_command_match() for the two passes and the
+ * House measurement.)  Object references are left exactly as they were.
+ * class_filter is the pre-matcher's mode byte -- 1 for the take-family
+ * look-ups, 2 for the put/drop family, 0 for none; see
  * run_set_task_class_filter().
  */
 static scr_bool
@@ -5644,7 +5647,7 @@ lib_task_prematches_input (scr_gameref_t game, scr_int class_filter)
   references = lib_save_object_references (game, references_buffer,
                                            LIB_ALLOCATION_AVOIDANCE_SIZE);
   run_set_task_class_filter (class_filter);
-  status = run_does_command_match (game, input);
+  status = run_does_command_match (game, input, TRUE);
   run_set_task_class_filter (0);
 #ifdef SCARIER_DUMP_TOOLS
   if (getenv ("SCR_TRACE_MATCH"))
@@ -9690,11 +9693,15 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
   /*
    * The take is also skipped, silently, when the TYPED line pre-matches a
    * task (run400 name_object Proc_19_41_46E5D8 @46E2C7: Proc_19_35_453C50
-   * on MemVar_49428C, the line as the synonym table left it, restrictions
-   * ignored); the object then reaches the put handler unheld and draws its
-   * "not holding" refusal, or -- if the handler's own canonical look-up
-   * claims -- the task.  The task the player spelled out is what the
-   * refusal hands the line to afterwards (see run_all_commands()).
+   * on MemVar_49428C, the line as the synonym table left it, with the
+   * task's restrictions passing or failing on a restriction that has a
+   * message -- House's task 60 "* %object%", restricted to the spinning
+   * house with no message, is NOT a hit, and run400 goes on to "(Taking the
+   * wood first)"; Adrift_91.txt); the object then reaches the put handler
+   * unheld and draws its "not holding" refusal, or -- if the handler's own
+   * canonical look-up claims -- the task.  The task the player spelled out
+   * is what the refusal hands the line to afterwards (see
+   * run_all_commands()).
    */
   if (lib_task_prematches_input (game, 1))
     {
