@@ -31,7 +31,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <algorithm>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "scarier.h"
@@ -174,6 +176,20 @@ typedef struct
 
 static std::vector<pf_str_pair_t> pf_alr_cache;
 static scr_bool pf_alr_cache_built = FALSE;
+
+/*
+ * Multi-pattern prefilter for the ALR loop (see pf_alr_candidates below).
+ * pf_alr_index maps the four-byte prefix of an ALR original to every cache slot
+ * that starts with it; originals shorter than four bytes are too weak a key for
+ * that, and live in pf_alr_short where they are probed with strstr() as before.
+ * Empty originals are in neither -- pf_replace_alr() refuses them anyway.
+ *
+ * Both are rebuilt by pf_alr_cache_build() and cleared by pf_cache_reset(), so
+ * they share the cache's per-game lifetime and its pointers into the property
+ * store.
+ */
+static std::unordered_map<scr_uint, std::vector<scr_int> > pf_alr_index;
+static std::vector<scr_int> pf_alr_short;
 static std::vector<pf_str_pair_t> pf_synonym_cache;
 static scr_bool pf_synonym_cache_built = FALSE;
 
@@ -181,6 +197,8 @@ static void
 pf_cache_reset (void)
 {
   pf_alr_cache.clear ();
+  pf_alr_index.clear ();
+  pf_alr_short.clear ();
   pf_alr_cache_built = FALSE;
   pf_synonym_cache.clear ();
   pf_synonym_cache_built = FALSE;
@@ -197,6 +215,26 @@ pf_str_pair_set (pf_str_pair_t &entry,
   entry.replacement = replacement;
   entry.replacement_length = strlen (replacement);
 }
+
+/*
+ * pf_alr_key()
+ *
+ * Pack the first PF_ALR_KEY_LENGTH bytes at 'text' into the key used by
+ * pf_alr_index.  The caller guarantees that many bytes are readable.
+ */
+enum
+{ PF_ALR_KEY_LENGTH = 4
+};
+
+static scr_uint
+pf_alr_key (const scr_char *text)
+{
+  const unsigned char *bytes = (const unsigned char *) text;
+
+  return (scr_uint) bytes[0] | ((scr_uint) bytes[1] << 8)
+         | ((scr_uint) bytes[2] << 16) | ((scr_uint) bytes[3] << 24);
+}
+
 
 static void
 pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count)
@@ -229,6 +267,21 @@ pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count)
 
       pf_str_pair_set (entry, original, replacement);
       pf_alr_cache.push_back (entry);
+    }
+
+  /* Index the cache for pf_alr_candidates(). */
+  pf_alr_index.clear ();
+  pf_alr_short.clear ();
+  for (index_ = 0; index_ < alr_count; index_++)
+    {
+      const pf_str_pair_t &entry = pf_alr_cache[index_];
+
+      if (entry.original_length == 0)
+        continue;
+      if (entry.original_length < PF_ALR_KEY_LENGTH)
+        pf_alr_short.push_back (index_);
+      else
+        pf_alr_index[pf_alr_key (entry.original)].push_back (index_);
     }
 
   pf_alr_cache_built = TRUE;
@@ -492,6 +545,62 @@ pf_replace_alr (const scr_char *string,
 
 
 /*
+ * pf_alr_candidates()
+ *
+ * Collect, in ascending cache order, every ALR slot whose original occurs in
+ * 'text'.  Only those can fire, so the replacement loop below walks this list
+ * instead of probing all of the game's ALRs with strstr().
+ *
+ * This is a pure filter: the answer is exact (an original either occurs or it
+ * does not), so the ALRs that fire, and the order they fire in, are unchanged.
+ * It matters because ALR tables get big -- cursed.taf carries 9724 of them, and
+ * the old all-slots sweep spent 17GB of strstr() on one walkthrough replay.
+ */
+static void
+pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
+{
+  size_t length, offset;
+
+  candidates.clear ();
+
+  /* Originals too short to key on: probe them directly. */
+  for (size_t index_ = 0; index_ < pf_alr_short.size (); index_++)
+    {
+      const pf_str_pair_t &entry = pf_alr_cache[pf_alr_short[index_]];
+
+      if (strstr (text, entry.original))
+        candidates.push_back (pf_alr_short[index_]);
+    }
+
+  /* One pass over the text, looking each position's prefix up in the index. */
+  length = strlen (text);
+  for (offset = 0; offset + PF_ALR_KEY_LENGTH <= length; offset++)
+    {
+      std::unordered_map<scr_uint, std::vector<scr_int> >::const_iterator bucket;
+
+      bucket = pf_alr_index.find (pf_alr_key (text + offset));
+      if (bucket == pf_alr_index.end ())
+        continue;
+
+      for (size_t index_ = 0; index_ < bucket->second.size (); index_++)
+        {
+          const pf_str_pair_t &entry = pf_alr_cache[bucket->second[index_]];
+
+          if (entry.original_length <= length - offset
+              && memcmp (text + offset, entry.original,
+                         entry.original_length) == 0)
+            candidates.push_back (bucket->second[index_]);
+        }
+    }
+
+  /* The loop below needs cache order, and one entry per slot. */
+  std::sort (candidates.begin (), candidates.end ());
+  candidates.erase (std::unique (candidates.begin (), candidates.end ()),
+                    candidates.end ());
+}
+
+
+/*
  * pf_replace_alrs()
  *
  * Replace any ALRs found in the string with their equivalents.  If any
@@ -502,7 +611,9 @@ static scr_char *
 pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
                  scr_bool alr_applied[], scr_int alr_count)
 {
-  scr_int index_;
+  scr_int index_, next;
+  std::vector<scr_int> candidates;
+  size_t position;
   std::string current;
   const scr_char *marker;
   scr_bool replaced;
@@ -525,23 +636,35 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
   marker = string;
   replaced = FALSE;
 
-  /* Run through each ALR that exists. */
-  for (index_ = 0; index_ < alr_count; index_++)
+  /*
+   * Walk only the ALRs whose original is actually in the text, in the
+   * length-sorted order baked into the cache at build time.  'next' is the
+   * lowest slot still to consider, so that a re-scan after a replacement
+   * resumes where the sweep had got to rather than starting over.
+   */
+  pf_alr_candidates (marker, candidates);
+  next = 0;
+  position = 0;
+
+  while (position < candidates.size ())
     {
       std::string rebuilt;
 
-      /*
-       * Ignore ALR indexes that have already been applied.  Only the ALRs
-       * whose replacement contains their own original are ever marked (see
-       * below), so this is the loop guard for those, not a once-only rule.
-       */
-      if (alr_applied[index_])
-        continue;
+      index_ = candidates[position];
 
       /*
-       * Try replacing this ALR -- taken in the length-sorted order baked into
-       * the cache at build time -- in the current marker string.
+       * Ignore ALR indexes already passed, and those already applied.  Only
+       * the ALRs whose replacement contains their own original are ever
+       * marked (see below), so that is the loop guard for those, not a
+       * once-only rule.
        */
+      if (index_ < next || alr_applied[index_])
+        {
+          position++;
+          continue;
+        }
+
+      /* Try replacing this ALR in the current marker string. */
       if (pf_replace_alr (marker, rebuilt, pf_alr_cache[index_]))
         {
           /*
@@ -570,7 +693,18 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
           if (strstr (pf_alr_cache[index_].replacement,
                       pf_alr_cache[index_].original))
             alr_applied[index_] = TRUE;
+
+          /*
+           * The text changed under us, so which originals are present may have
+           * changed too: re-scan, and resume at the slot after this one.
+           */
+          next = index_ + 1;
+          pf_alr_candidates (marker, candidates);
+          position = std::lower_bound (candidates.begin (), candidates.end (),
+                                       next) - candidates.begin ();
         }
+      else
+        position++;
     }
 
   /* Return the rebuilt string if any replacement was made, else NULL. */

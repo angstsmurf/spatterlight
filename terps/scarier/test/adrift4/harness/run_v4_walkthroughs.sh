@@ -15,6 +15,7 @@
 #   sh run_v4_walkthroughs.sh [substring]        # run + diff, table + exit code
 #   sh run_v4_walkthroughs.sh --bless [substring] # (re)generate goldens
 #   sh run_v4_walkthroughs.sh -v [substring]      # dump each failing diff
+#   sh run_v4_walkthroughs.sh -j 4 [substring]    # cap the parallelism
 #
 # A solution's golden is  goldens/<solution-basename-sans-.txt>.expected.txt.
 # Game .taf files are third-party data and are NOT committed (same policy as
@@ -25,6 +26,7 @@
 # Env:
 #   GAMES_DIR   primary game dir (default: harness/../games)
 #   SCARE_DIR   engine sources for (re)building `scare` (default: terps/scarier)
+#   V4WT_JOBS   rows to run at once (default: core count; -j overrides)
 # Determinism: the `scare` binary links seed.cpp (fixed RNG), so a given
 # (game, solution) always yields the same transcript.
 set -u
@@ -40,10 +42,19 @@ GAMES_DIR="${GAMES_DIR:-$HERE/../games}"
 ALT_DIRS="${ALT_DIRS:-}"
 
 BLESS=0; VERBOSE=0
-case "${1:-}" in
-  --bless) BLESS=1; shift ;;
-  -v)      VERBOSE=1; shift ;;
-esac
+# Rows are independent (one `scare` process each, no shared state but the
+# goldens they read), so they fan out across cores -- see the run loop at the
+# foot of this file.
+JOBS="${V4WT_JOBS:-$(sysctl -n hw.ncpu 2>/dev/null || echo 4)}"
+while :; do
+  case "${1:-}" in
+    --bless) BLESS=1; shift ;;
+    -v)      VERBOSE=1; shift ;;
+    -j)      JOBS="$2"; shift 2 ;;
+    *)       break ;;
+  esac
+done
+[ "$JOBS" -ge 1 ] 2>/dev/null || JOBS=1
 FILTER="${1:-}"
 
 # solution file | game .taf basename | optional win marker (grep -F; "" = none)
@@ -7399,21 +7410,26 @@ if [ ! -x "$SCARE_BIN" ] \
     echo "run_v4_walkthroughs: build failed" >&2; exit 2; }
 fi
 
-REGFILE=$(mktemp); trap 'rm -f "$REGFILE"' EXIT
-printf "%-34s %-9s %s\n" "SOLUTION" "STATUS" "detail"
-printf "%-34s %-9s %s\n" "--------" "------" "------"
+WORKDIR=$(mktemp -d); trap 'rm -rf "$WORKDIR"' EXIT
 
-map_rows | while IFS='|' read -r sol game marker envs; do
-  [ -z "$sol" ] && continue
-  case "$sol" in '#'*) continue ;; esac       # comment row
-  case "$sol" in *"$FILTER"*) : ;; *) continue ;; esac
-  ROW_ENV=$envs
+# One MAP row, start to finish.  Writes its table line to $WORKDIR/<idx>.row
+# and, if it regressed, its solution name to $WORKDIR/<idx>.reg.  Runs in the
+# background (up to $JOBS at once); the rows are printed in MAP order once
+# every job has finished, so the table looks the same as it did when this ran
+# serially.
+run_one() {  # $1=idx $2=sol $3=game $4=marker $5=envs
+  idx=$1 sol=$2 game=$3 marker=$4
+  row="$WORKDIR/$idx.row"
+  reg="$WORKDIR/$idx.reg"
+  ROW_ENV=$5                                  # read by transcript()
   solpath="$HERE/../goldens/$sol"
   golden="$HERE/../goldens/${sol%.txt}.expected.txt"
 
-  [ -f "$solpath" ] || { printf "%-34s %-9s\n" "$sol" "NOSCRIPT"; continue; }
+  [ -f "$solpath" ] || {
+    printf "%-34s %-9s\n" "$sol" "NOSCRIPT" > "$row"; return; }
   gp=$(find_game "$game")
-  [ -n "$gp" ] || { printf "%-34s %-9s (%s)\n" "$sol" "SKIP" "$game"; continue; }
+  [ -n "$gp" ] || {
+    printf "%-34s %-9s (%s)\n" "$sol" "SKIP" "$game" > "$row"; return; }
 
   out=$(transcript "$gp" "$solpath")
 
@@ -7425,38 +7441,74 @@ map_rows | while IFS='|' read -r sol game marker envs; do
 
   if [ "$BLESS" = 1 ]; then
     if [ "$markok" = 0 ]; then
-      printf "%-34s %-9s (win marker '%s' absent -- NOT blessed)\n" "$sol" "REFUSED" "$marker"
-      echo "$sol" >> "$REGFILE"
+      printf "%-34s %-9s (win marker '%s' absent -- NOT blessed)\n" \
+             "$sol" "REFUSED" "$marker" > "$row"
+      echo "$sol" > "$reg"
     else
       printf '%s\n' "$out" > "$golden"
-      printf "%-34s %-9s -> %s\n" "$sol" "BLESSED" "$(basename "$golden")"
+      printf "%-34s %-9s -> %s\n" "$sol" "BLESSED" "$(basename "$golden")" > "$row"
     fi
-    continue
+    return
   fi
 
   if [ ! -f "$golden" ]; then
     # No golden yet: not a hard failure, but flag it, and fail if a declared
     # win marker is missing (a losing transcript must never look "ok").
     if [ "$markok" = 0 ]; then
-      printf "%-34s %-9s (no golden AND win marker '%s' absent)\n" "$sol" "FAIL" "$marker"
-      echo "$sol" >> "$REGFILE"
+      printf "%-34s %-9s (no golden AND win marker '%s' absent)\n" \
+             "$sol" "FAIL" "$marker" > "$row"
+      echo "$sol" > "$reg"
     else
-      printf "%-34s %-9s (run --bless to record)\n" "$sol" "NEEDGOLD"
+      printf "%-34s %-9s (run --bless to record)\n" "$sol" "NEEDGOLD" > "$row"
     fi
-    continue
+    return
   fi
 
   if printf '%s\n' "$out" | diff -q "$golden" - >/dev/null 2>&1 && [ "$markok" = 1 ]; then
-    printf "%-34s %-9s\n" "$sol" "PASS"
+    printf "%-34s %-9s\n" "$sol" "PASS" > "$row"
   else
     if [ "$markok" = 0 ]; then
-      printf "%-34s %-9s (win marker '%s' absent)\n" "$sol" "FAIL" "$marker"
+      printf "%-34s %-9s (win marker '%s' absent)\n" "$sol" "FAIL" "$marker" > "$row"
     else
-      printf "%-34s %-9s (golden mismatch)\n" "$sol" "FAIL"
+      printf "%-34s %-9s (golden mismatch)\n" "$sol" "FAIL" > "$row"
     fi
-    [ "$VERBOSE" = 1 ] && printf '%s\n' "$out" | diff "$golden" - | sed 's/^/    /'
-    echo "$sol" >> "$REGFILE"
+    [ "$VERBOSE" = 1 ] && printf '%s\n' "$out" | diff "$golden" - | sed 's/^/    /' >> "$row"
+    echo "$sol" > "$reg"
   fi
+}
+
+printf "%-34s %-9s %s\n" "SOLUTION" "STATUS" "detail"
+printf "%-34s %-9s %s\n" "--------" "------" "------"
+
+# Fan the rows out $JOBS at a time.  Throttle by keeping $JOBS RUNNING jobs
+# rather than launching $JOBS and waiting for all of them: row runtimes are
+# skewed (the biggest ALR/turn-count games are several times the median), so a
+# batch barrier costs the slowest member of every batch.  `jobs -pr` (running
+# only) is the portable-enough probe -- /bin/sh here is bash 3.2, which has no
+# `wait -n`.
+#
+# The subshell created by the `map_rows |` pipeline owns the jobs, so the
+# trailing `wait` has to stay inside the braces.
+map_rows | {
+  n=0
+  while IFS='|' read -r sol game marker envs; do
+    [ -z "$sol" ] && continue
+    case "$sol" in '#'*) continue ;; esac       # comment row
+    case "$sol" in *"$FILTER"*) : ;; *) continue ;; esac
+    n=$((n+1))
+    while [ "$(jobs -pr | wc -l)" -ge "$JOBS" ]; do sleep 0.05; done
+    # </dev/null: a child inherits THIS while-loop's stdin (the map_rows pipe).
+    # transcript() feeds the solution file to `scare` on a pipe of its own, but
+    # anything here that read stdin would silently EAT map rows -- the row-count
+    # backstop below is what would catch that.
+    run_one "$(printf '%04d' "$n")" "$sol" "$game" "$marker" "$envs" </dev/null &
+  done
+  wait
+  echo "$n" > "$WORKDIR/expected_rows"
+}
+
+for row in "$WORKDIR"/*.row; do
+  [ -f "$row" ] && cat "$row"
 done
 
 echo
@@ -7464,8 +7516,20 @@ echo "PASS = transcript matches golden (+ win marker if set); NEEDGOLD = derived
 echo "but not yet recorded (run --bless); SKIP = game .taf absent; NOSCRIPT = no"
 echo "solution file; FAIL = golden mismatch or missing win marker."
 
-if [ -s "$REGFILE" ]; then
-  echo; echo "REGRESSIONS: $(tr '\n' ' ' < "$REGFILE")"
+# Backstop: every selected MAP row must have produced a .row file.  A shortfall
+# means rows were lost, and a truncated table otherwise reads as "everything ran
+# and passed".
+expected=$(cat "$WORKDIR/expected_rows" 2>/dev/null || echo 0)
+actual=$(ls "$WORKDIR"/*.row 2>/dev/null | wc -l | tr -d ' ')
+if [ "$actual" -ne "$expected" ]; then
+  echo
+  echo "ERROR: only $actual of $expected MAP rows ran -- this run is INCOMPLETE" >&2
+  exit 1
+fi
+
+REGRESSIONS=$(cat "$WORKDIR"/*.reg 2>/dev/null | tr '\n' ' ')
+if [ -n "$REGRESSIONS" ]; then
+  echo; echo "REGRESSIONS: $REGRESSIONS"
   exit 1
 fi
 exit 0
