@@ -1392,11 +1392,12 @@ the_demon_hunter_solution.txt|TheDemonHunter.taf|"Well done, my good and faithfu
 qui_a_tue_dana_solution.txt|QuiATueDana.taf|MERCI A TOI CHRISTOPHE SANS QUI CE JEU N'AURAIT JAMAIS VU LE JOUR!|SCR_SKIP_WAITKEY=1
 # Enquete a hauts risques -- WIN, 59/59 ("Votre score est 58 sur un maximum de
 # 59" one command before the end, and `se coucher` is the 59th point).  Another
-# French 4.0 game, another CP1252 solution file.  A big one: 42 rooms, 165
-# tasks, and the tasks are whole literal sentences with enormous ALTCMD lists
-# (TASK 23 `prendre l'arme de service` carries 17 of them), so the upstream
-# abbreviations mostly do parse.  Four repairs to Hugo Labrande's solution, all
-# of them movement or timing:
+# French game, another CP1252 solution file -- but 3.90, NOT 4.0: the header
+# bytes 8-10 are `94 45 37`, so it is measured in run390.  A big one: 42 rooms,
+# 165 tasks, and the tasks are whole literal sentences with enormous ALTCMD
+# lists (TASK 23 `prendre l'arme de service` carries 17 of them), so the
+# upstream abbreviations mostly do parse.  Four repairs to Hugo Labrande's
+# solution, all of them movement or timing:
 #   * An extra `n` after arriving at the commissariat.  `e` from home parks you
 #     at Devant le commissariat (room 10); the list then has one `n` where two
 #     are needed (10 -> 11 L'accueil -> 12 Le couloir) before `w` reaches
@@ -1413,6 +1414,15 @@ qui_a_tue_dana_solution.txt|QuiATueDana.taf|MERCI A TOI CHRISTOPHE SANS QUI CE J
 #     bomb sequence (crate, wire cutters, three cables) never opens.
 # No waitkeys: the transcript is byte-identical with and without
 # SCR_SKIP_WAITKEY, so the row carries no env.
+# Measured 2026-09-05: full run390 replay, `Adrift_9_enquete.txt` (feed
+# `cmdfile_w_enquete.txt`, PRE=0, no popups).  145/145 commands echoed and 144
+# of the 145 turns byte-identical; the 145th, the winning `se coucher`, differs
+# only by the Runner's own `[Press any key a end]` after the score summary.
+# Zero engine divergences -- the seven events are all fixed-length
+# (start=N..N, time1==time2) and the game has no walks, so there is nothing
+# here for the RNG to move.  The accented commands (`prendre sac a dos`,
+# `x canape`, `rez-de-chaussee`) needed type_line.py's dead-key path; a plain
+# AppleScript keystroke would have typed them unaccented.
 enquete_a_hauts_risques_solution.txt|EnqueteAHautsRisques.taf|Votre score est de 59 sur un maximum de 59!
 # Shadrick's Travels (Mystery) -- WIN, 100/100, and the whole game has exactly
 # four scoring actions (20 + 20 + 10 + 50), all of which this route fires.  The
@@ -3785,6 +3795,16 @@ thewoods_solution.txt|thewoods.taf|You scored 100 out of the maximum 100!|SCR_SK
 # committed route takes the author's designed path so the regression covers
 # both NPCs, the three chained Smith events and the timed door.  No <waitkey>
 # in the file, hence no env.
+# Measured 2026-09-05 against run390 (Adrift_9_captive.txt, feed
+# cmdfile_w_captive.txt -- 57 commands; the candidate table's "141" counted
+# the golden's 84 comment lines).  57/57 echoed, 56 of 57 turns byte-identical
+# and the 57th, the winning `put diamond on pedestal`, differs only by the
+# Runner's own "[Press any key to end]" after the score summary; both sides
+# score 100/100.  The one thing on this route that CAN roll is EVENT 12
+# [Serpent], time1=3 time2=5, started by TASK 14 `tie rope to ledge` -- but its
+# Look and PrefTime texts are confined to WHERE_ROOMS 25-27 and the very next
+# command (`u`) climbs the rope out of them, so neither side ever prints a
+# Serpent line and the roll stays invisible.
 captive_solution.txt|Captive.taf|You scored 100 out of the maximum 100!|
 
 # Adventures of Thumper - Wonder Wombat -- ADRIFT 3.90, 107,200 bytes, Chris

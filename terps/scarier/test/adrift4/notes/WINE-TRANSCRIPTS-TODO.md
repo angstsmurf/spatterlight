@@ -551,6 +551,8 @@ the row's comment block in `harness/run_v4_walkthroughs.sh`.
 | `croft.taf` | 3.90 | full run390 replay, `Adrift_5_croft.txt` (feed `cmdfile_w_croft.txt` -- 101 commands, PRE=0; the table's 193 counted the golden's comment lines) | 101/101 echoed; zero engine divergences -- the only diff is the Runner's `[Press any key to end]` after the final score summary; 150/150 |
 | `DarkTower.taf` | 3.90 | full run390 replay, `Adrift_6_darktower.txt` (feed `cmdfile_w_darktower.txt` -- 121 commands, PRE=0) | 121/121 echoed; zero engine divergences -- only the Runner's `[Press any key to end]` after the 0/0 score summary; "restored power to the building." |
 | `FarFromHome.taf` | 3.90 | full run390 replay, `Adrift_8.txt` (feed `cmdfile_w_ffh_nock.txt` -- 71 commands, `POPUP_ANSWERS="Sam"`, PRE=0); the earlier checkpointed drive `Adrift_7.txt` is superseded | 71/71 echoed; zero engine divergences -- the only diff is the Runner transcript stopping at the `<waitkey>` inside the ending text.  The checkpointed drive's six "divergences" (puff at p30, pirate at turn 39, four tide lines) were two extra event ticks, one at each `#save`; 50/50 |
+| `EnqueteAHautsRisques.taf` | 3.90 | full run390 replay, `Adrift_9_enquete.txt` (feed `cmdfile_w_enquete.txt` -- 145 commands, PRE=0, no popups, no waitkeys) | 145/145 echoed; zero engine divergences -- 144 of 145 turns byte-identical (French, CP1252) and the 145th, the winning `se coucher`, differs only by the Runner's `[Press any key a end]`.  All seven events are fixed-length and the game has no walks, so nothing on the path can roll; 59/59 |
+| `Captive.taf` | 3.90 | full run390 replay, `Adrift_9_captive.txt` (feed `cmdfile_w_captive.txt` -- 57 commands, PRE=0, no popups, no waitkeys) | 57/57 echoed; zero engine divergences -- 56 of 57 turns byte-identical and the 57th, the winning `put diamond on pedestal`, differs only by the Runner's `[Press any key to end]`.  The one rollable thing on the route, EVENT 12 [Serpent] (`time1=3 time2=5`, started by `tie rope to ledge`), is confined to rooms 25-27 and the next command climbs out of them, so neither side prints a Serpent line; 100/100 |
 | `superliam.taf` | 3.80 | full run380 replay, `Adven_1_superliam.rtf` (feed `cmdfile_w_superliam.txt` -- 86 commands, Save Transcript at the 85th) | 85/85 echoed; three divergent turns, two engine rules, both FIXED: the run380 **AdditionalMessage double-space suppression reaches through a ShowRoomDesc room description**, and **names are matched RAW** -- object Short `"necko wafers "` (trailing space) is unreferenceable, `take necko wafers` answers "Take what?".  After the fixes every echoed turn matches; both sides win 3250/3250.  Measured 2026-08-31 |
 | `cave.taf` | 3.80 | three full run380 replays, `Adven_1_cave.rtf` / `Adven_1_cave2.rtf` / `Adven_1_cave3.rtf` (final feed `cmdfile_w_cave3.txt` -- 216 commands, Save Transcript flow) | 215/215 echoed each time; FOUR engine findings, all FIXED: `z` is not 3.80 vocabulary (whole-line `= "z"` test only exists from run390_3 45FCB0 -- seven `z` -> `wait`); 3.8 substitutes "There is nothing of interest here." into empty room Longs at LOAD (447FEE), so it prints BEFORE LastDesc alts; a 3.8 task can never move the PLAYER to the game's FIRST room (tasks() 44D1D4 stores Var2 pre-decremented behind "If Var2 > 1" -- second `climb down` re-derived to `down`; 3.7's encoding sits one higher so run370 441E55 is correct, arlo the counterexample; is_v370 gate in sctafpar.cpp); and the single-named held-take refusal is "You've already got X!" pre-4.0 (43E03E -- 4.0's "already carrying" @462D25 gated on lib_is_version_400, four 3.9 goldens re-blessed -- thewoods' own ALR "I've already got the" -> "<br>I'm already carrying the" confirms the base from the game side).  Third drive replays CLEAN: every comparable turn identical, `score` at 900/1000 both sides; only the winning `read parchment` is uncapturable in the Save-at-end flow (Scarier finishes 1000/1000).  Still open from the pre-fix stuck-tail census (never reached by the corrected feed): 3.8 answers a matched-task-wrong-room with "You can't do that here." (21x) and names unseen/unheld objects in refusals ("You can't see X from here!" / "You don't have X!") where Scarier says "Take what?" etc -- a 3.8 referenceability/where-fail model not yet ported.  Measured 2026-08-31 |
 | `haunt.taf` | 3.80 | full run380 replay, `Adven_1_haunt.rtf` (feed `cmdfile_w_haunt.txt` -- 85 commands, `measure38.sh`: Save Transcript at the 84th, the winning `down` sent after it) | 84/84 echoed; 40 divergent turns, then 1, then 0 -- two pre-3.9 engine rules, both fixed: **no startup event tick before 3.90** (a StarterType 2 delay of N starts on turn N, uncompensated) and **no administrative turns before 3.90** (`score` ticks NPCs and events).  Seven 3.80 goldens re-blessed, wrecked re-pinned to seed 106; full suite 428/428 PASS. |
@@ -776,8 +778,8 @@ The four best targets, by walks x length:
 | `croft.taf` | `croft` | 193 | 0 | 4 | 1 | -- | -- -- **measured 2026-09-05**, clean |
 | `DarkTower.taf` | `darktower` | 174 | 0 | 0 | 0 | -- | [The_Dark_Tower_walkthrough](The_Dark_Tower_walkthrough.md) -- **measured 2026-09-05**, clean |
 | `FarFromHome.taf` | `farfromhome` | 167 | 0 | 0 | 0 | yes | [Far_From_Home_walkthrough](Far_From_Home_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); do not checkpoint a measurement drive |
-| `EnqueteAHautsRisques.taf` | `enquete_a_hauts_risques` | 145 | 0 | 13 | 7 | -- | -- |
-| `Captive.taf` | `captive` | 141 | 0 | 2 | 19 | -- | [Captive_Universe_walkthrough](Captive_Universe_walkthrough.md) |
+| `EnqueteAHautsRisques.taf` | `enquete_a_hauts_risques` | 145 | 0 | 13 | 7 | -- | **measured 2026-09-05**, clean (tail only) |
+| `Captive.taf` | `captive` | 141 | 0 | 2 | 19 | -- | [Captive_Universe_walkthrough](Captive_Universe_walkthrough.md) -- **measured 2026-09-05**, clean (tail only); 57 real commands, not 141 |
 | `The Screen Savers On Planet X.taf` | `screen_savers` | 133 | 0 | 10 | 19 | -- | [The_Screen_Savers_On_Planet_X_walkthrough](The_Screen_Savers_On_Planet_X_walkthrough.md) |
 | `thewoods.taf` | `thewoods` | 133 | 0 | 0 | 0 | yes | [The_Woods_Are_Dark_walkthrough](The_Woods_Are_Dark_walkthrough.md) |
 | `Chosen.taf` | `chosen` | 123 | 0 | 0 | 0 | yes | [Chosen_walkthrough](Chosen_walkthrough.md) |
@@ -4890,3 +4892,98 @@ also read the room list at the wrong prop path and wrote past the end of
 a 3-element `scr_vartype_t ek[3]`; both fixed.)
 
 Next candidate: `EnqueteAHautsRisques.taf` (3.90).
+
+## EnqueteAHautsRisques.taf (Enquête à hauts risques, 3.90) -- 2026-09-05, run390
+
+Clean, and the fastest row in weeks: `Adrift_9_enquete.txt` from
+`cmdfile_w_enquete.txt` (all 145 commands of the wired solution, PRE=0, no
+popup dialogs, no waitkeys).  145/145 echoed, 144 of the 145 turns
+byte-identical, and the 145th -- the winning `se coucher` -- differs only by
+the Runner's `[Press any key a end]` after the score summary.  Zero engine
+divergences.  Golden unchanged, 59/59.
+
+Two things worth recording, neither an engine finding:
+
+* **The harness row's comment block called it a "French 4.0 game".**  It is
+  not: the header bytes 8-10 are `94 45 37`, i.e. 3.90, which is also what
+  this file's candidate table has always said.  It sits directly under
+  `QuiATueDana.taf` (4.00) in `run_v4_walkthroughs.sh` and evidently inherited
+  the neighbour's version in prose.  Corrected in place -- and it is the
+  cheapest possible way to drive a whole measurement into the wrong Runner, so
+  read the bytes, never the comment.
+* **Predicting the row was measurable took one dump and no replay.**
+  `SCR_DUMP_TASKS=1` shows all seven events with `start=N..N` and
+  `time1 == time2` -- every one fixed-length -- and zero walks against 13 NPCs.
+  A game whose events cannot roll and whose NPCs never walk has nothing on the
+  path for the RNG to move, which is the same thing the double-seed test says
+  but costs one second instead of two corpus runs.  Worth doing first on every
+  remaining candidate: it also tells you, before the drive, whether a
+  divergence you later see *could* be RNG at all.
+
+The accented commands (`prendre sac à dos`, `x canapé`, `ouvrir
+réfrigérateur`, `rez-de-chaussée`, `déverrouiller porte`, `couper câble vert`,
+`détacher erica`) all arrived as their CP1252 bytes through `type_line.py`'s
+dead-key path -- the first non-largo confirmation that the 2026-09-05 driver
+fix generalises.  The feed is byte-for-byte the CP1252 solution file, so
+`compare_wine_transcript.py` was pointed straight at
+`goldens/enquete_a_hauts_risques_solution.txt` as its `--feed`; its latin-1
+reader then agrees with the Runner's CP1252 transcript.  Handing it the UTF-8
+`cmdfile_w_enquete.txt` instead reports **25 of the 145 commands as never
+echoed** -- exactly the accented ones, listed back as `prendre sac Ã  dos` --
+and the scarier side comes out one turn long, because scare is fed the same
+mojibake.  The right `--feed` for a non-ASCII game is the CP1252 solution
+file; the UTF-8 cmdfile is for the driver alone.
+
+Next candidate: `Captive.taf` (Captive Universe, 3.90 -- 141 commands, 0
+walks, 2 NPCs, 19 events).
+
+## Captive.taf (Captive Universe, 3.90) -- 2026-09-05, run390
+
+Clean.  `Adrift_9_captive.txt` from `cmdfile_w_captive.txt`, PRE=0, no popup
+dialogs, no waitkeys: 57/57 echoed, 56 of the 57 turns byte-identical, and the
+57th -- the winning `put diamond on pedestal`, which runs the whole Thossler
+epilogue -- differs only by the Runner's `[Press any key to end]` after the
+score summary.  Both sides score 100/100.  Zero engine divergences; golden
+unchanged.
+
+**The candidate table's "141 commands" is 84 comment lines plus 57 real
+ones.**  Third row in a fortnight to be mis-sized this way (croft's "193",
+mudergreatfalls' "255"), because the table counts golden *lines*.  The number
+that matters is what `make_wine_cmdfile.py` writes, and it prints it: check
+`wc -l` on the cmdfile before estimating a drive, not the table.  At the
+measured ~2 s/command this row took under two minutes rather than the five the
+table implies.
+
+**The pre-drive RNG screen paid off here in a way it has not before.**  The
+`SCR_DUMP_TASKS=1` dump shows 19 events, of which eighteen are fixed-length
+and one is not:
+
+    EVENT 12 [Serpent] starter=3 startTask=14 affTask=29(fin=0) restart=1
+             start=0..0 time1=3 time2=5 texts=-L-
+       L: A whispering in the grass makes you feel afraid, ...
+       P1(at 2): It's night time and you're at the stream. ...
+       P2(at 1): You hear a hissing sound. ...
+       where type=2 rooms[62]: 25 26 27
+
+TASK 14 is `tie rope to ledge`, which *is* on the route (feed line 48), so the
+3..5 roll really does happen mid-measurement -- this is not a game whose RNG
+never wakes.  What makes the row measurable anyway is the `where` list: the
+Look and both PrefTime texts only print in rooms 25-27, and the very next
+command after the rope is `u`, which climbs out of them.  Neither transcript
+contains any of the three strings.  So the roll is real but invisible, which
+is exactly the case the double-seed corpus test cannot tell apart from "no RNG
+at all" -- the dump can, and it says in advance which turns to distrust if a
+divergence does show up.  Generalise the screen that way: a spread in
+`time1..time2` is only a hazard if the event's texts can reach a room the
+route visits while it is running.
+
+The two traps the harness comment records both held under the real Runner:
+`Globals.WaitTurns` is 3, so the four `z`s at feed 17-20 are twelve turns of
+arrest-clock, and EVENT 18 [Timedoor] un-finishes TASK 39 one turn after it
+runs, so `w` immediately follows `use crowbar` at feed 50-51.  Had either been
+wrong the Runner would have arrested the player or shut the steel door and the
+transcript would have ended long before the epilogue.
+
+Next candidate: `The Screen Savers On Planet X.taf` (3.90 -- 133 commands, no
+comment lines this time, 0 walks, 10 NPCs, 19 events, and the dump says all
+nineteen are `start=0..0 time1=1 time2=1`, so nothing on that path can roll).
