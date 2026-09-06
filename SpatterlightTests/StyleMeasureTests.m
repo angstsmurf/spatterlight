@@ -361,4 +361,69 @@
     XCTAssertEqual(measured, expected);
 }
 
+#pragma mark - Font trait measures (Weight / Oblique / Proportional)
+
+- (NSInteger)fontTraitValueForStyle:(GlkStyle *)style hint:(NSUInteger)hint {
+    NSFont *font = style.attributeDict[NSFontAttributeName];
+    XCTAssertNotNil(font);
+    NSFontTraitMask traits = [[NSFontManager sharedFontManager] traitsOfFont:font];
+    switch (hint) {
+        case stylehint_Weight:
+            return (traits & NSBoldFontMask) ? 1 : 0;
+        case stylehint_Oblique:
+            return (traits & NSItalicFontMask) ? 1 : 0;
+        case stylehint_Proportional:
+            return ((traits & NSFixedPitchFontMask) || font.isFixedPitch) ? 0 : 1;
+        default:
+            XCTFail(@"unexpected hint %lu", (unsigned long)hint);
+            return -1;
+    }
+}
+
+// Theme-backed font traits must measure without a game stylehint (the gap the
+// stylemeasure.ulx probe hit: weight/oblique/proportional used to FAIL).
+- (void)testBufferMeasureFontTraitsFromTheme {
+    GlkController *ctl = [self makeController];
+    GlkTextBufferWindow *win = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_Normal hint:stylehint_Weight],
+                   [self fontTraitValueForStyle:self.theme.bufferNormal hint:stylehint_Weight]);
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_Normal hint:stylehint_Oblique],
+                   [self fontTraitValueForStyle:self.theme.bufferNormal hint:stylehint_Oblique]);
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_Normal hint:stylehint_Proportional],
+                   [self fontTraitValueForStyle:self.theme.bufferNormal hint:stylehint_Proportional]);
+
+    // Preformatted is fixed-width in the default theme.
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_Preformatted hint:stylehint_Proportional],
+                   [self fontTraitValueForStyle:self.theme.bufPre hint:stylehint_Proportional]);
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_Preformatted hint:stylehint_Proportional], 0);
+}
+
+// With doStyles on, a Weight hint applied before the window opens must show
+// through measure via the style table font (not only via getStyleVal).
+- (void)testMeasureReflectsWeightHintWhenStylesEnabled {
+    GlkController *ctl = [self makeController];
+    ctl.bufferStyleHints[style_User1][stylehint_Weight] = @(1);
+
+    GlkTextBufferWindow *win = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_User1 hint:stylehint_Weight], 1);
+}
+
+// With doStyles off, an unused Weight hint must not show through: measure the
+// theme font, matching the colour-hint contract.
+- (void)testMeasureIgnoresWeightHintWhenStylesDisabled {
+    self.theme.doStyles = NO;
+
+    GlkController *ctl = [self makeController];
+    ctl.bufferStyleHints[style_User1][stylehint_Weight] = @(1);
+
+    GlkTextBufferWindow *win = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+
+    NSInteger expected = [self fontTraitValueForStyle:self.theme.bufUsr1 hint:stylehint_Weight];
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_User1 hint:stylehint_Weight], expected);
+    XCTAssertNotEqual(expected, 1,
+                      @"fixture: theme User1 should not already be bold, or the test proves nothing");
+}
+
 @end
