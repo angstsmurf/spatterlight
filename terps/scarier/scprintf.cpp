@@ -500,13 +500,14 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
  * pf_replace_alr()
  *
  * Helper for pf_replace_alrs().  Replace one ALR found in the string with
- * its equivalent.  If any replacement was made, the rebuilt string is handed
- * back in 'out' and TRUE returned; otherwise 'out' is untouched and FALSE
- * returned.
+ * 'replacement' -- the ALR's own replacement text for 3.9, the recursively
+ * filtered form of it for 4.0.  If any replacement was made, the rebuilt
+ * string is handed back in 'out' and TRUE returned; otherwise 'out' is
+ * untouched and FALSE returned.
  */
 static scr_bool
-pf_replace_alr (const scr_char *string,
-                std::string &out, const pf_str_pair_t &entry)
+pf_replace_alr (const scr_char *string, std::string &out,
+                const pf_str_pair_t &entry, const scr_char *replacement)
 {
   const scr_char *marker, *cursor;
   scr_bool replaced;
@@ -524,7 +525,7 @@ pf_replace_alr (const scr_char *string,
     {
       /* Append the text up to the match, then the replacement. */
       result.append (marker, cursor - marker);
-      result.append (entry.replacement);
+      result.append (replacement);
 
       /* Advance over the original. */
       marker = cursor + entry.original_length;
@@ -601,22 +602,155 @@ pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
 
 
 /*
+ * pf_alr_walk()
  * pf_replace_alrs()
  *
- * Replace any ALRs found in the string with their equivalents.  If any
- * ALRs were replaced, returns an allocated string with replacements done,
- * otherwise returns NULL.
+ * Replace any ALRs found in the string with their equivalents.  If any ALRs
+ * were replaced, pf_replace_alrs() returns an allocated string with the
+ * replacements done, otherwise it returns NULL.
+ *
+ * This is run400's Proc_21_20_44C7DC read straight (the run390 twin is the
+ * loop at loc_45BD43, the tail of its output filter Proc_2_28_45CBD0):
+ *
+ *    Function ALRs(text, noalr)
+ *      text = substitute_percent_tags(text)         ' 47A3DC
+ *      If dont_convert_ALRs Then Return text
+ *      If noalr <> 1 Then
+ *        For i = 0 To ALRCount - 1                  ' length-descending order
+ *          If InStr(1, text, ALR(i).Original, 0) > 0 Then
+ *            If text = ALR(i).Replacement Then Return text          ' 44C75E
+ *            expansion = ALRs(ALR(i).Replacement, 0)                ' 44C76F
+ *            text = Replace(text, ALR(i).Original, expansion, 1, -1, 0)
+ *          End If
+ *        Next
+ *      End If
+ *      Return text
+ *
+ * So a walk is ONE pass down the length-sorted list, and the depth comes from
+ * the recursion on the REPLACEMENT, not from repeating the pass.  The two
+ * differ wherever a replacement combines with the text around it to spell
+ * another ALR's original: the recursion cannot see that, a repeated pass
+ * would.  Qui a tue Dana (4.00) is the measurement -- its 602 ALRs carry
+ * both [You move] -> [Vous vous deplacez] and, right after it, the author's
+ * attempted fix-up [Vous vous deplacez in.] -> [Vous entrez.] -- and run400
+ * answers `in` with "Vous vous deplacez in." (Adrift_369:210), so the fix-up
+ * never fires.  It cannot: it is 22 characters against 8, so the sort has
+ * already walked past it when [You move] writes its original into the line,
+ * and the walk never comes back.
+ *
+ * The equality test at 44C75E is the recursion's only brake, and it is a
+ * whole-text one: filtering [Okay.  I put ] for the self-containing ALR
+ * [I put ] -> [Okay.  I put ] finds the original, sees that the text IS the
+ * replacement, and returns it untouched -- which is what holds a
+ * self-containing ALR to exactly one expansion per walk.  Note that it exits
+ * the whole function, so the remaining ALRs are skipped too.
+ *
+ * 3.9 has neither the recursion nor the test; version 3.9 games therefore
+ * take the same single pass with the replacement spliced in verbatim.
  */
-static scr_char *
-pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
-                 scr_bool alr_applied[], scr_int alr_count)
+
+/*
+ * A pair of ALRs that rewrite each other (A -> B and B -> A) recurses for
+ * ever, and the Runner really would overflow its stack on one.  No game in
+ * the corpus has such a pair, so this cap is a guard, not a model.
+ */
+enum { PF_ALR_DEPTH_LIMIT = 32 };
+
+static void
+pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
+             scr_bool recursive, scr_int depth)
 {
-  scr_int index_, next;
   std::vector<scr_int> candidates;
   size_t position;
+  scr_int next;
+  scr_int iteration;
+
+  out.assign (string);
+  if (depth > PF_ALR_DEPTH_LIMIT)
+    return;
+
+  /*
+   * 47A3DC, the first thing ALRs() does with whatever text it was handed:
+   * substitute the %...% tags.  At depth 0 the caller has already done this
+   * and it is a no-op; what it is here for is the recursion, where it is the
+   * step that lets an ALR replacement name a variable and have the ALRs
+   * keyed on that variable's value still fire.  Cursed (4.00) is built on
+   * it: [You move north.] -> [You %s north.<br>] with %s a state variable,
+   * and then [%s-fox] -> [trot] and so on for each state, so the printed
+   * verb follows what the player has been turned into.
+   */
+  for (iteration = 0; iteration < ITERATION_LIMIT; iteration++)
+    {
+      scr_char *interpolated;
+
+      interpolated = pf_interpolate_vars (out.c_str (), vars);
+      if (!interpolated)
+        break;
+      out = interpolated;
+      scr_free (interpolated);
+    }
+
+  /*
+   * Walk only the ALRs whose original is actually in the text, in the
+   * length-sorted order baked into the cache at build time.  'next' is the
+   * lowest slot still to consider, so that a re-scan after a replacement
+   * resumes where the sweep had got to rather than starting over -- the For
+   * loop above never goes back.
+   */
+  pf_alr_candidates (out.c_str (), candidates);
+  next = 0;
+  position = 0;
+
+  while (position < candidates.size ())
+    {
+      std::string expansion, rebuilt;
+      scr_int index_;
+
+      index_ = candidates[position];
+      if (index_ < next)
+        {
+          position++;
+          continue;
+        }
+
+      const pf_str_pair_t &entry = pf_alr_cache[index_];
+
+      if (recursive)
+        {
+          /* 44C75E: the text IS this ALR's replacement, so stop dead. */
+          if (out.compare (entry.replacement) == 0)
+            return;
+
+          /* 44C76F: the replacement is itself filtered before it is spliced. */
+          pf_alr_walk (entry.replacement, expansion, vars, TRUE, depth + 1);
+        }
+      else
+        expansion.assign (entry.replacement);
+
+      if (pf_replace_alr (out.c_str (), rebuilt, entry, expansion.c_str ()))
+        {
+          out = std::move (rebuilt);
+
+          /*
+           * The text changed under us, so which originals are present may have
+           * changed too: re-scan, and resume at the slot after this one.
+           */
+          next = index_ + 1;
+          pf_alr_candidates (out.c_str (), candidates);
+          position = std::lower_bound (candidates.begin (), candidates.end (),
+                                       next) - candidates.begin ();
+        }
+      else
+        position++;
+    }
+}
+
+static scr_char *
+pf_replace_alrs (const scr_char *string, scr_var_setref_t vars,
+                 scr_prop_setref_t bundle, scr_int alr_count,
+                 scr_bool recursive)
+{
   std::string current;
-  const scr_char *marker;
-  scr_bool replaced;
 
   /*
    * Resolve the immutable ALR table from the property tree once per game (see
@@ -627,88 +761,10 @@ pf_replace_alrs (const scr_char *string, scr_prop_setref_t bundle,
   if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
     pf_alr_cache_build (bundle, alr_count);
 
-  /*
-   * 'marker' is the string we replace into; it starts as the input and, once
-   * any ALR fires, points into 'current' (the std::string holding the rebuilt
-   * text).  std::string's amortized growth removes the need for the old two-
-   * buffer alternation.
-   */
-  marker = string;
-  replaced = FALSE;
-
-  /*
-   * Walk only the ALRs whose original is actually in the text, in the
-   * length-sorted order baked into the cache at build time.  'next' is the
-   * lowest slot still to consider, so that a re-scan after a replacement
-   * resumes where the sweep had got to rather than starting over.
-   */
-  pf_alr_candidates (marker, candidates);
-  next = 0;
-  position = 0;
-
-  while (position < candidates.size ())
-    {
-      std::string rebuilt;
-
-      index_ = candidates[position];
-
-      /*
-       * Ignore ALR indexes already passed, and those already applied.  Only
-       * the ALRs whose replacement contains their own original are ever
-       * marked (see below), so that is the loop guard for those, not a
-       * once-only rule.
-       */
-      if (index_ < next || alr_applied[index_])
-        {
-          position++;
-          continue;
-        }
-
-      /* Try replacing this ALR in the current marker string. */
-      if (pf_replace_alr (marker, rebuilt, pf_alr_cache[index_]))
-        {
-          /*
-           * The string was altered.  Adopt the rebuilt text as the current
-           * string and re-point marker into it for the next ALR iteration.
-           * pf_replace_alr finished reading marker before returning, so moving
-           * rebuilt into current (which marker may have pointed into) is safe.
-           */
-          current = std::move (rebuilt);
-          marker = current.c_str ();
-          replaced = TRUE;
-
-          /*
-           * Retire the ALR only if its replacement contains its own original,
-           * as [I put ] -> [Okay.  I put ] does.  Those are the ones that
-           * would match themselves forever on the next pass; every other ALR
-           * stays live, and fires again on a later pass if a *different* ALR
-           * puts its original back into the text.
-           *
-           * Measured on run400 2026-08-24 with make_400_alrsrcprobe.py, ALRs
-           * [TOKEN] -> [tok] and [zebra] -> [TOKEN] over "TOKEN zebra.": the
-           * Runner prints "tok tok.", so the TOKEN rule fires a second time on
-           * the TOKEN that the zebra rule just wrote.  Retiring every fired
-           * ALR -- which is what SCARE did -- gives "tok TOKEN." instead.
-           */
-          if (strstr (pf_alr_cache[index_].replacement,
-                      pf_alr_cache[index_].original))
-            alr_applied[index_] = TRUE;
-
-          /*
-           * The text changed under us, so which originals are present may have
-           * changed too: re-scan, and resume at the slot after this one.
-           */
-          next = index_ + 1;
-          pf_alr_candidates (marker, candidates);
-          position = std::lower_bound (candidates.begin (), candidates.end (),
-                                       next) - candidates.begin ();
-        }
-      else
-        position++;
-    }
+  pf_alr_walk (string, current, vars, recursive, 0);
 
   /* Return the rebuilt string if any replacement was made, else NULL. */
-  return replaced ? pf_strdup (current) : NULL;
+  return current.compare (string) == 0 ? NULL : pf_strdup (current);
 }
 
 
@@ -949,32 +1005,28 @@ pf_output_untagged (const scr_char *string)
  *    "MMM."      MM -> short, MMM -> long         long.      long.
  *    "ZZ ZZ."    ZZ -> z                          z z.       z z.
  *
- * So version 3.9 makes ONE plain pass: walk the ALR list once in length-
- * descending order, replacing every occurrence of each original.  A chain only
- * runs in the direction of the walk ("RRR." stops at "PPPP." because PPPP was
- * already behind the cursor when RRR produced it), and a self-containing ALR
- * fires exactly once.  That is the loop at loc_45BD43, the tail of run390's
- * output filter Proc_2_28_45CBD0 (run390_3.bas:55465), read straight.
+ * Both versions make ONE pass down the length-sorted list, replacing every
+ * occurrence of each original; a chain only runs in the direction of the walk,
+ * which is what stops run390's "RRR." at "PPPP." (PPPP was already behind the
+ * cursor when RRR produced it).  What 4.0 adds is not a second pass but
+ * RECURSION: it filters each replacement before splicing it in, so "UUU."
+ * runs all three hops and "RRR." both inside the one pass.  The two routines
+ * are read out in full above pf_alr_walk(); run390's is the loop at
+ * loc_45BD43, the tail of its output filter Proc_2_28_45CBD0
+ * (run390_3.bas:55465), and run400's is Proc_21_20_44C7DC.
  *
- * Version 4.0 keeps going until nothing new can be replaced, which is what
- * carries "UUU." all three hops and "RRR." both:
+ * That distinction is measurable, and measured: a repeated pass would let a
+ * replacement combine with the text around it to spell some other ALR's
+ * original, and the recursion cannot.  See pf_alr_walk() for Qui a tue Dana's
+ * "Vous vous deplacez in.".
  *
- *  repeat some number of times
- *    repeat some number of times
- *      interpolate variables
- *    repeat
- *      for each ALR not retired so far
- *        search the current string for the ALR original
- *        if found
- *          replace every occurrence in the current string
- *          if the replacement contains the original, retire this ALR
- *    until no more changes in the current string
- *
- * Only the self-containing ALRs retire, and that is purely the loop guard:
- * it is what holds "AAA -> qAAA" to exactly one "q" per walk.  Every other
- * ALR stays live for the whole walk and fires again whenever another ALR
- * writes its original back into the text.  Measured, with
- * [TOKEN] -> [tok] and [zebra] -> [TOKEN] over "TOKEN zebra.":
+ * A self-containing ALR is held to one expansion per walk not by a retirement
+ * flag -- SCARE's, which this used to keep -- but by 4.0's whole-text equality
+ * test: filtering [Okay.  I put ] for the ALR [I put ] -> [Okay.  I put ]
+ * finds the original, sees the text IS the replacement and hands it back
+ * untouched.  Every other ALR fires whenever its original is in front of the
+ * cursor.  Measured, with [TOKEN] -> [tok] and [zebra] -> [TOKEN] over
+ * "TOKEN zebra.":
  *
  *                                                 run390     run400
  *    "TOKEN zebra."                               tok TOKEN. tok tok.
@@ -986,7 +1038,10 @@ pf_output_untagged (const scr_char *string)
  * 4.0 gives ONE KIND OF TEXT a second walk of its own: a completing task's
  * CompleteText and AdditionalMessage, filtered again as the task prints them
  * (see pf_buffer_task_paragraph_line() below, and the measurement in
- * harness/make_400_alrsrcprobe.py).  That is the humbug (4.00) divergence
+ * harness/make_400_alrsrcprobe.py).  Every cell of the probe above is a task
+ * CompleteText, so that second walk is where run400's extra "q" and its third
+ * and fourth "EEE" come from -- one recursive walk of "AAA." gives "qAAA.",
+ * and walking that again gives "qqAAA.".  That is the humbug (4.00) divergence
  * this all started from -- its "[I put ] -> [Okay.  I put ]" is
  * self-containing, so task 80's CompleteText answers `Put sweet on plinth`
  * with "Okay.  Okay.  I put the sweet on the plinth."
@@ -1005,7 +1060,6 @@ pf_filter_internal (const scr_char *string,
   scr_bool alr_single_pass, alr_pass_done;
   std::string current;
   scr_bool have_current;
-  std::vector<scr_bool> alr_applied;
   assert (string && vars);
 
   if (pf_trace)
@@ -1021,17 +1075,9 @@ pf_filter_internal (const scr_char *string,
       alr_count = prop_get_child_count (bundle, "I<-s", &vt_key);
 
       /*
-       * Create a new set of ALR application flags.  These are used to ensure
-       * that a given ALR is applied only once on a given round.  If the game
-       * has no ALRs, leave the flag set empty.
-       */
-      if (alr_count > 0)
-        alr_applied.assign (alr_count, FALSE);
-
-      /*
        * What a walk of the ALR list is -- the measured version split
-       * described above.  Version 3.9 gets one plain walk; version 4.0 gets
-       * the replace-until-nothing-new loop.
+       * described above.  Both versions get one walk; 4.0's filters each
+       * replacement recursively on the way in, 3.9's does not.
        */
       alr_single_pass = prop_get_taf_version (bundle) < TAF_VERSION_400;
     }
@@ -1085,79 +1131,30 @@ pf_filter_internal (const scr_char *string,
         }
 
       /* If we have ALRs to process, search out and replace all findable. */
-      if (alr_count > 0)
+      if (alr_count > 0 && !alr_pass_done)
         {
           /*
-           * Version 3.9 walks the list exactly once for the whole filter --
-           * not once per iteration of the loop we are in -- so the "until
-           * nothing more can be replaced" loop below is a version 4.0 shape
-           * only.
+           * Both versions walk the list exactly once for the whole filter --
+           * not once per iteration of the loop we are in.  What differs is
+           * what a walk does with a replacement: 4.0 filters it recursively
+           * before splicing it in, 3.9 splices it verbatim.  See
+           * pf_alr_walk().
            */
-          if (alr_single_pass)
-            {
-              if (!alr_pass_done)
-                {
-                  alr_pass_done = TRUE;
+          alr_pass_done = TRUE;
 
-                  intermediate
-                    = pf_replace_alrs (have_current ? current.c_str () : string,
-                                       bundle, alr_applied.data (), alr_count);
-                  if (intermediate)
-                    {
-                      current = intermediate;
-                      scr_free (intermediate);
-                      have_current = TRUE;
-                      changed = TRUE;
-                      if (pf_trace)
-                        {
-                          scr_trace ("Printfilter: replaced [%ld,-] \"%s\"\n",
-                                    iteration, current.c_str ());
-                        }
-                    }
-                }
-            }
-          else
+          intermediate
+            = pf_replace_alrs (have_current ? current.c_str () : string,
+                               vars, bundle, alr_count, !alr_single_pass);
+          if (intermediate)
             {
-              /* Replace ALRs until no more ALRs can be found. */
-              inner_iteration = 0;
-              while (TRUE)
+              current = intermediate;
+              scr_free (intermediate);
+              have_current = TRUE;
+              changed = TRUE;
+              if (pf_trace)
                 {
-                  /*
-                   * Replace ALRs, and adopt current as for variables above.
-                   * Leave the loop when ALR replacements stop.  Again, work on
-                   * the current string if any, otherwise the input string.
-                   */
-                  intermediate = pf_replace_alrs (have_current ? current.c_str ()
-                                                               : string,
-                                                  bundle, alr_applied.data (),
-                                                  alr_count);
-                  if (intermediate)
-                    {
-                      current = intermediate;
-                      scr_free (intermediate);
-                      have_current = TRUE;
-                      changed = TRUE;
-                      if (pf_trace)
-                        {
-                          scr_trace ("Printfilter: replaced [%ld,%ld] \"%s\"\n",
-                                    iteration, inner_iteration, current.c_str ());
-                        }
-                    }
-                  else
-                    break;
-                  inner_iteration++;
-
-                  /*
-                   * Now that an ALR retires only when its replacement
-                   * contains its own original, a pair that rewrites each
-                   * other (A -> B and B -> A) would pass the string back and
-                   * forth for ever.  No chain of N ALRs needs more than N
-                   * passes to run out, so stop there.  What run400 does with
-                   * such a pair is not measured -- no game in the corpus has
-                   * one -- so this is a guard, not a model of the Runner.
-                   */
-                  if (inner_iteration > alr_count)
-                    break;
+                  scr_trace ("Printfilter: replaced [%ld,-] \"%s\"\n",
+                            iteration, current.c_str ());
                 }
             }
         }

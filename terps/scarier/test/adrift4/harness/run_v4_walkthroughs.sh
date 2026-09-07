@@ -1678,6 +1678,37 @@ the_demon_hunter_solution.txt|TheDemonHunter.taf|"Well done, my good and faithfu
 # single line in the ending.
 # Measured 2026-08-29: run400 replay; the first 15 turns are identical, then a
 # waitkey cutscene eats a fed command and the streams never re-align.
+# Re-blessed 2026-09-07: "> in" is answered by "Vous vous deplacez in.", as
+# run400 does (Adrift_369_qui_a_tue_dana.txt:210), not by "Vous entrez.".
+# This row is where the 4.0 ALR walk was finally pinned down, so the rule is
+# written out here in full.
+#
+# run400's output filter is Proc_21_20_44C7DC.  It substitutes the %tags%
+# (Proc_21_18_47A3DC, called at 44C6EE), then makes ONE pass down the ALR list
+# in descending order of original length, and for each original it finds it
+# either (a) returns immediately, if the whole text now equals that pair's
+# replacement (44C75E), or (b) filters the replacement RECURSIVELY (44C76F)
+# before splicing it in with Replace-all.  run390's twin is the plain loop at
+# the tail of Proc_2_28_45CBD0 (loc_45BD43, run390_3.bas:55465): the same
+# single ordered pass, with no recursion and no equality test.  So 4.0 does
+# not make a second pass -- what it adds is depth, not breadth, and both
+# versions look at each pair exactly once.
+#
+# Two things follow, and both show up in shipped games.  A fix-up ALR whose
+# original is LONGER than the pair that produces it can never fire, because
+# the sorted walk is already past it by the time the text contains its
+# original; and whatever Replace-all leaves behind in the same string is not
+# re-examined.  Dana is the first kind: [You move] -> [Vous vous deplacez] (8
+# characters) with [Vous vous deplacez in.] -> [Vous entrez.] (22) sitting
+# behind it to patch up the one direction the game forgot to localise, so the
+# Runner prints the unpatched French.  Three more measurements, all
+# 2026-09-07 in run400 under Wine: barneysproblem prints "The TV itself is
+# looks every bit as battered as you remember."; threeminutes keeps ". ."
+# where a second pass would have left "."; and House.taf shows that the %tag%
+# substitution really is inside the recursion, since [You move] -> [%drunk%]
+# with drunk = "You move" makes 44C7DC recurse until it dies with "evaluate
+# error - Out of stack space".  See those three rows.  Scarier implements the
+# walk in pf_alr_walk() (scprintf.cpp), depth-capped at 32.
 qui_a_tue_dana_solution.txt|QuiATueDana.taf|MERCI A TOI CHRISTOPHE SANS QUI CE JEU N'AURAIT JAMAIS VU LE JOUR!|SCR_SKIP_WAITKEY=1
 # Enquete a hauts risques -- WIN, 59/59 ("Votre score est 58 sur un maximum de
 # 59" one command before the end, and `se coucher` is the 59th point).  Another
@@ -2504,8 +2535,26 @@ plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_W
 # walk's precedence and the pre-fix route reproduces the pre-fix golden byte
 # for byte, change nothing else and it does not.
 # Re-blessed 2026-09-05 for the third-person de-conjugation, three lines:
-# "Irvine unclosess" -> "uncloses" and "Irvine sets downs" -> "sets down",
-# both of them the game's ALR patching what it saw the Runner print.
+# "Irvine unclosess" -> "uncloses" (twice) and "Irvine sets downs" -> "sets
+# down".  The doubled letter was ours, not the author's: iqsfot ships
+# [Irvine open] -> [Irvine uncloses] and [Irvine drop] -> [Irvine sets down]
+# to de-conjugate the bare third person the Runner really prints, and Scarier
+# was handing that ALR an already-conjugated "Irvine opens".
+# Re-blessed again 2026-09-07 for the 4.0 ALR walk (the rule is written up on
+# the qui_a_tue_dana row): "Irvine seats himselfs outside the walls of
+# Ki'parandazar".  The 405-pair table carries exactly two fix-ups whose
+# original is another pair's replacement plus an "s" -- [Irvine picks ups] ->
+# [Irvine picks up] and [Irvine seats himselfs] -> [Irvine seats himself] --
+# and neither of them can ever fire, because the list is walked in descending
+# length order and both are longer than the pair that makes them ([Irvine
+# take], 11 characters, and [Irvine sit], 10).  The take fix-up shows no
+# damage on this route only because nothing the route prints contains the
+# string "Irvine takes": the library message is the bare "Irvine take the
+# flight sheet from the flight panel.", which the maker turns straight into
+# "picks up", and the game's three authored "Irvine takes" lines (plain lines
+# 22417, 39799, 54034) and three "Irvine drops" lines are all off-route.  The
+# ending block at plain line 32 is authored prose that does say "Irvine
+# sits", so there the fix-up is needed -- and is not reached.
 iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SCR_SEED=31 SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- MANGIASAUR (DCBSupafly, ADRIFT Spring Comp 2011).  You are a
@@ -5573,6 +5622,18 @@ tophat_solution.txt|tophat.taf|But will the next show go the same way?|
 # artefact of the Runner's .txt transcript.  Replay must carry this row's env
 # (`SCR_SEED=8 SCR_SKIP_WAITKEY=1`); compare_wine_transcript.py does not
 # apply it for you, and without it the diff is meaningless.
+# 2026-09-07, a second measurement, this one for the 4.0 ALR walk (the rule
+# is written up on the qui_a_tue_dana row).  The intro really does print
+# "terrace . . and it all went dark." and "you've got . ." in run400.  The
+# game ships two ALRs, [..] -> [.] and [. .] -> [.], and both dot sites are
+# authored as ". . ."; the longer pair is walked first and Replace-all turns
+# ". . ." into ". .", which the one pass then leaves alone.  Scarier used to
+# loop the list until the text stopped changing and printed a single ".".
+# Measuring it needed a detour: both sites are in the one Introduction block,
+# which ends "<waitkey><cls>" and so never reaches a transcript.  The .taf was
+# repacked with taftool.py minus that tail (pfx/drive_c/adrift/p_3min_nocls
+# .taf) and run through fast.sh with an EMPTY command file under
+# DUMP_SCROLLBACK, which dumps the window straight after load.
 threeminutes_solution.txt|3 minutes1.0.taf|But not a hero anymore.|SCR_SEED=8 SCR_SKIP_WAITKEY=1
 # neighbours.taf (4.00): WON 100/100 via a custom evidence variable (no
 # built-in ADRIFT score/EndGame actions) -- six score-band `call police`
@@ -6394,6 +6455,17 @@ halloweenhijinks_solution.txt|HalloweenHijinks.taf|Well done! You've reached the
 # clears the >110 threshold), ending "...not just any ending (there are five
 # in total), but the best one of the bunch! ... the password to the game, if
 # you're wondering, is BABYLON."
+# 2026-09-07: re-blessed for the 4.0 ALR walk (the rule is written up on the
+# qui_a_tue_dana row).  Barney's 38-pair table first patches the game's own
+# prose, [looked every bit as battered as you remember.] -> [looks every bit
+# as battered as you remember.] (45 characters), and then tries to repair the
+# one sentence that reads badly afterwards with [The TV itself is looks every
+# bit as battered as you remember.] -> [The TV itself looks every bit as
+# battered as you remember.] (61).  The fix-up is longer than the pair that
+# creates its original, so the single descending walk is past it before it
+# could ever match: run400 prints "The TV itself is looks every bit as
+# battered as you remember."
+# (Adrift_302_barneysproblem.txt:57 and :94), and the golden now agrees.
 barneysproblem_solution.txt|BarneysProblem.taf|BABYLON|SCR_SKIP_WAITKEY=1
 # DeadReckoning.taf (David Whyld, 2003) -- no scoring system at all (zero
 #   ACT type=4 actions in the whole 533-task dump; the game's own
@@ -7204,10 +7276,17 @@ onnafa_solution.txt|ONNAFA.TAF|your score turned out at 76|SCR_SKIP_WAITKEY=1
 # -- and the fire puzzle is dead ("You need some wood or coal to make a
 # proper fire.").  Reached 30/30 before the put-precedence port only through
 # Scarier's old silent-literal peek.  Also measured: every move in run400
-# pops an "evaluate error - Out of stack space" alert, because House's ALR
-# rewrites "You move" to "%drunk%" and the string variable drunk is "You
-# move"; Scarier's bounded expansion prints "%drunk% east." instead
-# (deliberate deviation, see notes/WINE-TRANSCRIPTS-TODO.md).
+# pops an "evaluate error - Out of stack space" alert and prints nothing at
+# all for the move, because House's ALR rewrites "You move" to "%drunk%" and
+# the string variable drunk is "You move" -- and 44C7DC substitutes the
+# %tags% at the top of every recursive call, so the pair rewrites each other
+# for ever (re-measured 2026-09-07, `2` then `e` from a cold start:
+# "> e" is answered by the alert and an empty line).  Scarier's expansion is
+# depth-capped, so the walk bottoms out and the filter's next pass
+# interpolates what it wrote: "You move east." -- the line the author meant
+# a sober player to see (deliberate deviation, see
+# notes/WINE-TRANSCRIPTS-TODO.md).  Re-blessed 2026-09-07 with the walk:
+# it used to print "%drunk% east.".
 house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
 # Full win (85/85, best ending, top rank "So good you must have cheated"):
 # David Whyld's studio-director comedy sim "TO THE MOON AND BACK" (in-game

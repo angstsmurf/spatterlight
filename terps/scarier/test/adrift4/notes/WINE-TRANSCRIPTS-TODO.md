@@ -926,6 +926,12 @@ and decompile addresses are in the harness row comments and in git history.
   of " already carrying " too, so a task restricted on already holding the
   object answers with its own FailMessage (icecream T0).  See "Ported
   2026-09-07: `icecream`'s two rules" at the end of this file.
+- The ALR list is walked ONCE, in descending order of Original length; 4.0
+  adds recursion into each replacement (and a %tag% substitution at the top of
+  every recursive call), not a second pass.  A fix-up pair longer than the pair
+  that produces it can therefore never fire (qui_a_tue_dana, barneysproblem,
+  iqsfot), and Replace-all's leftovers are not re-examined (threeminutes).
+  See "Ported 2026-09-07: the ALR list is walked once" at the end of this file.
 - A 4.0 `put X in Y` whose X names nothing PRESENT leaves the command line
   clobbered to the fragment `put X `: put_drop_list (459DB4) runs before the
   task dispatch, and name_object's 46E142 exit is the one that does not put the
@@ -958,8 +964,12 @@ and decompile addresses are in the harness row comments and in git history.
 - **House's `%drunk%` ALR loop.**  House.taf rewrites "You move" to
   `%drunk%` and the string variable `drunk` is "You move", so every move in
   run400 pops an `evaluate error - Out of stack space` alert (dismissed,
-  the turn then prints nothing for the move).  Scarier's bounded expansion
-  prints the literal `%drunk% east.` instead.  Measured 2026-09-06.
+  the turn then prints nothing at all for the move).  Measured 2026-09-06,
+  re-measured 2026-09-07 from a cold start.  Scarier's expansion is
+  depth-capped, so the walk bottoms out and the filter's next pass
+  interpolates what it wrote: `You move east.`, the line the author meant a
+  sober player to see.  (Before the ALR walk went in on 2026-09-07 we
+  printed the literal `%drunk% east.`.)
 - **run400 "Which <term>.  <list>?" disambiguation wording** (shadricks
   `climb tree`; 4 goldens, 6 lines).  Unported because the expensive half
   is the two-pass Short/alias narrowing that decides `<term>`; the
@@ -3242,3 +3252,92 @@ from `put` to `place` for the same reason.
 `hub` is the control that keeps the gate honest, and `house`'s own
 `put thyme in kettle` one line earlier is a second one -- "thyme" IS the
 object's Short, so it names and never clobbers.
+
+## Ported 2026-09-07: the ALR list is walked once
+
+Chasing item 7's `qui_a_tue_dana` diff -- run400 answers `in` with "Vous vous
+deplacez in." where we printed the game's own fix-up "Vous entrez." -- turned
+out to be the whole ALR model rather than one game's quirk.
+
+### What the Runner does
+
+`Proc_21_20_44C7DC` in run400, read straight:
+
+```
+Function ALRs(text, noalr)
+  text = substitute_percent_tags(text)         ' 47A3DC, called at 44C6EE
+  If dont_convert_ALRs Then Return text
+  If noalr <> 1 Then
+    For i = 0 To ALRCount - 1                  ' length-descending order
+      If InStr(1, text, ALR(i).Original, 0) > 0 Then
+        If text = ALR(i).Replacement Then Return text          ' 44C75E
+        expansion = ALRs(ALR(i).Replacement, 0)                ' 44C76F
+        text = Replace(text, ALR(i).Original, expansion, 1, -1, 0)
+      End If
+    Next
+  End If
+  Return text
+```
+
+run390's twin is the plain loop at `loc_45BD43`, the tail of its output filter
+`Proc_2_28_45CBD0` (run390_3.bas:55465): the same single ordered pass, with no
+recursion and no equality test.
+
+So neither version repeats the pass.  **4.0's extra work is depth, not
+breadth** -- it filters each replacement before splicing it in, and it
+substitutes the `%tags%` at the top of *every* recursive call.  That reading is
+what the 2026-08-24 probes (`harness/make_400_alrprobe.py`,
+`harness/make_39_alrprobe.py`) had already measured cell by cell; it had been
+implemented as "3.9 walks once, 4.0 walks until stable", which agrees with the
+probe but not with real games.
+
+Two consequences, and both of them are visible in shipped corpus games:
+
+1. **A fix-up ALR longer than the pair that produces it can never fire.**  The
+   sort has already walked past it by the time the text contains its original,
+   and the walk never comes back.
+2. **What `Replace`-all leaves behind in the same string is not re-examined.**
+
+### Four measurements, all run400 under Wine, 2026-09-07
+
+| game | line | why |
+| --- | --- | --- |
+| `qui_a_tue_dana` | "Vous vous deplacez in." (Adrift_369:210) | `[You move]` (8) makes the original of `[Vous vous deplacez in.]` (22) |
+| `barneysproblem` | "The TV itself is looks every bit as battered as you remember." (Adrift_302:57, :94) | 45-character pair makes the original of a 61-character fix-up |
+| `threeminutes` | "terrace . . and it all went dark.", "you've got . ." | `[. .] -> [.]` turns the authored ". . ." into ". .", and the one pass leaves it |
+| `House` | `evaluate error - Out of stack space`, nothing printed for the move | `[You move] -> [%drunk%]` with the variable `drunk` = "You move" -- proof the `%tag%` substitution really is inside the recursion |
+
+`threeminutes` needed a detour to measure: both dot sites are in the one
+Introduction block, which ends `<waitkey><cls>` and so never reaches a
+transcript.  The `.taf` was repacked with `harness/taftool.py` minus that tail
+(`pfx/drive_c/adrift/p_3min_nocls.taf`) and driven through `fast.sh` with an
+**empty command file** under `DUMP_SCROLLBACK`, which dumps the window straight
+after load.  That trick works for any pre-`<cls>` intro.
+
+A fifth game, `iqsfot`, carries the same shape and confirms it in the other
+direction: of its 405 pairs exactly two are fix-ups for a pair's own output,
+`[Irvine picks ups] -> [Irvine picks up]` and `[Irvine seats himselfs] ->
+[Irvine seats himself]`, and both are longer than their makers (`[Irvine take]`
+11, `[Irvine sit]` 10).  The take fix-up shows no damage because nothing on the
+route prints the string "Irvine takes" -- the library message is the bare
+"Irvine take the ..." that 2026-09-05's de-conjugation established -- while the
+ending's authored prose does say "Irvine sits", so that one lands.
+
+### The port
+
+`pf_replace_alrs()` in `scprintf.cpp` now drives a new recursive
+`pf_alr_walk()`, depth-capped at 32 (a mutually-rewriting pair would recurse
+for ever, as House shows; no corpus game has one).  The retirement flags SCARE
+kept -- `alr_applied[]`, one bool per ALR -- are gone: 4.0 holds a
+self-containing ALR to one expansion per walk with the whole-text equality test
+at 44C75E, and 3.9 does not hold it at all.  `alr_single_pass` (< 4.00) now
+selects "splice the replacement verbatim" instead of "run one pass".
+
+Five goldens re-blessed, all of them games whose authors had written a fix-up
+that the real Runner never applies: `qui_a_tue_dana`, `barneysproblem`,
+`threeminutes`, `iqsfot` and `house`.  House's deliberate deviation changed
+value in the process -- our depth-capped walk bottoms out and the filter's next
+pass interpolates what it wrote, so we now print "You move east.", the line the
+author meant a sober player to see, instead of the literal `%drunk% east.`.
+
+Full v4 suite: 428 PASS / 0 FAIL.

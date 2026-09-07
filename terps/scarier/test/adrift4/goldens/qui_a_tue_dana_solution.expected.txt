@@ -312,7 +312,7 @@ Sorties évidentes: Bas et in.
 Vous êtes maintenant arrivé au commissariat, entrez donc!
 
 > in
-Vous entrez.
+Vous vous déplacez in.
 
 Couloir du Commissariat
 

@@ -27,14 +27,14 @@ a slight breeze keeps the heat from becoming uncomfortable.  The houses are
 medium sized, two story dwellings.  North lies No. 1 while south lies No. 2.
 
 > e
-%drunk% east.
+You move east.
 
 Bellview Road - numbers 3 and 4
 To the north lies No. 3 and to the south lies No. 4.  Nothing much seems to
 be going on around here.
 
 > e
-%drunk% east.
+You move east.
 
 Bellview Road - numbers 5 and 6
 Something casts a shadow over this part of the road.  You glance up and
@@ -42,14 +42,14 @@ notice that nothing is blocking the sunlight.  It's just slightly....darker
 here.  No. 5. lies to the north and No. 6. lies to the south.
 
 > e
-%drunk% east.
+You move east.
 
 Bellview Road - numbers 7 and 8
 A large tree stands here.  To the north lies No. 7 and to the south lies No.
 8.
 
 > e
-%drunk% east.
+You move east.
 
 Bellview Road - numbers 9 and 10
 Bellview Road ends here and becomes Haughton street to the east.  To the
@@ -143,7 +143,7 @@ You slip one arm under Cathy's knees, the other around her waist and gently
 lift her.  You are now carrying Cathy.
 
 > w
-%drunk% west.
+You move west.
 
 Bellview Road - numbers 7 and 8
 The pavement is ragged and broken where a tree used to stand.  Its almost as
@@ -152,7 +152,7 @@ was a very large tree.  To the north something seems to be sliding over the
 walls of No. 7. and to the south is....darkness.
 
 > w
-%drunk% west.
+You move west.
 
 Bellview Road - numbers 5 and 6
 There is madness in the sky.  No. 5. lies to the north and No. 6. lies to the
@@ -258,7 +258,7 @@ her voice echoing through the house saying, "Cold...so cold.....".  Soon she
 stops talking altogether.
 
 > w
-%drunk% west.
+You move west.
 
 Dining room
 This room is dominated by a huge fireplace.  A large window is set in the
@@ -286,7 +286,7 @@ It is freezing.  You begin to shiver involuntarily.
 You are carrying a note and a diary.
 
 > e
-%drunk% east.
+You move east.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -296,7 +296,7 @@ front door is behind you and stands beside a narrow window with its own
 wooden shutter.  You can also see a wooden stool.
 
 > e
-%drunk% east.
+You move east.
 
 Lounge
 A large room that has been leached of all cheer by darkness and decay.  Damp
@@ -317,7 +317,7 @@ piano stands against one wall.  You can also see a wooden tea chest, a
 rocking chair and a lounge table.
 
 > w
-%drunk% west.
+You move west.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -327,7 +327,7 @@ front door is behind you and stands beside a narrow window with its own
 wooden shutter.  You can also see a wooden stool.
 
 > u
-%drunk% up.
+You move up.
 
 Landing
 There are three closed doors to the north,  east and west.  There is also
@@ -401,7 +401,7 @@ There are three closed doors to the north,  east and west.  There is also
 square hole in the ceiling way above your head.
 
 > d
-%drunk% down.
+You move down.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -414,7 +414,7 @@ wooden shutter.  You can also see a wooden stool.
 You can't go in that direction, but you can move east, west and up.
 
 > w
-%drunk% west.
+You move west.
 
 Dining room
 This room is dominated by a huge fireplace.  A large window is set in the
@@ -453,7 +453,7 @@ It is stiff and it takes a few good tugs before it opens.
 The kitchen door is already open!
 
 > n
-%drunk% north.
+You move north.
 
 Kitchen
 A small narrow room with the same bare floor as the rest of the house.  A gas
@@ -503,7 +503,7 @@ the cupboard is the kitchen sink.  The back door is to the north.    A rancid
 smell fills the kitchen and you can hear a faint hissing noise.
 
 > s
-%drunk% south.
+You move south.
 
 Dining room
 This room is dominated by a huge fireplace.  A large window is set in the
@@ -554,7 +554,7 @@ catatonic.
 Cathy stirs and looks at you.  Some colour has come back into her cheeks.
 
 > n
-%drunk% north.
+You move north.
 
 Kitchen
 A small narrow room with the same bare floor as the rest of the house.  A gas
@@ -601,7 +601,7 @@ You turn off the cold tap and the hissing noise stops.
 Your score is 5 out of a maximum of 30.  (16%)
 
 > s
-%drunk% south.
+You move south.
 
 Dining room
 This room is dominated by a huge fireplace.  A large window is set in the
@@ -745,7 +745,7 @@ Your score is 5 out of a maximum of 30.  (16%)
 You pick up the stool.  The telephone slides off and falls onto the floor.
 
 > u
-%drunk% up.
+You move up.
 
 Landing
 There are three closed doors to the north,  east and west.  There is also
@@ -787,7 +787,7 @@ bedroom and the master bedroom is to the west.  There is a square hole in the
 ceiling way above your head.  Cathy seems to have recovered.
 
 > n
-%drunk% north.
+You move north.
 
 Bathroom
 A small, frost covered window is set into the south wall.  A shutter lies
@@ -802,7 +802,7 @@ a photograph are inside the bath.
 You take the old newspaper from the bath.
 
 > s
-%drunk% south.
+You move south.
 
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
@@ -810,7 +810,7 @@ bedroom and the master bedroom is to the west.  There is a square hole in the
 ceiling way above your head.
 
 > d
-%drunk% down.
+You move down.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -820,7 +820,7 @@ front door is behind you and stands beside a narrow window with its own
 wooden shutter.  You can also see an old fashioned telephone.
 
 > w
-%drunk% west.
+You move west.
 
 Dining room
 This room is dominated by a huge fireplace.  A large window is set in the
@@ -831,7 +831,7 @@ its place on the floor, rolled it up and placed it to one side.  You can also
 see a dining room table and a wooden trapdoor.
 
 > n
-%drunk% north.
+You move north.
 
 Kitchen
 A small narrow room with the same bare floor as the rest of the house.  A gas
@@ -913,7 +913,7 @@ You step back into the darkness.
 You watch fascinated as Cathy swiftly grows and becomes a woman.
 
 > s
-%drunk% south.
+You move south.
 
 Dining room
 This room is dominated by a huge fireplace.  A large window is set in the
@@ -924,7 +924,7 @@ its place on the floor, rolled it up and placed it to one side.  You can also
 see a dining room table and a wooden trapdoor.
 
 > e
-%drunk% east.
+You move east.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -934,7 +934,7 @@ front door is behind you and stands beside a narrow window with its own
 wooden shutter.  You can also see an old fashioned telephone.
 
 > e
-%drunk% east.
+You move east.
 
 Lounge
 A large room that has been leached of all cheer by darkness and decay.  Damp
@@ -994,7 +994,7 @@ piano stands against one wall.  You can also see a wooden tea chest, a
 rocking chair, a lounge table and a mechanical mouse.  Cathy smiles at you.
 
 > w
-%drunk% west.
+You move west.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -1004,7 +1004,7 @@ front door is behind you and stands beside a narrow window with its own
 wooden shutter.  You can also see an old fashioned telephone.
 
 > w
-%drunk% west.
+You move west.
 
 Dining room
 This room is dominated by a huge fireplace.  A large window is set in the
@@ -1114,7 +1114,7 @@ You heave the trapdoor open creating a loud creak.  Musty air rises up around
 you.
 
 > u
-%drunk% up.
+You move up.
 
 Dining room
 This room is dominated by a huge fireplace.  A large window is set in the
@@ -1135,7 +1135,7 @@ finality that makes you feel a bit more secure.
 Your score is 13 out of a maximum of 30.  (43%)
 
 > e
-%drunk% east.
+You move east.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -1155,7 +1155,7 @@ that makes you feel a bit more secure.
 Your score is 14 out of a maximum of 30.  (46%)
 
 > u
-%drunk% up.
+You move up.
 
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
@@ -1163,7 +1163,7 @@ bedroom and the master bedroom is to the west.  There is a square hole in the
 ceiling way above your head.
 
 > n
-%drunk% north.
+You move north.
 
 Bathroom
 A small, frost covered window is set into the south wall.  A shutter lies
@@ -1181,7 +1181,7 @@ that makes you feel a bit more secure.
 Your score is 15 out of a maximum of 30.  (50%)
 
 > s
-%drunk% south.
+You move south.
 
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
@@ -1189,7 +1189,7 @@ bedroom and the master bedroom is to the west.  There is a square hole in the
 ceiling way above your head.
 
 > e
-%drunk% east.
+You move east.
 
 Cathy's old room
 A small, frost covered window is set into the south wall.  A shutter lies
@@ -1215,7 +1215,7 @@ stash under the floor in here.  Granddad knew about it so we may find some
 useful things inside".  Cathy starts to examine the floor.
 
 > w
-%drunk% west.
+You move west.
 
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
@@ -1317,7 +1317,7 @@ also see a large bookcase.  Cathy looks upset.
 Your score is 16 out of a maximum of 30.  (53%)
 
 > e
-%drunk% east.
+You move east.
 
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
@@ -1325,7 +1325,7 @@ bedroom and the master bedroom is to the west.  There is a square hole in the
 ceiling way above your head.
 
 > d
-%drunk% down.
+You move down.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -1335,7 +1335,7 @@ front door is behind you and stands beside a shuttered window.  You can also
 see an old fashioned telephone.
 
 > e
-%drunk% east.
+You move east.
 
 Lounge
 A large room that has been leached of all cheer by darkness and decay.  Damp
@@ -1356,7 +1356,7 @@ you feel a bit more secure.
 Your score is 17 out of a maximum of 30.  (56%)
 
 > w
-%drunk% west.
+You move west.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -1366,7 +1366,7 @@ front door is behind you and stands beside a shuttered window.  You can also
 see an old fashioned telephone.
 
 > w
-%drunk% west.
+You move west.
 
 Dining room
 This room is dominated by a huge fireplace.  A large shuttered window is set
@@ -1392,7 +1392,7 @@ You tear off some pages and stuff them into the fireplace.
 You drop the axe.
 
 > n
-%drunk% north.
+You move north.
 
 Kitchen
 A small narrow room with the same bare floor as the rest of the house.  A gas
@@ -1407,7 +1407,7 @@ You take the large cast iron kettle from the kitchen sink.
 You fill the kettle from the hot tap.
 
 > s
-%drunk% south.
+You move south.
 
 Dining room
 This room is dominated by a huge fireplace.  A large shuttered window is set
@@ -1458,7 +1458,7 @@ burning match, some cobweb, a salt shaker, some desiccated herb, a jar of
 honey and a piece of chalk.
 
 > e
-%drunk% east.
+You move east.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -1470,7 +1470,7 @@ Shadows dance about the room chased by the light from your match.  You can
 also see an old fashioned telephone.
 
 > u
-%drunk% up.
+You move up.
 
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
@@ -1481,7 +1481,7 @@ With a cry you drop the match and suck the ends of your singed fingers.  The
 match burns itself out.
 
 > w
-%drunk% west.
+You move west.
 
 Master bedroom
 A large comfortable looking bed dominates this room.  It looks like it's
@@ -1553,7 +1553,7 @@ cobweb, a salt shaker, some desiccated herb, a notebook, a jar of honey, a
 piece of chalk and a pipette.
 
 > e
-%drunk% east.
+You move east.
 
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
@@ -1561,7 +1561,7 @@ bedroom and the master bedroom is to the west.  There is a square hole in the
 ceiling way above your head.
 
 > d
-%drunk% down.
+You move down.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -1571,7 +1571,7 @@ front door is behind you and stands beside a shuttered window.  You can also
 see an old fashioned telephone.
 
 > w
-%drunk% west.
+You move west.
 
 Dining room
 This room is dominated by a huge fireplace.  A large shuttered window is set
@@ -1607,7 +1607,7 @@ You take the small quantity of snuff from the silver snuffbox.
 You drop the small quantity of snuff.
 
 > u
-%drunk% up.
+You move up.
 
 Dining room
 This room is dominated by a huge fireplace.  A large shuttered window is set
@@ -1617,7 +1617,7 @@ from its place on the floor, rolled it up and placed it to one side.  You can
 also see a wooden trapdoor, an axe and some wood.
 
 > n
-%drunk% north.
+You move north.
 
 Kitchen
 A small narrow room with the same bare floor as the rest of the house.  A gas
@@ -1644,7 +1644,7 @@ You step back into the darkness.
 You watch fascinated as Cathy swiftly grows and becomes a woman.
 
 > s
-%drunk% south.
+You move south.
 
 Dining room
 This room is dominated by a huge fireplace.  A large shuttered window is set
@@ -1697,7 +1697,7 @@ spidery that it becomes illegible.
 Your score is 19 out of a maximum of 30.  (63%)
 
 > e
-%drunk% east.
+You move east.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
@@ -1707,7 +1707,7 @@ front door is behind you and stands beside a shuttered window.  You can also
 see an old fashioned telephone.
 
 > u
-%drunk% up.
+You move up.
 
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
@@ -1715,7 +1715,7 @@ bedroom and the master bedroom is to the west.  There is a square hole in the
 ceiling way above your head.
 
 > w
-%drunk% west.
+You move west.
 
 Master bedroom
 A large comfortable looking bed dominates this room.  It looks like it's
@@ -1760,7 +1760,7 @@ also see a large bookcase.  Cathy looks tired but exhilarated.
 Your score is 20 out of a maximum of 30.  (66%)
 
 > e
-%drunk% east.
+You move east.
 
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
@@ -1768,7 +1768,7 @@ bedroom and the master bedroom is to the west.  There is a square hole in the
 ceiling way above your head.
 
 > d
-%drunk% down.
+You move down.
 
 Hallway
 A long uncarpeted passage ending in rickety looking stairs.  The floorboards
