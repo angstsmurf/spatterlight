@@ -467,7 +467,7 @@ The four best targets, by walks x length:
 | `topaz.taf` | `topaz` | 23 | 0 | 0 | 4 | yes | [Topaz_walkthrough](Topaz_walkthrough.md) **done** 2026-09-05 -- run400 found the exact-empty `InRoomDesc` rule (FIXED), then clean; see "Measured so far" |
 | `Wreckage.taf` | `wreckage` | 23 | 0 | 0 | 2 | -- | [Wreckage_walkthrough](Wreckage_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `ARGH_sGreatEscape.taf` | `argh` | 22 | 0 | 0 | 1 | -- | [ARGHs_Great_Escape_walkthrough](ARGHs_Great_Escape_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `ShadricksTravels.taf` | `shadricks_travels` | 22 | 0 | 3 | 0 | -- | **done** 2026-09-05 -- run400 differs on ONE turn, the disambiguation wording (recorded, not ported); see "Measured so far" |
+| `ShadricksTravels.taf` | `shadricks_travels` | 22 | 0 | 3 | 0 | -- | **done** 2026-09-05 -- run400 differed on ONE turn, the disambiguation wording, **ported 2026-09-07** and the golden re-blessed; see "Measured so far" |
 | `1HRGAME.taf` | `masochists_heaven` | 20 | 0 | 0 | 0 | -- | [Masochists_Heaven_walkthrough](Masochists_Heaven_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Pieces of eden.taf` | `pieces_of_eden` | 20 | 0 | 1 | 3 | -- | [Pieces_of_eden_walkthrough](Pieces_of_eden_walkthrough.md) **driven** 2026-09-06 -- the Runner lost a feed command (Adrift_130_pieces_of_eden.txt); re-feed before reading anything into it, see "Measured 2026-09-06" |
 | `longbarrow.taf` | `longbarrow` | 19 | 0 | 0 | 2 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
@@ -978,11 +978,11 @@ and decompile addresses are in the harness row comments and in git history.
   interpolates what it wrote: `You move east.`, the line the author meant a
   sober player to see.  (Before the ALR walk went in on 2026-09-07 we
   printed the literal `%drunk% east.`.)
-- **run400 "Which <term>.  <list>?" disambiguation wording** (shadricks
-  `climb tree`; 4 goldens, 6 lines).  Unported because the expensive half
-  is the two-pass Short/alias narrowing that decides `<term>`; the
-  answer-eating follow-up prompt exists only for examine/read/look-in and
-  take/drop, so a non-owning verb reads the next line as a command.
+- ~~**run400 "Which <term>.  <list>?" disambiguation wording** (shadricks
+  `climb tree`)~~ **PORTED 2026-09-07** -- measured with `p4CO.taf`
+  (Adrift_925-930) and ported from the two handlers, with the pending answer
+  slot; three goldens moved.  See "Measured 2026-09-07: the 4.0
+  object-ambiguity prompt" at the foot of this file.
 
 ## Still open
 
@@ -3886,39 +3886,121 @@ Note that scarier's own ambiguity wording, `Please be more clear, what do you
 want to <verb>?` (`lib_disambiguate_object_common()`, `sclibrar.cpp:4428`), is
 a **SCARE invention**: the string is in none of the four Runner binaries.
 
-### The pending answer slot (Adrift_926, Adrift_927)
+### What a name is, and what gets listed (Adrift_928, 929, 930)
+
+    chop key        ->  NO IDEA.
+    x    key        ->  You see no such thing.
+    chop mustang    ->  NO IDEA.
+    x    mustang    ->  You see no such thing.
+    chop truck key  ->  I don't understand what you want me to do with the
+                        truck key.
+    tree            ->  Which tree.  The red tree or the blue tree?
+    rock            ->  I don't understand what you want me to do with the rock.
+    mustang key     ->  I don't understand what you want me to do with the
+                        mustang key.
+    x    tree rock  ->  Which tree.  The red tree, the blue tree or the rock?
+    x    rock tree  ->  Which tree.  The red tree, the blue tree or the rock?
+    chop tree rock  ->  Which tree.  The red tree, the blue tree or the rock?
+
+Four things fall out of those cells:
+
+* **A name matches whole or not at all.**  `key` is a word inside two Shorts
+  and `mustang` a word inside one, and neither names anything -- so
+  `unlock drawer with key` in `sswhore` is *not* an ambiguity 4.0 would
+  prompt about, and the remaining `Please be more clear` lines in the corpus
+  goldens are a separate, still-unmeasured question.
+* **The list is every object the line referenced**, in index order, not just
+  the term's namesakes: `x tree rock` lists the rock too.
+* **The term comes from the lowest-indexed ambiguous object, not from the
+  typed order**: `x rock tree` still says `Which tree`.
+* **No verb is needed.**  A bare `tree` raises the prompt; a bare `rock` gets
+  the unhandled-verb catch-all naming it.
+
+### The pending answer slot (Adrift_927, 929, 930)
 
 The prompt leaves a question pending, and the *next* line is not always a
 fresh command:
 
-    x keys / mustang  ->  That is still ambiguous!
-    chop tree / red   ->  I don't understand what you want me to do with the
-                          red tree.
-    x tree / zzz      ->  That is still ambiguous!
-    chop tree / look  ->  (the room description; the prompt is simply dropped)
-    chop tree / n     ->  (lca Adrift_328_lca.txt:738 -- the player moves north)
+    x keys      / mustang  ->  That is still ambiguous!
+    chop tree   / red      ->  I don't understand what you want me to do with
+                               the red tree.
+    x tree      / zzz      ->  That is still ambiguous!
+    x tree rock / rock     ->  That is still ambiguous!
+    x tree rock / blue     ->  A plain thing.
+    x tree rock / x rock   ->  A plain thing.
+    chop tree   / look     ->  (the room description; the question is dropped)
+    chop tree   / n        ->  (lca Adrift_328_lca.txt:738 -- the player moves
+                               north)
 
-So: a line the parser already recognises as a command (`look`, `n`) runs
-normally and the pending question is dropped.  Anything else goes to the
-answer slot, where the word is taken as an extra adjective in front of the
-original noun and the original command re-matched -- exactly one hit re-runs
-the **original verb** on that object (`red` -> `chop` the red tree, hence the
-unhandled-verb refusal naming it), anything else prints `That is still
-ambiguous!`.  `mustang` fails because `mustang keys` is nobody's name; `zzz`
-fails because it is nobody's name either.  The two messages are run400-only
-strings; the sibling `That wasn't one of the options!` was never triggered by
-any cell and is still unexplained.
+The slot claims the line **only when the line did nothing** -- the
+DontUnderstand path, or the unhandled-verb catch-all -- and the turn's own
+output goes with it, the way the 3.8 prompt replaces a turn wholesale.  A line
+that did something runs normally and simply spends the question: `x rock` and
+`look` are answered on their own terms even though `rock` and `look` are as
+much "answers" as anything else.  The pair `rock` / `x rock` is the cell that
+settles it: bare `rock` gets the catch-all in isolation (Adrift_930), so with a
+question open it is claimed and comes back `That is still ambiguous!`, while
+`x rock` examines the rock.
 
-### Why it is not ported yet
+What the slot does with the line: the typed words go in front of the pending
+term and the prompt's own candidates are re-scored with the 4.0 noun scorer
+(Short whole word = 1, +1 for any alias hit, +1 per Prefix word found).  A
+unique winner re-runs the **original** command with that object forced;
+anything else prints `That is still ambiguous!`.  The scores explain every
+cell: `red tree` = 2 against the blue tree's 1; `blue tree` = 2 against 1 and
+the rock's 0; `rock tree` = 1/1/1, because the answer is scored against the
+pending term and not on its own; `mustang keys` = 1/1, the Short not matching
+across the plural and both aliases hitting.  The sibling
+`That wasn't one of the options!` was never triggered by any cell and is still
+unexplained.
 
-Scarier's 3.7/3.8 port is an *end-of-turn whole-output replacement* driven by
-`run_co_pending_input` / `run_co_task_claimed` (`scrunner.cpp:4206`), fired on
-any line no task claimed.  4.0 needs two different predicates on two different
-paths (Short-only for the unhandled verb, Short-or-alias for examine), so the
-one flag cannot serve both: relax the counting predicate to Short-only and
-`x shed` stops prompting; leave it as it is and `chop shed` starts.  The port
-therefore wants the prompt raised from the two handlers, not from the turn
-driver, plus the answer slot -- and the answer slot changes what the *next*
-line means, so every 4.00 golden with an ambiguous noun has to be re-fed
-before it can be blessed.  Left as a lead; the measurement above is the
-specification.
+Both the prompt turn and a `That is still ambiguous!` turn are
+**administrative**: the probe's event is due on turn 1 and its `TICK.` lands on
+the first `look`, whatever number of prompts and answers went before it.
+
+### Ported 2026-09-07
+
+`sclibrar.cpp` gained a `lib_co_400_*` block next to the 3.7/3.8 port:
+`lib_co_400_raise()` prints the prompt (or the short `That is still
+ambiguous!` when a question was already open) and stores the pending term,
+command and candidates; `lib_co_400_raise_for_references()` is the examine
+test, called from `lib_disambiguate_object_common()` ahead of SCARE's invented
+`Please be more clear` listing; `lib_co_400_raise_for_short_tie()` is the
+unhandled-verb test, called from `lib_cmd_verb_object()` on both the tie the
+4.0 resolver reports and the positional matcher's multi-reference branch (the
+`lca` cell reaches the second: scarier binds both trees, so the count is 2 and
+the existing 4.0 block never ran);  `lib_co_400_answer_object()` scores an
+answer.  `scrunner.cpp` calls `lib_co_400_begin_line()` before every line and
+runs the answer slot after `run_all_commands()`, on `!status` or on the
+catch-all's `lib_co_400_line_refused()` flag, emptying the filter first.  All
+five probe feeds (Adrift_925-930) now match run400 cell for cell.
+
+Three goldens moved, all three confirmed against a run400 transcript:
+`lca` (`chop tree` -> `Which tree.  The tree or the tree?`, Adrift_328),
+`shadricks_travels` (`climb tree` -> `Which tree.  The old oak tree or the
+pine tree?`, Adrift_45) and `sswhore` (`examine chair` -> `Which chair.  The
+velvet chair or the desk chair?`, Adrift_304:849, plus the one-turn shift of
+the Oberst's two impatience events that follows from the prompt turn being
+administrative -- run400 puts the first of them on the *next* command,
+Adrift_304:856).  Full v4 suite: 428 PASS / 0 FAIL; a5 unchanged at
+180 MATCH / 18 DIVERGE.
+
+Still open from this measurement:
+
+* **The second-noun ambiguity has no measured wording.**  `sswhore`'s
+  `unlock drawer with key` still gets SCARE's invented `Please be more clear,
+  what do you want to unlock?  The brass key or the old skeleton key?`, and
+  `key` is not a name 4.0 would prompt on at all.  What run400 prints for an
+  ambiguous *instrument* is unmeasured; the probe has no lockable objects.
+* **`RestartType=2` with an immediate starter and a non-zero length fires
+  once and never re-arms.**  The probe's ticker is StarterType 1,
+  Time1=Time2=1, RestartType 2, and run400 prints `TICK.` on the first real
+  turn of every feed and never again (Adrift_925-930, eight turns in
+  Adrift_926); scarier re-arms it and ticks every turn.  This is the
+  non-zero-length twin of the 2026-08-02 zero-length finding in
+  `RUNNER_TESTS_TODO.md` section 4, whose fix gated only zero-length events.
+  Corpus exposure is **zero** -- all 34 `restart=2` events in the 121-game
+  corpus are `starter=2`, the random-delay starter, which re-arms through
+  `ES_WAITING` -- and whether the Runner leaves the event parked in a running
+  state (its LookText still in room descriptions) or finished is not measured,
+  so this is recorded rather than ported.

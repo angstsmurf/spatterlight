@@ -1268,8 +1268,7 @@ studio.
    "I know," you say, patting his head. "It freaked me out as well."
 
 > chop tree
-Whatever you're trying to do, you can't. Either check out the Film Director's
-Guide for more information, or type COMMANDS.
+Which tree.  The tree or the tree?
 
 > n
 

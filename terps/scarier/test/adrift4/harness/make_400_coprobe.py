@@ -21,16 +21,19 @@ and sitstand(), and that 4.0 "never raises this prompt from the dispatcher".
 lca says that last clause is wrong.  What is not yet known is WHICH lines 4.0
 raises it on, so this probe walks the handlers one at a time.
 
-Two rooms.  Alpha holds five objects, Bravo one:
+Two rooms.  Alpha holds seven objects, Bravo one:
 
-    object 0  "the tree"        Alpha    \\ two present namesakes: ambiguous
-    object 1  "the tree"        Alpha    /  by Short
+    object 0  "a red tree"      Alpha    \\ two present namesakes: ambiguous
+    object 1  "a blue tree"     Alpha    /  by Short, distinct noun phrases
     object 2  "a rock"          Alpha       unique, the control
     object 3  "a mustang key"   Alpha    \\ ambiguous by ALIAS only, both
        alias "keys"                      /  Shorts being different
     object 4  "a truck key"     Alpha    /
        alias "keys"
-    object 5  "the tree"        Bravo       a THIRD tree, never present with
+    object 5  "a hut"           Alpha    \\ ambiguous by one Short and one
+       alias "shed"                      /  alias: the mixed case
+    object 6  "a shed"          Alpha    /
+    object 7  "the tree"        Bravo       a THIRD tree, never present with
                                             the other two
 
 and one task, `poke %object%`, answering "POKE."  DontUnderstand is set to
@@ -62,6 +65,25 @@ The eleven commands and what each one asks:
 Command 3 doubles as the "is the next line eaten" control: it follows the
 prompt line directly, so if 4.0 swallows an answer the way a disambiguation
 question would, `x tree` never gets its own `> ` echo.
+
+Six feeds were run against this one .taf; each later cmdfile isolates its
+cells with a neutral `look` and answers the question it opened:
+
+    cmdfile_co.txt   the eleven commands above          Adrift_924
+    cmdfile_co2.txt  which handlers prompt, and on
+                     Short vs alias ties                Adrift_925/926
+    cmdfile_co3.txt  what the pending answer slot
+                     accepts (`red`, `zzz`, `mustang`)  Adrift_927
+    cmdfile_co4.txt  whole-word names ("key", "mustang"
+                     name nothing) and a bare noun      Adrift_928
+    cmdfile_co5.txt  two nouns in one line: what is
+                     listed, and which term is used     Adrift_929
+    cmdfile_co6.txt  answering with a listed object's
+                     own name; `rock` vs `x rock`       Adrift_930
+
+The measurements and the rule they add up to are written up in
+notes/WINE-TRANSCRIPTS-TODO.md and in the lib_co_400_*() block comment in
+sclibrar.cpp; they were ported 2026-09-07.
 
 Usage:
     python3 make_400_coprobe.py p4CO.plain
@@ -178,7 +200,7 @@ task("poke %object%", "POKE.")
 s(1)
 s("ticker")              # Short
 s(1)                     # StarterType: 1 = immediate
-s(2)                     # RestartType: 2 = restart immediately
+s(2)                     # RestartType: 2 = restart after Time1/Time2 turns
 s(0)                     # TaskFinished
 s(1); s(1)               # Time1, Time2 -- one turn, every turn
 s("")                    # StartText

@@ -861,6 +861,17 @@ extern scr_bool run_does_command_match (scr_gameref_t game,
 extern void run_set_task_class_filter (scr_int mode);
 extern scr_bool run_in_priority_pass (void);
 extern const scr_char *run_get_dispatch_input (void);
+extern void lib_co_400_reset (void);
+extern void lib_co_400_begin_line (void);
+extern scr_bool lib_co_400_question_pending (void);
+extern const scr_char *lib_co_400_pending_command (void);
+extern scr_int lib_co_400_forced (void);
+extern void lib_co_400_set_forced (scr_int object);
+extern void lib_co_400_note_refusal (void);
+extern scr_bool lib_co_400_line_refused (void);
+extern void lib_co_400_print_still_ambiguous (scr_gameref_t game);
+extern scr_int lib_co_400_answer_object (scr_gameref_t game,
+                                         const scr_char *line);
 extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,
                                         const scr_char *command);
 extern void run_priority_defer (void);

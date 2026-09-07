@@ -1791,12 +1791,14 @@ enquete_a_hauts_risques_solution.txt|EnqueteAHautsRisques.taf|Votre score est de
 # This game has no ALR table at all, so that IS the Runner's raw library
 # wording, out of name_object (46E5D8) at loc_46E1FC; none of run370/380/390/
 # 400 holds the string "Please be more clear" anywhere, so SCARE invented it.
-# Not ported: Scarier's sentence carries no <term>, and producing one needs
-# run400's two-pass Short/alias narrowing, which is the expensive half.
-# The drive also confirms the note above -- `climb` is not one of the
-# handlers that owns the follow-up prompt (examine/read/look-in and
-# take/drop are), so run400 read `climb oak tree` as an ordinary command at
-# its own prompt, exactly as we do.
+# PORTED 2026-09-07 (lib_co_400_* in sclibrar.cpp), measured with p4CO.taf
+# under run400 (Adrift_925-930): the prompt is raised from the two handlers,
+# the list is every object the line referenced in index order, and the term
+# is the lowest-indexed ambiguous one.  This row's golden was re-blessed to
+# the Runner's wording.  The line after a prompt is claimed as an ANSWER only
+# when it would otherwise do nothing, which is why the author's `climb tree`
+# still costs nothing here: run400 read the following `climb oak tree` as an
+# ordinary command at its own prompt, exactly as we do.
 shadricks_travels_solution.txt|ShadricksTravels.taf|You scored 100 out of the maximum 100!
 # Monsters (Release 2), Daniel Hiebert -- WIN, 40/40, which the SCR_DUMP_TASKS
 # ACT type=4 total (40 over 8 tasks) confirms is the maximum; all 8 fire here.
@@ -7502,6 +7504,13 @@ house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_W
 # Finally the shoot itself: "talk violetta" then "wait" on the Film Set, the
 # Moon, the desert and the ocean, then "give bar to zara" back on the Film
 # Set. 261 commands.
+# Turn 91 `chop tree` is the cell that found the 4.0 object-ambiguity prompt:
+# `chop` is in no task, both trees are present, and run400 answers "Which
+# tree.  The tree or the tree?" (Adrift_328_lca.txt:738) where we used to
+# print the game's DontUnderstand.  Ported 2026-09-07 -- see
+# notes/WINE-TRANSCRIPTS-TODO.md, "Measured 2026-09-07: the 4.0
+# object-ambiguity prompt".  The next command, `n`, still moves the player:
+# a line that does something is not read as an answer.
 lca_solution.txt|Lights_Camera_Action.taf|best ending in the game!|SCR_SKIP_WAITKEY=1
 mutaydid_solution.txt|mutaydid.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # ADayAtTheSeaside.taf (ADRIFT 4). Small 18-room errand game in Portobello,
@@ -7572,6 +7581,14 @@ reluctantvampire_solution.txt|The_Reluctant_Vampire.taf|you achieved a score of 
 # otherwise eats a scripted command). Final: "You scored 7 out of the
 # maximum 7!  That is 100% of the game!  Well done - you scored maximum
 # points!"
+# `examine chair` (two chairs present) is a 4.0 object-ambiguity prompt:
+# run400 answers "Which chair.  The velvet chair or the desk chair?" and the
+# turn is administrative, so von Bonerstein's two impatience events each land
+# one command later than they used to (Adrift_304_sswhore.txt:849-856).
+# Ported 2026-09-07; golden re-blessed.  The later `unlock drawer with key`
+# keeps SCARE's invented "Please be more clear" wording: `key` is a word
+# inside two Shorts and not a name 4.0 prompts on, so what run400 prints for
+# an ambiguous instrument is still unmeasured.
 sswhore_solution.txt|ss whore.taf|You scored 7 out of the maximum 7!|SCR_SKIP_WAITKEY=1
 # warlord.taf ("The Warlord, The Princess & The Bulldog" by David Whyld,
 # ADRIFT 4, release 46). A comedy-fantasy castle-infiltration romp. The

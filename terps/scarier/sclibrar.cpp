@@ -4274,6 +4274,430 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
   return TRUE;
 }
 
+/*
+ * lib_co_400_*()
+ *
+ * The 4.0 object-ambiguity prompt, its pending question, and the answer
+ * slot the question opens.  Measured 2026-09-07 with harness/make_400_coprobe.py
+ * -> p4CO.taf, two rooms and eight static objects sharing one description so
+ * that only the CHOICE shows: two trees whose Short is "tree", a rock (the
+ * unique control), a mustang key and a truck key both aliased "keys", a hut
+ * aliased "shed" beside an object whose Short IS "shed", and a third "tree"
+ * in the far room as the presence control.  One task `poke %object%`, the
+ * game's DontUnderstand "NO IDEA.", and a one-shot event printing "TICK." so
+ * that a swallowed turn shows.  Transcripts Adrift_924-930, run400 under
+ * Wine (feeds cmdfile_co.txt .. cmdfile_co6.txt in the harness prefix).
+ *
+ * The gate comment on lib_co_ambiguity_prompt() above used to say 4.0 "never
+ * raises this prompt from the dispatcher, so the port stops at 3.9".  It does
+ * raise it -- from the two handlers rather than from the turn driver, under
+ * two different tests (Adrift_926, every cell isolated by a neutral `look`):
+ *
+ *     chop tree   ->  Which tree.  The red tree or the blue tree?
+ *     x    tree   ->  Which tree.  The red tree or the blue tree?
+ *     chop shed   ->  NO IDEA.
+ *     x    shed   ->  Which shed.  The hut or the shed?
+ *     chop keys   ->  NO IDEA.
+ *     x    keys   ->  Which keys.  The mustang key or the truck key?
+ *     chop rock   ->  I don't understand what you want me to do with the rock.
+ *     x    rock   ->  A plain thing.
+ *
+ * So the library EXAMINE path prompts whenever two or more PRESENT objects
+ * answer to the typed term by Short or by Alias ("shed" is one Short plus one
+ * alias, "keys" two aliases; both prompt), while the unhandled-verb path
+ * prompts only where the term is the SHORT of every tied candidate -- a
+ * Short+alias or alias+alias tie is not ambiguous enough for it and the
+ * game's DontUnderstand comes out instead.  Presence really is filtered: with
+ * only the far room's tree present, `chop tree` gives the plain "I don't
+ * understand what you want me to do with the tree." (Adrift_924).
+ *
+ * The wording is the 3.7/3.8 one already ported above -- `Which <term>.
+ * <NP> or <NP>?`, a full stop, two spaces, the noun phrases in index order
+ * joined ", " / " or " -- which is why lca T91's two identically named trees
+ * read "Which tree.  The tree or the tree?".
+ *
+ * What counts as a name, what gets listed, and where the term comes from
+ * (Adrift_928-930):
+ *
+ *     chop key        ->  NO IDEA.
+ *     x    key        ->  You see no such thing.
+ *     chop mustang    ->  NO IDEA.
+ *     tree            ->  Which tree.  The red tree or the blue tree?
+ *     rock            ->  I don't understand what you want me to do with the
+ *                         rock.
+ *     x    tree rock  ->  Which tree.  The red tree, the blue tree or the rock?
+ *     x    rock tree  ->  Which tree.  The red tree, the blue tree or the rock?
+ *     chop tree rock  ->  Which tree.  The red tree, the blue tree or the rock?
+ *
+ * A name matches whole or not at all -- "key" is a word inside two Shorts and
+ * names nothing -- so an ambiguity 4.0 prompts about is always a shared whole
+ * name.  The list is every object the LINE referenced, in index order, and
+ * not just the term's namesakes (the rock is listed under "Which tree"), and
+ * the term comes from the lowest-indexed ambiguous object rather than from
+ * the order the nouns were typed (`x rock tree` still says "Which tree").  No
+ * verb is needed for either path: a bare `tree` prompts, a bare `rock` gets
+ * the unhandled-verb catch-all naming it.
+ *
+ * Neither the prompt nor any of its answers is a turn.  The probe's ticker
+ * has StarterType 1 and Time1 = Time2 = 1, so its "TICK." lands on the first
+ * real turn of the session: Adrift_925 prints it after the opening `look`,
+ * Adrift_926 after the `look` that FOLLOWS `chop tree`, and Adrift_927 after
+ * the `look` that follows both `x keys` and its answer `mustang`.  Every
+ * prompt and every answer is therefore administrative.
+ *
+ * The prompt leaves a question pending and the NEXT line is read against it
+ * (Adrift_925/927, and lca):
+ *
+ *     x keys / mustang     ->  That is still ambiguous!
+ *     chop tree / red      ->  I don't understand what you want me to do with
+ *                              the red tree.
+ *     x tree / zzz         ->  That is still ambiguous!
+ *     chop tree / x tree   ->  That is still ambiguous!
+ *     x shed / chop keys   ->  That is still ambiguous!
+ *     x tree rock / rock   ->  That is still ambiguous!
+ *     x tree rock / blue   ->  A plain thing.
+ *     x tree rock / x rock ->  A plain thing.
+ *     x keys / x rock      ->  A plain thing.
+ *     chop tree / look     ->  (the room description)
+ *     chop tree / n        ->  (lca Adrift_328_lca.txt:738 -- the player moves)
+ *
+ * The rule that fits all of them is not "the next line is an answer": it is
+ * that the pending question changes only the places a line can end up with
+ * nothing to say.
+ *
+ *   - A line that DID something runs normally and drops the question
+ *     (`look`, `n`, `x rock`).
+ *   - A line that raises a NEW ambiguity prints "That is still ambiguous!"
+ *     instead of a second full prompt (`x tree`, and `chop keys`, whose
+ *     alias tie the unhandled-verb path would otherwise pass over to
+ *     DontUnderstand).
+ *   - A line that did nothing goes to the answer slot, and its own output
+ *     goes with it: that is either the game's DontUnderstand text or the
+ *     unhandled-verb catch-all.  `rock` / `x rock` is the pair that settles
+ *     the second half -- bare `rock` gets the catch-all in isolation
+ *     (Adrift_930), so with a question open it is claimed and answers "That
+ *     is still ambiguous!", while `x rock` examines the rock.
+ *
+ * In the slot the typed words are taken as extra adjectives in front of the
+ * pending noun and the prompt's own candidates re-scored with the ordinary
+ * 4.0 noun score.  Exactly one winner re-runs the ORIGINAL command on that
+ * object -- `red` scores the red tree 2 (Short plus the Prefix word) against
+ * the blue tree's 1, so `chop tree` is re-run and its catch-all names the red
+ * tree.  Anything else prints "That is still ambiguous!": `mustang keys` ties
+ * 1-1 on the two aliases, `zzz tree` ties on the two Shorts, and `rock tree`
+ * ties three ways -- the answer is scored against the pending term, so
+ * naming a listed object outright does NOT pick it.
+ *
+ * Either answer clears the question: Adrift_925's `x keys` gets the full
+ * prompt again immediately after `chop keys` had answered "That is still
+ * ambiguous!".  The sibling string "That wasn't one of the options!" was
+ * never triggered by any cell and is still unexplained.
+ */
+static scr_bool lib_input_contains_word (const scr_char *input,
+                                         const scr_char *word);
+static scr_int lib_verb_object_name_score (scr_gameref_t game, scr_int object,
+                                           const scr_char *input);
+
+/* The open question, and the object an answer resolved it to. */
+static scr_bool lib_co_400_pending = FALSE;
+static scr_bool lib_co_400_refused = FALSE;
+static scr_bool lib_co_400_was_pending = FALSE;
+static std::string lib_co_400_term;
+static std::string lib_co_400_command;
+static std::vector<scr_int> lib_co_400_candidates;
+static scr_int lib_co_400_forced_object = -1;
+
+void
+lib_co_400_reset (void)
+{
+  lib_co_400_pending = FALSE;
+  lib_co_400_was_pending = FALSE;
+  lib_co_400_term.clear ();
+  lib_co_400_command.clear ();
+  lib_co_400_candidates.clear ();
+  lib_co_400_forced_object = -1;
+  lib_co_400_refused = FALSE;
+}
+
+/* Called once per typed line element, before it is dispatched. */
+void
+lib_co_400_begin_line (void)
+{
+  lib_co_400_was_pending = lib_co_400_pending;
+  lib_co_400_pending = FALSE;
+  lib_co_400_refused = FALSE;
+}
+
+scr_bool
+lib_co_400_question_pending (void)
+{
+  return lib_co_400_was_pending;
+}
+
+const scr_char *
+lib_co_400_pending_command (void)
+{
+  return lib_co_400_command.c_str ();
+}
+
+/*
+ * The object an answer picked, honoured by both resolvers while the original
+ * command is re-run so that the re-run cannot raise the same question again.
+ */
+scr_int
+lib_co_400_forced (void)
+{
+  return lib_co_400_forced_object;
+}
+
+void
+lib_co_400_set_forced (scr_int object)
+{
+  lib_co_400_forced_object = object;
+}
+
+/*
+ * The unhandled-verb catch-all leaves the turn as empty-handed as the
+ * DontUnderstand path does, so a pending question claims that line too; see
+ * the answer slot in run_process_input_line().
+ */
+void
+lib_co_400_note_refusal (void)
+{
+  lib_co_400_refused = TRUE;
+}
+
+scr_bool
+lib_co_400_line_refused (void)
+{
+  return lib_co_400_refused;
+}
+
+void
+lib_co_400_print_still_ambiguous (scr_gameref_t game)
+{
+  pf_buffer_string (gs_get_filter (game), "That is still ambiguous!\n");
+  game->is_admin = TRUE;
+}
+
+/* How many of the candidates answer to exactly this name. */
+static scr_int
+lib_co_400_namesake_count (scr_gameref_t game,
+                           const std::vector<scr_int> &objects,
+                           const scr_char *term)
+{
+  scr_int index_, count;
+
+  count = 0;
+  for (index_ = 0; index_ < (scr_int) objects.size (); index_++)
+    {
+      if (lib_co_object_answers_to (game, objects[index_], term))
+        count++;
+    }
+  return count;
+}
+
+/*
+ * Raise the question.  With one already open the Runner does not print a
+ * second prompt, only the short refusal; either way the line is
+ * administrative and the question that was open is now spent.
+ */
+static void
+lib_co_400_raise (scr_gameref_t game, const scr_char *term,
+                  const std::vector<scr_int> &objects)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *command;
+  scr_int index_;
+
+  game->is_admin = TRUE;
+
+  if (lib_co_400_was_pending)
+    {
+      pf_buffer_string (filter, "That is still ambiguous!\n");
+      return;
+    }
+
+  pf_buffer_string (filter, "Which ");
+  pf_buffer_string (filter, term);
+  pf_buffer_string (filter, ".  ");
+
+  pf_new_sentence (filter);
+  for (index_ = 0; index_ < (scr_int) objects.size (); index_++)
+    {
+      if (index_ > 0)
+        pf_buffer_string (filter,
+                          index_ == (scr_int) objects.size () - 1
+                          ? " or " : ", ");
+      lib_print_object_np (game, objects[index_]);
+    }
+  pf_buffer_string (filter, "?");
+  pf_buffer_character (filter, '\n');
+
+  command = run_get_dispatch_input ();
+  lib_co_400_pending = TRUE;
+  lib_co_400_term = term;
+  lib_co_400_command = command ? command : "";
+  lib_co_400_candidates = objects;
+}
+
+/*
+ * The examine path's test.  The candidates are every object the line
+ * referenced, in index order, and the question's term is the first name --
+ * Short first, then Alias -- that the line contains and that two or more of
+ * those candidates answer to.  Measured on p4CO with run400
+ * (Adrift_928/929): `x tree rock` and `x rock tree` both answer
+ * "Which tree.  The red tree, the blue tree or the rock?", so the list is
+ * the whole reference set and not just the term's namesakes, and the term
+ * comes from the lowest-indexed ambiguous object rather than from the order
+ * the nouns were typed in.
+ */
+static scr_bool
+lib_co_400_raise_for_references (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *input = run_get_dispatch_input ();
+  std::vector<scr_int> referenced;
+  scr_int object, index_;
+
+  if (!input)
+    return FALSE;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (game->object_references[object])
+        referenced.push_back (object);
+    }
+  if (referenced.size () < 2)
+    return FALSE;
+
+  for (index_ = 0; index_ < (scr_int) referenced.size (); index_++)
+    {
+      const scr_char *names[1 + 8];
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias, count, name;
+
+      object = referenced[index_];
+
+      count = 0;
+      names[count++] = prop_get_indexed_string (bundle, "Objects",
+                                                object, "Short");
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = object;
+      vt_key[2].string = "Alias";
+      alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+      for (alias = 0; alias < alias_count && count < 1 + 8; alias++)
+        {
+          vt_key[3].integer = alias;
+          names[count++] = prop_get_string (bundle, "S<-sisi", vt_key);
+        }
+
+      for (name = 0; name < count; name++)
+        {
+          if (scr_strempty (names[name])
+              || !lib_co_contains (input, names[name]))
+            continue;
+          if (lib_co_400_namesake_count (game, referenced, names[name]) < 2)
+            continue;
+
+          lib_co_400_raise (game, names[name], referenced);
+          return TRUE;
+        }
+    }
+
+  return FALSE;
+}
+
+/*
+ * The unhandled-verb path's test.  The candidates are the objects the 4.0
+ * noun score tied on, and the term is the Short of the lowest-indexed
+ * candidate that the line contains and that two or more of them share --
+ * aliases do not count here, which is why run400 answers `chop shed` (the
+ * hut answers to "shed" only by alias) with the game's DontUnderstand while
+ * `x shed` raises the question.  A candidate that shares no name still gets
+ * listed: `chop tree rock` prompts with all three (Adrift_929).
+ */
+static scr_bool
+lib_co_400_raise_for_short_tie (scr_gameref_t game,
+                                const std::vector<scr_int> &tied)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int index_;
+
+  if (!input || tied.size () < 2)
+    return FALSE;
+
+  for (index_ = 0; index_ < (scr_int) tied.size (); index_++)
+    {
+      const scr_char *term;
+      scr_int other, count;
+
+      term = prop_get_indexed_string (bundle, "Objects", tied[index_],
+                                      "Short");
+      if (scr_strempty (term) || !lib_input_contains_word (input, term))
+        continue;
+
+      count = 0;
+      for (other = 0; other < (scr_int) tied.size (); other++)
+        {
+          const scr_char *name;
+
+          name = prop_get_indexed_string (bundle, "Objects", tied[other],
+                                          "Short");
+          if (!scr_strempty (name) && scr_strcasecmp (name, term) == 0)
+            count++;
+        }
+      if (count < 2)
+        continue;
+
+      lib_co_400_raise (game, term, tied);
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
+/*
+ * The answer slot.  Returns the object the answer picked, or -1 for "That is
+ * still ambiguous!", which it prints itself.
+ */
+scr_int
+lib_co_400_answer_object (scr_gameref_t game, const scr_char *line)
+{
+  std::string phrase;
+  scr_int index_, best, best_count, object;
+
+  phrase = line ? line : "";
+  if (!phrase.empty ())
+    phrase += ' ';
+  phrase += lib_co_400_term;
+
+  object = -1;
+  best = 0;
+  best_count = 0;
+  for (index_ = 0; index_ < (scr_int) lib_co_400_candidates.size (); index_++)
+    {
+      const scr_int candidate = lib_co_400_candidates[index_];
+      const scr_int score = lib_verb_object_name_score (game, candidate,
+                                                        phrase.c_str ());
+
+      if (score > best)
+        {
+          object = candidate;
+          best = score;
+          best_count = 1;
+        }
+      else if (score == best)
+        best_count++;
+    }
+
+  if (best == 0 || best_count > 1)
+    return -1;
+  return object;
+}
+
+
 #ifdef SCARIER_DUMP_TOOLS
 /*
  * SCR_TRACE_CO: report where the Runner's test disagrees with ours at each
@@ -4350,6 +4774,20 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
 #ifdef SCARIER_DUMP_TOOLS
   lib_trace_runner_co (game, verb, count);
 #endif
+
+  /*
+   * An answer to a 4.0 ambiguity prompt re-runs the original command with
+   * its object already picked, so the question cannot be raised twice; see
+   * lib_co_400_answer_object().
+   */
+  if (count > 1 && lib_co_400_forced () >= 0
+      && game->object_references[lib_co_400_forced ()])
+    {
+      object = lib_co_400_forced ();
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        game->object_references[index_] = (index_ == object);
+      count = 1;
+    }
 
   /*
    * If this reference is ambiguous and a resolver was supplied, try to
@@ -4429,6 +4867,23 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
           pf_buffer_string (filter, verb);
           pf_buffer_string (filter, "?\n");
         }
+      return -1;
+    }
+
+  /*
+   * 4.0 asks the Runner's own question instead.  "Please be more clear, what
+   * do you want to <verb>?" is a SCARE invention -- the string is in none of
+   * the four Runner binaries -- and what run400 really prints where two
+   * present objects answer to the typed noun is the same "Which <term>.
+   * <list>?" the 3.7/3.8 scan above raises.  Measured on the examine path
+   * (see lib_co_400_raise()); the other library commands that disambiguate
+   * an object were not measured, but they cannot be printing an invented
+   * string either, so they share the wording here.
+   */
+  if (lib_is_version_400 (game) && lib_co_400_raise_for_references (game))
+    {
+      if (is_ambiguous)
+        *is_ambiguous = TRUE;
       return -1;
     }
 
@@ -14490,13 +14945,24 @@ lib_verb_object_name_score (scr_gameref_t game,
 }
 
 static scr_int
-lib_verb_object_resolve_400 (scr_gameref_t game)
+lib_verb_object_resolve_400_common (scr_gameref_t game,
+                                    std::vector<scr_int> *tied)
 {
   const scr_char *input = run_get_dispatch_input ();
   scr_int index_, object, best, best_count;
 
+  if (tied)
+    tied->clear ();
   if (!input)
     return -2;
+
+  /*
+   * An answer to an ambiguity prompt names the object outright, so the
+   * re-run of the original command cannot tie again; see
+   * lib_co_400_answer_object().
+   */
+  if (lib_co_400_forced () >= 0)
+    return lib_co_400_forced ();
 
   object = -2;
   best = 0;
@@ -14517,12 +14983,27 @@ lib_verb_object_resolve_400 (scr_gameref_t game)
           object = index_;
           best = score;
           best_count = 1;
+          if (tied)
+            {
+              tied->clear ();
+              tied->push_back (index_);
+            }
         }
       else if (score == best)
-        best_count++;
+        {
+          best_count++;
+          if (tied)
+            tied->push_back (index_);
+        }
     }
 
   return best_count > 1 ? -1 : object;
+}
+
+static scr_int
+lib_verb_object_resolve_400 (scr_gameref_t game)
+{
+  return lib_verb_object_resolve_400_common (game, NULL);
 }
 
 /*
@@ -14551,17 +15032,24 @@ lib_verb_object_resolve_400 (scr_gameref_t game)
  * rewrite we have not read.
  */
 static scr_bool
-lib_put_where_400 (scr_gameref_t game, scr_int resolved)
+lib_is_put_where_line_400 (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *input = run_get_dispatch_input ();
 
   if (!lib_is_version_400 (game) || !input)
     return FALSE;
-  if (scr_strncasecmp (input, "put ", 4) != 0
-      || strstr (input, " in ") || strstr (input, " on ")
-      || strstr (input, " into ") || strstr (input, " onto ")
-      || lib_input_contains_word (input, "down"))
+  return scr_strncasecmp (input, "put ", 4) == 0
+         && !strstr (input, " in ") && !strstr (input, " on ")
+         && !strstr (input, " into ") && !strstr (input, " onto ")
+         && !lib_input_contains_word (input, "down");
+}
+
+static scr_bool
+lib_put_where_400 (scr_gameref_t game, scr_int resolved)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (!lib_is_put_where_line_400 (game))
     return FALSE;
 
   if (resolved >= 0)
@@ -14609,8 +15097,36 @@ lib_cmd_verb_object (scr_gameref_t game)
           object = index_;
         }
     }
+
+  /*
+   * An answer to a 4.0 ambiguity prompt re-runs this line with its object
+   * already picked; see lib_co_400_answer_object().
+   */
+  if (lib_co_400_forced () >= 0)
+    {
+      count = 1;
+      object = lib_co_400_forced ();
+    }
+
   if (count != 1)
     {
+      /*
+       * 4.0: two present objects the player named by their shared Short is
+       * the Runner's ambiguity prompt, and it comes out here -- our
+       * positional matcher binds both trees for `chop tree`, so the count is
+       * 2 and the 4.0 resolver below is never reached.  A bare `put` is left
+       * alone: lib_cmd_put_where_400() answers it with "Where do you want to
+       * put that?", which is what the tie was measured to give there.
+       */
+      if (lib_is_version_400 (game) && !lib_is_put_where_line_400 (game))
+        {
+          std::vector<scr_int> tied;
+
+          if (lib_verb_object_resolve_400_common (game, &tied) == -1
+              && lib_co_400_raise_for_short_tie (game, tied))
+            return TRUE;
+        }
+
       /*
        * No object of that name is here.  Before giving up on the command --
        * which hands it to the game's DontUnderstand text -- see whether the
@@ -14660,12 +15176,25 @@ lib_cmd_verb_object (scr_gameref_t game)
    */
   if (lib_is_version_400 (game))
     {
-      const scr_int resolved = lib_verb_object_resolve_400 (game);
+      std::vector<scr_int> tied;
+      const scr_int resolved =
+          lib_verb_object_resolve_400_common (game, &tied);
 
       if (lib_put_where_400 (game, resolved))
         return TRUE;
       if (resolved == -1)
-        return FALSE;
+        {
+          /*
+           * A tie the player named by Short is the Runner's own ambiguity
+           * prompt -- `chop tree` with two trees called "tree" asks "Which
+           * tree.  The red tree or the blue tree?", while the alias ties
+           * `chop shed` and `chop keys` fall through to DontUnderstand as
+           * before.  See lib_co_400_raise().
+           */
+          if (lib_co_400_raise_for_short_tie (game, tied))
+            return TRUE;
+          return FALSE;
+        }
       if (resolved >= 0)
         object = resolved;
     }
@@ -14730,6 +15259,7 @@ lib_cmd_verb_object (scr_gameref_t game)
   uip_note_definite_reference ();
   lib_print_wrapped_object (game, "I don't understand what you want me to do with ",
                             object, ".\n");
+  lib_co_400_note_refusal ();
   return TRUE;
 }
 

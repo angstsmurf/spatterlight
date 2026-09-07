@@ -3471,6 +3471,7 @@ run_player_input (scr_gameref_t game)
       memset (line_buffer, NUL, sizeof (line_buffer));
       memset (prior_element, NUL, sizeof (prior_element));
       memset (line_element, NUL, sizeof (line_element));
+      lib_co_400_reset ();
       return TRUE;
     }
 
@@ -3609,8 +3610,57 @@ run_player_input (scr_gameref_t game)
    * uip_replace_pronouns() buffers that as it substitutes.
    */
 
+  /*
+   * Note whether a 4.0 ambiguity prompt left a question open, and close it:
+   * whatever this line turns out to be, the question is spent by the end of
+   * it.  See lib_co_400_raise() in sclibrar.cpp.
+   */
+  lib_co_400_begin_line ();
+
   /* Try the command line element against command matchers. */
   status = run_all_commands (game, command);
+
+  /*
+   * 4.0: with an ambiguity question open, a line that did nothing is an
+   * answer to it rather than a line the game misunderstood.  "Did nothing"
+   * is either of the two refusals that end a turn empty-handed -- the
+   * DontUnderstand path below, and the unhandled-verb catch-all in
+   * lib_cmd_verb_object() -- and the turn's own output goes with it, the way
+   * the 3.8 prompt replaces a turn wholesale (pf_empty() in
+   * lib_co_ambiguity_prompt()).  A line that DID something runs normally and
+   * simply spends the question: run400 answers `x tree rock` / `x rock` with
+   * "A plain thing." and not with the refusal (Adrift_930).
+   *
+   * The typed words go in front of the pending noun and the prompt's own
+   * candidates are re-scored; a unique winner re-runs the original command
+   * with that object forced, and anything else says "That is still
+   * ambiguous!".  Measured on p4CO.taf, Adrift_927 and Adrift_929 -- see
+   * lib_co_400_answer_object().
+   */
+  if (lib_co_400_question_pending () && !scr_strempty (command)
+      && (!status || lib_co_400_line_refused ()))
+    {
+      const scr_int answer = lib_co_400_answer_object (game, command);
+
+      pf_empty (filter);
+      if (answer >= 0)
+        {
+          const std::string original (lib_co_400_pending_command ());
+
+          lib_co_400_set_forced (answer);
+          status = run_all_commands (game, original.c_str ());
+          lib_co_400_set_forced (-1);
+        }
+      else
+        {
+          lib_co_400_print_still_ambiguous (game);
+          status = TRUE;
+        }
+
+      line_buffer[0] = NUL;
+      return status;
+    }
+
   if (!status)
     {
       const scr_char *message;
