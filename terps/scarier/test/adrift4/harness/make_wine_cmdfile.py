@@ -40,9 +40,17 @@ def main():
     row = row_for(solution)
     taf = os.path.join(ROOT, "games", row[1])
     env = dict(os.environ)
-    for assignment in row[3:]:
-        name, _, value = assignment.partition("=")
-        env[name] = value
+    # A row's env is ONE field per assignment in most rows but 25 of them
+    # (warlord, reluctantvampire, house, hcw, ...) space-join two inside a
+    # single field, exactly as the harness's own `env $ENV` word-splits it.
+    # Partitioning the whole field left SCR_SEED="33 SCR_SKIP_WAITKEY=1" and,
+    # worse, hid the SKIP wiring: the replay then stopped at every <waitkey>
+    # and ate the next solution line as the answer, so the generated feed was
+    # a desynced run of the game (warlord lost 77 blanks, 2026-09-07).
+    for field in row[3:]:
+        for assignment in field.split():
+            name, _, value = assignment.partition("=")
+            env[name] = value
     env["SCR_MARK_WAITKEY"] = "1"
     env["SCR_MARK_WAIT"] = "1"
     skip = "SCR_SKIP_WAITKEY" in env

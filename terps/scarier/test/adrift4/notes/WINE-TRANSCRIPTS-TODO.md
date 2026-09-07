@@ -1605,6 +1605,11 @@ alone.  Nothing in this batch is now longer than five differing turns.
 
 ### Lost a feed command (8) -- re-feed before reading anything into them
 
+ALL EIGHT RE-FED 2026-09-07 -- see "Measured 2026-09-07: the 19 re-fed
+rows" at the end of this file.  Seven of the eight now echo every feed
+command; only `hyper_b_s` still stops short, on the battle divergence the
+last column already names.  The verdicts below are the PRE-re-feed ones.
+
 | solution | transcript | lost | also seen before the loss |
 |---|---|---|---|
 | `cellar` | `Adrift_172` | `feed[119] undo` | T43 `x dust`: run400 "You see no such thing." vs Scarier "You can't see the dust from here!" -- the same divergence as `asdfa` -- FIXED 2026-09-06; the row's first diff is now T114 `take satchel`: run400 "There is nothing worth taking here." vs Scarier "Take what?" |
@@ -1891,6 +1896,12 @@ written up here (see the batch-1 section), and so, after fix 5, is
 
 ### Rows that lost a feed command (25) -- but half of them are not feed bugs
 
+The 11 mid-game rows were all re-fed on 2026-09-07 and all 11 are settled --
+see "Measured 2026-09-07: the 19 re-fed rows" at the end of this file.  The
+guesses below about `datewithdeath` ([MORE]), `crookedestate` (a file
+dialog) and `mustescape` (the echo matcher losing the ASCII art) were all
+wrong; the verdicts below are the PRE-re-feed ones.
+
 `aliasagent`, `cowboyblues`, `crookedestate`, `darkness`, `datewithdeath`,
 `donuts_intro`, `dreamquest`, `egghunt`, `Glum_Fiddle`, `grumble`,
 `howitstarted`, `mould`, `mustescape`, `patient7`, `reluctantvampire`,
@@ -1991,14 +2002,14 @@ follow-up on rows that have been driven, in this order:
    Runner does not have).
 7. **The refusal that accompanies a task** (`cbn2` T17, `relojero` T10,
    `qui_a_tue_dana` T21) -- one rule about which library message survives.
-8. **Re-feed the 19 rows that really lost a command** -- 8 from batch 1
-   (`cellar`, `confession`, `endgame`, `hyper_b_s`, `mortality`,
-   `pieces_of_eden`, `qui_a_tue_dana`, `saffire`) and the 11 mid-game rows
-   from batch 2 listed above.  `confession` (21 consecutive `z`) and
-   `hyper_b_s` (the `a`/`p` battle keys) want `#sleep` pacing;
-   `datewithdeath` wants the `[MORE]` counted.  The other 13 batch-2 rows
-   lost their commands *after the game ended* and will not improve with a
-   better feed.
+8. **Re-feed the 19 rows that really lost a command** -- DONE 2026-09-07,
+   and none of the guesses in this item survived: it was not pacing, and the
+   `[MORE]` was already counted.  Fifteen of the nineteen now echo every feed
+   command; `mould` and `grumble` lose only the golden's answers to scarier's
+   own [Y/N] confirmations; `confession` and `thelasthour` never lost
+   anything (both games END where the Runner stopped); `hyper_b_s` is the
+   battle divergence of item 4.  Four harness bugs came out of it -- see
+   "Measured 2026-09-07: the 19 re-fed rows" at the end of this file.
 9. **`scandal`** -- SETTLED 2026-09-06, and it was an engine bug, not a lost
    command.  run400 kills the player at feed[1] and scores 0/0 where scarier
    played the walkthrough out because `Scandal.taf`'s opening battle turn is
@@ -2483,3 +2494,112 @@ works against a room string with the Runner's separator in it.
 which is the no-content-regression gate (that tool collapses whitespace, so
 it is blind to this change by construction and useful only as a gate).
 `perspectives` goes from `diff 2` to `endtail 1`.
+
+## Measured 2026-09-07: the 19 re-fed rows -- 15 were the harness, not the engine
+
+Follow-up 8 above.  All 19 rows that "really lost a command" were re-fed with
+freshly generated feeds (`cmdfile_r_<solution>.txt`, `cmdfile_s_mould.txt`)
+and a driver that answers the pauses the feed does not.  **Fifteen of them now
+echo every feed command**; not one of the four that still do not is a lost
+command.
+
+| solution | transcript | before | after |
+|---|---|---|---|
+| `cellar` | `Adrift_361` | `feed[119] undo` lost | **132/132** |
+| `cowboyblues` | `Adrift_363` | 12 lost, `feed[248..268]` | **271/271** |
+| `crookedestate` | `Adrift_358` | `feed[44] save` lost | **47/47** |
+| `datewithdeath` | `Adrift_355` | `feed[5] book` -> `> ok` | **303/303** |
+| `endgame` | `Adrift_362` | `feed[9] z` lost | **10/10** |
+| `Glum_Fiddle` | `Adrift_367` | `feed[1] say cow` -> `> y cow` | **70/70** |
+| `mortality` | `Adrift_365` | `feed[33] e` lost | **78/78** |
+| `mustescape` | `Adrift_374` | 81 lost, `punch` -> `> nch` | **83/83** |
+| `pieces_of_eden` | `Adrift_375` | `feed[3] x officer` -> `> officer` | **11/11** |
+| `qui_a_tue_dana` | `Adrift_369` | `feed[20] parler` lost | **63/63** |
+| `reluctantvampire` | `Adrift_357` | `feed[189] fang` -> `> g` | **198/198** |
+| `riding_home` | `Adrift_368` | `feed[11] wait` lost | **56/56** |
+| `saffire` | `Adrift_371` | `feed[5]` -> `> urn on torch` | **16/16** |
+| `warlord` | `Adrift_373` | `feed[307] x artefacts` -> `> facts` | **356/356** |
+| `mould` | `Adrift_376` | 305 lost (aborted at the first `hint`) | every line echoed, in order |
+| `confession` | `Adrift_372` | 21 `z` "lost" | 16/16 -- **both engines end at turn 16** |
+| `thelasthour` | `Adrift_366` | 6 `wait` "lost" | 119/119 -- the game ended at 119 |
+| `grumble` | `Adrift_356` | `feed[262] y` lost | 262/262 -- the `y` answers `quit` |
+| `hyper_b_s` | `Adrift_359` | 6 battle keys lost | still short -- the **battle** divergence |
+
+### Four harness bugs, and none of them was pacing
+
+The note above guessed `#sleep` pacing for `confession` and `hyper_b_s` and
+an uncounted `[MORE]` for `datewithdeath`.  All three guesses were wrong.
+What was actually broken:
+
+1. **`make_wine_cmdfile.py` split the row's env wrong.**  Twenty-five rows
+   space-join two assignments inside ONE `|` field -- `SCR_SEED=33
+   SCR_SKIP_WAITKEY=1` -- exactly as the harness's own `env $ENV` word-splits
+   it.  The generator partitioned the whole field, so `SCR_SEED` became
+   `"33 SCR_SKIP_WAITKEY=1"` and, far worse, the SKIP wiring vanished: the
+   replay then stopped at every `<waitkey>` and ate the next solution line as
+   the answer, and the feed it emitted was a desynced run of the game.
+   `warlord` regenerated 77 blank lines short.  Fixed by splitting each field
+   on whitespace.
+2. **A `<waitkey>` the feed does not answer eats the next command.**  The feed
+   carries one blank per pause *scarier's replay* printed, so a pause only
+   run400 reaches -- an author's `[MORE]` in a passage scarier walks past, or
+   the text run400 re-prints after `undo` -- has no blank behind it and eats
+   the first characters of whatever is typed next.  `drive.exe` now answers
+   those itself before each command (`ClearStalePauses`), the way a human at
+   the keyboard would.  `warlord` cleared 6, `mustescape` 70, `mould` 12.
+   This alone fixed `cellar`, `cowboyblues`, `mortality`, `qui_a_tue_dana`,
+   `datewithdeath`, `endgame`, `riding_home` and `saffire`.
+3. **A pause can arrive WHILE the command is being typed.**  Clearing before
+   typing is not enough: the Runner sets the input-mode byte from its own
+   message loop, so a pause whose text was still rendering lands mid-command
+   and eats however many characters it is ahead of us.  `drive.exe` now reads
+   the entry box back after typing and retypes when it is short (Auto
+   complete only ever EXTENDS what was typed, so a short entry is
+   unambiguous).  `mustescape` retyped 14 times, `pieces_of_eden` once; both
+   went clean, and so did `warlord`'s last stubborn command.
+4. **`compare_wine_transcript.py` dropped a `> save` echo.**  `save` is a verb
+   a game can give a task of its own -- The Crooked Estate answers it with
+   "The estate is decayed beyond saving." -- and the tool skipped that echo as
+   if it were the Runner's own Save dialog.  It now skips it only when the
+   walkthrough did not type it.  `crookedestate` went from "1 lost" to 47/47
+   with no re-drive at all.
+
+### `mould`, `grumble`: a golden's answers to SCARIER's own [Y/N] are not commands
+
+`hint` and `quit` are interpreter meta-commands, not game turns: scarier asks
+"Do you really want to view hints? [Y/N]" and reads the answer off stdin
+without a prompt of its own, while the Runner puts up a modal window (a
+`Hints` VB form; a MsgBox for quit).  So the walkthrough's `y`/`n` lines after
+them are answers to *scarier*, and the Runner has nothing to type them into.
+
+- `mould` fed 11 of those, and `drive.exe`'s Hiscore branch read the unknown
+  `Hints` form as "the game has ended" and abandoned the run at command 22.
+  The driver now closes a `Hints`/`About` form and plays on, and driving the
+  hint-free feed `cmdfile_s_mould.txt` echoes **every one of its 313 lines in
+  order**.  The 12 the compare tool still calls lost are a PAUSE-COUNT
+  difference, not a loss -- see the next paragraph.
+- `grumble`'s single lost command is the last line of the walkthrough, the `y`
+  that answers `quit`.  262/262 real commands.
+
+`compare_wine_transcript.py` now says so out loud: when every line of the
+command file came back as an echo in order, it reports a pause-count
+difference instead of a lost command.  For a row that is not SKIP-wired the
+tool classifies each blank as a pause answer or an empty turn *from scarier's
+pauses*, so a game where run400 pauses where scarier does not turns the
+surplus blanks into turns on one side only.  `mould` is the first row where
+that shows: 10 blanks, all 10 empty turns in run400, only 3 in scarier.
+
+### The two that are real
+
+- **`confession` and `thelasthour` never lost anything.**  Both games END
+  where the Runner stopped: `confession` prints "Striking a plea deal" -- the
+  row's own win string -- at turn 16, and scarier's replay prints it at turn
+  16 too and consumes exactly 16 prompts.  The golden's 21 trailing `z` (and
+  `thelasthour`'s 6 trailing `wait`) are dead lines neither engine reads.
+- **`hyper_b_s` is the battle divergence, from before the first loss.**  The
+  Flare Rat dies at run400's 7th punch, the Hiscore Table form comes up and
+  the drive ends at command 18.  It belongs to follow-up 4, not to this one.
+
+Feeds for these rows are now `cmdfile_r_<solution>.txt` (all 19, regenerated
+2026-09-07) and `cmdfile_s_mould.txt` (hint-free).  Job files
+`jobs_fu8.txt` / `jobs_fu8b.txt`.

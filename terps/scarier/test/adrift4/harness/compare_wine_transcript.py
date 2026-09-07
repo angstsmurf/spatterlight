@@ -195,6 +195,29 @@ def read_feed(path, taf=None, env_extra=(), popup_answers=(), skip_wired=True):
     return feed, encoding
 
 
+def raw_lines_all_echoed(feed_path, runner_lines):
+    """Did every line of the command file come back as an echo, in order?
+
+    read_feed drops the blanks it believes answered a pause, so a row where
+    the two engines pause differently reads as lost commands even though the
+    Runner took every line the driver sent.  Comparing the RAW file with the
+    raw echoes tells the two apart.
+    """
+    lines, _ = cmdfile_lines(feed_path)
+    raw = [l.strip() for l in lines]
+    while raw and not raw[-1]:
+        raw.pop()
+    echoes = []
+    for line in runner_lines:
+        stripped = line.strip()
+        if stripped.startswith(">"):
+            echoes.append(stripped[1:].strip())
+    while echoes and not echoes[-1]:
+        echoes.pop()
+    return len(raw) == len(echoes) and all(
+        a.lower() == b.lower() for a, b in zip(raw, echoes))
+
+
 def normalise(text):
     """Whitespace-collapsed words, so hard wrapping is not a difference."""
     return re.sub(r"\s+", " ", text).strip()
@@ -231,7 +254,15 @@ def split_runner(lines, feed, lookahead, start=0):
         stripped = line.strip()
         if stripped.startswith(">"):
             stripped = stripped[1:].strip()
-            if stripped.lower() in ("save", "restore"):
+            # ... unless the WALKTHROUGH types it.  `save` is a verb a game
+            # can give a task of its own -- The Crooked Estate answers it with
+            # "The estate is decayed beyond saving." -- and dropping that echo
+            # reported a command the Runner had echoed perfectly as lost
+            # (crookedestate feed[44], 2026-09-07).
+            expected = any(feed[index + ahead].strip().lower() == stripped.lower()
+                           for ahead in range(0, lookahead + 1)
+                           if index + ahead < len(feed))
+            if stripped.lower() in ("save", "restore") and not expected:
                 skipping = True
                 continue
             skipping = False
@@ -370,7 +401,20 @@ def main():
           % (len(scarier_turns), args.offset))
     print()
 
-    if losses:
+    if losses and raw_lines_all_echoed(args.feed, read_lines(args.runner)):
+        # Every line of the command file, blanks included, came back as an
+        # echo in order -- nothing was lost.  What differs is which of those
+        # blanks was a pause answer: read_feed classifies them from SCARIER's
+        # pauses, so a game where run400 pauses where scarier does not (or the
+        # other way round) turns the surplus blanks into turns on one side
+        # only and the alignment reports them as losses (mould, 2026-09-07).
+        print("RULE 2 -- every line of the command file was echoed, in order.")
+        print("The %d \"lost\" command(s) below are a PAUSE-COUNT difference:"
+              % len(losses))
+        print("run400 and scarier disagree about which blanks answered a")
+        print("<waitkey>, so the two sides number their turns differently.")
+        print()
+    elif losses:
         print("RULE 2 -- %d command(s) the Runner never echoed.  Everything"
               % len(losses))
         print("after the first of them is out of step and is NOT an engine")
