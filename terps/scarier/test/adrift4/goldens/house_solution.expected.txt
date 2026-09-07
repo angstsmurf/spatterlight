@@ -1657,7 +1657,7 @@ also see a wooden trapdoor, an axe and some wood.
 There is no boiling water in the kettle.
 
 > put web in kettle
-There is no boiling water in the kettle.
+I don't understand what you want me to do with the large cast iron kettle.
 
 > put honey in kettle
 The jar of honey is too big to fit inside the large cast iron kettle.  There

@@ -962,6 +962,7 @@ static std::string run_trace_last_input;
 static scr_bool run_priority_pass_active = FALSE;
 static scr_bool run_priority_deferred = FALSE;
 static scr_bool run_priority_refused = FALSE;
+static scr_bool run_priority_unnamed_put = FALSE;
 
 scr_bool
 run_in_priority_pass (void)
@@ -990,6 +991,47 @@ run_priority_refuse (void)
 {
   assert (run_priority_pass_active);
   run_priority_refused = TRUE;
+}
+
+/*
+ * run_priority_unnamed_put_object()
+ *
+ * 4.0's "put X in Y" where X names nothing leaves the command line
+ * CLOBBERED, and the task passes never see what was typed.  run400 hands
+ * every line holding the whole word "put" or "drop" to put_drop_list
+ * (Proc_19_40_459DB4) ahead of the task dispatch; that normalises the line
+ * ("drop " -> "put ", "inside"/"into" -> "in", "onto" -> "on"), splits it
+ * at " in ", and calls name_object (Proc_19_41_46E5D8) to name the direct
+ * object.  name_object sets the global command line MemVar_494174 to the
+ * fragment Left(line, split) -- "put ice cream " -- and resolves that
+ * (Proc_21_58_463640 mode 2).  Every other outcome leaves by 46E5CD, which
+ * puts the line back; the one that does not is 46E142, reached when the
+ * fragment names nothing at all.  There the Runner prints "It is not clear
+ * which object you are referring to." ("Drop what?" for a "drop" line), but
+ * only when no put/drop-class task pre-matches the typed line
+ * (Proc_19_35_453C50 mode 2), and then returns at 46E23B with the fragment
+ * still installed.  generaltasks dispatches the tasks against THAT, so a
+ * task that would have claimed the typed line never matches, and the
+ * catch-all -- whose noun was resolved up front from the original line --
+ * answers instead: "I don't understand what you want to do with the cone."
+ *
+ * Measured on IceCream.taf in run400 (Adrift_900_icecream2.txt, 2026-09-07),
+ * whose three `put/place/set [the] ice cream in/on [the] cone` tasks share
+ * one pattern: `put ice cream in cone` and `put the ice cream in the cone`
+ * both come out as the catch-all, while `place ice cream in cone` runs the
+ * task (place never enters put_drop_list) and `put ice cream on cone` runs
+ * it too -- the "on" branch has an escape of its own at 459C39 that zeroes
+ * the split when the fragment resolves to nothing, so the line reaches the
+ * tasks intact.  The clobber is the "in" form only.
+ *
+ * The put-in handler signals the fragment with this, and run_all_commands()
+ * runs the task passes against the fragment in its place.
+ */
+void
+run_priority_unnamed_put_object (void)
+{
+  assert (run_priority_pass_active);
+  run_priority_unnamed_put = TRUE;
 }
 
 /*
@@ -1055,6 +1097,7 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
   run_priority_pass_active = TRUE;
   run_priority_deferred = FALSE;
   run_priority_refused = FALSE;
+  run_priority_unnamed_put = FALSE;
   for (command = PRIORITY_COMMANDS; command->command; command++)
     {
       if (uip_match (command->command, string, game))
@@ -1106,6 +1149,66 @@ run_is_put_command (scr_gameref_t game, const scr_char *string)
 
   game->object_references = references;
   return is_put;
+}
+
+/*
+ * run_replace_all()
+ * run_unnamed_put_fragment()
+ *
+ * Rebuild the command line run400's put_drop_list leaves behind when the
+ * direct object of a "put X in Y" names nothing -- see the 46E142 note on
+ * run_priority_unnamed_put_object() above.  put_drop_list normalises the
+ * line with four plain VB Replace() calls (459B3D-459BAC, substring not
+ * word, and "inside" before "into" so that "inside" cannot be reached by
+ * the shorter pattern), splits it at the first " in " (459BCD), and
+ * name_object installs Left(line, split) -- everything up to and including
+ * the space before "in" -- as the command line at 46DE99.
+ *
+ * The list branches leave before the clobber, so none of them is rebuilt
+ * here: a whole-word "all" or "and" in the fragment is answered by the
+ * loops at 46E04E and 46E0B2, and an " and " at or beyond the split --
+ * "put a in b and put c in d" -- sends put_drop_list round its own loop at
+ * 459C75 (the InStr there starts at the split, 459C60, so it only ever sees
+ * the second clause).
+ */
+static std::string
+run_replace_all (const std::string &string,
+                 const scr_char *from, const scr_char *to)
+{
+  const std::string pattern (from), replacement (to);
+  std::string result = string;
+  std::string::size_type at = 0;
+
+  while ((at = result.find (pattern, at)) != std::string::npos)
+    {
+      result.replace (at, pattern.length (), replacement);
+      at += replacement.length ();
+    }
+  return result;
+}
+
+scr_bool
+run_unnamed_put_fragment (const scr_char *string, std::string &fragment)
+{
+  std::string line (string);
+  std::string::size_type split;
+
+  line = run_replace_all (line, "drop ", "put ");
+  line = run_replace_all (line, "inside", "in");
+  line = run_replace_all (line, "into", "in");
+  line = run_replace_all (line, "onto", "on");
+
+  split = line.find (" in ");
+  if (split == std::string::npos)
+    return FALSE;
+
+  fragment = line.substr (0, split + 1);
+  if ((" " + fragment).find (" all ") != std::string::npos
+      || (" " + fragment).find (" and ") != std::string::npos
+      || line.find (" and ", split) != std::string::npos)
+    return FALSE;
+
+  return TRUE;
 }
 
 /*
@@ -3051,6 +3154,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_bool status, ask_echo, put_first, refused;
+  const scr_char *task_string;
+  std::string fragment;
   scr_int prior_npc;
 
   /*
@@ -3202,14 +3307,30 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
           pf_buffer_join_pending (filter);
         }
     }
+  /*
+   * A 4.0 put-in whose direct object named nothing has already rewritten the
+   * command line the tasks are dispatched against, and the Runner never puts
+   * it back -- run_priority_unnamed_put_object() has the whole of it.  The
+   * task passes get the fragment; the standard table, further down, still
+   * gets the line as typed, because the catch-all's noun was resolved from
+   * that before put_drop_list ever ran.
+   */
+  task_string = string;
+  if (put_first && !status && !refused && run_priority_unnamed_put
+      && run_unnamed_put_fragment (string, fragment))
+    task_string = fragment.c_str ();
+
   if (!status && !refused)
-    status = run_game_commands_in_parser_context (game, string, FALSE, TRUE);
+    status = run_game_commands_in_parser_context (game, task_string,
+                                                  FALSE, TRUE);
   if (!status && !put_first)
     status = run_priority_commands (game, string);
   if (!status)
-    status = run_game_commands_in_parser_context (game, string, FALSE, FALSE);
-  if (!status && !run_defer_loud_tasks_to_movement (game, string))
-    status = run_game_commands_in_parser_context (game, string, TRUE, FALSE);
+    status = run_game_commands_in_parser_context (game, task_string,
+                                                  FALSE, FALSE);
+  if (!status && !run_defer_loud_tasks_to_movement (game, task_string))
+    status = run_game_commands_in_parser_context (game, task_string,
+                                                  TRUE, FALSE);
   if (refused)
     {
       pf_clear_join_pending (filter);

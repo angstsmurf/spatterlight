@@ -262,6 +262,9 @@ put thyme in snuffbox
 s
 s
 put thyme in kettle
+# `web` names nothing present -- the cobweb's Short is "cobweb" and it has
+# no alias -- so 4.0's put/drop list parser rewrites the line to "put web "
+# and the catch-all speaks for the kettle instead.  Kept as coverage.
 put web in kettle
 put honey in kettle
 reveal thy secret

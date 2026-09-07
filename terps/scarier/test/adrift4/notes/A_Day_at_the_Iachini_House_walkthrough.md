@@ -48,7 +48,7 @@ The committed script is sectioned and commented; this is the skeleton.
 | Upstairs again | `e s w s s u e open armoire get matches n open shower get shampoo s e get afghan w w w n get towel s sw move panel drop hammer u get firewood d ne e d` | T15 the attic panel (+5) needs `str`; matches, shampoo, afghan, towel, firewood |
 | Fire & wash | `e n put firewood in fireplace w w look under table get sheets get newspaper e e put newspaper in fireplace w d n put afghan in machine close machine wash afghan` | T20 `look under table` (+5) is where the kid hid the dryer sheets; T16 starts EVENT 0 |
 | While the washer runs | `s u e light match light fire w w s push key 80 open piano get remote e u w ne take shower sw e d n n d n` | T27 the fire (+5), T23 `push key 80` (+10), T51 the shower (+10) |
-| Dryer | `open machine get afghan open dryer put afghan in dryer put sheet in dryer close dryer dry afghan z×6 open dryer get afghan` | T19 (+10) and the T38 `#dryer done` event (+10) |
+| Dryer | `open machine get afghan open dryer put afghan in dryer place sheet in dryer close dryer dry afghan z×6 open dryer get afghan` | T19 (+10) and the T38 `#dryer done` event (+10) |
 | Endgame | `s u e s sit on couch score turn on tv` | WIN at 115/115 |
 
 `keynum = 80` and the hot tub's starting `pH = 10` are set by immediate events
@@ -101,7 +101,16 @@ cheerfully answers "You put the box of dryer sheets inside the clothes dryer"
 — and then T19 refuses with "You don't want to run the dryer without a dryer
 sheet", because T19's third restriction is `RESTR type=2 … task18`, i.e. the
 *task* must have run, and putting the box in with the library take does not
-run it. The singular `put sheet in dryer` is required.
+run it.
+
+The singular is no better, for a different reason: `put sheet in dryer` never
+reaches a task at all. 4.0's put/drop list parser splits the line at `" in "`,
+resolves the fragment `"put sheet "` against the objects present, finds nothing
+(the box's Short is "sheets" and its only alias is "box"), and leaves the
+command line rewritten to that fragment — so the tasks match nothing and the
+catch-all answers "I don't understand what you want to do with the clothes
+dryer." Use T18's *second* command, which the author supplied for exactly this:
+**`place sheet in dryer`**. (`place` never enters the put/drop list parser.)
 
 **The remote is inside the closed piano.** T23 `push key 80` drops the remote
 control into the piano bench/body rather than into the room, so `get remote`

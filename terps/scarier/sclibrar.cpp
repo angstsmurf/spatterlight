@@ -7191,6 +7191,47 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
     }
 
   /*
+   * 4.0 gives the tasks their look at a held object too, and earlier than
+   * the one ahead of " can't take " below: run400's take piece
+   * Proc_19_39_46302C pre-matches "get <the object>" in the take-family
+   * mode (@462AED / @462B84) and dispatches it with the restriction-failure
+   * pass on (@462C5C, Proc_19_24_44CCE0(1, 1)) BEFORE either the
+   * " can't take " test at 462CA0 or the " already carrying " one at
+   * 462D01 -- and a claim exits the piece outright.  So a task restricted on
+   * already holding the object answers with its own fail message where the
+   * library would have said "You are already carrying the cone.".
+   *
+   * Measured on IceCream.taf in run400 (Adrift_900_icecream2.txt,
+   * 2026-09-07): `take cone`, with the cone already in hand at the start of
+   * the game, is task 14's "  You already have an empty cone." -- the
+   * FailMessage of its one restriction -- and not the library refusal.
+   *
+   * The look-up is the one 4.0's implicit take uses, definite name and
+   * " from <holder>" clause included; see
+   * lib_try_game_command_take_definite().
+   */
+  if (lib_is_version_400 (game) && !list.empty ())
+    {
+      lib_list_t held;
+      scr_bool is_claimed = FALSE;
+
+      for (const scr_int object : list)
+        {
+          if (lib_try_game_command_take_definite (game, object))
+            is_claimed = TRUE;
+          else
+            held.push_back (object);
+        }
+      list.swap (held);
+      if (is_claimed)
+        {
+          /* The task's text is complete in itself, terminator and all. */
+          lib_take_refusal_claimed = TRUE;
+          has_printed = TRUE;
+        }
+    }
+
+  /*
    * A take that named a single object uses the Runner's single-take
    * handler, which words the held-object refusal "I am already carrying
    * <object>." (run400 @00462D25); "'ve already got <object>!" is the
@@ -10439,6 +10480,40 @@ lib_cmd_put_all_in (scr_gameref_t game)
 
 
 /*
+ * lib_put_fragment_names_nothing()
+ *
+ * run400's name_object resolves the fragment with the noun scorer
+ * Proc_21_58_463640 in mode 2 -- every object PRESENT, seen or not -- and
+ * only the empty answer (&HFF) reaches the clobbering exit at 46E23B.
+ * That is a narrower test than the library's own %text% parse above: the
+ * parse also applies the put filter, so an object whose name the fragment
+ * plainly holds can still fail it.  hub's `put soup in pan` is the case --
+ * object "minestrone soup" carries the alias "soup" and scores 1 in the
+ * Runner, so run400 names it and never rewrites the line, while Scarier's
+ * parse rejects it for sitting inside the can.  Ask the scorer directly.
+ */
+static scr_bool
+lib_put_fragment_names_nothing (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  std::string fragment;
+  scr_int index_;
+
+  if (!input || !run_unnamed_put_fragment (input, fragment))
+    return FALSE;
+
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      if (!obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+        continue;
+      if (lib_verb_object_name_score (game, index_, fragment.c_str ()) > 0)
+        return FALSE;
+    }
+
+  return TRUE;
+}
+
+/*
  * lib_put_in_multiple_common()
  *
  * Put the objects held by the player and listed in %text% into an object,
@@ -10463,7 +10538,24 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
                                    is_except ? lib_put_in_not_container_filter
                                              : lib_put_in_filter,
                                    is_except ? container : -1, &references))
-    return FALSE;
+    {
+      /*
+       * A 4.0 "put X in Y" whose X names nothing is run400's 46E142, the one
+       * exit of name_object that leaves the command line rewritten to the
+       * fragment "put X " -- see run_priority_unnamed_put_object().  The
+       * container has to be a real container for the Runner to have got that
+       * far: 46DE19 turns anything else away with "can't put anything inside
+       * X!", along the exit that puts the line back.  The except form takes
+       * the "all" branch at 46E04E and never reaches the clobber.
+       */
+      if (!is_except
+          && lib_is_version_400 (game)
+          && run_in_priority_pass ()
+          && obj_is_container (game, container)
+          && lib_put_fragment_names_nothing (game))
+        run_priority_unnamed_put_object ();
+      return FALSE;
+    }
   else if (references == 0)
     return TRUE;
 

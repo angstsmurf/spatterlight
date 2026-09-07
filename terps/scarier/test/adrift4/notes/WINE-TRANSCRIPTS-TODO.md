@@ -584,7 +584,7 @@ refuses to load it.
 | `howitstarted` | howitstarted.taf | `Adrift_212_howitstarted.txt` | lost-cmd | 1 lost, first feed[28] `score` |
 | `hub` | hub.taf | `Adrift_293_hub.txt` | diff 16 | T35 `take watch`: run400 'I take my watch. I'm beginning to wish I was fully clothed.' vs scarier 'I take my watch.' |
 | `iachini` | iachini.taf | `Adrift_327_iachini.txt` | diff 21 | T27 `read card in mirror`: run400 'You hold the index card up to the mirror and read the reflection. You ' vs scarier 'You hold the index card up to the mirror and read the reflection. You ' |
-| `icecream` | IceCream.taf | `Adrift_177_icecream.txt` | diff 3 | T0 `take cone`: run400 'You already have an empty cone.' vs scarier 'You are already carrying the cone.' |
+| `icecream` | IceCream.taf | `Adrift_177_icecream.txt` | ~~diff 3~~ DONE 2026-09-07 | T0 `take cone`: run400 'You already have an empty cone.' vs scarier 'You are already carrying the cone.' |
 | `igor` | igor.taf | `Adrift_201_igor.txt` | endtail 1 | T21 `press 4th switch`: run400 'The MONSTER LIVES ! Well done, The Master has created a better servant' vs scarier 'The MONSTER LIVES ! Well done, The Master has created a better servant' |
 | `ilgolem` | Il Golem.taf | `Adrift_281_ilgolem.txt` | endtail 1 | T88 `leggi libro`: run400 'Apri il libro Golem per Dummies, sulla prima pagina c'è una dedica di ' vs scarier 'Apri il libro Golem per Dummies, sulla prima pagina c'è una dedica di ' |
 | `jailbreakbob` | jailbreakbob.taf | `Adrift_233_jailbreakbob.txt` | endtail 1 | T30 `n`: run400 'As you approach the gate with the gun, you experience a moment's worry' vs scarier 'As you approach the gate with the gun, you experience a moment's worry' |
@@ -921,6 +921,16 @@ and decompile addresses are in the harness row comments and in git history.
   Runner binaries, but none of them currently diverges on the corpus.  See
   "Audited 2026-09-07" at the end of this file.  All eleven are now compiled
   out by `SCARIER_NO_ABBREVIATIONS`; see "Gated 2026-09-07" at the end.
+- 4.0's take gives the tasks `get <the object>` BEFORE both of its refusals,
+  not just before " can't take ": run400 46302C @462C5C runs the look-up ahead
+  of " already carrying " too, so a task restricted on already holding the
+  object answers with its own FailMessage (icecream T0).  See "Ported
+  2026-09-07: `icecream`'s two rules" at the end of this file.
+- A 4.0 `put X in Y` whose X names nothing PRESENT leaves the command line
+  clobbered to the fragment `put X `: put_drop_list (459DB4) runs before the
+  task dispatch, and name_object's 46E142 exit is the one that does not put the
+  line back.  The tasks then match nothing and the catch-all speaks for the
+  container.  `place`/`set` and the `on` form are unaffected.  Same section.
 
 ## Deliberate deviations (measured, not ported)
 
@@ -1862,11 +1872,14 @@ written up here (see the batch-1 section), and so, after fix 5, is
   unchanged and correct; what was really broken in this area was
   `scr_randomint` on a backwards range -- see "Ported 2026-09-07: a backwards
   random range still draws" at the end of this file.
-- **`icecream`, 3 turns, 3 commands in.**  T0 `take cone` run400 `You already
-  have an empty cone.` / scarier `You are already carrying the cone.` -- the
-  Runner used the object's alternate description where scarier used its
-  name.  T2 `put ice cream in cone` run400 `I don't understand what you want
-  to do with the cone.` / scarier runs the task.
+- ~~**`icecream`, 3 turns, 3 commands in.**~~  **DONE 2026-09-07**, and it was
+  two unrelated rules.  T0 was not an alternate description at all -- it is the
+  game's own task 14 FailMessage, which run400 reaches because its take piece
+  dispatches `get <the object>` before BOTH refusals, not just before
+  `can't take`.  T2 is the 4.0 put/drop list parser leaving the command line
+  clobbered to the fragment `put ice cream ` when the direct object names
+  nothing present.  See "Ported 2026-09-07: `icecream`'s two rules" at the end
+  of this file.
 - **`bandera` T18 -- NOT the seen model after all.**  `x marife` -> run400
   `No ves tal cosa.`, scarier describes her.  It looked like batch 1's
   `asdfa` T2 / `cbn` T6 / `cellar` T43, but those three were the object
@@ -2025,10 +2038,13 @@ follow-up on rows that have been driven, in this order:
    `backhome` T36 (run400 prints it) against `overtheedge` T1,
    `bigcitylaundry` T1, `stationxiii` T25 (scarier prints it).  Six rows,
    split evenly, so this is the tick and not a missing event.
-6. **`icecream`** (3 commands in: the take refusal uses the alternate
-   description, and `put ice cream in cone` runs in scarier and is refused by
-   run400).  `suburbanprodigy3` used to sit here too -- DONE 2026-09-07, the
-   `stats` synonym was a SCARE invention and is gone.
+6. **`icecream`** -- DONE 2026-09-07.  Two rules, neither of them the guess in
+   this item: the take refusal is a game task's FailMessage that run400 reaches
+   ahead of " already carrying ", and `put ice cream in cone` is refused
+   because put_drop_list clobbers the command line to `put ice cream ` when
+   that fragment names nothing present.  `suburbanprodigy3` used to sit here
+   too -- DONE 2026-09-07, the `stats` synonym was a SCARE invention and is
+   gone.
 7. **The refusal that accompanies a task** (`cbn2` T17, `relojero` T10,
    `qui_a_tue_dana` T21) -- one rule about which library message survives.
 8. **Re-feed the 19 rows that really lost a command** -- DONE 2026-09-07,
@@ -3076,3 +3092,153 @@ so the default build is unchanged (suite 428/428 PASS).  A hand-built
 played these games before.  Step it up!" for anything the game does not know:
 all twelve dropped words (the eleven plus `stats`) reach that catch-all, while
 every row in the paragraph above still answers from the library.
+
+## Ported 2026-09-07: `icecream`'s two rules -- the take that a task claims, and the put whose direct object names nothing
+
+`icecream` was the last of the "sharpest new leads" with two diffs in it, and
+they turned out to be two unrelated 4.00 rules.  Both are now ported, and the
+game's three-diff row is closed.
+
+### T0 -- `take cone`: a held object still gets its task look-up
+
+```
+turn 0  take cone
+  run400    You already have an empty cone.        (two leading spaces)
+  scarier   You are already carrying the cone.
+```
+
+The lead read this as "the Runner used the object's alternate description".
+It is not a description at all.  `IceCream.taf` task 14 is `[take/get] cone`
+with one restriction -- the player must NOT be holding the cone -- and
+FailMessage `  You already have an empty cone.`  run400 runs that task; scarier
+never offered it the line.
+
+run400's take piece is `Proc_19_39_46302C`.  Before it refuses anything it
+builds `"get " & name(obj, 0)` (the definite form, plus a ` from <holder>`
+clause when the object is inside another) at @462AED/@462B84, pre-matches it in
+the take-family class, and dispatches it at @462C5C with
+
+```
+loc_462C5C: Proc_19_24_44CCE0(1, 1)     ' run tasks, restriction-failure pass ON
+```
+
+A claim exits the piece.  Only if nothing claims does it reach the
+" can't take " test at 462CA0 and the " already carrying " one at 462D01.
+Scarier had exactly this retry, but only ahead of `can't take` -- so a task
+restricted on *already holding* the object could never win.  Moving it to the
+top of `lib_take_backend_common()` (before the held-object list is spoken for)
+makes both refusals share the one look-up, as 46302C does.
+
+Note the second `1`: the restriction-failure pass.  That is why a task whose
+restriction FAILS still prints its FailMessage and still counts as claimed --
+the same argument pair `lib_try_game_command_take_definite()` already passes
+for 4.0's implicit take ([[adrift4-put-family-precedence]]).
+
+### T2 -- `put ice cream in cone`: the clobbered command line
+
+```
+turn 2  put ice cream in cone
+  run400    I don't understand what you want to do with the cone.
+  scarier   (ran task 15 and won the turn)
+```
+
+This one is a genuine Runner wart and it reaches well past `icecream`.
+
+`generaltasks` hands every line holding the whole word `put` or `drop` to
+**put_drop_list `Proc_19_40_459DB4`** at @48A462 -- *before* the task dispatch
+at @48A481.  put_drop_list normalises the line with four plain VB `Replace()`
+calls (459B3D-459BAC; substring, not word, and `"inside"` is replaced before
+`"into"` so the shorter pattern cannot reach it):
+
+```
+"drop "  -> "put "
+"inside" -> "in"
+"into"   -> "in"
+"onto"   -> "on"
+```
+
+then splits at the first `" in "` (459BCD) and calls **name_object
+`Proc_19_41_46E5D8`** to name the direct object.  name_object *installs* the
+fragment `Left(line, split)` -- everything up to and including the space before
+`in`, i.e. `"put ice cream "` -- as the global command line MemVar_494174
+(46DE99), and resolves it with the noun scorer `Proc_21_58_463640` in **mode 2**
+(every object PRESENT, seen or not).
+
+Every exit of name_object puts the line back at 46E5CD -- except one.  When the
+fragment names nothing at all (`&HFF`), 46E142 tests whether a put/drop-class
+task pre-matches the *typed* line (`Proc_19_35_453C50`, arg_14 = 2); on a hit it
+prints nothing and returns at **46E23B with the fragment still installed**.
+The task passes then run against `"put ice cream "`, match nothing, and the
+catch-all speaks -- with the noun MemVar_4942F8 that `generaltasks` resolved
+up front from the ORIGINAL line (48A3F5), which is the cone.
+
+Measured directly, `Adrift_900_icecream2.txt` (run400, 2026-09-07).  The game
+has three tasks sharing one pattern,
+`[put/place/set]{the/some/all}{of}{the}[ice cream]{in/in the/on/on the}[cone]`,
+so every line below is the same task pattern and only the wording differs:
+
+```
+> put ice cream in cone
+I don't understand what you want to do with the cone.
+
+> put the ice cream in the cone
+I don't understand what you want to do with the cone.
+
+> place ice cream in cone
+  Holding the cone in one hand, you place the scooped ice cream carefully ...
+
+> put ice cream on cone
+  You don't have any ice cream in the scoop.
+
+> set ice cream in cone
+  You don't have any ice cream in the scoop.
+```
+
+`place` and `set` never enter put_drop_list (no whole-word `put`/`drop`).
+`put ... on ...` is saved by the `"on"` branch's own escape at 459C39, which
+zeroes the split when the fragment resolves to nothing, so the line reaches the
+tasks intact.  **The clobber is the `in` form only.**
+
+The list branches leave before the clobber and are not rebuilt: a whole-word
+`all` or `and` in the fragment is answered by the loops at 46E04E and 46E0B2,
+and an `" and "` at or beyond the split (`put a in b and put c in d`) sends
+put_drop_list round its own loop at 459C75 -- the `InStr` there starts at the
+split (459C60), so it only ever sees the second clause.
+
+**Port.**  `lib_put_in_multiple_common()` calls the new
+`run_priority_unnamed_put_object()` when its `%text%` parse finds no object,
+and `run_all_commands()` then runs the three task passes against
+`run_unnamed_put_fragment(line)` instead of the line.
+
+The gate needs care.  `lib_parse_multiple_objects()` failing is *not* the same
+test as 463640 answering `&HFF`: the library parse also applies the put filter,
+so an object whose name the fragment plainly holds can still fail it.  `hub`'s
+`put soup in pan` is the case -- object 42 is Short "minestrone soup" with
+aliases "minestrone" and "soup", so the Runner scores it 1 and names it, while
+scarier's parse rejects it for sitting inside the can.  Gating on the parse
+alone regressed that turn.  `lib_put_fragment_names_nothing()` therefore asks
+the ported scorer `lib_verb_object_name_score()` directly, over every object
+`obj_indirectly_in_room()` (mode 2 -- no seen gate), and only an all-zero sweep
+clobbers.
+
+### Corpus fallout: three goldens, two of them real
+
+Full v4 suite green afterwards.  Three transcripts moved, and only `icecream`
+needed its walkthrough re-derived:
+
+| game | line | why it clobbers now |
+| --- | --- | --- |
+| `icecream` | `put ice cream in cone` | no object's name is in `"put ice cream "` -- all five present objects have Prefix "the" and aliases "ice cream scoop"/"ice cream cone" |
+| `house` | `put web in kettle` | object 149 is Short "cobweb", no aliases, Prefix "some" -- score 0 |
+| `iachini` | `put sheet in dryer` | object 26 is Short "sheets", alias "box", Prefix "a box of dryer" -- score 0 |
+
+`house`'s line was already a no-op (the kettle has no boiling water yet) and is
+kept as coverage; its golden just moved to the catch-all wording.  `iachini`'s
+was load-bearing, and the author had foreseen it: task T18 carries
+`place * sheet * dryer` as its second command, so the walkthrough now types
+`place sheet in dryer` and wins 115/115 again.  `icecream`'s walkthrough moved
+from `put` to `place` for the same reason.
+
+`hub` is the control that keeps the gate honest, and `house`'s own
+`put thyme in kettle` one line earlier is a second one -- "thyme" IS the
+object's Short, so it names and never clobbers.

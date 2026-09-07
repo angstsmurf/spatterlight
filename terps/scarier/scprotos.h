@@ -863,6 +863,9 @@ extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,
                                         const scr_char *command);
 extern void run_priority_defer (void);
 extern void run_priority_refuse (void);
+extern void run_priority_unnamed_put_object (void);
+extern scr_bool run_unnamed_put_fragment (const scr_char *string,
+                                          std::string &fragment);
 extern scr_gameref_t run_create (scr_read_callbackref_t callback, void *opaque);
 extern void run_interpret (scr_gameref_t game);
 extern void run_destroy (scr_gameref_t game);

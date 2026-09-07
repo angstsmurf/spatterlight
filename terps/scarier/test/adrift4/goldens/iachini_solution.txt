@@ -227,14 +227,19 @@ d
 n
 
 # --- move the wash to the dryer -------------------------------------------
-# `put sheets in dryer` does NOT work: T18's command is `put * sheet * dryer`
-# and the wildcards match whole words, so the plural falls through to the
-# library, which puts the whole box inside and leaves T19 refusing to run.
+# Neither `put sheets in dryer` nor `put sheet in dryer` works.  T18's command
+# is `put * sheet * dryer` and the wildcards match whole words, so the plural
+# falls through to the library, which puts the whole box inside and leaves T19
+# refusing to run; and the singular never reaches a task at all, because the
+# 4.0 put/drop list parser resolves "sheet" against the objects present, finds
+# nothing (the box's Short is "sheets"), and rewrites the line to the fragment
+# "put sheet ".  Use T18's second command, `place * sheet * dryer`, which the
+# author supplied for exactly this.
 open machine
 get afghan
 open dryer
 put afghan in dryer
-put sheet in dryer
+place sheet in dryer
 close dryer
 dry afghan
 z

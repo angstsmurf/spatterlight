@@ -1057,7 +1057,7 @@ You open the clothes dryer.
 > put afghan in dryer
 You put the wet, comfortable-looking afghan inside the clothes dryer.
 
-> put sheet in dryer
+> place sheet in dryer
 You drop a dryer sheet into the clothes dryer.
 
 > close dryer
