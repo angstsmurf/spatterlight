@@ -492,8 +492,21 @@ donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
 funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this important information
 gateway_solution.txt|gateway.taf|THE END
 # Measured 2026-08-29: run400 replay; identical up to the first battle round
-# (turn 4, damage numbers are battle rolls, rule 3), after which a fed command
-# is lost.
+# (turn 4), after which a fed command is lost.  Re-measured 2026-09-07: the
+# turn-4 split was never a battle roll.  This game's whole scripted fight is
+# two *backwards* random ranges, `FLARERATHP += rand(-3,-10)` and
+# `HP += rand(-3,-15)`, five firings each -- and scr_randomint() used to
+# refuse a backwards range, returning `low` without even drawing.  run400 does no such
+# check: the change-variable action is literally
+# `CLng(Var3 + Int(Rnd * ((Var5 - Var3) + 1)))` (mdlSpreadTheLoad.bas
+# loc_48D1E0/loc_48D261 inside execute_action @48E860), the span simply goes
+# negative, Rnd is still drawn, and VB's Int() floors towards minus infinity.
+# rand(-3,-10) is therefore -9..-4, not a flat -3.  With that fixed, scarier
+# reproduces run400's fight number for number over ten consecutive draws:
+# rat 30 -> 22 -> 17 -> 8 -> 3 -> -4, player 100 -> 87 -> 79 -> 71 -> 61 -> 53,
+# dead in five punches where the old build could never kill it.  The residual
+# 7 diverging turns are the harness losing 12 of the 28 fed commands to the
+# Runner's Battle-System menu prompts, not engine behaviour.
 hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
 jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=2
 # Re-blessed 2026-09-06: 71 `attack riven/ozgat/higher` lines answered by DontUnderstand (no turn) became "X isn't here!" turns (run400 dobattle 47EFE5, House Adrift_110); dropped as pure no-ops so the turn thread is unchanged.  Still wins.
@@ -1630,6 +1643,11 @@ dancing_even_him_solution.txt|dancingevenhim.taf|it is an anagram of Vending Mac
 # score 30 and end the game.  Needs SCR_SKIP_WAITKEY (the ending paginates).
 # The closing line wraps, so the marker is only the part that stays on one
 # line: "...calling to you<93>"Well done, my good and faithful" / "servant.""
+# 2026-09-07: RNG row.  Two backwards ranges, `hajar health += rand(-7,-11)`
+# and `player health += rand(-5,-9)`, eight firings each, now yield -10..-6
+# and -8..-4 instead of a flat -7/-5 (see the hyper_b_s row).  Against the run400 replay the genuinely differing turn bodies went
+# 18 -> 17; what is left is the Hajar fight picking different battle
+# messages, which is a live roll on both sides and not measurable.
 the_demon_hunter_solution.txt|TheDemonHunter.taf|"Well done, my good and faithful|SCR_SKIP_WAITKEY=1
 # Qui a tue Dana? (Volcy Bucherie / Christophe Montel) -- WIN, 100/100, the sum
 # of every ACT type=4 in the game.  A French 4.0 game, so the solution file is
@@ -3127,6 +3145,16 @@ castle_quest_solution.txt|castle.taf|Thanks for playing!
 # 4.0 ("You put the bloody hand onto the green plate.") and the task never
 # runs; `place` is not a put-parser entry word in this game (no synonym), so
 # the task gets the line.  Model-derived, Wine candidate.
+# 2026-09-07: **RNG row, do not chase the turn count.**  `tic += rand(-1,-3)`
+# fires once, and after the backwards-range fix (see the hyper_b_s row) it
+# takes 2 off instead of 1 *and consumes a draw the old build skipped*, which
+# re-phases every random event length for the rest of the game.  The blackout
+# visions then land on different `z` turns than run400's, so the raw
+# diverging-turn count went 25 -> 38 while the count of genuinely differing
+# turn *bodies* only went 17 -> 19.  Confirmed unmeasurable: seeds 97, 8 and
+# 424242 give three different transcripts (56-63 diff lines apart), so this
+# game fails the double-seed invariance screen and never belonged on the
+# measurable candidate list.
 deadman_solution.txt|The Dead Man.taf|ABORT SUCSESFUL|SCR_SKIP_WAITKEY=1
 # Ba'Roo! -- delron's own command list, +2 lines: the capsule wants the
 # backpack *inside* it (TASK 258/286 restrict obj1 to "in capsule"), and the
@@ -5535,6 +5563,16 @@ tophat_solution.txt|tophat.taf|But will the next show go the same way?|
 # reliance on RNG. Reconfirms the object-*seen* model: `take jack`/`take
 # ace` fail until `x table` first makes them referenceable. 28 commands,
 # `SCR_SKIP_WAITKEY=1` (an intro waitkey otherwise eats scripted input).
+# 2026-09-07, after the backwards-random-range fix (see the hyper_b_s row):
+# **run400-identical on every turn**.  Its countdown is one backwards range,
+# `timer += rand(-1,-3)`, fired 24 times over the route; a span of -1 makes
+# Int(Rnd * -1) = -1, so the action is a constant -2 per firing where the old
+# build took a flat -1 and never drew at all.  That closes the long-standing T8 lead (a counter reading 46
+# against run400's 53) -- it was the countdown running at half speed.  The
+# only remaining line-level difference is the known `<centre>` line-break
+# artefact of the Runner's .txt transcript.  Replay must carry this row's env
+# (`SCR_SEED=8 SCR_SKIP_WAITKEY=1`); compare_wine_transcript.py does not
+# apply it for you, and without it the diff is meaningless.
 threeminutes_solution.txt|3 minutes1.0.taf|But not a hero anymore.|SCR_SEED=8 SCR_SKIP_WAITKEY=1
 # neighbours.taf (4.00): WON 100/100 via a custom evidence variable (no
 # built-in ADRIFT score/EndGame actions) -- six score-band `call police`

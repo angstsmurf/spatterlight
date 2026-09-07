@@ -122,10 +122,10 @@ You take the gun.
 > load gun
 You put the bullets inside the gun.
 
-The dizziness overtakes you again, you put your hands against the Console for
-support.  Your breathing is labored.
-Staying upright is increasingly hard.
-[-00:56-]
+Your legs can barely hold you.  Kneeling on the floor you close your eyes
+tightly against the spinning you know will come.
+I really need to rest...but there is no time.
+[-00:55-]
 
 > shoot locker
 With a loud report the bullet grazes the lock causing it to swing.  Staring
@@ -187,17 +187,29 @@ point pen are on the comunication console.
 
 > get all from console
 You take the code table and the ball point pen from the comunication console.
-Suddenly, you head spins and your knees weaken. You're thankful that you are
-not standing.
 
 > turn camera to camera 1
 You turn the dial to camera 1.  The screen flickers above you.
 
 There is nothing but static on the screen, apparently the camera at the
 facility entrance is offline.
+Suddenly, you head spins and your knees weaken. You're thankful that you are
+not standing.
 
 > get bandage
 You take the large bandage roll from the first aid kit.
+Your thoughts are interrupted by harsh static.
+A loud voice fills the room.
+
+Deadman Tango, this is Blair do you read.
+Deadman Tango, this is Blair do you read.
+Deadman, we understand you have a situation there, please respond.
+
+Acknowlege and prepare to receive standard abort code.
+
+Over.
+
+You stand in silence.
 
 > wear bandage on neck
 You wrap the bandage tightly around your skull. Hopefully this will control
@@ -221,18 +233,6 @@ bands.  Closing your eyes against the pressure building up in your forehead,
 a flash of light enters your mind's eye and a euphoric rush comes over your
 entire body, strangely similar to an orgasm.  Suddenly, you've never felt
 better.
-Your thoughts are interrupted by harsh static.
-A loud voice fills the room.
-
-Deadman Tango, this is Blair do you read.
-Deadman Tango, this is Blair do you read.
-Deadman, we understand you have a situation there, please respond.
-
-Acknowlege and prepare to receive standard abort code.
-
-Over.
-
-You stand in silence.
 
 > use radio
 Leaning closer to the radio you say:
@@ -252,8 +252,8 @@ Deadman Protocol underway.
 Time remaining,
 You quickly look at the countdown,
 
-T Minus 43 minutes and counting, please respond.
-I repeat T Minus 43 minutes until Deadman Launch. Please respond.
+T Minus 42 minutes and counting, please respond.
+I repeat T Minus 42 minutes until Deadman Launch. Please respond.
 .  .  .
 
 You continue to wait but there is no response.
@@ -264,7 +264,6 @@ Time passes...
 
 > z
 Time passes...
-A small rush fills you with pleasure.
 
 Suddenly your head begins to spin and the lights fades in and out, slowly at
 first, but soon working its way up to a frenzied strobe. Then darkness.
@@ -286,6 +285,7 @@ You awaken on the control room floor.
 
 > z
 Time passes...
+A small rush fills you with pleasure.
 
 > z
 Time passes...
@@ -344,6 +344,24 @@ Time passes...
 > z
 Time passes...
 
+A banging on the door startles you and you turn to stare at the cold steel.
+A muffled voice fills the quite room,
+Captain, let me in!, another pounding at the door.
+Captain, its Lefty, something crazy is going on out here. Pound
+they're dead
+Pound Pound
+they're ALL dead.
+Pound
+Ramirez, Shelly, and Baker.
+Pound
+all dead sir
+the pounding weakens
+There's blood everywhere
+silence.
+
+The door stands closed and latched.
+The pounding at the door returns.
+
 > z
 Time passes...
 
@@ -367,24 +385,6 @@ After a final flash of white. The darkness fades in.
 
 You awaken on the control room floor.
 
-A banging on the door startles you and you turn to stare at the cold steel.
-A muffled voice fills the quite room,
-Captain, let me in!, another pounding at the door.
-Captain, its Lefty, something crazy is going on out here. Pound
-they're dead
-Pound Pound
-they're ALL dead.
-Pound
-Ramirez, Shelly, and Baker.
-Pound
-all dead sir
-the pounding weakens
-There's blood everywhere
-silence.
-
-The door stands closed and latched.
-The pounding at the door returns.
-
 > z
 Time passes...
 
@@ -393,10 +393,6 @@ Time passes...
 
 > z
 Time passes...
-
-> z
-Time passes...
-A small rush fills you with pleasure.
 They're all dead, sir.
 
 > z
@@ -404,10 +400,16 @@ Time passes...
 
 > z
 Time passes...
+A small rush fills you with pleasure.
+
+> z
+Time passes...
+Captain, let me in! The pounding continues.
 
 > stand
 You stand up.
-Captain, let me in! The pounding continues.
+There's blood everywhere.  The pounding fades.
+The pounding at the door returns.
 
 > open door
 Slowly you unlatch the steel door and pull it open just a crack.  Not seeing
@@ -433,7 +435,6 @@ You take the bloody hand.
 
 > put hand on green plate
 You put the bloody hand onto the green plate.
-A small rush fills you with pleasure.
 
 > place hand on green plate
 The green glass goes dark, them pulses with a soft pink light.  The words

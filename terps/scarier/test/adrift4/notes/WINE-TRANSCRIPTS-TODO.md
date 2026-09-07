@@ -1615,7 +1615,7 @@ last column already names.  The verdicts below are the PRE-re-feed ones.
 | `cellar` | `Adrift_172` | `feed[119] undo` | T43 `x dust`: run400 "You see no such thing." vs Scarier "You can't see the dust from here!" -- the same divergence as `asdfa` -- FIXED 2026-09-06; the row's first diff is now T114 `take satchel`: run400 "There is nothing worth taking here." vs Scarier "Take what?" |
 | `confession` | `Adrift_148` | `feed[16..36]`, 21 `z` in a row | the Runner stopped echoing after 16 turns; the row needs `#sleep` pacing |
 | `endgame` | `Adrift_127` | `feed[9] z` | T8 `turn on pc`: Scarier prefixes "You have trouble controlling yourself..." |
-| `hyper_b_s` | `Adrift_145` | `feed[20,21,23,24,26,27]`, the `a`/`p` battle keys | T5 `p`: the Flare Rat is on 23 HP in run400, 27 in Scarier, and the player on 94 against 97 -- a real **battle** divergence, and it is before the first loss |
+| `hyper_b_s` | `Adrift_145` | `feed[20,21,23,24,26,27]`, the `a`/`p` battle keys | T5 `p`: the Flare Rat is on 23 HP in run400, 27 in Scarier, and the player on 94 against 97 -- a real divergence, and it is before the first loss.  **FIXED 2026-09-07**, and not in the Battle System: `FLARERATHP += rand(-3,-10)` is a backwards range, which `scr_randomint` used to refuse.  The whole fight is now run400-identical |
 | `mortality` | `Adrift_168` | `feed[33] e` | -- |
 | `pieces_of_eden` | `Adrift_130` | `feed[3] x officer` | re-synchronises afterwards |
 | `qui_a_tue_dana` | `Adrift_162` | `feed[20] parler` | 62/63 echoed; T21 run400 prints the refusal **twice** where Scarier prints it once |
@@ -1845,12 +1845,14 @@ written up here (see the batch-1 section), and so, after fix 5, is
   below.  It was the third member of the `adrift4-pronoun-echo-article` /
   `adrift4-ask-echo-before-tasks` family, and it dragged a second rule out
   with it (`thelasthour` T80, the ask/talk-to `about` split).
-- **Battle damage wording, 2 rows.**  `shadow_of_the_past` T18 run400
-  `Beast hits you.` / scarier `Beast hits you, but it doesn't seem to do any
-  damage.`; `del_sol` T44 run400 `MoReLaND hits you, but it doesn't seem to
-  do any damage.` / scarier `You manage to avoid MoReLaND's attack.`  Two
-  rows, one turn each, and they disagree in *opposite* directions -- so this
-  is the hit/damage split in the battle formulas, not the messages.
+- ~~**Battle damage wording, 2 rows.**~~  **RETRACTED 2026-09-07.**  The
+  "opposite directions" reading was stale -- the current build misses on both
+  rows, and both turns are plain rolls (Beast Accuracy 35 vs a player Agility
+  rolled 0..49; MoReLaND 0..100 vs 0..100).  `del_sol` is not double-seed
+  invariant either.  RNG rows, do not chase.  The battle formulas are
+  unchanged and correct; what was really broken in this area was
+  `scr_randomint` on a backwards range -- see "Ported 2026-09-07: a backwards
+  random range still draws" at the end of this file.
 - **`icecream`, 3 turns, 3 commands in.**  T0 `take cone` run400 `You already
   have an empty cone.` / scarier `You are already carrying the cone.` -- the
   Runner used the object's alternate description where scarier used its
@@ -1892,6 +1894,9 @@ written up here (see the batch-1 section), and so, after fix 5, is
   sentence on each side; the rest of the answer matches.
 - **`trabula` T8 and `threeminutes` T8** are one character each: a leading
   `A`/`a` on a joined sentence, and a counter reading 46 vs 53.
+  `threeminutes` DONE 2026-09-07 -- the counter is `timer += rand(-1,-3)` and
+  it was running at half speed; that row is now run400-identical on every
+  turn.  See the backwards-random-range section at the end of this file.
 - **RNG rows, do not chase.**  `jinxtron` T6 differs only in a randomly
   chosen word (`HOOSELDORF` vs `EIGHT`); `worstgame` T10 and `woof` T24 pick
   different members of a random message list.  The Runner reseeds itself, so
@@ -1992,10 +1997,19 @@ follow-up on rows that have been driven, in this order:
    `perspectives` T0 was reclassified: not the listing rule, but the room
    description's whitespace defeating an ALR -- and that was done in turn on
    2026-09-07, see the last section.
-4. **Battle hit vs no-damage** -- `shadow_of_the_past` T18 and `del_sol` T44
-   disagree in opposite directions on one turn each.  Two rows, and the pair
-   pins the formula rather than the message.  `hyper_b_s` T4 (Flare Rat on 23
-   HP vs 27) is the same area, from batch 1.
+4. **Battle hit vs no-damage** -- DONE 2026-09-07, and the item's own premise
+   was wrong twice over.  `shadow_of_the_past` T18 and `del_sol` T44 do *not*
+   "disagree in opposite directions": the current build misses in both, and
+   both are plain rolls -- the Beast's Accuracy is a flat 35 against a player
+   Agility rolled 0..49 (70% hit), MoReLaND's is 0..100 against 0..100 (a coin
+   flip), and running the seeds produces every outcome.  `del_sol` is not even
+   double-seed invariant (seeds 97 and 424242 differ by 4 lines), so it should
+   never have been on the measurable list.  Both are RNG rows; do not chase.
+   `hyper_b_s` T4 *was* a real engine bug, but not in the Battle System at
+   all -- it was `scr_randomint()` refusing an author-entered backwards range.
+   Fixed, and the whole `hyper_b_s` fight is now run400-identical number for
+   number.  See "Ported 2026-09-07: a backwards random range still draws"
+   at the end of this file.
 5. **A single event one tick out** -- `skydiver` T15, `briefcase` T5,
    `backhome` T36 (run400 prints it) against `overtheedge` T1,
    `bigcitylaundry` T1, `stationxiii` T25 (scarier prints it).  Six rows,
@@ -2528,7 +2542,7 @@ command.
 | `confession` | `Adrift_372` | 21 `z` "lost" | 16/16 -- **both engines end at turn 16** |
 | `thelasthour` | `Adrift_366` | 6 `wait` "lost" | 119/119 -- the game ended at 119 |
 | `grumble` | `Adrift_356` | `feed[262] y` lost | 262/262 -- the `y` answers `quit` |
-| `hyper_b_s` | `Adrift_359` | 6 battle keys lost | still short -- the **battle** divergence |
+| `hyper_b_s` | `Adrift_359` | 6 battle keys lost | **FIXED 2026-09-07** -- the backwards random range, not the battle formulas; all ten damage draws now match run400 |
 
 ### Four harness bugs, and none of them was pacing
 
@@ -2694,3 +2708,89 @@ cause.
 `endtail 1` -- the final `[Pulsa cualquier tecla para terminar]` prompt --
 where it reported `diff 2`.  The map corpus (1212 views) and
 `scproj_regress.sh` are byte-identical before and after.
+
+## Ported 2026-09-07: a backwards random range still draws
+
+`scr_randomint(low, high)` used to open with
+
+```c
+/* If the range is invalid, just return the low value given.  This mimics
+   Adrift under the same conditions. */
+if (high < low)
+  return low;
+```
+
+which is wrong on both counts: it does not mimic Adrift, and it returns
+without drawing.  Both author-facing callers -- the "change variable to/by a
+random value" task action (`task_run_change_variable_action`, Var2 = 2 and 3)
+and the `rand(x,y)` expression function -- are the same VB idiom in the
+Runner,
+
+```
+CLng(Var3 + Int(Rnd * ((Var5 - Var3) + 1)))
+```
+
+(`mdlSpreadTheLoad.bas` `loc_48D1E0` / `loc_48D261` inside `execute_action`
+@48E860; `Express.bas` `loc_485C44` for the expression).  Nothing there tests
+the order of the bounds.  If the author entered the range backwards the span
+simply goes negative, `Rnd` is still drawn, and VB's `Int()` floors *towards
+minus infinity*, so:
+
+| authored | span | `Int(Rnd * span)` | result | old scarier |
+| --- | --- | --- | --- | --- |
+| `rand(-3,-10)` | -6 | -6..-1 | **-9..-4** | flat -3, no draw |
+| `rand(-3,-15)` | -11 | -11..-1 | **-14..-4** | flat -3, no draw |
+| `rand(-1,-3)` | -1 | -1 (0 only if `Rnd` is exactly 0) | **-2** | flat -1, no draw |
+| `rand(-1,-2)` | 0 | 0 | **-1** | -1, no draw |
+
+The last row matters: a zero span still consumes a draw even though its value
+is unchanged, so games full of `rand(-1,-2)`-shaped actions (`House` has
+twenty) re-thread the RNG stream without changing a single number.
+
+`floor(-x) == -ceil(x)`, so the fix is the same multiply-shift rounded the
+other way; positive spans are bit-for-bit what they were.
+
+### The measurement
+
+`hyper_b_s.taf` is the ideal witness -- its entire scripted battle is two
+backwards ranges, `FLARERATHP += rand(-3,-10)` and `HP += rand(-3,-15)`, five
+firings each, and nothing else in the game draws.  run400 takes 8, 5, 9, 5, 7
+off the rat and 13, 8, 8, 10, 8 off the player: every one of them inside
+4..9 and 4..14, none of them the flat 3 the old build produced -- which is
+why the rat sat there being punched forever and the row never finished.  With
+the fix, scarier reproduces run400's fight **exactly, over ten consecutive
+draws**: rat 30 -> 22 -> 17 -> 8 -> 3 -> -4, player 100 -> 87 -> 79 -> 71 ->
+61 -> 53, "The Flare Rat is dead! Mission complete!" on the fifth punch.
+
+`3 minutes1.0.taf` is the second win and it closes the separate T8 lead in
+"The sharpest new leads" (a counter reading 46 against run400's 53): its
+countdown is `timer += rand(-1,-3)` fired 24 times, running at half speed
+under the old build.  That row is now **run400-identical on every turn**,
+the `<centre>` transcript artefact aside.  (Replay it with this row's env,
+`SCR_SEED=8 SCR_SKIP_WAITKEY=1`; `compare_wine_transcript.py` does not apply
+the row's env for you, and without it the diff is nonsense.)
+
+### Corpus exposure, and the two rows that only re-phased
+
+Exactly 8 of the 426 games use a backwards range: `3 minutes1.0`,
+`British.Fox.and.the.Celebrity.Abductions`, `House` (20x, all zero-span),
+`The Dead Man`, `The Plague - Redux`, `TheDemonHunter`, `wumpusRun` and
+`hyper_b_s`.  Four goldens moved; all four still win, and the suite is back
+to green.
+
+`The Dead Man` and `TheDemonHunter` are RNG rows and their turn counts should
+not be read as regressions.  `The Dead Man` fires `tic += rand(-1,-3)` *once*,
+but the extra draw re-phases every random event length after it, so its
+blackout visions land on different `z` turns than run400's: the raw diverging
+turn count went 25 -> 38 while the count of genuinely differing turn *bodies*
+only went 17 -> 19.  It fails the double-seed screen outright (seeds 97, 8 and
+424242 give three transcripts 56-63 diff lines apart).  `TheDemonHunter`'s
+`hajar health`/`player health` rolls went the other way, 18 -> 17 differing
+bodies, and what is left is the fight picking different battle messages --
+a live roll on both sides.
+
+**Reading rule for this file:** when a fix adds or removes an RNG *draw*,
+compare the number of turns whose bodies actually differ, not the number of
+lines `compare_wine_transcript.py` prints.  Its `streams re-synchronised`
+lines are alignment bookkeeping, and a re-phased stream generates them in
+bulk without a single new engine difference.

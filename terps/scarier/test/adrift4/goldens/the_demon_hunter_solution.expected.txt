@@ -285,32 +285,11 @@ With that, Hajar draws a huge scimitar from his belt and nearly takes your
 head off with one swing.
 
 > kill hajar
-Hajar stabs towards your midsection taking a good bit of cloth and flesh away
-on the tip of his sword, and comes back around for another attack.
-
-Swinging with every once of strength you possess, you blunt Hajar's attack,
-and spin behind him. You are able hit the demon-spawn in the back of his head
-with the blunt end of your spear before he swings around again.
-
-> kill hajar
 Lashing out with all your might, you slice a deep gash in Hajar's side,
 causing him to reel in pain.
 
 Hajar spins on his good leg and catches you in the armpit causing you to
 stumble back.
-
-> kill hajar
-Stabbing forward, your spear meets Hajar's scimitar on a downward chop
-effectively blocking the blow; the force of the collision makes your ears
-ring.
-
-> kill hajar
-Hajar stabs towards your midsection taking a good bit of cloth and flesh away
-on the tip of his sword, and comes back around for another attack.
-
-Swinging with every once of strength you possess, you blunt Hajar's attack,
-and spin behind him. You are able hit the demon-spawn in the back of his head
-with the blunt end of your spear before he swings around again.
 
 > kill hajar
 Stabbing forward, your spear meets Hajar's scimitar on a downward chop
@@ -333,12 +312,19 @@ Hajar spins on his good leg and catches you in the armpit causing you to
 stumble back.
 
 > kill hajar
-Hajar stabs towards your midsection taking a good bit of cloth and flesh away
-on the tip of his sword, and comes back around for another attack.
+Lashing out with all your might, you slice a deep gash in Hajar's side,
+causing him to reel in pain.
 
-Swinging with every once of strength you possess, you blunt Hajar's attack,
-and spin behind him. You are able hit the demon-spawn in the back of his head
-with the blunt end of your spear before he swings around again.
+Hajar spins on his good leg and catches you in the armpit causing you to
+stumble back.
+
+> kill hajar
+You swing your spear high above your head and swing down hard, striking
+Hajar's shoulder.
+
+With a enraged howl, he swings his sword right at your head; you manage to
+evade the attack but with a downward slice, Hajar’s weapon draws a ragged
+scratch down your chest.
 
  You spin around whipping the spear in front of you, creating a small space
 between you and the demon-spawn. Stopping suddenly and placing the butt of
@@ -355,6 +341,18 @@ you. As it does, you can feel the effects of battle leaving your body; as you
 move out of the haze, you realize that you have been fully healed!
 
 You can see a light shining from the passage to the northeast.
+
+> kill hajar
+Lashing out with all your might, you slice a deep gash in Hajar's side,
+causing him to reel in pain.
+
+Hajar spins on his good leg and catches you in the armpit causing you to
+stumble back.
+
+> kill hajar
+Stabbing forward, your spear meets Hajar's scimitar on a downward chop
+effectively blocking the blow; the force of the collision makes your ears
+ring.
 
 > northeast
 You move northeast.

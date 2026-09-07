@@ -424,12 +424,7 @@ scr_rand (void)
 scr_int
 scr_randomint (scr_int low, scr_int high)
 {
-  /*
-   * If the range is invalid, just return the low value given.  This mimics
-   * Adrift under the same conditions.
-   */
-  if (high < low)
-    return low;
+  const scr_int span = high - low + 1;
 
   /*
    * Map into the range with a multiply-shift on the full 31-bit value rather
@@ -439,9 +434,36 @@ scr_randomint (scr_int low, scr_int high)
    * small-range result to one value forever -- seen live as a Battle System
    * enemy that never switched targets.  Scaling from the top also matches
    * the Runner's VB6 Int(Rnd * N), which consumes the high part of Rnd.
+   *
+   * Both author-facing callers -- the "change variable to/by a random value"
+   * task action (task_run_change_variable_action) and the `rand(x,y)`
+   * expression function -- are literally `Int(Rnd * ((hi - lo) + 1)) + lo` in
+   * the Runner (run400 48D1E0/48D261 in execute_action, 485C44 in the
+   * expression evaluator), so a range the author entered BACKWARDS is not
+   * rejected there: the span goes negative, Rnd is still drawn, and VB's Int()
+   * floors towards minus infinity.  `rand(-3,-10)` therefore yields -9..-4 --
+   * one inside each entered bound -- and NOT a constant -3.  Measured on
+   * hyper_b_s.taf, whose whole scripted battle is two backwards ranges
+   * (FLARERATHP += rand(-3,-10), HP += rand(-3,-15), five firings each):
+   * run400 takes 8, 5, 9, 5, 7 off the rat and 13, 8, 8, 10, 8 off the
+   * player, none of them the flat 3 that returning `low` produced -- which is
+   * why the rat could never be killed.  With this, scarier reproduces that
+   * fight exactly over all ten draws.  A span of -1 (`rand(-1,-3)`) makes
+   * Int(Rnd * -1) = -1, so such an action is a constant -2, not -1.
+   *
+   * floor(-x) == -ceil(x), so the negative span is the same multiply-shift
+   * rounded the other way.  A zero span (high == low - 1) draws and yields
+   * low, as Int(Rnd * 0) does.
    */
-  return low + (scr_int) (((unsigned long long) scr_rand ()
-                           * (unsigned long long) (high - low + 1)) >> 31);
+  if (span > 0)
+    {
+      return low + (scr_int) (((unsigned long long) scr_rand ()
+                               * (unsigned long long) span) >> 31);
+    }
+
+  return low - (scr_int) (((unsigned long long) scr_rand ()
+                           * (unsigned long long) -span
+                           + 0x7fffffffULL) >> 31);
 }
 
 scr_int

@@ -258,8 +258,8 @@ Flare Rat's HP: 30
 > p
 
 You punch the Flare Rat with all your feeble might. You deal some damage,
-leaving him with only 27 HP! However, he retaliates. He deals you some damage
-as well, leaving you with only 97 HP!!
+leaving him with only 22 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 87 HP!!
 ][
 
 Battle Menu
@@ -270,8 +270,8 @@ Do you wish to:
 [F]lee
 [M]editate
 
-Your HP: 97
-Flare Rat's HP: 27  The Flare Rat glares menacingly at you, foaming at the
+Your HP: 87
+Flare Rat's HP: 22  The Flare Rat glares menacingly at you, foaming at the
 mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
@@ -282,163 +282,13 @@ Do you wish to:
 Throw a [P]unch
 Attack with a [W]eapon
 
-Your HP: 97
-Flare Rat's HP: 27
+Your HP: 87
+Flare Rat's HP: 22
 
 > p
 
 You punch the Flare Rat with all your feeble might. You deal some damage,
-leaving him with only 24 HP! However, he retaliates. He deals you some damage
-as well, leaving you with only 94 HP!!
-][
-
-Battle Menu
-Do you wish to:
-
-[A]ttack
-[D]efend {auto Normal [D]efend due to the limits of shareware}
-[F]lee
-[M]editate
-
-Your HP: 94
-Flare Rat's HP: 24  The Flare Rat glares menacingly at you, foaming at the
-mouth with a rare disease. The disease is known as "Combustial Rabies".
-
-> a
-
-Attack Menu
-Do you wish to:
-
-Throw a [P]unch
-Attack with a [W]eapon
-
-Your HP: 94
-Flare Rat's HP: 24
-
-> p
-
-You punch the Flare Rat with all your feeble might. You deal some damage,
-leaving him with only 21 HP! However, he retaliates. He deals you some damage
-as well, leaving you with only 91 HP!!
-][
-
-Battle Menu
-Do you wish to:
-
-[A]ttack
-[D]efend {auto Normal [D]efend due to the limits of shareware}
-[F]lee
-[M]editate
-
-Your HP: 91
-Flare Rat's HP: 21  The Flare Rat glares menacingly at you, foaming at the
-mouth with a rare disease. The disease is known as "Combustial Rabies".
-
-> a
-
-Attack Menu
-Do you wish to:
-
-Throw a [P]unch
-Attack with a [W]eapon
-
-Your HP: 91
-Flare Rat's HP: 21
-
-> p
-
-You punch the Flare Rat with all your feeble might. You deal some damage,
-leaving him with only 18 HP! However, he retaliates. He deals you some damage
-as well, leaving you with only 88 HP!!
-][
-
-Battle Menu
-Do you wish to:
-
-[A]ttack
-[D]efend {auto Normal [D]efend due to the limits of shareware}
-[F]lee
-[M]editate
-
-Your HP: 88
-Flare Rat's HP: 18  The Flare Rat glares menacingly at you, foaming at the
-mouth with a rare disease. The disease is known as "Combustial Rabies".
-
-> a
-
-Attack Menu
-Do you wish to:
-
-Throw a [P]unch
-Attack with a [W]eapon
-
-Your HP: 88
-Flare Rat's HP: 18
-
-> p
-
-You punch the Flare Rat with all your feeble might. You deal some damage,
-leaving him with only 15 HP! However, he retaliates. He deals you some damage
-as well, leaving you with only 85 HP!!
-][
-
-Battle Menu
-Do you wish to:
-
-[A]ttack
-[D]efend {auto Normal [D]efend due to the limits of shareware}
-[F]lee
-[M]editate
-
-Your HP: 85
-Flare Rat's HP: 15  The Flare Rat glares menacingly at you, foaming at the
-mouth with a rare disease. The disease is known as "Combustial Rabies".
-
-> a
-
-Attack Menu
-Do you wish to:
-
-Throw a [P]unch
-Attack with a [W]eapon
-
-Your HP: 85
-Flare Rat's HP: 15
-
-> p
-
-You punch the Flare Rat with all your feeble might. You deal some damage,
-leaving him with only 12 HP! However, he retaliates. He deals you some damage
-as well, leaving you with only 82 HP!!
-][
-
-Battle Menu
-Do you wish to:
-
-[A]ttack
-[D]efend {auto Normal [D]efend due to the limits of shareware}
-[F]lee
-[M]editate
-
-Your HP: 82
-Flare Rat's HP: 12  The Flare Rat glares menacingly at you, foaming at the
-mouth with a rare disease. The disease is known as "Combustial Rabies".
-
-> a
-
-Attack Menu
-Do you wish to:
-
-Throw a [P]unch
-Attack with a [W]eapon
-
-Your HP: 82
-Flare Rat's HP: 12
-
-> p
-
-You punch the Flare Rat with all your feeble might. You deal some damage,
-leaving him with only 9 HP! However, he retaliates. He deals you some damage
+leaving him with only 17 HP! However, he retaliates. He deals you some damage
 as well, leaving you with only 79 HP!!
 ][
 
@@ -451,7 +301,7 @@ Do you wish to:
 [M]editate
 
 Your HP: 79
-Flare Rat's HP: 9  The Flare Rat glares menacingly at you, foaming at the
+Flare Rat's HP: 17  The Flare Rat glares menacingly at you, foaming at the
 mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
@@ -463,13 +313,13 @@ Throw a [P]unch
 Attack with a [W]eapon
 
 Your HP: 79
-Flare Rat's HP: 9
+Flare Rat's HP: 17
 
 > p
 
 You punch the Flare Rat with all your feeble might. You deal some damage,
-leaving him with only 6 HP! However, he retaliates. He deals you some damage
-as well, leaving you with only 76 HP!!
+leaving him with only 8 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 71 HP!!
 ][
 
 Battle Menu
@@ -480,8 +330,8 @@ Do you wish to:
 [F]lee
 [M]editate
 
-Your HP: 76
-Flare Rat's HP: 6  The Flare Rat glares menacingly at you, foaming at the
+Your HP: 71
+Flare Rat's HP: 8  The Flare Rat glares menacingly at you, foaming at the
 mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 > a
@@ -492,14 +342,14 @@ Do you wish to:
 Throw a [P]unch
 Attack with a [W]eapon
 
-Your HP: 76
-Flare Rat's HP: 6
+Your HP: 71
+Flare Rat's HP: 8
 
 > p
 
 You punch the Flare Rat with all your feeble might. You deal some damage,
 leaving him with only 3 HP! However, he retaliates. He deals you some damage
-as well, leaving you with only 73 HP!!
+as well, leaving you with only 61 HP!!
 ][
 
 Battle Menu
@@ -510,7 +360,7 @@ Do you wish to:
 [F]lee
 [M]editate
 
-Your HP: 73
+Your HP: 61
 Flare Rat's HP: 3  The Flare Rat glares menacingly at you, foaming at the
 mouth with a rare disease. The disease is known as "Combustial Rabies".
 
@@ -522,14 +372,14 @@ Do you wish to:
 Throw a [P]unch
 Attack with a [W]eapon
 
-Your HP: 73
+Your HP: 61
 Flare Rat's HP: 3
 
 > p
 
 You punch the Flare Rat with all your feeble might. You deal some damage,
-leaving him with only 0 HP! However, he retaliates. He deals you some damage
-as well, leaving you with only 70 HP!!
+leaving him with only -4 HP! However, he retaliates. He deals you some damage
+as well, leaving you with only 53 HP!!
 ][
 
 Battle Menu
@@ -540,8 +390,8 @@ Do you wish to:
 [F]lee
 [M]editate
 
-Your HP: 70
-Flare Rat's HP: 0  The Flare Rat glares menacingly at you, foaming at the
+Your HP: 53
+Flare Rat's HP: -4  The Flare Rat glares menacingly at you, foaming at the
 mouth with a rare disease. The disease is known as "Combustial Rabies".
 
 The Flare Rat is dead! Mission complete!
