@@ -2,9 +2,9 @@ Loading game...
 Size Probe 390
 Container size/capacity matrix probe.
 Test Room
-A bare room.
-Also here is a dummy, a z02, a z20, a n22, a m12, a v1, a z1, a z2, a z3, a
-y1, a y2, a y3, a w1, a w2, a w3, a w4, a w5, a w6, a w7, a w8 and a w9.
+A bare room.  Also here is a dummy, a z02, a z20, a n22, a m12, a v1, a z1, a
+z2, a z3, a y1, a y2, a y3, a w1, a w2, a w3, a w4, a w5, a w6, a w7, a w8
+and a w9.
 >You pick up the z1.
 >You pick up the y1.
 >You pick up the y2.

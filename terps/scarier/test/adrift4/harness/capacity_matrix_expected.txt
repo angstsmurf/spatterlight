@@ -2,14 +2,14 @@ Loading game...
 Size Probe 390
 Container size/capacity matrix probe.
 Test Room
-A bare room.
-Also here is a dummy, a c12t, a c52t, a c13t, a c22x, a c12m, a c12b, a a1, a
-a2, a a3, a a4, a a5, a a6, a a7, a a8, a a9, a a10, a a11, a a12, a b1, a
-b2, a b3, a b4, a b5, a b6, a b7, a b8, a b9, a b10, a b11, a b12, a c1, a
-c2, a c3, a c4, a c5, a c6, a c7, a c8, a c9, a c10, a c11, a c12, a f1, a
-f2, a f3, a f4, a f5, a f6, a f7, a f8, a f9, a f10, a f11, a f12, a d1, a
-d2, a d3, a d4, a d5, a d6, a d7, a d8, a d9, a d10, a d11, a d12, a e1, a
-e2, a e3, a e4, a e5, a e6, a e7, a e8, a e9, a e10, a e11 and a e12.
+A bare room.  Also here is a dummy, a c12t, a c52t, a c13t, a c22x, a c12m, a
+c12b, a a1, a a2, a a3, a a4, a a5, a a6, a a7, a a8, a a9, a a10, a a11, a
+a12, a b1, a b2, a b3, a b4, a b5, a b6, a b7, a b8, a b9, a b10, a b11, a
+b12, a c1, a c2, a c3, a c4, a c5, a c6, a c7, a c8, a c9, a c10, a c11, a
+c12, a f1, a f2, a f3, a f4, a f5, a f6, a f7, a f8, a f9, a f10, a f11, a
+f12, a d1, a d2, a d3, a d4, a d5, a d6, a d7, a d8, a d9, a d10, a d11, a
+d12, a e1, a e2, a e3, a e4, a e5, a e6, a e7, a e8, a e9, a e10, a e11 and a
+e12.
 >You pick up the a1.
 >You pick up the a2.
 >You pick up the a3.

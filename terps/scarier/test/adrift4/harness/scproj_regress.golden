@@ -19,7 +19,7 @@ round  1: enemy stamina   50 ->    0  (dmg 50)  [ENEMY DEAD/REMOVED]
 RESULT: enemy stamina=0 location=0 after 1 rounds
 
 ==== light_up_4summer_comp.taf ====
-player: Str=30 Acc=30 Def=35 Agi=30  playerStamina=70
+player: Str=30 Acc=30 Def=35 Agi=30  playerStamina=44
 weapon: 'lighter' method=throw HitValue=40 Accuracy=40
 enemy : 'Chip' Stamina=60 Str=35 Def=20 Acc=35 Agi=20
 default_weapon after wield = 64 (weapon obj = 64)
@@ -41,90 +41,90 @@ RESULT: enemy stamina=0 location=0 after 6 rounds
 ==== Space Boy's First Adventure.taf ====
 player: Str=58 Acc=64 Def=72 Agi=31  playerStamina=93
 weapon: 'Ice Gloves' method=shoot HitValue=50 Accuracy=100
-enemy : 'Evil Man' Stamina=83 Str=88 Def=55 Acc=58 Agi=65
+enemy : 'Evil Man' Stamina=84 Str=88 Def=55 Acc=58 Agi=65
 default_weapon after wield = 3 (weapon obj = 3)
 --- fight (player attacks; stamina kept up so we can watch enemy fall) ---
-round  1: enemy stamina   83 ->   82  (dmg 1)
+round  1: enemy stamina   84 ->   84  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round  2: enemy stamina   84 ->   84  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round  3: enemy stamina   84 ->   83  (dmg 1)
     | You shoot Evil Man with the set of Ice Gloves.
-round  2: enemy stamina   82 ->   82  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round  3: enemy stamina   82 ->   82  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round  4: enemy stamina   82 ->   82  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round  4: enemy stamina   83 ->   82  (dmg 1)
+    | You shoot Evil Man with the set of Ice Gloves.
 round  5: enemy stamina   82 ->   82  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
 round  6: enemy stamina   82 ->   82  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
 round  7: enemy stamina   82 ->   82  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round  8: enemy stamina   82 ->   82  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round  9: enemy stamina   82 ->   82  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 10: enemy stamina   82 ->   81  (dmg 1)
+round  8: enemy stamina   82 ->   80  (dmg 2)
     | You shoot Evil Man with the set of Ice Gloves.
-round 11: enemy stamina   81 ->   80  (dmg 1)
+round  9: enemy stamina   80 ->   79  (dmg 1)
     | You shoot Evil Man with the set of Ice Gloves.
-round 12: enemy stamina   80 ->   80  (dmg 0)
+round 10: enemy stamina   79 ->   79  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 13: enemy stamina   80 ->   80  (dmg 0)
+round 11: enemy stamina   79 ->   79  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 14: enemy stamina   80 ->   80  (dmg 0)
+round 12: enemy stamina   79 ->   79  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 15: enemy stamina   80 ->   78  (dmg 2)
+round 13: enemy stamina   79 ->   79  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round 14: enemy stamina   79 ->   76  (dmg 3)
     | You shoot Evil Man with the set of Ice Gloves.
-round 16: enemy stamina   78 ->   77  (dmg 1)
-    | You shoot Evil Man with the set of Ice Gloves.
-round 17: enemy stamina   77 ->   77  (dmg 0)
+round 15: enemy stamina   76 ->   76  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 18: enemy stamina   77 ->   77  (dmg 0)
+round 16: enemy stamina   76 ->   76  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 19: enemy stamina   77 ->   75  (dmg 2)
+round 17: enemy stamina   76 ->   76  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round 18: enemy stamina   76 ->   75  (dmg 1)
     | You shoot Evil Man with the set of Ice Gloves.
+round 19: enemy stamina   75 ->   75  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
 round 20: enemy stamina   75 ->   75  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 21: enemy stamina   75 ->   75  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 22: enemy stamina   75 ->   75  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 23: enemy stamina   75 ->   74  (dmg 1)
+round 21: enemy stamina   75 ->   72  (dmg 3)
     | You shoot Evil Man with the set of Ice Gloves.
-round 24: enemy stamina   74 ->   72  (dmg 2)
+round 22: enemy stamina   72 ->   72  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round 23: enemy stamina   72 ->   72  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round 24: enemy stamina   72 ->   70  (dmg 2)
     | You shoot Evil Man with the set of Ice Gloves.
-round 25: enemy stamina   72 ->   71  (dmg 1)
+round 25: enemy stamina   70 ->   69  (dmg 1)
     | You shoot Evil Man with the set of Ice Gloves.
-round 26: enemy stamina   71 ->   71  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 27: enemy stamina   71 ->   71  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 28: enemy stamina   71 ->   71  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 29: enemy stamina   71 ->   71  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 30: enemy stamina   71 ->   71  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 31: enemy stamina   71 ->   70  (dmg 1)
+round 26: enemy stamina   69 ->   68  (dmg 1)
     | You shoot Evil Man with the set of Ice Gloves.
-round 32: enemy stamina   70 ->   70  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 33: enemy stamina   70 ->   70  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 34: enemy stamina   70 ->   70  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 35: enemy stamina   70 ->   67  (dmg 3)
+round 27: enemy stamina   68 ->   67  (dmg 1)
     | You shoot Evil Man with the set of Ice Gloves.
-round 36: enemy stamina   67 ->   67  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 37: enemy stamina   67 ->   67  (dmg 0)
-    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 38: enemy stamina   67 ->   65  (dmg 2)
+round 28: enemy stamina   67 ->   66  (dmg 1)
     | You shoot Evil Man with the set of Ice Gloves.
-round 39: enemy stamina   65 ->   65  (dmg 0)
+round 29: enemy stamina   66 ->   64  (dmg 2)
+    | You shoot Evil Man with the set of Ice Gloves.
+round 30: enemy stamina   64 ->   64  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-round 40: enemy stamina   65 ->   65  (dmg 0)
+round 31: enemy stamina   64 ->   64  (dmg 0)
     | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
-RESULT: enemy stamina=65 location=1 after 40 rounds
+round 32: enemy stamina   64 ->   64  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round 33: enemy stamina   64 ->   64  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round 34: enemy stamina   64 ->   61  (dmg 3)
+    | You shoot Evil Man with the set of Ice Gloves.
+round 35: enemy stamina   61 ->   58  (dmg 3)
+    | You shoot Evil Man with the set of Ice Gloves.
+round 36: enemy stamina   58 ->   58  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round 37: enemy stamina   58 ->   56  (dmg 2)
+    | You shoot Evil Man with the set of Ice Gloves.
+round 38: enemy stamina   56 ->   54  (dmg 2)
+    | You shoot Evil Man with the set of Ice Gloves.
+round 39: enemy stamina   54 ->   54  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+round 40: enemy stamina   54 ->   54  (dmg 0)
+    | You shoot Evil Man with the set of Ice Gloves, but it doesn't seem to do any damage.
+RESULT: enemy stamina=54 location=1 after 40 rounds
 
 ==== cyber2.taf ====
 player: Str=900 Acc=0 Def=800 Agi=0  playerStamina=50

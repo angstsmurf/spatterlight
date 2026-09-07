@@ -21,6 +21,16 @@
 #   Space Boy's  v4.00  shoot + the v4.0 acc>agi hit model (RNG damage ranges)
 #   cyber2.taf   v4.00  faithful zero-accuracy stalemate (enemy always dodges;
 #                       combat-assist correctly does NOT rescue a real v4.0 game)
+#
+# The golden is a SEEDED transcript: seed.cpp pins the seed, but every number
+# in it comes out of scr_congruential_rand(), and the initial staminas are
+# drawn at LOAD.  So any change to the generator re-threads the whole file and
+# the golden has to be re-blessed with it -- as the v4 walkthrough goldens are.
+# Re-blessed 2026-09-07 for a62e2d141 ("warm up the congruential RNG"), which
+# repaired the walkthrough corpus but missed this one; the new file is
+# byte-identical to what that commit produces, so nothing between it and now
+# touched projectile combat.  A diff that shows only damage rolls and initial
+# staminas moving is the generator; a diff that changes a MESSAGE is not.
 set -e
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
