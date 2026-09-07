@@ -368,8 +368,12 @@
     XCTAssertNotNil(font);
     NSFontTraitMask traits = [[NSFontManager sharedFontManager] traitsOfFont:font];
     switch (hint) {
-        case stylehint_Weight:
-            return (traits & NSBoldFontMask) ? 1 : 0;
+        case stylehint_Weight: {
+            NSInteger weight = [[NSFontManager sharedFontManager] weightOfFont:font];
+            if ((traits & NSBoldFontMask) || weight > 5)
+                return 1;
+            return weight < 5 ? -1 : 0;
+        }
         case stylehint_Oblique:
             return (traits & NSItalicFontMask) ? 1 : 0;
         case stylehint_Proportional:
@@ -403,6 +407,50 @@
     XCTAssertEqual([self measureWindow:win controller:ctl style:style_Preformatted hint:stylehint_Proportional],
                    [self fontTraitValueForStyle:self.theme.bufPre hint:stylehint_Proportional]);
     XCTAssertEqual([self measureWindow:win controller:ctl style:style_Preformatted hint:stylehint_Proportional], 0);
+}
+
+// A theme font lighter than regular (Light, Thin, UltraLight) measures as the
+// spec's -1, not as 0; regular stays 0 and bold stays 1.
+- (void)testMeasureReportsLightFontAsMinusOne {
+    NSFont *light = [NSFont fontWithName:@"HelveticaNeue-Light"
+                                    size:self.theme.bufUsr1.font.pointSize];
+    XCTAssertNotNil(light, @"fixture: HelveticaNeue-Light ships with macOS");
+    self.theme.bufUsr1.font = light;
+
+    GlkController *ctl = [self makeController];
+    GlkTextBufferWindow *win = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_User1 hint:stylehint_Weight], -1);
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_Normal hint:stylehint_Weight], 0);
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_Input hint:stylehint_Weight], 1,
+                   @"fixture: the default theme's Input style is bold");
+}
+
+// Families whose next step up from regular is Medium (Helvetica Neue, Avenir
+// Next) never produce a bold-trait face for a Weight 1 hint; the measure must
+// still report 1 for the heavier face the hint produced, and for a theme
+// font that is Medium outright.
+- (void)testMeasureReportsMediumWeightAsBold {
+    CGFloat size = self.theme.bufUsr1.font.pointSize;
+    NSFont *regular = [NSFont fontWithName:@"HelveticaNeue" size:size];
+    NSFont *medium = [NSFont fontWithName:@"HelveticaNeue-Medium" size:size];
+    XCTAssertNotNil(regular);
+    XCTAssertNotNil(medium);
+    XCTAssertFalse([[NSFontManager sharedFontManager] traitsOfFont:medium] & NSBoldFontMask,
+                   @"fixture: Medium must not carry the bold trait, or the test proves nothing");
+
+    self.theme.bufUsr1.font = regular;
+    self.theme.bufUsr2.font = medium;
+
+    GlkController *ctl = [self makeController];
+    ctl.bufferStyleHints[style_User1][stylehint_Weight] = @(1);
+
+    GlkTextBufferWindow *win = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_User1 hint:stylehint_Weight], 1,
+                   @"Weight 1 hint on Helvetica Neue yields Medium, which must measure as bold");
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_User2 hint:stylehint_Weight], 1,
+                   @"a Medium theme font must measure as bold");
 }
 
 // A Size stylehint (±2 pt per step for buffers) must show through absolute measure.

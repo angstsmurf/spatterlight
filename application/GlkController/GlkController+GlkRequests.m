@@ -385,11 +385,25 @@
         if (!font)
             return NO;
 
-        NSFontTraitMask traits = [[NSFontManager sharedFontManager] traitsOfFont:font];
+        NSFontManager *fontManager = [NSFontManager sharedFontManager];
+        NSFontTraitMask traits = [fontManager traitsOfFont:font];
         switch (hint) {
             case stylehint_Weight:
-                // Glk: 1 bold, 0 normal, -1 light. Report bold vs not (as Gargoyle does).
-                *result = (traits & NSBoldFontMask) ? 1 : 0;
+                // Glk: 1 bold, 0 normal, -1 light. NSFontManager weights run
+                // 0-15 with 5 regular and 9 bold. Anything heavier than
+                // regular counts as bold: a Weight 1 hint on Helvetica Neue
+                // or Avenir Next lands on Medium (6), which carries no bold
+                // trait but is the face the hint produced. Anything lighter
+                // (Light, Thin, UltraLight) is the spec's -1.
+                {
+                    NSInteger weight = [fontManager weightOfFont:font];
+                    if ((traits & NSBoldFontMask) || weight > 5)
+                        *result = 1;
+                    else if (weight < 5)
+                        *result = -1;
+                    else
+                        *result = 0;
+                }
                 return YES;
             case stylehint_Oblique:
                 *result = (traits & NSItalicFontMask) ? 1 : 0;
