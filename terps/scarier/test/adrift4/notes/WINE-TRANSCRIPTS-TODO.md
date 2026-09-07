@@ -4209,3 +4209,86 @@ which stamps both the worn list and the carried list as it builds them.
 acolyte-flavour line that moves with the extra turn), and the row is now
 identical to run400 on all 71 turns.  Full v4 suite: 428 PASS / 0 FAIL; the
 a5 suite is unmoved at 180 MATCH / 17 DIVERGE, all at baseline.
+
+## Triaged 2026-09-07: the 48-row re-run -- every row accounted for
+
+`par/summary.txt` rows 1-48 (transcripts `Adrift_377`..`Adrift_424`) were
+re-driven and compared with `compare_wine_transcript.py`.  **No row is an
+unexplained engine divergence.**  The table below is the whole batch, so that
+a future session does not re-chase a row someone has already closed.
+
+| rows | verdict |
+|---|---|
+| `murdermansionntro`, `ohhuman`, `redwire`, `zacksmackfoot` | **identical**, zero differing turns |
+| `angeldevilhuman`, `asteroidafter`, `dangersdrivingnight`, `existence`, `goldilocks`, `hiker`, `man_overboard`, `masochists_heaven`, `p2p`, `professor`, `renegade_brainwave`, `shadricks_travels`, `shred_em`, `space_boy`, `vardock_bates`, `vault`, `yak_shaving`, `zombiecow` | identical apart from the Runner's own `[Press any key to end]` tail |
+| `sophie` | 2 turns, **whitespace only** -- the `.txt` transcript drops alignment-only breaks (see the `<centre>` note above) |
+| `sandy_meta_number` | 2 turns, the **already-documented** deliberate difference: `wait <n>` and `hist <n>` are SCARE's own meta-commands and exist in no Runner (harness row comment, measured 2026-09-05 in `Adrift_61`) |
+| `3monkeys`, `jason_vs_salm`, `les_feux`, `light_up`, `shadowpeak`, `shadowpeak_allgargoyles`, `shadowpeak_killwraith`, `thelasthour` | RULE 2 -- the Runner never echoed 1..N feed commands, so everything after the first of them is out of step.  **Harness, not engine**; nothing may be read out of these past that point |
+| `adriftorama`, `humbug`, `iachini`, `icecream`, `iqsfot`, `orient_express`, `puzzlebox`, `rockband`, `scandal`, `snakes_and_ladders`, `sommeril`, `ticket`, `xfiles` | **RNG.**  Each was confirmed by re-running scarier under two or three seeds and watching the disputed text move (see below) |
+| `house` | **run400 defect** -- every successful move raises "Out of stack space"; the row is not comparable at all |
+| `to_hell_and_beyond_assisted`, `to_hell_and_beyond_assisted_max` | **assists, by design** -- run400 cannot follow these feeds; see below.  (They trip RULE 2 as well, at `feed[115]`, but that is 23 commands downstream of where the assist has already parted the two streams) |
+
+### The RNG rows, and how each was settled
+
+Not one of these needed the .taf decompiled: re-run scarier under a second and
+third `SCR_SEED` and the disputed line moves.  What is random in each:
+
+* `adriftorama` -- the game randomises itself every play, by design.
+* `humbug` -- Schrodinger's walk picks a random room each stop
+  (`seed 1/2/7` give three different first-six sequences; run400's matches
+  none of them).  humbug also randomises three start-up secrets.
+* `iachini` -- the keypad number the mirror card shows ("PUSH KEY 54" vs
+  "PUSH KEY 80") and the hot tub's starting pH.
+* `icecream` -- whether the scoop falls off the cone.
+* `iqsfot` -- three flavour tasks fired from timed events: `#heal_over_time`
+  ("Irvine's health recovers slightly."), `#grupensips` and the HiRBy hover
+  line.  Counts across the 169-turn replay: seed 31 -> 21/0/0,
+  seed 32 -> 12/1/0, seed 99 -> 17/1/1, run400 -> 19/1/1.
+* `orient_express`, `sommeril` -- timed flavour events (whistle, bell, mice)
+  landing one or two turns either side.
+* `puzzlebox` -- the box's locks are drawn per play.
+* `rockband` -- the note colours.
+* `scandal` -- the naval combat rolls (range, damage, "veers off to port").
+* `snakes_and_ladders` -- the dice, from turn ~20.
+* `ticket` -- the cat's walk and the lost girl's topic replies; the cat is in
+  run400's transcript too (35 lines), just in other rooms.
+* `xfiles` -- the travel destination: `n` at turn 56 reaches Bellefleur in
+  run400 and the Davis warehouse in scarier, and scarier reaches Bellefleur
+  0 or 2 times depending on the seed.
+
+### `house`: run400 cannot run this game
+
+`Adrift_381_house.txt` answers **every successful movement with nothing at
+all** -- no "You move east.", no room heading, no body -- while `look` in the
+same room prints the full block and a refused move prints "You can't go in
+that direction, ...".  That is not the Verbose toggle and not the "Room names
+in descriptions" checkbox (both were set by `fast.sh`'s registry prep, and
+both would still leave *something*).
+
+Re-driven 2026-09-07 with an eight-command probe
+(`cmdfile_housemove.txt` = `2, e, look, e, look, w, look, x house`,
+`Adrift_p4housemove.txt`): every `e`/`w` raises
+
+    dialog 'ADRIFT Runner': evaluate error - Out of stack space
+
+which the driver clears.  The move itself has already happened -- the `look`
+after each one names the right room -- but the turn's output is thrown away
+with the stack.  So run400 is **not an oracle for this game**: the 45 blank
+turns are the crash, and the 112 later content differences are downstream of
+the desync it causes (the transcript shows a `> Huh?` double prompt).  Leave
+the row alone unless the crash itself is ever wanted as a measurement.
+
+### `to_hell_and_beyond_assisted*`: the assist is the difference
+
+Both rows diverge from turn 92 (`open drawer`) and never re-converge.  The
+root is one task: "jump down from balconies" carries a single
+`TASK_ACTION` type 1 (move player) with `Var2 = -1` -- an unset destination --
+and `Var3 = 42`.  run400's `Select Case` ignores it, so the Runner prints the
+task's text and leaves the player on the Balconies for the rest of the
+replay; scarier, with `SCR_ASSUME_MOVES=1`, honours `Var3` as a room and walks
+on.  That is exactly what the assist is for: the game is listed in
+`GSC_GAME_ASSIST_TABLE` (os_glk.cpp) as "This game cannot be completed as
+authored", and the plain `to_hell_and_beyond` row -- the one that stops before
+the broken task -- was measured clean in run400 on 2026-09-06
+(`Adrift_124`).  Nothing to fix; the two `_assisted` rows simply have no
+run400 counterpart past command 92.

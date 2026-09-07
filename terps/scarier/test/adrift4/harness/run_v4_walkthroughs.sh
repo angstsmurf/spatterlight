@@ -1009,6 +1009,13 @@ to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town
 # was exactly that -- a replay missing SCR_ASSUME_MOVES).
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
+# NOT comparable against run400 past command 92.  Wine-driven 2026-09-07
+# (Adrift_398/Adrift_399): the very task the assist exists for, "jump down
+# from balconies", is where the two streams part -- run400 prints the task
+# text and, its move destination being unset, leaves the player on the
+# Balconies for the remaining 130 commands.  That is the assist working, not
+# a divergence; the honest oracle for this game is the unassisted row above,
+# clean in run400 on 2026-09-06 (Adrift_124).
 to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1
 # ...and the *max* assisted row, 265/373 (the row above banks 265-17=248).  The
 # extra 20 comes from task 72 `^^aquired armor^^` (Theeve's death reward), which
@@ -7522,6 +7529,15 @@ onnafa_solution.txt|ONNAFA.TAF|your score turned out at 76|SCR_SKIP_WAITKEY=1
 # a sober player to see (deliberate deviation, see
 # notes/WINE-TRANSCRIPTS-TODO.md).  Re-blessed 2026-09-07 with the walk:
 # it used to print "%drunk% east.".
+# So this row is NOT a usable run400 oracle: the alert costs the Runner the
+# WHOLE turn, not just the movement line.  The eight-command probe
+# Adrift_p4housemove.txt (2026-09-07) answers "> e" with one empty line --
+# no heading, no body, no exits -- and the `look` that follows it prints the
+# entire block for the room the move did reach; a *refused* move, raising no
+# alert, prints its refusal normally.  Across the 286-command replay
+# (Adrift_381_house.txt) that is 45 blank turns and everything downstream of
+# the desync they cause.  See notes/WINE-TRANSCRIPTS-TODO.md, "the 48-row
+# re-run".
 house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_WAITKEY=1
 # Full win (85/85, best ending, top rank "So good you must have cheated"):
 # David Whyld's studio-director comedy sim "TO THE MOON AND BACK" (in-game
