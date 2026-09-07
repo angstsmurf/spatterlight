@@ -2074,7 +2074,28 @@ follow-up on rows that have been driven, in this order:
    Do not assume the other five share a mechanism -- `bigcitylaundry` T1's
    extra text ("Your feet are freezing! Put s...") really does look like an
    event, and the even split that suggested "tick" was an artefact of lumping
-   an NPC line in with them.
+   an NPC line in with them.  Re-triaged one at a time, 2026-09-07, and the
+   premise is now wrong for four of the six:
+   - `skydiver` T15 -- DONE, the walk-hidden stamp (above).
+   - `overtheedge` T1 -- **RNG, do not chase.**  The Captain's line comes out
+     of a RANDOMIZER event; six seeds gave six different lines, and seed 5
+     reproduces run400's exactly.  Not an engine difference.
+   - `stationxiii` T25 -- **RNG, do not chase.**  "Something wet lands on your
+     nose..." moves turn or disappears entirely with the seed.
+   - `briefcase` T5 -- **the premise was wrong.**  T5 was already fixed by an
+     earlier port and the re-fed compare is clean (19/19 echoed, only the known
+     `[Press any key to end]` tail).  The row's real divergence is at turn 10
+     and it is not an event at all: `%status_door%`.  DONE -- see "Ported
+     2026-09-07: `%status_<name>%` is the lowest-indexed openable Short match".
+   - `bigcitylaundry` T1 -- **still open, and still looks like an event.**
+     Scarier prints "Your feet are freezing!  Put some socks on!" on turn 1 for
+     every seed; run400 never prints it.  Event 0 "cold feet" is StarterType 1,
+     RestartType 1, Time1 = 1, Time2 = 4, PauseTask = 2, PauserCompleted = 0,
+     ResumeTask = 0, Where Type 1 Room 0.  Seed and Where visibility are both
+     ruled out.  Leading hypothesis: an event that loads already paused, with
+     ResumeTask = 0, never starts in the Runner at all.  Needs its own event
+     probe under run400 -- do not port on the hypothesis alone.
+   - `backhome` T36 -- **still open, not yet investigated.**
 6. **`icecream`** -- DONE 2026-09-07.  Two rules, neither of them the guess in
    this item: the take refusal is a game task's FailMessage that run400 reaches
    ahead of " already carrying ", and `put ice cream in cone` is refused
@@ -3671,4 +3692,91 @@ prints and we were dropping:
   door` turn that introduces him.  3.90 and seeded, which is what the 3.9
   probe stands in for.
 
+Full v4 suite: 428 PASS / 0 FAIL.
+
+## Ported 2026-09-07: `%status_<name>%` is the lowest-indexed openable Short match
+
+`briefcase`'s study ends its description with
+
+    A door (%status_door%) leads out to the south-east.
+
+and the golden read `(open)` where run400 prints `(closed)`.  The game has two
+objects whose Short is `door`, and scarier was answering with the wrong one.
+
+Scarier resolved the marker by asking the *parser*:
+`uip_match ("%object%", name + 7, game)`, then read `Openable` off
+`vars->referenced_object`.  Two things are wrong with that.  `uip_match_entity()`
+(scparser.cpp:2066) walks every entity with no room or visibility filter and
+calls `var_set_ref_object()` on each hit, so the surviving index is the LAST
+match -- the highest-indexed namesake, not the first.  And because it is the
+real parser it also rewrote `game->object_references` in the middle of
+rendering a room description, which is a side effect a text marker has no
+business having.
+
+### The probe
+
+`make_400_statusprobe.py` -> `p4STATUS.taf`, six static objects across three
+rooms, every cell of the rule in one game:
+
+    object 0  "a door"       Alpha,   Openable = CLOSED
+    object 1  "a door"       Bravo,   Openable = CLOSED
+    object 2  "a portal"     Charlie, OPEN, Alias[0] "gate"
+    object 3  "a hatch"      Charlie, NOT openable
+    object 4  "a hatch"      Charlie, OPEN
+    object 5  "the grate"    Charlie, OPEN
+
+Alpha and Bravo print `ST=[%status_door%]`; Charlie prints that plus
+`AL=[%status_gate%] AP=[%status_a gate%] HA=[%status_hatch%]`
+`PF=[%status_the grate%] PB=[%status_grate%]`.  Eleven commands
+(`look / e / open door / look / w / open door / e / close door / look / e /
+look`), run400 under Wine, `Adrift_921-923.txt`, 2026-09-07, every command
+echoed.
+
+### Which `door` answers
+
+    watching from | door 0 | door 1 | run400 | scarier (before)
+    Bravo         | closed | OPEN   | closed | open
+    Alpha         | closed | open   | closed | open
+    Bravo         | open   | CLOSED | open   | closed
+    Charlie       | open   | closed | open   | closed
+
+Row 1 is the one that matters: standing in Bravo, with Bravo's own door open
+and Alpha's closed, run400 still says `closed`.  There is no room filter, no
+visibility filter and no preference for the local object -- it is the lowest
+index, full stop.  Rows 3 and 4 rule out "the one the player last touched",
+which was the other candidate.
+
+### What counts as a name
+
+    AL=[%status_gate%]        -> "%status_gate%"        verbatim
+    AP=[%status_a gate%]      -> "%status_a gate%"      verbatim
+    HA=[%status_hatch%]       -> "open"
+    PF=[%status_the grate%]   -> "open"
+    PB=[%status_grate%]       -> "open"
+
+So: aliases are never searched, even though the parser matches them; the Short
+answers both bare and with its Prefix in front; a name matching nothing is left
+in the text verbatim (`pf_interpolate_vars()` already copies a marker through
+when `var_get()` returns FALSE, so that fell out for free); and the unopenable
+`hatch` at index 3 is *skipped* on the way to index 4, not matched and then
+rejected -- had it been matched-then-rejected, `HA` would have gone verbatim.
+
+### The port
+
+`var_status_object()` in scvars.cpp, a plain loop over the object bundle that
+skips `Openable == 0`, compares Short case-insensitively, then Prefix + " " +
+Short, and returns the first hit or -1.  No parser, no reference clobbering.
+Post-fix scarier reproduces all nine probe cells exactly.
+
+### Corpus exposure
+
+Fourteen games use `%status_`, and every one of them is version 4.00, so
+run400 alone covers the rule: EscapeToNewYork, Il Golem, Rock Band, Terrified,
+WhereAreMyKeys, aparty, baroo, blood, briefcase, darkness, door, magicshow,
+target, vague.  `aparty` is the interesting one -- its object 10 is Prefix
+"the", Short "china cupboard", Alias[0] "china cabinet", and it writes
+`%status_the china cabinet%`, which is an *alias* reference: the Runner leaves
+it in the text verbatim, and so do we now.
+
+One golden re-blessed: `briefcase`, `A door (open)` -> `A door (closed)`.
 Full v4 suite: 428 PASS / 0 FAIL.

@@ -5647,6 +5647,31 @@ viewtohome_solution.txt|A View to a Home.taf|Congratulations! You have collected
 # `open case` must land in the exact 2-filler-turn window between the two,
 # too early fails one way ("not holding that"), one turn short fails a
 # different way (door-lock refusal). 19 commands, no env vars.
+# The study's room description ends "A door (%status_door%) leads out to the
+# south-east.", and the golden used to read "(open)" where run400 prints
+# "(closed)": the game has two `door` objects and scarier was answering with
+# the wrong one. Measured with a purpose-built six-object probe (p4STATUS.taf,
+# make_400_statusprobe.py; run400, Adrift_921-923.txt, 2026-09-07, all eleven
+# commands echoed): two openable objects both Short "door", one in Alpha and
+# one in Bravo, watched from three rooms while their states were flipped --
+#
+#   watching from | door 0 | door 1 | run400 | scarier (before)
+#   Bravo         | closed | OPEN   | closed | open
+#   Alpha         | closed | open   | closed | open
+#   Bravo         | open   | CLOSED | open   | closed
+#   Charlie       | open   | closed | open   | closed
+#
+# so the answer is the LOWEST-indexed openable object whose Short matches,
+# with no room or visibility filter of any kind. The same probe's other five
+# cells fix the rest of the rule: %status_gate% and %status_a gate% (an alias,
+# and that alias with its Prefix) are left in the text verbatim, %status_grate%
+# and %status_the grate% both answer (bare Short and Prefix+Short both match),
+# and %status_hatch% skips an unopenable namesake at a lower index rather than
+# matching it and reporting nothing. scarier used to ask the parser via
+# uip_match("%object%", ...), which walks every entity, keeps the LAST match --
+# the highest index -- and quietly rewrote the game's object references
+# mid-render; var_status_object() in scvars.cpp replaces it. Also seen in
+# aparty, whose %status_the china cabinet% is an alias and stays verbatim.
 briefcase_solution.txt|briefcase.taf|[The end]|
 # The_Seance.taf (4.00): WON 100/100, the true maximum -- the game's own
 # declared max is a stale 0 (mid-run `score` reports "...out of a maximum

@@ -119,7 +119,7 @@ The study, in contrast to the rest of the house, is fairly bare, with
 varnished wooden floorboards decking the floor. A simple wooden desk takes up
 one wall of the small room, with a heavily-curtained window above it. A chair
 is pulled up in front of the desk. The rest of the study is occupied by a
-large bookshelf. A door (open) leads out to the south-east.
+large bookshelf. A door (closed) leads out to the south-east.
 
 > open curtains
 You pull open the curtains, and soft moonlight ripples in.
