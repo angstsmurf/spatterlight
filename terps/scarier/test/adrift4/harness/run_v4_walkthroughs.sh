@@ -327,6 +327,20 @@ renegade_brainwave_solution.txt|Renegade_Brainwave.taf|planet Earth has been ave
 # 70 in 3.9).  Fixed with evt_can_see_event_in_room(); after it, 251 of the 252
 # turns are byte-identical and the 252nd differs only by [Press any key to end],
 # which is a waitkey mark by design.
+#
+# Re-driven 2026-09-07 (Adrift_932.txt) because the August transcript was cut
+# with "References in brackets" OFF -- it holds no bracketed reference at all --
+# and a sweep read the one line that setting suppresses as an engine bug:
+#
+#   turn 94, `s`, out of the room where the tiny chair has just collapsed
+#   run400   I move south. ...
+#   scarier  (Getting up off the floor first) I move south. ...
+#
+# The chair task's fourth action is "move player to sitting on" with the
+# destination combo left at the floor (Var3 = 0), so the player is sitting on
+# nothing and the next move stands up first.  With the box ticked run400 prints
+# it too, on its own line, and the row is 251 of 252 again.  Its wording is the
+# game's: an ALR rewrites the library's "Standing up first".
 goldilocks_solution.txt|goldilocks.taf|Three Bears are no more
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_43_1hrgame.txt,
 # feed cmdfile_w_masochists_heaven.txt, 13 commands, PRE=1).  13/13 echoed,
@@ -540,6 +554,15 @@ light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=74
 # remove and eat all coming back BARE ("SoMorph sing a little song.",
 # "SoMorph open the bathroom door."), and `i` reading "SoMorph is carrying
 # nothing." with the copula spelled out.  Four lines here, all open/close.
+#
+# Re-driven 2026-09-07 (Adrift_931.txt, feed cmdfile_maincourse2.txt): now
+# identical on all 26 turns.  The August transcript was cut with "References
+# in brackets" OFF and so lacked the "(Standing up first)" on turn 0 -- SoMorph
+# starts the game sitting (Globals Position 1, ParentObject 0 = the floor), and
+# the very first `north` stands up first.  This row and goldilocks were the two
+# the setting bit, and they are the only 4.0 measurement of the parent-less
+# branch of that pair: sclibrar.cpp cites monsters for "(Getting off X first)"
+# but had nothing for "(Standing up first)" until now.
 maincourse_solution.txt|Main Course.taf||SCR_SEED=17
 # The 3.9 half of the walk-announcement rewrite was measured on this game --
 # run390 under Wine, Adrift_37_melbourne_beach.txt, 2026-08-24.  See the arlo block.

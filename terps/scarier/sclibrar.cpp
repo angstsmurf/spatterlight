@@ -3472,6 +3472,14 @@ lib_go (scr_gameref_t game, scr_int direction)
    * Sissy's four poster bed first)" on its own line before "I move in."
    * (and later "(Getting off the pink plastic chair first)"); with the box
    * unticked (humbug command 254, 2026-08-24) it prints nothing.
+   *
+   * The parent-less half -- sitting or lying on the FLOOR, so "(Standing up
+   * first)" rather than "(Getting off X first)" -- was measured 2026-09-07 on
+   * Main Course.taf (4.00, Adrift_931.txt), whose player starts sitting with
+   * ParentObject 0, and on goldilocks (Adrift_932.txt) turn 94, where a task
+   * action seats the player on an unset object.  Both print the line with the
+   * box ticked and nothing without it, and both had earlier brackets-OFF
+   * transcripts that read as an engine bug until they were re-driven.
    */
   if (gs_playerparent (game) != -1)
     {

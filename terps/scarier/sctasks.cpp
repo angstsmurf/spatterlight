@@ -876,19 +876,31 @@ task_run_move_npc_action (scr_gameref_t game,
           return;
 
         case 3:                /* To standing on */
-          gs_set_playerposition (game, 0);
-          gs_set_playerparent (game, obj_standable_object (game, var3 - 1));
-          return;
-
         case 4:                /* To sitting on */
-          gs_set_playerposition (game, 1);
-          gs_set_playerparent (game, obj_standable_object (game, var3 - 1));
-          return;
-
         case 5:                /* To lying on */
-          gs_set_playerposition (game, 2);
-          gs_set_playerparent (game, obj_lieable_object (game, var3 - 1));
-          return;
+          {
+            /* var2 3/4/5 map to positions 0/1/2; the parent is filtered by
+             * what the object can actually be on, so an object that is not
+             * standable (or not lieable) leaves the player on the floor in
+             * that posture.  Traced because a silent posture change is
+             * otherwise invisible: goldilocks' collapsing chair task sets
+             * "sitting on" a chair it destroys in the same breath, and the
+             * only sign of it is a "(Standing up first)" on the NEXT move. */
+            const scr_int position = var2 - 3;
+            const scr_int parent = (var2 == 5
+                                    ? obj_lieable_object (game, var3 - 1)
+                                    : obj_standable_object (game, var3 - 1));
+
+            if (task_trace)
+              {
+                scr_trace ("Task: player position %ld, parent object %ld"
+                           " (requested %ld)\n", position, parent, var3 - 1);
+              }
+
+            gs_set_playerposition (game, position);
+            gs_set_playerparent (game, parent);
+            return;
+          }
 
         default:
           /*
