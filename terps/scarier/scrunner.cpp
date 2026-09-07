@@ -634,33 +634,96 @@ static scr_commands_t STANDARD_COMMANDS[] = {
 #else
   {"[again/g/last/previous]", lib_cmd_again},
 #endif
+  /*
+   * `redo` is ours; `!` is the Runner's, so only the word goes away under
+   * SCARIER_NO_ABBREVIATIONS.  The `!5` / `!take` arguments stay either way --
+   * the Runner has no equivalent, but it has no bare `!`-plus-argument form to
+   * clash with either, so they cost nothing.
+   */
+#ifdef SCARIER_NO_ABBREVIATIONS
+  {"!%number%", lib_cmd_redo_number},
+  {"!%text%", lib_cmd_redo_text},
+  {"!", lib_cmd_redo_last},
+#else
   {"[redo /!]%number%", lib_cmd_redo_number},
   {"[redo /!]%text%", lib_cmd_redo_text},
   {"[redo/!]", lib_cmd_redo_last},
-#ifdef SCARIER_NO_ABBREVIATIONS
-  {"[quit]", lib_cmd_quit},
-#else
-  {"[quit/q]", lib_cmd_quit},
 #endif
+  /*
+   * `bye` and `end` are exact synonyms of `quit` in every Runner -- one
+   * three-way whole-line test that unloads the form and answers "I'm so glad
+   * you said no..." if the confirmation is declined (run400 loc_48AA85-48AAC9,
+   * run370 loc_43C06B).  `q` is ours, not theirs; see the audit note above.
+   */
+#ifdef SCARIER_NO_ABBREVIATIONS
+  {"[quit/bye/end]", lib_cmd_quit},
+#else
+  {"[quit/q/bye/end]", lib_cmd_quit},
+#endif
+  {"endgame", lib_cmd_endgame},
+  /*
+   * Audited 2026-09-07 against the four Runner constant pools and the 426-game
+   * v4 corpus (notes/WINE-TRANSCRIPTS-TODO.md, "Audited 2026-09-07"): besides
+   * the `stats` row below, `hints`, `q`, `brief`, `verbose`, `notify`,
+   * `notification`, `redo`, `hist`, `gpl`, `license` and `statusline` are all
+   * SCARE inventions no Runner accepts (the Runner words are `hint`, `quit`,
+   * `history`).  None of them diverges today: a game task is matched before
+   * run_standard_commands(), so any task carrying COMPLETE text wins and the
+   * invention never runs -- only a *silent* task leaves the gap that `stats`
+   * fell into.  `hints` is the widest exposure (224 tasks in 11 games).
+   *
+   * All eleven are compiled out by SCARIER_NO_ABBREVIATIONS, alongside the
+   * `g`/`i`/`z` shorthands, so that build offers a game exactly the meta
+   * vocabulary the Runner does and can never steal a line from a task.  The
+   * default build keeps them: they are useful, and the corpus says they are
+   * harmless.
+   *
+   * `turns`/`undo` are 3.80+ and `version` 3.90+ in the Runner; left ungated
+   * here because no 3.70/3.80 corpus game names them.
+   */
   {"turns", lib_cmd_turns},
   {"score", lib_cmd_score},
   {"undo", lib_cmd_undo},
-  {"[hist/history] %number%", lib_cmd_history_number},
-  {"[hist/history]", lib_cmd_history},
+  /* `past` is the Runner's own synonym of `history` -- the two are one
+   * whole-line test in all four (run370 loc_43BA2A, run380 loc_44228D,
+   * run400 loc_48A51A).  The `%number%` form is a SCARE extension on top of
+   * both, and `hist` is ours alone; see the audit note below. */
+#ifdef SCARIER_NO_ABBREVIATIONS
+  {"[history/past] %number%", lib_cmd_history_number},
+  {"[history/past]", lib_cmd_history},
+  {"hint", lib_cmd_hints},
+#else
+  {"[hist/history/past] %number%", lib_cmd_history_number},
+  {"[hist/history/past]", lib_cmd_history},
   {"[hint/hints]", lib_cmd_hints},
   {"verbose", lib_cmd_verbose},
   {"brief", lib_cmd_brief},
   {"[notify/notification] %text%", lib_cmd_notify_on_off},
   {"[notify/notification]", lib_cmd_notify},
+#endif
   {"time", lib_cmd_time},
   {"date", lib_cmd_date},
   {"[help/commands]", lib_cmd_help},
+#ifndef SCARIER_NO_ABBREVIATIONS
   {"[gpl/license]", lib_cmd_license},
+#endif
   {"[about/info/information/author]", lib_cmd_information},
   {"[clear/cls/clr]", lib_cmd_clear},
+#ifndef SCARIER_NO_ABBREVIATIONS
   {"statusline", lib_cmd_statusline},
+#endif
+  {"[control panel/control-panel/control/panel]", lib_cmd_control_panel},
+  /*
+   * `stats` was a SCARE invention: the string does not occur in ANY of the
+   * four Runner binaries, so it stole `suburbanprodigy3` T31 from the game's
+   * own task.  Dropped 2026-09-07; see test/adrift4/notes/
+   * WINE-TRANSCRIPTS-TODO.md "Ported 2026-09-07: `stats` is not a Runner
+   * command".  `status` itself is 3.90/4.00 only and lives solely inside the
+   * Battle System handler (run400 47DCA1, run390 44C510), which is why both
+   * handlers below are gated on battle_is_enabled().
+   */
   {"status %character%", lib_cmd_status_npc},
-  {"[status/stats]", lib_cmd_status_player},
+  {"[status]", lib_cmd_status_player},
   {"wield %object%", lib_cmd_wield},
   {"version", lib_cmd_version},
 

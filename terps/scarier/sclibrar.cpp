@@ -2244,16 +2244,124 @@ lib_cmd_look (scr_gameref_t game)
 /*
  * lib_cmd_quit()
  *
- * Called on "quit".  Exits from the game main loop.
+ * Called on "quit", "bye" and "end".  Exits from the game main loop.
+ *
+ * Declining the confirmation is not silent: every Runner answers "I'm so glad
+ * you said no...".  The branch is two statements, and the second runs whatever
+ * the first did --
+ *
+ *     run370 loc_43C07E:  Me.Global.Unload MemVar_4461A8
+ *     run370 loc_43C089:  MemVar_4460E4 = "I'm so glad you said no..."
+ *
+ * (run380 loc_44A6xx, run390 loc_45FA5D, run400 loc_48AABA/48AAC2 are the same
+ * pair) -- because VB's Unload raises Form_QueryUnload, which is where the
+ * Runner puts the "Are you sure?" box.  Confirm and the process is gone before
+ * the assignment can matter; decline and Unload simply returns, leaving the
+ * line as the turn's whole output.  Note it is an assignment, not an append,
+ * so it *replaces* anything the turn had buffered; here the buffer is
+ * necessarily empty, since a matched task would have taken the line before
+ * run_standard_commands() ever ran.
+ *
+ * The literal is in all four constant pools, so this is not version-gated.
  */
 scr_bool
 lib_cmd_quit (scr_gameref_t game)
 {
   if (if_confirm (SCR_CONF_QUIT))
     game->is_running = FALSE;
+  else
+    pf_buffer_string (gs_get_filter (game), "I'm so glad you said no...\n");
 
   game->is_admin = TRUE;
   return TRUE;
+}
+
+
+/*
+ * lib_cmd_endgame()
+ *
+ * Called on "endgame".  Ends the game there and then, printing nothing but
+ * the score summary.
+ *
+ * This is *not* a synonym of `quit`, and it does not go through the ending
+ * machinery either: the Runner writes the two lines inline in generaltasks and
+ * then sets the gameover byte, so there is no WinText, no "Better luck next
+ * time.", and no "Well done - you scored maximum points!" / "You finished N
+ * points short." line -- those live in Form1.endmessage, which this path never
+ * reaches.  run400 loc_48AAC9-48ABB8:
+ *
+ *     If cmd = "endgame" Then
+ *       out &= "You scored" & Str(score) & " out of the maximum" & Str(MaxScore) & "!" & CRLF
+ *       If MaxScore = 0 Then MaxScore = 1
+ *       out &= "That is" & Str(Int(score * (100 / MaxScore))) & "% of the game!" & CRLF & CRLF
+ *       out &= "[Press any key to end]"
+ *       gameover = 3
+ *
+ * Note the order: the "out of the maximum" figure is the game's real MaxScore,
+ * and the 0 -> 1 fix-up applies only to the divisor, so a scoreless game gets
+ * "out of the maximum 0!" and "That is 0% of the game!".  That differs from
+ * task_print_end_game_summary(), which follows Form1.endmessage in skipping
+ * the whole summary for a scoreless 4.0 game and reporting a scoreless pre-4.0
+ * one as 100%, so the two printers are deliberately kept apart.
+ *
+ * All four Runners carry the branch, identically worded (run370 loc_43C095,
+ * run380 loc_442xxx, run390 loc_45FB94, run400 loc_48AAC9), and every literal
+ * is in all four constant pools, so it is not gated on a version.
+ *
+ * "[Press any key to end]" is the Runner's own end-of-session prompt and is
+ * supplied by the host here, not by the library; see the transcript note in
+ * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
+ */
+scr_bool
+lib_cmd_endgame (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int max_score, divisor, percent;
+  scr_char buffer[32];
+
+  max_score = prop_get_global_integer (bundle, "MaxScore");
+
+  pf_buffer_string (filter, "You scored ");
+  snprintf (buffer, sizeof (buffer), "%ld", game->score);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_string (filter, " out of the maximum ");
+  snprintf (buffer, sizeof (buffer), "%ld", max_score);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_string (filter, "!\n");
+
+  divisor = max_score == 0 ? 1 : max_score;
+  percent = (scr_int) floor (game->score * (100.0 / divisor));
+  pf_buffer_string (filter, "That is ");
+  snprintf (buffer, sizeof (buffer), "%ld", percent);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_string (filter, "% of the game!\n");
+
+  /* Stop the game, and note that it's not resumeable -- the gameover byte the
+     Runner sets here is the same one an EndGame task action writes. */
+  game->is_running = FALSE;
+  game->has_completed = TRUE;
+  return TRUE;
+}
+
+
+/*
+ * lib_cmd_control_panel()
+ *
+ * Called on "control panel", "control-panel", "control" and "panel".
+ *
+ * All four Runners take these as one whole-line test and open (or focus) the
+ * Runner's Control Panel window, answering "Control Panel on" the first time
+ * and "Control Panel already on." after that (run370 loc_43C34E, run400
+ * loc_48AEAE).  That window is a Windows Runner feature with no counterpart
+ * here, so rather than leave the words to fall through to the game -- which
+ * the Runner never does -- say plainly that there is none.
+ */
+scr_bool
+lib_cmd_control_panel (scr_gameref_t game)
+{
+  return lib_print_message (game,
+                            "Scarier does not implement a Control Panel.\n");
 }
 
 

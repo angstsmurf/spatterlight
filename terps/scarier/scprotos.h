@@ -571,6 +571,8 @@ extern scr_bool lib_cmd_notify (scr_gameref_t game);
 extern scr_bool lib_cmd_time (scr_gameref_t game);
 extern scr_bool lib_cmd_date (scr_gameref_t game);
 extern scr_bool lib_cmd_quit (scr_gameref_t game);
+extern scr_bool lib_cmd_endgame (scr_gameref_t game);
+extern scr_bool lib_cmd_control_panel (scr_gameref_t game);
 extern scr_bool lib_cmd_restart (scr_gameref_t game);
 extern scr_bool lib_cmd_undo (scr_gameref_t game);
 extern scr_bool lib_cmd_history (scr_gameref_t game);

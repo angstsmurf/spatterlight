@@ -639,7 +639,7 @@ refuses to load it.
 | `spot_of_bother` | A_Spot_of_Bother.taf | `Adrift_331_spot_of_bother.txt` | diff 12 | T138 `sprinkle eye of toad into cauldron`: run400 'You sprinkle some of the eye of toad into the cauldron. The cauldron s' vs scarier 'You sprinkle some of the eye of toad into the cauldron. The cauldron b' |
 | `sswhore` | ss whore.taf | `Adrift_304_sswhore.txt` | lost-cmd | 1 lost, first feed[135] `score` |
 | `stationxiii` | Station_XIII.taf | `Adrift_283_stationxiii.txt` | diff 4 | T25 `take laser cutter`: run400 'You take the laser cutter.' vs scarier 'You take the laser cutter. Something wet lands on your nose...' |
-| `suburbanprodigy3` | MikeDesert_SuburbanProdigy3.taf | `Adrift_219_suburbanprodigy3.txt` | diff 1 | T31 `stats`: run400 'Listen dude, you've played these games before. Step it up! You scored ' vs scarier 'Celler \| Score: 80 You scored 80 out of the maximum 80! That is 100% o' |
+| `suburbanprodigy3` | MikeDesert_SuburbanProdigy3.taf | `Adrift_219_suburbanprodigy3.txt` | clean (DONE 2026-09-07, `stats` is not a Runner command; only `[Press any key to end]` left) | T31 `stats`: both 'Listen dude, you've played these games before. Step it up! You scored 80 out of the maximum 80!' |
 | `sun_empire` | Sun_Empire_Quest_For_The_Founders.taf | `Adrift_277_sun_empire.txt` | lost-cmd | 2 lost, first feed[82] `quit` |
 | `suzypowers` | competition2011__adrift__powers__how suzy got her powers.taf | `Adrift_216_suzypowers.txt` | diff 1 | T30 `lift beam`: run400 'You place one end of the trident under the beam and say to the woman, ' vs scarier 'You place one end of the trident under the beam and say to the woman, ' |
 | `takeone` | takeone.taf | `Adrift_202_takeone.txt` | diff 1 (DONE 2026-09-06, room-content listing; only `[Press any key to end]` left) | T4 `s`: run400 'Indianette Jones moves south. Ruined Statue (on screen 3) Above Indian' vs scarier 'Indianette Jones moves south. Ruined Statue (on screen 3) Above Indian' |
@@ -912,6 +912,15 @@ and decompile addresses are in the harness row comments and in git history.
   task 60, measured 2026-09-06).
 - Bracketed References echo removed; the bracket checkbox governed
   "(Getting off the stool first)" and two more lines.
+- `stats` is not a Runner command in ANY of the four Runners, and `status`
+  exists only in 3.90/4.00 and only inside the Battle System handler.  The
+  `[status/stats]` row's `stats` synonym was dropped (suburbanprodigy3 T31).
+  See "Ported 2026-09-07" at the end of this file.
+- The rest of the `STANDARD_COMMANDS` meta table was audited the same way
+  (2026-09-07).  Eleven more words are SCARE inventions absent from all four
+  Runner binaries, but none of them currently diverges on the corpus.  See
+  "Audited 2026-09-07" at the end of this file.  All eleven are now compiled
+  out by `SCARIER_NO_ABBREVIATIONS`; see "Gated 2026-09-07" at the end.
 
 ## Deliberate deviations (measured, not ported)
 
@@ -1881,9 +1890,11 @@ written up here (see the batch-1 section), and so, after fix 5, is
   `bigcitylaundry` T1 and `stationxiii` T25 (only in scarier).  All six are
   one event firing a tick early or late, and the split down the middle says
   it is the tick, not a missing event.
-- **`suburbanprodigy3` T31 `stats`** -- run400 runs a game task, scarier
-  answers with a built-in status line (`Celler | Score: 80`).  `stats` looks
-  like a scarier meta-command the Runner does not have.
+- **`suburbanprodigy3` T31 `stats`** -- DONE 2026-09-07.  run400 ran a game
+  task, scarier answered with a built-in status line (`Celler | Score: 80`),
+  and the guess was right: `stats` is a SCARE invention no Runner carries.
+  Synonym dropped; the row is clean.  See "Ported 2026-09-07: `stats` is not
+  a Runner command" at the end of this file.
 - **`reactor1` T10** -- run400 `A quick glance at the computer` and
   `Initializing ... failed!`, scarier `at the console` and `... done!`.  A
   referenced-object / variable substitution, not a wording table.
@@ -2016,8 +2027,8 @@ follow-up on rows that have been driven, in this order:
    split evenly, so this is the tick and not a missing event.
 6. **`icecream`** (3 commands in: the take refusal uses the alternate
    description, and `put ice cream in cone` runs in scarier and is refused by
-   run400) and **`suburbanprodigy3`** (`stats` is a scarier meta-command the
-   Runner does not have).
+   run400).  `suburbanprodigy3` used to sit here too -- DONE 2026-09-07, the
+   `stats` synonym was a SCARE invention and is gone.
 7. **The refusal that accompanies a task** (`cbn2` T17, `relojero` T10,
    `qui_a_tue_dana` T21) -- one rule about which library message survives.
 8. **Re-feed the 19 rows that really lost a command** -- DONE 2026-09-07,
@@ -2794,3 +2805,274 @@ compare the number of turns whose bodies actually differ, not the number of
 lines `compare_wine_transcript.py` prints.  Its `streams re-synchronised`
 lines are alignment bookkeeping, and a re-phased stream generates them in
 bulk without a single new engine difference.
+
+
+## Ported 2026-09-07: `stats` is not a Runner command
+
+`suburbanprodigy3` T31 was the last of the one-line 4.00 diffs, and the guess
+in "The sharpest new leads" was right: the standard-command row
+
+```c
+{"[status/stats]", lib_cmd_status_player},
+```
+
+carried a `stats` synonym that no ADRIFT Runner has ever had.  The game's own
+task for `stats` therefore never got the line -- scarier answered it with
+`lib_cmd_statusline()` (`Celler | Score: 80`) before the task could claim it.
+Dropping the synonym to `{"[status]", ...}` makes the turn run400-identical:
+
+```
+turn 31  stats
+  run400   Listen dude, you've played these games before. Step it up! You scored 80
+           out of the maximum 80! That is 100% of the game! Well done - you scored
+           maximum points! [Press any key to end]
+  scarier  (the same, less the [Press any key to end] tail)
+```
+
+One golden re-blessed (`suburbanprodigy3_solution.expected.txt`); the rest of
+the v4 walkthrough suite is unchanged and green.  `life_solution` also types
+`stats` and was never affected -- its game task already claimed the line
+ahead of the library table.
+
+### The census: what the four Runners actually have
+
+Both the VB6 constant pools of `run{370,380,390,400}.exe` and the four
+decompiled listings agree, and neither contains the string `stats` at all:
+
+| literal | 3.70 | 3.80 | 3.90 | 4.00 |
+| --- | --- | --- | --- | --- |
+| `"stats"` | -- | -- | -- | -- |
+| `"status"` | -- | -- | yes | yes |
+| `"statusline"` | -- | -- | -- | -- |
+
+(Method: [[adrift-runner-string-census]] -- scan for `(?:[\x20-\x7e]\x00){3,}`
+and keep a run whose preceding uint32 LE equals its byte length.  `LC_ALL=C`
+and `grep -a` on the listings, per [[adrift-decompile-index]].)
+
+So the answer to "do they *all* have a `status` command?" is **no**.  3.70 and
+3.80 have no `status` at all -- consistent with the Battle System being 3.90+
+([[adrift39-battle-attribute-indices]], [[scare-battle-system-port]]).
+
+And in the two that do, `status` is not a general command.  Its only two uses
+are:
+
+- **`dobattle`** -- run400 `Proc_11_4_47F084` @47DCA1, run390 `dobattle`
+  @44C510.  `c("status", cmdline)` (the whole-word `InStr` matcher
+  `Proc_21_38_454CB0`), plus " can't get the status of a character you've not
+  seen yet!" for the `status <character>` form.
+- **`Text1_KeyDown`** -- run400 @4840A1, run390 @4537AB.  This is the input
+  box's **Auto complete** word list (`checkb("stand"...)`, `checkb("status"...)`,
+  `checkb("stop"...)`, `checkb("take"...)`, `checkb("talk"...)` in a row), not
+  the parser; see [[scare-g-means-get]].
+
+`dobattle` is reached from `generaltasks` @48C0F0 behind
+
+```
+loc_48A496: push MemVar_494282
+loc_48A49E: push (from_stack_2 = from_stack_1)
+loc_48A49F: If from_stack_1 Then
+loc_48A4A2:   Proc_11_4_47F084()      ' dobattle
+```
+
+i.e. **only when the game's Battle System flag is on**.  Scarier already gates
+`lib_cmd_status_player`/`lib_cmd_status_npc` on `battle_is_enabled()`.
+
+### Still not measured: the battle-disabled fallback
+
+With the Battle System off, scarier's `status` (and its `statusline`, which is
+in no Runner either) still falls through to `lib_cmd_statusline()` and prints
+the status line, where run400 would let a game task have the line and
+otherwise say it does not understand.  Both are inherited SCARE inventions,
+not measured behaviour.  Corpus exposure is nil: only four goldens type
+either word.  `life`, `the_town_of_azra` and `suburbanprodigy3` type `stats`
+and in all three a game task claims the line; `the_town_of_azra`'s 3.90
+golden is the one that types bare `status`, and that game HAS a Battle System,
+so it takes the real `lib_cmd_status_player()` path and prints the
+Stamina/Hit strength/Accuracy/Defense/Agility table -- exactly the 3.90
+`dobattle` behaviour the census predicts.  Nothing in the corpus reaches the
+battle-disabled fallback, so the row is left alone until a Runner transcript
+forces it.
+
+## Audited 2026-09-07: the rest of the meta-command table
+
+`stats` (above) was found by a Runner transcript, not by inspection, so the
+whole of `STANDARD_COMMANDS` (`scrunner.cpp` ~600-673) was then run through
+the same two checks:
+
+1. **String census.**  Does the literal occur in the VB6 constant pool of
+   `run370.exe` / `run380.exe` / `run390.exe` / `run400.exe`?  (Method:
+   [[adrift-runner-string-census]].)  A hit was only accepted after locating
+   the *use* -- several near-misses are menu captions, registry keys or game
+   settings rather than parser literals.
+2. **Corpus exposure.**  Does any of the 426 v4 test games define a task whose
+   `cmd`/`ALTCMD` contains the word, is typeable (no `#`/`!` prefix) and is
+   reachable (`where != 0`; `ROOMLIST_NO_ROOMS` tasks cannot be reached from
+   typed input at all)?  And is that task *silent* (no `COMPLETE` text), which
+   is the only shape that lets the library steal the line -- see
+   [[adrift4-one-task-per-line]].
+
+### Scarier-only inventions (literal in NO Runner binary)
+
+games/tasks/reachable/silent counted over the 426-game v4 corpus:
+
+| word | games | tasks | reachable | silent | bites today? |
+| --- | ---: | ---: | ---: | ---: | --- |
+| `stats` | 5 | 6 | 6 | 2 | **yes -- removed, see above** |
+| `hints` | 11 | 224 | 224 | 0 | no |
+| `q` | 4 | 5 | 4 | 1 | no (verified live) |
+| `brief` | 3 | 5 | 5 | 0 | no |
+| `notification` | 1 | 4 | 4 | 0 | no |
+| `verbose` | 3 | 3 | 3 | 0 | no |
+| `notify` | 2 | 3 | 3 | 0 | no |
+| `redo` | 1 | 1 | 1 | 0 | no |
+| `hist` | 0 | 0 | 0 | 0 | no |
+| `gpl` | 0 | 0 | 0 | 0 | no |
+| `license` | 0 | 0 | 0 | 0 | no |
+| `statusline` | 0 | 0 | 0 | 0 | no |
+
+The Runner words these are *nearly* spelled like, and which do exist, are
+`hint` (not `hints`), `quit` (not `q`), `history` (not `hist`), `Verbose` (a
+Runner menu caption + registry key, not a typed command; see
+[[run400-verbose-toggle]]), `NotifyScore` (a 4.0 game setting; see
+[[adrift4-endgame-score-summary]]).  A naive case-insensitive census reports
+all five as present -- always find the use site.
+
+Why none of them bites: the game's tasks are matched *before*
+`run_standard_commands()`, so a task with `COMPLETE` text simply wins and the
+invention never runs.  Only a silent task leaves a gap for the library to fill,
+which is exactly what happened to `suburbanprodigy3` T31.  The four non-`stats`
+silent/edge candidates were each checked live:
+
+- `Blood_Relatives.taf` T445 `cmd=[q]` is `where=0` -- unreachable from typed
+  input in either engine.
+- `forum2.taf` T43 `cmd=[quit]` / `ALTCMD[1]=[q]` is a deliberate quit-silencer
+  (no actions, no text).  It wins in scarier and prints nothing; the quit
+  prompt does *not* leak in behind it.
+- `whitterscap.taf` `cmd=[*q*]` wins in scarier ("...your keyboard lacks a Q
+  key.").
+- `MikeDesert_SuburbanProdigy3.taf` T45 `cmd=[Undoo voodoo]` /
+  `ALTCMD[1]=[undo]` / `ALTCMD[2]=[redo]` -- same game, same room 7 as the
+  `stats` task, but this one has `COMPLETE` text, so the task wins in both
+  engines.
+
+`hints` has by far the widest footprint (224 tasks across 11 games, e.g.
+`Showtime_at_the_Gallows.taf` `[hints/hint] {BASEMENT}`), but every one of them
+carries `COMPLETE` text.  It is the row most likely to bite the moment a game
+ships a silent `hints` task.
+
+### Real Runner commands that scarier does not version-gate
+
+Present in the Runner, but not in all four:
+
+| word | first Runner | scarier gate |
+| --- | --- | --- |
+| `turns` | 3.80 | none |
+| `undo` | 3.80 | none |
+| `version` | 3.90 | none |
+| `status`, `wield` | 3.90 | `battle_is_enabled()` (a 3.7/3.8 game cannot have one, so effectively gated) |
+| `z`, `g` | 3.90 | already gated, see [[adrift-z-wait-vocabulary-390]] |
+
+Corpus exposure is nil: the 19 games at 3.70/3.80 define no task naming
+`turns`, `undo` or `version`.  Left alone until a transcript forces it.
+
+### Reverse gap: Runner meta-commands scarier lacked (PORTED 2026-09-07)
+
+From `generaltasks` (run400 @489FD4-48C0EC; the far more readable 3.7 listing
+is run370.bas @43B4xx-43C3C6), four rows were missing and have now been added:
+
+| command | Runner | scarier |
+| --- | --- | --- |
+| `past` | synonym of `history`, one whole-line test (run370 loc_43BA2A, run380 loc_44228D, run400 loc_48A51A) | added to the `[hist/history]` rows |
+| `bye`, `end` | synonyms of `quit`, one three-way whole-line test that unloads the form (run370 loc_43C06B, run400 loc_48AA85) | added to the `[quit]` row |
+| `endgame` | ends the game inline with the score summary (run370 loc_43C095, run400 loc_48AAC9) | `lib_cmd_endgame()` |
+| `control panel`, `control-panel`, `control`, `panel` | opens the Runner's Control Panel window: "Control Panel on", or "Control Panel already on." (run370 loc_43C34E, run400 loc_48AEAE) | `lib_cmd_control_panel()` -- no such window here, so it says so |
+
+Every literal is in all four constant pools, so none of them is version-gated.
+Suite after: 428/428 PASS.
+
+`endgame` is **not** a `quit` synonym, and it is not the ending machinery
+either.  The Runner writes the two summary lines inline and only then sets the
+gameover byte, so `Form1.endmessage` never runs: no WinText, no "Better luck
+next time.", no "Well done - you scored maximum points!" / "You finished N
+points short.".  It also handles a scoreless game differently from
+`task_print_end_game_summary()` -- the 0 -> 1 fix-up at loc_48AB3D applies only
+to the divisor, after the "out of the maximum" figure has already been
+composed, so a MaxScore of 0 prints "out of the maximum 0!" and "That is 0% of
+the game!" where the ending path skips the summary entirely (4.0) or reports
+100% (pre-4.0).  The two printers are therefore kept apart on purpose.
+
+Two corrections to the first pass of this audit:
+
+- The `ls` / `cp` / `mv` / `ln` / `dir` easter egg was **already** in scarier
+  (`{"[cp/mv/ln/ls] *", lib_cmd_unix_like}` and `{"dir *", lib_cmd_dos_like}`).
+- `endgame` was listed as a `quit` synonym.  It is a separate branch, as above.
+
+### Not ported: `both`
+
+3.90 and 4.00 only (absent from the 3.7/3.8 pools).  It is a dead branch:
+
+```
+run400 loc_48AE94:  If cmd = "both" Then cmd = <saved>.field0: GoTo loc_489FEB
+run400 loc_48BB97:  <saved>.field0 = MemVar_4941F0   ' end of every turn
+```
+
+and `MemVar_4941F0` is the **disambiguation candidate list** -- the string the
+`Which <term>.  <list>?` prompt is built from (run400 loc_4733E1, loc_46E220).
+3.90 builds the same variable explicitly (`MemVar_468194`, run390_3.bas
+loc_43B4D5-43B54A): the object names joined with `", "` and `" or "`, then a
+trailing `"?"`.  So `both` re-feeds a string like `the red ball or the blue
+ball?` to the parser as if the player had typed it, which cannot resolve to
+anything.  Porting that would be porting a bug with no observable useful
+behaviour, so it is left out until someone measures what a live Runner
+actually prints.
+
+### Ported 2026-09-07: the `quit` decline text
+
+All four Runners answer "I'm so glad you said no..." when the quit
+confirmation is declined.  The branch is two statements, and the second runs
+whatever the first did:
+
+```
+run370 loc_43C07E:  Me.Global.Unload MemVar_4461A8
+run370 loc_43C089:  MemVar_4460E4 = "I'm so glad you said no..."
+```
+
+(run400 loc_48AABA/48AAC2 is the same pair.)  VB's `Unload` raises
+`Form_QueryUnload`, which is where the Runner puts its "Are you sure?" box:
+confirm and the process is gone before the assignment can matter, decline and
+`Unload` simply returns, leaving the line as the turn's whole output.  It is an
+assignment, not an append, so it replaces anything the turn had buffered --
+moot here, since a matched task would have taken the line before
+`run_standard_commands()` ran.  The literal is in all four pools, so it is not
+version-gated.  `lib_cmd_quit()` now prints it on the decline path; suite
+428/428 PASS.
+
+### Gated 2026-09-07: the eleven inventions behind `SCARIER_NO_ABBREVIATIONS`
+
+`SCARIER_NO_ABBREVIATIONS` already dropped the `g`/`i`/`z`/`x`-family
+shorthands that no Runner has.  The eleven words the audit above found are the
+same kind of thing -- library rows that can eat a line the Runner would have
+handed to a task -- so they now compile out under the same macro:
+
+| word | how it is gated |
+| --- | --- |
+| `redo` | row split; the Runner-less `redo`/`redo N`/`redo TEXT` forms go, `!`, `!5`, `!take` stay |
+| `hist` | dropped from `[hist/history/past]` (both the bare and `%number%` rows) |
+| `hints` | `[hint/hints]` becomes plain `hint` |
+| `brief`, `verbose` | rows removed |
+| `notify`, `notification` | both rows removed (bare and `%text%`) |
+| `gpl`, `license` | `#ifndef` around `[gpl/license]` |
+| `statusline` | `#ifndef` around the row |
+| `q` | dropped from `[quit/q/bye/end]` (already gated before this change) |
+
+Nothing else moves: `history`, `past`, `hint`, `!`, `!5`, `!take`, `quit`,
+`bye`, `end`, `again`/`last`/`previous`, `inventory`, `endgame` and the control
+panel rows are all real Runner vocabulary and stay in both builds.
+
+Nothing in the tree defines the macro and `harness/build.sh` does not pass it,
+so the default build is unchanged (suite 428/428 PASS).  A hand-built
+`-DSCARIER_NO_ABBREVIATIONS` binary was checked against
+`MikeDesert_SuburbanProdigy3.taf`, whose catch-all prints "Listen dude, you've
+played these games before.  Step it up!" for anything the game does not know:
+all twelve dropped words (the eleven plus `stats`) reach that catch-all, while
+every row in the paragraph above still answers from the library.
