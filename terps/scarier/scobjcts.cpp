@@ -789,11 +789,58 @@ obj_lieable_object (scr_gameref_t game, scr_int n)
 /*
  * obj_appears_plural()
  *
- * Return TRUE if the object appears to be plural.  Adrift makes a guess at
- * this to produce "... is on.." or "... are on...".  It's not clear how it
- * does it, but it looks something like: singular if prefix is "a" or "an"
- * or ""; plural if prefix is "the" or "some" and short name ends with 's'
- * that is not preceded by 'u'.
+ * Return TRUE if the object appears to be plural, i.e. if the Runner's
+ * isare() helper would answer " are " rather than " is " for it.
+ *
+ * All four Runners carry the same helper -- run370 @423E5C, run380 @428EAC,
+ * run390 @431038, run400 @4507BC (Proc_19_69) -- and it is this:
+ *
+ *     r = " is "
+ *     If Left(prefix, 4) = "some" And Right(name, 1) = "s" Then r = " are "
+ *     If Right(name, 1) = "s" Then
+ *       If Mid(name, Len(name) - 1, 1) <> "u" Then r = " are "
+ *     End If
+ *     If prefix = "a"  Or Left(prefix, 2) = "a "  Then r = " is "
+ *     If prefix = "an" Or Left(prefix, 3) = "an " Then r = " is "
+ *
+ * Three things in that differ from the guess inherited SCARE made:
+ *
+ *  - it is a chain of overwrites, not a nest, so the "some" clause reaches a
+ *    name that the -us exception then does NOT spare.  "some walrus" is
+ *    plural to every Runner, and so are pestilence's "some zeus" and "some
+ *    apparatus" and Sophie's "some fungus".
+ *  - only "a" and "an" force the singular.  An empty prefix does not need to
+ *    be tested for, because by the time isare() sees it the loader has
+ *    already turned it into a literal "a" (see parse_trim_object_names in
+ *    sctafpar.cpp); an authored whitespace-only prefix, which the loader
+ *    leaves genuinely empty, really is plural-capable.
+ *  - every comparison is VB6 Option Compare Binary, i.e. case-SENSITIVE, the
+ *    same fact probe PFX measured for the article normalizer.  A prefix
+ *    written "A" is not an "a" prefix, and a name ending in a capital "S" is
+ *    not a name ending in "s".
+ *
+ * Measured cell by cell on probe ISARE (run400, Adrift_isare.txt, 2026-09-07),
+ * twelve objects one per spelling, read back through `where <name>`:
+ *
+ *     where boots   (Prefix "")       The boots is test arena.
+ *     where cactus  (Prefix "")       The cactus is test arena.
+ *     where gloves  (Prefix "some")   The gloves are test arena.
+ *     where walrus  (Prefix "some")   The walrus are test arena.
+ *     where beads   (Prefix "a")      The beads is test arena.
+ *     where eggs    (Prefix "an")     The eggs is test arena.
+ *     where shoes   (Prefix "A")      A shoes are test arena.
+ *     where keys    (Prefix "the")    The keys are test arena.
+ *     where NAILS   (Prefix "the")    The NAILS is test arena.
+ *     where pins    (Prefix "a big")  The big pins is test arena.
+ *     where socks   (Prefix "Some")   Some socks are test arena.
+ *     where rings   (Prefix " ")       rings are test arena.
+ *
+ * Twelve objects across six corpus games move: The X-Files: A New Beginning's
+ * "A Pair Of Dockers", "A Pair Of Blue Jeans", "A Pair Of Nikes", "A Bowl Of
+ * Peanuts" and "A Set Of Directions" (capital article), pestilence's "some
+ * zeus" and "some apparatus", sa's and sophie's "some fungus", xycanthus's "A
+ * pile of debris", and yeh's "A bag of apples" and "A Bow of Icy Arrows".
+ * All twelve go from " is " to " are ".
  */
 scr_bool
 obj_appears_plural (scr_gameref_t game, scr_int object)
@@ -801,32 +848,40 @@ obj_appears_plural (scr_gameref_t game, scr_int object)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
   const scr_char *prefix, *name;
+  scr_int length;
+  scr_bool is_plural;
 
-  /* Check prefix for "a", "an", or empty. */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
   vt_key[2].string = "Prefix";
   prefix = prop_get_string (bundle, "S<-sis", vt_key);
+  vt_key[2].string = "Short";
+  name = prop_get_string (bundle, "S<-sis", vt_key);
+  length = strlen (name);
 
-  if (!(scr_strempty (prefix)
-        || scr_compare_word (prefix, "a", 1)
-        || scr_compare_word (prefix, "an", 2)))
+  is_plural = FALSE;
+
+  if (length > 0 && name[length - 1] == 's')
     {
-      scr_int length;
+      if (strncmp (prefix, "some", 4) == 0)
+        is_plural = TRUE;
 
-      /* Check name for ending in 's', but not 'us'. */
-      vt_key[2].string = "Short";
-      name = prop_get_string (bundle, "S<-sis", vt_key);
-      length = strlen (name);
-
-      if (!scr_strempty (name)
-          && scr_tolower (name[length - 1]) == 's'
-          && (length < 2 || scr_tolower (name[length - 2]) != 'u'))
-        return TRUE;
+      /*
+       * VB6 Mid(name, Len(name) - 1, 1) is a runtime error for a name of one
+       * character, so a Short of exactly "s" faults the Runner rather than
+       * answering; nothing in the corpus has one, and not being plural is the
+       * closest thing to an answer available here.
+       */
+      if (length > 1 && name[length - 2] != 'u')
+        is_plural = TRUE;
     }
 
-  /* Doesn't look plural. */
-  return FALSE;
+  if (strcmp (prefix, "a") == 0 || strncmp (prefix, "a ", 2) == 0)
+    is_plural = FALSE;
+  if (strcmp (prefix, "an") == 0 || strncmp (prefix, "an ", 3) == 0)
+    is_plural = FALSE;
+
+  return is_plural;
 }
 
 

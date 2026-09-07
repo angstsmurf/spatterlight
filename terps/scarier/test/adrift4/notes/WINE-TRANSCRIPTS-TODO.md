@@ -1037,9 +1037,11 @@ Engine leads, measured or half-measured, none blocking:
 - **Battle**: whether run400 capitalises a blow that starts with a
   lowercase alias (trabula "a soldier attacks you"); the port concatenates
   raw.
-- **`isare()` vs `obj_appears_plural()`**: the Runner (run380 428EAC) says
-  " are " for a plural Short with an EMPTY prefix, Scarier says singular;
-  24 call sites, needs a live probe before touching.
+- (`isare()` vs `obj_appears_plural()`: **measured and ported 2026-09-07**,
+  see "Ported 2026-09-07: `isare()` cell by cell, and the empty Prefix the
+  loader fills in" at the foot of this file.  The empty-prefix half of the
+  lead turned out to be a false alarm -- the loader substitutes an "a" -- and
+  three other cells were real.)
 - **Silent-task test scope**: run400 tests the whole turn buffer, Scarier
   the task's own output; differs only when something wrote before the verb
   dispatch (the References echo).  No corpus row known.
@@ -4873,3 +4875,122 @@ that `<br>` against it, which is what the model says should happen -- the
 Runner has no collapse at all, only SCARIER does, and only for breaks it
 supplied itself -- but no archived transcript covers it.  `whitterscap` moves
 too and has no transcript either, though its change is a pure re-wrap.
+
+
+## Ported 2026-09-07: `isare()` cell by cell, and the empty Prefix the loader fills in
+
+The last of the "Still open" engine leads, and the only one whose written
+form was wrong: `obj_appears_plural()` was never the Runner's rule, but not
+in the way the lead said.
+
+### The helper, read offline
+
+All four Runners carry the same `isare(prefix, name)` -- run370 `423E5C`,
+run380 `428EAC`, run390 `431038`, run400 `4507BC` (`Proc_19_69`) -- and the
+four decompilations are the same VB line for line:
+
+    r = " is "
+    If Left(prefix, 4) = "some" And Right(name, 1) = "s" Then r = " are "
+    If Right(name, 1) = "s" Then
+      If Mid(name, Len(name) - 1, 1) <> "u" Then r = " are "
+    End If
+    If prefix = "a"  Or Left(prefix, 2) = "a "  Then r = " is "
+    If prefix = "an" Or Left(prefix, 3) = "an " Then r = " is "
+
+It is a chain of overwrites, not a nest.  Inherited SCARE's guess -- "not
+a/an/empty, then a trailing 's' not preceded by 'u'" -- differs in four
+places, and `where <name>` is a per-object oracle for all of them, `whereis`
+composing `name & isare(prefix, short) & LCase(room) & "."` (run400 `468115`,
+run380 `4374E1`).
+
+### The probe
+
+`harness/make_arena_probe.py ISARE` -> `p4ISARE.taf`, one room, twelve
+objects on the floor, one per prefix spelling, driven through `fast.sh` in
+run400 (`Adrift_isare.txt`, 2026-09-07).  Opening `look`, then `where` on
+each:
+
+    Also here is a boots, a cactus, some gloves, some walrus, a beads,
+    an eggs, A shoes, the keys, the NAILS, a big pins, Some socks and  rings.
+
+    Prefix    Short     where says                       scarier said
+    ""        boots     The boots is test arena.         is    agrees
+    ""        cactus    The cactus is test arena.        is    agrees
+    "some"    gloves    The gloves are test arena.       are   agrees
+    "some"    walrus    The walrus are test arena.       is    DIFFERS
+    "a"       beads     The beads is test arena.         is    agrees
+    "an"      eggs      The eggs is test arena.          is    agrees
+    "A"       shoes     A shoes are test arena.          is    DIFFERS
+    "the"     keys      The keys are test arena.         are   agrees
+    "the"     NAILS     The NAILS is test arena.         are   DIFFERS
+    "a big"   pins      The big pins is test arena.      is    agrees
+    "Some"    socks     Some socks are test arena.       are   agrees
+    " "       rings      rings are test arena.           is    DIFFERS
+
+So, four cells:
+
+1. **`some` reaches a name the -us exception would spare.**  The "some"
+   clause runs first and the -us test never puts the singular back, so `some
+   walrus` is plural.
+2. **The article test is case-SENSITIVE**, the same Option Compare Binary
+   fact probe PFX measured for the normalizer: `A shoes` is not an "a"
+   prefix, and is plural.
+3. **The trailing-`s` test is case-sensitive too**: `NAILS` ends in a capital
+   and is singular.
+4. **An empty prefix does not force the singular** -- and this is where the
+   lead in "Still open" was wrong about the mechanism.  `isare()` has no
+   empty-prefix test because it never sees one: the loader substitutes a
+   literal `"a"` for an empty Prefix (run400 `loc_4900EC`, run380 `4481B2`,
+   run370 `43F5DA`) *before* stripping its trailing spaces.  So `boots` with
+   no prefix is an "a" object, singular, exactly as scarier already said.
+   What is plural-capable is a prefix authored as a single **space**: not
+   empty, so it escapes the substitution, then trimmed to nothing.
+
+### The whitespace-only prefix, and what it printed
+
+That last cell also settles what the printers do with a genuinely empty
+prefix, which no amount of reading the article normalizer could:
+
+    Also here is ... Some socks and  rings.     <- two spaces, no article
+    > where rings
+     rings are test arena.                      <- leading space, no article
+
+The Runner's name builder is a plain `tense(Prefix) & " " & Short`, so the
+separator is unconditional and an empty prefix costs a space and nothing
+else.  Scarier had three separate imitations of the loader substitution
+instead -- `"the "` in `lib_print_object_np`, `"a "` in `lib_print_object`,
+`"a"` in `lib_print_object_raw` -- plus a fourth in the pronoun antecedent in
+`scparser.cpp`, each keyed on `scr_strempty()`, which is TRUE for a
+whitespace-only string and so folded the two cases together.
+
+### The port
+
+`parse_trim_object_names()` in `sctafpar.cpp` now does the substitution, in
+the loader where the Runner does it and **before** the trailing-space strip
+(the order is the whole point: `""` becomes `"a"`, `" "` becomes `""`).  The
+four downstream imitations are gone, the two printers concatenate
+unconditionally, and `obj_appears_plural()` in `scobjcts.cpp` is the exact
+`isare()` above, case-sensitive, with a note on the one-character Short that
+faults VB's `Mid(name, 0, 1)` and does not exist in the corpus.
+
+### Corpus exposure
+
+Measured on the raw pre-trim fields, not the loaded ones -- a temporary
+`SCR_DUMP_RAWPREFIX` in the loader, 426 games, **27386 objects**.  2844 carry
+an exactly empty Prefix; **none** is whitespace-only, so cell 4 is
+faithfulness rather than a fix.  Cells 1-3 move **twelve objects in six
+games**, all from " is " to " are ":
+
+    The X-Files: A New Beginning   A Pair Of Dockers, A Pair Of Blue Jeans,
+                                   A Pair Of Nikes, A Bowl Of Peanuts,
+                                   A Set Of Directions
+    pestilence                     some zeus, some apparatus
+    sa, sophie                     some fungus
+    xycanthus                      A pile of debris
+    yeh                            A bag of apples, A Bow of Icy Arrows
+
+Five of the six have wired walkthroughs and only one golden moved: `yeh`
+line 80, `Also here is A Bow of Icy Arrows.` -> `are`.  That is the same
+object the case-sensitive article port re-blessed earlier the same day, and
+like that one it follows from the probe rather than from a run400 transcript
+of `yeh` itself.  Suite **428 PASS / 0 FAIL**, the ADRIFT 5 suite unchanged.

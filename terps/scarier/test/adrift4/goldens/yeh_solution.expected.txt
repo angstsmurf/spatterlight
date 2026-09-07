@@ -77,7 +77,7 @@ You move up.
 
 Tower Floor 3
 A bow sits in the center of the room guarded by yet another vine. Another
-patch of moss leads up.  Also here is A Bow of Icy Arrows.  Animated Vine is
+patch of moss leads up.  Also here are A Bow of Icy Arrows.  Animated Vine is
 here.
 
 You can move up and down.

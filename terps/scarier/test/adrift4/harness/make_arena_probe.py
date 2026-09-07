@@ -1941,6 +1941,59 @@ CONFIGS = {
              ("The",   "kilo",    4,0,0,0,0,0,0)],
     npcs=[],
     tasks=[]),
+# ISARE: the is/are helper, cell by cell.
+#
+# All four Runners carry the SAME `isare(prefix, name)` (run370 423E5C,
+# run380 428EAC, run390 431038, run400 4507BC/Proc_19_69), and it is not the
+# rule scarier's obj_appears_plural() has:
+#
+#     r = " is "
+#     If Left(prefix, 4) = "some" And Right(name, 1) = "s" Then r = " are "
+#     If Right(name, 1) = "s" Then
+#       If Mid(name, Len(name) - 1, 1) <> "u" Then r = " are "
+#     End If
+#     If prefix = "a"  Or Left(prefix, 2) = "a "  Then r = " is "
+#     If prefix = "an" Or Left(prefix, 3) = "an " Then r = " is "
+#
+# so an EMPTY prefix does not force the singular (only "a"/"an" do), the
+# "some" clause reaches a name the -us exception would otherwise spare, and
+# every comparison is VB6 Option Compare Binary, i.e. case-SENSITIVE (the
+# same fact the PFX probe measured for the article normalizer).
+#
+# Twelve objects, one per cell, all on the arena floor.  `where <name>` is
+# the per-object oracle: whereis() composes name & isare(prefix, short) &
+# LCase(room name) & "." (run400 @468115, run380 @4374E1), so one command
+# reads one cell.  Predicted, with the cells scarier gets wrong marked:
+#
+#     (empty)  boots    are   <- scarier says "is"  (empty prefix)
+#     (empty)  cactus   is
+#     some     gloves   are
+#     some     walrus   are   <- scarier says "is"  (the -us exception)
+#     a        beads    is
+#     an       eggs     is
+#     A        shoes    are   <- scarier says "is"  (case: "A" is not "a")
+#     the      keys     are
+#     the      NAILS    is    <- scarier says "are" (case: "S" is not "s")
+#     a big    pins     is
+#     Some     socks    are
+#     (space)  rings    are   <- scarier says "is"  (scr_strempty trims)
+ 'ISARE': dict(name="Probe ISARE",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("",      "boots",  4,0,0,0,0,0,0),
+             ("",      "cactus", 4,0,0,0,0,0,0),
+             ("some",  "gloves", 4,0,0,0,0,0,0),
+             ("some",  "walrus", 4,0,0,0,0,0,0),
+             ("a",     "beads",  4,0,0,0,0,0,0),
+             ("an",    "eggs",   4,0,0,0,0,0,0),
+             ("A",     "shoes",  4,0,0,0,0,0,0),
+             ("the",   "keys",   4,0,0,0,0,0,0),
+             ("the",   "NAILS",  4,0,0,0,0,0,0),
+             ("a big", "pins",   4,0,0,0,0,0,0),
+             ("Some",  "socks",  4,0,0,0,0,0,0),
+             (" ",     "rings",  4,0,0,0,0,0,0)],
+    npcs=[],
+    tasks=[]),
 # PSTAT: a 4.0 put naming a STATIC, and what the leftover report says when
 # the player is carrying nothing at all.
 #

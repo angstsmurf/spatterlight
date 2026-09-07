@@ -652,8 +652,6 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
           pf_buffer_string (filter, prefix + 3);
           pf_buffer_character (filter, ' ');
         }
-      else if (scr_strempty (prefix))
-        pf_buffer_string (filter, "the ");
       else
         {
           pf_buffer_string (filter, prefix);
@@ -698,24 +696,22 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
       normalized = prefix + 4;
       pf_buffer_string (filter, "the");
     }
-  else if (scr_strempty (prefix))
-    pf_buffer_string (filter, "the ");
 
   /*
-   * If the remaining normalized prefix isn't empty, print it, and a space.
-   * If it is, then consider adding a space to any "the" printed above, except
-   * for the one done for empty prefixes, that is.  The pre-3.9 branch above
-   * has already emitted its own prefix and separator.
+   * Print what the normalizer left of the prefix, and a separating space.
+   * Both are unconditional: the Runner's name builder is a plain
+   * `tense(Prefix) & " " & Short` concatenation, so a prefix it hands back
+   * empty still costs a space.  That case is only reachable at all for an
+   * authored whitespace-only prefix, which the loader trims to nothing after
+   * declining to substitute an "a" into it -- probe ISARE's single-space
+   * rings answers `where rings` with " rings are test arena.", leading space
+   * and no article (run400, Adrift_isare.txt, 2026-09-07).  The pre-3.9
+   * branch above has already emitted its own prefix and separator.
    */
   if (prop_get_integer (bundle, "I<-s", vt_version) >= TAF_VERSION_390)
     {
-      if (!scr_strempty (normalized))
-        {
-          pf_buffer_string (filter, normalized);
-          pf_buffer_character (filter, ' ');
-        }
-      else if (normalized > prefix)
-        pf_buffer_character (filter, ' ');
+      pf_buffer_string (filter, normalized);
+      pf_buffer_character (filter, ' ');
     }
 
   /*
@@ -768,24 +764,21 @@ lib_print_object (scr_gameref_t game, scr_int object)
   const scr_char *prefix, *name;
 
   /*
-   * Get the object's prefix, and print if not empty, otherwise default to an
-   * "a " prefix.  The default is unconditional -- the Runners never inflect it
-   * to "an" before a vowel.  run380 on the pwearv probe, four wearables with
-   * empty prefixes and vowel-initial names, answers "You put on a apple." and
-   * lists them back as "You are wearing a apple, a orange, a egg and a
-   * umbrella" (2026-08-23).
+   * Get the object's prefix and print it, then a space; both unconditionally,
+   * the Runner's builder being a plain concatenation.  An object authored
+   * with no prefix at all arrives here carrying the literal "a" the loader
+   * substituted into it (see parse_trim_object_names in sctafpar.cpp), never
+   * inflected to "an" before a vowel: run380 on the pwearv probe, four
+   * wearables with empty prefixes and vowel-initial names, answers "You put
+   * on a apple." and lists them back as "You are wearing a apple, a orange, a
+   * egg and a umbrella" (2026-08-23).
    */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
   vt_key[2].string = "Prefix";
   prefix = prop_get_string (bundle, "S<-sis", vt_key);
-  if (!scr_strempty (prefix))
-    {
-      pf_buffer_string (filter, prefix);
-      pf_buffer_character (filter, ' ');
-    }
-  else
-    pf_buffer_string (filter, "a ");
+  pf_buffer_string (filter, prefix);
+  pf_buffer_character (filter, ' ');
 
   /* Print object name. */
   vt_key[2].string = "Short";
@@ -827,10 +820,11 @@ lib_print_object_raw (scr_gameref_t game, scr_int object)
    * "No default for an empty prefix" is right about the message builder and
    * wrong about what reaches it: the pre-3.9 loaders rewrite an empty Prefix
    * to a literal "a" before any of this (run370 @43F5DA, run380 @4481B2, and
-   * run400 at loc_4900EC too), so the concatenation never sees one.  Without
-   * this the message would open with a stray space.
+   * run400 at loc_4900EC too), so the concatenation never sees one.  That
+   * rewrite is modelled in parse_trim_object_names now, so nothing is needed
+   * here.
    */
-  pf_buffer_string (filter, scr_strempty (prefix) ? "a" : prefix);
+  pf_buffer_string (filter, prefix);
   pf_buffer_character (filter, ' ');
 
   vt_key[2].string = "Short";

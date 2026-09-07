@@ -3380,6 +3380,24 @@ parse_class (const scr_char *class_)
  * Fourteen objects across nine corpus games are written with the spaces still
  * on, among them Crime_Adventure's "an arcade token ", arlo's "the ", and
  * ADRIFTMAS_Party's " bathroom door".
+ *
+ * The empty-Prefix substitution belongs here too, and it happens BEFORE the
+ * trailing-space strip, so the two are not interchangeable: an authored ""
+ * becomes the literal "a", while an authored " " is not empty, escapes the
+ * substitution, and is then trimmed to a genuinely empty prefix that no later
+ * code puts an article back into.  Both halves are measured -- probe ISARE
+ * (run400, Adrift_isare.txt, 2026-09-07) lists its no-prefix boots as "a
+ * boots" and its single-space rings as " rings", with the joining space and
+ * no article, and answers `where rings` with " rings are test arena."
+ *
+ * Doing it in the loader retires three downstream imitations of it (the
+ * "the "/"a " empty-prefix defaults in lib_print_object_np, lib_print_object
+ * and lib_print_object_raw, and the pronoun antecedent's own copy in
+ * scparser.cpp), and it also feeds the parser and the %objectN% expansions,
+ * which in the Runner see the substituted field like everything else.  No
+ * corpus game authors a whitespace-only object Prefix -- 27386 objects over
+ * 426 games, 2844 of them exactly empty and none whitespace-only -- so the
+ * second half of this is faithfulness, not a fix for a live game.
  */
 static void
 parse_trim_object_names (scr_prop_setref_t bundle)
@@ -3398,9 +3416,14 @@ parse_trim_object_names (scr_prop_setref_t bundle)
 
       vt_key[1].integer = object;
 
-      /* Strip trailing spaces from the prefix. */
+      /* Substitute "a" for an empty prefix, then strip its trailing spaces. */
       vt_key[2].string = "Prefix";
       prefix = prop_get_string (bundle, "S<-sis", vt_key);
+      if (prefix[0] == NUL)
+        {
+          prop_put_string (bundle, "S<-sis", "a", vt_key);
+          prefix = prop_get_string (bundle, "S<-sis", vt_key);
+        }
       length = strlen (prefix);
       while (length > 0 && prefix[length - 1] == ' ')
         length--;

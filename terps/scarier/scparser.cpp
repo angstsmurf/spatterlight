@@ -2588,14 +2588,13 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
           /*
            * An empty Prefix is an "a" prefix: every Runner's .taf loader
            * substitutes the literal on the way in (run380 @4481B2, run370
-           * @43F5DA, run400 loc_4900EC -- see the note above lib_tense() in
-           * sclibrar.cpp), so the antecedent the Runner builds through
-           * Proc_21_31_448710 reads "a Cupboard".  Measured on man_overboard
-           * (4.00): `open it` after `x cupboard` echoes "(a Cupboard)", and
-           * likewise "(a wardrobe)", "(a pantry)", "(a toolbox)".
+           * @43F5DA, run400 loc_4900EC), so the antecedent the Runner builds
+           * through Proc_21_31_448710 reads "a Cupboard".  Measured on
+           * man_overboard (4.00): `open it` after `x cupboard` echoes "(a
+           * Cupboard)", and likewise "(a wardrobe)", "(a pantry)", "(a
+           * toolbox)".  parse_trim_object_names does the substitution now, so
+           * the prefix read back here already carries it.
            */
-          if (prefix[0] == NUL)
-            prefix = "a";
 
           /*
            * 4.0 keeps the antecedent as a string composed by whichever
