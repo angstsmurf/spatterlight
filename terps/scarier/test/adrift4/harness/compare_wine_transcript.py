@@ -218,9 +218,30 @@ def raw_lines_all_echoed(feed_path, runner_lines):
         a.lower() == b.lower() for a, b in zip(raw, echoes))
 
 
+# The Runner's own end-of-session prompt.  It is not game text: the host
+# appends "[Press any key to end]" when it is about to block on a keypress
+# (Form1.endmessage, and the `endgame` branch at run400 loc_48AAC9 quoted in
+# sclibrar.cpp lib_cmd_endgame), and the headless harness has no keypress to
+# block on -- so it can only ever read as a divergence on the very turn a
+# replay wins.  It also passes through the game's ALR table on its way to the
+# transcript, so it is not always in English: Vardock Bates rewrites it to
+# "[Pulsa cualquier tecla para terminar]".  Hence the shape, not the wording,
+# is what is recognised -- a trailing [...] fragment, and only when removing it
+# makes the whole turn match, so nothing else can hide behind it.
+RUNNER_TRAILING_BRACKET = re.compile(r"\s*(\[[^\[\]]*\])\s*$")
+
+
 def normalise(text):
     """Whitespace-collapsed words, so hard wrapping is not a difference."""
     return re.sub(r"\s+", " ", text).strip()
+
+
+def strip_runner_keyprompt(runner_text, scarier_text):
+    """Return the [...] the Runner appended to an otherwise identical turn."""
+    match = RUNNER_TRAILING_BRACKET.search(runner_text)
+    if match and normalise(runner_text[:match.start()]) == scarier_text:
+        return match.group(1)
+    return None
 
 
 def split_runner(lines, feed, lookahead, start=0):
@@ -430,6 +451,7 @@ def main():
 
     differences = 0
     whitespace_only = 0
+    keyprompt_only = 0
     first_loss = losses[0][0] if losses else len(feed)
     shift = args.offset
 
@@ -464,6 +486,20 @@ def main():
                     scarier_text = runner_text
                     break
         if runner_text == scarier_text:
+            continue
+
+        # The host's keypress prompt, appended to a turn that is otherwise
+        # identical.  Counted apart rather than hidden, and the fragment is
+        # printed, because the same shape would catch a real trailing bracket.
+        keyprompt = strip_runner_keyprompt(runner_text, scarier_text)
+        if keyprompt is not None:
+            keyprompt_only += 1
+            if keyprompt_only <= 3:
+                print("turn %d  %s -- the Runner appended %s, which is the"
+                      " host's own keypress prompt (ALR-rewritten in some"
+                      " games), not game text.  The turn is identical either"
+                      " side of it." % (index, feed[index], keyprompt))
+                print()
             continue
 
         # Whitespace-only, after the wrap-collapse above, means one side put a
@@ -512,13 +548,24 @@ def main():
                  if whitespace_only > 3 else ""))
         print()
 
+    if keyprompt_only:
+        print("%d turn(s) differed only by the Runner's trailing keypress"
+              " prompt%s."
+              % (keyprompt_only,
+                 " (%d not shown)" % (keyprompt_only - 3)
+                 if keyprompt_only > 3 else ""))
+        print()
+
     if normalise(runner_intro) != normalise(scarier_intro):
         print("(the openings differ too -- banner, graphics notice or the")
         print(" Runner's own startup lines; usually not an engine difference)")
 
     if differences == 0 and not losses:
+        aside = [note for note, flag in
+                 (("whitespace", whitespace_only),
+                  ("the Runner's keypress prompt", keyprompt_only)) if flag]
         print("identical on every turn%s."
-              % (" apart from whitespace" if whitespace_only else ""))
+              % (" apart from " + " and ".join(aside) if aside else ""))
         return 0
     return 1
 

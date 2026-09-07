@@ -1697,6 +1697,165 @@ CONFIGS = {
            dict(commands=["eta"], complete="ETA.", showroomdesc=1,
                 actions=[(1,2,0,2)])]),
 
+    # SRD2: the SRD order settled WHEN a task's ShowRoomDesc is built (before
+    # its actions).  It never asked WHICH room's contents that build lists,
+    # because every SRD task showed the room the player was already standing
+    # in.  lca turn 252 is the case that separates them: task 237 answers `ne`
+    # from Hell with ShowRoomDesc = Haunted House, and its actions move the
+    # player there and Daisy and Witherspoon out.  Scarier lists "The ever
+    # alluring Daisy is here." (Haunted House's pre-action contents); run400
+    # (Adrift_328_lca.txt, 2026-09-06) lists nobody.
+    #
+    # Two readings fit that one line:
+    #   (a) the block lists the DESCRIBED room's contents, but as they stand
+    #       AFTER the actions -- i.e. SRD's answer is narrower than it looks;
+    #   (b) the block lists the contents of the room the PLAYER is in, which
+    #       at ShowRoomDesc time is still Hell, so Haunted House's Daisy is
+    #       never a candidate.
+    #
+    # Bob and the widget both start in the Back Room and the player in the
+    # Test Arena, so the two rooms are never the same one and each command
+    # tells the readings apart:
+    #
+    #   iota    show Back Room, no actions       (b) drops Bob, (a) lists him
+    #   theta   show Back Room, Bob -> hidden    (a) lists him, after-state does not
+    #   bobback restore Bob (no room shown)
+    #   kappa   show Back Room, player -> Back   the lca shape exactly
+    #           Room AND Bob -> hidden
+    #   reset   restore player and Bob
+    #   lambda  show Back Room, player -> Back   player arrives, Bob stays
+    #           Room only
+    #   reset
+    #   mu      show TEST ARENA, Bob -> player's the SRD zeta shape, but with
+    #           room                             Bob starting elsewhere
+    #   reset
+    #   nu      show Back Room, widget -> hidden does an OBJECT behave like Bob?
+'SRD2': dict(name="Probe SRD2",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{1: 1}),
+           ("Back Room","A back room.",{3: 0}),
+           ("Store","A store room.",{})],
+    objects=[("a","widget",5,0,0,0,0,0,0)],
+    npcs=[("Bob",1,0,10,0,0,0,0,0,0,0,0,0,0)],
+    tasks=[dict(commands=["iota"], complete="IOTA.", showroomdesc=2),
+           dict(commands=["theta"], complete="THETA.", showroomdesc=2,
+                actions=[(1,2,0,0)]),
+           dict(commands=["bobback"], complete="BOBBACK.",
+                actions=[(1,2,0,2)]),
+           # The player's own "to room" Var3 is 0-BASED (there is no hidden
+           # slot for the player), unlike an NPC's or an object's, which is
+           # 1-based with 0 = hidden.  Written 1-based at first, kappa and
+           # lambda silently left the player where he was.
+           dict(commands=["kappa"], complete="KAPPA.", showroomdesc=2,
+                actions=[(1,0,0,1), (1,2,0,0)]),
+           dict(commands=["reset"], complete="RESET.",
+                actions=[(1,0,0,0), (1,2,0,2), (0,3,0,2)]),
+           dict(commands=["lambda"], complete="LAMBDA.", showroomdesc=2,
+                actions=[(1,0,0,1)]),
+           dict(commands=["mu"], complete="MU.", showroomdesc=1,
+                actions=[(1,2,2,0)]),
+           dict(commands=["nu"], complete="NU.", showroomdesc=2,
+                actions=[(0,3,0,0)]),
+           # The first eight commands all leave Bob in the described room at
+           # the moment the block is built, so they cannot tell "before the
+           # actions" from "at the player-move action".  lca's task 237 puts
+           # the player move LAST, after both NPC moves; these three vary the
+           # order and the NPC's destination around that.
+           dict(commands=["xi"], complete="XI.", showroomdesc=2,
+                actions=[(1,2,0,3), (1,0,0,1)]),   # lca's order exactly
+           dict(commands=["pi"], complete="PI.", showroomdesc=2,
+                actions=[(1,0,0,1), (1,2,0,3)]),   # player move first
+           dict(commands=["rho"], complete="RHO.", showroomdesc=2,
+                actions=[(1,2,0,3)])]),            # to a ROOM, player stays
+
+    # SRD3: SRD2 said the ShowRoomDesc block lists the DESCRIBED room's
+    # contents as they stood before the task's actions, even when the player
+    # is somewhere else and even when an action moves the listed character
+    # out (xi/pi/rho, run400 Adrift_934.txt).  lca's task 237 is that exact
+    # shape and yet drops "The ever alluring Daisy is here." -- and a copy of
+    # the game with only the two character-move actions removed puts the line
+    # back (run400 Adrift_935.txt), so the moves really are what suppresses it.
+    #
+    # The four differences between xi and task 237 are the ones this probe
+    # walks, one at a time, all with the same ShowRoomDesc = Back Room and the
+    # same trailing "move player to the Back Room":
+    #
+    #   a1  no actions at all                          control: Bob is listed
+    #   a5  Bob -> Store, player                        xi again, in this game
+    #   a2  set a variable, Bob -> Store, player        does a type-3 action
+    #                                                   ahead of the moves bite?
+    #   a3  Carl -> Store, Bob -> Store, player         does a SECOND character
+    #                                                   move bite?
+    #   a4  variable, Carl, Bob, player                 task 237's shape exactly
+    #
+    # Carl starts in the Test Arena, like Witherspoon (who is not in the
+    # Haunted House when task 237 runs), so a3/a4 move one character that is
+    # in the described room and one that is not.
+ 'SRD3': dict(name="Probe SRD3",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{1: 1}),
+           ("Back Room","A back room.",{3: 0}),
+           ("Store","A store room.",{})],
+    objects=[("a","widget",5,0,0,0,0,0,0)],
+    npcs=[("Bob",1,0,10,0,0,0,0,0,0,0,0,0,0),
+          ("Carl",0,0,10,0,0,0,0,0,0,0,0,0,0)],
+    vars=[("counter", 0, "0")],
+    tasks=[dict(commands=["a1"], complete="A1.", showroomdesc=2),
+           dict(commands=["a5"], complete="A5.", showroomdesc=2,
+                actions=[(1,2,0,3), (1,0,0,1)]),
+           dict(commands=["a2"], complete="A2.", showroomdesc=2,
+                actions=[(3,0,1,1,"",0), (1,2,0,3), (1,0,0,1)]),
+           dict(commands=["a3"], complete="A3.", showroomdesc=2,
+                actions=[(1,3,0,3), (1,2,0,3), (1,0,0,1)]),
+           dict(commands=["a4"], complete="A4.", showroomdesc=2,
+                actions=[(3,0,1,1,"",0), (1,3,0,3), (1,2,0,3), (1,0,0,1)]),
+           dict(commands=["r"], complete="R.",
+                actions=[(1,0,0,0), (1,2,0,2), (1,3,0,1)])]),
+
+    # SRD4: SRD3 said none of the SHAPE differences between the probe and
+    # lca's task 237 -- an extra variable action ahead of the moves, a second
+    # character move, the action order -- changes the ShowRoomDesc listing:
+    # run400 still names the character the task is about to move away
+    # (Adrift_936.txt).  So whatever suppresses "The ever alluring Daisy is
+    # here." is one of the FIELD differences, and this probe walks those, each
+    # cell preceded by `r` (player back to the Test Arena, Bob back into the
+    # Back Room):
+    #
+    #   b1  empty CompleteText                     lca's task 237 has none
+    #   b2  empty CompleteText + AdditionalMessage  its exact text layout
+    #   b3  CompleteText + AdditionalMessage        the AdditionalMessage alone
+    #   b4  Repeatable = 0                          it is a one-shot
+    #   b5  Where = the one room the player is in   it is room-scoped
+    #   b6  all five at once, on the command `ne`   task 237 to the letter
+    #
+    # Every cell has the same ShowRoomDesc = Back Room and the same two
+    # actions, "Bob -> Store" then "player -> Back Room", so a cell that omits
+    # "Bob is here, looking dangerous." is the one that reproduces lca.
+ 'SRD4': dict(name="Probe SRD4",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{1: 1}),
+           ("Back Room","A back room.",{3: 0}),
+           ("Store","A store room.",{})],
+    objects=[("a","widget",5,0,0,0,0,0,0)],
+    npcs=[("Bob",1,0,10,0,0,0,0,0,0,0,0,0,0)],
+    tasks=[dict(commands=["b0"], complete="B0.", showroomdesc=2,
+                actions=[(1,2,0,3), (1,0,0,1)]),
+           dict(commands=["b1"], complete="", showroomdesc=2,
+                actions=[(1,2,0,3), (1,0,0,1)]),
+           dict(commands=["b2"], complete="", additional="ADDMSG.",
+                showroomdesc=2, actions=[(1,2,0,3), (1,0,0,1)]),
+           dict(commands=["b3"], complete="B3.", additional="ADDMSG.",
+                showroomdesc=2, actions=[(1,2,0,3), (1,0,0,1)]),
+           dict(commands=["b4"], complete="B4.", repeatable=0, showroomdesc=2,
+                actions=[(1,2,0,3), (1,0,0,1)]),
+           dict(commands=["b5"], complete="B5.", where=(1,0), showroomdesc=2,
+                actions=[(1,2,0,3), (1,0,0,1)]),
+           dict(commands=["ne"], complete="", additional="ADDMSG.",
+                repeatable=0, where=(1,0), showroomdesc=2,
+                actions=[(1,2,0,3), (1,0,0,1)]),
+           dict(commands=["r"], complete="R.",
+                actions=[(1,0,0,0), (1,2,0,2)])]),
+
     # PUT4 -- the PUTPASS400 / PUTBIG400 pair from
     # notes/WINE-TRANSCRIPTS-TODO.md, in one game.  The offline reading of
     # run400's `insides` (46639C) says the result byte var_86 is set to 1 only
