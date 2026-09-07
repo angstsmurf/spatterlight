@@ -279,7 +279,7 @@ The impassable Kuskarian Range mountains can be seen to the north.
 You can move north, east and west.
 Seeker hums!
 Seeker hums!
-wolf cuts you with the fine set of teeth in its muzzle, but it doesn't seem
+Wolf cuts you with the fine set of teeth in its muzzle, but it doesn't seem
 to do any damage.
 
 > e
@@ -572,18 +572,18 @@ Seeker hums!
 > take vial
 You take the vial from the sarcophagus.
 Seeker hums!
-wraith hits you, but it doesn't seem to do any damage.
+Wraith hits you, but it doesn't seem to do any damage.
 
 > stand on sarcophagus
 You stand on the sarcophagus.
 Seeker hums!
-wraith hits you, but it doesn't seem to do any damage.
+Wraith hits you, but it doesn't seem to do any damage.
 
 > turn handle
 As you reach up and turn the handle, it jams into position, and a secret
 passage is revealed in the northern wall.
 Seeker hums!
-wraith hits you, but it doesn't seem to do any damage.
+Wraith hits you, but it doesn't seem to do any damage.
 
 > n
 (Getting off the sarcophagus first)
@@ -1028,7 +1028,7 @@ You stab zombie with the sword.  Boris drags himself off to below.
 Time passes...
 Boris lumbers in from below.
 Seeker hums!
-zombie hits you, but it doesn't seem to do any damage.
+Zombie hits you, but it doesn't seem to do any damage.
 
 > attack boris
 You stab zombie with the sword.
@@ -1443,7 +1443,7 @@ You can only move east.
 > open wooden box
 You open the large wooden box.  A leg of lamb is inside the large wooden box.
 Seeker hums!
-zombie hits you, but it doesn't seem to do any damage.
+Zombie hits you, but it doesn't seem to do any damage.
 
 > take lamb
 You take the leg of lamb from the large wooden box.
@@ -1708,14 +1708,14 @@ Seeker hums!
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you.
+Giant spider hits you.
 
 > z
 Time passes...
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you, but it doesn't seem to do any damage.
+Giant spider hits you, but it doesn't seem to do any damage.
 
 > z
 Time passes...
@@ -1729,7 +1729,7 @@ Time passes...
 > attack haraxis
 Haraxis isn't here!  Haraxis skitters in.
 Seeker hums!
-giant spider hits you.
+Giant spider hits you.
 
 > attack haraxis
 You stab giant spider with the sword.
@@ -1737,21 +1737,21 @@ Seeker hums!
 
 > z
 Time passes...
-giant spider hits you, but it doesn't seem to do any damage.
+Giant spider hits you, but it doesn't seem to do any damage.
 
 > attack haraxis
 You stab giant spider with the sword.
 
 > z
 Time passes...
-giant spider hits you, but it doesn't seem to do any damage.
+Giant spider hits you, but it doesn't seem to do any damage.
 
 > attack haraxis
 You stab giant spider with the sword.
 
 > z
 Time passes...
-giant spider hits you, but it doesn't seem to do any damage.
+Giant spider hits you, but it doesn't seem to do any damage.
 
 > attack haraxis
 You stab giant spider with the sword.
@@ -1912,7 +1912,7 @@ You can only move north.
 A thin mist gathers here. It turns into a female form. Maretta, vampire wife
 of Morac, has arrived. She blocks your entrance into the castle.
 Seeker hums!
-vampire hits you.
+Vampire hits you.
 
 > z
 Time passes...
@@ -4454,7 +4454,7 @@ sears you with its blistering heat.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker Hums!
-hound of hades hits you, but it doesn't seem to do any damage.
+Hound of hades hits you, but it doesn't seem to do any damage.
 
 > attack cerberus
 You stab hound of hades with the sword.
@@ -4471,7 +4471,7 @@ fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker Hums!
 Cerberus' serpent tail lashes round and bites your arm with its poisonous
 fangs, but your arm greaves deflect the blow.
-hound of hades hits you, but it doesn't seem to do any damage.
+Hound of hades hits you, but it doesn't seem to do any damage.
 
 > attack cerberus
 You stab hound of hades with the sword.

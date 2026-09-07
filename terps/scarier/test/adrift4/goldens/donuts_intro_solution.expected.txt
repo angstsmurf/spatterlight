@@ -42,7 +42,7 @@ I told the Wife to never buy such ugly colors because they wouldn't interact
 well, but I was wrong. Here they are, all melting together.
 
 The Wife is here.
-wife hits you with the pot.
+Wife hits you with the pot.
 
 > e
 I move east.

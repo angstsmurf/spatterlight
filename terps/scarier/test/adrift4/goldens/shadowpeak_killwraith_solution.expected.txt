@@ -276,7 +276,7 @@ The impassable Kuskarian Range mountains can be seen to the north.
 You can move north, east and west.
 Seeker hums!
 Seeker hums!
-wolf attacks you with the fine set of teeth in its muzzle, but you manage to
+Wolf attacks you with the fine set of teeth in its muzzle, but you manage to
 avoid it.
 
 > e
@@ -568,7 +568,7 @@ Seeker hums!
 > take vial
 You take the vial from the sarcophagus.
 Seeker hums!
-wraith hits you, but it doesn't seem to do any damage.
+Wraith hits you, but it doesn't seem to do any damage.
 
 > attack alam nadeer
 You stab wraith with the sword.
@@ -1510,7 +1510,7 @@ You can only move east.
 > open wooden box
 You open the large wooden box.  A leg of lamb is inside the large wooden box.
 Seeker hums!
-zombie hits you, but it doesn't seem to do any damage.
+Zombie hits you, but it doesn't seem to do any damage.
 
 > take lamb
 You take the leg of lamb from the large wooden box.
@@ -1764,7 +1764,7 @@ Time passes...
 Haraxis skitters in from above.
 Seeker hums!
 Seeker hums!
-giant spider hits you, but it doesn't seem to do any damage.
+Giant spider hits you, but it doesn't seem to do any damage.
 
 > z
 Time passes...
@@ -1788,35 +1788,35 @@ Seeker hums!
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you.
+Giant spider hits you.
 
 > z
 Time passes...
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you, but it doesn't seem to do any damage.
+Giant spider hits you, but it doesn't seem to do any damage.
 
 > z
 Time passes...
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you.
+Giant spider hits you.
 
 > z
 Time passes...
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you, but it doesn't seem to do any damage.
+Giant spider hits you, but it doesn't seem to do any damage.
 
 > attack haraxis
 You stab giant spider with the sword.
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you, but it doesn't seem to do any damage.
+Giant spider hits you, but it doesn't seem to do any damage.
 
 > z
 Time passes...
@@ -3147,7 +3147,7 @@ Seeker hums!
 You stab werewolf with the sword.
 Seeker hums!
 Seeker hums!
-werewolf hits you, but it doesn't seem to do any damage.
+Werewolf hits you, but it doesn't seem to do any damage.
 
 > attack margo with sword
 You stab werewolf with the sword.
@@ -3794,13 +3794,13 @@ You can move north, east, south, west, southwest and northwest.  Fang darts
 into the area from the north.
 Seeker hums!
 Seeker hums!
-wolf cuts you with the fine set of teeth in its muzzle, but it doesn't seem
+Wolf cuts you with the fine set of teeth in its muzzle, but it doesn't seem
 to do any damage.
 
 > z
 Time passes...
 Seeker hums!
-wolf cuts you with the fine set of teeth in its muzzle, but it doesn't seem
+Wolf cuts you with the fine set of teeth in its muzzle, but it doesn't seem
 to do any damage.
 
 > z
@@ -4867,7 +4867,7 @@ Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Seeker hums!
 Seeker Hums!
-hound of hades hits you, but it doesn't seem to do any damage.
+Hound of hades hits you, but it doesn't seem to do any damage.
 
 > attack cerberus
 You stab hound of hades with the sword.

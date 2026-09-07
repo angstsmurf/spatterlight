@@ -194,6 +194,7 @@ cruel_solution.txt|CAH.taf|destroyed our reality
 # Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
 # Re-blessed 2026-08-29: `x trabula / x soldier / x troll (battle rolls move)` no longer ticks, so the events/RNG after it shift by one turn.
 # Re-blessed 2026-09-06: `attack X` naming a SEEN NPC who is elsewhere now answers "X isn't here!" (run400 dobattle 47EFE5, House Adrift_110) instead of falling to the game's DontUnderstand.  Both are turns here, so only the wording changed (~21 lines); no timing change.
+# Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_268_trabula.txt has "A soldier attacks you with the rapier").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
 trabula_solution.txt|Trabula.taf|given the gold coins to Trabula
 # Re-blessed 2026-08-29: the 4.0 pronoun echo carries the ARTICLE of whichever handler
 # last set the antecedent -- examine composes "a X" (run400 mode 1 @471749), take/drop/
@@ -217,11 +218,13 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 # in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
 # pre-move lines between stops disappeared; still wins.
 # Re-blessed 2026-09-06: `attack X` on a seen-but-absent X is a REAL turn in run400 ("X isn't here!", dobattle 47EFE5, House Adrift_110), not the no-turn DontUnderstand the header's self-sync trick assumed.  The `z` after each such attack was dropped (31, the attack now supplies the tick) and attacks with no `z` to give up were dropped themselves (Cerberus x7, Edna x4).  Same turn thread, still wins.
+# Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_391_shadowpeak.txt has "Giant spider hits you.").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=101
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
 # Re-blessed 2026-09-06: same "X isn't here!" turn as the shadowpeak row above (Adrift_110): 28 `z` and 4 no-op attacks dropped.  Still wins.
+# Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_392_shadowpeak_allgargoyles.txt has "Giant spider hits you." and "Wolf attacks you with the fine set of teeth in its muzzle").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
 shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=30
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
@@ -230,6 +233,7 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  Battle rolls reorder.
 # Re-blessed 2026-09-06: same "X isn't here!" turn as the shadowpeak row above (Adrift_110): 95 `z` and 15 no-op attacks dropped.  Still wins.
+# Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_393_shadowpeak_killwraith.txt has "Wraith hits you, but it doesn't seem to do any damage.").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=180
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
@@ -508,6 +512,7 @@ cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of
 # vardock_bates row.  Rain chain, as on cybercow_win.
 cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
 deaths_solution.txt|deaths.taf|crumbles into dust
+# Re-blessed 2026-09-07 for the same capitalisation rule as the trabula row above: `wife hits you with the pot.` -> `Wife`.  This row's transcript (Adrift_176) never reaches the battle turn, so the line follows from the rule rather than from a measurement of its own.
 donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
 # Measured live in run400 under Wine: the whole 18-command replay matches the
 # fixed engine exactly (0 differing commands).  This is the row that pins down

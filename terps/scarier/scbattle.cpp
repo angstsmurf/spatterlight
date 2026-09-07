@@ -762,6 +762,19 @@ enum {
 };
 
 /*
+ * The grammatical form a combatant's name is printed in.  SUBJECT and
+ * SUBJECT_CAPITALISED differ only for an NPC: the Runner puts some of its
+ * leading names, and only some, through its one-line capitaliser.  See
+ * battle_print_combatant().
+ */
+enum {
+  BATTLE_FORM_SUBJECT = 0,
+  BATTLE_FORM_OBJECT = 1,
+  BATTLE_FORM_POSSESSIVE = 2,
+  BATTLE_FORM_SUBJECT_CAPITALISED = 3
+};
+
+/*
  * battle_print_npc_name()
  *
  * Print an NPC as a battle message names it.  The Runner's two attack
@@ -824,10 +837,33 @@ battle_print_npc_name (scr_gameref_t game, scr_int npc, scr_int naming)
 /*
  * battle_print_combatant()
  *
- * Print the name of a combatant.  form selects the grammatical form: 0 for a
- * capitalised subject ("You" / "Goblin"), 1 for an object/lowercase form
- * ("you" / "Goblin"), 2 for a possessive ("your" / "Goblin's").  naming picks
- * how an NPC is named; see battle_print_npc_name().
+ * Print the name of a combatant.  form selects the grammatical form: SUBJECT
+ * and SUBJECT_CAPITALISED for a subject ("You" / "Goblin"), OBJECT for an
+ * object/lowercase form ("you" / "Goblin"), POSSESSIVE for a possessive
+ * ("your" / "Goblin's").  naming picks how an NPC is named; see
+ * battle_print_npc_name().
+ *
+ * SUBJECT_CAPITALISED forces the NPC's name to an initial capital, the way
+ * the Runner's one-line capitaliser Proc_21_3_446BB4 does -- run400.bas
+ * @84060, literally UCase(Left(s, 1)) & Right(s, Len(s) - 1), with an early
+ * exit on the empty string.  It matters because a battle name is usually the
+ * NPC's *alias*, and an alias is authored in the lowercase form it takes
+ * mid-sentence: trabula.taf names its soldier "a soldier", so the blow that
+ * opens a turn reads "A soldier attacks you with the rapier, but you manage
+ * to avoid it." while the corpse line, printed from the Name field, reads
+ * "Soldier falls down, dead." (measured, Adrift_119_trabula.txt t8/t29).
+ *
+ * The Runner capitalises at exactly five sites, all of them in Proc_11_2 (an
+ * NPC's blow) and all of them the *attacker* leading the sentence: the two
+ * bare-handed hits (Battles.bas loc_4650C6 landed, loc_46510D no damage), the
+ * armed hit before the method verb is chosen (loc_4651FA, so a throw is
+ * capitalised too), and both armed misses (loc_4653A3 against the player,
+ * loc_46543F against another NPC).  Nothing else is: the bare-handed miss
+ * leads with the raw target name (loc_465185 pushes var_8C unwrapped) and
+ * names the attacker raw in the possessive after it, Proc_11_1 -- the
+ * player's blow, which always opens with "You" -- has no call to the
+ * capitaliser at all, and neither does the corpse line (Proc_11_3 @44B115
+ * reads the Name field directly).
  */
 static void
 battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
@@ -837,13 +873,16 @@ battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
 
   if (npc < 0)
     {
-      pf_buffer_string (filter, (form == 0) ? "You"
-                                : (form == 1) ? "you" : "your");
+      pf_buffer_string (filter,
+                        (form == BATTLE_FORM_OBJECT) ? "you"
+                        : (form == BATTLE_FORM_POSSESSIVE) ? "your" : "You");
       return;
     }
 
+  if (form == BATTLE_FORM_SUBJECT_CAPITALISED)
+    pf_new_sentence (filter);
   battle_print_npc_name (game, npc, naming);
-  if (form == 2)
+  if (form == BATTLE_FORM_POSSESSIVE)
     pf_buffer_string (filter, "'s");
 }
 
@@ -941,7 +980,8 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
   else if (visible && !battle_legacy)
     {
       pf_buffer_character (filter, '\n');
-      battle_print_combatant (game, npc, 0, BATTLE_NAME_NAME);
+      battle_print_combatant (game, npc,
+                              BATTLE_FORM_SUBJECT, BATTLE_NAME_NAME);
       pf_buffer_string (filter, " falls down, dead.\n");
     }
 
@@ -1073,14 +1113,16 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
 
       if (visible)
         {
-          battle_print_combatant (game, attacker, 0, naming);
+          battle_print_combatant (game, attacker,
+                                  BATTLE_FORM_SUBJECT_CAPITALISED, naming);
           if (method == 5)
             {
               pf_buffer_string (filter, (attacker < 0) ? " throw "
                                                        : " throws ");
               lib_print_object_np (game, weapon);
               pf_buffer_string (filter, " at ");
-              battle_print_combatant (game, target, 1, naming);
+              battle_print_combatant (game, target,
+                                      BATTLE_FORM_OBJECT, naming);
             }
           else if (method >= 0)
             {
@@ -1089,14 +1131,16 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
               if (attacker >= 0)
                 pf_buffer_character (filter, 's');
               pf_buffer_character (filter, ' ');
-              battle_print_combatant (game, target, 1, naming);
+              battle_print_combatant (game, target,
+                                      BATTLE_FORM_OBJECT, naming);
               pf_buffer_string (filter, " with ");
               lib_print_object_np (game, weapon);
             }
           else
             {
               pf_buffer_string (filter, (attacker < 0) ? " hit " : " hits ");
-              battle_print_combatant (game, target, 1, naming);
+              battle_print_combatant (game, target,
+                                      BATTLE_FORM_OBJECT, naming);
             }
         }
       if (player_throw)
@@ -1118,28 +1162,30 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
     {
       if (method < 0)
         {
-          battle_print_combatant (game, target, 0, naming);
+          battle_print_combatant (game, target, BATTLE_FORM_SUBJECT, naming);
           pf_buffer_string (filter, (target < 0) ? " manage to avoid "
                                                  : " manages to avoid ");
-          battle_print_combatant (game, attacker, 2, naming);
+          battle_print_combatant (game, attacker,
+                                  BATTLE_FORM_POSSESSIVE, naming);
           pf_buffer_string (filter, " attack.\n");
         }
       else if (attacker < 0)
         {
-          battle_print_combatant (game, target, 0, naming);
+          battle_print_combatant (game, target, BATTLE_FORM_SUBJECT, naming);
           pf_buffer_string (filter, " manages to avoid your attack with ");
           lib_print_object_np (game, weapon);
           pf_buffer_string (filter, ".\n");
         }
       else
         {
-          battle_print_combatant (game, attacker, 0, naming);
+          battle_print_combatant (game, attacker,
+                                  BATTLE_FORM_SUBJECT_CAPITALISED, naming);
           pf_buffer_string (filter, " attacks ");
-          battle_print_combatant (game, target, 1, naming);
+          battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
           pf_buffer_string (filter, " with ");
           lib_print_object_np (game, weapon);
           pf_buffer_string (filter, ", but ");
-          battle_print_combatant (game, target, 1, naming);
+          battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
           pf_buffer_string (filter, (target < 0) ? " manage to avoid it.\n"
                                                  : " manages to avoid it.\n");
         }

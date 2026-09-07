@@ -1034,9 +1034,17 @@ Engine leads, measured or half-measured, none blocking:
   information/end/turns; Scarier also treats hint, help, clear, where and
   a dozen 4.0-era verbs as administrative for 3.9 and nothing has measured
   them under run390.
-- **Battle**: whether run400 capitalises a blow that starts with a
-  lowercase alias (trabula "a soldier attacks you"); the port concatenates
-  raw.
+- (**Battle** capitalisation: **measured and ported 2026-09-07**, see
+  "Ported 2026-09-07: the five battle names run400 capitalises" at the foot
+  of this file.  The Runner really does capitalise -- at five sites, all of
+  them an NPC attacker leading its own sentence.)
+- (**Battle numbers, trabula turn 31**: run400 needs *two* `attack troll`
+  blows to kill the troll and Scarier kills it with one, so the corpse line
+  sits one command later.  **Not a lead** -- Trabula's troll is authored as
+  Stamina 18-28, Strength 17-27, Defense 12-22, and every one of those is a
+  range rolled at game start, so the two engines' unrelated RNGs give the
+  troll a different constitution before a blow is ever struck.  The narration
+  itself matches word for word on both blows.)
 - (`isare()` vs `obj_appears_plural()`: **measured and ported 2026-09-07**,
   see "Ported 2026-09-07: `isare()` cell by cell, and the empty Prefix the
   loader fills in" at the foot of this file.  The empty-prefix half of the
@@ -4994,3 +5002,109 @@ line 80, `Also here is A Bow of Icy Arrows.` -> `are`.  That is the same
 object the case-sensitive article port re-blessed earlier the same day, and
 like that one it follows from the probe rather than from a run400 transcript
 of `yeh` itself.  Suite **428 PASS / 0 FAIL**, the ADRIFT 5 suite unchanged.
+
+
+## Ported 2026-09-07: the five battle names run400 capitalises
+
+The last battle lead in "Still open" asked whether run400 capitalises a blow
+whose name is a lowercase alias.  It does.  `Adrift_268_trabula.txt`, whose
+soldier is named `Soldier` and aliased `a soldier`:
+
+```
+A soldier attacks you with the rapier, but you manage to avoid it.
+A Troll attacks you with the bar, but you manage to avoid it.
+...
+Soldier falls down, dead.
+```
+
+Both spellings in one transcript: the blow is capitalised, the corpse line is
+not -- and the corpse line is not capitalised *because it never needed to be*,
+being the Name field rather than the alias.
+
+The capitaliser is `Proc_21_3_446BB4` (run400.bas @84060), the one-line
+`UCase(Left(s, 1)) & Right(s, Len(s) - 1)` with an early exit on the empty
+string, and 19 callers across the exe.  Five of them are in `Proc_11_2`, an
+NPC's blow, and the P-code says exactly which name each one wraps -- `var_88`
+is the attacker's name and `var_8C` the target's:
+
+| site | branch | wrapped |
+| --- | --- | --- |
+| `loc_4650C6` | bare hands, hit, damage | `Proc_21_3(var_88) & " hits " & var_8C & "."` |
+| `loc_46510D` | bare hands, hit, no damage | `Proc_21_3(var_88) & " hits " & var_8C & ", but it doesn't seem..."` |
+| `loc_4651FA` | armed, hit | `Proc_21_3(var_88) & " "` -- *before* the method verb is chosen, so a throw is capitalised too |
+| `loc_4653A3` | armed, miss, target is the player | `Proc_21_3(var_88) & " attacks " & msg(2) & " with "...` |
+| `loc_46543F` | armed, miss, target is an NPC | `Proc_21_3(var_88) & " attacks " & var_8C & " with "...` |
+
+and nothing else in the battle system calls it:
+
+* the **bare-handed miss** leads with the raw target -- `loc_465185` pushes
+  `var_8C` unwrapped, and names the attacker raw in the possessive after it
+  (`& " manages to avoid " & var_88 & "'s attack."`).  Its player-target twin
+  at `loc_465153` opens from the message table instead.
+* **`Proc_11_1`**, the player's blow, has no call to the capitaliser at all.
+  It never needs one: every sentence it builds opens with "You".
+* the **corpse line** (`Proc_11_3_44B13C` @`loc_44B115`) reads the Name field
+  directly, which is why trabula's reads `Soldier`.
+
+So the rule is not "capitalise a battle name" but "capitalise an NPC attacker
+that opens its own sentence", and the two are not the same thing -- the
+bare-handed miss opens with a name too and stays raw.
+
+**The port.**  `battle_print_combatant()` in `scbattle.cpp` took a `form`
+argument documented as "0 for a capitalised subject" that never capitalised
+anything for an NPC.  The three magic numbers are now a named enum, with a
+fourth value for the sites that do:
+
+```c
+enum {
+  BATTLE_FORM_SUBJECT = 0,
+  BATTLE_FORM_OBJECT = 1,
+  BATTLE_FORM_POSSESSIVE = 2,
+  BATTLE_FORM_SUBJECT_CAPITALISED = 3
+};
+```
+
+`BATTLE_FORM_SUBJECT_CAPITALISED` is `pf_new_sentence()` ahead of the name,
+which is the printfilter's existing "force the next character upper" flag and
+lands on the first character of whatever the name printer buffers -- the
+Prefix if there is one, the alias if there is not, exactly where VB6's
+`Left(s, 1)` lands on the joined string.  Only the two `attacker` calls that
+lead a sentence take it: the one at the head of the hit branch and the one in
+the armed-miss branch.  The two `target` calls that lead a sentence keep
+`BATTLE_FORM_SUBJECT`, which is the port's raw form, matching `loc_465185`
+and `Proc_11_1`.
+
+**Exposure.**  Five goldens moved, all of them 4.00 games, all in the same
+direction:
+
+| golden | lines | example |
+| --- | --- | --- |
+| `trabula` | 2 | `a soldier attacks you` -> `A soldier attacks you` |
+| `shadowpeak` | 17 | `giant spider hits you.` -> `Giant spider hits you.` |
+| `shadowpeak_allgargoyles` | 15 | same, plus `vampire`, `hound of hades` |
+| `shadowpeak_killwraith` | 13 | same |
+| `donuts_intro` | 1 | `wife hits you with the pot.` -> `Wife ...` |
+
+Three of the five have archived transcripts that carry the same lines and
+agree with the new spelling: `Adrift_268_trabula.txt` as quoted above, and
+`Adrift_391/392/393_shadowpeak*.txt` with `Giant spider hits you.`,
+`Wraith hits you, ...`, `Zombie hits you, ...` and `Wolf attacks you with the
+fine set of teeth in its muzzle, but you manage to avoid it.` -- every one of
+them capitalised, none of them capitalised in the alias.  `donuts_intro`'s
+transcript never reaches its battle turn, so that line follows from the rule
+rather than from a measurement of its own.
+
+The three shadowpeak rows are seed-locked and their runs diverge from the
+Runner long before those lines, so the agreement is per-line, not per-turn;
+`trabula` is the row that compares end to end, and its differing-turn count
+went from 4 to 2.  The 2 that remain are not a lead: run400 kills the troll on
+the second `attack troll` and Scarier on the first, because the troll's
+Stamina (18-28), Strength (17-27) and Defense (12-22) are all ranges rolled at
+game start out of each engine's own, unrelated RNG.
+
+Nothing pre-4.0 changes.  `battle_legacy` covers version < 4.00 and the whole
+narration those games get is a different set of strings (run390 Form1.frm
+@4595DB); the three literals these five sites join -- `" attacks "`,
+`" manages to avoid "`, `"'s attack."` -- appear in run400's string pool and
+in no other Runner's.  Suite **429 PASS / 0 FAIL**, the ADRIFT 5 suite
+unchanged.

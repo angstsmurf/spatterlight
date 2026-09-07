@@ -280,7 +280,7 @@ here.
 You can move north, east and west.
 Seeker hums!
 Seeker hums!
-wolf attacks you with the fine set of teeth in its muzzle, but you manage to
+Wolf attacks you with the fine set of teeth in its muzzle, but you manage to
 avoid it.
 
 > e
@@ -569,17 +569,17 @@ gradually takes shape into a frightening sight: a transparent form of a man
 with red gleaming eyes, dressed in old robes and wielding a smoky sword now
 stands in front of you!!! This be Alam Nadeer, the dreaded wraith.
 Seeker hums!
-wraith hits you, but it doesn't seem to do any damage.
+Wraith hits you, but it doesn't seem to do any damage.
 
 > take vial
 You take the vial from the sarcophagus.
 Seeker hums!
-wraith hits you, but it doesn't seem to do any damage.
+Wraith hits you, but it doesn't seem to do any damage.
 
 > stand on sarcophagus
 You stand on the sarcophagus.
 Seeker hums!
-wraith hits you, but it doesn't seem to do any damage.
+Wraith hits you, but it doesn't seem to do any damage.
 
 > turn handle
 As you reach up and turn the handle, it jams into position, and a secret
@@ -616,7 +616,7 @@ There is an iron handle sticking out of the ceiling.
 
 You can move north and west.
 Seeker hums!
-wraith hits you, but it doesn't seem to do any damage.
+Wraith hits you, but it doesn't seem to do any damage.
 
 > w
 You move west.
@@ -1020,7 +1020,7 @@ Boris drags himself off to below.
 > attack holga
 Holga isn't here!  Jarris lumbers off to below.  Boris lumbers in from below.
 Seeker hums!
-zombie hits you, but it doesn't seem to do any damage.
+Zombie hits you, but it doesn't seem to do any damage.
 
 > z
 Time passes...
@@ -1054,7 +1054,7 @@ Boris drags himself off to below.
 Holga isn't here!  Jarris lumbers off to the south.  Boris lumbers in from
 below.
 Seeker hums!
-zombie hits you, but it doesn't seem to do any damage.
+Zombie hits you, but it doesn't seem to do any damage.
 
 > z
 Time passes...
@@ -1075,7 +1075,7 @@ Time passes...
 > attack holga
 Holga isn't here!  Boris lumbers in from the south.
 Seeker hums!
-zombie hits you, but it doesn't seem to do any damage.
+Zombie hits you, but it doesn't seem to do any damage.
 
 > z
 Time passes...
@@ -1307,7 +1307,7 @@ Arthur pulls himself away to the south.
 > attack jarris
 Jarris isn't here!  Boris lumbers in from the south.
 Seeker hums!
-zombie hits you, but it doesn't seem to do any damage.
+Zombie hits you, but it doesn't seem to do any damage.
 
 > z
 Time passes...
@@ -1337,7 +1337,7 @@ Boris lumbers in from the west.
 Seeker hums!
 Arthur pulls himself in from the west.
 Seeker hums!
-zombie hits you, but it doesn't seem to do any damage.
+Zombie hits you, but it doesn't seem to do any damage.
 
 > attack boris
 You stab zombie with the sword.
@@ -1519,7 +1519,7 @@ You can only move east.
 > open wooden box
 You open the large wooden box.  A leg of lamb is inside the large wooden box.
 Seeker hums!
-zombie hits you, but it doesn't seem to do any damage.
+Zombie hits you, but it doesn't seem to do any damage.
 
 > take lamb
 You take the leg of lamb from the large wooden box.
@@ -1788,21 +1788,21 @@ Seeker hums!
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you.
+Giant spider hits you.
 
 > z
 Time passes...
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you, but it doesn't seem to do any damage.
+Giant spider hits you, but it doesn't seem to do any damage.
 
 > z
 Time passes...
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you.
+Giant spider hits you.
 
 > attack haraxis
 You stab giant spider with the sword.
@@ -1816,7 +1816,7 @@ Time passes...
 > attack haraxis
 Haraxis isn't here!  Haraxis skitters in.
 Seeker hums!
-giant spider hits you.
+Giant spider hits you.
 
 > z
 Time passes...
@@ -1824,7 +1824,7 @@ Seeker hums!
 
 > attack haraxis
 You stab giant spider with the sword.
-giant spider hits you.
+Giant spider hits you.
 
 > z
 Time passes...
@@ -1991,7 +1991,7 @@ You can only move north.
 A thin mist gathers here. It turns into a female form. Maretta, vampire wife
 of Morac, has arrived. She blocks your entrance into the castle.
 Seeker hums!
-vampire hits you.
+Vampire hits you.
 
 > z
 Time passes...
