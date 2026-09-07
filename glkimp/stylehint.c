@@ -36,10 +36,6 @@ glui32 glk_style_measure(winid_t win, glui32 styl, glui32 hint, glui32 *result)
         case stylehint_Justification:
             *result = stylehint_just_LeftFlush;
             return TRUE;
-            
-        case stylehint_Size:
-            *result = 1;
-            return TRUE;
 
         default:
             res = win_style_measure(win->peer, styl, hint, result);

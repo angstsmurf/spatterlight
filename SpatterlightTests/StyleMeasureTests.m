@@ -361,7 +361,7 @@
     XCTAssertEqual(measured, expected);
 }
 
-#pragma mark - Font trait measures (Weight / Oblique / Proportional)
+#pragma mark - Font trait measures (Weight / Oblique / Proportional / Size)
 
 - (NSInteger)fontTraitValueForStyle:(GlkStyle *)style hint:(NSUInteger)hint {
     NSFont *font = style.attributeDict[NSFontAttributeName];
@@ -374,6 +374,8 @@
             return (traits & NSItalicFontMask) ? 1 : 0;
         case stylehint_Proportional:
             return ((traits & NSFixedPitchFontMask) || font.isFixedPitch) ? 0 : 1;
+        case stylehint_Size:
+            return (NSInteger)llround(font.pointSize);
         default:
             XCTFail(@"unexpected hint %lu", (unsigned long)hint);
             return -1;
@@ -392,6 +394,10 @@
                    [self fontTraitValueForStyle:self.theme.bufferNormal hint:stylehint_Oblique]);
     XCTAssertEqual([self measureWindow:win controller:ctl style:style_Normal hint:stylehint_Proportional],
                    [self fontTraitValueForStyle:self.theme.bufferNormal hint:stylehint_Proportional]);
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_Normal hint:stylehint_Size],
+                   [self fontTraitValueForStyle:self.theme.bufferNormal hint:stylehint_Size]);
+    XCTAssertGreaterThan([self measureWindow:win controller:ctl style:style_Normal hint:stylehint_Size], 1,
+                         @"Size must be a real point/CSS-px size, not the old stub value 1");
 
     // Preformatted is fixed-width in the default theme.
     XCTAssertEqual([self measureWindow:win controller:ctl style:style_Preformatted hint:stylehint_Proportional],
@@ -399,6 +405,17 @@
     XCTAssertEqual([self measureWindow:win controller:ctl style:style_Preformatted hint:stylehint_Proportional], 0);
 }
 
+// A Size stylehint (±2 pt per step for buffers) must show through absolute measure.
+- (void)testMeasureReflectsSizeHintWhenStylesEnabled {
+    GlkController *ctl = [self makeController];
+    ctl.bufferStyleHints[style_User1][stylehint_Size] = @(1);
+
+    GlkTextBufferWindow *win = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+
+    NSInteger base = [self fontTraitValueForStyle:self.theme.bufUsr1 hint:stylehint_Size];
+    NSInteger measured = [self measureWindow:win controller:ctl style:style_User1 hint:stylehint_Size];
+    XCTAssertEqual(measured, base + 2);
+}
 // With doStyles on, a Weight hint applied before the window opens must show
 // through measure via the style table font (not only via getStyleVal).
 - (void)testMeasureReflectsWeightHintWhenStylesEnabled {

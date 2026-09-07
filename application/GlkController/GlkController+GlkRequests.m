@@ -379,7 +379,8 @@
         }
     }
 
-    if (hint == stylehint_Weight || hint == stylehint_Oblique || hint == stylehint_Proportional) {
+    if (hint == stylehint_Weight || hint == stylehint_Oblique ||
+        hint == stylehint_Proportional || hint == stylehint_Size) {
         NSFont *font = attributes[NSFontAttributeName];
         if (!font)
             return NO;
@@ -395,6 +396,11 @@
                 return YES;
             case stylehint_Proportional:
                 *result = ((traits & NSFixedPitchFontMask) || font.isFixedPitch) ? 0 : 1;
+                return YES;
+            case stylehint_Size:
+                // Absolute size in density-independent pixels (AppKit points ≈ CSS px),
+                // matching RemGlk/AsyncGlk's Math.round(computed.fontSize).
+                *result = (NSInteger)llround(font.pointSize);
                 return YES;
             default:
                 break;
