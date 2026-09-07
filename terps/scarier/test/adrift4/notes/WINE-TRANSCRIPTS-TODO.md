@@ -4004,3 +4004,46 @@ Still open from this measurement:
   `ES_WAITING` -- and whether the Runner leaves the event parked in a running
   state (its LookText still in room descriptions) or finished is not measured,
   so this is recorded rather than ported.
+
+## Ported 2026-09-07: the article test is case-SENSITIVE
+
+Every Runner replaces a leading `a` / `an` / `some` with `the` when it prints
+an object with the definite article (`lib_print_object_np`'s "the" form), and
+scarier did the same through `scr_compare_word()`, which folds case.  It does
+not fold case.
+
+### The probe
+
+`harness/make_arena_probe.py PFX` -> `p4PFX.taf`: one room, eleven objects
+whose Shorts differ only in how the article is spelled, driven through
+`fast.sh` in run400 (`Adrift_940_pfx.txt`).  The whole transcript in one
+table -- left column the authored Prefix + Short, right column what `take`
+printed:
+
+    a alpha        Player take the alpha.          folded
+    A bravo        Player take A bravo.            KEPT
+    an charlie     Player take the charlie.        folded
+    An delta       Player take An delta.           KEPT
+    some echo      Player take the echo.           folded
+    Some foxtrot   Player take Some foxtrot.       KEPT
+    a big golf     Player take the big golf.       folded, adjective kept
+    A big hotel    Player take A big hotel.        KEPT
+    SOME india     Player take SOME india.         KEPT
+    the juliet     Player take the juliet.         already definite
+    The kilo       (never reached -- hands full)
+
+So the test is a plain byte comparison of the leading word: lower-case `a`,
+`an` and `some` are the only three spellings that become `the`, and anything
+else -- `A`, `An`, `Some`, `SOME` -- is copied through untouched, definite
+article and all.  `i` and the room listing print the Prefix verbatim in every
+case, which is how the capitals were confirmed to be the author's.
+
+`lib_compare_article()` in `sclibrar.cpp` is the case-sensitive replacement,
+used at the three article sites only; `scr_compare_word()` stays case-folding
+everywhere else (it is the parser's word test, and the parser really does
+fold).  Four rows moved and were re-blessed: `ghosttown` (`You take A lump of
+hard grease.`, run400 Adrift_325:774), `xfiles` (`(Getting off A Stool
+first)`, Adrift_424:130), `spirits_flight` (four `Lamanluie cuts Kelorano
+with An old scimitar.` battle lines) and `yeh` (`You pick up A Bow of Icy
+Arrows.` / `You drop ...`).  The first two are confirmed against their own
+run400 transcripts; the other two follow from the probe.

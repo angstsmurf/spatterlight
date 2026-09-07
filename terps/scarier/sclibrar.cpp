@@ -513,6 +513,47 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  * arlo.taf with the bone's "a" prefix rewritten to "some" gives "You pick up
  * some bone." in run370.  See RUNNER_TESTS_TODO.md section 4.
  */
+/*
+ * lib_compare_article()
+ *
+ * scr_compare_word() for the article normalizer, but case-SENSITIVE.
+ *
+ * Form1.tense() is VB6 string equality and Left$() comparison under the
+ * default Option Compare Binary, so an author who capitalised the article
+ * gets it back untouched -- exactly as an authored "The" already does, there
+ * being no "the" test at all.  Measured 2026-09-07 on probe PFX (run400,
+ * Adrift_940_pfx.txt), eleven objects one per spelling:
+ *
+ *     take alpha    (Prefix "a")      Player take the alpha.
+ *     take bravo    (Prefix "A")      Player take A bravo.
+ *     take charlie  (Prefix "an")     Player take the charlie.
+ *     take delta    (Prefix "An")     Player take An delta.
+ *     take echo     (Prefix "some")   Player take the echo.
+ *     take foxtrot  (Prefix "Some")   Player take Some foxtrot.
+ *     take golf     (Prefix "a big")  Player take the big golf.
+ *     take hotel    (Prefix "A big")  Player take A big hotel.
+ *     take india    (Prefix "SOME")   Player take SOME india.
+ *     take juliet   (Prefix "the")    Player take the juliet.
+ *
+ * The same run's `i` and room listing print every prefix verbatim, so only
+ * the definite form was ever folding case.  The live game that turned this
+ * up is The X-Files: A New Beginning, whose Stool carries the Prefix "A":
+ * run400 answers `u` from it with "(Getting off A Stool first)".
+ *
+ * The pre-3.9 branch below already compares with strcmp/strncmp, and run370
+ * and run380 are the same VB, so this makes all four Runners agree.
+ */
+static scr_bool
+lib_compare_article (const scr_char *string, const scr_char *word,
+                     scr_int length)
+{
+  assert (string && word);
+
+  return strncmp (string, word, length) == 0
+         && (string[length] == NUL || scr_isspace (string[length]));
+}
+
+
 void
 lib_print_object_np (scr_gameref_t game, scr_int object)
 {
@@ -599,12 +640,12 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
           pf_buffer_character (filter, ' ');
         }
     }
-  else if (scr_compare_word (prefix, "a", 1))
+  else if (lib_compare_article (prefix, "a", 1))
     {
       normalized = prefix + 1;
       pf_buffer_string (filter, "the");
     }
-  else if (scr_compare_word (prefix, "an", 2))
+  else if (lib_compare_article (prefix, "an", 2))
     {
       normalized = prefix + 2;
       pf_buffer_string (filter, "the");
@@ -632,7 +673,7 @@ lib_print_object_np (scr_gameref_t game, scr_int object)
    * 3.90 games in the corpus (The Spirit's Flight, whose Spirit Dagger and
    * Orb of Storms both carry a "The" prefix) follow 4.0 here.
    */
-  else if (scr_compare_word (prefix, "some", 4))
+  else if (lib_compare_article (prefix, "some", 4))
     {
       normalized = prefix + 4;
       pf_buffer_string (filter, "the");

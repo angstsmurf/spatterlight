@@ -809,6 +809,9 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 # refusal (475638) counts the exits it can take right now (454684 reads the
 # door/task gates) and lists them, "can't go in that direction, but ...".
 # Measured on humbug (Adrift_4_humbug.txt line 1596, `W`).
+# Re-blessed 2026-09-07: "(Getting off A Stool first)", run400
+# Adrift_424_xfiles.txt:130 -- the capitalised article is kept; see the
+# ghosttown row, probe PFX and lib_compare_article().
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # Del Sol's 46 is 20 points larger than anything the game can actually hand
 # out, and the two missing tens are both author bugs.  Task 14 -- answering
@@ -928,6 +931,10 @@ shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the 
 # (the chant, task 29) is where=0 ROOMLIST_NO_ROOMS with no ACT type=5 and no
 # event able to dispatch it, so the win could not fire even with all four
 # elementals held.  50 of 95 is the ceiling.
+# Re-blessed 2026-09-07: four battle lines now read "Lamanluie cuts Kelorano
+# with An old scimitar." (and "...An old broken scimitar."), the authored
+# capital kept.  No run400 transcript for this row; the rule is probe PFX's.
+# See lib_compare_article().
 spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
 # Measured 2026-08-29: run400 replay, all 12 commands echoed, 12 of 12 turns
 # identical.  Re-driven 2026-09-05 against today's engine
@@ -1185,6 +1192,10 @@ tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
 # empty Long with no alts and no objects: Adrift_41/43_p39exam.txt answer
 # "There is nothing of interest here.  You can only move west." to both `e` and
 # `look`, while the 4.00 twin (Adrift_1_p4exam.txt) prints the exits alone.
+# Re-blessed 2026-09-07: "You pick up A Bow of Icy Arrows." / "You drop A Bow
+# of Icy Arrows." -- the capitalised article is kept.  No run400 transcript for
+# this row; the rule is probe PFX's (Adrift_940_pfx.txt) and is confirmed on
+# ghosttown and xfiles.  See lib_compare_article().
 yeh_solution.txt|yeh.taf|Your score is 3100 out of a maximum of 3400.
 # Re-blessed 2026-08-25 for the on-before-in joined listing (see item 4 in the
 # xfiles_solution.txt block above): the wardrobe is both a surface and an open
@@ -7855,6 +7866,12 @@ ilgolem_solution.txt|Il Golem.taf|Complimenti, hai completato l'avventura!|SCR_S
 # Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the kerosene lamp and the shovel (empty InRoomDesc)
 # drop out of the listing and the old mattress prints its own description; the
 # measured run400 replay drops from 22 differing turns to 18.
+# Re-blessed 2026-09-07: `take grease` is "You take A lump of hard grease."
+# and not "...the lump of hard grease" (run400 Adrift_325_ghosttown.txt:774;
+# the room listing at :635 spells the Prefix the same way).  The Runners'
+# article test is case-SENSITIVE -- only lower-case "a", "an" and "some" fold
+# to "the", an authored capital is copied through -- measured on probe PFX
+# (Adrift_940_pfx.txt, eleven spellings).  See lib_compare_article().
 ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmering in the air. One of a pretty young girl|SCR_SKIP_WAITKEY=1
 EOF
 }

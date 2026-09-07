@@ -1733,6 +1733,38 @@ CONFIGS = {
     # So: a put the library can COMPLETE claims the line even over a passing
     # task, and a put it REFUSES prints and lets the task fire.  (The silence
     # on the first line is a separate quirk -- see PUT7.)
+# PFX: is the Runner's article normalizer case-sensitive?
+#
+# The X-Files: A New Beginning (4.00) replay of 2026-09-07 answers `u` from
+# the stool with "(Getting off A Stool first)" where scarier says "the Stool".
+# That object's Prefix is the capital "A", and Form1.tense() is VB6 string
+# equality under the default Option Compare Binary -- so a capital article
+# would never match the six literals it tests ("a", "an", "some" whole, and
+# "a ", "an ", "some " as heads) and would come back untouched, exactly as an
+# authored "The" already does.  scarier's scr_compare_word() is deliberately
+# case-INSENSITIVE, so it folds them.
+#
+# Eleven objects lie in the arena, one per prefix spelling, so one `take`
+# each measures the definite form (lib_print_object_np) and the opening
+# `look` measures the indefinite one (lib_print_object, scobjcts.cpp) in the
+# same run.  alpha/charlie/echo/golf/juliet/kilo are the controls whose
+# answers are already known; bravo/delta/foxtrot/hotel/india are the question.
+ 'PFX': dict(name="Probe PFX",
+    player=(200,0,0,0,0,0,0,0,0,0),
+    rooms=[("Test Arena","A bare arena.",{})],
+    objects=[("a",     "alpha",   4,0,0,0,0,0,0),
+             ("A",     "bravo",   4,0,0,0,0,0,0),
+             ("an",    "charlie", 4,0,0,0,0,0,0),
+             ("An",    "delta",   4,0,0,0,0,0,0),
+             ("some",  "echo",    4,0,0,0,0,0,0),
+             ("Some",  "foxtrot", 4,0,0,0,0,0,0),
+             ("a big", "golf",    4,0,0,0,0,0,0),
+             ("A big", "hotel",   4,0,0,0,0,0,0),
+             ("SOME",  "india",   4,0,0,0,0,0,0),
+             ("the",   "juliet",  4,0,0,0,0,0,0),
+             ("The",   "kilo",    4,0,0,0,0,0,0)],
+    npcs=[],
+    tasks=[]),
 'PUT4': dict(name="Probe PUT4",
     player=(200,0,0,0,0,0,0,0,0,0),
     sizemult=3, weightmult=3, maxsize=902, maxwt=902,

@@ -491,7 +491,7 @@ The magma is oozing everywhere and your body breaks into a sweat. Each drop
 from your body drips onto the ground and sizzles mightily.  Kelorano is here.
 
 You can only move west.
-Lamanluie cuts Kelorano with the old broken scimitar.
+Lamanluie cuts Kelorano with An old broken scimitar.
 Kelorano hits you with Ever-burning torch.
 
 > kelorano t1
@@ -507,12 +507,12 @@ and Kelorano are here.
 
 You can only move west.
 You feels as though you should leave quickly.
-Lamanluie cuts Kelorano with the old scimitar.
+Lamanluie cuts Kelorano with An old scimitar.
 Kelorano hits Lamanluie.
 
 > get amber
 You pick up The Amber of Flames.
-Lamanluie cuts Kelorano with the old scimitar.
+Lamanluie cuts Kelorano with An old scimitar.
 Kelorano hits Lamanluie.
 
 > west
@@ -551,7 +551,7 @@ The path is dry and cracked. The sun beats down on you hard. The air is hot
 and dry.  A lizard is hissing at you, blocking your way.  Slikerma is here.
 
 You can only move west.
-Lamanluie cuts Slikerma with the old scimitar.
+Lamanluie cuts Slikerma with An old scimitar.
 Slikerma hits you, but it doesn't seem to do any damage.
 
 > attack slikerma

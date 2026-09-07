@@ -1436,7 +1436,7 @@ You carefully pour the kerosene into the empty lamp, and when you're done you
 toss away the now empty container.
 
 > get grease
-You take the lump of hard grease.
+You take A lump of hard grease.
 
 > n
 You move north.

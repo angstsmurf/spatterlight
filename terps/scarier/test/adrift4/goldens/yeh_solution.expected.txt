@@ -85,7 +85,7 @@ Animated Vine hits Leon, but it doesn't seem to do any damage.
 Leon hits Animated Vine.
 
 > get bow of icy arrows
-You pick up the Bow of Icy Arrows.
+You pick up A Bow of Icy Arrows.
 Leon hits Animated Vine.
 
 > u
@@ -107,7 +107,7 @@ you.  Genesi is here.
 You can move north, east and south.
 
 > drop bow of icy arrows
-You drop the Bow of Icy Arrows.
+You drop A Bow of Icy Arrows.
 
 > trikletarts
 Wee Ha
