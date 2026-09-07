@@ -1075,6 +1075,7 @@ You grip the rake in your teeth and drag it to the southeast.
 
    You sense some danger in the area and seek the limited concealment offered
 by the vine.
+
 Alley behind markets
 The alley widens here to some degree, although the quality of the building
 construction hasn't changed. A vine growing up the side of a nearby building
@@ -1812,6 +1813,7 @@ barely making a sound. As the wind strikes your soaking fur you find yourself
 shivering uncontrollably.
 
 [ Your score just went up by three. ]
+
 Grassy plain
 The howling of the wind fills your ears as you survey the eastern side of the
 grasslands. The grass, while not tall, is still being whipped about by the
@@ -2357,6 +2359,7 @@ missed the platform entirely. But you land solidly in the centre, which
 starts it swinging slightly, but it slowly returns to stillness.
 
 [ Your score just went up by one. ]
+
 Inside the mill (on the metal tray)
 You are standing on the metal tray, suspended by a rope from the roof of the
 mill. Below you the paddle wheel continues to turn as water flows through the
@@ -2492,6 +2495,7 @@ it comes from me at all.
 You trot west.
 
 [ Your score just went up by two. ]
+
 Plateau
 The ridge, which the trail has been following, comes to an end here,
 flattening out into a broad, open area that stretches out before you. A

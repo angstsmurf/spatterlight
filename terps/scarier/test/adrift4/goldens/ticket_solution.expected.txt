@@ -250,6 +250,7 @@ The door out of the room is west.
 
 (Not wanting to add any pressure at this stage in the game but you have 6
 hours remaining. The time is now 10:00.)
+
 The very smart lady says "Hello my name is Mrs Peters."
 
 > say hello to me

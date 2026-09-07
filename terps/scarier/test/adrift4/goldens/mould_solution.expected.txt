@@ -1080,6 +1080,7 @@ Your clothes are soaking wet by the time she lets go. That wasn't quite what
 you had hoped from a hug, not that you really care now.
 
 (Press a key)
+
 Street in front of the laboratory
 You have wandered back outside the laboratory and are now standing on the
 street, staring towards the burning building to the north. The building looks
@@ -1154,6 +1155,7 @@ Earlier on this day, Waterfall had asked you to take her out to the shops to
 push her around in her wheelchair. She liked to visit normal places and try
 to pretend that she was not different to most people. Being paralysed and
 having super powers meant that she never actually could be.
+
 The shopping centre entrance
 You are standing at the entrance to this shopping centre. To the north is a
 bunch of shops that mostly sell rubbish. You find it hard to be interested in

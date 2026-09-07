@@ -40,8 +40,31 @@
 
 enum { FALSE = 0, TRUE = !FALSE };
 
-static scr_char line_buffer[79];
+/*
+ * The harness wraps at 78 columns, as a terminal would.  SCR_WRAP_WIDTH turns
+ * that off (or moves it): set it wide and every newline in the output is one
+ * the engine meant, which is what the Runner-transcript line-structure sweep
+ * needs -- see harness/sweep_wine_breaks.py.  The default is the historical
+ * 79, so every golden in the suite is unaffected.
+ */
+static scr_char line_buffer[65536];
 static scr_int line_length = 0;
+
+static scr_int
+wrap_width (void)
+{
+  static scr_int cached = 0;
+
+  if (cached == 0)
+    {
+      const scr_char *env = getenv ("SCR_WRAP_WIDTH");
+
+      cached = env ? atol (env) : 79;
+      if (cached < 2 || cached > (scr_int) sizeof (line_buffer))
+        cached = (scr_int) sizeof (line_buffer);
+    }
+  return cached;
+}
 
 static const scr_char *game_file;
 static scr_game game;
@@ -95,7 +118,7 @@ append_character (scr_char c)
   else
     {
       line_buffer[line_length++] = c;
-      if (line_length >= (scr_int) sizeof (line_buffer) - 1)
+      if (line_length >= wrap_width () - 1)
         {
           partial_flush ();
           putchar ('\n');

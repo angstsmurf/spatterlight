@@ -4916,6 +4916,31 @@ gmylm_solution.txt|GMYLM_2010.taf|Victory! - - -|SCR_SKIP_WAITKEY=1
 # paragraph per the walk-announcement join rule).  The old bare "The butler
 # exits." lines were the per-tick re-drag bug.
 # Re-blessed 2026-09-06: `a cauldron` is run400's no-turn catch-all (48B232), so a `z` follows it to keep the thread.
+# Re-blessed 2026-09-07 for the leading-break collapse, and the row is now
+# line-structure exact: 832 of its 890 turns align against
+# Adrift_342_provenance.txt and NOT ONE of them has a break the Runner has and
+# Scarier does not.  pf_buffer_paragraph() used to drop an event's or
+# atmosphere's leading "<br>" whenever the buffer already ended in ANY break.
+# That is right only when the break is one SCARIER supplied itself -- the
+# newline it puts after a room block, an exits list, an NPC announcement -- and
+# wrong when the break is one the Runner really stores: an author's own
+# trailing "<br>" (still standing verbatim in the buffer at that point, since
+# tags are translated at filter time) or 4.0's "Time passes...\n" hard break.
+# In those two cases run400 prints a BLANK line and Scarier printed one
+# newline.  The test is now "the buffer ends in a literal newline, and that
+# newline is not the recorded hard break or reference": a trailing "<br>" is
+# the author's and is never collapsed against.  Measured by replaying all 267
+# archived Runner transcripts against a wrap-free build of the engine
+# (SCR_WRAP_WIDTH), which makes the runner-only-break direction exact ground
+# truth -- Adrift_N.txt drops breaks the RichTextBox has but never invents one,
+# so a break present in the .txt and absent in Scarier is real.  107 such
+# breaks over 24 rows before, 19 over 9 after; 15 rows closed outright
+# (patient7 19, provenance 16, datewithdeath 9, ghosttown 8, thelasthour 3,
+# dragonshrine/reactor1/theseance 2, six more 1 each) and vendetta 21 -> 1.
+# No break went the other way: the 6011 scarier-only breaks, which are mostly
+# the known <centre> transcript artefact, are unchanged row for row, and the
+# word alignment of every one of the 267 rows is byte-identical to before.
+# 30 goldens re-blessed, 130 added blank lines, no content change anywhere.
 provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2006!!!|SCR_SKIP_WAITKEY=1
 
 # Professor Von Witt's Fabulous Flying Machine, from the game's own bundled
@@ -5909,6 +5934,25 @@ motion_solution.txt|Motion.taf|You scored 100 out of the maximum 100!|SCR_SEED=1
 # inside a magician's top hat; the assistant pops up (`up`) three times in a
 # row, each with different flavor text, before being sent back down for
 # good. Solution is simply `up`/`up`/`up`.
+#
+# It is also the sharpest evidence in the archive for the room heading's own
+# line break, ported 2026-09-07. "Inside the Top Hat" has an empty Long, so
+# the room block is the heading and then the objects, and both `up` turns of
+# Adrift_?_tophat.txt break between them where SCARIER ran them together:
+#
+#     Inside the Top Hat  A bunny twitches its whiskers at me   <- SCARIER
+#     Inside the Top Hat                                        <- run400
+#     A bunny twitches its whiskers at me
+#
+# The Runner concatenates a break, the name and a break onto the one string
+# the turn is building, so that trailing break is the Runner's own and
+# pspace() -- which only ever appends a separator -- leaves it standing.
+# lib_print_room_name() marks it with pf_buffer_hard_break(). professor,
+# viewtohome and woof show the same thing; baroo, blood, cursed, thepkgirl
+# and vendetta show the leading break. See the notes file, "Ported
+# 2026-09-07: the room heading's own two breaks, and a stale position
+# marker", and harness/sweep_wine_breaks.py, whose real direction the port
+# takes to zero.
 tophat_solution.txt|tophat.taf|But will the next show go the same way?|
 # 3 minutes1.0.taf ("Three Minutes to Live" by Ren, Hourglass Competition,
 # 4.00): reaches the best of four possible endings (one survival, three

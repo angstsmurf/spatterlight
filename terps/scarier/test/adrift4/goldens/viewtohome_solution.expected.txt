@@ -152,8 +152,9 @@ You hear the sound of water being shut off abruptly.
 > north
 You move north.
 
-Kitchen  There is a tidy kitchen faucet here.  There is an even tidier
-kitchen sink here.
+Kitchen
+There is a tidy kitchen faucet here.  There is an even tidier kitchen sink
+here.
 
 You can move south and west.
 
@@ -404,8 +405,9 @@ You can move north and east.
 > east
 You move east.
 
-Kitchen  There is a tidy kitchen faucet here.  There is an even tidier
-kitchen sink here.
+Kitchen
+There is a tidy kitchen faucet here.  There is an even tidier kitchen sink
+here.
 
 You can move south and west.
 

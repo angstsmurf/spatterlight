@@ -312,6 +312,7 @@ You wait for a moment to see if anyone heard the noise, but no-one comes. You
 head back to the cemetery.
 
 You have avenged your wife.
+
 Cemetery
 With no buildings or trees near or around this large open space, nothing
 seems to stop the cold wind which is always blowing here.  It is the type of
@@ -634,6 +635,7 @@ discarded cigarette.  A dead body is lying on the floor.
 > x dead body
 You examine the body and it is indeed poor Ben Crosby. It looks like he
 couldn't pay his debt.
+
 Cemetery
 With no buildings or trees near or around this large open space, nothing
 seems to stop the cold wind which is always blowing here.  It is the type of
@@ -738,6 +740,7 @@ You wait for a moment to see if anyone heard the noise, but no-one comes. You
 head back to the cemetery.
 
 You have avenged your wife.
+
 Cemetery
 With no buildings or trees near or around this large open space, nothing
 seems to stop the cold wind which is always blowing here.  It is the type of

@@ -35,6 +35,7 @@ rain and cold air. To your left is the door to your room.
 You move with collosal effort in an attempt to perform that action, but find
 you are far too weak to move. You fall back pathetically, your body wracked
 in pain.
+
 A crack of lightning illuminates your room through the open window.
 
 > wait
@@ -42,6 +43,7 @@ A crack of lightning illuminates your room through the open window.
 You move with collosal effort in an attempt to perform that action, but find
 you are far too weak to move. You fall back pathetically, your body wracked
 in pain.
+
 You feel weak and cold.
 
 > wait
@@ -61,6 +63,7 @@ in pain.
 You move with collosal effort in an attempt to perform that action, but find
 you are far too weak to move. You fall back pathetically, your body wracked
 in pain.
+
 A sudden violent fit of coughing suddenly possesses you. For a few moments,
 you are unable to draw breath.
 You blink your eyes, as for just a moment, you thought you saw "something" at
@@ -71,6 +74,7 @@ the window.
 You move with collosal effort in an attempt to perform that action, but find
 you are far too weak to move. You fall back pathetically, your body wracked
 in pain.
+
 There is someone sitting on the window sill, looking straight at you.
 
 > wait
@@ -78,6 +82,7 @@ There is someone sitting on the window sill, looking straight at you.
 You move with collosal effort in an attempt to perform that action, but find
 you are far too weak to move. You fall back pathetically, your body wracked
 in pain.
+
 It is walking towards you, and is in between the window and your bed.
 
 > wait
@@ -97,6 +102,7 @@ in pain.
 You move with collosal effort in an attempt to perform that action, but find
 you are far too weak to move. You fall back pathetically, your body wracked
 in pain.
+
 There is someone at the foot of your bed.
 
 It has an insane smile etched upon its face.
@@ -116,6 +122,7 @@ Time passes...
 
 > wait
 Time passes...
+
 You hear the noise of a key unlocking your door.
 
 > wait
@@ -123,11 +130,13 @@ Time passes...
 
 > wait
 Time passes...
+
 A woman in a white lab coat and carrying a clipboard walks inside, and
 examines you for a few moment. "I see you're finally awake."
 
 > wait
 Time passes...
+
 The doctor walks up closely to you and eyes you curiously. "Well, then. How
 are you feeling today?"
 
@@ -250,6 +259,7 @@ Time passes...
 
 > wait
 Time passes...
+
 Some time later, you hear the sound of a key unlocking your door. An orderly
 steps inside with a plate of food. He tosses its contents onto your bed and
 walks back outside with little regard. It is definitely, not edible.
@@ -280,10 +290,12 @@ Time passes...
 
 > wait
 Time passes...
+
 "Home ... I want to go home." says a thin frail man, on the dirty floor.
 
 > wait
 Time passes...
+
 A patient in a corner shivers.
 
 > wait
@@ -294,7 +306,9 @@ Time passes...
 
 > wait
 Time passes...
+
 "I'm glad I found you." says someone, apparently addressing you.
+
 "I am glad to see you. very glad." says a shaggy looking man, who's facial
 hair has seen better days.
 press any key to continue...
@@ -342,6 +356,7 @@ the other patients.
 
 As you look outside the crudely cut hole in the wall, you're amazed at how
 quickly dark it had gotten.
+
 You hear the sound of a key unlocking your door, then two orderlies walking
 inside. One of them straps you down to your bed, while the other readies an
 injection of some sort. You are held down in what feels to be more prejudice
@@ -388,6 +403,7 @@ for us that is."
 
 The doctor appears lost in thought as she becomes distracted by the thought
 of the promise of the confectionaries, so nearby.
+
 How will you respond? Press the number corresponding to your desired
 response.
 
@@ -493,6 +509,7 @@ Within a few moments, he lies still.
 
 > wait
 Time passes...
+
 The Orderlies pick up Francis and carry him away.
 
 > wait
@@ -506,6 +523,7 @@ Time passes...
 
 > wait
 Time passes...
+
 The walls have begun ... melting. The melted residue drips down, revealing a
 manical face hiding behind the cheap plastered paint.
 
@@ -517,6 +535,7 @@ two eyes trained right on you.
 
 > wait
 Time passes...
+
 Ysmiro, talor ... onirako. Ysmiro, talor ... onirako. Ysmiro, talor ...
 onirako.
 
@@ -592,6 +611,7 @@ Time passes...
 
 > wait
 Time passes...
+
 You hear a snickering coming from somewhere deep within your mind. An all too
 familiar voice. The voice from your dreams. But what's more the presence,
 that you felt so many years ago in the hospital bed.

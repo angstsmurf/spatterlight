@@ -41,7 +41,8 @@ Ahhh... The bone was very good.
 > n
 I move north.
 
-The Garden - The patio  Bizet the cat is here... I hate her.
+The Garden - The patio
+Bizet the cat is here... I hate her.
 Bizet the Cat hisses at me...
 
 > chase cat

@@ -1668,6 +1668,7 @@ arrives. It looks like you might actually get to meet your contact in New
 York.
 You even managed to escape with some additional loot; that makes the whole
 thing even more worthwhile.
+
 You managed to score 100 out of 100 and completed all of your objectives.
 
 The End

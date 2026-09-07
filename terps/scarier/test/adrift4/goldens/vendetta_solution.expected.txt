@@ -109,6 +109,7 @@ She looks elated.
 
 > wait
 Time passes...
+
 "It was absolutely fantastic! You should see my costume, it's absolutely
 beautiful. I just can't wait until tomorrow..."
 "That's good. Are you coming back now?" you ask her.
@@ -120,6 +121,7 @@ mind.
 
 > wait
 Time passes...
+
 "What do you mean? There's no catch, it's just that I haven't eaten all day
 and I'm absolutely starving. I thought it might be nice if we went out
 together, too. You haven't taken me out in ages..."
@@ -132,6 +134,7 @@ I've left my credit card in my suitcase and it's a long walk back..."
 
 > wait
 Time passes...
+
 "Oh come on, don't be like that. I was excited, I just...forgot." she moans.
 You know her better than that, though.
 "Where did you leave your suitcase?" you ask, glancing around the room.
@@ -350,6 +353,7 @@ Time passes...
 
 > wait
 Time passes...
+
 While you are waiting for the cab to arrive, you cannot help thinking about
 your relationship with Sally.
 
@@ -366,6 +370,7 @@ you know better than to believe such fairytales.
 
 > wait
 Time passes...
+
 You look out of the window and watch the traffic on the other side of the
 road as it shoots past in a blaze of lights. Suddenly, an image enters your
 mind :
@@ -384,6 +389,7 @@ the autocab...
 
 > wait
 Time passes...
+
 The autocab pulls over to the side of the road and shudders to a halt. The
 doors open and you step out into the snow, carrying Sally's case.
 The autocab then speeds off into the distance and you are left alone in the
@@ -486,10 +492,12 @@ your hand and disappears into the changing rooms.
 
 > wait
 Time passes...
+
 Chloe remains silent, deep in thought, glancing at you every now and again.
 
 > wait
 Time passes...
+
 Chloe suddenly sparks up. "Why do you put up with her?" she asks. "Don't
 worry, you can tell me...I won't say anything."
 "I put up with her because I admire her spirit. It's rare you find people
@@ -509,6 +517,7 @@ satisfied with how it is at the moment."
 
 > wait
 Time passes...
+
 "I'll be truthful with you. I'm not into women, men, animals or anything
 else. I know that isn't normal, but then I'm not a normal person." you say to
 her. Chloe looks surprised.
@@ -592,6 +601,7 @@ come you didn't end up the same as he did ?" she asks.
 
 > wait
 Time passes...
+
 "Because I was to be the prototype of the second generation and they had
 almost managed to perfect the writing process by that time, but like I said,
 the project was shut down completely after Professor Bitter was murdered. The
@@ -637,6 +647,7 @@ about you, have you ever won anything?" you ask her.
 
 > wait
 Time passes...
+
 "No, not since I finished my education. It'd really mean a lot to me if this
 performance goes well, tommorrow, though."
 "You deserve a medal just for having the courage to stand up in front of that
@@ -658,6 +669,7 @@ be the burning ambition of a true artist...
 
 > wait
 Time passes...
+
 After the pair of you have finished, you leave the restaurant and Sally leads
 you back up to your room. You can tell that she has enjoyed herself.
 
@@ -700,6 +712,7 @@ much of a personality to remove."
 
 > wait
 Time passes...
+
 "No, definitely not. Professor Bitter was too absorbed in his work to bother
 with women; he just wasn't interested. For all those years science was all he
 lived for...anyway, does this mean that you still love me?" you ask, turning
@@ -719,6 +732,7 @@ leaning over and kissing you gently on the cheek. Nice try, Sally, you think.
 
 > wait
 Time passes...
+
 Sally stands up and walks towards the bedroom, unzipping her trousers as she
 does so. Just then, the door buzzer sounds. Sally stops dead in her tracks
 and goes over to answer it...
@@ -763,6 +777,7 @@ Time passes...
 
 > wait
 Time passes...
+
 "I don't see what business I have with you." you reply.
 "I'll tell you what business I have," she says, her face contorting into a
 snarl. "My company's future is in jeopardy because of you."
@@ -793,6 +808,7 @@ the men who have been supplying…" She stops and tries to compose herself.
 
 > wait
 Time passes...
+
 "That's not important! You and the rest of those fools have caused me no end
 of trouble and I intend to have the debt repaid in full."
 "If it's money you want, I'm afraid I'm not exactly what you'd call rich."
@@ -1042,6 +1058,7 @@ the exact coordinates of Falcon Lithoid. Time is short.
 
 > wait
 Time passes...
+
 Should I contact the police ? You think to yourself. No, there is no time but
 even if there was, nothing would put Sally's life more at risk than having
 the police hammering at the door. There is no way the EDF could help either.
@@ -1062,11 +1079,13 @@ You cannot let her win.
 
 > wait
 Time passes...
+
 In the distance, you can just make out the edge of the forest. You are nearly
 there. You check your watch; it is almost nine o'clock.
 
 > wait
 Time passes...
+
 A few seconds later, you catch a glimpse of the Falcon Lithoid as you speed
 over the forest, switching off the lights and staying low to avoid being
 spotted. There does not seem be any activity in the area; the only road
@@ -1394,6 +1413,7 @@ screen reads "No Image Received".
 > kill man
 As the guard listens to the inactive videocom, you creep up behind him and
 whip your arm around his neck. Ten seconds later he is dead.
+
 Lift Room
 The main object of interest in here room is the lift, which protrudes from
 the centre of the north wall. This one, however, leads up to the next level;
@@ -2099,6 +2119,7 @@ Suddenly, the videocom on the wall begins to bleep.
 
 > z
 Time passes...
+
 Natalia lazily plucks up a remote control by the side of her and switches it
 on. It is Darren, the man you met at the warehouse, who appears on the
 screen.

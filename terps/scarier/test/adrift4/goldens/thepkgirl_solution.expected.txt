@@ -1302,6 +1302,7 @@ Press enter to continue
 >
 
 You arrive and park in front of Ethan's...
+
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
 of you is where, according to Laurie's directions, Ethan lives.  There are
@@ -1776,6 +1777,7 @@ Press enter to continue
 >
 
 You arrive and park in front of Ethan's...
+
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
 of you is where, according to Laurie's directions, Ethan lives.  There are
@@ -2328,6 +2330,7 @@ Press enter to continue
 >
 
 You arrive and park in front of Ethan's...
+
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
 of you is where, according to Laurie's directions, Ethan lives.  There are
@@ -3380,6 +3383,7 @@ planned, the man rises from his chair and stands to face you with resolution.
 seconds you begin to feel an acute pain in your head.  It feels like your
 brain is being squeezed like a sponge!  It is intense; it is unlike any
 headache you have ever experienced.  You stumble backwards...
+
     The man flips a switch on the control board, then follows you into the
 corridor.  A metallic scraping noise is audible from somewhere else in the
 corridor, but you are hardly conscious of it.  The pain is unbearable!

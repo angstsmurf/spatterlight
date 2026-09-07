@@ -551,6 +551,7 @@ You can only move up.
 > put fairy into robot
 You put the terrified, struggling fairy into the yawning chest cavity of the
 robot and seal her in.  There is moment of silence...
+
 The robot grabs your arm and twists it behind your back!
 -PATHETIC. HUMAN.-SAY. UNCLE.-
 
@@ -788,6 +789,7 @@ With your grip on the cold iron rim of the bell, you try not to wonder how
 badly cracked the bell is.
 The water carries the bell up the inside of the bell tower -- you watch the
 spiral stairway unwind into the water below.
+
 As the water level crests the platform and brings the bell to the very top of
 the tower, you grab hold of the bell chassis:
 You pull your way along the rocker arm and outside.

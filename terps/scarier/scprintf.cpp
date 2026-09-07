@@ -125,7 +125,8 @@ typedef struct scr_filter_s
   scr_int auto_break_at;
   /* Buffer length just after a newline that a Runner really stores in its
      output string (4.0's "Time passes..." & vbCrLf), so that a join keeps it
-     instead of popping it; -1 otherwise.  See pf_buffer_hard_break(). */
+     instead of popping it, and so that pf_buffer_paragraph() does not collapse
+     a leading break against it; -1 otherwise.  See pf_buffer_hard_break(). */
   scr_int hard_break_at;
   /* Length of a prefix of the buffer that the paragraph-spacing helpers are
      to treat as if it were not there.  See pf_hide_prefix(). */
@@ -1591,8 +1592,20 @@ pf_buffer_string (scr_filterref_t filter, const scr_char *string)
       filter->needs_filtering = TRUE;
       filter->new_sentence = FALSE;
 
-      /* Anything buffered invalidates a note of our own trailing newline. */
+      /*
+       * Anything buffered invalidates a note of our own trailing newline,
+       * and equally the two notes of a break the Runner keeps.  All three are
+       * positions, and a position only means anything while it is still the
+       * end of the buffer; left standing, a stale one collides with any later
+       * buffer that happens to reach exactly that length.  Measured on
+       * circus.taf: the room heading three turns earlier left hard_break_at
+       * at 53, and "You get no reply from the videotape.\n" is 53 characters
+       * too, so the walk announcement that should have joined it broke
+       * instead.
+       */
       filter->auto_break_at = -1;
+      filter->hard_break_at = -1;
+      filter->reference_at = -1;
     }
 }
 
@@ -1644,15 +1657,46 @@ pf_text_leads_with_break (const scr_char *text)
 
 
 /*
+ * pf_text_ends_with_newline()
+ *
+ * TRUE if the text ends in a literal newline, as opposed to a "<br>" tag.
+ * The distinction is the whole of pf_buffer_paragraph()'s test: a newline in
+ * the buffer is one SCARIER put there to end a section of its own, while a
+ * "<br>" still standing at the end is one the author wrote, and the Runner
+ * has it too.
+ */
+static scr_bool
+pf_text_ends_with_newline (const scr_char *text)
+{
+  scr_int length = strlen (text);
+
+  return length > 0 && text[length - 1] == '\n';
+}
+
+
+/*
  * pf_buffer_paragraph()
  *
  * Buffer a block of text that conventionally begins with its own line break(s)
  * for spacing -- Adrift event and atmosphere texts typically start with "<br>"
- * or "<br><br>".  The Adrift runner relies on those leading breaks alone for
+ * or "<br><br>".  The Runner relies on those leading breaks alone for
  * paragraph spacing, whereas SCARIER also terminates the preceding room
- * description and contents with a newline of its own.  To avoid a doubled blank
- * line, if the buffer already ends with a break and this text leads with one,
- * drop a single leading break from the text before appending it.
+ * description, exits list, NPC announcement and task text with a newline of
+ * its own.  To avoid a doubled blank line, a single leading break is dropped
+ * from the text -- but only when the break it would double is one of ours.
+ *
+ * The buffer says which it is.  Tags are translated at filter time, not here,
+ * so an author's trailing "<br>" is still standing verbatim at the end of the
+ * buffer, while every break SCARIER supplies is a literal newline.  A trailing
+ * "<br>" is therefore the author's, the Runner has it too, and run400 really
+ * does print a blank line between it and the next paragraph's "<br>" -- see
+ * Ghost town's "...but follows you anyway.<br>" in Adrift_325_ghosttown.txt
+ * 586-592.  The one literal newline that is not ours is 4.0's
+ * "Time passes...\n" (Adrift_254_patient7.txt 81-87), which
+ * pf_buffer_hard_break() records, and the 4.0 bracketed reference line, which
+ * pf_buffer_reference() records.  Measured over the whole transcript archive:
+ * harness/sweep_wine_breaks.py, and the write-up under "Ported 2026-09-07: a
+ * leading <br> is collapsed only against a break of SCARIER's own".
  */
 void
 pf_buffer_paragraph (scr_filterref_t filter, const scr_char *string)
@@ -1665,8 +1709,10 @@ pf_buffer_paragraph (scr_filterref_t filter, const scr_char *string)
   buffered = pf_get_buffer (filter);
   if (buffered
       && !filter->join_pending
-      && pf_text_ends_with_break (buffered)
+      && pf_text_ends_with_newline (buffered)
       && pf_text_leads_with_break (string)
+      && !(filter->hard_break_at >= 0
+           && (size_t) filter->hard_break_at == filter->buffer.size ())
       && !(filter->reference_at >= 0
            && (size_t) filter->reference_at == filter->buffer.size ()))
     {
@@ -1822,13 +1868,13 @@ pf_ends_with_double_space (scr_filterref_t filter)
  * Does nothing on an empty buffer, so a paragraph never opens with leading
  * whitespace.
  *
- * This exists for the inline room name.  The Adrift runner does not print room
- * names into the transcript at all -- the name lives in the status bar, and a
- * task with "Show room description" set, or a plain "look", runs the room
- * description straight on from whatever preceded it.  SCARIER prints the name
- * inline, so it is interrupting the runner's prose with a heading of its own;
- * giving that heading a blank line above it keeps it reading as a heading
- * rather than as another sentence of the paragraph it just cut into.
+ * This exists for the inline room name.  With the 3.9+ "Room names in
+ * descriptions" Appearance option ticked -- which is how the archive was
+ * measured -- the Runner does print the name into the transcript, and puts a
+ * break in front of it: the blank line this tops the buffer up to is the
+ * Runner's own leading break landing after text that already ended in one.
+ * (Pre-3.9 there is no heading at all, and lib_describe_player_room() never
+ * calls this.)
  */
 static scr_int
 pf_text_trailing_breaks (const scr_char *text)
@@ -1863,10 +1909,23 @@ pf_buffer_paragraph_break (scr_filterref_t filter)
 
   assert (pf_is_valid (filter));
 
-  /* Nothing buffered means nothing to separate from. */
+  /*
+   * Nothing buffered means nothing to separate from -- but look through the
+   * hidden barrier before deciding that.  A 4.0 task's actions run with the
+   * turn's text hidden (pf_hide_prefix), so a task an action runs shows its
+   * room into what looks like an empty buffer, and the heading lost its
+   * break; the Runner has no barrier and puts its own break in regardless.
+   * Measured: baroo t120/t121, blood t30/t70, cursed t76/t134, thepkgirl
+   * t125/t177/t257 and vendetta t113 all break before a task-driven room
+   * heading where SCARIER ran it onto the line above.
+   */
   buffered = pf_get_buffer (filter);
   if (!buffered || scr_strempty (buffered))
-    return;
+    {
+      if (filter->hidden == 0 || filter->buffer.empty ())
+        return;
+      buffered = filter->buffer.c_str ();
+    }
 
   for (breaks = pf_text_trailing_breaks (buffered); breaks < 2; breaks++)
     pf_buffer_character (filter, '\n');

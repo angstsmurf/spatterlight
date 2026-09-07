@@ -88,7 +88,8 @@ quickly puts another in the empty space on the shelf.
 > west
 You move west.
 
-Whimsington Square  Shelly is walking slowly, delivering the mail.
+Whimsington Square
+Shelly is walking slowly, delivering the mail.
 
 > west
 You move west.
@@ -123,7 +124,8 @@ You take the portable doorknob from the shelves.
 > east
 You move east.
 
-Whimsington Square  Shelly is walking slowly, delivering the mail.
+Whimsington Square
+Shelly is walking slowly, delivering the mail.
 
 > give jasper's Jazzy Jungle Juice to shelly
 "Oh, thank you, Professor.  I am sure that I have something for you.  I will
@@ -260,7 +262,8 @@ You take the pretty flowers from the window box.
 > north
 You move north.
 
-Whimsington Square  Shelly is walking slowly, delivering the mail.
+Whimsington Square
+Shelly is walking slowly, delivering the mail.
 
 > north
 You follow the worn path to the north until you reach Glen's Lookout.  You
@@ -354,7 +357,8 @@ You take the container of Reggie's Remedy Rust Resolvent from the shelves.
 > west
 You move west.
 
-Whimsington Square  Shelly is walking slowly, delivering the mail.
+Whimsington Square
+Shelly is walking slowly, delivering the mail.
 
 > west
 You move west.

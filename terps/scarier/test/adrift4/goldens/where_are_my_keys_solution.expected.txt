@@ -417,7 +417,9 @@ The back garden is east.  You can also see a bone.  The small brown dog is
 here.
 
 The small brown terrier wandering around is growling at you.
+
 You hear a door slamming shut.
+
 The dog has been digging a hole for its bone and has unearthed something - a
 single slipper and  your car keys!  The dog must have buried them.
 

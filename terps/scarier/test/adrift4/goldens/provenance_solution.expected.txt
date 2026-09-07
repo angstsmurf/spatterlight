@@ -318,6 +318,7 @@ the distance, you can see the front lawn and orchard.
 You lift the handle of the knocker and knock it against the brass strike
 plate three times.
 Knock...Knock...Knock...
+
 The sound of slow, heavy footsteps approaches the door from the inside.  The
 wooden door viewer slides open and the strong lower jaw of a man appears in
 the opening.
@@ -582,6 +583,7 @@ the letter.
 You kneel down and lift a corner of the welcome mat.  Underneath it you find
 a small piece of paper.  You pick it up and notice that it appears to be a
 list of some kind.
+
 A cold rush of wind blows across the front porch from west to east chilling
 you to the bone.
 
@@ -1048,6 +1050,7 @@ The rose arbor gate is locked.
 (the rose arbor)
 
 The rose arbor gate is now unlocked.
+
 The lonely cry of a wolf in the distance catches your attention.
 
 Though the cloud cover overhead is still quite thick, it does appear that the
@@ -1159,6 +1162,7 @@ entrance to the house lies to the north on the veranda.  The main branch of
 the path meanders off to the south onto a small footbridge that spans a small
 creek towards the front lawn and orchard.  The path also leads to the east
 and west along the front of the house.
+
 The baying of wolves in the surrounding hills heightens your sense of
 trepidation.
 
@@ -1338,6 +1342,7 @@ You are standing on a brick path that leads from a small foot bridge to the
 west along the front of a very large hedge.  A small stream flows just north
 and cuts its way through the property along the front of the house.  Across
 the stream you can see a small stable set in amongst some trees.
+
 A lone wolf howling in the distance draws your attention.
 
 The sky is mainly clear now, though the occasional dark bank of clouds
@@ -1774,6 +1779,7 @@ collapsing in on itself.  It has a small roof on top to help prevent detritus
 from collecting inside the well.  A carriage house can be seen in the
 distance to the northeast though is not accessible in that direction.  The
 path back to the main house is down a small hill to the southwest.
+
 A gentle breeze is blowing now, carrying the scent of the sea from the
 northwest.  You close your eyes and inhale deeply, fully embracing the smell.
  All of a sudden an ice cold chill runs through your bones as you get a
@@ -2528,6 +2534,7 @@ You grasp the axe handle and pull but it is embedded to deep in the stump.
 With both hands you raise the large stone overhead.  In one swift motion you
 bring the rock down and hit the handle of the axe squarely dislodging it from
 the stump.
+
 The splitting maul is now lying on top of the stump.
 
 > drop rock
@@ -2554,6 +2561,7 @@ sending split wood flying in opposite directions.  The dry wood split much
 easier than you anticipated.  You gather the pieces and continue to chop them
 into smaller and smaller pieces until you have a sufficient amount of
 kindling to start a nice little fire.
+
 There is some freshly cut kindling lying on the ground.
 
 > get kindling
@@ -2605,17 +2613,20 @@ brush along the western wall of the house.
 > break lock with axe
 
 You smash the padlock with the axe and it falls off the door in pieces.
+
 You can hear an owl hooting in the woods surrounding the property.
 
 > open cellar door
 
 You pull the old weathered cellar door open and it moans with age.  A damp,
 musty smell rises from the darkness of the basement.
+
 A small set of stairs leads down into the cellar.
 
 > turn on lamp
 
 You use one of the matches to light the old copper lantern.
+
 The wax candle in the old lantern looks new, but it will eventually burn
 itself out.  It is probably best to only use the lamp when absolutely
 necessary.
@@ -2727,6 +2738,7 @@ the front and western side of the house.  Across the lawn to the south you
 can see an orchard.  The path also leads east along the front of the house
 towards a small arched footbridge that spans a small creek that flows through
 the property.
+
 The call of a Great Horned owl rings out from the surrounding hills.
 
 > e
@@ -2801,6 +2813,7 @@ A very large hedge towers over your head to the north and dark, impassable
 forest looms to the south.  In the distance you can see a small foot bridge
 and beyond that the front of the main house.  You can hear the faint rambling
 of a small stream.
+
 You can hear the faint hooting call of a lone owl somewhere in the forest
 that surrounds the property.
 
@@ -4889,6 +4902,7 @@ so you can see.
 > turn on lantern
 
 You use one of the matches to light the old copper lantern.
+
 The wax candle in the old lantern looks new, but it will eventually burn
 itself out.  It is probably best to only use the lamp when absolutely
 necessary.
@@ -5550,6 +5564,7 @@ Time passes...
 
 Deprived of oxygen, the candles finally burns out.  You manage one more
 shallow breath before slipping into unconciousness.
+
 When you finally wake up you are confronted with a splitting headache.  You
 open your eyes and find yourself looking at a finely decorated ceiling that
 looks strangely familiar to you.  For a moment you just lie there, afraid to
@@ -6200,6 +6215,7 @@ light that is shining through the hole in the wall.
 
 As you place the tiny mirror on the ground in the beam of light it
 immediately reflects the light straight up onto the ceiling.
+
 You tilt your head up to look at the ceiling of the cavern better and see
 what appears to be a bright beam of light cutting a hole through the rock.
 Thick, acrid smoke swirls overhead and the entire cavern rumbles heavily.

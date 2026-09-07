@@ -1007,6 +1007,7 @@ consuming.
 
 > e
 A few strokes of the paddle pushes the canoe faster down the river.
+
 Ravine River
 The river performs a gradual bend from west to south.  The cliffs of the
 ravine are unclimbable.  The narrow river banks have some vegetation, with an
@@ -1016,6 +1017,7 @@ allowing you to drift down, however you don't want to move that slow.
 > s
 A few strokes of the paddle pushes the canoe faster down the river, with most
 of the strokes on the port side as the river bends south.
+
 Ravine River
 The ravine slightly widens and a rocky beach on the eastern side is wide
 enough for the occasional river wake to lap only a small portion of the sand.

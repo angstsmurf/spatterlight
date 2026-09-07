@@ -489,7 +489,27 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
     }
   else
     pf_buffer_string (filter, name);
+
+  /*
+   * The heading's newline is one the Runner has too, so it is not a section
+   * terminator of ours for pf_buffer_join() to pop.  Left unmarked, a room
+   * whose description is empty ran its contents straight on after the name:
+   *
+   *     Inside the Top Hat  A bunny twitches its whiskers at me  <- SCARIER
+   *     Inside the Top Hat                                       <- run400
+   *     A bunny twitches its whiskers at me
+   *
+   * tophat.taf (4.00), whose one room has an empty Long, in both `up` turns
+   * of its transcript; professor t11/t18/t38/t54, viewtohome t20/t56 and
+   * woof t8 say the same.  Read with the leading break that
+   * pf_buffer_paragraph_break() supplies just above, the measurements fit a
+   * Runner that appends a break, the name and a break onto the one output
+   * string the turn is building -- pspace() only ever appends a separator,
+   * so it leaves that trailing Chr(10) standing and never takes it back.
+   * The P-code has not been read; the transcripts are the evidence.
+   */
   pf_buffer_character (filter, '\n');
+  pf_buffer_hard_break (filter);
 }
 
 

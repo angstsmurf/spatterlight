@@ -6210,12 +6210,14 @@ have saved the lives of many, many of your countrymen by averting a war with
 the Sand Kings of the Perusian Desert.
 
 *** Your score has just increased by 3 points ***
+
 £        You attended the second meeting and the result was good. An innocent
 maid has been spared a terrible fate and even ended up better off due to your
 actions. High Chancellor Verenor might not be pleased about this, but then
 he's seldom happy unless someone has died.
 
 *** Your score has just increased by 3 points ***
+
 £        You attended the third meeting and the result was a good one.
 Neither the Plodd or Grimsmore families are likely to cause trouble again and
 when the marriage of Nathaniel Plodd and Efaniel Grimsmore is announced a
@@ -6223,6 +6225,7 @@ year later, you know the decision you made was the best possible one in the
 circumstances.
 
 *** Your score has just increased by 3 points ***
+
 £        You attended the fourth meeting and the result was as good as it
 could be. Not only was Mortenso's plan to have you ousted from power totally
 crushed, but, you hear in passing, he was waylaid by bandits not long after
@@ -6235,6 +6238,7 @@ they all grow a little wary of causing trouble for your country... even
 though you're not around to do anything about it anymore.
 
 *** Your score has just increased by 3 points ***
+
 £        You attended the fifth meeting and things went well. Sofia is no
 longer betrothed to Prince Haribor, the Prince himself (impressed by your
 strong will and resolve) has no thoughts to attacking your country and, best
@@ -6242,22 +6246,27 @@ of all, your wife never got to find out about the Incident. All in all,
 things couldn't have gone better.
 
 *** Your score has just increased by 3 points ***
+
 £        Your loyal bodyguard Hrolf survived and will live a long an eventful
 life.
 
 *** Your score has just increased by 2 points ***
+
 £        Your loyal bodyguard Strug survived and will live a long an eventful
 life.
 
 *** Your score has just increased by 2 points ***
+
 £        Your loyal bodyguard Bark survived and will live a long an eventful
 life.
 
 *** Your score has just increased by 2 points ***
+
 £        Your loyal bodyguard Thugg survived and will live a long an eventful
 life.
 
 *** Your score has just increased by 2 points ***
+
 £        You survived the day in perfect health. If you died, it was purely
 intentional and done to keep you out of the clutches of the Grim Reaper.
 

@@ -1056,6 +1056,11 @@ Engine leads, measured or half-measured, none blocking:
 - **4.0 output filter unmeasured corners**: whether 3.9 also drops the
   pre-variable-change checkpoint; a mutual `A -> B` / `B -> A` ALR pair
   (the loop bound is a guard, not a model).
+- (The break in front of a room heading, 19 breaks over 9 rows: **resolved
+  and ported 2026-09-07**, see "Ported 2026-09-07: the room heading's own two
+  breaks, and a stale position marker".  The archive's real direction is now
+  at zero -- `sweep_wine_breaks.py` reports `runner-only 0` over all 267 rows
+  -- so there is no measured line-structure divergence left to chase.)
 - **Merry_Murders** feed turns 45/46 FLAG wording, minor (git history).
 - **Deferred candidates**, each for a reason that will not change:
   `Colony`, `Locked_door_with_water_trap` (a rollable event on the route),
@@ -4629,3 +4634,242 @@ frames are word-identical but for the fuel gauge).  Either the Runner is
 taking more ticks per Enter than the feed assumes, or the generator owes this
 game a different blank-per-frame rule.  Left open: re-cut the feed for a game
 whose turn IS its keypress before reading anything into the gauge.
+
+## Ported 2026-09-07: a leading `<br>` is collapsed only against a break of SCARIER's own
+
+### The archive is 267 free line-structure oracles
+
+Every comparison in this file so far has been about *content* -- which words
+a turn prints.  The archived transcripts also carry line structure, and it
+has never been mined, because the obvious reading of it is wrong in one
+direction and right in the other:
+
+- `Adrift_N.txt` **drops** line breaks the RichTextBox really has, wherever
+  the alignment changes -- the `<centre>` artefact under
+  [[adrift-runner-transcript-centre-artefact]].
+- It never **invents** one.
+
+So a break that is in the `.txt` and not in Scarier's output ("runner-only")
+is real ground truth; a break in Scarier's output that the `.txt` lacks
+("scarier-only") is suspect and mostly artefact.  267 archived rows, and
+nobody had ever counted the first kind.
+
+To count them exactly, and not through the 78-column wrap, `os_ansi.cpp` now
+takes its wrap width from `SCR_WRAP_WIDTH` (default 79, so no golden moves).
+Set it wide and there is nothing to infer: every newline in Scarier's output
+is one the engine meant.  `harness/sweep_wine_breaks.py` is the sweep -- it
+reuses `compare_wine_transcript.py`'s reader and runner, aligns the two sides
+word by word over every row of `~/adrift-battle/runner/wine/jobs_*.txt` that
+has an archived transcript, and reports each break by which side has it and
+whether it is a single newline (k1) or a blank line (k2).  Only turns that are
+already word-identical are compared, so it can never confuse a content
+difference for a structural one.
+
+    sh build.sh && python3 sweep_wine_breaks.py            # 267 rows, ~4 min
+    python3 sweep_wine_breaks.py --only ghosttown --limit 40
+
+Baseline: **107 runner-only breaks over 24 rows**, against 6011 scarier-only
+over 202 (the artefact).
+
+### The bug
+
+53 of the 107 were the same shape: an event, atmosphere or NPC message that
+begins with `<br>` follows something that already ended in a break, and
+run400 prints a **blank line** where Scarier printed one newline.
+`Ghost town v1,05.taf` at the `ask ninette to come with you` turn is the
+clearest (`Adrift_325_ghosttown.txt` 586-592):
+
+    She is a bit annoyed being told what to do, but follows you anyway.
+    <blank>
+    The sun is slowly settling behind the distant mountains ...
+
+`pf_buffer_paragraph()` dropped a single leading break whenever the buffer
+already ended with a break of any kind:
+
+    if (buffered && !join_pending
+        && pf_text_ends_with_break (buffered)      /* '\n' OR "<br>" */
+        && pf_text_leads_with_break (string))
+      string += (*string == '\n') ? 1 : 4;
+
+That collapse exists for a real reason -- Scarier terminates a room block, an
+exits list and an NPC announcement with a newline of its own, and the Runner
+does not, so without it every event text after a room description would open
+with a blank line the Runner does not print.  But the test could not tell
+those newlines from a break the Runner really stores, and there are two of
+those:
+
+- **an author's own trailing `<br>`.**  The tag is still standing verbatim in
+  the buffer at that point -- tags are translated at filter time, not at
+  buffer time -- so the buffer really does end `"...follows you anyway.<br>"`.
+  Ghost town's task text ends `<br>`, its event text starts `<br>`, and
+  run400 has both.
+- **4.0's `"Time passes...\n"`**, which the Runner stores with `vbCrLf`
+  concatenated (already modelled as `pf_buffer_hard_break()`).
+  `Adrift_254_patient7.txt` 81-87 is the case: `Time passes...`, a blank
+  line, then the event.
+
+### The rule
+
+Collapse only against a break SCARIER put there, and the discriminator is
+already in the buffer:
+
+    pf_text_ends_with_newline (buffered)          /* a literal '\n', never "<br>" */
+      && pf_text_leads_with_break (string)
+      && !(hard_break_at == buffer.size ())       /* 4.0's "Time passes...\n" */
+      && !(reference_at  == buffer.size ())       /* a bracketed reference line */
+
+A `<br>` still at the end of the buffer is the author's and is never collapsed
+against; a bare newline there is one of ours (room block, exits list,
+`npc_announce()`'s `".\n"`, `pf_buffer_paragraph_line()`'s terminator) and
+still is.
+
+An earlier attempt gated the collapse on `auto_break_at`, the position
+`pf_buffer_paragraph_line()` records for its own terminator.  It fixed the
+same 88 breaks and cost 19 new scarier-only ones, because plenty of our
+newlines are written as part of a longer string and never recorded --
+`npc_announce()` ends `pf_buffer_string (filter, ".\n")`, so does
+`lib_print_exits_list()`, so does the pre-3.9 brief room line.  The
+buffer-contents test needs no bookkeeping at all and gets those for free.
+`auto_break_at` is left alone; it still serves `pf_undo_auto_break()` and
+`pf_ends_with_double_space()`.
+
+### Measurement
+
+| | before | after |
+|---|---|---|
+| runner-only breaks | 107 over 24 rows | **19 over 9 rows** |
+| scarier-only breaks | 6011 over 202 rows | 6011, **unchanged row for row** |
+| word alignment | -- | byte-identical on all 267 rows |
+
+15 rows closed outright: `patient7` 19, `provenance` 16, `datewithdeath` 9,
+`ghosttown` 8, `thelasthour` 3, `dragonshrine` / `reactor1` / `theseance` 2,
+and `howitstarted` / `iqsfot` / `riding_home` / `second_chance` /
+`snakes_and_ladders` / `sswhore` / `tictactoe` 1 each.  `vendetta` 21 -> 1.
+`provenance` is now line-structure exact over the 832 turns that align, and
+`patient7`, `dragonshrine` and `snakes_and_ladders` have zero breaks in
+either direction.
+
+30 goldens re-blessed, 130 added blank lines, **no content change anywhere**
+(no removed line, no non-blank added line).  Suite 428 PASS / 0 FAIL.
+ADRIFT 5 is untouched -- nothing under `adrift5/` calls
+`pf_buffer_paragraph()`.
+
+### The 19 that remain -- two new leads
+
+Neither is the collapse; both are about the break in front of a **room
+heading**, and both want a probe rather than a guess.
+
+**k1, the heading runs on (9 breaks, 4 rows).**  `professor` t11/t18/t38/t54,
+`viewtohome` t20/t56, `tophat` t0/t1, `woof` t8.  Scarier prints
+`You move west. Whimsington Square` and then the NPC line on the same line
+the Runner breaks:
+
+    You move west.  Whimsington Square
+    Shelly is walking slowly, delivering the mail.   <- run400 breaks here
+
+**k2, a blank line before the heading (10 breaks, 5 rows).**  `baroo`
+t120/t121, `blood` t30/t70, `cursed` t76/t134, `thepkgirl`
+t125/t177/t257, `vendetta` t113.  A task or event text ends, and run400 puts
+a blank line before the room name where Scarier puts one newline:
+
+    ... paddles the canoe faster down the river.
+    <blank>                                        <- run400 has this
+    Ravine River
+    The river performs a lazy turn ...
+
+Both smell like the room-name heading's own leading break (a 3.9+ feature,
+see `lib_describe_player_room()`), not like paragraph spacing, and the k2 set
+is all ShowRoomDesc-from-a-task displays.  A `SRD`-style probe varying what
+precedes a room display would settle them.
+
+## Ported 2026-09-07: the room heading's own two breaks, and a stale position marker
+
+The two leads left by the section above -- k1, a missing break *after* a room
+heading, and k2, a missing blank line *before* one -- are the same fact seen
+from two sides, and porting it takes the archive's **real** direction to
+zero: `sweep_wine_breaks.py` now reports
+
+    TOTAL runner-only 0  scarier-only 6013
+
+over the same 267 rows, with the word alignment byte-identical to the run
+before (`aligned N/M` unchanged on every row).  Not one line break that a
+Runner transcript really has is missing from Scarier's output any more.
+
+### The heading is "\n" + name + "\n", not a heading with spacing around it
+
+SCARIER treats the room name as a heading it is inserting into the Runner's
+prose, and gives it a blank line above (`pf_buffer_paragraph_break()`) and a
+terminator below.  The archive says the Runner is doing something simpler and
+flatter: `showshortroom` concatenates a break, the name and a break onto the
+one output string the turn is building, and everything downstream just carries
+on appending to it.  Every consequence of that model is measured:
+
+  * *After* the heading, the break is the Runner's, not a section terminator
+    of ours -- so `pspace()`, which only ever *appends* a separator, leaves it
+    standing.  SCARIER's `pf_buffer_join()` popped it, and a room whose Long
+    is empty ran its contents straight on after the name:
+
+        Inside the Top Hat  A bunny twitches its whiskers at me   <- SCARIER
+        Inside the Top Hat                                        <- run400
+        A bunny twitches its whiskers at me
+
+    Fixed by having `lib_print_room_name()` mark its newline with
+    `pf_buffer_hard_break()`.  Closes all 9 k1 breaks: `professor`
+    t11/t18/t38/t54, `viewtohome` t20/t56, `tophat` t0/t1, `woof` t8.
+
+  * *Before* the heading, the Runner's leading break lands after whatever the
+    turn had already said.  SCARIER's equivalent is
+    `pf_buffer_paragraph_break()`, which tops the buffer up to two trailing
+    breaks -- but it asked `pf_get_buffer()`, which does not look through the
+    hidden-prefix barrier.  A 4.0 task runs its actions with the turn's text
+    hidden (`pf_hide_prefix()`, so that text an action prints opens its
+    paragraph as it does pre-4.0), so a task that an action runs showed its
+    room into what looked like an empty buffer and got no leading break at
+    all.  Fixed by looking through the barrier when the visible part is empty
+    but something is hidden behind it.  Closes all 10 k2 breaks: `baroo`
+    t120/t121, `blood` t30/t70, `cursed` t76/t134, `thepkgirl`
+    t125/t177/t257, `vendetta` t113.  All five games are 4.00 (signature bytes
+    8-10 = `147 69 62`), which is what put them on the hidden-prefix path.
+
+### The stale position marker the first fix exposed
+
+`hard_break_at`, `reference_at` and `auto_break_at` each record a buffer
+*length*, and a length means "the end of the buffer" only until something else
+is buffered.  `pf_buffer_string()` cleared `auto_break_at` on every append and
+left the other two standing, which was survivable while `hard_break_at` was
+set once a turn for 4.0's "Time passes...".  Setting it on every room heading
+made it bite immediately, in `circus`:
+
+    [HARD SET] tail=You move north.\n\n<b>Animal Cages</b>\n     (length 53)
+    ... three turns later ...
+    [HARD KEEP] tail=You get no reply from the videotape.\n      (length 53)
+
+-- the same length by coincidence, so the walk announcement that should have
+joined that line ("You get no reply from the videotape.  Barb arrives from the
+south.") broke instead.  `shadowpeak` and `ticket` collided the same way.
+`pf_buffer_string()` now drops all three markers on any append, which is also
+the right answer for `pf_prepend_string()`, where the two positional ones were
+silently wrong (a prepend shifts every position in the buffer).
+
+### What moved
+
+41 goldens re-blessed, **whitespace only** -- every changed file has an
+identical word stream to the one it replaces.  160 added lines against 18
+removed; the removals are all re-wraps where a heading moved onto its own
+line.  Suite **428 PASS / 0 FAIL**; the ADRIFT 5 suite unchanged.
+
+Two new *suspect*-direction breaks appear, `blood` t76 and `buried_alive` t2
+(6011 -> 6013): a blank line before a heading that the `.txt` does not have.
+That is the direction the transcript is known to lie in -- `Adrift_N.txt`
+drops breaks the RichTextBox really has and never invents one -- and
+`buried_alive` writes its room names as `--The Kitchen--`, exactly the
+centred-heading shape the artefact comes from.  Nineteen real breaks closed
+against two suspect ones is the trade.
+
+One golden gains a blank line with no transcript to check it against:
+`hungry`, whose "Escaped!!!!" room opens its Long with a `<br>`.  Marking the
+heading break as the Runner's also stops `pf_buffer_paragraph()` collapsing
+that `<br>` against it, which is what the model says should happen -- the
+Runner has no collapse at all, only SCARIER does, and only for breaks it
+supplied itself -- but no archived transcript covers it.  `whitterscap` moves
+too and has no transcript either, though its change is a pure re-wrap.

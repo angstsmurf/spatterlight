@@ -1119,6 +1119,7 @@ is a door, almost invisible against the bleached wallpaper.
 > ninette follow
 You ask Ninette to come with you...
 She is a bit annoyed being told what to do, but follows you anyway.
+
 The sun is slowly settling behind the distant mountains and the grey dusk is
 descending upon the town of Battle Creek.
 A frightening chill runs down your spine as ghostlike clouds of white mist
@@ -1584,6 +1585,7 @@ Once again you look into the grave, staring at the old withered coffin.
 It strikes you as odd that this pine box has been buried here for over a
 hundred years and is still in a fairly good condition. Maybe the dry prairie
 soil has preserved it through the years?
+
 Dawn approaches. The life giving rays of the sun are gradually becoming
 visible from behind the peaks of the distant mountains.
 An almost inaudible sigh is heard, whispering through the silent air as the
@@ -1620,6 +1622,7 @@ perhaps that has been buried here for a century?
 > get material
 The red material is somehow stuck in the ground...
 Is someone holding on to it??
+
 The sun rises above the mountains. The last of the ghostly shadows of the
 night vanishes in the bright sunlight with a sad sigh. Once again the streets
 of Battle Creek are silent, the ghosts awaiting another night.
@@ -2089,6 +2092,7 @@ No sooner have you lifted it from the ground before it disintegrates between
 your hands, adding another little pile of debris to the floor.
 Something falls from the box as it disintegrates between your hands, and
 lands softly on the floor.
+
 The chilly desert night engulfs the quiet town of Battle Creek.
 Everything is silent at first, but then slowly whispering voices are heard
 fading in and out, carried by the wind, unnaturally cold air, stinging like
@@ -2450,6 +2454,7 @@ Time passes...
 
 > wait
 Time passes...
+
 Dawn approaches. The life giving rays of the sun are gradually becoming
 visible from behind the peaks of the distant mountains.
 An almost inaudible sigh is heard, whispering through the silent air as the
@@ -2515,6 +2520,7 @@ work. Then when you are satisfied with the result, you use the grease you got
 from the wagon wheel and lubricate all the moving parts. It takes a while and
 has to be done carefully, but finally you have a working gun with all the
 vital parts moving.
+
 The sun rises above the mountains. The last of the ghostly shadows of the
 night vanishes in the bright sunlight with a sad sigh. Once again the streets
 of Battle Creek are silent, the ghosts awaiting another night.
@@ -2738,6 +2744,7 @@ Time passes...
 
 > wait
 Time passes...
+
 The sun is slowly settling behind the distant mountains and the grey dusk is
 descending upon the town of Battle Creek.
 A frightening chill runs down your spine as ghostlike clouds of white mist
@@ -2758,6 +2765,7 @@ Time passes...
 
 > wait
 Time passes...
+
 The chilly desert night engulfs the quiet town of Battle Creek.
 Everything is silent at first, but then slowly whispering voices are heard
 fading in and out, carried by the wind, unnaturally cold air, stinging like

@@ -1023,6 +1023,7 @@ Great hidden passage
 The passage is narrow and leads to the north and up.
 For a second, you think you see him.  Surely he knows this castle like the
 back of his hand.
+
 Heavy footsteps echo through the castle.  Your heart pounds deep in your
 chest, knowing that if you can’t get Jenny to safety, both of you will die at
 the hands of a monster.
@@ -1072,6 +1073,7 @@ guard to what lies beyond.  The large main door to the castle lies to the
 south.
 For a second, you think you see him.  Surely he knows this castle like the
 back of his hand.
+
 The weight of her limp body is taking it’s toll on your arms, as the become
 lower with each passing step.  You try adjusting her weight and continue on.
 You have not time to stop.

@@ -356,6 +356,7 @@ The rain has stopped.
 > milk cybercow
 While the CyberCow continues crunching and slurping delightedly on the snail,
 you fill the bowl with warm, fragrant CyberCow milk.
+
 A warm, gentle rain begins.
 
 > u

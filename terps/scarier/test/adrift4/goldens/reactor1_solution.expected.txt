@@ -199,6 +199,7 @@ Chief Engineer Neeson
 "Well, it was a shot in the dark at best, crewman. You're going to have to
 find another way to stop the radiation venting. We're getting reports of
 moderate radiatian sickness on board. Chief Engineer, out."
+
 A distant klaxon can be heard blaring its warning ominously, before dying
 away.
 
@@ -227,6 +228,7 @@ Engineer's station this booth is nowhere near as prestigious, of course.
 Similarily, there appears to be massive damage to the instruments. A majority
 of the widgets in here are beyond repair. The only thing left relatively
 intact is the computer. To access the computer, type "access computer."
+
 The lights flicker momentarily, dimming at first then slowly regainning
 luminance. You speculate the reactor output is becoming erratic.
 
