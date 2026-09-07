@@ -2872,6 +2872,8 @@ really must.
 
 The road leasts east. Oh, and west
 
+  Mike the bandit, Steve the bandit and Ken the bandit are here.
+
    You hear a snort and out from behind a particularly large plant step three
 bearded men.
    "Ho!" remarks one of them. "Bandits are we, fair and bold. Money we
@@ -3085,7 +3087,6 @@ You're in a corridor. There is a sign on one wall.
 
 The corridor leads northeast, southwest and southeast
 
-  Uncle Grumble is here.
    You reach the corridor just in time to see Grumble launch himself at
 several guards. There follows a brief altercation interspersed by cries of
 "Ah! Me groin!", "Gerrim, gerrim, the evil sod!" and "Geez, that hurt!" at
@@ -3116,7 +3117,6 @@ though how they got up there is anyone's guess.
 
 A doorway leads northeast
 
-  Uncle Grumble is here.
    "Take that, yer swines!" Grumble cries as he attacks the guards.
    At first they don't appear very impressed (there are 23,000 of them after
 all) but when Grumble whirls Bludrinker around his head and scythes down 284

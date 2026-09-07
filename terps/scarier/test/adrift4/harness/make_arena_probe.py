@@ -1831,6 +1831,23 @@ CONFIGS = {
     # Every cell has the same ShowRoomDesc = Back Room and the same two
     # actions, "Bob -> Store" then "player -> Back Room", so a cell that omits
     # "Bob is here, looking dangerous." is the one that reproduces lca.
+    #
+    # DRIVEN in run400 2026-09-07, transcript Adrift_949_SRD4.txt.  b2 and `ne`
+    # drop Bob; b0, b1, b3, b4 and b5 all list him.  So it is neither field
+    # alone: the ShowRoomDesc block moves BEHIND the actions exactly when the
+    # task has an EMPTY CompleteText and a NON-EMPTY AdditionalMessage -- with
+    # no CompleteText to ride out on, the description goes with the
+    # AdditionalMessage instead, which is emitted after the actions.  b3 shows
+    # the AdditionalMessage alone does not move it and b1 that an empty
+    # CompleteText alone does not either.  Closes lca T252 and ghosttown T19
+    # (task 129 `{go} [u/up]`: no CompleteText, AdditionalMessage "   ",
+    # ShowRoomDesc = the Kitchen, actions move Ninette in and the player in --
+    # run400 lists her, scarier did not).  PORTED 2026-09-07 as
+    # task_defers_room_desc() in sctasks.cpp; ghosttown's whitespace-only
+    # AdditionalMessage is what shows the test is on the raw field and not on
+    # scr_strempty(), which is whitespace-blind.  Nine goldens moved, seven of
+    # them confirmed against their own run400 transcripts; see
+    # notes/WINE-TRANSCRIPTS-TODO.md.
  'SRD4': dict(name="Probe SRD4",
     player=(200,0,0,0,0,0,0,0,0,0),
     rooms=[("Test Arena","A bare arena.",{1: 1}),

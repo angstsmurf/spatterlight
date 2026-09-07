@@ -970,6 +970,8 @@ there is a pit from which issue cyan flames.
 
 A path leads out of the cave
 
+  The Bugha is here.
+
    There is suddenly a ferocious roar from the pit and out leaps the Bugha!
 It looks somewhat like a cross between an ape and an ogre only not as nice.
 It seems you and utters its war cry "bugha-bugha-bugha!" and starts lurching

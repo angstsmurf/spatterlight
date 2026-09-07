@@ -2015,7 +2015,8 @@ task_suppresses_additional_message (scr_gameref_t game)
  * one.  Returns TRUE if anything was printed.
  *
  * The Runner emits this BEFORE it runs the task's actions, not after, so
- * the description shows the world as it stood when the task matched.  Probe
+ * the description shows the world as it stood when the task matched -- with
+ * the one 4.0 exception in task_defers_room_desc().  Probe
  * SRD in test/adrift4/harness/make_arena_probe.py measured all three sides of
  * it live on run400:
  *
@@ -2091,6 +2092,75 @@ task_show_room_desc (scr_gameref_t game, scr_int task)
 
 
 /*
+ * task_defers_room_desc()
+ *
+ * TRUE when the task's ShowRoomDesc block is built AFTER its actions have run
+ * rather than before them.
+ *
+ * Probe SRD4 (make_arena_probe.py, transcript Adrift_949_SRD4.txt, run400
+ * 2026-09-07) walks the five field differences between probe SRD3 -- which
+ * showed that no SHAPE difference moves the block -- and lca.taf's task 237.
+ * Every cell has the same ShowRoomDesc = Back Room and the same two actions,
+ * "Bob -> Store" then "player -> Back Room", so a cell that omits "Bob is
+ * here, looking dangerous." is one whose block was built after the moves:
+ *
+ *   b0  CompleteText, nothing else                Bob listed
+ *   b1  empty CompleteText                        Bob listed
+ *   b2  empty CompleteText + AdditionalMessage    Bob NOT listed
+ *   b3  CompleteText + AdditionalMessage          Bob listed
+ *   b4  Repeatable = 0                            Bob listed
+ *   b5  Where = one room                          Bob listed
+ *   ne  all five at once (task 237 to the letter) Bob NOT listed
+ *
+ * So it is neither field alone: the block moves behind the actions exactly
+ * when the task has NO CompleteText and a NON-EMPTY AdditionalMessage.  Read
+ * against the Runner's one-string room block (lib_print_room_description()),
+ * the shape is that with no CompleteText to carry it out the description
+ * rides along with the AdditionalMessage instead, which is emitted after the
+ * actions -- and it still precedes that message, joined to it by the ordinary
+ * "  " the way b3's does.
+ *
+ * The two corpus rows this closes pull in opposite directions, which is what
+ * makes the pair the rule rather than a fit:
+ *
+ *   lca T252 (`ne`)         task 237, no CompleteText, an AdditionalMessage,
+ *                           ShowRoomDesc = Haunted House, actions move the
+ *                           player in and Daisy out -- run400 DROPS "The ever
+ *                           alluring Daisy is here.", scarier kept it.
+ *   ghosttown T19 (`u`)     task 129 `{go} [u/up]`, CompleteText "",
+ *                           AdditionalMessage "   ", ShowRoomDesc = the
+ *                           Kitchen, actions move Ninette in and then the
+ *                           player in -- run400 LISTS "Ninette is here.",
+ *                           scarier did not.
+ *
+ * ghosttown's AdditionalMessage is three spaces and prints nothing visible,
+ * so the test is on the FIELD, not on whether the message shows -- and, since
+ * scr_strempty() is whitespace-blind, not on scr_strempty() either.  Both
+ * halves are the Runner's own `<> ""`: raw emptiness, VB's test on the string
+ * it read out of the .taf.  (Only the AdditionalMessage half of that is
+ * measured; nothing in the corpus has a whitespace-only CompleteText for the
+ * other half to bite on, and reading them the same way is the assumption.)
+ *
+ * 4.0 only.  Nothing has measured the pre-4.0 Runners here, and their
+ * AdditionalMessage handling is entangled with the room block in its own way
+ * already (see task_suppresses_additional_message(), where the 3.8 double
+ * space test reads the description's tail).
+ */
+static scr_bool
+task_defers_room_desc (scr_gameref_t game,
+                       const scr_char *completetext,
+                       const scr_char *additionalmessage)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+    return FALSE;
+
+  return completetext[0] == '\0' && additionalmessage[0] != '\0';
+}
+
+
+/*
  * task_run_task_unrestricted()
  *
  * Run a task, providing restrictions permit, in the given direction.  Return
@@ -2106,7 +2176,7 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   scr_vartype_t vt_key[3];
   const scr_char *completetext, *additionalmessage;
   scr_int action_count;
-  scr_bool status;
+  scr_bool defer_room_desc, status;
 
   /* Start considering task output tracking. */
   status = FALSE;
@@ -2192,8 +2262,17 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   vt_key[2].string = "Res";
   res_handle_resource (game, "sis", vt_key);
 
-  /* Show the task's room, ahead of its actions. */
-  status |= task_show_room_desc (game, task);
+  /*
+   * Show the task's room, ahead of its actions -- unless this is one of the
+   * 4.0 tasks that defers the block behind them; see
+   * task_defers_room_desc().
+   */
+  vt_key[2].string = "AdditionalMessage";
+  additionalmessage = prop_get_string (bundle, "S<-sis", vt_key);
+  defer_room_desc = task_defers_room_desc (game, completetext,
+                                           additionalmessage);
+  if (!defer_room_desc)
+    status |= task_show_room_desc (game, task);
 
   /*
    * Things get slightly tricky here.  We need to filter the completion text
@@ -2267,8 +2346,9 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
    * AdditionalMessage, and the Runner shows both, ahead of the ending.
    * marooned.taf task 29 says the same for run380.
    */
-  vt_key[2].string = "AdditionalMessage";
-  additionalmessage = prop_get_string (bundle, "S<-sis", vt_key);
+  if (defer_room_desc)
+    status |= task_show_room_desc (game, task);
+
   if (!scr_strempty (additionalmessage)
       && !task_suppresses_additional_message (game))
     {

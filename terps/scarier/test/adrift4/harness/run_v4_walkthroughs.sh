@@ -1073,6 +1073,9 @@ argh_solution.txt|ARGH_sGreatEscape.taf|You scored 98 out of the maximum 125!
 # prints the "(Nobody)" of `ask about ingredients` BEFORE the wildcard task's
 # text: the echo comes out ahead of task matching, so it is hoisted into
 # uip_print_ask_echo() and only the REWRITE stays on the library path.
+# Measured 2026-09-07: re-driven in run400 with the corrected feed
+# (Adrift_439_spam.txt, 16/16 echoed) -- identical on every turn apart from
+# the Runner's own [Press any key to end].
 spam_solution.txt|SPAM.taf|Spam King|SCR_SKIP_WAITKEY=1
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_47_wreckage.txt,
 # feed cmdfile_w_wreckage.txt, 11 commands, PRE=0).  11/11 echoed, tail only;
@@ -1088,6 +1091,10 @@ wreckage_solution.txt|Wreckage.taf|you've rescued yourself
 # Original, rewritten to "A technician is hunched over a power conduit
 # here...".  Scarier emits "George is here." as its own section, the Original
 # cannot match, and both sentences survive.
+# Re-measured 2026-09-07 with the corrected feed (Adrift_440_vagabond.txt,
+# 11/11 echoed): CLEAN.  The joined-paragraph ALR above closed when the room
+# lister started building the Runner's one concatenated string, so "A toolbox
+# is here.  George is here." now matches the Original and is rewritten.
 vagabond_solution.txt|Vagabond.taf|The End|SCR_SKIP_WAITKEY=1
 woof_solution.txt|Woof.taf|I'm back.|SCR_SEED=5
 # Measured 2026-09-05 in run400 under Wine (Adrift_26_undefined.txt, feed
@@ -1116,6 +1123,10 @@ agent4f_solution.txt|agent_4F[1].A.taf|You wake with a start.  What a terrible d
 # before a real-time <wait> pause ate the next one; a cmdfile with #sleep lines
 # for those pauses is the follow-up.
 invasion_shirts_solution.txt|Invasion of the Second-Hand Shirts.taf|You're floating through the air above the trees.
+# Measured 2026-09-07 in run400 (Adrift_433_adriftorama.txt, 67/67 echoed):
+# not comparable past turn 2.  The golf minigame rolls the ball's colour, the
+# course, the hazard and the opponent, so SCR_SEED=18 and run400's own stream
+# tell different stories from the second command on.
 adriftorama_solution.txt|adriftorama.taf|*****You Win!*****|SCR_SEED=18 SCR_SKIP_WAITKEY=1
 # The seventeen games swept out of the Key & Compass ADRIFT index (2026-08-02);
 # see the per-game notes/*_walkthrough.md for where each .taf came from.
@@ -1180,6 +1191,10 @@ ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caug
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  RNG order only.
+# Measured 2026-09-07 in run400 (Adrift_434_ticket.txt, 329/329 echoed): the
+# differences are the cat and the lost girl, both roomgroup walkers, so their
+# arrivals and departures are RNG.  NOT the Verbose checkbox -- run400's own
+# transcript carries 17 walker lines, so Verbose was on.
 ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
@@ -1234,6 +1249,8 @@ ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And t
 # vardock_bates row.  One walk line moves a turn.
 Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.|SCR_SKIP_WAITKEY=1
 JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH|SCR_SKIP_WAITKEY=1
+# Measured 2026-09-07: re-driven in run400 with the corrected feed
+# (Adrift_435_mysteryofcaves.txt, 115/115 echoed) -- IDENTICAL on every turn.
 mysteryofcaves_solution.txt|mysteryofcaves.taf|Your finishing rank is: Godlike Adventurer.|SCR_SKIP_WAITKEY=1
 chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms with Sharon Elson.|SCR_SKIP_WAITKEY=1
 # fantasyworld's 0 out of 500 is not an unfinished route: every one of the
@@ -1333,6 +1350,10 @@ easter_solution.txt|easter.taf|***You have won***|
 # Goblin Bob, so it is seen and absent, which is what 4.0's named take answers
 # to.  No run400 oracle -- the Adrift_324 replay never reached ye takery -- so
 # this is the measured rule extrapolated.  See lib_cmd_take_absent().
+# Measured 2026-09-07 in run400 (Adrift_441_yonastoundingcastle.txt): RULE 2 --
+# 2 commands were never echoed, the first at feed[170] `yorick`, so nothing
+# after 170 means anything until the row is re-driven.  Before it, the
+# differences are Goblin Bob's random thefts and idle antics.
 yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SEED=5 SCR_SKIP_WAITKEY=1
 # The twenty-one entries of the 1st, 2nd and 3rd ADRIFT One-Hour Game
 # Competitions (2003), swept in on 2026-08-03 -- see the per-game
@@ -1385,9 +1406,16 @@ amonkeytoomany_solution.txt|amonkeytoomany.taf|Hooray! You've made it through th
 # 21/21 echoed, tail only.  999999999/999999999 both sides.
 dfu_solution.txt|DFU.taf|Thank you, and good night.
 percy_solution.txt|Percy.taf|prince among vikings
+# Measured 2026-09-07 in run400 (Adrift_442_forum.txt, 21/21 echoed): the two
+# differing turns are EVENT 0 "Monk walks in", which is time1=2 time2=6 -- a
+# random duration.  He arrives at scarier T4 and run400 T6; every other word
+# of both transcripts matches.  Not comparable, not a divergence.
 forum_solution.txt|forum.taf|You Won!|SCR_SKIP_WAITKEY=1
 # 3rd One-Hour Game Competition
 cbn_solution.txt|CBN.taf|you excelled yourself|SCR_SKIP_WAITKEY=1
+# Measured 2026-09-07: re-driven in run400 with the corrected feed
+# (Adrift_431_cbn2.txt, 21/21 echoed) -- identical on every turn apart from
+# the Runner's own [Press any key to end].
 cbn2_solution.txt|cbn2.taf|the archives room goes up in flames|SCR_SKIP_WAITKEY=1
 # Full run390 replay 2026-09-05, Adrift_9_crm.txt (21 commands + 2 blank
 # Returns for the mid-game waitkeys, PRE=0): 21/21 echoed, tail only.
@@ -1400,11 +1428,17 @@ ecod2_solution.txt|ECOD2.taf|has been captured|SCR_SKIP_WAITKEY=1
 # commands echoed, 12 of 14 identical: turn 0 is the echoed name, turn 13 the
 # [Press any key to end] tail.
 imagination_solution.txt|Imagination.taf|Was this all just in your imagination?
+# Measured 2026-09-07: re-driven in run400 with the corrected feed
+# (Adrift_436_asdfa.txt, 27/27 echoed) -- identical on every turn apart from
+# the Runner's own [Press any key to end].
 asdfa_solution.txt|asdfa.taf|bottle of Nightmare Inducer fluid back in his pocket|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29: run400 replay, all 18 commands echoed, 17 of 18 turns
 # identical, the last differs only by the [Press any key to end] tail.
 demonhunter_solution.txt|demonhunter.taf|journey to the beginning of your new life. You're a demonhunter.
 forum2_solution.txt|forum2.taf|***You have won!***|SCR_SKIP_WAITKEY=1
+# Measured 2026-09-07: re-driven in run400 with the corrected feed
+# (Adrift_443_pyramid.txt, 11/11 echoed) -- identical on every turn apart from
+# the Runner's own [Press any key to end].
 pyramid_solution.txt|pyramid.taf|moves out of your way allowing you to make a hasty retreat.|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29: run400 replay, all 16 commands echoed, 15 of 16 turns
 # identical.  The Runner's transcript stops dead at the echo of the final
@@ -1556,6 +1590,17 @@ marika_solution.txt|marika.taf|I plan to enjoy every second of it.|SCR_SKIP_WAIT
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  The door-buzzer cutscene and "Sally opens the door"
 # now share a turn, so the walkthrough's trailing `wait` is a spare turn.
+# Re-blessed 2026-09-07 for probe SRD4 (task_defers_room_desc): the task
+# behind `e` into Outside the Palladium has no CompleteText and a non-empty
+# AdditionalMessage, so its room block is built after the actions and the
+# thespian -- whom those actions walk away -- is not listed.  run400 agrees
+# (Adrift_429_vendetta.txt:250-253).
+# Measured 2026-09-07 in run400 with the corrected feed
+# (Adrift_429_vendetta.txt, 207/207 echoed): 13 differing turns, every one of
+# them the weather and crowd-noise events (the gust, the snowflake, the
+# clinking glasses) landing a turn or two either side.  The compare tool's
+# "turn 206" is a tail artefact -- it cannot align the feed's last two blanks,
+# and both sides print the ending in full.
 vendetta_solution.txt|Vendetta.taf|The End|SCR_SKIP_WAITKEY=1
 # Unraveling God is puzzleless and ends on a two-way choice ("Pressing either 1
 # or 2 will be the end of the story, but the results are very different"), so
@@ -2081,6 +2126,13 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # so the freeze at the nested task's completion leaves the raw token on screen
 # and shifts every later signal message one back.  run400 does exactly that --
 # measured on the game (Adrift_16.txt), not inferred from the probes.
+# Re-blessed 2026-09-07 for probe SRD4 (task_defers_room_desc): task 226
+# (`go * w`) has no CompleteText and ADDMSG "<c></c>", so its room block now
+# follows the three tasks its actions run -- the untying and "You step over to
+# the west." come first.  EXTRAPOLATED, not measured: this row trips RULE 2
+# (the Runner lost feed commands long before here), so neither Adrift_16 nor
+# Adrift_404 reaches the turn.  The task's field pair is exactly the measured
+# shape, ghosttown's whitespace-only AdditionalMessage included.
 3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!|SCR_SEED=123
 # Humbug (Graham Cluley 1990/1997, converted to ADRIFT 4.00 by Campbell Wild)
 # -- WIN with the FULL 2000/2000, "a winner.. or a cheat", in 1048 commands.
@@ -2448,6 +2500,21 @@ thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SK
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  NPC filler lines and keypress pauses move; the
 # scored route is unchanged (55/60).
+# Measured 2026-09-07 in run400 with the corrected feed
+# (Adrift_427_thepkgirl.txt, 407/407 echoed).  Most of the 42 differing turns
+# are the umbrella peddler, the pervert and the shopkeeper's idle lines -- all
+# walkers or Rnd picks.  Two are not, and both are open leads in
+# notes/WINE-TRANSCRIPTS-TODO.md:
+#   T103 `east`: run400 "Laurie turns on the toaster.", scarier "The toaster
+#   is now on."  Task "# Laurie says good morning" ends `... done soon."` and
+#   executes task 700, whose CompleteText is the toaster line; the game's ALR
+#   Original is the two joined with the Runner's two spaces.  The paragraph
+#   the Runner filters is a task's own text plus the output of the tasks it
+#   executes, which the room-block port did not cover.
+#   T52 `open window`: scarier fires task 413 `# Laurie rejoins you at lot`
+#   (reachable only from Laurie's WALK 2, charTask=413) in the chapter-1
+#   closing turn; run400 never prints it.  The solution never answers its
+#   1/2/3 menu and the run still wins.
 thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SKIP_WAITKEY=1
 # Second Chance (David Whyld, 2005) replays its shipped Walkthrough.pdf
 # VERBATIM -- 49 commands, not one repair, straight to the good ending.  The
@@ -3330,6 +3397,10 @@ baroo_solution.txt|baroo.taf|You scored 16 out of the maximum 16!
 # This walkthrough was re-derived for it: 3 `z` lines after x vardo, x coffin, x shelves (nothing-found refusals).  Each
 # added line restores the old tick sequence (WaitTurns 1, so `z` = one tick).  Trace with
 # SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
+# Re-blessed 2026-09-07 for probe SRD4 (task_defers_room_desc): the `west`
+# back into the Cell now lists "You can also see Lara's doll.", which run400
+# prints at Adrift_332_lair.txt:1315 -- the doll is put there by the task's own
+# actions, and the room block is built after them.
 lair_solution.txt|Lair of the Vampire.taf|the lord of the vampires, lies dead|SCR_SEED=4 SCR_SKIP_WAITKEY=1
 
 # The Fugitive -- derived from scratch (the downloaded walkthrough is prose-only
@@ -3477,6 +3548,8 @@ valley_solution.txt|valley.taf|and live happily ever after.|SCR_SKIP_WAITKEY=1
 # TASK 6's `[s]{outh}{ /-}[w]{est}` is the proof of intent, since the space in
 # "south west" is spelled out as an explicit alternative.  No score system; the
 # single ending is EVENT 5 -> TASK 42 -> ACT type=6.
+# Measured 2026-09-07: re-driven in run400 with the corrected feed
+# (Adrift_444_imagidroids.txt, 21/21 echoed) -- IDENTICAL on every turn.
 imagidroids_solution.txt|imagi.taf|You choose to put him out of his misery.|SCR_SKIP_WAITKEY=1
 # Crimson Detritus: the shipped transcript replayed, 100/100 (all eight ACT
 # type=4 in the game), with `take uniform and wear it` split into two commands
@@ -3485,6 +3558,9 @@ imagidroids_solution.txt|imagi.taf|You choose to put him out of his misery.|SCR_
 # `take uniform and wear the hook`.  The endgame prints three literal "{}"
 # sequences that the author's transcript does not show; they really are in the
 # game text (see the solution header).
+# Measured 2026-09-07: re-driven in run400 with the corrected feed
+# (Adrift_445_crimsondetritus.txt, 17/17 echoed) -- identical on every turn
+# apart from the Runner's own [Press any key to end].
 crimsondetritus_solution.txt|CD.taf|until the next victim comes along to take your place.|SCR_SKIP_WAITKEY=1
 # Chosen (ADRIFT 3.90, MiniComp 2001): 300/300, the game's own stated maximum.
 # The upstream file is the author's prose hint sheet, not a command list, so the
@@ -4988,6 +5064,9 @@ hiker_solution.txt|hiker.taf|You have found Ending Three of Three.
 # `Jump` is accepted from Outside; jumping resets into a parallel "empty"
 # map whose real exit is `w` from Cubicles (`e` there is a dead-end joke
 # room reprint). 135 lines, mostly blank padding for "press any key" pauses.
+# Measured 2026-09-07: re-driven in run400 with the corrected feed
+# (Adrift_426_justanotherday.txt, cmdfile_rb_justanotherday.txt, 135/135
+# echoed) -- IDENTICAL on every turn.
 justanotherday_solution.txt|Just Another Day.taf|Congratulations...You won the game.|SCR_SKIP_WAITKEY=1
 # Way Out (4598 bytes, 4.00): 5-room horror vignette, no score. A straight
 # corridor north to the exit; optional look-left/-right side commands drain
@@ -5044,6 +5123,9 @@ asteroidafter_solution.txt|asteroid_after.taf|All satellites correctly aligned.|
 # cmdfile_w_existence.txt): clean, 4/4 identical.  Adrift_55.txt is the same
 # drive cut short at the closing [Press a key...], which is why it looked as
 # though the Runner never printed the IntroComp sign-off.
+# Measured 2026-09-07: re-driven in run400 with the corrected feed
+# (Adrift_447_existence.txt, 5/5 echoed) -- identical on every turn apart from
+# the Runner's own [Press any key to end].
 existence_solution.txt|Existence.taf|Congratulations!  You've made it through the ADRIFT IntroComp 2009 version of|SCR_SKIP_WAITKEY=1
 # P2P (steeplechase reflex race, 30/30 max): jump the Pine Stand, talk to
 # George to spook a blocking rival horse at the Wretched Curve, jump the
@@ -5308,6 +5390,10 @@ perfectspy_solution.txt|The Perfect Spy.taf|Congratulations!  You have successfu
 # takeable, and the stool must be dropped (not held) before it can be stood
 # on. 21 commands, `SCR_SKIP_WAITKEY=1` (two waitkeys, both after the win is
 # already decided).
+# Measured 2026-09-07 in run400 (Adrift_448_secidenoddcomp.txt, 22/22 echoed):
+# four differing turns, all of them the house's random atmospheric one-liners
+# ("Something howls in the distance.", "You hear the faint sound of cackling
+# laughter") landing on different turns with different picks.  RNG.
 secidenoddcomp_solution.txt|seciden_oddcomp.taf|You scored 102 out of the maximum 102!|SCR_SKIP_WAITKEY=1
 # Perspectives (Justahack, 8043 bytes, 4.00): no score anywhere in the file
 # (zero ACT type=4 across 14 tasks) -- a four-ending no-score game, and this
@@ -5808,6 +5894,15 @@ reactor1_solution.txt|reactor_1.taf|Congratulations, You saved the ship!|SCR_SEE
 # shared "Won!" room. 137 commands (115 blank Enter presses + 10 `f` + 8
 # `next` + 2 `r` + 2 `l`), `SCR_SKIP_WAITKEY=1` (Stage 3's ASCII-art
 # animation waitkeys otherwise eat scripted input).
+# Measured 2026-09-07 in run400 (Adrift_425_motion.txt): NOT comparable as fed.
+# The rocket minigame is played by pressing Enter, so a turn and a <waitkey>
+# answer are the same keystroke and the two sides disagree about which is
+# which -- 137 feed lines, 124 turns echoed, reported as a pause-count
+# difference rather than RULE 2.  The frames are word-identical but for the
+# fuel gauge, which is one burn out from frame 0 (`* * * * * * * * !` against
+# `* * * * * * * * *`); by turn 7 run400 has burned all nine and lost the
+# minigame.  Re-cut the feed for a game whose turn IS its keypress before
+# reading anything into that.
 motion_solution.txt|Motion.taf|You scored 100 out of the maximum 100!|SCR_SEED=1041 SCR_SKIP_WAITKEY=1
 # tophat.taf (4.00): the game's only ending, reached in three commands --
 # no scoring system (zero ACT type=4). A one-room vignette narrated from
@@ -6231,6 +6326,10 @@ backhome_solution.txt|Back Home.taf|You are back.  Back home.|SCR_SKIP_WAITKEY=1
 # key" it scores 2 to the iron key's 1 and wins outright.  run400 answers
 # "There is nothing worth taking here.", not the ambiguity, even though both
 # keys are seen, absent and called "key".  See lib_cmd_take_absent().
+# Re-blessed 2026-09-07 for probe SRD4 (task_defers_room_desc): "Zelda is
+# present." joins a task-shown room block whose actions move her in.  The whole
+# replay is now clean against Adrift_319_zelda.txt apart from one timed
+# shopkeeper line.
 zelda_solution.txt|zelda.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
 # Showtime_at_the_Gallows.taf: babysitting horror-comedy. No score system;
 # every outcome (death or true ending) is a plain room-move into "The End",
@@ -7078,6 +7177,10 @@ hcw_solution.txt|hcw.taf|Well, you didn't conquer the world today. But there's a
 # itself allows for it: "If you did better than that you obviously did
 # really well." The win marker is the closing line of the King's reward
 # scene (wrapped, so only the tail of it is matched).
+# Re-blessed 2026-09-07 for probe SRD4 (task_defers_room_desc): "The Bugha is
+# here." joins a task-shown room block.  The replay is identical to
+# Adrift_336_yadfa.txt on every turn apart from the transcript's own
+# <centre> whitespace.
 yadfa_solution.txt|YADFA.TAF|gained yourself a nice (haunted) castle. Not bad for a day's work.|SCR_SKIP_WAITKEY=1
 # Requiem (IF Comp 2006, David Whyld): a noir psychological thriller. PI Chris
 # Chandler is hired by client Sophia Montague to investigate Martin Cairns, an
@@ -7199,6 +7302,11 @@ cowboyblues_solution.txt|CowboyBlues.taf|how does it feel to be a hero then, Fin
 # lower-indexed task that claims the same command.
 # 260 commands, SCR_SKIP_WAITKEY=1. Final score 208 out of a maximum of 404
 # (51%).
+# Re-blessed 2026-09-07 for probe SRD4 (task_defers_room_desc), three lines,
+# all confirmed against Adrift_329_grumble.txt: the bandits are now listed on
+# the East road (:1960, the task's actions put them there) and "Uncle Grumble
+# is here." drops out of the Corridor (:2100) and the Guard room (:2118),
+# where the actions walk him off.
 grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 208 out of a maximum of 404|SCR_SKIP_WAITKEY=1
 # magicshow.taf (AIF, adult content -- see /goldens/.gitignore): a hypnosis/
 # stage-magic themed game. The player (stage magician "Justin") performs a
@@ -7607,6 +7715,12 @@ house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_W
 # notes/WINE-TRANSCRIPTS-TODO.md, "Measured 2026-09-07: the 4.0
 # object-ambiguity prompt".  The next command, `n`, still moves the player:
 # a line that does something is not read as an answer.
+# Turn 252 `ne` is the cell that found probe SRD4: task 237 has no
+# CompleteText, an AdditionalMessage, ShowRoomDesc = Haunted House and
+# actions that move the player in and Daisy out, and run400 does NOT list
+# "The ever alluring Daisy is here." -- its room block was built after the
+# actions.  Ported 2026-09-07 (task_defers_room_desc); the whole 261-turn
+# replay is now identical to Adrift_328_lca.txt.
 lca_solution.txt|Lights_Camera_Action.taf|best ending in the game!|SCR_SKIP_WAITKEY=1
 mutaydid_solution.txt|mutaydid.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # ADayAtTheSeaside.taf (ADRIFT 4). Small 18-room errand game in Portobello,
@@ -7644,6 +7758,10 @@ mutaydid_solution.txt|mutaydid.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # (Adrift_236_seaside.txt:123).  So it is the gameover byte at 48AC62 that
 # takes the catch-all off a line, never a silent task on its own.
 seaside_solution.txt|ADayAtTheSeaside.taf|Well done - you scored maximum points!
+# Re-blessed 2026-09-07 for probe SRD4 (task_defers_room_desc): Harry leads
+# the player through Amidst Graves, Woody Copse and the Hidden Path and walks
+# on in the same task, so run400 lists him in none of the three blocks
+# (Adrift_357_reluctantvampire.txt:1124, 1134, 1144).
 reluctantvampire_solution.txt|The_Reluctant_Vampire.taf|you achieved a score of 103 out of a possible of|SCR_SEED=6 SCR_SKIP_WAITKEY=1
 # ss whore.taf (AIF, adult content -- see /goldens/.gitignore): WWII-fantasy
 # breeding/fetish AIF (OSS spy "Agent Gale" infiltrates Castle von
@@ -7934,6 +8052,15 @@ ilgolem_solution.txt|Il Golem.taf|Complimenti, hai completato l'avventura!|SCR_S
 # article test is case-SENSITIVE -- only lower-case "a", "an" and "some" fold
 # to "the", an authored capital is copied through -- measured on probe PFX
 # (Adrift_940_pfx.txt, eleven spellings).  See lib_compare_article().
+# Re-blessed 2026-09-07 for probe SRD4: turn 19 `u` runs task 129
+# (`{go} [u/up]`, CompleteText "", AdditionalMessage "   ", ShowRoomDesc = the
+# Kitchen) whose actions move Ninette in and then the player in, and run400
+# lists "Ninette is here." (Adrift_325_ghosttown.txt:144) because it builds
+# the room block AFTER the actions.  See task_defers_room_desc(); the
+# whitespace-only AdditionalMessage is what shows the test is on the raw
+# field.  The 12 turns still differing are the two known classes: the
+# kerosene lamp dies at T31 in run400 and T32 here, and NPC 3's tumbleweed is
+# a roomgroup walk, so its placement is RNG.
 ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmering in the air. One of a pretty young girl|SCR_SKIP_WAITKEY=1
 EOF
 }

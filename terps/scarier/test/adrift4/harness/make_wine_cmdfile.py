@@ -178,6 +178,15 @@ def main():
     # order[4], no Return was emitted for it, and the Runner's transcript broke
     # off mid-ending at "[Press a key when you're ready to continue.]"
     # (2026-09-05).
+    # A blank line under SKIP is an EMPTY COMMAND, and it has to be fed to the
+    # Runner like any other: it is a turn, it ticks events, and a game can hang
+    # a task off it.  Dropping it (as this did until 2026-09-07, on the theory
+    # that the compare tool would re-align the offset) does not merely shift
+    # the transcript -- it plays a different game.  CBN.taf is the case: its
+    # solution opens with five empty commands, the first of which fires TASK 38
+    # and walks the player out of [The Story So Far...], so with them dropped
+    # the Runner spent that task on `open door` instead, never opened the door,
+    # and every one of the 35 commands after it ran off-route.
     numbered = []
     prompt = 0
     seen = 0
@@ -186,6 +195,7 @@ def main():
             continue
         prompt += 1
         if not line.strip():
+            numbered.append((prompt, ""))
             continue
         seen += 1
         if seen <= popups:

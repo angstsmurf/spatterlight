@@ -1639,8 +1639,7 @@ around you, some topped with lavish gravestones, others with nothing more
 than a chunk of stone with their name crudely scribbled on (in biro in a
 couple of cases). Paths wind through the graves to the west and north, deeper
 into the graveyard, and south, to the entrance. A light shines from somewhere
-over to the northeast but there is no path in that direction.  A zombie by
-the name of Harry is here.
+over to the northeast but there is no path in that direction.
 
 "Try and keep up," mutters Harry. "I ain't got all day."
      He heads to the west.  Jemma enters from the north.
@@ -1654,7 +1653,6 @@ edge of the graveyard. Elaborate gravestones, far more imposing looking than
 those seen elsewhere, are situated between the trees, indicating that this is
 the graveyard equivalent of first class. A break in the fence to the west
 leads to an area of standing stones and another path leads away to the east.
-A zombie by the name of Harry is here.
 
 "Not far to go now," mutters Harry, and heads off to the north along a path
 you hadn't even noticed before.  Jemma enters from the east.
@@ -1666,8 +1664,7 @@ lll Hidden Path lll
 Due to the thick, encroaching bushes, this path is actually hidden from the
 rest of the graveyard to the south. In fact, if not for Harry showing you the
 way, you doubt you'd have ever stumbled across it.
-     It heads north to some kind of clearing.  A zombie by the name of Harry
-is here.
+     It heads north to some kind of clearing.
 
 "Just north of here," says Harry and heads in that direction.  Jemma enters
 from the south.

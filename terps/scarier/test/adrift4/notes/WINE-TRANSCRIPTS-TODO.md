@@ -296,7 +296,7 @@ was re-blessed, with the evidence in the row's comment block in
 | `QuestI.taf` | 4.00 | `Adrift_39_questi.txt` | clean through the death at turn 13: 13/13 identical, both sides 10/10.  The Runner then presses on past `[Press any key to end]` and **reloads the game** -- "Loading... … |
 | `The_Stowaway.taf` | 4.00 | `Adrift_40_stowaway.txt` | clean: 16/16 echoed, tail only.  The ending arrives on a `wait`, so the whole "Time passes..." + event cascade is compared and matches |
 | `longbarrow.taf` | 4.00 | `Adrift_41_longbarrow.txt` | clean: 19/19 echoed, tail only; the eleven repeated `dig with trowel` turns are byte-identical, so the dig counter and its event are in step |
-| `Vagabond.taf` | 4.00 | `Adrift_42_vagabond.txt` | 10/10 echoed; ONE divergence, and it is the **known ALR-over-a-joined-paragraph residual** of section 3, not a new one.  Room 4's Long ends "A toolbox is here." and George's InRoomText is `#`, so the Runner's joined paragraph reads "A toolbox is here. … |
+| `Vagabond.taf` | 4.00 | `Adrift_42_vagabond.txt` (superseded by `Adrift_440_vagabond.txt`, **clean**, 2026-09-07) | 10/10 echoed; ONE divergence, and it is the **known ALR-over-a-joined-paragraph residual** of section 3, not a new one -- closed by the room-block port, see "Compared 2026-09-07".  Room 4's Long ends "A toolbox is here." and George's InRoomText is `#`, so the Runner's joined paragraph reads "A toolbox is here. … |
 | `1HRGAME.taf` (`masochists_heaven`) | 4.00 | `Adrift_43_1hrgame.txt` | clean: 13/13 echoed, tail only; 15/15 both sides |
 | `ARGH_sGreatEscape.taf` | 4.00 | `Adrift_44_argh.txt` | clean: 12/12 echoed, tail only; the escape ending is byte-identical up to `[Press any key to end]`; 98/125 both sides |
 | `ShadricksTravels.taf` | 4.00 | `Adrift_45_shadricks.txt` | 22/22 echoed; ONE divergence, the **first live corpus sighting of the 2026-08-24 disambiguation wording** -- `climb tree` answers `Which tree.  The old oak tree or the pine tree?` in run400 and `Please be more clear, what do you want to climb? ...` in Scarier. … |
@@ -471,7 +471,7 @@ The four best targets, by walks x length:
 | `1HRGAME.taf` | `masochists_heaven` | 20 | 0 | 0 | 0 | -- | [Masochists_Heaven_walkthrough](Masochists_Heaven_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Pieces of eden.taf` | `pieces_of_eden` | 20 | 0 | 1 | 3 | -- | [Pieces_of_eden_walkthrough](Pieces_of_eden_walkthrough.md) **driven** 2026-09-06 -- the Runner lost a feed command (Adrift_130_pieces_of_eden.txt); re-feed before reading anything into it, see "Measured 2026-09-06" |
 | `longbarrow.taf` | `longbarrow` | 19 | 0 | 0 | 2 | -- | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
-| `Vagabond.taf` | `vagabond` | 19 | 0 | 3 | 2 | yes | [Vagabond_walkthrough](Vagabond_walkthrough.md) **done** 2026-09-05 -- run400 differs on ONE turn, the known ALR-over-a-joined-paragraph residual; see "Measured so far" |
+| `Vagabond.taf` | `vagabond` | 19 | 0 | 3 | 2 | yes | [Vagabond_walkthrough](Vagabond_walkthrough.md) **done** 2026-09-05 -- run400 was clean on re-drive 2026-09-07 (`Adrift_440`); the one ALR-over-a-joined-paragraph turn closed with the room-block port |
 | `agent_4F[1].A.taf` | `agent4f` | 18 | 0 | 0 | 5 | -- | [Agent_4-F_from_Mars_walkthrough](Agent_4-F_from_Mars_walkthrough.md) **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `dancingevenhim.taf` | `dancing_even_him` | 17 | 0 | 0 | 1 | yes | **done** 2026-09-05 -- clean in run400, see "Measured so far" |
 | `Undefined1.taf` | `undefined` | 17 | 0 | 0 | 0 | -- | [Undefined_walkthrough](Undefined_walkthrough.md) **done** 2026-09-05 -- clean in run400 (POPUP_ANSWERS name dialog), see "Measured so far" |
@@ -968,7 +968,19 @@ and decompile addresses are in the harness row comments and in git history.
   your clothes.  Nice try fish face`): the Runner joins the whole turn into
   one paragraph so a two-sentence Original matches; Scarier still sections
   the turn outside the room block.  The room block's half of this -- Vagabond
-  room 4 -- was ported 2026-09-07, see the last section.
+  room 4 -- was ported 2026-09-07, see the last section, and that closed
+  Vagabond's last divergence.  `the_pk_girl` T103 shows the other half and
+  what the paragraph really is: a completing task's own text joined to the
+  output of the task it executes (`done soon."  The toaster is now on` ->
+  `Laurie turns on the toaster`).  Measured 2026-09-07, `Adrift_427`.
+- **A walk-triggered task one step early** (`the_pk_girl` T52): task 413
+  `# Laurie rejoins you at lot` is reachable only from Laurie's `WALK 2`
+  (`charTask=413`), and Scarier fires it in the chapter-1 closing turn where
+  run400 does not.  Measured 2026-09-07, `Adrift_427`.
+- **`Motion.taf`'s minigame turns are its keypresses** and the feed cannot
+  tell them apart: 137 lines, 124 echoed, and the rocket's fuel gauge is one
+  burn out from frame 0 (run400 loses the minigame by turn 7).  Re-cut the
+  feed before reading this as an engine difference.  `Adrift_425`.
 - **House's `%drunk%` ALR loop.**  House.taf rewrites "You move" to
   `%drunk%` and the string variable `drunk` is "You move", so every move in
   run400 pops an `evaluate error - Out of stack space` alert (dismissed,
@@ -2254,7 +2266,9 @@ Re-blessed: `cellar` (1 line), `volant` (1 line), `ghosttown` (event shift),
 `adrift4-object-seen-model` corrected; `~/Adrift_decompile/index/
 annotations.tsv` rows 457034 and 463640 corrected.
 
-Still open from this thread: `cbn`'s second refusal, `ghosttown` T2.
+Still open from this thread: nothing.  (`cbn` is CLOSED 2026-09-07 -- a
+generator bug, not an engine one; `ghosttown` T19 is explained by the
+SRD4 measurement.  Both are in the last two sections.)
 (`cellar` T114 `take satchel` is DONE 2026-09-07 -- see the last section.)  (`bandera` T18 `x marife` was listed here as an NPC seen
 model; it is not -- DONE 2026-09-07, see the last section.)
 
@@ -4386,3 +4400,232 @@ transcripts; `light_up` (the Waste Land `take lighter` block) and
 `yonastoundingcastle` (1 line, `get title`), both extrapolations of the
 measured rule with no run400 oracle at those lines, noted as such on their
 harness rows.  Suite 428/428.
+
+## Ported 2026-09-07: an empty CompleteText + an AdditionalMessage moves ShowRoomDesc AFTER the actions
+
+Probe **SRD4** driven at last (`sh fast.sh p4SRD4.taf cmdfile_srd4.txt
+run400.exe`, transcript `Adrift_949_SRD4.txt`).  Every cell has the same
+ShowRoomDesc = Back Room and the same two actions, "Bob -> Store" then
+"player -> Back Room", so a cell that omits "Bob is here, looking dangerous."
+is one whose room block was built AFTER the actions:
+
+| cell | field under test | Bob listed? |
+|---|---|---|
+| `b0` | CompleteText, nothing else | **yes** |
+| `b1` | empty CompleteText | **yes** |
+| `b2` | empty CompleteText + AdditionalMessage | **NO** |
+| `b3` | CompleteText + AdditionalMessage | **yes** |
+| `b4` | Repeatable = 0 | **yes** |
+| `b5` | Where = one room | **yes** |
+| `ne` | all five at once (lca task 237 to the letter) | **NO** |
+
+So it is neither field alone: the block moves behind the actions only when the
+task has **no CompleteText and a non-empty AdditionalMessage**.  Read against
+the Runner's one-string room block ([[adrift4-room-block-one-string]]), the
+shape is that with no CompleteText to carry it, the description rides out with
+the AdditionalMessage instead -- which is emitted after the actions have run.
+`b3` proves the AdditionalMessage does not by itself move anything, and `b1`
+that an empty CompleteText does not either.
+
+This closes **`lca` T252** (task 237: no CompleteText, an AdditionalMessage,
+ShowRoomDesc = Haunted House, actions move the player in and Daisy out --
+run400 drops "The ever alluring Daisy is here.", scarier keeps it).
+
+It also closes **`ghosttown` T19** `u`, found the same day and the same shape
+the other way round: task 129 `{go} [u/up]` in the cellar has CompleteText ""
+and AdditionalMessage `"   "`, ShowRoomDesc = 4 (the Kitchen), and its actions
+are *Ninette -> the Kitchen*, then *player -> the Kitchen*, then a redirect.
+run400 lists "Ninette is here." in the block; scarier, building it before the
+actions, does not.  Two games, opposite directions, one rule -- and
+`AdditionalMessage = "   "` shows the test is on the FIELD, not on whether it
+prints anything visible.
+
+### The port
+
+`task_defers_room_desc()` (sctasks.cpp) is the new predicate;
+`task_run_task_unrestricted()` reads the AdditionalMessage up front, and when
+the pair matches it skips the pre-action `task_show_room_desc()` and calls it
+at the AdditionalMessage flush instead.  Position in the output does not
+change -- b3 shows the room block joined to its AdditionalMessage by the
+ordinary "  " and b2 has the same layout -- only the world state it is built
+from.  4.0 only: nothing has measured the pre-4.0 Runners here, and their
+AdditionalMessage handling is already entangled with the room block in its own
+way (3.8's double-space test reads the description's tail, see
+`task_suppresses_additional_message()`).  `task_show_room_desc()` is otherwise
+untouched: [[adrift4-showroomdesc-before-actions]] stays right for every other
+shape.
+
+Both halves of the test are raw `<> ""`, not `scr_strempty()`, which is
+whitespace-blind.  That is not a detail: written with `scr_strempty()` the
+port fixed `lca` and left `ghosttown` exactly as it was, because "   " reads
+as empty.  Only the AdditionalMessage half is measured; nothing in the corpus
+has a whitespace-only CompleteText for the other half to bite on.
+
+Nine goldens moved, and seven were confirmed line for line against their own
+run400 transcripts before blessing:
+
+| row | what moved | oracle |
+|---|---|---|
+| `lca` | "The ever alluring Daisy is here." drops | `Adrift_328_lca.txt` -- the 261-turn replay is now **identical on every turn** |
+| `ghosttown` | "Ninette is here." appears | `Adrift_325_ghosttown.txt:144` |
+| `vendetta` | "A thespian is here." drops | `Adrift_429_vendetta.txt:250-253` |
+| `zelda` | "Zelda is present." appears | `Adrift_319_zelda.txt` -- clean but for one timed shopkeeper line |
+| `lair` | "You can also see Lara's doll." appears | `Adrift_332_lair.txt:1315` |
+| `yadfa` | "The Bugha is here." appears | `Adrift_336_yadfa.txt` -- identical apart from `<centre>` whitespace |
+| `grumble` | bandits listed; "Uncle Grumble is here." drops twice | `Adrift_329_grumble.txt:1960, 2100, 2118` |
+| `reluctantvampire` | "A zombie by the name of Harry is here." drops three times | `Adrift_357_reluctantvampire.txt:1124, 1134, 1144` |
+| `3monkeys` | the untying and "You step over to the west." now precede the room block | **none** -- see below |
+
+`3monkeys` is the one extrapolation.  Task 226 (`go * w`) has no CompleteText,
+`ADDMSG = "<c></c>"` and three Execute-Task actions ahead of the player move,
+so it is the measured shape to the letter -- ghosttown's invisible
+AdditionalMessage included -- but the row trips RULE 2 and neither
+`Adrift_16_3monkeys.txt` nor `Adrift_404_3monkeys.txt` reaches the turn.
+Noted as an extrapolation on its harness row.
+
+Suite back to 428 PASS / 0 FAIL.  `ghosttown`'s 12 remaining differing turns
+are the two known classes and nothing else: the kerosene lamp dies at T31 in
+run400 and T32 here, and NPC 3's tumbleweed is a roomgroup walk, so the rows
+it lands on are RNG.
+
+`ghosttown`'s two remaining diff classes after this are the kerosene lamp
+dying one turn earlier in run400 (T31 vs T32) and the tumbleweed: that is
+NPC 3's roomgroup walk (`Rooms[0] = 51` = room group 0, `Times[0] = 2`,
+`npc_random_adjacent_roomgroup_member`), so its placement is RNG and the rows
+it lands on are not comparable.
+
+## Fixed 2026-09-07: make_wine_cmdfile.py dropped the solution's empty commands
+
+`cbn`'s "second refusal" was never an engine difference.  Under SKIP the
+generator treated a blank solution line as nothing at all and left it out of
+the feed, on the theory that the compare tool re-aligns the offset -- but an
+empty line is a TURN: it ticks events and a game can hang a task off it.
+`CBN.taf` is the case.  Its solution opens with five empty commands and TASK
+38 turns the first of them into the move out of [The Story So Far...], so with
+them dropped the Runner spent that task on `open door`, never opened the door,
+and all 35 commands after it ran off-route -- which is what put a bare `> `
+prompt in front of each "Clueless Bob is confused!" in `Adrift_149_cbn.txt`.
+
+The generator now emits them.  Re-driven with the corrected feed
+(`Adrift_943_cbn.txt`): **identical on every turn**, only the Runner's
+trailing `[Press any key to end]` differs.  `cbn` is closed.
+
+25 wired SKIP rows have blank commands in their solutions and every measured
+one of them was fed the same way, so their transcripts are all suspect.  All
+24 with a game to hand were re-driven with regenerated feeds; 18 produced
+transcripts (`Adrift_425`-`448`, tagged), **not yet compared**:
+
+    motion justanotherday thepkgirl vendetta cbn2 adriftorama ticket
+    mysteryofcaves asdfa spam vagabond yonastoundingcastle forum pyramid
+    imagidroids crimsondetritus existence secidenoddcomp
+
+Six failed to load in run400 at both 4-way and 2-way ("no titled Runner window
+for pid N", so the Runner never opened the game): `wonderwombat`,
+`the_town_of_azra_v390` (a 3.90 game -- run390 fodder), `ecod2`, `everything`,
+`archie`, `chosen`.  Chase the load failure before reading anything into it.
+
+## Fixed 2026-09-07: compare_wine_transcript.py could not read a re-blanked feed
+
+The regenerated feeds could not be compared at all, because the compare tool
+still assumed the old generator's output.  `read_feed()` short-circuited on
+`skip_wired` and dropped every blank line -- correct while the only blanks in
+a SKIP feed were the Returns that answer a `<waitkey>`, and wrong the moment
+the generator started emitting the solution's own empty commands as well.
+`vendetta`'s 207-command feed read as 205 commands and the whole row came out
+as a turn-0 divergence.
+
+The fix is to stop special-casing SKIP: whenever the row has a `.taf`, run the
+pause-count fixed-point classifier over every blank, which is what already
+told the two kinds apart on the non-SKIP rows.  A blank whose span the game
+prints a pause into is a Return; a blank that survives the fixed point is an
+empty command and a turn.  Verified against the old feeds as well -- the
+classifier reaches the same answer there, so nothing already blessed moved.
+
+Every diff count taken against a regenerated feed before this is worthless in
+the same way the 2026-09-06 blank-line drift made the older ones worthless.
+
+## Compared 2026-09-07: the 18 re-driven rows, every row accounted for
+
+With the generator emitting the solution's empty commands and the compare
+tool able to read the result, `Adrift_425`-`448` were finally diffed.  Ten of
+the eighteen are clean, seven are RNG and one is new evidence.
+
+### Clean (10)
+
+`justanotherday` (426), `mysteryofcaves` (435) and `imagidroids` (444) are
+**identical on every turn**.  `cbn2` (431), `asdfa` (436), `spam` (439),
+`vagabond` (440), `pyramid` (443), `crimsondetritus` (445) and `existence`
+(447) are identical apart from the Runner's own `[Press any key to end]`.
+
+`vagabond` is the one worth calling out: its single divergence used to be the
+ALR-over-a-joined-paragraph residual at room 4 ("A toolbox is here." +
+George's `#` InRoomText), and the room-block-as-one-string port on 2026-09-07
+closed it.  The row is now clean, and the note at "Measured so far" that says
+otherwise is superseded.
+
+### RNG, and what makes each one random (7)
+
+| row | the random thing |
+|---|---|
+| `forum` (442) | EVENT 0 "Monk walks in" is `time1=2 time2=6` -- a random duration.  The monk arrives at scarier T4 and run400 T6; the two transcripts are otherwise word-identical. |
+| `secidenoddcomp` (448) | the house's atmospheric one-liners ("Something howls in the distance.", "You hear the faint sound of cackling laughter") -- different picks on different turns. |
+| `ticket` (434) | the cat and the lost girl are roomgroup walkers.  Verbose was ON (17 `strolls`/`wanders` lines in the Runner's own transcript), so this is not RULE 1. |
+| `vendetta` (429) | the weather and crowd-noise events.  Also a tail artefact: the compare tool cannot align the feed's last two blanks, so its "turn 206" is the ending, which both sides print in full. |
+| `adriftorama` (433) | a golf minigame -- ball colour, course, hazard and opponent are all rolled.  Nothing is comparable past turn 2. |
+| `yonastoundingcastle` (441) | Goblin Bob's thefts and idle antics.  ALSO **RULE 2**: 2 commands were never echoed, the first at feed[170] `yorick`, so everything past 170 is out of step and the row needs re-driving before anything after it is read. |
+| `thepkgirl` (427) | the umbrella peddler, the pervert and the shopkeeper's idle lines are all walkers or Rnd picks.  Two turns in it are not RNG -- see below. |
+
+### `thepkgirl` T103: an ALR spans a task and the task it executes
+
+The clearest new evidence in the batch.  Task "# Laurie says good morning"
+has
+
+    COMPLETE=[... They should be done soon."]
+    ACT type=5 -> task 700 ("turn on * toaster", COMPLETE=[The toaster is now on.])
+
+and the game's ALR table carries
+
+    Original     done soon."  The toaster is now on
+    Replacement  done soon."<br><br>    Laurie turns on the toaster
+
+Note the two spaces in the Original.  run400 prints "Laurie turns on the
+toaster."; Scarier prints "The toaster is now on.", because it filters each
+string on its own and the ALR never sees the join.  This is the known
+**ALR Originals that span the joined paragraph** lead under "Still open", and
+it says something the room-block port did not cover: the paragraph the Runner
+filters is not just the room block, it is the completing task's own text plus
+the output of every task it executes.  Add `the_pk_girl.taf` T103 to that
+bullet's evidence.
+
+### `thepkgirl` T52: a walk-triggered task fires in Scarier and not in run400
+
+`open window` ends chapter 1.  run400's turn stops at "Press enter to
+continue" and the next keypress brings CHAPTER 2; Scarier prints, in the same
+turn, task 413 `# Laurie rejoins you at lot`
+
+    COMPLETE=[<br><br>    Laurie becomes aware of your presence and lifts her
+    head from her hands.  They are soaked with tears.<br><br>[L-7,0,0]]
+
+with its 1/2/3 menu, and only then CHAPTER 2.  No `ACT type=5` anywhere in the
+game executes 413; the only reference is Laurie's `WALK 2 loop=1
+startTask=410 charTask=413(task412) meetChar=0 stopTask=412`, so this is a
+walk-step firing, and the walk is one step ahead of run400's here.  The
+solution never answers the menu and the run still wins, which is why the row
+was blessed with it.  Open lead; the walk rules to re-read are
+[[adrift4-walk-exact-tick-move]] and
+[[adrift4-hidden-stop-stamps-walker]].
+
+### `motion` (425): not comparable as fed, and the reason is worth chasing
+
+`Motion.taf`'s rocket-launch minigame is played by pressing Enter, so its
+turns and its `<waitkey>` answers are the same keystroke and the two sides
+disagree about which is which: 137 feed lines, 124 turns echoed, and the
+compare tool reports the seven "lost" commands as a pause-count difference
+rather than RULE 2.  The frames themselves diverge from the very first one --
+`Fuel in Rocket:` is `* * * * * * * * !` in run400 against `* * * * * * * * *`
+in Scarier, and by turn 7 run400 has burned all nine and lost the minigame
+while Scarier still has five.  Nothing else in the turn differs (the ASCII
+frames are word-identical but for the fuel gauge).  Either the Runner is
+taking more ticks per Enter than the feed assumes, or the generator owes this
+game a different blank-per-frame rule.  Left open: re-cut the feed for a game
+whose turn IS its keypress before reading anything into the gauge.

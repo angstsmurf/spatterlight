@@ -285,7 +285,7 @@ and sharp.
 A sturdy wooden box with rusted iron corners stands in the corner and the
 opening leading back into the living room is to the west of you.
   There's a hole in the floor where the box with the logs once was.
-  Also here are some wooden logs.
+  Also here are some wooden logs.  Ninette is here.
 
 > i
 You are wearing well worn jeans, a pair of sneakers and a T-shirt, and you

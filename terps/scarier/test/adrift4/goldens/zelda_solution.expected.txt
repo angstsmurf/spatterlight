@@ -1230,6 +1230,8 @@ A long blue stair leads up a stone four-corner pyramid. Once there was a
 Triforce fragment up here. Now, the treasure room no longer holds treasure.
 An exit leads west.
 
+Zelda is present.
+
 A young man clad in royal robes sits on the stair, looking hugely depressed.
 His face lights as soon as he sees you come through the door.
 

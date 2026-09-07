@@ -152,18 +152,23 @@ def read_feed(path, taf=None, env_extra=(), popup_answers=(), skip_wired=True):
     and not a feed entry.  When nothing is waiting it is a REAL EMPTY TURN:
     run400 echoes "> " and answers it.
 
-    Under SKIP the question does not arise: make_wine_cmdfile.py ADDED one
-    blank per pause purely so the Runner has a key to eat, and every one of
-    them is a pause answer.  Without SKIP the blanks are the solution's own and
-    can be either -- lobster's ten all answer real pauses, sommeril's four are
-    empty commands ("Much like a dream, that never happened.") in a game with
-    no pauses at all -- so measure it: replay the candidate feed with markers,
-    see how many pauses each command printed, and let those pauses eat the
-    blanks that follow.  Iterated to a fixed point, because dropping a blank
-    changes the replay that classifies the next one (all 2026-09-06).
+    So measure it: replay the candidate feed with markers, see how many pauses
+    each command printed, and let those pauses eat the blanks that follow.
+    Iterated to a fixed point, because dropping a blank changes the replay that
+    classifies the next one (all 2026-09-06).
+
+    Until 2026-09-07 a SKIP-wired row short-circuited that and dropped EVERY
+    blank, on the reading that make_wine_cmdfile.py had added one blank per
+    pause and nothing else.  That stopped being true the same day: the
+    generator used to drop the solution's own empty commands under SKIP and now
+    emits them (see its CBN.taf note), so a regenerated feed carries both kinds
+    of blank and only the pause count tells them apart.  The classifier is what
+    the old short-circuit was an approximation of -- on a feed whose blanks
+    really are all pause answers the pauses eat all of them and the answer is
+    the same -- so it now runs for every row that has a .taf to replay.
     """
     lines, encoding = cmdfile_lines(path)
-    if skip_wired or taf is None:
+    if taf is None:
         return [l.strip() for l in lines if l.strip()], encoding
     feed = None
     candidate = [l.strip() for l in lines]
@@ -387,10 +392,11 @@ def main():
         sys.exit("need --taf to replay, or --scarier for a replay you have")
 
     # The Runner side and the scarier side must index the same way, so a blank
-    # line counts as a turn only where no pause eats it.
-    skip_wired = any(a.split("=", 1)[0] == "SCR_SKIP_WAITKEY" for a in args.env)
-    feed, encoding = read_feed(args.feed, args.taf, args.env, args.popup,
-                               skip_wired)
+    # line counts as a turn only where no pause eats it.  read_feed() measures
+    # that whenever it has a .taf; with --scarier and no .taf there is nothing
+    # to measure with, and the old assumption -- every blank answers a pause --
+    # is all that is left.
+    feed, encoding = read_feed(args.feed, args.taf, args.env, args.popup)
     runner_intro, runner_turns, losses = split_runner (
         read_lines(args.runner), feed, args.lookahead, args.start)
 
