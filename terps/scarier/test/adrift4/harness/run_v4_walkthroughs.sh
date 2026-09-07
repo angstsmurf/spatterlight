@@ -7092,6 +7092,41 @@ goblin_solution.txt|goblin.taf|Oh, and before we forget- Congratulations, gobbo.
 # SCR_SKIP_WAITKEY must NOT be used here (it breaks the imp fight).
 # Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the toy mouse and the catcher's outfit are mode 1/2
 # with an empty InRoomDesc, so their "You can also see ..." lines go away.
+# NOT COMPARABLE against run400 (measured 2026-09-07, Adrift_376_mould /
+# cmdfile_s_mould.txt).  The feed is clean -- all 313 fed lines echo, in
+# order -- but the Act-1 shapeshifting-imp fight redraws the imp's attack
+# form from the RNG every single round, so this row's fixed digit
+# sequence, which is tuned to SCR_SEED=221, cannot transfer to the
+# Runner's own stream:
+#   TASK 432 [#fight started]      -> exec TASK 433
+#   TASK 433 [#random imp change]  ACT type=3 v1=40 v2=2 v3=0
+#                                  ; impstate = scr_randomint(0,4)
+#                                  -> exec TASKS 434..439
+#   TASK 434..438 [#change0..4]    RESTR type=4 v1=42 v2=2 v3=N -- print
+#                                  the drawn attack
+#   TASK 439 [#mold]               "What do you want to turn your hand
+#                                  into?"
+# TASKS 440..474 then hard-gate every answer on the drawn value, one
+# winning digit per form: 0 baseball -> 5 bat (T465), 1 bird -> 2 shield
+# (T446), 2 crowbar -> 1 crowbar (T442), 3 lasso -> 4 knife (T463),
+# 4 chain -> 3 hook (T459).  The golden's `1 4 3 2 4` is exactly that
+# mapping applied to the draws OUR seeded RNG makes (crowbar, lasso,
+# chain, bird, lasso).  Round 1 agrees by luck (both draw the crowbar),
+# round 2 does not: the golden gets "turning into a lasso", run400 gets
+# "turning into a baseball in mid-flight", the answer `4` loses, and
+# every later round is an independent draw, so the sequence never
+# recovers.  run400 logs 51 "What do you want to turn your hand into?"
+# menus against the golden's 12, the fight never resolves, and the ~200
+# remaining Act-2 commands are all refused with "You don't have time for
+# anything else, apart from the fight."  The player never reaches
+# ROOM 103 [THE END].  A secondary offset compounds it without causing
+# it: we consume the solution's first `1` (line 183) at a "(Press a key)"
+# pause, while drive.exe's ClearStalePauses answers that pause itself, so
+# run400 gets 6 digits into the fight where we feed 5.
+# Any future run400 comparison of this row needs ADAPTIVE answers -- read
+# the announced form each round and reply from the table above -- not
+# replayed digits.  This is a seed-locked route, not an engine
+# divergence.
 mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|SCR_SEED=221
 # blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, revenge
 # thriller). The player's wife has been murdered by four guilty men

@@ -2590,7 +2590,7 @@ command.
 | `riding_home` | `Adrift_368` | `feed[11] wait` lost | **56/56** |
 | `saffire` | `Adrift_371` | `feed[5]` -> `> urn on torch` | **16/16** |
 | `warlord` | `Adrift_373` | `feed[307] x artefacts` -> `> facts` | **356/356** |
-| `mould` | `Adrift_376` | 305 lost (aborted at the first `hint`) | every line echoed, in order |
+| `mould` | `Adrift_376` | 305 lost (aborted at the first `hint`) | 313/313 echoed, in order -- but the run is NOT COMPARABLE, see below |
 | `confession` | `Adrift_372` | 21 `z` "lost" | 16/16 -- **both engines end at turn 16** |
 | `thelasthour` | `Adrift_366` | 6 `wait` "lost" | 119/119 -- the game ended at 119 |
 | `grumble` | `Adrift_356` | `feed[262] y` lost | 262/262 -- the `y` answers `quit` |
@@ -2659,6 +2659,62 @@ tool classifies each blank as a pause answer or an empty turn *from scarier's
 pauses*, so a game where run400 pauses where scarier does not turns the
 surplus blanks into turns on one side only.  `mould` is the first row where
 that shows: 10 blanks, all 10 empty turns in run400, only 3 in scarier.
+
+### `mould` is NOT COMPARABLE: the imp fight redraws its form every round
+
+A clean feed is not a comparable run.  `Adrift_376_mould.txt` echoes all 313
+lines of `cmdfile_s_mould.txt` in order, and still never prints
+`Congratulations on winning The Potter and the Mould`: it ends inside the
+Act-1 shapeshifting-imp fight, with **51** `What do you want to turn your hand
+into?` menus against `mould_solution.expected.txt`'s **12**.  That is the
+game's RNG, not the harness.
+
+`SCR_DUMP_TASKS=1 harness/scare games/mould.taf` shows the fight redrawing the
+imp's attack form on every round:
+
+```
+TASK 432 [#fight started]      -> exec TASK 433
+TASK 433 [#random imp change]  ACT type=3 v1=40 v2=2 v3=0   ; impstate = random(0,4)
+                               -> exec TASKS 434..439
+TASK 434..438 [#change0..4]    RESTR type=4 v1=42 v2=2 v3=N ; print the drawn attack
+TASK 439 [#mold]               "What do you want to turn your hand into?"
+```
+
+`ACT type=3` with `v2=2` is `sctasks.cpp` case 2, `scr_randomint(var3, var5)`.
+TASKS 440..474 then hard-gate every answer on the value drawn, exactly one
+winning digit per form:
+
+| imp draws | winning answer | task |
+|---|---|---|
+| 0 baseball | `5` bat | T465 |
+| 1 bird | `2` shield | T446 |
+| 2 crowbar | `1` crowbar | T442 |
+| 3 lasso | `4` knife | T463 |
+| 4 chain | `3` hook | T459 |
+
+The golden's `1 4 3 2 4` is that table applied to the draws OUR RNG makes
+under `SCR_SEED=221` -- crowbar, lasso, chain, bird, lasso.  Round 1 agrees
+with run400 by luck (both draw the crowbar).  Round 2 does not: the golden
+gets "The imp moves in your direction before turning into a lasso"
+(`mould_solution.expected.txt` ~line 2076), run400 gets "The imp flies at you,
+turning into a baseball in mid-flight" (`Adrift_376_mould.txt` lines
+968-1075), and `4` loses to a baseball.  Every later round is an independent
+draw, so a fixed sequence never recovers; the fight never resolves and the
+~200 remaining Act-2 commands are all refused with "You don't have time for
+anything else, apart from the fight."  ROOM 103 `[THE END]` is unreachable.
+
+A secondary offset compounds it without causing it: scarier consumes the
+solution's first `1` (`mould_solution.txt` line 183) at a `(Press a key)`
+pause, while `drive.exe`'s `ClearStalePauses` answers that pause itself -- so
+run400 gets 6 digits into the fight where scarier feeds 5.  The drawn forms
+differ regardless of alignment.
+
+**Consequence for the row.**  `mould` is seed-locked and must not be counted
+as a run400 divergence; the row comment in `run_v4_walkthroughs.sh` now says
+so.  Comparing it for real needs an ADAPTIVE driver -- parse the announced
+form each round and answer from the table above -- not replayed digits.  The
+same caution applies to any other row whose walkthrough answers a menu whose
+prompt is chosen by `ACT type=3 v2=2`.
 
 ### The two that are real
 
