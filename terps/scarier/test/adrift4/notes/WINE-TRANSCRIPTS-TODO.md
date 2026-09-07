@@ -1944,11 +1944,22 @@ written up here (see the batch-1 section), and so, after fix 5, is
   Synonym dropped; the row is clean.  See "Ported 2026-09-07: `stats` is not
   a Runner command" at the end of this file.
 - **`reactor1` T10** -- run400 `A quick glance at the computer` and
-  `Initializing ... failed!`, scarier `at the console` and `... done!`.  A
-  referenced-object / variable substitution, not a wording table.
+  `Initializing ... failed!`, scarier `at the console` and `... done!`.
+  CLOSED 2026-09-07, RNG.  The game holds two tasks on the same command with
+  different CompleteText, one for a successful coolant vent and one for a
+  failed one, so the opening sentence differs by *branch*, not by
+  substitution.  run400 failed; scarier fails too at seeds 1, 2, 3, 6, 7, 8
+  (and at 1, 6, 7, 8 the whole compare is clean), succeeds at 4 and 5.  The
+  harness row stays pinned at `SCR_SEED=4` because the walkthrough is wired
+  to the winning ending.
 - **`lca` T91** -- `chop tree` -> run400 asks `Which tree.  The tree or the
   tree?`, scarier refuses outright.  A disambiguation prompt over two
   identically-named objects; see `adrift4-disambiguation-and-alr-oracle`.
+  MEASURED 2026-09-07 but **not yet ported** -- the whole 4.0 rule is written
+  up under "Measured 2026-09-07: the 4.0 object-ambiguity prompt" at the end
+  of this file.  `lca` T251 (`ne`, scarier lists "The ever alluring Daisy is
+  here." in the Haunted House room block and run400 does not) is a second,
+  unrelated divergence on the same row and is still untouched.
 - **`wax_worx` T15** -- `ask charlie about house` opens with a different
   sentence on each side; the rest of the answer matches.
 - **`trabula` T8 and `threeminutes` T8** are one character each: a leading
@@ -3802,3 +3813,112 @@ it in the text verbatim, and so do we now.
 
 One golden re-blessed: `briefcase`, `A door (open)` -> `A door (closed)`.
 Full v4 suite: 428 PASS / 0 FAIL.
+
+## Measured 2026-09-07: the 4.0 object-ambiguity prompt
+
+`lca` T91 has run400 answering `chop tree` with
+
+    Which tree.  The tree or the tree?
+
+while scarier refuses the line outright.  That contradicts the gate comment on
+`lib_co_ambiguity_prompt()` (`sclibrar.cpp`), which says 4.0 "never raises this
+prompt from the dispatcher, so the port stops at 3.9".  4.0 does raise it -- it
+just raises it from somewhere else, under a narrower test, with a different
+follow-up.  Measured with a purpose-built probe; **nothing is ported yet**.
+
+### The probe
+
+`harness/make_400_coprobe.py` -> `p4CO.taf`.  Two rooms (Alpha east <-> Bravo
+west), eight static objects, all with the same `A plain thing.` description so
+that only the *choice* shows:
+
+    0  a red tree    "tree"           Alpha    Short ambiguity, distinct NPs
+    1  a blue tree   "tree"           Alpha
+    2  a rock        "rock"           Alpha    unique, the control
+    3  a mustang key "mustang key"    Alpha    alias "keys"
+    4  a truck key   "truck key"      Alpha    alias "keys"
+    5  a hut         "hut"            Alpha    alias "shed"
+    6  a shed        "shed"           Alpha    Short "shed"
+    7  the tree      "tree"           Bravo    never co-present, presence control
+
+One task `poke %object%` -> `POKE.`, DontUnderstand `NO IDEA.`, and one event
+printing `TICK.` so a swallowed turn would show.
+
+Transcripts: `Adrift_924.txt` (first pass), `Adrift_925.txt` (second pass,
+cells back to back), `Adrift_926.txt` (every cell isolated by a neutral
+`look`), `Adrift_927.txt` (the answer-slot cells).  **`Adrift_924/925`
+mislead**: run them back to back and the prompt's pending answer slot eats the
+next probe command, so `x tree` right after a `chop tree` prompt reads as an
+*answer* and prints `That is still ambiguous!`.  Only the `look`-separated run
+measures the commands themselves.
+
+### Which commands prompt (Adrift_926, cells isolated)
+
+    chop tree   ->  Which tree.  The red tree or the blue tree?
+    x    tree   ->  Which tree.  The red tree or the blue tree?
+    chop shed   ->  NO IDEA.
+    x    shed   ->  Which shed.  The hut or the shed?
+    chop keys   ->  NO IDEA.
+    x    keys   ->  Which keys.  The mustang key or the truck key?
+    chop rock   ->  I don't understand what you want me to do with the rock.
+    x    rock   ->  A plain thing.
+
+Two different tests, then:
+
+* the library **examine** path prompts whenever two or more *present* objects
+  answer to the typed term, by Short **or** by Alias (`shed` = one Short plus
+  one alias, `keys` = two aliases -- both prompt);
+* the **unhandled-verb** path prompts only when the term is the **Short** of
+  every candidate (`tree`).  A Short+alias or an alias+alias tie is not
+  ambiguous enough for it and the game's DontUnderstand text comes out
+  instead.
+
+Presence really is filtered: object 7 is a third `tree`, and in Bravo, with one
+`tree` present, `chop tree` gives the plain
+`I don't understand what you want me to do with the tree.` (Adrift_924).
+
+Wording is `Which <term>.  <NP> or <NP>?` -- a full stop, two spaces, the
+object noun phrases in index order joined `, ` / ` or `, then `?`.  Identical
+to the 3.7/3.8 prompt already ported, which is why `lca` reads `The tree or
+the tree?`.  The turn's other output is replaced by the prompt alone.
+
+Note that scarier's own ambiguity wording, `Please be more clear, what do you
+want to <verb>?` (`lib_disambiguate_object_common()`, `sclibrar.cpp:4428`), is
+a **SCARE invention**: the string is in none of the four Runner binaries.
+
+### The pending answer slot (Adrift_926, Adrift_927)
+
+The prompt leaves a question pending, and the *next* line is not always a
+fresh command:
+
+    x keys / mustang  ->  That is still ambiguous!
+    chop tree / red   ->  I don't understand what you want me to do with the
+                          red tree.
+    x tree / zzz      ->  That is still ambiguous!
+    chop tree / look  ->  (the room description; the prompt is simply dropped)
+    chop tree / n     ->  (lca Adrift_328_lca.txt:738 -- the player moves north)
+
+So: a line the parser already recognises as a command (`look`, `n`) runs
+normally and the pending question is dropped.  Anything else goes to the
+answer slot, where the word is taken as an extra adjective in front of the
+original noun and the original command re-matched -- exactly one hit re-runs
+the **original verb** on that object (`red` -> `chop` the red tree, hence the
+unhandled-verb refusal naming it), anything else prints `That is still
+ambiguous!`.  `mustang` fails because `mustang keys` is nobody's name; `zzz`
+fails because it is nobody's name either.  The two messages are run400-only
+strings; the sibling `That wasn't one of the options!` was never triggered by
+any cell and is still unexplained.
+
+### Why it is not ported yet
+
+Scarier's 3.7/3.8 port is an *end-of-turn whole-output replacement* driven by
+`run_co_pending_input` / `run_co_task_claimed` (`scrunner.cpp:4206`), fired on
+any line no task claimed.  4.0 needs two different predicates on two different
+paths (Short-only for the unhandled verb, Short-or-alias for examine), so the
+one flag cannot serve both: relax the counting predicate to Short-only and
+`x shed` stops prompting; leave it as it is and `chop shed` starts.  The port
+therefore wants the prompt raised from the two handlers, not from the turn
+driver, plus the answer slot -- and the answer slot changes what the *next*
+line means, so every 4.00 golden with an ambiguous noun has to be re-fed
+before it can be blessed.  Left as a lead; the measurement above is the
+specification.

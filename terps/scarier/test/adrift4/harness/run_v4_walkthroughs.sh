@@ -5705,6 +5705,15 @@ theseance_solution.txt|The_Seance.taf|Towards eternity with your love...|SCR_SKI
 # choice resolve to the conversation instead of the computer's action. 11
 # commands, `SCR_SKIP_WAITKEY=1` (three opening waitkeys otherwise eat
 # scripted input).
+# Wine 2026-09-07: the one divergent turn (T10, `vent coolant`) is RNG, not
+# a rule.  The game holds two tasks with the same command and different
+# CompleteText, one for a successful vent and one for a failed one, so even
+# the opening sentence differs by branch ("A quick glance at the console"
+# vs "...at the computer").  run400's session took the failure branch;
+# scarier takes it too at seeds 1, 2, 3, 6, 7 and 8, and at seeds 1, 6, 7
+# and 8 the compare shows zero divergent turns.  Seeds 4 and 5 succeed, and
+# the row stays pinned at SCR_SEED=4 because the walkthrough is wired to the
+# winning ending.
 reactor1_solution.txt|reactor_1.taf|Congratulations, You saved the ship!|SCR_SEED=4 SCR_SKIP_WAITKEY=1
 # Motion.taf (4.00): WON 100/100, the true maximum (three ACT type=4 awards
 # of 25+25+50 across 68 tasks). A three-stage rocket minigame (launch, land,
