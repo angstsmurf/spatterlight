@@ -185,7 +185,9 @@ The guard exits and lock the door.
 It's a little crack in the wall. There's something in it.
 
 > put hands into hole
-Can't take the mouse. Too far.
+
+I can't take the hand!  I am carrying nothing!  Can't take the mouse. Too
+far.
 
 > search bundle
 There's nothing in the bundle. It's really a little bundle. Can't hide

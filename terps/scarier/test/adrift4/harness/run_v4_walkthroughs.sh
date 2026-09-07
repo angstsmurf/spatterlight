@@ -5628,6 +5628,18 @@ choosethreehour_solution.txt|Choose_Your_Own_Three_Hour_Adventure.taf|Overall, y
 # re-derivation `ask sly about interrogation` lands two turns later, when Sly
 # HAS spoken, so it now answers "Did Mr.Frey ask you something?"; the rule is
 # still exercised by `ask sly about him` at golden line 436.
+# Re-blessed 2026-09-07, turn 26.  `put hands into hole` used to end on the
+# game's own task 15 alone; run400 (Adrift_422_thelasthour.txt:161-163) prints
+#     I can't take the hand!  I am carrying nothing!  Can't take the mouse. Too far.
+# The hand is a STATIC, and 4.0's name_object runs the take piece on a named
+# piece before the put handler sees it -- the "(Taking the hand first)"
+# announcement is there too, emptied to nothing by one of the game's own ALRs,
+# which is where the blank line above the reply comes from.  Both halves (a
+# static reaching the take piece; the "You are carrying nothing!" the take
+# phase closes on, which precedes the handler's task look-up) were measured on
+# probe PSTAT, Adrift_941/942_pstat -- see lib_put_named_filter(),
+# lib_put_implicit_take() and lib_put_nothing_carried_400(), and the PSTAT
+# section of notes/WINE-TRANSCRIPTS-TODO.md.  Byte-identical after the port.
 thelasthour_solution.txt|thelasthour.taf|"Here we are... MY BROTHER."|
 # Sex is Mental.taf (AIF, 8373 bytes, 4.00): comedic explicit content between
 # two apparent adults (a psychiatric-ward patient and a nurse), a third

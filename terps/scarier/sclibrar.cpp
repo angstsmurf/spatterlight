@@ -10288,14 +10288,55 @@ lib_check_put_in_recursion (scr_gameref_t game,
 static scr_bool
 lib_put_named_filter (scr_gameref_t game, scr_int object)
 {
+  /*
+   * A static is named too, at 4.0.  There is no static test at name time --
+   * the one that turns the piece away lives in `insides` (@465ED7) and is
+   * silent -- so the line is claimed and the take piece runs on it first.
+   * Probe PSTAT (Adrift_941/942_pstat.txt): `put anvil in box`, the anvil a
+   * static lying in the room, answers "(Taking the anvil first)" / "You
+   * can't take the anvil!" where scarier used to fall through to the game's
+   * DontUnderstand.  Pre-4.0 handlers never see a static.
+   */
   if (obj_is_static (game, object))
-    return FALSE;
+    return lib_is_version_400 (game)
+           && obj_indirectly_in_room (game, object, gs_playerroom (game));
 
   if (lib_is_version_400 (game))
     return obj_indirectly_in_room (game, object, gs_playerroom (game));
 
   return gs_object_position (game, object) == OBJ_HELD_PLAYER
          || gs_object_position (game, object) == OBJ_WORN_PLAYER;
+}
+
+
+/*
+ * lib_put_resolve_filter()
+ *
+ * The tie-break a named put uses when more than one object present answers
+ * to the word the player typed.  It is lib_put_named_filter() with the
+ * statics taken back out again: a static reaches the handler, and is turned
+ * away there (see lib_put_implicit_take), but it never wins a name it shares
+ * with something the player can actually move.
+ *
+ * Measured in three run400 replays, none of which raises the 4.0 "Which X."
+ * prompt on the line:
+ *
+ *   easter      Adrift_273:135  `put egg in basket` -> "You put the creme
+ *               egg inside the Easter basket.", with the game's other eggs
+ *               standing in the room
+ *   helsing     Adrift_181:50   `put beads on dance floor` runs the game's
+ *               own task past a namesake "beads"
+ *   provenance  Adrift_342:1781 `put wood on stump` -> "You place the piece
+ *               of wood on the stump.", picking it over the cord of wood
+ *
+ * Only the resolver narrows this way.  The filter that selects the objects
+ * the handler then works on stays wide, so `put anvil in box` -- one static,
+ * no rival -- still reaches the take piece (probe PSTAT).
+ */
+static scr_bool
+lib_put_resolve_filter (scr_gameref_t game, scr_int object)
+{
+  return !obj_is_static (game, object) && lib_put_named_filter (game, object);
 }
 
 static scr_bool
@@ -10407,6 +10448,27 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
       return FALSE;
     }
 
+  /*
+   * A static piece cannot be taken at all, and the take piece says so in its
+   * own words: run400 @47329D builds " can't take " + name + "!", the same
+   * exclamation the 4.0 single-take handler ends on.  It does NOT go on to
+   * become a leftover -- probe PSTAT command 4 (`put anvil in box` with the
+   * coin in hand) prints "You can't take the anvil!" and then the clause
+   * separator and nothing at all, where a leftover would have been named --
+   * so clear the reference and leave the multiple references alone.
+   */
+  if (obj_is_static (game, object))
+    {
+      lib_new_clause (game, FALSE);
+      lib_print_response_object (game,
+                                 "You can't take ",
+                                 "I can't take ",
+                                 "%player% can't take ", object, "!");
+      game->object_references[object] = FALSE;
+      *printed = TRUE;
+      return FALSE;
+    }
+
   if (lib_object_too_heavy (game, object))
     {
       lib_new_clause (game, FALSE);
@@ -10471,43 +10533,58 @@ lib_output_length (scr_gameref_t game)
 }
 
 /*
- * A static object named in a 4.0 put still gets the handler's task look-up
- * on the canonical line, and then nothing: run400's insides handler exits
- * right after the task dispatch when obj.global_24 (Static) = 1 (@465ED7-
- * 465EEB), with no message and no claim, before the possession test that
- * would otherwise say "not holding".  So thelasthour's `put hands into hole`
- * (the hand a static in the cell, task 15 `put {the} [hands/...] {into/in
- * the/in} [hole]` pre-matching the typed line, so no implicit take either)
- * prints nothing from the library and lets the task answer "Can't take the
- * mouse. Too far." on its own.  The named filter has already routed such
- * objects into multiple_references; take them out again here before the
- * "not holding" report is composed.  (Without a pre-matching task the
- * Runner would first announce "(Taking the hand first)" and try the take,
- * a branch nothing in the corpus exercises and no probe has measured; it
- * is left to the same silent drop.)  Returns TRUE if a task claimed.
+ * lib_put_nothing_carried_400()
+ *
+ * The report name_object makes when its own loop has left it with nothing to
+ * put down: run400 46E5A0, the literal an empty-handed `drop all` prints too
+ * (see lib_cmd_drop_all).  It closes the take phase, ahead of the task
+ * look-ups `insides` makes, and it is printed only when all three of these
+ * hold -- measured on probe PSTAT in run400, Adrift_941/942_pstat.txt:
+ *
+ *   nothing left to act on    `put coin in box` with the coin in hand moves
+ *                             it and says nothing (cmd 5), and `put box in
+ *                             box` takes the box first, so its action list
+ *                             is not empty either, and again nothing at all
+ *                             follows the announcement (cmd 13/18)
+ *   nothing left to name      `put coin in box` with the coin already inside
+ *                             the box is "You are not holding the coin." and
+ *                             no more, empty-handed (cmd 6) or not (cmd 8);
+ *                             a refused static is never named at all
+ *   the player holds nothing  `put anvil in box` is "You can't take the
+ *                             anvil!  You are carrying nothing!" empty-handed
+ *                             (cmd 2/11/17) and just "You can't take the
+ *                             anvil!" with the coin in hand (cmd 4)
+ *
+ * Worn does not count as carried: cmd 15 wears the cap, `i` answers "You are
+ * wearing a cap, and you are carrying nothing." and the put that follows
+ * still reports "You are carrying nothing!".  That is name_object's own
+ * universe for "all", field26 = 0 And field24 = 0 -- held, never worn and
+ * never inside anything (see lib_put_all_filter).
+ *
+ * Returns TRUE if it printed.
  */
 static scr_bool
-lib_put_drop_statics_400 (scr_gameref_t game, const scr_char *preposition,
-                          scr_int target)
+lib_put_nothing_carried_400 (scr_gameref_t game, scr_bool has_printed)
 {
   scr_int object;
-  scr_bool claimed = FALSE;
 
   if (!lib_is_version_400 (game))
     return FALSE;
 
   for (object = 0; object < gs_object_count (game); object++)
     {
-      if (!game->multiple_references[object] || !obj_is_static (game, object))
-        continue;
+      if (game->object_references[object] || game->multiple_references[object])
+        return FALSE;
 
-      game->multiple_references[object] = FALSE;
-      if (lib_try_game_command_with_object_400 (game, "put", object,
-                                                preposition, target))
-        claimed = TRUE;
+      if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
+        return FALSE;
     }
 
-  return claimed;
+  lib_print_clause (game, has_printed,
+                    "You are carrying nothing!",
+                    "I am carrying nothing!",
+                    "%player% is carrying nothing!");
+  return TRUE;
 }
 
 
@@ -10528,8 +10605,9 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
   scr_int object_count, object, count, capacity, free_space;
   scr_int length_before, length_after_tasks;
   scr_bool has_printed, is_refusal_only, task_claimed;
+  scr_bool static_refused, recursion_rejected, has_moved;
   lib_put_outcome_t outcome;
-  lib_list_t list;
+  lib_list_t list, pending;
 
   /*
    * Try game commands for all referenced objects first.  If any succeed,
@@ -10539,17 +10617,25 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
   length_before = lib_output_length (game);
   has_printed = FALSE;
   task_claimed = FALSE;
+  static_refused = recursion_rejected = has_moved = FALSE;
   object_count = gs_object_count (game);
   for (object = 0; object < object_count; object++)
     {
       if (!game->object_references[object])
         continue;
 
-      /* Reject and remove attempts to place objects in themselves. */
+      /*
+       * Reject and remove attempts to place objects in themselves.  This
+       * guard is ours, not name_object's -- run400 announces "(Taking the
+       * box first)" for `put box in box` and then says nothing whatever
+       * (probe PSTAT commands 13 and 18) -- so a line it rejects never
+       * reaches the report below either.
+       */
       if (!lib_check_put_in_recursion (game, object, container, !has_printed))
         {
           game->object_references[object] = FALSE;
           has_printed = TRUE;
+          recursion_rejected = TRUE;
           continue;
         }
 
@@ -10566,9 +10652,11 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
        */
       {
         scr_bool take_printed = FALSE;
+        const scr_bool is_static = obj_is_static (game, object);
 
         lib_put_implicit_take (game, object, container, &take_printed);
         has_printed |= take_printed;
+        static_refused |= is_static;
       }
 
       /*
@@ -10581,13 +10669,17 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
        * for an object the take above could not acquire: run400 reaches
        * insides' tasks() call at loc_465EB5 before the possession test at
        * loc_465EED, so a claim takes the object back out of the "You are
-       * not holding ..." report.
+       * not holding ..." report.  The look-up itself is deferred to the
+       * second pass below, so that the whole take phase precedes it.
        */
-      if (lib_is_version_400 (game)
-          ? lib_try_game_command_with_object_400 (game,
-                                                  "put", object, "in", container)
-          : lib_try_game_command_with_object (game,
-                                              "put", object, "in", container))
+      if (lib_is_version_400 (game))
+        {
+          pending.push_back (object);
+          continue;
+        }
+
+      if (lib_try_game_command_with_object (game,
+                                            "put", object, "in", container))
         {
           game->object_references[object] = FALSE;
           game->multiple_references[object] = FALSE;
@@ -10597,9 +10689,29 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
         }
     }
 
-  /* Statics named in a 4.0 put: the task look-up, then a silent drop. */
-  if (lib_put_drop_statics_400 (game, "in", container))
-    has_printed = task_claimed = TRUE;
+  /*
+   * name_object's own close to the take phase, and then the look-ups it
+   * deferred.  run400 takes every named piece first and hands the pair to
+   * `insides` only afterwards (@46E34F), so the report above comes out
+   * ahead of the first task: probe PSTAT command 12, `put slab in box`
+   * with the slab a static and the inventory empty, reads "(Taking the
+   * slab first)" / "You can't take the slab!  You are carrying nothing!
+   * SLABTASK."
+   */
+  if (!recursion_rejected && lib_put_nothing_carried_400 (game, has_printed))
+    has_printed = TRUE;
+
+  for (const scr_int pending_object : pending)
+    {
+      if (lib_try_game_command_with_object_400 (game, "put", pending_object,
+                                                "in", container))
+        {
+          game->object_references[pending_object] = FALSE;
+          game->multiple_references[pending_object] = FALSE;
+          has_printed = TRUE;
+          task_claimed = TRUE;
+        }
+    }
   length_after_tasks = lib_output_length (game);
 
   /*
@@ -10642,6 +10754,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
       pf_buffer_character (filter, '.');
     }
   has_printed |= !list.empty ();
+  has_moved = !list.empty ();
 
   /*
    * Version 3.8 has one container refusal and one only.  run380 answers "The
@@ -10764,7 +10877,19 @@ lib_put_in_backend (scr_gameref_t game, scr_int container)
    * "not holding" anything.  4.0 does not count that as handling the
    * command; see lib_put_in_refused().
    */
-  outcome.is_refusal_only = is_refusal_only && list.empty ();
+  /*
+   * A static named in a 4.0 put leaves the line for the task pass as surely
+   * as a size refusal does: run400's `insides` exits at loc_465ED7 on
+   * obj.global_24 = 1, ahead of the result byte var_86 that a completed move
+   * sets, so nothing claims.  thelasthour turn 26 is the live case --
+   * `put hands into hole`, the hand a static, answers "I can't take the
+   * hand!  I am carrying nothing!" and then task 15's own "Can't take the
+   * mouse. Too far." -- and probe PSTAT command 12 is the same shape built
+   * from nothing (`put slab in box` -> "... You are carrying nothing!
+   * SLABTASK.").
+   */
+  outcome.is_refusal_only = (is_refusal_only && list.empty ())
+                            || (static_refused && !has_moved);
   outcome.is_silent = lib_output_length (game) == length_before;
   outcome.is_tasks_only = task_claimed
                           && lib_output_length (game) == length_after_tasks;
@@ -10845,6 +10970,15 @@ lib_put_in_filter (scr_gameref_t game, scr_int object, scr_int unused)
   assert (unused == -1);
 
   return lib_put_named_filter (game, object);
+}
+
+/* The resolver twin of the above; see lib_put_resolve_filter(). */
+static scr_bool
+lib_put_in_resolve_filter (scr_gameref_t game, scr_int object, scr_int unused)
+{
+  assert (unused == -1);
+
+  return lib_put_resolve_filter (game, object);
 }
 
 static scr_bool
@@ -11041,7 +11175,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
   /* Parse the multiple objects list to find the target objects. */
   if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
                                    is_except ? lib_put_in_not_container_filter
-                                             : lib_put_in_filter,
+                                             : lib_put_in_resolve_filter,
                                    is_except ? container : -1, &references))
     {
       /*
@@ -11175,8 +11309,9 @@ static lib_put_outcome_t
 lib_put_on_backend (scr_gameref_t game, scr_int supporter)
 {
   scr_int object_count, object, length_before, length_after_tasks;
-  scr_bool has_printed, task_claimed;
+  scr_bool has_printed, task_claimed, recursion_rejected;
   lib_put_outcome_t outcome;
+  lib_list_t pending;
 
   /*
    * Try game commands for all referenced objects first.  If any succeed,
@@ -11186,17 +11321,20 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
   length_before = lib_output_length (game);
   has_printed = FALSE;
   task_claimed = FALSE;
+  recursion_rejected = FALSE;
   object_count = gs_object_count (game);
   for (object = 0; object < object_count; object++)
     {
       if (!game->object_references[object])
         continue;
 
-      /* Reject and remove attempts to place objects on themselves. */
+      /* Reject and remove attempts to place objects on themselves; the
+       * guard is ours, not name_object's (see lib_put_in_backend). */
       if (!lib_check_put_on_recursion (game, object, supporter, !has_printed))
         {
           game->object_references[object] = FALSE;
           has_printed = TRUE;
+          recursion_rejected = TRUE;
           continue;
         }
 
@@ -11219,11 +11357,14 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
       }
 
       /* The tasks' turn; see lib_put_in_backend(). */
-      if (lib_is_version_400 (game)
-          ? lib_try_game_command_with_object_400 (game,
-                                                  "put", object, "on", supporter)
-          : lib_try_game_command_with_object (game,
-                                              "put", object, "on", supporter))
+      if (lib_is_version_400 (game))
+        {
+          pending.push_back (object);
+          continue;
+        }
+
+      if (lib_try_game_command_with_object (game,
+                                            "put", object, "on", supporter))
         {
           game->object_references[object] = FALSE;
           game->multiple_references[object] = FALSE;
@@ -11233,9 +11374,29 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
         }
     }
 
-  /* Statics named in a 4.0 put: the task look-up, then a silent drop. */
-  if (lib_put_drop_statics_400 (game, "on", supporter))
-    has_printed = task_claimed = TRUE;
+  /*
+   * name_object's own close to the take phase, and then the look-ups it
+   * deferred.  run400 takes every named piece first and hands the pair to
+   * `insides` only afterwards (@46E34F), so the report above comes out
+   * ahead of the first task: probe PSTAT command 12, `put slab in box`
+   * with the slab a static and the inventory empty, reads "(Taking the
+   * slab first)" / "You can't take the slab!  You are carrying nothing!
+   * SLABTASK."
+   */
+  if (!recursion_rejected && lib_put_nothing_carried_400 (game, has_printed))
+    has_printed = TRUE;
+
+  for (const scr_int pending_object : pending)
+    {
+      if (lib_try_game_command_with_object_400 (game, "put", pending_object,
+                                                "on", supporter))
+        {
+          game->object_references[pending_object] = FALSE;
+          game->multiple_references[pending_object] = FALSE;
+          has_printed = TRUE;
+          task_claimed = TRUE;
+        }
+    }
   length_after_tasks = lib_output_length (game);
 
   lib_move_backend (game, &LIB_PUT_ON_VERB, supporter, has_printed);
@@ -11262,6 +11423,15 @@ lib_put_on_filter (scr_gameref_t game, scr_int object, scr_int unused)
   assert (unused == -1);
 
   return lib_put_named_filter (game, object);
+}
+
+/* The resolver twin of the above; see lib_put_resolve_filter(). */
+static scr_bool
+lib_put_on_resolve_filter (scr_gameref_t game, scr_int object, scr_int unused)
+{
+  assert (unused == -1);
+
+  return lib_put_resolve_filter (game, object);
 }
 
 static scr_bool
@@ -11371,7 +11541,7 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
   /* Parse the multiple objects list to find the target objects. */
   if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
                                    is_except ? lib_put_on_not_supporter_filter
-                                             : lib_put_on_filter,
+                                             : lib_put_on_resolve_filter,
                                    is_except ? supporter : -1, &references))
     return FALSE;
   else if (references == 0)

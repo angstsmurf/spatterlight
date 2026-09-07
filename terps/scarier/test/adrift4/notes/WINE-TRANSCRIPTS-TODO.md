@@ -4047,3 +4047,96 @@ first)`, Adrift_424:130), `spirits_flight` (four `Lamanluie cuts Kelorano
 with An old scimitar.` battle lines) and `yeh` (`You pick up A Bow of Icy
 Arrows.` / `You drop ...`).  The first two are confirmed against their own
 run400 transcripts; the other two follow from the probe.
+
+## Ported 2026-09-07: a static is named by `put`, and the empty-hand report
+
+`thelasthour` turn 26 is the row that opened this.  `put hands into hole` --
+the hand a STATIC object -- reads, in run400 (`Adrift_422_thelasthour.txt`
+:161):
+
+    > put hands into hole
+
+    I can't take the hand!  I am carrying nothing!  Can't take the mouse. Too far.
+
+scarier printed only the last sentence, the game's own task 15.  Two separate
+rules were missing, both measured on a purpose-built probe.
+
+### The probe
+
+`harness/make_arena_probe.py PSTAT` -> `p4PSTAT.taf`, second person, one
+room: dynamic `coin`, `box` (a container), `ring`, `cap` (wearable); statics
+`anvil` and `slab`; and one task `put slab in box` -> `SLABTASK.`.  Nineteen
+commands, `Adrift_941_pstat.txt` (13) and `Adrift_942_pstat2.txt` (19).  The
+cells and what they say:
+
+    put anvil in box   (empty hands)
+        (Taking the anvil first)
+        You can't take the anvil!  You are carrying nothing!
+
+    put anvil in box   (coin in hand)
+        (Taking the anvil first)
+        You can't take the anvil!  <- and nothing more
+
+    put slab in box    (empty hands, the task matches)
+        (Taking the slab first)
+        You can't take the slab!  You are carrying nothing!  SLABTASK.
+
+    put coin in box    (coin already inside the box, both inventory states)
+        You are not holding the coin.
+
+    i                  (cap worn, nothing held)
+        You are wearing a cap, and you are carrying nothing.
+
+    put box in box     (either state)
+        (Taking the box first)          <- and nothing whatever after it
+
+The rules ported:
+
+1. **A named static reaches the take piece at 4.0.**  There is no static test
+   at name time; the one that turns the piece away lives in `insides`
+   (@465ED7) and is silent, so the line is claimed, `name_object` announces
+   the take and the take refusal is spoken in the take piece's own words
+   (@47329D, `" can't take "` + name + `"!"`).  A refused static is *not*
+   carried on into the "not holding" leftover report -- cell 2 ends flat --
+   so the reference is cleared.  `lib_put_named_filter()` /
+   `lib_put_implicit_take()`.
+2. **The take phase closes with "You are carrying nothing!"** when nothing at
+   all is held and nothing is left referenced.  Worn does not count (cell 5);
+   the leftover list outranks it (cell 4 prints "You are not holding the
+   coin." and no report); and it comes out *ahead* of the handler's task, so
+   the task look-up had to be deferred to a second pass over the named
+   objects (cell 3).  `lib_put_nothing_carried_400()`.
+3. **A put that only refused does not claim the line.**  Cell 3's `SLABTASK.`
+   is the general task pass answering after the library refused, the same
+   split PUT4 measured for the size/capacity refusals; `is_refusal_only` now
+   takes `static_refused && !has_moved` as well.
+
+Recorded, **not** ported:
+
+* `put box in box` announces the take and then says nothing at all, leaving
+  the box unheld.  scarier keeps its own `You can't put an object inside
+  itself!`, which is at least an answer; the recursion guard now suppresses
+  the empty-hand report on that line so the two do not compound.
+* `put coin in box` with the coin in hand is silent in run400 -- the known
+  PUT7 quirk, no confirmation when the moved object is dynamic object #1.
+
+### The tie-break: statics never win a shared name
+
+Widening the named filter first broke three winning walkthroughs, all of them
+a put whose noun is shared with a static standing in the room: `easter`'s
+`put egg in basket`, `helsing`'s `put beads on dance floor`, `provenance`'s
+`put wood on stump`.  All three are measured, and run400 raises no prompt on
+any of them:
+
+    easter      Adrift_273:135   You put the creme egg inside the Easter basket.
+    helsing     Adrift_181:50    (the game's own task text)
+    provenance  Adrift_342:1781  You place the piece of wood on the stump.
+
+So the *resolver* -- the tie-break scarier applies when several present
+objects answer to the typed word -- stays dynamic-only, while the *filter*
+that selects the objects the handler then works on is the wide one.
+`lib_put_resolve_filter()` and the `lib_put_{in,on}_resolve_filter()` twins;
+only `lib_parse_multiple_objects()` gets the narrow form.
+
+Full v4 suite after all of this: 428 PASS / 0 FAIL, with `thelasthour`,
+`ghosttown`, `xfiles`, `spirits_flight` and `yeh` re-blessed.

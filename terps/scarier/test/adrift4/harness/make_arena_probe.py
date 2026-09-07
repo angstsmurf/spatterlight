@@ -1765,6 +1765,55 @@ CONFIGS = {
              ("The",   "kilo",    4,0,0,0,0,0,0)],
     npcs=[],
     tasks=[]),
+# PSTAT: a 4.0 put naming a STATIC, and what the leftover report says when
+# the player is carrying nothing at all.
+#
+# thelasthour turn 26 (`put hands into hole`, Adrift_297/366/422, all three
+# drives identical) answers
+#
+#     I can't take the hand!  I am carrying nothing!  Can't take the mouse. Too far.
+#
+# with "(Taking the hand first)" ahead of it, blanked by one of the game's own
+# ALRs.  So run400's name_object runs its implicit take on a static piece --
+# announcement, then the take's own " can't take " + name + "!" refusal --
+# and only then hands the pair to `insides`, whose static exit (@465ED7) is
+# silent and where the task claims.  scarier's lib_put_drop_statics_400() had
+# it as a silent drop with no take at all.
+#
+# The second string is the question this probe was built for.  House
+# (Adrift_91, wood on the floor, axe in hand) gets the list form,
+# "You are not holding the wood.", off the same path -- so the two differ in
+# the player's inventory, empty in thelasthour and not in House.  "carrying
+# nothing!" is name_object's own literal at 46E5A0, the one `drop all` with
+# an empty inventory prints (see lib_cmd_drop_all).
+#
+# Six cells, one arena, nothing random:
+#
+#      2  put anvil in box   static, inventory EMPTY      the thelasthour cell
+#      4  put anvil in box   static, inventory = coin     the House cell
+#      5  put coin in box    coin held: the ordinary put, the control
+#      6  put coin in box    coin already in the box (the take is skipped,
+#                            @46E2xx obj.global_46 = var_92), inventory EMPTY
+#      8  put coin in box    the same, inventory = ring   -- 6 and 8 say
+#                            whether "carrying nothing!" replaces a NON-static
+#                            leftover list too, or only a static one
+#     12  put slab in box    static WITH a matching task, inventory EMPTY:
+#                            thelasthour reproduced exactly, and a check that
+#                            a `put` task does not set the take gate's mode-1
+#                            filter and so cannot suppress the announcement.
+ 'PSTAT': dict(name="Probe PSTAT", persp=1,
+    rooms=[("Test Arena","A bare arena.",{})],
+    player=(200,0,0,0,0,0,0,0,0,0),
+    #        prefix short pos wpn prot hv meth acc wear cont parent sw  cap
+    objects=[("a","coin",  4,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("a","box",   4,  0,  0,  0,  0,  0,  0,   1,    0,    2,  100),
+             ("a","ring",  4,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("a","cap",   4,  0,  0,  0,  0,  0,  1,   0,    0,    2)],
+    statics=[("an","anvil", 1, 0),
+             ("a", "slab",  1, 0)],
+    npcs=[],
+    tasks=[dict(commands=["put slab in box"], complete="SLABTASK.")]),
+
 'PUT4': dict(name="Probe PUT4",
     player=(200,0,0,0,0,0,0,0,0,0),
     sizemult=3, weightmult=3, maxsize=902, maxwt=902,
