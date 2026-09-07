@@ -528,7 +528,7 @@ refuses to load it.
 | `amy` | amy.taf | `Adrift_348_amy.txt` | diff 1 | T17 `fuck amy's pussy`: run400 'You take Amy in your arms and lay her down on the bed. She looks up at' vs scarier 'You take Amy in your arms and lay her down on the bed. She looks up at' |
 | `apokalupsis` | apokalupsis.taf | `Adrift_241_apokalupsis.txt` | endtail 1 | T45 `go west`: run400 'Thank you for playing the introduction to Apokalupsis. I hope that you' vs scarier 'Thank you for playing the introduction to Apokalupsis. I hope that you' |
 | `backhome` | Back Home.taf | `Adrift_247_backhome.txt` | diff 4 | T36 `d`: run400 'You move down. On the Ladder to the Attic You are perched on a ladder,' vs scarier 'You move down. On the Ladder to the Attic You are perched on a ladder,' |
-| `bandera` | Bandera.taf | `Adrift_232_bandera.txt` | diff 2 | T18 `x marife`: run400 'No ves tal cosa.' vs scarier 'Una excelente camarera y muy atractiva... Marifé está llevando una bol' -- re-checked 2026-09-06 after the seen/resolver port: unchanged; Marifé is an NPC, not the object resolver |
+| `bandera` | Bandera.taf | `Adrift_232_bandera.txt` | RESOLVED 2026-09-07 | T18 `x marife` was the case-sensitive tail of the character resolver, not the seen model -- see "Ported 2026-09-07: the character resolver's case-sensitive tail" below.  Row now `endtail 1` (the final keypress prompt only). |
 | `barneysproblem` | BarneysProblem.taf | `Adrift_302_barneysproblem.txt` | diff 6 | T9 `w`: run400 'You move west. Front Room Your front room is every bit as dismal and g' vs scarier 'You move west. Front Room Your front room is every bit as dismal and g' |
 | `baroo` | baroo.taf | `Adrift_314_baroo.txt` | diff 4 | T33 `ask brogo about temple`: run400 'Brogo looks at the wizard from the village, "Did you not tell the anci' vs scarier 'Brogo looks at the wizard from the village, "Did you not tell the anci' |
 | `beer` | beer.taf | `Adrift_269_beer.txt` | diff 22 | T9 `west`: run400 'You move west. Fountain You are at the public water fountain. You can ' vs scarier 'You move west. Fountain You are at the public water fountain. You can ' |
@@ -1856,10 +1856,13 @@ written up here (see the batch-1 section), and so, after fix 5, is
   Runner used the object's alternate description where scarier used its
   name.  T2 `put ice cream in cone` run400 `I don't understand what you want
   to do with the cone.` / scarier runs the task.
-- **The seen model again, `bandera` T18.**  `x marife` -> run400 `No ves tal
-  cosa.`, scarier describes her.  Same shape as batch 1's `asdfa` T2,
-  `cbn` T6 and `cellar` T43: scarier marks something seen that run400 does
-  not.  Four rows now point at one rule.
+- **`bandera` T18 -- NOT the seen model after all.**  `x marife` -> run400
+  `No ves tal cosa.`, scarier describes her.  It looked like batch 1's
+  `asdfa` T2 / `cbn` T6 / `cellar` T43, but those three were the object
+  resolver and this one is a character.  DONE 2026-09-07: it is the
+  case-sensitive tail of the character resolver, tripped by the game's own
+  SYNONYM replacements -- see "Ported 2026-09-07: the character resolver's
+  case-sensitive tail" below.
 - **An object list one side prints and the other does not, 3 rows.**
   DONE 2026-09-06 for the two real ones -- see "Ported 2026-09-06: the
   room-content listing is o(132), not 'is the InRoomDesc empty'" below.
@@ -1974,8 +1977,9 @@ follow-up on rows that have been driven, in this order:
 1. **The seen model** -- `asdfa` T2, `cbn` T6, `cellar` T43, `bandera` T18.
    DONE 2026-09-06 for the object rows (see "Ported 2026-09-06: the faithful
    seen seed and the 463640 second pass" below): `asdfa` identical, `cbn` T6
-   and `cellar` T43 match.  `bandera` T18 is an NPC and stays open (NPC seen
-   model, unread).
+   and `cellar` T43 match.  `bandera` T18 turned out NOT to belong here --
+   it is a character, and the rule is the resolver's case-sensitive tail;
+   DONE 2026-09-07, see the last section.
 2. **Parenthesised parser asides** -- DONE 2026-09-06.  `showtime` T59
    `(No female) ` is ported (see "Ported 2026-09-06: the character pronouns
    have no-antecedent seeds too" below), and with it a second rule the fix
@@ -2111,9 +2115,10 @@ Re-blessed: `cellar` (1 line), `volant` (1 line), `ghosttown` (event shift),
 `adrift4-object-seen-model` corrected; `~/Adrift_decompile/index/
 annotations.tsv` rows 457034 and 463640 corrected.
 
-Still open from this thread: `bandera` T18 `x marife` (NPC seen model),
-`cbn`'s second refusal, `cellar` T114 `take satchel` ("There is nothing worth
-taking here." vs "Take what?"), `ghosttown` T2.
+Still open from this thread: `cbn`'s second refusal, `cellar` T114
+`take satchel` ("There is nothing worth taking here." vs "Take what?"),
+`ghosttown` T2.  (`bandera` T18 `x marife` was listed here as an NPC seen
+model; it is not -- DONE 2026-09-07, see the last section.)
 
 
 ## Ported 2026-09-06: the 4.0 implicit take runs before the put handler's task look-up
@@ -2603,3 +2608,89 @@ that shows: 10 blanks, all 10 empty turns in run400, only 3 in scarier.
 Feeds for these rows are now `cmdfile_r_<solution>.txt` (all 19, regenerated
 2026-09-07) and `cmdfile_s_mould.txt` (hint-free).  Job files
 `jobs_fu8.txt` / `jobs_fu8b.txt`.
+
+
+## Ported 2026-09-07: the character resolver's case-sensitive tail
+
+`bandera` T18 was the last open row of the "seen model" family, and it was
+never the seen model.  On turn 18 of the Bandera walkthrough `x marife`
+answers `No ves tal cosa.` in run400 (`Adrift_232_bandera.txt`, the game's
+ALR for `You see no such thing.`) while scarier printed Marifé's
+description.  The character seen byte is not involved at all: run400 stamps
+`char(26) = 1` unconditionally at 47F2EC for every character in the player's
+room, every line.
+
+**The rule, in four steps.**
+
+1. **The typed line is lower-cased before anything parses it.**  run400's
+   `Text1_KeyPress` echoes the raw command -- `"> " & cmd` through
+   `Proc_21_19_47B568` at loc_45C5C3 -- and only THEN assigns
+   `cmd = LCase(cmd)` (loc_45C5D1..45C5E5), pushing the lower-cased copy
+   into the command history array `MemVar_49415C` as well.  All four
+   Runners do it, ungated: run390 loc_436235..436249, run380 loc_426FA9,
+   run370 loc_422091.  Every later splice into the command line re-LCases
+   the whole thing the same way -- the pronoun substitutions
+   (`Proc_19_49_461F38` loc_461ACB, loc_461BA5, ...), the alias->Short
+   rewrite (`Proc_19_48_44EE50` loc_44ED91, loc_44EE27), the give and
+   ask/talk reference rewrites (which splice `LCase(Name)`).
+2. **The game's own SYNONYM table is the one rewrite that does not.**  It
+   runs after the LCase and splices the author's replacement text verbatim.
+   Bandera's table has five Marife entries and every one of them replaces
+   with the capitalised `Marifé`, so whatever the player types the live
+   command line is `x Marifé`.
+3. **The character resolver ends with a case-SENSITIVE InStr.**
+   `Proc_21_40_45E99C` picks the Name -- or, failing that, the LAST matching
+   Alias, the loop at loc_45E623..45E67D assigning without breaking while a
+   matching Name jumps it at loc_45E620 -- using the case-INSENSITIVE
+   whole-word test `Proc_21_38_454CB0`, lower-cases the winner into `var_98`
+   at loc_45E6A6..45E6B2, and returns
+
+       InStr(1, cmd, var_98, 0)        ' loc_45E743, loc_45E8B3, loc_45E938
+
+   with compare mode 0 = `vbBinaryCompare`.  `marifé` is not in
+   `x Marifé`, so it returns 0.
+4. **So the examine never reaches her.**  It falls through to the 4.0
+   "see no such thing" refusal at 4801E1, which the game's ALR renders as
+   `No ves tal cosa.`
+
+Normally step 3 can never fail -- step 1 has already made the whole line
+lower case, so a name that matched case-insensitively matches
+case-sensitively too.  A SYNONYM replacement carrying a capital is the only
+way to break it, and when it does, that character becomes permanently
+unreferenceable by ANY library command.  Only the author's own tasks reach
+Marifé, because task matching is case-insensitive: `hablar con marife` and
+`besar a marife` both work in the same transcript.
+
+**Measured, both directions.**  `Adrift_900_bandcase.txt`: `x cabo`,
+`x Cabo` and `x CABO` all examine the corporal (there is no synonym for
+him), proving the resolver is case-tolerant about what the *player* types;
+`x marife` and `x Marife` are both refused.  `Adrift_901_bandlc.txt`: the
+same .taf repacked with `taftool.py`, with the five synonym replacements
+lower-cased to `marifé` and nothing else changed, answers `x marife` with
+`Una excelente camarera y muy atractiva...`.  The capital is the whole
+cause.
+
+**Ported.**  Three changes, all in the shared v4 engine:
+
+- `run_player_input()` (`scrunner.cpp`) lower-cases the line straight out of
+  `if_read_line()`, before `pf_filter_input()` runs the synonyms.  The `> `
+  echo is Glk's and is unaffected, as run400's is.
+- `uip_replace_pronouns()` (`scparser.cpp`) lower-cases the whole buffer
+  after each splice, as the Runner does.  Without it the new gate would
+  refuse the character the pronoun had just named: `wrecked`'s
+  `ask him about pens` becomes `ask harold about pens`, not `ask Harold
+  about pens`.
+- `uip_case_folds_name()` / `uip_case_folds_name_in()` (`scparser.cpp`) are
+  the InStr tail.  `uip_match_entity()` applies it to every `%character%`
+  bound by a LIBRARY pattern (`!uip_strict_reference`; task commands go
+  through a different Runner routine and are exempt), and `uip_npc_named()`
+  -- the last-named-character register and the give rewrite, both of which
+  really are 45E99C in run400 (call sites 47F395 and 48A9AC) -- applies it
+  to whichever of Name/alias 45E99C would have chosen.  Objects are NOT
+  affected: `co()` (`Proc_21_39_46486C`) has no such tail.
+
+**Cost.**  One golden line re-blessed (`bandera` T18).  Suite 428/428;
+`compare_wine_transcript.py` against `Adrift_232_bandera.txt` now reports
+`endtail 1` -- the final `[Pulsa cualquier tecla para terminar]` prompt --
+where it reported `diff 2`.  The map corpus (1212 views) and
+`scproj_regress.sh` are byte-identical before and after.

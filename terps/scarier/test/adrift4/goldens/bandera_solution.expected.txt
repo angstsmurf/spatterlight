@@ -105,7 +105,7 @@ al Cabal y en la barra, como siempre, está la mejor camarera de toda la
 OTAN... Marifé....  Marifé está aquí.
 
 > x marife
-Una excelente camarera y muy atractiva...  Marifé  está llevando una bolsa.
+No ves tal cosa.
 
 > hablar con marife
   Hace un rato llamó tu Cabo de guardia, y me dijo que preparara esta bolsa

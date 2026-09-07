@@ -3309,7 +3309,27 @@ run_player_input (scr_gameref_t game)
        * wise, separate output so far with a newline.
        */
       if (line_buffer[0] == NUL)
-        if_read_line (line_buffer, sizeof (line_buffer));
+        {
+          if_read_line (line_buffer, sizeof (line_buffer));
+
+          /*
+           * Every Runner lower-cases the whole typed line before it parses
+           * anything: run400 Form1 loc_45C5D1..45C5E5 echoes `"> " & cmd`
+           * first and only then assigns `cmd = LCase(cmd)`, pushing the
+           * lower-cased copy into the command history array as well
+           * (run390 loc_436235..436249, run380 loc_426FA9, run370
+           * loc_422091 -- unconditional in all four, no version gate).
+           * The echo is unaffected because it happens above the LCase, and
+           * Glk echoes the input line for us here.
+           *
+           * This matters because the game's own SYNONYM rewrites run AFTER
+           * it, so an author's replacement text is the only thing that can
+           * put an upper-case letter back into a command -- which is what
+           * makes a character unreferenceable in uip_case_folds_name().
+           */
+          for (scr_char *cursor = line_buffer; *cursor != NUL; cursor++)
+            *cursor = scr_tolower (*cursor);
+        }
       else
         if_print_character ('\n');
 

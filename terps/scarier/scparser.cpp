@@ -1996,6 +1996,63 @@ uip_match_remainder (scr_ptnoderef_t node, scr_int extent)
 
 
 /*
+ * uip_case_folds_name()
+ *
+ * The last thing the Runner's character resolver does before it answers
+ * "yes, this command names that character".
+ *
+ * run400 Proc_21_40_45E99C picks the Name -- or, failing that, the LAST
+ * matching Alias (loc_45E623..45E67D assigns without breaking) -- with the
+ * case-insensitive whole-word test Proc_21_38_454CB0, lower-cases it into
+ * var_98 at loc_45E6A6..45E6B2, and then returns
+ *
+ *     InStr(1, cmd, var_98, 0)            ' loc_45E743, 45E8B3, 45E938
+ *
+ * with compare mode 0 = vbBinaryCompare.  That final test is CASE-SENSITIVE
+ * against the live command line, and it is a plain substring, the word
+ * boundaries having already been settled by the selection above.
+ *
+ * Normally it can never fail: the whole typed line was lower-cased before
+ * the parser ever saw it (run_player_input(), run400 loc_45C5DC), so a name
+ * that matched case-insensitively matches case-sensitively too.  The one
+ * way upper case gets back into a command is the game's own SYNONYM table,
+ * which rewrites whole words AFTER the LCase and splices the author's
+ * replacement text in verbatim.  A replacement that carries a capital
+ * therefore makes that character permanently unreferenceable by any library
+ * command -- only the author's own tasks, which match case-insensitively,
+ * can still reach them.
+ *
+ * Measured 2026-09-07 on Bandera.taf (4.00), whose SYNONYM table maps
+ * marife/Marife/marife' all to the capitalised "Marife'": run400 answers
+ * `x marife`, `x Marife` and `x MARIFE` alike with the ALR'd "You see no
+ * such thing." (Adrift_232_bandera.txt, Adrift_900_bandcase.txt), while
+ * `hablar con marife` and `besar a marife` reach her tasks.  Repacking the
+ * same game with the five replacements lower-cased makes `x marife` print
+ * her description (Adrift_901_bandlc.txt) -- the capital is the whole cause.
+ *
+ * Objects are not affected: the Runner resolves them through co()
+ * (Proc_21_39_46486C), which has no such trailing binary compare.
+ */
+static scr_bool
+uip_case_folds_name_in (const scr_char *command, const scr_char *name)
+{
+  std::string wanted (name);
+
+  for (auto &c : wanted)
+    c = scr_tolower (c);
+
+  return !wanted.empty ()
+         && strstr (command, wanted.c_str ()) != NULL;
+}
+
+static scr_bool
+uip_case_folds_name (const scr_char *name)
+{
+  return uip_case_folds_name_in (uip_string, name);
+}
+
+
+/*
  * uip_match_entity()
  * uip_match_character()
  * uip_match_object()
@@ -2106,6 +2163,15 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
             }
           else
             extent = uip_contains_words (candidate.plain) ? input_end : 0;
+
+          /*
+           * A character has to survive the resolver's case-sensitive tail
+           * test as well -- see uip_case_folds_name().  Task commands go
+           * through a different Runner routine and are exempt.
+           */
+          if (extent > 0 && is_character && !uip_strict_reference
+              && !uip_case_folds_name (candidate.plain))
+            extent = 0;
 
           if (extent > 0 && uip_match_remainder (node, extent))
             {
@@ -2689,8 +2755,21 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
           pf_buffer_reference (gs_get_filter (game),
                                echo ? echo : replacement.c_str ());
 
-          /* Splice the replacement in for the matched extent. */
+          /*
+           * Splice the replacement in for the matched extent, and lower-case
+           * the whole line again -- the Runner assigns
+           * `cmd = LCase(Left$ & antecedent & Right$)` after every splice
+           * (run400 Proc_19_49_461F38 loc_461ACB..461AD7 for "him",
+           * loc_461BA5..461BB1 for "he", and so on down the branches), so an
+           * authored capital in the Name never survives into the parsed
+           * command.  Without this, uip_case_folds_name() would refuse the
+           * very character the pronoun just named: "ask him about pens" in
+           * wrecked (3.80) becomes "ask harold about pens", not "ask Harold
+           * about pens".
+           */
           buffer.replace (offset, extent, replacement);
+          for (auto &c : buffer)
+            c = scr_tolower (c);
           current = buffer.c_str ();
 
           /* Adjust offset to skip over the replacement. */
@@ -2757,35 +2836,47 @@ uip_phrase_in (const std::string &lowered, const scr_char *phrase)
 /*
  * uip_npc_named()
  *
- * Does the command name this NPC?  run400 Proc_21_40_45E99C: c(LCase(Name)),
- * then c(LCase(alias)) for each alias.  There is no presence test -- an NPC
- * two rooms away still counts.
+ * Does the command name this NPC?  run400 Proc_21_40_45E99C: c(LCase(Name))
+ * and, only if that fails, c(LCase(alias)) for each alias -- the alias loop
+ * assigns without breaking (loc_45E623..45E67D), so the LAST matching alias
+ * is the one that survives, while a matching Name jumps the loop entirely
+ * (loc_45E620).  There is no presence test -- an NPC two rooms away still
+ * counts.
+ *
+ * Whichever string was chosen is then lower-cased and looked for in the
+ * command with a case-SENSITIVE InStr; see uip_case_folds_name().
  */
 static scr_bool
-uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered)
+uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered,
+               const scr_char *command)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *chosen = NULL;
   scr_vartype_t vt_key[4];
   scr_int alias_count, alias;
 
   vt_key[0].string = "NPCs";
   vt_key[1].integer = npc;
   vt_key[2].string = "Name";
-  if (uip_phrase_in (lowered, prop_get_string (bundle, "S<-sis", vt_key)))
-    return TRUE;
-
-  vt_key[2].string = "Alias";
-  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
-  for (alias = 0; alias < alias_count; alias++)
+  chosen = prop_get_string (bundle, "S<-sis", vt_key);
+  if (!uip_phrase_in (lowered, chosen))
     {
-      const scr_char *alias_name;
+      chosen = NULL;
 
-      vt_key[3].integer = alias;
-      alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
-      if (!scr_strempty (alias_name) && uip_phrase_in (lowered, alias_name))
-        return TRUE;
+      vt_key[2].string = "Alias";
+      alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+      for (alias = 0; alias < alias_count; alias++)
+        {
+          const scr_char *alias_name;
+
+          vt_key[3].integer = alias;
+          alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+          if (!scr_strempty (alias_name) && uip_phrase_in (lowered, alias_name))
+            chosen = alias_name;
+        }
     }
-  return FALSE;
+
+  return chosen && uip_case_folds_name_in (command, chosen);
 }
 
 /*
@@ -2836,7 +2927,7 @@ uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
 
   for (index_ = 0; index_ < gs_npc_count (game); index_++)
     {
-      if (uip_npc_named (game, index_, lowered))
+      if (uip_npc_named (game, index_, lowered, string))
         game->last_npc = index_;
     }
 }
@@ -2938,7 +3029,7 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
       scr_bool named = FALSE;
 
       for (index_ = 0; index_ < gs_npc_count (game) && !named; index_++)
-        named = uip_npc_named (game, index_, lowered);
+        named = uip_npc_named (game, index_, lowered, command.c_str ());
 
       if (!named)
         {
