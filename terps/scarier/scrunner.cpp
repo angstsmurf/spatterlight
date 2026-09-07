@@ -1158,6 +1158,105 @@ run_is_put_command (scr_gameref_t game, const scr_char *string)
 }
 
 /*
+ * run_repeat_survivor_400()
+ *
+ * TRUE if a 4.0 line is one that a spent task's RepeatText does NOT take
+ * away from the standard library.  Measured 2026-09-08 with p4REPEAT.taf,
+ * p4REPEAT2.taf and p4REPEAT3.taf (make_400_repeatprobe.py and
+ * make_400_repeatprobe2.py, 30-odd one-cell tasks all done, non-repeatable
+ * and carrying a RepeatText, each typed twice) under run400, feeds
+ * cmdfile_rep1-3, transcripts Adrift_950-952.
+ *
+ * run400 prints a done non-repeatable task's RepeatText inside the task
+ * dispatcher at 48A481 (Proc_19_24_44CCE0) and then jumps to loc_48B4E3,
+ * past every general library verb.  Only two groups of handlers escape it:
+ *
+ *   - the ones the input routine runs BEFORE the dispatcher: inventory
+ *     (48A457) and the put/drop list (48A462).  They print first, and the
+ *     RepeatText is emitted only while the output is still empty, so
+ *     whatever they say silences it -- `i` lists the inventory, `drop coin`
+ *     and `put coin on desk` keep "You are not holding the coin.".  The
+ *     all/everything forms are in that same list but say nothing with empty
+ *     hands, and `drop all` / `put all on desk` DO draw the RepeatText, so
+ *     they are matched here first and excluded.
+ *   - the per-character pass at 48B56E (Proc_19_0_480674), which sits BELOW
+ *     48B4E3 and so still runs, its answer replacing the message: NPC
+ *     examine (47FE4F) and the ask-format hint (47F84A) that `talk to X`,
+ *     `speak to X` and `ask X <anything but "about">` land on.
+ *
+ * Everything else loses the line to the RepeatText, movement and take
+ * included: `north` and `east` print it and the player does not move,
+ * `take coin` never takes the coin, `look`, `wait`, `score`, `turns`,
+ * `open`, `read`, `wear`, `x <object>`, `x me`, `take all` and `drop all`
+ * all print it, and a wildcard task's RepeatText wins as readily as a
+ * literal one's (`* dance *`) -- so neither of the pre-4.0 pass's literal
+ * and movement exemptions carries over.  `kiss X`, `give X to Y` and `ask X
+ * about Y` are general verbs rather than parts of the character pass, and
+ * lose the line too; `talk X` without the "to" is the 3.7/3.8 spelling that
+ * 4.0's hint does not answer, so it loses it as well.
+ */
+typedef struct
+{
+  const scr_char *command;
+  scr_bool survives;
+} scr_repeat_survivor_t;
+
+static const scr_repeat_survivor_t REPEAT_SURVIVOR_COMMANDS[] = {
+  /* Pre-dispatcher, 48A457. */
+#ifdef SCARIER_NO_ABBREVIATIONS
+  {"[inventory/inv]", TRUE},
+#else
+  {"[inventory/inv/i]", TRUE},
+#endif
+
+  /* Pre-dispatcher, 48A462 -- but only where it has something to say. */
+  {"put [all/everything] *", FALSE},
+  {"[drop/put down] [all/everything] *", FALSE},
+  {"put %text% [in/into/inside {of}] %object%", TRUE},
+  {"put %text% [on/onto/on top of] %object%", TRUE},
+  {"[drop/put down] %text% [in/into/inside {of}] %object%", TRUE},
+  {"[drop/put down] %text% [on/onto/on top of] %object%", TRUE},
+  {"[drop/put down] %text%", TRUE},
+  {"put %text% down", TRUE},
+
+  /* The character pass at 48B56E, and the two branches that are not it. */
+  {"ask %character% about %text%", FALSE},
+  {"[talk/speak] to %character% about %text%", FALSE},
+#ifdef SCARIER_NO_ABBREVIATIONS
+  {"[ex/exam/examine/look {at}] %character%", TRUE},
+#else
+  {"[x/ex/exam/examine/look {at}] %character%", TRUE},
+#endif
+  {"[talk/speak] to %character% *", TRUE},
+  {"ask %character% *", TRUE},
+
+  {NULL, FALSE}
+};
+
+static scr_bool
+run_repeat_survivor_400 (scr_gameref_t game, const scr_char *string)
+{
+  const scr_ref_number_guard ref_number (game);
+  std::vector<scr_bool> objects (game->object_references);
+  std::vector<scr_bool> npcs (game->npc_references);
+  const scr_repeat_survivor_t *row;
+  scr_bool survives = FALSE;
+
+  for (row = REPEAT_SURVIVOR_COMMANDS; row->command; row++)
+    {
+      if (uip_match (row->command, string, game))
+        {
+          survives = row->survives;
+          break;
+        }
+    }
+
+  game->object_references = objects;
+  game->npc_references = npcs;
+  return survives;
+}
+
+/*
  * run_replace_all()
  * run_unnamed_put_fragment()
  *
@@ -2960,8 +3059,9 @@ run_input_is_movement (scr_gameref_t game, const scr_char *string)
  * once a turn fires on either refusal and not on the parser complaint, matching
  * the `handled = 1` the Runner sets alongside the message.  Hence the TRUE
  * return, which lets the caller run the turn.  (Measured for all three pre-4.0
- * answers; 4.0's RepeatText is assumed to tick as well, its probe having no
- * event in it.)
+ * answers, and for 4.0's RepeatText on 2026-09-08: p4REPEAT2/p4REPEAT3 carry a
+ * once-a-turn event and every RepeatText line in Adrift_951/952 is followed by
+ * its "TICK.".)
  *
  * The leading word follows Perspective, which pre-4.0 has only two of: run390
  * answers "I can't do that here!" / "I have already done that." for Perspective
@@ -2970,6 +3070,20 @@ run_input_is_movement (scr_gameref_t game, const scr_char *string)
  * well).
  */
 enum { REFUSAL_NONE = 0, REFUSAL_ROOM, REFUSAL_DONE };
+
+/*
+ * Which of the three calls a scan is: the pass ahead of the standard library
+ * (which answers the already-done half), the pass after it (the room half),
+ * and a silent look-ahead that only reports whether the pre-library pass has
+ * something to say.  run_all_commands() needs the answer before it runs the
+ * priority commands, because 4.0's RepeatText outranks those as well.
+ */
+enum run_refusal_pass_t
+{
+  REFUSAL_PASS_PRE = 0,
+  REFUSAL_PASS_POST,
+  REFUSAL_PASS_PROBE
+};
 
 /*
  * The two halves do NOT sit at the same point in the dispatch order, and
@@ -2991,14 +3105,20 @@ enum { REFUSAL_NONE = 0, REFUSAL_ROOM, REFUSAL_DONE };
  * refusal.  The pre-library pass simply declines to emit a room refusal and
  * leaves it to the post-library one.
  *
- * Pre-4.0 only.  4.0 has no already-done message at all, only RepeatText, and
- * where RepeatText sits relative to the library is unmeasured -- so 4.0 keeps
- * the single post-library pass it has always had (2026-09-05).
+ * 4.0 has no already-done message at all, only RepeatText, and it sits ahead
+ * of the library too -- ahead of MORE of it, in fact.  Measured 2026-09-08
+ * with the p4REPEAT probes: the dispatcher prints the RepeatText and jumps
+ * past every general verb, movement and take included, so the 4.0 pre-library
+ * pass carries none of the three pre-4.0 conditions.  Only the handlers that
+ * run before the dispatcher, or below the jump, keep their answer; they are
+ * listed in run_repeat_survivor_400(), and the caller checks them.
  */
 static scr_bool
 run_task_refusal (scr_gameref_t game, const scr_char *string,
-                  scr_bool done_only)
+                  run_refusal_pass_t pass)
 {
+  const scr_bool done_only = pass != REFUSAL_PASS_POST;
+
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int version, perspective, task_count, task, direction;
@@ -3072,8 +3192,26 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
        * prints nothing, and run390 then answers "I don't understand." rather
        * than "You have already done that." (Adrift_18.txt 2026-08-23).
        */
+      /*
+       * 4.0 also asks the restrictions.  A spent task whose restrictions now
+       * fail is not the one the picker hands the dispatcher, and the library
+       * gets the line as if the task were not there at all: `A Witch Tale`
+       * task 2 is the literal `* north` at the bridge, spent from the first
+       * crossing attempt and carrying a RepeatText, but restricted on `say
+       * grue` being undone -- once the riddle is answered run400 walks the
+       * player north (Adrift_128_witchtale.txt) instead of printing "I try
+       * to cross the bridge...".  Only silent failures are covered here; a
+       * fail message of its own is the restriction pass's business, not this
+       * one's.  Pre-4.0 keeps the shape chicago.taf measured, and so does the
+       * post-library pass, which is a fallback rather than a model of the
+       * dispatcher: `The Magic Show` reaches its "One rabbit trick is enough
+       * for any given act" through a spent task whose restrictions fail, with
+       * the library having declined the line first.
+       */
       if (!run_task_ran_this_command (task)
           && task_is_done_refused (game, task)
+          && (version < TAF_VERSION_400 || !done_only
+              || run_task_is_unrestricted (game, task))
           && run_match_task_commands (game, task, string, TRUE, FALSE))
         {
           refusal = REFUSAL_DONE;
@@ -3124,9 +3262,28 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
 
       repeat = prop_get_indexed_string (bundle, "Tasks", refused_task,
                                         "RepeatText");
-      if (!run_task_command_is_literal (game, refused_task)
-          || !scr_strempty (repeat)
-          || run_input_is_movement (game, string))
+
+      /*
+       * 4.0 has no default already-done message and none of those three
+       * conditions: measured 2026-09-08 (p4REPEAT/p4REPEAT2/p4REPEAT3 under
+       * run400, Adrift_950-952), an authored RepeatText is printed by the
+       * task dispatcher itself, ahead of nearly the whole library, and takes
+       * the line away from a wildcard command and from movement just as
+       * readily as from a literal one.  What it does NOT take is listed in
+       * run_repeat_survivor_400(), which the caller tests -- the answer is
+       * needed before the priority commands run, so a probe pass reports it
+       * without printing anything.
+       */
+      if (version >= TAF_VERSION_400)
+        {
+          if (scr_strempty (repeat))
+            return FALSE;
+          if (pass == REFUSAL_PASS_PROBE)
+            return TRUE;
+        }
+      else if (!run_task_command_is_literal (game, refused_task)
+               || !scr_strempty (repeat)
+               || run_input_is_movement (game, string))
         return FALSE;
     }
 
@@ -3183,6 +3340,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_bool status, ask_echo, put_first, refused;
+  scr_bool repeat_found, repeat_pending;
   const scr_char *task_string;
   std::string fragment;
   scr_int prior_npc;
@@ -3322,7 +3480,28 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * Either way the line is handled once the refusal is printed, so the
    * standard table's duplicate put rows never print it a second time.
    */
+  /*
+   * A 4.0 line that a spent task answers with its RepeatText is not the
+   * priority commands' either -- run400 dispatches tasks at 48A481, above
+   * everything but inventory (48A457) and the put/drop list (48A462), so
+   * `take coin` on a done `take coin` task prints the RepeatText and takes
+   * nothing, and `put all on desk` on a done one prints it rather than the
+   * put's own empty-handed answer.  The message itself waits until the task
+   * passes below have all declined, because a task that can still RUN
+   * outranks one that is merely spent; all that is needed here is whether
+   * there IS one, so that the priority commands stand aside.
+   * run_repeat_survivor_400() holds the handlers that keep the line anyway;
+   * they are still a turn, though, because the dispatcher sets its handled
+   * byte before the character pass overwrites the message (`x bob` on a
+   * spent task ticks the probe's event, where a plain NPC examine does not
+   * -- Adrift_951, and see run_note_repeat_survivor_turn below).
+   */
+  repeat_found = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+                 && run_task_refusal (game, string, REFUSAL_PASS_PROBE);
+  repeat_pending = repeat_found && !run_repeat_survivor_400 (game, string);
+
   put_first = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+              && !repeat_pending
               && run_is_put_command (game, string);
   status = FALSE;
   refused = FALSE;
@@ -3352,7 +3531,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   if (!status && !refused)
     status = run_game_commands_in_parser_context (game, task_string,
                                                   FALSE, TRUE);
-  if (!status && !put_first)
+  if (!status && !put_first && !repeat_pending)
     status = run_priority_commands (game, string);
   if (!status)
     status = run_game_commands_in_parser_context (game, task_string,
@@ -3398,12 +3577,33 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
        * the note on run_task_refusal().  The room half still runs after it.
        */
       if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
-        status = run_task_refusal (game, library_string, TRUE);
+        status = run_task_refusal (game, library_string, REFUSAL_PASS_PRE);
+      else if (repeat_pending)
+        {
+          /*
+           * Matched on the line as typed, the way the probe above did and
+           * the way run400's dispatcher does: the give and ask/talk rewrites
+           * below loc_48A98A are further down the routine than 48A481.
+           */
+          status = run_task_refusal (game, string, REFUSAL_PASS_PRE);
+        }
       if (!status)
         status = run_standard_commands (game, library_string);
       if (!status)
-        status = run_task_refusal (game, library_string, FALSE);
+        status = run_task_refusal (game, library_string, REFUSAL_PASS_POST);
     }
+  /*
+   * A survivor answered a line the dispatcher had already claimed: the
+   * message is the library's but the turn is the refusal's, so an answer
+   * that is normally administrative counts here.  run400 prints the
+   * RepeatText at 48A481 and jumps to loc_48B4E3, which is below the stores
+   * that would mark the line administrative and above the character pass at
+   * 48B56E -- so the NPC examine's own text comes out and the walk and event
+   * tick at 48B599 still runs.
+   */
+  if (status && repeat_found && !repeat_pending)
+    game->is_admin = FALSE;
+
   run_dispatch_input = NULL;
   run_tasks_ran_this_command.clear ();
 

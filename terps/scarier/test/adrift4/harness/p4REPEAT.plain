@@ -1,0 +1,368 @@
+Spent-task RepeatText probe.
+На
+0
+You have won.
+На
+Repeat Probe 400
+SCARE probe
+NO IDEA.
+1
+1
+0
+1
+0
+0
+Player
+0
+A test subject.
+0
+0
+0
+0
+100
+100
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+3
+3
+0
+2
+Alpha
+The first room.
+0
+2
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+Bravo
+The second room.
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+3
+a
+coin
+0
+0
+A plain thing.
+4
+0
+0
+
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+0
+a
+desk
+0
+1
+A plain thing.
+0
+0
+0
+
+1
+1
+0
+0
+0
+0
+0
+0
+0
+0
+
+0
+a
+button
+0
+1
+A plain thing.
+0
+0
+0
+
+1
+1
+0
+0
+0
+0
+0
+0
+0
+0
+
+0
+14
+1
+write on wall
+C1 write on wall.
+
+R1 write on wall.
+
+0
+0
+0
+0
+1
+0
+
+0
+0
+
+1
+listen
+C2 listen.
+
+R2 listen.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+talk to bob
+C3 talk to bob.
+
+R3 talk to bob.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+kiss bob
+C4 kiss bob.
+
+R4 kiss bob.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+look under desk
+C5 look under desk.
+
+R5 look under desk.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+take coin
+C6 take coin.
+
+R6 take coin.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+x coin
+C7 x coin.
+
+R7 x coin.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+push button
+C8 push button.
+
+R8 push button.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+smell
+C9 smell.
+
+R9 smell.
+
+0
+0
+0
+0
+1
+0
+
+0
+0
+
+1
+frobnicate
+C10 frobnicate.
+
+R10 frobnicate.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+jump
+C11 jump.
+
+
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+* dance *
+C12 * dance *.
+
+R12 * dance *.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+north
+C13 north.
+
+R13 north.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+east
+C14 east.
+
+R14 east.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+0
+1
+Bob
+
+0
+A patient bystander.
+1
+
+0
+0
+0
+0
+Bob is here.
+0
+0
+0
+0
+0
+0
+2026

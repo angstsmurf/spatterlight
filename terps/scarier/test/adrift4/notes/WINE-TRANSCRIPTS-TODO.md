@@ -5106,7 +5106,7 @@ Nothing pre-4.0 changes.  `battle_legacy` covers version < 4.00 and the whole
 narration those games get is a different set of strings (run390 Form1.frm
 @4595DB); the three literals these five sites join -- `" attacks "`,
 `" manages to avoid "`, `"'s attack."` -- appear in run400's string pool and
-in no other Runner's.  Suite **429 PASS / 0 FAIL**, the ADRIFT 5 suite
+in no other Runner's.  Suite **428 PASS / 0 FAIL**, the ADRIFT 5 suite
 unchanged.
 
 ## Ported 2026-09-07: the Runner's three `undo` answers
@@ -5166,4 +5166,201 @@ blessed on that basis, and the replay half is a separate, larger port.
 | `cellar_solution.expected.txt` | 118 `undo` | `[The previous turn has been undone.]` | `Undone.` |
 | `hero_solution.expected.txt` | 38 `undo` | room heading + `[The previous turn has been undone.]` | `Undone.` |
 
-`redwire` did not move (see above).  Suite **429 PASS / 0 FAIL**.
+`redwire` did not move (see above).  Suite **428 PASS / 0 FAIL**.
+
+## Landed 2026-09-08: 4.0's spent-task RepeatText outranks the library
+
+Measured, written, ported, and now in the tree.  The rule is pinned cell by
+cell below; the two walkthroughs it took out of the winning column
+(`onnafa`, `les_feux`) have been re-derived, and the suite is back at
+**428 PASS / 0 FAIL** *with* the port applied.  `notes/repeattext-400-port.patch`
+is kept as the standalone diff of the engine change.
+
+### What run400 does
+
+`generaltasks` (`Proc_19_61_48C0F0`, body 489FD4-48C0EC) runs the task
+dispatcher in the *middle* of the library, not after it:
+
+```
+loc_48A457  push Proc_19_70_45C304()      ' inventory
+loc_48A462  push Proc_19_40_459DB4()      ' put / drop list
+loc_48A46D  push Proc_19_22_4582D8()      ' get_outer  (the `get out` handler)
+loc_48A481  push Proc_19_24_44CCE0(1, 4)  ' TASK DISPATCHER
+loc_48A486  If from_stack_1 Then GoTo loc_48B4E3   ' skips EVERY later verb
+loc_48A48C  Proc_19_8_463C30              ' wears
+   ...      Proc_19_85_489F4C             ' therest (ask/talk/kiss/...)
+loc_48B56E  Proc_19_0_480674              ' the per-character pass, BELOW 48B4E3
+loc_48B599                                ' walk + event tick
+```
+
+The dispatcher `Proc_19_24_44CCE0` asks the picker `Proc_19_66_454EF0` for one
+task and then, transcribed from 44CBE3-44CCDF:
+
+```
+task = task_pick(line, 1)
+if task found then
+  m = match(line, task)                          ' Proc_19_38_45DD5C
+  if (m = 1 Or m = 3) And done = 0 ... then execute_task(task)      ' 44CC33
+  elseif done = 1 And reversible = 1 then reverse_task(task)        ' 44CC67
+  elseif buffer = "" then buffer = task.texts(2)  ' RepeatText       ' 44CC7D
+  handled = TRUE
+else
+  handled = task_prematch_fallback(line, 0)      ' Proc_19_68_45404C
+end if
+if buffer = "" then handled = FALSE              ' 44CCC0
+```
+
+and the picker's state gate, transcribed from 454D61-454DCB, is
+
+```
+(done = 0 Or repeatable = 1)
+  Or (done = 1 And reversible = 1)
+  Or (done = 1 And reversible = 0 And arg_10 = 1 And RepeatText <> "")
+```
+
+with the restriction walk `Proc_19_64_455C60(task, 1, 0)` gating every
+candidate at 454DDF, and the done+RepeatText branch storing `var_86` *without*
+the early return at 454ED8 -- so a later fully-runnable task still wins the
+scan.
+
+Three consequences, and all three are what the census below actually shows:
+
+1. **A spent task's RepeatText cancels the rest of the library.**  It is
+   printed at 44CC7D and takes the `GoTo loc_48B4E3` -- past every general
+   verb, so `write on wall`, `look under desk`, `d`, `Push button` and `talk`
+   never reach their handlers.
+2. **Only if nothing has printed yet.**  The `buffer = ""` test at 44CC7D is
+   why the three handlers *above* the dispatcher silence it: an inventory
+   listing, a `drop all`/`put all` list or a `get out` refusal is already in
+   `MemVar_4941B0` when the dispatcher runs.
+3. **The per-character pass replaces it.**  `Proc_19_0_480674` at 48B56E sits
+   *below* `loc_48B4E3`, so `x <npc>`, `talk to <npc>`, `ask <npc> about ...`
+   overwrite the RepeatText even though the dispatcher claimed the line.  The
+   turn still ticks: the dispatcher set its handled byte.
+
+Measured, not just read, on three hand-built probes (`make_400_repeatprobe.py`,
+`..2.py`; `p4REPEAT.taf`, `p4REPEAT2.taf`, `p4REPEAT3.taf`), driven with
+`cmdfile_rep1/2/3.txt` -> `Adrift_950.txt`, `Adrift_951.txt`, `Adrift_952.txt`.
+The survivor table the probes produce, which is exactly what the patch
+encodes:
+
+| typed line | RepeatText survives the library? |
+| --- | --- |
+| `i` / `inv` / `inventory` | no -- the listing is already in the buffer |
+| `drop all`, `put all in/on X` | no -- same reason |
+| `drop X`, `put X in/on Y`, `put X down` | **yes** |
+| `x <npc>`, `look at <npc>` | no -- 48B56E overwrites, but the turn ticks |
+| `talk to <npc>`, `talk to <npc> about ...`, `ask <npc> ...` | no -- same |
+| everything else (unhandled verbs, directions, `kiss`, ...) | **yes** |
+
+### The corpus census, and how each row resolves
+
+`repeat_cand.py` (scratchpad) traced every 4.0 walkthrough for turns where a
+done, non-repeatable task with a RepeatText matched the typed line and Scarier
+printed something else, then looked the same command up in the Runner
+transcript.  With the rule above every row is now accounted for:
+
+| game | task | command | run400 printed | why |
+| --- | --- | --- | --- | --- |
+| `crookedestate` | 46 | `write on wall` | **RepeatText** | unhandled verb, nothing above the dispatcher printed |
+| `jimpond` | 211 | `look under desk` | **RepeatText** | same |
+| `onnafa` | 458 | `d` (x4) | **RepeatText** | same -- movement is below 48B4E3 too |
+| `humbug` | 215 | `Push button` | **RepeatText** | same |
+| `thelasthour` | 10, 11 | `talk` | **RepeatText** | bare `talk`, no character pass to overwrite |
+| `lair` | 291, 397 | `talk to vadris/garrick` | library line | 48B56E overwrites (survivor row) |
+| `crookedestate` | 48 | `peel wallpaper` | library-shaped text | another task claims the line first |
+| `thepkgirl` | 2135 | `kiss katryn` | library line | **not a counter-example** -- see below |
+| `witchtale` | 2 | `north` (x3) | the Runner moved | **not a counter-example** -- restrictions fail |
+| `les_feux` | 78 | `n` | no comparable turn | same shape as `onnafa` 458; route repaired with `go north` |
+
+The reverse direction stays clean: `repeat_census2.py` finds no turn where
+Scarier prints a RepeatText and the Runner does not.
+
+**`witchtale` 2** (`* north`, `where=one room`) is the row that killed the
+first port attempt.  Its restrictions include `say grue`, which has not been
+done, so `Proc_19_64_455C60` fails the task at 454DDF and it never becomes a
+candidate at all.  The picker's restriction gate is not optional: the patch
+adds `run_task_is_unrestricted()` to the scan, but *only* in the pre-library
+pass -- the post-library pass must keep taking restricted tasks or
+`magicshow`'s "One rabbit trick is enough for any given act" disappears.
+
+**`thepkgirl` 2135** (`* kiss *katryn *`) is a state divergence, not a wording
+one.  `Adrift_427_thepkgirl.txt:2445` shows the Runner answering `get band`
+with "Take what?" three lines earlier, where the golden has "You take the
+inhibitor band." -- run400's replay never reached the silo-roof endgame.  The
+task's first restriction is `type=3 v1=24 v2=0 v3=0`, "Katryn is in the
+player's room", with an **empty** fail message; with Katryn absent the picker
+drops the task and `Proc_19_68_45404C` drops it again (empty message), so the
+library answers.  Nothing about the RepeatText rule.  The row belongs to the
+42 already-documented differing turns on the `thepkgirl` harness comment.
+
+### What the port cost, and how the two walkthroughs were repaired
+
+Applying the patch took the suite from 428 PASS / 0 FAIL to 423 PASS / 5 FAIL.
+Three of the five were goldens that simply needed re-blessing, and they are the
+*point* of the port -- `crookedestate`, `jimpond` and `thepkgirl` all move to
+the run400 wording.  The other two lost their win marker, and both were
+Scarier-only routes: they won purely because Scarier used to let a spent task
+fall through to the library.
+
+* **`onnafa`** -- task 458 is `d` in room 43, first restriction "possum cap NOT
+  worn by the player", second "Gondo is here"; both pass, so it is a legitimate
+  RepeatText candidate and the ladder stays shut.  `Adrift_316_onnafa.txt`
+  lines 1022/1027/1032/1037 show run400 answering four consecutive `d`s with
+  Gondo's "Off limits until you find yourself a possum cap, friend." and never
+  moving -- this is the direct measurement that a *direction* command is below
+  the dispatcher like everything else.  The walkthrough now goes and gets the
+  cap, by the chain the author built: `x bodies` in the Courtyard spawns the
+  severed arm (task 278) -> `get arm` -> `give arm to doris` (task 279, which
+  clears the "Me arm, me arm!" restriction on every Doris conversation task and
+  sends her off to the Privy, char location 6 = room 5) -> follow her (`n`,
+  `ne`) -> `talk to doris` + menu `5` (task 224, gated on var 50 == 0, executes
+  task 650 `-doris follow you`) -> `sw` back to the Main Hall, where she
+  arrives the same turn -> `ne`, which is task 320: Doris cleans the privy and
+  drops the possum cap.  `get cap` / `wear cap`, then `talk to doris` + `5`
+  again (task 225 -> 283) dismisses her so the rest of the route is untouched.
+  Fifteen commands inserted after line 15 (`2`, the answer to Stimmons's menu);
+  188 -> 203 commands, and the extra scoring lifts the ending from 76 to 82, so
+  the row's win marker moved with it.
+
+* **`les_feux`** -- task 78 `[[north/n]]` in room 9 (TUNNEL SOMBRE) is the
+  one-shot demon-lair peek.  It does not move the player: its ShowRoomDesc is
+  `srd=10`, i.e. room 9 itself (SRD is room+1 -- cross-checked against task 86,
+  `srd=6` with `ACT type=1 v1=0 v2=0 v3=5`).  Once spent, its RepeatText "Vous
+  n'avez aucune envie de vous retrouver face a ces démons !" answers every
+  further `n`, and room 9's only other north task (79) is restricted on the
+  demon still being alive.  Same shape as `onnafa` 458, so the measurement
+  above covers it and no separate Wine run was needed.  The repair is one
+  character-level change: the second `n` becomes `go north`.  That does not
+  match the task pattern, so the dispatcher declines; the line then reaches
+  run400's movement handler `Proc_19_84_464E90`, called at 48ACD7 -- *below*
+  the dispatcher -- and it is there, at loc_4649D1-464A3B, that a leading
+  `goto `/`go to `/`go ` is stripped (with an early `Exit Sub` at 464998 when
+  the whole line is just "go"/"go to"/"goto").  The strip is local to the
+  movement handler; it is never a pre-parse rewrite, so the task matcher only
+  ever sees the literal "go north".  Nothing else in the route changes; still
+  75/115.
+
+### Four incidental divergences the probes turned up
+
+Unrelated to the RepeatText rule, all measured on `Adrift_950-952`, none
+ported:
+
+* **(a)** run400 lists the inventory **before** the task's CompleteText on the
+  first `i` that also runs a task.  Scarier's peek runs the task and never
+  lists.  This is the 48A457-before-48A481 order in the block above.
+* **(c)** At 4.0 the **named drop family outranks tasks outright**: run400's
+  `drop coin` / `drop hat` never ran the matching task at all.  Scarier's
+  `put_first` priority covers `put`, not `drop`; it needs extending.
+* **(d)** `drop all` / `put all on desk` with **empty hands**: run400 prints
+  nothing and does not claim the line.  Scarier prints "You're not carrying
+  anything." and claims it.  (`" not carrying anything."` is at loc_46F457 and
+  46FB33, both with an else-branch storing `vbNullString`.)
+* **(e)** `bob, hello` -- run400 prints the character catch-all with **no
+  tick**.  Scarier ticks.  `lib_cmd_verb_npc()` should set `game->is_admin` at
+  4.0 the way `lib_cmd_verb_object()` already does.
+
+Suite at **428 PASS / 0 FAIL** with the port in the tree.  `scdump.cpp` also
+keeps the dump change made while chasing this: the task dump now prints
+`rev=` (Reversible) next to `rep=`, which is what the picker's middle branch
+turns on.

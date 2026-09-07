@@ -275,18 +275,19 @@ looks like all of the wall's words. Yes, the wall's-- the wall's.
 These words are not my own.
 
 > write on wall
-I don't understand what you want me to do with the walls.
+You try again, to the same effect. Cobwebs have already overtaken your old
+words. Soon they will grow over these, too.
 
 > z
 This stillness does not still me.
+
+I feel an overwhelming urge to escape this place.
 
 > peel wallpaper
 I peel a sheaf of that nauseating, cobwebbed paper off the wall, only to
 reveal a further layer of it awaiting behind the shadows.
 
 Something inside me feels desperately tangled & unravelling all at once.
-
-I feel an overwhelming urge to escape this place.
 
 > peel wallpaper
 I rip another, but another layer hides behind that. And another. And another.

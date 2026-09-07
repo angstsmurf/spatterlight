@@ -1,0 +1,425 @@
+Spent-task RepeatText probe 2.
+На
+0
+You have won.
+На
+Repeat Probe 400 II
+SCARE probe
+NO IDEA.
+1
+1
+0
+1
+0
+0
+Player
+0
+A test subject.
+0
+0
+0
+0
+100
+100
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+3
+3
+0
+2
+Alpha
+The first room.
+0
+2
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+Bravo
+The second room.
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+3
+a
+coin
+0
+0
+A plain thing.
+4
+0
+0
+
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+0
+a
+hat
+0
+0
+A plain thing.
+4
+0
+0
+
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+
+0
+a
+desk
+0
+1
+A plain thing.
+0
+0
+0
+
+1
+1
+0
+1
+5
+0
+0
+0
+0
+0
+
+0
+16
+1
+i
+C1 i.
+
+R1 i.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+drop coin
+C2 drop coin.
+
+R2 drop coin.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+put coin on desk
+C3 put coin on desk.
+
+R3 put coin on desk.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+get out
+C4 get out.
+
+R4 get out.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+ask bob about hat
+C5 ask bob about hat.
+
+R5 ask bob about hat.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+talk
+C6 talk.
+
+R6 talk.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+talk to bob
+C7 talk to bob.
+
+R7 talk to bob.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+wear hat
+C8 wear hat.
+
+R8 wear hat.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+look
+C9 look.
+
+R9 look.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+wait
+C10 wait.
+
+R10 wait.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+score
+C11 score.
+
+R11 score.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+open desk
+C12 open desk.
+
+R12 open desk.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+read desk
+C13 read desk.
+
+R13 read desk.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+give coin to bob
+C14 give coin to bob.
+
+R14 give coin to bob.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+x bob
+C15 x bob.
+
+R15 x bob.
+
+0
+0
+0
+0
+3
+
+0
+0
+
+1
+zzz
+C16 zzz.
+
+R16 zzz.
+
+0
+0
+0
+0
+1
+1
+
+0
+0
+
+1
+Ticker
+1
+1
+0
+1
+1
+
+
+TICK.
+3
+0
+0
+0
+
+0
+0
+0
+
+0
+0
+0
+0
+0
+0
+0
+1
+Bob
+
+0
+A patient bystander.
+1
+
+0
+0
+0
+0
+Bob is here.
+0
+0
+0
+0
+0
+0
+2026

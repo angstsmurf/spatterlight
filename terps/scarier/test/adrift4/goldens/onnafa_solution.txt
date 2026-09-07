@@ -13,6 +13,21 @@ ring bell
 s
 talk to stimmons
 2
+x bodies
+get arm
+give arm to doris
+n
+ne
+talk to doris
+5
+sw
+ne
+get cap
+wear cap
+talk to doris
+5
+sw
+s
 n
 open door
 n

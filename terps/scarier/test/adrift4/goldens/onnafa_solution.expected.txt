@@ -158,6 +158,198 @@ visiting cannibals. Here's the key for the guardroom door."
    "Aah, me arm, me arm!" Doris wails. When no one pays her much attention,
 she wails a bit louder.
 
+> x bodies
+   Rummaging through the carnage (as you do), you come across a couple of
+grisly reminders of just why messing with dragons is considered such a bad
+thing to do.
+
+> get arm
+You take the severed arm.
+
+> give arm to doris
+   "Cor, thanks," she says. "I feel so much better for getting that back."
+   "I think you ought to take the rest of the day off," you tell her.
+   "Cor, you ain't half the generous one, ain't you, boss? Gets me arm bitten
+right orf by a great big dragon and I gets a whole half day orf?" Doris
+mutters a bit then goes off to find her broom and get some work done.
+
+> n
+   You move north.
+
+Main Hall
+
+Main Hall
+You're in the main hall of Castle Stroppenheim. This a huge chamber which
+looks to have been hacked out of the side of a cliff by a builder with more
+enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
+there is one, is so far above you as to be hidden in the murky shadows that
+seem a permanent fixture of your new home.
+
+Dominating the centre of the main hall is a partially-finished statue of you
+that, one day, will magically greet everyone who enters your domain.
+
+There are a number of corridors and passageways leading away from here but
+quite a few are blocked due to building work being underway.
+
+Exits lie: north, south, east, west, northeast, southeast, southwest, up and
+down
+
+  Rancid the butler is here.
+
+> ne
+      You move northeast.
+
+Privy
+
+Privy
+You're in the place where it all began: the privy of Castle Stroppenheim.
+It's not a particularly noteable privy (although the smell would take some
+beating); just a simple hole in the ground with a chain attached to the wall
+which, in theory, clears the waste away and makes the air smell a little
+better.
+
+A window above the privy looks down on a small yard occupied by a couple of
+cows chewing cud to pass the time.
+
+Exits lie: southwest
+
+  Doris the maid is here.
+
+> talk to doris
+   "I ain't got time for talking and what have you, boss," Doris says. "I'm
+busy cleaning. It's going slow on account of me arm being bitten right orf by
+that there dragon earlier on and it being a bit stiff like, but I'm sure I'll
+get the cleaning done all the same."
+
+   1)  What made you want to pursue the glamorous life of a cleaner, Doris?
+   2)  How's about a kiss?
+   3)  Have you found any dragon eggs on your cleaning forays?
+   4)  You missed a bit.
+   5)  Follow me.
+   6)  I'm off to speak to someone more interesting. Goodbye.
+
+> 5
+   "Aye, if I have to."
+
+> sw
+      You move southwest.
+
+Main Hall
+
+Main Hall
+You're in the main hall of Castle Stroppenheim. This a huge chamber which
+looks to have been hacked out of the side of a cliff by a builder with more
+enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
+there is one, is so far above you as to be hidden in the murky shadows that
+seem a permanent fixture of your new home.
+
+Dominating the centre of the main hall is a partially-finished statue of you
+that, one day, will magically greet everyone who enters your domain.
+
+There are a number of corridors and passageways leading away from here but
+quite a few are blocked due to building work being underway.
+
+Exits lie: north, south, east, west, northeast, southeast, southwest, up and
+down
+
+  Rancid the butler is here.  Doris follows you from the north-east.
+
+> ne
+            You move northeast.
+
+Privy
+
+Privy
+You're in the place where it all began: the privy of Castle Stroppenheim.
+It's not a particularly noteable privy (although the smell would take some
+beating); just a simple hole in the ground with a chain attached to the wall
+which, in theory, clears the waste away and makes the air smell a little
+better.
+
+A window above the privy looks down on a small yard occupied by a couple of
+cows chewing cud to pass the time.
+
+Exits lie: southwest
+
+   "What an appalling smell, boss!" groans Doris. "I can see that my broom's
+needed here!"
+   She sets to work and-
+
+[SEVERAL HOURS SKIPPED HERE]
+[AND SEVERAL HUNDRED COMPLAINTS FROM DORIS]
+
+   "Hmmm, that's strange," Doris says afterwards.
+   "What's funny?" you ask.
+   "I found this cap made from a possum partway down the hole. Oh, well."
+Doris drops the cap on the floor in a typical unhelpful fashion. "Anything
+else needs cleaning, just let me know."  Doris follows you from the
+south-west.
+
+> get cap
+You take the possum cap.
+
+> wear cap
+   You put on the possum cap.
+
+> talk to doris
+   "I ain't got time for talking and what have you, boss," Doris says. "I'm
+busy cleaning. It's going slow on account of me arm being bitten right orf by
+that there dragon earlier on and it being a bit stiff like, but I'm sure I'll
+get the cleaning done all the same."
+
+   1)  What made you want to pursue the glamorous life of a cleaner, Doris?
+   2)  How's about a kiss?
+   3)  Have you found any dragon eggs on your cleaning forays?
+   4)  You missed a bit.
+   5)  Stop following me.
+   6)  I'm off to speak to someone more interesting. Goodbye.
+
+> 5
+   "Aye, if I have to."
+
+> sw
+      You move southwest.
+
+Main Hall
+
+Main Hall
+You're in the main hall of Castle Stroppenheim. This a huge chamber which
+looks to have been hacked out of the side of a cliff by a builder with more
+enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
+there is one, is so far above you as to be hidden in the murky shadows that
+seem a permanent fixture of your new home.
+
+Dominating the centre of the main hall is a partially-finished statue of you
+that, one day, will magically greet everyone who enters your domain.
+
+There are a number of corridors and passageways leading away from here but
+quite a few are blocked due to building work being underway.
+
+Exits lie: north, south, east, west, northeast, southeast, southwest, up and
+down
+
+  Rancid the butler is here.
+
+> s
+   You move south.
+
+Courtyard
+
+Courtyard
+The main courtyard of Castle Stroppenheim isn't a very impressive site at the
+best of times, which this most certainly isn't. The dead (and still steaming)
+bodies of a couple of your servants the dragon lunched on don't add a lot to
+the decor and there is a definite atmosphere of unease floating around (or
+maybe that's just the roasted bodies again).
+
+A pair of broken gates lead southwards out of the courtyard and into the big,
+bad world. Off to one side are the stables which, while a little charred, are
+at least upright.
+
+Exits lie: north, south, west and up
+
+   You can also see a severed head.  Stimmons your bodyguard is here.
+
 > n
    You move north.
 
@@ -296,8 +488,8 @@ at least upright.
 
 Exits lie: north, south, west and up
 
-  Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
-the north.  Ben follows you from the north.
+   You can also see a severed head.  Stimmons your bodyguard is here.  Bill
+follows you from the north.  Ben follows you from the north.
 
 > w
    You move west.
@@ -349,8 +541,8 @@ at least upright.
 
 Exits lie: north, south, west and up
 
-  Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
-the west.  Ben follows you from the west.
+   You can also see a severed head.  Stimmons your bodyguard is here.  Bill
+follows you from the west.  Ben follows you from the west.
 
 > s
    You move south.
@@ -584,8 +776,8 @@ I shoved my axe up your ass and gave it a twist?"
    You consider this strange comment for a moment. "Is that a yes or a no?"
 
 > i
-   Draped around your person are your trousers, and you are carrying a small
-bell, a rake and an empty beer mug.
+   Draped around your person are your trousers and a possum cap, and you are
+carrying a small bell, a rake and an empty beer mug.
 
 > ne
       You move northeast.
@@ -1431,18 +1623,9 @@ south-east.  Ben follows you from the south-east.  Toto follows you from the
 south-east.
 
 > d
-   "The way is forbidden," pipes up Boris in a stern voice. "On account of
-the fact that you are not holy in the eyes of the divine one."
-   Your only response to this is a blank stare.
-   "He means that you aren't wearing a possum cap and so you aren't entering
-the cult grounds," adds Gondo.
-   "Sez who, pal?" grunts Toto.
-   "Sez me, and I'm not your pal," says Gondo.
-   "Huh!" Toto glances up at you. "You and whose bloody army?" He glances up
-at you. "C'mon, kid, we can take 'em the swines, ah just know we can!"
-
-> d
-   You move down.
+   "All hail the possum who is morbid!" intones Gondo.
+   "Yeah, and don't you forget it!" pipes in Boris.
+      You move down.
 
 Ladder
 
@@ -1513,6 +1696,9 @@ Exits lie: up
   Alonzo the Magnaf- Magniff- Great! is here.  Alice is tied to the altar
 here.  Bill follows you from above.  Ben follows you from above.  Toto
 follows you from above.
+
+> d
+   You fail to find an exit in that direction. Try instead going up.
 
 > kill alonzo
    "So," snarls Alonzo, "I see that you come here with murder in your hearts
@@ -2954,14 +3140,13 @@ at least upright.
 
 Exits lie: north, south, west and up
 
-  Stimmons your bodyguard and Doris the maid are here.  Bill follows you from
-the south.  Ben follows you from the south.  Toto follows you from the south.
+   You can also see a severed head.  Stimmons your bodyguard is here.  Bill
+follows you from the south.  Ben follows you from the south.  Toto follows
+you from the south.
 
 > u
    "Are you sure you wanna go up there, boss?" says Stimmons. "That's where
 the dragon said he'd wait for you. If you haven't got the egg, well..."
-   "Aah, me arm, me arm!" Doris wails. When no one pays her much attention,
-she wails a bit louder.
 
 > u
       You move up.
@@ -3069,7 +3254,7 @@ the adventuring life."
 have had it with the adventuring life, what makes you so sure the adventuring
 life has had it with you?
    "Anyway, I just stopped by to wish you well in your future exploits and
-let you know that your score turned out at 76. Now, if that's less than 100%
+let you know that your score turned out at 82. Now, if that's less than 100%
 you really ought to be thinking about having another go. 100% is possible."
    "What if I got 100% this time?" the hero asked.
    "Possible, I guess, though unless you've been here quite a few times

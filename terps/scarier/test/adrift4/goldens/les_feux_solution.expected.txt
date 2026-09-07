@@ -600,7 +600,7 @@ se trouve
 Sorties évidentes: Nord et Sud.
 Vous avez pris rapidement dans le sac une chaine en bronze.
 
-> n
+> go north
 Vous vous déplacez vers le Nord.
 
 PASSAGE

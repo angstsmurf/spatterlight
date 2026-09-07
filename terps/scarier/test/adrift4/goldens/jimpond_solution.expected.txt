@@ -379,8 +379,7 @@ I peer under and find - a single bullet!
 shooting someone, I slip it into my gun.
 
 > look under desk
-Two desks, both of them smashed beyond repair. Whatever was on top of them is
-now beneath them and they look far too heavy to lift.
+The underside of the desk seems strangely empty now I've removed the bullet.
 
 > answer tele
 It's buried under all the carnage in here and so out of reach. It's probably

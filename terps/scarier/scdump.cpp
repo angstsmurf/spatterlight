@@ -524,7 +524,7 @@ scr_dump_structure_once (scr_gameref_t game)
     {
       scr_vartype_t k[5], vt;
       const scr_char *cmd;
-      scr_int wtype, wroom, acount, rcount, rep;
+      scr_int wtype, wroom, acount, rcount, rep, rev;
 
       scr_int ccount, ci;
       k[0].string = "Tasks";
@@ -550,6 +550,8 @@ scr_dump_structure_once (scr_gameref_t game)
 
       k[2].string = "Repeatable";
       rep = prop_get_boolean (bundle, "B<-sis", k);
+      k[2].string = "Reversible";
+      rev = prop_get_boolean (bundle, "B<-sis", k);
       k[2].string = "Actions";
       acount = prop_get_child_count (bundle, "I<-sis", k);
       k[2].string = "Restrictions";
@@ -577,9 +579,9 @@ scr_dump_structure_once (scr_gameref_t game)
         if (prop_get (bundle, "S<-sis", &vt, k) && !scr_strempty (vt.string))
           rpt = 1;
         fprintf (stderr,
-                 "TASK %ld where=%ld room=%ld restr=%ld rep=%ld rpt=%ld"
+                 "TASK %ld where=%ld room=%ld restr=%ld rep=%ld rev=%ld rpt=%ld"
                  " score=%ld srd=%ld mask=[%s] cmd=[%s]\n",
-                 t, wtype, wroom, rcount, rep, rpt, score, srd,
+                 t, wtype, wroom, rcount, rep, rev, rpt, score, srd,
                  mask ? mask : "", cmd ? cmd : "");
       }
 

@@ -892,6 +892,18 @@ inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.|S
 #     which is consistent with this being the demo release.
 #
 # Everything else scorable is in the route.  Surveyed 2026-09-05.
+# Repaired 2026-09-08 for the 4.0 spent-task RepeatText rule: the second `n` in
+# room 9 (TUNNEL SOMBRE) is now `go north`.  Task 78 `[[north/n]]` is the one-shot
+# demon-lair peek; it does not move the player (its ShowRoomDesc is room 9
+# itself), and once spent its RepeatText "Vous n'avez aucune envie de vous
+# retrouver face a ces demons !" answers every further `n` from the dispatcher at
+# 48A481, above the movement verb -- the same shape measured on onnafa's `d`
+# (Adrift_316_onnafa.txt:1022ff).  `go north` does not match the task pattern, so
+# the dispatcher declines and the line reaches run400's movement handler
+# Proc_19_84_464E90 (called at 48ACD7, i.e. BELOW the dispatcher), which is where
+# the leading "go "/"go to "/"goto " is stripped (loc_4649D1-464A3B) -- the strip
+# is local to that handler, never a pre-parse rewrite, so the task never sees a
+# bare "north".  Nothing else in the route changes; still 75/115.
 les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 75 sur un maximum de 115.|SCR_SEED=486 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
 # the noun once, up front, with co() whole-word containment, and every generic verb
@@ -2520,6 +2532,13 @@ thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SK
 #   (reachable only from Laurie's WALK 2, charTask=413) in the chapter-1
 #   closing turn; run400 never prints it.  The solution never answers its
 #   1/2/3 menu and the run still wins.
+# Re-blessed 2026-09-08 for the 4.0 spent-task RepeatText rule.  `kiss katryn`
+# (task 2135, spent, RepeatText) now answers with its RepeatText instead of
+# falling through to the library.  run400's own replay had already diverged three
+# lines earlier (Adrift_427_thepkgirl.txt:2445-2455 answers `get band` with "Take
+# what?"), and the task's first restriction -- Katryn in the player's room --
+# fails there with an EMPTY message, so the transcript cannot arbitrate this cell;
+# the rule is measured on the rows above and below instead.
 thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SKIP_WAITKEY=1
 # Second Chance (David Whyld, 2005) replays its shipped Walkthrough.pdf
 # VERBATIM -- 49 commands, not one repair, straight to the good ending.  The
@@ -5826,6 +5845,16 @@ petespunkin_solution.txt|Pete's Punkin Junkinator.taf|You scored 505 out of the 
 # 45 commands, `SCR_SKIP_WAITKEY=1` (an opening waitkey otherwise eats the
 # first scripted command).
 # Re-blessed 2026-09-06: `write on wall` and `peel wallpaper` are run400's no-turn catch-all (48B232); a `z` follows each.
+# Corrected 2026-09-08: the `write on wall` half of that is wrong.  The second
+# `write on wall` is a SPENT non-repeatable task (46) carrying a RepeatText, and
+# at 4.0 the task dispatcher (Proc_19_24_44CCE0, called from generaltasks at
+# 48A481, ABOVE every general verb) hands that RepeatText back and ends the line.
+# So it prints "You try again, to the same effect..." and it IS a turn, not the
+# catch-all.  Measured: Adrift_358_crookedestate.txt line 163.  Golden re-blessed
+# for that turn; the only knock-on is the RNG-picked "feeling" line moving one
+# turn earlier, and that stream was already ~4 turns out of step with run400 (5
+# occurrences either way).  `peel wallpaper` is a separate, still-open case: a
+# different task claims that line.
 crookedestate_solution.txt|The Crooked Estate.taf|I quit momentarily, lying motionless, without any will. But, still, something|SCR_SKIP_WAITKEY=1
 # Alias Undercover Agent.taf (Alias-TV-tie-in spy game, 4.00): WON 35/35,
 # the true and declared maximum (four ACT type=4 awards: +10/+10/+10/+5).
@@ -6582,6 +6611,10 @@ camelot15_solution.txt|Camelot 1,5.taf|Looks like the old Merlin did read your m
 # variable 4 "location", which never holds 50-53. 128 commands (the last is
 # a `score` in the Outer Office so the transcript records the 140),
 # `SCR_SKIP_WAITKEY=1`.
+# Re-blessed 2026-09-08 for the 4.0 spent-task RepeatText rule (task 211): the
+# dispatcher at 48A481 sits above every general verb, so a spent non-repeatable
+# task with a RepeatText answers the line and the library never runs.  Exact
+# against Adrift_300_jimpond.txt line 189.
 jimpond_solution.txt|JimPond.taf|and I'll be wanting you to lead the attack.|SCR_SKIP_WAITKEY=1
 # Greek School Adventure.taf: comic college-life sim (a Greek-language
 # class). 185/275 (67%) is the true reachable maximum -- 90 points are
@@ -7636,14 +7669,29 @@ alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # face the dragon needs TWO `u` commands: the first is a spent, non-
 # repeatable Stimmons flavour-text task, the second is the real move.
 # Reaches the true ending (the dragon takes the egg back and flies off,
-# Toto faints from the strain) with a final reported score of 76 (out of
+# Toto faints from the strain) with a final reported score of 82 (out of
 # a possible 100 -- the closing narrator explicitly says "100% is
 # possible" and suggests a target reputation of at least 12; this
 # walkthrough does not chase every side-quest/reputation-boosting branch,
-# so 76 is accepted as a genuine-win checkpoint rather than a stuck
-# partial). 188 commands, zero unmatched/refusal lines in the full
+# so 82 is accepted as a genuine-win checkpoint rather than a stuck
+# partial). 203 commands, zero unmatched/refusal lines in the full
 # transcript.
-onnafa_solution.txt|ONNAFA.TAF|your score turned out at 76|SCR_SKIP_WAITKEY=1
+# Re-derived 2026-09-08 through the possum cap, for the 4.0 spent-task
+# RepeatText rule.  The descent from the cult gate (`d` in room 43) is task
+# 458, whose first restriction is "possum cap NOT worn"; once it has run once
+# its RepeatText -- Gondo's "Off limits until you find yourself a possum cap,
+# friend." -- answers every further `d` and the library move never runs.
+# Measured: Adrift_316_onnafa.txt lines 1022/1027/1032/1037, four `d` in a row,
+# player never moves.  The old walkthrough only got down because Scarier used
+# to fall through to the library.  The cap now comes from the intended chain:
+# `x bodies` in the Courtyard spawns the severed arm (task 278), `give arm to
+# doris` (279) clears her wail restriction and sends her to the Privy, then
+# `talk to doris` + menu `5` (task 224 -> 650 "-doris follow you") recruits
+# her, and `ne` from the Main Hall with Doris present is task 320, which
+# cleans the privy and drops the possum cap.  `5` again (task 225 -> 283)
+# dismisses her so the rest of the route is unchanged.  Fifteen commands
+# inserted after `2`; the extra scoring lifts the ending from 76 to 82.
+onnafa_solution.txt|ONNAFA.TAF|your score turned out at 82|SCR_SKIP_WAITKEY=1
 # Full win, 30/30 (confirmed max via exhaustive audit of every ACT type=4
 # scoring task in the SCR_DUMP_TASKS structural dump). Collects the starting
 # items, solves the piano/snuffbox/ring-of-salt puzzle, fetches the cellar

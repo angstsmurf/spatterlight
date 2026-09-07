@@ -71,7 +71,7 @@ attack demon
 attack demon
 attack demon
 n
-n
+go north
 open porte
 x petit homme
 2
