@@ -171,11 +171,10 @@ You do your best not to look at them, but for a red-blooded male like you
 it's almost impossible.
 
 > x eggs
-A jar of eggs, pickled in vinegar.  The jar of pickled eggs is closed.
+Either that isn't here, or it's not important.
 
 > open eggs
-Though you grapple with the lid until your hands are red raw, you just can't
-open the jar.
+You can't open that.
 
 > out
 You move out.
@@ -194,12 +193,14 @@ accepted."
 
 A lowly acolyte stands guard outside the door to the caravan.
 
-The acolyte attempts to clap with one hand, cupping the other hand over his
-ear the better to hear the sound it makes.
+The acolyte attempts to catch a passing fly with his chopsticks. They say
+that a man who can catch a fly with chopsticks can do anything.
 
 > give eggs to acolyte
-You decide against giving the jar to the acolyte. You doubt that he'd be of
-any help in getting the lid off, and you'd probably never see it again.
+Give what?
+
+The acolyte attempts to clap with one hand, cupping the other hand over his
+ear the better to hear the sound it makes.
 
 > clap
 With one hand you clap the acolyte about the face with a sound that echoes
@@ -622,7 +623,7 @@ his huge gnarly hands and pops off the lid like it was nothing, and hands it
 back to you lidless. Far out.
 
 > x eggs
-A jar of eggs, pickled in vinegar.  The jar of pickled eggs is open.
+Either that isn't here, or it's not important.
 
 > s
 You move south.

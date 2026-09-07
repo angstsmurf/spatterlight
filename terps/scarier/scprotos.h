@@ -1033,7 +1033,6 @@ extern scr_int obj_get_container_free_space (scr_gameref_t game,
                                              scr_int object);
 extern scr_int obj_lieable_object (scr_gameref_t game, scr_int n);
 extern scr_bool obj_appears_plural (scr_gameref_t game, scr_int object);
-extern void obj_setup_initial (scr_gameref_t game);
 extern scr_int obj_container_index (scr_gameref_t game, scr_int object);
 extern scr_int obj_surface_index (scr_gameref_t game, scr_int object);
 extern scr_int obj_stateful_index (scr_gameref_t game, scr_int object);
@@ -1041,7 +1040,6 @@ extern scr_char *obj_state_name (scr_gameref_t game, scr_int object);
 extern scr_bool obj_shows_initial_description (scr_gameref_t game,
                                                scr_int object, scr_int room,
                                                scr_bool inroomdesc_absent);
-extern void obj_turn_update (scr_gameref_t game);
 extern void obj_mark_room_objects_seen (scr_gameref_t game, scr_int room);
 extern void obj_mark_room_statics_seen (scr_gameref_t game, scr_int room);
 extern void obj_debug_trace (scr_bool flag);

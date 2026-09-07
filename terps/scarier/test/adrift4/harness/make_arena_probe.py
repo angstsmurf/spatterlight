@@ -1973,6 +1973,49 @@ CONFIGS = {
     npcs=[],
     tasks=[dict(commands=["put slab in box"], complete="SLABTASK.")]),
 
+    # SEEN -- the yak_shaving row.  yak_shaving.taf's jar of pickled eggs is
+    # dynamic object 0, InitialPosition 0 (hidden), and the Dada Lama's event
+    # puts it straight into the player's hands; run400 then answers `x eggs`
+    # with "Either that isn't here, or it's not important." for the rest of
+    # the game, while every `give*eggs*<npc>` task pattern -- which resolves
+    # no noun -- fires normally.  Scarier resolves it, because obj_turn_update()
+    # stamps the seen byte on anything held or worn at the top of every turn.
+    # That blanket stamp is justified in its comment from run390's LOADER and
+    # its inventory lister, neither of which is a per-turn sweep, so this probe
+    # asks 4.0 which of the four ways into the player's possession actually
+    # reveal an object:
+    #
+    #   zza  task action, move object -> held by player      (alpha)
+    #   zzb  task action, move object -> worn by player      (bravo)
+    #   zzc  task action, move object -> room 1, the player
+    #        standing in it, with no room description        (gamma)
+    #   zzd  a task whose completion starts an event whose
+    #        Obj1 goes -> held by player                     (delta)
+    #
+    # and then whether `i` and `look` retroactively reveal what stayed unseen.
+    # echo is the control: it starts in room 1, so the opening look lists it
+    # and it is seen from turn 1.
+ 'SEEN': dict(name="Probe SEEN", persp=1,
+    rooms=[("Test Arena","A bare arena.",{})],
+    player=(200,0,0,0,0,0,0,0,0,0),
+    npcs=[],
+    #        prefix short   pos wpn prot hv meth acc wear
+    objects=[("an","alpha",  0,  0,  0,  0,  0,  0,  0),
+             ("a", "bravo",  0,  0,  0,  0,  0,  0,  1),
+             ("a", "gamma",  0,  0,  0,  0,  0,  0,  0),
+             ("a", "delta",  0,  0,  0,  0,  0,  0,  0),
+             ("an","echo",   4,  0,  0,  0,  0,  0,  0)],
+    # Var1 is 3 + the object's 0-based index; Var2 4 = held by, 5 = worn by,
+    # 0 = to room (Var3 1-based).
+    tasks=[dict(commands=["zza"], complete="ZZA.", actions=[(0,3,4,0)]),
+           dict(commands=["zzb"], complete="ZZB.", actions=[(0,4,5,0)]),
+           dict(commands=["zzc"], complete="ZZC.", actions=[(0,5,0,1)]),
+           dict(commands=["zzd"], complete="ZZD.")],
+    # Starter 3 = "when task 4 (zzd) completes"; Obj1/Obj1Dest are stored
+    # one-based, so 4/1 is "object index 3 (delta) -> held by player".
+    events=[dict(short="giver", affected=0, starter=3, tasknum=4,
+                 time1=1, time2=1, obj1=4, obj1dest=1)]),
+
 'PUT4': dict(name="Probe PUT4",
     player=(200,0,0,0,0,0,0,0,0,0),
     sizemult=3, weightmult=3, maxsize=902, maxwt=902,

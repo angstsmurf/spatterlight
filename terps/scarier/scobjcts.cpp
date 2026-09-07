@@ -1315,45 +1315,6 @@ obj_mark_room_statics_seen (scr_gameref_t game, scr_int room)
 }
 
 /*
- * obj_turn_update()
- * obj_setup_initial()
- *
- * Set initial values for object states, and update after a turn.
- */
-void
-obj_turn_update (scr_gameref_t game)
-{
-  scr_int index_;
-
-  /*
-   * Anything the player holds or wears is seen.  run390's loader stamps the
-   * flag for exactly these two positions as it reads each object in
-   * (openadv @004656F0 tests location 0 and &H9C, held and worn), and its
-   * inventory lister re-stamps them; keeping it here covers an object that
-   * reaches the player's hands by a route with no lister of its own.
-   */
-  for (index_ = 0; index_ < gs_object_count (game); index_++)
-    {
-      scr_int position;
-
-      if (gs_object_seen (game, index_))
-        continue;
-
-      position = gs_object_position (game, index_);
-      if (position == OBJ_HELD_PLAYER || position == OBJ_WORN_PLAYER)
-        gs_set_object_seen (game, index_, TRUE);
-    }
-}
-
-void
-obj_setup_initial (scr_gameref_t game)
-{
-  /* Set initial seen states for objects. */
-  obj_turn_update (game);
-}
-
-
-/*
  * obj_debug_trace()
  *
  * Set object tracing on/off.

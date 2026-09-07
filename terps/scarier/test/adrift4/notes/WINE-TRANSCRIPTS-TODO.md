@@ -4140,3 +4140,72 @@ only `lib_parse_multiple_objects()` gets the narrow form.
 
 Full v4 suite after all of this: 428 PASS / 0 FAIL, with `thelasthour`,
 `ghosttown`, `xfiles`, `spirits_flight` and `yeh` re-blessed.
+
+## Ported 2026-09-07: only a LISTING reveals what the player is carrying
+
+`yak_shaving` (4.00) was the live row.  Its jar of pickled eggs is dynamic
+object 0 -- Prefix `a jar of pickled`, Short `eggs`, one alias `jar`,
+InitialPosition 0 (hidden) -- and the Dada Lama's event puts it straight into
+the player's hands on the way into the Sanctum Sanctorum.  From then on
+run400 cannot resolve the noun at all (Adrift_401_yak_shaving.txt):
+
+    turn 13  x eggs                run400   Either that isn't here, or it's
+                                            not important.
+                                   scarier  A jar of eggs, pickled in vinegar.
+                                            ... is closed.
+    turn 14  open eggs             run400   You can't open that.
+                                   scarier  the game's own grapple text
+    turn 16  give eggs to acolyte  run400   Give what?
+                                   scarier  the game's own refusal
+    turn 66  x eggs                run400   Either that isn't here ...
+
+while turn 70 `give eggs to lama` is IDENTICAL either side, because
+`give*eggs*lama` is a task pattern and resolves no noun.  The player of that
+walkthrough never once refers to the jar by name and still wins.
+
+### Probe SEEN
+
+Four hidden objects, one control, one room; each object reaches the player by
+a different route and is examined immediately afterwards.  `zza`/`zzb`/`zzc`
+are tasks whose move-object action goes to held-by-player, worn-by-player and
+"to room 1" (the room the player is standing in, no room description printed);
+`zzd` is a task that starts an event whose Obj1 goes to held-by-player.
+
+Driven in run400 2026-09-07, Adrift_p4seen.txt:
+
+| line                | run400                        |
+|---------------------|-------------------------------|
+| `x alpha` (hidden)  | You see no such thing.        |
+| `zza` / `x alpha`   | ZZA. / A probe object.        |
+| `zzb` / `x bravo`   | ZZB. / A probe object.        |
+| `zzc` / `x gamma`   | ZZC. / A probe object.        |
+| `zzd` / `x delta`   | ZZD. / **You see no such thing.** |
+| `i`                 | You are wearing a bravo, and you are carrying an alpha and a delta. |
+| `x delta` after `i` | A probe object.               |
+| `look` / `x gamma`  | (lists gamma) / A probe object. |
+
+So:
+
+* the task mover's post-move seen stamp is real and covers all three of its
+  player-visible destinations (`task_move_object()` already had it);
+* the **event** mover has no such stamp off its held/worn branches -- only
+  the player-room compare at @00456124 that `evt_move_object()` already
+  carries -- so an event can hand the player an object that stays
+  unreferenceable;
+* the **inventory listing** reveals: `i` marks everything it prints seen,
+  exactly as the NPC lister does for an NPC's possessions.
+
+### What was ported
+
+`obj_turn_update()` -- a sweep that marked everything held or worn seen at the
+top of every turn, and again at `obj_setup_initial()` -- is **gone**, along
+with its two call sites in `scrunner.cpp` and its prototypes.  Its comment
+justified it from run390's LOADER and inventory lister, neither of which is a
+per-turn sweep; the loader's half is already done in `scgamest.cpp` from
+`#InitialPosition`, and the lister's half now lives in `lib_cmd_inventory()`,
+which stamps both the worn list and the carried list as it builds them.
+
+`yak_shaving` re-blessed, 4 lines (the three refusals above plus one
+acolyte-flavour line that moves with the extra turn), and the row is now
+identical to run400 on all 71 turns.  Full v4 suite: 428 PASS / 0 FAIL; the
+a5 suite is unmoved at 180 MATCH / 17 DIVERGE, all at baseline.

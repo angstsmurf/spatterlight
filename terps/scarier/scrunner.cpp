@@ -4095,9 +4095,8 @@ run_main_loop (scr_gameref_t game)
       vt_key[1].string = "IntroRes";
       res_handle_resource (game, "ss", vt_key);
 
-      /* Set initial values for NPC and object states. */
+      /* Set initial values for NPC states. */
       npc_setup_initial (game);
-      obj_setup_initial (game);
 
       /* Roll initial battle stamina if the Battle System is enabled. */
       battle_start (game);
@@ -4235,9 +4234,8 @@ run_main_loop (scr_gameref_t game)
               /* Resolve Battle System combat and recovery for the turn. */
               battle_tick (game);
 
-              /* Update NPC and object states. */
+              /* Update NPC states. */
               npc_turn_update (game);
-              obj_turn_update (game);
 
               /* Note the current room as visited. */
               gs_set_room_seen (game, gs_playerroom (game), TRUE);

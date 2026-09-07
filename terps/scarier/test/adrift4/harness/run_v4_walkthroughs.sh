@@ -117,6 +117,16 @@ too_much_exercise_solution.txt|exercise.taf|much prefer that Sweet Shop option o
 # 1-command run400 probe 2026-09-05 (Adrift_4_yak_probe.txt): `x me` answers
 # "You are somewhat raggedy looking after your journey." -- the Runner appends
 # the full stop the PlayerDesc lacks (run400 Proc_19_87_471F94 @471C6D).
+# Re-blessed 2026-09-07, 4 lines: only an INVENTORY LISTING reveals a possession the
+# player was never shown.  The jar of pickled eggs is object 0, InitialPosition hidden,
+# and the Dada Lama's event hands it straight to the player, so run400 never marks it
+# seen: `x eggs`, `open eggs` and `give eggs to acolyte` get the not-here refusals for
+# the whole game, while `give*eggs*<npc>` -- task patterns that resolve no noun -- fire
+# normally.  Probe SEEN (Adrift_p4seen.txt) walked the four routes into the player's
+# possession: a task move to held/worn/the player's room reveals (the task mover's own
+# post-move stamp), an EVENT move to held does not, and `i` on the next line reveals
+# all of them.  Scarier used to stamp everything held or worn at the top of every turn
+# (obj_turn_update, gone); the stamp now lives in lib_cmd_inventory().
 yak_shaving_solution.txt|yak_shaving.taf|completed the Odd Competition|SCR_SKIP_WAITKEY=1
 buried_alive_solution.txt|buried.taf|Well done. You got to the end
 # Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;

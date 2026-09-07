@@ -9326,6 +9326,38 @@ lib_cmd_remove_multiple (scr_gameref_t game)
  * lib_cmd_inventory()
  *
  * List objects carried and worn by the player.
+ *
+ * Listing reveals: every object this prints is marked seen, exactly as the
+ * NPC lister marks an NPC's possessions (lib_list_npc_inventory).  That is
+ * the ONLY thing that reveals a possession the player was never shown --
+ * there is no standing "anything you hold is seen" rule, which is what this
+ * port used to have.
+ *
+ * Probe SEEN, driven in run400 2026-09-07 (Adrift_p4seen.txt), walks the
+ * four ways into the player's possession with four hidden objects and asks
+ * `x <name>` after each:
+ *
+ *   zza  task action, move object -> held by player   x alpha  "A probe object."
+ *   zzb  task action, move object -> worn by player   x bravo  "A probe object."
+ *   zzc  task action, move object -> the player's
+ *        room, no room description printed            x gamma  "A probe object."
+ *   zzd  a task that starts an event whose Obj1
+ *        goes -> held by player                       x delta  "You see no such
+ *                                                               thing."
+ *
+ * The first three are the task mover's own post-move seen stamp (see
+ * task_move_object); the event mover has no such stamp off the player-room
+ * branch (evt_move_object), so an event can put something in the player's
+ * hands and leave it unreferenceable.  `i` on the next line lists all four,
+ * and `x delta` immediately after it answers "A probe object." -- the
+ * listing, and nothing else, is what let go of it.
+ *
+ * yak_shaving is the row that asked the question: its jar of pickled eggs is
+ * object 0, InitialPosition hidden, and the Dada Lama's event hands it to the
+ * player.  run400 answers `x eggs`, `open eggs` and `give eggs to acolyte`
+ * with the not-here refusals for the whole game -- the player never once
+ * refers to the jar by noun -- while `give*eggs*lama` and `give*eggs*yeti`,
+ * task patterns that resolve no noun, fire normally.
  */
 scr_bool
 lib_cmd_inventory (scr_gameref_t game)
@@ -9339,7 +9371,10 @@ lib_cmd_inventory (scr_gameref_t game)
   for (object = 0; object < gs_object_count (game); object++)
     {
       if (gs_object_position (game, object) == OBJ_WORN_PLAYER)
-        list.push_back (object);
+        {
+          list.push_back (object);
+          gs_set_object_seen (game, object, TRUE);
+        }
     }
   wearing = !list.empty ();
   if (wearing)
@@ -9356,7 +9391,10 @@ lib_cmd_inventory (scr_gameref_t game)
   for (object = 0; object < gs_object_count (game); object++)
     {
       if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
-        list.push_back (object);
+        {
+          list.push_back (object);
+          gs_set_object_seen (game, object, TRUE);
+        }
     }
   if (!list.empty ())
     {
