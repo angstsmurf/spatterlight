@@ -2933,6 +2933,28 @@ uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
 }
 
 /*
+ * uip_line_names_npc()
+ *
+ * TRUE if the line names any character at all -- the same walk over
+ * Proc_21_40_45E99C that run400 makes at loc_48B53C..48B569, whose result
+ * (var_29C) gates the DontUnderstand text at 48B585.  See the note in
+ * run_process_input_line().
+ */
+scr_bool
+uip_line_names_npc (scr_gameref_t game, const scr_char *string)
+{
+  const std::string lowered = uip_lowered (string);
+  scr_int index_;
+
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      if (uip_npc_named (game, index_, lowered, string))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+/*
  * uip_rewrite_references()
  *
  * The two "References in brackets" rewrites that fill in a character the

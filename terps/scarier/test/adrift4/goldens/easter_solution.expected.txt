@@ -428,7 +428,6 @@ tiny chocolate eggs
 yellow marshmallow chicks
 
 > show basket to shopkeeper
-I don't understand what you want me to do with the Easter basket.
 Congratulations!  You have put together a marvelous Easter basket that will
 undoubtedly please Max greatly.  The shopkeeper wraps it beautifully in
 cellophane and attaches a festive bow.  You carry the basket back to your

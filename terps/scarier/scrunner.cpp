@@ -1269,7 +1269,11 @@ run_try_command_table (scr_commandsref_t command,
        * * humbug` still gets the hacker's reply (Adrift_4_humbug.txt);
        * kiss (47F7E7) is gated on the buffer, not the flag; and the
        * end-of-handler "I don't understand what you want to do with"
-       * fallback at 4805DA only asks for an empty buffer.
+       * fallback at 4805DA asks for an empty buffer rather than the flag.
+       * (It does have one other guard, added here 2026-09-07:
+       * `loc_4805CD: If MemVar_4941AD > 0 Then Exit Sub` above it takes it
+       * off a line that a task has just ended the game on -- see
+       * lib_cmd_verb_npc().)
        */
       if (npc_blocked && run_npc_row_blocked (command))
         continue;
@@ -3005,6 +3009,25 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
   if (scr_strempty (string))
     return FALSE;
 
+  /*
+   * A line that has already run a task gets no refusal.  In the Runner the
+   * RepeatText is not a late pass at all: it is printed inside the task
+   * dispatcher (Proc_19_24_44CCE0, called once at 48A481), which asks the
+   * pre-matcher Proc_19_66_454EF0 for exactly ONE task and then either runs
+   * it, reverses it, or prints its RepeatText.  So the task that refuses and
+   * the task that runs are always the same one, and a line that ran a task
+   * can never also be refused -- the restriction-failure pass at 44CCA5 is
+   * likewise entered only when no task was found.
+   *
+   * Measured on easter.taf (run400 Adrift_273_easter.txt:304-308): the
+   * winning `show basket to shopkeeper` runs task 63, which is silent and
+   * only ends the game, and run400 prints nothing before the WinText -- not
+   * the "Since you already have Max's list..." RepeatText that a scan over
+   * the other matching tasks turns up here.
+   */
+  if (run_any_task_ran_this_command ())
+    return FALSE;
+
   version = run_get_version (bundle);
 
   /*
@@ -3608,6 +3631,32 @@ run_player_input (scr_gameref_t game)
        * character even when it is a separator, so "." and "i. ." were
        * complaints before this and still are.
        */
+
+      /*
+       * 4.0: a line that names a character and was ended by a task says
+       * nothing at all.  run400's tail tests two conditions together --
+       * `48B573: If MemVar_4941B0 = "" And var_29C = 0 Then
+       * MemVar_4941B0 = MemVar_4941A8` -- where var_29C is set by the walk
+       * over the characters at 48B53C-48B569 (uip_line_names_npc() here) and
+       * MemVar_4941A8 is the game's DontUnderstand text.  Outside an ending
+       * the second condition never shows: a line naming a present character
+       * that nothing else answered gets the catch-all from characters()
+       * instead, so the buffer is not empty.  Once a task has ended the game
+       * that catch-all is suppressed (4805CD, see lib_cmd_verb_npc()), and
+       * the empty buffer meets var_29C = 1 and prints nothing.
+       *
+       * easter.taf's winning `show basket to shopkeeper` is the measured
+       * case: run400 Adrift_273_easter.txt:304-308 goes straight from the
+       * task's text to the WinText.  Gated on the ending so the general
+       * shape of the test cannot disturb an ordinary line.
+       */
+      if (game->pending_endgame != 0
+          && run_get_version (bundle) == TAF_VERSION_400
+          && uip_line_names_npc (game, line_element))
+        {
+          line_buffer[0] = NUL;
+          return status;
+        }
 
       /*
        * Command line element not understood.  Own the escaped copy with

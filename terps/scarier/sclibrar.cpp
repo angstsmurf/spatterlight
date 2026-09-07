@@ -2361,7 +2361,8 @@ scr_bool
 lib_cmd_control_panel (scr_gameref_t game)
 {
   return lib_print_message (game,
-                            "Scarier does not implement a Control Panel.\n");
+                            "Scarier does not implement a Control Panel."
+                            "  Try typing in commands instead.\n");
 }
 
 
@@ -14669,6 +14670,43 @@ lib_cmd_verb_object (scr_gameref_t game)
         object = resolved;
     }
 
+  /*
+   * 4.0: a task that has just ended the game takes this answer off the line.
+   * run400's generaltasks tests the gameover byte right after the turn
+   * counter -- `If MemVar_4941AD <> 0 Then GoTo loc_48B4E3` at loc_48AC62 --
+   * and 48B4E3 is the tail of the routine, past the object-counting loop at
+   * 48AFF0 and past this catch-all at 48B19A.  The verb branches ahead of
+   * 48AC62 (open/close 48A515, movement 48A5D8, wear, remove, look, the wait
+   * loop) all still run, so an ending does not silence the library as such;
+   * only the unhandled-verb tail is lost, and what the tail does print is
+   * characters() (48B56E) and then, with the message buffer still empty and
+   * no character named, the game's DontUnderstand text (48B58F).
+   *
+   * Measured live on relojero.taf (4.00, run400 Adrift_909.txt, 2026-09-07):
+   * from the state the walkthrough reaches at `x trozo`, holding both the
+   * Phoenix and the broken cord, `pulir fenix`, bare `fenix`, `pulir trozo`,
+   * `tirar fenix`, `dar fenix` and `poner fenix` all get this catch-all
+   * (which the game's ALR rewrites to "Extranos pensamientos afloran en mi
+   * mente a proposito de <object>."), while `arreglar fenix` -- the one line
+   * of the seven that matches a task, T5, which is silent and whose only
+   * action is End Game (win) -- answers "Disculpa pero no te entiendo.", the
+   * game's DontUnderstand from plain line 25, and only then prints the
+   * WinText.
+   *
+   * It is the ending and not the task that does this.  A silent task on its
+   * own leaves the catch-all family alone: seaside's T25 `do form` runs task
+   * 3 (hides two objects, moves the form to the player, scores) and run400
+   * still answers with an object message, "You must be in the same room as
+   * the leisure access card form to be able to do anything with it."
+   * (Adrift_236_seaside.txt:123).
+   *
+   * Returning FALSE hands the line to `put *` and `* %character% *` and then
+   * to the DontUnderstand text in run_process_input_line(), which is the
+   * tail's order too.
+   */
+  if (lib_is_version_400 (game) && game->pending_endgame != 0)
+    return FALSE;
+
   /* Save in variables. */
   var_set_ref_object (vars, object);
 
@@ -14700,6 +14738,24 @@ lib_cmd_verb_npc (scr_gameref_t game)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int count, npc, index_;
+
+  /*
+   * 4.0: the ending takes the character catch-all off the line as well.
+   * This message is the tail of run400's characters() (Proc_19_0_480674,
+   * printed at 480603), and the instruction before it is
+   * `loc_4805CD: If MemVar_4941AD > 0 Then Exit Sub` -- the same gameover
+   * byte the object catch-all above is gated on, tested a second time
+   * because characters() is called from the routine's tail (48B56E), below
+   * the jump at 48AC62.
+   *
+   * Measured live on easter.taf (run400 Adrift_273_easter.txt:304-308,
+   * 2026-09-07): `show basket to shopkeeper`, the winning move, prints the
+   * task's text and the WinText and nothing in between -- no "I don't
+   * understand what you want to do with shopkeeper.", and no DontUnderstand
+   * either, because the line names a character (48B573's var_29C).
+   */
+  if (lib_is_version_400 (game) && game->pending_endgame != 0)
+    return FALSE;
 
   /* Ensure the reference is unambiguous. */
   count = 0;

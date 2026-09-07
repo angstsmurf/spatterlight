@@ -1221,6 +1221,20 @@ sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 # 2026-08-29; still 93 points.
 cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
 # 2026-08-29: the basket refusal now precedes the ending (silent-End-Game rule).
+# 2026-09-07, re-blessed: it does not.  run400 (Adrift_273_easter.txt:304-308)
+# prints NOTHING between the winning `show basket to shopkeeper` and the
+# WinText.  Two rules meet on that one line, and both are now ported:
+#   * the ending takes the unhandled-verb tail off the line -- run400's
+#     `loc_48AC62: If MemVar_4941AD <> 0 Then GoTo loc_48B4E3` jumps past the
+#     object catch-all at 48B19A, and characters() exits at 4805CD before its
+#     own catch-all at 480603; the DontUnderstand at 48B585 then stays quiet
+#     too because the line names a character (48B573's var_29C).  See the
+#     relojero row for the full write-up.
+#   * a line that ran a task gets no already-done refusal at all: the
+#     RepeatText lives INSIDE the dispatcher (Proc_19_24_44CCE0), which asks
+#     the pre-matcher for exactly one task, so the task that refuses and the
+#     task that runs are the same one.  Without that guard this line drew a
+#     different task's RepeatText, "Since you already have Max's list...".
 easter_solution.txt|easter.taf|***You have won***|
 # Re-blessed 2026-08-25 for the same on-before-in joined listing, with an
 # in-count of 1: "Ye olde desk clutter is on ye alchymist's desk, and inside is
@@ -4034,11 +4048,29 @@ iachini_solution.txt|iachini.taf|You settle down in front of the TV.|SCR_SEED=14
 # post-substitution input.
 # Measured 2026-08-29 under run400 (Adrift_1_relojero.txt): 10/11 turns
 # identical; the last, `arreglar fenix`, hits a task with no text and only an
-# End-Game action, and the Runner prints the game's DontUnderstand ("Extranos
-# pensamientos...") BEFORE the WinText -- a silent task never finishes the
-# command in 4.0 (Proc_19_24_44CCE0 returns True only on a non-empty output
-# buffer).  Ported in sctasks.cpp task_run_end_game_action, 4.0 only; the
-# ending's [Press any key to end] tail is the transcript's only other extra.
+# End-Game action, and the Runner prints one line BEFORE the WinText -- a
+# silent task never finishes the command in 4.0 (Proc_19_24_44CCE0 returns
+# True only on a non-empty output buffer).  Ported in sctasks.cpp
+# task_run_end_game_action, 4.0 only; the ending's [Press any key to end]
+# tail is the transcript's only other extra.
+#
+# 2026-09-07, re-measured (Adrift_909.txt) and re-blessed: that line is the
+# game's DontUnderstand, "Disculpa pero no te entiendo." (plain line 25), and
+# NOT the object catch-all this row used to print ("Extranos pensamientos
+# afloran en mi mente a proposito de Fenix de laton.", the game's ALR for "I
+# don't understand what you want me to do with ...").  The difference is the
+# ending: run400's generaltasks tests the gameover byte at
+# `loc_48AC62: If MemVar_4941AD <> 0 Then GoTo loc_48B4E3` and 48B4E3 is the
+# tail of the routine, past the object-counting loop at 48AFF0 and past the
+# unhandled-verb catch-all at 48B19A.  Everything AHEAD of 48AC62 still runs
+# for an ended line -- open/close 48A515, movement 48A5D8, wear, remove,
+# look, the wait loop -- so an ending does not silence the library as such;
+# it is only the unhandled-verb tail that is lost, and what the tail then
+# prints is characters() (48B56E, itself cut short by
+# `loc_4805CD: If MemVar_4941AD > 0 Then Exit Sub`) and, with the buffer
+# still empty and no character named, the DontUnderstand text at 48B585.
+# Ported in sclibrar.cpp lib_cmd_verb_object/lib_cmd_verb_npc; the naming
+# half of 48B573 is in run_process_input_line() (scrunner.cpp).
 relojero_solution.txt|relojero.taf|Cierro los ojos y lloro.
 # Veteran Knowledge (Robert Street, 4.00, 43 rooms / 359 tasks / 83 objects /
 # 15 NPCs / 38 events) is the full-length rewrite of Veteran Experience, which
@@ -7354,6 +7386,13 @@ mutaydid_solution.txt|mutaydid.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # maximum points!" 40 commands, zero unmatched/refusal lines other than
 # the do-form quirk above.
 # Re-blessed 2026-09-06: `do form` is run400's no-turn catch-all (48B232); a `look` follows it (WaitTurns is 3 here).
+# 2026-09-07: this row is also the counter-example that pins the ending rule
+# ported for relojero/easter.  TASK3 is silent and its actions DO run (it
+# hides two objects, moves the completed form to the player and scores), and
+# run400 STILL answers with the object catch-all, "You must be in the same
+# room as the leisure access card form to be able to do anything with it."
+# (Adrift_236_seaside.txt:123).  So it is the gameover byte at 48AC62 that
+# takes the catch-all off a line, never a silent task on its own.
 seaside_solution.txt|ADayAtTheSeaside.taf|Well done - you scored maximum points!
 reluctantvampire_solution.txt|The_Reluctant_Vampire.taf|you achieved a score of 103 out of a possible of|SCR_SEED=6 SCR_SKIP_WAITKEY=1
 # ss whore.taf (AIF, adult content -- see /goldens/.gitignore): WWII-fantasy

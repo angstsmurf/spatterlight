@@ -855,6 +855,14 @@ and decompile addresses are in the harness row comments and in git history.
   `battle_legacy` guard).
 - 4.0 administrative turns: an NPC or nothing-found examine ticks nothing
   (EV14-16); none pre-3.9.
+- 4.0: a task that ends the game takes the unhandled-verb tail off the rest
+  of the line -- both catch-alls and, unless the line names a character, the
+  DontUnderstand text too (relojero, easter; run400 `48AC62`, `4805CD`).
+  The verb branches ahead of it (open/close, movement, wear, look, wait)
+  still run, and a silent task that does NOT end the game changes nothing
+  (seaside).
+- A line that ran a task gets no already-done refusal: the RepeatText is
+  printed inside the dispatcher, which only ever picks one task (easter).
 
 **Events**
 - No startup tick pre-3.9; `delay N` starts on turn N; `score` ticks
@@ -1615,8 +1623,8 @@ echoed, offset 0, every turn identical.
 | solution | transcript | diffs | symptom |
 |---|---|---:|---|
 | `asdfa` | `Adrift_143` | 1 | T2 `x cauldron`: run400 "You see no such thing.", Scarier "You can't see the cauldron from here!" -- FIXED 2026-09-06, identical on every turn |
-| `cbn2` | `Adrift_138` | 1 | T17 `light match`: run400 prints the task text **and then** a second refusal ("...that was a strange command..."); Scarier prints only the task text |
-| `relojero` | `Adrift_133` | 1 | T10 `arreglar fenix`: run400 prefixes the task with "Disculpa pero no te entiendo."; Scarier prefixes "Extraños pensamientos afloran en mi mente a proposito de..." (same family as `cbn2` -- which refusal accompanies a task) |
+| `cbn2` | `Adrift_138` | 1 | T17 `light match`: run400 prints the task text **and then** a second refusal ("...that was a strange command..."); Scarier prints only the task text -- **artefact, closed 2026-09-07**: `Adrift_138_cbn2.txt:104` shows that refusal has its own `> ` prompt, it is the game's DontUnderstand answering an empty feed line |
+| `relojero` | `Adrift_133` | 1 | T10 `arreglar fenix`: run400 prefixes the task with "Disculpa pero no te entiendo."; Scarier prefixes "Extraños pensamientos afloran en mi mente a proposito de..." -- **FIXED 2026-09-07**, the ending takes the object catch-all off the line and the game's DontUnderstand is what is left |
 | `second_chance` | `Adrift_159` | 1 | T49 `s`: Scarier appends the END GAME text run400 does not reach |
 | `sophie_comp` | `Adrift_173` | 1 | T169 `put black crystal in mouth`: run400 "You can't", Scarier "It is not clear which object you're referring to" -- the 4.0 put prompt |
 | `togetyou` | `Adrift_146` | 2 | T16: the room short name is "The Infected Ear" in run400, "The Ear" in Scarier -- a task-driven room-name change Scarier does not apply |
@@ -2055,8 +2063,15 @@ follow-up on rows that have been driven, in this order:
    that fragment names nothing present.  `suburbanprodigy3` used to sit here
    too -- DONE 2026-09-07, the `stats` synonym was a SCARE invention and is
    gone.
-7. **The refusal that accompanies a task** (`cbn2` T17, `relojero` T10,
-   `qui_a_tue_dana` T21) -- one rule about which library message survives.
+7. **The refusal that accompanies a task** -- DONE 2026-09-07, and it was
+   three different things.  `qui_a_tue_dana` T21 was the ALR list walked
+   once; `cbn2` T17 is not a second message at all but the game's
+   DontUnderstand answering an empty feed line (`Adrift_138_cbn2.txt:105`
+   has its own `> ` prompt); `relojero` T10 -- and `easter`, which was
+   filed elsewhere -- is the real rule: an ending takes the unhandled-verb
+   tail off the line (run400 `48AC62` -> `48B4E3`).  See "Ported
+   2026-09-07: an ending takes the unhandled-verb tail off the line" at the
+   end of this file.
 8. **Re-feed the 19 rows that really lost a command** -- DONE 2026-09-07,
    and none of the guesses in this item survived: it was not pacing, and the
    `[MORE]` was already counted.  Fifteen of the nineteen now echo every feed
@@ -3341,3 +3356,93 @@ pass interpolates what it wrote, so we now print "You move east.", the line the
 author meant a sober player to see, instead of the literal `%drunk% east.`.
 
 Full v4 suite: 428 PASS / 0 FAIL.
+
+## Ported 2026-09-07: an ending takes the unhandled-verb tail off the line
+
+Item 7, "the refusal that accompanies a task", closed.  Three rows were filed
+under it and they turned out to be three different things:
+
+- `qui_a_tue_dana` T21 -- the ALR list, fixed by the previous section.
+- `cbn2` T17 -- not a second message at all.  `Adrift_138_cbn2.txt:101-105`
+  shows the task's answer, then a *separate* `> ` prompt, and the game's
+  DontUnderstand ("...that was a strange command...") answering the empty
+  line the feed left behind.  A harness artefact; scarier is right.
+- `relojero` T10 -- the real rule, and `easter` turned out to be the same
+  one.
+
+### The rule
+
+run400's `generaltasks` tests the gameover byte immediately after the turn
+counter:
+
+```
+loc_48AC62: If MemVar_4941AD <> 0 Then GoTo loc_48B4E3
+```
+
+and `48B4E3` is the **tail** of the routine.  So once a task has ended the
+game, the rest of the line is gone: the object-counting loop at `48AFF0`, the
+unhandled-verb catch-all at `48B19A` ("I don't understand what you want me to
+do with", "must be in the same room as", "What X?") and the question words at
+`48B31F`.  Everything *ahead* of `48AC62` still runs -- wear `48A48C`, remove
+`48A491`, hint/help, look, the give rewrite `48A98A`, open/close `48A515`,
+the movement refusal `48A5D8`, the wait loop `48ABDA` -- so an ending does not
+silence the library as such; it is only the unhandled-verb tail that is lost.
+
+What the tail then does is call `characters()` at `48B56E`, and that has the
+same test again, because it sits below the jump:
+
+```
+loc_4805CD: If MemVar_4941AD > 0 Then Exit Sub
+```
+
+right above its own catch-all "I don't understand what you want to do with "
+at `480603`.  With both catch-alls gone the buffer is still empty, and the
+last line of the routine is the two-part test
+
+```
+loc_48B573: If MemVar_4941B0 = "" And var_29C = 0 Then MemVar_4941B0 = MemVar_4941A8
+```
+
+-- `var_29C` being set by the walk over the characters at `48B53C..48B569`,
+`MemVar_4941A8` the game's DontUnderstand text.  Outside an ending that
+second condition never shows itself, because a line naming a present
+character that nothing else answered gets `characters()`' catch-all and so
+never arrives with an empty buffer.
+
+### Three measurements
+
+| game | line | run400 |
+| --- | --- | --- |
+| `relojero` | `arreglar fenix` (the win) | "Disculpa pero no te entiendo." -- the game's DontUnderstand (plain line 25), *not* its ALR'd object catch-all "Extraños pensamientos afloran en mi mente a proposito de Fenix de laton."  `Adrift_909.txt` |
+| `easter` | `show basket to shopkeeper` (the win) | **nothing at all** before the WinText; the line names the shopkeeper, so `var_29C = 1` and even the DontUnderstand stays quiet.  `Adrift_273_easter.txt:304-308` |
+| `seaside` | `do form` | the object catch-all, "You must be in the same room as the leisure access card form to be able to do anything with it."  `Adrift_236_seaside.txt:123` |
+
+`seaside` is the control: its TASK3 is silent and its actions do run (it
+hides two objects, moves the completed form to the player and scores), and
+run400 still prints the catch-all.  So it is the **ending** that does this,
+never a silent task on its own -- which is what the row was mis-filed under.
+
+### The port
+
+- `lib_cmd_verb_object()` and `lib_cmd_verb_npc()` in `sclibrar.cpp` return
+  FALSE when `lib_is_version_400 (game) && game->pending_endgame != 0`.
+  `pending_endgame` is set by `task_run_end_game_action()` and consumed by
+  `task_print_end_game_message()` at end of turn, so during the library it is
+  exactly `MemVar_4941AD <> 0`.
+- `run_process_input_line()` in `scrunner.cpp` prints no DontUnderstand for
+  such a line when `uip_line_names_npc()` (new, `scparser.cpp`, the same walk
+  `uip_note_named_npcs()` makes) says the line names a character.  Gated on
+  the ending so the shape of the test cannot disturb an ordinary line.
+- `run_task_refusal()` now returns FALSE outright when any task ran for this
+  line.  This is not the ending rule but it surfaced with it: `easter`'s
+  winning line drew a *different* task's RepeatText, "Since you already have
+  Max's list...", once the catch-all stopped claiming it.  In the Runner the
+  RepeatText is not a late pass -- it is printed inside the dispatcher
+  `Proc_19_24_44CCE0`, which asks the pre-matcher `Proc_19_66_454EF0` for
+  exactly ONE task and then runs it, reverses it, or prints its RepeatText.
+  The task that refuses and the task that runs are always the same one, and
+  the restriction-failure pass at `44CCA5` is likewise entered only when no
+  task was found.
+
+Two goldens re-blessed, `relojero` and `easter`.  Full v4 suite: 428 PASS /
+0 FAIL.
