@@ -602,6 +602,7 @@ extern scr_bool lib_cmd_examine_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_examine_object (scr_gameref_t game);
 extern scr_bool lib_cmd_count (scr_gameref_t game);
 extern scr_bool lib_cmd_take_all (scr_gameref_t game);
+extern scr_bool lib_cmd_take_absent (scr_gameref_t game);
 extern scr_bool lib_cmd_take_except_multiple (scr_gameref_t game);
 extern scr_bool lib_cmd_take_multiple (scr_gameref_t game);
 extern scr_bool lib_cmd_take_all_from (scr_gameref_t game);

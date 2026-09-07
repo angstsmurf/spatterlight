@@ -957,7 +957,7 @@ Zelda is present.  You have the feeling of being watched.
 You can almost feel some dark presence breathing down your neck.
 
 > get key
-Take what?
+There is nothing worth taking here.
 
 OOOOF!!
 

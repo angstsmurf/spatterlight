@@ -7996,6 +7996,220 @@ lib_cmd_take_all (scr_gameref_t game)
 
 
 /*
+ * lib_take_absent_score()
+ *
+ * The Runner's co() score for one object against the typed line: 1 if the
+ * line contains the whole Short, 1 more for the first Alias it contains,
+ * and 1 more for each word of the Prefix that appears in the line (run400
+ * General.Sub_22_66 at 000632BE .. 00063387).  Zero means the line names
+ * nothing of this object -- a Prefix word alone never does, since the
+ * prefix loop is only reached once a name has matched.  *term is left at
+ * the name the object answered to, Short before Alias, which is what
+ * mdlSpreadTheLoad.Sub_20_43 at 00046BFC hands the ambiguity message.
+ */
+static scr_int
+lib_take_absent_score (scr_gameref_t game, scr_int object,
+                       const scr_char *input, const scr_char **term)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *shortname, *prefix;
+  scr_vartype_t vt_key[4];
+  scr_int alias_count, alias, score;
+
+  score = 0;
+  *term = NULL;
+
+  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  if (!scr_strempty (shortname) && lib_co_contains (input, shortname))
+    {
+      score++;
+      *term = shortname;
+    }
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Alias";
+  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      const scr_char *name;
+
+      vt_key[3].integer = alias;
+      name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (scr_strempty (name) || !lib_co_contains (input, name))
+        continue;
+
+      score++;
+      if (!*term)
+        *term = name;
+      break;
+    }
+
+  if (score == 0)
+    return 0;
+
+  /* Each Prefix word the line also carries is worth another point. */
+  prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
+  if (!scr_strempty (prefix))
+    {
+      std::string word;
+      const scr_char *cursor;
+
+      for (cursor = prefix; ; cursor++)
+        {
+          if (*cursor != NUL && !scr_isspace (*cursor))
+            {
+              word.append (1, *cursor);
+              continue;
+            }
+
+          if (!word.empty () && lib_co_contains (input, word.c_str ()))
+            score++;
+          word.clear ();
+
+          if (*cursor == NUL)
+            break;
+        }
+    }
+
+  return score;
+}
+
+
+/*
+ * lib_cmd_take_absent()
+ *
+ * 4.0's named take once nothing here can answer to the noun.  The Runner's
+ * take handler (run400 Proc_19_6) resolves the direct object with the co()
+ * style whole-name resolver General.Sub_22_66 at 00073011, whose result is
+ * 255 for "the line named nothing", a positive index+256 for one object, and
+ * -(index + 2) for an ambiguity; the three answers are printed at the tail
+ * of the same procedure -- "Take what?" at 0007332B and again as the very
+ * last default at 00073A25, "It is not clear which " & <term> & " you are
+ * referring to." at 0007335C, and "There is nothing worth taking here." at
+ * 00073A13, which is where a line that resolved an object but took nothing
+ * lands (the `If var_92 > 255` at 00073798 is the "take X from Y" test, so a
+ * plain named take falls straight through to it).
+ *
+ * The resolver runs its scan TWICE.  Its first pass (mode 1, at 00063161)
+ * only considers what Sub_22_61 calls present -- held, worn, in the room, or
+ * inside an open container there -- and if that pass ends with no candidate
+ * at all it resets the mode to 0 and jumps back to the top of the procedure
+ * (00063465: `If var_9C = 1 And var_A0 = 0 And param_10 > 0`, then Branch
+ * 000630BC), where the test at 0006310D is the object's seen byte alone.  So
+ * the noun that names nothing here is offered every object the player has
+ * ever SEEN, and that second pass is what this function reproduces.
+ *
+ * What it ranges over is measured rather than argued:
+ * harness/make_400_takeprobe.py builds p4TAKE (a coin loose in Alpha, a
+ * statue static in Alpha, a widget and a gizmo loose in Bravo), with --tie
+ * p4TAKE2 (a red widget and a blue widget, both Short "widget" with Prefix
+ * "a red"/"a blue", plus a lamp aliased "light", all in Bravo), and with
+ * --hidden p4TAKE3 (the same pair, with tasks that move either or both of
+ * them to hidden).  Six feeds under Wine, run400, transcripts
+ * Adrift_p4take1 .. Adrift_p4take6 in the harness prefix:
+ *
+ *     take widget   (Bravo never entered)        ->  Take what?
+ *     take widget   (from Alpha, Bravo seen)     ->  There is nothing worth
+ *                                                    taking here.
+ *     take statue   (from Bravo, Alpha seen)     ->  There is nothing worth
+ *                                                    taking here.
+ *     take light    (from Alpha, an ALIAS)       ->  There is nothing worth
+ *                                                    taking here.
+ *     take widget   (two seen absent namesakes)  ->  It is not clear which
+ *                                                    widget you are referring
+ *                                                    to.
+ *     take widget   (one, then both, hidden)     ->  It is not clear which
+ *                                                    widget you are referring
+ *                                                    to.
+ *     take red      (a Prefix word only)         ->  Take what?
+ *     take zzz                                   ->  Take what?
+ *     take widget   (both present, in Bravo)     ->  Which widget.  The red
+ *                                                    widget or the blue
+ *                                                    widget?
+ *
+ * So the candidate set is the objects the player has SEEN -- the same seen
+ * byte the examine path reads, and the same one that makes `x widget` answer
+ * "You can't see the widget from here!" in the very next command of
+ * Adrift_p4take2 -- matched by WHOLE name, Short or Alias, with a Prefix word
+ * naming nothing on its own.  Statics count (the statue) and so do hidden
+ * objects (p4TAKE3's pair still ties with both of them nowhere).  A candidate
+ * that is present hands the line back to the ordinary path, which is where
+ * the present tie's co() prompt is raised.
+ *
+ * The scores then decide between the two refusals, and only a genuine tie
+ * for the best score is ambiguous.  That is what zelda's `get key` turns on:
+ * its super-hot key is Short "key" with an Alias "key" as well, so it scores
+ * 2 against the iron key's 1 and wins outright -- run400 answers with the
+ * flat refusal (Adrift_319_zelda.txt:573) even though both keys are seen and
+ * both are called "key".
+ */
+scr_bool
+lib_cmd_take_absent (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_char *best_term = NULL;
+  scr_int object, best_score, best_count;
+
+  if (!lib_is_version_400 (game) || !input)
+    return FALSE;
+
+  best_score = 0;
+  best_count = 0;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *term;
+      scr_int score;
+
+      score = lib_take_absent_score (game, object, input, &term);
+      if (score == 0)
+        continue;
+
+      /* Something the noun names is here; the ordinary path handles it. */
+      if (obj_indirectly_in_room (game, object, gs_playerroom (game)))
+        return FALSE;
+
+      if (!gs_object_seen (game, object))
+        continue;
+
+      if (score > best_score)
+        {
+          best_score = score;
+          best_count = 1;
+          best_term = term;
+        }
+      else if (score == best_score)
+        {
+          best_count++;
+          best_term = term;
+        }
+    }
+
+  /* Nothing the player has seen answers to it; "Take what?" says so. */
+  if (best_count == 0)
+    return FALSE;
+
+  if (best_count > 1)
+    {
+      pf_buffer_string (filter, "It is not clear which ");
+      pf_buffer_string (filter, best_term);
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             " you are referring to.\n",
+                                             " I am referring to.\n",
+                                             " %player% is referring"
+                                             " to.\n"));
+      return TRUE;
+    }
+
+  pf_buffer_string (filter, "There is nothing worth taking here.\n");
+  return TRUE;
+}
+
+
+/*
  * lib_take_multiple_common()
  *
  * Take the objects available to the player and listed in %text%, or -- for

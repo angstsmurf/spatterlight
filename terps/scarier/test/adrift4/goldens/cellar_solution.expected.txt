@@ -969,7 +969,7 @@ screech when someone seats themselves in it. Why your father does not replace
 it with a better one you cannot say.
 
 > take satchel
-Take what?
+There is nothing worth taking here.
 
 > e
 You can't leave without your uncle's satchel.

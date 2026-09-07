@@ -549,6 +549,13 @@ gateway_solution.txt|gateway.taf|THE END
 hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
 jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=2
 # Re-blessed 2026-09-06: 71 `attack riven/ozgat/higher` lines answered by DontUnderstand (no turn) became "X isn't here!" turns (run400 dobattle 47EFE5, House Adrift_110); dropped as pure no-ops so the turn thread is unchanged.  Still wins.
+# Re-blessed 2026-09-07, the Waste Land `take lighter`/`take double-lighter`
+# block: "There is nothing worth taking here." where the golden said "Take
+# what?".  Both lighters have been carried, so both are seen, and 4.0's named
+# take offers a seen object wherever it now is (p4TAKE3 measured a hidden pair
+# still resolving).  No run400 oracle here -- Adrift_384_light_up.txt loses the
+# battle and dies long before the Waste Land -- so this is the measured rule
+# extrapolated, not a transcript match.  See lib_cmd_take_absent().
 light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=74
 # Measured live in run400 under Wine (2026-08-24), full replay, Verbose ON.
 # The game is NOT winnable in the real Runner: "Cat sheepishly enters from
@@ -1320,6 +1327,12 @@ easter_solution.txt|easter.taf|***You have won***|
 # " unlock " and " put "), so those ALRs never fire and the Runner's bare
 # "Ye unlock" stands; meanwhile a different ALR on the bare "put " does fire,
 # which is why the same line now reads "Ye placeth".
+# Re-blessed 2026-09-07, one line (1071, `get title`): "There is nothing worth
+# taking here." (the game's ALR would have made the old answer "Taketh what?").
+# The intercontinental title was taken back on the beltery leg and stolen by
+# Goblin Bob, so it is seen and absent, which is what 4.0's named take answers
+# to.  No run400 oracle -- the Adrift_324 replay never reached ye takery -- so
+# this is the measured rule extrapolated.  See lib_cmd_take_absent().
 yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SEED=5 SCR_SKIP_WAITKEY=1
 # The twenty-one entries of the 1st, 2nd and 3rd ADRIFT One-Hour Game
 # Competitions (2003), swept in on 2026-08-03 -- see the per-game
@@ -3516,6 +3529,11 @@ chosen_solution.txt|Chosen.taf|You plug the T-shaped block into the final socket
 # run400 Adrift_172 lines 163-164.  The seen model now seeds statics only when
 # InitialPosition == 1 plus the afteroa start-room sweep (run400 46F0B4), so the
 # dust in the unvisited room is not seen and the 4.0 second pass has nothing.
+# Re-blessed 2026-09-07, one line (972, `take satchel`): "There is nothing
+# worth taking here." for run400's Adrift_361_cellar.txt:724.  The satchel is
+# hidden by then but the player has held it, and 4.0's named take falls back
+# on every object it has SEEN once nothing here answers to the noun; see
+# lib_cmd_take_absent().
 cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for playing.|SCR_SKIP_WAITKEY=1
 # Panic! (Stewart J. McAbney, ADRIFT 3.90): the author's own walkthrough
 # transcript replayed verbatim, all 69 commands, no repairs.  The first command
@@ -6207,6 +6225,12 @@ backhome_solution.txt|Back Home.taf|You are back.  Back home.|SCR_SKIP_WAITKEY=1
 # whistles for flippers, rope+anchor cliff, ladder, then pull Haku's arrow
 # and kill Ganon within the 3-turn event window. No RNG (no combat).
 # 188 commands, `SCR_SKIP_WAITKEY=1` (12 mid-game [Press any key] pauses).
+# The `get key` in the Graveyard (Adrift_319_zelda.txt:573) is the row that
+# measured 4.0's seen-absent named take, and then the scoring inside it: the
+# super-hot key is Short "key" with an Alias "key" as well, so against "get
+# key" it scores 2 to the iron key's 1 and wins outright.  run400 answers
+# "There is nothing worth taking here.", not the ambiguity, even though both
+# keys are seen, absent and called "key".  See lib_cmd_take_absent().
 zelda_solution.txt|zelda.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
 # Showtime_at_the_Gallows.taf: babysitting horror-comedy. No score system;
 # every outcome (death or true ending) is a plain room-move into "The End",

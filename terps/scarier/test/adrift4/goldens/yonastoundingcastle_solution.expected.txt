@@ -1068,7 +1068,7 @@ pretty goblin-y).  'Tis open.  Yon gem of some sort is inside yon takery
 trunkle.
 
 > get title
-Taketh what?
+There is nothing worth taking here.
 
 > get gem
 Ye taketh yon gem of some sort from yon takery trunkle.

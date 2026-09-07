@@ -2254,9 +2254,8 @@ Re-blessed: `cellar` (1 line), `volant` (1 line), `ghosttown` (event shift),
 `adrift4-object-seen-model` corrected; `~/Adrift_decompile/index/
 annotations.tsv` rows 457034 and 463640 corrected.
 
-Still open from this thread: `cbn`'s second refusal, `cellar` T114
-`take satchel` ("There is nothing worth taking here." vs "Take what?"),
-`ghosttown` T2.  (`bandera` T18 `x marife` was listed here as an NPC seen
+Still open from this thread: `cbn`'s second refusal, `ghosttown` T2.
+(`cellar` T114 `take satchel` is DONE 2026-09-07 -- see the last section.)  (`bandera` T18 `x marife` was listed here as an NPC seen
 model; it is not -- DONE 2026-09-07, see the last section.)
 
 
@@ -4292,3 +4291,98 @@ authored", and the plain `to_hell_and_beyond` row -- the one that stops before
 the broken task -- was measured clean in run400 on 2026-09-06
 (`Adrift_124`).  Nothing to fix; the two `_assisted` rows simply have no
 run400 counterpart past command 92.
+
+
+## Ported 2026-09-07: 4.0's named take falls back on every object SEEN
+
+`cellar` T114 `take satchel` -- run400 "There is nothing worth taking here.",
+Scarier "Take what?" (`Adrift_361_cellar.txt:724`) -- and `zelda`'s `get key`
+in the Graveyard (`Adrift_319_zelda.txt:573`), the same refusal where Scarier
+had the other one.  Both nouns name an object the player has seen and is no
+longer with, and 4.0's take handler has an answer for that which this port
+did not.
+
+### The p-code
+
+run400's take handler (`Proc_19_6`) binds its direct object with the co()
+style resolver `General.Sub_22_66` at 00073011, mode 1.  Mode 1's eligibility
+test (00063161) is `Sub_22_61(obj) And obj[18] = 0 And obj[30] = 1` -- and
+`Sub_22_61` (0004B49C) is presence: location 0 (held), -100 (worn), -200/-300
+(held/worn by an NPC), the player's room, or -20/-10 recursing into a parent
+that is itself present and, for -10, open (`parent[34] < 6`).  So the first
+pass sees only what is here.
+
+The pass that matters is the second one.  At 00063465, after the object loop:
+
+    If var_9C = 1 And var_A0 = 0 And param_10 > 0 Then
+        var_9C = 0 : param_10 = 0 : Branch 000630BC     ' back to the top
+
+`var_A0` is the count of candidates, so a first pass that bound nothing
+re-enters the whole procedure with the mode set to 0, and mode 0's test
+(0006310D) is the object's **seen byte alone**.  The three answers are then
+printed at the tail of the take handler: "Take what?" at 0007332B and again
+at 00073A25, "It is not clear which " & term & " you are referring to." at
+0007335C, and "There is nothing worth taking here." at 00073A13 -- which is
+where a line that bound an object but took nothing lands, since `If var_92 >
+255` at 00073798 is only the "take X from Y" test.
+
+The scoring loop, 000632BE .. 00063387, is the ordinary co() one: 1 if the
+line contains the whole Short, 1 more for the first Alias it contains, and 1
+more for each word of the Prefix that also appears.  Prefix words are only
+counted once a name has matched, so a prefix word on its own names nothing.
+`mdlSpreadTheLoad.Sub_20_43` (00046BFC) picks the term for the message the
+same way: Short if the line contains it, else the first Alias it contains.
+
+### The probe
+
+`harness/make_400_takeprobe.py` builds three games -- p4TAKE (coin loose in
+Alpha, statue static in Alpha, widget and gizmo loose in Bravo), `--tie`
+p4TAKE2 (a red widget and a blue widget, both Short "widget", Prefix "a
+red"/"a blue", plus a lamp aliased "light"), and `--hidden` p4TAKE3 (that
+pair, with `vanish`/`vanish2` tasks moving either or both to hidden).  Six
+feeds under run400 (`cmdfile_take1` .. `cmdfile_take6`, transcripts
+`Adrift_p4take1` .. `Adrift_p4take6`):
+
+    take widget   (Bravo never entered)        ->  Take what?
+    take widget   (from Alpha, Bravo seen)     ->  There is nothing worth taking here.
+    take statue   (from Bravo, Alpha seen)     ->  There is nothing worth taking here.
+    take light    (from Alpha, an ALIAS)       ->  There is nothing worth taking here.
+    take widget   (two seen absent namesakes)  ->  It is not clear which widget you are referring to.
+    take widget   (one, then both, hidden)     ->  It is not clear which widget you are referring to.
+    take red      (a Prefix word only)         ->  Take what?
+    take zzz                                   ->  Take what?
+    take widget   (both present, in Bravo)     ->  Which widget.  The red widget or the blue widget?
+
+So statics count, hidden objects count, aliases count, prefix words alone
+never do, and a present namesake hands the line back to the ordinary path --
+which is where the present tie's co() prompt is raised, the one already
+ported.
+
+A hidden-object exclusion was tried first and is WRONG: it was fitted to
+`zelda`, `light_up` and `yonastoundingcastle`, and p4TAKE3 (both widgets
+hidden, still ambiguous) killed it.  Two of those three rows have no run400
+oracle at all at the lines in question, which is how a wrong rule looked
+supported: `Adrift_384_light_up.txt` dies in the battle long before the Waste
+Land, and the `Adrift_324_yonastoundingcastle.txt` replay never reached ye
+takery.
+
+### What zelda was really about
+
+Both of zelda's keys are Short "key", both are seen, neither is present --
+and run400 still answers with the flat refusal rather than the ambiguity.
+The scores are why: the super-hot key carries an Alias "key" on top of its
+Short, so it scores 2 against the iron key's 1 and wins outright.  Only a tie
+for the best score is ambiguous.
+
+### The port
+
+`lib_cmd_take_absent()` (sclibrar.cpp), wired as the new first row of
+`STANDARD_FALLBACK_COMMANDS[]` in scrunner.cpp, ahead of the `[get/take/pick
+up/pick] *` catch-all that still prints "Take what?" when it declines.  It is
+4.0-only.  `lib_take_absent_score()` alongside it is the Runner's score.
+
+Re-blessed: `cellar` (1 line) and `zelda` (1 line), both against run400
+transcripts; `light_up` (the Waste Land `take lighter` block) and
+`yonastoundingcastle` (1 line, `get title`), both extrapolations of the
+measured rule with no run400 oracle at those lines, noted as such on their
+harness rows.  Suite 428/428.

@@ -745,6 +745,12 @@ static scr_commands_t STANDARD_COMMANDS[] = {
  * lib_cmd_examine_other.
  */
 static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
+  /*
+   * The 4.0 named take for a noun that names only objects the player has
+   * seen elsewhere; it declines to anything else, leaving "Take what?" to
+   * the catch-all below.  See lib_cmd_take_absent().
+   */
+  {"[get/take/pick up/pick] %object%", lib_cmd_take_absent},
   {"[get/take/pick up/pick] *", lib_cmd_get_what},
   /*
    * The two 4.0-only absent-object rows sit directly above the catch-alls
