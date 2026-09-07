@@ -527,7 +527,7 @@ refuses to load it.
 | `aliasagent` | Alias Undercover Agent.taf | `Adrift_346_aliasagent.txt` | lost-cmd | 1 lost, first feed[39] `score` |
 | `amy` | amy.taf | `Adrift_348_amy.txt` | diff 1 | T17 `fuck amy's pussy`: run400 'You take Amy in your arms and lay her down on the bed. She looks up at' vs scarier 'You take Amy in your arms and lay her down on the bed. She looks up at' |
 | `apokalupsis` | apokalupsis.taf | `Adrift_241_apokalupsis.txt` | endtail 1 | T45 `go west`: run400 'Thank you for playing the introduction to Apokalupsis. I hope that you' vs scarier 'Thank you for playing the introduction to Apokalupsis. I hope that you' |
-| `backhome` | Back Home.taf | `Adrift_247_backhome.txt` | diff 4 | T36 `d`: run400 'You move down. On the Ladder to the Attic You are perched on a ladder,' vs scarier 'You move down. On the Ladder to the Attic You are perched on a ladder,' |
+| `backhome` | Back Home.taf | `Adrift_247_backhome.txt` | diff 4 | T36 `d`: run400 'You move down. On the Ladder to the Attic You are perched on a ladder,' vs scarier 'You move down. On the Ladder to the Attic You are perched on a ladder,' |  **RNG 2026-09-07** -- T36 is gone; the last divergence was the T52 telephone chain, and `SCR_SEED=3` matches run400 exactly.
 | `bandera` | Bandera.taf | `Adrift_232_bandera.txt` | RESOLVED 2026-09-07 | T18 `x marife` was the case-sensitive tail of the character resolver, not the seen model -- see "Ported 2026-09-07: the character resolver's case-sensitive tail" below.  Row now `endtail 1` (the final keypress prompt only). |
 | `barneysproblem` | BarneysProblem.taf | `Adrift_302_barneysproblem.txt` | diff 6 | T9 `w`: run400 'You move west. Front Room Your front room is every bit as dismal and g' vs scarier 'You move west. Front Room Your front room is every bit as dismal and g' |
 | `baroo` | baroo.taf | `Adrift_314_baroo.txt` | diff 4 | T33 `ask brogo about temple`: run400 'Brogo looks at the wizard from the village, "Did you not tell the anci' vs scarier 'Brogo looks at the wizard from the village, "Did you not tell the anci' |
@@ -1930,6 +1930,14 @@ written up here (see the batch-1 section), and so, after fix 5, is
   DONE 2026-09-07; see "Ported 2026-09-07: a Hidden walk stop stamps the
   walker's location whether or not it moved" below.  Five rows left, and
   they should be re-triaged one at a time rather than as a set.
+  **CLOSED 2026-09-07.**  Re-triaged one at a time, and the heading was wrong
+  for all six: `briefcase` T5 was already fixed and its real divergence was
+  `%status_door%` at T10 (an object lookup, not an event), and `overtheedge`
+  T1, `stationxiii` T25, `bigcitylaundry` T1 and `backhome` T36 are all RNG --
+  each one is an event with a random Time1..Time2 duration, and a seed exists
+  that reproduces run400 exactly (`bigcitylaundry` at SCR_SEED=42, `backhome`
+  at SCR_SEED=3, `overtheedge` at seed 5).  See the item-5 entry under "Next
+  candidates" for the per-row detail.
 - **`suburbanprodigy3` T31 `stats`** -- DONE 2026-09-07.  run400 ran a game
   task, scarier answered with a built-in status line (`Celler | Score: 80`),
   and the guess was right: `stats` is a SCARE invention no Runner carries.
@@ -2087,15 +2095,29 @@ follow-up on rows that have been driven, in this order:
      `[Press any key to end]` tail).  The row's real divergence is at turn 10
      and it is not an event at all: `%status_door%`.  DONE -- see "Ported
      2026-09-07: `%status_<name>%` is the lowest-indexed openable Short match".
-   - `bigcitylaundry` T1 -- **still open, and still looks like an event.**
-     Scarier prints "Your feet are freezing!  Put some socks on!" on turn 1 for
-     every seed; run400 never prints it.  Event 0 "cold feet" is StarterType 1,
-     RestartType 1, Time1 = 1, Time2 = 4, PauseTask = 2, PauserCompleted = 0,
-     ResumeTask = 0, Where Type 1 Room 0.  Seed and Where visibility are both
-     ruled out.  Leading hypothesis: an event that loads already paused, with
-     ResumeTask = 0, never starts in the Runner at all.  Needs its own event
-     probe under run400 -- do not port on the hypothesis alone.
-   - `backhome` T36 -- **still open, not yet investigated.**
+   - `bigcitylaundry` T1 -- **RNG, do not chase.**  Event 0 "cold feet" has
+     Time1 = 1, Time2 = 4, i.e. a random 1..4-turn countdown, so whether "Your
+     feet are freezing!  Put some socks on!" lands inside the 78-command
+     walkthrough at all is a seed question.  An earlier note claimed it fired
+     on turn 1 "for every seed"; that was wrong -- seeds 1 and 5 print it
+     twice, 2/3/4/1234 once, and seed 42 not at all.  At `SCR_SEED=42` the
+     whole row is run400-identical apart from the known `[Press any key to
+     end]` tail.  There is no paused-event rule here to port.
+   - `backhome` T36 -- **RNG, do not chase.**  The recorded T36 divergence is
+     long gone (fixed by a later port); the last one standing was at T52, where
+     run400's room description carries "You can hear the telephone ringing
+     inside the house." and ends the turn with "You hear the telephone start
+     ringing."  Both come from the telephone event chain, and event 8
+     ("telephone starts ringing", StarterType 3 off task 104) has Time1 = 1,
+     Time2 = 3, with events 9 and 10 chaining off it on 10..12 and 6..7 -- so
+     the whole chain phases with the seed.  Scarier prints the pair once or
+     twice depending on the seed; run400 prints it twice.  At `SCR_SEED=3` the
+     row is run400-identical apart from the `[Press any key to end]` tail.
+   With those two, **item 5 is closed**: of the six rows, one was a real engine
+   bug (`skydiver`, the walk-hidden stamp), one was a real engine bug that had
+   nothing to do with events (`briefcase`, `%status_`), and the other four are
+   all RNG.  "A single event one tick out" was never a mechanism -- it was four
+   random event durations and two unrelated bugs sharing a symptom.
 6. **`icecream`** -- DONE 2026-09-07.  Two rules, neither of them the guess in
    this item: the take refusal is a game task's FailMessage that run400 reaches
    ahead of " already carrying ", and `put ice cream in cone` is refused

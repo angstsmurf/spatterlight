@@ -5305,6 +5305,14 @@ perspectives_solution.txt|perspectives.taf|Congratulations, you achieved the Neg
 # leaving it unlocked-but-open across a timeskip fires a silent loss with no
 # parser warning; closing the door (which unlocking also does) after every
 # crossing avoids it. 78 commands, no env.
+# Wine-measured against run400 (Adrift_292_bigcitylaundry.txt, 78/78 echoed):
+# the row is RNG, not an engine difference. Event 0 "cold feet" has Time1 = 1,
+# Time2 = 4 -- a random 1..4-turn countdown -- so whether "Your feet are
+# freezing!  Put some socks on!" lands anywhere inside the walkthrough is a
+# seed question: seeds 1 and 5 print it twice, 2/3/4/1234 once, 42 not at all.
+# At SCR_SEED=42 the transcript is run400-identical apart from the Runner's
+# own "[Press any key to end]" tail. The golden here is blessed at the default
+# seed, so do not read its cold-feet line as a divergence.
 bigcitylaundry_solution.txt|Big City Laundry.taf|Congratulations!  You've done it.
 # Over the Edge (Ren, Hourglass comp, 6 Aug 2006, 8128 bytes, 4.00): a WWI
 # shell-shock vignette with no score and no formal EndGame action anywhere in
@@ -6101,6 +6109,16 @@ darkness_solution.txt|darkness.taf|Well done - you scored maximum points!|SCR_SK
 # to "GAME OVER" for this ending, repurposing the "loss" action type as the
 # story's sole intended conclusion rather than an authoring bug. 54
 # commands, `SCR_SKIP_WAITKEY=1` (narration embeds `%wait%<cls>` pauses).
+# Wine-measured against run400 (Adrift_247_backhome.txt, 54/54 echoed): RNG,
+# not an engine difference. The telephone chain is three events with random
+# durations -- event 8 "telephone starts ringing" (StarterType 3 off task 104)
+# runs Time1 = 1..Time2 = 3, event 9 "telephone rings" 10..12, event 10
+# "telephone starts again" 6..7 -- so the whole chain phases with the seed, and
+# with it both "You can hear the telephone ringing inside the house." in the
+# Outside (Back) description and "You hear the telephone start ringing." at the
+# end of that turn. run400 prints the pair twice; scarier prints it once or
+# twice depending on the seed. At SCR_SEED=3 the transcript is run400-identical
+# apart from the "[Press any key to end]" tail.
 backhome_solution.txt|Back Home.taf|You are back.  Back home.|SCR_SKIP_WAITKEY=1
 # zelda.taf: Legend of Zelda fan-fiction (Kokiri Wood, Ganondorf).
 # WINNABLE, 197/197 (verdict corrected 2026-08-30; proved in the real
