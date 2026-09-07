@@ -43,6 +43,8 @@ x bowl
 x door
 x window
 x straw bundle
+z
+z
 put bowl near spyhole
 z
 eat soup
@@ -60,13 +62,10 @@ wait
 wait
 take knife
 x knife
-z
 x letter
-z
 write on southern wall
 enlarge hole with knife
 x photo
-z
 x hole
 eat soup
 eat soup
@@ -85,8 +84,6 @@ ask sly about hunt
 ask sly about knife
 ask sly about others
 listen
-wait
-wait
 wait
 wait
 wait

@@ -1439,7 +1439,12 @@ model prediction, not a measurement):
 - **thelasthour**: `put knife in hole` with the knife on the floor after
   the mouse scene (prediction: "I am not holding the little knife." because
   task 16's alternate `get {the} [supper/soup/dinner]` flags it take-like).
-  Cleanest single test of the mode-1 filter.
+  Cleanest single test of the mode-1 filter.  STILL UNTESTED, and the row can
+  no longer carry it: since the 2026-09-07 re-derivation our feed TAKES the
+  knife first, and with it in hand both engines answer "The little knife
+  can't fit inside the little hole at the moment.  I put the knife in the
+  mouse hole." (Adrift_366).  Needs a dedicated probe that skips `take
+  knife`.
 - **sommeril** turn 15: `put fish in water` (prediction: task 18 runs) vs
   `put fish in fountain` (Adrift_78 already: library put).
 - **deadman** line 59: `put hand on green plate` (prediction: library put,
@@ -2592,7 +2597,7 @@ command.
 | `warlord` | `Adrift_373` | `feed[307] x artefacts` -> `> facts` | **356/356** |
 | `mould` | `Adrift_376` | 305 lost (aborted at the first `hint`) | 313/313 echoed, in order -- but the run is NOT COMPARABLE, see below |
 | `confession` | `Adrift_372` | 21 `z` "lost" | 16/16 -- **both engines end at turn 16** |
-| `thelasthour` | `Adrift_366` | 6 `wait` "lost" | 119/119 -- the game ended at 119 |
+| `thelasthour` | `Adrift_366` | 6 `wait` "lost" | the game ended at 119 -- but the two streams are OFFSET BY TWO COMMANDS, see below |
 | `grumble` | `Adrift_356` | `feed[262] y` lost | 262/262 -- the `y` answers `quit` |
 | `hyper_b_s` | `Adrift_359` | 6 battle keys lost | **FIXED 2026-09-07** -- the backwards random range, not the battle formulas; all ten damage draws now match run400 |
 
@@ -2721,11 +2726,65 @@ prompt is chosen by `ACT type=3 v2=2`.
 - **`confession` and `thelasthour` never lost anything.**  Both games END
   where the Runner stopped: `confession` prints "Striking a plea deal" -- the
   row's own win string -- at turn 16, and scarier's replay prints it at turn
-  16 too and consumes exactly 16 prompts.  The golden's 21 trailing `z` (and
-  `thelasthour`'s 6 trailing `wait`) are dead lines neither engine reads.
+  16 too and consumes exactly 16 prompts.  The golden's 21 trailing `z` are
+  dead lines neither engine reads.  `thelasthour`'s trailing `wait` lines are
+  NOT the same story -- 6 are dead in run400 but only 1 in scarier, because
+  the driver answered two startup pauses that scarier feeds command lines
+  into.  See "`thelasthour`: two pauses, two turns, one dead subplot" below;
+  the "119/119" in the table above is not a like-for-like comparison.
 - **`hyper_b_s` is the battle divergence, from before the first loss.**  The
   Flare Rat dies at run400's 7th punch, the Hiscore Table form comes up and
   the drive ends at command 18.  It belongs to follow-up 4, not to this one.
+
+### `thelasthour`: two pauses, two turns, one dead subplot
+
+The mirror image of `mould`.  There the driver's pause handling cost us
+nothing; here it silently shifted the entire command stream.
+
+`thelasthour` opens with a content-warning screen carrying TWO `Press a key.`
+pauses.  The row is not SKIP-wired, so scarier feeds two command lines into
+them -- its first echoed prompt is feed line 3.  `drive.exe`'s
+`ClearStalePauses` answers both itself, so run400's first echoed command is
+feed line 1.  Net effect: **run400 executed two extra `remember` turns and ran
+two turns ahead of scarier for the whole game.**  `Adrift_366` echoed
+feed[1..119]; our golden ran 3 `remember` + feed[6..].  The streams are not
+aligned, and the table's "119/119" compares different runs.
+
+Two turns is exactly the margin that mattered.  The supper EVENT at turn 45 is
+what OPENS the spyhole, and `put bowl near spyhole` was feed line 46 -- turn
+46 in run400 (open, the put lands) and turn 44 in scarier (shut, so the
+command falls through to the 4.0 put prompt "Where do you want to put the
+spyhole?", which `Adrift_111` confirms run400 gives in the same state).  From
+there the whole optional strand died in our golden and lived in run400:
+
+| command | old golden | `Adrift_366` |
+|---|---|---|
+| `put bowl near spyhole` | `Where do you want to put the spyhole?` | `I put the bowl near the spyhole.` |
+| `eat soup` | `No more soup...` | `I eat the soup. Just few gulps...` |
+| `take knife` | `Take what?` | `I take the little knife.` |
+| `enlarge hole with knife` | `No way. Need something to enlarge it.` | `That's it. It's larger now.` |
+| `x photo` | `I see no such thing.` | the photo description |
+
+The failed examines then produced admin turns, and three `z` lines had been
+added to the walkthrough to absorb them -- papering over the symptom.  None of
+it was an engine divergence.
+
+**Fixed 2026-09-07** by re-deriving the walkthrough, not the engine: two `z`
+now precede `put bowl near spyhole`, the three stale `z` compensators are
+gone, and the row has no admin turns left at all.  Every one of those five
+steps now matches run400 line for line.  The feed is 122 lines (121 is the
+exact minimum, 119 read as prompts + 2 eaten by the pauses, 1 spare).  A
+side effect: `ask sly about interrogation` now lands after Sly has spoken and
+answers "Did Mr.Frey ask you something?"; the ask/talk-to `about` split is
+still exercised by `ask sly about him`.
+
+**The transferable rule.**  A row whose game pauses before the first prompt is
+driven by two different command streams unless the feed is adjusted: scarier
+consumes feed lines at pauses, `drive.exe` does not.  Before comparing such a
+row, count the game's startup pauses and drop that many leading lines from the
+cmdfile -- or the two runs will be silently offset from turn one, and every
+downstream difference will look like an engine bug.  Sibling trap to
+"a golden's answers to SCARIER's own [Y/N] are not commands" above.
 
 Feeds for these rows are now `cmdfile_r_<solution>.txt` (all 19, regenerated
 2026-09-07) and `cmdfile_s_mould.txt` (hint-free).  Job files

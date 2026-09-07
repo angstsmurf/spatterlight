@@ -277,9 +277,6 @@ reach.
 > x straw bundle
 Just straw to sleep on...
 
-> put bowl near spyhole
-Where do you want to put the spyhole?
-
 > z
 Time passes...
 
@@ -288,20 +285,26 @@ Time passes...
 The spyhole is open.
 "Hey You! Pi**e of *h*t! Put that bowl near the spyhole!"
 
-> eat soup
-No more soup...
-
-> wait
+> z
 Time passes...
+
+> put bowl near spyhole
+I put the bowl near the spyhole.
+
+"That's it!"
+Someone pours out the soup in the bowl.
+Then, a whisper...
+"Beware, bastard. There could be poison in it..."
+And then a coarse laugh.
 A little mouse exits. It's maybe back in its hole..
 
 The spyhole closes...
 
-> wait
+> z
 Time passes...
 
-> wait
-Time passes...
+> eat soup
+I eat the soup. Just few gulps...
 
 > wait
 Time passes...
@@ -332,13 +335,10 @@ A little mouse exits. It's maybe back in its hole..
 > wait
 Time passes...
 
-> take knife
-Take what?
+> wait
+Time passes...
 
-> x knife
-I see no such thing.
-
-> z
+> wait
 Time passes...
 "Hey Howell! It seems you've got a friend..."
 Someone throws an object in from the window.
@@ -348,6 +348,16 @@ No answer...
 Scream toward the window.
 "Who are you?"
 
+> wait
+Time passes...
+
+> take knife
+I take the little knife.  A little mouse enters in the cell and moves along
+walls..
+
+> x knife
+A little sharp knife.
+
 > x letter
 Ugly affair. We can still save you.
 Get this knife and store it in a safe place.
@@ -356,39 +366,34 @@ Just wait for me...
 
 A brother
 
-> z
-Time passes...
-A little mouse enters in the cell and moves along walls..
-
 > write on southern wall
-With what...
+I scratch the southern wall writing "I'm INNOCENT!"
 
 > enlarge hole with knife
-No way. Need something to enlarge it.
+That's it. It's larger now.
 
 > x photo
-I see no such thing.
-
-> z
-Time passes...
+A photo with three niggers on one side... On the other side... there's a
+writing: "Love you..."  A little mouse exits. It's maybe back in its hole..
 
 > x hole
-It's a little crack in the wall. There's something in it.
+A mouse crack in the wall. It's larger now.  A photo is in the little hole.
 
 > eat soup
-No more soup...  A little mouse exits. It's maybe back in its hole..
+I eat the soup. Just few gulps...
 
 > eat soup
-No more soup...
+I eat the soup. Just few gulps...
 
 > eat soup
-No more soup...
+I eat the soup. Just few gulps...
 
 > eat soup
-No more soup...
+Drink the last soup from the bowl...
 
 > put knife in hole
-I am not holding the little knife.
+The little knife can't fit inside the little hole at the moment.  I put the
+knife in the mouse hole.
 
 > x door
 It's a wooden door in the western wall.  The spyhole is in the door.
@@ -396,12 +401,6 @@ It's a wooden door in the western wall.  The spyhole is in the door.
 > x window
 It's a two barred window facing the main courtyard of the prison. Too high to
 reach.
-
-> wait
-Time passes...
-
-> ask sly about interrogation
-I can't talk to that.
 
 Sly is knocking on the other side of the wall...
 "Carl! Are you there?"
@@ -413,6 +412,18 @@ Sly is knocking on the other side of the wall...
 "What's this bullsh*t? What are they talking about?"
 "Don't know Jim. We'll get away from here."
 Jim starts to cry, on the other side of the wall...
+
+> wait
+Time passes...
+
+> ask sly about interrogation
+
+"Did Mr.Frey ask you something?"
+"The nigger. Wanted to know about it."
+"What did you told?"
+"Nothing..."
+"Good. We'll get out of here..."
+Jim starts to cry on the other side of the wall...
 
 > ask sly about murder
 
@@ -445,8 +456,8 @@ I smile.
 " Yes, we did."
 
 > ask sly about knife
-"Got a knife, Jim. Someone throw it through the window."
-"That's a good...  a good new... Carl."
+"Jim, do you think that the brotherhood will help us?"
+"I hope so, Carl. Hope so."
 
 > ask sly about others
 "What about the others?"
@@ -454,12 +465,6 @@ I smile.
 
 > listen
 Jim is crying and coughing in his cell...
-
-> wait
-Time passes...
-
-> wait
-Time passes...
 
 > wait
 Time passes...

@@ -5494,38 +5494,65 @@ choosethreehour_solution.txt|Choose_Your_Own_Three_Hour_Adventure.taf|Overall, y
 # EVENT (`start=120..120`, no other restrictions) -- a first derivation
 # attempt landed 2 turns short of the trigger and was mistaken for a
 # finished win because the transcript just kept accepting `wait` forever
-# with no error; re-verified the exact minimum trailing-wait count needed
-# (one short still fails). No sexual/explicit content despite the dark
+# with no error; the exact minimum feed length is recorded below. No
+# sexual/explicit content despite the dark
 # subject matter (a scripted execution, racist dialogue, and real
 # historical KKK/MLK excerpts) -- proceeds under normal wiring, not AIF
-# treatment. 121 commands, no env vars.
+# treatment. 122 commands: 119 are read as prompts, 2 are swallowed by the
+# two intro `Press a key.` pauses, and 1 trailing `wait` is spare (121 is
+# the exact minimum; one short still fails). No env vars.
 # Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
 # tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
 # examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
 # in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count, no
 # NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
 # Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
-# This walkthrough was re-derived for it: 3 `z` lines after x knife, x letter and a third examine refusal.  Each
-# added line restores the old tick sequence (WaitTurns 1).  Trace with
-# SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
+# 2026-09-07: the three `z` lines this row used to carry after `x knife`,
+# `x letter` and `x photo` are GONE, and so are the admin turns they were
+# compensating -- see the re-derivation note below.  Trace admin turns with
+# SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`); this row now has
+# none at all.
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
-# 2026-09-06, after the 4.0 put precedence port: `put knife in hole` with
-# the knife on the floor now answers "I am not holding the little knife."
-# and task 16 never runs.  The implicit-take gate pre-matches only
-# take-flagged tasks, and task 16 IS one: its alternate command `get {the}
-# [supper/soup/dinner] ...` carries "get", so the typed line hits it, the
-# auto-take is suppressed, and the handler's not-holding refusal claims.
-# The knife is not needed for the ending; feed unchanged, still wins.
-# Model-derived, Wine candidate (a take-flag quirk worth measuring).
-# Re-blessed 2026-09-06: `put bowl near spyhole` is the 4.0 put prompt "Where do you want to put the spyhole?" (459DB4 @46DCDB, MEASURED Adrift_111: the spyhole scores Short + Prefix = 2 over the bowl's 1), not a turn (46DD25); a `z` follows it.
+# RE-DERIVED 2026-09-07.  Five of this walkthrough's own steps used to FAIL
+# in scarier: `put bowl near spyhole` fell through to the 4.0 put prompt
+# "Where do you want to put the spyhole?" (459DB4 @46DCDB; the spyhole scores
+# Short + Prefix = 2 over the bowl's 1, and the prompt is not a turn,
+# 46DD25), `eat soup` answered "No more soup...", `take knife` "Take what?",
+# `enlarge hole with knife` "No way. Need something to enlarge it." and
+# `x photo` "I see no such thing.".  The whole soup/knife/hole/photo strand
+# was dead, and three `z` lines had been added to paper over the admin turns
+# the failed examines produced.
+# NONE of that was an engine divergence -- the commands were simply mistimed
+# by two turns.  The supper EVENT (turn 45) is what OPENS the spyhole, and
+# `put bowl near spyhole` was arriving at turn 44.  Two `z` now precede it
+# and the strand plays in full: "I put the bowl near the spyhole." / "I eat
+# the soup. Just few gulps..." / "I take the little knife." / "That's it.
+# It's larger now." / the photo -- every line matching run400's Adrift_366.
+# With the knife actually in hand `put knife in hole` answers "The little
+# knife can't fit inside the little hole at the moment.  I put the knife in
+# the mouse hole." in BOTH engines, so the 2026-09-06 note about "I am not
+# holding the little knife." no longer describes this feed.  Adrift_111 (a
+# run400 probe of this same game) still shows the put prompt when the command
+# comes before the spyhole opens: the ported precedence is right, the
+# walkthrough was wrong.
+# CAUTION for any run400 comparison of this row: `drive.exe` answers the two
+# intro "Press a key." pauses itself while scarier eats two feed lines on
+# them, so a raw replay runs run400 two commands AHEAD of us for the whole
+# game.  Adrift_366 executed feed[1..119] where we execute 3 `remember` +
+# feed[6..]; the streams are not aligned and a prompt-by-prompt compare of
+# them is meaningless.  Drop two leading `remember` lines from any cmdfile
+# built for this row.
 # Re-blessed 2026-09-06: `ask sly about interrogation` before Sly has
 # spoken is now "I can't talk to that." and not the "ask [character] about
 # [subject]" hint -- every Runner splits its ask/talk-to block on "about"
 # and only the branch WITHOUT it prints the hint (run400 loc_488B87,
 # seed at loc_488C65).  MEASURED at Adrift_297 turn 80, `ask sly about
-# him`: "(No male)" then "I can't talk to that.".
+# him`: "(No male)" then "I can't talk to that.".  After the 2026-09-07
+# re-derivation `ask sly about interrogation` lands two turns later, when Sly
+# HAS spoken, so it now answers "Did Mr.Frey ask you something?"; the rule is
+# still exercised by `ask sly about him` at golden line 436.
 thelasthour_solution.txt|thelasthour.taf|"Here we are... MY BROTHER."|
 # Sex is Mental.taf (AIF, 8373 bytes, 4.00): comedic explicit content between
 # two apparent adults (a psychiatric-ward patient and a nurse), a third
