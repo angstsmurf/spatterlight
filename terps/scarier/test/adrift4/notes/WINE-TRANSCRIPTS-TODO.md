@@ -3219,7 +3219,7 @@ Present in the Runner, but not in all four:
 | word | first Runner | scarier gate |
 | --- | --- | --- |
 | `turns` | 3.80 | none |
-| `undo` | 3.80 | none |
+| `undo` | 3.80 | gated 2026-09-07 (three answers, one per version band; see below) |
 | `version` | 3.90 | none |
 | `status`, `wield` | 3.90 | `battle_is_enabled()` (a 3.7/3.8 game cannot have one, so effectively gated) |
 | `z`, `g` | 3.90 | already gated, see [[adrift-z-wait-vocabulary-390]] |
@@ -5108,3 +5108,62 @@ narration those games get is a different set of strings (run390 Form1.frm
 `" manages to avoid "`, `"'s attack."` -- appear in run400's string pool and
 in no other Runner's.  Suite **429 PASS / 0 FAIL**, the ADRIFT 5 suite
 unchanged.
+
+## Ported 2026-09-07: the Runner's three `undo` answers
+
+`sweep_wine_turns.py`'s word-stream census put `cellar` at 4 differing turns
+out of 132 aligned, and the smallest of them was the whole lead:
+
+```
+==cellar                            132/139  aligned    4 differ
+    t118  'undo'                 w0    runner  Undone. There is nothing worth taking here.
+                                      scarier [The previous turn has been undone.]
+```
+
+`Adrift_361_cellar.txt` has, verbatim, `'> undo\nUndone.\nThere is nothing
+worth taking here.\n'`.  SCARE's three `undo` strings are its own invention:
+`pool.py -s` finds **none** of `[The previous turn has been undone.]`,
+`Sorry, no more undo is available.` or `You can't undo what hasn't been done.`
+in any of the four Runners' string pools.
+
+### What each Runner actually says
+
+| Runner | word known? | success | nothing to undo |
+| --- | --- | --- | --- |
+| 3.70 | **no** -- absent from `generaltasks` | -- | -- |
+| 3.80 | yes | -- | `I can't undo your blundering.` (@442EE9) |
+| 3.90 | yes | `Undone.` (@436AB5) | `I can't undo any more of your blunderings!` |
+| 4.00 | yes | `Undone.` (@45B0FF) | `I can't undo any more of your blunderings!` (@45B158) |
+
+3.80 knows the word and *always* refuses: there is no restore path behind it,
+only the one message.  3.70 does not know it at all, so the word falls through
+to the game -- which is what `redwire` relies on, and why that row did not
+move: its `undo` is answered by a task of the game's own ("You undo the last
+command, which was the one that moved you here in the first...") before
+`run_standard_commands()` is ever reached.
+
+No Runner prints a room name after a successful `undo`, at any version.
+
+### The port
+
+`lib_cmd_undo()` in `sclibrar.cpp` now gates on `prop_get_taf_version()`:
+returns FALSE below 3.80 (let the game answer), prints the 3.80 refusal below
+3.90, and otherwise keeps its existing restore logic behind the two 3.90+
+wordings.  The `game->is_admin = TRUE` and `stop_sound` behaviour is unchanged.
+
+**NOT ported.** The Runner also *replays the restored turn's output*: it keeps
+a 10-deep ring of turn records (`MemVar_494124`, field 0 = the output buffer,
+stamped at @48BD6E), `undo` reads slot **1** and re-prints it, empty slots
+being stamped `"!!"` at @45B146 and tested for at @45AE5C.  That is why the
+run400 transcript reads `Undone.` *and then* the previous turn's text again.
+Scarier restores the state but prints nothing further; the goldens below were
+blessed on that basis, and the replay half is a separate, larger port.
+
+### Goldens moved
+
+| golden | turn | was | now |
+| --- | --- | --- | --- |
+| `cellar_solution.expected.txt` | 118 `undo` | `[The previous turn has been undone.]` | `Undone.` |
+| `hero_solution.expected.txt` | 38 `undo` | room heading + `[The previous turn has been undone.]` | `Undone.` |
+
+`redwire` did not move (see above).  Suite **429 PASS / 0 FAIL**.

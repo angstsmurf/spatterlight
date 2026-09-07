@@ -2445,12 +2445,53 @@ lib_cmd_restart (scr_gameref_t game)
  * lib_cmd_undo()
  *
  * Called on "undo".  Restores any undo game or memo to the main game.
+ *
+ * The wording is a three-way version split, and none of the three is what
+ * SCARE used to say.  Measured 2026-09-07 from the four Runners' constant
+ * pools and the handlers that print them:
+ *
+ *   3.70  has no `undo` at all -- the word does not occur in run370's pool,
+ *         so the line falls through to the game's DontUnderstand.
+ *   3.80  knows the word and has nothing behind it: run380 generaltasks
+ *         @442EE9 tests `c("undo")` and answers "I can't undo your
+ *         blundering." every time, with no state to restore.
+ *   3.90+ answers "Undone." on success (run390 do_undo @436AB5, run400
+ *         Proc_19_62 @45B0FF) and "I can't undo any more of your
+ *         blunderings!" when the history is empty (@45B158).
+ *
+ * "[The previous turn has been undone.]", "Sorry, no more undo is
+ * available." and "You can't undo what hasn't been done." are in no Runner's
+ * pool at all, and neither Runner prints a room name with the answer:
+ * Adrift_361_cellar.txt (4.00) reads plain "Undone." three times running.
+ *
+ * NOT ported, and visible in that same transcript: 3.9 and 4.0 also REPLAY
+ * the restored turn's output.  Each Runner keeps a 10-deep record array
+ * (run400 MemVar_494124) whose field 0 is the turn's whole output buffer,
+ * stamped from MemVar_4941B0 when the record is pushed (@48BD6E); `undo`
+ * reads slot *1* -- the previous turn -- and prints "Undone." & vbCrLf & the
+ * text that slot holds, so undoing `e` re-prints what `take satchel` said.
+ * An emptied slot is stamped "!!" (@45B146) and that sentinel is what the
+ * availability test reads (@45AE5C).  Scarier's filter keeps no per-turn text
+ * to replay; recording one is the open half of this lead.
  */
 scr_bool
 lib_cmd_undo (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_memo_setref_t memento = gs_get_memento (game);
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+
+  /* 3.70 does not know the word; let the game answer instead. */
+  if (version < TAF_VERSION_380)
+    return FALSE;
+
+  /* 3.80 knows it and refuses, always. */
+  if (version < TAF_VERSION_390)
+    {
+      pf_buffer_string (filter, "I can't undo your blundering.\n");
+      game->is_admin = TRUE;
+      return TRUE;
+    }
 
   /* If an undo buffer is available, restore it. */
   if (game->undo_available)
@@ -2458,8 +2499,7 @@ lib_cmd_undo (scr_gameref_t game)
       gs_copy (game, game->undo);
       game->undo_available = FALSE;
 
-      lib_print_room_name (game, gs_playerroom (game));
-      pf_buffer_string (filter, "[The previous turn has been undone.]\n");
+      pf_buffer_string (filter, "Undone.\n");
 
       /* Undo can't properly unravel layered sounds... */
       game->stop_sound = TRUE;
@@ -2468,22 +2508,22 @@ lib_cmd_undo (scr_gameref_t game)
   /*
    * If there is no undo buffer, try to restore one saved previously in a
    * memo.  If that works, treat as for restore from file, since that's
-   * effectively what it is.
+   * effectively what it is.  The Runner's own history is ten records deep and
+   * needs no such split; this is the port's second tier of the same thing, so
+   * it answers with the same word.
    */
   else if (memo_load_game (memento, game))
     {
-      lib_print_room_name (game, gs_playerroom (game));
-      pf_buffer_string (filter, "[The previous turn has been undone.]\n");
+      pf_buffer_string (filter, "Undone.\n");
 
       game->is_running = FALSE;
       game->do_restore = TRUE;
     }
 
   /* If no undo buffer and memo restore failed, there's no undo available. */
-  else if (game->turns == 0)
-    pf_buffer_string (filter, "You can't undo what hasn't been done.\n");
   else
-    pf_buffer_string (filter, "Sorry, no more undo is available.\n");
+    pf_buffer_string (filter,
+                      "I can't undo any more of your blunderings!\n");
 
   game->is_admin = TRUE;
   return TRUE;

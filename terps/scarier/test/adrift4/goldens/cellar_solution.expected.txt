@@ -975,20 +975,16 @@ There is nothing worth taking here.
 You can't leave without your uncle's satchel.
 
 > undo
-
-[The previous turn has been undone.]
-
-> undo
-
-[The previous turn has been undone.]
+Undone.
 
 > undo
-
-[The previous turn has been undone.]
+Undone.
 
 > undo
+Undone.
 
-[The previous turn has been undone.]
+> undo
+Undone.
 
 > l
 

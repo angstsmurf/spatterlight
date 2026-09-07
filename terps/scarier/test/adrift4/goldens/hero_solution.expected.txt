@@ -606,28 +606,22 @@ Time passes...
    Somewhere in the factory you hear the sound of something… moving.
 
 > undo
-Inside The Shadowy Milk Factory On Chabbow Street
-[The previous turn has been undone.]
+Undone.
 
 > undo
-Inside The Shadowy Milk Factory On Chabbow Street
-[The previous turn has been undone.]
+Undone.
 
 > undo
-Inside The Shadowy Milk Factory On Chabbow Street
-[The previous turn has been undone.]
+Undone.
 
 > undo
-Outside The Milk Factory On Chabbow Street
-[The previous turn has been undone.]
+Undone.
 
 > undo
-At Home In Your Less Than Glamorous Apartment
-[The previous turn has been undone.]
+Undone.
 
 > undo
-At Home In Your Less Than Glamorous Apartment
-[The previous turn has been undone.]
+Undone.
 
 > get jeans
 You take your jeans from the washing machine.

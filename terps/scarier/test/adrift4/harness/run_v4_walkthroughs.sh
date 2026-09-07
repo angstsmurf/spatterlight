@@ -3615,6 +3615,10 @@ chosen_solution.txt|Chosen.taf|You plug the T-shaped block into the final socket
 # hidden by then but the player has held it, and 4.0's named take falls back
 # on every object it has SEEN once nothing here answers to the noun; see
 # lib_cmd_take_absent().
+# Re-blessed 2026-09-07: turn 118's `undo` now answers "Undone.", the wording
+# every 3.90/4.00 Runner prints (run400 @45B0FF), measured in
+# Adrift_361_cellar.txt; SCARE's invented "[The previous turn has been
+# undone.]" is in no Runner's string pool.  See lib_cmd_undo().
 cellar_solution.txt|TheCellar.taf|And so The Cellar has ended. Many thanks for playing.|SCR_SKIP_WAITKEY=1
 # Panic! (Stewart J. McAbney, ADRIFT 3.90): the author's own walkthrough
 # transcript replayed verbatim, all 69 commands, no repairs.  The first command
@@ -7558,6 +7562,9 @@ rking_solution.txt|rking.taf|Overall, your score was 100 out of a total of 100.|
 # game's own text admits it "won't allow you to get the maximum score
 # in the game", so this is a deliberate, honest partial-progress
 # checkpoint rather than a claim of 200/200. 116 commands.
+# Re-blessed 2026-09-07: the `undo` answer is now "Undone." and nothing else --
+# no Runner reprints the restored room's name.  See lib_cmd_undo() and
+# notes/WINE-TRANSCRIPTS-TODO.md.
 hero_solution.txt|competition2004__adrift__hero__hero.taf|the world is a better place for your actions|SCR_SKIP_WAITKEY=1
 # Derived 2026-08-31 from the game's own built-in `B WALK` bare-bones
 # walkthrough (available from turn 1), with one fix: the built-in text
