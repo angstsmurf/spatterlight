@@ -77,6 +77,13 @@ icecream_solution.txt|IceCream.taf||SCR_SKIP_WAITKEY=1
 # NPC's walk has expired by then.  The old golden carried the arrival, so it
 # was wrong; every other line of the replay matched.  See the NPC walk-ticker
 # rules in scnpcs.cpp npc_tick_npc().
+# Re-blessed 2026-09-07, one line, for the same hidden-stamp fix as the
+# skydiver row: Huey's arrival after `lean ladder against tree` now prints,
+# and the 2026-08-24 measurement above already recorded that run400 prints it
+# ("Huey the Contractor walks by and stops" + "." on the next line,
+# Adrift_19_the_cat_in_the_tree.txt lines 12-13).  The golden was carrying
+# the Runner's OTHER line, the boy's expired arrival, and missing this one;
+# now it has exactly what the Runner printed.
 the_cat_in_the_tree_solution.txt|TheCatintheTree.taf|You scored 50 out of the maximum 50!|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29 in run400 under Wine, full 99-command replay identical but
 # for the tail (Adrift_1_man_overboard.txt).  Settles: the `again` echo and the give/ask
@@ -239,6 +246,14 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 # adjacent member), which moves the combat rolls under the old seed far
 # enough that Urgorn wins.  Seed 4 is the lowest at which the trimmed route
 # beats him with no unparsed command anywhere in the replay.
+# Both rows re-blessed 2026-09-07, one line each -- "  Haron follows you." on
+# the `open door` turn that introduces him -- for the hidden-stamp fix on the
+# skydiver row below.  ALEXIS is 3.90 AND seeded, so it cannot be replayed in
+# the Runner; harness/make_39_walkhiddenprobe.py stands in for it and was
+# measured under run390 (Adrift_911.txt, 2026-09-07), reproducing all three
+# cells exactly as run400 gives them.  3.9 stamps inside the same exact-tick
+# gate (loc_45ABB8) and shares the gate's "old <> 0" term (loc_45A99B), so
+# the 4.0 rule carries here unchanged.
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=3
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=2
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_46_topaz.txt,
@@ -5171,6 +5186,22 @@ jinxtron_full_solution.txt|JINXTRON.taf|I'm free!  Bwa hahaha!|SCR_SEED=19
 # branch in without it. No score summary prints at all (MaxScore==0 in the
 # authored file), so the win marker is the game's own darkly-comic truncated
 # closing line. 23 commands.
+# Re-blessed 2026-09-07, ONE line: the Pelican's turn-16 arrival
+# "Pelican A pelican flocked toward me.." (Adrift_246_skydiver.txt line 49),
+# which scarier used to swallow.  This is NOT the "event a tick out" the
+# notes' candidate list filed it under -- the walk step fires on exactly the
+# right tick in both engines; it was the ARRIVAL ANNOUNCEMENT that was
+# suppressed.  The Pelican has StartRoom 0 and a walk whose first stop is
+# Hidden, so it was already nowhere when that stop came round; scarier
+# stamped the walk-hidden marker only inside its "did the NPC actually move"
+# branch, left the Pelican on a genuine zero, and the arrival then failed the
+# "old <> 0" half of the announcement gate.  The Runner writes the &HFF from
+# the Hidden branch itself with no move test (run400 loc_468D4A).  Measured
+# with harness/make_400_walkhiddenprobe.py (Adrift_910.txt): three walkers
+# all arriving in the player's room -- the Skydiver's shape announces with no
+# direction, a never-placed zero stays silent (which is what keeps "old <> 0"
+# in the gate at all), a real room announces with a direction.  Fix in
+# scnpcs.cpp npc_tick_npc_walk().
 skydiver_solution.txt|The_Skydiver.taf|I'm almost dea-
 # the_road ("The Road Leads to Nowhere", 7903 bytes, 4.00, Hourglass comp):
 # no score anywhere in the file (all 32 tasks score=0) -- a single linear

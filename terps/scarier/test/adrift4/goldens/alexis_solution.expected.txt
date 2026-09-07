@@ -888,7 +888,7 @@ could probably be opened now.
 
 > open door
 The doors slowly creak open. A darkness that seems to come out of the doors,
-consumes you.
+consumes you.  Haron follows you.
 A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."

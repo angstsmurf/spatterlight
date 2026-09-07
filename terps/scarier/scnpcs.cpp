@@ -932,8 +932,6 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
          are leaving was a walk's Hidden stamp -- the setter clears it. */
       was_walk_hidden = gs_npc_walk_hidden (game, npc);
       gs_set_npc_location (game, npc, dest + 1);
-      if (dest == -1)
-        gs_set_npc_walk_hidden (game, npc, TRUE);
 
       /*
        * Announce the arrival, unless the player watched the departure.
@@ -953,6 +951,38 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
               || npc_version (game) == TAF_VERSION_370))
         npc_announce (game, npc, FALSE, start);
     }
+
+  /*
+   * Stamp the walk-hidden marker, and do it whether or not the step above
+   * was a move.  The Runner writes its &HFF into the location field from the
+   * Hidden branch itself (run400 loc_468D4A), with no "did it move" test in
+   * front of it, so a walker that was ALREADY nowhere when the Hidden stop
+   * came round still comes out of it carrying the marker -- and its next
+   * arrival therefore passes the "old <> 0" half of the announcement gate
+   * above.  Scarier used to stamp only inside the move branch, which left
+   * such a walker on a genuine zero for ever and swallowed the arrival.
+   *
+   * That is The Skydiver's Pelican exactly: StartRoom 0 and a walk whose
+   * first stop is Hidden, arriving on turn 16 with run400 printing "Pelican
+   * A pelican flocked toward me.." and Scarier printing nothing.  Measured
+   * with harness/make_400_walkhiddenprobe.py under run400 (Adrift_910.txt,
+   * 2026-09-07): of three walkers all arriving in the player's room, the one
+   * on the Skydiver's shape (nowhere already, Hidden stop, then the room)
+   * announces "Hid wanders in." with no direction, the one that arrives from
+   * a never-touched zero says nothing, and the one leaving a real room
+   * announces with a direction.  The middle cell is what keeps "old <> 0" in
+   * the gate; this stamp is what lets the first past it.
+   *
+   * 3.9 answers the same three ways: make_39_walkhiddenprobe.py under
+   * run390 (Adrift_911.txt, 2026-09-07) reproduces the cells exactly, so the
+   * stamp is unconditional there too (run390 loc_45ABB8, gate loc_45A99B).
+   * ALEXIS.TAF is the 3.90 corpus row that moves with it -- seeded, hence
+   * unmeasurable itself, which is what the probe stands in for.  3.7 has no
+   * "old <> 0" term in its gate at all (run370 @43955E), so the stamp is
+   * invisible there; 3.8 shares 3.9's gate (run380 @4416F4).
+   */
+  if (is_exact && destnum == 0)
+    gs_set_npc_walk_hidden (game, npc, TRUE);
 
   /* Handle meeting characters and objects -- arrival turns only. */
   if (!is_arrival)

@@ -1047,7 +1047,7 @@ Uron Castle Entrance
 The walls of the castle reach high in the air. The smell fades now, and the
 air appears less dense. It is replaced with a feeling that you are unwanted.
 There is a large wooden door that looks extremely thick. The path leads South
-down the mountain.
+down the mountain.  Haron follows you.
 A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."

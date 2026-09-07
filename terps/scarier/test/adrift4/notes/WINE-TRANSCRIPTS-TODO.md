@@ -634,7 +634,7 @@ refuses to load it.
 | `shetland` | The_Shetland_Enigma.taf | `Adrift_260_shetland.txt` | endtail 1 | T65 `mount bike`: run400 'You mount the little pod-bike, and draw its protective shield about yo' vs scarier 'You mount the little pod-bike, and draw its protective shield about yo' |
 | `showtime` | Showtime_at_the_Gallows.taf | `Adrift_312_showtime.txt` | FIXED 2026-09-06 | T59 `get her hand` `(No female)`: ported, golden re-blessed.  A re-drive still reports a first difference at the same turn, but that is the feed's two blank `<waitkey>` lines drifting the streams (`z` re-synchronises two turns later), not the echo |
 | `sigurd` | Sigurd_Fafnesbane.taf | `Adrift_189_sigurd.txt` | endtail 1 | T11 `kill regin`: run400 'You kill your deceitful stepfather. Regin falls dead over his anvil. Y' vs scarier 'You kill your deceitful stepfather. Regin falls dead over his anvil. Y' |
-| `skydiver` | The_Skydiver.taf | `Adrift_246_skydiver.txt` | diff 2 | T15 `z`: run400 'Time passes... Pelican A pelican flocked toward me..' vs scarier 'Time passes...' |
+| `skydiver` | The_Skydiver.taf | `Adrift_246_skydiver.txt` | **FIXED 2026-09-07** (a Hidden walk stop stamps the location whether or not the walker moved) | T15 `z`: run400 'Time passes... Pelican A pelican flocked toward me..' vs scarier 'Time passes...' |
 | `spooked` | Spooked_The_Wonders_of_Science.taf | `Adrift_226_spooked.txt` | clean |  |
 | `spot_of_bother` | A_Spot_of_Bother.taf | `Adrift_331_spot_of_bother.txt` | diff 12 | T138 `sprinkle eye of toad into cauldron`: run400 'You sprinkle some of the eye of toad into the cauldron. The cauldron s' vs scarier 'You sprinkle some of the eye of toad into the cauldron. The cauldron b' |
 | `sswhore` | ss whore.taf | `Adrift_304_sswhore.txt` | lost-cmd | 1 lost, first feed[135] `score` |
@@ -1923,9 +1923,13 @@ written up here (see the batch-1 section), and so, after fix 5, is
 - **An event line one side prints and the other does not, 6 rows.**
   `skydiver` T15 (`Pelican A pelican flocked toward me..` only in run400),
   `briefcase` T5 and `backhome` T36 (only in run400), `overtheedge` T1,
-  `bigcitylaundry` T1 and `stationxiii` T25 (only in scarier).  All six are
-  one event firing a tick early or late, and the split down the middle says
-  it is the tick, not a missing event.
+  `bigcitylaundry` T1 and `stationxiii` T25 (only in scarier).  The heading
+  is a guess and `skydiver` has already broken it: that line is not an event
+  at all and not a tick error either -- the walk step fires on exactly the
+  right tick in both engines and the ARRIVAL ANNOUNCEMENT was suppressed.
+  DONE 2026-09-07; see "Ported 2026-09-07: a Hidden walk stop stamps the
+  walker's location whether or not it moved" below.  Five rows left, and
+  they should be re-triaged one at a time rather than as a set.
 - **`suburbanprodigy3` T31 `stats`** -- DONE 2026-09-07.  run400 ran a game
   task, scarier answered with a built-in status line (`Celler | Score: 80`),
   and the guess was right: `stats` is a SCARE invention no Runner carries.
@@ -2061,6 +2065,16 @@ follow-up on rows that have been driven, in this order:
    `backhome` T36 (run400 prints it) against `overtheedge` T1,
    `bigcitylaundry` T1, `stationxiii` T25 (scarier prints it).  Six rows,
    split evenly, so this is the tick and not a missing event.
+   **The premise is wrong for at least one row.**  `skydiver` is DONE
+   2026-09-07 and it was neither an event nor a tick: the Pelican's walk
+   stepped on the correct turn in both engines and scarier suppressed the
+   arrival line, because a walker that was already nowhere when a Hidden stop
+   came round never got the walk-hidden stamp.  See "Ported 2026-09-07: a
+   Hidden walk stop stamps the walker's location whether or not it moved".
+   Do not assume the other five share a mechanism -- `bigcitylaundry` T1's
+   extra text ("Your feet are freezing! Put s...") really does look like an
+   event, and the even split that suggested "tick" was an artefact of lumping
+   an NPC line in with them.
 6. **`icecream`** -- DONE 2026-09-07.  Two rules, neither of them the guess in
    this item: the take refusal is a game task's FailMessage that run400 reaches
    ahead of " already carrying ", and `put ice cream in cone` is refused
@@ -3561,3 +3575,100 @@ never a silent task on its own -- which is what the row was mis-filed under.
 
 Two goldens re-blessed, `relojero` and `easter`.  Full v4 suite: 428 PASS /
 0 FAIL.
+
+
+### Ported 2026-09-07: a Hidden walk stop stamps the walker's location whether or not it moved
+
+`skydiver` T15 was filed under "a single event one tick out".  It is not an
+event, and nothing is a tick out.  run400 prints
+
+```
+> z
+Time passes...
+Pelican A pelican flocked toward me..
+```
+
+(`Adrift_246_skydiver.txt:47-49`) and scarier printed only `Time passes...`.
+The Pelican's walk stepped into the player's room on exactly the same turn in
+both engines -- what was missing was the arrival ANNOUNCEMENT.
+
+### The gate, and the term that was failing
+
+`npc_announce()` fires on an NPC's walk arrival when
+
+```
+ShowEnterExit  AND  old <> playerroom  AND  old <> 0
+```
+
+(run400 @468A5D, run390 loc_45A99B, run380 @4416F4; run370 @43955E has no
+`old <> 0` term at all).  `old` is the walker's previous location field.  The
+last term is what keeps a game quiet about characters it has never placed:
+an NPC with StartRoom 0 that a task drops straight into your room says
+nothing.
+
+But the Runner also uses that same field to record "hidden by a walk", by
+writing `&HFF` into it -- so a walker parked by a Hidden stop is at `&HFF`,
+not at 0, and its next arrival passes the term.  Scarier keeps that as a
+separate `walk_hidden` flag (`gs_set_npc_walk_hidden`), because
+`gs_set_npc_location` has to clear it the way the Runner's write clobbers the
+field.
+
+The bug: scarier stamped the flag from **inside** the "did the NPC actually
+move" branch.  The Pelican has StartRoom 0 and a walk whose FIRST stop is
+Hidden, so when that stop came round it was already nowhere, `start ==
+dest == -1`, the branch was skipped, and it stayed on a genuine zero for the
+rest of the game.  run400 writes its `&HFF` from the Hidden branch itself
+(`loc_468D4A`) with no move test in front of it.
+
+### The probe
+
+Neither shape occurs often enough in the corpus to settle by replay, and the
+one 3.90 row that moves with the answer (`ALEXIS.TAF`) is seeded and so
+cannot be replayed at all.  `harness/make_400_walkhiddenprobe.py` and
+`harness/make_39_walkhiddenprobe.py` build a three-cell game instead -- three
+walkers that all arrive in the room the player never leaves:
+
+| cell | shape | run400 (`Adrift_910`) | run390 (`Adrift_911`) |
+|---|---|---|---|
+| `Hid` | StartRoom 0, stops Hidden then Alpha -- the Skydiver's shape | `Hid wanders in.` | `Hid wanders in.` |
+| `Nev` | StartRoom 0, one stop Alpha -- a genuine never-touched zero | *(silent)* | *(silent)* |
+| `Base` | StartRoom Bravo, one stop Alpha -- a real room to leave | `Base wanders in from the east.` | `Base wanders in from the east.` |
+
+`Nev` is the cell that proves `old <> 0` belongs in the gate at all; `Hid` is
+the cell that proves the stamp is unconditional; `Base` is the baseline, and
+it also shows the direction clause only survives when there was a real room
+to come from.  Both Runners answer all three the same way, so the rule is not
+a 4.0 rewording.  Post-fix scarier reproduces every cell.
+
+(3.9 needs each walk started by a task: a NON-LOOPING game-start walk never
+runs before 4.0 -- `npc_start_walk_is_390_noop`.  The 4.0 probe can use a
+game-start walk for `Hid`, and does.)
+
+### The port
+
+In `npc_tick_npc_walk()` (`scnpcs.cpp`) the stamp moved out of the move
+branch and after it:
+
+```c
+  if (is_exact && destnum == 0)
+    gs_set_npc_walk_hidden (game, npc, TRUE);
+```
+
+It has to come after, because `gs_set_npc_location()` clears the flag on any
+placement -- both stand in for one Runner field.
+
+### Fallout
+
+Four goldens re-blessed, one line each, all four of them a line the Runner
+prints and we were dropping:
+
+- `skydiver` -- the Pelican, `Adrift_246_skydiver.txt:49`.
+- `the_cat_in_the_tree` -- Huey after `lean ladder against tree`,
+  `Adrift_19_the_cat_in_the_tree.txt:12-13`.  The 2026-08-24 measurement on
+  that row had already recorded this line; the golden was carrying the
+  Runner's *other* NPC line (the boy's expired arrival) and missing this one.
+- `alexis` and `alexis_worn_cube` -- "  Haron follows you." on the `open
+  door` turn that introduces him.  3.90 and seeded, which is what the 3.9
+  probe stands in for.
+
+Full v4 suite: 428 PASS / 0 FAIL.

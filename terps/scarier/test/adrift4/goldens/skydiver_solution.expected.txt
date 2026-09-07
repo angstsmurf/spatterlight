@@ -85,6 +85,7 @@ Time passes...
 
 > z
 Time passes...
+Pelican A pelican flocked toward me..
 
 > throw keys at pelican
 I waved the keys at the big bird flying in front of me. It seems quite amazed
