@@ -6461,6 +6461,84 @@ lib_try_game_command_short_canonical (scr_gameref_t game,
 }
 
 /*
+ * lib_try_game_command_short_definite()
+ *
+ * The 4.0 drop handler's per-object task look-up, and the drop half of the
+ * same rule lib_try_game_command_with_object_400() documents for put: the
+ * line offered to the tasks is rebuilt from the RESOLVED object in the
+ * normalizing mode 0 -- "drop " & name(obj, 0), so "drop the board" -- and
+ * that one spelling is all the tasks ever see.  No authored-prefix form, no
+ * prefix-less retry (run400 @46F33B-46F358, class-filter mode 2).
+ *
+ * The two measurements it reconciles are the same shape as put's.  dusk.taf
+ * task 48 `drop * board`, the board in hand, claims `drop board` in run400
+ * (Adrift_221_dusk.txt:80) -- the wildcard absorbs the article the rebuild
+ * puts in.  p4REPEAT3.taf task 3, whose command is the literal `drop hat`,
+ * does not: run400 answers both `drop hat` turns out of the library, "You
+ * drop the hat." and then "You are not holding the hat.", and neither the
+ * CompleteText nor the RepeatText is ever printed (Adrift_952.txt,
+ * 2026-09-08).  "drop the hat" simply is not `drop hat`.
+ *
+ * Pre-4.0 keeps the authored-prefix form and its bare-name retry, where the
+ * typed line has already been past the tasks before the library sees it.
+ */
+static scr_bool
+lib_try_game_command_short_definite (scr_gameref_t game,
+                                     const scr_char *verb, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_bool references_buffer[LIB_ALLOCATION_AVOIDANCE_SIZE];
+  scr_vartype_t vt_key[4];
+  scr_bool *references, status;
+  scr_int alias_count, alias;
+
+  assert (lib_is_version_400 (game));
+
+  run_set_task_class_filter (2);
+  status = lib_try_game_command_common (game, verb, object,
+                                        NULL, -1, FALSE, FALSE, FALSE, TRUE);
+
+  /*
+   * Any of the object's names can fill the noun slot, not just its Short.
+   * frustrated.taf's `drop tree` names the upper half of the trunk by an
+   * alias, and run400 gives the line to `*drop*tree*`
+   * (Adrift_274_frustrated.txt) -- "drop the upper half of the trunk" is not
+   * what that pattern matches, "drop the tree" is.
+   */
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Alias";
+  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  for (alias = 0; alias < alias_count && !status; alias++)
+    {
+      scr_char buffer[LIB_ALLOCATION_AVOIDANCE_SIZE], definite_prefix[64];
+      const scr_char *name, *prefix;
+
+      vt_key[3].integer = alias;
+      name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (scr_strempty (name))
+        continue;
+
+      prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
+      prefix = lib_definite_prefix (prefix, definite_prefix,
+                                    sizeof (definite_prefix));
+      if (strlen (verb) + strlen (prefix) + strlen (name) + 3
+          > sizeof (buffer))
+        continue;
+
+      sprintf (buffer, "%s %s %s", verb, prefix, name);
+      references = lib_save_object_references (game, references_buffer,
+                                               LIB_ALLOCATION_AVOIDANCE_SIZE);
+      status = run_game_task_commands (game, buffer);
+      lib_restore_object_references (game, references);
+      if (references != references_buffer)
+        scr_free (references);
+    }
+  run_set_task_class_filter (0);
+  return status;
+}
+
+/*
  * lib_try_game_command_take_definite()
  *
  * The task look-up inside 4.0's implicit take (run400 Proc_19_39_46302C,
@@ -8275,6 +8353,7 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   const scr_filterref_t filter = gs_get_filter (game);
   scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int);
   scr_int objects, references;
+  scr_bool library_printed;
 
   /*
    * "take all except ..." works over the "all" universe, which excludes
@@ -8866,7 +8945,8 @@ static const lib_move_verb_t LIB_PUT_ON_VERB = {
  * is what tells the caller's lists whether they have to indent past it.
  */
 static scr_bool
-lib_move_try_commands (scr_gameref_t game, const scr_char *command)
+lib_move_try_commands (scr_gameref_t game, const scr_char *command,
+                       scr_bool use_definite)
 {
   scr_int object_count, object;
   scr_bool has_printed;
@@ -8878,7 +8958,9 @@ lib_move_try_commands (scr_gameref_t game, const scr_char *command)
       if (!game->object_references[object])
         continue;
 
-      if (lib_try_game_command_short (game, command, object))
+      if (use_definite
+          ? lib_try_game_command_short_definite (game, command, object)
+          : lib_try_game_command_short (game, command, object))
         {
           game->object_references[object] = FALSE;
           has_printed = TRUE;
@@ -8897,14 +8979,20 @@ lib_move_try_commands (scr_gameref_t game, const scr_char *command)
  * in multiple_references as objects the player hasn't got.  The caller has
  * already offered the objects to the game's own handlers, and says with
  * has_printed whether any of those printed anything.
+ *
+ * Returns TRUE if the backend printed anything of its OWN -- a move clause or
+ * a leftover list.  A caller that ends the line with a newline needs to know:
+ * when every referenced object went to a game command there is nothing of the
+ * library's on the line, and run400's drop routine leaves without adding one.
  */
-static void
+static scr_bool
 lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
                   scr_int target, scr_bool has_printed)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object_count, object;
+  scr_bool library_printed;
   lib_list_t list;
 
   object_count = gs_object_count (game);
@@ -8937,6 +9025,7 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
       pf_buffer_character (filter, '.');
     }
   has_printed |= !list.empty ();
+  library_printed = !list.empty ();
 
   /* Note any remaining multiple references left out of the operation. */
   list.clear ();
@@ -8969,12 +9058,14 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
                                                  verb->lacks_pre_390[2]));
           lib_print_object_raw (game, list[0]);
           pf_buffer_character (filter, verb->lacks_end_pre_390);
+          library_printed = TRUE;
         }
-      return;
+      return library_printed;
     }
 
   lib_print_object_list (game, has_printed, list, " or ", verb->lacks_end,
                          verb->lacks[0], verb->lacks[1], verb->lacks[2]);
+  return library_printed || !list.empty ();
 }
 
 
@@ -8988,13 +9079,45 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
  * Objects to action are flagged in object_references; objects requested but
  * deemed not actionable are flagged in multiple_references.
  */
-static void
+static scr_bool
 lib_drop_backend (scr_gameref_t game)
 {
   scr_bool has_printed;
 
-  has_printed = lib_move_try_commands (game, "drop");
-  lib_move_backend (game, &LIB_DROP_VERB, -1, has_printed);
+  has_printed = lib_move_try_commands (game, "drop",
+                                       lib_is_version_400 (game));
+
+  /*
+   * A named object the player is not holding still gets its line offered to
+   * the game's tasks before the library refuses it.  Oh, Human (Oh_Human.taf,
+   * 4.00): the electrical device sits on the floor with the light circling
+   * it, and `drop device` runs task 6 "[drop/get rid of/lose/put down/set
+   * down/remove/take off] {the/a} [device] {...}" -- the game's whole
+   * free-the-light puzzle -- where the library alone would answer "You are
+   * not holding the device." and the game would be unwinnable.  The rebuilt
+   * spelling is the same definite form the held objects get, so a task whose
+   * command is the bare typed line (p4REPEAT3 task 2 `drop hat`, run400
+   * Adrift_952.txt) still loses to the library.
+   */
+  if (lib_is_version_400 (game))
+    {
+      const scr_int object_count = gs_object_count (game);
+      scr_int object;
+
+      for (object = 0; object < object_count; object++)
+        {
+          if (!game->multiple_references[object])
+            continue;
+
+          if (lib_try_game_command_short_definite (game, "drop", object))
+            {
+              game->multiple_references[object] = FALSE;
+              has_printed = TRUE;
+            }
+        }
+    }
+
+  return lib_move_backend (game, &LIB_DROP_VERB, -1, has_printed);
 }
 
 
@@ -9092,6 +9215,7 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
   const scr_filterref_t filter = gs_get_filter (game);
   scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int);
   scr_int objects, references;
+  scr_bool library_printed;
 
   /*
    * Named objects may also be dropped from worn; the "all" universe that
@@ -9112,11 +9236,22 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
                               resolver, -1, is_except,
                               &references);
   if (objects > 0 || references > 0)
-    lib_drop_backend (game);
+    library_printed = lib_drop_backend (game);
   else
-    lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
+    {
+      lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
+      library_printed = TRUE;
+    }
 
-  pf_buffer_character (filter, '\n');
+  /*
+   * 4.0 runs this handler above the task dispatcher, so a drop every one of
+   * whose objects went to a game command leaves the line entirely to that
+   * task -- and run400's drop routine returns from its per-object arm without
+   * closing a line it never opened (@46F358).  Adding one here put a blank
+   * line after Glum Fiddle's `drop tray` and JGrim's `drop mud`.
+   */
+  if (library_printed || !lib_is_version_400 (game))
+    pf_buffer_character (filter, '\n');
   return TRUE;
 }
 
@@ -9475,7 +9610,7 @@ lib_remove_backend (scr_gameref_t game)
 {
   scr_bool has_printed;
 
-  has_printed = lib_move_try_commands (game, "remove");
+  has_printed = lib_move_try_commands (game, "remove", FALSE);
   lib_move_backend (game, &LIB_REMOVE_VERB, -1, has_printed);
 }
 
@@ -15830,6 +15965,22 @@ lib_cmd_verb_npc (scr_gameref_t game)
 
   /* Save in variables. */
   var_set_ref_character (vars, npc);
+
+  /*
+   * 4.0: like the object catch-all above, this answer is not a turn.  The
+   * character pass stores 1 in MemVar_494281 -- the not-a-turn flag the
+   * walk+event tick at 48B599 is gated on -- as the last thing it does with
+   * this message (run400 loc_48061A-48061E), and neither of the two
+   * neighbouring branches does: `" is not here!"` at 480640 and `"Who?"` at
+   * 480659 both fall straight through to 480660.
+   *
+   * Measured on p4REPEAT3.taf (run400 Adrift_952.txt, 2026-09-08): every
+   * line of that probe is followed by the every-turn event's "TICK." except
+   * the two `bob, hello` turns, which print "I don't understand what you
+   * want to do with Bob." and the game's DontUnderstand text and stop.
+   */
+  if (lib_is_version_400 (game))
+    game->is_admin = TRUE;
 
   /* Print don't understand message; unlike objects, there's no "me" here. */
   lib_print_wrapped_npc (game, "I don't understand what you want to do with ",

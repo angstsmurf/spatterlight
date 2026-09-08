@@ -1126,11 +1126,34 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
 /*
  * run_is_put_command()
  *
- * TRUE if the string is one the priority table's put-in / put-on rows would
- * match -- "put X in Y", "drop X on Y" and their all/except forms.  The
- * probe binds object references as a side effect, so they are saved and put
- * back, as run_task_reachable_by_library_callback() does for its own
- * speculative matches.
+ * TRUE if the string is one of the priority table's NAMED put/drop rows --
+ * "put X in Y", "drop X on Y", "drop X", "put X down".  These are the rows
+ * run400's put_drop_list answers itself, above the task dispatcher; the
+ * all/everything rows are deliberately NOT among them.  The probe binds
+ * object references as a side effect, so they are saved and put back, as
+ * run_task_reachable_by_library_callback() does for its own speculative
+ * matches.
+ *
+ * Which side of the line a row falls on was measured on p4REPEAT2.taf and
+ * p4REPEAT3.taf (run400 Adrift_951/952, 2026-09-08), where every one of the
+ * probe's cells is a task whose command is the typed line, none of them
+ * done, all with a RepeatText:
+ *
+ *   `drop coin`, `drop hat`   library, and the task NEVER ran (no "C2"/"C3")
+ *   `put coin on desk`, `put hat on desk`               likewise (no C3/C4)
+ *   `drop all`, `put all on desk`     the TASK ran -- "C14"/"C15", and the
+ *                                     second time round its RepeatText
+ *
+ * The named rows are the whole of run400's drop routine Proc_19_7_46FB8C:
+ * its var_88 = 0 arm resolves the noun itself and composes "<player> drop
+ * <object>." at loc_46F732-46F76C without ever asking the dispatcher.  The
+ * `all` arm does the opposite -- loc_46F1D8 tests the word "all" and, still
+ * before anything is printed, hands the line to a task
+ * (`Proc_19_35_453C50("drop all")` at 46F1EA) and returns from the routine
+ * outright when one claims it (`Result: End Sub`, 46F1F8).  So an "all"
+ * line reaches the tasks first and a named one does not, and the empty-hands
+ * "You're not carrying anything." (loc_46F457, and 46FB33 for the put half)
+ * is only ever reached once the tasks have declined.
  */
 static scr_bool
 run_is_put_command (scr_gameref_t game, const scr_char *string)
@@ -1140,21 +1163,60 @@ run_is_put_command (scr_gameref_t game, const scr_char *string)
   scr_commandsref_t command;
   scr_bool is_put = FALSE;
 
-  for (command = PRIORITY_COMMANDS; command->command && !is_put; command++)
+  /*
+   * Take the table in order and stop at the first row that matches, exactly
+   * as run_priority_commands() does: "drop all" matches the named row
+   * "[drop/put down] %text%" too, with %text% = "all", and it is only
+   * because the all/everything row sits above it that the Runner's `all`
+   * arm is the one that runs.  Scanning for the named handlers alone made
+   * every "all" line look named.
+   */
+  for (command = PRIORITY_COMMANDS; command->command; command++)
     {
-      if (command->handler != lib_cmd_put_all_in
-          && command->handler != lib_cmd_put_in_except_multiple
-          && command->handler != lib_cmd_put_in_multiple
-          && command->handler != lib_cmd_put_all_on
-          && command->handler != lib_cmd_put_on_except_multiple
-          && command->handler != lib_cmd_put_on_multiple)
+      if (!uip_match (command->command, string, game))
         continue;
 
-      is_put = uip_match (command->command, string, game);
+      is_put = command->handler == lib_cmd_put_in_multiple
+               || command->handler == lib_cmd_put_on_multiple
+               || command->handler == lib_cmd_drop_multiple;
+      break;
     }
 
   game->object_references = references;
   return is_put;
+}
+
+/*
+ * run_is_inventory_command()
+ *
+ * TRUE for the lines run400's inventory handler answers.  That handler,
+ * Proc_19_70_45C304, is called at loc_48A457 -- above the task dispatcher at
+ * 48A481 -- so its listing is in the message buffer before any task runs,
+ * and a task that then matches the same line has its CompleteText APPENDED
+ * to the listing rather than replacing it.  Measured on p4REPEAT2/3
+ * (Adrift_951/952, 2026-09-08): the first `i` answers "You are carrying a
+ * coin and a hat.  C1 i.", and `inv` / `inventory` the same way.  (The
+ * listing is also why a spent task's RepeatText never survives here -- the
+ * 44CC7D store is gated on the buffer still being empty; that is the
+ * survivor table's first row.)
+ */
+static scr_bool
+run_is_inventory_command (scr_gameref_t game, const scr_char *string)
+{
+  const scr_ref_number_guard ref_number (game);
+  scr_commandsref_t command;
+  scr_bool is_inventory = FALSE;
+
+  for (command = PRIORITY_COMMANDS; command->command && !is_inventory;
+       command++)
+    {
+      if (command->handler != lib_cmd_inventory)
+        continue;
+
+      is_inventory = uip_match (command->command, string, game);
+    }
+
+  return is_inventory;
 }
 
 /*
@@ -1634,6 +1696,7 @@ run_forget_game (const void *game)
 static scr_bool
 run_pattern_names_verb (const scr_char *pattern, const scr_char *string)
 {
+  static const scr_char *const PATTERN_WORD_BREAK = "\t\n\v\f\r *";
   const scr_char *verb;
   scr_int verb_length;
 
@@ -1643,17 +1706,26 @@ run_pattern_names_verb (const scr_char *pattern, const scr_char *string)
   if (verb_length == 0)
     return FALSE;
 
-  /* Scan pattern tokens for a case-insensitive whole-word match. */
-  for (pattern += strspn (pattern, WHITESPACE); *pattern != NUL;)
+  /*
+   * Scan pattern tokens for a case-insensitive whole-word match.  A '*' ends
+   * a token as surely as a space does: authors write wildcards glued to their
+   * words, and frustrated.taf's `*drop*tree*` names the verb "drop" just as
+   * plainly as "* drop * tree *" would.  Treating the glued form as one
+   * eleven-character token hid the verb, and the pattern -- being
+   * wildcard-leading -- was then skipped by every library call, so the
+   * 4.0 drop handler's look-up could not find it (run400
+   * Adrift_274_frustrated.txt gives it the line).
+   */
+  for (pattern += strspn (pattern, PATTERN_WORD_BREAK); *pattern != NUL;)
     {
-      const scr_int token_length = strcspn (pattern, WHITESPACE);
+      const scr_int token_length = strcspn (pattern, PATTERN_WORD_BREAK);
 
       if (token_length == verb_length
           && scr_strncasecmp (pattern, verb, verb_length) == 0)
         return TRUE;
 
       pattern += token_length;
-      pattern += strspn (pattern, WHITESPACE);
+      pattern += strspn (pattern, PATTERN_WORD_BREAK);
     }
 
   return FALSE;
@@ -3340,7 +3412,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_bool status, ask_echo, put_first, refused;
-  scr_bool repeat_found, repeat_pending;
+  scr_bool repeat_found, repeat_pending, inv_listed;
   const scr_char *task_string;
   std::string fragment;
   scr_int prior_npc;
@@ -3505,6 +3577,17 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
               && run_is_put_command (game, string);
   status = FALSE;
   refused = FALSE;
+  /*
+   * The inventory listing at 48A457 comes out ahead of the dispatcher too,
+   * but unlike the put/drop rows it does not take the line away from the
+   * task: 48A481 runs immediately afterwards and appends the CompleteText to
+   * the listing.  So print it here and leave `status` alone, letting the
+   * task passes below run on the same line; the listing claims whatever they
+   * decline.  See run_is_inventory_command().
+   */
+  inv_listed = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+               && run_is_inventory_command (game, string)
+               && run_priority_commands (game, string);
   if (put_first)
     {
       status = run_priority_commands (game, string);
@@ -3531,12 +3614,13 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   if (!status && !refused)
     status = run_game_commands_in_parser_context (game, task_string,
                                                   FALSE, TRUE);
-  if (!status && !put_first && !repeat_pending)
+  if (!status && !put_first && !inv_listed && !repeat_pending)
     status = run_priority_commands (game, string);
   if (!status)
     status = run_game_commands_in_parser_context (game, task_string,
                                                   FALSE, FALSE);
-  if (!status && !run_defer_loud_tasks_to_movement (game, task_string))
+  if (!status && !inv_listed
+      && !run_defer_loud_tasks_to_movement (game, task_string))
     status = run_game_commands_in_parser_context (game, task_string,
                                                   TRUE, FALSE);
   if (refused)
@@ -3544,6 +3628,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       pf_clear_join_pending (filter);
       status = TRUE;
     }
+  if (inv_listed)
+    status = TRUE;
   if (!status)
     {
       /*

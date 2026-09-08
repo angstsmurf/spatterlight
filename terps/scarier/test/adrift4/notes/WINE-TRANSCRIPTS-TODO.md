@@ -5343,22 +5343,62 @@ fall through to the library.
 
 ### Four incidental divergences the probes turned up
 
-Unrelated to the RepeatText rule, all measured on `Adrift_950-952`, none
-ported:
+Unrelated to the RepeatText rule, all measured on `Adrift_950-952`.  **All
+four PORTED 2026-09-08**; the fifth lettering slot (b) stays unported.
 
-* **(a)** run400 lists the inventory **before** the task's CompleteText on the
-  first `i` that also runs a task.  Scarier's peek runs the task and never
-  lists.  This is the 48A457-before-48A481 order in the block above.
-* **(c)** At 4.0 the **named drop family outranks tasks outright**: run400's
-  `drop coin` / `drop hat` never ran the matching task at all.  Scarier's
-  `put_first` priority covers `put`, not `drop`; it needs extending.
-* **(d)** `drop all` / `put all on desk` with **empty hands**: run400 prints
-  nothing and does not claim the line.  Scarier prints "You're not carrying
-  anything." and claims it.  (`" not carrying anything."` is at loc_46F457 and
-  46FB33, both with an else-branch storing `vbNullString`.)
-* **(e)** `bob, hello` -- run400 prints the character catch-all with **no
-  tick**.  Scarier ticks.  `lib_cmd_verb_npc()` should set `game->is_admin` at
-  4.0 the way `lib_cmd_verb_object()` already does.
+* **(a) inventory comes out above the dispatcher -- PORTED.**  run400 lists
+  the inventory **before** a matching task's CompleteText, and appends the
+  task text to the listing rather than replacing it: `inv` with task 0
+  `inv` gives "You are carrying a hat.  C1 inv." (`Adrift_952.txt`).  That
+  is the 48A457-before-48A481 order: generaltasks' inventory handler
+  `Proc_19_70_45C304` returns TRUE and jumps past the dispatcher to
+  48B4E3, but dispatches a task of its own on the way out
+  (`Proc_19_66_454EF0(0,0)` @45C2E4, `Proc_19_11_45A3EC` @45C2FD).
+  Scarier: `run_is_inventory_command()` in `scrunner.cpp`, and
+  `run_all_commands()` runs `run_priority_commands()` first for those
+  lines, keeps `status` TRUE afterwards, and -- because the handler's own
+  dispatch is the *quiet* matcher -- skips the loud restriction-failure
+  pass (`!inv_listed`).  Missing that last gate cost JGrim a spurious
+  refusal line on `i`.
+* **(c) a named `drop X` / `put X on Y` at 4.0 is answered by the library
+  first -- PORTED.**  A task whose command is the literal typed line never
+  runs: p4REPEAT3 task 2 `drop hat` and task 3 `put hat on desk` both lose
+  to "You drop the hat." / "You put the hat onto the desk."
+  (`Adrift_952.txt`).  What the task *does* get is the line rebuilt in the
+  definite form from the resolved object -- the same rule
+  `lib_try_game_command_with_object_400()` already carried for put -- so
+  dusk's task 48 `drop * board` still wins `drop board`
+  (`Adrift_221_dusk.txt:80`) and frustrated's `*drop*tree*` still wins
+  `drop tree` (`Adrift_274_frustrated.txt`).  Scarier:
+  `lib_try_game_command_short_definite()` (one spelling, no prefix-less
+  retry, class-filter mode 2, and each of the object's *aliases* may fill
+  the noun slot -- frustrated names the upper half of the trunk by alias),
+  reached from `lib_drop_backend()` via `lib_move_try_commands (…,
+  use_definite)`; `run_is_put_command()` now takes PRIORITY_COMMANDS in
+  table order and stops at the first matching row, so
+  `lib_cmd_drop_multiple` joins the put-first set.  Two knock-on fixes:
+  `lib_move_backend()` reports whether the *library* printed, so a drop
+  whose every object went to a task no longer adds the trailing newline
+  (blank lines after Glum Fiddle's `drop tray`, JGrim's `drop mud`), and
+  `run_pattern_names_verb()` treats `*` as a token break, without which a
+  wildcard-glued pattern like `*drop*tree*` reads as one 11-character word
+  and is never offered the line.  An object the player is **not** holding
+  gets the same offer before the library refuses it: Oh, Human's `drop
+  device` with the device on the floor is the whole free-the-light puzzle,
+  so `lib_drop_backend()` walks `multiple_references` too.
+* **(d) `drop all` / `put all on desk` with empty hands -- PORTED.**  run400
+  prints nothing and does not claim the line; the line goes to a TASK
+  first (`Adrift_951/952`).  Scarier printed "You're not carrying
+  anything." and claimed it.  (`" not carrying anything."` is at
+  loc_46F457 and 46FB33, both with an else-branch storing
+  `vbNullString`.)  Covered by the same first-matching-row rule in
+  `run_is_put_command()`: the all rows sit above the named rows, and
+  `lib_cmd_drop_all` is not in the put-first set.
+* **(e) the 4.0 character catch-all is not a turn -- PORTED.**  `bob,
+  hello` prints "I don't understand what you want to do with Bob." with
+  **no tick** (`Adrift_952.txt`).  `lib_cmd_verb_npc()` now sets
+  `game->is_admin` at 4.0 the way `lib_cmd_verb_object()` already did
+  (run400 loc_48061A-48061E).
 
 Suite at **428 PASS / 0 FAIL** with the port in the tree.  `scdump.cpp` also
 keeps the dump change made while chasing this: the task dump now prints

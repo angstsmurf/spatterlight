@@ -5309,6 +5309,12 @@ businessasusual_solution.txt|Business As Usual.taf|You Won, Of Course
 # Oh, Human (60/200, escape-room dead-end trap): the ladder/box-on-crate 100pt
 # branch is provably unreachable, so drop the electrical device to free the
 # light, cut through the walls at theroom==4, and exit through the door.
+# `drop device` is the row that pins the not-held arm of the 4.0 named-drop
+# port (2026-09-08, WINE-TRANSCRIPTS-TODO.md divergence (c)): the device is on
+# the floor, so the library alone would answer "You are not holding the
+# device." and the game would be unwinnable -- lib_drop_backend() offers the
+# rebuilt "drop the device" to the tasks over multiple_references too, and
+# task 6 takes it.
 ohhuman_solution.txt|Oh_Human.taf|Congratulations!  You beat the game!
 # Sandy's Lost Doll (1286 bytes, 4.00): 6 rooms, 9 tasks, no score, zero
 # declared objects. UNWINNABLE as authored -- the toilet-check win task's
