@@ -6040,3 +6040,77 @@ run390 also has per-verb `" is not here!"` sites of its own -- attack @45960F
 and take/get/pick-up @4596E1 -- which the battle branch pre-empts in a battle
 game but not in a game with the Battle System off.  Nothing in the corpus
 exercises that combination yet.
+
+## Ported 2026-09-08: `x <character who is elsewhere>` names the character
+
+The first row of the table above -- 13 corpus turns where the Runner says
+"cannot see" -- and the one that turned out to be in every Runner, unchanged
+in shape since 3.7:
+
+| Runner | site | guard |
+| --- | --- | --- |
+| run370 | 438F2F-438F4F | `var_29E = 0 And (InStr(msg, "<You> can't see that") > 0 Or msg = "Nothing special.")` |
+| run380 | 440E42-440E62 | same |
+| run390 | 45A07C-45A09C | same |
+| run400 | 4801AD-48021F | `... Or msg = "<You> see no such thing."` **And** `var_140(26) = 1` |
+
+All four compose the same sentence -- person word, `" cannot see "`, the
+record's Name verbatim, `" from here."` -- and all four are a REWRITE inside
+characters()' examine branch, not a handler: the clause fires only if the
+message the turn has produced so far is the examine tail itself.  That is why
+Scarier hooks it at the top of `lib_cmd_examine_other()`, the row that prints
+that tail, rather than adding a table row of its own.
+
+### The seen byte is the whole version split
+
+4.0 alone requires the character's seen flag (`var_140(26)`, set the moment
+the character is in the player's room, run390 4591CC).  Both halves are
+measured from opposite sides:
+
+* pre-4.0 does **not** test it -- probe 1 on ALEXIS.TAF under run390 named a
+  character the player had never met (`cmdfile_alexis_absent_npc_1.txt`,
+  `probe_alexis_121.txt`).
+* 4.0 does -- run400 on EV16 answers `x dave`, with Dave alive in the next
+  room and never met, `You see no such thing.` and not his name
+  (`Adrift_1_ev16.txt`, the probe already quoted in `lib_cmd_examine_other`).
+* 4.0 with the flag set -- `cobl` t97, `x cat` after meeting the ginger cat in
+  an earlier room: `You cannot see the ginger cat from here.`
+
+The reference test is the shared Name-or-first-Alias one (run390 4592B8,
+`c(LCase(Name)) Or c(LCase(Alias))`), i.e. `lib_npc_named_in_line()` from the
+port above.  The one suppression: a character named by its **alias** whose
+line also names any object is skipped (run390 459FFE-45A041 builds var_252
+from `co()`; run400 480172-4801A7 does the same through Proc_21_39_46486C).  A
+character named by its Name never runs that scan.  The first named absent
+character wins, because the rewrite destroys the message the guard tests.
+
+### What it cost: nothing, and one golden line
+
+The corpus TSV is byte-identical before and after (6068 differing turns).  Not
+one of the 13 "cannot see" rows reaches this code: `cobl` t97, the only row
+that is this rule, diverges upstream -- Scarier fires a task there ("The cat
+sniffs the small pouch...") and never reaches the library at all.
+
+One golden moved, `thepkgirl` t~3067, `x katryn` in the security booth after
+the motorcycle scene: `You see no such thing, or else it is unimportant.` ->
+`You cannot see Katryn from here.`  **This line is not measured**, and it
+carries the one open question in this port.  The run400 transcript of the same
+game (`Adrift_649_thepkgirl.txt` line 1696) answers the ALR'd tail there -- but
+that run had diverged long before, Katryn is never seen in it at all (the
+string "Katryn" does not occur once in the whole transcript), so its guard
+fails on the seen byte and it says nothing about the rule.
+
+What it does raise: the game ALRs `You see no such thing.` into `You see no
+such thing, or else it is unimportant.`, and 4.0's guard is an EQUALITY
+against the engine default.  If the Runner applies ALRs to the pending message
+before characters() runs, the guard misses and the ALR'd tail stands; if ALRs
+are applied at print time, after characters(), the rewrite wins.  Scarier
+assumes the latter -- it is the reading the equality itself suggests (Campbell
+wrote it against his own literal), and it matches Scarier's own filter, which
+ALRs at output.  Not proven either way: run400's ALR array (MemVar_49411C,
+count MemVar_494120) is read only by the loader in the decompile, so the
+application site has not been found.
+
+To settle it, one probe .taf under run400: a character met in room A, examined
+from room B, with an ALR rewriting `You see no such thing.`  If the answer is
+the ALR'd tail, the rewrite needs an "ALR would touch this message" guard.

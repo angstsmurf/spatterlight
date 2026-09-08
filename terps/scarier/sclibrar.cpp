@@ -14113,6 +14113,117 @@ lib_cmd_examine_all (scr_gameref_t game)
 }
 
 /*
+ * lib_npc_examine_absent()
+ *
+ * `x <character who is somewhere else>`.  Every Runner rewrites the examine
+ * tail below when the line names a character who is not in the room:
+ *
+ *     run370 438F2F-438F4F   run380 440E42-440E62
+ *     run390 45A07C-45A09C   run400 4801AD-48021F
+ *
+ * All four are the same clause, inside characters()' examine branch, and all
+ * four compose the same sentence: person word, " cannot see ", the record's
+ * Name verbatim, " from here.".  It is a REWRITE, not a handler -- it fires
+ * only when the message the turn has produced so far is the examine tail
+ * itself, which is what makes this the right place for it:
+ *
+ *     pre-4.0   msg contains "<player> can't see that", or msg is exactly
+ *               "Nothing special."
+ *     4.0       msg contains "<player> can't see that", or msg is exactly
+ *               "<player> see no such thing."  AND the character's seen
+ *               byte (var_140(26)) is 1.
+ *
+ * That seen byte is the whole 3.9-vs-4.0 difference, and it is already
+ * measured from the other side: run400 on EV16 answers `x dave`, with Dave
+ * alive in the next room and never yet met, "You see no such thing." rather
+ * than naming him (Adrift_1_ev16.txt; see lib_cmd_examine_other below).
+ * Pre-4.0 has no such test -- probe 1 on ALEXIS.TAF under run390 named an
+ * unseen character back at the player (cmdfile_alexis_absent_npc_1.txt,
+ * probe_alexis_121.txt).  The 4.0 half is measured too: cobl (4.00), `x cat`
+ * for the ginger cat seen in an earlier room, "You cannot see the ginger cat
+ * from here."
+ *
+ * The reference test is the shared Name-or-first-Alias one, run390 4592B8
+ * (`c(LCase(Name)) Or c(LCase(Alias))`); see lib_npc_named_in_line().
+ *
+ * The one suppression: if the line names the character by its ALIAS and also
+ * names any object, the rewrite is skipped (run390 459FFE-45A041 sets
+ * var_252 from co(); run400 480172-4801A7 does the same through
+ * Proc_21_39_46486C).  A character named only by its Name never runs that
+ * scan, so `x goblin` against an object called "goblin" still speaks.  The
+ * first named absent character wins: the rewrite destroys the message the
+ * guard tests, so no later character in the loop can pass it.
+ */
+static scr_bool
+lib_npc_examine_absent (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int npc;
+
+  if (!input)
+    return FALSE;
+
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      const scr_char *name, *alias;
+      scr_vartype_t vt_key[4];
+
+      if (!lib_npc_named_in_line (game, npc, input))
+        continue;
+
+      /* Present: the examine branch above prints the description instead. */
+      if (npc_in_room (game, npc, gs_playerroom (game)))
+        return FALSE;
+
+      if (lib_is_version_400 (game) && !gs_npc_seen (game, npc))
+        continue;
+
+      alias = NULL;
+      vt_key[0].string = "NPCs";
+      vt_key[1].integer = npc;
+      vt_key[2].string = "Alias";
+      if (prop_get_child_count (bundle, "I<-sis", vt_key) > 0)
+        {
+          vt_key[3].integer = 0;
+          alias = prop_get_string (bundle, "S<-sisi", vt_key);
+        }
+      if (alias && alias[0] != NUL && lib_input_contains_word (input, alias))
+        {
+          scr_int object;
+          scr_bool clash = FALSE;
+
+          for (object = 0; object < gs_object_count (game); object++)
+            {
+              if (lib_verb_object_name_score (game, object, input) > 0)
+                {
+                  clash = TRUE;
+                  break;
+                }
+            }
+          if (clash)
+            continue;
+        }
+
+      name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+      if (!name || name[0] == NUL)
+        continue;
+
+      pf_buffer_string (filter,
+                        lib_select_response (game, "You cannot see ",
+                                             "I cannot see ",
+                                             "%player% cannot see "));
+      pf_buffer_string (filter, name);
+      pf_buffer_string (filter, " from here.\n");
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
+
+/*
  * lib_cmd_examine_other()
  *
  * `x <noun>` where the noun names nothing at all, in a lit room.  This is the
@@ -14142,6 +14253,20 @@ lib_cmd_examine_all (scr_gameref_t game)
 scr_bool
 lib_cmd_examine_other (scr_gameref_t game)
 {
+  /*
+   * characters() rewrites this tail when the noun names an absent character;
+   * see lib_npc_examine_absent().  4.0 has already set its not-a-turn flag
+   * by then (471F02, before characters() runs), so the named answer is an
+   * admin turn there and an ordinary one pre-4.0, exactly like the tail it
+   * replaces.
+   */
+  if (lib_npc_examine_absent (game))
+    {
+      if (lib_is_version_400 (game))
+        game->is_admin = TRUE;
+      return TRUE;
+    }
+
   if (!lib_is_version_400 (game))
     return lib_print_message (game, "Nothing special.\n");
 

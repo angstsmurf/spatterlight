@@ -3065,7 +3065,7 @@ cannot wait to see her?"
 static.
 
 > x katryn
-You see no such thing, or else it is unimportant.
+You cannot see Katryn from here.
 
 > exit booth
 You step out of the security booth.
