@@ -10869,9 +10869,21 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
       return FALSE;
     }
 
-  pf_buffer_string (filter, "(Taking ");
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, " first)\n");
+  {
+    /*
+     * Inside a put list's clause loop the announcement goes to the front of
+     * the turn: the Runner prints it straight to its textbox while the
+     * clause answers accumulate in a string shown at the end of the turn.
+     * See pf_hoist_tail() and run_in_put_clause_loop().
+     */
+    const size_t hoist_from = pf_buffer_length (filter);
+
+    pf_buffer_string (filter, "(Taking ");
+    lib_print_object_np (game, object);
+    pf_buffer_string (filter, " first)\n");
+    if (run_in_put_clause_loop ())
+      pf_hoist_tail (filter, hoist_from);
+  }
 
   /*
    * The announcement is printed by name_object before the take piece runs
@@ -15846,8 +15858,11 @@ lib_cmd_put_where_400 (scr_gameref_t game)
  * present containers sharing a Short raise the ordinary ambiguity prompt
  * (`put coin in jar` -> "Which jar.  The jar or the jar?"), so a tie is
  * left to the rows below.  A line with " and " at or beyond the split runs
- * put_drop_list's own clause loop (459C75), unported: `put coin in zzz and
- * yyy` prints "... put things inside." and then the DontUnderstand text.
+ * put_drop_list's own clause loop (459C75), and its clauses reach this
+ * handler one at a time; see lib_put_clauses_400().  (`put coin in zzz and
+ * yyy` is not that loop at all -- the top-level splitter cuts it into two
+ * commands, which is why "... put things inside." and the DontUnderstand
+ * text are two turns; see run_find_split_400().)
  *
  * Pre-4.0 Runners have none of this; run390's put parser (461769) says
  * "<You> can't put anything <inside/on> that!" for an unknown container,
@@ -15857,6 +15872,124 @@ static scr_bool
 lib_phrase_has_word (const std::string &line, const scr_char *word)
 {
   return lib_input_contains_word (line.c_str (), word);
+}
+
+/*
+ * lib_put_split_400()
+ *
+ * The preposition split put_drop_list computes at 459BCD-459C4A: the first
+ * whole-word " in ", or the first " on " when no " in " came earlier
+ * (Proc_19_44_4434F4 keeps the earlier positive of the two).  With ON_TEST
+ * set -- which is how the routine enters, but NOT how its clause loop
+ * re-enters (459D11-459D6B has the two whole-word tests and nothing else)
+ * -- a line without "all" also has Left(line, split) resolved by the noun
+ * scorer, and a split whose left half names nothing is ZEROED, so the line
+ * goes on with no preposition at all.  *ON_BRANCH, when asked for, says
+ * whether that test ran.
+ */
+static std::string::size_type
+lib_put_split_400 (scr_gameref_t game, const std::string &line,
+                   scr_bool has_all, scr_bool on_test, scr_bool *on_branch)
+{
+  std::string::size_type split, on_at;
+
+  if (on_branch)
+    *on_branch = FALSE;
+  split = std::string::npos;
+  if (lib_phrase_has_word (line, "in"))
+    split = line.find (" in ");
+  if (lib_phrase_has_word (line, "on"))
+    {
+      on_at = line.find (" on ");
+      if (on_at != std::string::npos
+          && (split == std::string::npos || split > on_at))
+        split = on_at;
+      if (on_test && split != std::string::npos && !has_all)
+        {
+          const std::string fragment = line.substr (0, split + 1);
+
+          if (on_branch)
+            *on_branch = TRUE;
+          if (lib_verb_object_resolve_400_string (game, fragment.c_str (),
+                                                  NULL) < 0)
+            split = std::string::npos;
+        }
+    }
+  return split;
+}
+
+/*
+ * lib_put_clauses_400()
+ *
+ * put_drop_list's own multi-clause loop (run400 loc_459C75).  With the
+ * split in hand the routine looks for " and " AT OR BEYOND it (459C60, the
+ * InStr starts at the split, and a line with no preposition splits at
+ * Len(line), so its " and " is never found).  Each turn of the loop takes
+ * Left(line, and_at - 1) as a clause and runs the whole of name_object on
+ * it, drops the clause and its " and " from the line, puts "put " back on
+ * the front if the remainder lost it, and recomputes the split -- this time
+ * without the "on" scorer test and without the Len(line) fallback.  A
+ * remainder with no preposition left therefore ends the loop and is DROPPED
+ * unrun (459D8C pushes &HFF into the loop variable, which terminates it,
+ * and the final name_object at 459D94 is gated on split > 0).
+ *
+ * So `put coin in box and hat in desk` is ONE turn that runs two puts, and
+ * their two answers come out concatenated with no separator at all: "The
+ * coin is too big to fit inside the box.You can't put anything inside the
+ * desk!" (p4AND, Adrift_955).  `put coin in box and hat in desk and hat in
+ * box` runs three, implicit take included (Adrift_956), and `put coin in
+ * box and hat` runs the first clause only and never answers for the hat.
+ *
+ * The clauses are handed back to run_game_commands_common(), which is where
+ * Scarier's equivalent of name_object lives -- the priority put rows, run
+ * once per clause.  A line whose " and " the top-level splitter would have
+ * cut never gets here: run_find_split_400() has already carved it into
+ * separate commands, and only an " and " followed by an object name (which
+ * is what "hat in desk" starts with) survives to reach this routine.
+ */
+scr_bool
+lib_put_clauses_400 (scr_gameref_t game, const scr_char *input,
+                     std::vector<std::string> &clauses)
+{
+  std::string line;
+  std::string::size_type split, and_at;
+  scr_bool has_all;
+
+  clauses.clear ();
+  if (!lib_is_version_400 (game) || !input)
+    return FALSE;
+  if (!lib_input_contains_word (input, "put")
+      && !lib_input_contains_word (input, "drop"))
+    return FALSE;
+
+  line = run_normalise_put_line (input);
+  if (line.empty ())
+    return FALSE;
+  has_all = lib_phrase_has_word (line, "all");
+
+  split = lib_put_split_400 (game, line, has_all, TRUE, NULL);
+  if (split == std::string::npos)
+    split = line.length () - 1;               /* 459C55: split = Len(line) */
+
+  and_at = line.find (" and ", split);
+  if (and_at == std::string::npos)
+    return FALSE;
+
+  while (and_at != std::string::npos)
+    {
+      clauses.push_back (line.substr (0, and_at));
+
+      line = line.substr (and_at + 5);
+      if (line.compare (0, 4, "put ") != 0)
+        line = "put " + line;
+
+      split = lib_put_split_400 (game, line, has_all, FALSE, NULL);
+      and_at = (split == std::string::npos)
+               ? std::string::npos : line.find (" and ", split);
+    }
+  if (split != std::string::npos)
+    clauses.push_back (line);
+  return TRUE;
 }
 
 scr_bool
@@ -15878,28 +16011,17 @@ lib_cmd_put_container_400 (scr_gameref_t game)
 
   line = run_normalise_put_line (input);
   has_all = lib_phrase_has_word (line, "all");
-  split = std::string::npos;
-  on_branch = FALSE;
-  if (lib_phrase_has_word (line, "in"))
-    split = line.find (" in ");
-  if (lib_phrase_has_word (line, "on"))
-    {
-      on_at = line.find (" on ");
-      if (on_at != std::string::npos
-          && (split == std::string::npos || split > on_at))
-        split = on_at;
-      if (split != std::string::npos && !has_all)
-        {
-          const std::string fragment = line.substr (0, split + 1);
+  split = lib_put_split_400 (game, line, has_all, TRUE, &on_branch);
 
-          on_branch = TRUE;
-          if (lib_verb_object_resolve_400_string (game, fragment.c_str (),
-                                                  NULL) < 0)
-            split = std::string::npos;
-        }
-    }
-
-  /* The multi-clause loop is not ported; leave such lines alone. */
+  /*
+   * An " and " at or beyond the split is put_drop_list's clause loop, and
+   * the clauses reach this handler one at a time from
+   * run_game_commands_common() -- so a line that still holds one is not
+   * this call's to answer.  (With no split at all the Runner looks for the
+   * " and " from Len(line) and so never finds one; the whole-line branches
+   * below are left out of this all the same, which is where the list loops
+   * at 46E04E / 46E0B2 -- unported -- would speak.)
+   */
   if (line.find (" and ", split == std::string::npos ? 0 : split)
       != std::string::npos)
     return FALSE;

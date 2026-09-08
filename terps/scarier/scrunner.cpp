@@ -84,6 +84,170 @@ run_is_separator (const scr_char *line, scr_int posn)
 
 
 /*
+ * run_split_word_names_object()
+ * run_find_split_400()
+ *
+ * 4.0's own input splitter.  run400 generaltasks calls Proc_19_60_459764
+ * four times over, on "," then ". " then " and " then " then " (48A0DA,
+ * 48A0E8, 48A0F6, 48A104), each pass working on what the pass before it
+ * left, and each cut queueing its tail (MemVar_4942E4) to be read back as
+ * the next command.  The catch is the loop at 459525: before it cuts, the
+ * splitter takes the FIRST WORD of the tail (Proc_19_59_449980, leading
+ * spaces stripped) and walks the whole object table, comparing that word
+ * against every object's Short (field 4), every space-separated word of its
+ * Prefix (field 0, Split on " ") and every one of its Aliases (field 8).  A
+ * hit sends it round to look for the NEXT occurrence of the same separator
+ * instead -- so a separator followed by something the game calls an object
+ * is not a separator at all, and the line stays whole.
+ *
+ * That is what makes `get coin and hat` one command that takes both, while
+ * `get coin and zzz` is two ("You take the coin." then the DontUnderstand
+ * text); the same test covers commas, so `drop coin, hat` is one command
+ * too.  The table walk has NO scope test -- an object two rooms away
+ * suppresses just as well (`x hat and coin` typed in the empty second room
+ * of the probe is one command) -- and the comparisons are VB's binary `=`,
+ * so they are case-SENSITIVE against the already-lower-cased line: the
+ * probe's alias "Widget" does NOT suppress the typed "widget", even though
+ * the object resolver matches it.
+ *
+ * Measured 2026-09-08 on the hand-built p4AND probe (make_400_andprobe.py;
+ * Wine transcripts Adrift_955 and Adrift_956, 41 cells).  `x coin and hat
+ * and zzz` cuts at the SECOND " and " (the first is suppressed by "hat");
+ * `drop coin and hat, x box` cuts at the comma, the earliest cut of any
+ * kind that survives suppression; `wave zzz and yyy` is cut in two and the
+ * task named by the whole line never fires; `put coin in box and put hat in
+ * desk` is cut ("put" is not an object) into two turns, where `put coin in
+ * box and hat in desk` is one turn through put_drop_list's own clause loop
+ * (lib_put_clauses_400).
+ *
+ * Pre-4.0 Runners split on far less and never consult the object table:
+ * run390 does "," then ". " then a whole-word "then" inline in its input
+ * handler (45EC8E-45F091), with no " and " pass at all, and run380 recurses
+ * on " then " (425DE2).  Only the 4.0 shape is ported here; the others keep
+ * run_is_separator() above, which is what Scarier has always done.
+ */
+static scr_bool
+run_split_word_names_object (scr_gameref_t game, const scr_char *word)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int count, object;
+
+  if (word[0] == NUL)
+    return FALSE;
+
+  count = gs_object_count (game);
+  for (object = 0; object < count; object++)
+    {
+      const scr_char *shortname, *prefix, *cursor;
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+
+      shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+      if (shortname && strcmp (shortname, word) == 0)
+        return TRUE;
+
+      /* Split(Prefix, " ") -- each word of the prefix on its own. */
+      prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
+      for (cursor = prefix; cursor && *cursor != NUL; )
+        {
+          const scr_char *space = strchr (cursor, ' ');
+          const size_t length = space ? (size_t) (space - cursor)
+                                      : strlen (cursor);
+
+          if (length == strlen (word) && strncmp (cursor, word, length) == 0)
+            return TRUE;
+          if (!space)
+            break;
+          cursor = space + 1;
+        }
+
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = object;
+      vt_key[2].string = "Alias";
+      alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+      for (alias = 0; alias < alias_count; alias++)
+        {
+          const scr_char *alias_name;
+
+          vt_key[3].integer = alias;
+          alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+          if (alias_name && alias_name[0] != NUL
+              && strcmp (alias_name, word) == 0)
+            return TRUE;
+        }
+    }
+  return FALSE;
+}
+
+/*
+ * Return the offset of the effective cut in LINE, with *SEP_LENGTH the
+ * length of the separator there, or -1 when the line holds no cut.  The
+ * four kinds are tried at every position; the earliest that survives the
+ * object test wins, which is the same sequence the Runner's four passes
+ * produce because each cut's tail is re-split when it is read back.
+ */
+static scr_int
+run_find_split_400 (scr_gameref_t game, const scr_char *line,
+                    scr_int *sep_length)
+{
+  static const scr_char *const SEPARATORS[] = {",", ". ", " and ", " then "};
+
+  scr_int posn;
+
+  /*
+   * Position 0 is never a cut here: the element loop below always takes the
+   * first character of the line, so that input like "." is one parser
+   * complaint rather than two empty commands.
+   */
+  for (posn = 1; line[posn] != NUL; posn++)
+    {
+      size_t kind;
+
+      for (kind = 0; kind < sizeof (SEPARATORS) / sizeof (*SEPARATORS);
+           kind++)
+        {
+          const scr_char *const separator = SEPARATORS[kind];
+          const size_t length = strlen (separator);
+          const scr_char *tail;
+          scr_char word[LINE_BUFFER_SIZE];
+          size_t extent;
+
+          if (strncmp (line + posn, separator, length) != 0)
+            continue;
+
+          /* first_word() of the tail, leading spaces stripped. */
+          tail = line + posn + length;
+          tail += strspn (tail, " ");
+          extent = strcspn (tail, " ");
+          if (extent >= sizeof (word))
+            extent = sizeof (word) - 1;
+          memcpy (word, tail, extent);
+          word[extent] = NUL;
+
+          if (run_split_word_names_object (game, word))
+            continue;
+
+          *sep_length = (scr_int) length;
+          return posn;
+        }
+
+      /*
+       * A period at the very end of the line is not one of the Runner's
+       * four separators -- it has no space after it -- but cutting there
+       * costs nothing (the tail is empty) and keeps "n." typed by a
+       * walkthrough working exactly as it always has.
+       */
+      if (line[posn] == '.' && line[posn + 1] == NUL)
+        {
+          *sep_length = 1;
+          return posn;
+        }
+    }
+  return -1;
+}
+
+
+/*
  * run_get_version()
  *
  * Return the game's TAF version from the bundle's top-level "Version"
@@ -989,6 +1153,20 @@ run_in_priority_pass (void)
   return run_priority_pass_active;
 }
 
+/*
+ * run_in_put_clause_loop()
+ *
+ * TRUE while run_game_commands_common() is running the clauses of a 4.0 put
+ * list one at a time; see lib_put_clauses_400() and lib_put_implicit_take().
+ */
+static scr_bool run_put_clause_loop_active = FALSE;
+
+scr_bool
+run_in_put_clause_loop (void)
+{
+  return run_put_clause_loop_active;
+}
+
 void
 run_priority_defer (void)
 {
@@ -1350,10 +1528,11 @@ run_repeat_survivor_400 (scr_gameref_t game, const scr_char *string)
  *
  * The list branches leave before the clobber, so none of them is rebuilt
  * here: a whole-word "all" or "and" in the fragment is answered by the
- * loops at 46E04E and 46E0B2, and an " and " at or beyond the split --
- * "put a in b and put c in d" -- sends put_drop_list round its own loop at
- * 459C75 (the InStr there starts at the split, 459C60, so it only ever sees
- * the second clause).
+ * loops at 46E04E and 46E0B2 (unported), and an " and " at or beyond the
+ * split sends put_drop_list round its own loop at 459C75, whose clauses are
+ * carved by lib_put_clauses_400().  "put a in b and put c in d" is not an
+ * example of either: the word after its " and " is "put", not an object, so
+ * the top-level splitter cuts it into two commands (run_find_split_400()).
  */
 static std::string
 run_replace_all (const std::string &string,
@@ -3436,6 +3615,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_bool status, ask_echo, put_first, refused;
+  std::vector<std::string> put_clauses;
   scr_bool repeat_found, repeat_pending, inv_listed;
   const scr_char *task_string;
   std::string fragment;
@@ -3596,9 +3776,22 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
                  && run_task_refusal (game, string, REFUSAL_PASS_PROBE);
   repeat_pending = repeat_found && !run_repeat_survivor_400 (game, string);
 
+  /*
+   * put_drop_list's own clause loop, carved before anything else looks at
+   * the line: run400 enters the routine on the whole-word "put"/"drop"
+   * alone, so whether the line has a NAMED put row is asked of the first
+   * CLAUSE, which is what the Runner actually resolves.  See
+   * lib_put_clauses_400() and the block below.
+   */
+  put_clauses.clear ();
+  if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      && !repeat_pending)
+    lib_put_clauses_400 (game, string, put_clauses);
   put_first = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
               && !repeat_pending
-              && run_is_put_command (game, string);
+              && run_is_put_command (game, put_clauses.empty ()
+                                           ? string
+                                           : put_clauses[0].c_str ());
   status = FALSE;
   refused = FALSE;
   /*
@@ -3614,12 +3807,78 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
                && run_priority_commands (game, string);
   if (put_first)
     {
-      status = run_priority_commands (game, string);
-      refused = !status && run_priority_refused;
-      if (refused)
+      /*
+       * `put coin in box and hat in desk` is put_drop_list's own multi-clause
+       * loop (459C75), not the top-level splitter's: the " and " sits at or
+       * beyond the preposition split, so the line arrived here whole, and the
+       * Runner runs the put rows once per clause inside the ONE turn.  Their
+       * answers come out back to back with no separator of any kind, which is
+       * exactly what falls out of running the priority pass again on the same
+       * line.  lib_put_clauses_400() carves the clauses; a trailing clause
+       * with no preposition of its own is dropped there, unrun.
+       */
+      if (!put_clauses.empty ())
         {
-          pf_note_trailing_auto_break (filter);
-          pf_buffer_join_pending (filter);
+          std::vector<std::string>::const_iterator clause;
+
+          run_put_clause_loop_active = TRUE;
+          for (clause = put_clauses.begin ();
+               clause != put_clauses.end (); ++clause)
+            {
+              const scr_bool is_last = (clause + 1 == put_clauses.end ());
+
+              run_dispatch_input = clause->c_str ();
+              if (run_priority_commands (game, clause->c_str ()))
+                status = TRUE;
+              /*
+               * A refusing clause has left its message pending, and the
+               * next clause's pass would reset the flag out from under it,
+               * so settle it here rather than once after the loop.  A
+               * refusal-only put ends without a terminator of its own (see
+               * lib_put_in_refused), and between clauses run400 shows that
+               * plainly: "The coin is too big to fit inside the box.You
+               * can't put anything inside the desk!" is what the Runner's
+               * own scrollback holds, with no separator at all where the
+               * next clause begins (p4AND, Adrift_957 + DUMP_SCROLLBACK,
+               * 2026-09-08).  Only the last clause keeps the pending join,
+               * which is what a task answering the same line wants.
+               */
+              refused = run_priority_refused;
+              if (refused)
+                {
+                  pf_note_trailing_auto_break (filter);
+                  if (is_last)
+                    pf_buffer_join_pending (filter);
+                  else
+                    pf_undo_auto_break (filter);
+                }
+              /*
+               * name_object answers every clause where it stands, so a
+               * clause the tentative priority pass deferred (a put whose
+               * target is not a container, which run400 lets a loud task
+               * outrank -- see run_priority_commands) has to be finished
+               * here, out of the duplicate STANDARD_COMMANDS rows.  Only
+               * the LAST clause is left to the whole-line passes below,
+               * which parse the line's final preposition and so answer for
+               * that clause anyway.
+               */
+              if (!is_last && !status && !refused && run_priority_deferred
+                  && run_standard_commands (game, clause->c_str ()))
+                status = TRUE;
+            }
+          run_put_clause_loop_active = FALSE;
+          run_dispatch_input = string;
+          refused = refused && !status;
+        }
+      else
+        {
+          status = run_priority_commands (game, string);
+          refused = !status && run_priority_refused;
+          if (refused)
+            {
+              pf_note_trailing_auto_break (filter);
+              pf_buffer_join_pending (filter);
+            }
         }
     }
   /*
@@ -3865,10 +4124,28 @@ run_player_input (scr_gameref_t game)
        * a separator between them; this makes it close to what Inform does
        * with similar inputs.
        */
-      length = (line_buffer[0] == NUL) ? 0 : 1;
-      while (line_buffer[length] != NUL
-             && !run_is_separator (line_buffer, length))
-        length++;
+      scr_int sep_length = 1;
+
+      if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+        {
+          /*
+           * 4.0 cuts the line at the earliest separator whose tail does not
+           * begin with an object name; see run_find_split_400().
+           */
+          const scr_int split = (line_buffer[0] == NUL)
+                                ? -1
+                                : run_find_split_400 (game, line_buffer,
+                                                      &sep_length);
+
+          length = (split < 0) ? (scr_int) strlen (line_buffer) : split;
+        }
+      else
+        {
+          length = (line_buffer[0] == NUL) ? 0 : 1;
+          while (line_buffer[length] != NUL
+                 && !run_is_separator (line_buffer, length))
+            length++;
+        }
 
       /*
        * Make this the current input element, and remove it, the separator,
@@ -3880,11 +4157,18 @@ run_player_input (scr_gameref_t game)
       line_element[length] = NUL;
 
       extent = length;
-      extent += (line_buffer[length] == NUL
-                 || !run_is_separator (line_buffer, length)) ? 0 : 1;
+      extent += (line_buffer[length] == NUL) ? 0 : sep_length;
       extent += strspn (line_buffer + extent, WHITESPACE);
       memmove (line_buffer,
                line_buffer + extent, strlen (line_buffer) - extent + 1);
+
+      /*
+       * The Runner strips one trailing space from the head it keeps (the
+       * splitter's loop at 4596E1), so `x coin , x hat` leaves "x coin",
+       * not "x coin ".
+       */
+      if (length > 0 && line_element[length - 1] == ' ')
+        line_element[length - 1] = NUL;
     }
 
   /* Copy the current game to the temporary undo buffer. */
@@ -4039,8 +4323,17 @@ run_player_input (scr_gameref_t game)
       /*
        * On a line element that's not understood, throw out any remaining
        * input line elements.
+       *
+       * 4.0 keeps them: the queue is re-read at the very END of run400's
+       * generaltasks (48BCF2, `If MemVar_4942E4 <> "" Then MemVar_494174 =
+       * MemVar_4942E4 : GoTo 489FEB`), below every exit the DontUnderstand
+       * text can take, so a failed element costs the rest of the line
+       * nothing.  `wave zzz and yyy` on the p4AND probe answers NO IDEA
+       * twice (Adrift_955); with the discard it answered once.  Pre-4.0 is
+       * unmeasured and keeps the old behaviour.
        */
-      line_buffer[0] = NUL;
+      if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+        line_buffer[0] = NUL;
       return status;
     }
   else

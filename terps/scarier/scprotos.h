@@ -19,6 +19,9 @@
 
 #include <stddef.h>
 
+#include <string>
+#include <vector>
+
 #include "scarier.h"
 
 #ifndef SCARIER_PROTOTYPES_H
@@ -338,6 +341,8 @@ extern void pf_buffer_join_pending (scr_filterref_t filter);
 extern void pf_clear_join_pending (scr_filterref_t filter);
 extern void pf_prepend_string (scr_filterref_t filter,
                                const scr_char *string);
+extern size_t pf_buffer_length (scr_filterref_t filter);
+extern void pf_hoist_tail (scr_filterref_t filter, size_t from);
 extern void pf_new_sentence (scr_filterref_t filter);
 extern void pf_mute (scr_filterref_t filter);
 extern void pf_clear_mute (scr_filterref_t filter);
@@ -835,6 +840,9 @@ extern scr_bool lib_cmd_yes_or_no (scr_gameref_t game);
 extern scr_bool lib_cmd_verb_object (scr_gameref_t game);
 extern scr_bool lib_cmd_put_where_400 (scr_gameref_t game);
 extern scr_bool lib_cmd_put_container_400 (scr_gameref_t game);
+extern scr_bool lib_put_clauses_400 (scr_gameref_t game,
+                                    const scr_char *input,
+                                    std::vector<std::string> &clauses);
 extern scr_bool lib_cmd_verb_npc (scr_gameref_t game);
 extern void lib_debug_trace (scr_bool flag);
 
@@ -862,6 +870,7 @@ extern scr_bool run_does_command_match (scr_gameref_t game,
                                         scr_bool check_restrictions = FALSE);
 extern void run_set_task_class_filter (scr_int mode);
 extern scr_bool run_in_priority_pass (void);
+extern scr_bool run_in_put_clause_loop (void);
 extern const scr_char *run_get_dispatch_input (void);
 extern void lib_co_400_reset (void);
 extern void lib_co_400_begin_line (void);

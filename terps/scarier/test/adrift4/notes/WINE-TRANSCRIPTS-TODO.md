@@ -3438,9 +3438,11 @@ tasks intact.  **The clobber is the `in` form only.**
 
 The list branches leave before the clobber and are not rebuilt: a whole-word
 `all` or `and` in the fragment is answered by the loops at 46E04E and 46E0B2,
-and an `" and "` at or beyond the split (`put a in b and put c in d`) sends
-put_drop_list round its own loop at 459C75 -- the `InStr` there starts at the
-split (459C60), so it only ever sees the second clause.
+and an `" and "` at or beyond the split sends put_drop_list round its own
+loop at 459C75 -- the `InStr` there starts at the split (459C60), so a line
+with no preposition never enters it.  (`put a in b and put c in d` is NOT an
+example: the top-level splitter cuts that one into two commands, because the
+word after the " and " is `put`, not an object.  See the splitter section.)
 
 **Port.**  `lib_put_in_multiple_common()` calls the new
 `run_priority_unnamed_put_object()` when its `%text%` parse finds no object,
@@ -5473,7 +5475,10 @@ prints `TICK.` on every counted turn), run400 under Wine 2026-09-08,
   claimable answers.
 - `put coin in jar and zzz` -> prompt + "That is still ambiguous!" in one
   turn; `put coin in zzz and yyy` -> "... put things inside." + "NO IDEA."
-  (put_drop_list's clause loop at 459C75).
+  (this write-up blamed put_drop_list's clause loop at 459C75 -- WRONG, and
+  corrected below: the cutter is the top-level line splitter, and the two
+  answers are two TURNS.  459C75 keeps its leftover in a local and can never
+  reach the ambiguity answer slot.)
 
 **Port.**  `lib_cmd_put_container_400()` (sclibrar.cpp), a PRIORITY row
 `put *` / `[drop/put down] *` that answers only the three container exits
@@ -5482,9 +5487,9 @@ too-big line printed twice); `lib_put_where_400_common()` split out and
 marked claimable; `lib_put_in_multiple_common()`'s failure branch prints the
 46E142 text -- "Drop what?" for a `drop` line -- when no mode-2 task
 pre-matches; `lib_cmd_put_unclear()`'s seen clause narrowed to seen AND
-absent.  Scarier now matches all 27 + 15 cells; the two " and " lines are
-the unported clause loop (Scarier prints the prompt only, then "That is
-still ambiguous!" on the next line, as before).
+absent.  Scarier now matches all 27 + 15 cells; the two " and " lines were
+left alone here and are settled in the next section (Scarier printed the
+prompt only, then "That is still ambiguous!" on the next line).
 
 **Re-blessed**: TheADRIFTProject (`put batter in remote`: the remote is a
 container, the batter names nothing -> "It is not clear ...", a turn, so the
@@ -5494,8 +5499,151 @@ inside the statue's mouth!" -- present non-container, first noun
 irrelevant).  Both still model-derived, Wine candidates.  Main Course probe
 still identical on every turn.  Suite at **428 PASS / 0 FAIL**.
 
-**Unported / unmeasured**: the " and " clause loop; a tie between two
-containers is left to the ordinary rows' prompt (measured to agree); 3.9's
+**Unported / unmeasured**: the " and " clause loop (ported in the next
+section); a tie between two containers is left to the ordinary rows' prompt (measured to agree); 3.9's
 put parser at 461769 says "<You> can't put anything <inside/on> that!" for
 an unknown container, unmeasured; "onto" at 3.9 unmeasured; a seen-but-absent
 first noun.
+
+## Ported 2026-09-08: where 4.0 cuts a typed line, and the put list's own clauses
+
+Two rules, measured together on a hand-built probe (`make_400_andprobe.py`
+-> `p4AND.taf`; Wine transcripts `Adrift_955`, `Adrift_956`, `Adrift_957`,
+41 + 4 cells).  The first is the top-level line splitter, which is what
+really cut the two `put ... and ...` cells the section above mis-blamed on
+put_drop_list.  The second is put_drop_list's own clause loop, which is real
+but much narrower than the write-up assumed.
+
+### 1.  The splitter: four separators, and an object suppresses them
+
+`generaltasks` calls `Proc_19_60_459764` four times, once per separator
+(48A0DA-48A10C), before the synonym table runs (48A119):
+
+```
+","      ". "      " and "      " then "
+```
+
+Each call finds the FIRST occurrence of its separator, cuts the line there,
+and PREPENDS the tail to the pending-command string MemVar_4942E4 (joined
+with ", " when something is queued already), so the tail is run as its own
+command with its own turn.  The queue is drained at the very END of
+generaltasks (48BCF2 -> `GoTo loc_489FEB`), below every DontUnderstand exit,
+so an element the game does not understand does NOT throw away the rest of
+the line.
+
+What makes it interesting is the suppression loop at 45951A-4595EA.  Before
+it cuts, the splitter takes the first word of the tail
+(`Proc_19_59_449980`) and walks the WHOLE object table -- every object, no
+scope test -- comparing that word against
+
+- `Short` (field 4, whole string),
+- each word of `Prefix` (field 0, `Split` on " "),
+- every `Alias` (field 8, count in field 12);
+
+any match and it gives up on that occurrence and looks for the next one.
+So a separator followed by something the game calls an object is not a
+separator at all.  The comparisons are VB's binary `=` on a line that was
+lower-cased at read, with no `LCase` of their own (the character rewrite at
+48A159 has one, so the omission is deliberate), which makes them
+case-SENSITIVE.
+
+Measured cells:
+
+| typed | run400 |
+|---|---|
+| `get coin and hat` | ONE command, takes both |
+| `get coin and zzz` | cut: "You take the coin." then the DontUnderstand text, two turns |
+| `x coin then x hat`, `x coin, x hat`, `x coin and x hat` | two turns each ("x" is not an object) |
+| `x coin and hat and zzz` | cut at the SECOND " and " -- the first is suppressed by "hat" |
+| `x coin and a hat`, `x coin and the hat`, `x coin and large` | ONE command: Prefix words suppress |
+| `x coin and widget` | cut -- the alias is authored "Widget", and the test is case-sensitive |
+| `x hat and coin` typed in the empty second room | ONE command: the sweep has no scope test |
+| `drop coin and hat, x box` | cut at the comma, the earliest surviving cut of any kind |
+| `wave zzz and yyy` | cut in two, and BOTH halves print the DontUnderstand text |
+| `put coin in box and put hat in desk` | cut: "put" is not an object, so two turns |
+
+Pre-4.0 Runners split on far less and never consult the object table:
+run390 does "," then ". " then a whole-word "then" inline in its input
+handler (45EC8E-45F091), with no " and " pass at all, and run380 recurses on
+" then " (425DE2).
+
+**Port.**  `run_find_split_400()` + `run_split_word_names_object()` in
+scrunner.cpp, driven from the element loop of `run_player_input()`; the old
+`run_is_separator()` stays for pre-4.0.  The "throw out the rest of the line
+when an element is not understood" rule is now gated to pre-4.0, which is
+what fixed `wave zzz and yyy`.
+
+### 2.  The clause loop: one turn, several puts, no separator between them
+
+With the split in hand, put_drop_list looks for `" and "` AT OR BEYOND it
+(459C60), and a line with no preposition splits at `Len(line)` (459C55), so
+its `" and "` is never found.  Each turn of the loop at 459C75 takes
+`Left(line, and_at - 1)` as a clause, runs the whole of name_object on it,
+drops the clause and its separator, puts `"put "` back on the front if the
+remainder lost it, and recomputes the split -- this time WITHOUT the "on"
+scorer test (459D11-459D6B is the two whole-word tests and nothing else) and
+without the `Len(line)` fallback.  A remainder with no preposition of its
+own therefore ends the loop (459D8C writes `&HFF` into the loop variable)
+and is DROPPED unrun, because the final name_object at 459D94 is gated on
+`split > 0`.
+
+```
+> put coin in box and hat in desk
+The coin is too big to fit inside the box.You can't put anything inside the desk!  TICK.
+
+> put coin in box and hat
+The coin is too big to fit inside the box.  TICK.
+```
+
+Note the missing separator: a refusal-only put ends without a terminator of
+its own, so the next clause is glued straight on.  That is not a transcript
+artefact -- `DUMP_SCROLLBACK` on `Adrift_957` shows the same run of
+characters in the Runner's own textbox.
+
+The same dump settles the implicit take.  With the coin held and the hat on
+the floor:
+
+```
+> put coin in box and hat in desk and hat in box
+(Taking the hat first)
+The coin is too big to fit inside the box.You can't put anything inside the desk!  The hat is too big to fit inside the box.  TICK.
+```
+
+The take is asked for by the THIRD clause and comes out above the first
+clause's answer: name_object prints it straight to the textbox (46E2EA,
+vbCrLf included) while the clause answers accumulate in the string the
+Runner shows when the turn ends.
+
+**Port.**  `lib_put_clauses_400()` + `lib_put_split_400()` in sclibrar.cpp
+carve the clauses; `run_game_commands_common()` runs the priority put rows
+once per clause, finishing a non-final clause that the tentative pass
+deferred out of the STANDARD_COMMANDS duplicates, and joins each refusing
+clause's pending text itself (the next clause's pass would otherwise reset
+the flag out from under it).  Between clauses the trailing break is undone
+(`pf_undo_auto_break`); the last clause keeps the pending join, which is
+what a task answering the same line wants.  `lib_put_implicit_take()` hoists
+its announcement with the new `pf_hoist_tail()` while the loop is running.
+`p4PUT`/`p4PUT2` and the Main Course probe stay identical on every turn, and
+the v4 suite stays at **428 PASS / 0 FAIL**.
+
+### Still unported: name_object's own list loops (46E04E / 46E0B2)
+
+A third family, and the whole of what is left of `Adrift_955`/`Adrift_956`.
+When a clause's own text holds a whole-word `and` or `all`, name_object
+answers from the loops at 46E04E and 46E0B2 rather than from the ordinary
+resolver, and the messages are ones Scarier raises a disambiguation prompt
+for instead:
+
+| typed | run400 | scarier |
+|---|---|---|
+| `drop coin, hat` | "It is not clear which hat you are referring to." | "Drop what?" |
+| `get coin, hat` | "It is not clear which hat you are referring to." | "Take what?" |
+| `x coin and a hat` | "Sorry, I'm not sure which object you're referring to." | the ambiguity prompt |
+| `x coin and hat and box` | examines the FIRST noun only | the ambiguity prompt |
+| `get hat and coin` with neither present | "There is nothing worth taking here." | "It is not clear which hat ..." |
+| `drop coin and hat` | drops BOTH | drops the coin, then "I don't understand what you want me to do with the hat." |
+
+Neither message string is in run400.bas, so the wording has to come off the
+Runner.  Scarier's prompts also eat the next line through the 4.0 answer
+slot, which is where the +2/-2 resyncs in `Adrift_955` come from -- the two
+streams are comparable again straight afterwards.

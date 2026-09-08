@@ -2153,6 +2153,50 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
 
 
 /*
+ * pf_buffer_length()
+ * pf_hoist_tail()
+ *
+ * pf_hoist_tail() moves everything buffered from FROM on to the FRONT of the
+ * buffer, leaving what came before it in order behind.  It exists for
+ * run400's implicit take: the "(Taking the hat first)" line is printed
+ * straight to the Runner's textbox, where the rest of a turn's library text
+ * is assembled in a string and shown when the turn ends, so a take asked for
+ * by the SECOND clause of a put list still comes out above the first
+ * clause's answer.  The Runner's own scrollback for `put coin in box and hat
+ * in desk and hat in box` opens with the take line and only then prints "The
+ * coin is too big to fit inside the box." (p4AND, Adrift_957, 2026-09-08).
+ *
+ * The buffer only ever moves within itself, so offsets recorded past the
+ * moved text still address the same characters; the trailing-newline note is
+ * dropped, since the text that ended the buffer no longer does.
+ */
+size_t
+pf_buffer_length (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  return filter->buffer.size ();
+}
+
+void
+pf_hoist_tail (scr_filterref_t filter, size_t from)
+{
+  assert (pf_is_valid (filter));
+
+  if (!filter->is_muted
+      && from > 0 && from < filter->buffer.size ())
+    {
+      const std::string tail = filter->buffer.substr (from);
+
+      filter->buffer.erase (from);
+      filter->buffer.insert (0, tail);
+      filter->auto_break_at = -1;
+      filter->needs_filtering = TRUE;
+    }
+}
+
+
+/*
  * pf_new_sentence()
  *
  * Tells the printfilter to force the next non-space character to uppercase.
