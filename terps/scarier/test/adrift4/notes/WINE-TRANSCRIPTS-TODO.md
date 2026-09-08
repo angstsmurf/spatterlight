@@ -5819,9 +5819,9 @@ Leads read off the TSV, not yet measured against the Runner's P-code:
 
 | row | exe | typed | run4xx | scarier |
 |---|---|---|---|---|
-| `alexis_worn_cube` | 390 | `attack narfild` (unseen) | `Who?` | `Command not understood` |
+| ~~`alexis_worn_cube`~~ | 390 | `attack narfild` (unseen) | `Who?` | *ported below* |
 | `adriftorama` | 400 | `put ball on marker` x7 | `You are not holding the golf ball.` | `You put the golf ball onto the marker.` |
-| `circus` | 390 | `ask barb about tape` x6 | `Barb isn't here!` | `You get no reply from the videotape.` |
+| `circus` | 390 | `ask barb about tape` x6 | `Barb isn't here!` | `You get no reply from the videotape.` (site found: 459C2A) |
 | `wonderwombat` | 400 | maze moves x4 | `You move along the maze, hoping to get out soon.` | `You can only move south.` |
 | `inverness` | 390 | `z` x3 | `You have already done that.` | `Time passes...` |
 | `les_feux` | 400 | `attack demon` x3 | `Je ne comprends pas votre commande !` | battle text |
@@ -5904,15 +5904,10 @@ wins again with its battle coverage intact.
 
 ### Still open on this row
 
-The other 115 differing turns of `alexis_worn_cube` are two clusters, both
-worth their own measurement:
+The other 115 differing turns of `alexis_worn_cube` were two clusters.  The
+first, **`Who?`**, is ported in the next section (it was 94 of them, leaving
+21).  What is left is:
 
-* **`Who?`** -- run390 45ACBA, run400 480659.  When the line names an NPC that
-  has *not* been seen, the battle parser answers `Who?` where Scarier says
-  `Command not understood`.  It is the third arm of the same branch that
-  gives `" is not here!"` (45ACA4/480640): both fall through to 45ACC1/480660
-  without setting the not-a-turn flag.  60+ turns on this row alone
-  (`attack narfild`, `attack goblin`, `attack monster`).
 * **the dark-room refusals** -- in an unlit room run390 answers `x <thing>`
   with `You can't see that very clearly.`, `get all from <thing>` with `You
   can't get anything from that.` and `turn <thing>` / `give <x> to <y>` /
@@ -5920,3 +5915,128 @@ worth their own measurement:
   falls through to the ordinary library refusal (`Nothing special.`, `Take
   what?`, `You can't turn that.`).  Roughly ten turns here, and the same
   answers show up on other dark rows.
+
+## Ported 2026-09-08: the character catch-all's other two arms, and the alias half of the reference test
+
+`characters()` ends, in every Runner from 3.90 on, with a three-arm tail that
+answers for the **first NPC the line names** and prints nothing else.  run400
+Proc_19_0_480674 4805DA-480660, run390 45ABFB-45ACC1:
+
+| the NPC is | run390 | run400 | a turn? |
+| --- | --- | --- | --- |
+| in the player's room | `I don't understand what you want to do with <Name>.` @45AC77 | @480603 | **no** -- 48061A stores 1 in the not-a-turn flag |
+| elsewhere, and seen | `<Name> is not here!` @45ACA4 | @480640, Name capitalised (446BB4 @480638) | yes |
+| elsewhere, unseen | `Who?` @45ACBA | @480659 | yes |
+
+Only the first arm was ported (it is `lib_cmd_verb_npc()`).  The other two are
+now `lib_npc_absent_or_unknown()`, taken when the catch-all's own
+unambiguous-reference test finds no NPC here.
+
+### The reference test is Name **or first Alias**, and nothing else
+
+3.9 spells its guard out inline at 45ABFB-45AC56: nothing printed yet, AND
+`c(LCase(Name))` (var_16C(0), 45AC24) `Or c(LCase(Alias))` (var_16C(8),
+45AC4D).  No prefix, no second alias, no parse position -- a fresh scan of the
+typed line.  `dobattle`'s absent-NPC branch uses the same pair (run390
+44D130/44D14B).  That is now `lib_npc_named_in_line()`, shared by both sites.
+
+It matters: `lib_battle_absent_npc()` was testing the **Name alone**, so
+ALEXIS.TAF's `attack goblin` -- which names the "Forester Goblin" by its alias
+-- never reached the battle answer and fell through to the catch-all.
+
+### 4.0 replaced the guard with something that does not fire
+
+run400 does not test Name-or-Alias inline; it calls
+`Proc_21_40_45E99C(index, 0)` at 4805E8, and the decompile does not carry that
+routine's body.  Whatever it tests, the 2026-09-08 capture shows it failing on
+exactly the lines 3.9 would answer:
+
+| row | version | command | run400 | 3.9's tail would say |
+| --- | --- | --- | --- | --- |
+| `maincourse` | 4.00 | `attack cat`, `attack human` | `I don't understand what you mean!` (the game's DontUnderstand) | `Who?` |
+| `thepkgirl` | 4.00 | `revive ethan` | `Pardon me?` | `Ethan is not here!` |
+| `thepkgirl` | 4.00 | `spray chadwick`, `hug katryn` | `Pardon me?` | `Who?` |
+
+Porting the tail to 4.0 as well made both rows *worse* (maincourse 0 -> 6,
+thepkgirl 20 -> 23), so `lib_npc_absent_or_unknown()` is gated
+`>= TAF_VERSION_390 && < TAF_VERSION_400`.
+
+thepkgirl's `attack chadwick` -> `The man is not here!` is **not** the tail: it
+is run400's own per-verb *attack* branch, whose `" is not here!"` sits at
+47F700, inside the branch that ends at 47F70B where `"take"`/`"get"` begins.
+humbug's `Give mug to Dennis` -> `But Dennis is not here!` is a third site
+again.  Both are still unported, and they are the corpus's only two
+`is not here!` lines.
+
+### Measured, not inferred: four probes on ALEXIS.TAF under run390
+
+The corpus feed never reaches a seen NPC (its lantern goes dark), so the arms
+were measured directly with short probes -- `runner_transcript_safe.sh
+ALEXIS.TAF <probe> run390.exe`, and `fast.sh` (the background message driver,
+no foreground needed) for the 253-command one.  The feeds are kept as
+`cmdfile_alexis_absent_npc_1..4.txt` and the transcripts as
+`transcripts_v4_corpus_2026-09-08/probe_alexis_*.txt`:
+
+| probe | transcript | command | run390 says |
+| --- | --- | --- | --- |
+| 1 | Adrift_121 | `attack wolf` (never seen) | `Who?` |
+| 1 | Adrift_121 | `x wolf` (never seen) | `You cannot see Wolf from here.` |
+| 2 | Adrift_123 | `attack wolf` from the next room, wolf alive and seen | `Wolf isn't here!` |
+| 3 | Adrift_124 | `attack wolf` after it limps away | `Wolf isn't here!` |
+| 4 | Adrift_125 | `hug wolf`, seen and elsewhere | `Wolf is not here!` |
+| 4 | Adrift_125 | `hug narfild`, never seen | `Who?` |
+| 4 | Adrift_125 | `x narfild`, never seen | `You cannot see Narfild from here.` |
+
+So the two absent-NPC wordings are not alternatives: `attack` is taken by
+`dobattle` first and says **isn't**, everything else falls to the tail and says
+**is not**.  Both are ordinary turns.
+
+### What it cost
+
+Corpus 6162 -> 6068 differing turns, `alexis_worn_cube` 115 -> 21, no row
+worse.  `alexis_worn_cube`'s golden moved twice over: the eight `attack goblin`
+after the goblin dies now answer `Forester Goblin isn't here!` (the battle
+site, reached at last through the alias), and being turns rather than
+`Command not understood` they tick eight events -- Haron catches up five turns
+earlier and two battle rounds land in different places.  The row still wins.
+
+One caveat on that golden: run390 driven with the *trimmed* feed
+(probe_alexis_worn_cube_trimmed_965.txt) still never reaches the goblin -- its
+lantern goes dark on the Runner's own dice as well, and all twelve
+`attack goblin` there answer `Who?`.  So the eight `isn't here!` lines in the
+golden are argued from probes 2-4 (same game, same site, seen NPC elsewhere and
+a killed NPC both answering `isn't here!`), not measured on that row.
+
+### New leads from probe 4: the rest of the per-verb branches
+
+run390's `characters()` runs its per-verb branches for **every** NPC the line
+names, present or not, and several answer where Scarier does not.  All four
+Runners carry the strings (`' cannot see '` + `' from here.'` at run370 00944C,
+run380 00B110, run390 00EBE0, run400 016D44), so none of this is 3.9-only:
+
+| command (NPC elsewhere) | run390 | Scarier | P-code | corpus turns |
+| --- | --- | --- | --- | --- |
+| `x <npc>` | `You cannot see <Name> from here.` | `Nothing special.` | -- | 13 |
+| `talk to <npc>` | `Use the format "ask <Name> about [subject]".` | `No-one listens to your rabblings.` | 4597C0 / 459BD5 | 5 (`hcw`, `alchemist`) |
+| `kiss <npc>` | `I'm not sure it would appreciate that!` | `...that.` (full stop) | 45970A-459735 | 4 |
+| `ask <npc> about x` | `<Name> isn't here!` | `You get no reply from the <obj>.` | 459C2A-459C36 | 7 (`circus`) |
+| `give <obj> to <npc>` | `I don't understand what you want me to do with <obj>.` | `Please be more clear, who do you want to give to?` | -- | -- |
+
+The `ask` row is the one already on the open list as circus' `ask barb about
+tape`.  Its guard is narrow and worth reading before porting: 459882 abandons
+the whole branch unless the name starts at input position 5 (`ask ` + Name or
+Alias), 9 for `talk to `, and 459C2A only rewrites a message that is empty or
+already ends in `can't talk to that.`  Probe 4's `ask wolf about cube` came
+back `You can't talk to that.`, not `Wolf isn't here!`, so something later in
+the turn overwrites it -- the condition is not simply "NPC elsewhere".
+
+The Runner says `isn't here!` on 68 corpus turns that still differ; Scarier
+now says it too on 32 of them (the rest of those lines differ for other
+reasons).  Of the remainder, circus' 7 are the `ask` site above and
+shadowpeak's 43 are walker desync -- Scarier has a *different* NPC in the room
+and stabs it, which is a walk-scheduling row, not this one.
+
+run390 also has per-verb `" is not here!"` sites of its own -- attack @45960F
+and take/get/pick-up @4596E1 -- which the battle branch pre-empts in a battle
+game but not in a game with the Battle System off.  Nothing in the corpus
+exercises that combination yet.

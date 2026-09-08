@@ -12203,6 +12203,46 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
  * these words exactly as it was.
  */
 /*
+ * lib_npc_named_in_line()
+ *
+ * The Runner's "does this line refer to that character" test, as the two
+ * absent-NPC answers below make it: whole-word containment of the record's
+ * Name (field 0) or of its FIRST Alias (field 8) in the typed line, and
+ * nothing else -- no prefix, no second alias, no parse position.  run390
+ * dobattle spells it out at 44D130/44D14B (`c(global_0) Or c(global_8)`),
+ * and characters()' catch-all repeats it at 45AC24/45AC4D.
+ *
+ * ALEXIS.TAF's forest dwelling goblin is why this matters: its Name is
+ * "Forester Goblin" and `attack goblin` names it only by the alias.
+ */
+static scr_bool
+lib_npc_named_in_line (scr_gameref_t game, scr_int npc, const scr_char *input)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+  const scr_char *name;
+
+  name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+  if (name && name[0] != NUL && lib_input_contains_word (input, name))
+    return TRUE;
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Alias";
+  if (prop_get_child_count (bundle, "I<-sis", vt_key) > 0)
+    {
+      const scr_char *alias;
+
+      vt_key[3].integer = 0;
+      alias = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (alias && alias[0] != NUL && lib_input_contains_word (input, alias))
+        return TRUE;
+    }
+
+  return FALSE;
+}
+
+/*
  * lib_battle_absent_npc()
  *
  * The 4.0 battle parser dobattle (Proc_11_4_47F084, entered from
@@ -12228,7 +12268,11 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
  * (var_158(26) = 1), no earlier-named NPC present (var_92 = 0), and an
  * inner loop over every NPC (44D10C..44D17A, testing the record's Name
  * *and* its first Alias) that clears var_8A when one the line refers to is
- * here -- ending in `Name & " isn't here!"` at 44D1B4.  Measured against
+ * here -- ending in `Name & " isn't here!"` at 44D1B4.  The line's own
+ * reference test is that same pair (lib_npc_named_in_line() above), which is
+ * not the same thing as the Name alone: ALEXIS.TAF's `attack goblin` names
+ * the "Forester Goblin" by its alias, and testing only the Name dropped the
+ * answer through to the catch-all.  Measured against
  * the 2026-09-08 whole-corpus capture: ALEXIS.TAF driven with the cube
  * worn answers `attack wolf` with "Wolf isn't here!" from the rooms the
  * wolf has left, five turns of it (Adrift_486_alexis_worn_cube.txt t17-19,
@@ -12258,7 +12302,7 @@ lib_battle_absent_npc (scr_gameref_t game)
 
       name = prop_get_indexed_string (bundle, "NPCs", index_, "Name");
       if (!name || name[0] == NUL
-          || !lib_input_contains_word (input, name)
+          || !lib_npc_named_in_line (game, index_, input)
           || !gs_npc_seen (game, index_)
           || npc_in_room (game, index_, gs_playerroom (game)))
         continue;
@@ -12271,7 +12315,7 @@ lib_battle_absent_npc (scr_gameref_t game)
   return printed;
 }
 
-scr_bool
+static scr_bool
 lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
                         scr_int method, scr_bool legacy)
 {
@@ -16306,6 +16350,106 @@ lib_cmd_verb_object (scr_gameref_t game)
   return TRUE;
 }
 
+/*
+ * lib_npc_absent_or_unknown()
+ *
+ * The other two arms of the character catch-all.  run400's characters()
+ * walks every NPC (the outer loop 47F2C5..48066E) and, for the first one the
+ * line refers to while nothing has been printed yet (4805DA-4805F1:
+ * `MemVar_4941B0 = vbNullString And Proc_21_40_45E99C(index, 0)`), answers
+ * with one of three lines and nothing else:
+ *
+ *   the NPC is in the player's room (field 14 = the player-room global)
+ *       "I don't understand what you want to do with <Name>."   [480603]
+ *       -- and only this arm is not a turn (48061A stores 1 in the
+ *          MemVar_494281 the tick is gated on); it is lib_cmd_verb_npc();
+ *   else the NPC has been seen (field 26 = 1)
+ *       "<Name> is not here!"                                   [480640]
+ *   else
+ *       "Who?"                                                  [480659]
+ *
+ * The last two fall straight through to 480660, so both are ordinary turns
+ * and the walk+event tick runs after them.  4.0 puts the name of the middle
+ * arm through the Runner's capitaliser (Proc_21_3_446BB4 at 480638); 3.9
+ * pushes the raw field (45AC9F), the same split npc_announce() carries.
+ *
+ * 3.9 has the identical three-arm tail -- characters() @45ACD8, the branch
+ * 45AC65..45ACC1, tests in the same order, "I don't understand what you want
+ * to do with " at 45AC77, `" is not here!"` at 45ACA4 and "Who?" at 45ACBA --
+ * so the floor is 3.90 and not lower: neither run370.exe nor run380.exe
+ * contains the string "Who?" at all, and their `" is not here!"` lines
+ * (run370 43865D and 438707, run380 4404D9 and 440596) sit inside the
+ * per-verb attack and take handlers, not in a generic tail.
+ *
+ * The ceiling is 4.00, and that is measured, not assumed.  3.9 spells its
+ * own reach test out inline at 45ABFB-45AC56 -- nothing printed yet, AND the
+ * typed line whole-word contains the NPC's LCase Name (var_16C(0), tested at
+ * 45AC24) OR its LCase Alias (var_16C(8), 45AC4D) -- while 4.0 replaced that
+ * pair of c() calls with the opaque Proc_21_40_45E99C(index, 0) (4805E8),
+ * whose body the decompile does not carry.  Whatever it tests, the 2026-09-08
+ * capture shows it failing on exactly the lines 3.9 would answer: maincourse
+ * (4.00) answers `attack cat` and `attack human` with the game's own
+ * DontUnderstand text, and thepkgirl (4.00) answers `revive ethan`, `spray
+ * chadwick` and `hug katryn` with "Pardon me?" -- never the tail.  So this
+ * is ported for 3.90 and 3.9x only.
+ *
+ * thepkgirl's `attack chadwick` -> "The man is not here!" is a different
+ * site: run400 keeps the pre-battle per-verb attack handler, and its own
+ * absent-NPC else prints `" is not here!"` at 47F700, inside the verb branch
+ * that ends at 47F70B where "take"/"get" begins.  That one is still unported.
+ *
+ * Measured on the 2026-09-08 whole-corpus capture: alexis_worn_cube (3.90)
+ * answers `attack narfild`, `attack goblin` and `attack monster` from rooms
+ * those NPCs have never been seen in with "Who?" -- 94 turns of it, and
+ * eight more on `alexis` -- where Scarier printed the DontUnderstand text.
+ *
+ * The Runner's tail consults no reference flags: it rescans the typed line
+ * for every NPC in index order, so this does the same rather than reading
+ * game->npc_references[], which the parser sets from prefixes and positions
+ * the tail knows nothing about.  The in-room case returns FALSE and leaves
+ * lib_cmd_verb_npc()'s own unambiguous-reference test to answer it, which is
+ * where this differs from the Runner: the Runner has no such test and prints
+ * the first named NPC's catch-all whether or not the line is ambiguous.
+ */
+static scr_bool
+lib_npc_absent_or_unknown (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int index_;
+
+  if (prop_get_taf_version (bundle) < TAF_VERSION_390
+      || lib_is_version_400 (game) || !input)
+    return FALSE;
+
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      const scr_char *name;
+
+      if (!lib_npc_named_in_line (game, index_, input))
+        continue;
+
+      if (npc_in_room (game, index_, gs_playerroom (game)))
+        return FALSE;
+
+      if (!gs_npc_seen (game, index_))
+        {
+          pf_buffer_string (filter, "Who?\n");
+          return TRUE;
+        }
+
+      name = prop_get_indexed_string (bundle, "NPCs", index_, "Name");
+      if (!name || name[0] == NUL)
+        return FALSE;
+      pf_buffer_string (filter, name);
+      pf_buffer_string (filter, " is not here!\n");
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
 scr_bool
 lib_cmd_verb_npc (scr_gameref_t game)
 {
@@ -16344,7 +16488,7 @@ lib_cmd_verb_npc (scr_gameref_t game)
         }
     }
   if (count != 1)
-    return FALSE;
+    return lib_npc_absent_or_unknown (game);
 
   /* Save in variables. */
   var_set_ref_character (vars, npc);

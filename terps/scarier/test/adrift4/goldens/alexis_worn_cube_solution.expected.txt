@@ -676,28 +676,28 @@ The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
 > attack goblin
-Command not understood
+Forester Goblin isn't here!
 
 > attack goblin
-Command not understood
+Forester Goblin isn't here!
 
 > attack goblin
-Command not understood
+Forester Goblin isn't here!
 
 > attack goblin
-Command not understood
+Forester Goblin isn't here!
 
 > attack goblin
-Command not understood
+Forester Goblin isn't here!
 
 > attack goblin
-Command not understood
+Forester Goblin isn't here!
 
 > attack goblin
-Command not understood
+Forester Goblin isn't here!
 
 > attack goblin
-Command not understood
+Forester Goblin isn't here!
 
 > take kedarn stone
 You pick up the Kedarn stone.
@@ -743,9 +743,6 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.
-
-> attack monster
-You cut a swamp monster with the small sword.
 A swamp monster stabs you with the pointy stick, but it doesn't seem to do
 any damage.
 
@@ -761,35 +758,36 @@ any damage.
 
 > attack monster
 You cut a swamp monster with the small sword.
-A swamp monster stabs you with the pointy stick, but it doesn't seem to do
-any damage.
 
 > attack monster
 You cut a swamp monster with the small sword.
 A swamp monster stabs you with the pointy stick, but it doesn't seem to do
 any damage.
+
+> attack monster
+You cut a swamp monster with the small sword.
 
 > attack monster
 You cut a swamp monster with the small sword.
 The swamp monster slowly melts into the marsh. It then dissapears.
 
 > attack monster
-Command not understood
+Longmore king isn't here!
 
 > attack monster
-Command not understood
+Longmore king isn't here!
 
 > attack monster
-Command not understood
+Longmore king isn't here!
 
 > attack monster
-Command not understood
+Longmore king isn't here!
 
 > attack monster
-Command not understood
+Longmore king isn't here!
 
 > attack monster
-Command not understood
+Longmore king isn't here!
 
 > ne
 You move northeast.
@@ -918,14 +916,18 @@ Nelone mountain junction
 This path threads over the bottoms of many mountains. On each side are
 extremely steep mountains. It is impossible to attempt to climb up any.
 Southwest will take you towards Glaven. Northeast takes you further along the
-pass. East takes you along a valley ridge.
+pass. East takes you along a valley ridge.  Haron follows you.
+A knight catches up to you and smiles. Clearing his throat he says:
+" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
+have brought a gift from Natalya."
+Haron hands you a phial.
 
 > ne
 You move northeast.
 
 Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
- There is a Narn here.
+ There is a Narn here.  Haron follows you.
 The little Narn hits you, but it doesn't seem to do any damage.
 
 > e
@@ -933,7 +935,7 @@ You move east.
 
 Thin mountain path
 The path thins out here to just a small footpath. The path thickens west, or
-goes to a junction to the Southeast.
+goes to a junction to the Southeast.  Haron follows you from the west.
 
 > se
 You move southeast.
@@ -943,7 +945,7 @@ The ground here is covered in a fine layer of snow. This junction leads away
 three ways. Impossible to tell where each one goes as they thread through
 mountains. The paths lead Northwest, West and East. The only way that can be
 sure is that west leads down into a valley.  You can also see the Nelone
-stone.
+stone.  Haron follows you.
 
 > take nelone stone
 You pick up the Nelone stone.
@@ -955,7 +957,8 @@ Nelone bridge West
 In front of you is a small rope footbridge that stretches over the ravine
 below. It is held by strong ropes that are driven into the ground by huge
 stakes. It would be impossible to cut the ropes with anything. East will take
-you along the bridge. West will take you to a junction.
+you along the bridge. West will take you to a junction.  Haron follows you
+from the west.
 
 > e
 You move east.
@@ -964,11 +967,7 @@ Nelone Bridge
 You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
 one side of the bridge, east to the other.  Larnt is standing in front of you
-barring the way.  Larnt is here.  Haron follows you.
-A knight catches up to you and smiles. Clearing his throat he says:
-" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
-have brought a gift from Natalya."
-Haron hands you a phial.
+barring the way.  Larnt is here.  Haron follows you from the west.
 
 > give stones to larnt
 As you hand over the stones, Larnt's face breaks into an evil smile. As the
@@ -998,7 +997,6 @@ This long path is completely shadowed. The little light that there is comes
 from far off in the distance. There are sharp jagged rocks on each side of
 the path. West will take you towards the bridge. Northeast will take you
 further up the mountain.  Haron follows you from the west.
-You drop to the floor feeling very ill.
 
 > ne
 You move northeast.
@@ -1008,6 +1006,7 @@ The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.  There is a large Narn here.  Haron follows you.
 Haron cuts a large Narn with the elven sword.
+A large Narn hits you, but it doesn't seem to do any damage.
 
 > nw
 You move northwest.
@@ -1016,6 +1015,7 @@ Uron Dark Path
 The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
 mountain. Northeast will take you up.  Haron follows you.
+The air has become extremely dense and choking.
 
 > ne
 You move northeast.
@@ -1052,10 +1052,13 @@ outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Haron
 follows you from the south.
 Haron cuts the dark knight with the elven sword.
-The dark knight cuts Haron with the blade from Uron.
+The dark knight cuts you with the blade from Uron, but it doesn't seem to do
+any damage.
 
 > attack larnt
 You cut the dark knight with the small sword.
+The dark knight cuts you with the blade from Uron, but it doesn't seem to do
+any damage.
 
 > attack larnt
 You cut the dark knight with the small sword.
@@ -1237,13 +1240,6 @@ the South. He then smiles, and says:
 > attack urgorn
 You cut the dark lord with the small sword.
 Haron cuts the dark lord with the elven sword.
-
-> attack urgorn
-You cut the dark lord with the small sword.
-
-> attack urgorn
-You cut the dark lord with the small sword.
-Haron cuts the dark lord with the elven sword.
 The dark lord shoots you with the ball of fire, but it doesn't seem to do any
 damage.
 
@@ -1253,6 +1249,15 @@ You cut the dark lord with the small sword.
 > attack urgorn
 You cut the dark lord with the small sword.
 Haron cuts the dark lord with the elven sword.
+
+> attack urgorn
+You cut the dark lord with the small sword.
+
+> attack urgorn
+You cut the dark lord with the small sword.
+Haron cuts the dark lord with the elven sword.
+The dark lord shoots you with the ball of fire, but it doesn't seem to do any
+damage.
 
 > attack urgorn
 You cut the dark lord with the small sword.
