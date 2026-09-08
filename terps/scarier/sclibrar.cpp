@@ -12203,7 +12203,7 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
  * these words exactly as it was.
  */
 /*
- * lib_battle_absent_npc_400()
+ * lib_battle_absent_npc()
  *
  * The 4.0 battle parser dobattle (Proc_11_4_47F084, entered from
  * generaltasks 48A4A2 whenever the Battle System is on) walks the NPCs in
@@ -12222,11 +12222,24 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
  * to fall through to the catch-all ("I don't understand what you want me
  * to do with the body.") or the game's DontUnderstand text.
  *
- * Returns TRUE having printed for every such NPC; 3.9's battle parser is
- * unmeasured, so the clause is 4.0-only.
+ * 3.9 does the same, and the clause used to be 4.0-only only because
+ * nothing had measured it.  run390's dobattle is @44D25C, and the branch at
+ * 44D188..44D1BF is the same three tests in the same order -- seen
+ * (var_158(26) = 1), no earlier-named NPC present (var_92 = 0), and an
+ * inner loop over every NPC (44D10C..44D17A, testing the record's Name
+ * *and* its first Alias) that clears var_8A when one the line refers to is
+ * here -- ending in `Name & " isn't here!"` at 44D1B4.  Measured against
+ * the 2026-09-08 whole-corpus capture: ALEXIS.TAF driven with the cube
+ * worn answers `attack wolf` with "Wolf isn't here!" from the rooms the
+ * wolf has left, five turns of it (Adrift_486_alexis_worn_cube.txt t17-19,
+ * t25-26), where Scarier said "Command not understood".  Before 3.9 there
+ * is no battle system at all -- neither run370.exe nor run380.exe contains
+ * the string "doesn't seem to do any damage" -- so 3.90 is the floor.
+ *
+ * Returns TRUE having printed for every such NPC.
  */
 static scr_bool
-lib_battle_absent_npc_400 (scr_gameref_t game)
+lib_battle_absent_npc (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_filterref_t filter = gs_get_filter (game);
@@ -12234,7 +12247,8 @@ lib_battle_absent_npc_400 (scr_gameref_t game)
   scr_int index_;
   scr_bool printed;
 
-  if (!lib_is_version_400 (game) || !battle_is_enabled (game) || !input)
+  if (prop_get_taf_version (bundle) < TAF_VERSION_390
+      || !battle_is_enabled (game) || !input)
     return FALSE;
 
   printed = FALSE;
@@ -12273,8 +12287,8 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
   npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
   if (npc == -1)
     {
-      /* 4.0: a seen NPC named in the line but elsewhere "isn't here!" */
-      if (!is_ambiguous && lib_battle_absent_npc_400 (game))
+      /* 3.9+: a seen NPC named in the line but elsewhere "isn't here!" */
+      if (!is_ambiguous && lib_battle_absent_npc (game))
         return TRUE;
       return is_ambiguous;
     }
@@ -12340,8 +12354,8 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
   if (npc == -1)
     {
-      /* 4.0: a seen NPC named in the line but elsewhere "isn't here!" */
-      if (!is_ambiguous && lib_battle_absent_npc_400 (game))
+      /* 3.9+: a seen NPC named in the line but elsewhere "isn't here!" */
+      if (!is_ambiguous && lib_battle_absent_npc (game))
         return TRUE;
       return is_ambiguous;
     }

@@ -243,7 +243,7 @@ You stab An evil sorceress with The Spirit Dagger.
 Morana screeches before she disappears in a puff of smoke.
 
 > attack morana
-You are not making sense...
+Morana isn't here!
 
 > north
 You walk north.
@@ -317,15 +317,14 @@ Water Tunnel
 A thin tunnel under the water.  Serpanern is here.
 
 You can only move north.
-Lamanluie cuts The tunnel beast with the old rusty broken blood-stained
-scimitar.
+The tunnel beast hits you, but it doesn't seem to do any damage.
 
 > attack serpanern
 You stab The tunnel beast with The Spirit Dagger.
 It's body shrivels and is instantly consumed by fishes.
 
 > attack serpanern
-You are not making sense...
+Serpanern isn't here!
 
 > up
 You climb up.
@@ -360,20 +359,21 @@ Sea Serpent's Cave
 The cave is full of drawings of mystical sea creatures. Stalactites of
 wondrous colour hang from the ceiling. Bleeched coral is growing in the far
 corner.  Crynasalda is here.
-Lamanluie cuts The serpentine guardian with the old rusty broken
-blood-stained scimitar.
+The serpentine guardian hits you.
 
 > attack crynasalda
 You stab The serpentine guardian with The Spirit Dagger.
+Lamanluie cuts The serpentine guardian with the old rusty broken
+blood-stained scimitar.
 Crynasalda collapses. The water elemental leaves her body and transforms
 itself into an object.
 The Sea Serpent's Scales floats magically onto your body.
 
 > attack crynasalda
-You are not making sense...
+Crynasalda isn't here!
 
 > attack crynasalda
-You are not making sense...
+Crynasalda isn't here!
 
 > up
 You climb up.
@@ -455,6 +455,7 @@ The path is dry and cracked. The sun beats down on you hard. The air is hot
 and dry.  A lizard is here.  Slikerma is here.
 
 You can only move west.
+You feel cold.
 
 > west
 You walk west.
@@ -464,7 +465,6 @@ A small clearing with only a hut. It appears to be a blacksmith's.  The hut
 appears cold and silent.  Afernoga is here.
 
 You can move north and east.
-You feel cold.
 
 > north
 You walk north.
@@ -512,12 +512,12 @@ and Kelorano are here.
 You can only move west.
 You feels as though you should leave quickly.
 Lamanluie cuts The lava guardian with An old scimitar.
-The lava guardian hits Lamanluie.
+The lava guardian hits you, but it doesn't seem to do any damage.
 
 > get amber
 You pick up The Amber of Flames.
 Lamanluie cuts The lava guardian with An old scimitar.
-The lava guardian hits Lamanluie.
+The lava guardian hits you, but it doesn't seem to do any damage.
 
 > west
 You walk west.
@@ -555,15 +555,14 @@ The path is dry and cracked. The sun beats down on you hard. The air is hot
 and dry.  A lizard is hissing at you, blocking your way.  Slikerma is here.
 
 You can only move west.
-Lamanluie cuts A fire lizard with An old scimitar.
-A fire lizard hits you, but it doesn't seem to do any damage.
+A fire lizard hits Lamanluie, but it doesn't seem to do any damage.
 
 > attack slikerma
 You stab A fire lizard with The Spirit Dagger.
 Bright red blood oozes from Slikerma's fatal wound.
 
 > attack slikerma
-You are not making sense...
+Slikerma isn't here!
 
 > south
 You walk south.

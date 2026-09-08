@@ -101,37 +101,29 @@ A grey wolf hits you, but it doesn't seem to do any damage.
 You hit a grey wolf.
 
 > attack wolf
-Command not understood
+Wolf isn't here!
 
 > attack wolf
-Command not understood
+Wolf isn't here!
 
 > attack wolf
-Command not understood
+Wolf isn't here!
+A grey wolf hits you, but it doesn't seem to do any damage.
 
 > attack wolf
-Command not understood
+You hit a grey wolf.
 
 > attack wolf
-Command not understood
+You hit a grey wolf.
+A grey wolf hits you, but it doesn't seem to do any damage.
 
 > attack wolf
-Command not understood
-
-> attack wolf
-Command not understood
-
-> attack wolf
-Command not understood
-
-> attack wolf
-Command not understood
-
-> attack wolf
-Command not understood
+You hit a grey wolf.
+A grey wolf hits you, but it doesn't seem to do any damage.
 
 > take tonerith stone
 You pick up the Tonerith stone.
+A grey wolf hits you, but it doesn't seem to do any damage.
 
 > e
 You move east.
@@ -186,22 +178,6 @@ You hit an angry dwarf.
 An angry dwarf chops you with the iron axe, but it doesn't seem to do any
 damage.
 
-> attack bridgekeeper
-You hit an angry dwarf.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-An angry dwarf chops you with the iron axe, but it doesn't seem to do any
-damage.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-An angry dwarf chops you with the iron axe, but it doesn't seem to do any
-damage.
-
 > w
 You move west.
 
@@ -217,6 +193,7 @@ Tonerith Pass
 This wide path continues to the East. You can see the hills of Forecarn north
 of here but there is no path running there. You can here the sound of rushing
 water in the distance.
+A grey wolf hits you, but it doesn't seem to do any damage.
 
 > west
 You move west.
@@ -348,10 +325,10 @@ You cut the large troll with the small sword.
 Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
 
 > attack narfild
-Command not understood
+Narfild isn't here!
 
 > attack narfild
-Command not understood
+Narfild isn't here!
 
 > e
 You move east.
@@ -483,8 +460,6 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.
-A swamp monster stabs you with the pointy stick, but it doesn't seem to do
-any damage.
 
 > se
 You move southeast.
@@ -689,11 +664,11 @@ seem to do any damage.
 
 > attack goblin
 You cut a forest dwelling goblin with the small sword.
+A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
+seem to do any damage.
 
 > attack goblin
 You cut a forest dwelling goblin with the small sword.
-A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
-seem to do any damage.
 
 > attack goblin
 You cut a forest dwelling goblin with the small sword.
@@ -768,11 +743,11 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.
-A swamp monster stabs you with the pointy stick, but it doesn't seem to do
-any damage.
 
 > attack monster
 You cut a swamp monster with the small sword.
+A swamp monster stabs you with the pointy stick, but it doesn't seem to do
+any damage.
 
 > attack monster
 You cut a swamp monster with the small sword.
@@ -879,10 +854,10 @@ A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You cut a large eagle with the small sword.
-A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You cut a large eagle with the small sword.
+A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You cut a large eagle with the small sword.
@@ -890,25 +865,25 @@ The eagle makes a last flap of it's enormous wings and falls deep into the
 ravine out of view.
 
 > attack eagle
-Command not understood
+Eagle isn't here!
 
 > attack eagle
-Command not understood
+Eagle isn't here!
 
 > attack eagle
-Command not understood
+Eagle isn't here!
 
 > attack eagle
-Command not understood
+Eagle isn't here!
 
 > attack eagle
-Command not understood
+Eagle isn't here!
 
 > attack eagle
-Command not understood
+Eagle isn't here!
 
 > attack eagle
-Command not understood
+Eagle isn't here!
 
 > w
 You move west.
@@ -989,7 +964,11 @@ Nelone Bridge
 You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
 one side of the bridge, east to the other.  Larnt is standing in front of you
-barring the way.  Larnt is here.
+barring the way.  Larnt is here.  Haron follows you.
+A knight catches up to you and smiles. Clearing his throat he says:
+" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
+have brought a gift from Natalya."
+Haron hands you a phial.
 
 > give stones to larnt
 As you hand over the stones, Larnt's face breaks into an evil smile. As the
@@ -1000,7 +979,8 @@ mountain.
 Nelone Bridge
 You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
-one side of the bridge, east to the other.  Larnt is here.
+one side of the bridge, east to the other.  Larnt is here.  Haron is
+standingon your left.
 
 > e
 You move east.
@@ -1008,7 +988,7 @@ You move east.
 Nelone Bridge East
 The large footbridge is behind you now as you look to the huge mountain in
 front of you. West takes you along the bridge. East will take you along a
-dark path that winds up the mountain.
+dark path that winds up the mountain.  Haron follows you from the west.
 
 > e
 You move east.
@@ -1017,7 +997,8 @@ Uron Dark Path
 This long path is completely shadowed. The little light that there is comes
 from far off in the distance. There are sharp jagged rocks on each side of
 the path. West will take you towards the bridge. Northeast will take you
-further up the mountain.
+further up the mountain.  Haron follows you from the west.
+You drop to the floor feeling very ill.
 
 > ne
 You move northeast.
@@ -1025,7 +1006,8 @@ You move northeast.
 Uron Dark Path
 The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
-take you up the mountain.  There is a large Narn here.
+take you up the mountain.  There is a large Narn here.  Haron follows you.
+Haron cuts a large Narn with the elven sword.
 
 > nw
 You move northwest.
@@ -1033,14 +1015,15 @@ You move northwest.
 Uron Dark Path
 The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
-mountain. Northeast will take you up.
+mountain. Northeast will take you up.  Haron follows you.
 
 > ne
 You move northeast.
 
 Uron Dark Path
 The path starts to get steeper as you get nearer the top of the mountain. The
-path leads Southwest down the mountain or North up the mountain.
+path leads Southwest down the mountain or North up the mountain.  Haron
+follows you.
 
 > n
 You move north.
@@ -1049,11 +1032,7 @@ Uron Castle Entrance
 The walls of the castle reach high in the air. The smell fades now, and the
 air appears less dense. It is replaced with a feeling that you are unwanted.
 There is a large wooden door that looks extremely thick. The path leads South
-down the mountain.  Haron follows you.
-A knight catches up to you and smiles. Clearing his throat he says:
-" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
-have brought a gift from Natalya."
-Haron hands you a phial.
+down the mountain.  Haron follows you from the south.
 
 > say the password
 The words seem to have moved the doors a little. They must be unlocked. They
@@ -1072,55 +1051,55 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Haron
 follows you from the south.
+Haron cuts the dark knight with the elven sword.
 The dark knight cuts Haron with the blade from Uron.
 
 > attack larnt
 You cut the dark knight with the small sword.
-Haron cuts the dark knight with the elven sword.
 
 > attack larnt
 You cut the dark knight with the small sword.
+Haron cuts the dark knight with the elven sword.
 The dark knight cuts you with the blade from Uron, but it doesn't seem to do
 any damage.
 
 > attack larnt
 You cut the dark knight with the small sword.
-Haron cuts the dark knight with the elven sword.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > attack larnt
-Command not understood
+Larnt isn't here!
 
 > n
 You move north.
@@ -1258,15 +1237,6 @@ the South. He then smiles, and says:
 > attack urgorn
 You cut the dark lord with the small sword.
 Haron cuts the dark lord with the elven sword.
-The dark lord shoots you with the ball of fire, but it doesn't seem to do any
-damage.
-
-> attack urgorn
-You cut the dark lord with the small sword.
-
-> attack urgorn
-You cut the dark lord with the small sword.
-Haron cuts the dark lord with the elven sword.
 
 > attack urgorn
 You cut the dark lord with the small sword.
@@ -1276,6 +1246,13 @@ You cut the dark lord with the small sword.
 Haron cuts the dark lord with the elven sword.
 The dark lord shoots you with the ball of fire, but it doesn't seem to do any
 damage.
+
+> attack urgorn
+You cut the dark lord with the small sword.
+
+> attack urgorn
+You cut the dark lord with the small sword.
+Haron cuts the dark lord with the elven sword.
 
 > attack urgorn
 You cut the dark lord with the small sword.

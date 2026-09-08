@@ -21,17 +21,9 @@ attack wolf
 attack wolf
 attack wolf
 attack wolf
-attack wolf
-attack wolf
-attack wolf
-attack wolf
 take tonerith stone
 e
 e
-attack bridgekeeper
-attack bridgekeeper
-attack bridgekeeper
-attack bridgekeeper
 attack bridgekeeper
 attack bridgekeeper
 attack bridgekeeper

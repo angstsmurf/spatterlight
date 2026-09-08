@@ -5819,7 +5819,7 @@ Leads read off the TSV, not yet measured against the Runner's P-code:
 
 | row | exe | typed | run4xx | scarier |
 |---|---|---|---|---|
-| `alexis_worn_cube` | 390 | `attack wolf` (absent) | `Wolf isn't here!` / `Who?` | `Command not understood` |
+| `alexis_worn_cube` | 390 | `attack narfild` (unseen) | `Who?` | `Command not understood` |
 | `adriftorama` | 400 | `put ball on marker` x7 | `You are not holding the golf ball.` | `You put the golf ball onto the marker.` |
 | `circus` | 390 | `ask barb about tape` x6 | `Barb isn't here!` | `You get no reply from the videotape.` |
 | `wonderwombat` | 400 | maze moves x4 | `You move along the maze, hoping to get out soon.` | `You can only move south.` |
@@ -5842,3 +5842,81 @@ Not leads, re-confirmed: `togetyou` t16 (already filed), `reactor1` T10
 lists), `trabula` t31/32 (battle stat ranges), `bloodrelatives` and
 `cyber`/`inmemory`/`wheels_must_turn`/`asylum`/`skydiver`/`sophie` (the
 `<centre>` transcript artefact), `cellar` and `redwire` undo.
+
+## Ported 2026-09-08: `"<Name> isn't here!"` is 3.9's answer too, not 4.0's alone
+
+`lib_battle_absent_npc_400()` printed the battle parser's absent-NPC line only
+when `lib_is_version_400()`, because the rule had only ever been measured on a
+4.0 game (Shadowpeak, 2026-09-06).  The whole-corpus capture put two run390
+rows in front of it and both disagree:
+
+| row | exe | typed | run390 | scarier (before) |
+|---|---|---|---|---|
+| `alexis_worn_cube` t17-19, t25-26 | 390 | `attack wolf` | `Wolf isn't here!` | `Command not understood` |
+| `spirits_flight` | 390 | `attack morana` / `serpanern` / `crynasalda` / `slikerma` | `Morana isn't here!` | `You are not making sense...` |
+
+`Adrift_561_spirits_flight.txt` has five of them (lines 124, 171, 198, 201,
+300); `Adrift_486_alexis_worn_cube.txt` five more, in the two windows where
+the walking wolf has left Tonerith Pass.
+
+The P-code says the same thing.  run390's `dobattle` is @44D25C and the branch
+at 44D188..44D1BF is the 4.0 branch (47EF5E-47EFF4) test for test, in order:
+
+* the NPC has been seen -- `var_158(26) = 1` (4.0: `var_194(26)`);
+* no earlier-named NPC was present -- `var_92 = 0`;
+* no NPC the line refers to is present -- the inner loop 44D10C..44D17A over
+  every NPC, testing the record's Name **and** its first Alias, clearing
+  `var_8A` when one of them is here;
+
+ending in `Name & " isn't here!"` at 44D1B4.  As in 4.0 this is an ordinary
+turn: the not-a-turn flag is not set, so the walk and event tick still run.
+
+3.90 is the floor, and not by inference: neither `run370.exe` nor
+`run380.exe` contains `"doesn't seem to do any damage"` -- there is no battle
+system to parse for before 3.9.  So the gate is
+`prop_get_taf_version (bundle) < TAF_VERSION_390`, and the function loses its
+`_400` suffix.
+
+Corpus-wide: **6235 -> 6162 differing turns**, no row worse.
+`alexis_worn_cube` 226/260 aligned & 182 differ -> **260/260 aligned & 115
+differ**; `spirits_flight` 17 -> 11.
+
+### The alexis_worn_cube walkthrough had to be shortened
+
+Its two goldens moved, and `alexis_worn_cube` lost its win marker: with the
+wolf and bridgekeeper blows now costing turns the brass lantern is dark by the
+time the route reaches the Caves of Eternal Night, the second `nw` answers
+`Exits are southeast.`, and the run never gets to Urgorn.
+
+That is not a regression -- **the Runner does exactly the same thing on the
+same feed.**  `Adrift_486_alexis_worn_cube.txt` line 209 is `It is too dark to
+see.`, line 210 `Exits are southeast.`, and the twelve `attack narfild` that
+follow all answer `Who?`.  The route as recorded was only ever winnable
+because Scarier was under-counting the fight; run390 has never won it.
+
+The lantern is on a fixed budget from the moment it is lit, and it cannot be
+re-lit outside the cottage (`You can't light the brass lantern.`), so moving
+the `light lantern` later does not help; the budget is also not seeded --
+seeds 1..24 all go dark.  Trimming the two padding blocks from twelve blows to
+eight (the fights are there for battle coverage and neither enemy dies in
+twelve anyway, in either engine) puts the route back inside it, and the row
+wins again with its battle coverage intact.
+
+### Still open on this row
+
+The other 115 differing turns of `alexis_worn_cube` are two clusters, both
+worth their own measurement:
+
+* **`Who?`** -- run390 45ACBA, run400 480659.  When the line names an NPC that
+  has *not* been seen, the battle parser answers `Who?` where Scarier says
+  `Command not understood`.  It is the third arm of the same branch that
+  gives `" is not here!"` (45ACA4/480640): both fall through to 45ACC1/480660
+  without setting the not-a-turn flag.  60+ turns on this row alone
+  (`attack narfild`, `attack goblin`, `attack monster`).
+* **the dark-room refusals** -- in an unlit room run390 answers `x <thing>`
+  with `You can't see that very clearly.`, `get all from <thing>` with `You
+  can't get anything from that.` and `turn <thing>` / `give <x> to <y>` /
+  `buy <x>` / `open <thing>` with `You can't do that here!`, where Scarier
+  falls through to the ordinary library refusal (`Nothing special.`, `Take
+  what?`, `You can't turn that.`).  Roughly ten turns here, and the same
+  answers show up on other dark rows.
