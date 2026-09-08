@@ -2866,7 +2866,7 @@ how to do that.
 Give the sword to who?
 
 > put black crystal in mouth
-It is not clear which object you are referring to.
+You can't put anything inside the statue's mouth!
 
 > begone
 The moment you speak the word, you find your surroundings changing. The walls

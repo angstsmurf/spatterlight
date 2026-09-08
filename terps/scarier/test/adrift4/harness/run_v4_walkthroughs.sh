@@ -585,6 +585,10 @@ light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=74
 # the setting bit, and they are the only 4.0 measurement of the parent-less
 # branch of that pair: sclibrar.cpp cites monsters for "(Getting off X first)"
 # but had nothing for "(Standing up first)" until now.
+# 2026-09-08: the probe transcript's `put zzz in yyy` -> "I don't understand
+# what you want to put things inside." is ported (container-first put,
+# lib_cmd_put_container_400; p4PUT/p4PUT2, Adrift_953/954).  Still identical
+# on every turn of Adrift_35_maincourse_probe.txt.
 maincourse_solution.txt|Main Course.taf||SCR_SEED=17
 # The 3.9 half of the walk-announcement rewrite was measured on this game --
 # run390 under Wine, Adrift_37_melbourne_beach.txt, 2026-08-24.  See the arlo block.
@@ -1190,6 +1194,13 @@ shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in vi
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
 # Re-blessed 2026-09-06: `put batter in remote` and `activate orb` are answered by run400's catch-all / put prompt, which set MemVar_494281 without ticking (48B232, 46DD25; Adrift_105-112).  A `look` follows each to keep the thread (WaitTurns is 3 here, so `z` would over-tick).
+# Re-blessed 2026-09-08, after the container-first put port: the remote
+# control IS a container, so 4.0 names it first and then fails to name the
+# batter -- "It is not clear which object you are referring to." (46E142),
+# and that one IS a turn, so the walker lines after it shift by a tick.
+# The catch-all above was model-derived from House probes, never from this
+# game; the new line is the p4PUT `put zzz in box` cell (Adrift_953).
+# Model-derived for this game, Wine candidate.
 TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you|SCR_SKIP_WAITKEY=1
 # 2026-09-06, after the 4.0 put precedence port: line 66 names the boulder,
 # `put medium boulder on medium plinth`.  A bare `boulder` is ambiguous in
@@ -1316,6 +1327,13 @@ fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
 # that line draws "It is not clear which object you are referring to." where
 # it used to draw the mouth refusal; the win is unaffected.  Model-derived,
 # Wine candidate.
+# 2026-09-08, after the container-first put port: back to the mouth refusal
+# for the comp build's last put, "You can't put anything inside the statue's
+# mouth!" -- 4.0 resolves the container before the object, and a present
+# non-container answers at 46DE47 whatever the first noun was (p4PUT `put zzz
+# in desk`, Adrift_953); the six `put *crystal*` tasks fail their
+# restrictions silently, so the unfiltered pre-match does not hold the line
+# for them.  Still model-derived for this game.
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 # cursed: no seed of its own.  The same-tick lower-event re-check (run400

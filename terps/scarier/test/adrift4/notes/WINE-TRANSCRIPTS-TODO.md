@@ -1012,10 +1012,11 @@ Engine leads, measured or half-measured, none blocking:
   put.  The retry was pinned on Wax Worx's one-object `get * head`; wants a
   probe with a prefixed take and a prefixed put in one game.
 - **Absent-noun probes from Main Course** (`Adrift_35`): `put zzz in yyy`
-  -> "I don't understand what you want to put things inside."; `ask zzz
-  about yyy` -> "You can't talk to that."; `wield zzz` -> "Remove what?";
-  unmeasured `put all in X` with nothing carried (run400 has no `" else"`
-  literal).
+  -> "I don't understand what you want to put things inside." is PORTED
+  (2026-09-08, the container-first put section at the foot); `ask zzz
+  about yyy` -> "You can't talk to that." was already ours.  Left: `wield
+  zzz` -> "Remove what?"; unmeasured `put all in X` with nothing carried
+  (run400 has no `" else"` literal).
 - **4.0 scope**: the never-seen "You can't see that." branch at 471995,
   the two-pass `%object%` scope filter proper (present first, then
   absent-but-seen; tail self-call `loc_458E64`, `SCR_TRACE_SCOPE`), and the
@@ -5404,3 +5405,97 @@ Suite at **428 PASS / 0 FAIL** with the port in the tree.  `scdump.cpp` also
 keeps the dump change made while chasing this: the task dump now prints
 `rev=` (Reversible) next to `rep=`, which is what the picker's middle branch
 turns on.
+
+## Ported 2026-09-08: 4.0 names the container first
+
+The last put-family lead from the Main Course probe (`Adrift_35`): `put zzz
+in yyy` -> "I don't understand what you want to put things inside."  Scarier
+had the literal only as a stray; it printed the DontUnderstand text or the
+"It is not clear" clobber depending on which row got the line first.
+
+**Where it lives in run400.**  The put/drop list parser Proc_19_40_459DB4
+runs for any line holding the whole word `put` or `drop`, BEFORE the task
+dispatcher (the RepeatText probes already showed it surviving a spent task).
+It normalises the line (`drop ` -> `put `, `inside`/`into` -> `in`, `onto`
+-> `on`), splits at the first whole-word " in " or " on " (an earlier " in "
+wins over " on "; an " on " split whose left half `put zzz ` names nothing is
+ZEROED), and hands each piece to name_object Proc_19_41_46E5D8, which
+resolves the CONTAINER first (46DD34-46DD65, scorer 463640 mode 0, gated by
+co()) and only then the object:
+
+| line shape | run400 | turn? |
+|---|---|---|
+| no preposition after the split, whole word `put`, not `down` | "Where do you want to put <the X>?" / "... put that?" (46DD25), MemVar_494281 | no |
+| container names nothing | "I don't understand what you want to put things inside." / "... onto." (46DDBC) | no |
+| container present but not a container / not a surface | "<You> can't put anything inside/onto <the Y>!" (46DE47) | yes |
+| container fits, object names nothing | "It is not clear which object you are referring to." / "Drop what?" for a `drop` line (46E142-46E18B) | yes |
+
+Every one of those exits is skipped when a task pre-matches the typed line
+(Proc_19_35_453C50), and the mode matters: the first three gates (46DCB2,
+46DDAB, 46DE29) push 0 for the class argument, an UNFILTERED pre-match --
+any task pattern matching the line holds it for the dispatcher, put word or
+none -- while only the 46E142 gate at 46E15A (and put_drop_list's own at
+459B19) pass class mode 2.  herrdoktor is the game that turns on it: task 3
+`*roll*jetpack*` has no put word, and `put roll in jetpack` names no
+container (the jetpack starts unseen inside the worn lab coat, and the
+loader seeds "seen" only for held/worn objects), so a mode-2 gate would
+have printed "... put things inside." where the Runner ran the task
+(Adrift_31_herrdoktor).  First cut of the port used mode 2 everywhere and
+failed exactly that row.
+
+**Measured** on two hand-built probes, `harness/make_400_putprobe.py` ->
+`p4PUT.taf` / `p4PUT2.taf` (no tasks; a length-1 self-restarting event
+prints `TICK.` on every counted turn), run400 under Wine 2026-09-08,
+`Adrift_953.txt` (27 commands) and `Adrift_954.txt` (17):
+
+- `put coin in|into|on|onto zzz`, `drop coin in|on zzz`, `put zzz in yyy`,
+  `put zzz in bob` (an NPC is nothing here), `put zzz in crate` (a container
+  in the next room, never examined), `put coin in crate`, `put all in|on
+  zzz`: "... put things inside." / "... onto.", no tick.
+- `put zzz in desk` (a surface): "You can't put anything inside the desk!"
+  TICK; `put coin on box` (a container): "You can't put anything onto the
+  box!" TICK -- "onto", 4.0's own wording (3.7/3.8 store "on").
+- `put zzz on desk` -> "Where do you want to put the desk?"; `put zzz on
+  box` -> "... the box?"; `put zzz on yyy` -> "... put that?": the zeroed
+  "on" split.
+- `put zzz in box` -> "It is not clear which object you are referring to."
+  TICK; `drop zzz in box` -> "Drop what?" TICK; `put coin in box` -> "The
+  coin is too big to fit inside the box." TICK.
+- A SEEN but absent container names nothing: after `x bag` from the next
+  room ("You can't see the bag from here!" TICK), `put coin in bag` is still
+  "... put things inside."  The lib_cmd_put_unclear() comment claiming the
+  seen-but-absent clause speaks first for a put line was never measured and
+  is wrong for the container; for a seen-but-absent FIRST noun it is still
+  unmeasured.
+- Two present containers sharing a Short: `put coin in jar` -> "Which jar.
+  The jar or the jar?", and the next line (`put zzz in jar`, `put zzz on
+  jar`) -> "That is still ambiguous!" -- the Where and put-things exits are
+  claimable answers.
+- `put coin in jar and zzz` -> prompt + "That is still ambiguous!" in one
+  turn; `put coin in zzz and yyy` -> "... put things inside." + "NO IDEA."
+  (put_drop_list's clause loop at 459C75).
+
+**Port.**  `lib_cmd_put_container_400()` (sclibrar.cpp), a PRIORITY row
+`put *` / `[drop/put down] *` that answers only the three container exits
+and falls through otherwise (`run_is_put_command()` looks past it, else the
+too-big line printed twice); `lib_put_where_400_common()` split out and
+marked claimable; `lib_put_in_multiple_common()`'s failure branch prints the
+46E142 text -- "Drop what?" for a `drop` line -- when no mode-2 task
+pre-matches; `lib_cmd_put_unclear()`'s seen clause narrowed to seen AND
+absent.  Scarier now matches all 27 + 15 cells; the two " and " lines are
+the unported clause loop (Scarier prints the prompt only, then "That is
+still ambiguous!" on the next line, as before).
+
+**Re-blessed**: TheADRIFTProject (`put batter in remote`: the remote is a
+container, the batter names nothing -> "It is not clear ...", a turn, so the
+walker lines shift one tick; the old catch-all came from House probes) and
+sophie_comp (`put black crystal in mouth` back to "You can't put anything
+inside the statue's mouth!" -- present non-container, first noun
+irrelevant).  Both still model-derived, Wine candidates.  Main Course probe
+still identical on every turn.  Suite at **428 PASS / 0 FAIL**.
+
+**Unported / unmeasured**: the " and " clause loop; a tie between two
+containers is left to the ordinary rows' prompt (measured to agree); 3.9's
+put parser at 461769 says "<You> can't put anything <inside/on> that!" for
+an unknown container, unmeasured; "onto" at 3.9 unmeasured; a seen-but-absent
+first noun.

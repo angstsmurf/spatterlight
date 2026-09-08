@@ -317,6 +317,17 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    * below, whose %text% would otherwise swallow the "in <container>" tail and
    * leave the player with "Drop what?".
    */
+  /*
+   * 4.0 names the CONTAINER of a put/drop line before its object, and
+   * three of name_object's exits speak for a container that is not there
+   * or not a container -- "I don't understand what you want to put things
+   * inside.", "Where do you want to put the desk?", "You can't put anything
+   * onto the box!" -- before any of the rows below could name the object;
+   * see lib_cmd_put_container_400().  The refusal defers from here like
+   * the rows below and prints from the STANDARD_COMMANDS twin.
+   */
+  {"put *", lib_cmd_put_container_400},
+  {"[drop/put down] *", lib_cmd_put_container_400},
   {"[drop/put down] [all/everything] [in/into/inside {of}] %object%",
    lib_cmd_put_all_in},
   {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%"
@@ -407,6 +418,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * input first, and this second appearance prints the refusal when no task
    * did.
    */
+  {"put *", lib_cmd_put_container_400},
+  {"[drop/put down] *", lib_cmd_put_container_400},
   {"put [all/everything] [in/into/inside {of}] %object%", lib_cmd_put_all_in},
   {"put [all/everything] [[except/but] {for}/apart from] %text%"
    " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple},
@@ -1175,6 +1188,10 @@ run_is_put_command (scr_gameref_t game, const scr_char *string)
     {
       if (!uip_match (command->command, string, game))
         continue;
+      /* The container-first rows answer only their three exits and pass
+       * everything else down to these; look through them. */
+      if (command->handler == lib_cmd_put_container_400)
+        continue;
 
       is_put = command->handler == lib_cmd_put_in_multiple
                || command->handler == lib_cmd_put_on_multiple
@@ -1354,16 +1371,23 @@ run_replace_all (const std::string &string,
   return result;
 }
 
-scr_bool
-run_unnamed_put_fragment (const scr_char *string, std::string &fragment)
+std::string
+run_normalise_put_line (const scr_char *string)
 {
   std::string line (string);
-  std::string::size_type split;
 
   line = run_replace_all (line, "drop ", "put ");
   line = run_replace_all (line, "inside", "in");
   line = run_replace_all (line, "into", "in");
   line = run_replace_all (line, "onto", "on");
+  return line;
+}
+
+scr_bool
+run_unnamed_put_fragment (const scr_char *string, std::string &fragment)
+{
+  std::string line = run_normalise_put_line (string);
+  std::string::size_type split;
 
   split = line.find (" in ");
   if (split == std::string::npos)

@@ -11573,6 +11573,9 @@ lib_cmd_put_all_in (scr_gameref_t game)
  * Runner, so run400 names it and never rewrites the line, while Scarier's
  * parse rejects it for sitting inside the can.  Ask the scorer directly.
  */
+static scr_bool lib_cmd_unclear_object (scr_gameref_t game);
+static scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
+
 static scr_bool
 lib_put_fragment_names_nothing (scr_gameref_t game)
 {
@@ -11634,7 +11637,24 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
           && run_in_priority_pass ()
           && obj_is_container (game, container)
           && lib_put_fragment_names_nothing (game))
-        run_priority_unnamed_put_object ();
+        {
+          /*
+           * With no put/drop-class task pre-matching the typed line the
+           * Runner speaks here and the line is done, a turn: p4PUT `put zzz
+           * in box` -> "It is not clear which object you are referring to."
+           * and the probe's ticker fires (Adrift_953, 2026-09-08).  With
+           * one, it stays silent and the tasks get the fragment.
+           */
+          if (!lib_task_prematches_input (game, 2))
+            {
+              /* 46E165: the whole word "drop" picks "Drop what?" (p4PUT
+               * `drop zzz in box`, also a turn). */
+              if (lib_input_contains_word (run_get_dispatch_input (), "drop"))
+                return lib_what (game, "Drop");
+              return lib_cmd_unclear_object (game);
+            }
+          run_priority_unnamed_put_object ();
+        }
       return FALSE;
     }
   else if (references == 0)
@@ -15329,9 +15349,9 @@ lib_cmd_wash_what (scr_gameref_t game)
  * `put <absent> in X` stays the flat can't-do tail.  Measured on humbug
  * (Adrift_4_humbug.txt 3407 `Put powder in chute`, powder never taken,
  * the D chute present; 3538 `Put powder in machine`; 3903 `Put sapphire in
- * chute`).  The seen-but-absent clause of lib_cant_see_absent_object()
- * runs first in the Runner too, which is why p4EXAM's `put xyzzy in statue`
- * still answers "You can't see the statue.".
+ * chute`).  A present container with an unknown first noun gets this too
+ * (p4PUT `put zzz in box`, Adrift_953); an unknown or absent CONTAINER is
+ * answered earlier, by lib_cmd_put_container_400().
  */
 static scr_bool
 lib_cmd_unclear_object (scr_gameref_t game)
@@ -15433,11 +15453,16 @@ lib_cmd_put_unclear (scr_gameref_t game)
     }
 
   /*
-   * The seen-but-absent clause speaks first: p4EXAM `put xyzzy in statue`
-   * from the room next door is "You can't see the statue.", not this.
-   * Whether a seen-but-absent FIRST noun also gets that clause is
-   * unmeasured (humbug's powder had never been seen); the same rule is
-   * applied to both.
+   * A seen-but-absent noun is left to the "You can't see" clause.  That is
+   * only ever the FIRST noun by the time the line gets here: a container
+   * the player has seen but left behind is answered by
+   * lib_cmd_put_container_400() ("I don't understand what you want to put
+   * things inside.", p4PUT2 `put coin in bag` from the next room,
+   * Adrift_954), and a PRESENT container with an unknown first noun is this
+   * refusal (p4PUT `put zzz in box` -> "It is not clear which object you
+   * are referring to.", a turn, Adrift_953).  Whether a seen-but-absent
+   * first noun really gets the can't-see clause is unmeasured (humbug's
+   * powder had never been seen); it is kept for that noun alone.
    */
   if (uip_match ("* %object% *", input, game)
       || uip_match ("* %object%", input, game))
@@ -15445,7 +15470,8 @@ lib_cmd_put_unclear (scr_gameref_t game)
       for (index_ = 0; index_ < gs_object_count (game); index_++)
         {
           if (game->object_references[index_]
-              && gs_object_seen (game, index_))
+              && gs_object_seen (game, index_)
+              && !obj_indirectly_in_room (game, index_, gs_playerroom (game)))
             return FALSE;
         }
     }
@@ -15606,24 +15632,15 @@ lib_verb_object_name_score (scr_gameref_t game,
 }
 
 static scr_int
-lib_verb_object_resolve_400_common (scr_gameref_t game,
+lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
                                     std::vector<scr_int> *tied)
 {
-  const scr_char *input = run_get_dispatch_input ();
   scr_int index_, object, best, best_count;
 
   if (tied)
     tied->clear ();
   if (!input)
     return -2;
-
-  /*
-   * An answer to an ambiguity prompt names the object outright, so the
-   * re-run of the original command cannot tie again; see
-   * lib_co_400_answer_object().
-   */
-  if (lib_co_400_forced () >= 0)
-    return lib_co_400_forced ();
 
   object = -2;
   best = 0;
@@ -15659,6 +15676,26 @@ lib_verb_object_resolve_400_common (scr_gameref_t game,
     }
 
   return best_count > 1 ? -1 : object;
+}
+
+static scr_int
+lib_verb_object_resolve_400_common (scr_gameref_t game,
+                                    std::vector<scr_int> *tied)
+{
+  /*
+   * An answer to an ambiguity prompt names the object outright, so the
+   * re-run of the original command cannot tie again; see
+   * lib_co_400_answer_object().
+   */
+  if (lib_co_400_forced () >= 0)
+    {
+      if (tied)
+        tied->clear ();
+      return lib_co_400_forced ();
+    }
+
+  return lib_verb_object_resolve_400_string (game, run_get_dispatch_input (),
+                                             tied);
 }
 
 static scr_int
@@ -15706,12 +15743,9 @@ lib_is_put_where_line_400 (scr_gameref_t game)
 }
 
 static scr_bool
-lib_put_where_400 (scr_gameref_t game, scr_int resolved)
+lib_put_where_400_common (scr_gameref_t game, scr_int resolved)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-
-  if (!lib_is_put_where_line_400 (game))
-    return FALSE;
 
   if (resolved >= 0)
     {
@@ -15722,14 +15756,226 @@ lib_put_where_400 (scr_gameref_t game, scr_int resolved)
   else
     pf_buffer_string (filter, "Where do you want to put that?\n");
 
+  /* MemVar_494281's exit: not a turn, and with an ambiguity question open
+   * the line is claimed as its answer (p4PUT2 `put coin on jar` / `put zzz
+   * on jar` -> "That is still ambiguous!", Adrift_954). */
   game->is_admin = TRUE;
+  lib_co_400_note_refusal ();
   return TRUE;
+}
+
+static scr_bool
+lib_put_where_400 (scr_gameref_t game, scr_int resolved)
+{
+  if (!lib_is_put_where_line_400 (game))
+    return FALSE;
+  return lib_put_where_400_common (game, resolved);
 }
 
 scr_bool
 lib_cmd_put_where_400 (scr_gameref_t game)
 {
   return lib_put_where_400 (game, lib_verb_object_resolve_400 (game));
+}
+
+/*
+ * lib_cmd_put_container_400()
+ *
+ * 4.0's put/drop list parser (run400 put_drop_list Proc_19_40_459DB4 ->
+ * name_object Proc_19_41_46E5D8) names the CONTAINER of a "put X in Y" /
+ * "put X on Y" line before it ever looks at X, and three of its exits
+ * answer for Y alone.  Every line holding the whole word "put" or "drop"
+ * goes through it, ahead of the task dispatcher, and it starts with the
+ * four plain Replace() calls run_normalise_put_line() repeats ("drop " ->
+ * "put ", "inside"/"into" -> "in", "onto" -> "on").  Then (459BCD-459C39):
+ *
+ *   - a whole-word "in" splits the line at the first " in ";
+ *   - a whole-word "on" splits it at the first " on " unless an " in " came
+ *     earlier (Proc_19_44_4434F4 keeps the earlier positive), and -- for a
+ *     line without "all" -- resolves Left(line, split), "put zzz ", with
+ *     the noun scorer (Proc_21_58_463640 mode 0); when that names nothing
+ *     the split is ZEROED, so the line reaches name_object with no
+ *     preposition at all;
+ *   - no split means the whole line.
+ *
+ * name_object (46DC34-46DE99) then:
+ *
+ *   - with no " in "/" on " at or after the split, and the whole word "put"
+ *     but not "down", and no task pre-matching the line (453C50): "Where
+ *     do you want to put <the X>?" for the line's unique winner, "Where do
+ *     you want to put that?" otherwise, MemVar_494281 set -- NOT a turn.
+ *     For a line that never had a preposition that is lib_cmd_put_where_400
+ *     above; this handler adds the zeroed "on" split: `put zzz on desk`
+ *     answers "Where do you want to put the desk?", `put zzz on box` "...
+ *     the box?", `put zzz on yyy` "... that?";
+ *   - else the text after the preposition (46DD34, Right past " in " /
+ *     " on ") is resolved with the same scorer (46DD65, mode 0) and gated
+ *     by co(i, 0) (46DD7F).  Nothing: "I don't understand what you want to
+ *     put things inside." / "... onto." (46DDBC), MemVar_494281 set -- NOT
+ *     a turn -- unless a task pre-matches the line, in which case the line
+ *     falls through to the dispatcher untouched;
+ *   - a winner that is not a container ("inside") or not a surface
+ *     ("onto"): "<You> can't put anything inside/onto <the Y>!" (46DE47), a
+ *     turn, again unless a task pre-matches;
+ *   - a fitting winner goes on to name X at 46DE99 -- the ordinary put rows
+ *     and lib_put_in_multiple_common()'s 46E142 clobber.
+ *
+ * All three of these gates call the pre-matcher UNFILTERED (46DCB2, 46DDAB
+ * and 46DE29 push 0 for its class argument, so any task pattern matching
+ * the line -- with a put word or without -- keeps the line for the
+ * dispatcher); only the 46E142 clobber's gate at 46E15A, and put_drop_list's
+ * own at 459B19, pass class mode 2.  herrdoktor turns on the difference:
+ * its task 3 `*roll*jetpack*` has no put word, and `put roll in jetpack`
+ * -- whose jetpack sits unseen inside the worn lab coat, so the scorer
+ * names nothing -- must reach it (Adrift_31_herrdoktor).
+ *
+ * Measured 2026-09-08 on the hand-built p4PUT/p4PUT2 probes (Adrift_953,
+ * Adrift_954; make_400_putprobe.py), 44 cells: `put coin in zzz`, `put
+ * coin into zzz`, `drop coin in zzz`, `put zzz in yyy`, `put zzz in bob`
+ * (an NPC is nothing here), `put all in zzz` all say "... put things
+ * inside." with no tick; the "on"/"onto" spellings "... put things onto.";
+ * `put zzz in desk` "You can't put anything inside the desk!" and ticks,
+ * `put coin on box` "You can't put anything onto the box!" -- "onto", where
+ * 3.7/3.8 store "on" as a literal and 3.9 is unmeasured, so the wording is
+ * 4.0's alone.  A container the player has SEEN but left behind names
+ * nothing: `put coin in bag` from the next room is "... put things inside."
+ * even though `x bag` there says "You can't see the bag from here!"  (The
+ * comment on lib_cmd_put_unclear() that the seen-but-absent clause speaks
+ * first for a put line was never measured and is wrong for the container;
+ * whether it holds for a seen-but-absent X is still unmeasured.)  Two
+ * present containers sharing a Short raise the ordinary ambiguity prompt
+ * (`put coin in jar` -> "Which jar.  The jar or the jar?"), so a tie is
+ * left to the rows below.  A line with " and " at or beyond the split runs
+ * put_drop_list's own clause loop (459C75), unported: `put coin in zzz and
+ * yyy` prints "... put things inside." and then the DontUnderstand text.
+ *
+ * Pre-4.0 Runners have none of this; run390's put parser (461769) says
+ * "<You> can't put anything <inside/on> that!" for an unknown container,
+ * unmeasured and unported.
+ */
+static scr_bool
+lib_phrase_has_word (const std::string &line, const scr_char *word)
+{
+  return lib_input_contains_word (line.c_str (), word);
+}
+
+scr_bool
+lib_cmd_put_container_400 (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  std::string line, phrase;
+  std::string::size_type split, in_at, on_at;
+  const scr_char *preposition;
+  scr_bool has_all, on_branch;
+  scr_int container;
+
+  if (!lib_is_version_400 (game) || !input)
+    return FALSE;
+  if (!lib_input_contains_word (input, "put")
+      && !lib_input_contains_word (input, "drop"))
+    return FALSE;
+
+  line = run_normalise_put_line (input);
+  has_all = lib_phrase_has_word (line, "all");
+  split = std::string::npos;
+  on_branch = FALSE;
+  if (lib_phrase_has_word (line, "in"))
+    split = line.find (" in ");
+  if (lib_phrase_has_word (line, "on"))
+    {
+      on_at = line.find (" on ");
+      if (on_at != std::string::npos
+          && (split == std::string::npos || split > on_at))
+        split = on_at;
+      if (split != std::string::npos && !has_all)
+        {
+          const std::string fragment = line.substr (0, split + 1);
+
+          on_branch = TRUE;
+          if (lib_verb_object_resolve_400_string (game, fragment.c_str (),
+                                                  NULL) < 0)
+            split = std::string::npos;
+        }
+    }
+
+  /* The multi-clause loop is not ported; leave such lines alone. */
+  if (line.find (" and ", split == std::string::npos ? 0 : split)
+      != std::string::npos)
+    return FALSE;
+
+  if (split == std::string::npos)
+    {
+      /*
+       * Only the zeroed "on" split is ours; a line with no preposition at
+       * all is lib_cmd_put_where_400's, further down the standard table.
+       */
+      if (!on_branch
+          || !lib_phrase_has_word (line, "put")
+          || lib_phrase_has_word (line, "down"))
+        return FALSE;
+      if (lib_task_prematches_input (game, 0))
+        return FALSE;
+      return lib_put_where_400_common
+               (game, lib_verb_object_resolve_400_string (game, line.c_str (),
+                                                          NULL));
+    }
+
+  in_at = line.find (" in ", split);
+  on_at = line.find (" on ", split);
+  if (in_at != std::string::npos)
+    {
+      preposition = "inside";
+      phrase = line.substr (in_at + 4);
+    }
+  else if (on_at != std::string::npos)
+    {
+      preposition = "onto";
+      phrase = line.substr (on_at + 4);
+    }
+  else
+    return FALSE;
+
+  container = lib_verb_object_resolve_400_string (game, phrase.c_str (), NULL);
+  if (container == -1)
+    return FALSE;
+  if (container == -2)
+    {
+      if (lib_task_prematches_input (game, 0))
+        return FALSE;
+      pf_buffer_string (filter,
+                        "I don't understand what you want to put things ");
+      pf_buffer_string (filter, preposition);
+      pf_buffer_string (filter, ".\n");
+      game->is_admin = TRUE;
+      lib_co_400_note_refusal ();
+      return TRUE;
+    }
+
+  if ((strcmp (preposition, "inside") == 0
+       && !obj_is_container (game, container))
+      || (strcmp (preposition, "onto") == 0
+          && !obj_is_surface (game, container)))
+    {
+      std::string second, first, third;
+
+      if (lib_task_prematches_input (game, 0))
+        return FALSE;
+      /* Deferred in the tentative priority pass; see lib_put_in_is_valid. */
+      if (run_in_priority_pass ())
+        {
+          run_priority_defer ();
+          return FALSE;
+        }
+      second = std::string ("You can't put anything ") + preposition + " ";
+      first = std::string ("I can't put anything ") + preposition + " ";
+      third = std::string ("%player% can't put anything ") + preposition + " ";
+      lib_print_response_object (game, second.c_str (), first.c_str (),
+                                 third.c_str (), container, "!\n");
+      return TRUE;
+    }
+
+  return FALSE;
 }
 
 /*

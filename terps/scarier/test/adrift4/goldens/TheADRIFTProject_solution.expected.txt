@@ -282,7 +282,7 @@ You open the black box.  The remote control is inside the black box.
 You take the remote control from the black box.
 
 > put batter in remote
-I don't understand what you want me to do with the remote control.
+It is not clear which object you are referring to.
 
 > look
 
@@ -314,7 +314,8 @@ with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
-You can move north, south, southeast and southwest.
+You can move north, south, southeast and southwest.  ADRIFT-O-Sweep zooms in
+through the vent from the south-east.
 
 > d
 You push the lever into the DOWN position and all of a sudden the spot right
@@ -343,7 +344,7 @@ This appears to be a corridor, paneled with lighting above.
 An open vent located near the doors, at ground level grabs your attention and
 has some writing just above it.
 
-You can move north and south.
+You can move north and south.  DARWIN enters from the south.
 
 > s
 You move south.
@@ -356,11 +357,9 @@ ship parts, obviously torn apart by DARWIN.  The control panel in this room
 has also been destroyed, and the lever to the hatch has been bent so badly
 that it is doubtful it could open the hatch to expel the foul-smelling trash
 into space.  There is a little room left in the door for the ADRIFT-O-Sweep
-to continue dumping trash.  DARWIN is intently working on something, but you
-can't make out what it is. It turns away from you each time you approach.  It
-doesn't seem to be concerned at all about your presence.
+to continue dumping trash.
 
-You can only move north.  DARWIN exits to the north.
+You can only move north.
 
 > take pill
 Take what?
@@ -403,11 +402,9 @@ The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.  DARWIN is intently working on something, but you can't make out
-what it is. It turns away from you each time you approach.  It doesn't seem
-to be concerned at all about your presence.
+fancy ship.
 
-You can only move south.  DARWIN exits.
+You can only move south.
 
 > up
 You push the lever into the Up position and the ADRIFT-O-Lift begins to rise
@@ -583,7 +580,8 @@ with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.
 
-You can move north, south, southeast and southwest.
+You can move north, south, southeast and southwest.  DARWIN enters from the
+north.
 
 > d
 You push the lever into the DOWN position and all of a sudden the spot right
@@ -627,12 +625,13 @@ control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
 
-You can only move south.
+You can only move south.  ADRIFT-O-Sweep zooms in through the vent.  DARWIN
+exits to the south.
 
 > where is sweeper
 ADRIFT-O-Sweep is
-adrift-o-lift
-.
+the adrift-o-lift
+.  (Right next to you silly!)
 
 > n
 You move north.
@@ -671,47 +670,45 @@ sucking it up.
 
 > where is darwin
 DARWIN is
-central communications core
+the laboratory
 .
 
 > z
 Time passes...
 
 "I activated the bomb.  I wonder how much time I have until it blows."
+ADRIFT-O-Sweep zooms out through the vent to the south-east.
 
 > z
 Time passes...
-ADRIFT-O-Sweep zooms out through the vent to the south-east.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
 
 > z
 Time passes...
-
+ADRIFT-O-Sweep zooms in through the vent from the south-east.
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
 
 > z
 Time passes...
-ADRIFT-O-Sweep zooms in through the vent from the south-east.
-
-"I activated the bomb.  I wonder how much time I have until it blows."
-
-> z
-Time passes...
 DARWIN enters from the south.
-
-"The bomb.....time must be getting short.  I wish it had a precise timer on
-it."
+"I activated the bomb.  I wonder how much time I have until it blows."
 
 > z
 Time passes...
 ADRIFT-O-Sweep zooms out through the vent to the south-west.  DARWIN exits.
 
+"The bomb.....time must be getting short.  I wish it had a precise timer on
+it."
+
+> z
+Time passes...
+
 > where is darwin
 DARWIN is
-adrift-o-lift
+the corridor
 .
 
 > z
@@ -719,13 +716,14 @@ Time passes...
 
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
+ADRIFT-O-Sweep zooms in through the vent from the south-west.
 
 > zz
 Run that by me agian- I didn't understand what you meant!
 
 > z
 Time passes...
-ADRIFT-O-Sweep zooms in through the vent from the south-west.
+
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > where is darwin
@@ -738,10 +736,10 @@ Time passes...
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
+ADRIFT-O-Sweep zooms out through the vent to the north.
 
 > z
 Time passes...
-ADRIFT-O-Sweep zooms out through the vent to the north.
 
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
