@@ -278,7 +278,7 @@ EXIT:   west.
 
 > get flower
 You get the purple flower.
-A Rapist hits you with the rock.
+An ugly rapist hits you with the rock.
 
 > west
 You move west.

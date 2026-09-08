@@ -91,14 +91,14 @@ This wide path continues to the East. You can see the hills of Forecarn north
 of here but there is no path running there. You can here the sound of rushing
 water in the distance.  You can also see the Tonerith stone.  There is a grey
 wolf circling you.
-Wolf hits you, but it doesn't seem to do any damage.
+A grey wolf hits you, but it doesn't seem to do any damage.
 
 > attack wolf
-You hit Wolf.
-Wolf hits you, but it doesn't seem to do any damage.
+You hit a grey wolf.
+A grey wolf hits you, but it doesn't seem to do any damage.
 
 > attack wolf
-You hit Wolf.
+You hit a grey wolf.
 
 > attack wolf
 Command not understood
@@ -151,55 +151,55 @@ face. The bridge is covered in Ivy and moss. The bridge crosses the river
 towards Kedarn forest to the northeast. West will take you to Tonerith
 junction.  There is a large dwarven bridgekeeper blocking your way across the
 bridge.  The Bridgekeeper is here.
-Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+An angry dwarf chops you with the iron axe, but it doesn't seem to do any
 damage.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
+You hit an angry dwarf.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
-Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+You hit an angry dwarf.
+An angry dwarf chops you with the iron axe, but it doesn't seem to do any
 damage.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
+You hit an angry dwarf.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
-Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+You hit an angry dwarf.
+An angry dwarf chops you with the iron axe, but it doesn't seem to do any
 damage.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
+You hit an angry dwarf.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
-Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+You hit an angry dwarf.
+An angry dwarf chops you with the iron axe, but it doesn't seem to do any
 damage.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
+You hit an angry dwarf.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
-Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+You hit an angry dwarf.
+An angry dwarf chops you with the iron axe, but it doesn't seem to do any
 damage.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
+You hit an angry dwarf.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
-Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+You hit an angry dwarf.
+An angry dwarf chops you with the iron axe, but it doesn't seem to do any
 damage.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
+You hit an angry dwarf.
 
 > attack bridgekeeper
-You hit Bridgekeeper.
-Bridgekeeper chops you with the iron axe, but it doesn't seem to do any
+You hit an angry dwarf.
+An angry dwarf chops you with the iron axe, but it doesn't seem to do any
 damage.
 
 > w
@@ -329,20 +329,22 @@ is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.  Narfild is here.
-Narfild hits you with the large club, but it doesn't seem to do any damage.
+The large troll hits you with the large club, but it doesn't seem to do any
+damage.
 
 > attack narfild
-You cut Narfild with the small sword.
+You cut the large troll with the small sword.
 
 > attack narfild
-You cut Narfild with the small sword.
-Narfild hits you with the large club, but it doesn't seem to do any damage.
+You cut the large troll with the small sword.
+The large troll hits you with the large club, but it doesn't seem to do any
+damage.
 
 > attack narfild
-You cut Narfild with the small sword.
+You cut the large troll with the small sword.
 
 > attack narfild
-You cut Narfild with the small sword.
+You cut the large troll with the small sword.
 Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
 
 > attack narfild
@@ -481,8 +483,8 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.
-Longmore king stabs you with the pointy stick, but it doesn't seem to do any
-damage.
+A swamp monster stabs you with the pointy stick, but it doesn't seem to do
+any damage.
 
 > se
 You move southeast.
@@ -677,24 +679,24 @@ You stand in the middle of a barren circle. All around the trees seem to be
 closing in. West will take you down a tiny path. Another clearer path leads
 northwest.  You can also see the Kedarn stone.  There is a Forester Goblin
 hanging from a tree here.
-Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
-any damage.
+A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
+seem to do any damage.
 
 > attack goblin
-You cut Forester Goblin with the small sword.
-Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
-any damage.
+You cut a forest dwelling goblin with the small sword.
+A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
+seem to do any damage.
 
 > attack goblin
-You cut Forester Goblin with the small sword.
+You cut a forest dwelling goblin with the small sword.
 
 > attack goblin
-You cut Forester Goblin with the small sword.
-Forester Goblin shoots you with the bow and arrow, but it doesn't seem to do
-any damage.
+You cut a forest dwelling goblin with the small sword.
+A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
+seem to do any damage.
 
 > attack goblin
-You cut Forester Goblin with the small sword.
+You cut a forest dwelling goblin with the small sword.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
@@ -766,34 +768,34 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.
-Longmore king stabs you with the pointy stick, but it doesn't seem to do any
-damage.
+A swamp monster stabs you with the pointy stick, but it doesn't seem to do
+any damage.
 
 > attack monster
-You cut Longmore king with the small sword.
+You cut a swamp monster with the small sword.
 
 > attack monster
-You cut Longmore king with the small sword.
-Longmore king stabs you with the pointy stick, but it doesn't seem to do any
-damage.
+You cut a swamp monster with the small sword.
+A swamp monster stabs you with the pointy stick, but it doesn't seem to do
+any damage.
 
 > attack monster
-You cut Longmore king with the small sword.
-Longmore king stabs you with the pointy stick, but it doesn't seem to do any
-damage.
+You cut a swamp monster with the small sword.
+A swamp monster stabs you with the pointy stick, but it doesn't seem to do
+any damage.
 
 > attack monster
-You cut Longmore king with the small sword.
-Longmore king stabs you with the pointy stick, but it doesn't seem to do any
-damage.
+You cut a swamp monster with the small sword.
+A swamp monster stabs you with the pointy stick, but it doesn't seem to do
+any damage.
 
 > attack monster
-You cut Longmore king with the small sword.
-Longmore king stabs you with the pointy stick, but it doesn't seem to do any
-damage.
+You cut a swamp monster with the small sword.
+A swamp monster stabs you with the pointy stick, but it doesn't seem to do
+any damage.
 
 > attack monster
-You cut Longmore king with the small sword.
+You cut a swamp monster with the small sword.
 The swamp monster slowly melts into the marsh. It then dissapears.
 
 > attack monster
@@ -873,17 +875,17 @@ about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.  There is an eagle above you circling around your
 head.
-Eagle hits you, but it doesn't seem to do any damage.
+A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
-You cut Eagle with the small sword.
-Eagle hits you, but it doesn't seem to do any damage.
+You cut a large eagle with the small sword.
+A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
-You cut Eagle with the small sword.
+You cut a large eagle with the small sword.
 
 > attack eagle
-You cut Eagle with the small sword.
+You cut a large eagle with the small sword.
 The eagle makes a last flap of it's enormous wings and falls deep into the
 ravine out of view.
 
@@ -949,7 +951,7 @@ You move northeast.
 Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
  There is a Narn here.
-Kerfald hits you, but it doesn't seem to do any damage.
+The little Narn hits you, but it doesn't seem to do any damage.
 
 > e
 You move east.
@@ -1070,20 +1072,20 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Haron
 follows you from the south.
-Larnt cuts Haron with the blade from Uron.
+The dark knight cuts Haron with the blade from Uron.
 
 > attack larnt
-You cut Larnt with the small sword.
-Haron cuts Larnt with the elven sword.
+You cut the dark knight with the small sword.
+Haron cuts the dark knight with the elven sword.
 
 > attack larnt
-You cut Larnt with the small sword.
-Larnt cuts you with the blade from Uron, but it doesn't seem to do any
-damage.
+You cut the dark knight with the small sword.
+The dark knight cuts you with the blade from Uron, but it doesn't seem to do
+any damage.
 
 > attack larnt
-You cut Larnt with the small sword.
-Haron cuts Larnt with the elven sword.
+You cut the dark knight with the small sword.
+Haron cuts the dark knight with the elven sword.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -1254,33 +1256,33 @@ the South. He then smiles, and says:
  Just us now, no escape.  Haron follows you from the south.
 
 > attack urgorn
-You cut Urgorn with the small sword.
-Haron cuts Urgorn with the elven sword.
-Urgorn shoots you with the ball of fire, but it doesn't seem to do any
+You cut the dark lord with the small sword.
+Haron cuts the dark lord with the elven sword.
+The dark lord shoots you with the ball of fire, but it doesn't seem to do any
 damage.
 
 > attack urgorn
-You cut Urgorn with the small sword.
+You cut the dark lord with the small sword.
 
 > attack urgorn
-You cut Urgorn with the small sword.
-Haron cuts Urgorn with the elven sword.
+You cut the dark lord with the small sword.
+Haron cuts the dark lord with the elven sword.
 
 > attack urgorn
-You cut Urgorn with the small sword.
+You cut the dark lord with the small sword.
 
 > attack urgorn
-You cut Urgorn with the small sword.
-Haron cuts Urgorn with the elven sword.
-Urgorn shoots you with the ball of fire, but it doesn't seem to do any
+You cut the dark lord with the small sword.
+Haron cuts the dark lord with the elven sword.
+The dark lord shoots you with the ball of fire, but it doesn't seem to do any
 damage.
 
 > attack urgorn
-You cut Urgorn with the small sword.
+You cut the dark lord with the small sword.
 
 > attack urgorn
-You cut Urgorn with the small sword.
-Haron cuts Urgorn with the elven sword.
+You cut the dark lord with the small sword.
+Haron cuts the dark lord with the elven sword.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the

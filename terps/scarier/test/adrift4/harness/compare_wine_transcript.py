@@ -47,9 +47,68 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
+def dertf(text):
+    """The visible text of a Wine RichEdit .rtf, one line per \\par.
+
+    3.70 and 3.80 have no live transcript: measure38.sh drives the feed and
+    ends with Save Transcript, which writes an .rtf (`Adven_N.rtf`).  The
+    2026-09-08 whole-corpus capture archives those under the same
+    `Adrift_N_<tag>.txt` names as the 3.9/4.0 rows, so the file EXTENSION does
+    not say which it is -- the `{\\rtf1` header does.  Read as plain text the
+    markup swallows every echo and all 19 of those rows scored "lost the feed
+    at command 0".
+
+    Only what the reader needs: `\\par` is the line break, `\\'xx` a CP1252
+    byte, `\\uN?` a Unicode code point, `\\\\ \\{ \\}` the literal characters,
+    every other control word is formatting and every brace a group.
+    """
+    out = []
+    index, size = 0, len(text)
+    while index < size:
+        char = text[index]
+        if char == "\\":
+            match = re.match(r"\\([a-zA-Z]+)(-?\d+)? ?", text[index:])
+            if match:
+                word, arg = match.group(1), match.group(2)
+                index += match.end()
+                if word == "par" or word == "line":
+                    out.append("\n")
+                elif word == "tab":
+                    out.append("\t")
+                elif word == "u" and arg is not None:
+                    out.append(chr(int(arg) % 65536))
+                    # the ? (or whatever \ucN set) that follows is the
+                    # substitution for readers that cannot do Unicode
+                    if index < size and text[index] not in "\\{}":
+                        index += 1
+                continue
+            match = re.match(r"\\'([0-9a-fA-F]{2})", text[index:])
+            if match:
+                out.append(bytes([int(match.group(1), 16)]).decode(
+                    "cp1252", "replace"))
+                index += match.end()
+                continue
+            if index + 1 < size:
+                out.append(text[index + 1])
+                index += 2
+                continue
+            index += 1
+        elif char in "{}":
+            index += 1
+        elif char in "\r\n":
+            # a raw newline inside .rtf is line wrapping, not a break
+            index += 1
+        else:
+            out.append(char)
+            index += 1
+    return "".join(out).split("\n")
+
+
 def read_lines(path, encoding="latin-1"):
     with open(os.path.expanduser(path), encoding=encoding) as handle:
         text = handle.read()
+    if text.lstrip().startswith("{\\rtf"):
+        return dertf(text)
     return text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
 
 

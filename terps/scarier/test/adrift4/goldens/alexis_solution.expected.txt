@@ -88,13 +88,13 @@ This wide path continues to the East. You can see the hills of Forecarn north
 of here but there is no path running there. You can here the sound of rushing
 water in the distance.  You can also see the Tonerith stone.  There is a grey
 wolf circling you.
-Wolf hits you.
+A grey wolf hits you.
 
 > attack wolf
-You hit Wolf with the magic cube.
+You hit a grey wolf with the magic cube.
 
 > attack wolf
-You hit Wolf with the magic cube.
+You hit a grey wolf with the magic cube.
 The wolf limps away, badly hurt. It won't be likely to bother you again.
 
 > take tonerith stone
@@ -120,11 +120,11 @@ junction.  There is a large dwarven bridgekeeper blocking your way across the
 bridge.  The Bridgekeeper is here.
 
 > attack bridgekeeper
-You hit Bridgekeeper with the magic cube.
-Bridgekeeper chops you with the iron axe.
+You hit an angry dwarf with the magic cube.
+An angry dwarf chops you with the iron axe.
 
 > attack bridgekeeper
-You hit Bridgekeeper with the magic cube.
+You hit an angry dwarf with the magic cube.
 The dwarf, with his last ounce of strength lifts himself to the side of the
 bridge. He removes his shirt and axe and then he slumps over the wall and
 falls into the river with a huge splash.  Serond follows you.
@@ -239,11 +239,11 @@ is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.  Narfild is here.  Serond follows you.
-Serond shoots Narfild with the oak staff.
-Narfild hits you with the large club.
+Serond shoots the large troll with the oak staff.
+The large troll hits you with the large club.
 
 > attack narfild
-You hit Narfild with the magic cube.
+You hit the large troll with the magic cube.
 Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
 
 > e
@@ -402,8 +402,8 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.  Serond follows you.
-Serond shoots Longmore king with the oak staff.
-Longmore king stabs you with the pointy stick.
+Serond shoots a swamp monster with the oak staff.
+A swamp monster stabs you with the pointy stick.
 
 > se
 You move southeast.
@@ -602,11 +602,11 @@ You stand in the middle of a barren circle. All around the trees seem to be
 closing in. West will take you down a tiny path. Another clearer path leads
 northwest.  You can also see the Kedarn stone.  There is a Forester Goblin
 hanging from a tree here.  Serond follows you.
-Serond shoots Forester Goblin with the oak staff.
-Forester Goblin shoots you with the bow and arrow.
+Serond shoots a forest dwelling goblin with the oak staff.
+A forest dwelling goblin shoots you with the bow and arrow.
 
 > attack goblin
-You hit Forester Goblin with the magic cube.
+You hit a forest dwelling goblin with the magic cube.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
@@ -655,14 +655,14 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.  Serond follows you.
-Serond shoots Longmore king with the oak staff.
-Longmore king stabs Serond with the pointy stick.
+Serond shoots a swamp monster with the oak staff.
+A swamp monster stabs Serond with the pointy stick.
 
 > attack monster
-You hit Longmore king with the magic cube.
+You hit a swamp monster with the magic cube.
 
 > attack monster
-You hit Longmore king with the magic cube.
+You hit a swamp monster with the magic cube.
 The swamp monster slowly melts into the marsh. It then dissapears.
 
 > ne
@@ -725,11 +725,11 @@ about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.  There is an eagle above you circling around your
 head.  Serond follows you from the west.
-Serond shoots Eagle with the oak staff.
-Eagle hits you, but it doesn't seem to do any damage.
+Serond shoots a large eagle with the oak staff.
+A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
-You hit Eagle with the magic cube.
+You hit a large eagle with the magic cube.
 The eagle makes a last flap of it's enormous wings and falls deep into the
 ravine out of view.
 
@@ -776,8 +776,8 @@ You move northeast.
 Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
  There is a Narn here.  Serond follows you.
-Serond shoots Kerfald with the oak staff.
-Kerfald hits Serond.
+Serond shoots the little Narn with the oak staff.
+The little Narn hits Serond.
 
 > e
 You move east.
@@ -855,7 +855,7 @@ The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.  There is a large Narn here.  Serond follows you.
 You get up and start walking again.
-Serond shoots Karurn with the oak staff.
+Serond shoots a large Narn with the oak staff.
 
 > nw
 You move northwest.
@@ -903,12 +903,12 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Serond
 follows you from the south.  Haron follows you from the south.
-Serond shoots Larnt with the oak staff.
-Larnt cuts Serond with the blade from Uron.
+Serond shoots the dark knight with the oak staff.
+The dark knight cuts Serond with the blade from Uron.
 
 > attack larnt
-You hit Larnt with the magic cube.
-Haron cuts Larnt with the elven sword.
+You hit the dark knight with the magic cube.
+Haron cuts the dark knight with the elven sword.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -1048,19 +1048,19 @@ As you pass through the door, Urgorn creates a spell that shuts the exit to
 the South. He then smiles, and says:
  Just us now, no escape.  Serond follows you from the south.  Haron follows
 you from the south.
-Serond shoots Urgorn with the oak staff.
+Serond shoots the dark lord with the oak staff.
 
 > attack urgorn
-You hit Urgorn with the magic cube.
-Haron cuts Urgorn with the elven sword.
-Urgorn shoots Haron with the ball of fire.
+You hit the dark lord with the magic cube.
+Haron cuts the dark lord with the elven sword.
+The dark lord shoots Haron with the ball of fire.
 
 > attack urgorn
-You hit Urgorn with the magic cube.
-Serond shoots Urgorn with the oak staff.
+You hit the dark lord with the magic cube.
+Serond shoots the dark lord with the oak staff.
 
 > attack urgorn
-You hit Urgorn with the magic cube.
+You hit the dark lord with the magic cube.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the

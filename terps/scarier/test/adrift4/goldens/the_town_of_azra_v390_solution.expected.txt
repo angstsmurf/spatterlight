@@ -287,41 +287,41 @@ here!!  You currently have room rented at Gralle's Inn.
 You can move north and south.
 
 > attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you.
+You chop a bandit with the hunting sword.
+A bandit hits you.
 
 > attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you.
+You chop a bandit with the hunting sword.
+A bandit hits you.
 
 > attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you.
+You chop a bandit with the hunting sword.
+A bandit hits you.
 
 > attack bandit
-You chop Bandit with the hunting sword.
+You chop a bandit with the hunting sword.
 
 > attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you.
+You chop a bandit with the hunting sword.
+A bandit hits you.
 
 > attack bandit
-You chop Bandit with the hunting sword.
+You chop a bandit with the hunting sword.
 
 > attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you.
+You chop a bandit with the hunting sword.
+A bandit hits you.
 
 > attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you.
+You chop a bandit with the hunting sword.
+A bandit hits you.
 
 > attack bandit
-You chop Bandit with the hunting sword.
-Bandit hits you.
+You chop a bandit with the hunting sword.
+A bandit hits you.
 
 > attack bandit
-You chop Bandit with the hunting sword.
+You chop a bandit with the hunting sword.
 You kill the vile bandit! Hopefully he was carrying a lot of money.
 
 > search for money
@@ -339,16 +339,16 @@ Gralle's Inn.
 You can only move south.
 
 > attack deer
-You chop Deer with the hunting sword.
+You chop an animal with the hunting sword.
 
 > attack deer
-You chop Deer with the hunting sword.
+You chop an animal with the hunting sword.
 
 > attack deer
-You chop Deer with the hunting sword.
+You chop an animal with the hunting sword.
 
 > attack deer
-You chop Deer with the hunting sword.
+You chop an animal with the hunting sword.
 You strike the deer one last and final time, and it falls dead!
 
 > take the deer carcass

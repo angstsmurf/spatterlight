@@ -227,50 +227,50 @@ You move north.
 Observatory
 You enter the observatory. It is a dimly lit room with few candles and an
 open drawer.   Watch out! A mobster is here, in this room!!!
-Fernelli shoots you with the Remington 410 shotgun.
+The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
+You shoot the Italian mobster with Colt .45 pistol.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
-Fernelli shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
-Fernelli shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
+You shoot the Italian mobster with Colt .45 pistol.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
-Fernelli shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
+You shoot the Italian mobster with Colt .45 pistol.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
-Fernelli shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
-Fernelli shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
-Fernelli shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
+You shoot the Italian mobster with Colt .45 pistol.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
-Fernelli shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot Fernelli with Colt .45 pistol.
+You shoot the Italian mobster with Colt .45 pistol.
 
 > look
 
@@ -538,7 +538,7 @@ Front Yard
 You emerge from the house (finally), only to find Mr. Jones gone, and some
 old, dry footprints leading out into the road. It is midafternoon, and
 mountains loom in the distance.   A vicious guard dog is in the yard.
-Dog hits you, but it doesn't seem to do any damage.
+Wolfels the  guard dog hits you, but it doesn't seem to do any damage.
 
 > give bone to dog
 The dog now calms down and begins to chew on the bone.
@@ -571,7 +571,7 @@ Mountain Path
 This is the path that leads from the road all the way up to the summit. You
 are surrounded by trees and can only move forward. There are footprints
 leading up the slope.   A gigantic grizzley bear is here too, watch out!
-Bear hits you.
+A grizzley bear hits you.
 
 > n
 You move north.

@@ -206,10 +206,10 @@ of light.  There is a long red rug in the hall.  You also feal a slight
 draft.  Jackass Trying to Kill You is here.  Yup, its still the first day.
 
 You can move north and south.
-Jackass Trying to Kill You hits you, but it doesn't seem to do any damage.
+The guy hits you, but it doesn't seem to do any damage.
 
 > attack guy
-You cut Jackass Trying to Kill You with Kinda Sharp Sword.
+You cut The guy with Kinda Sharp Sword.
 You killed the Bastard Trying to Kill You.  It wasn't hard, but it was sure
 fun.  Now that he is dead, you can search his body or somthing, right?
 

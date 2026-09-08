@@ -89,7 +89,8 @@ Red kitchen
 this is the kitchen of apartment number 3   Jim is here.
 
 You can only move west.
-Jim cuts you with long knife, but it doesn't seem to do any damage.
+An old  gentalman cuts you with long knife, but it doesn't seem to do any
+damage.
 
 > kill jim
 as jim falls to the floor his body disappears into thin air leaving behind
@@ -135,7 +136,7 @@ Lit dining room
 this is the dining room of apartment 2   Ireen is here.
 
 You can only move east.
-Ireen hits you, but it doesn't seem to do any damage.
+An old  woman hits you, but it doesn't seem to do any damage.
 
 > kill ireen
 ireen falls to the floor and disappears
@@ -171,7 +172,7 @@ Dark closet
 this is a closet for apartment 4   Rooth is here.
 
 You can only move east.
-Rooth hits you, but it doesn't seem to do any damage.
+A dark old  lady hits you, but it doesn't seem to do any damage.
 
 > kill rooth
 rooth drops to the floor and then disappears
@@ -247,12 +248,13 @@ Guest room
 this is a guest room in the house of death   Beth is here.
 
 You can only move south.
-Beth hits you with mettle spiked bat, but it doesn't seem to do any damage.
+A lovely  girl hits you with mettle spiked bat, but it doesn't seem to do any
+damage.
 
 > kill beth
 as beth dies she drops the bat and falls to the floor.  but she raises from
 the floor with a look of amazement on her face
-Beth hits you, but it doesn't seem to do any damage.
+A lovely  girl hits you, but it doesn't seem to do any damage.
 
 > south
 You move south.
@@ -268,11 +270,12 @@ You move south.
 
 Master bedroom
 this is the master bedroom in the house of death   Ross is here.
-Ross hits you with metal glove, but it doesn't seem to do any damage.
+A tall well built  man hits you with metal glove, but it doesn't seem to do
+any damage.
 
 > kill ross
 ross dissapears and you don't know where he went   Joshua walks in .
-Joshua stabs Ross with sword of hope.
+Joshua stabs a tall well built  man with sword of hope.
 
 > north
 You move north.
@@ -328,7 +331,7 @@ this is the top floor of the building of death.  There are two doors on each
 side of the hallway.    Demon is here.
 
 You can move east, west and down.  Joshua walks in  from below.
-Joshua stabs Demon with sword of hope.
+Joshua stabs a small  demon with sword of hope.
 the demon disappears in a flash of light
 
 > kill witch
@@ -341,7 +344,7 @@ Attic
 this is the attic of the house of death   Dark force is here.
 
 You can only move down.  Joshua walks in  from below.
-Dark force hits you.
+A dark looking boss hits you.
 
 > kill force
 as the dard force crumbles into dust you are swept out of the house and

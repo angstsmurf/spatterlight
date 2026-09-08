@@ -141,7 +141,7 @@ Why shout numbers now?
 
 > shout 1
 Why shout numbers now?  Robot Guard storms in.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > shout 1
 You shout one and the robot scurries off.
@@ -157,7 +157,7 @@ Why shout numbers now?
 
 > shout 3
 Why shout numbers now?  Robot Guard storms in from the west.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > shout 3
 You shout three and the robot scurries off.
@@ -188,7 +188,7 @@ Why shout numbers now?
 
 > shout 6
 Why shout numbers now?  Robot Guard storms in.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > shout 6
 You shout six and the robot scurries off.
@@ -204,7 +204,7 @@ Why shout numbers now?
 
 > shout 10
 Why shout numbers now?  Robot Guard storms in from the west.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > shout 10
 You shout ten and the robot scurries off.
@@ -235,7 +235,7 @@ Why shout numbers now?
 
 > shout 15
 Why shout numbers now?  Robot Guard storms in.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > shout 15
 You shout fifteen and the robot scurries off.
@@ -251,7 +251,7 @@ Why shout numbers now?
 
 > shout 21
 Why shout numbers now?  Robot Guard storms in from the west.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > shout 21
 You shout 21 and the robot scurries off.
@@ -283,7 +283,7 @@ Why shout numbers now?
 
 > shout 105
 Why shout numbers now?  Robot Guard storms in.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > shout 105
 You shout 105 and the robot scurries off.
@@ -303,7 +303,7 @@ you the strange idea of using it to dial a number!  What a good idea!  There
 is another door to the east.  It's locked.  A Robot Guard is here.
 
 You can move east and west.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > teleport
 As I said, its broken.  The entire destination circuit has been broken off.
@@ -322,11 +322,11 @@ You say tiddlywinks.  Thick smoke swirls around the room.  You wait for what
 seems like half a minute before the smoke disappears.  The room is just the
 same as it was though your pocket feels slight heavier.  Robot Guard storms
 in.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > take tiddlywink
 You take the blue tiddlywink from your clothes.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > put tiddlywink in slot
 You place the magic tiddlywink in the slot and it fits perfectly.  The slot
@@ -342,12 +342,12 @@ even that is very plain.  Scattered on the ground is a piece of paper.  A
 Robot Guard is here.
 
 You can only move west.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > push south
 You push the south wall, but instead of opening it swivels round, leaving yet
 another door!  On the right hand side of the door is a key hole.
-Robot Guard hits you with the robot's chain.
+A robot guard hits you with the robot's chain.
 
 > use key with keyhole
 You put yet another key into the keyhole then pull the brick wall towards

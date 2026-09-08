@@ -751,7 +751,7 @@ battle_speed_roll (scr_gameref_t game, scr_int npc)
 }
 
 /*
- * How the 4.0 battle narration names an NPC.  BATTLE_NAME_NAME is the plain
+ * How the battle narration names an NPC.  BATTLE_NAME_NAME is the plain
  * Name; the other two prefer "<Prefix> <Alias[0]>" to it, unconditionally or
  * only from an enemy.
  */
@@ -793,10 +793,25 @@ enum {
  * prints its own second space.
  *
  * Nothing else follows the rule: the corpse line reads the Name field
- * directly (@44B115), and so does every room listing.  Nor does the pre-4.0
- * battle system, whose narration is a different set of strings altogether and
- * names by Name (run390 Form1.frm @4595DB) -- hence the battle_legacy guard
- * in the caller.
+ * directly (@44B115), and so does every room listing.
+ *
+ * 3.9 does the same thing, in the same two shapes -- the rule is NOT 4.0-only
+ * and carries no version gate.  run390's player blow is Sub dohit(char,
+ * weapon) @438B50: entry 43881C reads the NPC record, and 43882A..43886F is
+ * literally `if Alias(0) <> "" then (Prefix <> "" ? Prefix & " " & Alias :
+ * Alias) else Name`, with no attitude test -- the same as Proc_11_1.  An
+ * NPC's blow is Sub chardohit(char1, char2) @442C7C, which builds the
+ * attacker's name at 4423B4 and the target's at 442483 through the identical
+ * ladder plus `And record(108) = 2` -- the 3.9 record's attitude byte, where
+ * 4.0's sits at +172 -- so an ally or a neutral keeps its Name, the same as
+ * Proc_11_2.  Measured 2026-09-08 against the whole-corpus run390 capture:
+ * ALEXIS.TAF's NPC 4 is Name "Wolf", Prefix "a grey", Alias "wolf", and its
+ * transcript reads "You hit a grey wolf with the magic cube.  A grey wolf
+ * hits you." where scarier printed "Wolf" both times.  The pre-4.0 gate this
+ * comment used to claim came from misreading run390 @4595DB, which is not a
+ * battle site at all; 3.7 and 3.8 have no battle system whatsoever (the
+ * string "doesn't seem to do any damage" is absent from both binaries), so
+ * battle_legacy only ever meant 3.9 here.
  */
 static void
 battle_print_npc_name (scr_gameref_t game, scr_int npc, scr_int naming)
@@ -1068,10 +1083,10 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
                 scr_int weapon, scr_bool visible)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  /* The player's blow is Proc_11_1 and an NPC's is Proc_11_2, and they name
-     their combatants by different rules; see battle_print_npc_name(). */
-  const scr_int naming = battle_legacy ? BATTLE_NAME_NAME
-                         : (attacker == BATTLE_PLAYER) ? BATTLE_NAME_ALIAS
+  /* The player's blow is Proc_11_1 (3.9: dohit) and an NPC's is Proc_11_2
+     (3.9: chardohit), and they name their combatants by different rules --
+     neither of them version-gated; see battle_print_npc_name(). */
+  const scr_int naming = (attacker == BATTLE_PLAYER) ? BATTLE_NAME_ALIAS
                          : BATTLE_NAME_ENEMY_ALIAS;
   scr_int method;
 

@@ -850,9 +850,10 @@ and decompile addresses are in the harness row comments and in git history.
   game-start walk preempts for ever (FunHouse); not-a-room-zero arrival
   gate; non-looping walk StartTask 0 never runs pre-4.0; dead NPCs do not
   walk (dead flag).
-- 4.0 battle narration names an NPC `<Prefix> <Alias[0]>`; corpse and room
-  lines use the Name (orient_express; `battle_print_npc_name()`,
-  `battle_legacy` guard).
+- Battle narration names an NPC `<Prefix> <Alias[0]>`; corpse and room
+  lines use the Name (orient_express; `battle_print_npc_name()`).  NOT a
+  4.0 rule -- 3.9 does the same, no version gate (see "Corrected
+  2026-09-08: the battle naming rule is not 4.0-only").
 - 4.0 administrative turns: an NPC or nothing-found examine ticks nothing
   (EV14-16); none pre-3.9.
 - 4.0: a task that ends the game takes the unhandled-verb tail off the rest
@@ -5647,3 +5648,197 @@ Neither message string is in run400.bas, so the wording has to come off the
 Runner.  Scarier's prompts also eat the next line through the 4.0 answer
 slot, which is where the +2/-2 resyncs in `Adrift_955` come from -- the two
 streams are comparable again straight afterwards.
+
+## Corrected 2026-09-08: the battle naming rule is not 4.0-only
+
+The 2026-09-08 whole-corpus capture
+(`~/adrift-battle/runner/wine/transcripts_v4_corpus_2026-09-08/`, 427 rows,
+309 of them run400 but 99 run390) is the first batch with enough 3.9 battle
+games in it to test the version gate that "Ported 2026-09-07: the five battle
+names run400 capitalises" left in `battle_print_npc_name()`.  The gate was
+wrong: **3.9 names a combatant by `<Prefix> <Alias[0]>` exactly as 4.0 does**,
+and `battle_legacy` had been making Scarier print the Name instead.
+
+Clustering the sweep's differing turns by "the window contains a battle verb
+and the two sides are within three words of each other" turned up ten rows and
+one direction, Runner = prefix + alias, Scarier = Name:
+
+| row | exe | typed | run390 | scarier (before) |
+|---|---|---|---|---|
+| `alexis` | 390 | `attack wolf` | `You hit a grey wolf with the magic cube.  A grey wolf hits you.` | `You hit Wolf ...  Wolf hits you.` |
+| `the_town_of_azra_v390` | 390 | `attack bandit` | `You chop a bandit with the hunting sword.  A bandit hits you.` | `You chop Bandit ...  Bandit hits you.` |
+| `deaths` | 390 | `attack jim` | `An old gentalman cuts you with long knife` | `Jim cuts you ...` |
+| `colony` | 390 | `shoot alien` | `An  avarage sized alien hits you` | `An alien hits you` |
+| `spirits_flight` | 390 | `attack moyru` | `You stab An evil witch with The Spirit Dagger` | `You stab Moyru ...` |
+| `secret_of_lost_world` | 390 | -- | `A giant lioness hits you.` | `Lioness hits you.` |
+| `circus` | 390 | -- | `The mad clown hits you with the foam bat` | `Skippy hits you ...` |
+| `gateway` | 390 | -- | `An ugly rapist hits you with the rock.` | `A Rapist hits you ...` |
+| `yeh` | 390 | -- | `An ugly thing hits you.` / `Leon hits An ugly thing.` | `Ugly thing hits you.` / `Leon hits Ugly thing.` |
+| `villains_and_kings` | 390 | -- | `The guy hits you, but ...` / `You cut The guy with Kinda Sharp Sword.` | `Jackass Trying to Kill You ...` |
+
+`ALEXIS.TAF` is the cleanest specimen: NPC 4 is Name `Wolf`, Prefix `a grey`,
+Alias[0] `wolf`, and the 3.9 transcript spells it `a grey wolf` mid-sentence
+and `A grey wolf` when it leads.  `Colony.taf` pins the join: its alien's
+Prefix is authored `an ` with a trailing space, and the Runner prints
+`An  avarage sized alien` -- two spaces, the prefix joined raw plus the
+separator, the same raw join 4.0 does.  `yeh` pins the attitude test in the
+same line: `Leon hits An ugly thing.` names the ally Leon by his Name and the
+enemy by prefix + alias, and does not lower-case a prefix the author
+capitalised.
+
+### The 3.9 P-code
+
+run390 splits the two blows the same way 4.0 does, under different names.
+
+**`Sub dohit(char, weapon)` @`438B50`** is the player's blow.  Its entry at
+`43881C` reads the NPC record, and `43882A`..`43886F` is literally
+
+```
+if Alias(0) <> "" then
+    var_88 = (Prefix <> "") ? Prefix & " " & Alias(0) : Alias(0)
+else
+    var_88 = Name
+```
+
+with **no attitude test** -- the same shape as 4.0's `Proc_11_1` @`45E1CE`.
+
+**`Sub chardohit(char1, char2)` @`442C7C`** is an NPC's blow.  It builds the
+attacker's name at `4423B4` and the target's at `442483` through the identical
+ladder, each with `And record(108) = 2` folded into the outer test -- `+108`
+is the 3.9 record's `Battle.Attitude` byte, where 4.0's sits at `+172` -- so
+an ally or a neutral keeps its Name.  Same shape as `Proc_11_2` @`464F20` /
+@`464FF2`.
+
+The capitaliser is there too: `Proc_2_2_42AD38` is the same one-line
+`UCase(Left(s, 1)) & Right(s, Len(s) - 1)` with an early exit on the empty
+string, and every one of `chardohit`'s six calls to it (`44251D`, `4425AF`,
+`442621`, `44281F`, `4428B0`, `442922`) wraps `var_88`, the *attacker*; the
+target `var_8C` is always pushed raw.  Scarier's existing
+`BATTLE_FORM_SUBJECT_CAPITALISED` covers this unchanged.
+
+The claim the old comment rested on -- "run390 Form1.frm @4595DB names by
+Name" -- was a misread; `4595DB` is not a battle site.  And 3.7/3.8 have no
+battle system at all: the string `doesn't seem to do any damage` is present in
+run390.exe and run400.exe and absent from run380.exe and run370.exe, so
+`battle_legacy` only ever meant 3.9 here anyway.
+
+### The fix
+
+One line in `battle_resolve()`:
+
+```c
+  const scr_int naming = (attacker == BATTLE_PLAYER) ? BATTLE_NAME_ALIAS
+                         : BATTLE_NAME_ENEMY_ALIAS;
+```
+
+`battle_legacy` still guards the three things it was measured for -- the
+corpse line (4.0-only), the always-lands hit test, and the 4.0 throw's
+excluded HitValue.
+
+Whole-corpus sweep, before -> after, differing turns per row: `alexis`
+120->114, `alexis_worn_cube` 197->182, `circus` 48->44, `colony` 5->2,
+`deaths` 13->6, `gateway` 3->2, `mr_smith` 12->5, `secret_of_lost_world`
+56->55, `spirits_flight` 23->17, `the_town_of_azra_v390` 31->20; 6296->6235
+differing turns overall, no row worse.  13 walkthrough goldens re-blessed
+(the ten above plus `thetest_win`, `villains_and_kings`, `yeh`) and
+`scproj_regress.golden`, which held Colony's `You shoot An alien with the
+colt 45.` and now holds the Runner's `an  avarage sized alien`.
+
+## Harness 2026-09-08: sweeping a whole-corpus capture
+
+The batch is laid out differently from the ad-hoc drives `sweep_wine_turns.py`
+reads, and needs no `jobs_*.txt` at all:
+
+```
+transcripts_v4_corpus_2026-09-08/MANIFEST_tag_transcript_exe.txt
+        tag|Adrift_N_tag.txt|runNNN.exe        -- 427 rows
+transcripts_v4_corpus_2026-09-08/Adrift_N_tag.txt   the Runner's transcript
+v4_full_rerun_cmds/<tag>.txt                        the command file driven in
+par/<tag>.log                                       the driver's log
+```
+
+`harness/sweep_v4_corpus.py` reads those four, takes the `.taf` and the row
+env from `run_v4_walkthroughs.sh`, and runs the ordinary
+`compare_wine_transcript.py` split/normalise/offset-search per row on a
+process pool.  `--tsv` dumps every differing turn as
+`tag/exe/turn/LAST?/LOSS?/command/runner/scarier` so a whole-corpus run can be
+clustered afterwards -- which is how the battle-naming rule above was found.
+
+The feed files are the thing to get right: the older `cmdfile_q_*` naming
+covered 206 of the 427 rows and `cmdfile_q_* + cmdfile_w_*` still missed 101.
+`v4_full_rerun_cmds/` has exactly one `<tag>.txt` per manifest row.
+
+Three harness-side sources of false divergence had to go first (rules 1 and 2
+before rule 3, as always):
+
+* **The 3.70/3.80 rows are RTF archived under `.txt` names.**  All 19 of them
+  scored "lost the feed at command 0" because read as plain text the markup
+  swallows every echo.  `compare_wine_transcript.py` grew `dertf()` -- `\par`
+  is the line break, `\'xx` a CP1252 byte, `\uN?` a code point, everything
+  else formatting -- and `read_lines()` now sniffs the `{\rtf1` header rather
+  than the extension.  `super_liam` then reads `85/86 aligned  0 differ  LOST
+  at 85 (1)`, the one loss being the documented "the last command is never in
+  the `.rtf`".
+* **The gender question is a form, not an InputBox.**  `popups_for()` was
+  reading only `InputBox '...' <- X` out of the driver log, so Scarier's own
+  inline gender question went unanswered and it re-asked on every later
+  command: 68 turns of `Please answer "male" or "female".` across
+  `secret_of_lost_world`, `TheADRIFTProject`, `lifesimulation` and `life`.
+  The driver logs the form as `gender form '...' [buttons] <- male <- OK`;
+  the answer is the first `<-` field, the second being the button it clicked.
+  21 par logs have one.  `secret_of_lost_world` 181->56 differing turns,
+  `greekschool` 151->6, `magicshow` 151->4, `lifesimulation` 17->1,
+  `life` 32->6.
+* **A row whose Runner transcript stops at the closing `press any key` while
+  Scarier prints the rest of the ending** was scoring one differing turn.
+  The sweep tracks the last aligned turn and drops the difference when
+  `scarier.startswith(runner)` there -- 109 such turns.
+
+After all three: **427 rows, 149 clean, 225 differing, 53 lost a feed
+command, 0 skipped**, 152 no-loss rows carrying a real difference.
+
+68 tags in this batch had no earlier archived transcript at all -- every
+run370/run380 row plus most of the run390 ones (`zombies`, `cruel`, `alexis`,
+`alexis_worn_cube`, `bomb_threat`, `circus`, `colony`, `screen_savers`,
+`toxically_earth`, `inverness`, `matts_house`, `the_nonsense_machine_6000`,
+`thetest`, `thetest_win`, `yeh`, `fantasyworld`, `amonkeytoomany`,
+`the_hangover`, `troll`, `doomed_xycanthus`, `dancing_even_him`,
+`enquete_a_hauts_risques`, `the_amulet`, `locked_door`, `wrecked`, `akron`,
+`cave`, `haunt`, `twilight`, `haunted_house`, `tom_ceader`, `timmy_reid`,
+`duck_mccloud`, `fistandantalus`, `james_bond`, `microwave_man`,
+`life_of_mike`, `super_liam`, `castle_quest`, `fugitive`, `panic`, `i`,
+`dreamland`, `forest_on_the_norm`, `bob_bobsly`, `escape_from_insanity`,
+`lost_souls`, `textident_evil`, `ms_mobius`, `morning_headache`, `manor`,
+`lostmines`, `farfromhome`, `diarystrip`, `silk_noil`, `wheels_must_turn`,
+`life`, `hhorror`, `losttomb`, `journ2`, `dr-who-vortex-lust`, `caidalibre`,
+`warlock`, `deardiary`, `deardiary2`, `cldone`, `goblin`, `alchemist`).
+
+### Still open from this batch
+
+Leads read off the TSV, not yet measured against the Runner's P-code:
+
+| row | exe | typed | run4xx | scarier |
+|---|---|---|---|---|
+| `alexis_worn_cube` | 390 | `attack wolf` (absent) | `Wolf isn't here!` / `Who?` | `Command not understood` |
+| `adriftorama` | 400 | `put ball on marker` x7 | `You are not holding the golf ball.` | `You put the golf ball onto the marker.` |
+| `circus` | 390 | `ask barb about tape` x6 | `Barb isn't here!` | `You get no reply from the videotape.` |
+| `wonderwombat` | 400 | maze moves x4 | `You move along the maze, hoping to get out soon.` | `You can only move south.` |
+| `inverness` | 390 | `z` x3 | `You have already done that.` | `Time passes...` |
+| `les_feux` | 400 | `attack demon` x3 | `Je ne comprends pas votre commande !` | battle text |
+| `diarystrip` | 390 | `drink booze` | `I'm afraid that's not possible at the moment.` | `You can't drink that.` |
+| `lost_souls` | 390 | `open door` | (blank) | prints text |
+| `goblin` | 390 | t48 | -- | an extra `Congratulations!  In nine months time...` |
+| `baroo` | 400 | `close machine` | -- | an extra `The machine is now closed.` |
+| `ticktick` | 400 | t11 | the end-of-game score summary | stops at `I'm afraid you are dead!` |
+| `losttomb` | 390 | t85/86 | runs the pillar task at t85 | library put line, task deferred to t86 |
+| `thetest_win` | 390 | `shout N` | -- | an extra `Robot Guard storms in...` |
+
+Plus an event-phase off-by-one in both directions in `forum`, `salutations`,
+`stationxiii`, `briefcase`, `backhome`, `barneysproblem`, `zelda`, `gmylm`,
+`silk_noil`, `lostmines`, `aegis` and `overtheedge`.
+
+Not leads, re-confirmed: `togetyou` t16 (already filed), `reactor1` T10
+(closed 2026-09-07, RNG), `woof`/`jinxtron`/`worstgame` (random message
+lists), `trabula` t31/32 (battle stat ranges), `bloodrelatives` and
+`cyber`/`inmemory`/`wheels_must_turn`/`asylum`/`skydiver`/`sophie` (the
+`<centre>` transcript artefact), `cellar` and `redwire` undo.

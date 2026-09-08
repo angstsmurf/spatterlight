@@ -15,7 +15,7 @@ enemy : 'An alien' Stamina=50 Str=0 Def=0 Acc=0 Agi=0
 default_weapon after wield = 6 (weapon obj = 6)
 --- fight (player attacks; stamina kept up so we can watch enemy fall) ---
 round  1: enemy stamina   50 ->    0  (dmg 50)  [ENEMY DEAD/REMOVED]
-    | You shoot An alien with the colt 45.
+    | You shoot an  avarage sized alien with the colt 45.
 RESULT: enemy stamina=0 location=0 after 1 rounds
 
 ==== light_up_4summer_comp.taf ====
