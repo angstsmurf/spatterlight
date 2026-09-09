@@ -15,25 +15,7 @@ out
 east
 attack wolf
 attack wolf
-attack wolf
-attack wolf
-attack wolf
-attack wolf
-attack wolf
-attack wolf
 take tonerith stone
-e
-e
-attack bridgekeeper
-attack bridgekeeper
-attack bridgekeeper
-attack bridgekeeper
-attack bridgekeeper
-attack bridgekeeper
-attack bridgekeeper
-attack bridgekeeper
-w
-w
 west
 north
 take small sword
@@ -48,8 +30,6 @@ north
 north
 nw
 nw
-attack narfild
-attack narfild
 attack narfild
 attack narfild
 attack narfild
@@ -110,26 +90,12 @@ attack goblin
 attack goblin
 attack goblin
 attack goblin
-attack goblin
-attack goblin
-attack goblin
-attack goblin
-attack goblin
-attack goblin
-attack goblin
-attack goblin
 take kedarn stone
 nw
 n
 w
 nw
 nw
-attack monster
-attack monster
-attack monster
-attack monster
-attack monster
-attack monster
 attack monster
 attack monster
 attack monster
@@ -146,13 +112,6 @@ sw
 nw
 e
 e
-attack eagle
-attack eagle
-attack eagle
-attack eagle
-attack eagle
-attack eagle
-attack eagle
 attack eagle
 attack eagle
 attack eagle
@@ -176,17 +135,6 @@ n
 say the password
 open door
 n
-attack larnt
-attack larnt
-attack larnt
-attack larnt
-attack larnt
-attack larnt
-attack larnt
-attack larnt
-attack larnt
-attack larnt
-attack larnt
 attack larnt
 attack larnt
 attack larnt

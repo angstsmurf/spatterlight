@@ -100,100 +100,8 @@ A grey wolf hits you, but it doesn't seem to do any damage.
 > attack wolf
 You hit a grey wolf.
 
-> attack wolf
-Wolf isn't here!
-
-> attack wolf
-Wolf isn't here!
-
-> attack wolf
-Wolf isn't here!
-A grey wolf hits you, but it doesn't seem to do any damage.
-
-> attack wolf
-You hit a grey wolf.
-
-> attack wolf
-You hit a grey wolf.
-A grey wolf hits you, but it doesn't seem to do any damage.
-
-> attack wolf
-You hit a grey wolf.
-A grey wolf hits you, but it doesn't seem to do any damage.
-
 > take tonerith stone
 You pick up the Tonerith stone.
-A grey wolf hits you, but it doesn't seem to do any damage.
-
-> e
-You move east.
-
-Tonerith junction
-You are standing at a junction.  There appears to be a stone bridge over the
-river east of here and a path to the north, running alongside the river.
-Tonerith pass runs west of here.
-
-> e
-You move east.
-
-The Bridge of Tonerith
-The large stone bridge extends across the wide river. The sound of rushing
-water is almost deafening. A mist of spray from the river blows against your
-face. The bridge is covered in Ivy and moss. The bridge crosses the river
-towards Kedarn forest to the northeast. West will take you to Tonerith
-junction.  There is a large dwarven bridgekeeper blocking your way across the
-bridge.  The Bridgekeeper is here.
-An angry dwarf chops you with the iron axe, but it doesn't seem to do any
-damage.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-An angry dwarf chops you with the iron axe, but it doesn't seem to do any
-damage.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-An angry dwarf chops you with the iron axe, but it doesn't seem to do any
-damage.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-An angry dwarf chops you with the iron axe, but it doesn't seem to do any
-damage.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-
-> attack bridgekeeper
-You hit an angry dwarf.
-An angry dwarf chops you with the iron axe, but it doesn't seem to do any
-damage.
-
-> w
-You move west.
-
-Tonerith junction
-You are standing at a junction.  There appears to be a stone bridge over the
-river east of here and a path to the north, running alongside the river.
-Tonerith pass runs west of here.
-
-> w
-You move west.
-
-Tonerith Pass
-This wide path continues to the East. You can see the hills of Forecarn north
-of here but there is no path running there. You can here the sound of rushing
-water in the distance.
-A grey wolf hits you, but it doesn't seem to do any damage.
 
 > west
 You move west.
@@ -324,17 +232,14 @@ You cut the large troll with the small sword.
 You cut the large troll with the small sword.
 Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
 
-> attack narfild
-Narfild isn't here!
-
-> attack narfild
-Narfild isn't here!
-
 > e
 You move east.
 
 Large cave
-It is too dark to see here.
+The large circular cave has a large circular stone table in the centre. There
+is a large knife on the table, but it is too heavy for you to move. The walls
+have covered in water. There is an iron ring about the size of your wrist
+protruding from the wall.
 
 > x large stone table
 The table is made of the same stone as the walls of the cave. It is full of
@@ -353,19 +258,29 @@ low pitched rubbing of stone on stone from somewhere in the cave.
 You move west.
 
 Main Cave
-It is too dark to see.
+This cave is huge and the walls glitter with the water trickling down. There
+is a musty smell that fills the air. There is a large cave east of here and a
+smaller one to the west. Northwest takes you into a winding passage.
+Southeast takes you down a straight passage.  There is a huge troll stretched
+out across the floor. He has large scratches all over his body.  Also here
+are some grotty rags and a large club.
 
 > w
 You move west.
 
 Small Cave
-It is too dark to see.
+This small cave makes you bow your head slightly. There is water running down
+all the walls apart from one, where the water drips into a puddle. East will
+take you back into the main cave.  There is a doorway that connects this cave
+with a square cave to the West.
 
 > w
 You move west.
 
 Square cave
-It is too dark to see.
+The cave is square shaped and looks as if it has been purposefully chipped
+at. There are holes cut in the wall, where objects are placed. East will take
+you back into the small cave.
 
 > x holes in the wall
 The holes are cut into the stone and have very flat surfaces.  A steel vest
@@ -378,19 +293,30 @@ You take the steel vest and the metal spade from the holes in the wall.
 You move east.
 
 Small Cave
-It is too dark to see.
+This small cave makes you bow your head slightly. There is water running down
+all the walls apart from one, where the water drips into a puddle. East will
+take you back into the main cave.  There is a doorway that connects this cave
+with a square cave to the West.
 
 > e
 You move east.
 
 Main Cave
-It is too dark to see.
+This cave is huge and the walls glitter with the water trickling down. There
+is a musty smell that fills the air. There is a large cave east of here and a
+smaller one to the west. Northwest takes you into a winding passage.
+Southeast takes you down a straight passage.  There is a huge troll stretched
+out across the floor. He has large scratches all over his body.  Also here
+are some grotty rags and a large club.
 
 > nw
 You move northwest.
 
 Winding passage
-It is too dark to see.
+The passage winds through the caves of eternal night and it appears to be
+getting lighter. The floor is covered in puddles of water from the water
+dripping down the walls. Northwest will take you out of the cave. Southeast
+will take you to a large area of the caves.
 
 > nw
 You move northwest.
@@ -654,8 +580,6 @@ You stand in the middle of a barren circle. All around the trees seem to be
 closing in. West will take you down a tiny path. Another clearer path leads
 northwest.  You can also see the Kedarn stone.  There is a Forester Goblin
 hanging from a tree here.
-A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
-seem to do any damage.
 
 > attack goblin
 You cut a forest dwelling goblin with the small sword.
@@ -664,40 +588,16 @@ seem to do any damage.
 
 > attack goblin
 You cut a forest dwelling goblin with the small sword.
-A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
-seem to do any damage.
 
 > attack goblin
 You cut a forest dwelling goblin with the small sword.
+A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
+seem to do any damage.
 
 > attack goblin
 You cut a forest dwelling goblin with the small sword.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
-
-> attack goblin
-Forester Goblin isn't here!
-
-> attack goblin
-Forester Goblin isn't here!
-
-> attack goblin
-Forester Goblin isn't here!
-
-> attack goblin
-Forester Goblin isn't here!
-
-> attack goblin
-Forester Goblin isn't here!
-
-> attack goblin
-Forester Goblin isn't here!
-
-> attack goblin
-Forester Goblin isn't here!
-
-> attack goblin
-Forester Goblin isn't here!
 
 > take kedarn stone
 You pick up the Kedarn stone.
@@ -748,6 +648,14 @@ any damage.
 
 > attack monster
 You cut a swamp monster with the small sword.
+
+> attack monster
+You cut a swamp monster with the small sword.
+A swamp monster stabs you with the pointy stick, but it doesn't seem to do
+any damage.
+
+> attack monster
+You cut a swamp monster with the small sword.
 A swamp monster stabs you with the pointy stick, but it doesn't seem to do
 any damage.
 
@@ -758,36 +666,12 @@ any damage.
 
 > attack monster
 You cut a swamp monster with the small sword.
-
-> attack monster
-You cut a swamp monster with the small sword.
 A swamp monster stabs you with the pointy stick, but it doesn't seem to do
 any damage.
-
-> attack monster
-You cut a swamp monster with the small sword.
 
 > attack monster
 You cut a swamp monster with the small sword.
 The swamp monster slowly melts into the marsh. It then dissapears.
-
-> attack monster
-Longmore king isn't here!
-
-> attack monster
-Longmore king isn't here!
-
-> attack monster
-Longmore king isn't here!
-
-> attack monster
-Longmore king isn't here!
-
-> attack monster
-Longmore king isn't here!
-
-> attack monster
-Longmore king isn't here!
 
 > ne
 You move northeast.
@@ -799,18 +683,16 @@ It is too dark to see.
 The chest's lock slowly turns and with a clunk, the chest is unlocked.
 
 > open chest
-The large chest is already open!
+You can't open that.
 
 > x large chest
-The chest is quite large and has various ornate jewels on the lid. They are
-securely fastened and cannot be removed.  The large chest is open.  A
-longmore chest plate is inside the large chest.
+You can't see that very clearly.
 
 > get all from chest
-You take the longmore chest plate from the large chest.
+Take what?
 
 > wear longmore chest plate
-You put on the longmore chest plate.
+Wear what?
 
 > sw
 You move southwest.
@@ -848,40 +730,18 @@ about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.  There is an eagle above you circling around your
 head.
-A large eagle hits you, but it doesn't seem to do any damage.
-
-> attack eagle
-You cut a large eagle with the small sword.
 
 > attack eagle
 You cut a large eagle with the small sword.
 A large eagle hits you, but it doesn't seem to do any damage.
+
+> attack eagle
+You cut a large eagle with the small sword.
 
 > attack eagle
 You cut a large eagle with the small sword.
 The eagle makes a last flap of it's enormous wings and falls deep into the
 ravine out of view.
-
-> attack eagle
-Eagle isn't here!
-
-> attack eagle
-Eagle isn't here!
-
-> attack eagle
-Eagle isn't here!
-
-> attack eagle
-Eagle isn't here!
-
-> attack eagle
-Eagle isn't here!
-
-> attack eagle
-Eagle isn't here!
-
-> attack eagle
-Eagle isn't here!
 
 > w
 You move west.
@@ -916,18 +776,14 @@ Nelone mountain junction
 This path threads over the bottoms of many mountains. On each side are
 extremely steep mountains. It is impossible to attempt to climb up any.
 Southwest will take you towards Glaven. Northeast takes you further along the
-pass. East takes you along a valley ridge.  Haron follows you.
-A knight catches up to you and smiles. Clearing his throat he says:
-" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
-have brought a gift from Natalya."
-Haron hands you a phial.
+pass. East takes you along a valley ridge.
 
 > ne
 You move northeast.
 
 Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
- There is a Narn here.  Haron follows you.
+ There is a Narn here.
 The little Narn hits you, but it doesn't seem to do any damage.
 
 > e
@@ -935,7 +791,7 @@ You move east.
 
 Thin mountain path
 The path thins out here to just a small footpath. The path thickens west, or
-goes to a junction to the Southeast.  Haron follows you from the west.
+goes to a junction to the Southeast.
 
 > se
 You move southeast.
@@ -945,7 +801,7 @@ The ground here is covered in a fine layer of snow. This junction leads away
 three ways. Impossible to tell where each one goes as they thread through
 mountains. The paths lead Northwest, West and East. The only way that can be
 sure is that west leads down into a valley.  You can also see the Nelone
-stone.  Haron follows you.
+stone.
 
 > take nelone stone
 You pick up the Nelone stone.
@@ -957,8 +813,7 @@ Nelone bridge West
 In front of you is a small rope footbridge that stretches over the ravine
 below. It is held by strong ropes that are driven into the ground by huge
 stakes. It would be impossible to cut the ropes with anything. East will take
-you along the bridge. West will take you to a junction.  Haron follows you
-from the west.
+you along the bridge. West will take you to a junction.
 
 > e
 You move east.
@@ -967,7 +822,7 @@ Nelone Bridge
 You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
 one side of the bridge, east to the other.  Larnt is standing in front of you
-barring the way.  Larnt is here.  Haron follows you from the west.
+barring the way.  Larnt is here.
 
 > give stones to larnt
 As you hand over the stones, Larnt's face breaks into an evil smile. As the
@@ -978,8 +833,7 @@ mountain.
 Nelone Bridge
 You are at the centre of a long footbridge, reaching across the ravine. There
 is a handrail on either side, with planks of wood to walk on. West goes to
-one side of the bridge, east to the other.  Larnt is here.  Haron is
-standingon your left.
+one side of the bridge, east to the other.  Larnt is here.
 
 > e
 You move east.
@@ -987,7 +841,7 @@ You move east.
 Nelone Bridge East
 The large footbridge is behind you now as you look to the huge mountain in
 front of you. West takes you along the bridge. East will take you along a
-dark path that winds up the mountain.  Haron follows you from the west.
+dark path that winds up the mountain.
 
 > e
 You move east.
@@ -996,7 +850,7 @@ Uron Dark Path
 This long path is completely shadowed. The little light that there is comes
 from far off in the distance. There are sharp jagged rocks on each side of
 the path. West will take you towards the bridge. Northeast will take you
-further up the mountain.  Haron follows you from the west.
+further up the mountain.
 
 > ne
 You move northeast.
@@ -1004,8 +858,7 @@ You move northeast.
 Uron Dark Path
 The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
-take you up the mountain.  There is a large Narn here.  Haron follows you.
-Haron cuts a large Narn with the elven sword.
+take you up the mountain.  There is a large Narn here.
 A large Narn hits you, but it doesn't seem to do any damage.
 
 > nw
@@ -1014,16 +867,14 @@ You move northwest.
 Uron Dark Path
 The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
-mountain. Northeast will take you up.  Haron follows you.
-The air has become extremely dense and choking.
+mountain. Northeast will take you up.
 
 > ne
 You move northeast.
 
 Uron Dark Path
 The path starts to get steeper as you get nearer the top of the mountain. The
-path leads Southwest down the mountain or North up the mountain.  Haron
-follows you.
+path leads Southwest down the mountain or North up the mountain.
 
 > n
 You move north.
@@ -1032,7 +883,11 @@ Uron Castle Entrance
 The walls of the castle reach high in the air. The smell fades now, and the
 air appears less dense. It is replaced with a feeling that you are unwanted.
 There is a large wooden door that looks extremely thick. The path leads South
-down the mountain.  Haron follows you from the south.
+down the mountain.  Haron follows you.
+A knight catches up to you and smiles. Clearing his throat he says:
+" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
+have brought a gift from Natalya."
+Haron hands you a phial.
 
 > say the password
 The words seem to have moved the doors a little. They must be unlocked. They
@@ -1051,14 +906,7 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Haron
 follows you from the south.
-Haron cuts the dark knight with the elven sword.
-The dark knight cuts you with the blade from Uron, but it doesn't seem to do
-any damage.
-
-> attack larnt
-You cut the dark knight with the small sword.
-The dark knight cuts you with the blade from Uron, but it doesn't seem to do
-any damage.
+The dark knight cuts Haron with the blade from Uron.
 
 > attack larnt
 You cut the dark knight with the small sword.
@@ -1068,41 +916,12 @@ any damage.
 
 > attack larnt
 You cut the dark knight with the small sword.
+
+> attack larnt
+You cut the dark knight with the small sword.
+Haron cuts the dark knight with the elven sword.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
-
-> attack larnt
-Larnt isn't here!
-
-> attack larnt
-Larnt isn't here!
-
-> attack larnt
-Larnt isn't here!
-
-> attack larnt
-Larnt isn't here!
-
-> attack larnt
-Larnt isn't here!
-
-> attack larnt
-Larnt isn't here!
-
-> attack larnt
-Larnt isn't here!
-
-> attack larnt
-Larnt isn't here!
-
-> attack larnt
-Larnt isn't here!
-
-> attack larnt
-Larnt isn't here!
-
-> attack larnt
-Larnt isn't here!
 
 > n
 You move north.
@@ -1240,8 +1059,7 @@ the South. He then smiles, and says:
 > attack urgorn
 You cut the dark lord with the small sword.
 Haron cuts the dark lord with the elven sword.
-The dark lord shoots you with the ball of fire, but it doesn't seem to do any
-damage.
+The dark lord shoots Haron with the ball of fire.
 
 > attack urgorn
 You cut the dark lord with the small sword.
@@ -1256,8 +1074,7 @@ You cut the dark lord with the small sword.
 > attack urgorn
 You cut the dark lord with the small sword.
 Haron cuts the dark lord with the elven sword.
-The dark lord shoots you with the ball of fire, but it doesn't seem to do any
-damage.
+The dark lord shoots Haron with the ball of fire.
 
 > attack urgorn
 You cut the dark lord with the small sword.

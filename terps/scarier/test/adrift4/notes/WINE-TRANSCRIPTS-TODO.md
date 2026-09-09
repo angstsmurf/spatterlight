@@ -5894,10 +5894,20 @@ see.`, line 210 `Exits are southeast.`, and the twelve `attack narfild` that
 follow all answer `Who?`.  The route as recorded was only ever winnable
 because Scarier was under-counting the fight; run390 has never won it.
 
-The lantern is on a fixed budget from the moment it is lit, and it cannot be
-re-lit outside the cottage (`You can't light the brass lantern.`), so moving
-the `light lantern` later does not help; the budget is also not seeded --
-seeds 1..24 all go dark.  Trimming the two padding blocks from twelve blows to
+The lantern is on a fixed budget, and moving the `light lantern` later does
+not help.  **Corrected 2026-09-09**, after the machinery was decoded (see the
+last section of this file): the budget is not counted from the moment the
+lantern is lit but from turn 1, it is 36..53 turns (51 under `SCR_SEED=2`),
+and the earlier claim here that the lantern "cannot be re-lit outside the
+cottage" is wrong on both halves.  Task 1 `light *lantern *` is
+Repeatable/Reversible and its `Where` allows two rooms, 0 (The Old Cottage)
+and 38 (South wooden hut), so the relight outside does succeed -- it just buys
+zero turns, because event 2 ("Splash") is RestartType 1 and
+`evt_fixup_v390_v380_immediate_restart()` re-arms it straight back into
+RUNNING, hiding the lit lantern again on the same turn.  Its PauseTask 3 does
+address task 1, but a pause only holds an event that is already RUNNING, so
+the initial `randint(36, 53)` countdown ticks from turn 1 whether or not the
+lantern is ever lit.  Trimming the two padding blocks from twelve blows to
 eight (the fights are there for battle coverage and neither enemy dies in
 twelve anyway, in either engine) puts the route back inside it, and the row
 wins again with its battle coverage intact.
@@ -5935,9 +5945,12 @@ first, **`Who?`**, is ported in the next section (it was 94 of them, leaving
      **run400 dropped the model**: its `examines()`
      (`Proc_19_87_471F94`, mdlSpreadTheLoad.bas 43804-44857) never assigns its
      `var_AC` anywhere in the file -- it is only pushed at `loc_471569` and
-     `loc_471A6F` -- so the `" very clearly."` arms are dead code.  Gate any
-     port `>= 3.90` and `< 4.00`.  Two turns on this row (t65 `x large stone
-     table`, t71 `x holes in the wall`).  **Not yet ported.**
+     `loc_471A6F` -- so the `" very clearly."` arms are dead code.  Two
+     turns on this row (t65 `x large stone table`, t71 `x holes in the
+     wall`).  **Ported 2026-09-09**, gated `< TAF_VERSION_400` -- the
+     `>= 3.90` half of the gate was wrong, 3.7 and 3.8 carry the same model.
+     See the last section of this file; the rule turned out to be bigger than
+     the refusal, because the same predicate also gates the seen flag.
   2. `You can't get anything from that.` is the **take handler's**, not
      darkness: every divergent turn is `get all from <container>`, and the
      message sits at `loc_463E77`, the else of a `var_CC > 0` test inside the
@@ -6309,3 +6322,112 @@ nine commands echoed.
 The one thing still unknown is *where* run400 applies its ALRs; the listing's
 loader-only read of MemVar_49411C is unchanged.  It no longer matters for this
 rule.
+
+## Ported 2026-09-09: a dark room is condition AND HideObjects, and it gates the seen flag
+
+The `You can't see that very clearly.` lead from the `alexis_worn_cube` row
+(above, item 1 of "Still open on this row") turned out to be the small visible
+end of a rule that also decides which objects a pre-4.0 game will let you
+refer to at all.  Measured on a purpose-built probe rather than argued from
+the listing, and it moved the corpus.
+
+### There is no lamp
+
+ADRIFT 4 has no light source model and no "It is pitch dark" message.  A dark
+room is just a room whose **object condition** holds and whose **"Hide
+objects"** box is ticked; the author writes the darkness prose into the room
+alternate's own text.  The Runner recomputes that one predicate wherever it
+needs it.  run390's copy is the ladder at `44B888`-`44BA5A` at the top of
+`examines()`, over the room record's fields 102 (HideObjects), 100 (the
+object) and 104 (the condition type), with the six condition types
+isn't/is holding, isn't/is wearing, isn't/is in the same room -- exactly the
+type-2 alt `lib_use_room_alt()` already implements.  run380 `43C708` (fields
+78/76/80) and run370 `434E95` are character-for-character the same, so **the
+gate is `< TAF_VERSION_400`, not `>= 3.90 and < 4.00`** as this file said.
+run400 kept the shape but never assigns the flag (`Proc_19_87_471F94`'s
+`var_AC` is written nowhere in the file), so its arms are dead code.
+
+The two forms are kept apart in the Runner and now in the port:
+
+* `lib_room_alt_darkens()` -- the condition **alone**, no HideObjects term.
+  This is `isdark()` itself, the bare ladder at run390 `433920`.  Its one
+  caller is `afteroa`'s start-room seen sweep (`44192D`).
+* `lib_room_is_dark()` -- condition **AND** HideObjects, what `examines()`
+  computes into `var_BC` and what `viewroom` acts on.  Every message site
+  wants this one.
+
+### The part that was not in the lead: darkness gates the seen byte
+
+run390 `viewroom` takes the dark branch at `4477AD`, prints the alt text, and
+at `4477F9` tests HideObjects; set, it jumps to `448124` -- **past** `447B0A`,
+where the static sweep stamps the seen byte (`447B9C`), and past the "Also
+here" loop at `447BB9`, whose body stamps each dynamic it lists (`447BFC`).
+`co()` ANDs the seen byte into every match, so an object first met in the dark
+is not merely undescribed, it is unreferenceable.  The old comment in
+`lib_print_room_description()` had this backwards -- it claimed the marking
+loops sit above the HideObjects jump.
+
+Being seen is permanent; being lit is not.  Once an object has been stamped
+in the light it stays matchable in the dark, and only the description is
+suppressed: `44BC37` substitutes `"<player> can't see " & <definite name> & "
+very clearly."` and jumps (`44BC7E`) to `44BE60`, which is the **openness
+state lines**, not the end of the answer.  So `x box` in the dark prints the
+darkness sentence *and* "The box is open.  A coin is inside the box."  The
+byte is also read before `examines()` asks whether the verb was `read`
+(`44BC81`), so `read` answers identically, ReadText never consulted; and it is
+computed from the room alone, so a **carried** object answers it too.
+
+### The probes
+
+`harness/make_39_darkprobe.py` builds `p39DARK.taf` (3.90): a Dark Cave whose
+alt fires while the torch is not held, "Hide objects" ticked, plus a lit room
+with the torch in it.  Driven under run390 with `fast.sh`.
+
+* **`Adrift_967.txt` -- never seen.**  Walk in unlit: `x stone`, `x pebble`,
+  `x box`, `read stone`, `read zzzz` all answer the *unmatched-noun* form
+  `You can't see that very clearly.`, `take stone` answers `Take what?`, and
+  `get all from box` answers `You can't get anything from that.` -- the
+  container is not reachable either.  `x lamp` (held) answers the **named**
+  form, `You can't see the lamp very clearly.`, and `x me` answers `You can
+  just make out that you are okay.`  Then walk out, take the torch, walk back:
+  every one of them answers normally.
+* **`Adrift_968.txt` -- seen, then dark.**  Same objects stamped while lit,
+  torch dropped, room re-entered: `take stone` now **succeeds**, and `x box`
+  prints `You can't see the box very clearly.  The box is open.  A coin is
+  inside the box.`
+* **`Adrift_969.txt`** is the lit-room control for the take-from lead below.
+
+### What it cost
+
+`sclibrar.cpp` gained `lib_room_object_alt_fires()` with the two wrappers, the
+`x` / `read` / `x me` / `x <no such thing>` arms, and the `showobjects` gate on
+`obj_mark_room_objects_seen()`; `scgamest.cpp`'s start-room sweep gained the
+`lib_room_alt_darkens()` term (condition only -- `afteroa` calls `isdark()`
+directly, so a room whose alt fires *without* "Hide objects" still starts its
+statics unstamped).
+
+Corpus sweep over 278 rows: **6058 -> 6055** differing turns.  Only two rows
+moved, both improved -- `alexis` 114 -> 113, `alexis_worn_cube` 13 -> 11 --
+and nothing regressed.  Suite 429 PASS / 0 FAIL, with both ALEXIS goldens
+re-blessed and `alexis_worn_cube_solution.txt` re-derived; the walkthrough
+work and the lantern machinery are written up in the row comment in
+`harness/run_v4_walkthroughs.sh`.
+
+### Still open: the take handler's own answer
+
+Item 2 of "Still open on this row" is untouched and is the next lead.
+`Adrift_969.txt` (probe 3, run390, **lit** room) sharpens it: the divergences
+are not darkness at all.
+
+* `get all from <absent noun>` -> `You can't get anything from that.`
+  (Scarier: `Take what?`)
+* `get all from torch` (not a container) -> `You can't take anything from the
+  torch!` -- an exclamation mark where Scarier writes a full stop.
+* `get stone from <absent noun>` -> `You can't do that!`
+* `empty torch` is **not** a take-all-from synonym in run390, though Scarier
+  lists `empty` in `PRIORITY_COMMANDS`.
+
+The literal is at `loc_463E77`, the else of a `var_CC > 0` test (`var_CC` set
+at `463333`/`463351`/`46336F`: 0 = plain, 1 = the line contains "all", 2 = it
+contains "and"), present in run370/380/390 and absent from run400.  The exact
+enclosing gate is still open.

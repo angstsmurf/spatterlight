@@ -310,6 +310,118 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
 
 
 /*
+ * lib_room_object_alt_fires()
+ * lib_room_alt_darkens()
+ * lib_room_is_dark()
+ *
+ * The pre-4.0 Runners' one and only darkness test, in its two forms.
+ *
+ * There is no lamp model in ADRIFT 4, and no "It is pitch dark" message.  A
+ * dark room is authored as a room whose object condition holds and whose
+ * "Hide objects" box is ticked, and the Runner recomputes that one predicate
+ * at the top of examines() into a byte it then consults twice.  run390's copy
+ * is the ladder at 44B888-44BA5A, over the room record's own fields -- 102 is
+ * HideObjects, 100 the object, 104 the condition type -- with the same six
+ * cases lib_use_room_alt() already implements for a type-2 alt:
+ *
+ *     If room(102) = 1 Then
+ *       var_BC = 0
+ *       If room(100) <> 0 Then
+ *         Select Case room(104)
+ *           Case 0: If obj.parent <> 0     Then var_BC = 1   ' isn't holding
+ *           Case 1: If obj.parent  = 0     Then var_BC = 1   ' is holding
+ *           Case 2: If obj.parent <> &H9C  Then var_BC = 1   ' isn't wearing
+ *           Case 3: If obj.parent  = &H9C  Then var_BC = 1   ' is wearing
+ *           Case 4: If obj.parent > 0 And obj.parent <> playerroom Then ...
+ *           Case 5: If obj.parent = 0 Or &H9C Or playerroom      Then ...
+ *
+ * run380 (43C708, room fields 78/76/80, flag var_F0) and run370 (434E95, the
+ * same three fields, the same six arms) are character-for-character the same
+ * computation, so this is not a 3.9 invention.  run400 kept the shape but
+ * never assigns its flag: Proc_19_87_471F94's var_AC is dead, which is why
+ * 4.0 answers a dark room's `x` with its ordinary tail.  Hence the gate here
+ * is < 4.0, not >= 3.90.
+ *
+ * The conversion in parse_fixup_v390_v380_room_alts() writes that room-level
+ * object condition out as the LAST alt, type 2, with Var2 the condition type,
+ * Var3 the object and HideObjects the ticked box -- and it is the only type-2
+ * alt a converted game has, the task alts all being type 0 with HideObjects
+ * 0.  So scanning the alts for a matching type-2 alt is exactly the Runner's
+ * ladder, and the HideObjects term is the room field 102 the ladder is
+ * wrapped in.
+ *
+ * The Runner keeps the two halves apart, and so does this pair:
+ *
+ *   lib_room_alt_darkens()  is isdark() itself (run390 433920), the condition
+ *     alone, with no HideObjects term.  Only afteroa's start-room seen sweep
+ *     reads it that way (run390 44192D).
+ *   lib_room_is_dark()      is what examines() computes into var_BC and what
+ *     viewroom acts on -- the condition AND HideObjects.  Every message site
+ *     below wants this one.
+ *
+ * Measured: p39DARK.taf (3.90) under run390, Adrift_967.txt and
+ * Adrift_968.txt -- a Dark Cave whose alt fires while the torch is not held,
+ * "Hide objects" ticked.  Also ALEXIS.TAF (3.90), Adrift_486_alexis_worn_cube
+ * .txt, the Passage in the Caves of eternal night: "It is too dark to see."
+ * and no object list, with `x large stone table` and `x holes in the wall`
+ * both "You can't see that very clearly." where a lit room would have said
+ * "Nothing special."
+ */
+static scr_bool
+lib_room_object_alt_fires (scr_gameref_t game, scr_int room,
+                           scr_bool require_hide)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5];
+  scr_int alt, alt_count;
+
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    return FALSE;
+
+  vt_key[0].string = "Rooms";
+  vt_key[1].integer = room;
+  vt_key[2].string = "Alts";
+  alt_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+
+  for (alt = 0; alt < alt_count; alt++)
+    {
+      scr_int type, hideobjects;
+
+      vt_key[3].integer = alt;
+      vt_key[4].string = "Type";
+      type = prop_get_integer (bundle, "I<-sisis", vt_key);
+      if (type != 2)
+        continue;
+
+      if (require_hide)
+        {
+          vt_key[4].string = "HideObjects";
+          hideobjects = prop_get_integer (bundle, "I<-sisis", vt_key);
+          if (hideobjects != 1)
+            continue;
+        }
+
+      if (lib_use_room_alt (game, room, alt))
+        return TRUE;
+    }
+
+  return FALSE;
+}
+
+scr_bool
+lib_room_alt_darkens (scr_gameref_t game, scr_int room)
+{
+  return lib_room_object_alt_fires (game, room, FALSE);
+}
+
+static scr_bool
+lib_room_is_dark (scr_gameref_t game, scr_int room)
+{
+  return lib_room_object_alt_fires (game, room, TRUE);
+}
+
+
+/*
  * lib_find_starting_alt()
  *
  * Return the alt index for the alt at which we need to start running down
@@ -1821,12 +1933,34 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
     }
 
   /*
-   * Reveal what a full room description reveals.  Not gated on showobjects:
-   * the Runner's marking loops sit above its "Also here" list and below its
-   * brief-mode exit, so a HideObjects alt suppresses the sentence and not
-   * the knowledge.  See obj_mark_room_objects_seen().
+   * Reveal what a full room description reveals.
+   *
+   * Pre-4.0 this is gated on showobjects, because the Runner's marking loops
+   * sit *below* its HideObjects jump, not above it.  run390 viewroom takes
+   * the dark branch at 4477AD, prints the alt text, and at 4477F9 tests the
+   * room's own HideObjects field: set, it jumps to 448124 -- past 447B0A,
+   * where the static sweep stamps the seen byte (447B9C), and past the "Also
+   * here" loop at 447BB9, whose body stamps each dynamic it lists (447BFC).
+   * So a HideObjects alt suppresses the knowledge as well as the sentence,
+   * and the objects stay unreferenceable: co() ANDs the seen byte into every
+   * match.
+   *
+   * That is the whole of ADRIFT 4's darkness.  Measured on p39DARK.taf
+   * (3.90): entering the Dark Cave unlit (Adrift_967.txt) leaves `x stone`,
+   * `read stone` and `x box` at the unmatched-noun answer "You can't see that
+   * very clearly.", `take stone` at "Take what?" and `get all from box` at
+   * "You can't get anything from that." -- the container is not reachable
+   * either.  Adrift_968.txt then walks in with the torch, so the same objects
+   * are stamped, drops the torch and returns: now `take stone` succeeds and
+   * `x stone` answers the named form, "You can't see the stone very
+   * clearly."  Being seen is permanent; being lit is not.
+   *
+   * 4.0 is left alone: nothing has measured its marking loops against a
+   * HideObjects alt, and lib_room_is_dark() shows run400 never even assigns
+   * its darkness byte.
    */
-  obj_mark_room_objects_seen (game, room);
+  if (showobjects || prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    obj_mark_room_objects_seen (game, room);
 
   /* Print room contents. */
   if (showobjects)
@@ -3920,6 +4054,22 @@ lib_cmd_examine_self (scr_gameref_t game)
   lib_list_t list;
   const scr_char *description, *position = NULL;
 
+  /*
+   * The darkness fork again, this time on its `x me` arm: run390 44C424
+   * answers "<player> can just make out that <you> <are> okay." (44C430) in
+   * place of the whole self description.  The two slots are the person
+   * array's 5 and 4, filled at 464800-4648A8 -- "I"/"am" in the first
+   * person, "you"/"are" in the second; a third-person player cannot reach
+   * this at all, lib_get_perspective() clamping pre-4.0 to those two.  See
+   * lib_room_is_dark() and lib_cmd_examine_other().
+   */
+  if (lib_room_is_dark (game, gs_playerroom (game)))
+    return lib_print_response_message (game,
+                    "You can just make out that you are okay.\n",
+                    "I can just make out that I am okay.\n",
+                    "%player% can just make out that"
+                    " %player_pronoun% is okay.\n");
+
   /* Get selection task. */
   vt_key[0].string = "Globals";
   vt_key[1].string = "Task";
@@ -5934,40 +6084,76 @@ lib_cmd_examine_object (scr_gameref_t game)
   /* Begin assuming no description printed. */
   is_described = FALSE;
 
-  /*
-   * Get selection task and expected state; for the expected task state, FALSE
-   * indicates task completed, TRUE not completed.
-   */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
-  vt_key[2].string = "Task";
-  task = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
-  vt_key[2].string = "TaskNotDone";
-  should_be = !prop_get_boolean (bundle, "B<-sis", vt_key);
 
-  /* Select either the main or the alternate description. */
-  if (task >= 0 && gs_task_done (game, task) == should_be)
+  /*
+   * The darkness fork's other half.  Pre-4.0 consults its darkness byte the
+   * moment the object has been matched and before a single word of
+   * description is composed: run390 44BC37 substitutes "<player> can't see "
+   * & <the object> & " very clearly." for the message and jumps (44BC7E) to
+   * 44BE60 -- which is *not* the end of the answer but the openness state
+   * lines, so what the jump skips is only the description, its alternate and
+   * the associated resource.  run380 43CD95 and run370 435481 do the same at
+   * the same point, and the same byte is read before examines() has even
+   * looked at whether the verb was `read` (44BC81), so a readable object in
+   * the dark answers this too; see lib_cmd_read_object().
+   *
+   * It applies to a carried object as much as a scenery one -- the byte is
+   * computed from the room alone, and the Runner's object loop never
+   * separates the two.
+   *
+   * Measured on p39DARK.taf (3.90), Adrift_968.txt: with the box already
+   * seen, `x box` in the dark answers "You can't see the box very clearly.
+   * The box is open.  A coin is inside the box.", and `x lamp` -- held --
+   * answers "You can't see the lamp very clearly."  Adrift_967.txt is the
+   * companion run where the same objects have never been seen, and there the
+   * noun does not resolve at all; see lib_print_room_description().
+   */
+  if (lib_room_is_dark (game, gs_playerroom (game)))
     {
-      vt_key[2].string = "AltDesc";
-      resource = "Res2";
+      lib_print_response_object (game,
+                                 "You can't see ",
+                                 "I can't see ",
+                                 "%player% can't see ",
+                                 object, " very clearly.");
+      is_described = TRUE;
     }
   else
     {
-      vt_key[2].string = "Description";
-      resource = "Res1";
-    }
+      /*
+       * Get selection task and expected state; for the expected task state,
+       * FALSE indicates task completed, TRUE not completed.
+       */
+      vt_key[2].string = "Task";
+      task = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
+      vt_key[2].string = "TaskNotDone";
+      should_be = !prop_get_boolean (bundle, "B<-sis", vt_key);
 
-  /* Print the description, or a default response. */
-  description = prop_get_string (bundle, "S<-sis", vt_key);
-  if (!scr_strempty (description))
-    {
-      pf_buffer_string (filter, description);
-      is_described |= TRUE;
-    }
+      /* Select either the main or the alternate description. */
+      if (task >= 0 && gs_task_done (game, task) == should_be)
+        {
+          vt_key[2].string = "AltDesc";
+          resource = "Res2";
+        }
+      else
+        {
+          vt_key[2].string = "Description";
+          resource = "Res1";
+        }
 
-  /* Handle any associated resource. */
-  vt_key[2].string = resource;
-  res_handle_resource (game, "sis", vt_key);
+      /* Print the description, or a default response. */
+      description = prop_get_string (bundle, "S<-sis", vt_key);
+      if (!scr_strempty (description))
+        {
+          pf_buffer_string (filter, description);
+          is_described |= TRUE;
+        }
+
+      /* Handle any associated resource. */
+      vt_key[2].string = resource;
+      res_handle_resource (game, "sis", vt_key);
+    }
 
   /* If the object is openable, print its openness state. */
   openness = gs_object_openness (game, object);
@@ -12086,6 +12272,23 @@ lib_cmd_read_object (scr_gameref_t game)
   if (object == -1)
     return is_ambiguous;
 
+  /*
+   * Pre-4.0 `read` shares examines() with `x`, and the darkness byte is read
+   * at 44BC37 -- before 44BC81, where examines() first asks whether the verb
+   * was `read` at all.  So a dark room answers a readable object exactly as
+   * it answers an examined one, ReadText and all never consulted.  See
+   * lib_room_is_dark() and lib_cmd_examine_object().
+   */
+  if (lib_room_is_dark (game, gs_playerroom (game)))
+    {
+      lib_print_response_object (game,
+                                 "You can't see ",
+                                 "I can't see ",
+                                 "%player% can't see ",
+                                 object, " very clearly.\n");
+      return TRUE;
+    }
+
   /* Verify that the object is readable. */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
@@ -12149,9 +12352,19 @@ lib_cmd_read_other (scr_gameref_t game)
    * Measured: p39EXAM.taf (3.90), Adrift_41_p39exam.txt, `read zzzz` ->
    * "Nothing special."; p4EXAM.taf (4.00), Adrift_1_p4exam.txt, the same
    * command -> "You see no such thing."
+   *
+   * Sharing examines() means sharing its darkness fork too; see
+   * lib_cmd_examine_other().
    */
   if (!lib_is_version_400 (game))
-    return lib_print_message (game, "Nothing special.\n");
+    {
+      if (lib_room_is_dark (game, gs_playerroom (game)))
+        return lib_print_response_message (game,
+                                  "You can't see that very clearly.\n",
+                                  "I can't see that very clearly.\n",
+                                  "%player% can't see that very clearly.\n");
+      return lib_print_message (game, "Nothing special.\n");
+    }
 
   /* Reject the attempt -- the same "<name> see no such thing." literal as
      lib_cmd_examine_other(), unconjugated in the third person. */
@@ -14261,10 +14474,16 @@ lib_npc_examine_absent (scr_gameref_t game)
  *     lines 187 and 233 -- `look at camera` and `look up byers`, neither noun
  *     an object: "You see no such thing."
  *
- * Not ported, because nothing has measured them: 4.0 also sets a flag beside
- * this message (MemVar_494281 at 471F02), and no Runner's darkness answers
- * ("<player> can't see that very clearly.", "<player> can just make out that
- * ...") exist here at all.
+ * 4.0 also sets a flag beside this message (MemVar_494281 at 471F02), and
+ * that is the whole of 4.0's tail.  Pre-4.0 puts a darkness fork in front of
+ * it instead: run390 44BFDE tests the message it has built so far against ""
+ * and "Nothing special.", and when the room is dark (lib_room_is_dark())
+ * answers "<player> can't see that very clearly." (44C477), or, for `x me`,
+ * "<player> can just make out that <you> <are> okay." (44C430).  Note that
+ * lib_npc_examine_absent()'s guard already anticipates this: it fires on a
+ * message that CONTAINS "<player> can't see that", which is the darkness
+ * tail as well as the lit one, so the absent-character rewrite still wins in
+ * a dark room -- and that is why it is tested first here.
  *
  * The object-found-but-silent default one branch up is the SAME 4.0 rewrite
  * and splits the same way, but it is decompile-only so far -- see
@@ -14288,7 +14507,14 @@ lib_cmd_examine_other (scr_gameref_t game)
     }
 
   if (!lib_is_version_400 (game))
-    return lib_print_message (game, "Nothing special.\n");
+    {
+      if (lib_room_is_dark (game, gs_playerroom (game)))
+        return lib_print_response_message (game,
+                                  "You can't see that very clearly.\n",
+                                  "I can't see that very clearly.\n",
+                                  "%player% can't see that very clearly.\n");
+      return lib_print_message (game, "Nothing special.\n");
+    }
 
   /*
    * The 4.0 text is the player's name and the literal " see no such thing."

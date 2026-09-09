@@ -1616,8 +1616,13 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    * Dynamics are not touched there, and neither Runner sweeps before 3.90 --
    * co() does not read the byte at all in run370 (@004261B4) or run380
    * (@0042DE60) -- so the sweep is gated at 3.90 and narrowed to statics
-   * below 4.00.  This port has no darkness model, so the isdark term, which
-   * only ever *removes* a stamp, is not carried.
+   * below 4.00.  The isdark term is lib_room_alt_darkens(): afteroa calls
+   * isdark() itself (@0044192D), the bare condition ladder at @00433920, so
+   * unlike every other darkness site it carries no HideObjects term -- a room
+   * whose object alt fires without ticking "Hide objects" still starts its
+   * statics unstamped.  A dark start room therefore begins with nothing
+   * referenceable, which is the same rule lib_print_room_description() now
+   * applies on every later look.
    *
    * The reading this port shipped with on 2026-08-24 had a static whose
    * Where/Type was ONE_ROOM starting seen, which is the same answer as this
@@ -1639,7 +1644,8 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
               continue;
 
             if (taf_version < TAF_VERSION_400
-                && !obj_is_static (game, index_))
+                && (!obj_is_static (game, index_)
+                    || lib_room_alt_darkens (game, game->playerroom)))
               continue;
 
             if (obj_indirectly_in_room (game, index_, game->playerroom))

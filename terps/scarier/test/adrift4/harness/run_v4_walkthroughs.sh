@@ -268,6 +268,27 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 # cells exactly as run400 gives them.  3.9 stamps inside the same exact-tick
 # gate (loc_45ABB8) and shares the gate's "old <> 0" term (loc_45A99B), so
 # the 4.0 rule carries here unchanged.
+# Both rows re-blessed again 2026-09-09 for the darkness port (see
+# notes/WINE-TRANSCRIPTS-TODO.md, "Ported 2026-09-09: a dark room is
+# condition AND HideObjects, and it gates the seen flag").  ALEXIS' caves
+# are dark rooms, so the port moves them: an object first met in the dark is
+# no longer stamped seen, and `x` on a seen one now answers "You can't see
+# the <thing> very clearly." in place of its description.
+# alexis_worn_cube_solution.txt also had to be re-derived.  Its lantern is on
+# a fixed 36..53-turn budget drawn at game start (event 2, "Splash"), and
+# relighting buys nothing: the event is RestartType 1, so it re-arms into
+# RUNNING in the same turn and hides the lit lantern straight back.  The old
+# route reached the Caves of Eternal Night at turn 49 with ~20 lit turns of
+# work left, so under the corrected engine it went dark before Urgorn.  The
+# twelve-turn bridgekeeper detour (`e`, `e`, 8x `attack bridgekeeper`, `w`,
+# `w`) is now dropped -- that puts the Large cave at turn 45 and the Square
+# cave at 51, both entered while lit, which stamps their objects seen and
+# keeps the later takes working in the dark -- and the no-op tails of the six
+# fights are trimmed (the blows land after the NPC has left or died and only
+# answer "<Name> isn't here!").  237 commands -> 200, same 58/65 score.
+# Trimming further does NOT work: dropping the Forecarn sword trip as well
+# shifts the combat rolls and the run finishes 23/65.  alexis_solution.txt
+# still wins unchanged under SCR_SEED=3 (55/65) and only needed blessing.
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=3
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=2
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_46_topaz.txt,

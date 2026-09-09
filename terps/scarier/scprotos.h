@@ -554,6 +554,7 @@ extern void lib_set_movement_probe (scr_bool probe);
 extern const scr_char *lib_direction_name (scr_int direction);
 extern void lib_print_room_name (scr_gameref_t game, scr_int room);
 extern void lib_print_room_description (scr_gameref_t game, scr_int room);
+extern scr_bool lib_room_alt_darkens (scr_gameref_t game, scr_int room);
 extern void lib_print_object_np (scr_gameref_t game, scr_int object);
 extern void lib_print_npc_np (scr_gameref_t game, scr_int npc);
 /* "I'm afraid you are dead!", or its first-person form for a pre-4.0 game. */

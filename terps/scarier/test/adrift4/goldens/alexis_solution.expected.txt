@@ -675,18 +675,16 @@ It is too dark to see.  Serond follows you.
 The chest's lock slowly turns and with a clunk, the chest is unlocked.
 
 > open chest
-The large chest is already open!
+You can't open that.
 
 > x chest
-The chest is quite large and has various ornate jewels on the lid. They are
-securely fastened and cannot be removed.  The large chest is open.  A
-longmore chest plate is inside the large chest.
+You can't see that very clearly.
 
 > get all from chest
-You take the longmore chest plate from the large chest.
+Take what?
 
 > wear longmore chest plate
-You put on the longmore chest plate.
+Wear what?
 
 > sw
 You move southwest.
