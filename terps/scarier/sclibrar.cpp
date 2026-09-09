@@ -14153,6 +14153,26 @@ lib_cmd_examine_all (scr_gameref_t game)
  * scan, so `x goblin` against an object called "goblin" still speaks.  The
  * first named absent character wins: the rewrite destroys the message the
  * guard tests, so no later character in the loop can pass it.
+ *
+ * The guard is an EQUALITY against the engine's own default, so where the
+ * game ALRs that default the answer depends on WHEN the Runner applies its
+ * ALRs -- before characters() the equality would miss and the ALR'd tail
+ * would stand.  Scarier applies them in the output filter, after this hook,
+ * and that is now measured rather than assumed:
+ *
+ *   run400, p4ALRNPC.taf (Adrift_126.txt), ALRs "You see no such thing." ->
+ *     "... , or else it is unimportant." and "cannot see" -> "cannot spot".
+ *     `x dave` from the next room, Dave seen: "You cannot spot Dave from
+ *     here."  The rewrite fired against the UNALR'd default, and its own
+ *     output was then ALR'd -- so the ALR pass runs strictly after this one.
+ *     `x erin` (alive, never seen) gives the ALR'd tail on the same path,
+ *     which is the seen gate and the ALR wiring in one control.
+ *   run390, p39ALRNPC.taf (Adrift_966.txt), the same world with "Nothing
+ *     special." ALR'd instead: `x dave` and `x erin` both answer "You cannot
+ *     spot <Name> from here." -- the pre-4.0 arm, with no seen gate.
+ *
+ * Both transcripts are identical to scarier's on every turn.  That settles
+ * the_pk_girl t~3067, whose golden line this rule moved.
  */
 static scr_bool
 lib_npc_examine_absent (scr_gameref_t game)

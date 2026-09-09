@@ -6107,10 +6107,84 @@ before characters() runs, the guard misses and the ALR'd tail stands; if ALRs
 are applied at print time, after characters(), the rewrite wins.  Scarier
 assumes the latter -- it is the reading the equality itself suggests (Campbell
 wrote it against his own literal), and it matches Scarier's own filter, which
-ALRs at output.  Not proven either way: run400's ALR array (MemVar_49411C,
-count MemVar_494120) is read only by the loader in the decompile, so the
-application site has not been found.
+ALRs at output.  run400's ALR array (MemVar_49411C, count MemVar_494120) is
+read only by the loader in the decompile, so the application site was never
+found in the listing.
 
-To settle it, one probe .taf under run400: a character met in room A, examined
-from room B, with an ALR rewriting `You see no such thing.`  If the answer is
-the ALR'd tail, the rewrite needs an "ALR would touch this message" guard.
+**MEASURED 2026-09-09, and the assumption holds** -- see "Measured 2026-09-09:
+the ALR pass runs after characters()" at the foot of this file.  The golden
+line above is now backed.
+
+## Measured 2026-09-09: the ALR pass runs after characters(), on both arms
+
+The one open question left by the section above, settled with two purpose-built
+probes rather than by finding the Runner's ALR application site.  Both worlds
+are three rooms, the third unreachable, and the ALR list is chosen so that the
+rewrite has to survive it to be seen at all:
+
+    Alpha / Test Room   east -> Bravo      start, and Dave's room
+    Bravo               west -> Alpha
+    Gamma               no exits           Erin's room, the player never goes
+
+    Dave   starts with the player, so 4.0's seen byte (var_140(26)) is set
+    Erin   alive in Gamma, never met, so the seen byte is clear
+
+`harness/make_400_alrnpcprobe.py` -> `p4ALRNPC.taf`, ALRs
+
+    "You see no such thing."  ->  "You see no such thing, or else it is
+                                   unimportant."          the_pk_girl's own ALR
+    "cannot see"              ->  "cannot spot"           does the REWRITE's
+                                                          own text get ALR'd?
+
+`harness/make_39_alrnpcprobe.py` -> `p39ALRNPC.taf`, the same world in the 3.90
+layout with `"Nothing special."` ALR'd instead, because that -- not "You see no
+such thing." -- is the tail the pre-4.0 guard tests.
+
+### The two transcripts
+
+run400, `sh measure.sh p4ALRNPC.taf cmdfile_p4alrnpc.txt run400.exe`,
+`Adrift_126.txt`:
+
+    > x dave      (Alpha)   A quiet man.
+    > x zzzz      (Alpha)   You see no such thing, or else it is unimportant.
+    > x erin      (Alpha)   You see no such thing, or else it is unimportant.
+    > e
+    > x dave      (Bravo)   You cannot spot Dave from here.
+    > x erin      (Bravo)   You see no such thing, or else it is unimportant.
+    > x zzzz      (Bravo)   You see no such thing, or else it is unimportant.
+
+run390, `./fast.sh p39ALRNPC.taf cmdfile_p39alrnpc.txt run390.exe`,
+`Adrift_966.txt`:
+
+    > x dave      (Test Room)  A quiet man.
+    > x zzzz      (Test Room)  Nothing special, or else it is unimportant.
+    > x erin      (Test Room)  You cannot spot Erin from here.
+    > e
+    > x dave      (Bravo)      You cannot spot Dave from here.
+    > x erin      (Bravo)      You cannot spot Erin from here.
+    > x zzzz      (Bravo)      Nothing special, or else it is unimportant.
+
+`compare_wine_transcript.py` reports "identical on every turn" for both, all
+nine commands echoed.
+
+### What each cell says
+
+* **`x dave` from the other room is the answer.**  The rewrite fired, so 4.0's
+  equality matched the **unALR'd** default -- the ALR pass had not run yet when
+  characters() looked at the pending message.  And the sentence the rewrite
+  composed came out `cannot spot`, so the ALR pass then ran over the rewrite's
+  own output.  That is a positive proof of the ordering, not merely the absence
+  of the other reading: ALRs are applied at print time, after characters(),
+  exactly where `pf_replace_alrs()` has them.  Nothing needs porting.
+* **`x zzzz` is the wiring control.**  The ALR'd default comes back on a line
+  that names no character, so the list is live and the original matches the
+  engine literal byte for byte.
+* **`x erin` is both gates at once.**  Under run400 she is never named -- the
+  seen byte is clear -- and the ALR'd tail stands, which re-measures the 4.0
+  seen gate on a purpose-built file instead of on EV16.  Under run390 she IS
+  named, from both rooms, which is the pre-4.0 half of the split measured from
+  its own side for the first time on a probe rather than on ALEXIS.TAF.
+
+The one thing still unknown is *where* run400 applies its ALRs; the listing's
+loader-only read of MemVar_49411C is unchanged.  It no longer matters for this
+rule.
