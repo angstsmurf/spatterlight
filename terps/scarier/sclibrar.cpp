@@ -6874,8 +6874,17 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
       *are_more_objects = TRUE;
       is_matched = TRUE;
     }
-  else if (uip_match ("%object% %text%", list, game))
+  else if (!uip_match ("%object% from %text%", list, game)
+           && uip_match ("%object% %text%", list, game))
     {
+      /*
+       * "from" is never filler.  `get stone from zzzz` reaches here whenever
+       * nothing answers to the noun after it, and swallowing the tail turned
+       * it into a plain take -- "You take the stone." -- where run390 says
+       * "You can't do that!" and run400 "I don't understand where you want to
+       * get things from." (p39DARK/p4TFROM, Adrift_969/971, 2026-09-10).  The
+       * take-from catch-alls carry both; see lib_cmd_take_from_nowhere().
+       */
       *are_more_objects = FALSE;
       is_matched = TRUE;
     }
@@ -7921,15 +7930,29 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
           if (!game->multiple_references[object])
             continue;
 
-          if (gs_object_position (game, object) == OBJ_HELD_PLAYER
-              || gs_object_position (game, object) == OBJ_WORN_PLAYER)
-            continue;
-
           list.push_back (object);
           game->multiple_references[object] = FALSE;
         }
 
-      if (!list.empty ())
+      /*
+       * 4.0 drops a named object that is not in the container without a word:
+       * run400 answers `get coin and stone from box` with just "You take the
+       * coin from the box." (p4TFROM, Adrift_974, 2026-09-10), and there is
+       * no such literal anywhere in run400.
+       *
+       * Pre-4.0 does report it, and composes the sentence a word at a time
+       * (run390 loc_4636D0-46378A: tense & Short & isare() & "not " & var_E0
+       * & " " & definite(container) & "!", where var_E0 is "inside" or "on").
+       * No " is not in " literal exists in any of the four Runners, so the
+       * wording here is "inside", not "in", and the sentence ends with an
+       * exclamation mark: run390 answers `get stone from box` with "The stone
+       * is not inside the box!" (p39DARK, Adrift_970/973, 2026-09-10).  It
+       * reports an object the player is already holding the same way -- the
+       * measured turn is `get coin from box` with the coin in hand and the
+       * box open and empty, "The coin is not inside the box!" (Adrift_973) --
+       * so there is no held-or-worn exemption above.
+       */
+      if (!list.empty () && !lib_is_version_400 (game))
         {
           lib_new_clause (game, has_printed);
           lib_print_list (game, list, lib_print_object_np, " and ");
@@ -7938,18 +7961,13 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                             ? lib_select_plurality (game, list[0],
                                                     " is not ", " are not ")
                             : " are not ");
-          if (obj_is_container (game, associate))
-            {
-              pf_buffer_string (filter, "in ");
-              if (obj_is_surface (game, associate))
-                pf_buffer_string (filter, "or on ");
-            }
-          else
-            pf_buffer_string (filter, "on ");
+          pf_buffer_string (filter,
+                            obj_is_container (game, associate)
+                            ? "inside " : "on ");
           lib_print_object_np (game, associate);
-          pf_buffer_character (filter, '.');
+          pf_buffer_character (filter, '!');
+          has_printed = TRUE;
         }
-      has_printed |= !list.empty ();
     }
 
   /*
@@ -8770,6 +8788,66 @@ lib_take_from_empty (scr_gameref_t game, scr_int associate, scr_bool is_except)
 
 
 /*
+ * lib_take_from_has_contents()
+ *
+ * TRUE if the associate holds anything the take-from filter would accept.
+ * 4.0 asks this before it looks at the names the line gave; see
+ * lib_take_from_multiple_common().
+ */
+static scr_bool
+lib_take_from_has_contents (scr_gameref_t game, scr_int associate)
+{
+  scr_int object;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (lib_take_from_filter (game, object, associate))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
+ * lib_take_from_empty_verb()
+ *
+ * TRUE where the line's verb is "empty" and the game is pre-4.0, in which
+ * case the take-from family must decline the line altogether.
+ *
+ * "empty" is a 4.0 addition.  run390's insides() gate at loc_4627E2 is
+ * `( c("from") Or (c("all") And container>0) ) And ( c("get") Or c("remove")
+ * Or c("take") Or c("pick") )` -- no "empty" anywhere in it -- and measured
+ * live that is exactly what run390 does: `empty box`, `empty torch` and
+ * `empty stone` all answer the DontUnderstand catch-all, "I don't understand
+ * what you want me to do with the box.", while `empty zzzz` is the bare "I
+ * don't understand." (p39DARK, Adrift_970/972/973, 2026-09-10).  run400 on
+ * the same feed takes the coin out of the box for `empty box`.
+ */
+static scr_bool
+lib_take_from_empty_verb (scr_gameref_t game)
+{
+  const scr_char *input;
+  scr_int index_;
+
+  if (lib_is_version_400 (game))
+    return FALSE;
+
+  input = run_get_dispatch_input ();
+  if (!input)
+    return FALSE;
+
+  while (*input == ' ')
+    input++;
+  for (index_ = 0; index_ < 5; index_++)
+    {
+      if (scr_tolower (input[index_]) != "empty"[index_])
+        return FALSE;
+    }
+  return input[5] == '\0' || input[5] == ' ';
+}
+
+
+/*
  * lib_take_from_is_valid()
  *
  * Validate the supporter requested in "take from" commands.
@@ -8779,7 +8857,17 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
-  /* Disallow emptying non-container/non-surface objects. */
+  /*
+   * Disallow emptying non-container/non-surface objects.  4.0 ends the
+   * sentence with a full stop (run400 mdlSpreadTheLoad loc_4739CA, "."
+   * appended at loc_4739E9); 3.8 and 3.9 end it with an exclamation mark
+   * (run390 loc_463D6E, "!" at loc_463D9E).  Measured live on the same feed:
+   * `get all from torch` is "You can't take anything from the torch!" in
+   * run390 and "You can't take anything from the torch." in run400
+   * (Adrift_969/972, 2026-09-10).  run370 has no such literal at all -- its
+   * tail at loc_43AF92 tests only c("in") and c("on") -- so what 3.70 says
+   * instead is still unmeasured; it shares the 3.8 wording here.
+   */
   if (!(obj_is_container (game, associate)
         || obj_is_surface (game, associate)))
     {
@@ -8787,7 +8875,8 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
                                  "You can't take anything from ",
                                  "I can't take anything from ",
                                  "%player% can't take anything from ",
-                                 associate, ".\n");
+                                 associate,
+                                 lib_is_version_400 (game) ? ".\n" : "!\n");
       return FALSE;
     }
 
@@ -8802,10 +8891,28 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
   if (obj_is_container (game, associate)
       && gs_object_openness (game, associate) > OBJ_OPEN)
     {
-      pf_new_sentence (filter);
-      lib_print_object_np (game, associate);
-      /* Always " is ": see the openness table in lib_cmd_examine_object(). */
-      pf_buffer_string (filter, " is closed.\n");
+      /*
+       * Pre-4.0 names the container and the closure in one sentence of its
+       * own (run390 loc_4632D7, literals " can't get anything from " at
+       * loc_4632E3 and " as it is closed!" at loc_463302): `get all from box`
+       * with the box closed is "You can't get anything from the box as it is
+       * closed!" (p39DARK, Adrift_970/973, 2026-09-10).  4.0 dropped that
+       * literal -- it is in run370, run380 and run390 and in no run400 -- and
+       * answers "The box is closed." for every form of the command.
+       */
+      if (lib_is_version_400 (game))
+        {
+          pf_new_sentence (filter);
+          lib_print_object_np (game, associate);
+          /* Always " is ": see openness in lib_cmd_examine_object(). */
+          pf_buffer_string (filter, " is closed.\n");
+        }
+      else
+        lib_print_response_object (game,
+                                   "You can't get anything from ",
+                                   "I can't get anything from ",
+                                   "%player% can't get anything from ",
+                                   associate, " as it is closed!\n");
       return FALSE;
     }
 
@@ -8825,6 +8932,10 @@ lib_cmd_take_all_from (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int associate, objects;
   scr_bool is_ambiguous;
+
+  /* Pre-4.0 has no "empty" verb; see lib_take_from_empty_verb(). */
+  if (lib_take_from_empty_verb (game))
+    return FALSE;
 
   /* Get the referenced object, and if none, consider complete. */
   associate = lib_disambiguate_object (game, "take from", &is_ambiguous);
@@ -8854,6 +8965,39 @@ lib_cmd_take_all_from (scr_gameref_t game)
 
 
 /*
+ * lib_take_from_no_name()
+ *
+ * Answer a "take from" whose own noun named nothing the player can reach.
+ *
+ * run390 decides this before it looks at the container at all: the arm at
+ * loc_462FD2 is entered when the line matched fewer than two objects or the
+ * named one is not here, and with the name unresolved it prints "You can't
+ * do that!" (loc_463140/463165; run380 loc_446B38 and run370 loc_439C3A hold
+ * the same literal, and pre-3.9 that arm is the whole of the branch).  The
+ * measured turn is `get coin from box` with the coin inside a CLOSED box, so
+ * the coin is not reachable: run390 answers "You can't do that!" while `get
+ * stone from box` on the very same turn gets the closed-container refusal
+ * instead (p39DARK, Adrift_973, 2026-09-10).
+ *
+ * 4.0 dropped that arm along with the literal, which is in run370, run380 and
+ * run390 and in no run400.  There the container has already answered by the
+ * time the names are read, so the only thing left is the take handler's own
+ * "Take what?".
+ */
+static scr_bool
+lib_take_from_no_name (scr_gameref_t game)
+{
+  if (lib_is_version_400 (game))
+    return lib_print_message (game, "Take what?\n");
+
+  return lib_print_response_message (game,
+                                     "You can't do that!\n",
+                                     "I can't do that!\n",
+                                     "%player% can't do that!\n");
+}
+
+
+/*
  * lib_take_from_multiple_common()
  *
  * Take the objects inside or on an object and listed in %text%, or -- for
@@ -8865,27 +9009,70 @@ static scr_bool
 lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  const scr_bool is_400 = lib_is_version_400 (game);
   scr_int associate, objects, references;
   scr_bool is_ambiguous;
+
+  /* Pre-4.0 has no "empty" verb; see lib_take_from_empty_verb(). */
+  if (lib_take_from_empty_verb (game))
+    return FALSE;
 
   /* Get the referenced object, and if none, consider complete. */
   associate = lib_disambiguate_object (game, "take from", &is_ambiguous);
   if (associate == -1)
     return is_ambiguous;
 
+  /*
+   * 4.0 inspects the container before it ever looks at the names the line
+   * gave, and the three answers it can give there outrank anything the names
+   * could say.  Measured live on p4TFROM against run400 (Adrift_971/972,
+   * 2026-09-10), with the box the only container in the room:
+   *
+   *   box closed, coin inside   `get coin from box`   The box is closed.
+   *   box closed, stone outside `get stone from box`  The box is closed.
+   *   box open and empty        `get stone from box`  There is nothing inside the box.
+   *   box open and empty        `get coin from box`   There is nothing inside the box.
+   *                             (with the coin in hand -- still the container's answer)
+   *   box open, coin inside     `get stone from box`  Take what?
+   *
+   * so the empty-container line precedes the membership test, and a name the
+   * container does not hold is simply dropped.  Pre-4.0 has the opposite
+   * order -- run390 answers the same five turns "You can't do that!", "You
+   * can't get anything from the box as it is closed!", "The stone is not
+   * inside the box!", "The coin is not inside the box!" and "The stone is not
+   * inside the box!" (Adrift_970/973) -- so the names are parsed first there,
+   * exactly as before, and lib_take_from_no_name() carries the first of them.
+   */
+  if (is_400)
+    {
+      if (!lib_take_from_is_valid (game, associate))
+        return TRUE;
+
+      if (!lib_take_from_has_contents (game, associate))
+        {
+          if (lib_take_from_unseen (game, associate))
+            lib_take_from_unseen_refusal (game, associate);
+          else
+            lib_take_from_empty (game, associate, is_except);
+
+          pf_buffer_character (filter, '\n');
+          return TRUE;
+        }
+    }
+
   /* Parse the multiple objects list to find the target objects. */
   if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
                                    lib_take_from_filter, associate,
                                    &references))
-    return FALSE;
+    return lib_take_from_no_name (game);
   else if (references == 0)
     return TRUE;
 
   /* Note single-object takes; the backend prints their prefix raw pre-4.0. */
   lib_take_from_single_named = !is_except && references == 1;
 
-  /* Validate the associate object to take from. */
-  if (!lib_take_from_is_valid (game, associate))
+  /* Validate the associate object to take from; 4.0 did it above. */
+  if (!is_400 && !lib_take_from_is_valid (game, associate))
     return TRUE;
 
   /* As a special case, complain about requests to retain the associate. */
@@ -8897,6 +9084,18 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
   objects = lib_apply_filter (game,
                               lib_take_from_filter, associate, is_except,
                               &references);
+  /*
+   * A 4.0 line that named only things the container does not hold has taken
+   * nothing and has nothing left to report -- the container already passed
+   * every test above -- so the take handler falls to its own "Take what?".
+   */
+  if (is_400 && !is_except && objects == 0)
+    {
+      gs_clear_multiple_references (game);
+      pf_buffer_string (filter, "Take what?\n");
+      return TRUE;
+    }
+
   if (objects > 0 || references > 0)
     lib_take_from_object_backend (game, associate);
   else if (lib_take_from_unseen (game, associate))
@@ -8925,6 +9124,147 @@ scr_bool
 lib_cmd_take_from_multiple (scr_gameref_t game)
 {
   return lib_take_from_multiple_common (game, FALSE);
+}
+
+
+/*
+ * lib_take_from_line_has_and()
+ *
+ * TRUE if the line joins two clauses with "and".  The two Runners disagree
+ * about which of them names the container -- run390 takes the LAST (`get all
+ * from box and stone` is "You can't take anything from the stone!" and `get
+ * all from stone and box` reaches the box), run400 the FIRST (the same two
+ * lines are "You take the coin from the box." and "You can't take anything
+ * from the stone.") -- and run390 then collects nothing from whichever it
+ * picked, because any "and" on the line sets its var_CC to 2 and the take
+ * loop never runs (`get all from stone and box` with the coin in the box is
+ * "There is nothing inside the box.", p39DARK Adrift_973, 2026-09-10).  None
+ * of that is ported yet, so the catch-alls below stand aside for it rather
+ * than answer a line they would get wrong.
+ */
+static scr_bool
+lib_take_from_line_has_and (scr_gameref_t game)
+{
+  const scr_char *input, *found;
+
+  (void) game;
+  input = run_get_dispatch_input ();
+  if (!input)
+    return FALSE;
+
+  for (found = input; (found = strstr (found, "and")); found += 3)
+    {
+      if ((found == input || found[-1] == ' ') && found[3] == ' ')
+        return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
+ * lib_cmd_take_from_nowhere_all()
+ * lib_cmd_take_from_nowhere()
+ *
+ * "take from" where nothing the player can reach answers to the noun after
+ * "from".  Both Runners have a dedicated answer for it, and neither is the
+ * take handler's "Take what?" that scarier reached instead.
+ *
+ * 4.0 has one answer for every form of the command, all-form and named-form
+ * alike: "I don't understand where you want to get things from." (run400
+ * mdlSpreadTheLoad loc_472F1F-472F35, printed once both resolver passes have
+ * failed to find a container).  Measured on p4TFROM against run400,
+ * `get all from zzzz`, `take all from zzzz`, `pick all from zzzz`, `get stone
+ * from zzzz`, `get coin from zzzz`, `empty zzzz`, `remove coin from zzzz`,
+ * `get all from me`, `get lamp from me` and `empty me` all answer it
+ * (Adrift_971/972, 2026-09-10).  "me" is not a container to 4.0, so it lands
+ * here too.
+ *
+ * Pre-4.0 splits the two forms.  The all-form is the fall-through of run390's
+ * `If var_8C >= 0` at loc_463176, "You can't get anything from that." at
+ * loc_463E77 (run380 loc_4474AB and run370 loc_43B0BE hold the same literal;
+ * no run400 does).  run390 answers `get all from zzzz`, `take all from zzzz`,
+ * `pick all from zzzz`, `get all from me` and -- the reason a resolvable
+ * object is not enough -- `get all from box` typed in the room the box is not
+ * in, all with that one line (p39DARK/p39DARK lit-room control, Adrift_969/970).
+ *
+ * The named form is the arm at loc_462FD2, and 3.9 splits it three ways on
+ * where the named object is:
+ *
+ *   named nothing reachable  `get stone from zzzz`   You can't do that!
+ *   in or on something       `remove coin from zzzz` Get the coin from what?
+ *   held, or loose in a room `get coin from zzzz`    The coin isn't in or on anything!
+ *
+ * (Adrift_969/970/973, the second and third turns run with the coin first
+ * inside the box and then in hand.)  Both of the last two literals are 3.9
+ * only -- " from what?" and "isn't in or on anything" are in no other Runner
+ * -- and run380 loc_446B1D/run370 loc_439C1F show the whole arm collapsed to
+ * "You can't do that!" there, so that is what 3.7 and 3.8 print for all three.
+ *
+ * The "Get X from what?" turn also arms a pending slot in run390 that a later
+ * bare line re-prompts from (`empty me`, two turns on, answers "Get the coin
+ * from what?" again); that slot is not ported.
+ */
+static const scr_char *const LIB_TAKE_FROM_NOWHERE_400 =
+    "I don't understand where you want to get things from.\n";
+
+scr_bool
+lib_cmd_take_from_nowhere_all (scr_gameref_t game)
+{
+  /* Pre-4.0 has no "empty" verb; see lib_take_from_empty_verb(). */
+  if (lib_take_from_empty_verb (game) || lib_take_from_line_has_and (game))
+    return FALSE;
+
+  if (lib_is_version_400 (game))
+    return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
+
+  return lib_print_response_message (game,
+                                     "You can't get anything from that.\n",
+                                     "I can't get anything from that.\n",
+                                     "%player% can't get anything from that.\n");
+}
+
+scr_bool
+lib_cmd_take_from_nowhere (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_var_setref_t vars = gs_get_vars (game);
+  std::string named;
+  scr_int object;
+  scr_bool is_ambiguous;
+
+  /* Pre-4.0 has no "empty" verb; see lib_take_from_empty_verb(). */
+  if (lib_take_from_empty_verb (game) || lib_take_from_line_has_and (game))
+    return FALSE;
+
+  if (lib_is_version_400 (game))
+    return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
+
+  /* 3.7 and 3.8 have the one answer for every shape of the arm. */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return lib_take_from_no_name (game);
+
+  /* Take a copy; the match below rewrites the referenced text. */
+  named = var_get_ref_text (vars);
+  if (!uip_match ("%object%", named.c_str (), game))
+    return lib_take_from_no_name (game);
+
+  object = lib_disambiguate_object (game, "take", &is_ambiguous);
+  if (object == -1)
+    return is_ambiguous ? TRUE : lib_take_from_no_name (game);
+
+  if (gs_object_position (game, object) == OBJ_IN_OBJECT
+      || gs_object_position (game, object) == OBJ_ON_OBJECT)
+    {
+      pf_buffer_string (filter, "Get ");
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter, " from what?\n");
+      return TRUE;
+    }
+
+  pf_new_sentence (filter);
+  lib_print_object_np (game, object);
+  pf_buffer_string (filter, " isn't in or on anything!\n");
+  return TRUE;
 }
 
 

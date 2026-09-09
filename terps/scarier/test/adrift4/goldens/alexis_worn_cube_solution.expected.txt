@@ -689,7 +689,7 @@ You can't open that.
 You can't see that very clearly.
 
 > get all from chest
-Take what?
+You can't get anything from that.
 
 > wear longmore chest plate
 Wear what?

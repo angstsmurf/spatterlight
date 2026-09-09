@@ -6413,21 +6413,172 @@ re-blessed and `alexis_worn_cube_solution.txt` re-derived; the walkthrough
 work and the lantern machinery are written up in the row comment in
 `harness/run_v4_walkthroughs.sh`.
 
-### Still open: the take handler's own answer
+## Ported 2026-09-10: the take-from handler's own answers
 
-Item 2 of "Still open on this row" is untouched and is the next lead.
-`Adrift_969.txt` (probe 3, run390, **lit** room) sharpens it: the divergences
-are not darkness at all.
+The lead this section replaces -- "Still open: the take handler's own
+answer", which was item 2 of the ALEXIS row's "Still open on this row" and
+which `Adrift_969.txt` sharpened into four bullets -- is now measured on both
+arms and ported.  All four of its bullets were real, and all four are fixed:
 
-* `get all from <absent noun>` -> `You can't get anything from that.`
-  (Scarier: `Take what?`)
-* `get all from torch` (not a container) -> `You can't take anything from the
-  torch!` -- an exclamation mark where Scarier writes a full stop.
-* `get stone from <absent noun>` -> `You can't do that!`
-* `empty torch` is **not** a take-all-from synonym in run390, though Scarier
-  lists `empty` in `PRIORITY_COMMANDS`.
+| typed | run390 | run400 | Scarier before | Scarier now |
+|---|---|---|---|---|
+| `get all from <absent>` | `You can't get anything from that.` | `I don't understand where you want to get things from.` | `Take what?` | matches both |
+| `get all from torch` (not a container) | `You can't take anything from the torch!` | `You can't take anything from the torch.` | full stop on both | matches both |
+| `get stone from <absent>` | `You can't do that!` | `I don't understand where you want to get things from.` | `Take what?` | matches both |
+| `empty torch` | `I don't understand what you want me to do with the torch.` | `You can't take anything from the torch.` | take-all-from on both | matches both |
 
-The literal is at `loc_463E77`, the else of a `var_CC > 0` test (`var_CC` set
-at `463333`/`463351`/`46336F`: 0 = plain, 1 = the line contains "all", 2 = it
-contains "and"), present in run370/380/390 and absent from run400.  The exact
-enclosing gate is still open.
+`empty` really is a 4.0-only synonym for take-all-from.  Pre-4.0 has no
+`empty` verb at all, so the word falls through the whole library to the
+unhandled-verb scorer -- which is why run390 answers `empty stone` with `I
+don't understand what you want me to do with the stone.` and `empty zzzz`
+with the bare `I don't understand.`  Scarier listed `empty` in
+`PRIORITY_COMMANDS`, above the game's own tasks, on every version.
+
+### The evidence
+
+Seven Runner transcripts, three cmdfiles crossed against run390 and run400,
+plus one lit-room control:
+
+* `Adrift_969.txt` -- run390, lit control for the four bullets (10 rows).
+* `Adrift_970.txt` / `Adrift_971.txt` -- feed 1 (the systematic verb/target
+  grid: every synonym, `me`, `zzzz`, closed, empty, non-container) on run390
+  and run400.
+* `Adrift_972.txt` / `Adrift_973.txt` -- feed 2 (the same grid re-run against
+  a box that actually holds a coin, plus the "and" clauses and `empty me`).
+* `Adrift_974.txt` / `Adrift_975.txt` -- feed 3 (`get coin and stone from box`
+  and `get stone and coin from box`, both orders, both arms).
+
+The probe games are `p39DARK.taf` (3.90) and `p4TFROM.taf`, a native 4.00
+build -- `p39DARK.taf` loaded into run400 raises the modal `Incorrect
+version`, so the 4.0 arm needed its own file.  `harness/make_400_takefromprobe.py`
+writes it.  Both probes carry a `probe` task printing `PROBE OK.` as the
+first and last turn, so a dropped or shifted command is visible in the
+transcript rather than silently mis-attributing an answer.
+
+Against those transcripts the headless `harness/scare` now matches every row
+of `Adrift_969` (all 10), every row of `Adrift_970`, `Adrift_971` and
+`Adrift_974` except the deferred "and" family, and every row of `Adrift_972`,
+`Adrift_973` and `Adrift_975` except the "and" family and its downstream state.
+
+### The 3.9 decision procedure, resolved
+
+The lead said "the exact enclosing gate is still open".  It is `insides()`,
+and it is this (run390 `loc_462FD2` sets up, `loc_463176` branches,
+`loc_463E77` is the literal the lead had already found):
+
+1. `named` (`var_8E`) = the object named **before** "from", if it is present
+   and reachable, else -1.
+2. `container` (`var_8C`) = the object matching **after** "from" -- the LAST
+   match by position on the line.
+3. `count` (`var_8A`) = how many `co()` matches the line has at all.
+4. If `(count < 2 || named == -1)` **and** the line does not contain "all":
+   3.9 derives the parent -- `Get <the X> from what?` when the named object is
+   in or on something, `<The X> isn't in or on anything!` when it is not, and
+   `You can't do that!` when `named == -1`.  3.7 and 3.8 have no
+   parent-derivation arm and answer `You can't do that!` outright.
+5. Otherwise the container decides: -1 -> `You can't get anything from
+   that.`; closed -> `You can't get anything from <the X> as it is closed!`;
+   neither container nor surface -> `You can't take anything from <the X>!`.
+
+`obj_indirectly_in_room` returning FALSE for an object inside a *closed*
+container is what makes step 4's `named == -1` arm reachable in Scarier at
+all -- `get coin from box` with the box closed takes the `You can't do that!`
+exit, not the closed-container one, exactly as run390 does
+(`Adrift_973.txt:38`).
+
+4.0 (`loc_472F1F`) is a different shape: container unresolved -- including
+`me` -- answers `I don't understand where you want to get things from.`;
+not a container or surface -> `You can't take anything from <the X>.`;
+closed -> `<The X> is closed.`; **empty -> `There is nothing inside <the X>.`,
+tested before membership**, which is why 4.0 says that rather than naming the
+object that is not inside; then the take runs, names that are not inside are
+dropped without a word, and a line that matched nothing ends at `Take what?`.
+
+### The string census
+
+`adrift-runner-string-census` over all four exes, which is what pins each
+literal to its versions:
+
+| literal | 370 | 380 | 390 | 400 |
+|---|---|---|---|---|
+| `can't get anything from that` | yes | yes | yes | -- |
+| `as it is closed!` | yes | yes | yes | -- |
+| `can't take anything from ` | -- | yes | yes | yes |
+| `isn't in or on anything` | -- | -- | yes | -- |
+| ` from what?` | -- | -- | yes | -- |
+| `I don't understand where you want to get things from.` | -- | -- | -- | yes |
+
+There is no "is not inside" literal in any exe; that sentence is composed a
+word at a time (run390 `loc_4636D0`-`loc_46378A`), which is why it ends in an
+exclamation mark and why 4.0, which does not compose it, never prints it.
+
+### What it cost
+
+`sclibrar.cpp` gained `lib_take_from_has_contents()`,
+`lib_take_from_empty_verb()`, `lib_take_from_no_name()`,
+`lib_take_from_line_has_and()`, and the two new catch-all handlers
+`lib_cmd_take_from_nowhere_all()` / `lib_cmd_take_from_nowhere()`;
+`lib_take_from_is_valid()` and `lib_take_from_multiple_common()` were split by
+version, the take backend's "is not in" clause was gated to pre-4.0 and
+reworded, and `lib_parse_next_object()` learned that "from" is never filler.
+
+`scrunner.cpp` gained `STANDARD_TAKE_FROM_COMMANDS`, run from inside
+`run_standard_verb_commands()` immediately after the move commands.  It must
+**not** live in `PRIORITY_COMMANDS`: priority runs before the game's own
+tasks, so a catch-all there steals task lines.  It must run above
+`STANDARD_COMMANDS` so that `remove coin from zzzz` is not claimed by
+`lib_cmd_remove_multiple` -- which is also run390's own order, where
+`insides()` answers before the undress verb.
+
+Suite: **428 PASS / 0 FAIL**, with four goldens re-blessed, one line each, all
+four confirmed against a Runner transcript of the same turn in the same state:
+
+* `alexis_solution.expected.txt:684` -- `Take what?` -> `You can't get
+  anything from that.` (`Adrift_485_alexis.txt:362`).
+* `alexis_worn_cube_solution.expected.txt:692` -- same
+  (`Adrift_486_alexis_worn_cube.txt:495`).
+* `volant_solution.expected.txt:170` -- `You either can't have it, or don't
+  need it at this moment.` -> `I don't understand where you want to get things
+  from.` (`Adrift_256_volant.txt:129`).
+* `alchemist_solution.expected.txt:1930` -- `Take what?` -> `I can't do that!`
+  (`Adrift_894_alchemist.txt:1030`; first person, hence "I").
+
+ADRIFT 5 suite at baseline (MATCH=180, DIVERGE=17, all `(=N)`; NOSCRIPT=2).
+`scproj_regress.sh` PASS.  Corpus sweep over 278 rows: **6279 -> 6271**
+differing turns -- three rows moved, all improving: `alexis` 113 -> 112,
+`alexis_worn_cube` 11 -> 5, `alchemist` 158 -> 157.  Nothing regressed.
+
+(The 6058 figure in the darkness section above came from an older sweep
+configuration; the true pre-change baseline measured today, by stashing these
+changes and rebuilding, is 6279.)
+
+### Still open on the take-from row
+
+* **The "and" clause picks a different container on each arm.**  3.9 takes
+  the LAST clause, 4.0 the FIRST: `get all from box and stone` is `You can't
+  take anything from the stone!` on run390 (`Adrift_973.txt:26`) but `You take
+  the coin from the box.` on run400 (`Adrift_972.txt:19`), and `get all from
+  stone and box` is the mirror image.  Scarier currently answers as if there
+  were one clause.
+* **The 3.9 "and" collection bug.**  With `var_CC == 2` (the line contains
+  "and") 3.9 collects nothing at all, so `get coin and stone from box` answers
+  `There is nothing inside the box.` even with the coin inside
+  (`Adrift_975.txt:17`), where 4.0 correctly takes the coin
+  (`Adrift_974.txt:13`).  Both orders, so it is not clause selection.
+* **The 3.9 pending slot behind `Get X from what?`.**  After `remove coin from
+  zzzz` answers `Get the coin from what?`, the *next* line inherits the coin:
+  `empty me` then answers `Get the coin from what?` again
+  (`Adrift_973.txt:77-80`).  Scarier has no such slot.
+* **3.70's arm for `get all from <non-container>`.**  `can't take anything
+  from ` does not exist in run370 at all, so 3.7 must answer something else
+  and it has not been measured.
+* **The 3.9 parent-derivation arm** (step 4 above) is ported only for the
+  `named == -1` and in/on cases actually exercised by the probes; the
+  surface-vs-container wording of `Get <the X> from what?` for an object on a
+  supporter is unmeasured.
+* **`pick all from <npc>` pre-4.0** is unmeasured.
+* **New, found while measuring this:** `put coin in box` when the coin is
+  already inside the box answers `You can't do that!` on run390
+  (`Adrift_973.txt:16-17`, `Adrift_975.txt:19-20`) where Scarier writes `I
+  don't understand.`  This is the put handler, not take-from, and is the
+  natural next lead.

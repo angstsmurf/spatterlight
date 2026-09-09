@@ -289,6 +289,13 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 # Trimming further does NOT work: dropping the Forecarn sword trip as well
 # shifts the combat rolls and the run finishes 23/65.  alexis_solution.txt
 # still wins unchanged under SCR_SEED=3 (55/65) and only needed blessing.
+# Both rows re-blessed again 2026-09-10, one line each, for the take-from port
+# (see notes/WINE-TRANSCRIPTS-TODO.md, "Ported 2026-09-10: the take-from
+# handler's own answers").  `get all from chest` -- the chest is a "longmore
+# chest plate" that is nowhere near -- is run390's "You can't get anything from
+# that.", which the old goldens carried as the take catch-all's "Take what?".
+# The Runner's own replay of both rows says so directly: Adrift_485_alexis.txt
+# lines 362 and 487, and Adrift_486_alexis_worn_cube.txt lines 495 and 680.
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=3
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=2
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_46_topaz.txt,
@@ -6727,6 +6734,13 @@ trickortreat_solution.txt|Trick or Treat.taf|You flee to freedom.|SCR_SKIP_WAITK
 # visited, so with the faithful seen seed they are unseen and the line falls to the
 # game's DontUnderstand "That isn't of any concern to you at the moment." -- run400
 # Adrift_256 lines 125-126.
+# Re-blessed 2026-09-10, one line, for the take-from port (see
+# notes/WINE-TRANSCRIPTS-TODO.md, "Ported 2026-09-10: the take-from handler's
+# own answers").  `get all from racks` names a rack the room does not have, and
+# run400 answers "I don't understand where you want to get things from." --
+# Adrift_256_volant.txt line 129, the same turn in the same state, where the
+# old golden carried the game task's "You either can't have it, or don't need
+# it at this moment."
 volant_solution.txt|volant.taf|You have won! Good for you!|
 # Dear Diary.taf by Wotan-Anubis (AIF): a 3.90 coming-out romance -- dump
 # Erik, fall for his sister Erin, win her over across a swim/dinner/movie
@@ -7690,6 +7704,13 @@ datewithdeath_solution.txt|datewithdeath.taf|And you have a whole life ahead of 
 # 3rd trip's lake-cluster rooms, so retrieving it would need a full new
 # scripted horse-trip departure not otherwise required for the win).
 # 518 commands, zero unmatched/refusal lines in the full transcript.
+# Re-blessed 2026-09-10, one line, for the take-from port (see
+# notes/WINE-TRANSCRIPTS-TODO.md, "Ported 2026-09-10: the take-from handler's
+# own answers").  `get jewels from sack` names nothing the player can reach --
+# the sack's contents have not been revealed -- and 3.9 answers that before it
+# ever looks at the sack: "I can't do that!", Adrift_894_alchemist.txt line
+# 1030 (first person, hence "I").  The old golden had the catch-all's "Take
+# what?".
 alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # ONNAFA.TAF (David Whyld). Full win: retrieve the dragon egg (flushed down
 # the privy as backstory) and hand it back to the dragon at the castle

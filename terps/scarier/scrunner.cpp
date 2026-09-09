@@ -938,6 +938,25 @@ static scr_commands_t STANDARD_COMMANDS[] = {
  * what?" (Adrift_486_alexis_worn_cube.txt).  Hence a table of its own, run at
  * the end of run_standard_verb_commands().
  */
+/*
+ * run390's insides() -- the whole "take X from Y" handler -- answers before
+ * the undress verb and before the generic catch-alls, so its two "nothing
+ * answers to the noun after from" replies need a table above STANDARD_
+ * COMMANDS rather than a row inside it: `remove coin from zzzz` is run390's
+ * "Get the coin from what?" and run400's "I don't understand where you want
+ * to get things from.", never scarier's "You are not wearing the coin!"
+ * (p39DARK/p4TFROM, Adrift_972/973, 2026-09-10).  Both rows end in a wildcard
+ * because the container slot resolved nothing; the %object% rows for the same
+ * shapes are up in PRIORITY_COMMANDS and have already declined by here.  See
+ * lib_cmd_take_from_nowhere().
+ */
+static scr_commands_t STANDARD_TAKE_FROM_COMMANDS[] = {
+  {"[[get/take/remove/extract/pick] [all/everything] from/empty] *",
+   lib_cmd_take_from_nowhere_all},
+  {"[get/take/remove/extract/pick] %text% from *", lib_cmd_take_from_nowhere},
+  {NULL, NULL}
+};
+
 static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
   /*
    * The 4.0 named take for a noun that names only objects the player has
@@ -1717,6 +1736,10 @@ run_standard_verb_commands (scr_gameref_t game, const scr_char *string)
    * handler succeeded.  Then repeat for standard library commands.
    */
   if (run_try_command_table (run_move_commands (bundle), game, string))
+    return TRUE;
+
+  /* The take-from catch-alls; see STANDARD_TAKE_FROM_COMMANDS. */
+  if (run_try_command_table (STANDARD_TAKE_FROM_COMMANDS, game, string))
     return TRUE;
 
   if (run_try_command_table (STANDARD_COMMANDS, game, string))

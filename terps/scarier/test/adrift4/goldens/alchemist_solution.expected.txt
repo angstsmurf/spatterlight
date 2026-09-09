@@ -1927,7 +1927,7 @@ There is a small crevice in the wall.  A sack is inside the crevice.
 I take a sack from the crevice.
 
 > get jewels from sack
-Take what?
+I can't do that!
 
 > out
 I walk out.
