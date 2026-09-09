@@ -5916,6 +5916,127 @@ first, **`Who?`**, is ported in the next section (it was 94 of them, leaving
   what?`, `You can't turn that.`).  Roughly ten turns here, and the same
   answers show up on other dark rows.
 
+  **They are three different things, not one, and only the first two are
+  darkness at all.**  Taken apart 2026-09-09:
+
+  1. `You can't see that very clearly.` **is** darkness.  run390's
+     `examines()` (listed `'44C488`, body from `loc_44B758`) computes its dark
+     flag `var_BC` inline at `loc_44B888`-`loc_44BA5A`, and it is exactly the
+     predicate Scarier already evaluates for a converted room alternate: the
+     player room's `HideObjects = 1` (offset 102) **and** its object condition
+     (`Obj` at 100, type at 104) in force, with the six condition types 0..5
+     being isn't/is holding, isn't/is wearing, isn't/is in the same room --
+     `ns(Obj).global_22` against 0, `&H9C` (worn) and `playerroom`.  So
+     "dark" == `lib_use_room_alt()` says the object-condition alt applies AND
+     that alt hides the objects.  `loc_44BC3D` prints
+     `person(0) & " can't see " & <definite name> & " very clearly."` and the
+     description tail at `loc_44BFDE`/`loc_44C3F6`/`loc_44C477` confirms the
+     polarity (`var_BC = 1` is dark in both places).
+     **run400 dropped the model**: its `examines()`
+     (`Proc_19_87_471F94`, mdlSpreadTheLoad.bas 43804-44857) never assigns its
+     `var_AC` anywhere in the file -- it is only pushed at `loc_471569` and
+     `loc_471A6F` -- so the `" very clearly."` arms are dead code.  Gate any
+     port `>= 3.90` and `< 4.00`.  Two turns on this row (t65 `x large stone
+     table`, t71 `x holes in the wall`).  **Not yet ported.**
+  2. `You can't get anything from that.` is the **take handler's**, not
+     darkness: every divergent turn is `get all from <container>`, and the
+     message sits at `loc_463E77`, the else of a `var_CC > 0` test inside the
+     take code (`var_CC` set at 463333/463351/46336F: 0 = plain, 1 = the line
+     contains "all", 2 = it contains "and").  The literal is in run370/380/390
+     and **absent from run400**.  Six turns (t66, t72, t110, t150, t202,
+     t209).  **Not yet ported** -- the exact enclosing gate is still open.
+  3. `You can't do that here!` was **not a missing rule at all**: it is the
+     existing out-of-room task refusal, and Scarier was simply running it too
+     late.  Fixed 2026-09-09, see the next section.
+
+## Ported 2026-09-09: the room refusal runs INSIDE the library, not after it
+
+`run_task_refusal()`'s header used to say the room half runs *after*
+`run_standard_commands()`, guarded by the Runner's own "did anything print?"
+test.  The guard is real; the position was wrong.  run390's `generaltasks()`
+(`Public Sub generaltasks '460D6C`, body from `loc_45EC34`) clears the flag at
+`45EC7C`, sets it in `checktask` (`loc_45B681`, the `running = 1 And msg = ""`
+arm that scans the task's 0..&H18 command alternatives for a `*`), runs its
+named per-verb handlers, and then:
+
+```
+loc_45FFE8:  If msg = "" And MemVar_468228 = 1 Then
+                 msg = person(0) & " can't do that here!"
+loc_460004:  If msg = "" Then Call therest()
+```
+
+`therest()` (`'45EB9C`) is the generic catch-all bucket -- `" can't " & verb &
+" that."` at `loc_45D4BE`, `Give what?` at `loc_45D70B`, `" is for sale."` at
+`loc_45E699`, `say`'s "Uh huh, yes, very interesting.".  All of it loses to the
+refusal, because the flag is tested one line above the call.  Scarier's
+analogue of `therest()` is `STANDARD_FALLBACK_COMMANDS`, so the room pass now
+sits **between** the `STANDARD_COMMANDS` passes and the fallback pass:
+`run_standard_commands()` is split into `run_standard_verb_commands()` and
+`run_standard_fallback_commands()`, and a new `REFUSAL_PASS_MID` (room half
+only, and it skips the done half entirely so an earlier done-refused task
+cannot hide a later out-of-room one from the "last one wins" rule) runs in the
+gap.
+
+Eight turns of `alexis_worn_cube`: `turn ring`, `buy metal helmet`, `open
+cupboard` x1, `open door` x2, `unlock door`, `give stones to larnt`, `say the
+password` -- Scarier had been answering `You can't turn that.`, `I don't think
+that is for sale.`, `You can't open that.`, `You can't unlock that.`, `Give
+what?` and `Uh huh, yes, very interesting.`
+
+### Two things do NOT move with it
+
+**Take.** run390's take code is a named handler above `loc_45FFE8`, with its
+own `Take what?` and its own `You can't get anything from that.`.  Putting the
+`[get/take/pick up/pick]` rows below the refusal cost seven turns on this row
+alone (`take pot`, `take jacket`, `take coins`, `take ornate key`, `take
+longmore stone`, `take kedarn stone`, `take nelone stone`, all `Take what?` in
+the Runner).  They are now `STANDARD_ABOVE_REFUSAL_COMMANDS`, run at the end of
+`run_standard_verb_commands()` -- same relative order as before, just ahead of
+the refusal.
+
+**The character catch-all.**  It reads as though it should move: `characters()`
+carries the three-arm tail and generaltasks calls it.  It does not.  Both
+`Call characters()` sites in generaltasks (`45FD08`, inside the `Time
+passes...` wait loop, and `460675`) are the turn-advance pair `characters() :
+events()`, and the second is **below** `Call therest()` at `460004`.  Measured
+from two sides: `the_hangover` (3.90) t55 `give approval notes to platypus`
+answers `You can't do that here!` and not `Platypus is not here!`
+(`Adrift_71_the_hangover.txt`); and moving the row above the refusal cost
+`goldilocks` and `yak_shaving` (both 4.00) their `give X to Y` -> `Give
+what?`.  The object catch-all is below the refusal too (`45D35C` inside
+`therest()`, `46024A` in generaltasks' own tail), which is where it already
+sat.
+
+### Result
+
+Whole-corpus sweep, 427 rows: **6068 -> 6058 differing turns, no row worse**.
+`alexis_worn_cube` 21 -> 13, `the_hangover` 4 -> 3, `diarystrip` 1 -> 0.
+Four goldens re-blessed, each a single line: `the_hangover` and `journ2`
+(`Give what?` -> the refusal), `panic` (`I don't understand what you want to
+do with the eyes.` -> the refusal), `diarystrip` (`You can't drink that.` ->
+`I'm afraid that's not possible at the moment.`, the game's own ALR for `You
+can't do that here!` -- and that row's Runner transcript agrees, 1 -> 0).
+
+### Still open, from the same measurement
+
+* **`give <x> to <y>` is in `characters()` too**, so it is below the refusal.
+  run390 prints `" doesn't seem interested in "` at `loc_45A16F`, inside
+  `characters()`'s body -- yet Scarier answers it from `STANDARD_COMMANDS` row
+  `give %object% to %character%`, above the refusal.  `the_hangover` t42 `give
+  the doctor some french fries` is the live case: Runner `You can't do that
+  here!`, Scarier `Doctor doesn't seem interested in the french fries.`  The
+  whole of `characters()` may belong below the refusal for pre-4.0; that is a
+  bigger move than this one and wants its own measurement.
+* **`Please be more clear, who do you want to <verb>?` is in no Runner at
+  all.**  String census over run370/380/390/400: neither the whole line nor
+  any fragment of it (`be more clear`, `who do you want to`, `Please be`) is a
+  UTF-16 literal in any of the four exes, and it is not composed at runtime
+  the way `" can't " & verb & " that."` is.  It is a SCARE invention.
+  `alexis_worn_cube` t79 `give food to tarin` is the measured case -- run390
+  answers `You can't do that here!`.  The `what do you want to` twin at
+  sclibrar.cpp:4969 already carries a note that 4.0 asks its own question
+  instead; the `who` twin has no such cover.
+
 ## Ported 2026-09-08: the character catch-all's other two arms, and the alias half of the reference test
 
 `characters()` ends, in every Runner from 3.90 on, with a three-arm tail that

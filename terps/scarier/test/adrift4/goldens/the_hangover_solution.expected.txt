@@ -385,7 +385,7 @@ desk.  Except this time, the platypus is here. He seems happy. You give
 approval notes to platypus.  Walter is here.
 
 > give approval notes to platypus
-Give what?
+You can't do that here!
 
 > score
 Your score is 5 out of a maximum of 7.  (71%)

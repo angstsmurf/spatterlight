@@ -921,14 +921,35 @@ static scr_commands_t STANDARD_COMMANDS[] = {
  * (man_overboard, 4.00, run400 transcript line 170) rather than fall to
  * lib_cmd_examine_other.
  */
-static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
+/*
+ * Two catch-alls that are not part of the bucket below, even though they look
+ * like catch-alls of the same kind.  Both belong to named handlers that
+ * run390's generaltasks() calls ABOVE the out-of-room task refusal at
+ * loc_45FFE8, so both outrank "You can't do that here!" where the therest()
+ * catch-alls lose to it.
+ *
+ * Take is the first.  In run390 the take code is a dedicated handler with its
+ * own "Take what?" and its own "You can't get anything from that.", not
+ * therest()'s.  ALEXIS.TAF under
+ * run390 measures the difference: `take pot`, `take jacket`, `take coins`,
+ * `take ornate key` and four more all answer "Take what?" on turns where a
+ * task matching the line exists in another room and `give stones to larnt` on
+ * the same row answers "You can't do that here!" instead of therest()'s "Give
+ * what?" (Adrift_486_alexis_worn_cube.txt).  Hence a table of its own, run at
+ * the end of run_standard_verb_commands().
+ */
+static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
   /*
    * The 4.0 named take for a noun that names only objects the player has
    * seen elsewhere; it declines to anything else, leaving "Take what?" to
-   * the catch-all below.  See lib_cmd_take_absent().
+   * the catch-all below it.  See lib_cmd_take_absent().
    */
   {"[get/take/pick up/pick] %object%", lib_cmd_take_absent},
   {"[get/take/pick up/pick] *", lib_cmd_get_what},
+  {NULL, NULL}
+};
+
+static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   /*
    * The two 4.0-only absent-object rows sit directly above the catch-alls
    * they pre-empt, because the Runner's clause fires only when nothing
@@ -1680,8 +1701,14 @@ run_movement_succeeds (scr_gameref_t game, const scr_char *string)
 }
 
 
+/*
+ * The dedicated verb handlers: everything run390's generaltasks() calls by
+ * name, above the out-of-room task refusal at loc_45FFE8.  Split from the
+ * fallback bucket below because the refusal goes between the two; see the
+ * ordering note on run_task_refusal().
+ */
 static scr_bool
-run_standard_commands (scr_gameref_t game, const scr_char *string)
+run_standard_verb_commands (scr_gameref_t game, const scr_char *string)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
@@ -1710,6 +1737,19 @@ run_standard_commands (scr_gameref_t game, const scr_char *string)
   if (contained)
     return TRUE;
 
+  /* run390's take handler, still above the refusal; see STANDARD_ABOVE_REFUSAL_COMMANDS. */
+  uip_set_containment (TRUE);
+  const scr_bool taken =
+      run_try_command_table (STANDARD_ABOVE_REFUSAL_COMMANDS, game, string);
+  uip_set_containment (FALSE);
+  return taken;
+}
+
+
+/* run390's therest(): the generic catch-alls, below the refusal. */
+static scr_bool
+run_standard_fallback_commands (scr_gameref_t game, const scr_char *string)
+{
   /*
    * The fallback verbs resolve their noun the Runner's way too: generaltasks
    * (Proc_19_85_489F4C) runs co() once, up front, and every generic verb
@@ -1724,7 +1764,17 @@ run_standard_commands (scr_gameref_t game, const scr_char *string)
   const scr_bool fallback =
       run_try_command_table (STANDARD_FALLBACK_COMMANDS, game, string);
   uip_set_containment (FALSE);
-  if (fallback)
+  return fallback;
+}
+
+
+static scr_bool
+run_standard_commands (scr_gameref_t game, const scr_char *string)
+{
+  if (run_standard_verb_commands (game, string))
+    return TRUE;
+
+  if (run_standard_fallback_commands (game, string))
     return TRUE;
 
   /* Nothing matched the string.  Or if it did, its handler failed. */
@@ -3347,15 +3397,17 @@ run_input_is_movement (scr_gameref_t game, const scr_char *string)
 enum { REFUSAL_NONE = 0, REFUSAL_ROOM, REFUSAL_DONE };
 
 /*
- * Which of the three calls a scan is: the pass ahead of the standard library
- * (which answers the already-done half), the pass after it (the room half),
- * and a silent look-ahead that only reports whether the pre-library pass has
- * something to say.  run_all_commands() needs the answer before it runs the
- * priority commands, because 4.0's RepeatText outranks those as well.
+ * Which of the four calls a scan is: the pass ahead of the standard library
+ * (which answers the already-done half), the pass INSIDE it that answers the
+ * room half, the pass after all of it, and a silent look-ahead that only
+ * reports whether the pre-library pass has something to say.
+ * run_all_commands() needs that last answer before it runs the priority
+ * commands, because 4.0's RepeatText outranks those as well.
  */
 enum run_refusal_pass_t
 {
   REFUSAL_PASS_PRE = 0,
+  REFUSAL_PASS_MID,
   REFUSAL_PASS_POST,
   REFUSAL_PASS_PROBE
 };
@@ -3373,12 +3425,57 @@ enum run_refusal_pass_t
  * message during the task scan, while the room half only raises a flag that
  * `OUT = "" And FLAG = 1` later discards if anything else printed.
  *
- * So the done half runs BEFORE run_standard_commands() and the room half after
- * it, and `done_only` selects which.  The scan itself is identical in both
- * passes, because the room half still has to be tested first WITHIN a pass --
- * probe task "theta" is done AND out of its room and run390 answers the room
- * refusal.  The pre-library pass simply declines to emit a room refusal and
- * leaves it to the post-library one.
+ * So the done half runs BEFORE run_standard_commands() and the room half
+ * later, and `done_only` / `room_only` select which.  The scan itself is
+ * identical in every pass, because the room half still has to be tested first
+ * WITHIN a pass -- probe task "theta" is done AND out of its room and run390
+ * answers the room refusal.  The pre-library pass simply declines to emit a
+ * room refusal and leaves it to the ones below.
+ *
+ * How much later the room half runs is measured, and it is NOT after the whole
+ * library.  run390's generaltasks() (Public Sub generaltasks '460D6C, body from
+ * loc_45EC34) clears the flag at 45EC7C, runs its() then tasks() (which is what
+ * sets the flag, in checktask at loc_45B681), then its named per-verb handlers
+ * -- wears() removes() dobattle() dohints() sitstand() openclose() viewroom()
+ * the take code, adventure_Click(), whereis(), fonts(), gotoplace() -- and only
+ * THEN reaches
+ *
+ *     loc_45FFE8:  If msg = "" And MemVar_468228 = 1 Then
+ *                      msg = person(0) & " can't do that here!"
+ *     loc_460004:  If msg = "" Then Call therest()
+ *
+ * therest() is the generic catch-all bucket: "You can't <verb> that.", "Give
+ * what?", " is for sale.", the "Uh huh, yes, very interesting." of `say`.  All
+ * of those lose to the room refusal, because the flag is tested one line above
+ * the call.  Scarier's analogue of therest() is STANDARD_FALLBACK_COMMANDS, so
+ * the room pass sits between run_standard_verb_commands() and
+ * run_standard_fallback_commands(), not after both.
+ *
+ * Measured on ALEXIS.TAF under run390 (Adrift_486_alexis_worn_cube.txt): `turn
+ * ring`, `buy metal helmet`, `open cupboard`, `open door`, `unlock door`, `give
+ * stones to larnt` and `say the password` are all answered "You can't do that
+ * here!" where Scarier reached "You can't turn that.", "I don't think that is
+ * for sale.", "You can't open that.", "You can't unlock that." and "Uh huh,
+ * yes, very interesting." -- eight turns on that row alone, every one of them a
+ * STANDARD_FALLBACK_COMMANDS row.  The handlers that run ABOVE loc_45FFE8 keep
+ * their answers, which is why the post-library pass has to stay: `put water in
+ * pan` on the same row is run390's "You can't do that!" from a handler, not the
+ * room refusal.
+ *
+ * What is NOT above the flag test, contrary to how generaltasks reads at a
+ * glance, is the character catch-all.  Both `Call characters()` sites in
+ * generaltasks (45FD08 and 460675) are the turn-advance pair `characters() :
+ * events()` -- the NPC walk and the event tick -- and the second of them is
+ * BELOW `Call therest()` at 460004; the "I don't understand what you want to
+ * do with <Name>." / "<Name> is not here!" / "Who?" tail rides along there.
+ * The object catch-all is below it too (45D35C inside therest(), 46024A in
+ * generaltasks' own tail).  So both stay at the foot of the fallback table,
+ * and the golden that pins it is the_hangover (3.90): `give approval notes to
+ * platypus` with the platypus elsewhere answers "You can't do that here!" and
+ * not "Platypus is not here!" (Adrift_71_the_hangover.txt t55).  Moving the
+ * character row above the refusal also cost goldilocks and yak_shaving (both
+ * 4.00) their `give X to Y` -> "Give what?", which is the same ordering seen
+ * from 4.0's side.
  *
  * 4.0 has no already-done message at all, only RepeatText, and it sits ahead
  * of the library too -- ahead of MORE of it, in fact.  Measured 2026-09-08
@@ -3392,7 +3489,9 @@ static scr_bool
 run_task_refusal (scr_gameref_t game, const scr_char *string,
                   run_refusal_pass_t pass)
 {
-  const scr_bool done_only = pass != REFUSAL_PASS_POST;
+  const scr_bool done_only =
+      pass == REFUSAL_PASS_PRE || pass == REFUSAL_PASS_PROBE;
+  const scr_bool room_only = pass == REFUSAL_PASS_MID;
 
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_filterref_t filter = gs_get_filter (game);
@@ -3483,7 +3582,14 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
        * for any given act" through a spent task whose restrictions fail, with
        * the library having declined the line first.
        */
-      if (!run_task_ran_this_command (task)
+      /*
+       * The room-half pass does not look at the done half at all: the done
+       * half breaks out of the scan where it fires, and a task refused as
+       * done further up the table would then hide a later out-of-room match
+       * from the "last one wins" rule.
+       */
+      if (!room_only
+          && !run_task_ran_this_command (task)
           && task_is_done_refused (game, task)
           && (version < TAF_VERSION_400 || !done_only
               || run_task_is_unrestricted (game, task))
@@ -3500,8 +3606,18 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
     return FALSE;
 
   /*
+   * The mid-library pass answers the room half and nothing else -- it stands
+   * where run390 tests the flag, one line above Call therest(), so it outranks
+   * the fallback verbs and nothing more.  The already-done half is not its
+   * business: the pre-library pass has already had its go at that, and the
+   * post-library pass keeps the wider fallback shape chicago.taf measured.
+   */
+  if (room_only && refusal != REFUSAL_ROOM)
+    return FALSE;
+
+  /*
    * The pre-library pass answers the already-done half and nothing else; a
-   * room refusal found here waits for the post-library pass, where the
+   * room refusal found here waits for the mid-library pass, where the
    * Runner's own "did anything print?" guard applies to it.
    */
   if (done_only)
@@ -3957,7 +4073,16 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
           status = run_task_refusal (game, string, REFUSAL_PASS_PRE);
         }
       if (!status)
-        status = run_standard_commands (game, library_string);
+        status = run_standard_verb_commands (game, library_string);
+      /*
+       * The out-of-room refusal sits INSIDE the library, one line above
+       * run390's Call therest() -- so it outranks the generic catch-alls and
+       * loses to every dedicated handler above it.
+       */
+      if (!status)
+        status = run_task_refusal (game, library_string, REFUSAL_PASS_MID);
+      if (!status)
+        status = run_standard_fallback_commands (game, library_string);
       if (!status)
         status = run_task_refusal (game, library_string, REFUSAL_PASS_POST);
     }

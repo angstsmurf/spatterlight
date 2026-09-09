@@ -342,7 +342,7 @@ out, one to the east, one to the west, and one to the south.  Each is so dark
 as to not give any clue where it leads.  The creature stands and stairs.
 
 > give cards
-Give what?
+You can't do that here!
 
 > i
 You are carrying the King of Hearts, a rusty old shovel, the King of Clubs,
