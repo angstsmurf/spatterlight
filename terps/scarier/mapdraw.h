@@ -230,6 +230,10 @@ extern void map_frame (const map_t *map, const map_view_t *view,
    which is how a caller knows to warn instead of redraw. */
 extern int map_zoom_step (int scale, int dir);
 
+/* Highest rung on the manual zoom ladder (map_zoom_step).  Manual zoom and
+   "glk zoom N" may go this high; auto-fit still caps at MAP_SCALE_MAX. */
+extern int map_zoom_max (void);
+
 /* Draw the map.  Only rooms the player has seen are drawn (as in both
    runners); the player's own room is highlighted. */
 extern void map_render (const map_t *map, const map_view_t *view,

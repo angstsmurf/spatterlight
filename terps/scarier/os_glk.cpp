@@ -4987,8 +4987,8 @@ static const char * const GSC_USAGE_ONOFFSTATUS[] = {"on", "off", "status",
 static const char * const GSC_USAGE_ONOFF[] = {"on", "off", NULL};
 static const char * const GSC_USAGE_MAP[] = {"on", "off", "top", "right",
                                              "colour [on | off]",
-                                             "zoom [in | out | auto]", NULL};
-static const char * const GSC_USAGE_ZOOM[] = {"in", "out", "auto", NULL};
+                                             "zoom [in | out | auto | N]", NULL};
+static const char * const GSC_USAGE_ZOOM[] = {"in", "out", "auto", "N", NULL};
 
 static void gsc_command_summary (const char *argument);
 static void gsc_command_help (const char *argument);
@@ -5360,8 +5360,12 @@ gsc_command_help (const char *command)
       gsc_standout_string ("glk zoom auto");
       gsc_normal_string (" (or ");
       gsc_standout_string ("glk zoom default");
-      gsc_normal_string (") restores the automatic fit.  Each is also"
-                         " understood with a map prefix, as in ");
+      gsc_normal_string (") restores the automatic fit.  ");
+      gsc_standout_string ("glk zoom N");
+      gsc_normal_string (" sets the scale to N pixels per map unit"
+                         " (from the auto-fit floor up to the manual zoom"
+                         " ceiling).  Each is also understood with a map"
+                         " prefix, as in ");
       gsc_standout_string ("glk map zoom in");
       gsc_normal_string (".\n");
     }
@@ -10088,15 +10092,18 @@ gsc_command_map (const char *argument)
 /*
  * gsc_command_zoom()
  *
- * "glk zoom [in | out | auto]".  Plain "glk zoom" zooms in, and "default" is a
- * synonym for "auto".  A manual zoom is kept until "auto" puts the map back
- * to fitting itself to its window; meanwhile the view pans to keep the
- * player on-screen (map_frame).
+ * "glk zoom [in | out | auto | N]".  Plain "glk zoom" zooms in, and "default"
+ * is a synonym for "auto".  A number pins the scale to that many pixels per
+ * map unit (clamped between MAP_SCALE_MIN and map_zoom_max).  A manual zoom
+ * is kept until "auto" puts the map back to fitting itself to its window;
+ * meanwhile the view pans to keep the player on-screen (map_frame).
  */
 static void
 gsc_command_zoom (const char *argument)
 {
   int in, scale, stepped;
+  char *end;
+  long pinned;
 
   if (gsc_is_a5 ? gsc_a5_run == NULL : gsc_game == NULL)
     return;
@@ -10120,6 +10127,39 @@ gsc_command_zoom (const char *argument)
           gsc_map_redraw ();
           gsc_normal_string ("Map zoom returned to automatic.\n");
         }
+      return;
+    }
+
+  /* "glk zoom N": pin to an exact scale. */
+  pinned = strtol (argument, &end, 10);
+  if (end != argument && *end == '\0')
+    {
+      char buf[96];
+      int lo = MAP_SCALE_MIN, hi = map_zoom_max ();
+
+      if (!gsc_map_shown)
+        {
+          gsc_normal_string ("The map is not open.  Use ");
+          gsc_standout_string ("glk map on");
+          gsc_normal_string (" to open it first.\n");
+          return;
+        }
+      if (pinned < lo || pinned > hi)
+        {
+          snprintf (buf, sizeof buf,
+                    "Map zoom must be between %d and %d.\n", lo, hi);
+          gsc_normal_string (buf);
+          return;
+        }
+      if (gsc_map_zoom == (int) pinned)
+        {
+          snprintf (buf, sizeof buf, "The map is already at zoom %ld.\n",
+                    pinned);
+          gsc_normal_string (buf);
+          return;
+        }
+      gsc_map_zoom = (int) pinned;
+      gsc_map_redraw ();
       return;
     }
 
