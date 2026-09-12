@@ -78,6 +78,12 @@ day.
 > wait
 You wait a bit...
 
+The Boy exits to the west.
+
+The Girl hops away to the south.
+
+The Mother wanders off to the north.
+
 The Old Hag stumbles in from below.
 
 > wait
@@ -98,10 +104,12 @@ The Goat prances in from below.
 > wait
 You wait a bit...
 
-> wait
-You wait a bit...
+The Goat traipses off to the north.
 
 Yellow lights flicker.  Somebody grabbed the lamp!
+
+> wait
+You wait a bit...
 
 > wait
 You wait a bit...
@@ -134,7 +142,13 @@ The Central Room is south.
 
 The book is missing.
 
+The lamp is in this room.
+
+The Goat is lollygagging about here.  You don't like the look of it.
+
 The Old Hag stumbles in.
+
+The Goat traipses off to the south-east.
 
 > take all
 You take the Great Lamp.
@@ -152,11 +166,23 @@ The Great Lamp is in this room, which is where it belongs.
 
 The shoe is in this room.
 
+The little boy roams around the room.  He looks troublesome.  You'd better
+watch this one carefully.
+
+The little girl is dancing around here.  You hope she will get bored and
+leave soon.  She's making you nervous.
+
 The teenager is lounging around the room.  Its baggy clothing is suspicious,
 but you are relieved that it at least did not bring its backpack.
 
+The Goat is lollygagging about here.  You don't like the look of it.
+
 > drop all
 You drop the Great Lamp.
+
+The Boy exits to the east.
+
+The Girl hops away to the east.
 
 Beep!  5 turns to go.  Any remaining visitors should be on their way out the
 door.
@@ -191,13 +217,13 @@ but you are relieved that it at least did not bring its backpack.
 
 The old hag is hovering about the room.
 
-The Goat is lollygagging about here.  You don't like the look of it.
-
 The Mother wanders off to below.
 
 The Teenager trudges off to below.
 
 The Old Hag creeps off to below.
+
+The Goat prances in from the west.
 
 > east
 You move east.

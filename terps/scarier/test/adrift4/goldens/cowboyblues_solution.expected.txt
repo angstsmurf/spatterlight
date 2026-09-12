@@ -1342,7 +1342,7 @@ and Mason)
   Speckle, Normal, Dyanne and Spam are here.
 
 > give lolly to cestus
-Please be more clear, who do you want to give to?
+Give the lolly to who?
 
 > score
 Your score is 22 out of a maximum of 401.  (5%)

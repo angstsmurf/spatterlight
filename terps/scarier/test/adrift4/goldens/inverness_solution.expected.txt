@@ -320,22 +320,6 @@ Time passes...
 Dressing Room
 This dressing room is like a large, walk-in closet.  Macbeth and Lady Macbeth
 use this room to change their clothes and other things.
-Suddenly, Macbeth bursts into the room.  You've been caught.  He takes his
-dagger and strikes your head with the hilt, knocking you unconscious.
-
-You hear him mutter to his wife as you drift into blackness...
-
-"Fate hath given us a fool to bearest guilt.  A murderer thou shalt be
-tonite, thane of Ross..."
-
-Blackness
-It's dark.  You can't see anything.
-You feel really groggy, and your head hurts.
-After a moment of grogginess, you realize you are in the cellar.
-
-Cellar
-The dark and dingy cellar is used to store food and wine.  A staircase leads
-up to the kitchen.  It's cold down here.
 
 > z
 Time passes...

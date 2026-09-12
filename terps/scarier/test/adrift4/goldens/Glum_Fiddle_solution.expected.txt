@@ -228,13 +228,13 @@ You take a branch by the cool end.
 > wait
 Time passes...
 
+> wait
+Time passes...
+
+> wait
+Time passes...
+
 Glum suddenly turns and heads south.
-
-> wait
-Time passes...
-
-> wait
-Time passes...
 
 > wait
 Time passes...
@@ -250,6 +250,8 @@ You take the oil lamp.
 
 > take tray
 You take the silver tray.
+
+Glum suddenly turns and heads south.
 
 > take teapot
 You take the silver teapot.
@@ -327,8 +329,10 @@ you can see of it between stands of some kind of swamp bush.
 The pile of boulders is visible to the north, and a stand of trees is to the
 east.
 
-The giant, Glum Fiddle, stands nearby staring ponderingly into space,
-housecoat billowing in the breeze.
+Glum is here, and looks up as you come near.'Little person - what are you
+doing here, again? I'm afraid I've completely forgotten.'
+
+He doesn't seem to require an answer, being distracted by his fingernails.
 
 > take slime in teapot
 You scoop up some slime from the marsh with the teapot.

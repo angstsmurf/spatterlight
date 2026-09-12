@@ -49,12 +49,6 @@ nothing is thine!"
 For help with game commands, type "help" and press enter; for help with
 puzzles, type "hint" and press enter.
 
-Some of the rabbits begin to stare you: suspiciously or fearfully, you cannot
-tell.
-
-The wretched spirit continues to scare the rabbits.  "Here, rabbity,
-rabbity... I will devour your souls!"
-
 > d
 You descend into deeper absurdity.
 
@@ -157,14 +151,6 @@ nothing is thine!"
 For help with game commands, type "help" and press enter; for help with
 puzzles, type "hint" and press enter.
 
-The wretched spirit begins to chant some sort of horrible incantation at the
-rabbits.  "Behold-- I am your master, Gorxungula, Lord of the Void and Taker
-of Voices!  None have such aweful power as mine!  Silence thy will, for
-nothing is thine!"
-
-For help with game commands, type "help" and press enter; for help with
-puzzles, type "hint" and press enter.
-
 > d
 You descend into deeper absurdity.
 
@@ -192,19 +178,26 @@ Elder Moose strokes a hoof musingly at its beard.
 > take tome
 You take the tome from the revered wooden tub.
 
+Your state of being starts to feel unbearably stale and old already.
+
+Gorxungula declares, "I shall not kill thee, Lophese.  Nay, but I shall
+assimilate your essence and we shall become as one!"
+
+A sound like maniacal laughter bubbles out of the evil spirit.
+
 The Great Antlered One ruminates on something far off in the void.
 
 > i
 You are carrying a gold coin and a tome.
 
 > u
-You ascend to the new state of being.
+You ascend to the old state of being.
 
-A New State of Being
-In this new void, the purest sense of newness overcomes you and your skull
-flushes with a dizzying plurge of new thoughts.  Uncertain toast is in the
-background to the east and, if you so wished, you could descend from this new
-state down to the state of being in the Void of Elder Moose.  Some new tug in
+A Old State of Being
+In this old void, the purest sense of oldness overcomes you and your skull
+flushes with a dizzying plurge of old thoughts.  Uncertain toast is in the
+background to the east and, if you so wished, you could descend from this old
+state down to the state of being in the Void of Elder Moose.  Some old tug in
 your gut tells you that you oughtn't to go west.
 
 > e
@@ -253,11 +246,11 @@ You are carrying a gold coin and a non-descript alcoholic beverage.
 > w
 You blunder off to the west.
 
-A New State of Being
-In this new void, the purest sense of newness overcomes you and your skull
-flushes with a dizzying plurge of new thoughts.  Uncertain toast is in the
-background to the east and, if you so wished, you could descend from this new
-state down to the state of being in the Void of Elder Moose.  Some new tug in
+A Old State of Being
+In this old void, the purest sense of oldness overcomes you and your skull
+flushes with a dizzying plurge of old thoughts.  Uncertain toast is in the
+background to the east and, if you so wished, you could descend from this old
+state down to the state of being in the Void of Elder Moose.  Some old tug in
 your gut tells you that you oughtn't to go west.
 
 > d
@@ -266,18 +259,16 @@ You descend into deeper absurdity.
 The Void of Elder Moose
 This is the solemn home of the great and wise Elder Moose where from out of
 the void-space before the Great Antlered One hovers the revered wooden tub.
-The only way out is to ascend to some new state of being.
-
-The Great Antlered One ruminates on something far off in the void.
+The only way out is to ascend to some old state of being.
 
 > put gold coin in tub
 You put the gold coin inside the revered wooden tub.
 
-> put spirits in tub
-You put the non-descript alcoholic beverage inside the revered wooden tub.
-
 Elder Moose brushes its antlers on the void resulting in a brief musical
 sound.
+
+> put spirits in tub
+You put the non-descript alcoholic beverage inside the revered wooden tub.
 
 Elder Moose rouses from the depths of thought once the offering is in place.
 

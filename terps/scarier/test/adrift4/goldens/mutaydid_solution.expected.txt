@@ -282,18 +282,14 @@ fixate their eyeless gazes upon you!
 With frantic, wide swings you cleave a ham from off the mystery meat, but it
 continues to move!
 
-Cold cuts and ground stomach stuffs congeal onto the surface of the growling
-mystery meat!
-
 > attack mystery meat with cleaver
 Your fear gives way to a newfound fervor.  With a yell you hack, hack, hack
 away at the unnameable abomination of flesh.  In your fury you rip some
 drumsticks off and throw them away from the mystery meat, but it continues to
 move!
 
-With a guttural roar, the mystery meat rises to its full height.
-
-...better act fast!
+Cold cuts and ground stomach stuffs congeal onto the surface of the growling
+mystery meat!
 
 > attack mystery meat with cleaver
 Fury unfettered, you forcibly flay the final fleshliness from the foul meat

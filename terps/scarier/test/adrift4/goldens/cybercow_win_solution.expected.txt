@@ -246,10 +246,12 @@ You can move north, east, south and west.
 
 > throw rope down well
 You throw the rope down the well.
+The rain seems to be letting up.
 
 > take cross
 You pick up the heavy cross.  Vluurinik flies in from the west.
-The rain seems to be letting up.
+The warm seasonable rain is nearly over.
+The rain has stopped.
 
 > s
 You move south.
@@ -557,21 +559,26 @@ The robot grabs your arm and twists it behind your back!
 The robot grabs your arm and twists it behind your back!
 -SAY. UNCLE.- Robot commands.
 
+-SAY. IT.-
+
 > uncle
 -I. THOUGHT. SO. - YOU. ARE. WEAK. - LIKE. ALL. HUMANS.-
 The robot seems smug.
 -WHY. DID. YOU. CONSTRUCT. ME. PATHETIC. HUMAN.- The Robot demands.
 You are being telepathically probed!
+--
 
 > z
 --
 -CYBERCOW? - WHAT. IS. THIS. CYBERCOW. PLANNING.-
 You can feel the harsh mechanical examination of your most private thoughts.
+--
 
 > z
 --
 -TAKE. ME. TO. THE.CYBERCOW. - NOW.-
 The Robot seems to enjoy this experience.
+--
 
 > z
 --
@@ -609,7 +616,6 @@ It is daytime.
 
 You can move north, east, south, west and down.  The Robot marches in  from
 the east.
--COME. COME. PATHETIC. HUMAN.- The Robot grates.  -STOP. SCREWING. AROUND.-
 
 > d
 You move down.
@@ -796,7 +802,7 @@ In the Bell (floating in a vast expanse of water)
 You are careful to keep your weight opposite the crack, so the leaky surface
 of the bell stays out of the water.  The iron bell wouldn't have to take on
 much water to sink like a rock--
-  A fairy is here.
+
 It is night-time.  Moonlight shines silver on the water.
 
 > z
@@ -808,7 +814,7 @@ In the Bell (floating in a vast expanse of water)
 You are careful to keep your weight opposite the crack, so the leaky surface
 of the bell stays out of the water.  The iron bell wouldn't have to take on
 much water to sink like a rock--
-  A fairy is here.
+
 It is night-time.  The moon, three days from full, casts your shadow on the
 water and the inward curve of the bell.
 You're cold.

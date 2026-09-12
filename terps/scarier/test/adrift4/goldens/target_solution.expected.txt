@@ -187,7 +187,7 @@ east, southeast, south, southwest, west, northwest and down.  The body of a
 dead undercover policeman is lying here.
 
 Something hits the roof making a 'ffutt' sound.
-A very loud motorbike can be heard to the south.
+You can see a helicopter in the distance.
 
 > sw
 You move southwest.

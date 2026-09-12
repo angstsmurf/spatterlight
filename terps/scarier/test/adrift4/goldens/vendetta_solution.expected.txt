@@ -472,7 +472,6 @@ You hear the clinking of glasses.
 
 > talk to sally
 
-"Excuse me!" someone says, squeezing past you.
 You go over to greet Sally and her friend; her face lights up when she turns
 around and sees who it is. She throws her arms around you and then lets you
 go.
@@ -489,6 +488,7 @@ such an embarrassment at times.
 he will..."
 Chloe takes another sip of her wine as Sally gently eases her suitcase out of
 your hand and disappears into the changing rooms.
+"Excuse me!" someone says, squeezing past you.
 
 > wait
 Time passes...
@@ -1053,6 +1053,7 @@ The wind chill whilst travelling at two hundred miles an hour is terrible,
 especially when accompanied by the snow; your fingers are slowly starting to
 go numb, but know you have to make it to the Falcon Lithoid as fast as you
 can if you are to have any hope of rescuing Sally.
+
 You type in your destination in on the bike's GPS computer and it gives you
 the exact coordinates of Falcon Lithoid. Time is short.
 

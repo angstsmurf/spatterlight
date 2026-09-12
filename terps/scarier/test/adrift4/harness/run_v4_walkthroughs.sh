@@ -1323,7 +1323,9 @@ ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caug
 # transcript carries 17 walker lines, so Verbose was on.
 # Re-blessed 2026-09-12, one line: `say` draws Int(Rnd*6) over six responses in 3.9 and
 # 4.0 (run390 45DAD2 / run400 488DE4), not five.
-ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SEED=2 SCR_SKIP_WAITKEY=1
+# Re-seeded 2026-09-13: seed 2 scored 100/110 after the RNG-parity rules; 4 wins
+# (1-200 scan: 4, 7, 9, 14, 23).  The engine is 329/329 against Adrift_1127 under xoshiro.
+ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SEED=4 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
 # Measured in run390 under Wine, twice.  The first pair of drives found the
@@ -1383,6 +1385,8 @@ ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And t
 # "(Taking that first)" / "You put that inside the hessian sack."
 # (Adrift_583_Glum_Fiddle.txt:205-206) where scarier names the object.  4.0's
 # implicit-take-then-put has a wording arm the put probes never reached.
+# Re-blessed 2026-09-13 for the 4.0 per-turn event "ticked" byte and the event
+# check right after an execute-task action; event/RNG timing only.
 Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.|SCR_SKIP_WAITKEY=1
 JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH|SCR_SKIP_WAITKEY=1
 # Measured 2026-09-07: re-driven in run400 with the corrected feed
@@ -1500,7 +1504,9 @@ easter_solution.txt|easter.taf|***You have won***|
 # 2 commands were never echoed, the first at feed[170] `yorick`, so nothing
 # after 170 means anything until the row is re-driven.  Before it, the
 # differences are Goblin Bob's random thefts and idle antics.
-yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SEED=5 SCR_SKIP_WAITKEY=1
+# Re-seeded 2026-09-13 for the RNG-parity rules: seed 5 no longer wins; 1 does
+# (1-200 scan: 1, 3, 8, 9, 10).
+yonastoundingcastle_solution.txt|yonastoundingcastle.taf|Incredible victory!|SCR_SEED=1 SCR_SKIP_WAITKEY=1
 # The twenty-one entries of the 1st, 2nd and 3rd ADRIFT One-Hour Game
 # Competitions (2003), swept in on 2026-08-03 -- see the per-game
 # notes/*_walkthrough.md for where each .taf came from.
@@ -1634,7 +1640,9 @@ vague_solution.txt|vague.taf|You have won!|SCR_SKIP_WAITKEY=1
 # This walkthrough was re-derived for it: 2 `i` lines after exam clerk and exam overcoat (the overcoat examine is a nothing-found refusal).  Each
 # added line restores the old tick sequence (`i` because WaitTurns 3).  Trace with
 # SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
-escape_to_new_york_solution.txt|EscapeToNewYork.taf|You managed to score 100 out of 100 and completed all of your objectives.|SCR_SKIP_WAITKEY=1
+# Seeded 2026-09-13: the unseeded run stopped winning under the RNG-parity rules; seed 2
+# wins (1-200 scan: 2, 3, 4, 5, 7).  The engine is 227/227 against Adrift_1122 under xoshiro.
+escape_to_new_york_solution.txt|EscapeToNewYork.taf|You managed to score 100 out of 100 and completed all of your objectives.|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 unauthorized_termination_solution.txt|unauthorized.taf|Assignment Status: You have been successful.|SCR_SKIP_WAITKEY=1
 # Where Are My Keys? needed one derivation step the shipped walkthru omits: it
 # says "(now you need to find the dog)" and leaves it at that.  The dog (NPC 2)
@@ -1673,7 +1681,9 @@ unauthorized_termination_solution.txt|unauthorized.taf|Assignment Status: You ha
 # transcript keeps the postfixed form, "A large knife and a jar of coffee are
 # inside the kitchen unit."  Same 1/2/3+ selector as run400's single lister at
 # 0006A418; before TAF_VERSION_390 only the prefixed form exists.
-where_are_my_keys_solution.txt|WhereAreMyKeys.taf|You start the car and head home.|SCR_SEED=5 SCR_SKIP_WAITKEY=1
+# Re-seeded 2026-09-13 for the RNG-parity rules: seed 5 no longer wins; 19 does
+# (1-200 scan: 19, 37, 40, 42, 44).
+where_are_my_keys_solution.txt|WhereAreMyKeys.taf|You start the car and head home.|SCR_SEED=19 SCR_SKIP_WAITKEY=1
 # To Hell in a Hamper: the IF-Archive walkthrough desyncs badly on this release.
 # It has to be re-derived around a carry-weight limit ("too heavy for me to carry
 # at the moment"), so the trombone/mallet/scissors/smudge stick all go overboard
@@ -1776,6 +1786,8 @@ unraveling_god_lou_solution.txt|unravel.taf|smile fades and you feel the beginni
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  RNG order only.
+# Re-blessed 2026-09-13 for the 4.0 event "ticked" byte and post-execute-task event
+# check; identical to Adrift_1112_mishmash.txt under SCR_RNG=xoshiro.
 mishmash_solution.txt|mishmash.taf|You have lived up to your name and survived again!|SCR_SKIP_WAITKEY=1
 # The Hangover is UNWINNABLE as shipped, and the two dead ends are the author's,
 # not ours.  Both of the tasks the walkthrough's endgame turns on carry
@@ -2176,7 +2188,8 @@ marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!
 # 2026-09-04: seed re-pinned 95 -> 106 (a 1-400 scan gave 106, 150) after the
 # pre-3.9 startup event tick was removed, which shifts every roll by one
 # draw; route and 250/250 win unchanged.  Measured on the haunt row.
-wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=106
+# 2026-09-13: seed re-pinned 106 -> 3 for the RNG-parity rules (1-200 scan: 3, 11, 13, 34, 48).
+wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=3
 # Mortality (David Whyld, 2004).  A VERBATIM replay of the author's own session
 # transcript shipped inside the game's doc file: all 78 commands, no repairs,
 # word-for-word identical responses, ending on one of the two good endings.
@@ -2279,7 +2292,9 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # (the Runner lost feed commands long before here), so neither Adrift_16 nor
 # Adrift_404 reaches the turn.  The task's field pair is exactly the measured
 # shape, ghosttown's whitespace-only AdditionalMessage included.
-3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!|SCR_SEED=123
+# 2026-09-13: seed re-pinned 123 -> 515 for the RNG-parity rules; the mandrill
+# fight is narrow and nothing below 515 wins (1-1000 scan: 515, 726, 799, 814, 927).
+3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!|SCR_SEED=515
 # Humbug (Graham Cluley 1990/1997, converted to ADRIFT 4.00 by Campbell Wild)
 # -- WIN with the FULL 2000/2000, "a winner.. or a cheat", in 1048 commands.
 # The route is pjg's step-by-step solution for the ORIGINAL v5.0 game
@@ -2668,7 +2683,9 @@ thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SK
 # what?"), and the task's first restriction -- Katryn in the player's room --
 # fails there with an EMPTY message, so the transcript cannot arbitrate this cell;
 # the rule is measured on the rows above and below instead.
-thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SKIP_WAITKEY=1
+# Seeded 2026-09-13: the unseeded run stopped winning under the RNG-parity rules; seed 6
+# wins (1-200 scan: 6, 27, 29, 33, 35).
+thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SEED=6 SCR_SKIP_WAITKEY=1
 # Second Chance (David Whyld, 2005) replays its shipped Walkthrough.pdf
 # VERBATIM -- 49 commands, not one repair, straight to the good ending.  The
 # PDF is a full session log, so the command list falls out of it by taking
@@ -2916,6 +2933,8 @@ iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SC
 # refusal (475638) counts the exits it can take right now (454684 reads the
 # door/task gates) and lists them, "can't go in that direction, but ...".
 # Measured on humbug (Adrift_4_humbug.txt line 1596, `W`).
+# Re-blessed 2026-09-13 for the 4.0 event "ticked" byte and post-execute-task event
+# check; identical to Adrift_1086_mangiasaur.txt under xoshiro until the Runner's game ends.
 mangiasaur_solution.txt|Mangiasaur.taf|Thanks for playing Mangiasaur!|
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- A FINE DAY FOR REAPING (James Webb / revgiblet, IFComp 2007).
@@ -3528,6 +3547,8 @@ deadman_solution.txt|The Dead Man.taf|ABORT SUCSESFUL|SCR_SKIP_WAITKEY=1
 # and this is the corpus case for the 4.0-only Name capitaliser: run400 prints
 # "Wizard strides off to the east." where a 3.9 game in the same shape would
 # print "wizard".  See the 2026-08-25 block above.
+# Re-blessed 2026-09-13 for the 4.0 event "ticked" byte and post-execute-task event
+# check; event/RNG timing only.
 baroo_solution.txt|baroo.taf|You scored 16 out of the maximum 16!
 # Lair of the Vampire -- the author's own 276-line command list plus 3 lines.
 # The ruined stairs (rooms 11/14) are a coin flip: TASK 140 carries you up only
@@ -4971,6 +4992,8 @@ albert_is_lost_solution.txt|Albert is Lost! An Adventure in Real Life.taf|Tiberi
 # NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
 # Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
 # Re-blessed 2026-08-29: `x tramp / x man` no longer ticks, so the events/RNG after it shift by one turn.
+# Re-blessed 2026-09-13 for the 4.0 event "ticked" byte and post-execute-task event
+# check; identical to Adrift_1046_target.txt under SCR_RNG=xoshiro.
 target_solution.txt|target.taf|You managed to score 100 out of 100.|SCR_SEED=1078
 # The next three are replays of walkthroughs the authors bundled INSIDE the comp
 # archives rather than publishing separately, which is why the IFDB harvest never
@@ -6376,7 +6399,9 @@ will_solution.txt|Will.taf|Well done - you scored maximum points!|
 # matched-and-failed still owns the command; Scarier's library retry now
 # uses the typed verb (sclibrar.cpp lib_typed_verb) and agrees.
 # Re-blessed 2026-09-06: `search rubbish` is run400's no-turn catch-all (48B232); a `look` follows it (WaitTurns is 3 here).
-cobl_solution.txt|COBL.taf|Your score is 160 out of a maximum of 230.  (69%)|SCR_SKIP_WAITKEY=1
+# Seeded 2026-09-13: the unseeded run stopped reaching 160 under the RNG-parity rules;
+# seed 21 does (1-200 scan: 21, 30, 38, 39, 48).
+cobl_solution.txt|COBL.taf|Your score is 160 out of a maximum of 230.  (69%)|SCR_SEED=21 SCR_SKIP_WAITKEY=1
 # puzzlebox.taf (The Puzzle Box, Richard Otter, ORGComp 2007; 4.00): a
 # sequential 10-stage combination-lock puzzle box, no scoring system, single
 # ACT type=6 EndGame. All target values are fixed .taf constants (no RNG),
@@ -7667,6 +7692,9 @@ goblin_solution.txt|goblin.taf|Oh, and before we forget- Congratulations, gobbo.
 # the announced form each round and reply from the table above -- not
 # replayed digits.  This is a seed-locked route, not an engine
 # divergence.
+# Re-derived 2026-09-13: under the RNG-parity event rules the falling-ceiling trap
+# after the third `mould` fight closes one turn sooner, so one of the two `z`s
+# before the escape `s` is gone (the second `z` was fatal).  150/150 unchanged.
 mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|SCR_SEED=221
 # blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, revenge
 # thriller). The player's wife has been murdered by four guilty men
@@ -7980,6 +8008,8 @@ house_solution.txt|House.taf|You are not holding the wood.|SCR_SEED=1 SCR_SKIP_W
 # actions.  Ported 2026-09-07 (task_defers_room_desc); the whole 261-turn
 # replay is now identical to Adrift_328_lca.txt.
 lca_solution.txt|Lights_Camera_Action.taf|best ending in the game!|SCR_SKIP_WAITKEY=1
+# Re-blessed 2026-09-13 for the 4.0 event "ticked" byte and post-execute-task event
+# check; identical to Adrift_1090_mutaydid.txt under SCR_RNG=xoshiro.
 mutaydid_solution.txt|mutaydid.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # ADayAtTheSeaside.taf (ADRIFT 4). Small 18-room errand game in Portobello,
 # Edinburgh: get the bucket & spade (West beach) to build a sandcastle and

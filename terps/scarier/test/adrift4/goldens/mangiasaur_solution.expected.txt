@@ -560,26 +560,25 @@ I don't understand what you are trying to eat.
 
 > eat wispy stalk plant
 I don't understand what you are trying to eat.
+The hut dweller extends an offering to you.  It appears to be some kind of
+food.
+
+> eat tentacle net
+I don't understand what you are trying to eat.
+
+> eat tentacle net
+I don't understand what you are trying to eat.
 You give a nice burp as your belly digests its contents.  Always making room
 for more!
 
 > eat tentacle net
 I don't understand what you are trying to eat.
-Air is bubbling up in your gut, looking for an out.
-
-> eat tentacle net
-I don't understand what you are trying to eat.
-
-> eat tentacle net
-I don't understand what you are trying to eat.
-You are hungry.  It is time to eat.
 
 > eat shark
 I don't understand what you are trying to eat.
 It's been a little while since you ate that air sac from the valley grass,
 but it occurs to you, you haven't so much as inhaled since then!
-A mangiasaur should never be afraid to listen to its belly.  You are due for
-a belch.
+Air is bubbling up in your gut, looking for an out.
 
 > out
 You move out.
@@ -595,13 +594,9 @@ The valley is level with the forest floor to the west, but the eastern wall
 of the valley is formed by a large plateau rising at least as high as the
 mountains around it, casting a dark shadow on much of the grassland through
 much of the day.
-The sun has begun its descent, but the heat of the land has been building all
-day, and it's warm and bright.
-The force of your gasbag release is staggering.  The steaming blast is enough
-to burn skin.  Must be that torch you ate.
-Your lurch forward and regret it when you feel the hot blast bouncing off the
-earth and hitting your face, carrying with it the stench of burnt grass and
-charred beetles.
+The sun has reached its peak, at the top of the sky.  You can feel its
+pleasant warmth all around you.
+You are hungry.  It is time to eat.
 
 > eat air sac
 These little brown sacs are really not much better than the grass they're
@@ -616,11 +611,18 @@ attached to!  They're bland, and being full of air, they don't do much to
 fill your stomach.
 You feel a little tickling on your legs, when you push the grass aside, you
 see a small hard-shelled beetle crawling off your leg onto the grass.
+A mangiasaur should never be afraid to listen to its belly.  You are due for
+a belch.
 
 > eat air sac
 These little brown sacs are really not much better than the grass they're
 attached to!  They're bland, and being full of air, they don't do much to
 fill your stomach.
+The force of your gasbag release is staggering.  The steaming blast is enough
+to burn skin.  Must be that torch you ate.
+Your lurch forward and regret it when you feel the hot blast bouncing off the
+earth and hitting your face, carrying with it the stench of burnt grass and
+charred beetles.
 
 > eat air sac
 These little brown sacs are really not much better than the grass they're
@@ -690,7 +692,6 @@ will probably not be able to digest this.
 You gag and force the spear back up, aiming the bottom at the small hole.
 Your aim is true, and the spear is wedged into the hole, standing straight
 up.  Then the flat rock begins to move.
-Your stomach is finishing off its contents.  Soon you will need more food.
 
 > d
 You crawl down the hole and find yourself in the Hall of Humans.

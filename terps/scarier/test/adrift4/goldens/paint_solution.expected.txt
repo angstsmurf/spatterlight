@@ -453,6 +453,22 @@ Time passes...
 "Ah, my favourite," he says, and drinks the coffee down in one go. "Much
 obliged. We seldom have mud in cups where I come from."
 
+   Suddenly, Mr Abogee begins to chant. This he does in accompaniment to a
+Dire Straits CD he pops into his Walkman and then jigs along to the sounds of
+Walk Of Life.
+   He approaches Rob's corpse, taps it several times with his staff, and
+pronounces several words of what are no doubt powerful magic - "eeny meeny
+miny mo" - and then, without warning, the corpse vanishes!
+   At the same time, a vortex of light swirls around the office, magically
+repairing the ceiling and the floor. A minute later it's like no damage had
+been caused. Even the meteor is gone.
+   "Amazing!" you breathe.
+   "The powers I wield are wonderful and wonderous," says Mr Abogee. "And now
+I must depart."
+   He throws a smoke bomb at his feet and slips away - which he does via the
+door. You're not quite sure what the smoke bomb was in aid of but maybe he
+just prefers showy exits.
+
    There comes a squeal from the receptionist followed by a swarthy fellow
 who looks like a used car salesman stepping into the office.
    "Mr O here?" he enquires, looking around the office in case 'Mr O' might
@@ -481,22 +497,6 @@ Simple as simple."
 this."
    "I'd be happier if you worked a bit harder," you say.
    Stan nods. "Will do."
-
-   Suddenly, Mr Abogee begins to chant. This he does in accompaniment to a
-Dire Straits CD he pops into his Walkman and then jigs along to the sounds of
-Walk Of Life.
-   He approaches Rob's corpse, taps it several times with his staff, and
-pronounces several words of what are no doubt powerful magic - "eeny meeny
-miny mo" - and then, without warning, the corpse vanishes!
-   At the same time, a vortex of light swirls around the office, magically
-repairing the ceiling and the floor. A minute later it's like no damage had
-been caused. Even the meteor is gone.
-   "Amazing!" you breathe.
-   "The powers I wield are wonderful and wonderous," says Mr Abogee. "And now
-I must depart."
-   He throws a smoke bomb at his feet and slips away - which he does via the
-door. You're not quite sure what the smoke bomb was in aid of but maybe he
-just prefers showy exits.
 
 > wait
 Time passes...
@@ -675,9 +675,6 @@ Time passes...
 > wait
 Time passes...
 
-> wait
-Time passes...
-
    "Well, well, what have we here?" booms a voice from the doorway and you
 glance over in surprise to see a hulking fellow there. He's big and
 brutal-looking and has an air of concealed violence about him. Yep,
@@ -714,6 +711,9 @@ floor where he had fallen, and continues the questioning.
 simple yes or ow will suffice."
    You frown. "Don't you mean yes or no?"
    "I know what I mean."
+
+> wait
+Time passes...
 
 > wait
 Time passes...

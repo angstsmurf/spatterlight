@@ -147,14 +147,11 @@ Time passes...
 > wait
 Time passes...
 
-    The shopkeeper is pacing back and forth behind the counter, performing
-various tasks.
-
-> wait
-Time passes...
-
     You can hear the girls talking, although you can't tell exactly what they
 are saying.
+
+    The shopkeeper is pacing back and forth behind the counter, performing
+various tasks.
 
 > wait
 Time passes...
@@ -178,14 +175,14 @@ Time passes...
 > wait
 Time passes...
 
-    The shopkeeper is looking busy even though business seems to be slow
-today.
-
     In the corner of your vision you glimpse one of the girls eyeing you, but
 her head is turned by the time you take a look.
 
 > wait
 Time passes...
+
+    The shopkeeper is looking busy even though business seems to be slow
+today.
 
     You're mostly sure you just caught another girl looking at you, but now
 they are talking amongst themselves quietly, smiles on their faces.
@@ -216,6 +213,9 @@ The golden-haired girl comes running up to you and grabs hold of your arm.
 1) "I'll do my best."
 2) "I'm sorry.  There's nothing I can do for you."
 3) "No time to chat, we've got to go after those men!"
+
+> wait
+Time passes...
 
 > wait
 Time passes...
@@ -258,6 +258,9 @@ bookstore to the west, a software shop to the east, and more mall extending
 to the north.  The mall's exit is south.
 
     Laurie follows you from the north.
+
+    Shoppers moving in small groups talk amongst themselves as they walk past
+you.
 
 > south
 You move south.
@@ -1612,6 +1615,11 @@ Intersection
 only.  Numerous people walk past you in every which direction, their
 destinations not deducible from reading only their faces.  The patter of feet
 on pavement is heard continually.
+    An umbrella peddler is here.
+
+    The umbrella peddler walks away to the west.
+
+    A group of idle teens cross your path.
 
 > south
 You move south.
@@ -1743,6 +1751,8 @@ Time passes...
 
     Monika walks away to the east.
 
+    A nice breeze touches your face.
+
 > wait
 Time passes...
 
@@ -1830,6 +1840,9 @@ Time passes...
 
 > wait
 Time passes...
+
+    Ethan leans down and picks up a piece of tissue, blows his nose on it,
+and chucks it back among the trash that constitutes the floor of his room.
 
 > wait
 Time passes...
@@ -2879,7 +2892,8 @@ Center Plaza
 stylish image of a handsome tree, or at least that's how it appears from
 where you are.  The plaza continues east and west, and there is a tomato
 stand to the south.  A statue in the likeness of a man stands here.
-    An umbrella peddler is here.
+
+    The umbrella peddler walks in from the south.
 
 > give money to peddler
 A dollar passes between you and the old peddler.  He pockets the money and
@@ -2929,8 +2943,6 @@ Intersection
 only.  Numerous people walk past you in every which direction, their
 destinations not deducible from reading only their faces.  The patter of feet
 on pavement is heard continually.
-
-    Some youngsters brush past you in a hurry to get somewhere.
 
     As you are walking through the intersection, somebody passing by slips
 you a buck.  Naturally, you didn't get a good look at the benefactor.  Might
@@ -3542,6 +3554,9 @@ Time passes...
 
     A steady humming sound fills the air.
 
+    "What is that unnerving sound?", asks Laurie.  She wouldn't understand
+even if you told her.
+
 > get band
 You remove the inhibitor band from Laurie's forehead.
     "Thank you, Petter.  I'm not sure why, but with that thing around my head
@@ -3564,9 +3579,6 @@ are hanging ropes and cords of varying sizes.
     Laurie follows you from the west.
 
     A steady humming sound fills the air.
-
-    "What is that unnerving sound?", asks Laurie.  She wouldn't understand
-even if you told her.
 
 > north
 You move north.

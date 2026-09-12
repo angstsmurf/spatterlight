@@ -48,11 +48,12 @@ weather gear is watching you.
 > exam bin
 You can see a wire rubbish (trash) basket with some of the wires are sticking
 out.  An old magazine and a pencil are inside the rubbish bin.
-The drunk makes a choking sound.
+The drunk makes a coughing sound.
 
 > get magazine
-You take the old magazine from the rubbish bin.
-The trainspotter rocks from one foot to the other.
+You take the old magazine from the rubbish bin.  A small black and white cat
+strolls in from the east.
+The trainspotter looks at the platform.
 
 You hear a voice coming from somewhere behind you, "Are you still wasting
 your time? Your dinner is nearly ready!"
@@ -93,12 +94,11 @@ a game. Still, you should try being a non-player character".
 
 He turns towards you and states, "Identify the game this location comes from
 and then find it written on something".  A small black and white cat strolls
-in from the east.
+out to the east.
 
 The whole station shakes as a freight train rumbles through.  The shaking
 feels like it is never going to stop.
 The trainspotter writes in his book.
-The drunk makes a coughing sound.
 
 > talk to trainspotter
 The Trainspotter says "Hello my name is Norman. I have had a busy day filling
@@ -106,10 +106,12 @@ in my book".
 
 You pretend to show some interest but he moves the book away, as if trying to
 hide it.  For some reason you are aware that it has no relevance.
+The drunk makes a snoring sound.
+The trainspotter pulls a funny face and looks up at the sky.
 
 > open door
 You open the set of double doors with glass panels.  A small black and white
-cat strolls out to the east.
+cat strolls in from the east.
 
 > south
 You move south, pushing through thick fog.
@@ -169,7 +171,6 @@ The trainspotter writes in his book.
 
 > give coat to drunk
 You cover the drunk with the coat, he drops a booklet onto the platform.
-The drunk makes a sighing sound.
 
 > look
 
@@ -183,10 +184,11 @@ double doors with glass panels.  Against the wall you can see one of those
 wire frame rubbish bins.  You can also see a booklet.  A porter is here
 leaning against the wall.  A drunk is sleeping off a heavy night on a bench.
 A trainspotter dressed in wet weather gear is watching you.
-The trainspotter looks at his watch and writes in his book.
+The trainspotter whistles a tuneless song.
 
 > get booklet
 You take the booklet.
+The drunk makes a whimpering sound.
 
 > west
 You move west, pushing through thick fog.
@@ -212,7 +214,7 @@ damaged it. Sticking into the handrail is a knife.
 You pull the knife out of the handrail.
 
 As you hold the knife it triggers a memory. You can see yourself on the roof
-of the classical Williams Tower and you appear to be stabbing the knife into
+of the modern Hudson Building and you appear to be stabbing the knife into
 someone.
 
 So are you a murderer?
@@ -271,7 +273,8 @@ The lighthouse jetty is made of stone with a metal handrail running around
 it.  You notice immediately that the handrail is damaged.  Down a wooden
 ladder you can see your boat and to the east is a path leading to the
 lighthouse.  In the water just below the jetty, you can see an object
-floating. It appears to be a woollen hat.
+floating. It appears to be a woollen hat.  A cat is silently wandering
+around.
 
 > east
 You move east.
@@ -285,7 +288,9 @@ tracks to platform two and east is the waiting room. To the south is a set of
 double doors with glass panels.  Against the wall you can see one of those
 wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
 is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
-weather gear is watching you.
+weather gear is watching you.  A small black and white cat strolls in from
+the west.
+The trainspotter pretends to search his pockets.
 
 > east
 You move east, pushing through thick fog.
@@ -295,9 +300,10 @@ The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
 pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
-Road and the yard behind the pub is to the south.  A cat is silently
-wandering around.  Colin Turner is standing at the bar.  Fred Sutton is
-staring vacantly around.  Emma Taylor is standing behind the bar.
+Road and the yard behind the pub is to the south.  Colin Turner is standing
+at the bar.  Fred Sutton is staring vacantly around.  Emma Taylor is standing
+behind the bar.
+Colin and Fred are discussing playmate of the month.
 
 Looking at your manhood and smiling Emma remarks, "Hello love, you will catch
 a cold dressed like that!".
@@ -308,27 +314,26 @@ Puzzled and confused you look around in disbelief, you are in a public house.
 > exam bar
 The narrow bar (the pub's counter) is surprisingly clean and tidy.  Some
 paper and an ashtray are on the narrow bar.  A small black and white cat
-strolls out to the east.
+strolls in from the west.
 
 Looking at your manhood and smiling Emma remarks, "Still not worried about
 catching a cold then!".
 
 > get paper
 You take the paper from the narrow bar.
-Colin and Fred are talking about a boxing match on the television last night.
-Emma is pretending to listen to Fred and Colin.
+Colin and Fred are whispering to each other.
 
 > buy pint
 Emma pours you a pint and smiling says, "That will be a pound, love". You
 hand over a pound and she passes you the beer.  A small black and white cat
-strolls in from the east.
+strolls out to the east.
+Emma smiles and winks at you.
 
 > give pint to fred
 You hand the pint over to Fred who is smiling from ear to ear. Colin is
 standing just to your right trying to look thirsty. Fred puts the pad down on
 the bar and drinks the beer in a couple of goes.  Whilst he is busy you pick
 up the pad he has been carrying.
-Colin and Fred are talking about a boxing match on the television last night.
 
 > east
 You move east, pushing through thick fog.
@@ -340,8 +345,8 @@ indicate the beast fought ferociously to escape its imprisonment, yet failed.
 And died.
 
 To the west there is a large chamber from which a humming sound emanates; to
-the east you can make out a statue.  A small black and white cat strolls in
-from the west.
+the east you can make out a statue.  A cat is silently wandering around.  A
+small black and white cat strolls out to the east.
 
 > exam remains
 The remains must be of the great Tarc beast which was kept in the cage here.
@@ -361,7 +366,7 @@ dead".
 
 The beast looks like it has been dead for years, even though it claims to
 have been a living snarling beast yesterday.  A small black and white cat
-strolls out to the east.
+strolls in from the east.
 
 > get rib
 You pull the rib from the remains of the beast. As you pull the rib out the
@@ -378,8 +383,7 @@ are glimpses seen from the corner of your eye that vanish the moment you look
 closely at them.
 
 Passages in the ruined walls of this place lie to the east and west.  You can
-also see a pair of overalls.  A cat is silently wandering around.  A small
-black and white cat strolls out to the west.
+also see a pair of overalls.
 
 > get jewel
 Using the rib, you prise the jewel from its resting place.  Now you have the
@@ -451,10 +455,9 @@ The Flying Horse has the typical pub smell of stale beer and cigarettes, not
 exactly a stomach churning experience but not that pleasant either.  The
 pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
-Road and the yard behind the pub is to the south.  Colin Turner is standing
-at the bar.  Fred Sutton is staring vacantly around.  Emma Taylor is standing
-behind the bar.
-Colin and Fred are talking about a boxing match on the television last night.
+Road and the yard behind the pub is to the south.  A cat is silently
+wandering around.  Colin Turner is standing at the bar.  Fred Sutton is
+staring vacantly around.  Emma Taylor is standing behind the bar.
 
 > south
 You move south.
@@ -463,9 +466,7 @@ The Yard
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
 exits are through a metal gate to the south and back into the pub north.  You
-can also see a photograph.  A cat is silently wandering around.  Jed Peters
-is watching you carefully.  A small black and white cat strolls out to the
-north.
+can also see a photograph.  Jed Peters is watching you carefully.
 
 As you stand in the yard you realise how quiet a place it is, which must be
 something to do with the high walls surrounding it. Quietly to yourself, "If
@@ -525,8 +526,8 @@ The dull metal room, which is exactly 2m square and 2.5m in height, is
 appropriate to your level of achievement. Attached to the wall behind you is
 the all important recharger with the teleporter on the floor opposite. To
 your left is the communicator with your own personal storage shelf above it.
-With the lighting fixed on the lowest setting the place is in gloom, just how
-you prefer it.
+With the lighting fixed on the lowest setting the place is in murkiness, just
+how you prefer it.
 
 > exam shelf
 The metal shelf is for personal items appropriate to the level of
@@ -552,7 +553,7 @@ The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
-standard hidden lighting set to a low level, most of the room is in gloom. A
+standard hidden lighting set to a low level, most of the room is in shadow. A
 security monitor is on one side of the room, to your right the interrogator
 and virtually opposite is the teleporter.  Zeta-Theta is standing against the
 wall.
@@ -587,14 +588,14 @@ hand you realise the crystal is in fact a note.
 The room slowly fades and is replaced with your destination.
 
 Roof of Building
-You are on the roof of the classical Williams Tower, which has 17 floors and
-was built around 14 years ago. A strong wind is blowing from the south and it
-looks like it could easily rain anytime. A large antenna is whipping in the
-wind to your right and the air conditioning equipment in front of you is
-making a very loud noise. A large sign is fastened to the roof here. Just at
-your feet is the closed door leading down to the roof exit. You can go north,
-northeast, east, southeast, south, southwest, west, northwest and down.  A
-dirty, smelly old tramp is lying on the floor.
+You are on the roof of the modern Hudson Building, which has 16 floors and
+was built around 13 years ago. A strong wind is blowing from the southeast
+and it looks like it could easily rain this morning. A large antenna is
+whipping in the wind to your right and the air conditioning equipment in
+front of you is making a very loud noise. A large sign is fastened to the
+roof here. Just at your feet is the closed door leading down to the roof
+exit. You can go north, northeast, east, southeast, south, southwest, west,
+northwest and down.  A dirty, smelly old tramp is lying on the floor.
 
 > talk to tramp
 You are about to talk to the Tramp when he starts to speak, "Hello! Any
@@ -611,6 +612,7 @@ He then asks, "What are you doing up here? Are you lost?".
 
 You reply, "Mind your own business old man". It is a strange question from a
 tramp.
+You notice that the tramp is sweating badly.
 
 > give note to tramp
 You hand the note to the tramp who, after studying it, replies, "Correct,
@@ -712,7 +714,7 @@ indicate the beast fought ferociously to escape its imprisonment, yet failed.
 And died.
 
 To the west there is a large chamber and to the east you can make out a
-statue.  A cat is silently wandering around.
+statue.
 
 > west
 You move west.
@@ -724,8 +726,8 @@ pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
 Road and the yard behind the pub is to the south.  Colin Turner is standing
 at the bar.  Fred Sutton is staring vacantly around.  Emma Taylor is standing
-behind the bar.
-Emma is listening to Fred and Colin.
+behind the bar.  A small black and white cat strolls in from the west.
+Emma is cleaning a glass with a cloth.
 
 > west
 You move west.
@@ -744,14 +746,14 @@ weather gear is watching you.
 A train thunders through the station and it doesn't sound like it is going to
 stop.
 The trainspotter writes in his book.
-The drunk makes a choking sound.
+The trainspotter looks from one side of the station to the other.
 
 Looking surprised the porter exclaims, "Solved four locations I hear". He
 looks you up and down before continuing, "Unbelievable!".
 
 > open doors
 You open the set of double doors with glass panels.
-The trainspotter pulls a funny face and looks up at the sky.
+The drunk makes a snoring sound.
 
 > south
 You move south.
@@ -783,7 +785,7 @@ to his work.
 
 > exam pigeonhole
 Examining the pigeonholes you find a handout hidden amongst the mail.
-The postal clerk puts a parcel into a pigeon hole.
+The postal clerk looks in one of the mail bags.
 
 > give playbill to postal clerk
 You hand the playbill to the Postal Clerk who, after studying it, replies,
@@ -815,12 +817,13 @@ and a wall mounted jukebox. To the west is Albert Street, east is Draycot
 Road and the yard behind the pub is to the south.  A cat is silently
 wandering around.  Colin Turner is standing at the bar.  Fred Sutton is
 staring vacantly around.  Emma Taylor is standing behind the bar.  A small
-black and white cat strolls out to the south.
-Colin and Fred are talking about a soap that was on last night.
+black and white cat strolls out to the east.
+Colin and Fred are discussing politics.
+Emma starts to clear away some empty glasses.
 
 > put money in jukebox
 You put some money into the jukebox and just starts playing.
-The jukebox is loudly playing rock music.
+The jukebox is loudly playing rap.
 
 > south
 You move south.
@@ -829,10 +832,8 @@ The Yard
 The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
 exits are through a metal gate to the south and back into the pub north.  You
-can also see a photograph.  A cat is silently wandering around.  Jed Peters
-is watching you carefully.  A small black and white cat strolls out to the
-north.
-The jukebox inside the pub is loudly playing rock music.
+can also see a photograph.  Jed Peters is watching you carefully.
+The jukebox inside the pub is loudly playing rap.
 You can even hear the music playing in the pub out here; it will definitely
 drown out any noise in the yard.
 
@@ -854,7 +855,8 @@ double doors with glass panels.  Against the wall you can see one of those
 wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
 is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
 weather gear is watching you.
-The drunk makes a sighing sound.
+The drunk makes a whimpering sound.
+The trainspotter looks down at his shoes.
 
 Looking surprised the porter exclaims, "Solved six locations I hear". He
 looks you up and down before continuing, "Amazing!".
@@ -877,6 +879,7 @@ with an axe, in our yard. The police are investigating". She looks around and
 then whispers, "We think it was him, the evil author".
 
 You notice that the pub is strangely quiet.
+Emma is cleaning a glass with a cloth.
 
 > south
 You move south.
@@ -921,7 +924,6 @@ Road and the yard behind the pub is to the south.  You can also see a bell.
 Colin Turner is standing at the bar.  Fred Sutton is staring vacantly around.
  Emma Taylor is standing behind the bar.  The body of a dead cat is lying
 here.
-Emma is leaning on the bar.
 
 > west
 You move west.
@@ -936,6 +938,7 @@ double doors with glass panels.  Against the wall you can see one of those
 wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
 is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
 weather gear is watching you.
+The drunk makes a snoring sound.
 
 > west
 You move west.
@@ -1012,7 +1015,6 @@ weather gear is watching you.
 A train thunders through the station and it doesn't sound like it is going to
 stop.
 The trainspotter writes in his book.
-The trainspotter looks down at his shoes.
 
 Looking surprised the porter exclaims, "Solved seven locations I hear". He
 looks you up and down before continuing, "Amazing!".
@@ -1082,7 +1084,7 @@ The dull metal room, which is exactly 2m square and 2.5m in height, is
 appropriate to your level of achievement. Attached to the wall behind you is
 the all important recharger with the teleporter on the floor opposite. To
 your left is the communicator with your own personal storage shelf above it.
-With the lighting fixed on the lowest setting the place is in murkiness, just
+With the lighting fixed on the lowest setting the place is in shadow, just
 how you prefer it.
 
 > 2
@@ -1090,10 +1092,10 @@ The room slowly fades and is replaced with your destination.
 
 Centre for Examination
 The hexagonal metal room is 10m across and nearly 5m in height. With the
-standard hidden lighting set to a low level, most of the room is in
-murkiness. A security monitor is on one side of the room, to your right the
-interrogator and virtually opposite is the teleporter.  Zeta-Theta is
-standing next to the teleporter.
+standard hidden lighting set to a low level, most of the room is in shadow. A
+security monitor is on one side of the room, to your right the interrogator
+and virtually opposite is the teleporter.  Zeta-Theta is standing next to the
+teleporter.
 
 > give card to zeta-theta
 You hand the card to Zeta-Theta who, after studying it, replies, "Correct,
@@ -1105,9 +1107,9 @@ Zeta-Theta moves over to the teleporter, steps onto the pad and disappears.
 The room slowly fades and is replaced with your destination.
 
 Roof of Building (Target)
-You are on the roof of the classical Williams Tower, which has 17 floors and
-was built around 14 years ago. A strong wind is blowing from the south and it
-looks like it could easily rain this afternoon. A large antenna is whipping
+You are on the roof of the modern Hudson Building, which has 16 floors and
+was built around 13 years ago. A strong wind is blowing from the southeast
+and it looks like it could easily rain anytime. A large antenna is whipping
 in the wind to your right and the air conditioning equipment in front of you
 is making a very loud noise. A large sign is fastened to the roof here. Just
 at your feet is the closed door leading down to the roof exit. You can go

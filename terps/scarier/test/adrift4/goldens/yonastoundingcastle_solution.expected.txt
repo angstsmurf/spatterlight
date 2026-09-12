@@ -379,13 +379,7 @@ Yon mysterious voice echoeth from somewhence.  "Beware of ye goblin!"
 
 > x fount
 Yon fountain doth bubble forth with ye waters of some effervescence.  Ye
-bottled boat is inside yon fountain.  Goblin Bob boundeth in from ye east.
-
-Ye goblin doth leapeth out at ye & snatcheth yon gem of some sort from ye
-treasure sack!
-
-It retreateth thereafter to some mysterious location, giggling uproariously
-to yonself.
+bottled boat is inside yon fountain.
 
 > get boat
 Ye taketh ye bottled boat from yon fountain.
@@ -523,6 +517,13 @@ ye marketry.  Ye baked goods come from ye oven of yon bakermen (& not from ye
 automated machine types), and be it known that ye sweat and joy of yon bakers
 infuseth ye breadstuffs with ye selfsame or some such.  To ye east is ye
 fountain room, and to ye delight of ye sweet tooth, ye cakery is to ye north.
+ Also, ye goblin doth pranceth about in yon area.
+
+Ere ye can reacteth, ye goblin stunneth ye with yon flick-in-ye-nose, and
+stealeth ye intercontinental title from ye treasure sack!
+
+It retreateth thereafter to some mysterious location, giggling uproariously
+to yonself.
 
 > e
 Ye moveth east.
@@ -550,7 +551,7 @@ rewarded with yon resounding click!
 (See Footnote 3)
 
 Ye hath unlocked ye trapdoor!  It swingeth merrily open, allowing ye passage
-downwards.  Goblin Bob boundeth in from ye west.
+downwards.
 
 > d
 Ye moveth down.
@@ -1017,7 +1018,7 @@ item" whilst in ye makery.
 > get fred
 Ye taketh yon melting wand.
 
-"Lemme at 'em!" sayeth Fred.
+"Whee!" sayeth Fred.
 
 > e
 Ye moveth east.
@@ -1064,18 +1065,17 @@ cometh ye faint, incessant ticking and ringing from beyond yon ironish door.
 
 > x trunk
 Yon trunkle appeareth to be of goblin construction (for, verily, it looketh
-pretty goblin-y).  'Tis open.  Yon gem of some sort is inside yon takery
+pretty goblin-y).  'Tis open.  Ye intercontinental title is inside yon takery
 trunkle.
 
 > get title
-There is nothing worth taking here.
-
-> get gem
-Ye taketh yon gem of some sort from yon takery trunkle.
-With some delight ye discovereth that it still fitteth in its olde place in
-ye treasure sack.
+Ye taketh ye intercontinental title from yon takery trunkle.
+Ye feeleth compleat again as ye returneth it to ye treasure sack.
 
 HUZZAH!  Ye hath reclaimed some treasure.
+
+> get gem
+Taketh what?
 
 > s
 Ye moveth south.
@@ -1159,7 +1159,7 @@ Yon stack o' cakes doth tempt ye, verily, and yet ye believeth 'tis too much
 cake to e'er possibly consumeth of it all.  To ye south of ye cakery lieth ye
 more mundane bakery and to ye east is ye dakery.  There is an enormous cake
 here.  Also, ye goblin doth pranceth about in yon area.  Goblin Bob hoppeth
-weirdly o'er to ye east.
+weirdly o'er to ye south.
 
 > s
 Ye moveth south.
@@ -1170,6 +1170,12 @@ ye marketry.  Ye baked goods come from ye oven of yon bakermen (& not from ye
 automated machine types), and be it known that ye sweat and joy of yon bakers
 infuseth ye breadstuffs with ye selfsame or some such.  To ye east is ye
 fountain room, and to ye delight of ye sweet tooth, ye cakery is to ye north.
+ Also, ye goblin doth pranceth about in yon area.
+
+Ye goblin doth leapeth out at ye & snatcheth yon gem of some sort from ye
+treasure sack!
+
+It retreateth thereafter to ye takery, giggling uproariously to yonself.
 
 > e
 Ye moveth east.
@@ -1361,14 +1367,13 @@ Ye dwarf shruggeth.  "So long as't shan't reverteth to yon slug form, 'twill
 do.  Ye may passeth."
 
 > score
-Ye currently carry 3 unit(s) of treasure or treasure-like things in ye
+Ye currently carry 2 unit(s) of treasure or treasure-like things in ye
 treasure sack, including:
-     * Yon gem of some sort!
 
      * Ye golden cowbell (verily, ye sack needed more cowbell)!
      * Yon chalice or goblet-like cup!
 
-Therefore ye currently ranketh as: YON SCROLL SORTER.
+Therefore ye currently ranketh as: YON STAMPSMAN.
 
 > e
 Ye moveth east.
@@ -1651,20 +1656,21 @@ May ye tale be told for all time to those who thirst for adventure...
 
 [presseth ye return key to continue]
 
-FINAL SCORE: YE OLDE INNKEEPER
+FINAL SCORE: YE OLDE MAIL COURIER
 
-O'er ye course of yon adventure, ye collected 5 units of treasure or
+O'er ye course of yon adventure, ye collected 4 units of treasure or
 treasure-like things.
 
 Ye returneth from yon castle with ye prizes & ye friends throweth yon small
-party in ye honour.  O'er many drinks o' generic non-offensive beverage, ye
-decideth ye could useth ye treasures to openeth ye own establishment and
-serveth yeself & ye friends anytime ye liketh.
+party in ye honour.  'Tis mostly forgotten about some month(s) later, though
+ye still might eliciteth yon chuckle or two when ye proddeth at ye friends
+with ye tales of yon hovel chimminies, riddling gnomes, and spells for
+defeating yon giant slugs.
 
-Therefore ye doth so, only ye endeth up serving mostly strangers.  Still,
-'tis ye splendid change from yon postal work & ye patrons maketh for ye olde
-captive audience whom ye might regale with stories of ye conquests (howe'er
-exaggerated).  Ne'er once hath any o' ye patrons left or fallen asleep during
-ye tales, as far as ye know.  Ye getteth along quite well o'erall, with some
-amount of acknowledgement & appreciation, and yet occasionally ye stareth out
-yon window in ye olde yearning for adventure...
+Okay, so ye still endeth up working for ye olde post office, but 'tis not one
+of ye bad gigs.  Ye spendeth lots of time outside & away from ye smelly
+postal glues for once, and meeteth lots o' new & interesting people.  They
+may taketh ye for granted, but they doth really appreciateth ye service,
+anyway.  Sometimes, ye can e'en hangeth around & watcheth them openeth their
+mail-- 'tis a little creepy of ye, tho'.  O'erall ye hath done alright, but
+still feeleth ye could hath done better with some ease.

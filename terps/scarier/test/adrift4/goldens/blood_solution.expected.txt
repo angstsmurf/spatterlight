@@ -65,8 +65,7 @@ and houses lining both sides of the road. You are very familiar with this
 area and know without looking that a pub called the Flying Horse is northeast
 and the place to the north is a tattoo parlour.  Dawson Street is to the
 southeast and London Road is to your west. From the wind that is blowing you
-can tell the cemetery is to the south.  Terry Unsworth is busy sweeping the
-road.
+can tell the cemetery is to the south.
 
 > w
 You move west.
@@ -76,11 +75,10 @@ Lined by sad little houses you cannot help but feel depressed here.  East
 leads to Albert Street, to the west is Castle Avenue and you know without
 looking that to the north is a seedy corner shop. You avoid looking south but
 the terrible feeling of grief and despair still overtakes you; it is the
-front door of your home.
+front door of your home.  Terry Unsworth is busy sweeping the road.
 
 > open front door
-You open your front door.  Terry Unsworth wanders in from the east.
-Terry scratches his crotch.
+You open your front door.  Terry Unsworth wanders out to the east.
 
 > s
 You move south.
@@ -125,8 +123,8 @@ looking that to the north is a seedy corner shop. You avoid looking south but
 the terrible feeling of grief and despair still overtakes you; it is the
 front door of your home.
 
-You are suddenly overwhelmed by a complete feeling of desperation and you
-scream to yourself, "If only I hadn't got home late that night."
+You are suddenly overwhelmed by a complete feeling of sadness and briefly you
+have a flashback of your wife lying on the floor.
 
 > n
 You move north.
@@ -139,7 +137,6 @@ front of you. The exit is south.  Charlie Hays is here looking very bored.
 
 Charlie looks at you for a brief moment and then resumes his work of looking
 bored.
-Charlie rubs his eyes as if he is sleepy.
 
 > x counter
 The old counter has seen some service.  On the counter is a peanut, a meat
@@ -147,13 +144,14 @@ pie, a bottle of perfume and a booklet.
 
 > buy perfume
 You buy the bottle of scent for £5.
+Charlie yawns.
 
 > buy pie
 You purchase the meat pie for £2.
-Charlie takes a few paces behind the counter.
 
 > get peanut
 You take the peanut from the counter.
+Charlie rubs his eyes as if he is sleepy.
 
 > s
 You move south.
@@ -178,7 +176,6 @@ and to the south is a betting shop.  Alison Clarke is standing here.
 You hand the bottle of perfume to Alison who exclaims, "Elite! My favourite."
 As she puts some of the scent on, the small bracelet she is wearing falls to
 the floor. You quietly pick it up and drop it in your pocket.
-Alison looks up and down the road.
 
 > give bracelet to alison
 You show the small bracelet to Alison who replies, "You've found me bracelet,
@@ -210,9 +207,6 @@ south.
 > put peanut in pie
 You push the peanut into the meat pie.
 
-You are suddenly overwhelmed by a complete feeling of despair and you hear
-yourself whisper, "I miss you Jane."
-
 > w
 You move west.
 
@@ -225,11 +219,14 @@ pool.
 Ray quickly looks up from his game and says, "Hi." His voice sounds like he
 has smoked far too many cigarettes in his life.
 Ray stops playing for a moment and looks at you.
-Ray is lining up a shot.
+
+You are suddenly overwhelmed by a complete feeling of depression and for a
+moment you imagine you can hear your wife calling your name.
 
 > get fly spray
 You take the can of fly spray.
 Ray stops playing for a moment and looks at you.
+Ray is lining up a shot.
 
 > e
 You move east.
@@ -369,6 +366,9 @@ south.
 Tom makes a terrible noise at the back of this throat and then spits on the
 ground.
 
+You are suddenly overwhelmed by a complete feeling of depression and you
+scream to yourself, "If only I hadn't got home late that night."
+
 As you look around the park something jogs a memory and it suddenly all comes
 back to you. You are walking with your wife, hand in hand. You are talking
 about the future, about starting a family. You stand quite still for several
@@ -395,6 +395,7 @@ surrounded the courts has gone, along with the fence posts which would have
 supported it. From the look of the court surface someone has been riding
 motorbikes in here. A path leads away to the north.  Rick Dawson is nervously
 looking around.
+Rick scratches his backside.
 
 > buy drug
 You give Rick £20 and he hands you a small packet.
@@ -449,12 +450,12 @@ can see a certificate hanging on the wall just inside the door. The only exit
 from this miserable place is behind you to the south.  You can see a
 discarded cigarette.  Ben Crosby is standing here.
 Ben glances at you for a moment and with a look of distain looks away.
+Ben coughs.
 
 > give packet to ben
 You hand the small packet to Ben who snatches it from your hand. He places
 the package he is carrying on the counter and turning his back on you takes
 the drugs.
-Ben yawns.
 
 > get package
 You take the package from the white counter.
@@ -467,6 +468,9 @@ someone who would make use of the money. Second, it would be interesting to
 see what John Morley makes of Ben not being able to pay his debts.
 Ben seems to be in some sort of daze at the moment.
 
+You are suddenly overwhelmed by a complete feeling of sadness and you shout
+to yourself, "If only that meeting hadn't gone on so long!"
+
 > s
 You move south.
 
@@ -476,7 +480,8 @@ and houses lining both sides of the road. You are very familiar with this
 area and know without looking that a pub called the Flying Horse is northeast
 and the place to the north is a tattoo parlour.  Dawson Street is to the
 southeast and London Road is to your west. From the wind that is blowing you
-can tell the cemetery is to the south.
+can tell the cemetery is to the south.  Terry Unsworth wanders in from the
+south-east.
 
 > w
 You move west.
@@ -509,6 +514,11 @@ Avenue is to the north.  Doug Sage is here.  Maggie Ford is looking at you
 expectantly.
 
 Maggie smiles and mouths "Hello."
+The tanoy system bursts into life, although it is very difficult to
+understand what is being said it sounds like, "The next race is about to
+start."
+After what sounds a very boring race it was won by 'Jumping Danny'.
+Doug rubs his chin.
 
 > s
 You move south.
@@ -541,10 +551,6 @@ betting shop is but it is all coming back to you now. You can see a counter
 behind which a woman is standing. The office for the shop is south and Castle
 Avenue is to the north.  Doug Sage is here.  Maggie Ford is looking at you
 expectantly.
-Doug paces the room.
-
-You are suddenly overwhelmed by a complete feeling of depression and you
-consider ending it all.
 
 > n
 You move north.
@@ -566,6 +572,7 @@ of neglect about it. You are standing next to one of the only wooden benches
 not to be vandalised and just at its side is a rubbish bin. Castle Avenue is
 to the east of you and a small path leads away to the south.  Tom Addison is
 here.
+Tom scratches his crotch.
 
 > give wad to tom
 You hand the wad of money to Tom who just stares at it for a moment. He then
@@ -575,8 +582,8 @@ little happier.
 > z
 Time passes...
 
-> z
-Time passes...
+You are suddenly overwhelmed by a complete feeling of despondency and for a
+moment you could have sworn someone called your name.
 
 > z
 Time passes...
@@ -584,11 +591,14 @@ Time passes...
 You hear a single shot which seems to be from the direction of the tattoo
 shop. You do hope Ben is all right.
 
-You are suddenly overwhelmed by a complete feeling of depression and you
-scream to yourself, "Why didn't I get home on time!"
+> z
+Time passes...
 
 > z
 Time passes...
+
+You are suddenly overwhelmed by a complete feeling of depression and you hear
+yourself whisper, "I miss you Jane."
 
 > e
 You move east.
@@ -620,6 +630,7 @@ and the place to the north is a tattoo parlour.  Dawson Street is to the
 southeast and London Road is to your west. From the wind that is blowing you
 can tell the cemetery is to the south.  Terry Unsworth is busy sweeping the
 road.
+Terry stretches.
 
 > n
 You move north.
@@ -668,7 +679,8 @@ and houses lining both sides of the road. You are very familiar with this
 area and know without looking that a pub called the Flying Horse is northeast
 and the place to the north is a tattoo parlour.  Dawson Street is to the
 southeast and London Road is to your west. From the wind that is blowing you
-can tell the cemetery is to the south.
+can tell the cemetery is to the south.  Terry Unsworth is busy sweeping the
+road.
 
 > ne
 You move northeast.
@@ -689,19 +701,19 @@ The barmaid, Emma, looks up and says cheerily, "Hello darling, you look a bit
 under the weather. I'm sure a drink will cheer you up a bit."
 Under your breath you mutter, "Try having your wife murdered and see how much
 you want to laugh!" You return her comment with a weak smile.
-Colin and Fred are discussing playmate of the month.
+Colin and Fred are watching Emma.
 
 > insert money
 You put some money into the jukebox and make a selection.
 The jukebox is loudly playing some blues.
-Colin and Fred are discussing politics.
+Colin and Fred are staring at each other.
 
 > give bracelet to jed
 Jed doesn't take it but looks around and says, "Not here, lets go out to the
 Yard." Jed heads south to the yard.
 The jukebox is loudly playing some blues.
-Colin and Fred are whispering to each other.
-Emma is pouring a pint of beer.
+Colin and Fred are watching Emma.
+Emma is clearing away empty glasses.
 
 > s
 You move south.
@@ -764,12 +776,16 @@ looks like it leads to a yard and you spot a narrow path to the east.  A road
 sweepers cart is parked at the side of the road.  An old newspaper is lying
 nearby.
 
+You are suddenly overwhelmed by a complete feeling of desperation and you
+scream to yourself, "If only I hadn't got home late that night."
+
 > open cart
 You open the road sweepers cart.  Some black panties are inside the road
 sweepers cart.
 
 > get panties
-You take the black panties from the road sweepers cart.
+You take the black panties from the road sweepers cart.  Terry Unsworth
+wanders in from the north-east.
 
 > s
 You move south.
@@ -795,7 +811,8 @@ northwest, Draycot Road is northeast and the cemetery is west. The shop to
 the south has three golden balls hanging outside.  A metal gate to the north
 looks like it leads to a yard and you spot a narrow path to the east.  A road
 sweepers cart is parked at the side of the road.  An old newspaper is lying
-nearby.
+nearby.  Terry Unsworth is busy sweeping the road.  Terry Unsworth wanders
+out to the north-west.
 
 > ne
 You move northeast.
@@ -806,24 +823,19 @@ called the Flying Horse is to the northwest and Dawson Street is southwest.
 The police station, which is only manned part-time, is east and the door is
 locked. You can see a small path leading southeast which you seem to remember
 leads to the canal. Thinking about the northeast which leads to Colesworth
-Road gives you a very strange feeling.  Terry Unsworth is busy sweeping the
-road.
+Road gives you a very strange feeling.
 
 > z
 Time passes...
-Terry Unsworth wanders out to the north-east.
-
-You are suddenly overwhelmed by a complete feeling of misery and briefly you
-have a flashback of your wife lying on the floor.
 
 > z
 Time passes...
-Terry Unsworth wanders in from the north-east.
 
 > z
 Time passes...
-Terry scratches his crotch.
-Terry Unsworth wanders out to the south-west.
+
+You are suddenly overwhelmed by a complete feeling of sadness and you hear
+yourself mutter, "Jane."
 
 > e
 You move east.

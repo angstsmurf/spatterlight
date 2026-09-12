@@ -3868,14 +3868,11 @@ The clay tiger enters from the north.
 > z
 Time passes...
 
-The tiger tries to bite the end of the carpet, but you manage to knock it
-away.
-
-> z
-Time passes...
-
 The ceiling picks up speed, as it lowers. Waterfall looks concerned and says,
 "I don't think we should stay here any longer."
+
+The tiger tries to bite the end of the carpet, but you manage to knock it
+away.
 
 > s
 You and Waterfall rush south just as the ceiling collapses behind you. The

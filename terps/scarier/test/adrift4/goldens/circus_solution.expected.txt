@@ -527,25 +527,25 @@ cage.  There is also a stable here.  The rear entrance to the big top is to
 your south, as are the dressing rooms.
 
 > ask barb about tape
-You get no reply from the videotape.
+Barb isn't here!
 
 > ask barb about tape
-You get no reply from the videotape.
+Barb isn't here!
 
 > ask barb about tape
-You get no reply from the videotape.
+Barb isn't here!
 
 > ask barb about tape
-You get no reply from the videotape.
+Barb isn't here!
 
 > ask barb about tape
-You get no reply from the videotape.
+Barb isn't here!
 
 > ask barb about tape
-You get no reply from the videotape.
+Barb isn't here!
 
 > ask barb about tape
-You get no reply from the videotape.  Barb comes in from the south.
+Barb isn't here!  Barb comes in from the south.
 
 > ask barb about tape
 "Oh, what's that doing there?" Barb says. She reaches into the lion cage and
@@ -563,7 +563,7 @@ Barb does not respond to your question.
 Barb does not respond to your question.  Barb moves on to the south.
 
 > ask barb about tape
-You get no reply from the videotape.
+Barb isn't here!
 
 > s
 You move south.

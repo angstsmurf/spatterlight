@@ -280,10 +280,10 @@ leads down.  Your humble abode is to the east.  Fields are to the west.  The
 chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
 Vluurinik flits around.
+It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
-A warm, gentle rain begins.
 
 > e
 You move east.
@@ -328,11 +328,10 @@ You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
 chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
-It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
-The warm seasonable rain is nearly over.
+A warm, gentle rain begins.
 
 > d
 You move down.
@@ -345,16 +344,19 @@ The CyberCow is here.
 It is raining quite heavily.
 
 You can move west and up.
-The rain has stopped.
+The rain seems to be letting up.
 
 > feed snail to cybercow
 The CyberCow sticks out its tongue and snatches up the snail, which it
 gobbles up in a spectacular display of crunching and slurping.
 The CyberCow gives you a look, as if inviting you to try some for yourself.
+The warm seasonable rain is nearly over.
 
 > milk cybercow
 While the CyberCow continues crunching and slurping delightedly on the snail,
 you fill the bowl with warm, fragrant CyberCow milk.
+
+The rain has stopped.
 
 > u
 You move up.

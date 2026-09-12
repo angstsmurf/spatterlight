@@ -66,8 +66,7 @@ Ticket Seller is looking at you expectantly.  A cat is silently wandering
 around.  You can see a young girl wandering around looking very lost.
 
 You appear to be able to move north, south and west.
-The young girl says "how get donningby?"  A cat strolls out to the west.
-The young girl says "how get donningby?"
+The young girl says "need donningby train."  A cat strolls out to the north.
 
 > ask ticket seller about grantby
 "ticket to Grantby, that is £30.  The next train is at 4.00pm."
@@ -75,42 +74,38 @@ The young girl says "how get donningby?"
 You look at your watch, "Well that is no use" you think.  You have to be at
 the meeting at that time so you will have to find another train to catch.
 
-The young girl says "need help."
-
 > x counter
 You look carefully at the battered old counter.  From the look of it the
 counter has been in the building some years.  A leaflet is on the counter.  A
-cat strolls in from the west.  A young girl wanders out to the south.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+young girl wanders out to the north.
 
 The whole station seems to be shaking as a freight train rumbles through.
 The shaking feels like it is never going to stop.
 
 > x leaflet
 It is an advertising leaflet for Super Stationary.  You could read it.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > read leaflet
 The leaflet goes into a lot of detail on how great Super Stationary is and
 how bad the opposition is. Someone has written a phone number on the back of
-the leaflet - 768555  A cat strolls out to the south.
+the leaflet - 768555  A cat strolls in from the north.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > inventory
 You are wearing your suit and a wristwatch, and you are carrying your wallet,
 a stationary catalogue and a piece of wire.  A scrap of paper and your
 business card are inside your wallet.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > read scrap of paper
 The scrap of paper reads
 
 "John Tailer of Broke Brothers, Tel: 767123"
-"Meeting today at Grantby, 4.00pm"  A cat strolls in from the south.  A young
-girl wanders in from the south.
-The young girl says "donningby platform?"
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+"Meeting today at Grantby, 4.00pm"  A cat strolls out to the west.  A young
+girl wanders in from the north.
+The young girl says "need train."
 
 > read card
 Your business card reads -
@@ -120,17 +115,11 @@ Rapid Stationary Ltd,
 Coltby
 Tel: 798654
 
-The young girl says "wo ist train to donningby."
-
 A train thunders through the station and it doesn't sound like it is going to
 stop.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > ask ticket seller about leaflet
-"a passenger must have left it.  I'll throw it away later."  A cat strolls
-out to the south.
-The young girl says "where platform 1."
+"a passenger must have left it.  I'll throw it away later."
 
 > west
 You move west.
@@ -140,31 +129,34 @@ It is probably the first time you have been in this cafe (and it will be the
 last).  You have the feeling that a visit from the local heath inspector is
 long overdue.  A counter is before you on which you can see an old tea urn, a
 display unit and the till.  The other extensive facilities consist of one
-table and one chair. On one wall you can see a small notice board.
+table and one chair. On one wall you can see a small notice board.  A cat is
+silently wandering around.
 
 The door out of the cafe is east.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > x counter
 The small counter is in keeping with this room, shabby, neglected and dirty.
+A cat strolls out to the east.
 
 > open tea urn
 You open the tea urn.  A pipe is inside the tea urn.
 
 > get pipe
-You take the pipe from the tea urn.  A cat strolls in from the east.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+You take the pipe from the tea urn.
 
 > open till
 You open the till.  An iou is inside the till.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > get iou
-You take the iou from the till.  A cat strolls out to the east.
+You take the iou from the till.
 
 > open display unit
 You open the display unit.  A stale donut is inside the display unit.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
 
 > get stale donut
 You take the stale donut from the display unit.
@@ -175,18 +167,17 @@ of dirty stains on it.  On the table is a cup, an old sandwich and a
 paperback.
 
 > look under table
-You look under the table and find something.  A young girl wanders in from
-the east.
-The young girl says "wo ist train to donningby."
+You look under the table and find something.
 
 > get rattle
 You take the baby's rattle.
-The young girl says "wo ist train to donningby."
 
 > x notice
 It only has one notice.  "Missing. One smoker's pipe.  If found contact the
 Station Master."
-The young girl says "how get donningby?"
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 
 > east
 You move east.
@@ -196,17 +187,15 @@ You are in the grimy ticket hall.  The floor is stained with decades of
 footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
 probably).  You can also see a set of double doors with glass panels.  The
-Ticket Seller is looking at you expectantly.
+Ticket Seller is looking at you expectantly.  You can see a young girl
+wandering around looking very lost.
 
 You appear to be able to move north, south and west.
-
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
+The young girl says "need train to donningby."
 
 > ask ticket seller about pipe
 "the Station Master has lost his.  I think he blames the Porter."  A young
-girl wanders in from the west.
-The young girl says "wo ist train to donningby."
+girl wanders out to the west.
 
 > north
 You move north.
@@ -227,14 +216,14 @@ You appear to be able to move east, south and northwest.
 "I needed a cup of tea and I didn't have any money.  Still the Station Master
 never goes into the cafe."
 
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
 > ask porter about grantby
 "the next train is at 4.00pm."
 
 "4.00pm! that is far too late" you think.  You will need to find another way
 to meet John Tailer.
-
-A train thunders through the station and it doesn't sound like it is going to
-stop.
 
 > east
 You move east.
@@ -254,7 +243,7 @@ hours remaining. The time is now 10:00.)
 The very smart lady says "Hello my name is Mrs Peters."
 
 > say hello to me
-No-one listens to your rabblings.
+Not surprisingly, no-one takes any notice of you.
 
 The station sound system bursts into life and you hear some crackling and
 whistling.  You then hear Bayswater followed by something like "running
@@ -266,6 +255,9 @@ You say hello to Mrs Peters, who replies "Hello."
 > ask mrs peters about grantby
 "no, I'm going to see my sister over at Bakeswell. You missed the train to
 Grantby though. The next one's not until about 4.00pm I think."
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 
 > ask mrs peters about sister
 "I'm going to see my sister. Do you know I once lost my coat at Bakewell
@@ -313,33 +305,29 @@ It's a vending machine selling chocolate.  The label on the machine states
 that it is supplied and operated by "Mega Vending".  You can see a slot which
 has £1 next to it.  The vending machine is supported by four legs and stands
 slightly away from the wall.  A bar of chocolate is inside the vending
-machine.  A young girl wanders in from the west.
-The young girl says "donningby?"
+machine.
 
 It sounds like a train is at platform 2.
 
 > x slot
 You can see a pound coin stuck in the slot.  You will need to get it out
 before you can use the vending machine.  Something to poke it out would help.
-The young girl says "to donningby?"
 
 It sounds like a train is at platform 2.
 
 > poke pound with wire
 You poke at the pound coin in the slot and it comes loose.  You pocket the
 coin.
-The young girl says "need donningby train."
 
 It sounds like a train is at platform 2.
 
 > insert pound in slot
 You insert a pound in the vending machine and a bar of chocolate drops out.
-The young girl says "to donningby?"
 
 It sounds like a train is at platform 2.
 
 > get chocolate
-You take the bar of chocolate.  A young girl wanders out to the west.
+You take the bar of chocolate.
 
 It sounds like a train is at platform 2.
 
@@ -371,14 +359,14 @@ the station.
 > ask mrs peters about horse racing
 "my husband likes a gamble.  He never knows when to stop though."
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-
 > ask mrs peters about gamble
 "my husband will keep gambling.  He just never knows when to stop though."
 
 > ask mrs peters about money
 "we do owe a little money that is true, but my husband will sort it all out."
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 
 > west
 You move west.
@@ -400,15 +388,12 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.  A cat is silently wandering around.  A Trainspotter dressed in
-wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
-You appear to be able to move northeast and southeast.  A cat strolls out to
-the south-east.
-
-It has started to rain very heavily.  You realise that this place looks a lot
-worse in the wet.
-It is still raining very hard.
+You appear to be able to move northeast and southeast.  A cat strolls in from
+the north-east.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > x trainspotter
 The trainspotter is wearing a big hooded coat (Anorak) and rainproof
@@ -420,8 +405,8 @@ You are wearing your suit and a wristwatch, and you are carrying your wallet,
 a pipe, a magazine, a bar of chocolate, a stale donut, a stationary
 catalogue, a piece of wire, the gazette, some chewing gum and an iou.  A
 scrap of paper and your business card are inside your wallet.
-The rain is blowing in through the metal grill of the bridge.  You are
-feeling wet and miserable.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > ask trainspotter about grantby
 "Yes, Grantby is the last stop on the line.  You missed the train though.
@@ -430,8 +415,8 @@ you into Grantby at 4.25pm."
 
 "Well that is no good at all" you think "I will miss my meeting.  I'll have
 to think of another idea."
-The rain is blowing in through the metal grill of the bridge.  You are
-feeling wet and miserable.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > ne
 You move northeast.
@@ -441,7 +426,7 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  You can see a large poster with a picture of a
 policeman on it.  You can also see a payphone.  A large pigeon is watching
-you from the canopy over the platform.  It is still raining very hard.
+you from the canopy over the platform.
 
 You appear to be able to move north, east and southwest.
 
@@ -454,7 +439,7 @@ rest of the station.  It even has wallpaper and a carpet. The room has a
 fireplace but it is a long time since it held a fire.   The fireplace
 contains a nice vase of flowers.  You can also see a desk and a telephone.
 The Station Master is standing to one side.  A bearded chap is pacing up and
-down.  It is still raining very hard.
+down.
 
 The door out of the room is west.
 
@@ -480,43 +465,68 @@ It couldn't possibility be one of them."
 > ask station master about wallet
 "a gentleman seems to think he lost one at the station. We have only had
 business people here today and I cannot believe one of them would need to
-steal."
+steal."  A cat strolls in from the west.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
 
 > ask station master about theft
 "some poor chap has lost his wallet.  He thinks it has been stolen.  We have
 only had business people here today and I cannot believe one of them would
 need to steal."
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+It has started to rain very heavily.  You realise that this place looks a lot
+worse in the wet.
+It is still raining very hard.
 
 > ask station master about business people
 "The man with the beard seemed to think that someone has stolen his wallet
 here.  I tried to explain that we have only had business people here today.
 It couldn't possibility be one of them."
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > x desk
 An old battered desk.  It is that type of furniture which probably looked old
 and battered when it was new.  The desk is closed.  On the desk is a notepad,
 a pen and a note.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > get notepad
 The Station Master stops you.  I suggest you try to get rid of him.
+
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > ask station master about pipe
 "I can't find my pipe anywhere.  It is a bent apple with round shank and
 tapered stem."
 
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > ask station master about iou
 "iou? sorry I do not know anything about an iou."
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > ask station master about grantby
 "next train 4.00pm."
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
 
 > give pipe to station master
 You hand the pipe to the Station Master explaining how you found it.  He says
 "thanks, I bet I know who hid it!"  He leaves the room. He could return at
-any moment so you want anything you had better be quick.
+any moment so you want anything you had better be quick.  A cat strolls out
+to the west.
 
 > get notepad
 You take the notepad.
@@ -524,46 +534,35 @@ You take the notepad.
 > get note
 You take the note.
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-
 > get pen
 You take the pen.
 
 > open desk
-You open the desk.  A book is inside the desk.  A young girl wanders in from
-the west.
-The young girl says "need help."
+You open the desk.  A book is inside the desk.
 
 > read book
 You flick through the book but nothing catches your eye.
-The young girl says "how get donningby?"
 
 The Station Master enters the room.
 
 > ask station master about book
 "I' m thinking of taking up jogging you know."
-The young girl says "how get donningby?"
-
-You are starting to feel very cold from all the rain.
 
 > get flowers
 You pickup the vase of flowers.
-The young girl says "where platform 1."
-
-> drop vase of flowers
-You drop the vase of flowers.  The plastic vase shatters into lots of pieces.
-
-The Station Master says "Why did you do that? I liked that vase."  A young
-girl wanders out to the west.
-
-> get flowers
-You pickup the flowers.
 
 The whole station seems to be shaking as a freight train rumbles through.
 The shaking feels like it is never going to stop.
 
-It is still raining very hard. You really wish the rain would stop.
+> drop vase of flowers
+You drop the vase of flowers.  The plastic vase shatters into lots of pieces.
+
+The Station Master says "Why did you do that? I liked that vase."
+
+You are starting to feel very cold from all the rain.
+
+> get flowers
+You pickup the flowers.
 
 > west
 You move west.
@@ -572,31 +571,33 @@ Platform 2
 You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  You can see a large poster with a picture of a
-policeman on it.  You can also see a payphone.  A large pigeon is watching
-you from the canopy over the platform.  You can see a young girl wandering
-around looking very lost.  It is still raining very hard.
+policeman on it.  You can also see a payphone.  A cat is silently wandering
+around.  A large pigeon is watching you from the canopy over the platform.
+It is still raining very hard.
 
 You appear to be able to move north, east and southwest.
-The young girl says "how get donningby?"  A cat strolls in from the
-south-west.
-The young girl says "donningby train?"
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 > x payphone
 It is a yellow payphone.  You lift the receiver and it actually seems to be
 working.  On the phone is a small yellow sticker.
-The young girl says "where platform 1."
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
-The rain finally seems to be stopping.
+
+It is still raining very hard. You really wish the rain would stop.
 
 > read sticker
 The sticker reads Need to know when the next train is? then call Train
-Timeline on 858585  A cat strolls out to the north.  A young girl wanders out
-to the south-west.
-Your right foot feels a little damp. You guess that your shoe must be
-leaking.
+Timeline on 858585
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
+The pigeon on the canopy of platform 2 flaps its wings and does its business.
+You end up with bird mess on your suit.
 
 > call 768555
 You pick up the handset, insert a pound and dial the number.
@@ -607,18 +608,19 @@ more credit cards I can get a good price for them."
 "Wallet, Credit Cards? Bill? would that be the Super Stationary salesman" you
 think.  What has Bill Peters been up to?
 
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+The rain finally seems to be stopping.
+
 > call 768555
 You pick up the handset, insert a pound and dial the number.
 
 "Look who are you and how did you get this number?  If you ring again things
 could get very messy for you."
 
-The person at the other end hangs up.  A cat strolls in from the north.
-
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+The person at the other end hangs up.  A cat strolls out to the east.
+Your right foot feels a little damp. You guess that your shoe must be
+leaking.
 
 > call 767123
 You pick up the handset, insert a pound and dial the number.  "Hello, this is
@@ -627,20 +629,13 @@ a meeting in Colesworth." The PA hangs up. So John Tailer is not at Grantby.
 Now should you go to him or will he pass through this station?
 
 "I could ask someone about trains 'passing through'" you think.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
-
-The pigeon on the canopy of platform 2 flaps its wings and does its business.
-You end up with bird mess on your suit.
 
 > call 798654
 You pick up the handset, insert a pound and dial the number. "Hello this is
 Rapid Stationary.  Everyone is busy just now but if you leave your name and
 number someone will get back to you as soon as possible."
 
-You hang up before the beep.  A cat strolls out to the east.  A young girl
-wanders in from the south-west.
-The young girl says "donningby train?"
+You hang up before the beep.
 
 > call 858585
 You pick up the handset, insert a pound and dial the number.
@@ -651,7 +646,6 @@ You then get some hold music, after a couple of minutes you hear -
 we answer your call."
 You then get some more hold music.
 You hang up.
-The young girl says "donningby train?"
 
 > east
 You move east.
@@ -664,6 +658,9 @@ desk and a telephone.  The Station Master is standing to one side.  A cat is
 silently wandering around.
 
 The door out of the room is west.  A cat strolls out to the west.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
 
 > ask station master about passing through
 "railway station, lots of trains pass through."
@@ -679,12 +676,10 @@ which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
 rain.  You can see a large poster with a picture of a policeman on it.  You
 can also see a payphone.  A cat is silently wandering around.  A large pigeon
-is watching you from the canopy over the platform.  You can see a young girl
-wandering around looking very lost.
+is watching you from the canopy over the platform.
 
-You appear to be able to move north, east and southwest.
-The young girl says "need help."  A cat strolls out to the east.  A young
-girl wanders out to the south-west.
+You appear to be able to move north, east and southwest.  A cat strolls out
+to the east.
 
 > sw
 You move southwest.
@@ -698,8 +693,7 @@ platforms.  A Trainspotter dressed in wet weather gear is watching you.  You
 can see a young girl wandering around looking very lost.
 
 You appear to be able to move northeast and southeast.
-The young girl says "next train going to donningby?"
-The young girl says "wo ist train to donningby."
+The young girl says "need help."
 
 (You now have 5 hours left to finish the game. The time is now 11:00.)
 
@@ -710,36 +704,30 @@ passes through here at around 3.30pm, but it doesn't stop."
 You think to yourself  "so a train from Colesworth passes through here does
 it.  John Tailer must be on that one for our meeting at 4.00pm.  How do I
 stop the train? I wondered if the trainspotter knows about stopping trains?"
-The young girl says "to donningby?"
 
 The station sound system bursts into life and you hear some crackling and
 whistling.  You then hear Draycot followed by something like "running
 approximately 15 minutes late."
+The Trainspotters says "If you would like to look at my notes I will be happy
+to show you."
 
 > ask trainspotter about stopping train
 "once you get a note with the right station on it, give it to the Station
 Master."
-The young girl says "need train."
 
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 The trainspotter writes something in a notebook.
 
 > ask trainspotter about note
 "Yes, sometimes they need to get a train to make an unscheduled stop.  The
 note is the order to the Signalman to do this.  The Station Master will keep
-the notes in his office I guess."  A cat strolls in from the north-east.  A
-young girl wanders out to the north-east.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
-The Trainspotters says "If you would like to look at my notes I will be happy
-to show you."
+the notes in his office I guess."  A young girl wanders out to the
+north-east.
 
 > ask trainspotter about notepad
 "Yes, that would be handy for taking notes.  I like the type with a spring on
 the top."
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > ask trainspotter about pen
 "Yes, The Station Masters pen is a Jade pen by Rover. It is made from
@@ -748,8 +736,7 @@ be 18kt solid gold.  Most have been converted to take an international
 cartridge rather than the original."
 
 You are just thinking that he does not get out enough. You have changed your
-mind he should stay in, out the way of everyone else.  A cat strolls out to
-the north-east.
+mind he should stay in, out the way of everyone else.
 
 > read note
 It is an Unscheduled Stop note to the Signal Man reminding him of a change.
@@ -758,15 +745,9 @@ It reads "Unscheduled Stop. Draycot train is stopping here today. 3.30pm"
 > ask trainspotter about beard
 "Yes, I saw him storm out of the station.  He was complaining about someone
 stealing his wallet.  Seems to be a lot of that happening a long this line.
-My brother was telling me that this happened at his station."  A cat strolls
-in from the north-east.  A young girl wanders in from the north-east.
-The young girl says "wo ist train to donningby."
-
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-The trainspotter writes something in a notebook.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+My brother was telling me that this happened at his station."
+The Trainspotters says "I could invite you to the next meeting of the local
+Trainspotter's club."
 
 > se
 You move southeast.
@@ -788,6 +769,9 @@ The pigeon has done its business on your suit 1 times!
 
 > clean mess
 You try to wipe the mess from your suit, but it just looks worse then ever.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
 
 > south
 You move south.
@@ -836,6 +820,9 @@ have a meeting later today with Bill, I do not know how I am going to get
 their now."
 
 Oh! No! not Bill Peters again.  Why does everyone know Bill Peters!
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 A train arrives at Platform 2.  You just manage to catch the name Draycot on
 the announcement.
 
@@ -902,14 +889,11 @@ footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
 probably).  The floor is wet in here; the rain must have been blown in.  You
 can also see a banana skin and a set of double doors with glass panels.  The
-Ticket Seller is looking at you expectantly.  A cat is silently wandering
-around.
+Ticket Seller is looking at you expectantly.
 
 You appear to be able to move north, south and west.
 You hear someone blowing a whistle and the train on platform 2 pulls out of
 the station.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > west
 You move west.
@@ -922,22 +906,18 @@ display unit and the till.  The other extensive facilities consist of one
 table and one chair. On one wall you can see a small notice board.  You can
 also see a bag of shopping.
 
-The door out of the cafe is east.  A cat strolls in from the east.
+The door out of the cafe is east.
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
 
 > get bag of shopping
 You take the bag of shopping.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > x bag of shopping
 It is one of those plastic bags given out by Supermarkets.  Inside the bag of
 shopping is a pair of tights, a tin of pet food, a can of deodorant and a
-pair of gloves.  A cat strolls out to the east.
+pair of gloves.
 
 > east
 You move east.
@@ -948,12 +928,9 @@ footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
 probably).  The floor is wet in here; the rain must have been blown in.  You
 can also see a banana skin and a set of double doors with glass panels.  The
-Ticket Seller is looking at you expectantly.  A cat is silently wandering
-around.
+Ticket Seller is looking at you expectantly.
 
 You appear to be able to move north, south and west.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > north
 You move north.
@@ -972,6 +949,9 @@ You appear to be able to move east, south and northwest.
 You can see a green railway bench which looks hard, uncomfortably and dirty.
 At the moment it has a drunk sleeping on it.
 
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
 > look under bench
 You look under the bench and find something.
 
@@ -982,9 +962,6 @@ You take the pamphlet.
 The small blue pamphlet is entitled "Keep Your Station Tidy" and goes on
 about basically not dropping litter.  It finishes by asking for volunteer
 litter wardens.
-
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
 
 > ask porter about pamphlet
 "have a word with the Station Master."
@@ -1000,10 +977,7 @@ probably).  The floor is wet in here; the rain must have been blown in.  You
 can also see a banana skin and a set of double doors with glass panels.  The
 Ticket Seller is looking at you expectantly.
 
-You appear to be able to move north, south and west.  A cat strolls in from
-the west.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+You appear to be able to move north, south and west.
 
 > south
 You move south.
@@ -1020,18 +994,10 @@ wire frame rubbish bins.  A bearded chap is pacing up and down.
 To the north you can see the station entrance.
 
 > drop crumbled newspaper in bin
-You put the crumbled newspaper inside the rubbish bin.  A cat strolls in from
-the north.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+You put the crumbled newspaper inside the rubbish bin.
 
 > time
 You look at your wristwatch and see that the time is 11:37.
-
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > north
 You move north.
@@ -1044,15 +1010,13 @@ probably).  The floor is wet in here; the rain must have been blown in.  You
 can also see a banana skin and a set of double doors with glass panels.  The
 Ticket Seller is looking at you expectantly.
 
-You appear to be able to move north, south and west.  A cat strolls in from
-the south.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+You appear to be able to move north, south and west.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
 
 > get banana skin
 You take the banana skin.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > south
 You move south.
@@ -1093,12 +1057,12 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.  You can also see a set of double doors with
 glass panels.  The Porter is here leaning against the wall.  A drunk is
-sleeping off a heavy night on a bench.  You can see a young girl wandering
-around looking very lost.
+sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
-The young girl says "need train to donningby."
-The young girl says "need train."
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 
 > ask porter about young girl
 "tell her to go to Grantby."
@@ -1106,22 +1070,16 @@ The young girl says "need train."
 They are just so helpful here at Coltby. "How do I tell her to go to Grantby,
 I can't speak German or whatever language she speaks", you think to yourself.
  A cat strolls in from the east.
-The young girl says "to donningby?"
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
-
 > ask porter about german
 "just talk loudly and slowly, works for me."
-The young girl says "donningby?"
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
 > ask young girl about grantby
-The young girl says "wo ist train to donningby."  A cat strolls out to the
-south.  A young girl wanders out to the south.
+Young Girl isn't here!  A cat strolls out to the south.
 
 > nw
 You move northwest.
@@ -1131,53 +1089,41 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.  A Trainspotter dressed in wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.  You
+can see a young girl wandering around looking very lost.
 
 You appear to be able to move northeast and southeast.
+The young girl says "how get donningby?"
 
 > give notepad to trainspotter
 You hand the notepad to the trainspotter.  His little eyes really light up.
+The Trainspotters says "People do not realise how much fun trainspotting is."
 
 > ask trainspotter about tights
 "Yes, those tights look good.  I bet they are great at keeping you warm."
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-The trainspotter writes something in a notebook.
-
 > get tights
-You take the pair of tights from the bag of shopping.  A cat strolls in from
-the south-east.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
-The Trainspotters says "I could invite you to the next meeting of the local
-Trainspotter's club."
+You take the pair of tights from the bag of shopping.
+The young girl says "how get donningby?"
 
 > give tights to trainspotter
 You hand the tights to the Trainspotter.  His little eyes light up.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > ask trainspotter about gloves
-"Yes, I would like a nice pair of leather driving gloves."  A cat strolls out
-to the north-east.
+"Yes, I would like a nice pair of leather driving gloves."
 
 > get gloves
 You take the pair of gloves from the bag of shopping.
 
 > give gloves to trainspotter
 You hand the gloves to the Trainspotter.  He tries them on and then says
-"that's a pity they don't fit me."  He hands that back to you.  A cat strolls
-in from the north-east.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+"that's a pity they don't fit me."  He hands that back to you.  A young girl
+wanders out to the south-east.
 
 > ask trainspotter about young girl
 "Yes, I've seen her.  I think she is German. Pity my brother is not here as
 he speaks perfect German. I think she said she is going to Donningby which is
 a change at Grantby."
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > ask trainspotter about german
 "Yes, I think the lost girl is German, I'm pretty sure.  Pity my brother is
@@ -1186,11 +1132,12 @@ to change at Grantby.  I think the German for station is Bahnhof and
 umsteigen means to change. "
 
 "Ah! so I need to say something like Donningby bahnhof umsteigen Grantby" you
-think.  A cat strolls out to the south-east.
-The Trainspotters says "People do not realise how much fun trainspotting is."
+think.
+The Trainspotters says "I going on holiday soon.  I'm going on a five Railway
+Station tour of Belgium."
 
 > where is young girl
-Young Girl is ticket hall.
+Young Girl is wet platform 1.
 
 > se
 You move southeast.
@@ -1201,44 +1148,39 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.  You can also see a set of double doors with
 glass panels.  The Porter is here leaning against the wall.  A drunk is
-sleeping off a heavy night on a bench.  A cat is silently wandering around.
+sleeping off a heavy night on a bench.  You can see a young girl wandering
+around looking very lost.
 
 You appear to be able to move east, south and northwest.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
-
-> ask young girl about flowers
-You cannot see the Lost Looking Girl anywhere?  A cat strolls out to the
-east.  A young girl wanders in from the south.
-The young girl says "to donningby?"
-
-> give flowers to young girl
-You hand the flowers to the young girl.  Even though they are only plastic
-she seems quite pleased.
 The young girl says "next train going to donningby?"
+The young girl says "need train."
 
 The whole station seems to be shaking as a freight train rumbles through.
 The shaking feels like it is never going to stop.
 
+> ask young girl about flowers
+"flowers?"
+
+I do not think she understands.
+
 (Not wanting remind you but you have 4 hours remaining. The time is now
 12:00.)
 
-> ask young girl about flowers
-The young girl says "need help."  A cat strolls in from the east.
-The young girl says "next train going to donningby?"
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+> give flowers to young girl
+You hand the flowers to the young girl.  Even though they are only plastic
+she seems quite pleased.
 
 The station sound system bursts into life and you hear some crackling and
 whistling.  You then hear Colesworth followed by something like "running
 approximately 5 minutes late."
 
+> ask young girl about flowers
+"die Blumen sind hübsch."
+
 > say donningby bahnhof umsteigen grantby to young girl
 The girl replies "vielen dank!"  The girl heads for Platform 2.
 Hurrah! you actually spoke to the girl and she understood you.  What a day
 this is turning out to be.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > nw
 You move northwest.
@@ -1251,6 +1193,10 @@ grill then fills the gap up to the roof.  From here you can see both
 platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+The trainspotter writes something in a notebook.
 
 > ne
 You move northeast.
@@ -1264,6 +1210,12 @@ can also see a payphone.  A large pigeon is watching you from the canopy over
 the platform.
 
 You appear to be able to move north, east and southwest.
+A train arrives at Platform 1.  You just manage to catch the name Colesworth
+on the announcement.
+You are nearly knocked over by the crowd that gets off a train.
+
+The pigeon on the canopy of platform 2 flaps its wings and does its business.
+You end up with bird mess on your suit.
 
 > north
 You move north.
@@ -1277,11 +1229,6 @@ on it.  Near the first aid box you can see a light switch.  You can also see
 a suitcase, a sweeping brush, a bucket and a manual.
 
 The door out of the left luggage room is south.
-
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-A train arrives at Platform 1.  You just manage to catch the name Colesworth
-on the announcement.
 
 It sounds like a train is at platform 1.
 
@@ -1319,7 +1266,7 @@ closing.
 > x train
 It is a diesel powered small, one carriage commuter train.  Dirty and over
 crowded.  The windows of the train are very dirty and you cannot see inside.
-The train has a number painted on the front which is 27044.  The automatic
+The train has a number painted on the front which is 42377.  The automatic
 doors of the train have closed.
 
 You can see that the Colesworth train is at platform 1.
@@ -1356,6 +1303,9 @@ can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
 > sw
 You move southwest.
 
@@ -1367,8 +1317,8 @@ grill then fills the gap up to the roof.  From here you can see both
 platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
-The Trainspotters says "I going on holiday soon.  I'm going on a five Railway
-Station tour of Belgium."
+The Trainspotter turns to face you and asks "what's that mess on your
+shoulder?"
 The Trainspotter has spotted the manual you are carrying and gets all
 excited.  He shouts "YOU'RE A TRAINSPOTTER! Great! Lets swap train details!"
 
@@ -1383,17 +1333,14 @@ which seems to neither protect from the rain or wind.  Attached to the wall
 you can see a large clock and next to it is a poster.    The platform is now
 very slippery from all the rain.  You can also see an apple core and a set of
 double doors with glass panels.  The Porter is here leaning against the wall.
- A drunk is sleeping off a heavy night on a bench.  A cat is silently
-wandering around.
+ A drunk is sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 The porter looks at you and then looks at the Trainspotting Manual.  He says
 "OH NO! not another damn Trainspotter!"
 
 > get apple core
-You take the apple core.  A cat strolls out to the east.
+You take the apple core.
 
 > south
 You move south.
@@ -1404,9 +1351,10 @@ footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
 probably).  The floor is wet in here; the rain must have been blown in.  You
 can also see a set of double doors with glass panels.  The Ticket Seller is
-looking at you expectantly.
+looking at you expectantly.  A cat is silently wandering around.
 
-You appear to be able to move north, south and west.
+You appear to be able to move north, south and west.  A cat strolls out to
+the south.
 The Ticket Sellers looks and says "seen any good trains today." He then
 starts laughing.
 
@@ -1420,12 +1368,19 @@ Georgian style.  Now many years later and after decades of neglect and
 vandalism it looks a very sad place.  You can see many spaces for waiting
 taxi's (all empty) and the main entrance to the station.  You can see several
 large puddles from all the rain.  Against one wall you can see one of those
-wire frame rubbish bins.  A bearded chap is pacing up and down.
+wire frame rubbish bins.  A cat is silently wandering around.  A bearded chap
+is pacing up and down.
 
 To the north you can see the station entrance.
 
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+You can hear a small bell tinkling which sounds just like one of those bells
+worn by a cat.
+
 > drop apple core in bin
-You put the apple core inside the rubbish bin.
+You put the apple core inside the rubbish bin.  A cat strolls out to the
+north.
 
 > north
 You move north.
@@ -1436,10 +1391,9 @@ footprints and the walls look like they haven't seen a coat of paint for a
 long time.  You can see a counter behind which is a man (selling tickets
 probably).  The floor is wet in here; the rain must have been blown in.  You
 can also see a set of double doors with glass panels.  The Ticket Seller is
-looking at you expectantly.
+looking at you expectantly.  A cat is silently wandering around.
 
-You appear to be able to move north, south and west.  A cat strolls in from
-the north.
+You appear to be able to move north, south and west.
 You can hear a small bell tinkling which sounds just like one of those bells
 worn by a cat.
 
@@ -1455,9 +1409,6 @@ glass panels.  The Porter is here leaning against the wall.  A drunk is
 sleeping off a heavy night on a bench.
 
 You appear to be able to move east, south and northwest.
-
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
 
 > nw
 You move northwest.
@@ -1502,9 +1453,6 @@ The door out of the room is west.
 You hand the IOU to the Station Master explaining how you found it.  He says
 "thanks, I will have a word with the Porter about this."  He leaves the room.
 He could return at any moment so you want anything you had better be quick.
-
-A train thunders through the station and it doesn't sound like it is going to
-stop.
 
 > west
 You move west.
@@ -1578,16 +1526,13 @@ You are on the covered footbridge over the train lines.  At either end of the
 bridge is metal staircase which is open to the elements. The bridge itself
 has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
-platforms.  A cat is silently wandering around.  A Trainspotter dressed in
-wet weather gear is watching you.
+platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
 A train thunders through the station and it doesn't sound like it is going to
 stop.
 The trainspotter writes something in a notebook.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > se
 You move southeast.
@@ -1600,20 +1545,14 @@ very slippery from all the rain.  You can also see a set of double doors with
 glass panels.  The Porter is here leaning against the wall.  A drunk is
 sleeping off a heavy night on a bench.
 
-You appear to be able to move east, south and northwest.  A cat strolls in
-from the north-west.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+You appear to be able to move east, south and northwest.
 
 > ask porter about iou
 "what did you have to go and give the iou to the Station Master for! You got
 me into trouble."  The Porter looks a little cross.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > time
-You look at your wristwatch and see that the time is 12:38.  A cat strolls
-out to the north-west.
+You look at your wristwatch and see that the time is 12:39.
 
 > ask porter about bill peters
 "Bill Peters, great man is Bill. He sometimes gives me horse racing tips."
@@ -1645,9 +1584,6 @@ The station sound system bursts into life and you hear some crackling and
 whistling.  You then hear Bakeswell followed by something like "running
 approximately 15 minutes late."
 
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
-
 > nw
 You move northwest.
 
@@ -1660,8 +1596,14 @@ platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
 
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+The trainspotter writes something in a notebook.
+
 > ask trainspotter about bill peters
 "Yes, not heard of him.  Is he an explorer?"
+The Trainspotters says "If you would like to look at my notes I will be happy
+to show you."
 
 > ask trainspotter about john tailer
 "Yes, Tailer? was he the Governor of Massachusetts in 1711?"
@@ -1676,10 +1618,9 @@ You are on the wind swept platform.  The platform is covered by a canopy
 which seems to neither protect from the rain or wind. To the west you can see
 the door to the toilets.  The platform is now very slippery from all the
 rain.  You can see a large poster with a picture of a policeman on it.  You
-can also see a payphone.  A cat is silently wandering around.
+can also see a payphone.
 
-You appear to be able to move north, east and southwest.  A cat strolls out
-to the south-west.
+You appear to be able to move north, east and southwest.
 
 > north
 You move north.
@@ -1694,11 +1635,11 @@ a suitcase, a sweeping brush and a bucket.
 
 The door out of the left luggage room is south.
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-
 > get suitcase
 The suitcase is too heavy for you to carry at the moment.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 
 > south
 You move south.
@@ -1722,10 +1663,9 @@ has a metal floor and sides which reaches to nearly shoulder height.  A metal
 grill then fills the gap up to the roof.  From here you can see both
 platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
-You appear to be able to move northeast and southeast.  A cat strolls in from
-the south-east.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+You appear to be able to move northeast and southeast.
+The Trainspotters says "I could invite you to the next meeting of the local
+Trainspotter's club."
 
 > se
 You move southeast.
@@ -1741,34 +1681,22 @@ sleeping off a heavy night on a bench.
 You appear to be able to move east, south and northwest.
 
 > ask porter about suitcase
-"look it ain't yours so leave it alone."  A cat strolls in from the
-north-west.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+"look it ain't yours so leave it alone."
 
 > time
 You look at your wristwatch and see that the time is 13:11.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 
 > west
 You can't go in that direction, but you can move east, south and northwest.
-A cat strolls out to the east.
-
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
 
 > sw
 You can't go in that direction, but you can move east, south and northwest.
 
 > se
 You can't go in that direction, but you can move east, south and northwest.
-A cat strolls in from the east.
 A train arrives at Platform 2.  You just manage to catch the name Bakeswell
 on the announcement.
-You are nearly knocked over by the crowd that gets off a train.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
+a handful of people get off the train and leave.
 
 > x drunk
 The drunk looks very untidy and you guess that he must have slept in his
@@ -1782,16 +1710,13 @@ pamphlet.  A scrap of paper is inside your wallet.  A tin of pet food and a
 can of deodorant are inside the bag of shopping.
 
 You can see that the Bakeswell train is at platform 2.
-You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
 The Porters is shouting across the station to the Station Master.
 "Bill Peters is back.  He is in the Waiting Room if you want him."  The
 Station Master waves an acknowledge and goes back into his office.
 The Porter mutters something under his breath.
 
 > time
-You look at your wristwatch and see that the time is 13:16.  A cat strolls
-out to the north-west.
+You look at your wristwatch and see that the time is 13:16.
 
 You can see that the Bakeswell train is at platform 2.
 
@@ -1864,9 +1789,6 @@ the station.
 You can see the left pocket.  It appears to be empty. No, it is definitely
 empty.
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-
 > x right pocket
 You can see the right pocket.  The Business Man is holding something in the
 pocket.
@@ -1878,6 +1800,9 @@ strange answer you think.
 > ask business man about 768555
 He starts shouting "DO YOU NORMALLY RING JUST ANY OLD NUMBER!" then pausing
 to regain control "sorry, just don't call that number again."
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 
 > open pet food
 You open the tin of cat food.  You are greeted with a terrible smell of old
@@ -1977,11 +1902,11 @@ a suitcase, a sweeping brush, a bucket and a parcel.
 
 The door out of the left luggage room is south.
 
-> get parcel
-You take the parcel.
-
 The whole station seems to be shaking as a freight train rumbles through.
 The shaking feels like it is never going to stop.
+
+> get parcel
+You take the parcel.
 
 > x parcel
 It is a parcel loosely wrapped in brown paper.  The parcel has a label.  The
@@ -1997,11 +1922,11 @@ delivered, 99 to follow."
 > get pencil
 You take the pencil from the parcel.
 
-> x pencil
-It is a round No.2 or HB grade pencil.
-
 A train thunders through the station and it doesn't sound like it is going to
 stop.
+
+> x pencil
+It is a round No.2 or HB grade pencil.
 
 > snap pencil
 You look around to make sure no one is looking and then break the pencil in
@@ -2046,9 +1971,6 @@ You hand the parcel to the Station Master who says "thanks, I've been waiting
 for this."  He opens the box and looks at the delivery note.  He doesn't look
 pleased.  He then sees the pencil.  His face goes a lovely red colour.
 
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
-
 > ask station master about parcel
 "I've just taken delivery from Super Stationary and it's broken.  Would you
 believe it.  It was only a part delivery as well! What am I going to do I
@@ -2083,9 +2005,6 @@ can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-
 > sw
 You move southwest.
 
@@ -2097,6 +2016,10 @@ grill then fills the gap up to the roof.  From here you can see both
 platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+The trainspotter writes something in a notebook.
 
 > se
 You move southeast.
@@ -2123,21 +2046,18 @@ approximately 10 minutes late."
 > wait
 Time passes...
 
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
-
-> wait
-Time passes...
-
 A train thunders through the station and it doesn't sound like it is going to
 stop.
 
 > wait
 Time passes...
 
+> wait
+Time passes...
+
 A train arrives at Platform 2.  You just manage to catch the name Coldon on
 the announcement.
-a handful of people get off the train and leave.
+two people depart from the train and leave.
 The Business Woman asks "The cafe seems to be shut.  Do you know of anywhere
 to eat I missed breakfast?"
 
@@ -2255,6 +2175,9 @@ your mistakes just "use the bottle on whatever".
 You use Wonder White on the note and careful cover the word Draycot.  It is
 now ready to 'write something on the note'.
 
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+
 > write colesworth on note
 You write the name 'Colesworth' on the note.
 
@@ -2300,11 +2223,11 @@ The door out of the room is west.
 You hand the note to the Station Master.  "thanks, I thought I'd lost that.
 I must get it to the Signal Man now."
 
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
 > ask station master about note
 "I've handed it to the Signalman."
-
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
 
 > give pen to station master
 You hand the pen to the Station Master.  "I thought I'd lost this.  My wife
@@ -2341,8 +2264,8 @@ You appear to be able to move northeast and southeast.
 "Yes, it was Joseph Fry & Son in 1847 who discovered a way to make the first
 modern chocolate bar."
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
 The trainspotter writes something in a notebook.
 
 > se
@@ -2396,6 +2319,9 @@ sandwich, a piece of wire, a manual, the gazette, some chewing gum, a pair of
 gloves and a pamphlet.  A scrap of paper is inside your wallet.  A can of
 deodorant is inside the bag of shopping.
 
+A train thunders through the station and it doesn't sound like it is going to
+stop.
+
 > north
 You move north.
 
@@ -2422,9 +2348,6 @@ sleeping off a heavy night on a bench.  A tall business woman is looking at
 you.
 
 You appear to be able to move east, south and northwest.
-
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
 
 > ask business woman about coat
 "SOMEONE HAS PUT MY COAT ON THAT DRUNK! Well I do not want it back now!"
@@ -2454,8 +2377,6 @@ grill then fills the gap up to the roof.  From here you can see both
 platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
-The Trainspotters says "If you would like to look at my notes I will be happy
-to show you."
 
 > ne
 You move northeast.
@@ -2468,6 +2389,9 @@ rain.  You can see a large poster with a picture of a policeman on it.  You
 can also see a payphone.
 
 You appear to be able to move north, east and southwest.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
 
 > north
 You move north.
@@ -2482,9 +2406,6 @@ a suitcase, a sweeping brush and a bucket.
 
 The door out of the left luggage room is south.
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-
 > south
 You move south.
 
@@ -2498,7 +2419,7 @@ can also see a payphone.
 You appear to be able to move north, east and southwest.
 A train arrives at Platform 1.  You just manage to catch the name Thrumpton
 on the announcement.
-two people depart from the train and leave.
+a group of children get off the train and run off.
 
 > sw
 You move southwest.
@@ -2572,8 +2493,8 @@ the station.
 > get sock
 You take the single sock.
 
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 
 > south
 You move south.
@@ -2633,9 +2554,6 @@ sleeping off a heavy night on a bench.  A tall business woman is looking at
 you.
 
 You appear to be able to move east, south and northwest.
-
-A train thunders through the station and it doesn't sound like it is going to
-stop.
 The porter looks at you and whispers "the Police are here.  They say they
 will arrest anyone with stolen property."
 
@@ -2650,6 +2568,10 @@ grill then fills the gap up to the roof.  From here you can see both
 platforms.  A Trainspotter dressed in wet weather gear is watching you.
 
 You appear to be able to move northeast and southeast.
+
+The whole station seems to be shaking as a freight train rumbles through.
+The shaking feels like it is never going to stop.
+The trainspotter writes something in a notebook.
 The Trainspotter sees you and says "I've just seen a Policeman at the
 Station.  They say he is looking for anyone with stolen goods!"
 
@@ -2671,14 +2593,14 @@ You appear to be able to move north, east and southwest.
 > time
 You look at your wristwatch and see that the time is 15:21.
 
-> wait
-Time passes...
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 
 > wait
 Time passes...
 
-The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
+> wait
+Time passes...
 
 > wait
 Time passes...
@@ -2742,9 +2664,6 @@ you.
 
 You appear to be able to move east, south and northwest.
 
-A train thunders through the station and it doesn't sound like it is going to
-stop.
-
 > south
 You move south.
 
@@ -2771,6 +2690,9 @@ large puddles from all the rain.  Against one wall you can see one of those
 wire frame rubbish bins.  A Policeman is watching you very carefully.
 
 To the north you can see the station entrance.
+
+A train thunders through the station and it doesn't sound like it is going to
+stop.
 
 > drop carton in bin
 You put the hamburger carton inside the rubbish bin.

@@ -578,10 +578,14 @@ vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
+fancy ship.  DARWIN is intently working on something, but you can't make out
+what it is. It turns away from you each time you approach.  It doesn't seem
+to be concerned at all about your presence.
 
-You can move north, south, southeast and southwest.  DARWIN enters from the
-north.
+You can move north, south, southeast and southwest.
+
+"The bomb.....time must be getting short.  I wish it had a precise timer on
+it."
 
 > d
 You push the lever into the DOWN position and all of a sudden the spot right
@@ -601,11 +605,8 @@ fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
 
 You can only move south.
 
-"The bomb.....time must be getting short.  I wish it had a precise timer on
-it."
-
 > n
-You can only move south.
+You can only move south.  ADRIFT-O-Sweep zooms out through the vent.
 
 > up
 You push the lever into the Up position and the ADRIFT-O-Lift begins to rise
@@ -623,15 +624,16 @@ The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
+fancy ship.
 
-You can only move south.  ADRIFT-O-Sweep zooms in through the vent.  DARWIN
-exits to the south.
+You can only move south.
 
 > where is sweeper
 ADRIFT-O-Sweep is
 the adrift-o-lift
 .  (Right next to you silly!)
+"The bomb has to blow soon.  I just know it.  I probably shouldn't have
+activated it yet."
 
 > n
 You move north.
@@ -660,24 +662,17 @@ There is a lever on the wall, though it seems a little primative for such a
 fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
 
 You can move north, south, southeast and southwest.
-"The bomb has to blow soon.  I just know it.  I probably shouldn't have
-activated it yet."
 
 > push button
 You push the button and the ADRIFT-O-Sweep makes a strange noise then creates
 a vacuum so powerful that it literally rips everything from your hands,
 sucking it up.
+"I activated the bomb.  I wonder how much time I have until it blows."
 
 > where is darwin
 DARWIN is
 the laboratory
-.
-
-> z
-Time passes...
-
-"I activated the bomb.  I wonder how much time I have until it blows."
-ADRIFT-O-Sweep zooms out through the vent to the south-east.
+.  ADRIFT-O-Sweep zooms out through the vent to the south-east.
 
 > z
 Time passes...
@@ -706,11 +701,6 @@ it."
 > z
 Time passes...
 
-> where is darwin
-DARWIN is
-the corridor
-.
-
 > z
 Time passes...
 
@@ -718,31 +708,34 @@ Time passes...
 activated it yet."
 ADRIFT-O-Sweep zooms in through the vent from the south-west.
 
-> zz
-Run that by me agian- I didn't understand what you meant!
-
-> z
-Time passes...
-
-"I activated the bomb.  I wonder how much time I have until it blows."
-
 > where is darwin
 DARWIN is
-adrift-o-dump
+the corridor
 .
+"I activated the bomb.  I wonder how much time I have until it blows."
 
 > z
 Time passes...
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
-ADRIFT-O-Sweep zooms out through the vent to the north.
+
+> zz
+Run that by me agian- I didn't understand what you meant!
 
 > z
 Time passes...
+ADRIFT-O-Sweep zooms out through the vent to the north.
 
+> where is darwin
+DARWIN is
+adrift-o-dump
+.
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
 activated it yet."
+
+> z
+Time passes...
 
 A loud rumble shakes the ship, lights flickering, warning sirens blaring.
 Trying to gain your balance, you make your way to the bridge of the
@@ -751,6 +744,10 @@ You’re quite happy to see DARWIN barely clinging onto the corner of the hatch
 door, which must have blown off during the explosion.
 
 You did it!.  Now you need to get in touch with the captain.
+
+> z
+Time passes...
+ADRIFT-O-Sweep zooms out through the vent to the south.
 
 > n
 You can only move south.
@@ -765,7 +762,7 @@ vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
+fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
 
 You can move north, south, southeast and southwest.
 

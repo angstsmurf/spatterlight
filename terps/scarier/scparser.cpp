@@ -211,12 +211,25 @@ uip_next_token (void)
    */
   if (scr_isspace (uip_pattern[uip_index]))
     {
+      scr_char before = uip_index > 0 ? uip_pattern[uip_index - 1] : NUL;
+
       uip_index++;
       uip_token_multi_space = scr_isspace (uip_pattern[uip_index])
                               && uip_pattern[uip_index] != NUL;
       while (scr_isspace (uip_pattern[uip_index])
              && uip_pattern[uip_index] != NUL)
         uip_index++;
+
+      /*
+       * A run touching a [..] or {..} group is not a literal stretch: every
+       * Runner answers "A View to a Home" `open box` from "[open] {the}
+       * {metal} [box]" and "Monsters" `shine flashlight on brainsucker`
+       * from "... {brain}  {monster}" (Adrift_295_viewtohome.txt,
+       * Adrift_1_monsters.txt), both with two spaces between groups.
+       */
+      if (before == '}' || before == ']'
+          || uip_pattern[uip_index] == '{' || uip_pattern[uip_index] == '[')
+        uip_token_multi_space = FALSE;
       uip_token_value = NULL;
       return TOK_WHITESPACE;
     }

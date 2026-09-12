@@ -286,7 +286,6 @@ Sitting at one of the tables is a elderly fellow, sipping from a cup.
 You drop the tankard.
 Your guts rumble.
 Your throat is sore.
-Sid picks up his mug and drinks.
 
 > drop green bottle
 You drop the green bottle.
@@ -295,7 +294,6 @@ You drop the green bottle.
 You drop the brown bottle.
 You feel hungry.
 You feel thirsty.
-Sid sips from his mug.
 
 > show barman medallion
 You dangle the medallion in front of the barman. "Ah! you're from the
@@ -307,7 +305,6 @@ The barman opens up a drawer and hands you a key. "It's up the stairs there,
 room 2." He tells you.
 Your stomach growls.
 Your head is spinning.
-Sid sips from his mug.
 
 > up
 You move up.
@@ -409,7 +406,6 @@ You pick a nice sturdy table with a nice solid chair and sit yourself down at
 it.
 You feel hungry.
 Your head is spinning.
-Sid sips from his mug.
 
 > order lunch
 You beckon over Mary with a finger, and tell her your order. "Yes Sir, right
@@ -420,7 +416,6 @@ hatch. She slips the paper under it and returns to her duties.
 > wait
 Time passes...
 Your stomach growls.
-Sid sips from his mug.
 
 > wait
 Time passes...
@@ -430,7 +425,6 @@ The cook shouts out many prothanities and curses the ovens.
 Time passes...
 Your guts rumble.
 Your throat is sore.
-Sid picks up his mug and drinks.
 
 > wait
 Time passes...
@@ -441,7 +435,6 @@ hatch.
 Time passes...
 You feel hungry.
 You feel thirsty.
-Sid sips from his mug.
 
 > wait
 Time passes...
@@ -454,7 +447,6 @@ surries off.
 You take the Hunters lunch from the tree table.
 Your stomach growls.
 Your head is spinning.
-Sid sips from his mug.
 
 > eat lunch
 You garb handfuls of food and shove it into your face, chewing noisily. Bread
@@ -462,7 +454,6 @@ crumbs fly all over the table.
 
 > drop plate
 You drop the empty plate.
-Sid picks up his mug and drinks.
 
 > take breadcrumbs
 You take the breadcrumbs.
@@ -471,21 +462,18 @@ You take the breadcrumbs.
 The barman opens up a trap door in the floor. Inside is a pool of water. He
 scoops some into a cup and puts it on the counter.
 Your throat is sore.
-Sid sips from his mug.
 
 > get water
 You take a cup of mineral water from the bar.
 
 > drink water
 You gulp down the water. Refreshing.
-Sid sips from his mug.
 
 > drop cup
 You drop the empty cup.
 
 > light candle on fire
 You light the candle on the fire. surprisingly, the flame is a bright blue!
-Sid picks up his mug and drinks.
 
 > out
 You move out.
@@ -734,7 +722,6 @@ south wall, while a serving wrench flitters around, cleaning and tidying.
 Sitting at one of the tables is a elderly fellow, sipping from a cup.  Also
 here is a tankard, a green bottle, a brown bottle, an empty plate and an
 empty cup.
-Sid picks up his mug and drinks.
 
 > pour firewater into Sid's cup
 You make an off the cuff comment about how much easier things where in the
@@ -969,11 +956,11 @@ the landlord stands behind it and the rest of the room is filled with
 decrepid tables and chairs. A cork board with notices pinned to it hangs on
 the wall to the right of the entrance.   Also here is a cork and a pile of
 empty bottles and tankards.
-The landlord blows his nose on the rag.
 
 > pay landlord
 Thinking it best to pay your drinks bill yourself, instead of charging it to
 the chief, you fork over a large sum of money to the landlord.
+The landlord farts. (He seems quite happy about it.)
 
 > out
 You move out.
