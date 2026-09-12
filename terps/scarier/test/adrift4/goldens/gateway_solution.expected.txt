@@ -275,6 +275,7 @@ hay and hide in a dark corner. Very cosy, you think darkly.
   A Rapist is here.
 
 EXIT:   west.
+An ugly rapist hits you with the rock.
 
 > get flower
 You get the purple flower.

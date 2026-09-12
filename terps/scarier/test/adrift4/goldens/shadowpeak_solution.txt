@@ -1,5 +1,8 @@
 # Shadowpeak ADRIFT 4.0 walkthrough: deterministic WIN, 710/790 under
-# SCR_SEED=101 (2026-09-06: the RNG first-draw warm-up fix in scutils.cpp
+# SCR_SEED=124 (2026-09-12: the RNG stream now follows the Wine Runners draw for
+# draw -- vbrng parity work; seed 101 kept the route alive but lost the Arthur
+# kill (700), so a new seed with the village block untouched and the Damastus
+# chase re-derived with harness/shadowpeak_chase.py.  Earlier, 2026-09-06: the RNG first-draw warm-up fix in scutils.cpp
 # scr_congruential_rand -- the first draw after a reseed used to be pinned to
 # the top half of its range -- re-threaded every seeded stream.  New seed and a
 # re-derived Damastus chase; the village block is untouched here, it still
@@ -737,19 +740,21 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED 2026-09-06 at SCR_SEED=101, after the RNG first-draw
-# warm-up fix re-threaded the walkers.  Greedy BFS from the stone button
-# (room 157): attack when co-located, else BFS-step toward him.
-# Damastus dies in room 149, stamina 37
-# Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
+# Damastus chase re-derived 2026-09-12 with harness/shadowpeak_chase.py at
+# SCR_SEED=124 (RNG stream now follows the Wine Runners draw for draw).
+# Damastus dies in room 149, stamina 50
 e
 e
 e
 e
+e
+e
+s
+s
 attack damastus
-e
+n
 attack damastus
-e
+n
 attack damastus
 s
 attack damastus

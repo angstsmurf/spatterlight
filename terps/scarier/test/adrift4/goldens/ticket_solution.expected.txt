@@ -254,7 +254,7 @@ hours remaining. The time is now 10:00.)
 The very smart lady says "Hello my name is Mrs Peters."
 
 > say hello to me
-That's the most interesting thing I've ever heard!
+No-one listens to your rabblings.
 
 The station sound system bursts into life and you hear some crackling and
 whistling.  You then hear Bayswater followed by something like "running

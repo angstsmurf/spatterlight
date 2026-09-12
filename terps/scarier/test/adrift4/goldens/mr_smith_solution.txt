@@ -40,6 +40,13 @@ shoot fernelli with pistol
 shoot fernelli with pistol
 shoot fernelli with pistol
 shoot fernelli with pistol
+# RE-DERIVED 2026-09-12: a 3.9 Speed 1 NPC attacks EVERY turn (run390
+# getnexthit 42C60A draws Int(Rnd*1)+1, not run400's Int(Rnd*2)+1), so the
+# mobster now fires every turn and twelve straight shots kill the player.
+# Step back to the fountain once mid-fight; the mobster stays put.
+s
+drink water
+n
 shoot fernelli with pistol
 shoot fernelli with pistol
 shoot fernelli with pistol

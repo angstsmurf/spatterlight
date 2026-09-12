@@ -138,6 +138,42 @@ taf_random_reset (void)
   taf_random_state = PRNG_INITIAL_STATE;
 }
 
+/*
+ * taf_runtime_rnd_reset()
+ * taf_runtime_rnd()
+ *
+ * The 3.9/3.8 Runners' codec IS the VB6 runtime's Rnd: `Rnd(-1)`,
+ * `Randomize 1976`, then one draw per file byte.  They `Randomize Timer` only
+ * at the END of openadv (run390 467013), so every Rnd the loader makes after
+ * the codec -- each StarterType 1/2 event's start (46616F/4661BF) and each
+ * Speed 1 NPC's first attack counter (getnexthit 466A43) -- continues the
+ * codec's LCG from where the file ended, and is fully determined by the file.
+ * Scarier's runner-compatible mode replays those from the same state: the
+ * generator here is bit-for-bit VB6's (x = (x * 0x43fd43fd + 0xc39ec3) mod
+ * 2^24, Rnd = x / 2^24 as a Single), and taf_unobfuscate() leaves it at the
+ * post-codec state.  Reset rewinds to that state (a restart is a fresh load,
+ * same file, same draws); taf_runtime_rnd() draws the next Single.  Measured:
+ * Colony.taf (14781 bytes) then draws 0.1778324, 0.6708297; yeh.taf 0.5242788,
+ * 0.4268395, 0.8504441, 0.6232703, 0.8613715, 0.4148291 -- exactly the
+ * pass-through lines vbrng.dll traced from run390 after the second codec pass.
+ */
+static scr_int taf_gamefile_random_state = 0x00a09e86;
+static scr_int taf_runtime_random_state = 0x00a09e86;
+
+void
+taf_runtime_rnd_reset (void)
+{
+  taf_runtime_random_state = taf_gamefile_random_state;
+}
+
+double
+taf_runtime_rnd (void)
+{
+  taf_runtime_random_state = (taf_runtime_random_state * PRNG_CST1
+                              + PRNG_CST2) & PRNG_CST3;
+  return (double) taf_runtime_random_state / (double) (PRNG_CST3 + 1);
+}
+
 
 /*
  * taf_obfuscate_reset()
@@ -458,7 +494,12 @@ taf_unobfuscate (scr_tafref_t taf, scr_read_callbackref_t callback,
    */
   taf->total_in_bytes = total_bytes;
   if (is_gamefile)
-    taf->total_in_bytes += VERSION_HEADER_SIZE;
+    {
+      taf->total_in_bytes += VERSION_HEADER_SIZE;
+
+      /* Where the Runner's loader continues drawing (taf_runtime_rnd). */
+      taf_gamefile_random_state = taf_random_state;
+    }
 
   /* Check that we found the end of the input file as expected. */
   if (used_bytes > 0)

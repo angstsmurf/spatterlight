@@ -1377,6 +1377,13 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
           if (task_trace)
             scr_trace ("Task: can't redirect to task %ld\n", var2);
         }
+
+      /*
+       * run400 48D5DE: after the execute-task action, events started by the
+       * executed task are checked at once (4.0 only; see scevents.cpp).
+       */
+      if (!getenv ("SCR_TMP_NOIMM"))
+        evt_check_events_started_by_task (game, var2);
     }
   else
     {

@@ -105,6 +105,40 @@ typedef struct scr_eventstate_s
 {
   scr_int state;
   scr_int time;
+
+  /*
+   * Runner-compatible RNG mode only (SCR_RNG=xoshiro): an immediate-start
+   * event's length, rolled where run400 rolls it -- in openadv, at load --
+   * and handed to evt_start_event() in place of its own roll.  -1 when there
+   * is nothing stashed.  Not serialised: it is consumed at game start.
+   */
+  scr_int loadtime;
+
+  /*
+   * The Runner's per-event snapshot of its starter task's completed flag
+   * (run380 event field 42, run390 the same, run400 field 46), rewritten for
+   * every event with a TaskNum by a second loop over the events at the END
+   * of each events() pass, after every checkevent has run.  An awaiting
+   * event starts only when the task is complete AND this snapshot says it
+   * was not at the end of the previous pass; a running one drops back to
+   * awaiting only when the task is incomplete AND the snapshot says it was
+   * complete.  Serialised (it is the boolean beside each event in a .tas).
+   */
+  scr_int taskstate;
+
+  /*
+   * run400 only: the Runner's per-event "ticked this turn" byte (event
+   * field 196).  checkevent's running block -- pause test, decrement, the
+   * PrefTime notifications and the finish test -- runs only when the byte
+   * is clear, and sets it (46FF48).  The command processor clears it for
+   * every event at the top of each typed line (48A2EA) and after each
+   * events() pass of its WaitTurns loop (48AC40), so an event started or
+   * ticked by an out-of-order checkevent (an execute-task action's
+   * immediate check, a finishing event's lower-index recheck) is not
+   * decremented again by the ordered pass of the same turn.  Not
+   * serialised: it never survives a turn.
+   */
+  scr_int ticked;
 } scr_eventstate_t;
 
 /*

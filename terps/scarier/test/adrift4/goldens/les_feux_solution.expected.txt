@@ -403,16 +403,16 @@ demande-t-il sadiquement avec une voix brusque, “maintenant je vais vous
 montrer ce qu'il fait à
 l'homme!” il se précipite vers vous et vous frappe avec un grand club !
 
-Des cris strident retentissent...
-
 Vous arrivez à éviter l'attaque de l'ogre.
+
+Des cris strident retentissent...
 
 > attack ogre
 Vous tranchez un ogre avec une épée longue.
 
-Des cris strident retentissent...
-
 Vous arrivez à éviter l'attaque de l'ogre.
+
+Des cris strident retentissent...
 
 > attack ogre
 Vous tranchez un ogre avec une épée longue.
@@ -489,31 +489,31 @@ gorge et essaye de vous étrangler de ses doigts pourris. Vous vous retirez
 violemment, juste à temps. La Goule
 se lève et vous bloque dans un coin...
 
-Des cris strident retentissent...
-
 Vous arrivez à éviter l'attaque de la goule.
+
+Des cris strident retentissent...
 
 > attack goule
 Vous tranchez une goule avec une épée longue.
 
-Des cris strident retentissent...
-
 Vous arrivez à éviter l'attaque de la goule.
+
+Des cris strident retentissent...
 
 > attack goule
 Vous tranchez une goule avec une épée longue,
 mais cela ne fait aucun domage.
 
-Des cris strident retentissent...
-
 Vous arrivez à éviter l'attaque de la goule.
+
+Des cris strident retentissent...
 
 > attack goule
 Vous tranchez une goule avec une épée longue.
 
-Des cris strident retentissent...
-
 Vous arrivez à éviter l'attaque de la goule.
+
+Des cris strident retentissent...
 
 > attack goule
 Vous tranchez une goule avec une épée longue.

@@ -386,6 +386,8 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.
+A swamp monster stabs you with the pointy stick, but it doesn't seem to do
+any damage.
 
 > se
 You move southeast.
@@ -580,6 +582,8 @@ You stand in the middle of a barren circle. All around the trees seem to be
 closing in. West will take you down a tiny path. Another clearer path leads
 northwest.  You can also see the Kedarn stone.  There is a Forester Goblin
 hanging from a tree here.
+A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
+seem to do any damage.
 
 > attack goblin
 You cut a forest dwelling goblin with the small sword.
@@ -588,6 +592,8 @@ seem to do any damage.
 
 > attack goblin
 You cut a forest dwelling goblin with the small sword.
+A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
+seem to do any damage.
 
 > attack goblin
 You cut a forest dwelling goblin with the small sword.
@@ -648,6 +654,8 @@ any damage.
 
 > attack monster
 You cut a swamp monster with the small sword.
+A swamp monster stabs you with the pointy stick, but it doesn't seem to do
+any damage.
 
 > attack monster
 You cut a swamp monster with the small sword.
@@ -730,6 +738,7 @@ about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.  There is an eagle above you circling around your
 head.
+A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You cut a large eagle with the small sword.
@@ -737,6 +746,7 @@ A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You cut a large eagle with the small sword.
+A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You cut a large eagle with the small sword.
@@ -911,11 +921,12 @@ The dark knight cuts Haron with the blade from Uron.
 > attack larnt
 You cut the dark knight with the small sword.
 Haron cuts the dark knight with the elven sword.
-The dark knight cuts you with the blade from Uron, but it doesn't seem to do
-any damage.
+The dark knight cuts Haron with the blade from Uron.
 
 > attack larnt
 You cut the dark knight with the small sword.
+The dark knight cuts you with the blade from Uron, but it doesn't seem to do
+any damage.
 
 > attack larnt
 You cut the dark knight with the small sword.

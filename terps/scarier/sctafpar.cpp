@@ -1569,7 +1569,8 @@ parse_get_v400_resource_offset (const scr_char *name,
 static void
 parse_handle_v400_resource (const scr_char *file_key,
                             const scr_char *length_key,
-                            const scr_char *offset_key)
+                            const scr_char *offset_key,
+                            const scr_char *embedded_key)
 {
   const scr_char *file;
   scr_int length;
@@ -1577,6 +1578,16 @@ parse_handle_v400_resource (const scr_char *file_key,
   /* Retrieve the file and length information for the resource just parsed. */
   file = parse_get_keyed_string (file_key);
   length = parse_get_keyed_integer (length_key);
+
+  /*
+   * Note a resource that carries its own data -- a name and a positive
+   * length, as the .taf has them -- before the back-reference rewrite below
+   * turns every negative length positive.  run400 extracts exactly these to
+   * a temp file at load, naming each with a Rnd draw (mdlSpreadTheLoad
+   * 454874); run_runner_load_draws() replays those draws.
+   */
+  parse_put_keyed_integer (embedded_key,
+                           (!scr_strempty (file) && length > 0) ? 1 : 0);
 
   /*
    * Named but with no data of its own.  We drop it below; Adrift still counts
@@ -1647,10 +1658,11 @@ parse_special (const scr_char *special)
     {
       /* Handle whichever resources the global flags say are in use. */
       if (parse_get_global_boolean ("Sound"))
-        parse_handle_v400_resource ("SoundFile", "SoundLen", "SoundOffset");
+        parse_handle_v400_resource ("SoundFile", "SoundLen", "SoundOffset",
+                                    "SoundEmbedded");
       if (parse_get_global_boolean ("Graphics"))
         parse_handle_v400_resource ("GraphicFile", "GraphicLen",
-                                    "GraphicOffset");
+                                    "GraphicOffset", "GraphicEmbedded");
     }
 
   /* Parse a version 4.0 optional set of room exit information. */

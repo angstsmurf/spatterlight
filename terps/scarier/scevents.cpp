@@ -518,7 +518,19 @@ evt_start_event (scr_gameref_t game, scr_int event, scr_bool silent)
 
   time1 = evt_cached_integer (game, event, EVT_TIME1, "Time1");
   time2 = evt_cached_integer (game, event, EVT_TIME2, "Time2");
-  gs_set_event_time (game, event, scr_randomint_exclusive (time1, time2));
+
+  /*
+   * An immediate-start event rolled at load by run_runner_load_draws()
+   * (Runner-compatible RNG mode) carries its length in the stash; use it up
+   * rather than rolling a second time.
+   */
+  if (gs_event_loadtime (game, event) >= 0)
+    {
+      gs_set_event_time (game, event, gs_event_loadtime (game, event));
+      gs_set_event_loadtime (game, event, -1);
+    }
+  else
+    gs_set_event_time (game, event, scr_randomint_exclusive (time1, time2));
 
   if (evt_trace)
     scr_trace ("Event: start event handling done, %ld\n", event);
@@ -635,6 +647,25 @@ evt_finish_event (scr_gameref_t game, scr_int event)
           gs_set_task_done (game, task, FALSE);
           if (evt_trace)
             scr_trace ("Event: event cleared task %ld\n", task);
+        }
+      else
+        {
+          /*
+           * run380 43A728 (run400 alike): when the affected task is to be
+           * RUN and is not yet complete, the event's own starter-task
+           * snapshot is zeroed first.  It only matters when the affected
+           * task is also this event's starter task, and only until the end
+           * of the pass overwrites it -- i.e. for the lower-index recheck
+           * below and for a same-pass restart -- but it is what the Runner
+           * does.
+           */
+          if (!gs_task_done (game, task))
+            gs_set_event_taskstate (game, event, FALSE);
+        }
+
+      if (taskfinished)
+        {
+          /* Nothing more: the flag is cleared, the task is not run. */
         }
       else if (evt_taf_version (game, event) < TAF_VERSION_400)
         {
@@ -754,8 +785,22 @@ evt_finish_event (scr_gameref_t game, scr_int event)
         {
         case 1:                /* Immediate. */
         case 2:                /* Random delay. */
-        case 3:                /* After task. */
           gs_set_event_state (game, event, ES_FINISHED);
+          gs_set_event_time (game, event, 0);
+          break;
+
+        case 3:                /* After task. */
+          /*
+           * run380 43A868 (run390/run400 alike): `If TaskNum > 0 Then state
+           * = 2 Else state = 3`.  Awaiting again, so that the event can run
+           * once more if its starter task is undone and redone -- the
+           * snapshot in evt_starter_task_may_start() keeps it from simply
+           * cycling while the task stays complete.
+           */
+          if (evt_cached_integer (game, event, EVT_TASK_NUM, "TaskNum") > 0)
+            gs_set_event_state (game, event, ES_AWAITING);
+          else
+            gs_set_event_state (game, event, ES_FINISHED);
           gs_set_event_time (game, event, 0);
           break;
 
@@ -840,10 +885,22 @@ evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
 
   task = evt_cached_integer (game, event, EVT_TASK_NUM, "TaskNum");
 
+  /*
+   * A "start after task" event whose TaskNum is 0 (the Generator's blank
+   * task) means "after any task" only in 4.0: run400's checkevent (470754)
+   * loops over every task at 46FD93 when TaskNum = 0 and starts the event as
+   * soon as one is done.  run370 (431B8D), run380 (439E15) and run390
+   * (4483BD) guard the awaiting-state start with `TaskNum > 0` and have no
+   * such loop, so there the event never starts at all.  Measured on
+   * wrecked.taf (3.80, event 25 "stamp ticket", TaskNum 0): run380x drew four
+   * Rnd on the first turn where scarier drew five -- the fifth was this
+   * event's length roll -- and its task 74 never ran.
+   */
   start = FALSE;
   if (task == 0)
     {
-      if (evt_any_task_in_state (game, TRUE))
+      if (evt_taf_version (game, event) >= TAF_VERSION_400
+          && evt_any_task_in_state (game, TRUE))
         start = TRUE;
     }
   else if (task > 0 && task - 1 < gs_task_count (game))
@@ -853,6 +910,91 @@ evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
     }
 
   return start;
+}
+
+
+/*
+ * evt_starter_task_may_start()
+ * evt_starter_task_reverts()
+ * evt_snapshot_starter_tasks()
+ *
+ * The Runner's starter-task tests are EDGE-triggered, not level-triggered.
+ * Every event carries a snapshot of its starter task's completed flag
+ * (gs_event_taskstate), rewritten by a second loop at the end of each
+ * events() pass -- run380 events() 425094 after its checkevent loop, run390
+ * 42C57C, run400's driver at 4492A8 -- and checkevent tests the live flag
+ * against it:
+ *
+ *   awaiting (state 2): start iff completed = 1 And snapshot = 0
+ *                        (run380 439E3A, run400 46FDF4);
+ *   running  (state 1): back to awaiting iff completed = 0 And snapshot = 1
+ *                        (run380 439EBB, run400 46FE80).
+ *
+ * So a task that is undone and redone BETWEEN two pass ends restarts the
+ * event, and one that merely stays complete does not.  wrecked.taf (3.80)
+ * pins the first half: "after throw #2" (event 36) is started by "#boris
+ * finds player" (task 112), and its finish un-does that very task; Boris's
+ * walk re-completes it before the next tick, so run380x restarted the event
+ * -- one length roll -- on each of four consecutive ticks of one `wait`,
+ * where SCARIER, waiting to SEE the task incomplete at a tick, rolled once.
+ * Runner 15 draws that turn, SCARIER 11, and every rain and train after it
+ * shifted.
+ *
+ * TaskNum 0 has no snapshot in any Runner (their second loop is guarded by
+ * TaskNum > 0), so the 4.0 "after any task" rule stays level-triggered.
+ */
+static scr_bool
+evt_starter_task_may_start (scr_gameref_t game, scr_int event)
+{
+  scr_int task;
+
+  if (!evt_starter_task_is_complete (game, event))
+    return FALSE;
+
+  task = evt_cached_integer (game, event, EVT_TASK_NUM, "TaskNum");
+  if (task > 0 && gs_event_taskstate (game, event))
+    return FALSE;
+
+  return TRUE;
+}
+
+static scr_bool
+evt_starter_task_reverts (scr_gameref_t game, scr_int event)
+{
+  scr_int task;
+
+  task = evt_cached_integer (game, event, EVT_TASK_NUM, "TaskNum");
+  if (task <= 0)
+    return FALSE;
+
+  return !evt_starter_task_is_complete (game, event)
+         && gs_event_taskstate (game, event);
+}
+
+static void
+evt_snapshot_starter_tasks (scr_gameref_t game)
+{
+  scr_int event;
+
+  for (event = 0; event < gs_event_count (game); event++)
+    {
+      scr_int task;
+
+      if (!evt_has_starter_task (game, event))
+        continue;
+
+      task = evt_cached_integer (game, event, EVT_TASK_NUM, "TaskNum");
+      if (task > 0 && task - 1 < gs_task_count (game))
+        {
+          scr_bool done = gs_task_done (game, task - 1);
+
+          if (evt_trace && done != gs_event_taskstate (game, event))
+            scr_trace ("Event: event %ld starter task snapshot -> %d\n",
+                       event, done);
+
+          gs_set_event_taskstate (game, event, done);
+        }
+    }
 }
 
 static scr_bool
@@ -1048,7 +1190,7 @@ evt_tick_event (scr_gameref_t game, scr_int event)
          */
         if (evt_has_starter_task (game, event))
           {
-            if (!evt_starter_task_is_complete (game, event))
+            if (evt_starter_task_reverts (game, event))
               {
                 if (evt_trace)
                   scr_trace ("Event: starter task not complete\n");
@@ -1057,6 +1199,38 @@ evt_tick_event (scr_gameref_t game, scr_int event)
                 gs_set_event_time (game, event, 0);
                 break;
               }
+          }
+
+        /*
+         * run400's running block -- everything from the pause test down to
+         * the finish test -- runs at most once per turn per event: it is
+         * entered on `state = running And ticked = 0' and sets ticked at
+         * once (46FF48), and the command processor clears the flag at the
+         * top of each typed line (48A2EA) and after every events() pass
+         * (48AC40).  The revert test above is outside the block.  An event
+         * already ticked this turn by an out-of-order checkevent -- the
+         * execute-task action's immediate check, or a finishing event's
+         * lower-index recheck -- is therefore skipped by the ordered pass.
+         * run380 (43A135) and run390 (448714) enter their running blocks
+         * on the state alone, and tick such an event twice.
+         *
+         * "SS Whore" (4.0, Adrift_304_sswhore.txt) pins it: event 12
+         * (Time 1) is started, mid-pass, by an execute-task action inside
+         * event 11's finish, and its own immediate check decrements it to
+         * the roll; the ordered pass then reaches it and must not finish
+         * it a turn early.
+         */
+        if (evt_taf_version (game, event) >= TAF_VERSION_400
+            && !getenv ("SCR_TMP_NOTICKED"))
+          {
+            if (gs_event_ticked (game, event))
+              {
+                if (evt_trace)
+                  scr_trace ("Event: event %ld already ticked this turn\n",
+                             event);
+                break;
+              }
+            gs_set_event_ticked (game, event, TRUE);
           }
 
         /* If the pauser has completed, but resumer not, pause this event. */
@@ -1106,12 +1280,54 @@ evt_tick_event (scr_gameref_t game, scr_int event)
           scr_trace ("Event: ticking awaiting event %ld\n", event);
 
         /*
-         * Check the starter task.  If it's completed, start running the
-         * event.
+         * Check the starter task.  If it's completed -- and was not already
+         * complete at the end of the last pass, see evt_starter_task_may_start
+         * -- start running the event.
          */
-        if (evt_starter_task_is_complete (game, event))
+        if (evt_starter_task_may_start (game, event))
           {
+            scr_bool already_ticked;
+
+            /*
+             * run400 sets the clock to the roll PLUS ONE at the start
+             * (46FE49) and relies on the running block that follows in the
+             * same checkevent call to take the 1 back.  When the start
+             * comes from an out-of-order checkevent -- a finishing event's
+             * lower-index recheck, or the execute-task action's immediate
+             * check -- AFTER the ordered pass has already ticked this event
+             * this turn, the running block is closed (46FF48, byte 196 is
+             * set) and the +1 survives: the event ends one turn later than
+             * its roll.  "Glum Fiddle" pins it (Adrift_1080_Glum_Fiddle.txt,
+             * seed 1234): "Move Glum to Swamp" (event 0, Time 4, started by
+             * task 36) finishes on the third `wait`, is restarted the same
+             * turn by event 5's finish recheck, and the Runner prints "Glum
+             * suddenly turns and heads south" again on the FIFTH turn after
+             * (`take tray`), not the fourth.  Nothing else of the running
+             * block runs either -- no pause test, no notification, no
+             * finish -- so the start is all that happens here.
+             */
+            already_ticked = evt_taf_version (game, event) >= TAF_VERSION_400
+                             && gs_event_ticked (game, event);
+
             evt_start_event (game, event, FALSE);
+
+            if (already_ticked)
+              {
+                if (evt_trace)
+                  scr_trace ("Event: event %ld started after its tick this"
+                             " turn, clock %ld + 1\n", event,
+                             gs_event_time (game, event));
+
+                gs_set_event_time (game, event,
+                                   gs_event_time (game, event) + 1);
+                break;
+              }
+
+            /*
+             * The Runner's start turn falls straight into the running block
+             * (see above) and so marks the event ticked for this turn.
+             */
+            gs_set_event_ticked (game, event, TRUE);
 
             /*
              * If the pauser has completed, but resumer not, immediately
@@ -1180,27 +1396,16 @@ evt_tick_event (scr_gameref_t game, scr_int event)
           scr_trace ("Event: ticking finished event %ld\n", event);
 
         /*
-         * Check the starter task; if it's not completed, we need to set the
-         * event back to waiting on task.
-         *
-         * A completed event needs to go back to waiting on its task, but we
-         * don't want to set it there as soon as the event finishes.  We need
-         * to wait for the starter task to first become undone, otherwise the
-         * event just cycles endlessly, and they don't in Adrift itself.  Here
-         * is where we wait for starter tasks to become undone.
+         * Nothing to do.  The Runners' checkevent has no code at all for
+         * their finished state (3): only an event with no starter task, or
+         * an "after any task" (TaskNum 0) one, ever lands here, because a
+         * task-started event that finishes without restarting goes back to
+         * AWAITING instead (run380 43A868: `If TaskNum > 0 Then state = 2
+         * Else state = 3`), where the snapshot rule decides whether it runs
+         * again -- see evt_starter_task_may_start().  SCARIER used to park
+         * every one-shot here and revive it on seeing the starter task
+         * incomplete, which missed an undo-and-redo within one turn.
          */
-        if (evt_has_starter_task (game, event))
-          {
-            if (!evt_starter_task_is_complete (game, event))
-              {
-                if (evt_trace)
-                  scr_trace ("Event: starter task not complete\n");
-
-                gs_set_event_state (game, event, ES_AWAITING);
-                gs_set_event_time (game, event, 0);
-                break;
-              }
-          }
       }
       break;
 
@@ -1249,6 +1454,29 @@ evt_tick_events (scr_gameref_t game)
    */
   for (event = 0; event < gs_event_count (game); event++)
     evt_tick_event_and_settle (game, event);
+
+  /* The Runner's second loop: note every starter task's completion. */
+  evt_snapshot_starter_tasks (game);
+
+  /* run400 48AC40: every event may be ticked again next turn. */
+  evt_clear_ticked_events (game);
+}
+
+
+/*
+ * evt_clear_ticked_events()
+ *
+ * Clear every event's "ticked this turn" flag; run400 does this at the top
+ * of each typed line (48A2EA) and after each events() pass (48AC40).  The
+ * flag is only ever set for 4.0 games, so no gate is needed here.
+ */
+void
+evt_clear_ticked_events (scr_gameref_t game)
+{
+  scr_int event;
+
+  for (event = 0; event < gs_event_count (game); event++)
+    gs_set_event_ticked (game, event, FALSE);
 }
 
 static void
@@ -1272,6 +1500,64 @@ evt_tick_event_and_settle (scr_gameref_t game, scr_int event)
   if (state == ES_RUNNING
       && (prior_state == ES_PAUSED || prior_state == ES_WAITING))
     evt_tick_event (game, event);
+}
+
+
+/*
+ * evt_check_events_started_by_task()
+ *
+ * The 4.0 Runner's "execute task" action does more than run the task.  Its
+ * execute_action (48E860, type 5 at 48D588) runs the named task through
+ * task_dispatch_filter (45FB78) and then, at 48D5DE-48D638, loops over
+ * every event: `If events(i).TaskNum - 1 = task And gamestate = 0 Then
+ * checkevent(i)`.  So an event started by a task that an ACTION executes
+ * advances at once, inside the action, wherever that happens -- in the
+ * player's own command, or in the middle of the events pass when a
+ * finishing event's TaskAffected executes the task.  The loop runs whether
+ * or not the filter let the task run, and TaskNum 0 never matches.
+ *
+ * It matters because of the snapshot rule (evt_snapshot_starter_tasks): a
+ * task completed by a finishing event's actions AFTER the pass has been past
+ * the events it starts would otherwise be snapshotted as "already complete"
+ * at the end of that pass, and those events would never start at all.
+ * "SS Whore" (4.0) pins it: "Messenger Arrives After Sex" (event 9) and
+ * "Oberst Drink Waiting" (event 8) are started by task 137, which only ever
+ * runs as an execute-task action of task 261, the TaskAffected of event 12
+ * (Adrift_304_sswhore.txt: the knock at the double doors after `wait`).
+ *
+ * The Runner skips the loop when execute_action's flag argument is 0, which
+ * happens only for the two library-internal dispatches in its take (47C747)
+ * and drop (46FADB) handlers; every other path -- typed commands, events'
+ * TaskAffected, nested execute-task actions, inventory -- passes 1.  That
+ * corner is not modelled.  run380 and run390 have no such loop (checkevent
+ * is called only from their events() pass and the finish recheck), so this
+ * is gated on 4.0.
+ */
+void
+evt_check_events_started_by_task (scr_gameref_t game, scr_int task)
+{
+  scr_int event;
+
+  if (gs_event_count (game) == 0
+      || evt_taf_version (game, 0) < TAF_VERSION_400)
+    return;
+
+  for (event = 0; event < gs_event_count (game); event++)
+    {
+      if (!run_is_running (game))
+        break;
+
+      if (evt_has_starter_task (game, event)
+          && evt_cached_integer (game, event, EVT_TASK_NUM, "TaskNum") - 1
+                 == task)
+        {
+          if (evt_trace)
+            scr_trace ("Event: checking event %ld after execute-task"
+                       " action ran task %ld\n", event, task);
+
+          evt_tick_event_and_settle (game, event);
+        }
+    }
 }
 
 

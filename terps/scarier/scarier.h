@@ -184,6 +184,7 @@ extern scr_bool scr_run_game_debugger_command (scr_game game,
                                              const scr_char *debug_command);
 extern void scr_set_portable_random (scr_bool flag);
 extern void scr_reseed_random_sequence (scr_uint new_seed);
+extern scr_uint scr_default_random_seed (void);
 extern void scr_set_combat_assist (scr_bool flag);
 extern scr_bool scr_get_combat_assist (void);
 extern void scr_set_move_assist (scr_bool flag);

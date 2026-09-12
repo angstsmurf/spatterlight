@@ -26,6 +26,7 @@
  */
 
 #include <assert.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
@@ -365,11 +366,105 @@ battle_all_ranges_degenerate (scr_gameref_t game)
  * is primed from its (now seeded) Speed setting.  A no-op when the Battle
  * System is disabled.
  */
+/*
+ * battle_preroll_player_stamina()
+ * battle_preroll_npc_stamina()
+ *
+ * Runner-compatible RNG mode (SCR_RNG=xoshiro) only.  run400 rolls the
+ * player's starting stamina while it reads the header (openadv 48F48E) and
+ * each NPC's while it reads that NPC (4920B1), with the events' start rolls
+ * in between; battle_start() runs after all of that.  These roll where the
+ * Runner rolls, with its formula -- `Int(Rnd * (hi - lo)) + lo`, no guard on
+ * an empty range -- and battle_start() then keeps the values instead of
+ * rolling again.  run_runner_load_draws() is the only caller.
+ */
+static scr_bool battle_prerolled = FALSE;
+
+void
+battle_preroll_player_stamina (scr_gameref_t game)
+{
+  scr_int lo, hi;
+
+  if (!battle_is_enabled (game))
+    return;
+
+  battle_bundle_range (game, -1, "Stamina", &lo, &hi);
+  gs_set_playerstamina (game, scr_randomint_exclusive (lo, hi));
+  battle_prerolled = TRUE;
+}
+
+void
+battle_preroll_npc_stamina (scr_gameref_t game)
+{
+  scr_int npc, lo, hi;
+
+  if (!battle_is_enabled (game))
+    return;
+
+  /*
+   * The Runner's NPC loader rolls each NPC's stamina (4920B1) and then, still
+   * inside that NPC's iteration, its first attack counter (4921FE, Proc_11_13
+   * -- a draw only for Speed 1), so the two interleave per NPC rather than
+   * all stamina first.  Seed the mutable attributes here so the speed roll
+   * can read the NPC's Speed; battle_start() re-seeds harmlessly.
+   */
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      battle_seed_attributes (game, npc);
+      battle_bundle_range (game, npc, "Stamina", &lo, &hi);
+      gs_set_npc_stamina (game, npc, scr_randomint_exclusive (lo, hi));
+      gs_set_npc_attackcounter (game, npc, battle_speed_roll (game, npc));
+    }
+  battle_prerolled = TRUE;
+}
+
+/*
+ * battle_preroll_legacy()
+ *
+ * The same for a 3.9 (or 3.8) game, whose loader rolls nothing on the game
+ * stream: 3.9 attributes are single values, so stamina is read, not rolled,
+ * and the only load-time battle draw is getnexthit (run390 466A43) for each
+ * NPC -- `Int(Rnd * 1) + 1` for Speed 1, a fixed count otherwise -- made on
+ * the VB runtime's codec stream before `Randomize Timer` (see
+ * taf_runtime_rnd).  Battle System games only (MemVar_46821A at 4669BF).
+ */
+void
+battle_preroll_legacy (scr_gameref_t game)
+{
+  scr_int npc, lo, hi, counter;
+
+  battle_legacy = TRUE;
+  if (!battle_is_enabled (game))
+    return;
+
+  battle_bundle_range (game, -1, "Stamina", &lo, &hi);
+  gs_set_playerstamina (game, lo);
+
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      battle_seed_attributes (game, npc);
+      battle_bundle_range (game, npc, "Stamina", &lo, &hi);
+      gs_set_npc_stamina (game, npc, lo);
+      switch (gs_npc_battle (game, npc)->speed)
+        {
+        case 1:  scr_vb_rnd (); counter = 1; break;
+        case 2:  counter = 2; break;
+        case 3:  counter = 3; break;
+        case 4:  counter = 4; break;
+        default: counter = 1; break;
+        }
+      gs_set_npc_attackcounter (game, npc, counter);
+    }
+  battle_prerolled = TRUE;
+}
+
 void
 battle_start (scr_gameref_t game)
 {
   scr_int npc, lo, hi;
+  const scr_bool prerolled = battle_prerolled;
 
+  battle_prerolled = FALSE;
   if (!battle_is_enabled (game))
     return;
 
@@ -378,16 +473,20 @@ battle_start (scr_gameref_t game)
 
   battle_seed_attributes (game, -1);
   battle_bundle_range (game, -1, "Stamina", &lo, &hi);
-  gs_set_playerstamina (game, (hi > 0) ? scr_randomint (lo, hi) : 0);
+  if (!prerolled)
+    gs_set_playerstamina (game, (hi > 0) ? scr_randomint (lo, hi) : 0);
   gs_set_playerstaminacounter (game, 0);
 
   for (npc = 0; npc < gs_npc_count (game); npc++)
     {
       battle_seed_attributes (game, npc);
       battle_bundle_range (game, npc, "Stamina", &lo, &hi);
-      gs_set_npc_stamina (game, npc, (hi > 0) ? scr_randomint (lo, hi) : 0);
+      if (!prerolled)
+        {
+          gs_set_npc_stamina (game, npc, (hi > 0) ? scr_randomint (lo, hi) : 0);
+          gs_set_npc_attackcounter (game, npc, battle_speed_roll (game, npc));
+        }
       gs_set_npc_staminacounter (game, npc, 0);
-      gs_set_npc_attackcounter (game, npc, battle_speed_roll (game, npc));
     }
 
   /*
@@ -537,11 +636,26 @@ enum { BATTLE_PLAYER = -1, BATTLE_NONE = -2 };
  * battle_roll()
  *
  * Roll an attribute value within [lo, hi), matching the Runner's
- * lo + Int(rnd * (hi - lo)).  Degenerate ranges return their single value.
+ * lo + Int(rnd * (hi - lo)).  Degenerate ranges return their single value
+ * without a draw -- except in Runner-compatible RNG mode, where the draw
+ * happens anyway: run400's attribute getters (Battles.bas Proc_11_5/7/8/9)
+ * consume Rnd unconditionally, so a fixed-attribute NPC (Lo == Hi through-
+ * out, the common upgraded-3.9 shape) still advances the stream by two
+ * words per attack and four per hit, and Scarier has to keep step.
  */
 static scr_int
 battle_roll (scr_int lo, scr_int hi)
 {
+  /*
+   * run390 has no attribute getters and no draw at all in chardohit (442C7C):
+   * hitstrength and armourstrength are the record's single values plus the
+   * weapon's HitValue / worn ProtectionValue.  Its whole per-attack RNG cost
+   * is charhitwho's target pick and getnexthit's re-arm.
+   */
+  if (battle_legacy)
+    return lo;
+  if (scr_is_runner_random ())
+    return scr_randomint_exclusive (lo, hi);
   return (hi > lo) ? scr_randomint (lo, hi - 1) : lo;
 }
 
@@ -740,9 +854,17 @@ battle_speed_roll (scr_gameref_t game, scr_int npc)
 {
   const scr_int speed = gs_npc_battle (game, npc)->speed;
 
+  /*
+   * "Most turns" is run400's `Int(Rnd * 2) + 1` (Proc_11_13) but run390's
+   * `Int(Rnd * 1) + 1` (getnexthit 42C60A): a draw that can only be 1, so a
+   * 3.9 Speed 1 NPC attacks every turn like Speed 0 -- yeh's vine re-arms
+   * to 1 and takes Leon the turn after it takes the player.  Drawn either
+   * way to keep the stream in step with the Runner.
+   */
   switch (speed)
     {
-    case 1:  return scr_randomint (1, 2);   /* Most turns. */
+    case 1:  return battle_legacy ? scr_randomint (1, 1)
+                                  : scr_randomint (1, 2);   /* Most turns. */
     case 2:  return 2;                     /* Every second turn. */
     case 3:  return 3;                     /* Every third turn. */
     case 4:  return 4;                     /* Every fourth turn. */
@@ -1102,10 +1224,19 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
   if (attacker == BATTLE_PLAYER && weapon >= 0)
     gs_set_playerwield (game, weapon);
 
-  if (battle_unconfigured
-      || battle_legacy
-      || battle_eff_accuracy (game, attacker, weapon)
-         > battle_eff_agility (game, target))
+  /*
+   * The Runner rolls the attacker's accuracy before the target's agility
+   * (Proc_11_7 is pushed as Proc_11_8's argument), and on a hit the
+   * attacker's strength before the target's defence; C leaves the order of
+   * `>` and `-` operands unspecified, so sequence the rolls explicitly.
+   */
+  scr_int accuracy = 0, agility = 0;
+  if (!battle_unconfigured && !battle_legacy)
+    {
+      accuracy = battle_eff_accuracy (game, attacker, weapon);
+      agility = battle_eff_agility (game, target);
+    }
+  if (battle_unconfigured || battle_legacy || accuracy > agility)
     {
       /*
        * A landed player throw (method 5) leaves the weapon behind, in BOTH
@@ -1123,8 +1254,8 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
       const scr_bool player_throw = (method == 5 && attacker < 0);
       scr_int damage = battle_eff_strength (game, attacker,
                                             (player_throw && !battle_legacy)
-                                                ? -1 : weapon)
-                      - battle_eff_defence (game, target);
+                                                ? -1 : weapon);
+      damage -= battle_eff_defence (game, target);
 
       if (visible)
         {
@@ -1462,11 +1593,58 @@ battle_player_attack (scr_gameref_t game, scr_int npc, scr_int weapon)
 }
 
 /*
+ * battle_tick_npc()
+ *
+ * One NPC's battle turn, the Runner's Proc_11_15: count its attack counter
+ * down and, when it reaches zero, select a target and strike, then re-arm
+ * the counter from its Speed.  npc_tick_npcs() calls this right after the
+ * NPC's own walk tick, because that is where run400 calls it (468D79, at the
+ * end of every iteration of the walk loop Proc_19_1) -- so NPC 2's attack
+ * prints before NPC 3's walk announcement, and its draws come between the
+ * two walks.  Only stamina gates the call (468D61); a neutral NPC still
+ * counts down and re-arms (its target select is what yields nothing), so
+ * its cadence is live the moment a task turns it hostile, and a Speed-1
+ * neutral keeps drawing.  A no-op when the Battle System is disabled.
+ */
+void
+battle_tick_npc (scr_gameref_t game, scr_int npc)
+{
+  static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != NULL);
+  scr_int counter;
+
+  if (!battle_is_enabled (game) || gs_npc_stamina (game, npc) <= 0)
+    return;
+
+  counter = gs_npc_attackcounter (game, npc) - 1;
+  if (battle_trace)
+    fprintf (stderr, "BATTLE: npc %ld counter %ld attitude %ld speed %ld"
+             " stamina %ld room %ld\n", npc, counter,
+             battle_attitude (game, npc), gs_npc_battle (game, npc)->speed,
+             gs_npc_stamina (game, npc), gs_npc_location (game, npc));
+  if (counter <= 0)
+    {
+      scr_int target = battle_select_target (game, npc);
+
+      if (battle_trace)
+        fprintf (stderr, "BATTLE: npc %ld target %ld\n", npc, target);
+      if (target != BATTLE_NONE)
+        {
+          scr_bool visible = (target == BATTLE_PLAYER)
+              || (gs_npc_location (game, npc) - 1 == gs_playerroom (game));
+          battle_resolve (game, npc, target,
+                          battle_best_weapon (game, npc), visible);
+        }
+      counter = battle_speed_roll (game, npc);
+    }
+  gs_set_npc_attackcounter (game, npc, counter);
+}
+
+/*
  * battle_tick()
  *
- * Per-turn battle processing: every NPC that is due to attack selects a target
- * and strikes, then automatic stamina recovery is applied to all combatants.
- * A no-op when the Battle System is disabled.
+ * End-of-turn battle processing once every NPC has had its walk and battle
+ * turn: automatic stamina recovery for the player and all combatants.  A
+ * no-op when the Battle System is disabled.
  */
 void
 battle_tick (scr_gameref_t game)
@@ -1475,35 +1653,6 @@ battle_tick (scr_gameref_t game)
 
   if (!battle_is_enabled (game))
     return;
-
-  /* NPC attacks, governed by attitude and per-NPC attack cadence. */
-  for (npc = 0; npc < gs_npc_count (game); npc++)
-    {
-      scr_int counter;
-
-      if (gs_npc_stamina (game, npc) <= 0 || battle_attitude (game, npc) == 0)
-        continue;
-
-      counter = gs_npc_attackcounter (game, npc) - 1;
-      if (counter <= 0)
-        {
-          scr_int target = battle_select_target (game, npc);
-
-          if (target != BATTLE_NONE)
-            {
-              scr_bool visible = (target == BATTLE_PLAYER)
-                  || (gs_npc_location (game, npc) - 1 == gs_playerroom (game));
-              battle_resolve (game, npc, target,
-                              battle_best_weapon (game, npc), visible);
-            }
-          counter = battle_speed_roll (game, npc);
-        }
-      gs_set_npc_attackcounter (game, npc, counter);
-
-      /* Stop processing if the player was killed mid-round. */
-      if (!game->is_running)
-        return;
-    }
 
   /* Automatic stamina recovery for the player and all surviving NPCs. */
   battle_recover (game, -1);

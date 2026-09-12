@@ -25,6 +25,7 @@
 
 #include <assert.h>
 #include <stdarg.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -371,6 +372,95 @@ scr_congruential_rand (scr_uint new_seed)
 #endif
 
 
+/*
+ * scr_runner_rand()
+ *
+ * Runner-compatible generator: the same xoshiro128** with SplitMix32 seeding
+ * as erkyrath_random() (common_utils/randomness.c) and as the vbrng.dll hook
+ * that feeds the Wine ADRIFT Runners (~/adrift-battle/runner/wine/rng/).  A
+ * Runner under that hook sees `Rnd` = (w >> 8) / 2^24 -- VB's 24-bit Single --
+ * and rolls `Int(Rnd * n) + lo`.  Presenting the same word here as the 31-bit
+ * value (w >> 8) << 7 makes scr_randomint()'s multiply-shift compute exactly
+ * floor(((w >> 8) * n) / 2^24) = Int(Rnd * n), so Scarier and the Runner draw
+ * identical integers from identical words: a seed-matched transcript pair can
+ * then be diffed byte for byte.  Selected by SCR_RNG=xoshiro (see
+ * scr_set_portable_random); SCR_TRACE_RAND=1 prints every draw to stderr in
+ * the VBRNG_TRACE format, `RND #n = f (w=xxxxxxxx)`, so the two streams can be
+ * aligned draw for draw.
+ */
+static uint32_t runner_table[4];
+static unsigned int runner_draws = 0;
+static scr_bool runner_trace = FALSE;
+
+static void
+runner_seed (uint32_t seed)
+{
+  int ix;
+
+  for (ix = 0; ix < 4; ix++)
+    {
+      uint32_t s;
+
+      seed += 0x9E3779B9u;
+      s = seed;
+      s ^= s >> 15;
+      s *= 0x85EBCA6Bu;
+      s ^= s >> 13;
+      s *= 0xC2B2AE35u;
+      s ^= s >> 16;
+      runner_table[ix] = s;
+    }
+}
+
+static uint32_t
+runner_word (void)
+{
+  const uint32_t t1x5 = runner_table[1] * 5;
+  const uint32_t result = ((t1x5 << 7) | (t1x5 >> (32 - 7))) * 9;
+  const uint32_t t1s9 = runner_table[1] << 9;
+  uint32_t t3;
+
+  runner_table[2] ^= runner_table[0];
+  runner_table[3] ^= runner_table[1];
+  runner_table[1] ^= runner_table[2];
+  runner_table[0] ^= runner_table[3];
+  runner_table[2] ^= t1s9;
+  t3 = runner_table[3];
+  runner_table[3] = (t3 << 11) | (t3 >> (32 - 11));
+  return result;
+}
+
+static scr_int
+scr_runner_rand (scr_uint new_seed)
+{
+  static scr_bool is_seeded = FALSE;
+  uint32_t w;
+
+  if (new_seed > 0)
+    {
+      runner_seed ((uint32_t) new_seed);
+      runner_draws = 0;
+      runner_trace = (getenv ("SCR_TRACE_RAND") != NULL);
+      is_seeded = TRUE;
+      return 0;
+    }
+  if (!is_seeded)
+    {
+      runner_seed (1234);
+      runner_trace = (getenv ("SCR_TRACE_RAND") != NULL);
+      is_seeded = TRUE;
+    }
+
+  w = runner_word ();
+  runner_draws++;
+  if (runner_trace)
+    fprintf (stderr, "RND #%u = %.7f (w=%08x)\n",
+             runner_draws, (double) ((float) (w >> 8) / 16777216.0f),
+             (unsigned int) w);
+  return (scr_int) ((w >> 8) << 7);
+}
+
+
 /* Function pointer for the actual random number generator in use. */
 static scr_int (*scr_rand_function) (scr_uint) = scr_platform_rand;
 
@@ -398,10 +488,28 @@ scr_set_platform_random (void)
   scr_rand_function = scr_platform_rand;
 }
 
+void
+scr_set_runner_random (void)
+{
+  scr_rand_function = scr_runner_rand;
+}
+
+/*
+ * "Congruential" here means "portable and predictable", which the Runner-
+ * compatible generator is too: the clock freeze in scvars.cpp and the
+ * debugger's Random report key off this.
+ */
 scr_bool
 scr_is_congruential_random (void)
 {
-  return scr_rand_function == scr_congruential_rand;
+  return scr_rand_function == scr_congruential_rand
+         || scr_rand_function == scr_runner_rand;
+}
+
+scr_bool
+scr_is_runner_random (void)
+{
+  return scr_rand_function == scr_runner_rand;
 }
 
 void
@@ -455,15 +563,41 @@ scr_randomint (scr_int low, scr_int high)
    * rounded the other way.  A zero span (high == low - 1) draws and yields
    * low, as Int(Rnd * 0) does.
    */
+  scr_int result;
+
   if (span > 0)
     {
-      return low + (scr_int) (((unsigned long long) scr_rand ()
-                               * (unsigned long long) span) >> 31);
+      result = low + (scr_int) (((unsigned long long) scr_rand ()
+                                 * (unsigned long long) span) >> 31);
+    }
+  else
+    {
+      result = low - (scr_int) (((unsigned long long) scr_rand ()
+                                 * (unsigned long long) -span
+                                 + 0x7fffffffULL) >> 31);
     }
 
-  return low - (scr_int) (((unsigned long long) scr_rand ()
-                           * (unsigned long long) -span
-                           + 0x7fffffffULL) >> 31);
+  if (runner_trace)
+    fprintf (stderr, "  randomint(%ld,%ld) = %ld\n",
+             (long) low, (long) high, (long) result);
+  return result;
+}
+
+/*
+ * scr_vb_rnd()
+ *
+ * The next Single from the 3.9/3.8 codec's LCG (taf_runtime_rnd), traced like
+ * the game-stream draws; the runner-compatible loader's source for what
+ * run390 draws before it seeds with Timer.
+ */
+double
+scr_vb_rnd (void)
+{
+  const double value = taf_runtime_rnd ();
+
+  if (runner_trace)
+    fprintf (stderr, "  vbrnd(load) = %.7f\n", value);
+  return value;
 }
 
 scr_int
@@ -476,14 +610,23 @@ scr_randomint_exclusive (scr_int low, scr_int high)
    * consumed even when the range is degenerate, so draw unconditionally to
    * keep the stream cadence identical either way.
    */
+  scr_int result;
+
   if (high <= low)
     {
       scr_rand ();
-      return low;
+      result = low;
+    }
+  else
+    {
+      result = low + (scr_int) (((unsigned long long) scr_rand ()
+                                 * (unsigned long long) (high - low)) >> 31);
     }
 
-  return low + (scr_int) (((unsigned long long) scr_rand ()
-                           * (unsigned long long) (high - low)) >> 31);
+  if (runner_trace)
+    fprintf (stderr, "  randomint_exclusive(%ld,%ld) = %ld\n",
+             (long) low, (long) high, (long) result);
+  return result;
 }
 
 

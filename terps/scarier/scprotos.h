@@ -142,7 +142,10 @@ typedef std::unique_ptr<scr_char, scr_free_deleter> scr_owned_string;
 
 extern void scr_set_congruential_random (void);
 extern void scr_set_platform_random (void);
+extern void scr_set_runner_random (void);
 extern scr_bool scr_is_congruential_random (void);
+extern scr_bool scr_is_runner_random (void);
+extern double scr_vb_rnd (void);
 extern void scr_seed_random (scr_uint new_seed);
 extern scr_int scr_rand (void);
 extern scr_int scr_randomint (scr_int low, scr_int high);
@@ -176,6 +179,8 @@ extern scr_bool taf_more_lines (scr_tafref_t taf);
 extern scr_int taf_get_game_data_length (scr_tafref_t taf);
 extern scr_int taf_get_version (scr_tafref_t taf);
 extern void taf_obfuscate_reset (void);
+extern void taf_runtime_rnd_reset (void);
+extern double taf_runtime_rnd (void);
 extern void taf_obfuscate_buffer (scr_byte *buffer, scr_int length);
 extern scr_bool taf_debug_is_taf_string (scr_tafref_t taf, const void *addr);
 extern void taf_debug_dump (scr_tafref_t taf);
@@ -435,6 +440,15 @@ extern void gs_set_event_state (scr_gameref_t gs, scr_int event, scr_int state);
 extern void gs_set_event_time (scr_gameref_t gs, scr_int event, scr_int etime);
 extern scr_int gs_event_state (scr_gameref_t gs, scr_int event);
 extern scr_int gs_event_time (scr_gameref_t gs, scr_int event);
+extern void gs_set_event_loadtime (scr_gameref_t gs, scr_int event,
+                                   scr_int etime);
+extern scr_int gs_event_loadtime (scr_gameref_t gs, scr_int event);
+extern void gs_set_event_taskstate (scr_gameref_t gs, scr_int event,
+                                    scr_bool done);
+extern scr_bool gs_event_taskstate (scr_gameref_t gs, scr_int event);
+extern void gs_set_event_ticked (scr_gameref_t gs, scr_int event,
+                                 scr_bool ticked);
+extern scr_bool gs_event_ticked (scr_gameref_t gs, scr_int event);
 extern void gs_decrement_event_time (scr_gameref_t gs, scr_int event);
 extern scr_int gs_room_count (scr_gameref_t gs);
 extern void gs_set_room_seen (scr_gameref_t gs, scr_int room, scr_bool seen);
@@ -734,6 +748,7 @@ extern scr_bool lib_cmd_block_other (scr_gameref_t game);
 extern scr_bool lib_cmd_block_what (scr_gameref_t game);
 extern scr_bool lib_cmd_break_object (scr_gameref_t game);
 extern scr_bool lib_cmd_break_other (scr_gameref_t game);
+extern scr_bool lib_cmd_break_absent (scr_gameref_t game);
 extern scr_bool lib_cmd_break_what (scr_gameref_t game);
 extern scr_bool lib_cmd_destroy_what (scr_gameref_t game);
 extern scr_bool lib_cmd_smash_what (scr_gameref_t game);
@@ -942,6 +957,9 @@ extern scr_bool evt_can_see_event_in_room (scr_gameref_t game,
                                            scr_int event, scr_int room);
 extern scr_bool evt_can_see_event (scr_gameref_t game, scr_int event);
 extern void evt_tick_events (scr_gameref_t game);
+extern void evt_check_events_started_by_task (scr_gameref_t game,
+                                              scr_int task);
+extern void evt_clear_ticked_events (scr_gameref_t game);
 extern void evt_start_load_events (scr_gameref_t game);
 extern void evt_finish_load_events (scr_gameref_t game);
 extern void evt_debug_trace (scr_bool flag);
@@ -998,6 +1016,9 @@ extern scr_int battle_attribute (scr_gameref_t game, scr_int npc,
 extern scr_int battle_attribute_max (scr_gameref_t game, scr_int npc,
                                     const scr_char *base);
 extern void battle_start (scr_gameref_t game);
+extern void battle_preroll_player_stamina (scr_gameref_t game);
+extern void battle_preroll_npc_stamina (scr_gameref_t game);
+extern void battle_preroll_legacy (scr_gameref_t game);
 extern void battle_change_attribute (scr_gameref_t game, scr_int npc,
                                      scr_int attribute, scr_int value);
 extern scr_bool battle_is_weapon (scr_gameref_t game, scr_int object);
@@ -1012,6 +1033,7 @@ extern void battle_attribute_report (scr_gameref_t game, scr_int npc,
 extern scr_int battle_attribute_bonus (scr_gameref_t game, scr_int npc,
                                        const scr_char *base);
 extern void battle_player_attack (scr_gameref_t game, scr_int npc, scr_int weapon);
+extern void battle_tick_npc (scr_gameref_t game, scr_int npc);
 extern void battle_tick (scr_gameref_t game);
 
 /* Object open/closed state enumeration and functions. */

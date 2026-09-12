@@ -280,10 +280,10 @@ leads down.  Your humble abode is to the east.  Fields are to the west.  The
 chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
 Vluurinik flits around.
-It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
+A warm, gentle rain begins.
 
 > e
 You move east.
@@ -332,6 +332,7 @@ It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
+The warm seasonable rain is nearly over.
 
 > d
 You move down.
@@ -344,20 +345,16 @@ The CyberCow is here.
 It is raining quite heavily.
 
 You can move west and up.
-The rain seems to be letting up.
+The rain has stopped.
 
 > feed snail to cybercow
 The CyberCow sticks out its tongue and snatches up the snail, which it
 gobbles up in a spectacular display of crunching and slurping.
 The CyberCow gives you a look, as if inviting you to try some for yourself.
-The warm seasonable rain is nearly over.
-The rain has stopped.
 
 > milk cybercow
 While the CyberCow continues crunching and slurping delightedly on the snail,
 you fill the bowl with warm, fragrant CyberCow milk.
-
-A warm, gentle rain begins.
 
 > u
 You move up.
@@ -368,7 +365,6 @@ leads down.  Your humble abode is to the east.  Fields are to the west.  The
 chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
 Vluurinik flits around.
-It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
@@ -411,16 +407,12 @@ Down the hill, past the well to the north, you can see the bus stop.  From
 here, it all looks very small.  The top of the steeple has broken, and rotten
 wood beams sticking out at funny angles.
 Vluurinik flits around.
-It is raining quite heavily.
 It is daytime.
 
 You can only move in.
-The warm seasonable rain is nearly over.
-The rain has stopped.
 
 > drop milk
 You drop the bowl.
-A warm, gentle rain begins.
 
 > z
 You pause a moment...
@@ -433,7 +425,6 @@ You pause a moment...
 
 > z
 You pause a moment...
-The rain seems to be letting up.
 
 > in
 You move in.

@@ -18,10 +18,10 @@
 #include "scprotos.h"
 
 __attribute__((constructor)) static void seed_det(void) {
-  const char *s = getenv("SCR_SEED");
-  unsigned long seed = (s && *s) ? strtoul(s, 0, 10) : 1;
+  /* SCR_SEED overrides; the default is 1, or 1234 when SCR_RNG=xoshiro
+     selects the Runner-compatible stream (see scr_default_random_seed). */
   scr_set_portable_random(1);
-  scr_reseed_random_sequence(seed);
+  scr_reseed_random_sequence(scr_default_random_seed());
   if (getenv("SCR_ASSUME_COMBAT"))
     scr_set_combat_assist(1);
   if (getenv("SCR_ASSUME_MOVES"))

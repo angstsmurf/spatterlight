@@ -1545,9 +1545,42 @@ void
 scr_set_portable_random (scr_bool flag)
 {
   if (flag)
-    scr_set_congruential_random ();
+    {
+      /*
+       * SCR_RNG=xoshiro selects the Runner-compatible generator (scutils.cpp,
+       * scr_runner_rand): the stream a Wine ADRIFT Runner draws under
+       * vbrng.dll with VBRNG=xoshiro, so the two transcripts can be diffed.
+       * Anything else keeps SCARE's own portable generator and its goldens.
+       */
+      const scr_char *rng = getenv ("SCR_RNG");
+
+      if (rng && (strcmp (rng, "xoshiro") == 0 || strcmp (rng, "runner") == 0))
+        scr_set_runner_random ();
+      else
+        scr_set_congruential_random ();
+    }
   else
     scr_set_platform_random ();
+}
+
+/*
+ * scr_default_random_seed()
+ *
+ * The seed a stable-random session starts from: SCR_SEED if set, else 1234
+ * in Runner-compatible mode (VBRNG_SEED's and FD_SEED's default) and 1
+ * otherwise (the seed every existing golden was recorded with).
+ */
+scr_uint
+scr_default_random_seed (void)
+{
+  const scr_char *env = getenv ("SCR_SEED");
+
+  if (env && *env)
+    {
+      scr_uint seed = (scr_uint) strtoul (env, NULL, 10);
+      return seed > 0 ? seed : 1;
+    }
+  return scr_is_runner_random () ? 1234 : 1;
 }
 
 void

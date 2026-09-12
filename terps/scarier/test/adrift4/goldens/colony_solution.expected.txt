@@ -188,9 +188,9 @@ looks almost rusted through . There are lights on the top of the tower that
 are still illuminated for some reason .  A small alien is here.
 
 You can move down and in.
+A  small alien hits you, but it doesn't seem to do any damage.
 A streak of lightning flashes on the horizon and a whirl of flame spits from
 the sky where the lightning went down .
-A  small alien hits you, but it doesn't seem to do any damage.
 
 > in
 You move in.
@@ -226,9 +226,9 @@ A  large alien hits you.
 
 > wear light helmet
 You put on the light helmet.
+A  large alien hits you, but it doesn't seem to do any damage.
 A streak of lightning flashes on the horizon and a whirl of flame spits from
 the sky where the lightning went down .
-A  large alien hits you, but it doesn't seem to do any damage.
 
 > load bullets
 You put the eoi bullets into the gun.

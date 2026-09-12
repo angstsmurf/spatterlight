@@ -6632,7 +6632,7 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
   if (stable_random)
     {
       scr_set_portable_random (TRUE);
-      scr_reseed_random_sequence (1);
+      scr_reseed_random_sequence (scr_default_random_seed ());
     }
 
   /* Name the game file, while the stream is still open and at its start: both

@@ -1887,9 +1887,12 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
    * room blank; 4.0 dropped it again.
    *
    * Read the guard, not the literal: hanging the sentence off an empty Long
-   * alone moves 16 of the 303 corpus goldens.  Gating it on "nothing has
-   * described this room yet" moves exactly two, yeh and richard, both 3.90 --
-   * which is the shape a correct fix should have.
+   * alone moves 16 of the 303 corpus goldens.  The guard needs BOTH halves:
+   * the alt text empty AND the Long itself empty (`var_A4(4) = vbNullString`
+   * at 4478C0, the room record's Long, not what got printed).  yeh.taf
+   * (3.90) measured on run390x 2026-09-12: "Outside", "Woods", "Spooky
+   * area." each have a Long and a start alt that suppresses it with empty
+   * text, and the Runner prints the heading and the exits alone.
    *
    * Measured on p39EXAM.taf (3.90), Adrift_41_p39exam.txt and
    * Adrift_43_p39exam.txt: the Void Room has an empty Long, no alts and no
@@ -1902,7 +1905,11 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
     {
       const scr_int version = prop_get_taf_version (bundle);
 
-      if (version == TAF_VERSION_390)
+      vt_key[0].string = "Rooms";
+      vt_key[1].integer = room;
+      vt_key[2].string = "Long";
+      if (version == TAF_VERSION_390
+          && scr_strempty (prop_get_string (bundle, "S<-sis", vt_key)))
         {
           pf_buffer_string (filter, "There is nothing of interest here.");
           is_described = TRUE;
@@ -8531,13 +8538,14 @@ lib_cmd_take_absent (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *input = run_get_dispatch_input ();
   const scr_char *best_term = NULL;
-  scr_int object, best_score, best_count;
+  scr_int object, best_score, best_count, best_object;
 
   if (!lib_is_version_400 (game) || !input)
     return FALSE;
 
   best_score = 0;
   best_count = 0;
+  best_object = -1;
 
   for (object = 0; object < gs_object_count (game); object++)
     {
@@ -8560,6 +8568,7 @@ lib_cmd_take_absent (scr_gameref_t game)
           best_score = score;
           best_count = 1;
           best_term = term;
+          best_object = object;
         }
       else if (score == best_score)
         {
@@ -8583,6 +8592,29 @@ lib_cmd_take_absent (scr_gameref_t game)
                                              " %player% is referring"
                                              " to.\n"));
       return TRUE;
+    }
+
+  /*
+   * A unique seen-absent winner sitting inside a closed container answers
+   * for the container instead: the plain take is rewritten into an
+   * implicit "take from" (run400 mdlSpreadTheLoad auto-from rewrite
+   * 47302F) and lands in the SAME closed-container arm as an explicit one
+   * ("<The X> is closed." 47395C).  Measured escape_to_new_york turn 152
+   * `get parcel`, the parcel seen but absent, inside a closed parent
+   * (Ticket run400 xoshiro trace 2026-09-12).
+   */
+  if (gs_object_position (game, best_object) == OBJ_IN_OBJECT)
+    {
+      scr_int parent = gs_object_parent (game, best_object);
+
+      if (obj_is_container (game, parent)
+          && gs_object_openness (game, parent) > OBJ_OPEN)
+        {
+          pf_new_sentence (filter);
+          lib_print_object_np (game, parent);
+          pf_buffer_string (filter, " is closed.\n");
+          return TRUE;
+        }
     }
 
   pf_buffer_string (filter, "There is nothing worth taking here.\n");
@@ -9285,8 +9317,17 @@ lib_cmd_take_from_nowhere_all (scr_gameref_t game)
   if (lib_take_from_empty_verb (game) || lib_take_from_line_has_and (game))
     return FALSE;
 
+  /*
+   * Not a turn in 4.0: run400 472F31 sets the not-a-turn flag (MemVar_494281)
+   * beside this refusal, so no event, walk or counter ticks -- measured on
+   * escape_to_new_york turn 187 `get all from gladstone bag` (xoshiro trace
+   * 2026-09-12: the Runner drew nothing, Scarier ticked 34 draws).
+   */
   if (lib_is_version_400 (game))
-    return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
+    {
+      game->is_admin = TRUE;
+      return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
+    }
 
   return lib_print_response_message (game,
                                      "You can't get anything from that.\n",
@@ -9307,8 +9348,17 @@ lib_cmd_take_from_nowhere (scr_gameref_t game)
   if (lib_take_from_empty_verb (game) || lib_take_from_line_has_and (game))
     return FALSE;
 
+  /*
+   * Not a turn in 4.0: run400 472F31 sets the not-a-turn flag (MemVar_494281)
+   * beside this refusal, so no event, walk or counter ticks -- measured on
+   * escape_to_new_york turn 187 `get all from gladstone bag` (xoshiro trace
+   * 2026-09-12: the Runner drew nothing, Scarier ticked 34 draws).
+   */
   if (lib_is_version_400 (game))
-    return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
+    {
+      game->is_admin = TRUE;
+      return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
+    }
 
   /* 3.7 and 3.8 have the one answer for every shape of the arm. */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
@@ -9898,6 +9948,47 @@ lib_cmd_give_object_npc (scr_gameref_t game)
   object = lib_disambiguate_object (game, "give", &is_ambiguous);
   if (object == -1)
     return is_ambiguous;
+
+  if (lib_is_version_400 (game))
+    {
+      /*
+       * 4.0's therest() checks holding before it ever resolves the NPC:
+       * run400 mdlSpreadTheLoad 488A7C "Give what?", 488AA2 " don't have
+       * ", then the NPC test that ends " to who?" (488B1E-488B45).
+       */
+      if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
+        {
+          lib_print_response_object (game,
+                                     "You don't have ",
+                                     "I don't have ",
+                                     "%player% don't have ",
+                                     object, "!\n");
+          return TRUE;
+        }
+
+      /*
+       * A named-but-absent NPC gets the plain give's "to who?" answer, not
+       * lib_disambiguate_npc()'s "Please be more clear" -- measured
+       * escape_to_new_york turn 193 `give key to purser` (Ticket run400
+       * xoshiro trace 2026-09-12), the key held and the purser elsewhere.
+       * A genuinely ambiguous NPC reference (count > 1) is unaffected;
+       * is_ambiguous mutes only the "none at all" branch.
+       */
+      npc = lib_disambiguate_npc (game, "give to", &is_ambiguous);
+      if (npc == -1)
+        {
+          if (is_ambiguous)
+            return TRUE;
+          lib_print_wrapped_object (game, "Give ", object, " to who?\n");
+          return TRUE;
+        }
+
+      pf_new_sentence (filter);
+      lib_print_npc_np (game, npc);
+      lib_print_wrapped_object (game, " doesn't seem interested in ",
+                                object, ".\n");
+      return TRUE;
+    }
 
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, "give to", NULL);
@@ -14482,6 +14573,23 @@ lib_cmd_break_other (scr_gameref_t game)
                                      "%player% might need that.\n");
 }
 
+/*
+ * lib_cmd_break_absent()
+ *
+ * 4.0's therest() opens with the same clause as lib_cmd_buy_absent(), and
+ * `break`/`destroy`/`smash` are the arm measured here: escape_to_new_york
+ * turn 159 `smash gate`, the gate seen but absent, answers "You can't see
+ * the metal gate." rather than break_object's "You might need the metal
+ * gate." (Ticket run400 xoshiro trace 2026-09-12).  See
+ * lib_absent_seen_object(); run400 composes break_object's own refusal at
+ * 489A62-489AF2, and a bare verb falls to "Smash what?" at 4455F8.
+ */
+scr_bool
+lib_cmd_break_absent (scr_gameref_t game)
+{
+  return lib_cant_see_absent_object (game, ".\n", TRUE);
+}
+
 
 /*
  * lib_cmd_smell_object()
@@ -15089,7 +15197,14 @@ lib_cmd_locate_object (scr_gameref_t game)
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int index_, count, object, room, position, parent;
 
-  lib_set_admin (game);
+  /*
+   * "where is X" is a real turn in every Runner: run400's whereis
+   * (Proc_19_33_4684E4, body 467CE0-4684E1, which also prints "I don't
+   * know where that is!" at 4684DA) and the characters() where/find/locate
+   * block 47FC8D-47FE19 never write the not-a-turn flag MemVar_494281, and
+   * run390's whereis 43FF98 / characters() 45ACD8 never write 468219.
+   * Ticket (Adrift_1127, 2026-09-12): "where is young girl" ticks 59 draws.
+   */
 
   /*
    * Filter to remove unseen object references.  Note that this is different
@@ -15295,7 +15410,7 @@ lib_cmd_locate_npc (scr_gameref_t game)
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int index_, count, npc, room;
 
-  lib_set_admin (game);
+  /* A real turn in every Runner; see lib_cmd_locate_object(). */
 
   /* Count the number of NPCs referenced by the last command. */
   count = 0;
@@ -15923,8 +16038,8 @@ lib_cmd_locate_other (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
+  /* A real turn in every Runner (run400 4684DA); see lib_cmd_locate_object(). */
   pf_buffer_string (filter, "I don't know where that is!\n");
-  lib_set_admin (game);
   return TRUE;
 }
 
@@ -16060,7 +16175,15 @@ lib_cmd_say (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *string = NULL;
 
-  switch (scr_randomint (1, 5))
+  /*
+   * run390 (therest 45DAD2) and run400 (488DE4) both draw Int(Rnd*6) over
+   * six responses; run380/run370 (4442AA/43D813) draw Int(Rnd*5) over the
+   * same table, so their sixth response is unreachable.  Keeping the span
+   * per version keeps the runner-mode stream in step with the Wine
+   * Runners (inverness, measured 2026-09-12).
+   */
+  switch (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
+          ? scr_randomint (1, 6) : scr_randomint (1, 5))
     {
     case 1:
       string = "Gosh, that was very impressive.\n";
@@ -16080,8 +16203,15 @@ lib_cmd_say (scr_gameref_t game)
     case 4:
       string = "Uh huh, yes, very interesting.\n";
       break;
-    default:
+    case 5:
       string = "That's the most interesting thing I've ever heard!\n";
+      break;
+    default:
+      string = lib_select_response (game,
+                                    "No-one listens to your rabblings.\n",
+                                    "No-one listens to my rabblings.\n",
+                                    "No-one listens to %player%'s"
+                                    " rabblings.\n");
       break;
     }
 
@@ -16269,16 +16399,60 @@ lib_cmd_ask_npc (scr_gameref_t game)
   return TRUE;
 }
 
+/*
+ * lib_any_named_npc()
+ *
+ * The NPC the line named, with no gate on whether they're seen or in the
+ * room -- run400's characters() (47F845-47F8CE) tests only c(name) Or
+ * c(descriptor), unlike lib_disambiguate_npc()'s present-and-seen filter.
+ * Returns the unique such NPC, or -1 for none or a tie (a tie is
+ * unmeasured, so it is left to fall through as before).
+ */
+static scr_int
+lib_any_named_npc (scr_gameref_t game)
+{
+  scr_int index_, npc, count;
+
+  count = 0;
+  npc = -1;
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      if (game->npc_references[index_])
+        {
+          count++;
+          npc = index_;
+        }
+    }
+  return count == 1 ? npc : -1;
+}
+
 scr_bool
 lib_cmd_talk_to_npc (scr_gameref_t game)
 {
-  scr_int npc;
+  scr_int npc, named;
   scr_bool is_ambiguous;
+
+  /*
+   * A named NPC who isn't currently present still gets the hint in 4.0:
+   * characters() names by whole-word match alone, with no room gate, and
+   * that answer OVERWRITES the generic "talk"/"speak" rabblings default
+   * (run400 488DA2) rather than falling through to it.  Capture the named
+   * NPC before lib_disambiguate_npc()'s own room/seen filter clears the
+   * reference.  Measured escape_to_new_york turns 199-200 `talk to
+   * goodson` (Ticket run400 xoshiro trace 2026-09-12).
+   */
+  named = lib_is_version_400 (game) ? lib_any_named_npc (game) : -1;
 
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, "talk to", &is_ambiguous);
   if (npc == -1)
-    return is_ambiguous;
+    {
+      if (is_ambiguous)
+        return TRUE;
+      if (named == -1)
+        return FALSE;
+      npc = named;
+    }
 
   lib_print_wrapped_npc (game, "Use the format \"ask ",
                          npc, lib_ask_format_subject (game));
@@ -16294,6 +16468,51 @@ lib_cmd_talk_to_npc_pre_390 (scr_gameref_t game)
   return lib_cmd_talk_to_npc (game);
 }
 
+/*
+ * lib_line_names_object_before_about()
+ *
+ * The Runner's ask/talk-to block, when the line contains the whole word
+ * "about", truncates the line to Left(input, InStr("about") - 1) before it
+ * asks co(refobj) whether the up-front object is named -- run400 therest
+ * 488B8A-488BEE (co() = Proc_21_39_46486C), run380 444039-444113, run390
+ * 45D848-45D941 alike.  So `ask young girl about flowers` with the flowers
+ * in hand does NOT get "no reply from the flowers": the flowers stand
+ * after "about".  Scarier's `ask %object% *` row binds a trailing
+ * %object% by containment anywhere in the line, hence this test.
+ *
+ * Measured on Ticket (4.00, Adrift_1127_ticket.txt turn 154): the Runner
+ * prints "Young Girl isn't here!" where Scarier used to print "You get no
+ * reply from the flowers.".
+ */
+static scr_bool
+lib_line_names_object_before_about (scr_gameref_t game, scr_int object)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_char *scan;
+  scr_char *head;
+  scr_bool is_named;
+
+  if (!input)
+    return TRUE;
+
+  for (scan = input; *scan != NUL; scan++)
+    {
+      if ((scan == input || scan[-1] == ' ')
+          && scr_strncasecmp (scan, "about", 5) == 0
+          && (scan[5] == NUL || scan[5] == ' '))
+        break;
+    }
+  if (*scan == NUL)
+    return TRUE;
+
+  head = (scr_char *) scr_malloc (scan - input + 1);
+  memcpy (head, input, scan - input);
+  head[scan - input] = NUL;
+  is_named = lib_verb_object_name_score (game, object, head) > 0;
+  scr_free (head);
+  return is_named;
+}
+
 scr_bool
 lib_cmd_ask_object (scr_gameref_t game)
 {
@@ -16304,6 +16523,10 @@ lib_cmd_ask_object (scr_gameref_t game)
   object = lib_disambiguate_object (game, "ask", &is_ambiguous);
   if (object == -1)
     return is_ambiguous;
+
+  /* An object named only after "about" is the subject, not the asked. */
+  if (!lib_line_names_object_before_about (game, object))
+    return FALSE;
 
   /* No reply. */
   lib_print_response_object (game,
@@ -16346,10 +16569,61 @@ lib_cmd_ask_other (scr_gameref_t game)
  * `ask sly about him` -- "sly" is a task word, not a character, and the
  * game has no male to fill "him" in -- answers "(No male)" and then "I
  * can't talk to that." where Scarier used to print the format hint.
+ *
+ * Two answers outrank the seed.  4.0's up-front resolver (Proc_21_58_463640,
+ * see lib_absent_seen_object()) has already put "<You> can't see <the
+ * object>." in the buffer for a seen-but-absent object named ANYWHERE in the
+ * line, and therest leaves that alone: 488C51 seeds "can't talk to that."
+ * only into an EMPTY buffer.  Then characters(), called from the tail at
+ * 48B56E after therest, walks the NPCs the line names (Proc_21_40_45E99C)
+ * and for one not in the player's room (47FC22, no seen test) overwrites an
+ * empty or "can't talk to that." buffer with "<Name> isn't here!" (47FC6D);
+ * the first such NPC wins, since the buffer then ends otherwise.  run380
+ * 440AC0/440ACC, run390 459C0B/459C32 and run370 438C0A do the same, minus
+ * the 4.0-only absent-object pass.
+ *
+ * Measured on Ticket (4.00, Adrift_1127_ticket.txt turns 154 and 156): `ask
+ * young girl about flowers` with the girl elsewhere answers "Young Girl
+ * isn't here!" while the flowers are held, and "You can't see the flowers."
+ * once they have been given away.
  */
 scr_bool
 lib_cmd_ask_about_nothing (scr_gameref_t game)
 {
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object, npc;
+
+  if (input && lib_is_version_400 (game))
+    {
+      gs_clear_object_references (game);
+      for (object = 0; object < gs_object_count (game); object++)
+        {
+          if (lib_verb_object_name_score (game, object, input) > 0)
+            game->object_references[object] = TRUE;
+        }
+      if (lib_cant_see_absent_object (game, ".\n", TRUE))
+        return TRUE;
+    }
+
+  if (input)
+    {
+      for (npc = 0; npc < gs_npc_count (game); npc++)
+        {
+          const scr_char *name;
+
+          if (npc_in_room (game, npc, gs_playerroom (game))
+              || !lib_npc_named_in_line (game, npc, input))
+            continue;
+
+          name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+          pf_buffer_string (filter, name);
+          pf_buffer_string (filter, " isn't here!\n");
+          return TRUE;
+        }
+    }
+
   return lib_print_response_message (game,
       "You can't talk to that.\n",
       "I can't talk to that.\n",
@@ -17212,6 +17486,50 @@ lib_first_named_object_pre_390 (scr_gameref_t game)
   return -1;
 }
 
+/*
+ * lib_seen_named_object_400()
+ *
+ * 4.0's remove and drop resolver (Proc_21_58_463640) falls back, when
+ * nothing PRESENT (or worn/held) answers, to every object the player has
+ * SEEN, scored the same whole-word way as lib_take_absent_score() above,
+ * and only a genuine unique best score counts -- a tie is left to the
+ * plain "what?" the same as no match at all.  Returns the unique winner's
+ * index, or -1 for none or a tie.
+ */
+static scr_int
+lib_seen_named_object_400 (scr_gameref_t game, const scr_char *input)
+{
+  scr_int object, best_score, best_count, best_object;
+
+  best_score = 0;
+  best_count = 0;
+  best_object = -1;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *term;
+      scr_int score;
+
+      if (!gs_object_seen (game, object))
+        continue;
+
+      score = lib_take_absent_score (game, object, input, &term);
+      if (score == 0)
+        continue;
+
+      if (score > best_score)
+        {
+          best_score = score;
+          best_count = 1;
+          best_object = object;
+        }
+      else if (score == best_score)
+        best_count++;
+    }
+
+  return (best_count == 1) ? best_object : -1;
+}
+
 scr_bool
 lib_cmd_drop_what (scr_gameref_t game)
 {
@@ -17234,6 +17552,29 @@ lib_cmd_drop_what (scr_gameref_t game)
       lib_print_object_raw (game, object);
       pf_buffer_string (filter, "!\n");
       return TRUE;
+    }
+
+  /*
+   * 4.0 seen-absent unique winner: "You are not holding the uniform."
+   * (definite form).  Measured escape_to_new_york turn 156 `drop uniform`
+   * (Ticket run400 xoshiro trace 2026-09-12); reached via put_drop_list
+   * 459DB4 -> name_object 46E5D8 -> Proc_21_58_463640.  Unseen, or a tie,
+   * stays "Drop what?".
+   */
+  if (lib_is_version_400 (game) && input)
+    {
+      object = lib_seen_named_object_400 (game, input);
+      if (object != -1)
+        {
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                                 "You are not holding ",
+                                                 "I am not holding ",
+                                                 "%player% is not holding "));
+          lib_print_object_np (game, object);
+          pf_buffer_string (filter, ".\n");
+          return TRUE;
+        }
     }
 
   return lib_what (game, "Drop");
@@ -17309,6 +17650,7 @@ scr_bool
 lib_cmd_remove_what (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
   scr_int object;
 
   /* run380 @4300C8, the same first-named-object rule as drop above. */
@@ -17323,6 +17665,30 @@ lib_cmd_remove_what (scr_gameref_t game)
       lib_print_object_raw (game, object);
       pf_buffer_string (filter, "!\n");
       return TRUE;
+    }
+
+  /*
+   * 4.0 seen-absent unique winner: "You are not wearing the uniform!"
+   * (definite form).  Measured escape_to_new_york turn 155 `remove uniform`
+   * (Ticket run400 xoshiro trace 2026-09-12); remove calls
+   * Proc_21_58_463640(obnum, 3, 0) at 4620EB, "not wearing" at 4621DC/
+   * 46241A, and "Remove what?" 462477 only when that message came back
+   * empty.  Unseen, or a tie, stays "Remove what?".
+   */
+  if (lib_is_version_400 (game) && input)
+    {
+      object = lib_seen_named_object_400 (game, input);
+      if (object != -1)
+        {
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                                 "You are not wearing ",
+                                                 "I am not wearing ",
+                                                 "%player% is not wearing "));
+          lib_print_object_np (game, object);
+          pf_buffer_string (filter, "!\n");
+          return TRUE;
+        }
     }
 
   return lib_what (game, "Remove");

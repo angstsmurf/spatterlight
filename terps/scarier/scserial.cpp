@@ -944,8 +944,14 @@ ser_save_game_internal (scr_gameref_t game, scr_write_callbackref_t callback,
       ser_buffer_int (gs_event_time (game, index_));
       ser_buffer_int (task);
       ser_buffer_int (gs_event_state (game, index_) - 1);
+
+      /*
+       * The boolean beside each event is the Runner's starter-task snapshot
+       * (run380 reads it straight back into event field 42 at 430F2B), not
+       * the task's own completed flag, which the tasks block carries.
+       */
       if (task > 0)
-        ser_buffer_boolean (gs_task_done (game, task - 1));
+        ser_buffer_boolean (gs_event_taskstate (game, index_));
       else
         ser_buffer_boolean (FALSE);
     }
@@ -1598,9 +1604,9 @@ ser_load_game (scr_gameref_t game,
           if (startertype != 3)
             scr_longjmp (ser_tas_error, 1);
 
-          /* Restore task state (task is a 1-based index from the save). */
+          /* Restore the starter-task snapshot (task is a 1-based index). */
           ser_reject_if (task > gs_task_count (new_game));
-          gs_set_task_done (new_game, task - 1, ser_get_boolean ());
+          gs_set_event_taskstate (new_game, index_, ser_get_boolean ());
         }
       else
         (void) ser_get_boolean ();

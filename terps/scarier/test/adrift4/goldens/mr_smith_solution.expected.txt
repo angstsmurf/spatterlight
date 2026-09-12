@@ -231,24 +231,11 @@ The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
 You shoot the Italian mobster with Colt .45 pistol.
-
-> shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
 The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
 You shoot the Italian mobster with Colt .45 pistol.
 The Italian mobster shoots you with the Remington 410 shotgun.
-
-> shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-
-> shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
-
-> shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
 
 > shoot fernelli with pistol
 You shoot the Italian mobster with Colt .45 pistol.
@@ -264,6 +251,43 @@ The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
 You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
+
+> s
+You move south.
+
+Courtyard
+An erie courtyard sits at the middle of the mansion. You stare up at the sky
+and take a deep breath. It is the middle of the night. Now you take notice of
+your surroundings.
+
+> drink water
+You drink some of the water from the fountain, and almost immediatly you feel
+stronger.
+
+> n
+You move north.
+
+Observatory
+You enter the observatory. It is a dimly lit room with few candles and an
+open drawer.   Watch out! A mobster is here, in this room!!!
+The Italian mobster shoots you with the Remington 410 shotgun.
+
+> shoot fernelli with pistol
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
+
+> shoot fernelli with pistol
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
+
+> shoot fernelli with pistol
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
+
+> shoot fernelli with pistol
+You shoot the Italian mobster with Colt .45 pistol.
+The Italian mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
 You shoot the Italian mobster with Colt .45 pistol.

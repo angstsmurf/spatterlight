@@ -189,6 +189,8 @@ uip_tokenize_end (void)
  *
  * Return the next token from the current pattern.
  */
+static scr_bool uip_token_multi_space = FALSE;
+
 static scr_uip_tok_t
 uip_next_token (void)
 {
@@ -203,10 +205,15 @@ uip_next_token (void)
       return TOK_EOS;
     }
 
-  /* If whitespace, skip it, then return a whitespace token. */
+  /*
+   * If whitespace, skip it, then return a whitespace token.  A run of two
+   * or more is remembered in uip_token_multi_space; see uip_parse_element().
+   */
   if (scr_isspace (uip_pattern[uip_index]))
     {
       uip_index++;
+      uip_token_multi_space = scr_isspace (uip_pattern[uip_index])
+                              && uip_pattern[uip_index] != NUL;
       while (scr_isspace (uip_pattern[uip_index])
              && uip_pattern[uip_index] != NUL)
         uip_index++;
@@ -286,7 +293,7 @@ typedef enum
 {
   NODE_UNUSED = 0,
   NODE_CHOICE, NODE_OPTIONAL, NODE_WILDCARD, NODE_WHITESPACE,
-  NODE_HARD_WHITESPACE, NODE_JOIN,
+  NODE_HARD_WHITESPACE, NODE_DOUBLE_WHITESPACE, NODE_JOIN,
   NODE_CHARACTER_REFERENCE, NODE_OBJECT_REFERENCE, NODE_TEXT_REFERENCE,
   NODE_NUMBER_REFERENCE, NODE_WORD, NODE_VARIABLE, NODE_LIST, NODE_EOS
 } scr_pttype_t;
@@ -595,9 +602,30 @@ uip_parse_element (void)
   switch (uip_parse_lookahead)
     {
     case TOK_WHITESPACE:
-      uip_parse_match (TOK_WHITESPACE);
-      node = uip_new_node (NODE_WHITESPACE);
-      break;
+      {
+        /*
+         * Two or more spaces in a row are matched literally by every
+         * Runner: the 4.0 matcher (run400 NewParse 45D940) compares the
+         * literal stretch of a pattern with Left()/Right() and "=" after
+         * Trim(pattern) -- only the TYPED line has its "  " collapsed to
+         * " " -- and 3.7-3.9 checkwild (run390 4346A8) compares literally
+         * with nothing collapsed at all.  So a pattern with a double space
+         * inside it never matches a normally typed line.  "Ticket to No
+         * Where" (4.00) has task 347 "ask  *girl* about *" -- the girl's
+         * CharTask, meant to run from her walk -- and run400 answers `ask
+         * young girl about grantby` from her conversation topic ("Wie
+         * bitte? Grantby?", Adrift_1127_ticket.txt, 2026-09-12); Scarier
+         * ran the task instead, and the extra random(0,12) draw put the
+         * whole rest of the transcript out of step.  The multi-space flag
+         * belongs to the lookahead token, so read it before advancing.
+         */
+        scr_bool is_double = uip_token_multi_space;
+
+        uip_parse_match (TOK_WHITESPACE);
+        node = uip_new_node (is_double ? NODE_DOUBLE_WHITESPACE
+                                       : NODE_WHITESPACE);
+        break;
+      }
 
     case TOK_CHOICE:
       /* Parse a [...[/.../...]] choice. */
@@ -768,7 +796,8 @@ uip_parse_list (scr_ptnoderef_t list)
         default:
           /* Add the next node at the appropriate link. */
           node = uip_parse_element ();
-          if (node->type != NODE_WORD && node->type != NODE_WHITESPACE)
+          if (node->type != NODE_WORD && node->type != NODE_WHITESPACE
+              && node->type != NODE_DOUBLE_WHITESPACE)
             literal_only = FALSE;
           if (child == list)
             {
@@ -871,6 +900,9 @@ uip_debug_dump_node (scr_ptnoderef_t node, scr_int depth)
           break;
         case NODE_HARD_WHITESPACE:
           scr_trace (", hard whitespace");
+          break;
+        case NODE_DOUBLE_WHITESPACE:
+          scr_trace (", double whitespace");
           break;
         case NODE_JOIN:
           scr_trace (", join");
@@ -1137,6 +1169,29 @@ uip_match_whitespace (scr_bool hard)
     return TRUE;
 
   /* No match.  Really. */
+  return FALSE;
+}
+
+/*
+ * Two or more spaces in the pattern: only a run of two or more in the input
+ * will do, literally, with none of the word-boundary leniency above.  No
+ * Runner collapses the pattern, and 4.0 collapses the typed line, so a
+ * pattern like "ask  *girl* about *" is unreachable from the keyboard in
+ * every version; see uip_parse_element().
+ */
+static scr_bool
+uip_match_double_whitespace (void)
+{
+  if (scr_isspace (uip_string[uip_posn])
+      && uip_string[uip_posn] != NUL
+      && scr_isspace (uip_string[uip_posn + 1])
+      && uip_string[uip_posn + 1] != NUL)
+    {
+      while (uip_string[uip_posn] != NUL && scr_isspace (uip_string[uip_posn]))
+        uip_posn++;
+      return TRUE;
+    }
+
   return FALSE;
 }
 
@@ -2114,16 +2169,24 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
   const scr_int input_end = strlen (uip_string);
 
   /*
-   * Pass 0 is the positional match.  Passes 1 and 2 are the containment
-   * fallback, names first and then aliases, each taken only when the pass
-   * before it found nothing: "unlock iron chest with golden key" must bind
-   * the golden key alone even though every key answers to the alias "key"
-   * (shadowpeak), and only `x silver key`, which nothing matches in place,
-   * falls through to the key.
+   * Pass 0 is the positional match.  Pass 1 is the containment fallback,
+   * taken only when nothing matched in place, and it takes names and aliases
+   * TOGETHER: the Runner's up-front resolver (run400 Proc_21_58_463640, pass
+   * 1) scores every present-and-seen object by Short-as-a-whole-word plus
+   * alias-as-a-whole-word, and referencedob's own co(i, 3) loop then counts
+   * only present namesakes, so an absent object's Short never outranks a
+   * present object's Alias.  Measured on escape_to_new_york (4.00) turn 107,
+   * `look under table` in Cabin E86: the Runner describes the present
+   * "mahogany furniture" (alias "table"); a names-first pass bound the
+   * absent "table" (object 50) instead and answered "You see no such
+   * thing."  The absent namesakes are still referenced here and left for
+   * the handler's disambiguation to drop, which is where the seen-but-
+   * absent answers come from.  "unlock iron chest with golden key"
+   * (shadowpeak) binds in place and never reaches this pass.
    */
   max_extent = 0;
   entity_count = cache.size ();
-  for (scr_int pass = 0; pass < 3 && max_extent == 0; pass++)
+  for (scr_int pass = 0; pass < 2 && max_extent == 0; pass++)
     {
       if (pass > 0 && !contain)
         break;
@@ -2143,11 +2206,6 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
           const scr_uip_candidate_t &candidate = alias < 0
                                                  ? entity.name
                                                  : entity.aliases[alias];
-
-          if (pass == 1 && alias >= 0)
-            break;
-          if (pass == 2 && alias < 0)
-            continue;
 
           if (uip_trace)
             scr_trace ("UIParser: trying %s%s\n",
@@ -2245,6 +2303,9 @@ uip_match_node (scr_ptnoderef_t node)
       break;
     case NODE_HARD_WHITESPACE:
       match = uip_match_whitespace (TRUE);
+      break;
+    case NODE_DOUBLE_WHITESPACE:
+      match = uip_match_double_whitespace ();
       break;
     case NODE_JOIN:
       match = uip_match_join ();

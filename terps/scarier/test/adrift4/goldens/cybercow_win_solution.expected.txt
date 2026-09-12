@@ -246,12 +246,10 @@ You can move north, east, south and west.
 
 > throw rope down well
 You throw the rope down the well.
-The rain seems to be letting up.
 
 > take cross
 You pick up the heavy cross.  Vluurinik flies in from the west.
-The warm seasonable rain is nearly over.
-The rain has stopped.
+The rain seems to be letting up.
 
 > s
 You move south.
@@ -347,7 +345,6 @@ is the bus stop.
 It is daytime.
 
 You can move north, east, south, west and down.
-A warm, gentle rain begins.
 
 > e
 You move east.
@@ -599,7 +596,6 @@ outside.  There is a cupboard here, which you recall generally not having
 cookies.  There is a couch here, which used to cleverly hide a trapdoor.
 
 You can move west and down.  The Robot marches in  from below.
--COME. COME. PATHETIC. HUMAN.- The Robot grates.  -STOP. SCREWING. AROUND.-
 
 > w
 You move west.
@@ -613,6 +609,7 @@ It is daytime.
 
 You can move north, east, south, west and down.  The Robot marches in  from
 the east.
+-COME. COME. PATHETIC. HUMAN.- The Robot grates.  -STOP. SCREWING. AROUND.-
 
 > d
 You move down.

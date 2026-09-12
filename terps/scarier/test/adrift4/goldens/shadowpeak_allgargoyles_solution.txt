@@ -1,5 +1,7 @@
 # Shadowpeak "all four gargoyles" variant: deterministic WIN, 715/790 under
-# SCR_SEED=30 (2026-09-06: the RNG first-draw warm-up fix in scutils.cpp
+# SCR_SEED=1 (2026-09-12: the RNG stream now follows the Wine Runners draw for
+# draw -- vbrng parity work -- so a new seed, and the village zombie phase and
+# the Damastus chase are re-derived below once more.  Earlier, 2026-09-06: the RNG first-draw warm-up fix in scutils.cpp
 # scr_congruential_rand -- the first draw after a reseed used to be pinned to
 # the top half of its range -- re-threaded every seeded stream.  New seed, and
 # the village zombie phase and the Damastus chase are re-derived below with
@@ -154,14 +156,16 @@ fly
 # phase is derived turn by turn: stab whoever is standing here, else wait.  One
 # stab kills each of them.  +40 -> 130.
 s
-# Re-derived 2026-09-06 for the RNG first-draw warm-up fix (scutils.cpp
-# scr_congruential_rand: the first draw after a reseed used to be pinned to the
-# top half of its range, so every seeded stream re-threads).  Greedy phase from
-# the Village Square (37), one turn at a time: stab whichever named zombie has
-# wandered in, else wait -- harness/sp_village.py in the session scratchpad, the
-# same shape as harness/shadowpeak_chase.py.  33 turns of work, then `z` padding
-# back to the original 93-turn length so the downstream event timers (EVENT 92,
-# the Morac death timer) keep landing where the rest of the route expects.
+# Re-derived 2026-09-12: the RNG stream now follows the Wine Runners draw for
+# draw (vbrng parity work), which re-threaded every seeded stream; new seed
+# SCR_SEED=1.  Greedy phase from the Village Square (37), one turn at a time:
+# stab whichever named zombie has wandered in, else wait --
+# harness/shadowpeak_village.py, the same shape as harness/shadowpeak_chase.py.
+# 20 turns of work, then `z` padding back to the original 93-turn length so the
+# downstream event timers (EVENT 92, the Morac death timer) keep landing where
+# the rest of the route expects.
+attack jarris
+attack boris
 attack jarris
 z
 z
@@ -169,11 +173,13 @@ z
 z
 z
 z
+attack arthur
 z
 z
-attack boris
 z
-attack boris
+z
+z
+z
 z
 z
 z
@@ -191,10 +197,6 @@ z
 z
 z
 z
-z
-z
-z
-attack arthur
 z
 z
 z
@@ -799,25 +801,28 @@ n
 n
 n
 press stone button
-# DAMASTUS chase RE-DERIVED 2026-09-06 at SCR_SEED=30, after the RNG first-draw
-# warm-up fix re-threaded the walkers.  Greedy BFS from the stone button (room
-# 157): attack when co-located, else BFS-step toward him.
-# Re-derive with harness/shadowpeak_chase.py if upstream turns change again.
+# Damastus chase re-derived 2026-09-12 with harness/shadowpeak_chase.py at
+# SCR_SEED=1 (RNG stream now follows the Wine Runners draw for draw).
+# Damastus dies in room 147, stamina 47
+e
+e
+e
+e
+e
+e
 s
 attack damastus
 attack damastus
-n
+s
+attack damastus
+s
 attack damastus
 s
 attack damastus
 n
-attack damastus
-e
-e
-e
-e
-e
-e
+n
+n
+n
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required
@@ -875,6 +880,10 @@ n
 # (T509/T510) - both are worn. Cut him down with the sword (T490 +20, ~2 hits).
 attack cerberus
 attack cerberus
+attack cerberus
+attack cerberus
+# 2026-09-12: the Cerberus block widened from 4 to 6 attacks (one spare) for the
+# re-threaded battle RNG; extra attacks after the kill answer "Cerberus isn't here!".
 attack cerberus
 attack cerberus
 # North through the demon room (168). The demons would devour an unblessed

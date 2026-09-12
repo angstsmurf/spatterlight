@@ -401,6 +401,48 @@ gs_event_state (scr_gameref_t gs, scr_int event)
   return gs->events[event].state;
 }
 
+void
+gs_set_event_loadtime (scr_gameref_t gs, scr_int event, scr_int etime)
+{
+  assert (gs_in_range (event, gs->event_count));
+  gs->events[event].loadtime = etime;
+}
+
+scr_int
+gs_event_loadtime (scr_gameref_t gs, scr_int event)
+{
+  assert (gs_in_range (event, gs->event_count));
+  return gs->events[event].loadtime;
+}
+
+void
+gs_set_event_taskstate (scr_gameref_t gs, scr_int event, scr_bool done)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (event, gs->event_count));
+  gs->events[event].taskstate = done ? 1 : 0;
+}
+
+scr_bool
+gs_event_taskstate (scr_gameref_t gs, scr_int event)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (event, gs->event_count));
+  return gs->events[event].taskstate != 0;
+}
+
+void
+gs_set_event_ticked (scr_gameref_t gs, scr_int event, scr_bool ticked)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (event, gs->event_count));
+  gs->events[event].ticked = ticked ? 1 : 0;
+}
+
+scr_bool
+gs_event_ticked (scr_gameref_t gs, scr_int event)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (event, gs->event_count));
+  return gs->events[event].ticked != 0;
+}
+
 scr_int
 gs_event_time (scr_gameref_t gs, scr_int event)
 {
@@ -1419,6 +1461,9 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
       vt_key[1].integer = index_;
       vt_key[2].string = "StarterType";
       startertype = prop_get_integer (bundle, "I<-sis", vt_key);
+      game->events[index_].loadtime = -1;
+      game->events[index_].taskstate = 0;
+      game->events[index_].ticked = 0;
 
       switch (startertype)
         {
@@ -1436,8 +1481,18 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
             start = prop_get_integer (bundle, "I<-sis", vt_key);
             vt_key[2].string = "EndTime";
             end = prop_get_integer (bundle, "I<-sis", vt_key);
-            gs_set_event_time (game, index_,
-                               scr_randomint_exclusive (start, end));
+
+            /*
+             * In Runner-compatible RNG mode the roll is made once, in the
+             * Runner's load order, by run_runner_load_draws(); a state
+             * created here is one of three (game, temporary, undo), and the
+             * Runner rolls only for the one it plays.
+             */
+            if (scr_is_runner_random ())
+              gs_set_event_time (game, index_, 0);
+            else
+              gs_set_event_time (game, index_,
+                                 scr_randomint_exclusive (start, end));
             break;
           }
 

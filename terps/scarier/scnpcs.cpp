@@ -428,7 +428,8 @@ static const scr_char *const DIRNAMES_8[] = {
 /*
  * npc_random_adjacent_roomgroup_member()
  *
- * Return a random member of group adjacent to given room.
+ * Return a random member of group adjacent to given room.  Pre-4.0 path
+ * only; see npc_roomgroup_walk_dest() for what the 4.0 Runner does.
  */
 static scr_int
 npc_random_adjacent_roomgroup_member (scr_gameref_t game,
@@ -472,6 +473,122 @@ npc_random_adjacent_roomgroup_member (scr_gameref_t game,
 
   /* Return a random adjacent room, or -1 if nothing is adjacent. */
   return (count > 0) ? roomlist[scr_randomint (0, count - 1)] : -1;
+}
+
+
+/*
+ * npc_exit_dest()
+ *
+ * Destination of exit slot 'slot' of 'room', 0-based, or -1 when the slot
+ * is absent or leads nowhere.
+ */
+static scr_int
+npc_exit_dest (scr_gameref_t game, scr_int room, scr_int slot)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[5], vt_rvalue;
+
+  vt_key[0].string = "Rooms";
+  vt_key[1].integer = room;
+  vt_key[2].string = "Exits";
+  if (slot >= prop_get_child_count (bundle, "I<-sis", vt_key))
+    return -1;
+  vt_key[3].integer = slot;
+  vt_key[4].string = "Dest";
+  if (!prop_get (bundle, "I<-sisis", &vt_rvalue, vt_key))
+    return -1;
+  return vt_rvalue.integer - 1;
+}
+
+
+/*
+ * npc_roomgroup_walk_dest()
+ *
+ * Resolve a 4.0 walk stop that names a room group, the way run400's
+ * Proc_19_19_4568BC does (body 45667C-4568BB, sole caller npc_walk_tick
+ * @46888E).  It is REJECTION SAMPLING, and the draw count is what makes
+ * or breaks transcript parity with the Runner under SCR_RNG=xoshiro:
+ *
+ *   - If the walker stands in a room (Runner room > 0): flag each of the
+ *     twelve exit slots (0..11, file order, whatever the compass setting)
+ *     whose Dest is a member of the group, and flag slot 12 when the
+ *     walker's own room is a member ("stay").  When anything is flagged,
+ *     draw Int(Rnd*13) (@4567A9) until a flagged slot comes up: a slot
+ *     below 12 moves through that exit, slot 12 keeps the walker where it
+ *     is.  escape_to_new_york turn 1: 3 flagged of 13 -> 9 draws where
+ *     the old single-draw pick made 1.
+ *   - Otherwise (hidden walker, or no flagged slot): flag every room in
+ *     the group and draw Int(Rnd*roomcount) (@45688E) until a flagged
+ *     index comes up.  The Runner then hands back the 0-based INDEX as if
+ *     it were a 1-based room number (@4568B5 vs. the exit branch's 1-based
+ *     Dest @4567F5), so the walker lands one room BELOW the member it
+ *     drew, and index 0 hides it.  Reproduced as is -- games were tested
+ *     against it.  An empty group leaves the result at &HFF: hidden.
+ *
+ * 3.7-3.9 never resolve a group here at all: their tickers write
+ * stop.Rooms - 1 straight into the NPC's room (run380 @4416C3, run390
+ * @45A96A), and getaroom() (run370 @4218DC, run390 @42ECEC) is reached
+ * only from the task-action movers.  Returns the 0-based destination
+ * room, or -1 for hidden.
+ */
+static scr_int
+npc_roomgroup_walk_dest (scr_gameref_t game, scr_int room, scr_int group)
+{
+  scr_bool flagged[13];
+  scr_int count, slot, room_count, index_;
+
+  count = 0;
+  for (slot = 0; slot < 13; slot++)
+    flagged[slot] = FALSE;
+
+  if (room >= 0)
+    {
+      for (slot = 0; slot < 12; slot++)
+        {
+          scr_int adjacent;
+
+          adjacent = npc_exit_dest (game, room, slot);
+          if (adjacent >= 0 && npc_room_in_roomgroup (game, adjacent, group))
+            {
+              flagged[slot] = TRUE;
+              count++;
+            }
+        }
+      if (npc_room_in_roomgroup (game, room, group))
+        {
+          flagged[12] = TRUE;
+          count++;
+        }
+    }
+
+  if (count > 0)
+    {
+      for (;;)
+        {
+          slot = scr_randomint (0, 12);
+          if (!flagged[slot])
+            continue;
+          return (slot < 12) ? npc_exit_dest (game, room, slot) : room;
+        }
+    }
+
+  /* Nothing adjacent: any member of the group, off by one (see above). */
+  room_count = gs_room_count (game);
+  count = 0;
+  for (index_ = 0; index_ < room_count; index_++)
+    {
+      if (npc_room_in_roomgroup (game, index_, group))
+        count++;
+    }
+  if (count == 0)
+    return -1;
+
+  for (;;)
+    {
+      index_ = scr_randomint (0, room_count - 1);
+      if (npc_room_in_roomgroup (game, index_, group))
+        return index_ - 1;
+    }
 }
 
 
@@ -808,13 +925,24 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
    * turn only, and again five turns later when the loop brings Bob back).
    * Scarier used to fire on every co-located tick.
    *
-   * The gate covers fixed-room AND follow-player stops.  A roomgroup stop
-   * does NOT behave this way -- in "Ticket to No Where" the lost girl
-   * wanders a roomgroup on a single Times=4 stop, and live run400 has her
-   * speak on two consecutive turns per cycle and move on consecutive turns,
-   * i.e. it re-runs the whole walk step every tick rather than once per
-   * stay.  Firing every tick is what Scarier already does there, so leave
-   * roomgroup stops alone.
+   * The gate covers fixed-room, follow-player AND roomgroup stops.  The
+   * roomgroup case used to be exempt on the strength of "Ticket to No
+   * Where"'s lost girl (a single Times=4 roomgroup stop) speaking on two
+   * consecutive turns in live run400 -- but those pairs are the 4.0
+   * player-side meet (npc_tick_npcs, the player walking in on her) landing
+   * next to a genuine arrival tick, not a per-tick re-run.  Read from the
+   * P-code (2026-09-12), run400's walk step is one block gated at 468841
+   * on counter = suffix_sum for EVERY destination kind: the roomgroup pick
+   * (Proc_19_19_4568BC at 46888E) and the CharTask dispatch (468B76, gated
+   * only on the walker now standing in the player's room, 468A44) both sit
+   * inside it, and between exact ticks nothing at all runs.  Escape to New
+   * York measured it: Master-at-Arms King wanders roomgroup 10 on a Times=3
+   * stop with CharTask "- caught with the goods <1>", and under xoshiro draw
+   * parity (Adrift_1122, seed 1234) run400 prints its warning on the tick he
+   * arrives and on the player's entries only, where Scarier printed it on
+   * every co-located turn (turns 62/63/93 extra, 69/92 twice).  Ticket's own
+   * xoshiro transcript (Adrift_1036, seed 2) has the girl speak on the
+   * player's entries plus turns 64/68/72/76/84/88 -- the 4-turn ticks.
    *
    * Follow-player stops (walk probe K, live in BOTH Runners 2026-08-02,
    * Times = 3 following / 2 away): the walker warps to the player's room
@@ -872,24 +1000,31 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
     }
   else if (destnum < gs_room_count (game) + 2 + roomgroups)
     {
-      scr_int initial;
-
-      is_arrival = TRUE;
-
-      /* For roomgroup walks, move only if walksteps has just refreshed. */
-      vt_key[4].string = "MoveTimes";
-      vt_key[5].integer = 0;
-      initial = prop_get_integer (bundle, "I<-sisisi", vt_key);
-      if (gs_npc_walkstep (game, npc, walk) == initial)
+      /* A roomgroup stop is picked afresh on its exact tick and on no other
+         (run400 loc_468841 gates the pick at 46888E like the rest of the
+         step); this used to test the counter against MoveTimes[0], which is
+         the same thing for a walk's first stop and never true for a later
+         one. */
+      if (is_exact)
         {
           scr_int group;
 
           group = destnum - 2 - gs_room_count (game);
-          dest = npc_random_adjacent_roomgroup_member (game, start, group);
-          if (dest == -1)
-            dest = lib_random_roomgroup_member (game, group);
-          if (dest == -1)
-            dest = start;        /* Empty group: the NPC stays put. */
+          if (npc_version (game) >= TAF_VERSION_400)
+            {
+              /* run400 Proc_19_19_4568BC: rejection sampling over the
+                 thirteen exit-or-stay slots, then over the whole map. */
+              dest = npc_roomgroup_walk_dest (game, start, group);
+            }
+          else
+            {
+              dest = npc_random_adjacent_roomgroup_member (game, start,
+                                                           group);
+              if (dest == -1)
+                dest = lib_random_roomgroup_member (game, group);
+              if (dest == -1)
+                dest = start;    /* Empty group: the NPC stays put. */
+            }
         }
     }
 
@@ -1204,9 +1339,18 @@ npc_tick_npcs (scr_gameref_t game)
         }
     }
 
-  /* Iterate and tick each individual NPC. */
+  /*
+   * Iterate and tick each individual NPC: its walks, then its battle turn,
+   * the Runner's order within one iteration of Proc_19_1 (468D79).  The
+   * Runner leaves the loop as soon as a battle turn ends the game (468D87).
+   */
   for (npc = 0; npc < gs_npc_count (game); npc++)
-    npc_tick_npc (game, npc);
+    {
+      npc_tick_npc (game, npc);
+      battle_tick_npc (game, npc);
+      if (!game->is_running)
+        return;
+    }
 
 #ifdef SCARIER_DUMP_TOOLS
   scr_dump_npc_trace (game);     /* Per-turn NPC-location trace; see scdump.c. */

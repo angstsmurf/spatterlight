@@ -219,13 +219,17 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 # pre-move lines between stops disappeared; still wins.
 # Re-blessed 2026-09-06: `attack X` on a seen-but-absent X is a REAL turn in run400 ("X isn't here!", dobattle 47EFE5, House Adrift_110), not the no-turn DontUnderstand the header's self-sync trick assumed.  The `z` after each such attack was dropped (31, the attack now supplies the tick) and attacks with no `z` to give up were dropped themselves (Cerberus x7, Edna x4).  Same turn thread, still wins.
 # Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_391_shadowpeak.txt has "Giant spider hits you.").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
-shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=101
+# Re-seeded 2026-09-12: RNG stream follows the Wine Runners draw for draw (vbrng parity);
+# seed 101 lost the Arthur kill, 124 keeps all 710; Damastus chase re-derived.
+shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=124
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
 # Re-blessed 2026-09-06: same "X isn't here!" turn as the shadowpeak row above (Adrift_110): 28 `z` and 4 no-op attacks dropped.  Still wins.
 # Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_392_shadowpeak_allgargoyles.txt has "Giant spider hits you." and "Wolf attacks you with the fine set of teeth in its muzzle").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
-shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=30
+# Re-seeded 2026-09-12: RNG stream follows the Wine Runners draw for draw (vbrng parity);
+# village zombie phase and Damastus chase re-derived.
+shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=1
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
 # line (pf_buffer_hard_break); run390 joins it (45E636).
@@ -234,7 +238,9 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 # vardock_bates row.  Battle rolls reorder.
 # Re-blessed 2026-09-06: same "X isn't here!" turn as the shadowpeak row above (Adrift_110): 95 `z` and 15 no-op attacks dropped.  Still wins.
 # Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_393_shadowpeak_killwraith.txt has "Wraith hits you, but it doesn't seem to do any damage.").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
-shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=180
+# Re-seeded 2026-09-12: RNG stream follows the Wine Runners draw for draw (vbrng parity);
+# village zombie phase and Damastus chase re-derived.
+shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=23
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
 #
@@ -302,7 +308,13 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 # that!", the pre-4.0 absent-noun refusal, where scarier used to answer the
 # room-refusal "You can't do that here!".  It is the only row in the whole
 # 427-row sweep that the put port moved.
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=3
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=2
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_46_topaz.txt,
 # feed cmdfile_w_topaz.txt, 23 commands, PRE=1).  23/23 echoed with ONE real
@@ -435,7 +447,13 @@ bomb_threat_solution.txt|Bomb Threat.taf|Or have you...
 # follows by the same rule, unmeasured:
 # `ask barb about tape` with Barb absent now reaches the videotape ("You get no reply
 # from the videotape.") instead of the ask-format hint.
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12 SCR_SKIP_WAITKEY=1
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 colony_solution.txt|Colony.taf|You scored 200 out of the maximum 200!
 # Measured 2026-08-29: run400 replay, all 20 commands echoed, 19 of 20 turns
 # identical, the last differs only by the [Press any key to end] tail.
@@ -540,10 +558,16 @@ cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  The rain event chain shifts a turn; RNG order.
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  Rain chain, as on cybercow_win.
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
 deaths_solution.txt|deaths.taf|crumbles into dust
 # Re-blessed 2026-09-07 for the same capitalisation rule as the trabula row above: `wife hits you with the pot.` -> `Wife`.  This row's transcript (Adrift_176) never reaches the battle turn, so the line follows from the rule rather than from a measurement of its own.
@@ -568,6 +592,9 @@ donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
 # tasks in this game (2, 5, 13, 14, 18, 19, 22, 30) and looks like a Generator
 # default the author never filled in.
 funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this important information
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 gateway_solution.txt|gateway.taf|THE END
 # Measured 2026-08-29: run400 replay; identical up to the first battle round
 # (turn 4), after which a fed command is lost.  Re-measured 2026-09-07: the
@@ -595,7 +622,9 @@ jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=2
 # still resolving).  No run400 oracle here -- Adrift_384_light_up.txt loses the
 # battle and dies long before the Waste Land -- so this is the measured rule
 # extrapolated, not a transcript match.  See lib_cmd_take_absent().
-light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=74
+# Re-seeded 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (vbrng, SCR_RNG=xoshiro parity work), so the old seed no longer wins; new seed found by search.
+light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=54
 # Measured live in run400 under Wine (2026-08-24), full replay, Verbose ON.
 # The game is NOT winnable in the real Runner: "Cat sheepishly enters from
 # the east." never appears (the cat's walk has expired), so `attack cat` gets
@@ -729,7 +758,9 @@ space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCIT
 # Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the clothes trunk is mode 1 and unspent, so its
 # InRoomDesc "A clothes trunk sits at the foot of the bed." replaces "Also here
 # is a clothes trunk."  Confirmed in Adrift_277_sun_empire line 36.
-sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 135 out of the maximum 145!|SCR_SEED=8
+# Re-seeded 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (vbrng, SCR_RNG=xoshiro parity work), so the old seed no longer wins; new seed found by search.
+sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 135 out of the maximum 145!|SCR_SEED=26
 # Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 # (Adrift_11_tcom.txt, feed cmdfile_w_tcom.txt, 13 commands): 13/13 echoed and
 # identical, tail only.  First row driven with the feed generator's new
@@ -892,6 +923,9 @@ xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # run400 -- see battle_kill() in scbattle.cpp).  The nightmare's own MoReLaND
 # has no KilledTask, and with every combatant missing every swing the closing
 # battle is a stalemate, so the walkthrough ends on `score`.
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 #
 # inverness: 75 of 205, and 75 is the whole scorable pool.  The witches' box
@@ -906,7 +940,9 @@ del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 # (+10), statue (+5), the fifth knock (+5), the seeded riddle (+10, bookmark
 # at the default seed), asking the witches (+5), unlocking the desk (+5) and
 # opening it (+5).  Surveyed 2026-09-05.
-inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.|SCR_SEED=2
+# Re-seeded 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (vbrng, SCR_RNG=xoshiro parity work), so the old seed no longer wins; new seed found by search.
+inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.|SCR_SEED=7
 #
 # Les Feux de l'enfer: 75 of 115, and 75 is the ceiling this build can reach.
 # The route ends on the demo's own closing screen (task 211, the grappling
@@ -942,6 +978,9 @@ inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.|S
 # the leading "go "/"go to "/"goto " is stripped (loc_4649D1-464A3B) -- the strip
 # is local to that handler, never a pre-parse rewrite, so the task never sees a
 # bare "north".  Nothing else in the route changes; still 75/115.
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 75 sur un maximum de 115.|SCR_SEED=486 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
 # the noun once, up front, with co() whole-word containment, and every generic verb
@@ -970,6 +1009,8 @@ lifesimulation_solution.txt|lifesimulation.taf|Your score is 0 out of a maximum 
 # spaces, so it is driven as the space-free copy matts.taf.
 # See notes/WINE-TRANSCRIPTS-TODO.md.
 matts_house_solution.txt|Matt's House.taf|Your score is 5 out of a maximum of 5.
+# Re-blessed 2026-09-12: solution re-derived, see the note inside it (3.9 Speed 1 NPC
+# attacks every turn).
 mr_smith_solution.txt|The_Search_For_Mr_Smith.taf|You scored 90 out of the maximum 100!
 # Measured 2026-09-05 in run390 under Wine: Adrift_18_phoenix.txt, feed
 # cmdfile_w_phoenix_drive.txt (18 commands), POPUP_ANSWERS="Hero|male" for
@@ -1007,6 +1048,9 @@ shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the 
 # with An old scimitar." (and "...An old broken scimitar."), the authored
 # capital kept.  No run400 transcript for this row; the rule is probe PFX's.
 # See lib_compare_article().
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
 # Measured 2026-08-29: run400 replay, all 12 commands echoed, 12 of 12 turns
 # identical.  Re-driven 2026-09-05 against today's engine
@@ -1041,6 +1085,9 @@ the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 26
 # bought with an engine bug, and GOAL 5 (a $7500 house) is unreachable: one
 # bandit purse + one carcass tops out at $959.68, and Stealth costs $800.  See
 # The_Town_Of_Azra_walkthrough.md.
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 58|SCR_SKIP_WAITKEY=1
 thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.|SCR_SKIP_WAITKEY=1
 # thetest IS winnable (2026-08-01, verified live in run390 to "Well done!  You
@@ -1078,6 +1125,9 @@ to_hell_and_beyond_solution.txt|To_Hell_And_Beyond.taf|You have entered the town
 # Balconies for the remaining 130 commands.  That is the assist working, not
 # a divergence; the honest oracle for this game is the unassisted row above,
 # clean in run400 on 2026-09-06 (Adrift_124).
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1
 # ...and the *max* assisted row, 265/373 (the row above banks 265-17=248).  The
 # extra 20 comes from task 72 `^^aquired armor^^` (Theeve's death reward), which
@@ -1094,6 +1144,9 @@ to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now rule
 # room 166 and teleports the player out on the very turn they enter.  373 itself
 # is NOT the ceiling -- tasks 86 `go home` (+80) and 87 `claim the throne`
 # (+150) both carry an ACT type=6, so only one of the two can ever be banked.
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 to_hell_and_beyond_assisted_max_solution.txt|To_Hell_And_Beyond.taf|You are now ruler of Beyond|SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1
 # Villains_And_Kings is a V390 file, so battle_legacy skips the acc>agi gate and
 # the assassin is killable with no aid at all -- the old 13/37 "faithful" row and
@@ -1112,6 +1165,9 @@ villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 31 out of a
 # hand (ring attached) into the Waiting Room one turn later.  Full win, all 12
 # scoring tasks, Hope killed twice (#Hopedies + #Hopedies2).
 # Re-blessed 2026-09-06: two no-op `attack hope` lines (Hope seen, elsewhere) would now be "Hope isn't here!" turns (run400 47EFE5, Adrift_110); dropped.  Still wins.
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 wes_ghn_solution.txt|WesGHN.taf|You've Won the Game!|SCR_SEED=2
 # The eleven .taf files that were sitting in games/ unwired (2026-08-02).  Nine
 # are winnable and use the game's own victory text as the marker; Invasion of
@@ -1265,6 +1321,8 @@ ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caug
 # differences are the cat and the lost girl, both roomgroup walkers, so their
 # arrivals and departures are RNG.  NOT the Verbose checkbox -- run400's own
 # transcript carries 17 walker lines, so Verbose was on.
+# Re-blessed 2026-09-12, one line: `say` draws Int(Rnd*6) over six responses in 3.9 and
+# 4.0 (run390 45DAD2 / run400 488DE4), not five.
 ticket_solution.txt|ticket.taf|You won and managed to score 110 out of a possible 110|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
@@ -1305,6 +1363,9 @@ tq3_solution.txt|tq3.taf|Please forward your comments to chris@jons.org.
 # of Icy Arrows." -- the capitalised article is kept.  No run400 transcript for
 # this row; the rule is probe PFX's (Adrift_940_pfx.txt) and is confirmed on
 # ghosttown and xfiles.  See lib_compare_article().
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 yeh_solution.txt|yeh.taf|Your score is 3100 out of a maximum of 3400.
 # Re-blessed 2026-08-25 for the on-before-in joined listing (see item 4 in the
 # xfiles_solution.txt block above): the wardrobe is both a surface and an open
@@ -1335,6 +1396,9 @@ chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms w
 # the game's own NOSEX switch, which disables those scenes wholesale, so a
 # perfect quest-line run scores exactly zero by construction.  Surveyed
 # 2026-09-05; the row is complete and the score will stay 0.
+# Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
+# (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
+# identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
 fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
 # Grumble's arrival is missing from 12 turns of these two goldens ON PURPOSE:
 # sa.taf carries 65 ALRs whose Original spans the two-space join and deletes

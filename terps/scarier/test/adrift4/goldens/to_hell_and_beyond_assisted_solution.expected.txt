@@ -963,6 +963,8 @@ Tunnel 3
 The path splits to the east and west.  Big rat is here.
 
 You can move east, south and west.
+Trace hits Big rat with the Whip.
+You kill the rat. You get 7 gold coins.
 
 > e
 You move east.
@@ -1499,7 +1501,7 @@ Just a little bit further and you'll be at the gates.  Soldier 2 is here.
 You can move east and west.
 Trace hits Soldier 2 with the Whip.
 Enevez hits Soldier 2 with the Staff.
-Soldier 2 hits Enevez.
+Soldier 2 hits Trace, but it doesn't seem to do any damage.
 
 > w
 You move west.
@@ -1577,6 +1579,7 @@ into." says Xozim.
 Trace hits Xozim with the Whip.
 Enevez hits Xozim with the Staff.
 Enevez hits Xozim with the Staff.
+Xozim hits Enevez.
 
 > z
 Time passes...
@@ -1587,7 +1590,7 @@ Xozim hits Enevez.
 Trace hits Xozim with the Whip.
 Enevez hits Xozim with the Staff.
 Enevez hits Xozim with the Staff.
-Xozim hits you.
+Xozim hits Enevez.
 Trace hits Xozim with the Whip.
 You thrust your sword into the demon´s chest one final time. The demon
 screams in pain as he turns to dust.                  "You have killed Xozim.

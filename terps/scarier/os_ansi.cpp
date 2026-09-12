@@ -612,7 +612,7 @@ main (int argc, const char *argv[])
   if (getenv ("SCR_STABLE_RANDOM_ENABLED"))
     {
       scr_set_portable_random (TRUE);
-      scr_reseed_random_sequence (1);
+      scr_reseed_random_sequence (scr_default_random_seed ());
     }
 
   printf ("Loading game...\n");

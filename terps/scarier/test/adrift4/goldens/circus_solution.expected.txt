@@ -515,7 +515,7 @@ You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.  Barb
-arrives from the north.
+sashays in from the north.
 
 > n
 You move north.
@@ -545,7 +545,7 @@ You get no reply from the videotape.
 You get no reply from the videotape.
 
 > ask barb about tape
-You get no reply from the videotape.  Barb arrives from the south.
+You get no reply from the videotape.  Barb comes in from the south.
 
 > ask barb about tape
 "Oh, what's that doing there?" Barb says. She reaches into the lion cage and
@@ -560,7 +560,7 @@ Barb does not respond to your question.
 Barb does not respond to your question.
 
 > ask barb about tape
-Barb does not respond to your question.  Barb exits to the south.
+Barb does not respond to your question.  Barb moves on to the south.
 
 > ask barb about tape
 You get no reply from the videotape.
@@ -573,7 +573,7 @@ You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.  Barb is
-here.  Barb walks away to the west.
+here.  Barb exits to the west.
 
 > s
 You move south.
@@ -582,9 +582,9 @@ Back door
 The back door is where the performers and animals enter the big top.  To the
 southeast and southwest you see bleachers, to the south is the center ring.
 
-People attending the circus are laughing, talking, eating cotton candy.  You
-see a young boy riding on his father's shoulders.  The air carries the odors
-of the animals, which are housed nearby.
+People are milling about, playing games.  Children with hotdogs and
+glowsticks are nearby.  You smell the freshly roasted peanuts being sold by
+the food vendor.
 
 > s
 You move south.
@@ -595,10 +595,10 @@ north is the back door, to the south is the main entrance, to the east and
 west you see bleachers.  Above you, mounted on a pole, is a platform where
 aerial performers launch from, which is accessed by climbing a ladder.
 
-Locals are eating and drinking circus treats, trying to find good seats.
-Kids are running up and down the bleachers, giggling.  The odor of pizza
-wafts its way over to you.  Lance the ringmaster is here, announcing acts and
-working the crowd.
+A mother is wiping mustard from her son's face while her husband fiddles with
+a video camera.  You see a young boy riding on his father's shoulders.  The
+familiar odor of hot nachos wafts over to you.  Lance the ringmaster is here,
+announcing acts and working the crowd.
 
 > u
 You move up.
@@ -627,8 +627,9 @@ north is the back door, to the south is the main entrance, to the east and
 west you see bleachers.  Above you, mounted on a pole, is a platform where
 aerial performers launch from, which is accessed by climbing a ladder.
 
-Patrons are talking amongst themselves.  Children are laughing with their
-parents.  You smell freshly popped popcorn in the air.
+A mother is wiping mustard from her son's face while her husband fiddles with
+a video camera.  Children are laughing with their parents.  The odor of pizza
+wafts its way over to you.
 
 > n
 You move north.
@@ -638,8 +639,8 @@ The back door is where the performers and animals enter the big top.  To the
 southeast and southwest you see bleachers, to the south is the center ring.
 
 A mother is wiping mustard from her son's face while her husband fiddles with
-a video camera.  Young kids are laughing at the clowns.  The familiar odor of
-hot nachos wafts over to you.
+a video camera.  You see a young boy riding on his father's shoulders.  The
+odor of pizza wafts its way over to you.
 
 > n
 You move north.
@@ -657,7 +658,7 @@ Animal Cages
 This is where the animal cages are.  There is straw and sawdust on the ground
 here.  You see an elephant cage, a lion cage, a tiger cage, and a gorilla
 cage.  There is also a stable here.  The rear entrance to the big top is to
-your south, as are the dressing rooms.  Barb is here.  Barb moves on to the
+your south, as are the dressing rooms.  Barb is here.  Barb retreats to the
 south.
 
 > use camera

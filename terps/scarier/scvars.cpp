@@ -891,6 +891,54 @@ var_status_object (scr_gameref_t game, const scr_char *name)
 
 
 /*
+ * var_marker_object_by_short()
+ *
+ * Find the LOWEST-indexed object whose Short (with or without its Prefix)
+ * equals `name` exactly, the same binary Replace-on-Short scan as
+ * var_status_object() above but with no Openable filter -- General.bas
+ * 4798A7-479A31 runs it for every %in_<name>%/%on_<name>% marker regardless
+ * of what kind of object <name> names.  Returns -1 for no exact-Short match,
+ * which the caller then falls back to uip_match() for (aliases, pronouns,
+ * and anything else the parser alone can resolve).
+ *
+ * MEASURED escape_to_new_york turn 72 `open desk` (Ticket run400 xoshiro
+ * trace 2026-09-12): the room's Long reads %in_desk% and two objects carry
+ * a desk-shaped name, a low-indexed plain "desk" and a higher-indexed
+ * "roll-top desk"; the Runner always lists the LOW one's contents, while
+ * uip_match()'s last-match-wins walk had been picking the high one whenever
+ * both were in scope.
+ */
+static scr_int
+var_marker_object_by_short (scr_gameref_t game, const scr_char *name)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int object;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *prefix, *shortname;
+      std::string prefixed;
+
+      shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+      if (scr_strcasecmp (name, shortname) == 0)
+        return object;
+
+      prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
+      if (scr_strempty (prefix))
+        continue;
+
+      prefixed.assign (prefix);
+      prefixed.append (1, ' ');
+      prefixed.append (shortname);
+      if (scr_strcasecmp (name, prefixed.c_str ()) == 0)
+        return object;
+    }
+
+  return -1;
+}
+
+
+/*
  * var_get_system()
  *
  * Construct a system variable, and return its type and value, or FALSE
@@ -989,11 +1037,23 @@ var_get_system (scr_var_setref_t vars,
           scr_error ("var_get_system: no game for in_\n");
           return var_return_string ("[In_ unavailable]", type, vt_rvalue);
         }
-      if (!uip_match ("%object%", name + 3, game))
-        {
-          scr_error ("var_get_system: invalid object for in_\n");
-          return var_return_string ("[In_ unavailable]", type, vt_rvalue);
-        }
+
+      /*
+       * An exact Short match picks the LOWEST-indexed object, same as
+       * %status_%; only fall back to the parser's %object% match (last
+       * match wins) when no object's Short names it exactly.  See
+       * var_marker_object_by_short().
+       */
+      {
+        scr_int matched = var_marker_object_by_short (game, name + 3);
+        if (matched != -1)
+          vars->referenced_object = matched;
+        else if (!uip_match ("%object%", name + 3, game))
+          {
+            scr_error ("var_get_system: invalid object for in_\n");
+            return var_return_string ("[In_ unavailable]", type, vt_rvalue);
+          }
+      }
 
       /* Clear any current temporary for appends. */
       vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 1);
@@ -1175,11 +1235,18 @@ var_get_system (scr_var_setref_t vars,
           scr_error ("var_get_system: no game for on_\n");
           return var_return_string ("[On_ unavailable]", type, vt_rvalue);
         }
-      if (!uip_match ("%object%", name + 3, game))
-        {
-          scr_error ("var_get_system: invalid object for on_\n");
-          return var_return_string ("[On_ unavailable]", type, vt_rvalue);
-        }
+
+      /* Same lowest-index Short match, before uip_match(); see the in_ arm. */
+      {
+        scr_int matched = var_marker_object_by_short (game, name + 3);
+        if (matched != -1)
+          vars->referenced_object = matched;
+        else if (!uip_match ("%object%", name + 3, game))
+          {
+            scr_error ("var_get_system: invalid object for on_\n");
+            return var_return_string ("[On_ unavailable]", type, vt_rvalue);
+          }
+      }
 
       /* Clear any current temporary for appends. */
       vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 1);
