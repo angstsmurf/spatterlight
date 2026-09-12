@@ -12134,11 +12134,11 @@ lib_put_in_not_container_filter (scr_gameref_t game,
 
 
 /*
- * lib_put_container_pre390()
+ * lib_put_target_pre390()
  *
- * Name the container of a "put X in Y" the way run370 and run380 do, which
- * is not the way anything else in the library names an object: the room is
- * no part of the test.  On p38DARK/p37DARK with the player standing in the
+ * Name the container of a "put X in Y", or the supporter of a "put X on Y",
+ * the way run370 and run380 do, which is not the way anything else in the
+ * library names an object: the room is no part of the test.  On p38DARK/p37DARK with the player standing in the
  * lit room and the box left behind on the cave floor, `put lamp in box` and
  * `put stone in box` both answer "You are not holding a box."
  * (Adrift_984:25/31, Adrift_988:25/31, 2026-09-12), and so does `put all in
@@ -12155,23 +12155,32 @@ lib_put_in_not_container_filter (scr_gameref_t game,
  * unambiguously so, is the whole game searched, and then only a single
  * candidate is accepted.  Two namesakes in two rooms are left to the caller
  * as no container at all, which is where they were before this.
+ *
+ * The surface half of the row is the same code: with the table left in the
+ * cave and the player standing in the lit room, `put lamp on table` and `put
+ * stone on table` are both "You are not holding a table." on run370 and
+ * run380 (p37SURF/p38SURF, Adrift_1005:5/7 and Adrift_1001:5/7, 2026-09-12),
+ * where run390 never finds the table and asks "Put the lamp onto what?"
+ * instead.  That is only to be expected once the two handlers turn out to be
+ * one; see lib_put_target_takes_on().
  */
 static scr_int
-lib_put_container_pre390 (scr_gameref_t game, scr_bool *is_ambiguous)
+lib_put_target_pre390 (scr_gameref_t game, const scr_char *prompt,
+                       scr_bool *is_ambiguous)
 {
   const scr_bool requires_seen = lib_matcher_requires_seen (game);
   std::vector<scr_bool> named;
   scr_int index_, object, count, container;
 
   if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
-    return lib_disambiguate_object (game, "put that into", is_ambiguous);
+    return lib_disambiguate_object (game, prompt, is_ambiguous);
 
   /* lib_disambiguate_object_common() clears what it rejects; keep a copy. */
   named.assign (gs_object_count (game), FALSE);
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     named[index_] = game->object_references[index_];
 
-  container = lib_disambiguate_object (game, "put that into", is_ambiguous);
+  container = lib_disambiguate_object (game, prompt, is_ambiguous);
   if (container != -1 || *is_ambiguous)
     return container;
 
@@ -12192,6 +12201,67 @@ lib_put_container_pre390 (scr_gameref_t game, scr_bool *is_ambiguous)
     game->object_references[index_] = (index_ == object);
   return object;
 }
+
+
+/*
+ * lib_put_target_takes_on()
+ *
+ * Which of the two put handlers a line actually runs.  From 3.9 on the two
+ * are separate and the answer is simply the preposition the player typed.
+ *
+ * Below 3.9 they are ONE handler, and the preposition in the answer comes
+ * from the TARGET's kind rather than from anything the player wrote.
+ * Measured on p37SURF under run370 and p38SURF under run380, 2026-09-12,
+ * with the box (a container) and the table (a surface) both in hand:
+ *
+ *   put pebble on box   You put the pebble inside the box.
+ *                                     (Adrift_1012:4, Adrift_1011:4)
+ *   put stone in table  You put the stone on the table.
+ *                                     (Adrift_1012:7, Adrift_1011:7)
+ *   put lamp on box     with the box shut
+ *                       You can't put anything inside the box as it is
+ *                       closed!       (Adrift_1012:10, Adrift_1011:10)
+ *   put all on box      You put an torch, a lamp and a table inside the box.
+ *                                     (Adrift_1012:12, Adrift_1011:12)
+ *
+ * -- where run390 and run400 keep the two apart and refuse every one of
+ * them, "You can't put anything onto the box." / "...inside the table."
+ * (Adrift_1007:4/7, Adrift_1008:4/7).  It also explains the third of the
+ * pre-3.9 answers that used to look like a surface test and is not: `put
+ * coin on box` with the box standing on the cave floor is "You are not
+ * holding a box." (Adrift_1003:16), the container handler's own held
+ * refusal, reached because the line was routed by the box's kind.
+ *
+ * A target that is both, or neither, has no kind to be routed by, so it
+ * keeps the preposition the player typed -- which is what the neither case
+ * is measured to do: `put coin on stone` is "You can't put anything on the
+ * stone." (Adrift_1003:14) against `put coin in stone`'s "...inside the
+ * stone." on the same Runner.
+ */
+static scr_bool
+lib_put_target_takes_on (scr_gameref_t game, scr_int target, scr_bool typed_on)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    return typed_on;
+
+  if (obj_is_container (game, target) && !obj_is_surface (game, target))
+    return FALSE;
+  if (obj_is_surface (game, target) && !obj_is_container (game, target))
+    return TRUE;
+  return typed_on;
+}
+
+
+/* The put-on half of the pipeline, defined with the rest of its family. */
+static scr_bool lib_put_on_is_valid (scr_gameref_t game, scr_int supporter);
+static lib_put_outcome_t lib_put_on_backend (scr_gameref_t game,
+                                             scr_int supporter,
+                                             scr_bool is_all_form);
+static scr_bool lib_put_on_filter (scr_gameref_t game,
+                                   scr_int object, scr_int unused);
+static scr_bool lib_put_on_not_supporter_filter (scr_gameref_t game,
+                                                 scr_int object,
+                                                 scr_int supporter);
 
 
 /*
@@ -12310,36 +12380,41 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
 
 
 /*
- * lib_cmd_put_all_in()
+ * lib_put_all_common()
  *
- * Put all objects currently held by the player into a container.
+ * Put all objects currently held by the player into a container, or onto a
+ * supporter.  One body, because below 3.9 it is one handler; which way a
+ * given line runs is lib_put_target_takes_on()'s to say, and the all form
+ * is routed by the target's kind exactly as the named one is -- `put all on
+ * box` with the box in hand is "You put an torch, a lamp and a table inside
+ * the box." on run370 and run380 (Adrift_1012:12 / Adrift_1011:12,
+ * 2026-09-12).
  */
-scr_bool
-lib_cmd_put_all_in (scr_gameref_t game)
+static scr_bool
+lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_int container, objects;
-  scr_bool is_ambiguous;
+  const scr_bool is_on = lib_put_target_takes_on (game, target, typed_on);
+  const scr_int container = target;
+  scr_int objects;
   lib_put_outcome_t outcome;
 
-  /* Get the referenced object, and if none, consider complete. */
-  container = lib_put_container_pre390 (game, &is_ambiguous);
-  if (container == -1)
-    return is_ambiguous;
-
-  /* Validate the container object to take from (deferred -> unhandled). */
-  if (!lib_put_in_is_valid (game, container))
+  /* Validate the target object to put onto or into (deferred -> unhandled). */
+  if (is_on ? !lib_put_on_is_valid (game, container)
+            : !lib_put_in_is_valid (game, container))
     return !run_in_priority_pass ();
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
   objects = lib_apply_filter (game,
-                              lib_put_in_not_container_filter,
+                              is_on ? lib_put_on_not_supporter_filter
+                                    : lib_put_in_not_container_filter,
                               container, FALSE, NULL);
   gs_clear_multiple_references (game);
   outcome = {};
   if (objects > 0)
-    outcome = lib_put_in_backend (game, container, TRUE);
+    outcome = is_on ? lib_put_on_backend (game, container, TRUE)
+                    : lib_put_in_backend (game, container, TRUE);
   else
     {
       /*
@@ -12363,16 +12438,65 @@ lib_cmd_put_all_in (scr_gameref_t game)
        * refutes that.  run380 does hold the string -- it is just not on
        * this path -- and answers with the flat drop-all wording instead,
        * the same literal lib_print_nothing_held() prints.
+       *
+       * The surface row was driven on the same day, `put all on table` with
+       * the table in hand and the first call having emptied the player:
+       *
+       *   run400  (nothing; see below)            p4SURF,  Adrift_997:6
+       *   run390  You have nothing to put onto the table.
+       *                                           p39SURF, Adrift_996:6
+       *   run380  You are not carrying anything.  p38SURF, Adrift_1002:6
+       *   run370  You have nothing to put inside the table.
+       *                                           p37SURF, Adrift_1006:6
+       *
+       * -- so 3.7's wording really is " have nothing to put inside " whatever
+       * the target is, 3.8 shares its flat line with the container row, and
+       * only 3.9 tells the two apart.  Note that 3.9 does NOT reach for
+       * "Nothing will fit" on a surface, even one already over its capacity:
+       * the table held six objects on Adrift_1009:6 and the answer was still
+       * "You have nothing to put onto the table."
        */
       if (lib_is_version_400 (game))
-        pf_buffer_string (filter,
-                          lib_select_response (game,
+        {
+          /*
+           * 4.0 speaks only for hands that are genuinely empty.  With the
+           * table itself the only thing carried, `put all on table` says
+           * nothing of its own and falls through to the generic catch-all,
+           * "I don't understand what you want me to do with the table."
+           * (p4SURF, Adrift_997:6), where the same command with nothing at
+           * all in hand is "You are carrying nothing!" (p4SURF,
+           * Adrift_995:16).  Only the surface row is measured, so only it
+           * is gated; the container row keeps what it had, and its own
+           * carrying-the-container-alone case is still open.
+           */
+          if (is_on)
+            {
+              scr_int index_;
+
+              for (index_ = 0; index_ < gs_object_count (game); index_++)
+                {
+                  if (gs_object_position (game, index_) == OBJ_HELD_PLAYER)
+                    return FALSE;
+                }
+            }
+          pf_buffer_string (filter,
+                            lib_select_response (game,
                                                "You are carrying nothing!",
                                                "I am carrying nothing!",
                                                "%player% is carrying nothing!"));
+        }
       else if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
-        lib_print_wrapped_object (game, "Nothing will fit inside ",
-                                  container, ".");
+        {
+          if (is_on)
+            lib_print_response_object (game,
+                                       "You have nothing to put onto ",
+                                       "I have nothing to put onto ",
+                                       "%player% has nothing to put onto ",
+                                       container, ".");
+          else
+            lib_print_wrapped_object (game, "Nothing will fit inside ",
+                                      container, ".");
+        }
       else if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380)
         pf_buffer_string (filter,
                           lib_select_response (game,
@@ -12387,7 +12511,43 @@ lib_cmd_put_all_in (scr_gameref_t game)
                                    container, ".");
     }
 
-  return lib_put_in_finish (game, outcome);
+  return is_on ? lib_put_on_finish (game, outcome)
+               : lib_put_in_finish (game, outcome);
+}
+
+
+/*
+ * lib_cmd_put_all_in()
+ * lib_cmd_put_all_on()
+ *
+ * Facets of lib_put_all_common().
+ */
+scr_bool
+lib_cmd_put_all_in (scr_gameref_t game)
+{
+  scr_int container;
+  scr_bool is_ambiguous;
+
+  /* Get the referenced object, and if none, consider complete. */
+  container = lib_put_target_pre390 (game, "put that into", &is_ambiguous);
+  if (container == -1)
+    return is_ambiguous;
+
+  return lib_put_all_common (game, container, FALSE);
+}
+
+scr_bool
+lib_cmd_put_all_on (scr_gameref_t game)
+{
+  scr_int supporter;
+  scr_bool is_ambiguous;
+
+  /* Get the referenced object, and if none, consider complete. */
+  supporter = lib_put_target_pre390 (game, "put that onto", &is_ambiguous);
+  if (supporter == -1)
+    return is_ambiguous;
+
+  return lib_put_all_common (game, supporter, TRUE);
 }
 
 
@@ -12436,7 +12596,7 @@ lib_put_fragment_names_nothing (scr_gameref_t game)
  * containers included.  It is deliberately wider than lib_put_named_filter()
  * -- the pre-4.0 handler answers differently for a noun that names nothing
  * at all and one that names something it cannot reach, so the two have to be
- * told apart; see lib_put_in_named_pre400().
+ * told apart; see lib_put_named_pre400().
  */
 static scr_bool
 lib_put_in_present_filter (scr_gameref_t game, scr_int object, scr_int unused)
@@ -12450,7 +12610,7 @@ lib_put_in_present_filter (scr_gameref_t game, scr_int object, scr_int unused)
 /*
  * lib_put_no_object_pre400()
  * lib_put_not_reachable_pre400()
- * lib_put_in_what_pre400()
+ * lib_put_what_pre400()
  *
  * The three answers a pre-4.0 "put X in Y" gives before it ever moves
  * anything, and they are decided in this order -- the object's own failure
@@ -12468,6 +12628,14 @@ lib_put_in_present_filter (scr_gameref_t game, scr_int object, scr_int unused)
  *   Adrift_976:34  `put coin in coin`  Put the coin inside what?
  *   Adrift_976:37  `put box in box`    Put the box inside what?
  *   Adrift_976:64  `put coin in me`    Put the coin inside what?
+ *
+ * The surface handler answers the same shapes the same way, in its own
+ * preposition (p39SURF under run390, 2026-09-12): `put stone on lamp` with
+ * the stone a room away is "You can't do that!" (Adrift_990:6), `put coin on
+ * table` with the coin on the table and the table on the floor is "You can't
+ * see that." (Adrift_990:5), and `put coin on coin`, `put table on table`
+ * and `put coin on me` are "Put the coin onto what?", "Put the table onto
+ * what?" and "Put the coin onto what?" (Adrift_990:11/12/19).
  *
  * -- so the container fragment is resolved with the object already spoken
  * for, and a fragment that names only the object, or names nothing at all,
@@ -12512,7 +12680,7 @@ lib_put_not_reachable_pre400 (scr_gameref_t game)
 }
 
 static scr_bool
-lib_put_in_what_pre400 (scr_gameref_t game, scr_int object)
+lib_put_what_pre400 (scr_gameref_t game, scr_int object, scr_bool typed_on)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
@@ -12527,26 +12695,32 @@ lib_put_in_what_pre400 (scr_gameref_t game, scr_int object)
 
   pf_buffer_string (filter, "Put ");
   lib_print_object_np (game, object);
-  pf_buffer_string (filter, " inside what?\n");
+  pf_buffer_string (filter, typed_on ? " onto what?\n" : " inside what?\n");
   return TRUE;
 }
 
 
 /*
- * lib_put_in_named_pre400()
+ * lib_put_named_pre400()
  *
- * The pre-4.0 "put <named object> in <container>" pipeline.  It differs from
- * 4.0's in the order it asks its questions as much as in the words it uses:
- * the object is named first and its failures are answered first, the
- * container's own refusals come next, and only then is the object tested for
- * being somewhere the player can put it from.  See lib_put_no_object_pre400()
- * for the evidence.
+ * The pre-4.0 "put <named object> in <container>" pipeline, and -- the same
+ * pipeline, because below 3.9 it is literally the same handler -- the "put
+ * <named object> on <supporter>" one.  It differs from 4.0's in the order it
+ * asks its questions as much as in the words it uses: the object is named
+ * first and its failures are answered first, the target's own refusals come
+ * next, and only then is the object tested for being somewhere the player
+ * can put it from.  See lib_put_no_object_pre400() for the evidence.
+ *
+ * typed_on is the preposition the player wrote; which handler actually runs
+ * is lib_put_target_takes_on()'s to say.
  */
 static scr_bool
-lib_put_in_named_pre400 (scr_gameref_t game, scr_int container)
+lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
 {
   const scr_bool is_pre_390 =
       prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390;
+  const scr_bool is_on = lib_put_target_takes_on (game, target, typed_on);
+  const scr_int container = target;
   scr_int object, object_count, objects, references;
   scr_bool has_object;
   lib_put_outcome_t outcome;
@@ -12605,7 +12779,7 @@ lib_put_in_named_pre400 (scr_gameref_t game, scr_int container)
       gs_clear_multiple_references (game);
       if (is_pre_390)
         return lib_put_no_object_pre400 (game);
-      return lib_put_in_what_pre400 (game, container);
+      return lib_put_what_pre400 (game, container, typed_on);
     }
 
   /*
@@ -12629,9 +12803,10 @@ lib_put_in_named_pre400 (scr_gameref_t game, scr_int container)
    * -- where run390 answers for the object on every one of those turns
    * (Adrift_980:24/27, Adrift_978:28).  Note the first: run370 and run380
    * resolve the container over the whole game, not just the room, which is
-   * why it reaches this test at all; see lib_put_container_pre390().
+   * why it reaches this test at all; see lib_put_target_pre390().
    */
-  if (!lib_put_in_is_valid (game, container))
+  if (is_on ? !lib_put_on_is_valid (game, container)
+            : !lib_put_in_is_valid (game, container))
     {
       gs_clear_multiple_references (game);
       return !run_in_priority_pass ();
@@ -12653,14 +12828,18 @@ lib_put_in_named_pre400 (scr_gameref_t game, scr_int container)
     }
 
   /* Filter objects into references, then handle with the backend. */
-  objects = lib_apply_filter (game, lib_put_in_filter, -1, FALSE, &references);
+  objects = lib_apply_filter (game,
+                              is_on ? lib_put_on_filter : lib_put_in_filter,
+                              -1, FALSE, &references);
   outcome = {};
   if (objects > 0 || references > 0)
-    outcome = lib_put_in_backend (game, container, FALSE);
+    outcome = is_on ? lib_put_on_backend (game, container, FALSE)
+                    : lib_put_in_backend (game, container, FALSE);
   else
     lib_print_nothing_held (game, FALSE, FALSE, ".");
 
-  return lib_put_in_finish (game, outcome);
+  return is_on ? lib_put_on_finish (game, outcome)
+               : lib_put_in_finish (game, outcome);
 }
 
 
@@ -12713,6 +12892,71 @@ lib_put_already_inside_400 (scr_gameref_t game, scr_int container)
                                                   " is", " are"));
           pf_buffer_string (filter, " already inside ");
           lib_print_object_np (game, container);
+          pf_buffer_character (filter, '!');
+          game->multiple_references[object] = FALSE;
+          has_printed = TRUE;
+          continue;
+        }
+      left++;
+    }
+
+  if (has_printed && left == 0)
+    {
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
+ * lib_put_already_on_400()
+ *
+ * The surface twin of the above, and it splits the same way on whether the
+ * SUPPORTER is in the player's hands.  Measured on p4SURF under run400,
+ * 2026-09-12, all with the coin sitting on the table:
+ *
+ *   table held      put coin on table   The coin is already on the table!
+ *                                       (Adrift_991:7, and again at :10 once
+ *                                       the coin has been taken and put back)
+ *   table on floor  put coin on table   You are not holding the coin.
+ *                                       (Adrift_991:18, after `drop table`)
+ *
+ * and the same pair on the nut and the table, Adrift_993:7/9.  " is already
+ * on " is in run400 and in no earlier Runner; the floor case is the take
+ * phase's own skip, which lib_put_implicit_take() already reports.
+ *
+ * Returns TRUE if it consumed every named object, so the caller is done.
+ */
+static scr_bool
+lib_put_already_on_400 (scr_gameref_t game, scr_int supporter)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object, object_count, left;
+  scr_bool has_printed;
+
+  if (!lib_is_version_400 (game)
+      || !obj_indirectly_held_by_player (game, supporter))
+    return FALSE;
+
+  object_count = gs_object_count (game);
+  has_printed = FALSE;
+  left = 0;
+  for (object = 0; object < object_count; object++)
+    {
+      if (!game->multiple_references[object])
+        continue;
+
+      if (gs_object_position (game, object) == OBJ_ON_OBJECT
+          && gs_object_parent (game, object) == supporter)
+        {
+          lib_new_clause (game, has_printed);
+          lib_print_object_np (game, object);
+          pf_buffer_string (filter,
+                            lib_select_plurality (game, object,
+                                                  " is", " are"));
+          pf_buffer_string (filter, " already on ");
+          lib_print_object_np (game, supporter);
           pf_buffer_character (filter, '!');
           game->multiple_references[object] = FALSE;
           has_printed = TRUE;
@@ -12785,13 +13029,14 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
   /* Get the referenced object, and if none, consider complete. */
   container = is_except
               ? lib_disambiguate_object (game, "put that into", &is_ambiguous)
-              : lib_put_container_pre390 (game, &is_ambiguous);
+              : lib_put_target_pre390 (game, "put that into",
+                                       &is_ambiguous);
   if (container == -1)
     return is_ambiguous;
 
   /* Pre-4.0 names the object first, and answers for it first. */
   if (!is_except && !lib_is_version_400 (game))
-    return lib_put_in_named_pre400 (game, container);
+    return lib_put_named_pre400 (game, container, FALSE);
 
   /* Parse the multiple objects list to find the target objects. */
   if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
@@ -12886,8 +13131,9 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
 
 /*
  * lib_cmd_put_in_nowhere()
+ * lib_cmd_put_on_nowhere()
  *
- * "put X in Y" where nothing present answers to Y.  The %object% rows above
+ * "put X in Y" -- or "put X on Y" -- where nothing present answers to Y.  The %object% rows above
  * cannot match such a line at all, so it used to fall all the way through to
  * the game's DontUnderstand; run390 answers it, and the answer depends on
  * whether X named anything:
@@ -12899,18 +13145,22 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  *   `put zzzz in box`  (via the %object% row)  You can't do that!
  *
  * (p39DARK, Adrift_976:64, Adrift_978:67/70, Adrift_980:24/27/30,
- * 2026-09-12.)  The
+ * 2026-09-12.)  The surface row is the same in its own preposition -- `put
+ * lamp on table` with the table a room away is "Put the lamp onto what?",
+ * `put stone on table` with both a room away is "You can't do that!", and so
+ * is `put coin on zzzz` with the coin unseen on the table (p39SURF,
+ * Adrift_998:5/7 and Adrift_992:15, 2026-09-12).  The
  * object's failure outranks the container's, which is why the noun is
  * resolved here before the prompt is printed.  4.0 has its own answers for
  * the same shapes, up in lib_cmd_put_container_400(); the prompt is composed
  * from pieces every Runner holds, so the census cannot date it and it is
- * gated at 3.90 -- see lib_put_in_what_pre400().
+ * gated at 3.90 -- see lib_put_what_pre400().
  *
  * A table of its own, run after STANDARD_COMMANDS has had its go so that a
  * line naming a real container never reaches it; see STANDARD_PUT_COMMANDS.
  */
-scr_bool
-lib_cmd_put_in_nowhere (scr_gameref_t game)
+static scr_bool
+lib_put_nowhere_common (scr_gameref_t game, scr_bool typed_on)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   std::string named;
@@ -12923,7 +13173,7 @@ lib_cmd_put_in_nowhere (scr_gameref_t game)
   /* Take a copy; the match below rewrites the referenced text. */
   named = var_get_ref_text (vars);
 
-  /* What "put all in <nothing>" answers before 4.0 is unmeasured. */
+  /* What "put all in/on <nothing>" answers before 4.0 is unmeasured. */
   if (uip_match ("[all/everything]", named.c_str (), game))
     return FALSE;
 
@@ -12935,7 +13185,7 @@ lib_cmd_put_in_nowhere (scr_gameref_t game)
    * me` with the coin held (Adrift_982:66 / Adrift_986:66) both answer "You
    * can't do that!", 2026-09-12.  Note that a fragment naming a container
    * the player merely cannot see no longer arrives here at all -- those are
-   * resolved over the whole game now; see lib_put_container_pre390().
+   * resolved over the whole game now; see lib_put_target_pre390().
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     return lib_put_no_object_pre400 (game);
@@ -12947,7 +13197,19 @@ lib_cmd_put_in_nowhere (scr_gameref_t game)
   if (object == -1)
     return is_ambiguous ? TRUE : lib_put_no_object_pre400 (game);
 
-  return lib_put_in_what_pre400 (game, object);
+  return lib_put_what_pre400 (game, object, typed_on);
+}
+
+scr_bool
+lib_cmd_put_in_nowhere (scr_gameref_t game)
+{
+  return lib_put_nowhere_common (game, FALSE);
+}
+
+scr_bool
+lib_cmd_put_on_nowhere (scr_gameref_t game)
+{
+  return lib_put_nowhere_common (game, TRUE);
 }
 
 
@@ -13034,8 +13296,12 @@ lib_check_put_on_recursion (scr_gameref_t game,
  * deemed not actionable are flagged in multiple_references.
  */
 static lib_put_outcome_t
-lib_put_on_backend (scr_gameref_t game, scr_int supporter)
+lib_put_on_backend (scr_gameref_t game, scr_int supporter,
+                    scr_bool is_all_form)
 {
+  const scr_bool is_pre_390 =
+      prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390;
+  lib_move_verb_t verb;
   scr_int object_count, object, length_before, length_after_tasks;
   scr_bool has_printed, task_claimed, recursion_rejected;
   lib_put_outcome_t outcome;
@@ -13127,7 +13393,24 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
     }
   length_after_tasks = lib_output_length (game);
 
-  lib_move_backend (game, &LIB_PUT_ON_VERB, supporter, has_printed);
+  /*
+   * "onto" is 3.9's word.  run370 and run380 write " on ": `put stone on
+   * table` with the table in hand is "You put the stone on the table."
+   * (Adrift_1003:15, Adrift_999:15, 2026-09-12), against run390's "You put
+   * the stone onto the table." (Adrift_990:15).  The all form also prints
+   * its list with the objects' own prefixes there, the same way the pre-3.9
+   * "put all in" does: `put all on table` is "You put an torch and a lamp on
+   * the table." (Adrift_1006:5, Adrift_1002:5) where the named form says
+   * "the".  See lib_put_in_backend() for the container twin.
+   */
+  verb = LIB_PUT_ON_VERB;
+  if (is_pre_390)
+    {
+      verb.onto = " on ";
+      verb.raw_prefix_pre_390 = is_all_form;
+    }
+
+  lib_move_backend (game, &verb, supporter, has_printed);
 
   outcome.is_refusal_only = FALSE;
   outcome.is_silent = lib_output_length (game) == length_before;
@@ -13173,11 +13456,16 @@ lib_put_on_not_supporter_filter (scr_gameref_t game,
 /*
  * lib_put_on_is_valid()
  *
- * Validate the supporter requested in "put on" commands.
+ * Validate the supporter requested in "put on" commands.  The twin of
+ * lib_put_in_is_valid(), and split by version in the same two places.
  */
 static scr_bool
 lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
 {
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_bool is_pre_390 =
+      prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390;
+
   /* Verify that the supporter object is a supporter. */
   if (!obj_is_surface (game, supporter))
     {
@@ -13187,63 +13475,70 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
           run_priority_defer ();
           return FALSE;
         }
+      /*
+       * Three generations, three spellings, and Scarier had none of them: it
+       * said "on" with 4.0's exclamation mark.  3.7 and 3.8 carry the whole
+       * literal " can't put anything on "; 3.9 composes " can't put anything "
+       * with "onto" (the census finds bare "onto" in run390 and run400 only,
+       * and the run370/run380 pools hold nothing but "Mapontop"); and only
+       * 4.0 shouts.  `put coin on stone` on the surface probe, 2026-09-12:
+       *
+       *   run370  You can't put anything on the stone.    Adrift_1003:14
+       *   run380  You can't put anything on the stone.    Adrift_999:14
+       *   run390  You can't put anything onto the stone.  Adrift_990:14
+       *   run400  You can't put anything onto the stone!  Adrift_991:14
+       */
       lib_print_response_object (game,
-                                 "You can't put anything on ",
-                                 "I can't put anything on ",
-                                 "%player% can't put anything on ",
-                                 supporter, "!\n");
+                                 is_pre_390 ? "You can't put anything on "
+                                            : "You can't put anything onto ",
+                                 is_pre_390 ? "I can't put anything on "
+                                            : "I can't put anything onto ",
+                                 is_pre_390
+                                   ? "%player% can't put anything on "
+                                   : "%player% can't put anything onto ",
+                                 supporter,
+                                 lib_is_version_400 (game) ? "!\n" : ".\n");
+      return FALSE;
+    }
+
+  /*
+   * And below 3.9 a surface has to be in the player's hands, exactly as a
+   * container does -- one handler, one test.  With the table left standing
+   * in the cave, `put lamp on table`, `put stone on table` and `put all on
+   * table` all answer "You are not holding a table." on run370 and run380
+   * (Adrift_1005:5/7, Adrift_1001:5/7, Adrift_1014:3, Adrift_1013:3,
+   * 2026-09-12) -- the object's own prefix, not the "the" of most refusals.
+   * Statics are exempt, and have to be: `put stone on bench`, the bench a
+   * static surface on the cave floor, is "You put the stone on the bench."
+   * on both (Adrift_1004:12, Adrift_1000:12).
+   *
+   * 3.9 and 4.0 have no such test.  The same `put all on table` with the
+   * table on the floor is "You put the torch, the lamp, the stone, the
+   * pebble and the box onto the table." on run390 (Adrift_1009:3), and
+   * run400 moves onto it too (Adrift_1016:6).
+   */
+  if (is_pre_390
+      && obj_uses_burden_model (game)
+      && !obj_is_static (game, supporter)
+      && gs_object_position (game, supporter) != OBJ_HELD_PLAYER)
+    {
+      if (run_in_priority_pass ())
+        {
+          run_priority_defer ();
+          return FALSE;
+        }
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You are not holding ",
+                                             "I am not holding ",
+                                             "%player% is not holding "));
+      lib_print_object (game, supporter);
+      pf_buffer_string (filter, ".\n");
       return FALSE;
     }
 
   /* Surface is a valid target for "put on". */
   return TRUE;
-}
-
-
-/*
- * lib_cmd_put_all_on()
- *
- * Put all objects currently held by the player onto a supporter.
- */
-scr_bool
-lib_cmd_put_all_on (scr_gameref_t game)
-{
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int supporter, objects;
-  scr_bool is_ambiguous;
-  lib_put_outcome_t outcome;
-
-  /* Get the referenced object, and if none, consider complete. */
-  supporter = lib_disambiguate_object (game, "put that onto", &is_ambiguous);
-  if (supporter == -1)
-    return is_ambiguous;
-
-  /* Validate the supporter object to take from. */
-  if (!lib_put_on_is_valid (game, supporter))
-    return !run_in_priority_pass ();
-
-  /* Filter objects into references, then handle with the backend. */
-  gs_set_multiple_references (game);
-  objects = lib_apply_filter (game,
-                              lib_put_on_not_supporter_filter,
-                              supporter, FALSE, NULL);
-  gs_clear_multiple_references (game);
-  outcome = {};
-  if (objects > 0)
-    outcome = lib_put_on_backend (game, supporter);
-  else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                           "You're not carrying anything",
-                                           "I'm not carrying anything",
-                                           "%player%'s not carrying anything"));
-      if (obj_indirectly_held_by_player (game, supporter))
-        pf_buffer_string (filter, " else");
-      pf_buffer_character (filter, '.');
-    }
-
-  return lib_put_on_finish (game, outcome);
 }
 
 
@@ -13262,9 +13557,15 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
   lib_put_outcome_t outcome;
 
   /* Get the referenced object, and if none, consider complete. */
-  supporter = lib_disambiguate_object (game, "put that onto", &is_ambiguous);
+  supporter = is_except
+              ? lib_disambiguate_object (game, "put that onto", &is_ambiguous)
+              : lib_put_target_pre390 (game, "put that onto", &is_ambiguous);
   if (supporter == -1)
     return is_ambiguous;
+
+  /* Pre-4.0 names the object first, and answers for it first. */
+  if (!is_except && !lib_is_version_400 (game))
+    return lib_put_named_pre400 (game, supporter, TRUE);
 
   /* Parse the multiple objects list to find the target objects. */
   if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
@@ -13273,6 +13574,10 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
                                    is_except ? supporter : -1, &references))
     return FALSE;
   else if (references == 0)
+    return TRUE;
+
+  /* 4.0's take phase speaks before the supporter is examined at all. */
+  if (!is_except && lib_put_already_on_400 (game, supporter))
     return TRUE;
 
   /* Validate the supporter object to put into. */
@@ -13292,7 +13597,7 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
                               &references);
   outcome = {};
   if (objects > 0 || references > 0)
-    outcome = lib_put_on_backend (game, supporter);
+    outcome = lib_put_on_backend (game, supporter, is_except);
   else
     lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
 
@@ -17140,9 +17445,15 @@ lib_verb_object_name_score (scr_gameref_t game,
   return score;
 }
 
+/*
+ * present_only is the co(i, 0) gate the Runner puts on most of its calls.
+ * The one caller that leaves it off is put_drop_list's own " on " split
+ * test; see lib_put_split_400().
+ */
 static scr_int
 lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
-                                    std::vector<scr_int> *tied)
+                                    std::vector<scr_int> *tied,
+                                    scr_bool present_only)
 {
   scr_int index_, object, best, best_count;
 
@@ -17158,8 +17469,10 @@ lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
     {
       scr_int score;
 
-      if (!gs_object_seen (game, index_)
-          || !obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+      if (!gs_object_seen (game, index_))
+        continue;
+      if (present_only
+          && !obj_indirectly_in_room (game, index_, gs_playerroom (game)))
         continue;
 
       score = lib_verb_object_name_score (game, index_, input);
@@ -17204,7 +17517,7 @@ lib_verb_object_resolve_400_common (scr_gameref_t game,
     }
 
   return lib_verb_object_resolve_400_string (game, run_get_dispatch_input (),
-                                             tied);
+                                             tied, TRUE);
 }
 
 static scr_int
@@ -17407,8 +17720,32 @@ lib_put_split_400 (scr_gameref_t game, const std::string &line,
 
           if (on_branch)
             *on_branch = TRUE;
+          /*
+           * And this one scorer runs UNGATED by co(): an object the player
+           * has seen and walked away from still keeps the split.  p4SURF
+           * under run400, 2026-09-12: `put stone on lamp` from the lit room
+           * with the stone left behind in the cave is "You can't put
+           * anything onto the lamp!" (Adrift_995:6) -- the split held and
+           * the lamp was weighed as a supporter -- where the never-seen coin
+           * of `put coin on zzzz` zeroes it and the line falls through to
+           * "Where do you want to put that?" (p4SURF, Adrift_993:15).  The
+           * right half of the split keeps its co() gate: `put lamp on table`
+           * with the table a room away but seen is "I don't understand what
+           * you want to put things onto." (Adrift_995:5).
+           *
+           * Only "nothing named" zeroes the split, not a tie.  Widening the
+           * scorer past co() makes namesakes elsewhere in the game tie where
+           * the present one used to win alone, and a tie must not be allowed
+           * to undo a split the narrow scorer kept: provenance's two wooden
+           * canteens turn `put canteen on altar` into "Where do you want to
+           * put that?" (against Adrift_342_provenance.txt, which puts it on
+           * the altar), and Dragon Shrine's two bodies do the same to `put
+           * body on slab`.  The measured zeroing case is a name nothing
+           * scores on at all -- `put coin on zzzz` with the coin never seen
+           * (p4SURF, Adrift_993:15).
+           */
           if (lib_verb_object_resolve_400_string (game, fragment.c_str (),
-                                                  NULL) < 0)
+                                                  NULL, FALSE) == -2)
             split = std::string::npos;
         }
     }
@@ -17537,7 +17874,7 @@ lib_cmd_put_container_400 (scr_gameref_t game)
         return FALSE;
       return lib_put_where_400_common
                (game, lib_verb_object_resolve_400_string (game, line.c_str (),
-                                                          NULL));
+                                                          NULL, TRUE));
     }
 
   in_at = line.find (" in ", split);
@@ -17555,7 +17892,8 @@ lib_cmd_put_container_400 (scr_gameref_t game)
   else
     return FALSE;
 
-  container = lib_verb_object_resolve_400_string (game, phrase.c_str (), NULL);
+  container = lib_verb_object_resolve_400_string (game, phrase.c_str (), NULL,
+                                                 TRUE);
   if (container == -1)
     return FALSE;
   if (container == -2)

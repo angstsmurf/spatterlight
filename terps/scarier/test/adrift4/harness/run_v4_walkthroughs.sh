@@ -1222,6 +1222,14 @@ sommeril_solution.txt|sommeril.taf|www.angelfire.com/games5/sommeril
 # identical, then the long cutscene after "read incantation" (turn 106)
 # swallows the next fed command (rule 2, see wine-runner-soundalert-desync) and
 # nothing after it is comparable.
+# This row and provenance's are the two that pin 4.0's " on " split rule
+# (2026-09-12, the TODO's "Ported 2026-09-12 -- the put-ON row").  put_drop_list
+# scores the left half of the split and zeroes the split when it names nothing,
+# and that one scorer runs UNGATED by co() -- so namesakes anywhere in the game
+# are weighed, and Dragon Shrine has two bodies.  A TIE must not zero the split
+# the way "nothing found" does: `put body on slab` (turn 942 of the golden) is
+# "You put the young woman's body onto the dragon shrine.", and reading a tie as
+# a failure turns it into "Where do you want to put that?".
 dragonshrine_solution.txt|DragonShrineR43.taf|ended the Curse of Dragon Shrine|SCR_SKIP_WAITKEY=1
 shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in victory besides|SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
@@ -5026,6 +5034,11 @@ gmylm_solution.txt|GMYLM_2010.taf|Victory! - - -|SCR_SKIP_WAITKEY=1
 # the known <centre> transcript artefact, are unchanged row for row, and the
 # word alignment of every one of the 267 rows is byte-identical to before.
 # 30 goldens re-blessed, 130 added blank lines, no content change anywhere.
+# The second of the two rows pinning 4.0's " on " split rule -- see the
+# dragonshrine row for the rule.  Provenance has an empty and a full wooden
+# canteen, so `put canteen on altar` ties; the golden, which is the one
+# validated against Adrift_342_provenance.txt, says "You put the full wooden
+# canteen onto the altar."
 provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2006!!!|SCR_SKIP_WAITKEY=1
 
 # Professor Von Witt's Fabulous Flying Machine, from the game's own bundled

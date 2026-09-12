@@ -962,11 +962,14 @@ static scr_commands_t STANDARD_TAKE_FROM_COMMANDS[] = {
  * the take-from pair above, these belong BELOW STANDARD_COMMANDS: a line
  * whose container is a real object is the ordinary put rows' to answer, and
  * only what they decline -- "put lamp in box" with the box a room away, "put
- * coin in me" -- reaches here.  See lib_cmd_put_in_nowhere().
+ * coin in me" -- reaches here.  See lib_cmd_put_in_nowhere() and its
+ * surface twin lib_cmd_put_on_nowhere().
  */
 static scr_commands_t STANDARD_PUT_COMMANDS[] = {
   {"put %text% [in/into/inside {of}] *", lib_cmd_put_in_nowhere},
   {"[drop/put down] %text% [in/into/inside {of}] *", lib_cmd_put_in_nowhere},
+  {"put %text% [on/onto/on top of] *", lib_cmd_put_on_nowhere},
+  {"[drop/put down] %text% [on/onto/on top of] *", lib_cmd_put_on_nowhere},
   {NULL, NULL}
 };
 

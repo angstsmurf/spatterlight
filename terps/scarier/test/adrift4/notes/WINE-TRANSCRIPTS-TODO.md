@@ -7061,9 +7061,11 @@ caught because they run `take` and `open` on the way:
 
 ### Still open on the put row
 
-* **The pre-3.9 `put ON` handlers.**  Still only put IN has been driven, now
-  on all four exes.  Whether the ordering inversion, the narrowed reach and
-  the raw all-list carry over to the surface handlers is untested.
+* ~~**The pre-3.9 `put ON` handlers.**  Still only put IN has been driven,
+  now on all four exes.  Whether the ordering inversion, the narrowed reach
+  and the raw all-list carry over to the surface handlers is untested.~~
+  **Closed 2026-09-12** by the section below: they do carry over, and for a
+  larger reason -- below 3.90 there is no separate surface handler at all.
 * **A 3.7 static container's `open`.**  `p37DARK` has no static, so only the
   held arm of the listing is measured; the static arm is left as it was.
 * **A 3.7 bare `take` of something inside a container the player HOLDS.**
@@ -7078,3 +7080,265 @@ caught because they run `take` and `open` on the way:
   on a floor supporter, `put all in <nothing>` before 4.0, 4.0's
   `(Taking the X first)` ahead of a closed-container refusal, and
   `Glum_Fiddle`.
+
+## Ported 2026-09-12 -- the put-ON row, on all four exes
+
+The section above closed the put-IN row on 3.70 and 3.80 and left its own
+first open item: *"the pre-3.9 `put ON` handlers.  Still only put IN has
+been driven, now on all four exes.  Whether the ordering inversion, the
+narrowed reach and the raw all-list carry over to the surface handlers is
+untested."*  This settles it, and the answer is larger than the question.
+They do not "carry over" to the surface handlers, because **below 3.90
+there are no surface handlers**.  `put X in Y` and `put X on Y` are one
+routine, and the preposition in the answer comes from the target's kind,
+not from what was typed.
+
+### A fifth probe world
+
+`p39DARK` has no surface at all, so a new generator was needed.
+`harness/make_surfprobe.py` writes **all four** versions from one world
+description -- it is the 3.70/3.80/3.90/4.00 schema knowledge of
+`make_37_darkprobe.py`, `make_38_darkprobe.py` and `make_39_darkprobe.py`
+folded into a single `build(version)`, which is why there is one new
+generator and not four.  `python3 make_surfprobe.py` writes all four;
+a version number as the one argument writes just that one.
+
+The world is the dark-probe world plus the three objects the surface row
+needs: Lit Room (1) and Cave (2), a `torch` (Prefix `an`, in the lit room)
+and a `lamp` (held); in the cave a `stone`, a `pebble`, a **`table`**
+(surface, capacity 5) with a `coin` **on** it, a **`box`** (container,
+capacity 5, openable) with a `nut` **in** it, and a **`bench`** (a
+*static* surface), plus the repeatable `probe` task printing `PROBE OK.`
+The two receptacles are deliberately one of each kind and the bench is
+deliberately static, because that is exactly the axis the pre-3.9 handler
+turns out to switch on.
+
+`p37SURF.taf`, `p38SURF.taf`, `p39SURF.taf` and `p4SURF.taf` all parse to
+exact EOF in `harness/scare`.  As with the dark probes the `.taf` files
+stay untracked and the generator is the artefact.
+
+### The measurements
+
+Six feeds crossed on four exes: **24 transcripts**, `Adrift_990`-`Adrift_1016`.
+
+| feed | 370 | 380 | 390 | 400 | what it drives |
+|---|---|---|---|---|---|
+| `cmdfile_surf1.txt` | 1003 | 999 | 990 | 991 | the whole single-put ladder: re-put, self-put, non-surface, dropped supporter, `me` |
+| `cmdfile_surf2.txt` | 1004 | 1000 | 992 | 993 | the static supporter, the reach question, `zzzz` on both sides |
+| `cmdfile_surf3.txt` | 1005 | 1001 | 998 | 995 | a room away, `put all on`, non-surfaces |
+| `cmdfile_surf4.txt` | 1006 | 1002 | 996 | 997 | `put all on <held surface>`, then again when empty |
+| `cmdfile_surf5.txt` | 1012 | 1011 | 1007 | 1008 | **the decisive one** -- ON at a container and IN at a surface, and `put all on <held box>` |
+| `cmdfile_surf6.txt` | 1014 | 1013 | 1009 | 1016 | `put all on <room surface>`, twice, with `i` and `x` between |
+
+### The one rule that mattered
+
+**Below 3.90 the typed preposition is ignored.  The target decides.**
+`cmdfile_surf5` was written to ask exactly that and both old exes answer
+it the same way (`Adrift_1011`, run380; `Adrift_1012`, run370):
+
+```
+put pebble on box        You put the pebble inside the box.
+put stone in table       You put the stone on the table.
+put all on box           You put an torch, a lamp and a table inside the box.
+put lamp on box          You can't put anything inside the box as it is closed!
+```
+
+Four turns, four inversions.  `on` at a container comes back *inside*; `in`
+at a surface comes back *on*; the all-form follows the target too; and even
+the closed-container refusal -- a message that names no preposition the
+player typed -- is reached through a line that said `on`.  3.90 and 4.00
+split the two handlers properly and answer `You can't put anything onto the
+box.` / `...onto the box!` to that same `put lamp on box` (`Adrift_1007:11`,
+`Adrift_1008:11`).
+
+A target that is **both** container and surface, or **neither**, keeps the
+typed preposition -- there is nothing for the routine to switch on.  That is
+the shape `lib_put_target_takes_on()` encodes, and at 3.90 and above it is
+the identity function on `typed_on`.
+
+### The rest of the row
+
+Nine cells, all four exes.  Where a cell is blank the shape is unreachable
+on that exe (the hold gate answers first, or the version has no such test).
+
+| cell | 3.70 | 3.80 | 3.90 | 4.00 |
+|---|---|---|---|---|
+| target is not a supporter | `You can't put anything on <the X>.` | same | `...onto <the X>.` | `...onto <the X>!` |
+| the put itself | `You put <obj> on <sup>.` | same | `...onto...` | `...onto...` |
+| `put all on X`, the list | raw Prefix + ` on ` | same | definite + ` onto ` | definite + ` onto ` |
+| `put all on X`, nothing to move | `You have nothing to put inside <sup>.` | `You are not carrying anything.` | `You have nothing to put onto <sup>.` | `You are carrying nothing!`, or silence |
+| supporter present, not held | `You are not holding <raw-prefix sup>.` | same | -- | -- |
+| object names nothing | `You can't do that!` | same | `You can't do that!` | 4.0's own |
+| object present, out of reach | `You can't see that.` | same | `You can't see that.` | `You are not holding <the obj>.` |
+| the `on` fragment names the object | `You can't do that!` | same | `Put <obj> onto what?` | 4.0's own |
+| object already on the supporter | (the reach refusal wins) | same | (the move simply repeats) | `The <obj> is already on the <sup>!` |
+
+Every row of that table is the put-IN table with `inside` swapped for
+`on`/`onto` -- which is the point.  The two rows worth reading twice:
+
+* **The 3.7/3.8 hold gate is the reason most of the surface column is
+  blank.**  `put all on table` with the table on the cave floor is `You are
+  not holding a table.` on both old exes (`Adrift_1013:3`, `Adrift_1014:3`),
+  and so is every one of the four `put ... on table` turns in
+  `cmdfile_surf3` (`Adrift_1005`).  The gate is the *receptacle's*, it fires
+  before the object fragment is looked at, and **statics are exempt** --
+  `put stone on bench` is refused for a reason of its own, never for not
+  being held.  `Adrift_1003` (surf1, run370) pins its place in the order
+  against the not-a-receptacle test: `put coin on box` with the open box on
+  the cave floor is `You are not holding a box.` (turn 17) while `put coin
+  on stone` is `You can't put anything on the stone.` (turn 15).  A target
+  that is a receptacle at all reaches the hold gate; one that is neither
+  never does.
+* **The pre-3.9 all-list is raw.**  `put all on table` with a held table is
+  `You put an torch and a lamp on the table.` (`Adrift_1006:6`,
+  `Adrift_1002:6`) -- raw Prefix, so `an torch`, and ` on ` not ` onto `.
+  3.90 and 4.00 print `the torch and the lamp` and ` onto `
+  (`Adrift_996:6`, `Adrift_997:6`).  Same rule the put-IN row found, same
+  two arms.
+* **The 3.70/3.80 empty-list arms differ from each other**, exactly as they
+  did for put IN: 3.70 says `You have nothing to put inside the table.`
+  (`Adrift_1006:7` -- note *inside*, on an `on` line, one more inversion)
+  and 3.80 `You are not carrying anything.`
+
+### 4.0's empty hands, and a catch-all
+
+4.0 has two answers to `put all on <supporter>` with nothing to move, and
+which one comes out depends on whether the player is carrying the supporter
+itself:
+
+* hands genuinely empty -> `You are carrying nothing!` (`Adrift_995:16`,
+  after `drop all`).
+* holding only the supporter -> the put row prints **nothing** and the line
+  falls through to the dispatcher's catch-all, `I don't understand what you
+  want me to do with the table.` (`Adrift_997:7`).
+
+`lib_put_all_common()` now returns FALSE in the second case so the catch-all
+runs.  The gate is applied to the **ON side only**: the container twin --
+`put all in <a container the player is carrying alone>` -- was never fed on
+any exe and is left as it was.
+
+### A deliberate deviation: run400 runs out of stack
+
+`put all on <a supporter that is in the room rather than held>` **crashes
+run400** when the list has two or more items.  The turn prints nothing at
+all, the first candidate moves, and the rest of the list is abandoned; the
+Runner's own status line says `evaluate error - Out of stack space`.
+
+`Adrift_1016` (surf6, run400) shows both halves in one transcript:
+
+```
+put all on table     (nothing printed)
+i                    You are carrying a lamp.          <- the torch moved, the lamp did not
+x table              A low table.  An torch and a coin are on the table.
+put all on table     You put the lamp onto the table.  <- one item, no crash
+```
+
+and `Adrift_995:13` is the same failure with three items held.  The held
+supporter is fine: `Adrift_997:6` moves torch and lamp together and prints
+the pair.  So the trigger is the room supporter plus a list of length >= 2.
+
+**Scarier does not reproduce this.**  It completes the move and prints the
+list.  A crash that silently swallows a turn is exactly the class the
+deliberate-deviation policy exists for -- replaying it would make the row
+unusable and would corrupt any game that used the form.  It is the only
+difference left in the 24 comparisons, and it accounts for all six of them
+(`surf3`/run400 turns 13 and 15, `surf6`/run400 turns 3-6; the four surf6
+turns are the three later commands reading back the state turn 3 left
+wrong).
+
+### A tie must not undo a split
+
+One rule here was not measured on a probe at all; it fell out of the
+regression suite, and it belongs to the **4.0** line splitter rather than to
+any version gate.
+
+`put_drop_list`'s " on " split runs its left half through the noun scorer
+and zeroes the split when the half names nothing -- and that one scorer, as
+`Adrift_995:6` and `Adrift_993:15` between them show, runs **ungated by
+`co()`**: a seen object the player has walked away from still holds the
+split, where a never-seen name drops it.  Widening the scorer past `co()`
+is what those two turns require, but it also lets namesakes elsewhere in the
+game **tie** where the present one used to win alone, and the old code
+treated a tie (`-1`) and nothing-found (`-2`) alike.
+
+Two real games say that is wrong.  Provenance has two wooden canteens and
+Dragon Shrine two bodies, and both turned into `Where do you want to put
+that?`:
+
+| row | turn | golden (and Runner) | with a tie zeroing the split |
+|---|---|---|---|
+| `provenance` | `put canteen on altar` | `You put the full wooden canteen onto the altar.` | `Where do you want to put that?` |
+| `dragonshrine` | `put body on slab` | `You put the young woman's body onto the dragon shrine.` | `Where do you want to put that?` |
+
+Provenance's golden is the one validated against `Adrift_342_provenance.txt`,
+so this is a Runner reading and not a golden's opinion.  Only `-2` zeroes the
+split now; a tie keeps it.  The measured zeroing case stays exactly what it
+was -- a name nothing scores on at all, `put coin on zzzz` with the coin
+never seen (`Adrift_993:15`).
+
+### What it cost
+
+`sclibrar.cpp`, `scprotos.h` and `scrunner.cpp`.  The shape of the change is
+that almost nothing new was written: the put-IN pipeline was **parameterised
+by preposition** and the surface side hung off it, which is the same
+consolidation the Runner itself performs below 3.90.
+
+* `lib_put_target_takes_on()`, new -- the whole rule above, in nine lines.
+  Identity on `typed_on` from 3.90.
+* `lib_put_container_pre390()` -> `lib_put_target_pre390()`, prompt
+  parameterised; `lib_put_in_what_pre400()` -> `lib_put_what_pre400()`;
+  `lib_put_in_named_pre400()` -> `lib_put_named_pre400()`, which now takes
+  the typed preposition, resolves the target's kind once and branches every
+  downstream call on it.
+* `lib_put_on_is_valid()` -- the non-supporter wording split three ways, and
+  gained the pre-3.9 held-supporter refusal (`You are not holding <raw
+  prefix>.`), statics exempt.
+* `lib_put_on_backend()` -- takes `is_all_form`, and below 3.90 swaps ` onto `
+  for ` on ` and the definite form for the raw Prefix.
+* `lib_cmd_put_all_in()`'s body -> `lib_put_all_common()`, with
+  `lib_cmd_put_all_in` / `lib_cmd_put_all_on` as wrappers over it.  The old
+  `lib_cmd_put_all_on()`, whose `You're not carrying anything[ else].` is in
+  no Runner's string pool, is **gone**.
+* `lib_put_already_on_400()`, new -- the `OBJ_ON_OBJECT` twin of
+  `lib_put_already_inside_400()`.
+* `lib_cmd_put_in_nowhere()` -> `lib_put_nowhere_common()` plus
+  `lib_cmd_put_on_nowhere()`, and two new `STANDARD_PUT_COMMANDS` rows for
+  the bare `put %text% on *` / `drop %text% on *` forms.
+* `lib_verb_object_resolve_400_string()` -- gained `present_only`, FALSE at
+  exactly one call site, and the tie/nothing-found distinction above.
+
+### Verification
+
+* All 24 surface transcripts: the 12 pre-3.9 rows and the 6 run390 rows are
+  **identical on every turn**; 4 of the 6 run400 rows are too.  The six
+  remaining turn differences are all downstream of the `Out of stack space`
+  crash and are the documented deviation.
+* The 14 put-IN and dark transcripts from the two sections above: still
+  identical on every turn.
+* `run_v4_walkthroughs.sh`: **428 PASS / 0 FAIL**.  No golden moved.
+  (`dragonshrine` and `provenance` failed until the tie rule went in; they
+  are the reason it exists.)
+* `scproj_regress.sh`: PASS.
+* ADRIFT 5 suite: `DIVERGE=17, MATCH=180, NOSCRIPT=2`.
+* Corpus sweep, 427 rows, against a stashed-build baseline rebuilt today:
+  the output is **byte-identical**.  150 clean, 224 differing, 53 lost a
+  feed command, before and after.
+
+### Still open on the put row
+
+* **`put all in <a container the player is carrying and nothing else>` at
+  4.0.**  The ON twin is measured and gated; the IN twin is not, and keeps
+  the old message.
+* **The `except` forms below 3.90.**  `put all except X on Y` is routed
+  through the 4.0 path on every version; whether the old unified handler
+  even has an except arm is unfed.
+* **A pre-3.9 supporter that is neither held nor static and not a
+  container.**  The hold gate and the not-a-supporter refusal were never
+  driven against the same object, so their order is inferred from the
+  container side rather than measured.
+* **A static container's pre-3.9 put.**  The bench is a static *surface*;
+  no probe has a static container, so the hold gate's exemption is measured
+  on one kind only.
+* Everything the two sections above left open that this one did not touch --
+  the pre-4.0 locked container, an object on a floor supporter, 3.7's static
+  `open`, 3.7's bare `take` from a held container, and `Glum_Fiddle`.
