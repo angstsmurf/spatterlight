@@ -616,6 +616,7 @@ extern scr_bool lib_cmd_take_from_except_multiple (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_multiple (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_nowhere_all (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_nowhere (scr_gameref_t game);
+extern scr_bool lib_cmd_put_in_nowhere (scr_gameref_t game);
 extern scr_bool lib_cmd_take_all_from_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_npc_except_multiple (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_npc_multiple (scr_gameref_t game);

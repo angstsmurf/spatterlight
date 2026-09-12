@@ -296,6 +296,12 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 # that.", which the old goldens carried as the take catch-all's "Take what?".
 # The Runner's own replay of both rows says so directly: Adrift_485_alexis.txt
 # lines 362 and 487, and Adrift_486_alexis_worn_cube.txt lines 495 and 680.
+# Neither golden moved for the put port (2026-09-12, see the TODO's "Ported
+# 2026-09-12: the put handler's own answers"), but the corpus sweep's
+# alexis_worn_cube row did: `put water in pan` under run390 is "You can't do
+# that!", the pre-4.0 absent-noun refusal, where scarier used to answer the
+# room-refusal "You can't do that here!".  It is the only row in the whole
+# 427-row sweep that the put port moved.
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=3
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=2
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_46_topaz.txt,
@@ -1303,6 +1309,11 @@ ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And t
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  One walk line moves a turn.
+# Still open (2026-09-12, the put port): six `put <thing> in sack` turns in
+# the corpus sweep differ, and the Runner is the vaguer side -- run400 prints
+# "(Taking that first)" / "You put that inside the hessian sack."
+# (Adrift_583_Glum_Fiddle.txt:205-206) where scarier names the object.  4.0's
+# implicit-take-then-put has a wording arm the put probes never reached.
 Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.|SCR_SKIP_WAITKEY=1
 JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH|SCR_SKIP_WAITKEY=1
 # Measured 2026-09-07: re-driven in run400 with the corrected feed

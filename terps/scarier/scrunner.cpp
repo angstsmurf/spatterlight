@@ -957,6 +957,19 @@ static scr_commands_t STANDARD_TAKE_FROM_COMMANDS[] = {
   {NULL, NULL}
 };
 
+/*
+ * The pre-4.0 put's answers for a container slot that named nothing.  Unlike
+ * the take-from pair above, these belong BELOW STANDARD_COMMANDS: a line
+ * whose container is a real object is the ordinary put rows' to answer, and
+ * only what they decline -- "put lamp in box" with the box a room away, "put
+ * coin in me" -- reaches here.  See lib_cmd_put_in_nowhere().
+ */
+static scr_commands_t STANDARD_PUT_COMMANDS[] = {
+  {"put %text% [in/into/inside {of}] *", lib_cmd_put_in_nowhere},
+  {"[drop/put down] %text% [in/into/inside {of}] *", lib_cmd_put_in_nowhere},
+  {NULL, NULL}
+};
+
 static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
   /*
    * The 4.0 named take for a noun that names only objects the player has
@@ -1758,6 +1771,10 @@ run_standard_verb_commands (scr_gameref_t game, const scr_char *string)
       run_try_command_table (STANDARD_COMMANDS, game, string);
   uip_set_containment (FALSE);
   if (contained)
+    return TRUE;
+
+  /* The pre-4.0 put catch-alls; see STANDARD_PUT_COMMANDS. */
+  if (run_try_command_table (STANDARD_PUT_COMMANDS, game, string))
     return TRUE;
 
   /* run390's take handler, still above the refusal; see STANDARD_ABOVE_REFUSAL_COMMANDS. */

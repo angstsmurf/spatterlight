@@ -9671,6 +9671,13 @@ lib_drop_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * "drop cloak" while wearing it answers "You drop the cloak." -- while a bare
  * "drop all" leaves worn items alone.  Both verified live against run390;
  * see RUNNER_TESTS_TODO.md section 2.
+ *
+ * It also drops an object out of a container the player is carrying, with no
+ * announcement of the removal.  Both arms agree: on p39DARK under run390 the
+ * coin inside the held box answers `drop coin` with "You drop the coin."
+ * (Adrift_978:61), and on p4TFROM under run400 the same turn is "You drop the
+ * coin." (Adrift_979:52).  Scarier used to answer "You are not holding the
+ * coin." on both.  Measured 2026-09-12.
  */
 static scr_bool
 lib_drop_named_filter (scr_gameref_t game, scr_int object, scr_int unused)
@@ -9679,7 +9686,8 @@ lib_drop_named_filter (scr_gameref_t game, scr_int object, scr_int unused)
 
   return !obj_is_static (game, object)
          && (gs_object_position (game, object) == OBJ_HELD_PLAYER
-             || gs_object_position (game, object) == OBJ_WORN_PLAYER);
+             || gs_object_position (game, object) == OBJ_WORN_PLAYER
+             || obj_indirectly_held_by_player (game, object));
 }
 
 
@@ -11247,11 +11255,20 @@ lib_check_put_in_recursion (scr_gameref_t game,
  * loc_461C66 accepts field22 = 0 (held) or field22 = the worn marker, so a
  * worn object may be put down without removing it first.
  *
- * "all", by contrast, is held-only in every version: the candidate loop
- * takes objects with field26 = 0 And field24 = 0, i.e. lying in the player's
- * hands, never worn and never inside anything.  That narrower set is what
- * "put all in X" and "put all except Y on Z" range over, and it is also what
- * the "You are not holding ..." leftover report is phrased for.
+ * "all" is narrower, and narrower again at 4.0 than before it.  run400's
+ * candidate loop takes objects with field26 = 0 And field24 = 0, i.e. lying
+ * in the player's hands, never worn and never inside anything; that is the
+ * set "put all in X" and "put all except Y on Z" range over there, and it is
+ * what the "You are not holding ..." leftover report is phrased for.  run390
+ * also takes what is lying loose in the room: on p39DARK (Adrift_980:50,
+ * 2026-09-12), with the torch, lamp and coin in hand and the stone and the
+ * pebble on the cave floor, `put all in box` answers "You put the torch, the
+ * lamp, the stone, the pebble and the coin inside the box."  It stops there
+ * -- once every object is inside the box, the same command answers "Nothing
+ * will fit inside the box." (Adrift_980:59), the empty-list message, so the
+ * contents of a container standing in the room are NOT candidates.  The 4.0
+ * control is Adrift_981:11: `put all in box` with the stone, pebble and coin
+ * loose in the room moves only the two held objects.
  */
 static scr_bool
 lib_put_named_filter (scr_gameref_t game, scr_int object)
@@ -11272,8 +11289,27 @@ lib_put_named_filter (scr_gameref_t game, scr_int object)
   if (lib_is_version_400 (game))
     return obj_indirectly_in_room (game, object, gs_playerroom (game));
 
+  /*
+   * Pre-4.0 is wider than "held or worn" as well.  run390 takes an object
+   * lying loose in the room -- there is no implicit take and no announcement,
+   * the put simply runs -- and one sitting inside a container the player is
+   * carrying.  Measured on p39DARK against run390 (2026-09-12):
+   *
+   *   Adrift_978:55   pebble loose on the cave floor, box in hand, `put
+   *                   pebble in box` -> "You put the pebble inside the box."
+   *   Adrift_976:31   box in hand with the coin inside it, `put coin in box`
+   *                   -> "You put the coin inside the box." (a no-op move,
+   *                   but the Runner says it all the same)
+   *
+   * and it is only this wide: the coin inside the box once the box is on the
+   * FLOOR is refused, "You can't see that." (Adrift_978:40), so the reach is
+   * one step from the player's hands, not the whole room's contents.  See
+   * lib_put_not_reachable_pre400() for that refusal.
+   */
   return gs_object_position (game, object) == OBJ_HELD_PLAYER
-         || gs_object_position (game, object) == OBJ_WORN_PLAYER;
+         || gs_object_position (game, object) == OBJ_WORN_PLAYER
+         || obj_indirectly_held_by_player (game, object)
+         || obj_directly_in_room (game, object, gs_playerroom (game));
 }
 
 
@@ -11310,9 +11346,14 @@ lib_put_resolve_filter (scr_gameref_t game, scr_int object)
 static scr_bool
 lib_put_all_filter (scr_gameref_t game, scr_int object, scr_int associate)
 {
-  return !obj_is_static (game, object)
-         && gs_object_position (game, object) == OBJ_HELD_PLAYER
-         && object != associate;
+  if (obj_is_static (game, object) || object == associate)
+    return FALSE;
+
+  if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
+    return TRUE;
+
+  return !lib_is_version_400 (game)
+         && obj_directly_in_room (game, object, gs_playerroom (game));
 }
 
 
@@ -11992,11 +12033,22 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
           run_priority_defer ();
           return FALSE;
         }
+      /*
+       * Only 4.0 shouts.  The pre-4.0 Runners all carry the literal
+       * " can't put anything inside " -- run400 carries none of it, it
+       * composes its own from "You can't put anything " & preposition --
+       * and they end the line with a full stop: p39DARK under run390,
+       * `put coin in stone` -> "You can't put anything inside the stone."
+       * (Adrift_976:43), against run400's "You can't put anything inside
+       * the stone!" on the same turn of p4TFROM (Adrift_977:24).  Measured
+       * 2026-09-12.
+       */
       lib_print_response_object (game,
                                  "You can't put anything inside ",
                                  "I can't put anything inside ",
                                  "%player% can't put anything inside ",
-                                 container, "!\n");
+                                 container,
+                                 lib_is_version_400 (game) ? "!\n" : ".\n");
       return FALSE;
     }
 
@@ -12035,6 +12087,28 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
           run_priority_defer ();
           return FALSE;
         }
+
+      /*
+       * 4.0 reworded this one too, and pre-4.0 has no lock to report: the
+       * literal " as it is closed!" is in run370, run380 and run390 and in
+       * no run400, while " as it is locked!", " is locked!" and every other
+       * spelling of "locked" are in run400 alone.  So a container the game
+       * calls locked draws the closed wording before 4.0.  The closed half
+       * is measured on both arms with the same probe turn, `put lamp in
+       * box` with the box shut: run390 "You can't put anything inside the
+       * box as it is closed!" (p39DARK, Adrift_978:28) against run400 "The
+       * box is closed!" (p4TFROM, Adrift_979:18), 2026-09-12.
+       */
+      if (!lib_is_version_400 (game))
+        {
+          lib_print_response_object (game,
+                                     "You can't put anything inside ",
+                                     "I can't put anything inside ",
+                                     "%player% can't put anything inside ",
+                                     container, " as it is closed!\n");
+          return FALSE;
+        }
+
       pf_new_sentence (filter);
       lib_print_object_np (game, container);
       pf_buffer_string (filter,
@@ -12084,14 +12158,36 @@ lib_cmd_put_all_in (scr_gameref_t game)
     outcome = lib_put_in_backend (game, container);
   else
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                           "You're not carrying anything",
-                                           "I'm not carrying anything",
-                                           "%player%'s not carrying anything"));
-      if (obj_indirectly_held_by_player (game, container))
-        pf_buffer_string (filter, " else");
-      pf_buffer_character (filter, '.');
+      /*
+       * Nothing to put, and all three Runner generations word it
+       * differently.  The contraction scarier printed here is in none of
+       * them: the string census finds " carrying nothing!" in run400 alone,
+       * "Nothing will fit inside " in run390 alone, and " have nothing to
+       * put inside " in run370 and run380 alone (with run390 holding only
+       * the shortened " have nothing to put ", which is the put-ON half's).
+       *
+       * The two live arms are measured on the same probe turn, `put all in
+       * box` with the player empty-handed: run390 answers "Nothing will fit
+       * inside the box." (p39DARK, Adrift_980:59) and run400 "You are
+       * carrying nothing!" (p4TFROM, Adrift_981:20), both 2026-09-12.  The
+       * 3.7/3.8 wording is the census's, not a measurement -- run370 and
+       * run380 have not been driven at this row yet.
+       */
+      if (lib_is_version_400 (game))
+        pf_buffer_string (filter,
+                          lib_select_response (game,
+                                               "You are carrying nothing!",
+                                               "I am carrying nothing!",
+                                               "%player% is carrying nothing!"));
+      else if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+        lib_print_wrapped_object (game, "Nothing will fit inside ",
+                                  container, ".");
+      else
+        lib_print_response_object (game,
+                                   "You have nothing to put inside ",
+                                   "I have nothing to put inside ",
+                                   "%player% has nothing to put inside ",
+                                   container, ".");
     }
 
   return lib_put_in_finish (game, outcome);
@@ -12136,6 +12232,289 @@ lib_put_fragment_names_nothing (scr_gameref_t game)
 }
 
 /*
+ * lib_put_in_present_filter()
+ *
+ * The universe run390's put names its object from, before any test of where
+ * that object is: everything present in the room, the contents of open
+ * containers included.  It is deliberately wider than lib_put_named_filter()
+ * -- the pre-4.0 handler answers differently for a noun that names nothing
+ * at all and one that names something it cannot reach, so the two have to be
+ * told apart; see lib_put_in_named_pre400().
+ */
+static scr_bool
+lib_put_in_present_filter (scr_gameref_t game, scr_int object, scr_int unused)
+{
+  assert (unused == -1);
+
+  return obj_indirectly_in_room (game, object, gs_playerroom (game));
+}
+
+
+/*
+ * lib_put_no_object_pre400()
+ * lib_put_not_reachable_pre400()
+ * lib_put_in_what_pre400()
+ *
+ * The three answers a pre-4.0 "put X in Y" gives before it ever moves
+ * anything, and they are decided in this order -- the object's own failure
+ * outranks the container's.  Measured on p39DARK under run390, 2026-09-12:
+ *
+ *   Adrift_978:67  `put zzzz in box`   You can't do that!
+ *   Adrift_980:27  `put stone in lamp` You can't do that!    (the stone is a
+ *                  room away; the lamp is held and is not a container, and
+ *                  that refusal never gets a word in)
+ *   Adrift_978:40  `put coin in box`   You can't see that.   (the coin is
+ *                  inside the box, the box on the floor -- present, named,
+ *                  and out of reach; see lib_put_named_filter)
+ *   Adrift_980:24  `put lamp in box`   Put the lamp inside what?  (the lamp
+ *                  is held, the box a room away)
+ *   Adrift_976:34  `put coin in coin`  Put the coin inside what?
+ *   Adrift_976:37  `put box in box`    Put the box inside what?
+ *   Adrift_976:64  `put coin in me`    Put the coin inside what?
+ *
+ * -- so the container fragment is resolved with the object already spoken
+ * for, and a fragment that names only the object, or names nothing at all,
+ * leaves the Runner with no container and it asks.  (4.0 answers the last
+ * three "You can't put anything inside the coin!", "You can't put an object
+ * inside itself!" and "I don't understand what you want to put things
+ * inside." on the same turns of p4TFROM, Adrift_977:15/18/46.)
+ *
+ * " can't do that!" is in run370, run380 and run390 and in no run400, and
+ * " can't see that." is in all four; the prompt is composed, so the census
+ * cannot pin it and it is gated at 3.90, the version it was measured on.
+ * 3.7 and 3.8 keep what they had.
+ */
+static scr_bool
+lib_put_no_object_pre400 (scr_gameref_t game)
+{
+  if (run_in_priority_pass ())
+    {
+      run_priority_defer ();
+      return FALSE;
+    }
+
+  return lib_print_response_message (game,
+                                     "You can't do that!\n",
+                                     "I can't do that!\n",
+                                     "%player% can't do that!\n");
+}
+
+static scr_bool
+lib_put_not_reachable_pre400 (scr_gameref_t game)
+{
+  if (run_in_priority_pass ())
+    {
+      run_priority_defer ();
+      return FALSE;
+    }
+
+  return lib_print_response_message (game,
+                                     "You can't see that.\n",
+                                     "I can't see that.\n",
+                                     "%player% can't see that.\n");
+}
+
+static scr_bool
+lib_put_in_what_pre400 (scr_gameref_t game, scr_int object)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return FALSE;
+
+  if (run_in_priority_pass ())
+    {
+      run_priority_defer ();
+      return FALSE;
+    }
+
+  pf_buffer_string (filter, "Put ");
+  lib_print_object_np (game, object);
+  pf_buffer_string (filter, " inside what?\n");
+  return TRUE;
+}
+
+
+/*
+ * lib_put_in_named_pre400()
+ *
+ * The pre-4.0 "put <named object> in <container>" pipeline.  It differs from
+ * 4.0's in the order it asks its questions as much as in the words it uses:
+ * the object is named first and its failures are answered first, the
+ * container's own refusals come next, and only then is the object tested for
+ * being somewhere the player can put it from.  See lib_put_no_object_pre400()
+ * for the evidence.
+ */
+static scr_bool
+lib_put_in_named_pre400 (scr_gameref_t game, scr_int container)
+{
+  scr_int object, object_count, objects, references;
+  lib_put_outcome_t outcome;
+
+  object_count = gs_object_count (game);
+
+  /* Name the object over everything present, out of reach or not. */
+  if (!lib_parse_multiple_objects (game, "move", lib_put_in_present_filter,
+                                   -1, &references))
+    return lib_put_no_object_pre400 (game);
+  else if (references == 0)
+    return TRUE;
+
+  /*
+   * What a pre-4.0 put does with a static is unmeasured -- p39DARK has none
+   * -- so a line that names one is left exactly where it was, for the task
+   * passes and the generic tail below them.
+   */
+  for (object = 0; object < object_count; object++)
+    {
+      if (game->multiple_references[object] && obj_is_static (game, object))
+        {
+          gs_clear_multiple_references (game);
+          return FALSE;
+        }
+    }
+
+  /* The container fragment named only the object itself, so it named none. */
+  if (references == 1 && game->multiple_references[container])
+    {
+      gs_clear_multiple_references (game);
+      return lib_put_in_what_pre400 (game, container);
+    }
+
+  /* Validate the container object to put into (deferred -> unhandled). */
+  if (!lib_put_in_is_valid (game, container))
+    {
+      gs_clear_multiple_references (game);
+      return !run_in_priority_pass ();
+    }
+
+  /* Now, and only now, the object has to be somewhere the player can reach. */
+  for (object = 0; object < object_count; object++)
+    {
+      if (game->multiple_references[object]
+          && !lib_put_named_filter (game, object))
+        {
+          gs_clear_multiple_references (game);
+          return lib_put_not_reachable_pre400 (game);
+        }
+    }
+
+  /* Filter objects into references, then handle with the backend. */
+  objects = lib_apply_filter (game, lib_put_in_filter, -1, FALSE, &references);
+  outcome = {};
+  if (objects > 0 || references > 0)
+    outcome = lib_put_in_backend (game, container);
+  else
+    lib_print_nothing_held (game, FALSE, FALSE, ".");
+
+  return lib_put_in_finish (game, outcome);
+}
+
+
+/*
+ * lib_put_already_inside_400()
+ *
+ * Version 4.0 only.  An object already sitting in the container the player
+ * has just named is refused before the container is looked at at all, and
+ * the wording turns on whether the CONTAINER is in the player's hands:
+ *
+ *   box held, coin inside it    The coin is already inside the box!
+ *   box on the floor, ditto     You are not holding the coin.
+ *
+ * -- p4TFROM under run400, `put coin in box` at Adrift_977:12 and again at
+ * Adrift_977:34 with the box shut (still "already inside", so this outranks
+ * the closed-container refusal), against Adrift_979:30 with the box dropped.
+ * Measured 2026-09-12.  " is already inside " is in run400 and in no earlier
+ * Runner; the floor case is the take phase's own skip, which
+ * lib_put_implicit_take() already carries into the "You are not holding ..."
+ * report.
+ *
+ * Returns TRUE if it consumed every named object, so the caller is done.
+ */
+static scr_bool
+lib_put_already_inside_400 (scr_gameref_t game, scr_int container)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object, object_count, left;
+  scr_bool has_printed;
+
+  if (!lib_is_version_400 (game)
+      || !obj_indirectly_held_by_player (game, container))
+    return FALSE;
+
+  object_count = gs_object_count (game);
+  has_printed = FALSE;
+  left = 0;
+  for (object = 0; object < object_count; object++)
+    {
+      if (!game->multiple_references[object])
+        continue;
+
+      if (gs_object_position (game, object) == OBJ_IN_OBJECT
+          && gs_object_parent (game, object) == container)
+        {
+          lib_new_clause (game, has_printed);
+          lib_print_object_np (game, object);
+          pf_buffer_string (filter,
+                            lib_select_plurality (game, object,
+                                                  " is", " are"));
+          pf_buffer_string (filter, " already inside ");
+          lib_print_object_np (game, container);
+          pf_buffer_character (filter, '!');
+          game->multiple_references[object] = FALSE;
+          has_printed = TRUE;
+          continue;
+        }
+      left++;
+    }
+
+  if (has_printed && left == 0)
+    {
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
+ * lib_put_shut_in_container_400()
+ *
+ * The already-inside refusal has to reach an object the ordinary matcher
+ * cannot: with the box SHUT and the coin inside it, `put coin in box` is
+ * still "The coin is already inside the box!" on run400 (p4TFROM,
+ * Adrift_977:34, 2026-09-12), where obj_indirectly_in_room() -- and so
+ * lib_disambiguate_object_common()'s own gate -- has already ruled the coin
+ * out of the room.  Score the %text% fragment against the container's
+ * contents directly, and return the single object it names, or -1.
+ */
+static scr_int
+lib_put_shut_in_container_400 (scr_gameref_t game, scr_int container)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  const scr_char *named = var_get_ref_text (vars);
+  scr_int object, found;
+
+  if (!named || !obj_indirectly_held_by_player (game, container))
+    return -1;
+
+  found = -1;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (gs_object_position (game, object) != OBJ_IN_OBJECT
+          || gs_object_parent (game, object) != container)
+        continue;
+      if (lib_verb_object_name_score (game, object, named) <= 0)
+        continue;
+      if (found >= 0)
+        return -1;
+      found = object;
+    }
+  return found;
+}
+
+
+/*
  * lib_put_in_multiple_common()
  *
  * Put the objects held by the player and listed in %text% into an object,
@@ -12155,12 +12534,35 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (container == -1)
     return is_ambiguous;
 
+  /* Pre-4.0 names the object first, and answers for it first. */
+  if (!is_except && !lib_is_version_400 (game))
+    return lib_put_in_named_pre400 (game, container);
+
   /* Parse the multiple objects list to find the target objects. */
   if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
                                    is_except ? lib_put_in_not_container_filter
                                              : lib_put_in_resolve_filter,
                                    is_except ? container : -1, &references))
     {
+      /*
+       * ... unless the container is holding it.  A shut container's contents
+       * are out of the matcher's reach but not out of the take phase's; see
+       * lib_put_shut_in_container_400().
+       */
+      if (!is_except && lib_is_version_400 (game))
+        {
+          const scr_int shut = lib_put_shut_in_container_400 (game, container);
+
+          if (shut >= 0)
+            {
+              gs_clear_multiple_references (game);
+              game->multiple_references[shut] = TRUE;
+              if (lib_put_already_inside_400 (game, container))
+                return TRUE;
+              gs_clear_multiple_references (game);
+            }
+        }
+
       /*
        * A 4.0 "put X in Y" whose X names nothing is run400's 46E142, the one
        * exit of name_object that leaves the command line rewritten to the
@@ -12198,6 +12600,10 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
   else if (references == 0)
     return TRUE;
 
+  /* 4.0's take phase speaks before the container is examined at all. */
+  if (!is_except && lib_put_already_inside_400 (game, container))
+    return TRUE;
+
   /* Validate the container object to put into (deferred -> unhandled). */
   if (!lib_put_in_is_valid (game, container))
     return !run_in_priority_pass ();
@@ -12220,6 +12626,60 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
     lib_print_nothing_held (game, FALSE, is_except && objects == 0, ".");
 
   return lib_put_in_finish (game, outcome);
+}
+
+
+/*
+ * lib_cmd_put_in_nowhere()
+ *
+ * "put X in Y" where nothing present answers to Y.  The %object% rows above
+ * cannot match such a line at all, so it used to fall all the way through to
+ * the game's DontUnderstand; run390 answers it, and the answer depends on
+ * whether X named anything:
+ *
+ *   `put lamp in box`  (the box a room away)   Put the lamp inside what?
+ *   `put coin in me`   ("me" is not an object) Put the coin inside what?
+ *   `put stone in box` (both a room away)      You can't do that!
+ *   `put coin in zzzz`                         Put the coin inside what?
+ *   `put zzzz in box`  (via the %object% row)  You can't do that!
+ *
+ * (p39DARK, Adrift_976:64, Adrift_978:67/70, Adrift_980:24/27/30,
+ * 2026-09-12.)  The
+ * object's failure outranks the container's, which is why the noun is
+ * resolved here before the prompt is printed.  4.0 has its own answers for
+ * the same shapes, up in lib_cmd_put_container_400(); the prompt is composed
+ * from pieces every Runner holds, so the census cannot date it and it is
+ * gated at 3.90 -- see lib_put_in_what_pre400().
+ *
+ * A table of its own, run after STANDARD_COMMANDS has had its go so that a
+ * line naming a real container never reaches it; see STANDARD_PUT_COMMANDS.
+ */
+scr_bool
+lib_cmd_put_in_nowhere (scr_gameref_t game)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  std::string named;
+  scr_int object;
+  scr_bool is_ambiguous;
+
+  if (lib_is_version_400 (game))
+    return FALSE;
+
+  /* Take a copy; the match below rewrites the referenced text. */
+  named = var_get_ref_text (vars);
+
+  /* What "put all in <nothing>" answers before 4.0 is unmeasured. */
+  if (uip_match ("[all/everything]", named.c_str (), game))
+    return FALSE;
+
+  if (!uip_match ("%object%", named.c_str (), game))
+    return lib_put_no_object_pre400 (game);
+
+  object = lib_disambiguate_object (game, "put", &is_ambiguous);
+  if (object == -1)
+    return is_ambiguous ? TRUE : lib_put_no_object_pre400 (game);
+
+  return lib_put_in_what_pre400 (game, object);
 }
 
 
