@@ -6727,6 +6727,11 @@ and 3.7/3.8 own ` have nothing to put inside ` (run390 keeps only the
 shortened ` have nothing to put `, which is the put-ON half's).  The 3.7/3.8
 arm is therefore ported on census evidence and is **not** measured.
 
+> **Superseded 2026-09-12** (see the next section).  That last inference was
+> wrong: run380 holds the literal but does not use it here, and answers
+> `You are not carrying anything.`  The empty-list message is split **four**
+> ways, not three.  Everything else in this section survived measurement.
+
 ### What it cost
 
 `sclibrar.cpp`:
@@ -6782,12 +6787,10 @@ sees a line no real container claimed.
 
 ### Still open on the put row
 
-* **The 3.7/3.8 halves of rules A, B, E and G are census-derived, not
-  measured.**  `Nothing will fit inside ` is a run390-only literal and
-  ` have nothing to put inside ` a run370/380-only one, so the empty-list
-  message is split on the census alone; the same goes for 3.7/3.8's share of
-  `You can't do that!` and the closed-container wording.  `measure38.sh`
-  would settle all of them with one pass of each of the three feeds.
+* ~~**The 3.7/3.8 halves of rules A, B, E and G are census-derived, not
+  measured.**~~  **Settled 2026-09-12**, and not the way the census read it:
+  A and B held, E inverted, G turned out to be a four-way split.  See the
+  next section.
 * **The pre-4.0 locked container.**  Ported as "closed" because no Runner
   before 4.0 carries any "locked" string; unmeasured, and it would take a
   probe with a lockable container to confirm the Runner does not simply say
@@ -6821,3 +6824,257 @@ sees a line no real container claimed.
   `put ball on marker` rows look like the same family but are **not** a
   lead: that row is seed-incomparable past turn 2, see its comment in
   `harness/run_v4_walkthroughs.sh`.)
+
+---
+
+## 2026-09-12 -- the put row on 3.80 and 3.70, measured
+
+The section above ported eight rules from six transcripts, and left its own
+first open item: the 3.7/3.8 halves of rules A, B, E and G were taken off
+the string census, not off a Runner.  This settles them.  Two of the four
+came out as the census read them.  One is the exact **inverse** of what 3.9
+does, and one is a wording the census had assigned to the wrong exe.
+
+Everything below was driven with **`fast.sh`**, not `measure38.sh`.  The
+older keystroke driver reads a CRLF cmdfile with `IFS= read -r line`, keeps
+the `\r`, and then presses Return -- so every command submits twice and the
+empty second submission is a turn.  `fast.sh` posts through `drv/drive.exe`
+and already knows about the two old Runners: line 59 is `case "$EXE" in
+run370*|run380*) set -- "$@" --save-transcript;; esac`, so it plays the feed
+and clicks Save Transcript itself, dropping `Adven_<N>.rtf` in the prefix.
+
+### Two probe games that did not exist
+
+Neither `p39DARK.taf` nor anything else in the tree could be replayed here:
+the generators only convert **upward**, so a 3.80 or 3.70 file has to be
+authored byte by byte.  Two new scripts do it, each a version-shifted twin
+of `make_39_darkprobe.py` building the identical world -- Lit Room and Dark
+Cave, a torch (Prefix `an`), a lamp, a stone, a pebble, an open box holding
+a coin, and one repeatable `probe` task printing `PROBE OK.`
+
+* `harness/make_38_darkprobe.py` -> `p38DARK.taf`, 933 bytes, V380 signature
+  `...94 45 36 61 39 fa`.  Six schema divergences from 3.90: the `_GAME_`
+  tail, a seven-field `GLOBAL`, `ROOM` without `HideOnMap`, `OBJECT` with a
+  single `#SurfaceContainer` plus capacity\*10+2 and a 0..4 burden class, the
+  pre-restriction `TASK` shape, and the one-lower initial-position list.
+* `harness/make_37_darkprobe.py` -> `p37DARK.taf`, 1029 bytes, V370
+  signature `...94 45 39 61 39 fa`.  On top of the 3.80 shape: a trailing
+  `WinTask` in the header, `TASK` movements of 6 x 2 ints with no `Var3`, no
+  trailing `BWinGame`, and a fixed 17-string `COMMAND` block where 3.80 has
+  a synonyms count.
+
+Both parse to **exact EOF** in `harness/scare`, which is the validation that
+a hand-authored file is right -- `parse_game` reports "unexpected trailing
+data" the moment the schema and the bytes disagree.  The `.taf` files stay
+untracked, like `p39DARK.taf` and `p4TFROM.taf`; the generators are the
+artefact.
+
+### The measurements
+
+Eight transcripts: the three put feeds the section above used, plus one new
+one, each driven under run380 and run370.
+
+| feed | run380 | run370 | what it drives |
+|---|---|---|---|
+| `cmdfile_p39putin.txt` | `Adrift_982.txt` | `Adrift_986.txt` | re-put, self-put, non-container, closed, dropped container, `me` |
+| `cmdfile_p39putin2.txt` | `Adrift_983.txt` | `Adrift_987.txt` | the reach question; `zzzz` on both sides |
+| `cmdfile_p39putin3.txt` | `Adrift_984.txt` | `Adrift_988.txt` | a room away, `put all in`, non-containers |
+| `cmdfile_p38putin4.txt` | `Adrift_985.txt` | `Adrift_989.txt` | **new** -- `put all in <held box>`, then again when empty |
+
+The fourth feed had to be written because none of the original three ever
+runs `put all in` with the container actually in the player's hands: on
+3.7/3.8 the hold gate answers first every time, so rule G's pre-4.0 empty
+arm was unreachable.  It is nine commands: `probe / take torch / n / take
+box / s / put all in box / put all in box / put coin in box / probe`.
+
+### What the four rules turned out to be
+
+**A (non-container) -- confirmed.**  `You can't put anything inside <the
+X>.`, full stop, on both old exes: `put coin in stone` (`Adrift_982:45`,
+`Adrift_986:45`), `put stone in lamp` (`Adrift_984:28`), `put torch in coin`
+(`Adrift_984:47`), `put all in stone` (`Adrift_984:53`).  The shipped code
+was already right.
+
+**B (closed) -- confirmed, but reached more often.**  `You can't put
+anything inside <the X> as it is closed!` (`Adrift_982:54`,
+`Adrift_983:30`).  The wording was right; what was wrong is that 3.7/3.8
+reach it on turns 3.9 never does -- see E.
+
+**E (which failure speaks) -- INVERTED.**  3.9's rule is that the object's
+failure outranks the container's.  On 3.7 and 3.8 it is the other way round,
+and the container's three refusals are decided before the object fragment is
+looked at at all:
+
+```
+> put lamp in box      lamp held, box on the floor a room away
+You are not holding a box.                     (Adrift_984:25 / 988:25)
+> put stone in lamp    stone a room away, lamp held and no container
+You can't put anything inside the lamp.        (Adrift_984:28 / 988:28)
+> put lamp in box      lamp a room away, box held and shut
+You can't put anything inside the box as it is closed!
+                                               (Adrift_983:30 / 987:30)
+```
+
+run390 answers for the *object* on every one of those turns
+(`Adrift_980:24/27`, `Adrift_978:28`).  Note the first line: run370 and
+run380 found a box that is not in the room, so their container fragment is
+resolved over the **whole game**, not over what is present -- another thing
+3.9 does not do.
+
+The one thing that still outranks the container is the fragment naming the
+object itself, and where 3.9 asks, 3.7/3.8 answer flatly -- even when the
+named object is not a container and B or A would have had something to say:
+`put coin in coin`, `put box in box`, `put stone in stone` and `put coin in
+me` are all `You can't do that!` (`Adrift_982:36/39/42/66`).  So is a
+container fragment that names nothing anywhere (`put coin in zzzz`,
+`Adrift_983:72`) and an object fragment that names nothing with the
+container sound (`put zzzz in box`, `Adrift_983:69`).  3.9's composed `Put
+<the object> inside what?` is confirmed **3.90+ only**; the shipped
+`>= TAF_VERSION_390` gate on rule F was right, but the pre-3.9 fallback
+underneath it was not -- it fell through to the game's DontUnderstand.
+
+**G (empty `put all in`) -- a FOUR-way split, and the census had 3.8
+wrong.**
+
+| exe | answer | line |
+|---|---|---|
+| run400 | `You are carrying nothing!` | `Adrift_981:20` |
+| run390 | `Nothing will fit inside the box.` | `Adrift_980:59` |
+| run380 | `You are not carrying anything.` | `Adrift_985:25` |
+| run370 | `You have nothing to put inside the box.` | `Adrift_989:25` |
+
+` have nothing to put inside ` really is in run380's pool -- it is just not
+on this path.  run380 answers with the flat drop-all wording instead, the
+same literal `lib_print_nothing_held()` prints.  This is the false-positive
+mode the census memo calls **already gated**, showing up as a wrong split
+rather than a wrong port.
+
+### Three rules the probes found that nobody was looking for
+
+**The 3.7/3.8 put universe stops at the player's hands.**  An object inside
+a container -- even one the player is **holding**, open, with the contents
+listed a line earlier -- is out of reach and answers `You can't see that.`,
+the pre-4.0 out-of-reach message:
+
+```
+> take box
+You pick up the box.
+> put coin in box            (Adrift_982:18)
+You can't see that.
+> x box                      (Adrift_982:21)
+A wooden box.  The box is open.  Inside the box is a coin.
+> put coin in box            (Adrift_982:24)
+You can't see that.
+```
+
+Loose room objects are still reachable on both (`put pebble in box` ->
+`You put the pebble inside the box.`, `Adrift_983:57`), so rule D's one step
+into a carried container is a **3.90 addition**, not a pre-4.0 rule.
+
+**Pre-3.9's `put all in` names what it moved raw.**  `You put an torch and a
+lamp inside the box.` (`Adrift_985:22`, `Adrift_989:22`) -- each object's
+own Prefix, untensed -- where the named put one row up runs the same objects
+through `tense()`: `put pebble in box` -> `You put **the** pebble inside the
+box.` (`Adrift_983:57`).  Only the list is raw; the container after it is
+definite in both.  3.9 and 4.0 normalise throughout (`Adrift_980:50`,
+`Adrift_981:11`).  The `drop all` control on the same probe is `You drop an
+torch and the lamp.` (`Adrift_984:56`), tensed -- so this is the put-all
+handler's own printer, not a generic list rule.
+
+**Three 3.70-only findings, all outside the put row**, which the same feeds
+caught because they run `take` and `open` on the way:
+
+* `get coin from box` is `You **get** a coin from the box.` on run370
+  (`Adrift_986:27`) and `You **take** a coin from the box.` on run380
+  (`Adrift_982:27`).  The typed verb was `get` on both, so this is the
+  handler's wording and not an echo.  The census is decisive: the literal
+  ` take ` is in run380, run390 and run400 and in **none** of run370, while
+  ` get ` is in all four, and run370 carries `You can't get anything from
+  that.` where 380 and 390 carry that *and* ` can't take anything from `.
+* A bare `take X` never reaches inside anything on 3.70.  `take coin` with
+  the coin in an open box on the cave floor answers `Take what?`
+  (`Adrift_987:48`, `Adrift_988:41`) where run380 answers `You are not
+  holding a box.` (`Adrift_983:48`) -- i.e. run380 rewrote the line into
+  `take coin from box` and then refused it on the hold gate, and run370 has
+  no such rewrite, so the coin was never a candidate.  The explicit form is
+  untouched: run370 plays `get coin from box` and applies the same hold gate
+  to it (`Adrift_987:18`).
+* `open <held container>` does not list the contents on 3.70.  `open box`
+  with the box in hand answers the bare `You open the box.`
+  (`Adrift_986:57`, `Adrift_987:33`) where run380 adds `  Inside the box is
+  a stone and a coin.` (`Adrift_982:57`).  run370 does hold the `  Inside `
+  literal and prints it from `x box` (`Adrift_986:21`), so this is
+  `openclose`'s own reach, not a missing string.  The **static** arm is
+  untested -- `p37DARK` has no static container -- and is left listing.
+
+### The string census, the deciding rows
+
+| literal | 370 | 380 | 390 | 400 |
+|---|---|---|---|---|
+| ` take ` | -- | yes | yes | yes |
+| ` get ` | yes | yes | yes | yes |
+| `You can't get anything from that.` | yes | yes | yes | -- |
+| ` can't take anything from ` | -- | yes | yes | yes |
+| `  Inside ` | yes | yes | yes | -- |
+
+### What it cost
+
+`sclibrar.cpp`, all of it version-gated:
+
+* `lib_cmd_put_all_in()` -- rule G's fourth arm, `>= TAF_VERSION_380`.
+* `lib_put_named_filter()` -- the pre-3.9 reach loses
+  `obj_indirectly_held_by_player()`.
+* `lib_put_in_named_pre400()` -- the whole pipeline reordered for `< 3.90`:
+  container first, then the object's own failures.  The self-reference test
+  keeps its place above everything and picks `You can't do that!` instead of
+  the composed prompt.
+* `lib_put_container_pre390()`, new -- the whole-game container lookup.  It
+  runs the ordinary room-filtered resolver first and only searches wider
+  when that comes back empty **and** unambiguous, and then only accepts a
+  single candidate, so two namesakes in two rooms are left exactly where
+  they were.
+* `lib_cmd_put_in_nowhere()` -- flat `You can't do that!` below 3.90.
+* `lib_put_in_backend()` -- gained an `is_all_form` argument, for the raw
+  Prefix list.
+* `lib_take_from_verb()`, new -- ` get ` below 3.80, ` take ` from 3.80.
+  Called from the from-container take report and from
+  `lib_take_from_unseen_refusal()`, which prints the same phrase from the
+  same place in the Runner; that second half is the census's, not a
+  measurement.
+* `lib_take_filter()` and `lib_take_multiple_common()` -- the 3.70 bare take
+  drops in/on-object candidates, and declines the row outright when that
+  leaves nothing, so the line falls to the `Take what?` catch-all rather
+  than to `You can't take the coin.`
+* `lib_cmd_open_object()` -- the held-container listing is `>= 3.80`.
+
+### Verification
+
+* All eight new probe transcripts: **identical on every turn**.
+* The six from the section above (`Adrift_976`-`981`, run390 and run400):
+  still identical on every turn.
+* `run_v4_walkthroughs.sh`: **428 PASS / 0 FAIL**.  No golden moved.
+* `scproj_regress.sh`: PASS.
+* ADRIFT 5 suite: `DIVERGE=17, MATCH=180, NOSCRIPT=2`.
+* Corpus sweep, 427 rows (2 run370, 17 run380, 59 run390, 199 run400),
+  against a stashed-build baseline rebuilt today: **6270 -> 6270** differing
+  turns, and the per-row table is byte-identical.  Nothing moved either way.
+
+### Still open on the put row
+
+* **The pre-3.9 `put ON` handlers.**  Still only put IN has been driven, now
+  on all four exes.  Whether the ordering inversion, the narrowed reach and
+  the raw all-list carry over to the surface handlers is untested.
+* **A 3.7 static container's `open`.**  `p37DARK` has no static, so only the
+  held arm of the listing is measured; the static arm is left as it was.
+* **A 3.7 bare `take` of something inside a container the player HOLDS.**
+  The probes only ever left the box on the floor for that turn.  The port
+  drops in/on candidates whatever holds them, which is the simple reading of
+  a missing rewrite, but it is an inference.
+* **`put X in Y` where X names nothing and Y is a bad container**, on
+  3.7/3.8.  The port answers for the container, on the strength of the three
+  measured container-first turns; the shape itself was never fed.
+* Everything the previous section left open that this one did not touch --
+  the pre-4.0 locked container, a static named in a pre-4.0 put, an object
+  on a floor supporter, `put all in <nothing>` before 4.0, 4.0's
+  `(Taking the X first)` ahead of a closed-container refusal, and
+  `Glum_Fiddle`.
