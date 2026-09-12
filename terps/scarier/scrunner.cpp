@@ -3475,7 +3475,7 @@ enum run_refusal_pass_t
  * How much later the room half runs is measured, and it is NOT after the whole
  * library.  run390's generaltasks() (Public Sub generaltasks '460D6C, body from
  * loc_45EC34) clears the flag at 45EC7C, runs its() then tasks() (which is what
- * sets the flag, in checktask at loc_45B681), then its named per-verb handlers
+ * sets the flag, in checktask at loc_44B681), then its named per-verb handlers
  * -- wears() removes() dobattle() dohints() sitstand() openclose() viewroom()
  * the take code, adventure_Click(), whereis(), fonts(), gotoplace() -- and only
  * THEN reaches

@@ -5968,7 +5968,7 @@ first, **`Who?`**, is ported in the next section (it was 94 of them, leaving
 `run_standard_commands()`, guarded by the Runner's own "did anything print?"
 test.  The guard is real; the position was wrong.  run390's `generaltasks()`
 (`Public Sub generaltasks '460D6C`, body from `loc_45EC34`) clears the flag at
-`45EC7C`, sets it in `checktask` (`loc_45B681`, the `running = 1 And msg = ""`
+`45EC7C`, sets it in `checktask` (`loc_44B681`, the `running = 1 And msg = ""`
 arm that scans the task's 0..&H18 command alternatives for a `*`), runs its
 named per-verb handlers, and then:
 
