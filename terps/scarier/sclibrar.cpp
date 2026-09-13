@@ -14566,6 +14566,163 @@ lib_battle_names_absent_npc (scr_gameref_t game, const scr_char *input)
   return FALSE;
 }
 
+static scr_int lib_verb_object_name_score (scr_gameref_t game,
+                                           scr_int object,
+                                           const scr_char *input);
+
+/*
+ * lib_battle_who_*()
+ *
+ * "Who do you want to attack?" is a question the next line can answer.
+ * dobattle's Who path (run400 47F01E, run390 44D1F4) leaves a line prefix in
+ * MemVar_494234 (run390 MemVar_4681D0): the verb, then " with " and the
+ * definite name (the mode-0 name builder) of every seen object the line
+ * names, index order -- `attack with blaster` leaves "attack with the
+ * blaster".  generaltasks consumes it at 48AFF3 (run390 460022): when nothing
+ * has answered the line by then, the prefix is not the line itself and holds
+ * no "|", the line becomes prefix & " " & line, the prefix is cleared, and
+ * the handler runs again from 489FEB.  That test sits above the object and
+ * character catch-alls and DontUnderstand, so a bare `gargoyle #1` or
+ * `blaster` is continued, and a library command that answers is not.
+ *
+ * The prefix dies with the line after the one that raised it: 489FDA copies
+ * it into var_98 for each freshly typed line (not for the split queue, which
+ * re-enters at 489FEB), and the end of every element, 48B5FC, clears both
+ * when the prefix still equals var_98.  So a Who that merely raises Who
+ * again (`attack`, `attack`) is spent, `hit` then `kick` leaves "kick", and
+ * `attack then gargoyle #2` answers its own question.  Measured 2026-09-13 on
+ * p4BATTLEHASH, battlewho.txt (Adrift_1143): 21 lines, 21 draws, "You have
+ * taken 15 turns" and later 17.
+ *
+ * The weapon question at 47ED3E stores `"attack " & name & " with"` through
+ * the same variable; that one is not ported.  Whether an empty line would be
+ * continued is not measured, and it is not here.
+ */
+static std::string lib_battle_who_pending;
+static std::string lib_battle_who_at_line;
+static scr_bool lib_battle_who_unanswered = FALSE;
+
+void
+lib_battle_who_reset (void)
+{
+  lib_battle_who_pending.clear ();
+  lib_battle_who_at_line.clear ();
+  lib_battle_who_unanswered = FALSE;
+}
+
+/*
+ * Called before each element is dispatched.  The previous element's 48B5FC
+ * clear goes first, then a freshly typed line takes its copy of the prefix.
+ */
+void
+lib_battle_who_begin_element (scr_bool new_line)
+{
+  if (!lib_battle_who_at_line.empty ()
+      && lib_battle_who_pending == lib_battle_who_at_line)
+    {
+      lib_battle_who_pending.clear ();
+      lib_battle_who_at_line.clear ();
+    }
+  if (new_line)
+    lib_battle_who_at_line = lib_battle_who_pending;
+  lib_battle_who_unanswered = FALSE;
+}
+
+/*
+ * The object and character catch-alls answer lines here that the Runner
+ * reaches only after 48AFF3, so they leave the line open to the prefix.
+ */
+void
+lib_battle_who_note_unanswered (void)
+{
+  lib_battle_who_unanswered = TRUE;
+}
+
+/* The line to run instead, or empty when the prefix does not apply. */
+std::string
+lib_battle_who_continuation (const scr_char *command, scr_bool status)
+{
+  std::string rerun;
+
+  if (lib_battle_who_pending.empty () || scr_strempty (command)
+      || (status && !lib_battle_who_unanswered)
+      || lib_battle_who_pending == command)
+    return rerun;
+
+  rerun = lib_battle_who_pending + " " + command;
+  lib_battle_who_pending.clear ();
+  return rerun;
+}
+
+/* The mode-0 name, as lib_print_object_np() prints it from 3.9 on. */
+static std::string
+lib_battle_definite_name (scr_gameref_t game, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *prefix, *name;
+  std::string result;
+
+  prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
+  name = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  if (!prefix)
+    prefix = "";
+  if (lib_compare_article (prefix, "a", 1))
+    result = std::string ("the") + (prefix + 1);
+  else if (lib_compare_article (prefix, "an", 2))
+    result = std::string ("the") + (prefix + 2);
+  else if (lib_compare_article (prefix, "some", 4))
+    result = std::string ("the") + (prefix + 4);
+  else
+    result = prefix;
+  result += " ";
+  result += name ? name : "";
+  return result;
+}
+
+static scr_bool
+lib_battle_line_names_object (scr_gameref_t game, scr_int object,
+                              const scr_char *input)
+{
+  return gs_object_seen (game, object)
+         && lib_verb_object_name_score (game, object, input) > 0;
+}
+
+static void
+lib_battle_who_raise (scr_gameref_t game, const scr_char *input,
+                      const scr_char *verb)
+{
+  scr_int object;
+
+  lib_battle_who_pending = verb;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (lib_battle_line_names_object (game, object, input))
+        {
+          lib_battle_who_pending += " with ";
+          lib_battle_who_pending += lib_battle_definite_name (game, object);
+        }
+    }
+}
+
+/*
+ * A "with" the object row could not bind: run400 47EBDE walks the objects
+ * the line names and arms the first that is a weapon, wherever it stands --
+ * which is how the continued `attack with the blaster gargoyle #1` strikes.
+ */
+static scr_int
+lib_battle_named_weapon (scr_gameref_t game, const scr_char *input)
+{
+  scr_int object;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (lib_battle_line_names_object (game, object, input)
+          && battle_is_weapon (game, object))
+        return object;
+    }
+  return -1;
+}
+
 static scr_bool
 lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
 {
@@ -14606,13 +14763,10 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
        */
       if (lib_battle_names_absent_npc (game, input))
         return FALSE;
+      lib_battle_who_raise (game, input, LIB_BATTLE_VERBS[verb_index].verb);
       pf_buffer_string (filter, "Who do you want to attack?\n");
       return TRUE;
     }
-
-  /* A "with" the object row could not resolve is not a bare attack. */
-  if (!with_object && lib_input_contains_word (input, "with"))
-    return FALSE;
 
   /* An explicit weapon is checked once, as the single-target path does. */
   object = -1;
@@ -14623,6 +14777,16 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
                                         NULL);
       if (object == -1)
         return TRUE;
+    }
+  else if (lib_input_contains_word (input, "with"))
+    {
+      /* A "with" naming no weapon is not a bare attack. */
+      object = lib_battle_named_weapon (game, input);
+      if (object < 0)
+        return FALSE;
+    }
+  if (object >= 0)
+    {
       if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
         {
           lib_print_response_object (game,
@@ -14647,7 +14811,8 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
   for (index_ = 0; index_ < (scr_int) targets.size (); index_++)
     {
       const scr_int npc = targets[index_];
-      scr_int weapon = with_object ? object : battle_player_wielded_weapon (game);
+      scr_int weapon = (object >= 0)
+                       ? object : battle_player_wielded_weapon (game);
 
       if (weapon < 0)
         {
@@ -19037,6 +19202,7 @@ lib_cmd_verb_object (scr_gameref_t game)
   lib_print_wrapped_object (game, "I don't understand what you want me to do with ",
                             object, ".\n");
   lib_co_400_note_refusal ();
+  lib_battle_who_note_unanswered ();
   return TRUE;
 }
 
@@ -19213,6 +19379,7 @@ lib_cmd_verb_npc (scr_gameref_t game)
   if (lib_is_version_400 (game) && lib_co_400_question_pending ()
       && lib_co_400_pending_is_npc ())
     lib_co_400_note_refusal ();
+  lib_battle_who_note_unanswered ();
 
   /* Print don't understand message; unlike objects, there's no "me" here. */
   lib_print_wrapped_npc (game, "I don't understand what you want to do with ",

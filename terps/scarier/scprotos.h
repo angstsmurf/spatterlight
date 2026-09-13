@@ -907,6 +907,11 @@ extern scr_bool lib_co_400_line_refused (void);
 extern void lib_co_400_print_still_ambiguous (scr_gameref_t game);
 extern scr_bool lib_co_400_pending_is_npc (void);
 extern std::string lib_co_400_npc_answer_line (const scr_char *line);
+extern void lib_battle_who_reset (void);
+extern void lib_battle_who_begin_element (scr_bool new_line);
+extern void lib_battle_who_note_unanswered (void);
+extern std::string lib_battle_who_continuation (const scr_char *command,
+                                                scr_bool status);
 extern scr_int lib_co_400_answer_object (scr_gameref_t game,
                                          const scr_char *line);
 extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,

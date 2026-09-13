@@ -7656,6 +7656,21 @@ parity now holds on 21 of 43 rows, up from 20.
      now print the question, a real turn (`lib_battle_names_absent_npc()`).
      `cybercow_win` re-blessed for it: `hit bell` now matches run390's
      `Who do you want to attack?` (Adrift_562/1107).
+   * **The Who question takes an answer.**  run400x `Adrift_1143`
+     (`battlewho.txt`, 21 lines, 21 draws both sides, every answer identical):
+     `attack` / `gargoyle #1` strikes; `attack` / `look` / `gargoyle #2` does
+     not (the prefix dies after one more typed line); `attack` / `attack` /
+     `gargoyle #3` does not (a Who that re-raises the same prefix is spent);
+     `attack with blaster` / `gargoyle #1` strikes; `kick` / `nonsense words` /
+     `gargoyle #2` does not; `hit` / `kick` / `gargoyle #3` strikes; `attack`
+     / `blaster` / `turns` leaves the prefix "attack with the blaster" alive;
+     `attack then gargoyle #2` answers itself.  Bare `attack`, `kick` and
+     `hit` are Who too (dobattle runs before the library's "Kick what?").
+     Turns 15 then 17: every Who is a turn, the NPC catch-alls are not.
+     Mechanism is MemVar_494234, set at 47F025, consumed at 48AFF3, dropped
+     at 48B5FC; ported as `lib_battle_who_*()`.  The weapon question's use
+     of the same variable (47ED3E) is not ported, and run390's consumption
+     (460022) is assumed, not measured.
 
 4. **Battle rounds land one turn apart** in `wes_ghn` (T57/T58: run400 kills
    Hope a round earlier, and by T85 the two are a whole kill apart) and in

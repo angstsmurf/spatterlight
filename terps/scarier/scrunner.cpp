@@ -751,6 +751,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    lib_cmd_attack_npcs_with},
   {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab] %text%",
    lib_cmd_attack_npcs},
+  /* A bare battle verb asks too, ahead of `kick`'s and `hit`'s "what?". */
+  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab]", lib_cmd_attack_npcs},
 
   /* More movement, waiting, and miscellaneous administrative commands. */
   /*
@@ -4220,6 +4222,7 @@ run_player_input (scr_gameref_t game)
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_memo_setref_t memento = gs_get_memento (game);
   scr_bool is_rerunning, was_undo_available, status;
+  scr_bool is_new_line = FALSE;
   const scr_char *command;
 
   /* Special case; reset statics if the game isn't running. */
@@ -4229,6 +4232,7 @@ run_player_input (scr_gameref_t game)
       memset (prior_element, NUL, sizeof (prior_element));
       memset (line_element, NUL, sizeof (line_element));
       lib_co_400_reset ();
+      lib_battle_who_reset ();
       return TRUE;
     }
 
@@ -4276,6 +4280,7 @@ run_player_input (scr_gameref_t game)
       if (line_buffer[0] == NUL)
         {
           if_read_line (line_buffer, sizeof (line_buffer));
+          is_new_line = TRUE;
 
           /* run400 48A2EA: a new typed line, no event ticked yet. */
           evt_clear_ticked_events (game);
@@ -4401,9 +4406,26 @@ run_player_input (scr_gameref_t game)
    * it.  See lib_co_400_raise() in sclibrar.cpp.
    */
   lib_co_400_begin_line ();
+  lib_battle_who_begin_element (is_new_line);
 
   /* Try the command line element against command matchers. */
   status = run_all_commands (game, command);
+
+  /*
+   * An open "Who do you want to attack?" continues a line nothing answered:
+   * the battle prefix goes in front and the line runs again, its own output
+   * discarded.  See lib_battle_who_continuation() in sclibrar.cpp.
+   */
+  {
+    const std::string rerun (lib_battle_who_continuation (command, status));
+
+    if (!rerun.empty ())
+      {
+        pf_empty (filter);
+        game->is_admin = FALSE;
+        status = run_all_commands (game, rerun.c_str ());
+      }
+  }
 
   /*
    * 4.0: with an ambiguity question open, a line that did nothing is an
