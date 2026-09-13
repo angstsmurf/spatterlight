@@ -4881,6 +4881,14 @@ run_prompt_restore (scr_gameref_t game, const scr_char *reply)
  * name stayed at its authored default (often blank -> "Player").  Ask for it
  * here, mirroring the Runner.  Like the gender choice, the answer is stored in
  * the session-persistent property bundle.
+ *
+ * The two Runners that have the prompt disagree (read 2026-09-13).  run400
+ * (Form1 46EA89) asks whenever the option is set, seeds the box with the
+ * current name, and turns an empty answer into "Anonymous" (46EAEF).  run390
+ * (4416B8) asks only while the name is still EMPTY -- an authored name
+ * suppresses the question -- and loops back to the InputBox (44170F) until
+ * the answer is not empty; it has no "Anonymous" fallback here.  run380 and
+ * run370 have no such prompt, and their TAF schema defaults PromptName off.
  */
 static void
 run_prompt_player_name (scr_gameref_t game)
@@ -4888,11 +4896,14 @@ run_prompt_player_name (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
+  const scr_bool is_400 = run_get_version (bundle) >= TAF_VERSION_400;
   scr_vartype_t vt_key[2];
   scr_char buffer[LINE_BUFFER_SIZE];
   const scr_char *name;
 
   if (!prop_get_global_boolean (bundle, "PromptName"))
+    return;
+  if (!is_400 && !scr_strempty (prop_get_global_string (bundle, "PlayerName")))
     return;
 
   for (;;)
@@ -4906,11 +4917,16 @@ run_prompt_player_name (scr_gameref_t game)
       if (run_prompt_restore (game, buffer))
         continue;
 
-      /* Skip leading whitespace; a blank answer becomes "Anonymous". */
+      /* Skip leading whitespace; a blank answer becomes "Anonymous" at 4.0
+       * and is asked again below it. */
       for (name = buffer; *name == ' ' || *name == '\t'; name++)
         ;
       if (*name == NUL)
-        name = "Anonymous";
+        {
+          if (!is_400)
+            continue;
+          name = "Anonymous";
+        }
       break;
     }
 

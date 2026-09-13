@@ -39,7 +39,8 @@
 # See The_Town_Of_Azra_walkthrough.md.
 #
 # Lines beginning with '#' are comments (harness skips them); one command/line.
-Hero
+# No name line: the game authors a player name, and run390 only asks for one
+# when it is blank (4416C8) -- Adrift_536's drive left its `Hero` unused.
 
 
 

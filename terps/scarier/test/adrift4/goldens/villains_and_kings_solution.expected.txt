@@ -5,9 +5,6 @@ Once again, you have been called on by the king, King Harry.  You are to ask
 him about your quest once you meat him, and he will inform you.  Its been a
 wile since you have been called on for you detective skills.  You arn't
 "technicaly" a detective, but you did sleep in a Holliday Inn last night.
-Please enter your name:
-
-> Hero
 Please choose the player's gender (male or female):
 
 > male

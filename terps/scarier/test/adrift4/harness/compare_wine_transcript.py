@@ -184,6 +184,48 @@ def scarier_run(taf, feed, encoding, env_extra, popup_answers, markers=False):
     return done.stdout.decode("latin-1").replace("\r\n", "\n").split("\n")
 
 
+def default_popup_answers(taf, env_extra):
+    """What drv/drive.exe answered the built-in questions with when the job row
+    gave it no POPUP_ANSWERS.
+
+    Its InputBox branch only fires with an answer queued; with none the name
+    box falls through to the generic dialog branch, which clicks OK on an empty
+    field, and the Runner calls the player "Anonymous".  The gender form falls
+    back to "male".  The whole 2026-09-12 xoshiro batch was driven with no
+    popup field at all, and comparing it without --popup handed feed[0] to
+    scarier's name prompt: woof's `"x basket!!!! I'm back."` and
+    jinxtron_full's `"hello, hello, hello."` were read as an engine lead
+    (2026-09-13) and are identical on every turn once the empty answer is put
+    back.  Detected the way make_wine_cmdfile.py does: the leading spans of a
+    replay that carry one of the two questions.  The replay answers "male" to
+    everything, because scarier's gender question re-asks until it gets m or f.
+
+    Only at 4.00.  run390 re-asks an empty name (44170F) until it gets one, so
+    a 3.90 drive that got past the prompt at all was given a name -- cldone's
+    `Adrift_1066` says "Player", its golden's own answer -- and guessing one
+    here would be guessing the transcript.  Below 4.00 the name is left to
+    --popup, with a warning.
+    """
+    with open(os.path.expanduser(taf), "rb") as handle:
+        is_400 = handle.read(11)[8:11] == b"\x93\x45\x3e"
+    lines = scarier_run(taf, ["male"] * 4, "latin-1", env_extra, [])
+    text = "\n".join(lines)
+    answers = []
+    for span in text.split("\n>"):
+        if "Please enter your name" in span:
+            if not is_400:
+                print("WARN        the game asks for a name and run390 never"
+                      " takes an empty one; pass --popup <name> (and the"
+                      " gender after it, if asked)")
+                return []
+            answers.append("")
+        elif "Please choose the player's gender" in span:
+            answers.append("male")
+        else:
+            break
+    return answers
+
+
 def pause_counts(lines, popups):
     """How many <waitkey> pauses each command's own output printed.
 
@@ -433,7 +475,12 @@ def main():
     parser.add_argument("--popup", action="append", default=[],
                         help="answer to a built-in name/gender question, in"
                              " order; make_wine_cmdfile.py prints these as"
-                             " POPUP_ANSWERS and leaves them out of the feed")
+                             " POPUP_ANSWERS and leaves them out of the feed;"
+                             " with none given, the driver's own defaults"
+                             " (empty name, male) are assumed")
+    parser.add_argument("--no-popup-default", action="store_true",
+                        help="do not assume the driver's defaults when no"
+                             " --popup is given")
     parser.add_argument("--env", action="append", default=[],
                         help="NAME=VALUE for the scarier replay, repeatable")
     parser.add_argument("--start", type=int, default=0,
@@ -449,6 +496,13 @@ def main():
 
     if not args.taf and not args.scarier:
         sys.exit("need --taf to replay, or --scarier for a replay you have")
+
+    if args.taf and not args.popup and not args.no_popup_default:
+        args.popup = default_popup_answers(args.taf, args.env)
+        if args.popup:
+            print("popup       %d built-in question(s), assuming the driver's"
+                  " defaults %s (pass --popup to override)"
+                  % (len(args.popup), args.popup))
 
     # The Runner side and the scarier side must index the same way, so a blank
     # line counts as a turn only where no pause eats it.  read_feed() measures
