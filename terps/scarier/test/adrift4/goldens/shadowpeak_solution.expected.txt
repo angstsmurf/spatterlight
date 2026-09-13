@@ -1481,16 +1481,8 @@ You can only move down.
 Seeker hums!
 Haraxis skitters off to below.
 
-> attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
-
 > z
 Time passes...
-
-> attack haraxis
-I don't understand what you mean. I'm only a text adventure, you know! Try
-rephrasing your command.
 
 > z
 Time passes...

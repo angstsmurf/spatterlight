@@ -1276,6 +1276,29 @@ npc_tick_npcs (scr_gameref_t game)
   scr_int npc;
 
   /*
+   * 3.90+: the walk tick opens by stamping every NPC in the player's room
+   * seen, before any walker moves -- run400 npc_walk_tick's first loop
+   * (468573-4685A0, stamp at 46859A), and run390's characters(), which holds
+   * the 3.9 ticker, the same loop at 4591AB (stamp 4591D3) ahead of the
+   * per-NPC walk code at 45A4AE.  npc_turn_update() only sweeps after the
+   * tick, so an NPC the player walks in on and who walks off the same tick
+   * was never seen, and dobattle's "<Name> isn't here!" -- which needs the
+   * seen byte -- fell through to DontUnderstand.  Measured 2026-09-13 on
+   * Shadowpeak under run400x (Adrift_1128 turn 180): `u` into the oak tree
+   * lists Haraxis, who skitters off below; `attack haraxis` then answers
+   * "Haraxis isn't here!".
+   */
+  if (npc_version (game) >= TAF_VERSION_390)
+    {
+      for (npc = 0; npc < gs_npc_count (game); npc++)
+        {
+          if (!gs_npc_seen (game, npc)
+              && npc_in_room (game, npc, gs_playerroom (game)))
+            gs_set_npc_seen (game, npc, TRUE);
+        }
+    }
+
+  /*
    * Compare the player location to last turn, to see if the player has moved
    * this turn.  If moved, look for meetings with NPCs.
    *

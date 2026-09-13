@@ -244,9 +244,7 @@ burn web
 # --- Up the oak (58): kill Haraxis the giant spider (battle NPC, flees a lot,
 # needs ~7 landed hits). T122 +30.
 u
-attack haraxis
 z
-attack haraxis
 z
 attack haraxis
 attack haraxis

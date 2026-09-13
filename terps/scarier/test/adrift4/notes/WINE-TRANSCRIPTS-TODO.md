@@ -7387,7 +7387,7 @@ Two numbers per row:
 
 | tag | diffs 09-12 | diffs 09-13 | draws 09-12 | draws 09-13 | verdict |
 |---|---|---|---|---|---|
-| `shadowpeak` | 218 | **2** | -19340 | +612 | one real turn (see below), then a death and 208 lost commands |
+| `shadowpeak` | 218 | **2** | -19340 | +612 | one real turn (see below), then a death and 208 lost commands; re-driven 2026-09-13 as `Adrift_1128` (first diff T180, draws -735), then after the seen-stamp port as **`Adrift_1129`: 0 differing turns of 299, draws 40655 = 40655 exact** -- see lead 1 |
 | `shadowpeak_killwraith` | 194 | 141 | -6722 | +157 | walk/battle phase, much reduced |
 | `shadowpeak_allgargoyles` | 146 | 123 | +2405 | -135 | walk/battle phase, much reduced |
 | `ticket` | 169 | **0** | -894 | +10 | CLEAN 329/329 (`Adrift_1127`) |
@@ -7481,8 +7481,53 @@ parity now holds on 21 of 43 rows, up from 20.
    changed.  Still unmodelled: the loop does not stop at the first present
    namesake (the `GoTo 47EFF8` falls through to `Next`), so a line naming two
    present NPCs by Name may strike both.  No corpus row does that.
-   **Next:** re-feed `shadowpeak` from the re-blessed golden under run400x
-   and re-compare; the old 208 lost commands should echo now.
+   **RE-DRIVEN 2026-09-13** (`Adrift_1128_shadowpeak.txt`, run400x,
+   `VBRNG_SEED=124`).  The old feed `v4_full_rerun_cmds/shadowpeak.txt` turned
+   out to predate the dc39f19df re-derivation as well -- `attack holga` /
+   `attack jarris` padding, not the current route -- so the 208 "lost"
+   commands were never this golden's.  Regenerated with
+   `make_wine_cmdfile.py shadowpeak` (old one kept as
+   `shadowpeak.pre0913.txt`).  `attack shadow with sword` now kills the cat in
+   the Runner too.  Neither side wins under xoshiro 124 (the golden is derived
+   on the default RNG): the Runner dies to Morac at `open steel door` after
+   305 echoed commands, Scarier at its prompt 301.  Draws: runner 41390,
+   scarier 40655 (-735).
+
+   The **first real difference is now turn 180**, `attack haraxis` straight
+   after `u` into the oak tree, where the spider is listed and then walks off
+   on the same tick: run400 `Haraxis isn't here!` (a real turn), Scarier `I
+   don't understand what you mean...` (the golden has it too, so it predates
+   today's port).  The walk/battle phase T181-T216 drifts from there, and the
+   rest (T232+: walker and gargoyle positions) is downstream.  Cause: the
+   absent-NPC branch needs the NPC *seen*, and Scarier stamps NPC seen only in
+   `npc_turn_update()`, after the walk tick, when Haraxis has already gone.
+   run400 stamps the NPC seen byte (field 26) in four places, none of them an
+   end-of-turn sweep:
+   * `npc_walk_tick` 468DA0 -- its FIRST loop (468573-4685A0, the proc starts
+     468568) stamps every NPC in the player's room, before any walker moves.
+     This is the one T180 needs.
+   * the same proc's arrival/departure announcements, 46890A and 468A9E.
+   * `viewroom` 4729D0, inside the `Right(text, 9) = " is here."` test at
+     4729A7 -- only the joined-sentence group; no write for own-text NPCs.
+   * `characters()` 47F2EC, every NPC in the player's room on every line.
+
+   **PORTED 2026-09-13** at the head of `npc_tick_npcs()`, gated 3.90+:
+   run390's ticker lives inside `characters()` 45ACD8 and opens with the same
+   loop (4591AB, stamp 4591D3) ahead of its per-NPC walk code at 45A4AE;
+   45A827 / 45A9CB are its arrival/departure stamps.  The announcement and
+   viewroom stamps are not ported (an announced arrival stays and is caught by
+   `npc_turn_update()`; a departure was in the room at the tick's head).
+   Only `shadowpeak` moved: its first two `attack haraxis` were the only
+   no-turn answers of the 30 and are now real turns, which re-threaded the
+   battle stream and lost the game at every seed 1-400, so those two lines
+   were dropped from the walkthrough instead -- every later turn is unchanged
+   and it wins at seed 124 again.  Suite 428 PASS / 0 FAIL.  Feed regenerated
+   (502 lines); re-driven as `Adrift_1129_shadowpeak.txt` (run400x, xoshiro
+   124): **all 299 echoed turns identical**, both sides die to Morac at T298
+   (the win needs the suite's default RNG, not xoshiro), and draw counts are
+   exact -- runner 40655, scarier 40655.  The 202 unechoed commands are just
+   the feed running past the death.  Lead closed for this RNG; a winning
+   comparison would need a xoshiro seed that survives Morac.
 
 2. **`battle_print_combatant()` ignored `Perspective`** (`scbattle.cpp` ~1014)
    -- **FIXED 2026-09-13**.  It printed `"you"` / `"your"` / `"You"` for the

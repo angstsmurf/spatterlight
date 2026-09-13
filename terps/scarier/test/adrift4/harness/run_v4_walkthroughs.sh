@@ -229,6 +229,11 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 # answers "Who do you want to attack?" (47F01A, a real turn; Adrift_1020 T361).  The walkthrough
 # now types `attack shadow with sword`; the golem is Named "Colos", so the five `attack golem`
 # filler turns before `say carom` print the same refusal.  Nothing else moved.  Still wins.
+# Re-blessed 2026-09-13: the walk tick stamps NPCs in the player's room seen before anyone
+# moves (run400 468573, run390 4591AB), so the first two `attack haraxis` -- the spider
+# listed and gone the same tick -- answer "Haraxis isn't here!" (Adrift_1128 T180), a real
+# turn, where they used to be the no-turn DontUnderstand.  Those two lines are dropped, which
+# keeps every later turn where it was.  Still wins.
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=124
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
