@@ -8115,6 +8115,82 @@ lib_cmd_take_npc (scr_gameref_t game)
 static scr_bool lib_take_single_named = FALSE;
 static scr_bool lib_take_refusal_claimed = FALSE;
 
+/*
+ * lib_take_refusal_redispatch_400()
+ *
+ * A 4.0 take refusal does not claim its line.  The "can't take X!" path of
+ * run400's per-piece take (Proc_19_23_473A34 @47329D) leaves by ExitProcI2
+ * at @4733FC without setting the handler's result, so get_outer
+ * (Proc_19_22_4582D8) does not GoTo loc_48B4E3 and generaltasks' task
+ * dispatcher at 48A481 gets the line, its text joined onto the refusal with
+ * the two-space separator.  The line it matches is the typed one with the
+ * take verbs rewritten, "remove "/"pick "/"take " -> "get " (get_outer's
+ * Replace chain, @458127-458176), never a rebuild from the resolved object.
+ * Professor.taf with the Mailbox on-a Rope static, measured in run400 on
+ * 2026-09-14 (Adrift_p4profmail2/3, Adrift_1152_p4profmail4,
+ * Adrift_1153_p4profmail5):
+ *
+ *   `take mailbox`, `take the mailbox` -> "You can't take the Mailbox on-a
+ *     Rope!  The mailbox is already down." (task 8's
+ *     `[check/look/get]{in/the}[mailbox]{on}{a}{rope}`), or its CompleteText
+ *     while the mailbox is still up;
+ *   `pick up mailbox` ("get up mailbox"), `take rope` ("get rope") and `take
+ *     mailbox on-a rope` (the hyphen misses {on}{a}) -> the refusal alone.
+ *
+ * It is the one place run400 runs a second task on a typed line: `take
+ * mailbox` has already run task 7 `[take/get/pick up]...` silently, its
+ * type-1 restriction on the referenced object failing with no message.  A
+ * rewrite that leaves the line unchanged offers nothing the task passes did
+ * not already see, so it is skipped.
+ */
+static scr_bool lib_take_refusal_redispatch = FALSE;
+
+static void
+lib_take_refusal_redispatch_400 (scr_gameref_t game)
+{
+  static const scr_char *const verbs[] = {"remove ", "pick ", "take "};
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *typed = run_get_dispatch_input ();
+  std::string line;
+
+  if (!typed)
+    return;
+  line = typed;
+  for (const scr_char *verb : verbs)
+    {
+      const size_t length = strlen (verb);
+      size_t at = 0;
+
+      while ((at = line.find (verb, at)) != std::string::npos)
+        {
+          line.replace (at, length, "get ");
+          at += 4;
+        }
+    }
+  if (line == typed)
+    return;
+
+  /*
+   * The dispatcher sees no referenced object: generaltasks cleared it at the
+   * top of the command (48A004) and the refusal path never binds one, so
+   * task 7's type-1 restriction on "the referenced object" fails silently
+   * and task 8 answers, where the library's resolved mailbox would have
+   * printed task 7's "The mailbox isn't down here right now."
+   */
+  const scr_var_setref_t vars = gs_get_vars (game);
+  const scr_int ref_object = var_get_ref_object (vars);
+  const scr_int ref_character = var_get_ref_character (vars);
+
+  var_set_ref_object (vars, -1);
+  var_set_ref_character (vars, -1);
+  pf_note_trailing_auto_break (filter);
+  pf_buffer_join_pending (filter);
+  run_game_task_commands (game, line.c_str ());
+  pf_clear_join_pending (filter);
+  var_set_ref_object (vars, ref_object);
+  var_set_ref_character (vars, ref_character);
+}
+
 /* Set when a "take from <object>" command named exactly one object; cleared
    by the backend.  Only that single-named form echoes the taken object's
    raw prefix in pre-4.0 games (see the wording comment in the backend). */
@@ -8881,6 +8957,8 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       list.swap (refused);
       /* The tasks' text is complete in itself; no refusal line follows. */
       lib_take_refusal_claimed = list.empty ();
+      /* A refusal that stands leaves the line to the task dispatcher. */
+      lib_take_refusal_redispatch = !list.empty ();
     }
   lib_print_object_list (game, has_printed, list, " and ",
                          lib_is_version_400 (game)
@@ -9025,6 +9103,7 @@ lib_cmd_take_all (scr_gameref_t game)
                       lib_is_version_400 (game)
                       ? "There is nothing worth taking here."
                       : "There is nothing to pick up here.");
+  lib_take_refusal_redispatch = FALSE;
 
   pf_buffer_character (filter, '\n');
   return TRUE;
@@ -9360,6 +9439,11 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (!lib_take_refusal_claimed)
     pf_buffer_character (filter, '\n');
   lib_take_refusal_claimed = FALSE;
+  if (lib_take_refusal_redispatch)
+    {
+      lib_take_refusal_redispatch = FALSE;
+      lib_take_refusal_redispatch_400 (game);
+    }
   return TRUE;
 }
 

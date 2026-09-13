@@ -8426,16 +8426,59 @@ Results:
     Cracked Broken Window." (Adrift_553), via the silent restriction.  Score
     31 -> 30, marker updated.
 
-**Still open (professor, not corpus-affecting):**
-- Feed 2 T21 and feed 3 T23: after "You can't take the Mailbox on-a Rope!",
-  run400 goes on to task 8's text, or its fail text "The mailbox is already
-  down.".  Task 8's alternative `[check/look/get]{in/the}[mailbox]{on}{a}{rope}`
-  apparently matches "get the Mailbox on-a Rope" in run400 but not in
-  Scarier.  Suspect how NewParse parse_list 45D940 splits the hyphen or word
-  boundary in "on-a".
-- Feed 2 also desyncs on the Runner side at turn 22 (`get x rope`).  The lab
-  room text differs: "when it's up, it sits by the window" vs "which is by
-  the window".  Check this before trusting feed 2 past T21.
+**PORTED 2026-09-14 (later): a 4.0 take refusal leaves the line to the task
+dispatcher, on the typed line with the take verbs rewritten to "get ".**
+The earlier guess (task 8 matching "get the Mailbox on-a Rope", a hyphen
+split in parse_list) was wrong.  What run400 does:
+
+- The "can't take X!" path of get_piece 473A34 (var_BA = &HFF, 47322F) runs
+  the 453C50 pre-match on the rebuilt "get <name>" line (473241).  Only a miss
+  prints " can't take " (47329D).  Either way it leaves by ExitProcI2 at
+  4733FC without setting the result.
+- So get_outer 4582D8 does not claim, and generaltasks' dispatcher 44CCE0(1,4)
+  at 48A481 gets the line.  Its text is joined onto the refusal with two
+  spaces.
+- The line that reaches the tasks is the typed one with get_outer's Replace
+  chain applied: "remove "/"pick "/"take " -> "get " (458127-458176).  It is
+  not a line rebuilt from the resolved object.  Static reading did not show
+  where that line survives get_outer's restore at 4582D1 (both stores are
+  operand 0000), so the rule rests on the probes below.
+- The dispatcher runs with no referenced object.  Task 7's type-1 Var1=0
+  restriction therefore fails silently, and task 8 answers even though task 7
+  already ran silently on the typed line.  This is the one exception to
+  "ONE task per typed line".
+
+Probes, run400 `par.sh`, all measured 2026-09-14:
+- `Adrift_1152_p4profmail4`, mailbox down, in the square:
+  - `pick up mailbox`, `take rope` and `take mailbox on-a rope` give the
+    refusal alone.  Their rewrites are "get up mailbox", "get rope", and a
+    hyphen that misses `{on}{a}`.
+  - `take the mailbox` gives the refusal + "The mailbox is already down.".
+- `Adrift_1153_p4profmail5`, mailbox up: `pick up mailbox` gives the refusal
+  alone, and the mailbox stays up.
+
+Port: `lib_take_refusal_redispatch_400()` in sclibrar.cpp.  After the 4.0
+static refusal tail it clears the ref object/character, sets a pending join,
+and offers the rewritten line to `run_game_task_commands`.  An unchanged
+rewrite is skipped: the task passes already saw it.
+
+Results:
+- Feeds 3, 4 and 5 are identical on every turn, and feed 2 T21 now matches.
+- v4 suite 428/428 PASS, no golden moved.
+
+**Still open, professor feed 2 (older, not caused by this port):**
+- T22 `get x rope` in the square: run400 refuses "You can't take the Mailbox
+  on-a Rope!", while Scarier says "Take what?".  run400's 463640 scorer finds
+  the "rope" alias inside "x rope"; Scarier's object parser rejects the
+  unknown "x".
+- T24 `take mailbox` and T25 `get x rope` in the Laboratory, with the mailbox
+  down: run400 answers DontUnderstand to both.  Scarier's canonical pre-match
+  on "get the Mailbox on-a Rope" runs task 9 (`[check/get/pull]{the}[mailbox]...`,
+  room 2), and T25 says "Take what?".  So run400 does not have the mailbox in
+  scope in the lab.  Check object 4's room list and state-dependent
+  presence.
+- The lab room text difference at T23 ("when it's up, it sits by the window")
+  is downstream mailbox state, NOT a Runner desync.  It now matches.
 
 The history below is the pre-port investigation.  Its "blocker" paragraph is
 resolved by the above.
