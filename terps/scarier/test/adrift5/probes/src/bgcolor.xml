@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-09-12 10:42:00</LastUpdated>
+<Title>Bgcolor Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Exercises the pane-background bgcolor side-effect tag.
+
+You start in the Default Room. Go east into the Pink Room (pink background, black text), then west to restore the default background.</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>0</ShowExits>
+<EnableMenu>1</EnableMenu>
+
+<Location>
+<Key>LocationDefault</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Default Room</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;bgcolor="default"&gt;You are in the Default Room. The pane background should match the adventure / Runner default. An exit leads east to the Pink Room.</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>East</Direction>
+<Destination>LocationPink</Destination>
+</Movement>
+<LastUpdated>2026-09-12 10:42:00</LastUpdated>
+<Created>2026-09-12 10:42:00</Created>
+</Location>
+
+<Location>
+<Key>LocationPink</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Pink Room</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>&lt;bgcolor="pink"&gt;&lt;font color="black"&gt;You are in the Pink Room. The pane background should be pink, with black foreground text. An exit leads west back to the Default Room.&lt;/font&gt;</Text>
+</Description>
+</LongDescription>
+<Movement>
+<Direction>West</Direction>
+<Destination>LocationDefault</Destination>
+</Movement>
+<LastUpdated>2026-09-12 10:42:00</LastUpdated>
+<Created>2026-09-12 10:42:00</Created>
+</Location>
+
+<Character>
+<Key>Player</Key>
+<Name>Player</Name>
+<Article />
+<Prefix />
+<Descriptor>myself</Descriptor>
+<Descriptor>me</Descriptor>
+<Type>Player</Type>
+<Perspective>SecondPerson</Perspective>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>MaxBulk</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>MaxWeight</Key>
+<Value>90</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationDefault</Value>
+</Property>
+<LastUpdated>2026-09-12 10:42:00</LastUpdated>
+<Created>2026-09-12 10:42:00</Created>
+</Character>
+
+</Adventure>
