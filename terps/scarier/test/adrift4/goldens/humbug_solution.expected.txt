@@ -4287,7 +4287,10 @@ the plastic table.
 Grandad picks something off a table and sits down.
 
 > Get token
-Okay.  I have taken the token from the plastic table.
+Okay.  I have taken the token from the table.  "That's the idea", Grandad
+reaches into his pocket, "I've got one as well".  Grandad blows his nose on a
+bright blue token.  Just before he puts it back in his pocket I notice it has
+the number 5 on it.
 
 > Look
 

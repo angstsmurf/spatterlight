@@ -261,9 +261,7 @@ Hey, this window is broken.  Who would do such a dastardly, dastardly deed?
 The Broken Window is open.
 
 > close window
-You can close the thing very easily, and as you do, it locks back into place
-and is now un-openable from here.
-You hear a click from a different room.
+You close Cracked Broken Window.
 
 > n
 You move north.
@@ -358,7 +356,7 @@ You can only move east.
 Whoa, you get some kind of stupid african music.  Wow!
 
 > score
-Your score is 31 out of a maximum of 37.  (83%)
+Your score is 30 out of a maximum of 37.  (81%)
 
 > quit
 Do you really want to quit? [Y/N]

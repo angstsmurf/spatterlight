@@ -8387,7 +8387,116 @@ The loader reads the Key only when Openable > 1 and stores -1 otherwise
   ` with ` clause whose left half resolves to nothing.  run400 exits silently
   there as well; Scarier still binds the object the way it did before.
 
-## Analysed 2026-09-13: `warlord` T104 -- 4.0 retakes a seen object "from" its holder (NOT ported)
+## PORTED 2026-09-14: `warlord` T104 -- 4.0 retakes a seen object "from" its holder
+
+**Ported, read this first.**  The WIP patch
+(`harness/warlord_autofrom_400.wip.patch`) is now applied to the tree, and the
+professor task 7 blocker below is solved.  It was not a scoping divergence.
+It was the **referenced object** (`%object%`, var_get_ref_object) leaking
+into task 7's type-1 restriction:
+
+- **run400 clears the referenced object before each typed line.**  It resets
+  MemVar_494208/MemVar_49420A at generaltasks 48A004/48A009; run390 does the
+  same to 4681A8/4681AA at 45EC66/45EC6B.  Scarier kept the last line's
+  object.  `run_player_input()` now sets both to -1 for TAF >= 3.90.
+- **A type-1 restriction with Var1=0 (the referenced object) fails SILENTLY
+  when there is no referenced object.**  In restriction_check 481DA0, with
+  494208 = &HFF, the Sub leaves at 480F9E/480FA6, before the FailMessage
+  append at 481D52-481D70.  `restr_get_fail_message()` returns NULL in that
+  case.  run390 44ABEA-44ACB8 is checktask's %object% binding, not this.
+- **Speculative probes must not leak a referenced object.**
+  `run_is_put_command` / `run_is_inventory_command` (and
+  `run_repeat_survivor_400`, `run_task_reachable_by_library_callback`) bind
+  objects while test-matching, and that set professor's mailbox before the
+  real dispatch (Adrift_p4profmail turn 21).  The new `scr_ref_entity_guard`
+  restores object and character on scope exit.
+- **run400's take writes 494208 only when the take proceeds (47B8F9).**
+  `lib_try_game_command_common()` clears the referenced object for its
+  pre-match at 4.0 and restores it afterwards.  Evidence: professor
+  `take mailbox` -> task 8 (Adrift_p4profmail2).
+
+Results:
+- Adrift_p4profmail (feed 1): identical on every turn.
+- professor, ticket and TheADRIFTProject pass unchanged.
+- Re-blessed:
+  - warlord: T104/T112/T122 "The stove is bolted to the floor.", Merrick's
+    "That's no use to me,", score 99 (Adrift_1059).
+  - humbug: `Get token` prints task 192's text, matching Adrift_4_humbug.txt.
+  - villains_and_kings: `close window` now gives run390's library "You close
+    Cracked Broken Window." (Adrift_553), via the silent restriction.  Score
+    31 -> 30, marker updated.
+
+**Still open (professor, not corpus-affecting):**
+- Feed 2 T21 and feed 3 T23: after "You can't take the Mailbox on-a Rope!",
+  run400 goes on to task 8's text, or its fail text "The mailbox is already
+  down.".  Task 8's alternative `[check/look/get]{in/the}[mailbox]{on}{a}{rope}`
+  apparently matches "get the Mailbox on-a Rope" in run400 but not in
+  Scarier.  Suspect how NewParse parse_list 45D940 splits the hyphen or word
+  boundary in "on-a".
+- Feed 2 also desyncs on the Runner side at turn 22 (`get x rope`).  The lab
+  room text differs: "when it's up, it sits by the window" vs "which is by
+  the window".  Check this before trusting feed 2 past T21.
+
+The history below is the pre-port investigation.  Its "blocker" paragraph is
+resolved by the above.
+
+**Earlier update 2026-09-14:** the seen hypothesis is wrong; none of the four
+rows needs a seen change.
+
+Probe: `harness/make_400_autofromprobe.py` builds p4AUTOFROM.taf, and run400
+answered it in `Adrift_p4autofrom.txt`.  Corrected 453C50 return values:
+
+- **1:** a first-pass hit whose matched direction has text, OR any fallback
+  hit (a failing restriction's non-empty FailMessage, or a RepeatText).
+- **2:** a first-pass hit on a silent task.
+
+The auto-"from" take piece then behaves as follows.  All cells are measured:
+- It pre-matches the typed object line first (472DC8, only with no "all" or
+  "and"), and a 1 claims the line there.  This is the ticket row: task 113's
+  loud fail wins before the rewrite can reach task 415.
+- The rewritten `get X from Y` is tried next.  A 1 claims; a 2 dispatches and
+  carries on to the take.
+- A 1 whose case-kept dispatch runs nothing gives DontUnderstand with no turn
+  ("Mailbox on-a Rope" against `get * rope`).
+- 453C50 finishes its first pass over EVERY task before the fallback runs
+  (@453C34).
+- `[get]{the}[pad]` is end-anchored and does not match `get pad from shelf`.
+- The and-loop gives "You take the piece of string from the sofa.  T8 TIN.".
+
+The WIP port is `harness/warlord_autofrom_400.wip.patch`, taken against
+b6d2f4f1f and reverted from the tree.  It adds
+`run_does_command_match(..., match_kind)` with both passes as separate loops,
+`lib_rebuilt_silent_continues`, and
+`lib_try_game_command_take_from_parent_400()` in lib_take_backend_common's
+per-object look-up.  With it:
+- All 19 probe cells match run400.
+- warlord gets T104/T112/T122 "The stove is bolted to the floor." and scores
+  99, as the Runner does.  Re-bless it.
+- humbug `Get token` prints task 192's own text.  That fits probe cell T3, but
+  the line was never measured in run400, so re-bless it after a check.
+- ticket and TheADRIFTProject pass.
+- **professor still fails, and this is the blocker.**  Task 7
+  (`take mailbox` ... `get * rope`, Where room 1 = Whimsington Square, a
+  state restriction on the mailbox with a FailMessage) is matched by Scarier
+  but NEVER by run400.  Three professor replays in run400, all measured:
+  - `Adrift_p4profmail.txt`: with the mailbox up, a typed
+    `get mail from mailbox on-a rope` takes the mail, and so does the
+    capitalised form.
+  - `Adrift_p4profmail2.txt`: in the square, `take mailbox` answers "You
+    can't take the Mailbox on-a Rope!  You pull on the rope..." (task 8's
+    text).  In the Laboratory it is DontUnderstand.
+  - `Adrift_p4profmail3.txt`: after `pull rope` (mailbox down),
+    `take mailbox` answers "...The mailbox is already down.", and
+    `get mail from mailbox on-a rope` still takes the mail.
+
+  So task 7 neither runs nor gives its FailMessage in either mailbox state.
+  Scarier's state test (`restr_object_in_state`: object 4, var2 0) passes
+  while the mailbox is up, and prints "If you did that, you wouldn't get any
+  mail.".  Scarier's lab room text and its `take mailbox` there ("already up
+  by the window") also differ from run400, so there is an older divergence in
+  how professor's mailbox tasks are scoped or matched.  Find that first
+  (compare `SCR_TRACE_TASKS` with a run400 replay of `take mailbox` in each
+  room); then apply the patch and re-run the corpus.
 
 `Adrift_1059_warlord.txt`, turns 104, 112 and 122.  After `kick stove`, the
 treat is on the iron stove:

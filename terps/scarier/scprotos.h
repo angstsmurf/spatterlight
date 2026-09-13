@@ -894,7 +894,8 @@ extern void run_npc_walk_task (scr_gameref_t game, scr_int walktask);
 extern void run_event_task (scr_gameref_t game, scr_int eventtask);
 extern scr_bool run_does_command_match (scr_gameref_t game,
                                         const scr_char *string,
-                                        scr_bool check_restrictions = FALSE);
+                                        scr_bool check_restrictions = FALSE,
+                                        scr_int *match_kind = NULL);
 extern void run_set_task_class_filter (scr_int mode);
 extern scr_bool run_in_priority_pass (void);
 extern scr_bool run_in_put_clause_loop (void);

@@ -1106,7 +1106,7 @@ doesn't even make you bat an eyelid) and then shudders violently. When the
 shuddering has died down, there looks to be a treat on top of it.
 
 > get treat
-You take the treat from the iron stove.
+The stove is bolted to the floor.
 
 > read recipe 2
 Beef stew (minus any beef) (or stew)
@@ -1141,7 +1141,7 @@ You can't help but feel that after all the effort you went through there, a
 bone is kind of poor reward.
 
 > get bone
-You take the bone from the iron stove.
+The stove is bolted to the floor.
 
 > eat bone
 You munch on the bone, feeling a lot of the weariness leave your muscles and
@@ -1183,7 +1183,7 @@ than any old piece of wood, now it's glistening wood, darker in colour than
 before, with the point sharpened into a decent cutting edge.
 
 > get cudgel
-You take the explosive cudgel from the iron stove.
+The stove is bolted to the floor.
 
 > read recipe 4
 Opening doors
@@ -1882,8 +1882,7 @@ off with my fingers, but a good rocket launcher always comes in handy, too."
 1.  Grunt. "Let me ask you something else."
 
 > give treat to merrick
-"Hey, nice stuff," says Merrick. He chomps the treat down, almost choking on
-its minty goodness. "Damn good stuff that - cough! - treat!"
+"That's no use to me," says Merrick.
 
 > give bible to merrick
 "Hey, the bible the Princess gave me that time I rescued her from the Arab
@@ -3743,8 +3742,8 @@ You throw the item - and it lands on the far side of the walkway by the
 tower.
 
 > drop all
-You drop the letter, the cook book, the explosive cudgel, the pendant, the
-journal, the handkerchief and the syringe.
+You drop the letter, the cook book, the pendant, the journal, the
+handkerchief and the syringe.
 
 > n
 
@@ -4099,9 +4098,9 @@ Did you like it? Hate it? Feel indifferent to it? If you like, you can
 complete the scorecard in the enclosed file and e-mail back to the writer -
 dwhyld@gmail.com. Comments kept in strict confidence.
 
-Your final score was one of 100 out of a maximum of 100; you finished the
-game with a rank of The Ultimate Soldier and achieved this in 353 turns. You
-had 100 life points left.
+Your final score was one of 99 out of a maximum of 100; you finished the game
+with a rank of The Ultimate Soldier and achieved this in 353 turns. You had
+100 life points left.
 
 Thanks for playing.
 

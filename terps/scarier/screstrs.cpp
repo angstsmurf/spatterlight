@@ -1307,6 +1307,25 @@ restr_get_fail_message (scr_gameref_t game, scr_int task, scr_int restriction)
   vt_key[4].string = "FailMessage";
   message = prop_get_string (bundle, "S<-sisis", vt_key);
 
+  /*
+   * A state restriction on "the referenced object" with no object referenced
+   * fails without its FailMessage in 3.9 and 4.0: run400 restriction_check
+   * leaves the Sub at 480FA6 when MemVar_494208 = &HFF, before the append to
+   * MemVar_4941B0 at 481D52-481D70, so the task claims nothing and the
+   * library answers.  villains_and_kings (3.90, Adrift_553 turn `close
+   * window`): task 13 `close * * window` stays silent and run390 prints "You
+   * close Cracked Broken Window.", not the restriction's "already closed".
+   */
+  vt_key[4].string = "Type";
+  if (prop_get_integer (bundle, "I<-sisis", vt_key) == 1
+      && prop_get_taf_version (bundle) >= TAF_VERSION_390
+      && var_get_ref_object (gs_get_vars (game)) < 0)
+    {
+      vt_key[4].string = "Var1";
+      if (prop_get_integer (bundle, "I<-sisis", vt_key) == 0)
+        return NULL;
+    }
+
   /* Return it, or NULL if empty. */
   return !scr_strempty (message) ? message : NULL;
 }

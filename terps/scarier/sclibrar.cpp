@@ -6946,6 +6946,13 @@ lib_task_prematches_input (scr_gameref_t game, scr_int class_filter)
  */
 static scr_bool lib_rebuilt_raw_dispatch = FALSE;
 
+/*
+ * Set by lib_try_game_command_take_from_parent_400() only: the take piece
+ * 46302C exits on a pre-match return of 1 and lets a 2 (a silent task)
+ * dispatch and then fall through to the library take (@462C71-462C85).
+ */
+static scr_bool lib_rebuilt_silent_continues = FALSE;
+
 static scr_bool
 lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
 {
@@ -6954,6 +6961,40 @@ lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
 
   for (auto &c : lowered)
     c = scr_tolower (c);
+
+  if (lib_rebuilt_silent_continues)
+    {
+      scr_int kind;
+      scr_bool ran;
+
+      if (!run_does_command_match (game, lowered.c_str (), TRUE, &kind))
+        return FALSE;
+      if (lowered == command)
+        ran = run_game_task_commands (game, command);
+      else
+        {
+          uip_set_binary_input (TRUE);
+          ran = run_game_task_commands (game, command);
+          uip_set_binary_input (FALSE);
+        }
+
+      /*
+       * A 1 whose case-kept dispatch runs nothing claims the line with
+       * nothing said; generaltasks' tail answers DontUnderstand, not a turn
+       * (p4AUTOFROM `take mail`: "Mailbox on-a Rope" pre-matches `get * rope`
+       * lower-cased and misses it as typed).
+       */
+      if (kind == 1 && !ran)
+        {
+          pf_buffer_string (gs_get_filter (game),
+                            prop_get_global_string (gs_get_bundle (game),
+                                                    "DontUnderstand"));
+          pf_buffer_character (gs_get_filter (game), '\n');
+          game->is_admin = TRUE;
+        }
+      return kind == 1;
+    }
+
   if (lowered == command)
     return run_game_task_commands (game, command);
 
@@ -6994,6 +7035,18 @@ lib_try_game_command_common (scr_gameref_t game,
   /* Save the game's references, for restore later on. */
   references = lib_save_object_references (game, references_buffer,
                                            LIB_ALLOCATION_AVOIDANCE_SIZE);
+
+  /*
+   * 4.0 builds these lines before any handler has stored the object in
+   * MemVar_494208 (the takes write it at 47B8F9 only once the take goes
+   * ahead), so a "referenced object" restriction sees none.  Professor's
+   * `take mailbox` in the square: the refusal's "get the Mailbox on-a Rope"
+   * skips task 7 and runs task 8 (Adrift_p4profmail2.txt).
+   */
+  const scr_var_setref_t ref_vars = gs_get_vars (game);
+  const scr_int saved_ref_object = var_get_ref_object (ref_vars);
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    var_set_ref_object (ref_vars, -1);
 
   /* Get the addressed object's prefix and main name. */
   vt_key[0].string = "Objects";
@@ -7103,6 +7156,7 @@ lib_try_game_command_common (scr_gameref_t game,
 
   /* Restore the game object references back to their state on entry. */
   lib_restore_object_references (game, references);
+  var_set_ref_object (ref_vars, saved_ref_object);
 
   /* Free any allocations, and return the game command status. */
   if (command != buffer)
@@ -7241,6 +7295,84 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
   else
     status = lib_try_game_command_common (game, "get", object,
                                           NULL, -1, FALSE, FALSE, FALSE, TRUE);
+  lib_rebuilt_raw_dispatch = FALSE;
+  run_set_task_class_filter (0);
+  return status;
+}
+
+/*
+ * lib_try_game_command_take_from_parent_400()
+ *
+ * 4.0's take retakes an object "from" whatever holds it.  run400's per-piece
+ * get handler (Proc_19_23_473A34) resolves the noun with 463640 in mode 1
+ * (473011) -- visible where it is, not static, not held, seen -- and when
+ * the line named no "from" and the object sits in (&HF6) or on (&HEC) a
+ * parent, it hands the parent to the take piece (47301F-4730A8).  The piece
+ * (Proc_19_39_46302C) then pre-matches LCase("get " & name(obj, 0) & " from "
+ * & name(parent, 0)) in the take-family mode (462B3E-462B97), dispatches the
+ * case-kept line (462C65), exits on a return of 1 and falls through to the
+ * take on a 2.  The and-loop does the same per object.
+ *
+ * Measured on p4AUTOFROM.taf (make_400_autofromprobe.py, run400,
+ * Adrift_p4autofrom.txt, 2026-09-13):
+ *
+ *   get treat     treat on the stove, `get *stove*`   -> "T2 BOLTED."
+ *   Get token     `get * token from * table`,
+ *                 restricted on the token being there -> "T3 TOKEN TASK."
+ *   take letter   `get * cord`, fails with a message  -> "T5 CORD FAIL."
+ *   take mail     `get * rope` against "Mailbox on-a Rope": the pre-match
+ *                 hits, the case-kept dispatch misses  -> DontUnderstand,
+ *                 no turn
+ *   get tin and string  `get the tin from *`          -> the string taken,
+ *                 then "T8 TIN.", the tin left alone
+ *
+ * warlord (Adrift_1059_warlord.txt T104/T112/T122) is the first of these:
+ * task 2103 `move/push/get *stove*` answers the treat, the bone and the
+ * cudgel with "The stove is bolted to the floor.".
+ *
+ * *looked_up says whether the object qualified; when it did, this look-up
+ * is the only one the take gives the tasks.
+ */
+static scr_bool
+lib_try_game_command_take_from_parent_400 (scr_gameref_t game, scr_int object,
+                                           scr_bool *looked_up)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int position, parent;
+  scr_bool status;
+
+  *looked_up = FALSE;
+  if (!lib_is_version_400 (game))
+    return FALSE;
+
+  position = gs_object_position (game, object);
+  if (position != OBJ_IN_OBJECT && position != OBJ_ON_OBJECT)
+    return FALSE;
+  parent = gs_object_parent (game, object);
+  if (parent < 0
+      || obj_is_static (game, object)
+      || !gs_object_seen (game, object)
+      || obj_indirectly_held_by_player (game, object))
+    return FALSE;
+  if (input && (lib_input_contains_word (input, "from")
+                || lib_input_contains_word (input, "all")))
+    return FALSE;
+
+  /*
+   * The typed line is pre-matched first (472DC8, ahead of the rewrite), and
+   * a 1 claims it there: ticket.taf's `get notepad` fails task 113
+   * `[get]{the}[notepad]` loudly with "The Station Master stops you." and
+   * never reaches task 415 `get *desk*` (Adrift_1127).
+   */
+  *looked_up = TRUE;
+  lib_rebuilt_raw_dispatch = TRUE;
+  lib_rebuilt_silent_continues = TRUE;
+  status = lib_try_game_command_short (game, "get", object);
+  run_set_task_class_filter (1);
+  if (!status)
+    status = lib_try_game_command_common (game, "get", object, "from", parent,
+                                          TRUE, FALSE, FALSE, TRUE);
+  lib_rebuilt_silent_continues = FALSE;
   lib_rebuilt_raw_dispatch = FALSE;
   run_set_task_class_filter (0);
   return status;
@@ -8233,7 +8365,14 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
         status = lib_try_game_command_with_npc (game, "get",
                                                 object, "from", associate);
       else
-        status = lib_try_game_command_short (game, "get", object);
+        {
+          scr_bool looked_up;
+
+          status = lib_try_game_command_take_from_parent_400 (game, object,
+                                                              &looked_up);
+          if (!looked_up)
+            status = lib_try_game_command_short (game, "get", object);
+        }
       if (status)
         {
           game->object_references[object] = FALSE;

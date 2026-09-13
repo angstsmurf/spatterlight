@@ -1396,7 +1396,12 @@ to_hell_and_beyond_assisted_max_solution.txt|To_Hell_And_Beyond.taf|You are now 
 # zero-accuracy game).
 # Re-blessed 2026-08-31: pre-4.0 single-take held refusal is "You've
 # already got <object>!", not 4.0's "already carrying" (cave.taf row).
-villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 31 out of a maximum of 37.
+# Re-blessed 2026-09-14, score 31 -> 30: `close window` now falls through to
+# the library close ("You close Cracked Broken Window.", run390 Adrift_553).
+# A type-1 restriction with Var1=0 and no referenced object fails SILENTLY
+# (run400 restriction_check leaves at 480F9E/480FA6), and the referenced
+# object is cleared before each typed line (48A004 / run390 45EC66).
+villains_and_kings_solution.txt|Villains_And_Kings.taf|Your score is 30 out of a maximum of 37.
 # WesGHN's old "UNWINNABLE 30/100, orphaned gold ring" verdict was wrong
 # (2026-08-02): event 1 [Davidshand] -- started by `ring bell`, misread in the
 # original dump because EVENT o2/o3 print RAW 1-based refs -- drops the severed
@@ -2800,6 +2805,9 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # inside the tube." -- so "Also here is a wumpus." goes away.
 # Re-blessed 2026-09-13 for 991a5f8d9's RNG draw order: Schrodinger's wandering
 # re-rolls, and the exit lines it shares move with it.  RNG timing only.
+# Re-blessed 2026-09-14: `Get token` now prints task 192's text, as in
+# Adrift_4_humbug.txt (4.0 auto-"from" take port; referenced object cleared
+# per line and restored around speculative probes).
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN in 90 commands, scoring 65/95 -- and 65 is the real ceiling in a 3.8
@@ -8544,9 +8552,11 @@ sswhore_solution.txt|ss whore.taf|You scored 7 out of the maximum 7!|SCR_SKIP_WA
 # sub-prompt that swallows subsequent commands (recoverable with `x` to
 # cancel it, but simplest to just never issue `x monitor`/`touch screen`
 # and go straight to `push green key`/`push red key`). 356 commands,
-# `SCR_SKIP_WAITKEY=1`. Reaches the true 100/100 maximum score (rank "The
-# Ultimate Soldier"), zero parser-error/refusal lines anywhere in the
+# `SCR_SKIP_WAITKEY=1`. Zero parser-error/refusal lines anywhere in the
 # transcript.
+# Re-blessed 2026-09-14, score 100 -> 99: 4.0 auto-"from" take port.  T104/
+# T112/T122 `get treat`/`get bone`/`get cudgel` now print "The stove is bolted to the floor." and
+# Merrick answers "That's no use to me," as run400 does (Adrift_1059, 99).
 warlord_solution.txt|warlord.taf|you've successfully completed The Warlord,|SCR_SEED=6 SCR_SKIP_WAITKEY=1
 # Tic-Tac-Toe (small joke game): the trial-by-tic-tac-toe against an Undead
 # Rob Zombie. Three leading filler lines (any text) are silently swallowed by

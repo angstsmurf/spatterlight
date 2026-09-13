@@ -1354,6 +1354,44 @@ private:
   const scr_bool is_referenced_;
 };
 
+/*
+ * scr_ref_entity_guard
+ *
+ * The referenced object and character, restored on scope exit.  For the
+ * speculative table probes (run_is_put_command() and friends), which ask
+ * "would this row match?" without running anything: the answer must not
+ * leave a binding behind.  3.9 and 4.0 forget both references at the top of
+ * every command (see run_player_input()), so a probe's leftover is exactly
+ * what the Runner never has.  Professor (Adrift_p4profmail.txt, turn 21):
+ * the put-row probe bound the mailbox from `get mail from mailbox on-a rope`
+ * and task 7's state restriction on the referenced object passed on it,
+ * where run400 fails the restriction silently and takes the mail.
+ */
+class scr_ref_entity_guard
+{
+public:
+  explicit scr_ref_entity_guard (scr_gameref_t game)
+    : vars_ (gs_get_vars (game)),
+      object_ (var_get_ref_object (vars_)),
+      character_ (var_get_ref_character (vars_))
+  {
+  }
+
+  ~scr_ref_entity_guard ()
+  {
+    var_set_ref_object (vars_, object_);
+    var_set_ref_character (vars_, character_);
+  }
+
+  scr_ref_entity_guard (const scr_ref_entity_guard &) = delete;
+  scr_ref_entity_guard &operator= (const scr_ref_entity_guard &) = delete;
+
+private:
+  const scr_var_setref_t vars_;
+  const scr_int object_;
+  const scr_int character_;
+};
+
 
 static scr_bool
 run_priority_commands (scr_gameref_t game, const scr_char *string)
@@ -1420,6 +1458,7 @@ static scr_bool
 run_is_put_command (scr_gameref_t game, const scr_char *string)
 {
   const scr_ref_number_guard ref_number (game);
+  const scr_ref_entity_guard ref_entity (game);
   std::vector<scr_bool> references (game->object_references);
   scr_commandsref_t command;
   scr_bool is_put = FALSE;
@@ -1469,6 +1508,7 @@ static scr_bool
 run_is_inventory_command (scr_gameref_t game, const scr_char *string)
 {
   const scr_ref_number_guard ref_number (game);
+  const scr_ref_entity_guard ref_entity (game);
   scr_commandsref_t command;
   scr_bool is_inventory = FALSE;
 
@@ -1564,6 +1604,7 @@ static scr_bool
 run_repeat_survivor_400 (scr_gameref_t game, const scr_char *string)
 {
   const scr_ref_number_guard ref_number (game);
+  const scr_ref_entity_guard ref_entity (game);
   std::vector<scr_bool> objects (game->object_references);
   std::vector<scr_bool> npcs (game->npc_references);
   const scr_repeat_survivor_t *row;
@@ -2488,6 +2529,7 @@ run_task_reachable_by_library_callback (scr_gameref_t game, scr_int task,
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const std::vector<const scr_char *> &patterns =
       run_task_command_patterns (game, task, is_forwards);
+  const scr_ref_entity_guard ref_entity (game);
   std::vector<scr_bool> references (game->object_references);
   const scr_char *verb;
   scr_int verb_length, object;
@@ -3000,11 +3042,41 @@ run_task_passes_class_filter (scr_gameref_t game, scr_int task)
  * first)" -- the restriction-blind probe used to count that task as a hit
  * and skip the take.
  */
+static scr_bool
+run_task_match_has_text (scr_gameref_t game, scr_int task,
+                         scr_bool matched_reverse)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  if (matched_reverse)
+    return !scr_strempty (prop_get_indexed_string (bundle, "Tasks", task,
+                                                   "ReverseMessage"));
+  return !scr_strempty (prop_get_indexed_string (bundle, "Tasks", task,
+                                                 "CompleteText"))
+         || !scr_strempty (prop_get_indexed_string (bundle, "Tasks", task,
+                                                    "AdditionalMessage"))
+         || (gs_task_done (game, task)
+             && !prop_get_indexed_boolean (bundle, "Tasks", task, "Repeatable")
+             && !scr_strempty (prop_get_indexed_string (bundle, "Tasks", task,
+                                                        "RepeatText")));
+}
+
 scr_bool
 run_does_command_match (scr_gameref_t game, const scr_char *string,
-                        scr_bool check_restrictions)
+                        scr_bool check_restrictions, scr_int *match_kind)
 {
   scr_int task_count, task, direction;
+
+  /*
+   * match_kind, when asked for, is the pre-matcher's own return value:
+   * 1 for a hit whose matched direction has text to print, or a fallback
+   * hit (a failing restriction's message, a spent task's RepeatText --
+   * 453C34 stores 1 for both), and 2 for a first-pass hit on a task that
+   * would run silently (453BEC-453BFE).  Callers such as the take piece
+   * 46302C exit only on a 1; a 2 dispatches and carries on.
+   */
+  if (match_kind)
+    *match_kind = 0;
 
   /* Only meaningful while a game is actually running. */
   if (!run_is_running (game))
@@ -3015,57 +3087,82 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
   if (filtered)
     string = scr_normalize_string (filtered.get ());
 
+  /*
+   * With restrictions checked, the Runner's two passes are separate loops:
+   * 453C50 walks every task for a first-pass hit and only then calls the
+   * fallback 45404C (@453C34).  A task whose failing restriction has a
+   * message therefore loses to ANY later task that passes -- professor.taf's
+   * `take mail` rewrites to "get mail from mailbox on-a rope", which fails
+   * task 7 `get * rope` loudly but is a silent first-pass hit further down,
+   * so run400 takes the mail (Adrift_388/745_professor.txt).
+   */
+  if (check_restrictions)
+    {
+      scr_int pass_number;
+
+      task_count = gs_task_count (game);
+      for (pass_number = 0; pass_number < 2; pass_number++)
+        {
+          for (task = 0; task < task_count; task++)
+            {
+              const scr_char *fail_message;
+              scr_bool matched_forwards, matched_reverse, pass;
+
+              if (!run_task_passes_class_filter (game, task)
+                  || !task_where_allows_run (game, task))
+                continue;
+
+              matched_forwards = run_match_task_commands (game, task, string,
+                                                          TRUE, FALSE);
+              matched_reverse = !matched_forwards
+                                && task_can_run_task_directional (game, task,
+                                                                  FALSE)
+                                && run_match_task_commands (game, task, string,
+                                                            FALSE, FALSE);
+              if (!matched_forwards && !matched_reverse)
+                continue;
+
+              if (!restr_eval_task_restrictions (game, task,
+                                                 &pass, &fail_message))
+                pass = TRUE, fail_message = NULL;
+
+              if (pass_number == 1)
+                {
+                  /* Fallback pass: the failing restriction has a message. */
+                  if (!pass && fail_message)
+                    {
+                      if (match_kind)
+                        *match_kind = 1;
+                      return TRUE;
+                    }
+                  continue;
+                }
+
+              /*
+               * First pass: a runnable task whose restrictions pass.  Our
+               * state test also admits a spent task with a RepeatText,
+               * which is the fallback pass's other hit.
+               */
+              if (pass && (matched_reverse
+                           || task_can_run_task_directional (game, task, TRUE)))
+                {
+                  if (match_kind)
+                    *match_kind = run_task_match_has_text (game, task,
+                                                           matched_reverse)
+                                  ? 1 : 2;
+                  return TRUE;
+                }
+            }
+        }
+      return FALSE;
+    }
+
   /* Iterate over every task, ignoring those not runnable. */
   task_count = gs_task_count (game);
   for (task = 0; task < task_count; task++)
     {
       if (!run_task_passes_class_filter (game, task))
         continue;
-
-      if (check_restrictions)
-        {
-          const scr_char *fail_message;
-          scr_bool matched_forwards, matched_reverse, pass;
-
-          /*
-           * The Runner's pre-matcher, both passes.  Only the room scope is
-           * fixed; the task's state and its restrictions decide together.
-           */
-          if (!task_where_allows_run (game, task))
-            continue;
-
-          matched_forwards = run_match_task_commands (game, task, string,
-                                                      TRUE, FALSE);
-          matched_reverse = !matched_forwards
-                            && task_can_run_task_directional (game, task,
-                                                              FALSE)
-                            && run_match_task_commands (game, task, string,
-                                                        FALSE, FALSE);
-          if (!matched_forwards && !matched_reverse)
-            continue;
-
-          if (!restr_eval_task_restrictions (game, task,
-                                             &pass, &fail_message))
-            pass = TRUE, fail_message = NULL;
-
-          if (pass)
-            {
-              /*
-               * First pass: a runnable task whose restrictions pass.  Our
-               * state test also admits a spent task with a RepeatText,
-               * which is the fallback pass's other hit.
-               */
-              if (matched_reverse
-                  || task_can_run_task_directional (game, task, TRUE))
-                return TRUE;
-            }
-          else if (fail_message)
-            {
-              /* Fallback pass: the failing restriction has a message. */
-              return TRUE;
-            }
-          continue;
-        }
 
       if (!task_can_run_task (game, task))
         continue;
@@ -4614,6 +4711,24 @@ run_player_input (scr_gameref_t game)
    */
   lib_co_400_begin_line ();
   lib_battle_who_begin_element (is_new_line);
+
+  /*
+   * 3.9 and 4.0 forget the referenced object and character at the top of
+   * every command: run400 generaltasks stores &HFF in MemVar_494208 and
+   * MemVar_49420A at 48A004/48A009, run390 in MemVar_4681A8/4681AA at
+   * 45EC66/45EC6B.  Only an %object% / %character% bind or a library handler
+   * sets them again, so a state restriction on "the referenced object" in a
+   * task whose command names no %object% fails outright (run400 480F9E,
+   * run390 44ABF0) -- it never sees whatever the previous command referenced.
+   * Professor's task 7 (`take mailbox`, square) is the case: run400 never
+   * runs it (Adrift_p4profmail*.txt), Scarier used to pass it on the mailbox
+   * left over from `examine mailbox`.
+   */
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
+    {
+      var_set_ref_object (vars, -1);
+      var_set_ref_character (vars, -1);
+    }
 
   /* Try the command line element against command matchers. */
   status = run_all_commands (game, command);
