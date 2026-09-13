@@ -1404,6 +1404,23 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
  * three), and enemies also target the player.  A uniformly random choice is
  * made among the candidates sharing the NPC's room.  Returns an NPC index,
  * BATTLE_PLAYER, or BATTLE_NONE.
+ *
+ * run400 Battles.bas Proc_11_14 (451DF0) tests NOTHING about a candidate's
+ * stamina: the count loop (451CA6-451D31) takes every other NPC in the same
+ * room whose attitude is 3 - own, the player is added (451D31-451D48) when
+ * the attacker is an enemy standing in the player's room, one draw picks
+ * (451D48) and the second loop (451D65-451DDC) re-walks the same order.  A
+ * character at 0 stamina is therefore a legitimate target.  Killed NPCs are
+ * out of every room (room -5 there, location 0 here), so this only reaches
+ * characters that ROLLED 0 at load -- an NPC whose Stamina range starts at 0
+ * (Shadowpeak's Holga, 0..50, before recovery brings her back), or the player
+ * of a game whose player Stamina is 0..0.  The Runner then plays the blow
+ * out: chardohit -> Proc_11_0, damage >= stamina -> death (Proc_21_62 for the
+ * player, "falls down, dead." and the KilledTask for an NPC), so a 0-stamina
+ * player dies to the first hostile in the room, and an ally rolled at 0 is
+ * killed by the first enemy that picks it.  Scarier used to skip 0-stamina
+ * candidates in both loops, which made those characters unhittable and
+ * changed the draw cadence (no pick draw when they were the only candidate).
  */
 static scr_int
 battle_select_target (scr_gameref_t game, scr_int npc)
@@ -1421,12 +1438,10 @@ battle_select_target (scr_gameref_t game, scr_int npc)
     {
       if (other != npc
           && gs_npc_location (game, other) == location
-          && gs_npc_stamina (game, other) > 0
           && battle_attitude (game, other) == 3 - attitude)
         count++;
     }
-  if (attitude == 2 && location - 1 == gs_playerroom (game)
-      && gs_playerstamina (game) > 0)
+  if (attitude == 2 && location - 1 == gs_playerroom (game))
     count++;
 
   if (count == 0)
@@ -1438,7 +1453,6 @@ battle_select_target (scr_gameref_t game, scr_int npc)
     {
       if (other != npc
           && gs_npc_location (game, other) == location
-          && gs_npc_stamina (game, other) > 0
           && battle_attitude (game, other) == 3 - attitude)
         {
           if (--pick == 0)

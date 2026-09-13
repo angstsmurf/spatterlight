@@ -922,6 +922,45 @@ scr_dump_structure_once (scr_gameref_t game)
       }
   }
 
+  /* The player's Battle System ranges (Globals.Battle.<attr>Lo/Hi), same
+   * shape as the per-NPC BATTLE line below.  A player Stamina of 0..0 is the
+   * case that matters: the Runner rolls stamina 0 at load and an enemy NPC
+   * in the room then kills the player with its first blow (Battles.bas
+   * Proc_11_14 selects 0-stamina targets, Proc_11_0 -> Proc_21_62). */
+  if (getenv ("SCR_DUMP_BATTLE"))
+    {
+      static const scr_char *const attrs[] =
+        { "Stamina", "Strength", "Accuracy", "Defense", "Agility" };
+      scr_vartype_t bk[4], bv;
+      size_t a;
+      scr_int rec = 0;
+
+      bk[0].string = "Globals"; bk[1].string = "Battle";
+      fprintf (stderr, "  BATTLE player system=%s",
+               prop_get_global_boolean (bundle, "BattleSystem") ? "on" : "off");
+      for (a = 0; a < sizeof attrs / sizeof attrs[0]; a++)
+        {
+          scr_char key[32];
+          scr_int lo = 0, hi = -1;
+          snprintf (key, sizeof key, "%sHi", attrs[a]);
+          bk[2].string = key;
+          if (prop_get (bundle, "I<-sss", &bv, bk)) hi = bv.integer;
+          snprintf (key, sizeof key, "%sLo", attrs[a]);
+          bk[2].string = key;
+          if (prop_get (bundle, "I<-sss", &bv, bk)) lo = bv.integer;
+          if (hi < 0)
+            {
+              bk[2].string = (scr_char *) attrs[a];
+              if (prop_get (bundle, "I<-sss", &bv, bk)) lo = hi = bv.integer;
+              else hi = 0;
+            }
+          fprintf (stderr, " %s=%ld-%ld", attrs[a], lo, hi);
+        }
+      bk[2].string = "Recovery";
+      if (prop_get (bundle, "I<-sss", &bv, bk)) rec = bv.integer;
+      fprintf (stderr, " recovery=%ld\n", rec);
+    }
+
   /* NPCs and their walks (StartTask/CharTask/MeetChar/ObjectTask/Rooms). */
   {
     scr_vartype_t nk[6];
