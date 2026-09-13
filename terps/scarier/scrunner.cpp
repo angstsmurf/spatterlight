@@ -743,9 +743,9 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"kill %character%", lib_cmd_kill_npc},
   {"fight %character%", lib_cmd_fight_npc},
   /*
-   * One line naming several NPCs: dobattle strikes every one of them.
-   * These claim a line only where two or more are targets; see
-   * lib_battle_attack_many().
+   * One line naming several NPCs: dobattle strikes every one of them, and
+   * a battle verb naming no NPC at all asks "Who do you want to attack?";
+   * see lib_battle_attack_many().
    */
   {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab] %text% with %object%",
    lib_cmd_attack_npcs_with},

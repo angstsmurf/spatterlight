@@ -14476,10 +14476,10 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
  *
  * Scarier's grammar binds one %character%, so those lines never reached a
  * handler and went to the catch-all.  These two rows sit behind every
- * %character% row, take the line as text, and claim it only where two or
- * more NPCs are targets; a single target is left to the measured
- * single-target path above.  A shared name raises 4.0's question first,
- * and strikes nobody (lib_npc_400_raise_for_line()).
+ * %character% row and take the line as text: they strike every target, and
+ * with none they print "Who do you want to attack?" unless an absent NPC is
+ * named.  A shared name raises 4.0's question only after the blows
+ * (lib_npc_400_raise_for_line()).
  */
 static const struct
 {
@@ -14544,6 +14544,28 @@ lib_battle_named_targets (scr_gameref_t game, const scr_char *input,
   return targets;
 }
 
+/* TRUE if the line names, by dobattle's test, an NPC not in the room. */
+static scr_bool
+lib_battle_names_absent_npc (scr_gameref_t game, const scr_char *input)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int npc;
+
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      const scr_char *name = prop_get_indexed_string (bundle, "NPCs", npc,
+                                                      "Name");
+      scr_bool named;
+
+      named = !scr_strempty (name) && lib_input_contains_word (input, name);
+      if (!named && !lib_is_version_400 (game))
+        named = lib_npc_named_in_line (game, npc, input);
+      if (named && !npc_in_room (game, npc, gs_playerroom (game)))
+        return TRUE;
+    }
+  return FALSE;
+}
+
 static scr_bool
 lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
 {
@@ -14565,10 +14587,6 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
   if (!LIB_BATTLE_VERBS[verb_index].verb)
     return FALSE;
 
-  /* A "with" the object row could not resolve is not a bare attack. */
-  if (!with_object && lib_input_contains_word (input, "with"))
-    return FALSE;
-
   /*
    * Every %character% row has already declined the line, so even one
    * target is ours: `attack sentry droid` strikes the droid alone (4.0
@@ -14576,6 +14594,24 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
    */
   targets = lib_battle_named_targets (game, input, verb_index);
   if (targets.empty ())
+    {
+      /*
+       * var_8A is still 0 after the loop only when no NPC anywhere is named:
+       * an absent namesake sets it on its way out (47EFF4), seen or not.
+       * Then 47F01E prints "Who do you want to attack?", before any weapon
+       * test and whatever follows "with", and leaves 494281 alone, so the
+       * line is a turn.  Measured 2026-09-13 on p4BATTLEHASH (NPCs Named
+       * `Gargoyle #1`..`#3`): `attack gargoyle` answers exactly that
+       * (Adrift_1142), where Scarier fell to the catch-all.
+       */
+      if (lib_battle_names_absent_npc (game, input))
+        return FALSE;
+      pf_buffer_string (filter, "Who do you want to attack?\n");
+      return TRUE;
+    }
+
+  /* A "with" the object row could not resolve is not a bare attack. */
+  if (!with_object && lib_input_contains_word (input, "with"))
     return FALSE;
 
   /* An explicit weapon is checked once, as the single-target path does. */

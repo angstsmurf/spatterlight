@@ -272,8 +272,7 @@ the inside of the tower -- a long way up.  West returns to the chapel proper.
 You can move west and up.
 
 > hit bell
-You hit the bell, but nothing happens. (That is, I couldn't parse this to the
-game situation, so I'm bluffing.)
+Who do you want to attack?
 
 > hit bell with cross
 Raising the cross like a baseball bat, you strike the bell.  It makes a dull

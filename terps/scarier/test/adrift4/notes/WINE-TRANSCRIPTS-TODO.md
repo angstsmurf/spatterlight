@@ -7471,7 +7471,9 @@ parity now holds on 21 of 43 rows, up from 20.
    `lib_npc_named_in_line()`, so at 3.9 `attack cat` would have worked.
    The archive agrees: the only Runner transcripts that ever print `Who do
    you want to attack?` are this turn in `Adrift_391`, `393` and `1020`, and
-   cybercow's `hit bell` (already passing).
+   cybercow's `hit bell` (`Adrift_562`/`1107`, run390).  That one was NOT
+   passing, whatever this line used to say: the golden had the library's
+   `You hit the bell, but nothing happens.` bluff until 2026-09-13 (below).
 
    The port is `lib_battle_unnamed_target()` in `sclibrar.cpp`, called by both
    `lib_battle_attack_bare()` and `lib_battle_attack_with()` once the grammar
@@ -7633,6 +7635,27 @@ parity now holds on 21 of 43 rows, up from 20.
    `light_up` no longer wins on seed 54 (the riven question is now admin);
    re-seeded to 187.  Adrift_1027 diverges by T190 on Chip's combat, so it is
    no oracle for T294 itself.
+
+   **Names with `#`, and a battle verb naming nobody (2026-09-13).**
+   `p4BATTLEHASH` (`make_400_battlehashprobe.py`: NPCs Named `Gargoyle #1`..
+   `#3`, no Prefix, no alias, as Shadowpeak), run400x `Adrift_1142`, 37 draws
+   both sides, every turn identical up to the glued blows:
+
+   * `attack gargoyle #2 gargoyle #3` strikes both; `attack gargoyle #3
+     gargoyle #1 gargoyle #2` strikes all three in index order; `attack
+     gargoyle #2 #3` strikes #2 only.  So Shadowpeak's three gargoyle turns
+     could be one line -- but that re-threads the tuned route (no win at
+     seeds 1-150 of the merged `shadowpeak_solution`), so the walkthroughs
+     keep three.
+   * `attack gargoyle` -> `Who do you want to attack?` (47F01E).  dobattle
+     enters its loop for any line holding one of its ten verbs as a whole word
+     (47E9E7-47EAE9); `var_8A` stays 0 only when no NPC anywhere is named --
+     an absent namesake sets it at 47EFF4 whether or not it is seen (the
+     unseen one is Adrift_110's silent DontUnderstand).  Scarier's `%text%`
+     rows declined with no targets and the line reached the catch-all; they
+     now print the question, a real turn (`lib_battle_names_absent_npc()`).
+     `cybercow_win` re-blessed for it: `hit bell` now matches run390's
+     `Who do you want to attack?` (Adrift_562/1107).
 
 4. **Battle rounds land one turn apart** in `wes_ghn` (T57/T58: run400 kills
    Hope a round earlier, and by T85 the two are a whole kill apart) and in
