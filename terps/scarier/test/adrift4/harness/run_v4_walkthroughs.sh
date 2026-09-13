@@ -459,6 +459,9 @@ bomb_threat_solution.txt|Bomb Threat.taf|Or have you...
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
+# Re-blessed 2026-09-13 for 991a5f8d9's ask rule (the object after "about" is the
+# subject; an absent named NPC answers "<Name> isn't here!"): the eight asks while Barb
+# is out now say "Barb isn't here!" instead of "You get no reply from the videotape."
 circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED=12 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
@@ -570,6 +573,9 @@ cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
+# Re-blessed 2026-09-13 for 991a5f8d9's edge-triggered event starter test: the rain
+# chain lands a turn later, the robot's probe gains its "-SAY. IT.-" beats and two
+# "A fairy is here." lines drop.  Event timing only.
 cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
@@ -577,6 +583,9 @@ cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
+# Re-blessed 2026-09-13 for 991a5f8d9's edge-triggered event starter test: the rain
+# chain (begins / heavily / letting up / nearly over / stopped) lands a turn or two
+# later.  Event timing only.
 cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
 deaths_solution.txt|deaths.taf|crumbles into dust
 # Re-blessed 2026-09-07 for the same capitalisation rule as the trabula row above: `wife hits you with the pot.` -> `Wife`.  This row's transcript (Adrift_176) never reaches the battle turn, so the line follows from the rule rather than from a measurement of its own.
@@ -951,6 +960,9 @@ del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 # opening it (+5).  Surveyed 2026-09-05.
 # Re-seeded 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (vbrng, SCR_RNG=xoshiro parity work), so the old seed no longer wins; new seed found by search.
+# Re-blessed 2026-09-13 for 991a5f8d9's event rules: Macbeth's catch-and-cellar
+# cutscene no longer fires on this route (16 lines gone); still 75/205.  Event timing
+# only.
 inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.|SCR_SEED=7
 #
 # Les Feux de l'enfer: 75 of 115, and 75 is the ceiling this build can reach.
@@ -1308,11 +1320,17 @@ shardsofmemory_solution.txt|shardsofmemory.taf|My adventure has ended, and in vi
 # The catch-all above was model-derived from House probes, never from this
 # game; the new line is the p4PUT `put zzz in box` cell (Adrift_953).
 # Model-derived for this game, Wine candidate.
+# Re-blessed 2026-09-13 for 991a5f8d9's 4.0 event "ticked" byte and post-execute-task
+# event check: the bomb countdown's "Time passes..." turns and the ADRIFT-O-Sweep's
+# wandering shift.  Event/RNG timing only.
 TheADRIFTProject_solution.txt|TheADRIFTProject.taf|the entire ADRIFT community greet you|SCR_SKIP_WAITKEY=1
 # 2026-09-06, after the 4.0 put precedence port: line 66 names the boulder,
 # `put medium boulder on medium plinth`.  A bare `boulder` is ambiguous in
 # the put parser, and 4.0's "Which boulder.  ..." prompt has no task
 # pre-match and eats the next line.  Model-derived, Wine candidate.
+# Re-blessed 2026-09-13 for 991a5f8d9's roomgroup walk stops (rejection-sampled over
+# 13 exit slots, run400 Proc_19_19_4568BC): the bat flocks swoop in and flutter off in
+# different rooms.  RNG timing only.
 ShadricksUnderground_solution.txt|ShadricksUnderground.taf|the robbers were caught red handed in the vault|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
 # tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
@@ -1468,6 +1486,8 @@ sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 # var 92 == 0), so the walkthrough waits one lap on the tray (4 x z, WaitTurns
 # 3 = 12 ticks; bark on tick 13 while he is outside again).  Re-blessed
 # 2026-08-29; still 93 points.
+# Re-blessed 2026-09-13 for 991a5f8d9's RNG draw order: the courtyard's horse-in-
+# distress alternates re-roll.  RNG timing only.
 cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
 # 2026-08-29: the basket refusal now precedes the ending (silent-End-Game rule).
 # 2026-09-07, re-blessed: it does not.  run400 (Adrift_273_easter.txt:304-308)
@@ -1639,6 +1659,9 @@ ptbad_solution.txt|ptbad.taf|You Win! Yay!
 # This walkthrough was re-derived for it: 2 `i` lines after exam tramp and exam guard.  Each
 # added line restores the old tick sequence (`i` because WaitTurns 3).  Trace with
 # SCR_TRACE_ADMIN=1 (prints `ADMIN turn=N after [cmd]`).
+# Re-blessed 2026-09-13 for 991a5f8d9's RNG draw order: the drunk's noises, Colin and
+# Fred's chatter, the cat's walk and the Williams Tower's random age (14 -> 13 years)
+# re-roll.  RNG timing only.
 vague_solution.txt|vague.taf|You have won!|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
 # tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
@@ -1766,6 +1789,8 @@ marika_solution.txt|marika.taf|I plan to enjoy every second of it.|SCR_SKIP_WAIT
 # clinking glasses) landing a turn or two either side.  The compare tool's
 # "turn 206" is a tail artefact -- it cannot align the feed's last two blanks,
 # and both sides print the ending in full.
+# Re-blessed 2026-09-13 for 991a5f8d9's 4.0 event "ticked" byte and post-execute-task
+# event check: the "Excuse me!" event lands on a different turn.  Event timing only.
 vendetta_solution.txt|Vendetta.taf|The End|SCR_SKIP_WAITKEY=1
 # Unraveling God is puzzleless and ends on a two-way choice ("Pressing either 1
 # or 2 will be the end of the story, but the results are very different"), so
@@ -1881,6 +1906,8 @@ the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.
 # before it reads 180 and the last task's 5 points land in the ending text.
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
+# Re-blessed 2026-09-13 for 991a5f8d9's event rules: Sid's thirteen mug-drinking
+# lines are gone and the landlord's alternates re-roll.  Event/RNG timing only.
 troll_solution.txt|Troll.taf|clean by dinner time, I'll bust your head in!|SCR_SKIP_WAITKEY=1
 # A Spot Of Bother wins at the author's own maximum, 100/100, and the upstream
 # transcript needed exactly ONE repair in 270 commands: a second `push door` in
@@ -2488,6 +2515,8 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # Re-blessed 2026-09-06 for the room-content listing predicate (run400 Proc_19_75_449B6C @00449B6C -- see the camelot15 row): the wumpus in the Crypt is mode 1/2 with an empty
 # InRoomDesc -- the room text already says "There seems to be something trapped
 # inside the tube." -- so "Also here is a wumpus." goes away.
+# Re-blessed 2026-09-13 for 991a5f8d9's RNG draw order: Schrodinger's wandering
+# re-rolls, and the exit lines it shares move with it.  RNG timing only.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN in 90 commands, scoring 65/95 -- and 65 is the real ceiling in a 3.8
@@ -2782,7 +2811,7 @@ private_eye_solution.txt|Private Eye.taf|You achieved a score of 4.|SCR_SKIP_WAI
 plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- IRVINE QUIK & THE SEARCH FOR THE FISH OF TRAGLEA (Duncan
-# Bowsman, 2012, TAF "Version 3" i.e. 4.00).  179 commands, WIN, "THE END".
+# Bowsman, 2012, TAF "Version 3" i.e. 4.00).  172 commands, WIN, "THE END".
 # There is no score system at all -- `score` answers "0 out of a maximum of 0"
 # from the first turn to the last -- so reaching the epilogue is the only
 # result there is, and the marker is the epilogue's opening line.
@@ -2896,6 +2925,14 @@ plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_W
 # 22417, 39799, 54034) and three "Irvine drops" lines are all off-route.  The
 # ending block at plain line 32 is authored prose that does say "Irvine
 # sits", so there the fix-up is needed -- and is not reached.
+# Chapter 5 re-derived 2026-09-13 at seed 31 (178 commands down to 172) for
+# the Runner-compatible RNG stream and the 4.0 event "ticked" byte: the
+# respawns re-phased, a sentry refused the third `s`, and Irvine was
+# imprisoned in the tunnel.  The palace block is now generated, not hand-woven:
+# harness/iqsfot_palace.py replays the route to the back door, asks the
+# debugger after every command where the player and NPCs 14-17 stand, KOs any
+# mook sharing the room with its correct verb, and otherwise takes the next
+# route step.  39 commands to the throne room, peak damage 8 of 12.
 iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SCR_SEED=31 SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- MANGIASAUR (DCBSupafly, ADRIFT Spring Comp 2011).  You are a
@@ -5461,6 +5498,10 @@ allhallowseve_solution.txt|All Hallows Eve.taf|You scored 23 out of the maximum 
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  Two rabbit lines arrive a turn earlier.
+# Re-blessed 2026-09-13 for 991a5f8d9's 4.0 event "ticked" byte and post-execute-task
+# event check: the rabbit and spirit events land on different turns, the lines around
+# `put spirits in tub` reorder, and one "new state of being" reads "old".  Event/RNG
+# timing only.
 gorxungula_solution.txt|gorxungula.taf|Elder Moose rouses from the depths of thought once the offering is in place.|SCR_SKIP_WAITKEY=1
 # Attack of Doc Lobster's Mutant Menagerie of Horror (unscored monster-factory
 # sim): repeat the scalpel+sprinkles+envenomator+serum combo across 6 named
@@ -5471,6 +5512,8 @@ lobster_solution.txt|lobster.taf|Next: WORLD DOMINATION!
 # Business As Usual (unscored museum tidy-up puzzle): wait out the scripted
 # NPC thefts through turn 16, then shuttle Book/Lamp/Shoe home one at a time
 # (bare noun words get synonym-rewritten to room travel, so use take/drop all).
+# Re-blessed 2026-09-13 for 991a5f8d9's roomgroup walk stops: the Boy, Girl, Mother
+# and Goat wander on different turns.  RNG timing only.
 businessasusual_solution.txt|Business As Usual.taf|You Won, Of Course
 # Oh, Human (60/200, escape-room dead-end trap): the ladder/box-on-crate 100pt
 # branch is provably unreachable, so drop the electrical device to free the
@@ -7313,6 +7356,9 @@ bloodrelatives_solution.txt|Blood_Relatives.taf|you did find your bed|
 # done! You've reached the best ending in the game!" after the -5 "rob not
 # here" endgame penalty (76-5=71, still >70).
 # Re-blessed 2026-09-06: `water plant` is run400's no-turn catch-all (48B232); a `z` follows it.
+# Re-blessed 2026-09-13 for 991a5f8d9's 4.0 event "ticked" byte and post-execute-task
+# event check: Mr Abogee's corpse-vanish scene lands earlier and the `wait` turns
+# around it shift.  Event timing only.
 paint_solution.txt|Paint.taf|Well done! You've reached the best ending in the game!|SCR_SKIP_WAITKEY=1
 # hcw.taf (AIF, adult content -- see /goldens/.gitignore): "How to Conquer the
 # World" by Jason Mac Innes, v2.0, 2014. Comic mad-scientist romp: amnesiac
@@ -7543,6 +7589,9 @@ withoutaclue_solution.txt|WithoutAClue.taf|you've managed to finish the game|SCR
 # resolver pass (463640) scores both 1 on the alias, ties, and a tie is nothing.
 # Scarier's old Short-word count picked 91 ("You can't see the east wall from
 # here!"); the scorer is now the Runner's.  Golden unchanged by the fix.
+# Re-blessed 2026-09-13 for 991a5f8d9's give-to-absent-NPC answer: `give lolly to
+# cestus` with Cestus elsewhere now says "Give the lolly to who?" (was "Please be more
+# clear, who do you want to give to?").
 cowboyblues_solution.txt|CowboyBlues.taf|how does it feel to be a hero then, Fingle Bodge?|
 # Whatever Happened to Uncle Grumble (comedic fantasy, hero "a" = tall and
 # strapping): rescue Uncle Grumble from Chad Sinister-Sinister's fortress
@@ -7742,6 +7791,8 @@ mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould
 # the route keeps restarting from there. Buying the gold pendant at
 # the Pawn Brokers is worth no points but completes the jewellery
 # count (4 of 4) in the ending text. 87 commands.
+# Re-blessed 2026-09-13 for 991a5f8d9's RNG draw order: the depression flashbacks and
+# the Terry / Colin and Fred idle lines re-roll; still 140/140.  RNG timing only.
 blood_solution.txt|blood.taf|You managed to score 140 out of 140.|SCR_SKIP_WAITKEY=1
 # rking.taf ("The Reluctant Resurrectee" / "The Further Adventures Of The
 # King Who Wanted To Die..." by David Whyld, ADRIFT 4). The dead king is
@@ -8358,6 +8409,8 @@ ilgolem_solution.txt|Il Golem.taf|Complimenti, hai completato l'avventura!|SCR_S
 # field.  The 12 turns still differing are the two known classes: the
 # kerosene lamp dies at T31 in run400 and T32 here, and NPC 3's tumbleweed is
 # a roomgroup walk, so its placement is RNG.
+# Re-blessed 2026-09-13 for 991a5f8d9's roomgroup walk stops: the tumbleweed (NPC 3)
+# rolls past in different rooms.  RNG timing only.
 ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmering in the air. One of a pretty young girl|SCR_SKIP_WAITKEY=1
 EOF
 }
