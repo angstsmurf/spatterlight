@@ -1009,9 +1009,11 @@ Engine leads, measured or half-measured, none blocking:
   matches, the three Shadowpeak walkthroughs attack `shadow`, and the row
   wants re-driving with the new feed; (2) ~~`battle_print_combatant()` ignores `Perspective`~~ **FIXED
   2026-09-13** -- `light_up` 71 differing turns -> 46, `light_up` and
-  `donuts_intro` goldens re-blessed; (3) an ambiguous `attack` is
+  `donuts_intro` goldens re-blessed; (3) ~~an ambiguous `attack` is
   not a turn in run400 and is one in Scarier, with the wrong prompt wording
-  (`light_up` T294+); (4) battle rounds a turn out of phase (`wes_ghn`,
+  (`light_up` T294+)~~ **PORTED 2026-09-13** -- dobattle strikes every present
+  NPC the line names, then asks `Which <term>.` as an admin line; exact draw
+  parity on 12 probes, `light_up` re-seeded 54 -> 187; (4) battle rounds a turn out of phase (`wes_ghn`,
   `sun_empire`); (5) `les_feux` T11 resolves hit in run400 and miss in
   Scarier; (6) `snakes_and_ladders` takes two Runner draws at feed turns 5-6
   that Scarier does not; (7) `%player%` is filled from a feed line Scarier
@@ -7478,9 +7480,9 @@ parity now holds on 21 of 43 rows, up from 20.
    they now type `attack shadow with sword`, and the golem -- Named `Colos`,
    aliases `golem` / `stone golem` -- turns their five `attack golem` filler
    turns before `say carom` into the same refusal, with nothing downstream
-   changed.  Still unmodelled: the loop does not stop at the first present
-   namesake (the `GoTo 47EFF8` falls through to `Next`), so a line naming two
-   present NPCs by Name may strike both.  No corpus row does that.
+   changed.  The loop does not stop at the first present namesake (the
+   `GoTo 47EFF8` falls through to `Next`), so a line naming two present NPCs
+   by Name strikes both -- **PORTED 2026-09-13**, see lead 3 below.
    **RE-DRIVEN 2026-09-13** (`Adrift_1128_shadowpeak.txt`, run400x,
    `VBRNG_SEED=124`).  The old feed `v4_full_rerun_cmds/shadowpeak.txt` turned
    out to predate the dc39f19df re-derivation as well -- `attack holga` /
@@ -7599,6 +7601,38 @@ parity now holds on 21 of 43 rows, up from 20.
    and the tick.  This is almost certainly where light_up's `-71` draws go, and
    it desynchronises the tail of the row (by turn 342 Scarier is answering turn
    341's prompt).
+
+   **PORTED 2026-09-13.**  Measured in run400x (xoshiro, seed 1) on three
+   probes -- `p4BATTLEMULTI` (two Guards + a Sentry Droid), `p4BATTLEMULTI2`,
+   and `p4BATTLEMULTI3` (the same with stamina-1 NPCs) -- transcripts
+   `Adrift_1130`/`1131` and `Adrift_1132`..`1141`:
+
+   * dobattle's target loop has no break: every present NPC whose Name (4.0;
+     Name or first Alias at 3.9) is a whole word after the verb is struck, in
+     index order, 4 draws a blow.  The Runner glues consecutive blows with no
+     separator (compare reports whitespace-only).
+   * The question comes **after** the blows.  The draws are spent and the
+     damage is real; then generaltasks finds two or more present namesakes and
+     replaces the line's output with `Which guard.  Sentry guard or Palace
+     guard?` (Prefix + lower-case term).  The line is admin.  With a question
+     already open it prints `That is still ambiguous!` instead.
+   * Stamina-1 guards: `attack guard` prints both blows and both deaths and no
+     question (1137) -- dead NPCs are out of the room before the scan.
+     `attack droid guard with blaster` then `look` leaves the room empty (1138).
+   * The answer is the next piece that did nothing: it re-runs the original
+     line with the answer words inserted before the term.  `attack guard and
+     droid` asks, then the `droid` piece prints `That is still ambiguous!`
+     (1139, 25 draws); `attack droid and guard` strikes the droid, then the bare
+     `guard` piece asks (1140).
+
+   Ported as `lib_battle_attack_many()` (new `%text%` battle rows in
+   `scrunner.cpp`, blocked by a task that ran), `lib_npc_400_raise_for_line()`
+   / `lib_npc_400_find_namesakes()`, and the NPC branch of the answer slot
+   (`lib_co_400_npc_answer_line()`).  Scarier matches run400's draw count
+   exactly on all 12 probe feeds, text identical up to the glued blows.
+   `light_up` no longer wins on seed 54 (the riven question is now admin);
+   re-seeded to 187.  Adrift_1027 diverges by T190 on Chip's combat, so it is
+   no oracle for T294 itself.
 
 4. **Battle rounds land one turn apart** in `wes_ghn` (T57/T58: run400 kills
    Hope a round earlier, and by T85 the two are a whole kill apart) and in

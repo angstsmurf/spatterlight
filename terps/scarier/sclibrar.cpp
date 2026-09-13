@@ -4199,6 +4199,10 @@ lib_cmd_examine_self (scr_gameref_t game)
  * -1 with *is_ambiguous FALSE if requested, otherwise print a message then
  * return -1.
  */
+static scr_bool lib_npc_400_raise_for_line (scr_gameref_t game);
+static scr_bool lib_input_contains_word (const scr_char *input,
+                                         const scr_char *word);
+
 static scr_int
 lib_disambiguate_npc (scr_gameref_t game,
                       const scr_char *verb, scr_bool *is_ambiguous)
@@ -4251,6 +4255,14 @@ lib_disambiguate_npc (scr_gameref_t game,
           pf_buffer_string (filter, verb);
           pf_buffer_string (filter, "?\n");
         }
+      return -1;
+    }
+
+  /* 4.0 asks its own question instead; see lib_npc_400_raise_for_line(). */
+  if (lib_is_version_400 (game) && lib_npc_400_raise_for_line (game))
+    {
+      if (is_ambiguous)
+        *is_ambiguous = TRUE;
       return -1;
     }
 
@@ -4744,6 +4756,41 @@ lib_co_400_print_still_ambiguous (scr_gameref_t game)
   game->is_admin = TRUE;
 }
 
+/*
+ * The character question (lib_npc_400_raise_for_line()) records no
+ * candidates, and its answer is not scored: run400 re-runs the original line
+ * with the typed words in front of the term.  Measured on p4BATTLEMULTI
+ * (Adrift_1139, 2026-09-13): a fresh `attack guard and droid` prints "Which
+ * Guard.  A guard or a guard?" for its first half, and its second half
+ * `droid`, which alone gets only the catch-all, answers it -- "That is still
+ * ambiguous!" and twelve more draws, the three blows of `attack droid
+ * guard`.
+ */
+scr_bool
+lib_co_400_pending_is_npc (void)
+{
+  return lib_co_400_candidates.empty () && !lib_co_400_term.empty ();
+}
+
+std::string
+lib_co_400_npc_answer_line (const scr_char *line)
+{
+  const std::string &command = lib_co_400_command;
+  const std::string &term = lib_co_400_term;
+  std::string::size_type at;
+
+  for (at = 0; at + term.size () <= command.size (); at++)
+    {
+      if (scr_strncasecmp (command.c_str () + at, term.c_str (),
+                           term.size ()) == 0
+          && (at == 0 || command[at - 1] == ' ')
+          && (at + term.size () == command.size ()
+              || command[at + term.size ()] == ' '))
+        return command.substr (0, at) + line + " " + command.substr (at);
+    }
+  return command + " " + line;
+}
+
 /* How many of the candidates answer to exactly this name. */
 static scr_int
 lib_co_400_namesake_count (scr_gameref_t game,
@@ -4920,6 +4967,174 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
     }
 
   return FALSE;
+}
+
+/*
+ * lib_npc_400_raise_for_line()
+ *
+ * The character half of the same question.  generaltasks raises it at
+ * 48B815-48B928 (48BA87-48BB53 on its second pass): the term var_A4 is the
+ * flagged NPC's Name (field 0), replaced by every one of its aliases (field
+ * 8, count field 12) that is a whole word of the line, and the prompt is
+ * "Which " & term & ".  " & list & "?", with "That is still ambiguous!" in
+ * its place while a question is already open.  Measured 2026-09-13 on
+ * harness/make_400_battlemultiprobe.py (Adrift_1130): two NPCs both Named
+ * "Guard", Prefix "a", in the room --
+ *
+ *     attack guard                     ->  Which Guard.  A guard or a guard?
+ *     attack droid guard with blaster  ->  Which Guard.  A guard or a guard?
+ *     attack guard and droid           ->  That is still ambiguous!  (the
+ *                                          question from the line before)
+ *
+ * and on light_up (Adrift_1027 T294), where "Red Riven" and "Blue Riven"
+ * (Prefixes "Red"/"Blue") share the alias "riven": `attack riven` ->
+ * "Which riven.  Red riven or Blue riven?".  So only the term's namesakes
+ * are listed -- the droid the line also names is not -- each as its Prefix
+ * and the lower-cased term, the first capitalised; and nothing is struck,
+ * not even the droid.  Neither the question nor its answer is a turn.
+ */
+static scr_bool
+lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+  const scr_char *name;
+  scr_int alias_count, alias;
+
+  name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+  if (!scr_strempty (name) && scr_strcasecmp (name, term) == 0)
+    return TRUE;
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Alias";
+  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      vt_key[3].integer = alias;
+      name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (!scr_strempty (name) && scr_strcasecmp (name, term) == 0)
+        return TRUE;
+    }
+  return FALSE;
+}
+
+static scr_bool
+lib_npc_400_find_namesakes (scr_gameref_t game, std::string *term_out,
+                            std::vector<scr_int> *namesakes_out)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_int room = gs_playerroom (game);
+  scr_int npc;
+
+  if (!input)
+    return FALSE;
+
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      std::vector<scr_int> namesakes;
+      scr_vartype_t vt_key[4];
+      const scr_char *name, *term;
+      scr_int alias_count, alias, other;
+
+      if (!npc_in_room (game, npc, room))
+        continue;
+
+      name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+      term = (!scr_strempty (name) && lib_input_contains_word (input, name))
+             ? name : NULL;
+      vt_key[0].string = "NPCs";
+      vt_key[1].integer = npc;
+      vt_key[2].string = "Alias";
+      alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+      for (alias = 0; alias < alias_count; alias++)
+        {
+          const scr_char *alias_name;
+
+          vt_key[3].integer = alias;
+          alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+          if (!scr_strempty (alias_name)
+              && lib_input_contains_word (input, alias_name))
+            term = alias_name;
+        }
+      if (!term)
+        continue;
+
+      for (other = 0; other < gs_npc_count (game); other++)
+        {
+          if (npc_in_room (game, other, room)
+              && lib_npc_answers_to (game, other, term))
+            namesakes.push_back (other);
+        }
+      if (namesakes.size () < 2)
+        continue;
+
+      if (term_out)
+        *term_out = term;
+      if (namesakes_out)
+        *namesakes_out = namesakes;
+      return TRUE;
+    }
+
+  return FALSE;
+}
+
+static scr_bool
+lib_npc_400_raise_for_line (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  std::vector<scr_int> namesakes;
+  std::string term_string, lower;
+  const scr_char *term;
+  scr_int index_;
+
+  if (!lib_npc_400_find_namesakes (game, &term_string, &namesakes))
+    return FALSE;
+  term = term_string.c_str ();
+
+  /* One pass of the original loop; the braces keep its indentation. */
+    {
+      game->is_admin = TRUE;
+      if (lib_co_400_was_pending)
+        {
+          pf_buffer_string (filter, "That is still ambiguous!\n");
+          return TRUE;
+        }
+
+      for (index_ = 0; term[index_] != NUL; index_++)
+        lower += (scr_char) tolower ((unsigned char) term[index_]);
+
+      pf_buffer_string (filter, "Which ");
+      pf_buffer_string (filter, term);
+      pf_buffer_string (filter, ".  ");
+      pf_new_sentence (filter);
+      for (index_ = 0; index_ < (scr_int) namesakes.size (); index_++)
+        {
+          const scr_char *prefix;
+
+          if (index_ > 0)
+            pf_buffer_string (filter,
+                              index_ == (scr_int) namesakes.size () - 1
+                              ? " or " : ", ");
+          prefix = prop_get_indexed_string (bundle, "NPCs", namesakes[index_],
+                                            "Prefix");
+          if (!scr_strempty (prefix))
+            {
+              pf_buffer_string (filter, prefix);
+              pf_buffer_character (filter, ' ');
+            }
+          pf_buffer_string (filter, lower.c_str ());
+        }
+      pf_buffer_string (filter, "?\n");
+
+      lib_co_400_pending = TRUE;
+      lib_co_400_term = term;
+      lib_co_400_command = run_get_dispatch_input ();
+      lib_co_400_candidates.clear ();
+      return TRUE;
+    }
 }
 
 /*
@@ -14043,6 +14258,9 @@ lib_battle_unnamed_target (scr_gameref_t game, scr_int npc)
   return TRUE;
 }
 
+static scr_bool lib_battle_attack_many (scr_gameref_t game,
+                                        scr_bool with_object);
+
 static scr_bool
 lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
                         scr_int method, scr_bool legacy)
@@ -14054,6 +14272,12 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
   /* A Battle-System-only verb defers to other grammar when battle is off. */
   if (!battle_is_enabled (game) && !legacy)
     return FALSE;
+
+  /* 4.0 strikes namesakes before it asks; see lib_battle_attack_many(). */
+  if (lib_is_version_400 (game) && battle_is_enabled (game)
+      && lib_npc_400_find_namesakes (game, NULL, NULL)
+      && lib_battle_attack_many (game, FALSE))
+    return TRUE;
 
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
@@ -14125,6 +14349,12 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   /* A Battle-System-only verb defers to other grammar when battle is off. */
   if (!battle_is_enabled (game) && !legacy)
     return FALSE;
+
+  /* 4.0 strikes namesakes before it asks; see lib_battle_attack_many(). */
+  if (lib_is_version_400 (game) && battle_is_enabled (game)
+      && lib_npc_400_find_namesakes (game, NULL, NULL)
+      && lib_battle_attack_many (game, TRUE))
+    return TRUE;
 
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
@@ -14215,6 +14445,228 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
                                 object, " would be a very affective weapon!\n");
     }
   return TRUE;
+}
+
+/*
+ * lib_battle_attack_many()
+ *
+ * One line, several targets.  dobattle's target loop (run400 47EB0E-47F006,
+ * run390 44CC1C-44D1D5) has no break: every NPC the line names and who is in
+ * the player's room runs the whole attack branch -- weapon choice, the "What
+ * do you want to attack X with?" question, the blow -- and then falls to
+ * `Next` (47EF5B GoTo 47EFF8).  The loop is in NPC index order, not the
+ * order the names were typed, and an NPC counts only when the verb word
+ * var_90 comes before its name in the line (47EBC9).  var_90 is the first of
+ * attack, fight, kill, kick, chop, cut, hit, shoot, stab, throw that is a
+ * whole word of the line (47E9EF-47EADB).
+ *
+ * Measured 2026-09-13 on harness/make_400_battlemultiprobe.py's second build
+ * (p4BATTLEMULTI2: Guard with alias "sentry", Droid, Robot), run400x
+ * Adrift_1131:
+ *
+ *     attack droid guard       ->  Player shoot a sentry with the blaster.
+ *                                  Player shoot Droid with the blaster.
+ *     attack guard droid       ->  (the same, in the same order)
+ *     attack robot droid guard ->  (Guard, Droid, Robot)
+ *     attack sentry droid      ->  Player shoot Droid with the blaster.
+ *     attack guard with droid  ->  I don't understand what you want to do
+ *                                  with Guard.
+ *     attack guard, droid      ->  (the splitter's two lines: Guard struck,
+ *                                  then the catch-all on Droid)
+ *
+ * Scarier's grammar binds one %character%, so those lines never reached a
+ * handler and went to the catch-all.  These two rows sit behind every
+ * %character% row, take the line as text, and claim it only where two or
+ * more NPCs are targets; a single target is left to the measured
+ * single-target path above.  A shared name raises 4.0's question first,
+ * and strikes nobody (lib_npc_400_raise_for_line()).
+ */
+static const struct
+{
+  const scr_char *const verb;
+  const scr_int method;
+} LIB_BATTLE_VERBS[] = {
+  {"attack", -1}, {"fight", -1}, {"kill", -1}, {"kick", -1},
+  {"chop", 0}, {"cut", 1}, {"hit", 2}, {"shoot", 3}, {"stab", 4},
+  {"throw", 5}, {NULL, 0}
+};
+
+/* Case-insensitive InStr, 1-based, 0 for no hit. */
+static scr_int
+lib_battle_instr (const scr_char *input, const scr_char *word)
+{
+  const scr_int length = strlen (word);
+  const scr_char *scan;
+
+  for (scan = input; *scan != NUL; scan++)
+    {
+      if (scr_strncasecmp (scan, word, length) == 0)
+        return (scr_int) (scan - input) + 1;
+    }
+  return 0;
+}
+
+static std::vector<scr_int>
+lib_battle_named_targets (scr_gameref_t game, const scr_char *input,
+                          scr_int verb_index)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_bool is_400 = lib_is_version_400 (game);
+  const scr_int verb_at = lib_battle_instr (input,
+                                            LIB_BATTLE_VERBS[verb_index].verb);
+  std::vector<scr_int> targets;
+  scr_int npc;
+
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      const scr_char *name, *named_by;
+
+      name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+      named_by = NULL;
+      if (!scr_strempty (name) && lib_input_contains_word (input, name))
+        named_by = name;
+      else if (!is_400 && lib_npc_named_in_line (game, npc, input))
+        {
+          scr_vartype_t vt_key[4];
+
+          vt_key[0].string = "NPCs";
+          vt_key[1].integer = npc;
+          vt_key[2].string = "Alias";
+          vt_key[3].integer = 0;
+          named_by = prop_get_string (bundle, "S<-sisi", vt_key);
+        }
+      if (!named_by || !npc_in_room (game, npc, gs_playerroom (game)))
+        continue;
+
+      if (verb_at < lib_battle_instr (input, named_by))
+        targets.push_back (npc);
+    }
+  return targets;
+}
+
+static scr_bool
+lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  std::vector<scr_int> targets;
+  scr_int verb_index, object, index_;
+  scr_bool struck;
+
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
+      || !battle_is_enabled (game) || !input)
+    return FALSE;
+
+  for (verb_index = 0; LIB_BATTLE_VERBS[verb_index].verb; verb_index++)
+    {
+      if (lib_input_contains_word (input, LIB_BATTLE_VERBS[verb_index].verb))
+        break;
+    }
+  if (!LIB_BATTLE_VERBS[verb_index].verb)
+    return FALSE;
+
+  /* A "with" the object row could not resolve is not a bare attack. */
+  if (!with_object && lib_input_contains_word (input, "with"))
+    return FALSE;
+
+  /*
+   * Every %character% row has already declined the line, so even one
+   * target is ours: `attack sentry droid` strikes the droid alone (4.0
+   * reads no alias), where the catch-all would name the guard.
+   */
+  targets = lib_battle_named_targets (game, input, verb_index);
+  if (targets.empty ())
+    return FALSE;
+
+  /* An explicit weapon is checked once, as the single-target path does. */
+  object = -1;
+  if (with_object)
+    {
+      object = lib_disambiguate_object (game,
+                                        LIB_BATTLE_VERBS[verb_index].verb,
+                                        NULL);
+      if (object == -1)
+        return TRUE;
+      if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
+        {
+          lib_print_response_object (game,
+                                     "You are not carrying ",
+                                     "I am not carrying ",
+                                     "%player% is not carrying ",
+                                     object, "!\n");
+          return TRUE;
+        }
+      if (!battle_is_weapon (game, object))
+        {
+          pf_new_sentence (filter);
+          lib_print_object_np (game, object);
+          pf_buffer_string (filter,
+                            lib_select_plurality (game, object, " is", " are"));
+          pf_buffer_string (filter, " not a weapon!\n");
+          return TRUE;
+        }
+    }
+
+  struck = FALSE;
+  for (index_ = 0; index_ < (scr_int) targets.size (); index_++)
+    {
+      const scr_int npc = targets[index_];
+      scr_int weapon = with_object ? object : battle_player_wielded_weapon (game);
+
+      if (weapon < 0)
+        {
+          const scr_int count = battle_player_weapon_count (game);
+
+          if (count > 1)
+            {
+              pf_buffer_string (filter, "What do you want to attack ");
+              lib_print_npc_np (game, npc);
+              pf_buffer_string (filter, " with?\n");
+              continue;
+            }
+          if (count == 1)
+            weapon = battle_player_best_weapon (game);
+        }
+      lib_battle_player_strike (game, npc, LIB_BATTLE_VERBS[verb_index].verb,
+                                LIB_BATTLE_VERBS[verb_index].method, weapon);
+      struck = TRUE;
+    }
+
+  /* Only the question, and no blow: as for one target, not a turn. */
+  if (!struck)
+    game->is_admin = TRUE;
+
+  /*
+   * 4.0 asks about namesakes only AFTER the blows, and the question replaces
+   * everything the line printed; the blows themselves stand.  Measured
+   * 2026-09-13 on p4BATTLEMULTI: `attack guard` against the two stamina-500
+   * Guards prints only "Which Guard.  A guard or a guard?" yet draws for two
+   * blows (Adrift_1132), and against a stamina-1 copy (p4BATTLEMULTI3) it
+   * prints both blows and both deaths with no question at all, the Guards
+   * being gone by the time generaltasks looks for them (Adrift_1137).
+   * `attack droid guard with blaster` then `look` leaves the room empty
+   * (Adrift_1138).  Whether the question still makes the line a turn is not
+   * measured; it is left admin, as the object question is.
+   */
+  if (lib_is_version_400 (game)
+      && lib_npc_400_find_namesakes (game, NULL, NULL))
+    {
+      pf_empty (filter);
+      lib_npc_400_raise_for_line (game);
+    }
+  return TRUE;
+}
+
+scr_bool
+lib_cmd_attack_npcs (scr_gameref_t game)
+{
+  return lib_battle_attack_many (game, FALSE);
+}
+
+scr_bool
+lib_cmd_attack_npcs_with (scr_gameref_t game)
+{
+  return lib_battle_attack_many (game, TRUE);
 }
 
 
@@ -18689,6 +19141,15 @@ lib_cmd_verb_npc (scr_gameref_t game)
           npc = index_;
         }
     }
+  /*
+   * 4.0: namesakes get generaltasks' "Which <term>." question, which is
+   * asked of the line before any library branch (run400 48B6AE-48BB92).
+   * `attack droid and guard` splits to a bare `guard` that lands here:
+   * "Which Guard.  A guard or a guard?" (Adrift_1130).
+   */
+  if (count > 1 && lib_is_version_400 (game)
+      && lib_npc_400_raise_for_line (game))
+    return TRUE;
   if (count != 1)
     return lib_npc_absent_or_unknown (game);
 
@@ -18710,6 +19171,12 @@ lib_cmd_verb_npc (scr_gameref_t game)
    */
   if (lib_is_version_400 (game))
     game->is_admin = TRUE;
+
+  /* Under a character question this line is its answer; see the slot in
+   * run_process_input_line() and lib_co_400_npc_answer_line(). */
+  if (lib_is_version_400 (game) && lib_co_400_question_pending ()
+      && lib_co_400_pending_is_npc ())
+    lib_co_400_note_refusal ();
 
   /* Print don't understand message; unlike objects, there's no "me" here. */
   lib_print_wrapped_npc (game, "I don't understand what you want to do with ",

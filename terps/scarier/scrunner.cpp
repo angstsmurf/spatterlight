@@ -742,6 +742,15 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"stab %character%", lib_cmd_stab_npc},
   {"kill %character%", lib_cmd_kill_npc},
   {"fight %character%", lib_cmd_fight_npc},
+  /*
+   * One line naming several NPCs: dobattle strikes every one of them.
+   * These claim a line only where two or more are targets; see
+   * lib_battle_attack_many().
+   */
+  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab] %text% with %object%",
+   lib_cmd_attack_npcs_with},
+  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab] %text%",
+   lib_cmd_attack_npcs},
 
   /* More movement, waiting, and miscellaneous administrative commands. */
   /*
@@ -2130,6 +2139,9 @@ run_npc_library_blocked (scr_gameref_t game)
 static scr_bool
 run_npc_row_blocked (const scr_commands_t *command)
 {
+  if (command->handler == lib_cmd_attack_npcs
+      || command->handler == lib_cmd_attack_npcs_with)
+    return TRUE;
   if (strstr (command->command, "%character%") == NULL)
     return FALSE;
   return command->handler != lib_cmd_give_object_npc
@@ -4416,7 +4428,21 @@ run_player_input (scr_gameref_t game)
       const scr_int answer = lib_co_400_answer_object (game, command);
 
       pf_empty (filter);
-      if (answer >= 0)
+      if (lib_co_400_pending_is_npc ())
+        {
+          /* A character question re-runs the line, answer words in front
+           * of its term; see lib_co_400_npc_answer_line(). */
+          const std::string rerun (lib_co_400_npc_answer_line (command));
+
+          status = run_all_commands (game, rerun.c_str ());
+          if (!status)
+            {
+              pf_empty (filter);
+              lib_co_400_print_still_ambiguous (game);
+              status = TRUE;
+            }
+        }
+      else if (answer >= 0)
         {
           const std::string original (lib_co_400_pending_command ());
 

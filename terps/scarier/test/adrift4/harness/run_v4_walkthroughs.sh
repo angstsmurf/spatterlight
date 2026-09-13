@@ -662,7 +662,10 @@ jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=2
 # extrapolated, not a transcript match.  See lib_cmd_take_absent().
 # Re-seeded 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (vbrng, SCR_RNG=xoshiro parity work), so the old seed no longer wins; new seed found by search.
-light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=54
+# Re-seeded 2026-09-13: an ambiguous `attack riven` now strikes first and asks
+# `Which riven.` after, as an admin line (run400 Adrift_1130/1139), which
+# shifts the battle stream; seed 54 no longer wins, 187 does.
+light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=187
 # Measured live in run400 under Wine (2026-08-24), full replay, Verbose ON.
 # The game is NOT winnable in the real Runner: "Cat sheepishly enters from
 # the east." never appears (the cat's walk has expired), so `attack cat` gets

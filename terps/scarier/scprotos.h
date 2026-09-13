@@ -692,6 +692,8 @@ extern scr_bool lib_cmd_kill_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_kill_npc_with (scr_gameref_t game);
 extern scr_bool lib_cmd_fight_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_fight_npc_with (scr_gameref_t game);
+extern scr_bool lib_cmd_attack_npcs (scr_gameref_t game);
+extern scr_bool lib_cmd_attack_npcs_with (scr_gameref_t game);
 extern scr_bool lib_cmd_wield (scr_gameref_t game);
 extern scr_bool lib_cmd_sit_on_object (scr_gameref_t game);
 extern scr_bool lib_cmd_sit_on_floor (scr_gameref_t game);
@@ -903,6 +905,8 @@ extern void lib_co_400_set_forced (scr_int object);
 extern void lib_co_400_note_refusal (void);
 extern scr_bool lib_co_400_line_refused (void);
 extern void lib_co_400_print_still_ambiguous (scr_gameref_t game);
+extern scr_bool lib_co_400_pending_is_npc (void);
+extern std::string lib_co_400_npc_answer_line (const scr_char *line);
 extern scr_int lib_co_400_answer_object (scr_gameref_t game,
                                          const scr_char *line);
 extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,
