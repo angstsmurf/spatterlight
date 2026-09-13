@@ -111,6 +111,9 @@ glui32 glk_gestalt_ext(glui32 id, glui32 val, glui32 *arr,
         case gestalt_GarglkText:
             return TRUE;
 
+        case gestalt_WindowBackgroundImmediate:
+            return TRUE;
+
         default:
             return 0;
     }

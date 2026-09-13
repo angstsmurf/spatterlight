@@ -24,7 +24,7 @@
 }
 
 // Recalculate and apply the background color for this window. Priority:
-// 1. Z-machine color override (bgnd), if styles are enabled
+// 1. Z-machine / _immediate override (bgnd), if styles are enabled
 // 2. The Normal style's background color
 // 3. The theme's default buffer background
 // Also updates the scroll view background and notifies the border color system.
@@ -54,6 +54,49 @@
 
 - (void)setBgColor:(NSInteger)bc {
     bgnd = bc;
+    [self recalcBackground];
+}
+
+// Attributes applied to printed runs. Normal BackColor is omitted so text
+// sits on the window fill; styles[style_Normal] still keeps BackColor for
+// measure / recalcBackground.
+- (NSDictionary *)drawingAttributesForStyle:(NSUInteger)stylevalue {
+    if (stylevalue >= styles.count || [styles[stylevalue] isEqual:[NSNull null]])
+        return nil;
+    NSDictionary *attrs = styles[stylevalue];
+    if (stylevalue != style_Normal || !attrs[NSBackgroundColorAttributeName])
+        return attrs;
+    NSMutableDictionary *drawn = [attrs mutableCopy];
+    [drawn removeObjectForKey:NSBackgroundColorAttributeName];
+    return drawn;
+}
+
+// glk_window_set_background_color_immediate: pin Normal BackColor as the
+// ambient window fill. Normal runs do not carry a background attribute,
+// so existing text automatically shows the new pane colour. Styles with an
+// explicit (non-Normal) BackColor stay pinned on their runs.
+- (void)liveUpdateNormalBackColor:(NSInteger)bc {
+    bgnd = bc;
+
+    if (self.styleHints.count && styles.count > style_Normal) {
+        NSMutableArray *allHints = [self.styleHints mutableCopy];
+        NSMutableArray *normalHints = [self.styleHints[style_Normal] mutableCopy];
+        if (bc < 0)
+            normalHints[stylehint_BackColor] = [NSNull null];
+        else
+            normalHints[stylehint_BackColor] = @(bc);
+        allHints[style_Normal] = normalHints;
+        self.styleHints = allHints;
+
+        if (self.theme.doStyles) {
+            NSDictionary *newNormal =
+                [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[style_Normal]])
+                 attributesWithHints:normalHints];
+            if (newNormal)
+                styles[style_Normal] = newNormal;
+        }
+    }
+
     [self recalcBackground];
 }
 
@@ -157,7 +200,6 @@
 
         NSRange selectedRange = _textview.selectedRange;
 
-        NSArray __block *blockStyles = styles;
         [textstorage
          enumerateAttributesInRange:NSMakeRange(0, textstorage.length)
          options:0
@@ -167,8 +209,10 @@
             // styles array
             id styleobject = attrs[@"GlkStyle"];
             if (styleobject) {
-                NSDictionary *stylesAtt = blockStyles[(NSUInteger)[styleobject intValue]];
-                [backingStorage setAttributes:stylesAtt range:range];
+                NSUInteger stylevalue = (NSUInteger)[styleobject intValue];
+                NSDictionary *stylesAtt = [self drawingAttributesForStyle:stylevalue];
+                if (stylesAtt)
+                    [backingStorage setAttributes:stylesAtt range:range];
             }
 
             // Then, we re-add all the "non-Glk" style values we want to keep

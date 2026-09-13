@@ -216,3 +216,33 @@ void glk_window_set_background_color(winid_t win, glui32 color)
     win->background = color;
     win_setbgnd(win->peer, color);
 }
+
+#ifdef GLK_MODULE_WINDOW_BACKGROUND_IMMEDIATE
+void glk_window_set_background_color_immediate(winid_t win, glui32 color)
+{
+    if (!win)
+    {
+        gli_strict_warning("window_set_background_color_immediate: invalid ref");
+        return;
+    }
+
+    if (win->type != wintype_Graphics
+        && win->type != wintype_TextBuffer
+        && win->type != wintype_TextGrid)
+    {
+        gli_strict_warning("window_set_background_color_immediate: not a graphics, text buffer, or text grid window");
+        return;
+    }
+
+    /* For graphics windows, also update the stored clear/resize color. */
+    if (win->type == wintype_Graphics)
+    {
+        win->background = color;
+        win_setbgnd(win->peer, color);
+        return;
+    }
+
+    /* Text buffer/grid: pane fill + Normal BackColor stylehint + live text. */
+    win_setbgnd_immediate(win->peer, color);
+}
+#endif /* GLK_MODULE_WINDOW_BACKGROUND_IMMEDIATE */
