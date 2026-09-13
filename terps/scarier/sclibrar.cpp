@@ -6953,6 +6953,19 @@ static scr_bool lib_rebuilt_raw_dispatch = FALSE;
  */
 static scr_bool lib_rebuilt_silent_continues = FALSE;
 
+/*
+ * Set by the static take refusal only (get_piece 473A34 @473241): a pre-match
+ * hit there on a failing restriction's message prints nothing (45404C
+ * restores the buffer) and get_piece exits, so generaltasks' dispatcher runs
+ * the line as TYPED, with no referenced object.  Professor in the Laboratory,
+ * mailbox up: `take mailbox`, `pick up mailbox`, `take rope` and `take the
+ * mailbox on-a rope` pre-match task 9's "already up by the window" and answer
+ * "What was that?..." (Adrift_1156_p4profmail8), while `get mailbox` gets
+ * task 9's message (Adrift_p4profmail7 T15).  A first-pass hit still
+ * dispatches the rebuilt line case-kept (Adrift_p4profmail2 T24).
+ */
+static scr_bool lib_rebuilt_fallback_typed = FALSE;
+
 static scr_bool
 lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
 {
@@ -6969,7 +6982,23 @@ lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
 
       if (!run_does_command_match (game, lowered.c_str (), TRUE, &kind))
         return FALSE;
-      if (lowered == command)
+      if (kind == 3 && !lib_rebuilt_fallback_typed)
+        kind = 1;
+      if (kind == 3)
+        {
+          const scr_char *typed = run_get_dispatch_input ();
+          const scr_var_setref_t vars = gs_get_vars (game);
+          const scr_int ref_object = var_get_ref_object (vars);
+          const scr_int ref_character = var_get_ref_character (vars);
+
+          var_set_ref_object (vars, -1);
+          var_set_ref_character (vars, -1);
+          ran = typed && run_game_task_commands (game, typed);
+          var_set_ref_object (vars, ref_object);
+          var_set_ref_character (vars, ref_character);
+          kind = 1;
+        }
+      else if (lowered == command)
         ran = run_game_task_commands (game, command);
       else
         {
@@ -8949,11 +8978,30 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
   if (!has_printed && !list.empty () && lib_is_version_400 (game))
     {
       lib_list_t refused;
+
+      /*
+       * The pre-match is lower-cased and the dispatch case-kept, as in the
+       * take piece: a hit that then runs nothing ends on DontUnderstand with
+       * no refusal line.  Professor in the Laboratory, mailbox down: `take
+       * mailbox` and `get x rope` pre-match task 9
+       * `[check/get/pull]{the}[mailbox]{on-a/on a}{rope}` on "get the mailbox
+       * on-a rope", miss it on "get the Mailbox on-a Rope", and answer "What
+       * was that?..." (Adrift_p4profmail2 T24/T25; `get mailbox`, typed,
+       * runs task 9 in Adrift_1154_p4profmail6).  A hit on a failing
+       * restriction dispatches the typed line instead; see
+       * lib_rebuilt_fallback_typed.
+       */
+      lib_rebuilt_raw_dispatch = TRUE;
+      lib_rebuilt_silent_continues = TRUE;
+      lib_rebuilt_fallback_typed = TRUE;
       for (const scr_int object : list)
         {
           if (!lib_try_game_command_short_canonical (game, "get", object))
             refused.push_back (object);
         }
+      lib_rebuilt_fallback_typed = FALSE;
+      lib_rebuilt_silent_continues = FALSE;
+      lib_rebuilt_raw_dispatch = FALSE;
       list.swap (refused);
       /* The tasks' text is complete in itself; no refusal line follows. */
       lib_take_refusal_claimed = list.empty ();
@@ -9349,6 +9397,9 @@ lib_cmd_take_absent (scr_gameref_t game)
 }
 
 
+/* Set by lib_cmd_get_what() only; see the scored fallback below. */
+static scr_bool lib_take_scored_fallback = FALSE;
+
 /*
  * lib_take_multiple_common()
  *
@@ -9374,7 +9425,34 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
                                    resolver, -1,
                                    &references))
-    return FALSE;
+    {
+      /*
+       * 4.0's get_piece (Proc_19_23_473A34) names the piece's object with the
+       * noun scorer 463640 (473011), which counts whole words and skips the
+       * rest, so a word it does not know costs nothing.  Professor.taf, run400:
+       * `get x rope` in the square refuses "You can't take the Mailbox on-a
+       * Rope!" (Adrift_p4profmail2 T22), the alias "rope" scoring; in the
+       * Laboratory it ends on DontUnderstand after the refusal's pre-match
+       * (T25, Adrift_1154_p4profmail6 T26).  Scarier's object parser wanted
+       * every word, and the line fell to "Take what?".  The X-Files, run400
+       * Adrift_424/522_xfiles.txt:248: `take phone book` -> "You take Your
+       * Cell Phone from Your Backpack.".  One piece only; a list keeps the
+       * parser's own answers.  Only from the "Take what?" catch-all, so every
+       * other take row has had the line first (Pilfers `get off bed`).
+       */
+      const scr_char *text = var_get_ref_text (gs_get_vars (game));
+      scr_int object;
+
+      if (!lib_take_scored_fallback || is_except || !text
+          || strchr (text, ',') || lib_input_contains_word (text, "and"))
+        return FALSE;
+      object = lib_verb_object_resolve_400_string (game, text, NULL, TRUE);
+      if (object < 0)
+        return FALSE;
+      gs_clear_multiple_references (game);
+      game->multiple_references[object] = TRUE;
+      references = 1;
+    }
   else if (references == 0)
     return TRUE;
 
@@ -19127,6 +19205,22 @@ lib_cmd_put_unclear (scr_gameref_t game)
 scr_bool
 lib_cmd_get_what (scr_gameref_t game)
 {
+  /*
+   * 4.0 names a take's object by whole-word score, so a line whose words did
+   * not all parse can still name one; see lib_take_multiple_common().
+   */
+  if (lib_is_version_400 (game)
+      && uip_match ("[get/take/pick up/pick] %text%",
+                    run_get_dispatch_input (), game))
+    {
+      scr_bool status;
+
+      lib_take_scored_fallback = TRUE;
+      status = lib_take_multiple_common (game, FALSE);
+      lib_take_scored_fallback = FALSE;
+      if (status)
+        return TRUE;
+    }
   return lib_what (game, "Take");
 }
 

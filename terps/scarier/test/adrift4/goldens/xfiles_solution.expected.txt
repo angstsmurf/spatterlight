@@ -564,7 +564,7 @@ You can't touch that.
 Zzzzz.  Bored are you?
 
 > take phone book
-Take what?
+You take Your Cell Phone from Your Backpack.
 
 > open phone book
 You can't open that.

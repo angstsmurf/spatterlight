@@ -1095,6 +1095,11 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 # Re-blessed 2026-09-07: "(Getting off A Stool first)", run400
 # Adrift_424_xfiles.txt:130 -- the capitalised article is kept; see the
 # ghosttown row, probe PFX and lib_compare_article().
+# Re-blessed 2026-09-14, one line (`take phone book`): "Take what?" ->
+# "You take Your Cell Phone from Your Backpack.", what run400 prints at
+# Adrift_424_xfiles.txt:248 and Adrift_522_xfiles.txt:248.  4.0's get_piece
+# names the object by the 463640 whole-word score, so the unknown "book" costs
+# nothing (Professor `get x rope`, Adrift_p4profmail2 T22).
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # Del Sol's 46 is 20 points larger than anything the game can actually hand
 # out, and the two missing tens are both author bugs.  Task 14 -- answering

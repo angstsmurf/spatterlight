@@ -3073,7 +3073,10 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
    * hit (a failing restriction's message, a spent task's RepeatText --
    * 453C34 stores 1 for both), and 2 for a first-pass hit on a task that
    * would run silently (453BEC-453BFE).  Callers such as the take piece
-   * 46302C exit only on a 1; a 2 dispatches and carries on.
+   * 46302C exit only on a 1; a 2 dispatches and carries on.  A hit on a
+   * failing restriction's message is reported as 3 (the Runner's 1 still):
+   * 45404C is called with arg_C=1 there and restores the message buffer, so
+   * nothing prints, which the per-piece take refusal needs to know.
    */
   if (match_kind)
     *match_kind = 0;
@@ -3131,8 +3134,9 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
                   /* Fallback pass: the failing restriction has a message. */
                   if (!pass && fail_message)
                     {
+                      /* 453C34's 1, told apart for the take refusal. */
                       if (match_kind)
-                        *match_kind = 1;
+                        *match_kind = 3;
                       return TRUE;
                     }
                   continue;

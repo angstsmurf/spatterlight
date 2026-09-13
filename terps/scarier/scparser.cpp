@@ -1058,9 +1058,15 @@ uip_match_eos (void)
  * the dispatcher the raw one (462BFE, 465E51), capitals from the object's
  * name included.  With the flag set, a literal word in a pattern that has a
  * `*` and no group or %reference% must match the input byte for byte after
- * lower-casing the pattern word.  A pattern with no wildcard is the bridge's
- * whole-line LCase() equality (45DA29-45DA51) and stays case-free; the
- * NewParse [] {} path is unmeasured and left alone.
+ * lower-casing the pattern word.  A pattern with no wildcard and no group is
+ * the bridge's whole-line LCase() equality (45DA29-45DA51) and stays
+ * case-free.  A pattern with a [] or {} group goes to the NewParse matcher
+ * (45D940), whose literal compares (45D7FA, 45D835) are binary with no
+ * LCase() on either side: Professor's lab `take mailbox` pre-matches task 9
+ * "[check/get/pull]{the}[mailbox]..." on "get the mailbox on-a rope", misses
+ * it on the dispatched "get the Mailbox on-a Rope", and run400 answers
+ * DontUnderstand (Adrift_p4profmail2 T24).  %reference% patterns are
+ * unmeasured and left alone.
  */
 static scr_bool uip_binary_input = FALSE;
 static scr_bool uip_binary_active = FALSE;
@@ -2574,8 +2580,8 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
   {
     const scr_bool was_binary = uip_binary_active;
 
-    uip_binary_active = uip_binary_input && strchr (pattern, '*')
-                        && !strpbrk (pattern, "[{%");
+    uip_binary_active = uip_binary_input && strpbrk (pattern, "*[{")
+                        && !strchr (pattern, '%');
     match = uip_match_node (tree);
     uip_binary_active = was_binary;
   }

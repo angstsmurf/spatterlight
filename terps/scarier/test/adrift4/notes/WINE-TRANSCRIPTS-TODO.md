@@ -8466,19 +8466,44 @@ Results:
 - Feeds 3, 4 and 5 are identical on every turn, and feed 2 T21 now matches.
 - v4 suite 428/428 PASS, no golden moved.
 
-**Still open, professor feed 2 (older, not caused by this port):**
-- T22 `get x rope` in the square: run400 refuses "You can't take the Mailbox
-  on-a Rope!", while Scarier says "Take what?".  run400's 463640 scorer finds
-  the "rope" alias inside "x rope"; Scarier's object parser rejects the
-  unknown "x".
-- T24 `take mailbox` and T25 `get x rope` in the Laboratory, with the mailbox
-  down: run400 answers DontUnderstand to both.  Scarier's canonical pre-match
-  on "get the Mailbox on-a Rope" runs task 9 (`[check/get/pull]{the}[mailbox]...`,
-  room 2), and T25 says "Take what?".  So run400 does not have the mailbox in
-  scope in the lab.  Check object 4's room list and state-dependent
-  presence.
-- The lab room text difference at T23 ("when it's up, it sits by the window")
-  is downstream mailbox state, NOT a Runner desync.  It now matches.
+**PORTED 2026-09-14 (last): professor feed 2 T22/T24/T25 -- three rules,
+all eight professor feeds and moprobe now identical on every turn.**
+
+The old "mailbox not in scope in the lab" guess was wrong.  What run400 does:
+
+1. **Bracket patterns are binary.**  NewParse 45D940 has no LCase; its
+   literal compares (45D7FA, 45D835) are plain `=`.  Only the bridge's
+   whole-line compare (45DA29-45DA51) lower-cases both sides.  So T24 `take
+   mailbox` in the lab (mailbox down) pre-matches task 9
+   `[check/get/pull]{the}[mailbox]{on-a/on a}{rope}` on the lowered "get the
+   mailbox on-a rope", misses it on the case-kept "get the Mailbox on-a Rope",
+   and answers DontUnderstand.  Port: `uip_binary_active` in scparser.cpp now
+   covers patterns with `*`, `[` or `{` (not `%`; %reference% patterns are
+   unmeasured).
+2. **A pre-match hit on a failing restriction is silent, and the typed line
+   is dispatched.**  45404C restores the buffer when 453C50 calls it
+   (arg_C=1) but not when the dispatcher does (44CCA5, arg_C=0), and get_piece
+   exits at 4733FC on any hit (47324C).  Probe `Adrift_1156_p4profmail8`,
+   lab, mailbox up (task 9 fails "The Mailbox on-a rope is already up by the
+   window."): `take mailbox`, `pick up mailbox`, `take rope`, `take the
+   mailbox on-a rope` -> all DontUnderstand; `Adrift_1155_p4profmail7` T15
+   typed `get mailbox` -> the FailMessage.  Rule (a), "a fallback hit prints
+   its message", is disproved.  Port: `run_does_command_match` reports that hit
+   as match_kind 3; `lib_rebuilt_fallback_typed` (static take refusal only)
+   re-runs the typed line with no referenced object and prints DontUnderstand
+   if nothing runs.  A first-pass hit keeps the case-kept rebuilt dispatch.
+3. **get_piece names the object by whole-word score** (463640 mode 1 at
+   473011), so unknown words cost nothing.  T22 `get x rope` in the square ->
+   "You can't take the Mailbox on-a Rope!"; in the lab (T25, p4profmail6 T26,
+   p4profmail7 T16) the refusal's pre-match then gives DontUnderstand.  Port:
+   `lib_cmd_get_what` (the LAST take row, so `get off bed` etc. keep their
+   rows -- a first try in `lib_cmd_take_multiple` broke Pilfers) retries the
+   %text% through `lib_verb_object_resolve_400_string` before "Take what?".
+   It moved one golden line, onto the Runner: xfiles `take phone book` -> "You
+   take Your Cell Phone from Your Backpack." (Adrift_424/522_xfiles.txt:248).
+
+The lab room text difference at T23 ("when it's up, it sits by the window") is
+downstream mailbox state, NOT a Runner desync.
 
 The history below is the pre-port investigation.  Its "blocker" paragraph is
 resolved by the above.
