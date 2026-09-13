@@ -1016,11 +1016,24 @@ Engine leads, measured or half-measured, none blocking:
   not a turn in run400 and is one in Scarier, with the wrong prompt wording
   (`light_up` T294+)~~ **PORTED 2026-09-13** -- dobattle strikes every present
   NPC the line names, then asks `Which <term>.` as an admin line; exact draw
-  parity on 12 probes, `light_up` re-seeded 54 -> 187; (4) battle rounds a turn out of phase (`wes_ghn`,
-  `sun_empire`); (5) `les_feux` T11 resolves hit in run400 and miss in
-  Scarier; (6) `snakes_and_ladders` takes two Runner draws at feed turns 5-6
-  that Scarier does not; (7) `%player%` is filled from a feed line Scarier
-  eats at a name prompt run400 never asks (`woof`, `jinxtron_full`).
+  parity on 12 probes, `light_up` re-seeded 54 -> 187; (4) battle rounds a turn out of phase (~~`wes_ghn`~~,
+  `sun_empire`) -- **`wes_ghn` half CLOSED 2026-09-13**: stale drive
+  (fresh run400x 217 = 217 draws), and the three text differences left were
+  two ports, the type-7 attribute cap and the NPC dodge pronoun (see
+  "Closed 2026-09-13: type-7 battle raises are capped at max" at the foot);
+  `sun_empire` is unmoved; (5) ~~`les_feux` T11 resolves hit in run400 and miss in
+  Scarier~~ **PORTED 2026-09-13** -- the same type-7 cap: 76 = 76 draws and
+  identical text to the Runner's death at T18; (6) ~~`snakes_and_ladders` takes two Runner draws at feed turns 5-6
+  that Scarier does not~~ **CLOSED 2026-09-13, stale drive** -- the extra
+  draws were 454874's temp-name retries at load; a fresh run400x drive is
+  131 = 131 draws and identical on every turn; (7) ~~`%player%` is filled from a feed line Scarier
+  eats at a name prompt run400 never asks (`woof`, `jinxtron_full`)~~
+  **CLOSED 2026-09-13, harness** -- run400 does ask; the driver answered it
+  with an empty field and the compare left `--popup` off.  `woof`,
+  `jinxtron_full` and `cldone` are identical on every turn once the answers
+  are put back.  The rule on the other side of it (run390 asks only when the
+  authored name is blank) is ported; see "Closed 2026-09-13: lead 7 was the
+  popup answers" at the foot of this file.
 - **`house` is not comparable** until it is re-driven with Verbose ON; the
   2026-09-12 frost-event and breaking-glass leads on that row are withdrawn.
 - **Put/task precedence at 4.0** -- the one port with a written spec; see
@@ -7402,18 +7415,18 @@ Two numbers per row:
 | `circus` | 12 | 5 | 0 | 0 | real: the spent-task answer |
 | `house` | 140 | 162 | +916 | +1159 | **NOT COMPARABLE -- Verbose was OFF** |
 | `light_up` | 71 | 71 | -71 | -71 | real, three findings |
-| `cldone` | 33 | 33 | +2 | +2 | real, from turn 0 |
-| `snakes_and_ladders` | 39 | 39 | -2 | -2 | real, 2 extra Runner draws at turns 5-6 |
+| `cldone` | 33 | 33 | +2 | +2 | ~~real, from turn 0~~ popup artefact: identical with `--popup Player` |
+| `snakes_and_ladders` | 39 | 39 | -2 | -2 | ~~real, 2 extra Runner draws at turns 5-6~~ stale drive: 2 temp-name retries at load; re-driven 2026-09-13, **0 differing turns, draws 131 = 131** |
 | `hcw` | 78 | 78 | +4 | +4 | real (`turn on intercom`, `put susan in trunk`) |
 | `lair` | 52 | 52 | +20 | +20 | whitespace-only `<centre>` artefact |
 | `mould` | 31 | 31 | 0 | 0 | NOT COMPARABLE (imp fight redraws its form) |
 | `journ2` | 25 | 25 | -7 | -7 | real: spent-task answer at T21 |
 | `sun_empire` | 21 | 21 | +72 | +72 | real: battle round one turn out |
 | `warlord` | 14 | 14 | +22 | +22 | real: `x tapestry three` |
-| `wes_ghn` | 11 | 11 | -51 | -51 | real: battle round one turn out |
+| `wes_ghn` | 11 | 11 | -51 | -51 | ~~real: battle round one turn out~~ stale drive; re-driven 2026-09-13, draws 217 = 217, **0 engine turns** after the type-7 cap + dodge pronoun ports (T119 is the Runner capture's cut tail) |
 | `zombies` | 8 | 8 | 0 | 0 | real: `ask stu about zombies` |
-| `jinxtron_full` | 7 | 7 | -2 | -2 | real: `%player%` substitution |
-| `les_feux` | 5 | 5 | +62 | +62 | real: hit/miss inverted at T11 |
+| `jinxtron_full` | 7 | 7 | -2 | -2 | ~~real: `%player%` substitution~~ popup artefact: identical every turn |
+| `les_feux` | 5 | 5 | +62 | +62 | ~~real: hit/miss inverted at T11~~ type-7 raise uncapped; ported 2026-09-13, **draws 76 = 76, identical through T18** |
 | `inverness` | 5 | 5 | -2 | -3 | documented deliberate deviation (T37) |
 | `panic` | 4 | 4 | +2 | +2 | whitespace-only artefact |
 | `alexis_worn_cube` | 3 | 3 | 0 | 0 | re-sync markers only; identical every turn |
@@ -7690,20 +7703,24 @@ parity now holds on 21 of 43 rows, up from 20.
      dobattle.  Ported as `lib_battle_weapon_question()`,
      `lib_battle_cant_attack()`, `lib_battle_scan_with()`.
 
-4. **Battle rounds land one turn apart** in `wes_ghn` (T57/T58: run400 kills
-   Hope a round earlier, and by T85 the two are a whole kill apart) and in
+4. **Battle rounds land one turn apart** in ~~`wes_ghn` (T57/T58: run400 kills
+   Hope a round earlier, and by T85 the two are a whole kill apart) and in~~
    `sun_empire` (T57/T58: the round Scarier prints on 57 the Runner prints on
-   58).  Same shape on both rows; neither is a value difference, both are a
-   phase difference.
+   58).  **`wes_ghn` CLOSED 2026-09-13**: its phase shift was a stale drive
+   (fresh run400x 217 = 217 draws), and the text left over was two ports --
+   see "Closed 2026-09-13: type-7 battle raises are capped at max" below.
+   `sun_empire` is unmoved by those ports (still 416 vs 344 draws, T57/T58),
+   so the phase lead stays open for it alone.
 
-5. **`les_feux` T11 and T17: the same assassin attack resolves hit in run400
-   and miss in Scarier** -- `Un assassin vous frappe.` vs `Vous arrivez à
-   éviter le poignard de l'assassin.` -- from the same stream position.  This
-   is a hit-resolution rule, not a phase problem.  By T18 the Runner's player
-   is dead and Scarier's is not.
+5. ~~**`les_feux` T11 and T17: the same assassin attack resolves hit in run400
+   and miss in Scarier**~~ **PORTED 2026-09-13** -- the type-7 raise cap.  The
+   Runner's player dodged less because `passer`'s Agility +6 is clamped at
+   the loaded Hi; see the section below.
 
-6. **`snakes_and_ladders`: two extra Runner draws, localised at feed turns
-   5-6.**  The first 131 values are identical; the Runner takes 133.  Scarier's
+6. ~~**`snakes_and_ladders`: two extra Runner draws, localised at feed turns
+   5-6.**~~ **CLOSED 2026-09-13: a stale drive, not an engine lead** -- see
+   "Closed 2026-09-13: lead 6 was temp-name retries" below.  The turn
+   localisation that follows is wrong: the two draws were taken at load.  The first 131 values are identical; the Runner takes 133.  Scarier's
    per-turn pattern is `randomint(1,6)` -> `randomint(0,999)` ->
    `randomint_exclusive(1,1)`, dice at stream indices 6, 9, 12, 15...; the
    Runner's transcript rolls map to 6, 9, 11, 17, 20, 23, 26..., so it takes
@@ -7711,7 +7728,11 @@ parity now holds on 21 of 43 rows, up from 20.
    stride 3 permanently offset by 2.  First visible at T5 `r`: "five/square 16"
    vs "six/square 17".
 
-7. **`%player%` is being filled from the feed.**  In `woof` T24 run400 prints
+7. ~~**`%player%` is being filled from the feed.**~~ **CLOSED 2026-09-13: a
+   harness artefact, not an engine lead** -- see "Closed 2026-09-13: lead 7
+   was the popup answers" below.  The reading that follows is wrong in its
+   last sentence: the Runner *does* ask, and was answered with an empty field.
+   In `woof` T24 run400 prints
    `"Anonymous!!!! I'm back."` and Scarier prints `"x basket!!!! I'm back."` --
    `x basket` being feed[0], whose output Scarier also swallows.  `jinxtron_full`
    is the same shape: T0 run400 `"HELLO-- JINX!"` vs Scarier `"WORLD-- JINX!"`,
@@ -7720,8 +7741,10 @@ parity now holds on 21 of 43 rows, up from 20.
    the Runner does not ask (the Runner defaults the player name to
    `Anonymous`).
 
-Unchanged and already catalogued, all still present: `cldone` (T0 `sit` --
-run400 runs the seance task, Scarier prints the room description; and T11/T32),
+Unchanged and already catalogued, all still present: ~~`cldone` (T0 `sit` --
+run400 runs the seance task, Scarier prints the room description; and T11/T32)~~
+(**withdrawn 2026-09-13** -- the same popup artefact as lead 7; identical on
+every turn with `--popup Player`),
 `hcw` T81 `turn on intercom` / T162 `put susan in trunk`, `journ2` T21 and
 `circus` T68 (run400 answers a spent task `You have already done that.` where
 Scarier runs the library), `warlord` T72 `x tapestry three`, `zombies` T10 `ask
@@ -7846,3 +7869,155 @@ above are closed by this port.  Residual, out of scope: Vampire `enter queue`
 typed out of room prints Scarier's "Just a direction will do." where run390
 prints the room refusal "You can't do that here!" (library `enter` vs room
 refusal ordering); the trimmed route no longer reaches it.
+
+## Closed 2026-09-13: lead 7 was the popup answers; the name prompt split by version
+
+**Lead 7 is a harness artefact.**  The 2026-09-12 xoshiro job rows carry no
+POPUP_ANSWERS field.  With an empty queue `drv/drive.cs` skips its InputBox
+branch.  The name box then falls through to the generic dialog branch, which
+clicks OK on an empty field, and run400 calls the player `Anonymous`.  The
+gender form falls back to `male`.  The compare was run without `--popup`, so
+Scarier's own name prompt ate feed[0]: `woof`'s `x basket` and
+`jinxtron_full`'s `hello`/`WORLD` came back out of `%player%`.
+
+With those answers put back:
+
+| row | exe | answers | result |
+|---|---|---|---|
+| `woof` (`Adrift_1034`) | run400x, seed 5 | `""`, `male` | identical apart from the `[Press any key to end]` tail |
+| `jinxtron_full` (`Adrift_1047`) | run400x, seed 19 | `""`, `male` | identical on every turn |
+| `cldone` (`Adrift_1066`) | run390x, seed 2 | `Player` | identical on every turn (the old "T0 `sit`" lead goes with it) |
+| `iqsfot` (control, no prompt) | run400x, seed 31 | -- | unchanged, identical |
+
+**compare_wine_transcript.py now supplies the driver's defaults.**  When
+`--taf` is given without `--popup`, `default_popup_answers()` replays the game
+and looks at the leading prompt spans, the same way make_wine_cmdfile.py does.
+It prints a `popup` line saying what it assumed.  At 4.00 it answers the name
+with `""` and the gender with `male`.  Below 4.00 it assumes nothing and warns:
+run390 never accepts an empty name (next paragraph), so a 3.90 drive that got
+past the prompt was given a real name, and guessing one would be guessing the
+transcript.  `--no-popup-default` turns the default off.
+
+**The engine half: when the name is asked, and what a blank answer does.**
+
+* run400 Form1 (46EA89 / 46EAEF): if PromptName is set, it asks every time.
+  A blank answer becomes `Anonymous`.
+* run390 (`run390.bas` 4416B8-441712): if PromptName is set, it asks **only
+  while the authored PlayerName is empty**
+  (`4416C8 If global_4 = vbNullString Then InputBox ... GoTo 4416BB`).  So an
+  authored name skips the prompt outright, and a blank answer is asked again.
+* run380 and run370 have no name prompt.
+
+Scarier used to ask at every version and took a blank answer as `Anonymous`.
+`run_prompt_player_name()` (scrunner.cpp) now follows run390 below 4.00: it
+returns early when PlayerName is authored, and a blank answer loops.  An EOF
+still leaves the loop, so `scare x.taf </dev/null` cannot hang.
+
+**Suite: two goldens moved, both Runner-true.**  `villains_and_kings` and
+`the_town_of_azra_v390` are 3.90 games that author a name, and both
+walkthroughs opened with `Hero` for a prompt run390 never shows.  The corpus
+drives of both (`Adrift_553`, `Adrift_536`, run390) logged `WARN: 1 popup
+answer(s) unused`.  The `Hero` line was dropped from both solutions; the
+golden diff is exactly the removed `Please enter your name:` / `> Hero` lines.
+After re-blessing: **428 PASS / 0 FAIL**.
+
+Not measured: the run400 loader (`mdlSpreadTheLoad.bas` 48F39F) replaces an
+empty field of MemVar_4940A0 with `Anonymous` at load time.  If that field is
+PlayerName, a 4.0 game with PromptName off and no authored name reads
+`%player%` as `Anonymous` in the Runner, where Scarier (scvars.cpp) falls back
+to `Player`.  No row in the current batch exercises it.
+
+## Closed 2026-09-13: lead 6 was temp-name retries
+
+**Lead 6 is a stale drive, not an engine difference.**  `snakes_and_ladders`
+(`sandl.taf`, 4.00, one embedded `wholeboard.gif`) was re-driven on run400x
+with seed 3, the same feed, and `VBRNG_TRACE_SITE=1`:
+
+| | draws | load draws | transcript |
+|---|---|---|---|
+| archived `Adrift_1062` trace (2026-09-12) | 133 | 5: `#1`, `#2`, then `#3 #4 #5` with no Randomize between | 39 differing turns |
+| fresh drive, same seed and feed | **131** | 3: `#1 @48ED57` (.tmp name), `#2 @49162D` (event start), `#3 @454773` (media temp name) | **identical on every turn** |
+| Scarier HEAD | 131 | 3 | -- |
+
+Per turn the fresh trace and Scarier agree exactly.  The two blank feed lines
+draw nothing, `x dice` draws 2 (`@48D1E5` `rand_num`, `@4705E8` restart), and
+every `r` draws 3 (`@48D1E5` dice, `@48D1E5` `rand_num`, `@4705E8` restart).
+
+In the archived trace, three consecutive load draws with no Randomize between
+them are exactly 454874's retry loop (454798-4547EA re-rolls without
+re-seeding while the temp name exists).  That is one extraction plus two
+retries against a temp dir left over from earlier runs, which is the failure
+`drive.exe --temp` was added to stop.
+
+The earlier reading, "dice at stream index 8 so two draws at turns 5-6", came
+from aligning transcript rolls against a stream already shifted by 2 at load.
+
+**Checked on the way, and Scarier already agrees:**
+* A back-reference (`-1` length, task 8's `wholeboard.gif`) rolls nothing.
+  454874 returns at 4546F4 (`arg_10 < 0` -> `Me(-arg_10)`) before any `Rnd`.
+  That matches `parse_handle_v400_resource()`'s `length > 0` rule.
+* The openadv loops (492965 onward) call 454874 for every resource whose name
+  is non-empty.  The draw itself is gated inside 454874 on length > 0.
+
+**Other rows measured before the `--temp` fix may carry the same load offset.**
+A row whose Runner draw count exceeds Scarier's by a small constant from turn 0
+in a media game should be re-driven before being read as a lead.  For the lead
+4/5 rows the archived traces carry no site tags, so retries cannot be ruled in
+or out from them.  The sign of the draw gap settles two of the three, since
+retries only ever add Runner draws: `sun_empire` (+72) and `les_feux` (+62)
+draw more in Scarier, so retries are not their cause.  `wes_ghn` (-51) was
+re-driven with `VBRNG_TRACE_SITE=1` and came out 217 = 217: a stale drive
+too (see the next section).
+
+## Closed 2026-09-13: type-7 battle raises are capped at max
+
+A fresh run400x drive of `wes_ghn` (seed 2, `wes_ghn_site.txt` /
+`wes_ghn_site_trace.txt`) gives **217 = 217 draws, equal on every turn**.  The
+archived row's -51 and its "battle round one turn out" were a stale drive.
+Three text differences were left, and all three were engine rules:
+
+| Turn | run400 | Scarier (before) | Cause |
+|---|---|---|---|
+| T76 `talk to charity` | `Hope cuts you with the Stripper Sword.` | `..., but it doesn't seem to do any damage.` | raise not capped |
+| T81 | `... Stripper Sword, but she manages to avoid it.` | `..., but Charity Bell manages to avoid it.` | dodge pronoun |
+| T83 `attack hope` | `Hope cuts you with the Stripper Sword.` | `..., but it doesn't seem to do any damage.` | raise not capped |
+
+**The cap.**  At T76 (Scarier INPUT line 89, `n`) a task runs a type-7 action,
+player Defence +15.  The player's Defence loads as 10..20, and max starts
+equal to Hi (20).  `SCR_TRACE_BATTLE` showed Scarier rolling defence 32 from
+25..35 against Hope's strength 30 (base plus Stripper Sword HitValue), so
+there was no damage.  run400's `execute_action` (Proc_19_10_48E860) type-7
+branch for attribute 7 (48E08D; each ranged attribute has the same shape)
+does this:
+
+    lo = Proc_21_1_442D5C(lo + delta, max)
+    hi = Proc_21_1_442D5C(hi + delta, max)
+
+`Proc_21_1_442D5C` is plain `min()`, so the range becomes 20..20.  Defence 20
+against strength 30 is a 10-point cut.  There is **no zero floor**.  The Max
+branches (4/6/8/&HA, e.g. 48E2A6) are a plain add with no floor and no re-clamp
+of lo/hi.  Scarier's `battle_change_attribute()` now does exactly that when
+`!battle_legacy`.  The 3.9 path keeps its old zero floors, because run390's
+type-7 branch has not been read.
+
+**The pronoun.**  Proc_11_2's armed miss against an NPC (465439-4654AB) is
+`attacker & " attacks " & target & " with " & weapon & ", but " &
+Proc_21_51_4496C8(target, 0) & " manages to avoid it."`.  Proc_21_51 maps the
+Gender byte (+72) to "he" / "she" / "it", and anything else to "".  The
+player's own dodge still reads Ary(2).  This is ported for 4.0 only.
+
+**Knock-on: `les_feux` (lead 5) closes.**  `passer` runs Agility +6 and
+Accuracy +1 on the player, and the cap now holds both at their loaded Hi.
+Against the xoshiro Runner row (seed 486, `Adrift_1031_les_feux.txt`) the
+draws are **76 = 76**, and the text is identical through the Runner's death at
+T18.  The only difference left is its `[Press any key a end]` wait-key line.
+The `les_feux` golden route had been tuned to the uncapped stats and now died
+to the ghoul, and no seed in 1..400 won it with the old hit counts.  It is
+re-seeded 18 -> 45, with its six fight blocks re-counted (assassin 9, ogre 10,
+goule 5, demon 9, voyou 9, voleur 10).  `wes_ghn`'s golden is re-blessed for
+the three turns above.
+
+**`sun_empire` is unmoved**: 416 vs 344 draws, with the same T57/T58 round
+shift.  Lead 4 stays open for that row alone.  It has not been re-driven with
+site tags yet, but a stale drive can only add Runner draws, and here Scarier
+draws more.

@@ -553,9 +553,10 @@ battle_attitude_from_ui (scr_int value)
  * or an NPC.  attribute is the ADRIFT attribute index (0 = Attitude, 1 =
  * Stamina, 2 = Max Stamina, 3/5/7/9 = Strength/Accuracy/Defence/Agility, 4/6/8/
  * 0xA = their Max caps, 0xB = Speed).  Attitude and Speed are set to the given
- * enum value; every other attribute changes by the signed delta.  Values are
- * floored at zero, and current stamina is re-clamped to its (possibly changed)
- * maximum.
+ * enum value; every other attribute changes by the signed delta.  Current
+ * stamina is re-clamped to its (possibly changed) maximum.  At 4.0 a range
+ * change is capped at the attribute's max and a max change is a plain add;
+ * the 3.9 path floors both at zero instead.
  */
 void
 battle_change_attribute (scr_gameref_t game, scr_int npc,
@@ -602,6 +603,23 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
 
     case 3: case 5: case 7: case 9:    /* Str/Acc/Def/Agi range (delta). */
       slot = (attribute - 3) / 2;
+      if (!battle_legacy)
+        {
+          /*
+           * run400 execute_action type 7 (48E08D for Defence, the same shape
+           * for each ranged attribute) sets lo = Proc_21_1(lo + delta, max)
+           * and hi = Proc_21_1(hi + delta, max), and Proc_21_1_442D5C is
+           * plain min(): the raise is CAPPED at the attribute's max, with
+           * no zero floor.  wes_ghn T76: Defence 10..20 (max 20) +15 is
+           * 20..20 in the Runner, so Hope's 30-strength sword still cuts;
+           * an uncapped 25..35 made it "doesn't seem to do any damage".
+           */
+          battle->lo[slot] = battle->lo[slot] + value < battle->max[slot]
+                             ? battle->lo[slot] + value : battle->max[slot];
+          battle->hi[slot] = battle->hi[slot] + value < battle->max[slot]
+                             ? battle->hi[slot] + value : battle->max[slot];
+          break;
+        }
       battle->lo[slot] += value;
       if (battle->lo[slot] < 0)
         battle->lo[slot] = 0;
@@ -613,6 +631,9 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
     case 4: case 6: case 8: case 0xA:  /* Max Str/Acc/Def/Agi (delta). */
       slot = (attribute - 4) / 2;
       battle->max[slot] += value;
+      /* run400 48E2A6: a plain add, no floor and no re-clamp of lo/hi. */
+      if (!battle_legacy && battle->max[slot] < 0)
+        break;
       if (battle->max[slot] < 0)
         battle->max[slot] = 0;
       break;
@@ -1317,10 +1338,17 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
        * nor lose HitValue (Proc_11_2 has no equivalent of either).
        */
       const scr_bool player_throw = (method == 5 && attacker < 0);
-      scr_int damage = battle_eff_strength (game, attacker,
-                                            (player_throw && !battle_legacy)
-                                                ? -1 : weapon);
-      damage -= battle_eff_defence (game, target);
+      static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != NULL);
+      const scr_int strength = battle_eff_strength (game, attacker,
+                                                    (player_throw && !battle_legacy)
+                                                        ? -1 : weapon);
+      const scr_int defence = battle_eff_defence (game, target);
+      scr_int damage = strength - defence;
+
+      if (battle_trace)
+        fprintf (stderr, "BATTLE: %ld hits %ld weapon %ld: accuracy %ld"
+                 " agility %ld strength %ld defence %ld\n", attacker, target,
+                 weapon, accuracy, agility, strength, defence);
 
       if (visible)
         {
@@ -1396,7 +1424,33 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
           pf_buffer_string (filter, " with ");
           lib_print_object_np (game, weapon);
           pf_buffer_string (filter, ", but ");
-          battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
+          if (target >= 0 && !battle_legacy)
+            {
+              /*
+               * An NPC dodging another NPC's armed blow is named by pronoun,
+               * not by name: run400 Proc_11_2 @465495 splices
+               * Proc_21_51_4496C8(target, 0), which maps the record's Gender
+               * byte to "he" / "she" / "it" (and anything else to "").
+               * wes_ghn T81: "Hope attacks Charity Bell with the Stripper
+               * Sword, but she manages to avoid it."  The player's own dodge
+               * (@4653FF) still reads Ary(2).  3.9 unmeasured, left as it was.
+               */
+              const scr_prop_setref_t bundle = gs_get_bundle (game);
+              scr_vartype_t vt_key[3];
+
+              vt_key[0].string = "NPCs";
+              vt_key[1].integer = target;
+              vt_key[2].string = "Gender";
+              switch (prop_get_integer (bundle, "I<-sis", vt_key))
+                {
+                case NPC_MALE:   pf_buffer_string (filter, "he");  break;
+                case NPC_FEMALE: pf_buffer_string (filter, "she"); break;
+                case NPC_NEUTER: pf_buffer_string (filter, "it");  break;
+                default:         break;
+                }
+            }
+          else
+            battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
           pf_buffer_string (filter, (target < 0) ? " manage to avoid it.\n"
                                                  : " manages to avoid it.\n");
         }

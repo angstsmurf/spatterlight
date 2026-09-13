@@ -1172,7 +1172,13 @@ inverness_solution.txt|inverness.taf|You hear Macbeth and his wife leave the roo
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
-les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 75 sur un maximum de 115.|SCR_SEED=18 SCR_SKIP_WAITKEY=1
+# Re-seeded 18 -> 45 2026-09-13 for the type-7 battle raise cap (run400 48E08D:
+# lo/hi = min(x + delta, max)).  `passer`'s Agility +6 / Accuracy +1 are now
+# clamped at the Hi they load with, as in the Runner (les_feux census row: 76 = 76
+# draws, identical through T18), so every fight runs longer; no seed in 1..400
+# won with the old hit counts.  Found by sweeping seeds with 10-attack blocks,
+# then trimming each block while the route still wins.
+les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 75 sur un maximum de 115.|SCR_SEED=45 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
 # the noun once, up front, with co() whole-word containment, and every generic verb
 # after it sees that object; Scarier's fallback verb table now gets the same
