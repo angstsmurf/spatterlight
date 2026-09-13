@@ -4081,6 +4081,45 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       && !run_defer_loud_tasks_to_movement (game, task_string))
     status = run_game_commands_in_parser_context (game, task_string,
                                                   TRUE, FALSE);
+
+  /*
+   * dobattle (run400 Proc_11_4_47F084), called from generaltasks at 48A4A2
+   * when the Battle System is on, opens with the stamina recovery loop for
+   * every character, 47E682-47E764 -- see battle_recover_line().  It runs
+   * here, once per line element, ahead of every library verb, and it is
+   * gated the way the Runner's control flow gates it:
+   *
+   *  - Four handlers above it end the line by GoTo loc_48B4E3 when they
+   *    claim it: the inventory listing 48A457, put_drop_list 48A462
+   *    (result set only when name_object 46E5D8 answered, 459CB0/459DAD),
+   *    get_outer 48A46D (result set only when the per-piece get 473A34
+   *    answered, 458200/4582B9), and the task dispatcher 48A481, whose tail
+   *    at 44CCC0 forces its result to 0 when the message buffer is empty.
+   *    That is `status` here: a silent task leaves it FALSE and recovers,
+   *    a put refusal leaves it FALSE too (`refused` is turned into a claim
+   *    only below), and the inventory listing by itself does not claim.
+   *  - A spent task's RepeatText is printed by the dispatcher and claims
+   *    the line (`repeat_found`; its survivors run from 48B4E3, still past
+   *    the call).
+   *  - The not-a-turn byte MemVar_494281: reset at 48A010 for each element,
+   *    and set inside dobattle itself at 47DCB9 by the status path, `If
+   *    c("status") And MemVar_4941B0 = ""` -- the whole word anywhere in the
+   *    line, with nothing yet in the message buffer -- before the loop at
+   *    47E682 tests it.  No other store reaches the test on this path.
+   *
+   * So a line that is not a turn (`score`, a line nobody understands) still
+   * recovers, `wait` recovers once per typed line and not per waited turn,
+   * a Who-continuation recovers twice, and a claimed line not at all.  The
+   * counters start at Recovery (battle_start()), so the first point lands
+   * Recovery lines in.  Recovery is a 4.0 property; 3.9 has none of this.
+   */
+  if (!status && !repeat_found
+      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      && battle_is_enabled (game)
+      && !(pf_buffer_length (filter) == 0
+           && lib_input_contains_word (string, "status")))
+    battle_recover_line (game);
+
   if (refused)
     {
       pf_clear_join_pending (filter);
@@ -5064,8 +5103,11 @@ run_main_loop (scr_gameref_t game)
               npc_tick_npcs (game);
               evt_tick_events (game);
 
-              /* Battle System stamina recovery for the turn. */
-              battle_tick (game);
+              /*
+               * Stamina recovery is not here: it is dobattle's, run per
+               * line element from run_all_commands() before the library
+               * verbs.  See battle_recover_line().
+               */
 
               /* Update NPC states. */
               npc_turn_update (game);

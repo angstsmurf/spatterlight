@@ -1,6 +1,8 @@
 # Shadowpeak ADRIFT 4.0 - ALTERNATIVE walkthrough: KILL THE WRAITH FIRST.
 # Deterministic 0-death WIN, 735/790 under
-# SCR_SEED=23 (2026-09-12: the RNG stream now follows the Wine Runners draw for
+# SCR_SEED=76 (2026-09-13: stamina recovery is now the per-line dobattle pass with
+# counters seeded = Recovery and no alive filter, run400 47E682/49222F; village phase
+# and Damastus chase re-derived, seed 23 -> 76.  2026-09-12: the RNG stream now follows the Wine Runners draw for
 # draw -- vbrng parity work -- so a new seed, and the village zombie phase and
 # the Damastus chase are re-derived below once more.  Earlier, 2026-09-06: the RNG first-draw warm-up fix in scutils.cpp
 # scr_congruential_rand -- the first draw after a reseed used to be pinned to
@@ -163,13 +165,17 @@ s
 # SCR_SEED=23.  Greedy phase from the Village Square (37), one turn at a time:
 # stab whichever named zombie has wandered in, else wait --
 # harness/shadowpeak_village.py, the same shape as harness/shadowpeak_chase.py.
-# 14 turns of work, then 13 `z` of padding.  Padding back to the original 85-turn
+# 8 turns of work, then 19 `z` of padding (2026-09-13, SCR_SEED=76: stamina recovery
+# became the per-line dobattle pass, counters seeded = Recovery, no alive filter, so
+# the zombie stream moved again).  Padding back to the original 85-turn
 # length now dies before the maze, so the pad was swept for one that keeps the
 # downstream event timers (EVENT 92, the Morac death timer) where the route needs them.
-z
-z
-z
+attack jarris
 attack holga
+attack arthur
+attack boris
+z
+attack jarris
 attack holga
 attack jarris
 z
@@ -177,9 +183,7 @@ z
 z
 z
 z
-attack arthur
 z
-attack boris
 z
 z
 z
@@ -605,26 +609,28 @@ n
 n
 n
 press stone button
-# Damastus chase re-derived 2026-09-12 with harness/shadowpeak_chase.py at
-# SCR_SEED=23 (RNG stream now follows the Wine Runners draw for draw).
-# Damastus dies in room 148, stamina 46
-e
-e
-e
-e
-e
-e
+# Damastus chase re-derived 2026-09-13 with harness/shadowpeak_chase.py at
+# SCR_SEED=76 (stamina recovery is now the per-line dobattle pass).
+# Damastus dies in room 156, stamina 35
 s
 s
 s
 attack damastus
+n
 attack damastus
-attack damastus
-attack damastus
+s
 attack damastus
 n
+attack damastus
 n
+attack damastus
 n
+e
+e
+e
+e
+e
+e
 press bronze button
 w
 w

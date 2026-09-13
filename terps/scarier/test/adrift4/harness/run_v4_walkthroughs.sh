@@ -269,7 +269,15 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 # answers "Who do you want to attack?" (47F01A, a real turn; Adrift_1020 T361).  The walkthrough
 # now types `attack shadow with sword`; the golem is Named "Colos", so the five `attack golem`
 # filler turns before `say carom` print the same refusal.  Nothing else moved.  Still wins.
-shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=23
+# Re-derived 2026-09-13 (later): stamina recovery is now dobattle's per-line pass (run400
+# 47E682-47E764, called from generaltasks 48A4A2 before the end-of-turn tick), counters
+# seeded = Recovery at load (49222F/48F5DC) and NO alive filter, so a stamina-0 zombie
+# recovers and stands up again; the zombie and battle streams moved.  No seed in 1..2000
+# ran the old blocks; village phase re-derived per seed with harness/shadowpeak_village.py
+# (12 of 400 seeds clean at 595 through `press stone button`), Damastus chase with
+# harness/shadowpeak_chase.py.  Seed 23 -> 76.  Still 735.  Under SCR_RNG=xoshiro the
+# old seed-23 route now matches the Runner trace draw for draw (Adrift_1147).
+shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=76
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
 #
@@ -665,7 +673,11 @@ jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=2
 # Re-seeded 2026-09-13: an ambiguous `attack riven` now strikes first and asks
 # `Which riven.` after, as an admin line (run400 Adrift_1130/1139), which
 # shifts the battle stream; seed 54 no longer wins, 187 does.
-light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=187
+# Re-seeded 2026-09-13 (later): stamina recovery is now dobattle's per-line
+# pass (run400 47E682), counters seeded = Recovery at load and no alive
+# filter, so recovered points land on different turns; 187 no longer wins,
+# 148 does (only winner in 1..400).
+light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=148
 # Measured live in run400 under Wine (2026-08-24), full replay, Verbose ON.
 # The game is NOT winnable in the real Runner: "Cat sheepishly enters from
 # the east." never appears (the cat's walk has expired), so `attack cat` gets

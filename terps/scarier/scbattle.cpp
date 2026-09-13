@@ -471,11 +471,20 @@ battle_start (scr_gameref_t game)
   /* Version 3.9/3.8 games use the legacy strength-vs-defence hit model. */
   battle_legacy = battle_is_legacy_version (game);
 
+  /*
+   * The recovery counter starts at Recovery, not at 0: run400's loader
+   * stores the NPC's Recovery into the counter slot at 49222F and the
+   * player's at 48F5DC, so the first restored point comes Recovery lines in,
+   * where a zero seed would give it on the first line (battle_recover()
+   * restores when the counter reads 0 and then reloads it).  3.9 files have
+   * no Recovery property, so the seed stays 0 there and recovery never runs.
+   */
   battle_seed_attributes (game, -1);
   battle_bundle_range (game, -1, "Stamina", &lo, &hi);
   if (!prerolled)
     gs_set_playerstamina (game, (hi > 0) ? scr_randomint (lo, hi) : 0);
-  gs_set_playerstaminacounter (game, 0);
+  gs_set_playerstaminacounter (game,
+                               battle_get_property (game, -1, "Recovery", 0));
 
   for (npc = 0; npc < gs_npc_count (game); npc++)
     {
@@ -486,7 +495,9 @@ battle_start (scr_gameref_t game)
           gs_set_npc_stamina (game, npc, (hi > 0) ? scr_randomint (lo, hi) : 0);
           gs_set_npc_attackcounter (game, npc, battle_speed_roll (game, npc));
         }
-      gs_set_npc_staminacounter (game, npc, 0);
+      gs_set_npc_staminacounter (game, npc,
+                                 battle_get_property (game, npc,
+                                                      "Recovery", 0));
     }
 
   /*
@@ -1441,11 +1452,17 @@ battle_select_target (scr_gameref_t game, scr_int npc)
  * battle_recover()
  *
  * Apply automatic stamina recovery for the player (npc < 0) or an NPC: every
- * Recovery turns, restore one point of stamina up to the maximum.
+ * Recovery lines, restore one point of stamina up to the maximum.  run400
+ * Battles.bas 47E682-47E764: a Recovery of 0 opts out; a counter at 0 is
+ * reloaded with Recovery and the point restored; the counter then counts
+ * down.  There is NO alive test -- a character at 0 stamina recovers like
+ * any other, which is how Shadowpeak's Holga (rolled 0 of 0..50, Recovery
+ * 10) comes to attack the player at all.
  */
 static void
 battle_recover (scr_gameref_t game, scr_int npc)
 {
+  static const scr_bool battle_trace = (getenv ("SCR_TRACE_BATTLE") != NULL);
   scr_int recovery, counter, stamina, maximum;
 
   recovery = battle_get_property (game, npc, "Recovery", 0);
@@ -1467,6 +1484,9 @@ battle_recover (scr_gameref_t game, scr_int npc)
             gs_set_playerstamina (game, stamina);
           else
             gs_set_npc_stamina (game, npc, stamina);
+          if (battle_trace)
+            fprintf (stderr, "BATTLE: %s %ld recovers to stamina %ld of %ld\n",
+                     (npc < 0) ? "player" : "npc", npc, stamina, maximum);
         }
     }
   counter--;
@@ -1687,25 +1707,29 @@ battle_tick_npc (scr_gameref_t game, scr_int npc)
 }
 
 /*
- * battle_tick()
+ * battle_recover_line()
  *
- * End-of-turn battle processing once every NPC has had its walk and battle
- * turn: automatic stamina recovery for the player and all combatants.  A
- * no-op when the Battle System is disabled.
+ * Stamina recovery for every NPC in index order and then the player, run400
+ * Battles.bas 47E682-47E764.  This is the head of dobattle (Proc_11_4,
+ * 47F084), which generaltasks calls once per line element at 48A4A2 when the
+ * Battle System is on, so it is NOT an end-of-turn tick: it runs before the
+ * library verbs, on lines that are not turns as well (`score`, gibberish),
+ * and not at all on a line the inventory listing, the put/drop rows, the
+ * get rows or the task dispatcher claimed (each of those exits generaltasks
+ * to loc_48B4E3, past the call).  Skipped when the line holds the whole
+ * word "status" with nothing yet in the message buffer, which is the status
+ * path at 47DCA1-47DCB9 setting the not-a-turn byte MemVar_494281 that the
+ * loop at 47E682 tests.  The caller, run_all_commands(), holds those gates.
  */
 void
-battle_tick (scr_gameref_t game)
+battle_recover_line (scr_gameref_t game)
 {
   scr_int npc;
 
   if (!battle_is_enabled (game))
     return;
 
-  /* Automatic stamina recovery for the player and all surviving NPCs. */
-  battle_recover (game, -1);
   for (npc = 0; npc < gs_npc_count (game); npc++)
-    {
-      if (gs_npc_stamina (game, npc) > 0)
-        battle_recover (game, npc);
-    }
+    battle_recover (game, npc);
+  battle_recover (game, -1);
 }

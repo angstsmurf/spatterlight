@@ -907,6 +907,8 @@ extern scr_bool lib_co_400_line_refused (void);
 extern void lib_co_400_print_still_ambiguous (scr_gameref_t game);
 extern scr_bool lib_co_400_pending_is_npc (void);
 extern std::string lib_co_400_npc_answer_line (const scr_char *line);
+extern scr_bool lib_input_contains_word (const scr_char *input,
+                                         const scr_char *word);
 extern void lib_battle_who_reset (void);
 extern void lib_battle_who_begin_element (scr_bool new_line);
 extern void lib_battle_who_note_unanswered (void);
@@ -1045,7 +1047,7 @@ extern scr_int battle_attribute_bonus (scr_gameref_t game, scr_int npc,
                                        const scr_char *base);
 extern void battle_player_attack (scr_gameref_t game, scr_int npc, scr_int weapon);
 extern void battle_tick_npc (scr_gameref_t game, scr_int npc);
-extern void battle_tick (scr_gameref_t game);
+extern void battle_recover_line (scr_gameref_t game);
 
 /* Object open/closed state enumeration and functions. */
 enum

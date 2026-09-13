@@ -4200,8 +4200,6 @@ lib_cmd_examine_self (scr_gameref_t game)
  * return -1.
  */
 static scr_bool lib_npc_400_raise_for_line (scr_gameref_t game);
-static scr_bool lib_input_contains_word (const scr_char *input,
-                                         const scr_char *word);
 
 static scr_int
 lib_disambiguate_npc (scr_gameref_t game,
@@ -4669,8 +4667,6 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
  * ambiguous!".  The sibling string "That wasn't one of the options!" was
  * never triggered by any cell and is still unexplained.
  */
-static scr_bool lib_input_contains_word (const scr_char *input,
-                                         const scr_char *word);
 static scr_int lib_verb_object_name_score (scr_gameref_t game, scr_int object,
                                            const scr_char *input);
 
@@ -5463,9 +5459,10 @@ lib_disambiguate_object (scr_gameref_t game,
 /*
  * Whole-word containment of a single name word in the typed line, run400
  * Proc_21_38_454CB0: case-insensitive, and a hit only where the word is
- * bounded by the line's ends or spaces.
+ * bounded by the line's ends or spaces.  Public for run_all_commands()'s
+ * recovery gate, the `c("status")` test at 47DCA1.
  */
-static scr_bool
+scr_bool
 lib_input_contains_word (const scr_char *input, const scr_char *word)
 {
   const scr_int length = strlen (word);
