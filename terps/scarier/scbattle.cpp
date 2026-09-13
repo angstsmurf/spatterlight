@@ -980,6 +980,29 @@ battle_print_npc_name (scr_gameref_t game, scr_int npc, scr_int naming)
  * ("your" / "Goblin's").  naming picks how an NPC is named; see
  * battle_print_npc_name().
  *
+ * The player's forms follow Globals/Perspective, because the Runner splices
+ * them from the same seven-element pronoun array the library uses -- filled by
+ * perspective at run400 48F60C-48F798 (run390 464800-4648A8, two perspectives
+ * only): Ary(0) is "I" / "You" / the player's name and Ary(2) "me" / "you" /
+ * the player's name.  Battle reads exactly two of the seven slots, and it reads
+ * them positionally, not grammatically: Ary(0) wherever the player leads the
+ * sentence -- the whole of Proc_11_1, the player's blow, and the bare-handed
+ * dodge in Proc_11_2 at loc_46515B -- and Ary(2) wherever the player sits
+ * inside one, as the target of an NPC's blow (Proc_11_2 loc_464FDA feeding
+ * var_8C, plus the armed miss's two direct reads at loc_4653BB/loc_4653FF).
+ *
+ * POSSESSIVE is the exception, and stays "your" in every perspective: the only
+ * possessive the player has in battle is the one in Proc_11_1's own misses, and
+ * the Runner writes it as part of the literal -- " manages to avoid your
+ * attack." at loc_45E2EB and " manages to avoid your attack with " at
+ * loc_45E519.  Neither touches the array, so a first-person game really does
+ * read "The witch manages to avoid your attack." between two lines that say
+ * "I".  The verb agreement is fixed in the same way, by which Runner branch is
+ * printing rather than by perspective: Proc_11_2 picks its "manage"/"manages"
+ * by comparing the target's rendered name against Ary(2) (loc_46514E), which a
+ * third-person game satisfies with the player's name on both sides, so the
+ * `target < 0` tests below are right for all three.
+ *
  * SUBJECT_CAPITALISED forces the NPC's name to an initial capital, the way
  * the Runner's one-line capitaliser Proc_21_3_446BB4 does -- run400.bas
  * @84060, literally UCase(Left(s, 1)) & Right(s, Len(s) - 1), with an early
@@ -997,10 +1020,12 @@ battle_print_npc_name (scr_gameref_t game, scr_int npc, scr_int naming)
  * capitalised too), and both armed misses (loc_4653A3 against the player,
  * loc_46543F against another NPC).  Nothing else is: the bare-handed miss
  * leads with the raw target name (loc_465185 pushes var_8C unwrapped) and
- * names the attacker raw in the possessive after it, Proc_11_1 -- the
- * player's blow, which always opens with "You" -- has no call to the
- * capitaliser at all, and neither does the corpse line (Proc_11_3 @44B115
- * reads the Name field directly).
+ * names the attacker raw in the possessive after it, Proc_11_1 -- the player's
+ * blow -- has no call to the capitaliser at all, and neither does the corpse
+ * line (Proc_11_3 @44B115 reads the Name field directly).  Proc_11_1 needs no
+ * capitaliser because it opens with Ary(0), which is already capitalised in the
+ * first and second persons -- and in the third it is the player's name, which
+ * the Runner splices exactly as authored.
  */
 static void
 battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
@@ -1010,9 +1035,31 @@ battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
 
   if (npc < 0)
     {
-      pf_buffer_string (filter,
-                        (form == BATTLE_FORM_OBJECT) ? "you"
-                        : (form == BATTLE_FORM_POSSESSIVE) ? "your" : "You");
+      if (form == BATTLE_FORM_POSSESSIVE)
+        {
+          pf_buffer_string (filter, "your");
+          return;
+        }
+
+      switch (lib_get_perspective (game))
+        {
+        case LIB_FIRST_PERSON:
+          pf_buffer_string (filter,
+                            (form == BATTLE_FORM_OBJECT) ? "me" : "I");
+          break;
+
+        case LIB_THIRD_PERSON:
+          /* Ary(0) and Ary(2) are both the player's name here, so the two
+             forms coincide; %player% is how the rest of the library carries
+             it, and pf_flush() interpolates it the way it does anywhere. */
+          pf_buffer_string (filter, "%player%");
+          break;
+
+        default:
+          pf_buffer_string (filter,
+                            (form == BATTLE_FORM_OBJECT) ? "you" : "You");
+          break;
+        }
       return;
     }
 

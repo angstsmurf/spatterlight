@@ -983,8 +983,11 @@ lib_print_npc_np (scr_gameref_t game, scr_int npc)
  * the dumps (scdump.cpp's GAME line prints it raw) and confines the rule to the
  * two places that render a person.  Out-of-range values fall through unclamped
  * for 4.0, where lib_select_response() still reports them as an error.
+ *
+ * Exported because the battle narration renders a person too, and reads the
+ * same global through the same clamp; see battle_print_combatant().
  */
-static scr_int
+scr_int
 lib_get_perspective (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);

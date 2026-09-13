@@ -557,6 +557,8 @@ enum
   LIB_THIRD_PERSON = 2
 };
 
+/* Globals/Perspective as the Runner of this game's version reads it. */
+extern scr_int lib_get_perspective (scr_gameref_t game);
 extern void lib_warn_battle_system (void);
 extern scr_int lib_random_roomgroup_member (scr_gameref_t game, scr_int roomgroup);
 extern const scr_char *lib_get_room_name (scr_gameref_t game, scr_int room);

@@ -1582,7 +1582,7 @@ Cell 6
 Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
-Chip hits you.
+Chip hits me.
 
 > look
 
@@ -1601,7 +1601,7 @@ this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
 
 Chip is here.
-Chip hits you.
+Chip hits me.
 
 > look
 
@@ -1611,7 +1611,7 @@ this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
 
 Chip is here.
-Chip hits you, but it doesn't seem to do any damage.
+Chip hits me, but it doesn't seem to do any damage.
 
 > look
 
@@ -1621,7 +1621,7 @@ this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
 
 Chip is here.
-Chip hits you, but it doesn't seem to do any damage.
+Chip hits me, but it doesn't seem to do any damage.
 
 > look
 
@@ -1631,7 +1631,7 @@ this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
 
 Chip is here.
-Chip hits you, but it doesn't seem to do any damage.
+Chip hits me, but it doesn't seem to do any damage.
 
 > look
 
@@ -1641,56 +1641,56 @@ this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
 
 Chip is here.
-Chip hits you, but it doesn't seem to do any damage.
+Chip hits me, but it doesn't seem to do any damage.
 
 > take green box
 I take the green box.
-Chip hits you.
+Chip hits me.
 
 > open green box
 I open the green box.  A lighter is inside the green box.
-Chip hits you, but it doesn't seem to do any damage.
+Chip hits me, but it doesn't seem to do any damage.
 
 > take lighter
 I take the lighter from the green box.
 
 > attack chip
-You throw the lighter at Chip.
-Chip hits you.
+I throw the lighter at Chip.
+Chip hits me.
 
 > take lighter
 I take the lighter.
 
 > attack chip
-You throw the lighter at Chip.
-Chip hits you, but it doesn't seem to do any damage.
+I throw the lighter at Chip.
+Chip hits me, but it doesn't seem to do any damage.
 
 > take lighter
 I take the lighter.
 
 > attack chip
-You throw the lighter at Chip.
-Chip hits you.
+I throw the lighter at Chip.
+Chip hits me.
 
 > take lighter
 I take the lighter.
 
 > attack chip
-You throw the lighter at Chip.
-Chip hits you, but it doesn't seem to do any damage.
+I throw the lighter at Chip.
+Chip hits me, but it doesn't seem to do any damage.
 
 > take lighter
 I take the lighter.
 
 > attack chip
-You throw the lighter at Chip.
-Chip hits you, but it doesn't seem to do any damage.
+I throw the lighter at Chip.
+Chip hits me, but it doesn't seem to do any damage.
 
 > take lighter
 I take the lighter.
 
 > attack chip
-You throw the lighter at Chip.
+I throw the lighter at Chip.
 "Good job."
 
 I look up, trying to spot the source of the voice.
@@ -1767,7 +1767,7 @@ sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 
 An ozgat is here.
-Ozgat hits you.
+Ozgat hits me.
 Scotty hits Ozgat.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
@@ -1777,7 +1777,7 @@ Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
 > attack ozgat
-You throw the lighter at Ozgat.
+I throw the lighter at Ozgat.
 Chip manages to avoid Ozgat's attack.
 Lina hits Ozgat.
 Scotty hits Ozgat, but it doesn't seem to do any damage.
@@ -1798,7 +1798,7 @@ The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
 > attack ozgat
-You throw the lighter at Ozgat.
+I throw the lighter at Ozgat.
 Ozgat hits Tippant.
 Lina hits Ozgat.
 Scotty hits Ozgat, but it doesn't seem to do any damage.
@@ -1819,7 +1819,7 @@ smaller pellets escape through holes in the ground.
 
 > take lighter
 I am already carrying the lighter.
-Ozgat hits you.
+Ozgat hits me.
 Lina hits Ozgat.
 Scotty hits Ozgat.
 Ozgat manages to avoid Donna's attack.
@@ -1894,7 +1894,7 @@ I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
 > attack riven
-You throw the lighter at Riven.
+I throw the lighter at Riven.
 Lina hits Riven.
 Scotty hits Riven, but it doesn't seem to do any damage.
 Riven manages to avoid Chip's attack.
@@ -1909,7 +1909,7 @@ Chip manages to avoid Riven's attack.
 The sound of knives scraping against glass reverberate across the landscape.
 
 > attack riven
-You throw the lighter at Riven.
+I throw the lighter at Riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
@@ -2031,13 +2031,13 @@ Scotty hits Ozgat.
 Donna hits Riven, but it doesn't seem to do any damage.
 Riven manages to avoid Chip's attack.
 Ozgat hits Chip.
-You manage to avoid Riven's attack.
+I manage to avoid Riven's attack.
 
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
 > attack ozgat
-You throw the lighter at Ozgat.
+I throw the lighter at Ozgat.
 Lina hits Ozgat.
 Scotty hits Ozgat, but it doesn't seem to do any damage.
 Riven manages to avoid Chip's attack.
@@ -2055,13 +2055,13 @@ Ozgat manages to avoid Tippant's attack.
 Donna hits Riven, but it doesn't seem to do any damage.
 Riven manages to avoid Chip's attack.
 Ozgat hits Chip.
-You manage to avoid Riven's attack.
+I manage to avoid Riven's attack.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
 
 > attack riven
-You throw the lighter at Riven.
+I throw the lighter at Riven.
 Scotty hits Ozgat.
 Ozgat manages to avoid Chip's attack.
 Ozgat hits Chip.
@@ -2080,7 +2080,7 @@ Donna manages to avoid Riven's attack.
 The sound of knives scraping against glass reverberate across the landscape.
 
 > attack ozgat
-You throw the lighter at Ozgat.
+I throw the lighter at Ozgat.
 Scotty hits Ozgat, but it doesn't seem to do any damage.
 Ozgat manages to avoid Chip's attack.
 Ozgat hits Donna.
@@ -2109,7 +2109,7 @@ suffers damage.
 Scotty hits Riven.
 Tippant hits Riven.
 Donna hits Riven, but it doesn't seem to do any damage.
-Riven hits you.
+Riven hits me.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2128,7 +2128,7 @@ Lina hits Riven.
 Scotty hits Riven.
 Donna hits Riven, but it doesn't seem to do any damage.
 Riven manages to avoid Chip's attack.
-You manage to avoid Riven's attack.
+I manage to avoid Riven's attack.
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
@@ -2512,7 +2512,7 @@ Please be more clear, who do you want to attack?  Red Riven or Blue Riven?
 Scotty hits Blue riven.
 Donna hits Red riven.
 Blue riven manages to avoid Chip's attack.
-You manage to avoid Red riven's attack.
+I manage to avoid Red riven's attack.
 Chip manages to avoid Blue riven's attack.
 
 The sound of knives scraping against glass reverberate across the landscape.
@@ -2566,7 +2566,7 @@ Scotty hits Blue riven, but it doesn't seem to do any damage.
 Donna hits Blue riven.
 Red riven manages to avoid Chip's attack.
 Scotty manages to avoid Red riven's attack.
-Blue riven hits you.
+Blue riven hits me.
 
 > take lighter
 I am already carrying the lighter.
@@ -2744,7 +2744,7 @@ Scotty hits Higher, but it doesn't seem to do any damage.
 Tippant hits Higher.
 Donna hits Higher, but it doesn't seem to do any damage.
 Chip hits Higher.
-You manage to avoid Higher's attack.
+I manage to avoid Higher's attack.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -3298,7 +3298,7 @@ I am already carrying the double-lighter.
 Lina hits Higher.
 Scotty hits Higher, but it doesn't seem to do any damage.
 Tippant hits Higher, but it doesn't seem to do any damage.
-Higher hits you.
+Higher hits me.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.

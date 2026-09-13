@@ -562,7 +562,7 @@ refuses to load it.
 | `easter` | easter.taf | `Adrift_273_easter.txt` | diff 12 | T5 `x newspaper rack`: run400 'The newspaper rack is clearly more functional than aesthetic, construc' vs scarier 'The newspaper rack is clearly more functional than aesthetic, construc' |
 | `egghunt` | Egg_Hunt.taf | `Adrift_245_egghunt.txt` | lost-cmd | 1 lost, first feed[51] `score` |
 | `elascensor` | El ascensor.taf | `Adrift_184_elascensor.txt` | endtail 1 | T9 `abrir trampilla con la tapa del boligrafo`: run400 '¡Pues la verdad es que no es mala idea!... haciendo equilibrio sobre e' vs scarier '¡Pues la verdad es que no es mala idea!... haciendo equilibrio sobre e' |
-| `escape_to_new_york` | EscapeToNewYork.taf | `Adrift_323_escape_to_new_york.txt` | diff 40 | T18 `east`: run400 'You move east. Crew Mess Hall, E Deck Unlike the passenger parts of th' vs scarier 'You move east. Crew Mess Hall, E Deck Unlike the passenger parts of th' |
+| `escape_to_new_york` | EscapeToNewYork.taf | `Adrift_323_escape_to_new_york.txt` | **CLEAN 2026-09-13** | was diff 40 at T18 `east`; re-driven as `Adrift_1122_escape_to_new_york.txt` and now **227/227 identical** under `SCR_RNG=xoshiro SCR_SEED=1234`, after the six ports a-f landed in `991a5f8d9` |
 | `finalquestion` | The_Final_Question.taf | `Adrift_193_finalquestion.txt` | clean |  |
 | `firstpug` | The First To Arise Alone With A Pug.taf | `Adrift_215_firstpug.txt` | endtail 1 | T30 `open front door with danthil`: run400 'Summoning Danthil's power to enhance your strength, you tug at the jam' vs scarier 'Summoning Danthil's power to enhance your strength, you tug at the jam' |
 | `fluffykins` | Mr_Fluffykins_Most_Harrowing_Misadventure.taf | `Adrift_178_fluffykins.txt` | clean |  |
@@ -1001,6 +1001,21 @@ and decompile addresses are in the harness row comments and in git history.
 
 Engine leads, measured or half-measured, none blocking:
 
+- **The seven leads left by the 2026-09-13 xoshiro re-compare** -- see the
+  section at the foot of this file for the evidence on each:
+  (1) `attack <noun> with <weapon>` resolves an NPC in Scarier that run400
+  refuses (`shadowpeak` T361 -- this one *is* blocking, it costs the row 208
+  commands); (2) ~~`battle_print_combatant()` ignores `Perspective`~~ **FIXED
+  2026-09-13** -- `light_up` 71 differing turns -> 46, `light_up` and
+  `donuts_intro` goldens re-blessed; (3) an ambiguous `attack` is
+  not a turn in run400 and is one in Scarier, with the wrong prompt wording
+  (`light_up` T294+); (4) battle rounds a turn out of phase (`wes_ghn`,
+  `sun_empire`); (5) `les_feux` T11 resolves hit in run400 and miss in
+  Scarier; (6) `snakes_and_ladders` takes two Runner draws at feed turns 5-6
+  that Scarier does not; (7) `%player%` is filled from a feed line Scarier
+  eats at a name prompt run400 never asks (`woof`, `jinxtron_full`).
+- **`house` is not comparable** until it is re-driven with Verbose ON; the
+  2026-09-12 frost-event and breaking-glass leads on that row are withdrawn.
 - **Put/task precedence at 4.0** -- the one port with a written spec; see
   the next section.
 - **run400 prints no `put` confirmation when the moved object is dynamic
@@ -7342,3 +7357,240 @@ consolidation the Runner itself performs below 3.90.
 * Everything the two sections above left open that this one did not touch --
   the pre-4.0 locked container, an object on a floor supporter, 3.7's static
   `open`, 3.7's bare `take` from a held container, and `Glum_Fiddle`.
+
+## 2026-09-13 -- the xoshiro batch re-compared at HEAD: 10 rows moved, 3 clean, 7 leads left
+
+The 43-row vbrng batch (`~/adrift-battle/runner/wine/xoshiro_jobs.txt`,
+captured 2026-09-12 with `run400x`/`run390x` under `VBRNG=xoshiro`, see
+[[wine-vbrng-xoshiro-hook]]) was first compared against the working tree of
+2026-09-12 and produced a long list of divergences.  This is the *same*
+comparison re-run at `ebd798554`, i.e. after `991a5f8d9` ("a Runner-compatible
+RNG stream, and the rules its parity exposed" -- which is also the commit that
+carries the six **Escape to New York ports a-f; those are ported, verified and
+committed, not parked**), `dc39f19df`, `b1e45887b` and `ebd798554`.  Rebuild
+with `sh build.sh` first: a stale `harness/scare` is what makes this whole
+table lie.
+
+Two numbers per row:
+
+* **diffs** -- differing turns from `compare_wine_transcript.py --taf ... --feed
+  ... --runner <newest Adrift_1[0-9][0-9][0-9]_<tag>.txt> --env SCR_RNG=xoshiro
+  --env SCR_SEED=<seed>`.
+* **draws** -- the draw-count census: `RND #` lines in the Runner's own
+  `pfx/drive_c/adrift/<tag>_trace.txt` against `RND #` lines on Scarier's
+  stderr under `SCR_TRACE_RAND=1`, over the same measured feed.  The column is
+  **scarier minus runner**.  Only the `RND #` lines are game-stream draws; the
+  ~40k `vbRND(Missing)` lines in a trace are the .taf codec's LCG in
+  pass-through mode.
+
+| tag | diffs 09-12 | diffs 09-13 | draws 09-12 | draws 09-13 | verdict |
+|---|---|---|---|---|---|
+| `shadowpeak` | 218 | **2** | -19340 | +612 | one real turn (see below), then a death and 208 lost commands |
+| `shadowpeak_killwraith` | 194 | 141 | -6722 | +157 | walk/battle phase, much reduced |
+| `shadowpeak_allgargoyles` | 146 | 123 | +2405 | -135 | walk/battle phase, much reduced |
+| `ticket` | 169 | **0** | -894 | +10 | CLEAN 329/329 (`Adrift_1127`) |
+| `iqsfot` | 60 | **0** | -30 | 0 | CLEAN, exact draw parity |
+| `where_are_my_keys` | 20 | **0** | -82 | +16 | CLEAN transcript, draws still +16 |
+| `yonastoundingcastle` | 23 | **1** | -223 | -120 | ending tail only |
+| `circus` | 12 | 5 | 0 | 0 | real: the spent-task answer |
+| `house` | 140 | 162 | +916 | +1159 | **NOT COMPARABLE -- Verbose was OFF** |
+| `light_up` | 71 | 71 | -71 | -71 | real, three findings |
+| `cldone` | 33 | 33 | +2 | +2 | real, from turn 0 |
+| `snakes_and_ladders` | 39 | 39 | -2 | -2 | real, 2 extra Runner draws at turns 5-6 |
+| `hcw` | 78 | 78 | +4 | +4 | real (`turn on intercom`, `put susan in trunk`) |
+| `lair` | 52 | 52 | +20 | +20 | whitespace-only `<centre>` artefact |
+| `mould` | 31 | 31 | 0 | 0 | NOT COMPARABLE (imp fight redraws its form) |
+| `journ2` | 25 | 25 | -7 | -7 | real: spent-task answer at T21 |
+| `sun_empire` | 21 | 21 | +72 | +72 | real: battle round one turn out |
+| `warlord` | 14 | 14 | +22 | +22 | real: `x tapestry three` |
+| `wes_ghn` | 11 | 11 | -51 | -51 | real: battle round one turn out |
+| `zombies` | 8 | 8 | 0 | 0 | real: `ask stu about zombies` |
+| `jinxtron_full` | 7 | 7 | -2 | -2 | real: `%player%` substitution |
+| `les_feux` | 5 | 5 | +62 | +62 | real: hit/miss inverted at T11 |
+| `inverness` | 5 | 5 | -2 | -3 | documented deliberate deviation (T37) |
+| `panic` | 4 | 4 | +2 | +2 | whitespace-only artefact |
+| `alexis_worn_cube` | 3 | 3 | 0 | 0 | re-sync markers only; identical every turn |
+| `alexis` / `wonderwombat` / `albert_is_lost` / `reluctantvampire` / `woof` / `motion` | 2 | 2 | 0 / 0 / 0 / 0 / -1 / -529 | same | see the classes below |
+| `templeofthesun` / `bsg22` / `fullcircle` / `reactor1` | 1 | 1 | 0 | 0 | keypress tail, `[More]` split, take order |
+| `jason_vs_salm` `maincourse` `thetest_win` `adriftorama` `iachini` `target` `threeminutes` `wumpusrun` | 0 | 0 | 0 | 0 | clean, and at exact draw parity |
+
+**Ten rows moved, all of them for the better except `house`, and three of them
+all the way to clean** (`ticket`, `where_are_my_keys`, `iqsfot`).  Exact draw
+parity now holds on 21 of 43 rows, up from 20.
+
+### What the re-run cleared
+
+* **`where_are_my_keys`, `iqsfot`, `ticket` are clean.**  The dog's roomgroup
+  walk in `where_are_my_keys` -- 20 differing turns and the whole "no constant
+  per-turn model fits the Runner's extra draws" investigation of 2026-09-12 --
+  is gone; the exact-tick walk rule and the event-restart draw model in
+  `991a5f8d9` were the answer.  `iqsfot` is at exact draw parity, 0 diffs.
+  `ticket` resolves to the newer `Adrift_1127` capture and is identical on all
+  329 turns.
+* **The Shadowpeak trio collapsed**, `-19340` draws down to `+612`.
+  `shadowpeak` itself now has exactly one real differing turn.
+* **`yonastoundingcastle`** is down to the ending tail: run400's transcript
+  stops at `[presseth ye return key to continue]` and never records the FINAL
+  SCORE block Scarier prints.  The 3-vs-2 treasure count of 2026-09-12 is gone
+  (Scarier now says 5, and there is nothing on the Runner side to compare it
+  to).
+* **`circus`** halved: the remaining five are all the same `ask barb about
+  tape` turn repeated.
+
+### The leads that are real, and still open
+
+1. **`attack <noun> with <weapon>` resolves an NPC in Scarier that run400 will
+   not resolve.**  `shadowpeak` turn 361, in the witch's cave with "Shadow, the
+   black cat" present:
+
+   * run400: `Who do you want to attack?  Seeker hums!`
+   * scarier: `You stab cat with the sword.  As you kill the cat, the witch
+     drops to the floor in a heap...`
+
+   This is the *whole* `shadowpeak` row: the walkthrough kills the cat to kill
+   Rucktebar, run400 never does, and at turn 365 Rucktebar kills the player --
+   which ends the game and is why 208 feed commands were never echoed.  Fix
+   this and the row is either clean or re-derivable.
+
+2. **`battle_print_combatant()` ignored `Perspective`** (`scbattle.cpp` ~1014)
+   -- **FIXED 2026-09-13**.  It printed `"you"` / `"your"` / `"You"` for the
+   player unconditionally; `Perspective` appeared in `sclibrar.cpp`,
+   `scrunner.cpp` and `scdebug.cpp` but nowhere in `scbattle.cpp`.
+   `light_up_4summer_comp.taf` has `Perspective: 0` and `BattleSystem: 1`, and
+   run400x writes `Chip hits me.` where Scarier wrote `Chip hits you.` -- first
+   at feed turn 190, and in most of light_up's 71 turns thereafter.
+
+   The Runner splices the player from the same seven-element pronoun array the
+   library reads (filled by perspective at run400 `48F60C`-`48F798`, run390
+   `464800`-`4648A8` with two perspectives only), and battle reads exactly two
+   of the seven slots, positionally rather than grammatically:
+
+   * **Ary(0)** -- `"I"` / `"You"` / the player's name -- wherever the player
+     *leads* the sentence: the whole of `Proc_11_1` (the player's blow, at
+     `45E27A`, `45E2B7` and `45E323`) and the bare-handed dodge in `Proc_11_2`
+     at `46515B`.
+   * **Ary(2)** -- `"me"` / `"you"` / the player's name -- wherever the player
+     sits *inside* one, as the target of an NPC's blow: `Proc_11_2` `464FDA`
+     feeding `var_8C`, plus the armed miss's two direct reads at `4653BB` and
+     `4653FF`.
+
+   The possessive is the exception and stays `"your"` in every perspective: the
+   player's only battle possessive is in `Proc_11_1`'s own misses, and the
+   Runner writes it into the literal -- `" manages to avoid your attack."`
+   (`45E2EB`) and `" manages to avoid your attack with "` (`45E519`).  Neither
+   touches the array, so a first-person game really does read "The witch manages
+   to avoid your attack." between two lines that say "I".  Verb agreement is
+   fixed the same way, by which branch is printing: `Proc_11_2` picks
+   "manage"/"manages" by comparing the target's rendered name against Ary(2)
+   (`46514E`), which a third-person game satisfies with the player's name on
+   both sides.
+
+   `lib_get_perspective()` is now exported through `scprotos.h` (it already
+   encodes the pre-4.0 clamp), and the third person buffers `%player%`, the way
+   the rest of the library carries it.  `light_up` drops from **71 differing
+   turns to 46**, and every turn from 190 to 243 is now identical; the 46 left
+   are all at T294+ and all belong to lead 3.  Two goldens moved and were
+   re-blessed, both first-person 4.0 battle games: `light_up` (`Chip hits me.`,
+   `I throw the lighter at Chip.`) and `donuts_intro` (`Wife hits me with the
+   pot.`, `perspective=0` confirmed from `SCR_DUMP_TASKS`).  Suite back to
+   **428 PASS / 0 FAIL**.
+
+3. **An ambiguous `attack` is not a turn in run400, and is one in Scarier.**
+   `light_up` turns 294 / 297 / 300 / 303, with a Red Riven and a Blue Riven in
+   the room:
+
+   * run400: `Which riven. Red riven or Blue riven?` -- and the turn does not
+     tick.
+   * scarier: `Please be more clear, who do you want to attack?  Red Riven or
+     Blue Riven?` **and then runs the battle round.**
+
+   Two bugs in one turn: the prompt wording (run400 uses the standard
+   `Which <term>. <list>?` form, see [[adrift4-disambiguation-and-alr-oracle]])
+   and the tick.  This is almost certainly where light_up's `-71` draws go, and
+   it desynchronises the tail of the row (by turn 342 Scarier is answering turn
+   341's prompt).
+
+4. **Battle rounds land one turn apart** in `wes_ghn` (T57/T58: run400 kills
+   Hope a round earlier, and by T85 the two are a whole kill apart) and in
+   `sun_empire` (T57/T58: the round Scarier prints on 57 the Runner prints on
+   58).  Same shape on both rows; neither is a value difference, both are a
+   phase difference.
+
+5. **`les_feux` T11 and T17: the same assassin attack resolves hit in run400
+   and miss in Scarier** -- `Un assassin vous frappe.` vs `Vous arrivez à
+   éviter le poignard de l'assassin.` -- from the same stream position.  This
+   is a hit-resolution rule, not a phase problem.  By T18 the Runner's player
+   is dead and Scarier's is not.
+
+6. **`snakes_and_ladders`: two extra Runner draws, localised at feed turns
+   5-6.**  The first 131 values are identical; the Runner takes 133.  Scarier's
+   per-turn pattern is `randomint(1,6)` -> `randomint(0,999)` ->
+   `randomint_exclusive(1,1)`, dice at stream indices 6, 9, 12, 15...; the
+   Runner's transcript rolls map to 6, 9, 11, 17, 20, 23, 26..., so it takes
+   two draws somewhere in turns 5-6 that Scarier does not, and then resumes
+   stride 3 permanently offset by 2.  First visible at T5 `r`: "five/square 16"
+   vs "six/square 17".
+
+7. **`%player%` is being filled from the feed.**  In `woof` T24 run400 prints
+   `"Anonymous!!!! I'm back."` and Scarier prints `"x basket!!!! I'm back."` --
+   `x basket` being feed[0], whose output Scarier also swallows.  `jinxtron_full`
+   is the same shape: T0 run400 `"HELLO-- JINX!"` vs Scarier `"WORLD-- JINX!"`,
+   T5 run400 `"Anonymous, Anonymous, Anonymous."` vs Scarier `"hello, hello,
+   hello."`.  Scarier is consuming a feed line as an answer to a name prompt
+   the Runner does not ask (the Runner defaults the player name to
+   `Anonymous`).
+
+Unchanged and already catalogued, all still present: `cldone` (T0 `sit` --
+run400 runs the seance task, Scarier prints the room description; and T11/T32),
+`hcw` T81 `turn on intercom` / T162 `put susan in trunk`, `journ2` T21 and
+`circus` T68 (run400 answers a spent task `You have already done that.` where
+Scarier runs the library), `warlord` T72 `x tapestry three`, `zombies` T10 `ask
+stu about zombies`, `fullcircle` T43 `get all` take order, `reluctantvampire`
+T78 `open freezer` wording.
+
+### `house` must be re-driven -- Verbose was OFF
+
+`Adrift_1057_house.txt` was captured with the Runner's Verbose toggle off: of
+its 65 movement commands, **33 print no room text at all**, not even a room
+name, while `look` and every other command print normally.  Scarier always runs
+Verbose ON.  That is rule 1 of the comparison order, so nothing in this row can
+be read as an engine difference -- including the "cold/frost event timing at
+T33/T37/T40" and the "breaking glass at T231" leads written down on 2026-09-12,
+which are hereby **withdrawn**.  The `+1159` draw diff is the same artefact
+(Scarier ran 272 turns to the Runner's 284).  Re-drive with Verbose ON per
+[[run400-verbose-toggle]] before reading anything into house.
+
+### Rows that are artefacts, not engine differences
+
+Unchanged from 2026-09-12 and re-confirmed here:
+
+* **whitespace-only `<centre>` drops** -- `lair` (52), `panic` (4),
+  `wonderwombat` T236, `mould`, `warlord`.  The compare tool labels these
+  itself.
+* **the Runner's trailing keypress prompt** -- `templeofthesun`, `circus`,
+  `sun_empire`, and `yonastoundingcastle`'s single remaining turn.
+* **`[More]` pause splits** -- `albert_is_lost`, `bsg22`, `reactor1`, `motion`
+  (whose `-529` draws are the 11 turns it never echoed, not an engine gap).
+* **re-sync markers only** -- `alexis`, `alexis_worn_cube`: the tool reports
+  `identical on every turn` under the markers.
+* **lost feed commands** -- `shadowpeak` 208 (downstream of lead 1 above),
+  `light_up` 158 (downstream of lead 3), `les_feux` 70 (downstream of lead 5),
+  `motion` 11, `sun_empire` 2.  In this batch every one of them is downstream
+  of a divergence listed above rather than a harness fault.
+* **`inverness` T37** -- the documented deliberate deviation (run390's spent
+  bare-`*` task answers everything `You have already done that.`).
+* **`mould`** -- still NOT COMPARABLE, the imp fight redraws its form each
+  round.
+
+### The suite, run the same day
+
+`LC_ALL=C sh run_v4_walkthroughs.sh` from the harness dir at `ebd798554`:
+**428 PASS / 0 FAIL**, with no `NEEDGOLD`, `SKIP` or `NOSCRIPT` row and no
+golden moved.  Everything the Escape to New
+York notes had flagged as possibly needing adjudication or re-blessing --
+`riding_home` 47/50/55, `cybercow` 62, `ghosttown`, `cybercow_win`, `baroo`,
+`troll`, `sswhore`, `wrecked`, `thepkgirl`, `inverness`, `iqsfot`, `mould`,
+`hcw`, and the candidates `mishmash`, `vendetta`, `mangiasaur`, `paint`,
+`target`, `mutaydid`, `gorxungula` -- passes as recorded.  The seven leads
+above are therefore all *Runner*-transcript divergences: not one of them is
+visible to the golden suite.
