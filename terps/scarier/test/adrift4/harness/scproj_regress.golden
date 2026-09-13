@@ -25,17 +25,17 @@ enemy : 'Chip' Stamina=60 Str=35 Def=20 Acc=35 Agi=20
 default_weapon after wield = 64 (weapon obj = 64)
 --- fight (player attacks; stamina kept up so we can watch enemy fall) ---
 round  1: enemy stamina   60 ->   50  (dmg 10)
-    | You throw the lighter at Chip.
+    | I throw the lighter at Chip.
 round  2: enemy stamina   50 ->   40  (dmg 10)
-    | You throw the lighter at Chip.
+    | I throw the lighter at Chip.
 round  3: enemy stamina   40 ->   30  (dmg 10)
-    | You throw the lighter at Chip.
+    | I throw the lighter at Chip.
 round  4: enemy stamina   30 ->   20  (dmg 10)
-    | You throw the lighter at Chip.
+    | I throw the lighter at Chip.
 round  5: enemy stamina   20 ->   10  (dmg 10)
-    | You throw the lighter at Chip.
+    | I throw the lighter at Chip.
 round  6: enemy stamina   10 ->    0  (dmg 10)  [ENEMY DEAD/REMOVED]
-    | You throw the lighter at Chip.
+    | I throw the lighter at Chip.
 RESULT: enemy stamina=0 location=0 after 6 rounds
 
 ==== Space Boy's First Adventure.taf ====

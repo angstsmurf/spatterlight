@@ -1663,6 +1663,10 @@ pyramid_solution.txt|pyramid.taf|moves out of your way allowing you to make a ha
 # different.
 saffire_solution.txt|saffire.taf|you reach heaven
 shore_solution.txt|shore.taf|an island shrouded in a steel fog.
+# Re-blessed 2026-09-13: a 4.0 death prints the score summary even at MaxScore 0
+# (the death sub General.Sub_22_70 has no MaxScore > 0 guard; endmessage's win
+# and lose branches do).  Adrift_220/613_ticktick.txt end "You scored 0 out of
+# the maximum 0!" / "That is 100% of the game!".
 ticktick_solution.txt|ticktick.taf|I'm afraid you are dead!
 # The `downloaded/` sweep (2026-08-03): games whose upstream walkthrough was
 # harvested off IFDB into test/adrift4/downloaded/ and whose .taf was

@@ -92,3 +92,5 @@ BOOM
 (Well, how exciting is a bomb made by a cat anyway?
 
 I'm afraid you are dead!
+You scored 0 out of the maximum 0!
+That is 100% of the game!

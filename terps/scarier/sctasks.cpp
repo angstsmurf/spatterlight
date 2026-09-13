@@ -1439,9 +1439,16 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
  * been driven live too: run370 finishing castle.taf and run380 finishing
  * microwaveman.taf print these lines exactly as below.  See
  * RUNNER_TESTS_TODO.md section 4.
+ *
+ * A death, whether from an EndGame action or from the Battle System, is the
+ * shared run400 General.Sub_22_70 (Proc_21_62, 452384) -- endmessage calls it
+ * at 45E10B and Battles.Sub_12_1 at 44AE95 -- and run390 builds the same lines
+ * inline in Form1.chardohit (442B14).  Neither has the MaxScore > 0 guard;
+ * both substitute 100 for the percentage when MaxScore is 0 (4523A0, 442AD5).
  */
-static void
-task_print_end_game_summary (scr_gameref_t game, scr_bool is_win)
+void
+task_print_end_game_summary (scr_gameref_t game, scr_bool is_win,
+                             scr_bool is_death)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -1459,10 +1466,16 @@ task_print_end_game_summary (scr_gameref_t game, scr_bool is_win)
      "That is 100% of the game!" / "Well done - you scored maximum points!".
      Whether 3.9 special-cases the divide or only the equal-scores case cannot
      be told apart at 0 out of 0, and no 3.7 or 3.8 game in the corpus has a
-     MaxScore of 0, so this treats the whole pre-4.0 range alike. */
+     MaxScore of 0, so this treats the whole pre-4.0 range alike.
+
+     The guard sits on endmessage's win and lose branches only; the death sub
+     prints regardless.  Measured live in run400: ticktick.taf (EndGame death,
+     Adrift_220/613) and light_up_4summer_comp.taf (battle death, Adrift_1027
+     turn 352) both end "You scored N out of the maximum 0!" / "That is 100% of
+     the game!". */
   if (max_score <= 0)
     {
-      if (version >= TAF_VERSION_400)
+      if (version >= TAF_VERSION_400 && !is_death)
         return;
       percent = 100;
     }
@@ -1618,7 +1631,7 @@ task_print_end_game_message (scr_gameref_t game)
         vt_key[1].string = "WinRes";
         res_handle_resource (game, "ss", vt_key);
 
-        task_print_end_game_summary (game, TRUE);
+        task_print_end_game_summary (game, TRUE, FALSE);
         break;
       }
 
@@ -1635,7 +1648,7 @@ task_print_end_game_message (scr_gameref_t game)
       if (is_pre_400)
         pf_undo_auto_break (filter);
       pf_buffer_string (filter, "\n\nBetter luck next time.\n");
-      task_print_end_game_summary (game, FALSE);
+      task_print_end_game_summary (game, FALSE, FALSE);
       break;
 
     case 2:
@@ -1644,7 +1657,7 @@ task_print_end_game_message (scr_gameref_t game)
       pf_buffer_string (filter, "\n\n");
       pf_buffer_string (filter, lib_get_death_message (game));
       pf_buffer_character (filter, '\n');
-      task_print_end_game_summary (game, FALSE);
+      task_print_end_game_summary (game, FALSE, TRUE);
       break;
 
     case 3:

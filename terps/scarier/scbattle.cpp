@@ -1124,6 +1124,13 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
       pf_buffer_character (filter, '\n');
       pf_buffer_string (filter, lib_get_death_message (game));
       pf_buffer_character (filter, '\n');
+      /* The score summary follows, as it does after an EndGame death: run400
+         Battles.Sub_12_1 calls the shared death sub General.Sub_22_70
+         (44AE95), and run390 Form1.chardohit builds the same lines inline
+         after the death sentence (442B7F).  Measured live: run400 on
+         light_up_4summer_comp.taf (Adrift_1027 turn 352, "You scored 58 out of
+         the maximum 0!"), and jason_vs_salm / wes_ghn / mr_smith. */
+      task_print_end_game_summary (game, FALSE, TRUE);
       game->is_running = FALSE;
       game->has_completed = TRUE;
       return;

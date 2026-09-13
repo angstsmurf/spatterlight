@@ -5848,7 +5848,7 @@ Leads read off the TSV, not yet measured against the Runner's P-code:
 | `lost_souls` | 390 | `open door` | (blank) | prints text |
 | `goblin` | 390 | t48 | -- | an extra `Congratulations!  In nine months time...` |
 | `baroo` | 400 | `close machine` | -- | an extra `The machine is now closed.` |
-| `ticktick` | 400 | t11 | the end-of-game score summary | stops at `I'm afraid you are dead!` |
+| ~~`ticktick`~~ | 400 | t11 | the end-of-game score summary | ~~stops at `I'm afraid you are dead!`~~ **FIXED 2026-09-13**: the 4.0 `MaxScore > 0` guard is endmessage's win/lose only, the death sub General.Sub_22_70 prints at 100%; the battle death (`battle_kill`) now prints the summary too (`light_up` Adrift_1027 T352) |
 | `losttomb` | 390 | t85/86 | runs the pillar task at t85 | library put line, task deferred to t86 |
 | `thetest_win` | 390 | `shout N` | -- | an extra `Robot Guard storms in...` |
 

@@ -153,7 +153,7 @@ main (int argc, char **argv)
   gs_set_npc_stamina (game, robot, 100);
   gs_set_npc_location (game, robot, gs_playerroom (game) + 1);
   gs_set_playerstamina (game, 100);
-  battle_tick (game);
+  battle_tick_npc (game, robot);
   check ("armour absorbs blow (vest worn)", 100 - gs_playerstamina (game), 0);
 
   /* 3b. Remove the vest (held, no longer worn); now 8 - Def 5 = 3 gets through. */
@@ -161,7 +161,7 @@ main (int argc, char **argv)
   gs_set_npc_stamina (game, robot, 100);
   gs_set_npc_location (game, robot, gs_playerroom (game) + 1);
   gs_set_playerstamina (game, 100);
-  battle_tick (game);
+  battle_tick_npc (game, robot);
   check ("blow lands without armour", 100 - gs_playerstamina (game), 3);
 
   printf ("%s: %d failure(s)\n", failures ? "FAIL" : "PASS", failures);

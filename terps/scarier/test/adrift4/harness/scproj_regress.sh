@@ -31,6 +31,9 @@
 # byte-identical to what that commit produces, so nothing between it and now
 # touched projectile combat.  A diff that shows only damage rolls and initial
 # staminas moving is the generator; a diff that changes a MESSAGE is not.
+# Re-blessed 2026-09-13 for 161c822d8 ("battle narration follows Perspective"),
+# which missed this one too: light_up is first person, so its six rounds now
+# read "I throw the lighter at Chip." -- a message change, and the intended one.
 set -e
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
