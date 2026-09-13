@@ -784,11 +784,7 @@ tapestries are in better condition, albeit more than a little rugged
 themselves.
 
 > x tapestry three
-This depicts a great bear of a man standing on a blue field and carrying a
-halberd. About him are strewn the corpses of many fallen enemies.
-
-A little plaque beneath the tapestry indicates this man to be "Gulgrin
-Smersh, 5th Lord of Castle Vuurgheim".
+You can't see that.
 
 > x gulgrin smersh
 Smersh looks to be the kind of brutal fellow you'd imagine to see in charge
@@ -805,11 +801,7 @@ What you're trying to look at isn't important enough to warrant a
 description.
 
 > x tapestry six
-This tapestry is badly burnt, but you can still see the man shown there: a
-snake-like fellow with beady eyes, clutching fingers and hollow cheeks.
-
-The plague beneath the tapestry says his name to be "Eccles Montoron, 8th
-Lord of Castle Vuurgheim".
+You can't see that.
 
 > x eccles montaron
 Eccles has the look of an evil-minded sociopath. That or a politician. You're

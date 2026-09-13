@@ -1046,6 +1046,31 @@ uip_match_eos (void)
   return uip_string[uip_posn] == NUL;
 }
 
+/*
+ * uip_binary_input, uip_binary_active, uip_set_binary_input()
+ *
+ * run400's wildcard task matcher (Proc_19_50_457D68, body 457AF8-457D65)
+ * lower-cases the PATTERN only (457B17) and then locates its literal pieces
+ * in the line with binary-compare InStr/Left/Right.  A typed line was
+ * lower-cased at read, so that never shows -- but the library's rebuilt
+ * lines are not: the take piece (Proc_19_39_46302C) and the insides handler
+ * (Proc_19_43_46639C) pre-match an LCase()d copy (462B0D, 465D21) and hand
+ * the dispatcher the raw one (462BFE, 465E51), capitals from the object's
+ * name included.  With the flag set, a literal word in a pattern that has a
+ * `*` and no group or %reference% must match the input byte for byte after
+ * lower-casing the pattern word.  A pattern with no wildcard is the bridge's
+ * whole-line LCase() equality (45DA29-45DA51) and stays case-free; the
+ * NewParse [] {} path is unmeasured and left alone.
+ */
+static scr_bool uip_binary_input = FALSE;
+static scr_bool uip_binary_active = FALSE;
+
+void
+uip_set_binary_input (scr_bool binary)
+{
+  uip_binary_input = binary;
+}
+
 static scr_bool
 uip_match_word (scr_ptnoderef_t node)
 {
@@ -1056,8 +1081,21 @@ uip_match_word (scr_ptnoderef_t node)
   assert (node->word);
   word = node->word;
 
-  /* Compare string text with this node's word, ignore case. */
   length = strlen (word);
+  if (uip_binary_active)
+    {
+      scr_int index_;
+
+      for (index_ = 0; index_ < length; index_++)
+        {
+          if (uip_string[uip_posn + index_] != scr_tolower (word[index_]))
+            return FALSE;
+        }
+      uip_posn += length;
+      return TRUE;
+    }
+
+  /* Compare string text with this node's word, ignore case. */
   if (scr_strncasecmp (uip_string + uip_posn, word, length) == 0)
     {
       /* Word match, advance position and return. */
@@ -2533,7 +2571,14 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
   if (uip_trace)
     scr_trace ("UIParser: string \"%s\"\n", cleansed);
   uip_match_start (cleansed, game);
-  match = uip_match_node (tree);
+  {
+    const scr_bool was_binary = uip_binary_active;
+
+    uip_binary_active = uip_binary_input && strchr (pattern, '*')
+                        && !strpbrk (pattern, "[{%");
+    match = uip_match_node (tree);
+    uip_binary_active = was_binary;
+  }
 
   /* Clean up matching, and free the pattern tree unless it is cached. */
   uip_match_end ();

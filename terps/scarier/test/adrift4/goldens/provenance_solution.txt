@@ -205,7 +205,7 @@ n
 n
 x brush
 open cellar door
-unlock it
+look
 n
 ne
 w

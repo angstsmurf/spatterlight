@@ -1148,6 +1148,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"talk *", lib_cmd_talk},
   {"thank *", lib_cmd_thank},
   {"turn %object% *", lib_cmd_turn_object},
+  {"turn %object% *", lib_cmd_turn_absent},
   {"turn %text%", lib_cmd_turn_other},
   {"turn", lib_cmd_turn_what},
   {"touch %object% *", lib_cmd_touch_object},
@@ -3758,11 +3759,16 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
        * player north (Adrift_128_witchtale.txt) instead of printing "I try
        * to cross the bridge...".  Only silent failures are covered here; a
        * fail message of its own is the restriction pass's business, not this
-       * one's.  Pre-4.0 keeps the shape chicago.taf measured, and so does the
-       * post-library pass, which is a fallback rather than a model of the
-       * dispatcher: `The Magic Show` reaches its "One rabbit trick is enough
-       * for any given act" through a spent task whose restrictions fail, with
-       * the library having declined the line first.
+       * one's.  Pre-4.0 keeps the shape chicago.taf measured.  At 4.0 the
+       * post-library pass asks the restrictions too: it once let a spent,
+       * restriction-failing task through as a fallback, for `The Magic Show`'s
+       * "One rabbit trick is enough for any given act" on `show rabbit to
+       * audience`, but run400 answers that line with the object catch-all
+       * "I don't understand what you want to do with the audience."
+       * (Adrift_351_magicshow.txt:47, Adrift_887_magicshow.txt:40), and hcw's
+       * literal `2` (task 240, spent, both restrictions failing) with the
+       * DontUnderstand text (Adrift_1055_hcw.txt, turn 227), not either
+       * RepeatText.
        */
       /*
        * The room-half pass does not look at the done half at all: the done
@@ -3773,7 +3779,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
       if (!room_only
           && !run_task_ran_this_command (task)
           && task_is_done_refused (game, task)
-          && (version < TAF_VERSION_400 || !done_only
+          && (version < TAF_VERSION_400
               || run_task_is_unrestricted (game, task))
           && run_match_task_commands (game, task, string, TRUE, FALSE))
         {

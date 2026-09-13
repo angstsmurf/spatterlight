@@ -532,6 +532,7 @@ extern scr_bool uip_match (const scr_char *pattern,
                           const scr_char *string, scr_gameref_t game);
 extern void uip_set_strict_reference (scr_bool strict, scr_bool match_case);
 extern void uip_set_containment (scr_bool enabled);
+extern void uip_set_binary_input (scr_bool binary);
 extern scr_char *uip_replace_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_assign_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_note_definite_reference (void);
@@ -754,6 +755,7 @@ extern scr_bool lib_cmd_block_what (scr_gameref_t game);
 extern scr_bool lib_cmd_break_object (scr_gameref_t game);
 extern scr_bool lib_cmd_break_other (scr_gameref_t game);
 extern scr_bool lib_cmd_break_absent (scr_gameref_t game);
+extern scr_bool lib_cmd_turn_absent (scr_gameref_t game);
 extern scr_bool lib_cmd_break_what (scr_gameref_t game);
 extern scr_bool lib_cmd_destroy_what (scr_gameref_t game);
 extern scr_bool lib_cmd_smash_what (scr_gameref_t game);

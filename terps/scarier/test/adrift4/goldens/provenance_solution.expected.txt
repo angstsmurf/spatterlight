@@ -2484,9 +2484,17 @@ entranceway to a basement or cellar of some kind.
 
 You can't open the cellar door as it is locked with a padlock.
 
-> unlock it
-(the cellar door)
-The cellar door is not locked!
+> look
+
+Along The Terrace
+
+This small footpath runs north/south along the veranda on the western side of
+the house.  To the east is a splendid terraced garden.  Along the path is a
+stone wall rising about four feet from the ground that acts as the edge of
+the garden.  From the edge of the wall the garden slopes steeply uphill to
+the west.  A wide variety of perennials have been planted in the hillside
+providing a vivid display of colours.  Beneath the veranda is some scrubby
+brush along the western wall of the house.
 
 > n
 You move north onto a small footpath that leads through the backyard.

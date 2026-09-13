@@ -4670,6 +4670,10 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
  */
 static scr_int lib_verb_object_name_score (scr_gameref_t game, scr_int object,
                                            const scr_char *input);
+static scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
+                                                   const scr_char *input,
+                                                   std::vector<scr_int> *tied,
+                                                   scr_bool present_only);
 
 /* The open question, and the object an answer resolved it to. */
 static scr_bool lib_co_400_pending = FALSE;
@@ -5537,10 +5541,10 @@ lib_absent_seen_object (scr_gameref_t game)
    * winner is the unique maximum score; equal scores tie (4633C3-46341F
    * encodes the tie as a negative result), and a tie or no candidate falls
    * back to 457034's own pass A, co(i, 3), which needs a same-named object
-   * PRESENT and so answers &HFF, "<player> see no such thing."  There is no
-   * further seen-object pass in 457034: its var_90 set is the present
-   * matches only, and the "co(i, 4)" at 456E6A is a single vestigial call,
-   * not a loop (P-code checked 2026-09-06).
+   * PRESENT and so answers &HFF, "<player> see no such thing."  (457034
+   * does have passes after A -- see lib_examine_referencedob_400() -- but
+   * with no present namesake pass A marks nothing and they never run; the
+   * "co(i, 4)" at 456E6A is a single vestigial call, not a loop.)
    *
    * Measured on cowboyblues (4.00, Adrift_330_cowboyblues.txt line 1070):
    * `x wall` in the Sheriff's Office after visiting the Back Room ("east
@@ -6301,6 +6305,200 @@ lib_list_object_state (scr_gameref_t game, scr_int object, scr_bool is_described
 
 
 /*
+ * lib_examine_referencedob_400()
+ *
+ * run400's examine resolver referencedob, Proc_19_88_457034, for a line
+ * whose up-front noun score (Proc_21_58_463640, MemVar_4942F8) tied.  It
+ * works from co() (Proc_21_39_46486C), whose first step picks ONE name word
+ * per object: the Short if it is a whole word of the line (454CB0), else
+ * the LAST alias that is (the alias loop 4642DE never breaks).  co() then
+ * counts the objects that answer to exactly that word (4465C8) and are
+ * present and seen (46435A-46437E).
+ *
+ *   pass A  456E2D  co(i, 3): marks every object whose word has ANY such
+ *                   namesake -- the object itself need not be present.
+ *                   None marked -> &HFF; one -> that object.
+ *   pass B  456ED3  co(i, 0) over the marked: true when the word has
+ *                   exactly one namesake (464853).  One true -> that
+ *                   object.  More than one namesake takes the 454454/
+ *                   "Which" arm at 464560, which is not modelled here.
+ *   pass C  456F5D  over the marked, count the words of the Prefix found in
+ *                   the line; a new best takes the object, an equal count
+ *                   gives &HFE.  With no Prefix word anywhere the answer is
+ *                   whatever pass B (or A) touched last.
+ *
+ * Returns the object, -1 for &HFF, -2 for &HFE, and -3 when pass B met a
+ * crowded name and the answer is the unmodelled arm's.
+ */
+static const scr_char *
+lib_co_400_name_word (scr_gameref_t game, scr_int object, const scr_char *input)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *name, *word;
+  scr_vartype_t vt_key[4];
+  scr_int alias_count, alias;
+
+  name = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  if (!scr_strempty (name) && lib_input_contains_word (input, name))
+    return name;
+
+  word = NULL;
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Alias";
+  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      vt_key[3].integer = alias;
+      name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (!scr_strempty (name) && lib_input_contains_word (input, name))
+        word = name;
+    }
+  return word;
+}
+
+static scr_int
+lib_co_400_present_namesakes (scr_gameref_t game, const scr_char *word)
+{
+  scr_int object, count;
+
+  count = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (gs_object_seen (game, object)
+          && obj_indirectly_in_room (game, object, gs_playerroom (game))
+          && lib_co_object_answers_to (game, object, word))
+        count++;
+    }
+  return count;
+}
+
+static scr_int
+lib_examine_referencedob_400 (scr_gameref_t game, const scr_char *input)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  std::vector<scr_int> marked;
+  scr_int object, index_, result, hits, best;
+
+  result = -1;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *word = lib_co_400_name_word (game, object, input);
+
+      if (word && lib_co_400_present_namesakes (game, word) > 0)
+        {
+          marked.push_back (object);
+          result = object;
+        }
+    }
+  if (marked.size () < 2)
+    return result;
+
+  hits = 0;
+  for (index_ = 0; index_ < (scr_int) marked.size (); index_++)
+    {
+      const scr_char *word = lib_co_400_name_word (game, marked[index_], input);
+      const scr_int count = lib_co_400_present_namesakes (game, word);
+
+      if (count > 1)
+        return -3;
+      if (count == 1)
+        {
+          hits++;
+          result = marked[index_];
+        }
+    }
+  if (hits == 1)
+    return result;
+
+  best = 0;
+  for (index_ = 0; index_ < (scr_int) marked.size (); index_++)
+    {
+      const scr_char *prefix;
+      scr_char *copy, *word, *next;
+      scr_int found;
+
+      prefix = prop_get_indexed_string (bundle, "Objects", marked[index_],
+                                        "Prefix");
+      if (scr_strempty (prefix))
+        prefix = "a";
+
+      found = 0;
+      copy = (scr_char *) scr_malloc (strlen (prefix) + 1);
+      strcpy (copy, prefix);
+      for (word = copy; word; word = next)
+        {
+          next = strchr (word, ' ');
+          if (next)
+            *next++ = NUL;
+          if (word[0] == NUL || !lib_input_contains_word (input, word))
+            continue;
+          found++;
+          if (found == best)
+            result = -2;
+          else if (found > best)
+            {
+              result = marked[index_];
+              best = found;
+            }
+        }
+      scr_free (copy);
+    }
+  return result;
+}
+
+/*
+ * lib_examine_tied_absent_400()
+ *
+ * Where referencedob's answer to a tied line is an object that is not
+ * here, examines speaks for THAT object (471933): "<player> can't see
+ * <the X> from here!" when it has been seen (471958), else "<player> can't
+ * see that." (471995).  Neither sets the not-a-turn flag.  Measured on
+ * warlord (Adrift_1059_warlord.txt): in the Great Hall "tapestries" (90,
+ * alias "tapestry") and "third tapestry" (91, alias "tapestry three") both
+ * score 1 on `x tapestry three`; pass A marks 90, 91 and the unseen
+ * tapestries of room 35 (286), whose word "tapestry" has the present 90 as
+ * its namesake; pass B is true for all three; no "the" is typed, so pass C
+ * leaves 286 and the Runner answers "You can't see that." (and the same for
+ * `x tapestry six`).  Only the absent answer is taken over; the others
+ * stay with the ordinary path.
+ */
+static scr_bool
+lib_examine_tied_absent_400 (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object;
+
+  if (!lib_is_version_400 (game) || !input || lib_co_400_forced () >= 0
+      || lib_verb_object_resolve_400_string (game, input, NULL, TRUE) != -1)
+    return FALSE;
+
+  object = lib_examine_referencedob_400 (game, input);
+  if (object < 0
+      || obj_indirectly_in_room (game, object, gs_playerroom (game)))
+    return FALSE;
+
+  if (gs_object_seen (game, object))
+    {
+      var_set_ref_object (gs_get_vars (game), object);
+      pf_buffer_string (filter,
+                        lib_select_response (game, "You can't see ",
+                                             "I can't see ",
+                                             "%player% can't see "));
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter, " from here!\n");
+    }
+  else
+    lib_print_response_message (game,
+                                "You can't see that.\n",
+                                "I can't see that.\n",
+                                "%player% can't see that.\n");
+  return TRUE;
+}
+
+
+/*
  * lib_cmd_examine_object()
  *
  * Show the long description of the most recently referenced object.
@@ -6314,6 +6512,10 @@ lib_cmd_examine_object (scr_gameref_t game)
   scr_int object, task, openness;
   scr_bool is_described, is_statussed, is_mentioned, is_ambiguous, should_be;
   const scr_char *description, *resource;
+
+  /* A 4.0 tie that referencedob settles on an absent object. */
+  if (lib_examine_tied_absent_400 (game))
+    return TRUE;
 
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, "examine", &is_ambiguous);
@@ -6727,6 +6929,46 @@ lib_task_prematches_input (scr_gameref_t game, scr_int class_filter)
   return status;
 }
 
+/*
+ * lib_run_rebuilt_line_400()
+ *
+ * Offer a 4.0 library-rebuilt line ("get the X", "put the X in the Y") to
+ * the tasks the way the take piece (Proc_19_39_46302C @462B0D-462C85) and
+ * the insides handler (Proc_19_43_46639C @465D21-465EB5) do: pre-match an
+ * LCase()d copy, and on a hit dispatch the RAW line, whose capitals the
+ * wildcard matcher compares binary (see uip_set_binary_input()).  The hit
+ * claims even when the raw dispatch then runs nothing.  hcw (4.00,
+ * Adrift_1055_hcw.txt turn 162): `put susan in trunk` with the Fembot
+ * holding "sleeping Susan" pre-matches task 477 `get * susan` on "get
+ * sleeping susan", dispatches "get sleeping Susan", runs nothing, and ends
+ * on "I don't understand what you mean." -- task 243 `put * susan *` misses
+ * the same way on the rebuilt put.  A line with no capitals is unchanged.
+ */
+static scr_bool lib_rebuilt_raw_dispatch = FALSE;
+
+static scr_bool
+lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
+{
+  std::string lowered (command);
+  scr_bool claimed;
+
+  for (auto &c : lowered)
+    c = scr_tolower (c);
+  if (lowered == command)
+    return run_game_task_commands (game, command);
+
+  if (!run_does_command_match (game, lowered.c_str (), TRUE))
+    return FALSE;
+
+  lib_rebuilt_raw_dispatch = FALSE;
+  uip_set_binary_input (TRUE);
+  claimed = run_game_task_commands (game, command);
+  uip_set_binary_input (FALSE);
+  lib_rebuilt_raw_dispatch = TRUE;
+  (void) claimed;
+  return TRUE;
+}
+
 static scr_bool
 lib_try_game_command_common (scr_gameref_t game,
                              const scr_char *verb, scr_int object,
@@ -6821,7 +7063,8 @@ lib_try_game_command_common (scr_gameref_t game,
        */
       sprintf (command, "%s %s %s %s %s %s", verb,
                prefix, name, preposition, associate_prefix, associate_name);
-      status = run_game_task_commands (game, command);
+      status = lib_rebuilt_raw_dispatch ? lib_run_rebuilt_line_400 (game, command)
+                            : run_game_task_commands (game, command);
     }
   else
     {
@@ -6848,7 +7091,8 @@ lib_try_game_command_common (scr_gameref_t game,
        * 2026-08-30).
        */
       sprintf (command, "%s %s %s", verb, prefix, name);
-      status = run_game_task_commands (game, command);
+      status = lib_rebuilt_raw_dispatch ? lib_run_rebuilt_line_400 (game, command)
+                            : run_game_task_commands (game, command);
       if (!status && !use_definite
           && !lib_object_short_name_is_ambiguous (game, object))
         {
@@ -6988,6 +7232,7 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
   /* The take piece's look-ups run in the pre-matcher's mode 1 (@462B12,
    * @462B84): only tasks carrying the take flag can answer. */
   run_set_task_class_filter (1);
+  lib_rebuilt_raw_dispatch = TRUE;
   if (gs_object_position (game, object) == OBJ_IN_OBJECT)
     status = lib_try_game_command_common (game, "get", object,
                                           "from",
@@ -6996,6 +7241,7 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
   else
     status = lib_try_game_command_common (game, "get", object,
                                           NULL, -1, FALSE, FALSE, FALSE, TRUE);
+  lib_rebuilt_raw_dispatch = FALSE;
   run_set_task_class_filter (0);
   return status;
 }
@@ -7058,9 +7304,11 @@ lib_try_game_command_with_object_400 (scr_gameref_t game,
   /* The insides handler pre-matches its rebuilt line in mode 2 (@465D39):
    * only tasks carrying the put/drop flag are consulted. */
   run_set_task_class_filter (2);
+  lib_rebuilt_raw_dispatch = TRUE;
   status = lib_try_game_command_common (game, verb, object,
                                         preposition, other_object, TRUE, FALSE,
                                         FALSE, TRUE);
+  lib_rebuilt_raw_dispatch = FALSE;
   run_set_task_class_filter (0);
   return status;
 }
@@ -8074,7 +8322,21 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
 
           if (!list.empty ())
             {
-              if (has_printed)
+              /*
+               * 4.0 builds the take line in front of whatever the turn has
+               * printed so far: get_piece copies the buffer aside (run400
+               * @0047359A), clears it, writes "You take ...." and then, if
+               * the copy was not empty, pspace()s and appends it back
+               * (@004736B6).  So a task claiming one of the objects prints
+               * after the library's line.  fullcircle `get all`, with a
+               * `get *branch*` task, answers "You take the helm and the
+               * locket.  You take the branch."  (Adrift_1053_fullcircle.txt
+               * line 356.)
+               */
+              scr_owned_string saved;
+              if (has_printed && total == 0 && lib_is_version_400 (game))
+                saved.reset (pf_transfer_buffer (filter));
+              else if (has_printed)
                 pf_buffer_string (filter, total == 0 ? "\n" : "  ");
               /*
                * 4.0 reworded the loose-in-the-room take; the from-container
@@ -8150,6 +8412,15 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                   lib_print_object_np (game, parent);
                 }
               pf_buffer_character (filter, '.');
+              if (saved)
+                {
+                  const scr_char *text = saved.get ();
+
+                  while (*text == '\n' || *text == ' ')
+                    text++;
+                  pf_buffer_pspace (filter);
+                  pf_buffer_string (filter, text);
+                }
             }
           total += (scr_int) list.size ();
           has_printed |= !list.empty ();
@@ -11204,6 +11475,8 @@ lib_lock_check_openness (scr_gameref_t game, scr_int object,
 }
 
 
+static scr_int lib_verb_object_resolve_400 (scr_gameref_t game);
+
 /*
  * lib_lock_backend()
  *
@@ -11225,6 +11498,41 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
   object = lib_disambiguate_object (game, verb->verb, &is_ambiguous);
   if (object == -1)
     return is_ambiguous;
+
+  /*
+   * 4.0 has no refusal for an object without a lock.  run400's lock and
+   * unlock arms in openclose (Proc_19_3_476468) resolve the object, leave
+   * with `Exit Sub` when nothing scores (475D91, 47614F), and then do all of
+   * their work -- "can't lock X as it is open.", "is not locked!", the key
+   * checks -- under `If object.Key > 0` (475DAB, 476169).  An object with no
+   * key falls out of the arm having said nothing, and generaltasks' object
+   * catch-all answers: hcw's `unlock door with keys` in the parking lot, no
+   * door present, is "I don't understand what you want to do with Susan's
+   * keys." (Adrift_1055_hcw.txt, turn 189), not "You can't unlock Susan's
+   * keys.".  Declining here, and in lib_cmd_(un)lock_other(), hands the
+   * line to `* %object% *`.
+   */
+  if (lib_is_version_400 (game))
+    {
+      scr_vartype_t vt_key[3], vt_rvalue;
+
+      /*
+       * The loader reads a Key only for Openable > 1 and stores -1 otherwise
+       * (4907DD-4907F7).  Both properties are fetched tolerantly:
+       * prop_get_integer() is fatal on a missing one, and an object with no
+       * Openable at all does exist (see scdump.cpp).
+       */
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = object;
+      vt_key[2].string = "Openable";
+      if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
+          || vt_rvalue.integer <= 0)
+        return FALSE;
+      vt_key[2].string = "Key";
+      if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
+          || vt_rvalue.integer < 0)
+        return FALSE;
+    }
 
   /*
    * Now try to get the key from referenced text, and disambiguate as usual.
@@ -11869,6 +12177,12 @@ lib_put_all_filter (scr_gameref_t game, scr_int object, scr_int associate)
 
 
 /*
+ * The bytes of "(Taking ... first)" announcements printed by the current put
+ * backend; see lib_put_outcome_t's is_announce_only.
+ */
+static size_t lib_put_announce_bytes = 0;
+
+/*
  * lib_put_implicit_take()
  *
  * Version 4.0 only.  Having accepted a named object that the player is not
@@ -11959,6 +12273,7 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
     pf_buffer_string (filter, "(Taking ");
     lib_print_object_np (game, object);
     pf_buffer_string (filter, " first)\n");
+    lib_put_announce_bytes += pf_buffer_length (filter) - hoist_from;
     if (run_in_put_clause_loop ())
       pf_hoist_tail (filter, hoist_from);
   }
@@ -12054,6 +12369,7 @@ typedef struct
   scr_bool is_refusal_only;
   scr_bool is_silent;
   scr_bool is_tasks_only;
+  scr_bool is_announce_only;
 } lib_put_outcome_t;
 
 static scr_int
@@ -12148,6 +12464,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
    * weed out any moves that result in infinite recursion.
    */
   length_before = lib_output_length (game);
+  lib_put_announce_bytes = 0;
   has_printed = FALSE;
   task_claimed = FALSE;
   static_refused = recursion_rejected = has_moved = FALSE;
@@ -12444,6 +12761,10 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
   outcome.is_silent = lib_output_length (game) == length_before;
   outcome.is_tasks_only = task_claimed
                           && lib_output_length (game) == length_after_tasks;
+  outcome.is_announce_only = task_claimed && lib_put_announce_bytes > 0
+                             && (size_t) (lib_output_length (game)
+                                          - length_before)
+                                == lib_put_announce_bytes;
   return outcome;
 }
 
@@ -12481,6 +12802,17 @@ lib_put_in_refused (scr_gameref_t game, scr_bool is_refusal_only)
  * lib_put_outcome_t.  A 4.0 put that printed nothing (statics only, see
  * lib_put_drop_statics_400()) is left unclaimed with no line ending, for
  * the task pass to answer.
+ *
+ * A 4.0 put whose only words are the implicit take's announcement, with a
+ * task claiming it silently, ends on the game's DontUnderstand text.  run400
+ * writes "(Taking X first)" straight to the textbox (@46E2EA-46E30C) while
+ * the turn's answer collects in MemVar_4941B0, and a claim that printed
+ * nothing leaves that empty for generaltasks' tail (48B573) to fill.  hcw
+ * turn 162 (Adrift_1055_hcw.txt:1087): `put susan in trunk` pre-matches the
+ * lower-cased rebuilds, dispatches the raw "get sleeping Susan" / "put
+ * sleeping Susan in the car trunk", runs nothing (see
+ * lib_run_rebuilt_line_400()) and reads "(Taking sleeping Susan first)" /
+ * "I don't understand what you mean.".
  */
 static scr_bool
 lib_put_in_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
@@ -12489,6 +12821,13 @@ lib_put_in_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
 
   if (outcome.is_silent && lib_is_version_400 (game))
     return FALSE;
+  if (outcome.is_announce_only && lib_is_version_400 (game))
+    {
+      pf_buffer_string (filter, prop_get_global_string (gs_get_bundle (game),
+                                                        "DontUnderstand"));
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
   if (!outcome.is_tasks_only)
     pf_buffer_character (filter, '\n');
   return lib_put_in_refused (game, outcome.is_refusal_only);
@@ -12501,6 +12840,13 @@ lib_put_on_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
 
   if (outcome.is_silent && lib_is_version_400 (game))
     return FALSE;
+  if (outcome.is_announce_only && lib_is_version_400 (game))
+    {
+      pf_buffer_string (filter, prop_get_global_string (gs_get_bundle (game),
+                                                        "DontUnderstand"));
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
   if (!outcome.is_tasks_only)
     pf_buffer_character (filter, '\n');
   return TRUE;
@@ -13720,6 +14066,7 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter,
    * weed out any moves that result in infinite recursion.
    */
   length_before = lib_output_length (game);
+  lib_put_announce_bytes = 0;
   has_printed = FALSE;
   task_claimed = FALSE;
   recursion_rejected = FALSE;
@@ -13823,6 +14170,10 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter,
   outcome.is_silent = lib_output_length (game) == length_before;
   outcome.is_tasks_only = task_claimed
                           && lib_output_length (game) == length_after_tasks;
+  outcome.is_announce_only = task_claimed && lib_put_announce_bytes > 0
+                             && (size_t) (lib_output_length (game)
+                                          - length_before)
+                                == lib_put_announce_bytes;
   return outcome;
 }
 
@@ -15478,6 +15829,21 @@ lib_cmd_break_other (scr_gameref_t game)
  */
 scr_bool
 lib_cmd_break_absent (scr_gameref_t game)
+{
+  return lib_cant_see_absent_object (game, ".\n", TRUE);
+}
+
+/*
+ * lib_cmd_turn_absent()
+ *
+ * The `turn` arm of the same therest() clause.  hcw (4.00,
+ * Adrift_1055_hcw.txt turn 81) types `turn on intercom` at the park gates
+ * with the limousine's intercom seen but elsewhere and gets "You can't see
+ * the intercom." -- not turn_other's "You can't turn that.", which run400
+ * composes only below the clause, at 489255-489367.
+ */
+scr_bool
+lib_cmd_turn_absent (scr_gameref_t game)
 {
   return lib_cant_see_absent_object (game, ".\n", TRUE);
 }
@@ -17922,15 +18288,24 @@ lib_cmd_open_other (scr_gameref_t game)
   return lib_cant_do_other (game, "open");
 }
 
+/*
+ * 4.0: a lock or unlock line naming a present object the arm declined (see
+ * lib_lock_backend()) goes on to the object catch-all, not to "You can't
+ * unlock that.".
+ */
 scr_bool
 lib_cmd_lock_other (scr_gameref_t game)
 {
+  if (lib_is_version_400 (game) && lib_verb_object_resolve_400 (game) >= 0)
+    return FALSE;
   return lib_cant_do_other (game, "lock");
 }
 
 scr_bool
 lib_cmd_unlock_other (scr_gameref_t game)
 {
+  if (lib_is_version_400 (game) && lib_verb_object_resolve_400 (game) >= 0)
+    return FALSE;
   return lib_cant_do_other (game, "unlock");
 }
 
@@ -19239,15 +19614,35 @@ lib_cmd_verb_object (scr_gameref_t game)
        * 2 and the 4.0 resolver below is never reached.  A bare `put` is left
        * alone: lib_cmd_put_where_400() answers it with "Where do you want to
        * put that?", which is what the tie was measured to give there.
+       *
+       * The other way round, our matcher can bind an object that is not
+       * here while the line also names one that is.  run400 resolves the
+       * noun from the present, seen objects alone (48A3F5), so the present
+       * one wins outright: The Magic Show's `show rabbit to audience`, the
+       * rabbit back in the worn hat, answers "I don't understand what you
+       * want to do with the audience." (Adrift_351_magicshow.txt:47,
+       * Adrift_887_magicshow.txt:40).  A unique winner goes on to the
+       * catch-all below as if our own count had found it.
        */
       if (lib_is_version_400 (game) && !lib_is_put_where_line_400 (game))
         {
           std::vector<scr_int> tied;
+          const scr_int resolved =
+              lib_verb_object_resolve_400_common (game, &tied);
 
-          if (lib_verb_object_resolve_400_common (game, &tied) == -1
+          if (resolved == -1
               && lib_co_400_raise_for_short_tie (game, tied))
             return TRUE;
+          if (resolved >= 0)
+            {
+              count = 1;
+              object = resolved;
+            }
         }
+    }
+
+  if (count != 1)
+    {
 
       /*
        * No object of that name is here.  Before giving up on the command --

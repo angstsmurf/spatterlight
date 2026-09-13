@@ -1098,7 +1098,7 @@ stool, eating some ice cream. Some of it even manages to make its way into
 her mouth.
 
 > open freezer
-You open the freezer.  Some jam and a bottle are inside the freezer.
+You open the freezer.  Lurking inside are some jam and a bottle.
 
 > get jam
 You take the jam from the freezer.

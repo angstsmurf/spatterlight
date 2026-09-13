@@ -177,6 +177,8 @@ typedef struct
 
 static std::vector<pf_str_pair_t> pf_alr_cache;
 static scr_bool pf_alr_cache_built = FALSE;
+/* TRUE when some ALR original ends in a space; see pf_replace_alrs(). */
+static scr_bool pf_alr_trailing_space = FALSE;
 
 /*
  * Multi-pattern prefilter for the ALR loop (see pf_alr_candidates below).
@@ -201,6 +203,7 @@ pf_cache_reset (void)
   pf_alr_index.clear ();
   pf_alr_short.clear ();
   pf_alr_cache_built = FALSE;
+  pf_alr_trailing_space = FALSE;
   pf_synonym_cache.clear ();
   pf_synonym_cache_built = FALSE;
 }
@@ -273,12 +276,15 @@ pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count)
   /* Index the cache for pf_alr_candidates(). */
   pf_alr_index.clear ();
   pf_alr_short.clear ();
+  pf_alr_trailing_space = FALSE;
   for (index_ = 0; index_ < alr_count; index_++)
     {
       const pf_str_pair_t &entry = pf_alr_cache[index_];
 
       if (entry.original_length == 0)
         continue;
+      if (entry.original[entry.original_length - 1] == ' ')
+        pf_alr_trailing_space = TRUE;
       if (entry.original_length < PF_ALR_KEY_LENGTH)
         pf_alr_short.push_back (index_);
       else
@@ -762,7 +768,53 @@ pf_replace_alrs (const scr_char *string, scr_var_setref_t vars,
   if (!pf_alr_cache_built || (scr_int) pf_alr_cache.size () != alr_count)
     pf_alr_cache_build (bundle, alr_count);
 
-  pf_alr_walk (string, current, vars, recursive, 0);
+  /*
+   * The Runner's paragraphs are strings that pspace() has left ending in
+   * spaces, and its ALR pass sees them that way; ours end at a bare newline.
+   * So an original ending in a space, which the Runner's generators write from
+   * exactly such text, would never match the last sentence of a paragraph
+   * here.  The Reluctant Vampire's `open freezer` ALR "You open the freezer.
+   * Some jam and a bottle are inside the freezer. " -> "... Lurking inside are
+   * some jam and a bottle." fires in run400 (Adrift_1058_reluctantvampire.txt
+   * line 744).  Where a game has such an original, give each line end the
+   * Runner's two spaces for the walk, behind a marker, and take back whatever
+   * the walk left of them afterwards.
+   */
+  if (pf_alr_trailing_space)
+    {
+      static const scr_char marker = '\x01';
+      std::string padded, walked;
+      const scr_char *cursor;
+
+      for (cursor = string;; cursor++)
+        {
+          if ((*cursor == '\n' || *cursor == NUL)
+              && !padded.empty ()
+              && padded.back () != '\n' && padded.back () != ' ')
+            {
+              padded.append ("  ");
+              padded.push_back (marker);
+            }
+          if (*cursor == NUL)
+            break;
+          padded.push_back (*cursor);
+        }
+
+      pf_alr_walk (padded.c_str (), walked, vars, recursive, 0);
+
+      for (size_t index_ = 0; index_ < walked.size (); index_++)
+        {
+          if (walked[index_] == marker)
+            {
+              while (!current.empty () && current.back () == ' ')
+                current.pop_back ();
+            }
+          else
+            current.push_back (walked[index_]);
+        }
+    }
+  else
+    pf_alr_walk (string, current, vars, recursive, 0);
 
   /* Return the rebuilt string if any replacement was made, else NULL. */
   return current.compare (string) == 0 ? NULL : pf_strdup (current);

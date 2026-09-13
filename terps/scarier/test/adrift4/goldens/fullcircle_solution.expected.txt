@@ -533,9 +533,7 @@ weight of a fully grown man.
    There is a locket here.
 
 > get all
-You take the branch.
-
-You take the helm and the locket.
+You take the helm and the locket.  You take the branch.
 
 > s
 

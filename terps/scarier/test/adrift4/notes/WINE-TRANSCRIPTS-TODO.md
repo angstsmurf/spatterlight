@@ -570,7 +570,7 @@ refuses to load it.
 | `foresthouse3` | ForestHouse3.taf | `Adrift_264_foresthouse3.txt` | diff 8 | T48 `d`: run400 'You continue to descend the stairs... You get the feeling that somethi' vs scarier 'You continue to descend the stairs...' -- golden re-blessed 2026-09-06 with SCR_SKIP_WAITKEY=1 (the old golden was a stuck-on-the-porch run); still diff 8, first at T48 |
 | `forum` | forum.taf | `Adrift_261_forum.txt` | endtail 1 | T19 `1`: run400 'You pull out Lancer Sykera from the depths of your pockets. Woodfish r' vs scarier 'You pull out Lancer Sykera from the depths of your pockets. Woodfish r' |
 | `frustrated` | frustrated.taf | `Adrift_274_frustrated.txt` | endtail 1 | was diff 4; T53-T55 FIXED 2026-09-06 by moving the 4.0 implicit take ahead of the put handler's task look-up (see "Measured so far") |
-| `fullcircle` | Full_Circle.taf | `Adrift_322_fullcircle.txt` | diff 40 | T43 `get all`: run400 'You take the helm and the locket. You take the branch.' vs scarier 'You take the branch. You take the helm and the locket.' |
+| `fullcircle` | Full_Circle.taf | `Adrift_322_fullcircle.txt` | diff 40 | T43 `get all`: run400 'You take the helm and the locket. You take the branch.' vs scarier 'You take the branch. You take the helm and the locket.' (**PORTED 2026-09-13**) |
 | `ghosttown` | Ghost town v1,05.taf | `Adrift_325_ghosttown.txt` | diff 34 | T2 `n`: run400 'You move north. Bedroom As you enter the bedroom you are surprised by ' vs scarier 'You move north. Bedroom As you enter the bedroom you are surprised by ' -- diff 23 after the 2026-09-06 seen/resolver port (T2 is the kerosene-lamp listing, unchanged); `x posters` and the dusk-event tick now match |
 | `Glum_Fiddle` | Glum Fiddle.taf | `Adrift_289_Glum_Fiddle.txt` | lost-cmd | 1 lost, first feed[1] `say cow` |
 | `gmylm` | GMYLM_2010.taf | `Adrift_259_gmylm.txt` | endtail 1 | T64 `pull strings`: run400 'I look around, and am pleased to see the bullies are done. It's clear ' vs scarier 'I look around, and am pleased to see the bullies are done. It's clear ' |
@@ -1039,6 +1039,25 @@ Engine leads, measured or half-measured, none blocking:
   are put back.  The rule on the other side of it (run390 asks only when the
   authored name is blank) is ported; see "Closed 2026-09-13: lead 7 was the
   popup answers" at the foot of this file.
+- **The leads left after the second 2026-09-13 re-compare**, all 43 rows at
+  HEAD (table in "Closed 2026-09-13: `hcw` T81" at the foot):
+  ~~`hcw` T162 `put susan in trunk` (run400 "(Taking sleeping Susan first) I
+  don't understand what you mean." vs the Fembot task; ~38 downstream turns)~~
+  (**PORTED 2026-09-13** -- see "Closed 2026-09-13: `hcw` T162" at the foot;
+  it uncovered `hcw` T189 `unlock door with keys` and T227 `2`, both since
+  **PORTED** -- see the two "Closed 2026-09-13" sections after it; `hcw` now
+  differs on no turns);
+  ~~`warlord` T72/T76 `x tapestry three/six` (run400 "You can't see that.")~~
+  (**PORTED 2026-09-13** -- see "Closed 2026-09-13: `warlord` T72/T76" at the
+  foot) and T104/T112/T122 `get treat`/`bone`/`explosive cudgel` (run400 "The stove is
+  bolted to the floor."; **mechanism found, port blocked on the seen model**
+  -- see "Analysed 2026-09-13: `warlord` T104" at the foot);
+  ~~`fullcircle` T43 `get all` order (run400 helm, locket, then branch)~~
+  (**PORTED 2026-09-13** -- see "Closed 2026-09-13: `fullcircle` T43" at the
+  foot);
+  ~~`reluctantvampire` T78 `open freezer` (run400 "Lurking inside are some jam
+  and a bottle.")~~ (**PORTED 2026-09-13** -- see "Closed 2026-09-13:
+  `reluctantvampire` T78" at the foot).
 - **`house` is not comparable** until it is re-driven with Verbose ON; the
   2026-09-12 frost-event and breaking-glass leads on that row are withdrawn.
 - **Put/task precedence at 4.0** -- the one port with a written spec; see
@@ -5327,6 +5346,9 @@ candidate at all.  The picker's restriction gate is not optional: the patch
 adds `run_task_is_unrestricted()` to the scan, but *only* in the pre-library
 pass -- the post-library pass must keep taking restricted tasks or
 `magicshow`'s "One rabbit trick is enough for any given act" disappears.
+(**Superseded 2026-09-13:** that line was the golden's, not run400's; both
+magicshow transcripts answer with the object catch-all, and the post-library
+pass now gates on restrictions too -- see "Closed 2026-09-13: `hcw` T227".)
 
 **`thepkgirl` 2135** (`* kiss *katryn *`) is a state divergence, not a wording
 one.  `Adrift_427_thepkgirl.txt:2445` shows the Runner answering `get band`
@@ -7427,7 +7449,7 @@ Two numbers per row:
 | `mould` | 31 | 31 | 0 | 0 | NOT COMPARABLE (imp fight redraws its form) |
 | `journ2` | 25 | 25 | -7 | -7 | real: spent-task answer at T21 |
 | `sun_empire` | 21 | 21 | +72 | +72 | real: battle round one turn out |
-| `warlord` | 14 | 14 | +22 | +22 | real: `x tapestry three` |
+| `warlord` | 14 | 14 | +22 | +22 | real: ~~`x tapestry three`~~ (ported 2026-09-13); T104 `get treat` still open |
 | `wes_ghn` | 11 | 11 | -51 | -51 | ~~real: battle round one turn out~~ stale drive; re-driven 2026-09-13, draws 217 = 217, **0 engine turns** after the type-7 cap + dodge pronoun ports (T119 is the Runner capture's cut tail) |
 | `zombies` | 8 | 8 | 0 | 0 | ~~real: `ask stu about zombies`~~ ported 2026-09-13 (3.9 topic reply overwrites the task); only T36's end-summary tail left |
 | `jinxtron_full` | 7 | 7 | -2 | -2 | ~~real: `%player%` substitution~~ popup artefact: identical every turn |
@@ -7750,12 +7772,15 @@ Unchanged and already catalogued, all still present: ~~`cldone` (T0 `sit` --
 run400 runs the seance task, Scarier prints the room description; and T11/T32)~~
 (**withdrawn 2026-09-13** -- the same popup artefact as lead 7; identical on
 every turn with `--popup Player`),
-`hcw` T81 `turn on intercom` / T162 `put susan in trunk`, `journ2` T21 and
-`circus` T68 (run400 answers a spent task `You have already done that.` where
-Scarier runs the library), `warlord` T72 `x tapestry three`, ~~`zombies` T10 `ask
+`hcw` ~~T81 `turn on intercom`~~ (**PORTED 2026-09-13** -- see "Closed
+2026-09-13: `hcw` T81 -- `turn` on a seen, absent object" at the foot) / ~~T162
+`put susan in trunk`~~ (**PORTED 2026-09-13** -- see "Closed 2026-09-13: `hcw`
+T162" at the foot), ~~`journ2` T21 and `circus` T68 (run400 answers a spent
+task `You have already done that.` where Scarier runs the library)~~ (**gone at
+HEAD** -- the spent-task port; neither row differs there any more), ~~`warlord` T72 `x tapestry three`~~ (**PORTED 2026-09-13**), ~~`zombies` T10 `ask
 stu about zombies`~~ (**PORTED 2026-09-13** -- see "Closed 2026-09-13:
-`zombies` -- a 3.9 topic reply overwrites the task" at the foot), `fullcircle` T43 `get all` take order, `reluctantvampire`
-T78 `open freezer` wording.
+`zombies` -- a 3.9 topic reply overwrites the task" at the foot), ~~`fullcircle` T43 `get all` take order~~ (**PORTED
+2026-09-13**), ~~`reluctantvampire` T78 `open freezer` wording~~ (**PORTED 2026-09-13**).
 
 ### `house` must be re-driven -- Verbose was OFF
 
@@ -8142,3 +8167,398 @@ Unmeasured:
 - 3.7/3.8, which have no code gate.  The port leaves them alone.
 - run390's loop has no break, so the last matching topic wins.  Scarier keeps
   the first.  No row has two topics matching the same subject.
+
+## Closed 2026-09-13: `hcw` T81 -- `turn` on a seen, absent object
+
+### The re-compare at HEAD
+
+All 43 `xoshiro_jobs.txt` rows were compared again against their newest
+`Adrift_*_<tag>.txt`, after the namesake and ask-topic ports:
+
+| Result | Rows |
+|---|---|
+| Identical on every turn | adriftorama, alexis, iachini, inverness, iqsfot, jason_vs_salm, jinxtron_full, journ2, maincourse, target, thetest_win, threeminutes, ticket, where_are_my_keys, wumpusrun |
+| Identical but for the keypress / ending tail | circus, templeofthesun, woof, the Shadowpeak trio (Adrift_1145-1147), light_up, sun_empire (the last two also have unechoed commands after a death or the end) |
+| Harness / drive artefacts | cldone (needs `--popup`), snakes_and_ladders and wes_ghn (stale Adrift_1062 / 1064), house (Verbose OFF), mould (not comparable), lair / panic / wonderwombat (whitespace only), albert T21, bsg22 T13, reactor1 T10, motion, reluctantvampire T197, zombies T36, yonastoundingcastle T188 (`[More]` / ending tails), alexis_worn_cube (re-sync markers), les_feux T18 (after the death) |
+| Engine leads | hcw T81 (ported below), hcw T162, warlord T72/T76 (ported below) + T104/T112, fullcircle T43 (ported below), reluctantvampire T78 (ported below) -- see "Still open" |
+
+`journ2` T21 and `circus` T68, in the catalogued list, no longer differ.
+
+### T81
+
+`Adrift_1055_hcw.txt` (run400x, seed 2): at the park gates, `turn on
+intercom` gives "You can't see the intercom.".  The intercom (in the
+limousine) is seen but not present.  Scarier printed turn_other's "You can't
+turn that.".
+
+run400 therest() (Proc_19_85_489F4C) opens, at 4887A0-4887F5, with a clause
+that runs for every verb, over an empty buffer only: when the resolved
+object is seen but not present, it prints `Ary(0) & " can't see " & <definite
+name> & "."` and exits.  The per-verb refusals, `turn` at 489255-489367
+among them, come after that.  Scarier already models the clause for other
+verbs as `lib_cant_see_absent_object()`, with an `_absent` row under each
+`_object` row in `STANDARD_FALLBACK_COMMANDS`.  `turn` had no such row.
+
+**Ported**: `lib_cmd_turn_absent()` (sclibrar.cpp) plus the row
+`{"turn %object% *", lib_cmd_turn_absent}` under `lib_cmd_turn_object`.
+A present object is unchanged: the archive still gives "You can't turn the
+couch." with or without on/off.
+
+Results:
+
+- `hcw`: T81 matches.  The golden's only change is that line, re-blessed.
+  The compare still stops at 40 differing turns: T162 sends the run off
+  course, so a later turn, T209 `look`, moves into the capped list.
+- The rest of the corpus is unmoved.
+
+## Closed 2026-09-13: `hcw` T162 -- a rebuilt line keeps its capitals
+
+`Adrift_1055_hcw.txt:1087` (run400x, seed 2), the Fembot holding "sleeping
+Susan" and the trunk open:
+
+    > put susan in trunk
+    (Taking sleeping Susan first)
+    I don't understand what you mean.
+
+Scarier ran task 477 ("While you could carry Susan, it's a task best left to
+lackeys...") and then task 243 ("Yes, master," complies the Fembot...), so
+Susan went in the trunk.  run400 leaves her with the Fembot, which is why its
+T164 `e` says "The Fembot will raise cries of alarm...".  Scarier drifted for
+about 38 turns.
+
+### Why run400 runs neither task
+
+Both tasks do match the rebuilt lines, but only in lower case:
+
+- The take piece (Proc_19_39_46302C) pre-matches `LCase("get " & name(obj,
+  0))` at 462B0D/462B25.  On a hit it sets MemVar_494174 to the same line
+  **without** the LCase (462BFE; 462C4B for the "from" form), calls the
+  dispatcher Proc_19_24_44CCE0, and returns 2 whatever the dispatch did.
+- The insides handler (Proc_19_43_46639C) does the same: its pre-match is
+  LCase()d (465D21/465D8C), its dispatch line is raw (465E51/465E97, into
+  44CCE0 at 465EB5).
+- The bridge Proc_19_38_45DD5C accepts an exact pattern on `LCase(line) =
+  LCase(pattern)`, but a pattern containing `*` goes to Proc_19_50_457D68.
+  That routine lower-cases only the pattern (457B17), and its
+  InStr/Left/Right compares are binary.
+
+Typed input is lower-cased at read (448984), so this never shows on a typed
+line.  A rebuilt line carries the object's name as authored, "sleeping
+Susan".  `get * susan` hits "get sleeping susan" in the pre-match and misses
+"get sleeping Susan" in the dispatch; `put * susan *` does the same on "put
+sleeping Susan in the car trunk".  Both handlers claim and print nothing.
+"(Taking X first)" went straight to the textbox (46E2EA-46E30C), so
+MemVar_4941B0 is still empty at generaltasks' tail, and 48B573 fills it with
+DontUnderstand.
+
+### Ported
+
+- **`uip_set_binary_input()`** (scparser.cpp): while set, a literal word in
+  a pattern that has a `*` and no `[`, `{` or `%` must equal the input byte
+  for byte once the pattern word is lower-cased.  Exact patterns stay
+  case-free.  The NewParse `[]`/`{}` path is unmeasured and left alone.
+- **`lib_run_rebuilt_line_400()`** (sclibrar.cpp) serves the take piece
+  (`lib_try_game_command_take_definite`) and the put-in/on look-up
+  (`lib_try_game_command_with_object_400`).  A rebuilt line with no capitals
+  is dispatched as before.  Otherwise the lower-cased copy is pre-matched,
+  the raw line is dispatched under the binary flag, and the pre-match hit
+  claims.  The drop rebuild (46F33B) is unmeasured and unchanged.
+- **`is_announce_only`** on the put outcome: a 4.0 put whose only output is
+  the "(Taking ...)" announcement, with a task claiming silently, prints the
+  game's DontUnderstand text.
+
+### Results
+
+- `hcw`: T162 through T168 match.  The walkthrough could no longer stow
+  Susan, so `goldens/hcw_solution.txt` line 163 is now `lower susan into
+  trunk`.  That is a typed line, so task 243 (`lower * susan *`) takes it
+  lower-cased; run400 is not yet measured on it.  Re-blessed; the win marker
+  holds.
+- The rest of the corpus is unmoved: 427 PASS, hcw the only change.
+- The re-compare of `cmdfile_q_hcw.txt` now differs on two turns only, both
+  new and open:
+  - **T189 `unlock door with keys`** in the Museum Parking Lot, where no door
+    is present.  run400 says "I don't understand what you want to do with
+    Susan's keys."  Scarier says "You can't unlock Susan's keys.": its
+    `unlock %object%` binds the keys.  run400's unlock arm (Proc_19_3_476468
+    @47612F) exits silently when the 463640 scorer finds nothing (47614F),
+    and the object catch-all answers.  **PORTED, see "Closed 2026-09-13:
+    `hcw` T189" below.**
+  - **T227 `2`**: run400 says "I don't understand what you mean."  Scarier
+    prints task 240's RepeatText ("Uh, like I said, I'm a researcher at the
+    museum...").  Task 240 is the literal `2`, done, not repeatable, and
+    both of its restrictions (player with Susan; task 249 done) fail
+    silently.  The pre-library pass skips it, as run400's picker
+    (Proc_19_66_454EF0, restriction walk 455C60 at 454DDF) does.  The
+    post-library fallback in `run_task_refusal()` does not ask the
+    restrictions, so it prints the RepeatText once the library has declined.
+    That fallback is there for The Magic Show's "One rabbit trick is enough
+    for any given act".  A fix must check whether that case is 4.0 and
+    measured before gating the fallback on restrictions at 4.0.
+    **PORTED, see the next section.**
+
+## Closed 2026-09-13: `hcw` T227 -- the post-library RepeatText asks the restrictions too
+
+The Magic Show case is 4.0, and measured twice.  Both run400 transcripts
+contradict the golden it was kept for:
+
+    > show rabbit to audience
+    I don't understand what you want to do with the audience.
+
+(`Adrift_351_magicshow.txt:46-47`, `Adrift_887_magicshow.txt:39-40`).  The
+golden had "One rabbit trick is enough for any given act (trust me).", task
+11's RepeatText.  Task 11 is spent, and its restriction on the hat fails
+silently.  So run400's picker gates on the restrictions in every pass, the
+one after the library included.  The "must keep taking restricted tasks"
+remark in the RepeatText section above was drawn from the golden, not from
+the Runner.
+
+### Ported
+
+- `run_task_refusal()` (scrunner.cpp): at 4.0 the done-refusal asks
+  `run_task_is_unrestricted()` in the post-library pass as well, not only in
+  the pre-library pass.
+- `lib_cmd_verb_object()` (sclibrar.cpp): once the task was out of the way,
+  Scarier said "I don't understand what you mean." instead of the object
+  catch-all.  Our `* %object% *` row bound the rabbit, which sits in the worn
+  hat and is not present, so the count check failed before the 4.0 resolver
+  ran.  run400 resolves from the present, seen objects alone (48A3F5).  At
+  4.0 the resolver now runs first, and a unique winner goes on to the
+  catch-all.  `lick rabbit audience` used to fail the same way while `lick
+  audience rabbit` worked.
+
+### Results
+
+- `hcw` T227 matches.  `magicshow` T8 matches (re-compare of
+  `cmdfile_q_magicshow.txt` against `Adrift_887`).  The two turns it still
+  differs on are T80 "The gates are Down." vs "down." and T150's
+  press-any-key tail.
+- `magicshow_solution.expected.txt` re-blessed (line 107); the win marker
+  holds.  The rest of the corpus is unmoved: 428 rows, no FAIL.
+
+## Closed 2026-09-13: `hcw` T189 -- 4.0 has no refusal for an object without a lock
+
+`Adrift_1055_hcw.txt`, turn 189, in the Museum Parking Lot with no door
+present:
+
+    > unlock door with keys
+    I don't understand what you want to do with Susan's keys.
+
+Scarier said "You can't unlock Susan's keys.".
+
+### What run400 does
+
+openclose (Proc_19_3_476468) has a lock arm (475D71) and an unlock arm
+(47612F), both shaped the same way:
+
+- The object is resolved with 463640 from `var_8C`, the line with any
+  ` with ...` cut off.  If nothing scores, `Exit Sub` (475D91, 47614F).
+- Everything else happens under `If object.Key > 0` (475DAB, 476169): "can't
+  lock X as it is open.", "is already locked!", "is not locked!", the key
+  checks and "(Picking up ...)".
+- There is no else.  An object with no key leaves the arm silent, and
+  generaltasks' object catch-all answers.
+
+The loader reads the Key only when Openable > 1 and stores -1 otherwise
+(4907DD-4907F7).
+
+### Ported
+
+- `lib_lock_backend()` (sclibrar.cpp): at 4.0 it declines when the object has
+  no Openable or no Key.  Both properties are fetched tolerantly, because a
+  missing one is fatal to `prop_get_integer()`.  The first build crashed
+  exactly there on the keys.
+- `lib_cmd_lock_other()` and `lib_cmd_unlock_other()`: at 4.0 they decline
+  when the 4.0 resolver finds a present object.  The line then reaches
+  `* %object% *` instead of "You can't unlock that.".
+
+### Results
+
+- `hcw`: the re-compare of `cmdfile_q_hcw.txt` against `Adrift_1055` now
+  differs on **no** turns.
+- `provenance`: `open cellar door` / `unlock it` used to get "The cellar door
+  is not locked!".  That was Scarier's own wording and run400 was never
+  measured on it.  The padlocked cellar door has no key, so it now gets the
+  catch-all.  The catch-all is not a turn at 4.0, so the church bells and the
+  butler slipped a tick and the chinaware scene broke.
+  `goldens/provenance_solution.txt` line 208 is now `look`.  Re-blessed; the
+  win marker holds.  The rest of the corpus is unmoved.
+- Unmeasured: `lock`/`unlock` naming an object with a Key but typed with a
+  ` with ` clause whose left half resolves to nothing.  run400 exits silently
+  there as well; Scarier still binds the object the way it did before.
+
+## Analysed 2026-09-13: `warlord` T104 -- 4.0 retakes a seen object "from" its holder (NOT ported)
+
+`Adrift_1059_warlord.txt`, turns 104, 112 and 122.  After `kick stove`, the
+treat is on the iron stove:
+
+    > get treat
+    The stove is bolted to the floor.
+
+Scarier says "You take the treat from the iron stove.".  The bone (T112) and
+the explosive cudgel (T122) go the same way.  T185 `give treat to merrick`
+and the final score (100 vs run400's 99) follow from it.
+
+### What run400 does
+
+- get_piece (473A34) resolves the piece with 463640 in mode 1 (473011) unless
+  the line holds whole-word "and" (472FF7 sets var_BA = -1).
+- If that resolves an object (var_BA > -1, 47301F), and the line had no
+  "from" (var_92 = -2), and the object is in (&HF6) or on (&HEC) a parent,
+  the line becomes `line & " from " & name(parent)` and var_92 = parent
+  (47302F-4730A8).
+- get_piece_inner (46302C) then pre-matches `LCase("get " & name(obj) &
+  " from " & name(parent))` in mode 1 (462B3E-462B97).  warlord task 2103
+  `move/push/get *stove*` matches and wins.
+- 463640 mode 1 with no from-object admits only objects that are visible
+  (44B578), not static, not held, and **seen**.  Pass 2 drops "not held".
+- What a pre-match hit does (453C50 returns 1 or 2): the line is dispatched
+  either way (44CCE0(1,1) at 462C65).  Only a return of 1 (the matched
+  direction has text) exits the piece.  A return of 2 falls through to the
+  library take.
+
+### Why it is not ported
+
+Wiring this into the ordinary take (`lib_take_objects`, via
+`lib_try_game_command_take_definite` extended to OBJ_ON_OBJECT) fixed
+warlord, but broke four rows the Runner had matched or at least not
+contradicted:
+
+| row | command | run400 | with the rewrite |
+|---|---|---|---|
+| `professor` | `take mail` | "You take the mail from the Mailbox on-a Rope." | task 7 `get * rope` pre-matches; the raw dispatch misses on "Rope"; silent |
+| `ticket` | `get notepad` | "The Station Master stops you..." | task 415 `get *desk*`: "Sorry no can do." |
+| `TheADRIFTProject` | `take string and tin` | both taken | tin claimed silently (needs the "and" gate) |
+| `humbug` | `Get token` | "Take what?" (differs anyway) | task 192 claims |
+
+Leaving out the "and" row, the difference is how each object became seen:
+- The treat was placed by a task's move action in the player's presence.
+  run400 stamps that seen, and so does `task_move_object`.
+- The notepad, mail and token were only ever listed by `x <holder>`.
+  run400's examine handler writes the seen byte once, at 471C69, and that
+  write is for the object the player stands on.  The contents lister's seen
+  writes are unread.  Scarier's `lib_list_in_object()` / `lib_list_on_object()`
+  stamp every listed object seen.
+
+So the port needs a 463640-mode-1 gate (Scarier's
+`lib_verb_object_resolve_400_string`) plus a seen model where examining a
+holder does not make its contents seen.  That second change reaches every
+seen-gated resolver, and needs a run400 probe first:
+1. `x desk`, then an unhandled verb on the notepad.  Expect "What notepad?"
+   if unseen, or the catch-all if seen.
+2. Read the examine contents-lister for seen writes.
+
+Both code changes were reverted.  The corpus is unchanged at 428/428.
+
+## Closed 2026-09-13: `warlord` T72/T76 -- referencedob answers a tie with an absent tapestry
+
+`Adrift_1059_warlord.txt`.  In the Great Hall (room 14):
+
+    > x tapestry three
+    You can't see that.
+    > x tapestry six
+    You can't see that.
+
+Scarier described the third and sixth tapestries.  The objects involved (all
+Static, Prefix "the"):
+
+| # | Short | aliases | where |
+|---|---|---|---|
+| 90 | tapestries | tapestry | room 14 |
+| 91 | third tapestry | tapestry three, tapestry 3, three, 3, third | room 14 |
+| 96 | sixth tapestry | tapestry six, tapestry 6, six, 6, sixth | room 14 |
+| 286 | tapestries | tapestry | room 35, unseen |
+
+### What run400 does
+
+- The up-front noun score (463640) gives 90 and 91 one point each (an alias
+  hit apiece), so the line ties and examines falls to referencedob 457034.
+- co() (46486C) picks one name word per object: the Short if it is a whole
+  word of the line, else the LAST alias that is.  90 and 286 get "tapestry",
+  91 gets "three".  It then counts present, seen objects answering to exactly
+  that word.
+- Pass A, co(i, 3): marks every object whose word has such a namesake --
+  90, 91 and 286 (its "tapestry" is answered by the present 90).
+- Pass B, co(i, 0): true when the word has exactly one namesake (464853) --
+  true for all three, so no single answer.
+- Pass C: counts Prefix words typed; with no "the" nothing moves, and the
+  answer is pass B's last hit, 286.
+- examines (471933): 286 is not present and never seen, so "You can't see
+  that." (471995); a seen one would get "... can't see the X from here!".
+  Neither is flagged not-a-turn.
+
+The old comment in `lib_absent_seen_object()` saying 457034 has no pass after
+A was wrong; with no present namesake pass A marks nothing, so that function's
+behaviour stands.
+
+### Port
+
+`lib_examine_tied_absent_400()` / `lib_examine_referencedob_400()`
+(sclibrar.cpp), called first in `lib_cmd_examine_object()`, 4.0 only: when
+the present-and-seen noun score ties, run passes A-C, and speak only when the
+answer is an object that is not here.  Not modelled: co()'s crowded arm (a
+word with two present namesakes, 454454 plus the "Which" text), which returns
+"unmodelled" and leaves the ordinary path alone; and the &HFE/&HFF answers,
+which also stay with the ordinary path.
+
+warlord re-blessed (two answers change, win marker holds); no other row moved.
+
+## Closed 2026-09-13: `fullcircle` T43 -- 4.0 prints the take line before the task text
+
+`Adrift_1053_fullcircle.txt` line 356:
+
+    > get all
+    You take the helm and the locket.  You take the branch.
+
+Scarier printed "You take the branch." first, as its own paragraph, and the
+library's line after it.  The branch is claimed by the game's `get *branch*`
+task (431/432); the helm and the locket are library takes.
+
+### What run400 does
+
+get_piece (473A34), in the multi-object arm (var_A6 > 0), copies the turn's
+buffer aside at 47359A.  That copy already holds the branch task's text.  It
+then clears the buffer and writes "You take " plus "the A, the B and the C",
+and " from <the container>" where there is one, and ".".  At 4736B6, if the
+copy was not empty, it calls pspace (44A9F4) and appends the copy.  So the
+library line leads, and earlier text follows in the same paragraph.
+
+### Port
+
+`lib_take_backend_common()` (sclibrar.cpp), 4.0 only.  On the first list it
+prints, if a per-object task has already printed, the buffer is moved aside
+and put back after the take line, behind pspace.  Pre-4.0 keeps its newline
+order.  fullcircle re-blessed (one answer changes, win marker holds); no other
+row moved.
+
+## Closed 2026-09-13: `reluctantvampire` T78 -- ALR originals that end in a space
+
+`Adrift_1058_reluctantvampire.txt` line 744:
+
+    > open freezer
+    You open the freezer.  Lurking inside are some jam and a bottle.
+
+"Lurking inside" is not Runner text.  It is one of the game's own ALRs:
+"You open the freezer.  Some jam and a bottle are inside the freezer. " ->
+"You open the freezer.  Lurking inside are some jam and a bottle.", with five
+siblings for the other contents.  Every one of these Originals ends in a
+space.  Scarier's text was right; the ALR just never matched, because Scarier's
+paragraph ends at a bare newline.
+
+### What run400 does
+
+The open handler (4757EA) writes "You open the freezer.", and whatisinon
+(46A950) adds the contents and closes with "." (46A8C6).  Neither writes a
+trailing space, yet the ALR fires.  So the text the Runner's ALR pass sees
+still has pspace's trailing spaces at the paragraph end (its transcripts show
+them on every line).  Where that pass runs is still unlocated (44C7DC's
+note).
+
+### Port
+
+`pf_replace_alrs()` (scprintf.cpp).  When some ALR Original in the game ends
+in a space, every non-empty line end is given two spaces for the walk, behind
+a marker, and whatever the walk leaves of them is removed afterwards.  Games
+with no such Original take the old path unchanged.  reluctantvampire
+re-blessed (one answer changes, win marker holds); no other row moved.  Which
+other corpus games carry such Originals has not been counted.
