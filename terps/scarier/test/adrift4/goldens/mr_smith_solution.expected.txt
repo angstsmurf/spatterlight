@@ -522,16 +522,17 @@ A cozy room where you can have a few beers and play pool with some good
 friends. There is a pool table in the center and a sofa that wraps around the
 entire room, except where the entrance is and where the fireplace is.
 
+> open cabinet
+The gun cabinet is locked, you cannot open it.
+
 > kick cabinet
 You kick the gun cabinet. Your foot goes right through the door leaving a
 hole. You wonder if it really is made of solid oak. You kick it a second time
 towards the middle and it finally opens.
 
-> open cabinet
-The gun cabinet is locked, you cannot open it.
-
-> open cabinet
-You open the gun cabinet.  An AUG assault rifle is inside the gun cabinet.
+> x cabinet
+The gun cabinet is now open. The doors will have to be fixed.  The cabinet is
+open.  An AUG assault rifle is inside the gun cabinet.
 
 > take rifle
 You take an AUG assault rifle from the gun cabinet.

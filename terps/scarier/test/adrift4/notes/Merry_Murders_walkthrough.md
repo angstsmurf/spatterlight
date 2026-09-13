@@ -1,5 +1,11 @@
 # The Merry Murders — walkthrough (**WIN, 135/135 — full score**)
 
+> **2026-09-13.** The pre-4.0 spent-task claim rule is ported
+> (`run_spent_task_390()`), so the harness row now walls where run390 does: a
+> spent T46 claims the second archives `n`, 120/135, marker `My score is 120
+> out of a maximum of 135.`  The 135/135 route below is the pre-port route,
+> kept for the analysis; its tail is in git history.
+
 - **Game:** *The Merry Murders* (`Merry_Murders.taf`, 69,489 bytes), dated
   **December 16, 2003**. `games.manifest.tsv`,
   `https://www.adrift.co/files/games/Merry_Murders.taf`.

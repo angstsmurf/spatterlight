@@ -1,4 +1,11 @@
-# The Long Journey Home — walkthrough (**UNFINISHABLE, 30/90 is the ceiling**)
+# The Long Journey Home — walkthrough (**UNFINISHABLE; bricked in the Lair at 5/90 since 2026-09-13, 30/90 was the pre-port ceiling**)
+
+> **2026-09-13.** The pre-4.0 spent-task claim rule is ported
+> (`run_spent_task_390()`), so Scarier now bricks in the Lair exactly as
+> run390 does: 5/90, 23 commands, harness marker `You are carrying the King
+> of Hearts.` (`score` is claimed there).  Everything below describes the
+> pre-port 30/90 route, which is now commented out inside
+> `goldens/journ2_solution.txt`; the analysis of why 90 is unreachable stands.
 
 - **Game:** *The Long Journey Home* by **Danny Chabino**, released **20 June
   2001** (`Journ2.taf`, 59,124 bytes). The author credit and the date are in

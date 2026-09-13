@@ -692,8 +692,8 @@ refuses to load it.
 
 | game | solution | cmds | walks | NPCs | events | waitkey | notes |
 |---|---|---:|---:|---:|---:|---|---|
-| `Merry_Murders.taf` | `merry_murders` | 181 | 8 | 8 | 2 | yes | [Merry_Murders_walkthrough](Merry_Murders_walkthrough.md) **measured 2026-08-31** (dated section below) |
-| `Vampire.taf` | `vampire` | 205 | 7 | 11 | 11 | yes | [The_Vampire_With_A_Conscience_walkthrough](The_Vampire_With_A_Conscience_walkthrough.md) -- **measured 2026-08-31**, Runner walls at 70/100 (T61 spent-claim), see section below |
+| `Merry_Murders.taf` | `merry_murders` | 181 | 8 | 8 | 2 | yes | [Merry_Murders_walkthrough](Merry_Murders_walkthrough.md) **measured 2026-08-31** (dated section below); Runner walls at 120/135 on the second archives `n` (spent T46) -- **PORTED 2026-09-13**, the golden walls there too |
+| `Vampire.taf` | `vampire` | 205 | 7 | 11 | 11 | yes | [The_Vampire_With_A_Conscience_walkthrough](The_Vampire_With_A_Conscience_walkthrough.md) -- **measured 2026-08-31**, Runner walls at 70/100 (T61 spent-claim), see section below; **PORTED 2026-09-13**, the golden walls there too |
 | `gamma.taf` | `gamma` | 315 | 4 | 10 | 0 | -- | -- **measured** (`Adrift_3_gamma.txt`, 185/185) |
 | `S_Tar_Dus.taf` | `stardust` | 199 | 4 | 6 | 0 | -- | [S_Tar_Dus_T_walkthrough](S_Tar_Dus_T_walkthrough.md) **measured** (`Adrift_38_stardust.txt`, all 129 walk lines) |
 | `wingman1.taf` | `wingman1` | 33 | 3 | 3 | 0 | -- | -- **measured** (`Adrift_3_wingman1.txt`, 32/32) |
@@ -812,9 +812,11 @@ and decompile addresses are in the harness row comments and in git history.
 - SYNONYM table = sequential whole-string rewrites (Vardock).
 - 3.80-only `take` -> `get` pre-parse rewrite (great `steal picasso`).
 - `z` = wait only from 3.90 (cave).
-- Pre-4.0 done-refusal ("You have already done that.") before the library:
-  literal patterns, the game's default message only, movement exempt
-  (chicago `listen`); 4.0 keeps the library first.
+- Pre-4.0 spent-task claim before the library (run390 `checktask` 44B4DD):
+  any pattern, the task's RepeatText or the load-time default, movement
+  included -- ported whole 2026-09-13 (`run_spent_task_390()`; from
+  2026-08-10 to then it was narrowed to chicago `listen`'s literal case).
+  4.0 keeps the library first.  See "Ported 2026-09-13" at the end.
 - A matched catch-all `*` task clears the room refusal.
 - 3.7/3.8 `co()` object-ambiguity prompt `Which X.  list?` replaces the
   turn's output but the action still happens (mikes truck keys) -- ported
@@ -956,10 +958,11 @@ and decompile addresses are in the harness row comments and in git history.
   (variable-only; the game's centrepiece text is unreachable in the real
   Runner), lifesimulation `turn off tv` (a ReverseCommand with an empty
   ReverseMessage).  The world state agrees on both sides in all three.
-- **Pre-4.0 spent-task claim beyond the chicago port** (wildcard patterns,
+- ~~**Pre-4.0 spent-task claim beyond the chicago port** (wildcard patterns,
   tasks with their own RepeatText): Journ2's Lair brick walls run390 at
   5/90 where we score 30/90; Vampire T61 walls the Runner at 70/100;
-  merry_murders.  Scarier prints the RepeatText when non-empty.
+  merry_murders.~~  **PORTED 2026-09-13** -- see the last section; the
+  goldens now brick where the Runner does.
 - **run370 double matcher pass** (arlo `get out of bus`: the Runner prints
   the task line and no exits list).
 - **SCARE meta-commands** `wait N` / `hist N` / `redo N` do not exist in
@@ -7771,3 +7774,75 @@ York notes had flagged as possibly needing adjudication or re-blessing --
 `target`, `mutaydid`, `gorxungula` -- passes as recorded.  The seven leads
 above are therefore all *Runner*-transcript divergences: not one of them is
 visible to the golden suite.
+
+## Ported 2026-09-13: the pre-4.0 spent-task claim, whole
+
+The standing refusal (RUNNER_TESTS_TODO.md §2, and the "Deliberate deviations"
+list above) is withdrawn.  Motivation: Journ2's 30/90 was a permanent,
+intentional deviation from the real run390's 5/90, and nothing else in the
+corpus depended on keeping it.
+
+**What run390 does** (`checktask` 44B6E8, listing Form1.frm 14006-15075, read
+2026-09-13).  One scan over the whole task table in index order.  For a task
+whose command pattern matches and which is in the player's room
+(field 224(room) = 1):
+
+* **done (218 = 1) and not repeatable (219 = 0)** -- 44B4DD: with `running`
+  set, `MemVar_468154 = RepeatText` (44B537), then `GoTo 44B66C` -> `GoTo
+  44B6CC`.  44B6CC is *inside* the loop, just above `Next var_108` (44B6DA):
+  **the scan continues**.  The RepeatText is a buffer write, nothing more.
+* **live** -- the character-move loop (44B554) and the restriction loop
+  (44B5F4): a failing restriction with a non-empty FailMessage overwrites the
+  buffer through `passrest` (452BB8) and the scan continues (44B636); all
+  passing -> `var_86 = task` (44B663), `checktask = task`, and the scan
+  continues (a later passing task overwrites the pick).
+
+So a spent `*` task does not end anything by itself: a later live task that
+passes still runs (Journ2's T5 hands over the King of Hearts on the `s` after
+T3 is spent), a later failing restriction's message replaces the "already
+done" text (inverness's `knock`s 20/22/23/24/25 print their own refusals), and
+only when nothing later claims the line does the RepeatText stand.  The
+default text is installed by `openadv` at load (465A8B..465AB9): every empty
+RepeatText becomes `person(0) & " have already done that."`, so an authored
+single space (Vampire T61) stays a space and prints a blank turn.
+
+`generaltasks` (460D6C) calls `takes` 45F439, `drops` 45F44A, `inventory`
+45F45B, `insides` 45F471 and then `tasks(0)` 45F48B, each one `GoTo 460589` on
+a non-zero result; the quit/bye/end/about block at 45FB50 sits *below*
+`tasks(0)`, so a claimed `quit` never quits (Journ2's and inverness's goldens
+end with a claimed `quit`/`y`, as the Runner transcripts do).  `tasks(mode)`
+42BDC4 returns -1 when a task executed, when the result is -2, or when the
+buffer changed -- a RepeatText write counts as changed.
+
+**Port** (`scrunner.cpp`): `run_spent_task_390()` reproduces the scan --
+skips out-of-room tasks, returns "no claim" as soon as a live task's forward
+command matches and its restrictions pass, remembers the first spent match's
+RepeatText, and lets a later failing restriction's non-empty message replace
+it.  `run_all_commands()` calls it for `version < TAF_VERSION_400` before any
+handler; `run_spent_survivor_390()` lets through what run390 answers ahead of
+`tasks(0)` (the take/drop/inventory/put priority handlers and the NPC
+examine), and `run_spent_claim_390()` prints the buffer, or "I"/"You" + " have
+already done that." for an empty one.  `run_task_refusal()`'s pre-4.0 done arm
+is now a fallback; its 2026-08-10 narrowing (literal patterns, default text
+only, movement exempt) is removed.
+
+**Suite.** 28 rows changed on the first cut (the end-the-scan reading), 9
+with the continue-the-scan reading, and every one of the 9 is Runner-true:
+
+| row | what changed | Runner evidence |
+|---|---|---|
+| `journ2` | bricks in the Lair at 5/90; route cut to 23 commands, marker `You are carrying the King of Hearts.` (`score` is claimed) | `Adrift_3_journ2_t5.txt` |
+| `vampire` | walls at 70/100 on T61's blank turn; route cut after `open container`, marker the score line | `Adrift_3_vampire.txt` |
+| `merry_murders` | walls at 120/135 on the second archives `n`; marker the score line | `Adrift_3_merry_murders.txt` |
+| `inverness` | after the Dressing Room eavesdrop everything is claimed, `score` included; marker `You hear Macbeth and his wife leave the room.` | `Adrift_1030_inverness.txt` |
+| `mr_smith` | re-routed: `open cabinet`, `kick cabinet`, `x cabinet`, `take rifle` (a spent T11 claimed the second `open cabinet`); still 90/100 | TAF reading: T10/T11 both one-shot +5 |
+| `circus` | four `ask barb about tape` after the handover are "You have already done that." | `Adrift_1025_circus.txt` |
+| `cybercow_win` | `fix robot` after the build prints TASK 80's own RepeatText | `Adrift_1107_cybercow_win.txt` |
+| `fugitive` | the second `in` at the library door after the Thel scene is claimed by the spent T117 `* in *` | golden diff, one line |
+| `chicago` | unchanged (the 2026-08-10 `listen` case is a subset) | `Adrift_9_chicago.txt` |
+
+The 2026-09-13 census leads `circus` T68, `journ2` T21 and `inverness` T37
+above are closed by this port.  Residual, out of scope: Vampire `enter queue`
+typed out of room prints Scarier's "Just a direction will do." where run390
+prints the room refusal "You can't do that here!" (library `enter` vs room
+refusal ordering); the trimmed route no longer reaches it.

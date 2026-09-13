@@ -1,5 +1,11 @@
 # The Vampire With A Conscience — walkthrough (**WIN, 100/100 — full score**)
 
+> **2026-09-13.** The pre-4.0 spent-task claim rule is ported
+> (`run_spent_task_390()`), so the harness row now walls where run390 does:
+> T61's blank turn out of the Bozo backyard, 70/100, marker `Your score is 70
+> out of a maximum of 100.`  The 100/100 route below is the pre-port route,
+> kept for the analysis; its tail is in git history.
+
 - **Game:** *The Vampire With A Conscience* (`Vampire.taf`, 63,183 bytes),
   version 1.0, by **Ole Olsen**. `games.manifest.tsv` line 225,
   `https://www.adrift.co/files/games/Vampire.taf`.

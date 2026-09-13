@@ -579,6 +579,10 @@ cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 #   You are at the well.   The rope, which is tied to the well quite securely,
 #   leads down. ... Down the hill to the north there is the bus stop.
 #   Vluurinik flits around.
+# Re-blessed 2026-09-13 for the pre-4.0 spent-task claim (run_spent_task_390(),
+# run390 checktask 44B4DD): the four `ask barb about tape` after she has handed
+# it over are "You have already done that." -- run390 agrees
+# (Adrift_1025_circus.txt).  Still wins.
 #   It is daytime.  You can move north, east, south, west and down.
 #
 # Scarier printed no "It is daytime." there, because the player was still at
@@ -693,6 +697,10 @@ light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=148
 # "SoMorph open the bathroom door."), and `i` reading "SoMorph is carrying
 # nothing." with the copula spelled out.  Four lines here, all open/close.
 #
+# Re-blessed 2026-09-13 for the pre-4.0 spent-task claim (run_spent_task_390()):
+# `fix robot` after the robot is built prints TASK 80's own RepeatText ("The
+# invincible robot is structurally complete...") instead of the library's "I
+# don't think you can fix the robot." -- run390 agrees (Adrift_1107_cybercow_win.txt).
 # Re-driven 2026-09-07 (Adrift_931.txt, feed cmdfile_maincourse2.txt): now
 # identical on all 26 turns.  The August transcript was cut with "References
 # in brackets" OFF and so lacked the "(Standing up first)" on turn 0 -- SoMorph
@@ -998,7 +1006,13 @@ del_sol_solution.txt|Del Sol.taf|Your score is 26 out of a maximum of 46.
 # Re-blessed 2026-09-13 for 991a5f8d9's event rules: Macbeth's catch-and-cellar
 # cutscene no longer fires on this route (16 lines gone); still 75/205.  Event timing
 # only.
-inverness_solution.txt|inverness.taf|Your score is 75 out of a maximum of 205.|SCR_SEED=7
+# Re-anchored 2026-09-13 for the pre-4.0 spent-task claim (run_spent_task_390(),
+# run390 checktask 44B4DD): the eavesdrop task in the Dressing Room is one-shot
+# with a bare `*`, so once it has fired every later line there -- `score`
+# included -- is "You have already done that.", in run390
+# (Adrift_1030_inverness.txt) and now here.  The marker is the cutscene's last
+# line; the 75 is banked but unprintable.  Route trimmed to `s`, `score`.
+inverness_solution.txt|inverness.taf|You hear Macbeth and his wife leave the room.|SCR_SEED=2
 #
 # Les Feux de l'enfer: 75 of 115, and 75 is the ceiling this build can reach.
 # The route ends on the demo's own closing screen (task 211, the grappling
@@ -1188,6 +1202,10 @@ to_hell_and_beyond_assisted_solution.txt|To_Hell_And_Beyond.taf|You are now rule
 # ...and the *max* assisted row, 265/373 (the row above banks 265-17=248).  The
 # extra 20 comes from task 72 `^^aquired armor^^` (Theeve's death reward), which
 # NOTHING in the game executes -- To Hell & Beyond is an upgraded 3.9 file and
+# Re-ordered 2026-09-13 for the pre-4.0 spent-task claim (run_spent_task_390()):
+# the gun cabinet is now `open cabinet` (T11), `kick cabinet` (T10), `x cabinet`
+# instead of kick, open, open -- a spent T11 claims the second `open cabinet`,
+# and the examine is what lists the rifle so it can be taken.  Same +10, 90/100.
 # 3.9 has no execute-task action at all, so every chain runs through events /
 # NPC walks / battle KilledTask, and Theeve (NPC 28, a fully configured hostile)
 # was left with killedTask=-1.  The only way to fire it is to walk to room 128
@@ -1904,7 +1922,8 @@ mishmash_solution.txt|mishmash.taf|You have lived up to your name and survived a
 # typed doesn't work.") and never opens the cabinet (later `open cabinet`
 # = "You have already done that."), so the approval form is unreachable
 # there; Scarier falls through to the library open.  Same score either
-# way -- deliberate deviation, same family as Journ2's Lair.
+# way -- deliberate deviation (the silent-task half; the spent-task half of
+# the same family was ported 2026-09-13, see journ2).
 the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.
 # Troll! is WINNABLE and this route reaches the ending with zero parser errors,
 # but its ceiling is 185/190, not 190.  The game has 38 scoring tasks worth 5
@@ -3916,6 +3935,10 @@ i_solution.txt|i.taf|I am dead.
 # (Adrift_24_dreams.txt, feed cmdfile_w_dreamland.txt, 9 commands, PRE=1): 9/9
 # echoed and identical, tail only.  Screened as a guaranteed silent-task
 # divergence and was not one: the win task has no CompleteText but an End game
+# Re-blessed 2026-09-13 for the pre-4.0 spent-task claim (run_spent_task_390()):
+# the `in` at the locked library door after the Thel scene is "You have already
+# done that." (the spent Thel task's pattern matches) instead of the movement
+# refusal.  Still wins.
 # action, so the game's own win text prints -- the same reason
 # Toxically_Earth.taf measured clean.  See notes/WINE-TRANSCRIPTS-TODO.md.
 dreamland_solution.txt|Dreams.taf|You have saved the Dreamworld
@@ -3982,11 +4005,11 @@ lost_souls_solution.txt|lostsouls.taf|You don't want to go down there.
 # string.  Pre-4.0 the already-done refusal is tried BEFORE the standard
 # library (run390 openadv substitutes the game's default done message into
 # var_534(200) at LOAD, loc_465A8B..loc_465AB9 -- a different path from a
-# task's own RepeatText).  The pre-library pass is narrowed to what the corpus
-# proves: literal command patterns only (a wildcard task re-soft-locks
-# inverness/circus TASK 77), default message only (cybercow TASK 80 has a
-# RepeatText and the library still wins), and movement exempt (Vampire TASK 61
-# is a literal `east` and the Runner still moves).  See run_task_refusal().
+# task's own RepeatText).  Since 2026-09-13 the pre-library pass is the whole
+# run390 rule, run_spent_task_390(): any pattern (wildcards included), the
+# task's RepeatText or the default, movement not exempt -- the narrowing that
+# used to keep inverness/circus/cybercow/vampire winning is gone, and those
+# rows hold the Runner's answers now.
 chicago_solution.txt|chicago.taf|Daisy was found guilty of double homicide
 # Everything Emanuelle: no score; `out` wins from turn one, so the marker locks
 # the ENDING -- %opinion%==5, the last of the four written ALTs.  Reading the
@@ -4634,9 +4657,12 @@ losttomb_solution.txt|losttombv2.taf|you and Rupert start the trek back to camp.
 # any word ending in "e", so it is `get king of spades` there, not `take`.
 # run390-PROVED 2026-08-30: the real Runner bricks in the Lair (spent T3 with a
 # bare `*` pattern claims every command, "You have already done that."), so
-# its ceiling is 5/90; the 30 here exists only because Scarier does not import
-# the pre-4.0 spent-task claim rule.  Unwinnable either way.
-journ2_solution.txt|Journ2.taf|Your score is 30 out of a maximum of 90.|SCR_SEED=2
+# its ceiling is 5/90.  PORTED 2026-09-13 (run_spent_task_390(), run390
+# checktask 44B4DD): Scarier now bricks there too, 5/90, and the row is anchored
+# on the `i` line -- the one library answer that survives the claim -- because
+# `score` itself is claimed in the Lair (Adrift_3_journ2_t5.txt).  The old
+# 30/90 route is commented out inside the solution.  Unwinnable either way.
+journ2_solution.txt|Journ2.taf|You are carrying the King of Hearts.|SCR_SEED=2
 # Murder in Great Falls (no author recorded anywhere -- no author byte-field
 # in the .taf and none in games.manifest.tsv; released 24 Nov 2001) is a
 # three-day police procedural: Donald Wisker is found dead behind the college,
@@ -4721,11 +4747,12 @@ murder_great_falls_solution.txt|mudergreatfalls.taf|Ken is found guilty of tripl
 # of the Bozo backyard, rep=0, RepeatText=' ') is spent by the first exit; the
 # exit after raising Jon is claimed by the pre-4.0 spent-task rule -- run390
 # prints the RepeatText (one space, a blank turn) and walls at 70/100, the
-# backyard's only exit.  Our 100/100 stands on the documented deliberate
-# deviation (see Journ2's Lair brick, WINE-TRANSCRIPTS-TODO.md Vampire
-# section).  Everything up to that wall matched turn-for-turn except two RNG
-# schedule items (the green-porche event, Simonsen's arrival one turn apart).
-vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SCR_SKIP_WAITKEY=1
+# backyard's only exit.  PORTED 2026-09-13 (run_spent_task_390()): the route
+# now stops at that wall, `e` then `score`, 70/100, and the marker is the
+# score line.  The old 100/100 tail is kept in git history.  Everything up
+# to the wall matched turn-for-turn except two RNG schedule items (the
+# green-porche event, Simonsen's arrival one turn apart).
+vampire_solution.txt|Vampire.taf|Your score is 70 out of a maximum of 100.|SCR_SKIP_WAITKEY=1
 
 # The Merry Murders -- ADRIFT 3.90, 69,489 bytes, December 16 2003.  A seven-act
 # locked-floor whodunit at the SynTex Christmas party: every act ends with one
@@ -4734,10 +4761,10 @@ vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SC
 # T35 `take syringe`, T41 `x message`, T50 `read journal`).  No clocks, no
 # variables; the only timer in the file is EVENT 1 [End Battle] on the roof,
 # which gives eight turns to use the syringe on Eric before T52 `Die`.
-# WIN with the FULL 135/135 -- the file's 20 `ACT type=4` awards sum to exactly
-# the declared MaxScore and every one of them is on the critical path, so the
-# `score` two lines from the end reads 125 and the winning blow pays the last
-# ten.  Two traps: `read paper` is an ALTCMD of the lower-indexed T37
+# WAS a win with the full 135/135 -- the file's 20 `ACT type=4` awards sum to
+# exactly the declared MaxScore and every one is on the critical path.  Since
+# 2026-09-13 the route walls at 120/135 where the real Runner does (below).
+# Two traps: `read paper` is an ALTCMD of the lower-indexed T37
 # `read list`, so Max's note must be read as `read piece of paper` or the
 # janitor's closet never unlocks; and T46 `n` in the Computer Lab only unlocks
 # the archive door, so a second `n` is needed to walk through it.  The row needs
@@ -4746,9 +4773,10 @@ vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SC
 # T27's move of Trey to the east Hallway sticks (his walk is spent), so
 # `show list to trey` moved there from the Plaza.  Full 64/64 run390 replay
 # Adrift_3_merry_murders.txt; the Runner itself walls the second archives
-# `n` on the pre-4.0 spent-task claim (deliberate deviation, not imported)
-# and ends 100/135.
-merry_murders_solution.txt|Merry_Murders.taf|You scored 135 out of the maximum 135!|SCR_SKIP_WAITKEY=1
+# `n` on the pre-4.0 spent-task claim (spent T46 answers "I have already done
+# that.") at 120/135.  PORTED 2026-09-13 (run_spent_task_390()): the route now
+# ends `n`, `n`, `score` at that wall and the marker is the score line.
+merry_murders_solution.txt|Merry_Murders.taf|My score is 120 out of a maximum of 135.|SCR_SKIP_WAITKEY=1
 
 # The Woods Are Dark -- ADRIFT 3.90, 71,216 bytes, Cannibal 2003.  A haunted
 # cottage in Black Hill: 23 rooms, 82 tasks, no events and no clocks, so the

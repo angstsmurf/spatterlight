@@ -702,10 +702,10 @@ the manifest is already wired.
 | 52,290 | 4.00 | ~~`vetknow2.taf`~~ | ~~Veteran Knowledge [Version 2]~~ | **WIRED 2026-08-14** — three changed strings vs the above, byte-identical transcript |
 | 55,039 | 3.90 | ~~`Richard.taf`~~ | ~~Where Is Richard?~~ | **WIRED, third wave** |
 | 56,336 | 3.90 | ~~`losttombv2.taf`~~ | ~~The Lost Tomb~~ | **WIRED 2026-08-14 — WON 175/175** |
-| 59,124 | 3.90 | ~~`Journ2.taf`~~ | ~~The Long Journey Home~~ | **WIRED 2026-08-14 — UNFINISHABLE, 30/90** |
+| 59,124 | 3.90 | ~~`Journ2.taf`~~ | ~~The Long Journey Home~~ | **WIRED 2026-08-14 — UNFINISHABLE, 30/90**; **5/90 since 2026-09-13** (the Runner's Lair brick, ported) |
 | 59,896 | 3.90 | ~~`mudergreatfalls.taf`~~ | ~~Murder In Great Falls~~ | **WIRED 2026-08-14 — WON 200/200** |
-| 63,183 | 3.90 | ~~`Vampire.taf`~~ | ~~The Vampire With A Conscience~~ | **WIRED 2026-08-14 — WON 100/100** |
-| 69,489 | 3.90 | ~~`Merry_Murders.taf`~~ | ~~Merry Murders~~ | **WIRED 2026-08-14 — WON 135/135** |
+| 63,183 | 3.90 | ~~`Vampire.taf`~~ | ~~The Vampire With A Conscience~~ | **WIRED 2026-08-14 — WON 100/100**; **walls at 70/100 since 2026-09-13** (spent T61, ported) |
+| 69,489 | 3.90 | ~~`Merry_Murders.taf`~~ | ~~Merry Murders~~ | **WIRED 2026-08-14 — WON 135/135**; **walls at 120/135 since 2026-09-13** (spent T46, ported) |
 | 71,216 | 3.90 | ~~`thewoods.taf`~~ | ~~The Woods Are Dark~~ | **WIRED 2026-08-16 — WON 100/100** |
 | 74,568 | 3.90 | ~~`Captive.taf`~~ | ~~Captive Universe~~ | **WIRED 2026-08-16 — WON 100/100** |
 | 101,668 | 3.90 | `enc1.taf` | Encounter 1: Tim's Mom | **AIF — DECLINED on content, 2026-08-17** |
@@ -3491,6 +3491,17 @@ through, so a 4.0 Runner would play like Scarier; not measured.) Driver note:
 one-off keystroke, which this session never got to because the Lair brick
 came first.
 
+**Superseded 2026-09-13 — the rule is PORTED.** `run_spent_task_390()`
+(`scrunner.cpp`) now makes the claim where run390's `checktask` makes it, so
+the golden bricks in the Lair too: 5/90, 23 commands, marker `You are carrying
+the King of Hearts.` (the `i` after the Creature's card; `score` itself is
+claimed).  The decompile settled why T5 still fires after T3 is spent: the
+done arm only writes the RepeatText into the buffer and the scan continues,
+so the next live task that passes runs.  The old 30/90 route is commented out
+inside `goldens/journ2_solution.txt`.  Same port walls vampire at 70/100 and
+merry_murders at 120/135, and inverness on the Dressing Room cutscene -- see
+WINE-TRANSCRIPTS-TODO.md "Ported 2026-09-13".
+
 ## Murder in Great Falls (2026-08-14) — a `<waitkey>` between the two start-up prompts
 
 `mudergreatfalls.taf`, 59,896 bytes, **3.90**, 28 rooms / 68 tasks / 61 objects
@@ -3581,6 +3592,12 @@ rooms, 137 tasks, 49 objects (33 static), 11 NPCs, 11 events, 8 variables.
 vampire_solution.txt|Vampire.taf|Now you are the most powerful vampire alive.|SCR_SKIP_WAITKEY=1
 ```
 
+**Superseded 2026-09-13:** the pre-4.0 spent-task claim is ported, so the row
+now walls where run390 does — T61's blank turn out of the Bozo backyard,
+70/100 — and reads
+`vampire_solution.txt|Vampire.taf|Your score is 70 out of a maximum of 100.|SCR_SKIP_WAITKEY=1`.
+The 100/100 tail is in git history.
+
 Full write-up in `notes/The_Vampire_With_A_Conscience_walkthrough.md`. Four
 things are worth carrying forward.
 
@@ -3639,6 +3656,11 @@ and it is the cleanest scoring file yet seen: **20 `ACT type=4` awards summing
 to exactly the declared MaxScore of 135, every one of them on the single
 critical path.** Full details in `notes/Merry_Murders_walkthrough.md`; three
 things are worth carrying forward.
+
+**Superseded 2026-09-13:** the pre-4.0 spent-task claim is ported, so the row
+now walls where run390 does — a spent T46 claims the second archives `n` —
+at 120/135, marker `My score is 120 out of a maximum of 135.`; the winning
+tail is in git history.
 
 **1. A lower-indexed task's ALTCMD can swallow a later task's command, with no
 diagnostic.** `read paper` is `ALTCMD[1]` of **T37 `read list`**; the note you

@@ -27,8 +27,10 @@
 #                                 T49  +5   take journal
 #                                 T53  +10  use needle on eric
 #
-# The `score` below is deliberately the second-to-last line: it reads
-# **125 out of 135**, because the last +10 is paid by the winning blow itself.
+# UNFINISHABLE in the real Runner (and, since 2026-09-13, here): the route
+# walls at **120 out of 135** on the second archives `n` -- see the end of
+# this file.  T49 and T53 (+15) and the win were reachable only while Scarier
+# lacked the pre-4.0 spent-task claim rule.
 #
 # SEVEN ACTS, SIX HINGES.  There are no clocks and no variables in this game.
 # Progress is a chain of six tasks that each print an act banner and teleport
@@ -49,7 +51,8 @@
 #     re-reads the employee list and the janitor's closet stays locked.  The
 #     paper must be read as `read piece of paper`.
 #   * T46 `n` in the Computer Lab only UNLOCKS the archive door (+5); it does
-#     not walk you through it.  A second `n` is needed.
+#     not walk you through it.  A second `n` would be needed -- and a spent T46
+#     claims it.  That is the wall.
 #
 # WHERE TREY IS.  T27 `research alex` is authored `ACT type=1 v1=7 v2=0 v3=3`,
 # "move NPC 5 (Trey) to room 2" -- the east Hallway.  Trey's WALK (startTask
@@ -167,22 +170,14 @@ n
 # T46, +5, unlocks the metal door but does NOT go through it; hence the second
 # `n`.
 n
+# THE WALL.  T46 `n` is one-shot, and once it has unlocked the door the
+# pre-4.0 spent-task claim (run390 checktask 44B4DD, ported 2026-09-13) hands
+# every later `n` in the Computer Lab to its default RepeatText, "I have
+# already done that." -- nothing walks you through the door it just opened.
+# run390 walls exactly here at 120/135 (Adrift_3_merry_murders.txt,
+# 2026-08-31); so does Scarier now.  The rest of the old route (push
+# bookcases, in, take journal, read journal, s, use needle on eric: +15 and
+# the win) is in git history; it only ever won because Scarier had not
+# imported the rule.
 n
-# T48 -- the scratch marks on the floor say a bookcase was dragged over a hole
-# in the wall.
-push bookcases
-in
-# T49, +5.
-take journal
-# T50 -- "I am Alex Boss."  The killer is behind you, and the act ends.
-read journal
-# --- Act VII: the roof ------------------------------------------------------
-# T51 requires T50 and takes the elevator up.  EVENT 1 [End Battle] starts
-# here: time1=1 time2=8, affected task T52 `Die`, PauseTask 55 (= task 53).
-# So there are at most eight turns on the roof before Eric brains you with the
-# pipe, and the only thing that stops the clock is the syringe.  `attack eric`
-# (T54) is an instant death.
-s
 score
-# T53, +10 -- `ACT type=6 v1=0`, the winning endgame.
-use needle on eric

@@ -11,10 +11,15 @@
 # Anger, Rage, Fear and Terror.  Somewhere down there is a card game with a
 # creature, and beyond it the way home.
 #
-# RESULT: **UNFINISHABLE**.  30 out of a declared maximum of 90, in 46
-# commands.  This is the honest ceiling of legitimate play; the reasons are
-# below and in notes/The_Long_Journey_Home_walkthrough.md.  The row is
-# therefore anchored on the score line, like the_hangover_solution.txt.
+# RESULT: **UNFINISHABLE**, and BRICKED IN THE LAIR at 5 out of a declared
+# maximum of 90, in 21 commands -- the real run390's ceiling, and since
+# 2026-09-13 Scarier's too (the pre-4.0 spent-task claim rule is ported; see
+# the RUNNER-PROVED paragraph below).  The row is anchored on the inventory
+# line "You are carrying the King of Hearts.", because `score` itself is
+# claimed in the Lair.  The 30/90 route this file used to run (well, Sorrow,
+# Despaire, Fear, the Gnarled Woods, Terror) is kept in git history and its
+# notes are kept below; the reasons 90 is unreachable by anyone are below
+# and in notes/The_Long_Journey_Home_walkthrough.md.
 #
 # ---------------------------------------------------------------------------
 # WHY 90 IS NOT REACHABLE BY ANYONE
@@ -104,9 +109,13 @@
 # earlier.  T3 `#6 creature looks` (rep=0, room 1, patterns end with a bare
 # `*`) fires on arrival in the Lair, and 3.9's spent-task rule then answers
 # EVERY later command there with "You have already done that." -- only `i`
-# and `x creature` get through.  Ceiling in the real Runner: 5/90.  Scarier
-# deliberately does not import that rule (adrift4-spent-task-vs-restrictions),
-# which is the only reason this route gets past the Lair to 30.
+# and `x creature` get through.  Ceiling in the real Runner: 5/90.  PORTED
+# 2026-09-13 (run390 checktask 44B4DD: a done, non-repeatable, in-room task
+# whose pattern matches writes its RepeatText -- default "You have already
+# done that.", installed at load by openadv 465A8B -- into the answer buffer;
+# the scan continues, so a later live task that passes its restrictions still
+# runs, which is how T5 hands over the King of Hearts on the next `s`).  The
+# old 30/90 existed only while Scarier lacked the rule.
 #
 # A NOTE ON TYPING THE LABEL.  `!goto lair` (T87) and `!random` (T88) are
 # debug tasks the author shipped in the release, and they DO fire if typed --
@@ -175,43 +184,53 @@ tie rope to palm
 drop rope in well
 down
 #
-# --- The Lair: one wasted step buys the King of Hearts ---------------------
+# --- The Lair: the brick -----------------------------------------------------
+# Arriving fires T3 (one-shot, bare `*`).  The next `s` is still answered by
+# T5 (the Creature hands over the King of Hearts) because the spent-task
+# claim only fills the buffer and the scan goes on to T5, which passes.  After
+# that every line here -- `n`, `score`, `quit` -- is "You have already done
+# that."; only `i` and `x creature` get through.  The rest of this file is
+# the pre-2026-09-13 route past this point, kept as commentary.
 s
 s
+i
+score
+#
+# ===== HISTORICAL ROUTE (not executed: everything below is commented out) =====
 #
 # --- Sorrow -> the slippery slope -> Despaire ------------------------------
 # T6 in room 3 has ALTCMD `[*]`, so whatever you type there slides you down
 # into Despaire and drops the shovel in after you.
-e
-se
-take shovel
-dig
-take king of clubs
-climb
-chop brush with shovel
-nw
+# e
+# se
+# take shovel
+# dig
+# take king of clubs
+# climb
+# chop brush with shovel
+# nw
 #
 # --- Back to the Lair, then west into Fear and the woods -------------------
-w
-w
-s
-left
-left
-left
+# w
+# w
+# s
+# left
+# left
+# left
 #
 # --- Terror: shaft in one room, stones in the other (+10) ------------------
-take shaft
-go through door
-take stones
-strike stones
+# take shaft
+# go through door
+# take stones
+# strike stones
 #
 # --- Out through the woods the torch just lit ------------------------------
-n
-get king of spades
-n
-e
+# n
+# get king of spades
+# n
+# e
 #
 # --- Nothing starts the card game -----------------------------------------
-give cards
-i
-score
+# give cards
+# i
+# score

@@ -225,7 +225,6 @@ none of them are occurring to you right now.  Your humble abode is to the
 east.  Fields are to the west.  The chapel is on top of the hill to the
 south.  Down the hill to the north there is the bus stop.  Also here are the
 heavy cross.
-It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south and west.
@@ -239,19 +238,15 @@ securely; the rest lies on the ground.  Your humble abode is to the east.
 Fields are to the west.  The chapel is on top of the hill to the south.  Down
 the hill to the north there is the bus stop.  Also here are the heavy cross.
 
-It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south and west.
 
 > throw rope down well
 You throw the rope down the well.
-The rain seems to be letting up.
 
 > take cross
 You pick up the heavy cross.  Vluurinik flies in from the west.
-The warm seasonable rain is nearly over.
-The rain has stopped.
 
 > s
 You move south.
@@ -343,6 +338,7 @@ You are at the well.   The rope, which is tied to the well quite securely,
 leads down.  Your humble abode is to the east.  Fields are to the west.  The
 chapel is on top of the hill to the south.  Down the hill to the north there
 is the bus stop.
+It is raining quite heavily.
 It is daytime.
 
 You can move north, east, south, west and down.
@@ -383,7 +379,8 @@ The cardboard and styrofoam robot is structurally complete, but needs a power
 source to be installed in its yawning chest cavity.
 
 > fix robot
-I don't think you can fix the robot.
+The invincible robot is structurally complete.  All it needs now is a power
+source.
 
 > put flashlight in robot
 No matter which way you turn it, the flashlight simply *will* not fit into
@@ -411,6 +408,7 @@ is the bus stop.
 It is daytime.
 
 You can move north, east, south, west and down.
+A warm, gentle rain begins.
 
 > d
 You move down.
@@ -420,6 +418,7 @@ You are standing at the bottom of the town well.  The ground is slightly
 moist here.  The end of the rope dangles here, providing you with a way back
 up.  To the west you can see the narrow entrance to the CyberCow's lair.
 The CyberCow is here.
+It is raining quite heavily.
 
 You can move west and up.
 
@@ -438,10 +437,14 @@ distract it somehow...
 The CyberCow sticks out its tongue and snatches up the snail, which it
 gobbles up in a spectacular display of crunching and slurping.
 The CyberCow gives you a look, as if inviting you to try some for yourself.
+The rain seems to be letting up.
 
 > milk cow
 While the CyberCow continues crunching and slurping delightedly on the snail,
 you fill the bowl with warm, fragrant CyberCow milk.
+
+The warm seasonable rain is nearly over.
+The rain has stopped.
 
 > up
 That's a bit of a trick carrying a warm bowl of fresh, frothing CyberCow milk
@@ -455,6 +458,7 @@ is the bus stop.
 It is daytime.
 
 You can move north, east, south, west and down.
+A warm, gentle rain begins.
 
 > drop milk
 You drop the bowl.
@@ -490,9 +494,11 @@ the hill, southeast of you, you can see the chapel with its steeple, and at
 the foot of the hill, northeast of you, you can just make out the sign of the
 bus stop.  Also here is the fairy and the bowl.  Vluurinik darts in circles.
 
+It is raining quite heavily.
 It is daytime.
 
 You can only move east.
+The rain seems to be letting up.
 
 > look
 
@@ -503,12 +509,15 @@ the hill, southeast of you, you can see the chapel with its steeple, and at
 the foot of the hill, northeast of you, you can just make out the sign of the
 bus stop.  Also here is the fairy and the bowl.  Vluurinik darts in circles.
 
+It is raining quite heavily.
 It is daytime.
 
 You can only move east.
+The warm seasonable rain is nearly over.
 
 > x fairy
 Vluurinik struggles between your fingers.  She seems terrified of something.
+The rain has stopped.
 
 > catch fairy
 The fairy squirms in your grip.
@@ -602,6 +611,7 @@ outside.  There is a cupboard here, which you recall generally not having
 cookies.  There is a couch here, which used to cleverly hide a trapdoor.
 
 You can move west and down.  The Robot marches in  from below.
+-COME. COME. PATHETIC. HUMAN.- The Robot grates.  -STOP. SCREWING. AROUND.-
 
 > w
 You move west.

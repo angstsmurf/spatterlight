@@ -34,9 +34,12 @@ w
 unlock desk
 open desk
 take letter
+# The `s` into the Dressing Room banks the last +20 (the search and the
+# eavesdrop), and it is also the wall: the eavesdrop task is one-shot with a
+# bare `*` pattern, so the pre-4.0 spent-task claim (run390 checktask 44B4DD,
+# ported 2026-09-13) answers everything typed there afterwards -- `score`
+# included -- with "You have already done that."  The row's marker is
+# therefore the cutscene's last line, not a score line; the 75 is real but
+# unprintable.  run390 agrees (Adrift_1030_inverness.txt, 2026-09-13).
 s
-z
-look
-z
-z
 score

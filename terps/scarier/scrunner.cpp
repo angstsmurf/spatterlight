@@ -2155,8 +2155,8 @@ run_npc_row_blocked (const scr_commands_t *command)
 }
 
 /*
- * UNPORTED, measured 2026-08-23 (make_39_doneprobe.py, run390 Adrift_18.txt
- * and Adrift_19.txt): below 4.0 a game task that matches the command element
+ * Measured 2026-08-23 (make_39_doneprobe.py, run390 Adrift_18.txt and
+ * Adrift_19.txt): below 4.0 a game task that matches the command element
  * claims it even when it says nothing, so the standard library verb that would
  * otherwise answer never gets a turn.  `x book` on a spent `* x * book *` task
  * answers "You have already done that." instead of the book's description,
@@ -2165,11 +2165,14 @@ run_npc_row_blocked (const scr_commands_t *command)
  * than the library answer.  4.0 dropped this: run400 falls through to the
  * library examine in both cells (Adrift_14.txt, Adrift_15.txt).
  *
- * Implementing it as written -- record the silent match, then skip
- * run_standard_commands() below 4.0 -- costs 15 v4-corpus goldens, several of
- * them whole walkthroughs that stop winning, so the rule as stated is too
- * broad and the narrowing is not yet measured.  Left out until it is; see
- * test/adrift4/notes/RUNNER_TESTS_TODO.md.
+ * The spent half is PORTED (2026-09-13): run_spent_task_390() in
+ * run_all_commands() makes the claim where run390's checktask makes it, ahead
+ * of everything but the take/drop/inventory/put handlers and the NPC examine.
+ * It costs the walkthroughs that used to win past a spent `*` task -- The
+ * Long Journey Home stops at 5/90 in the Lair, exactly where run390 does --
+ * and those goldens now hold the Runner's brick.  The silent-task half (a task
+ * that runs and prints nothing leaving "I don't understand.") is still left
+ * out; see RUNNER_TESTS_TODO.md section 4.
  */
 
 /*
@@ -3341,59 +3344,179 @@ run_task_has_catchall_command (scr_gameref_t game, scr_int task)
 }
 
 /*
- * run_task_command_is_literal()
+ * run_spent_task_390()
  *
- * TRUE if every forward command pattern of the task is a plain literal -- no
- * `*` wildcard anywhere in it.
+ * The pre-4.0 task dispatcher's claim, read off run390's checktask
+ * (Proc_19_?_44A9EE; generaltasks calls tasks(0) at 45F48B, which calls
+ * checktask(text, 1)).  The scan runs over the WHOLE task table IN INDEX
+ * ORDER, and for each task walks its command slots.  A task whose command
+ * matches -- a bare "*" included -- and that is done and not repeatable
+ * (44B4F4, 44B4FE) writes its RepeatText slot straight into the message
+ * buffer (44B537: MemVar_468154 = record(200).global_0, no test of what the
+ * buffer already held) and then CONTINUES with the next task (GoTo 44B66C ->
+ * 44B6CC, which sits just above the loop's Next at 44B6DA).  A live match
+ * goes to the restriction loop at 44B5F4 instead: all pass and the task is
+ * the scan's result (44B663), one fails and passrest has written its fail
+ * message, if it has one, over whatever the buffer held (452BB8), and the
+ * scan moves on (44B636).  So the buffer ends up holding the LAST message
+ * written in table order, RepeatText or fail message alike, and tasks()
+ * (42BDC4) either executes the passing task -- whose text replaces the
+ * buffer, which is why inverness's third `knock` prints task 23's text
+ * although the spent task 22 stands above it (Adrift_1030) -- or, when the
+ * buffer changed and nothing passed, returns -1 and generaltasks prints the
+ * buffer and skips everything below tasks(0): movement, look, examine,
+ * score, the room refusal and therest().
  *
- * This is what separates the already-done refusal that beats the standard
- * library from the one that does not.  chicago.taf's `listen` (task 18,
- * cmd=[listen]) is a bare literal and run390 answers the second typing with
- * "You have already done that." rather than the library's "You hear nothing
- * out of the ordinary."  Every corpus row that a blanket pre-library pass
- * broke is the other shape: circus task 77 is `ask* barb* *tape`, and in
- * inverness, journ2, vampire, merry_murders and mr_smith the hijacked
- * commands are movement and ordinary library verbs swallowed by wildcard
- * patterns -- eight walkthroughs, several of them stopping winning.
+ * At load, openadv substitutes person(0) & " have already done that." into
+ * an empty RepeatText slot (465A8B-465AB9), so the default message and an
+ * authored RepeatText are one field; an authored " " (Vampire.taf) is not
+ * empty and prints as itself.  The slot is therefore never empty at 44B537,
+ * and a spent match always changes the buffer.
  *
- * That is the same line RUNNER_TESTS_TODO already draws twice: a done
- * wildcard task claiming every later command is the inverness soft-lock we
- * deliberately do not import, while the narrow exact-command case is real and
- * ported.  Ordering is simply the other half of that distinction -- the narrow
- * case outranks the library, the broad one does not.
+ * Measured on the Runner transcripts of The Long Journey Home (run390
+ * Adrift_3_journ2_t5.txt: `fly`, `north`, `w`, `x card`, `x king`, `e` all
+ * "You have already done that." after task 5's `*` is spent; `i` still
+ * lists the inventory and `x creature` still describes the creature), Lair
+ * of the CyberCow (Adrift_1107_cybercow_win.txt: the second `fix robot`
+ * prints task 80's RepeatText "The invincible robot is structurally
+ * complete...", not the library's "I don't think you can fix the robot."),
+ * inverness (Adrift_1030: `z`, `look`, `score` all claimed; the five
+ * `knock`s run tasks 20, 22, 23, 24, 25 in turn), circus (Adrift_1025:
+ * `ask barb about tape` claimed by task 77, and the NPC walk ticks, so the
+ * claim is a turn) and chicago's `listen` (task 18).  4.0 moved the claim
+ * to 48A481 and asks the restrictions there; see run_task_refusal() and
+ * run_repeat_survivor_400().
+ *
+ * Returns the claiming spent task, or -1 when no spent task matches or a
+ * live matching task passes its restrictions (that task runs instead).
+ * When a task is returned, *message is what the buffer holds at the end of
+ * the scan: the last RepeatText or restriction fail message written, never
+ * NULL.  Prints nothing.
  */
-static scr_bool
-run_task_command_is_literal (scr_gameref_t game, scr_int task)
+static scr_int
+run_spent_task_390 (scr_gameref_t game, const scr_char *string,
+                    const scr_char **message)
 {
-  const std::vector<const scr_char *> &patterns =
-      run_task_command_patterns (game, task, TRUE);
+  scr_int task_count, task, spent;
+  const scr_char *buffer;
 
-  for (const scr_char *pattern : patterns)
+  *message = NULL;
+  if (scr_strempty (string))
+    return -1;
+
+  spent = -1;
+  buffer = NULL;
+  task_count = gs_task_count (game);
+  for (task = 0; task < task_count; task++)
     {
-      if (strchr (pattern, '*'))
-        return FALSE;
+      scr_bool pass;
+      const scr_char *fail_message;
+
+      if (!task_where_allows_run (game, task))
+        continue;
+
+      /*
+       * A reversible task matched by its reverse command is checktask's -2
+       * (44B4A4 / 44B64D): the reversal runs, and the task passes below
+       * handle it.
+       */
+      if (task_can_run_task_directional (game, task, FALSE)
+          && run_match_task_commands (game, task, string, FALSE, FALSE))
+        return -1;
+
+      if (!run_match_task_commands (game, task, string, TRUE, FALSE))
+        continue;
+
+      if (task_is_done_refused (game, task))
+        {
+          const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+          buffer = prop_get_indexed_string (bundle, "Tasks", task,
+                                            "RepeatText");
+          spent = task;
+          continue;
+        }
+
+      if (!task_can_run_task_directional (game, task, TRUE))
+        continue;
+
+      /* A live task with passing restrictions executes instead. */
+      if (!restr_eval_task_restrictions (game, task, &pass, &fail_message))
+        pass = TRUE, fail_message = NULL;
+      if (pass)
+        return -1;
+      if (fail_message && !scr_strempty (fail_message))
+        buffer = fail_message;
     }
-  return !patterns.empty ();
+
+  if (spent >= 0)
+    *message = buffer;
+  return spent;
 }
 
 /*
- * run_input_is_movement()
+ * run_spent_survivor_390()
  *
- * TRUE if the input is one of the compass words, whether or not the move would
- * succeed.  Runs no handler and prints nothing.
+ * The handlers run390's generaltasks runs ABOVE tasks(0), each of which ends
+ * the line when it printed anything (GoTo loc_460589 on a nonzero result):
+ * takes() 45F439, drops() 45F44A, inventory() 45F45B and insides() 45F471.
+ * takes() answers only for an object co() resolved -- "Take what?" is a
+ * later fallback -- so `take shovel` with no shovel about falls to the
+ * spent task (journ2).  A put that the target turns away is still
+ * insides()'s answer, so the tentative priority pass's deferral is finished
+ * here out of the standard rows.
+ *
+ * Below tasks(0) only the character pass survives, because characters()
+ * (45ACD8, called at 460675 on every line) OVERWRITES the message buffer:
+ * `x creature` after the journ2 claim prints the creature's description.
+ * The other character answers are not measured to survive -- circus's `ask
+ * barb about tape` does not -- so only the NPC examine is taken here.
+ *
+ * TRUE if a survivor answered the line.
  */
 static scr_bool
-run_input_is_movement (scr_gameref_t game, const scr_char *string)
+run_spent_survivor_390 (scr_gameref_t game, const scr_char *string)
 {
-  const scr_ref_number_guard ref_number (game);
-  scr_commandsref_t command = run_move_commands (gs_get_bundle (game));
+  static scr_commands_t NPC_EXAMINE_COMMANDS[] = {
+#ifdef SCARIER_NO_ABBREVIATIONS
+    {"[ex/exam/examine/look {at}] %character%", lib_cmd_examine_npc},
+#else
+    {"[x/ex/exam/examine/look {at}] %character%", lib_cmd_examine_npc},
+#endif
+    {NULL, NULL}
+  };
 
-  for (; command->command; command++)
+  if (run_priority_commands (game, string))
+    return TRUE;
+  if (run_priority_deferred && run_standard_commands (game, string))
+    return TRUE;
+
+  return run_try_command_table (NPC_EXAMINE_COMMANDS, game, string);
+}
+
+/*
+ * run_spent_claim_390()
+ *
+ * Print the spent claim: the buffer run_spent_task_390() ended with, which
+ * for a RepeatText the author left empty is the already-done default that
+ * openadv installs at load (see run_spent_task_390()).
+ */
+static void
+run_spent_claim_390 (scr_gameref_t game, const scr_char *message)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (message[0] != NUL)
     {
-      if (uip_match (command->command, string, game))
-        return TRUE;
+      pf_buffer_paragraph_line (filter, message);
+      return;
     }
-  return FALSE;
+
+  pf_buffer_string (filter,
+                    prop_get_global_integer (bundle, "Perspective")
+                    == LIB_FIRST_PERSON ? "I" : "You");
+  pf_buffer_paragraph_line (filter, " have already done that.");
 }
 
 /*
@@ -3684,28 +3807,14 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
       const scr_char *repeat;
 
       /*
-       * Three conditions, and all three are the bounds of what chicago.taf
-       * actually measured rather than rules proved in their own right:
+       * Only the DONE half is answered early: the room half is guarded by
+       * the Runner's own "did anything print?" test and stays late.
        *
-       *   - the refusal has to be the DONE half (the room half is guarded by
-       *     the Runner's own "did anything print?" test and stays late);
-       *   - the task's command must be a plain literal, or a done wildcard
-       *     task starts claiming movement and library verbs wholesale -- the
-       *     inverness soft-lock we already refuse to import;
-       *   - it must be the DEFAULT " have already done that." message, not an
-       *     authored RepeatText.  Different Runner paths: the default is
-       *     substituted into the game's message slot at LOAD (run390 openadv,
-       *     loc_465A8B..loc_465AB9, when the loaded string is empty), while
-       *     RepeatText is a per-task string that 4.0 kept.  `lair-of-the-
-       *     cybercow.taf` task 80 (`complete robot`/`fix robot`, literal, with
-       *     a RepeatText) keeps answering with the library's "I don't think
-       *     you can fix the robot.", so RepeatText does not outrank it.
-       *
-       * Movement is exempt on top of that: `Vampire.taf` task 61 is the
-       * literal `east` in room 11, done and non-repeatable, and the Runner
-       * still moves the player east on the next `e`.  The original 2026-08-10
-       * probe note said the same thing from the other side -- movement is
-       * answered first.
+       * Pre-4.0 this pass is a fallback now.  The claim itself is made in
+       * run_all_commands() before any handler runs, by run_spent_task_390(),
+       * which is where run390 makes it; what reaches here is a line that
+       * probe declined because a live task earlier in the table outranked
+       * the spent one, and that live task then did not run after all.
        */
       if (refusal != REFUSAL_DONE)
         return FALSE;
@@ -3731,10 +3840,6 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
           if (pass == REFUSAL_PASS_PROBE)
             return TRUE;
         }
-      else if (!run_task_command_is_literal (game, refused_task)
-               || !scr_strempty (repeat)
-               || run_input_is_movement (game, string))
-        return FALSE;
     }
 
   /*
@@ -3902,6 +4007,29 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   prior_npc = game->last_npc;
   ask_echo = uip_print_ask_echo (game, string);
   uip_note_named_npcs (game, string);
+
+  /*
+   * Pre-4.0 the task dispatcher's claim comes first: a spent task whose
+   * command matches the line prints its RepeatText slot and nothing below
+   * tasks(0) runs -- see run_spent_task_390().  The handlers run390 runs
+   * above it, and the character pass that overwrites its message, still
+   * answer; they are a turn either way.  Matched on the line as typed: the
+   * give and ask/talk rewrites are further down generaltasks.
+   */
+  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    {
+      const scr_char *message;
+      const scr_int spent = run_spent_task_390 (game, string, &message);
+
+      if (spent >= 0)
+        {
+          if (!run_spent_survivor_390 (game, string))
+            run_spent_claim_390 (game, message);
+          run_dispatch_input = NULL;
+          run_tasks_ran_this_command.clear ();
+          return TRUE;
+        }
+    }
 
   /*
    * 4.0 puts are the exception to the peek: the library's put-in / put-on

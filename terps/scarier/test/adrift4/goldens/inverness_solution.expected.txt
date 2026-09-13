@@ -312,23 +312,13 @@ hide what the false heart doth know."
 
 You hear Macbeth and his wife leave the room.
 
-> z
-Time passes...
-
-> look
-
-Dressing Room
-This dressing room is like a large, walk-in closet.  Macbeth and Lady Macbeth
-use this room to change their clothes and other things.
-
-> z
-Time passes...
-
-> z
-Time passes...
-
 > score
-Your score is 75 out of a maximum of 205.  (36%)
+You have already done that.
 
 > quit
-Do you really want to quit? [Y/N]
+You have already done that.
+
+> y
+You have already done that.
+
+>

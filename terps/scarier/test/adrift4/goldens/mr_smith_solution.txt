@@ -89,9 +89,20 @@ take sandwich
 eat sandwich
 w
 w
+# RE-ORDERED 2026-09-13 for the pre-4.0 spent-task claim (run390 checktask
+# 44B4DD, ported): T11 `*open * cabinet *` (+5, prints the "locked" text and
+# closes object 2) and T10 `*kick * cabinet*` (+5, opens it) are both one-shot.
+# Kick-then-open used to need a THIRD line, a second `open cabinet`, for the
+# library to open the door after T11 had shut it again -- but a spent T11
+# claims that line ("You have already done that.") in the real Runner, and
+# now here too.  Open first (T11, cabinet closed), kick second (T10, cabinet
+# open): same +10.  The kick's action opens the cabinet without LISTING it,
+# and an unlisted dynamic is not referenceable (the seen rule, below), so
+# `x cabinet` -- "An AUG assault rifle is inside the gun cabinet." -- is what
+# puts the rifle in reach; the library open used to do that listing.
+open cabinet
 kick cabinet
-open cabinet
-open cabinet
+x cabinet
 take rifle
 e
 n

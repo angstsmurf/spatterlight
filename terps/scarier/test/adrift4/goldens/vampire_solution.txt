@@ -10,7 +10,9 @@
 # need a gun, silver-free carbonated bullets, and an *undead* assistant to
 # carry a second gun past the mirrors that screen the conference-room door.
 #
-# RESULT: **WIN, 100 out of a declared maximum of 100**, in 84 input lines
+# RESULT: **UNFINISHABLE in the real Runner** -- walls at **70 out of a declared
+# maximum of 100** (see the end of this file).  Until 2026-09-13 this was a
+# 100/100 win in 84 input lines
 # (82 moves, 1 `score` check and the final `end`).
 #
 # 100 IS PROVABLY THE CEILING AND IT IS EXACTLY REACHABLE.  The file holds
@@ -183,23 +185,13 @@ w
 remove stick
 # T64, +5 -- Jon climbs out undead, and follows you again.
 open container
-# --- Back to the Plaza -----------------------------------------------------
+# --- The wall: the backyard's only exit ------------------------------------
+# T61 (`east` out of the Bozo backyard, rep=0, RepeatText=' ') was spent by the
+# first exit.  The pre-4.0 spent-task claim (run390 checktask 44B4DD, ported
+# 2026-09-13) hands every later `e` here to T61's RepeatText -- one space, a
+# blank turn -- and nothing else leaves this room.  run390 walls here at 70/100
+# (Adrift_3_vampire.txt, 2026-08-31); so does Scarier now.  The old 100/100
+# route (e, e, s, enter queue, e, push 15, push 0, w, w, w, end) is kept in git
+# history; it only ever won because Scarier had not imported the rule.
 e
-e
-s
-# T84, +5 -- needs BOTH Anette and Simonsen present; the taxi drops all three
-# of you in the lobby and forces the clock to 23:45.  Entered at 23:39.
-enter queue
-# --- The elevator ----------------------------------------------------------
-e
-# T95, +10 -- Anette gets off at 15 "for Igor", AnetteVar=30001.
-push 15
-# T104 only lets you west when CurrentFloor==0.
-push 0
-w
-w
-# T108, +15 -- gun held, Simonsen along, Anette gone: the shooting starts.
-w
 score
-# T135 -- ACT type=6 v1=0, the winning endgame.
-end

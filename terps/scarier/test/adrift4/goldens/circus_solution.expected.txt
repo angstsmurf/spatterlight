@@ -77,9 +77,9 @@ You're at the entrance of the circus. There is a banner above the entrance,
 and a ticket booth with a sign on it. The midway is to the south.
 
 The townys are carrying the prizes they won at the games, while eating
-carnival food.  Children are laughing with their parents.  The odor of the
-hot dogs in the air reminds you of when you were a kid.  Marie is here,
-behind the ticket booth.
+carnival food.  Young kids are laughing at the clowns.  The odor of the hot
+dogs in the air reminds you of when you were a kid.  Marie is here, behind
+the ticket booth.
 
 > buy 4 tokens
 You give Marie $2 and she sells you 4 tokens.  You have $0 left, which will
@@ -95,13 +95,13 @@ fortune teller's tent, and to the west is the funhouse, which also costs 1
 token.  You can also go north to the entrance of the circus tent or southeast
 to the outdoor stage.  The midway continues to the east and south.
 
-The townys are carrying the prizes they won at the games, while eating
-carnival food.  You see a young boy riding on his father's shoulders.  You
-smell freshly popped popcorn in the air.  You hear calliope music coming from
-the direction of the funhouse.
+A mother is wiping mustard from her son's face while her husband fiddles with
+a video camera.  Kids are running around, giggling.  You smell the freshly
+roasted peanuts being sold by the food vendor.  You hear calliope music
+coming from the direction of the funhouse.
 
-"Win a free Coke!" calls the carny. "Ring a bottle, win a Coke!"  A carny is
-here, working the ring toss game.  Wemmie arrives from the south.
+"Win a refreshing Coke!" calls the carny. "Three tries, one token!"  A carny
+is here, working the ring toss game.  Wemmie walks in from the south.
 
 > e
 You move east.
@@ -113,15 +113,15 @@ east is the fortune teller's tent.  You can also go west or southwest to the
 midway.
 
 Locals are eating and drinking circus treats, lining up to play midway games.
- Kids are running around, giggling.  A woman wearing too much perfume walks
-past and you catch a whif.  You hear calliope music coming from the direction
-of the funhouse.
+ You see a young boy riding on his father's shoulders.  You think back on
+fond memories of baseball games as the aroma of hot dogs drifts over to you.
+You hear calliope music coming from the direction of the funhouse.
 
-"Duck pond winner!" calls the carny. "Could be you - just one token!"  A
-carny is here, working the duck pond game.
+"Big prizes!" the carny says. "Everyone's a winner!"  A carny is here,
+working the duck pond game.
 
 > play duck pond
-"Guarenteed winner!" says the carny. "Play duck pond!"
+"Duck pond winner!" calls the carny. "Could be you - just one token!"
 
 You give the vendor a token and play the duck pond game.
 
@@ -135,14 +135,14 @@ You give the vendor a token and play the duck pond game.
 You won a plastic clown!
 
 > play duck pond
-"Everyone's a winner at duck pond!" the carny shouts. "Just one token."
+"Win the prize!" the carny says. "Just one token, play duck pond!"
 
 You give the vendor a token and play the duck pond game.
 
-You won a plush frog toy!  Wemmie arrives from the west.
+You won a plush frog toy!  Wemmie enters from the west.
 
 > play duck pond
-"Everyone's a winner at duck pond!" the carny shouts. "Just one token."
+"Win the prize!" the carny says. "Just one token, play duck pond!"
 
 You give the vendor a token and play the duck pond game.  You pick up a duck
 and look at the bottom, which reads "FREE TICKET". The carny worker smiles
@@ -161,13 +161,13 @@ fortune teller's tent, and to the west is the funhouse, which also costs 1
 token.  You can also go north to the entrance of the circus tent or southeast
 to the outdoor stage.  The midway continues to the east and south.
 
-Locals are eating and drinking circus treats, lining up to play midway games.
- Children are laughing with their parents.  The familiar odor of hot nachos
-wafts over to you.  You hear calliope music coming from the direction of the
-funhouse.
+People attending the circus are laughing, talking, eating cotton candy.
+Young kids are playing simple carnival games.  The odor of the hot dogs in
+the air reminds you of when you were a kid.  You hear calliope music coming
+from the direction of the funhouse.
 
-"Play ring toss!" calls the carny. "Three for a token!"  A carny is here,
-working the ring toss game.
+"Win a free Coke!" calls the carny. "Ring a bottle, win a Coke!"  A carny is
+here, working the ring toss game.
 You feel someone bump into you in the crowd.  Suddenly you realize your
 camera case is gone, and your videocamera with it!  Oh no!  How will you tape
 the animals for PETA now?  Maybe if you can find it...
@@ -179,16 +179,16 @@ Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
 and a ticket booth with a sign on it. The midway is to the south.
 
-Locals are eating and drinking circus treats, trying to find good seats.
-Children are laughing with their parents.  You smell freshly popped popcorn
-in the air.
+People are milling about, playing games.  Children are laughing with their
+parents.  You think back on fond memories of baseball games as the aroma of
+hot dogs drifts over to you.
 
 There are seats to the northeast and northwest.  Due north is the center
 ring.  Marie is here, behind the ticket booth.
 
 > sell 10 points
 Your score has been lowered by 10 points to 0, but you now have $1.  The
-vendor enters.
+vendor comes in.
 
 > buy peanut
 The vendor sells you a bag of peanuts for $1.
@@ -200,7 +200,7 @@ I don't think that is for sale.
 I don't think that is for sale.
 
 > buy peanut
-I don't think that is for sale.  The vendor walks away to the south.
+I don't think that is for sale.  The vendor withdraws to the south.
 
 > ne
 You move northeast.
@@ -210,9 +210,9 @@ The portable bleachers are made of aluminum.  They aren't very comfortable.
 To the northwest is the back door, to the southwest is the main entrance, and
 to the west is the center ring.
 
-People attending the circus are laughing, talking, eating cotton candy.
-Children with hotdogs and glowsticks are nearby.  The odor of pizza wafts its
-way over to you.
+The townys are carrying the prizes they won at the games, while eating
+carnival food.  Kids are running up and down the bleachers, giggling.  The
+odor of the hot dogs in the air reminds you of when you were a kid.
 
 > look under bleachers
 You look under the east bleachers and think you can detect movement, a small
@@ -223,8 +223,8 @@ You move down.
 
 Under East Bleachers
 You're under the metal bleachers.  You can see the supports of the
-collapsable bleachers here, criscrossing above your head.  A woman wearing
-too much perfume walks past and you catch a whif.
+collapsable bleachers here, criscrossing above your head.  You smell freshly
+popped popcorn in the air.
 
 > give peanut to pringles
 You don't see Pringles here.
@@ -251,7 +251,7 @@ You don't see Pringles here.
 You don't see Pringles here.
 
 > give peanut to pringles
-You don't see Pringles here.  Pringles comes in from above.
+You don't see Pringles here.  Pringles arrives from above.
 
 > give peanut to pringles
 Pringles greedily takes the bag of peanuts from you and starts eating them.
@@ -274,9 +274,9 @@ The portable bleachers are made of aluminum.  They aren't very comfortable.
 To the northwest is the back door, to the southwest is the main entrance, and
 to the west is the center ring.
 
-Patrons are talking amongst themselves.  Children are laughing with their
-parents.  The familiar odor of hot nachos wafts over to you.  Lance the
-ringmaster is here, announcing acts and working the crowd.
+People are milling about, playing games.  Children are laughing with their
+parents.  The odor of pizza wafts its way over to you.  Lance the ringmaster
+is here, announcing acts and working the crowd.
 
 > sw
 You move southwest.
@@ -285,9 +285,9 @@ Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
 and a ticket booth with a sign on it. The midway is to the south.
 
-People are milling about, playing games.  You see a young boy riding on his
-father's shoulders.  You think back on fond memories of baseball games as the
-aroma of hot dogs drifts over to you.
+People attending the circus are laughing, talking, eating cotton candy.
+Children are laughing with their parents.  A woman wearing too much perfume
+walks past and you catch a whif.
 
 There are seats to the northeast and northwest.  Due north is the center
 ring.  Marie is here, behind the ticket booth.
@@ -317,12 +317,13 @@ token.  You can also go north to the entrance of the circus tent or southeast
 to the outdoor stage.  The midway continues to the east and south.
 
 Locals are eating and drinking circus treats, lining up to play midway games.
- A little girl is playing with a stuffed animal won on the midway.  You smell
-the freshly roasted peanuts being sold by the food vendor.  You hear calliope
-music coming from the direction of the funhouse.
+ Children with hotdogs and glowsticks are nearby.  You think back on fond
+memories of baseball games as the aroma of hot dogs drifts over to you.  You
+hear calliope music coming from the direction of the funhouse.
 
-"Play ring toss!" calls the carny. "Three for a token!"  Wemmie is here,
-watching the dancer.  A carny is here, working the ring toss game.
+"Simple game of skill!" the carny shouts to the crowd. "Win a Coke for your
+ladyfriend!"  Wemmie is here, juggling stuffed animals.  A carny is here,
+working the ring toss game.
 
 > w
 After paying 1 token to the midway worker, you move west.
@@ -347,12 +348,12 @@ fortune teller's tent, and to the west is the funhouse, which also costs 1
 token.  You can also go north to the entrance of the circus tent or southeast
 to the outdoor stage.  The midway continues to the east and south.
 
-The townys are carrying the prizes they won at the games, while eating
-carnival food.  Young kids are playing simple carnival games.  The odor of
-pizza wafts its way over to you.
+A mother is wiping mustard from her son's face while her husband fiddles with
+a video camera.  Children are laughing with their parents.  A woman wearing
+too much perfume walks past and you catch a whif.
 
-"Win a Coke!" calls the carny. "Three tries for a token!"  A carny is here,
-working the ring toss game.
+"Three tries, just one token!" says the carny. "Win a Coke!"  A carny is
+here, working the ring toss game.
 
 > e
 You move east.
@@ -363,12 +364,12 @@ games.  You see the duck pond here.  To the south is an outdoor stage, and
 east is the fortune teller's tent.  You can also go west or southwest to the
 midway.
 
-People attending the circus are laughing, talking, eating cotton candy.  You
-see a young boy riding on his father's shoulders.  You smell freshly popped
-popcorn in the air.
+Patrons are talking amongst themselves, playing the midway games.  Kids are
+running around, giggling.  The odor of freshly popped popcorn hangs in the
+air.
 
-"Big prizes!" the carny says. "Everyone's a winner!"  Wemmie is here,
-juggling stuffed animals.  A carny is here, working the duck pond game.
+"Be a winner!  Play duck pond!" calls the carny.  Wemmie is here, looking at
+a plastic duck.  A carny is here, working the duck pond game.
 
 > e
 You move east.
@@ -376,7 +377,7 @@ You move east.
 Fortune Teller
 Amongst the heavy odor of incense and dim light, you make out the figure of
 the old gypsy fortune teller, the circus psychic.  Madame Elsa the gypsy is
-here, shuffling a deck of tarot cards.
+here, waving some rune stones over a candle.
 
 > ask reading
 Madame Elsa beckons for you to sit down.  She then hands you a deck of cards,
@@ -386,11 +387,11 @@ she slowly deals out three cards.
 The first card has a XII at the top.  This horrifying card depicts a man
 hanging upside down, tied to a tree.  Below are the words "THE HANGED MAN".
 
-The second card has a VIII at the top.  This card depicts a woman tied and
-blindfolded, with swords thrust into the ground around her.
+The second card has a IX at the top.  The card depicts a person sitting in
+bed, as though wakened from a dream.
 
-The third card has a IV at the top.  The man depicted in this card is being
-offered a cup, yet is turning it down.
+The third card has a III at the top.  A group of women are holding some cups,
+possibly toasting the harvest or good fortune.
 
 Madame Elsa makes the sign of the cross and says, "My child, the fates frown
 upon you.  Mark my words, you'll be dead before the sun sets!"
@@ -398,8 +399,8 @@ upon you.  Mark my words, you'll be dead before the sun sets!"
 Fortune Teller
 Amongst the heavy odor of incense and dim light, you make out the figure of
 the old gypsy fortune teller, the circus psychic.  There are three tarot
-cards on the table.  Madame Elsa the gypsy is here, gazing into a crystal
-ball.
+cards on the table.  Madame Elsa the gypsy is here, waving some rune stones
+over a candle.
 
 > w
 You move west.
@@ -410,12 +411,12 @@ games.  You see the duck pond here.  To the south is an outdoor stage, and
 east is the fortune teller's tent.  You can also go west or southwest to the
 midway.
 
-People attending the circus are laughing, talking, eating cotton candy.  Kids
-are running around, giggling.  You smell the freshly roasted peanuts being
-sold by the food vendor.
+A mother is wiping mustard from her son's face while her husband fiddles with
+a video camera.  A little girl is playing with a stuffed animal won on the
+midway.  A woman wearing too much perfume walks past and you catch a whif.
 
-"Stuffed animals galore!" the carny says. "Just one token, play duck pond!"
-A carny is here, working the duck pond game.
+"Big prizes!" the carny says. "Everyone's a winner!"  A carny is here,
+working the duck pond game.
 
 > w
 You move west.
@@ -428,11 +429,12 @@ token.  You can also go north to the entrance of the circus tent or southeast
 to the outdoor stage.  The midway continues to the east and south.
 
 People attending the circus are laughing, talking, eating cotton candy.
-Children are laughing with their parents.  The stench of a nearby trash
-receptacle drifts your way.
+Children are laughing with their parents.  The odor of pizza wafts its way
+over to you.
 
-"Win a Coke!" calls the carny. "Three tries for a token!"  Wemmie is here,
-counting tokens.  A carny is here, working the ring toss game.
+"Win a free Coke!" calls the carny. "Ring a bottle, win a Coke!"  Wemmie is
+here, looking at a plastic duck.  A carny is here, working the ring toss
+game.
 
 > n
 You move north.
@@ -441,8 +443,9 @@ Main Entrance
 You're at the entrance of the circus. There is a banner above the entrance,
 and a ticket booth with a sign on it. The midway is to the south.
 
-People are milling about, playing games.  Young kids are laughing at the
-clowns.  You smell freshly popped popcorn in the air.
+The townys are carrying the prizes they won at the games, while eating
+carnival food.  Children are laughing with their parents.  You think back on
+fond memories of baseball games as the aroma of hot dogs drifts over to you.
 
 There are seats to the northeast and northwest.  Due north is the center
 ring.  The vendor is here.  Marie is here, behind the ticket booth.
@@ -456,10 +459,10 @@ north is the back door, to the south is the main entrance, to the east and
 west you see bleachers.  Above you, mounted on a pole, is a platform where
 aerial performers launch from, which is accessed by climbing a ladder.
 
-Patrons are talking amongst themselves.  Young kids are laughing at the
-clowns.  You think back on fond memories of baseball games as the aroma of
-hot dogs drifts over to you.  Lance the ringmaster is here, announcing acts
-and working the crowd.  Lance withdraws to the east.
+People are milling about, playing games.  Young kids are laughing at the
+clowns.  The familiar odor of hot nachos wafts over to you.  Lance the
+ringmaster is here, announcing acts and working the crowd.  Lance walks out
+to the east.
 
 > n
 You move north.
@@ -468,9 +471,9 @@ Back door
 The back door is where the performers and animals enter the big top.  To the
 southeast and southwest you see bleachers, to the south is the center ring.
 
-People are milling about, playing games.  A little girl is playing with a
-stuffed animal won on the midway.  The stench of a nearby trash receptacle
-drifts your way.
+Patrons are talking amongst themselves.  Young kids are laughing at the
+clowns.  You think back on fond memories of baseball games as the aroma of
+hot dogs drifts over to you.
 
 > n
 You move north.
@@ -514,8 +517,8 @@ Backyard
 You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
-cages, to the east and west are trailers used as dressing rooms.  Barb
-sashays in from the north.
+cages, to the east and west are trailers used as dressing rooms.  Barb enters
+from the north.
 
 > n
 You move north.
@@ -524,7 +527,7 @@ Animal Cages
 This is where the animal cages are.  There is straw and sawdust on the ground
 here.  You see an elephant cage, a lion cage, a tiger cage, and a gorilla
 cage.  There is also a stable here.  The rear entrance to the big top is to
-your south, as are the dressing rooms.
+your south, as are the dressing rooms.  Pringles the monkey is here.
 
 > ask barb about tape
 Barb isn't here!
@@ -545,7 +548,7 @@ Barb isn't here!
 Barb isn't here!
 
 > ask barb about tape
-Barb isn't here!  Barb comes in from the south.
+Barb isn't here!  Barb slinks in from the south.
 
 > ask barb about tape
 "Oh, what's that doing there?" Barb says. She reaches into the lion cage and
@@ -554,16 +557,16 @@ retrieves the video tape. "Is this yours?"
 She hands you the video tape.
 
 > ask barb about tape
-Barb does not respond to your question.
+You have already done that.
 
 > ask barb about tape
-Barb does not respond to your question.
+You have already done that.
 
 > ask barb about tape
-Barb does not respond to your question.  Barb moves on to the south.
+You have already done that.  Barb strolls away to the south.
 
 > ask barb about tape
-Barb isn't here!
+You have already done that.
 
 > s
 You move south.
@@ -573,7 +576,7 @@ You're behind the circus tent, in an area where animals and performers
 prepare.  There is a lot of straw and sawdust on the ground here.  To the
 south is the backdoor to the big top.  To the north you see some animal
 cages, to the east and west are trailers used as dressing rooms.  Barb is
-here.  Barb exits to the west.
+here.  Barb moves on to the west.
 
 > s
 You move south.
@@ -582,9 +585,9 @@ Back door
 The back door is where the performers and animals enter the big top.  To the
 southeast and southwest you see bleachers, to the south is the center ring.
 
-People are milling about, playing games.  Children with hotdogs and
-glowsticks are nearby.  You smell the freshly roasted peanuts being sold by
-the food vendor.
+A mother is wiping mustard from her son's face while her husband fiddles with
+a video camera.  Children are laughing with their parents.  You smell freshly
+popped popcorn in the air.
 
 > s
 You move south.
@@ -595,10 +598,10 @@ north is the back door, to the south is the main entrance, to the east and
 west you see bleachers.  Above you, mounted on a pole, is a platform where
 aerial performers launch from, which is accessed by climbing a ladder.
 
-A mother is wiping mustard from her son's face while her husband fiddles with
-a video camera.  You see a young boy riding on his father's shoulders.  The
-familiar odor of hot nachos wafts over to you.  Lance the ringmaster is here,
-announcing acts and working the crowd.
+Patrons are talking amongst themselves.  A little girl is playing with a
+stuffed animal won on the midway.  The odor of the hot dogs in the air
+reminds you of when you were a kid.  Lance the ringmaster is here, announcing
+acts and working the crowd.
 
 > u
 You move up.
@@ -627,9 +630,9 @@ north is the back door, to the south is the main entrance, to the east and
 west you see bleachers.  Above you, mounted on a pole, is a platform where
 aerial performers launch from, which is accessed by climbing a ladder.
 
-A mother is wiping mustard from her son's face while her husband fiddles with
-a video camera.  Children are laughing with their parents.  The odor of pizza
-wafts its way over to you.
+The townys are carrying the prizes they won at the games, while eating
+carnival food.  Kids are running up and down the bleachers, giggling.  The
+stench of a nearby trash receptacle drifts your way.
 
 > n
 You move north.
@@ -639,8 +642,8 @@ The back door is where the performers and animals enter the big top.  To the
 southeast and southwest you see bleachers, to the south is the center ring.
 
 A mother is wiping mustard from her son's face while her husband fiddles with
-a video camera.  You see a young boy riding on his father's shoulders.  The
-odor of pizza wafts its way over to you.
+a video camera.  Children are laughing with their parents.  You think back on
+fond memories of baseball games as the aroma of hot dogs drifts over to you.
 
 > n
 You move north.
@@ -658,8 +661,8 @@ Animal Cages
 This is where the animal cages are.  There is straw and sawdust on the ground
 here.  You see an elephant cage, a lion cage, a tiger cage, and a gorilla
 cage.  There is also a stable here.  The rear entrance to the big top is to
-your south, as are the dressing rooms.  Barb is here.  Barb retreats to the
-south.
+your south, as are the dressing rooms.  Barb and Pringles the monkey are
+here.  Barb departs to the south.
 
 > use camera
 You film the animals with the video camera.  Wow, it seems your mission is a
