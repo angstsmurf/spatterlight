@@ -214,6 +214,9 @@ just been informed by Mr Ostinolypakalopodopous' lawyers that any more
 comments will result in a £95,000,000,000 lawsuit being brought against us.
 Oh, well, onto other news..."
 
+   The usual peaceful furore of the office is interrupted by a short, but
+violent, piece of humming from Ted.
+
 > call mertle
 You hear the sound of sighing down the corridor then the receptionist pops
 her head around the door.
@@ -231,9 +234,6 @@ just nod.
 Mr Ostinolypakalopodopous didn't hire you to paint the floor but you're sure
 he'll appreciate the gesture all the same. And it certainly looks more
 colourful after you've sloshed some paint onto it.
-
-   The usual peaceful furore of the office is interrupted by a short, but
-violent, piece of humming from Ted.
 
 > paint plant
 A few dabs of paint and the plant looks a bit more colourful.
@@ -341,6 +341,9 @@ victim and you're able to dispatch him with ease.
    "Blimey, boss," says Stan. "He wasn't the best employee in the world but
 couldn't you have just docked his pay instead?"
 
+   Ted begins to hum... but stops and goes very quiet the moment you look at
+him.
+
 > talk to ted
 "Ted!" you say. "You seem to be carrying a stapler!"
    Ted tries to shove said stapler into his pocket but as you've already seen
@@ -353,9 +356,6 @@ it he sighs and hands it over.
 with me on dates or anything."
    You look at him.
    Ted just looks embarrassed.
-
-   Ted begins to hum... but stops and goes very quiet the moment you look at
-him.
 
 > talk to ted
 "Ted!" you say. "You seem to be carrying a filofax!"
@@ -675,6 +675,9 @@ Time passes...
 > wait
 Time passes...
 
+> wait
+Time passes...
+
    "Well, well, what have we here?" booms a voice from the doorway and you
 glance over in surprise to see a hulking fellow there. He's big and
 brutal-looking and has an air of concealed violence about him. Yep,
@@ -711,9 +714,6 @@ floor where he had fallen, and continues the questioning.
 simple yes or ow will suffice."
    You frown. "Don't you mean yes or no?"
    "I know what I mean."
-
-> wait
-Time passes...
 
 > wait
 Time passes...

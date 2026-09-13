@@ -157,7 +157,6 @@ Directly under the bridge is cold and muddy.  Your feet sink at least a
 couple of inches with each step, leading you to believe it's not so dry of a
 creek after all.  You can cross the creek to the east or west.  A big fat
 ugly troll is here.
-A Troll attacks you with the bar, but you manage to avoid it.
 
 > x troll
 The Troll is uglier than most, and seems very nasty.  Troll is carrying a
@@ -165,11 +164,12 @@ rusty key and a bar.
 
 > attack troll
 You stab a Troll with the sword.
-
-Troll falls down, dead.
+A Troll attacks you with the bar, but you manage to avoid it.
 
 > attack troll
-Troll isn't here!
+You stab a Troll with the sword.
+
+Troll falls down, dead.
 
 > attack troll
 Troll isn't here!
@@ -365,6 +365,9 @@ You've given the diamond ring to Trabula!  He rewards you handsomly.
 
 > give gold to trabula
 You've given the gold coins to Trabula!  He rewards you handsomly.
+
+> score
+Your score is 125 out of a maximum of 125.  (100%)
 
 > quit
 Do you really want to quit? [Y/N]

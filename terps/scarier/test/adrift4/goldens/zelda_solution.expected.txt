@@ -841,7 +841,8 @@ move.
 
 "Excellent choice, sir. You'll be very happy with your new mask." The
 shopkeeper hands you the Ganon Mask.
-The shopkeeper polishes the display case glass.
+The shopkeeper pulls an ocarina from his pocket and plays a familiar sounding
+tune.
 
 > wear ganon mask
 You put on the Ganon mask.

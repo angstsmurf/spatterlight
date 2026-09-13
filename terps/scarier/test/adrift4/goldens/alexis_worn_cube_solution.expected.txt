@@ -38,9 +38,6 @@ a diary, a brass lantern, a woven cloak and some nice food.
 You take the diary, the brass lantern, the woven cloak and the nice food from
 the old oak table.
 
-> wear cloak
-You put on the woven cloak.
-
 > down
 You move down.
 
@@ -54,9 +51,6 @@ of oil is on the shelves.
 
 > get all from shelves
 You take the bottle of oil from the shelves.
-
-> take coin
-You pick up the gold coin and put it in your purse.
 
 > up
 You move up.
@@ -93,40 +87,12 @@ water in the distance.  You can also see the Tonerith stone.  There is a grey
 wolf circling you.
 A grey wolf hits you, but it doesn't seem to do any damage.
 
-> attack wolf
-You hit a grey wolf.
-A grey wolf hits you, but it doesn't seem to do any damage.
-
-> attack wolf
-You hit a grey wolf.
-
 > take tonerith stone
 You pick up the Tonerith stone.
+A grey wolf hits you, but it doesn't seem to do any damage.
 
 > west
 You move west.
-
-Outside Cottage
-The gentle wind wafts through your hair as you start your adventure. You are
-standing in front of an old cottage. A well trodden path leads north up the
-hills of Forecarn, while another leads west into Dusteron. Due East of here
-runs a wide path that cuts into Tonerith.
-
-> north
-You move north.
-
-Hills of Forecarn
-The large green hills of Forecarn, roll out all around. The cool breeze
-sweeps across your face. From the top of this hill, you can see that the path
-lies Northeast. However, another hill blocks your view of where the path
-leads, but you can here the sound of rushing water from that direction. South
-will take you to a cottage.  You can also see a small sword.
-
-> take small sword
-You pick up the small sword.
-
-> south
-You move south.
 
 Outside Cottage
 The gentle wind wafts through your hair as you start your adventure. You are
@@ -214,23 +180,6 @@ is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.  Narfild is here.
-The large troll hits you with the large club, but it doesn't seem to do any
-damage.
-
-> attack narfild
-You cut the large troll with the small sword.
-
-> attack narfild
-You cut the large troll with the small sword.
-The large troll hits you with the large club, but it doesn't seem to do any
-damage.
-
-> attack narfild
-You cut the large troll with the small sword.
-
-> attack narfild
-You cut the large troll with the small sword.
-Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
 
 > e
 You move east.
@@ -261,9 +210,10 @@ Main Cave
 This cave is huge and the walls glitter with the water trickling down. There
 is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
-Southeast takes you down a straight passage.  There is a huge troll stretched
-out across the floor. He has large scratches all over his body.  Also here
-are some grotty rags and a large club.
+Southeast takes you down a straight passage.  The path northwest is being
+blocked by a large troll.  Narfild is here.
+The large troll hits you with the large club, but it doesn't seem to do any
+damage.
 
 > w
 You move west.
@@ -302,21 +252,30 @@ with a square cave to the West.
 You move east.
 
 Main Cave
-This cave is huge and the walls glitter with the water trickling down. There
-is a musty smell that fills the air. There is a large cave east of here and a
-smaller one to the west. Northwest takes you into a winding passage.
-Southeast takes you down a straight passage.  There is a huge troll stretched
-out across the floor. He has large scratches all over his body.  Also here
-are some grotty rags and a large club.
+It is too dark to see.
+The large troll hits you with the large club, but it doesn't seem to do any
+damage.
+
+> attack narfild
+You hit the large troll with the metal spade.
+
+> attack narfild
+You hit the large troll with the metal spade.
+The large troll hits you with the large club, but it doesn't seem to do any
+damage.
+
+> attack narfild
+You hit the large troll with the metal spade.
+
+> attack narfild
+You hit the large troll with the metal spade.
+Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
 
 > nw
 You move northwest.
 
 Winding passage
-The passage winds through the caves of eternal night and it appears to be
-getting lighter. The floor is covered in puddles of water from the water
-dripping down the walls. Northwest will take you out of the cave. Southeast
-will take you to a large area of the caves.
+It is too dark to see.
 
 > nw
 You move northwest.
@@ -586,22 +545,23 @@ A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
 seem to do any damage.
 
 > attack goblin
-You cut a forest dwelling goblin with the small sword.
+You hit a forest dwelling goblin with the metal spade.
 A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
 seem to do any damage.
 
 > attack goblin
-You cut a forest dwelling goblin with the small sword.
+You hit a forest dwelling goblin with the metal spade.
+A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
+seem to do any damage.
+The birds high above your head hoot and cheep to each other.
+
+> attack goblin
+You hit a forest dwelling goblin with the metal spade.
 A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
 seem to do any damage.
 
 > attack goblin
-You cut a forest dwelling goblin with the small sword.
-A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
-seem to do any damage.
-
-> attack goblin
-You cut a forest dwelling goblin with the small sword.
+You hit a forest dwelling goblin with the metal spade.
 The Goblin drops from the tree and lands on the floor. Then, it's little body
 shrivels and turns to dust, it is then blown away by the light wind.
 
@@ -653,32 +613,32 @@ A swamp monster stabs you with the pointy stick, but it doesn't seem to do
 any damage.
 
 > attack monster
-You cut a swamp monster with the small sword.
+You hit a swamp monster with the metal spade.
 A swamp monster stabs you with the pointy stick, but it doesn't seem to do
 any damage.
 
 > attack monster
-You cut a swamp monster with the small sword.
+You hit a swamp monster with the metal spade.
 A swamp monster stabs you with the pointy stick, but it doesn't seem to do
 any damage.
 
 > attack monster
-You cut a swamp monster with the small sword.
+You hit a swamp monster with the metal spade.
 A swamp monster stabs you with the pointy stick, but it doesn't seem to do
 any damage.
 
 > attack monster
-You cut a swamp monster with the small sword.
+You hit a swamp monster with the metal spade.
 A swamp monster stabs you with the pointy stick, but it doesn't seem to do
 any damage.
 
 > attack monster
-You cut a swamp monster with the small sword.
+You hit a swamp monster with the metal spade.
 A swamp monster stabs you with the pointy stick, but it doesn't seem to do
 any damage.
 
 > attack monster
-You cut a swamp monster with the small sword.
+You hit a swamp monster with the metal spade.
 The swamp monster slowly melts into the marsh. It then dissapears.
 
 > ne
@@ -741,15 +701,15 @@ head.
 A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
-You cut a large eagle with the small sword.
+You hit a large eagle with the metal spade.
 A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
-You cut a large eagle with the small sword.
+You hit a large eagle with the metal spade.
 A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
-You cut a large eagle with the small sword.
+You hit a large eagle with the metal spade.
 The eagle makes a last flap of it's enormous wings and falls deep into the
 ravine out of view.
 
@@ -916,21 +876,22 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Haron
 follows you from the south.
-The dark knight cuts Haron with the blade from Uron.
-
-> attack larnt
-You cut the dark knight with the small sword.
 Haron cuts the dark knight with the elven sword.
-The dark knight cuts Haron with the blade from Uron.
-
-> attack larnt
-You cut the dark knight with the small sword.
 The dark knight cuts you with the blade from Uron, but it doesn't seem to do
 any damage.
 
 > attack larnt
-You cut the dark knight with the small sword.
+You hit the dark knight with the metal spade.
+The dark knight cuts you with the blade from Uron, but it doesn't seem to do
+any damage.
+
+> attack larnt
+You hit the dark knight with the metal spade.
 Haron cuts the dark knight with the elven sword.
+The dark knight cuts Haron with the blade from Uron.
+
+> attack larnt
+You hit the dark knight with the metal spade.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -1066,33 +1027,34 @@ the North.  Haron follows you.
 As you pass through the door, Urgorn creates a spell that shuts the exit to
 the South. He then smiles, and says:
  Just us now, no escape.  Haron follows you from the south.
-
-> attack urgorn
-You cut the dark lord with the small sword.
 Haron cuts the dark lord with the elven sword.
 The dark lord shoots Haron with the ball of fire.
 
 > attack urgorn
-You cut the dark lord with the small sword.
+You hit the dark lord with the metal spade.
 
 > attack urgorn
-You cut the dark lord with the small sword.
+You hit the dark lord with the metal spade.
 Haron cuts the dark lord with the elven sword.
 
 > attack urgorn
-You cut the dark lord with the small sword.
+You hit the dark lord with the metal spade.
 
 > attack urgorn
-You cut the dark lord with the small sword.
+You hit the dark lord with the metal spade.
 Haron cuts the dark lord with the elven sword.
-The dark lord shoots Haron with the ball of fire.
+The dark lord shoots you with the ball of fire, but it doesn't seem to do any
+damage.
 
 > attack urgorn
-You cut the dark lord with the small sword.
+You hit the dark lord with the metal spade.
 
 > attack urgorn
-You cut the dark lord with the small sword.
+You hit the dark lord with the metal spade.
 Haron cuts the dark lord with the elven sword.
+
+> attack urgorn
+You hit the dark lord with the metal spade.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the

@@ -142,6 +142,7 @@ sink, mirror, and this one happens to have a shower.  The walls appear as if
 they are being shook by a small earthquake.
 
 You can move west and in.
+You hear the trains whistle blow loudly.
 
 > w
 You move west.
@@ -152,7 +153,7 @@ corridor.  Also here is a sign.  The walls appear as if they are being shook
 by a small earthquake.
 
 You can move north, east, south and west.
-You hear the trains whistle blow loudly.
+You are thrown backward as the train begins to pull away from the station.
 
 > s
 You move south.
@@ -165,12 +166,11 @@ booth with a large table.  The walls appear as if they are being shook by a
 small earthquake.
 
 You can only move north.
-You are thrown backward as the train begins to pull away from the station.
+You feel the vibration of the train as it slowly picks up speed. A low rumble
+can be heard from the advancing train.
 
 > read menu
 You gaze at the menu.
-You feel the vibration of the train as it slowly picks up speed. A low rumble
-can be heard from the advancing train.
 
 > take spoon
 For some reason you feel compelled to take the spoon from the table.
@@ -228,7 +228,6 @@ conductor and the waiter to dump Igotta Bigbottom in the bathroom that is out
 of order.
 The train begins to slow. You are sure that you must be arriving in
 Hopeimakeit.
-The train whistle blows loudly, causing a slight ringing in your ears.
 
 > n
 You move north.
@@ -242,6 +241,7 @@ out the window and see the station getting larger as you approach.
 
 You can move north and south.  Ivanna Stiffdrink walks towards you from the
 south.
+The train whistle blows loudly, causing a slight ringing in your ears.
 
 > n
 You move north.
@@ -253,17 +253,19 @@ out the window and see the station getting larger as you approach.
 
 You can move north, east, south and west.  Ivanna Stiffdrink walks towards
 you from the south.
-You lunge slightly to counteract the force of the train coming to a stop.
 
 > n
 You move north.
 
 Compartment C
 This car is full of berths. There are berths that line the corridor on both
-sides. The berths are small bunks with curtains to provide privacy.
+sides. The berths are small bunks with curtains to provide privacy.  You take
+a quick look out the window and see the station getting larger as you
+approach.
 
 You can move north, east, south, west and up.  Ivanna Stiffdrink walks
 towards you from the south.
+You lunge slightly to counteract the force of the train coming to a stop.
 
 > n
 You move north.
@@ -349,8 +351,10 @@ nev...er.......w..w..wanted  it...to  be like.....th...this. Sh....Shh....She
 is in....An....Anita....is in the......" With her last ounce of strength, she
 looks at you with caring eyes. Or maybe drunken eye's.  Ivanna goes limp in
 your arms.  Moments later Habibo  takes Ivanna's lifeless body away.
-You look at Ivanna, and shove her to the ground. She screams in horror as the
-bullets leave holes in the side of the Booze barn.
+Using your body as a shield, you cover Ivanna, and try to stay low to the
+ground.
+As the accelerates around the corner, you check to make sure neither of you
+were hit.  Ivanna wasn't so lucky.
 
 > w
 You move west.

@@ -229,9 +229,6 @@ toast supposing origins in Las Vegas, Nevada)
 
 Clathering is here, attempting to solve some conundrum.
 
-"Ah," Clathering whispers to himself, "but then that could be
-tautological..."
-
 > give tome to clathering
 "Why, I say!  How serendipitously useful," says Clathering.  "Would you hold
 onto this for me while a give it a read?"
@@ -261,11 +258,10 @@ This is the solemn home of the great and wise Elder Moose where from out of
 the void-space before the Great Antlered One hovers the revered wooden tub.
 The only way out is to ascend to some old state of being.
 
+The Great Antlered One ruminates on something far off in the void.
+
 > put gold coin in tub
 You put the gold coin inside the revered wooden tub.
-
-Elder Moose brushes its antlers on the void resulting in a brief musical
-sound.
 
 > put spirits in tub
 You put the non-descript alcoholic beverage inside the revered wooden tub.

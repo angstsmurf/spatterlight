@@ -548,6 +548,9 @@ laboratories to the east and west of this location.
 
 Waterfall has entered before you and cleared out any flames.
 
+A large ember falls from the ceiling, lighting up the floor, but Waterfall
+quickly puts the fire out.
+
 > s
 You move south.
 
@@ -564,8 +567,6 @@ the source of funding. Still, as long as there is money, there are no
 complaints.
 
 Waterfall has entered before you and cleared out any flames.
-
-Waterfall searches the area to make sure no flames are sneaking in.
 
 > w
 You move west.
@@ -618,6 +619,9 @@ complaints.
 
 Waterfall has entered before you and cleared out any flames.
 
+A large ember falls from the ceiling, lighting up the floor, but Waterfall
+quickly puts the fire out.
+
 > n
 You move north.
 
@@ -664,9 +668,6 @@ objects.
 
 Waterfall has entered before you and cleared out any flames.
 
-You try to thank Waterfall for her help, but she just tells you that it is
-fine, but please hurry up.
-
 > n
 You move north.
 
@@ -706,6 +707,9 @@ Waterfall has entered before you and cleared out any flames.
 You crack the whip in the direction of the mouse and cabinet. Somehow you are
 lucky and the whip wraps around the toy mouse. You pull the whip back and
 take possession of the mouse.
+
+A small piece of the ceiling falls down and Waterfall knocks it away with a
+spurt of water.
 
 > w
 You move west.
@@ -2098,6 +2102,40 @@ them. The imp smiles and tells you that it is time to fight.
 
 (Press a key)
 
+The imp launches itself at you, spinning as it flies. Coming out of the spin,
+it morphs into a chain that swings down in your direction.
+
+What do you want to turn your hand into?
+1 - crowbar
+2 - thin shield
+3 - hook
+4 - knife
+5 - baseball bat
+
+> 3
+The chain swings down, but you swing the hook simultaneously to catch it. You
+throw the chain away, and it skids across the floor, reverting into a hand.
+
+The hand lands in the hallway, and you quickly follow. The hand soon turns
+back into the imp.
+
+The imp flies at you, turning into a baseball in mid-flight. The little wings
+remain on the ball and flap wildly, as it launches itself at you at speed.
+
+What do you want to turn your hand into?
+1 - crowbar
+2 - thin shield
+3 - (retain hook)
+4 - knife
+5 - baseball bat
+
+> 5
+You swing the baseball bat at the ball and smash it as hard as you can. The
+ball turns into a hand in mid-air.
+
+The hand lands in the main room, and you quickly follow. The hand soon turns
+back into the imp.
+
 The imp flies towards you, and suddenly shifts into a swinging crowbar. The
 small wings remain and help give the crowbar momentum as it swings in your
 direction.
@@ -2107,7 +2145,7 @@ What do you want to turn your hand into?
 2 - thin shield
 3 - hook
 4 - knife
-5 - baseball bat
+5 - (retain baseball bat)
 
 > 1
 You smash the imp's crowbar with your own crowbar. The imp gives way
@@ -2115,7 +2153,8 @@ slightly, as your larger body means that you can put more weight behind the
 blow. The two weapons clash again and this time you knock the imp to the
 ground, where it reverts to a hand. You kick the hand away.
 
-The hand lands in the hallway, and you quickly follow. The hand soon turns
+The blue hand bounces off the closed glass door to the balcony. You open the
+door, and kick the hand outside. As you enter the balcony, the hand turns
 back into the imp.
 
 The imp moves in your direction before turning into a lasso. Propelled by the
@@ -2124,59 +2163,6 @@ small wings, the lasso swings to try to catch you.
 What do you want to turn your hand into?
 1 - (retain crowbar)
 2 - thin shield
-3 - hook
-4 - knife
-5 - baseball bat
-
-> 4
-The lasso loops over the knife, but before it can tighten around your arm,
-you swing the knife downwards. It slices cleanly through the rope of the
-lasso. The lasso falls useless to the ground, where it reverts to a hand. You
-kick the hand away.
-
-The hand lands in the main room, and you quickly follow. The hand soon turns
-back into the imp.
-
-The imp launches itself at you, spinning as it flies. Coming out of the spin,
-it morphs into a chain that swings down in your direction.
-
-What do you want to turn your hand into?
-1 - crowbar
-2 - thin shield
-3 - hook
-4 - (retain knife)
-5 - baseball bat
-
-> 3
-The chain swings down, but you swing the hook simultaneously to catch it. You
-throw the chain away, and it skids across the floor, reverting into a hand.
-
-The blue hand bounces off the closed glass door to the balcony. You open the
-door, and kick the hand outside. As you enter the balcony, the hand turns
-back into the imp.
-
-The imp turns into a bird. It looks in your direction with a vicious glare,
-and then dives towards you, aiming its sharp beak to hit you.
-
-What do you want to turn your hand into?
-1 - crowbar
-2 - thin shield
-3 - (retain hook)
-4 - knife
-5 - baseball bat
-
-> 2
-The shield blocks the bird each time it tries to come near you. Eventually it
-gives up and turns back into the blue imp. The shield looks a bit weak after
-the impact and it would not be a good idea to keep using it. You have trouble
-morphing your hand into a large enough shield, as you have size limitations.
-
-The imp moves in your direction before turning into a lasso. Propelled by the
-small wings, the lasso swings to try to catch you.
-
-What do you want to turn your hand into?
-1 - crowbar
-2 - (retain thin shield)
 3 - hook
 4 - knife
 5 - baseball bat
@@ -3121,6 +3107,9 @@ views. The hallway leads to the south.
 
 The imp continues to follow you.  The clay dog follows you from the south.
 
+The imp reverts into a hand and crashes to the ground. It soon turns back
+into its normal form and flies back up.
+
 > d
 The clay dog cannot climb the ladder.
 
@@ -3136,9 +3125,6 @@ that way for the time being. This room is a little damp from the water that
 flooded in when you entered this room through that door earlier.
 
 The imp continues to follow you.
-
-The imp pulls a face at you and with its Mould powers, it isn't a pleasant
-face.
 
 > d
 You move down.
@@ -3197,6 +3183,8 @@ easier and quicker though. The exit to the lift is to the west.
 
 The imp continues to follow you.
 
+The imp says, "I'm getting bored here. Do something silly."
+
 > u
 You move up.
 
@@ -3232,8 +3220,6 @@ EMERGENCY OPEN.
 
 The imp continues to follow you.
 
-The imp laughs for some unknown reason.
-
 > mould
 What do you want to turn into?
 1 - dwarven axe-wielder
@@ -3263,6 +3249,9 @@ hidden under the machine. Someone must have lost it there.
 After you push the button, the door opens.
 
 The clay dog rushes down the hallway through the open door to greet you.
+
+The imp pulls a face at you and with its Mould powers, it isn't a pleasant
+face.
 
 > n
 You move north.

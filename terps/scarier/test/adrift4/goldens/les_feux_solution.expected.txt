@@ -31,11 +31,11 @@ survivre jusqu'à ce que vous le rencontriez. Plus facile à dire qu'à faire...
 les caractéristiques de votre personnage:
 
 Mise à jour de vos points de compétence...
-Points de Compétence: 11
+Points de Compétence: 12
 Mise à jour de vos points d'endurance...
-Points d'endurance: 23
+Points d'endurance: 20
 Mise à jour de vos points de chance...
-Points de chance: 11
+Points de chance: 7
 
 Tapez "statut" ou "stat" a tout moment pour voir les caractéristiques de
 votre personnage.
@@ -278,12 +278,12 @@ Vous pouvez seulement vous déplacer vers l'Ouest.
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
-Vous tranchez l'assassin avec une épée longue.
+L'assassin se débrouille a  échapper à votre attaque avec une épée longue.
 
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
-L'assassin se débrouille a  échapper à votre attaque avec une épée longue.
+Vous tranchez l'assassin avec une épée longue.
 
 Vous arrivez à éviter le poignard de l'assassin.
 
@@ -408,6 +408,13 @@ Vous arrivez à éviter l'attaque de l'ogre.
 Des cris strident retentissent...
 
 > attack ogre
+L'ogre se débrouille a  échapper à votre attaque avec une épée longue.
+
+Vous arrivez à éviter l'attaque de l'ogre.
+
+Des cris strident retentissent...
+
+> attack ogre
 Vous tranchez un ogre avec une épée longue.
 
 Vous arrivez à éviter l'attaque de l'ogre.
@@ -417,11 +424,6 @@ Des cris strident retentissent...
 > attack ogre
 Vous tranchez un ogre avec une épée longue.
 Votre coup est fatal pour l'ogre qui s'éffondre sur le sol.
-
-Des cris strident retentissent...
-
-> attack ogre
-ogre n'est pas la!
 
 Des cris strident retentissent...
 
@@ -501,25 +503,13 @@ Vous arrivez à éviter l'attaque de la goule.
 Des cris strident retentissent...
 
 > attack goule
-Vous tranchez une goule avec une épée longue,
-mais cela ne fait aucun domage.
-
-Vous arrivez à éviter l'attaque de la goule.
-
-Des cris strident retentissent...
-
-> attack goule
-Vous tranchez une goule avec une épée longue.
-
-Vous arrivez à éviter l'attaque de la goule.
-
-Des cris strident retentissent...
-
-> attack goule
 Vous tranchez une goule avec une épée longue.
 Vous frappez la goule violemment en plein coeur !
 elle retombe lourdement sur le sol, morte...
 Vous sentez que la chance est de votre coté...
+
+> attack goule
+goule n'est pas la!
 
 > n
 Vous vous déplacez vers le nord.
@@ -553,6 +543,23 @@ Vous tranchez un démon avec une épée longue.
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > attack demon
+Vous tranchez un démon avec une épée longue.
+
+Vous arrivez à éviter l'attaque du démon d'éffroi.
+
+> attack demon
+Vous tranchez un démon avec une épée longue,
+mais cela ne fait aucun domage.
+
+Vous arrivez à éviter l'attaque du démon d'éffroi.
+
+> attack demon
+Vous tranchez un démon avec une épée longue,
+mais cela ne fait aucun domage.
+
+Vous arrivez à éviter l'attaque du démon d'éffroi.
+
+> attack demon
 Vous tranchez un démon avec une épée longue,
 mais cela ne fait aucun domage.
 
@@ -568,6 +575,9 @@ Vous tranchez un démon avec une épée longue.
 Le démon d'éffroi s'éffondre sur le sol et disparaît dans
 un nuage de fumée rouge. Ce qui reste du Démon est sur le sol, sur les murs,
 et sur vous. La chance vous sourit...
+
+> attack demon
+demon n'est pas la!
 
 > n
 Vous tirez votre épée durcie de sang et entrez prudemment. Vous n'êtes pas le
@@ -675,6 +685,17 @@ Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 Vous tranchez un voyou avec une épée longue.
+
+Vous arrivez à éviter l'attaque du voyou.
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
+
+> attack voyou
+Vous tranchez un voyou avec une épée longue.
 Le voyou du chaos s'écroule par terre dans une marre de sang.
 
 Vous arrivez à éviter l'attaque du voleur.
@@ -685,6 +706,16 @@ Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 voyou n'est pas la!
+
+Vous arrivez à éviter l'attaque du voleur.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
+
+> attack voleur
+Vous tranchez un voleur avec une épée longue,
+mais cela ne fait aucun domage.
 
 Vous arrivez à éviter l'attaque du voleur.
 
@@ -713,6 +744,13 @@ Vous arrivez à éviter l'attaque du truant.
 > attack voleur
 Vous tranchez un voleur avec une épée longue.
 Le voleur du chaos tombe raide mort sur le sol.
+
+Vous arrivez à éviter l'attaque du skinned.
+
+Vous arrivez à éviter l'attaque du truant.
+
+> attack voleur
+voleur n'est pas la!
 
 Vous arrivez à éviter l'attaque du skinned.
 
@@ -1067,6 +1105,16 @@ Vous accrocher la corde sur le grappin.
 > throw grappin on rocher
 Vous lancez le grappin sur l'autre rebord et essayez de viser le rocher...
 
+Le grappin s'élève dans les airs, tournoit quelques instant puis
+rejoint l'autre bord. Manque de peau il tape à coté du rocher
+et tombe dans le vide...
+
+D'un geste rapide, vous tirez la corde en arrière et remonter
+le grappin.
+
+> throw grappin on rocher
+Vous lancez le grappin sur l'autre rebord et essayez de viser le rocher...
+
 Le grappin s'élève dans les airs, restant bien dans l'axe du rocher
 qui se trouve sur l'autre rebord. D'un coup sec il s'accroche et se
 fixe sur les aspérités de la pierre.
@@ -1102,9 +1150,6 @@ aléatoirement.
 Vous pouvez aussi "charger" une partie sauvegarder, si vous pensez n'avoir
 pas fait
 toutes les pièces, où alors tout simplement "quitter" pour fermer le jeu.
-
-> throw grappin on rocher
-Je ne comprends pas ce que vous voulez faire avec un grappin.
 
 > throw grappin on rocher
 Je ne comprends pas ce que vous voulez faire avec un grappin.

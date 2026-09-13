@@ -27,5 +27,8 @@ collapsed, others are just on the verge of collapsing.  Nekar is here.
 
 You can move east and south.
 
+> score
+Your score is 0 out of a maximum of 373.  (0%)
+
 > quit
 Do you really want to quit? [Y/N]

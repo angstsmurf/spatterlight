@@ -970,6 +970,7 @@ Front Yard
 This is the front yard of Selma's house. The grass is brown, and near dead.
 Mr. Lewis is waiting for the Will.  You can tell by the pinkish reflection on
 the walls that the sun is setting, FAST!
+Your heart is beating, and you begin to sweat profusely.
 
 > look
 

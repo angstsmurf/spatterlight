@@ -20,14 +20,14 @@ Version 1.00, 2005
 > 1
 
 Roof of the Building
-You are on the roof of the art nouveau Atlantic Bank Building, which has 16
-floors and was built around 5 years ago. A strong wind is blowing from the
-northwest and it looks like it could easily rain this morning. A large
-antenna is whipping in the wind to your right and the air conditioning
-equipment in front of you is making a very loud noise. Just at your feet is
-the closed door leading down to the roof exit. You can go north, northeast,
-east, southeast, south, southwest, west, northwest and down.  A dirty, smelly
-old tramp is lying on the floor.
+You are on the roof of the retro Global Building, which has 15 floors and was
+built around 6 years ago. A strong wind is blowing from the west and it looks
+like it could easily rain sometime today. A large antenna is whipping in the
+wind to your right and the air conditioning equipment in front of you is
+making a very loud noise. Just at your feet is the closed door leading down
+to the roof exit. You can go north, northeast, east, southeast, south,
+southwest, west, northwest and down.  A dirty, smelly old tramp is lying on
+the floor.
 
 > x me
 You are as well as can be expected, considering the circumstances.  You are
@@ -43,36 +43,36 @@ He continues, "Are you up here to carry out some maintenance work?"
 "Get lost old man," you reply.
 
 > read paper
-Mystery, the name of your target is Jerry Porter.
+Mayer, the name of your target is Terry Allen.
 Your target can be recognised by the following description (no photograph
 unfortunately) -
-He is known to love speed and is very keen on motorbikes. Lost an arm in an
-accident two years ago, it does not state which one.
-He is also known to favour wearing boots, which is an odd fact to be given.
-Unconfirmed sighting in the mobile phone part of town.
-The fee is $156,000; to be paid in the usual manner.
+He always seems to wear jeans, is of normal build but has a very large hooked
+nose.
+He is also known to favour wearing shoes, which is an odd fact to be given.
+Unconfirmed sighting in the restaurant part of town.
+The fee is $169,000; to be paid in the usual manner.
 
-You are a little concerned about the poor description Franklin has given you.
- Without a photo you are hoping that not too many people today have a missing
-arm.
-You can hear the sounds of the traffic below.
+You are a little concerned about the poor description Lee has given you.
+Without a photo you are hoping that not too many people today have a large
+nose.
+A large airplane roars overhead, you are very close to the airport here.
 
 > read map
    /\
 North
 
-                                        Bailey Road (food)
+                                        Bridge Street (elect)
 
-                Middle Street (mobile)                        Windsor Road
-(animals)
-
-Mill Road (art)
- Bridge Street (elect)
-
-                Cambridge Road (gold)                        Lombard Street
+                Windsor Road (animals)                        Lombard Street
 (bank)
 
-                                        Grange Street (insurance)
+Bailey Road (food)
+    Grange Street (insurance)
+
+                Middle Street (mobile)                        Cambridge Road
+(gold)
+
+                                        Mill Road (art)
 
 The tramp asks, "Are you up here to clean the windows?"
 "Get lost old man," you reply.
@@ -102,10 +102,10 @@ You take the badge.
 
 > x badge
 It is a police badge, the tramp must have been an undercover policeman.
-Somewhere in the distance you can hear a fire engine.
 
 > get radio
 You take the radio.
+A small flock of birds, probably pigeons, fly overhead.
 
 > turn on radio
 You turn on the police radio.
@@ -137,21 +137,20 @@ You take the camera.
 You move south.
 
 South end of the roof
-You are at the southern end of the building which overlooks Grange Street.
-In front of you is a low brick wall and as you examine below it seems to be
-the insurance part of town. The various buildings around you generate little
-interest. From here you can go north.  A man is below you, standing in the
-street.
-You can hear a police car; you stand still for a moment but it seems to be
-heading away.
+You are at the southern end of the building which overlooks Mill Road.  In
+front of you is a low brick wall and as you examine below it seems to be the
+art gallery part of town. The various buildings around you generate little
+interest. From here you can go north.  Below, you can see a man standing in
+the street.
 
 > x man
-Using the scope of the gun you can see that he is wearing a brown jacket. He
-also has on white chinos and a pair of leather riding boots on his feet. He
-has grey thinning hair and a base up triangular shaped face. With light
-stubble, he is a tall and thin build and you notice that he has only one arm.
-He is holding a book. At the moment he is changing his weight from one foot
-to the other.
+Using the scope of the gun you can see that he is wearing an open navy coat
+and has a paint-spattered t-shirt underneath. He also has on white chinos and
+a pair of black winklepickers on his feet. He has ginger neatly cut hair and
+a base down triangular shaped face. With a bushy beard, he is a tall and
+flabby build and you notice that he has an extremely large nose. He is
+holding a small brown cardboard box. At the moment he looking up at this
+building.
 
 > shoot man
 Using the scope of the gun you target the man, at the same time moving your
@@ -164,6 +163,8 @@ Your target has collapsed to the ground.  Looks like it is time to leave.
 
 Something hits the roof making a 'ffutt' sound. Looking around quickly you
 say aloud, "Hey! That sounded like a bullet?"
+You can hear a police car; you stand still for a moment but it seems to be
+heading away.
 
 > throw camera
 You throw the camera over the wall and it disappears out of sight.
@@ -173,69 +174,67 @@ Someone has stopped and is looking at the body.
 You throw the radio over the wall and it disappears out of sight.
 Someone has stopped and is looking at the body.
 
+Something hits the roof making a 'ffutt' sound.
+
 > n
 You move north.
 
 Roof of the Building
-You are on the roof of the art nouveau Atlantic Bank Building, which has 16
-floors and was built around 5 years ago. A strong wind is blowing from the
-northwest and it looks like it could easily rain this morning. A large
-antenna is whipping in the wind to your right and the air conditioning
-equipment in front of you is making a very loud noise. Just at your feet is
-the closed door leading down to the roof exit. You can go north, northeast,
-east, southeast, south, southwest, west, northwest and down.  The body of a
-dead undercover policeman is lying here.
-
-Something hits the roof making a 'ffutt' sound.
-You can see a helicopter in the distance.
+You are on the roof of the retro Global Building, which has 15 floors and was
+built around 6 years ago. A strong wind is blowing from the west and it looks
+like it could easily rain sometime today. A large antenna is whipping in the
+wind to your right and the air conditioning equipment in front of you is
+making a very loud noise. Just at your feet is the closed door leading down
+to the roof exit. You can go north, northeast, east, southeast, south,
+southwest, west, northwest and down.  The body of a dead undercover policeman
+is lying here.
 
 > sw
 You move southwest.
 
 Southwest end of the roof
-You are at the southwest end of the building which overlooks Cambridge Road.
+You are at the southwest end of the building which overlooks Middle Street.
 In front of you is a low brick wall and as you examine below it seems to be
-the gold centre part of town. None of the buildings around you arouse any
+the mobile phone part of town. None of the buildings around you arouse any
 interest. From here you can go north and northeast.  A 9mm round for your
-JK54 rifle is lying on the floor.  Below, you can see a man standing in the
-street.
+JK54 rifle is lying on the floor.  You can see a man standing in the street,
+below.
 
 > get bullet
 You pickup the 9mm round and load it into your weapon.
 
-In a moment of weakness you let your mind wander, and a piece of information
-from your training surfaces -
-"Line of departure - this is the path the bullet would take without gravity."
-You shake your head and tell yourself to concentrate.
+Something hits the roof making a 'ffutt' sound.
 
 > ne
 You move northeast.
 
 Roof of the Building
-You are on the roof of the art nouveau Atlantic Bank Building, which has 16
-floors and was built around 5 years ago. A strong wind is blowing from the
-northwest and it looks like it could easily rain this morning. A large
-antenna is whipping in the wind to your right and the air conditioning
-equipment in front of you is making a very loud noise. Just at your feet is
-the closed door leading down to the roof exit. You can go north, northeast,
-east, southeast, south, southwest, west, northwest and down.  The body of a
-dead undercover policeman is lying here.
-
-Something hits the roof making a 'ffutt' sound.
+You are on the roof of the retro Global Building, which has 15 floors and was
+built around 6 years ago. A strong wind is blowing from the west and it looks
+like it could easily rain sometime today. A large antenna is whipping in the
+wind to your right and the air conditioning equipment in front of you is
+making a very loud noise. Just at your feet is the closed door leading down
+to the roof exit. You can go north, northeast, east, southeast, south,
+southwest, west, northwest and down.  The body of a dead undercover policeman
+is lying here.
 
 > nw
 You move northwest.
 
 Northwest end of the roof
-You are at the northwest end of the building which overlooks Middle Street.
+You are at the northwest end of the building which overlooks Windsor Road.
 In front of you is a low brick wall and as you examine below it seems to be
-the mobile phone part of town. About 300m away you can see the slightly
-taller Thompson Tower. From here you can go southeast.  Standing in the
-street below, is a man.
+the pet shop part of town. About 300m away you can see the slightly taller
+Bakewell Insurance Building. From here you can go southeast.  Below, you can
+see a man standing in the street.
+You can hear a police car; you stand still for a moment but it seems to be
+heading away.
 
 > x sniper
 The sniper is too far away, all you can see clearly through your gun sight is
 his head.
+
+Something hits the roof making a 'ffutt' sound.
 
 > shoot sniper
 Using the scope of the gun you target the sniper, at the same time moving
@@ -244,20 +243,19 @@ you exhale, and then pause. Gently, you increase the tension on the trigger
 until the rifle fires. Waiting until the recoil of the weapon has stopped you
 then release the trigger. The sniper disappears from view, it looks like it
 is time to leave.
-A very loud motorbike can be heard to the south.
 
 > se
 You move southeast.
 
 Roof of the Building
-You are on the roof of the art nouveau Atlantic Bank Building, which has 16
-floors and was built around 5 years ago. A strong wind is blowing from the
-northwest and it looks like it could easily rain this morning. A large
-antenna is whipping in the wind to your right and the air conditioning
-equipment in front of you is making a very loud noise. Just at your feet is
-the closed door leading down to the roof exit. You can go north, northeast,
-east, southeast, south, southwest, west, northwest and down.  The body of a
-dead undercover policeman is lying here.
+You are on the roof of the retro Global Building, which has 15 floors and was
+built around 6 years ago. A strong wind is blowing from the west and it looks
+like it could easily rain sometime today. A large antenna is whipping in the
+wind to your right and the air conditioning equipment in front of you is
+making a very loud noise. Just at your feet is the closed door leading down
+to the roof exit. You can go north, northeast, east, southeast, south,
+southwest, west, northwest and down.  The body of a dead undercover policeman
+is lying here.
 
 > open door
 You open the door.
@@ -279,19 +277,18 @@ Going down the stairs will end the game.  Do you want to do this now Y or N?
 You go down the stairs.
 
 It looks like you have taken out the right man. The newspapers tomorrow will
-contain the story of how someone called Jerry Porter was killed by a single
-shot, fired from the roof of the Atlantic Bank Building. Apparently he was
-involved with Australian crime gangs and it is believed this was a gangland
-killing.
+contain the story of how someone called Terry Allen was killed by a single
+shot, fired from the roof of the Global Building. Apparently he was involved
+with Japanese crime gangs and it is believed this was a gangland killing.
 
 The story also goes on about the murder of an undercover policeman on the
-roof of the Atlantic Bank Building. Half to yourself you mutter, "Well he
-wasn't that good at being an undercover cop!"
+roof of the Global Building. Half to yourself you mutter, "Well he wasn't
+that good at being an undercover cop!"
 
 Also in the newspaper is the story of a police marksman who was murdered on
-the roof of the Thompson Tower. Someone close to the investigation has
-reported that police believe it was the gunman sighted on the Atlantic Bank
-Building the same day.
+the roof of the Bakewell Insurance Building. Someone close to the
+investigation has reported that police believe it was the gunman sighted on
+the Global Building the same day.
 
 Well, at least you took out the right target. You will need to start thinking
 about how you are going to spend the money.

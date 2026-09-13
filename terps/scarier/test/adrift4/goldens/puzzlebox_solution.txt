@@ -9,73 +9,88 @@
 # work until the matching clue in the oil painting has been examined.
 1
 look
-pull switch 1
-pull switch 2
-pull switch 3
-push switch 4
-pull switch 5
+push switch 1
+push switch 3
+pull switch 4
+push switch 5
 push button
 move hour hand
 move hour hand
 move hour hand
-move hour hand
+move minute hand
+move minute hand
+move minute hand
+move minute hand
+move minute hand
+move minute hand
 move minute hand
 push button
 turn dial 1
 turn dial 1
 turn dial 1
 turn dial 1
+turn dial 1
 turn dial 2
 turn dial 2
-turn dial 2
-turn dial 2
-turn dial 2
-turn dial 3
-turn dial 3
-turn dial 3
-turn dial 3
-turn dial 3
-turn dial 3
-turn dial 5
+turn dial 4
+turn dial 4
+turn dial 4
 turn dial 6
 turn dial 6
-turn dial 7
-turn dial 7
+turn dial 6
+turn dial 6
 turn dial 7
 push button
 x weathercock
 turn pointer
-turn pointer
 push button
 push colesworth button
-push donningly button
-push stanwell button
+push donningworth button
+push stanby button
 push button
 turn dial 2
 turn dial 2
 turn dial 2
 turn dial 2
-turn dial 4
 turn dial 5
 push button
 x animal
+turn dial
+turn dial
+turn dial
+turn dial
 turn dial
 push button
 x ceiling
 turn dial
 turn dial
 turn dial
+turn dial
 push button
 turn dial 1
+turn dial 1
+turn dial 1
+turn dial 1
+turn dial 2
+turn dial 2
+turn dial 2
+turn dial 2
 turn dial 2
 turn dial 3
 turn dial 3
+turn dial 3
+turn dial 3
+turn dial 3
+turn dial 3
 turn dial 4
 turn dial 4
 turn dial 4
-turn dial 4
-turn dial 4
-turn dial 4
+turn dial 5
+turn dial 5
+turn dial 5
+turn dial 5
+turn dial 5
+turn dial 5
 push button
 turn dial 2
 turn dial 2

@@ -35,9 +35,6 @@ a diary, a brass lantern, a woven cloak and some nice food.
 You take the diary, the brass lantern, the woven cloak and the nice food from
 the old oak table.
 
-> wear cloak
-You put on the woven cloak.
-
 > down
 You move down.
 
@@ -51,9 +48,6 @@ of oil is on the shelves.
 
 > get all from shelves
 You take the bottle of oil from the shelves.
-
-> take coin
-You pick up the gold coin and put it in your purse.
 
 > up
 You move up.
@@ -86,8 +80,7 @@ You move east.
 Tonerith Pass
 This wide path continues to the East. You can see the hills of Forecarn north
 of here but there is no path running there. You can here the sound of rushing
-water in the distance.  You can also see the Tonerith stone.  There is a grey
-wolf circling you.
+water in the distance.  You can also see the Tonerith stone.
 A grey wolf hits you.
 
 > attack wolf
@@ -101,63 +94,14 @@ The wolf limps away, badly hurt. It won't be likely to bother you again.
 > take tonerith stone
 You pick up the Tonerith stone.
 
-> e
-You move east.
-
-Tonerith junction
-You are standing at a junction.  There appears to be a stone bridge over the
-river east of here and a path to the north, running alongside the river.
-Tonerith pass runs west of here.
-
-> e
-You move east.
-
-The Bridge of Tonerith
-The large stone bridge extends across the wide river. The sound of rushing
-water is almost deafening. A mist of spray from the river blows against your
-face. The bridge is covered in Ivy and moss. The bridge crosses the river
-towards Kedarn forest to the northeast. West will take you to Tonerith
-junction.  There is a large dwarven bridgekeeper blocking your way across the
-bridge.  The Bridgekeeper is here.
-
-> attack bridgekeeper
-You hit an angry dwarf with the magic cube.
-An angry dwarf chops you with the iron axe.
-
-> attack bridgekeeper
-You hit an angry dwarf with the magic cube.
-The dwarf, with his last ounce of strength lifts himself to the side of the
-bridge. He removes his shirt and axe and then he slumps over the wall and
-falls into the river with a huge splash.  Serond follows you.
-Serond walks up to you and shakes your hand. "I found you at last Alexis!
-However, let us not talk for long, there is little time."
-"However, I bring you a gift. Now, where did I put it?
- Ah! here it is. Serond hands you a small gourd."
-
 > w
-You move west.
-
-Tonerith junction
-You are standing at a junction.  There appears to be a stone bridge over the
-river east of here and a path to the north, running alongside the river.
-Tonerith pass runs west of here.  Serond follows you from the east.
-
-> w
-You move west.
-
-Tonerith Pass
-This wide path continues to the East. You can see the hills of Forecarn north
-of here but there is no path running there. You can here the sound of rushing
-water in the distance.  Serond follows you from the east.
-
-> west
 You move west.
 
 Outside Cottage
 The gentle wind wafts through your hair as you start your adventure. You are
 standing in front of an old cottage. A well trodden path leads north up the
 hills of Forecarn, while another leads west into Dusteron. Due East of here
-runs a wide path that cuts into Tonerith.  Serond follows you from the east.
+runs a wide path that cuts into Tonerith.
 
 > west
 You move west.
@@ -166,14 +110,14 @@ Dusteron Pass
 The path gets gradually less well distinguished. You can feel that in the
 wind there is a sandy, dusty feeling on your face. The path continues to the
 North where it appears to get more dusty. Southeast of here is a small
-cottage.  Serond follows you from the east.
+cottage.
 
 > north
 You move north.
 
 Dusteron pass enters the desert
 North of here seems to enter into the Dusteron desert, while South will take
-you down Dusteron pass.  Serond follows you from the south.
+you down Dusteron pass.
 
 > north
 You move north.
@@ -184,7 +128,7 @@ centre of an open dessert. There is the sound of rushing water, but with the
 combination of wind and sand, it is difficult to tell where it is coming
 from. The sand whistles into your eyes but you can just see a small path to
 the East, otherwise you can retreat south.  You can also see the Dusteron
-stone.  Serond follows you from the south.
+stone.
 
 > take dusteron stone
 You pick up the Dusteron stone.
@@ -197,7 +141,11 @@ You stand on the banks of the Forecarn river, the fast rushing water flows
 from the west to the east. The sound is almost deafening. Across the other
 side of the river is a cobblestone path leading away. There is another path
 to the West leading to the Dusteron desert.   There is a rotted tree standing
- just next to the river.  Serond follows you from the west.
+ just next to the river.  Serond follows you.
+Serond walks up to you and shakes your hand. "I found you at last Alexis!
+However, let us not talk for long, there is little time."
+"However, I bring you a gift. Now, where did I put it?
+ Ah! here it is. Serond hands you a small gourd."
 
 > push tree
 The tree creaks. It looks like it's going to fall into the river.  Then it
@@ -241,11 +189,7 @@ smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.  Narfild is here.  Serond follows you.
 Serond shoots the large troll with the oak staff.
-The large troll hits you with the large club.
-
-> attack narfild
-You hit the large troll with the magic cube.
-Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
+The large troll hits Serond with the large club.
 
 > e
 You move east.
@@ -276,9 +220,10 @@ Main Cave
 This cave is huge and the walls glitter with the water trickling down. There
 is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
-Southeast takes you down a straight passage.  There is a huge troll stretched
-out across the floor. He has large scratches all over his body.  Also here
-are some grotty rags and a large club.  Serond follows you from the east.
+Southeast takes you down a straight passage.  The path northwest is being
+blocked by a large troll.  Narfild is here.  Serond follows you from the
+east.
+Serond shoots the large troll with the oak staff.
 
 > w
 You move west.
@@ -308,54 +253,49 @@ You take the steel vest and the metal spade from the holes in the wall.
 You move east.
 
 Small Cave
-This small cave makes you bow your head slightly. There is water running down
-all the walls apart from one, where the water drips into a puddle. East will
-take you back into the main cave.  There is a doorway that connects this cave
-with a square cave to the West.  Serond follows you from the west.
+It is too dark to see.  Serond follows you from the west.
 
 > e
 You move east.
 
 Main Cave
-This cave is huge and the walls glitter with the water trickling down. There
-is a musty smell that fills the air. There is a large cave east of here and a
-smaller one to the west. Northwest takes you into a winding passage.
-Southeast takes you down a straight passage.  There is a huge troll stretched
-out across the floor. He has large scratches all over his body.  Also here
-are some grotty rags and a large club.  Serond follows you from the west.
+It is too dark to see.  Serond follows you from the west.
+Serond shoots the large troll with the oak staff.
 
-> se
-You move southeast.
+> attack narfild
+You hit the large troll with the magic cube.
+Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
 
-Passage in the Caves of eternal night
-The walls are dripping with water, it is extremely dark and the walls appear
-to be made from a very hard rock. Northwest of here the caves continue.
-Southeast will take you out of the cave.  You can see a large area in the
-cave up ahead.  Serond follows you.
+> nw
+You move northwest.
 
-> se
-You move southeast.
+Winding passage
+It is too dark to see.  Serond follows you.
 
-Entrance to the Cave
-You are standing at the entrance to Caves of Eternal night. The legends were
-true! They say that there are unimaginable terrors in the caves. Northwest
-will take you into the cave, Northeast will take you away, up a long path.
-South will take you to a river bank.  Serond follows you.
+> nw
+You move northwest.
 
-> ne
-You move northeast.
+Small cave entrance
+You are standing in front of a very small entrance to a network of the caves
+of eternal night. Southeast will take you into the caves, east will take you
+along an open path.  Serond follows you.
+
+> e
+You move east.
+
+Glaven junction
+You are standing at the junction of four paths. One leaves west towards some
+caves. Another path leads towards some mountains northeast of here. A long
+path goes southwest. The last path is wide and goes southeast.  Serond
+follows you from the west.
+
+> sw
+You move southwest.
 
 Long Glaven path
 The path is long and will take you either northeast to a junction or
 southwest towards a cave.   Tarin the dwarf is barring your way northeast.
 Tarin, the dwarf is here.  Serond follows you.
-
-> look
-
-Long Glaven path
-The path is long and will take you either northeast to a junction or
-southwest towards a cave.   Tarin the dwarf is barring your way northeast.
-Tarin, the dwarf is here.  Serond is standing on your right.
 
 > give food to tarin
 Tarin takes the food eagerly. Tarin eats the food and then he bows his head
@@ -404,7 +344,7 @@ through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.  Serond follows you.
 Serond shoots a swamp monster with the oak staff.
-A swamp monster stabs Serond with the pointy stick.
+A swamp monster stabs you with the pointy stick.
 
 > se
 You move southeast.
@@ -526,6 +466,92 @@ with mud and branches. A wide path leads west to a junction. A small path
 leads southwest towards the sea.  Natalya is here.  Serond follows you from
 the north.
 
+> sw
+You move southwest.
+
+Kedarn pass
+The path is well trodden and you can feel the spray of the sea on your face.
+Northeast will take you to a village. Southwest will take you to Kedarn
+harbour.  Serond follows you.
+
+> sw
+You move southwest.
+
+Kedarn Harbour
+The sea stretches out for miles. There is a river flowing into the sea west
+of you. It is too difficult to get to. Northwest will take you to the
+entrance of Kedarn forest. Northeast will take you towards a village.  You
+can also see a gold coin.  Serond follows you.
+
+> nw
+You move northwest.
+
+Entrance of Kedarn Forest
+ You are standing at the entrance of Kedarn Forest, the darkest, most
+dangerous forest in Dalskee. The trees tower far above your head and you can
+hear strange noises coming from within the forest. There is a faint trail
+going through the forest to the north. To the southwest there is a large
+stone bridge. Southeast of here leads to Kedarn harbour.  Serond follows you.
+
+> sw
+You move southwest.
+
+The Bridge of Tonerith
+The large stone bridge extends across the wide river. The sound of rushing
+water is almost deafening. A mist of spray from the river blows against your
+face. The bridge is covered in Ivy and moss. The bridge crosses the river
+towards Kedarn forest to the northeast. West will take you to Tonerith
+junction.  There is a large dwarven bridgekeeper blocking your way across the
+bridge.  The Bridgekeeper is here.  Serond follows you.
+Serond shoots an angry dwarf with the oak staff.
+
+> attack bridgekeeper
+You hit an angry dwarf with the magic cube.
+Serond shoots an angry dwarf with the oak staff.
+An angry dwarf chops Serond with the iron axe.
+
+> attack bridgekeeper
+You hit an angry dwarf with the magic cube.
+The dwarf, with his last ounce of strength lifts himself to the side of the
+bridge. He removes his shirt and axe and then he slumps over the wall and
+falls into the river with a huge splash.
+
+> ne
+You move northeast.
+
+Entrance of Kedarn Forest
+ You are standing at the entrance of Kedarn Forest, the darkest, most
+dangerous forest in Dalskee. The trees tower far above your head and you can
+hear strange noises coming from within the forest. There is a faint trail
+going through the forest to the north. To the southwest there is a large
+stone bridge. Southeast of here leads to Kedarn harbour.  Serond follows you.
+
+> se
+You move southeast.
+
+Kedarn Harbour
+The sea stretches out for miles. There is a river flowing into the sea west
+of you. It is too difficult to get to. Northwest will take you to the
+entrance of Kedarn forest. Northeast will take you towards a village.  You
+can also see a gold coin.  Serond follows you.
+
+> ne
+You move northeast.
+
+Kedarn pass
+The path is well trodden and you can feel the spray of the sea on your face.
+Northeast will take you to a village. Southwest will take you to Kedarn
+harbour.  Serond follows you.
+
+> ne
+You move northeast.
+
+Elven village centre
+You are in the centre of a easily distinguishable Elven camp. There are small
+wooden huts to the north, east,  southeast and south. The huts are covered
+with mud and branches. A wide path leads west to a junction. A small path
+leads southwest towards the sea.  Natalya is here.  Serond follows you.
+
 > s
 You move south.
 
@@ -604,7 +630,7 @@ closing in. West will take you down a tiny path. Another clearer path leads
 northwest.  You can also see the Kedarn stone.  There is a Forester Goblin
 hanging from a tree here.  Serond follows you.
 Serond shoots a forest dwelling goblin with the oak staff.
-A forest dwelling goblin shoots Serond with the bow and arrow.
+A forest dwelling goblin shoots you with the bow and arrow.
 
 > attack goblin
 You hit a forest dwelling goblin with the magic cube.
@@ -663,9 +689,6 @@ A swamp monster stabs you with the pointy stick.
 You hit a swamp monster with the magic cube.
 Serond shoots a swamp monster with the oak staff.
 The swamp monster slowly melts into the marsh. It then dissapears.
-
-> attack monster
-Longmore king isn't here!
 
 > ne
 You move northeast.
@@ -726,7 +749,7 @@ impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.  There is an eagle above you circling around your
 head.  Serond follows you from the west.
 Serond shoots a large eagle with the oak staff.
-A large eagle hits Serond.
+A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
 You hit a large eagle with the magic cube.
@@ -846,6 +869,7 @@ This long path is completely shadowed. The little light that there is comes
 from far off in the distance. There are sharp jagged rocks on each side of
 the path. West will take you towards the bridge. Northeast will take you
 further up the mountain.  Serond follows you from the west.
+You get up and start walking again.
 
 > ne
 You move northeast.
@@ -855,7 +879,7 @@ The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.  There is a large Narn here.  Serond follows you.
 Serond shoots a large Narn with the oak staff.
-A large Narn hits Serond.
+A large Narn hits you.
 
 > nw
 You move northwest.
@@ -864,7 +888,6 @@ Uron Dark Path
 The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
 mountain. Northeast will take you up.  Serond follows you.
-You get up and start walking again.
 
 > ne
 You move northeast.
@@ -885,15 +908,15 @@ down the mountain.  Serond follows you from the south.
 
 > say the password
 The words seem to have moved the doors a little. They must be unlocked. They
-could probably be opened now.  Haron follows you.
+could probably be opened now.
+
+> open door
+The doors slowly creak open. A darkness that seems to come out of the doors,
+consumes you.  Haron follows you.
 A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."
 Haron hands you a phial.
-
-> open door
-The doors slowly creak open. A darkness that seems to come out of the doors,
-consumes you.
 
 > n
 You move north.
@@ -906,11 +929,11 @@ corridor. East will take you into a smaller room.  Larnt is here.  Serond
 follows you from the south.
 Serond shoots the dark knight with the oak staff.  Haron follows you from the
 south.
+Haron cuts the dark knight with the elven sword.
 The dark knight cuts you with the blade from Uron.
 
 > attack larnt
 You hit the dark knight with the magic cube.
-Serond shoots the dark knight with the oak staff.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -1051,10 +1074,6 @@ the South. He then smiles, and says:
  Just us now, no escape.  Serond follows you from the south.
 Serond shoots the dark lord with the oak staff.  Haron follows you from the
 south.
-
-> attack urgorn
-You hit the dark lord with the magic cube.
-Serond shoots the dark lord with the oak staff.
 Haron cuts the dark lord with the elven sword.
 The dark lord shoots Serond with the ball of fire.
 Serond drops to the floor and as he looks you in the eye, he whispers: "Good
@@ -1062,6 +1081,10 @@ Luck" His body then magically dissapears.
 
 > attack urgorn
 You hit the dark lord with the magic cube.
+
+> attack urgorn
+You hit the dark lord with the magic cube.
+Haron cuts the dark lord with the elven sword.
 
 > attack urgorn
 You hit the dark lord with the magic cube.

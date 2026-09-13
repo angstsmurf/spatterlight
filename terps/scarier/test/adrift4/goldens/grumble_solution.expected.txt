@@ -127,7 +127,7 @@ east
   Vulgur the bartender, Fosk, Tarquin and Boswell are here.
 
 > talk fosk
-   "Begone! I am busy!" he remarks.
+   "Ah, a conversation with a peasant. I think not," he tells you.
 
 > wait
    You hang around the bar, waiting for something to happen...
@@ -500,8 +500,10 @@ today.
    The rain seems to let up for a moment then comes down worse than ever.
 
 > talk guards
-   "I hear that chap Grumble was seen messin' around in the graveyard,"
-mutters Vlad, clutching his groin where 'someone' gave him a sizeable wallop.
+   "Personally I'd let the dwarf burn," grunts Vlad, clutching his groin
+where 'someone' gave him a hefty punch.
+   "How's he going to finish the game like that, though?" asks Stavros.
+   "Damned if I know or care!" says Vlad with feeling.
 
 > cond
    You have 18 Life Points remaining.

@@ -48,6 +48,8 @@ press y
 press a
 press h
 east
+z
+z
 give ring to watcher
 north
 north
@@ -61,7 +63,8 @@ south
 x temple
 unlock door
 east
-throw pouch in pool
+get snake
+throw snake in pool
 east
 down
 east

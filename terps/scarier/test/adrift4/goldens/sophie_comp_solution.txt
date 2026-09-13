@@ -253,3 +253,4 @@ nw
 meteor strike
 cast implosion
 raise crucifix
+score

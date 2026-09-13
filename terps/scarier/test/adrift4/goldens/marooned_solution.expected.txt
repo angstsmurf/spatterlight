@@ -72,8 +72,6 @@ he falls over and appears to pass out. Something rolls out of his hand.
 > get flint
 You pick up the small piece of flint.
 
-You hear the calls of exotic birds and the movements of unseen animals.
-
 > west
 You move west.
 
@@ -98,6 +96,8 @@ the deck makes it difficult, but not hard to make your way around. However,
 every time you move, you can feel the boat move also. Maybe it's not a good
 idea to stay aboard the boat for long.
   Also here is a couple of tires.
+
+Your stomach is growling. You'd better get something to eat.
 
 > get tires
 You pick up the couple of tires.
@@ -136,8 +136,6 @@ You move east.
 
 This is a small river cutting through the heart of the jungle. You can easily
 ford it and it twists and turns all over the place.
-
-Your stomach is growling. You'd better get something to eat.
 
 > east
 You move east.
@@ -189,13 +187,13 @@ You move north.
 This is a small river cutting through the heart of the jungle. You can easily
 ford it and it twists and turns all over the place.
 
+You hear the calls of exotic birds and the movements of unseen animals.
+
 > north
 You move north.
 
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
-
-You hear the calls of exotic birds and the movements of unseen animals.
 
 > west
 You move west.
@@ -282,12 +280,6 @@ like someone slept here for a little bit. A short set of stairs leads
 downwards from here.
   Also here is a flare gun and a flare cartridge.
 
-As you venture, the glow of the sun gently settles below the horizon, dabbing
-the sky with a breathtaking selection of reds, golds and oranges. It's
-starting to get dark now, and the stars are coming out.
-
-Night has fallen.
-
 > east
 You move east.
 
@@ -298,7 +290,11 @@ the deck makes it difficult, but not hard to make your way around. However,
 every time you move, you can feel the boat move also. Maybe it's not a good
 idea to stay aboard the boat for long.
 
-Even though it is nighttime, you can dimly make out your surroundings.
+As you venture, the glow of the sun gently settles below the horizon, dabbing
+the sky with a breathtaking selection of reds, golds and oranges. It's
+starting to get dark now, and the stars are coming out.
+
+Night has fallen.
 
 > east
 You move east.
@@ -342,8 +338,6 @@ ford it and it twists and turns all over the place.
 
 Even though it is nighttime, you can dimly make out your surroundings.
 
-You hear the calls of exotic birds and the movements of unseen animals.
-
 > east
 You move east.
 
@@ -367,6 +361,8 @@ This is a small river cutting through the heart of the jungle. You can easily
 ford it and it twists and turns all over the place.
 
 Even though it is nighttime, you can dimly make out your surroundings.
+
+You hear the calls of exotic birds and the movements of unseen animals.
 
 > south
 You move south.
@@ -433,39 +429,39 @@ thick canopy of tropical plants and flowers.
 
 Even though it is nighttime, you can dimly make out your surroundings.
 
+> west
+You move west.
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+> west
+You move west.
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+> west
+You move west.
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+> west
+You move west.
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
 You hear the calls of exotic birds and the movements of unseen animals.
-
-> west
-You move west.
-
-You move into the interior of the island and everything is covered with a
-thick canopy of tropical plants and flowers.
-
-Even though it is nighttime, you can dimly make out your surroundings.
-
-> west
-You move west.
-
-You move into the interior of the island and everything is covered with a
-thick canopy of tropical plants and flowers.
-
-Even though it is nighttime, you can dimly make out your surroundings.
-
-> west
-You move west.
-
-This is a small river cutting through the heart of the jungle. You can easily
-ford it and it twists and turns all over the place.
-
-Even though it is nighttime, you can dimly make out your surroundings.
-
-> west
-You move west.
-
-This is a small river cutting through the heart of the jungle. You can easily
-ford it and it twists and turns all over the place.
-
-Even though it is nighttime, you can dimly make out your surroundings.
 
 > west
 You move west.
@@ -561,6 +557,8 @@ downwards from here.
   Also here is a flare gun and a flare cartridge.
 Even though it is nighttime, you can dimly make out your surroundings.
 
+In the darkness you can hear the stirrings of nocturnal creatures.
+
 > east
 You move east.
 
@@ -599,49 +597,47 @@ cool and crystal clear and quickly flows to the east.
 
 Even though it is nighttime, you can dimly make out your surroundings.
 
-In the darkness you can hear the stirrings of nocturnal creatures.
-
 > east
 You move east.
 
 This is a small river cutting through the heart of the jungle. You can easily
 ford it and it twists and turns all over the place.
-
-Even though it is nighttime, you can dimly make out your surroundings.
-
-> east
-You move east.
-
-This is a small river cutting through the heart of the jungle. You can easily
-ford it and it twists and turns all over the place.
-
-Even though it is nighttime, you can dimly make out your surroundings.
-
-> east
-You move east.
-
-You move into the interior of the island and everything is covered with a
-thick canopy of tropical plants and flowers.
-
-Even though it is nighttime, you can dimly make out your surroundings.
-
-> east
-You move east.
-
-You move into the interior of the island and everything is covered with a
-thick canopy of tropical plants and flowers.
-
-Even though it is nighttime, you can dimly make out your surroundings.
-
-> east
-You move east.
-
-You move into the interior of the island and everything is covered with a
-thick canopy of tropical plants and flowers.
 
 Even though it is nighttime, you can dimly make out your surroundings.
 
 You begin to see the sky lighten with the approach of the sun.
+
+> east
+You move east.
+
+This is a small river cutting through the heart of the jungle. You can easily
+ford it and it twists and turns all over the place.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+> east
+You move east.
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+> east
+You move east.
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
+
+> east
+You move east.
+
+You move into the interior of the island and everything is covered with a
+thick canopy of tropical plants and flowers.
+
+Even though it is nighttime, you can dimly make out your surroundings.
 
 > south
 You move south.
@@ -650,6 +646,11 @@ This is a small river cutting through the heart of the jungle. You can easily
 ford it and it twists and turns all over the place.
 
 Even though it is nighttime, you can dimly make out your surroundings.
+
+The sun is coming up now, and slowly the air warms with the rays of the new
+sun.
+
+It is now morning.
 
 > south
 You move south.
@@ -657,10 +658,6 @@ You move south.
 This is a steep hill which leads to the east. Boulders are strewn here and
 there, and  you see a path through the underbrush as if someone came this way
 a lot.
-
-Even though it is nighttime, you can dimly make out your surroundings.
-
-You hear the calls of exotic birds and the movements of unseen animals.
 
 > south
 You move south.
@@ -672,8 +669,6 @@ a large outcropping of rock with a tall palm tree on it. There also seems to
 be a small cave on the outcropping.
 
 A shark is here in the water.
-
-Even though it is nighttime, you can dimly make out your surroundings.
 
 > throw gas can
 
@@ -687,13 +682,6 @@ This is a steep hill which leads to the east. Boulders are strewn here and
 there, and  you see a path through the underbrush as if someone came this way
 a lot.
 
-Even though it is nighttime, you can dimly make out your surroundings.
-
-The sun is coming up now, and slowly the air warms with the rays of the new
-sun.
-
-It is now morning.
-
 > north
 You move north.
 
@@ -705,6 +693,8 @@ You move north.
 
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
+
+You hear the calls of exotic birds and the movements of unseen animals.
 
 > west
 You move west.
@@ -748,8 +738,6 @@ You move south.
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
 
-You hear the calls of exotic birds and the movements of unseen animals.
-
 > east
 You move east.
 
@@ -767,6 +755,8 @@ You move east.
 
 You move into the interior of the island and everything is covered with a
 thick canopy of tropical plants and flowers.
+
+You hear the calls of exotic birds and the movements of unseen animals.
 
 > south
 You move south.
@@ -890,6 +880,12 @@ The ship is coming closer and closer.
 > wait
 Time passes...
 
+As you venture, the glow of the sun gently settles below the horizon, dabbing
+the sky with a breathtaking selection of reds, golds and oranges. It's
+starting to get dark now, and the stars are coming out.
+
+Night has fallen.
+
 It looks like it's headed for the southern beach.
 
 > score
@@ -901,6 +897,8 @@ You move west.
 This is a wide sandy beach which sweeps  to the west. Fiddler crabs scurry
 back and forth in the surf and gentle waves lap at the shore, giving no clue
 to the savage storm which landed you here.
+
+Even though it is nighttime, you can dimly make out your surroundings.
 
 > wait
 Time passes...

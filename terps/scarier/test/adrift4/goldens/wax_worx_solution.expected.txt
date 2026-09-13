@@ -236,9 +236,11 @@ supposed.
 
 The figment of your fears has vanished. You see what tripped you up. A
 figure, lying on its belly beneath the bushes.
+The tip of Marie's wig tickles your chin as the head moves slightly.
+Accidentally, or to get your attention?
 
 > ask charlie about house
-The wax figure speaks with the faint sound of your own rushing blood.
+Words form, not on the motionless lips, but in your mind.
 
 "What a pad.  We checked it all out.  Creepy crawled the whole thing.
 Couldn't just sneak up, or lurk in the shadows. Creepy crawl. That was the
@@ -246,7 +248,6 @@ only way to get close enough.
 
 We were looking in the windows, on the other side of the glass, and they
 never knew."
-Marie's head talks to itself.
 
 > e
 You move east.

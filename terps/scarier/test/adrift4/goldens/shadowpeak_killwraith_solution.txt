@@ -170,45 +170,32 @@ s
 # the zombie stream moved again).  Padding back to the original 85-turn
 # length now dies before the maze, so the pad was swept for one that keeps the
 # downstream event timers (EVENT 92, the Morac death timer) where the route needs them.
+# Village + castle-race re-derived 2026-09-13 (v2) after switching the harness
+# default to SCR_RNG=xoshiro: new upstream seed 1, village phase via
+# harness/shadowpeak_village.py, castle-race pad swept for a value that keeps
+# Morac off the stairs (9 works at this seed).
+# 19 turns, all four zombies down
 attack jarris
+z
+attack jarris
+z
+z
 attack holga
+z
+z
+z
+z
+z
+z
+z
+z
+z
 attack arthur
+z
+z
 attack boris
-z
-attack jarris
-attack holga
-attack jarris
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
 e
 e
-# Fifteen turns' pad.  EVENT 92 is the Morac death timer, and after the dead-NPC
-# walk skip re-threaded the stream the castle race is only survivable on a few
-# of its values: at SCR_SEED=48 pads 15, 20, 23 and 29 live and everything below
-# 15 has Morac reach the top of the stairs on top of us.  15 is the cheapest.
-z
-z
-z
-z
-z
-z
 z
 z
 z
@@ -609,28 +596,30 @@ n
 n
 n
 press stone button
-# Damastus chase re-derived 2026-09-13 with harness/shadowpeak_chase.py at
-# SCR_SEED=76 (stamina recovery is now the per-line dobattle pass).
-# Damastus dies in room 156, stamina 35
+# Damastus chase re-derived 2026-09-13 (v2) with harness/shadowpeak_chase.py
+# at SCR_SEED=1 (upstream reseed for SCR_RNG=xoshiro default).
+# Damastus dies in room 146, stamina 45
+e
+e
+e
+e
+e
+e
 s
 s
 s
 attack damastus
-n
+s
 attack damastus
 s
 attack damastus
-n
+attack damastus
 attack damastus
 n
-attack damastus
 n
-e
-e
-e
-e
-e
-e
+n
+n
+n
 press bronze button
 w
 w

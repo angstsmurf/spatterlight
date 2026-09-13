@@ -75,11 +75,6 @@ You can only move west.
 > change a dollar into cents
 You ask the store owner for some change. The owner agrees. You hand the owner
 a dollar coin and they give you 100 cents. You have $499 and 100 cents.
-Harthro scoops everything from the dirty dish rack into the sink of dirty
-dishes.
-Harthro notices that there aren't any coffee mugs on the dirty dish rack.
-Harthro scoops the dishes, cups, and mugs off of the dirty plate rack and
-into the sink.
 
 > buy a coffee
 You holler out for a coffee in the loud, rambunctious tavern. Harthro hears

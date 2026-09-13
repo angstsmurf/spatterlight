@@ -83,6 +83,9 @@ To the west there is a large chamber from which a humming sound emanates; to
 the east you can make out a statue.  The cage is sunken into the floor, in
 which the remains of some beast lie decomposing.
 
+> beast killed
+Are you senile?  Try another command!
+
 > pull lever
 The lever is in the down position.  You hear the creaking of chains as the
 cage slowly rises.
@@ -173,11 +176,11 @@ failed. And died.
 To the west there is a large chamber from which a humming sound emanates; to
 the east you can make out a statue.  The cage is now raised and the bottom is
 level with the floor.
+Beast hits you.
 
 > get crown
 As you grab the crown, you notice the beast inside start to stir. Your left
 index finger starts to tingle.  The Beast lunges at you.
-You manage to avoid Beast's attack.
 
 > e
 You move east.
@@ -248,6 +251,6 @@ reborn and fate allowed you to finish what you could not.  You now know what
 was missing in your life.  It was the unfinished business.  Will this ever
 happen again?  I wonder if there will be another adventure and what will it
 be if there is......
-You scored 90 out of the maximum 100!
-That is 90% of the game!
-You finished 10 points short.
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

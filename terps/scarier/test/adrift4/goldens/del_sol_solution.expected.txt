@@ -252,7 +252,7 @@ Time passes...
 You manage to avoid DaNiEl's attack.
 You manage to avoid JaRvIn's attack.
 You manage to avoid Sigma's attack.
-MoReLaND hits you, but it doesn't seem to do any damage.
+You manage to avoid MoReLaND's attack.
 You manage to avoid DaNiEl's attack.
 You manage to avoid JaRvIn's attack.
 You manage to avoid Sigma's attack.
@@ -261,7 +261,6 @@ You manage to avoid DaNiEl's attack.
 You manage to avoid JaRvIn's attack.
 You manage to avoid Sigma's attack.
 MoReLaND hits you, but it doesn't seem to do any damage.
-You manage to avoid Sponges's attack.
 
 > score
 Your score is 26 out of a maximum of 46.  (56%)

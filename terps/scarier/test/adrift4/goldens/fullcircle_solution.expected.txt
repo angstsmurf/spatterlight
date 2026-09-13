@@ -1207,6 +1207,17 @@ logbook, perhaps belonging to the owner of this ship.
 > read logbook
 You open the logbook to a random page and read:
 
+Entry 10
+
+... the design is Kandish. The temple. Of course, I should have expected it.
+The rhyme in the clearing was Kandish, the totem pole Kandish, why should the
+temple now be Kandish, too, even though it lies on the far side of the world
+from Kandor? I feel not that I am discovering something new, but simply
+returning to a place I have already visited many, many times before...
+
+> read logbook
+You open the logbook to a random page and read:
+
 Entry 7
 
 ... Halstings believes we are dead and this island simply a figment of our
@@ -1222,13 +1233,23 @@ though I can hardly sail the ship home on my own...
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 4
+Entry 5
 
-... communication device, shaped like a pendant, has failed, a thing I was
-told was impossible. Magic powers it, and it is self-repairing, and can last
-a lifetime. Yet within days of arriving in this strange place, it has ceased
-to function altogether. I lack the means to repair it, a device of magic and
-science which I do not fully understand. We are trapped here...
+... my actions seem circular. Repetitious. Everything I do, every move I
+make, every decision I reach, seems one I have made before. I found my helm,
+buried where I had buried it for reasons unknown to me now; my cloak, on the
+corpse of Halstings; my sword... which I threw into the quicksand, putting it
+forever beyond my reach. Its blade is red with blood – who I have killed and
+then forgotten?...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 2
+
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
 
 > read logbook
 You open the logbook to a random page and read:
@@ -1244,14 +1265,17 @@ returning to a place I have already visited many, many times before...
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 8
+Entry 7
 
-... my memories are confused, contradictory. I remember, clearly, a fight
-with Halstings when I stabbed him through the chest, though I do not remember
-why I did this. I also remember, clearly, Halstings leaping to his death over
-a waterfall, insisting we were all dead so it didn't matter anyway. I further
-remember, equally as clearly, the beast that Carson became tearing Halstings
-apart. How can all of these be true? Or are none of them? Am I simply mad?...
+... Halstings believes we are dead and this island simply a figment of our
+collective imaginations. He points to the things we both cannot be, and yet
+are. The cave, the totem pole, the bridge which repairs itself... other
+things... I have ordered him to keep his mad delusions to himself, lest he
+incite a panic in the crew, but here, in this place, far from the power of my
+mentor, he seems to have grown brave. I could punish him, but he is popular
+amongst the crew and they have been pushed far already. The last thing I need
+is a mutiny as I would be forced to kill them. Something I can do easily,
+though I can hardly sail the ship home on my own...
 
 > read logbook
 You open the logbook to a random page and read:
@@ -1267,13 +1291,11 @@ suffered such a change. Does a similar fate await...
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 4
+Entry 9
 
-... communication device, shaped like a pendant, has failed, a thing I was
-told was impossible. Magic powers it, and it is self-repairing, and can last
-a lifetime. Yet within days of arriving in this strange place, it has ceased
-to function altogether. I lack the means to repair it, a device of magic and
-science which I do not fully understand. We are trapped here...
+... ship moored here? Why here? It is in a river, not far north of a
+waterfall. How did it come to be here, miles away from the cove where it was
+anchored? What kind of magic could do such a thing? No one knows...
 
 > read logbook
 You open the logbook to a random page and read:
@@ -1289,33 +1311,17 @@ returning to a place I have already visited many, many times before...
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 9
+Entry 7
 
-... ship moored here? Why here? It is in a river, not far north of a
-waterfall. How did it come to be here, miles away from the cove where it was
-anchored? What kind of magic could do such a thing? No one knows...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 4
-
-... communication device, shaped like a pendant, has failed, a thing I was
-told was impossible. Magic powers it, and it is self-repairing, and can last
-a lifetime. Yet within days of arriving in this strange place, it has ceased
-to function altogether. I lack the means to repair it, a device of magic and
-science which I do not fully understand. We are trapped here...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 4
-
-... communication device, shaped like a pendant, has failed, a thing I was
-told was impossible. Magic powers it, and it is self-repairing, and can last
-a lifetime. Yet within days of arriving in this strange place, it has ceased
-to function altogether. I lack the means to repair it, a device of magic and
-science which I do not fully understand. We are trapped here...
+... Halstings believes we are dead and this island simply a figment of our
+collective imaginations. He points to the things we both cannot be, and yet
+are. The cave, the totem pole, the bridge which repairs itself... other
+things... I have ordered him to keep his mad delusions to himself, lest he
+incite a panic in the crew, but here, in this place, far from the power of my
+mentor, he seems to have grown brave. I could punish him, but he is popular
+amongst the crew and they have been pushed far already. The last thing I need
+is a mutiny as I would be forced to kill them. Something I can do easily,
+though I can hardly sail the ship home on my own...
 
 > score
 You have a score of 26 out of 52.
@@ -1355,6 +1361,71 @@ this torch for any length of time.}
 > read logbook
 You open the logbook to a random page and read:
 
+Entry 7
+
+... Halstings believes we are dead and this island simply a figment of our
+collective imaginations. He points to the things we both cannot be, and yet
+are. The cave, the totem pole, the bridge which repairs itself... other
+things... I have ordered him to keep his mad delusions to himself, lest he
+incite a panic in the crew, but here, in this place, far from the power of my
+mentor, he seems to have grown brave. I could punish him, but he is popular
+amongst the crew and they have been pushed far already. The last thing I need
+is a mutiny as I would be forced to kill them. Something I can do easily,
+though I can hardly sail the ship home on my own...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 4
+
+... communication device, shaped like a pendant, has failed, a thing I was
+told was impossible. Magic powers it, and it is self-repairing, and can last
+a lifetime. Yet within days of arriving in this strange place, it has ceased
+to function altogether. I lack the means to repair it, a device of magic and
+science which I do not fully understand. We are trapped here...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 2
+
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 2
+
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 6
+
+... Halstings does not believe the cave is simply the former home of pirates
+or bandits. He points to the mirror, the grate we have been unable to open,
+the strange barrier which sometimes forms over the mouth – these are not the
+work of pirates or bandits. He is right as well. The barrier is a form of
+magic I have seen my mentor employ often. A form he once taught to me...
+
+> read logbook
+You open the logbook to a random page and read:
+
+Entry 1
+
+... primitives would worship of the skull. Golden in colour it was, and the
+size of that of a child, though for certain it came from no child of human
+descent. Prayers would be offered with the skull in the possession of the
+worshipper, and, on occasion, or so it seemed, they would be answered...
+
+> read logbook
+You open the logbook to a random page and read:
+
 Entry 3
 
 ... abominations. At first it seemed they were monsters of the island, warped
@@ -1376,75 +1447,13 @@ worshipper, and, on occasion, or so it seemed, they would be answered...
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 7
+Entry 3
 
-... Halstings believes we are dead and this island simply a figment of our
-collective imaginations. He points to the things we both cannot be, and yet
-are. The cave, the totem pole, the bridge which repairs itself... other
-things... I have ordered him to keep his mad delusions to himself, lest he
-incite a panic in the crew, but here, in this place, far from the power of my
-mentor, he seems to have grown brave. I could punish him, but he is popular
-amongst the crew and they have been pushed far already. The last thing I need
-is a mutiny as I would be forced to kill them. Something I can do easily,
-though I can hardly sail the ship home on my own...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 10
-
-... the design is Kandish. The temple. Of course, I should have expected it.
-The rhyme in the clearing was Kandish, the totem pole Kandish, why should the
-temple now be Kandish, too, even though it lies on the far side of the world
-from Kandor? I feel not that I am discovering something new, but simply
-returning to a place I have already visited many, many times before...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 2
-
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no
-weapon, despite its appearance. A door would be found, and a key would be
-needed. The spike would serve as the key...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 2
-
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no
-weapon, despite its appearance. A door would be found, and a key would be
-needed. The spike would serve as the key...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 2
-
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no
-weapon, despite its appearance. A door would be found, and a key would be
-needed. The spike would serve as the key...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 2
-
-... a spike of darkness. Of jet blackness. Of the night sky. But this was no
-weapon, despite its appearance. A door would be found, and a key would be
-needed. The spike would serve as the key...
-
-> read logbook
-You open the logbook to a random page and read:
-
-Entry 10
-
-... the design is Kandish. The temple. Of course, I should have expected it.
-The rhyme in the clearing was Kandish, the totem pole Kandish, why should the
-temple now be Kandish, too, even though it lies on the far side of the world
-from Kandor? I feel not that I am discovering something new, but simply
-returning to a place I have already visited many, many times before...
+... abominations. At first it seemed they were monsters of the island, warped
+by the magic here, but on one we found coins in a pouch of Kandish make;
+another wore clothes, tattered rags though they were. The abominations are,
+or once were, humans, though none of us like to speculate on how they
+suffered such a change. Does a similar fate await...
 
 > read logbook
 You open the logbook to a random page and read:
@@ -1459,13 +1468,11 @@ worshipper, and, on occasion, or so it seemed, they would be answered...
 > read logbook
 You open the logbook to a random page and read:
 
-Entry 4
+Entry 2
 
-... communication device, shaped like a pendant, has failed, a thing I was
-told was impossible. Magic powers it, and it is self-repairing, and can last
-a lifetime. Yet within days of arriving in this strange place, it has ceased
-to function altogether. I lack the means to repair it, a device of magic and
-science which I do not fully understand. We are trapped here...
+... a spike of darkness. Of jet blackness. Of the night sky. But this was no
+weapon, despite its appearance. A door would be found, and a key would be
+needed. The spike would serve as the key...
 
 > score
 You have a score of 26 out of 52.

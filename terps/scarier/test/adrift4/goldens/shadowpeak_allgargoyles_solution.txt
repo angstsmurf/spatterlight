@@ -156,38 +156,69 @@ fly
 # phase is derived turn by turn: stab whoever is standing here, else wait.  One
 # stab kills each of them.  +40 -> 130.
 s
-# Re-derived 2026-09-12 (village block again 2026-09-13, after the pattern-group
-# double-space fix): the RNG stream now follows the Wine Runners draw for
-# draw (vbrng parity work), which re-threaded every seeded stream; new seed
-# SCR_SEED=1.  Greedy phase from the Village Square (37), one turn at a time:
-# stab whichever named zombie has wandered in, else wait --
-# harness/shadowpeak_village.py, the same shape as harness/shadowpeak_chase.py.
-# 14 turns of work, then 1 `z` of padding.  Padding back to the original 93-turn
-# length now dies before the maze, so the pad was swept for one that keeps the
-# downstream event timers (EVENT 92, the Morac death timer) where the route needs them.
-z
-attack arthur
-attack boris
-z
+# Village + castle-race re-derived 2026-09-13 (v2) after switching the harness
+# default to SCR_RNG=xoshiro: new upstream seed 1, village phase via
+# harness/shadowpeak_village.py, castle-race pad swept for a value that keeps
+# Morac off the stairs and the downstream deep-dungeon walkers (Quentis/horn,
+# Edna) correctly timed (12 works at this seed).
+# 46 turns, all four zombies down
+attack jarris
 attack holga
 z
-z
-z
-z
+attack boris
 attack jarris
 z
 z
 z
-attack jarris
 z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+attack arthur
 e
 e
-# ===== SESSION 7: village scoring cluster 130 -> 230/790 =====
-# We end the zombie phase at room 41 (blacksmith breastplate). Grab the
-# tinderbox from the cupboard here (needed later to light the pipe).
-# Three turns' pad: without them EVENT 92, the Morac death timer, lands on a
-# value that brings him into the pentagram room on the chisel turn (instant
-# death).  Same pad as the canonical route, three turns rather than one.
+z
+z
+z
+z
+z
+z
+z
+z
+z
 z
 z
 z
@@ -724,22 +755,28 @@ n
 n
 n
 press stone button
-# Damastus chase re-derived 2026-09-12 with harness/shadowpeak_chase.py at
-# SCR_SEED=1 (RNG stream now follows the Wine Runners draw for draw).
-# Damastus dies in room 157, stamina 47
-attack damastus
+# Damastus chase re-derived 2026-09-13 (v2) with harness/shadowpeak_chase.py
+# at SCR_SEED=1 (upstream reseed for SCR_RNG=xoshiro default).
+# Damastus dies in room 151, stamina 47
+e
+e
+e
+e
+e
+e
 s
-attack damastus
-attack damastus
+s
+s
+s
 attack damastus
 n
 attack damastus
-e
-e
-e
-e
-e
-e
+n
+attack damastus
+n
+attack damastus
+n
+attack damastus
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required

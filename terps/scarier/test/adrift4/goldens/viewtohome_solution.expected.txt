@@ -69,7 +69,6 @@ Electrical Area
 You are in between a large fuse box and the utility room.
 
 You can move east, south and west.
-You hear the sound of water running.
 
 > open box
 You open the metal box and look at the various circuit breakers. On the side
@@ -77,9 +76,11 @@ of the door is clipped a flashlight.
 
 > take flashlight
 You take the flashlight.
+You hear the sound of water running.
 
 > turn flashlight on
 The flashlight is now on.
+You hear the sound of water being shut off abruptly.
 
 > east
 You move east.
@@ -89,7 +90,6 @@ There is a shelf containing camping equipment. You search the shelf and find
 more items like ski boots but eventually turn up nothing of interest.
 
 You can move west and up.
-You hear the sound of water being shut off abruptly.
 
 > up
 You move up.
@@ -98,6 +98,7 @@ Top Of Stairs
 You are at the top of the stairs. To your right is a door leading outside.
 
 You can move east, south and down.
+You hear the sound of water running.
 
 > east
 You move east.
@@ -137,7 +138,6 @@ You are in a huge, cavernous garage. It is occupied by a Mercedes Benze and
 Audi.
 
 You can move north and west.
-You hear the sound of water running.
 
 > west
 You move west.
@@ -147,7 +147,6 @@ There are a multitude of shoes on the floor and coats on their hangers. You
 search diligently and find nothing.
 
 You can move north, east and south.
-You hear the sound of water being shut off abruptly.
 
 > north
 You move north.
@@ -165,6 +164,7 @@ Family Dining Table
 You have entered a heavy traffic area. Dinner is served here daily.
 
 You can move north and east.
+You hear the sound of water being shut off abruptly.
 
 > north
 You move north.
@@ -173,6 +173,7 @@ End of Short Passageway
 The passageway divides the TV Room and Family Dining Room here.
 
 You can move north, south and west.
+You hear the sound of water running.
 
 > west
 You move west.
@@ -181,6 +182,7 @@ Short Passageway
 You are in a junction of many passageways.
 
 You can move north, east, south and west.
+You hear the sound of water being shut off abruptly.
 
 > west
 You move west.
@@ -190,6 +192,7 @@ You are at the foot of a stairway going up to the top floor.  There is a
 young girl sitting on the stairs.
 
 You can move east and south.
+You hear the sound of water running.
 
 > x girl
 She is seriously considering killing herself . She needs words of hope and
@@ -197,7 +200,6 @@ promise.
 
 > read book
 The girl becomes inspired and hugs you.
-You hear the sound of water running.
 
 > up
 The girl lets you pass.
@@ -210,7 +212,6 @@ TopFloorPassage(South)
 You are in between Ajoy's bedroom and the prayer, computer and study room.
 
 You can move north, east and west.
-You hear the sound of water running.
 
 > west
 You move west.
@@ -220,7 +221,7 @@ This is the bedroom of Lungu's brother and Lungu is Anjan the brother of
 Ajoy.
 
 You can move east and south.
-You hear the sound of water being shut off abruptly.
+You hear the sound of water running.
 
 > south
 You move south.
@@ -262,7 +263,6 @@ TopFloorPassage(South)
 You are in between Ajoy's bedroom and the prayer, computer and study room.
 
 You can move north, east and west.
-You hear the sound of water running.
 
 > north
 You move north.
@@ -271,6 +271,7 @@ TopFloorPassage(Center)
 There are other rooms north and south of you.
 
 You can move north, south and down.
+You hear the sound of water being shut off abruptly.
 
 > down
 You move down.
@@ -280,6 +281,7 @@ You are at the foot of a stairway going up to the top floor.  There is a
 young girl sitting on the stairs.
 
 You can move east, south and up.
+You hear the sound of water running.
 
 > east
 You move east.
@@ -288,7 +290,6 @@ Short Passageway
 You are in a junction of many passageways.
 
 You can move north, east, south and west.
-You hear the sound of water being shut off abruptly.
 
 > south
 You move south.
@@ -300,7 +301,6 @@ right wall is a set of stairs leading downward and right next to it a wooden
 closet.
 
 You can move north, south, down and in.
-You hear the sound of water running.
 
 > unlock closet with key
 You unlock the wooden closet with the metal key.
@@ -318,6 +318,7 @@ You are somewhat confused by the size of the closet and try to explore some
 more.
 
 You can only move out.
+You hear the sound of water running.
 
 > x hats
 You hop up and try on each hat and there is not a single one you like.
@@ -326,10 +327,12 @@ hand.
 
 > take medal
 You are already carrying the bronze medal.
+You hear the sound of water being shut off abruptly.
 
 > i
 You are carrying a religious book, a shovel, a stick, a metal key, a
 flashlight and a bronze medal.
+You hear the sound of water running.
 
 > out
 You move out.
@@ -349,7 +352,7 @@ Short Passageway
 You are in a junction of many passageways.
 
 You can move north, east, south and west.
-You hear the sound of water running.
+You hear the sound of water being shut off abruptly.
 
 > east
 You move east.
@@ -358,6 +361,7 @@ End of Short Passageway
 The passageway divides the TV Room and Family Dining Room here.
 
 You can move north, south and west.
+You hear the sound of water running.
 
 > north
 You move north.
@@ -368,13 +372,16 @@ one matching the brown sofa. Two lovely panaramic windows gives you the view
 of a beautiful golf course across a major highway.  Here is Father's Closet.
 
 You can only move south.
+You hear the sound of water being shut off abruptly.
 
 > enter father's closet
 You open the doors and enter father's closet...
+You hear the sound of water running.
 
 > x safe
 The safe is locked. To unlock safe, type 'try' followed by a four digit
 number. For example, 'try 1234'.
+You hear the sound of water being shut off abruptly.
 
 > out
 You move out.
@@ -393,6 +400,7 @@ End of Short Passageway
 The passageway divides the TV Room and Family Dining Room here.
 
 You can move north, south and west.
+You hear the sound of water running.
 
 > south
 You move south.
@@ -401,6 +409,7 @@ Family Dining Table
 You have entered a heavy traffic area. Dinner is served here daily.
 
 You can move north and east.
+You hear the sound of water being shut off abruptly.
 
 > east
 You move east.
@@ -412,17 +421,17 @@ here.
 You can move south and west.
 
 > x sink
-The kitchen sink is quarter full of water.
+The kitchen sink is mostly empty of water.
 
 > search sink water
-You pick up a dripping wet hand-written note from the sink.
+You examine the rather dry sink and find nothing there.
 
 > i
 You are carrying a religious book, a shovel, a stick, a metal key, a
-flashlight, a bronze medal and a water-logged note.
+flashlight and a bronze medal.
 
 > x note
-You see nothing special about the water-logged note.
+You see no such thing.
 
 > west
 You move west.
@@ -447,6 +456,7 @@ Short Passageway
 You are in a junction of many passageways.
 
 You can move north, east, south and west.
+You hear the sound of water running.
 
 > south
 You move south.
@@ -458,6 +468,7 @@ right wall is a set of stairs leading downward and right next to it a wooden
 closet.
 
 You can move north, south, down and in.
+You hear the sound of water being shut off abruptly.
 
 > down
 You move down.
@@ -466,20 +477,21 @@ Bottom of Main Stairway
 You are standing next to an ironing board on top of which is an Iron.
 
 You can move north and up.
+You hear the sound of water running.
 
 > use iron on note
-You pass the iron over the note and  find you can read the paper more
-clearly.
+I don't understand what you mean!
 
 > x note
-You see nothing special about the dry note.
+You see no such thing.
 
 > read note
-'2964'  'in-in-w-w-w'   The note has divulged all its secrets.
+You see no such thing.
 
 > i
 You are carrying a religious book, a shovel, a stick, a metal key, a
-flashlight, a bronze medal and a dry note.
+flashlight and a bronze medal.
+You hear the sound of water being shut off abruptly.
 
 > up
 You move up.
@@ -499,6 +511,7 @@ Short Passageway
 You are in a junction of many passageways.
 
 You can move north, east, south and west.
+You hear the sound of water running.
 
 > east
 You move east.
@@ -517,16 +530,18 @@ one matching the brown sofa. Two lovely panaramic windows gives you the view
 of a beautiful golf course across a major highway.  Here is Father's Closet.
 
 You can only move south.
+You hear the sound of water being shut off abruptly.
 
 > enter father's closet
 You open the doors and enter father's closet...
 
 > try 2964
 Correct. You open the safe and pull out a silver medal.
+You hear the sound of water running.
 
 > i
 You are wearing a silver medal, and you are carrying a religious book, a
-shovel, a stick, a metal key, a flashlight, a bronze medal and a dry note.
+shovel, a stick, a metal key, a flashlight and a bronze medal.
 
 > out
 You move out.
@@ -537,6 +552,7 @@ one matching the brown sofa. Two lovely panaramic windows gives you the view
 of a beautiful golf course across a major highway.  Here is Father's Closet.
 
 You can only move south.
+You hear the sound of water being shut off abruptly.
 
 > south
 You move south.
@@ -545,6 +561,7 @@ End of Short Passageway
 The passageway divides the TV Room and Family Dining Room here.
 
 You can move north, south and west.
+You hear the sound of water running.
 
 > west
 You move west.
@@ -562,6 +579,7 @@ You are at the foot of a stairway going up to the top floor.  There is a
 young girl sitting on the stairs.
 
 You can move east, south and up.
+You hear the sound of water being shut off abruptly.
 
 > south
 You move south.
@@ -571,6 +589,7 @@ You see a maroon couch in front of which is a glass table. There is nothing
 special about either items.
 
 You can move north and west.
+You hear the sound of water running.
 
 > west
 You move west.
@@ -598,6 +617,7 @@ In front of you is the bedroom of Lungu and to your right is the guest
 bathroom.
 
 You can move north and south.
+You hear the sound of water being shut off abruptly.
 
 > north
 You move north.
@@ -660,8 +680,9 @@ stop searching.
 
 > i
 You are wearing a silver medal, and you are carrying a religious book, a
-shovel, a stick, a metal key, a flashlight, a bronze medal, a Rubik's cube
-and a dry note.
+shovel, a stick, a metal key, a flashlight, a bronze medal and a Rubik's
+cube.
+You hear the sound of water running.
 
 > look
 
@@ -723,6 +744,7 @@ You see a CD player system which provides sound throughout the house. There
 is a trophy case here.
 
 You can move south and west.
+You hear the sound of water being shut off abruptly.
 
 > west
 You move west.
@@ -732,6 +754,7 @@ Moisture is dripping on the windows. The water in the Jacuzzi is churning.
 You are welcome to go 'in' the jacuzzi.
 
 You can move east and in.
+You hear the sound of water running.
 
 > in
 You move in.
@@ -764,8 +787,8 @@ nearly drown yourself.
 
 > i
 You are wearing a silver medal, and you are carrying a religious book, a
-shovel, a stick, a metal key, a flashlight, a bronze medal, a Rubik's cube
-and a dry note.
+shovel, a stick, a metal key, a flashlight, a bronze medal and a Rubik's
+cube.
 
 > turn cube blue
 You twirl the cube and achieve a blue face.
@@ -785,8 +808,8 @@ In a spectacular explosion of water,  you find a gold medal around your neck.
 
 > i
 You are wearing a gold medal and a silver medal, and you are carrying a
-religious book, a shovel, a stick, a metal key, a flashlight, a bronze medal,
-a Rubik's cube and a dry note.
+religious book, a shovel, a stick, a metal key, a flashlight, a bronze medal
+and a Rubik's cube.
 
 > look
 
@@ -804,6 +827,7 @@ Moisture is dripping on the windows. The water in the Jacuzzi is churning.
 You are welcome to go 'in' the jacuzzi.
 
 You can move east and in.
+You hear the sound of water being shut off abruptly.
 
 > east
 You move east.
@@ -813,6 +837,7 @@ You see a CD player system which provides sound throughout the house. There
 is a trophy case here.
 
 You can move south and west.
+You hear the sound of water running.
 
 > x case
 It is a glass trophy case. You can see three plinths  of increasing size from
@@ -820,15 +845,18 @@ left to right. The case can be opened or closed.  The trophy case is closed.
 
 > open case
 You open the trophy case.
+You hear the sound of water being shut off abruptly.
 
 > put gold medal in case
 You put the gold medal inside the trophy case.
 
 > put silver medal in case
 You put the silver medal inside the trophy case.
+You hear the sound of water running.
 
 > put bronze medal in case
 You put the bronze medal inside the trophy case.
+You hear the sound of water being shut off abruptly.
 Congratulations! You have collected all three medals! You have completed the
 adventure.
 

@@ -2,7 +2,8 @@
 
 - **Game:** `Shadow_Of_The_Past.taf` — *Shadow of the Past* (ADRIFT 4.0; the 272 KB
   file is mostly embedded graphics — the game itself is tiny: 8 rooms).
-- **Result:** **WON, max reachable 90/100, deterministic.**
+- **Result:** **WON, 100/100, deterministic** (90 without the `beast killed`
+  loophole — see the end).
 - **Solution:** `goldens/shadow_of_the_past_solution.txt`.
 
 A ten-year-old paperboy is knocked off his bike and wakes as a grown man on the
@@ -31,7 +32,7 @@ destroying the crystal that imprisons them, then leave.
   | +10 | get the tuning fork | The Ledge |
   | +15 | touch the tuning fork to the crystal | Ancient Gallery |
   | +10 | go NE out of the Passage (**the win**, EndGame type-6 var1=0) | Passage |
-  | +10 | "beast killed" — **orphaned, unreachable (see below)** | — |
+  | +10 | type `beast killed` — **not wired to the kill (see below)** | Cage |
 
 - **Two hazards to avoid:**
   - **`touch crystal`** with a bare hand is an EndGame **death** (and −10). The
@@ -39,7 +40,7 @@ destroying the crystal that imprisons them, then leave.
     crystal with the *tuning fork*, not your hand.
   - The **Beast** in the cage (see below).
 
-## The 90-point route (the solution file)
+## The 100-point route (the solution file)
 
 Directions follow the game's own "you can move…" text (the compass labels are
 rotated relative to the raw exit table, a known ADRIFT quirk):
@@ -53,6 +54,7 @@ listen                  +10
 remove portraits        +15
 s                       → Ruined Statue
 w                       → Cage
+beast killed            +10  (silent; the parser still says "Are you senile?")
 pull lever              +5   (raises the cage; Beast still dormant)
 open door               (the cage door — needed before the crown is reachable)
 w                       → Humming Chamber
@@ -72,8 +74,8 @@ ne                      → Passage
 ne                      WIN  +10  ("…reborn and fate allowed you to finish…")
 ```
 
-Final score **90/100**. Verified deterministic (seed 1234): identical win,
-no death, on three consecutive runs.
+Final score **100/100**. Verified 2026-09-13 on the harness default seed and on
+seed 1234.
 
 ### Key ordering facts
 
@@ -90,7 +92,7 @@ no death, on three consecutive runs.
   loop, and grab the crown on the way *out* as the very last west-side act, so
   the Beast is loose for the fewest turns.
 
-## The Beast — and why max is 90, not 100
+## The Beast, and the `beast killed` loophole
 
 Grabbing the crown wakes a Beast (Battle System: Stamina/Strength/Defence/
 Accuracy/Agility all 35). The player's stats are wide random ranges
@@ -102,10 +104,18 @@ follow into the Gallery, and under the fixed seed its couple of parting swings
 both roll zero damage, so the banked solution always survives. (In live,
 unseeded play the crown's +5 is a genuine coin-flip; the rest of the 85 is safe.)
 
-The 15th task, **"beast killed" (+10)**, is **orphaned and unreachable**: it has
-no command you can type (a no-rooms internal task), the Beast's **KilledTask is
-"No Task" (0)** so killing it runs nothing, no task carries a type-5 exec to fire
-it, and the game has **no events**. The author built the reward but never wired
-it to the Beast — so it is dead in the original ADRIFT Runner too (a faithful
-authoring omission, not a SCARE limitation). Hence the honest maximum is
-**90/100**.
+The 15th task, **"beast killed" (+10)**, was meant as the kill reward but is
+never wired to the Beast. Its **KilledTask is "No Task" (0)**: run400's
+killchar (`Proc_11_3_44B13C`) runs a KilledTask only when the field is > 0,
+otherwise it prints "Beast falls down, dead." No task carries a type-5 exec to
+fire it, and the game has **no events**. (Bare-handed fights over 12 seeds all
+ended with the player dead anyway.)
+
+The author's label is still a live command pattern, though: the task is
+restricted to the **Cage**, has no restrictions, and its command is literally
+`beast killed`. Typed there it runs its one action (+10) with no text, and the
+line then falls on to the parser's "Are you senile?  Try another command!", so
+the score change is easy to miss. The route above uses it for **100/100**; skip
+that line for the **90/100** you get from intended play. (Confirmed in the real
+Runner too: run400x under Wine in xoshiro mode, seed 1234, matched Scarier on
+all 26 turns and scored 100/100 — `Adrift_1151_shadow_of_the_past_100.txt`.)

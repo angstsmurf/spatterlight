@@ -4603,5 +4603,9 @@ that's what you get for swearing.
 
 If you want to try again, type "restart" and hit enter.
 
+> score
+Your score is currently 193.  Snitch seems ready for trouble as he enters.
+Arliss strides towards you.
+
 > quit
 Do you really want to quit? [Y/N]

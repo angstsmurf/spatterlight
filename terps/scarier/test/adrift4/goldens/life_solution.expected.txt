@@ -70,7 +70,8 @@ You move west.
 
 Living room
 A rather ugly, purple sofa is in front of a small, black&white screen tv. A
-window looking out into the street is behind the tv.
+window looking out into the street is behind the tv. There is a soda can
+lying on the sofa.
 
 > watch tv
 You turn on the tv and sit down in the sofa.
@@ -212,8 +213,8 @@ You move in.
 
 Living room
 A rather ugly, purple sofa is in front of a small, black&white screen tv. A
-window looking out into the street is behind the tv. A soda can and an
-unfinished slice of pizza is on the sofa.
+window looking out into the street is behind the tv. There is a soda can
+lying on the sofa.
 
 > e
 You move east.

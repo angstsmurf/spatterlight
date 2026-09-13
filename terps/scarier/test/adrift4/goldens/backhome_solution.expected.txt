@@ -226,12 +226,12 @@ Some time passes...
 
 Some time passes...
 
-"I worry about you, you know.  You're a delicate fellow and your work seems
-so stressful," your mother comments.
-
 > z
 
 Some time passes...
+
+"I worry about you, you know.  You're a delicate fellow and your work seems
+so stressful," your mother comments.
 
 > e
 
@@ -699,7 +699,11 @@ revealing the kitchen.  A drainpipe runs down beside the door frame and runs
 into a hole in the ground, above which is a red-handled tap.  To your left,
 attached to the wall, is a rough wooden coal bunker.
 
+You can hear the telephone ringing inside the house.
+
 Exits: North and South (Kitchen and Garden)
+
+You hear the telephone start ringing.
 
 > open coal bunker door
 You open the coal box.  It brings you back...

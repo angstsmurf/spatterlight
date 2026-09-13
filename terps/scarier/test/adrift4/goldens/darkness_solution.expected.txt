@@ -142,8 +142,6 @@ place at the best of times, but it feels even worse in here.  The room seems
 to be filled with the faint smell of petrol or maybe it is diesel. You can
 see some stone steps leading up and down.
 
-What is that tapping sound?
-
 > u
 As you head up, your footsteps echo on the stone steps.
 
@@ -153,6 +151,8 @@ obviously in the generator room.  It is in here that the electrical power is
 produced for the light and the rest of the lighthouse. You know from your
 last visit that this room can be an extremely noisy place. Some worn stone
 steps lead up and down.  An old toolbox is sitting near the generator.
+
+You hear the sound of running footsteps.
 
 > open toolbox
 You open the toolbox.  Inside the toolbox is a broken spark plug, a
@@ -184,8 +184,6 @@ hat, some safety guidelines and a flare gun.
 > get flare gun
 You take the flare gun from the old locker.
 
-You are sure you can hear voices.
-
 > get boat hook
 You take the boat hook.
 
@@ -200,6 +198,9 @@ also provides sleeping spaces, although you would need to be very agile to
 climb up and squeeze inside. Just inside the door is a wardrobe and nearby is
 a rusty panel heater.  Some stone steps lead up and down.  You can also see a
 mattress and a vacuum cleaner.
+
+What was that noise! Something made a noise! You look around the room but
+find nothing.
 
 > open wardrobe
 You open the wardrobe.  A coat is inside the wardrobe.
@@ -221,6 +222,8 @@ You take the coat.
 > wear coat
 You put on the coat.
 
+Somebody calls your name, turning round quickly you see nothing.
+
 > open cupboard
 You open the cupboard.  Inside the cupboard is a woolly jumper, some thermal
 underwear and a pair of socks.
@@ -231,8 +234,6 @@ are long enough to allow anyone to stretch out to their full extent.  Anyone
 sleeping in these bunks would need to do so in the foetal position.  The
 middle bunk is obviously the best accommodation as it has its own window.  A
 letter is on the bunk.
-
-What is that tapping sound?
 
 > get letter
 You take the letter from the bunk.
@@ -277,8 +278,7 @@ space is taken up with a dozen of more bright red gas bottles. To your right,
 sitting on the floor, is a blue metal box.  Some stone steps lead up and
 down.  You can also see an old bucket.
 
-You have the feeling you are not alone. You carefully examine the room, but
-find nothing.
+Is that footsteps echoing on the stones steps?
 
 > x work bench
 You can see the work bench.  On the work bench is the weather journal, the
@@ -317,6 +317,8 @@ lead up and down.
 > x noticeboard
 On the lighthouse noticeboard is the weather report for the 23rd.  It will
 basically be a fine day with a freshening wind.
+
+You are sure you can hear voices.
 
 > x lever
 It is the lever which starts the light.
@@ -488,6 +490,9 @@ you can see a microwave and a television. Three comfortable armchairs are in
 a strategic position in front of the television. Some stone steps lead up and
 down.
 
+Just out of the corner of your eye, you see something move. Turning round
+sharply, you find nothing.
+
 > d
 As you head down, your footsteps echo on the stone steps.
 
@@ -522,9 +527,6 @@ obviously in the generator room.  It is in here that the electrical power is
 produced for the light and the rest of the lighthouse. You know from your
 last visit that this room can be an extremely noisy place. Some worn stone
 steps lead up and down.  An old toolbox is sitting near the generator.
-
-You have the feeling that someone is standing behind you. Looking over both
-shoulders you see nothing.
 
 > d
 As you head down, your footsteps echo on the stone steps.
@@ -581,6 +583,8 @@ I don't think you can mend the small generator.
 > mend generator
 I don't think you can mend the small generator.
 
+Just for a moment you hear a radio playing music.
+
 > push start button
 You press the start button and the generator splutters to lift. You notice
 that the lighthouse lights do not come on, perhaps this little generator
@@ -617,8 +621,6 @@ On one side of the room is work bench on which sits a radio, the remaining
 space is taken up with a dozen of more bright red gas bottles. To your right,
 sitting on the floor, is a blue metal box.  Some stone steps lead up and
 down.  You can also see an old bucket.
-
-Just for a moment you hear a radio playing music.
 
 > u
 As you head up, your footsteps echo on the stone steps.
@@ -679,6 +681,8 @@ battered old locker. Some stone steps lead up and down.  With the generator
 running it is very noisy in here.  You can also see a fuel can and a fire
 extinguisher.
 
+You hear the sound of running footsteps.
+
 > d
 As you head down, your footsteps echo on the stone steps.
 
@@ -688,8 +692,6 @@ obviously in the generator room.  It is in here that the electrical power is
 produced for the light and the rest of the lighthouse. You know from your
 last visit that this room can be an extremely noisy place. Some worn stone
 steps lead up and down.  An old toolbox is sitting near the generator.
-
-You can hear something moving in the room above.
 
 > d
 As you head down, your footsteps echo on the stone steps.
@@ -710,8 +712,6 @@ and cramped.  A cupboard, which you guess contains wet weather gear, is just
 near the door. The exit out of the lighthouse is west and some worn stone
 steps lead up.  The door to the lighthouse is wide open and blowing in the
 wind.
-
-You hear a ships siren.
 
 > w
 You move west.
@@ -734,6 +734,8 @@ length and no more than 20 feet (6m) wide; however a northern reef extends
 another 1000 feet (304.8m) beyond the main area.  You can go west to the
 jetty or east in the direction of the lighthouse.   You can see a ship
 passing the lighthouse.
+
+You hear a ships siren.
 
 > w
 You move west.

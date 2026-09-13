@@ -132,7 +132,9 @@ the writer has seen fit to add some crazy paving. Some people have no
 subtlety.  Mad Cat Lady is here. So are many cats. Many, many cats.
 
 > talk to mad cat lady
-"Huh. Grayoraaaarghaleffonruryargherghargh!"
+A hideous smile crosses her toothless old face. This sadly doesn't affect the
+nonsense that comes out of her mouth. "Byehurghimrrrpurghahay!
+Lraghahaghaleyeohargh!"
 
 > give medicine to mad cat lady
 Although it pains you to give away one of your precious items, you do need to
@@ -167,9 +169,7 @@ You move south.
 High Street
 
 Shops line the south side of the High Street. They're all fairly
-modern-looking.  There are a few people milling about noncommitally.  A
-ginger cat is strolling about casually.  The ginger cat ambles away to the
-east.
+modern-looking.  There are a few people milling about noncommitally.
 
 > e
 You move east.
@@ -177,8 +177,7 @@ You move east.
 High Street
 
 Shops line the south side of the street. They're quite old.  There are a few
-people milling about noncommitally.  A ginger cat is strolling about
-casually.
+people milling about noncommitally.
 
 > e
 You move east.
@@ -219,8 +218,8 @@ You move west.
 High Street
 
 Shops line the south side of the street. They're quite old.  There are a few
-people milling about noncommitally.  A ginger cat is strolling about
-casually.  The ginger cat ambles away to the west.
+people milling about noncommitally.  The ginger cat saunters towards you from
+the west.
 
 > w
 You move west.
@@ -228,8 +227,7 @@ You move west.
 High Street
 
 Shops line the south side of the High Street. They're all fairly
-modern-looking.  There are a few people milling about noncommitally.  A
-ginger cat is strolling about casually.
+modern-looking.  There are a few people milling about noncommitally.
 
 > n
 You move north.
@@ -327,7 +325,7 @@ The Park
 The park is fairly empty at the moment; all useful members of society are at
 work. This makes the park an ideal meeting place for no-good vagabonds...
 such as yourself. There is a large duck pond in the centre of the park, and a
-bench at the side.  A ginger cat is strolling about casually.
+bench at the side.
 
 > w
 You move west.
@@ -408,8 +406,7 @@ work. This makes the park an ideal meeting place for no-good vagabonds...
 such as yourself. There is a large duck pond in the centre of the park, and a
 bench at the side.  Scary Mumbling Man is shuffling about here.
 Miscellaneous Hobos and Hobinas are loitering all over the park.  Ollie the
-Magic Hobo is standing with the other hobos.  A ginger cat is strolling about
-casually.  The ginger cat ambles away to the north.
+Magic Hobo is standing with the other hobos.
 
 > look
 
@@ -510,7 +507,7 @@ Your score is 130 out of a maximum of 230.  (56%)
 You are wearing a woolly hat and your old, grey coat, and you are carrying an
 old lighter, a cinema ticket, an empty cigarette box, a trashy romance novel,
 a biro, a beige computer keyboard, the sacred crowbar, some rope, some catnip
-and the whistle.  The ginger cat saunters towards you from the west.
+and the whistle.
 
 > look
 
@@ -520,8 +517,7 @@ Well, it had to happen. Here is a traditional alley; staple of the
 Interactive Fiction world. And you would know, from your vast experience in
 these matters. Except - and it's important to remember this - this time it's
 real. A battered old dumpster is slumped - insofar as it's possible for
-inanimate objects to slump - against the east wall.  A ginger cat is
-strolling about casually.
+inanimate objects to slump - against the east wall.
 
 > look in dumpster
 It's big, it's dull, it's filthy. You can almost smell the valueless item
@@ -530,7 +526,7 @@ candelabra and a rubbish are inside the dumpster.
 
 > x candelabra
 It's an old metal candelabra. One of the candle-holdy bits is bent; but it
-looks pretty strong.  The ginger cat ambles away to the west.
+looks pretty strong.
 
 > take candelabra
 You take the candelabra from the dumpster.
@@ -573,7 +569,8 @@ work. This makes the park an ideal meeting place for no-good vagabonds...
 such as yourself. There is a large duck pond in the centre of the park, and a
 bench at the side.  Scary Mumbling Man is shuffling about here.
 Miscellaneous Hobos and Hobinas are loitering all over the park.  Ollie the
-Magic Hobo is standing with the other hobos.
+Magic Hobo is standing with the other hobos.  The ginger cat saunters towards
+you from the south.
 
 > talk to ollie
 He seems to be searching frantically for something. "My bindle!" he cries.
@@ -589,7 +586,8 @@ back.
 > give bindle to ollie
 You pass the magic bindle of mystery to Ollie, and he gives it an
 experimental wave. You see sparkles, and smell the faint aroma of beans.
-"Thanks Bag Lady!" he says, grinning broadly.
+"Thanks Bag Lady!" he says, grinning broadly.  The ginger cat ambles away to
+the south.
 
 > score
 Your score is 150 out of a maximum of 230.  (65%)
@@ -609,7 +607,8 @@ You move south.
 High Street
 
 Shops line the south side of the High Street. They're all fairly
-modern-looking.  There are a few people milling about noncommitally.
+modern-looking.  There are a few people milling about noncommitally.  A
+ginger cat is strolling about casually.
 
 > e
 You move east.
@@ -630,7 +629,7 @@ complicated, and probably quantum.  There are a few people milling about
 noncommitally.  Shop Guy is stacking the shelves.
 
 > talk to shop guy
-"Have a nice day."
+"I'm sorry, I don't think I can help you with that."
 
 > w
 You move west.
@@ -655,7 +654,8 @@ Street Corner
 
 It's a fairly uninteresting street corner, as far as street corners go. I
 mean, usually there woudl be a lamppost to loiter around, but not here. Here
-we just have: pavement, road, pavement. Very dull indeed.
+we just have: pavement, road, pavement. Very dull indeed.  A ginger cat is
+strolling about casually.
 
 > w
 You move west.
@@ -688,8 +688,7 @@ Street Corner
 
 It's a fairly uninteresting street corner, as far as street corners go. I
 mean, usually there woudl be a lamppost to loiter around, but not here. Here
-we just have: pavement, road, pavement. Very dull indeed.  A ginger cat is
-strolling about casually.
+we just have: pavement, road, pavement. Very dull indeed.
 
 > n
 You move north.
@@ -698,7 +697,6 @@ Riverbank
 
 The river winds away to the south. It's completely unbridged, which could
 well be because there isn't actually anything on the other side. Funny, that.
- The ginger cat saunters towards you from the south.
 
 > e
 You move east.

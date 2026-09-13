@@ -180,7 +180,6 @@ You make a mental note to find out who is in F22.
 The barber looks you up and down and then says, "Hello Sir, you do know that
 this place is only for the crew?"
 You quickly mutter that you do.
-The barber coughs.
 
 > west
 You move west.
@@ -259,6 +258,7 @@ The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. The staircase leads up to 'F' deck and heading south will take you
 onto 'G' deck.  One of the crew (a man named Collins) is leaning against the
 wall.
+Collins scratches his nose.
 
 > south
 You move south.
@@ -280,7 +280,6 @@ Post Office, G Deck
 The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.  A postal clerk is busy sorting the mail.
-The postal clerk puts a letter into a pigeon hole.
 
 > down
 You go down the steps.
@@ -309,7 +308,6 @@ Post Office, G Deck
 The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.  A postal clerk is busy sorting the mail.
-The postal clerk looks in one of the mail bags.
 
 > open suitcase
 You open the suitcase.  Inside the suitcase is a receipt, some wires, a bank
@@ -317,16 +315,17 @@ note and a tie pin.
 
 > get receipt
 You take the receipt from the suitcase.
+The postal clerk looks in one of the mail bags.
 
 > close suitcase
 You close the suitcase.
-The postal clerk puts a letter into a pigeon hole.
 
 > give receipt to clerk
 You hand the receipt to the clerk who looks at it for a moment and says,
 "This should be easy to find, hang on I'll go and look."
 He disappears for a moment and then returns with a parcel which he hands to
 you.
+The postal clerk rubs his chin.
 
 > exam clerk
 Looking to be in his early forties, with greying hair and moustache and an
@@ -341,16 +340,14 @@ parcel and a suitcase.
 > get coin
 The postal clerk has his back to you so you carefully pick his pocket. It
 will probably be a good idea not to be seen carrying it about the ship.
-The postal clerk takes a letter from a mail bag and drops it in one of the
-bins.
 
 > open suitcase
 You open the suitcase.  Inside the suitcase is some wires, a bank note and a
 tie pin.
+The postal clerk rubs his chin.
 
 > put coin in suitcase
 You put the coin inside the suitcase.
-The postal clerk rubs his chin.
 
 > close suitcase
 You close the suitcase.
@@ -509,6 +506,7 @@ of years working as a carpenter). The decorative mouldings and all the
 handrails look like they are bronze.  You can go west to a corridor, east to
 the forward staircase and to the southeast is a barber shop.  The concerned
 looking ship's barber is here.
+The barber moves his weight from one foot to the other.
 
 > talk to barber
 The barber looks you up and down and then says, "Do you know that you look
@@ -516,18 +514,18 @@ very similar to the man the Jones fella is looking for?"
 "I think you are wrong," you reply quickly.
 
 The barber has obviously recognised you so you will need to act quickly.
-The barber is giving you a very firm look.
 
 > open suitcase
 You open the suitcase.  Inside the suitcase is some wires, a bank note, a
 coin and a tie pin.
+The barber moves his weight from one foot to the other.
 
 > get note
 You take the bank note from the suitcase.
-The barber moves his weight from one foot to the other.
 
 > close suitcase
 You close the suitcase.
+The barber rubs his chin.
 
 > give note to barber
 You hand the £20 to the barber who smiles and says, "Do you know, I believe I
@@ -557,11 +555,11 @@ the stand.
 In one of the pockets of the long winter overcoat you find a piece of paper
 and some identification.  You pocket both.
 
-You feel a very slight tremble and a distant noise.
-
 > i
 You are carrying a luggage slip, a ticket, a piece of paper, some
 identification papers, a suitcase and a brass key.
+
+You feel a very slight tremble and a distant noise.
 
 > northwest
 You move northwest.
@@ -606,13 +604,13 @@ uncomfortable.  A desk is pushed again one wall with a medicine cabinet next
 to it. To the west is the forward staircase.  Dr Simpson is standing to one
 side of the room, swaying ever so slightly.
 
-You notice that the engines seem to have stopped.
-
 As you enter you get the tell tale aroma of gin.
 
 > open desk
 As you go to open the desk the doctor shouts, "No! Don't open the desk." You
 pull the desk open before he can stop you. A bottle is inside the desk.
+
+You notice that the engines seem to have stopped.
 
 > x desk
 The desk looks to be fairly old and well used.  The desk is open.  A bottle
@@ -920,7 +918,10 @@ Staircase Entrance, B Deck
 This entrance, like the rest of the second-class area is oak panelled, with
 the usual tiled flooring.  Heading either north or south will take you to one
 of the Promenade Decks on the ship. To the east is the forward staircase and
-to the west is the door to the Smoking Room.
+to the west is the door to the Smoking Room.  The Master-at-Arms is stood
+watching you very carefully.
+King looks at the suitcase and asks, "Are you moving house?" He doesn't seem
+to be expecting an answer and just chuckles to himself.
 
 > east
 You move east.
@@ -1082,6 +1083,7 @@ The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.  The room has developed quite a slope.  The postal clerk is
 looking around and appears very worried.
+The postal clerk is urgently stuffing parcels in one of the mail bags.
 
 > down
 You move down.
@@ -1110,7 +1112,6 @@ The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.  The room has developed quite a slope.  The postal clerk is
 looking around and appears very worried.
-The postal clerk drags a mail bag to the door.
 
 > west
 You move west.
@@ -1275,6 +1276,7 @@ handrails look like they are bronze.  You can go west to a corridor, east to
 the forward staircase and to the southeast is a barber shop.  The place is
 full of people wearing lifebelts and everyone seems to be talking at once.
 The worried looking ship's barber is here.
+The barber winks at you.
 
 > east
 You move east.
@@ -1296,8 +1298,7 @@ You are in a long service corridor for the crew which has the nick-name
 two people, the plain white decoration and functional accessories is in stark
 contrast to the passenger corridors. The corridor continues east or you can
 go west to the forward staircase. To the south is the door of the Purser's
-office.  The corridor has developed quite a slope.  Master-at-Arms King
-enters from the east.
+office.  The corridor has developed quite a slope.
 
 > unlock door
 You unlock and open the door.
@@ -1356,12 +1357,7 @@ desperately hoping no one is about tonight. The walls are oak panelled with
 silver-plated metal brackets holding oak handrails. You can go either up to
 'D' deck or down the staircase to 'F' deck.  To the east is a crew corridor
 known as 'Scotland Road' and heading west will take you to the second class
-entrance.  The staircase has developed quite a slope.  The Master-at-Arms is
-stood watching you very carefully.
-With the Master-at-arms hanging around it would not be a good idea to let him
-catch you with anything stolen.
-King looks at the suitcase and asks, "Are you moving house?" He doesn't seem
-to be expecting an answer and just chuckles to himself.
+entrance.  The staircase has developed quite a slope.
 
 > up
 You move up.
@@ -1371,7 +1367,7 @@ The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'C' deck or down the staircase to 'E'
 deck.  To the west is the door into the Dining Room and east is the
 Infirmary.  The staircase has developed quite a slope.  The worried looking
-ship's purser is here.
+ship's purser is here.  Master-at-Arms King enters from above.
 
 > give key to purser
 Coughing once you say to the Purser, "Excuse me, I think this belongs to
@@ -1495,7 +1491,12 @@ Forward Staircase, C Deck
 The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'B' deck or down the staircase to 'D'
 deck.  To the west is the entrance to the Library.  The staircase has
-developed quite a slope.
+developed quite a slope.  The Master-at-Arms is stood watching you very
+carefully.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
+With the Master-at-arms hanging around it would not be a good idea to let him
+catch you with anything stolen.
 
 > west
 You move west.

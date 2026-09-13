@@ -2,11 +2,9 @@ easy
 nnamen tutem selronden flar darg
 x old oak table
 get all from table
-wear cloak
 down
 x shelves
 get all from shelves
-take coin
 up
 put oil in lantern
 light lantern
@@ -15,13 +13,7 @@ east
 attack wolf
 attack wolf
 take tonerith stone
-e
-e
-attack bridgekeeper
-attack bridgekeeper
 w
-w
-west
 west
 north
 north
@@ -32,7 +24,6 @@ north
 north
 nw
 nw
-attack narfild
 e
 x large stone table
 get all from large stone table
@@ -44,10 +35,11 @@ x holes in the wall
 get all from holes in the wall
 e
 e
-se
-se
-ne
-look
+attack narfild
+nw
+nw
+e
+sw
 give food to tarin
 ne
 dig
@@ -73,6 +65,16 @@ n
 buy metal helmet
 wear metal helmet
 s
+sw
+sw
+nw
+sw
+attack bridgekeeper
+attack bridgekeeper
+ne
+se
+ne
+ne
 s
 put water in pan
 n
@@ -92,7 +94,6 @@ n
 w
 nw
 nw
-attack monster
 attack monster
 ne
 unlock chest

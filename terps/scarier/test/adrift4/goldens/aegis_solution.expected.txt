@@ -502,14 +502,15 @@ behind a pile of old crates, tugging Oxblood down next to you, before peeking
 back out to get an idea of where the thieves are and how to deal with them.
 
 You hear a splash behind you.
+Oxblood raises his head from the water and tugs on the edge of your cloak.
 
 > examine netting
 A tangled pile of netting, most of it damaged past repair.   An old net is
 inside the pile of netting.
-Oxblood raises his head from the water and tugs on the edge of your cloak.
 
 > get net
 You take the old net from the pile of netting.
+Oxblood dives down out of sight.
 
 > mount Oxblood
 Slipping as silently as possible over the edge of the pier and into the

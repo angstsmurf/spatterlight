@@ -321,7 +321,7 @@ A thin tunnel under the water.  Serpanern is here.
 You can only move north.
 Lamanluie cuts The tunnel beast with the old rusty broken blood-stained
 scimitar.
-The tunnel beast hits you, but it doesn't seem to do any damage.
+The tunnel beast hits Lamanluie, but it doesn't seem to do any damage.
 
 > attack serpanern
 You stab The tunnel beast with The Spirit Dagger.
@@ -365,7 +365,7 @@ wondrous colour hang from the ceiling. Bleeched coral is growing in the far
 corner.  Crynasalda is here.
 Lamanluie cuts The serpentine guardian with the old rusty broken
 blood-stained scimitar.
-The serpentine guardian hits Lamanluie.
+The serpentine guardian hits you.
 
 > attack crynasalda
 You stab The serpentine guardian with The Spirit Dagger.
@@ -459,6 +459,7 @@ The path is dry and cracked. The sun beats down on you hard. The air is hot
 and dry.  A lizard is here.  Slikerma is here.
 
 You can only move west.
+You feel cold.
 
 > west
 You walk west.
@@ -500,7 +501,8 @@ from your body drips onto the ground and sizzles mightily.  Kelorano is here.
 
 You can only move west.
 Lamanluie cuts The lava guardian with An old broken scimitar.
-The lava guardian hits Lamanluie with Ever-burning torch.
+The lava guardian hits you with Ever-burning torch.
+You feel cold.
 
 > kelorano t1
 Lava engulfs Kelorano's body. He screams and you only hope that he is
@@ -521,7 +523,7 @@ The lava guardian hits Lamanluie.
 > get amber
 You pick up The Amber of Flames.
 Lamanluie cuts The lava guardian with An old scimitar.
-The lava guardian hits you, but it doesn't seem to do any damage.
+The lava guardian hits Lamanluie.
 
 > west
 You walk west.
@@ -560,7 +562,7 @@ and dry.  A lizard is hissing at you, blocking your way.  Slikerma is here.
 
 You can only move west.
 Lamanluie cuts A fire lizard with An old scimitar.
-A fire lizard hits Lamanluie, but it doesn't seem to do any damage.
+A fire lizard hits you, but it doesn't seem to do any damage.
 
 > attack slikerma
 You stab A fire lizard with The Spirit Dagger.

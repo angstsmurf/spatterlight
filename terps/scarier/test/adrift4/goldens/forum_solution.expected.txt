@@ -69,6 +69,9 @@ bowl is on the wooden altar.
 > take bowl
 You take the glass bowl from the wooden altar.
 
+> z
+Time passes...
+
 A sudden noise at the doorway makes you glance up in alarm. A small figure is
 highlighted against the doorway. His bowl haircut, and brown robes give him
 away immediately. He is the mutilated Mad Monk.
@@ -76,9 +79,6 @@ away immediately. He is the mutilated Mad Monk.
 He staggers towards you, gurgling incoherently, and living up to his name.
 You glimpse his face in the firelight, and gasp. Green and hideous, he wears
 an expression of hate and disgust, advancing. You'd better act quickly.
-
-> z
-Time passes...
 
 > z
 Time passes...

@@ -22,9 +22,6 @@ You move west.
 Loose rocks and a stiff wind make footing along this rocky passage perilous.
 The path wraps around the cliff, continuing  to the south.
 
-You hear a voice, more of a whisper.  The words it speaks are
-indistinguishable, yet there is an eerie familarity to it.
-
 > s
 You move south.
 It is quite pleasant here in this small grove of trees.  The wind is barely
@@ -37,6 +34,9 @@ The sounds are ethereal, like a warm fire on a long, cold winter's evening.
 It is very relaxing. "Do you like my music?" a gentle voice says, as a fairy
 flies out from her resting place up in one of the trees.  "My warmest
 welcome, friend.  My name is Gale," she greets with a smile.
+
+You hear a voice, more of a whisper.  The words it speaks are
+indistinguishable, yet there is an eerie familarity to it.
 
 > ask gale about mansion
 Gale sighs, as her cheerful disposition momentarily fades.  "It would be best
@@ -158,15 +158,15 @@ You move north.
 The light orbs reveal a barren area with exits leading out in all directions
 except down.  A monkey is here.
 
+A brilliant flash of white light momentarily blinds you.  In that instance, a
+vague memory exists in your mind, the key to the mystery of how you got here.
+ But as quickly as it came, it is gone again.
+
 > e
 You move east.
 A lake fills most of this large cavern.  In the middle is a small island.
 Under the illumination of the light orbs, you can make out a walkable ridge,
 leading east around the edge of the lake, to a barely visible waterfall.
-
-A brilliant flash of white light momentarily blinds you.  In that instance, a
-vague memory exists in your mind, the key to the mystery of how you got here.
- But as quickly as it came, it is gone again.
 
 > cast at island
 You swing the pole back, and thrust forward as hard as you can, releasing the
@@ -231,10 +231,6 @@ Flames crackle in the fireplace, which is flanked by a long leather couch,
 and row of luxurious high-backed chairs.  Also here is a fire poker.  A ghost
 is here.
 
-For a second, a strong fragrance is in the air.  A fleeting image in your
-mind of another place and time is triggered by the smell, only to disappear
-as quickly as it arrived.
-
 > take poker
 You pick up the fire poker.
 
@@ -287,6 +283,10 @@ A dreary, dank space, with exposed wooden supports and a dirt floor.
 Using the spatula, you thrust into the floor, scooping up a bladeful of
 compacted dirt.  A little more digging and you uncover a yellow balloon,
 which is in surprisingly good condition.
+
+For a second, a strong fragrance is in the air.  A fleeting image in your
+mind of another place and time is triggered by the smell, only to disappear
+as quickly as it arrived.
 
 > take balloon
 You pick up the yellow balloon.

@@ -8,12 +8,19 @@
 # key, tool and treasure in this game is therefore somewhere different in
 # every RNG thread, and a hand-written route is worth exactly one thread.  So
 # this file is generated:
-#     python3 harness/hhorror_solve.py 1 > goldens/hhorror_solution.txt
+#     SCR_RNG=xoshiro python3 harness/hhorror_solve.py 50 > goldens/hhorror_solution.txt
 # The solver replays the game after every command, reads the world out of the
 # trace stream (SCR_TRACE_OBJ, SCR_TRACE_JUDY, SCR_TRACE_VARS=health) and
 # re-orders the puzzle chain around wherever this seed's scatter put things.
-# Roughly one seed in four is solvable at all; seed 1 is, and reaches the
-# ceiling.  See the script's docstring for the rest.
+# Roughly one seed in four is solvable at all.  Re-derived 2026-09-13 for the
+# harness's SCR_RNG=xoshiro default: seed 1's route (this file's old contents)
+# no longer completes under the new RNG stream -- the scatter draws differently
+# -- and the SCR_SEED=28 that was blind-searched in to restore a passing PASS/FAIL
+# result only won by reaching `drive`, not by collecting the treasures the
+# hardcoded-for-seed-1 route assumed: it scored 30/155, not 145/155.  Swept
+# seeds 1-60 with the solver itself (not a marker-only search); 25/33/35/45/50/56
+# all solve and all reach 145/155.  Seed 50 is used here (shortest route,
+# 196 commands).  See the script's docstring for the rest.
 #
 # ***  BEST POSSIBLE IS 145/155 -- THE LAST 10 POINTS ARE AN AUTHOR BUG  ***
 # The nine treasures are scored by T101-T109, each `RESTR type=0` on its own
@@ -186,8 +193,10 @@ s
 take torch
 n
 n
+n
 e
 take kit
+s
 s
 say live
 take blunderbuss
@@ -197,24 +206,49 @@ w
 take ball
 put ball in blunderbuss
 e
+d
+n
 fire blunderbuss
 drop blunderbuss
 take doubloons
+s
+u
+take poison
 d
 n
+n
 w
-take weedkiller
+take cheese
+poison cheese
+e
+s
+w
+turn tap
+fill bottle
 e
 n
+take bible
+bless water
+drop bible
+e
+n
+take weedkiller
+s
+w
 n
 pour weedkiller on plant
-take hook
-use kit
+take iron key
 s
 e
-s
+d
+give poisoned cheese to rats
+unlock door
+drop iron key
+u
 s
 w
+take hook
+s
 u
 n
 n
@@ -224,165 +258,104 @@ s
 s
 d
 n
-e
-n
-n
-take whistle
+take bleach
 s
-s
-s
-w
 u
 n
+pour bleach on monster
+e
+take whistle
 n
+w
 u
 blow whistle
 drop whistle
 d
-s
-s
-d
 n
-n
+e
 take hammer
+w
 s
-s
-u
-n
-n
 u
 break wall
 drop hammer
+s
+pour holy water on skeleton
+drop holy water
+n
 take dish cloth
 d
 s
 s
 d
-n
-n
-n
-n
-w
 take vodka
 use vodka with cloth
-e
-s
-s
+n
+n
 e
 light molotov
 s
 s
 w
 u
+use kit
 e
 throw molotov
-take poison
 w
-n
-n
-n
-w
-take cheese
-poison cheese
-e
-s
-s
-s
-d
-n
-w
-turn tap
-fill bottle
-e
-e
-s
-take bible
-bless water
-drop bible
-w
-w
-take iron key
-e
-n
-n
-e
-d
-give poisoned cheese to rats
-unlock door
-drop iron key
-u
-s
-s
-w
-u
-n
-n
-u
-s
-pour holy water on skeleton
-drop holy water
-n
-d
-s
-s
 d
 n
 n
-e
-take bleach
-s
-s
-w
-u
 n
-pour bleach on monster
-s
-d
-n
-n
-e
-d
 take plunger
-u
 s
 s
-w
+s
 u
 n
 e
 unblock toilet
 drop plunger
 take gold bar
-take money
+w
+s
+d
+e
+take diamond ring
 n
 w
-w
-take candlestick
+take emerald ring
+n
 e
+d
+take money
+u
+w
+n
 n
 e
 take deed
+w
+s
+s
+s
+s
+u
+n
+n
+u
+s
+take candlestick
+take necklace
+n
+d
+n
+e
 take braclet
 w
 s
 s
 s
 d
-n
-n
-w
-take diamond ring
-e
-e
-take necklace
-d
-s
-take emerald ring
-n
-u
-s
-s
-w
 s
 s
 drive

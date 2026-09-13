@@ -168,8 +168,6 @@ But I soon realise it is only the sound of the wallpaper crackling.
 > ask puppets
 I ask, but silence answers nothing.
 
-I feel an overwhelming urge to escape this place.
-
 > ask puppets
 Talking to puppets... I must be mad.
 
@@ -208,14 +206,14 @@ from the shadows.
 Did it whisper something? Does it know my plan? Or was that just the
 wallpaper...?
 
+I feel an overwhelming urge to escape this place.
+
 > down
 I only make it down the darkness of the uneven steps by sense of touch. The
 stairway has no consistent width, and I must wedge myself through narrow
 passages. Here and there, I feel odd, triangular shapes etched into the
 walls. Just as I feel it might mean something, I emerge back into another
 gallery.
-
-I feel an overwhelming urge to escape this place.
 
 > down
 I feel my way down. Strange etching on the walls. I wedge myself through a
@@ -247,10 +245,10 @@ out to the same space.
 > close door
 I close the door.
 
+I feel an overwhelming urge to escape this place.
+
 > open door
 I open the door again, with inexplicable trepidation. Nothing has changed.
-
-I feel an overwhelming urge to escape this place.
 
 > go door
 
@@ -274,14 +272,14 @@ looks like all of the wall's words. Yes, the wall's-- the wall's.
 
 These words are not my own.
 
+I feel an overwhelming urge to escape this place.
+
 > write on wall
 You try again, to the same effect. Cobwebs have already overtaken your old
 words. Soon they will grow over these, too.
 
 > z
 This stillness does not still me.
-
-I feel an overwhelming urge to escape this place.
 
 > peel wallpaper
 I peel a sheaf of that nauseating, cobwebbed paper off the wall, only to

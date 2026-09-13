@@ -54,7 +54,7 @@ surroundings.
 > x gem
 The gem is covered with a spiderweb of cracks. It must have struck a rock
 when you fell. However, beneath the cracks you can make out what appears to
-be a red  eye  The eye seems to squint, angrily.
+be a red  eye  The eye glares with malevolence.
 
 > x note
 The square of parchment bears a message penned in some strange ink which
@@ -394,8 +394,19 @@ mysterious doom however.
 As you enter the city, as if by some enchantment, the two moons of your
 world, only recently risen, appear from behind a tattered veil of clouds.
 
+> z
+Time passes...
+
+> z
+Time passes...
+
 > give ring to watcher
-There is no watcher here.
+The old man's eyes suddenly appear moist.  He takes the ring with a claw-like
+hand.
+
+"I am at your service. I have forgotten nearly everything I know. And what
+few things I remember are the familiar things of this small part of Xycanthus
+I traverse each day. But you may ask and I will answer as best I can."
 
 > north
 You move north.
@@ -499,10 +510,13 @@ the pool. You realize, somehow, that you will not be able to get past the
 creatures.  Actually, to pass them you'd have to risk touching them and you
 don't want to do that.
 
-> throw pouch in pool
+> get snake
+You take a dead snake from the pouch.
+
+> throw snake in pool
 That's it! Poison the pool from which the toads draw their very substance.
-You knew there had to be some reason you'd been carting around a dead snake
-in a venom saturated pouch!
+You knew there had to be some reason you'd been carting around a dead, venom
+dripping snake!
 
 The mucilaginous black ooze in the pool boils as it absorbs the poison. A
 terrible keening echos around the perversely decorated walls. The nearly
@@ -566,8 +580,8 @@ there rocky columns run from floor to ceiling. There are openings to the
 south and east as well as the exit leading down.
 
 > drop all but sword
-You drop the jagged rock, the note, the scrap of cloth, the gold ring, the
-iron key and the paperweight.
+You drop the jagged rock, the note, the scrap of cloth, the pouch, the iron
+key and the paperweight.
 
 > east
 You move east.
@@ -710,6 +724,6 @@ still faintly glowing gem embedded in the back of your hand. The wizard's red
 eye rolls wildly. You almost imagine it suddenly widens, the pupil growing
 huge. Then the gem flickers like a guttering candle and goes
 
-You scored 85 out of the maximum 100!
-That is 85% of the game!
-You finished 15 points short.
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!

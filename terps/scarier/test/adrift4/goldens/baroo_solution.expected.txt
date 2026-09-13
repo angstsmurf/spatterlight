@@ -301,6 +301,13 @@ from there one of their own must come forth to protect us and rescue us from
 THEY.  It has been our sacred duty to keep desecrators out and await the
 arrival of you."
 
+While Brogo was talking, a brown cloaked figure enters the room from the
+kitchen doors.  A hood covers the head and face, so you can't determine the
+gender.  The wizards try to act superior, yet you can tell they fear this
+individual as they make room.  The person selects a chair and swings it from
+a table to sit near a wall, then sits down in a reclined slouch, hands folded
+over the waist.
+
 > ask brogo about ancient ones
 "The early politics even in the time of the ancients, tried to keep too much
 knowledge from the people.  But the ancients kept pursuing beyond the
@@ -310,13 +317,6 @@ but THEY also caused much heartache and suffering - a penance we must endure
 until we are ready for redemption.  Some ancient ones recognized the need to
 wait and prepared the present politics as wizards: we who enforce the law and
 teach what is permissible."
-
-While Brogo was talking, a brown cloaked figure enters the room from the
-kitchen doors.  A hood covers the head and face, so you can't determine the
-gender.  The wizards try to act superior, yet you can tell they fear this
-individual as they make room.  The person selects a chair and swings it from
-a table to sit near a wall, then sits down in a reclined slouch, hands folded
-over the waist.
 
 > ask brogo about warlocks
 Brogo looks out the corner of his eyes at the brown cloaked figure, and with

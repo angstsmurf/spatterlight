@@ -2264,7 +2264,7 @@ later. I'll be waiting."
 > z
 Time passes...
 
-You hear memoryblam call out from the west, "Let's finish this."
+You hear memoryblam call out from the west, "I'm waiting."
 
 > z
 Time passes...
@@ -2272,7 +2272,7 @@ Time passes...
 > z
 Time passes...
 
-You hear memoryblam call out from the southwest, "Let's finish this."
+You hear memoryblam call out from the southwest, "Come out."
 
 > w
 You move west.

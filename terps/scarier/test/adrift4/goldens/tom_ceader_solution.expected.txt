@@ -25,7 +25,6 @@ walter ppk pistol.
 
 > take money
 You take 150 dollars from the swade breifcase.
-You know there must be survivers so you should leave asap.
 
 > take gun
 You take walter ppk pistol from the swade breifcase.

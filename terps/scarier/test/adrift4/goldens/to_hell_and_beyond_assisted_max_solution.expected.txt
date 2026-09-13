@@ -1676,7 +1676,7 @@ Just a little bit further and you'll be at the gates.  Soldier 2 is here.
 You can move east and west.
 Trace hits Soldier 2 with the Whip.
 Enevez hits Soldier 2 with the Staff.
-Soldier 2 hits you.
+Soldier 2 hits Enevez.
 
 > w
 You move west.
@@ -1754,7 +1754,7 @@ into." says Xozim.
 Trace hits Xozim with the Whip.
 Enevez hits Xozim with the Staff.
 Enevez hits Xozim with the Staff.
-Xozim hits Trace.
+Xozim hits you.
 
 > z
 Time passes...
@@ -1764,7 +1764,7 @@ Enevez hits Xozim with the Staff.
 Trace hits Xozim with the Whip.
 Enevez hits Xozim with the Staff.
 Enevez hits Xozim with the Staff.
-Xozim hits you.
+Xozim hits Enevez.
 Trace hits Xozim with the Whip.
 You thrust your sword into the demon´s chest one final time. The demon
 screams in pain as he turns to dust.                  "You have killed Xozim.

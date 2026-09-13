@@ -151,17 +151,10 @@ fly
 # the block so EVENT 92 and the Morac death timer land where the route needs them,
 # then `e e` to the blacksmith's (41).  +40 -> 130.
 s
-attack holga
 attack jarris
-z
-attack arthur
-z
-z
+attack holga
 z
 attack boris
-z
-z
-z
 attack jarris
 z
 z
@@ -170,9 +163,40 @@ z
 z
 z
 z
-attack jarris
 z
 z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+attack arthur
 e
 e
 z
@@ -662,24 +686,33 @@ n
 n
 n
 press stone button
-# Damastus chase re-derived 2026-09-13 with harness/shadowpeak_chase.py at
-# SCR_SEED=124 (after the village phase was re-derived).
-# Damastus dies in room 158, stamina 50
+# Damastus chase re-derived 2026-09-13 (v2) with harness/shadowpeak_chase.py
+# at SCR_SEED=1 (upstream seed changed after the whole-family re-derivation
+# under SCR_RNG=xoshiro; village phase also re-derived).
+# Damastus dies in room 147, stamina 50
 e
 e
 e
+e
+e
+e
+s
+s
+s
+s
+s
 attack damastus
-w
+n
+attack damastus
+n
+attack damastus
+s
 attack damastus
 attack damastus
-attack damastus
-w
-attack damastus
-e
-e
-e
-e
-e
+n
+n
+n
+n
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required

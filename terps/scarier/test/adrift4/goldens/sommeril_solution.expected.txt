@@ -196,9 +196,6 @@ me proud because my dad is a quiet man of few words and had never said
 anything like that to
 me before".
 
- Somewhere in the distance, you can hear the low, flat toll of a bell. It
-sounds strangely warped and slow.
-
 > n
 You move north.
 
@@ -212,8 +209,6 @@ large glass EYEBALL the size of a volkswagen is suspended from a dead tree by
 a string no thicker than a human hair.
 
 You can move north, south, southeast and southwest.
-A line of tiny naked mice, each with a perfectly formed human ear growing on
-its back, runs across the street a few feet ahead of you.
 
 > sw
 You move southwest.
@@ -232,8 +227,6 @@ You can move south, in and northeast.
 You place the orb on the gargoyle's small perch and it exclaims
 "For me? Thank you! Now I can move about freely. I can go HOME!" The gargoyle
 flexes his wings and flies off like a bird from a roost.
- Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
-distance, but he disappears into the swirling fog.
 
 > s
 You move south.
@@ -246,6 +239,10 @@ A sign over the door reads "Grave Little Tailor".   A group of small
 childeren are playing with a ball in the street. They take no notice of you.
 
 You can move north, south and in.
+ Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
+distance, but he disappears into the swirling fog.
+A line of tiny naked mice, each with a perfectly formed human ear growing on
+its back, runs across the street a few feet ahead of you.
 
 > s
 You move south.
@@ -294,6 +291,9 @@ sheet of paper. Then
 the orderly proceeded to flatten out the old man and use him like a paper
 towel to mop up the
 puddle on the floor. The smell of the urine burned my nostrils..."
+
+ Somewhere in the distance, you can hear the low, flat toll of a bell. It
+sounds strangely warped and slow.
 
 > se
 You move southeast.
@@ -377,8 +377,6 @@ A TIN CAN and a WHEEL are inside the GUTTER.
 
 > get wheel
 You take the WHEEL from the GUTTER.
- Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
-distance, but he disappears into the swirling fog.
 
 > n
 You move north.
@@ -391,6 +389,8 @@ wooden sign hangs over the door of a narrow storefront to the right that
 reads "Ye Olde Curiosities & Toys."
 
 You can move south, in and northwest.
+ Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
+distance, but he disappears into the swirling fog.
 
 > in
 You move in.
@@ -529,6 +529,8 @@ wooden sign hangs over the door of a narrow storefront to the right that
 reads "Ye Olde Curiosities & Toys."
 
 You can move south, in and northwest.
+ Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
+distance, but he disappears into the swirling fog.
 
 > s
 You move south.
@@ -540,8 +542,6 @@ breeze.  Among other discarded objects, yellowed paper trash and a several
 empty TIN CANS litter the GUTTER.
 
 You can move north and south.
-A line of tiny naked mice, each with a perfectly formed human ear growing on
-its back, runs across the street a few feet ahead of you.
 
 > s
 You move south.
@@ -646,8 +646,6 @@ east side of this block you can hear the hammering of metal against metal,
 coming from a roofed open area under a large tree.
 
 You can move north, south and in.
- Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
-distance, but he disappears into the swirling fog.
 
 > in
 You move in.

@@ -44,8 +44,9 @@ ENDING = ["tiddlywink", "take tiddlywink", "put tiddlywink in slot",
 
 
 def play(seed, cmds):
-    env = dict(os.environ, LC_ALL="C", SCR_SEED=str(seed), SCR_ECHO_INPUT="1",
-               SCR_SKIP_WAITKEY="1", SCR_TRACE_VARS="robot2,guard2")
+    env = dict(os.environ, LC_ALL="C", SCR_RNG="xoshiro", SCR_SEED=str(seed),
+               SCR_ECHO_INPUT="1", SCR_SKIP_WAITKEY="1",
+               SCR_TRACE_VARS="robot2,guard2")
     proc = subprocess.run(
         [SCARE, GAME], input=("\n".join(cmds) + "\nquit\ny\n").encode("latin-1"),
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env)

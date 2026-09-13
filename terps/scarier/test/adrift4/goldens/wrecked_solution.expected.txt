@@ -154,6 +154,7 @@ I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.  Biff and Boff are here.
 
 I can move north, east, west and in.
+It starts to rain.
 
 > inventory
 Boff says, "Wow!  I wish I had half the stuff you've got."
@@ -166,15 +167,15 @@ run out anyway."  Boff hands me a rather used looking marker pen.
 I move west.
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.
-There is a closed gate here.
+There is a closed gate here.  It is raining.
 
 I can move north, east, west and in.
-A couple of seagulls fly about aimlessly.
 
 > north
 I move north.
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
+ It is raining.
 
 I can move north, east, south and in.
 
@@ -215,11 +216,12 @@ I can move north, east, south and in.
 > post it
 (an application form)
 I post the application form into the post box.
+The rain stops.
 
 > east
 I move east.
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.  It is raining.
+pillar.
 
 I can move north, east, south and west.
 
@@ -227,7 +229,7 @@ I can move north, east, south and west.
 I move east.
 I am next to a large dog kennel, bizarrly in the middle of nowhere.  Also
 here is a large shark hook.  There is a very large dog here, tied up by the
-kennel.  It is raining.
+kennel.
 
 I can move north, east, south, west and in.
 
@@ -235,7 +237,7 @@ I can move north, east, south, west and in.
 I move east.
 I am at the bus stop.  The main road runs in a north-south direction.  There
 is a rather flimsy looking bus shelter here, with a plastic bench which looks
-like it's seen better days.  It is raining.
+like it's seen better days.
 
 I can only move west.
 
@@ -249,21 +251,21 @@ I drop the marker pen.
 I move west.
 I am next to a large dog kennel, bizarrly in the middle of nowhere.  Also
 here is a large shark hook.  There is a very large dog here, tied up by the
-kennel.  It is raining.
+kennel.
 
 I can move north, east, south, west and in.
 
 > south
 I move south.
 I am outside a spanking new building.  There is a large sign over the door
-telling me that this is a swimming pool.  It is raining.
+telling me that this is a swimming pool.
 
 I can move north, west and in.
 
 > west
 I move west.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.  Biff and Boff are here.  It is raining.
+the youth of Ambersville.  Biff and Boff are here.
 
 I can move north, east, west and in.
 
@@ -271,25 +273,23 @@ I can move north, east, west and in.
 I move west.
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.
-There is a closed gate here.  It is raining.
+There is a closed gate here.
 
 I can move north, east, west and in.
 
 > west
 I move west.
 I am at the Ambersville railway station.  The platform is very small, and
-there's not a lot around here.  There is a large sign here.  It is raining.
+there's not a lot around here.  There is a large sign here.
 
 I can only move east.
 
 > wait
 Time passes...
-The rain eases slightly.
-The train pulls in to a stop at Ambersville.
-The rain stops.
 
 > wait
 Time passes...
+The train pulls in to a stop at Ambersville.
 
 > in
 I move in.
@@ -332,6 +332,7 @@ Time passes...
 "No ticket eh?  Well, I'm sorry, but we don't take stowaways on my train!"
 Boris yanks open the doors, and kicks me out of the moving train.
 I am on some barren wasteland.  There is a railway line running past here.
+It is raining.
 
 I can only move east.
 
@@ -340,21 +341,21 @@ I move east.
 I am inside the village scrapyard.  There are lots of old rusty cars lying
 about here.  To the north is a tall wire fence, with a gate built into the
 fence.  There is a panel near the fence with a large red button in it.  The
-gate is closed.
+gate is closed.  It is raining.
 
 I can only move west.
 
 > push button
 I push the red button firmly.  Slowly, the wire gate swings open.
+The rain eases slightly.
 
 > north
 I move north.
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
-wire gate is open.
+wire gate is open.  It is raining.
 
 I can move north, east, south, west and in.
-It starts to rain.
 
 > north
 I move north.
@@ -363,6 +364,7 @@ low.  There is a bright red post box set outside the door of the post office.
  It is raining.
 
 I can move north, east, south and in.
+The rain stops.
 
 > in
 I move in.
@@ -396,7 +398,6 @@ I drop the manilla envelope.
 I move out.
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
- It is raining.
 
 I can move north, east, south and in.
 
@@ -404,7 +405,7 @@ I can move north, east, south and in.
 I move north.
 I am on a pebbly beach.  Most of the pebbles are really smooth.  The sea
 breaks every so often up on the shore.  A sewer outlet pipe emerges from the
-east.  There are some flowers blowing about in the wind.  It is raining.
+east.  There are some flowers blowing about in the wind.
 
 I can move east and south.
 
@@ -414,8 +415,7 @@ I pick the flowers, making a lovely bunch.
 > east
 I move east.
 I am in the middle of a paved area.  There is a drain in the middle of the
-pavings, sticking out like a sore thumb.  The drain is closed.  It is
-raining.
+pavings, sticking out like a sore thumb.  The drain is closed.
 
 I can move north, east, south and west.
 
@@ -423,7 +423,7 @@ I can move north, east, south and west.
 I move east.
 I am outside the one and only village shop.  There is a large window in the
 front of the shop.  One thing in particular that catches your eye is a scuba
-outfit.  It is raining.
+outfit.
 
 I can move south, west and in.
 
@@ -450,29 +450,27 @@ all the graffiti around here."
 > out
 I move out.
 I am outside the one and only village shop.  There is a large window in the
-front of the shop.  It is raining.
+front of the shop.
 
 I can move south, west and in.
 
 > west
 I move west.
 I am in the middle of a paved area.  There is a drain in the middle of the
-pavings, sticking out like a sore thumb.  The drain is closed.  It is
-raining.
+pavings, sticking out like a sore thumb.  The drain is closed.
 
 I can move north, east, south and west.
 
 > south
 I move south.
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.  It is raining.
+pillar.
 
 I can move north, east, south and west.
 
 > x plaque
 The plaque is set into the pillar, and is made from brass.  It protrudes
 slightly.
-The rain eases slightly.
 
 > push it
 (the small plaque)
@@ -481,7 +479,6 @@ revealing a juicy pork chop.
 
 > get chop
 I take a juicy pork chop from the small plaque.
-The rain stops.
 
 > east
 I move east.
@@ -495,6 +492,7 @@ I can move north, east, south, west and in.
 (a juicy pork chop)
 I drop the pork chop.  Angus immediately pounces on the chop, and starts
 chewing away.
+It starts to rain.
 
 > get hook
 I pick up the large shark hook.
@@ -502,14 +500,15 @@ I pick up the large shark hook.
 > west
 I move west.
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.
+pillar.  It is raining.
 
 I can move north, east, south and west.
 
 > north
 I move north.
 I am in the middle of a paved area.  There is a drain in the middle of the
-pavings, sticking out like a sore thumb.  The drain is closed.
+pavings, sticking out like a sore thumb.  The drain is closed.  It is
+raining.
 
 I can move north, east, south and west.
 
@@ -523,23 +522,24 @@ I drop the large shark hook.
 > south
 I move south.
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.
+pillar.  It is raining.
 
 I can move north, east, south and west.
 
 > south
 I move south.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.  Biff and Boff are here.
+the youth of Ambersville.  Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
 
 > east
 I move east.
 I am outside a spanking new building.  There is a large sign over the door
-telling me that this is a swimming pool.
+telling me that this is a swimming pool.  It is raining.
 
 I can move north, west and in.
+The rain eases slightly.
 
 > in
 I move in.
@@ -645,7 +645,6 @@ I am outside the village pub.  It looks like this is the usual hang about for
 the youth of Ambersville.  Biff and Boff are here.
 
 I can move north, east, west and in.
-It starts to rain.
 
 > drink lager
 I take the pint, and down it in one (like I do back home - you know - to
@@ -655,7 +654,7 @@ impress the ladies).  Oo-err, that's strong stuff.  I feel a bit queazy now.
 I move west.
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
-wire gate is open.  Everything looks a bit wobbly.  It is raining.
+wire gate is open.  Everything looks a bit wobbly.
 
 I can move north, east, south, west and in.
 
@@ -664,7 +663,7 @@ I move south.
 I am inside the village scrapyard.  There are lots of old rusty cars lying
 about here.  To the north is a tall wire fence, with a gate built into the
 fence.  There is a panel near the fence with a large red button in it.  The
-gate is open.  Everything looks a bit wobbly.  It is raining.
+gate is open.  Everything looks a bit wobbly.
 
 I can move north and west.
 I'm feeling rather drunk.
@@ -679,7 +678,7 @@ I place the empty glass under the dripping car, and fill it with petrol.
 I move north.
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
-wire gate is open.  Everything looks a bit wobbly.  It is raining.
+wire gate is open.  Everything looks a bit wobbly.
 
 I can move north, east, south, west and in.
 
@@ -823,9 +822,10 @@ door."
 I move out.
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
-wire gate is open.
+wire gate is open.  It is raining.
 
 I can move north, east, south, west and in.
+The rain stops.
 
 > east
 I move east.
@@ -861,7 +861,6 @@ Time passes...
 
 > wait
 Time passes...
-It starts to rain.
 
 > wave wand
 I wave the wand about.  Apart from looking like a conductor, nothing appears
@@ -882,7 +881,7 @@ roof of the Post Office.
 > go up
 I move up.
 I am on the flat roof of the Post Office.  From here, I can see all the way
-out to sea.  Also here is a small black cat.  It is raining.
+out to sea.  Also here is a small black cat.
 
 I can only move down.
 
@@ -893,10 +892,9 @@ I pick up the small black cat.
 I move down.
 I am outside the village post office.  The roof of the post office is fairly
 low.  There is a bright red post box set outside the door of the post office.
- Also here is the witch's magic wand and a statue of a pig.  It is raining.
+ Also here is the witch's magic wand and a statue of a pig.
 
 I can move north, east, south, up and in.
-The rain eases slightly.
 
 > in
 I move in.
@@ -928,12 +926,13 @@ I am in the village centre.  There is a large statue here, set upon a tall
 pillar.
 
 I can move north, east, south and west.
+It starts to rain.
 
 > north
 I move north.
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is open.  Also here is a
-large shark hook.
+large shark hook.  It is raining.
 
 I can move north, east, south, west and down.
 
@@ -955,14 +954,14 @@ I pick up the small anchor.
 I move up.
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is open.  Also here is a
-gold card and a large shark hook.
+gold card and a large shark hook.  It is raining.
 
 I can move north, east, south, west and down.
 
 > north
 I move north.
 I am on a wooden pier, which stretches out into the water.  There is a small
-boat beside the pier.
+boat beside the pier.  It is raining.
 
 I can move south and in.
 
@@ -971,7 +970,7 @@ I move in.
 I am in the small white speedboat.  At the front of the boat is the
 dashboard, and there is a large engine at the back.  There is a throttle
 lever set to one side.  The boat is docked at the pier.  There is a line of
-rope attached to the back of the boat here.
+rope attached to the back of the boat here.  It is raining.
 
 I can only move out.
 
@@ -1008,7 +1007,7 @@ I put on a scuba outfit.
 
 > out
 I move out.
-I am swimming in the sea.  There is a speedboat here.
+I am swimming in the sea.  There is a speedboat here.  It is raining.
 
 I can move down and in.
 
@@ -1122,31 +1121,30 @@ I can only move east.
 
 > wait
 Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
 It starts to rain.
 
 > wait
 Time passes...
+The train pulls in to a stop at Ambersville.
 
 > wait
 Time passes...
 The rain eases slightly.
-The rain stops.
-
-> wait
-Time passes...
-
-> wait
-Time passes...
-
-> wait
-Time passes...
-
-> wait
-Time passes...
-
-> wait
-Time passes...
-The train pulls in to a stop at Ambersville.
 
 > in
 I move in.
@@ -1176,23 +1174,24 @@ Time passes...
 
 > wait
 Time passes...
+The train pulls in to a stop at Redstown.
 
 > wait
 Time passes...
-The train pulls in to a stop at Redstown.
 
 > out
 I step out of the train.
 I am at the Redstown railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.  A train sits at
-the station, its doors open.
+the station, its doors open.  It is raining.
 
 I can move east and in.
 
 > east
 I move east.
 I am outside a house with a large door.  In the distance I can see the rest
-of Redstown, but to be honest, I've no motivation to go there.
+of Redstown, but to be honest, I've no motivation to go there.  It is
+raining.
 
 I can only move west.
 
@@ -1234,7 +1233,8 @@ disappears behind the couch, and brings back a pair of night-vision goggles.
 > out
 I move out.
 I am outside a house with a large door.  In the distance I can see the rest
-of Redstown, but to be honest, I've no motivation to go there.
+of Redstown, but to be honest, I've no motivation to go there.  It is
+raining.
 
 I can move west and in.
 
@@ -1242,7 +1242,7 @@ I can move west and in.
 I move west.
 I am at the Redstown railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.  A train sits at
-the station, its doors open.
+the station, its doors open.  It is raining.
 
 I can move east and in.
 
@@ -1252,9 +1252,6 @@ The train looks like a normal train.  Lots of seats, big windows etc.  There
 is a cubicle near the rear of the carriage.  Boris is here.
 
 I can move in and out.
-
-> wait
-Time passes...
 
 > wait
 Time passes...
@@ -1271,11 +1268,14 @@ Time passes...
 Time passes...
 The train pulls in to a stop at Ambersville.
 
+> wait
+Time passes...
+
 > out
 I step out of the train.
 I am at the Ambersville railway station.  The platform is very small, and
 there's not a lot around here.  There is a large sign here.  A train sits at
-the station, its doors open.
+the station, its doors open.  It is raining.
 
 I can move east and in.
 
@@ -1283,28 +1283,28 @@ I can move east and in.
 I move east.
 I am outside a rather run down motel.  To my south is a rather tall wire
 fence.  Through the fence, I can see a scrapyard with lots of old cars.  The
-wire gate is open.
+wire gate is open.  It is raining.
 
 I can move north, east, south, west and in.
 
 > east
 I move east.
 I am outside the village pub.  It looks like this is the usual hang about for
-the youth of Ambersville.  Biff and Boff are here.
+the youth of Ambersville.  Biff and Boff are here.  It is raining.
 
 I can move north, east, west and in.
 
 > north
 I move north.
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.
+pillar.  It is raining.
 
 I can move north, east, south and west.
 
 > east
 I move east.
 I am next to a large dog kennel, bizarrly in the middle of nowhere.  There is
-a very large dog here, tied up by the kennel.
+a very large dog here, tied up by the kennel.  It is raining.
 
 I can move north, east, south, west and in.
 
@@ -1321,14 +1321,14 @@ I pick up the rather chewed stick.
 > out
 I move out.
 I am next to a large dog kennel, bizarrly in the middle of nowhere.  There is
-a very large dog here, tied up by the kennel.
+a very large dog here, tied up by the kennel.  It is raining.
 
 I can move north, east, south, west and in.
 
 > west
 I move west.
 I am in the village centre.  There is a large statue here, set upon a tall
-pillar.
+pillar.  It is raining.
 
 I can move north, east, south and west.
 
@@ -1336,9 +1336,10 @@ I can move north, east, south and west.
 I move north.
 I am in the middle of a paved area.  There is a drain in the middle of the
 pavings, sticking out like a sore thumb.  The drain is open.  Also here is a
-gold card and a large shark hook.
+gold card and a large shark hook.  It is raining.
 
 I can move north, east, south, west and down.
+The rain eases slightly.
 
 > down
 I move down.

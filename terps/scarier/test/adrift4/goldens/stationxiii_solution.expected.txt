@@ -136,7 +136,6 @@ You take the stepladder.
 
 > take laser cutter
 You take the laser cutter.
-Something wet lands on your nose...
 
 > look up
 Looking up, you see about the most grisly thing you could imagine...  Above
@@ -386,10 +385,10 @@ You move north.
 In the maintenance supply cupboard
 You are in a small, dark cupboard.  Why isn't there any lighting in here?
 There are various maintenance implements here.  Also here is a stepladder.
-Something wet lands on your nose...
 
 > take stepladder
 You take the stepladder.
+Something wet lands on your nose...
 
 > s
 You move south.

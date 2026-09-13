@@ -153,9 +153,6 @@ vines.  You can also see a shovel.
 > take shovel
 You pick up the shovel.
 
-You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
-You spin around, but no one is there!
-
 > s
 You move south.
 
@@ -180,6 +177,9 @@ You move south.
 
 Corridor Intersection
 From this junction, hallways continue north, west and south.
+
+You suddenly feel a chill in the air, and hear a whispery voice say "Sam!".
+You spin around, but no one is there!
 
 > s
 You move south.
@@ -227,11 +227,15 @@ You move east.
 Closet
 It is dark here. You cannot see anything.
 
+You hear the wind picking up outside, and thunder in the distance.
+
 > search shelf
 You search the shelf and discover an old brass key buried in the dust.
 
 > take key
 You pick up the old brass key.
+
+Somewhere in the house you hear a door bang shut.
 
 > w
 You move west.
@@ -247,8 +251,6 @@ It is dark here. You cannot see anything.
 
 > search bed
 You find an old necklace underneath the bed!
-
-You hear the wind picking up outside, and thunder in the distance.
 
 > take necklace
 You pick up the necklace.
@@ -332,8 +334,6 @@ tucked in one of the drawer slots.
 > take doll
 You pick up the doll.
 
-Somewhere in the house you hear a door bang shut.
-
 > w
 You move west.
 
@@ -406,9 +406,6 @@ Secret Alcove
 This is a small alcove hidden behind the wooden panelling underneath the
 stairs. There is a small table here.
 
-A ghostly figure of a little boy runs by you. He stops and looks back at you.
-"Did you steal my ball?" he asks, and then fades away.
-
 > x small table
 This is a tall end table with a small surface. It is covered with cobwebs.  A
 pipe and an ashtray are on the small table.
@@ -425,6 +422,8 @@ balcony above, overlooking the foyer. Old paintings hang along the walls
 here, and large windows with thick, dirty glass afford a distorted view of
 the grounds outside. Two old chairs and an end table flank a short hallway
 that leads north from the room.  You can also see Theo's cellphone.
+
+Somewhere in the house you hear a door bang shut.
 
 > light candelabra
 You place the candelabra down and light it with the match.

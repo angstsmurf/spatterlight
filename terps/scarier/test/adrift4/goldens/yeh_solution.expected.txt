@@ -83,7 +83,7 @@ Leon hits An alive vine.
 
 > get bow of icy arrows
 You pick up A Bow of Icy Arrows.
-An alive vine hits you.
+An alive vine hits Leon, but it doesn't seem to do any damage.
 Leon hits An alive vine.
 
 > u

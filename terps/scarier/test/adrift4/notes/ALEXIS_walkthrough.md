@@ -10,9 +10,55 @@
 >
 > **Both are BANKED (2026-07-13):** each is a row in
 > `harness/run_v4_walkthroughs.sh` with a committed golden
-> (`*_solution.expected.txt`) and the win marker `you have beaten Urgorn`. The v4
-> suite is 22/22 PASS. Re-verify with `sh harness/run_v4_walkthroughs.sh alexis`;
+> (`*_solution.expected.txt`) and the win marker `you have beaten Urgorn`.
+> Re-verify with `sh harness/run_v4_walkthroughs.sh alexis`;
 > re-bless with `--bless` after any intentional engine change.
+>
+> **Re-derived 2026-09-13 for `SCR_RNG=xoshiro`** (the harness now forces the
+> Runner-parity RNG on every row). Both routes were reordered; the carry route is
+> now **151 commands** (SCR_SEED=1) and the worn route **193 commands**
+> (SCR_SEED=2). Scores are unchanged (55 / 58). See *"The 35-turn lantern"*
+> below for why the old orderings can never win again.
+
+## The 35-turn lantern (why the routes were reordered, 2026-09-13)
+
+Event 2 (*"Splash"*) unsets task 1 (`light lantern`) when it fires, and its
+start delay is a **load-time draw from the 3.9 codec LCG**, not from the game
+RNG -- so it is the same in every replay, for every seed and either RNG: the
+lantern goes out **after command 35**, and once out it re-arms and pauses on
+the unlit lantern forever (task 1 is scoped to the cottage and the South hut,
+so there is no relighting it in the caves). The old routes fought Narfild first
+and did the cave puzzle afterwards, past turn 35, in the dark -- which used to
+work only because the old RNG happened to land the blows. Under xoshiro it does
+not, and the dark cave has two hard rules that no seed can dodge:
+
+- **A 3.9 dark room hides surfaces.** `get all from holes in the wall` takes
+  nothing in the dark unless the holes were examined while lit, and objects
+  first met in the dark are never stamped *seen*.
+- **The lit exit is gated.** Main Cave SE and Winding passage SE both require
+  task 1 (lantern lit); Main Cave NW requires task 6 (Narfild dead). So after
+  turn 35 the only way out of the caves is **kill Narfild, then `nw nw e`**.
+
+Hence the new ordering: cottage, wolf, stones, `push tree`, and the **whole
+cave puzzle (`turn ring`, Square cave spade) finished exactly at command 35**
+(`get all from holes in the wall` is the last lit turn); then Narfild is
+fought in the dark and the caves are left by `nw nw e` to Glaven junction.
+Every examine-before-take (`x old oak table`, `x shelves`, `x large stone
+table`, `x holes in the wall`) is load-bearing -- dropping one to save a turn
+loses the object. The wolf walks into Tonerith Pass on turn 12, so the two
+wolf blows must sit at commands 13-14. Consequences of exiting NW:
+
+- The bridgekeeper (+5) is no longer on the way west; the carry route collects
+  him from the Kedarn side via the map loop Kedarn entrance -> `sw sw nw sw`
+  -> Bridge of Tonerith, `attack bridgekeeper` x2, `ne se ne ne` back.
+- `wear cloak` and the cellar `take coin` were dropped (the helmet costs 7 and
+  the East hut coins cover it); the Forecarn sword trip was dropped from both
+  routes (the cube is the carry route's weapon; the metal spade, HitValue 15
+  like the small sword, is the worn route's).
+
+Seed sensitivity: the carry route wins at SCR_SEED 1, 2, 3, 4 and 6 and dies
+at 5, 7, 8 (row uses 1). The worn route is immune, so it wins at every seed
+tried (1-6); row keeps 2.
 
 **Game:** `ALEXIS.TAF` — *"Alexis: Dalskee"* by Kingsbury. **Native ADRIFT 3.9**
 (TAF sig byte8=`0x94`/byte10=`0x37`), a fantasy quest with the ADRIFT Battle
@@ -67,8 +113,9 @@ land for ~50 — so:
 
 1. **Light the lantern AT HOME.** Task 1 (`light *lantern *`, +5) is scoped to
    the cottage; fuel it (`put oil in lantern`, +3) and `light lantern` *before*
-   you leave, and carry the lit lantern into the Caves of Eternal Night (and the
-   dark Marshy cave).
+   you leave, and carry the lit lantern into the Caves of Eternal Night. It
+   goes out after command 35 whatever you do (see *"The 35-turn lantern"*), so
+   everything that needs light must be done by then.
 2. **The compass labels in the structural dump are scrambled** (ADRIFT's
    internal slot order ≠ the dump's N/E/S/W). **Navigate by the typed directions
    in the solution**, which were all verified by play (room *connectivity* in
@@ -130,23 +177,29 @@ Banked total = **55**. The win task (`urgorn dies186457`) is itself unscored.
 - **Narn (+1):** killable on the Nelone/Uron path, but inserting the two attack
   turns reshuffled the RNG enough to lose the otherwise-robust Urgorn fight.
 
-## Route outline (see `goldens/alexis_solution.txt` for the exact 172 lines)
+## Route outline (see `goldens/alexis_solution.txt` for the exact 151 lines; order as of 2026-09-13)
 
-1. **Cottage (r0):** `nnamen tutem selronden flar darg` (cube), loot, fuel +
-   light the lantern (+3, +5).
-2. **West loop:** Tonerith Pass — `attack wolf` (+2); detour `e e` to the Bridge
-   of Tonerith — `attack bridgekeeper` (+5) — `w w` back; grab the Tonerith
-   stone, the small sword (Hills of Forecarn), the Dusteron stone; `push tree`
-   (+2) to open the way north into the caves.
-3. **Caves:** Main Cave — `attack narfild` (+5); Large cave (r21) — take the
-   Glaven stone and `turn ring` (+3); detour `w w` to the Square cave for the
-   **metal spade**, then back out.
-4. **Hub:** `give food to tarin` (+2) opens Glaven junction (r24) — `dig` (+2)
-   with the spade.
-5. **Kedarn / elven village (re-ordered so armour comes *before* the clearing):**
+1. **Cottage (r0):** `nnamen tutem selronden flar darg` (cube), examine +
+   loot the table and the cellar shelves, fuel + light the lantern (+3, +5).
+2. **West:** Tonerith Pass — `attack wolf` x2 (+2; arrive on turn 12, when the
+   wolf walks in); take the Tonerith stone; back past the cottage, `west north
+   north`, take the Dusteron stone; `push tree` (+2) to open the way north
+   into the caves. (No bridgekeeper detour and no Forecarn sword any more.)
+3. **Caves, lit (through command 35):** `nw nw e` to the Large cave (r21) —
+   examine + take from the large stone table (Glaven stone), `turn ring` (+3);
+   `w w w` to the Square cave — `x holes in the wall`, `get all from holes in
+   the wall` (the **metal spade**; this is command 35, the last lit turn).
+4. **Caves, dark:** `e e` back to the Main Cave — `attack narfild` (+5, one
+   cube blow); leave by `nw nw e` (Winding passage → Small cave entrance →
+   Glaven junction). `sw`, `give food to tarin` (+2), `ne`, `dig` (+2) with
+   the spade.
+5. **Kedarn / elven village (armour *before* the clearing):**
    water point — take pot + **ornate key**, `fill pot with water` (+1); village
-   huts — jacket, helmet, `put water in pan` (+1), elven armour (Defence 2→10);
-   *then* the forest clearing — `attack goblin` (+2), take the Kedarn stone.
+   huts — jacket, helmet (paid with the East hut coins), `put water in pan`
+   (+1), elven armour (Defence 2→10); from the Kedarn entrance loop `sw sw nw
+   sw` to the Bridge of Tonerith — `attack bridgekeeper` x2 (+5) — `ne se ne
+   ne` back; *then* the forest clearing — `attack goblin` (+2), take the
+   Kedarn stone.
 6. **Longmore chest detour:** Longmore marshes — `attack monster` (the king, +2);
    Marshy cave (dark — the lit lantern carries you) — `unlock chest` (+1) with
    the ornate key, take + wear the **longmore chest plate** (Defence →15).
@@ -210,17 +263,17 @@ ADRIFT enemies split into two kinds at low stamina:
   combat turn that lets Serond chip the target into the flee zone first, and the
   re-wield is finicky. The large hammer would solve it but you can't afford it.)
 
-## Navigation difference (important)
+## Navigation (as of 2026-09-13, same as the carry route)
 
-Killing/slumping **Narfild reshapes the cave**: the south-west passage (room 22)
-opens, which *re-labels the compass exits of the Main Cave*. So the cave exit is
-**different from the carry route** — here it is `nw nw e` (Main Cave → Winding
-passage → Small cave entrance → **Glaven junction**), reached with Narfild merely
-*slumped*. Tarin (+2) is then a quick `sw` / `give food to tarin` / `ne` detour
-from Glaven junction. Everything past the caves is overworld and identical to the
-main route. (This cave routing was found with a breadth-first path-finder against
-the live game, because the dump's compass labels are scrambled **and** shift with
-Narfild's state.)
+Both routes now do the cave puzzle first while lit, fight Narfild in the dark
+after command 35, and leave by `nw nw e` (Main Cave → Winding passage → Small
+cave entrance → **Glaven junction**); the NW exit is gated on task 6 (Narfild
+dies), the SE exits on the lit lantern. Tarin (+2) is a quick `sw` / `give food
+to tarin` / `ne` detour from Glaven junction. Here Narfild takes **four spade
+blows** (HitValue 15 vs Stamina 80) before slumping; the worn cube makes his
+replies harmless. The cloak, the cellar coin, the two pointless wolf blows and
+the Forecarn sword trip are gone (193 commands, was 200); Serond stays in the
+village because his walk is started by the `easy` task.
 
 ## Score (58/65)
 
@@ -230,9 +283,9 @@ castle door 3, bedroom chest 1, stone door 2, dungeon north 3, Tarin 2, dig 2),
 plus the three slump-kills **Narfild 5 + Goblin 2 + Larnt 5 = 12** → **58**. The
 four flee-kills (wolf/bridgekeeper/king/eagle = 12) are the gap to the 65 cap.
 
-> Don't trim the solution file: the run is tuned to the deterministic RNG stream,
-> so even the *non-scoring* `attack king`/`attack eagle` attempts must stay —
-> removing them reshuffles the stream and drops other kills.
+> The *non-scoring* `attack king`/`attack eagle` attempts are still in the
+> file; they were kept from the old route when it was reordered and the run was
+> not re-tuned without them.
 
 ## Reproduce
 

@@ -1131,7 +1131,7 @@ You put the rotten egg onto the iron stove.
 You lower the left lever.
 
 > move gear
-You move the gear into the downward position.
+You move the gear into the upright position.
 
 > move gear
 You move the gear into the middle position.
@@ -2930,7 +2930,13 @@ There is a large and heavy barrel here.
 
 > push barrel
 You shove at the barrel. Irrespective of where you were trying to shove it,
-it rolls along to the east.
+it rolls along to the west.
+
+A moment later there is a scream, a thunderous explosion
+
+B O O O O O O O O O M
+
+and then deadly silence.
 
 > e
 
@@ -2946,10 +2952,10 @@ you can see being a marble sculpture (again of the Baron) mounted on a
 pedestal in the middle of the room.
 
 A passage leads west, there is a locked door to the north and an archway to
-the east.  There is a large and heavy barrel here.
+the east.
 
 > push barrel
-You give the barrel a shove and it rolls off to the west.
+You push, but nothing happens.
 
 > w
 
@@ -2965,17 +2971,10 @@ giant.
 
 Passages leads away to the west, northwest and east while there is an archway
 to the south. The sound of voices emanate from the northwestern passage.
-There is a large and heavy barrel here.
 
 > b1
-You shove at the barrel. Irrespective of where you were trying to shove it,
-it rolls along to the west.
-
-A moment later there is a scream, a thunderous explosion
-
-B O O O O O O O O O M
-
-and then deadly silence.
+Unfortunately you can't do that. Type COMMANDS for a list of commands you can
+use in this adventure.
 
 > w
 
@@ -4109,7 +4108,7 @@ complete the scorecard in the enclosed file and e-mail back to the writer -
 dwhyld@gmail.com. Comments kept in strict confidence.
 
 Your final score was one of 100 out of a maximum of 100; you finished the
-game with a rank of The Ultimate Soldier and achieved this in 354 turns. You
+game with a rank of The Ultimate Soldier and achieved this in 353 turns. You
 had 100 life points left.
 
 Thanks for playing.

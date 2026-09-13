@@ -240,9 +240,9 @@ erupting volcano! Attached to the ropes that hold the balloon aloft is a
 brass altimeter, the one and only piece of aeronautical equipment that has
 not been sacrificed.  Sitting on the floor of the basket is the most enormous
 carpetbag I have ever seen.  Also here is a boomerang and a smudge stick.
-Hubert Booby stands on the other side of the basket, watching me closely.  A
-St. Bernard dog is lying fast asleep on the floor of the basket, oblivious to
-the drama unfolding before him.
+Hubert Booby stands in the corner of the basket, peering at me suspiciously.
+A St. Bernard dog is lying fast asleep on the floor of the basket, oblivious
+to the drama unfolding before him.
 
 > put ear-trumpet in dog's ear
 I put the ear-trumpet in the Saint Bernard's ear.
@@ -428,9 +428,8 @@ her at home all on her own, do you?' After much squirming and wriggling, a
 tiny little old lady emerges from the overcoat.
 
 'What is it, Hubert dear?' she asks...
-''Tain't right,' mutters Aunt Gertie distractedly, 'it oughtn't to be
-allowed!' She gives me a crack across the shins with her cane, just for the
-hell of it.
+'It's against nature!' mutters Aunt Gertie to herself. She gives me a crack
+across the shins with her cane, just for the hell of it.
 
 > get smudge stick
 I take the smudge stick.
@@ -451,13 +450,12 @@ I toss the burning smudge stick over the side of the balloon.
 The equilibrium of a balloon in the air is so sensitive that the loss of an
 almost  insignificant weight can produce a very appreciable displacement. In
 this instance, the balloon gains around one hundred feet in altitude.
-'A man of your years,' says Aunt Gertie cryptically, 'you ought to be
-ashamed!' She gives me a crack across the shins with her cane, just for the
-hell of it.
 
 > tie parachute to apron
 I wait 'til her back is turned, and swiftly tie the parachute to her apron
 strings!
+'It's against nature!' mutters Aunt Gertie to herself. She gives me a crack
+across the shins with her cane, just for the hell of it.
 
 > push gertie
 With a hearty shove, I push the old crone over the edge of the basket. The

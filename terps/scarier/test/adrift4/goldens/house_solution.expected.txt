@@ -243,16 +243,11 @@ Your score is 3 out of a maximum of 30.  (10%)
 > i
 You are carrying a note and a diary.
 
-You begin to realise how cold it is here.  Everything is covered in a layer
-of frost.
-
 > open dining room door
 The dining room door is already open!
 
 > open lounge door
 As you reach out towards the door it slowly creaks open of its own accord.
-
-Your breath becomes fog as the warmth slowly leaches from your body.
 Cathy lets go of your arm and wanders off towards the Dining room.  You hear
 her voice echoing through the house saying, "Cold...so cold.....".  Soon she
 stops talking altogether.
@@ -280,8 +275,6 @@ its place on the floor, rolled it up and placed it to one side.  You can also
 see a dining room table and a wooden trapdoor.  Cathy seems to have gone
 catatonic.
 
-It is freezing.  You begin to shiver involuntarily.
-
 > i
 You are carrying a note and a diary.
 
@@ -294,6 +287,9 @@ are worn and the walls are bare plaster.  You guess that the door to the east
 leeds to the lounge while the door to the west leeds to the dining room.  The
 front door is behind you and stands beside a narrow window with its own
 wooden shutter.  You can also see a wooden stool.
+
+You begin to realise how cold it is here.  Everything is covered in a layer
+of frost.
 
 > e
 You move east.
@@ -316,6 +312,8 @@ shutters are fixed either side.  In one corner is a mouse hole.  An upright
 piano stands against one wall.  You can also see a wooden tea chest, a
 rocking chair and a lounge table.
 
+Your breath becomes fog as the warmth slowly leaches from your body.
+
 > w
 You move west.
 
@@ -332,6 +330,8 @@ You move up.
 Landing
 There are three closed doors to the north,  east and west.  There is also
 square hole in the ceiling way above your head.
+
+It is freezing.  You begin to shiver involuntarily.
 
 > look
 
@@ -1427,6 +1427,7 @@ Your score is 18 out of a maximum of 30.  (60%)
 
 > get match from matchbox
 You take a match from the matchbox.
+You hear the sound of breaking glass.
 
 > light match
 You strike the match against the match box.  With a flash and a sulphurous
@@ -1560,6 +1561,11 @@ There are three exits.  North leads to a bathroom.  East leads to a small
 bedroom and the master bedroom is to the west.  There is a square hole in the
 ceiling way above your head.
 
+A giant wasp hovers in the air emitting a deafening buzzing sound.
+
+The wasp shifts its multi faceted eyes in your direction and  hovers closer.
+It swoops across the room towards you.
+
 > d
 You move down.
 
@@ -1570,6 +1576,10 @@ leeds to the lounge while the door to the west leeds to the dining room.  The
 front door is behind you and stands beside a shuttered window.  You can also
 see an old fashioned telephone.
 
+A giant wasp swoops down from the landing.
+
+You leap to one side and neatly evade the wasp.
+
 > w
 You move west.
 
@@ -1579,6 +1589,8 @@ in the south wall and to the north is the kitchen door.  High up on one wall
 you notice a dent in the plaster.  Someone has removed an old thredbare rug
 from its place on the floor, rolled it up and placed it to one side.  You can
 also see a wooden trapdoor, an axe and some wood.
+
+A giant wasp swoops into the room.
 
 > d
 You climb down into the cellar.
@@ -1625,6 +1637,13 @@ pipe sticks out of one wall and a single cupboard is fixed to another.  Below
 the cupboard is the kitchen sink.  The back door is to the north.    A shaft
 of dazzling sunlight reaches in from the garden.
 
+A giant wasp hovers in the air emitting a deafening buzzing sound.
+
+The wasp shifts its multi faceted eyes in your direction and  hovers closer.
+
+The wasp weaves from side to side then darts towards you again.  This time it
+nearly gets you..
+
 > n
 Leaving the house is like stepping into a different time.
 
@@ -1643,6 +1662,9 @@ You step back into the darkness.
 
 You watch fascinated as Cathy swiftly grows and becomes a woman.
 
+The wasp shifts its multi faceted eyes in your direction and  hovers closer.
+It emits a horrid hissing noise and turns to face Cathy.
+
 > s
 You move south.
 
@@ -1653,8 +1675,12 @@ you notice a dent in the plaster.  Someone has removed an old thredbare rug
 from its place on the floor, rolled it up and placed it to one side.  You can
 also see a wooden trapdoor, an axe and some wood.
 
+A giant wasp swoops into the room.
+
 > put thyme in kettle
 There is no boiling water in the kettle.
+
+Cathy dodges the wasp with a neat side step.
 
 > put web in kettle
 I don't understand what you want me to do with the large cast iron kettle.
@@ -1663,6 +1689,8 @@ I don't understand what you want me to do with the large cast iron kettle.
 The jar of honey is too big to fit inside the large cast iron kettle.  There
 is no boiling water in the kettle.
 
+The wasp is backing Cathy up against the wall.
+
 > reveal thy secret
 You take a deep breath and say,
 reveal thy secret
@@ -1670,11 +1698,56 @@ reveal thy secret
 reveal thy secret
 Nothing happens and you begin to wonder if you have missed something.
 
+The wasp jabs its sting towards Cathy.
+The wasps sting is both unexpected and fatal.  You do not live for long.
+Your spirit is sundered from your body and is sucked into a vortex of
+conflicting shadow and light.  You can feel your soul being tugged in two
+different directions.  Eventually you spiral downward towards a black sea
+that heaves and boils in never ending night.
+
+(PRESS ANY KEY TO CONTINUE)
+
+Between life and death
+You find yourself upon a pinnacle of black rock that pierces the side of a
+tumultuous whirlpool.  Bitter tasting spray rises from the roaring waters
+hundreds of feet below.  Sitting at a table is a grinning figure.  She can't
+help but grin as half of her face is missing.  It is as if she were the
+embodiment of schizophrenia.  The left half of her body is clothed in lush
+silks and jewels.  That side of her head reveals a beautiful pale face with
+long blond hair and blue eye.  Her right side is naked and the flesh has all
+but dropped away revealing meat and bone.  That side of her face is all
+skull.
+The woman gestures to an empty chair so you sit facing her across the table.
+She says, "OK honey, here's the rules.  You stand up?  Bad things happen.
+You look behind you?  Bad things happen.  You annoy me in any way?  Bad
+things happen.  Now a smart lad like you might start to think, 'Hey I'm dead
+anyway.  How could anything worse happen'".  Her tombstone grin widens as she
+continues, "Want to bet on it"?
+(PRESS ANY KEY)
+
+She places seven dominoes side down and facing away from you onto her side of
+the table.  An eighth she puts face down and slides across to your side.
+"Now listen up.  I'm going to start playing my dominoes one by one.  You can
+play yours any time you want but here's the catch.  You're not allowed to
+peek at your domino.  If you do you'll regret it for the rest of your death.
+You just have to play it when you think you can match me.  If you play and
+your domino doesn't match then Jack will metaphorically slit your throat from
+ear to ear.
+You become suddenly aware of a large presence just behind you.  The woman
+continues.  "If you don't play before I place my last domino you lose the
+game and that would be very bad for your health.  So don't mess up.  You're
+important kid.  Not everyone ends up here when they bite the big one.  Things
+are getting out of control on the other side.  Someone has to put things
+right and at the moment that someone appears to be you.  But still....there
+are rules.  Break them and you're done for.
+
+She plays her first domino.  It is a double six.
+
 > use pipette on kettle
-What would be the point.  There is nothing magical in the kettle.
+I don't understand what you want me to do with the pipette.
 
 > use pipette on notebook
-There is nothing worth squirting from the pipette at the moment.
+Huh?
 
 > examine notebook
 This slim notebook has the words, Property of Herbert Philpot Lovecrawl
@@ -1692,93 +1765,21 @@ granddaughter I must damn myself.
 
 It goes on like this for several pages but the writing gets so cramped and
 spidery that it becomes illegible.
+She plays her next domino.  It is a six / five.  She places the six end
+against the double six.
 
 > score
 Your score is 19 out of a maximum of 30.  (63%)
 
 > e
-You move east.
+Before you have even finished thinking of doing that the woman screams,
+"Cheat!  You tried to break the rules.  Jack!  Throw this piece of flotsam
+over the side".
+Three burly hands grasp you from behind and heave you over the edge of the
+rock.  You fall screaming for what seems like an eternity and then finally
+hit the water.  The whirlpool sucks you down into darkness.  What happens
+next....is another story.
 
-Hallway
-A long uncarpeted passage ending in rickety looking stairs.  The floorboards
-are worn and the walls are bare plaster.  You guess that the door to the east
-leeds to the lounge while the door to the west leeds to the dining room.  The
-front door is behind you and stands beside a shuttered window.  You can also
-see an old fashioned telephone.
-
-> u
-You move up.
-
-Landing
-There are three exits.  North leads to a bathroom.  East leads to a small
-bedroom and the master bedroom is to the west.  There is a square hole in the
-ceiling way above your head.
-
-> w
-You move west.
-
-Master bedroom
-A large comfortable looking bed dominates this room.  It looks like it's
-owner was quite the scholar.  A small shuttered window is set into the south
-wall.
-
-There is a  jagged gash in the wall.  Every now and then a green spark shoots
-out of it.  A tall and beautilfuly carved grandfather clock stands in the
-corner of the room.  Fixed to the wall is a framed blue print of the house.
-You notice a single page from a book lying just beneath the bed.  You can
-also see a large bookcase.
-
-> open safe
-What safe?
-
-> 5 7 9 6 2 7 3 1 9
-You enter the combination and the safe opens.
-
-> get gold key
-Take what?
-
-> unlock glass door with gold key
-You can't unlock the glass door as you are not holding the right key.
-
-> wind clock hands back
-You canot move the clock hands as they are behing the glass door.
-
-> look
-
-Master bedroom
-A large comfortable looking bed dominates this room.  It looks like it's
-owner was quite the scholar.  A small shuttered window is set into the south
-wall.
-
-There is a  jagged gash in the wall.  Every now and then a green spark shoots
-out of it.  A tall and beautilfuly carved grandfather clock stands in the
-corner of the room.  Fixed to the wall is a framed blue print of the house.
-You notice a single page from a book lying just beneath the bed.  You can
-also see a large bookcase.  Cathy looks tired but exhilarated.
-
-> score
-Your score is 20 out of a maximum of 30.  (66%)
-
-> e
-You move east.
-
-Landing
-There are three exits.  North leads to a bathroom.  East leads to a small
-bedroom and the master bedroom is to the west.  There is a square hole in the
-ceiling way above your head.
-
-> d
-You move down.
-
-Hallway
-A long uncarpeted passage ending in rickety looking stairs.  The floorboards
-are worn and the walls are bare plaster.  You guess that the door to the east
-leeds to the lounge while the door to the west leeds to the dining room.  The
-front door is behind you and stands beside a shuttered window.  You can also
-see an old fashioned telephone.
-
-> s
-You can't go in that direction, but you can move east, west and up.
-
-> quit
-Do you really want to quit? [Y/N]
+I'm afraid you are dead!
+You scored 19 out of the maximum 30!
+That is 63% of the game!

@@ -130,7 +130,6 @@ At the edge of a small town, the Blue Keg Pub is the one place in the area
 where you can find the latest information on any treasure findings in the
 mines. The long road heads back East, and also continues farther into town to
 the West.
-A townsfolk walks by you as they move along in their day.
 
 > w
 You move west.
@@ -237,6 +236,7 @@ You move east.
 Edge of Road
 The lonely edge of the road where people used to pass. The lonely road
 stretches far East and West, but the only place around here is to the West.
+A small bird flies overhead in the bright blue sky.
 
 > n
 You move north.

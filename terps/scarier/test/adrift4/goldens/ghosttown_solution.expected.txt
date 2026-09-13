@@ -957,10 +957,7 @@ for supplies, and maybe a few necessary repairs, and once in a while a stage
 coach with mail and a few passengers.
 To the north of you a small street leads in between two buildings, and to the
 south a narrow alley leads out of town.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > e
 You move east.
@@ -1479,10 +1476,7 @@ Everything is quiet here, the sounds from the Saloon, now only a faint
 whisper in the air, you are able to hear the quiet "clank" from the church
 tower as the bell is slowly swinging in the wind as if touched by an unseen
 hand.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > e
 You move east.
@@ -1697,10 +1691,7 @@ witnesses of the ones that stayed behind.
 To the north of you, a small path leads in through a wooden gate, up to a
 church, and across the street to the south, lays another building... one of
 the few remaining buildings that are still relatively intact.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > w
 You move west.
@@ -2187,7 +2178,10 @@ To the south the gaping hole in the façade of the sheriff's office, and the
 metallic “clank” from the church bell high above you, suddenly becomes the
 noise of cell doors being opened and closed, and the whispering sound of the
 wind becoming the voices of the prisoners once held here.
-Ninette is here.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
 
 > n
 You move north.
@@ -2305,7 +2299,10 @@ To the south the gaping hole in the façade of the sheriff's office, and the
 metallic “clank” from the church bell high above you, suddenly becomes the
 noise of cell doors being opened and closed, and the whispering sound of the
 wind becoming the voices of the prisoners once held here.
-Ninette is here.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
 
 > ninette wait here
 You tell Ninette to wait, and even though she is not too happy about being

@@ -181,10 +181,9 @@ open safe
 score
 n
 1
-1
-4
 3
-2
+5
+1
 4
 take key
 score

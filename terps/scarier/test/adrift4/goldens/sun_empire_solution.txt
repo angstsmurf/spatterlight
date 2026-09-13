@@ -18,8 +18,6 @@ z
 z
 z
 z
-# WALK-TIMING RE-TUNE (2026-08-01): walkers arrive one turn later, so one
-# extra wait before Jeriah gets the pass.
 z
 give id pass to jeriah
 x pdd
@@ -43,8 +41,8 @@ ask mark to follow me
 e
 d
 n
-z
-z
+x mark
+x mark
 z
 z
 z

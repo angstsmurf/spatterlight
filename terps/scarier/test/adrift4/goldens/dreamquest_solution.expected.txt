@@ -80,6 +80,7 @@ carved statue in it's centre.  One of the eyes catches your attention.  Perry
 the Ferryman is here.
 
 You can move north, east, south and west.
+You hear an owl
 
 > examine statue
 A finely carved statue of Saint Xion stands before you. The plaque explains
@@ -101,10 +102,10 @@ and one down. The sitting room is sparsely furnished with a table, chair and
 unlit fireplace. The room is not too comfortable and is quite drafty.
 
 You can move east, west and up.
+A rat scurries past your feet!
 
 > examine fireplace
 You notice that the fireplace is full of ashes.
-A rat scurries past your feet!
 
 > examine ashes
 As you sift through the ashes, you see there is a long nail that is still a
@@ -123,7 +124,6 @@ You can only move east.
 
 > get spade
 You take the well used spade.
-You hear an owl
 
 > get cane
 You take the long cane.
@@ -137,7 +137,6 @@ and one down. The sitting room is sparsely furnished with a table, chair and
 unlit fireplace. The room is not too comfortable and is quite drafty.
 
 You can move east, west and up.
-A rat scurries past your feet!
 
 > e
 You move east.
@@ -223,7 +222,6 @@ The passage is dimly lit and is freezing cold. This must be used to stock
 Mrs. So's basement..
 
 You can move southeast and northwest.
-A rat scurries past your feet!
 
 > se
 You move southeast.
@@ -251,6 +249,7 @@ You take the new saw.
 
 > get lantern
 You take the brand new lantern.
+A rat scurries past your feet!
 
 > nw
 You move northwest.
@@ -315,6 +314,7 @@ You are standing in the middle of the village square. There is a finely
 carved statue in it's centre.  Perry the Ferryman is here.
 
 You can move north, east, south and west.
+You hear an owl
 
 > s
 You move south.
@@ -357,7 +357,6 @@ battering of the sea. To the east you can see a dilapidated boat house and to
 the west there is a boat.
 
 You can move north, east and west.
-Black waves churn in the sea sending a fine mist into the air.
 
 > e
 You move east.
@@ -372,10 +371,10 @@ You can only move west.
 > open locker
 You open the locker.  A mouldy beef sandwich and a fishing rod are inside the
 locker.
-A rat scurries past your feet!
 
 > get sandwich
 You take the mouldy beef sandwich from the locker.
+A rat scurries past your feet!
 
 > get rod
 You take the fishing rod from the locker.
@@ -408,7 +407,6 @@ Black waves churn in the sea sending a fine mist into the air.
 > open lock with boat key
 The lock opens and the chains fall into the sea, freeing the boat. You leave
 the key in the lock.
-Black waves churn in the sea sending a fine mist into the air.
 
 > w
 You move west.
@@ -458,6 +456,7 @@ You can only move down.
 
 > get oil
 You take the can of oil.
+A rat scurries past your feet!
 
 > d
 You move down.
@@ -467,7 +466,6 @@ This place is sparsely furnished and is freezing cold and damp. The room is
 partly lit from rays of light coming through the open exit above.
 
 You can move east and up.
-A rat scurries past your feet!
 
 > e
 You move east.
@@ -477,6 +475,7 @@ You are standing on large craggy rocks which is constantly beaten by the
 waves from all angles. To the west there is a light house.
 
 You can move east and west.
+Black waves churn in the sea sending a fine mist into the air.
 
 > e
 You move east.
@@ -513,6 +512,7 @@ battering of the sea. To the east you can see a dilapidated boat house and to
 the west there is a boat.
 
 You can move north, east and west.
+Black waves churn in the sea sending a fine mist into the air.
 
 > n
 You move north.
@@ -614,6 +614,7 @@ a rope ladder hanging down from them. To the west you can see the village
 library.
 
 You can move east and west.
+You hear an owl
 
 > look
 
@@ -625,8 +626,6 @@ a rope ladder hanging down from them. To the west you can see the village
 library.
 
 You can move east and west.
-You hear a clap of thunder. The mist around you glows briefly.
-You hear an owl
 
 > use cane on ladder
 You insert the piece of cut cane into the rope ladder making a rung. You can
@@ -660,6 +659,8 @@ a rope ladder hanging down from them. To the west you can see the village
 library.
 
 You can move east, west and up.
+You hear a clap of thunder. The mist around you glows briefly.
+You hear an owl
 
 > e
 You move east.
@@ -689,6 +690,7 @@ and one down. The sitting room is sparsely furnished with a table, chair and
 unlit fireplace. The room is not too comfortable and is quite drafty.
 
 You can move east, west and up.
+A rat scurries past your feet!
 
 > u
 You move up.
@@ -698,7 +700,6 @@ The bedroom is as sparse as the living room. Only a bed, cupboard and drawers
 in here.
 
 You can only move down.
-A rat scurries past your feet!
 
 > look
 
@@ -716,6 +717,7 @@ You take the fishing coat from the large wardrobe.
 
 > wear coat
 You slip into the thick coat. You start to feel warm already.
+A rat scurries past your feet!
 
 > drink brandy
 You drain the bottle of the liquid. You feel a warm sensation inside. You
@@ -835,6 +837,8 @@ the middle. The stone is large and finely engraved with carvings of a sword
 and shield.
 
 You can only move west.
+You hear an owl
+A rat scurries past your feet!
 
 > look
 
@@ -846,16 +850,17 @@ the middle. The stone is large and finely engraved with carvings of a sword
 and shield.
 
 You can only move west.
+You hear a clap of thunder. The mist around you glows briefly.
 
 > dig grave with spade
 You start digging up the grave, stopping every now and again to wipe your
 brow. Two hours later you start to see the outlines of a wooden coffin down
 inside the hole. You throw the spade to the ground before entering the grave,
 not seeing any further use for it.
+A rat scurries past your feet!
 
 > d
 You can only move up.
-A rat scurries past your feet!
 
 > look
 
@@ -868,10 +873,10 @@ to disturb the body any further in fear of being cursed.  Also here is a
 shiny shield.
 
 You can only move up.
+A rat scurries past your feet!
 
 > get shield
 You take the shiny shield.
-A rat scurries past your feet!
 
 > u
 You move up.
@@ -894,6 +899,7 @@ Just a small clearing here. To the east is a cemetery, to the west is an inn,
 and to the north is a gate.  Old Man Toomey is here.
 
 You can move north, east, south and west.
+You hear an owl
 
 > n
 You move north.
@@ -943,10 +949,14 @@ A plain mountain wall lies northwards covered with lichen. Soft snow crunches
 underfoot.
 
 You can move east and west.
+Soft flakes of snow start to fall from the clear sky. The wind makes them
+dance around you.
 
 > use monocle
 When you hold the monocle to your eye you see that red outline appears on the
 wall. The shape looks that of a door entrance.
+Soft flakes of snow start to fall from the clear sky. The wind makes them
+dance around you.
 
 > n
 You move north.

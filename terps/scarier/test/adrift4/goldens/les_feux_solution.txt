@@ -1,9 +1,23 @@
 # Les Feux de l'enfer (Les Feux de l'enfer.taf) -- French dungeon crawl,
 # ADRIFT 4.00, demo release.  75 of the declared 115 points; the other 40 are
 # unreachable in this build (see the harness comment for the proof).  The
-# route needs SCR_SEED=138: every fight length, the shop's guard roll and the
-# grappling-hook throw are all rolls off that one stream, so any inserted or
-# removed command reshuffles the hit counts downstream.
+# route needs SCR_SEED=18: every fight length, the shop's guard roll and the
+# grappling-hook throw are all rolls off that one shared stream, so any
+# inserted or removed command reshuffles the hit counts downstream.  Combat
+# is written adaptively here (attack until the game reports "<enemy> n'est
+# pas la!", i.e. dead/gone) rather than as fixed counts, so the per-fight
+# hit counts below are just what this seed happens to need: assassin 5,
+# ogre 4, goule 3, demon 9, voyou 5, voleur 5.
+#
+# The second "swim" (getting `get corde` on the little island) can trigger a
+# stochastic leg-grab/drowning ambush; it either resolves within the same
+# turn (as it does at this seed -- no extra command needed) or loops forever
+# ("Vous ne pouvez aller dans aucune direction!" to everything after),
+# desyncing the flute tune and hook throw that follow.  That is pure luck
+# tied to the RNG stream position at that exact point and is not fixable by
+# adding commands -- SCR_SEED=18 was chosen (by sweeping seeds with the
+# adaptive route above) specifically because the ambush resolves favorably
+# here.
 #
 # 1/passer/2 pick the opening character options.  Rooms follow the map in
 # terps/scarier/test/adrift4/notes: 2 ENTREE -> 4 -> 5 JONCTION -> 3/31/32 ->
@@ -62,9 +76,12 @@ x cadavre
 attack goule
 attack goule
 attack goule
-attack goule
 n
 open porte
+attack demon
+attack demon
+attack demon
+attack demon
 attack demon
 attack demon
 attack demon
@@ -79,6 +96,9 @@ attack voyou
 attack voyou
 attack voyou
 attack voyou
+attack voyou
+attack voleur
+attack voleur
 attack voleur
 attack voleur
 attack voleur

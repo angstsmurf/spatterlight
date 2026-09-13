@@ -76,10 +76,10 @@ You drop the stool.
 
 > stand on stool
 You stand on the stool.
-You hear the faint sound of cackling laughter - is it real?
 
 > take shotgun
 You reach up and grab the shotgun.
+You hear the faint sound of cackling laughter - is it real?
 
 > load shotgun with shells
 You crack open the shotgun, push in the two shells, and snap it shut.
@@ -135,6 +135,7 @@ The three windows here are boarded up but thin rays of moonlight shine
 through the cracks. The only points of interest are a bedframe which has long
 lost any use and an upturned dresser in one corner. To the north is a
 bathroom while to the south lies the play room.
+You hear the faint sound of cackling laughter - is it real?
 
 > n
 You move north.
@@ -153,7 +154,6 @@ bedroom.
 You slide the fang into the drain - it's a perfect fit - and push it down.
 You hear the lever mechanism within click. The eastern wall begins to shake
 before sliding southward, opening a passage to the east.
-You hear the faint sound of cackling laughter - is it real?
 
 > e
 You move east.
@@ -167,10 +167,10 @@ disappears into the void. You've never seen darkness of this kind outside.
 You must still be inside the house...  A small, black key is lying on the
 floor here.  An old man is standing flush against the wall. Only his eyes
 move, following your every motion.
+Something howls in the distance.
 
 > take key
 You take the ornate key.
-Something howls in the distance.
 
 > e
 You venture out into the void, the ornate key clasped strongly in your fist.

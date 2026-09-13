@@ -487,10 +487,10 @@ You continue to descend the stairs...
 
 > d
 You continue to descend the stairs...
-Heavy breathing comes from behind you.
 
 > d
 You continue to descend the stairs...
+You sense a dark presence nearby.
 
 > d
 You continue to descend the stairs...
@@ -504,7 +504,6 @@ You move down.
 Underground
 This small cavern houses an enormous, old-fashioned furnace with a metal
 grating over it. Fire burns from the furnace, lighting and heating the area.
-A glimmer of motion catches the corner of your eye.
 
 > u
 You turn to go up the stairs but a solid wall has replaced them. Before the
@@ -519,6 +518,7 @@ head. It roars and lunges at you, but you dodge the attack.
 You circle around the beast. It looks ready to lunge. Just as it does, you
 dig a fist into its stomach - or where you think its stomach would be - and
 it slides into the far wall.
+You get the feeling that something is following you.
 
 > attack beast
 You throw a kick at the beast's face but it latches its fangs onto your leg.
@@ -533,7 +533,6 @@ You shove the beast and it trips backward. It tries to brace itself but its
 arm falls into the furnace, igniting as it touches the coals. Slowly the
 entire beast is consumed in flames. When the fire has gone, the furnace is no
 longer lit.
-A glimmer of motion catches the corner of your eye.
 
 > get key
 You take the key from the furnace.
@@ -558,7 +557,6 @@ it lies open, beckoning...
 You move up.
 
 Living Room
-For a moment you think you saw a shadow move.
 
 > s
 You move south.
@@ -577,6 +575,7 @@ Planks are missing from the floor here, replaced with black, empty void. The
 front door is stained a dark red that appears to be pulsing, though this may
 be a trick of the light. Your passage to the kitchen is blocked, but you can
 go east to the dining room or up to the upper hall.
+You get the feeling that something is following you.
 
 > unlock door with key
 You unlock the front door with the key.

@@ -64,12 +64,14 @@ The long rope ladder is hauled up into the gloom above ... your only link to
 the outside world is now out of your reach.
 
 > south
-You advance cautiously to the south.
+You press on to the south.
 
 Slimy Cave
 This naturally-formed cave is small with a low ceiling. Water drips down the
 eastern wall (from some unknown source) allowing the wall to become slick
 with an odious slime (ugh!!).
+
+You can see a vellum scroll.
 
 Possible exits: north, west and southeast.
 
@@ -89,10 +91,10 @@ You slump to the ground emotionally and physically spent for a few moments
 ... but this is not yet over!
 
 > west
-You boldly go west.
+You set out to the west.
 
 Dead Boring
-Just another plain, boring and totally uninteresting cave!
+What can one say ... a boring , boring and totally boring cave!
 
 You can see a legendary starblade.
 Oops! An humungus Wumpus is here!
@@ -111,12 +113,14 @@ The lantern's glow provides a little comfort against the dark unknown of the
 Run.
 
 > east
-You depart to the east.
+You press on to the east.
 
 Slimy Cave
 This naturally-formed cave is small with a low ceiling. Water drips down the
 eastern wall (from some unknown source) allowing the wall to become slick
 with an odious slime (ugh!!).
+
+You can see a vellum scroll.
 
 Possible exits: north, west and southeast.
 
@@ -124,17 +128,15 @@ Possible exits: north, west and southeast.
 You can't go in that direction, but you can move north, west and southeast.
 
 > north
-You set out to the north.
+You boldly go north.
 
 Small Cave
-The dimensions of this cave are ridiculously small. Beware of the thick slime
-on the walls.
+This cave is quite small and cramped. A thick slime coats some of the
+surrounding walls.
 
 You can see a rope ladder.
 
 Possible exits: east, south and northwest.
-
-You can feel a draft coming from one of the tunnels.
 
 > climb ladder
 You can't climb the rope ladder.

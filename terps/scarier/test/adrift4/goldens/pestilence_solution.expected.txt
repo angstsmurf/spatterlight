@@ -201,7 +201,7 @@ You take the torn piece of paper from the waste bin.
 > read paper
 The piece of paper is a small part of what must have been a much large
 document.  All you can make out are a few words - 'cure is called Artemis'
-and  'fourth chemical is Helios'.
+and  'fourth chemical is Apollo'.
 
 > west
 You move west.
@@ -259,7 +259,7 @@ You take the record card.
 
 > read card
 The record card has lots of medical mumbo-jumbo but you can make out two
-words -  'Artemis' and 'Demeter'.
+words -  'Artemis' and 'Hermes'.
 
 > east
 You move east.
@@ -316,7 +316,7 @@ You take the book from the counter.
 
 > read book
 The book is covered in blood, all you can make out are a few words - 'cure is
-called Artemis' and  'third chemical is Hades'.
+called Artemis' and  'third chemical is Zeus'.
 
 > east
 You move east.
@@ -418,7 +418,7 @@ just wide enough that someone outstretched can touch the sides and is about
 twice that in length.  Either side of a small bunk is a stainless steel sink
 and toilet. You also notice that the walls and ceiling are completely bare,
 apart from an air vent and a bright fluorescent light. Written in chalk on
-the cell wall is the word 'Athena'. You seem to be able to go east out into a
+the cell wall is the word 'Hera'. You seem to be able to go east out into a
 corridor.  The body of a woman is lying here.
 
 > east
@@ -480,7 +480,7 @@ You take the apollo, the ares, the athena, the demeter, the hades, the
 helios, the hera, the hermes and the zeus from the shelf.
 
 > mix artemis
-You pour some Athena, Demeter, Hades and Helios into the glass jar.
+You pour some Hera, Hermes, Zeus and Apollo into the glass jar.
 You notice that the liquid in the jar has changed colour.
 
 > east
@@ -525,7 +525,7 @@ Calmly he replies, "Thank you for the Artemis, I suggest you cure yourself
 and then we can talk more."
 
 > mix cure
-You pour some Athena, Demeter, Hades and Helios into the glass jar.
+You pour some Hera, Hermes, Zeus and Apollo into the glass jar.
 You notice that the liquid in the jar has changed colour.
 
 > drink artemis
@@ -597,8 +597,10 @@ You unlock and open the window.
 You climb out through the open window. It is quite a drop to the ground but
 you decide to jump.
 
-You have managed to survive the Pestilence and you are alive!  You carefully
-lower yourself and make you way home, considering yourself lucky to be alive.
+You have managed to survive the Pestilence and you are alive!  As you lower
+yourself to the ground a crowd gathered outside the medical centre spot you,
+and give chase. After several miles you manage to give them the slip and make
+your way home.  You consider yourself lucky to be alive.
 
 You managed to score 100 out of the maximum 100.
 

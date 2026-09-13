@@ -1,9 +1,9 @@
 # The Test (David Whyld) -- four of its puzzles are randomised, so this route
-# only holds at SCR_SEED=8.  Re-derive it with
+# only holds at SCR_RNG=xoshiro SCR_SEED=8.  Re-derive it with
 # `python3 harness/thetest_solve.py <seed>`: the colour lock is brute-forced
-# (seed 8 needs five tries, not the author's suggested 500), the door code is
-# read back off the phone, the number shouted at the robot guard is its own
-# triangular counter, and the broken teleporter has to land in the Morse Room.
+# (seed 8 needs 57 tries under xoshiro), the door code is read back off the
+# phone, the number shouted at the robot guard is its own triangular counter,
+# and the broken teleporter has to land in the Morse Room.
 open clothes
 take fluff
 drop fluff
@@ -20,14 +20,82 @@ unlock door
 unlock door
 unlock door
 unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
+unlock door
 dial 987
-enter 8328337
+enter 2252710
 east
 shout 1
 shout 1
 shout 1
-shout 1
-shout 1
+shout 3
+shout 3
+shout 3
+shout 3
+shout 3
 shout 3
 shout 3
 shout 3
@@ -38,11 +106,11 @@ shout 6
 shout 6
 shout 6
 shout 6
-shout 6
-shout 6
-shout 6
-shout 6
-shout 6
+shout 10
+shout 10
+shout 10
+shout 10
+shout 10
 shout 10
 shout 10
 shout 10
@@ -53,26 +121,21 @@ shout 15
 shout 15
 shout 15
 shout 15
-shout 15
-shout 15
-shout 15
-shout 15
-shout 15
 shout 21
 shout 21
 shout 21
 shout 21
 shout 21
-shout 105
-shout 105
-shout 105
-shout 105
-shout 105
-shout 105
-shout 105
-shout 105
-shout 105
-shout 105
+shout 21
+shout 21
+shout 21
+shout 21
+shout 21
+shout 91
+shout 91
+shout 91
+shout 91
+shout 91
 take key
 take teleporter
 west

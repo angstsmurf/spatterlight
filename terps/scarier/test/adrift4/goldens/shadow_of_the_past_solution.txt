@@ -6,6 +6,7 @@ listen
 remove portraits
 s
 w
+beast killed
 pull lever
 open door
 w

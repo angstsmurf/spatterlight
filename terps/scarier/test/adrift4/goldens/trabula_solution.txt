@@ -75,3 +75,4 @@ w
 n
 give diamond ring to trabula
 give gold to trabula
+score

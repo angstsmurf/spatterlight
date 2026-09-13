@@ -38,11 +38,15 @@ shouts from the end of the line.
 > place ice cream in cone
   Holding the cone in one hand, you place the scooped ice cream carefully on
 the top with the other.
+  The ice cream falls on the floor!
+  "Hey!" the customer shouts. "I'm waiting here. Can'tcha be a little more
+careful?"
+  "Wilbur! Clean that up!" Ron shouts.
 
 > give cone to customer
-  You reach out to give the cone to the customer. Ronald takes the money from
-the counter with a grin.
-  You take a cone from the box.
+  You reach out to give the customer an empty cone. This infuriates the
+customer and he leaves in a huff.
+  Ronald scowls.
 
 > quit
 Do you really want to quit? [Y/N]

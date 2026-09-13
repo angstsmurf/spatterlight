@@ -106,8 +106,6 @@ at least upright.
 Exits lie: north, south, west and up
 
   Stimmons your bodyguard and Doris the maid are here.
-   "Aah, me arm, me arm!" Doris wails. When no one pays her much attention,
-she wails a bit louder.
 
 > talk to stimmons
    "An honour to serve, sir," remarks Stimmons and gives you a proud salute.
@@ -147,6 +145,8 @@ trusting your life to someone with breathing problems.
    5)  I seem to be having some trouble with locked doors in the castle.
    6)  Where are my parents right now?
    7)  I don't want to talk any further.
+   "Aah, me arm, me arm!" Doris wails. When no one pays her much attention,
+she wails a bit louder.
 
 > 2
    "All except the two worse ones, sir," says Stimmons. "Bill and Ben are
@@ -155,8 +155,6 @@ the same as everyone else. You can let 'em out if you want, sir, but they
 aren't a lot of use unless you're looking for an after dinner feast for some
 visiting cannibals. Here's the key for the guardroom door."
    Stimmons hands over a small key.
-   "Aah, me arm, me arm!" Doris wails. When no one pays her much attention,
-she wails a bit louder.
 
 > x bodies
    Rummaging through the carnage (as you do), you come across a couple of

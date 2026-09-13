@@ -247,6 +247,8 @@ Irvine depresses the blue button.
 > open cover
 Irvine uncloses the glass cover.
 
+Captain Gatts Grupen takes a sip of his coffee.
+
 > flick switch
 Irvine flicks the switch on.
 
@@ -605,6 +607,11 @@ running from north to south.  An ornately decorated gate rests in the wall.
 A cleared plot is to the south.  Drash the Guard stands at the ready here.
 Grastor the Champion is here.  HiRBy hovers over from the south.
 
+Drash appears distracted.
+
+Grastor eyes Irvine intensely and twitches, apparently exercising some
+restraint.
+
 > challenge grastor
 Irvine reaches up and slaps Grastor on the nose with a red herring.
 
@@ -705,8 +712,6 @@ where unseen eyes and disembodied hisses of constant spectres lurk and the
 very trees twist and blacken with malice.  The jungle is more tame to the
 south.  HiRBy hovers over from the north.
 
-Irvine's health recovers slightly.
-
 > s
 Irvine goes south.
 
@@ -717,6 +722,8 @@ the trees above.  The path continues to the north and west, and dips slightly
 to the south, from whence comes the trickling of a small brook.  The gate to
 Ki'parandazar looms to the east.  Also here is a red fruit.  HiRBy hovers
 over from the north.
+
+Irvine's health recovers slightly.
 
 > e
 Irvine goes east.
@@ -736,8 +743,6 @@ A small, flat plot of green has been cleared from the jungle here, while the
 jungle regains its thick shaggy grasses and holds the line of its trees to
 the west.  To the south is a waterfall.  A bush of Traglenip is busy growing
 here.  HiRBy hovers over from the north.
-
-Irvine's health recovers slightly.
 
 > s
 Irvine goes south.
@@ -771,6 +776,8 @@ running from north to south.  An ornately decorated gate rests in the wall.
 A cleared plot is to the south.  Drash the Guard stands at the ready here.
 
 Also here is the crate.  HiRBy hovers over from the south.
+
+Irvine's health recovers slightly.
 
 > push crate w
 Irvine pushes the crate west.
@@ -1015,6 +1022,8 @@ Irvine can claw after making any three attacks.
 Irvine makes a lunge, but Grastor bounds away, nearly tripping Irvine over
 again.
 
+Irvine's health recovers slightly.
+
 When you see "CLAW!" in your status bar, type "CLAW" to defeat Grastor.
 
 > throw grastor
@@ -1049,8 +1058,6 @@ Irvine stands there looking at the flower in his hand.  He looks at HiRBy... and
 
 "Back to the spaceship, I guess."
 
-Irvine's health recovers slightly.
-
 > s
 (Standing up first)
 Irvine goes south.
@@ -1061,6 +1068,8 @@ formed by crooked trees gives sight to a dark, foreboding forest beyond,
 where unseen eyes and disembodied hisses of constant spectres lurk and the
 very trees twist and blacken with malice.  The jungle is more tame to the
 south.  HiRBy hovers over from the north.
+
+Irvine's health recovers slightly.
 
 > s
 Irvine goes south.
@@ -1086,8 +1095,6 @@ The Sagittarian rests neatly between two other ships of its class.  A
 gangplank leads up into the hull of the ship.  HiRBy hovers over from the
 east.
 
-Irvine's health recovers slightly.
-
 > u
 Irvine moves up the gangplank and into the Sagittarian.
 
@@ -1096,6 +1103,8 @@ The corridor continues aft to the kitchens and starboard toward the bridge.
 To port, a door reads: "Gatts Grupen: Captain."  A hatch leads down to the
 surface of Traglea.  First Mate Silthen attends the exit hatch.  HiRBy hovers
 over from outside.
+
+Irvine's health recovers slightly.
 
 > s
 Irvine goes starboard.
@@ -1136,8 +1145,6 @@ prepapred for you.  It will tell you a little more about the organisms we
 hope to recover on this mission."
 
 Irvine picks up the specimen analysis.
-
-Irvine's health recovers slightly.
 
 > give flower to smitty
 "From Grashtor, you shay?" Smitty the Cat takes the flower from Irvine.  He
@@ -1185,6 +1192,8 @@ starboard wall.  Aft is the ship's infirmary.  An automatic door is set in
 the port wall, to the left of which is an inconspicuous privacy button.  Also
 here is a hairball.  HiRBy hovers over from inside.
 
+Irvine's health recovers slightly.
+
 > get hairball
 Irvine picks up the hairball.
   He disposes of it as quickly as possible and notices something inside of
@@ -1201,8 +1210,6 @@ artificial gravity core.  A flight of stairs leads up to the rest of the
 ship.
 
 The door closes behind Irvine.  HiRBy hovers over from inside.
-
-Irvine's health recovers slightly.
 
 > up
 Irvine goes up.
@@ -1223,6 +1230,8 @@ To port, a door reads: "Gatts Grupen: Captain."  A hatch leads down to the
 surface of Traglea.  The CAS droid is here.  First Mate Silthen attends the
 exit hatch.  HiRBy hovers over from the south.
 
+Irvine's health recovers slightly.
+
 > down
 Irvine moves out the exit and down the ship's gangplank.
 
@@ -1234,8 +1243,6 @@ capital, Ki'parandazar.
 
 The Sagittarian rests neatly between two other ships of its class.  A
 gangplank leads up into the hull of the ship.  HiRBy hovers over from inside.
-
-Irvine's health recovers slightly.
 
 > e
 Irvine goes east.
@@ -1333,6 +1340,8 @@ The metal door swings shut and locks behind Irvine!
 > punch sentinel
 Irvine socks the sentinel in his furry face, and he goes out cold.
 
+Irvine's health recovers slightly.
+
 > n
 Irvine crosses the room to the descending corridor.
 
@@ -1344,8 +1353,6 @@ EXITS: NORTH and SOUTH.
 
 A sentry is here, brandishing a beam weapon!  HiRBy hovers over from the
 south.
-
-Irvine's health recovers slightly.
 
 > punch sentry
 Irvine palm strikes the sentry in his furry face, knuckles him in the rib
@@ -1362,11 +1369,11 @@ EXITS: SOUTH and EAST.
 A guard is here, brandishing a shock staff!  A patrol is here, brandishing
 his cyborg fists!  HiRBy hovers over from the south.
 
+Irvine's health recovers slightly.
+
 > kick guard
 Irvine leaps and kicks the guard in the chin, then lands and takes out the
 sentry's knees.  The guard doesn't get up.
-
-The patrol strikes Irvine with a robotic arm.  Oof!
 
 > throw patrol
 Irvine grabs the patrol by the wrist and yanks his body off-balance, then
@@ -1374,8 +1381,6 @@ sends his wrist into a clockwise spin, causing the patrol's body to follow
 and fall in pain.
 
 The patrol doesn't get up.
-
-Irvine's health recovers slightly.
 
 > e
 Irvine goes east.
@@ -1387,6 +1392,8 @@ EXITS: NORTH, WEST, and SOUTH.
 
 A soldier is here, brandishing an electro ray!  HiRBy hovers over from the
 west.
+
+Irvine's health recovers slightly.
 
 > punch soldier
 Irvine strikes the soldier in the throat with his fingers, then takes him
@@ -1413,8 +1420,6 @@ EXITS: NORTH and SOUTH
 HiRBy hovers over from the north.
 A sentry charges in, brandishing a beam weapon!
 
-Irvine's health recovers slightly.
-
 > punch sentry
 Irvine punches the sentry in the stomach, then takes him out with an
 uppercut.
@@ -1440,11 +1445,13 @@ EXITS: WEST.
 
 HiRBy hovers over from the west.
 
-Irvine's health recovers slightly.
+A patrol charges in, brandishing cyborg fists!
 
 > x crates
 Stacks of big, impenetrable crates holding who-knows-what.  Keys, maybe?  An
 important-looking key is on the giant metal crates.
+
+The patrol strikes Irvine with a robotic arm.  Oof!
 
 A guard charges in, brandishing a shock staff!
 
@@ -1454,28 +1461,31 @@ The guard zaps Irvine with a shock staff.  Ow!
 Irvine kicks the guard with a one-two combination, throwing his heel hard
 into the guard's ribs, then into his temple.  The guard goes down.
 
-A patrol charges in, brandishing cyborg fists!
-
-The patrol strikes Irvine with a robotic arm.  Oof!
+Irvine's health recovers slightly.
 
 > throw patrol
 Irvine grabs the patrol by the shoulders and throws him into the wall.
 
 The patrol doesn't get back up.
 
-Irvine's health recovers slightly.
-
 > deploy
 Irvine presses HiRBy's deploy button.  A pair of needle-thick arms with
 pincers unfold from inside HiRBy.
 
-> get key
-HiRBy takes the important-looking key in its pincers.
-A sentry charges in, brandishing a beam weapon!
-
 A soldier charges in, brandishing an electro ray!
 
 The soldier shocks Irvine with an electro ray.  Ouch!
+
+> get key
+HiRBy takes the important-looking key in its pincers.
+
+The HiRBy droid continues to hover with its arms deployed, bobbing up and
+down in the air contentedly.
+
+The soldier shocks Irvine with an electro ray.  Ouch!
+A sentry charges in, brandishing a beam weapon!
+
+Irvine's health recovers slightly.
 
 > punch sentry
 Irvine knocks the sentry out with a simple punch-to-elbow combination.
@@ -1486,13 +1496,13 @@ The soldier shocks Irvine with an electro ray.  Ouch!
 Irvine palm strikes the soldier in his furry face, knuckles him in the rib
 cage, and elbows him down to the floor, out cold.
 
-Irvine's health recovers slightly.
-
 > get key
 Irvine plucks the important-looking key from HiRBy's pincers.
 
 > deploy
 Irvine presses HiRBy's deploy button.  HiRBy's arms fold back in.
+
+Irvine's health recovers slightly.
 
 > w
 Irvine goes west.
@@ -1533,19 +1543,15 @@ EXITS: NORTH and SOUTH.
 HiRBy hovers over from the south.
 A sentry charges in, brandishing a beam weapon!
 
-A guard charges in, brandishing a shock staff!
-
 > punch sentry
 Irvine strikes the sentry in the throat with his fingers, then takes him down
 to the ground with a backhand.
 
-The guard zaps Irvine with a shock staff.  Ow!
+A guard charges in, brandishing a shock staff!
 
 > kick guard
 Irvine throws his whole body into a stomping kick at the guard's crotch.  The
 guard crumples to the floor in a fetal position.
-
-Irvine's health recovers slightly.
 
 > n
 Irvine goes north.
@@ -1576,6 +1582,8 @@ HiRBy hovers nearby.  A soldier is here, brandishing an electro ray!
 Irvine punches the soldier in the stomach, then takes him out with an
 uppercut.
 
+Irvine's health recovers slightly.
+
 > n
 Irvine goes north.
 
@@ -1583,8 +1591,6 @@ TUNNEL
 EXITS: SOUTH and WEST.
 
 HiRBy hovers over from the south.
-
-Irvine's health recovers slightly.
 
 > w
 Irvine goes west.
@@ -1604,6 +1610,8 @@ TUNNEL
 EXITS: SOUTH and WEST.  HiRBy hovers over from the south.
 A sentry charges in, brandishing a beam weapon!
 
+Irvine's health recovers slightly.
+
 > punch sentry
 Irvine knocks the sentry out with a simple punch-to-elbow combination.
 
@@ -1616,16 +1624,13 @@ An important-looking door is set in the west wall.
 EXITS: EAST.  An elite is here, brandishing a heat gun!  HiRBy hovers over
 from the east.
 
-Irvine's health recovers slightly.
-
 > unlock door
 No wonder they both looked important.  The door opens to the west.
 
-A guard charges in, brandishing a shock staff!
+Irvine's health recovers slightly.
 
 > kick guard
-Irvine kicks at the back of the guard's legs, taking him down to his knees,
-and launches a second kick into his face, knocking him out.
+guard is not here.
 
 The elite burns Irvine with a heat gun.  The pain...!
 
@@ -1664,8 +1669,6 @@ The fan servant stares agog at Irvine.  "Can I have your jacket...?"
 
 "So cool," says the fan.
 
-Irvine's health recovers slightly.
-
 > teach fan karate
 Irvine shows the fan how to punch and kick.
 
@@ -1673,6 +1676,8 @@ The fan starts throwing out some goofy attacks, looking about as ridiculous
 as Irvine, but having a grand time of it.
 
 "Just... awesome," adores the fan.
+
+Irvine's health recovers slightly.
 
 > give jacket to fan
 Irvine hands his jacket over to the fan servant.
@@ -1793,13 +1798,13 @@ The throne room is east.  A secret room is to the north!  Also here is some
 wreckage.  The Fat Cat, Rrasharshan, is here, armed with a vicious microwave
 cannon.
 
-Irvine's health recovers slightly.
-
 > get mirror
 Irvine leans, leaps, and grabs the stylized mirror just as Fat Cat
 Rrasharshan lets loose a barrage of microwave rays which bounce off of the
 mirror and strike the chandelier hanging in the centre of the room, causing
 it to fall and pin the Fat Cat!
+
+Irvine's health recovers slightly.
 
 > n
 Irvine goes north.
@@ -1829,8 +1834,6 @@ Irvine scoops the tranquil Fish of Traglea out of the reservoir without a
 struggle.
 He names it "Gillbert."
 
-Irvine's health recovers slightly.
-
 > s
 Irvine goes south.
 
@@ -1841,6 +1844,8 @@ the room, a fancy end table stands up against the eastern wall.
 
 The throne room is to the east.  North is a secret room.  Also here are the
 broken glass, some wreckage and a top hat.
+
+Irvine's health recovers slightly.
 
 > e
 Irvine goes east.

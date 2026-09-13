@@ -189,9 +189,6 @@ On the Stairs
 You are on Marks stairs.  You can go up the stairs to the Landing and down to
 the Hall.  The carpet looks worn and the stairs move as you stand on them.
 On the wall is a gold framed picture.  You can see a pair of old trousers.
-The small dog wanders in from above.
-
-The small brown terrier wandering around is snarling at you.
 
 > up
 You move up.
@@ -230,10 +227,7 @@ You are on Marks landing.  This area has no window so it is quite dark here,
 the light is on but doesn't seem to help.  Even in the bad light you can see
 more terrible wallpaper and a very threadbare carpet. The main bedroom is to
 the north and the back bedroom is opposite.  You can just make out the
-bathroom to the east and you can go down to the hall.  The small brown
-terrier is wandering around.
-
-The small brown terrier wandering around is snarling at you.
+bathroom to the east and you can go down to the hall.
 
 > south
 You move south.
@@ -243,9 +237,7 @@ You are in Marks fairly small back bedroom.  The room has a small looking
 single bed with a cheap looking bedside cabinet next to it.  You expect the
 window to the south will look out onto the garden. Just inside the door is a
 three shelf bookcase. You can only go north from here back to the landing.
-You can see a dirty handkerchief.  The small dog wanders in from the north.
-
-The small brown terrier wandering around is barking at you.
+You can see a dirty handkerchief.
 
 > x bookcase
 The bookcase is one of those cheap DIY jobs.  In this case though even a cut
@@ -253,12 +245,8 @@ price DIY shop would consider the quality too low.  Also it was obviously put
 together by someone who had never seen a bookcase before.  A coffee mug and a
 paperback book are on the bookcase.
 
-The small brown terrier wandering around is snarling at you.
-
 > get mug
 You take the coffee mug from the bookcase.
-
-The small brown terrier wandering around is whimpering at you.
 
 > north
 You move north.
@@ -346,7 +334,7 @@ three shelf bookcase. You can only go north from here back to the landing.
 You can see a dirty handkerchief.  The small brown terrier is wandering
 around.
 
-The small brown terrier wandering around is barking at you.
+The small brown terrier wandering around is growling at you.
 
 > give bone to dog
 
@@ -433,7 +421,7 @@ single slipper and  your car keys!  The dog must have buried them.
 > open shed door
 You open the shed door.
 
-The small brown terrier wandering around is barking at you.
+The small brown terrier wandering around is growling at you.
 
 > throw mouse
 You throw the toy mouse which goes into the shed.  The dog chases after the
@@ -489,14 +477,15 @@ You take one of the headache tablets and swallow it.
 > x sink
 The kitchen sink is filled to the top with dirty dishes of every size and
 type.
+You can hear a dog howling.
 
 > get dirty dishes
 You try to lift the dirty dishes from the sink but you can't.  As you are
 messing about with the dishes a teaspoon falls to the floor.
-You can hear a dog howling.
 
 > get all
 You take the teaspoon.
+You can hear a dog howling.
 
 > make coffee
 You put a spoonful of coffee in the mug. You pour hot water into the mug.
@@ -504,11 +493,11 @@ The mug now contains hot black coffee.
 
 > drink coffee
 You drink the mug of coffee. You feel a little better.
-You can hear a dog howling.
 
 > make coffee
 You put a spoonful of coffee in the mug. You pour hot water into the mug.
 The mug now contains hot black coffee.
+You can hear a dog howling.
 
 > drink coffee
 You drink the mug of coffee. You feel a little better.
