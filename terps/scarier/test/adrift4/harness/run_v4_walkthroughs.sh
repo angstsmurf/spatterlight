@@ -221,6 +221,9 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 # Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_391_shadowpeak.txt has "Giant spider hits you.").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
 # Re-seeded 2026-09-12: RNG stream follows the Wine Runners draw for draw (vbrng parity);
 # seed 101 lost the Arthur kill, 124 keeps all 710; Damastus chase re-derived.
+# Re-derived 2026-09-13 after the pattern-group double-space fix: Boris no longer died.
+# Village phase from harness/shadowpeak_village.py (20 turns, all four in the square,
+# +2 `z` pad), then the Damastus chase from harness/shadowpeak_chase.py.  Still 710.
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=124
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
@@ -229,6 +232,9 @@ shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SE
 # Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_392_shadowpeak_allgargoyles.txt has "Giant spider hits you." and "Wolf attacks you with the fine set of teeth in its muzzle").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
 # Re-seeded 2026-09-12: RNG stream follows the Wine Runners draw for draw (vbrng parity);
 # village zombie phase and Damastus chase re-derived.
+# Re-derived 2026-09-13 after the pattern-group double-space fix (was already failing):
+# village phase from harness/shadowpeak_village.py (14 turns, 1 `z` pad), Damastus chase
+# from harness/shadowpeak_chase.py.  Still 715.
 shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=1
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
@@ -240,6 +246,9 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 # Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_393_shadowpeak_killwraith.txt has "Wraith hits you, but it doesn't seem to do any damage.").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
 # Re-seeded 2026-09-12: RNG stream follows the Wine Runners draw for draw (vbrng parity);
 # village zombie phase and Damastus chase re-derived.
+# Re-derived 2026-09-13 after the pattern-group double-space fix (was already failing):
+# village phase from harness/shadowpeak_village.py (14 turns, 13 `z` pad), Damastus
+# chase from harness/shadowpeak_chase.py.  Still 735.
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=23
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.

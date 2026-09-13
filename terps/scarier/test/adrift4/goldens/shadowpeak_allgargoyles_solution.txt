@@ -156,106 +156,29 @@ fly
 # phase is derived turn by turn: stab whoever is standing here, else wait.  One
 # stab kills each of them.  +40 -> 130.
 s
-# Re-derived 2026-09-12: the RNG stream now follows the Wine Runners draw for
+# Re-derived 2026-09-12 (village block again 2026-09-13, after the pattern-group
+# double-space fix): the RNG stream now follows the Wine Runners draw for
 # draw (vbrng parity work), which re-threaded every seeded stream; new seed
 # SCR_SEED=1.  Greedy phase from the Village Square (37), one turn at a time:
 # stab whichever named zombie has wandered in, else wait --
 # harness/shadowpeak_village.py, the same shape as harness/shadowpeak_chase.py.
-# 20 turns of work, then `z` padding back to the original 93-turn length so the
-# downstream event timers (EVENT 92, the Morac death timer) keep landing where
-# the rest of the route expects.
-attack jarris
-attack boris
-attack jarris
-z
-z
-z
-z
-z
+# 14 turns of work, then 1 `z` of padding.  Padding back to the original 93-turn
+# length now dies before the maze, so the pad was swept for one that keeps the
+# downstream event timers (EVENT 92, the Morac death timer) where the route needs them.
 z
 attack arthur
-z
-z
-z
-z
-z
-z
-z
-z
+attack boris
 z
 attack holga
 z
 z
 z
 z
+attack jarris
 z
 z
 z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
+attack jarris
 z
 e
 e
@@ -803,26 +726,20 @@ n
 press stone button
 # Damastus chase re-derived 2026-09-12 with harness/shadowpeak_chase.py at
 # SCR_SEED=1 (RNG stream now follows the Wine Runners draw for draw).
-# Damastus dies in room 147, stamina 47
-e
-e
-e
-e
-e
-e
-s
-attack damastus
+# Damastus dies in room 157, stamina 47
 attack damastus
 s
 attack damastus
-s
 attack damastus
-s
 attack damastus
 n
-n
-n
-n
+attack damastus
+e
+e
+e
+e
+e
+e
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required

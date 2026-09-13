@@ -157,86 +157,29 @@ wear boots
 se
 fly
 s
-# Re-derived 2026-09-12: the RNG stream now follows the Wine Runners draw for
+# Re-derived 2026-09-12 (village block again 2026-09-13, after the pattern-group
+# double-space fix): the RNG stream now follows the Wine Runners draw for
 # draw (vbrng parity work), which re-threaded every seeded stream; new seed
 # SCR_SEED=23.  Greedy phase from the Village Square (37), one turn at a time:
 # stab whichever named zombie has wandered in, else wait --
 # harness/shadowpeak_village.py, the same shape as harness/shadowpeak_chase.py.
-# 11 turns of work, then `z` padding back to the original 85-turn length so the
-# downstream event timers (EVENT 92, the Morac death timer) keep landing where
-# the rest of the route expects.
-attack arthur
+# 14 turns of work, then 13 `z` of padding.  Padding back to the original 85-turn
+# length now dies before the maze, so the pad was swept for one that keeps the
+# downstream event timers (EVENT 92, the Morac death timer) where the route needs them.
 z
 z
+z
+attack holga
+attack holga
 attack jarris
 z
 z
 z
+z
+z
+attack arthur
+z
 attack boris
-z
-z
-attack holga
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
-z
 z
 z
 z
@@ -664,30 +607,24 @@ n
 press stone button
 # Damastus chase re-derived 2026-09-12 with harness/shadowpeak_chase.py at
 # SCR_SEED=23 (RNG stream now follows the Wine Runners draw for draw).
-# Damastus dies in room 154, stamina 41
+# Damastus dies in room 148, stamina 46
+e
+e
+e
+e
+e
+e
 s
 s
-s
-s
-n
-attack damastus
-n
-attack damastus
-s
-attack damastus
-n
-attack damastus
 s
 attack damastus
+attack damastus
+attack damastus
+attack damastus
+attack damastus
 n
 n
 n
-e
-e
-e
-e
-e
-e
 press bronze button
 w
 w

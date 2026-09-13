@@ -144,114 +144,38 @@ wear boots
 se
 fly
 # === VILLAGE (rooms 36-52): kill the 4 wandering named zombies, +40 -> 130 ===
-# Phase A re-tuned for the boots-shifted RNG. The named zombies oscillate in and
-# out of the Village Square (37) every turn. Camping with three attacks per cycle
-# scrambles the turn count (a landed attack advances time, a missed one does not),
-# which the boots detour desynced. Instead use a SELF-SYNCING single-target focus:
-# `attack X; z` does nothing (no turn) when X is absent and only `z` advances time,
-# so we step one turn at a time and hit X whenever it wanders in. Holga (12), then
-# Jarris (28, 100 stamina = many hits), then Boris last (3, he roams in slowly
-# from room 42, and with the dead-NPC walk skip in place the first three zombies'
-# corpses no longer draw walk randoms, so he arrives almost at once). +40 -> 130.
+# Re-derived 2026-09-13 with harness/shadowpeak_village.py at SCR_SEED=124: the
+# named zombies wander in and out of the Village Square (37), so any fixed block is
+# only good for one RNG thread.  Greedy: attack whichever named zombie is in the
+# square, else `z`.  All four (Arthur included) die here in 20 turns; two `z` pad
+# the block so EVENT 92 and the Morac death timer land where the route needs them,
+# then `e e` to the blacksmith's (41).  +40 -> 130.
 s
 attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
-attack holga
-z
 attack jarris
 z
-attack jarris
+attack arthur
 z
-attack jarris
 z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack jarris
-z
-attack boris
-attack boris
 z
 attack boris
 z
-# Phase B: one step east to room 40 (outside the blacksmith's), where Arthur now
-# turns up on his own -- 8 attack-pairs suffice -- then the second `e` into 41.
-e
-attack arthur
-attack arthur
-attack arthur
-attack arthur
-attack arthur
-attack arthur
-attack arthur
-attack arthur
+z
+z
+attack jarris
+z
+z
+z
+z
+z
+z
+z
+attack jarris
+z
 z
 e
+e
+z
 # One turn's pad in room 41.  It re-rolls EVENT 92, the Morac death timer: with
 # no pad here the timer lands on its 40-turn value and Morac reaches the
 # pentagram room exactly on `chip pentagram with chisel`, which is instant death.
@@ -740,28 +664,24 @@ n
 n
 n
 press stone button
-# Damastus chase re-derived 2026-09-12 with harness/shadowpeak_chase.py at
-# SCR_SEED=124 (RNG stream now follows the Wine Runners draw for draw).
-# Damastus dies in room 149, stamina 50
+# Damastus chase re-derived 2026-09-13 with harness/shadowpeak_chase.py at
+# SCR_SEED=124 (after the village phase was re-derived).
+# Damastus dies in room 158, stamina 50
 e
 e
 e
-e
-e
-e
-s
-s
 attack damastus
-n
+w
 attack damastus
-n
 attack damastus
-s
 attack damastus
-s
+w
 attack damastus
-n
-n
+e
+e
+e
+e
+e
 press bronze button
 # Out and up to the peak: w,w,w->160, s->163. SESSION 21: grab the arm-and-leg
 # greaves (obj170) here in the Minotaur's lair and WEAR them - they are required
