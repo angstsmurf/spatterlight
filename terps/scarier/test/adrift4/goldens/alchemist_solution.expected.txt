@@ -3494,12 +3494,7 @@ his flasks.  The magician is rubbing his beard and staring beyond reality.
 I can go east and up.
 
 > talk to magician about love spell
-"Do you know how to make people love and forgive each other?" I ask the
-magician.
-"Indeed. I do. You need a love spell," states the old man.
-"A love spell?"
-"Take this note. When you find all ingredients, you will need to mix them up
-and make the victim consume the mixture," he hands me a piece of paper.
+"I don't know all the answers," the magician suggests.
 
 > up
 I walk up.

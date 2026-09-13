@@ -80,17 +80,17 @@ Still gripping the knife tightly, you can't tear your gaze away until the
 final twitching stops.
 
 It's only then that you notice the movement off to your right,
+
+> get lighter
+Rummage around in your pack, you find your lighter at the bottom and take it.
 As though on cue, at the time of the enormous spider's death the white sack
 that hangs nearby has taken on a life of its own, jerking and swaying as
 something inside it begins to move.
 
-> get lighter
-Rummage around in your pack, you find your lighter at the bottom and take it.
-Dozens of little bulges rapidly appear and disappear beneath the wrapping as
-whatever's inside the sack squirms and twists about.
-
 > get whiskey
 You take the little flask out of your backpack.
+Dozens of little bulges rapidly appear and disappear beneath the wrapping as
+whatever's inside the sack squirms and twists about.
 
 > pour whiskey on sack
 Holding the flask pinned beneath your chin, you carefully unscrew the lid

@@ -170,6 +170,12 @@ veteran_solution.txt|veteran.taf|fulfilling your destiny
 togetyou_solution.txt|togetyou.taf|another flesh-sack|SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-25, two lines, for the pre-4.0 `x <unknown noun>` answer
 # measured on the veteran row above.
+# Re-blessed 2026-09-13, 7 lines, for the 3.9 rule that an ask topic
+# overwrites a task.  Measured in run390x (Adrift_1061_zombies.txt, seed 2):
+# `ask stu about <x>` prints only Stu's topic reply, never task [2]'s "Stu
+# shakes his head...".  run390 4597FE runs the ask branch with no task-ran
+# test, and the reply assignments at 459A7A/459AA7/459AD4 overwrite the
+# buffer.  Scarier: lib_ask_npc_topic_after_task_390().
 zombies_solution.txt|ZAC.taf|you and Stu were eaten by zombies|SCR_SEED=2 SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29: run400 replay of all 26 commands (Adrift_1_adrift_maze.txt,
 # name prompt answered through POPUP_ANSWERS, Verbose + brackets ON).  Turns
@@ -942,6 +948,10 @@ space_boy_solution.txt|Space Boy's First Adventure.taf|STAY TUNED FOR MORE EXCIT
 # ADRIFT Runner evaluate the same stored AND/OR from the .taf, so Skynd's
 # sample is unobtainable in any faithful interpreter.  140/145 -- "You
 # finished 5 points short." -- is the true ceiling; re-derived and re-blessed.
+# Re-blessed 2026-09-13: both `get sample from orgaan soldier` lines name the
+# "soldier" Skyrv and Skynd share after a task answered them, which run400 does
+# not count as a turn -- the battle and siren after them shift back one turn,
+# now identical to a fresh run400x drive (389 = 389 draws).  Still 140.
 sun_empire_solution.txt|Sun_Empire_Quest_For_The_Founders.taf|You scored 140 out of the maximum 145!|SCR_SEED=10
 # Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 # (Adrift_11_tcom.txt, feed cmdfile_w_tcom.txt, 13 commands): 13/13 echoed and
@@ -4282,6 +4292,10 @@ impulso_solution.txt|impulso.taf|Solo una cosa. Me di cuenta hace un cuarto de h
 # in the room (Adrift_41_p39exam.txt) and held (Adrift_43_p39exam.txt) -- same
 # answer both ways -- against the 4.00 twin's (Adrift_1_p4exam.txt).  This is
 # the corpus's only pre-4.0 exposure.
+# Re-blessed 2026-09-13, one line: `ask chelsea about comm` gives Chelsea's
+# topic reply ("Could you please concentrate..."), which overwrites the task's
+# "Don't ask me...".  See Adrift_700_ms_mobius.txt line 19 (run390), and the
+# zombies row for the rule.
 ms_mobius_solution.txt|ms_mobius.taf|That little TV screen for the inside of your hat was a good investment.
 # A Morning with a Headache: 115/115, the game's own maximum.  Four fatal
 # deadlines on a fixed global clock -- the buzzing alarm evicts you at turn
@@ -4670,6 +4684,9 @@ windy2_solution.txt|windy2.taf|You spin and see Liz running out of the woods tow
 # carries a failure message, so both drop to the library take, which reaches
 # into the pack on the ground -- a six-command win exists.  The route takes
 # the intended path instead; see the header of the solution file.
+# Re-blessed 2026-09-13: `kill spider` runs a task and names "Spider", which all
+# three NPC records answer to, so run400 does not count it as a turn; the sack
+# event's two messages move one turn later, identical to Adrift_718.
 salutations_solution.txt|salutations.taf|you'll decline to answer.|SCR_SKIP_WAITKEY=1
 
 # A Day at the Iachini House (Michael Iachini, 2001) is a 27-room chore game:
@@ -8219,6 +8236,11 @@ datewithdeath_solution.txt|datewithdeath.taf|And you have a whole life ahead of 
 # ever looks at the sack: "I can't do that!", Adrift_894_alchemist.txt line
 # 1030 (first person, hence "I").  The old golden had the catch-all's "Take
 # what?".
+# Re-blessed 2026-09-13: `talk to magician about love spell` prints the topic
+# reply ("I don't know all the answers,"...) in place of the task's
+# love-spell dialogue.  See Adrift_894_alchemist.txt line 1784 (run390), and
+# the zombies row for the rule.  The task's actions still run, so the route
+# still reaches 100%.
 alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # ONNAFA.TAF (David Whyld). Full win: retrieve the dragon egg (flushed down
 # the privy as backstory) and hand it back to the dragon at the castle

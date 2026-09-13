@@ -100,8 +100,8 @@ that nothing short of being hooked up to a radioactive power plant is going
 to give this thing the reception you need to reach the Universal Parliament.
 
 > ask chelsea about comm
-Chelsea waves it away. "Don't ask me, I don't know anything about that stuff.
-Ask Virgil, he's an engineer."
+"Could you please concentrate on getting us out of here?" Chelsea asks. She
+begins to pop her knuckles out of anxiety.
 
 > bo fix comm
 Bo just stands there, regarding you and your stupidity. You realize that he,

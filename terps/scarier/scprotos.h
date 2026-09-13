@@ -348,6 +348,7 @@ extern void pf_prepend_string (scr_filterref_t filter,
                                const scr_char *string);
 extern size_t pf_buffer_length (scr_filterref_t filter);
 extern void pf_hoist_tail (scr_filterref_t filter, size_t from);
+extern void pf_truncate (scr_filterref_t filter, size_t length);
 extern void pf_new_sentence (scr_filterref_t filter);
 extern void pf_mute (scr_filterref_t filter);
 extern void pf_clear_mute (scr_filterref_t filter);
@@ -907,6 +908,10 @@ extern scr_bool lib_co_400_line_refused (void);
 extern void lib_co_400_print_still_ambiguous (scr_gameref_t game);
 extern scr_bool lib_co_400_pending_is_npc (void);
 extern std::string lib_co_400_npc_answer_line (const scr_char *line);
+extern scr_bool lib_npc_400_line_names_namesakes (scr_gameref_t game,
+                                                  const scr_char *line);
+extern scr_bool lib_ask_npc_topic_after_task_390 (scr_gameref_t game,
+                                                  size_t mark);
 extern scr_bool lib_input_contains_word (const scr_char *input,
                                          const scr_char *word);
 extern void lib_battle_who_reset (void);

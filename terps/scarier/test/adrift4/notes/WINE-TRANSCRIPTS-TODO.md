@@ -1021,7 +1021,12 @@ Engine leads, measured or half-measured, none blocking:
   (fresh run400x 217 = 217 draws), and the three text differences left were
   two ports, the type-7 attribute cap and the NPC dodge pronoun (see
   "Closed 2026-09-13: type-7 battle raises are capped at max" at the foot);
-  `sun_empire` is unmoved; (5) ~~`les_feux` T11 resolves hit in run400 and miss in
+  `sun_empire` half **PORTED 2026-09-13** -- a 4.0 line a task answered
+  that also names a term two present NPCs share (`get sample from orgaan
+  soldier`, Skyrv and Skynd both "soldier") is not a turn in run400; 389 =
+  389 draws and identical text on every turn, and `salutations`' `kill
+  spider` was the same rule; see "Closed 2026-09-13: `sun_empire` -- a
+  task-answered namesake line is not a turn" at the foot; (5) ~~`les_feux` T11 resolves hit in run400 and miss in
   Scarier~~ **PORTED 2026-09-13** -- the same type-7 cap: 76 = 76 draws and
   identical text to the Runner's death at T18; (6) ~~`snakes_and_ladders` takes two Runner draws at feed turns 5-6
   that Scarier does not~~ **CLOSED 2026-09-13, stale drive** -- the extra
@@ -1697,7 +1702,7 @@ echoed, offset 0, every turn identical.
 | `second_chance` | `Adrift_159` | 1 | T49 `s`: Scarier appends the END GAME text run400 does not reach |
 | `sophie_comp` | `Adrift_173` | 1 | T169 `put black crystal in mouth`: run400 "You can't", Scarier "It is not clear which object you're referring to" -- the 4.0 put prompt |
 | `togetyou` | `Adrift_146` | 2 | T16: the room short name is "The Infected Ear" in run400, "The Ear" in Scarier -- a task-driven room-name change Scarier does not apply |
-| `salutations` | `Adrift_129` | 4 | the sack event fires one turn earlier in run400 (T6 vs Scarier's T7) |
+| `salutations` | `Adrift_129` | 4 | ~~the sack event fires one turn off~~ **PORTED 2026-09-13**: `kill spider` names the three Spider NPCs and is not a turn in run400 (Adrift_718 identical on every turn) |
 | `cbn` | `Adrift_149` | 5 | T6 `x desk`: run400 "You see no such thing." plus a second refusal; the `cbn2`/`asdfa` pair again -- T6 `x desk` FIXED 2026-09-06; the second refusal ("> Clueless Bob is confused!") remains |
 
 Seven rows left this table in the two re-scores.  `chooseyourown`,
@@ -5868,7 +5873,7 @@ Leads read off the TSV, not yet measured against the Runner's P-code:
 | `losttomb` | 390 | t85/86 | runs the pillar task at t85 | library put line, task deferred to t86 |
 | `thetest_win` | 390 | `shout N` | -- | an extra `Robot Guard storms in...` |
 
-Plus an event-phase off-by-one in both directions in `forum`, `salutations`,
+Plus an event-phase off-by-one in both directions in `forum`, ~~`salutations`~~ (ported 2026-09-13, task-answered namesake line),
 `stationxiii`, `briefcase`, `backhome`, `barneysproblem`, `zelda`, `gmylm`,
 `silk_noil`, `lostmines`, `aegis` and `overtheedge`.
 
@@ -7424,7 +7429,7 @@ Two numbers per row:
 | `sun_empire` | 21 | 21 | +72 | +72 | real: battle round one turn out |
 | `warlord` | 14 | 14 | +22 | +22 | real: `x tapestry three` |
 | `wes_ghn` | 11 | 11 | -51 | -51 | ~~real: battle round one turn out~~ stale drive; re-driven 2026-09-13, draws 217 = 217, **0 engine turns** after the type-7 cap + dodge pronoun ports (T119 is the Runner capture's cut tail) |
-| `zombies` | 8 | 8 | 0 | 0 | real: `ask stu about zombies` |
+| `zombies` | 8 | 8 | 0 | 0 | ~~real: `ask stu about zombies`~~ ported 2026-09-13 (3.9 topic reply overwrites the task); only T36's end-summary tail left |
 | `jinxtron_full` | 7 | 7 | -2 | -2 | ~~real: `%player%` substitution~~ popup artefact: identical every turn |
 | `les_feux` | 5 | 5 | +62 | +62 | ~~real: hit/miss inverted at T11~~ type-7 raise uncapped; ported 2026-09-13, **draws 76 = 76, identical through T18** |
 | `inverness` | 5 | 5 | -2 | -3 | documented deliberate deviation (T37) |
@@ -7747,8 +7752,9 @@ run400 runs the seance task, Scarier prints the room description; and T11/T32)~~
 every turn with `--popup Player`),
 `hcw` T81 `turn on intercom` / T162 `put susan in trunk`, `journ2` T21 and
 `circus` T68 (run400 answers a spent task `You have already done that.` where
-Scarier runs the library), `warlord` T72 `x tapestry three`, `zombies` T10 `ask
-stu about zombies`, `fullcircle` T43 `get all` take order, `reluctantvampire`
+Scarier runs the library), `warlord` T72 `x tapestry three`, ~~`zombies` T10 `ask
+stu about zombies`~~ (**PORTED 2026-09-13** -- see "Closed 2026-09-13:
+`zombies` -- a 3.9 topic reply overwrites the task" at the foot), `fullcircle` T43 `get all` take order, `reluctantvampire`
 T78 `open freezer` wording.
 
 ### `house` must be re-driven -- Verbose was OFF
@@ -8021,3 +8027,118 @@ the three turns above.
 shift.  Lead 4 stays open for that row alone.  It has not been re-driven with
 site tags yet, but a stale drive can only add Runner draws, and here Scarier
 draws more.
+
+## Closed 2026-09-13: `sun_empire` -- a task-answered namesake line is not a turn
+
+Re-drove `sun_empire` fresh (seed 10, `VBRNG_SEED=10`, run400x,
+`cmdfile_site_sun_empire.txt` copied verbatim from the current
+`sun_empire_solution.txt` golden -- the wine dir's own stale cmdfile differed
+at lines 44-45).  Per-command draw counts matched through T57 `get sample from
+skyrv` (16 = 16); the first mismatches were T58 and T63, both `get sample from
+orgaan soldier`, where the Runner draws **nothing** and Scarier drew 2 and 3.
+
+**The cause is not the event cycle.**  An earlier write-up of this section
+blamed "Code Red Light in Laboratory" restarting a cycle early; that was a
+misreading.  On both lines run400 does not tick at all: no turn count, no
+walks, no events, no battle round.  The Runner transcript shows the task's
+text followed by blank lines and nothing else.
+
+**run400 mechanism** (generaltasks tail, `mdlSpreadTheLoad.bas`):
+
+- The tick at 48B599-48B5C9 runs only when `MemVar_4941AD = 0 And
+  MemVar_494281 = 0 And MemVar_4941EC = &HFF`.  `MemVar_4941EC` is the
+  pending-disambiguation index, and the character namesake scan sets it
+  whenever the line names a term two or more present NPCs answer to.
+- The block at 48B60C then tests `MemVar_4941EC < 0 Or MemVar_4941F8 = 1`
+  ("a task ran for this line").  With a task having run, the buffer prints
+  as it is, control goes to 48BB92, and the index is reset to &HFF.
+- So a task-answered line naming such a term prints the task's text, asks
+  no "Which ..." question, and is not a turn.
+
+Sun Empire's tasks 63/64 match `[orgaan/soldier/orgaan soldier]`, and the NPCs
+Skyrv and Skynd both carry the alias "soldier".
+
+**Ported** in `run_all_commands()` (scrunner.cpp): at 4.0, when the line
+succeeded, a task ran for it, and `lib_npc_400_line_names_namesakes()`
+(sclibrar.cpp, the same scan the "Which" question uses) finds two present
+namesakes, the line is marked administrative.  Results:
+
+- `sun_empire`: 389 = 389 draws, every command row equal, and
+  `compare_wine_transcript.py` finds every turn identical.  Still 140/145.
+  Golden re-blessed.
+- `salutations`: `kill spider` is the same shape (three NPC records, all
+  "The Spider").  The sack event now lands on `get lighter` / `get whiskey`
+  as in Adrift_718, identical on every turn.  Golden re-blessed.
+- The rest of the corpus is unmoved.
+
+Unmeasured: whether an *object* ambiguity on a task-answered line (the var_A6
+/ 46486C branch) suppresses the tick the same way.
+
+**Two harness gotchas hit getting a clean trace, worth remembering:**
+
+- `VBRNG_TRACE` must be a Windows-absolute path (`C:\adrift\foo.txt`), not a
+  host-relative one -- confirmed already in `rng/README.md`, but easy to
+  forget: a relative path lets drive.exe's own TURN-marker appends through
+  (different CWD than the launched exe) while the native vbrng.dll hook's
+  `fopen()` on the same relative path silently fails, giving a trace file
+  with TURN markers and **zero** `RND #` lines.
+- **`VBRNG_TRACE` is appended to, not truncated**, across repeated `fast.sh`
+  runs with the same filename.  A second drive's own pre-"TURN 0" load draws
+  land right after the first drive's leftover content, so a naive `grep -c
+  '^RND #'` after a re-drive double-counts.  Isolate the second run with
+  `tail -n +<second "TURN 0 <loaded>" line>`.
+- drive.exe appends `TURN <n> <command>` **after** command n has run, so the
+  RND lines following a `TURN n` marker belong to command **n+1**.
+
+## Closed 2026-09-13: `zombies` -- a 3.9 topic reply overwrites the task
+
+`Adrift_1061_zombies.txt` (run390x, seed 2): on every `ask stu about <x>` line
+(T10-T14, T29, T30), run390 prints only Stu's topic reply.  Scarier printed
+the text of task [2] (`talk to stu` / `ask stu about *`): "Stu shakes his
+head, as if he doesn't understand the question."
+
+Where it comes from (`run390/run390.bas`, the ask branch of the character
+handler):
+
+- 4597FE enters `If c("ask") Or c("talk to")` with **no** test of
+  MemVar_468198, the task-ran flag.  So the branch runs even after a task
+  has answered the line.  run400 gates the same block on the flag (47F900),
+  so in 4.0 the task keeps the line.
+- 459941 requires the NPC to be in the player's room.
+- Each topic reply is a plain assignment to the message buffer (459A7A with
+  AltReply, 459AA7, 459AD4).  The task's text is overwritten, not added to.
+- The no-topic answer (459B46, "... does not respond to ... question.") is
+  written only over an empty buffer or "can't talk to that.".  A task's text
+  therefore survives when no topic matches.
+
+**Ported** in `run_all_commands()` (scrunner.cpp).  The rule applies at 3.90
+only, when a task claimed the line (not the priority pass or anything
+earlier) and the line matches `ask %character% about %text%` or
+`talk to %character% about %text%`.  In that case
+`lib_ask_npc_topic_after_task_390()` (sclibrar.cpp) looks for exactly one
+referenced NPC that is seen and in the room, with a matching topic (or `*`)
+whose reply is non-empty.  If it finds one, it cuts the buffer back to where
+the task passes started (`pf_truncate()`, scprintf.cpp) and prints the reply.
+Otherwise nothing changes.  `lib_ask_npc_about` now shares
+`lib_npc_find_topics()` / `lib_npc_topic_response()` with it.
+
+Results:
+
+- `zombies`: all 7 ask turns in the golden now match Adrift_1061.  The
+  compare's only difference left is T36, the end-of-game summary tail.
+  Golden re-blessed.
+- `ms_mobius` (3.90): `ask chelsea about comm` now gives "Could you please
+  concentrate on getting us out of here?" ...,
+  `Adrift_700_ms_mobius.txt` line 19 (run390).  The old golden had the
+  task's "Don't ask me ... Ask Virgil".  Re-blessed.
+- `alchemist` (3.90): `talk to magician about love spell` now gives "I don't
+  know all the answers," the magician suggests.", `Adrift_894_alchemist.txt`
+  line 1784 (run390).  The task's text is gone and its actions still run, so
+  the walkthrough still reaches 100%.  Re-blessed.
+- The rest of the corpus is unmoved.
+
+Unmeasured:
+
+- 3.7/3.8, which have no code gate.  The port leaves them alone.
+- run390's loop has no break, so the last matching topic wins.  Scarier keeps
+  the first.  No row has two topics matching the same subject.

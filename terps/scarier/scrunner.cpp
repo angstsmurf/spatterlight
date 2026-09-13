@@ -4197,6 +4197,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       && run_unnamed_put_fragment (string, fragment))
     task_string = fragment.c_str ();
 
+  const size_t task_mark = pf_buffer_length (filter);
+  const scr_bool claimed_before_tasks = status;
   if (!status && !refused)
     status = run_game_commands_in_parser_context (game, task_string,
                                                   FALSE, TRUE);
@@ -4209,6 +4211,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       && !run_defer_loud_tasks_to_movement (game, task_string))
     status = run_game_commands_in_parser_context (game, task_string,
                                                   TRUE, FALSE);
+  const scr_bool task_claimed = !claimed_before_tasks && status
+                                && run_any_task_ran_this_command ();
 
   /*
    * dobattle (run400 Proc_11_4_47F084), called from generaltasks at 48A4A2
@@ -4323,6 +4327,35 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    */
   if (status && repeat_found && !repeat_pending)
     game->is_admin = FALSE;
+
+  /*
+   * 3.9: a character's topic reply replaces what a task printed for an ask or
+   * talk-to-about line; see lib_ask_npc_topic_after_task_390().  4.0 leaves
+   * the task's text alone.
+   */
+  if (task_claimed
+      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390
+      && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && (uip_match ("ask %character% about %text%", string, game)
+          || uip_match ("talk to %character% about %text%", string, game)))
+    lib_ask_npc_topic_after_task_390 (game, task_mark);
+
+  /*
+   * 4.0: a line a task answered that also names a term two present
+   * characters share is not a turn.  run400 generaltasks ticks only when
+   * `MemVar_4941EC = &HFF` (48B5B5: turns, walks and events), and the
+   * namesake scan sets that index before the tick; the block at 48B60C then
+   * sees "a task ran for this line" (MemVar_4941F8 = 1), prints the task's
+   * text instead of asking "Which ...", and resets the index at 48BB92 -- so
+   * no question and no tick.  Measured on Sun Empire (run400x
+   * sun_empire_site.txt, VBRNG_SEED=10, commands 58 and 63, site-tagged
+   * draws): `get sample from orgaan soldier` with the two soldiers Skyrv and
+   * Skynd present runs task 63/64, and neither the Code Red siren nor the
+   * battle draws a thing that turn.
+   */
+  if (status && !game->is_admin && run_any_task_ran_this_command ()
+      && lib_npc_400_line_names_namesakes (game, string))
+    game->is_admin = TRUE;
 
   run_dispatch_input = NULL;
   run_tasks_ran_this_command.clear ();

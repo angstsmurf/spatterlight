@@ -99,19 +99,20 @@ you his best friend at night. He's cool that way.
 You love zombies in movies, but zombies in real life are real douchebags.
 
 > ask stu about zombies
-Stu shakes his head, as if he doesn't understand the question.
+'I hate dead people that try to kill you, they really suck!'
 
 > ask stu about gun
-Stu shakes his head, as if he doesn't understand the question.
+'I love firepower. I could shoot things all day.'
 
 > ask stu about whistle
-Stu shakes his head, as if he doesn't understand the question.
+'You douchebag, that's my cereal toy!'
 
 > ask stu about house
-Stu shakes his head, as if he doesn't understand the question.
+'You still owe me last month's rent. Don't try to avoid the subject by saying
+we have to fight zombies, you still owe me!'
 
 > ask stu about shed
-Stu shakes his head, as if he doesn't understand the question.
+'Nice shed, ain't it?''
 
 > e
 You move east.
@@ -201,10 +202,10 @@ Sidewalks. They're wacky.
 Yech...zombie blood. The worst kind of blood.
 
 > ask stu about pet shop
-Stu shakes his head, as if he doesn't understand the question.
+'I like the Pet Shop Boys. Good tunes.'
 
 > ask stu about door
-Stu shakes his head, as if he doesn't understand the question.
+'I hate doors. They're pricks.'
 
 > open door
 You go crazy on the door with everything you've got. For some reason, nothing

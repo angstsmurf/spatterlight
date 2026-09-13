@@ -5017,11 +5017,11 @@ lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
 }
 
 static scr_bool
-lib_npc_400_find_namesakes (scr_gameref_t game, std::string *term_out,
-                            std::vector<scr_int> *namesakes_out)
+lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
+                               std::string *term_out,
+                               std::vector<scr_int> *namesakes_out)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_char *input = run_get_dispatch_input ();
   const scr_int room = gs_playerroom (game);
   scr_int npc;
 
@@ -5075,6 +5075,28 @@ lib_npc_400_find_namesakes (scr_gameref_t game, std::string *term_out,
     }
 
   return FALSE;
+}
+
+static scr_bool
+lib_npc_400_find_namesakes (scr_gameref_t game, std::string *term_out,
+                            std::vector<scr_int> *namesakes_out)
+{
+  return lib_npc_400_find_namesakes_in (game, run_get_dispatch_input (),
+                                        term_out, namesakes_out);
+}
+
+/*
+ * lib_npc_400_line_names_namesakes()
+ *
+ * TRUE if a 4.0 line names a term that two or more present characters answer
+ * to -- the test generaltasks makes before its "Which" question.  Exposed for
+ * run_player_input(), which needs it after the dispatch input is cleared.
+ */
+scr_bool
+lib_npc_400_line_names_namesakes (scr_gameref_t game, const scr_char *line)
+{
+  return lib_is_version_400 (game)
+         && lib_npc_400_find_namesakes_in (game, line, NULL, NULL);
 }
 
 static scr_bool
@@ -11412,18 +11434,18 @@ lib_compare_subject (const scr_char *subject, scr_int posn,
 
 
 /*
+ * lib_npc_topic_response()
  * lib_npc_reply_to()
  *
- * Reply for an NPC on a given topic.  Helper for ask.
+ * The text an NPC replies with on a given topic, empty if none, and the reply
+ * itself.  Helpers for ask.
  */
-static scr_bool
-lib_npc_reply_to (scr_gameref_t game, scr_int npc, scr_int topic)
+static const scr_char *
+lib_npc_topic_response (scr_gameref_t game, scr_int npc, scr_int topic)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
   scr_int task;
-  const scr_char *response;
 
   /* Find any associated task to control response. */
   vt_key[0].string = "NPCs";
@@ -11433,12 +11455,20 @@ lib_npc_reply_to (scr_gameref_t game, scr_int npc, scr_int topic)
   vt_key[4].string = "Task";
   task = prop_get_integer (bundle, "I<-sisis", vt_key);
 
-  /* Get the response, and print if anything there. */
   if (task > 0 && gs_task_done (game, task - 1))
     vt_key[4].string = "AltReply";
   else
     vt_key[4].string = "Reply";
-  response = prop_get_string (bundle, "S<-sisis", vt_key);
+  return prop_get_string (bundle, "S<-sisis", vt_key);
+}
+
+static scr_bool
+lib_npc_reply_to (scr_gameref_t game, scr_int npc, scr_int topic)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *const response = lib_npc_topic_response (game, npc, topic);
+
+  /* Print the response if anything there. */
   if (!scr_strempty (response))
     {
       pf_buffer_string (filter, response);
@@ -11469,32 +11499,27 @@ static const scr_char *lib_ask_format_subject (scr_gameref_t game);
  * written only over an empty one (run380 loc_4409E8).  A matching topic does
  * overwrite it (loc_440918), so the topic still wins where there is one.
  */
-static scr_bool
-lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
-                   scr_bool hint_when_silent)
+/*
+ * lib_npc_find_topics()
+ *
+ * The topic whose subject list names the referenced text, and the NPC's "*"
+ * topic, each -1 if there is none.
+ */
+static void
+lib_npc_find_topics (scr_gameref_t game, scr_int npc,
+                     scr_int *topic_match, scr_int *default_topic)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[5];
-  scr_int npc, topic_count, topic, topic_match, default_topic;
-  scr_bool found, default_found, is_ambiguous;
-
-  /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
-  if (npc == -1)
-    return is_ambiguous;
-
-  if (lib_trace)
-    scr_trace ("Library: asking NPC %ld\n", npc);
+  scr_int topic_count, topic;
 
   /* Get the topics the NPC converses about. */
   vt_key[0].string = "NPCs";
   vt_key[1].integer = npc;
   vt_key[2].string = "Topics";
   topic_count = prop_get_child_count (bundle, "I<-sis", vt_key);
-  topic_match = default_topic = -1;
-  found = default_found = FALSE;
+  *topic_match = *default_topic = -1;
   for (topic = 0; topic < topic_count; topic++)
     {
       const scr_char *subjects;
@@ -11511,8 +11536,7 @@ lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
           if (lib_trace)
             scr_trace ("Library: \"*\" is %ld\n", topic);
 
-          default_topic = topic;
-          default_found = TRUE;
+          *default_topic = topic;
           continue;
         }
 
@@ -11528,8 +11552,7 @@ lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
               if (lib_trace)
                 scr_trace ("Library: matched\n");
 
-              topic_match = topic;
-              found = TRUE;
+              *topic_match = topic;
               break;
             }
 
@@ -11540,11 +11563,30 @@ lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
             posn++;
         }
     }
+}
+
+static scr_bool
+lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
+                   scr_bool hint_when_silent)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int npc, topic_match, default_topic;
+  scr_bool is_ambiguous;
+
+  /* Get the referenced npc, and if none, consider complete. */
+  npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
+  if (npc == -1)
+    return is_ambiguous;
+
+  if (lib_trace)
+    scr_trace ("Library: asking NPC %ld\n", npc);
+
+  lib_npc_find_topics (game, npc, &topic_match, &default_topic);
 
   /* Handle any matched subject first, and "*" second. */
-  if (found && lib_npc_reply_to (game, npc, topic_match))
+  if (topic_match != -1 && lib_npc_reply_to (game, npc, topic_match))
     return TRUE;
-  else if (default_found && lib_npc_reply_to (game, npc, default_topic))
+  else if (default_topic != -1 && lib_npc_reply_to (game, npc, default_topic))
     return TRUE;
 
   /* No topic matched, so `talk to` falls back on the hint it displaced. */
@@ -11576,6 +11618,64 @@ scr_bool
 lib_cmd_talk_to_npc_about (scr_gameref_t game)
 {
   return lib_ask_npc_about (game, "talk to", TRUE);
+}
+
+/*
+ * lib_ask_npc_topic_after_task_390()
+ *
+ * 3.9: a topic answers an ask even when a task has already answered the line,
+ * and replaces what the task printed.  run390's character handler enters its
+ * `c("ask") Or c("talk to")` block (4597FE) with no test of the task-ran flag
+ * MemVar_468198, and every topic reply is a plain assignment to the message
+ * buffer (459A7A, 459AA7, 459AD4), so the task's text is overwritten, not
+ * joined.  Only a reply does that: the no-topic answer (459B46) is written over
+ * an empty or "can't talk to that." buffer alone, and the NPC must be in the
+ * player's room (459941).  4.0 gates the same block on the flag (run400
+ * 47F900), so there a task keeps the line.
+ *
+ * Measured on Zombies Are Cool (ZAC.taf, 3.90; run390x Adrift_1061_zombies.txt,
+ * turns 10-14, 29 and 30): the task `talk to stu` / `ask stu about *` prints
+ * "Stu shakes his head, as if he doesn't understand the question.", and run390
+ * shows Stu's topic reply alone on every one of them.
+ *
+ * Called once uip_match() has matched "ask %character% about %text%" or its
+ * talk-to twin.  Replies, cutting the buffer back to mark first, and returns
+ * TRUE; prints nothing and returns FALSE when no present NPC or topic answers.
+ */
+scr_bool
+lib_ask_npc_topic_after_task_390 (scr_gameref_t game, size_t mark)
+{
+  scr_int index_, npc, count, topic_match, default_topic, topic;
+
+  count = 0;
+  npc = -1;
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      if (game->npc_references[index_]
+          && gs_npc_seen (game, index_)
+          && npc_in_room (game, index_, gs_playerroom (game)))
+        {
+          count++;
+          npc = index_;
+        }
+    }
+  if (count != 1)
+    return FALSE;
+
+  lib_npc_find_topics (game, npc, &topic_match, &default_topic);
+  if (topic_match != -1
+      && !scr_strempty (lib_npc_topic_response (game, npc, topic_match)))
+    topic = topic_match;
+  else if (default_topic != -1
+           && !scr_strempty (lib_npc_topic_response (game, npc,
+                                                     default_topic)))
+    topic = default_topic;
+  else
+    return FALSE;
+
+  pf_truncate (gs_get_filter (game), mark);
+  var_set_ref_character (gs_get_vars (game), npc);
+  return lib_npc_reply_to (game, npc, topic);
 }
 
 

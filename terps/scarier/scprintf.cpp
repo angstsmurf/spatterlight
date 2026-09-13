@@ -2197,6 +2197,35 @@ pf_hoist_tail (scr_filterref_t filter, size_t from)
 
 
 /*
+ * pf_truncate()
+ *
+ * Cut the buffer back to a length pf_buffer_length() returned earlier,
+ * dropping everything buffered since.  Notes that pointed past the cut go
+ * with the text they pointed into.
+ */
+void
+pf_truncate (scr_filterref_t filter, size_t length)
+{
+  assert (pf_is_valid (filter));
+
+  if (length >= filter->buffer.size ())
+    return;
+
+  filter->buffer.erase (length);
+  if (filter->auto_break_at > (scr_int) length)
+    filter->auto_break_at = -1;
+  if (filter->hard_break_at > (scr_int) length)
+    filter->hard_break_at = -1;
+  if (filter->reference_at > (scr_int) length)
+    filter->reference_at = -1;
+  if (filter->hidden > length)
+    filter->hidden = length;
+  filter->new_sentence = FALSE;
+  filter->join_pending = FALSE;
+}
+
+
+/*
  * pf_new_sentence()
  *
  * Tells the printfilter to force the next non-space character to uppercase.
