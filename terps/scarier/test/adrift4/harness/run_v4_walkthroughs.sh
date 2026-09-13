@@ -2748,7 +2748,10 @@ thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SK
 #   T52 `open window`: scarier fires task 413 `# Laurie rejoins you at lot`
 #   (reachable only from Laurie's WALK 2, charTask=413) in the chapter-1
 #   closing turn; run400 never prints it.  The solution never answers its
-#   1/2/3 menu and the run still wins.
+#   1/2/3 menu and the run still wins.  RESOLVED 2026-09-13, re-blessed: the
+#   task's own action moves the player in beside Laurie, and run400 fires the
+#   4.0 player-side walk meet only for the movement COMMAND (probe N,
+#   make_400_walkprobe.py; Adrift_1149/1150), so the menu is gone.
 # Re-blessed 2026-09-08 for the 4.0 spent-task RepeatText rule.  `kiss katryn`
 # (task 2135, spent, RepeatText) now answers with its RepeatText instead of
 # falling through to the library.  run400's own replay had already diverged three

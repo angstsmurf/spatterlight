@@ -4402,6 +4402,7 @@ run_player_input (scr_gameref_t game)
 
   /* Copy the current game to the temporary undo buffer. */
   gs_copy (game->temporary, game);
+  game->player_moved_by_command = FALSE;
 
   /*
    * Filter the input element for synonyms, then for pronouns.  Both are

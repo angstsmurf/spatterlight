@@ -1313,6 +1313,15 @@ npc_tick_npcs (scr_gameref_t game)
    * (or drops) the MeetObject beside a mid-stay walker, so this block
    * rightly never looks at ObjectTask.
    *
+   * Only the movement COMMAND counts.  Probe N (2026-09-13, run400
+   * Adrift_1149/1150) walks in on the same mid-stay walker with typed n/s,
+   * which fires the CharTask, and with tasks whose only action moves the
+   * player, which does not.  run400 reads MeetChar nowhere but the walk tick
+   * itself (468B6F/468B9D/468BC6), so the meet rides on the move command,
+   * not on a later "player room changed" check.  Shadowpeak's `examine web`
+   * (task 124, a player-move action onto Haraxis's web room) printed an
+   * extra "Seeker hums!" here until this was gated.
+   *
    * Running this before ticking the NPCs, rather than after, is what puts
    * the messages in the Runner's order; the probes above and the walkthrough
    * corpus both validate the placement.
@@ -1322,6 +1331,7 @@ npc_tick_npcs (scr_gameref_t game)
    * perhaps also NPCs, in the live gamestate.
    */
   if (npc_version (game) >= TAF_VERSION_400
+      && game->player_moved_by_command
       && undo && !gs_player_in_room (undo, gs_playerroom (game)))
     {
       for (npc = 0; npc < gs_npc_count (game); npc++)

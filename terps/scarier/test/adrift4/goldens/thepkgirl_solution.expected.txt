@@ -552,13 +552,6 @@ accompany it.  The two of you run for your lives . . .
 
 Press enter to continue
 
-    Laurie becomes aware of your presence and lifts her head from her hands.
-They are soaked with tears.
-
-1) "Thank goodness I found you."
-2) "I'm really sorry.  Let's go now."
-3) "There's no need to cry.  We'll find her."
-
 >
 
 CHAPTER 2

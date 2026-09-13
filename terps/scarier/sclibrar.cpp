@@ -3740,6 +3740,7 @@ lib_go (scr_gameref_t game, scr_int direction)
   pf_buffer_string (filter, ".\n");
 
   gs_move_player_to_room (game, destination);
+  game->player_moved_by_command = TRUE;
 
   /* Describe the new room and return. */
   lib_describe_player_room (game, FALSE);

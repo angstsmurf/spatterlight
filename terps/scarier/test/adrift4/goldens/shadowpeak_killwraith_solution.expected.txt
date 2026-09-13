@@ -177,9 +177,6 @@ You see a pair of leather gloves hung over a branch of the tree.
 Reevling the Warrior is here.
 
 You can only move down.
-Reevling, the warrior, looks you up and down, sighs, and mumbles something
-about your being... nothing but another villager waiting to be turned into a
-zombie.
 
 > take gloves
 You take the pair of leather gloves.

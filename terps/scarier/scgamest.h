@@ -358,6 +358,9 @@ typedef struct scr_game_s
   scr_int waitcounter;
   scr_bool has_notified;
   scr_bool is_admin;
+  /* TRUE once the library's movement command has moved the player on this
+   * input line; gates the 4.0 player-side walk meet (npc_tick_npcs). */
+  scr_bool player_moved_by_command;
   scr_bool do_again;
   scr_int redo_sequence;
   scr_bool do_restart;

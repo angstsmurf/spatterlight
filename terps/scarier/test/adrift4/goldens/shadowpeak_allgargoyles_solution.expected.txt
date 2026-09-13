@@ -178,9 +178,6 @@ You see a pair of leather gloves hung over a branch of the tree.
 Reevling the Warrior is here.  It is raining...
 
 You can only move down.
-Reevling, the warrior, looks you up and down, sighs, and mumbles something
-about your being... nothing but another villager waiting to be turned into a
-zombie.
 
 > take gloves
 You take the pair of leather gloves.
@@ -323,6 +320,9 @@ You can move north, east, south and west.
 Upon seeing you, Rossi gets a little excited and grunts the word "easy "
 followed by a strange, muffled noise sounding something like the word
 "target".
+Reevling, the warrior, looks you up and down, sighs, and mumbles something
+about your being... nothing but another villager waiting to be turned into a
+zombie.
 Rossi, the muck dweller, deftly takes hold of the sword with its
 exceptionally long fingers, and before you know it, the sword vanishes in a
 cloud of muck.

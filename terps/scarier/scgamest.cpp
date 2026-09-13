@@ -1610,6 +1610,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->is_running = FALSE;
   game->has_notified = FALSE;
   game->is_admin = FALSE;
+  game->player_moved_by_command = FALSE;
   game->has_completed = FALSE;
   game->pending_endgame = 0;
   game->waitcounter = 0;
@@ -1908,6 +1909,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->is_running = from->is_running;
   to->has_notified = from->has_notified;
   to->is_admin = from->is_admin;
+  to->player_moved_by_command = from->player_moved_by_command;
   to->has_completed = from->has_completed;
   to->pending_endgame = from->pending_endgame;
 

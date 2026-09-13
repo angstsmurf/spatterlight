@@ -35,6 +35,12 @@ matching its direct event-task execution.
                   ObjectTask, and does dropping the MeetObject beside the
                   mid-stay walker fire it?  Session:
                   z n s z get rock z drop rock z.
+    N             L plus tasks `jn` / `js` whose only action moves the
+                  PLAYER (type 1, Var1=0 Var2=0 Var3=room): does a task
+                  move into the mid-stay walker's room fire the CharTask the
+                  way a typed n/s does?  (Shadowpeak `examine web` moves the
+                  player by task and run400 prints no pre-walk hum.)
+                  Sessions: z n s z z z n s z   and   z jn js z z z jn js z.
     S             StoppingTask: a looping two-stop walk (Times = 2 / 2) with
                   StoppingTask = the "stopit" task, plus a "resume" task whose
                   only action is type 5 Var1=1 Var2=0, i.e. un-complete
@@ -140,7 +146,7 @@ def room(short, exits=()):
     s(0)                 # HideOnMap
 
 s(2)
-if variant in ("K", "L", "M"):
+if variant in ("K", "L", "M", "N"):
     room("Probe Room", {0: 2})   # north -> Far Room
     room("Far Room", {2: 1})     # south -> Probe Room
 else:
@@ -225,6 +231,12 @@ elif variant == "M":             # M: ObjectTask, no CharTask
     s(1)
     task("#metobj", "OBJTASK FIRED.")
     chartask = 0
+elif variant == "N":             # N: task-driven player moves
+    s(3)
+    task("#met", "CHARTASK FIRED.")
+    task("jn", "JUMP NORTH.", actions=[(1, 0, 0, 1)])
+    task("js", "JUMP SOUTH.", actions=[(1, 0, 0, 0)])
+    chartask = 1
 elif variant == "S":             # S: StoppingTask -- pause or finish?
     s(2)
     task("stopit", "STOP TASK DONE.")
@@ -236,11 +248,11 @@ else:                            # C/D/H/K/L: no wildcard -- walk wiring only
     chartask = 1
 
 # D/E/F/G/H/K: visible looping walk (a 1-stop walk never runs in the Runners).
-looped = variant in ("D", "E", "F", "G", "H", "K", "L", "M", "S")
+looped = variant in ("D", "E", "F", "G", "H", "K", "L", "M", "N", "S")
 
 # How many turns the walker stays at each stop.  Only H/K use a stay longer
 # than one turn -- that is the whole point of them.
-times = (3, 2) if variant in ("H", "K", "L", "M") else (1, 1)
+times = (3, 2) if variant in ("H", "K", "L", "M", "N") else (1, 1)
 if variant == "S":
     times = (2, 2)
 
