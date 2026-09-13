@@ -7668,9 +7668,24 @@ parity now holds on 21 of 43 rows, up from 20.
      `hit` are Who too (dobattle runs before the library's "Kick what?").
      Turns 15 then 17: every Who is a turn, the NPC catch-alls are not.
      Mechanism is MemVar_494234, set at 47F025, consumed at 48AFF3, dropped
-     at 48B5FC; ported as `lib_battle_who_*()`.  The weapon question's use
-     of the same variable (47ED3E) is not ported, and run390's consumption
+     at 48B5FC; ported as `lib_battle_who_*()`.  run390's consumption
      (460022) is assumed, not measured.
+   * **So does "What do you want to attack X with?"**  It leaves `"attack " &
+     LCase(Name) & " with"` in the same variable (47ED3E), whatever the verb.
+     run400x `Adrift_1144` (`p4BATTLEWPN`, blaster + sword + rock held,
+     nothing wielded; `battlewpn.txt`, 21 lines, 17 draws both sides, turns
+     1/2/4/5): `attack gargoyle #2` / `sword` strikes and the sword stays
+     wielded, so the next `attack gargoyle #3` asks nothing; `attack gargoyle
+     #3` / `rock` is `Player can't attack Gargoyle #3 with the rock`, no full
+     stop, a real turn; `kick gargoyle #3` / `nonsense words` is the character
+     catch-all (the with-loop names nothing and prints nothing); `look`, a
+     repeated question and `turns` spend the prefix as for Who.  Two targets
+     each ask; the last prefix stands.  The with-loop (47EC16) has no break:
+     every named non-weapon is refused, the LAST named weapon arms.  " is not
+     a weapon!" (47E93F) is wield's message only; Scarier had put it on every
+     attack-with, and the refusal now comes before the carried check, as in
+     dobattle.  Ported as `lib_battle_weapon_question()`,
+     `lib_battle_cant_attack()`, `lib_battle_scan_with()`.
 
 4. **Battle rounds land one turn apart** in `wes_ghn` (T57/T58: run400 kills
    Hope a round earlier, and by T85 the two are a whole kill apart) and in

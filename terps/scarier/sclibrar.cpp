@@ -14260,6 +14260,32 @@ lib_battle_unnamed_target (scr_gameref_t game, scr_int npc)
 
 static scr_bool lib_battle_attack_many (scr_gameref_t game,
                                         scr_bool with_object);
+static void lib_battle_weapon_question (scr_gameref_t game, scr_int npc);
+
+/*
+ * dobattle refuses a non-weapon with its only such message, 47EC7D (run390
+ * " can't attack " in the same procedure): Ary(0) & " can't attack " &
+ * Name & " with " & the object's mode-0 name, no full stop.  " is not a
+ * weapon!" is wield's (47E93F), not attack's.  A real turn.  Measured
+ * 2026-09-13 on p4BATTLEWPN (Adrift_1144): "Player can't attack Gargoyle #3
+ * with the rock".
+ */
+static void
+lib_battle_cant_attack (scr_gameref_t game, scr_int npc, scr_int object)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *name;
+
+  name = prop_get_indexed_string (gs_get_bundle (game), "NPCs", npc, "Name");
+  pf_buffer_string (filter, lib_select_response (game,
+                                                 "You can't attack ",
+                                                 "I can't attack ",
+                                                 "%player% can't attack "));
+  pf_buffer_string (filter, name ? name : "");
+  pf_buffer_string (filter, " with ");
+  lib_print_object_np (game, object);
+  pf_buffer_character (filter, '\n');
+}
 
 static scr_bool
 lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
@@ -14302,9 +14328,9 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
        * With no wield set the Runner auto-selects a solitary carried weapon
        * (the blow then persists it as the wield), fights bare-handed when
        * carrying none, and with two or more carried weapons asks -- a
-       * rhetorical question, always worded with "attack" whatever the verb,
-       * that costs no combat turn and whose reply is not read as an answer
-       * (settled live 2026-08-01).
+       * question, always worded with "attack" whatever the verb, that costs
+       * no combat turn (settled live 2026-08-01).  The next line can answer
+       * it; see lib_battle_weapon_question().
        */
       if (weapon < 0)
         {
@@ -14312,9 +14338,7 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
 
           if (count > 1)
             {
-              pf_buffer_string (filter, "What do you want to attack ");
-              lib_print_npc_np (game, npc);
-              pf_buffer_string (filter, " with?\n");
+              lib_battle_weapon_question (game, npc);
               game->is_admin = TRUE;
               return TRUE;
             }
@@ -14375,6 +14399,13 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   if (object == -1)
     return TRUE;
 
+  /* dobattle tests the weapon flag before it looks for the object. */
+  if (battle_is_enabled (game) && !battle_is_weapon (game, object))
+    {
+      lib_battle_cant_attack (game, npc, object);
+      return TRUE;
+    }
+
   /* Ensure the referenced object is held.  The Runner: "Player is not
    * carrying the rock!" (probe pWS2 -- unlike wield's "aren't carrying"). */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
@@ -14390,16 +14421,6 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   /* With the Battle System enabled, resolve a real attack with the weapon. */
   if (battle_is_enabled (game))
     {
-      /* The Runner rejects attacking with a non-weapon outright. */
-      if (!battle_is_weapon (game, object))
-        {
-          pf_new_sentence (filter);
-          lib_print_object_np (game, object);
-          pf_buffer_string (filter,
-                            lib_select_plurality (game, object, " is", " are"));
-          pf_buffer_string (filter, " not a weapon!\n");
-          return TRUE;
-        }
       lib_battle_player_strike (game, npc, verb, method, object);
       return TRUE;
     }
@@ -14705,22 +14726,73 @@ lib_battle_who_raise (scr_gameref_t game, const scr_char *input,
 }
 
 /*
- * A "with" the object row could not bind: run400 47EBDE walks the objects
- * the line names and arms the first that is a weapon, wherever it stands --
- * which is how the continued `attack with the blaster gargoyle #1` strikes.
+ * "What do you want to attack X with?" (47ED0B) leaves its own prefix in the
+ * same variable, `"attack " & LCase(Name) & " with"` (47ED3E), so `sword`
+ * next runs as `attack gargoyle #2 with sword`.  Several targets each ask,
+ * and the last one's prefix stands.  Measured 2026-09-13 on p4BATTLEWPN
+ * (blaster, sword and rock held, nothing wielded), run400x Adrift_1144:
+ * `attack gargoyle #2` / `sword` strikes with the sword, and the sword stays
+ * wielded; `attack gargoyle #3` / `rock` is the rock's refusal, a turn; `kick
+ * gargoyle #3` / `nonsense words` is the character catch-all; `look`, a
+ * repeated question and `turns` spend the prefix as they do Who's.  17 draws
+ * both sides.
  */
-static scr_int
-lib_battle_named_weapon (scr_gameref_t game, const scr_char *input)
+static void
+lib_battle_weapon_question (scr_gameref_t game, scr_int npc)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *name;
+  std::string lower;
+
+  pf_buffer_string (filter, "What do you want to attack ");
+  lib_print_npc_np (game, npc);
+  pf_buffer_string (filter, " with?\n");
+
+  name = prop_get_indexed_string (gs_get_bundle (game), "NPCs", npc, "Name");
+  for (const scr_char *cursor = name ? name : ""; *cursor != NUL; cursor++)
+    lower += scr_tolower (*cursor);
+  lib_battle_who_pending = "attack " + lower + " with";
+}
+
+static scr_bool
+lib_battle_line_names_any_object (scr_gameref_t game, const scr_char *input)
 {
   scr_int object;
 
   for (object = 0; object < gs_object_count (game); object++)
     {
-      if (lib_battle_line_names_object (game, object, input)
-          && battle_is_weapon (game, object))
-        return object;
+      if (lib_battle_line_names_object (game, object, input))
+        return TRUE;
     }
-  return -1;
+  return FALSE;
+}
+
+/*
+ * A "with" the object row could not bind: run400 47EC16 walks every object
+ * the line names, for each target.  A weapon becomes the weapon, with no
+ * break, so the last one named wins; anything else is refused on the way
+ * (lib_battle_cant_attack()).  Returns the weapon, or -1.
+ */
+static scr_int
+lib_battle_scan_with (scr_gameref_t game, scr_int npc, const scr_char *input,
+                      scr_bool *refused)
+{
+  scr_int object, weapon;
+
+  weapon = -1;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (!lib_battle_line_names_object (game, object, input))
+        continue;
+      if (battle_is_weapon (game, object))
+        weapon = object;
+      else
+        {
+          lib_battle_cant_attack (game, npc, object);
+          *refused = TRUE;
+        }
+    }
+  return weapon;
 }
 
 static scr_bool
@@ -14730,7 +14802,7 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
   const scr_char *input = run_get_dispatch_input ();
   std::vector<scr_int> targets;
   scr_int verb_index, object, index_;
-  scr_bool struck;
+  scr_bool struck, refused, scan;
 
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
       || !battle_is_enabled (game) || !input)
@@ -14768,8 +14840,9 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
       return TRUE;
     }
 
-  /* An explicit weapon is checked once, as the single-target path does. */
+  /* An explicit weapon is resolved once; each target then tests it. */
   object = -1;
+  scan = FALSE;
   if (with_object)
     {
       object = lib_disambiguate_object (game,
@@ -14780,53 +14853,62 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
     }
   else if (lib_input_contains_word (input, "with"))
     {
-      /* A "with" naming no weapon is not a bare attack. */
-      object = lib_battle_named_weapon (game, input);
-      if (object < 0)
+      /*
+       * A "with" naming no object prints nothing in dobattle, and the line
+       * goes on to the character catch-all (Adrift_1144 `nonsense words`).
+       */
+      if (!lib_battle_line_names_any_object (game, input))
         return FALSE;
-    }
-  if (object >= 0)
-    {
-      if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
-        {
-          lib_print_response_object (game,
-                                     "You are not carrying ",
-                                     "I am not carrying ",
-                                     "%player% is not carrying ",
-                                     object, "!\n");
-          return TRUE;
-        }
-      if (!battle_is_weapon (game, object))
-        {
-          pf_new_sentence (filter);
-          lib_print_object_np (game, object);
-          pf_buffer_string (filter,
-                            lib_select_plurality (game, object, " is", " are"));
-          pf_buffer_string (filter, " not a weapon!\n");
-          return TRUE;
-        }
+      scan = TRUE;
     }
 
   struck = FALSE;
+  refused = FALSE;
   for (index_ = 0; index_ < (scr_int) targets.size (); index_++)
     {
       const scr_int npc = targets[index_];
-      scr_int weapon = (object >= 0)
-                       ? object : battle_player_wielded_weapon (game);
+      scr_int weapon;
 
-      if (weapon < 0)
+      if (with_object || scan)
         {
-          const scr_int count = battle_player_weapon_count (game);
-
-          if (count > 1)
+          if (scan)
+            weapon = lib_battle_scan_with (game, npc, input, &refused);
+          else if (!battle_is_weapon (game, object))
             {
-              pf_buffer_string (filter, "What do you want to attack ");
-              lib_print_npc_np (game, npc);
-              pf_buffer_string (filter, " with?\n");
+              lib_battle_cant_attack (game, npc, object);
+              refused = TRUE;
+              weapon = -1;
+            }
+          else
+            weapon = object;
+          if (weapon < 0)
+            continue;
+          if (gs_object_position (game, weapon) != OBJ_HELD_PLAYER)
+            {
+              lib_print_response_object (game,
+                                         "You are not carrying ",
+                                         "I am not carrying ",
+                                         "%player% is not carrying ",
+                                         weapon, "!\n");
+              refused = TRUE;
               continue;
             }
-          if (count == 1)
-            weapon = battle_player_best_weapon (game);
+        }
+      else
+        {
+          weapon = battle_player_wielded_weapon (game);
+          if (weapon < 0)
+            {
+              const scr_int count = battle_player_weapon_count (game);
+
+              if (count > 1)
+                {
+                  lib_battle_weapon_question (game, npc);
+                  continue;
+                }
+              if (count == 1)
+                weapon = battle_player_best_weapon (game);
+            }
         }
       lib_battle_player_strike (game, npc, LIB_BATTLE_VERBS[verb_index].verb,
                                 LIB_BATTLE_VERBS[verb_index].method, weapon);
@@ -14834,7 +14916,7 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
     }
 
   /* Only the question, and no blow: as for one target, not a turn. */
-  if (!struck)
+  if (!struck && !refused)
     game->is_admin = TRUE;
 
   /*
