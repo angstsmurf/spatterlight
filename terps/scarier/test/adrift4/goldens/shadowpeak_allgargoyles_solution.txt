@@ -435,7 +435,7 @@ n
 # WIELD-MODEL RE-TUNE: the chapel drop cleared the wield and re-taking does
 # not re-wield, so the first post-chapel attack must name the weapon (a bare
 # attack with two carried weapons now asks, faithfully to run400).
-attack cat with sword
+attack shadow with sword
 n
 x shrine
 take scroll

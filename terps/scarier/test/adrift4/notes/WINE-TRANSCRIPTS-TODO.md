@@ -1003,9 +1003,11 @@ Engine leads, measured or half-measured, none blocking:
 
 - **The seven leads left by the 2026-09-13 xoshiro re-compare** -- see the
   section at the foot of this file for the evidence on each:
-  (1) `attack <noun> with <weapon>` resolves an NPC in Scarier that run400
-  refuses (`shadowpeak` T361 -- this one *is* blocking, it costs the row 208
-  commands); (2) ~~`battle_print_combatant()` ignores `Perspective`~~ **FIXED
+  (1) ~~`attack <noun> with <weapon>` resolves an NPC in Scarier that run400
+  refuses~~ **PORTED 2026-09-13** -- dobattle names its target by the NPC's
+  Name alone at 4.0 (Name or first Alias at 3.9); `shadowpeak` T361 now
+  matches, the three Shadowpeak walkthroughs attack `shadow`, and the row
+  wants re-driving with the new feed; (2) ~~`battle_print_combatant()` ignores `Perspective`~~ **FIXED
   2026-09-13** -- `light_up` 71 differing turns -> 46, `light_up` and
   `donuts_intro` goldens re-blessed; (3) an ambiguous `attack` is
   not a turn in run400 and is one in Scarier, with the wrong prompt wording
@@ -7452,6 +7454,36 @@ parity now holds on 21 of 43 rows, up from 20.
    which ends the game and is why 208 feed commands were never echoed.  Fix
    this and the row is either clean or re-derivable.
 
+   **PORTED 2026-09-13.**  The cat's NPC record: Name `Shadow`, empty Prefix,
+   three aliases `cat` / `black cat` / `shadow the black cat`.  dobattle does
+   not use the parser's reference test.  Its outer loop over the NPCs
+   (run400 `47EB0E`) pushes `var_194(0)` -- the Name -- LCases it and asks
+   `Proc_21_38_454CB0` for a whole word of the line at `47EB46`; nothing
+   between there and the in-room test at `47EBA7` looks at an alias.  A line
+   that names no NPC that way leaves `var_8A = 0` and gets `Who do you want to
+   attack?` at `47F01A`, with 494281 untouched, so it is a real turn (the
+   transcript's `Seeker hums!` proves the tick).  Aliases only enter at the
+   absent branch's inner `45E99C` loop, after a Name has already matched.
+   run390's outer loop (`44CC1C`) is wider: Name at `44CC57`, then the first
+   Alias (`var_158(8)`) at `44CCC5` -- the same pair as
+   `lib_npc_named_in_line()`, so at 3.9 `attack cat` would have worked.
+   The archive agrees: the only Runner transcripts that ever print `Who do
+   you want to attack?` are this turn in `Adrift_391`, `393` and `1020`, and
+   cybercow's `hit bell` (already passing).
+
+   The port is `lib_battle_unnamed_target()` in `sclibrar.cpp`, called by both
+   `lib_battle_attack_bare()` and `lib_battle_attack_with()` once the grammar
+   has resolved an NPC.  Scarier's T361 now matches run400 word for word, and
+   T365 is the same death on both sides.  Only the three Shadowpeak rows moved:
+   they now type `attack shadow with sword`, and the golem -- Named `Colos`,
+   aliases `golem` / `stone golem` -- turns their five `attack golem` filler
+   turns before `say carom` into the same refusal, with nothing downstream
+   changed.  Still unmodelled: the loop does not stop at the first present
+   namesake (the `GoTo 47EFF8` falls through to `Next`), so a line naming two
+   present NPCs by Name may strike both.  No corpus row does that.
+   **Next:** re-feed `shadowpeak` from the re-blessed golden under run400x
+   and re-compare; the old 208 lost commands should echo now.
+
 2. **`battle_print_combatant()` ignored `Perspective`** (`scbattle.cpp` ~1014)
    -- **FIXED 2026-09-13**.  It printed `"you"` / `"your"` / `"You"` for the
    player unconditionally; `Perspective` appeared in `sclibrar.cpp`,
@@ -7484,6 +7516,19 @@ parity now holds on 21 of 43 rows, up from 20.
    "manage"/"manages" by comparing the target's rendered name against Ary(2)
    (`46514E`), which a third-person game satisfies with the player's name on
    both sides.
+
+   **3.9 agrees, and needs no version gate** (read 2026-09-13 while annotating
+   `~/Adrift_decompile`).  `dohit` `438B50` reads Ary(0) at the same three
+   sites (`4388A2`, `43890F`, `43894A`), and `chardohit` `442C7C` renders the
+   player as target from Ary(2) at `442839`, on the live path from `4427E0`
+   guarded by `var_8E = &HFF`.  The Ary(0) read at `442474` looks like a 3.9/4.0
+   divergence and is **dead code**: it sits inside the `442454` block, whose own
+   guard (`442459`, P32Dasm `GtI2`) and inner test (`442470`, `EqI2`) compare
+   `char2` against the same literal with `>` and `=`.  3.9's array is six slots
+   and two perspectives, and its fill test at `4647F9` is a bare equality
+   against 0 -- exactly the clamp `lib_get_perspective()` applies below
+   `TAF_VERSION_400`.  3.9 also has no miss branch in `dohit` and no `"avoid"`
+   literal at all, so the hardcoded possessive is a 4.0-only concern.
 
    `lib_get_perspective()` is now exported through `scprotos.h` (it already
    encodes the pre-4.0 clamp), and the third person buffers `%player%`, the way

@@ -2315,7 +2315,7 @@ Seeker hums!
 Seeker hums!
 Dong! You hear a bell toll elsewhere in the castle.
 
-> attack cat with sword
+> attack shadow with sword
 You stab cat with the sword.
 As you kill the cat, the witch drops to the floor in a heap, screaming in
 agony. Slowly she decays away to nothing.
@@ -2488,29 +2488,29 @@ the golem.
 Seeker hums!
 
 > attack golem
-You stab golem with the sword.
+Who do you want to attack?
 Seeker hums!
 Seeker hums!
 
 > attack golem
-You stab golem with the sword.
+Who do you want to attack?
 Seeker hums!
 Seeker hums!
 
 > attack golem
-You stab golem with the sword.
+Who do you want to attack?
 Seeker hums!
 "What is the password?" booms the golem again.
 Seeker hums!
 
 > attack golem
-You stab golem with the sword.
+Who do you want to attack?
 Seeker hums!
 The golem looks like it’s getting impatient.
 Seeker hums!
 
 > attack golem
-You stab golem with the sword.
+Who do you want to attack?
 Seeker hums!
 Colos seems to have gotten sick of waiting. Deciding you don't know the
 password after all, the golem attempts to squash you with its huge fists.

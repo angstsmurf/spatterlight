@@ -224,6 +224,11 @@ shred_em_solution.txt|shreddem.taf|Due to lack of evidence
 # Re-derived 2026-09-13 after the pattern-group double-space fix: Boris no longer died.
 # Village phase from harness/shadowpeak_village.py (20 turns, all four in the square,
 # +2 `z` pad), then the Damastus chase from harness/shadowpeak_chase.py.  Still 710.
+# Re-blessed 2026-09-13: run400's dobattle names its target by the NPC's Name alone (47EB2D-47EB46,
+# no alias before the in-room test), so `attack cat with sword` -- the cat is Named "Shadow" --
+# answers "Who do you want to attack?" (47F01A, a real turn; Adrift_1020 T361).  The walkthrough
+# now types `attack shadow with sword`; the golem is Named "Colos", so the five `attack golem`
+# filler turns before `say carom` print the same refusal.  Nothing else moved.  Still wins.
 shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=124
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
@@ -235,6 +240,11 @@ shadowpeak_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SE
 # Re-derived 2026-09-13 after the pattern-group double-space fix (was already failing):
 # village phase from harness/shadowpeak_village.py (14 turns, 1 `z` pad), Damastus chase
 # from harness/shadowpeak_chase.py.  Still 715.
+# Re-blessed 2026-09-13: run400's dobattle names its target by the NPC's Name alone (47EB2D-47EB46,
+# no alias before the in-room test), so `attack cat with sword` -- the cat is Named "Shadow" --
+# answers "Who do you want to attack?" (47F01A, a real turn; Adrift_1020 T361).  The walkthrough
+# now types `attack shadow with sword`; the golem is Named "Colos", so the five `attack golem`
+# filler turns before `say carom` print the same refusal.  Nothing else moved.  Still wins.
 shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=1
 # Re-blessed 2026-08-29: 4.0 stores "Time passes..." concatenated with vbCrLf
 # (48ABDA + Proc_21_4_442418, EV15), so a walk line in a wait turn starts on its own
@@ -249,6 +259,11 @@ shadowpeak_allgargoyles_solution.txt|Shadowpeak.taf|completed the adventure Shad
 # Re-derived 2026-09-13 after the pattern-group double-space fix (was already failing):
 # village phase from harness/shadowpeak_village.py (14 turns, 13 `z` pad), Damastus
 # chase from harness/shadowpeak_chase.py.  Still 735.
+# Re-blessed 2026-09-13: run400's dobattle names its target by the NPC's Name alone (47EB2D-47EB46,
+# no alias before the in-room test), so `attack cat with sword` -- the cat is Named "Shadow" --
+# answers "Who do you want to attack?" (47F01A, a real turn; Adrift_1020 T361).  The walkthrough
+# now types `attack shadow with sword`; the golem is Named "Colos", so the five `attack golem`
+# filler turns before `say carom` print the same refusal.  Nothing else moved.  Still wins.
 shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadowpeak|SCR_SEED=23
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.

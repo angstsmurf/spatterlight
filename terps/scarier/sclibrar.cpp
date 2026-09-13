@@ -13995,6 +13995,54 @@ lib_battle_absent_npc (scr_gameref_t game)
   return printed;
 }
 
+/*
+ * lib_battle_unnamed_target()
+ *
+ * dobattle picks its target with its own reference test, not the parser's.
+ * run400 walks the NPCs and tests the Name (field 0) alone -- 47EB2D pushes
+ * var_194(0), LCases it and asks Proc_21_38_454CB0 for a whole word of the
+ * line, and nothing between there and the in-room test at 47EBA7 looks at
+ * an alias.  run390's outer loop at 44CC1C tests the Name and then the first
+ * Alias (44CC57 on var_158(0), 44CCC5 on var_158(8)), the same pair as
+ * lib_npc_named_in_line().  A line that names no NPC that way ends with
+ * var_8A = 0 and "Who do you want to attack?" (run400 47F01A, run390
+ * 44D1E9), and 494281 is left alone, so it is a real turn.
+ *
+ * Measured 2026-09-13 on Shadowpeak under run400x (Adrift_1020 turn 361):
+ * the witch's cat is Named "Shadow", with aliases "cat", "black cat" and
+ * "shadow the black cat".  `attack cat with sword` in its room answers
+ * "Who do you want to attack?  Seeker hums!" -- the walker's line proves the
+ * tick -- where Scarier bound the alias and killed the cat.
+ *
+ * Returns TRUE having printed, when the Battle System is on at 3.90+ and the
+ * NPC the grammar resolved is not one dobattle would name.
+ */
+static scr_bool
+lib_battle_unnamed_target (scr_gameref_t game, scr_int npc)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_char *name;
+  scr_bool named;
+
+  if (prop_get_taf_version (bundle) < TAF_VERSION_390
+      || !battle_is_enabled (game) || !input)
+    return FALSE;
+
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    {
+      name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+      named = name && name[0] != NUL && lib_input_contains_word (input, name);
+    }
+  else
+    named = lib_npc_named_in_line (game, npc, input);
+  if (named)
+    return FALSE;
+
+  pf_buffer_string (gs_get_filter (game), "Who do you want to attack?\n");
+  return TRUE;
+}
+
 static scr_bool
 lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
                         scr_int method, scr_bool legacy)
@@ -14016,6 +14064,10 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
         return TRUE;
       return is_ambiguous;
     }
+
+  /* dobattle's own reference test must name it too. */
+  if (lib_battle_unnamed_target (game, npc))
+    return TRUE;
 
   /* With the Battle System enabled, resolve a real attack. */
   if (battle_is_enabled (game))
@@ -14083,6 +14135,10 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
         return TRUE;
       return is_ambiguous;
     }
+
+  /* dobattle's own reference test must name it too. */
+  if (lib_battle_unnamed_target (game, npc))
+    return TRUE;
 
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, verb, NULL);

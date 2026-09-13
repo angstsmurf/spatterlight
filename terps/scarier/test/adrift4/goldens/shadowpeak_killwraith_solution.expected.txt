@@ -2402,7 +2402,7 @@ Shadow meeeows...
 Seeker hums!
 Seeker hums!
 
-> attack cat with sword
+> attack shadow with sword
 You stab cat with the sword.
 As you kill the cat, the witch drops to the floor in a heap, screaming in
 agony. Slowly she decays away to nothing.
@@ -2578,31 +2578,31 @@ the golem.
 Seeker hums!
 
 > attack golem
-You stab golem with the sword.
+Who do you want to attack?
 Seeker hums!
 Seeker hums!
 
 > attack golem
-You stab golem with the sword.  Gargoyle #1 flies in.
+Who do you want to attack?  Gargoyle #1 flies in.
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Seeker hums!
 Seeker hums!
 
 > attack golem
-You stab golem with the sword.
+Who do you want to attack?
 Seeker hums!
 "What is the password?" booms the golem again.
 Seeker hums!
 
 > attack golem
-You stab golem with the sword.
+Who do you want to attack?
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Seeker hums!
 The golem looks like it’s getting impatient.
 Seeker hums!
 
 > attack golem
-You stab golem with the sword.
+Who do you want to attack?
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 Seeker hums!
