@@ -4304,8 +4304,15 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * the listing.  So print it here and leave `status` alone, letting the
    * task passes below run on the same line; the listing claims whatever they
    * decline.  See run_is_inventory_command().
+   *
+   * run380 and run370 do the same: generaltasks stores inventory()'s result
+   * in a scratch variable (run380 4421C2, run370 43B961) without the GoTo
+   * that takes() and drops() get, and tasks(0) follows (4421F6 / 43B97F).
+   * inventory() prints its listing directly (run380 42E218).  Measured on
+   * wrecked T24 (run380x): "I am wearing my clothes, ..." and then task 43's
+   * "Boff says ...".  Only run390 lets the listing claim the line (45F45B).
    */
-  inv_listed = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+  inv_listed = run_get_version (gs_get_bundle (game)) != TAF_VERSION_390
                && run_is_inventory_command (game, string)
                && run_priority_commands (game, string);
   if (put_first)

@@ -7,6 +7,7 @@ popup answers and file version.
     python3 harness/runner_transcripts.py harvest   # reuse xoshiro captures that already match
     python3 harness/runner_transcripts.py jobs [out] # xoshiro_par.sh job file for the rest
     python3 harness/runner_transcripts.py collect   # compare fresh drives, copy, manifest
+    python3 harness/runner_transcripts.py recompare [tag...]  # re-compare stored transcripts
 
 Per row:
   * Runner  -- by .taf header bytes 8-10: 4.00 run400x, 3.90 run390x,
@@ -316,6 +317,33 @@ def collect():
     check_ignored(entries)
 
 
+def recompare(tags):
+    """Re-run the compare for the stored transcripts, after an engine change.
+    No Wine: only the verdicts and compare/ reports move."""
+    planned = {p["tag"]: p for p in read_plan()}
+    entries = read_manifest()
+    todo = [t for t in (tags or sorted(entries)) if t in entries and t in planned]
+    for t in set(tags) - set(todo):
+        print("unknown   %s" % t)
+
+    def check(tag):
+        return (tag,) + compare(planned[tag], os.path.join(OUT, entries[tag]["file"]))
+
+    with concurrent.futures.ThreadPoolExecutor(8) as pool:
+        for tag, identical, verdict, report in pool.map(check, todo):
+            diffs = os.path.join(OUT, "compare", tag + ".txt")
+            if identical:
+                if os.path.exists(diffs):
+                    os.remove(diffs)
+            else:
+                with open(diffs, "w", encoding="utf-8") as fh:
+                    fh.write(report)
+            if verdict != entries[tag]["verdict"]:
+                print("%-32s %s -> %s" % (tag, entries[tag]["verdict"], verdict))
+            entries[tag]["verdict"] = verdict
+    write_manifest(entries)
+
+
 def check_ignored(entries):
     # A game whose golden is gitignored (explicit text) must not have its
     # Runner transcript or compare report committed either.
@@ -342,5 +370,7 @@ if __name__ == "__main__":
         jobs(sys.argv[2] if len(sys.argv) > 2 else os.path.join(WINE, "xoshiro_jobs_runner_transcripts.txt"))
     elif command == "collect":
         collect()
+    elif command == "recompare":
+        recompare(sys.argv[2:])
     else:
         sys.exit(__doc__)

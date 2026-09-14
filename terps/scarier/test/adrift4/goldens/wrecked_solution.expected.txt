@@ -81,7 +81,7 @@ brown colour.  On the bench is a tweed jacket.
 I take a tweed jacket from the bench.
 
 > x it
-(a tweed jacket)
+(the tweed jacket)
 The tweed jacket is a delightful brown colour.  It looks a bit worn,
 especially at the elbows.  Inside the tweed jacket is a small key.
 
@@ -157,6 +157,8 @@ I can move north, east, west and in.
 It starts to rain.
 
 > inventory
+I am wearing my clothes, and I am carrying a pint of lager, a small key and a
+tweed jacket.
 Boff says, "Wow!  I wish I had half the stuff you've got."
 
 > give pint to boff
@@ -387,11 +389,11 @@ manilla envelope.
 I take a manilla envelope from the post office tray.
 
 > open it
-(a manilla envelope)
+(the manilla envelope)
 I tear open the envelope.  Inside, I find a Gold card.
 
 > drop it
-(a manilla envelope)
+(the manilla envelope)
 I drop the manilla envelope.
 
 > out
@@ -489,7 +491,7 @@ kennel.
 I can move north, east, south, west and in.
 
 > drop it
-(a juicy pork chop)
+(the juicy pork chop)
 I drop the pork chop.  Angus immediately pounces on the chop, and starts
 chewing away.
 It starts to rain.
@@ -513,7 +515,7 @@ raining.
 I can move north, east, south and west.
 
 > open drain with it
-(a large shark hook)
+(the large shark hook)
 With a bit of effort, I manage to get the drain open with the shark hook.
 
 > drop hook
@@ -779,7 +781,8 @@ I pick up the witch's magic wand.
 
 > ask aslan about it
 (the witch's magic wand)
-"Sorry, I don't know anything about that."
+"I stole it from the witch when she wasn't looking.  It's what she uses to
+turn people to stone."
 
 > out
 I move out.
@@ -907,7 +910,7 @@ screen.
 I can only move out.
 
 > give it to madge
-(a small black cat)
+(the small black cat)
 I hand Madge her cat.  "Oh, my baby!"  Madge cuddles the cat tightly - the
 cat's eyes bulge out slightly.  "I'm so grateful, here, take this."  Madge
 removes the amulet from around her neck, and gives it to me
@@ -1216,7 +1219,8 @@ I'd say ADRIFT is by far the best."
 
 > ask her about good time
 (Suzie)
-"Oh, that.  That'll be referring to my musical talents."
+Suzie looks me up and down.  "You're quite nice, but that's not why you're
+here."
 
 > give her the flute
 (Suzie)

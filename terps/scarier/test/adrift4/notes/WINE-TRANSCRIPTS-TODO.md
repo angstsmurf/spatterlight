@@ -448,8 +448,6 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     open that.".
   - cybercow T62 `put bones in robot`: "You can't do that!" against
     Scarier's "You're not holding the little bones to install them...".
-  - gateway T2 `east`: "(Getting off that first)" against "(Getting off the
-    comfy chair first)".
 - **cybercow_win:**
   - T72 `x fairy`: a different description (state);
   - T97 `read envelope`: the Runner adds "The envelope is closed.";
@@ -465,13 +463,6 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 
 **Engine, 3.7 / 3.8:**
 
-- **wrecked (3.80):**
-  - The pronoun echo takes the article rule: "(the tweed jacket)" against
-    Scarier's "(a tweed jacket)" at T10/62/63/79/83/151. The index says the
-    article rule is 4.0 only; run380 applies it too.
-  - T24 `inventory`: Scarier loses the listing before Boff's line.
-  - T129 and T211: a different ask topic answers. This is the 3.7/3.8
-    ask-topic overwrite, unmeasured.
 - **twilight (3.80):**
   - The listing sentence keeps a lower-case Prefix ("a monkey is here")
     where Scarier capitalises it (T12-34).
@@ -607,7 +598,9 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 - **Examine:** 3.7/3.8 examines have no bare-verb exit (unmeasured
   corners). run370's sit/stand/lie has no location test (42AEC8,
   unported).
-- **Ask-topic overwrite** is unmeasured.
+- **Ask topics:** substring matching with the last match winning is measured
+  and ported (wrecked). A topic whose Task gate picks an empty AltReply is
+  still unmeasured.
 - **Put:**
   - 3.7 static container `open`;
   - 3.7 bare take from a held container;
@@ -990,7 +983,16 @@ every Runner.
 - **Library wording:**
   - Third-person library text is not conjugated. herrdoktor (81231bc37)
   - Pre-4.0 says "You pick up" where 4.0 says "You take".
-  - Pronoun echoes use round brackets, but the article rule is 4.0 only.
+  - Pronoun echoes use round brackets. 4.0 takes the article from the last
+    composing handler, and 3.9 keeps the authored one. 3.7/3.8 store
+    tense(Prefix) & Short for any verb, but splice only the Short into the
+    line (run380 441EF1/441F09). wrecked
+  - "(Getting off that first)" for an unseen parent. `[3.9+]` gateway
+    (run390 431943)
+  - The 3.7/3.8 inventory listing does not claim the line, so a matching
+    task's text follows it (run380 4421C2). wrecked T24
+  - The 3.7/3.8 ask topic matches by substring, and the last match wins
+    (run380 4408B2). wrecked T129/T211
   - The examine-self full stop is 3.9+.
 - **Other formatting:**
   - `isare()` is exact and case-sensitive, and the loader fills an empty

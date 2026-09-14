@@ -757,6 +757,9 @@ funhouse_solution.txt|FunHouse.taf|thank you for bravely protecting this importa
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
+# Re-blessed 2026-09-14: T2 `east` from the unseen comfy chair now reads "(Getting off
+# that first)" -- 3.9+ moveroom names the parent through the composer in mode 0
+# (run390 431943).  Measured run390x Adrift_163; every turn but the keypress tail matches.
 gateway_solution.txt|gateway.taf|THE END
 # Measured 2026-08-29: run400 replay; identical up to the first battle round
 # (turn 4), after which a fed command is lost.  Re-measured 2026-09-07: the
@@ -2546,6 +2549,11 @@ marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!|
 # pre-3.9 startup event tick was removed, which shifts every roll by one
 # draw; route and 250/250 win unchanged.  Measured on the haunt row.
 # 2026-09-13: seed re-pinned 106 -> 3 for the RNG-parity rules (1-200 scan: 3, 11, 13, 34, 48).
+# Re-blessed 2026-09-14 against run380x (Adrift_274), now identical on every turn:
+# the pronoun echo is tense()'d at store time ("(the tweed jacket)", run380 441EF1);
+# `inventory` lists before task 43's text (4421C2 has no GoTo); ask topics match by
+# substring, last one wins (4408B2), on a line spliced with the Short alone (441F09),
+# so T129 gets the "wand" reply and T211 `about good time` the "me, myself" one.
 wrecked_solution.txt|wrecked.taf|Hope you enjoyed playing Wrecked.|SCR_SEED=15
 # Mortality (David Whyld, 2004).  A VERBATIM replay of the author's own session
 # transcript shipped inside the game's doc file: all 78 commands, no repairs,

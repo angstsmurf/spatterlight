@@ -136,7 +136,7 @@ fugitive	fugitive.txt	driven:Adrift_307_fugitive_rt.txt	3.90	run390x.exe	1234	0	
 fullcircle	fullcircle.txt	driven:Adrift_480_fullcircle_rt.txt	4.00	run400x.exe	2	3		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 funhouse	funhouse.txt	driven:Adrift_162_funhouse_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 gamma	gamma.txt	harvested-native-0-draws:Adrift_735_gamma.txt	3.90	run390x.exe	1234	0	Sam		yes	identical on every turn apart from the Runner's keypress prompt.
-gateway	gateway.txt	driven:Adrift_163_gateway_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	1 differing turn(s)
+gateway	gateway.txt	driven:Adrift_163_gateway_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn apart from the Runner's keypress prompt.
 ghosttown	ghosttown.txt	driven:Adrift_516_ghosttown_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 gmylm	gmylm.txt	harvested-xoshiro:Adrift_128_gmylm_x.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 goblin	goblin.txt	harvested-xoshiro:Adrift_145_goblin_x.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
@@ -414,7 +414,7 @@ wonderwombat	wonderwombat.txt	driven:Adrift_346_wonderwombat_rt.txt	3.90	run390x
 woof	woof.txt	driven:Adrift_201_woof_rt.txt	4.00	run400x.exe	5	0	Rex	SCR_SEED=5	yes	identical on every turn apart from the Runner's keypress prompt.
 worstgame	worstgame.txt	driven:Adrift_415_worstgame_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 wreckage	wreckage.txt	driven:Adrift_199_wreckage_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
-wrecked	wrecked.rtf	driven:Adrift_274_wrecked_rt.rtf	3.80	run380x.exe	15	0		SCR_SEED=15	no	9 differing turn(s), 1 lost command(s)
+wrecked	wrecked.rtf	driven:Adrift_274_wrecked_rt.rtf	3.80	run380x.exe	15	0		SCR_SEED=15	no	0 differing turn(s), 1 lost command(s)
 wumpusrun	wumpusrun.txt	driven:Adrift_514_wumpusrun_rt.txt	4.00	run400x.exe	72	0		SCR_SEED=72	yes	4 differing turn(s)
 xfiles	xfiles.txt	driven:Adrift_175_xfiles_rt.txt	4.00	run400x.exe	1234	0			no	7 differing turn(s)
 yadfa	yadfa.txt	driven:Adrift_487_yadfa_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.

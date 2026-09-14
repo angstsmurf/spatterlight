@@ -78,6 +78,25 @@ static scr_bool uip_trace = FALSE;
 static scr_bool uip_pronoun_used = FALSE;
 static scr_bool uip_pending_definite = FALSE;
 
+/*
+ * uip_tense_prefix_3738()
+ *
+ * run370/run380 tense() (run370 420F28, run380 425FA8): a whole "a" becomes
+ * "the", and a leading "a " or "an " becomes "the ".  A whole "an", "some"
+ * and everything else are left as authored.  Case-sensitive.
+ */
+static std::string
+uip_tense_prefix_3738 (const scr_char *prefix)
+{
+  if (strcmp (prefix, "a") == 0)
+    return "the";
+  if (strncmp (prefix, "a ", 2) == 0)
+    return std::string ("the ") + (prefix + 2);
+  if (strncmp (prefix, "an ", 3) == 0)
+    return std::string ("the ") + (prefix + 3);
+  return prefix;
+}
+
 void
 uip_note_definite_reference (void)
 {
@@ -2754,8 +2773,25 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * "(the shovel)"; "some gloves" and "an envelope" become "the
            * gloves" / "the envelope" after `get` (Adrift_4.txt).
            */
+          /*
+           * 3.7 and 3.8 store the antecedent in generaltasks' pre-pass over
+           * the typed line, before any handler: when exactly one object is
+           * named it becomes tense(Prefix) & " " & Short (run380 441EF1 and
+           * 442038, run370 43B696 and 43B805), held or not, whatever the
+           * verb.  Measured on wrecked (3.80, run380x Adrift_274, 2026-09-14):
+           * `get jacket` then `x it` echoes "(the tweed jacket)", `get form`
+           * then `x it` "(an application form)" (Prefix "an", which tense()
+           * leaves alone), and `wave wand` on the held wand makes the later
+           * `drop it` the wand.
+           */
           if (game->it_definite
-              && prop_get_taf_version (bundle) >= TAF_VERSION_400)
+              && prop_get_taf_version (bundle) < TAF_VERSION_390)
+            {
+              definite = uip_tense_prefix_3738 (prefix);
+              prefix = definite.c_str ();
+            }
+          else if (game->it_definite
+                   && prop_get_taf_version (bundle) >= TAF_VERSION_400)
             {
               if (scr_compare_word (prefix, "a", 1))
                 definite = std::string ("the") + (prefix + 1);
@@ -2892,7 +2928,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * @2CA9C (loc_42CAFA ...) and run380 @326B4 have no Appearance menu
            * -- with the same antecedents: the NPC's Name, or tense(Prefix) &
            * " " & Short for an object, which is what 'replacement' holds.
-           * From P-code only; no 3.7/3.8 replay has been measured for it.
+           * Measured on wrecked (3.80, run380x Adrift_274, 2026-09-14).
            */
           pf_buffer_reference (gs_get_filter (game),
                                echo ? echo : replacement.c_str ());
@@ -2909,6 +2945,17 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * wrecked (3.80) becomes "ask harold about pens", not "ask Harold
            * about pens".
            */
+          /*
+           * 3.7 and 3.8 echo tense(Prefix) & " " & Short but splice only the
+           * Short into the line: the pre-pass stores the two apart (run380
+           * 441EF1 / 441F09, run370 43B696 / 43B6AE) and its() writes
+           * Left$ & " " & MemVar_44F0B8 & Right$ (run380 432A95).  Measured
+           * on wrecked T129 (run380x): `ask aslan about it` after the wand
+           * answers the "wand" topic, not the later "witch" one that "the
+           * witch's magic wand" would hit under the substring topic match.
+           */
+          if (object > -1 && prop_get_taf_version (bundle) < TAF_VERSION_390)
+            replacement = name;
           buffer.replace (offset, extent, replacement);
           for (auto &c : buffer)
             c = scr_tolower (c);
@@ -3229,7 +3276,8 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
  *
  * Decide whether the object antecedent that 'command' just assigned is held
  * in its definite ("the X") or indefinite (Prefix & " " & Short) form.  4.0
- * only; every earlier Runner is left on the authored prefix.
+ * only: 3.9 keeps the authored prefix, and 3.7/3.8 always store the tense()'d
+ * one (uip_tense_prefix_3738(), run380 441EF1).
  *
  * The Runner's antecedent is a string, composed by whichever code last called
  * the setter Proc_21_41_448C24, in the composer mode that code chose:
@@ -3417,6 +3465,8 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
 
               if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
                 form = uip_definite_form (game, string, current, object);
+              else if (prop_get_taf_version (bundle) < TAF_VERSION_390)
+                form = UIP_FORM_DEFINITE;
 
               if (form != UIP_FORM_KEEP)
                 {

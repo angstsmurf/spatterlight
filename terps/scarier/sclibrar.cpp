@@ -3832,11 +3832,23 @@ lib_go (scr_gameref_t game, scr_int direction)
    * action seats the player on an unset object.  Both print the line with the
    * box ticked and nothing without it, and both had earlier brackets-OFF
    * transcripts that read as an engine bug until they were re-driven.
+   *
+   * From 3.9 the name goes through the object-name composer in mode 0
+   * (run390 431943 -> compose_object_name 42B0E8, run400 450354 -> 448710),
+   * which answers "that" for an object the player has not seen.  gateway
+   * (3.90) seats the player on a chair only a task's text mentions, and
+   * run390x answers `east` with "(Getting off that first)" (Adrift_163,
+   * 2026-09-14).  run370/380 concatenate the name directly, with no seen
+   * test.
    */
   if (gs_playerparent (game) != -1)
     {
       pf_buffer_string (filter, "(Getting off ");
-      lib_print_object_np (game, gs_playerparent (game));
+      if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
+          && !gs_object_seen (game, gs_playerparent (game)))
+        pf_buffer_string (filter, "that");
+      else
+        lib_print_object_np (game, gs_playerparent (game));
       pf_buffer_string (filter, " first)\n");
     }
   else if (gs_playerposition (game) != 0)
@@ -12891,6 +12903,31 @@ lib_compare_subject (const scr_char *subject, scr_int posn,
   return TRUE;
 }
 
+/*
+ * lib_subject_in_text_3738()
+ *
+ * The 3.7/3.8 subject test: the comma-terminated subject at posn, less its
+ * leading spaces, occurs anywhere in the lower-cased text.  See
+ * lib_npc_find_topics().
+ */
+static scr_bool
+lib_subject_in_text_3738 (const scr_char *subject, scr_int posn,
+                          const scr_char *string)
+{
+  std::string word, text (string);
+  scr_int end;
+
+  while (subject[posn] != NUL && scr_isspace (subject[posn]))
+    posn++;
+  for (end = posn; subject[end] != NUL && subject[end] != COMMA;)
+    end++;
+  word.assign (subject + posn, end - posn);
+  for (auto &c : text)
+    c = scr_tolower (c);
+
+  return !word.empty () && text.find (word) != std::string::npos;
+}
+
 
 /*
  * lib_npc_topic_response()
@@ -13005,8 +13042,19 @@ lib_npc_find_topics (scr_gameref_t game, scr_int npc,
           if (lib_trace)
             scr_trace ("Library: subject %s[%ld]\n", subjects, posn);
 
-          /* See if this subject matches. */
-          if (lib_compare_subject (subjects, posn, var_get_ref_text (vars)))
+          /*
+           * See if this subject matches.  3.7 and 3.8 test InStr(text,
+           * subject) > 0, binary compare, on the lower-cased line: any
+           * substring, with nextsub() stripping leading spaces (run380
+           * 4408B2 and 429B78, run370 438A23).  The topic loop runs to the
+           * end, so the last matching topic answers.  Measured on wrecked
+           * T211 (run380x): `ask her about good time` gets Suzie's "me,
+           * myself" reply, since "time" contains "me".
+           */
+          if (prop_get_taf_version (bundle) < TAF_VERSION_390
+              ? lib_subject_in_text_3738 (subjects, posn,
+                                          var_get_ref_text (vars))
+              : lib_compare_subject (subjects, posn, var_get_ref_text (vars)))
             {
               if (lib_trace)
                 scr_trace ("Library: matched\n");
