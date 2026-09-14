@@ -2276,7 +2276,21 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   vt_key[1].integer = task;
   vt_key[2].string = "CompleteText";
   completetext = prop_get_string (bundle, "S<-sis", vt_key);
-  if (!scr_strempty (completetext))
+
+  /*
+   * 4.0 tests the field raw, VB's `<> ""`, so a CompleteText of nothing but
+   * spaces still counts as the task saying something: it lands in the
+   * message buffer, the dispatcher at 48A481 reports the line handled, and
+   * the tail's `48B573: If MemVar_4941B0 = "" ...` DontUnderstand never
+   * fires.  wumpusrun task 167 (`climb ladder`, CompleteText " ", then End
+   * Game) is the measured case: runner_transcripts/wumpusrun.txt shows the
+   * lone space on its own line and then the WinText, where iachini task 30
+   * (CompleteText "") gets "I don't understand what you mean!" first.
+   * Probe .tafs without the task's variable, Execute Task and restriction
+   * fail texts (Adrift_128_wumpA..D) all kept the silence.
+   */
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_400
+      ? completetext[0] != '\0' : !scr_strempty (completetext))
     {
       /*
        * 4.0: a task an action runs joins its text onto the turn's string

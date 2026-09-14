@@ -4,45 +4,45 @@ scarier     523 turns, feed[0] is scarier turn 0
 
 RULE 2 -- every feed command was echoed.
 
-turn 32  west
-  run400   I walk west. In the southern tower The lower part of the tower is occupied by a red-carpeted, leather-tiled hall. The arched ceiling is featured by a silver chandelier, portraits of the royal family are framing the walls and a pair of big chinese vases are decorating both sides of the staircase. The old alchemist is standing nearby. A happy couple is walking hand in hand. I can go east, west and up.
-  scarier  I walk west. In the southern tower The lower part of the tower is occupied by a red-carpeted, leather-tiled hall. The arched ceiling is featured by a silver chandelier, portraits of the royal family are framing the walls and a pair of big chinese vases are decorating both sides of the staircase. The old alchemist is standing nearby. A servant is hurrying by. I can go east, west and up.
+turn 303  give rose to king
+  run400   Rudolph II. doesn't seem interested in the rose.
+  scarier  I show the beauty of the rose to the King and convince him to go out into the garden.
 
-turn 39  west
-  run400   I walk west. On the II. courtyard The courtyard is a large square area, paved with white stones and looking over a large part of the castle. A large staircase is attached to the middle of the eastern wall. A servant is hurrying by. I can go east, south, west and up.
-  scarier  I walk west. On the II. courtyard The courtyard is a large square area, paved with white stones and looking over a large part of the castle. A large staircase is attached to the middle of the eastern wall. A pretty woman is walking by. I can go east, south, west and up.
+turn 304  get bowl
+  run400   I cannot steal the bowl while the King is watching.
+  scarier  I get a large metal bowl from the scales, causing the other bowl collapse under the weight of gold.
 
-turn 51  west
-  run400   I walk west. On the III. courtyard The courtyard is a large square area, paved with white stones and looking over a large part of the castle. In the center of the yard there is an ancient-looking fountain. There is a group of jugglers chatting near to me. A young man is crossing my way. I can go east and west.
-  scarier  I walk west. On the III. courtyard The courtyard is a large square area, paved with white stones and looking over a large part of the castle. In the center of the yard there is an ancient-looking fountain. There is a group of jugglers chatting near to me. A man in black walks by, saluting me. I can go east and west.
+turn 307  south
+  run400   I walk south. In the southern garden The southern garden is peaceful and filled with sweet smells. Upon the grass, different kinds of flowers grow, along with a lawn of roses by the eastern wall. There is a bench to sit on and watch butterflies fluttering on the flowers. I can only go north.
+  scarier  I walk south. In the southern garden The southern garden is peaceful and filled with sweet smells. Upon the grass, different kinds of flowers grow, along with a lawn of roses by the eastern wall. There is a bench to sit on and watch butterflies fluttering on the flowers. Rudolph II. is standing in the middle of the garden. I can only go north.
 
-turn 56  up
-  run400   I walk up. In the wide hall The wide hall has leather-tiled walls, a luxurious red carpet, a big red stove and golden chandeliers below the arched ceiling. Tall windows are framing the southern wall, while the opposite wall is covered with portraits. Standing by the long northern wall are tall chairs and chinese vases and a wooden staircase is spiraling down to the cellar. The merchant is watching my steps with an alligator smile. A man in black walks by, saluting me. I can go north, east and down.
-  scarier  I walk up. In the wide hall The wide hall has leather-tiled walls, a luxurious red carpet, a big red stove and golden chandeliers below the arched ceiling. Tall windows are framing the southern wall, while the opposite wall is covered with portraits. Standing by the long northern wall are tall chairs and chinese vases and a wooden staircase is spiraling down to the cellar. The merchant is watching my steps with an alligator smile. A servant is hurrying by. I can go north, east and down.
+turn 308  talk to king
+  run400   Use the format "ask Rudolph II. about [subject]".
+  scarier  "If you have nothing better to do than walk around, asking people things they don't know, you might as well do something useful. A precious statue has been stolen from the sculpture gallery. I would be happy if you could find it," the King declares with a stone-cold face.
 
-turn 61  south
-  run400   I walk south. In the wide hall The wide hall has leather-tiled walls, a luxurious red carpet, a big red stove and golden chandeliers below the arched ceiling. Tall windows are framing the southern wall, while the opposite wall is covered with portraits. Standing by the long northern wall are tall chairs and chinese vases and a wooden staircase is spiraling down to the cellar. The merchant is watching my steps with an alligator smile. A servant is hurrying by. I can go north, east and down.
-  scarier  I walk south. In the wide hall The wide hall has leather-tiled walls, a luxurious red carpet, a big red stove and golden chandeliers below the arched ceiling. Tall windows are framing the southern wall, while the opposite wall is covered with portraits. Standing by the long northern wall are tall chairs and chinese vases and a wooden staircase is spiraling down to the cellar. The merchant is watching my steps with an alligator smile. An older man is passing by slowly. I can go north, east and down.
+turn 311  north
+  run400   I walk north. In the royal bedroom The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden. Rudolph II. is resting in his brocade arm-chair. I can go south and west.
+  scarier  I walk north. In the royal bedroom The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden. I can go south and west.
 
-turn 70  north
-  run400   I walk north. On the II. courtyard The courtyard is a large square area, paved with white stones and looking over a large part of the castle. A large staircase is attached to the middle of the eastern wall. A man in black walks by, saluting me. A shower of white snow flakes flutters down slowly. I can go east, south, west and up.
-  scarier  I walk north. On the II. courtyard The courtyard is a large square area, paved with white stones and looking over a large part of the castle. A large staircase is attached to the middle of the eastern wall. An older man is passing by slowly. A shower of white snow flakes flutters down slowly. I can go east, south, west and up.
+turn 317  east
+  run400   I walk east. In the eastern gallery The gallery is a long and wide hall, framed with tall windows on the northern side and statues on the southern one. Several chandeliers are suspended from the ceiling, while a red carpet is covering the floor and the walls are giving the place a warm feel with lots of leather tiles. A young man is standing in the middle of the room, staring at the statues. I can only go west.
+  scarier  I walk east. In the eastern gallery The gallery is a long and wide hall, framed with tall windows on the northern side and statues on the southern one. Several chandeliers are suspended from the ceiling, while a red carpet is covering the floor and the walls are giving the place a warm feel with lots of leather tiles. There is also a piece of paper. A young man is standing in the middle of the room, staring at the statues. I can only go west.
 
-turn 123  north
-  run400   I walk north. On the II. courtyard The courtyard is a large square area, paved with white stones and looking over a large part of the castle. A large staircase is attached to the middle of the eastern wall. The merchant is watching my steps with an alligator smile. A man in black walks by, saluting me. I can go east, south, west and up.
-  scarier  I walk north. On the II. courtyard The courtyard is a large square area, paved with white stones and looking over a large part of the castle. A large staircase is attached to the middle of the eastern wall. The merchant is watching my steps with an alligator smile. A pretty woman is walking by. I can go east, south, west and up.
+turn 318  get paper
+  run400   Take what?
+  scarier  I take the piece of paper.
 
-turn 138  west
-  run400   I walk west. On the III. courtyard The courtyard is a large square area, paved with white stones and looking over a large part of the castle. In the center of the yard there is an ancient-looking fountain. A happy couple is walking hand in hand. A warm, light breeze blows gently in my face. A light shower of rain is fluttering down. I can go north, east and west.
-  scarier  I walk west. On the III. courtyard The courtyard is a large square area, paved with white stones and looking over a large part of the castle. In the center of the yard there is an ancient-looking fountain. A pretty woman is walking by. A warm, light breeze blows gently in my face. A light shower of rain is fluttering down. I can go north, east and west.
+turn 326  talk to poet
+  run400   Use the format "ask Joseph Draconus about [subject]".
+  scarier  "Yes, I know this poem," utters the poet as he takes the piece of paper. "Tell me about it," I demand. "I have wrote this one a long while ago. I sold it to a poor guy who wanted to gift his girlfriend," the poet explains. "Who was this man?" I ask. "I did not question him. But I remember he was worn out and dirty, almost like a gardener, digging in the earth."
 
-turn 143  east
-  run400   I walk east. In the royal garden The garden is a rich mixture of flowers and trees of all kinds, a lot of them having been brought from distant countries. Several benches are scattered along the grassy paths. There is also a shovel. A pretty woman is walking by. A light shower of rain is fluttering down. I can go south and west.
-  scarier  I walk east. In the royal garden The garden is a rich mixture of flowers and trees of all kinds, a lot of them having been brought from distant countries. Several benches are scattered along the grassy paths. There is also a shovel. A young man is crossing my way. A light shower of rain is fluttering down. I can go south and west.
+turn 328  dig
+  run400   I have no reason to dig up the ground.
+  scarier  I get hold of the shovel and dig deep into the ground. Soon I happen upon a dirty pack wrapped in linen and I lift it up into the sunlight.
 
-turn 192  north
-  run400   I walk north. By the northern tower I am standing upon a stony ground, right in front of a tall tower, which has no windows, just a square hole as an entrance. The tower must be very old, judging from the state of decay. A happy couple is walking hand in hand. I can go south and in.
-  scarier  I walk north. By the northern tower I am standing upon a stony ground, right in front of a tall tower, which has no windows, just a square hole as an entrance. The tower must be very old, judging from the state of decay. A young man is crossing my way. I can go south and in.
+turn 336  east
+  run400   I walk east. In the royal bedroom The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden. Rudolph II. is resting in his brocade arm-chair. I can go south and west.
+  scarier  I walk east. In the royal bedroom The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden. I can go south and west.
 
 ... stopping after 10 differing turns
 (the openings differ too -- banner, graphics notice or the

@@ -2391,6 +2391,23 @@ lib_cmd_print_room_exits (scr_gameref_t game)
  * strips the result again if it ends "any direction!" (@00472BFF-00472C64
  * in Proc_19_63_472CA4) -- so this applies to task ShowRoomDesc displays
  * just as much as to player-room ones.
+ *
+ * When the list is kept, the builder first PRINTS the turn's text so far --
+ * it saves the message buffer (472C18), lets "exits" overwrite it, and sends
+ * the saved text & "  " through the filtering print routine 47B568 (472C64)
+ * -- so every %variable% and ALR in the move line and the room description
+ * is resolved there and then, before the NPC walks and events tick.  Only the
+ * exits list and what follows waits for the end of the turn.  All four
+ * Runners do this: run390 44813D-44818D, run380 439B83, run370 433108.
+ * Measured on wumpusrun (run400x, seed 72, equal 115-draw streams): its ALR
+ * "You move" -> "{move%move%}" reads the variable EVENT 0's task redraws
+ * every turn, and the Runner printed the value from before the tick on all
+ * four move turns (depart/boldly go/head/boldly go = 2,5,8,5), where
+ * interpolating at the flush printed the redrawn value.  pf_print_so_far()
+ * filters the text there and freezes it, so it is not filtered again: a
+ * plain checkpoint left it to the flush's second ALR walk, which put
+ * adrift_maze's "twisty" through its twist ALR twice and patched Qui a tue
+ * Dana's "Vous vous deplacez in." to the "Vous entrez." run400 never prints.
  */
 void
 lib_print_room_exits (scr_gameref_t game, scr_int room)
@@ -2401,6 +2418,7 @@ lib_print_room_exits (scr_gameref_t game, scr_int room)
   if (prop_get_global_boolean (bundle, "ShowExits")
       && lib_room_has_exits (game, room))
     {
+      pf_print_so_far (filter, gs_get_vars (game), bundle);
       pf_buffer_character (filter, '\n');
       lib_print_exits_list (game, room);
     }
@@ -14662,6 +14680,56 @@ lib_put_what_pre400 (scr_gameref_t game, scr_int object, scr_bool typed_on)
 
 
 /*
+ * lib_put_task_sweep_390()
+ *
+ * run390's insides() ends a put that moved its named object with one more
+ * task look-up (4626B6-462760): it saves the message buffer, empties it, runs
+ * tasks(1) on the typed line, and puts the saved text back only if the buffer
+ * is still empty afterwards -- so a task that the move itself enabled speaks
+ * INSTEAD of "You put X onto Y.".  The "all" and "and" forms rebuild a line
+ * per object instead, and are not ported.  Lost Tomb (3.90, run390x,
+ * runner_transcripts/losttomb.txt T85): `put dung beetle on green pillar`
+ * completes the pillar puzzle, and task 30 (bare `*`, restricted to all four
+ * animals on their pillars) prints "The four pillars slowly sink into the
+ * ground." on the put's own line, with no put message.  3.9 only; run380
+ * sweeps take-from lines instead (lib_take_from_task_sweep_380()), and run400
+ * dispatches its insides look-ups before the move.
+ */
+static void
+lib_put_task_sweep_390 (scr_gameref_t game, scr_int container,
+                        const lib_list_t &moving, size_t from)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_char *buffer;
+  std::string text;
+  scr_bool has_moved = FALSE;
+
+  if (version < TAF_VERSION_390 || version >= TAF_VERSION_400 || !input)
+    return;
+
+  for (const scr_int object : moving)
+    {
+      if ((gs_object_position (game, object) == OBJ_IN_OBJECT
+           || gs_object_position (game, object) == OBJ_ON_OBJECT)
+          && gs_object_parent (game, object) == container)
+        has_moved = TRUE;
+    }
+  if (!has_moved)
+    return;
+
+  buffer = pf_get_buffer (filter);
+  if (buffer && strlen (buffer) > from)
+    text = buffer + from;
+  pf_truncate (filter, from);
+  run_typed_line_task_commands (game, input);
+  if (pf_buffer_length (filter) == from && !text.empty ())
+    pf_buffer_string (filter, text.c_str ());
+}
+
+
+/*
  * lib_put_named_pre400()
  *
  * The pre-4.0 "put <named object> in <container>" pipeline, and -- the same
@@ -14683,8 +14751,10 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
   const scr_bool is_on = lib_put_target_takes_on (game, target, typed_on);
   const scr_int container = target;
   scr_int object, object_count, objects, references;
-  scr_bool has_object;
+  scr_bool has_object, status;
   lib_put_outcome_t outcome;
+  lib_list_t moving;
+  size_t sweep_from;
 
   object_count = gs_object_count (game);
   references = 0;
@@ -14792,6 +14862,13 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
   objects = lib_apply_filter (game,
                               is_on ? lib_put_on_filter : lib_put_in_filter,
                               -1, FALSE, &references);
+  for (object = 0; object < object_count; object++)
+    {
+      if (game->object_references[object])
+        moving.push_back (object);
+    }
+  sweep_from = pf_buffer_length (gs_get_filter (game));
+
   outcome = {};
   if (objects > 0 || references > 0)
     outcome = is_on ? lib_put_on_backend (game, container, FALSE)
@@ -14799,8 +14876,10 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
   else
     lib_print_nothing_held (game, FALSE, FALSE, ".");
 
-  return is_on ? lib_put_on_finish (game, outcome)
-               : lib_put_in_finish (game, outcome);
+  status = is_on ? lib_put_on_finish (game, outcome)
+                 : lib_put_in_finish (game, outcome);
+  lib_put_task_sweep_390 (game, container, moving, sweep_from);
+  return status;
 }
 
 

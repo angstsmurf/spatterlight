@@ -51,7 +51,7 @@ Time passes...
 You move north.
 
 Entrance Hall
-Nothing can be seen without your torch.
+It is pitch black.
 
 You can move north, east, south, west and up.  Zombie stumbles towards you
 from the north.
@@ -76,7 +76,7 @@ You can move north, east, south and west.
 You move north.
 
 Hallway
-It is pitch black.
+Nothing can be seen without your torch.
 
 You can move north, east, south and west.
 
@@ -84,7 +84,7 @@ You can move north, east, south and west.
 You move north.
 
 Master Bedroom
-It is dark.
+It is pitch black.
 
 You can move east, south and west.
 
@@ -95,7 +95,7 @@ Time passes...  Ghost disappears to the west.
 You move west.
 
 Walk in Closet
-Nothing can be seen without your torch.
+It is too dark to see.
 
 You can only move east.
 
@@ -109,7 +109,7 @@ Time passes...
 You move east.
 
 Master Bedroom
-Nothing can be seen without your torch.
+It is pitch black.
 
 You can move east, south and west.
 
@@ -117,7 +117,7 @@ You can move east, south and west.
 You move south.
 
 Hallway
-It is dark.
+Nothing can be seen without your torch.
 
 You can move north, east, south and west.
 
@@ -125,7 +125,7 @@ You can move north, east, south and west.
 You move south.
 
 Hallway
-You cannot see.
+It is dark.
 
 You can move north, east, south and west.
 
@@ -133,7 +133,7 @@ You can move north, east, south and west.
 You move north.
 
 Hallway
-It is dark.
+You cannot see.
 
 You can move north, east, south and west.
 
@@ -141,7 +141,7 @@ You can move north, east, south and west.
 You move west.
 
 Guest Room
-Darkness fills the room.
+It is dark.
 
 You can move east and south.
 You hear a creaking noise.
@@ -153,7 +153,7 @@ Time passes...
 You move east.
 
 Hallway
-You cannot see.
+Shadows and shapes loom in the darkness.
 
 You can move north, east, south and west.
 You hear a strange, spine chilling groan.
@@ -170,7 +170,7 @@ You can move north, east, south and west.
 You move south.
 
 Landing
-You are surrounded by the dark.
+You cannot see.
 
 You can move north, east, west and down.  Ghost appears from the west.
 A strange chill fills the air.  Zombie stumbles towards you from the west.
@@ -180,7 +180,7 @@ You hear a strange, spine chilling groan.
 You move down.
 
 Entrance Hall
-It is dark.
+You are surrounded by the dark.
 
 You can move north, east, south, west and up.
 

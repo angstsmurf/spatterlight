@@ -494,9 +494,6 @@ You put the snake onto the yellow pillar.
 You pick up the dung beetle.
 
 > put dung beetle on green pillar
-You put the dung beetle onto the green pillar.
-
-> z
 
 The four pillars slowly sink into the ground.
 The room rumbles and the floor inscription breaks, revealing a ruby.
@@ -507,6 +504,9 @@ then the others. Standing in each corner is a pillar, each painted a
 different colour, red, green, yellow and blue.  A large symmetrical design of
 abstract shapes has been carved into the floor. The inscription has broken,
 revealing a secret compartment.  Rupert is here.
+
+> z
+Time passes...
 
 > take ruby
 You pick up the ruby.

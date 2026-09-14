@@ -131,6 +131,9 @@ typedef struct scr_filter_s
   /* Length of a prefix of the buffer that the paragraph-spacing helpers are
      to treat as if it were not there.  See pf_hide_prefix(). */
   size_t hidden;
+  /* Length of a prefix of the buffer the Runner has already printed, and so
+     already filtered: no later filtering touches it.  See pf_print_so_far(). */
+  size_t frozen;
   /* Buffer length just after pf_buffer_reference() buffered one of the 4.0
      Runner's bracketed reference lines; -1 otherwise.  While the line is
      still the last thing buffered, pf_buffer_paragraph() leaves a leading
@@ -383,6 +386,7 @@ pf_create (void)
   filter->auto_break_at = -1;
   filter->hard_break_at = -1;
   filter->hidden = 0;
+  filter->frozen = 0;
   filter->reference_at = -1;
   filter->join_pending = FALSE;
 
@@ -1282,6 +1286,32 @@ pf_filter_for_info (const scr_char *string, scr_var_setref_t vars)
 
 
 /*
+ * pf_filter_buffer()
+ *
+ * Filter the buffer in place, leaving alone any frozen prefix the Runner has
+ * already printed.  Returns TRUE if the text changed.
+ */
+static scr_bool
+pf_filter_buffer (scr_filterref_t filter,
+                  scr_var_setref_t vars, scr_prop_setref_t bundle)
+{
+  scr_char *filtered;
+
+  if (filter->frozen >= filter->buffer.size ())
+    return FALSE;
+
+  filtered = pf_filter_internal (filter->buffer.c_str () + filter->frozen,
+                                 vars, bundle);
+  if (!filtered)
+    return FALSE;
+
+  filter->buffer.replace (filter->frozen, std::string::npos, filtered);
+  scr_free (filtered);
+  return TRUE;
+}
+
+
+/*
  * pf_flush()
  *
  * Filter buffered data, interpolating variables and replacing ALR's, and
@@ -1297,39 +1327,19 @@ pf_flush (scr_filterref_t filter,
   /* See if there is any buffered data to flush. */
   if (!filter->buffer.empty ())
     {
-      /*
-       * Filter the buffered string, then print it untagged.  Remember to free
-       * the filtered version.  If filtering made no difference, or if the
-       * buffer was already filtered by, say, checkpointing, just print the
-       * original buffer untagged instead.
-       */
+      /* Filter the buffered string unless checkpointing already has, then
+         print it untagged. */
       if (filter->needs_filtering)
-        {
-          scr_char *filtered;
+        pf_filter_buffer (filter, vars, bundle);
 
-          filtered = pf_filter_internal (filter->buffer.c_str (), vars, bundle);
-          if (filtered)
-            {
-              filter->printed.append (filtered);
-              pf_output_untagged (filtered);
-              scr_free (filtered);
-            }
-          else
-            {
-              filter->printed.append (filter->buffer);
-              pf_output_untagged (filter->buffer.c_str ());
-            }
-        }
-      else
-        {
-          filter->printed.append (filter->buffer);
-          pf_output_untagged (filter->buffer.c_str ());
-        }
+      filter->printed.append (filter->buffer);
+      pf_output_untagged (filter->buffer.c_str ());
 
       /* Remove buffered data. */
       filter->buffer.clear ();
       filter->needs_filtering = FALSE;
     }
+  filter->frozen = 0;
 
   /* Reset new sentence and mute flags. */
   filter->new_sentence = FALSE;
@@ -1411,20 +1421,42 @@ pf_checkpoint (scr_filterref_t filter,
        * back into the filter buffer.
        */
       if (filter->needs_filtering)
-        {
-          scr_char *filtered;
-
-          filtered = pf_filter_internal (filter->buffer.c_str (), vars, bundle);
-          if (filtered)
-            {
-              filter->buffer.assign (filtered);
-              scr_free (filtered);
-            }
-        }
+        pf_filter_buffer (filter, vars, bundle);
 
       /* Note the buffer as filtered, to avoid pointless filtering. */
       filter->needs_filtering = FALSE;
     }
+}
+
+
+/*
+ * pf_print_so_far()
+ *
+ * Filter the turn's text buffered so far and freeze it, as the Runner does
+ * when it prints that text there and then: later checkpoints, task refilters
+ * and the flush filter only what is buffered after it.  The text stays in the
+ * buffer, so the paragraph-spacing helpers still see it, and mute and
+ * sentence state are untouched.
+ *
+ * The one caller is the room exits list; lib_print_room_exits() has the
+ * Runner addresses.
+ */
+void
+pf_print_so_far (scr_filterref_t filter,
+                 scr_var_setref_t vars, scr_prop_setref_t bundle)
+{
+  assert (pf_is_valid (filter));
+  assert (vars && bundle);
+
+  if (filter->is_muted)
+    return;
+
+  if (filter->needs_filtering)
+    pf_filter_buffer (filter, vars, bundle);
+  filter->needs_filtering = FALSE;
+  filter->frozen = filter->buffer.size ();
+  if (filter->auto_break_at > (scr_int) filter->frozen)
+    filter->auto_break_at = -1;
 }
 
 
@@ -1475,17 +1507,11 @@ pf_refilter (scr_filterref_t filter,
   if (!filter->buffer.empty () && filter->needs_filtering)
     {
       const size_t length = filter->buffer.size ();
-      scr_char *filtered;
+      const scr_bool at_end = filter->auto_break_at >= 0
+                              && (size_t) filter->auto_break_at == length;
 
-      filtered = pf_filter_internal (filter->buffer.c_str (), vars, bundle);
-      if (filtered)
+      if (pf_filter_buffer (filter, vars, bundle))
         {
-          const scr_bool at_end = filter->auto_break_at >= 0
-                                  && (size_t) filter->auto_break_at == length;
-
-          filter->buffer.assign (filtered);
-          scr_free (filtered);
-
           /* Keep the note of our own trailing newline pointing at the end of
              the rewritten text, so pf_undo_auto_break() can still take it
              back. */
@@ -1538,6 +1564,7 @@ pf_transfer_buffer (scr_filterref_t filter)
 
       /* Clear all filter fields down to empty values. */
       filter->buffer.clear ();
+      filter->frozen = 0;
       filter->new_sentence = FALSE;
       filter->is_muted = FALSE;
       filter->needs_filtering = FALSE;
@@ -1576,6 +1603,7 @@ pf_empty (scr_filterref_t filter)
   filter->auto_break_at = -1;
   filter->hard_break_at = -1;
   filter->hidden = 0;
+  filter->frozen = 0;
   filter->reference_at = -1;
   filter->join_pending = FALSE;
 }
@@ -1894,6 +1922,8 @@ pf_undo_auto_break (scr_filterref_t filter)
     {
       filter->buffer.erase (filter->buffer.size () - 1);
       filter->auto_break_at = -1;
+      if (filter->frozen > filter->buffer.size ())
+        filter->frozen = filter->buffer.size ();
       return TRUE;
     }
 
@@ -2196,6 +2226,8 @@ pf_buffer_join_line (scr_filterref_t filter, const scr_char *string)
       filter->auto_break_at = -1;
       if (filter->hidden > filter->buffer.size ())
         filter->hidden = filter->buffer.size ();
+      if (filter->frozen > filter->buffer.size ())
+        filter->frozen = filter->buffer.size ();
 
       if (!pf_text_ends_with_break (filter->buffer.c_str ())
           && !(filter->buffer.size () >= 2
@@ -2302,9 +2334,12 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
           if (filter->new_sentence)
             filter->buffer[0] = scr_toupper (filter->buffer[0]);
 
-          /* Clear new sentence, and note as currently needing filtering. */
+          /* Clear new sentence, and note as currently needing filtering.  The
+             prepended text leads any frozen prefix, so filter the lot again,
+             as pf_hoist_tail() does. */
           filter->needs_filtering = TRUE;
           filter->new_sentence = FALSE;
+          filter->frozen = 0;
         }
       else
         /* No data, so the call is equivalent to a normal buffer. */
@@ -2354,6 +2389,9 @@ pf_hoist_tail (scr_filterref_t filter, size_t from)
       filter->buffer.erase (from);
       filter->buffer.insert (0, tail);
       filter->auto_break_at = -1;
+      /* Unfiltered text now leads the buffer, which a prefix cannot keep
+         apart; filter the lot again. */
+      filter->frozen = 0;
       filter->needs_filtering = TRUE;
     }
 }
@@ -2383,6 +2421,8 @@ pf_truncate (scr_filterref_t filter, size_t length)
     filter->reference_at = -1;
   if (filter->hidden > length)
     filter->hidden = length;
+  if (filter->frozen > length)
+    filter->frozen = length;
   filter->new_sentence = FALSE;
   filter->join_pending = FALSE;
 }

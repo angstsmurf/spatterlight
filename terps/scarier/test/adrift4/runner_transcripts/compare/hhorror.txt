@@ -4,54 +4,25 @@ scarier     197 turns, feed[0] is scarier turn 0
 
 RULE 2 -- every feed command was echoed.
 
-turn 7  n
-  run400   You move north. Entrance Hall It is pitch black. You can move north, east, south, west and up. Zombie stumbles towards you from the north.
-  scarier  You move north. Entrance Hall Nothing can be seen without your torch. You can move north, east, south, west and up. Zombie stumbles towards you from the north.
-
-turn 10  n -- streams re-synchronised, scarier turn -1
-
-turn 11  n
-  run400   You move north. Master Bedroom It is pitch black. You can move east, south and west.
-  scarier  You move north. Hallway It is pitch black. You can move north, east, south and west.
-
-turn 12  wait -- streams re-synchronised, scarier turn +1
-
-turn 13  w
-  run400   You move west. Walk in Closet It is too dark to see. You can only move east.
-  scarier  You move west. Walk in Closet Nothing can be seen without your torch. You can only move east.
-
-turn 16  e
-  run400   You move east. Master Bedroom It is pitch black. You can move east, south and west.
-  scarier  You move east. Master Bedroom Nothing can be seen without your torch. You can move east, south and west.
-
-turn 17  s
-  run400   You move south. Hallway Nothing can be seen without your torch. You can move north, east, south and west.
-  scarier  You move south. Hallway It is dark. You can move north, east, south and west.
-
-turn 18  s -- streams re-synchronised, scarier turn -1
-
-turn 19  n
-  run400   You move north. Hallway You cannot see. You can move north, east, south and west.
-  scarier  You move south. Hallway You cannot see. You can move north, east, south and west.
-
-turn 20  w
-  run400   You move west. Guest Room It is dark. You can move east and south. You hear a creaking noise.
-  scarier  You move north. Hallway It is dark. You can move north, east, south and west.
-
-turn 21  wait -- streams re-synchronised, scarier turn +1
-
-turn 22  e
-  run400   You move east. Hallway Shadows and shapes loom in the darkness. You can move north, east, south and west. You hear a strange, spine chilling groan.
-  scarier  You move east. Hallway You cannot see. You can move north, east, south and west. You hear a strange, spine chilling groan.
-
-turn 24  s
-  run400   You move south. Landing You cannot see. You can move north, east, west and down. Ghost appears from the west. A strange chill fills the air. Zombie stumbles towards you from the west. You hear a strange, spine chilling groan.
-  scarier  You move south. Landing You are surrounded by the dark. You can move north, east, west and down. Ghost appears from the west. A strange chill fills the air. Zombie stumbles towards you from the west. You hear a strange, spine chilling groan.
-
 turn 25  d
   run400   You move down. Entrance Hall Shadows and shapes loom in the darkness. You can move north, east, south, west and up.
-  scarier  You move down. Entrance Hall It is dark. You can move north, east, south, west and up.
+  scarier  You move down. Entrance Hall You are surrounded by the dark. You can move north, east, south, west and up.
 
-... stopping after 10 differing turns
+turn 38  u
+  run400   You move up. Landing A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes off the walls. An impressive staircase glides down. Also here is a bottle of poison and a table. You can move north, east, west and down. Zombie stumbles towards you from the north. The zombie has spotted you and attacks! He thumps you with his clenched fists, causing you much pain. You hear a strange, spine chilling groan.
+  scarier  You move up. Landing A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes off the walls. An impressive staircase glides down. Also here is a bottle of poison and a table. You can move north, east, west and down. Zombie stumbles towards you from the north. You hear a strange, spine chilling groan.
+
+turn 134  u
+  run400   You move up. Landing A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes off the walls. An impressive staircase glides down. Also here is a table. The molotov cocktail is alight and burning. You can move north, east, west and down. Zombie stumbles towards you from the north. You hear a strange, spine chilling groan.
+  scarier  You move up. Landing A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes off the walls. An impressive staircase glides down. Also here is a table. The molotov cocktail is alight and burning. You can move north, east, west and down. Zombie stumbles towards you from the north. The zombie has spotted you and attacks! He thumps you with his clenched fists, causing you much pain. You hear a strange, spine chilling groan.
+
+turn 142  n
+  run400   You move north. Conservatory Walls of glass paneling set in green painted wooden frames look out unto the stormy night. Plants of all kinds grow in pots and hanging baskets and the temperature is rather hot. Also here is a plunger. A plant monster grows here. You can move north and south. Zombie stumbles towards you from the south.
+  scarier  You move north. Conservatory Walls of glass paneling set in green painted wooden frames look out unto the stormy night. Plants of all kinds grow in pots and hanging baskets and the temperature is rather hot. Also here is a plunger. A plant monster grows here. You can move north and south. Zombie stumbles towards you from the south. The zombie has spotted you and attacks! He thumps you with his clenched fists, causing you much pain.
+
+turn 196  wait -- the Runner appended [Press any key to end], which is the host's own keypress prompt (ALR-rewritten in some games), not game text.  The turn is identical either side of it.
+
+1 turn(s) differed only by the Runner's trailing keypress prompt.
+
 (the openings differ too -- banner, graphics notice or the
  Runner's own startup lines; usually not an engine difference)

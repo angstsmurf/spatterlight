@@ -918,7 +918,6 @@ You place all the gemstones you've found into the machine.
 
 The machine hums with power, and the accumulated mineral deposits flake off
 onto the floor.
-The machine is now closed.
 
 > wait
 Time passes...

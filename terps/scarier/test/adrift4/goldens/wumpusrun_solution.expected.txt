@@ -64,7 +64,7 @@ The long rope ladder is hauled up into the gloom above ... your only link to
 the outside world is now out of your reach.
 
 > south
-You press on to the south.
+You depart to the south.
 
 Slimy Cave
 This naturally-formed cave is small with a low ceiling. Water drips down the
@@ -91,7 +91,7 @@ You slump to the ground emotionally and physically spent for a few moments
 ... but this is not yet over!
 
 > west
-You set out to the west.
+You boldly go west.
 
 Dead Boring
 What can one say ... a boring , boring and totally boring cave!
@@ -113,7 +113,7 @@ The lantern's glow provides a little comfort against the dark unknown of the
 Run.
 
 > east
-You press on to the east.
+You head east.
 
 Slimy Cave
 This naturally-formed cave is small with a low ceiling. Water drips down the
@@ -139,7 +139,7 @@ You can see a rope ladder.
 Possible exits: east, south and northwest.
 
 > climb ladder
-You can't climb the rope ladder.
+
 As you struggle up the last few feet of the ladder you are greeted by the
 thunderous cheers of the spectators from the stands. You hold the tuft of
 Wumpus mane high in the air as the crowd roars its approval.

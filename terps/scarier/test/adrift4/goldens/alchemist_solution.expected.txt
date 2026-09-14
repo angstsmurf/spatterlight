@@ -274,7 +274,7 @@ The lower part of the tower is occupied by a red-carpeted, leather-tiled
 hall. The arched ceiling is featured by a silver chandelier, portraits of the
 royal family are framing the walls and a pair of big chinese vases are
 decorating both sides of the staircase.  The old alchemist is standing
-nearby.  A servant is hurrying by.
+nearby.  A happy couple is walking hand in hand.
 
 I can go east, west and up.
 
@@ -354,7 +354,7 @@ I walk west.
 On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
-of the eastern wall.  A pretty woman is walking by.
+of the eastern wall.  A servant is hurrying by.
 
 I can go east, south, west and up.
 
@@ -498,7 +498,7 @@ On the III. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. In the center of the yard there is an
 ancient-looking fountain. There is a group of jugglers chatting near to me.
-A man in black walks by, saluting me.
+A young man is crossing my way.
 
 I can go east and west.
 
@@ -565,7 +565,7 @@ stove and golden chandeliers below the arched ceiling. Tall windows are
 framing the southern wall, while the opposite wall is covered with portraits.
 Standing by the long northern wall are tall chairs and chinese vases and a
 wooden staircase is spiraling down to the cellar.  The merchant is watching
-my steps with an alligator smile.  A servant is hurrying by.
+my steps with an alligator smile.  A man in black walks by, saluting me.
 
 I can go north, east and down.
 
@@ -619,7 +619,7 @@ stove and golden chandeliers below the arched ceiling. Tall windows are
 framing the southern wall, while the opposite wall is covered with portraits.
 Standing by the long northern wall are tall chairs and chinese vases and a
 wooden staircase is spiraling down to the cellar.  The merchant is watching
-my steps with an alligator smile.  An older man is passing by slowly.
+my steps with an alligator smile.  A servant is hurrying by.
 
 I can go north, east and down.
 
@@ -720,8 +720,8 @@ I walk north.
 On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
-of the eastern wall.  An older man is passing by slowly.  A shower of white
-snow flakes flutters down slowly.
+of the eastern wall.  A man in black walks by, saluting me.  A shower of
+white snow flakes flutters down slowly.
 
 I can go east, south, west and up.
 
@@ -1130,7 +1130,7 @@ On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
 of the eastern wall.  The merchant is watching my steps with an alligator
-smile.  A pretty woman is walking by.
+smile.  A man in black walks by, saluting me.
 
 I can go east, south, west and up.
 
@@ -1253,8 +1253,9 @@ I walk west.
 On the III. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. In the center of the yard there is an
-ancient-looking fountain.  A pretty woman is walking by.  A warm, light
-breeze blows gently in my face.  A light shower of rain is fluttering down.
+ancient-looking fountain.  A happy couple is walking hand in hand.  A warm,
+light breeze blows gently in my face.  A light shower of rain is fluttering
+down.
 
 I can go north, east and west.
 
@@ -1315,8 +1316,8 @@ I walk east.
 In the royal garden
 The garden is a rich mixture of flowers and trees of all kinds, a lot of them
 having been brought from distant countries. Several benches are scattered
-along the grassy paths.  There is also a shovel.  A young man is crossing my
-way.  A light shower of rain is fluttering down.
+along the grassy paths.  There is also a shovel.  A pretty woman is walking
+by.  A light shower of rain is fluttering down.
 
 I can go south and west.
 
@@ -1622,7 +1623,7 @@ I walk north.
 By the northern tower
 I am standing upon a stony ground, right in front of a tall tower, which has
 no windows, just a square hole as an entrance. The tower must be very old,
-judging from the state of decay.  A young man is crossing my way.
+judging from the state of decay.  A happy couple is walking hand in hand.
 
 I can go south and in.
 
@@ -1670,7 +1671,7 @@ I walk west.
 On the III. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. In the center of the yard there is an
-ancient-looking fountain.  A servant is hurrying by.
+ancient-looking fountain.  A young man is crossing my way.
 
 I can go north, east and west.
 
@@ -1856,7 +1857,8 @@ The wide hall has leather-tiled walls, a luxurious red carpet, a big red
 stove and golden chandeliers below the arched ceiling. Tall windows are
 framing the southern wall, while the opposite wall is covered with portraits.
 Standing by the long northern wall are tall chairs and chinese vases and a
-wooden staircase is spiraling down to the cellar.  A servant is hurrying by.
+wooden staircase is spiraling down to the cellar.  An older man is passing by
+slowly.
 
 I can go north, east and down.
 
@@ -1993,8 +1995,8 @@ I walk north.
 
 By the northern gate
 The gate is huge and solid, featured by two huge knockers made of lead and
-ornamented with heads of lions, standing upon a white stony ground.  A young
-man is crossing my way.  A warm, light breeze blows gently in my face.
+ornamented with heads of lions, standing upon a white stony ground.  An older
+man is passing by slowly.  A warm, light breeze blows gently in my face.
 
 I can go north and south.
 
@@ -2028,8 +2030,8 @@ I walk out.
 In the royal garden
 The garden is a rich mixture of flowers and trees of all kinds, a lot of them
 having been brought from distant countries. Several benches are scattered
-along the grassy paths.  There is also a shovel.  A happy couple is walking
-hand in hand.  A light shower of rain is fluttering down.
+along the grassy paths.  There is also a shovel.  A young man is crossing my
+way.  A light shower of rain is fluttering down.
 
 I can go south, west and in.
 
@@ -2054,8 +2056,8 @@ I walk east.
 In the royal garden
 The garden is a rich mixture of flowers and trees of all kinds, a lot of them
 having been brought from distant countries. Several benches are scattered
-along the grassy paths.  There is also a shovel.  An older man is passing by
-slowly.  A light shower of rain is fluttering down.
+along the grassy paths.  There is also a shovel.  A happy couple is walking
+hand in hand.  A light shower of rain is fluttering down.
 
 I can go south, west and in.
 
@@ -2195,8 +2197,7 @@ The wide hall has leather-tiled walls, a luxurious red carpet, a big red
 stove and golden chandeliers below the arched ceiling. Tall windows are
 framing the southern wall, while the opposite wall is covered with portraits.
 Standing by the long northern wall are tall chairs and chinese vases and a
-wooden staircase is spiraling down to the cellar.  A pretty woman is walking
-by.
+wooden staircase is spiraling down to the cellar.  A servant is hurrying by.
 
 I can go north, east and down.
 
@@ -2240,8 +2241,8 @@ The gallery is a long and wide hall, framed with tall windows on the northern
 side and statues on the southern one. Several chandeliers are suspended from
 the ceiling, while a red carpet is covering the floor and the walls are
 giving the place a warm feel with lots of leather tiles.  A young man is
-standing in the middle of the room, staring at the statues.  An older man is
-passing by slowly.
+standing in the middle of the room, staring at the statues.  A pretty woman
+is walking by.
 
 I can only go west.
 
@@ -2276,8 +2277,8 @@ I walk down.
 On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
-of the eastern wall.  A happy couple is walking hand in hand.  A light shower
-of rain is fluttering down.
+of the eastern wall.  An older man is passing by slowly.  A light shower of
+rain is fluttering down.
 
 I can go east, south, west and up.
 
@@ -2407,7 +2408,7 @@ I walk west.
 On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
-of the eastern wall.  A young man is crossing my way.
+of the eastern wall.  An older man is passing by slowly.
 
 I can go east, south, west and up.
 
@@ -2736,9 +2737,8 @@ I walk north.
 On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
-of the eastern wall.  A man in black walks by, saluting me.  I get a glimpse
-of a bird flying high above my head.  A light shower of rain is fluttering
-down.
+of the eastern wall.  An older man is passing by slowly.  I get a glimpse of
+a bird flying high above my head.  A light shower of rain is fluttering down.
 
 I can go east, south, west and up.
 
@@ -2830,7 +2830,7 @@ I walk north.
 In the royal garden
 The garden is a rich mixture of flowers and trees of all kinds, a lot of them
 having been brought from distant countries. Several benches are scattered
-along the grassy paths.  An older man is passing by slowly.
+along the grassy paths.  A man in black walks by, saluting me.
 
 I can go south, west and in.
 
@@ -2907,7 +2907,7 @@ I walk west.
 On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
-of the eastern wall.  A young man is crossing my way.
+of the eastern wall.  A happy couple is walking hand in hand.
 
 I can go east, south, west and up.
 
@@ -3070,8 +3070,8 @@ I walk north.
 On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
-of the eastern wall.  A pretty woman is walking by.  A light shower of rain
-is fluttering down.
+of the eastern wall.  An older man is passing by slowly.  A light shower of
+rain is fluttering down.
 
 I can go east, south, west and up.
 
@@ -3332,7 +3332,7 @@ I walk east.
 On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
-of the eastern wall.  A happy couple is walking hand in hand.
+of the eastern wall.  A man in black walks by, saluting me.
 
 I can go east, south, west and up.
 
@@ -3568,8 +3568,8 @@ On the III. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. In the center of the yard there is an
 ancient-looking fountain.  The merchant is watching my steps with an
-alligator smile.  A man in black walks by, saluting me.  A warm, light breeze
-blows gently in my face.
+alligator smile.  A servant is hurrying by.  A warm, light breeze blows
+gently in my face.
 
 I can go north, east and west.
 
@@ -3743,7 +3743,8 @@ The wide hall has leather-tiled walls, a luxurious red carpet, a big red
 stove and golden chandeliers below the arched ceiling. Tall windows are
 framing the southern wall, while the opposite wall is covered with portraits.
 Standing by the long northern wall are tall chairs and chinese vases and a
-wooden staircase is spiraling down to the cellar.  A servant is hurrying by.
+wooden staircase is spiraling down to the cellar.  A pretty woman is walking
+by.
 
 I can go north, east and down.
 
@@ -3823,7 +3824,7 @@ By the northern tower
 I am standing upon a stony ground, right in front of a tall tower, which has
 no windows, just a square hole as an entrance. The tower must be very old,
 judging from the state of decay.  A young man is standing by the tower.  A
-servant is hurrying by.
+pretty woman is walking by.
 
 I can go south and in.
 
@@ -3875,8 +3876,8 @@ I walk west.
 On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
-of the eastern wall.  An older man is passing by slowly.  A light shower of
-rain is fluttering down.
+of the eastern wall.  A servant is hurrying by.  A light shower of rain is
+fluttering down.
 
 I can go east, south, west and up.
 
@@ -3926,7 +3927,7 @@ I walk north.
 On the II. courtyard
 The courtyard is a large square area, paved with white stones and looking
 over a large part of the castle. A large staircase is attached to the middle
-of the eastern wall.  A happy couple is walking hand in hand.  A warm, light
+of the eastern wall.  An older man is passing by slowly.  A warm, light
 breeze blows gently in my face.  A light shower of rain is fluttering down.
 
 I can go east, south, west and up.
@@ -4039,7 +4040,7 @@ I walk west.
 By the western gate
 Framing along the white stony pathway, the gate is huge and made of stone.
 Above the entrance there is a big table saying something in a language I
-don't understand.  A pretty woman is walking by.
+don't understand.  A servant is hurrying by.
 
 I can only go east.
 
@@ -4268,8 +4269,8 @@ By the royal pond
 The royal pond is large, with clean blue water, and offers a nice hideaway
 for those who need it. It is surrounded by large grassy areas and many trees.
 There are also some solid benches, offering a place to rest and relax.  The
-poet is sitting on the grass, writing words down constantly.  A happy couple
-is walking hand in hand.
+poet is sitting on the grass, writing words down constantly.  A man in black
+walks by, saluting me.
 
 I can only go east.
 
@@ -4382,8 +4383,8 @@ The wide hall has leather-tiled walls, a luxurious red carpet, a big red
 stove and golden chandeliers below the arched ceiling. Tall windows are
 framing the southern wall, while the opposite wall is covered with portraits.
 Standing by the long northern wall are tall chairs and chinese vases and a
-wooden staircase is spiraling down to the cellar.  A pretty woman is walking
-by.
+wooden staircase is spiraling down to the cellar.  A young man is crossing my
+way.
 
 I can go north, east and down.
 
@@ -4428,8 +4429,8 @@ The wide hall has leather-tiled walls, a luxurious red carpet, a big red
 stove and golden chandeliers below the arched ceiling. Tall windows are
 framing the southern wall, while the opposite wall is covered with portraits.
 Standing by the long northern wall are tall chairs and chinese vases and a
-wooden staircase is spiraling down to the cellar.  A man in black walks by,
-saluting me.
+wooden staircase is spiraling down to the cellar.  A pretty woman is walking
+by.
 
 I can go north, east and down.
 

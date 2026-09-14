@@ -373,6 +373,8 @@ extern scr_char *pf_filter_for_info (const scr_char *string,
                                     scr_var_setref_t vars);
 extern void pf_flush (scr_filterref_t filter,
                       scr_var_setref_t vars, scr_prop_setref_t bundle);
+extern void pf_print_so_far (scr_filterref_t filter,
+                             scr_var_setref_t vars, scr_prop_setref_t bundle);
 extern void pf_checkpoint (scr_filterref_t filter,
                            scr_var_setref_t vars, scr_prop_setref_t bundle);
 /* As pf_checkpoint(), but leaving the buffer marked as still needing to be
@@ -919,6 +921,8 @@ extern void res_cancel_resources (scr_gameref_t game);
 /* Game runner functions. */
 extern scr_bool run_game_task_commands (scr_gameref_t game,
                                        const scr_char *string);
+extern scr_bool run_typed_line_task_commands (scr_gameref_t game,
+                                              const scr_char *string);
 extern scr_bool run_task_run_by_index (scr_gameref_t game, scr_int task);
 extern void run_npc_walk_task (scr_gameref_t game, scr_int walktask);
 extern void run_event_task (scr_gameref_t game, scr_int eventtask);

@@ -1901,10 +1901,53 @@ run_standard_verb_commands (scr_gameref_t game, const scr_char *string)
 }
 
 
+/*
+ * STANDARD_ENDED_FALLBACK_COMMANDS
+ *
+ * What is left of STANDARD_FALLBACK_COMMANDS at 4.0 once a task has ended the
+ * game on the line.  run400 calls therest (Proc_19_85_489F4C) at 48AFE4, BELOW
+ * generaltasks' gameover jump at 48AC62 (`If MemVar_4941AD <> 0 Then GoTo
+ * loc_48B4E3`), so every therest arm -- give, lock, ask, the "You can't <verb>
+ * <X>." refusals, the question words -- is lost with the unhandled-verb tail.
+ * iachini (run400x runner_transcripts/iachini.txt T185): `turn on tv` runs
+ * silent TASK 30, whose only action is End Game, and run400 answers the game's
+ * DontUnderstand, not "You can't turn the 32-inch television on.".  Rows whose
+ * Runner handler sits above 48AC62 (open/close 48A515, wear 48A48C, remove
+ * 48A491) or has not been placed keep their answer; so does the character
+ * tail (48B56E, with its own 4805CD gate in lib_cmd_verb_npc()).
+ */
+static scr_commands_t STANDARD_ENDED_FALLBACK_COMMANDS[] = {
+  {"open %object%", lib_cmd_open_absent},
+  {"open *", lib_cmd_open_other},
+  {"close %object%", lib_cmd_close_absent},
+  {"close *", lib_cmd_close_other},
+  {"sit {down/up} [on/in] *", lib_cmd_sit_other},
+  {"stand {up/down} [on/in] *", lib_cmd_verb_absent_400},
+  {"stand {up/down} [on/in] *", lib_cmd_stand_other},
+  {"[lie/lay] {down/up} [on/in] *", lib_cmd_lie_other},
+  {"[remove/take off/doff] *", lib_cmd_remove_what},
+  {"[drop/put down] *", lib_cmd_drop_what},
+  {"[wear/put on/don] *", lib_cmd_wear_what},
+  {"put *", lib_cmd_put_unclear},
+  {"[shit/fuck/bastard/cunt/crap/hell/shag/bollocks/bollox/piss] *",
+   lib_cmd_profanity},
+  {"bugger *", lib_cmd_profanity_390},
+  {"[x/examine/look {at}] %object%", lib_cmd_examine_absent},
+  {"[x/examine/look {at}] *", lib_cmd_examine_other},
+  {"[locate/where {is/are}/find] *", lib_cmd_locate_other},
+  {"hint *", lib_cmd_hint},
+  {"* %character% *", lib_cmd_verb_npc},
+  {NULL, NULL}
+};
+
+
 /* run390's therest(): the generic catch-alls, below the refusal. */
 static scr_bool
 run_standard_fallback_commands (scr_gameref_t game, const scr_char *string)
 {
+  const scr_bool is_ended = game->pending_endgame != 0
+      && run_get_version (gs_get_bundle (game)) == TAF_VERSION_400;
+
   /*
    * The fallback verbs resolve their noun the Runner's way too: generaltasks
    * (Proc_19_85_489F4C) runs co() once, up front, and every generic verb
@@ -1917,7 +1960,9 @@ run_standard_fallback_commands (scr_gameref_t game, const scr_char *string)
    */
   uip_set_containment (TRUE);
   const scr_bool fallback =
-      run_try_command_table (STANDARD_FALLBACK_COMMANDS, game, string);
+      run_try_command_table (is_ended ? STANDARD_ENDED_FALLBACK_COMMANDS
+                                      : STANDARD_FALLBACK_COMMANDS,
+                             game, string);
   uip_set_containment (FALSE);
   return fallback;
 }
@@ -2686,7 +2731,9 @@ run_task_is_silent_and_literal (scr_gameref_t game, scr_int task)
   vt_key[1].integer = task;
   vt_key[2].string = "CompleteText";
   completetext = prop_get_string (bundle, "S<-sis", vt_key);
-  if (!scr_strempty (completetext))
+  /* 4.0: raw, as task_run_task_unrestricted() tests it. */
+  if (run_get_version (bundle) == TAF_VERSION_400
+      ? completetext[0] != '\0' : !scr_strempty (completetext))
     return FALSE;
 
   vt_key[2].string = "ShowRoomDesc";
@@ -2777,6 +2824,34 @@ run_task_is_silent_and_literal (scr_gameref_t game, scr_int task)
  * has no effect on the second (loudly-restricted) loop, which is about
  * failing-restriction messages, not CompleteText.
  */
+/*
+ * run_task_run_speaks()
+ *
+ * Run a matched task and say whether the line counts as answered.  3.9 and
+ * 4.0 test the turn's message buffer, not the task's own text: run390 tasks()
+ * saves msg on entry and reports handled when it has changed (42BDAD), and
+ * run400's dispatcher reports handled when the buffer is non-empty (44CCC0).
+ * So text printed by anything the task's actions set off counts -- an event
+ * an execute-task action starts prints its StartText into the same buffer
+ * (evt_check_events_started_by_task()).  baroo (4.00, runner_transcripts/
+ * baroo.txt T107): `close machine` runs task 113, which has no CompleteText;
+ * its execute-task action starts the convertor event, and the Runner prints
+ * that StartText alone, where the library close used to follow it with "The
+ * machine is now closed.".
+ */
+static scr_bool
+run_task_run_speaks (scr_gameref_t game, scr_int task, scr_bool is_forwards)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const size_t length = pf_buffer_length (filter);
+
+  if (task_run_task (game, task, is_forwards))
+    return TRUE;
+
+  return run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390
+         && pf_buffer_length (filter) > length;
+}
+
 static scr_bool
 run_game_commands_common (scr_gameref_t game, const scr_char *string,
                           scr_bool include_restrictions, scr_bool is_library,
@@ -2909,7 +2984,7 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
                     }
 
                   run_note_task_ran (game, task);
-                  if (task_run_task (game, task, is_forwards))
+                  if (run_task_run_speaks (game, task, is_forwards))
                     is_handled = TRUE;
                   is_matched = TRUE;
                   break;
@@ -4597,6 +4672,20 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
 
   return run_game_commands_common (game, string, include_restrictions, TRUE,
                                    FALSE);
+}
+
+/*
+ * run_typed_line_task_commands()
+ *
+ * Offer a line to the tasks the way run390's tasks(1) does from inside a
+ * library handler on the player's own words: a bare `*` matches, as it would
+ * from the dispatcher, and restrictions are not honoured (pre-4.0).  Still one
+ * task per line.  See lib_put_task_sweep_390().
+ */
+scr_bool
+run_typed_line_task_commands (scr_gameref_t game, const scr_char *string)
+{
+  return run_game_commands_common (game, string, FALSE, FALSE, FALSE);
 }
 
 

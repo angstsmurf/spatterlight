@@ -274,10 +274,12 @@ engine:
   buck"; Scarier doesn't. Cumulative draws are equal through T312, then
   run400 is +1 at T313 and Scarier +1 at T314 (1139 vs 1140). Event/draw
   placement. feed[406] `wait` falls after game end.
-- **`losttomb` T85-87 (draws 10 = 10):** run400 prints no put message for
-  `put dung beetle on green pillar`, and the pillars sink that same turn.
-  Scarier prints "You put the dung beetle onto the green pillar." and the
-  pillars sink at the next `z`.
+- **`losttomb` T85-87 (draws 10 = 10), a 3.90 row:** run390 prints no put
+  message for `put dung beetle on green pillar`, and the pillars sink that
+  same turn. insides() ends a put that moved its named object by emptying the
+  buffer and running tasks(1) on the typed line (4626B6/4626C5), restoring the
+  put text only if nothing printed (46275A). TASK 30 (bare `*`) now passes.
+  **Ported 2026-09-14** (see the index): losttomb now matches on every turn.
 - **`shadowpeak` (all three rows, seed 1):** the draw streams agree up to
   Andro's first riddle. The golden answers it `g`; run400 treats a
   whole-line `g` as *again* before any task matches (run400 89FE2 tests the
@@ -345,10 +347,19 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 
 **RNG or draw placement (draw counts owed):**
 
-- alchemist (3.90): the random passer-by room line differs from T32.
-- bomb_threat T0: the random traffic line.
-- hhorror (seed 50): the random dark-room descriptions from T7. The route
-  splits at T11.
+- **Ported 2026-09-14: room text is printed before the tick when exits are
+  listed.** Not an RNG split: wumpusrun seed 72 draws the same 115 values in
+  both engines. Every Runner's room builder, on appending the ShowExits list,
+  prints the turn's text so far through the output filter (run400 viewroom
+  472BFF-472C73, printer 47B568; run390 44813D, run380 439B83, run370 433108),
+  so its %variables%/ALRs resolve before the NPC/event tick. Scarier filtered
+  the whole turn at the flush, after the tick. Now `pf_print_so_far()` from
+  `lib_print_room_exits()`. Settled: wumpusrun (identical), bomb_threat T0,
+  alchemist's passer-by lines (first difference T32 -> T303), hhorror's dark
+  rooms (10+ -> 4 turns).
+- hhorror (seed 50): 4 turns left, T25 dark text then the zombie's attack
+  roll at T38/T134/T142.
+- alchemist (3.90): from T303 (`give rose to king`), unread.
 - reluctantvampire (seed 6): the `[Press a key, <epithet>]` roll is one draw
   apart from T132. The Runner's T133 is Scarier's T132.
 - warlord (seed 6) T288 `push barrel`: the barrel rolls west in the Runner
@@ -391,11 +402,6 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     would appreciate being handled". The take-NPC branch fires on the name
     inside an object's name. Scarier takes the key.
 - **Task versus library:**
-  - wumpusrun T10 `climb ladder`: Scarier prints "You can't climb the rope
-    ladder." ahead of the task text. The Runner prints only the task.
-  - iachini T185 `turn on tv`: the Runner says DontUnderstand, Scarier "You
-    can't turn the 32-inch television on.". The event text that follows
-    agrees.
   - crookedestate T41 `peel wallpaper`: the Runner runs the task, Scarier
     says "don't understand what you want me to do with the walls". Also at
     T44 `save`, the Runner adds an event line.
@@ -412,7 +418,10 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   - grumble T207 `pull button`: the Runner says "You can't see the button",
     Scarier "You pull, but nothing happens".
 - **Extra or missing lines:**
-  - baroo T107 `close machine`: Scarier adds "The machine is now closed.".
+  - baroo T107 `close machine`: Scarier added "The machine is now closed.".
+    TASK 113 is silent, but its execute-task action starts the convertor
+    event, whose StartText the dispatcher's buffer test counts. **Ported
+    2026-09-14** (see the index): baroo now matches on every turn.
   - onnafa T68 `give empty beer mug to perry`: the Runner adds "You can't
     take anything from the empty beer mug." ahead of the task text.
   - greekschool T27/41/91/100/126/156: Scarier adds the NPC line "Paul gives
@@ -537,9 +546,10 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   43D289) have been read but not measured.
 - **The run400 loader's "Anonymous" fill** for an empty PlayerName with
   PromptName off is unmeasured.
-- **Silent-task test scope.** run400 tests the whole turn buffer, Scarier
-  tests only the task's own output. They differ only when something wrote
-  before the verb dispatch. No corpus row is known.
+- **Silent-task test scope, the unported rest.** run400 tests the whole turn
+  buffer. Scarier now counts anything a task's run adds (baroo, see the
+  index) but still ignores text written before the dispatch. No corpus row
+  is known.
 - **Turn sectioning, the unported rest.** run400 builds the turn as one
   string joined with pspace() and runs the ALR pass over it. Scarier joins
   only the room block (2026-09-07) and, at 4.0, the text of a task run by
@@ -695,6 +705,10 @@ every Runner.
 - **Task matching:**
   - One game task per typed line; a silent task lets the library run, never
     a second task. House (c74b1b90c).
+  - "Silent" means the turn buffer did not grow while the task ran, so an
+    event its execute-task action starts speaks for it (run390 tasks()
+    42BDAD, run400 44CCC0). `[3.9+]` baroo T107 (`run_task_run_speaks`,
+    2026-09-14)
   - 4.0 task matching is verb-literal. `*`, `[..]` and `{..}` patterns
     compare binary. A rebuilt line keeps its capitals, so a pre-match can
     fail to dispatch and fall to DontUnderstand. `[4.0]` hcw T162
@@ -752,6 +766,13 @@ every Runner.
 - **Line endings:**
   - A task that ends the game takes the unhandled-verb tail off the line.
     `[4.0]` relojero, easter (f038d76bf)
+  - It takes ALL of therest off, not just that tail: 48AC62 jumps past the
+    call at 48AFE4, so the "You can't <verb> X" arms go too and an empty
+    buffer prints DontUnderstand; only the catch-all subset is kept.
+    `[4.0]` iachini T185 (uncommitted, STANDARD_ENDED_FALLBACK_COMMANDS)
+  - CompleteText is tested raw: a task text of just spaces counts as output,
+    so the line is handled and no DontUnderstand follows. `[4.0]` wumpusrun
+    T10, probes Adrift_128_wumpA..D (uncommitted, task_run_task_unrestricted)
   - The catch-all tests the line-top object's presence after the task, and
     that answer is a turn. `[4.0]` seaside `do form` (24dcc8e5a)
   - A line a task answered that names a term two present NPCs share is not
@@ -893,6 +914,10 @@ every Runner.
   target's kind picks the preposition. 4.0 holding only the supporter gives
   silence, then the catch-all. The 4.0 splitter keeps " on " on a tie.
   `make_surfprobe.py` (ada92cc47)
+- **3.9 post-put task sweep.** A named put that moved its object empties the
+  buffer and runs the tasks on the typed line; the put text comes back only
+  if nothing printed (run390 4626B6/4626C5/46275A). `[3.9]` losttomb T85
+  (`lib_put_task_sweep_390`, 2026-09-14)
 - **A 3.8 in/on object with an unset parent** goes in the first container.
   (5cf3d7059)
 - **The take-from handler's own answers.** The 3.9 insides() decision

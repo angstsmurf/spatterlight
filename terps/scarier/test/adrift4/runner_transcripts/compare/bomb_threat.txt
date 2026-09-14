@@ -7,10 +7,6 @@ after the first of them is out of step and is NOT an engine
 difference until the feed is fixed and the row re-driven:
     feed[26]  s
 
-turn 0  out
-  run400   You move out. The Footpath You are standing on the footpath. It is very busy here. To the west of you is the Imperial Agency building, where the bomb is supposed to be planted. A car speeds through a red light. A man walks by and presses the traffic light button. There is a manhole here which leads in the sewers. You can move west and in.
-  scarier  You move out. The Footpath You are standing on the footpath. It is very busy here. To the west of you is the Imperial Agency building, where the bomb is supposed to be planted. A ambulance with its sirens blazing zooms through a red light. A man walks by and presses the traffic light button. There is a manhole here which leads in the sewers. You can move west and in.
-
 turn 25  get all from work table
   run400   You take the crowbar from work table. > ss I don't understand what you mean!
   scarier  You take the crowbar from work table.
@@ -29,7 +25,7 @@ turn 29  out  (past the first lost command)
 
 turn 30  e  (past the first lost command)
   run400   You can only move south.
-  scarier  You move east. The Footpath You are standing on the footpath. It is very busy here. To the west of you is the Imperial Agency building, where the bomb is supposed to be planted. A fire truck with its sirens blazing zooms through a red light. A young child and his mother walk by. There is a manhole here which leads in the sewers. You can move west, down and in.
+  scarier  You move east. The Footpath You are standing on the footpath. It is very busy here. To the west of you is the Imperial Agency building, where the bomb is supposed to be planted. A car brakes suddenly, and five cars behind it start honking there horns. An old man walks down the footpath and trips over, nearly losing balance. There is a manhole here which leads in the sewers. You can move west, down and in.
 
 turn 31  down  (past the first lost command)
   run400   You can only move south.

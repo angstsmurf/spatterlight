@@ -566,6 +566,10 @@ archie_solution.txt|Archie's Birthday V 1-2.taf|To be continued|SCR_SKIP_WAITKEY
 # wins first, then documented-max tours / sandboxes / demos.  Tour rows use the
 # final "Your score is N out of a maximum of M." line as their marker so the
 # documented maxima stay locked; win rows use the game's own victory text.
+# bomb_threat re-blessed 2026-09-14, two traffic lines: the random street text
+# is resolved when run390 prints the turn so far on appending the exits list
+# (44813D), before the tick -- the wumpusrun row has the rule.  The Runner
+# compare lost its T0 difference; the rest follow the doubled `ss` at T25.
 bomb_threat_solution.txt|Bomb Threat.taf|Or have you...|SCR_SEED=9
 # circus's three "The vendor ..." walk lines are the corpus proof that the
 # announcement is joined into the turn's paragraph: the author carries the ALR
@@ -3950,6 +3954,11 @@ deadman_solution.txt|The Dead Man.taf|ABORT SUCSESFUL|SCR_SKIP_WAITKEY=1
 # print "wizard".  See the 2026-08-25 block above.
 # Re-blessed 2026-09-13 for the 4.0 event "ticked" byte and post-execute-task event
 # check; event/RNG timing only.
+# Re-blessed 2026-09-14 for the dispatcher's buffer test (run400 44CCC0,
+# run_task_run_speaks): `close machine` runs silent TASK 113, whose execute-task
+# action starts the convertor event, and its StartText claims the line -- no
+# library "The machine is now closed.".  run400x runner_transcripts/baroo.txt
+# now matches on every turn.
 baroo_solution.txt|baroo.taf|You scored 16 out of the maximum 16!
 # Lair of the Vampire -- the author's own 276-line command list plus 3 lines.
 # The ruined stairs (rooms 11/14) are a coin flip: TASK 140 carries you up only
@@ -4678,6 +4687,10 @@ renuntio_solution.txt|Renuntio.taf|Yo-nos me alzo y estiendo mis-nos brazos|SCR_
 # and reorders the puzzle chain around wherever the scatter put things) under
 # SCR_RNG=xoshiro: seeds 25/33/35/45/50/56 (of 1-60) all solve and all reach
 # 145/155.  Re-derived on seed 50 (shortest route) and re-blessed.
+# Re-blessed 2026-09-14, dark-room lines only: the random darkness text is
+# resolved when run390 prints the turn so far on appending the exits list
+# (44813D), before the tick -- the wumpusrun row has the rule.  The Runner
+# compare went from 10+ differing turns to 4, all the zombie's attack roll.
 hhorror_solution.txt|hhorror.taf|It has been a long and frightful night|SCR_SEED=50 SCR_SKIP_WAITKEY=1
 # Where Is Richard?: a 1000/1000 win in 68 commands, and the corpus's cleanest
 # witness for the one-level container nesting in "held by the player".  The
@@ -4794,6 +4807,11 @@ salutations_solution.txt|salutations.taf|you'll decline to answer.|SCR_SKIP_WAIT
 # Re-blessed 2026-09-14, one line: run400's turn refusal (489255-489367) appends the
 # typed " on"/" off" -- measured on the_pk_girl `turn on transmitter` (Adrift_1157 T362):
 # `turn on tv` -> "You can't turn the 32-inch television on."
+# Re-blessed 2026-09-14, same line: the win (T30, CompleteText "", End Game) skips
+# ALL of therest -- 48AC62 jumps past its call at 48AFE4, not just the catch-all
+# tail -- so the empty buffer meets 48B573 and prints DontUnderstand, as run400
+# does (runner_transcripts/iachini.txt T185):
+# `turn on tv` -> "I don't understand what you mean!"
 iachini_solution.txt|iachini.taf|You settle down in front of the TV.|SCR_SEED=202
 # La hija del relojero ("Nano", Spanish, 4.00) is the smallest 4.00 file left
 # after Salutations: ONE room, 8 tasks, 12 objects, no NPCs, and no score at
@@ -4922,16 +4940,21 @@ vetknow2_solution.txt|vetknow2.taf|AND THE NEW WORLD CHAMPION IS|SCR_SKIP_WAITKE
 #       two turns (12 -> 10 -> 8 -> 6 feet) and `jam spear in walls` is
 #       refused until 6 feet, i.e. turn 7 after the hand-in-the-hole ask --
 #       hence the nine `z`s, then two more to bend the spear and open the door.
-#   (4) EVENT 6 [PILLAR CHECK] runs T30 at the END of the turn the fourth
-#       statue lands, so the ruby it reveals cannot be taken until the turn
-#       after.  Without the bare `z`, `take ruby` does nothing AND SAYS
-#       NOTHING, and the mask can never be completed -- 155/175, silently.
+#   (4) The fourth statue's put runs T30 (bare `*`) on its own line -- run390's
+#       post-put task sweep -- so the ruby is revealed that turn.  The bare
+#       `z` after it is kept ("Time passes..."); without the reveal, `take
+#       ruby` does nothing AND SAYS NOTHING, and the mask can never be
+#       completed -- 155/175, silently.
 # Plus one losing ending that looks like the obvious move: climbing out of the
 # well while holding the death mask is T33, `ACT type=6 v1=1`.  The mask goes
 # up inside the rucksack tied to the rope (T32) with Rupert winding (T36).
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  The wall events chain in one turn.
+# Re-blessed 2026-09-14 for the 3.9 post-put task sweep (run390 4626B6/4626C5,
+# lib_put_task_sweep_390): `put dung beetle on green pillar` prints the pillars
+# sinking instead of the put message.  run390x runner_transcripts/losttomb.txt
+# now matches on every turn.
 losttomb_solution.txt|losttombv2.taf|you and Rupert start the trek back to camp.
 # The Long Journey Home (Danny Chabino, 20 June 2001) is UNFINISHABLE, and the
 # row is anchored on the score line for the same reason The Hangover's is.
@@ -8320,6 +8343,11 @@ datewithdeath_solution.txt|datewithdeath.taf|And you have a whole life ahead of 
 # love-spell dialogue.  See Adrift_894_alchemist.txt line 1784 (run390), and
 # the zombies row for the rule.  The task's actions still run, so the route
 # still reaches 100%.
+# Re-blessed 2026-09-14, passer-by lines only: the random "A servant is
+# hurrying by." in room text is resolved when run390 prints the turn so far
+# on appending the exits list (44813D), before the tick moves the RNG on --
+# the wumpusrun row has the rule.  The Runner compare's first difference
+# moved from T32 to T303.
 alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # ONNAFA.TAF (David Whyld). Full win: retrieve the dragon egg (flushed down
 # the privy as backstory) and hand it back to the dragon at the castle
@@ -8754,6 +8782,20 @@ bandera_solution.txt|Bandera.taf|Well done - you puntosd maximum points!|SCR_SKI
 # ladder at Burial Chamber to `climb ladder` and win -- 11 turns total, well
 # inside the 120-turn lantern-fuel budget. Ends with "You have earned the
 # right to the title of \"Grand Wumpus Hunter\"".
+# Re-blessed 2026-09-14, T10 `climb ladder`: "You can't climb the rope ladder."
+# is gone, a blank paragraph in its place.  Task 167's CompleteText is one
+# space, which run400 tests raw (`<> ""`): it fills the buffer, the dispatcher
+# at 48A481 calls the line handled, and 48B573's DontUnderstand stays quiet.
+# run400 shows the lone space on its own line (runner_transcripts/wumpusrun.txt);
+# probe .tafs stripping the task's variable/Execute Task actions and fail texts
+# (Adrift_128_wumpA..D) kept it.  Sibling of the iachini row, whose "" does print.
+# Re-blessed 2026-09-14, T1/T4/T8: the move verb is the Runner's ("You depart
+# to the south.", "You boldly go west.", "You head east.").  Both engines drew
+# the same 115 xoshiro values; the ALR "You move" -> "{move%move%}" reads a
+# variable EVENT 0's task redraws every turn, and run400's room builder prints
+# the turn's text so far when it appends the exits list (472C64), before the
+# tick, where Scarier used to interpolate it at the flush.  See
+# lib_print_room_exits().  The Runner compare is now identical.
 wumpusrun_solution.txt|competition2006__adrift__wumpusrun__wumpusRun.taf|You have earned the right to the title|SCR_SEED=72
 # Il Golem.taf (Italian, CAT 2010 entry by Tristano Ajmone) -- get the bone
 # and letter in the Salotto, read the letter at the Gabinetto mirror for the
