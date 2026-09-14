@@ -1276,6 +1276,24 @@ run_priority_defer (void)
 }
 
 /*
+ * run_priority_defer_if_active()
+ *
+ * run_priority_defer(), but only inside the tentative priority pass: a
+ * handler about to print a refusal leaves the line for a matched task's fail
+ * message to claim first (see lib_put_in_is_valid()).  Returns TRUE if it
+ * deferred, in which case the caller returns FALSE without printing.
+ */
+scr_bool
+run_priority_defer_if_active (void)
+{
+  if (!run_priority_pass_active)
+    return FALSE;
+
+  run_priority_defer ();
+  return TRUE;
+}
+
+/*
  * run_priority_refuse()
  *
  * A priority command has printed a refusal that does NOT claim the command:

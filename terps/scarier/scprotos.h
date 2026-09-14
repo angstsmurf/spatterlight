@@ -225,6 +225,11 @@ extern scr_bool prop_get_global_boolean (scr_prop_setref_t bundle,
                                         const scr_char *name);
 extern const scr_char *prop_get_global_string (scr_prop_setref_t bundle,
                                               const scr_char *name);
+/* bundle[...][Var1..Var3] -- the first count integers of a task entry. */
+extern void prop_get_var_integers (scr_prop_setref_t bundle,
+                                   scr_vartype_t vt_key[], scr_int count,
+                                   scr_int *var1, scr_int *var2,
+                                   scr_int *var3);
 /* bundle["Version"] -- the TAF_VERSION_* constant of the parsed .taf. */
 extern scr_int prop_get_taf_version (scr_prop_setref_t bundle);
 /* bundle[class_][index_][name] -- one field of one indexed entity. */
@@ -965,6 +970,7 @@ extern scr_int lib_co_400_answer_object (scr_gameref_t game,
 extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,
                                         const scr_char *command);
 extern void run_priority_defer (void);
+extern scr_bool run_priority_defer_if_active (void);
 extern void run_priority_refuse (void);
 extern void run_priority_unnamed_put_object (void);
 extern scr_bool run_priority_put_was_unnamed (void);

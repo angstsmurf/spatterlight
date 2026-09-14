@@ -1823,40 +1823,22 @@ task_run_task_action (scr_gameref_t game, scr_int task, scr_int action)
   switch (type)
     {
     case 0:                    /* Move object. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var3";
-      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 3, &var1, &var2, &var3);
       task_run_move_object_action (game, var1, var2, var3);
       break;
 
     case 1:                    /* Move player/NPC. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var3";
-      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 3, &var1, &var2, &var3);
       task_run_move_npc_action (game, var1, var2, var3);
       break;
 
     case 2:                    /* Change object status. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 2, &var1, &var2, NULL);
       task_run_change_object_status (game, var1, var2);
       break;
 
     case 3:                    /* Change variable. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var3";
-      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 3, &var1, &var2, &var3);
       vt_key[4].string = "Expr";
       expr = prop_get_string (bundle, "S<-sisis", vt_key);
       vt_key[4].string = "Var5";
@@ -1865,32 +1847,22 @@ task_run_task_action (scr_gameref_t game, scr_int task, scr_int action)
       break;
 
     case 4:                    /* Change score. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 1, &var1, NULL, NULL);
       task_run_change_score_action (game, task, var1);
       break;
 
     case 5:                    /* Execute/unset task. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 2, &var1, &var2, NULL);
       status = task_run_set_task_action (game, var1, var2);
       break;
 
     case 6:                    /* End game. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 1, &var1, NULL, NULL);
       status = task_run_end_game_action (game, var1);
       break;
 
     case 7:                    /* Change battle attribute. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var3";
-      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 3, &var1, &var2, &var3);
       task_run_change_battle_action (game, var1, var2, var3);
       break;
 

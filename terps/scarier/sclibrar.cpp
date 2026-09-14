@@ -4490,6 +4490,41 @@ lib_co_lastword (const scr_char *string)
   return space ? space + 1 : string;
 }
 
+/*
+ * lib_alias_prepare()
+ *
+ * Point vt_key[0..2] at the given object's/NPC's ("Objects"/"NPCs") Alias
+ * list, and return its count -- ready for a "vt_key[3].integer = alias"
+ * loop fetching each one with "S<-sisi".
+ */
+static scr_int
+lib_alias_prepare (const scr_prop_setref_t bundle, scr_vartype_t *vt_key,
+                   const scr_char *category, scr_int index)
+{
+  vt_key[0].string = category;
+  vt_key[1].integer = index;
+  vt_key[2].string = "Alias";
+  return prop_get_child_count (bundle, "I<-sis", vt_key);
+}
+
+
+/*
+ * lib_first_alias()
+ *
+ * The object's/NPC's first Alias string, or NULL if it has none.
+ */
+static const scr_char *
+lib_first_alias (const scr_prop_setref_t bundle, scr_vartype_t *vt_key,
+                 const scr_char *category, scr_int index)
+{
+  if (lib_alias_prepare (bundle, vt_key, category, index) < 1)
+    return NULL;
+
+  vt_key[3].integer = 0;
+  return prop_get_string (bundle, "S<-sisi", vt_key);
+}
+
+
 /* TRUE if the object's Short or Alias is exactly the term. */
 static scr_bool
 lib_co_object_answers_to (scr_gameref_t game, scr_int object,
@@ -4504,10 +4539,7 @@ lib_co_object_answers_to (scr_gameref_t game, scr_int object,
   if (shortname && scr_strcasecmp (shortname, term) == 0)
     return TRUE;
 
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Alias";
-  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
   for (alias = 0; alias < alias_count; alias++)
     {
       const scr_char *alias_name;
@@ -4558,10 +4590,7 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
         {
           scr_vartype_t vt_key[4];
 
-          vt_key[0].string = "Objects";
-          vt_key[1].integer = object;
-          vt_key[2].string = "Alias";
-          alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+          alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
           for (alias = 0; alias < alias_count; alias++)
             {
               const scr_char *alias_name;
@@ -5033,10 +5062,7 @@ lib_co_400_raise_for_references (scr_gameref_t game)
       count = 0;
       names[count++] = prop_get_indexed_string (bundle, "Objects",
                                                 object, "Short");
-      vt_key[0].string = "Objects";
-      vt_key[1].integer = object;
-      vt_key[2].string = "Alias";
-      alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
       for (alias = 0; alias < alias_count && count < 1 + 8; alias++)
         {
           vt_key[3].integer = alias;
@@ -5145,10 +5171,7 @@ lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
   if (!scr_strempty (name) && scr_strcasecmp (name, term) == 0)
     return TRUE;
 
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Alias";
-  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  alias_count = lib_alias_prepare (bundle, vt_key, "NPCs", npc);
   for (alias = 0; alias < alias_count; alias++)
     {
       vt_key[3].integer = alias;
@@ -5184,10 +5207,7 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
       name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
       term = (!scr_strempty (name) && lib_input_contains_word (input, name))
              ? name : NULL;
-      vt_key[0].string = "NPCs";
-      vt_key[1].integer = npc;
-      vt_key[2].string = "Alias";
-      alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+      alias_count = lib_alias_prepare (bundle, vt_key, "NPCs", npc);
       for (alias = 0; alias < alias_count; alias++)
         {
           const scr_char *alias_name;
@@ -6598,10 +6618,7 @@ lib_co_400_name_word (scr_gameref_t game, scr_int object, const scr_char *input)
     return name;
 
   word = NULL;
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Alias";
-  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
   for (alias = 0; alias < alias_count; alias++)
     {
       vt_key[3].integer = alias;
@@ -7573,10 +7590,7 @@ lib_try_game_command_short_definite (scr_gameref_t game,
    * (Adrift_274_frustrated.txt) -- "drop the upper half of the trunk" is not
    * what that pattern matches, "drop the tree" is.
    */
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Alias";
-  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
   for (alias = 0; alias < alias_count && !status; alias++)
     {
       scr_char buffer[LIB_ALLOCATION_AVOIDANCE_SIZE], definite_prefix[64];
@@ -8400,14 +8414,7 @@ lib_cmd_take_npc (scr_gameref_t game)
     scr_vartype_t vt_key[4];
 
     prefix = prop_get_indexed_string (bundle, "NPCs", npc, "Prefix");
-    vt_key[0].string = "NPCs";
-    vt_key[1].integer = npc;
-    vt_key[2].string = "Alias";
-    if (prop_get_child_count (bundle, "I<-sis", vt_key) > 0)
-      {
-        vt_key[3].integer = 0;
-        alias = prop_get_string (bundle, "S<-sisi", vt_key);
-      }
+    alias = lib_first_alias (bundle, vt_key, "NPCs", npc);
     if (!prefix)
       prefix = "";
     if (!alias)
@@ -8673,6 +8680,32 @@ lib_print_cannot_reach (scr_gameref_t game, scr_int container)
   lib_print_object_np (game, gs_playerparent (game));
   pf_buffer_string (filter, "!");
 }
+
+/*
+ * lib_drain_multiple_references()
+ *
+ * Fill 'list' with every object still marked in the multiple references,
+ * clearing each as it's collected.  Shared body for the take, wear, move and
+ * put backends' reports of the objects left over ("You are not holding ...",
+ * "You can't take ...", "You can't wear ...").
+ */
+static void
+lib_drain_multiple_references (scr_gameref_t game, scr_int object_count,
+                               lib_list_t &list)
+{
+  scr_int object;
+
+  list.clear ();
+  for (object = 0; object < object_count; object++)
+    {
+      if (!game->multiple_references[object])
+        continue;
+
+      list.push_back (object);
+      game->multiple_references[object] = FALSE;
+    }
+}
+
 
 static void
 lib_take_backend_common (scr_gameref_t game, scr_int associate,
@@ -9027,15 +9060,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    */
   if (is_associate_object)
     {
-      list.clear ();
-      for (object = 0; object < object_count; object++)
-        {
-          if (!game->multiple_references[object])
-            continue;
-
-          list.push_back (object);
-          game->multiple_references[object] = FALSE;
-        }
+      lib_drain_multiple_references (game, object_count, list);
 
       /*
        * 4.0 drops a named object that is not in the container without a word:
@@ -9265,15 +9290,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       has_printed |= !list.empty ();
     }
 
-  list.clear ();
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      list.push_back (object);
-      game->multiple_references[object] = FALSE;
-    }
+  lib_drain_multiple_references (game, object_count, list);
 
   /*
    * Only the 4.0 single-take handler ends this with "!" (run400 @47329D
@@ -9512,10 +9529,7 @@ lib_take_absent_score (scr_gameref_t game, scr_int object,
       *term = shortname;
     }
 
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Alias";
-  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
   for (alias = 0; alias < alias_count; alias++)
     {
       const scr_char *name;
@@ -10891,15 +10905,7 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
   library_printed = !list.empty ();
 
   /* Note any remaining multiple references left out of the operation. */
-  list.clear ();
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      list.push_back (object);
-      game->multiple_references[object] = FALSE;
-    }
+  lib_drain_multiple_references (game, object_count, list);
 
   /*
    * Pre-3.9: first leftover only, raw prefix, and only while nothing has
@@ -11434,15 +11440,7 @@ lib_wear_backend (scr_gameref_t game)
                                         "%player% is not holding ",
                                         wear_item);
 
-  list.clear ();
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      list.push_back (object);
-      game->multiple_references[object] = FALSE;
-    }
+  lib_drain_multiple_references (game, object_count, list);
 
   lib_print_object_list (game, has_printed, list, " or ", '.',
                          "You can't wear ",
@@ -13344,6 +13342,23 @@ lib_put_all_filter (scr_gameref_t game, scr_int object, scr_int associate)
 static size_t lib_put_announce_bytes = 0;
 
 /*
+ * lib_put_reject_reference()
+ *
+ * Move 'object' out of the object references and into the multiple
+ * references, for the "You are not holding ..." report; see
+ * lib_put_implicit_take, whose several exits all do this.  Always FALSE, for
+ * a direct "return lib_put_reject_reference (...)".
+ */
+static scr_bool
+lib_put_reject_reference (scr_gameref_t game, scr_int object)
+{
+  game->object_references[object] = FALSE;
+  game->multiple_references[object] = TRUE;
+  return FALSE;
+}
+
+
+/*
  * lib_put_implicit_take()
  *
  * Version 4.0 only.  Having accepted a named object that the player is not
@@ -13396,11 +13411,7 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
   if (gs_object_parent (game, object) == target
       && (gs_object_position (game, object) == OBJ_IN_OBJECT
           || gs_object_position (game, object) == OBJ_ON_OBJECT))
-    {
-      game->object_references[object] = FALSE;
-      game->multiple_references[object] = TRUE;
-      return FALSE;
-    }
+    return lib_put_reject_reference (game, object);
 
   /*
    * The take is also skipped, silently, when the TYPED line pre-matches a
@@ -13416,11 +13427,7 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
    * run_all_commands()).
    */
   if (lib_task_prematches_input (game, 1))
-    {
-      game->object_references[object] = FALSE;
-      game->multiple_references[object] = TRUE;
-      return FALSE;
-    }
+    return lib_put_reject_reference (game, object);
 
   {
     /*
@@ -13450,10 +13457,8 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
     {
       if (obj_indirectly_held_by_player (game, object))
         return TRUE;
-      game->object_references[object] = FALSE;
-      game->multiple_references[object] = TRUE;
       *printed = TRUE;
-      return FALSE;
+      return lib_put_reject_reference (game, object);
     }
 
   /*
@@ -13502,10 +13507,8 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
       return TRUE;
     }
 
-  game->object_references[object] = FALSE;
-  game->multiple_references[object] = TRUE;
   *printed = TRUE;
-  return FALSE;
+  return lib_put_reject_reference (game, object);
 }
 
 
@@ -13885,15 +13888,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
   is_refusal_only = is_refusal_only && has_printed;
 
   /* Note any remaining multiple references left out of the operation. */
-  list.clear ();
-  for (object = 0; object < object_count; object++)
-    {
-      if (!game->multiple_references[object])
-        continue;
-
-      list.push_back (object);
-      game->multiple_references[object] = FALSE;
-    }
+  lib_drain_multiple_references (game, object_count, list);
 
   lib_print_object_list (game, has_printed, list, " or ", '.',
                          "You are not holding ",
@@ -14196,11 +14191,8 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
        * task's fail message can claim the input first; the STANDARD_COMMANDS
        * duplicate prints it when no task does (run400-verified, 2026-08-02).
        */
-      if (run_in_priority_pass ())
-        {
-          run_priority_defer ();
-          return FALSE;
-        }
+      if (run_priority_defer_if_active ())
+        return FALSE;
       /*
        * Only 4.0 shouts.  The pre-4.0 Runners all carry the literal
        * " can't put anything inside " -- run400 carries none of it, it
@@ -14232,11 +14224,8 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
       && !obj_is_static (game, container)
       && gs_object_position (game, container) != OBJ_HELD_PLAYER)
     {
-      if (run_in_priority_pass ())
-        {
-          run_priority_defer ();
-          return FALSE;
-        }
+      if (run_priority_defer_if_active ())
+        return FALSE;
       pf_buffer_string (filter,
                         lib_select_response (game,
                                              "You are not holding ",
@@ -14250,11 +14239,8 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
   /* If the container is closed, reject now. */
   if (gs_object_openness (game, container) > OBJ_OPEN)
     {
-      if (run_in_priority_pass ())
-        {
-          run_priority_defer ();
-          return FALSE;
-        }
+      if (run_priority_defer_if_active ())
+        return FALSE;
 
       /*
        * 4.0 reworded this one too, and pre-4.0 has no lock to report: the
@@ -14568,11 +14554,8 @@ static scr_bool lib_put_co_refusal_pre390 (scr_gameref_t game);
 static scr_bool
 lib_put_no_object_pre400 (scr_gameref_t game)
 {
-  if (run_in_priority_pass ())
-    {
-      run_priority_defer ();
-      return FALSE;
-    }
+  if (run_priority_defer_if_active ())
+    return FALSE;
 
   /* 3.7/3.8 insides() names what co() chose; see lib_put_co_refusal_pre390(). */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
@@ -14588,11 +14571,8 @@ lib_put_no_object_pre400 (scr_gameref_t game)
 static scr_bool
 lib_put_not_reachable_pre400 (scr_gameref_t game)
 {
-  if (run_in_priority_pass ())
-    {
-      run_priority_defer ();
-      return FALSE;
-    }
+  if (run_priority_defer_if_active ())
+    return FALSE;
 
   return lib_print_response_message (game,
                                      "You can't see that.\n",
@@ -14608,11 +14588,8 @@ lib_put_what_pre400 (scr_gameref_t game, scr_int object, scr_bool typed_on)
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     return FALSE;
 
-  if (run_in_priority_pass ())
-    {
-      run_priority_defer ();
-      return FALSE;
-    }
+  if (run_priority_defer_if_active ())
+    return FALSE;
 
   pf_buffer_string (filter, "Put ");
   lib_print_object_np (game, object);
@@ -15176,13 +15153,7 @@ lib_put_co_alias (scr_gameref_t game, scr_int object)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[4];
 
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Alias";
-  if (prop_get_child_count (bundle, "I<-sis", vt_key) < 1)
-    return NULL;
-  vt_key[3].integer = 0;
-  return prop_get_string (bundle, "S<-sisi", vt_key);
+  return lib_first_alias (bundle, vt_key, "Objects", object);
 }
 
 static scr_bool
@@ -15622,11 +15593,8 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
   if (!obj_is_surface (game, supporter))
     {
       /* Deferred in the tentative priority pass; see lib_put_in_is_valid. */
-      if (run_in_priority_pass ())
-        {
-          run_priority_defer ();
-          return FALSE;
-        }
+      if (run_priority_defer_if_active ())
+        return FALSE;
       /*
        * Three generations, three spellings, and Scarier had none of them: it
        * said "on" with 4.0's exclamation mark.  3.7 and 3.8 carry the whole
@@ -15674,11 +15642,8 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
       && !obj_is_static (game, supporter)
       && gs_object_position (game, supporter) != OBJ_HELD_PLAYER)
     {
-      if (run_in_priority_pass ())
-        {
-          run_priority_defer ();
-          return FALSE;
-        }
+      if (run_priority_defer_if_active ())
+        return FALSE;
       pf_buffer_string (filter,
                         lib_select_response (game,
                                              "You are not holding ",
@@ -16018,18 +15983,12 @@ lib_npc_named_in_line (scr_gameref_t game, scr_int npc, const scr_char *input)
   if (name && name[0] != NUL && lib_input_contains_word (input, name))
     return TRUE;
 
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Alias";
-  if (prop_get_child_count (bundle, "I<-sis", vt_key) > 0)
-    {
-      const scr_char *alias;
+  {
+    const scr_char *alias = lib_first_alias (bundle, vt_key, "NPCs", npc);
 
-      vt_key[3].integer = 0;
-      alias = prop_get_string (bundle, "S<-sisi", vt_key);
-      if (alias && alias[0] != NUL && lib_input_contains_word (input, alias))
-        return TRUE;
-    }
+    if (alias && alias[0] != NUL && lib_input_contains_word (input, alias))
+      return TRUE;
+  }
 
   return FALSE;
 }
@@ -16058,10 +16017,7 @@ lib_npc_referenced (scr_gameref_t game, scr_int npc, const scr_char *input)
   if (!scr_strempty (name) && lib_input_contains_word (input, name))
     return TRUE;
 
-  vt_key[0].string = "NPCs";
-  vt_key[1].integer = npc;
-  vt_key[2].string = "Alias";
-  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  alias_count = lib_alias_prepare (bundle, vt_key, "NPCs", npc);
   for (alias = 0; alias < alias_count; alias++)
     {
       const scr_char *word;
@@ -16558,11 +16514,7 @@ lib_battle_named_targets (scr_gameref_t game, const scr_char *input,
         {
           scr_vartype_t vt_key[4];
 
-          vt_key[0].string = "NPCs";
-          vt_key[1].integer = npc;
-          vt_key[2].string = "Alias";
-          vt_key[3].integer = 0;
-          named_by = prop_get_string (bundle, "S<-sisi", vt_key);
+          named_by = lib_first_alias (bundle, vt_key, "NPCs", npc);
         }
       if (!named_by || !npc_in_room (game, npc, gs_playerroom (game)))
         continue;
@@ -17291,14 +17243,7 @@ lib_wield_names_object (scr_gameref_t game, scr_int object,
   at = line.find (shortname ? shortname : "");
   short_at = at == std::string::npos ? 0 : (scr_int) at + 1;
 
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Alias";
-  if (prop_get_child_count (bundle, "I<-sis", vt_key) > 0)
-    {
-      vt_key[3].integer = 0;
-      alias = prop_get_string (bundle, "S<-sisi", vt_key);
-    }
+  alias = lib_first_alias (bundle, vt_key, "Objects", object);
   at = line.find (alias ? alias : "");
   alias_at = at == std::string::npos ? 0 : (scr_int) at + 1;
 
@@ -18989,15 +18934,7 @@ lib_npc_examine_absent (scr_gameref_t game)
       if (lib_is_version_400 (game) && !gs_npc_seen (game, npc))
         continue;
 
-      alias = NULL;
-      vt_key[0].string = "NPCs";
-      vt_key[1].integer = npc;
-      vt_key[2].string = "Alias";
-      if (prop_get_child_count (bundle, "I<-sis", vt_key) > 0)
-        {
-          vt_key[3].integer = 0;
-          alias = prop_get_string (bundle, "S<-sisi", vt_key);
-        }
+      alias = lib_first_alias (bundle, vt_key, "NPCs", npc);
       if (alias && alias[0] != NUL && lib_input_contains_word (input, alias))
         {
           scr_int object;
@@ -21111,10 +21048,7 @@ lib_verb_object_name_score (scr_gameref_t game,
       && lib_input_contains_word (input, shortname))
     score = 1;
 
-  vt_key[0].string = "Objects";
-  vt_key[1].integer = object;
-  vt_key[2].string = "Alias";
-  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
   for (alias = 0; alias < alias_count; alias++)
     {
       const scr_char *alias_name;
@@ -21649,11 +21583,8 @@ lib_cmd_put_container_400 (scr_gameref_t game)
       if (lib_task_prematches_input (game, 0))
         return FALSE;
       /* Deferred in the tentative priority pass; see lib_put_in_is_valid. */
-      if (run_in_priority_pass ())
-        {
-          run_priority_defer ();
-          return FALSE;
-        }
+      if (run_priority_defer_if_active ())
+        return FALSE;
       second = std::string ("You can't put anything ") + preposition + " ";
       first = std::string ("I can't put anything ") + preposition + " ";
       third = std::string ("%player% can't put anything ") + preposition + " ";

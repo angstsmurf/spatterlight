@@ -1001,6 +1001,32 @@ prop_get_indexed_string (scr_prop_setref_t bundle, const scr_char *class_,
 
 
 /*
+ * prop_get_var_integers()
+ *
+ * Fetch the first 'count' (1-3) of the Var1..Var3 integers of a task action
+ * or restriction: the caller has set vt_key[0..3] to the entry, and this
+ * sets vt_key[4] to each name in turn, writing the values through var1, var2
+ * and var3.  Output pointers beyond 'count' may be NULL.
+ */
+void
+prop_get_var_integers (scr_prop_setref_t bundle, scr_vartype_t vt_key[],
+                       scr_int count, scr_int *var1, scr_int *var2,
+                       scr_int *var3)
+{
+  scr_int *const vars[3] = { var1, var2, var3 };
+  static const scr_char *const names[3] = { "Var1", "Var2", "Var3" };
+  scr_int index;
+
+  assert (count >= 1 && count <= 3);
+  for (index = 0; index < count; index++)
+    {
+      vt_key[4].string = names[index];
+      *vars[index] = prop_get_integer (bundle, "I<-sisis", vt_key);
+    }
+}
+
+
+/*
  * prop_get_child_count()
  *
  * Convenience function to retrieve a count of child properties available

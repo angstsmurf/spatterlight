@@ -890,48 +890,27 @@ restr_pass_task_restriction (scr_gameref_t game, scr_int task, scr_int restricti
   switch (type)
     {
     case 0:                    /* Object location. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var3";
-      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 3, &var1, &var2, &var3);
       result = restr_pass_task_object_location (game, var1, var2, var3);
       break;
 
     case 1:                    /* Object state. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 2, &var1, &var2, NULL);
       result = restr_pass_task_object_state (game, var1, var2);
       break;
 
     case 2:                    /* Task state. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 2, &var1, &var2, NULL);
       result = restr_pass_task_task_state (game, var1, var2);
       break;
 
     case 3:                    /* Player and NPCs. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var3";
-      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 3, &var1, &var2, &var3);
       result = restr_pass_task_char (game, var1, var2, var3);
       break;
 
     case 4:                    /* Variable. */
-      vt_key[4].string = "Var1";
-      var1 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var2";
-      var2 = prop_get_integer (bundle, "I<-sisis", vt_key);
-      vt_key[4].string = "Var3";
-      var3 = prop_get_integer (bundle, "I<-sisis", vt_key);
+      prop_get_var_integers (bundle, vt_key, 3, &var1, &var2, &var3);
       vt_key[4].string = "Var4";
       var4 = prop_get_string (bundle, "S<-sisis", vt_key);
       result = restr_pass_task_var (game, var1, var2, var3, var4);
