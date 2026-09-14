@@ -493,6 +493,27 @@ memo_save_command (scr_memo_setref_t memento,
 
 
 /*
+ * memo_restore_command()
+ *
+ * Put back a command memo_save_command() stored, with its original sequence
+ * number, for a Spatterlight autorestore replaying the history oldest first.
+ * The sequence picks the ring slot, as it did when the command was saved.
+ */
+void
+memo_restore_command (scr_memo_setref_t memento, const scr_char *command,
+                      scr_int sequence, scr_int timestamp, scr_int turns)
+{
+  assert (memo_is_valid (memento));
+
+  if (sequence <= memento->history_count)
+    return;
+
+  memento->history_count = sequence - 1;
+  memo_save_command (memento, command, timestamp, turns);
+}
+
+
+/*
  * memo_unsave_command()
  *
  * Remove the last saved command.  This is special functionality for the

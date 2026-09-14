@@ -402,6 +402,9 @@ extern void memo_append_undo (scr_memo_setref_t memento,
 extern void memo_save_command (scr_memo_setref_t memento,
                                const scr_char *command, scr_int timestamp,
                                scr_int turns);
+extern void memo_restore_command (scr_memo_setref_t memento,
+                                  const scr_char *command, scr_int sequence,
+                                  scr_int timestamp, scr_int turns);
 extern void memo_unsave_command (scr_memo_setref_t memento);
 extern scr_int memo_get_command_count (scr_memo_setref_t memento);
 extern void memo_first_command (scr_memo_setref_t memento);
@@ -538,6 +541,8 @@ extern void uip_set_containment (scr_bool enabled);
 extern void uip_set_binary_input (scr_bool binary);
 extern scr_char *uip_replace_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_assign_pronouns (scr_gameref_t game, const scr_char *string);
+extern void uip_get_pronoun_flags (scr_bool *used, scr_bool *pending_definite);
+extern void uip_set_pronoun_flags (scr_bool used, scr_bool pending_definite);
 extern void uip_note_definite_reference (void);
 extern scr_char *uip_rewrite_references (scr_gameref_t game,
                                          const scr_char *string,
@@ -915,6 +920,16 @@ extern scr_bool lib_co_400_line_refused (void);
 extern void lib_co_400_print_still_ambiguous (scr_gameref_t game);
 extern scr_bool lib_co_400_pending_is_npc (void);
 extern std::string lib_co_400_npc_answer_line (const scr_char *line);
+extern void lib_co_400_get_question (scr_bool *pending, std::string *term,
+                                     std::string *command,
+                                     std::vector<scr_int> *candidates);
+extern void lib_co_400_set_question (scr_bool pending, const std::string &term,
+                                     const std::string &command,
+                                     const std::vector<scr_int> &candidates);
+extern void lib_battle_who_get_prefix (std::string *pending,
+                                       std::string *at_line);
+extern void lib_battle_who_set_prefix (const std::string &pending,
+                                       const std::string &at_line);
 extern scr_bool lib_npc_400_line_names_namesakes (scr_gameref_t game,
                                                   const scr_char *line);
 extern scr_bool lib_ask_npc_topic_after_task_390 (scr_gameref_t game,
@@ -968,6 +983,9 @@ extern void run_get_attributes (scr_gameref_t game,
                                 const scr_char **preferred_font,
                                 scr_bool *bold_room_names, scr_bool *verbose,
                                 scr_bool *notify_score_change);
+extern std::string run_session_state (scr_gameref_t game);
+extern scr_bool run_restore_session_state (scr_gameref_t game,
+                                           const std::string &state);
 extern void run_set_attributes (scr_gameref_t game,
                                 scr_bool bold_room_names, scr_bool verbose,
                                 scr_bool notify_score_change);

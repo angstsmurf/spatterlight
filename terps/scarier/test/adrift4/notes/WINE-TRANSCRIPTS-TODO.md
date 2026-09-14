@@ -1120,10 +1120,12 @@ Engine leads, measured or half-measured, none blocking:
   "You can't see X from here!" / "You don't have X!" where Scarier says
   "Take what?", and run380's wildcard `get *knives*` matching `get meat`.
   No wired walkthrough reaches them.
-- **3.90 administrative set**: the measured set ends at
-  information/end/turns; Scarier also treats hint, help, clear, where and
-  a dozen 4.0-era verbs as administrative for 3.9 and nothing has measured
-  them under run390.
+- (**3.90 administrative set**: **measured and ported 2026-09-14**, see
+  "Ported 2026-09-14: run390's administrative set and its per-element turn
+  counter" at the foot of this file.  hint/help/clear/time/version/save/
+  restore/undo are ordinary turns in 3.9, and the counter counts every
+  line element.  Still open from it: the in-line re-runs (`both`, the
+  question prefix) that jump back above run390's increment.)
 - (**Battle** capitalisation: **measured and ported 2026-09-07**, see
   "Ported 2026-09-07: the five battle names run400 capitalises" at the foot
   of this file.  The Runner really does capitalise -- at five sites, all of
@@ -1197,9 +1199,12 @@ Engine leads, measured or half-measured, none blocking:
   restriction FailMessage of its `[give/hand] {a/the} mug to
   [dennis/fireman]` task, not Runner library text -- any difference there
   is task state, not a library port.
-- **run390 `#save` event clock** (FarFromHome +1 tick per echoed save;
-  largo-winch with no echoed save turn was fine): `opensave()` on paper
-  skips the tick.  Probe `x` / `save` / `x` around a 2-turn event.
+- (**run390 `#save` event clock**: **explained 2026-09-14**, same section
+  at the foot.  `save` is an ordinary turn in run390 -- "Game saved." then
+  the event tick (Adrift_1161) -- so FarFromHome's +1 per echoed save was
+  the Runner's own clock, and Scarier now ticks there too.  The compare
+  still drops the echoed `save`/`restore` lines, so a `#save` drive is
+  still one tick out per save on the Scarier side: a harness limit.)
 - **`NPCWalkAlert`** synthesized task pair (`sctasks.cpp`) with no run400
   counterpart; anticipates the ticker's restart by a tick, nothing depends
   on it.
@@ -9106,3 +9111,82 @@ All are turns.  The mechanisms:
 - `open X with Y` on a locked X that has a key.
 - run390's twin (45D12C).
 - A tie inside either with-half.
+
+## Ported 2026-09-14: run390's administrative set and its per-element turn counter
+
+Probe: `harness/make_39_adminprobe.py` builds `p39ADMIN.taf`, a 3.90 game
+with one room, one task (`probe`) and a length-1 event that restarts at
+once and prints "TICK." on every turn where events() ran.  The feed
+`cmdfile_admin39.txt` has 44 commands with three `#save`/`#restore`
+checkpoints; run390 gave `Adrift_1161_p39admin.txt`, every command echoed.
+
+### Measured
+
+run390's not-a-turn flag MemVar_468219 is cleared at the top of generaltasks
+(45EC74).  It is set again only by status (battle, 44C52B), history/past,
+score, count/num, about/info/author/information, quit/bye/end and turns.
+The probe agrees with the decompile:
+
+| typed | run390 | turn? |
+|---|---|---|
+| `hint` | You're just going to have to work it out for yourself... (the no-hints line goes to a MsgBox) | TICK |
+| `help` | Failing that, try asking someone! (plus the Adventure Commands dialog) | TICK |
+| `clear` / `cls` | Screen cleared. | TICK |
+| `time` | The time is 10:12:52 AM. | TICK |
+| `version` | ADRIFT Version 3.90 Release 20 / Last updated: 31/05/01 | TICK |
+| `save` | Saving current game... done. / Game saved. | TICK |
+| `restore` | Loading game... done. + room description | TICK |
+| `undo` | Undone. + the replayed previous turn | TICK |
+| about/info/author/information, history/past, score, count/num, turns | -- | no |
+| verbose, brief, notify, license, statusline, redo, `status` (battle off) | I don't understand. | no |
+
+**The turn counter** MemVar_4681A4 goes up by one at the very top of
+generaltasks (45EC5B), before anything decides what the line is.  Every jump
+back for the next element of a typed line (4609F9), the `both` rewrite
+(45FECD) and the question-prefix re-runs (460188, 4601C4) all land above it.
+So `turns` counts itself, DontUnderstand lines and blank lines: the probe's
+first `turns`, on line 2, answers 2.  `again` does not count its rerun: the
+`again` after 18 lines prints "(turns)" and then 19.  Undo does not rewind the
+counter, and restore loads it from the save.
+
+### Ported (3.90 only; 3.7/3.8 and 4.0 unchanged)
+
+- `run_player_input()` adds one to `game->turns` for each element it reads,
+  except on an `again` rerun.  `run_main_loop()`'s tail no longer counts at
+  3.9 (`run_counts_line_elements()`).  The increment sits after the line is
+  read.  Autosave fires at the prompt before the read, so an autorestore
+  never counts a line twice, and `turns` was already in `gs_copy` and the
+  save format.  No new state.
+- `lib_is_version_390()`: time, version, save, restore and undo are turns at
+  3.9.  hint, help and clear are turns before 4.0.
+- `lib_cmd_undo` keeps `game->turns` through both undo tiers at 3.9.
+- `run_player_input` never backs up an undo, restore or restart line.
+  Without that, undo would become a turn and re-arm the buffer it had just
+  spent.
+
+### Results
+
+- Adrift_1161: every `turns` line matches up to the checkpoints (2, 7, 18,
+  19, 28, 37).  After the checkpoints, turns 40 and 43 read one high.  That
+  is the harness: the compare drops the echoed `save`/`restore`, so Scarier
+  never runs the restore that rewinds the Runner.
+- The other differences are policy or wording, not ported:
+  - the help/about/history/time/version texts;
+  - Scarier's own words (verbose, brief, notify, license, statusline, redo);
+  - the "(turns)" echo on 3.9 `again`;
+  - `g`, which the Runner autocompletes to `again`;
+  - the undo replay (see `lib_cmd_undo`).
+- Goldens 428/428 after one re-bless.  `the_town_of_azra_v390` `stats` now
+  says "Number of turns passed: 62", which is what run390 prints in
+  `Adrift_536_the_town_of_azra_v390.txt`.  The three blank lines at the head
+  of the solution count, as in the Runner.  The old 58 was Scarier's count.
+  The win marker moved with it.
+
+### Still open
+
+- The in-line re-runs count twice in run390 by the decompile (`both`, the
+  question-prefix continuation) and once in Scarier.  Unmeasured.
+- 3.9 `again` echo "(<cmd>)", 4.0 has it ported; small presentation port.
+- Whether `wait` with WaitTurns counts once (the "Time passes..." loop at
+  45FD08 calls characters() without re-entering generaltasks, so the reading
+  is once).  Scarier now counts once at 3.9; no row measures it.

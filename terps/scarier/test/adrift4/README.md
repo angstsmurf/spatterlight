@@ -81,6 +81,49 @@ python3 waitkey_audit.py
 whole thing when no `games/` corpus exists on the machine. Rows whose `.taf` is
 missing SKIP rather than fail.
 
+### Spatterlight autosave
+
+`harness/run_autosave_tests.py` is the one tool here that does **not** use
+`harness/scare`: autosave and autorestore exist only in the Spatterlight build
+(`#ifdef SPATTERLIGHT` in `os_glk.cpp`, plus libglkimp). It runs
+`build/Debug/scarier` under `test/glkdrive.py`'s fake app. Each session ends
+with EVTQUIT, the window-closed exit that keeps the autosave, so the next
+session autorestores.
+
+```sh
+python3 harness/run_autosave_tests.py --build   # xcodebuild the Glk terp, then run
+python3 harness/run_autosave_tests.py -v undo   # only cases matching "undo", with diffs
+```
+
+- **Equivalence cases.** A script is played once in a single session, then
+  again killed and relaunched after chosen commands. The output must match
+  command for command. There are no goldens.
+  - The walks cover every engine era: 4.00, 3.90, 3.80 and 3.7x. Other cases
+    cover a relaunch after every command, undo history, the 3.9 turn counter,
+    in-game save/restore, and restart.
+  - The rest cover what the saved game itself does not hold, which the
+    container's session section (`run_session_state()` in `scrunner.cpp`)
+    carries: the line `again` repeats, the command history past its 64-entry
+    ring, pronouns (also in the undo buffer), an open 4.0 "Which tree.  ...?"
+    question, the question prefix ("Wear what?", "...with?", the battle's
+    "Who do you want to attack?"), brief/verbose and score notification, and
+    the typed player name. An `expect` string proves the one-session run
+    reached that state.
+  - `AUTOSAVE_TEST_STRIP_SESSION=1` cuts the session section out of every
+    autosave between sessions, as an older build would have written it. Those
+    cases must then fail, which shows they depend on it.
+- **Checks on every relaunch.** It must open or close no windows, print
+  nothing before its first input, and have autosaved at the prompt it closed
+  on.
+- **Other cases.** No autosave at the startup name prompt; a corrupt container
+  is discarded; a container without its undo tail still restores.
+- **`xfail` cases.** These record state the autosave does not carry yet. An
+  XPASS fails the run, so the list stays current. There are none at present.
+- **Environment.** Autosaves are keyed by `SPATTERLIGHT_AUTOSAVE_SIGNATURE`.
+  They still land in the real `~/Library/Application Support/Spatterlight`
+  (the directory lookup ignores `$HOME`), and the script removes them itself.
+  The default terp is refused if it is older than the engine sources.
+
 ## Elsewhere
 
 The reverse-engineering inputs behind the battle port are not in the repo — the

@@ -57,6 +57,24 @@ static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
 namespace { struct run_loop_halt {}; }
 
 /*
+ * run_counts_line_elements()
+ *
+ * TRUE if the game's turn counter advances once per input line element as
+ * it is read, rather than once per completed non-administrative turn.  Only
+ * 3.9 does this; see run_player_input().  run380's counter (44F138) moves
+ * with its every-command tail, and run400's is not measured apart from its
+ * administrative turns.
+ */
+static scr_bool
+run_counts_line_elements (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+
+  return version >= TAF_VERSION_390 && version < TAF_VERSION_400;
+}
+
+
+/*
  * run_is_separator()
  *
  * Return TRUE if the character at the given position in the line buffer acts
@@ -2135,6 +2153,12 @@ static std::vector<scr_bool> run_tasks_ran_this_command;
  */
 static std::string run_co_pending_input;
 static scr_bool run_co_task_claimed = FALSE;
+
+/*
+ * The line element `again` repeats.  run_player_input() owns it; it sits out
+ * here so that run_session_state() can keep it across an autosave.
+ */
+static scr_char run_prior_element[LINE_BUFFER_SIZE];
 
 static void
 run_note_task_ran (scr_gameref_t game, scr_int task)
@@ -4538,8 +4562,8 @@ static scr_bool
 run_player_input (scr_gameref_t game)
 {
   static scr_char line_buffer[LINE_BUFFER_SIZE];
-  static scr_char prior_element[LINE_BUFFER_SIZE];
   static scr_char line_element[LINE_BUFFER_SIZE];
+  scr_char *const prior_element = run_prior_element;
 
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
@@ -4553,7 +4577,7 @@ run_player_input (scr_gameref_t game)
   if (!game->is_running)
     {
       memset (line_buffer, NUL, sizeof (line_buffer));
-      memset (prior_element, NUL, sizeof (prior_element));
+      memset (run_prior_element, NUL, sizeof (run_prior_element));
       memset (line_element, NUL, sizeof (line_element));
       lib_co_400_reset ();
       lib_battle_who_reset ();
@@ -4684,6 +4708,20 @@ run_player_input (scr_gameref_t game)
       if (length > 0 && line_element[length - 1] == ' ')
         line_element[length - 1] = NUL;
     }
+
+  /*
+   * 3.9 counts line elements, not turns: generaltasks adds one to its turn
+   * counter MemVar_4681A4 at its very top (45EC5B), before the not-a-turn
+   * flag is even cleared, so `turns`, a DontUnderstand line and a blank line
+   * all count.  Every jump back for the next queued element (4609F9) lands
+   * above the increment too.  `again` does not: run390 answers the `turns`
+   * that follows 18 elements with 19 twice over (Adrift_1161_p39admin.txt).
+   * The end-of-turn tail in run_main_loop() leaves the counter alone at 3.9.
+   * The increment sits after the line is read, so an autosave taken at the
+   * prompt and restored there never counts a line twice.
+   */
+  if (!is_rerunning && run_counts_line_elements (game))
+    game->turns++;
 
   /* Copy the current game to the temporary undo buffer. */
   gs_copy (game->temporary, game);
@@ -4926,7 +4964,13 @@ run_player_input (scr_gameref_t game)
        * game into the undo buffer, flag the undo buffer as available, and
        * assign any pronouns used in the command ready for the next iteration.
        */
-      if (!game->is_admin)
+      /*
+       * An undo, restore or restart is never itself backed up: at 3.9 undo
+       * and restore are real turns (see lib_is_version_390() in sclibrar.cpp),
+       * and backing up an undo would re-arm the buffer it just spent.
+       */
+      if (!game->is_admin && !game->do_restart && !game->do_restore
+          && !(was_undo_available && !game->undo_available))
         {
           if (game->undo_available)
             memo_save_game (memento, game->undo);
@@ -5007,6 +5051,267 @@ run_player_input (scr_gameref_t game)
     }
 
   return status;
+}
+
+
+/*
+ * run_session_state()
+ * run_restore_session_state()
+ *
+ * What a Spatterlight autosave needs beyond the saved game.  The save stream
+ * carries what an ADRIFT save file does, and an in-game restore deliberately
+ * leaves the rest alone; an autorestore resumes the same session, so it puts
+ * that back as well:
+ *
+ *   - the line element `again` repeats, and the command history;
+ *   - the pronouns, in the game and in the one-turn undo buffer, and the
+ *     parser's pronoun echo flags;
+ *   - a question the next line answers: the 4.0 ambiguity prompt (see
+ *     lib_co_400_raise()) and the question prefix ("Who do you want to
+ *     attack?", "Wear what?", "...with?");
+ *   - the player's settings: verbose, score notification and wait turns;
+ *   - the name and gender typed at the startup prompts, which live in the
+ *     property bundle.
+ *
+ * The encoding is a run of "<key> <length>\n<bytes>\n" records.  The reader
+ * skips keys it does not know and keeps the current value of any it does not
+ * find, so records can be added without breaking an older autosave; only
+ * broken framing fails the restore.
+ */
+static void
+run_session_put (std::string &out, const scr_char *key,
+                 const std::string &value)
+{
+  out += key;
+  out += ' ';
+  out += std::to_string ((unsigned long) value.size ());
+  out += '\n';
+  out += value;
+  out += '\n';
+}
+
+static std::string
+run_session_join (const std::vector<scr_int> &values)
+{
+  std::string text;
+  size_t index_;
+
+  for (index_ = 0; index_ < values.size (); index_++)
+    {
+      if (index_ > 0)
+        text += ' ';
+      text += std::to_string ((long) values[index_]);
+    }
+  return text;
+}
+
+/* Up to count leading integers; *rest, if given, is what follows them. */
+static std::vector<scr_int>
+run_session_split (const std::string &text, size_t count,
+                   const scr_char **rest)
+{
+  std::vector<scr_int> values;
+  const scr_char *cursor = text.c_str ();
+
+  while (values.size () < count)
+    {
+      scr_char *end;
+      const long value = strtol (cursor, &end, 10);
+
+      if (end == cursor)
+        break;
+      values.push_back ((scr_int) value);
+      cursor = end;
+    }
+  if (rest)
+    *rest = (*cursor == ' ') ? cursor + 1 : cursor;
+  return values;
+}
+
+static std::string
+run_session_pronouns (scr_gameref_t game)
+{
+  return run_session_join ({game->it_object, game->it_definite,
+                            game->him_npc, game->her_npc, game->it_npc,
+                            game->last_npc});
+}
+
+static void
+run_session_set_pronouns (scr_gameref_t game, scr_gameref_t target,
+                          const std::string &text)
+{
+  const std::vector<scr_int> values (run_session_split (text, 6, NULL));
+  const scr_int npcs = gs_npc_count (game);
+  scr_int index_;
+
+  if (values.size () < 6
+      || values[0] < -1 || values[0] >= gs_object_count (game))
+    return;
+  for (index_ = 2; index_ < 6; index_++)
+    {
+      if (values[index_] < -1 || values[index_] >= npcs)
+        return;
+    }
+
+  target->it_object = values[0];
+  target->it_definite = values[1] != 0;
+  target->him_npc = values[2];
+  target->her_npc = values[3];
+  target->it_npc = values[4];
+  target->last_npc = values[5];
+}
+
+std::string
+run_session_state (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_memo_setref_t memento = gs_get_memento (game);
+  std::string out, term, command, prefix, prefix_at_line;
+  std::vector<scr_int> candidates;
+  scr_bool is_pending, used, definite;
+
+  run_session_put (out, "name",
+                   prop_get_global_string (bundle, "PlayerName"));
+  run_session_put (out, "gender",
+                   std::to_string ((long) prop_get_global_integer
+                                   (bundle, "PlayerGender")));
+  run_session_put (out, "settings",
+                   run_session_join ({game->verbose,
+                                      game->notify_score_change,
+                                      game->waitturns}));
+
+  run_session_put (out, "pronouns", run_session_pronouns (game));
+  if (game->undo_available)
+    run_session_put (out, "undo_pronouns",
+                     run_session_pronouns (game->undo));
+  uip_get_pronoun_flags (&used, &definite);
+  run_session_put (out, "pronoun_flags", run_session_join ({used, definite}));
+
+  run_session_put (out, "again", run_prior_element);
+  memo_first_command (memento);
+  while (memo_more_commands (memento))
+    {
+      const scr_char *entry;
+      scr_int sequence, timestamp, turns;
+
+      memo_next_command (memento, &entry, &sequence, &timestamp, &turns);
+      run_session_put (out, "history",
+                       run_session_join ({sequence, timestamp, turns})
+                       + ' ' + entry);
+    }
+
+  lib_co_400_get_question (&is_pending, &term, &command, &candidates);
+  if (is_pending)
+    {
+      run_session_put (out, "which_term", term);
+      run_session_put (out, "which_command", command);
+      run_session_put (out, "which_candidates",
+                       run_session_join (candidates));
+    }
+  lib_battle_who_get_prefix (&prefix, &prefix_at_line);
+  run_session_put (out, "prefix", prefix);
+  run_session_put (out, "prefix_at_line", prefix_at_line);
+  return out;
+}
+
+scr_bool
+run_restore_session_state (scr_gameref_t game, const std::string &state)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_memo_setref_t memento = gs_get_memento (game);
+  std::string which_term, which_command, which_candidates;
+  std::string prefix, prefix_at_line;
+  scr_bool has_which = FALSE, has_prefix = FALSE, has_history = FALSE;
+  scr_vartype_t vt_key[2];
+  size_t pos = 0;
+
+  vt_key[0].string = "Globals";
+  while (pos < state.size ())
+    {
+      const size_t space = state.find (' ', pos);
+      const size_t eol = (space == std::string::npos)
+                         ? space : state.find ('\n', space);
+      unsigned long length;
+
+      if (eol == std::string::npos || state.size () - eol < 2)
+        return FALSE;
+      length = strtoul (state.c_str () + space + 1, NULL, 10);
+      if (length > state.size () - eol - 2
+          || state[eol + 1 + length] != '\n')
+        return FALSE;
+
+      const std::string key (state, pos, space - pos);
+      const std::string value (state, eol + 1, length);
+      const std::vector<scr_int> numbers
+          (run_session_split (value, (size_t) -1, NULL));
+      pos = eol + 1 + length + 1;
+
+      if (key == "name")
+        {
+          vt_key[1].string = "PlayerName";
+          prop_put_string (bundle, "S<-ss", value.c_str (), vt_key);
+        }
+      else if (key == "gender" && numbers.size () == 1
+               && (numbers[0] == NPC_MALE || numbers[0] == NPC_FEMALE
+                   || numbers[0] == NPC_NEUTER))
+        {
+          vt_key[1].string = "PlayerGender";
+          prop_put_integer (bundle, "I<-ss", numbers[0], vt_key);
+        }
+      else if (key == "settings" && numbers.size () >= 3)
+        {
+          game->verbose = numbers[0] != 0;
+          game->notify_score_change = numbers[1] != 0;
+          if (numbers[2] >= 0)
+            game->waitturns = numbers[2];
+        }
+      else if (key == "pronouns")
+        run_session_set_pronouns (game, game, value);
+      else if (key == "undo_pronouns" && game->undo_available)
+        run_session_set_pronouns (game, game->undo, value);
+      else if (key == "pronoun_flags" && numbers.size () >= 2)
+        uip_set_pronoun_flags (numbers[0] != 0, numbers[1] != 0);
+      else if (key == "again" && length < LINE_BUFFER_SIZE)
+        memcpy (run_prior_element, value.c_str (), length + 1);
+      else if (key == "history")
+        {
+          const scr_char *entry;
+          const std::vector<scr_int> fields
+              (run_session_split (value, 3, &entry));
+
+          if (!has_history)
+            memo_clear_commands (memento);
+          has_history = TRUE;
+          if (fields.size () == 3)
+            memo_restore_command (memento, entry,
+                                  fields[0], fields[1], fields[2]);
+        }
+      else if (key == "which_term")
+        which_term = value, has_which = TRUE;
+      else if (key == "which_command")
+        which_command = value;
+      else if (key == "which_candidates")
+        which_candidates = value;
+      else if (key == "prefix")
+        prefix = value, has_prefix = TRUE;
+      else if (key == "prefix_at_line")
+        prefix_at_line = value;
+    }
+
+  if (has_which)
+    {
+      const std::vector<scr_int> candidates
+          (run_session_split (which_candidates, (size_t) -1, NULL));
+      scr_bool valid = TRUE;
+
+      for (scr_int candidate : candidates)
+        valid = valid && candidate >= 0 && candidate < gs_object_count (game);
+      if (valid)
+        lib_co_400_set_question (TRUE, which_term, which_command, candidates);
+    }
+  if (has_prefix)
+    lib_battle_who_set_prefix (prefix, prefix_at_line);
+  return TRUE;
 }
 
 
@@ -5429,8 +5734,13 @@ run_main_loop (scr_gameref_t game)
 #endif
       if (status && !game->is_admin)
         {
-          /* Increment turn counter, and clear notifications done flag. */
-          game->turns++;
+          /*
+           * Increment turn counter, and clear notifications done flag.  3.9
+           * counted this line's elements as it read them; see
+           * run_player_input().
+           */
+          if (!run_counts_line_elements (game))
+            game->turns++;
           game->has_notified = FALSE;
 
           if (game->is_running)

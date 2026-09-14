@@ -1314,7 +1314,11 @@ the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 26
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
-the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 58|SCR_SKIP_WAITKEY=1
+# Re-blessed 2026-09-14: 3.9 counts every typed line element in its turn counter
+# (run390 45EC5B), blank lines and administrative ones included, so `stats` reads
+# 62 -- the three blank lines at the head of the solution count -- as run390
+# prints in Adrift_536_the_town_of_azra_v390.txt.  58 was Scarier's old count.
+the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 62|SCR_SKIP_WAITKEY=1
 # Score-ceiling re-survey (2026-09-13): 5/25 is not a shortfall to chase here --
 # this row is a short, deliberate early-game mechanic checkpoint (14 commands:
 # repeated fluff take/drop, then key/door/east to a dead end), not an attempted

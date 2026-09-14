@@ -8034,6 +8034,18 @@ gsc_sc_serialize_all (void)
   std::string out = GSC_SC_CONTAINER_MAGIC;
   gsc_container_put_chunk (out, engine_state.data (), engine_state.size ());
 
+  /* What the engine keeps between two prompts that no ADRIFT save file
+     carries: the line `again` repeats, the history, pronouns, an open
+     question, the player's settings and name -- see run_session_state().
+     "S" then its chunk; a container from before this section has a digit
+     here instead. */
+  {
+    const std::string session = run_session_state (game);
+
+    out += 'S';
+    gsc_container_put_chunk (out, session.data (), session.size ());
+  }
+
   ring_count = memo_get_undo_count (memento);
   out += std::to_string ((long) ring_count);
   out += '\n';
@@ -8061,7 +8073,8 @@ gsc_sc_apply_all (const std::string &data)
 {
   const scr_gameref_t game = (scr_gameref_t) gsc_game;
   const std::string magic = GSC_SC_CONTAINER_MAGIC;
-  std::string chunk;
+  std::string chunk, session;
+  bool has_session = false;
   long ring_count, has_undo_game, index_;
 
   if (data.compare (0, magic.size (), magic) != 0)
@@ -8076,26 +8089,42 @@ gsc_sc_apply_all (const std::string &data)
       return false;
   }
 
+  if (pos < data.size () && data[pos] == 'S')
+    {
+      pos++;
+      if (!gsc_container_get_chunk (data, &pos, &session))
+        return false;
+      has_session = true;
+    }
+
   /* A malformed or unreadable undo history just means no UNDO past the
      restore point; the restored game state above stays good. */
-  if (!gsc_container_get_count (data, &pos, &ring_count))
-    return true;
-  for (index_ = 0; index_ < ring_count; index_++)
+  do
     {
-      if (!gsc_container_get_chunk (data, &pos, &chunk))
-        return true;
-      memo_append_undo (gs_get_memento (game),
-                        (const scr_byte *) chunk.data (),
-                        (scr_int) chunk.size ());
+      if (!gsc_container_get_count (data, &pos, &ring_count))
+        break;
+      for (index_ = 0; index_ < ring_count; index_++)
+        {
+          if (!gsc_container_get_chunk (data, &pos, &chunk))
+            break;
+          memo_append_undo (gs_get_memento (game),
+                            (const scr_byte *) chunk.data (),
+                            (scr_int) chunk.size ());
+        }
+      if (index_ < ring_count
+          || !gsc_container_get_count (data, &pos, &has_undo_game))
+        break;
+      if (has_undo_game && gsc_container_get_chunk (data, &pos, &chunk))
+        {
+          GscStateCursor cursor = { &chunk, 0 };
+          scr_load_undo_game_from_callback (gsc_game, gsc_state_read,
+                                            &cursor);
+        }
     }
-  if (!gsc_container_get_count (data, &pos, &has_undo_game))
-    return true;
-  if (has_undo_game && gsc_container_get_chunk (data, &pos, &chunk))
-    {
-      GscStateCursor cursor = { &chunk, 0 };
-      scr_load_undo_game_from_callback (gsc_game, gsc_state_read, &cursor);
-    }
-  return true;
+  while (false);
+
+  /* Last: loading the undo buffer above resets that copy's pronouns. */
+  return !has_session || run_restore_session_state (game, session);
 }
 
 /*

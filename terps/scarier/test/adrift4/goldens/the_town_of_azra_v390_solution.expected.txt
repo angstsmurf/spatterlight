@@ -463,7 +463,7 @@ Agility:        0-0           0           0
 > stats
 These are your stats:
 Wealth: $383, and 108 cents.
-Number of turns passed: 58
+Number of turns passed: 62
 
 For Stamina, Strength, and Defense values, type status.
 

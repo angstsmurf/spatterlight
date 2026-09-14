@@ -1275,26 +1275,66 @@ ser_object_parent_valid (scr_gameref_t game, scr_int position, scr_int parent)
 /*
  * ser_restore_object_location()
  *
- * Read an object's location.  In 4.0 Runner format a static object is a room
- * list (count then that many room indices), whose values we discard -- a static
- * object's location is taken from its bundle "Where" list, and relocated-static
- * state is not separately persisted (as in legacy SCARE saves).  A pre-4.0
- * save has no room list: a static is a bare position, discarded for the same
- * reason.  A dynamic object, or any object in a legacy save, is a single
- * position integer.
+ * Read an object's location.  A static object starts from its bundle "Where"
+ * list (gs_create), and only an event can move it (evt_move_object), so the
+ * save only has to say whether it moved, and where to, in the shape
+ * ser_save_object_location() wrote it:
+ *
+ *   - a pre-4.0 save has no room list, just the bare position, which for an
+ *     unmoved static is OBJ_HIDDEN (or OBJ_PART_NPC).  Held by the player (0)
+ *     or a room (1..rooms) can only be an event's move.  One moved to hidden
+ *     reads the same as unmoved, and comes back unmoved;
+ *   - in 4.0 Runner format a static is a room list (count, then 1-based
+ *     rooms).  The bundle's own list is unmoved; one room, or none, is an
+ *     event's move there, or out of sight.  (The saver writes a static held
+ *     by the player as none.)
+ *
+ * Until 2026-09-14 both forms were discarded, so every restore -- a saved
+ * game, the undo tail and Spatterlight's autosave -- put an event-moved static
+ * back where the game started it: wrecked.taf's hole in the sewer wall.
+ *
+ * A dynamic object, or any object in a legacy save, is a single position
+ * integer.
  */
 static void
 ser_restore_object_location (scr_gameref_t game, scr_int object,
                              scr_bool runner_format)
 {
   if (ser_pre_v4 && obj_is_static (game, object))
-    (void) ser_get_int ();
+    {
+      const scr_int position = ser_get_int ();
+
+      if (position >= OBJ_HELD_PLAYER && position <= gs_room_count (game))
+        {
+          game->objects[object].position = position;
+          gs_set_object_static_unmoved (game, object, FALSE);
+        }
+    }
   else if (runner_format && !ser_pre_v4 && obj_is_static (game, object))
     {
+      std::vector<scr_int> rooms;
       scr_int count = ser_get_int (), index_;
+
       ser_reject_if (count < 0 || count > gs_room_count (game));
+      rooms.push_back (count);
       for (index_ = 0; index_ < count; index_++)
-        (void) ser_get_int ();
+        rooms.push_back (ser_get_int ());
+
+      ser_synchronize_cache (game);
+      if (rooms != ser_object_static_rooms (game, object))
+        {
+          if (count == 0)
+            {
+              game->objects[object].position = OBJ_HIDDEN;
+              gs_set_object_static_unmoved (game, object, FALSE);
+            }
+          else if (count == 1 && rooms[1] >= 1
+                   && rooms[1] <= gs_room_count (game))
+            {
+              game->objects[object].position = rooms[1];
+              gs_set_object_static_unmoved (game, object, FALSE);
+            }
+        }
     }
   else
     game->objects[object].position = ser_get_int ();

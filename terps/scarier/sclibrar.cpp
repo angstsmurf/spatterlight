@@ -1018,6 +1018,28 @@ lib_is_version_400 (scr_gameref_t game)
 
 
 /*
+ * lib_is_version_390()
+ *
+ * TRUE for a 3.9 .taf only.  run390's not-a-turn flag MemVar_468219 is
+ * cleared at the top of generaltasks (45EC74) and set again only by status
+ * (44C52B), history/past (45F52F), score (45F6C7), count/num (45F7D6),
+ * about/info/author/information (45FB3D), quit/bye/end (45FB6E) and turns
+ * (45FD4D).  Everything else it answers is an ordinary turn that ticks
+ * characters() and events() -- hint, help, clear/cls, time, version, save,
+ * restore and undo among them.  Measured on p39ADMIN.taf, whose length-1
+ * event prints TICK. after each of those (Adrift_1161_p39admin.txt).  4.0
+ * has its own, longer, list.
+ */
+static scr_bool
+lib_is_version_390 (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+
+  return version >= TAF_VERSION_390 && version < TAF_VERSION_400;
+}
+
+
+/*
  * lib_set_admin()
  *
  * Mark a built-in meta-command as an administrative turn -- but only for
@@ -2638,10 +2660,18 @@ lib_cmd_undo (scr_gameref_t game)
       return TRUE;
     }
 
+  /*
+   * 3.9's undo leaves the turn counter where it is: Adrift_1161's `turns`
+   * after undo/redo/x me/i/z/wait/exits/yes reads 37, one per element typed.
+   */
+  const scr_int turns = game->turns;
+
   /* If an undo buffer is available, restore it. */
   if (game->undo_available)
     {
       gs_copy (game, game->undo);
+      if (lib_is_version_390 (game))
+        game->turns = turns;
       game->undo_available = FALSE;
 
       pf_buffer_string (filter, "Undone.\n");
@@ -2660,6 +2690,8 @@ lib_cmd_undo (scr_gameref_t game)
   else if (memo_load_game (memento, game))
     {
       pf_buffer_string (filter, "Undone.\n");
+      if (lib_is_version_390 (game))
+        game->turns = turns;
 
       game->is_running = FALSE;
       game->do_restore = TRUE;
@@ -2670,7 +2702,8 @@ lib_cmd_undo (scr_gameref_t game)
     pf_buffer_string (filter,
                       "I can't undo any more of your blunderings!\n");
 
-  game->is_admin = TRUE;
+  /* A turn in 3.9; see lib_is_version_390(). */
+  game->is_admin = !lib_is_version_390 (game);
   return TRUE;
 }
 
@@ -3022,7 +3055,8 @@ lib_cmd_hints (scr_gameref_t game)
                         " yourself...\n");
     }
 
-  lib_set_admin (game);
+  /* A turn in 3.7-3.9; see lib_is_version_390(). */
+  game->is_admin = lib_is_version_400 (game);
   return TRUE;
 }
 
@@ -3108,7 +3142,8 @@ lib_cmd_help (scr_gameref_t game)
   if_print_string (
     " to print both SCARIER's and the game's version number.\n");
 
-  lib_set_admin (game);
+  /* A turn in 3.7-3.9; see lib_is_version_390(). */
+  game->is_admin = lib_is_version_400 (game);
   return TRUE;
 }
 
@@ -3210,7 +3245,9 @@ lib_cmd_clear (scr_gameref_t game)
 
   pf_buffer_tag (filter, SCR_TAG_CLS);
   pf_buffer_string (filter, "Screen cleared.\n");
-  lib_set_admin (game);
+
+  /* A turn in 3.7-3.9; see lib_is_version_390(). */
+  game->is_admin = lib_is_version_400 (game);
   return TRUE;
 }
 
@@ -3298,7 +3335,8 @@ lib_cmd_version (scr_gameref_t game)
   if_print_string (version);
   if_print_string (".\n");
 
-  game->is_admin = TRUE;
+  /* A turn in 3.9; see lib_is_version_390(). */
+  game->is_admin = !lib_is_version_390 (game);
   return TRUE;
 }
 
@@ -3542,7 +3580,8 @@ lib_cmd_time (scr_gameref_t game)
   if_print_string (buffer);
   if_print_string (".\n");
 
-  game->is_admin = TRUE;
+  /* A turn in 3.9; see lib_is_version_390(). */
+  game->is_admin = !lib_is_version_390 (game);
   return TRUE;
 }
 
@@ -4694,6 +4733,33 @@ lib_co_400_reset (void)
   lib_co_400_candidates.clear ();
   lib_co_400_forced_object = -1;
   lib_co_400_refused = FALSE;
+}
+
+/*
+ * The question as it stands between two lines, for a Spatterlight autosave;
+ * see run_session_state().  The rest lives only while a line is dispatched.
+ */
+void
+lib_co_400_get_question (scr_bool *pending, std::string *term,
+                         std::string *command,
+                         std::vector<scr_int> *candidates)
+{
+  *pending = lib_co_400_pending;
+  *term = lib_co_400_term;
+  *command = lib_co_400_command;
+  *candidates = lib_co_400_candidates;
+}
+
+void
+lib_co_400_set_question (scr_bool pending, const std::string &term,
+                         const std::string &command,
+                         const std::vector<scr_int> &candidates)
+{
+  lib_co_400_reset ();
+  lib_co_400_pending = pending;
+  lib_co_400_term = term;
+  lib_co_400_command = command;
+  lib_co_400_candidates = candidates;
 }
 
 /* Called once per typed line element, before it is dispatched. */
@@ -15773,6 +15839,23 @@ lib_battle_who_reset (void)
   lib_battle_who_unanswered = FALSE;
 }
 
+/* The prefix between two lines, for a Spatterlight autosave. */
+void
+lib_battle_who_get_prefix (std::string *pending, std::string *at_line)
+{
+  *pending = lib_battle_who_pending;
+  *at_line = lib_battle_who_at_line;
+}
+
+void
+lib_battle_who_set_prefix (const std::string &pending,
+                           const std::string &at_line)
+{
+  lib_battle_who_reset ();
+  lib_battle_who_pending = pending;
+  lib_battle_who_at_line = at_line;
+}
+
 /*
  * Called before each element is dispatched.  The previous element's 48B5FC
  * clear goes first, then a freshly typed line takes its copy of the prefix.
@@ -17223,7 +17306,12 @@ lib_cmd_save (scr_gameref_t game)
         if_print_string ("Save failed.\n");
     }
 
-  game->is_admin = TRUE;
+  /*
+   * A turn in 3.9 (see lib_is_version_390()): run390 answers `save` with
+   * "Game saved." and then the event tick, which is where FarFromHome's
+   * event clock gained a tick per save.
+   */
+  game->is_admin = !lib_is_version_390 (game);
   return TRUE;
 }
 
@@ -17242,7 +17330,8 @@ lib_cmd_restore (scr_gameref_t game)
         if_print_string ("Restore failed.\n");
     }
 
-  game->is_admin = TRUE;
+  /* A turn in 3.9; see lib_is_version_390(). */
+  game->is_admin = !lib_is_version_390 (game);
   return TRUE;
 }
 

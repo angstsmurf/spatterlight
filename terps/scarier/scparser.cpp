@@ -84,6 +84,24 @@ uip_note_definite_reference (void)
   uip_pending_definite = TRUE;
 }
 
+/*
+ * A line nothing answered never reaches uip_assign_pronouns(), so both flags
+ * can outlast it; a Spatterlight autosave keeps them.
+ */
+void
+uip_get_pronoun_flags (scr_bool *used, scr_bool *pending_definite)
+{
+  *used = uip_pronoun_used;
+  *pending_definite = uip_pending_definite;
+}
+
+void
+uip_set_pronoun_flags (scr_bool used, scr_bool pending_definite)
+{
+  uip_pronoun_used = used;
+  uip_pending_definite = pending_definite;
+}
+
 /* Enumeration of tokens.  TOK_NONE represents a non-occurring token. */
 typedef enum
 {
