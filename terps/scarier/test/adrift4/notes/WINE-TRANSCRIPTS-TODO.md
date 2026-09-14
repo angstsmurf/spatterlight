@@ -393,11 +393,14 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     husk (see T54's implicit take).
   - onnafa T155 `get key of pure harry`: the Runner says "I don't think Harry
     would appreciate being handled". The take-NPC branch fires on the name
-    inside an object's name. Scarier takes the key.
+    inside an object's name. **Ported 2026-09-15** (see the index): the key
+    is still taken, only the answer is overwritten.
 - **Task versus library:**
   - crookedestate T41 `peel wallpaper`: the Runner runs the task, Scarier
     says "don't understand what you want me to do with the walls". Also at
-    T44 `save`, the Runner adds an event line.
+    T44 `save`, the Runner adds an event line. **Ported 2026-09-15** (see the
+    index): spent task 47 has no RepeatText and hid spent task 48's.
+    crookedestate is now identical on every turn.
   - showtime T65 `get her hand` (after "(No female)"): the Runner runs the
     task, Scarier says "Take what?". The `z` sequence from T68 follows.
   - xfiles T69 bare `buzzer` (the Runner says "I don't understand what you
@@ -416,14 +419,23 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     event, whose StartText the dispatcher's buffer test counts. **Ported
     2026-09-14** (see the index): baroo now matches on every turn.
   - onnafa T68 `give empty beer mug to perry`: the Runner adds "You can't
-    take anything from the empty beer mug." ahead of the task text.
+    take anything from the empty beer mug." ahead of the task text. Rule
+    found, not ported: get_outer (4582D8) runs on every line just ahead of
+    the dispatcher (48A46D) and, when "empty" is a whole word ANYWHERE,
+    Replaces "empty " with "get all from ". The line then has `get` and
+    `from`, so the take-from branch refuses the non-container mug and returns
+    FALSE, and the task still runs. trickortreat's `climb into empty space`
+    (from-part names nothing) shows no line, so the unresolved branch's
+    "I don't understand where you want to get things from." must be
+    suppressed somehow. Probe that before porting.
   - greekschool T27/41/91/100/126/156: Scarier adds the NPC line "Paul gives
     you a look over..." on entering. The Runner never prints it.
   - riding_home T47 and T50: the Runner prints an NPC conversation line and a
     progress-hint line that Scarier lacks.
   - iqsfot T158 `kick guard`: the Runner names the absent NPC by Name ("Drash
     the Guard is not here."), Scarier by the typed word ("guard is not
-    here.").
+    here."). **Ported 2026-09-15** (see the index): not the typed word but
+    NPC 15, Named "guard"; the task %character% now binds the first match.
 - **Output filter:** albert_is_lost T21 `get motherload`: the Runner prints a
   literal ` >UNDOeth?"` that Scarier drops. It is probably an unknown
   `<...>` tag swallowed.
@@ -709,6 +721,16 @@ every Runner.
   - A trailing space in an all-literal task command must be typed. sommeril
     `get placemat ` (093a12d5e)
   - The SYNONYM table is sequential whole-string rewrites. Vardock
+  - The already-done scan passes over a spent task with no RepeatText, so a
+    later spent task's RepeatText answers the line. `[4.0]` crookedestate T41
+    (`run_task_refusal`, 2026-09-15)
+  - A task command's %character% binds the FIRST matching NPC in index order
+    (run400 468DFC leaves for 469574 on the first hit). `[4.0]` iqsfot T158
+    (`uip_match_entity`, 2026-09-15)
+  - characters()' take arm (47F70B) overwrites an object take's answer with
+    "I don't think <NPC> would appreciate being handled." when the line has
+    take/get/pick up and names a present NPC; the take stands. `[4.0]` onnafa
+    T155 (`lib_take_npc_overwrite_400`, 2026-09-15)
 - **Word rules:**
   - `take` becomes `get` before parsing. `[3.8]` great
   - `z` means wait only from 3.90. cave

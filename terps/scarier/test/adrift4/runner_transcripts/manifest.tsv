@@ -72,7 +72,7 @@ crime_adventure	crime_adventure.rtf	driven:Adrift_279_crime_adventure_rt.rtf	3.8
 crimsondetritus	crimsondetritus.txt	driven:Adrift_315_crimsondetritus_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 crm	crm.txt	harvested-native-0-draws:Adrift_604_crm.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 croft	croft.txt	driven:Adrift_348_croft_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
-crookedestate	crookedestate.txt	driven:Adrift_427_crookedestate_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	no	2 differing turn(s)
+crookedestate	crookedestate.txt	driven:Adrift_427_crookedestate_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	no	identical on every turn.
 cruel	cruel.txt	harvested-native-0-draws:Adrift_479_cruel.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 cursed	cursed.txt	driven:Adrift_227_cursed_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
 cyber	cyber.txt	driven:Adrift_156_cyber_rt.txt	4.00	run400x.exe	1234	0			yes	1 differing turn(s)
@@ -175,7 +175,7 @@ impulso	impulso.txt	harvested-native-0-draws:Adrift_699_impulso.txt	3.90	run390x
 inmemory	inmemory.txt	driven:Adrift_312_inmemory_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 invasion_shirts	invasion_shirts.txt	driven:Adrift_206_invasion_shirts_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 inverness	inverness.txt	driven:Adrift_177_inverness_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	identical on every turn.
-iqsfot	iqsfot.txt	driven:Adrift_285_iqsfot_rt.txt	4.00	run400x.exe	391	1		SCR_SEED=391 SCR_SKIP_WAITKEY=1	yes	3 differing turn(s)
+iqsfot	iqsfot.txt	driven:Adrift_285_iqsfot_rt.txt	4.00	run400x.exe	391	1		SCR_SEED=391 SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
 jailbreakbob	jailbreakbob.txt	driven:Adrift_460_jailbreakbob_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 james_bond	james_bond.rtf	driven:Adrift_298_james_bond_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
 jason_vs_salm	jason_vs_salm.txt	driven:Adrift_165_jason_vs_salm_rt.txt	4.00	run400x.exe	3	0		SCR_SEED=3	yes	identical on every turn apart from the Runner's keypress prompt.
@@ -235,7 +235,7 @@ neighbours	neighbours.txt	driven:Adrift_435_neighbours_rt.txt	4.00	run400x.exe	1
 newton	newton.txt	driven:Adrift_360_newton_rt.txt	4.00	run400x.exe	1234	1			yes	identical on every turn.
 ohhuman	ohhuman.txt	driven:Adrift_395_ohhuman_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 oldchurch	oldchurch.txt	driven:Adrift_466_oldchurch_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
-onnafa	onnafa.txt	driven:Adrift_500_onnafa_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
+onnafa	onnafa.txt	driven:Adrift_500_onnafa_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 orient_express	orient_express.txt	driven:Adrift_169_orient_express_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 outline	outline.txt	driven:Adrift_376_outline_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 overtheedge	overtheedge.txt	harvested-xoshiro:Adrift_143_overtheedge_x.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

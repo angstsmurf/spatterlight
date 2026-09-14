@@ -3302,6 +3302,9 @@ plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_W
 # debugger after every command where the player and NPCs 14-17 stand, KOs any
 # mook sharing the room with its correct verb, and otherwise takes the next
 # route step.  39 commands to the throne room, peak damage 8 of 12.
+# Re-blessed 2026-09-15: T158 `kick guard` fails task 1339 as "Drash the Guard
+# is not here." -- a 4.0 task %character% binds the FIRST matching NPC (7,
+# alias guard), not the last (15, "guard"); runner_transcripts/iqsfot.txt:1240.
 iqsfot_solution.txt|iqsfot.taf|Thus one courageous space cadet saved the fish|SCR_SEED=391 SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- MANGIASAUR (DCBSupafly, ADRIFT Spring Comp 2011).  You are a
@@ -6506,6 +6509,14 @@ petespunkin_solution.txt|Pete's Punkin Junkinator.taf|You scored 505 out of the 
 # turn earlier, and that stream was already ~4 turns out of step with run400 (5
 # occurrences either way).  `peel wallpaper` is a separate, still-open case: a
 # different task claims that line.
+# Re-blessed 2026-09-15: the third `peel wallpaper` is the same rule after all.
+# Tasks 47 (spent, no RepeatText) and 48 (spent, RepeatText) share the
+# commands; the already-done scan stopped at 47 and handed the line to the
+# object catch-all, where run400 prints 48's "I rip another ... I feel stop,
+# emptied inside."  At 4.0 a spent task without a RepeatText is now passed
+# over.  The knock-on is the `save` line gaining run400's "I feel an
+# overwhelming urge to escape this place."  runner_transcripts/crookedestate.txt
+# is now identical on every turn.
 crookedestate_solution.txt|The Crooked Estate.taf|I quit momentarily, lying motionless, without any will. But, still, something|SCR_SKIP_WAITKEY=1
 # Alias Undercover Agent.taf (Alias-TV-tie-in spy game, 4.00): WON 35/35,
 # the true and declared maximum (four ACT type=4 awards: +10/+10/+10/+5).
@@ -8435,6 +8446,10 @@ alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # cleans the privy and drops the possum cap.  `5` again (task 225 -> 283)
 # dismisses her so the rest of the route is unchanged.  Fifteen commands
 # inserted after `2`; the extra scoring lifts the ending from 76 to 82.
+# Re-blessed 2026-09-15: `get key of pure harry` answers "I don't think Harry
+# would appreciate being handled." with Red Harry (alias Harry) present -- the
+# run400 characters() take arm (47F70B) overwrites the take line, but the key
+# is still taken (runner_transcripts/onnafa.txt:1622).
 onnafa_solution.txt|ONNAFA.TAF|your score turned out at 82|SCR_SKIP_WAITKEY=1
 # Full win, 30/30 (confirmed max via exhaustive audit of every ACT type=4
 # scoring task in the SCR_DUMP_TASKS structural dump). Collects the starting

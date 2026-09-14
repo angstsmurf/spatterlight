@@ -2279,6 +2279,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * (shadowpeak) binds in place and never reaches this pass.
    */
   max_extent = 0;
+  scr_bool strict_first_bound = FALSE;
   entity_count = cache.size ();
   for (scr_int pass = 0; pass < 2 && max_extent == 0; pass++)
     {
@@ -2345,12 +2346,27 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
               /* Increase the maximum match extent if required. */
               max_extent = (extent > max_extent) ? extent : max_extent;
 
-              /* Save match in variables and game. */
-              if (is_character)
+              /*
+               * Save match in variables and game.  A 4.0 task command's
+               * %character% keeps the FIRST NPC in index order: run400's
+               * matcher (468DFC, loop 469162) leaves for 469574 on the first
+               * compare that succeeds and stores that index in 49420A.
+               * iqsfot T158 `kick guard` against task 1339 `*kick
+               * *%character%*`, with Drash the Guard (NPC 7, alias guard) and
+               * a guard (NPC 15) both absent: run400 fails "%character% is
+               * not here." as "Drash the Guard is not here."
+               * (runner_transcripts/iqsfot.txt:1240), not "guard is not here."
+               */
+              if (is_character
+                  && !(uip_strict_reference && strict_first_bound))
                 var_set_ref_character (vars, index);
               else
                 var_set_ref_object (vars, index);
               references[index] = TRUE;
+              if (is_character
+                  && prop_get_taf_version (gs_get_bundle (game))
+                     >= TAF_VERSION_400)
+                strict_first_bound = TRUE;
             }
         }
     }

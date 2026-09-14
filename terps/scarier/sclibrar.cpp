@@ -8489,21 +8489,14 @@ lib_take_from_over_capacity_390 (scr_gameref_t game, scr_int object,
 
 
 /*
- * lib_cmd_take_npc()
+ * lib_print_take_npc_refusal()
  *
- * Reject attempts to take an npc.
+ * The take-a-character refusal, for lib_cmd_take_npc() and the 4.0 overwrite
+ * in lib_take_multiple_common().
  */
-scr_bool
-lib_cmd_take_npc (scr_gameref_t game)
+static void
+lib_print_take_npc_refusal (scr_gameref_t game, scr_int npc)
 {
-  scr_int npc;
-  scr_bool is_ambiguous;
-
-  /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, "take", &is_ambiguous);
-  if (npc == -1)
-    return is_ambiguous;
-
   /*
    * Reject this attempt.  The Runner names the NPC by its Prefix and first
    * Alias here, not its Name: run400 47F750-47F7BC and run390 45969B-4596C6
@@ -8549,6 +8542,51 @@ lib_cmd_take_npc (scr_gameref_t game)
       lib_print_npc_np (game, npc);
     pf_buffer_string (filter, " would appreciate being handled.\n");
   }
+}
+
+/*
+ * lib_take_npc_overwrite_400()
+ *
+ * The present character a 4.0 object take line also names, or -1.  The same
+ * characters() pass as lib_examine_npc_overwrite_400() has a take arm
+ * (47F70B-47F7BC: whole-word take/get/pick up, no task ran, NPC in the room)
+ * that assigns the refusal to the message buffer without testing it, so the
+ * object's take answer is thrown away while the take itself stands.
+ *
+ * Measured on ONNAFA (4.00): `get key of pure harry` with Red Harry (alias
+ * Harry) present answers only "I don't think Harry would appreciate being
+ * handled." (runner_transcripts/onnafa.txt:1622), and the key is used later.
+ */
+static scr_int
+lib_take_npc_overwrite_400 (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+
+  if (!input
+      || !(lib_input_contains_word (input, "take")
+           || lib_input_contains_word (input, "get")
+           || lib_input_contains_word (input, "pick up")))
+    return -1;
+  return lib_examine_npc_overwrite_400 (game);
+}
+
+/*
+ * lib_cmd_take_npc()
+ *
+ * Reject attempts to take an npc.
+ */
+scr_bool
+lib_cmd_take_npc (scr_gameref_t game)
+{
+  scr_int npc;
+  scr_bool is_ambiguous;
+
+  /* Get the referenced npc, and if none, consider complete. */
+  npc = lib_disambiguate_npc (game, "take", &is_ambiguous);
+  if (npc == -1)
+    return is_ambiguous;
+
+  lib_print_take_npc_refusal (game, npc);
   return TRUE;
 }
 
@@ -10084,8 +10122,25 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
           is_take_from_380 = TRUE;
     }
 
+  const size_t take_mark = pf_buffer_length (filter);
+
   if (objects > 0 || references > 0)
-    lib_take_backend (game);
+    {
+      scr_int npc;
+
+      lib_take_backend (game);
+
+      /* 4.0: a present character the line names overwrites the answer. */
+      npc = lib_take_npc_overwrite_400 (game);
+      if (npc != -1 && !lib_take_refusal_redispatch)
+        {
+          lib_take_single_named = FALSE;
+          lib_take_refusal_claimed = FALSE;
+          pf_truncate (filter, take_mark);
+          lib_print_take_npc_refusal (game, npc);
+          return TRUE;
+        }
+    }
   else if (lib_is_version_400 (game))
     {
       /*

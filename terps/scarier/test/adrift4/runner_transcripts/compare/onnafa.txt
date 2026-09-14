@@ -20,10 +20,6 @@ turn 68  give empty beer mug to perry
   run400   You can't take anything from the empty beer mug. "A fair trade as I'm sure you'll agree," says Perry as you hand him the empty beer mug and he hands you the mace of might. Too fair a trade? You wonder. "And just to make myself feel better for giving you such rubbish, have this stuffed cat as well."
   scarier  "A fair trade as I'm sure you'll agree," says Perry as you hand him the empty beer mug and he hands you the mace of might. Too fair a trade? You wonder. "And just to make myself feel better for giving you such rubbish, have this stuffed cat as well."
 
-turn 155  get key of pure harry
-  run400   I don't think Harry would appreciate being handled.
-  scarier  You take the key of pure Harry.
-
 122 turn(s) differed by whitespace only (119 not shown) -- see the note above.
 
 (the openings differ too -- banner, graphics notice or the

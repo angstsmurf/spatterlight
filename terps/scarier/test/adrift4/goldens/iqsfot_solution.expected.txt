@@ -1628,7 +1628,7 @@ No wonder they both looked important.  The door opens to the west.
 Irvine's health recovers slightly.
 
 > kick guard
-guard is not here.
+Drash the Guard is not here.
 
 The elite burns Irvine with a heat gun.  The pain...!
 

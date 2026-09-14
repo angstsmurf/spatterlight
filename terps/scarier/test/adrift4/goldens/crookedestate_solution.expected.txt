@@ -293,7 +293,9 @@ I rip another, but another layer hides behind that. And another. And another.
 I feel my insides balling up tight.
 
 > peel wallpaper
-I don't understand what you want me to do with the walls.
+I rip another, but another layer hides behind that. And another. And another.
+
+I feel stop, emptied inside.
 
 > z
 This stillness does not still me.
@@ -305,6 +307,8 @@ to it.
 
 > save
 The estate is decayed beyond saving. No memory lasts in here.
+
+I feel an overwhelming urge to escape this place.
 
 > scream
   > scream

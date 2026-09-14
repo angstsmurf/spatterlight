@@ -4044,11 +4044,22 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
        * done further up the table would then hide a later out-of-room match
        * from the "last one wins" rule.
        */
+      /*
+       * 4.0 also passes over a spent task with no RepeatText of its own: every
+       * 4.0 answer below needs one, and the picker offers the dispatcher the
+       * spent task that has it.  The Crooked Estate's wallpaper is tasks 47
+       * (spent, silent) and 48 (spent, RepeatText) on the same commands, and
+       * the third `peel wallpaper` gets 48's "I rip another, but another layer
+       * hides behind that." (runner_transcripts/crookedestate.txt), not the
+       * object catch-all.
+       */
       if (!room_only
           && !run_task_ran_this_command (task)
           && task_is_done_refused (game, task)
           && (version < TAF_VERSION_400
-              || run_task_is_unrestricted (game, task))
+              || (run_task_is_unrestricted (game, task)
+                  && !scr_strempty (prop_get_indexed_string
+                                      (bundle, "Tasks", task, "RepeatText"))))
           && run_match_task_commands (game, task, string, TRUE, FALSE))
         {
           refusal = REFUSAL_DONE;
