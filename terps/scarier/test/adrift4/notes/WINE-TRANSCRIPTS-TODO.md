@@ -1075,18 +1075,38 @@ Engine leads, measured or half-measured, none blocking:
   not comparable, for a harness reason first: the feed's blank lines (feed
   line 103 after `s`, line 130 after `#sleep 3`) are commands to run400,
   answered "Huh?", while Scarier takes them as waitkeys.  The streams drift
-  from there.  Fix the feed and re-drive before reading any of these as
-  engine differences:
-  - T33-37: frost-event text a turn out of step.
-  - T78-83 `open bathroom door`: run400 "You can't open that.", Scarier
-    "You can't see the bathroom door.".
-  - T122 `get stool`: run400 shows a "Meanwhile..." cutscene behind (PRESS
-    ENTER TO CONTINUE) that Scarier does not show there.
-  - T124 `stand on stool`: run400 "While you're still holding it?" (house
-    plain line 64494), Scarier the success text (line 65106).  The rest of
-    the row cascades from this.
-  Every move turn still prints nothing in run400 (the `%drunk%` stack
-  overflow above, a deliberate deviation).
+  from there.  **Made comparable 2026-09-14** with `House_sober.taf` (the `%drunk%` ALR
+  loop taken out, so moves print) and `cmdfile_house_sober.txt` (no blank
+  lines), driven on run400x seed 1 as `Adrift_128_housesober.txt`; compare
+  with `--env SCR_SEED=1 --env SCR_RNG=xoshiro --env SCR_SKIP_WAITKEY=1`.
+  Without `SCR_RNG=xoshiro` the frost events (random 10-20 duration) sit six
+  turns out, so the old T33-37 lead was the harness.  284/284 echoed; now
+  down to:
+  - ~~T78-83/T129 `open bathroom door`~~ **FIXED**: "You can't open that."
+    The absent-seen clause scores every seen object, not just what %object%
+    bound: the street sign (alias "door") and the front door (Short "door")
+    tie with it (`Adrift_128_doorprobe.txt`).  See lib_absent_seen_object().
+  - ~~T124 `stand on stool`~~ **FIXED**: 3.8+ Runners' sit/stand/lie need
+    the object directly on the room floor (run370 has no location test,
+    42AEC8, unported); a held stool is "While you're
+    still holding it?".  House's golden now drops the stool first.
+  - ~~T137 `unlock back door with metal key`~~ **FIXED**: run400 never asks
+    what to unlock with.  A key that does not resolve takes the keyless arm,
+    "You don't have anything to unlock the back door with!", and it IS a turn
+    (`Adrift_128_turnprobe.txt`: 133 -> 134).
+  - ~~T275 `5 7 9 6 2 7 3 1 9`~~ **FIXED**: the catch-all's "can't see"
+    clause uses the 463640 score at 4.0, so the line reaches DontUnderstand.
+  - ~~T171/172~~ **FIXED**: the RIFT event came a turn early once the T137
+    fix made that line tick (the old "...with?" question was not a turn and
+    had hidden it).  `cmdfile_house_turnbisect.txt` (`turns` after every
+    command, `Adrift_128_turnbisect.txt`) put the extra tick on T150 `read
+    defensor`: 4.0 `read` is an examines() entry word, and its "You see no
+    such thing." sets the not-a-turn byte (471F02) exactly as `x` does.
+    viewtohome's golden re-blessed for it: the water sound moves one turn
+    from its `read note` on, and the game still wins.
+  - T263/264 `put thyme/web in kettle`: a +-1 resync, unread.
+  - T275/T278: House's random `[error=N]` DontUnderstand variant, a
+    value-not-count RNG difference; not an engine lead.
 - (**Put/task precedence at 4.0**: **ported 2026-09-06**, see "Ported
   2026-09-06: the 4.0 put/task precedence split".)
 - **run400 prints no `put` confirmation when the moved object is dynamic

@@ -122,6 +122,7 @@ look
 score
 get stool
 u
+drop stool
 stand on stool
 u
 get metal key
@@ -170,7 +171,6 @@ examine workbench
 search workbench
 look on workbench
 get chisel
-drop wooden stool
 drop tuning fork
 get axe
 get chalk

@@ -524,22 +524,22 @@ You can't go in that direction, but you can move north and east.
 You'd need to enter the fireplace if you want to explore in that direction.
 
 > open bathroom door
-You can't see the bathroom door.
+You can't open that.
 
 > open bathroom door
-You can't see the bathroom door.
+You can't open that.
 
 > open small bedroom door
-You can't see the small bedroom door.
+You can't open that.
 
 > open small bedroom door
-You can't see the small bedroom door.
+You can't open that.
 
 > open master bedroom door
-You can't see the master bedroom door.
+You can't open that.
 
 > open master bedroom door
-You can't see the master bedroom door.
+You can't open that.
 
 > look
 
@@ -751,6 +751,9 @@ Landing
 There are three closed doors to the north,  east and west.  There is also
 square hole in the ceiling way above your head.
 
+> drop stool
+You drop the wooden stool.
+
 > stand on stool
 The stool creaks alarmingly when you step onto it and you wonder how long it
 will be able to take your weight.
@@ -764,10 +767,10 @@ High over your head lie rafters half cloaked in darkness.   A square hole in
 the floor leads down to the landing.  Somthing large squats in the far
 corner.  It is too dark to make out what it is without closer inspection.
 
+Cathy says, "Ahh", and picks up some cartridges.
+
 > get metal key
 You pick up the metal key.
-
-Cathy says, "Ahh", and picks up some cartridges.
 
 > d
 You sit down on the frosty boards and swing your legs out over the square of
@@ -784,7 +787,8 @@ As your hand reaches out all the doors creak open at once.
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
 bedroom and the master bedroom is to the west.  There is a square hole in the
-ceiling way above your head.  Cathy seems to have recovered.
+ceiling way above your head.  You can also see a wooden stool.  Cathy seems
+to have recovered.
 
 > n
 You move north.
@@ -807,7 +811,7 @@ You move south.
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
 bedroom and the master bedroom is to the west.  There is a square hole in the
-ceiling way above your head.
+ceiling way above your head.  You can also see a wooden stool.
 
 > d
 You move down.
@@ -1044,14 +1048,14 @@ see a wooden trapdoor, a piece of chalk and a petrol can.
 This large workbench shows its years of long use in the many scars and nicks
 on its surface.  On the large workbench is a wood chisel, an axe and a drill.
 
-> search workbench
-This large workbench shows its years of long use in the many scars and nicks
-on its surface.  On the large workbench is a wood chisel, an axe and a drill.
-
 The voice of Cathy's grandfather shatters the silence saying, "BEWARE.
 SOMETHING HAS OPENED A RIFT AND ENTERED THE MASTER BEDROOM".
 Cathy says, "Oh great.  Just what we need.  OK partner.  Lets go meet the
 neighbors".
+
+> search workbench
+This large workbench shows its years of long use in the many scars and nicks
+on its surface.  On the large workbench is a wood chisel, an axe and a drill.
 
 > look on workbench
 This large workbench shows its years of long use in the many scars and nicks
@@ -1059,9 +1063,6 @@ on its surface.  On the large workbench is a wood chisel, an axe and a drill.
 
 > get chisel
 You take the wood chisel from the large workbench.
-
-> drop wooden stool
-You drop the wooden stool.
 
 > drop tuning fork
 You drop the tuning fork.
@@ -1102,8 +1103,8 @@ rests against one wall.
 
 Leaning against the workbench is what looks like some sort of modified rifle.
  The car sits and seems to dare you to ask how it got there.  You can also
-see a wooden stool, a wooden trapdoor, a silver snuffbox, a petrol can and a
-tuning fork.  Cathy smiles at you.
+see a wooden trapdoor, a silver snuffbox, a petrol can and a tuning fork.
+Cathy smiles at you.
 
 > unlock trapdoor with small wooden key
 The wooden trapdoor is not locked!
@@ -1159,7 +1160,7 @@ You move up.
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
 bedroom and the master bedroom is to the west.  There is a square hole in the
-ceiling way above your head.
+ceiling way above your head.  You can also see a wooden stool.
 
 > n
 You move north.
@@ -1185,7 +1186,7 @@ You move south.
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
 bedroom and the master bedroom is to the west.  There is a square hole in the
-ceiling way above your head.
+ceiling way above your head.  You can also see a wooden stool.
 
 > e
 You move east.
@@ -1219,7 +1220,7 @@ You move west.
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
 bedroom and the master bedroom is to the west.  There is a square hole in the
-ceiling way above your head.
+ceiling way above your head.  You can also see a wooden stool.
 
 > w
 You enter the master bedroom and find a hole in reality hovering in the
@@ -1321,7 +1322,7 @@ You move east.
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
 bedroom and the master bedroom is to the west.  There is a square hole in the
-ceiling way above your head.
+ceiling way above your head.  You can also see a wooden stool.
 
 > d
 You move down.
@@ -1474,7 +1475,7 @@ You move up.
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
 bedroom and the master bedroom is to the west.  There is a square hole in the
-ceiling way above your head.
+ceiling way above your head.  You can also see a wooden stool.
 
 With a cry you drop the match and suck the ends of your singed fingers.  The
 match burns itself out.
@@ -1557,7 +1558,7 @@ You move east.
 Landing
 There are three exits.  North leads to a bathroom.  East leads to a small
 bedroom and the master bedroom is to the west.  There is a square hole in the
-ceiling way above your head.
+ceiling way above your head.  You can also see a wooden stool.
 
 A giant wasp hovers in the air emitting a deafening buzzing sound.
 
@@ -1600,8 +1601,7 @@ rests against one wall.
 
 Leaning against the workbench is what looks like some sort of modified rifle.
  The car sits and seems to dare you to ask how it got there.  You can also
-see a wooden stool, a wooden trapdoor, a silver snuffbox, a petrol can and a
-tuning fork.
+see a wooden trapdoor, a silver snuffbox, a petrol can and a tuning fork.
 
 > get snuffbox
 You take the silver snuffbox.

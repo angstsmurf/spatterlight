@@ -5587,12 +5587,16 @@ lib_input_contains_word (const scr_char *input, const scr_char *word)
 static scr_int lib_verb_object_name_score (scr_gameref_t game,
                                            scr_int object,
                                            const scr_char *input);
+static scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
+                                                   const scr_char *input,
+                                                   std::vector<scr_int> *tied,
+                                                   scr_bool present_only);
 
 static scr_int
 lib_absent_seen_object (scr_gameref_t game)
 {
   const scr_char *input;
-  scr_int index_, object, best, best_count;
+  scr_int index_, object;
 
   if (!lib_is_version_400 (game))
     return -1;
@@ -5622,40 +5626,39 @@ lib_absent_seen_object (scr_gameref_t game)
    * "machine") seen answers "I can't see the washing machine from here!",
    * and `X chute` against several seen "chute"s ties and prints the ALR'd
    * "Nothing Special.".
+   *
+   * The candidates are every seen object whose name words the line holds,
+   * not only what %object% bound: House's `open bathroom door` from the
+   * Hallway, the door seen (examined, even) on the Landing, answers "You
+   * can't open that." (Adrift_128_doorprobe.txt, Adrift_128_housesober.txt
+   * T78-83), because the street's sign (alias "door") and front door (Short
+   * "door") score 1 alongside it, the tie is negative, and openclose leaves
+   * at 4756BC for therest's flat refusal.
    */
   input = run_get_dispatch_input ();
-  object = -1;
-  best = -1;
-  best_count = 0;
+  if (!input)
+    return -1;
+
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
-      scr_int score;
-
-      if (!game->object_references[index_])
-        continue;
-
       /* Something the noun names is here; the ordinary path handles it. */
-      if (obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+      if (game->object_references[index_]
+          && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
         return -1;
-
-      if (!gs_object_seen (game, index_))
-        continue;
-
-      score = input ? lib_verb_object_name_score (game, index_, input) : 0;
-      if (score == 0)
-        continue;
-
-      if (score > best)
-        {
-          object = index_;
-          best = score;
-          best_count = 1;
-        }
-      else if (score == best)
-        best_count++;
     }
 
-  return best_count > 1 ? -1 : object;
+  /* Pass 1, present and seen: a unique winner is present, not absent. */
+  if (lib_verb_object_resolve_400_string (game, input, NULL, TRUE) >= 0)
+    return -1;
+
+  /* Pass 2, every seen object; a tie or no score is -1 as well. */
+  object = lib_verb_object_resolve_400_string (game, input, NULL, FALSE);
+  if (object < 0
+      || !game->object_references[object]
+      || obj_indirectly_in_room (game, object, gs_playerroom (game)))
+    return -1;
+
+  return object;
 }
 
 static scr_bool
@@ -12413,18 +12416,54 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
   /*
    * Now try to get the key from referenced text, and disambiguate as usual.
    */
+  /*
+   * 4.0 never asks what to use: openclose() starts var_88 at -1 (475C63),
+   * sets it only from a " with " half that resolves (475CB0, and the present
+   * objects' loop at 475CD2), and a lock arm left at -1 takes the keyless
+   * branch -- the object's own key if held (476360), else "<player> don't
+   * have anything to unlock <it> with!" (4763ED; lock 4760A6), with no
+   * pick-up on the way.  House's `unlock back door with metal key` before the
+   * key was ever seen (Adrift_128_housesober.txt, T137).  The question itself
+   * is in no Runner's string pool, 3.7 to 4.0, so the older versions keep
+   * SCARE's wording only because their arms are unread.
+   */
+  scr_bool key_unnamed_400 = FALSE;
+
   if (with_key)
     {
       const scr_var_setref_t vars = gs_get_vars (game);
 
       if (!uip_match ("%object%", var_get_ref_text (vars), game))
         {
-          pf_buffer_string (filter, verb->prompt);
-          return TRUE;
+          if (!lib_is_version_400 (game))
+            {
+              pf_buffer_string (filter, verb->prompt);
+              return TRUE;
+            }
+          with_key = FALSE;
+          key_unnamed_400 = TRUE;
         }
-      key = lib_disambiguate_object (game, verb->verb_with, NULL);
-      if (key == -1)
-        return TRUE;
+      else if (!lib_is_version_400 (game))
+        {
+          key = lib_disambiguate_object (game, verb->verb_with, NULL);
+          if (key == -1)
+            return TRUE;
+        }
+      else
+        {
+          /* A named key that is not in scope resolves to nothing, too. */
+          scr_bool key_ambiguous;
+
+          key = lib_disambiguate_object (game, verb->verb_with,
+                                         &key_ambiguous);
+          if (key == -1)
+            {
+              if (key_ambiguous)
+                return TRUE;
+              with_key = FALSE;
+              key_unnamed_400 = TRUE;
+            }
+        }
     }
 
   /* React to the request based on openness state. */
@@ -12460,7 +12499,8 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
         else
           {
             key = the_key;
-            lib_attempt_key_acquisition (game, key);
+            if (!key_unnamed_400)
+              lib_attempt_key_acquisition (game, key);
           }
 
         /*
@@ -15661,12 +15701,19 @@ lib_cmd_read_other (scr_gameref_t game)
       return lib_read_object (game, object);
   }
 
-  /* Reject the attempt -- the same "<name> see no such thing." literal as
-     lib_cmd_examine_other(), unconjugated in the third person. */
-  return lib_print_response_message (game,
-                                     "You see no such thing.\n",
-                                     "I see no such thing.\n",
-                                     "%player% see no such thing.\n");
+  /*
+   * Reject the attempt -- the same "<name> see no such thing." literal as
+   * lib_cmd_examine_other(), unconjugated in the third person, and the same
+   * not-a-turn flag (471F02): read is one of examines()' entry words.  House's
+   * `read defensor` with the book unseen leaves `turns` at 143
+   * (Adrift_128_turnbisect.txt), and the RIFT event 34 turns on shows it.
+   */
+  lib_print_response_message (game,
+                              "You see no such thing.\n",
+                              "I see no such thing.\n",
+                              "%player% see no such thing.\n");
+  game->is_admin = TRUE;
+  return TRUE;
 }
 
 
@@ -17482,12 +17529,23 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
         if (object == -1)
           return is_ambiguous;
 
-        /* Verify the referenced object is amenable. */
+        /*
+         * Verify the referenced object is amenable, and on the floor of the
+         * player's room.  The 3.8+ sitstand loops take an object only
+         * when it is a dynamic object whose room is the player's, or a static
+         * one listed in that room, and only then read SitLie (run400
+         * 46B8F2-46B93A, run390 4445F8-44463A, run380 434042); run370's loop
+         * has no location test at all (42AEC8), unported.  A held stool is never
+         * stood on, and the line falls to the "can't stand on" refusal.
+         * House.taf's `stand on stool` with the stool in hand, whose ALR turns
+         * that refusal into "While you're still holding it?" (Adrift_128).
+         */
         vt_key[0].string = "Objects";
         vt_key[1].integer = object;
         vt_key[2].string = "SitLie";
         sit_lie_flags = prop_get_integer (bundle, "I<-sis", vt_key);
-        if (!(sit_lie_flags & movement_mask))
+        if (!(sit_lie_flags & movement_mask)
+            || !obj_directly_in_room (game, object, gs_playerroom (game)))
           {
             if (!cant_do_that)
               return FALSE;
@@ -21292,7 +21350,16 @@ lib_cmd_verb_object (scr_gameref_t game)
        * "melt statue" from the Front porch, with the statue in the Entrance,
        * answers "You can't see the statue." and not the game's own
        * DontUnderstand text.
+       *
+       * 4.0 picks that object with the 463640 score, not with our matcher's
+       * references: House's `5 7 9 6 2 7 3 1 9` on the Landing, house number
+       * 7 (alias "7") seen outside, is "Huh?" in run400
+       * (Adrift_128_housesober.txt, T275) -- the line scores no unique seen
+       * object, so the DontUnderstand text answers.
        */
+      if (lib_is_version_400 (game))
+        return lib_cant_see_absent_object (game, ".\n", TRUE);
+
       count = 0;
       object = -1;
       for (index_ = 0; index_ < gs_object_count (game); index_++)
