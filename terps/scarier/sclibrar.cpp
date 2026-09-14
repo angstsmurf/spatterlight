@@ -9579,6 +9579,54 @@ lib_cmd_take_absent (scr_gameref_t game)
 static scr_bool lib_take_scored_fallback = FALSE;
 
 /*
+ * lib_take_from_task_sweep_380()
+ *
+ * run380's insides() ends every take-from that found its source object with
+ * a sweep over the whole object table (loc_447405): for each object with a
+ * parent it stores "get " & Short & " from " & parent's Short into the line
+ * (ImpAdStStr @00047446, hidden by the decompiler) and, if checktask passes
+ * on it, runs tasks(1) there.  The object just taken has its parent cleared
+ * (4470EF) and so is skipped.  tra.taf, run380, 2026-09-14: task 11 `get
+ * *knives*` (knives in the silverware drawer) runs after `get meat from
+ * refrigerator`, and after the bare `get moxie` / `get pop-tarts` that
+ * takes() rewrites into a take-from (43E47B) -- "You take old meat from the
+ * big white refrigerator.  You take all of the knives from the silverware
+ * drawer." (Adrift_1181/1183/1185_kn*.rtf; Adven_9_timmy_reid.rtf turn 8).
+ * `get garbage container`, off the floor, runs nothing (Adrift_1186).
+ * run370 has no sweep, and run390 none either.
+ */
+static void
+lib_take_from_task_sweep_380 (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int version = prop_get_taf_version (bundle);
+  scr_int object;
+
+  if (version < TAF_VERSION_380 || version >= TAF_VERSION_390)
+    return;
+
+  /* The task's text joins the take's own line after two spaces. */
+  pf_buffer_join_pending (gs_get_filter (game));
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      std::string line;
+
+      if (gs_object_position (game, object) != OBJ_IN_OBJECT
+          && gs_object_position (game, object) != OBJ_ON_OBJECT)
+        continue;
+
+      line = "get ";
+      line += prop_get_indexed_string (bundle, "Objects", object, "Short");
+      line += " from ";
+      line += prop_get_indexed_string (bundle, "Objects",
+                                       gs_object_parent (game, object),
+                                       "Short");
+      run_game_task_commands (game, line.c_str ());
+    }
+  pf_clear_join_pending (gs_get_filter (game));
+}
+
+/*
  * lib_take_multiple_common()
  *
  * Take the objects available to the player and listed in %text%, or -- for
@@ -9672,6 +9720,21 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   objects = lib_apply_filter (game,
                               resolver, -1, is_except,
                               &references);
+
+  /* A 3.8 bare take of something in or on an object is a take-from, and
+     gets its task sweep; see lib_take_from_task_sweep_380(). */
+  scr_bool is_take_from_380 = FALSE;
+  if (!is_except)
+    {
+      scr_int index_;
+
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        if (game->object_references[index_]
+            && (gs_object_position (game, index_) == OBJ_IN_OBJECT
+                || gs_object_position (game, index_) == OBJ_ON_OBJECT))
+          is_take_from_380 = TRUE;
+    }
+
   if (objects > 0 || references > 0)
     lib_take_backend (game);
   else if (lib_is_version_400 (game))
@@ -9692,6 +9755,8 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
     }
   lib_take_single_named = FALSE;
 
+  if (is_take_from_380 && !lib_take_refusal_claimed)
+    lib_take_from_task_sweep_380 (game);
   if (!lib_take_refusal_claimed)
     pf_buffer_character (filter, '\n');
   lib_take_refusal_claimed = FALSE;
@@ -10194,6 +10259,7 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
   else
     lib_take_from_empty (game, associate, is_except);
 
+  lib_take_from_task_sweep_380 (game);
   pf_buffer_character (filter, '\n');
   return TRUE;
 }

@@ -82,10 +82,11 @@ Your ears are rudely awakened by the sound of a skill saw screaming and
 scraping through some lumber off  in the distance.
 
 > get meat
-You take old meat from the big white refrigerator.
+You take old meat from the big white refrigerator.  You take all of the
+knives from the silverware drawer.
 
 > take the knives
-You take all of the knives from the silverware drawer.
+You've already got some tarnished knives!
 The sound of a skill saw ripping lumber finally fades to  stillness.
 
 > open kitchen cupboard

@@ -1146,9 +1146,10 @@ Engine leads, measured or half-measured, none blocking:
   in water` / `put amulet on table`~~ (**PORTED 2026-09-14**, see "PORTED
   2026-09-14: drop, put and give ahead of the 3.7/3.8 room refusal").  ~~cave
   T20 fish-splash event line~~ and ~~greatc's late event lines~~ (**CLOSED
-  2026-09-14**, RNG rolls, same section).  Still open: run380 runs tra.taf
-  task 11 `get *knives*` on `get meat` (Adven_9_timmy_reid.rtf turn 8); see
-  the same section.
+  2026-09-14**, RNG rolls, same section).  ~~Still open: run380 runs tra.taf
+  task 11 `get *knives*` on `get meat` (Adven_9_timmy_reid.rtf turn 8)~~
+  (**PORTED 2026-09-14**, see "PORTED 2026-09-14: run380's post-take-from
+  task sweep" at the foot).
 - (**3.90 administrative set**: **measured and ported 2026-09-14**, see
   "Ported 2026-09-14: run390's administrative set and its per-element turn
   counter" at the foot of this file.  hint/help/clear/time/version/save/
@@ -9428,4 +9429,62 @@ So in `put amulet on table` the amulet, not the table, is what gets named.
   turns.
 - Put probes still identical on every turn: p38DARK/p37DARK Adrift_982-989;
   p38SURF/p37SURF Adrift_999-1006 and 1011-1014.
+- Goldens 428/428.
+
+## PORTED 2026-09-14: run380's post-take-from task sweep
+
+tra.taf (3.80), `get meat` in the kitchen (Adven_9_timmy_reid.rtf turn 8):
+run380 answers "You take old meat from the big white refrigerator.  You take
+all of the knives from the silverware drawer." -- task 11 (`get *knives*`,
+knives in the silverware drawer) runs on a line that never names them.
+
+### Measured
+
+Probes kn1..kn6, run380, same feed up to `open refrigerator`
+(`cmdfile_tra_kn<N>.txt`, Adrift_1181..1186_kn<N>.txt -- RTF despite the
+name; the Runner scripts now name 3.7/3.8 rows `.rtf`):
+
+| probe | command | run380 |
+|---|---|---|
+| kn1 | `get moxie` | take line + knives |
+| kn2 | `get xyzzy` | "Take what?" |
+| kn3 | `get meat from refrigerator` | take line + knives |
+| kn4 | `get kitchen sink` | "You can't take the kitchen sink." |
+| kn5 | `get pop-tarts` | take line + knives |
+| kn6 | `get garbage container` (on the floor) | no knives |
+
+### Why
+
+Not the wildcard matcher.  insides()' take-from arm ends, once the source
+object was found (`var_A8 > -1`), whatever the container branch answered,
+with a sweep over the whole object table (run380 loc_447405):
+
+    For each object: If parent > -1 Then
+      line = "get " & Short & " from " & parent.Short    ' ImpAdStStr @00047446
+      If checktask(line) = 1 Then tasks(1)
+
+The store to the global line is hidden by the decompiler; the P-code shows
+it.  The object just taken has its parent cleared (4470EF) and is skipped.
+A bare take of something in or on an object reaches the same arm through
+takes()' rewrite (43E47B), hence kn1/kn5.  run370 has no sweep; run390 none.
+
+### Ported
+
+- `sclibrar.cpp`: `lib_take_from_task_sweep_380()`, gated to 3.80 only,
+  runs `run_game_task_commands` on "get <Short> from <parent Short>" for
+  every object in or on another, with the task text joined onto the take
+  line (`pf_buffer_join_pending`).  Called at the end of
+  `lib_take_from_multiple_common` and, when a referenced object was in or
+  on something, of `lib_take_multiple_common`.
+- Not ported: the sweep after a refused take-from (not holding, closed, not a
+  container, "You can't do that!"), which run380 also runs.  No measured row
+  needs it yet.
+
+### Results
+
+- kn1/kn3/kn5 take turns identical; kn6 unchanged.  What is left is event
+  RNG on the unlocked replay.
+- timmy_reid golden re-blessed: `get meat` gains the knives line, and the
+  walkthrough's `take the knives` now answers "You've already got some
+  tarnished knives!" -- both exactly Adven_9_timmy_reid.rtf lines 37/40.
 - Goldens 428/428.
