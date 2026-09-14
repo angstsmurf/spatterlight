@@ -1777,7 +1777,7 @@ var_get (scr_var_setref_t vars,
  *
  * 3.9+ substitutes user variables one at a time, in variable-index order,
  * each by Replace(text, "%" & Name & "%", value) over the whole string --
- * after the system tags (run400 47A23F, run390 Proc_2_20 4341F0).  So two
+ * after the system tags (run400 47A23F, run390 45BBCD).  So two
  * markers that share a '%' resolve by index, not by position: Date With
  * Death's "b_notice%b_notice%b_purified%b_purified%" with b_purified (170)
  * ahead of b_notice (189) becomes "b_notice%b_notice1b_purified%", and the

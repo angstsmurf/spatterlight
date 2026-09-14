@@ -10033,7 +10033,7 @@ Adrift_236_seaside.txt.  428/428; sweep seaside 5 -> 0 differ.
 
 datewithdeath t289 `talk to bartimony`: Bartimony's Long has
 "b_notice%b_notice%b_purified%b_purified%" (no space between the two
-markers).  run400 47A23F (run390 Proc_2_20 4341F0) substitutes the user
+markers).  run400 47A23F (run390 45BBCD, inside the output filter Proc_2_28_45CBD0) substitutes the user
 variables AFTER the system tags, one variable at a time in index order, each
 as Replace(text, "%" & Name & "%", value) over the whole string.  b_purified
 (170) goes before b_notice (189) and takes the shared '%': the text becomes
