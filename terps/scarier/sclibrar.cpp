@@ -5684,6 +5684,98 @@ lib_cant_see_absent_object (scr_gameref_t game,
 
 
 /*
+ * lib_absent_named_object_pre_390()
+ * lib_cant_see_named_pre_390()
+ *
+ * The 3.7 and 3.8 Runners' co() (run380 42DE60) matches an object's Short or
+ * alias wherever the object is, seen or not, and each verb handler then
+ * answers for the first match it cannot reach.  Measured on p38EXAM and
+ * p37EXAM (make_3738_examprobe.py; run380 Adrift_1165/1168, run370
+ * Adrift_1166/1169, 2026-09-14), with the statue seen in the North Room and a
+ * gem in a room the player never enters, both named from elsewhere:
+ *
+ *     command       3.80                                3.70
+ *     x statue      seen:   You can't see a statue      the same
+ *                           from here!
+ *                   unseen: You can't see that.
+ *     take statue   You can't see a statue from here!   the same
+ *     wear statue   You are not holding a statue.       the same
+ *     open statue   seen:   You can't see a statue.     You can't see the
+ *                   unseen: Open what?                    statue.
+ *     close statue  as open, "Close what?"              as open
+ *     buy statue    I don't think that is for sale.     as open
+ *
+ * The indefinite "a statue" is each handler's own Prefix & " " & Short:
+ * examines 43D258, takes 43E4CA, wears 433218, openclose 42F1B1/42F36B.
+ * Only examines and openclose read the seen byte (record field 40).  3.7's
+ * open, close and buy never get as far as a verb branch: its openclose
+ * (426770) has no refusals at all, and therest's up-front test
+ * (43D169-43D187) names the first matched object that is not here through
+ * tense(), the definite form.  run390's co() wants the object present, so
+ * none of this survives into 3.9.
+ *
+ * takes() walks every object and overwrites a message that still ends in
+ * " from here!" (43E3F6), so the LAST match speaks: cave.taf `take parchment`
+ * is "You can't see half of a parchment from here!", not the old parchment
+ * before it (Adven_1_cave.rtf turns 115/145).  The other handlers are
+ * measured on single matches only and keep the first.
+ *
+ * Returns the first (or, with last, the last) object the line names, in
+ * index order, or -1 when the
+ * game is 3.9 or later, the line names nothing, or something it names is
+ * within reach -- that one belongs to the ordinary handlers above these rows.
+ */
+static scr_int
+lib_absent_named_object_pre_390 (scr_gameref_t game, scr_bool last = FALSE)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object, first;
+
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    return -1;
+  if (!input)
+    return -1;
+  if (!uip_match ("* %object%", input, game)
+      && !uip_match ("* %object% *", input, game))
+    return -1;
+
+  first = -1;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (!game->object_references[object])
+        continue;
+
+      if (obj_indirectly_in_room (game, object, gs_playerroom (game))
+          || obj_indirectly_held_by_player (game, object))
+        return -1;
+
+      if (first == -1 || last)
+        first = object;
+    }
+
+  return first;
+}
+
+static scr_bool
+lib_cant_see_named_pre_390 (scr_gameref_t game, scr_int object,
+                            scr_bool is_definite, const scr_char *suffix)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  pf_buffer_string (filter,
+                    lib_select_response (game, "You can't see ",
+                                         "I can't see ",
+                                         "%player% can't see "));
+  if (is_definite)
+    lib_print_object_np (game, object);
+  else
+    lib_print_object_raw (game, object);
+  pf_buffer_string (filter, suffix);
+  return TRUE;
+}
+
+
+/*
  * lib_list_npc_inventory()
  *
  * List objects carried and worn by an NPC.
@@ -8959,10 +9051,17 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       has_printed |= TRUE;
     }
   else
+    /* Pre-3.9 spells it Prefix & " " & Short (run380 43E03E): p38EXAM `take
+     * stone` held is "You've already got a stone!" (Adrift_1165). */
     has_printed |= lib_print_object_list (game, has_printed, list, " and ", '!',
                                           "You've already got ",
                                           "I've already got ",
-                                          "%player%'ve already got ");
+                                          "%player%'ve already got ",
+                                          prop_get_taf_version
+                                          (gs_get_bundle (game))
+                                          >= TAF_VERSION_390
+                                          ? lib_print_object_np
+                                          : lib_print_object_raw);
 
   list.clear ();
   for (object = 0; object < object_count; object++)
@@ -9387,6 +9486,12 @@ lib_cmd_take_absent (scr_gameref_t game)
   const scr_char *input = run_get_dispatch_input ();
   const scr_char *best_term = NULL;
   scr_int object, best_score, best_count, best_object;
+
+  /* Pre-3.9 takes() names the first match out of reach, seen or not; see
+   * lib_absent_named_object_pre_390(). */
+  object = lib_absent_named_object_pre_390 (game, TRUE);
+  if (object != -1)
+    return lib_cant_see_named_pre_390 (game, object, FALSE, " from here!\n");
 
   if (!lib_is_version_400 (game) || !input)
     return FALSE;
@@ -10419,6 +10524,15 @@ typedef struct
    */
   const scr_char *lacks_pre_390[3];
   scr_char lacks_end_pre_390;
+  /*
+   * run390's drops() keeps that shape -- the first object it cannot drop,
+   * and only while nothing has been said -- but names it through the
+   * definite helper Proc_2_36_42B0E8 (445CD4-445D0F): p39EXAM `drop stone`
+   * with the stone on the floor, and `drop coin` with the coin in the open
+   * crate, are "You don't have the stone!" and "... the coin!" (run390
+   * Adrift_1167, 2026-09-14).  Its remove handler is unmeasured.
+   */
+  scr_bool lacks_single_390;
 } lib_move_verb_t;
 
 static void
@@ -10448,7 +10562,7 @@ static const lib_move_verb_t LIB_DROP_VERB = {
   '.', FALSE,
   /* run380 @438E13: `MemVar_44F108(0) & " don't have " & ...` -- the
    * third-person form really is "<name> don't have". */
-  {"You don't have ", "I don't have ", "%player% don't have "}, '!'
+  {"You don't have ", "I don't have ", "%player% don't have "}, '!', TRUE
 };
 
 static const lib_move_verb_t LIB_REMOVE_VERB = {
@@ -10456,7 +10570,8 @@ static const lib_move_verb_t LIB_REMOVE_VERB = {
   {"You remove ", "I remove ", "%player% remove "},
   {"You are not wearing ", "I am not wearing ", "%player% is not wearing "},
   '!', TRUE,
-  {"You are not wearing ", "I am not wearing ", "%player% is not wearing "}, '!'
+  {"You are not wearing ", "I am not wearing ", "%player% is not wearing "}, '!',
+  FALSE
 };
 
 static const lib_move_verb_t LIB_PUT_ON_VERB = {
@@ -10464,7 +10579,7 @@ static const lib_move_verb_t LIB_PUT_ON_VERB = {
   {"You put ", "I put ", "%player% put "},
   {"You are not holding ", "I am not holding ", "%player% is not holding "},
   '.', FALSE,
-  {NULL, NULL, NULL}, '.'
+  {NULL, NULL, NULL}, '.', FALSE
 };
 
 
@@ -10578,7 +10693,9 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
    * never held is "You don't have a penny!".
    */
   if (verb->lacks_pre_390[0]
-      && prop_get_taf_version (bundle) < TAF_VERSION_390)
+      && (prop_get_taf_version (bundle) < TAF_VERSION_390
+          || (verb->lacks_single_390
+              && prop_get_taf_version (bundle) < TAF_VERSION_400)))
     {
       if (!has_printed && !list.empty ())
         {
@@ -10587,7 +10704,10 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
                                                  verb->lacks_pre_390[0],
                                                  verb->lacks_pre_390[1],
                                                  verb->lacks_pre_390[2]));
-          lib_print_object_raw (game, list[0]);
+          if (prop_get_taf_version (bundle) < TAF_VERSION_390)
+            lib_print_object_raw (game, list[0]);
+          else
+            lib_print_object_np (game, list[0]);
           pf_buffer_character (filter, verb->lacks_end_pre_390);
           library_printed = TRUE;
         }
@@ -11075,10 +11195,18 @@ lib_wear_backend (scr_gameref_t game)
       game->multiple_references[object] = FALSE;
     }
 
+  /* Pre-3.9 wears() names these by Prefix & " " & Short (run380 433218,
+   * 4331B1): p38EXAM `wear stone` with the stone on the floor is "You are not
+   * holding a stone." (Adrift_1165, and run370 Adrift_1166). */
+  const lib_print_item_t wear_item =
+    prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
+    ? lib_print_object_np : lib_print_object_raw;
+
   has_printed |= lib_print_object_list (game, has_printed, list, " or ", '.',
                                         "You are not holding ",
                                         "I am not holding ",
-                                        "%player% is not holding ");
+                                        "%player% is not holding ",
+                                        wear_item);
 
   list.clear ();
   for (object = 0; object < object_count; object++)
@@ -11093,7 +11221,7 @@ lib_wear_backend (scr_gameref_t game)
   lib_print_object_list (game, has_printed, list, " or ", '.',
                          "You can't wear ",
                          "I can't wear ",
-                         "%player% can't wear ");
+                         "%player% can't wear ", wear_item);
 }
 
 
@@ -11553,8 +11681,8 @@ static scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
  * once both halves resolve 4887A0 answers an absent object "<You> can't see
  * the gem." (p4WITHQ2.taf, Adrift_1159, 2026-09-14).  The "With what?" arm
  * at 488505 tests an instrument neither present nor seen, which 463640
- * never returns: it is dead.  run390 has a whole-word twin (45D12C), not
- * measured, so this stays 4.0.
+ * never returns: it is dead.  run390's twin answers differently; see
+ * lib_with_clause_390().
  */
 enum lib_with_clause_t
 { LIB_WITH_NONE, LIB_WITH_DECLINE, LIB_WITH_ANSWERED, LIB_WITH_SUFFIX };
@@ -11570,6 +11698,68 @@ lib_with_half_400 (scr_gameref_t game, const scr_char *half)
   return object;
 }
 
+/*
+ * lib_with_clause_390()
+ *
+ * run390's whole-word twin (therest 45D123-45D264), measured on p39WITH.taf
+ * (Adrift_1163, 2026-09-14).  It runs when the line references two or more
+ * objects; the instrument is the last object named after the split that is
+ * present (obhere), else the last one named anywhere (45D0D6).  Then:
+ *
+ *   not present            "With what?" (45D16D) -- `cut rope with gem`,
+ *                          the gem seen or not.  The prefix it saves at
+ *                          45D1A0 never continues a line: `knife` next is
+ *                          the catch-all.
+ *   present, not held      "<You> don't have <X>." (45D1CA: dynamic, and
+ *                          position not held); a static instrument falls
+ *                          through to the suffix -- 3.9 has no "Don't be
+ *                          daft!" (unmeasured, read off the listing).
+ *   held                   " with <the X>" before the arm's full stop, for
+ *                          the can't-do and nothing-happens arms (`cut`,
+ *                          `push`; `break` has no suffix).
+ *
+ * An absent first object is not measured, and is left to the handlers.
+ */
+static lib_with_clause_t
+lib_with_clause_390 (scr_gameref_t game, const std::string &line,
+                     size_t split, scr_int *object, scr_int *instrument)
+{
+  const std::string head = line.substr (0, split);
+  const std::string tail = line.substr (split + 6);
+  scr_int index_, present = -1, anywhere = -1;
+
+  *object = -1;
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      if (lib_verb_object_name_score (game, index_, tail.c_str ()) > 0)
+        {
+          anywhere = index_;
+          if (obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+            present = index_;
+        }
+      if (lib_verb_object_name_score (game, index_, head.c_str ()) > 0
+          && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+        *object = index_;
+    }
+  *instrument = present >= 0 ? present : anywhere;
+  if (*object < 0 || *instrument < 0 || *object == *instrument)
+    return LIB_WITH_NONE;
+
+  if (present < 0)
+    {
+      pf_buffer_string (gs_get_filter (game), "With what?\n");
+      return LIB_WITH_ANSWERED;
+    }
+  if (!obj_is_static (game, *instrument)
+      && gs_object_position (game, *instrument) != OBJ_HELD_PLAYER)
+    {
+      lib_print_response_object (game, "You don't have ", "I don't have ",
+                                 "%player% don't have ", *instrument, ".\n");
+      return LIB_WITH_ANSWERED;
+    }
+  return LIB_WITH_SUFFIX;
+}
+
 static lib_with_clause_t
 lib_with_clause_400 (scr_gameref_t game, scr_int *object, scr_int *instrument)
 {
@@ -11577,12 +11767,15 @@ lib_with_clause_400 (scr_gameref_t game, scr_int *object, scr_int *instrument)
   std::string line;
   size_t split;
 
-  if (!lib_is_version_400 (game) || !input)
+  if (!input || prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     return LIB_WITH_NONE;
   line = input;
   split = line.find (" with ");
   if (split == std::string::npos)
     return LIB_WITH_NONE;
+
+  if (!lib_is_version_400 (game))
+    return lib_with_clause_390 (game, line, split, object, instrument);
 
   *object = lib_with_half_400 (game, line.substr (0, split).c_str ());
   if (*object < 0)
@@ -11658,9 +11851,10 @@ lib_cant_do_with_400 (scr_gameref_t game, const scr_char *verb,
  * is: "You can't open the button with the knife." (Adrift_41), and on
  * p4WITHQ2.taf the same for a closed box and an open chest, open or close
  * (Adrift_1159).  therest's open and close arms (48880F, 48884E) test only
- * the word.  A locked X, which openclose might answer with its key, is not
- * measured and stays with the handlers.  TRUE when the line was taken, with
- * *status the handler's return.
+ * the word, and a locked X whose key is the named instrument is no exception:
+ * p4LOCK's box (key = the held coin) answers "You can't open the box with the
+ * coin." before and after `unlock box with coin` (Adrift_1162).  TRUE when
+ * the line was taken, with *status the handler's return.
  */
 static scr_bool
 lib_open_close_with_400 (scr_gameref_t game, const scr_char *verb,
@@ -11675,7 +11869,7 @@ lib_open_close_with_400 (scr_gameref_t game, const scr_char *verb,
 
   std::string line (input);
   first = lib_with_half_400 (game, line.substr (0, line.find (" with ")).c_str ());
-  if (first < 0 || gs_object_openness (game, first) == OBJ_LOCKED)
+  if (first < 0)
     return FALSE;
 
   *status = lib_cant_do_with_400 (game, verb, "", &handled);
@@ -11796,12 +11990,19 @@ lib_cmd_open_object (scr_gameref_t game)
       break;
     }
 
-  /* The object isn't openable. */
+  /*
+   * The object isn't openable.  3.7 has no refusal in openclose() (426770),
+   * so the line reaches therest()'s can't-do tail, which ends in a period
+   * (43D1E0): p37EXAM `open stone` is "You can't open the stone."
+   * (run370 Adrift_1166, 2026-09-14); run380 (42F071) and later end in "!".
+   */
   lib_print_response_object (game,
                              "You can't open ",
                              "I can't open ",
                              "%player% can't open ",
-                             object, "!\n");
+                             object,
+                             prop_get_taf_version (gs_get_bundle (game))
+                             < TAF_VERSION_380 ? ".\n" : "!\n");
   return TRUE;
 }
 
@@ -12642,6 +12843,13 @@ lib_check_put_in_recursion (scr_gameref_t game,
 
 
 /*
+ * A seen object lying elsewhere that a 4.0 put's noun names, admitted to
+ * lib_put_named_filter() for the rest of that one command; see
+ * lib_put_in_multiple_common().
+ */
+static scr_int lib_put_seen_absent = -1;
+
+/*
  * lib_put_named_filter()
  * lib_put_all_filter()
  *
@@ -12690,7 +12898,8 @@ lib_put_named_filter (scr_gameref_t game, scr_int object)
            && obj_indirectly_in_room (game, object, gs_playerroom (game));
 
   if (lib_is_version_400 (game))
-    return obj_indirectly_in_room (game, object, gs_playerroom (game));
+    return object == lib_put_seen_absent
+           || obj_indirectly_in_room (game, object, gs_playerroom (game));
 
   /*
    * Pre-4.0 is wider than "held or worn" as well.  run390 takes an object
@@ -14393,10 +14602,48 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
     return lib_put_named_pre400 (game, container, FALSE);
 
   /* Parse the multiple objects list to find the target objects. */
-  if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
+  struct seen_absent_reset
+    {
+      ~seen_absent_reset () { lib_put_seen_absent = -1; }
+    } seen_absent_guard;
+  scr_bool parsed = lib_parse_multiple_objects (game,
+                                   is_except ? "retain" : "move",
                                    is_except ? lib_put_in_not_container_filter
                                              : lib_put_in_resolve_filter,
-                                   is_except ? container : -1, &references))
+                                   is_except ? container : -1, &references);
+
+  /*
+   * name_object's scorer (463640) counts every object the player has seen,
+   * wherever it now lies, and nothing between it and the take asks where the
+   * object is.  So a noun naming nothing present but one seen object elsewhere
+   * is fetched from that other room: p4LOCK `put gem in jar`, the gem left in
+   * Beta, answers "(Taking the gem first)" / "You put the gem inside the
+   * jar." (Adrift_1162, 2026-09-14).  An unseen noun still falls to the
+   * clobbering exit below.
+   */
+  if (!parsed && !is_except && lib_is_version_400 (game)
+      && lib_put_fragment_names_nothing (game))
+    {
+      const scr_char *input = run_get_dispatch_input ();
+      std::string fragment;
+
+      if (input && run_unnamed_put_fragment (input, fragment))
+        {
+          const scr_int seen = lib_verb_object_resolve_400_string
+                                 (game, fragment.c_str (), NULL, FALSE);
+
+          if (seen >= 0 && !obj_is_static (game, seen))
+            {
+              lib_put_seen_absent = seen;
+              gs_clear_multiple_references (game);
+              game->multiple_references[seen] = TRUE;
+              references = 1;
+              parsed = TRUE;
+            }
+        }
+    }
+
+  if (!parsed)
     {
       /*
        * ... unless the container is holding it.  A shut container's contents
@@ -16664,6 +16911,15 @@ lib_cmd_buy_other (scr_gameref_t game)
 scr_bool
 lib_cmd_buy_absent (scr_gameref_t game)
 {
+  /* 3.7's therest() clause; 3.8 has none.  See lib_absent_named_object_pre_390(). */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
+    {
+      const scr_int object = lib_absent_named_object_pre_390 (game);
+
+      if (object != -1)
+        return lib_cant_see_named_pre_390 (game, object, TRUE, ".\n");
+    }
+
   return lib_cant_see_absent_object (game, ".\n", TRUE);
 }
 
@@ -18182,6 +18438,20 @@ lib_cmd_examine_other (scr_gameref_t game)
 scr_bool
 lib_cmd_examine_absent (scr_gameref_t game)
 {
+  /* Pre-3.9; see lib_absent_named_object_pre_390(). */
+  const scr_int object = lib_absent_named_object_pre_390 (game);
+
+  if (object != -1)
+    {
+      if (gs_object_seen (game, object))
+        return lib_cant_see_named_pre_390 (game, object, FALSE,
+                                           " from here!\n");
+      return lib_print_response_message (game,
+                                         "You can't see that.\n",
+                                         "I can't see that.\n",
+                                         "%player% can't see that.\n");
+    }
+
   return lib_cant_see_absent_object (game, " from here!\n", TRUE);
 }
 
@@ -19194,17 +19464,41 @@ lib_cmd_close_other (scr_gameref_t game)
  * 4.0's openclose() answers for an object it has seen but cannot see now --
  * the open half with the definite name, the close half with the object's own
  * Prefix.  See lib_absent_seen_object().
+ *
+ * Pre-3.9 splits by version instead: 3.8's openclose() names a seen object
+ * by its Prefix in both halves and answers "Open what?"/"Close what?" for an
+ * unseen one, and 3.7's therest() names either with the definite form.  See
+ * lib_absent_named_object_pre_390().
  */
+static scr_bool
+lib_open_close_absent_pre_390 (scr_gameref_t game, const scr_char *what)
+{
+  const scr_int object = lib_absent_named_object_pre_390 (game);
+
+  if (object == -1)
+    return FALSE;
+
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
+    return lib_cant_see_named_pre_390 (game, object, TRUE, ".\n");
+
+  if (gs_object_seen (game, object))
+    return lib_cant_see_named_pre_390 (game, object, FALSE, ".\n");
+
+  return lib_print_message (game, what);
+}
+
 scr_bool
 lib_cmd_open_absent (scr_gameref_t game)
 {
-  return lib_cant_see_absent_object (game, ".\n", TRUE);
+  return lib_open_close_absent_pre_390 (game, "Open what?\n")
+         || lib_cant_see_absent_object (game, ".\n", TRUE);
 }
 
 scr_bool
 lib_cmd_close_absent (scr_gameref_t game)
 {
-  return lib_cant_see_absent_object (game, ".\n", FALSE);
+  return lib_open_close_absent_pre_390 (game, "Close what?\n")
+         || lib_cant_see_absent_object (game, ".\n", FALSE);
 }
 
 /*
@@ -19994,6 +20288,23 @@ lib_cmd_remove_what (scr_gameref_t game)
 scr_bool
 lib_cmd_wear_what (scr_gameref_t game)
 {
+  /* Pre-3.9 wears() refuses a match anywhere in the world as not held (run380
+   * 4331D4-433218); see lib_absent_named_object_pre_390(). */
+  const scr_int object = lib_absent_named_object_pre_390 (game);
+
+  if (object != -1)
+    {
+      const scr_filterref_t filter = gs_get_filter (game);
+
+      pf_buffer_string (filter,
+                        lib_select_response (game, "You are not holding ",
+                                             "I am not holding ",
+                                             "%player% is not holding "));
+      lib_print_object_raw (game, object);
+      pf_buffer_string (filter, ".\n");
+      return TRUE;
+    }
+
   lib_question_prefix_from_line (game);
   return lib_what (game, "Wear");
 }

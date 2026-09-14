@@ -1071,6 +1071,22 @@ Engine leads, measured or half-measured, none blocking:
   `reluctantvampire` T78" at the foot).
 - **`house` is not comparable** until it is re-driven with Verbose ON; the
   2026-09-12 frost-event and breaking-glass leads on that row are withdrawn.
+  **Re-driven 2026-09-14** as `Adrift_1164_housex.txt` (run400x), and still
+  not comparable, for a harness reason first: the feed's blank lines (feed
+  line 103 after `s`, line 130 after `#sleep 3`) are commands to run400,
+  answered "Huh?", while Scarier takes them as waitkeys.  The streams drift
+  from there.  Fix the feed and re-drive before reading any of these as
+  engine differences:
+  - T33-37: frost-event text a turn out of step.
+  - T78-83 `open bathroom door`: run400 "You can't open that.", Scarier
+    "You can't see the bathroom door.".
+  - T122 `get stool`: run400 shows a "Meanwhile..." cutscene behind (PRESS
+    ENTER TO CONTINUE) that Scarier does not show there.
+  - T124 `stand on stool`: run400 "While you're still holding it?" (house
+    plain line 64494), Scarier the success text (line 65106).  The rest of
+    the row cascades from this.
+  Every move turn still prints nothing in run400 (the `%drunk%` stack
+  overflow above, a deliberate deviation).
 - (**Put/task precedence at 4.0**: **ported 2026-09-06**, see "Ported
   2026-09-06: the 4.0 put/task precedence split".)
 - **run400 prints no `put` confirmation when the moved object is dynamic
@@ -1110,22 +1126,36 @@ Engine leads, measured or half-measured, none blocking:
   the two-pass `%object%` scope filter proper (present first, then
   absent-but-seen; tail self-call `loc_458E64`, `SCR_TRACE_SCOPE`), and the
   NPC seen gate `npc.global_26` for `%character%` (xfiles `look up byers`).
-- **Unmeasured put first-noun cases**: a seen-but-absent FIRST noun, and an
-  unknown first noun with an ambiguous seen-absent second one.
-- **3.70/3.80 halves of the absent-object refusal rows** (p39EXAM/p4EXAM
+- **Unmeasured put first-noun cases**: ~~a seen-but-absent FIRST noun~~
+  (**PORTED 2026-09-14**, run400 fetches it from the other room -- see
+  "PORTED 2026-09-14: p4LOCK and p39WITH" at the foot), and ~~an unknown first
+  noun with an ambiguous seen-absent second one~~ (**CLOSED 2026-09-14**,
+  already ours: p4LOCK T25 `put zzz in bag`, both bags seen and left in Beta,
+  is "I don't understand what you want to put things inside." with no tick,
+  the same as T15 before they were seen; Adrift_1162).
+- ~~**3.70/3.80 halves of the absent-object refusal rows** (p39EXAM/p4EXAM
   have no 3.7/3.8 twins; 3.7 `open <not openable>` composes with a period
-  at 43D1E0 where 3.8/3.9 end in a bang).
-- **3.8 referenceability / where-fail model**: "You can't do that here."
-  for a matched task in the wrong room (cave stuck tail, greatc turn 49),
-  "You can't see X from here!" / "You don't have X!" where Scarier says
-  "Take what?", and run380's wildcard `get *knives*` matching `get meat`.
-  No wired walkthrough reaches them.
+  at 43D1E0 where 3.8/3.9 end in a bang).~~ **PORTED 2026-09-14** -- p38EXAM
+  and p37EXAM, and a 3.9 drop row found on the way; see "PORTED 2026-09-14:
+  the 3.7/3.8 absent-object refusals" at the foot.
+- **3.8 referenceability / where-fail model**: ~~"You can't see X from
+  here!" where Scarier says "Take what?"~~ (**PORTED 2026-09-14**, same
+  section: cave's 22 take/wear rows now match).  Still open: "You can't do
+  that here." for a matched task in the wrong room (greatc turn 49), cave
+  T114 `drop robot` (run380 "You don't have a toy robot!", Scarier "You
+  can't do that here."), cave T52/T212 `put raft in water` / `put amulet on
+  table` (run380 "You can't put anything inside the pool water." / "...on
+  the star shaped amulet.", Scarier "You can't do that!"), cave T20 a
+  fish-splash event line Scarier prints a turn early, and run380's wildcard
+  `get *knives*` matching `get meat`.  No wired walkthrough reaches them.
 - (**3.90 administrative set**: **measured and ported 2026-09-14**, see
   "Ported 2026-09-14: run390's administrative set and its per-element turn
   counter" at the foot of this file.  hint/help/clear/time/version/save/
   restore/undo are ordinary turns in 3.9, and the counter counts every
-  line element.  Still open from it: the in-line re-runs (`both`, the
-  question prefix) that jump back above run390's increment.)
+  line element.  ~~Still open from it: the in-line re-runs (`both`, the
+  question prefix) that jump back above run390's increment.~~ **PORTED
+  2026-09-14**: `both` counts twice, a question-prefix continuation once
+  (Adrift_1163; "PORTED 2026-09-14: p4LOCK and p39WITH" at the foot).)
 - (**Battle** capitalisation: **measured and ported 2026-09-07**, see
   "Ported 2026-09-07: the five battle names run400 capitalises" at the foot
   of this file.  The Runner really does capitalise -- at five sites, all of
@@ -1162,9 +1192,11 @@ Engine leads, measured or half-measured, none blocking:
   - `kiss katryn` (T288, T398) -> "I'm not sure she would appreciate
     that!": run400 47F7E2-47F83A / run390 45970A, 3.90+, the first NPC
     referenced on the line (no presence test), he/she/it by Gender, `!`
-    instead of the fallback's `.` (`lib_cmd_kiss_other`).  Not ported:
+    instead of the fallback's `.` (`lib_cmd_kiss_other`).  ~~Not ported:
     run400's third buffer arm, which also overwrites a buffer holding
-    " can't see " (a kiss line naming a seen, absent object); unmeasured.
+    " can't see " (a kiss line naming a seen, absent object); unmeasured.~~
+    **CLOSED 2026-09-14**: p4LOCK's kiss lines, present and absent NPCs in
+    both rooms, match on every arm (Adrift_1162).
   - `ask peddler about ...` (T308, T309) -> "The peddler isn't here!":
     characters() matches Name **or any alias** at 4.0 (45E99C; the
     peddler's aliases are man/peddler), first letter capitalised (446BB4).
@@ -1209,14 +1241,19 @@ Engine leads, measured or half-measured, none blocking:
   counterpart; anticipates the ticker's restart by a tick, nothing depends
   on it.
 - **4.0 output filter unmeasured corners**: whether 3.9 also drops the
-  pre-variable-change checkpoint; a mutual `A -> B` / `B -> A` ALR pair
-  (the loop bound is a guard, not a model).
+  pre-variable-change checkpoint; ~~a mutual `A -> B` / `B -> A` ALR pair
+  (the loop bound is a guard, not a model)~~ **measured 2026-09-14, kept as a
+  deliberate deviation**: run400 recurses until "Out of stack space" and the
+  line prints nothing (p4LOCK `ping`, Adrift_1162 T28); Scarier's loop bound
+  prints "AAA.".
 - (The break in front of a room heading, 19 breaks over 9 rows: **resolved
   and ported 2026-09-07**, see "Ported 2026-09-07: the room heading's own two
   breaks, and a stale position marker".  The archive's real direction is now
   at zero -- `sweep_wine_breaks.py` reports `runner-only 0` over all 267 rows
   -- so there is no measured line-structure divergence left to chase.)
-- **Merry_Murders** feed turns 45/46 FLAG wording, minor (git history).
+- ~~**Merry_Murders** feed turns 45/46 FLAG wording, minor (git history).~~
+  **CLOSED 2026-09-14** -- `Adrift_3` and Scarier are identical on both
+  turns apart from whitespace.
 - **Deferred candidates**, each for a reason that will not change:
   `Colony`, `Locked_door_with_water_trap` (a rollable event on the route),
   `Villains_And_Kings` (combat RNG plus a name/gender POPUP),
@@ -9184,9 +9221,139 @@ counter, and restore loads it from the save.
 
 ### Still open
 
-- The in-line re-runs count twice in run390 by the decompile (`both`, the
-  question-prefix continuation) and once in Scarier.  Unmeasured.
-- 3.9 `again` echo "(<cmd>)", 4.0 has it ported; small presentation port.
-- Whether `wait` with WaitTurns counts once (the "Time passes..." loop at
-  45FD08 calls characters() without re-entering generaltasks, so the reading
-  is once).  Scarier now counts once at 3.9; no row measures it.
+All three closed 2026-09-14 on p39WITH (Adrift_1163), see the next section:
+
+- ~~The in-line re-runs count twice in run390 by the decompile (`both`, the
+  question-prefix continuation) and once in Scarier.  Unmeasured.~~ `both`
+  counts twice (PORTED); the continuation counts once (already ours).
+- ~~3.9 `again` echo "(<cmd>)", 4.0 has it ported; small presentation port.~~
+  PORTED.
+- ~~Whether `wait` with WaitTurns counts once~~ -- once, with three ticks;
+  already ours.
+
+## PORTED 2026-09-14: p4LOCK and p39WITH
+
+Two probes built for the "Still open" leads, both generated by scripts in
+`test/adrift4/harness/`:
+
+- `make_400_lockprobe.py` -> `p4LOCK.taf`, feed `cmdfile_lock.txt`,
+  run400 `Adrift_1162_p4lock.txt`.
+- `make_39_withprobe.py` -> `p39WITH.taf`, feed `cmdfile_with39.txt`,
+  run390 `Adrift_1163_p39with.txt`.
+
+### Ported
+
+- **4.0 `open`/`close X with Y` on a locked X** -> "You can't open the box
+  with the knife." (T3/T4).  `lib_open_close_with_400` no longer turns a
+  locked object away before therest's " with " refusal.
+- **4.0 put, first noun seen but in another room** -> "(Taking the gem
+  first)" / "You put the gem inside the jar." (T22/T23).  name_object scores
+  the noun with 463640, which includes seen objects wherever they are, and
+  nothing between it and the take tests position.  `lib_put_in_multiple_common`
+  now marks the unique seen object when nothing present answers, and
+  `lib_put_named_filter` admits it for that command; the implicit take
+  fetches it.  An unseen noun still gets "It is not clear which object you
+  are referring to.".  T26 `cut stone with gem` followed from it.
+- **run390's " with " twin** (therest 45D123-45D264), `lib_with_clause_390`.
+  With two or more objects referenced, the instrument is the last one named
+  after " with " that is present, else the last named anywhere:
+  - not present -> "With what?" (the prefix it saves never continues a line);
+  - dynamic and not held -> "You don't have the stone.";
+  - held or static -> " with <the X>" before the refusal's full stop: "You
+    can't cut the rope with the knife.", "You push the rope with the knife,
+    but nothing happens.".
+- **run390 `again` echoes "(<cmd>)"** as 4.0 does (T22).
+- **run390 `both` counts two turns** (45FEB6 jumps back above the
+  increment; T25 `turns` 27).
+
+### Measured, already ours
+
+- The kiss arms, present and absent NPCs in both rooms.
+- Ties and `put zzz` lines on p4LOCK.
+- A "With what?" answer (`knife`, `coin`) counts one turn and gets the
+  object catch-all; `wait` with WaitTurns 3 is one turn with three ticks;
+  `again` is one turn; `break rope with knife` -> "You might need the rope.".
+
+### Deliberate deviation
+
+- The mutual ALR pair AAA <-> BBB: run400 runs out of stack space and prints
+  nothing for `ping` (T28); Scarier's loop bound prints "AAA.".
+
+### Results
+
+p4LOCK differs only at T28; p39WITH is identical on every turn.  Goldens
+428/428, none moved.
+
+## PORTED 2026-09-14: the 3.7/3.8 absent-object refusals
+
+`make_3738_examprobe.py` builds p39EXAM's world to the 3.8 and 3.7 schemas,
+plus a gem in a room with no way in (never seen).  Drives:
+
+| Transcript | Runner | Game | Feed |
+|---|---|---|---|
+| `Adrift_1165_p38exam.txt` | run380 | p38EXAM | `cmdfile_p3738exam.txt` |
+| `Adrift_1166_p37exam.txt` | run370 | p37EXAM | `cmdfile_p3738exam.txt` |
+| `Adrift_1167_p39exam.txt` | run390 | p39EXAM | `cmdfile_p3738exam.txt` |
+| `Adrift_1168_p38exam2.txt` | run380 | p38EXAM | `cmdfile_p3738exam2.txt` |
+| `Adrift_1169_p37exam2.txt` | run370 | p37EXAM | `cmdfile_p3738exam2.txt` |
+
+### What 3.7 and 3.8 do
+
+co() in 3.7/3.8 matches an object's Short or alias wherever the object is.
+Each verb handler then refuses the match it cannot reach.  Most of them name
+the object with the handler's own `Prefix & " " & Short` ("a statue"), not
+tense()'s definite form.  In this table, "absent" means not in the room and
+not held:
+
+| Command | 3.80 | 3.70 | Scarier before |
+|---|---|---|---|
+| `x <absent>`, seen | You can't see a statue from here! (43D258) | same | Nothing special. |
+| `x <absent>`, unseen | You can't see that. | same | Nothing special. |
+| `take <absent>` | You can't see a statue from here! (43E4CA, no seen test) | same | Take what? |
+| `wear <absent>` | You are not holding a statue. (433218) | same | Wear what? |
+| `wear <loose>` | You are not holding a stone. | same | ...the stone. |
+| `take <held>` | You've already got a stone! (43E03E) | same | ...the stone! |
+| `open`/`close <absent>`, seen | You can't see a statue. (42F1B1/42F36B) | You can't see the statue. (therest 43D169-43D187, definite, no seen test) | You can't open that. |
+| `open`/`close <absent>`, unseen | Open what? / Close what? | You can't see the gem. | You can't open that. |
+| `buy <absent>` | I don't think that is for sale. (already ours) | You can't see the statue. | I don't think that is for sale. |
+| `open <present, not openable>` | ...the stone! | You can't open the stone. (43D1E0) | ...the stone! |
+
+takes() walks every object and overwrites a message that still ends in
+" from here!" (43E3F6), so with two absent matches the **last** one speaks:
+cave `take parchment` is "You can't see half of a parchment from here!",
+not the old parchment before it.  The other handlers were measured on
+single matches only and keep the first.
+
+Already ours in 3.7 and 3.8: `drop <absent>` ("You don't have a crate!"),
+`drop <loose>`, and the put refusals.
+
+### A 3.9 drop row
+
+p39EXAM under run390 matched everywhere except `drop stone` (loose) and
+`drop coin` (in the open crate): run390 answers "You don't have the stone!".
+That is the pre-3.9 first-object-only shape, but with the definite helper
+(445CD4-445D0F).  Scarier said "You are not holding the stone.".  3.9 absent
+take / wear / drop ("Take what?", ...) were already ours.
+
+### Ported (sclibrar.cpp)
+
+- `lib_absent_named_object_pre_390()`, below 3.90: the first object the line
+  names (the last one for take), unless a named object is in the room or
+  held.  `lib_cant_see_named_pre_390()` prints the refusal.
+- Hooked into `lib_cmd_examine_absent` (seen gate),
+  `lib_cmd_take_absent`, `lib_cmd_wear_what`, `lib_cmd_open_absent` /
+  `lib_cmd_close_absent` (the 3.8 seen gate, or 3.7 definite), and
+  `lib_cmd_buy_absent` (3.7 only).
+- The wear backend's "not holding" / "can't wear" lists and take's
+  "already got" list use `lib_print_object_raw` below 3.90.
+- 3.7 `open <not openable>` ends in a period.
+- `lib_move_verb_t.lacks_single_390`: drop at 3.90 uses the first-object
+  "You don't have <the X>!" form.
+
+### Results
+
+- p38EXAM and p37EXAM (both feeds) and p39EXAM: identical on every turn.
+- `Adven_1_cave.rtf` against `cmdfile_w_cave.txt`: 27 differing turns down
+  to 4 (T20, T52, T114, T212).  All 4 were already there before the port;
+  see the where-fail bullet in "Still open".
+- Goldens 428/428, none moved.

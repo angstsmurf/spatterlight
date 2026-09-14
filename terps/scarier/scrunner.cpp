@@ -4608,10 +4608,12 @@ run_player_input (scr_gameref_t game)
        * models) echoes the command it is about to repeat, in round brackets
        * on its own line: run400 generaltasks loc_48A058 walks the history
        * past the "again"s, then at loc_48A095 tests MemVar_4942BA and prints
-       * "(" & command & ")" & vbCrLf through Proc_21_19_47B568.  Earlier
-       * Runners have no "(" literal.
+       * "(" & command & ")" & vbCrLf through Proc_21_19_47B568.  run390
+       * echoes it the same way: p39WITH `probe`, `again` -> "(probe)" then
+       * "PROBE OK." (Adrift_1163, 2026-09-14).  3.8 and earlier are not
+       * measured.
        */
-      if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+      if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
         pf_buffer_reference (filter, prior_element);
 
       /* Make the last element the current input element. */
@@ -4721,7 +4723,22 @@ run_player_input (scr_gameref_t game)
    * prompt and restored there never counts a line twice.
    */
   if (!is_rerunning && run_counts_line_elements (game))
-    game->turns++;
+    {
+      game->turns++;
+
+      /*
+       * `both` is the one in-line re-run that really counts twice: 45FEB6
+       * swaps the line for the menu stash MemVar_46813C.global_0 and jumps
+       * back to 45EC4B, above the increment.  With no menu pending the stash
+       * is empty and the re-run is DontUnderstand, which Scarier already
+       * prints for the word; p39WITH `turns`, `both`, `turns` answers 24
+       * then 27 (Adrift_1163).  The question prefix does not: the jump at
+       * 4601A5 never fires for a "With what?" or "Wear what?" answer
+       * (`knife`, `coin` each count once in the same drive).
+       */
+      if (scr_strcasecmp (line_element, "both") == 0)
+        game->turns++;
+    }
 
   /* Copy the current game to the temporary undo buffer. */
   gs_copy (game->temporary, game);
