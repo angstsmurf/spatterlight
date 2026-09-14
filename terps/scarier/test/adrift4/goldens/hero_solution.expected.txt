@@ -605,21 +605,67 @@ Time passes...
 
 > undo
 Undone.
+Time passes...
 
 > undo
 Undone.
+You lob it into the vat. It lands inside with a dull plop! and that is all.
 
 > undo
 Undone.
+You creep inside the building, your senses alert to the slightest sign of
+trouble. Everything seems quiet so far. Maybe the Cat is elsewhere…
+
+Inside The Shadowy Milk Factory On Chabbow Street
+A large vat occupies the centre of the main room of the milk factory. Even
+without the word "MILK" printed on the side in letters five feet high, the
+smell would indicate to you what was kept inside.There is precious little
+light in the factory meaning that moving around is somewhat fraught with
+danger and shadows lurk everywhere.
+   At your back is the door leading out to Chabbow Street.
 
 > undo
 Undone.
+Long a site of special regret for the local council, the milk factory lies in
+the hardest part of town. This is where the streets are roamed on a regular
+basis by the sort of folk who think lobbing paving stones at anyone parading
+around in a bright costume is a swell way to pass the time. While such folk
+don't generally bother you too much, you would do well to avoid them as much
+as possible in case they happen to be in the employ of any super villains out
+for your blood.
+
+Outside The Milk Factory On Chabbow Street
+Lurking in the shadows of a milk factory doorway in the dingiest part of town
+is hardly a setting fit for the world's greatest superhero, but sometimes you
+just have to lower yourself in the interests of justice.
+   The milk factory is rundown and grimy: most of the windows have been
+smashed, the door has been kicked in and even the walls have a beat-upon look
+to them. It looks like a perfect place for the Cat to make its new lair.
+   The streets hereabouts are in a worse state than the milk factory and the
+less said about them the better.
+   A doorway leads inside while heading east will take you back to your
+apartment.
 
 > undo
 Undone.
+You head to the door and take a look at the destinations currently available
+to you.
+
+(1)  Stay here
+(3)  Chabbow Street
+(5)  Mirkhaven Avenue
+(9)  Torrin Plaza
 
 > undo
 Undone.
+At Home In Your Less Than Glamorous Apartment
+Your apartment is a small, one room affair complete with a bed, toilet, bath,
+sink, sofa, fridge and washing machine. There used to be a TV but you had to
+sell it to pay for your Masked Defender costume. An archway to the south
+leads out into the hallway outside your apartment while another exit you
+sometimes use is the window in the western wall. The drop beyond it is a
+little dizzying but it's quicker than the stairs.  Your ever reliable
+sidekick, Smelly the parrot, is here.
 
 > get jeans
 You take your jeans from the washing machine.

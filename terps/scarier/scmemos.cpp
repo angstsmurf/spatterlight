@@ -44,6 +44,9 @@ typedef struct scr_memo_s
   scr_byte *serialized_game;
   scr_int allocation;
   scr_int length;
+  /* Output of the turn that left the game in this state, for undo to
+     replay; NULL when there is none. */
+  scr_char *text;
 } scr_memo_t;
 typedef scr_memo_t *scr_memoref_t;
 
@@ -155,6 +158,7 @@ memo_destroy (scr_memo_setref_t memento)
 
       memo = memento->memo + index_;
       scr_free (memo->serialized_game);
+      scr_free (memo->text);
     }
   for (index_ = 0; index_ < MEMO_HISTORY_TABLE_SIZE; index_++)
     {
@@ -208,7 +212,8 @@ memo_save_game_callback (void *opaque, const scr_byte *buffer, scr_int length)
  * Store a game in the next memo slot.
  */
 void
-memo_save_game (scr_memo_setref_t memento, scr_gameref_t game)
+memo_save_game (scr_memo_setref_t memento, scr_gameref_t game,
+                const scr_char *text)
 {
   scr_memoref_t memo;
   assert (memo_is_valid (memento));
@@ -219,6 +224,13 @@ memo_save_game (scr_memo_setref_t memento, scr_gameref_t game)
    */
   memo = memento->memo + memento->memo_cursor;
   memo->length = 0;
+  scr_free (memo->text);
+  memo->text = NULL;
+  if (text)
+    {
+      memo->text = (scr_char *) scr_malloc (strlen (text) + 1);
+      strcpy (memo->text, text);
+    }
 
   /* Serialize the given game into this memo.  Undo memos are in-memory only,
    * rewritten every turn, and read back only by memo_load_game(), so they skip
@@ -276,7 +288,8 @@ memo_load_game_callback (void *opaque, scr_byte *buffer, scr_int length)
  * Restore a game from the last memo slot used, if possible.
  */
 scr_bool
-memo_load_game (scr_memo_setref_t memento, scr_gameref_t game)
+memo_load_game (scr_memo_setref_t memento, scr_gameref_t game,
+                std::string *text)
 {
   scr_int cursor;
   scr_memoref_t memo;
@@ -313,6 +326,12 @@ memo_load_game (scr_memo_setref_t memento, scr_gameref_t game)
           scr_error ("memo_load_game: warning: data remains after loading\n");
           memo->length = 0;
         }
+
+      /* Hand back, and forget, the output this state was reached with. */
+      if (text)
+        text->assign (memo->text ? memo->text : "");
+      scr_free (memo->text);
+      memo->text = NULL;
 
       /* Regress current memo, and return TRUE if we restored a memo. */
       memento->memo_cursor = cursor;
@@ -415,6 +434,8 @@ memo_append_undo (scr_memo_setref_t memento,
 
   memo = memento->memo + memento->memo_cursor;
   memo->length = 0;
+  scr_free (memo->text);
+  memo->text = NULL;
   memo_save_game_callback (memo, data, length);
   memento->memo_cursor++;
   memento->memo_cursor %= MEMO_UNDO_TABLE_SIZE;
@@ -439,6 +460,7 @@ memo_clear_games (scr_memo_setref_t memento)
 
       memo = memento->memo + index_;
       scr_free (memo->serialized_game);
+      scr_free (memo->text);
     }
 
   /* Reset all entries and the cursor. */

@@ -9985,3 +9985,26 @@ aliasagent's walkthrough relied on the divergence: it now does `x tray`
 before `take plate` (Charlie's timing shifts one turn; still 35/35).
 Re-blessed.  Sweep: aliasagent 39/40 aligned, 0 differ (was differing
 from T16).  A Wine re-drive of the new solution line is owed.
+
+## PORTED 2026-09-14: 3.9+/4.0 undo replays the restored turn's output
+
+run400 Proc_19_62 (and run390 do_undo, same shape) keeps a 10-deep record
+array MemVar_494124 whose field 0 is the output text MemVar_4941B0.  At the
+start of every line (48BD4E) slot 0 is written with the current state plus
+the previous turn's output; `undo` restores slot 1 and prints
+"Undone." & vbCrLf & slot1.text, so each undo re-prints the output of the
+turn that produced the restored state.  Adrift_687_cellar: take satchel / e /
+undo -> "Undone.\nThere is nothing worth taking here.", then the x chair text,
+then the talk text; Adrift_892_hero: wait / wait / undo -> "Undone.\nTime
+passes...", then the throw-sandwich text, then "You creep inside..." + room.
+
+Scarier: pf_flush records what it prints (filter->printed); the text is taken
+as the temporary game is copied (run_temporary_text), moves to run_undo_text
+at the undo save point, and into the memo ring with the state it belongs to.
+lib_cmd_undo buffers it after "Undone." via pf_buffer_printed (checkpoint, then
+append unfiltered, so ALRs do not apply twice).  Goldens cellar + hero
+re-blessed (every replay matches the Runner); 428/428.  Sweep: hero 7 -> 1
+differ (statusline), cellar 5 -> 2; cellar t120's remaining replay is a feed
+artefact (a line the Runner spends on [MORE] is a turn to Scarier, so the slot
+holds "Sorry. That is not understood.").  Slot policy unchanged: Scarier still
+skips admin lines, which the Runner records.

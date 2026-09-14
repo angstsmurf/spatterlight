@@ -2696,15 +2696,18 @@ lib_cmd_restart (scr_gameref_t game)
  * pool at all, and neither Runner prints a room name with the answer:
  * Adrift_361_cellar.txt (4.00) reads plain "Undone." three times running.
  *
- * NOT ported, and visible in that same transcript: 3.9 and 4.0 also REPLAY
- * the restored turn's output.  Each Runner keeps a 10-deep record array
- * (run400 MemVar_494124) whose field 0 is the turn's whole output buffer,
- * stamped from MemVar_4941B0 when the record is pushed (@48BD6E); `undo`
- * reads slot *1* -- the previous turn -- and prints "Undone." & vbCrLf & the
- * text that slot holds, so undoing `e` re-prints what `take satchel` said.
- * An emptied slot is stamped "!!" (@45B146) and that sentinel is what the
- * availability test reads (@45AE5C).  Scarier's filter keeps no per-turn text
- * to replay; recording one is the open half of this lead.
+ * 3.9 and 4.0 also REPLAY the restored turn's output.  Each Runner keeps a
+ * 10-deep record array (run400 MemVar_494124) whose field 0 is the turn's
+ * whole output buffer, stamped from MemVar_4941B0 -- the output of the turn
+ * before -- when the record is written at the start of each line (@48BD6E);
+ * `undo` reads slot *1* and prints "Undone." & vbCrLf & the text that slot
+ * holds, so undoing `e` re-prints what `take satchel` said, the next undo
+ * what `x chair` said (Adrift_687_cellar), and Adrift_892_hero's
+ * wait/wait/undo re-prints the first "Time passes...".  An emptied slot is
+ * stamped "!!" (@45B146) and that sentinel is what the availability test
+ * reads (@45AE5C); run390 do_undo has the same shape.  Scarier keeps the text
+ * beside each undo state: the flushed output taken as the temporary game is
+ * copied (run_get_undo_text() for the undo game, the memo for older ones).
  */
 scr_bool
 lib_cmd_undo (scr_gameref_t game)
@@ -2730,6 +2733,7 @@ lib_cmd_undo (scr_gameref_t game)
    * after undo/redo/x me/i/z/wait/exits/yes reads 37, one per element typed.
    */
   const scr_int turns = game->turns;
+  std::string replay;
 
   /* If an undo buffer is available, restore it. */
   if (game->undo_available)
@@ -2740,6 +2744,8 @@ lib_cmd_undo (scr_gameref_t game)
       game->undo_available = FALSE;
 
       pf_buffer_string (filter, "Undone.\n");
+      pf_buffer_printed (filter, gs_get_vars (game), gs_get_bundle (game),
+                         run_get_undo_text ());
 
       /* Undo can't properly unravel layered sounds... */
       game->stop_sound = TRUE;
@@ -2752,9 +2758,11 @@ lib_cmd_undo (scr_gameref_t game)
    * needs no such split; this is the port's second tier of the same thing, so
    * it answers with the same word.
    */
-  else if (memo_load_game (memento, game))
+  else if (memo_load_game (memento, game, &replay))
     {
       pf_buffer_string (filter, "Undone.\n");
+      pf_buffer_printed (filter, gs_get_vars (game), gs_get_bundle (game),
+                         replay);
       if (lib_is_version_390 (game))
         game->turns = turns;
 

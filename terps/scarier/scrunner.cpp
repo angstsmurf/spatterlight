@@ -2180,6 +2180,19 @@ static scr_bool run_co_task_claimed = FALSE;
  */
 static scr_char run_prior_element[LINE_BUFFER_SIZE];
 
+/*
+ * The output that left the temporary game, and the undo game, in their
+ * states; undo replays it (see lib_cmd_undo()).  Older undo states carry
+ * theirs in the memo ring.
+ */
+static std::string run_temporary_text, run_undo_text;
+
+const std::string &
+run_get_undo_text (void)
+{
+  return run_undo_text;
+}
+
 static void
 run_note_task_ran (scr_gameref_t game, scr_int task)
 {
@@ -4760,8 +4773,10 @@ run_player_input (scr_gameref_t game)
         game->turns++;
     }
 
-  /* Copy the current game to the temporary undo buffer. */
+  /* Copy the current game to the temporary undo buffer, along with the
+     output that the turn just finished left it with. */
   gs_copy (game->temporary, game);
+  run_temporary_text = pf_take_printed (gs_get_filter (game));
   game->player_moved_by_command = FALSE;
 
   /*
@@ -5010,9 +5025,10 @@ run_player_input (scr_gameref_t game)
           && !(was_undo_available && !game->undo_available))
         {
           if (game->undo_available)
-            memo_save_game (memento, game->undo);
+            memo_save_game (memento, game->undo, run_undo_text.c_str ());
 
           gs_copy (game->undo, game->temporary);
+          run_undo_text = run_temporary_text;
           game->undo_available = TRUE;
 
           uip_assign_pronouns (game, command);
@@ -6681,7 +6697,7 @@ run_undo (scr_gameref_t game)
    * If there is no undo buffer, try to restore one saved previously in a
    * memo.  Handle as if restoring from a file.
    */
-  if (memo_load_game (memento, game))
+  if (memo_load_game (memento, game, NULL))
     {
       /* Loading a game clears is_running -- restore it here. */
       game->is_running = is_running;

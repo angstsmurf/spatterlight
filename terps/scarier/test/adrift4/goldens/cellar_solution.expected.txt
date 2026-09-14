@@ -976,15 +976,110 @@ You can't leave without your uncle's satchel.
 
 > undo
 Undone.
+There is nothing worth taking here.
 
 > undo
 Undone.
+The chair is a horribly creaky affair, prone to emitting a sound not unlike a
+screech when someone seats themselves in it. Why your father does not replace
+it with a better one you cannot say.
 
 > undo
 Undone.
+"No? Ah, Nevare. You are assuming you have a choice in the matter..."
+
+[MORE]
+
+Uncle Gavin's Story
+{part 2}
+
+We buried Clarkson in the river bed as best we could, piling stones atop him.
+Simonson raised the issue again that we should turn back and I was all for
+agreeing with him, but your father was obstinate that we continue. He said
+that to turn back now would make the sacrifices of Penwright and Clarkson in
+vain and that it was in their good name that we go on. I wondered at the word
+'sacrifices' but didn't wish to cause friction between your father and
+Simonson so I held my peace. In the end, as I knew would happen, Simonson
+bowed to your father's determined stance and we pressed on.
+
+The weather turned cold. Frighteningly cold. We had ill prepared for it,
+assuming that Africa, in the height of summer, would be a hot place. We
+suffered for our poor planning. Again, Simonson raised the issue of us
+turning back and he and your father came close to shouting at each other on
+many occasions. I acted as a go between, though my feelings on the subject
+were that turning back would be a good idea indeed. I think the only thing
+that kept me from doing so was that I had always admired your father, Nevare,
+and had sought for a good part of my adult life to emulate him. To be him, if
+you will. Turning back - worse still, siding with Simonson against your
+father - would have been an admission that I wasn't cut from the same cloth
+as he was. So I acted as the go between to calm down tempers and in that way
+we pressed on further.
+
+We should have reached the village the following day. It was marked on our
+maps, unclearly but marked all the same, yet we reached the area where it was
+reputed to lie and found ourselves in a dusty valley. If a village had ever
+stood anywhere within that valley, we could find no trace of it.
+
+Yet the valley was not entirely deserted. There was one person waiting for us
+when we arrived at its far end and his presence placed a cold chill in my
+heart.
+
+It was Penwright.
+
+[MORE]
+
+"Penwright."
+
+You didn't realise your uncle had finished speaking at first. The final word
+- the name of the dead man who was still moving - echoes around the chamber
+and, finally, you blink and come back to yourself.
+
+"Was he dead or alive? It was hard to tell."
+
+You want to ask a question but your mouth is dry. You cannot speak.
+
+Your uncle groans. "I am weary, boy. All this talking, it... tires me so.
+Fetch me my satchel."
+
+You stand there, unmoving.
+
+"In your father's study. He keeps it there. He keeps it..." A sigh. "I forget
+where, but I know it is in there. Fetch it for me and return. Go."
+
+On shaking legs, you flee the chamber.
+
+[MORE]
+
+l l l Study l l l
+
+Your father's study is actually used as a reading room, hence the many thick
+tomes on shelves around the walls. He often retires here at night to read,
+though his choice of reading materials seems strange and bewildering to you.
+Needless to say, you are forbidden to read from any of the books in here and
+the door is kept locked for most of the time. A chair by the window is where
+your father sits to read, though the appalling creaking sound it makes at the
+lightest touch is enough to set your teeth on edge. There is a door to the
+east.
 
 > undo
 Undone.
+You start to ask a question - about what happened next to your father and
+your uncle during the expedition - but Uncle Gavin groans and turns painfully
+to one side.
+
+"It... hurts..." he says, and his voice, always a croak, now seems worse than
+ever. "Your father tells me I am wrong, that my nerves are as decayed as the
+rest of me and that they do not function well enough to convey pain. He says
+it is all in my mind. And yet... YET IT HURTS!" he hisses, the loudest you
+have heard him yet. "IT BURNS AT ME! IT EATS MY INSIDES! IT... IT... it..."
+His strength fades and for several seconds he is silent, gasping hoarsely for
+breath. Then he says, "it is my gift and my curse rolled into one, I am told.
+Though I find it hard to imagine what gift there can be in being like this."
+
+"I should go," you say, suddenly wishing you were anywhere but here.
+
+"You should." Your uncle sucks in a deep breath then expels it painfully.
+"But then you won't hear the end of my tale, will you?"
 
 > l
 

@@ -371,6 +371,12 @@ extern void pf_checkpoint (scr_filterref_t filter,
    version 4.0 task runs over the turn's output. */
 extern void pf_refilter (scr_filterref_t filter,
                          scr_var_setref_t vars, scr_prop_setref_t bundle);
+/* The text pf_flush() has printed since the last call, taken and cleared;
+   and a way to buffer such already-filtered text back, for undo's replay. */
+extern std::string pf_take_printed (scr_filterref_t filter);
+extern void pf_buffer_printed (scr_filterref_t filter,
+                               scr_var_setref_t vars, scr_prop_setref_t bundle,
+                               const std::string &text);
 extern const scr_char *pf_get_buffer (scr_filterref_t filter);
 extern scr_char *pf_transfer_buffer (scr_filterref_t filter);
 /* Hide the buffer from the paragraph-spacing helpers while version 4.0 task
@@ -390,8 +396,10 @@ extern scr_bool pf_text_ends_with_break (const scr_char *text);
 typedef struct scr_memo_set_s *scr_memo_setref_t;
 extern scr_memo_setref_t memo_create (void);
 extern void memo_destroy (scr_memo_setref_t memento);
-extern void memo_save_game (scr_memo_setref_t memento, scr_gameref_t game);
-extern scr_bool memo_load_game (scr_memo_setref_t memento, scr_gameref_t game);
+extern void memo_save_game (scr_memo_setref_t memento, scr_gameref_t game,
+                            const scr_char *text);
+extern scr_bool memo_load_game (scr_memo_setref_t memento, scr_gameref_t game,
+                                std::string *text);
 extern scr_bool memo_is_load_available (scr_memo_setref_t memento);
 extern void memo_clear_games (scr_memo_setref_t memento);
 extern scr_int memo_get_undo_count (scr_memo_setref_t memento);
@@ -971,6 +979,7 @@ extern scr_bool run_restore (scr_gameref_t game,
                             scr_read_callbackref_t callback, void *opaque);
 extern scr_bool run_restore_prompted (scr_gameref_t game);
 extern scr_bool run_undo (scr_gameref_t game);
+extern const std::string &run_get_undo_text (void);
 extern void run_quit (scr_gameref_t game);
 extern scr_bool run_is_running (scr_gameref_t game);
 extern scr_int run_get_restart_count (void);

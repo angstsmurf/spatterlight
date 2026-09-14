@@ -140,6 +140,9 @@ typedef struct scr_filter_s
      end of the buffer with the Runner's two-space separator, taking back an
      auto-break of ours first.  See pf_buffer_join_pending(). */
   scr_bool join_pending;
+  /* Everything pf_flush() has printed since pf_take_printed() last took it:
+     the output of the turn in progress, for undo to replay later. */
+  std::string printed;
 } scr_filter_t;
 
 
@@ -1305,14 +1308,21 @@ pf_flush (scr_filterref_t filter,
           filtered = pf_filter_internal (filter->buffer.c_str (), vars, bundle);
           if (filtered)
             {
+              filter->printed.append (filtered);
               pf_output_untagged (filtered);
               scr_free (filtered);
             }
           else
-            pf_output_untagged (filter->buffer.c_str ());
+            {
+              filter->printed.append (filter->buffer);
+              pf_output_untagged (filter->buffer.c_str ());
+            }
         }
       else
-        pf_output_untagged (filter->buffer.c_str ());
+        {
+          filter->printed.append (filter->buffer);
+          pf_output_untagged (filter->buffer.c_str ());
+        }
 
       /* Remove buffered data. */
       filter->buffer.clear ();
@@ -1335,6 +1345,44 @@ pf_append_string (scr_filterref_t filter, const scr_char *string)
 {
   /* std::string handles growth (amortized) and termination for us. */
   filter->buffer.append (string);
+}
+
+
+/*
+ * pf_take_printed()
+ * pf_buffer_printed()
+ *
+ * Take, and clear, the text flushed out since the last take; and buffer such
+ * text again.  The text is already filtered, so the buffer is checkpointed
+ * first and the replay appended after it unfiltered, to keep its ALRs from
+ * applying a second time.
+ */
+std::string
+pf_take_printed (scr_filterref_t filter)
+{
+  std::string text;
+  assert (pf_is_valid (filter));
+
+  text.swap (filter->printed);
+  return text;
+}
+
+void
+pf_buffer_printed (scr_filterref_t filter,
+                   scr_var_setref_t vars, scr_prop_setref_t bundle,
+                   const std::string &text)
+{
+  assert (pf_is_valid (filter));
+
+  if (filter->is_muted || text.empty ())
+    return;
+
+  pf_checkpoint (filter, vars, bundle);
+  filter->buffer.append (text);
+  filter->new_sentence = FALSE;
+  filter->auto_break_at = -1;
+  filter->hard_break_at = -1;
+  filter->reference_at = -1;
 }
 
 
