@@ -1073,6 +1073,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"feed *", lib_cmd_feed},
   {"feel *", lib_cmd_feel},
   {"fight *", lib_cmd_fight},
+  {"clear %object% *", lib_cmd_clear_object},
   {"fix %object% *", lib_cmd_fix_object},
   {"fix %text%", lib_cmd_fix_other},
   {"fix", lib_cmd_fix_what},
@@ -2090,6 +2091,10 @@ run_pattern_names_verb (const scr_char *pattern, const scr_char *string)
  */
 static const scr_char *run_dispatch_input = NULL;
 
+/* Set while a 4.0 question continuation with a double space runs; see
+ * run_match_task_commands(). */
+static scr_bool run_rerun_skips_tasks = FALSE;
+
 /*
  * run_get_dispatch_input()
  *
@@ -2275,6 +2280,18 @@ run_match_task_commands (scr_gameref_t game,
   const scr_int version = run_get_version (gs_get_bundle (game));
   const scr_strict_reference_guard strict_reference
       (version >= TAF_VERSION_390, version >= TAF_VERSION_400);
+
+  /*
+   * 4.0 compares a task command against the line as it stands, so the two
+   * spaces of a "...with?" continuation (`cut rope with ` & " " & `knife`)
+   * match no task: run400 answers `cut rope`, `knife` with the library's
+   * "You can't cut the rope with the knife." although the game has a task
+   * `cut rope with knife` (Adrift_39_p4withq.txt).  Scarier's matchers want
+   * single spaces, so run_player_input() runs such a rerun collapsed and
+   * raises run_rerun_skips_tasks for it instead.
+   */
+  if (run_rerun_skips_tasks && !is_library)
+    return FALSE;
 
   /* Iterate over commands, looking for patterns that match string. */
   is_matched = FALSE;
@@ -4747,10 +4764,29 @@ run_player_input (scr_gameref_t game)
 
     if (!rerun.empty ())
       {
+        std::string collapsed (rerun);
+        size_t pair;
+
+        while ((pair = collapsed.find ("  ")) != std::string::npos)
+          collapsed.erase (pair, 1);
+
         pf_empty (filter);
         game->is_admin = FALSE;
-        status = run_all_commands (game, rerun.c_str ());
+        run_rerun_skips_tasks = collapsed != rerun
+            && prop_get_taf_version (bundle) >= TAF_VERSION_400;
+        status = run_all_commands (game, collapsed.c_str ());
+        run_rerun_skips_tasks = FALSE;
       }
+
+    /*
+     * 4.0: a turn that ends asking "With what?" or "...with?" leaves the
+     * line plus " with " as the question prefix and is not a turn -- task
+     * text included.  See lib_question_with_rule() in sclibrar.cpp.
+     */
+    if (status
+        && lib_question_with_rule (game, rerun.empty () ? command
+                                                        : rerun.c_str ()))
+      game->is_admin = TRUE;
   }
 
   /*

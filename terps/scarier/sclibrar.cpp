@@ -8475,7 +8475,14 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
 
           status = lib_try_game_command_take_from_parent_400 (game, object,
                                                               &looked_up);
-          if (!looked_up)
+          /*
+           * 4.0's take piece looks up "get " & name(obj, 0) only
+           * (462B0D): `take pebble` never reaches a task `take a pebble`
+           * and takes the pebble (p4WITHQ2.taf, Adrift_1159).
+           */
+          if (!looked_up && lib_is_version_400 (game))
+            status = lib_try_game_command_take_definite (game, object);
+          else if (!looked_up)
             status = lib_try_game_command_short (game, "get", object);
         }
       if (status)
@@ -10741,6 +10748,46 @@ lib_cmd_drop_multiple (scr_gameref_t game)
 }
 
 
+static void lib_question_prefix_from_line (scr_gameref_t game);
+static scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
+                                    const scr_char *input);
+
+/*
+ * 4.0's give NPC loop (488AE8-488B5C) walks every character for a present,
+ * seen one the line refers to anywhere (45E99C mode 0), so a continued
+ * `give to Nobody coin dave` still finds Dave where no give pattern parses
+ * the line.  Measured Adrift_39_p4withq.txt: `give`, `coin`, `dave`.
+ */
+static scr_int
+lib_give_present_npc_400 (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int index_;
+
+  if (!lib_is_version_400 (game) || !input)
+    return -1;
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      if (gs_npc_seen (game, index_)
+          && npc_in_room (game, index_, gs_playerroom (game))
+          && lib_npc_referenced (game, index_, input))
+        return index_;
+    }
+  return -1;
+}
+
+/* The 4.0 refusal: not a turn (Adrift_40_p4withq2.txt, ghosttown). */
+static scr_bool
+lib_give_not_interested_400 (scr_gameref_t game, scr_int npc, scr_int object)
+{
+  game->is_admin = TRUE;
+  pf_new_sentence (gs_get_filter (game));
+  lib_print_npc_np (game, npc);
+  lib_print_wrapped_object (game, " doesn't seem interested in ",
+                            object, ".\n");
+  return TRUE;
+}
+
 /*
  * lib_cmd_give_object_npc()
  * lib_cmd_give_object()
@@ -10789,15 +10836,15 @@ lib_cmd_give_object_npc (scr_gameref_t game)
         {
           if (is_ambiguous)
             return TRUE;
+          npc = lib_give_present_npc_400 (game);
+          if (npc >= 0)
+            return lib_give_not_interested_400 (game, npc, object);
+          lib_question_prefix_from_line (game);
           lib_print_wrapped_object (game, "Give ", object, " to who?\n");
           return TRUE;
         }
 
-      pf_new_sentence (filter);
-      lib_print_npc_np (game, npc);
-      lib_print_wrapped_object (game, " doesn't seem interested in ",
-                                object, ".\n");
-      return TRUE;
+      return lib_give_not_interested_400 (game, npc, object);
     }
 
   /* Get the referenced npc, and if none, consider complete. */
@@ -10847,6 +10894,13 @@ lib_cmd_give_object (scr_gameref_t game)
     }
 
   /* After all that, we have to ask (and shouldn't this be "to whom?"). */
+  {
+    const scr_int npc = lib_give_present_npc_400 (game);
+
+    if (npc >= 0)
+      return lib_give_not_interested_400 (game, npc, object);
+  }
+  lib_question_prefix_from_line (game);
   lib_print_wrapped_object (game, "Give ", object, " to who?\n");
   return TRUE;
 }
@@ -11408,6 +11462,160 @@ lib_list_in_object_pre_390 (scr_gameref_t game, scr_int container)
 }
 
 
+static scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
+                                                   const scr_char *input,
+                                                   std::vector<scr_int> *tied,
+                                                   scr_bool present_only);
+
+/*
+ * lib_with_clause_400()
+ *
+ * run400's therest (Proc_19_85_489F4C) splits a line holding " with " before
+ * any verb test (4883C5-488615): the object is scored from the text before
+ * it and the instrument from the text after it (463640, present and seen),
+ * and either failing leaves therest silently (488430, 4884DB) for the object
+ * catch-all.  A dynamic instrument not held answers "<You> don't have <X>."
+ * (48856A), a static one "Don't be daft!" (48860D), and a held one becomes
+ * var_9C = " with <the X>", which every refusal puts before its full stop:
+ * "You can't cut the rope with the coin.", "You push the button with the
+ * knife, but nothing happens.", "You can't turn the button on with the
+ * knife.".  Measured 2026-09-14 on p4WITHQ.taf (Adrift_39/40/41).
+ *
+ * Each half is 463640 in mode 0: present and seen first, then any seen
+ * object, so a half can name something the player saw and left.  An absent
+ * instrument is "<You> don't have the gem." like any other not held, and
+ * once both halves resolve 4887A0 answers an absent object "<You> can't see
+ * the gem." (p4WITHQ2.taf, Adrift_1159, 2026-09-14).  The "With what?" arm
+ * at 488505 tests an instrument neither present nor seen, which 463640
+ * never returns: it is dead.  run390 has a whole-word twin (45D12C), not
+ * measured, so this stays 4.0.
+ */
+enum lib_with_clause_t
+{ LIB_WITH_NONE, LIB_WITH_DECLINE, LIB_WITH_ANSWERED, LIB_WITH_SUFFIX };
+
+static scr_int
+lib_with_half_400 (scr_gameref_t game, const scr_char *half)
+{
+  scr_int object;
+
+  object = lib_verb_object_resolve_400_string (game, half, NULL, TRUE);
+  if (object < 0)
+    object = lib_verb_object_resolve_400_string (game, half, NULL, FALSE);
+  return object;
+}
+
+static lib_with_clause_t
+lib_with_clause_400 (scr_gameref_t game, scr_int *object, scr_int *instrument)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  std::string line;
+  size_t split;
+
+  if (!lib_is_version_400 (game) || !input)
+    return LIB_WITH_NONE;
+  line = input;
+  split = line.find (" with ");
+  if (split == std::string::npos)
+    return LIB_WITH_NONE;
+
+  *object = lib_with_half_400 (game, line.substr (0, split).c_str ());
+  if (*object < 0)
+    return LIB_WITH_DECLINE;
+  *instrument = lib_with_half_400 (game, line.substr (split + 6).c_str ());
+  if (*instrument < 0)
+    return LIB_WITH_DECLINE;
+
+  if (obj_is_static (game, *instrument))
+    {
+      pf_buffer_string (gs_get_filter (game), "Don't be daft!\n");
+      return LIB_WITH_ANSWERED;
+    }
+  if (!obj_indirectly_held_by_player (game, *instrument))
+    {
+      lib_print_response_object (game, "You don't have ", "I don't have ",
+                                 "%player% don't have ", *instrument, ".\n");
+      return LIB_WITH_ANSWERED;
+    }
+  if (!obj_indirectly_in_room (game, *object, gs_playerroom (game)))
+    {
+      lib_print_response_object (game, "You can't see ", "I can't see ",
+                                 "%player% can't see ", *object, ".\n");
+      return LIB_WITH_ANSWERED;
+    }
+  return LIB_WITH_SUFFIX;
+}
+
+/*
+ * lib_cant_do_with_400()
+ *
+ * The therest refusal "<You> can't <verb> <the object><particle> with <the
+ * instrument>." for a line lib_with_clause_400() applies to; *handled is
+ * FALSE when it does not apply, and the return is then meaningless.
+ */
+static scr_bool
+lib_cant_do_with_400 (scr_gameref_t game, const scr_char *verb,
+                      const scr_char *particle, scr_bool *handled)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object = -1, instrument = -1;
+
+  *handled = TRUE;
+  switch (lib_with_clause_400 (game, &object, &instrument))
+    {
+    case LIB_WITH_NONE:
+      *handled = FALSE;
+      return FALSE;
+    case LIB_WITH_DECLINE:
+      return FALSE;
+    case LIB_WITH_ANSWERED:
+      return TRUE;
+    case LIB_WITH_SUFFIX:
+      break;
+    }
+
+  pf_buffer_string (filter,
+                    lib_select_response (game, "You can't ", "I can't ",
+                                         "%player% can't "));
+  pf_buffer_string (filter, verb);
+  pf_buffer_character (filter, ' ');
+  lib_print_object_np (game, object);
+  pf_buffer_string (filter, particle);
+  lib_print_wrapped_object (game, " with ", instrument, ".\n");
+  return TRUE;
+}
+
+
+/*
+ * lib_open_close_with_400()
+ *
+ * A 4.0 `open X with Y` or `close X with Y` is therest's refusal whatever X
+ * is: "You can't open the button with the knife." (Adrift_41), and on
+ * p4WITHQ2.taf the same for a closed box and an open chest, open or close
+ * (Adrift_1159).  therest's open and close arms (48880F, 48884E) test only
+ * the word.  A locked X, which openclose might answer with its key, is not
+ * measured and stays with the handlers.  TRUE when the line was taken, with
+ * *status the handler's return.
+ */
+static scr_bool
+lib_open_close_with_400 (scr_gameref_t game, const scr_char *verb,
+                         scr_bool *status)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int first;
+  scr_bool handled;
+
+  if (!lib_is_version_400 (game) || !input || !strstr (input, " with "))
+    return FALSE;
+
+  std::string line (input);
+  first = lib_with_half_400 (game, line.substr (0, line.find (" with ")).c_str ());
+  if (first < 0 || gs_object_openness (game, first) == OBJ_LOCKED)
+    return FALSE;
+
+  *status = lib_cant_do_with_400 (game, verb, "", &handled);
+  return handled;
+}
+
 /*
  * lib_cmd_open_object()
  *
@@ -11419,6 +11627,9 @@ lib_cmd_open_object (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int object, openness;
   scr_bool is_ambiguous;
+
+  if (lib_open_close_with_400 (game, "open", &is_ambiguous))
+    return is_ambiguous;
 
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, "open", &is_ambiguous);
@@ -11540,6 +11751,9 @@ lib_cmd_close_object (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int object, openness;
   scr_bool is_ambiguous;
+
+  if (lib_open_close_with_400 (game, "close", &is_ambiguous))
+    return is_ambiguous;
 
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, "close", &is_ambiguous);
@@ -11786,6 +12000,25 @@ static scr_int lib_verb_object_resolve_400 (scr_gameref_t game);
  * one; otherwise the object's key is looked up and the player tries to lay
  * hands on it first.
  */
+/* 4.0: a keyless object's (un)lock line is therest's refusal; see below. */
+static scr_bool
+lib_lock_therest_400 (scr_gameref_t game, const lib_lock_verb_t *verb,
+                      scr_int object)
+{
+  scr_bool handled;
+  const scr_bool status = lib_cant_do_with_400 (game, verb->verb, "",
+                                                &handled);
+
+  if (handled)
+    return status;
+  pf_buffer_string (gs_get_filter (game),
+                    lib_select_response (game, verb->cant[0], verb->cant[1],
+                                         verb->cant[2]));
+  lib_print_object_np (game, object);
+  pf_buffer_string (gs_get_filter (game), ".\n");
+  return TRUE;
+}
+
 static scr_bool
 lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
                   scr_bool with_key)
@@ -11801,17 +12034,18 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
     return is_ambiguous;
 
   /*
-   * 4.0 has no refusal for an object without a lock.  run400's lock and
-   * unlock arms in openclose (Proc_19_3_476468) resolve the object, leave
-   * with `Exit Sub` when nothing scores (475D91, 47614F), and then do all of
-   * their work -- "can't lock X as it is open.", "is not locked!", the key
-   * checks -- under `If object.Key > 0` (475DAB, 476169).  An object with no
-   * key falls out of the arm having said nothing, and generaltasks' object
-   * catch-all answers: hcw's `unlock door with keys` in the parking lot, no
-   * door present, is "I don't understand what you want to do with Susan's
-   * keys." (Adrift_1055_hcw.txt, turn 189), not "You can't unlock Susan's
-   * keys.".  Declining here, and in lib_cmd_(un)lock_other(), hands the
-   * line to `* %object% *`.
+   * run400's lock and unlock arms in openclose (Proc_19_3_476468) resolve
+   * the object, leave with `Exit Sub` when nothing scores (475D91, 47614F),
+   * and then do all of their work -- "can't lock X as it is open.", "is not
+   * locked!", the key checks -- under `If object.Key > 0` (475DAB, 476169).
+   * An object with no key falls out of the arm having said nothing, and
+   * therest answers: `lock button` is "You can't lock the button."
+   * (Adrift_40, turn 6), `lock button with coin` "You can't lock the button
+   * with the coin." (Adrift_41).  hcw's `unlock door with keys` in the
+   * parking lot, no door present, is the catch-all "I don't understand what
+   * you want to do with Susan's keys." (Adrift_1055_hcw.txt, turn 189)
+   * because therest's " with " split finds no door; see
+   * lib_with_clause_400().
    */
   if (lib_is_version_400 (game))
     {
@@ -11828,11 +12062,11 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
       vt_key[2].string = "Openable";
       if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
           || vt_rvalue.integer <= 0)
-        return FALSE;
+        return lib_lock_therest_400 (game, verb, object);
       vt_key[2].string = "Key";
       if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
           || vt_rvalue.integer < 0)
-        return FALSE;
+        return lib_lock_therest_400 (game, verb, object);
     }
 
   /*
@@ -14689,20 +14923,59 @@ lib_cmd_put_on_multiple (scr_gameref_t game)
  *
  * Attempt to read the referenced object, or something else.
  */
+/*
+ * 4.0 reads inside examines (471F94), whose noun is referencedob's: a line
+ * the up-front score ties goes through its passes, and with no Prefix word
+ * typed the last object marked wins.  p4WITHQ2.taf (Adrift_1159): `read book
+ * with knife` prints the book's text, `read rope with knife` answers "You
+ * can't read the knife!".  -1 when the line did not tie or the answer is not
+ * here.
+ */
+static scr_int
+lib_read_tied_object_400 (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object;
+
+  if (!lib_is_version_400 (game) || !input || lib_co_400_forced () >= 0
+      || lib_verb_object_resolve_400_string (game, input, NULL, TRUE) != -1)
+    return -1;
+
+  object = lib_examine_referencedob_400 (game, input);
+  if (object >= 0
+      && !obj_indirectly_in_room (game, object, gs_playerroom (game)))
+    return -1;
+  return object;
+}
+
+static scr_bool lib_read_object (scr_gameref_t game, scr_int object);
+
 scr_bool
 lib_cmd_read_object (scr_gameref_t game)
+{
+  scr_int object;
+  scr_bool is_ambiguous;
+
+  /* Get the referenced object, and if none, consider complete. */
+  object = lib_read_tied_object_400 (game);
+  if (object < 0)
+    {
+      object = lib_disambiguate_object (game, "read", &is_ambiguous);
+      if (object == -1)
+        return is_ambiguous;
+    }
+  return lib_read_object (game, object);
+}
+
+static scr_bool
+lib_read_object (scr_gameref_t game, scr_int object)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
-  scr_int object, task;
-  scr_bool is_readable, is_ambiguous;
+  scr_int task;
+  scr_bool is_readable;
   const scr_char *readtext, *description;
-
-  /* Get the referenced object, and if none, consider complete. */
-  object = lib_disambiguate_object (game, "read", &is_ambiguous);
-  if (object == -1)
-    return is_ambiguous;
 
   /*
    * Pre-4.0 `read` shares examines() with `x`, and the darkness byte is read
@@ -14797,6 +15070,14 @@ lib_cmd_read_other (scr_gameref_t game)
                                   "%player% can't see that very clearly.\n");
       return lib_print_message (game, "Nothing special.\n");
     }
+
+  /* `read book with knife` names no one object; see lib_cmd_read_object(). */
+  {
+    const scr_int object = lib_read_tied_object_400 (game);
+
+    if (object >= 0)
+      return lib_read_object (game, object);
+  }
 
   /* Reject the attempt -- the same "<name> see no such thing." literal as
      lib_cmd_examine_other(), unconjugated in the third person. */
@@ -15534,6 +15815,77 @@ lib_battle_who_continuation (const scr_char *command, scr_bool status)
   rerun = lib_battle_who_pending + " " + command;
   lib_battle_who_pending.clear ();
   return rerun;
+}
+
+/*
+ * "Wear what?" (run400 463C19) and "Remove what?" (462477) leave the typed
+ * line itself, MemVar_494174, in the same prefix (463C23, 462481), so
+ * `wear zzz` then `goggles` runs `wear zzz goggles` and puts them on, and
+ * `remove zzz` then `wield zzz` answers "Remove what?" again.  The other
+ * 4.0 questions measured beside them do not: `drop zzz` and `take zzz` then
+ * `goggles` are the object catch-all.  Measured 2026-09-14 on ptbad.taf,
+ * cmdfile_whatcont.txt (Adrift_38_ptbad_whatcont.txt) and Adrift_36.
+ * run390's wears sets its prefix too (43D289) and its removes does not;
+ * neither is measured, so this stays 4.0.
+ */
+static void
+lib_question_prefix_from_line (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+
+  if (lib_is_version_400 (game) && input)
+    lib_battle_who_pending = input;
+}
+
+/*
+ * "Give what?" (488A7C), "Give <the obj> to who?" (488B45) and checkverb's
+ * "<Verb> what?" for a line that IS the verb (4455F8) store the line the same
+ * way; bare `drop` and `take` do not.  And every line, whoever answered it,
+ * passes 48B4E3-48B530: a message that is "With what?" or whose Right 5 is
+ * "with?" stores line & " with " and sets the not-a-turn byte MemVar_494281.
+ * So a task printing "What with?" to `saw rope` does not tick, and `knife`
+ * then runs `saw rope with  knife` -- two spaces, which no task command
+ * matches.  "Whittle it with what?" is neither and ticks.  Measured
+ * 2026-09-14 on p4WITHQ.taf, cmdfile_withq.txt and cmdfile_withq2.txt
+ * (Adrift_39_p4withq.txt, Adrift_40_p4withq2.txt).
+ */
+scr_bool
+lib_question_with_rule (scr_gameref_t game, const scr_char *line)
+{
+  const scr_char *buffer = pf_get_buffer (gs_get_filter (game));
+  std::string message;
+
+  if (!lib_is_version_400 (game) || !buffer || scr_strempty (line))
+    return FALSE;
+
+  message = buffer;
+  while (!message.empty ()
+         && (message.back () == '\n' || message.back () == ' '))
+    message.pop_back ();
+  if (message != "With what?"
+      && (message.size () < 5
+          || message.compare (message.size () - 5, 5, "with?") != 0))
+    return FALSE;
+
+  lib_battle_who_pending = std::string (line) + " with ";
+  return TRUE;
+}
+
+/* checkverb's bare verb: "<Label> what?" and the line as the prefix. */
+static scr_bool
+lib_checkverb_bare_400 (scr_gameref_t game, const scr_char *verb,
+                        const scr_char *label)
+{
+  const scr_char *input = run_get_dispatch_input ();
+
+  if (!lib_is_version_400 (game) || !input
+      || scr_strcasecmp (input, verb) != 0)
+    return FALSE;
+
+  pf_buffer_string (gs_get_filter (game), label);
+  pf_buffer_string (gs_get_filter (game), " what?\n");
+  lib_battle_who_pending = input;
+  return TRUE;
 }
 
 /* The mode-0 name, as lib_print_object_np() prints it from 3.9 on. */
@@ -18399,6 +18751,29 @@ lib_nothing_happens_common (scr_gameref_t game,
       break;
     }
 
+  /* 4.0's " with " split; see lib_with_clause_400(). */
+  {
+    scr_int first = -1, instrument = -1;
+
+    switch (lib_with_clause_400 (game, &first, &instrument))
+      {
+      case LIB_WITH_NONE:
+        break;
+      case LIB_WITH_DECLINE:
+        return FALSE;
+      case LIB_WITH_ANSWERED:
+        return TRUE;
+      case LIB_WITH_SUFFIX:
+        pf_buffer_string (filter, person);
+        pf_buffer_string (filter, verb);
+        pf_buffer_character (filter, ' ');
+        lib_print_object_np (game, first);
+        lib_print_wrapped_object (game, " with ", instrument,
+                                  ", but nothing happens.\n");
+        return TRUE;
+      }
+  }
+
   /* If the command target was not an object, end it here. */
   if (!is_object)
     {
@@ -18537,7 +18912,12 @@ lib_cant_do_common (scr_gameref_t game, const scr_char *verb,
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
-  scr_bool is_ambiguous;
+  scr_bool is_ambiguous, handled;
+  const scr_bool status = lib_cant_do_with_400 (game, verb, particle,
+                                                &handled);
+
+  if (handled)
+    return status;
 
   /* If the target is not an object, end it here. */
   if (!is_object)
@@ -18774,6 +19154,11 @@ lib_cmd_open_other (scr_gameref_t game)
 scr_bool
 lib_cmd_lock_other (scr_gameref_t game)
 {
+  scr_bool handled;
+  const scr_bool status = lib_cant_do_with_400 (game, "lock", "", &handled);
+
+  if (handled)
+    return status;
   if (lib_is_version_400 (game) && lib_verb_object_resolve_400 (game) >= 0)
     return FALSE;
   return lib_cant_do_other (game, "lock");
@@ -18782,6 +19167,11 @@ lib_cmd_lock_other (scr_gameref_t game)
 scr_bool
 lib_cmd_unlock_other (scr_gameref_t game)
 {
+  scr_bool handled;
+  const scr_bool status = lib_cant_do_with_400 (game, "unlock", "", &handled);
+
+  if (handled)
+    return status;
   if (lib_is_version_400 (game) && lib_verb_object_resolve_400 (game) >= 0)
     return FALSE;
   return lib_cant_do_other (game, "unlock");
@@ -18790,18 +19180,29 @@ lib_cmd_unlock_other (scr_gameref_t game)
 scr_bool
 lib_cmd_stand_other (scr_gameref_t game)
 {
+  if (lib_checkverb_bare_400 (game, "stand on", "Stand on")
+      || lib_checkverb_bare_400 (game, "stand in", "Stand in"))
+    return TRUE;
   return lib_cant_do_other (game, "stand on");
 }
 
 scr_bool
 lib_cmd_sit_other (scr_gameref_t game)
 {
+  if (lib_checkverb_bare_400 (game, "sit on", "Sit on")
+      || lib_checkverb_bare_400 (game, "sit in", "Sit in"))
+    return TRUE;
   return lib_cant_do_other (game, "sit on");
 }
 
 scr_bool
 lib_cmd_lie_other (scr_gameref_t game)
 {
+  if (lib_checkverb_bare_400 (game, "lie on", "Lie on")
+      || lib_checkverb_bare_400 (game, "lie in", "Lie in")
+      || lib_checkverb_bare_400 (game, "lay on", "Lay on")
+      || lib_checkverb_bare_400 (game, "lay in", "Lay in"))
+    return TRUE;
   return lib_cant_do_other (game, "lie on");
 }
 
@@ -18891,8 +19292,30 @@ lib_dont_think_common (scr_gameref_t game,
                        const scr_char *verb, scr_bool is_object)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object;
+  scr_int object, instrument;
   scr_bool is_ambiguous;
+
+  /*
+   * 4.0's fix, repair and mend arms (489BE7, 489C35, 489C83) end in
+   * var_9C: "I don't think you can fix the rope with the knife."
+   * (p4WITHQ2.taf, Adrift_1159).
+   */
+  switch (lib_with_clause_400 (game, &object, &instrument))
+    {
+    case LIB_WITH_NONE:
+      break;
+    case LIB_WITH_DECLINE:
+      return FALSE;
+    case LIB_WITH_ANSWERED:
+      return TRUE;
+    case LIB_WITH_SUFFIX:
+      pf_buffer_string (filter, "I don't think you can ");
+      pf_buffer_string (filter, verb);
+      pf_buffer_character (filter, ' ');
+      lib_print_object_np (game, object);
+      lib_print_wrapped_object (game, " with ", instrument, ".\n");
+      return TRUE;
+    }
 
   /* If the target is not an object, end it here. */
   if (!is_object)
@@ -18939,6 +19362,20 @@ lib_dont_think_other (scr_gameref_t game, const scr_char *verb)
  *
  * Assorted don't-think messages.
  */
+/*
+ * run400's therest clear arm (4896AC) answers any line holding the word
+ * "clear": "You can't clear the rope with the knife." (p4WITHQ2.taf,
+ * Adrift_1159).  Only the 4.0 object form is measured; everything else falls
+ * through as before.
+ */
+scr_bool
+lib_cmd_clear_object (scr_gameref_t game)
+{
+  if (!lib_is_version_400 (game))
+    return FALSE;
+  return lib_cant_do_object (game, "clear");
+}
+
 scr_bool
 lib_cmd_fix_object (scr_gameref_t game)
 {
@@ -18985,6 +19422,14 @@ static scr_bool
 lib_what (scr_gameref_t game, const scr_char *verb)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+
+  /* checkverb's bare verb leaves the line pending; drop, take and drink
+   * are not checkverb verbs.  See lib_question_with_rule(). */
+  if (input && scr_strcasecmp (input, verb) == 0
+      && strcmp (verb, "Drop") != 0 && strcmp (verb, "Take") != 0
+      && strcmp (verb, "Drink") != 0)
+    lib_question_prefix_from_line (game);
 
   pf_buffer_string (filter, verb);
   pf_buffer_string (filter, " what?\n");
@@ -19404,6 +19849,7 @@ lib_cmd_get_what (scr_gameref_t game)
 scr_bool
 lib_cmd_give_what (scr_gameref_t game)
 {
+  lib_question_prefix_from_line (game);
   return lib_what (game, "Give");
 }
 
@@ -19452,12 +19898,14 @@ lib_cmd_remove_what (scr_gameref_t game)
         }
     }
 
+  lib_question_prefix_from_line (game);
   return lib_what (game, "Remove");
 }
 
 scr_bool
 lib_cmd_wear_what (scr_gameref_t game)
 {
+  lib_question_prefix_from_line (game);
   return lib_what (game, "Wear");
 }
 

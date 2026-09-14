@@ -1912,7 +1912,11 @@ ticktick_solution.txt|ticktick.taf|I'm afraid you are dead!
 # Measured 2026-09-05 in run400 under Wine (Adrift_19_ptbad.txt, feed
 # cmdfile_w_ptbad.txt): 1/1 echoed, identical but the [Press any key to end]
 # tail.  This game is also the probe bed for the three library-message
-# corrections of 2026-09-05 (Adrift_36/37_ptbad_probe3/4.txt): an empty
+# corrections of 2026-09-05 (Adrift_36/37_ptbad_probe3/4.txt), and of the
+# 2026-09-14 question prefix (Adrift_38_ptbad_whatcont.txt: "Wear what?" and
+# "Remove what?" leave the line for the next unanswered one, so `remove zzz`
+# then `wield zzz` answers "Remove what?" again; lib_question_prefix_from_line
+# in sclibrar.cpp).  Of the 2026-09-05 corrections: an empty
 # `drop all` answers "You are carrying nothing!" in 4.0 (run400 name_object
 # 46E5A0) and "You are not carrying anything." before it (run390 445867);
 # `wear all` with nothing held answers "You don't have anything to wear.";
@@ -8787,6 +8791,11 @@ ilgolem_solution.txt|Il Golem.taf|Complimenti, hai completato l'avventura!|SCR_S
 # a roomgroup walk, so its placement is RNG.
 # Re-blessed 2026-09-13 for 991a5f8d9's roomgroup walk stops: the tumbleweed (NPC 3)
 # rolls past in different rooms.  RNG timing only.
+# Re-blessed 2026-09-14: `give document to ninette` ("Ninette doesn't seem
+# interested in the document.") is not a turn at 4.0 (measured on probe
+# p4WITHQ, Adrift_39/40), so the kerosene lamp now dies after `x envelope`
+# as in Adrift_325_ghosttown.txt:207-216 -- the T31/T32 lamp class above is
+# gone.  The tumbleweed hunks after it are the RNG moving one tick.
 ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmering in the air. One of a pretty young girl|SCR_SKIP_WAITKEY=1
 EOF
 }

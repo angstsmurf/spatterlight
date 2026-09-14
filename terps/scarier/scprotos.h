@@ -784,6 +784,7 @@ extern scr_bool lib_cmd_eat_other (scr_gameref_t game);
 extern scr_bool lib_cmd_feed (scr_gameref_t game);
 extern scr_bool lib_cmd_fight (scr_gameref_t game);
 extern scr_bool lib_cmd_feel (scr_gameref_t game);
+extern scr_bool lib_cmd_clear_object (scr_gameref_t game);
 extern scr_bool lib_cmd_fix_object (scr_gameref_t game);
 extern scr_bool lib_cmd_fix_other (scr_gameref_t game);
 extern scr_bool lib_cmd_fix_what (scr_gameref_t game);
@@ -925,6 +926,8 @@ extern void lib_battle_who_begin_element (scr_bool new_line);
 extern void lib_battle_who_note_unanswered (void);
 extern std::string lib_battle_who_continuation (const scr_char *command,
                                                 scr_bool status);
+extern scr_bool lib_question_with_rule (scr_gameref_t game,
+                                        const scr_char *line);
 extern scr_int lib_co_400_answer_object (scr_gameref_t game,
                                          const scr_char *line);
 extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,

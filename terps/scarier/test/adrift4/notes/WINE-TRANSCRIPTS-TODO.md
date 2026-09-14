@@ -1008,6 +1008,13 @@ and decompile addresses are in the harness row comments and in git history.
 
 Engine leads, measured or half-measured, none blocking:
 
+- ~~**Two library wordings the question-prefix probes turned up**: run400's
+  therest names the " with " object for every verb ("You can't cut the rope
+  with the knife.", 4883C5-488451), and `lock` of a non-lockable static
+  answers "You can't lock the button." (489894).~~ **PORTED 2026-09-14** --
+  see "PORTED 2026-09-14: therest's " with " split" at the foot.  Adrift_39,
+  40 and 41 are identical on every turn; goldens 428/428.
+
 - **The seven leads left by the 2026-09-13 xoshiro re-compare** -- see the
   section at the foot of this file for the evidence on each:
   (1) ~~`attack <noun> with <weapon>` resolves an NPC in Scarier that run400
@@ -1070,17 +1077,35 @@ Engine leads, measured or half-measured, none blocking:
   object #1** (`Adrift_82`-`87`, follows the object number, not the
   container, position or command spelling; 4.0-only, run390 prints).
   Mechanism unlocated in `name_object`; no corpus row touches it.
-- **Two-object canonical prefixed retry** in `lib_try_game_command_common`:
+  Narrowed 2026-09-14 by reading the listing:
+  - name_object's first loop (46E23C) stores insides' result in var_A4(i)
+    and counts the 1s in var_A6.
+  - The message loop (46E3FA) names only objects with var_A4(i) = 1.
+  - Insides (46639C) sets 1 on every completed move (466396).
+  - Its only object-number test on that path, 46637D, is the player's
+    wielded weapon (player record global_78, read by examines' " are
+    wielding " at 471E72): putting the weapon away clears it to -1.
+  So nothing in the listing singles out index 0.  The next step is a live
+  trace of var_A4/var_A6 under run400, not more reading.
+- ~~**Two-object canonical prefixed retry** in `lib_try_game_command_common`:
   Scarier re-tries `put a bean in a jar` and lets the task claim; neither
   run390 (`Adrift_88`) nor run400 (`Adrift_82`) does that for a two-object
   put.  The retry was pinned on Wax Worx's one-object `get * head`; wants a
-  probe with a prefixed take and a prefixed put in one game.
+  probe with a prefixed take and a prefixed put in one game.~~ **CLOSED
+  2026-09-14 (4.0)** -- `put bean in jar` against the task `put a bean in a
+  jar` is the library put in both (Adrift_1160, already ours: 4.0's put
+  builds the definite line).  The one-object half was a real difference,
+  `take pebble` running the task `take a pebble`, and is **PORTED**.  See
+  "PORTED 2026-09-14: the with-split corners" at the foot.  The run390 half
+  is not re-measured.
 - **Absent-noun probes from Main Course** (`Adrift_35`): `put zzz in yyy`
   -> "I don't understand what you want to put things inside." is PORTED
   (2026-09-08, the container-first put section at the foot); `ask zzz
-  about yyy` -> "You can't talk to that." was already ours.  Left: `wield
-  zzz` -> "Remove what?"; unmeasured `put all in X` with nothing carried
-  (run400 has no `" else"` literal).
+  about yyy` -> "You can't talk to that." was already ours.  `wield zzz` ->
+  "Remove what?" is PORTED (2026-09-14, "Wear what? / Remove what? leave the
+  line as a prefix" at the foot).  ~~Left: unmeasured `put all in X` with
+  nothing carried (run400 has no `" else"` literal).~~ **CLOSED 2026-09-14**
+  -- "You are carrying nothing!" in both (Adrift_1159 T35).
 - **4.0 scope**: the never-seen "You can't see that." branch at 471995,
   the two-pass `%object%` scope filter proper (present first, then
   absent-but-seen; tail self-call `loc_458E64`, `SCR_TRACE_SCOPE`), and the
@@ -8825,3 +8850,259 @@ puts before a text following a break-ended piece ("  Where will you go?",
 `unfortunately`'s marker was shortened to survive the rewrap.
 sweep_wine_breaks: runner-only 0, scarier-only 6013 -> 5622.  Goldens: 94
 rows moved, 92 whitespace-only, vague/thepkgirl as above; re-blessed.
+
+## PORTED 2026-09-14: Wear what? / Remove what? leave the line as a prefix
+
+Main Course's `wield zzz` -> "Remove what?" (`Adrift_36_ptbad_probe3`) is
+not a wield rule.  run400's wears and removes store the typed line,
+MemVar_494174, in the pending-question prefix MemVar_494234 right after
+their question (463C19/463C23 "Wear what?", 462477/462481 "Remove what?").
+That is the same variable dobattle's Who question uses: generaltasks 48AFF3
+continues the next line that nothing answered as prefix & " " & line.  So
+`remove zzz` then `wield zzz` runs `remove zzz wield zzz`.
+
+Probe `cmdfile_whatcont.txt` on ptbad.taf (`Adrift_38_ptbad_whatcont.txt`):
+
+- `wear zzz` / `goggles` -> "You put on the pair of goggles."
+- `remove zzz` / `goggles` -> "You remove the pair of goggles."
+- `wear zzz` / `wield zzz` -> "Wear what?"; a following `goggles` still puts
+  them on, because the continuation re-raised the prefix.
+- `drop zzz` / `goggles` and `take zzz` / `goggles` -> the object catch-all.
+  These lines reach the non-setter "Drop what?"/"Take what?" (46E5D8,
+  473A34), not the setters at 46FB7D/47C7F1.
+- `remove zzz` / `i` / `wield zzz` -> "Huh?": `i` spends the prefix at
+  48B5FC.
+
+Ported as `lib_question_prefix_from_line()` (sclibrar.cpp), called from
+`lib_cmd_wear_what` and `lib_cmd_remove_what`.  It is gated at 4.0 and
+reuses the battle prefix state.  Both probes are identical on every turn,
+and 428/428 PASS with no golden moved.
+
+Still read, not measured:
+- The drop/take setter branches 46FB7D/47C7F1 (bare `drop`/`take` are
+  NOT setters -- measured below).
+- run390's wears (43D289), which sets it; run390's removes does not.
+
+## PORTED 2026-09-14: the rest of the question prefix -- give, checkverb, "...with?"
+
+Probe `p4WITHQ.taf` (`make_400_withqprobe.py`): one room, Dave, a held coin
+and knife, static rope and button, a TICK. event; tasks `cut rope` ("What do
+you want to cut it with?"), `saw rope` ("What with?"), `hum` ("With what?"),
+`whittle rope` ("Whittle it with what?") and their `... with knife` twins.
+Feeds `cmdfile_withq.txt` (`Adrift_39_p4withq.txt`) and `cmdfile_withq2.txt`
+(`Adrift_40_p4withq2.txt`).
+
+- **The with? rule, 48B4E3-48B530, runs on every line, task text included.**
+  If the message is "With what?" or its Right 5 is "with?", the prefix
+  becomes line & " with " and the line is not a turn.  `cut rope`, `saw rope`
+  and `hum` don't tick; `whittle rope` does.  The continuation has two
+  spaces (`cut rope with  knife`), so no task command matches: `knife`
+  answers with the library's "You can't cut the rope with the knife." and
+  `saw rope` / `knife` with the DontUnderstand text.
+- **Give.**  The give rewrite writes MemVar_494174 itself (48AA19), so
+  `give` prints "(to Nobody)" / "Give what?" and stores "give to Nobody".
+  `coin` then runs `give to Nobody coin` -> "Give the coin to who?", and
+  `dave` runs `give to Nobody coin dave` -> "Dave doesn't seem interested in
+  the coin.".  The NPC loop finds Dave anywhere in the line.
+- **"X doesn't seem interested in Y." is not a turn** -- direct, bare-give
+  "(to Dave)" and continued alike.  Ghost town's `give document to ninette`
+  agrees: the lamp dies one command later in `Adrift_325_ghosttown.txt`.
+- **checkverb** stores the prefix only for the bare verb: `push`, `break`,
+  `lock`, `turn`, `climb` and `sit on`, each followed by `button`, continue
+  the line; `push zzz` does not.  Bare `drop`, `take` and `eat` leave no
+  prefix.
+
+Ported (4.0 only):
+- `lib_question_with_rule()`, called from run_player_input after the
+  continuation.  A rerun with a double space runs collapsed, under
+  `run_rerun_skips_tasks`, which bars task matching.
+- `lib_what()` stores the line for checkverb verbs, and
+  `lib_checkverb_bare_400()` handles sit/stand/lie/lay on/in.
+- `lib_cmd_give_what` and both "to who?" sites set the prefix.
+- `lib_give_present_npc_400()` / `lib_give_not_interested_400()`.
+
+Results: Adrift_38 whatcont stays identical on every turn.  `Adrift_40` now
+differs only at T6, and `Adrift_39` only at T2.  Goldens: 427 PASS plus
+ghosttown, re-blessed for the lamp turn (its tumbleweed room text moves with
+the RNG after it).
+
+Left open (separate library gaps, not prefix rules):
+- ~~therest splits " with " off every line up front (4883C5-488451) and names
+  the pair, e.g. "You can't cut the rope with the knife.".~~ **PORTED
+  2026-09-14**, see the next section.
+- ~~`lock button` on a non-lockable static: run400 says "You can't lock the
+  button.", Scarier gives the object catch-all.~~ **PORTED 2026-09-14**, see
+  the next section.
+
+## PORTED 2026-09-14: therest's " with " split
+
+`p4WITHQ.taf` now has a second room, Beta, with a gem in it that is never
+seen, and a stone that is present but not held.  The feed is
+`cmdfile_withq3.txt` and the transcript `Adrift_41_p4withq3.txt`.
+`Adrift_40_p4withq2.txt` covers `lock` / `button`.
+
+### What run400 does
+
+therest (mdlSpreadTheLoad.bas 42177-42420) runs this before any verb arm when
+the line contains " with ":
+
+1. The line is saved (var_A0) and cut at the first " with ".  463640 resolves
+   the left half.  If nothing scores, the line is restored and therest exits
+   silently (488430).
+2. 463640 resolves the tail after " with ".  If nothing scores, the line is
+   restored and therest exits (4884DB).  So `cut rope with gem` (never seen),
+   `cut rope with zzz`, `cut zzz with knife` and `cut rope with dave` all
+   fall to "I don't understand what you want me to do with the rope." (or
+   "...with the knife."), and none of them is a turn.
+3. The instrument is not present and not seen: "With what?" arm at 488505,
+   prefix = Left(line, InStr("with")+4).  Not reached by the probe.
+4. The instrument is dynamic and not held (44615C): Ary(0) & " don't have " &
+   name & "." (48856A), then exit.  `cut rope with stone` -> "You don't have
+   the stone.", a turn.
+5. The instrument is static: "Don't be daft!" (48860D), then exit.  A turn.
+6. The instrument is held: var_9C = " with " & 448710(name) (4885FB), and the
+   line is restored.
+
+The refusals of open, close, clean, stop, read, wash, cut, move, lift, light,
+suck, feel, touch, rub, turn (off/on/plain), push, pull, press, shake, kick,
+hit, clear, unblock, block, unlock, lock, climb, fix, repair and mend append
+var_9C before the full stop:
+
+    You can't cut the rope with the coin.
+    You can't turn the button on with the knife.
+    You can't lock the button with the coin.
+    You can't cut the stone with the knife.
+    You push the button with the knife, but nothing happens.
+    You hit the button with the knife, but nothing happens.
+
+All of these are turns.
+
+The lock arm at 489894 has an else that the openclose lock arm (475D71) does
+not: an object with no lock that got this far answers "You can't lock the
+button." as a turn.  The hcw T189 catch-all (closed 2026-09-13) comes from
+step 1: `unlock door with keys` finds no door, so therest exits before the
+lock arm.
+
+### Ported (4.0 only, sclibrar.cpp)
+
+- `lib_with_clause_400()` runs steps 1-6 on the dispatch input.  It returns
+  NONE, DECLINE (the line goes on to the catch-all), ANSWERED (don't have /
+  daft) or SUFFIX.
+- `lib_cant_do_with_400()` prints "You can't <verb> <object><particle> with
+  <instrument>.".  `lib_cant_do_common`, `lib_cmd_lock_other`,
+  `lib_cmd_unlock_other` and the non-openable branch of `lib_cmd_open_object`
+  call it first.
+- `lib_nothing_happens_common` (push/pull/press/shake/kick/hit) prints
+  "..., but nothing happens." after the instrument.
+- `lib_lock_backend`: the keyless 4.0 exits no longer decline.  They go
+  through `lib_lock_therest_400()`, which gives the with-form or "You can't
+  lock the button.".
+
+### Results
+
+- Adrift_41 went from 17 differing turns to none.  Adrift_40 (T6) and
+  Adrift_39 (T2) are now identical on every turn.
+- Goldens: 428/428 PASS, and none moved.  hcw T189 still gets the catch-all,
+  now by step 1.
+
+### Unmeasured / not ported
+
+Most of this list was measured the same day; see "PORTED 2026-09-14: the
+with-split corners" below.
+
+- The "With what?" arm (488505): an instrument that scores but is neither
+  present nor seen.  Scarier treats it as step 4 or 6.
+- `open X with Y` where X is openable.  Scarier keeps its open handler.
+- clean, wash, stop, move, lift, light, suck, touch, rub, block, unblock,
+  climb and close go through `lib_cant_do_other` and get the suffix.  They
+  weren't probed one by one.  Six verbs in run400's list land in Scarier
+  handlers with no with-split:
+  - read: `lib_cmd_read_object`
+  - fix, repair, mend: `lib_dont_think_object`
+  - feel, clear: fixed messages
+  None has been probed.
+- Ties in either 463640 call.
+- run390's twin at 45D12C: c("with") is a whole word, and it uses obhere,
+  " don't have " and var_E8 = " with " (45D227).  Not probed; Scarier's 3.9
+  path is unchanged.
+
+## PORTED 2026-09-14: the with-split corners
+
+Probe `make_400_withq2probe.py` -> `p4WITHQ2.taf`.
+- Rooms: Alpha, and Beta to the north.
+- In Alpha: a static rope, a closed box, an open chest, a book with ReadText
+  "BOOK TEXT.", a jar, and a pebble.
+- Held: a coin, a knife, a bean.
+- In Beta: a gem.
+- Tasks: `probe`, `put a bean in a jar`, `take a pebble`.
+- A TICK. event marks every counted turn.
+
+Feed `cmdfile_withq4.txt`, transcript `Adrift_1159_p4withq4.txt` (36 turns).
+`p4WITHQ3.taf` is the same game with jar capacity 22; feed
+`cmdfile_withq5.txt`, transcript `Adrift_1160_p4withq5.txt`.
+
+### What run400 does
+
+| Line (after `n`, `s`: the gem is seen, not here) | run400 |
+|---|---|
+| `cut rope with gem` | You don't have the gem. |
+| `cut gem with knife`, `push gem with knife` | You can't see the gem. |
+| `open box with knife` (closed), `open chest with knife` (open), `close` both | You can't open the box with the knife. |
+| `read book with knife` | BOOK TEXT. |
+| `read rope with knife` | You can't read the knife! |
+| `fix`/`repair`/`mend rope with knife` | I don't think you can fix the rope with the knife. |
+| `clear rope with knife` | You can't clear the rope with the knife. |
+| `feel rope with knife` | You feel nothing out of the ordinary. |
+| touch, rub, clean, wash, move, lift, light, suck, block, unblock, stop | You can't touch the rope with the knife. |
+| `unlock box with coin` | The box is not locked! |
+| `take pebble` (task `take a pebble`) | You take the pebble. |
+| `put all in jar`, nothing carried | You are carrying nothing! |
+| `put bean in jar` (task `put a bean in a jar`, jar 22) | You put the bean inside the jar. |
+
+All are turns.  The mechanisms:
+
+- **Both halves are 463640 in mode 0**: present and seen first, then any
+  seen object.  After the instrument checks, 4887A0 answers an object that
+  is not here "<You> can't see <the X>.".  The "With what?" arm at 488505
+  needs an instrument neither present nor seen, which 463640 never returns,
+  so it is dead code.
+- **therest's open/close arms** (48880F, 48884E) test only the word, so an
+  openable X gets the with-refusal like any other.
+- **read happens inside examines**, whose noun is referencedob's (457034).
+  `book with knife` ties the book and the knife at 1; passes A/B keep both;
+  no Prefix word is typed, so pass C leaves the last marked, the
+  higher-numbered object: the book (8) over the knife (3), the knife (3) over
+  the rope (0).
+- **fix/repair/mend** (489BE7, 489C35, 489C83) and **clear** (4896AC, the
+  whole word) end in var_9C.
+- **take**: the take piece looks the object up only as "get " & name(obj, 0)
+  (462B0D), "get the pebble", which is not `take a pebble`.
+
+### Ported (4.0 only)
+
+- `lib_with_half_400()` resolves each half present-first, then seen.
+  `lib_with_clause_400()` adds the can't-see answer after the instrument
+  checks.
+- `lib_open_close_with_400()` serves `lib_cmd_open_object` and
+  `lib_cmd_close_object`.  A locked X still goes to the handlers
+  (unmeasured).
+- `lib_read_tied_object_400()` runs referencedob on a tied line, for both
+  `lib_cmd_read_object` and `lib_cmd_read_other`.
+- `lib_dont_think_common` takes the with-clause.
+- New `clear %object% *` -> `lib_cmd_clear_object`, which is 4.0 only.
+  run370/380/390 have the literal too, unmeasured.
+- The per-object take retry uses `lib_try_game_command_take_definite()` at
+  4.0 instead of the typed-verb authored-prefix form.
+
+### Results
+
+- Adrift_1159 went from 14 differing turns to none; Adrift_1160 is identical.
+- Adrift_39/40/41 stay identical.
+- Goldens 428/428, none moved.  Wax Worx `get marie` and Sommeril `take
+  silver orb` still pass.
+
+### Still unmeasured
+
+- `open X with Y` on a locked X that has a key.
+- run390's twin (45D12C).
+- A tie inside either with-half.

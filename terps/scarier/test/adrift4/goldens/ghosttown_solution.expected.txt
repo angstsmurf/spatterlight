@@ -410,9 +410,6 @@ The strangest thing is that apart from the letter head, the letter itself has
 little resemblance with any letter you have received from lawyers in the
 past. This isn't a typically machine written letter, but a hand written one,
 which seems to indicate some importance.
-The flame flickers and dies.
-You are now carrying an empty kerosene lamp. Let's hope you won't be needing
-light in the future..
 
 > x envelope
 The envelope looks very old, and has apparently been through quite a lot. Big
@@ -421,6 +418,9 @@ corner bears the charred  marks of fire. There is some handwriting on its
 face.
 There's a seal on the back of the envelope, showing that is hasn't been
 opened.  The old envelope is closed.
+The flame flickers and dies.
+You are now carrying an empty kerosene lamp. Let's hope you won't be needing
+light in the future..
 
 > open envelope
 You carefully break the seal, and pull out an old and withered tainted
@@ -1720,7 +1720,10 @@ for supplies, and maybe a few necessary repairs, and once in a while a stage
 coach with mail and a few passengers.
 To the north of you a small street leads in between two buildings, and to the
 south a narrow alley leads out of town.
-Ninette is here.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
 
 > w
 You move west.
@@ -2178,10 +2181,7 @@ To the south the gaping hole in the façade of the sheriff's office, and the
 metallic “clank” from the church bell high above you, suddenly becomes the
 noise of cell doors being opened and closed, and the whispering sound of the
 wind becoming the voices of the prisoners once held here.
-A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
-for a short while, caught in an unseen obstacle until the next breeze frees
-it and sends it on its eternal wandering way through the landscape.  Ninette
-is here.
+Ninette is here.
 
 > n
 You move north.
@@ -2578,7 +2578,10 @@ for supplies, and maybe a few necessary repairs, and once in a while a stage
 coach with mail and a few passengers.
 To the north of you a small street leads in between two buildings, and to the
 south a narrow alley leads out of town.
-Ninette is here.
+A dry and crumbled tumbleweed rolls past you on its endless journey. It stops
+for a short while, caught in an unseen obstacle until the next breeze frees
+it and sends it on its eternal wandering way through the landscape.  Ninette
+is here.
 
 > w
 You move west.
