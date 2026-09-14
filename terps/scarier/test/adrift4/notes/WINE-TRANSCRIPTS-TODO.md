@@ -10008,3 +10008,23 @@ differ (statusline), cellar 5 -> 2; cellar t120's remaining replay is a feed
 artefact (a line the Runner spends on [MORE] is a turn to Scarier, so the slot
 holds "Sorry. That is not understood.").  Slot policy unchanged: Scarier still
 skips admin lines, which the Runner records.
+
+## PORTED 2026-09-14: 4.0 catch-all tests the line-top object after the task (seaside `do form`)
+
+run400 writes the catch-all's object MemVar_4942F8 only at 48A3FD (463640 at
+the top of the line, before task dispatch), and the catch-all at 48B19A tests
+that object's presence with obhere 452E9C AFTER the tasks.  seaside T25 `do
+form`: silent TASK3 hides the leisure access card form and hands the player
+the completed form, so the line-top winner is now absent and run400 answers
+"You must be in the same room as the leisure access card form to be able to do
+anything with it." (48B24B-48B282, which sets no MemVar_494281: a turn).
+Scarier re-resolved after the task and said "I don't understand what you want
+me to do with the completed form." (a non-turn).
+
+Scarier: lib_verb_object_note_line_top() snapshots the 4.0 resolver's winner in
+run_all_commands() before dispatch; lib_cmd_verb_object prints the
+same-room arm when that object differs from ours, is seen, and is no longer
+present (after the pending-endgame exit).  seaside golden re-blessed: the
+answer is a turn now, so "Sunset has started" lands after `swim` and "The sun
+has now set." after the `s` to the baths entrance, both as in
+Adrift_236_seaside.txt.  428/428; sweep seaside 5 -> 0 differ.

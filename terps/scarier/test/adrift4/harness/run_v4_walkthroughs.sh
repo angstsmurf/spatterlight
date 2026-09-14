@@ -8487,6 +8487,10 @@ mutaydid_solution.txt|mutaydid.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # room as the leisure access card form to be able to do anything with it."
 # (Adrift_236_seaside.txt:123).  So it is the gameover byte at 48AC62 that
 # takes the catch-all off a line, never a silent task on its own.
+# Re-blessed 2026-09-14: that answer is the catch-all's SAME-ROOM arm
+# (48B24B), which is a turn -- the object is the line-top winner, gone once
+# TASK3 has run -- so both sunset messages now land a turn earlier, as in
+# Adrift_236_seaside.txt.
 seaside_solution.txt|ADayAtTheSeaside.taf|Well done - you scored maximum points!
 # Re-blessed 2026-09-07 for probe SRD4 (task_defers_room_desc): Harry leads
 # the player through Amidst Graves, Woody Copse and the Hidden Path and walks

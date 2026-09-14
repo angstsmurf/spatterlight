@@ -270,7 +270,8 @@ You can only move out.
 You take the leisure access card form.
 
 > do form
-I don't understand what you want me to do with the completed form.
+You must be in the same room as the leisure access card form to be able to do
+anything with it.
 
 > look
 
@@ -289,6 +290,8 @@ Finally, you are given a leisure access card.
 Your swim is almost as rewarding as the process of applying for a leisure
 access card! You do a few lengths, taking great care not to get your hair
 wet.
+*** Sunset has started in Portobello. To the west, the sun is setting,
+casting a deep reddish light over the horizon. ***
 
 > out
 You move out.
@@ -300,8 +303,6 @@ sign, also erected by the council, carries miscellaneous information of note
 to visitors.
 
 You can move north, south, west and in.
-*** Sunset has started in Portobello. To the west, the sun is setting,
-casting a deep reddish light over the horizon. ***
 
 > s
 You move south.
@@ -377,6 +378,7 @@ sign, also erected by the council, carries miscellaneous information of note
 to visitors.
 
 You can move north, south, west and in.
+*** The sun has now set. ***
 
 > s
 You move south.
@@ -389,7 +391,6 @@ charity goods will be adequately met here. You note a particularly attractive
 wood-fronted chemist.
 
 You can move north, west and in.
-*** The sun has now set. ***
 
 > w
 You move west.

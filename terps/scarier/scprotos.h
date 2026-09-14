@@ -921,6 +921,7 @@ extern void run_set_task_class_filter (scr_int mode);
 extern scr_bool run_in_priority_pass (void);
 extern scr_bool run_in_put_clause_loop (void);
 extern const scr_char *run_get_dispatch_input (void);
+extern void lib_verb_object_note_line_top (scr_gameref_t game);
 extern void lib_co_400_reset (void);
 extern void lib_co_400_begin_line (void);
 extern scr_bool lib_co_400_question_pending (void);

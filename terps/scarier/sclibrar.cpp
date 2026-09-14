@@ -21231,6 +21231,25 @@ lib_verb_object_resolve_400_common (scr_gameref_t game,
                                              tied, TRUE);
 }
 
+/*
+ * lib_verb_object_note_line_top()
+ *
+ * run400 resolves the catch-all's object once, at the top of the line:
+ * MemVar_4942F8 is written only at 48A3FD, from Proc_21_58_463640, before
+ * any task runs.  The catch-all at 48B19A then tests THAT object's presence
+ * with obhere (48B1E1), after the tasks.  Noted here from run_all_commands()
+ * ahead of task dispatch; -2 when there is none or the game is not 4.0.
+ */
+static scr_int lib_verb_object_line_top = -2;
+
+void
+lib_verb_object_note_line_top (scr_gameref_t game)
+{
+  lib_verb_object_line_top = lib_is_version_400 (game)
+                             ? lib_verb_object_resolve_400_common (game, NULL)
+                             : -2;
+}
+
 static scr_int
 lib_verb_object_resolve_400 (scr_gameref_t game)
 {
@@ -21839,6 +21858,34 @@ lib_cmd_verb_object (scr_gameref_t game)
    */
   if (lib_is_version_400 (game) && game->pending_endgame != 0)
     return FALSE;
+
+  /*
+   * 4.0: the object is the one the line resolved to before its task ran (see
+   * lib_verb_object_note_line_top()), and a task that took it away leaves
+   * the second arm of the catch-all, 48B24B-48B282: "You must be in the
+   * same room as <the object> to be able to do anything with it."  That arm
+   * sets no MemVar_494281, so unlike the first it is a turn.  seaside's
+   * `do form` (Adrift_236_seaside.txt:123): silent TASK3 hides the leisure
+   * access card form and hands over the completed form, which is what our
+   * own resolution after the task found.
+   */
+  if (lib_is_version_400 (game))
+    {
+      const scr_int top = lib_verb_object_line_top;
+
+      if (top >= 0 && top != object && gs_object_seen (game, top)
+          && !obj_indirectly_in_room (game, top, gs_playerroom (game)))
+        {
+          var_set_ref_object (vars, top);
+          lib_print_response_object (game,
+                                     "You must be in the same room as ",
+                                     "I must be in the same room as ",
+                                     "%player% must be in the same room as ",
+                                     top,
+                                     " to be able to do anything with it.\n");
+          return TRUE;
+        }
+    }
 
   /* Save in variables. */
   var_set_ref_object (vars, object);
