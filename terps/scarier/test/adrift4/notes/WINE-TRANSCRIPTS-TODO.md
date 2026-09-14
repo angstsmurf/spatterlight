@@ -10053,3 +10053,33 @@ Also triaged, not ported: hub T35 `take watch` is event 3 "cold and naked"
 (Time1 1..Time2 8, PrefTime1 2).  Scarier rolled 2 turns longer, but both
 hub transcripts predate vbrng, so the roll values cannot be compared.  This
 is an RNG divergence, not an engine one.
+
+## Triaged 2026-09-14: the low-count sweep rows after 8cf9cce63 -- no engine leads left
+
+Full sweep at 8cf9cce63: 272 rows, 80 clean, 160 differing, 32 lost a
+feed command.  The sweep reads the highest-numbered transcript for each
+game.  For every row outside the 44-game xoshiro batch, that is the
+2026-09-08 corpus capture, made before vbrng, so its random rolls cannot
+be compared.  The low-count rows break down as follows:
+
+- RNG, pre-vbrng capture (not comparable):
+  - thesisters t82: event 3 "man", Time1 40..Time2 100.
+  - hub T35: event 3, Time1 1..8.
+  - stationxiii t25, zelda t59, to_hell_in_a_hamper t54, trabula t31
+    (battle), wax_worx t15 (random reply opener).
+- `<centre>` transcript artefact:
+  - sophie t72: `dou-"<center>BOOOM`.
+  - lair t0: ALR `<d2>` = `</b><font size=-5></centre>` gives
+    "begin...Just".
+- Harness artefacts:
+  - mould t1: the solution's bridge token (" ") is swallowed by
+    Scarier's "(Press a key)" but fed to the Runner as a command, which
+    task 34 `*` answers with "Breathe!".
+  - jinxtron/woof: the popup name, "Anonymous" vs "Player".
+  - shardsofmemory, unraveling_god(_lou), reactor1, bsg22: press-a-key
+    ending tails.
+  - wonderwombat t115: feed desync.
+- villains_and_kings: already PORTED (wield names, see above).
+
+Further engine leads need fresh xoshiro captures (run400x/run390x with
+VBRNG=xoshiro) of the corpus rows that are still RNG-divergent.
