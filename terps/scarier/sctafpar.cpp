@@ -2824,6 +2824,17 @@ parse_fixup_v380 (const scr_char *fixup)
               vt_key[2].string = "Parent";
               count = prop_get_integer (parse_bundle, "I<-sis", vt_key);
 
+              /*
+               * An unset -1 parent means the first container or surface.
+               * Measured in run380: microwaveman.taf's pistol (obj 2, Parent
+               * -1) is taken "from some aluminum clothes", obj 0, the first
+               * container (Adven_1_microwaveman.rtf).  marooned.taf's pill
+               * (obj 33) is the other corpus case.  Left at -1, the loop
+               * below never runs and parent indexes object_type[-1].
+               */
+              if (count < 0)
+                count = 0;
+
               /* Convert container/surface index. */
               for (parent = 0; parent < object_count && count >= 0; parent++)
                 {
