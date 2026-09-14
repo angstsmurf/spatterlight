@@ -3244,7 +3244,7 @@ what may, and come what may be, thou shalt not pass unless thee answers thy
 riddles three.
 #1: What always ends everything?"  Seeker hums!
 
-> g
+> say g
 Andro looks rather surprised, and speaks again, "#2: What do you break by
 saying just one word?"  Seeker hums!
 

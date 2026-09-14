@@ -552,8 +552,8 @@ e
 e
 e
 # Andro poses three riddles; the answers are literally the questioned words:
-# g (+5), silence (+10), secret (+15). Solving all three opens the path east.
-g
+# say g (+5), silence (+10), secret (+15). Solving all three opens the path east.
+say g
 silence
 secret
 # e->124 eastern mountainside. Topple the boulder stack onto the undead horde

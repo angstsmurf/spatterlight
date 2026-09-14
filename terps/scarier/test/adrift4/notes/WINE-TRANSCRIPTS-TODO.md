@@ -231,32 +231,81 @@ index below lead to the code.
 
 None of these blocks a golden. Grouped by what is needed to settle them.
 
-### Owed re-drives (quick)
+### Re-driven under xoshiro (2026-09-14)
 
-- **`beer`:** walkthrough line 12 is now `wear woolly jumper`
-  (84b0bb73a). It needs a Wine re-drive.
-- **`aliasagent`:** the solution gained `x tray` (e478cdbd6). It needs a
-  re-drive.
-- **`hcw`:** `lower susan into trunk` (line 163) is not measured in run400.
-- **`yonastoundingcastle`:** rule 2 trips at feed[170]; re-drive.
-- **`thepkgirl` and the rest of the native-RNG corpus:** re-capture under
-  xoshiro before reading any value difference as engine.
-  - The 2026-09-08 sweep lists event-phase off-by-one rows: forum,
-    briefcase, backhome, barneysproblem, zelda, gmylm, silk_noil, lostmines,
-    aegis and overtheedge.
-  - It also lists lost_souls `open door`, goblin t48, losttomb t85/86 and
-    wonderwombat maze moves.
-  - The 2026-09-14 triage put these down to RNG or artefacts on the old
-    capture. The xoshiro re-capture would confirm it.
-- **`shadowpeak`:** a winning comparison needs a xoshiro seed that survives
-  Morac.
-- **Load failures:**
-  - run400 would not load these in the 09-07 re-feed: wonderwombat,
-    the_town_of_azra_v390, ecod2, everything, archie, chosen.
-  - Six rows raised `evaluate error - Subscript out of range` mid-game in
-    the 09-06 corpus batch.
-  - TheADRIFTProject crashed with run-time error 401 at command 92.
-  - darkness finishes at feed[99] with 11 lines left.
+Jobs: `~/adrift-battle/runner/wine/xoshiro_jobs_0914_owed*.txt`, feeds in
+`v4_xoshiro_cmds_0914b/`, same seed as each row's `SCR_SEED` (1234 where
+the row has none).
+
+- **Clean, draw counts equal:**
+  - beer 83; aliasagent 5 (`score` lands after the game ended);
+    hcw 8 (`lower susan into trunk` matches).
+  - forum 7; briefcase 6; backhome 180; barneysproblem 6; silk_noil 6;
+    lostmines 17; aegis 17; overtheedge 41.
+  - lost_souls 0 (T20 `darkness...I` vs `darkness... I` spacing only);
+    goblin 1803.
+  - mould seed 1: the Runner wins too, 161 = 161. The feed drops solution
+    line 183 (`1`, pause-eaten in Scarier).
+  - yonastoundingcastle 7731, every turn identical. Compare it with its
+    blank lines stripped: `read_feed` misclassifies its pause blanks.
+  - wonderwombat 6768: the Runner reaches `THUMPER KICKS ASS!!!`. RULE 2's
+    "124 lost commands" from T116 is the compare: the Runner joins `> w` onto
+    the line after a pause-answer blank (harness lead, same family as yonas).
+  - gmylm 18, every turn identical. The 15 MB .taf plus the draw trace
+    (~400 MB of `vbRND(Missing)` after `Randomize 1976` at load) takes
+    longer than drive.exe's 25 s load cap. Drive it with `LOAD_SLEEP=600`.
+
+The 2026-09-08 event-phase off-by-one list and the old lost_souls, goblin
+and wonderwombat items were RNG, as the 09-14 triage said. What remains is
+engine:
+
+- **`zelda` T60 `buy ganon mask`:** Scarier adds "The shopkeeper pulls an
+  ocarina from his pocket and plays a familiar sounding tune."; run400
+  doesn't. Draws 468 vs 487, parting around Runner T53-55. T190 is an
+  epilogue cut only.
+- **`thepkgirl` T312 `south`:** run400 fires "somebody passing by slips you a
+  buck"; Scarier doesn't. Cumulative draws are equal through T312, then
+  run400 is +1 at T313 and Scarier +1 at T314 (1139 vs 1140). Event/draw
+  placement. feed[406] `wait` falls after game end.
+- **`losttomb` T85-87 (draws 10 = 10):** run400 prints no put message for
+  `put dung beetle on green pillar`, and the pillars sink that same turn.
+  Scarier prints "You put the dung beetle onto the green pillar." and the
+  pillars sink at the next `z`.
+- **`shadowpeak` (all three rows, seed 1):** the draw streams agree up to
+  Andro's first riddle. The golden answers it `g`; run400 treats a
+  whole-line `g` as *again* before any task matches (run400 89FE2 tests the
+  line first) and repeats `e`. Scarier's `[again/g/last/previous]` is a
+  library row, so the riddle task claims `g` first. TASK 404 also takes
+  `say g`, so the three goldens now answer that, and with it shadowpeak
+  (534 turns, 63965 draws), allgargoyles (578, 68084) and killwraith (569,
+  67227) match run400 on every turn. (allgargoyles' first drive got a doubled
+  `uu` keystroke at feed[487]; a solo re-drive was clean.) 3.90 agrees with
+  run400: its repeat-word block
+  (`!!`/`again`/`last`/`previous`/`!`/`g`, 45F094) sits above `tasks(0)` at
+  45F48B. run370/run380 test the same words minus `g` (43B3C9 / 441B79).
+  Porting that order is owed.
+
+### Load failures
+
+- **Solved 2026-09-14:** the 09-07 load failures (the_town_of_azra_v390,
+  ecod2, everything, archie, chosen) are all 3.90 games that were fed to
+  run400. On run390x (`xoshiro_jobs_0914_loadfail.txt`) all five load and
+  echo every command:
+  - ecod2, chosen and archie match on every turn.
+  - everything T38 `read diary`: run390 prints "I don't understand what you
+    mean!" for silent TASK 14 (the known run390 silent-task deviation). The
+    ending at T39 is identical.
+  - **the_town_of_azra T60 `status` (engine lead, draws 76 = 76):** run390
+    prints the 3.90 layout `Stamina: 80 (102) Hit strength: 6 (1) Defense
+    value: 3 (0)` (dobattle 44C595..44C7D1: three rows, no header, no
+    Accuracy/Agility, no wielding line). Scarier prints the 4.0 table
+    (`lib_print_battle_status`, run400 47DD42) at every version.
+  - wonderwombat loads under run400x. gmylm's "no titled Runner window" was
+    only the 25 s load cap.
+- Six rows raised `evaluate error - Subscript out of range` mid-game in the
+  09-06 corpus batch.
+- TheADRIFTProject crashed with run-time error 401 at command 92.
+- darkness finishes at feed[99] with 11 lines left.
 
 ### Engine, needs a probe (4.0)
 

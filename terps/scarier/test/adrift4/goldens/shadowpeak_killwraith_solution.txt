@@ -492,7 +492,7 @@ n
 e
 e
 e
-g
+say g
 silence
 secret
 e
