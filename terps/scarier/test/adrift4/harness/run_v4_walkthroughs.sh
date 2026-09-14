@@ -5580,6 +5580,13 @@ gmylm_solution.txt|GMYLM_2010.taf|Victory! - - -|SCR_SKIP_WAITKEY=1
 # canteen, so `put canteen on altar` ties; the golden, which is the one
 # validated against Adrift_342_provenance.txt, says "You put the full wooden
 # canteen onto the altar."
+# Re-blessed 2026-09-15 for 4.0's take capacity order (lib_take_over_capacity,
+# run400 get_piece_inner 46302C): no exemption for a take out of a carried
+# container, whose contents are already in both running totals.  T722 `get
+# rope` and T724 `get axe` out of the held rucksack are now "The sturdy rope /
+# splitting maul is too heavy for you to carry at the moment.", as in
+# runner_transcripts/provenance.txt; the row is identical to run400 on every
+# turn apart from the keypress prompt.
 provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2006!!!|SCR_SKIP_WAITKEY=1
 
 # Professor Von Witt's Fabulous Flying Machine, from the game's own bundled
@@ -5922,6 +5929,12 @@ lobster_solution.txt|lobster.taf|Next: WORLD DOMINATION!
 # (bare noun words get synonym-rewritten to room travel, so use take/drop all).
 # Re-blessed 2026-09-13 for 991a5f8d9's roomgroup walk stops: the Boy, Girl, Mother
 # and Goat wander on different turns.  RNG timing only.
+# Re-blessed 2026-09-15 for 4.0's take capacity order (run400 get_piece_inner
+# 46302C tests size at 462EA0 before weight at 462F09): with limits 9/9 and
+# every exhibit 9/9, T20/T24 `take all` takes one and refuses the next by SIZE,
+# so the game's ALR replacement for "Your hands are full." ("You would, but
+# you have all you can carry...") prints instead of "is too much for you to
+# carry".  Identical to runner_transcripts/businessasusual.txt on every turn.
 businessasusual_solution.txt|Business As Usual.taf|You Won, Of Course
 # Oh, Human (60/200, escape-room dead-end trap): the ladder/box-on-crate 100pt
 # branch is provably unreachable, so drop the electrical device to free the
@@ -7011,6 +7024,12 @@ dreamquest_solution.txt|Dream Quest.taf|Well done - you scored maximum points!|
 # gate impose mutually exclusive preconditions) -- deliberately never
 # entered, forfeiting 2 low-value points rather than risking the trap. 178
 # commands, no env vars.
+# Re-blessed 2026-09-15 for 4.0's take capacity order (run400 get_piece_inner
+# 46302C, size before weight): T22 `take times` at 99/90 on both axes and the
+# T107 `take all` tail now answer "My hands are full." as in
+# runner_transcripts/wilkins.txt (Adrift_850 line 84).  Still differing there:
+# T110-117 `drop tincture of <name>` ambiguity (a noun-resolution lead, not
+# carrying) and what follows from it.
 wilkins_solution.txt|The_Strange_Tale_of_Dr_Wilkins.taf|My score is 117 out of a maximum of 95.|
 # darkness.taf: single-location (lighthouse) exploration/repair game.
 # Score comes from four sources: 7 of 8 "mystery notes" (the keeper's hat
@@ -7381,6 +7400,13 @@ deardiary_solution.txt|Dear Diary.taf|FUCK YOU ERIK|
 # krystal` must precede both `strip krystal` and `strip` (self), which must
 # both precede the win command `fuck krystal` (+10). 57 commands,
 # `SCR_SKIP_WAITKEY=1` (a `<PRESSKEY>` pause on the closing cutscene).
+# Guards the run400 loader's [2E] clear for player-held objects (Proc_19_5
+# 4906A2-4906BA, gs_create's runner_parent seed): the held cane is object 0
+# and the held case has Parent 0, so with the raw seed the intro's
+# cane-into-case move makes each weigh the other (carried weight -66) and,
+# once 4.0 capacity-checks takes out of carried containers (2026-09-15),
+# T1 `take cane` is refused as too heavy.  run400 takes it
+# (runner_transcripts/riding_home.txt); golden unchanged.
 riding_home_solution.txt|Riding_Home.taf|You have won "Riding Home."|SCR_SKIP_WAITKEY=1
 # Dear Diary 2 - Prom Night.taf by Wotan-Anubis (AIF): sequel to Dear Diary --
 # same 3.90 engine, no Events/NPC walks (all 11 NPCs are stationary), so the

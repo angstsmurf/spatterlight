@@ -1361,11 +1361,22 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
            * weigh into the spoon (object 4), nor the crown (Parent 1) into
            * the toaster (object 1) -- so the Runner's loader evidently
            * clears [2E] on that path, as its give-to-NPC mover does.
+           *
+           * Player-HELD objects are cleared too: run400's object loader
+           * (Proc_19_5, 4906A2-4906BA) writes &HFF over a held object's zero
+           * Parent before 490709 adds it to the running totals; only the worn
+           * path (4907A3) leaves the 0 standing.  riding_home shows it: the
+           * held cane is object 0 and the held laptop case has Parent 0, so
+           * with the raw seed the intro's cane-into-case move made each weigh
+           * the other, and `take cane` out of the open case was refused as too
+           * heavy where run400 takes it.
            */
-          if (game->objects[index_].position != OBJ_IN_OBJECT
-              && game->objects[index_].position != OBJ_ON_OBJECT
-              && game->objects[index_].position != OBJ_HELD_NPC
-              && game->objects[index_].position != OBJ_WORN_NPC)
+          if (game->objects[index_].position == OBJ_HELD_PLAYER)
+            gs_set_object_runner_parent (game, index_, -1);
+          else if (game->objects[index_].position != OBJ_IN_OBJECT
+                   && game->objects[index_].position != OBJ_ON_OBJECT
+                   && game->objects[index_].position != OBJ_HELD_NPC
+                   && game->objects[index_].position != OBJ_WORN_NPC)
             gs_set_object_runner_parent (game, index_, initialparent);
         }
 

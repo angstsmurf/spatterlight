@@ -7669,13 +7669,13 @@ skeleton key, a pocket watch, a box of matches, a tiny mirror, a bellows and
 an air mattress.
 
 > get rope
-You take the sturdy rope from the rugged rucksack.
+The sturdy rope is too heavy for you to carry at the moment.
 
 > put rope on altar
 You put the sturdy rope onto the altar.
 
 > get axe
-You take the splitting maul from the rugged rucksack.
+The splitting maul is too heavy for you to carry at the moment.
 
 > put axe on altar
 You put the splitting maul onto the altar.

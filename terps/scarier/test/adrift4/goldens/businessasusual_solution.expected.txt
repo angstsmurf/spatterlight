@@ -179,8 +179,9 @@ Beep!  5 turns to go.  Any remaining visitors should be on their way out the
 door.
 
 > take all
-You take the Shoe.  The Great Lamp is too much for you to carry at the
-moment.
+You take the Shoe.  You would, but you have all you can carry because you
+have to be careful with these items, and carryng them one-handed is not an
+option.
 
 The Teenager trudges off to the east.
 
@@ -235,8 +236,9 @@ You drop the Shoe.
 Your boss is coming...
 
 > take all
-You take the Ancient Book.  The Shoe is too much for you to carry at the
-moment.
+You take the Ancient Book.  You would, but you have all you can carry because
+you have to be careful with these items, and carryng them one-handed is not
+an option.
 
 > wait
 You wait a bit...

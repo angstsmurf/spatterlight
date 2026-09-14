@@ -8425,6 +8425,48 @@ lib_object_too_large (scr_gameref_t game, scr_int object)
 
 
 /*
+ * lib_take_over_capacity()
+ *
+ * Return TRUE if taking the object would put the player over a carrying
+ * limit, setting *is_size to say which refusal applies.
+ *
+ * 4.0's per-object take (run400 get_piece_inner 46302C) tests size first --
+ * the object's own size (44) on top of the running total, "<Your> hands are
+ * full." at 462ECD -- and only then weight, recursive over contents (447680),
+ * "<The X> is too heavy..." at 462F62.  It tests both whatever holds the
+ * object, a container the player carries included: the contents are already
+ * in both running totals, so a take out of a carried bag counts them twice.
+ * wilkins `take times` at 99/90 on both axes answers "My hands are full."
+ * (Adrift_850 line 84), businessasusual `take all` with limits 9/9 and every
+ * object 9/9 takes one and refuses the next by size, and provenance
+ * `get rope` out of the carried rucksack is refused by weight.
+ *
+ * Earlier versions test weight first and skip objects inside or on something
+ * the player already holds.
+ */
+static scr_bool
+lib_take_over_capacity (scr_gameref_t game, scr_int object, scr_bool *is_size)
+{
+  if (lib_is_version_400 (game))
+    {
+      *is_size = lib_object_too_large (game, object);
+      return *is_size || lib_object_too_heavy (game, object);
+    }
+
+  if ((gs_object_position (game, object) == OBJ_IN_OBJECT
+       || gs_object_position (game, object) == OBJ_ON_OBJECT)
+      && obj_indirectly_held_by_player (game, gs_object_parent (game, object)))
+    return FALSE;
+
+  *is_size = FALSE;
+  if (lib_object_too_heavy (game, object))
+    return TRUE;
+  *is_size = lib_object_too_large (game, object);
+  return *is_size;
+}
+
+
+/*
  * lib_cmd_take_npc()
  *
  * Reject attempts to take an npc.
@@ -8821,33 +8863,20 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
         }
 
       /*
-       * If the object is inside or on something already held by the player,
-       * capacity checks are meaningless.
+       * See if the object takes us beyond capacity.  If it does, note it and
+       * continue.
        */
-      if (!((gs_object_position (game, object) == OBJ_IN_OBJECT
-            || gs_object_position (game, object) == OBJ_ON_OBJECT)
-            && obj_indirectly_held_by_player (game,
-                                              gs_object_parent (game, object))))
-        {
-          /*
-           * See if the object takes us beyond capacity.  If it does and it's
-           * the first of its kind, note it and continue.
-           */
-          if (lib_object_too_heavy (game, object))
-            {
-              over_capacity.push_back (object);
-              over_is_size.push_back (FALSE);
-              game->object_references[object] = FALSE;
-              continue;
-            }
-          if (lib_object_too_large (game, object))
-            {
-              over_capacity.push_back (object);
-              over_is_size.push_back (TRUE);
-              game->object_references[object] = FALSE;
-              continue;
-            }
-        }
+      {
+        scr_bool is_size;
+
+        if (lib_take_over_capacity (game, object, &is_size))
+          {
+            over_capacity.push_back (object);
+            over_is_size.push_back (is_size);
+            game->object_references[object] = FALSE;
+            continue;
+          }
+      }
 
       /* Now try for a game command, using the associate if supplied. */
       if (is_associate_object)
@@ -8934,22 +8963,16 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                * acquired more and more of the player's capacity gets used up.
                * This means a check directly before each acquisition.
                */
-               if (parent == -1
-                   || !obj_indirectly_held_by_player (game, parent))
-                {
-                  if (lib_object_too_heavy (game, object))
-                    {
-                      over_capacity.push_back (object);
-                      over_is_size.push_back (FALSE);
-                      continue;
-                    }
-                  if (lib_object_too_large (game, object))
-                    {
-                      over_capacity.push_back (object);
-                      over_is_size.push_back (TRUE);
-                      continue;
-                    }
-                }
+              {
+                scr_bool is_size;
+
+                if (lib_take_over_capacity (game, object, &is_size))
+                  {
+                    over_capacity.push_back (object);
+                    over_is_size.push_back (is_size);
+                    continue;
+                  }
+              }
 
               list.push_back (object);
               gs_object_player_get (game, object);

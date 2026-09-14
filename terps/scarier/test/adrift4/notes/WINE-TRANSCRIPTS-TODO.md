@@ -377,15 +377,10 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 
 **Engine, 4.0:**
 
-- **Carrying limits.** The Runner refuses with a hands-full or too-much
-  message where Scarier either takes the object or refuses a different one:
-  - businessasusual T20/T24 `take all`: the game's own replacement for the
-    hands-full refusal, and on another object;
-  - provenance T722/T724 `get rope`/`get axe` from the held rucksack: the
-    Runner says "too heavy", Scarier takes it;
-  - wilkins T22 and T107 (`take`, `take all`): "My hands are full" against
-    Scarier's "too heavy for me" per object;
-  - the 3.9 twin is alexis T28 (see below).
+- **Carrying limits.** **Ported 2026-09-15** (see the index):
+  businessasusual T20/T24 and provenance T722/T724 now match on every turn,
+  and wilkins T22/T107 match. The 3.9 twin, alexis T28, is still open (see
+  below).
 - **Noun resolution and ambiguity:**
   - hub T70-73: `x lower right cupboard` gets "Which right cupboard. The right
     lower cupboard or the right upper cupboard?". The typed adjective order
@@ -438,9 +433,12 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 
 **Engine, 3.9:**
 
-- **Carrying:** alexis T28 `get all from large stone table`: the Runner says
-  "You can't take any more, as your hands are full", Scarier "That is too
-  heavy for you to carry".
+- **Carrying:** alexis T28 `get all from large stone table` (and
+  alexis_worn_cube T27): the Runner says "You can't take any more, as your
+  hands are full", Scarier "That is too heavy for you to carry". It needs
+  run390's take pre-pass fit count and its summary sentence (455676 in
+  annotations.tsv: strict `<` fit tests in the container pass, weight
+  before size in the main loop).
 - **Noun resolution:** the Runner matches on the head noun and answers for
   an object the adjective rules out, or asks where Scarier picks:
   - stardust T38 `take needle box`: "You've already got the sharp needle!"
@@ -923,6 +921,13 @@ every Runner.
 - **The take-from handler's own answers.** The 3.9 insides() decision
   procedure; `empty` is take-all-from in 4.0 only. p39DARK/p4TFROM
   (2ab1a7c5d)
+- **4.0 take capacity.** Each object is tested for size first ("<Your> hands
+  are full.") and weight second ("<The X> is too heavy for you to carry at
+  the moment."), even out of a container the player holds (run400 46302C,
+  462EA0/462F09). A player-held object loads with its [2E] container field
+  cleared (4906A2), so it never phantom-weighs object 0. `[4.0]` wilkins
+  T22/T107, businessasusual T20/T24, provenance T722/T724, riding_home T1
+  (`lib_take_over_capacity`, 2026-09-15)
 
 ### NPCs, walks and battle
 

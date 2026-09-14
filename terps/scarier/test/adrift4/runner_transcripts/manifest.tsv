@@ -45,7 +45,7 @@ bomb_threat	bomb_threat.txt	driven:Adrift_153_bomb_threat_rt.txt	3.90	run390x.ex
 briefcase	briefcase.txt	harvested-xoshiro:Adrift_134_briefcase_x.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 bsg22	bsg22.txt	driven:Adrift_459_bsg22_rt.txt	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 buried_alive	buried_alive.txt	driven:Adrift_136_buried_alive_rt.txt	4.00	run400x.exe	1234	1			yes	identical on every turn apart from the Runner's keypress prompt.
-businessasusual	businessasusual.txt	driven:Adrift_394_businessasusual_rt.txt	4.00	run400x.exe	1234	0			yes	2 differing turn(s)
+businessasusual	businessasusual.txt	driven:Adrift_394_businessasusual_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 caidalibre	caidalibre.txt	driven:Adrift_446_caidalibre_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 camelot15	camelot15.txt	driven:Adrift_473_camelot15_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 captive	captive.txt	driven:Adrift_128_captive_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
@@ -258,7 +258,7 @@ plunder_gargoyle	plunder_gargoyle.txt	driven:Adrift_350_plunder_gargoyle_rt.txt	
 princess_in_the_tower	princess_in_the_tower.txt	driven:Adrift_133_princess_in_the_tower_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 private_eye	private_eye.txt	driven:Adrift_283_private_eye_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 professor	professor.txt	driven:Adrift_359_professor_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
-provenance	provenance.txt	driven:Adrift_358_provenance_rt.txt	4.00	run400x.exe	1234	2	Corey~male	SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
+provenance	provenance.txt	driven:Adrift_358_provenance_rt.txt	4.00	run400x.exe	1234	2	Corey~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 ptbad	ptbad.txt	driven:Adrift_247_ptbad_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 ptgood	ptgood.txt	driven:Adrift_398_ptgood_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 puzzlebox	puzzlebox.txt	driven:Adrift_454_puzzlebox_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	identical on every turn.
