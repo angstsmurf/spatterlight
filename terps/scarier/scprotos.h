@@ -954,6 +954,7 @@ extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,
 extern void run_priority_defer (void);
 extern void run_priority_refuse (void);
 extern void run_priority_unnamed_put_object (void);
+extern scr_bool run_priority_put_was_unnamed (void);
 extern std::string run_normalise_put_line (const scr_char *string);
 extern scr_bool run_unnamed_put_fragment (const scr_char *string,
                                           std::string &fragment);

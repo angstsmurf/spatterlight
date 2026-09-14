@@ -1332,6 +1332,14 @@ run_priority_unnamed_put_object (void)
   run_priority_unnamed_put = TRUE;
 }
 
+/* TRUE when this line's put-in went silent at 46E15A; see
+ * lib_cmd_put_unclear(). */
+scr_bool
+run_priority_put_was_unnamed (void)
+{
+  return run_priority_unnamed_put;
+}
+
 /*
  * scr_ref_number_guard
  *

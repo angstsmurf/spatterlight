@@ -1104,9 +1104,26 @@ Engine leads, measured or half-measured, none blocking:
     such thing." sets the not-a-turn byte (471F02) exactly as `x` does.
     viewtohome's golden re-blessed for it: the water sound moves one turn
     from its `read note` on, and the game still wins.
-  - T263/264 `put thyme/web in kettle`: a +-1 resync, unread.
-  - T275/T278: House's random `[error=N]` DontUnderstand variant, a
-    value-not-count RNG difference; not an engine lead.
+  - ~~T263/264 `put thyme/web in kettle`: a +-1 resync, unread.~~
+    **FIXED**: not a resync but one text difference the aligner read as
+    one.  run400 answers both lines "I don't understand what you want me to
+    do with the large cast iron kettle."; Scarier answered the thyme line
+    "It is not clear which object you are referring to.".  Neither noun
+    names anything present (cobweb held, thyme not; `web` is no name at
+    all), both lines pre-match tasks 368/369 (`put thyme/web in kettle`,
+    the fallback pass: restriction 0 or 1 fails WITH a message), so
+    name_object stays silent at 46E15A, the tasks get the clobbered
+    fragment and the catch-all answers.  Scarier's fallback row
+    `lib_cmd_put_unclear` then re-decided the refusal from which noun
+    `%object%` bound: `thyme` names object 153 (unseen) and fell through to
+    the refusal, `web` bound the seen kettle and declined.  It now declines
+    whenever the priority pass already went silent
+    (`run_priority_put_was_unnamed()`).
+  - ~~T275/T278: House's random `[error=N]` DontUnderstand variant, a
+    value-not-count RNG difference; not an engine lead.~~  Gone with the
+    T263 fix: `Adrift_128_housesober.txt` is now **identical on every
+    turn**.  Goldens 428/428; `sweep_wine_turns.py` unchanged (272 rows:
+    78 clean, 162 differing, 32 lost, same as HEAD).
 - (**Put/task precedence at 4.0**: **ported 2026-09-06**, see "Ported
   2026-09-06: the 4.0 put/task precedence split".)
 - **run400 prints no `put` confirmation when the moved object is dynamic
@@ -9819,3 +9836,29 @@ Scarier prints the epilogue and score.  Two rules:
    namesake pair may be named.
 
 Lair's golden was re-blessed for both.  Goldens 428/428.
+
+## PORTED 2026-09-14: a silent unnamed put leaves the answer to the catch-all
+
+House sober (`Adrift_128_housesober.txt`, run400x seed 1, compared with
+`--env SCR_RNG=xoshiro`) T263 `put thyme in kettle`.  The player holds the
+cobweb but not the thyme; task 368 `[put/place/drop] … thyme … kettle`
+fails restriction 0 with "You are not holding any thyme.".  run400's
+put_drop_list resolves the kettle first, then name_object finds the direct
+object names nothing present and runs the mode-2 pre-match at 46E142.  The
+restriction-aware pre-match hits task 368, so 46E15A stays silent, the line
+is clobbered to the fragment `put thyme `, the tasks run on it, and the
+catch-all answers "I don't understand what you want me to do with the large
+cast iron kettle." — the same text T264 `put web in kettle` gets.
+
+Scarier already went silent in `lib_put_in_multiple_common()`, but the
+fallback row `{"put *", lib_cmd_put_unclear}` then decided afresh from which
+noun `%object%` bound: `thyme` bound unseen object 153 and printed "It is not
+clear which object you are referring to.".  `lib_cmd_put_unclear()` now
+returns FALSE whenever `run_priority_put_was_unnamed()` (scrunner.cpp; the
+flag is reset per line in `run_priority_commands()`) says the priority pass
+took the silent path.  The aligner had shown the one text difference as a
++1/-1 resync, which also hid T275/T278.
+
+House sober is identical on every turn; goldens 428/428;
+`sweep_wine_turns.py` is unchanged per row (272 rows: 78 clean, 162
+differing, 32 lost, the same as HEAD).

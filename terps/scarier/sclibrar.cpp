@@ -20756,6 +20756,19 @@ lib_cmd_put_unclear (scr_gameref_t game)
     return FALSE;
 
   /*
+   * name_object already stayed silent for this line: its direct object named
+   * nothing and a put/drop-class task pre-matched it (46E15A), so the tasks
+   * ran on the clobbered fragment and the catch-all answers, whichever noun
+   * %object% would bind below.  House (Adrift_128_housesober.txt T263): `put
+   * thyme in kettle` with task 368 `put thyme in kettle` failing its
+   * not-holding restriction is "I don't understand what you want me to do
+   * with the large cast iron kettle.", the same as T264 `put web in kettle`;
+   * "thyme" names an unseen object and used to reach the refusal here.
+   */
+  if (run_priority_put_was_unnamed ())
+    return FALSE;
+
+  /*
    * A first noun that names something present is name_object's success
    * path, and the command belongs to the put handlers and the "I don't
    * understand what you want me to do with" catch-all below (measured:
