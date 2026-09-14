@@ -550,6 +550,9 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
     const scr_bool was_possessed = gs_runner_possessed (game, object);
     const scr_int weight = obj_get_weight (game, object);
     const scr_int size = obj_get_size (game, object);
+    const scr_bool is_v400 =
+        prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+    scr_bool stamp_seen = FALSE;
 
     gs_set_carried_suspend (game, TRUE);
     if (was_possessed)
@@ -576,6 +579,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
 
           /* var3 != 0 here (the var3 == 0 "hidden" case is handled above). */
           gs_object_to_room (game, object, var3 - 1);
+          stamp_seen = (var3 - 1 == gs_playerroom (game));
         }
       break;
 
@@ -608,6 +612,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
       if (was_possessed)
         gs_carried_adjust (game, -weight, -size);
       gs_object_move_into (game, object, obj_container_object (game, var3));
+      stamp_seen = gs_object_seen (game, obj_container_object (game, var3));
       break;
 
     case 3:                    /* Onto object */
@@ -615,6 +620,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
         scr_trace ("Task: moving object %ld onto %ld\n", object, var3);
 
       gs_object_move_onto (game, object, obj_surface_object (game, var3));
+      stamp_seen = gs_object_seen (game, obj_surface_object (game, var3));
       break;
 
     case 4:                    /* Held by */
@@ -622,7 +628,10 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
         scr_trace ("Task: moving object %ld to held by %ld\n", object, var3);
 
       if (var3 == 0)            /* Player */
-        gs_object_player_get (game, object);
+        {
+          gs_object_player_get (game, object);
+          stamp_seen = TRUE;
+        }
       else if (var3 == 1)       /* Ref character */
         {
           const scr_int npc = var_get_ref_character (vars);
@@ -639,9 +648,19 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
               return;
             }
           gs_object_npc_get (game, object, npc);
+          stamp_seen = obj_indirectly_in_room (game, object,
+                                               gs_playerroom (game));
         }
       else                      /* NPC id */
-        gs_object_npc_get (game, object, var3 - 2);
+        {
+          /* run400 alone stamps a present object before this move too. */
+          if (is_v400
+              && obj_indirectly_in_room (game, object, gs_playerroom (game)))
+            gs_set_object_seen (game, object, TRUE);
+          gs_object_npc_get (game, object, var3 - 2);
+          stamp_seen = obj_indirectly_in_room (game, object,
+                                               gs_playerroom (game));
+        }
       break;
 
     case 5:                    /* Worn by */
@@ -649,7 +668,10 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
         scr_trace ("Task: moving object %ld to worn by %ld\n", object, var3);
 
       if (var3 == 0)            /* Player */
-        gs_object_player_wear (game, object);
+        {
+          gs_object_player_wear (game, object);
+          stamp_seen = TRUE;
+        }
       else if (var3 == 1)       /* Ref character */
         {
           const scr_int npc = var_get_ref_character (vars);
@@ -698,6 +720,7 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
             room = gs_npc_location (game, npc) - 1;
           }
         gs_object_to_room (game, object, room);
+        stamp_seen = (room == gs_playerroom (game));
         break;
       }
 
@@ -720,17 +743,26 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
       gs_carried_adjust (game, weight, size);
     else if (gs_object_position (game, object) == OBJ_WORN_PLAYER)
       gs_carried_adjust (game, weight, 0);
-  }
 
-  /*
-   * The Runner's move-object action marks the moved object seen whenever
-   * the destination leaves it visible to the player (run400's executor,
-   * Proc_19_10, re-checks visibility after each destination case and sets
-   * the flag).  Without this, an object moved into a container in the
-   * player's presence would stay unreferenceable until re-listed.
-   */
-  if (obj_indirectly_in_room (game, object, gs_playerroom (game)))
-    gs_set_object_seen (game, object, TRUE);
+    /*
+     * The move-object action's seen stamp.  run400's executor (Proc_19_10)
+     * stamps per destination, not by visibility: to a room only when it is
+     * the player's (48C414); into or onto an object only when that object is
+     * itself already seen (48C511, 48C582); held or worn by the player
+     * always (48C5EF, 48C754); held by an NPC when Proc_21_53 -- this port's
+     * obj_indirectly_in_room() -- finds it visible afterwards (48C67C,
+     * 48C6EB), a named NPC also stamping a present object before the move
+     * (48C69A); worn by an NPC never; same room as the player always, as an
+     * NPC when that NPC's room is the player's (48C8A6, 48C90E); a roomgroup
+     * never.  Alias Undercover Agent is the row: the lunch task puts the
+     * plate onto the dinner tray before the player has examined the table,
+     * so the plate stays unseen and `take plate` answers "Take what?".
+     * run390 is unread; earlier versions keep the visibility stamp.
+     */
+    if (is_v400 ? stamp_seen
+        : obj_indirectly_in_room (game, object, gs_playerroom (game)))
+      gs_set_object_seen (game, object, TRUE);
+  }
 }
 
 

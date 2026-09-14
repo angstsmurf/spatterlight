@@ -15,6 +15,7 @@ wait
 examine table
 take pencil
 take napkin
+x tray
 take plate
 take tape
 write message to sydney

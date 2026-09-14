@@ -126,11 +126,16 @@ You take the red pencil.
 > take napkin
 You take the white napkin from the long table.
 
+> x tray
+Just an ordinary brown tray with a card attached to it which someone has
+written on.  A plate is on the dinner tray.
+
 > take plate
 You take the plate from the dinner tray.
 
 > take tape
 You take the sticky tape from your briefcase.
+You hear Charlie's whistle coming down the hall.
 
 > write message to sydney
 You take your pencil and  the napkin, using it to  scribble a short message
@@ -140,10 +145,10 @@ sight..
 
 Whew!  Sure hope that works, you think.  Better put the plate back on the
 tray before Charlie takes the tray to its destination!
-You hear Charlie's whistle coming down the hall.
 
 > put plate on tray
-You put the plate onto the dinner tray.
+You put the plate onto the dinner tray.  Charlie sidles in  from the west.
+Charlie picks up the dinner trays.
 
 > w
 You move west.
@@ -152,9 +157,7 @@ Out in the Main Hall
 The floor is made of hard cement and the ceiling is very high above your
 head.  The walls are cement blocks painted a pale green.  There's a small
 doorway on the eastern wall of the hall.   North the hall branches off into a
-confusing maze of passages.  Charlie's come to pick up the trays.  Charlie
-sidles off to the east.
-Charlie picks up the dinner trays.
+confusing maze of passages.
 
 > in
 You move in.
@@ -196,7 +199,7 @@ You move out.
 Windowless Cell
 A sparse collection of lightbulbs cast illumination into the gloom.  There is
 a single chair here alongside an uncomfortable looking cot.  Sydney Bristow
-is here.
+is here.  Charlie sidles in .  Charlie sidles off.
 
 > ampule
 Sydney looks at you and smiles.  Sydney is sitting on the edge of her cot
@@ -229,7 +232,7 @@ escape, I was thrown in here.
 
  "So...was this mission just to rescue me or was it also for Agent Vaughn?
 Do you know about Vaughn?  Is he...alive?  I leave it up to you.  We can FIND
-VAUGHN or EXTRACT."  Charlie sidles in .  Charlie sidles off.
+VAUGHN or EXTRACT."
 
 > find vaughn
 "Okay," says Sydney.  "Here's the plan.  I'm coming with you now and we're

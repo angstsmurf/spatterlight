@@ -9963,3 +9963,25 @@ The beer walkthrough only won because of the divergence.  Its line 12 is now
 also accepts.  Goldens 428/428 (beer re-blessed, still 50/50).  The beer
 sweep row (old cmdfile) is 80/80 aligned with 1 differing turn, T15, an RNG
 "locals cheer" event line.  A Wine re-drive of the new line 12 is owed.
+
+## PORTED 2026-09-14: 4.0 task move-object seen stamp is per destination
+
+aliasagent T16 `take plate`: Runner "Take what?", Scarier took the plate
+from the dinner tray.  The lunch task (task 6, turn 20) moves the plate
+onto the tray while the player stands in the kitchen; Scarier's mover
+stamped it seen because it was visible (obj_indirectly_in_room).  run400's
+execute_action (Proc_19_10) does not test visibility there: it stamps per
+destination -- room only if it is the player's (48C414); into/onto only if
+the parent object is ALREADY seen (48C511, 48C582); held/worn by player
+always; held by NPC when Proc_21_53 says visible afterwards (48C67C/48C6EB;
+a named NPC also stamps a present object before the move, 48C69A); worn by
+NPC never; same room as player always, as NPC when that room is the
+player's (48C8A6/48C90E); roomgroup never.  The tray was unseen until
+`examine table` (turn 23), so the plate stayed unseen.  Ported in
+sctasks.cpp task_move_object, 4.0-gated (run390 unread; earlier versions
+keep the visibility stamp).
+
+aliasagent's walkthrough relied on the divergence: it now does `x tray`
+before `take plate` (Charlie's timing shifts one turn; still 35/35).
+Re-blessed.  Sweep: aliasagent 39/40 aligned, 0 differ (was differing
+from T16).  A Wine re-drive of the new solution line is owed.
