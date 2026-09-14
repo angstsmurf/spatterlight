@@ -292,6 +292,10 @@ extern void var_put_string (scr_var_setref_t vars,
                             const scr_char *name, const scr_char *string);
 extern const scr_char *var_get_string (scr_var_setref_t vars,
                                       const scr_char *name);
+extern scr_bool var_is_user_ordered (scr_var_setref_t vars,
+                                     const scr_char *name);
+extern scr_bool var_interpolate_user_ordered (scr_var_setref_t vars,
+                                              std::string &text);
 extern scr_var_setref_t var_create (scr_prop_setref_t bundle);
 extern void var_destroy (scr_var_setref_t vars);
 extern void var_register_game (scr_var_setref_t vars, scr_gameref_t game);

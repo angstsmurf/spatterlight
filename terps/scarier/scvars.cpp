@@ -1772,6 +1772,77 @@ var_get (scr_var_setref_t vars,
 
 
 /*
+ * var_is_user_ordered()
+ * var_interpolate_user_ordered()
+ *
+ * 3.9+ substitutes user variables one at a time, in variable-index order,
+ * each by Replace(text, "%" & Name & "%", value) over the whole string --
+ * after the system tags (run400 47A23F, run390 Proc_2_20 4341F0).  So two
+ * markers that share a '%' resolve by index, not by position: Date With
+ * Death's "b_notice%b_notice%b_purified%b_purified%" with b_purified (170)
+ * ahead of b_notice (189) becomes "b_notice%b_notice1b_purified%", and the
+ * ALRs then print "b_notice%[Noticeboard]b_purified%" (Adrift_*_datewithdeath
+ * t289).  var_is_user_ordered() says whether a name is left to that pass;
+ * var_interpolate_user_ordered() runs it, returning TRUE if it changed text.
+ */
+scr_bool
+var_is_user_ordered (scr_var_setref_t vars, const scr_char *name)
+{
+  assert (var_is_valid (vars));
+  return prop_get_taf_version (vars->bundle) >= TAF_VERSION_390
+         && var_find (vars, name) != NULL;
+}
+
+scr_bool
+var_interpolate_user_ordered (scr_var_setref_t vars, std::string &text)
+{
+  scr_int var_count, index_;
+  scr_vartype_t vt_key[3];
+  scr_bool changed;
+  assert (var_is_valid (vars));
+
+  if (prop_get_taf_version (vars->bundle) < TAF_VERSION_390
+      || text.find ('%') == std::string::npos)
+    return FALSE;
+
+  changed = FALSE;
+  vt_key[0].string = "Variables";
+  var_count = prop_get_child_count (vars->bundle, "I<-s", vt_key);
+  for (index_ = 0; index_ < var_count; index_++)
+    {
+      std::string marker, value;
+      scr_varref_t var;
+      size_t at;
+
+      vt_key[1].integer = index_;
+      vt_key[2].string = "Name";
+      marker = std::string ("%")
+               + prop_get_string (vars->bundle, "S<-sis", vt_key) + "%";
+      at = text.find (marker);
+      if (at == std::string::npos)
+        continue;
+
+      var = var_find (vars, marker.substr (1, marker.length () - 2).c_str ());
+      if (!var)
+        continue;
+      if (var->type == VAR_INTEGER)
+        value = std::to_string (var->value.integer);
+      else
+        value = var->value.string;
+
+      for (; at != std::string::npos; at = text.find (marker, at))
+        {
+          text.replace (at, marker.length (), value);
+          at += value.length ();
+        }
+      changed = TRUE;
+    }
+
+  return changed;
+}
+
+
+/*
  * var_put_integer()
  * var_get_integer()
  *

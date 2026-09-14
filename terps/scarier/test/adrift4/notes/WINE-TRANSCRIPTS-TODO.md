@@ -10028,3 +10028,28 @@ present (after the pending-endgame exit).  seaside golden re-blessed: the
 answer is a turn now, so "Sunset has started" lands after `swim` and "The sun
 has now set." after the `s` to the baths entrance, both as in
 Adrift_236_seaside.txt.  428/428; sweep seaside 5 -> 0 differ.
+
+## PORTED 2026-09-14: 3.9+ user variables substitute in index order, Replace-all each
+
+datewithdeath t289 `talk to bartimony`: Bartimony's Long has
+"b_notice%b_notice%b_purified%b_purified%" (no space between the two
+markers).  run400 47A23F (run390 Proc_2_20 4341F0) substitutes the user
+variables AFTER the system tags, one variable at a time in index order, each
+as Replace(text, "%" & Name & "%", value) over the whole string.  b_purified
+(170) goes before b_notice (189) and takes the shared '%': the text becomes
+"b_notice%b_notice1b_purified%", and ALR b_notice1 turns that into
+"b_notice%[Noticeboard]b_purified%".  That is what the Runner prints.
+Scarier's left-to-right scan gave "b_notice0b_purified1" -> "[Purified]".
+
+Port: `var_is_user_ordered()` makes pf_interpolate_vars' scan skip user
+names, and `var_interpolate_user_ordered()` (scvars.cpp) then runs the
+index-ordered replace-all pass.  Both are gated on TAF >= 3.90.  Golden
+datewithdeath re-blessed (topic lists only; once b_purified=2 the text shows
+"b_notice2" raw, since only b_notice0/1 have ALRs).  Sweep: datewithdeath
+went from 8 differing turns to 1 (t331 is the `[MORE]` ending artefact).
+Suite 428/428.
+
+Also triaged, not ported: hub T35 `take watch` is event 3 "cold and naked"
+(Time1 1..Time2 8, PrefTime1 2).  Scarier rolled 2 turns longer, but both
+hub transcripts predate vbrng, so the roll values cannot be compared.  This
+is an RNG divergence, not an engine one.

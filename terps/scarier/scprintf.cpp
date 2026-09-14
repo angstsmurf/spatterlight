@@ -459,6 +459,7 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
        */
       if (sscanf (cursor, "%%%[^%]%c", name.data (), &close) != 2
           || close != PERCENT
+          || var_is_user_ordered (vars, name.data ())
           || !var_get (vars, name.data (), &type, &vt_rvalue))
         {
           buffer.append (cursor, 1);
@@ -497,11 +498,12 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
    * input contained a rogue '%' character), throw out the buffer as it will be
    * the same as our input, and return NULL.
    */
-  if (buffer_used && is_interpolated)
-    {
-      buffer.append (marker);
-      return pf_strdup (buffer);
-    }
+  buffer.append (buffer_used ? marker : string);
+  if (var_interpolate_user_ordered (vars, buffer))
+    is_interpolated = TRUE;
+
+  if (is_interpolated)
+    return pf_strdup (buffer);
   return NULL;
 }
 

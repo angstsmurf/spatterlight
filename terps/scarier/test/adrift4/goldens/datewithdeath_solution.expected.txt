@@ -5326,8 +5326,8 @@ questioned about:
 
 [The Archives]   [Book] [Cadmus] [Canum] [Cleansed] [Death]  [Essence]
 [High Chancellor Verenor]  [Himself] [Magician] [Merrichan] [Necromancy]
-[Purified]   [Simkin] [Spirit Ward]   [Tavrin the mage hunter]  [Traps]  [The
-Unbreakable Safe]  [You] [The Yukabong beetle]
+b_notice%[Noticeboard]b_purified%   [Simkin] [Spirit Ward]   [Tavrin the mage
+hunter]  [Traps]  [The Unbreakable Safe]  [You] [The Yukabong beetle]
 
 A simple 'goodbye' will end the conversation when you are finished.
 
@@ -5363,8 +5363,8 @@ questioned about:
 
 [The Archives]   [Book] [Cadmus] [Canum] [Cleansed] [Death]  [Essence]
 [High Chancellor Verenor]  [Himself] [Magician] [Merrichan] [Necromancy]
-[Purified]   [Simkin] [Spirit Ward]   [Tavrin the mage hunter]  [Traps]  [The
-Unbreakable Safe]  [You] [The Yukabong beetle]
+b_notice%b_notice2b_purified%   [Simkin] [Spirit Ward]   [Tavrin the mage
+hunter]  [Traps]  [The Unbreakable Safe]  [You] [The Yukabong beetle]
 
 A simple 'goodbye' will end the conversation when you are finished.
 
@@ -5741,8 +5741,8 @@ questioned about:
 
 [The Archives]   [Book] [Cadmus] [Canum] [Cleansed] [Death]  [Essence]
 [High Chancellor Verenor]  [Himself] [Magician] [Merrichan] [Necromancy]
-[Purified]   [Simkin] [Spirit Ward]   [Tavrin the mage hunter]  [Traps]  [The
-Unbreakable Safe]  [You] [The Yukabong beetle]
+b_notice%b_notice2b_purified%   [Simkin] [Spirit Ward]   [Tavrin the mage
+hunter]  [Traps]  [The Unbreakable Safe]  [You] [The Yukabong beetle]
 
 A simple 'goodbye' will end the conversation when you are finished.
 
@@ -5774,8 +5774,8 @@ questioned about:
 
 [The Archives]   [Book] [Cadmus] [Canum] [Cleansed] [Death]  [Essence]
 [High Chancellor Verenor]  [Himself] [Magician] [Merrichan] [Necromancy]
-[Purified]   [Simkin] [Spirit Ward]   [Tavrin the mage hunter]  [Traps]  [The
-Unbreakable Safe]  [You] [The Yukabong beetle]
+b_notice%b_notice2b_purified%   [Simkin] [Spirit Ward]   [Tavrin the mage
+hunter]  [Traps]  [The Unbreakable Safe]  [You] [The Yukabong beetle]
 
 A simple 'goodbye' will end the conversation when you are finished.
 
@@ -5816,8 +5816,9 @@ questioned about:
 
 [The Archives]   [Book] [Cadmus] [Canum] [Cleansed] [Death]  [Essence]
 [High Chancellor Verenor]  [Himself] [Magician] [Merrichan] [Necromancy]
-[Purified]  [Secretary] [Simkin] [Spirit Ward]   [Tavrin the mage hunter]
-[Traps]  [The Unbreakable Safe]  [You] [The Yukabong beetle]
+b_notice%b_notice2b_purified%  [Secretary] [Simkin] [Spirit Ward]   [Tavrin
+the mage hunter]  [Traps]  [The Unbreakable Safe]  [You] [The Yukabong
+beetle]
 
 A simple 'goodbye' will end the conversation when you are finished.
 
@@ -5853,8 +5854,9 @@ questioned about:
 
 [The Archives]   [Book] [Cadmus] [Canum] [Cleansed] [Death]  [Essence]
 [High Chancellor Verenor]  [Himself] [Magician] [Merrichan] [Necromancy]
-[Purified] [Robeson] [Secretary] [Simkin] [Spirit Ward]   [Tavrin the mage
-hunter]  [Traps]  [The Unbreakable Safe]  [You] [The Yukabong beetle]
+b_notice%b_notice2b_purified% [Robeson] [Secretary] [Simkin] [Spirit Ward]
+[Tavrin the mage hunter]  [Traps]  [The Unbreakable Safe]  [You] [The
+Yukabong beetle]
 
 A simple 'goodbye' will end the conversation when you are finished.
 
@@ -5884,8 +5886,9 @@ questioned about:
 
 [The Archives]   [Book] [Cadmus] [Canum] [Cleansed] [Death]  [Essence]
 [High Chancellor Verenor]  [Himself] [Magician] [Merrichan] [Necromancy]
-[Purified] [Robeson] [Secretary] [Simkin] [Spirit Ward]   [Tavrin the mage
-hunter]  [Traps]  [The Unbreakable Safe]  [You] [The Yukabong beetle]
+b_notice%b_notice2b_purified% [Robeson] [Secretary] [Simkin] [Spirit Ward]
+[Tavrin the mage hunter]  [Traps]  [The Unbreakable Safe]  [You] [The
+Yukabong beetle]
 
 A simple 'goodbye' will end the conversation when you are finished.
 
