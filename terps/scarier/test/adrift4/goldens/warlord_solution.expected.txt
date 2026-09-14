@@ -2946,7 +2946,7 @@ A passage leads west, there is a locked door to the north and an archway to
 the east.
 
 > push barrel
-You push, but nothing happens.
+You can't see the barrel.
 
 > w
 

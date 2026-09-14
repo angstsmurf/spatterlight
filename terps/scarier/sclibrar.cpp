@@ -2464,6 +2464,57 @@ lib_cmd_look (scr_gameref_t game)
 
 
 /*
+ * lib_cmd_look_typed()
+ *
+ * The typed room look.  The Runner does not parse it: generaltasks compares
+ * the whole line, after the game's SYNONYM rewrites, against a short list --
+ *
+ *     run400 48A5E3 / run390 45F5F2:  l, look, x room, x location,
+ *         examine room, look room, examine location, l room
+ *     run380 442377 / run370 43BB23:  l, look, x room, x location
+ *
+ * -- so bare `x`, `ex`, `examine`, `look at` and `the room` forms are not a
+ * look.  Bare `x`, `ex` and `examine` are not an examine either: examines
+ * opens with `If input = "examine" Or "ex" Or "x" Then Exit` (run400 471340,
+ * run390 44B758), and the line ends in the game's DontUnderstand.  Measured
+ * on Lair of the Vampire (4.00), whose synonym 2 rewrites `look` to `x`:
+ * run400 answers `look` with "Try something different." in three separate
+ * captures (Adrift_131/332/674_lair.txt), and because the room is never
+ * listed, the cobalt key an earlier task dropped there stays unseen and the
+ * next `get all` leaves it behind.
+ *
+ * 3.7/3.8 examines has no such exit, so what a bare `x` answers there is
+ * unread; the loose pattern is left alone below 3.9.
+ */
+scr_bool
+lib_cmd_look_typed (scr_gameref_t game)
+{
+  static const scr_char *const LOOK_LINES[] = {
+    "l", "look", "x room", "x location",
+    "examine room", "look room", "examine location", "l room", NULL
+  };
+  const scr_char *input = run_get_dispatch_input ();
+
+  if (input && (lib_is_version_390 (game) || lib_is_version_400 (game)))
+    {
+      scr_char *line = (scr_char *) scr_malloc (strlen (input) + 1);
+      const scr_char *const *entry;
+      scr_bool is_look = FALSE;
+
+      strcpy (line, input);
+      scr_normalize_string (line);
+      for (entry = LOOK_LINES; *entry && !is_look; entry++)
+        is_look = scr_strcasecmp (line, *entry) == 0;
+      scr_free (line);
+      if (!is_look)
+        return FALSE;
+    }
+
+  return lib_cmd_look (game);
+}
+
+
+/*
  * lib_cmd_quit()
  *
  * Called on "quit", "bye" and "end".  Exits from the game main loop.
@@ -5880,20 +5931,14 @@ lib_list_npc_inventory (scr_gameref_t game, scr_int npc, scr_bool is_described)
  * Show the long description of the most recently referenced NPC, and a
  * list of what they're wearing and carrying.
  */
-scr_bool
-lib_cmd_examine_npc (scr_gameref_t game)
+static void
+lib_describe_npc (scr_gameref_t game, scr_int npc)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[4];
-  scr_int npc, task, resource;
-  scr_bool is_ambiguous;
+  scr_int task, resource;
   const scr_char *description;
-
-  /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, "examine", &is_ambiguous);
-  if (npc == -1)
-    return is_ambiguous;
 
   /* Get selection task. */
   vt_key[0].string = "NPCs";
@@ -5955,6 +6000,20 @@ lib_cmd_examine_npc (scr_gameref_t game)
    */
   if (lib_is_version_400 (game))
     game->is_admin = TRUE;
+}
+
+scr_bool
+lib_cmd_examine_npc (scr_gameref_t game)
+{
+  scr_int npc;
+  scr_bool is_ambiguous;
+
+  /* Get the referenced npc, and if none, consider complete. */
+  npc = lib_disambiguate_npc (game, "examine", &is_ambiguous);
+  if (npc == -1)
+    return is_ambiguous;
+
+  lib_describe_npc (game, npc);
   return TRUE;
 }
 
@@ -6659,6 +6718,48 @@ lib_examine_tied_absent_400 (scr_gameref_t game)
 }
 
 
+static scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
+                                    const scr_char *input);
+
+/*
+ * lib_examine_npc_overwrite_400()
+ *
+ * The present character an object examine line also names, or -1.  run400
+ * calls characters() from the generaltasks tail (48B56E), after examines()
+ * has already described the object, and its per-NPC examine arm (47FE19-
+ * 480157: x/ex/examine/look/exam, no task ran, NPC in the room) assigns the
+ * description to the message buffer without testing it -- so the object's
+ * answer is thrown away.  The NPC gate is 45E99C mode 1, Name or any alias as
+ * a word and no present namesake character; each passing NPC overwrites the
+ * last, so the highest index wins.  Examining the object still marks it seen.
+ * Unlike a plain character examine the line stays a turn: the arm writes no
+ * MemVar_494281, and marking it administrative moves Lair's ambient room text
+ * from T180 on out of step with Adrift_131_lair.txt.
+ *
+ * Measured on Lair of the Vampire (4.00): in the Ancient Feasthall, static
+ * object "skeleton" and Havelock's skeleton (alias skeleton) share the room,
+ * and `x skeleton` answers only "Havelock's skeletal remains sit on the
+ * throne..." (Adrift_332_lair.txt:1573, Adrift_674_lair.txt:1574).
+ */
+static scr_int
+lib_examine_npc_overwrite_400 (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int npc, found = -1;
+
+  if (!input || !lib_is_version_400 (game)
+      || lib_npc_400_find_namesakes (game, NULL, NULL))
+    return -1;
+
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      if (npc_in_room (game, npc, gs_playerroom (game))
+          && lib_npc_referenced (game, npc, input))
+        found = npc;
+    }
+  return found;
+}
+
 /*
  * lib_cmd_examine_object()
  *
@@ -6670,7 +6771,7 @@ lib_cmd_examine_object (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
-  scr_int object, task, openness;
+  scr_int object, task, openness, npc;
   scr_bool is_described, is_statussed, is_mentioned, is_ambiguous, should_be;
   const scr_char *description, *resource;
 
@@ -6688,6 +6789,18 @@ lib_cmd_examine_object (scr_gameref_t game)
    * games, where the matcher doesn't require objects to have been seen.
    */
   gs_set_object_seen (game, object, TRUE);
+
+  /* 4.0: a present character the line names overwrites the answer. */
+  npc = lib_examine_npc_overwrite_400 (game);
+  if (npc != -1)
+    {
+      scr_bool was_admin = game->is_admin;
+
+      gs_set_npc_seen (game, npc, TRUE);
+      lib_describe_npc (game, npc);
+      game->is_admin = was_admin;
+      return TRUE;
+    }
 
   /* Begin assuming no description printed. */
   is_described = FALSE;
@@ -17013,7 +17126,68 @@ lib_cmd_fight_npc_with (scr_gameref_t game)
  * "unwield" verb (the Runner answers "I don't understand.").  Falls through to
  * other grammar when the Battle System is disabled, as plain wielding is not
  * otherwise modelled.
+ *
+ * dobattle's wield block (run390 44C824-44CAB6, run400 47E764-47E9xx) loops
+ * over the objects co() names, and handles one only when
+ *
+ *     InStr(line, Short) > InStr(line, "wield")
+ *       Or InStr(line, Alias(0)) > InStr(line, "wield")
+ *
+ * a binary InStr of the raw field against the lower-cased line.  A Short or
+ * first Alias with a capital letter can never pass, and an empty one is
+ * InStr's 1, which beats "wield" only when the line does not start with it.
+ * With no object passing, the line gets "I don't understand what you are
+ * wanting to wield!" -- an ordinary turn.
+ *
+ * Measured 2026-09-14 on Villains_And_Kings under run390 (Adrift_1187
+ * vakwield): the sword is Prefix "Kinda Sharp", Short "Sword", Alias "blade".
+ * `wield Sword`, `wield kinda sharp sword`, `wield zzz`, `wield rack` (Short
+ * "Rack", empty alias) and a bare `wield` all refuse; `wield blade` wields,
+ * then "already wielding", then after a drop "aren't carrying"; 21 lines,
+ * 21 turns.  The 4.0 twin has the same shape, from the decompile only.
  */
+static scr_bool
+lib_wield_names_object (scr_gameref_t game, scr_int object,
+                        const scr_char *input)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  std::string line (input ? input : "");
+  const scr_char *shortname, *alias = "";
+  std::string::size_type at;
+  scr_int wield_at, short_at, alias_at;
+  scr_vartype_t vt_key[4];
+
+  for (std::string::iterator c = line.begin (); c != line.end (); ++c)
+    *c = scr_tolower (*c);
+
+  at = line.find ("wield");
+  wield_at = at == std::string::npos ? 0 : (scr_int) at + 1;
+
+  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  at = line.find (shortname ? shortname : "");
+  short_at = at == std::string::npos ? 0 : (scr_int) at + 1;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Alias";
+  if (prop_get_child_count (bundle, "I<-sis", vt_key) > 0)
+    {
+      vt_key[3].integer = 0;
+      alias = prop_get_string (bundle, "S<-sisi", vt_key);
+    }
+  at = line.find (alias ? alias : "");
+  alias_at = at == std::string::npos ? 0 : (scr_int) at + 1;
+
+  return short_at > wield_at || alias_at > wield_at;
+}
+
+static void
+lib_wield_not_understood (scr_gameref_t game)
+{
+  pf_buffer_string (gs_get_filter (game),
+                    "I don't understand what you are wanting to wield!\n");
+}
+
 scr_bool
 lib_cmd_wield (scr_gameref_t game)
 {
@@ -17027,6 +17201,12 @@ lib_cmd_wield (scr_gameref_t game)
   object = lib_disambiguate_object (game, "wield", NULL);
   if (object == -1)
     return TRUE;
+
+  if (!lib_wield_names_object (game, object, run_get_dispatch_input ()))
+    {
+      lib_wield_not_understood (game);
+      return TRUE;
+    }
 
   /* The weapon must be held, and must actually be a weapon.  The Runner's
    * refusal is "Player aren't carrying the rock!" [sic] (probe pWS2). */
@@ -17066,6 +17246,17 @@ lib_cmd_wield (scr_gameref_t game)
                              "I wield ",
                              "%player% wield ",
                              object, ".\n");
+  return TRUE;
+}
+
+/* A wield line naming no object; see lib_cmd_wield(). */
+scr_bool
+lib_cmd_wield_other (scr_gameref_t game)
+{
+  if (!battle_is_enabled (game))
+    return FALSE;
+
+  lib_wield_not_understood (game);
   return TRUE;
 }
 
@@ -17305,6 +17496,44 @@ lib_cmd_break_absent (scr_gameref_t game)
 scr_bool
 lib_cmd_turn_absent (scr_gameref_t game)
 {
+  return lib_cant_see_absent_object (game, ".\n", TRUE);
+}
+
+/*
+ * lib_cmd_verb_absent_400()
+ *
+ * The same therest() clause for verbs whose own rows take no %object% the
+ * clause could read back: the candidates are every object the typed line
+ * names anywhere, scored as Proc_21_58_463640 scores them, not just what a
+ * pattern bound.  Measured on warlord (4.00, Adrift_141_warlord.txt, xoshiro
+ * seed 33):
+ *
+ *     push barrel           the barrel rolled away    You can't see the barrel.
+ *     stand on platform     raised platform elsewhere You can't see the raised
+ *                                                       platform.
+ *     give wine to leonora  wine unseen, "leonora"    You can't see the photo.
+ *                           an alias of the photo
+ *
+ * where Scarier said "You push, but nothing happens.", "You can't stand on
+ * that." and "Give what?".  The give line shows why the whole line counts:
+ * therest's give arm (488A09) is below the clause, and the object it names is
+ * the photo, not the wine.  4.0 only; declines otherwise.
+ */
+scr_bool
+lib_cmd_verb_absent_400 (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object;
+
+  if (!input || !lib_is_version_400 (game))
+    return FALSE;
+
+  gs_clear_object_references (game);
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (lib_verb_object_name_score (game, object, input) > 0)
+        game->object_references[object] = TRUE;
+    }
   return lib_cant_see_absent_object (game, ".\n", TRUE);
 }
 
@@ -18716,6 +18945,32 @@ scr_bool
 lib_cmd_examine_other (scr_gameref_t game)
 {
   /*
+   * A bare `x`, `ex` or `examine` never reaches this tail from 3.9 on:
+   * examines exits on it at once (run400 471340, run390 44B758) and the line
+   * falls to the game's DontUnderstand -- see lib_cmd_look_typed().  `exam`
+   * is not in that test and still comes here.
+   */
+  if (lib_is_version_390 (game) || lib_is_version_400 (game))
+    {
+      const scr_char *input = run_get_dispatch_input ();
+
+      if (input)
+        {
+          scr_char *line = (scr_char *) scr_malloc (strlen (input) + 1);
+          scr_bool is_bare;
+
+          strcpy (line, input);
+          scr_normalize_string (line);
+          is_bare = scr_strcasecmp (line, "x") == 0
+                    || scr_strcasecmp (line, "ex") == 0
+                    || scr_strcasecmp (line, "examine") == 0;
+          scr_free (line);
+          if (is_bare)
+            return FALSE;
+        }
+    }
+
+  /*
    * characters() rewrites this tail when the noun names an absent character;
    * see lib_npc_examine_absent().  4.0 has already set its not-a-turn flag
    * by then (471F02, before characters() runs), so the named answer is an
@@ -19342,19 +19597,10 @@ lib_cmd_ask_about_nothing (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *input = run_get_dispatch_input ();
-  scr_int object, npc;
+  scr_int npc;
 
-  if (input && lib_is_version_400 (game))
-    {
-      gs_clear_object_references (game);
-      for (object = 0; object < gs_object_count (game); object++)
-        {
-          if (lib_verb_object_name_score (game, object, input) > 0)
-            game->object_references[object] = TRUE;
-        }
-      if (lib_cant_see_absent_object (game, ".\n", TRUE))
-        return TRUE;
-    }
+  if (lib_cmd_verb_absent_400 (game))
+    return TRUE;
 
   if (input)
     {

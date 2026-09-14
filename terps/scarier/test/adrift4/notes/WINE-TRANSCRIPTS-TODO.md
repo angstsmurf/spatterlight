@@ -1276,9 +1276,17 @@ Engine leads, measured or half-measured, none blocking:
 - ~~**Merry_Murders** feed turns 45/46 FLAG wording, minor (git history).~~
   **CLOSED 2026-09-14** -- `Adrift_3` and Scarier are identical on both
   turns apart from whitespace.
+- ~~**The three 2026-09-14 xoshiro re-drive leads**: `villains_and_kings`
+  T12 `wield sword`, `warlord`'s push/stand/give absent-object turns, and
+  `lair`~~ **PORTED 2026-09-14**: see the updated entries under "The two
+  still-open, unrelated leads" and "`villains_and_kings`" at the foot, and
+  "PORTED 2026-09-14: Lair's typed look and the NPC examine overwrite".
+  Goldens 428/428.
 - **Deferred candidates**, each for a reason that will not change:
   `Colony`, `Locked_door_with_water_trap` (a rollable event on the route),
-  `Villains_And_Kings` (combat RNG plus a name/gender POPUP),
+  ~~`Villains_And_Kings` (combat RNG plus a name/gender POPUP)~~ (since
+  re-driven under xoshiro: 42/42 echoed, draws exact, and its one
+  difference, T12 `wield sword`, PORTED -- see the foot),
   `Theannihilationofthink2` (six mid-game waitkeys), `To_Hell_And_Beyond`
   (19 rollable events), `Pieces of eden`, `The Fly Human`, `The Foggy
   Banana Adventure`, `hyper_b_s`; `sophie` measured for its first fifty
@@ -9580,19 +9588,15 @@ harness/feed artefacts, at 0 draw-count diff:
 
 ### The two still-open, unrelated leads
 
-- **`lair`** (+20 draws): reproduces the exact same magnitude as the
-  pre-update 09-13 census. The only transcript difference is the
-  `<centre>...</centre>` room-heading-merge artefact
-  ([[adrift-runner-transcript-centre-artefact]]) -- an ambient-random-event
-  text-selection difference elsewhere accounts for the draw delta. Not
-  touched by this update.
-- **`warlord`** (+22 draws): same magnitude as 09-13. Genuine content
-  differences, still open: `push barrel` (run400 "You can't see the
-  barrel.", Scarier "You push, but nothing happens."), `stand on platform`
-  (run400 "You can't see the raised platform.", Scarier "You can't stand on
-  that."), `give wine to leonora` (run400 "You can't see the photo.",
-  Scarier "Give what?") -- object-reference/task-resolution mismatches, plus
-  3 whitespace-only `<centre>` turns. Not touched by this update.
+- ~~**`lair`** (+20 draws)~~ **PORTED 2026-09-14** -- two engine rules, see
+  "PORTED 2026-09-14: Lair's typed look and the NPC examine overwrite" at the
+  foot.  Adrift_131_lair.txt (seed 4) now differs only at T284, the capture
+  stopping at the final `press a key`.
+- ~~**`warlord`** (+22 draws): `push barrel`, `stand on platform`, `give wine
+  to leonora`~~ **PORTED 2026-09-14** -- therest's absent-seen clause scores
+  every object the line names for push/stand/give too
+  (`lib_cmd_verb_absent_400`); see "PORTED 2026-09-14: warlord's three
+  absent-object turns" at the foot.
 
 ### `house`: still not independently verifiable, and now for two reasons
 
@@ -9731,7 +9735,15 @@ unset), and was never intended to be comparable against the real Runner
 past command 92. The unassisted row is clean (77/77 draws, 0 transcript
 diff) and remains the honest oracle for this game.
 
-### `villains_and_kings`: one open, unexplained divergence
+### `villains_and_kings`: one divergence -- PORTED 2026-09-14
+
+**Resolved.**  Not the BattleSystem byte: dobattle's wield arm (run390
+44C824 / run400 47E764) accepts an object only when its raw Short or first
+Alias is found in the lower-cased line after "wield" (a binary InStr), so
+the capitalised Short "Sword" can never match and `wield sword` refuses.
+Measured on run390 with Adrift_1187 (vakwield, 21 lines, 21 turns); see
+`lib_wield_names_object()` in sclibrar.cpp.  The golden was re-blessed and
+T12 now matches.  The original write-up follows.
 
 Every one of the 42 feed commands is echoed and 41 of them match exactly;
 draws are exact (22/22). The sole difference:
@@ -9754,3 +9766,56 @@ whitespace, not RULE 2 busywork -- and is left open rather than guessed at,
 since resolving it would need reading the game's actual on-disk
 `BattleSystem` byte and is out of scope for a verification-only pass (no
 engine edits made or attempted).
+
+## PORTED 2026-09-14: warlord's three absent-object turns
+
+`push barrel`, `stand on platform` and `give wine to leonora`
+(Adrift_141_warlord.txt, xoshiro seed 33) are therest's absent-seen clause
+(4887A0), which scores every object the typed line names (463640), not just
+what a pattern bound.  The rows for these verbs take no `%object%` the
+clause could read back, so fallback rows now call
+`lib_cmd_verb_absent_400()` (4.0 only):
+
+    push barrel           You can't see the barrel.
+    stand on platform     You can't see the raised platform.
+    give wine to leonora  You can't see the photo.   ("leonora" is an alias
+                                                      of the photo)
+
+The give line shows why the whole line counts: therest's give arm (488A09)
+sits below the clause.  `lib_cmd_ask_about_nothing` shares the helper.
+warlord's golden was re-blessed.
+
+## PORTED 2026-09-14: Lair's typed look and the NPC examine overwrite
+
+Lair of the Vampire (4.00), row `lair|Lair of the Vampire.taf|
+v4_full_rerun_cmds/lair.txt|run400x.exe|4`.  Compare
+`Adrift_131_lair.txt` with `--env SCR_RNG=xoshiro --env SCR_SEED=4`
+(Adrift_332 and Adrift_674 are other seeds and drift from T8).  It now
+differs only at T284, where the capture stops at the final `press a key` and
+Scarier prints the epilogue and score.  Two rules:
+
+1. **T113 `look` -> "Try something different."**  The game's SYNONYM 2
+   rewrites `look` to `x`.  run400's generaltasks treats a line as a room
+   look only when the whole rewritten line is one of `l, look, x room,
+   x location, examine room, look room, examine location, l room` (48A5E3;
+   run390 45F5F2 the same; run380 442377 / run370 43BB23 only the first
+   four).  examines() exits at once on a bare `x`/`ex`/`examine` (run400
+   471340, run390 44B758; `exam` is not in the test), so the line falls to
+   the game's DontUnderstand.  The room is never listed, the cobalt key
+   stays unseen, and T114's `get all` leaves it.  `lib_cmd_look_typed()` and
+   the bare-verb exit at the top of `lib_cmd_examine_other()`, 3.90+ only
+   (3.7/3.8 examines has no such exit).
+2. **T175 `x skeleton` -> Havelock's description, not the object's.**  The
+   Ancient Feasthall holds static object [99] "skeleton" and NPC [17] Lord
+   Havelock's skeleton (alias skeleton).  characters() runs from the
+   generaltasks tail (48B56E), after examines() has described the object.
+   Its per-NPC examine arm (47FE19-480157: x/ex/examine/look/exam, 4941F8 = 0,
+   4942E0 = 0, NPC in the room, under 45E99C mode 1) assigns the NPC's
+   Descr/AltText to the buffer without testing it, then lists inventory
+   (45BBA4).  That writes no MemVar_494281, and the line stays a turn:
+   marking it administrative threw Lair's ambient room text out of step from
+   T180.  `lib_examine_npc_overwrite_400()` in `lib_cmd_examine_object()`,
+   4.0 only; the last present named NPC in index order wins, and no present
+   namesake pair may be named.
+
+Lair's golden was re-blessed for both.  Goldens 428/428.
