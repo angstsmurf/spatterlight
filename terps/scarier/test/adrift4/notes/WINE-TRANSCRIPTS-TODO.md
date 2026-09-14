@@ -1140,14 +1140,15 @@ Engine leads, measured or half-measured, none blocking:
   the 3.7/3.8 absent-object refusals" at the foot.
 - **3.8 referenceability / where-fail model**: ~~"You can't see X from
   here!" where Scarier says "Take what?"~~ (**PORTED 2026-09-14**, same
-  section: cave's 22 take/wear rows now match).  Still open: "You can't do
-  that here." for a matched task in the wrong room (greatc turn 49), cave
-  T114 `drop robot` (run380 "You don't have a toy robot!", Scarier "You
-  can't do that here."), cave T52/T212 `put raft in water` / `put amulet on
-  table` (run380 "You can't put anything inside the pool water." / "...on
-  the star shaped amulet.", Scarier "You can't do that!"), cave T20 a
-  fish-splash event line Scarier prints a turn early, and run380's wildcard
-  `get *knives*` matching `get meat`.  No wired walkthrough reaches them.
+  section: cave's 22 take/wear rows now match).  ~~"You can't do that
+  here." for a matched task in the wrong room (greatc turn 49, now T53
+  `give picasso to julie`), cave T114 `drop robot`, cave T52/T212 `put raft
+  in water` / `put amulet on table`~~ (**PORTED 2026-09-14**, see "PORTED
+  2026-09-14: drop, put and give ahead of the 3.7/3.8 room refusal").  ~~cave
+  T20 fish-splash event line~~ and ~~greatc's late event lines~~ (**CLOSED
+  2026-09-14**, RNG rolls, same section).  Still open: run380 runs tra.taf
+  task 11 `get *knives*` on `get meat` (Adven_9_timmy_reid.rtf turn 8); see
+  the same section.
 - (**3.90 administrative set**: **measured and ported 2026-09-14**, see
   "Ported 2026-09-14: run390's administrative set and its per-element turn
   counter" at the foot of this file.  hint/help/clear/time/version/save/
@@ -9357,3 +9358,74 @@ take / wear / drop ("Take what?", ...) were already ours.
   to 4 (T20, T52, T114, T212).  All 4 were already there before the port;
   see the where-fail bullet in "Still open".
 - Goldens 428/428, none moved.
+
+## PORTED 2026-09-14: drop, put and give ahead of the 3.7/3.8 room refusal
+
+Follow-up to the section above.  The where-fail bullet in "Still open" had
+three rows where run380 answers for the object and Scarier fell through to
+a task's out-of-room refusal or a flat "You can't do that!".  All three are
+ported, and the two event-timing rows are closed as RNG.
+
+### What run380 does
+
+| Turn | Command | run380 | Scarier before | Source |
+|---|---|---|---|---|
+| cave T114 | `drop robot` (not held) | You don't have a toy robot! | You can't do that here. | drops() writes the message (438E13) *before* tasks(); the room refusal only fills an empty message |
+| cave T52 | `put raft in water` | You can't put anything inside the pool water. | You can't do that! | insides() 4457A1-4459C8 picks a co() target, then 4464E9 |
+| cave T212 | `put amulet on table` | You can't put anything on the star shaped amulet. | You can't do that! | same, 446490 (`c("on")` picks on/inside) |
+| greatc T53 | `give picasso to julie` (Julie elsewhere) | You can't do that here. | Please be more clear, who do you want to give to? | the character give wants a present NPC (440E8C); the prompt is in no Runner's string pool |
+
+**insides() target choice (3.7/3.8).**  The loop runs over every object that
+co() matches:
+
+1. The first match is taken.
+2. It is replaced while the current pick is unreachable (a static not in the
+   room, or a dynamic object that is not in the room, held or worn).
+3. Otherwise a later object replaces the pick when its Short or alias sits
+   further right in the line.
+
+With fewer than two matches (and no `all`) it is "You can't do that!".  The
+pick then refuses in order:
+
+- not a container or surface: "You can't put anything on|inside \<the X\>.";
+- a dynamic object not held: "You are not holding \<Prefix\> \<Short\>.";
+- a static object not here: "You can't see \<Prefix\> \<Short\>.".
+
+So in `put amulet on table` the amulet, not the table, is what gets named.
+
+### Ported
+
+- `scrunner.cpp`: new STANDARD_ABOVE_REFUSAL_COMMANDS row `[drop/put down] *`
+  → `lib_cmd_drop_absent_pre390()` (sclibrar.cpp), so the "don't have"
+  refusal outranks REFUSAL_PASS_MID below 3.9.  `lib_cmd_drop_what` reuses
+  it.
+- `sclibrar.cpp`: `lib_put_co_refusal_pre390()` and its helpers
+  (`lib_put_co_position/alias/named_term/reachable/further_right`), called
+  from `lib_put_no_object_pre400()` below 3.90.
+- `sclibrar.cpp` `lib_cmd_give_object_npc`: below 4.0, no NPC present now
+  declines (returns FALSE unless the lookup was ambiguous), and the line
+  falls through to the task refusal or to `lib_cmd_give_object`'s "Give X to
+  who?".  The invented prompt is gone.
+
+### Closed as RNG, not engine
+
+- **cave T20** fish splash.  Event 1 is StarterType 2 with a random start of
+  20..50.  Scarier prints the line only with seed 1; seeds 2, 3, 7, 99 and
+  1234 and `SCR_RNG=xoshiro` print none.
+- **greatc T31/32, T121/122, T126/127** (event text one turn off in either
+  direction).  Events 0 [Mob] (1..3), 3 (1..6), 4 (1..15) and 5 (1..5) all
+  roll their lengths.  A seed sweep moves the set: seed 11 loses T31/32
+  entirely, and seeds 2, 3, 5 and 7 each shift the car-chase turns.  This
+  matches the golden row's comment ("nothing past `break into car` is
+  measurable").
+
+### Results
+
+- cave (`Adven_1_cave.rtf`, `cmdfile_w_cave.txt`): 4 differing turns → T20
+  only (RNG).
+- greatc (`Adven_1_greatc.rtf`, `cmdfile_w_greatc.txt`): T53 identical.  What
+  is left is the `Â£` textutil mojibake (T5/T79/T102/T109) and the RNG event
+  turns.
+- Put probes still identical on every turn: p38DARK/p37DARK Adrift_982-989;
+  p38SURF/p37SURF Adrift_999-1006 and 1011-1014.
+- Goldens 428/428.

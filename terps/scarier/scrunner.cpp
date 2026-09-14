@@ -1011,6 +1011,13 @@ static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
    */
   {"[get/take/pick up/pick] %object%", lib_cmd_take_absent},
   {"[get/take/pick up/pick] *", lib_cmd_get_what},
+  /*
+   * run380's drops() (438FF0) writes "You don't have <Prefix> <Short>!" for a
+   * named object it cannot drop before it calls tasks(), and the room refusal
+   * only fills an empty message -- so below 3.9 it outranks "You can't do
+   * that here.".  See lib_cmd_drop_absent_pre390().
+   */
+  {"[drop/put down] *", lib_cmd_drop_absent_pre390},
   {NULL, NULL}
 };
 

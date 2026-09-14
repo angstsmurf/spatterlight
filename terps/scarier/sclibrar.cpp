@@ -11033,10 +11033,18 @@ lib_cmd_give_object_npc (scr_gameref_t game)
       return lib_give_not_interested_400 (game, npc, object);
     }
 
-  /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, "give to", NULL);
+  /*
+   * Get the referenced npc.  None present is not this handler's to answer:
+   * the Runners' character give wants a PRESENT NPC (run380 440E8C), and
+   * without one the line falls through past the out-of-room task refusal to
+   * therest().  "Please be more clear, who do you want to give to?" is in no
+   * Runner's string pool.  Measured on great.taf (3.80) under run380: `give
+   * picasso to julie` in Mrs Walters' living room, Julie elsewhere and task
+   * 22 confined to room 4, is "You can't do that here." (Adven_1_greatc.rtf).
+   */
+  npc = lib_disambiguate_npc (game, "give to", &is_ambiguous);
   if (npc == -1)
-    return TRUE;
+    return is_ambiguous;
 
   /* Reject if not holding the object offered. */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
@@ -14212,6 +14220,8 @@ lib_put_in_present_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * cannot pin it and it is gated at 3.90, the version it was measured on.
  * 3.7 and 3.8 keep what they had.
  */
+static scr_bool lib_put_co_refusal_pre390 (scr_gameref_t game);
+
 static scr_bool
 lib_put_no_object_pre400 (scr_gameref_t game)
 {
@@ -14220,6 +14230,11 @@ lib_put_no_object_pre400 (scr_gameref_t game)
       run_priority_defer ();
       return FALSE;
     }
+
+  /* 3.7/3.8 insides() names what co() chose; see lib_put_co_refusal_pre390(). */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
+      && lib_put_co_refusal_pre390 (game))
+    return TRUE;
 
   return lib_print_response_message (game,
                                      "You can't do that!\n",
@@ -14760,6 +14775,194 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  * A table of its own, run after STANDARD_COMMANDS has had its go so that a
  * line naming a real container never reaches it; see STANDARD_PUT_COMMANDS.
  */
+/*
+ * lib_put_co_position()
+ * lib_put_co_named_term()
+ * lib_put_co_reachable()
+ * lib_put_co_refusal_pre390()
+ *
+ * What run380's insides() (444BAC-447553, entry 44755C) answers for a put line
+ * its container fragment could not resolve.  It does not parse fragments at
+ * all.  It walks every object with co() -- Short or alias anywhere in the
+ * line, wherever the object is -- counting matches in var_A6 and choosing one
+ * in var_A8 (4457A1-4459C8):
+ *
+ *   - while nothing chosen so far is REACHABLE (var_108: a static in the room,
+ *     or a dynamic object in the room, held, or worn), each match simply
+ *     replaces the choice, so the last match in index order wins;
+ *   - once one is, a later match replaces it only when its Short or alias
+ *     starts further right in the line than the choice's.
+ *
+ * Fewer than two matches is the flat "You can't do that!" (445A2A).  Two or
+ * more, and the choice is not a container or surface, is "You can't put
+ * anything on|inside " & tense(Prefix) & " " & Short & "." with `on` chosen by
+ * c("on") (446428); a dynamic container not held is "You are not holding
+ * <Prefix> <Short>." and a static one not here "You can't see <Prefix>
+ * <Short>.".
+ *
+ * Measured on cave.taf (3.80) up the tree, nothing referenced present
+ * (Adven_1_cave.rtf): `put raft in water` (river water 18, raft 42, pool water
+ * 70) is "You can't put anything inside the pool water." (turn 52), and `put
+ * amulet on table` (table 48, amulet 64) is "You can't put anything on the
+ * star shaped amulet." (turn 212) -- the object, not the table, because the
+ * unreachable table never pinned the choice.
+ *
+ * Returns TRUE when it printed; FALSE leaves the line to the flat refusal,
+ * which is also what it answers for the closed and the reachable-container
+ * arms, both unmeasured from here.
+ */
+static scr_int
+lib_put_co_position (const scr_char *line, const scr_char *term)
+{
+  scr_int length, index_;
+
+  if (!line || !term || term[0] == NUL)
+    return 0;
+  length = strlen (term);
+  for (index_ = 0; line[index_] != NUL; index_++)
+    {
+      if (scr_strncasecmp (line + index_, term, length) == 0)
+        return index_ + 1;
+    }
+  return 0;
+}
+
+static const scr_char *
+lib_put_co_alias (scr_gameref_t game, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Alias";
+  if (prop_get_child_count (bundle, "I<-sis", vt_key) < 1)
+    return NULL;
+  vt_key[3].integer = 0;
+  return prop_get_string (bundle, "S<-sisi", vt_key);
+}
+
+static scr_bool
+lib_put_co_named_term (scr_gameref_t game, const scr_char *line,
+                       scr_int object)
+{
+  const scr_char *shortname, *alias;
+
+  shortname = prop_get_indexed_string (gs_get_bundle (game),
+                                       "Objects", object, "Short");
+  if (lib_co_contains (line, shortname))
+    return TRUE;
+  alias = lib_put_co_alias (game, object);
+  return alias && alias[0] != NUL && lib_co_contains (line, alias);
+}
+
+static scr_bool
+lib_put_co_reachable (scr_gameref_t game, scr_int object)
+{
+  const scr_int position = gs_object_position (game, object);
+
+  if (obj_directly_in_room (game, object, gs_playerroom (game)))
+    return TRUE;
+  return !obj_is_static (game, object)
+         && (position == OBJ_HELD_PLAYER || position == OBJ_WORN_PLAYER);
+}
+
+/* insides()' "further right" test: either name of I past either name of
+ * the choice, the choice's name found. */
+static scr_bool
+lib_put_co_further_right (scr_gameref_t game, const scr_char *line,
+                          scr_int object, scr_int chosen)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *names[2], *chosen_names[2];
+  scr_int name, chosen_name;
+
+  names[0] = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  names[1] = lib_put_co_alias (game, object);
+  chosen_names[0] = prop_get_indexed_string (bundle, "Objects", chosen,
+                                             "Short");
+  chosen_names[1] = lib_put_co_alias (game, chosen);
+
+  for (chosen_name = 0; chosen_name < 2; chosen_name++)
+    {
+      const scr_int chosen_at =
+          lib_put_co_position (line, chosen_names[chosen_name]);
+
+      if (chosen_at == 0)
+        continue;
+      for (name = 0; name < 2; name++)
+        {
+          if (lib_put_co_position (line, names[name]) > chosen_at)
+            return TRUE;
+        }
+    }
+  return FALSE;
+}
+
+static scr_bool
+lib_put_co_refusal_pre390 (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *line = run_get_dispatch_input ();
+  scr_int object, matches, chosen;
+  scr_bool pinned;
+
+  if (!line || !lib_co_contains (line, "put"))
+    return FALSE;
+
+  matches = 0;
+  chosen = -1;
+  pinned = FALSE;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (!lib_put_co_named_term (game, line, object))
+        continue;
+
+      matches++;
+      if (chosen == -1 || !pinned)
+        {
+          chosen = object;
+          pinned = lib_put_co_reachable (game, object);
+        }
+      else if (lib_put_co_further_right (game, line, object, chosen))
+        chosen = object;
+    }
+  if (matches < 2)
+    return FALSE;
+
+  if (!obj_is_container (game, chosen) && !obj_is_surface (game, chosen))
+    {
+      const scr_bool on = lib_co_contains (line, "on");
+
+      lib_print_response_object (game,
+                                 on ? "You can't put anything on "
+                                    : "You can't put anything inside ",
+                                 on ? "I can't put anything on "
+                                    : "I can't put anything inside ",
+                                 on ? "%player% can't put anything on "
+                                    : "%player% can't put anything inside ",
+                                 chosen, ".\n");
+      return TRUE;
+    }
+
+  if (!obj_is_static (game, chosen)
+      && gs_object_position (game, chosen) != OBJ_HELD_PLAYER)
+    {
+      pf_buffer_string (filter,
+                        lib_select_response (game, "You are not holding ",
+                                             "I am not holding ",
+                                             "%player% is not holding "));
+      lib_print_object_raw (game, chosen);
+      pf_buffer_string (filter, ".\n");
+      return TRUE;
+    }
+  if (obj_is_static (game, chosen)
+      && !obj_directly_in_room (game, chosen, gs_playerroom (game)))
+    return lib_cant_see_named_pre_390 (game, chosen, FALSE, ".\n");
+
+  return FALSE;
+}
+
 static scr_bool
 lib_put_nowhere_common (scr_gameref_t game, scr_bool typed_on)
 {
@@ -20103,6 +20306,36 @@ lib_seen_named_object_400 (scr_gameref_t game, const scr_char *input)
   return (best_count == 1) ? best_object : -1;
 }
 
+/*
+ * lib_cmd_drop_absent_pre390()
+ *
+ * The pre-3.9 half of lib_cmd_drop_what(), run above the out-of-room task
+ * refusal rather than below it.  run380's drops() sets its "You don't have"
+ * message and only then calls tasks(), whose " can't do that here." is
+ * written only into an empty message.  Measured on cave.taf (3.80) under
+ * run380: `drop robot` up the tree, with task 83 `drop robot` confined to
+ * room 17 and the toy robot never held, is "You don't have a toy robot!"
+ * (Adven_1_cave.rtf turn 114), where Scarier said "You can't do that here.".
+ */
+scr_bool
+lib_cmd_drop_absent_pre390 (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int object = lib_first_named_object_pre_390 (game);
+
+  if (object == -1)
+    return FALSE;
+
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         "You don't have ",
+                                         "I don't have ",
+                                         "%player% don't have "));
+  lib_print_object_raw (game, object);
+  pf_buffer_string (filter, "!\n");
+  return TRUE;
+}
+
 scr_bool
 lib_cmd_drop_what (scr_gameref_t game)
 {
@@ -20114,18 +20347,8 @@ lib_cmd_drop_what (scr_gameref_t game)
       && input && !lib_input_contains_word (input, "drop"))
     return lib_cmd_unclear_object (game);
 
-  object = lib_first_named_object_pre_390 (game);
-  if (object != -1)
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You don't have ",
-                                             "I don't have ",
-                                             "%player% don't have "));
-      lib_print_object_raw (game, object);
-      pf_buffer_string (filter, "!\n");
-      return TRUE;
-    }
+  if (lib_cmd_drop_absent_pre390 (game))
+    return TRUE;
 
   /*
    * 4.0 seen-absent unique winner: "You are not holding the uniform."
