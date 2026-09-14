@@ -176,7 +176,15 @@ def scarier_run(taf, feed, encoding, env_extra, popup_answers, markers=False):
     # imagination's "Jenny" read as a turn-0 engine divergence (2026-09-06).
     # Put them back at the head of scarier's stdin; the offset auto-detection
     # absorbs the extra prompts they create.
-    stdin = "\n".join(list(popup_answers) + list(feed)).encode(encoding, "replace")
+    #
+    # Always hand scarier latin-1, whatever the command file was stored in.
+    # drive.exe reads the cmdfile as UTF-8, so accented feeds are stored that
+    # way, but the Runner then types those characters into a Windows-1252
+    # text box and the engine reads single bytes.  Encoding stdin as UTF-8
+    # turned `é` into two bytes no .taf word matches, so largo_winch and
+    # enquete_a_hauts_risques differed on every turn (2026-09-14).
+    stdin = "\n".join(list(popup_answers) + list(feed)).encode("latin-1",
+                                                                "replace")
     done = subprocess.run([scare, os.path.expanduser(taf)], input=stdin,
                           stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT if markers

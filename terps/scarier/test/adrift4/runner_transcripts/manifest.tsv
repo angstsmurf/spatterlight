@@ -112,7 +112,7 @@ ecod3	ecod3.txt	driven:Adrift_203_ecod3_rt.txt	3.90	run390x.exe	1234	0			yes	ide
 egghunt	egghunt.txt	driven:Adrift_512_egghunt_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 1 lost command(s)
 elascensor	elascensor.txt	driven:Adrift_508_elascensor_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 endgame	endgame.txt	driven:Adrift_232_endgame_rt.txt	4.00	run400x.exe	1234	0			no	2 differing turn(s)
-enquete_a_hauts_risques	enquete_a_hauts_risques.txt	driven:Adrift_268_enquete_a_hauts_risques_rt.txt	3.90	run390x.exe	1234	0			yes	10+ differing turn(s)
+enquete_a_hauts_risques	enquete_a_hauts_risques.txt	driven:Adrift_268_enquete_a_hauts_risques_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 escape_from_insanity	escape_from_insanity.txt	harvested-native-0-draws:Adrift_694_escape_from_insanity.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 escape_to_new_york	escape_to_new_york.txt	driven:Adrift_249_escape_to_new_york_rt.txt	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 everything	everything.txt	driven:Adrift_321_everything_rt.txt	3.90	run390x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
@@ -185,7 +185,7 @@ jinxtron_full	jinxtron_full.txt	driven:Adrift_401_jinxtron_full_rt.txt	4.00	run4
 journ2	journ2.txt	driven:Adrift_341_journ2_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	identical on every turn.
 justanotherday	justanotherday.txt	driven:Adrift_371_justanotherday_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 lair	lair.txt	driven:Adrift_306_lair_rt.txt	4.00	run400x.exe	4	0		SCR_SEED=4 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
-largo_winch	largo_winch.txt	driven:Adrift_276_largo_winch_rt.txt	3.90	run390x.exe	1234	0			yes	10+ differing turn(s)
+largo_winch	largo_winch.txt	driven:Adrift_276_largo_winch_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 law	law.txt	driven:Adrift_311_law_rt.txt	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 lca	lca.txt	driven:Adrift_502_lca_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 les_feux	les_feux.txt	driven:Adrift_178_les_feux_rt.txt	4.00	run400x.exe	45	0		SCR_SEED=45 SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
@@ -341,7 +341,7 @@ the_demon_hunter	the_demon_hunter.txt	driven:Adrift_266_the_demon_hunter_rt.txt	
 the_hangover	the_hangover.txt	driven:Adrift_259_the_hangover_rt.txt	3.90	run390x.exe	1234	0			yes	3 differing turn(s)
 the_nonsense_machine_6000	the_nonsense_machine_6000.txt	driven:Adrift_186_the_nonsense_machine_6000_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 the_town_of_azra	the_town_of_azra.txt	driven:Adrift_187_the_town_of_azra_rt.txt	4.00	run400x.exe	1234	3	Hero		yes	6 differing turn(s)
-the_town_of_azra_v390	the_town_of_azra_v390.txt	driven:Adrift_188_the_town_of_azra_v390_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+the_town_of_azra_v390	the_town_of_azra_v390.txt	driven:Adrift_188_the_town_of_azra_v390_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 thehunter	thehunter.txt	driven:Adrift_451_thehunter_rt.txt	4.00	run400x.exe	1234	0	Hunter~male		yes	identical on every turn apart from the Runner's keypress prompt.
 thelasthour	thelasthour.txt	driven:Adrift_424_thelasthour_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 2 lost command(s)
 thepkgirl	thepkgirl.txt	driven:Adrift_281_thepkgirl_rt.txt	4.00	run400x.exe	24	0		SCR_SEED=24 SCR_SKIP_WAITKEY=1	yes	1 differing turn(s), 1 lost command(s)

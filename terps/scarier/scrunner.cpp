@@ -4611,6 +4611,25 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
  * just return.  Sorry about the ugliness.
  */
 static scr_bool
+run_is_repeat_word (scr_gameref_t game, const scr_char *element)
+{
+  std::string word (element);
+  const size_t first = word.find_first_not_of (' ');
+
+  if (first == std::string::npos)
+    return FALSE;
+  word = word.substr (first, word.find_last_not_of (' ') - first + 1);
+
+  if (word == "again" || word == "last" || word == "previous")
+    return TRUE;
+#ifndef SCARIER_NO_ABBREVIATIONS
+  if (word == "g")
+    return run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390;
+#endif
+  return FALSE;
+}
+
+static scr_bool
 run_player_input (scr_gameref_t game)
 {
   static scr_char line_buffer[LINE_BUFFER_SIZE];
@@ -4860,8 +4879,20 @@ run_player_input (scr_gameref_t game)
       var_set_ref_character (vars, -1);
     }
 
-  /* Try the command line element against command matchers. */
-  status = run_all_commands (game, command);
+  /*
+   * The repeat words are tested on the whole line before any task gets it:
+   * run400 89FE2 and run390 45F094 sit above tasks(0) (45F48B), run380 441B79
+   * and run370 43B3C9 likewise, but without `g`.  So a task that listens for
+   * `g` can never see it typed from 3.90 on; shadowpeak's riddle (TASK 404,
+   * answer `g`) repeats the previous command in run400 (2026-09-14).  Below
+   * 3.90 the `g` row in the standard table stays a Scarier abbreviation and
+   * keeps its place after the tasks.
+   */
+  if (!is_rerunning && run_is_repeat_word (game, line_element))
+    status = lib_cmd_again (game);
+  else
+    /* Try the command line element against command matchers. */
+    status = run_all_commands (game, command);
 
   /*
    * An open "Who do you want to attack?" continues a line nothing answered:

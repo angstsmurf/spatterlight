@@ -452,13 +452,9 @@ Remember, you can only remain in stealth mode for a limited amount of time
 before you must stop, so get your job done.
 
 > status
-                Range         Max         Current value (inc weapons/armour)
-Stamina:        80            102         80
-Hit strength:   1-1           1           6           (5)
-Accuracy:       0-0           0           0           (0)
-Defense value:  0-0           0           3           (3)
-Agility:        0-0           0           0
-                You are wielding a hunting sword.
+Stamina:                80 (102)
+Hit strength:                6 (1)
+Defense value:        3 (0)
 
 > stats
 These are your stats:

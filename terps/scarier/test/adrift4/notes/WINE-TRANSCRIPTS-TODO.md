@@ -290,7 +290,7 @@ engine:
   run400: its repeat-word block
   (`!!`/`again`/`last`/`previous`/`!`/`g`, 45F094) sits above `tasks(0)` at
   45F48B. run370/run380 test the same words minus `g` (43B3C9 / 441B79).
-  Porting that order is owed.
+  **Ported 2026-09-14** (see the index): no golden moved.
 
 ### Whole-corpus capture triage (2026-09-14)
 
@@ -325,13 +325,11 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 
 **Harness and compare leads:**
 
-- **Accented feeds reach Scarier as UTF-8.** largo_winch (from T0) and
-  enquete_a_hauts_risques (from T4) differ on every turn, and the Scarier side
-  answers like an engine that never saw the accented words (`Prendre quoi?`,
-  `Nothing special.`). The goldens (ISO-8859) print what the Runner printed.
-  `compare_wine_transcript.py` `scarier_run()` encodes stdin in the
-  cmdfile's encoding (UTF-8, because drive.exe reads UTF-8). It should encode
-  Scarier's stdin as latin-1. Fix, then re-run both compares.
+- **Accented feeds FIXED 2026-09-14.** `compare_wine_transcript.py`
+  `scarier_run()` encoded Scarier's stdin in the cmdfile's encoding (UTF-8,
+  because drive.exe reads UTF-8), so largo_winch and enquete_a_hauts_risques
+  differed on every turn. It now always encodes latin-1, and both rows are
+  identical on every turn apart from the keypress tail.
 - **Doubled keystrokes, re-drive owed:** bomb_threat T25 `ss` (eats
   feed[26]); humbug T448 `NN` (466 commands lost after it).
 - **light_up (seed 133), 217 lost from feed[294]:** at T293 `west` both sides
@@ -490,11 +488,11 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   - everything T38 `read diary`: run390 prints "I don't understand what you
     mean!" for silent TASK 14 (the known run390 silent-task deviation). The
     ending at T39 is identical.
-  - **the_town_of_azra T60 `status` (engine lead, draws 76 = 76):** run390
-    prints the 3.90 layout `Stamina: 80 (102) Hit strength: 6 (1) Defense
-    value: 3 (0)` (dobattle 44C595..44C7D1: three rows, no header, no
-    Accuracy/Agility, no wielding line). Scarier prints the 4.0 table
-    (`lib_print_battle_status`, run400 47DD42) at every version.
+  - **the_town_of_azra T60 `status` (draws 76 = 76), PORTED 2026-09-14:**
+    run390 prints the 3.90 layout `Stamina: 80 (102) Hit strength: 6 (1)
+    Defense value: 3 (0)` (dobattle 44C595..44C80F). Scarier now prints it
+    below 4.0 (`lib_print_battle_status_390`), and the row is identical on
+    every turn.
   - wonderwombat loads under run400x. gmylm's "no titled Runner window" was
     only the 25 s load cap.
 - Six rows raised `evaluate error - Subscript out of range` mid-game in the
@@ -717,6 +715,10 @@ every Runner.
 - **Word rules:**
   - `take` becomes `get` before parsing. `[3.8]` great
   - `z` means wait only from 3.90. cave
+  - The repeat words `again`/`last`/`previous` are tested on the whole line
+    before any task, and `g` joins them from 3.90 (run390 45F094, run400
+    89FE2). shadowpeak TASK 404's riddle `g` repeats the last command.
+    (`run_is_repeat_word`, 2026-09-14)
 - **Line splitting:**
   - The splitter cuts at `,`, `. `, ` and ` and ` then ``. It is suppressed
     when the tail starts with any object's Short, Prefix word or Alias
@@ -778,6 +780,9 @@ every Runner.
 - **Meta commands:**
   - `stats` is in no Runner; `status` exists only inside 3.9/4.0 dobattle.
     suburbanprodigy3
+  - 3.9's `status` is three tab-joined rows (Stamina, Hit strength, Defense
+    value, each `value (max)`), not the 4.0 table. `[3.9]` the_town_of_azra
+    (`lib_print_battle_status_390`, 2026-09-14)
   - The Runner's `past`, `bye`/`end`, `endgame`, control panel and quit
     decline text are ported (6033124f5).
   - `undo` answers by version: none at 3.7, "I can't undo your

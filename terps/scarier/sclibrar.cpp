@@ -18727,6 +18727,46 @@ lib_print_battle_status (scr_gameref_t game, scr_int npc)
 
 
 /*
+ * lib_print_battle_status_390()
+ *
+ * run390's status is not the 4.0 table but three tab-joined rows (dobattle
+ * 44C595..44C80F, player arm from 44C6D2):
+ *
+ *   Stamina:<tab><tab>80 (102)
+ *   Hit strength:<tab><tab>6 (1)
+ *   Defense value:<tab>3 (0)
+ *
+ * The value is the live stamina, hitstrength() (the record's strength plus
+ * the wielded or best weapon's HitValue) or armourstrength() (defence plus
+ * worn protection), and the bracket is the attribute's maximum field.  No
+ * header, no Accuracy or Agility row and no wielding line.  Measured on the
+ * town of azra (3.90, run390x Adrift_188 T60, 2026-09-14).
+ */
+static void
+lib_print_battle_status_390 (scr_gameref_t game, scr_int npc)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_char buffer[96];
+  scr_int lo, hi, current;
+
+  snprintf (buffer, sizeof (buffer), "Stamina:\t\t%ld (%ld)\n",
+            (npc < 0) ? gs_playerstamina (game) : gs_npc_stamina (game, npc),
+            battle_attribute_max (game, npc, "Stamina"));
+  pf_buffer_string (filter, buffer);
+
+  battle_attribute_report (game, npc, "Strength", &lo, &hi, &current);
+  snprintf (buffer, sizeof (buffer), "Hit strength:\t\t%ld (%ld)\n",
+            current, battle_attribute_max (game, npc, "Strength"));
+  pf_buffer_string (filter, buffer);
+
+  battle_attribute_report (game, npc, "Defense", &lo, &hi, &current);
+  snprintf (buffer, sizeof (buffer), "Defense value:\t%ld (%ld)\n",
+            current, battle_attribute_max (game, npc, "Defense"));
+  pf_buffer_string (filter, buffer);
+}
+
+
+/*
  * lib_cmd_status_player()
  * lib_cmd_status_npc()
  *
@@ -18740,7 +18780,10 @@ lib_cmd_status_player (scr_gameref_t game)
   if (!battle_is_enabled (game))
     return lib_cmd_statusline (game);
 
-  lib_print_battle_status (game, -1);
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    lib_print_battle_status_390 (game, -1);
+  else
+    lib_print_battle_status (game, -1);
   game->is_admin = TRUE;
   return TRUE;
 }
@@ -18756,6 +18799,36 @@ lib_cmd_status_npc (scr_gameref_t game)
     return lib_cmd_statusline (game);
 
   game->is_admin = TRUE;
+
+  /*
+   * run390's NPC loop (44C53A-44C6CD) takes the lowest-indexed character the
+   * line names by Name or first Alias, and exits on it: its table if seen,
+   * otherwise the refusal below.  A line naming nobody drops out of the loop
+   * into the player's table.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    {
+      for (index_ = 0; index_ < gs_npc_count (game); index_++)
+        {
+          if (!game->npc_references[index_])
+            continue;
+          var_set_ref_character (vars, index_);
+          if (gs_npc_seen (game, index_))
+            lib_print_battle_status_390 (game, index_);
+          else
+            pf_buffer_string (filter,
+                              lib_select_response (game,
+                                  "You can't get the status of a character"
+                                  " you've not seen yet!\n",
+                                  "I can't get the status of a character"
+                                  " I've not seen yet!\n",
+                                  "%player% can't get the status of a"
+                                  " character you've not seen yet!\n"));
+          return TRUE;
+        }
+      lib_print_battle_status_390 (game, -1);
+      return TRUE;
+    }
 
   /* Count and identify the NPCs referenced by the command. */
   count = 0;

@@ -1322,6 +1322,10 @@ the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 26
 # (run390 45EC5B), blank lines and administrative ones included, so `stats` reads
 # 62 -- the three blank lines at the head of the solution count -- as run390
 # prints in Adrift_536_the_town_of_azra_v390.txt.  58 was Scarier's old count.
+# Re-blessed 2026-09-14: `status` prints run390's own three tab-joined rows
+# ("Stamina:\t\t80 (102)", "Hit strength:\t\t6 (1)", "Defense value:\t3 (0)";
+# dobattle 44C6D2..44C80F), not the 4.0 table.  run390x Adrift_188 T60, and the
+# row is now identical to runner_transcripts/the_town_of_azra_v390.txt on every turn.
 the_town_of_azra_v390_solution.txt|The Town Of Azra.taf|Number of turns passed: 62|SCR_SKIP_WAITKEY=1
 # Score-ceiling re-survey (2026-09-13): 5/25 is not a shortfall to chase here --
 # this row is a short, deliberate early-game mechanic checkpoint (14 commands:
