@@ -9939,3 +9939,27 @@ now walks all alts with no method gate.  Pre-4.0 keeps the old walk
 (unmeasured).
 
 Goldens 428/428 (togetyou re-blessed).  togetyou's sweep row is now clean.
+
+## PORTED 2026-09-14: 4.0 wear marks only the whole line's 463640 winner
+
+beer (4.00) T11 `wear jumper`: the Runner answers "Wear what?"
+(Adrift_828_beer.txt), and its later `hide cushion in jumper` fails with
+"You aren't wearing a jumper!".  Scarier put the jumper on.  The held
+object (Prefix "a woolly", Short "jumper") scores 1.  The fountain's static
+"several people" (Short "people", aliases bodies/jumper/wooly) also scores
+1 through its "jumper" alias, so the scores tie.
+
+run400 wears() checks the line for "all" (var_86=1) and "and" (var_86=2).
+A plain line runs Proc_21_58_463640 over the whole line (46384F), and only
+a winner > -1 is marked.  A tie or no match marks nothing, the message stays
+empty, and 463C19 prints "Wear what?" and sets the line prefix.
+
+`lib_wear_multiple_common()` (not except) at TAF 4.00 now resolves such a
+line present-then-seen, and on < 0 answers like lib_cmd_wear_what()
+(question prefix + "Wear what?").  Lines with all/and keep the old parser.
+
+The beer walkthrough only won because of the divergence.  Its line 12 is now
+`wear woolly jumper`: the Prefix word scores 2 against 1, which the Runner
+also accepts.  Goldens 428/428 (beer re-blessed, still 50/50).  The beer
+sweep row (old cmdfile) is 80/80 aligned with 1 differing turn, T15, an RNG
+"locals cheer" event line.  A Wine re-drive of the new line 12 is owed.

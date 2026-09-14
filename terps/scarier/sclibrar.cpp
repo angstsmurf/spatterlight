@@ -11144,6 +11144,7 @@ lib_cmd_drop_multiple (scr_gameref_t game)
 
 
 static void lib_question_prefix_from_line (scr_gameref_t game);
+static scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
 static scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
                                     const scr_char *input);
 
@@ -11525,6 +11526,28 @@ lib_wear_multiple_common (scr_gameref_t game, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int objects, references;
+
+  /*
+   * 4.0 wears() on a line with neither "all" nor "and" marks only the
+   * Proc_21_58_463640 winner of the whole line (46384F): present and seen,
+   * then seen.  A tie or no match marks nothing, and the empty message
+   * becomes "Wear what?" (463C19).  Measured beer turn 11 `wear jumper`,
+   * the held woolly jumper tying the fountain's "several people" (alias
+   * jumper).
+   */
+  if (!is_except && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+    {
+      const scr_char *input = run_get_dispatch_input ();
+
+      if (input && !lib_input_contains_word (input, "all")
+          && !lib_input_contains_word (input, "and")
+          && lib_verb_object_resolve_400_string (game, input, NULL, TRUE) < 0
+          && lib_verb_object_resolve_400_string (game, input, NULL, FALSE) < 0)
+        {
+          lib_question_prefix_from_line (game);
+          return lib_what (game, "Wear");
+        }
+    }
 
   /* Parse the multiple objects list to find the target objects. */
   if (!lib_parse_multiple_objects (game, is_except ? "retain" : "wear",

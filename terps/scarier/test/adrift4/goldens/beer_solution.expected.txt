@@ -83,7 +83,7 @@ jumper.
 > take jumper
 You take the woolly jumper.
 
-> wear jumper
+> wear woolly jumper
 You put on the woolly jumper.
 
 > east

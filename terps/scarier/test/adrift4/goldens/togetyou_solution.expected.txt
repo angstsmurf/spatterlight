@@ -108,7 +108,7 @@ Already looks nasty.
 > infect cut
 It is now Infected!
 
-The Ear
+The Infected Ear
 This is the outer ear canal, which is the part of the ear you can see from
 outside. From here to you can go to the throat, nose, mouth or stomach.  In
 the ear canal you can see a tiny cut.

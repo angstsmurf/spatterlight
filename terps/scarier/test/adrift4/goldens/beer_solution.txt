@@ -9,7 +9,7 @@ pull switch
 west
 west
 take jumper
-wear jumper
+wear woolly jumper
 east
 north
 east
