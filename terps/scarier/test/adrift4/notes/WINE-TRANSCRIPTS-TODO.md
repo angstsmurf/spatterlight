@@ -9508,3 +9508,249 @@ takes()' rewrite (43E47B), hence kn1/kn5.  run370 has no sweep; run390 none.
   walkthrough's `take the knives` now answers "You've already got some
   tarnished knives!" -- both exactly Adven_9_timmy_reid.rtf lines 37/40.
 - Goldens 428/428.
+
+## Verified 2026-09-14: full-game xoshiro re-drive of the 20 updated goldens
+
+Re-drove all 20 named rows whose golden was touched by the 2026-09-13/14
+commits (`fullcircle`, `house`, `iachini`, `iqsfot`, `lair`, `les_feux`,
+`mould`, `reluctantvampire`, `shadowpeak`, `shadowpeak_allgargoyles`,
+`shadowpeak_killwraith`, `sun_empire`, `target`, `threeminutes`, `ticket`,
+`warlord`, `wes_ghn`, `where_are_my_keys`, `yonastoundingcastle`, `zombies`)
+through the real run400x Wine Runner with `~/adrift-battle/runner/wine/
+xoshiro_par.sh` (fresh captures, `VBRNG=xoshiro`, per-row seed), then
+compared each against a fresh `harness/scare` replay of the same feed with
+`SCR_RNG=xoshiro SCR_SEED=<same seed>`: a draw-count census (`RND #` lines,
+Runner trace vs `SCR_TRACE_RAND`) plus a full `compare_wine_transcript.py`
+turn diff. Verification only -- no engine source touched.
+
+| tag | draws 09-13 | draws 09-14 | transcript | verdict |
+|---|---|---|---|---|
+| `shadowpeak` | +612 | **0** | 1 turn (trailing `[Press any key to end]` bracket) | now exact draw parity |
+| `shadowpeak_killwraith` | +157 | **0** | RULE 2, post-ending busywork only | now exact draw parity |
+| `shadowpeak_allgargoyles` | -135 | **0** | RULE 2, post-ending busywork only | now exact draw parity |
+| `sun_empire` | +72 | **0** | RULE 2, post-ending busywork only | now exact draw parity |
+| `les_feux` | +62 | **0** | RULE 2, post-ending busywork only | now exact draw parity |
+| `wes_ghn` | -51 | **0** | epilogue tail only | now exact draw parity |
+| `yonastoundingcastle` | -120 | **0** | epilogue tail only | now exact draw parity |
+| `where_are_my_keys` | +16 | **0** | 0 | now CLEAN (was already draw-clean; transcript now clean too) |
+| `ticket` | +10 | **0** | 0 | CLEAN (unchanged) |
+| `iqsfot` | 0 | **0** | 0 | CLEAN (unchanged) |
+| `fullcircle` | 0 | 0 | 0 | CLEAN (unchanged) |
+| `iachini` | 0 | 0 | 0 | CLEAN (unchanged) |
+| `target` | 0 | 0 | 0 | CLEAN (unchanged) |
+| `threeminutes` | 0 | 0 | 0 | CLEAN (unchanged) |
+| `reluctantvampire` | 0 | 0 | epilogue tail only | unchanged |
+| `zombies` | 0 | 0 | epilogue tail only | unchanged |
+| `mould` | 0 | 0 | hint-command realignment (see below) | unchanged, not comparable |
+| `lair` | +20 | +20 | `<centre>` whitespace-only artefact | unchanged, pre-existing lead |
+| `warlord` | +22 | +22 | 3 real turns (see below) | unchanged, pre-existing lead |
+| `house` | +1159 | +1158 / crash-loop | not comparable | unchanged, worse -- see below |
+
+**Nine rows moved from a real 09-13 gap to exact draw parity and a clean or
+near-clean transcript** (`shadowpeak`, `shadowpeak_killwraith`,
+`shadowpeak_allgargoyles`, `sun_empire`, `les_feux`, `wes_ghn`,
+`yonastoundingcastle`, `where_are_my_keys`, `ticket`) -- this is what the
+golden update actually fixed. `fullcircle`, `iachini`, `iqsfot`, `target`,
+`threeminutes` were already exact and stayed exact.
+
+### What "DIFFERS" means for the 8 rows that still show a transcript diff
+
+None of these eight are engine divergences; all are already-documented
+harness/feed artefacts, at 0 draw-count diff:
+
+- **`shadowpeak`**: the sole difference is the Runner's own trailing
+  `[Press any key to end]` keypress prompt (not game text) after an
+  otherwise identical final turn.
+- **`shadowpeak_killwraith`, `shadowpeak_allgargoyles`, `sun_empire`,
+  `les_feux`**: RULE 2 reports 100+ "lost" feed commands each, but every one
+  of them is busywork typed *after* an identical win/death screen was
+  already reached on both sides -- the walkthrough feed simply keeps going
+  past the ending. Not a real loss.
+- **`wes_ghn`, `yonastoundingcastle`, `zombies`, `reluctantvampire`**: every
+  feed command is echoed and every turn matches; Scarier's replay then
+  prints one more block (the final-score/epilogue text) past the Runner's
+  very last `[Press a key]` prompt, because the live Wine capture stops
+  polling at that prompt and never sees the epilogue the Runner would
+  otherwise print after it. Matches [[adrift4-endgame-score-summary]]
+  (`NotifyScore` default OFF) exactly.
+- **`mould`**: 0 draw diff; the only realignment is around the in-game
+  `hint` command -- run400 has no working interactive hints for this game,
+  Scarier does -- an unrelated, pre-existing feature gap, not RNG and not
+  touched by this golden update.
+
+### The two still-open, unrelated leads
+
+- **`lair`** (+20 draws): reproduces the exact same magnitude as the
+  pre-update 09-13 census. The only transcript difference is the
+  `<centre>...</centre>` room-heading-merge artefact
+  ([[adrift-runner-transcript-centre-artefact]]) -- an ambient-random-event
+  text-selection difference elsewhere accounts for the draw delta. Not
+  touched by this update.
+- **`warlord`** (+22 draws): same magnitude as 09-13. Genuine content
+  differences, still open: `push barrel` (run400 "You can't see the
+  barrel.", Scarier "You push, but nothing happens."), `stand on platform`
+  (run400 "You can't see the raised platform.", Scarier "You can't stand on
+  that."), `give wine to leonora` (run400 "You can't see the photo.",
+  Scarier "Give what?") -- object-reference/task-resolution mismatches, plus
+  3 whitespace-only `<centre>` turns. Not touched by this update.
+
+### `house`: still not independently verifiable, and now for two reasons
+
+The first drive (parallel batch) reproduced the pre-existing "Verbose was
+OFF" harness artefact almost exactly (+1158 draws, matching the 09-13
+census's +1159). An isolated re-drive (`maxpar 1`, prefix confirmed clear of
+any other process, done twice -- the first isolated attempt crashed with
+"evaluate error - Out of stack space" while a **separate, concurrent Claude
+Code session was independently running its own unrelated Wine job
+(`House_sober.taf`) against the same shared, non-isolated Wine prefix** at
+the same time) still came back invalid: once genuinely alone, run400x hit a
+real, reproducible `Out of Stack Space` / "recursive task" error dialog
+(`Taskno: 241, Actionno: 1`) repeatedly throughout the whole run, driven by
+House.taf's own task 241 recursing in the VB6 evaluator -- a run400x bug on
+this game, not a Verbose race and not touched by the golden update. Draws
+came back 1182 (Runner) vs 2259 (Scarier), but with dialogs interrupting
+real turns throughout the run, that number is not meaningful. `house`
+remains **NOT COMPARABLE** in this pass, now for a harness/Runner-crash
+reason on top of the pre-existing Verbose-toggle race, not for any reason
+in scope for this update.
+
+(Separately: this session confirmed a Wine-prefix footgun not previously
+documented -- `~/adrift-battle/runner/wine/pfx` is shared, mutable state,
+and two independent Claude Code sessions driving Runner jobs against it at
+the same time can and did corrupt one session's capture.)
+
+## Verified 2026-09-14: the 12 deferred candidates, full re-drive
+
+Drove all 12 games from the "Deferred candidates" list (`Colony`,
+`Locked_door_with_water_trap`, `Villains_And_Kings`,
+`Theannihilationofthink2`, `To_Hell_And_Beyond`, `Pieces of eden`,
+`The Fly Human`, `The Foggy Banana Adventure`, `hyper_b_s`, `sophie`,
+`CIBASS`, `great_escape`) through the real Wine Runner (run390x for the
+three 3.90 files, run400x for the seven 4.00 files, run380x for
+`great_escape`), same method as the batch above: `xoshiro_par.sh` fresh
+capture + draw-count census + `compare_wine_transcript.py` against a fresh
+`harness/scare` replay, same seed, `SCR_RNG=xoshiro`. Verification only --
+no engine source touched.
+
+| tag | draws (wine/scarier) | transcript | verdict |
+|---|---|---|---|
+| `colony` | 20 / 20 | 0 | CLEAN |
+| `locked_door` | 577 / 577 | 0 | CLEAN |
+| `to_hell_and_beyond` | 77 / 77 | 0 | CLEAN (unassisted oracle only -- see below) |
+| `pieces_of_eden` | 6 / 6 | 0 | CLEAN |
+| `flyhuman` | 5 / 5 | 0 | CLEAN |
+| `foggybanana` | 2 / 2 | 0 | CLEAN |
+| `think2` | 1 / 1 | 1 turn (trailing keypress bracket) | CLEAN once popups fixed -- see below |
+| `hyper_b_s` | 32 / 32 | RULE 2, post-ending busywork only | CLEAN (real ending reached) |
+| `great_escape` | 6 / 6 | RULE 2, post-ending busywork only | CLEAN (real ending reached) |
+| `sophie` | 429 / 429 | 2 whitespace-only + epilogue tail | CLEAN (harness artefacts only) |
+| `cibass` | 11 / 11 | epilogue tail only | CLEAN (harness artefact only) |
+| `villains_and_kings` | 22 / 22 | 1 real turn (see below) | DIFFERS -- open lead |
+
+11 of 12 are clean once the harness's own known artefact classes (RULE 2
+post-ending busywork, epilogue-tail-after-final-keypress, `<centre>`-style
+whitespace) are accounted for; every one of those 11 has exact draw-count
+parity. `villains_and_kings` has one unexplained genuine content
+divergence, below.
+
+### `think2` (Theannihilationofthink2): required `POPUP_ANSWERS`, now clean
+
+The first attempt aborted at command 1 (`ABORT at cmd 1: 'login to
+think.com'`). `par/think2.log` showed the cause directly: ~100+ repeated
+`Please enter your name: [1:OK][2:Cancel][4902:&Help]` dialogs, then a VB6
+`Run-time error '9': Subscript out of range` crash. This is **not** a
+custom in-game login screen -- `login to think.com` is an ordinary feed
+command that the game itself would have accepted as its first move; it
+never reached the game because a standard ADRIFT 3.90 player-name
+`InputBox` was still open in front of it. Confirmed by reading
+`drv/drive.cs`'s InputBox handler (only answers an `Edit`-child dialog when
+`popup.Count > 0`; with no popup queued it falls through to a generic
+"click the default button" handler that leaves the name field blank) and
+cross-checked against `compare_wine_transcript.py`'s own
+`default_popup_answers()` docstring, which documents exactly this: run390
+re-asks an empty name forever, and the function deliberately returns `[]`
+with a warning for a sub-4.00 game rather than guess. The other three
+3.90 games in this batch (`colony`, `locked_door`, `villains_and_kings`)
+never hit this prompt at all -- their `.taf` files have `PlayerName`
+pre-set -- ruling out a systematic driver regression.
+
+Re-drove `think2` alone with `POPUP_ANSWERS="Hero"` wired into
+`xoshiro_par.sh`'s job row (`fast.sh`'s 7th field): the name dialog cleared
+immediately and the drive completed cleanly (`DONE 17 commands`). On the
+compare side, the game *also* asks a gender question right after the name
+(`Please choose the gender of the player`) -- `par/think2.log` shows the
+Wine drive answering it with its own built-in default (`male`) even though
+only `POPUP_ANSWERS="Hero"` was supplied on the drive side. The first
+compare attempt with `--popup Hero` alone therefore still showed the
+Scarier replay stuck on "Please answer 'male' or 'female'" for every turn
+(scarier draws=0, wine draws=1, diff=-1) -- passing `--popup "Hero"
+--popup "male"` (matching what the driver actually answered) brought it to
+exact draw parity (1/1) and a clean transcript, identical apart from the
+Runner's own trailing `[Press any key to end]` bracket. So: `think2` was
+never a broken game or a custom login screen, only a missing pair of popup
+answers on both the drive and compare sides; both are now on record.
+
+### `hyper_b_s` / `cibass`: prefix had them under the wrong filename
+
+Both jobs initially failed before creating even a log (`sed: par/hyper_b_s.
+log: No such file or directory`, `rc=1 transcript=none`). Manual `fast.sh`
+run showed the actual cause: `no pfx/drive_c/adrift/hyper_b_s.taf` -- only
+`w_`-prefixed copies (`w_hyper_b_s.taf`, `w_cibass.taf`, from an earlier
+naming convention) existed in the Wine prefix; `run_v4_walkthroughs.sh`'s
+golden rows and canonical harness naming expect the plain filenames.
+Verified via `shasum -a256` that the `w_`-prefixed copies were byte-identical
+to the canonical source `.taf` files in `test/adrift4/games/`, then copied
+the source files into the prefix under the canonical names (additive only,
+nothing deleted or overwritten). Both re-ran clean after that -- a
+harness/prefix-setup gap, not an engine issue.
+
+### `hyper_b_s` / `great_escape`: RULE 2 false alarm, legitimate early ending
+
+Both jobs' feeds run past their own win condition. `hyper_b_s`'s Wine drive
+ended at 14/28 commands echoed (Hiscore Table form reached, "The Flare Rat
+is dead! Mission complete!"); `great_escape`'s at 124/132 (Hiscore Table
+form reached, matching the pre-established car-chase-ending note). Both
+match the shadowpeak-family pattern from the batch above exactly: every
+command up to the ending is identical, the tail is unanswerable post-ending
+busywork typed into a form the Runner has already closed input on, and both
+have 0 draw-count diff. `great_escape`'s previously-flagged car-chase
+RNG-event-length unmeasurability does not reproduce here under xoshiro
+lock-step -- draws match exactly (6/6) and every echoed turn is identical,
+so whatever made the car chase unmeasurable before was a symptom of
+LCG/xoshiro RNG mismatch, not a structural harness limit.
+
+### `to_hell_and_beyond`: unassisted oracle only, by design
+
+Only the unassisted 3-command probe row
+(`greet zifan` / `open door` / `s`) was driven and compared, per the
+existing, still-current guidance in this file: the assisted row
+(`SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1`) is a deliberate Scarier-only
+assist feature with no run400 counterpart (the game's own combat data is a
+mathematical stalemate without it, and a mid-game move destination is
+unset), and was never intended to be comparable against the real Runner
+past command 92. The unassisted row is clean (77/77 draws, 0 transcript
+diff) and remains the honest oracle for this game.
+
+### `villains_and_kings`: one open, unexplained divergence
+
+Every one of the 42 feed commands is echoed and 41 of them match exactly;
+draws are exact (22/22). The sole difference:
+
+    turn 12  wield sword
+      run400   I don't understand what you are wanting to wield!
+      scarier  You wield Kinda Sharp Sword.
+
+This happens at the very start of the game (just after picking a sword off
+a weapon rack), well before any battle is triggered. `sclibrar.cpp`'s
+`lib_cmd_wield()` is gated entirely on `battle_is_enabled()`
+(`prop_get_global_boolean(bundle, "Globals"/"BattleSystem")`); Scarier
+reads that flag as true for this file and accepts the wield, while run390
+answers with what looks like its generic "I don't understand what you are
+wanting to VERB!" unhandled-verb-plus-object message, i.e. as if wield
+either isn't recognized as a verb at all for this game, or the Battle
+System flag run390 sees for `Villains_And_Kings.taf` is off. This is a
+genuine, unexplained content divergence -- not a harness artefact, not
+whitespace, not RULE 2 busywork -- and is left open rather than guessed at,
+since resolving it would need reading the game's actual on-disk
+`BattleSystem` byte and is out of scope for a verification-only pass (no
+engine edits made or attempted).
