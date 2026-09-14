@@ -1,0 +1,49 @@
+feed        284 commands
+runner      284 turns echoed
+scarier     272 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 1  e
+  run400   
+  scarier  You move east. Bellview Road - numbers 3 and 4 To the north lies No. 3 and to the south lies No. 4. Nothing much seems to be going on around here.
+
+turn 2  e
+  run400   
+  scarier  You move east. Bellview Road - numbers 5 and 6 Something casts a shadow over this part of the road. You glance up and notice that nothing is blocking the sunlight. It's just slightly....darker here. No. 5. lies to the north and No. 6. lies to the south.
+
+turn 3  e
+  run400   
+  scarier  You move east. Bellview Road - numbers 7 and 8 A large tree stands here. To the north lies No. 7 and to the south lies No. 8.
+
+turn 4  e
+  run400   
+  scarier  You move east. Bellview Road - numbers 9 and 10 Bellview Road ends here and becomes Haughton street to the east. To the North lies No .9. while to the south lies No. 10. Cathy's house.
+
+turn 20  w
+  run400   
+  scarier  You move west. Bellview Road - numbers 7 and 8 The pavement is ragged and broken where a tree used to stand. Its almost as if it heaved up its roots and walked away. You wonder where it is now. It was a very large tree. To the north something seems to be sliding over the walls of No. 7. and to the south is....darkness.
+
+turn 21  w
+  run400   
+  scarier  You move west. Bellview Road - numbers 5 and 6 There is madness in the sky. No. 5. lies to the north and No. 6. lies to the south.
+
+turn 33  open dining room door
+  run400   The dining room door is already open! You begin to realise how cold it is here. Everything is covered in a layer of frost.
+  scarier  The dining room door is already open!
+
+turn 35  w
+  run400   
+  scarier  You move west. Dining room This room is dominated by a huge fireplace. A large window is set in the south wall with thick shutters on either side. To the north is the kitchen door. High up on one wall you notice a dent in the plaster. A suit of armour stands in one corner. Someone has removed an old thredbare rug from its place on the floor, rolled it up and placed it to one side. You can also see a dining room table and a wooden trapdoor. Cathy seems to have gone catatonic.
+
+turn 37  i
+  run400   You are carrying a note and a diary. It is freezing. You begin to shiver involuntarily.
+  scarier  You are carrying a note and a diary.
+
+turn 38  e
+  run400   
+  scarier  You move east. Hallway A long uncarpeted passage ending in rickety looking stairs. The floorboards are worn and the walls are bare plaster. You guess that the door to the east leeds to the lounge while the door to the west leeds to the dining room. The front door is behind you and stands beside a narrow window with its own wooden shutter. You can also see a wooden stool. You begin to realise how cold it is here. Everything is covered in a layer of frost.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

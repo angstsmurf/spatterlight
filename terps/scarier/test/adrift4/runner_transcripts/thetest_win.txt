@@ -1,0 +1,454 @@
+
+> open clothes
+You unzip the pocket.  Some more fluff is inside your clothes.  
+
+> take fluff
+You take some more fluff from your clothes.  
+
+> drop fluff
+You drop the fluff.  The fluff is dragged away into the machine.  It sneezes loudly.
+
+> z
+Time passes...
+
+> take fluff
+You take some more fluff from your clothes.
+
+> drop fluff
+You drop the fluff.  The fluff is dragged away into the machine.  It sneezes loudly.
+
+> z
+Time passes...
+
+> take fluff
+You take some more fluff from your clothes.  
+
+> drop fluff
+You drop the fluff.  The fluff rolls away into the machine.  You wait. The machine starts crying and sneezing.  It breaks into a fit of coughs then shudders.  It stops.  You've just thrown a bit of fluff into a machine thats allergic to it.  The conveyer stops a moment later, and you keep running and are thrown against the opposite wall.
+
+> z
+Time passes...
+
+> take key
+You take a bright orange key from the machine.
+
+> unlock door
+You insert the white key into the lock but instead of unlocking the door turns black.  
+
+> unlock door
+You insert the white key into the lock but instead of unlocking the door turns bright orange.
+
+> unlock door
+You insert the brown key into the lock but instead of unlocking the door turns yellow.  
+
+> unlock door
+You insert the brown key into the lock but instead of unlocking the door turns weathered pewter.
+
+> unlock door
+You insert the bright orange key into the lock but instead of unlocking the door turns violet.  
+
+> unlock door
+You insert the bright orange key into the lock but instead of unlocking the door turns brown.
+
+> unlock door
+You insert the black key into the lock but instead of unlocking the door turns brown.  
+
+> unlock door
+You insert the black key into the lock but instead of unlocking the door turns green.
+
+> unlock door
+You insert the weathered pewter key into the lock but instead of unlocking the door turns yellow.  
+
+> unlock door
+You insert the weathered pewter key into the lock but instead of unlocking the door turns yellow.
+
+> unlock door
+You insert the weathered pewter key into the lock but instead of unlocking the door turns blue.  
+
+> unlock door
+You insert the weathered pewter key into the lock but instead of unlocking the door turns green.
+
+> unlock door
+You insert the white key into the lock but instead of unlocking the door turns bright orange.  
+
+> unlock door
+You insert the white key into the lock but instead of unlocking the door turns brown.
+
+> unlock door
+You insert the bright orange key into the lock but instead of unlocking the door turns bright orange.  
+
+> unlock door
+You insert the bright orange key into the lock but instead of unlocking the door turns white.
+
+> unlock door
+You insert the yellow key into the lock but instead of unlocking the door turns red.  
+
+> unlock door
+You insert the yellow key into the lock but instead of unlocking the door turns black.
+
+> unlock door
+You insert the red key into the lock but instead of unlocking the door turns white.  
+
+> unlock door
+You insert the red key into the lock but instead of unlocking the door turns blue.
+
+> unlock door
+You insert the bright orange key into the lock but instead of unlocking the door turns brown.  
+
+> unlock door
+You insert the bright orange key into the lock but instead of unlocking the door turns red.
+
+> unlock door
+You insert the brown key into the lock but instead of unlocking the door turns white.  
+
+> unlock door
+You insert the brown key into the lock but instead of unlocking the door turns brown.
+
+> unlock door
+You insert the red key into the lock but instead of unlocking the door turns violet.  
+
+> unlock door
+You insert the red key into the lock but instead of unlocking the door turns blue.
+
+> unlock door
+You insert the white key into the lock but instead of unlocking the door turns yellow.  
+
+> unlock door
+You insert the white key into the lock but instead of unlocking the door turns brown.
+
+> unlock door
+You insert the weathered pewter key into the lock but instead of unlocking the door turns brown.  
+
+> unlock door
+You insert the weathered pewter key into the lock but instead of unlocking the door turns brown.
+
+> unlock door
+You insert the red key into the lock but instead of unlocking the door turns blue.  
+
+> unlock door
+You insert the red key into the lock but instead of unlocking the door turns weathered pewter.
+
+> unlock door
+You insert the violet key into the lock but instead of unlocking the door turns white.  
+
+> unlock door
+You insert the violet key into the lock but instead of unlocking the door turns red.
+
+> unlock door
+You insert the green key into the lock but instead of unlocking the door turns brown.  
+
+> unlock door
+You insert the green key into the lock but instead of unlocking the door turns brown.
+
+> unlock door
+You insert the violet key into the lock but instead of unlocking the door turns black.  
+
+> unlock door
+You insert the violet key into the lock but instead of unlocking the door turns red.
+
+> unlock door
+You insert the violet key into the lock but instead of unlocking the door turns green.  
+
+> unlock door
+You insert the violet key into the lock but instead of unlocking the door turns brown.
+
+> unlock door
+You insert the violet key into the lock but instead of unlocking the door turns white.  
+
+> unlock door
+You insert the violet key into the lock but instead of unlocking the door turns yellow.
+
+> unlock door
+You insert the blue key into the lock but instead of unlocking the door turns brown.  
+
+> unlock door
+You insert the blue key into the lock but instead of unlocking the door turns red.
+
+> unlock door
+You insert the bright orange key into the lock but instead of unlocking the door turns green.  
+
+> unlock door
+You insert the bright orange key into the lock but instead of unlocking the door turns violet.
+
+> unlock door
+You insert the blue key into the lock but instead of unlocking the door turns violet.  
+
+> unlock door
+You insert the blue key into the lock but instead of unlocking the door turns bright orange.
+
+> unlock door
+You insert the brown key into the lock but instead of unlocking the door turns brown.  
+
+> unlock door
+You insert the brown key into the lock but instead of unlocking the door turns red.
+
+> unlock door
+You insert the blue key into the lock but instead of unlocking the door turns bright orange.  
+
+> unlock door
+You insert the blue key into the lock but instead of unlocking the door turns weathered pewter.
+
+> unlock door
+You insert the yellow key into the lock but instead of unlocking the door turns weathered pewter.  
+
+> unlock door
+You insert the yellow key into the lock but instead of unlocking the door turns white.
+
+> unlock door
+You insert the blue key into the lock but instead of unlocking the door turns blue.  
+
+> unlock door
+You insert the blue key into the lock but instead of unlocking the door turns blue.
+
+> unlock door
+You insert the brown key into the lock but instead of unlocking the door turns weathered pewter.  You hear the key fall into some storage space, and the door click open.  You walk through.  
+The Room of Eternal Dialing
+You are in the room of eternal dialling.  There is a phone here.  It gives you the strange idea of using it to dial a number!  What a good idea!  There is another door to the east.  It's locked.  You can only move west.
+
+> unlock door
+You can't do that here!
+
+> unlock door
+You can't do that here!  Robot Guard storms in from the east.  A robot guard hits you with the robot's chain.
+
+> unlock door
+You can't do that here!  A robot guard hits you with the robot's chain.
+
+> unlock door
+You can't do that here!  A robot guard hits you with the robot's chain.
+
+> unlock door
+You can't do that here!  Robot Guard stamps out to the east.
+
+> unlock door
+You can't do that here!
+
+> unlock door
+You can't do that here!
+
+> unlock door
+You can't do that here!
+
+> unlock door
+You can't do that here!
+
+> unlock door
+You can't do that here!
+
+> unlock door
+You can't do that here!
+
+> unlock door
+You can't do that here!
+
+> unlock door
+You can't do that here!
+
+> dial 987
+You: Who's there?
+The other end: The international number password company.
+Do you have the number for (you look at the serial number on the door) 32396?
+Them: Yes its 2252710.
+You: Thank you.
+Them: Bye.
+
+> enter 2252710
+You enter 2252710 into the door panel, a click, and the door slides upwards into a slot in the wall above.  The door has gone.  You can now leave to the east.
+
+> east
+You move east.
+The Orange Room
+This room is orange thus becoming the orange room.  Orange paint is painted on all the surfaces of this room including the floor except a small gap in the west wall which leads to another room.  Scattered on the ground is a portable teleporter.  A Robot Guard is here.  You can only move west.  A robot guard hits you with the robot's chain.
+
+> shout 1
+You shout one and the robot scurries off.
+
+> shout 1
+Why shout numbers now?
+
+> shout 1
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?  Robot Guard storms in from the west.  A robot guard hits you with the robot's chain.
+
+> shout 3
+You shout three and the robot scurries off.
+
+> shout 3
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?
+
+> shout 3
+Why shout numbers now?
+
+> shout 6
+Why shout numbers now?  Robot Guard storms in.  A robot guard hits you with the robot's chain.
+
+> shout 6
+You shout six and the robot scurries off.
+
+> shout 6
+Why shout numbers now?
+
+> shout 6
+Why shout numbers now?
+
+> shout 6
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?  Robot Guard storms in from the west.  A robot guard hits you with the robot's chain.
+
+> shout 10
+You shout ten and the robot scurries off.
+
+> shout 10
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?
+
+> shout 10
+Why shout numbers now?
+
+> shout 15
+Why shout numbers now?  Robot Guard storms in.  A robot guard hits you with the robot's chain.
+
+> shout 15
+You shout fifteen and the robot scurries off.
+
+> shout 15
+Why shout numbers now?
+
+> shout 15
+Why shout numbers now?
+
+> shout 15
+Why shout numbers now?
+
+> shout 21
+Why shout numbers now?  Robot Guard storms in from the west.  A robot guard hits you with the robot's chain.
+
+> shout 21
+You shout 21 and the robot scurries off.
+
+> shout 21
+Hey!  The secret calculator task is calculate triangle (number).  And also the robot guard just dropped his key.  Just thought you ought to know.
+
+> shout 21
+Why shout numbers now?
+
+> shout 21
+Why shout numbers now?
+
+> shout 21
+Why shout numbers now?
+
+> shout 21
+Why shout numbers now?
+
+> shout 21
+Why shout numbers now?
+
+> shout 21
+Why shout numbers now?
+
+> shout 21
+Why shout numbers now?
+
+> shout 91
+Why shout numbers now?  Robot Guard storms in.  A robot guard hits you with the robot's chain.
+
+> shout 91
+You shout 91 at the robot but it ignores you.  However, when you starting shouting it looked slightly afraid.  A robot guard hits you with the robot's chain.
+
+> shout 91
+You shout 91 at the robot but it ignores you.  However, when you starting shouting it looked slightly afraid.  Robot Guard stamps out to the west.
+
+> shout 91
+Why shout numbers now?
+
+> shout 91
+Why shout numbers now?
+
+> take key
+You pick up yet another key.  Robot Guard storms in from the west.  A robot guard hits you with the robot's chain.
+
+> take teleporter
+You pick up the portable teleporter.  A robot guard hits you with the robot's chain.
+
+> west
+You move west.
+The Room of Eternal Dialing
+You are in the room of eternal dialling.  There is a phone here.  It gives you the strange idea of using it to dial a number!  What a good idea!  There is another door to the east.  It's locked.  You can move east and west.
+
+> teleport
+As I said, its broken.  The entire destination circuit has been broken off.  But as I told you it might still work, here it goes.  Colours swirl around you.  Then you arrive.  A robot guard hits you with the robot's chain.
+
+> look
+Morse Room
+If you can't hear anything then turn your speakers up and the sound on.  You're in a old shack, the kind you send morse from except that all the equipment has gone.  A slot forms part of the east wall.  A Robot Guard is here.  Robot Guard stamps out to the east.
+
+> tiddlywink
+You say tiddlywinks.  Thick smoke swirls around the room.  You wait for what seems like half a minute before the smoke disappears.  The room is just the same as it was though your pocket feels slight heavier.
+
+> take tiddlywink
+You take the blue tiddlywink from your clothes.
+
+> put tiddlywink in slot
+You place the magic tiddlywink in the slot and it fits perfectly.  The slot glows blue then becomes a hole in the wall.  It expands leaving a new exit to the east.
+
+> east
+You move east.
+The Empty Room
+This room is completely empty and very plain.  Unless you count the dust, but even that is very plain.  Scattered on the ground is a piece of paper.  A Robot Guard is here.  You can only move west.  Robot Guard stamps out to the west.
+
+> push south
+You push the south wall, but instead of opening it swivels round, leaving yet another door!  On the right hand side of the door is a key hole.
+
+> use key with keyhole
+You put yet another key into the keyhole then pull the brick wall towards you.  You look through and almost collapse.
+You listen to what he has to say,
+"An A I think, Gordon, don't you?"
+  Well done!  You won!  It wasn't that hard was it?
+And you did understand the plot didn't you?  If not email me.
+No animals or teachers were hurt in the making of this game.
+Any references to characters living or dead excluding my brother's physics teacher are entirely coincidental.
+You scored 20 out of the maximum 25!
+That is 80% of the game!
+You finished 5 points short.
+
+[Press any key to end]

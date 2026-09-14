@@ -1,0 +1,99 @@
+
+> score
+Your score is 0 out of a maximum of 0.  (0%)
+
+> atacar al anciano
+- El asesino se abalanzó sobre Don Rodrigo mientras este se encontraba de espaldas buscando las llaves en sus bolsillos. Su mujer  era inválida así que no llamó por el portero automático para que esta le abriese, esos segundos preciosos fueron los que le perdieron. El asesino lo estranguló sin más frente a la puerta de su casa.  
+2
+-¿Nadie vio ni oyó nada?                                                                                                                                                                                                                                     - Nadie. El anciano murió en silencio.                                                                                                                                                                                                                                     - Pero el asesino no dejó el cadáver enfrente de la casa. ¿Por qué no huyó sin más?                                                                                                                                                                                                                                      - Debió de entrarle el pánico. La gente suele hacer cosas raras después de matar. Esas zonas de chalets suelen tener contratado un vigilante nocturno, tal vez el asesino temiese que se diese la alarma demasiado pronto. Prefirió ocultar el cuerpo.                                                                                                                                                                                                                                    - ¿Así que qué hizo?                                                                                                                                                                                                                                       
+
+> examinar la casa
+- Rapidamente el asesino cogió las llaves del fallecido. Habrió la verja y metió el cadaver en el jardín. Era un sitio más resguardado pero necesitaba esconder el cadaver ya que se podia ver desde fuera.
+
+> esconder el cuerpo
+- Dos dias despues, la asistenta encontró a Don Rodrigo oculto entre unos setos al lado de la entrada y a su mujer inconsciente y en avanzado estado de desnutrición tirada a un lado de la cama en su habitación. La pobre habia intentado arrastrarse hasta un teléfono ante la ausencia de su marido.
+- ¿ Nadie vió ni oyó nada?
+- Nadie dio aviso. A esas horas la gente suele estar viendo la televisión y no se entera de nada.
+
+4
+
+
+
+
+* DOS CUERPOS
+
+
+
+- ¿Y el segundo ataque? Me refiero al de la pareja en el parque. 
+- Una pena. Dos crios de dieciséis años muertos ¡Joder, parte de la culpa es de los padres por dejarles salir a esas horas! 
+- ¿Cómo se sabe que fue obra de la misma persona? 
+- La muchacha fue estrangulada. Las marcas del cuello coincidían con las del anciano. El crio en cambio… es otro cantar. Una muerte de la más tonta. 
+- ¿Como fue? 
+- Verá ¿Conoce el Estanque de los Patos? 
+- Por supuesto. Mi mujer suele llevar los niños a jugar alli por las tardes. 
+- Y la mía también, pero por las noches también es un lugar donde suelen reunirse las parejas. Por como se encontraron los cuerpos creo que ocurrió de la siguiente forma: el chico y la chica estaban apoyados en la barandilla contemplando el estanque mientras se decían tonterías. Ya sabe, lo típico que se hace cuando eres joven. El hijo de puta debió de acercárseles por la espalda  mientras estaban distraidos y entonces…
+¿Qué pasó?
+
+> atacar al chico
+5
+- El asesino asestó un golpe en la cabeza al muchacho con un piedra que debió de recoger del suelo, ya que se encontró una manchada de sangre cerca del lugar de los hechos. Entonces el pobre crio cayó hacia delante. Tal vez podria haberse salvado, pero ya conoce como es el estanque, tiene menos profundidad que el meado de un crio, así que se golpeó la cabeza contra el fondo con lo que si ya estaba aturdido por el golpe de la piedra esto terminó rematandolo. Lo peor es que murió ahogado debido a que quedó tendido panza abajo. Ahogado en un estanque que no me llega a ni a la altura de la rodilla ¡Joer, eso si que es mala suerte!
+- ¿Y que pasó con la chica?
+
+> atacar a la chica
+- No sé si la chica llegó a gritar en algún momento, pero eso poco importa ya. Nadie acudió a ayudarla. El asesino la estranguló y la dejó allí mismo tirada. 
+Debió de ser sobre las tres de la madrugada, a esas horas casi no hay nadie por el parque. Solo criajos borrachos durmiendola encima de los bancos antes de presentarse delante de sus padres al dia siguiente.  
+6
+
+
+
+
+* CADAVER A LA TAZA
+
+
+
+- Nos queda otro asesinato.
+- Que espero sea el último, aunque viendo la conducta errática del asesino tal vez le haya cogido el gusto a esto de matar...
+- Esta vez fue en un lugar público...
+- Si, esta vez parece que se volvió más osado. Pero tampoco le extrañe, ya le dije que el asesino parece que no tienen un esquema propio, simplemente mata por matar. Tal vez ni sienta placer con ello, ni busca notoriedad, solo que de pronto tiene el impulso de matar a un ser humano y le da igual quien esté a su lado.
+- Pero también jugó con suerte, el cuerpo no fue encontrado hasta cuatro días después. ¿O fué premeditado?
+- No lo creo, simplemente fue una coincidencia.
+- ¿Como cree que ocurrió?
+- Si lo piensas la cosa hasta tiene gracia... el crimen se produjo en los servicios de la RENFE. Ya sabe como son esos sitios, los azulejos del suelo eternamente mojados por Dios sabe qué, un par de urinarios, unos váteres a los que algún gracioso les ha arrancado el pestillo y ahora no cierran, expendedores de jabón agotados... etc. Lo más seguro es que la víctima se pusiese a mear junto a su ejecutor y este, en algún momento lo atacase por la espalda.
+- ¿Así, sin más?
+- Así sin más. Ya le he dicho que no sé lo que le hace matar ¡Joer, igual el otro la tenia más grande que el! ¡Que se yo!
+- ¿Lo mató por la espalda como a los demás?
+- Bueno... en el caso de la chica fue diferente ya que la atacó de frente, pero en este siguió la pauta. Tal como yo lo imagino es que estaban los dos orinando juntos, el asesino acabó primero, se lavó las manos y mientras el otro se la recudia se abalanzó sobre el.
+- Pero al igual que en el primer asesinato, el criminal no se limitó con dejar el cuerpo allí tirado a la vista que cualquiera.
+- No. También ocultó el cadáver. Y aquí viene el meollo de la cuestión ¿Cual es el mejor sitio para ocultar un cadáver en unos servicios públicos?
+
+> meter el cuerpo en el servicio
+7
+- Dejarlo a la vista de todo el mundo.
+- Exacto, lo sentó en la taza de uno de los wáteres.
+- Luego simplemente se limitó a llegar la puerta del para que nadie lo viese nada más entrar y se fue sin más. ¿Cierto?
+- Por supuesto que no. ¿Qué pasaría si alguien echase un vistazo por debajo de la puerta? La víctima no tenia el "aspecto adecuado" para pasar por un tipo que estuviese vaciando las tripas. Faltaba un detalle esencial.
+
+> bajar los pantalones
+- ¿Le bajó los pantalones?
+- Por supuesto. Si la gente viese unas perneras primorosamente planchadas empezaría a sospechar.
+- Si, comprensible. Es una vergüenza que tardasen tanto en darse cuenta.
+- Cuando tienes ganas de hacer pis no sueles fijarte en los detalles. Si ves un water ocupado, simplemente te diriges a otro. Me gustaría haber visto la cara del tipo que lo encontró, seguro que se le fueron las ganas de golpe ¡Je,je,je!  
+
+
+
+
+- ¿Ya hemos llegado?
+- Si, aquí es donde vivo. Espero que me mande una copia del artículo antes de que lo publique, me gustaría ver como ha quedado. Y ahora si me disculpa, mi mujer ya debe de haber servido la cena.
+- Señor Cortes...
+- ¿Si? ¿Quería algo más?
+- Solo una cosa. Me di cuenta hace un cuarto de hora, pero...
+- Quería escucharme hasta el final.
+- Si...¿Por qué lo hizo?
+- Creí que me había comprendido. Ya se lo dije, todo se reduce a un simple impulso. No sé que es lo que lo activa. Una mirada, una sonrisa, la ausencia de todo ello. No lo sé, solo existe el ansia, la necesidad del momento.
+- Ya... perdone que se lo haya preguntado. ¿No me va a dejar marchar, así sin más, verdad?
+- No lo sé. Tal vez sí, tal vez no. Ahora márchese y no se detenga a mirar atrás... la muerte siempre es más dulce cuando no se la ve venir.
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

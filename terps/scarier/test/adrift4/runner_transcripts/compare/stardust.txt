@@ -1,0 +1,20 @@
+feed        117 commands
+runner      117 turns echoed
+scarier     117 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 38  take needle box
+  run400   You've already got the sharp needle!
+  scarier  You take a needle box from the desk.
+
+turn 99  put needle in box
+  run400   You don't have the box.
+  scarier  You put the needle in the box. Smart move. I think you just saved yourself a pin-prick.
+
+turn 116  sw
+  run400   You walk past the sign from the area you first arrived in. Suddenly, you are in a strange room in the middle of space. It has no walls, and no ceiling. "This place looks hella weird!" exclaims the squirrel. "I've never seen anything like this. What could it mean?" asks Vampy. "Never in my long and miserable life have I been in this area before. That could only mean... is this the afterlife?" suggests the Old Man. "I don't think so. Jillian, you MUST have had a reason for coming here," says the Plant Lady. You are about to answer, but suddenly a portal manifests from out of nowhere. "That's...the way home," you say to yourself, amazed that your adventure is suddenly cut so short. You turn around and say goodbye to all of your friends, giving each of them a hug in turn. They are all sad to see you go, but they know you have to. You step through the portal... Man! Talk about a headache. You wake up in a hospital bed. Turns out you've been in a two-week coma. Now that you're awake, you should be fine. It turns out the lady that hit you on the head was angry because she thought you were the girl who kidnapped her pet terrier. Well, your friends may have all been figments of your comatose imagination, but they will live on in your head, and you will live on in the world of the conscious. Better luck next time. You scored 0 out of the maximum 0! That is 100% of the game! [Press any key to end]
+  scarier  You walk past the sign from the area you first arrived in. Suddenly, you are in a strange room in the middle of space. It has no walls, and no ceiling. "This place looks hella weird!" exclaims the squirrel. "I've never seen anything like this. What could it mean?" asks Vampy. "Never in my long and miserable life have I been in this area before. That could only mean... is this the afterlife?" suggests the Old Man. "I don't think so. Jillian, you MUST have had a reason for coming here," says the Plant Lady. You are about to answer, but suddenly a portal manifests from out of nowhere. "That's...the way home," you say to yourself, amazed that your adventure is suddenly cut so short. You are about to step into the portal when you feel a hand on your shoulder. "Wait, are you going somewhere?" asks the plant lady, frowning slightly. You decide to think about this for a moment. Do you REALLY want to leave all your nice new friends and go back to the boring, NORMAL world where crazy old ladies hit you on the head for no reason? ...Didn't think so! "You know what? I think I'll stay right here." Suddenly the portal disappears and you are right where you started. You decide to go with the plant lady and become one of her kind, and you move into the garden with her in the mansion's garden where you take care of the flowers and dance in the moonlight. You and your friends live happily ever after. You scored 0 out of the maximum 0! That is 100% of the game! Well done - you scored maximum points!
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

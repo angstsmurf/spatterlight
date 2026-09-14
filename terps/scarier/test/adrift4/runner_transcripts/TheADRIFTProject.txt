@@ -1,0 +1,568 @@
+
+> x captain's chair
+The contoured captain’s chair sits in the center of the room.  It has a high back and seat that is thickly padded and upholstered with the most brilliant royal blue fabric.  A gravity suit is on the captain's chair.  
+
+> get all from captain's chair
+You take the gravity suit from the captain's chair.  
+
+> wear suit
+You put on the gravity suit.  
+
+> open door
+You open the Adrift-O-Lift door.  
+
+> s
+You move south.
+
+The ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open vents located in the bottom of them lead to the north, south, southeast, and southwest.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  You can move north, south, southeast and southwest.  
+
+> s
+You move south.
+
+Central Communications Core
+
+
+
+This area of the ship is the CCC (Central Communications Core), though it looks more like war zone.  The panels have been pulled off the walls and severed wires hang out all over the place, some throwing sparks off in every direction.  The Drift-O-Com in the center of the room is a mess.  It looks like someone took a hacksaw to it, and it is clear that it isn’t fixable, at least from what you can tell.  It looks like the only thing in the room that is still intact is a battery charger in the ceiling. An open vent on the doors allows the ADRIFT-O-Sweep access to the CCC.
+  You can move north and south.  
+
+> stand on phone
+You stand on the DRIFT-O-Com.  DARWIN enters from the south.  
+
+> put battery in charger
+The charger flashes repeatedly, giving the room the appearance of being a lit by a strobe light.  You take the opportunity to do your best John Travolta impression, from the movie Saturday Night Fever.  A couple of moments later, the charger flashes red three times and the battery falls.  You manage to catch it, but lose your balance in the process and fall from the Drift-O-Com.  
+
+> n
+(Standing up first)
+You move north.
+
+The ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open vents located in the bottom of them lead to the north, south, southeast, and southwest.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  You can move north, south, southeast and southwest.  
+
+> sw
+You move southwest.
+
+Objectorium
+
+
+
+The walls of the Objectorium blend into most of the furnishings, nearly concealing a cabinet.  A very long purple sofa is securely fastened to the floor, and a titanium coffee table is likewise bolted down just a few feet away.  On the wall near the doorway is a lighted control panel that randomly flickers with bright colors. A larger window wraps its way around the outer perimeter of the Objectorium.  An open vent located near the door at ground level grabs your attention and has some writing just above it.  There is a black box firmly attached to the outside of a cabinet.  You can only move northeast.  
+
+> x table
+Made out of some sort of heavy-duty crystal, the table looks as if it has little tiny bubbles floating about within it.   A blue Drift-O-Sphere and a coffee cup are on the coffee table.  
+
+> take cup
+You take the coffee cup from the coffee table.  
+
+> x sofa
+The long, purple sofa, that is bolted to the floor, sits below a viewing window, which gives you a lovely view of the earth.   The Drift-O-Jump tin and a piece of string are on the sofa.  
+
+> take string and tin
+You take the Drift-O-Jump tin and the piece of string from the sofa.  
+
+> ne
+You move northeast.
+
+The ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open vents located in the bottom of them lead to the north, south, southeast, and southwest.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  DARWIN is intently working on something, but you can't make out what it is. It turns away from you each time you approach.  It doesn't seem to be concerned at all about your presence.  You can move north, south, southeast and southwest.  
+
+> se
+You move southeast.
+
+Captain's Quarters
+
+The Captain’s quarters is a little bigger than you expected.  A control panel on the wall near the doorway flickers with multi-colored lights, just below a poster.  Beneath a large wrap-around window is a fold up bed, mounted to the side; hardly what you’d expect for the captain of any ship.  A pedestal near the fold up bed, holds a digital ship’s log  built right into the top.  A short room divider partially conceals a chrome toilet and wash basin, but still gives a nice view through the window.  A wardrobe built into the wall blends right in, and has a small vent beneath it with some writing just above it.
+  You can only move northwest.  
+
+> open wardrobe
+You open the wardrobe.  A green Drift-O-Sphere and a piece of gum are inside the wardrobe.  
+
+> take gum and orb
+You take the green Drift-O-Sphere and the piece of gum from the wardrobe.  
+
+> chew gum
+
+
+You chew the gum and are shocked that it tastes just like fingernails!  Nasty habit to break.  
+
+As much as you are enjoying the experience, you take the gum out of your mouth.  
+
+> put gum on string
+You stick the gum to the end of the string.  
+
+> put gum in drain
+You carefully dangle the string blindly down the narrow drain.  After a few moments you finally hear something tinking the sides.  Slowly, you pull the string up and discover a small silver key stuck to the piece of gum.  Pulling the key, the gum sticks to it, and the string falls down the drain and disappears.  You remove the gum from the key and notice the key has some writing on it.  
+
+> nw
+You move northwest.
+
+The ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open vents located in the bottom of them lead to the north, south, southeast, and southwest.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  The ADRIFT-O-Sweep is zooming around the room.  You can move north, south, southeast and southwest.  
+
+> sw
+You move southwest.
+
+Objectorium
+
+
+
+The walls of the Objectorium blend into most of the furnishings, nearly concealing a cabinet.  A very long purple sofa is securely fastened to the floor, and a titanium coffee table is likewise bolted down just a few feet away.  On the wall near the doorway is a lighted control panel that randomly flickers with bright colors. A larger window wraps its way around the outer perimeter of the Objectorium.  An open vent located near the door at ground level grabs your attention and has some writing just above it.  There is a black box firmly attached to the outside of a cabinet.  You can only move northeast.  
+
+> open box
+You can't open the black box as it is locked!  
+
+> unlock box
+You unlock the black box with the silver key.  
+
+> open it
+(the black box)
+You open the black box.  The remote control is inside the black box.  
+
+> take remote
+You take the remote control from the black box.  
+
+> put batter in remote
+It is not clear which object you are referring to.  
+
+> look
+
+Objectorium
+
+
+
+The walls of the Objectorium blend into most of the furnishings, nearly concealing a cabinet.  A very long purple sofa is securely fastened to the floor, and a titanium coffee table is likewise bolted down just a few feet away.  On the wall near the doorway is a lighted control panel that randomly flickers with bright colors. A larger window wraps its way around the outer perimeter of the Objectorium.  An open vent located near the door at ground level grabs your attention and has some writing just above it.  There is a black box firmly attached to the outside of a cabinet.  You can only move northeast.  
+
+> put battery in remote
+You put the small battery inside the remote control.  
+
+> ne
+You move northeast.
+
+The ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open vents located in the bottom of them lead to the north, south, southeast, and southwest.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  You can move north, south, southeast and southwest.  ADRIFT-O-Sweep zooms in through the vent from the south-east.  
+
+> d
+You push the lever into the DOWN position and all of a sudden the spot right under your feet turns mushy and you slowly sink downward.  It reminds you of the old movies and a guy falls into quicksand and is about to sink completely when someone arrives with a vine or short stick to save him...Anyway....  A few minutes later you emerge through the ceiling of what appears to be another ADRIFT-O-Lift, and drop to the floor, landing on your feet.
+
+
+
+
+
+ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  A door leads south from here, and has an open vent in the bottom of it.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  You can only move south.  
+
+> s
+You move south.
+
+The Corridor
+
+This appears to be a corridor, paneled with lighting above.
+An open vent located near the doors, at ground level grabs your attention and has some writing just above it.  You can move north and south.  DARWIN enters from the south.  
+
+> s
+You move south.
+
+ADRIFT-O-Dump
+
+The horrible smell can only mean one thing.  This must be the ADRIFT-O-Dump.  Trash is piled high from the floor to the ceiling with rotten food and broken ship parts, obviously torn apart by DARWIN.  The control panel in this room has also been destroyed, and the lever to the hatch has been bent so badly that it is doubtful it could open the hatch to expel the foul-smelling trash into space.  There is a little room left in the door for the ADRIFT-O-Sweep to continue dumping trash.  You can only move north.  
+
+> take pill
+Take what?  
+
+> open tin
+You open the Drift-O-Jump tin.  A small pill is inside the Drift-O-Jump tin.  
+
+> take pill
+You take the small pill from the Drift-O-Jump tin.  
+
+> put pill in cup
+You put the small pill inside the coffee cup.  
+
+> take slime
+Trying not to touch it, you manage to scoop the bulk of the slime into the cup.  The second the slime and the pill come in contact with each other, the slime begins to brighten, emitting a foul smelling, greenish smoke into the air.  Coughing and gasping for air, you wave your arms to clear some of the smoke.  Once it settles, the slime in the cup is a bright green and bubbling fantastically.  
+
+> n
+You move north.
+
+The Corridor
+
+This appears to be a corridor, paneled with lighting above.
+An open vent located near the doors, at ground level grabs your attention and has some writing just above it.  You can move north and south.  
+
+> n
+You move north.
+
+ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  A door leads south from here, and has an open vent in the bottom of it.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  You can only move south.  
+
+> up
+You push the lever into the Up position and the ADRIFT-O-Lift begins to rise upward, but the ceiling isn't moving.  As the space gets more and more cramped, you try and scramble over to the lever to push it back down, but it is too late!  Expecting to be crushed to death, you begin to scream.  When the ceiling finally makes contact with your body, you are relieved to discover that you are being pushed up through the floor as if it were water.  When you emerge through the floor, you realize you are back in the ADRIFT-O-Lift on the upper floor.
+
+
+
+ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  A door leads south from here, and has an open vent in the bottom of it.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  You can only move south.  
+
+> s
+You move south.
+
+Central Communications Core
+
+
+
+This area of the ship is the CCC (Central Communications Core), though it looks more like war zone.  The panels have been pulled off the walls and severed wires hang out all over the place, some throwing sparks off in every direction.  The Drift-O-Com in the center of the room is a mess.  It looks like someone took a hacksaw to it, and it is clear that it isn’t fixable, at least from what you can tell.  It looks like the only thing in the room that is still intact is a battery charger in the ceiling. An open vent on the doors allows the ADRIFT-O-Sweep access to the CCC.
+  You can move north and south.  
+
+> s
+You move south.
+
+The Laboratory
+
+This room seems quite small for a laboratory and it’d certainly be crowded if three people occupied it at the same time.  There is large tube attached to the wall with a hole at the top and a tray at the bottom.  A sign on the wall is located right next to it, along with a button and dark box with some writing on it. A small vent is located in the bottom of the door that leads north from here. There is also a control panel on the wall, near the door.  You can only move north.  
+
+> pour slime in box
+The slime gurgles and bubbles down the funnel and disappears, leaving no residue behind.  
+
+> put green orb in tube
+You put the green orb into the tube it sputters a few times and spews out a puff of green smoke.  When it clears, you discover something in the tray.  
+
+> x tray
+The tray is long and silver, and firmly attached to the wall.  A green Drift-O-Sphere is inside the tray.  
+
+> take orb
+You take the green Drift-O-Sphere from the tray.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+DARWIN enters from the north.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+DARWIN exits to the north.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+ADRIFT-O-Sweep zooms in through the vent from the north.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+ADRIFT-O-Sweep zooms out through the vent to the north.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> activate orb
+I don't understand what you want me to do with the green Drift-O-Sphere.
+
+> look
+
+The Laboratory
+
+This room seems quite small for a laboratory and it’d certainly be crowded if three people occupied it at the same time.  There is large tube attached to the wall with a hole at the top and a tray at the bottom.  A sign on the wall is located right next to it, along with a button and dark box with some writing on it. A small vent is located in the bottom of the door that leads north from here. There is also a control panel on the wall, near the door.  You can only move north.  
+
+> twist green orb
+You twist the green Drift-O-Sphere until you hear a click.  It then begins to vibrate slightly and flicker with a greenish light.  
+"I activated the bomb.  I wonder how much time I have until it blows."
+
+> where is sweeper
+ADRIFT-O-Sweep is 
+adrift-o-lift
+.  
+
+> n
+You move north.
+
+Central Communications Core
+
+
+
+This area of the ship is the CCC (Central Communications Core), though it looks more like war zone.  The panels have been pulled off the walls and severed wires hang out all over the place, some throwing sparks off in every direction.  The Drift-O-Com in the center of the room is a mess.  It looks like someone took a hacksaw to it, and it is clear that it isn’t fixable, at least from what you can tell.  It looks like the only thing in the room that is still intact is a battery charger in the ceiling. An open vent on the doors allows the ADRIFT-O-Sweep access to the CCC.
+  You can move north and south.  
+
+> n
+You move north.
+
+The ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open vents located in the bottom of them lead to the north, south, southeast, and southwest.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  DARWIN is intently working on something, but you can't make out what it is. It turns away from you each time you approach.  It doesn't seem to be concerned at all about your presence.  You can move north, south, southeast and southwest.  
+
+"The bomb.....time must be getting short.  I wish it had a precise timer on it."
+
+> d
+You push the lever into the DOWN position and all of a sudden the spot right under your feet turns mushy and you slowly sink downward.  It reminds you of the old movies and a guy falls into quicksand and is about to sink completely when someone arrives with a vine or short stick to save him...Anyway....  A few minutes later you emerge through the ceiling of what appears to be another ADRIFT-O-Lift, and drop to the floor, landing on your feet.
+
+
+
+
+
+ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  A door leads south from here, and has an open vent in the bottom of it.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  The ADRIFT-O-Sweep is zooming around the room.  You can only move south.  
+
+> n
+You can only move south.  ADRIFT-O-Sweep zooms out through the vent.  
+
+> up
+You push the lever into the Up position and the ADRIFT-O-Lift begins to rise upward, but the ceiling isn't moving.  As the space gets more and more cramped, you try and scramble over to the lever to push it back down, but it is too late!  Expecting to be crushed to death, you begin to scream.  When the ceiling finally makes contact with your body, you are relieved to discover that you are being pushed up through the floor as if it were water.  When you emerge through the floor, you realize you are back in the ADRIFT-O-Lift on the upper floor.
+
+
+
+ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  A door leads south from here, and has an open vent in the bottom of it.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  You can only move south.  
+
+> where is sweeper
+ADRIFT-O-Sweep is 
+the adrift-o-lift
+.  (Right next to you silly!)  
+"The bomb has to blow soon.  I just know it.  I probably shouldn't have activated it yet."
+
+> n
+You move north.
+
+The Bridge
+
+
+You are on the bridge of the Beta-Drifter.  The captain’s chair sits in the center, looking out to a sea of endless stars that are visible through the main screen.  Titanium walls encircle the bridge, and are embedded with several flat-screen control panels that flicker randomly.  The door to the ADRIFT-O-Lift is to the south, near a small vent that lies at ground level and appears to have some writing just above it.  You can only move south.  
+
+> s
+You move south.
+
+The ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open vents located in the bottom of them lead to the north, south, southeast, and southwest.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  The ADRIFT-O-Sweep is zooming around the room.  You can move north, south, southeast and southwest.  
+
+> push button
+You push the button and the ADRIFT-O-Sweep makes a strange noise then creates a vacuum so powerful that it literally rips everything from your hands, sucking it up.  
+"I activated the bomb.  I wonder how much time I have until it blows."
+
+> where is darwin
+DARWIN is 
+the laboratory
+.  ADRIFT-O-Sweep zooms out through the vent to the south-east.  
+
+> z
+Time passes...
+
+
+"The bomb.....time must be getting short.  I wish it had a precise timer on it."  
+
+> z
+Time passes...
+ADRIFT-O-Sweep zooms in through the vent from the south-east.  
+"The bomb has to blow soon.  I just know it.  I probably shouldn't have activated it yet."
+
+> z
+Time passes...
+DARWIN enters from the south.  
+"I activated the bomb.  I wonder how much time I have until it blows."
+
+> z
+Time passes...
+ADRIFT-O-Sweep zooms out through the vent to the south-west.  DARWIN exits.  
+
+"The bomb.....time must be getting short.  I wish it had a precise timer on it."
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+"The bomb has to blow soon.  I just know it.  I probably shouldn't have activated it yet."  ADRIFT-O-Sweep zooms in through the vent from the south-west.  
+
+> where is darwin
+DARWIN is 
+the corridor
+.  
+"I activated the bomb.  I wonder how much time I have until it blows."
+
+> z
+Time passes...
+
+
+"The bomb.....time must be getting short.  I wish it had a precise timer on it."
+
+> zz
+Run that by me agian- I didn't understand what you meant!
+
+> z
+Time passes...
+ADRIFT-O-Sweep zooms out through the vent to the north.  
+
+> where is darwin
+DARWIN is 
+adrift-o-dump
+.  
+"The bomb has to blow soon.  I just know it.  I probably shouldn't have activated it yet."
+
+> z
+Time passes...
+
+
+A loud rumble shakes the ship, lights flickering, warning sirens blaring.  Trying to gain your balance, you make your way to the bridge of the Beta-Drifter just in time to see a ton of trash floating out in space.  You’re quite happy to see DARWIN barely clinging onto the corner of the hatch door, which must have blown off during the explosion.  
+
+You did it!.  Now you need to get in touch with the captain.  
+
+> z
+Time passes...
+ADRIFT-O-Sweep zooms out through the vent to the south.  
+
+> n
+You can only move south.  
+
+> s
+You move south.
+
+The ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  Doors with small open vents located in the bottom of them lead to the north, south, southeast, and southwest.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  The ADRIFT-O-Sweep is zooming around the room.  You can move north, south, southeast and southwest.  
+
+> d
+You push the lever into the DOWN position and all of a sudden the spot right under your feet turns mushy and you slowly sink downward.  It reminds you of the old movies and a guy falls into quicksand and is about to sink completely when someone arrives with a vine or short stick to save him...Anyway....  A few minutes later you emerge through the ceiling of what appears to be another ADRIFT-O-Lift, and drop to the floor, landing on your feet.
+
+
+
+
+
+ADRIFT-O-Lift
+
+
+
+The ADRIFT-O-Lift is the central hub for ship access.  A door leads south from here, and has an open vent in the bottom of it.  There is a lever near a control panel on the wall that flickers with multicolored lights.
+There is a lever on the wall, though it seems a little primative for such a fancy ship.  You can only move south.  
+
+> s
+You move south.
+
+The Corridor
+
+The corridor is much darker now.  The blast seems to have knocked out all of the lighting.  One of the panels from the ceiling has busted and there seems to be a secret room up there. 
+
+An open vent located near the doors, at ground level grabs your attention and has some writing just above it.  You can move north and up.  
+
+> x vent
+The vent is really more of a small open space for the ADRIFT-O-Sweep to gain access to several areas of the ship.  It is too small for you to move through, and too dark for you to see through to the other side.  
+
+> up
+You move up.
+
+Secret DRIFT-O-Com
+
+The space is quite small here.  The only thing in here is a small screen with a little button on it.  An opening leads down.  You can only move down.  
+
+> x screen
+It has an 8-inch screen with a button on it.  
+
+> score
+Your score is 80 out of a maximum of 100.  (80%)
+
+> push button
+You push the button and the Captain Wild appears on the static filled screen.
+
+"Drifter, you made it!  Is everything ok?"
+
+"Yes. Though I think the ship is going to need some major repairs.  I had to blow the dump.  That robot tore the place up, and blowing the hatch was the only way to get rid of him."
+
+"So DARWIN survived?"
+
+"Yeah, but you can consider it space junk now.  I don't imagine it will last too long out here.  I think it was headed for the asteroid belt between Mars and Jupiter."
+
+"Well done.  When Luna gets everything back online, we'll bring you in.  Cheers!"
+
+
+The screen goes blank and you climb back down and head to the bridge.  Once back on Earth,  Captain Wild and the entire ADRIFT community greet you, chanting your name.
+
+"Drifter! Drifter! Drifter!"
+
+
+
+You scored 90 out of the maximum 100!
+That is 90% of the game!
+You finished 10 points short.
+
+[Press any key to end]

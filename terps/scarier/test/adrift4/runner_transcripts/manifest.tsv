@@ -1,0 +1,428 @@
+tag	file	source	version	exe	seed	pre	popups	env	win_marker	verdict
+3monkeys	3monkeys.txt	driven:Adrift_277_3monkeys_rt.txt	4.00	run400x.exe	149	0		SCR_SEED=149	no	10+ differing turn(s)
+ADRIFTMAS_Party	ADRIFTMAS_Party.txt	driven:Adrift_219_ADRIFTMAS_Party_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+Glum_Fiddle	Glum_Fiddle.txt	driven:Adrift_220_Glum_Fiddle_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
+JGrim	JGrim.txt	driven:Adrift_221_JGrim_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+ShadricksUnderground	ShadricksUnderground.txt	driven:Adrift_213_ShadricksUnderground_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+Tear	Tear.txt	driven:Adrift_216_Tear_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+TheADRIFTProject	TheADRIFTProject.txt	driven:Adrift_212_TheADRIFTProject_rt.txt	4.00	run400x.exe	1234	2	Drifter~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+adrift_maze	adrift_maze.txt	driven:Adrift_142_adrift_maze_rt.txt	4.00	run400x.exe	1234	0	adventurer		yes	identical on every turn apart from the Runner's keypress prompt.
+adriftorama	adriftorama.txt	driven:Adrift_207_adriftorama_rt.txt	4.00	run400x.exe	18	2		SCR_SEED=18 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+aegis	aegis.txt	harvested-xoshiro:Adrift_142_aegis_x.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+afdfr	afdfr.txt	driven:Adrift_287_afdfr_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+agent4f	agent4f.txt	driven:Adrift_205_agent4f_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+akron	akron.rtf	driven:Adrift_288_akron_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+albert_is_lost	albert_is_lost.txt	driven:Adrift_351_albert_is_lost_rt.txt	4.00	run400x.exe	42	2		SCR_SEED=42 SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+alchemist	alchemist.txt	driven:Adrift_499_alchemist_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
+alexis	alexis.txt	driven:Adrift_145_alexis_rt.txt	3.90	run390x.exe	1	0		SCR_SEED=1	yes	10+ differing turn(s)
+alexis_worn_cube	alexis_worn_cube.txt	driven:Adrift_146_alexis_worn_cube_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	10+ differing turn(s), 34 lost command(s)
+aliasagent	aliasagent.txt	driven:Adrift_428_aliasagent_rt.txt	4.00	run400x.exe	1234	0	Player		yes	0 differing turn(s), 1 lost command(s)
+alices_restaurant	alices_restaurant.rtf	driven:Adrift_302_alices_restaurant_rt.rtf	3.70	run370x.exe	1234	0			no	2 differing turn(s), 1 lost command(s)
+allhallowseve	allhallowseve.txt	driven:Adrift_391_allhallowseve_rt.txt	4.00	run400x.exe	1234	8		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+amonkeytoomany	amonkeytoomany.txt	harvested-native-0-draws:Adrift_598_amonkeytoomany.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+amy	amy.txt	driven:Adrift_455_amy_rt.txt	4.00	run400x.exe	1234	0	Chris	SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+angeldevilhuman	angeldevilhuman.txt	driven:Adrift_385_angeldevilhuman_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+apokalupsis	apokalupsis.txt	driven:Adrift_449_apokalupsis_rt.txt	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+archie	archie.txt	harvested-native-0-draws:Adrift_494_archie.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+argh	argh.txt	driven:Adrift_197_argh_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+asdfa	asdfa.txt	driven:Adrift_240_asdfa_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+asteroidafter	asteroidafter.txt	driven:Adrift_379_asteroidafter_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+asylum	asylum.txt	harvested-native-0-draws:Adrift_712_asylum.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace and the Runner's keypress prompt.
+backhome	backhome.txt	harvested-xoshiro:Adrift_135_backhome_x.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+bandera	bandera.txt	driven:Adrift_513_bandera_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+barneysproblem	barneysproblem.txt	harvested-xoshiro:Adrift_136_barneysproblem_x.txt	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+baroo	baroo.txt	driven:Adrift_305_baroo_rt.txt	4.00	run400x.exe	1234	0			yes	1 differing turn(s)
+beanstalk	beanstalk.txt	driven:Adrift_262_beanstalk_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+beer	beer.txt	driven:Adrift_439_beer_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+bigcitylaundry	bigcitylaundry.txt	driven:Adrift_407_bigcitylaundry_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+black_sheeps_gold	black_sheeps_gold.txt	driven:Adrift_263_black_sheeps_gold_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+blast	blast.txt	driven:Adrift_369_blast_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+blood	blood.txt	driven:Adrift_495_blood_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+bloodrelatives	bloodrelatives.txt	driven:Adrift_485_bloodrelatives_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from whitespace.
+bob_bobsly	bob_bobsly.txt	harvested-native-0-draws:Adrift_692_bob_bobsly.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+boiledeggs	boiledeggs.txt	driven:Adrift_383_boiledeggs_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+bomb_threat	bomb_threat.txt	driven:Adrift_153_bomb_threat_rt.txt	3.90	run390x.exe	9	0		SCR_SEED=9	no	10 differing turn(s), 1 lost command(s)
+briefcase	briefcase.txt	harvested-xoshiro:Adrift_134_briefcase_x.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+bsg22	bsg22.txt	driven:Adrift_459_bsg22_rt.txt	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+buried_alive	buried_alive.txt	driven:Adrift_136_buried_alive_rt.txt	4.00	run400x.exe	1234	1			yes	identical on every turn apart from the Runner's keypress prompt.
+businessasusual	businessasusual.txt	driven:Adrift_394_businessasusual_rt.txt	4.00	run400x.exe	1234	0			yes	2 differing turn(s)
+caidalibre	caidalibre.txt	driven:Adrift_446_caidalibre_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+camelot15	camelot15.txt	driven:Adrift_473_camelot15_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+captive	captive.txt	driven:Adrift_128_captive_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+castle_quest	castle_quest.rtf	driven:Adrift_303_castle_quest_rt.rtf	3.70	run370x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+cave	cave.rtf	driven:Adrift_289_cave_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+cbn	cbn.txt	driven:Adrift_237_cbn_rt.txt	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+cbn2	cbn2.txt	driven:Adrift_238_cbn2_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+cellar	cellar.txt	driven:Adrift_316_cellar_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+chicago	chicago.txt	harvested-native-0-draws:Adrift_696_chicago.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+chicken	chicken.txt	driven:Adrift_231_chicken_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+choosethreehour	choosethreehour.txt	driven:Adrift_423_choosethreehour_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+chooseyourown	chooseyourown.txt	driven:Adrift_223_chooseyourown_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+chosen	chosen.txt	harvested-xoshiro:Adrift_133_chosen_x.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+cibass	cibass.txt	driven:Adrift_356_cibass_rt.txt	4.00	run400x.exe	1234	6		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+circus	circus.txt	driven:Adrift_154_circus_rt.txt	3.90	run390x.exe	12	2		SCR_SEED=12 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+cldone	cldone.txt	driven:Adrift_483_cldone_rt.txt	3.90	run390x.exe	3	0	Player	SCR_SEED=3	yes	identical on every turn apart from the Runner's keypress prompt.
+cleft	cleft.txt	driven:Adrift_215_cleft_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+cluelessbob	cluelessbob.txt	driven:Adrift_456_cluelessbob_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+cobl	cobl.txt	driven:Adrift_453_cobl_rt.txt	4.00	run400x.exe	28	0		SCR_SEED=28 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+colony	colony.txt	driven:Adrift_155_colony_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+confession	confession.txt	driven:Adrift_137_confession_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	0 differing turn(s), 21 lost command(s)
+cowboyblues	cowboyblues.txt	driven:Adrift_491_cowboyblues_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from whitespace.
+crime_adventure	crime_adventure.rtf	driven:Adrift_279_crime_adventure_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+crimsondetritus	crimsondetritus.txt	driven:Adrift_315_crimsondetritus_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+crm	crm.txt	harvested-native-0-draws:Adrift_604_crm.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+croft	croft.txt	driven:Adrift_348_croft_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+crookedestate	crookedestate.txt	driven:Adrift_427_crookedestate_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	no	2 differing turn(s)
+cruel	cruel.txt	harvested-native-0-draws:Adrift_479_cruel.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+cursed	cursed.txt	driven:Adrift_227_cursed_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
+cyber	cyber.txt	driven:Adrift_156_cyber_rt.txt	4.00	run400x.exe	1234	0			yes	1 differing turn(s)
+cyber2	cyber2.txt	driven:Adrift_157_cyber2_rt.txt	4.00	run400x.exe	1234	0			yes	2 differing turn(s)
+cybercow	cybercow.txt	driven:Adrift_159_cybercow_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	1 differing turn(s)
+cybercow_win	cybercow_win.txt	driven:Adrift_158_cybercow_win_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	4 differing turn(s), 3 lost command(s)
+dancing_even_him	dancing_even_him.txt	driven:Adrift_265_dancing_even_him_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+dangersdrivingnight	dangersdrivingnight.txt	driven:Adrift_390_dangersdrivingnight_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+darkness	darkness.txt	driven:Adrift_463_darkness_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	0 differing turn(s), 11 lost command(s)
+darktower	darktower.txt	harvested-native-0-draws:Adrift_705_darktower.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+datewithdeath	datewithdeath.txt	driven:Adrift_498_datewithdeath_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+dayattheoffice	dayattheoffice.txt	driven:Adrift_438_dayattheoffice_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+deadman	deadman.txt	driven:Adrift_304_deadman_rt.txt	4.00	run400x.exe	1234	10		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace and the Runner's keypress prompt.
+deadreckoning	deadreckoning.txt	driven:Adrift_482_deadreckoning_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+deardiary	deardiary.txt	harvested-native-0-draws:Adrift_869_deardiary.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+deardiary2	deardiary2.txt	driven:Adrift_479_deardiary2_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+deaths	deaths.txt	driven:Adrift_160_deaths_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	6 differing turn(s)
+del_sol	del_sol.txt	driven:Adrift_176_del_sol_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+demonhunter	demonhunter.txt	driven:Adrift_241_demonhunter_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+dfu	dfu.txt	harvested-native-0-draws:Adrift_599_dfu.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+diarystrip	diarystrip.txt	driven:Adrift_328_diarystrip_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+digby	digby.txt	driven:Adrift_469_digby_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+donuts_intro	donuts_intro.txt	driven:Adrift_161_donuts_intro_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+doomed_xycanthus	doomed_xycanthus.txt	driven:Adrift_264_doomed_xycanthus_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+door	door.txt	driven:Adrift_354_door_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+doortoutopia	doortoutopia.txt	driven:Adrift_442_doortoutopia_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+dr-who-vortex-lust	dr-who-vortex-lust.txt	driven:Adrift_349_dr-who-vortex-lust_rt.txt	3.90	run390x.exe	1234	0	Sam		yes	identical on every turn apart from the Runner's keypress prompt.
+dragonshrine	dragonshrine.txt	driven:Adrift_210_dragonshrine_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+dreamland	dreamland.txt	harvested-native-0-draws:Adrift_690_dreamland.txt	3.90	run390x.exe	1234	1			yes	identical on every turn apart from the Runner's keypress prompt.
+drinks	drinks.txt	driven:Adrift_408_drinks_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+druggy_lane	druggy_lane.txt	driven:Adrift_319_druggy_lane_rt.txt	3.90	run390x.exe	1234	3			yes	identical on every turn apart from the Runner's keypress prompt.
+duck_mccloud	duck_mccloud.rtf	driven:Adrift_296_duck_mccloud_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+dusk	dusk.txt	driven:Adrift_450_dusk_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+easter	easter.txt	driven:Adrift_228_easter_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+ecod2	ecod2.txt	harvested-native-0-draws:Adrift_605_ecod2.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+ecod3	ecod3.txt	driven:Adrift_203_ecod3_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+egghunt	egghunt.txt	driven:Adrift_512_egghunt_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 1 lost command(s)
+elascensor	elascensor.txt	driven:Adrift_508_elascensor_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+endgame	endgame.txt	driven:Adrift_232_endgame_rt.txt	4.00	run400x.exe	1234	0			no	2 differing turn(s)
+enquete_a_hauts_risques	enquete_a_hauts_risques.txt	driven:Adrift_268_enquete_a_hauts_risques_rt.txt	3.90	run390x.exe	1234	0			yes	10+ differing turn(s)
+escape_from_insanity	escape_from_insanity.txt	harvested-native-0-draws:Adrift_694_escape_from_insanity.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+escape_to_new_york	escape_to_new_york.txt	driven:Adrift_249_escape_to_new_york_rt.txt	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+everything	everything.txt	driven:Adrift_321_everything_rt.txt	3.90	run390x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+existence	existence.txt	driven:Adrift_380_existence_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+fantasyworld	fantasyworld.txt	driven:Adrift_224_fantasyworld_rt.txt	3.90	run390x.exe	1234	0	Corin		yes	5 differing turn(s)
+farfromhome	farfromhome.txt	driven:Adrift_326_farfromhome_rt.txt	3.90	run390x.exe	1234	1	Sam	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+finalquestion	finalquestion.txt	driven:Adrift_444_finalquestion_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+firstpug	firstpug.txt	driven:Adrift_436_firstpug_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+fistandantalus	fistandantalus.rtf	driven:Adrift_297_fistandantalus_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+fluffykins	fluffykins.txt	driven:Adrift_440_fluffykins_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+flyhuman	flyhuman.txt	driven:Adrift_373_flyhuman_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+foggybanana	foggybanana.txt	driven:Adrift_364_foggybanana_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+forest_on_the_norm	forest_on_the_norm.txt	harvested-native-0-draws:Adrift_691_forest_on_the_norm.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
+foresthouse2	foresthouse2.txt	driven:Adrift_410_foresthouse2_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+foresthouse3	foresthouse3.txt	driven:Adrift_437_foresthouse3_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+forum	forum.txt	driven:Adrift_236_forum_rt.txt	4.00	run400x.exe	1	1		SCR_SEED=1 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+forum2	forum2.txt	driven:Adrift_242_forum2_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+frog	frog.txt	driven:Adrift_230_frog_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+frustrated	frustrated.txt	driven:Adrift_472_frustrated_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+fugitive	fugitive.txt	driven:Adrift_307_fugitive_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+fullcircle	fullcircle.txt	driven:Adrift_480_fullcircle_rt.txt	4.00	run400x.exe	2	3		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+funhouse	funhouse.txt	driven:Adrift_162_funhouse_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+gamma	gamma.txt	harvested-native-0-draws:Adrift_735_gamma.txt	3.90	run390x.exe	1234	0	Sam		yes	identical on every turn apart from the Runner's keypress prompt.
+gateway	gateway.txt	driven:Adrift_163_gateway_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	1 differing turn(s)
+ghosttown	ghosttown.txt	driven:Adrift_516_ghosttown_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+gmylm	gmylm.txt	harvested-xoshiro:Adrift_128_gmylm_x.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+goblin	goblin.txt	harvested-xoshiro:Adrift_145_goblin_x.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+goblinhunt	goblinhunt.txt	driven:Adrift_204_goblinhunt_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+goldilocks	goldilocks.txt	driven:Adrift_150_goldilocks_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+gorxungula	gorxungula.txt	driven:Adrift_392_gorxungula_rt.txt	4.00	run400x.exe	1234	2	Lophese~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+great_escape	great_escape.rtf	driven:Adrift_293_great_escape_rt.rtf	3.80	run380x.exe	2	0		SCR_SEED=2	no	0 differing turn(s), 1 lost command(s)
+greekschool	greekschool.txt	driven:Adrift_475_greekschool_rt.txt	4.00	run400x.exe	1234	0	Player~male		yes	6 differing turn(s)
+griswold	griswold.txt	driven:Adrift_152_griswold_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+grumble	grumble.txt	driven:Adrift_492_grumble_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	2 differing turn(s), 1 lost command(s)
+halloweenhijinks	halloweenhijinks.txt	driven:Adrift_481_halloweenhijinks_rt.txt	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+haunt	haunt.rtf	driven:Adrift_290_haunt_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+haunted_house	haunted_house.rtf	driven:Adrift_292_haunted_house_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+hauntedhouse	hauntedhouse.txt	driven:Adrift_233_hauntedhouse_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+hcw	hcw.txt	harvested-xoshiro:Adrift_131_hcw_x.txt	4.00	run400x.exe	2	2		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+headless	headless.txt	driven:Adrift_309_headless_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+helsing	helsing.txt	driven:Adrift_414_helsing_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+hero	hero.txt	driven:Adrift_497_hero_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+herrdoktor	herrdoktor.txt	driven:Adrift_386_herrdoktor_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+hhorror	hhorror.txt	driven:Adrift_332_hhorror_rt.txt	3.90	run390x.exe	50	0		SCR_SEED=50 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s)
+hiker	hiker.txt	driven:Adrift_370_hiker_rt.txt	4.00	run400x.exe	1234	2			yes	identical on every turn apart from the Runner's keypress prompt.
+house	house.txt	driven:Adrift_501_house_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s)
+howitstarted	howitstarted.txt	driven:Adrift_421_howitstarted_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 1 lost command(s)
+hub	hub.txt	driven:Adrift_457_hub_rt.txt	4.00	run400x.exe	1234	0			no	10+ differing turn(s)
+humbug	humbug.txt	driven:Adrift_278_humbug_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	no	10+ differing turn(s), 466 lost command(s)
+hungry	hungry.txt	driven:Adrift_377_hungry_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+hyper_b_s	hyper_b_s.txt	driven:Adrift_164_hyper_b_s_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 10 lost command(s)
+i	i.txt	driven:Adrift_318_i_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+iachini	iachini.txt	driven:Adrift_336_iachini_rt.txt	4.00	run400x.exe	202	0		SCR_SEED=202	yes	1 differing turn(s)
+icecream	icecream.txt	driven:Adrift_128_icecream_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+igor	igor.txt	driven:Adrift_510_igor_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+ilgolem	ilgolem.txt	driven:Adrift_515_ilgolem_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+imagidroids	imagidroids.txt	driven:Adrift_314_imagidroids_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+imagination	imagination.txt	driven:Adrift_239_imagination_rt.txt	4.00	run400x.exe	1234	0	Jenny		yes	identical on every turn apart from the Runner's keypress prompt.
+impulso	impulso.txt	harvested-native-0-draws:Adrift_699_impulso.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+inmemory	inmemory.txt	driven:Adrift_312_inmemory_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+invasion_shirts	invasion_shirts.txt	driven:Adrift_206_invasion_shirts_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+inverness	inverness.txt	driven:Adrift_177_inverness_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	identical on every turn.
+iqsfot	iqsfot.txt	driven:Adrift_285_iqsfot_rt.txt	4.00	run400x.exe	391	1		SCR_SEED=391 SCR_SKIP_WAITKEY=1	yes	3 differing turn(s)
+jailbreakbob	jailbreakbob.txt	driven:Adrift_460_jailbreakbob_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+james_bond	james_bond.rtf	driven:Adrift_298_james_bond_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+jason_vs_salm	jason_vs_salm.txt	driven:Adrift_165_jason_vs_salm_rt.txt	4.00	run400x.exe	3	0		SCR_SEED=3	yes	identical on every turn apart from the Runner's keypress prompt.
+jimpond	jimpond.txt	driven:Adrift_474_jimpond_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+jinxtron	jinxtron.txt	driven:Adrift_400_jinxtron_rt.txt	4.00	run400x.exe	1234	0	Player		yes	identical on every turn.
+jinxtron_full	jinxtron_full.txt	driven:Adrift_401_jinxtron_full_rt.txt	4.00	run400x.exe	31	0	Player	SCR_SEED=31	yes	identical on every turn.
+journ2	journ2.txt	driven:Adrift_341_journ2_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	identical on every turn.
+justanotherday	justanotherday.txt	driven:Adrift_371_justanotherday_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+lair	lair.txt	driven:Adrift_306_lair_rt.txt	4.00	run400x.exe	4	0		SCR_SEED=4 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
+largo_winch	largo_winch.txt	driven:Adrift_276_largo_winch_rt.txt	3.90	run390x.exe	1234	0			yes	10+ differing turn(s)
+law	law.txt	driven:Adrift_311_law_rt.txt	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+lca	lca.txt	driven:Adrift_502_lca_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+les_feux	les_feux.txt	driven:Adrift_178_les_feux_rt.txt	4.00	run400x.exe	45	0		SCR_SEED=45 SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
+life	life.txt	driven:Adrift_330_life_rt.txt	3.90	run390x.exe	1234	0	Bob~male	SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
+life_of_mike	life_of_mike.rtf	driven:Adrift_300_life_of_mike_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+lifesimulation	lifesimulation.txt	driven:Adrift_179_lifesimulation_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	2 differing turn(s)
+light_up	light_up.txt	driven:Adrift_166_light_up_rt.txt	4.00	run400x.exe	133	0		SCR_SEED=133	no	1 differing turn(s), 217 lost command(s)
+lobster	lobster.txt	driven:Adrift_393_lobster_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+locked_door	locked_door.txt	driven:Adrift_272_locked_door_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+longbarrow	longbarrow.txt	driven:Adrift_378_longbarrow_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+lost	lost.txt	driven:Adrift_253_lost_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+lost_down	lost_down.txt	driven:Adrift_254_lost_down_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+lost_souls	lost_souls.txt	driven:Adrift_320_lost_souls_rt.txt	3.90	run390x.exe	1234	0			yes	1 differing turn(s)
+lostmines	lostmines.txt	harvested-xoshiro:Adrift_141_lostmines_x.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+losttomb	losttomb.txt	driven:Adrift_340_losttomb_rt.txt	3.90	run390x.exe	1234	0			yes	1 differing turn(s)
+magicshow	magicshow.txt	driven:Adrift_493_magicshow_rt.txt	4.00	run400x.exe	1234	0	male	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+maincourse	maincourse.txt	driven:Adrift_167_maincourse_rt.txt	4.00	run400x.exe	17	2		SCR_SEED=17	yes	identical on every turn.
+mammoth	mammoth.txt	driven:Adrift_308_mammoth_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+man_overboard	man_overboard.txt	driven:Adrift_131_man_overboard_rt.txt	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+mangiasaur	mangiasaur.txt	driven:Adrift_286_mangiasaur_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	identical on every turn apart from the Runner's keypress prompt.
+manor	manor.txt	driven:Adrift_325_manor_rt.txt	3.90	run390x.exe	1234	0	Sam~male		yes	identical on every turn apart from the Runner's keypress prompt.
+marika	marika.txt	driven:Adrift_255_marika_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+marlin_affair	marlin_affair.txt	driven:Adrift_355_marlin_affair_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+marooned	marooned.rtf	driven:Adrift_273_marooned_rt.rtf	3.80	run380x.exe	3	0		SCR_SEED=3	no	1 differing turn(s), 1 lost command(s)
+masochists_heaven	masochists_heaven.txt	driven:Adrift_151_masochists_heaven_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+matts_house	matts_house.txt	harvested-native-0-draws:Adrift_527_matts_house.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
+melbourne_beach	melbourne_beach.txt	driven:Adrift_168_melbourne_beach_rt.txt	3.90	run390x.exe	1234	1			yes	identical on every turn apart from the Runner's keypress prompt.
+merry_murders	merry_murders.txt	driven:Adrift_344_merry_murders_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
+mhpquest	mhpquest.txt	harvested-native-0-draws:Adrift_493_mhpquest.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+microbe_willie	microbe_willie.txt	driven:Adrift_234_microbe_willie_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+microwave_man	microwave_man.rtf	driven:Adrift_299_microwave_man_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+mindofmaster	mindofmaster.txt	driven:Adrift_489_mindofmaster_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+mishmash	mishmash.txt	harvested-xoshiro:Adrift_1112_mishmash.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+monsters	monsters.txt	driven:Adrift_270_monsters_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+morning_headache	morning_headache.txt	driven:Adrift_324_morning_headache_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+mortality	mortality.txt	driven:Adrift_275_mortality_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	4 differing turn(s)
+motion	motion.txt	driven:Adrift_432_motion_rt.txt	4.00	run400x.exe	1041	1		SCR_SEED=1041 SCR_SKIP_WAITKEY=1	yes	3 differing turn(s)
+mould	mould.txt	driven:Adrift_494_mould_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1	no	10+ differing turn(s)
+mr_smith	mr_smith.txt	driven:Adrift_180_mr_smith_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn apart from the Runner's keypress prompt.
+ms_mobius	ms_mobius.txt	driven:Adrift_323_ms_mobius_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+murder_great_falls	murder_great_falls.txt	driven:Adrift_342_murder_great_falls_rt.txt	3.90	run390x.exe	1234	2	Sam~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+murdermansionntro	murdermansionntro.txt	driven:Adrift_388_murdermansionntro_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+mustescape	mustescape.txt	driven:Adrift_445_mustescape_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+mutaydid	mutaydid.txt	harvested-xoshiro:Adrift_1090_mutaydid.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+mysteryofcaves	mysteryofcaves.txt	driven:Adrift_222_mysteryofcaves_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+neighbours	neighbours.txt	driven:Adrift_435_neighbours_rt.txt	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+newton	newton.txt	driven:Adrift_360_newton_rt.txt	4.00	run400x.exe	1234	1			yes	identical on every turn.
+ohhuman	ohhuman.txt	driven:Adrift_395_ohhuman_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+oldchurch	oldchurch.txt	driven:Adrift_466_oldchurch_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+onnafa	onnafa.txt	driven:Adrift_500_onnafa_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
+orient_express	orient_express.txt	driven:Adrift_169_orient_express_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+outline	outline.txt	driven:Adrift_376_outline_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+overtheedge	overtheedge.txt	harvested-xoshiro:Adrift_143_overtheedge_x.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+p2p	p2p.txt	driven:Adrift_381_p2p_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+paint	paint.txt	driven:Adrift_486_paint_rt.txt	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+panic	panic.txt	driven:Adrift_317_panic_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace and the Runner's keypress prompt.
+patient7	patient7.txt	driven:Adrift_443_patient7_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+percy	percy.txt	driven:Adrift_235_percy_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+perfectspy	perfectspy.txt	driven:Adrift_404_perfectspy_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+perspectives	perspectives.txt	driven:Adrift_406_perspectives_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+pestilence	pestilence.txt	driven:Adrift_357_pestilence_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+petespunkin	petespunkin.txt	driven:Adrift_426_petespunkin_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+phoenix_destiny	phoenix_destiny.txt	driven:Adrift_128_phoenix_destiny_rt.txt	3.90	run390x.exe	1234	13	Hero~male		yes	identical on every turn.
+phoneb	phoneb.txt	driven:Adrift_399_phoneb_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+picture	picture.txt	driven:Adrift_361_picture_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+pieces_of_eden	pieces_of_eden.txt	driven:Adrift_132_pieces_of_eden_rt.txt	4.00	run400x.exe	1234	6			yes	identical on every turn apart from the Runner's keypress prompt.
+pilfers	pilfers.txt	driven:Adrift_366_pilfers_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+plague	plague.txt	driven:Adrift_284_plague_rt.txt	4.00	run400x.exe	1234	6		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+plunder_gargoyle	plunder_gargoyle.txt	driven:Adrift_350_plunder_gargoyle_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+princess_in_the_tower	princess_in_the_tower.txt	driven:Adrift_133_princess_in_the_tower_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+private_eye	private_eye.txt	driven:Adrift_283_private_eye_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+professor	professor.txt	driven:Adrift_359_professor_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+provenance	provenance.txt	driven:Adrift_358_provenance_rt.txt	4.00	run400x.exe	1234	2	Corey~male	SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
+ptbad	ptbad.txt	driven:Adrift_247_ptbad_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+ptgood	ptgood.txt	driven:Adrift_398_ptgood_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+puzzlebox	puzzlebox.txt	driven:Adrift_454_puzzlebox_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	identical on every turn.
+pyramid	pyramid.txt	driven:Adrift_243_pyramid_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+questi	questi.txt	driven:Adrift_182_questi_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 2 lost command(s)
+qui_a_tue_dana	qui_a_tue_dana.txt	driven:Adrift_267_qui_a_tue_dana_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+r2dc	r2dc.txt	driven:Adrift_409_r2dc_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+raccoon	raccoon.txt	driven:Adrift_375_raccoon_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+rain	rain.txt	driven:Adrift_420_rain_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+reactor1	reactor1.txt	driven:Adrift_431_reactor1_rt.txt	4.00	run400x.exe	1	3		SCR_SEED=1 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+redwire	redwire.txt	driven:Adrift_310_redwire_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+regrets	regrets.txt	driven:Adrift_418_regrets_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+relojero	relojero.txt	driven:Adrift_337_relojero_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+reluctantvampire	reluctantvampire.txt	driven:Adrift_504_reluctantvampire_rt.txt	4.00	run400x.exe	6	0		SCR_SEED=6 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s)
+renegade_brainwave	renegade_brainwave.txt	driven:Adrift_149_renegade_brainwave_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+renuntio	renuntio.txt	driven:Adrift_331_renuntio_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace and the Runner's keypress prompt.
+report	report.txt	harvested-native-0-draws:Adrift_706_report.txt	3.90	run390x.exe	1234	0	Sam~male		yes	identical on every turn apart from the Runner's keypress prompt.
+requiem	requiem.txt	driven:Adrift_488_requiem_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+richard	richard.txt	driven:Adrift_333_richard_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+riding_home	riding_home.txt	driven:Adrift_478_riding_home_rt.txt	4.00	run400x.exe	1234	6	Andy	SCR_SKIP_WAITKEY=1	yes	3 differing turn(s)
+rift	rift.txt	driven:Adrift_363_rift_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+rking	rking.txt	driven:Adrift_496_rking_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+rockband	rockband.txt	driven:Adrift_468_rockband_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+rollingthedough	rollingthedough.txt	driven:Adrift_387_rollingthedough_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+saffire	saffire.txt	driven:Adrift_244_saffire_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+salutations	salutations.txt	driven:Adrift_335_salutations_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+sandy	sandy.txt	driven:Adrift_396_sandy_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+sandy_meta_number	sandy_meta_number.txt	driven:Adrift_397_sandy_meta_number_rt.txt	4.00	run400x.exe	1234	0			yes	2 differing turn(s)
+scandal	scandal.txt	driven:Adrift_484_scandal_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	identical on every turn apart from the Runner's keypress prompt.
+screen_savers	screen_savers.txt	driven:Adrift_170_screen_savers_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+seaside	seaside.txt	driven:Adrift_503_seaside_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+secidenoddcomp	secidenoddcomp.txt	driven:Adrift_405_secidenoddcomp_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+second_chance	second_chance.txt	driven:Adrift_282_second_chance_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+secret_of_lost_world	secret_of_lost_world.txt	driven:Adrift_171_secret_of_lost_world_rt.txt	3.90	run390x.exe	1234	0	Hero~male		no	10+ differing turn(s)
+sexismental	sexismental.txt	driven:Adrift_425_sexismental_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+shadow_of_the_past	shadow_of_the_past.txt	driven:Adrift_183_shadow_of_the_past_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+shadowpeak	shadowpeak.txt	harvested-xoshiro:Adrift_128_shadowpeak_x.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	identical on every turn apart from the Runner's keypress prompt.
+shadowpeak_allgargoyles	shadowpeak_allgargoyles.txt	harvested-xoshiro:Adrift_128_shadowpeak_allgargoyles_x.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	identical on every turn apart from the Runner's keypress prompt.
+shadowpeak_killwraith	shadowpeak_killwraith.txt	harvested-xoshiro:Adrift_131_shadowpeak_killwraith_x.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	identical on every turn apart from the Runner's keypress prompt.
+shadricks_travels	shadricks_travels.txt	driven:Adrift_269_shadricks_travels_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+shardsofmemory	shardsofmemory.txt	driven:Adrift_211_shardsofmemory_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+shetland	shetland.txt	driven:Adrift_411_shetland_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+shore	shore.txt	driven:Adrift_245_shore_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+showtime	showtime.txt	driven:Adrift_465_showtime_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s)
+shred_em	shred_em.txt	driven:Adrift_144_shred_em_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+shufflingroom	shufflingroom.txt	driven:Adrift_384_shufflingroom_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+sigurd	sigurd.txt	driven:Adrift_470_sigurd_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+silk_noil	silk_noil.txt	harvested-xoshiro:Adrift_140_silk_noil_x.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+skydiver	skydiver.txt	driven:Adrift_402_skydiver_rt.txt	4.00	run400x.exe	1234	0			yes	1 differing turn(s)
+sleaze	sleaze.txt	harvested-native-0-draws:Adrift_702_sleaze.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+smote	smote.txt	driven:Adrift_362_smote_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+snakes_and_ladders	snakes_and_ladders.txt	driven:Adrift_138_snakes_and_ladders_rt.txt	4.00	run400x.exe	2	2		SCR_SEED=2	yes	0 differing turn(s), 24 lost command(s)
+sommeril	sommeril.txt	driven:Adrift_209_sommeril_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+sophie	sophie.txt	driven:Adrift_225_sophie_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
+sophie_comp	sophie_comp.txt	driven:Adrift_226_sophie_comp_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
+space_boy	space_boy.txt	driven:Adrift_172_space_boy_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+spam	spam.txt	driven:Adrift_198_spam_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+spirits_flight	spirits_flight.txt	driven:Adrift_184_spirits_flight_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	2 differing turn(s)
+spooked	spooked.txt	driven:Adrift_416_spooked_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+spot_of_bother	spot_of_bother.txt	driven:Adrift_261_spot_of_bother_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+srsintro	srsintro.txt	driven:Adrift_185_srsintro_rt.txt	4.00	run400x.exe	1234	1			yes	identical on every turn.
+sswhore	sswhore.txt	driven:Adrift_505_sswhore_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	0 differing turn(s), 1 lost command(s)
+stardust	stardust.txt	driven:Adrift_327_stardust_rt.txt	3.90	run390x.exe	1234	0			no	3 differing turn(s)
+stationxiii	stationxiii.txt	driven:Adrift_422_stationxiii_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+stowaway	stowaway.txt	driven:Adrift_368_stowaway_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+suburbanprodigy3	suburbanprodigy3.txt	driven:Adrift_511_suburbanprodigy3_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+sun_empire	sun_empire.txt	driven:Adrift_173_sun_empire_rt.txt	4.00	run400x.exe	10	0		SCR_SEED=10	yes	0 differing turn(s), 2 lost command(s)
+super_liam	super_liam.rtf	driven:Adrift_301_super_liam_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+suzypowers	suzypowers.txt	driven:Adrift_467_suzypowers_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	no	1 differing turn(s)
+takeone	takeone.txt	driven:Adrift_412_takeone_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+target	target.txt	driven:Adrift_353_target_rt.txt	4.00	run400x.exe	212	0		SCR_SEED=212	yes	identical on every turn.
+tcom	tcom.txt	harvested-native-0-draws:Adrift_519_tcom.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+templeofthesun	templeofthesun.txt	driven:Adrift_447_templeofthesun_rt.txt	4.00	run400x.exe	2	2		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+tenebraesemper	tenebraesemper.txt	driven:Adrift_413_tenebraesemper_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+terrified	terrified.txt	driven:Adrift_419_terrified_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+textident_evil	textident_evil.txt	driven:Adrift_322_textident_evil_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	identical on every turn apart from the Runner's keypress prompt.
+the_amulet	the_amulet.txt	driven:Adrift_271_the_amulet_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+the_cat_in_the_tree	the_cat_in_the_tree.txt	driven:Adrift_130_the_cat_in_the_tree_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+the_demon_hunter	the_demon_hunter.txt	driven:Adrift_266_the_demon_hunter_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+the_hangover	the_hangover.txt	driven:Adrift_259_the_hangover_rt.txt	3.90	run390x.exe	1234	0			yes	3 differing turn(s)
+the_nonsense_machine_6000	the_nonsense_machine_6000.txt	driven:Adrift_186_the_nonsense_machine_6000_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
+the_town_of_azra	the_town_of_azra.txt	driven:Adrift_187_the_town_of_azra_rt.txt	4.00	run400x.exe	1234	3	Hero		yes	6 differing turn(s)
+the_town_of_azra_v390	the_town_of_azra_v390.txt	driven:Adrift_188_the_town_of_azra_v390_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+thehunter	thehunter.txt	driven:Adrift_451_thehunter_rt.txt	4.00	run400x.exe	1234	0	Hunter~male		yes	identical on every turn apart from the Runner's keypress prompt.
+thelasthour	thelasthour.txt	driven:Adrift_424_thelasthour_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 2 lost command(s)
+thepkgirl	thepkgirl.txt	driven:Adrift_281_thepkgirl_rt.txt	4.00	run400x.exe	24	0		SCR_SEED=24 SCR_SKIP_WAITKEY=1	yes	1 differing turn(s), 1 lost command(s)
+theroad	theroad.txt	driven:Adrift_403_theroad_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+theseance	theseance.txt	driven:Adrift_430_theseance_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+thesisters	thesisters.txt	driven:Adrift_280_thesisters_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+thetest	thetest.txt	driven:Adrift_189_thetest_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+thetest_win	thetest_win.txt	driven:Adrift_190_thetest_win_rt.txt	3.90	run390x.exe	8	3		SCR_SKIP_WAITKEY=1 SCR_SEED=8	yes	10+ differing turn(s)
+thewoods	thewoods.txt	harvested-native-0-draws:Adrift_729_thewoods.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+think2	think2.txt	driven:Adrift_174_think2_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn apart from the Runner's keypress prompt.
+thorn	thorn.txt	driven:Adrift_148_thorn_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+threeminutes	threeminutes.txt	driven:Adrift_434_threeminutes_rt.txt	4.00	run400x.exe	3	1		SCR_SEED=3 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
+through_time	through_time.txt	driven:Adrift_191_through_time_rt.txt	4.00	run400x.exe	1234	1			yes	identical on every turn.
+ticket	ticket.txt	driven:Adrift_214_ticket_rt.txt	4.00	run400x.exe	10	1		SCR_SEED=10 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+ticktick	ticktick.txt	driven:Adrift_246_ticktick_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+tictactoe	tictactoe.txt	driven:Adrift_507_tictactoe_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+timmy_reid	timmy_reid.rtf	driven:Adrift_295_timmy_reid_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+to_hell_and_beyond	to_hell_and_beyond.txt	driven:Adrift_192_to_hell_and_beyond_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+to_hell_and_beyond_assisted	to_hell_and_beyond_assisted.txt	driven:Adrift_193_to_hell_and_beyond_assisted_rt.txt	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
+to_hell_and_beyond_assisted_max	to_hell_and_beyond_assisted_max.txt	driven:Adrift_194_to_hell_and_beyond_assisted_max_rt.txt	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
+to_hell_in_a_hamper	to_hell_in_a_hamper.txt	driven:Adrift_252_to_hell_in_a_hamper_rt.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+togetyou	togetyou.txt	driven:Adrift_140_togetyou_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+tom_ceader	tom_ceader.rtf	driven:Adrift_294_tom_ceader_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
+too_much_exercise	too_much_exercise.txt	driven:Adrift_134_too_much_exercise_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+topaz	topaz.txt	driven:Adrift_147_topaz_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+tophat	tophat.txt	driven:Adrift_433_tophat_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+toxically_earth	toxically_earth.txt	harvested-native-0-draws:Adrift_521_toxically_earth.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+tq3	tq3.txt	driven:Adrift_217_tq3_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+trabula	trabula.txt	driven:Adrift_143_trabula_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+trickortreat	trickortreat.txt	driven:Adrift_476_trickortreat_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+troll	troll.txt	driven:Adrift_260_troll_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+twilight	twilight.rtf	driven:Adrift_291_twilight_rt.rtf	3.80	run380x.exe	1234	0			no	7 differing turn(s), 1 lost command(s)
+unauthorized_termination	unauthorized_termination.txt	driven:Adrift_250_unauthorized_termination_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+undefined	undefined.txt	driven:Adrift_202_undefined_rt.txt	4.00	run400x.exe	1234	0	Undef		yes	identical on every turn apart from the Runner's keypress prompt.
+unfortunately	unfortunately.txt	driven:Adrift_471_unfortunately_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+unraveling_god	unraveling_god.txt	driven:Adrift_257_unraveling_god_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+unraveling_god_lou	unraveling_god_lou.txt	driven:Adrift_258_unraveling_god_lou_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+vagabond	vagabond.txt	driven:Adrift_200_vagabond_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+vague	vague.txt	driven:Adrift_248_vague_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+valley	valley.txt	driven:Adrift_313_valley_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+vampire	vampire.txt	driven:Adrift_343_vampire_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+vardock_bates	vardock_bates.txt	driven:Adrift_347_vardock_bates_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+vault	vault.txt	driven:Adrift_365_vault_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+vendetta	vendetta.txt	driven:Adrift_256_vendetta_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+veteran	veteran.txt	harvested-native-0-draws:Adrift_475_veteran.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+vetknow	vetknow.txt	driven:Adrift_338_vetknow_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+vetknow2	vetknow2.txt	driven:Adrift_339_vetknow2_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+videotapedecay	videotapedecay.txt	driven:Adrift_417_videotapedecay_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+viewtohome	viewtohome.txt	driven:Adrift_429_viewtohome_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+villains_and_kings	villains_and_kings.txt	driven:Adrift_195_villains_and_kings_rt.txt	3.90	run390x.exe	1234	0	male		yes	identical on every turn.
+volant	volant.txt	driven:Adrift_477_volant_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+warlock	warlock.txt	harvested-native-0-draws:Adrift_859_warlock.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+warlord	warlord.txt	driven:Adrift_506_warlord_rt.txt	4.00	run400x.exe	6	1		SCR_SEED=6 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s), 66 lost command(s)
+wax_worx	wax_worx.txt	driven:Adrift_208_wax_worx_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
+wayout	wayout.txt	driven:Adrift_372_wayout_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+wes_ghn	wes_ghn.txt	driven:Adrift_196_wes_ghn_rt.txt	4.00	run400x.exe	2	6		SCR_SEED=2	yes	identical on every turn apart from the Runner's keypress prompt.
+wheels_must_turn	wheels_must_turn.txt	driven:Adrift_329_wheels_must_turn_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+where_are_my_keys	where_are_my_keys.txt	driven:Adrift_251_where_are_my_keys_rt.txt	4.00	run400x.exe	13	0		SCR_SEED=13 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+whitesingularity	whitesingularity.txt	driven:Adrift_509_whitesingularity_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+whitterscap	whitterscap.txt	driven:Adrift_389_whitterscap_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+wilkins	wilkins.txt	driven:Adrift_462_wilkins_rt.txt	4.00	run400x.exe	1234	0			no	10+ differing turn(s)
+will	will.txt	driven:Adrift_452_will_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 1 lost command(s)
+windy2	windy2.txt	driven:Adrift_334_windy2_rt.txt	3.90	run390x.exe	1234	0	Sam		yes	identical on every turn apart from the Runner's keypress prompt.
+wingman1	wingman1.txt	harvested-native-0-draws:Adrift_746_wingman1.txt	3.90	run390x.exe	1234	0	Hero		yes	identical on every turn apart from the Runner's keypress prompt.
+witchtale	witchtale.txt	driven:Adrift_441_witchtale_rt.txt	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+withoutaclue	withoutaclue.txt	driven:Adrift_490_withoutaclue_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+witnessdemon	witnessdemon.txt	driven:Adrift_367_witnessdemon_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+wolvesatthedoor	wolvesatthedoor.txt	driven:Adrift_448_wolvesatthedoor_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+wonderwombat	wonderwombat.txt	driven:Adrift_346_wonderwombat_rt.txt	3.90	run390x.exe	3	2		SCR_SEED=3 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s), 124 lost command(s)
+woof	woof.txt	driven:Adrift_201_woof_rt.txt	4.00	run400x.exe	5	0	Rex	SCR_SEED=5	yes	identical on every turn apart from the Runner's keypress prompt.
+worstgame	worstgame.txt	driven:Adrift_415_worstgame_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
+wreckage	wreckage.txt	driven:Adrift_199_wreckage_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+wrecked	wrecked.rtf	driven:Adrift_274_wrecked_rt.rtf	3.80	run380x.exe	15	0		SCR_SEED=15	no	9 differing turn(s), 1 lost command(s)
+wumpusrun	wumpusrun.txt	driven:Adrift_514_wumpusrun_rt.txt	4.00	run400x.exe	72	0		SCR_SEED=72	yes	4 differing turn(s)
+xfiles	xfiles.txt	driven:Adrift_175_xfiles_rt.txt	4.00	run400x.exe	1234	0			no	7 differing turn(s)
+yadfa	yadfa.txt	driven:Adrift_487_yadfa_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
+yak_shaving	yak_shaving.txt	driven:Adrift_135_yak_shaving_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+yeh	yeh.txt	driven:Adrift_218_yeh_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
+ynkaboom	ynkaboom.txt	driven:Adrift_458_ynkaboom_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
+yonastoundingcastle	yonastoundingcastle.txt	driven:Adrift_229_yonastoundingcastle_rt.txt	4.00	run400x.exe	3	1		SCR_SEED=3 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s)
+zacksmackfoot	zacksmackfoot.txt	driven:Adrift_382_zacksmackfoot_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
+zelda	zelda.txt	driven:Adrift_464_zelda_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+zombiecow	zombiecow.txt	driven:Adrift_374_zombiecow_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
+zombies	zombies.txt	driven:Adrift_141_zombies_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.

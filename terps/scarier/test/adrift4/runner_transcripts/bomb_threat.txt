@@ -1,0 +1,160 @@
+ 
+Anonymous: Oh, nothing. Not that there is a bomb planted somewhere in the building...
+
+Jack (interupting): A bomb! Who the hell are you! Where is the bomb!
+
+Anonymous: I'm not going to tell you. All I will tell you is that I want to play a little game. If you follow my instructions, I will lead you to the bomb, if you don't then I'll blow the place sky high, and everyone within 100 meters as well...
+
+Jack (yelling): Listen you asshole! If I find this bomb I'm gonna defuse it and then find you! Then you'll go to jail for up to 30 years!
+
+Anonymous: Don't yell at me Jack! If I wanted I would blow the place here and now...
+
+Jack: Okay, okay. What is the first question?
+
+Anonymous: I belong on the 28th floor, go there now, I will tell you more later.
+
+BEEP, BEEP, BEEP. The phone has been hung up. Oh well, better get to the 28th floor soon or this psycho might blow the place up.
+
+> out
+You move out.
+The Footpath
+You are standing on the footpath. It is very busy here. To the west of you is the Imperial Agency building, where the bomb is supposed to be planted.  A car speeds through a red light.  A man walks by and presses the traffic light button. There is a manhole here which leads in the sewers.  You can move west and in.  
+
+> w
+You move west.
+The Lobby
+You are standing in the lobby of the Imperial Agency building. People are walking all about the place. There is an elevator next to you.  You can move east and in.  
+
+> in
+You move in.
+The Elevator - Ground Floor
+You are in the elevator on the ground floor. No one else is in here. You must go up to the 28th floor.  You can move up and out.  
+
+> up
+You move up.
+The Elevator - 28th Floor
+You are in the elevator on the 28th Floor. No one else is in the elevator.  You can move down and out.  
+
+> out
+You move out.
+Corridor
+You are standing in a long corridor. There is a door to the north and the south.  You can move north, south and in.  
+
+> s
+You move south.
+Office Room
+This is a simple office room. You can see out of the windows, which is quite high up. There is a desk, a bin and a cabinet here.  You can only move north.  
+
+> open desk
+You open the desk.  Inside the desk is a pen, a calculator and a key.  
+
+> take key
+You take a key from the desk.  
+
+> unlock cabinet
+You put the key in the cabinet and turn it, to your suprise it opens.  
+
+> open portfolio
+You open the portfolio.  
+
+> look at piece of paper
+Hey Jack! Getting closer, time for you're next clue. I am on floor 43 and I am very extreme! Find me for your next clue...  
+
+> n
+You move north.
+Corridor
+You are standing in a long corridor. There is a door to the north and the south.  You can move north, south and in.  
+
+> n
+You move north.
+Confrence Room
+A large confrence room, no one is in it. There is a large table and some chairs here, and a projector and projector screen.  Also here is coffee mug.  You can only move south.  
+
+> x table
+A long thick table, sits about 30 people.  A folder is on the table.  
+
+> open folder
+You open the folder.  Security card is inside the folder.  
+
+> take card
+You take security card from the folder.  
+
+> s
+You move south.
+Corridor
+You are standing in a long corridor. There is a door to the north and the south.  You can move north, south and in.  
+
+> read magazine
+It has a lot of pictures of people doing tricks on BMX bikes. On page 72 however has a message scribbled down the bottom. "You have found me! Okay, for your last clue, to defuse the bomb you'll need one of these, once you find one finding the bomb will be a breeze. I live on floor 3 and I am quite light, if you don't find me you won't live tonight.  
+
+> in
+You move in.
+The Elevator - 28th Floor
+You are in the elevator on the 28th Floor. No one else is in the elevator.  You can move down and out.  
+
+> press 3rd floor
+You press the 3rd floor button and the elevator springs to life. It eventually lands at floor 3.  
+
+> out
+You move out.
+Corridor
+This is another small corridor. There is a security clearance required at this door to enter, which is to the north.  You can move north and in.  
+
+> n
+You move north.
+Tool Room
+This is the tool room. There are lots of tools hanging on the racks around the room and a large workbench in the center.  You can only move south.  
+
+> x tool racks
+There are lots of tool racks which each have a set of tools on them.  On tool racks is a saw, a hammer, jar of nails and some pliers.  
+
+> take pliers
+You take some pliers from tool racks.  
+
+> x work table
+A workbench table which is covered in saw dust and wood chippings.  A crowbar is on work table.  
+
+> get all from work table
+You take the crowbar from work table.  
+
+> ss
+I don't understand what you mean!
+
+> in
+You can only move south.  
+
+> down
+You can only move south.  
+
+> out
+You can only move south.  
+
+> e
+You can only move south.  
+
+> down
+You can only move south.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> open package
+You can't open that.  
+
+> z
+Time passes...
+
+> cut red wire
+Who do you want to attack?  
+
+> shoot edgar
+Who do you want to attack?  

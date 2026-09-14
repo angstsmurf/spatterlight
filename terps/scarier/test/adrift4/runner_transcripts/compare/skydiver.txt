@@ -1,0 +1,12 @@
+feed        23 commands
+runner      23 turns echoed
+scarier     23 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 22  inflate parachute
+  run400   Finally, I had enough supplies to inflate my parachute. Good timing too, the ground wasn't that far away. As I gathered up my supplies and walked away, I smiled at the shining sunlight which brought me here. EPILOUGEAs I walked home, I was arrested for 5 years for killing a man with a giant pelican. As soon as I got out of jail, I had a celebratory sky dive. My parachute broke. I'm almost dea- [Press any key to end]
+  scarier  Finally, I had enough supplies to inflate my parachute. Good timing too, the ground wasn't that far away. As I gathered up my supplies and walked away, I smiled at the shining sunlight which brought me here. EPILOUGE As I walked home, I was arrested for 5 years for killing a man with a giant pelican. As soon as I got out of jail, I had a celebratory sky dive. My parachute broke. I'm almost dea-
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

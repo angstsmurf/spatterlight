@@ -1,0 +1,16 @@
+feed        17 commands
+runner      17 turns echoed
+scarier     18 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 6  turn off tv
+  run400   I don't understand what you mean!
+  scarier  You can't turn your tv.
+
+turn 15  quit
+  run400   
+  scarier  Do you really want to quit? [Y/N]
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

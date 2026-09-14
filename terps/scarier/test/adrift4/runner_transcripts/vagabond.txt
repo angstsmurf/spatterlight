@@ -1,0 +1,56 @@
+
+> 
+I don't understand what you mean!
+
+> west
+(Getting off the chair first)
+You move west.
+Starport Lobby
+Beings of all description bustle about this busy lobby creating a din that is almost deafening. In the center of the lobby is rooted a monstrous service desk, manned by a droid looking eager to sell you a ticket on the Intergalactic Express. The lobby opens up into the massive starport concourse to the North while flashing displays beckon you to the Starport Cafe to the East. The exit into Starlight City is South.
+
+> north
+You move north.
+Starport Concourse
+This vast concourse is filled with a variety of beings dragging around all manner of luggage in every possible direction. To the North, a ramp leads to the Primary Landing Platform while the concourse becomes a lobby to the South. Corriders branching off to the East and West lead to the Intergalactic Express Platform and to the Docking Bays respectively.
+
+> west
+You move west.
+Corridor to the Docking Bays
+This corridor connects the Docking Bays to the West and the Concourse to the East. A technician is hunched over a power conduit here sending sparks flying and cursing every few seconds. His toolbox is sitting on the floor next to him.
+
+> give credits to bum
+You give all of your money to the bum and he says, "Alright here's the plan. See that toolbox over there by the tech? It has a laser torch in it which you'll need. I'll distract him while you get it. Then meet me over by the Intergalactic Express Platform."
+
+You nod and the bum gives a toothless grin. He wobbles over to the tech, punches him in the kidney and then sprints off toward the concourse. It takes a moment for the tech to recover and then he takes off yelling and cursing after the bum.
+
+> open toolbox
+You open the toolbox.  A laser torch is inside the toolbox.
+
+> get torch
+You take the laser torch from the toolbox.
+
+> east
+You move east.
+Starport Concourse
+This vast concourse is filled with a variety of beings dragging around all manner of luggage in every possible direction. To the North, a ramp leads to the Primary Landing Platform while the concourse becomes a lobby to the South. Corriders branching off to the East and West lead to the Intergalactic Express Platform and to the Docking Bays respectively.
+
+> east
+You move east.
+Intergalactic Express Platform
+Benches and chairs line the walls here. Most are arranged in rows or around small islands of plants. An entertainment vid is being shown on the display screens around the room occupying the attention of the many people and beings waiting for the Intergalactic Express to arrive. The corrider blooms into the starport concourse to the West.  
+
+Out of nowhere, the bum grabs you and pulls you into a dark corner. "Okay listen." he pants, out of breath. "I think I lost him in the crowd." he points to a ventilation shaft in the wall. "This vent leads to a docking bay which is occupied by a cargo freighter. The crew is off in the city right now, so it shouldn't be too difficult to sneak aboard and hide in the cargo hold." Just then, the technician bursts into the room and the bum says, "Uh oh. Gotta go." and takes off running once again with the tech following close behind.
+
+> remove grate
+You cut away the ventilation shaft's protective grating with the laser torch.
+
+> enter vent
+
+You crawl into the ventilation shaft and work your way along until you come to the docking bay occupied by the cargo freighter. You carefully pull yourself out of the vent and without being noticed, quickly sneak aboard the ship. As you lie hidden in the cargo hold, you wonder to yourself where this ship could be going and what adventures await you there...
+
+The End
+You scored 1 out of the maximum 1!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

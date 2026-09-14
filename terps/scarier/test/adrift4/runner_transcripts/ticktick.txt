@@ -1,0 +1,65 @@
+
+> s
+You move south.
+Living Room
+This sparsely furnished room is where you and your cat live, more or less. The bedroom is north, the kitchen east. More importantly the door out is to the south. There's a window in one wall.  The scruffy ticking cat follows you.
+
+> e
+You move east.
+Kitchen
+Your cramped kitchen boasts all the usual ammenities and appliances, fridge, stove, oven, cupboards.The living room is to the west.  TICK tick TICK tick TICK tick tick TICK TICK!!!!!!!!!!!  The scruffy ticking cat follows you.
+
+> open oven
+You open the oven.  A tin is inside the oven.  The scruffy ticking cat follows you.
+
+> take tin
+You take the tin from the oven.  There's NO TIME.  THERE'S NO TIME!!! FASTER!  FASTER! DITCH! THE CAT!!!!  The scruffy ticking cat follows you.
+
+> feed cat
+You give the food to the cat which promptly sucks it up.  The scruffy ticking cat follows you.
+
+> get cat
+You manage to get hold of the cat which has been bloated and slowed by the tuna bison cat food.  Hurry.  Hurry.  The cat's about to go OFF!!!!!  HURRY!  HURRY.  The Cat's Ticking.  It's about to EXPLODE!!! Get that cat out of here.
+
+> w
+You move west.
+Living Room
+This sparsely furnished room is where you and your cat live, more or less. The bedroom is north, the kitchen east. More importantly the door out is to the south. There's a window in one wall.
+
+> break window
+You smash the window with your fist.  There's NO TIME.  THERE'S NO TIME!!! FASTER!  FASTER! DITCH! THE CAT!!!!
+
+> throw cat out window
+Your hurl the ticking mewling fur bomb out the window!  Hurray.  You are saved!! No.  Wait? 
+There's still something ticking.  The sound's coming from the bedroom.  
+It wasn't the cat.
+
+> n
+You move north.
+Bare Bedroom
+This is your bare bedroom.  There's room for a bed, barely. The living room is to the south.  The ticking is coming from inside the mattress.  Quick, quick, look in the mattress.
+
+> look in mattress
+There it is.  Wires, dynamite, a ticking clock.  A bomb. There's a note attached.
+
+> read note
+The note on the bomb says: 
+Hapy bUrthDay 
+Yr Freind
+The CAT
+THroW Me ouT wil Yu, Basterd??!!!
+
+
+The crude cat bomb goes off
+
+BOOM
+
+(Well, how exciting is a bomb made by a cat anyway?
+
+
+
+I'm afraid you are dead!
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+
+[Press any key to end]

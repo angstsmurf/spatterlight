@@ -1,0 +1,8 @@
+
+> x me
+Your body is worn and weak. You spent the better part of many days trying to solve this puzzle. Your clothes and body are filthy. You lost your job hanging out here all day. Trying to solve that puzzle. You sit here thirsty and starving, addicted to a phone booth. Still trying to solve the puzzle. Your are pathetic. You start to cry.  
+
+> take phone booth
+You lift the phone booth with tears streaming down your face. You quickly loose your footing and the phone booth crushes your body, killing  you.Committing its final act of mercy. Congratulations!
+
+[Press any key to end]

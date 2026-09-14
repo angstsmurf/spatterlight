@@ -1,0 +1,216 @@
+
+> open mail box
+as you open the mail box it explodes and is distroyed
+
+> take silver-key
+You pick up the silver-key.
+
+> west
+You move west.
+Front door
+you are standing outside the front door to a 3 story building.  the door is to the south and you can go east up the drive way.  there isan intercom to the right of the door  the door is locked   Also here is welcome mat.  You can only move east.
+
+> press pound
+you press the pound key on the intercom
+
+> press 5
+you press the 5 on the intercom 
+
+> press 7
+you press 7 on the intercom
+
+> press 2
+you press 2 on the intercom
+
+> press 4
+you press 4 on the intercom  the front door unlocks with a click 
+
+> south
+You move south.
+Lobey
+this is the lobey of the building of death.  you can proceed up the stairs to the second floor or go west to a hall of doors   You can move north, west and up.
+
+> up
+You move up.
+Second floor
+this is the second floor of the building of death there are two doors one to each side of you and a second flight of stairs leading up to the third floor.  You can move up and down.
+
+> up
+You move up.
+Third floor
+this is the top floor of the building of death.  There are two doors on each side of the hallway.    You can only move down.
+
+> unlock door
+you unlock number 3 and can now proceed into the apartment 
+
+> east
+You move east.
+Red kitchen
+this is the kitchen of apartment number 3   Jim is here.  You can only move west.  An old  gentalman cuts you with long knife, but it doesn't seem to do any damage.
+
+> kill jim
+as jim falls to the floor his body disappears into thin air leaving behind his knife and shield 
+
+> take gold-key
+You pick up the gold-key.
+
+> west
+You move west.
+Third floor
+this is the top floor of the building of death.  There are two doors on each side of the hallway.    You can move east and down.
+
+> sell silver-key
+you sell the silver key for 500
+
+> buy scale male
+you purchus scale male for 300 gp
+
+> buy plate male
+you purchus plate male for 400 gp
+
+> down
+You move down.
+Second floor
+this is the second floor of the building of death there are two doors one to each side of you and a second flight of stairs leading up to the third floor.  You can move up and down.
+
+> unlock door
+you unlock number 2 and swing open the door
+
+> west
+You move west.
+Lit dining room
+this is the dining room of apartment 2   Ireen is here.  You can only move east.  An old  woman hits you, but it doesn't seem to do any damage.
+
+> kill ireen
+ireen falls to the floor and disappears
+
+> take red-key
+You pick up the red-key.
+
+> east
+You move east.
+Second floor
+this is the second floor of the building of death there are two doors one to each side of you and a second flight of stairs leading up to the third floor.  You can move west, up and down.
+
+> up
+You move up.
+Third floor
+this is the top floor of the building of death.  There are two doors on each side of the hallway.    You can move east and down.
+
+> unlock door
+you unlock number 4 and open the door
+
+> west
+You move west.
+Dark closet
+this is a closet for apartment 4   Rooth is here.  You can only move east.  A dark old  lady hits you, but it doesn't seem to do any damage.
+
+> kill rooth
+rooth drops to the floor and then disappears 
+
+> take crystal-key
+You pick up the crystal-key.
+
+> east
+You move east.
+Third floor
+this is the top floor of the building of death.  There are two doors on each side of the hallway.    You can move east, west and down.
+
+> down
+You move down.
+Second floor
+this is the second floor of the building of death there are two doors one to each side of you and a second flight of stairs leading up to the third floor.  You can move west, up and down.
+
+> unlock door
+you use the crystal key and unlock the door to number 1
+
+> east
+You move east.
+Living room
+this is the living room for apartment 1 there is a fireplace on one wall and a hallway to yournorth.  there is a table infront of you and a couch behind it   You can move north and west.
+
+> north
+You move north.
+Corner of hall 
+this is the corner of a hall witch runs west and north   You can move north, east, south and west.
+
+> east
+You move east.
+Hall1 west
+this is the hallway leading to the bedrooms of apartment 1   Debbie is here.  You can only move west.
+
+> kill debbie
+as debbie dies she disapppears and the pan falls to the floor 
+
+> east
+You move east.
+Hall1 east
+this is the west end of a hall in apartment 1 of the building of death.  there are doors to the north and south   You can move north and west.
+
+> north
+You move north.
+Guest room
+this is a guest room in the house of death   Beth is here.  You can only move south.  A lovely  girl hits you with mettle spiked bat, but it doesn't seem to do any damage.
+
+> kill beth
+as beth dies she drops the bat and falls to the floor.  but she raises from the floor with a look of amazement on her face  A lovely  girl hits you, but it doesn't seem to do any damage.
+
+> south
+You move south.
+Hall1 east
+this is the west end of a hall in apartment 1 of the building of death.  there are doors to the north and south   You can move north, south and west.
+
+> south
+You move south.
+Master bedroom 
+this is the master bedroom in the house of death   Ross is here.  A tall well built  man hits you with metal glove, but it doesn't seem to do any damage.
+
+> kill ross
+ross dissapears and you don't know where he went   Joshua walks in .  A tall well built  man hits you, but it doesn't seem to do any damage.
+
+> north
+You move north.
+Hall1 east
+this is the west end of a hall in apartment 1 of the building of death.  there are doors to the north and south   You can move north, south and west.  Joshua walks in  from the south.
+
+> west
+You move west.
+Hall1 west
+this is the hallway leading to the bedrooms of apartment 1   Also here is frying pan.  Debbie is here.  You can move east and west.  Joshua walks in  from the east.
+
+> west
+You move west.
+Corner of hall 
+this is the corner of a hall witch runs west and north   You can move north, east, south and west.  Joshua walks in  from the east.
+
+> south
+You move south.
+Living room
+this is the living room for apartment 1 there is a fireplace on one wall and a hallway to yournorth.  there is a table infront of you and a couch behind it   You can move north and west.  Joshua walks in  from the north.
+
+> west
+You move west.
+Second floor
+this is the second floor of the building of death there are two doors one to each side of you and a second flight of stairs leading up to the third floor.  You can move east, west, up and down.  Joshua walks in  from the east.
+
+> up
+You move up.
+Third floor
+this is the top floor of the building of death.  There are two doors on each side of the hallway.    Demon is here.  You can move east, west and down.  Joshua walks in  from below.  A small  demon hits you, but it doesn't seem to do any damage.
+
+> kill witch
+the witch disappears with a laugh   A small  demon hits you, but it doesn't seem to do any damage.
+
+> up
+You move up.
+Attic
+this is the attic of the house of death   Dark force is here.  You can only move down.  Joshua walks in  from below.  A dark looking boss hits you.
+
+> kill force
+as the dard force crumbles into dust you are swept out of the house and placed back on the driveway.   every thingis back to normal.  the mailbox whitch blew up when you opened it is standing here intact.  you head off knowing you did a good job and that more will come yourway soon.  
+
+You scored 100 out of the maximum 100!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

@@ -1,0 +1,49 @@
+feed        143 commands
+runner      143 turns echoed
+scarier     143 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 68  unlock door
+  run400   You can't do that here!
+  scarier  You can't unlock the door.
+
+turn 69  unlock door
+  run400   You can't do that here! Robot Guard storms in from the east. A robot guard hits you with the robot's chain.
+  scarier  You can't unlock the door. Robot Guard storms in from the east. A robot guard hits you with the robot's chain.
+
+turn 70  unlock door
+  run400   You can't do that here! A robot guard hits you with the robot's chain.
+  scarier  You can't unlock the door. A robot guard hits you with the robot's chain.
+
+turn 71  unlock door
+  run400   You can't do that here! A robot guard hits you with the robot's chain.
+  scarier  You can't unlock the door. A robot guard hits you with the robot's chain.
+
+turn 72  unlock door
+  run400   You can't do that here! Robot Guard stamps out to the east.
+  scarier  You can't unlock the door. Robot Guard stamps out to the east.
+
+turn 73  unlock door
+  run400   You can't do that here!
+  scarier  You can't unlock the door.
+
+turn 74  unlock door
+  run400   You can't do that here!
+  scarier  You can't unlock the door.
+
+turn 75  unlock door
+  run400   You can't do that here!
+  scarier  You can't unlock the door.
+
+turn 76  unlock door
+  run400   You can't do that here!
+  scarier  You can't unlock the door.
+
+turn 77  unlock door
+  run400   You can't do that here!
+  scarier  You can't unlock the door.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

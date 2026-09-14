@@ -1,0 +1,72 @@
+
+> 
+Wow, now that's spam!
+
+> look
+Kitchen
+The usual refrigerator, stove, and the like are all here, along with groceries, and a can of SPAM©.  Also here is a can of SPAM©.
+
+> take spam
+You take the can of SPAM©.
+
+> north
+You move north.
+Driveway
+Your car is here.
+
+> enter car
+You don't have your car keys!
+
+> south
+You move south.
+Kitchen
+The usual refrigerator, stove, and the like are all here, along with groceries, and a can of SPAM©.  Oh, and your car keys are on the counter.
+
+> take keys
+You take car keys.
+
+> north
+You move north.
+Driveway
+Your car is here.
+
+> enter car
+You get in your car.
+
+> start car
+You start the car, and head for the address printed on the label of the can of SPAM©.
+
+> north
+You move north.
+Inside SPAM© Headquarters
+You are at a desk. There is a receptionist here, typing away at a computer.  The Receptionist is here.
+
+> ask about ingredients
+(Nobody)
+The receptionist looks up at you. "Did you say...." "Say what," you say, " Ingredients?\”  She gasps, and hits a button. An alarm starts going off! Gas starts to fill the room, and the next thing you know, you are in a cell shackled to the wall.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+A guard comes in, unshackles you, and escorts you to the office of the C.E.O. of SPAM©, Inc.   
+
+> z
+Time passes...
+
+
+The CEO walks in. "So, you want to know what's in SPAM(©), eh? Did you know you are the first person to ask the question?" You shake your head.  "Ever?" You shake your head. "No?" You shake your head. "Don't look so surprised." You see, no one is supposed to ask that. Would you like to know why?" You nod your head. "Well, I'll tell you. Do you want to know why?" You have a felling that you don't. "Because I'm going to SPAM you after this!" he continues, "For years, SPAM© has been a joke. When my father started the company, he was outraged that anyone could consider SPAM© humorous. When he died, and I took over the company, I learned to make it work for me. You see, if everyone considers it a joke, nobody will suspect it of operating the largest conspiracies since the X-Files. Because we're putting mind-control drugs in it. Soon SPAM©, Inc. will have a monopoly on all potted lunchmeat products all over the world! MUHAHAHA!" Quick! Do something! He's getting out his SPAMRAY©!!!!!
+
+> ask ceo about spam
+You tackle the CEO, open his jaws and force the SPAM© down his piehole. Within minutes, he is under control of the drug. You manage to get him to give you control of the company. Now YOU will have a monopoly on potted lunchmeat products!
+
+Your rank for this game is Spam King
+...The highest rank of all! You rule!
+
+You scored 20 out of the maximum 20!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

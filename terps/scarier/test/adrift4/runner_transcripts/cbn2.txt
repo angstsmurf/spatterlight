@@ -1,0 +1,132 @@
+
+> 
+Reception
+The newspaper reception is small and cramped with several bundles of ancient newspapers cluttering up every corner. Behind the reception desk sits a bored girl polishing her nails and doing her level best to ignore the ringing phone an inch from her left ear.
+   Exits lie: south (to the outside world) and up (to the first floor of the newspaper offices).
+
+
+> 
+What? Even for a game featuring Clueless Bob Newbie that was a strange command. Looks like you'd better try something different.
+
+> 
+What? Even for a game featuring Clueless Bob Newbie that was a strange command. Looks like you'd better try something different.
+
+> x girl
+"Hey!" she snaps. "My name's Lisa, okay? If you're going to waste your time talking to me, at least have the decency to get my name right and don't refer to me as 'girl'. Jeez! Some people!"
+
+> u
+You move up.
+
+Open Area
+Busy journalists rush past you on all sides, creating a veritable horde of activity in this dimly-lit area. Several offices line the walls although as none of them are marked it's difficult to say just what is in them.
+   Exits lie: down (to the reception), northwest, north and northeast (into various offices) and south (to the toilets).
+
+
+> nw
+You move northwest.
+Bogg's Office
+The office of the fabled Bogg, one of the most scathing journalists in town. The bile and rage he has poured onto your classic games in the past - even ones like Spitt - Teh Musicle - has left you cursing with demented rage. You wonder what kind of carnage and mayhem you can inflict on his desk or chair before anyone could stop you.
+   Exits lie: southeast (to the open area).
+
+
+> x desk
+The surface of Bogg's desk is completely empty. Aside, that is, from an empty cup you find. You swipe it in the hope he might find it gone and spontaneously combust as a result.
+
+> se
+You move southeast.
+Open Area
+Busy journalists rush past you on all sides, creating a veritable horde of activity in this dimly-lit area. Several offices line the walls although as none of them are marked it's difficult to say just what is in them.
+   Exits lie: down (to the reception), northwest, north and northeast (into various offices) and south (to the toilets).
+
+
+> s
+You move south.
+Toilets
+The toilets look like the inside of a sewer (a scene hghly reminiscent of your game Down int he Sewa) what with the pools of dirty water on the floor and the unmentionables lying in one corner. Clean the single toilet out and it might be useable but as things stand...
+   Exits lie: north (to the open area).
+
+
+> fill cup
+Acting on a hunch that you sometimes get when writing an epic masterpiece - the 2.5 KB Plopp being a prime example - you dip the cup into the toilet and fill it up. Disgusting as this seems, the stuff contained within the cup is now undoubtedly closer to coffee than what journalists generally drink.
+
+> n
+You move north.
+Open Area
+Busy journalists rush past you on all sides, creating a veritable horde of activity in this dimly-lit area. Several offices line the walls although as none of them are marked it's difficult to say just what is in them.
+   Exits lie: down (to the reception), northwest, north and northeast (into various offices) and south (to the toilets).
+
+
+> d
+You move down.
+
+Reception
+The newspaper reception is small and cramped with several bundles of ancient newspapers cluttering up every corner. Behind the reception desk sits a bored girl polishing her nails and doing her level best to ignore the ringing phone an inch from her left ear.
+   Exits lie: south (to the outside world) and up (to the first floor of the newspaper offices).
+  Lisa and Snarf are here.  
+"Morning, Lisa," says Snarf with a nasty look on his face. "We ruined anyone's life today?"
+   "A couple of schools got shut down 'cos of stories we wrote, boss," says Lisa.
+   "Schools? Huh! Anyone die?"
+   "Not that I know."
+   Snarf sighs. "Pity."
+
+> give coffee
+Lisa takes it, sips it, and smiles.
+   "Hey, not bad!" she says. "Not bad at all. I mean, it's got a definitely toilety edge to it but it's certainly better than the stuff I usually get out of the coffee machine. Here, they'll be wanting to speak to you, Mr Gobodi."
+   "But my name isn't-" You see the passcard she's handing out and quickly amend that to: "Mr Gobodi indeed." You take the passcard. "Many thanks."
+
+> talk to snarf
+"Who the hell are you, loser?" he barks. "I'm off to my office, Lisa. If my wife calls, tell her I'm seeing my mistress."
+   He goes storming off up the stairs.
+   "He's such a gentleman," sighs Lisa.
+
+> u
+You move up.
+Open Area
+Busy journalists rush past you on all sides, creating a veritable horde of activity in this dimly-lit area. Several offices line the walls although as none of them are marked it's difficult to say just what is in them.
+   Exits lie: down (to the reception), northwest, north and northeast (into various offices) and south (to the toilets).
+
+
+> tell journalists about the wife
+"My wife?" yells Snarf. "Christ above! And I've just lit a cigar and I know she hates smoking! I'd better-"
+   There is the sound of a window smashing.
+
+> n
+You move north.
+
+Snarf's Office
+The head of the newspaper has this office, and you're sure he was the vicious-minded so-and-so behind that scandalous hack job in the paper this morning. The walls and desk fairly reek of his twisted evil and even the view through the window - onto a garbage-infested alley - reminds you of his curious aroma.
+   Exits lie: south (to the main area).
+  Also here is a match.  
+   No sign of Snarf. You guess he must have jumped out of the window in mortal fear that you were his dearly beloved wife.
+
+> take match
+You take the match.
+
+> s
+You move south.
+Open Area
+Busy journalists rush past you on all sides, creating a veritable horde of activity in this dimly-lit area. Several offices line the walls although as none of them are marked it's difficult to say just what is in them.
+   Exits lie: down (to the reception), northwest, north and northeast (into various offices) and south (to the toilets).
+
+
+> ne
+You move northeast.
+
+Archives System
+This is the very hub of the newspaper: the storage area for all their old stories. One fire here and...
+   Exits lie: southwest (to the open area).
+
+
+> light match
+You light it - and the archives room goes up in flames!
+   Cackling hysterically, you race from the building, a cry of "Clueless Bob Newbie strikes again!" erupting from you and baffling the dazed journalists whose workplace is burning down around them.
+
+...press a key...
+
+In hindsight, maybe crying your name out loud like that wasn't the cleverest thing you could have done. This dawns on you when the large fellows in police uniform come knocking on your front door later that day wanting to "have a quiet word" about "a little case of arson", but you're so elated by your victory today that you don't even notice when they reach for their handcuffs and read you your rights...
+
+You scored 30 out of the maximum 30!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

@@ -1,0 +1,55 @@
+
+> 
+I don't understand what you mean!
+
+> i
+You are carrying a waterskin.
+
+> x canopy
+  Looking up into the canopy of wave of warm light embraces you. It is not very bright, more mild than sunlight and with a slight green tint. Up above in the sky there are no clouds, just the clear blue.
+
+> x forest
+  Looking deep into the forest you detect a growing darkness in the distance very slowly spreading out and getting closer to the clearing.
+
+> x pool
+  The water in the pool is very clear and it has a dreamy look to it. The water is full of life, yet no fish, insect or other animal can be seen in it.
+
+> x basin
+  Studying the basin of life - or the basin of dreams, as it is also known - you take note of it's mesmerizing design. It is thin at the bottom but expands gradually as it's height increases. A row of images at the top of the marble bowl that go all the way around it reveal the cycle of life. You swear you can see the images moving but when you focus your eyes at them they seem to stop, and yet not.
+  On top of the basin, going around the edge, are words, words that form sentences, three of them.
+  You squint your eyes as you try to read the words:
+  "If filled with the water of dreams then do not worry, you are safe.
+  Without the water of dreams there is no hope, all life will be forfeit!"
+  The third line you can't read, it's covered with dust.
+
+> wipe away dust
+You wipe away the dust to read the line. You are surprised at how much text there is there, it's almost as if it goes on forever, yet the space allotted to the third line is the same as for the other lines.
+
+  "The Dreamworld
+  The Dreamworld is a collection of three very different planes; The Dreamplane, the Shadowplane and the Lifeplane. Each is relevant to the life of the Dreamworld, even the Shadowplane.
+  The Lifeplane is where most humans live..."
+   A small piece of the basin has been broken off here. There's nothing more to read.
+
+> x basin
+  Studying the basin of life - or the basin of dreams, as it is also known - you take note of it's mesmerizing design. It is thin at the bottom but expands gradually as it's height increases. A row of images at the top of the marble bowl that go all the way around it reveal the cycle of life. You swear you can see the images moving but when you focus your eyes at them they seem to stop, and yet not.
+  On top of the basin, going around the edge, are words, words that form sentences, three of them.
+  You squint your eyes as you try to read the words:
+  "If filled with the water of dreams then do not worry, you are safe.
+  Without the water of dreams there is no hope, all life will be forfeit!"
+  Now that you've wiped the dust away the third line is now visible.
+"The Dreamworld
+  The Dreamworld is a collection of three very different planes; The Dreamplane, the Shadowplane and the Lifeplane. Each is relevant to the life of the Dreamworld, even the Shadowplane.
+  The Lifeplane is where most humans live..."
+   A small piece of the basin has been broken off here. There's nothing more to read.
+
+> fill waterskin with water
+You dip the waterskin into the water and fill it up.
+
+> pour water from waterskin into basin
+You pour the clear, dreamy water into the basin of life. As the water of dreams is returned to it's rightful place the shadow that had entered the Timeplan gives a hasty retreat and flees to where it belongs.
+You have saved the Dreamworld, and thus you have saved all life.
+You scored 50 out of the maximum 50!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

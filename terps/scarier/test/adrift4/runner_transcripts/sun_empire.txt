@@ -1,0 +1,440 @@
+
+> use print pod
+Passing your hand over the touch pod, the control room doors have unlocked and opened.
+
+> e
+You move east.
+Control Room Patio
+A large steel frame supports the control room above the laboratory floor.  Here a large railed section is affectionately known as the patio.  To the west is the entrance door and a steel stairway leads downwards.  A large white, polymer patio table appears cheesily inexpensive but lends itself to the informal and laid back atmosphere of the patio.
+
+> d
+You move down.
+Control Stairwell
+Underneath the steel framework that supports the control room above the laboratory floor, a stairwell leads up.  The lab floor is to the north.  Mhentsh is here.  Jeriah Eldon enters from the north.
+
+> n
+You move north.
+Genetics Lab
+This sprawling room is sectioned in two by a long, multi-level stainless steel table.  The main lab exit is to the east and the control stairwell is to the south.  Against the west wall is a large single piece of equipment, the DNA analysis computer, that takes up half the wall.
+
+> e
+You move east.
+North/South Hall
+The walls are white washed concrete and the floor is covered with stone tiles.  An orange carpet extends the walkway from the northern reception area and continues to the south.  A small white sign with blue lettering and an arrow to the south reads, "Personal Quarters".  Another sign next to huge blast shield doors indicates that the main genetics lab is to the west.
+
+> s
+You move south.
+PQ Intersection
+The orange carpet over stone tile ends here at the intersection of the personal quarters.  To the north is a main hallway.  There are doors to the southwest, south and southeast.
+
+> open door
+You open the door.
+
+> sw
+You move southwest.
+Jeriah's PQ
+Jeriah spent most of his waking hours in the lab; thus the spartan furnishing of the room: a single bed.  A clothes trunk sits at the foot of the bed.
+
+> open trunk
+You open the trunk.
+
+> x clothes trunk
+Sitting at the foot of the bed is Jeriah's clothes trunk.  The clothes trunk is open.  An ID pass and the clothes are inside the clothes trunk.
+
+> get all from clothes trunk
+You take the ID pass and the clothes from the clothes trunk.
+
+> take clothes
+You are already carrying the clothes.
+
+> ne
+You move northeast.
+PQ Intersection
+The orange carpet over stone tile ends here at the intersection of the personal quarters.  To the north is a main hallway.  There are doors to the southwest, south and southeast.
+
+> n
+You move north.
+North/South Hall
+The walls are white washed concrete and the floor is covered with stone tiles.  An orange carpet extends the walkway from the northern reception area and continues to the south.  A small white sign with blue lettering and an arrow to the south reads, "Personal Quarters".  Another sign next to huge blast shield doors indicates that the main genetics lab is to the west.
+
+> w
+You move west.
+Genetics Lab
+This sprawling room is sectioned in two by a long, multi-level stainless steel table.  The main lab exit is to the east and the control stairwell is to the south.  Against the west wall is a large single piece of equipment, the DNA analysis computer, that takes up half the wall.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+Jeriah Eldon enters from the south.
+
+> z
+Time passes...
+
+> give id pass to jeriah
+Looking relieved, Jeriah takes the ID pass from you.
+
+"Thank you," he says, "Where did you find it?"
+
+"In your room."
+
+He grins a bit sheepishly, "Oops.  And I've been scouring the lab all morning."
+
+"Oh, Tangee, I almost forgot after looking for this pass so hard.  I wanted you to review some of my work.  Here, take my pdd.  My notes on selection criteria for DNA stimulation are there along with my prototype software.  Let me know what you think, ok?"
+
+"I look forward to it, Jeriah," you reply.
+
+
+> x pdd
+Ten by twelve inches in size and a half inch thick, this personal data device has an attached pen for writing.  An inventory of the electronic contents of the device reveals a research document outlining how to pinpoint founder DNA that will stimulate into structured biological material with a high degree of success.  The pdd also contains an attached software program that analyzes genetic sequences according to the paper's outline and returns an evaluation on the potential success of various methods of stimulation.
+
+This is amazing work and very important.  You wish that Jeriah had brought it to your attention earlier.
+Jeriah Eldon exits to the south.
+
+> x stainless steel lab table
+The levels of the table are as easily accessible as the other.  The steel table is used to hold experiments and lab equipment.  On the stainless steel lab table is a genetic sampler, a growth vat and an electron microscope.
+
+> get all from stainless steel lab table
+You take the genetic sampler, the growth vat and the electron microscope from the stainless steel lab table.
+
+> get sample from me
+Pressing the genetic sampler to your arm, you feel a slight tingle.  Examing the sampler, a cannister presents itself out of the head.  You snap it off and take it with you.
+
+
+
+> get sample from limb
+Pressing the genetic sampler to the founder limb, you take a genetic sample.  Examing the sampler, a cannister presents itself out of the head.  You snap it off and take it with you.
+
+
+
+> perform dna analysis
+Waiting for the DNA analysis complete, you begin to wonder what Mark has in mind for recombination of the samples you've collected so far.
+
+The output of the analysis begins to display on the terminal of the machine.  It appears that the tissue DNA matches by 15% other founder tissue samples.  However, the analysis does indicate 70% compatibility for current recombination techniques with the same set of founder tissue samples.
+
+You really must get back to Mark and talk to him about these results.
+
+> e
+You move east.
+North/South Hall
+The walls are white washed concrete and the floor is covered with stone tiles.  An orange carpet extends the walkway from the northern reception area and continues to the south.  A small white sign with blue lettering and an arrow to the south reads, "Personal Quarters".  Another sign next to huge blast shield doors indicates that the main genetics lab is to the west.
+
+> n
+You move north.
+Reception
+The orange carpet begins here around a central information booth and continues to the south and west.  The entrance doors to the north are shut.  A doorway to the east is labelled, "Security".  Nadine sits here in the reception booth welcoming guests, transferring communications and managing point for security.
+
+> e
+You move east.
+Security
+Security is the nerve center of the laboratory.  Walls filled with video monitors and computer terminals allow checking in on any area of the grounds.  Malthew stands here at attention.
+
+> take grenade
+Taking a momentary opportunity while Malthew monitors the video cameras and talks with some roving security detail, you deftly detach the grenade from his belt and conceal it on your person.
+
+> w
+You move west.
+Reception
+The orange carpet begins here around a central information booth and continues to the south and west.  The entrance doors to the north are shut.  A doorway to the east is labelled, "Security".  Nadine sits here in the reception booth welcoming guests, transferring communications and managing point for security.
+
+> s
+You move south.
+North/South Hall
+The walls are white washed concrete and the floor is covered with stone tiles.  An orange carpet extends the walkway from the northern reception area and continues to the south.  A small white sign with blue lettering and an arrow to the south reads, "Personal Quarters".  Another sign next to huge blast shield doors indicates that the main genetics lab is to the west.
+
+> w
+You move west.
+Genetics Lab
+This sprawling room is sectioned in two by a long, multi-level stainless steel table.  The main lab exit is to the east and the control stairwell is to the south.  Against the west wall is a large single piece of equipment, the DNA analysis computer, that takes up half the wall.
+
+> s
+You move south.
+Control Stairwell
+Underneath the steel framework that supports the control room above the laboratory floor, a stairwell leads up.  The lab floor is to the north.  Mhentsh is here.
+
+> u
+You move up.
+Control Room Patio
+A large steel frame supports the control room above the laboratory floor.  Here a large railed section is affectionately known as the patio.  To the west is the entrance door and a steel stairway leads downwards.  A large white, polymer patio table appears cheesily inexpensive but lends itself to the informal and laid back atmosphere of the patio.  Jeriah Eldon is pacing here musing over a notepad.
+
+> w
+You move west.
+Control Room
+Lit brightly with flourescent lights, windows surrounding the control room give an aerial view of the laboratory floor.  Shiny, white tile floors contrast with the black tabletop that rings the room.  Amid the clutter of documents on the tabletop is a computer workstation and  vidcom.  To the east is the exit to the control room patio.  Mark is standing in the room with you.
+
+> talk to mark
+"I'm finished with the DNA analysis," you tell Mark.
+
+"Ok, then I'm ready when you are.  Ask me to follow you and lets go to the cafeteria.  I think you'll like my ideas on some recombination techniques we can try."
+
+> ask mark to follow me
+"Ok," he replies, "I'll follow you.  Lead on."
+
+> e
+You move east.
+Control Room Patio
+A large steel frame supports the control room above the laboratory floor.  Here a large railed section is affectionately known as the patio.  To the west is the entrance door and a steel stairway leads downwards.  A large white, polymer patio table appears cheesily inexpensive but lends itself to the informal and laid back atmosphere of the patio.  Mark Eridian walks in from the west.
+
+> d
+You move down.
+Control Stairwell
+Underneath the steel framework that supports the control room above the laboratory floor, a stairwell leads up.  The lab floor is to the north.  Mhentsh is here.  Mark Eridian walks in from above.
+
+> n
+You move north.
+Genetics Lab
+This sprawling room is sectioned in two by a long, multi-level stainless steel table.  The main lab exit is to the east and the control stairwell is to the south.  Against the west wall is a large single piece of equipment, the DNA analysis computer, that takes up half the wall.  Jeriah Eldon is pacing here musing over a notepad.  Mark Eridian walks in from the south.  A loud voice breaks into the room over the com system:  "All personnel.  We have incoming hostile Orgaan units.  Initiating code red.  Code Red".
+
+With that the voice is gone, there is a moment of silence broken finally by a siren wail in the distance.  Jeriah Eldon exits to the south.  A previously non-descript red light blinks to life in the center of the ceiling.  The code red warning light blinks urgently.
+
+> x mark
+Of a tall, muscular build, Mark descends from old Andromedan stock.  His alabaster skin and blonde hair is flawless.  Both bring out the exquisite vibrance of his sky blue eyes.
+
+> x mark
+Of a tall, muscular build, Mark descends from old Andromedan stock.  His alabaster skin and blonde hair is flawless.  Both bring out the exquisite vibrance of his sky blue eyes.
+
+> z
+Time passes...
+You can hear the wail of a distant emergency siren.
+
+> z
+Time passes...
+A previously non-descript red light blinks to life in the center of the ceiling.  Several muffled explosions are heard in the distance.
+
+> z
+Time passes...
+You can hear the wail of a distant emergency siren.
+
+> z
+Time passes...
+A previously non-descript red light blinks to life in the center of the ceiling.  The rattling of gunfire occurs close to the lab.  There is another muffled explosion;however distinctly outside the lab itself.
+
+> z
+Time passes...
+You can hear the wail of a distant emergency siren.
+
+> z
+Time passes...
+A previously non-descript red light blinks to life in the center of the ceiling.  Four Orgaan soldiers breach the laboratory doors with a hand grenade spewing metal debris and paper across the laboratory.  Rushing in, two quickly find cover and begin shooting at the scientists in the room.  A third soldier spots the Kantan guard and rushes him with his weapon.  The Kantan guard was prepared and cuts him down halfway across the floor.  Rushing the two under cover, a lucky head shot takes out another Orgaan soldier before the Kantan guard is brought down by the other.
+
+The fourth Orgaan soldier lobs a hand grenade across the laboratory before ducking for cover.
+
+A deafening explosion rocks the lab breaching the east wall.  Flying debris glances off of Jeriah.  Exposed through the breach, the cafeteria room next door disappears in a cloud of  dust and debris.  There is the sound of shattering glass and wrenching metal as the steel support beam fails and crashes down into the laboratory control room.
+
+> z
+Time passes...
+Mark Eridian hits Skyrv, but it doesn't seem to do any damage.  Skyrv hits you, but it doesn't seem to do any damage.  You can hear the wail of a distant emergency siren.
+
+> z
+Time passes...
+Mark Eridian hits Skynd.  Skyrv hits Mark Eridian.  You manage to avoid Skynd's attack.  A previously non-descript red light blinks to life in the center of the ceiling.
+
+> z
+Time passes...
+Skyrv manages to avoid Mark Eridian's attack.  Mark Eridian manages to avoid Skynd's attack.  You can hear the wail of a distant emergency siren.
+
+> z
+Time passes...
+Mark Eridian hits Skyrv, but it doesn't seem to do any damage.  Skyrv hits you, but it doesn't seem to do any damage.  You manage to avoid Skynd's attack.  A previously non-descript red light blinks to life in the center of the ceiling.
+
+> take rifle
+You take the 401K Auto Rifle.  Skyrv manages to avoid Mark Eridian's attack.  You can hear the wail of a distant emergency siren.
+
+> get sample from skyrv
+Pressing the genetic sampler to its arm, you take Skyrv's genetic sample.  Examing the sampler, a cannister presents itself out of the head.  You snap it off and take it with you.
+
+Skynd manages to avoid Mark Eridian's attack.  You manage to avoid Skyrv's attack.  Skynd hits Mark Eridian.  A previously non-descript red light blinks to life in the center of the ceiling.
+
+> get sample from orgaan soldier
+Pressing the genetic sampler to its arm, you take that Orgaan's genetic sample.  Examing the sampler, a cannister presents itself out of the head.  You snap it off and take it with you.
+
+
+
+> get sample from guard
+Pressing the genetic sampler to his arm, you take Mhentsh's genetic sample.  Examing the sampler, a cannister presents itself out of the head.  You snap it off and take it with you.
+
+You can hear the wail of a distant emergency siren.
+
+> get sample from mark
+Pressing the genetic sampler to his arm, you take Marks genetic sample.  Examing the sampler, a cannister presents itself out of the head.  You snap it off and take it with you.
+
+Skyrv hits you, but it doesn't seem to do any damage.  You manage to avoid Skynd's attack.  A previously non-descript red light blinks to life in the center of the ceiling.
+
+> s
+You move south.
+Control Stairwell
+Underneath the steel framework that supports the control room above the laboratory floor, a stairwell leads up.  The lab floor is to the north.  Also here is a dead Orgaan soldier and a dead Jeriah.  Skyrv runs in from the north.  You manage to avoid Skyrv's attack.  Skynd runs in from the north.  You manage to avoid Skynd's attack.
+
+> get sample from jeriah
+Pressing the genetic sampler to his arm, you take Jeriah's genetic sample.  Examing the sampler, a cannister presents itself out of the head.  You snap it off and take it with you.
+
+You manage to avoid Skynd's attack.
+
+> get sample from orgaan soldier
+Pressing the genetic sampler to its arm, you take that Orgaan's genetic sample.  Examing the sampler, a cannister presents itself out of the head.  You snap it off and take it with you.
+
+
+
+> u
+You move up.
+Control Room Patio
+A large steel frame supports the control room above the laboratory floor.  Here a large railed section is affectionately known as the patio.  To the west is the entrance door and a steel stairway leads downwards.  A large white, polymer patio table appears cheesily inexpensive but lends itself to the informal and laid back atmosphere of the patio.  Skyrv runs in from below.  You manage to avoid Skyrv's attack.  Skynd runs in from below.  Skynd hits you, but it doesn't seem to do any damage.
+
+> w
+You move west.
+Control Room
+Dimly lit with only a few non-broken flourescent lights, dust hangs in the air.  Debris from the desktops is strewn across the now grey tiles.  Through some of the shattered windows, you have an aerial view of the laboratory floor.  The control room door is east.  
+
+A massive I beam that held up a portion of the laboratory ceiling now forms a natural and treacherous walkway from the laboratory control room to the breached cafeteria.  The code red warning light is on.  Skyrv runs in from the east.  Skynd runs in from the east.  A previously non-descript red light blinks to life in the center of the ceiling.  BeeDoop...  BeeDoop... There appears to be some activity on the VidCom.
+
+> answer vidcom
+Answering the vidcom, a Kantan security guard appears on the small monitor.  Behind him you can see a group of four other guards arming themselves heavily.
+
+"Security here, thanks for answering.  I was about to give up," he says, "We have an evac unit secured outside.  Reinforcements are an hour away and there is too many damn Orgaans crawling around.  Sorry, I can't hold up the bus too long.  I hope you understand that I'm not taking the bus.  I may not be able to come get you but I don't have to leave you.  Look me up sometime, ok?  Security out."
+
+He turns his back on the camera and raises his AutoRifle.  The guards in the background actually look eager to get going.
+
+"All right senthos, let's go break a little tail," he commands.
+
+You watch as they open the security station doors to a waiting group of Orgaan soldiers twice their number.  A firefight ensues as the vidcom goes black.
+
+The lab rocks slightly at the concusion of almost simultaneous grenade explosions.  You manage to avoid Skyrv's attack.  Skynd hits you, but it doesn't seem to do any damage.  You can hear the wail of a distant emergency siren.
+
+> open drawer
+You open the drawer.  A data chip is inside the drawer.  Skynd hits you, but it doesn't seem to do any damage.  A previously non-descript red light blinks to life in the center of the ceiling.
+
+> take data chip
+You take the data chip from the drawer.  You manage to avoid Skyrv's attack.  Skynd hits you, but it doesn't seem to do any damage.  You can hear the wail of a distant emergency siren.
+
+> download data
+Setting the data chip on the desk next to the computer, you begin speaking to the computer.
+
+"Download all research data into this data chip."
+
+"Accessing data...  transferring...  transfer complete.  Can I do anything else, Tangee?"
+
+"How about deleting your copies of the files?"
+
+"Deletion of files requires authorization..."
+
+"I know, I know, I'm giving authorization right now."
+
+"Accessing data... deletion complete.  Can I do anything else, Tangee?"
+
+"How about getting me out of here?"
+
+"I'm sorry Tangee, I don't understand what you are requesting."
+
+"No, you don't...  Begin security protocol red."
+
+"Access ports closed, shutting down.  Goodbye."
+
+The computer goes black.  You manage to avoid Skyrv's attack.  A previously non-descript red light blinks to life in the center of the ceiling.
+
+> w
+You move west.
+Cafeteria
+Strewn about in disarray, the cafeteria common area normally seats over a hundred at rows of metal tables.  Cloth back chairs are overturned amid the debris produced from the grenade attack.  A large steel I beam rests on the breach in the east wall into the genetics lab.  The beam forms a natural bridge east to the genetics lab control room. A large row of windows along the west wall allow a view out to the gardens.
+
+To the north is the main east/west hallway.  You peer around the corner and notice a dozen Orgaan soldiers reinforcing their positions at the hallway intersection to the east.  From here it appears that the main entrance is unblocked.  However, if you walk into the hallway, they'll see you long before you can escape past them.
+
+Skyrv runs in from the east.  Skyrv hits you, but it doesn't seem to do any damage.  Skynd runs in from the east.  You manage to avoid Skynd's attack.
+
+> throw grenade
+Taking the element of surprise, you prime the grenade and roll it down the hall at the Orgaans.  Busy building a fortified position and expecting a more direct attack from the opposite direction, they recognize too late the clatter of the rolling grenade.  
+
+They scatter too late and you wheel back around the corner as the blast carries dust, debris and Orgaan parts past you in the hall.
+
+After a moment, all is quiet and you don't hear nor see any additional movement from the reception area.  You manage to avoid Skyrv's attack.  Skynd hits you, but it doesn't seem to do any damage.
+
+> n
+You move north.
+East/West Hall
+Green and greyish Orgaan goo is spilt over the orange carpet and stone tiles in the hall. The reception area to the west of here appears destroyed.  To the south is the laboratory cafeteria.  Skyrv runs in from the south.  Skynd runs in from the south.
+
+> e
+You move east.
+Reception
+The grenade blast has completely destroyed the reception desk.  Green, orange and greyish goo is mixed with wood and tile splinters.  The northern entrance is blocked by a collapsed ceiling.  To the south is the south/west hallway.  An open door to the east is labelled, "Security."  Also here is a dead Nadine.  Skyrv runs in from the west.  You manage to avoid Skyrv's attack.  Skynd runs in from the west.  Skynd hits you, but it doesn't seem to do any damage.
+
+> get sample from nadine
+Pressing the genetic sampler to her arm, you take Nadine's genetic sample.  Examing the sampler, no cannister presents itself.  Then you remember that you cannot obtain a genetic sample off of Antonai.
+
+Skyrv hits you, but it doesn't seem to do any damage.
+
+> e
+You move east.
+Security
+Security is the nerve center of the laboratory.  Walls filled with video monitors and computer terminals allow checking in on any area of the grounds.  Security was the nerve center of the laboratory.  The ensuing fighting after the attack has destroyed all of the electronic equipment in the room.  Malthew stands here at attention.  Skyrv runs in from the west.  Skyrv hits you, but it doesn't seem to do any damage.  Skynd runs in from the west.  Skynd hits you.  Malthew hits Skynd, but it doesn't seem to do any damage.
+
+> talk to malthew
+Sitting down next to him, Malthew looks over at you.
+
+"Tangee, see, I told you that I wouldn't leave you behind," he says with a grimace of pain coming to his face.
+
+"How bad is it?"
+
+"Aaahhh," he looks at the two puncture wounds in his chest plating, "Not too bad; but, I think we should get going before you have to decide whether to carry me out."
+
+The smile is back on his face.
+
+"Alright, lets go catch that bus you were telling me about?"
+
+You get up to leave and Malthew puts his hand on your shoulder.
+
+"Thanks for not leaving me behind.  I should be with all my brave men here; but I'm not.  I'll get my turn to pay the Orgaans in kind for their deaths."
+
+You smile back at him, "Ok, now you're getting all chatty on me.  Let's get out of here."
+Skyrv hits Malthew, but it doesn't seem to do any damage.  Skynd hits you.  Malthew hits Skynd.  In complete surprise, the attack catches the Orgaan off guard taking him down forever.
+
+> get sample from malthew
+Pressing the genetic sampler to his arm, you take Malthew's genetic sample.  Examing the sampler, a cannister presents itself out of the head.  You snap it off and take it with you.
+
+Malthew manages to avoid Skyrv's attack.  Malthew hits Skyrv, but it doesn't seem to do any damage.
+
+> w
+You move west.
+Reception
+The grenade blast has completely destroyed the reception desk.  Green, orange and greyish goo is mixed with wood and tile splinters.  The northern entrance is blocked by a collapsed ceiling.  To the south is the south/west hallway.  An open door to the east is labelled, "Security."  Also here is a dead Nadine.  Skyrv runs in from the east.  You manage to avoid Skyrv's attack.  Malthew walks in from the east.  Skyrv manages to avoid Malthew's attack.
+
+> w
+You move west.
+East/West Hall
+Green and greyish Orgaan goo is spilt over the orange carpet and stone tiles in the hall. The reception area to the west of here appears destroyed.  To the south is the laboratory cafeteria.  Skyrv runs in from the east.  Skyrv hits you.  Malthew walks in from the east.  Malthew hits Skyrv, but it doesn't seem to do any damage.
+
+> s
+You move south.
+Cafeteria
+Strewn about in disarray, the cafeteria common area normally seats over a hundred at rows of metal tables.  Cloth back chairs are overturned amid the debris produced from the grenade attack.  A large steel I beam rests on the breach in the east wall into the genetics lab.  The beam forms a natural bridge east to the genetics lab control room. A large row of windows along the west wall allow a view out to the gardens.
+
+To the north is the main east/west hallway.  You peer around the corner and discern no movement from the reception area.  Your grenade has taken out most of the desk.  Small pieces of Orgaan are blown everywhere in the reception area and the east/west hall.  Now you can see that the main entrance is blocked by a collapse of the ceiling.  Skyrv runs in from the north.  You manage to avoid Skyrv's attack.  Malthew walks in from the north.  Malthew hits Skyrv.
+
+> shoot windows
+The 401K Auto Rifle chips away at the plasteel until finally with a satisfying crunch one of the windows gives way to an opening to the gardens.  Malthew manages to avoid Skyrv's attack.  Malthew hits Skyrv.  The attack cuts down the Orgaan who falls face forward to the floor.
+
+> w
+Rushing out into the western gardens, a few Orgaan soldiers from the interior hall spot you and give chase.  Between the trees, you spot the evac bus and run towards it.  For a moment, you can't see anyone manning the bus and the soldiers are gaining on you.  Their shots nip at the ground behind you.  They'll be on top of you before reaching the bus.
+
+The moment that realization hits you, several Andromedan marines step out from their cover behind the vehicle.  Autorifles blaze and the Orgaan soldiers are beat back.
+
+The nearest of the marines runs to you, "Any one else inside alive?"
+
+"No, I didn't see anyone.  Most of them were killed in the initial attack," you say.  Oddly, you reflect that you're words will sound a little less jaded after the adrenaline wears off.
+
+"Alright then, time to evac," he responds making a hand signal to the other men.  Giving you a hand into the vehicle, the rest of the marines load up and the vehicle  surges forward.
+
+You scored 140 out of the maximum 145!
+That is 96% of the game!
+You finished 5 points short.
+
+[Press any key to end]

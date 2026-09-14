@@ -1,0 +1,15 @@
+feed        119 commands
+runner      118 turns echoed
+scarier     119 turns, feed[0] is scarier turn 0
+
+RULE 2 -- 1 command(s) the Runner never echoed.  Everything
+after the first of them is out of step and is NOT an engine
+difference until the feed is fixed and the row re-driven:
+    feed[118]  wait
+
+turn 53  throw map
+  run400   You throw it and it lands in the ocean and disappears.
+  scarier  You toss it into the water and the shark darts for it. He circles it a few times, then comes up under it and swallows it whole. He disappears into the ocean.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

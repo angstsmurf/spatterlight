@@ -1,0 +1,35 @@
+feed        511 commands
+runner      294 turns echoed
+scarier     294 turns, feed[0] is scarier turn 0
+
+RULE 2 -- 217 command(s) the Runner never echoed.  Everything
+after the first of them is out of step and is NOT an engine
+difference until the feed is fixed and the row re-driven:
+    feed[294]  attack riven
+    feed[295]  take double-lighter
+    feed[296]  take lighter
+    feed[297]  attack riven
+    feed[298]  take double-lighter
+    feed[299]  take lighter
+    feed[300]  attack riven
+    feed[301]  take double-lighter
+    feed[302]  take lighter
+    feed[303]  attack riven
+    feed[304]  take double-lighter
+    feed[305]  take lighter
+    feed[306]  take double-lighter
+    feed[307]  take lighter
+    feed[308]  take double-lighter
+    feed[309]  take lighter
+    feed[310]  take double-lighter
+    feed[311]  take lighter
+    feed[312]  take double-lighter
+    feed[313]  take lighter
+    ... and 197 more
+
+turn 293  west
+  run400   I move west. The Death Blue rays or light illuminate the landscape from underneath me. Above, a couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted bushes mark the landscape. Huge rocks are everywhere, and the ground has a sand-like consistency, but is hardened at places. Everywhere looks the same...but everything is so different. It is not clear where I can go. Red Riven and Blue Riven are here. Scotty hits Blue riven. Red riven manages to avoid Donna's attack. Red riven hits me. I'm afraid you are dead! You scored 58 out of the maximum 0! That is 100% of the game! [Press any key to end] The ground in front of me drops out, creating a swirling vortex of a sand-like nature. I barely avoid it. I hear a popping noise, and suddenly all the air is sucked from my lungs. I drop to the ground, clutching at my neck. The air returns after seconds of desperation and I stand up.
+  scarier  I move west. The Death Blue rays or light illuminate the landscape from underneath me. Above, a couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted bushes mark the landscape. Huge rocks are everywhere, and the ground has a sand-like consistency, but is hardened at places. Everywhere looks the same...but everything is so different. It is not clear where I can go. Red Riven and Blue Riven are here. Scotty hits Blue riven. Red riven manages to avoid Donna's attack. Red riven hits me. I'm afraid you are dead! You scored 58 out of the maximum 0! That is 100% of the game! The ground in front of me drops out, creating a swirling vortex of a sand-like nature. I barely avoid it. I hear a popping noise, and suddenly all the air is sucked from my lungs. I drop to the ground, clutching at my neck. The air returns after seconds of desperation and I stand up.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

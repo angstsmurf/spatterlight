@@ -1,0 +1,131 @@
+
+> open second valve
+Confirmed.
+     _____________
+	VALVE OPENED.
+     
+     [Reconfiguring satellite arrangement.]
+     
+     ......
+
+     *** COMPLETE. ***
+     _____________
+  
+
+> open fifth valve
+Confirmed.
+     _____________
+	VALVE OPENED.
+     
+     [Reconfiguring satellite arrangement.]
+     
+     ......
+
+     *** COMPLETE. ***
+     _____________
+  
+
+> open fourth valve
+Confirmed.  
+     _____________
+	VALVE OPENED.
+     
+     [Reconfiguring satellite arrangement.]
+     
+     ......
+
+     *** COMPLETE. ***
+     _____________
+
+
+> close second valve
+Confirmed.
+     _____________
+     VALVE CLOSED.
+
+     [Reconfiguring satellite arrangement.]
+
+     ......
+
+     *** ERROR. ***
+     Recapture malfunction.
+     Valve closed, but unable to display
+       closed valve state on-screen.
+     Possible damage to C-state detectors.
+     Satellites not moved
+       from corresponding open valve position.
+     To correct display error and
+       return satellites to previous position,
+       please use the reset command
+       or contact your system administrator.
+     _____________  
+
+> open first valve
+Confirmed.
+     _____________
+	VALVE OPENED.
+     
+     [Reconfiguring satellite arrangement.]
+     
+     ......
+
+     *** COMPLETE. ***
+     _____________
+  
+
+> open third valve
+Confirmed.
+     _____________
+	VALVE OPENED.
+     
+     [Reconfiguring satellite arrangement.]
+     
+     ......
+
+     *** COMPLETE. ***
+     _____________
+  
+
+Confirmed.
+     _____________
+     
+     [Reverting from safe mode.]
+     
+     ......
+
+     *** COMPLETE. ***
+     All satellites correctly aligned.
+     Timed reset deactivated.
+     Control restored to station.
+     Have a nice day.
+     _____________
+
+As the switchboard settles into the rhythmic hum of its normal work, the lights of a class W shuttle flood Satellite Control Station XI.  The shuttle docks with the station and drops off the cleaning crew-- it's their turn to work this place over.
+
+You board the shuttle, ready for the long ride home.
+
+
+[press any key to continue]
+
+
+
+Epilogue
+
+The shuttle docks at your home colony-ship, A-48, but relief is still as far as your living chamber.  The colony seems abuzz about something; there are almost never this many people at the docking bay so late and never any so lit up.  
+
+Has there been a parade?  A riot?
+
+You can barely take two steps from the gangplank before the Sector Head waves you down.  
+
+The Sector Head looks pale and keeps making quick wipes at his forehead.  You cannot discern whether his dilated pupils shine frantically or wildly.
+
+He rambles, "While you were working... while you were working, we started to get some weird signals in from satellite number four at your station... messages from the one called Earth, but they don't make any sense... they're too... we can't tell... it's... 
+
+"Come on," he says, grabbing the sleeve of your spacesuit, "you'd better have a look at this..."
+
+
+
+[--THE END--]
+
+
+[Press any key to end]

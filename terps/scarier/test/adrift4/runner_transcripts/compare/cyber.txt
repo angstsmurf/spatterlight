@@ -1,0 +1,12 @@
+feed        20 commands
+runner      20 turns echoed
+scarier     20 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 19  enter back through warp
+  run400   You jump through the warp, and suddenly, before Lightning can enter, it closes! OH NO!!!!!!!!!!!!THE END,or is it? Better luck next time. You scored 150 out of the maximum 150! That is 100% of the game! [Press any key to end]
+  scarier  You jump through the warp, and suddenly, before Lightning can enter, it closes! OH NO!!!!!!!!!!!! THE END,or is it? Better luck next time. You scored 150 out of the maximum 150! That is 100% of the game!
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

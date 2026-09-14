@@ -1,0 +1,248 @@
+
+> 
+That is not an option or command.
+
+> 
+That is not an option or command.
+
+> 
+That is not an option or command.
+
+> e
+You move east.
+Inside Hartho's Golden Tavern
+This is a brightly lit tavern. People are jammed in here, and Harthro is managing all of their orders. The smell of meat, work, and pure human entertainment fill your nostrils. If you're hungry or thirsty, ask Harthro about the menu. Also here is the dirty dish rack.  Harthro is here.  Hartho's Golden Tavern is alive with laughter, joy, and an overall sense of loud peace.  You can only move west.
+
+> change a dollar into cents
+You ask the store owner for some change. The owner agrees. You hand the owner a dollar coin and they give you 100 cents. You have $499 and 100 cents.
+
+> buy a coffee
+You holler out for a coffee in the loud, rambunctious tavern. Harthro hears your call and slides you down a warm coffee. You put down the money you've been charged ($1.50). You have $498 and 50 cents.
+
+> take the mug of coffee
+You take a mug of coffee from the bar.
+
+> gulp the coffee
+You tip the cup back and take a medium-sized gulp of the coffee. There is 85 percent of the coffee left.
+
+> buy a steak
+You yell out to Harthro that you'd like to order his best steak for 8 dollars. He slides down your plate, a few minutes later, and you pay the money. You have $490 and 50 cents.
+
+> take a bite out of the steak
+You take a decent bite out of the steak. It tastes delicious. Another masterpiece from Harthro's grill.
+
+> w
+You move west.
+In a busy street
+This is a busy street. You see the crowd here buzzing buy, murmuring to itself and buying things. There's a street lamp on the side of the road, and a crowd fills the street.  Also here is a pile of rubbish.  Ormulus and Kiris are here.  The street is busy with people walking, purchasing, and talking.  You can move north, east, south and west.
+
+> w
+You move west.
+In Golapho's Armor
+You are in Golapho's Armor shop. There is a item sign here.  Golapho is here.  You can only move east.
+
+> buy a bronze helmet
+You ask Golapho for the bronze helmet. He puts his book down, and with a grumble, gives you the helmet. He takes $24 from you. You have $466 and 50 cents.
+
+> buy rawhide armor
+You count out $90 to buy the armor. You mutter to Golapho that you'd like to buy it. He mutters under his breath and reaches down, throws the armor to you, and takes the money, all without leaving his seat. You have $376 and 50 cents.
+
+> wear the rawhide armor
+You put on the rawhide armor.
+
+> wear the bronze helmet
+You put on the bronze helmet.
+
+> e
+You move east.
+In a busy street
+This is a busy street. You see the crowd here buzzing buy, murmuring to itself and buying things. There's a street lamp on the side of the road, and a crowd fills the street.  Also here is a pile of rubbish.  Ormulus and Kiris are here.  The street is busy with people walking, purchasing, and talking.  You can move north, east, south and west.
+
+> s
+You move south.
+At Poel's Plaza
+This is a small plaza of shops and stalls. It was named after the first Council Officer del Economica, Preu Poel. To the south is a metalsmith's shop, to the southeast is an inn, to the north is a crowded street, and to the west is a road.  You can move north, east, south, west and southeast.
+
+> s
+You move south.
+In Calado's Metal Works
+This is shop where you can buy metal items, such as swords, shields, and knives. Ask Calado about any of those categories and he will tell you what he has available for sale.  Calado is here.  You can only move north.
+
+> buy a hunting sword
+You give $80 to Calado and ask for the hunting sword. He grins and hands you the sword. "Happy huntin!" He says, assuming that's why you're buying the sword. You have $296 and 50 cents.
+
+> wield the hunting sword
+You wield the hunting sword.
+
+> n
+You move north.
+At Poel's Plaza
+This is a small plaza of shops and stalls. It was named after the first Council Officer del Economica, Preu Poel. To the south is a metalsmith's shop, to the southeast is an inn, to the north is a crowded street, and to the west is a road.  You can move north, east, south, west and southeast.
+
+> se
+You move southeast.
+In Gralle's Inn
+This is Gralle's Inn, the place for newcomers to stay. Gralle is the young heir to the inn, after her father, Tullin, was killed in the hunting campaigns. You may ask Gralle about staying here.  Gralle is here.  You can only move northwest.
+
+> rent a room
+You count out $50 and hand it to Gralle. She smiles and points to your room. You now have $246 and 50 cents.  You have 24 hours left at your room in Gralle's Inn.
+
+> in
+You move in.
+In a room at Gralle's Inn
+This is a small room, with a table, a chair, and a bed.  You currently have room rented at Gralle's Inn.  You can only move out.
+
+> lie on the bed
+You lie down on the bed.
+
+> nap on the bed
+You begin to take a short nap... You fall asleep... 
+
+
+You feel a little better, after taking the nap.
+
+> out
+(Getting off the bed first)
+You move out.
+In Gralle's Inn
+This is Gralle's Inn, the place for newcomers to stay. Gralle is the young heir to the inn, after her father, Tullin, was killed in the hunting campaigns. You may ask Gralle about staying here.  Gralle is here.  You currently have room rented at Gralle's Inn.  You can move in and northwest.
+
+> nw
+You move northwest.
+At Poel's Plaza
+This is a small plaza of shops and stalls. It was named after the first Council Officer del Economica, Preu Poel. To the south is a metalsmith's shop, to the southeast is an inn, to the north is a crowded street, and to the west is a road.  You currently have room rented at Gralle's Inn.  You can move north, east, south, west and southeast.
+
+> n
+You move north.
+In a busy street
+This is a busy street. You see the crowd here buzzing buy, murmuring to itself and buying things. There's a street lamp on the side of the road, and a crowd fills the street.  Also here is a pile of rubbish.  Ormulus and Kiris are here.  The street is busy with people walking, purchasing, and talking.  You currently have room rented at Gralle's Inn.  You can move north, east, south and west.
+
+> n
+You move north.
+On Northern Trail
+This a trail that leads out of the town, to the north. It is well kept by gardeners, so it is not overgrown. The area to the north, however, is not traveled by often, and is unkept.  You currently have room rented at Gralle's Inn.  You can move north and south.
+
+> n
+You move north.
+On Bandit Trail
+You are about to exit the city wall! Beyond this point you will be without the help of the Law. Press any key to continue!
+
+
+This is Bandit Trail. This area of the countryside is notorious for its random bandit attacks. Everyone knows that these bandits, when killed, may carry small or large amounts of money. Therefore, as bandits find their source of money in harassing travelers, some people find their source of money hunting these bandits. (Hint- after killing a bandit, use the command 'search for money' to search their dead bodies for money.  There is a bandit here!!  You currently have room rented at Gralle's Inn.  You can move north and south.  A bandit hits you.
+
+> attack bandit
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+> attack bandit
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+> attack bandit
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+> attack bandit
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+> attack bandit
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+> attack bandit
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+> attack bandit
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+> attack bandit
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+> attack bandit
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+> attack bandit
+You chop a bandit with the hunting sword.  You kill the vile bandit! Hopefully he was carrying a lot of money.
+
+> search for money
+You search the dead body for some money. You now have $683 and 108 cents.
+
+> n
+You move north.
+In the Northern Forest
+This is the Northern Forest. It is thick with trees, moss, rocks, and ferns. You spot various piles of deer droppings, letting you know that this is an area that deer pass by.  Deer is here.  You currently have room rented at Gralle's Inn.  You can only move south.
+
+> attack deer
+You chop an animal with the hunting sword.
+
+> attack deer
+You chop an animal with the hunting sword.
+
+> attack deer
+You chop an animal with the hunting sword.
+
+> attack deer
+You chop an animal with the hunting sword.  You strike the deer one last and final time, and it falls dead!
+
+> take the deer carcass
+You pick up the deer carcass.
+
+> s
+You move south.
+On Bandit Trail
+You are about to exit the city wall! Beyond this point you will be without the help of the Law. Press any key to continue!
+
+
+This is Bandit Trail. This area of the countryside is notorious for its random bandit attacks. Everyone knows that these bandits, when killed, may carry small or large amounts of money. Therefore, as bandits find their source of money in harassing travelers, some people find their source of money hunting these bandits. (Hint- after killing a bandit, use the command 'search for money' to search their dead bodies for money.  You currently have room rented at Gralle's Inn.  You can move north and south.
+
+> s
+You move south.
+On Northern Trail
+This a trail that leads out of the town, to the north. It is well kept by gardeners, so it is not overgrown. The area to the north, however, is not traveled by often, and is unkept.  You currently have room rented at Gralle's Inn.  You can move north and south.
+
+> s
+You move south.
+In a busy street
+This is a busy street. You see the crowd here buzzing buy, murmuring to itself and buying things. There's a street lamp on the side of the road, and a crowd fills the street.  Also here is a pile of rubbish.  Ormulus and Kiris are here.  The street is busy with people walking, purchasing, and talking.  You currently have room rented at Gralle's Inn.  You can move north, east, south and west.
+
+> s
+You move south.
+At Poel's Plaza
+This is a small plaza of shops and stalls. It was named after the first Council Officer del Economica, Preu Poel. To the south is a metalsmith's shop, to the southeast is an inn, to the north is a crowded street, and to the west is a road.  Pahlidro keeps a stern yet calm eye on the surrounding area.  You currently have room rented at Gralle's Inn.  You can move north, east, south, west and southeast.
+
+> w
+You move west.
+Outside a few stores
+You are on a semi-busy road. A few people can be seen going by you. To the south is a Butcher Shop.  You currently have room rented at Gralle's Inn.  You can move east and south.
+
+> s
+You move south.
+Butcher Shop
+This is a butcher shop. You can see many dead carcasses hanging against the wall, behind the counter. The name of the butcher is Drako.  Drako is here.  You currently have room rented at Gralle's Inn.  You can only move north.
+
+> show the deer carcass to Drako
+You show the carcass of the deer to Drako. He considers it for a minute. He then proclaims, "You can sell that to me for 500 dollars!" (Hint- now use the command, 'sell deer carcass to drako for 500 dollars').
+
+> sell the deer carcass to Drako for 500 dollars
+You hand the large carcass of the deer over to Drako. He counts out the money he owes you and hands it to you.
+
+> wealth
+Money Status:                                                             You have $1183.                                             You have ¢108.
+
+> learn stealth from ormulus
+Ormulus says, "Great! After I teach you the basics, you'll be a terrific hunter. Now, first of all..." Ormulus goes through the process of teaching you stealth. He takes you into the forest and shows you different tactics and methods of approach, and attack styles. "Something to keep in mind... when you're in stealth, you become tired. This means you can only stay in steath position for a limited amount of time."
+ When he's finished, you pay him the requested amount, $800. You now know STEALTH! (Hint: type 'go stealth' to engage in stealth mode). You have $383 and 108 cents.
+
+> go stealth
+You remember what Ormulus told you as you crouch and use stealth movements. Remember, you can only remain in stealth mode for a limited amount of time before you must stop, so get your job done.
+
+> status
+Stamina:		80 (102)
+Hit strength:		6 (1)
+Defense value:	3 (0)
+
+> stats
+These are your stats:
+Wealth: $383, and 108 cents.
+Number of turns passed: 62
+
+For Stamina, Strength, and Defense values, type status.
+
+> wealth
+Money Status:                                                             You have $383.                                             You have ¢108.

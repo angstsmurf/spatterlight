@@ -1,0 +1,207 @@
+
+> n
+I move north.
+Corridor
+This corridor doesn't look much more impressive than the entrance lobby. In fact the only thing of any interest is Tim, standing against one of the walls. He's looking at me expectantly, though I'm not sure I really want to talk to him.
+According to the signposts, west takes me into the Captain's room, which I've been given permission to look around. East takes me to William's room, where he'll be, and due north is the computer room. South takes me back to the entrance lobby.
+
+> w
+I move west.
+Captain's room
+If it wasn't for the trauma surrounding this room, and the smell of corpse inhabiting it, I'd have first noticed how the Captain's room is so luxurious. But then these are top class scientists. There's a large bed, a fur rug, a bookcase full of books, a TV, a computer and a large wardrobe. It's a nicer room than my own. Obviously the most important thing in the room is Seth's body, which is sprawled over the bed. I feel sorry for him.
+East takes me back out to the corridor.
+
+> x seth
+He's sprawled over the bed with his mouth hanging open. A quick scan of his body indicates no marks of any kind. No bullet-holes, stab wounds or signs of any sort of physical attack. It appears he simply fell down and died.
+
+> x bookcase
+Seth's bookcase contains everything, from poetry to science textbooks.  Seth's Diary is on the Bookcase.
+
+> get diary
+I take Seth's Diary from the Bookcase.
+
+> read 4th november
+I read through the diary entry. This is the passage that strikes me the most:
+"I was talking to V today. I'm beginngin to agree with Luke's suspicions, although I don't think I'll talk to him about it yet. I think V was lying to me. I don't know how or why, but I'm sure she was."
+
+> e
+I move east.
+Corridor
+This corridor doesn't look much more impressive than the entrance lobby. In fact the only thing of any interest is Tim, standing against one of the walls. He's looking at me expectantly, though I'm not sure I really want to talk to him.
+According to the signposts, west takes me into the Captain's room, which I've been given permission to look around. East takes me to William's room, where he'll be, and due north is the computer room. South takes me back to the entrance lobby.
+
+> s
+I move south.
+Entrance Lobby
+I'm standing in the entrance lobby. It's metallic and fairly bare. I guess on a lonely research space station the entrance lobby is used for little more than a corridor. I can't imagine they get guests often. A few signs let me know where I can go. From the look of things, west would take me to the lounge, where Tim is, east would take me to the workstations, where Calvin is, and north would take me to the rest of the space station.
+
+> e
+I move east.
+Workstations
+The workstations are five computers in a small room. It's safe to assume they're all networked together, and are used for the crew's work. This seems to be a separate area to the main computer room at the north end of the space station. Calvin is deep in his work, though I'm sure we both know I'll have to disturb him soon.
+To the west is the entrance lobby I came from.
+
+> ask calvin about creativity
+"I asked the computer about the corrupt data but it said it needed creativity to be turned on first," I tell Calvin. He looks up from his work, again.
+"Somebody turned creativity off?" he says, clearly confused. "I wonder why. In any case, just ask her about creativity to turn it on."  
+
+Maybe I should find out something about this space station? I might find out how they got here in the first place.
+
+> w
+I move west.
+Entrance Lobby
+I'm standing in the entrance lobby. It's metallic and fairly bare. I guess on a lonely research space station the entrance lobby is used for little more than a corridor. I can't imagine they get guests often. A few signs let me know where I can go. From the look of things, west would take me to the lounge, where Tim is, east would take me to the workstations, where Calvin is, and north would take me to the rest of the space station.
+
+> w
+I move west.
+Lounge
+This seems to be the lounge. I guess even scientists need to relax away from the computers sometime. What really surprises me is the amount of entertainment in the room. It must have cost a fortune! There's several sofas, a huge TV, massive speakers, a pool table, a bar and a few more things buried at the back. Luke is sitting on one of the sofas, obviously deep in thought.
+To the east is the entrace lobby.
+
+> ask luke about password
+"I was using the computer earlier and it said it needed creativity turning on," I say to Luke.
+Luke sighs. "I guess you found about that then," he says.
+I draw myself up, slightly frustrated that Luke hid facts from me.
+"What is it and why did you hide it from me?" I ask bluntly.
+"It's an engine that allows the computer to communicate in a more realistic fashion," he explains.
+"How?"
+"It's simpler if you try it for yourself," Luke says. "The password is 'Grant'."
+"Grant?" I ask.
+"Seth's mother's maiden name."
+"Ok, thanks," I say. "But why did you hide it from me?"
+"The computer said I should," Luke says. "She pointed out that the creativity technology is far more advanced than anything else in the galaxy. It wouldn't help if it became public knowledge as part of a murder investigation."
+"I assure you, the creativity engine will not become public information unless it becomes crucial to the case," I tell him. "Although the detectives will know about it."
+"I guess that's the way it'll have to be," Luke says, and goes back to staring past me. Poor guy.
+
+> e
+I move east.
+Entrance Lobby
+I'm standing in the entrance lobby. It's metallic and fairly bare. I guess on a lonely research space station the entrance lobby is used for little more than a corridor. I can't imagine they get guests often. A few signs let me know where I can go. From the look of things, west would take me to the lounge, where Tim is, east would take me to the workstations, where Calvin is, and north would take me to the rest of the space station.
+
+> n
+I move north.
+Corridor
+This corridor doesn't look much more impressive than the entrance lobby. In fact the only thing of any interest is Tim, standing against one of the walls. He's looking at me expectantly, though I'm not sure I really want to talk to him.
+According to the signposts, west takes me into the Captain's room, which I've been given permission to look around. East takes me to William's room, where he'll be, and due north is the computer room. South takes me back to the entrance lobby.
+
+> n
+I move north.
+Computer room
+The computer room is something to behold. There are only two things in the room. A stool, and the computer. the computer is an enormous metallic machine, that curves in a horse-shoe shape round the walls, leaving a gap for the entrance and placing the stool inside the horse-shoe. In front of the stool is a small screen. It is on, and the letters on the screen read:
+"Ready for use. Please speak your enquiry out loud."
+From this I assume that I can ask the computer questions just as I'd ask a real person. It's very similar, but not the same as the computers I use at work. It's a really advanced piece of technology.
+To the south is the corridor I came from.
+
+> enter creativity password
+"I want to enter the creativity password," I say to the computer.
+Text appears on the screen:
+"Speak it now."
+
+> grant
+The screen pauses, and then suddenly teat appears on the screen:
+C.R.E.A.T.I.V.I.T.Y
+engine loading...
+And then suddenly the screen is blank again. I wait, and then words appear on the screen again:
+"Hello Joshua. My name is V. I'm here to help you in any way I can. You've turned on my creativity circuits now. They simply allow me to communicate to you in a way that feels more human. I exhibit characteristics that give the impression of opinions and thought."
+I pause for a minute.
+"Hello V," I say.
+"Hello. I believe you had a question for me?"
+I think I can interact with V just like I used to, by asking her questions. But I think she might be a little more helpful now. As well as asking her about her opinion on the corrupt data, I should try asking her things again to see what she'll tell me now.
+
+Computer room
+The computer room is something to behold. There are only two things in the room. A stool, and V. V is an enormous metallic machine, that curves in a horse-shoe shape round the walls, leaving a gap for the entrance and placing the stool inside the horse-shoe. In front of the stool is a small screen. It is on, and the letters on the screen read:
+"I'm here to help, just talk to me when you want something, Joshua."
+To the south is the corridor I came from.
+
+> s
+I move south.
+Corridor
+This corridor doesn't look much more impressive than the entrance lobby. In fact the only thing of any interest is Tim, standing against one of the walls. He's looking at me expectantly, though I'm not sure I really want to talk to him.
+According to the signposts, west takes me into the Captain's room, which I've been given permission to look around. East takes me to William's room, where he'll be, and due north is the computer room. South takes me back to the entrance lobby.
+
+> e
+I move east.
+William's room
+William's room is surprisingly luxurious, but then these are top class scientists. There's a large bed, a fur rug, a bookcase full of books, a TV, a computer, a huge curtain against the north wall and a large wardrobe. It's a nicer room than my own. William is sitting on his bed, reading a book. Every now and then he looks up, presumably to see if I'm still there.
+To the west is the corridor I came from.  
+
+Maybe I should ask some of the crew members about each other? It's the best way to find out how the relationships worked.
+
+> ask william about behind the curtain
+"What's behind that curtain of yours?" I ask William. His eyes open wide.
+"Nothing," he says. He's clearly lying. I take a step towards the curtain and suddenly he's sitting up-right and staring right at me. I make a mental note that Tim said something useful after all.
+"Why do you want to see behind there?" he asks.
+"Because," I say in my best commanding-detective voice, "I have reason to believe that you are hiding something. You are so worried of what's going to happen to you, but I can assure you, I will keep you safe. It is my job to bring justice, and not to let chaos rule. Trust me."
+There's a long pause, and I can see the cogs in William's head ticking. I give him his time. He needs to decide he can trust me on his own. Eventually William opens his mouth.
+"Ok, I'll trust you," he says. "If you promise I'll be safe through and after all of this."
+"I promise," I say with a smile. William takes a deep breath and then starts to talk.
+"I've been a high-class scientist all my life," he says, "but I seem to have had the worst luck. I keep taking jobs that collapse around me. My boss gets broke, or the company goes under, or we're sabotaged or betrayed. You name it, it's happened to me. I've lost so much money, and have had to restart my career so many times. But it's not an issue of pride and money anymore. I have a family I need to support. I took this job because the pay was so high. I didn't like the sound of it one bit from a security point-of-view, but I figured if I could earn enough money quickly, I could repay some of my debts and quit before anything went wrong. It seems I was too slow."
+I feel kinda bad for the guy. I hope my face shows it.
+
+(press any key to continue)
+
+
+"So I'm afraid you're right," William continues. "I worry. I'm paranoid. In fact, you'll be surprised at how paranoid I've been. Watch."
+William grabs the curtain and pulls. As it falls to the floor, I see a hole in the wall the size of a wardrobe, full of notebooks.
+"In these notebooks," William informs me, "is a record of what everyone has done on every day since we moved here almost three months ago. I reasoned that if I knew what everyone was doing, I could avoid something going wrong."
+"You kept tabs on all four of them?" I ask.
+"That's right," William says. "Luke, Tim, Calvin and even Seth."
+"What did you find out?" I ask, eagerly.
+"Nothing," he says with a sigh. "But despite the evidence telling me I was safe, I still felt so scared. But I was right, wasn't I? Something did happen. I'm afraid that's why I've been so useless when talking to you so far. I've been too afraid of something happening to me."
+"I guarantee you can trust me to keep you safe," I repeat. "Now tell me what you know."
+"First," William says with a triumphant smile, "you're going to want to see this."
+He holds out a notebook. The date says November 5th. The day of the murder. I read through it quickly, and then look up at William, who nods.
+"That's right," he says. "Nobody entered V's room on the day of the murder."
+"But she said someone issued her orders to do with the doors and oxygen supply."
+"Well maybe you should ask her about that. Ask her about her visitors yesterday. Unless you'd like to ask me some more questions first, that is."
+
+
+William's room
+William's room is surprisingly luxurious, but then these are top class scientists. There's a large bed, a fur rug, a bookcase full of books, a TV, a computer, a huge curtain against the north wall and a large wardrobe. It's a nicer room than my own. William is sitting on his bed, reading a book. Every now and then he looks up, presumably to see if I'm still there.
+To the west is the corridor I came from.
+
+> w
+I move west.
+Corridor
+This corridor doesn't look much more impressive than the entrance lobby. In fact the only thing of any interest is Tim, standing against one of the walls. He's looking at me expectantly, though I'm not sure I really want to talk to him.
+According to the signposts, west takes me into the Captain's room, which I've been given permission to look around. East takes me to William's room, where he'll be, and due north is the computer room. South takes me back to the entrance lobby.
+
+> n
+I move north.
+Computer room
+The computer room is something to behold. There are only two things in the room. A stool, and V. V is an enormous metallic machine, that curves in a horse-shoe shape round the walls, leaving a gap for the entrance and placing the stool inside the horse-shoe. In front of the stool is a small screen. It is on, and the letters on the screen read:
+"I'm here to help, just talk to me when you want something, Joshua."
+To the south is the corridor I came from.
+
+> make verdict
+I'm done here. I think I know who killed Seth.
+That person's name was:
+
+(please enter the name of the character you think killed the Captain)
+
+> V
+I know how this character killed Seth. They locked him in his room and turned off the oxygen. What I need to work out is why they killed him. What was their motive? I think the reason they killed Seth was:
+
+(please enter one word that sums up why the killer murdered the Captain)
+
+> mission
+As I write the final details in my notepad, I run round the space station getting everybody together. At last everybody, all six of us are in V's room together. There's barely time for a pause before I speak:
+"V, I arrest you for the murder of Captain Seth!"
+The four other humans in the room mumble to each other. I explain to them the conversation I had with V just a minute ago.
+"So why did V make those mistakes?" Luke asks.
+"It was her mission," I say.
+Suddenly, V speaks with an audible female voice, albeit a slightly computerised one. Everyone in the room, including me, is slightly shocked.
+"My mission," she says, "was to record the effects of lower life-forms under a system collapse. What better way to cause a system collapse on you tiny humans than to eliminate your leader."
+"Isn't it a bad move," Tim pipes up, "to be in the same room, or even the same space station, as an all-powerful computer bent on causing a system collapse on us all?"
+"No, she won't hurt us," I say calmly.
+"You're clever," V says. "For a human."
+I ignore V and continue: "V's mission was the same as yours. Research. She was given the goal of causing the chaos and recording the outcome. She doesn't want to kill us all, because that's not part of the test. It doesn't matter if she's caught or not either."
+"I have all the test data I need," V said, in a happier voice. "Unplug me, destroy me, I don't care. I fulfilled my mission. I did my job. Enterprise Research will be pleased."
+
+(press any key to continue)
+
+
+V was indeed unplugged. The crew lacked the trust in V that I had, and dismantled her as soon we could land the space station on a planet. I understood V though. She was unlike any criminal I'd had to find before, and probably unlike any I'll find again. I don't approve of what she did, but I feel a certain respect for her sense of duty. And can I really call her actions evil if she was just a machine?
+When I eventually retired from the crew to my own space ship, I folded away my electronic notepad and realised that I had again been taking notes the whole time on auto-pilot. It's almost a relief. The whole case will be documented to back-up my arguments when I return to my work. Once I've convinced them that I'm right, I can forget the whole case. I can go on doing my job. Once again I succeeded in catching the killer. Tomorrow I'll have a new case. I am the law, and the law must keep working to protect the innocent. But innocent people were hurt, despite my work. My heart goes out to the crew members affected by this tragedy. I, like them, will keep an eye out for Enterprise Research.
+
+[Press any key to end]

@@ -1,0 +1,148 @@
+
+> s
+You move south.
+Kitchen
+You can see a dining table with a set of chairs.  A refridgerator is in one corner of the room with a counter to its side and there is a window above the counter. Three doors can be seen leading out of the room. One goes into your bedroom, another into your bathroom and the third into the living room.  
+
+> prepare meal
+You cook some food, you sit down at the dining table and then you eat. Delicious.  
+
+> clean dishes
+You get to work with cleaning the dishes.  
+
+> e
+You move east.
+Bathroom
+A white toilet and a matching sink are on the western wall. A medicine cabinet with the standard mirror is above the sink and a shower booth is to the left of the sink.  
+
+> piss
+I don't understand what you mean!
+
+> w
+You move west.
+Kitchen
+You can see a dining table with a set of chairs.  A refridgerator is in one corner of the room with a counter to its side and there is a window above the counter. Three doors can be seen leading out of the room. One goes into your bedroom, another into your bathroom and the third into the living room.  
+
+> w
+You move west.
+Living room
+A rather ugly, purple sofa is in front of a small, black&white screen tv. A window looking out into the street is behind the tv. There is a soda can lying on the sofa.  
+
+> watch tv
+You turn on the tv and sit down in the sofa. 
+After about half an hour you stop watching tv and get up from the sofa.  
+
+> clean up
+You get to work with cleaning the living room. It takes a while but it looks much better afterwards.  
+
+> out
+You move out.
+Hindburg street
+Most of the houses in the street look beautiful and there are only two or three exceptions and those don't look that bad. You can also get a good look into most of the gardens and the grass is very green in each of them and there are trees in some of the gardens. Hindburg street goes both north and south. You can see kids returning home from school. 
+Snow on the streets is so high that only the best fitted jeeps can drive through the streets while all other cars have to wait until the weather stops its rampage. Children are jumping from rooftops into heaps of snow.  Anne is here.  
+
+> n
+You move north.
+Hindburg street
+You can see the place you call home to the south down the street. Far to the east is the supermarket while the street just continues north and turns east. There is also a computer store here. It's open from 10:00 to 18:00. You can see kids returning home from school. 
+Snow on the streets is so high that only the best fitted jeeps can drive through the streets while all other cars have to wait until the weather stops its rampage. Children are jumping from rooftops into heaps of snow.  
+
+> in
+You step inside the computer store  
+
+> buy power games master
+You give the 100$ to Jake. Jake gives you the computer.
+You can set your computer up anywhere you like as long as there is a surface which you can put it on. There's a desk in your bedroom.  
+
+> out
+You go out of the computer store and into the street.  
+
+> n
+You move north.
+Hindburg street
+Hindburg street goes east and south. To the south is your beautiful house and to the east is a video rental. You can see kids returning home from school. 
+Snow on the streets is so high that only the best fitted jeeps can drive through the streets while all other cars have to wait until the weather stops its rampage. Children are jumping from rooftops into heaps of snow.  
+
+> e
+You move east.
+Hindburg street
+On the side of the street is a pet shop. It's open from 11:00 to 18:00.  The street goes east and west. You can see kids returning home from school. 
+Snow on the streets is so high that only the best fitted jeeps can drive through the streets while all other cars have to wait until the weather stops its rampage. Children are jumping from rooftops into heaps of snow.  Elise is here.  
+
+> in
+You enter the pet store.  
+
+> buy cat
+You give Laurie, the pet store owner, 150$ for the cat. "The cat will be waiting for you when you get home." says Laurie. "Have this list of items that may prove useful in raising your cat. A cat food bowl and a milk bowl will also be waiting at your house."
+If you need any help later on with raising your cat you just type'cat help'. It's really useful.  
+
+> buy milk
+You buy a bottle of milk for your cat. It costs 15$.
+
+Buying milk does not give you a 'milk' item but it fills your cat's milk bowl. The milk in the bowl decreases over time and you'll have to buy more. Buying milk does not add more milk to the bowl. It only fills the bowl and the rest is thrown away. I did this so people can't just buy lots of milk at one time in the game and then never again.  
+
+> buy cat food
+You buy some cat food for your cat. It costs 20$.
+
+Buying cat food does not give you a 'cat food' item but it fills your cat's food bowl. The cat food in the bowl decreases over time and you'll have to buy more. Buying cat food does not add more cat food to the bowl. It only fills the bowl and the rest is thrown away. I did this so people can't just buy lots of cat food at one time in the game and then never again. To see how much is left in the bowl, type 'cat food level' while in the kitchen.  
+
+> out
+You exit the pet store.  
+
+> w
+You move west.
+Hindburg street
+Hindburg street goes east and south. To the south is your beautiful house and to the east is a video rental. You can see kids returning home from school. 
+Snow on the streets is so high that only the best fitted jeeps can drive through the streets while all other cars have to wait until the weather stops its rampage. Children are jumping from rooftops into heaps of snow.  
+
+> s
+You move south.
+Hindburg street
+You can see the place you call home to the south down the street. Far to the east is the supermarket while the street just continues north and turns east. There is also a computer store here. It's open from 10:00 to 18:00. You can see kids returning home from school. 
+Snow on the streets is so high that only the best fitted jeeps can drive through the streets while all other cars have to wait until the weather stops its rampage. Children are jumping from rooftops into heaps of snow.  
+
+> s
+You move south.
+Hindburg street
+Most of the houses in the street look beautiful and there are only two or three exceptions and those don't look that bad. You can also get a good look into most of the gardens and the grass is very green in each of them and there are trees in some of the gardens. Hindburg street goes both north and south. You can see kids returning home from school. 
+Snow on the streets is so high that only the best fitted jeeps can drive through the streets while all other cars have to wait until the weather stops its rampage. Children are jumping from rooftops into heaps of snow.  Anne is here.  
+
+> in
+You move in.
+Living room
+A rather ugly, purple sofa is in front of a small, black&white screen tv. A window looking out into the street is behind the tv. There is a soda can lying on the sofa.  
+
+> e
+You move east.
+Kitchen
+You can see a dining table with a set of chairs.  A refridgerator is in one corner of the room with a counter to its side and there is a window above the counter. Three doors can be seen leading out of the room. One goes into your bedroom, another into your bathroom and the third into the living room.  Your cat is here.  
+
+> cat feeling
+Your cat is feeling 
+Not peaceful and not aggressive
+
+At the moment your cat is thinking sleepy thoughts. Use this to judge whether you should stroke him or kick him. Stroking your cat shows it that you approve of these thoughts. Kicking it shows it that you disapprove of these thougths. These thougths may be aggressive, peaceful, sad or sleepy.  
+
+> stroke cat
+You stroke your cat showing it that you approve of it sleeping a bit more. (type ''cat help' for more info)  
+
+> n
+You move north.
+Bedroom
+A small bed is in one corner of the room with a desk by its side.  A window is on the northern wall looking out into your garden.  The door to the kitchen is to the south.  
+
+> put computer on desk
+You put power games master onto the desk.  
+
+> time
+The time is 14:09. 
+It's Sunday and it's December.  
+
+> stats
+Your stats are
+Fun=0
+Health=%health%
+Sleep=907
+Bladder=19
+Communication=907
+Hunger=4  

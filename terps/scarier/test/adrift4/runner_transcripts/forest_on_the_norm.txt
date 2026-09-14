@@ -1,0 +1,107 @@
+
+> x tree
+It`s a large, boring tree.
+
+> climb tree
+Later, Babe! Wrong Place!
+
+> kick tree
+Ouch..... my leg......
+
+> Sprich Deutsch mit Baum
+Und du meinst ernsthaft, der versteht deutsch?
+
+> n
+I move north.
+Wood
+There is more wood. Any more, any more, any more wood. I can`t see any civilisation here.
+
+> e
+I move east.
+Wood
+There is a chicken. Isn`t that the chicken, which has stolen my starship? The chicken is blocking your way.  Chicken is here.
+
+> give easteregg to chicken
+Thank you.... uh, there was a key inside.
+
+> i
+I am carrying a key and a easteregg.
+
+> n
+I move north.
+Wood
+Wow, everywhere wood.
+
+> w
+I move west.
+Outside Cave
+There is a cave. And a keyhole in the cave. No. A keyhole in a cave? Ok, a keyhole in a cave.
+
+> unlock keyhole
+The Cave opens.....
+
+> n
+I move north.
+Cave
+I am in the cave. He.... I`ve seen him in space before: Roger W.  Roger is here.
+
+> ask roger about way
+Roger W. shows you the nothern way
+
+> n
+I move north.
+Big tree
+He, it looks like the biggest tree in RON!  Big tree is here.
+
+> climb big tree
+Now you can go up.
+
+> u
+I move up.
+Alley in the forest
+It`s the alley. Something is missing here....
+
+> e
+I move east.
+Sea
+It`s a small ocean!? 
+
+> dive
+OK, I am going to start diving! Now I can see a way up...
+
+> u
+I move up.
+YAHTZEEBRAND
+Oh, there is the shop.... and the clerk?  Also here is a Needle.
+
+> get needle
+Iget the needle and somebody opens the door behind me. I can go south now.
+
+> s
+I move south.
+Church
+A holy place....
+
+> n
+I move north.
+Under church
+I go upstairs. WWAAAAHHH, a Snake is here! Don`t go north.....
+
+> talk to snake
+I should run.... The Snake don`t want to talk with me.
+
+> u
+I move up.
+Farm
+Hm, a farm.
+
+> enter farm
+A human girl appears. She says: "Hi, I am Mika.... It seems, that the city is not longer a big wood.... We have our REALITY-ON-THE-NORM back. But I have never seen you before. Are you an Alien? Please follow me!" Mika goes the northern way.
+
+> n
+I move north.
+Jail
+Ok, the people of RON are thinking, that I`ve transformed the city to a forest.... and NOW I am sitting here..... forever? Maybe not. But this game is ending now..... Type in "show end" to see the rest (important). And thank you for playing RON: FOREST ON THE NORM....
+
+> show end
+Thank you for playing my Aliengame...... The next release will come.... Thanks to ADRIFT, thanks to REALITY ON THE NORM, thanks to ALL PLAYERS, thanks to NO DOUBT and thanks to THOMAS AND STEFFEN DINGEL, the producer of MISSION SUPERNOVA and ANDROMEDAS ERBE for the guest starring of Roger W. (more about that at my fanpage www.mission-supernova.de.vu).... To contact me: tobi__as@lycos.de // official homepage: www.tobi-as.de.vu

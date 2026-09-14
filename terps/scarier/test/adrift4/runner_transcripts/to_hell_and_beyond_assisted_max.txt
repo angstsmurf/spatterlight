@@ -1,0 +1,918 @@
+
+> greet zifan
+"I am Zifan. Any questions?" says Zifan.  
+
+> open door
+You open the big door.  
+
+> s
+You move south.
+Oran entrance
+You have entered the town of Oran. This place does not look very friendly. The houses are all scattered randomly accross the area. Some of them have collapsed, others are just on the verge of collapsing.  Nekar is here.  You can move east and south.  
+
+> s
+You move south.
+Oran 2
+You are standing on a crossroad. You see a few houses to the west, two men arguing over some matter in the east, the road just continues to the north and south. A man run towards you from the south.  Tirdo is here.  You can move north, east, south and west.  
+
+> w
+You move west.
+Oran 4
+There are two houses here, to the north and west. East leads to a crossroad. There's not much else.  You can move north and east.  
+
+> n
+You move north.
+Ilsar's house
+You have entered into an old house.  This is Ilsar's house.  Also here is a hook.  Ilsar is here.  You can only move south.  
+
+> take hook
+You take the hook.  
+
+> s
+You move south.
+Oran 4
+There are two houses here, to the north and west. East leads to a crossroad. There's not much else.  You can move north and east.  
+
+> e
+You move east.
+Oran 2
+You are standing on a crossroad. You see a few houses to the west, two men arguing over some matter in the east, the road just continues to the north and south. A man run towards you from the south.  You can move north, east, south and west.  
+
+> s
+You move south.
+Oran 5
+You are standing near a dry well. The ground here, like anywhere else in Oran, is nothing but hard dirt. There is a cliff to the east.  You can move north and east.  
+
+> e
+You move east.
+Oran 6
+You can see a well to the west and a cliff to the east.  You can move east and west.  
+
+> e
+You move east.
+Oran cliff
+You have arrived at a cliff. It´s not very big but it´s very steep. You can see a ledge just a meter out of your reach.  Also here is a rope.  You can only move west.  
+
+> take rope
+You take the rope.  
+
+> use hook with rope
+You attach the hook to the rope.  
+
+> use rope with cliff
+You throw the hooked rope up to the ledge. Success. You can now go up.  
+
+> w
+You move west.
+Oran 6
+You can see a well to the west and a cliff to the east.  You can move east and west.  
+
+> w
+You move west.
+Oran 5
+You are standing near a dry well. The ground here, like anywhere else in Oran, is nothing but hard dirt. There is a cliff to the east.  You can move north and east.  
+
+> n
+You move north.
+Oran 2
+You are standing on a crossroad. You see a few houses to the west, two men arguing over some matter in the east, the road just continues to the north and south. A man run towards you from the south.  You can move north, east, south and west.  
+
+> n
+You move north.
+Oran entrance
+You have entered the town of Oran. This place does not look very friendly. The houses are all scattered randomly accross the area. Some of them have collapsed, others are just on the verge of collapsing.  Nekar is here.  You can move east and south.  
+
+> e
+You move east.
+Oran 1
+  You can move east and west.  
+
+> e
+You move east.
+Inn
+You enter the inn. This house, like all others in town, looks like it´s about to collapse any second.   Petri is here.  You can move west and up.  
+
+> ask ilsar about tinev
+. .  
+
+> e
+You move east.
+Tinev 2
+You can see the docks to the west. To the north is a deadend. The exit is to the west.  You can move east and west.  
+
+> e
+You move east.
+Tinev docks 1
+You have arrived at the docks. A dog is guarding the path to the east. There is a closed gate to the north.  Dog is here.  You can move north and west.  
+
+> n
+You move north.
+Tinev 5
+There's a butcher to the east.  You can move east and south.  
+
+> e
+You move east.
+Tinev butcher
+You have entered into the butcher's shop.  Kiren is here.  You can only move west.  
+
+> ask kiren about delivery
+"Oh yeah. Thanks for reminding me. Could you give it to him yourself. I´m kind of busy." says Kiren.  
+
+> w
+You move west.
+Tinev 5
+There's a butcher to the east.  You can move east and south.  
+
+> s
+You move south.
+Tinev docks 1
+You have arrived at the docks. A dog is guarding the path to the east. There is a closed gate to the north.  Dog is here.  You can move north and west.  
+
+> w
+You move west.
+Tinev 2
+You can see the docks to the west. To the north is a deadend. The exit is to the west.  You can move east and west.  
+
+> w
+You move west.
+Tinev entrance
+You have now arrived in Tinev. The one Ribn spoke of is called Trace. You can see an inn to the north, the docks to the west and the exit is to the south.  You can move north and east.  
+
+> n
+You move north.
+Tinev 1
+This is a fairly simple street. An inn is to the north.  You can move north and south.  
+
+> n
+You move north.
+Tinev 3
+The tavern is to the east and the exit is south. The street continues to the west. The tavern is only open between 10 in the morning and 11 in the night.  You can move east, south and west.  
+
+> e
+You move east.
+Tinev tavern
+You enter the tavern and your lungs are filled with smoke. You can see a few men sitting at the bar.  Nimf is here.  You can only move west.  
+
+> give meat package to nimf
+Nimf accepts the package and gives you 75 gold coins.  
+
+> w
+You move west.
+Tinev 3
+The tavern is to the east and the exit is south. The street continues to the west. The tavern is only open between 10 in the morning and 11 in the night.  You can move east, south and west.  
+
+> s
+You move south.
+Tinev 1
+This is a fairly simple street. An inn is to the north.  You can move north and south.  
+
+> s
+You move south.
+Tinev entrance
+You have now arrived in Tinev. The one Ribn spoke of is called Trace. You can see an inn to the north, the docks to the west and the exit is to the south.  You can move north and east.  
+
+> e
+You move east.
+Tinev 2
+You can see the docks to the west. To the north is a deadend. The exit is to the west.  You can move east and west.  
+
+> e
+You move east.
+Tinev docks 1
+You have arrived at the docks. A dog is guarding the path to the east. There is a closed gate to the north.  Dog is here.  You can move north and west.  
+
+> n
+You move north.
+Tinev 5
+There's a butcher to the east.  You can move east and south.  
+
+> e
+You move east.
+Tinev butcher
+You have entered into the butcher's shop.  Kiren is here.  You can only move west.  
+
+> buy meat
+You buy some meat  
+
+> w
+You move west.
+Tinev 5
+There's a butcher to the east.  You can move east and south.  
+
+> s
+You move south.
+Tinev docks 1
+You have arrived at the docks. A dog is guarding the path to the east. There is a closed gate to the north.  Dog is here.  You can move north and west.  
+
+> give meat to dog
+You throw the meat at the dog. The dog starts eating it.  
+
+> e
+You move east.
+Tinev docks 2
+You can see a few ships. There´s trash on the street.  You can move east and west.  
+
+> e
+You move east.
+Tinev docks 3
+You can see a manhole here.  Trace is here.  You can move north and west.  
+
+> greet trace
+".........."                                                                        Conversation : Trace.  
+
+> n
+You move north.
+Tinev docks 4
+  You can move north and south.  
+
+> n
+You move north.
+Tinev docks 5
+  You can move north and south.  
+
+> n
+You move north.
+Tinev cliff
+  You can move south and up.  
+
+> u
+You move up.
+In front of old mansion
+  Also here is a crowbar.  You can move west, down and in.  
+
+> take crowbar
+You take the crowbar.  
+
+> d
+You move down.
+Tinev cliff
+  You can move south and up.  
+
+> s
+You move south.
+Tinev docks 5
+  You can move north and south.  
+
+> s
+You move south.
+Tinev docks 4
+  You can move north and south.  
+
+> s
+You move south.
+Tinev docks 3
+You can see a manhole here.  Trace is here.  You can move north and west.  
+
+> use crowbar with manhole
+You use the crowbar and manage to lift the manhole. Now do you really want to go down there?  
+
+> score
+Your score is 23 out of a maximum of 373.  (6%)
+
+> n
+You move north.
+Tinev docks 4
+  You can move north and south.  
+
+> n
+You move north.
+Tinev docks 5
+  You can move north and south.  
+
+> n
+You move north.
+Tinev cliff
+  You can move south and up.  
+
+> u
+You move up.
+In front of old mansion
+  You can move west, down and in.  
+
+> in
+You move in.
+Inside the old mansion
+You are now inside the old mansion.  You can move north, east, west and out.  
+
+> e
+You move east.
+Kitchen
+This is the kitchen. You can see a chair and a sink.  There's a cat in the sink.  Koir and Cat are here.  You can only move west.  You sneak up on Koir and his friend and hear them talking.                                         "Hey, you know this new guy in town. The one wearing the black robe. " says Koir.    "Yeah. What about him?" says his friend.     "This guy said he would give me 1000 gold coins if I killed him. So you up to it?" says Koir.        "Yeah. I´m up for it." says his friend.                     Unfortunately for you, they see you and tie you up and leave you there. They also locked the front doors to the mansion. They can´t be opened from the inside.                           press any key                You manage to untie yourself. It´s a good thing bad people aren´t good at tying things.   
+
+> turn on water
+The water floods down. But the cat doesn't move. Maybe the water's warm and nice.  
+
+> w
+You move west.
+Inside the old mansion
+You are now inside the old mansion.  You can move north, east and west.  
+
+> n
+You move north.
+Old mansion 2
+You are now standing in front of a staircase leading to the upper floor of this mansion  You can move south and up.  
+
+> u
+You move up.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a closed door.  You can move east and down.  
+
+> e
+You move east.
+Bedroom 1
+You are standing inisde a high class bedroom.  The bed is huge. There's a drawer up against a wall. To the south is a bathroom.  You can move south and west.  
+
+> open drawer
+You try all the shelves from top to bottom. Only the bottom one opens. There's a piece of paper in it.  
+
+> take paper
+You take piece of paper.  
+
+> s
+You move south.
+Bathroom 1
+This is a typical bathroom with a toilet, a sink and a bathtub. A bedroom is to the north.  You can only move north.  
+
+> flush toilet
+As you flush the toilet you can hear a sound from below. Guess you got the cat out of the sink.  
+
+> n
+You move north.
+Bedroom 1
+You are standing inisde a high class bedroom.  The bed is huge. There's a drawer up against a wall. To the south is a bathroom.  You can move south and west.  
+
+> w
+You move west.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a closed door.  You can move east and down.  
+
+> d
+You move down.
+Old mansion 2
+You are now standing in front of a staircase leading to the upper floor of this mansion  You can move south and up.  
+
+> s
+You move south.
+Inside the old mansion
+You are now inside the old mansion.  You can move north, east and west.  
+
+> e
+You move east.
+Kitchen
+This is the kitchen. You can see a chair and a sink.  Also here is a key.  You can only move west.  
+
+> take key
+You are already carrying the key.  
+
+> w
+You move west.
+Inside the old mansion
+You are now inside the old mansion.  You can move north, east and west.  
+
+> w
+You move west.
+Living room
+You can see a few paintings on the wall. There´s a clock on the wall with a dial under it.  You can only move east.  
+
+> turn dial to 5
+You turn the dial to 5.  
+
+> e
+You move east.
+Inside the old mansion
+You are now inside the old mansion.  You can move north, east and west.  
+
+> n
+You move north.
+Old mansion 2
+You are now standing in front of a staircase leading to the upper floor of this mansion  You can move south and up.  
+
+> u
+You move up.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a closed door.  You can move east, west and down.  
+
+> w
+You move west.
+Bedroom 2
+This room is huge but the bed is small. You wonder who could sleep in the bed. A claustrophobic kid? You see a lever up in the ceiling.  A pedestal has risen from the floor. You can reach the lever.  You can only move east.  
+
+> use lever
+You climb on top of the pillar and pull the lever. You can hear a screeching, door-opening sound from the lower floor.  
+
+> s
+You move south.
+Bathroom 2
+This bathroom is huge but everything else in it is small. Maybe a claustrophobic kid DID live in these two rooms. There´s a door in here leading to the balconies.  You can move north and south.  
+
+> s
+You move south.
+Balconies
+There are some flowers here and a shovel. There´s no ladder or anything leading to the ground. Looks like you´ve gotta jump.  You can only move north.  
+
+> jump down
+You jump down to the ground. It hurt a little in the fall but you´ll be all right.  
+
+> open drawer
+You can't see the drawer.  
+
+> take suction arms
+Take what?  
+
+> out
+You can only move north.  
+
+> w
+You can only move north.  
+
+> w
+You can only move north.  
+
+> w
+You can only move north.  
+
+> 
+I don't understand what you mean!
+
+> s
+You can only move north.  
+
+> use sword
+I don't understand what you mean!
+
+> take sword
+Take what?  
+
+> n
+You move north.
+Bathroom 2
+This bathroom is huge but everything else in it is small. Maybe a claustrophobic kid DID live in these two rooms. There´s a door in here leading to the balconies.  You can move north and south.  
+
+> e
+You can't go in that direction, but you can move north and south.  
+
+> e
+You can't go in that direction, but you can move north and south.  
+
+> e
+You can't go in that direction, but you can move north and south.  
+
+> s
+You move south.
+Balconies
+There are some flowers here and a shovel. There´s no ladder or anything leading to the ground. Looks like you´ve gotta jump.  You can only move north.  
+
+> take key
+You are already carrying the key.  
+
+> n
+You move north.
+Bathroom 2
+This bathroom is huge but everything else in it is small. Maybe a claustrophobic kid DID live in these two rooms. There´s a door in here leading to the balconies.  You can move north and south.  
+
+> e
+You can't go in that direction, but you can move north and south.  
+
+> u
+You can't go in that direction, but you can move north and south.  
+
+> e
+You can't go in that direction, but you can move north and south.  
+
+> n
+You move north.
+Bedroom 2
+This room is huge but the bed is small. You wonder who could sleep in the bed. A claustrophobic kid? You see a lever up in the ceiling.  A pedestal has risen from the floor. You can reach the lever.  You can move east and south.  
+
+> n
+You can't go in that direction, but you can move east and south.  
+
+> get in
+Take what?  
+
+> 
+I don't understand what you mean!
+
+> n
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> n
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> n
+You can't go in that direction, but you can move east and south.  
+
+> n
+You can't go in that direction, but you can move east and south.  
+
+> e
+You move east.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a closed door.  You can move east, west and down.  
+
+> e
+You move east.
+Bedroom 1
+You are standing inisde a high class bedroom.  The bed is huge. There's a drawer up against a wall. To the south is a bathroom.  You can move south and west.  
+
+> n
+You can't go in that direction, but you can move south and west.  
+
+> in
+You can't go in that direction, but you can move south and west.  
+
+> n
+You can't go in that direction, but you can move south and west.  
+
+> d
+You can't go in that direction, but you can move south and west.  
+
+> n
+You can't go in that direction, but you can move south and west.  
+
+> n
+You can't go in that direction, but you can move south and west.  
+
+> n
+You can't go in that direction, but you can move south and west.  
+
+> e
+You can't go in that direction, but you can move south and west.  
+
+> n
+You can't go in that direction, but you can move south and west.  
+
+> n
+You can't go in that direction, but you can move south and west.  
+
+> n
+You can't go in that direction, but you can move south and west.  
+
+> w
+You move west.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a closed door.  You can move east, west and down.  
+
+> n
+You can't go in that direction, but you can move east, west and down.  
+
+> u
+You can't go in that direction, but you can move east, west and down.  
+
+> w
+You move west.
+Bedroom 2
+This room is huge but the bed is small. You wonder who could sleep in the bed. A claustrophobic kid? You see a lever up in the ceiling.  A pedestal has risen from the floor. You can reach the lever.  You can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> in
+You can't go in that direction, but you can move east and south.  
+
+> e
+You move east.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a closed door.  You can move east, west and down.  
+
+> e
+You move east.
+Bedroom 1
+You are standing inisde a high class bedroom.  The bed is huge. There's a drawer up against a wall. To the south is a bathroom.  You can move south and west.  
+
+> e
+You can't go in that direction, but you can move south and west.  
+
+> s
+You move south.
+Bathroom 1
+This is a typical bathroom with a toilet, a sink and a bathtub. A bedroom is to the north.  You can only move north.  
+
+> s
+You can only move north.  
+
+> w
+You can only move north.  
+
+> s
+You can only move north.  
+
+> s
+You can only move north.  
+
+> e
+You can only move north.  
+
+> s
+You can only move north.  
+
+> ^^aquired armor^^
+I don't understand what you mean!
+
+> n
+You move north.
+Bedroom 1
+You are standing inisde a high class bedroom.  The bed is huge. There's a drawer up against a wall. To the south is a bathroom.  You can move south and west.  
+
+> w
+You move west.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a closed door.  You can move east, west and down.  
+
+> n
+You can't go in that direction, but you can move east, west and down.  
+
+> n
+You can't go in that direction, but you can move east, west and down.  
+
+> e
+You move east.
+Bedroom 1
+You are standing inisde a high class bedroom.  The bed is huge. There's a drawer up against a wall. To the south is a bathroom.  You can move south and west.  
+
+> n
+You can't go in that direction, but you can move south and west.  
+
+> n
+You can't go in that direction, but you can move south and west.  
+
+> w
+You move west.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a closed door.  You can move east, west and down.  
+
+> w
+You move west.
+Bedroom 2
+This room is huge but the bed is small. You wonder who could sleep in the bed. A claustrophobic kid? You see a lever up in the ceiling.  A pedestal has risen from the floor. You can reach the lever.  You can move east and south.  
+
+> in
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> in
+You can't go in that direction, but you can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> u
+You can't go in that direction, but you can move east and south.  
+
+> s
+You move south.
+Bathroom 2
+This bathroom is huge but everything else in it is small. Maybe a claustrophobic kid DID live in these two rooms. There´s a door in here leading to the balconies.  You can move north and south.  
+
+> w
+You can't go in that direction, but you can move north and south.  
+
+> sleep
+Zzzzz.  Bored are you?  
+
+> e
+You can't go in that direction, but you can move north and south.  
+
+> n
+You move north.
+Bedroom 2
+This room is huge but the bed is small. You wonder who could sleep in the bed. A claustrophobic kid? You see a lever up in the ceiling.  A pedestal has risen from the floor. You can reach the lever.  You can move east and south.  
+
+> w
+You can't go in that direction, but you can move east and south.  
+
+> greet mayor
+I don't understand what you mean!
+
+> e
+You move east.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a closed door.  You can move east, west and down.  
+
+> d
+You move down.
+Old mansion 2
+You are now standing in front of a staircase leading to the upper floor of this mansion  You can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> out
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> out
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> n
+You can't go in that direction, but you can move south and up.  
+
+> n
+You can't go in that direction, but you can move south and up.  
+
+> n
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> e
+You can't go in that direction, but you can move south and up.  
+
+> get on board
+Take what?  
+
+> 
+I don't understand what you mean!
+
+> s
+You move south.
+Inside the old mansion
+You are now inside the old mansion.  You can move north, east and west.  
+
+> s
+You can't go in that direction, but you can move north, east and west.  
+
+> s
+You can't go in that direction, but you can move north, east and west.  
+
+> s
+You can't go in that direction, but you can move north, east and west.  
+
+> in
+You can't go in that direction, but you can move north, east and west.  
+
+> buy claymore
+I don't think that is for sale.  
+
+> buy bladed whip
+I don't think that is for sale.  
+
+> wield claymore
+I don't understand what you are wanting to wield!
+
+> out
+You can't go in that direction, but you can move north, east and west.  
+
+> n
+You move north.
+Old mansion 2
+You are now standing in front of a staircase leading to the upper floor of this mansion  You can move south and up.  
+
+> n
+You can't go in that direction, but you can move south and up.  
+
+> in
+You can't go in that direction, but you can move south and up.  
+
+> w
+You can't go in that direction, but you can move south and up.  
+
+> w
+You can't go in that direction, but you can move south and up.  
+
+> w
+You can't go in that direction, but you can move south and up.  
+
+> w
+You can't go in that direction, but you can move south and up.  
+
+> w
+You can't go in that direction, but you can move south and up.  
+
+> w
+You can't go in that direction, but you can move south and up.  
+
+> in
+You can't go in that direction, but you can move south and up.  
+
+> w
+You can't go in that direction, but you can move south and up.  
+
+> u
+You move up.
+Upper floor
+You are now upstairs. To the east you can see a bedroom and to the west is a closed door.  You can move east, west and down.  
+
+> w
+You move west.
+Bedroom 2
+This room is huge but the bed is small. You wonder who could sleep in the bed. A claustrophobic kid? You see a lever up in the ceiling.  A pedestal has risen from the floor. You can reach the lever.  You can move east and south.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> claim the throne
+I don't understand what you mean!

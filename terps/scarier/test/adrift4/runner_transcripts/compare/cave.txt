@@ -1,0 +1,11 @@
+feed        216 commands
+runner      215 turns echoed
+scarier     216 turns, feed[0] is scarier turn 0
+
+RULE 2 -- 1 command(s) the Runner never echoed.  Everything
+after the first of them is out of step and is NOT an engine
+difference until the feed is fixed and the row re-driven:
+    feed[215]  read parchment
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

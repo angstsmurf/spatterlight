@@ -1,0 +1,131 @@
+
+> w
+You move west.
+Your room
+you are in the place you sleep in.  Also here is Electric Uniform.  You can only move east.
+
+> take electric uniform
+You take Electric Uniform.
+
+> e
+You move east.
+The Coffee House
+You're in the coffee house, and hear someone talking about a warp.  You can move north, east, south and west.
+
+> n
+You move north.
+Shop
+You are in a large shop that has all kinds of items. One item you have your eye on, the type 3 Wave Motion Cannon.  Merchant is here.  You can only move south.
+
+> buy wave motion cannon
+You give the ten bucks to the clerk.
+
+> s
+You move south.
+The Coffee House
+You're in the coffee house, and hear someone talking about a warp.  You can move north, east, south and west.
+
+> s
+You move south.
+Teleporter Room
+You are in the teleporter room.  You can only move north.
+
+> open teleporter
+You open The Teleporter.
+
+> use teleporter
+you are teleported!  
+Teleporter booth
+You teleport to the teleport booth in the BluDeath Mountains.  You can only move out.
+
+> out
+You move out.
+BluDeath Mountains
+The old cold place. A lot of people are here.  You can move west and in.
+
+> w
+You move west.
+The Cave
+You see the Cyber Warp right here. There are a lot of people here, too.  You can only move east.
+
+> enter warp
+You run into the warp and everyone applauses.  
+Bisstonia
+You are in the old demension on a search for lightning.  You can only move northeast.
+
+> ne
+You move northeast.
+Back Ally
+You are in the back ally of a famous pizza restorant.  Hooded figrure is here.  You can move in and southwest.
+
+> reveal hooded figure
+Its really Lightning!
+
+> give electric uniform to lightning
+you give him the electric suit and he looks better.
+
+> in
+You move in.
+Kitchen
+The place where the food is prepaired.  Ninja Chef is prepared for battle!  You can move east and out.
+
+> shoot chef
+You shoot the ninja chef.
+
+> e
+You move east.
+Dining Area
+You are in the dining part of the resturant. There are people all around eating, laughing and drinking to there heart's desire.  You can move west and out.
+
+> out
+You move out.
+Main street
+You are on a main street that leads to a large, high security building.  You can move north and in.
+
+> n
+You move north.
+Large Building
+A Large building that is surrounded by guards.  A Couple of Guards are here.  You can only move south.
+
+> shoot guards
+the guards fall to the floor, dead.
+
+> u
+You move up.
+Stairway
+You are on the stairway up to the second level of Mr. Bissoff's Headquatters. You are supposed to meet Lightning up here.  You can move up and down.
+
+> u
+You move up.
+Hall
+You are in the hall on the top floor At the end is a door with a computer screen. Blinking on the computer screen: What is the password to the door?  You can move west and down.
+
+> w
+You move west.
+Guard Room
+You are in a room with one guard ready for attack!  You can only move east.
+
+> shoot guard
+You shoot the guard, and as he is dieing, you ask him the password, and he replies the pass is...NEVER!
+
+> e
+You move east.
+Hall
+You are in the hall on the top floor At the end is a door with a computer screen. Blinking on the computer screen: What is the password to the door?  You can move west and down.
+
+> never
+Blinking on the computer screen: Password correct! you may pass.  
+Mr. Bissoff's Room
+You are in the room with Mr. Bissoff! As soon as you get in, he snatches your weapon! All of a sudden, Lightning comes in!  Mr. Bissoff is here.  You can only move south.  The Elemental Master manages to avoid Lightning's attack.  The Elemental Master attacks you with Wave Motion Cannon, but you manage to avoid it.
+
+> use firebolt
+You use a powerful enough firebolt, he dies!
+
+> feel wrath of flame
+The immense power of your fire explosion, has destroyed Mr. Bissoff, and you are now able to teleport back to the warp and enter, and this whole nightmare will end!
+ You have rescued Lightning and killed the ruler of an evil demension. Congrtulatons, you have beaton Cyber Warp 2!                                                                                                                                                                                                                                             THE END, or is it?
+You scored 355 out of the maximum 355!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

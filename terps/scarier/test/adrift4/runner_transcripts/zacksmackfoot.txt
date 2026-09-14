@@ -1,0 +1,44 @@
+
+> take briefcase
+You take the briefcase.  
+
+> back
+You move the curtain aside and go back to the cargo bay.
+
+Cargo bay
+A metal lined shell provides a good space for you to carry assorted goods around. You can go forward, through the dividing curtain, to the  cockpit.   Beside the rear cargo door is a small control panel.  There is a bulky crate lashed up against the side of the plane.  
+
+> open penknife
+You open your penknife.  
+
+> put knife in slot
+Your penknife is too big to fit inside the slot.  A quick push and the button in the slot operates a quick release allowing the cargo door to lower under it's own weight.  The door hit's the ground with a crash.  
+
+> out
+You move out.
+By the aircraft
+The body of your aircraft, partially buried, is beside you. All around are trees and the sounds of a myriad of birds and animals, many of which you would prefer not to meet.  
+. . . .  Press a key to continue
+
+
+___________________________
+
+Zack Smackfoot
+Escape from the
+Jungle Terror
+
+(Version 0.5)
+
+by
+
+Ken Franklin
+___________________________
+
+
+. . . .  Press a key to continue
+
+You have made it out of the aircraft, but as you look around you it is clear that that was the simple part. Getting out of the jungle alive is a completely different challenge.
+
+The owners will be pleased you brought the case with you. You just hope that you aren't caught by the authorities with it otherwise it might be hard to explain if your suspicions about the contents are right.  
+
+THE END . . . . . for now!

@@ -41,6 +41,13 @@ index below lead to the code.
   random values cannot be compared.
 - **The next source of engine leads** is fresh `run400x`/`run390x`
   `VBRNG=xoshiro` captures of the RNG-divergent rows (see "Driving" below).
+- **Whole-corpus xoshiro capture (2026-09-14):** `runner_transcripts/` in
+  this tree has one Runner transcript for each of the 428 rows except
+  dreamquest. Each was driven with the golden's feed, seed and popups.
+  `manifest.tsv` gives each row's compare verdict and `compare/` the
+  reports. Regenerate it with `harness/runner_transcripts.py`; the
+  README explains how. All 105 differing rows are classified under "Whole-corpus
+  capture triage" in Open leads.
 - **Transcript directories** under `~/adrift-battle/runner/wine/`:
   - `pfx/drive_c/adrift/`: the live archive. Never `rm` a glob there.
   - `transcripts_v4_corpus_2026-09-08/`: 427 rows, native RNG.
@@ -284,6 +291,194 @@ engine:
   (`!!`/`again`/`last`/`previous`/`!`/`g`, 45F094) sits above `tasks(0)` at
   45F48B. run370/run380 test the same words minus `g` (43B3C9 / 441B79).
   Porting that order is owed.
+
+### Whole-corpus capture triage (2026-09-14)
+
+Every non-identical row of `runner_transcripts/manifest.tsv` has been read from
+`compare/<tag>.txt` (first 10 differing turns). Rows already covered elsewhere
+in this file are not repeated here: zelda, thepkgirl, losttomb, everything,
+the_hangover, the_town_of_azra_v390, lost_souls, wonderwombat,
+yonastoundingcastle, aliasagent, mould, house, motion, alices_restaurant (the
+run370 double matcher pass), sandy_meta_number (SCARE meta-commands) and the
+to_hell_and_beyond assisted rows. For the explicit games (amy, bsg22,
+riding_home, sswhore, wilkins) the notes below are schematic by design.
+Draw counts were not taken in this pass. Every "RNG" item still needs the
+`RND #` count against `SCR_TRACE_RAND` before it can be called real.
+
+**Capture and compare artefacts (nothing owed):**
+
+- Epilogue or pause text landing one turn late, or cut at the final keypress:
+  JGrim T102 (the Runner's `THE END`), endgame T8-9, frustrated T84,
+  vendetta T206, mortality T41-48, iqsfot T41-42, suzypowers T30 (the feed
+  ends on the `[MORE]`, so the Runner never prints the ending and its win
+  marker is missing), bsg22 T13 (the Runner's play-again tail).
+- Whitespace-only joins or the trailing `[Press any key to end]`: amy T17,
+  cyber T19, skydiver T22, foresthouse3 T71, inmemory, riding_home T55,
+  wheels_must_turn, grumble and onnafa (heading joins), warlord (3 joins).
+- Lost commands after an ending both sides share: confession (Scarier also
+  ends at feed[15]), snakes_and_ladders, darkness, questi, thelasthour,
+  sun_empire, will, sswhore, egghunt, howitstarted.
+- hyper_b_s "10 lost": the Runner does echo each attack-menu `a`/`p` key
+  (Attack Menu follows every `> a`). The aligner loses them. Compare lead.
+- `[Y/N]` prompts the Runner never asks: grumble T274 and lifesimulation T15
+  `quit`.
+
+**Harness and compare leads:**
+
+- **Accented feeds reach Scarier as UTF-8.** largo_winch (from T0) and
+  enquete_a_hauts_risques (from T4) differ on every turn, and the Scarier side
+  answers like an engine that never saw the accented words (`Prendre quoi?`,
+  `Nothing special.`). The goldens (ISO-8859) print what the Runner printed.
+  `compare_wine_transcript.py` `scarier_run()` encodes stdin in the
+  cmdfile's encoding (UTF-8, because drive.exe reads UTF-8). It should encode
+  Scarier's stdin as latin-1. Fix, then re-run both compares.
+- **Doubled keystrokes, re-drive owed:** bomb_threat T25 `ss` (eats
+  feed[26]); humbug T448 `NN` (466 commands lost after it).
+- **light_up (seed 133), 217 lost from feed[294]:** at T293 `west` both sides
+  of the compare die ("scored 58 out of the maximum 0"), and the Runner then
+  takes no more input. The blessed golden never dies there. It has no
+  `maximum` line at all. So the compare's rebuilt feed does not reproduce the
+  golden's route. Diff the feed against the solution (pause blanks) before
+  reading anything into it.
+- **cellar T120 `undo`:** the Runner's "Undone." replays the restored turn's
+  story text (with its `[MORE]`). Scarier's replays a not-understood line.
+  This is probably the known undo-slot deviation (Scarier skips
+  administrative lines), but it has not been confirmed.
+
+**RNG or draw placement (draw counts owed):**
+
+- alchemist (3.90): the random passer-by room line differs from T32.
+- bomb_threat T0: the random traffic line.
+- hhorror (seed 50): the random dark-room descriptions from T7. The route
+  splits at T11.
+- reluctantvampire (seed 6): the `[Press a key, <epithet>]` roll is one draw
+  apart from T132. The Runner's T133 is Scarier's T132.
+- warlord (seed 6) T288 `push barrel`: the barrel rolls west in the Runner
+  and northwest in Scarier. The rest of the row follows (66 lost from
+  feed[318]).
+- wumpusrun (seed 72): the random move verb ("depart" vs "press on") from T0.
+- marooned (3.80, seed 3) T53 `throw map`: the Runner has no shark.
+- Battle rolls: deaths (3.90) T35-49, cyber2 T15/T26, spirits_flight (3.90)
+  T17 (a "doesn't seem to do any damage" suffix) and T45 (a companion strike
+  that only the Runner prints), alexis T126-127 (companion strike order,
+  Haron's arrival one turn apart).
+- cursed from T137: the wet-fur event still blocks movement in the Runner
+  ("dries slowly" vs "dries out completely"). The rest of the row follows.
+  This is either event timing or a roll.
+
+**Engine, 4.0:**
+
+- **Carrying limits.** The Runner refuses with a hands-full or too-much
+  message where Scarier either takes the object or refuses a different one:
+  - businessasusual T20/T24 `take all`: the game's own replacement for the
+    hands-full refusal, and on another object;
+  - provenance T722/T724 `get rope`/`get axe` from the held rucksack: the
+    Runner says "too heavy", Scarier takes it;
+  - wilkins T22 and T107 (`take`, `take all`): "My hands are full" against
+    Scarier's "too heavy for me" per object;
+  - the 3.9 twin is alexis T28 (see below).
+- **Noun resolution and ambiguity:**
+  - hub T70-73: `x lower right cupboard` gets "Which right cupboard. The right
+    lower cupboard or the right upper cupboard?". The typed adjective order
+    differs from the Prefix order. Scarier picks the object. The row cascades.
+  - wilkins T110-117: `drop tincture of <name>` gets "It is not clear which
+    tincture..." or a `Which tincture.` prompt, and T117 drops a different
+    object.
+  - xfiles T62 `open phone book`: the Runner answers with the cell phone.
+  - Glum_Fiddle T16-22 `take <cushion/doily/lamp>`: the Runner says "Take
+    what?", Scarier takes.
+  - 3monkeys T40 `get husk`: the Runner says "Huh?", Scarier takes the coconut
+    husk (see T54's implicit take).
+  - onnafa T155 `get key of pure harry`: the Runner says "I don't think Harry
+    would appreciate being handled". The take-NPC branch fires on the name
+    inside an object's name. Scarier takes the key.
+- **Task versus library:**
+  - wumpusrun T10 `climb ladder`: Scarier prints "You can't climb the rope
+    ladder." ahead of the task text. The Runner prints only the task.
+  - iachini T185 `turn on tv`: the Runner says DontUnderstand, Scarier "You
+    can't turn the 32-inch television on.". The event text that follows
+    agrees.
+  - crookedestate T41 `peel wallpaper`: the Runner runs the task, Scarier
+    says "don't understand what you want me to do with the walls". Also at
+    T44 `save`, the Runner adds an event line.
+  - showtime T65 `get her hand` (after "(No female)"): the Runner runs the
+    task, Scarier says "Take what?". The `z` sequence from T68 follows.
+  - xfiles T69 bare `buzzer` (the Runner says "I don't understand what you
+    want me to do with A Buzzer") and T76 `get in the van` (the Runner says
+    "You take VW Van."). Scarier runs the tasks in both. The ending follows.
+  - the_town_of_azra T13 `buy rawhide armor`: the Runner says "I don't think
+    that is for sale", Scarier buys it. The money is then off by 90.
+  - les_feux T115-116 `throw grappin on rocher`: the Runner asks the attack
+    question ("Qui voulez vous attaquez?"), so `throw ... on` reaches
+    dobattle. Scarier's catch-all answers.
+  - grumble T207 `pull button`: the Runner says "You can't see the button",
+    Scarier "You pull, but nothing happens".
+- **Extra or missing lines:**
+  - baroo T107 `close machine`: Scarier adds "The machine is now closed.".
+  - onnafa T68 `give empty beer mug to perry`: the Runner adds "You can't
+    take anything from the empty beer mug." ahead of the task text.
+  - greekschool T27/41/91/100/126/156: Scarier adds the NPC line "Paul gives
+    you a look over..." on entering. The Runner never prints it.
+  - riding_home T47 and T50: the Runner prints an NPC conversation line and a
+    progress-hint line that Scarier lacks.
+  - iqsfot T158 `kick guard`: the Runner names the absent NPC by Name ("Drash
+    the Guard is not here."), Scarier by the typed word ("guard is not
+    here.").
+- **Output filter:** albert_is_lost T21 `get motherload`: the Runner prints a
+  literal ` >UNDOeth?"` that Scarier drops. It is probably an unknown
+  `<...>` tag swallowed.
+- **JGrim** is clean apart from the epilogue.
+
+**Engine, 3.9:**
+
+- **Carrying:** alexis T28 `get all from large stone table`: the Runner says
+  "You can't take any more, as your hands are full", Scarier "That is too
+  heavy for you to carry".
+- **Noun resolution:** the Runner matches on the head noun and answers for
+  an object the adjective rules out, or asks where Scarier picks:
+  - stardust T38 `take needle box`: "You've already got the sharp needle!"
+    (T99 and the T116 ending follow);
+  - secret_of_lost_world T53 `take blue gem`: "You already have the green
+    gem!". At T56 `take scroll` the Runner asks "Which scroll. Ancient scroll
+    or the decayed scroll?". T71-122 follow.
+  - troll T64 `drop cup`: "Which cup. The small cup or the empty cup?"
+    against Scarier's drop.
+- **Refusal wording:**
+  - thetest_win T68-77 `unlock door`: "You can't do that here!" against
+    "You can't unlock the door.".
+  - alexis T99 `open chest`: "Command not understood" against "You can't
+    open that.".
+  - cybercow T62 `put bones in robot`: "You can't do that!" against
+    Scarier's "You're not holding the little bones to install them...".
+  - gateway T2 `east`: "(Getting off that first)" against "(Getting off the
+    comfy chair first)".
+- **cybercow_win:**
+  - T72 `x fairy`: a different description (state);
+  - T97 `read envelope`: the Runner adds "The envelope is closed.";
+  - T103: "CyberCow is here." against "CyberCow and Robot are here." (the
+    robot's presence);
+  - T118 `x berry`: the Runner's answer to SCARE's "Please be more clear"
+    invention is "I can tell you nothing about that." (see "Engine, needs a
+    probe (3.9)").
+- **fantasyworld T224-296:** the Royal Knight follows the player in the
+  Runner. In Scarier he is not in the room.
+- **alexis_worn_cube:** T124 has an event line one turn earlier in the Runner,
+  and 34 `attack urgorn` are lost after an earlier end.
+
+**Engine, 3.7 / 3.8:**
+
+- **wrecked (3.80):**
+  - The pronoun echo takes the article rule: "(the tweed jacket)" against
+    Scarier's "(a tweed jacket)" at T10/62/63/79/83/151. The index says the
+    article rule is 4.0 only; run380 applies it too.
+  - T24 `inventory`: Scarier loses the listing before Boff's line.
+  - T129 and T211: a different ask topic answers. This is the 3.7/3.8
+    ask-topic overwrite, unmeasured.
+- **twilight (3.80):**
+  - The listing sentence keeps a lower-case Prefix ("a monkey is here")
+    where Scarier capitalises it (T12-34).
+  - T48 `cook cheese`: "You can't do that yet" against the task. The T113
+    score of 485 against 500 follows.
 
 ### Load failures
 

@@ -1,0 +1,170 @@
+
+> 
+WTF, say somthing i can understand.
+
+> take note
+You sneek the note out of the midgets back pocket.
+
+> n
+You move north.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the leads to the waiting room for the king.  There are some great stained glass windows on all sides of you, bringing the room to look like a shining pillar of light.  There is a long red rug in the hall.  You also feal a slight draft.  Yup, its still the first day.  You can move north and south.
+
+> open window
+The window is broken and you can't seam to open the window in its present state.  You can see a shadow of somthing behind the window.
+
+> n
+You move north.
+Kings throne room.
+This is the Kings throne room.  About 20 feet away is the kings chair.  There is a door to the south, and a door to the west.  There is a fishy smell about this room.  Some maids and guards are standing about.  You see a plate of doughnuts on a table to your right.  Harry the King sits in his throne.  Guido is here guarding the room to the west.  Yup, its still the first day.  You can move south and west.
+
+> give note to king
+You give the note to the king.  "Gee thanks," he mumbles.  He reads it, then looks at you.  "hmm you aint no midget... but Whatever."  Stupid harry gives you 100 gold pieces.
+
+> s
+You move south.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the leads to the waiting room for the king.  There are some great stained glass windows on all sides of you, bringing the room to look like a shining pillar of light.  There is a long red rug in the hall.  You also feal a slight draft.  Yup, its still the first day.  You can move north and south.
+
+> s
+You move south.
+Waiting room
+This is the waiting room, for people to stand in line to see the king about important things, and you just happen to be at the end of that line.  You cant even tell if the line ends.  The throne room is at the end of the hall.  You notice all the people here are very tall except one little man three people ahead of you.  This is the room where you found the note for the stupid king.  Yup, its still the first day.  You can move north and south.
+
+> s
+You move south.
+Courtyard
+You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on both sides of the stone road that leads to the gigantic door. To the east is a building with smoke pouring out of a chimmmany, To the west is a big ol fountain.  A locked gate is to the south.  The Dumb old guy stares at you.  Yup, its still the first day.  You can move north, east and west.
+
+> e
+You move east.
+Armory
+Woo hoo, now you've entered the armory.  Shields and Weapons and crap decorate the walls.  A fiery forge is in the corner.  There is a weapon rack over there in the corner too.  Yup, its still the first day.  You can move west and in.
+
+> x Weapon Rack
+This Weapon rack holds a few weapons.  Big surprise.  Inside Weapon Rack is Kinda Sharp Sword, Kinda Dented Shield and Highly Explosive Grenade.
+
+> take sword
+You take Kinda Sharp Sword from Weapon Rack.
+
+> wield sword
+I don't understand what you are wanting to wield!
+
+> w
+You move west.
+Courtyard
+You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on both sides of the stone road that leads to the gigantic door. To the east is a building with smoke pouring out of a chimmmany, To the west is a big ol fountain.  A locked gate is to the south.  The Dumb old guy stares at you.  Yup, its still the first day.  You can move north, east and west.
+
+> n
+You move north.
+Waiting room
+This is the waiting room, for people to stand in line to see the king about important things, and you just happen to be at the end of that line.  You cant even tell if the line ends.  The throne room is at the end of the hall.  You notice all the people here are very tall except one little man three people ahead of you.  This is the room where you found the note for the stupid king.  Yup, its still the first day.  You can move north and south.
+
+> n
+You move north.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the leads to the waiting room for the king.  There are some great stained glass windows on all sides of you, bringing the room to look like a shining pillar of light.  There is a long red rug in the hall.  You also feal a slight draft.  Yup, its still the first day.  You can move north and south.
+
+> n
+You move north.
+Kings throne room.
+This is the Kings throne room.  About 20 feet away is the kings chair.  There is a door to the south, and a door to the west.  There is a fishy smell about this room.  Some maids and guards are standing about.  You see a plate of doughnuts on a table to your right.  Harry the King sits in his throne.  Guido is here guarding the room to the west.  Yup, its still the first day.  You can move south and west.
+
+> w
+You move west.
+Royal Shower Room
+This is where the king takes showers.  Unfortunately he hasnt taken one for quite some time.  You look in the shower and you see many tiles.  Some of the tiles in the corner look new.  Yup, its still the first day.  You can only move east.
+
+> push tile
+You push the tile in.  Veeerry smart of you.  Now what.  So you pushed it in.  You wait a bit...  nothing happens.  Wait...   you hear a click.  You start to wonder what the click came from, it didn't sound like it came from this room though.
+
+> e
+You move east.
+Kings throne room.
+This is the Kings throne room.  About 20 feet away is the kings chair.  There is a door to the south, and a door to the west.  There is a fishy smell about this room.  Some maids and guards are standing about.  You see a plate of doughnuts on a table to your right.  Harry the King sits in his throne.  Guido is here guarding the room to the west.  Yup, its still the first day.  You can move south and west.
+
+> s
+You move south.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the leads to the waiting room for the king.  There are some great stained glass windows on all sides of you, bringing the room to look like a shining pillar of light.  There is a long red rug in the hall.  You also feal a slight draft.  Jackass Trying to Kill You is here.  Yup, its still the first day.  You can move north and south.  The guy hits you, but it doesn't seem to do any damage.
+
+> attack guy
+You cut The guy with Kinda Sharp Sword.  You killed the Bastard Trying to Kill You.  It wasn't hard, but it was sure fun.  Now that he is dead, you can search his body or somthing, right?
+
+> search guy
+You search him and find THE GOLDEN SOAP!  Better pick it up soon, and take it to the king.
+
+> take golden soap
+You've already got Golden soap!
+
+> n
+You move north.
+Kings throne room.
+This is the Kings throne room.  About 20 feet away is the kings chair.  There is a door to the south, and a door to the west.  There is a fishy smell about this room.  Some maids and guards are standing about.  You see a plate of doughnuts on a table to your right.  Harry the King sits in his throne.  Guido is here guarding the room to the west.  Yup, its still the first day.  You can move south and west.
+
+> give the golden soap to king
+You give the golden soap to the king and he yells loudly "I HAVE THE GOLDEN SOAP, I HAVE THE GOLDEN SOAP!"  and you slowly back away.  He also sais, "By they way, did you get the non-golden soap on a rope?" (if you did say "yes" if you didn't say "no")  The day is half over.
+
+> s
+You move south.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the leads to the waiting room for the king.  There are some great stained glass windows on all sides of you, bringing the room to look like a shining pillar of light.  There is a long red rug in the hall.  You also feal a slight draft.  Jackass Trying to Kill You (dead) is here.  Yup, its still the first day.  You can move north and south.
+
+> x Cracked Broken Window
+Hey, this window is broken.  Who would do such a dastardly, dastardly deed?  The Broken Window is open.  A Soap on a rope is inside Cracked Broken Window.
+
+> take soap on a rope
+You take a Soap on a rope from Cracked Broken Window.
+
+> x window
+Hey, this window is broken.  Who would do such a dastardly, dastardly deed?  The Broken Window is open.
+
+> close window
+You close Cracked Broken Window.
+
+> n
+You move north.
+Kings throne room.
+The king sees your soap on a rope and says, "give me that you bastard."  Harry the King sits in his throne.  Guido is here guarding the room to the west.  Yup, its still the first day.  You can move south and west.
+
+> give soap on a rope to king
+You give the soap to the king and he gladly accepts it.  In fact he's jumping up and down for joy.  as he runs to the shower room, he tosses you a key to the armory.  "take any weapon you want as a reward."
+
+> take doughnut
+You snatch a doughnut while the king takes a shower.  Goodness.  You see Guido look at you.  I think he wants one of the doughnuts.
+
+> s
+You move south.
+Hall
+The hall leads far down.  At one end is the kings throne room, the other, the leads to the waiting room for the king.  There are some great stained glass windows on all sides of you, bringing the room to look like a shining pillar of light.  There is a long red rug in the hall.  You also feal a slight draft.  Jackass Trying to Kill You (dead) is here.  Yup, its still the first day.  You can move north and south.
+
+> s
+You move south.
+Waiting room
+This is the waiting room, for people to stand in line to see the king about important things, and you just happen to be at the end of that line.  You cant even tell if the line ends.  The throne room is at the end of the hall.  You notice all the people here are very tall except one little man three people ahead of you.  This is the room where you found the note for the stupid king.  The Dumb old guy stares at you.  Yup, its still the first day.  You can move north and south.
+
+> s
+You move south.
+Courtyard
+You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on both sides of the stone road that leads to the gigantic door. To the east is a building with smoke pouring out of a chimmmany, To the west is a big ol fountain.  A locked gate is to the south.  Yup, its still the first day.  You can move north, east and west.
+
+> w
+You move west.
+Giant fountain
+There is a giant fountain here, it is big, and huge, both big AND huge.  Some servents busy around and spill things, and there is a slight strangeness about the fountain.  There is a sign here that says things on it.  There are 2 guys slapping eachother in the corner.  Yup, its still the first day.  You can move north and east.
+
+> n
+You move north.
+Out side a BIIIIG house.
+You are outside a BIIIIG house.  You don't know who lives there, you don't know where they come from, you don't even know how they reproduce.  All you know is, is its kinda Spook-key-y.  Yup, its still the first day.  You can move south and west.
+
+> w
+You move west.
+Sculpto's House
+This is Sculpto's house, complete with sculpts, scultures, and sculpys.  This man is Cccrrrrraaaazy.  The room has 2 big sculptures on both sides of the room( that makes for  four(4) for you idiots).  There are some  lamps and torches hanging around.  A big table in the middle has a radio blaring disco music.  Wow!  Sculpto is here.  Yup, its still the first day.  You can only move east.
+
+> use radio
+Whoa, you get some kind of stupid african music.  Wow!
+
+> score
+Your score is 30 out of a maximum of 37.  (81%)

@@ -1,0 +1,65 @@
+
+> look at watch
+This is your watch. It is 24 hour time and it says that the time right now is [TIME=12]. It has been 0 days since you have moved in.
+
+> west
+You move west.
+The Upstairs Landing
+This is the upstairs landing, which has a cupboard full of towels. To the east is your bedroom and downstairs is the lounge room.  You can move east and down.
+
+> down
+You move down.
+The Lounge Room
+This is the lounge room. To the west, is your front garden. To the east, is your kitchen. In here is a Couch and a TV.  You can move east, west and up.
+
+> turn on tv
+You press the button and your TV turns on. Choose either channel 1 or channel 7.
+
+> channel 1
+You change to Channel 1. It is the Star Wars marathon, which is playing Episode 1 right now.
+
+> channel 7
+You switch to channel 7. It is playing the game show right now. [TV=0].
+
+> turn off tv
+I don't understand what you mean!
+
+> west
+You move west.
+Front Garden
+You are in your front garden. Your mailbox is here, which sometimes contains mail. To the west is the "Main Street", the road you live on.  You can only move west.
+
+> west
+You move west.
+Main Street - Centre
+You are at the Centre of Main Street. To the east is your appartment. The street goes north and south, and you can move to the west to enter the Hudson Shopping Centre.  You can move north, east, south and west.
+
+> west
+You move west.
+Hudson Shopping Centre
+This is the Hudson Shopping Centre. To the north is the Supermarket, To the South is the Newsagent and to the West is Bank.   You can move north, east, south and west.
+
+> north
+You move north.
+Hudson Supermarket
+This is the Hudson Supermarket, there are counters all around and shelves of food. There is a menu which tells you all of the foods for sale.  Lisa is leaning over the counter serving customers.  You can only move south.
+
+> buy chips
+You give Lisa $2 and she hands you a pack of chips.
+
+> south
+You move south.
+Hudson Shopping Centre
+This is the Hudson Shopping Centre. To the north is the Supermarket, To the South is the Newsagent and to the West is Bank.   You can move north, east, south and west.
+
+> look
+Hudson Shopping Centre
+This is the Hudson Shopping Centre. To the north is the Supermarket, To the South is the Newsagent and to the West is Bank.   You can move north, east, south and west.
+
+> score
+Your score is 0 out of a maximum of 0.  (0%)
+
+> quit
+
+> y
+I don't understand what you mean!

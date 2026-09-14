@@ -1,0 +1,49 @@
+feed        220 commands
+runner      220 turns echoed
+scarier     220 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 92  open drawer
+  run400   You can't see the drawer.
+  scarier  You open the drawer. A pair of suction arms is inside the drawer.
+
+turn 93  take suction arms
+  run400   Take what?
+  scarier  You take the pair of suction arms from the drawer.
+
+turn 94  out
+  run400   You can only move north.
+  scarier  You open the window and carfully step onto the ledge. With your suction arms you can do anything.
+
+turn 95  w
+  run400   You can only move north.
+  scarier  You move west. Ship ledge 1 You can move east and west.
+
+turn 96  w
+  run400   You can only move north.
+  scarier  You move west. Ship ledge 3 You are standing outside one of the crew member´s cabin. can hear someone talking. It´s not hear. You need to go further. You can move east and west.
+
+turn 97  w
+  run400   You can only move north. > I don't understand what you mean!
+  scarier  You move west. Ship ledge 4 You can identify the words more clearly now. "So the plan is this. We take all the valuables aboard and then we sink the ship." says a familiar voice. "Yeah. That´s the plan. But we must wait for Ulthrane to come here on his ship. We wouldn´t want to sink along with this ship." says another familiar voice. Suddenly the grip on one of the suction arm loosens and you almost fall down into the sea. Luckily you manage to save yourself. Unluckily, the two men hear you, open the window, drag you inside and tie you up. It´s Koir and his friend. press any key Koir didn´t do such a bad job of tying you up now. But the two of them do leave you again. All alone. With all those scary monsters. Oh yeah. They also locked the door from the outside and took your suction arms. You can only move east.
+
+turn 98  s
+  run400   You can only move north.
+  scarier  You move south. Koir´s cabin You are now standing inside Koir´s cabin. He has tied you but you can still jump around. There's a candle on top of a drawer. There's a sword in the corner of the room. Also here is a sword.
+
+turn 99  use sword
+  run400   I don't understand what you mean!
+  scarier  You use the sword to cut the rope.
+
+turn 100  take sword
+  run400   Take what?
+  scarier  You take the sword.
+
+turn 101  n
+  run400   You move north. Bathroom 2 This bathroom is huge but everything else in it is small. Maybe a claustrophobic kid DID live in these two rooms. There´s a door in here leading to the balconies. You can move north and south.
+  scarier  You move north. Ship hallway 1 You are standing in the end of a long hallway. You can move east and south.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

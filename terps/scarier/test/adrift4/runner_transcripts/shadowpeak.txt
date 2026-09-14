@@ -1,0 +1,2884 @@
+
+> s
+You move south.
+Lightning tree
+A tree struck by lightning has fallen over the trail here.
+The tree seems quite easy to climb over, so the trail, which now leads southeast, can still be followed. The wind blows from the west, and with it comes the stench of rotting vegetation.
+  Also here is a fallen oak tree.  You can move north, south, west, southeast and southwest.  
+
+> se
+You move southeast.
+Chasm edge.
+You stand at the edge of a chasm.
+Where a tree growing precariously from the side of the chasm’s edge leans over, inviting you to climb it, a small ledge also clings to the chasm’s side and leads down some thousand feet. The chasm spans some 100 feet to the other side, where a village can just be seen in the distance. The trail that led you here from the henge bends off to the west.
+  You can move west, up, down and northwest.  
+
+> u
+You move up.
+Leaning tree.
+You get a better look at the village across the chasm. There are people moving about there, but they are too far away for them to hear any cries for help from you.
+  Also here is a bird’s nest.  You can only move down.  
+
+> examine nest
+It is a typical magpie’s nest, which could hold a few eggs, or something shiny, which magpies often collect.  A chain attached to a medallion and an egg are inside the bird’s nest.  
+
+> take egg
+You take the egg from the bird’s nest.  
+
+> take medallion
+You take the chain attached to a medallion from the bird’s nest.  
+
+> d
+You move down.
+Chasm edge.
+You stand at the edge of a chasm.
+Where a tree growing precariously from the side of the chasm’s edge leans over, inviting you to climb it, a small ledge also clings to the chasm’s side and leads down some thousand feet. The chasm spans some 100 feet to the other side, where a village can just be seen in the distance. The trail that led you here from the henge bends off to the west.
+  You can move west, up, down and northwest.  
+
+> nw
+You move northwest.
+Lightning tree
+A tree struck by lightning has fallen over the trail here.
+The tree seems quite easy to climb over, so the trail, which now leads southeast, can still be followed. The wind blows from the west, and with it comes the stench of rotting vegetation.
+  Also here is a fallen oak tree.  Fetlar the overly fetid is here.  You can move north, south, west, southeast and southwest.  
+
+> give fet egg
+You do so, and Fetlar grabs it, stuffs it into his mouth, snaps his teeth shut, gurgles on the yoke, and finally swallows it.  "Mmm, that was nice," Fetlar says, wiping his lipless mouth, "One good turn deserves another, or evil turn in this case; here, take this sword." A broadsword suddenly appears in your hands. Fetlar says, "Its name is Seeker. It warns you when enemies are about."  
+
+> n
+You move north.
+Stonehenge
+You stand in the centre of a Stonehenge-like structure.
+The sky is grey, and no sound of life can be heard in this strange land. There is a large scorch mark in the centre of the henge, surrounded by large, silent stones, which seem to have strange runes carved into them. A trail leads south, away from the henge, while another leads north into the forest.
+  Also here is a body and a staff.  You can move north, east, south and west.  Fetlar the overly fetid flutters down from the south.  
+
+> fet read runes
+"It’s a riddle; if you answer correctly, the stones may help you," Fetlar says while scratching his foul-smelling bottom. He clears his throat of any unwanted phlegm, and announces, "The runes say, \’What is the only thing you can be sure to achieve in your life?\’."  
+
+> death
+The henge glows and hums momentarily, then stops. A shield appears out of thin air, and clatters to the ground.  
+
+> take shield
+You take the Shield.  
+
+> hide from dragon
+You manage to find a decent place to hide, and Shade, the black dragon, pulls up into the sky and moves on.  Fetlar smiles and sniffs the air, as a foul smell erupts from him.  
+
+> n
+You move north.
+Trees 
+Trees seem to block your path here.
+Their long branches blocking out what little light there is, the trees seem to be whispering something to you.
+  You can move south and up.  A dark shadow appears from above. Something seems to be blocking out the light of the sun; on closer inspection, you notice a large black dragon soaring high above you.
+
+
+> climb up
+Up a tree
+You see the surrounding area. Forest stretches off into all directions, apart from the south, which leads to a large chasm, beyond which a small village can be seen. To the southwest, a vast swamp swallows up much of the land.
+You see a pair of leather gloves hung over a branch of the tree.
+  You can only move down.  
+
+> take gloves
+You take the pair of leather gloves.  It starts to rain...  You hear the flutter of batlike wings.  
+
+> wear gloves
+You put on the pair of leather gloves.  
+
+> d
+You move down.
+Trees 
+Trees seem to block your path here.
+Their long branches blocking out what little light there is, the trees seem to be whispering something to you.
+It is raining...  You can move south and up.  
+
+> s
+You move south.
+Stonehenge
+You stand in the centre of a Stonehenge-like structure.
+The sky is grey, and no sound of life can be heard in this strange land. There is a large scorch mark in the centre of the henge, surrounded by large, silent stones, which seem to have strange runes carved into them. A trail leads south, away from the henge, while another leads north into the forest.
+  Also here is a body and a staff.  Fetlar the overly fetid is here.  It is raining...  You can move north, east, south and west.  
+
+> e
+You move east.
+Shadow Forest gap.
+To the east, there is a gap in the forest’s trees.
+  You can move north, east and west.  
+
+> n
+You move north.
+Shadow Forest.
+To the east, the forest thickens.
+  You can move north and south.  
+
+> n
+You move north.
+Shadow Forest.
+The impassable Kuskarian Range mountains can be seen to the north, while, to the east, the forest thickens.
+Reevling the Warrior is here.  You can move south and west.  Reevling, the warrior, looks you up and down, sighs, and mumbles something about your being... nothing but another villager waiting to be turned into a zombie.  
+
+> w
+You move west.
+Shadow Forest.
+The impassable Kuskarian Range mountains can be seen to the north.
+  Also here is a  very large log.  You can move north, east and west.  
+
+> feel inside
+As you do so, something inside bites your finger, but you are protected by the thick leather gloves you wear. A brass key falls out of the log as you rummage about inside it.  
+
+> get brass key
+You take brass key.  
+
+> n
+You move north.
+Druids grove.
+The sacred grove of the druids is surrounded by thick foliage and dense forest. It smells sweet here.
+  Also here is a bed of flowers.  Ajs the living tree is here.
+  You can only move south.  
+
+> pick flower
+You pluck a rose from the flowerbed.  
+
+> s
+You move south.
+Shadow Forest.
+The impassable Kuskarian Range mountains can be seen to the north.
+  Also here is a  very large log.  Fang is here.  You can move north, east and west.  Seeker hums!
+Seeker hums!
+Wolf cuts you with the fine set of teeth in its muzzle, but it doesn't seem to do any damage.  
+
+> e
+You move east.
+Shadow Forest.
+The impassable Kuskarian Range mountains can be seen to the north, while, to the east, the forest thickens.
+  You can move south and west.  
+
+> s
+You move south.
+Shadow Forest.
+To the east, the forest thickens.
+Reevling the Warrior is here.  You can move north and south.  
+
+> s
+You move south.
+Shadow Forest gap.
+To the east, there is a gap in the forest’s trees.
+  You can move north, east and west.  You catch a faint whiff of Fetlar. He must be somewhere nearby.  
+
+> w
+You move west.
+Stonehenge
+You stand in the centre of a Stonehenge-like structure.
+The sky is grey, and no sound of life can be heard in this strange land. There is a large scorch mark in the centre of the henge, surrounded by large, silent stones, which seem to have strange runes carved into them. A trail leads south, away from the henge, while another leads north into the forest.
+  Also here is a body and a staff.  Rossi, the muck dweller, is here.  It is raining...  You can move north, east, south and west.  Upon seeing you, Rossi gets a little excited and grunts the word "easy " followed by a strange, muffled noise sounding something like the word "target".  Rossi, the muck dweller, deftly takes hold of the sword with its exceptionally long fingers, and before you know it, the sword vanishes in a cloud of muck.  
+
+> give rose to rossi
+Rossi grabs hold of the rose with its nasty elongated fingers, but no sooner has it grabbed hold of it, than Rossi shrieks in terror, "AHHHH, the smell! That dreaded perfume-y smell," it growls. With this, Rossi backs off, whimpering to itself.  
+
+> s
+You move south.
+Lightning tree
+A tree struck by lightning has fallen over the trail here.
+The tree seems quite easy to climb over, so the trail, which now leads southeast, can still be followed. The wind blows from the west, and with it comes the stench of rotting vegetation.
+  Also here is a fallen oak tree.  Fetlar the overly fetid is here.  It is raining...  You can move north, south, west, southeast and southwest.  
+
+> sw
+You move southwest.
+Swamp over chasm
+The stench of the swamp permeates the air.
+The swamp heads off to the west and the north. To the south lies a chasm spanning some 100 feet across to the opposite side, where the other cliff face can be seen stretching upwards.
+It is raining...  You can move north, east, west, northeast and northwest.  You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"  
+
+> w
+You move west.
+Great Swamp.
+You see a chasm to the south.
+  Also here is a sword.  It is raining...  You can move north, east, west, northeast and northwest.  
+
+> take sword
+You take the sword.  
+
+> n
+You move north.
+Great Swamp.
+You stand in the Great Swamp.  It is raining...  You can move north, east, south, west, northeast, southeast, southwest and northwest.  Fetlar the overly fetid flutters down.  
+
+> nw
+You move northwest.
+Great Swamp.
+
+  Also here is a statue of a fair maiden and a sign.  It is raining...  You can move north, east, south, west, northeast, southeast, southwest and northwest.  
+
+> w
+You move west.
+Cave entrance.
+You see a large number of statues here. There is also a cave leading into the mountainside, to the west.
+  Also here is a Statues and a sign.  You can move east and west.  Seeker hums!
+
+
+> wear medallion
+You put on the chain attached to a medallion.  You hear the flutter of batlike wings.  Seeker hums!
+
+
+> w
+You move west.
+The Basilisks cave.
+You are inside a cave leading into the mountainside. To the west, the cave goes deeper, but it is somewhat obscured by the large boulder blocking it.
+Basilisk is here.  You can only move east.  The basilisk locks its gaze onto you, but not for long, as its gaze collides with the mirrored medallion and the basilisk’s petrifying effect is turned upon itself. the basilisk has turned to stone.  
+
+> e
+You move east.
+Cave entrance.
+You see a large number of statues here. There is also a cave leading into the mountainside, to the west.
+  Also here is a Statues and a sign.  You can move east and west.  
+
+> e
+You move east.
+Great Swamp.
+
+  Also here is a statue of a fair maiden and a sign.  You can move north, east, south, west, northeast, southeast, southwest and northwest.  
+
+> se
+You move southeast.
+Great Swamp.
+You stand in the Great Swamp.  Fetlar the overly fetid is here.  Rossi, the muck dweller, is here.  You can move north, east, south, west, northeast, southeast, southwest and northwest.  
+
+> se
+You move southeast.
+Swamp over chasm
+The stench of the swamp permeates the air.
+The swamp heads off to the west and the north. To the south lies a chasm spanning some 100 feet across to the opposite side, where the other cliff face can be seen stretching upwards.
+  You can move north, east, west, northeast and northwest.  You catch a faint whiff of Fetlar. He must be somewhere nearby.  
+
+> ne
+You move northeast.
+Lightning tree
+A tree struck by lightning has fallen over the trail here.
+The tree seems quite easy to climb over, so the trail, which now leads southeast, can still be followed. The wind blows from the west, and with it comes the stench of rotting vegetation.
+  Also here is a fallen oak tree.  You can move north, south, west, southeast and southwest.  
+
+> n
+You move north.
+Stonehenge
+You stand in the centre of a Stonehenge-like structure.
+The sky is grey, and no sound of life can be heard in this strange land. There is a large scorch mark in the centre of the henge, surrounded by large, silent stones, which seem to have strange runes carved into them. A trail leads south, away from the henge, while another leads north into the forest.
+  Also here is a body and a staff.  You can move north, east, south and west.  
+
+> e
+You move east.
+Shadow Forest gap.
+To the east, there is a gap in the forest’s trees.
+  You can move north, east and west.  
+
+> e
+You move east.
+Grassy plains.
+Grassy plains stretch off in all directions, while to the west lies the Shadow Forest, and to the south lies a huge chasm. There are some rather large footprints here!
+  You can move north, east, west and northeast.  
+
+> e
+You move east.
+Grassy plains.
+There are some rather large footprints here! The plains stretch off in all directions, while east is blocked by the impassable Kuskarian Range mountains, and to the south lies a huge chasm. A small footpath leads down into the chasm.
+  You can move north, west, down and northwest.  
+
+> d
+You move down.
+Chasm footpath.
+You stand on the footpath halfway down the chasm. You can see what looks to be a stone building below.
+  You can move up and down.  
+
+> d
+You move down.
+Bottom of the chasm.
+You stand at the bottom of the chasm. A stone building is here that looks somewhat like a tomb, its doorway blocked by a stone slab. A rock fall has collapsed here, blocking all other exits apart from south, across the bottom of the chasm; east into the stone building; or up back the way you came.
+  You can move south and up.  
+
+> open slab
+You open the stone slab.  
+
+> e
+You move east.
+Inside the stone building.
+You stand inside a burial chamber. It is very cold and damp in here. The walls are painted with various scenes of battle, although the paint seems somewhat flaky and very old.
+There is a crack in the stonework on the east wall; too small to climb through, though it does let a ray of sunlight in, which brightens the room a little.
+There is an iron handle sticking out of the ceiling.
+  Also here is a sarcophagus.  A stone wall drops down behind you, blocking your exit from this building!
+
+
+> open sarcophagus
+You open the sarcophagus.  A vial is inside the sarcophagus.  As you open the sarcophagus, a faint wisp of smoke permeates the air. It gradually takes shape into a frightening sight: a transparent form of a man with red gleaming eyes, dressed in old robes and wielding a smoky sword now stands in front of you!!! This be Alam Nadeer, the dreaded wraith.
+Seeker hums!
+
+
+> take vial
+You take the vial from the sarcophagus.  Wraith hits you, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> stand on sarcophagus
+You stand on the sarcophagus.  Wraith hits you, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> turn handle
+As you reach up and turn the handle, it jams into position, and a secret passage is revealed in the northern wall.  Seeker hums!
+
+
+> n
+(Getting off the sarcophagus first)
+You move north.
+Secret room.
+This room is completely bare apart from a rather large iron wheel on the north wall.
+  You can only move south.  
+
+> turn wheel
+As you do so, you hear a grinding noise coming from the burial chamber.  The stone wall blocking your exit from the burial chamber room seems to have moved. Your exit is clear.
+
+
+> s
+You move south.
+Inside the stone building.
+You stand inside a burial chamber. It is very cold and damp in here. The walls are painted with various scenes of battle, although the paint seems somewhat flaky and very old.
+There is a crack in the stonework on the east wall; too small to climb through, though it does let a ray of sunlight in, which brightens the room a little.
+There is an iron handle sticking out of the ceiling.
+  Also here is a sarcophagus.  Alam Nadeer is here.  You can move north and west.  Seeker hums!
+
+
+> w
+You move west.
+Bottom of the chasm.
+You stand at the bottom of the chasm. A stone building is here that looks somewhat like a tomb, its doorway blocked by a stone slab. A rock fall has collapsed here, blocking all other exits apart from south, across the bottom of the chasm; east into the stone building; or up back the way you came.
+  You can move east, south and up.  
+
+> u
+You move up.
+Chasm footpath.
+You stand on the footpath halfway down the chasm. You can see what looks to be a stone building below.
+  You can move up and down.  
+
+> u
+You move up.
+Grassy plains.
+There are some rather large footprints here! The plains stretch off in all directions, while east is blocked by the impassable Kuskarian Range mountains, and to the south lies a huge chasm. A small footpath leads down into the chasm.
+  You can move north, west, down and northwest.  
+
+> n
+You move north.
+Grassy plains.
+The plains stretch off in all directions, while eastward is blocked by the impassable Kuskarian Range mountains. There are some rather large footprints here!
+  You can move north, south, west, southwest and northwest.  
+
+> n
+You move north.
+Grassy plains.
+The plains stretch off in all directions, while north and east are blocked by the impassable Kuskarian Range mountains. However, a cave entrance leads into the mountains, to the east.
+Grumski the Giant is here.  You can move east, south, west and southwest.  Fetlar the overly fetid flutters down.  Fetlar perches himself on the giant’s bald head, and promptly breaks wind.  Grumski looks like a typical giant, apart from the fact that he is big for even giantkind. His massive physique dwarves yours in comparison. He looks very sad. Grumski says, "HEY THERE, MANLING, YOU GOTTA HELP ME! THOSE DAMN FAIRIES ARE RUINING MY LIFE!"  
+
+> e
+You move east.
+The giant cave entrance.
+The sunlight streams into the entrance hall of the cave, making visible a room further into the east. West leads back out onto the grassy plains.
+A group of fairies are here.  You can only move west.  The group of fairies seem to have cast some type of magical spell barring you from going any further into the cave.  
+
+> open vial
+You open the vial.  The group of fairies seem to have cast some type of magical spell barring you from going any further into the cave.  The open vial starts to pulsate when near the fairies. Suddenly it explodes in a shower of crystal and smoke. You hear the high-pitched squeals of the fairies, and are momentarily blinded by the explosion. When the smoke finally clears, you realise the fairies have gone. Grumski shouts with glee! "AND NOW GRUMSKI WILL HELP MANLING." He quickly stomps into the cave and checks that everything is okay before stomping back out again.
+
+
+> w
+You move west.
+Grassy plains.
+The plains stretch off in all directions, while north and east are blocked by the impassable Kuskarian Range mountains. However, a cave entrance leads into the mountains, to the east.
+Fetlar the overly fetid is here.  Grumski the Giant is here.  You can move east, south, west and southwest.  Grumski stomps off to the south.  
+
+> sw
+You move southwest.
+Grassy plains.
+The plains stretch off in all directions, while westward is blocked by the thick Shadow Forest. There are some rather large footprints here!
+  You can move north, east, south, northeast and southeast.  
+
+> s
+You move south.
+Grassy plains.
+Grassy plains stretch off in all directions, while to the west lies the Shadow Forest, and to the south lies a huge chasm. There are some rather large footprints here!
+  You can move north, east, west and northeast.  Grumski stomps over from the north-east.  
+
+> w
+You move west.
+Shadow Forest gap.
+To the east, there is a gap in the forest’s trees.
+  You can move north, east and west.  
+
+> w
+You move west.
+Stonehenge
+You stand in the centre of a Stonehenge-like structure.
+The sky is grey, and no sound of life can be heard in this strange land. There is a large scorch mark in the centre of the henge, surrounded by large, silent stones, which seem to have strange runes carved into them. A trail leads south, away from the henge, while another leads north into the forest.
+  Also here is a body and a staff.  It is raining...  You can move north, east, south and west.  
+
+> s
+You move south.
+Lightning tree
+A tree struck by lightning has fallen over the trail here.
+The tree seems quite easy to climb over, so the trail, which now leads southeast, can still be followed. The wind blows from the west, and with it comes the stench of rotting vegetation.
+  Also here is a fallen oak tree.  It is raining...  You can move north, south, west, southeast and southwest.  
+
+> sw
+You move southwest.
+Swamp over chasm
+The stench of the swamp permeates the air.
+The swamp heads off to the west and the north. To the south lies a chasm spanning some 100 feet across to the opposite side, where the other cliff face can be seen stretching upwards.
+It is raining...  You can move north, east, west, northeast and northwest.  
+
+> nw
+You move northwest.
+Great Swamp.
+You stand in the Great Swamp.  It is raining...  You can move north, east, south, west, northeast, southeast, southwest and northwest.  
+
+> nw
+You move northwest.
+Great Swamp.
+
+  Also here is a statue of a fair maiden and a sign.  It is raining...  You can move north, east, south, west, northeast, southeast, southwest and northwest.  You catch a faint whiff of Fetlar. He must be somewhere nearby.  
+
+> w
+You move west.
+Cave entrance.
+You see a large number of statues here. There is also a cave leading into the mountainside, to the west.
+  Also here is a Statues and a sign.  You can move east and west.  
+
+> w
+You move west.
+The Basilisks cave.
+You are inside a cave leading into the mountainside. To the west, the cave goes deeper, but it is somewhat obscured by the large boulder blocking it.
+  Also here is a stone basilisk.  You can only move east.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+You hear the flutter of batlike wings.  
+
+> z
+Time passes...
+Grumski stomps over from the east.  
+
+> say move boulder
+Grumski pushes the large boulder to one side, revealing a passage going further into the cave.
+ Grumski strolls off to the east.
+You hear Fetlar’s shrill voice shout out, "Where are you, buddy friend?"  
+
+> w
+You move west.
+The cave end.
+The cave ends in a dead end.
+  Also here is large wooden chest.  You can only move east.  
+
+> unlock large wooden chest with brass key
+You unlock large wooden chest with brass key.  
+
+> open large wooden chest
+You open large wooden chest.  Inside large wooden chest is a small copper ring, a pile of rubble and a triangular piece of metal.  
+
+> take all from large wooden chest
+You take the small copper ring, the pile of rubble and the triangular piece of metal from large wooden chest.  
+
+> wear ring
+You put on the small copper ring.  
+
+> e
+You move east.
+The Basilisks cave.
+You are inside a cave leading into the mountainside. To the west, the cave goes deeper, but it is somewhat obscured by the large boulder blocking it.
+  Also here is a stone basilisk.  You can move east and west.  
+
+> e
+You move east.
+Cave entrance.
+You see a large number of statues here. There is also a cave leading into the mountainside, to the west.
+  Also here is a Statues and a sign.  You can move east and west.  
+
+> e
+You move east.
+Great Swamp.
+
+  Also here is a statue of a fair maiden and a sign.  It is raining...  You can move north, east, south, west, northeast, southeast, southwest and northwest.  You catch a faint whiff of Fetlar. He must be somewhere nearby.  
+
+> se
+You move southeast.
+Great Swamp.
+You stand in the Great Swamp.  Rossi, the muck dweller, is here.  It is raining...  You can move north, east, south, west, northeast, southeast, southwest and northwest.  Fetlar the overly fetid flutters down.  
+
+> se
+You move southeast.
+Swamp over chasm
+The stench of the swamp permeates the air.
+The swamp heads off to the west and the north. To the south lies a chasm spanning some 100 feet across to the opposite side, where the other cliff face can be seen stretching upwards.
+It is raining...  You can move north, east, west, northeast and northwest.  You hear the distant howling of wolves.  
+
+> ne
+You move northeast.
+Lightning tree
+A tree struck by lightning has fallen over the trail here.
+The tree seems quite easy to climb over, so the trail, which now leads southeast, can still be followed. The wind blows from the west, and with it comes the stench of rotting vegetation.
+  Also here is a fallen oak tree.  It is raining...  You can move north, south, west, southeast and southwest.  You are feeling very tired, indeed, and realise you should find somewhere to sleep!
+
+
+> roll oak tree
+You heave the tree to one side, revealing a crushed villager underneath.  
+
+> move villager
+You heave the dead villager to one side,  revealing a pair of leather boots and pants.  
+
+> take boots
+You take the pair of thick leather boots.  
+
+> wear boots
+You put on the pair of thick leather boots.  Lightning lances the clouds above. The rumble of thunder can be heard over the rain.  You hear the flutter of batlike wings.  
+
+> se
+You move southeast.
+Chasm edge.
+You stand at the edge of a chasm.
+Where a tree growing precariously from the side of the chasm’s edge leans over, inviting you to climb it, a small ledge also clings to the chasm’s side and leads down some thousand feet. The chasm spans some 100 feet to the other side, where a village can just be seen in the distance. The trail that led you here from the henge bends off to the west.
+It is raining...  You can move west, up, down and northwest.  
+
+> fly
+The ring glows and you float up into the air. The cold wind blows you southward across the chasm, to the other side, where you land safely. The copper ring turns to dust and blows away in the wind.  
+Windthrush.
+You stand at the entrance of Windthrush Village. The village looks deserted. There’s not a soul to be seen in the Village Square, to the south. The chasm is to the north.
+  You can only move south.  You feel weak, and very tired. Your strength starts to ebb away. You definitely need to sleep.
+
+
+> s
+You move south.
+The Village Square.
+It looks like a typical village square, yet all the market stalls and shops appear abandoned. West leads to one such shop; east leads to a blacksmith’s, while south leads further into the village.
+  Also here is a market stall and a Well.  You can move north, east, south, west and down.  Jarris staggers in from the west.  Seeker hums!
+Arthur pulls himself in from the west.  You see a horrible sight. Arthur, one of the village zombies, is pulling himself along by his arms, as his legs have long since been eaten away.  Fetlar shouts, "Good luck, buddy friend. I'm off for a nap. All this flapping about has made me feel rather tired." Fetlar flies off.  Seeker hums!
+
+
+> attack jarris
+You stab zombie with the sword.  Holga stumbles in from the south.  Seeker hums!
+You manage to avoid zombie's attack.  Jarris lumbers off to below.  Seeker hums!
+
+
+> attack holga
+You stab zombie with the sword.  Holga keels over and is at last put to rest. Her undead hand is loosely holding a garlic bud.  Arthur pulls himself away to below.  
+
+> z
+Time passes...
+Boris lumbers in from the south.  Seeker hums!
+Arthur pulls himself in from below.  Lazaraz rides over from the east.  You feel a tremble down your spine, and a cold, unholy chill fills the air. Lazaraz seems to be looking for someone. He pulls his steed to and fro, but the eyes of Lazaraz must be very poor, as they seem to overlook you. Maybe the light of day makes it harder for him to see.
+Seeker hums!
+Seeker Hums!  
+
+> attack boris
+You stab zombie with the sword.  Boris falls down, quite dead.  Jarris staggers in from below.  Seeker hums!
+Arthur pulls himself away to the south.  Seeker Hums!  
+
+> attack jarris
+You stab zombie with the sword.  Jarris slumps to the floor and dies with his toothy grin still imprinted on his face.  Lazaraz rides away to the west.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+Lazaraz rides over from the west.  Seeker Hums!  
+
+> z
+Time passes...
+Seeker Hums!  
+
+> z
+Time passes...
+Lazaraz rides away to the west.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+Lazaraz rides over from the west.  Seeker Hums!  
+
+> z
+Time passes...
+Seeker Hums!  
+
+> z
+Time passes...
+Lazaraz rides away to the south.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+Arthur pulls himself in from the south.  Seeker hums!
+
+
+> attack arthur
+You stab zombie with the sword.  Arthur falls face down as he his finally put out of his misery.  
+
+> e
+You move east.
+Outside the blacksmith’s.
+It looks to be in very bad condition; the door hangs off its hinges. East leads into the blacksmith’s, while west leads to the Village Square.
+  You can move east and west.  
+
+> e
+You move east.
+Inside the blacksmith’s.
+It appears that the blacksmith isn’t home. It also appears that he has taken his wares with him, leaving very little for any would-be looters.
+  Also here is an anvil and a cupboard.  You can only move west.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> open cupboard
+You open the cupboard.  A tinderbox is inside the cupboard.  
+
+> take tinderbox
+You take the tinderbox from the cupboard.  
+
+> w
+You move west.
+Outside the blacksmith’s.
+It looks to be in very bad condition; the door hangs off its hinges. East leads into the blacksmith’s, while west leads to the Village Square.
+  You can move east and west.  
+
+> w
+You move west.
+The Village Square.
+It looks like a typical village square, yet all the market stalls and shops appear abandoned. West leads to one such shop; east leads to a blacksmith’s, while south leads further into the village.
+  Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris zombie, a dead Boris zombie, a dead Arthur zombie and a garlic bud.  You can move north, east, south, west and down.  
+
+> s
+You move south.
+Residential.
+It’s all quiet in the residential area of the village. The houses are all boarded up. To the west lies the Inn of the Giggling Gargoyle; east would take you to a long road bending southerly to the village graveyard; southeast lies the village church; southwest leads to a small trail that would take you out of the village; and directly south lies an open field.
+  You can move north, east, south, west, southeast and southwest.  
+
+> w
+You move west.
+The Inn.
+You enter the common room of the Inn of the Giggling Gargoyle. The place is a tip of broken chairs, tables, and various other miscellaneous junk. A doorway opens westward to the kitchen, while a creaky spiral staircase leads up.
+There is a picture, hanging behind the bar, of a giggling gargoyle.
+  Also here is a bar and a shelf.  You can move east, west and up.  
+
+> stand on bar
+You stand on the bar.  
+
+> get bottle
+You take hold of the bottle.  
+
+> u
+(Getting off the bar first)
+You move up.
+Inn’s stairs.
+You stand halfway up the spiral staircase. The stairs creak with your weight.
+  You can move up and down.  You hear footsteps and laughter from upstairs. Could Morac have found you already?  
+
+> u
+You move up.
+The Inn upstairs.
+The upper level of the inn contains rows and rows of beds. A shadow hides the far corner of this room. This place seems awfully quiet... Only your heartbeat and the creak of the stairs settling down can be heard.
+  You can only move down.  
+
+> examine shadow
+There is a silver coin here stuck in a crack in a floorboard.  
+
+> take coin
+You take silver coin.  
+
+> d
+You move down.
+Inn’s stairs.
+You stand halfway up the spiral staircase. The stairs creak with your weight.
+  You can move up and down.  
+
+> d
+You move down.
+The Inn.
+You enter the common room of the Inn of the Giggling Gargoyle. The place is a tip of broken chairs, tables, and various other miscellaneous junk. A doorway opens westward to the kitchen, while a creaky spiral staircase leads up.
+There is a picture, hanging behind the bar, of a giggling gargoyle.
+  Also here is a bar and a shelf.  You can move east, west and up.  
+
+> w
+You move west.
+The Inn’s kitchen.
+Apart from the rotting foodstuffs and shabby kitchen utensils, the kitchen doesn’t seem to be in that bad of a condition. Some salt is on the floor.
+  Also here is a large wooden box.  You can only move east.  
+
+> open wooden box
+You open the large wooden box.  A leg of lamb is inside the large wooden box.  Seeker hums!
+
+
+> take lamb
+You take the leg of lamb from the large wooden box.  Bambi, a child zombie, climbs out of the box. Covered in salt, she edges towards you.  Zombie hits you, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> attack bambi
+You stab zombie with the sword.  The poor child keels over and finally dies.  
+
+> e
+You move east.
+The Inn.
+You enter the common room of the Inn of the Giggling Gargoyle. The place is a tip of broken chairs, tables, and various other miscellaneous junk. A doorway opens westward to the kitchen, while a creaky spiral staircase leads up.
+There is a picture, hanging behind the bar, of a giggling gargoyle.
+  Also here is a bar and a shelf.  You can move east, west and up.  
+
+> e
+You move east.
+Residential.
+It’s all quiet in the residential area of the village. The houses are all boarded up. To the west lies the Inn of the Giggling Gargoyle; east would take you to a long road bending southerly to the village graveyard; southeast lies the village church; southwest leads to a small trail that would take you out of the village; and directly south lies an open field.
+  You can move north, east, south, west, southeast and southwest.  
+
+> n
+You move north.
+The Village Square.
+It looks like a typical village square, yet all the market stalls and shops appear abandoned. West leads to one such shop; east leads to a blacksmith’s, while south leads further into the village.
+  Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris zombie, a dead Boris zombie, a dead Arthur zombie and a garlic bud.  You can move north, east, south, west and down.  
+
+> d
+You move down.
+The bottom of the well.
+It looks and smells quite fine.
+  Also here is some water.  You can only move up.  
+
+> pour liquid out
+You pour out its contents.  
+
+> fill bottle with water
+You fill the bottle with some water.  
+
+> u
+You move up.
+The Village Square.
+It looks like a typical village square, yet all the market stalls and shops appear abandoned. West leads to one such shop; east leads to a blacksmith’s, while south leads further into the village.
+  Also here is a market stall, a Well, a dead Holga zombie, a dead Jarris zombie, a dead Boris zombie, a dead Arthur zombie and a garlic bud.  You can move north, east, south, west and down.  
+
+> take garlic
+You take the garlic bud.  
+
+> s
+You move south.
+Residential.
+It’s all quiet in the residential area of the village. The houses are all boarded up. To the west lies the Inn of the Giggling Gargoyle; east would take you to a long road bending southerly to the village graveyard; southeast lies the village church; southwest leads to a small trail that would take you out of the village; and directly south lies an open field.
+  You can move north, east, south, west, southeast and southwest.  
+
+> s
+You move south.
+The village fields.
+The village fields must of been where the villagers planted their crops. The field is fenced off to the south.
+  You can move north, east, west and northeast.  
+
+> w
+You move west.
+A footpath.
+The footpath leads from the northeast to the south. To the west lies the northern edge of the Webbed Woods.
+  You can move east and northeast.  There is a large pack of wolves here. They block your path. You can only go back the way you came.  Seeker hums!
+
+
+> give leg of lamb to wolves
+One of the wolves grabs the leg of lamb in its jaws and makes off with it. The other wolves soon follow.  
+
+> ne
+You move northeast.
+Residential.
+It’s all quiet in the residential area of the village. The houses are all boarded up. To the west lies the Inn of the Giggling Gargoyle; east would take you to a long road bending southerly to the village graveyard; southeast lies the village church; southwest leads to a small trail that would take you out of the village; and directly south lies an open field.
+  You can move north, east, south, west, southeast and southwest.  
+
+> se
+You move southeast.
+The village church.
+The church itself is gothic in appearance. It seems secure, though the roof could do with a bit of repair. You stand outside the main door to the church, which is south.
+  Also here is church door.  You can move west and northwest.  
+
+> open door
+You open church door.  
+
+> s
+You move south.
+Inside the church.
+The interior of the church has rows of benches, with scant decoration. It does, however, have an aura of peace about it, and the faint smell of tobacco permeates the air.
+  Also here is church door, a altar, a large open window and a bronze statue.  You can only move north.  
+
+> say horamis
+Suddenly, the room is filled with a bright light, so bright that it hurts your eyes to look at it. But as soon as it starts, it begins to fade. As it does so, you see the real Horamis floating in front of you. He says in a half-laughing voice, "Who is he who enters my abode? Speak now or be turned into a toad."  
+
+> say loralang
+Upon hearing your name, Horamis smiles, and his face brightens. He tells you to look out of the window. As you look, you see the old village graveyard, and something else too. The lost spirits of the villagers are roaming the area. They look in pain, not from their injuries, but from sorrow. "Morac did this. He turned them all into undead zombies for his army, leaving their spirits wandering in this place. You, Loralang, are the chosen one, from the prophecy of which I told them; it is you who must defeat Morac." With this, he calmly puts his pipe and weed on the altar. "You may have it," he says, pointing at it. "You never know when you might need a good smoke. In return, I will see what I can do about fixing Borantha's staff. " As he says this, you see the broken staff appear in his hands. He turns, winks at you, and promptly disappears.  
+
+> take pipe
+You take the smoking pipe and weed from the altar.  
+
+> put bottle on altar
+The bottle briefly glows, and you feel an aura of holiness in the church.  
+
+> take bottle
+You take the Bottle from the altar.  
+
+> light pipe
+You light the pipe with the tinderbox. It smells lovely.  
+
+> n
+You move north.
+The village church.
+The church itself is gothic in appearance. It seems secure, though the roof could do with a bit of repair. You stand outside the main door to the church, which is south.
+  Also here is church door.  You can move south, west and northwest.  
+
+> w
+You move west.
+The village fields.
+The village fields must of been where the villagers planted their crops. The field is fenced off to the south.
+  You can move north, east, west and northeast.  
+
+> w
+You move west.
+A footpath.
+The footpath leads from the northeast to the south. To the west lies the northern edge of the Webbed Woods.
+  You can move east, south, west, northeast and southwest.  
+
+> s
+You move south.
+Gypsy Grove.
+The Webbed Woods thicken on all sides, making movement in certain directions either very difficult or impossible. There are numerous amounts of cobwebs here.
+  Also here is a gypsy caravan and small table.  Madam Evenov is here.  You can move north, east, west, southeast and northwest.  " Cross my palm with silver and I will help you " she croaks.  
+
+> e
+You move east.
+Webbed Woods east.
+The Webbed Woods thicken on all sides, making movement in certain directions either very difficult or impossible. There are numerous amounts of cobwebs here, and a large oak tree that towers above the rest.
+  Also here is a dried husk and huge web.  You can move west and up.  Seeker hums!
+
+
+> examine web
+As you examine the webs, you realise that your feet are actually stuck in the web. You cant move your feet! .The webs strands are a quarter of an inch thick and very sticky.  Seeker hums!
+
+
+> burn web
+You burn the web away with the lit pipe. Your free again!.  Seeker hums!
+
+
+> u
+You move up.
+Up a large oak tree.
+There is a huge web up here littered with the husks of hapless victims.
+Haraxis, the giant spider, is here.  You can only move down.  Seeker hums!
+Giant spider hits you.  
+
+> z
+Time passes...
+You are feeling very tired, indeed, and realise you should find somewhere to sleep!
+
+
+> z
+Time passes...
+Haraxis skitters off to below.  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  Haraxis skitters in.  Seeker hums!
+Giant spider hits you.  
+
+> attack haraxis
+You stab giant spider with the sword.  Seeker hums!
+
+
+> z
+Time passes...
+Giant spider hits you, but it doesn't seem to do any damage.  
+
+> attack haraxis
+You stab giant spider with the sword.  
+
+> z
+Time passes...
+Giant spider hits you.  
+
+> attack haraxis
+You stab giant spider with the sword.  
+
+> z
+Time passes...
+Giant spider hits you.  
+
+> attack haraxis
+You stab giant spider with the sword.  
+
+> z
+Time passes...
+Giant spider hits you, but it doesn't seem to do any damage.  
+
+> attack haraxis
+You stab giant spider with the sword.  
+
+> z
+Time passes...
+Giant spider hits you, but it doesn't seem to do any damage.  
+
+> attack haraxis
+You stab giant spider with the sword.  Haraxis skitters off to below.  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  Haraxis skitters in.  Seeker hums!
+
+
+> attack haraxis
+You stab giant spider with the sword.  The giant spider slumps to the ground with a loud squelch. The horrible creature is dead.  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> attack haraxis
+Haraxis isn't here!  
+
+> d
+You move down.
+Webbed Woods east.
+The Webbed Woods thicken on all sides, making movement in certain directions either very difficult or impossible. There are numerous amounts of cobwebs here, and a large oak tree that towers above the rest.
+  Also here is a dead giant spider and a dried husk.  You can move west and up.  
+
+> w
+You move west.
+Gypsy Grove.
+The Webbed Woods thicken on all sides, making movement in certain directions either very difficult or impossible. There are numerous amounts of cobwebs here.
+  Also here is a gypsy caravan and small table.  Madam Evenov is here.  Lazaraz, servant of Morac, is here.  You can move north, east, west, southeast and northwest.  Seeker Hums!  
+
+> give coin to madam evenov
+She quickly puts the coin in her robes. " To the east lies the lair of Haraxis the giant spider " she sputters. " She has been troubling me of late. If you can kill her, I will cast a spell on you to neutralize the effects of Morac’s fog."  Madam Evenov waves her arms across you and utters a few strange words. " There its done, you may travel through the fog with out any ill effects now " she wheezes .  It starts getting rather dark. The full moon illuminates the land with its eerie glow.  Madam Evenov shuffles a pack of cards and picks four at random. She holds the four in her hands in a fan like shape, and rasps, "Pick a number, one, two, three, or four, to see your future and where you must go."  Seeker Hums!  
+
+> one
+"You have chosen the queen of spades," she gasps. "The prize you seek is hidden deep in the depths of Shadowpeak; find the crypts, and you shall find your prize in the dark queen’s coffin."  Lazaraz rides away to the west.  
+
+> se
+You move southeast.
+In the foul fog.
+You stand in a haze of fog. You can’t see for more than a few feet ahead.  The fog smells foul, and makes you choke on your own breath. This fog is dangerous; best get out now.
+  The fog seems to have formed an opening for you to pass through. A road is here, sloping up to the south.  You can move south and northwest.  
+
+> s
+You move south.
+The road to Castle Shadowpeak.
+The road slopes ever upward from north to south. On both sides of the road is a huge drop to the shoreline of the Herongusion ocean, where the waves lap up against the rocks below.
+  You can move north and south.  
+
+> s
+You move south.
+Drawbridge.
+You stand on the castle’s drawbridge. It spans over a drop some thousand feet to the shoreline below.
+  You can move north and south.  Seeker hums!
+
+
+> s
+You move south.
+The castle entrance.
+The castle doors stand open, and the portcullis is only half closed. Southward past the entrance is the castle’s courtyard, while, to the north, the castle’s drawbridge lies.
+  You can only move north.  A thin mist gathers here. It turns into a female form. Maretta, vampire wife of Morac, has arrived. She blocks your entrance into the castle.  Seeker hums!
+
+
+> z
+Time passes...
+Maretta, vampire wife, recoils from the stench of garlic, but refuses to let you enter the castle.
+"You will have to kill me first," she says in a melodic voice, "Either that, or just kiss me, my sweet."  Seeker hums!
+
+
+> z
+Time passes...
+Seeker hums!
+
+
+> z
+Time passes...
+Seeker hums!
+
+
+> z
+Time passes...
+Seeker hums!
+
+
+> throw bottle at maretta
+You throw the bottle of holy water over Maretta. The bottle smashes on impact, and she screams in pain as the holy water melts into her skin, burning to the bone. Suddenly she turns into a thin mist and is swept away by the icy cold wind.  
+
+> s
+You move south.
+The castle courtyard.
+Covered in moss, the castle courtyard is very slippery after the rain. The castle’s front doors lie to the south, while to the northeast and the northwest stand the front watch towers of the castle.
+  Also here are the castle’s front doors.  You can move north, northeast and northwest.  The castle’s front doors slowly creak open, as if they were expecting you. Beyond, you can see a dimly lit, long hall leading into the castle proper.  
+
+> s
+You move south.
+The long hall.
+The hallway stretches southward into darkness. To the east and west are darkened rooms; to the north, the front doors.
+  You can move east, south and west.  The front doors of the castle slam shut behind you.  You hear the haunting sound of organ music echoing through out the castle.  
+
+> s
+You move south.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling, where four stone gargoyles survey the room from above. Decoration in here is sparse apart from a main hall staircase that winds upwards to the next level, but this is somewhat obscured by the majestic pipe organ that rests in the centre of this room.
+Melvin the Butler is here.
+Berto, the bald raven, is here.  You can move north, east, south, west, up and down.  Abruptly the music stops...  Seeker hums!
+"Hello there. Melvin’s the name, and riddles are my game. Up, up to the very top; up, up, you must not stop; up, up to the very top; once you’re there, no need to knock," says Melvin, looking rather pleased with himself.  Berto is walking up and down on the pipe organ.
+
+> z
+Time passes...
+Melvin waddles out to the west.  Suddenly you hear the cracking and grinding of stone. You are interrupted from what you are doing as the four stone gargoyles in the main hall spring to life! They unfold their wings and start to fly down, menacingly, towards you.  Seeker hums!
+
+
+> attack gargoyle #2
+You stab Gargoyle #2 with the sword.  With a bang!, the gargoyle shatters, leaving nothing but the smell of brimstone…  Seeker hums!
+
+
+> attack gargoyle #3
+You stab Gargoyle #3 with the sword.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker hums!
+
+
+> attack gargoyle #4
+You stab Gargoyle #4 with the sword.  With a bang!, the gargoyle shatters, leaving nothing but the smell of brimstone…  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Seeker hums!
+A black cat suddenly darts in front of you and off into the shadows.  
+
+> s
+You move south.
+The fountain room.
+The sound of running water fills this room, its source a large marble fountain that resides in its centre. To the north lies the main hall.
+  Also here is gold coin.  You can only move north.  Seeker hums!
+
+
+> drop sword
+You drop the sword.  
+
+> drop shield
+You drop the Shield.  A bat swoops down from above and darts off into the shadows.  You hear Melvin singing. He must be somewhere nearby.  
+
+> swim
+You plunge into the fountain.  
+In the fountain’s depths.
+You plunge deep into the fountain’s depths. You swim ever downward, then, sharply, the walls of the fountain’s depths bend upwards in a U-turn. Your head breaks the water’s surface. As you gasp for air and climb out of the basin, you notice you’re in quite a different room.  
+The hidden chapel.
+An air of tranquillity envelopes this small room with the rippling sound of water.
+  Also here is a altar to Horamis.  
+
+> put pipe on altar
+You put the smoking pipe and weed onto the altar to Horamis.  As you do so, the pipe and weed suddenly disappear from the altar and are replaced by the unbroken staff of Borantha.  
+The hidden chapel.
+An air of tranquillity envelopes this small room with the rippling sound of water.
+  Also here is a altar to Horamis.  
+
+> take staff
+You take the staff from the altar to Horamis.  
+
+> dive
+You dive back into the fountain’s depths, and, after a strenuous swim, you arrive back in the fountain room.  
+The fountain room.
+The sound of running water fills this room, its source a large marble fountain that resides in its centre. To the north lies the main hall.
+  Also here is a sword, a Shield and gold coin.  You can only move north.  
+
+> take sword
+You take the sword.  Gargoyle #1 flies in from the north.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 flies in from the north.  Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker hums!
+
+
+> take shield
+You take the Shield.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> take gold coin
+You take gold coin.  Seeker hums!
+You see a pair of cat’s eyes looking at you from the shadows. As soon as you notice them, they are gone.  
+
+> n
+You move north.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling. Decoration in here is sparse apart from a large stone staircase that winds upwards to the next level, but this is some what obscured by the majestic pipe organ that rests in the centre of this room.  Berto, the bald raven, is here.  You can move north, east, south, west, up and down.  Seeker hums!
+
+
+> e
+You move east.
+The dining room.
+This is a very long room. The smell of freshly-cooked venison fills the air.
+  Also here is a table.  Melvin the Butler is here.
+  You can move east and west.  Melvin waddles out to the east.  Seeker hums!
+
+
+> x table
+It is a large table, made out of some very expensive wood, no doubt; it is very well-polished.  Some venison is on the table.  Seeker hums!
+
+
+> take venison
+You take the venison from the table.  Seeker hums!
+
+
+> w
+You move west.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling. Decoration in here is sparse apart from a large stone staircase that winds upwards to the next level, but this is some what obscured by the majestic pipe organ that rests in the centre of this room.  Berto, the bald raven, is here.  You can move north, east, south, west, up and down.  Seeker hums!
+
+
+> z
+Time passes...
+Seeker hums!
+You hear the shuffling of feet elsewhere in the castle.  
+
+> z
+Time passes...
+Seeker hums!
+
+
+> z
+Time passes...
+Gargoyle #1 flies in from the south.  Gargoyle #1 stabs you with the military fork.  Gargoyle #3 flies in from the south.  Seeker hums!
+Berto squawks the words, "Quoth said the raven....... nevermore!"
+
+> z
+Time passes...
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Seeker hums!
+
+
+> z
+Time passes...
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> w
+You move west.
+Pentagram room.
+A large silver pentagram, a five-pointed star with a circle surrounding it, is engraved into the centre of this room. To the east lies the main hall, while, to the west and south, exits lead out of this room.
+Zandos, the demon, is here.
+Woody, the wererat, is here.  Zandos paces back and forth inside the pentagram.  You can move east, south and west.  Woody, the wererat, strokes his exceptionally long snout with one of his hands, and sniffs the air around you.
+Seeker hums!
+Zandos sighs...  Seeker hums!
+"Hello, friend" says a most unsavoury voice coming from the huge tentacled monstrosity which stands entrapped in the pentagram. "My name is Zandos. Is there anything I can help you with, my friend?"  Woody, the wererat, starts a coughing fit. His ribs nearly burst through his skinny body. The sound he makes is horrible, and phlegm flies everywhere from his long snout. Then he seems to regain his composure, and looks at you with disgust in his small beady eyes.
+Woody moans and wines about something totally irrelevant, then turns round and casually spits on you.
+
+
+> s
+You move south.
+The study.
+Morac’s study is in disarray, Only one item of furniture has survived the ravage of time. What other furniture there once was has long since been eaten away by woodworm, leaving only the dusty remains. North leads back to the pentagram room, while from the south you can feel a cool breeze.
+  Also here is a desk.  You can move north and south.  Woody scampers in from the north.  Seeker hums!
+Dong! You hear a bell toll elsewhere in the castle.  
+
+> s
+You move south.
+The overlook.
+You stand on an open air balcony overlooking the southern cliffs of Shadowpeak. The cliffs stretch down some five hundred feet. You can see the castle looming above you, but there is no way up from here. North leads back into the castle.
+  Also here is a lantern.  You can only move north.  Seeker hums!
+
+
+> take lantern
+You take the lantern.  Woody scampers in from the north.  Seeker hums!
+A black cat suddenly darts in front of you and off into the shadows.  
+
+> turn lantern on
+You do so.  Seeker hums!
+
+
+> n
+You move north.
+The study.
+Morac’s study is in disarray, Only one item of furniture has survived the ravage of time. What other furniture there once was has long since been eaten away by woodworm, leaving only the dusty remains. North leads back to the pentagram room, while from the south you can feel a cool breeze.
+  Also here is a desk.  You can move north and south.  Woody scampers in from the south.  Seeker hums!
+You hear the shuffling of feet elsewhere in the castle.  
+
+> n
+You move north.
+Pentagram room.
+A large silver pentagram, a five-pointed star with a circle surrounding it, is engraved into the centre of this room. To the east lies the main hall, while, to the west and south, exits lead out of this room.
+Zandos, the demon, is here.
+Zandos paces back and forth inside the pentagram.  You can move east, south and west.  A bat swoops down from above and darts off into the shadows.  Seeker hums!
+Zandos grinds his teeth impatiently.  Seeker hums!
+The demon’s eyes watch you as you move about the room.  You hear Melvin singing. He must be somewhere nearby.  
+
+> e
+You move east.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling. Decoration in here is sparse apart from a large stone staircase that winds upwards to the next level, but this is some what obscured by the majestic pipe organ that rests in the centre of this room.  Gargoyle #1 is here.
+Gargoyle #3 is here.
+Berto, the bald raven, is here.  You can move north, east, south, west, up and down.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Seeker hums!
+
+
+> e
+You move east.
+The dining room.
+This is a very long room. The smell of freshly-cooked venison fills the air.
+  Also here is a table.  Melvin the Butler is here.
+  You can move east and west.  Seeker hums!
+You hear the sound of a cat’s "meow".  
+
+> e
+You move east.
+The kitchen.
+This place is a mess, with rotting foodstuffs, and the ovens and other equipment being full of grime and dirt. West leads to the dining room.
+  Also here is a archway.  You can move south, west and down.  Melvin waddles in from the west.  Seeker hums!
+
+
+> d
+You move down.
+The cellar stairs.
+You stand at the halfway point of the cellar stairs.
+  You can move up and down.  Seeker hums!
+
+
+> d
+You move down.
+The cellar entrance.
+It smells of sour wine down here. Wine racks have been smashed to pieces along the walls, and broken glass lies everywhere. If you go up, you will arrive back in the kitchen. To the north, a passage leads deeper into the darkness, while to the east you hear the sound of rats and the lapping of water.
+  You can move north, east and up.  Seeker hums!
+
+
+> e
+You move east.
+The cellar.
+This room is filled with water to about knee height. More broken racks and glass can be seen in this room. West leads to the cellar entrance, and to the south another exit can be seen.
+  You can move south and west.  Seeker hums!
+Hundreds of rats are here. They gnaw at your feet, but the thick leather boots you wear protect you sufficiently enough.  
+
+> s
+You move south.
+A small box room.
+This room is also knee-high in water. The room itself is quite small, and a heap of rubble is in one corner. The only exit is from the way you came in.
+  Also here is a pile of rubble.  You can only move north.  Seeker hums!
+
+
+> x rubble
+The rubble is made up of huge chunks of stone.  A chisel is on the pile of rubble.  Seeker hums!
+
+
+> take chisel
+You take the chisel from the pile of rubble.  Seeker hums!
+
+
+> n
+You move north.
+The cellar.
+This room is filled with water to about knee height. More broken racks and glass can be seen in this room. West leads to the cellar entrance, and to the south another exit can be seen.
+  You can move south and west.  Seeker hums!
+Hundreds of rats are here. They gnaw at your feet, but the thick leather boots you wear protect you sufficiently enough.  
+
+> w
+You move west.
+The cellar entrance.
+It smells of sour wine down here. Wine racks have been smashed to pieces along the walls, and broken glass lies everywhere. If you go up, you will arrive back in the kitchen. To the north, a passage leads deeper into the darkness, while to the east you hear the sound of rats and the lapping of water.
+  You can move north, east and up.  Gargoyle #1 flies in.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 flies in.  Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker hums!
+
+
+> u
+You move up.
+The cellar stairs.
+You stand at the halfway point of the cellar stairs.
+  You can move up and down.  Seeker hums!
+
+
+> u
+You move up.
+The kitchen.
+This place is a mess, with rotting foodstuffs, and the ovens and other equipment being full of grime and dirt. West leads to the dining room.
+  Also here is a archway.  Melvin the Butler is here.
+  You can move south, west and down.  Seeker hums!
+
+
+> w
+You move west.
+The dining room.
+This is a very long room. The smell of freshly-cooked venison fills the air.
+  Also here is a table.  You can move east and west.  Seeker hums!
+
+
+> w
+You move west.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling. Decoration in here is sparse apart from a large stone staircase that winds upwards to the next level, but this is some what obscured by the majestic pipe organ that rests in the centre of this room.  Berto, the bald raven, is here.  You can move north, east, south, west, up and down.  Woody scampers in from the west.  Seeker hums!
+
+
+> d
+You move down.
+Bottom of the main hall stairs.
+This room is filled with torture apparatus. It does not, however, seem to have been used for some time. Dark exits lead off to the north and south; the main hall stairs lead back up.  You can move north, south and up.  Seeker hums!
+
+
+> n
+You move north.
+The crypts.
+This huge cavern rests in the very rocks forming the foundations of Castle Shadowpeak. Stone coffins and sarcophagi line the walls of this great cavern. You feel very uneasy in this place; something is not quite right about it. South leads back to the bottom of the main stairs; another exit leads northward.
+  You can move north and south.  Seeker hums!
+Seeker hums!
+You hear the shuffling of feet elsewhere in the castle.  A faint mist starts collecting in the room.  
+
+> open coffin #7
+You open the coffin #7.  A brooch and The remains of Maldus are inside the coffin #7.  Seeker hums!
+Seeker hums!
+
+
+> take brooch
+You take the brooch from the coffin #7.  Seeker hums!
+Seeker hums!
+
+
+> s
+You move south.
+Bottom of the main hall stairs.
+This room is filled with torture apparatus. It does not, however, seem to have been used for some time. Dark exits lead off to the north and south; the main hall stairs lead back up.  A faint mist swirls around you.  You can move north, south and up.  Seeker hums!
+
+
+> u
+You move up.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling. Decoration in here is sparse apart from a large stone staircase that winds upwards to the next level, but this is some what obscured by the majestic pipe organ that rests in the centre of this room.  Woody, the wererat, is here.  Berto, the bald raven, is here.  A faint mist swirls around you.  You can move north, east, south, west, up and down.  Gargoyle #1 flies in.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 flies in.  Seeker hums!
+Dong! You hear a bell toll elsewhere in the castle.  
+
+> w
+You move west.
+Pentagram room.
+A large silver pentagram, a five-pointed star with a circle surrounding it, is engraved into the centre of this room. To the east lies the main hall, while, to the west and south, exits lead out of this room.
+Zandos, the demon, is here.
+Zandos paces back and forth inside the pentagram.  A faint mist swirls around you.  You can move east, south and west.  Seeker hums!
+Seeker hums!
+The demon’s eyes watch you as you move about the room.  
+
+> w
+You move west.
+The gallery.
+This hall is filled with large portraits and paintings hung high up on the walls, each one some twelve feet tall and about as wide. The frames of these paintings are large, thick golden frames, each with the crest of Shadowpeak embossed onto it. To the east lies the pentagram room, and another exit leads south.
+  Also here is a painting #1, a painting #2, a painting #3, a painting #4, a painting #5, a painting #6 and a painting #7.  A faint mist swirls around you.  You can move east and south.  A bat swoops down from above and darts off into the shadows.  Seeker hums!
+
+
+> destroy painting #6
+The painting is ripped open, revealing a secret passage leading northward.  Seeker hums!
+
+
+> n
+You move north.
+The passage behind the painting.
+This dark passage slopes downwards from south to north.
+A faint mist swirls around you.  You can move north and south.  Seeker hums!
+You are feeling very tired, indeed, and realise you should find somewhere to sleep!
+
+
+> n
+You move north.
+The witch’s cave.
+You stand in a glistening cave. The passage south will take you back behind the painting; another passage leads northward, further into the caverns.
+Shadow, the black cat, is here.
+Rucktebar the Witch is here.
+A faint mist swirls around you.  You can move north and south.  Shadow meeeows...
+Seeker hums!
+Seeker hums!
+
+
+> attack shadow with sword
+You stab cat with the sword.  As you kill the cat, the witch drops to the floor in a heap, screaming in agony. Slowly she decays away to nothing.  Seeker hums!
+
+
+> n
+You move north.
+The hidden shrine.
+This cave is dank and dark. There is a lot of unholy religious paraphernalia here.
+  Also here is a shrine.  A faint mist swirls around you.  You can only move south.  Seeker hums!
+You suddenly feel rather dizzy, so dizzy that you black out and fall to the ground unconscious. When you awake, you do not know how long you have been unconscious for, but you feel much better now.  
+
+> x shrine
+The shrine is dedicated to Xeros, the god of murder.  A scroll is on the shrine.  Seeker hums!
+
+
+> take scroll
+You take the scroll from the shrine.  Seeker hums!
+
+
+> s
+You move south.
+The witch’s cave.
+You stand in a glistening cave. The passage south will take you back behind the painting; another passage leads northward, further into the caverns.
+  Also here is a Shadow, the dead black cat.  A faint mist swirls around you.  You can move north and south.  Gargoyle #1 flies in.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> s
+You move south.
+The passage behind the painting.
+This dark passage slopes downwards from south to north.
+A faint mist swirls around you.  You can move north and south.  Seeker hums!
+
+
+> s
+You move south.
+The gallery.
+This hall is filled with large portraits and paintings hung high up on the walls, each one some twelve feet tall and about as wide. The frames of these paintings are large, thick golden frames, each with the crest of Shadowpeak embossed onto it. To the east lies the pentagram room, and another exit leads south.
+  Also here is a painting #1, a painting #2, a painting #3, a painting #4, a painting #5, a painting #6 and a painting #7.  A faint mist swirls around you.  You can move north, east and south.  Seeker hums!
+
+
+> e
+You move east.
+Pentagram room.
+A large silver pentagram, a five-pointed star with a circle surrounding it, is engraved into the centre of this room. To the east lies the main hall, while, to the west and south, exits lead out of this room.
+Zandos, the demon, is here.
+Zandos paces back and forth inside the pentagram.  A faint mist swirls around you.  You can move east, south and west.  Seeker hums!
+Zandos sighs...  Seeker hums!
+The demon’s eyes watch you as you move about the room.  
+
+> say nomorey palenvoid
+Zandos suddenly backs off. He eyes you cautiously. The scroll burns away as the spell is cast.  Seeker hums!
+Seeker hums!
+The demon’s eyes watch you as you move about the room.  
+
+> chip pentagram with chisel
+Zandos shouts, "Free, free at last!" He heaves his great body out into the main hall and up the stairs. You hear a loud bang and the crackling of energy.  Seeker hums!
+
+
+> e
+You move east.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling. Decoration in here is sparse apart from a large stone staircase that winds upwards to the next level, but this is some what obscured by the majestic pipe organ that rests in the centre of this room.  Berto, the bald raven, is here.  A faint mist swirls around you.  You can move north, east, south, west, up and down.  Seeker hums!
+You hear Melvin singing. He must be somewhere nearby.  You feel the hairs on the back your neck stand up.  
+
+> u
+You move up.
+The main hall stairs.
+You stand halfway up the main hall staircase.  A faint mist swirls around you.  You can move up and down.  Seeker hums!
+
+
+> u
+You move up.
+Top of the stairs.
+You stand on the topmost step. There is a door on the north wall; light flickers from under it.  Also here is steel door.  A faint mist swirls around you.  You can only move down.  Seeker hums!
+You hear the shuffling of feet elsewhere in the castle.  
+
+> unlock steel door with brooch
+You unlock steel door with the brooch.  Seeker hums!
+
+
+> open steel door
+You open steel door.  Gargoyle #1 flies in.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 flies in.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.  Seeker hums!
+Suddenly a grotesque form of a man enters the room, completely bald, eyes of white marble, and with fangs that hang over his bottom lip. He wears a black suit and cape, the lining of which is deep red. You realise that this is Morac! He seems to be looking for something.  
+
+> n
+You move north.
+The tower.
+You stand inside the large tower. Exits lead off to the four points of the compass. A cool breeze comes from the west.
+  Also here is steel door.  You can move north, east, south and west.  Seeker hums!
+
+
+> n
+You move north.
+The bottom of the iron steps.
+This room has a set of iron steps spiralling upward. The steps are blocked, however, by the large stone golem standing in front of them.
+Colos, the stone golem, is here.
+  You can only move south.  "Colos at your service, sir, but first, the password, if you please," booms the golem.  Seeker hums!
+
+
+> attack golem
+Who do you want to attack?  Seeker hums!
+Seeker hums!
+
+
+> attack golem
+Who do you want to attack?  Seeker hums!
+Seeker hums!
+
+
+> attack golem
+Who do you want to attack?  Seeker hums!
+"What is the password?" booms the golem again.  Seeker hums!
+
+
+> attack golem
+Who do you want to attack?  Seeker hums!
+The golem looks like it’s getting impatient.  Seeker hums!
+
+
+> attack golem
+Who do you want to attack?  Seeker hums!
+Colos seems to have gotten sick of waiting. Deciding you don't know the password after all, the golem attempts to squash you with its huge fists.  Seeker hums!
+
+
+> say carom
+BOOM! The golem explodes in a shower of dust.  Seeker hums!
+
+
+> eat venison
+You eat the venison.  Not bad, but it could do with a pinch of salt!  Mmm, that made you feel much better. But you can’t help feeling that someone is trying to fatten you up.  Seeker hums!
+
+
+> s
+You move south.
+The tower.
+You stand inside the large tower. Exits lead off to the four points of the compass. A cool breeze comes from the west.
+  Also here is steel door.  You can move north, east, south and west.  Gargoyle #1 flies in from the south.  Gargoyle #3 flies in from the south.  Seeker hums!
+
+
+> s
+You move south.
+Top of the stairs.
+You stand on the topmost step. There is a door on the north wall; light flickers from under it.  Also here is steel door.  You can move north and down.  Seeker hums!
+
+
+> d
+You move down.
+The main hall stairs.
+You stand halfway up the main hall staircase.  You can move up and down.  Seeker hums!
+
+
+> d
+You move down.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling. Decoration in here is sparse apart from a large stone staircase that winds upwards to the next level, but this is some what obscured by the majestic pipe organ that rests in the centre of this room.  Berto, the bald raven, is here.  You can move north, east, south, west, up and down.  Seeker hums!
+
+
+> e
+You move east.
+The dining room.
+This is a very long room. The smell of freshly-cooked venison fills the air.
+  Also here is a table.  You can move east and west.  Strange, some more venison has just appeared on the table!  Seeker hums!
+
+
+> take venison
+You take the venison from the table.  Seeker hums!
+
+
+> eat venison
+You eat the venison.  Not bad, but it could do with a pinch of salt!  Mmm, that made you feel much better. But you can’t help feeling that someone is trying to fatten you up.  Strange, some more venison has just appeared on the table!  Seeker hums!
+
+
+> take venison
+You take the venison from the table.  Seeker hums!
+You hear Melvin singing. He must be somewhere nearby.  
+
+> e
+You move east.
+The kitchen.
+This place is a mess, with rotting foodstuffs, and the ovens and other equipment being full of grime and dirt. West leads to the dining room.
+  Also here is a archway.  You can move south, west and down.  Seeker hums!
+
+
+> s
+You move south.
+Storage room.
+The room is packed full to the ceiling with crates of rotting foodstuffs. There are, however, some small walkways leading you around the crates to the west, east, and south.
+  You can move north, east, south and west.  Melvin waddles in from the west.  Seeker hums!
+
+
+> w
+You move west.
+Servants’ quarters.
+Skeletons of the once-proud servants litter the floor in this room.
+  Also here is a stake.  Woody, the wererat, is here.  You can only move east.  Gargoyle #1 flies in.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> take stake
+You take the stake.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> e
+You move east.
+Storage room.
+The room is packed full to the ceiling with crates of rotting foodstuffs. There are, however, some small walkways leading you around the crates to the west, east, and south.
+Melvin the Butler is here.
+  You can move north, east, south and west.  Seeker hums!
+
+
+> n
+You move north.
+The kitchen.
+This place is a mess, with rotting foodstuffs, and the ovens and other equipment being full of grime and dirt. West leads to the dining room.
+  Also here is a archway.  You can move south, west and down.  Seeker hums!
+
+
+> w
+You move west.
+The dining room.
+This is a very long room. The smell of freshly-cooked venison fills the air.
+  Also here is a table.  You can move east and west.  Seeker hums!
+
+
+> w
+You move west.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling. Decoration in here is sparse apart from a large stone staircase that winds upwards to the next level, but this is some what obscured by the majestic pipe organ that rests in the centre of this room.  Berto, the bald raven, is here.  You can move north, east, south, west, up and down.  Seeker hums!
+
+
+> d
+You move down.
+Bottom of the main hall stairs.
+This room is filled with torture apparatus. It does not, however, seem to have been used for some time. Dark exits lead off to the north and south; the main hall stairs lead back up.  You can move north, south and up.  Seeker hums!
+
+
+> s
+You move south.
+The prison.
+This room is filled with barred cells; all are locked. It is very dusty and dirty in here.
+  Also here is silver key and a cell door.  Margo is here.
+  You can only move north.  "Please set me free. I am Margo, a village maid. I was captured by Morac. Please set me free," she cries.
+Seeker hums!
+Seeker hums!
+
+
+> take silver key
+You take silver key.  Seeker hums!
+Seeker hums!
+
+
+> n
+You move north.
+Bottom of the main hall stairs.
+This room is filled with torture apparatus. It does not, however, seem to have been used for some time. Dark exits lead off to the north and south; the main hall stairs lead back up.  You can move north, south and up.  Seeker hums!
+Dong! You hear a bell toll elsewhere in the castle.  
+
+> n
+You move north.
+The crypts.
+This huge cavern rests in the very rocks forming the foundations of Castle Shadowpeak. Stone coffins and sarcophagi line the walls of this great cavern. You feel very uneasy in this place; something is not quite right about it. South leads back to the bottom of the main stairs; another exit leads northward.
+  You can move north and south.  Gargoyle #1 flies in.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 flies in.  Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker hums!
+Seeker hums!
+You hear the shuffling of feet elsewhere in the castle.  
+
+> open coffin #2
+You open the coffin #2.  A sceptre is inside the coffin #2.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Seeker hums!
+Grazilda lies in her coffin.  Grazilda’s eyes flick open.  Seeker hums!
+
+
+> stake grazilda
+As you plunge the stake into Grazilda’s heart, she screams and wines with the pain. Her whole body convulses, then at last she is silent. Her body evaporates into the air, along with the stake that brought about her end.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Seeker hums!
+Seeker hums!
+
+
+> take sceptre
+You take the sceptre from the coffin #2.  Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker hums!
+Seeker hums!
+
+
+> open coffin #11
+You open the coffin #11.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Seeker hums!
+Seeker hums!
+The coffin is empty. You can only wonder where the occupant is now.  
+
+> s
+You move south.
+Bottom of the main hall stairs.
+This room is filled with torture apparatus. It does not, however, seem to have been used for some time. Dark exits lead off to the north and south; the main hall stairs lead back up.  You can move north, south and up.  Seeker hums!
+
+
+> u
+You move up.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling. Decoration in here is sparse apart from a large stone staircase that winds upwards to the next level, but this is some what obscured by the majestic pipe organ that rests in the centre of this room.  You can move north, east, south, west, up and down.  Seeker hums!
+
+
+> u
+You move up.
+The main hall stairs.
+You stand halfway up the main hall staircase.  You can move up and down.  Seeker hums!
+
+
+> u
+You move up.
+Top of the stairs.
+You stand on the topmost step. There is a door on the north wall; light flickers from under it.  Also here is steel door.  You can move north and down.  Seeker hums!
+You hear Melvin singing. He must be somewhere nearby.  
+
+> n
+You move north.
+The tower.
+You stand inside the large tower. Exits lead off to the four points of the compass. A cool breeze comes from the west.
+  Also here is steel door.  You can move north, east, south and west.  Seeker hums!
+
+
+> e
+You move east.
+The magical prison.
+This room feels very cold. There is a very becoming young lady here, who stands motionless in the centre of the room. Her golden hair flows down her shoulders. She is dressed in her wedding dress.
+  Also here is iron chest.  You can only move west.  Gargoyle #1 flies in.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> kiss lady
+By kissing her, you appear to have a broken some sort of spell. Her eyes open, and she whispers, "Thank you, brave sir knight. I am Rosanah. I have been suspended here for a long, long time, by Morac. He murdered my beloved Mantos so he could marry me instead, but I refused. So he used his black magic on me and put me in suspended animation until I changed my mind. Your kiss has broken his spell, proving that love still exists in this world. For your bravery, you shall be rewarded." As she says this, she hands you a golden key. "Good luck, brave sir knight," she says, "I will join my true love at last. Thank you, so very much." And with this, she vanishes.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Seeker hums!
+
+
+> unlock iron chest with golden key
+You unlock iron chest with golden key.  Gargoyle #1 stabs you with the military fork.  Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker hums!
+
+
+> open iron chest
+You open iron chest.  A ballista bolt is inside iron chest.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> take ballista bolt
+You take the ballista bolt from iron chest.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> w
+You move west.
+The tower.
+You stand inside the large tower. Exits lead off to the four points of the compass. A cool breeze comes from the west.
+  Also here is steel door.  You can move north, east, south and west.  Seeker hums!
+
+
+> n
+You move north.
+The bottom of the iron steps.
+This room has a set of iron steps spiralling upward.
+  You can move south and up.  Seeker hums!
+
+
+> u
+You move up.
+Atop of the iron steps.
+The steps end here at a single wooden door on the northern wall.
+  Also here is wooden door.  You can only move down.  Seeker hums!
+You suddenly feel slightly lightheaded, with the horrible feeling of butterflies in your stomach. You realise that Morac must be very close by.
+
+
+> wear shield
+You put on the Shield.  Seeker hums!
+
+
+> open wooden door
+You open wooden door.  Seeker hums!
+
+
+> n
+You move north.
+Morac’s laboratory.
+This room is full of laboratory equipment: glassware, bubbling pots, and burners, etc.There is a shuttered window on the north wall.
+  Also here is wooden door.  Morac is here.
+  You can only move south.  Gargoyle #1 flies in.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 flies in.  Seeker hums!
+The wooden door slams shut.
+A huge fireball hurtles from Morac toward you. Luckily for you, the shield that you wear takes the brunt of it.  Seeing that his fireball spell has been thwarted, Morac decides on a new tactic. His eyes fix on your own as he tries to hypnotize you.  
+
+> look away
+You do so, thwarting Morac’s attack yet again.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.  Seeker hums!
+Morac’s face turns red with rage. He suddenly holds one hand up, palm open, as you feel a tugging sensation from your chest.  
+
+> attack morac with sceptre
+You catch Morac on the side of his head with the sceptre. There is a flash of light, followed by the sound of Morac crashing through the shuttered window. You rush to the window to watch him fall to the courtyard below, but he does not. With the flapping sound of wings, you see Morac land safely on the back of a huge black dragon.  Seeker hums!
+
+
+> n
+You move north.
+On the window ledge.
+You hang on the window ledge. Down below, you see the castle’s western battlements. Vines grow from below to the height of the window ledge.
+Morac flies around the castle on his black dragon.
+  You can move south and down.  Seeker hums!
+
+
+> d
+You move down.
+The battlements.
+You stand on the west wall battlements. They lead up to the main tower of the castle, but there is no entrance into the tower from the battlements. Vines grow here; they climb the tower’s wall to a shuttered window high above.  Morac flies around the castle on his black dragon.
+  You can move north and up.  Seeker hums!
+
+
+> n
+You move north.
+Top of the northwest tower.
+Battlements man the top of this tower. From here you can see the ocean lapping up against the rocks, as well as the not-so-sleepy Village of Windthrush.
+  Also here is a huge ballista.  Morac flies around the castle on his black dragon.
+  You can move south and down.  Seeker hums!
+The ballista is ready to fire.  
+
+> fire
+You fire the ballista. The ballista bolt shoots forth and punctures the black dragon’s neck. The dragon tumbles down outside the castle walls and into the ocean. Morac seems to have vanished. Then you catch a glimpse of a bat flying northward to the stone henge.  Seeker hums!
+
+
+> d
+You move down.
+Northwest tower.
+You enter the northwest tower. It is dark and wet in here. Iron rungs are imbedded into the wall here; they lead upwards.
+  You can move up and southeast.  Seeker hums!
+
+
+> se
+You move southeast.
+The castle courtyard.
+Covered in moss, the castle courtyard is very slippery after the rain. The castle’s front doors lie to the south, while to the northeast and the northwest stand the front watch towers of the castle.
+  Also here are the castle’s front doors.  You can move north, south, northeast and northwest.  Seeker hums!
+
+
+> s
+You move south.
+The long hall.
+The hallway stretches southward into darkness. To the east and west are darkened rooms; to the north, the front doors.
+  You can move east, south and west.  Seeker hums!
+
+
+> s
+You move south.
+The main hall.
+This is a massive hall dominated by four huge stone pillars that reach up to the arched ceiling. Decoration in here is sparse apart from a large stone staircase that winds upwards to the next level, but this is some what obscured by the majestic pipe organ that rests in the centre of this room.  Berto, the bald raven, is here.  You can move north, east, south, west, up and down.  Gargoyle #1 flies in.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 flies in.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> d
+You move down.
+Bottom of the main hall stairs.
+This room is filled with torture apparatus. It does not, however, seem to have been used for some time. Dark exits lead off to the north and south; the main hall stairs lead back up.  You can move north, south and up.  Seeker hums!
+
+
+> n
+You move north.
+The crypts.
+This huge cavern rests in the very rocks forming the foundations of Castle Shadowpeak. Stone coffins and sarcophagi line the walls of this great cavern. You feel very uneasy in this place; something is not quite right about it. South leads back to the bottom of the main stairs; another exit leads northward.
+  You can move north and south.  Seeker hums!
+Seeker hums!
+
+
+> n
+You move north.
+The family crypt.
+This crypt has three stone coffins. Two of them are smashed to pieces; only one is fully intact.
+  Also here is a coffin.  You can only move south.  Seeker hums!
+As you open the coffin, you seem to have set off some type of spell. A magical portal as opened up on the north wall.  You feel almost safe in here.  
+
+> enter portal
+You do so, and arrive back at the stone henge. Through the portal you can now see the family crypt.  
+Stonehenge
+You stand in the centre of a Stonehenge-like structure.
+The sky is grey, and no sound of life can be heard in this strange land. There is a large scorch mark in the centre of the henge, surrounded by large, silent stones, which seem to have strange runes carved into them. A trail leads south, away from the henge, while another leads north into the forest.
+  Also here is a body.  Fetlar the overly fetid is here.  Morac is here.
+It is raining...  There is a portal here.
+  You can move north, east, south and west.  Seeker hums!
+
+
+> kill morac
+You cleave Morac’s skull with the sceptre. A white flash of light, followed by a loud bang, fills the area. Morac explodes into dust. You have finally defeated him.  Seeker hums!
+
+
+> e
+You move east.
+Shadow Forest gap.
+To the east, there is a gap in the forest’s trees.
+  You can move north, east and west.  Seeker hums!
+
+
+> e
+You move east.
+Grassy plains.
+Grassy plains stretch off in all directions, while to the west lies the Shadow Forest, and to the south lies a huge chasm. There are some rather large footprints here!
+  You can move north, east, west and northeast.  Seeker hums!
+
+
+> ne
+You move northeast.
+Grassy plains.
+The plains stretch off in all directions, while eastward is blocked by the impassable Kuskarian Range mountains. There are some rather large footprints here!
+  You can move north, south, west, southwest and northwest.  Seeker hums!
+
+
+> n
+You move north.
+Grassy plains.
+The plains stretch off in all directions, while north and east are blocked by the impassable Kuskarian Range mountains. However, a cave entrance leads into the mountains, to the east.
+  You can move east, south, west and southwest.  Seeker hums!
+
+
+> e
+You move east.
+The giant cave entrance.
+The sunlight streams into the entrance hall of the cave, making visible a room further into the east. West leads back out onto the grassy plains.
+  You can move east and west.  Gargoyle #1 flies in.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> e
+You move east.
+Grumski’s abode.
+Grumski the Giant’s living quarters are exactly what you would expect a giant’s abode to look like: giant-sized bed, table, pots, pans, and a huge cauldron. 
+There is also a passage leading east, deep into the mountainside, while west leads back to the cave entrance.
+Grumski the Giant is here.  You can move east and west.  Seeker hums!
+
+
+> e
+You move east.
+Passage through mountainside.
+The passageway leads you through the heart of the mountain. West leads back to Grumski’s abode, while, east, sunlight can be seen from the far side of the mountain, but is somewhat obscured by the large sphinx standing in front of you!
+Andro, the sphinx, is here.  You can only move west.  Andro, the sphinx, opens its mouth, and in a very rough voice says, "Oh come what may, and come what may be, thou shalt not pass unless thee answers thy riddles three.
+#1: What always ends everything?"  Seeker hums!
+
+
+> say g
+Andro looks rather surprised, and speaks again, "#2: What do you break by saying just one word?"  Seeker hums!
+
+
+> silence
+Andro looks at you with a rather disdainful look in its eyes, and says, "Well done, and now for the final riddle! #3: What is too much for one, enough for two, but nothing at all for three?"
+Seeker hums!
+
+
+> secret
+The sphinx’s eyes widen, and it says, "Very well done; you shall pass, wise one." With this, Andro steps to one side.  Seeker hums!
+
+
+> e
+You move east.
+Eastern side of the mountain.
+You stand halfway up the eastern side of the mountainside. West leads back into the mountain passage, while east leads down a footpath to the bottom of the mountain.
+Below, an awesome sight can be seen: two armies are in mid-battle. The banners of the Knights of Ancient Tesslesar can be seen fighting against all odds; their enemy the undead hordes of Morac. It looks to you that the Knights of Tesslesar are fighting with great skill, but all to no avail, as the undead hordes are overwhelming them.
+You think it would be dangerous to move any further east.
+  Also here is an enormous stack of boulders.  You can move east and west.  Seeker hums!
+The sky is filled with arrows and crossbow bolts. Men and undead alike fall like flies below on the battlefield, while dark shapes like dragons fly above in the sky, taking care not to be hit by the missiles.
+Seeker hums!  
+
+> move tree trunk
+Upon moving the tree trunk, the boulders creak into motion and bounce down the mountainside towards the undead hoards. It seems you have set off a chain reaction, as a dozen or so other stacks of boulders that you never noticed before are also set into motion. One of the larger boulders crashes straight onto an undead knight dressed all in black. He looks like he was some sort of captain or general. Now he is simply a squashed pulp beneath the boulder. The rest of the boulders smash into the undead hoard. It looks like, for now, you have halted the battle from below, as both sides are now even, and a stalemate has taken place.
+You stare, stunned, at the devastation below, for what seems like ages, and think it would be dangerous to move any further east.
+Seeker hums!
+Seeker hums!  
+
+> z
+Time passes...
+Quentis rides over from the east.  Quentis is an imposing fellow with lance in hand. He wears full plate armour, and is dressed in the colours of Tesslesar. Dents and bloodstains mar his armour.
+He quickly spurts out, "Greetings, and thank you, friend, in these hard times. Here, take this." On saying this, Quentis places a finely crafted horn beside your feet. "Keep it somewhere safe and secret, for it is a holy relic. If our enemies get their hands on it, who knows what might happen." Quentis quickly turns his steed and heads off back down to the rest of the knights.  Seeker hums!
+Seeker hums!  
+
+> take horn
+You take the The horn of the angels.  Seeker hums!
+Seeker hums!  
+
+> 
+I don't understand what you mean. I'm only a text adventure, you know! Try rephrasing your command.
+
+> w
+You move west.
+C13 Passage through mountainside.
+The passageway leads you through the heart of the mountain. West leads back to Grumski’s abode, while, east, sunlight can be seen from the far side of the mountain.
+Andro, the sphinx, is here.  You can move east and west.  Gargoyle #1 flies in.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> w
+You move west.
+Grumski’s abode.
+Grumski the Giant’s living quarters are exactly what you would expect a giant’s abode to look like: giant-sized bed, table, pots, pans, and a huge cauldron. 
+There is also a passage leading east, deep into the mountainside, while west leads back to the cave entrance.
+Grumski the Giant is here.  You can move east and west.  Seeker hums!
+
+
+> w
+You move west.
+The giant cave entrance.
+The sunlight streams into the entrance hall of the cave, making visible a room further into the east. West leads back out onto the grassy plains.
+  You can move east and west.  Seeker hums!
+
+
+> w
+You move west.
+Grassy plains.
+The plains stretch off in all directions, while north and east are blocked by the impassable Kuskarian Range mountains. However, a cave entrance leads into the mountains, to the east.
+  You can move east, south, west and southwest.  Seeker hums!
+
+
+> s
+You move south.
+Grassy plains.
+The plains stretch off in all directions, while eastward is blocked by the impassable Kuskarian Range mountains. There are some rather large footprints here!
+  You can move north, south, west, southwest and northwest.  Seeker hums!
+
+
+> sw
+You move southwest.
+Grassy plains.
+Grassy plains stretch off in all directions, while to the west lies the Shadow Forest, and to the south lies a huge chasm. There are some rather large footprints here!
+  You can move north, east, west and northeast.  Seeker hums!
+
+
+> w
+You move west.
+Shadow Forest gap.
+To the east, there is a gap in the forest’s trees.
+  You can move north, east and west.  You hear the flutter of batlike wings.  Seeker hums!
+
+
+> w
+You move west.
+Stonehenge
+You stand in the centre of a Stonehenge-like structure.
+The sky is grey, and no sound of life can be heard in this strange land. There is a large scorch mark in the centre of the henge, surrounded by large, silent stones, which seem to have strange runes carved into them. A trail leads south, away from the henge, while another leads north into the forest.
+  Also here is a body.  Fetlar the overly fetid is here.  There is a portal here.
+  You can move north, east, south and west.  Seeker hums!
+
+
+> w
+You move west.
+Shadow Forest.
+You stand amidst the Shadow Forest.
+Fang is here.  You can move north, east, south, west, southwest and northwest.  Seeker hums!
+Fang darts off to the north.  Seeker hums!
+
+
+> nw
+You move northwest.
+Great Swamp.
+You stand in the Great Swamp.
+  You can move north, east, south, west, northeast, southeast, southwest and northwest.  It starts to rain...  Seeker hums!
+
+
+> n
+You move north.
+Doors in the mountains.
+You see the great Kuskarian Range mountains blocking your path northward, although those huge double doors may be of some use if you would happen to want to go in that direction.
+  Also here is a double doors.  Rossi, the muck dweller, is here.  It is raining...  You can move east, south, west, southeast and southwest.  Gargoyle #1 flies in.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 flies in.  Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Rossi stalks off to the west.  Seeker hums!
+You are feeling very tired, indeed, and realise you should find somewhere to sleep!
+
+
+> unlock double doors with triangular piece of metal
+You unlock the double doors with the triangular piece of metal.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Seeker hums!
+
+
+> open double doors
+You open the double doors.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> n
+You move north.
+A long corridor.
+The corridor leads northward into the mountain, and appears to be somehow magically lit. There is something about this corridor that makes you feel very uneasy. Frescos cover both the west and east walls. The corridor comes to a dead end to the north.
+Seeker hums!
+Suddenly a huge stone block slams down behind you, blocking you in! The block has words carved into it.
+The huge stone block starts sliding slowly northward. It looks like it would crush you against the northern wall, if given time to do so.
+
+
+> open golden chest
+You open golden chest.  A lever is inside golden chest.  Seeker hums!
+
+
+> pull lever
+As you do so, you hear a clunking sound, and a small panel opens up in the bottom of the east wall, just big enough to crawl through.
+Seeker hums!
+
+
+> crawl
+You manage to nip in and crawl eastward just before the boulder blocks off the opening of the panel.
+This crawl way runs from west to east, although the western exit is blocked by the huge block of stone.
+Seeker hums!
+
+
+> e
+You move east.
+The crossroads.
+You stand in a ten foot by ten foot room with concrete walls and floor. Passages lead off to the north, south, east, and west.
+Edna the flesh construct is here.  You can move north, east, south and west.  Seeker hums!
+
+
+> z
+Time passes...
+Edna turns towards you and moans, "Thou shalt not pass. Only one way is true, if you defeat me the way shall be revealed."  Seeker hums!
+
+
+> z
+Time passes...
+You manage to avoid construct's attack.  Seeker hums!
+
+
+> sleep
+You do so, and wake up feeling rather refreshed.
+Gargoyle #1 flies in.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> attack edna
+You stab construct with the sword.  You manage to avoid construct's attack.  Seeker hums!
+
+
+> attack edna
+You stab construct with the sword.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker hums!
+
+
+> attack edna
+You stab construct with the sword.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  You manage to avoid construct's attack.  Seeker hums!
+
+
+> attack edna
+You stab construct with the sword.  Edna keels over and collapses to the floor. The magical energy that held its body together pours out, leaving only a fleshy mound of rotten flesh.
+The northern passage suddenly glows momentarily.
+Seeker hums!
+
+
+> take fleshy mound
+You take fleshy mound.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> n
+You move north.
+The long passage.
+You stand in an extremely long passage some five foot wide, ten feet high, and over a two hundred feet long. The walls to the left, right, and slightly forward from where you are standing have strange copper plates bolted to them, and make a buzzing sound.
+The rest of the passage is free of these strange copper plates, but you can’t quite see the end of the passage from here.
+  You can move north and south.  Seeker hums!
+
+
+> throw flesh
+As you do so, the copper plates crackle, and a bolt of electricity bursts from them. The fleshy mound is instantly fried, leaving just the charred remains.
+The copper plates stop buzzing.  Seeker hums!
+
+
+> n
+You move north.
+The long passage, midway.
+You stand at the halfway point in the long passage. There are dozens of slits in the walls to the left, right, and slightly forward from where you are standing.
+The slits themselves are about one inch wide and two inches long, and reach up to the ceiling.
+Further along the passage, you can see a pedestal, but can’t quite gain any further information from where you are standing.
+  You can move north and south.  Seeker hums!
+
+
+> say alam nadeer
+You do so, and strangely feel a bit relieved.  Seeker hums!
+
+
+> n
+You move north.
+The northern end of the long passage.
+The passage ends here. There are no visible exits.  Also here is a pedestal.  You can only move south.  Gargoyle #1 flies in.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> rub lamp
+The lamp shudders slightly, then a cloud of smoke whooshes out of it. When the smoke clears, a tall blue man stands in front of you, arms folded, and wearing a loincloth.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Olmo speaks, "Wishes three, I have for ye, tho only one will be of help to thee. Pick your letter: a, b, or c."
+" Wish a is to meet Morac face to face, have it over and done with, cut short your race.
+Wish b: a blessing from the gods in times of need, to stop the evil, oh!, devil’s seed.
+Wish c: Out of this dungeon ye shall be free, back to the henge, the stones you see.
+Make your choice: a, b, or c."
+Seeker hums!
+
+
+> say b
+Olmo says, "So be it!"
+ You feel a sudden rush of joy, and feel blessed by this whole experience. Olmo and the lamp have vanished!
+You notice that an opening has appeared in the ceiling.
+The voice of Olmo lingers on momentarily; you hear the words, "Try and catch the wind."
+Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> u
+You move up.
+Room above the pedestal.
+This room is completely bare. There is a passage leading north, and an opening leading down.
+  You can move north and down.  Seeker hums!
+
+
+> n
+You move north.
+Multicoloured room.
+You stand at the south end of a fifty-foot by fifty-foot room. The ceiling is fifty feet high and has large, sharp, spiky rock formations on it. The floor is made up of large square tiles. The tiles themselves are made up of a multicoloured combination. The colours are blue, pink, purple, red, green, yellow, and orange.
+You realize that to get across the room you must step on these tiles; which colour do you wish to step on?
+There are exits on the southern and northern ends of this room, although the northern exit is blocked by a wall of fire.
+  You can only move south.  Seeker hums!
+
+
+> red
+You step onto a red tile. Which colour next?
+Seeker hums!
+
+
+> yellow
+You step onto a yellow tile. Which colour next?
+Seeker hums!
+
+
+> pink
+You step onto a pink tile. Which colour next?
+Seeker hums!
+
+
+> green
+You step onto a green tile. Which colour next?
+Seeker hums!
+
+
+> purple
+You step onto a purple tile. Which colour next?
+Seeker hums!
+
+
+> orange
+You step onto a orange tile. Which colour next?
+Gargoyle #1 flies in.  Gargoyle #3 flies in.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> blue
+You step onto a blue tile, and the wall of fire disappears.
+Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Seeker hums!
+
+
+> n
+You move north.
+Behind the wall of fire.
+It appears that this is another bare room. An exit leads off to the north, while another leads south, the way you came.
+  Also here is a yellow marble.  You can move north and south.  Seeker hums!
+
+
+> n
+You move north.
+Maze
+You stand in a smooth-walled corridor.
+  You can move east and west.  Seeker hums!
+As you stepped into this corridor, there was a sudden flash of light, which made you feel a bit disoriented. You realise the way you came into this area is no longer visible.
+A spear suddenly hurtles toward you, and hits you squarely in the chest. Something or someone must have thrown it at you, and by the force it hit you with, they must be rather strong indeed.
+
+
+> eat venison
+You eat the venison.  Not bad, but it could do with a pinch of salt!  Mmm, that made you feel much better. But you can’t help feeling that someone is trying to fatten you up.  Seeker hums!
+
+
+> e
+You move east.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north, east and west.  Seeker hums!
+
+
+> e
+You move east.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move east and west.  Seeker hums!
+
+
+> e
+You move east.
+Maze.
+You stand in a smooth-walled corridor.
+There is a iron button here.
+  You can move north and west.  Seeker hums!
+
+
+> press iron button
+Click! You do so.  Seeker hums!
+
+
+> w
+You move west.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move east and west.  Seeker hums!
+
+
+> w
+You move west.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north, east and west.  Gargoyle #1 flies in.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> w
+You move west.
+Maze
+You stand in a smooth-walled corridor.
+  Also here is a spear.  You can move east and west.  Seeker hums!
+
+
+> w
+You move west.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north, east and west.  Seeker hums!
+
+
+> w
+You move west.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move east, south and west.  Seeker hums!
+
+
+> w
+You move west.
+Maze.
+You stand in a smooth-walled corridor.
+There is a copper button here.
+  You can move north and east.  Seeker hums!
+
+
+> press copper button
+Click! You do so.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north and south.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north and south.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north, east, south and west.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north and south.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north and south.  Gargoyle #1 flies in.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+There is a stone button here.
+  You can move east and south.  Seeker hums!
+
+
+> press stone button
+Click! You do so.  Seeker hums!
+
+
+> e
+You move east.
+Maze
+You stand in a smooth-walled corridor.
+Chin on legs is here.  You can move east and west.  Seeker hums!
+
+
+> e
+You move east.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move east, south and west.  Seeker hums!
+
+
+> e
+You move east.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move east and west.  Seeker hums!
+
+
+> e
+You move east.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move east and west.  Seeker hums!
+
+
+> e
+You move east.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move east, south and west.  Seeker hums!
+
+
+> e
+You move east.
+Maze.
+You stand in a smooth-walled corridor.
+There is a bronze button here.
+  You can move south and west.  Seeker hums!
+
+
+> s
+You move south.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north, east and south.  Seeker hums!
+
+
+> s
+You move south.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north and south.  Gargoyle #1 flies in.  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 flies in.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> s
+You move south.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north, east, south and west.  Seeker hums!
+
+
+> s
+You move south.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north and south.  Seeker hums!
+
+
+> s
+You move south.
+Maze.
+You stand in a smooth-walled corridor.
+Damastus, the minotaur, is here!  You can move north, east and south.  You manage to avoid minotaur's attack.  Seeker hums!
+Seeker Hums!  
+
+> attack damastus
+You stab minotaur with the sword.  Damastus lumbers off to the north.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+Damastus, the minotaur, is here!  You can move north and south.  You manage to avoid minotaur's attack.  Seeker hums!
+Seeker Hums!  
+
+> attack damastus
+You stab minotaur with the sword.  Damastus lumbers off to the north.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+Damastus, the minotaur, is here!  You can move north, east, south and west.  You manage to avoid minotaur's attack.  Seeker hums!
+Seeker Hums!  
+
+> attack damastus
+You stab minotaur with the sword.  Damastus lumbers off to the south.  Seeker hums!
+
+
+> s
+You move south.
+Maze.
+You stand in a smooth-walled corridor.
+Damastus, the minotaur, is here!  You can move north and south.  You manage to avoid minotaur's attack.  Seeker hums!
+Seeker Hums!  
+
+> attack damastus
+You stab minotaur with the sword.  Gargoyle #1 flies in.  Gargoyle #3 flies in.  Seeker hums!
+Seeker Hums!  
+
+> attack damastus
+You stab minotaur with the sword.  Damastus screams in pain, and, with that, falls to the ground with a loud thud!  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north, east, south and west.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north and south.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move north, east and south.  Seeker hums!
+
+
+> n
+You move north.
+Maze.
+You stand in a smooth-walled corridor.
+There is a bronze button here.
+  You can move south and west.  Seeker hums!
+
+
+> press bronze button
+Click! You do so.  Seeker hums!
+
+
+> w
+You move west.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move east, south and west.  Seeker hums!
+
+
+> w
+You move west.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move east and west.  Seeker hums!
+
+
+> w
+You move west.
+Maze.
+You stand in a smooth-walled corridor.
+  You can move east, south and west.  Seeker hums!
+
+
+> s
+You move south.
+Minotaur’s lair.
+This room stinks of bovine excretion. Some spiral stairs lead upwards.
+  Also here are chewed bones, a straw mat and some arm and leg greaves.  You can move north and up.  Gargoyle #1 flies in.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> take greaves
+You take the arm and leg greaves.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> wear greaves
+You put on the arm and leg greaves.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Seeker hums!
+
+
+> u
+You move up.
+The spiral stairs.
+The spiral stairs seem endless, although sunlight can be seen above.
+  You can move up and down.  Seeker hums!
+
+
+> u
+You move up.
+Atop a mountain.
+You stand atop the Kuskarian Range mountains. The freezing wind wraps itself around you. You cannot really make anything of the view, as a heavy mist has set in up here.
+  You can only move down.  Seeker hums!
+
+
+> catch the wind
+The wind suddenly swirls around you, and, as if by magic, you are lifted from the top of the mountain and realise you are standing on a grey-coloured cloud. The cloud gently floats you back down to ground level.
+Seeker hums!
+
+
+> s
+You move south.
+Great Swamp.
+You stand in the Great Swamp.
+  You can move north, east, south, west, northeast, southeast, southwest and northwest.  Seeker hums!
+
+
+> se
+You move southeast.
+Shadow Forest.
+You stand amidst the Shadow Forest.
+  You can move north, east, south, west, southwest and northwest.  Seeker hums!
+
+
+> e
+You move east.
+Stonehenge
+You stand in the centre of a Stonehenge-like structure.
+The sky is grey, and no sound of life can be heard in this strange land. There is a large scorch mark in the centre of the henge, surrounded by large, silent stones, which seem to have strange runes carved into them. A trail leads south, away from the henge, while another leads north into the forest.
+  Also here is a body.  Fetlar the overly fetid is here.  There is a portal here.
+  You can move north, east, south and west.  Seeker hums!
+
+
+> say borantha
+The staff that you are holding glows a brilliant white. You have a feeling that it’s waiting for you to do something.  Seeker hums!
+
+
+> snap staff
+As you break the staff, you see the stone henge fade from view, and a new scene appears.
+The gates of Hades.
+The landscape here is scorched and black. Flames shoot up out of the foul earth, and all is lit by a deep red sky. It seems the only safe way to travel is past a rather large, black iron gate to north, or south to a river of lava.
+Gargoyle #1 flies in.  Gargoyle #3 flies in.  Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker hums!
+
+You hear a load voice boom out!! "Well, well, well, you didn’t think it would be that easy, did you? The staff you broke was also infused with Morac’s magic, under my supervision, of course. Yes, he infused it with black magic, so instead of travelling back to your own time, you were sent here to my domain. I’m sure we will meet very soon. In fact, I’m rather looking forward to it, HAHAHAHAHAHA."
+The laughter trails off to nothing. You have no idea where the voice could have come from, and you feel very alone.
+
+
+> s
+You move south.
+The River Styx.
+A river of lava cuts across the foul earth here.  Also here is a headstone.  You can only move north.  Seeker hums!
+
+
+> whistle
+You whistle a little tune.  Seeker hums!
+You see something sailing across the River Styx!  
+
+> z
+Time passes...
+Seeker hums!
+
+
+> z
+Time passes...
+Seeker hums!
+
+
+> z
+Time passes...
+Seeker hums!
+It seems the ferryman must be on his way toward you. He moves his ferry along with a large wooden pole.  
+
+> z
+Time passes...
+Seeker hums!
+As the ferryman gets closer, you notice his head is that of a grinning skull partially hidden by the robes that he wears.
+
+
+> z
+Time passes...
+Seeker hums!
+Charon, the ferryman, arrives at the shore. He holds out a bony skeletal hand, apparently waiting for payment.
+You see something sailing across the River Styx!  
+
+> give gold coin to charon
+Charon takes the gold coin in his bony hand, and pushes you on board with his pole. Slowly but surely, he heaves the ferry into motion. After a while you see the other shore, and eventually you are there.
+The Garden of Lost Souls.
+Here gravestones are piled on top of one another. Shattered and broken, they form a pillar of debris in the centre of this stone garden.
+Wandering around the bottom of the pillar are thousands of lost souls.
+Seeker hums!
+
+
+> u
+You move up.
+Atop the pillar of debris.
+  Also here is black key.  You can only move down.  Seeker hums!
+
+
+> take black key
+You take black key.  Gargoyle #1 flies in.  Gargoyle #1 attacks you with the military fork, but you manage to avoid it.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> d
+You move down.
+Garden of Lost Souls.
+Here gravestones are piled on top of one another. Shattered and broken, they form a pillar of debris in the centre of this stone garden. The garden itself is, in turn, surrounded by the sea of lava.
+  Also here is a ferry.  Charon, the ferryman, is here.  Wandering around the bottom of the pillar are thousands of lost souls.  You can only move up.  Seeker hums!
+
+
+> stand on ferry
+You stand on the ferry.  Seeker hums!
+Charon, the ferryman, takes you back across the River Styx.
+
+
+> n
+You move north.
+The gate of Hades.
+The landscape here is scorched and black. Flames shoot up out of the foul earth, and all is lit by a deep red sky. To the east and west, the land itself is a sea of molten lava. It seems the only safe way to travel is past a rather large, black iron gate to the north, or south to a river of lava.
+  Also here is a iron gate.  You can only move south.  Seeker hums!
+
+
+> unlock iron gate with black key
+You unlock the iron gate with black key.  Seeker hums!
+
+
+> open iron gate
+You open the iron gate.  Seeker hums!
+
+
+> n
+You move north.
+Tunnel of the underdark.
+This tunnel travels from north to south. The heat here is tremendous, as fumes rise from cracks on the cavernous walls.
+Cerberus, the hound of Hades, is here.  You can only move south.  Cerberus belches forth an ear-splitting howl, sounding an alarm to anyone listening. While doing so, a jet of flame streams from one of its heads and sears you with its blistering heat.
+Cerberus' serpent tail lashes round and tries to bite you with its poisonous fangs, but you manage to deflect the blow with the shield you are wearing.
+Hound of hades hits you, but it doesn't seem to do any damage.  Seeker hums!
+Seeker Hums!  You are feeling very tired, indeed, and realise you should find somewhere to sleep!
+
+
+> attack cerberus
+You stab hound of hades with the sword.  Cerberus' serpent tail lashes round and tries to bite you with its poisonous fangs, but you manage to deflect the blow with the shield you are wearing.
+Hound of hades hits you, but it doesn't seem to do any damage.  Seeker hums!
+Seeker Hums!  
+
+> attack cerberus
+You stab hound of hades with the sword.  Cerberus' serpent tail lashes round and tries to bite you with its poisonous fangs, but you manage to deflect the blow with the shield you are wearing.
+Hound of hades hits you, but it doesn't seem to do any damage.  Seeker hums!
+Seeker Hums!  Cerberus' serpent tail lashes round and bites your arm with its poisonous fangs, but your arm greaves deflect the blow.  
+
+> attack cerberus
+You stab hound of hades with the sword.  Cerberus yelps, and falls to the hot cavernous floor, dead. Its body slowly fades away.
+Seeker hums!
+
+
+> attack cerberus
+Cerberus isn't here!  Gargoyle #1 flies in.  Gargoyle #3 flies in.  Seeker hums!
+
+
+> attack cerberus
+Cerberus isn't here!  Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any damage.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.  Seeker hums!
+
+
+> n
+You move north.
+Demon pit.
+This place is a massive cavern. Firelight flashes on the walls, making shadows dance back and forth. Here demons play in huge craters of molten lava. Swimming, fighting, and generally causing havoc with each other, they look very evil and dangerous. You notice the tunnel of the underdark carries on to the north, past the demons.
+  You can move north and south.  Seeker hums!
+Seeker Hums!  
+
+> n
+You move north.
+North of the demon pit.
+The tunnel carries on from north to south. The heat here is still very hot. Every now and then, steam gushes out from cracks on the cavernous walls.
+  Also here is a huge golden door.  You can only move south.  Seeker hums!
+
+
+> touch picture
+As you do so, your hear the doors unlock. Then they swing open. All is dark beyond!
+Seeker hums!
+
+
+> n
+You move north.
+Throne room of Asmodeus.
+This room is huge; some two hundred feet long and half as wide. Benches and cages line the side walls, while a large red carpet leads up the centre of the room towards a large stone throne.
+   Asmodeus is here sitting on his throne.  There is a gathering of devils here sitting on the benches.  Asmodeus speaks, "And so the brave knight finally arrives. Welcome, Loralang, welcome to my humble abode. You have been summoned here to witness an event of great importance to me. You see, Morac’s soul…" on saying this, he pulls a withered maggot from his pocket with a humanoid head. The maggot’s head resembles Morac’s. Asmodeus carries on, "…is now mine. The fool whom you have slain is about to be devoured." Asmodeus pops the maggot into his mouth and munches on it, taking time to savour the taste, and swallowing slowly. He turns to the gathering of devils ( Geryon, Dispater, Bhaalzebub, and Gary Glitter are here, to name but a few members of this gathering of devils) and speaks again, "Let this be a warning to anyone who fails me." Asmodeus turns his gaze back onto you. "As for you, brave knight of Tesslesar, you have two choices: join me as a servant of evil, or die! Choose now; join, or die."
+Seeker hums!
+A large portcullis slams down behind you, blocking you from the golden door and your only way out!
+Seeker Hums!  
+
+> blow horn
+As you blow the horn, the throne room rumbles and shakes. You heave your lungs once more into action, and from the horn a horde of angels spews forth. Asmodeus looks stunned at the arrival of these holy beings in his throne room. The devils leap into action and engage the angels, but there are too many of them for the devils to handle. They charge at Asmodeus, holding him at bay, and giving you enough time to make your escape. One of the angels takes you by the hand, and in her sweet voice says, "It’s time, Loralang." With this, the room fades from view, and is replaced by your king’s chambers back home!
+
+The king’s eyes open wide as you return home. "I knew my favourite knight would succeed," he says.
+You hand over the sceptre to the king. "With this we will be able to defend our lands against the undead hordes. Well done, Loralang," the king says, overjoyed with your success.
+ Needless to say, you are rewarded with plenty of gold and other riches, as well as a nice castle of your own on the borders of Tesslesar.
+The king shouts for his advisors and friends, "Let the celebrations begin."
+Well done. You have completed the adventure Shadowpeak.
+Weeks pass, and the undead armies have been driven back to where they came from, but you have been feeling rather strange of late, and begin to have a strange phobia: you can’t bear the sunlight, and you have two small puncture holes on your neck that were not there before. Then you remember your blackout in Shadowpeak. Could these puncture marks have happened there?
+Alas, my friend, that is another story.
+THE END?
+
+[Press any key to end]

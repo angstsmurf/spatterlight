@@ -1,0 +1,263 @@
+
+> sing to toads
+You belch out the most disgusting song in the universe
+
+
+
+
+but the toads seem to like it.  Too buisy croaking away, you pick up some toad eggs!
+
+> west
+You move west.
+Old Lady Coot's House
+
+
+This house is nothing like Old Man England's......Its actually tidy and clean......
+
+
+
+
+
+		too   tidy and clean......
+
+
+Not a bit of garbage or dust anywhere........it looks creepy....
+
+looking around you see
+
+
+
+
+some bushes........
+
+
+
+
+
+a bird bath  
+
+
+
+
+
+
+and nothing else......
+
+although  "nothing else"  looks really clean......weird.  Swinging on her porch swing, Old Lady Coot hums a perfect little song.
+
+> shake bush
+The beetles fall to the ground and you are able to easily pick them up!
+
+> east
+You move east.
+Old Man England's House
+Old Man's Englands house is falling apart, oh well, we can't all live in mansions......
+
+
+Looking around you notice
+
+
+a fish pond............................
+
+
+
+a rotting garden............................
+
+
+
+
+and nothing else......
+
+"What a horrible looking house." you think to yourself.  
+
+Old Man England is sitting on his rocking chair, just rocking away.  The Witch's Cat walks slowly about..
+
+> trap cat
+
+
+
+Making meowing noises, you bait the cat into coming closer.  Cats are so dumb!  As you pet the cat and scratch behind its ears, the feline begins to purr loudly.  
+
+
+in one fail swoop you snatch the cat!
+
+
+stupid cat.  it should have known better.  
+
+> west
+You move west.
+Old Lady Coot's House
+
+
+This house is nothing like Old Man England's......Its actually tidy and clean......
+
+
+
+
+
+		too   tidy and clean......
+
+
+Not a bit of garbage or dust anywhere........it looks creepy....
+
+looking around you see
+
+
+
+
+some bushes........
+
+
+
+
+
+a bird bath  
+
+
+
+
+
+
+and nothing else......
+
+although  "nothing else"  looks really clean......weird.  Swinging on her porch swing, Old Lady Coot hums a perfect little song.
+
+> west
+You move west.
+Old Scary Witch's House
+The Witches house is Big....Menacing and Scary.  Why anyone would want to live here is beyond anyones comprehension.......
+
+
+looking around you see your typical spooky fare, although looking around closer than this would be fruitless.   
+
+
+
+The Old Scary Witch is peddling about the porch, too busy to look at you.
+
+> examine grass
+
+Yea!  Now that you notice it.....there is tall grass everywhere!
+
+The grass is tall, and ripples in the dark night wind......spooky!  A small cauldron is on the tall grass.
+
+> get cauldron
+You take the small cauldron from the tall grass.
+
+> east
+You move east.
+Old Lady Coot's House
+
+
+This house is nothing like Old Man England's......Its actually tidy and clean......
+
+
+
+
+
+		too   tidy and clean......
+
+
+Not a bit of garbage or dust anywhere........it looks creepy....
+
+looking around you see
+
+
+
+
+some bushes........
+
+
+
+
+
+a bird bath  
+
+
+
+
+
+
+and nothing else......
+
+although  "nothing else"  looks really clean......weird.  Swinging on her porch swing, Old Lady Coot hums a perfect little song.
+
+> fill cauldron with water
+You dip the cauldron into the bird bath and fill it up with water........
+
+when you look in the cauldron, though, its empy again!
+
+> splash water into cauldron
+You splash some water into the cauldron...
+
+
+
+
+splish....splash...splish....splash.
+
+
+when you look in the cauldron, the water comes to the brim!
+
+> put toad eggs in cauldron
+You put the toad eggs inside the small cauldron.  
+
+> throw the purple beetles into the cauldron
+
+
+WOOSH
+
+
+WOOSH
+
+
+POOSH
+
+
+
+The cauldron is fizzing with pink liquid!
+
+
+
+
+> west
+You move west.
+Old Scary Witch's House
+The Witches house is Big....Menacing and Scary.  Why anyone would want to live here is beyond anyones comprehension.......
+
+
+looking around you see your typical spooky fare, although looking around closer than this would be fruitless.   
+
+
+
+The Old Scary Witch is peddling about the porch, too busy to look at you.
+
+> ransom the cat
+Holding the cat up by its tail you yell
+
+"Give my candy or I'll kill the cat, you Old Scary Witch!"
+
+"No!  Not my cat!  Oh I hate you, Timmy Rollins!  That cat has been in my family for generations.  Fine!  Here's your candy!"
+
+With supreme menace in her eyes, the witch throws some candy at your feet and storms into her house.
+"I'll get you next year, Timmy Rollins!  Just you wait!"
+
+
+  You instantly start to feel how the effects of her spell starts to dissapear.  As your limbs start to become real again you are happy that you won't spend the rest of your life as a white zombie.  Maybe now you can actually look forward to getting a girlfriend.
+
+
+
+
+
+That was awesome!  Having saved Halloween, you feel your skin come back to normal.  Which is a really good thing since you were about to loose your left pinky.
+
+
+Walking home with the just the couple of pieces of candy the witch threw at you, you feel like a true ninja cat:  fast, agile, like you've saved the world.  As you walk home you can't wait to turn 18 so you can buy your own ninja sword.  One day you'll knock on the door of someones house and they'll be like
+
+
+"Hey whose knocking on my door?!"  
+
+Thats right, you can't see a ninja.........
+You scored 23 out of the maximum 26!
+That is 88% of the game!
+You finished 3 points short.
+
+[Press any key to end]

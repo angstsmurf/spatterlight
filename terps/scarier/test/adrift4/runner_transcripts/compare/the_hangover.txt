@@ -1,0 +1,20 @@
+feed        57 commands
+runner      57 turns echoed
+scarier     57 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 34  open the filing cabinet
+  run400   What you typed doesn't work.
+  scarier  You open the cabinet. Card name replacement approval form is inside the cabinet.
+
+turn 35  take approval form
+  run400   Take what?
+  scarier  You take card name replacement approval form from the cabinet.
+
+turn 42  give the doctor some french fries
+  run400   You can't do that here!
+  scarier  Doctor doesn't seem interested in the french fries.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

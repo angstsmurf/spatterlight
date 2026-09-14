@@ -1,0 +1,48 @@
+
+> remove jacket
+An idea strikes and you struggle to get loose from from your jacket...with it gone you'd be free of the worst of the webbing and might be able to drop to the ground. Unfortunately in your original panic you got yourself tangled up good and proper, and the oversized jacket is twisted around you in such a way that you can't simply squirm out of it, though after considerable effort you at least manage to work your right hand loose.
+
+
+> x leaves
+Various little things such as dead leaves and twigs have fallen and stuck to the web over time. The only thing really notable is the largish branch that dangles nearby. 
+
+> get stick
+You give the branch a little tug and it easily comes loose of the web. If only things could be so simple for you...
+
+> get pack
+Reaching down with the stick, you try to hook one of the orange straps. It takes a couple of attempts, but finally you manage and carefully tilt the branch upwards so that the pack slides down to your hand where you can grab it.
+
+> get knife
+Holding the backpack tight in your forearm, you reach around the side and fumble to pull the knife free, grinning as you rub your thumb lightly against the sharp edge. Now you're getting somewhere!
+
+> kill spider
+In one swift motion the quivering grey bulk of the Spider is upon you. Screaming, you swing your knife wildly, ripping its soft clammy belly open as it exposes it to try and jab at you with its glistening stinger. A thick white goo gushes out, and it falls backwards off the web, spasmodically thrashing legs brushing yours it writhes out the last of its life on the ground. 
+
+Still gripping the knife tightly, you can't tear your gaze away until the final twitching stops. 
+
+It's only then that you notice the movement off to your right,
+
+> get lighter
+Rummage around in your pack, you find your lighter at the bottom and take it.  
+As though on cue, at the time of the enormous spider's death the white sack that hangs nearby has taken on a life of its own, jerking and swaying as something inside it begins to move. 
+
+
+> get whiskey
+You take the little flask out of your backpack.  
+Dozens of little bulges rapidly appear and disappear beneath the wrapping as whatever's inside the sack squirms and twists about.
+ 
+
+> pour whiskey on sack
+Holding the flask pinned beneath your chin, you carefully unscrew the lid with your free hand and then moving quickly take it and splash the amber liquid all over the writhing bundle. 
+
+> burn sack
+You flick the lighter on, trying hard to keep your hand from shaking. For one gut-wrenching moment you get nothing but sparks, but on your second try a small flame appears and remains steady.
+
+Holding your breath, you raise it to the sack...
+
+
+
+...and it ignites in a WHOOSH, the whiskey turning the bundle into a fireball. The violent motions from within become even more frantic and erratic, then slowly cease as the sack is reduced to ash and the charred, brittle remains of countless little monstrosities tumble to the ground. 
+
+Sometime later, you manage to free yourself completely from the web, and make your way (very carefully) home. You haven't yet told anyone of your "discovery"--right now you're just grateful enough to be alive, and provided you could prove you weren't insane the authorities would probably put the hideous things on the endangered species list rather than eradicating them anyway--and you have a suspicion that the next time the wilderness calls, you'll decline to answer. 
+[Press any key to end]

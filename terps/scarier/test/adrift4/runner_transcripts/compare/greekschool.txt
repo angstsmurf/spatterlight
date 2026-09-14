@@ -1,0 +1,36 @@
+feed        163 commands
+runner      163 turns echoed
+scarier     165 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 27  down
+  run400   You move down. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east and west.
+  scarier  You move down. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east and west. Paul gives you a look over, then resumes his searching.
+
+turn 41  west
+  run400   You move west. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east and west.
+  scarier  You move west. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east and west. Paul gives you a look over, then resumes his searching.
+
+turn 91  west
+  run400   You move west. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east, west and up.
+  scarier  You move west. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east, west and up. Paul gives you a look over, then resumes his searching.
+
+turn 100  down
+  run400   You move down. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east, west and up.
+  scarier  You move down. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east, west and up. Paul gives you a look over, then resumes his searching.
+
+turn 126  down
+  run400   You move down. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east, west and up.
+  scarier  You move down. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east, west and up. Paul gives you a look over, then resumes his searching.
+
+turn 156  west
+  run400   You move west. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east, west and up.
+  scarier  You move west. Outside Simons-Law, Quad 2 You are standing just outside of the humble quad that you call home. A sidewalk passes in front of the door that goes in front of each of the quads. The 1st Quad is to the west, and the Arch is to the east. There is also a bench here for seminarians to sit on while talking to each other or meditating on the truths of the universe. Paul is here, grumbling to himself and looking somewhat perplexed. You can move east, west and up. Paul gives you a look over, then resumes his searching.
+
+turn 162  use Bibleworks -- the Runner appended [Press any key to end], which is the host's own keypress prompt (ALR-rewritten in some games), not game text.  The turn is identical either side of it.
+
+1 turn(s) differed only by the Runner's trailing keypress prompt.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

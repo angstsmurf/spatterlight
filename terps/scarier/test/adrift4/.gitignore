@@ -117,3 +117,31 @@
 # ss whore.taf (AIF): explicit text, deliberately not committed.
 /goldens/sswhore_solution.txt
 /goldens/sswhore_solution.expected.txt
+
+# Real-Runner transcripts and compare reports of the explicit games above
+# (runner_transcripts/<tag>.txt|.rtf and runner_transcripts/compare/<tag>.txt).
+# harness/runner_transcripts.py collect flags any that this list misses.
+/runner_transcripts/**/archie.*
+/runner_transcripts/**/diarystrip.*
+/runner_transcripts/**/windy2.*
+/runner_transcripts/**/croft.*
+/runner_transcripts/**/dr-who-vortex-lust.*
+/runner_transcripts/**/gamma.*
+/runner_transcripts/**/wingman1.*
+/runner_transcripts/**/templeofthesun.*
+/runner_transcripts/**/amy.*
+/runner_transcripts/**/bsg22.*
+/runner_transcripts/**/wilkins.*
+/runner_transcripts/**/worstgame.*
+/runner_transcripts/**/sexismental.*
+/runner_transcripts/**/warlock.*
+/runner_transcripts/**/deardiary.*
+/runner_transcripts/**/riding_home.*
+/runner_transcripts/**/deardiary2.*
+/runner_transcripts/**/barneysproblem.*
+/runner_transcripts/**/cldone.*
+/runner_transcripts/**/scandal.*
+/runner_transcripts/**/hcw.*
+/runner_transcripts/**/magicshow.*
+/runner_transcripts/**/goblin.*
+/runner_transcripts/**/sswhore.*

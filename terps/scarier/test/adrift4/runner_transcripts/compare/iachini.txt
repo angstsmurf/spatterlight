@@ -1,0 +1,12 @@
+feed        186 commands
+runner      186 turns echoed
+scarier     186 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 185  turn on tv
+  run400   I don't understand what you mean! You settle down in front of the TV. Wrapped in your freshly-washed afghan and snuggled into the comfy couch, you finally feel yourself relax. The list completed, you crumple it up and toss it into the fire, where it is quickly incinerated in a satisfying burst of flames. The selection of cable channels is good here, and you've earned the break. You sink into the couch and find a favorite show to watch as you doze off into a well-deserved nap. You scored 115 out of the maximum 115! That is 100% of the game! Well done - you scored maximum points! [Press any key to end]
+  scarier  You can't turn the 32-inch television on. You settle down in front of the TV. Wrapped in your freshly-washed afghan and snuggled into the comfy couch, you finally feel yourself relax. The list completed, you crumple it up and toss it into the fire, where it is quickly incinerated in a satisfying burst of flames. The selection of cable channels is good here, and you've earned the break. You sink into the couch and find a favorite show to watch as you doze off into a well-deserved nap. You scored 115 out of the maximum 115! That is 100% of the game! Well done - you scored maximum points!
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

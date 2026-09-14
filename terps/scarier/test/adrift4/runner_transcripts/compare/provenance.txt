@@ -1,0 +1,20 @@
+feed        890 commands
+runner      890 turns echoed
+scarier     892 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 722  get rope
+  run400   The sturdy rope is too heavy for you to carry at the moment.
+  scarier  You take the sturdy rope from the rugged rucksack.
+
+turn 724  get axe
+  run400   The splitting maul is too heavy for you to carry at the moment.
+  scarier  You take the splitting maul from the rugged rucksack.
+
+turn 889  blow the whistle -- the Runner appended [Press any key to end], which is the host's own keypress prompt (ALR-rewritten in some games), not game text.  The turn is identical either side of it.
+
+1 turn(s) differed only by the Runner's trailing keypress prompt.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

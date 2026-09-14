@@ -1,0 +1,56 @@
+
+> 
+I don't understand what you mean!
+
+> x table
+It's a tiny little table, made of marble which seems to rearrange the little lines before my very eyes.  A bottle of bubbles is on the little table.
+
+> x bottle
+It's a little bottle of bubble bath soap, kindly provided by heaven.
+
+> take bottle
+I take the bottle of bubbles from the little table.
+
+> n
+I move north.
+Cloud 9
+Cloud 9 is supposedly the nicest place that ever could exist, excluding the Garden of Eden, which is convieniently to the direct north. The cloud squishes under my feet, but never enough to allow me to go through. To the north is God's administrative building, where all the crap work goes on.
+
+> n
+I move north.
+Garden of Eden
+This place is just ENTIRELY too nice for me. The flowers are very fragrant, and the trees all grow into shapes that resemble modern art. In front of me is a great fountain, which only spits a bubble occasionally now. A gardener flits about the place on his wings, tending to the flower beds with an apple shaped watering can.
+
+> x fountain
+It's shooting into the air a jet of water that seems to change colors and arc and splash and all that nice stuff.
+
+> put bubbles in fountain
+I stealthily uncork the bubbles and dump them into the fountain. At once, the fountain sends up a jet of bubbles. The gardener drops his watering can and begins to tend the fountain. After a while, he has the bubbles under control, and goes back to the garden.
+
+> take can
+I take the apple-shaped watering can.
+
+> s
+I move south.
+Cloud 9
+Cloud 9 is supposedly the nicest place that ever could exist, excluding the Garden of Eden, which is convieniently to the direct north. The cloud squishes under my feet, but never enough to allow me to go through. To the north is God's administrative building, where all the crap work goes on.
+
+> water plant
+I sprinkle some water from the can onto the little potted plant. Suddenly, it springs to life, grows a great set of teeth, and chases away the angel at the door to God's building.
+
+> go entry
+I walk into God's administrative building...  
+In the Big Man's office!
+Well, I've gotten in to meet God. Now, what should I do? Can I convince him to send me to Hell? I sure hope so. All the clouds and marble buildings are getting to me. God himself sits before me at a desk.
+
+> x god
+I can't really tell, all that divine light is impairing my vision.
+
+> fuck
+"How DARE you?!" bellows God. He points a divine finger at me (the middle one) and a trap door opens beneath my feet. I plummet down into Hell. As I drop into a lake of lava, and feel my skin melting, I think, "Ah... that's more like it!"
+
+You scored 15 out of the maximum 15!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

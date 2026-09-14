@@ -1,0 +1,120 @@
+
+> 
+That is not an option or command.
+
+> 
+That is not an option or command.
+
+> e
+You move east.
+Inside Hartho's Golden Tavern
+This is a brightly lit tavern. People are jammed in here, and Harthro is managing all of their orders. The smell of meat, work, and pure human entertainment fill your nostrils. If you're hungry or thirsty, ask Harthro about the menu. Also here is the dirty dish rack.  Harthro is here.  Hartho's Golden Tavern is alive with laughter, joy, and an overall sense of loud peace.  You can only move west.
+
+> change a dollar into cents
+You ask the store owner for some change. The owner agrees. You hand the owner a dollar coin and they give you 100 cents. You have $499 and 100 cents.
+
+> buy a coffee
+You holler out for a coffee in the loud, rambunctious tavern. Harthro hears your call and slides you down a warm coffee. You put down the money you've been charged ($1.50). You have $498 and 50 cents.
+
+> take the mug of coffee
+You take the mug of coffee from the bar.
+
+> gulp the coffee
+You tip the cup back and take a medium-sized gulp of the coffee. There is 85 percent of the coffee left.
+
+> sip the coffee
+You take a small sip from the mug of coffee.
+
+> buy a steak
+You yell out to Harthro that you'd like to order his best steak for 8 dollars. He slides down your plate, a few minutes later, and you pay the money. You have $490 and 50 cents.
+
+> take a bite out of the steak
+You take a decent bite out of the steak. It tastes delicious. Another masterpiece from Harthro's grill.
+
+> w
+You move west.
+In a busy street
+This is a busy street. You see the crowd here buzzing buy, murmuring to itself and buying things. There's a street lamp on the side of the road, and a crowd fills the street.  Also here is a pile of rubbish.  Ormulus and Kiris are here.  The street is busy with people walking, purchasing, and talking.  You can move north, east, south and west.
+
+> w
+You move west.
+In Golapho's Armor
+You are in Golapho's Armor shop. There is a item sign here.  Golapho is here.  You can only move east.
+
+> buy a bronze helmet
+You ask Golapho for the bronze helmet. He puts his book down, and with a grumble, gives you the helmet. He takes $24 from you. You have $466 and 50 cents.
+
+> buy rawhide armor
+I don't think that is for sale.
+
+> wear the rawhide armor
+Wear what?
+
+> e
+You move east.
+In a busy street
+This is a busy street. You see the crowd here buzzing buy, murmuring to itself and buying things. There's a street lamp on the side of the road, and a crowd fills the street.  Also here is a pile of rubbish.  Ormulus and Kiris are here.  The street is busy with people walking, purchasing, and talking.  You can move north, east, south and west.
+
+> s
+You move south.
+At Poel's Plaza
+This is a small plaza of shops and stalls. It was named after the first Council Officer del Economica, Preu Poel. To the south is a metalsmith's shop, to the southeast is an inn, to the north is a crowded street, and to the west is a road.  You can move north, east, south, west and southeast.
+
+> s
+You move south.
+In Calado's Metal Works
+This is shop where you can buy metal items, such as swords, shields, and knives. Ask Calado about any of those categories and he will tell you what he has available for sale.  Calado is here.  You can only move north.
+
+> buy a hunting sword
+You give $80 to Calado and ask for the hunting sword. He grins and hands you the sword. "Happy huntin!" He says, assuming that's why you're buying the sword. You have $386 and 50 cents.
+
+> wield the hunting sword
+You wield the hunting sword.
+
+> n
+You move north.
+At Poel's Plaza
+This is a small plaza of shops and stalls. It was named after the first Council Officer del Economica, Preu Poel. To the south is a metalsmith's shop, to the southeast is an inn, to the north is a crowded street, and to the west is a road.  You can move north, east, south, west and southeast.
+
+> se
+You move southeast.
+In Gralle's Inn
+This is Gralle's Inn, the place for newcomers to stay. Gralle is the young heir to the inn, after her father, Tullin, was killed in the hunting campaigns. You may ask Gralle about staying here.  Gralle is here.  You can only move northwest.
+
+> rent a room
+You count out $50 and hand it to Gralle. She smiles and points to your room. You now have $336 and 50 cents.  You have 24 hours left at your room in Gralle's Inn.
+
+> in
+You move in.
+In a room at Gralle's Inn
+This is a small room, with a table, a chair, and a bed.  You currently have room rented at Gralle's Inn.  You can only move out.
+
+> lie on the bed
+You lie down on the bed.
+
+> nap on the bed
+You begin to take a short nap... You fall asleep... 
+
+
+You feel a little better, after taking the nap.
+
+> out
+(Getting off the bed first)
+You move out.
+In Gralle's Inn
+This is Gralle's Inn, the place for newcomers to stay. Gralle is the young heir to the inn, after her father, Tullin, was killed in the hunting campaigns. You may ask Gralle about staying here.  Gralle is here.  You currently have room rented at Gralle's Inn.  You can move in and northwest.
+
+> nw
+You move northwest.
+At Poel's Plaza
+This is a small plaza of shops and stalls. It was named after the first Council Officer del Economica, Preu Poel. To the south is a metalsmith's shop, to the southeast is an inn, to the north is a crowded street, and to the west is a road.  You currently have room rented at Gralle's Inn.  You can move north, east, south, west and southeast.
+
+> stats
+These are your stats:
+Wealth: $336, and 50 cents.
+Number of turns passed: 26
+
+For Stamina, Strength, and Defense values, type status.
+
+> wealth
+Money Status:                                                             You have $336.                                             You have ¢50.

@@ -1,0 +1,12 @@
+feed        67 commands
+runner      67 turns echoed
+scarier     69 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 62  put bones in robot
+  run400   You can't do that!
+  scarier  You're not holding the little bones to install them in the Invincible Robot.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,63 @@
+
+> show badge to the peephole
+With your trusty badge pushed against the peephole, you knock a couple of more times on the door. You can hear the sound of monster muttering as your identity is quickly deduced and the door slowly opens revealing a slightly peeved gargoyle on the other side.
+
+"What can I do for ya," the gargoyle mutters trying not to make eye contact with you. 
+
+"I'm here to see the Wolfman, I'd like to come in," you explain as you repocket your badge.
+
+The gargoyle's wings flick at you - a very rude gesture in Gargoylian culture - but he opens the door and lets you in. 
+
+> look
+Living Room
+The shag carpeted-floor of the Wolfman's living room thumps along with the bass bellowing out of a massive pair of speakers next to the plasma screen TV . Dozens of monsters fill the room and mingle with each other, cans of beers in their furry paws and bits of chewed up humans in their jagged teeth. Sitting on a sofa in the darkend corner of the room is your old friend Dracula sipping from a goblet full of blood and making idle chit chat with a headless goblin.  
+
+The makeshift dance floor in the center of the room is currently unoccupied. 
+
+A curtain of beads lead East into the kitchen.
+
+> take beads
+You slide off a handful of beads from the curtain and pocket them discretely. A ghoul who witnessed your theft raises his glass to you in a toast for making a stand against ugly beaded decorations. 
+
+> play 4
+Rush's Tom Sawyer - once voted the 4th greatest song ever made by a Canadian prog-rock group by Rolling Stone magazine - begins to play from the speakers and the world becomes a much better place. 
+
+> east
+You move east.
+Kitchen
+With Rush's Tom Sawyer billowing in from the living room, Frankenstein's monster has once again regained his composure as Geddy Lee's sweet vocals bring him back to reality.
+
+You can go back West to the living room. 
+
+> ask frankenstein about wolfman
+"Hey Frankie, now that the mighty vocals of Geddy Lee have calmed you down, do you think you could get Wolfman out into the open?"
+
+"Absolutely," he replies now calm and collected. "I must apologize for my behvaiour before; I caught a glimpse of some embers in someone's snuff pipe and I got a bit rowdy as I'm wont to do."
+
+Frankenstein's monster waddles off further into the apartment while you stay in the kitchen and eat some of the Wolfman's homemade peanut brittle. 
+
+After a few minutes, Frankenstein's monster returns. "Alright, I convinced the Wolfman to come out and bust some moves upon the dance floor. Good luck in your quest to serve him, my friend."
+
+> west
+You move west.
+Living Room
+The shag carpeted-floor of the Wolfman's living room thumps along with the bass bellowing out of a massive pair of speakers next to the plasma screen TV . Dozens of monsters fill the room and mingle with each other, cans of beers in their furry paws and bits of chewed up humans in their jagged teeth. Sitting on a sofa in the darkend corner of the room is your old friend Dracula sipping from a goblet full of blood and making idle chit chat with a headless goblin.  
+
+The Wolfman has finally made an appearance at his own party and is currently dancing up a hairy storm on the dance floor. 
+
+A curtain of beads lead East into the kitchen.
+
+> put beads on dance floor
+
+
+You shake the beads in your fist like a pair of lucky dice and roll them across the dance floor and watch as they slide under the Wolfman's hairy paws and send him flying up in the air. The entire party goes silent and watches in shock as he lands with a thud on the floor and howls out in pain. 
+
+With Rush’s Tom Sawyer soundtracking the glorious moment, you slap the subpoena in the barely conscious Wolfman’s paw and tell him that he has to be in court because he refused to put on a pair of pants when he went to a dinner theater production of Hamlet last month. He growls in acknowledgement and then shuffles over to get a cup of punch and contemplate the night’s events. 
+
+Your work is done so you tip your non-existent hat to the rest of the monsters at the party and then leave without saying another word. 
+
+The night is young...there are still many monsters out there waiting to be summoned to court to face punishment for their minor crimes. With subpoenas in hand, you will leap from rooftop to rooftop throught  the moonlit night, ready to strike a mighty fist right through the heart of injustice. Monsters, you have been warned - your day in court is coming and you will be legally obligated to come.
+
+But not tonight. You’re tired and you’re going to sleep.
+
+[Press any key to end]

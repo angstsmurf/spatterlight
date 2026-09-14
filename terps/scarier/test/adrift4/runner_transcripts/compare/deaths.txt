@@ -1,0 +1,36 @@
+feed        52 commands
+runner      52 turns echoed
+scarier     54 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 35  east
+  run400   You move east. Hall1 west this is the hallway leading to the bedrooms of apartment 1 Debbie is here. You can only move west.
+  scarier  You move east. Hall1 west this is the hallway leading to the bedrooms of apartment 1 Debbie is here. You can only move west. Debbie hits you with frying pan, but it doesn't seem to do any damage.
+
+turn 36  kill debbie
+  run400   as debbie dies she disapppears and the pan falls to the floor
+  scarier  as debbie dies she disapppears and the pan falls to the floor Debbie hits you, but it doesn't seem to do any damage.
+
+turn 42  kill ross
+  run400   ross dissapears and you don't know where he went Joshua walks in . A tall well built man hits you, but it doesn't seem to do any damage.
+  scarier  ross dissapears and you don't know where he went Joshua walks in . Joshua stabs a tall well built man with sword of hope.
+
+turn 44  west
+  run400   You move west. Hall1 west this is the hallway leading to the bedrooms of apartment 1 Also here is frying pan. Debbie is here. You can move east and west. Joshua walks in from the east.
+  scarier  You move west. Hall1 west this is the hallway leading to the bedrooms of apartment 1 Also here is frying pan. Debbie is here. You can move east and west. Joshua walks in from the east. Debbie hits you, but it doesn't seem to do any damage.
+
+turn 48  up
+  run400   You move up. Third floor this is the top floor of the building of death. There are two doors on each side of the hallway. Demon is here. You can move east, west and down. Joshua walks in from below. A small demon hits you, but it doesn't seem to do any damage.
+  scarier  You move up. Third floor this is the top floor of the building of death. There are two doors on each side of the hallway. Demon is here. You can move east, west and down. Joshua walks in from below. Joshua stabs a small demon with sword of hope. the demon disappears in a flash of light
+
+turn 49  kill witch
+  run400   the witch disappears with a laugh A small demon hits you, but it doesn't seem to do any damage.
+  scarier  the witch disappears with a laugh
+
+turn 51  kill force -- the Runner appended [Press any key to end], which is the host's own keypress prompt (ALR-rewritten in some games), not game text.  The turn is identical either side of it.
+
+1 turn(s) differed only by the Runner's trailing keypress prompt.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

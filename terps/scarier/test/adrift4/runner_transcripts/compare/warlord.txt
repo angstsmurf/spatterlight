@@ -1,0 +1,88 @@
+feed        397 commands
+runner      290 turns echoed
+scarier     397 turns, feed[0] is scarier turn 0
+
+RULE 2 -- 66 command(s) the Runner never echoed.  Everything
+after the first of them is out of step and is NOT an engine
+difference until the feed is fixed and the row re-driven:
+    feed[318]  give necklace to leonora
+    feed[319]  n
+    feed[320]  push chest
+    feed[321]  d
+    feed[322]  get silver coin
+    feed[323]  s
+    feed[324]  s
+    feed[327]  s
+    feed[328]  x aperture
+    feed[329]  x words
+    feed[330]  x rows
+    feed[331]  x seats
+    feed[332]  750
+    feed[333]  x podium
+    feed[334]  stand on platform
+    feed[335]  lean on handrests
+    feed[336]  e
+    feed[337]  x artefacts
+    feed[338]  x devil's skull
+    feed[339]  put crucifix in slot
+    ... and 46 more
+
+turn 80  nw -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   Kitchen Many, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west. [MORE] As you step into the kitchen, senses alert for trouble, the sound of a door opening and closing somewhere to the west can be heard. At the same time, you hear a voice that you thought never to hear again: "Bulldog - that you, ol' buddy?" If that isn't your imagination playing tricks with you (unlikely as you don't have an imagination), that's the voice of none other than Tiberius 'The Tiger' Tugmore, your arch rival from your days at the SAS Training Academy. And a man you thought was long dead. But then into the room steps none other than The Tiger. He looks... not good. [MORE] The years clearly haven't been kind to him: he's lost one arm and had it replaced with a metallic one; the left side of his face is a scarred ruin; and he doesn't speak he booms. Probably due to the weird metal contraption he's got bolted to his throat. "Damnit, Bulldog," he says, "but you're still every bit as ugly as you were back when I first laid eyes on you." You grunt. You don't need to use a lot of insulting words; enough is carried in that one grunt to get your message across. Something flashes in The Tiger's one good eye. "That's a low one for sure, Bulldog. Damn, if I wasn't already planning to kill you anyway, I'd do it just for that." [MORE] You grunt a question. "Damn straight, ol' buddy. The Baron put out a message that he was looking for some muscle to help him organise a terrorist plot and there I was, recuperatin' in some crappy little hospital while they tried to sew my body back together after that little accident I had, and I thought 'hey, what a swell idea'. So here I am." He taps his metallic arm. "And I got a few toys besides." He taps the arm again. A bright flame starts to burn on the metal tip, where his hand should be. "Oh man, I'm gonna enjoy this!"
+  scarier  Kitchen M any, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west. [MORE] As you step into the kitchen, senses alert for trouble, the sound of a door opening and closing somewhere to the west can be heard. At the same time, you hear a voice that you thought never to hear again: "Bulldog - that you, ol' buddy?" If that isn't your imagination playing tricks with you (unlikely as you don't have an imagination), that's the voice of none other than Tiberius 'The Tiger' Tugmore, your arch rival from your days at the SAS Training Academy. And a man you thought was long dead. But then into the room steps none other than The Tiger. He looks... not good. [MORE] The years clearly haven't been kind to him: he's lost one arm and had it replaced with a metallic one; the left side of his face is a scarred ruin; and he doesn't speak he booms. Probably due to the weird metal contraption he's got bolted to his throat. "Damnit, Bulldog," he says, "but you're still every bit as ugly as you were back when I first laid eyes on you." You grunt. You don't need to use a lot of insulting words; enough is carried in that one grunt to get your message across. Something flashes in The Tiger's one good eye. "That's a low one for sure, Bulldog. Damn, if I wasn't already planning to kill you anyway, I'd do it just for that." [MORE] You grunt a question. "Damn straight, ol' buddy. The Baron put out a message that he was looking for some muscle to help him organise a terrorist plot and there I was, recuperatin' in some crappy little hospital while they tried to sew my body back together after that little accident I had, and I thought 'hey, what a swell idea'. So here I am." He taps his metallic arm. "And I got a few toys besides." He taps the arm again. A bright flame starts to burn on the metal tip, where his hand should be. "Oh man, I'm gonna enjoy this!"
+
+turn 97  e -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   Kitchen Many, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west.
+  scarier  Kitchen M any, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west.
+
+turn 137  sw -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   Kitchen Many, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west.
+  scarier  Kitchen M any, many years ago, before you were even known as The Puppy, this would have been the kitchen where meals for the occupants of the fortress were prepared. The great iron stove in the corner - a monstrosity large enough to fit both Hansel and Gretel in at the same time and still have room left over for an evil witch or two - still seems to emit heat, indicating that the kitchen is perhaps not as deserted as it appears. Rotten food has been scattered across the floor and dozens of rats fight for it. A large pile by the west wall emits the most pungent stench and has the largest rats fighting for it. Passages lead out of the kitchen to the southeast, northeast and west.
+
+turn 288  push barrel
+  run400   You shove at the barrel. Irrespective of where you were trying to shove it, it rolls along to the west. A moment later there is a scream, a thunderous explosion B O O O O O O O O O M and then deadly silence.
+  scarier  You shove at the barrel. Irrespective of where you were trying to shove it, it rolls along to the northwest.
+
+turn 293  w
+  run400   Guard Post This short corridor, leading from the hall to the east to a chamber in the west, is currently a little on the empty side. The two guards who were stationed here are now corpses (still technically stationed here but not much of a threat any more)..
+  scarier  Guard Post This short corridor, leading from the hall to the east to a chamber in the west, currently has a couple of guards stationed at it, each of them armed with machine guns. Because of the way the corridor curves around slightly, they haven't yet seen you but any move further west will undoubtedly change that..
+
+turn 294  w
+  run400   Armoury Considering that this is the fortress' armoury, you might have expected it to contain a few more arms. Or any arms. But instead you find yourself in a small, somewhat drab room which has no weapons at all. In fact, all it does have are a collection of hats on one wall and a long box lying on a table. The box is closed but a faint light can be seen shining from within. A passage leads away to the east.
+  scarier  The guards are to the west. There's no way you can sneak past them without being seen.
+
+turn 295  get hat
+  run400   You pick a hat out at random: a stylish bowler hat, wide enough to fit your overly capacious head, and with a brim hard enough to deflect a blow or two.
+  scarier  Take what?
+
+turn 296  wear hat
+  run400   You put on the stylish black bowler hat.
+  scarier  Wear what?
+
+turn 297  open box
+  run400   You open the box - and grimace at the bright light that shines from within. There is a bar of gold inside, shining so brightly it's like having a miniature sun in here with you.
+  scarier  You can't open that.
+
+turn 298  get gold
+  run400   You take the gold bar out of the box. It weighs several times what you expected it to and is also strangely warm to the touch.
+  scarier  Take what?
+
+turn 299  e
+  run400   Guard Post This short corridor, leading from the hall to the east to a chamber in the west, is currently a little on the empty side. The two guards who were stationed here are now corpses (still technically stationed here but not much of a threat any more)..
+  scarier  Large Hall When the fortress was a Dark Ages castle, this would doubtless have been the main hall: a massive place about half the size of a football stadium; the main area of the floor is given over to row upon row of tables and benches where the soldiers at the time would have seated themselves. An unlit fire rests in an overly large fireplace to one side of the hall, while to the other, at the top of a raised platform, is a chair large enough to seat a giant. Passages leads away to the west, northwest and east while there is an archway to the south. The sound of voices emanate from the northwestern passage.
+
+turn 300  e -- streams re-synchronised, scarier turn -1
+
+turn 301  nw
+  run400   Communications CentreThe communications centre mainly comprises of a single, large screen monitor, a stereo system built into the wall and a keyboard. A couple of large blocks of dark plastic no doubt house the hardware for the centre, but they seem to have no visible means of opening them and their use isn't obvious to you. A passage leads away southeast to the large hall. You step into the communications centre, and a guard current crouching over the keyboard looks up in surprise. [MORE] His eyes go to the hat you're wearing and they go wide. "B-Baron Grishtak!" he gasps. "I didn't I well, that is " Unbelievable. Just because you're wearing a hat favoured by the Baron, this fool has mistaken you for the Baron. "Are you here to check the system?" asks the guard nervously. "Here. Let me just stick the code in for you " His hands fly over the keyboard before him. "There. Do you want me to stick around and-" You make a dismissive gesture. The guard breathes a sigh of relief and hurries from the room.
+  scarier  Portrait Gallery The walls of this large chamber are lined with portraits and photos of many, many different scenes, all of which have one thing in common: Baron Grishtak. Either the man has been pictured more times than any other master criminal in the world, or he's got a team of painters and photographers hidden away somewhere who do nothing all day but immortalise him in this way. Aside from the endless array of photos, the room is fairly empty, the only other thing you can see being a marble sculpture (again of the Baron) mounted on a pedestal in the middle of the room. A passage leads west, there is a locked door to the north and an archway to the east.
+
+turn 303  x keyboard
+  run400   A standard QWERTY keyboard, the like of which you have seen many times over the years but have got little use of (your fingers are a bit too large for a normal keyboard and you tend to type hard enough to break plastic). It also has a couple of extra keys that aren't part of the standard set: a big green key and a narrow red one.
+  scarier  Unfortunately you can't do that. Type COMMANDS for a list of commands you can use in this adventure.
+
+... stopping after 10 differing turns
+3 turn(s) differed by whitespace only -- see the note above.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

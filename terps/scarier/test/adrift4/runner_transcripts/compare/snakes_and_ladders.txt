@@ -1,0 +1,35 @@
+feed        43 commands
+runner      19 turns echoed
+scarier     19 turns, feed[0] is scarier turn 0
+
+RULE 2 -- 24 command(s) the Runner never echoed.  Everything
+after the first of them is out of step and is NOT an engine
+difference until the feed is fixed and the row re-driven:
+    feed[19]  r
+    feed[20]  r
+    feed[21]  r
+    feed[22]  r
+    feed[23]  r
+    feed[24]  r
+    feed[25]  r
+    feed[26]  r
+    feed[27]  r
+    feed[28]  r
+    feed[29]  r
+    feed[30]  r
+    feed[31]  r
+    feed[32]  r
+    feed[33]  r
+    feed[34]  r
+    feed[35]  r
+    feed[36]  r
+    feed[37]  r
+    feed[38]  r
+    ... and 4 more
+
+turn 18  r -- the Runner appended [Press any key to end], which is the host's own keypress prompt (ALR-rewritten in some games), not game text.  The turn is identical either side of it.
+
+1 turn(s) differed only by the Runner's trailing keypress prompt.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

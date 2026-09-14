@@ -1,0 +1,12 @@
+feed        21 commands
+runner      21 turns echoed
+scarier     21 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 20  open door
+  run400   I opened the door and stepped inside the darkness...I glanced up as they entered the doorway, stepping onto the cold kitchen floor where the body of Stevens lay in the corner. "Jesus. What the hell happened here?" one of the soldiers muttered, poking the body of Stevens with his rifle. I stared down at the floor, down at the hatch on the ground, down below where it lay... "Roberts, check the basement. There could be more bodies down there," a voice shouted from somewhere else in the house. I watched as Roberts bent down to open the hatch. He tried pulling it up, but something was holding it down. He noticed my foot holding it shut. He looked up at me, sweat dripping down his forehead. I sat still. "You don't want to go down there." You scored 0 out of the maximum 0! That is 100% of the game! Well done - you scored maximum points! [Press any key to end]
+  scarier  I opened the door and stepped inside the darkness... I glanced up as they entered the doorway, stepping onto the cold kitchen floor where the body of Stevens lay in the corner. "Jesus. What the hell happened here?" one of the soldiers muttered, poking the body of Stevens with his rifle. I stared down at the floor, down at the hatch on the ground, down below where it lay... "Roberts, check the basement. There could be more bodies down there," a voice shouted from somewhere else in the house. I watched as Roberts bent down to open the hatch. He tried pulling it up, but something was holding it down. He noticed my foot holding it shut. He looked up at me, sweat dripping down his forehead. I sat still. "You don't want to go down there." You scored 0 out of the maximum 0! That is 100% of the game! Well done - you scored maximum points!
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

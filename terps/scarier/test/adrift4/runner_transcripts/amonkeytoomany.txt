@@ -1,0 +1,48 @@
+
+> look
+Dark place
+Around you is a blackness you've never known before, completely covering every part of the area.
+
+> i
+You are carrying nothing.
+
+> n
+You decide to try to find your way out of this darkness and you move in some direction. You can't really be sure what direction you're moving in as you've got no visual guidelines, but you move none the less. Suddenly you are hit in the head with a hard object and you fall to the ground. The last things you hear before going unconcious are : Oooh ooh ahh ahh! Oooh ah! Oooh ah eeeh ah!!
+
+> talk to monkey
+"Hey, monkey!"
+Monkey: "Oooh, ah!! Oooh, ah!!"
+"Let me out, I'm hungry!"
+Monkey: "Oooh, ah, eeeh eh!! Eeeh eh!" The monkey's hostile attitude towards you is frightening, so you decide not to talk to him.
+
+> talk to monkey
+But you had decided not to talk to it. Don't go back on your word now!
+
+> talk to monkey
+Ah, who cares if the monkey gets angry!
+
+"Hey, pee-brain, let me out of here! I want out, you hear me!!!"
+Monkey: "Oooooooh aaahhh," the monkey screams at you while getting up from the chair, then walks over to you. "Eeeeehh aahhh!!!" it then yells in your face, leaving a few unwelcome drops of mouthwater on your face. It then returns to its desk and continues reading the newspaper.
+
+> talk to monkey
+After your last conversation with the monkey you decide for life that you will never talk to another monkey ever again!
+
+> i
+You are carrying a magnet.
+
+> use magnet on pistol
+Using your stupifyingly strong magnet you manage to attrack the pistol into the cell. The monkey is paying too much attention to the newspaper to notice.
+
+> use magnet on key
+Using your stupifyingly strong magnet you manage to attract the key from the desk. Luckily the monkey is too absorbed by the newspaper to notice.
+
+> shoot monkey
+You point the gun at the monkey's head, then for some reason say: "Dodge this!" You pull the trigger and watch as the monkey's head explodes in a shower of blood, skull fractures and brain jelly.
+
+> unlock door with key
+Hooray! You've made it through the game!  
+You scored 25 out of the maximum 25!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

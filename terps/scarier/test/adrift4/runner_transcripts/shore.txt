@@ -1,0 +1,121 @@
+
+> listen
+   The cymballine crash of the sea played by the percussionist wind mixes disturbingly with whispers of unknown origin.
+
+> smell
+   The metallic tang of the sea fused with the stench of salt and dying greenery tease you.
+
+> e
+   Although your mind is numbed of sense, you decide against stepping out of the dinghy and into the sea.
+
+> z
+Time passes...
+
+
+   Unexpected by even yourself after days of drifting, the dinghy lands roughly upon a reef of stones - land leads east into the unknown.
+
+> z
+Time passes...
+
+> e
+You move east.
+On a grey beach
+   A lone tree weeps at the edge of the beach, its roots firmly planted in the grey sand. The wind toys with its fronds, a vicious unseen harpy, as the sea washes upon the sand, the sting of icy spray hanging in the air.
+
+   A hill leads up into the fog and your dinghy sits on the rocks to the west.
+
+> x tree
+   The tree hangs its fronds in shame, its black trunk holding it steadily to the ground against the torment of the wind.
+
+> u
+You move up.
+Atop a hill
+   With its summit firmly lost in the mesh of grey cloud and dirty fog, the hill offers only a distressed signpost pointing south and west.
+
+   Paths, or ragged lines of stones, lead off in said directions; another path leads down to the beach.
+
+> x signpost
+   A wooden signpost firmly planted in the empty ground, rotten and plagued by a dark moss.
+
+> w
+You move west.
+By a ruined cabin
+   Built from rough stones and rotten driftwood, a small cabin takes a beating from the wind. A ragged curtain, tugged by an unseen force, slaps itself aganst the shack's stone face then floats effortlessly before cracking itself against the cabin again.
+
+   A barely discernible path leads east into the fog.
+
+> x cabin
+   A gruesome blend of harsh stone blocks stacked within a frame of gnarled driftwood, the cabin is a small outpost, the home of unseen entities.
+
+> in
+You move in.
+Inside the cabin
+   Empty but for a small table, the cabin appears long forgotten - rotten beams struggle to hold it together and a basket of withered wicker cowers in the corner.
+
+   A doorway leads out to the filthy unknown.
+
+> x table
+   A block of rough stone - crudely chiselled - topped with a collection of wooden sticks, moss covered and rotten.
+
+> take basket
+   You are wearied by starvation and the onslaught of the elements - you couldn't hope to lift the basket.
+
+> take turnip
+   You try to take one of the turnips but it is so rotten that it almost fades in your hand, the soggy flesh crumbling into the basket.
+
+> take leek
+Take what?
+
+> eat leek
+   You nibble the root of the leek, its foul taste matching its foul stench.
+
+> out
+You move out.
+By a ruined cabin
+   Built from rough stones and rotten driftwood, a small cabin takes a beating from the wind. A ragged curtain, tugged by an unseen force, slaps itself aganst the shack's stone face then floats effortlessly before cracking itself against the cabin again.
+
+   A barely discernible path leads east into the fog.
+
+> e
+You move east.
+Atop a hill
+   With its summit firmly lost in the mesh of grey cloud and dirty fog, the hill offers only a distressed signpost pointing south and west.
+
+   Paths, or ragged lines of stones, lead off in said directions; another path leads down to the beach.
+
+> s
+You move south.
+A barren field
+   Guarded by fenceposts without any beams, you can only guess as to how vast the field is - the fog blocks your vision beyond the first few metres. Grass, a dirty grey variety, grows in ragged patches around the field.
+
+   A barely discernible path leads north into the fog.  
+   Tugging at the barren ground, a cow wanders aimlessly through the gloom.
+
+> give leek to cow
+   You don't have a leek to give the cow.
+
+> n
+You move north.
+Atop a hill
+   With its summit firmly lost in the mesh of grey cloud and dirty fog, the hill offers only a distressed signpost pointing south and west.
+
+   Paths, or ragged lines of stones, lead off in said directions; another path leads down to the beach.
+
+> d
+You move down.
+On a grey beach
+   A lone tree weeps at the edge of the beach, its roots firmly planted in the grey sand. The wind toys with its fronds, a vicious unseen harpy, as the sea washes upon the sand, the sting of icy spray hanging in the air.
+
+   A hill leads up into the fog and your dinghy sits on the rocks to the west.
+
+> s
+
+
+   Hungry, confused, desperate, you stagger out towards the light. Could it be a boat? Are they looking for you? Questions, questions, questions - all of them racing through your mind.
+   And into the water, slipping on the rocks as you go, your eyes locked upon the light, your mind fixed upon dreams of rescue. You don't feel the icy chill soak through your clothes, feel the sting of the wind fighting your advance.
+   And under the water you go as you head out beyond the shallow depths, the light shimmering somewhere above the surface - still, however, distant. It feels nice, now. The wind doesn't reach you here; the sea can't snap out at you with its watery talons.
+   You close your eyes and the light, like yours, is gone.
+
+   Somewhere, adrift on the farthest shore, a dinghy arrives on the rocks of an island shrouded in a steel fog.
+
+[Press any key to end]

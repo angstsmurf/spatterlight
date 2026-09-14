@@ -1,0 +1,52 @@
+
+> x hija
+Mi hija Maria. Es lo ùnico que tengo desde que su madre fallecio durante el parto. Es casi tan hermosa como ella... pequeña y menuda como una muñeca de porcelana. Viste su camison preferido, una tela de nivea blancura que contrasta con la negrura de su cabello.                                                                                                                                                                                                Esta acostada de lado mirandome como solo un niño puede hacer. Su cara esta palida y brillante por la fiebre y tiene los labios cuarteados de tanto morderselos para no gritar de dolor.                                                                                                                                          La criada a rasgado el camison por la espalda, para que la flores puedan crecer libremente.                                                                                                        Si solo pudiese mitigar un poco su dolor, si consiguiese que al menos durmiese un poco, que lo olvidase todo por un instante...
+
+> x rosas
+Contemplo la espalda de me hija ¿Dios es esta la forma que tienes de ponerme a prueba? Cinco Rosas surgen de la espalda de Maria, grandes y bellas, rojas como el mas oscuro de los vinos, rojas como la sangre de la que se alimentan.
+
+> hablar hija
+Sus labios marchitos intentan ofrecerme una sonrisa ante mis palabras, pero pronto se transforman en una mueca de dolor.                                                                                                                  Con suma delicadeza poso un dedo sobre sus labios.                                                                                                                                                      "Shhh. No te esfuerces, tranquila pronto podras dormir."                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Un gemido de dolor se escapa de la boca de mi hija. Tranquila mi niña... tranquila, pronto dormiras y tu dolor se acabarà.
+
+> x mesita
+Es una mesita de noche de madera de baoba primorosamente adornada. Tiene un pequeño cajon. 
+
+> x cajon
+The cajon is closed.
+
+> abrir cajon
+Extendiendo mi mano abrì el cajon.  Encontrè un Fenix de laton dentro del cajon.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Un gemido de dolor se escapa de la boca de mi hija. Tranquila mi niña... tranquila, pronto dormiras y tu dolor se acabarà.
+
+> coger fenix
+You take the Fenix de laton de el cajon.
+
+> x fenix
+Es un juguete de laton, uno de los quinientos que fabriquè para el rey. Todo comenzo con un capricho de reina consorte, esta habia enfermado y el rey para complacerla mando construir un hermoso jardin donde gracias a las artes magicas de los Magus de la corte siempre era primavera. Se me encargo la creacion de toda una fauna mecanica para que lo habitase, pajaros cantores invuidos con la esencia de las mejores voces del reino, pequeños topos que asomaban sus cabecitas fisgonas cada cierto tiempo, delicadas mariposas de papel y metal reboloteaban continuamente sin mostrar nunca muestras de fatiga alguna...                                                                                                                                           Este fenix fue una de mis mejores obras, es capaz de cantar las mas bellas canciones populares a la vez que baila en la mano de aquel quien le diese cuerda. Decidí guardarlo, este Fenix no era para los ojos de la reina sino para mi hija. Recuerdo todas esas noches en que se dormia mirando los intrincados bailes del pajaro.                                                                                                                                                                                    Es un extraño ser inspirado en la leyenda griega, de abigarrado plumaje rojo como el fuego,  altanera cabeza  y encrestada cola. De su panza sobresale una pequeña cuerda, si tirase de ella lo pondria en funcionamiento.
+
+> tirar cuerda
+Con un suspiro la cuerda se rasga y queda prendida entre mis dedos...
+
+> x trozo
+Un trozo desilachado de la cuerda que permite hacer funcionar al Fenix de latòn.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Un gemido de dolor se escapa de la boca de mi hija. Tranquila mi niña... tranquila, pronto dormiras y tu dolor se acabarà.
+
+> arreglar fenix
+Disculpa pero no te entiendo.
+Con sumo cuidado ato los dos extremos de la cuerda y tiro suavemente.
+
+Del interior del juguete surge el cadencioso ronroneo de la maquinaria dormida que vuelve a la vida. Me arrodillo al lado de mi hija y acomodando al Fénix en la palma de mi mano se lo hacerco al rostro...
+
+Con un crujido el pájaro de metal extiende sus livianas alas y las agita suavemente, como si despertase de un largo sueño. Con fino pico de marfil se arregla las plumas coquetamente y luego nos  mira curioso con sus ojos de cristal pintado, como si intentase reconocer a alguno de los presentes.
+
+Finalmente se pone de pie y alzando su encrespada cabeza comienza a cantar...
+
+Su voz, su voz... hace años que no la oía. Rica en tonos y cantarina como un riachuelo, dulce y luminosa el rayo de  luz entrevisto entre las copas de los arboles al atardecer. Es tan parecida a la de ella... no lo había notado hasta ahora.
+
+Cierro los ojos y lloro.
+
+No se cuento tiempo llevo así pero cuando finalmente abro los ojos, el Fénix ha dejado de cantar y yace muerto entre mis manos.
+
+Mi hija... mi hija sonríe con lo ojos cerrados, al fin a conseguido la paz.
+
+Lentamente y sin ruido las flores de su espalda se marchitan y mueren transformándose en negras cenizas...
+
+[Press any key to end]

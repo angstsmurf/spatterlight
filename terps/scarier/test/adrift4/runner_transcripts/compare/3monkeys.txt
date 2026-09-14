@@ -1,0 +1,53 @@
+feed        112 commands
+runner      112 turns echoed
+scarier     114 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 40  get husk
+  run400   Huh?
+  scarier  You take the coconut husk. The chimpanzee gropes you with his curious hands in a manner a little too friendly, I'd say.
+
+turn 41  z
+  run400   Time passes... The chimpanzee gropes you with his curious hands in a manner a little too friendly, I'd say.
+  scarier  Time passes...
+
+turn 43  z -- streams re-synchronised, scarier turn +1
+
+turn 44  z
+  run400   Time passes... The fire is burning brightly.
+  scarier  Time passes... The mandrill's feelings towards you haven't changed, but he is avoiding the fire.
+
+turn 46  z
+  run400   Time passes... The mandrill's feelings towards you haven't changed, but he is avoiding the fire. The chimpanzee climbs up the coconut tree like a chimp that hasn't had a coconut fix in weeks.
+  scarier  Time passes... The mandrill's feelings towards you haven't changed, but he is avoiding the fire.
+
+turn 47  z -- streams re-synchronised, scarier turn -1
+
+turn 51  s
+  run400   You scurry over to the south. Southeast Corner You occupy the interior of a large cubical enclosure with transparent walls, a high ceiling, and a dirt floor. A slab of metal that functions as a gate is positioned midway up the east wall. Protruding outward perpendicular from a point high up on the south wall is a long cylindrical bar, with a nylon cord slung over the top, tied to a small hook, from which hangs a bucket. You see to the west your bed, to the northwest a platform, and to the north a coconut tree. The chimpanzee is north in the tree. Also to the west is the fire that you started. The mandrill is here. The mandrill looms dangerously near, if you'll allow me to use the word "looms". What I mean is that the brute stirs nearby, spreading his arms, lowering his head, and I don't think he means for you to pet him.
+  scarier  You scurry over to the south. Southeast Corner You occupy the interior of a large cubical enclosure with transparent walls, a high ceiling, and a dirt floor. A slab of metal that functions as a gate is positioned midway up the east wall. Protruding outward perpendicular from a point high up on the south wall is a long cylindrical bar, with a nylon cord slung over the top, tied to a small hook, from which hangs a bucket. You see to the west your bed, to the northwest a platform, and to the north a coconut tree. The chimpanzee is north in the tree. Also to the west is the fire that you started. The mandrill is here. The mandrill looms dangerously near, if you'll allow me to use the word "looms". What I mean is that the brute stirs nearby, spreading his arms, lowering his head, and I don't think he means for you to pet him. The fire is still going strong.
+
+turn 52  push up gate
+  run400   You put your fingers under the gate in the precious space created by the whole pulley-affair, and heave upwards. The gate slides up, enough for you to climb in there and crawl on out through it! Freedom beckons like the prison door creaking open on parole day. But before you can take the "final plunge" in two senses of the word, you are forced to halt. My what a handsome drop! A transferal of self from the opening of this cage to the ground below would, if taken in the hasty manner that first comes to mind, most probably result in the fracturing of most of your bones, including quite possibly some vital ones. Desperate souls have been known to leap from burning skyscrapers at heights greater than this and survive with barely a bruise, but your chances here look...yes, "brittle" is the right word. The mandrill's feelings towards you haven't changed, but he is avoiding the fire. The fire is still going strong.
+  scarier  You put your fingers under the gate in the precious space created by the whole pulley-affair, and heave upwards. The gate slides up, enough for you to climb in there and crawl on out through it! Freedom beckons like the prison door creaking open on parole day. But before you can take the "final plunge" in two senses of the word, you are forced to halt. My what a handsome drop! A transferal of self from the opening of this cage to the ground below would, if taken in the hasty manner that first comes to mind, most probably result in the fracturing of most of your bones, including quite possibly some vital ones. Desperate souls have been known to leap from burning skyscrapers at heights greater than this and survive with barely a bruise, but your chances here look...yes, "brittle" is the right word.
+
+turn 54  put husk in fire
+  run400   (Taking the coconut husk first) (first stepping over to the northeast) Northeast Corner You occupy the interior of a large cubical enclosure with transparent walls, a high ceiling, and a dirt floor. A coconut tree is standing, perhaps even growing, in this corner of the cage. A short distance from the tree is a trough suspended in the air, stretching southward. You see to the south a gate set in the wall, to the southwest your bed, and to the west a high platform in the tree. The mandrill is south. Also to the southwest is the fire that you started. Smoke blown in from the southwest makes it slightly uncomfortable to breathe in this corner of the cage. Lying on the ground here is a coconut husk. The chimpanzee is up in the coconut tree. You pick up the coconut husk. (first stepping here, closer to the fire) Southwest Corner You occupy the interior of a large cubical enclosure with transparent walls, a high ceiling, and a dirt floor. There is a round fan mounted at the nearby corner blowing wind northeast. Your bed is here. You see to the north a high platform, to the northeast some sort of tree, and to the east a gate set in the wall. The chimpanzee is northeast in the tree. The mandrill is east. The fire you started is burning here, smoke being blown towards the northeast. You chuck the coconut husk into the fire. The fire receives it graciously.
+  scarier  You chuck the coconut husk into the fire. The fire receives it graciously. The mandrill's feelings towards you haven't changed, but he is avoiding the fire.
+
+turn 55  lift husk with fork
+  run400   You get the coconut husk onto the barbecue fork. You now have something resembling a torch. The mandrill's feelings towards you haven't changed, but he is avoiding the fire. The chimpanzee shoots a frowning gaze at the mandrill. He seems to be shaking his head like a disapproving parent.
+  scarier  You get the coconut husk onto the barbecue fork. You now have something resembling a torch.
+
+turn 56  turn fan east
+  run400   You turn the fan so it is facing east. The smoke follows suit. The mandrill escapes from the smoke over to your north (from your east). After first checking that the coast is clear, the chimpanzee climbs down from the tree.
+  scarier  You turn the fan so it is facing east. The smoke follows suit. The mandrill escapes from the smoke over to your northeast (from your east).
+
+turn 57  e
+  run400   You scurry over to the east. Southeast Corner You occupy the interior of a large cubical enclosure with transparent walls, a high ceiling, and a dirt floor. A slab of metal that functions as a gate is positioned midway up the east wall. Protruding outward perpendicular from a point high up on the south wall is a long cylindrical bar, with a nylon cord slung over the top, tied to a small hook, from which hangs a bucket. You see to the west your bed, to the northwest a platform, and to the north a coconut tree. The chimpanzee is north in the tree. The mandrill is northwest. Also to the west is the fire that you started. Smoke blown in from the west makes it slightly uncomfortable to breathe in this corner of the cage. The mandrill steps gingerly over the banana peel. You think it highly out of character for the brute. Hands to his belly, the chimpanzee bursts out laughing.
+  scarier  You scurry over to the east. Southeast Corner You occupy the interior of a large cubical enclosure with transparent walls, a high ceiling, and a dirt floor. A slab of metal that functions as a gate is positioned midway up the east wall. Protruding outward perpendicular from a point high up on the south wall is a long cylindrical bar, with a nylon cord slung over the top, tied to a small hook, from which hangs a bucket. You see to the west your bed, to the northwest a platform, and to the north a coconut tree. The chimpanzee is north in the tree. The mandrill is north. Also to the west is the fire that you started. Smoke blown in from the west makes it slightly uncomfortable to breathe in this corner of the cage.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

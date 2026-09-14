@@ -1,0 +1,429 @@
+tag	taf	version	exe	seed	pre	popups	env	marker	draws
+icecream	IceCream.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1		12
+the_cat_in_the_tree	TheCatintheTree.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	You scored 50 out of the maximum 50!	7
+man_overboard	man overboard.taf	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	Maybe it wasn't all a waste of time	1
+pieces_of_eden	Pieces of eden.taf	4.00	run400x.exe	1234	6			END OF PART ONE	6
+princess_in_the_tower	princess1.taf	4.00	run400x.exe	1234	0			It seems you've won.	75
+too_much_exercise	exercise.taf	4.00	run400x.exe	1234	0			much prefer that Sweet Shop option one of your work colleagues took.	1
+yak_shaving	yak_shaving.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	completed the Odd Competition	8
+buried_alive	buried.taf	4.00	run400x.exe	1234	1			Well done. You got to the end	42
+confession	Confession(1).taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Striking a plea deal	12
+snakes_and_ladders	sandl.taf	4.00	run400x.exe	2	2		SCR_SEED=2	made it to the end of the game	57
+veteran	veteran.taf	3.90	run390x.exe	1234	0			fulfilling your destiny	0
+togetyou	togetyou.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	another flesh-sack	233
+zombies	ZAC.taf	3.90	run390x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	you and Stu were eaten by zombies	2
+adrift_maze	ADRIFTMaze.taf	4.00	run400x.exe	1234	0	adventurer		You WIN!	126
+cruel	CAH.taf	3.90	run390x.exe	1234	0			destroyed our reality	0
+trabula	Trabula.taf	4.00	run400x.exe	1234	0			given the gold coins to Trabula	47
+shred_em	shreddem.taf	4.00	run400x.exe	1234	0			Due to lack of evidence	2
+shadowpeak	Shadowpeak.taf	4.00	run400x.exe	1	0		SCR_SEED=1	completed the adventure Shadowpeak	63965
+shadowpeak_allgargoyles	Shadowpeak.taf	4.00	run400x.exe	1	0		SCR_SEED=1	completed the adventure Shadowpeak	68084
+shadowpeak_killwraith	Shadowpeak.taf	4.00	run400x.exe	1	0		SCR_SEED=1	completed the adventure Shadowpeak	67227
+alexis	ALEXIS.TAF	3.90	run390x.exe	1	0		SCR_SEED=1	you have beaten Urgorn	1005
+alexis_worn_cube	ALEXIS.TAF	3.90	run390x.exe	2	0		SCR_SEED=2	you have beaten Urgorn	1184
+topaz	topaz.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	The two of you set out into the forest.	6
+thorn	Thorn.taf	4.00	run400x.exe	1234	0			You have chosen to look upon your own mortality.	117
+renegade_brainwave	Renegade_Brainwave.taf	4.00	run400x.exe	1234	0			planet Earth has been averted!	28
+goldilocks	goldilocks.taf	4.00	run400x.exe	1234	0			Three Bears are no more	17
+masochists_heaven	1HRGAME.taf	4.00	run400x.exe	1234	0			You scored 15 out of the maximum 15!	1
+griswold	Griswold.taf	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	And there you have it: the intro	20
+mhpquest	mhpquest.taf	3.90	run390x.exe	1234	0			You have saved Crystal's life	0
+archie	Archie's Birthday V 1-2.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	To be continued	0
+bomb_threat	Bomb Threat.taf	3.90	run390x.exe	9	0		SCR_SEED=9	Or have you...	403
+circus	circus.taf	3.90	run390x.exe	12	2		SCR_SEED=12 SCR_SKIP_WAITKEY=1	Congratulations.  You completed the game	1346
+colony	Colony.taf	3.90	run390x.exe	1234	0			You scored 200 out of the maximum 200!	20
+cyber	cyber.taf	4.00	run400x.exe	1234	0			THE END,or is it?	25
+cyber2	cyber2.taf	4.00	run400x.exe	1234	0			you have beaton Cyber Warp 2!	45
+cybercow_win	lair-of-the-cybercow.taf	3.90	run390x.exe	1234	0	Hero~male		Thank you for playing Lair of the CyberCow.	455
+cybercow	lair-of-the-cybercow.taf	3.90	run390x.exe	1234	0	Hero~male		Your score is 6 out of a maximum of 10.	174
+deaths	deaths.taf	3.90	run390x.exe	1234	0	Hero~male		crumbles into dust	13
+donuts_intro	donuts_intro.taf	4.00	run400x.exe	1234	0			To be continued (maybe)..	6
+funhouse	FunHouse.taf	4.00	run400x.exe	1234	0			thank you for bravely protecting this important information	30
+gateway	gateway.taf	3.90	run390x.exe	1234	0	Hero~male		THE END	273
+hyper_b_s	hyper_b_s.taf	4.00	run400x.exe	1234	0			The Flare Rat is dead! Mission complete!	32
+jason_vs_salm	Jason Vs. Salm.taf	4.00	run400x.exe	3	0		SCR_SEED=3	Good job then!	14
+light_up	light_up_4summer_comp.taf	4.00	run400x.exe	133	0		SCR_SEED=133	THE END	2316
+maincourse	Main Course.taf	4.00	run400x.exe	17	2		SCR_SEED=17		6
+melbourne_beach	Melbourne Beach.taf	3.90	run390x.exe	1234	1			You successfully completed the original game Melbourne Beach	43
+orient_express	Orient_Express.taf	4.00	run400x.exe	1234	0			You successfully complete your assignment.	47
+screen_savers	The Screen Savers On Planet X.taf	3.90	run390x.exe	1234	0			You've managed to get everyone to the set!	900
+secret_of_lost_world	SecretOfLostWorld.taf	3.90	run390x.exe	1234	0	Hero~male		The ship is slowly sailing away	51
+space_boy	Space Boy's First Adventure.taf	4.00	run400x.exe	1234	0			STAY TUNED FOR MORE EXCITING EPISODES	50
+sun_empire	Sun_Empire_Quest_For_The_Founders.taf	4.00	run400x.exe	10	0		SCR_SEED=10	You scored 140 out of the maximum 145!	402
+tcom	tcom.taf	3.90	run390x.exe	1234	0			the file entitled "tcom2"	0
+think2	Theannihilationofthink2.taf	3.90	run390x.exe	1234	0	Hero~male		Think.com has been restored	1
+toxically_earth	Toxically_Earth.taf	3.90	run390x.exe	1234	0			Thanks for playing RON: TOXICALLY EARTH	0
+xfiles	The_X-Files_A_New_Beginning.taf	4.00	run400x.exe	1234	0			Welcome to the Resistance.	23
+del_sol	Del Sol.taf	4.00	run400x.exe	1234	0			Your score is 26 out of a maximum of 46.	146
+inverness	inverness.taf	3.90	run390x.exe	2	0		SCR_SEED=2	You hear Macbeth and his wife leave the room.	157
+les_feux	Les Feux de l'enfer.taf	4.00	run400x.exe	45	0		SCR_SEED=45 SCR_SKIP_WAITKEY=1	Votre score est 75 sur un maximum de 115.	475
+lifesimulation	lifesimulation.taf	3.90	run390x.exe	1234	0	Hero~male		Your score is 0 out of a maximum of 0.	14
+matts_house	Matt's House.taf	3.90	run390x.exe	1234	0			Your score is 5 out of a maximum of 5.	0
+mr_smith	The_Search_For_Mr_Smith.taf	3.90	run390x.exe	1234	0	Hero~male		You scored 90 out of the maximum 100!	63
+phoenix_destiny	Phoenix_Destiny.taf	3.90	run390x.exe	1234	13	Hero~male		Gold: 100	316
+questi	QuestI.taf	4.00	run400x.exe	1234	0			Your score is 10 out of a maximum of 10.	16
+shadow_of_the_past	Shadow_Of_The_Past.taf	4.00	run400x.exe	1234	0			You now realize that the statue was you from a past life.	30
+spirits_flight	The_Spirits_Flight.taf	3.90	run390x.exe	1234	0	Hero~male		Your score is 50 out of a maximum of 95.	510
+srsintro	SRSintro.taf	4.00	run400x.exe	1234	1				7
+the_nonsense_machine_6000	The_Nonsense_Machine_6000.taf	3.90	run390x.exe	1234	0				18
+the_town_of_azra	The_Town_Of_Azra.taf	4.00	run400x.exe	1234	3	Hero		Number of turns passed: 26	37
+the_town_of_azra_v390	The Town Of Azra.taf	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	Number of turns passed: 62	76
+thetest	thetest.taf	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	Your score is 5 out of a maximum of 25.	41
+thetest_win	thetest.taf	3.90	run390x.exe	8	3		SCR_SKIP_WAITKEY=1 SCR_SEED=8	Well done!  You won!	229
+through_time	Through time.taf	4.00	run400x.exe	1234	1			This is as far as this adventure will take you at this point.	12
+to_hell_and_beyond	To_Hell_And_Beyond.taf	4.00	run400x.exe	1234	0			You have entered the town of Oran.	75
+to_hell_and_beyond_assisted	To_Hell_And_Beyond.taf	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1	You are now ruler of Beyond	2066
+to_hell_and_beyond_assisted_max	To_Hell_And_Beyond.taf	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1 SCR_ASSUME_MOVES=1 SCR_SKIP_WAITKEY=1	You are now ruler of Beyond	2240
+villains_and_kings	Villains_And_Kings.taf	3.90	run390x.exe	1234	0	male		Your score is 30 out of a maximum of 37.	22
+wes_ghn	WesGHN.taf	4.00	run400x.exe	2	6		SCR_SEED=2	You've Won the Game!	216
+argh	ARGH_sGreatEscape.taf	4.00	run400x.exe	1234	0			You scored 98 out of the maximum 125!	3
+spam	SPAM.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Spam King	3
+wreckage	Wreckage.taf	4.00	run400x.exe	1234	0			you've rescued yourself	13
+vagabond	Vagabond.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	The End	11
+woof	Woof.taf	4.00	run400x.exe	5	0	Rex	SCR_SEED=5	I'm back.	207
+undefined	Undefined1.taf	4.00	run400x.exe	1234	0	Undef		An end is defined.	1
+ecod3	ECOD3.taf	3.90	run390x.exe	1234	0			In an alley behind Denny's.	0
+goblinhunt	goblinhunt.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	Tomorrow is the next goblin hunt.	2
+agent4f	agent_4F[1].A.taf	4.00	run400x.exe	1234	0			You wake with a start.  What a terrible dream!	5
+invasion_shirts	Invasion of the Second-Hand Shirts.taf	4.00	run400x.exe	1234	0			You're floating through the air above the trees.	5
+adriftorama	adriftorama.taf	4.00	run400x.exe	18	2		SCR_SEED=18 SCR_SKIP_WAITKEY=1	*****You Win!*****	5816
+wax_worx	wax_worx.taf	4.00	run400x.exe	1234	0			[PRESS ANY KEY TO DIE]	830
+sommeril	sommeril.taf	4.00	run400x.exe	1234	0			www.angelfire.com/games5/sommeril	29
+dragonshrine	DragonShrineR43.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	ended the Curse of Dragon Shrine	252
+shardsofmemory	shardsofmemory.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	My adventure has ended, and in victory besides	176
+TheADRIFTProject	TheADRIFTProject.taf	4.00	run400x.exe	1234	2	Drifter~male	SCR_SKIP_WAITKEY=1	the entire ADRIFT community greet you	1215
+ShadricksUnderground	ShadricksUnderground.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	the robbers were caught red handed in the vault	341
+ticket	ticket.taf	4.00	run400x.exe	10	1		SCR_SEED=10 SCR_SKIP_WAITKEY=1	You won and managed to score 110 out of a possible 110	20817
+cleft	cleft.taf	3.90	run390x.exe	1234	0			You scored 100 out of the maximum 100!	1
+Tear	Tear.taf	4.00	run400x.exe	1234	0			Suddenly the world seems a brighter place, and you feel there is a good	40
+tq3	tq3.taf	3.90	run390x.exe	1234	0			Please forward your comments to chris@jons.org.	196
+yeh	yeh.taf	3.90	run390x.exe	1234	0			Your score is 3100 out of a maximum of 3400.	105
+ADRIFTMAS_Party	ADRIFTMAS_Party.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	"Merry ADRIFTMAS TO ALL!  And to all a good night!"	3
+Glum_Fiddle	Glum Fiddle.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Your score:100 out of 100.	1015
+JGrim	JGrim1.0.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	WHOOOOOSH	330
+mysteryofcaves	mysteryofcaves.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Your finishing rank is: Godlike Adventurer.	115
+chooseyourown	chooseyourown.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	"A hunch," you say. You link arms with Sharon Elson.	1
+fantasyworld	fantasyworld.taf	3.90	run390x.exe	1234	0	Corin		You scored 0 out of the maximum 500!	394
+sophie	sa.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You have won.	439
+sophie_comp	sophie.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You have won.	434
+cursed	cursed.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	The honour will be all mine, father	1703
+easter	easter.taf	4.00	run400x.exe	1234	0			***You have won***	16
+yonastoundingcastle	yonastoundingcastle.taf	4.00	run400x.exe	3	1		SCR_SEED=3 SCR_SKIP_WAITKEY=1	Incredible victory!	7731
+frog	frog.taf	4.00	run400x.exe	1234	0			So you hop away with your fairy princess, to live hoppily ever after.	1
+chicken	chicken.taf	4.00	run400x.exe	1234	0			That was the last time either of you threw a brick at something.	1
+endgame	endgame.taf	4.00	run400x.exe	1234	0			Really really.	1
+hauntedhouse	hauntedhouse.taf	4.00	run400x.exe	1234	0			you congraulate yourself on a job well done.	43
+microbe_willie	microbe_willie.taf	4.00	run400x.exe	1234	0			pestilence (basically, more of your kind) throughout the world.	3
+amonkeytoomany	amonkeytoomany.taf	3.90	run390x.exe	1234	0			Hooray! You've made it through the game!	0
+dfu	DFU.taf	3.90	run390x.exe	1234	0			Thank you, and good night.	0
+percy	Percy.taf	4.00	run400x.exe	1234	0			prince among vikings	3
+forum	forum.taf	4.00	run400x.exe	1	1		SCR_SEED=1 SCR_SKIP_WAITKEY=1	You Won!	7
+cbn	CBN.taf	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	you excelled yourself	1
+cbn2	cbn2.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	the archives room goes up in flames	1
+crm	CRM.taf	3.90	run390x.exe	1234	0			You take a long bow as the curtains close for the show, and the dead body	0
+ecod2	ECOD2.taf	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	has been captured	0
+imagination	Imagination.taf	4.00	run400x.exe	1234	0	Jenny		Was this all just in your imagination?	1
+asdfa	asdfa.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	bottle of Nightmare Inducer fluid back in his pocket	1
+demonhunter	demonhunter.taf	4.00	run400x.exe	1234	0			journey to the beginning of your new life. You're a demonhunter.	2
+forum2	forum2.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	***You have won!***	1
+pyramid	pyramid.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	moves out of your way allowing you to make a hasty retreat.	13
+saffire	saffire.taf	4.00	run400x.exe	1234	0			you reach heaven	3
+shore	shore.taf	4.00	run400x.exe	1234	0			an island shrouded in a steel fog.	2
+ticktick	ticktick.taf	4.00	run400x.exe	1234	0			I'm afraid you are dead!	13
+ptbad	ptbad.taf	4.00	run400x.exe	1234	0			You Win! Yay!	1
+vague	vague.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Nothingness returns.	4972
+escape_to_new_york	EscapeToNewYork.taf	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	You managed to score 100 out of 100 and completed all of your objectives.	8072
+unauthorized_termination	unauthorized.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Assignment Status: You have been successful.	3814
+where_are_my_keys	WhereAreMyKeys.taf	4.00	run400x.exe	13	0		SCR_SEED=13 SCR_SKIP_WAITKEY=1	You start the car and head home.	271
+to_hell_in_a_hamper	Hamper.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	reached the incredible altitude of 37,000 feet	247
+lost	LOST.TAF	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	place your foot on the path leading up the crumbling cliff	34
+lost_down	LOST.TAF	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	has shown you a doorway back to that brighter world.	34
+marika	marika.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	I plan to enjoy every second of it.	2
+vendetta	Vendetta.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	The End	774
+unraveling_god	unravel.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	smile as the river burns through your flesh.	10
+unraveling_god_lou	unravel.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	smile fades and you feel the beginnings of fear.	10
+mishmash	mishmash.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You have lived up to your name and survived again!	500
+the_hangover	hangover.taf	3.90	run390x.exe	1234	0			Your score is 5 out of a maximum of 7.	0
+troll	Troll.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	clean by dinner time, I'll bust your head in!	87
+spot_of_bother	A_Spot_of_Bother.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	a grand total of 100 out of 100	1645
+beanstalk	Beanstalk.taf	4.00	run400x.exe	1234	0			*** You have won ***	2
+black_sheeps_gold	BlackSheepsGold.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	You've beaten Black Sheep's Gold!	2
+doomed_xycanthus	xycanthus.taf	3.90	run390x.exe	1234	0			Well done - you scored maximum points!	1057
+dancing_even_him	dancingevenhim.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	it is an anagram of Vending Machine	3
+the_demon_hunter	TheDemonHunter.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	"Well done, my good and faithful	26
+qui_a_tue_dana	QuiATueDana.taf	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	MERCI A TOI CHRISTOPHE SANS QUI CE JEU N'AURAIT JAMAIS VU LE JOUR!	1
+enquete_a_hauts_risques	EnqueteAHautsRisques.taf	3.90	run390x.exe	1234	0			Votre score est de 59 sur un maximum de 59!	213
+shadricks_travels	ShadricksTravels.taf	4.00	run400x.exe	1234	0			You scored 100 out of the maximum 100!	2
+monsters	Monsters_r2.taf	4.00	run400x.exe	1234	0			You scored 40 out of the maximum 40!	44
+the_amulet	TheAmulet.taf	4.00	run400x.exe	1234	0			Congratulations!	4
+locked_door	Locked_door_with_water_trap.taf	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	See if I ever dive with you two again	577
+marooned	marooned.taf	3.80	run380x.exe	3	0		SCR_SEED=3	Congratulations, you are no longer Marooned!	22
+wrecked	wrecked.taf	3.80	run380x.exe	15	0		SCR_SEED=15	Hope you enjoyed playing Wrecked.	777
+mortality	mortality.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	one of the two good endings	385
+largo_winch	largo-winch.taf	3.90	run390x.exe	1234	0			Votre score est de 97 sur un maximum de 97!	1394
+3monkeys	3monkeys.taf	4.00	run400x.exe	149	0		SCR_SEED=149	Congratulations, you did it!	1590
+humbug	humbug.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Grandad would probably describe you as a winner.. or a cheat.	10872
+crime_adventure	Crime_Adventure.taf	3.80	run380x.exe	1234	0			Mrs Fenwick was in no danger at all, it was a friend	3
+thesisters	TheSisters.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	lifeless body of Trisha Seabourne.	16
+thepkgirl	the_pk_girl.taf	4.00	run400x.exe	24	0		SCR_SEED=24 SCR_SKIP_WAITKEY=1	Your Secret Letter is: E	1140
+second_chance	second chance.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	congratulating me on a job well done.	80
+private_eye	Private Eye.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	You achieved a score of 4.	1
+plague	The Plague - Redux.taf	4.00	run400x.exe	1234	6		SCR_SKIP_WAITKEY=1	spilling zombie blood once	5840
+iqsfot	iqsfot.taf	4.00	run400x.exe	391	1		SCR_SEED=391 SCR_SKIP_WAITKEY=1	Thus one courageous space cadet saved the fish	1449
+mangiasaur	Mangiasaur.taf	4.00	run400x.exe	1	0		SCR_SEED=1	Thanks for playing Mangiasaur!	342
+afdfr	AFDFR.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Life is good for Death.	159
+akron	akron.taf	3.80	run380x.exe	1234	0			you brave adventurer, saved yourself	0
+cave	cave.taf	3.80	run380x.exe	1234	0			You scored 1000 out of the maximum 1000!	9
+haunt	haunt.taf	3.80	run380x.exe	1234	0			You scored 84 out of the maximum 84!	84
+twilight	twilight.taf	3.80	run380x.exe	1234	0			Your score is 500 out of a maximum of 500	97
+haunted_house	haunted.taf	3.80	run380x.exe	1234	0			You scored 1000 out of the maximum 1000!	2
+great_escape	great.taf	3.80	run380x.exe	2	0		SCR_SEED=2	cry of joy, you have made it, you have escaped!!	6
+tom_ceader	secret.taf	3.80	run380x.exe	1234	0			you did good work escaping from the town	1
+timmy_reid	tra.taf	3.80	run380x.exe	1234	0			Thanks for getting us back home!	450
+duck_mccloud	duck.taf	3.80	run380x.exe	1234	0			You jump from the plane just in time and you survive the huge	0
+fistandantalus	first.taf	3.80	run380x.exe	1234	0			Congradulations you have won the game	0
+james_bond	jb2000.taf	3.80	run380x.exe	1234	0			YOU COMPLEATED THE MISSION! YOU LANDED WELL	0
+microwave_man	microwaveman.taf	3.80	run380x.exe	1234	0			You scored 100 out of the maximum 100!	1
+life_of_mike	mikes.taf	3.80	run380x.exe	1234	0			Ypu ask her out	24
+super_liam	superliam.taf	3.80	run380x.exe	1234	0			congradulation you have defeated x1	0
+alices_restaurant	arlo.taf	3.70	run370x.exe	1234	0			recording an album that will be that hit record	130
+castle_quest	castle.taf	3.70	run370x.exe	1234	0			Thanks for playing!	0
+deadman	The Dead Man.taf	4.00	run400x.exe	1234	10		SCR_SKIP_WAITKEY=1	ABORT SUCSESFUL	40
+baroo	baroo.taf	4.00	run400x.exe	1234	0			You scored 16 out of the maximum 16!	228
+lair	Lair of the Vampire.taf	4.00	run400x.exe	4	0		SCR_SEED=4 SCR_SKIP_WAITKEY=1	the lord of the vampires, lies dead	2924
+fugitive	Fugitive.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	This is the proof of innocence	7246
+mammoth	MammothVacuum.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	After many testing trials	1
+headless	headless.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	as a teenage headless experiment	14
+redwire	Cut_the_Red_Wire.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	a maximum possible of 1. Well done.	1
+law	I am the Law.taf	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	out for Enterprise Research.	4
+inmemory	InMemory.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	had ceased to beep.	89
+valley	valley.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	and live happily ever after.	1
+imagidroids	imagi.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You choose to put him out of his misery.	7
+crimsondetritus	CD.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	until the next victim comes along to take your place.	1
+chosen	Chosen.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	You plug the T-shaped block into the final socket in the door.	0
+cellar	TheCellar.taf	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	And so The Cellar has ended. Many thanks for playing.	2
+panic	panic.taf	3.90	run390x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	Your rating is Messiah.	478
+i	i.taf	3.90	run390x.exe	1234	0			I am dead.	4
+dreamland	Dreams.taf	3.90	run390x.exe	1234	1			You have saved the Dreamworld	0
+forest_on_the_norm	forest.taf	3.90	run390x.exe	1234	0			Thank you for playing my Aliengame	0
+bob_bobsly	BobBobsly.taf	3.90	run390x.exe	1234	0			You scored 155 out of the maximum 155!	0
+druggy_lane	druggy_lane.taf	3.90	run390x.exe	1234	3			You have managed to deal your way to freedom!	630
+escape_from_insanity	Insane.taf	3.90	run390x.exe	1234	0			Congratulations psychopath, you're now a pyro.	0
+lost_souls	lostsouls.taf	3.90	run390x.exe	1234	0			You don't want to go down there.	0
+chicago	chicago.taf	3.90	run390x.exe	1234	0			Daisy was found guilty of double homicide	0
+everything	everything.taf	3.90	run390x.exe	1234	2		SCR_SKIP_WAITKEY=1	I'll smile as I curse her name and everything Emanuelle.	2
+textident_evil	Textident_Evil.taf	3.90	run390x.exe	2	0		SCR_SEED=2	Congratulations! You've successfully beaten Textident Evil.	51
+impulso	impulso.taf	3.90	run390x.exe	1234	0			Solo una cosa. Me di cuenta hace un cuarto de hora	0
+ms_mobius	ms_mobius.taf	3.90	run390x.exe	1234	0			That little TV screen for the inside of your hat was a good investment.	2
+morning_headache	A_Morning_with_a_Headache.taf	3.90	run390x.exe	1234	0			This has turned out to be an altogether OK morning.	74
+sleaze	sleaze.taf	3.90	run390x.exe	1234	0			You scored 100 out of the maximum 100!	0
+manor	manor.taf	3.90	run390x.exe	1234	0	Sam~male		You bury the crucifix with the other items.	10
+lostmines	lostmines.taf	3.90	run390x.exe	1234	0			Congratulations, you have found the lost gold.	17
+darktower	DarkTower.taf	3.90	run390x.exe	1234	0			restored power to the building.	0
+report	report.taf	3.90	run390x.exe	1234	0	Sam~male		You scored 100 out of the maximum 100!	0
+farfromhome	FarFromHome.taf	3.90	run390x.exe	1234	1	Sam	SCR_SKIP_WAITKEY=1	You scored 50 out of the maximum 50!	54
+stardust	S_Tar_Dus.taf	3.90	run390x.exe	1234	0			You decide to go with the plant lady and	0
+diarystrip	diarystrip.taf	3.90	run390x.exe	1234	0			You earn a huge tip and the ladies are all in love with you	2
+silk_noil	SILKNOIL.TAF	3.90	run390x.exe	1234	0			The Silk King sprays his crotch liberally with a perfume that soon befouls	6
+wheels_must_turn	Wheel105.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	That is it, Twenty-Three.	15
+asylum	as.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	A large plaque sat on the wall	0
+life	life.taf	3.90	run390x.exe	1234	0	Bob~male	SCR_SKIP_WAITKEY=1	Health=%health%	742
+renuntio	Renuntio.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	Yo-nos me alzo y estiendo mis-nos brazos	20
+hhorror	hhorror.taf	3.90	run390x.exe	50	0		SCR_SEED=50 SCR_SKIP_WAITKEY=1	It has been a long and frightful night	4978
+richard	Richard.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	You scored 1000 out of the maximum 1000!	6
+windy2	windy2.taf	3.90	run390x.exe	1234	0	Sam		You spin and see Liz running out of the woods towards you.	1
+salutations	salutations.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	you'll decline to answer.	2
+iachini	iachini.taf	4.00	run400x.exe	202	0		SCR_SEED=202	You settle down in front of the TV.	9
+relojero	relojero.taf	4.00	run400x.exe	1234	0			Cierro los ojos y lloro.	15
+vetknow	vetknow.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	AND THE NEW WORLD CHAMPION IS	106
+vetknow2	vetknow2.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	AND THE NEW WORLD CHAMPION IS	106
+losttomb	losttombv2.taf	3.90	run390x.exe	1234	0			you and Rupert start the trek back to camp.	10
+journ2	Journ2.taf	3.90	run390x.exe	2	0		SCR_SEED=2	You are carrying the King of Hearts.	162
+murder_great_falls	mudergreatfalls.taf	3.90	run390x.exe	1234	2	Sam~male	SCR_SKIP_WAITKEY=1	Ken is found guilty of triple homicide.	0
+vampire	Vampire.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	Your score is 70 out of a maximum of 100.	425
+merry_murders	Merry_Murders.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	My score is 120 out of a maximum of 135.	1
+thewoods	thewoods.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	You scored 100 out of the maximum 100!	0
+captive	Captive.taf	3.90	run390x.exe	1234	0			You scored 100 out of the maximum 100!	520
+wonderwombat	wonderwombat.taf	3.90	run390x.exe	3	2		SCR_SEED=3 SCR_SKIP_WAITKEY=1	THUMPER KICKS ASS!!!	6768
+vardock_bates	Vardock Bates.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	HAS ELEGIDO LA INMORTALIDAD PARA SIEMPRE	48
+croft	croft.taf	3.90	run390x.exe	1234	0			You scored 150 out of the maximum 150!	1
+dr-who-vortex-lust	dr-who-vortex-lust.taf	3.90	run390x.exe	1234	0	Sam		You scored 150 out of the maximum 150!	8
+gamma	gamma.taf	3.90	run390x.exe	1234	0	Sam		You scored 150 out of the maximum 150!	0
+plunder_gargoyle	plunder_gargoyle.taf	4.00	run400x.exe	1234	0			Ye scored 10 out of the maximum 10!	95
+albert_is_lost	Albert is Lost! An Adventure in Real Life.taf	4.00	run400x.exe	42	2		SCR_SEED=42 SCR_SKIP_WAITKEY=1	Tiberius and Albert went home happily	168
+target	target.taf	4.00	run400x.exe	212	0		SCR_SEED=212	You managed to score 100 out of 100.	625
+door	door.taf	4.00	run400x.exe	1234	0			You head south. You have escaped.	7
+marlin_affair	marlin_affair.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	The Marlin Affair: Chapter One	2
+cibass	CIBASS.taf	4.00	run400x.exe	1234	6		SCR_SKIP_WAITKEY=1	[Press any key to discontinue]	11
+pestilence	pestilence.taf	4.00	run400x.exe	1234	0			You managed to score 100 out of the maximum 100.	1627
+gmylm	GMYLM_2010.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	Victory! - - -	18
+provenance	provenance.taf	4.00	run400x.exe	1234	2	Corey~male	SCR_SKIP_WAITKEY=1	Look for PROVENANCE II in the summer of 2006!!!	4796
+professor	Professor.taf	4.00	run400x.exe	1234	0			You scored 151 out of the maximum 229!	14
+wingman1	wingman1.taf	3.90	run390x.exe	1234	0	Hero		You scored 95 out of the maximum 121!	0
+newton	Newton.taf	4.00	run400x.exe	1234	1			u dscvr gravity	3
+picture	Picture.taf	4.00	run400x.exe	1234	0			The title of the picture is "The Parrot's Cage".	2
+smote	smote.taf	4.00	run400x.exe	1234	0			smote all 3 worlds into submission	1
+rift	rift.taf	4.00	run400x.exe	1234	0			Thanks for playing this intro.	2
+foggybanana	The Foggy Banana Adventure.taf	4.00	run400x.exe	1234	0			SPIDERS have been captured by you and sold to the	2
+vault	The Vault.taf	4.00	run400x.exe	1234	0			And as if  the gods have answered you, the vault door begins to open.	2
+pilfers	Pilfers.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	You scored 107 out of the maximum 107!	2
+witnessdemon	Witness_Demon_vs_Vampire.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	You have saved your church from the horrors of the two monsters fighting over	1
+stowaway	The_Stowaway.taf	4.00	run400x.exe	1234	0			Well done - you scored maximum points!	3
+blast	blast.taf	4.00	run400x.exe	1234	0			You exit the building.  You have won!!!!	63
+hiker	hiker.taf	4.00	run400x.exe	1234	2			You have found Ending Three of Three.	6
+justanotherday	Just Another Day.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Congratulations...You won the game.	14
+wayout	Way Out.taf	4.00	run400x.exe	1234	0			You're alive! But you'll never be the same...	1
+flyhuman	The Fly Human.taf	4.00	run400x.exe	1234	0			Still... I guess this is the end.	5
+zombiecow	zombiecow.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	You are a free cow now.	3
+raccoon	raccoon.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	You dive headfirst into the can, easily shredding thin plastic bags with your	1
+outline	outline.taf	4.00	run400x.exe	1234	0			Well done - you scored maximum points!	1
+hungry	hungry.taf	4.00	run400x.exe	1234	0			Escape. Freedom.	14
+longbarrow	longbarrow.taf	4.00	run400x.exe	1234	0			That'll show 'em (and maybe even bag you a raise).	21
+asteroidafter	asteroid_after.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	All satellites correctly aligned.	11
+existence	Existence.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Congratulations!  You've made it through the ADRIFT IntroComp 2009 version of	1
+p2p	P2P.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	6
+zacksmackfoot	zacksmackfoot.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	THE END . . . . . for now!	12
+boiledeggs	boiled eggs.taf	4.00	run400x.exe	1234	0			You summon the willpower to keep the box shut until you get home.	3
+shufflingroom	The_Shuffling_Room.taf	4.00	run400x.exe	1234	0			your powerful discovery.	84
+angeldevilhuman	The Angel the Devil and the Human.taf	4.00	run400x.exe	1234	0			Have a peanut.	76
+herrdoktor	herrdoktor.taf	4.00	run400x.exe	1234	0			Mein tiny jetpack ist ein success!	5
+rollingthedough	rollingthedough.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	43
+murdermansionntro	MurderMansionntro.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Thank you for trying my Intro to Murder Mansion	1
+whitterscap	whitterscap.taf	4.00	run400x.exe	1234	0			You win with the best score and stuff, yeah!	46
+dangersdrivingnight	The Dangers of Driving at Night.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	no longer bothering to hide his long, curved fangs	1
+allhallowseve	All Hallows Eve.taf	4.00	run400x.exe	1234	8		SCR_SKIP_WAITKEY=1	You scored 23 out of the maximum 26!	1
+gorxungula	gorxungula.taf	4.00	run400x.exe	1234	2	Lophese~male	SCR_SKIP_WAITKEY=1	Elder Moose rouses from the depths of thought once the offering is in place.	35
+lobster	lobster.taf	4.00	run400x.exe	1234	0			Next: WORLD DOMINATION!	124
+businessasusual	Business As Usual.taf	4.00	run400x.exe	1234	0			You Won, Of Course	79
+ohhuman	Oh_Human.taf	4.00	run400x.exe	1234	0			Congratulations!  You beat the game!	5
+sandy	Sandy.taf	4.00	run400x.exe	1234	0			You see no such thing.	1
+sandy_meta_number	Sandy.taf	4.00	run400x.exe	1234	0			You see no such thing.	1
+ptgood	competition2006__adrift__ptgood__PTGOOD.taf	4.00	run400x.exe	1234	0			You win! Yay!	1
+phoneb	Phoneb.taf	4.00	run400x.exe	1234	0			Committing its final act of mercy	1
+jinxtron	JINXTRON.taf	4.00	run400x.exe	1234	0	Player		You're unjinxed now.	16
+jinxtron_full	JINXTRON.taf	4.00	run400x.exe	31	0	Player	SCR_SEED=31	I'm free!  Bwa hahaha!	28
+skydiver	The_Skydiver.taf	4.00	run400x.exe	1234	0			I'm almost dea-	4
+theroad	the_road.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	the knowledge of oblivion	3
+perfectspy	The Perfect Spy.taf	4.00	run400x.exe	1234	0			Congratulations!  You have successfully escaped from the facility!	4
+secidenoddcomp	seciden_oddcomp.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You scored 102 out of the maximum 102!	9
+perspectives	perspectives.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	Congratulations, you achieved the Negotiation Style Ending!	18
+bigcitylaundry	Big City Laundry.taf	4.00	run400x.exe	1234	0			Congratulations!  You've done it.	4
+overtheedge	Over the Edge1.0.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	the End	41
+drinks	Drinks.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	THE END.	1
+r2dc	R2DC.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	You scored 1000000 out of the maximum 1000000!	1
+foresthouse2	TheForestHouse_2.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	You scored 13 out of the maximum 12!	1
+shetland	The_Shetland_Enigma.taf	4.00	run400x.exe	1234	0			You scored 210 out of the maximum 100!	28
+takeone	takeone.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	it only took 1 take	123
+tenebraesemper	TenebraeSemper.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	You take the loaded pistol from Lauren's dresser.	6
+helsing	Helsing.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	But not tonight	1
+worstgame	WorstGameInTheWorld.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Another game then? If you dare?	18
+spooked	Spooked_The_Wonders_of_Science.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	Congratulations you won!	3
+videotapedecay	Video_Tape_Decay.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	And fade to white.	1
+regrets	Regrets.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	The game has ended.	1
+terrified	Terrified.taf	4.00	run400x.exe	1234	0			The game has ended and you have won!	457
+rain	rain.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Lightning bolts away to Thunder's earsplitting roar of triumph.	3
+howitstarted	howitstarted.taf	4.00	run400x.exe	1234	0			You scored 6 out of the maximum 6!	3
+stationxiii	Station_XIII.taf	4.00	run400x.exe	1234	0			To be continued...	41
+choosethreehour	Choose_Your_Own_Three_Hour_Adventure.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Overall, you got a score of 9 out of a maximum possible 14.	1
+thelasthour	thelasthour.taf	4.00	run400x.exe	1234	0			"Here we are... MY BROTHER."	338
+sexismental	Sex is Mental.taf	4.00	run400x.exe	1234	0			Where's that broken Glass?	2
+petespunkin	Pete's Punkin Junkinator.taf	4.00	run400x.exe	1234	0			You scored 505 out of the maximum 575!	29
+crookedestate	The Crooked Estate.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	I quit momentarily, lying motionless, without any will. But, still, something	158
+aliasagent	Alias Undercover Agent.taf	4.00	run400x.exe	1234	0	Player		You scored 35 out of the maximum 35!	5
+viewtohome	A View to a Home.taf	4.00	run400x.exe	1234	0			Congratulations! You have collected all three medals! You have completed the	648
+briefcase	briefcase.taf	4.00	run400x.exe	1234	0			[The end]	6
+theseance	The_Seance.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Towards eternity with your love...	9
+reactor1	reactor_1.taf	4.00	run400x.exe	1	3		SCR_SEED=1 SCR_SKIP_WAITKEY=1	Congratulations, You saved the ship!	10
+motion	Motion.taf	4.00	run400x.exe	1041	1		SCR_SEED=1041 SCR_SKIP_WAITKEY=1	You scored 100 out of the maximum 100!	1540
+tophat	tophat.taf	4.00	run400x.exe	1234	0			But will the next show go the same way?	21
+threeminutes	3 minutes1.0.taf	4.00	run400x.exe	3	1		SCR_SEED=3 SCR_SKIP_WAITKEY=1	But not a hero anymore.	71
+neighbours	neighbours.taf	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	Well done indeed!	1
+firstpug	The First To Arise Alone With A Pug.taf	4.00	run400x.exe	1234	0			You scored 100 out of the maximum 100!	3
+foresthouse3	ForestHouse3.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	between your gorgeous wife and beautiful son, you find that you are	149
+dayattheoffice	DayAtTheOffice.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	I'll have a tea, black with two sugars and don't stinge on the water.	15
+beer	beer.taf	4.00	run400x.exe	1234	0			You search the dirt and find a pouch.	83
+fluffykins	Mr_Fluffykins_Most_Harrowing_Misadventure.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	Congratulations, Mr. Fluffykins! And you too, reader!	18
+witchtale	A Witch Tale.taf	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	THE END	46
+doortoutopia	Door to Utopia, The.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Up to the last sentence, you thought you really were in Hell, but the words	60
+patient7	Patient7.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Your world.	30
+finalquestion	The_Final_Question.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	And there ends The Final Question	37
+mustescape	mustescape.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Not that your boss will like that.	1398
+caidalibre	Caida libre.taf	3.90	run390x.exe	1234	0			You puntosd 0 fuera of the maximum 0!	1
+templeofthesun	Temple_Of_The_Sun.taf	4.00	run400x.exe	2	2		SCR_SEED=2 SCR_SKIP_WAITKEY=1	It is good to see that you didn't lose your head about this!	93
+wolvesatthedoor	Wolves_at_the_Door.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	And on that somewhat sombre note, Wolves At The Door is concluded.	109
+apokalupsis	apokalupsis.taf	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	Thank you for playing the introduction to Apokalupsis.	1
+dusk	dusk.taf	4.00	run400x.exe	1234	0			Most importantly you finally saw a tree frog!	133
+thehunter	The_Hunter.taf	4.00	run400x.exe	1234	0	Hunter~male		You scored 50 out of the maximum 50!	4
+will	Will.taf	4.00	run400x.exe	1234	0			Well done - you scored maximum points!	6
+cobl	COBL.taf	4.00	run400x.exe	28	0		SCR_SEED=28 SCR_SKIP_WAITKEY=1	Your score is 160 out of a maximum of 230.  (69%)	107
+puzzlebox	puzzlebox.taf	4.00	run400x.exe	1	0		SCR_SEED=1	shouts, "Get out and stay out!"  The door slams shut.  You are free!	153
+amy	amy.taf	4.00	run400x.exe	1234	0	Chris	SCR_SKIP_WAITKEY=1	You've reached the end of this adventure - congratulations.	11
+cluelessbob	In_the_Claws_of_Clueless_Bob.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	score of 12 - well done. You didn't resort to the hints at all. If not, maybe	42
+hub	hub.taf	4.00	run400x.exe	1234	0			driveway, and take off down the suburban street, not once looking back.	6
+ynkaboom	YNKaboom.taf	4.00	run400x.exe	1234	0			***WHOA!  YOU TOTALLY JUST WON!***	7
+bsg22	BSG TWENTY TWO Final.taf	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	YOU HAVE WON!	130
+jailbreakbob	jailbreakbob.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	woo-hoo!	42
+dreamquest	Dream Quest.taf	4.00	run400x.exe	1234	0	Tester~male		Well done - you scored maximum points!	776
+wilkins	The_Strange_Tale_of_Dr_Wilkins.taf	4.00	run400x.exe	1234	0			My score is 117 out of a maximum of 95.	3
+darkness	darkness.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	513
+backhome	Back Home.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You are back.  Back home.	180
+zelda	zelda.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	487
+showtime	Showtime_at_the_Gallows.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	I will STRIKE like the fucking Hand Of God.	33
+oldchurch	The Old Church.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Axel Gyllenpil has come to peace after a sermon held in the chapel.	6
+suzypowers	competition2011__adrift__powers__how suzy got her powers.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	You achieved this with a score of 22 out of a maximum possible of 22.	226
+rockband	Rock Band.taf	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	You did it! You stopped Gigantor and saved the world (and Rock Band!)	23
+aegis	Aegis.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	 END	17
+warlock	warlock.taf	3.90	run390x.exe	1234	0			The laboratory stands empty. No sign of demonic presences save a chalk-drawn	0
+digby	For_Love_of_Digby.taf	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	For Love Of Digby winds to a close.	1335
+sigurd	Sigurd_Fafnesbane.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	gold is glittering in the leather sack in your luggage.	5
+unfortunately	Unfortunately.taf	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	An ending to be sure - and the best one in the game to boot!	183
+frustrated	frustrated.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	175
+camelot15	Camelot 1,5.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Looks like the old Merlin did read your mind correctly after all.	60
+jimpond	JimPond.taf	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	and I'll be wanting you to lead the attack.	17
+greekschool	Greek School Adventure.taf	4.00	run400x.exe	1234	0	Player~male		You scored 185 out of the maximum 275!	5
+trickortreat	Trick or Treat.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	You flee to freedom.	2634
+volant	volant.taf	4.00	run400x.exe	1234	0			You have won! Good for you!	61
+deardiary	Dear Diary.taf	3.90	run390x.exe	1234	0			FUCK YOU ERIK	0
+riding_home	Riding_Home.taf	4.00	run400x.exe	1234	6	Andy	SCR_SKIP_WAITKEY=1	You have won "Riding Home."	269
+deardiary2	Dear Diary 2.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	0
+fullcircle	Full_Circle.taf	4.00	run400x.exe	2	3		SCR_SEED=2 SCR_SKIP_WAITKEY=1	Full Circle has ended.	3668
+halloweenhijinks	HalloweenHijinks.taf	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	Well done! You've reached the best ending in the game!	2
+barneysproblem	BarneysProblem.taf	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	BABYLON	6
+deadreckoning	DeadReckoning.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	this is the best of the lot. Well done indeed!	98
+cldone	cldone.taf	3.90	run390x.exe	3	0	Player	SCR_SEED=3	Well done - you scored maximum points!	3
+scandal	Scandal.taf	4.00	run400x.exe	1	0		SCR_SEED=1	Admiral Byng resigns from his	66
+bloodrelatives	Blood_Relatives.taf	4.00	run400x.exe	1234	0			you did find your bed	1
+paint	Paint.taf	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	Well done! You've reached the best ending in the game!	1812
+hcw	hcw.taf	4.00	run400x.exe	2	2		SCR_SEED=2 SCR_SKIP_WAITKEY=1	Well, you didn't conquer the world today. But there's always tomorrow.	8
+yadfa	YADFA.TAF	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	gained yourself a nice (haunted) castle. Not bad for a day's work.	336
+requiem	competition2006__adrift__requiem__requiem.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	you have reached the game's best ending	1201
+mindofmaster	competition2007__adrift__mindofmaster__mind of master.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	You are victorious, whoever you might	357
+withoutaclue	WithoutAClue.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	you've managed to finish the game	1094
+cowboyblues	CowboyBlues.taf	4.00	run400x.exe	1234	0			how does it feel to be a hero then, Fingle Bodge?	1118
+grumble	Whatever_Happened_to_Uncle_Grumble.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Your score is 208 out of a maximum of 404	468
+magicshow	magicshow.taf	4.00	run400x.exe	1234	0	male	SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	19
+goblin	goblin.taf	3.90	run390x.exe	1234	0			Oh, and before we forget- Congratulations, gobbo. Or, should we say...	1803
+mould	mould.taf	4.00	run400x.exe	1	0		SCR_SEED=1	Congratulations on winning The Potter and the Mould	161
+blood	blood.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	You managed to score 140 out of 140.	4763
+rking	rking.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Overall, your score was 100 out of a total of 100.	342
+hero	competition2004__adrift__hero__hero.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	the world is a better place for your actions	1235
+datewithdeath	datewithdeath.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	And you have a whole life ahead of you to live	7933
+alchemist	alchemist.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	That is 100% of the game	3035
+onnafa	ONNAFA.TAF	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	your score turned out at 82	1027
+house	House.taf	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	You are not holding the wood.	2340
+lca	Lights_Camera_Action.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	best ending in the game!	5160
+mutaydid	mutaydid.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	That is 100% of the game	61
+seaside	ADayAtTheSeaside.taf	4.00	run400x.exe	1234	0			Well done - you scored maximum points!	20
+reluctantvampire	The_Reluctant_Vampire.taf	4.00	run400x.exe	6	0		SCR_SEED=6 SCR_SKIP_WAITKEY=1	you achieved a score of 103 out of a possible of	2138
+sswhore	ss whore.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You scored 7 out of the maximum 7!	36
+warlord	warlord.taf	4.00	run400x.exe	6	1		SCR_SEED=6 SCR_SKIP_WAITKEY=1	you've successfully completed The Warlord,	7834
+tictactoe	Tic-Tac-Toe.taf	4.00	run400x.exe	1234	0			Congratulations, you won!	9
+elascensor	El ascensor.taf	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	tornillo cae al suelo	12
+whitesingularity	The White Singularity.taf	4.00	run400x.exe	1234	0			You've gone to the core, saved the world, earned a Nobel prize with	15
+igor	igor.taf	4.00	run400x.exe	1234	0			You are now REDUNDANT ! !	26
+suburbanprodigy3	MikeDesert_SuburbanProdigy3.taf	4.00	run400x.exe	1234	0			Well done - you scored maximum points!	37
+egghunt	Egg_Hunt.taf	4.00	run400x.exe	1234	0			You scored 950 out of the maximum 1000!	28
+bandera	Bandera.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Well done - you puntosd maximum points!	13
+wumpusrun	competition2006__adrift__wumpusrun__wumpusRun.taf	4.00	run400x.exe	72	0		SCR_SEED=72	You have earned the right to the title	115
+ilgolem	Il Golem.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Complimenti, hai completato l'avventura!	56
+ghosttown	Ghost town v1,05.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	Slowly two figures are seen shimmering in the air. One of a pretty young girl	1029

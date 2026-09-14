@@ -1,0 +1,49 @@
+feed        145 commands
+runner      145 turns echoed
+scarier     145 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 4  prendre sac à dos
+  run400   Vous vous saisissez du sac à dos puis vous l'enfilez à votre dos.
+  scarier  Prendre quoi?
+
+turn 5  ouvrir sac à dos
+  run400   Vous ouvrez le sac à dos.
+  scarier  Vous ne pouvez pas ouvrir ça..
+
+turn 7  e
+  run400   Vous enfilez vos chaussures puis vous sortez de chez vous. Vous prenez alors votre voiture afin de vous rendre au commissariat. Devant le commissariat Vous arrivez devant le commissariat. L'entrée se trouve au Nord.
+  scarier  "Il serait peut-être bon d'emporter un sac au cas où il y aurait des objets à transporter." pensez-vous.
+
+turn 8  n
+  run400   Vous vous déplacez vers le Nord. L'accueil Vous vous trouvez à l'accueil du commissariat. Il s'agit d'un hall relativement spacieux. A l'Est, vous pouvez un comptoir derrière lequel est assise une secrétaire. Une porte ouverte menant à un couloir se trouve au Nord; la sortie est située au Sud.
+  scarier  Vous vous déplacez vers le Nord. Le compartiment salon Votre salle de séjour est composée de deux compartiments: le compartiment salon et le compartiment salle à manger. Actuellement, vous vous trouvez dans le compartiment salon. Les murs sont recouverts d'une tapisserie jaune sur laquelle il est possible de distinguer toutes sortes de motifs. Quant au sol, il est recouvert de parquet flottant. A l'Est, contre le mur, vous pouvez voir un canapé; un meuble supportant une télévision se trouve à l'Ouest. Le compartiment salle à manger se trouve au Nord; l'entrée de votre domicile est située au Sud.
+
+turn 9  n
+  run400   Vous vous déplacez vers le Nord. Le couloir Vous êtes à présent dans un petit couloir (ni très long, ni très large). Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest; l'accueil se situe au Sud.
+  scarier  Vous vous déplacez vers le Nord. Le compartiment salle à manger Vous passez dans le compartiment salle à manger. La tapisserie et le parquet sont identiques au compartiment salon. Au centre de la pièce, vous pouvez voir une longue table en chêne; une commode est située à l'Ouest. La cuisine se trouve au Nord; le compartiment salon est situé au Sud.
+
+turn 10  w
+  run400   Vous vous déplacez vers l'Ouest. Le bureau de Yannick Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à votre bureau, à ceci près que la disposition du mobilier est quelque peu différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un placard est situé à l'Ouest; la sortie se trouve à l'Est. Yannick Vilon est ici.
+  scarier  Vous ne pouvez pas aller dans cette direction, mais vous pouvez vous déplacer vers: Nord et Sud.
+
+turn 11  parler à yannick
+  run400   "Salut Yannick!" dites-vous en regardant votre ami. "Ah te voilà enfin!" réplique Yannick en souriant. "Epargnes-moi tes réflexions à deux balles! Tu m'as déjà offert un réveil brutal..." rétorquez-vous. "Un réveil brutal à neuf heures et demi? Décidément, j'aurai tout vu avec toi. Enfin bref... J'ai réouvert un dossier et j'aurais besoin de toi." affirme Yannick. "Tu bosses sur quel dossier?" interrogez-vous. "Je me suis replongé dans l'affaire Roberto Amato." répond votre collègue. Roberto Amato est l'un des piliers de la mafia italienne. Cela fait maintenant cinq ans que ce mafieux semme la terreur dans les rues de la capitale. Roberto Amato exerce toutes sortes d'activités illégales (trafic de drogue, meurtre, braquage...). Durant ces cinq dernières années, vous avez tenté de le mettre hors d'état de nuire à multiples reprises mais vous n'y êtes, jusqu'à présent, jamais arrivé. "Pourquoi as-tu réouvert ce dossier? Y a-t-il du nouveau?" questionnez-vous. "C'est le cas de le dire!" assure Yannick. "Qu'est-ce qui te fais dire ça?" "Tu te souviens de Diana Marca?" demande votre ami. "Oui je m'en souviens. Il s'agit de cette jeune femme de 25 ans que nous avons retrouvé morte dans le parc des tuileries il y a environ 6 mois." dites-vous. "Oui c'est elle. Souviens-toi, nous étions parvenus à établir un lien entre Diana et Roberto Amato, mais cela n'était pas suffisant pour le tribunal." "Oui je m'en souviens." affirmez-vous. "Tu te souviens de la posture dans laquelle nous l'avions retrouvé?" interroge Yannick. "Nous l'avions retrouvé à moitié nue, dans les buissons." répondez-vous. "C'est exact. Ce matin, nous avons reçu le rapport de la police scientifique." déclare votre ami. "Ont-ils trouvé quelque chose d'intéressant?" demandez-vous. "Ils ont trouvé de petits fragments de peau sous les ongles de la victime ainsi que sur différentes parties de son corps. Après avoir analysé ces fragments, ils ont découvert que ces cellules épithéliales appartenaient à Roberto Amato. Cette fois, je pense qu'on en a assez pour le coffrer." assure Yannick. "Tu es sûr que ces résultats sont fiables?" questionnez-vous. "Bien sûr que je le suis. Pourquoi cette question?" "C'est seulement que tout ça me paraît bizarre. Habituellement, Amato engage ses hommes de main pour faire le sale boulot, mais cette fois, on dirait qu'il s'est débrouillé tout seul comme un grand!" dites-vous. "C'est ce que les preuves disent. Prends ce rapport et vas le montrer au chef." conseille votre collègue en vous tendant le rapport.
+  scarier  Je ne comprends pas ce que vous voulez dire!
+
+turn 12  prendre rapport
+  run400   Vous prenez le rapport: "Voici venir le moment que j'attends depuis cinq longues années. Ce malfrat va finir ses jours là où il doit être, c'est-à-dire derrière les barreaux." dites-vous. "Vas-y Lucas. On se reverra tout à l'heure." "Ok Yannick. A tout à l'heure." répondez-vous. Le bureau de Yannick Vous vous trouvez dans le bureau de Yannick. Cette pièce est identique à votre bureau, à ceci près que la disposition du mobilier est quelque peu différente. Le bureau se trouve au Nord; un fauteuil est placé au Sud; un placard est situé à l'Ouest; la sortie se trouve à l'Est. Yannick Vilon est ici.
+  scarier  Prendre quoi?
+
+turn 13  e
+  run400   Vous vous déplacez vers l'Est. Le couloir Vous êtes à présent dans un petit couloir (ni très long, ni très large). Votre bureau se trouve à l'Est; le bureau de Yannick est situé à l'Ouest; l'accueil se situe au Sud.
+  scarier  Vous ne pouvez pas aller dans cette direction, mais vous pouvez vous déplacer vers: Nord et Sud.
+
+turn 14  n
+  run400   Vous vous déplacez vers le Nord. L'ascenseur Vous voilà dans l'ascenseur! Tapez "premier étage" pour vous rendre au premier étage; tapez "deuxième étage" pour aller au deuxième étage; tapez "troisième étage" pour vous rendre au troisième étage; tapez "rez-de-chaussée" pour regagner le rez-de-chaussée.
+  scarier  Vous vous déplacez vers le Nord. La cuisine Vous pénétrez dans votre cuisine. Il s'agit d'une pièce peu spacieuse. Une table est placée au centre de la pièce. A l'Ouest, vous pouvez voir un réfrigérateur; un meuble supportant une gazinière et un four à micro-ondes est situé à l'Est. Le compartiment salle à manger se trouve au Sud.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

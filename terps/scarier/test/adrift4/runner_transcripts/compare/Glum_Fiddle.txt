@@ -1,0 +1,49 @@
+feed        70 commands
+runner      70 turns echoed
+scarier     70 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 16  take cushion
+  run400   Take what?
+  scarier  You take the large pink, tasseled cushion.
+
+turn 17  take doily
+  run400   Take what?
+  scarier  You take the lace doily.
+
+turn 18  take lamp
+  run400   Take what?
+  scarier  You take the oil lamp.
+
+turn 19  take tray
+  run400   Take what? Glum suddenly turns and heads south.
+  scarier  You take the silver tray. Glum suddenly turns and heads south.
+
+turn 20  take teapot
+  run400   Take what?
+  scarier  You take the silver teapot.
+
+turn 21  take cups
+  run400   Take what?
+  scarier  You take the set of china cups.
+
+turn 22  take plank
+  run400   Take what?
+  scarier  You take the wooden plank.
+
+turn 23  light lamp with branch
+  run400   You don't have the oil lamp.
+  scarier  You light the lamp with the hot end of the branch you pulled out of the fire.
+
+turn 24  put cushion in sack
+  run400   (Taking that first) You put that inside the hessian sack.
+  scarier  You put the large pink, tasseled cushion inside the hessian sack.
+
+turn 25  put doily in sack
+  run400   (Taking that first) You put that inside the hessian sack.
+  scarier  You put the lace doily inside the hessian sack.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

@@ -1,0 +1,237 @@
+
+> 
+What?
+
+> x trousers
+These are your trousers - black, tough and warm.  Your belt is on your trousers.
+
+> n
+You move north.
+In a short white-walled corridor
+You are in a small corridor, with creamy white walls.  To what your compass tells you is the south is the dark room you found yourself in.  There are two small rooms to the left and right, each too dark to examine properly from here.  To the north, the corridor simply ends, leading out of a sheer surface.  Looking across, you can see an opposite wall about one hundred and fifty feet away, and looking down, you see a drop of at least a thousand feet.  Tilting your head around the lip of the corridor, you see that this gap is also about twenty feet wide.  It has smooth metal walls, which certainly couldn't be climbed, and is lit, like this corridor, from some invisible source.  There is an alcove in the opposite wall at about the same height as this corridor, and a long steel cable hangs from the ceiling, connecting the two.  Also, a ladder seems to lead down the hole from the alcove in the opposite wall...
+
+> take belt
+You take your belt from your trousers.
+
+> attach belt to cable
+You loop your belt over the greasy cable and clutch it with both hands before casting yourself over the edge.  The belt holds your weight easily, and you slide gracefully down the cord to the opposite alcove...  
+In a small alcove
+You are in an alcove in the north wall of a pit.  The south wall, in which there is a corridor, is about a hundred and fifty feet away, and the floor is at least a thousand away...  This alcove is lit from the strange glow of the pit, and is bare of any furnishings.  Above, a steel cable runs upward from this alcove to the corridor in the opposite wall.  Also, a ladder runs down this side of the pit from this alcove to a second small alcove.  Also here is a small key.
+
+> take key
+You pick up the small key.
+
+> d
+You move down.
+In a small corridor
+This corridor is quite short.  At the south end, it opens out into a deep pit, up the north wall of which a ladder runs.  Two small alcoves are set in the east and west walls, with curiously glowing yellow floors, and a huge iron door is set in the north wall.
+
+> e
+You step into the east alcove, and are immediately surrounded by a bright white light.  The floor seems to drop away from underneath you, and you fall for a second or two before landing feet first on something hard...  Exactly like when you arrived here.  
+In a round room
+This room is circular, with dark metal walls, and four corridors sprout from it.  The one to the south is merely a small alcove with a glowing yellow floor.  The others lead into darkness.  A wire leads from the room to the west to the room to the north.  Also here is a battery.
+
+> w
+You move west.
+In a small, dimly lit room
+You are in a cupboard sized room, around which run several electrical wires.  On the wall is a large lever, from which a wire leads out of the room.
+
+> pull lever
+You pull the lever, but nothing interesting seems to happen.
+
+> e
+You move east.
+In a round room
+This room is circular, with dark metal walls, and four corridors sprout from it.  The one to the south is merely a small alcove with a glowing yellow floor.  The others lead into darkness.  A wire leads from the room to the west to the room to the north.  Also here is a battery.
+
+> n
+You move north.
+In a bright, circular room
+This is a well lit, circular room.  Above is a cage.  From the edge of the cage runs a wire down the corridor to the south.  A lever labelled "Cage Release" is set in the north wall.  In the cage are a very dead-looking tiger and a block of metal. 
+
+> pull lever
+You pull the lever and the bottom of the cage drops open, allowing the dead tiger and the block of metal to drop to the floor.
+
+> take a-shaped metal block
+You pick up the A-shaped metal block.
+
+> s
+You move south.
+In a round room
+This room is circular, with dark metal walls, and four corridors sprout from it.  The one to the south is merely a small alcove with a glowing yellow floor.  The others lead into darkness.  A wire leads from the room to the west to the room to the north.  Also here is a battery.
+
+> take battery
+You pick up the battery.
+
+> e
+You move east.
+In a length of corridor
+You are in a length of corridor, from which four doorways sprout.  The passage is lit by a strip of luminous plastic along the ceiling, casting an eerie glow.
+
+> n
+You move north.
+In a supply room of some sort...
+This room is small, and bare.  Also here is a clip of bullets and a harpoon.
+
+> take bullets
+You pick up the clip of bullets.
+
+> take harpoon
+You pick up the harpoon.
+
+> s
+You move south.
+In a length of corridor
+You are in a length of corridor, from which four doorways sprout.  The passage is lit by a strip of luminous plastic along the ceiling, casting an eerie glow.
+
+> s
+You move south.
+In a shooting gallery
+You are in a small room, in the south wall of which is a vision-slit, in which is mounted a large gun.  Through the slit, you can see a line of targets, each successively smaller from left to right.
+
+> reload gun
+You snap the clip into place in the side of the gun.
+
+> shoot targets
+You easily shoot each of the targets in turn, your targetting skills honed by your years in the army.  As soon as you've shot the final target, a panel opens in the ceiling above, and a block of metal drops out, narrowly missing you.
+
+> take f-shaped metal block
+You pick up the F-shaped metal block.
+
+> n
+You move north.
+In a length of corridor
+You are in a length of corridor, from which four doorways sprout.  The passage is lit by a strip of luminous plastic along the ceiling, casting an eerie glow.
+
+> e
+You move east.
+On the edge of a deep pit
+You are in a corridor that leads out from the face of a deep pit, at the bottom of which you can see rows of deadly looking spikes.  There is an alcove in the opposite wall, above which is a small target.  A harpoon gun is mounted in the mouth of this corridor.
+
+> reload gun
+You fit the harpoon into the gun.
+
+> fire gun at target
+You fire the harpoon gun at the target across the gap, and score a perfect hit.
+
+> e
+You move east.
+In a little alcove above a pit of spikes
+You are in a small alcove above a pit of spikes.  There is a hole in the floor down which runs a ladder.  An alcove in the west wall has a glowing yellow floor.  Also here is an I-shaped metal block and a piece of string.
+
+> take i-shaped metal block
+You pick up the I-shaped metal block.
+
+> take string
+You pick up the piece of string.
+
+> d
+You move down.
+In a square room
+You are in a square room, illuminated by glow-strips.  The walls around you are perforated with strange little holes.  A pillar stands against the north wall.
+
+> tie string to block
+You tie one end of the string to the metal block atop the pillar.
+
+> up
+You climb up the ladder, holding the piece of string.  When you get to the top, you pull the block of metal after you, an action that is accompanied by a roar of gunfire from below.  
+In a little alcove above a pit of spikes
+You are in a small alcove above a pit of spikes.  There is a hole in the floor down which runs a ladder.  An alcove in the west wall has a glowing yellow floor.
+
+> w
+You step into the west alcove, onto the glowing yellow floor, and immediately, you are surrounded by a bright white light.  You feel as if you are falling, and after a second or two, you land on something feet first...  It's exactly like when you arrived here!  
+In a small, dark room
+You are in a small, dark room.  The floor is grip-metal, which makes you think of the decking onboard a Mexican sub you once hijacked...  There is a door ahead, from which a soft light glows, enough to show that this room has no other exits.  The walls are also metal, but have a slight blue tinge to them.  Other than that, the room is bare.
+
+> n
+You move north.
+In a short white-walled corridor
+You are in a small corridor, with creamy white walls.  To what your compass tells you is the south is the dark room you found yourself in.  There are two small rooms to the left and right, each too dark to examine properly from here.  To the north, the corridor simply ends, leading out of a sheer surface.  Looking across, you can see an opposite wall about one hundred and fifty feet away, and looking down, you see a drop of at least a thousand feet.  Tilting your head around the lip of the corridor, you see that this gap is also about twenty feet wide.  It has smooth metal walls, which certainly couldn't be climbed, and is lit, like this corridor, from some invisible source.  There is an alcove in the opposite wall at about the same height as this corridor, and a long steel cable hangs from the ceiling, connecting the two.  Also, a ladder seems to lead down the hole from the alcove in the opposite wall...
+
+> w
+You move west.
+In a small, darkened room
+This is a very small, dark room, in which the only feature is a large metal box.
+
+> unlock box
+You unlock the large safe using the small silver key from the alcove, and open the door to reveal that the box is empty save for a block of metal carved into a bizarre shape.
+
+> take d-shaped metal block
+You take a D-shaped metal block from the metal box.
+
+> e
+You move east.
+In a short white-walled corridor
+You are in a small corridor, with creamy white walls.  To what your compass tells you is the south is the dark room you found yourself in.  There are two small rooms to the left and right, each too dark to examine properly from here.  To the north, the corridor simply ends, leading out of a sheer surface.  Looking across, you can see an opposite wall about one hundred and fifty feet away, and looking down, you see a drop of at least a thousand feet.  Tilting your head around the lip of the corridor, you see that this gap is also about twenty feet wide.  It has smooth metal walls, which certainly couldn't be climbed, and is lit, like this corridor, from some invisible source.  There is an alcove in the opposite wall at about the same height as this corridor, and a long steel cable hangs from the ceiling, connecting the two.  Also, a ladder seems to lead down the hole from the alcove in the opposite wall...
+
+> e
+You move east.
+In a small room
+You are in a small, light room.  A block of ice stands against the east wall, in which is frozen some sort of object.  Beneath the ice is a small metal panel from which two wire run to a box on the wall.
+
+> plug battery into box
+You plug the battery into the wall-mounted box, and immediately, the metal panel beneath the ice-block glows red for several minutes, melting the ice away.  The water drains into a small orifice in the east wall, and the object that was inside drops to the floor.
+
+> take t-shaped metal block
+You pick up the T-shaped metal block.
+
+> w
+You move west.
+In a short white-walled corridor
+You are in a small corridor, with creamy white walls.  To what your compass tells you is the south is the dark room you found yourself in.  There are two small rooms to the left and right, each too dark to examine properly from here.  To the north, the corridor simply ends, leading out of a sheer surface.  Looking across, you can see an opposite wall about one hundred and fifty feet away, and looking down, you see a drop of at least a thousand feet.  Tilting your head around the lip of the corridor, you see that this gap is also about twenty feet wide.  It has smooth metal walls, which certainly couldn't be climbed, and is lit, like this corridor, from some invisible source.  There is an alcove in the opposite wall at about the same height as this corridor, and a long steel cable hangs from the ceiling, connecting the two.  Also, a ladder seems to lead down the hole from the alcove in the opposite wall...
+
+> attach belt to cable
+You loop your belt over the greasy cable and clutch it with both hands before casting yourself over the edge.  The belt holds your weight easily, and you slide gracefully down the cord to the opposite alcove...  
+In a small alcove
+You are in an alcove in the north wall of a pit.  The south wall, in which there is a corridor, is about a hundred and fifty feet away, and the floor is at least a thousand away...  This alcove is lit from the strange glow of the pit, and is bare of any furnishings.  Above, a steel cable runs upward from this alcove to the corridor in the opposite wall.  Also, a ladder runs down this side of the pit from this alcove to a second small alcove.
+
+> d
+You move down.
+In a small corridor
+This corridor is quite short.  At the south end, it opens out into a deep pit, up the north wall of which a ladder runs.  Two small alcoves are set in the east and west walls, with curiously glowing yellow floors, and a huge iron door is set in the north wall.
+
+> plug a block
+You plug the A-shaped block into the first socket in the door.  As soon as you do this, the second socket opens.
+
+> plug d block
+You plug the D-shaped block into the second socket in the door.  As soon as you do this, the third socket opens.
+
+> plug r block
+You plug the R-shaped block into the third socket in the door.  As soon as you do this, the fourth socket opens.
+
+> plug i block
+You plug the I-shaped block into the fourth socket in the door.  As soon as you do this, the fifth socket opens.
+
+> plug f block
+You plug the F-shaped block into the fifth socket in the door.  As soon as you do this, the final socket opens.
+
+> plug t block
+You plug the T-shaped block into the final socket in the door.  As soon as you do this, the door groans open...  You walk carefully through the door, not sure what you will find.  What you do see rather impresses you.  You are standing in a vast chamber, lit tastefully by flickering candles suspended in great, crystal chandeliers.  Standing around you in a wide circle are about twenty men and women, each staring at you intently.  One or two are smiling, which makes you nervous...  From amongst these people steps a tall man with dark blonde hair, his face marked by a long scar that runs from his forehead to his neck, a knife wound by the look of it.
+   "Greetings," he welcomes you.  "No doubt you'll want to know what the hell's going on?"
+   You nod.
+   "Do you remember the Red Valley?" he asks.
+   Of course you do.  How could you forget?  Your troops had been advancing down the Red Valley towards the Mexican lines, supposedly covered by the ordnance to the north, but unknown to you, the guns had been silenced by Southern special forces, and enemy units had managed to surround the valley, firing at your regiment from above.  You had put up a desperate fight, but all had seemed lost.  That was until the enemy guns suddenly fell silent.  You had sent scouts up to discover the cause of this lull, and they had returned to you reporting that the enemy were all dead, slaughtered at their guns.  It was one of the mysteries of the War, as no active friendlies were in the area.
+   "Yes," you reply to the man's question.  "Why?"
+   "That was one of several battles during that war in which your enemies were defeated mysteriously.  Let me explain something; the men and women you see here are responsible."
+   You stare at them in disbelief.
+   "Let me explain further," the man continues.  "We are an elite special forces squad recruited from the best of the best.  We occasionally intervene in all sorts of military actions in which the just forces are losing.  This world would have been terrible had the Southerners won the War.  Therefore, just as we stepped in back in the forties to stop Hitler, we helped you in the Third Great War, along with many other regiments in bad situations.  We are the Drifters, so called because we fight for no fixed army, but drift from battle to battle, fighting for justice wherever we can."
+   You try to take all this in.  It's difficult to believe, but you manage to put together another question despite your dumbfoundedness.
+   "Why... How...  What am I here for?"  You stammer.
+   "Like I said, this regiment is composed of the best of the best.  We saw you in action in Mexico, Captain Johnson; we watched you all the way through.  Helped you in places, even.  We think, that is, we know, that you have what it takes to become a Drifter.  We brought you here to make sure.  This is our testing complex.  All of us have passed that test, and now so have you."
+   "Shit!"  You exclaim.  "What kind of vicious bastard designed a test like that?!"
+   "Actually," says a man from the surrounding circle.  "I designed the test.   I'm Ryan, the Drifters' weapons specialist."
+   You stare at him for a moment, not sure what to say.  The first man to speak to you coughs politely.
+   "I need to ask you something," he says.  "And I know it's a very hard question.  You can take your time if you want.  That question is this:"  He pauses to let you gather your wits.  "Will you join us?"
+   You consider it for several minutes, while the crowd stand and watch.  These people saved you in the Red Valley...  They helped defeat the Southerners, and even Hitler, or so they claim...  And you're a fighting man.  You suddenly feel a thrill of honour that you have been invited, and satisfaction that you passed the test.
+   "Yes," you reply emphatically.  "I'd be proud to join the Drifters."
+   The big man smiles at you.  "Excellent, my friend.  You've made the right choice.  Allow me to introduce myself.  The name's Wild.  Campbell Wild."
+
+To be continued...
+
+Press a key...
+
+You scored 300 out of the maximum 300!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

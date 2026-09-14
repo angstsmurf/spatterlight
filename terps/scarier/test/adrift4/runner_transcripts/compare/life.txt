@@ -1,0 +1,16 @@
+feed        32 commands
+runner      32 turns echoed
+scarier     34 turns, feed[0] is scarier turn 2
+
+RULE 2 -- every feed command was echoed.
+
+turn 4  piss
+  run400   I don't understand what you mean!
+  scarier  I really don't think there's any need for language like that!
+
+turn 31  stats
+  run400   Your stats are Fun=0 Health=%health% Sleep=907 Bladder=19 Communication=907 Hunger=4
+  scarier  Your stats are Fun=0 Health=%health% Sleep=904 Bladder=16 Communication=904 Hunger=4
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

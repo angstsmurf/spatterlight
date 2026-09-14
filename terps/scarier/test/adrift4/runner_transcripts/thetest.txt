@@ -1,0 +1,42 @@
+
+> open clothes
+You unzip the pocket.  Some more fluff is inside your clothes.  
+
+> take fluff
+You take some more fluff from your clothes.  
+
+> drop fluff
+You drop the fluff.  The fluff is dragged away into the machine.  It sneezes loudly.
+
+> z
+Time passes...
+
+> take fluff
+You take some more fluff from your clothes.
+
+> drop fluff
+You drop the fluff.  The fluff is dragged away into the machine.  It sneezes loudly.
+
+> z
+Time passes...
+
+> take fluff
+You take some more fluff from your clothes.  
+
+> drop fluff
+You drop the fluff.  The fluff rolls away into the machine.  You wait. The machine starts crying and sneezing.  It breaks into a fit of coughs then shudders.  It stops.  You've just thrown a bit of fluff into a machine thats allergic to it.  The conveyer stops a moment later, and you keep running and are thrown against the opposite wall.
+
+> z
+Time passes...
+
+> take key
+You take a violet key from the machine.
+
+> unlock door
+You insert the black key into the lock but instead of unlocking the door turns green.  
+
+> east
+You can't go in any direction!
+
+> score
+Your score is 5 out of a maximum of 25.  (20%)

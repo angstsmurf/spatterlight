@@ -1,0 +1,55 @@
+feed        326 commands
+runner      326 turns echoed
+scarier     319 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 1  n
+  run400   You stumble forwards and are midway across the bridge when you hear someone rushing up behind you. You glance back to see a man wearing a balaclava running at you. Your reactions are slow and before you can move out of his way, he pushes you over the side of the bridge to fall into the river below. The water envelops you, and soon all you know is darkness. (Press a key) A faraway voice says, "Can you hear me? You have to breathe!" > "Breathe!"
+  scarier  You stumble forwards and are midway across the bridge when you hear someone rushing up behind you. You glance back to see a man wearing a balaclava running at you. Your reactions are slow and before you can move out of his way, he pushes you over the side of the bridge to fall into the river below. The water envelops you, and soon all you know is darkness. (Press a key) A faraway voice says, "Can you hear me? You have to breathe!"
+
+turn 4  breathe
+  run400   You finally breathe successfully. Soon you are coughing until you eventually regain full consciousness. Kneeling over your body is someone you have only heard rumours about, but you have never seen in person. Still you recognise him instantly. With a bright blue appearance, and yellow underwear that seems to stretch no matter what he turns into, it could only be the Mould. The Mould asks, "Are you all right? I was really worried about you for a few minutes there. After I saw that thief knock you into the water, I wasn't sure that I could save you." You croak out, "What happened?" He replies "I was chasing a thief who robbed a bank earlier tonight. He pushed you into the river, as he ran past you. Unfortunately I could not both save your life and arrest him, so I was forced to let him go. It doesn't matter. I'll catch him next time and a human life is far more important. Don't try to say anything else right now. I'll take you to a hospital." You see the Mould shift into a shape sort of like a small blue ambulance just before the darkness takes you again. (Press a key) Hospital room You are now lying comfortably in a bed at hospital. At least, it would be comfortable if you did not feel in such terrible condition. You are not sure how you got here, but you assume that you have the Mould to thank. You don't think that you will be getting up for a while. There are a few flowers sitting in a vase on a nearby table. You can see no Doctors or nurses in this room, but you assume that they are somewhere beyond the closed door. The Mould is standing next to the bed, and he looks like he wants to talk to you. > The Mould tells you that you need to relax and try to do as little as possible.
+  scarier  You finally breathe successfully. Soon you are coughing until you eventually regain full consciousness. Kneeling over your body is someone you have only heard rumours about, but you have never seen in person. Still you recognise him instantly. With a bright blue appearance, and yellow underwear that seems to stretch no matter what he turns into, it could only be the Mould. The Mould asks, "Are you all right? I was really worried about you for a few minutes there. After I saw that thief knock you into the water, I wasn't sure that I could save you." You croak out, "What happened?" He replies "I was chasing a thief who robbed a bank earlier tonight. He pushed you into the river, as he ran past you. Unfortunately I could not both save your life and arrest him, so I was forced to let him go. It doesn't matter. I'll catch him next time and a human life is far more important. Don't try to say anything else right now. I'll take you to a hospital." You see the Mould shift into a shape sort of like a small blue ambulance just before the darkness takes you again. (Press a key) Hospital room You are now lying comfortably in a bed at hospital. At least, it would be comfortable if you did not feel in such terrible condition. You are not sure how you got here, but you assume that you have the Mould to thank. You don't think that you will be getting up for a while. There are a few flowers sitting in a vase on a nearby table. You can see no Doctors or nurses in this room, but you assume that they are somewhere beyond the closed door. The Mould is standing next to the bed, and he looks like he wants to talk to you.
+
+turn 13  1
+  run400   You focus and try to turn your right hand into an elephant trunk, but instead it becomes a sponge, which isn't even wet. You suppose that is close enough for now. The Mould doesn't react, until suddenly you see a grin appear on his face, as he shakes your moulded hand. This was the start of your friendship with the Mould. (Press a key) ONE YEAR AGO You spent the next four years training with the Mould. You are not as imaginative or have as much control, but you can master many basic shapes for your hand to turn into. Unfortunately, every time you try to be more creative you just cannot get it right. Eventually the Mould offered that you could become his sidekick and you quickly accepted before he could change his mind. You wore normal clothes and put on a bright yellow mask to hide your identity. Your new name was Handmade, and you had a lot of fun. Not everyone rejoiced in your good fortune though. Your parents did not approve that you dropped out of all further education in order to pursue your dreams of being a hero. Both of them being scientists, they really disapproved of this career path. In fact, you can remember going to visit them on that terrible and fateful day. As you approached the lab you immediately knew that something was very wrong. Street in front of the laboratory The laboratory to the north is burning down rapidly, with a fire spreading along the top of the complex. There is no siren to urge people to evacuate, and you can see no one exiting. This is a dangerous situation, made worse by the fact that your parents are probably still in there. You hope that they are all right. You should probably call the Mould on your mobile in order to get his help. There is no one better at rescuing people from burning buildings. > I don't understand what you mean!
+  scarier  You focus and try to turn your right hand into an elephant trunk, but instead it becomes a sponge, which isn't even wet. You suppose that is close enough for now. The Mould doesn't react, until suddenly you see a grin appear on his face, as he shakes your moulded hand. This was the start of your friendship with the Mould. (Press a key) ONE YEAR AGO You spent the next four years training with the Mould. You are not as imaginative or have as much control, but you can master many basic shapes for your hand to turn into. Unfortunately, every time you try to be more creative you just cannot get it right. Eventually the Mould offered that you could become his sidekick and you quickly accepted before he could change his mind. You wore normal clothes and put on a bright yellow mask to hide your identity. Your new name was Handmade, and you had a lot of fun. Not everyone rejoiced in your good fortune though. Your parents did not approve that you dropped out of all further education in order to pursue your dreams of being a hero. Both of them being scientists, they really disapproved of this career path. In fact, you can remember going to visit them on that terrible and fateful day. As you approached the lab you immediately knew that something was very wrong. Street in front of the laboratory The laboratory to the north is burning down rapidly, with a fire spreading along the top of the complex. There is no siren to urge people to evacuate, and you can see no one exiting. This is a dangerous situation, made worse by the fact that your parents are probably still in there. You hope that they are all right. You should probably call the Mould on your mobile in order to get his help. There is no one better at rescuing people from burning buildings.
+
+turn 14  hint
+  run400   No hints currently available.
+  scarier  There are currently no hints available.
+
+turn 17  hint
+  run400   I don't understand what you mean!
+  scarier  Do you really want to view hints? [Y/N] How can you get inside? - You will need to use your "mould" powers to try to open up either the door or window. - After moulding your hand into a crowbar, remove the loose bar and smash the window.
+
+turn 18  y
+  run400   I don't understand what you mean!
+  scarier  What do you want to turn your hand into? 1 - key 2 - crowbar 3 - lockpick
+
+turn 19  mould -- streams re-synchronised, scarier turn -1
+
+turn 24  hint
+  run400   I don't understand what you mean!
+  scarier  Do you really want to view hints? [Y/N] How can you get the overweight scientist out? - You need to open up the door. - The item that you need is in the nearby room.
+
+turn 25  y
+  run400   I don't understand what you mean!
+  scarier  You move east. Office of the Assistant Head Chemicals Researcher This untidy office belongs to the Assistant Head Chemicals Researcher according to the plaque loosely screwed to the wall. Next to the plaque is a painting that has a strange concoction of intermixing colours. The office is not that large, with a bookcase along one wall, and a large desk, filling up most of the remaining space. There is no sign of his/her research on the desk or bookcase, as you can see no chemicals. Possible the papers scattered around the desk do mean something, but you couldn't decipher them even if you tried. The fire has not reached here yet, and you need to act before it does. The exit to the hallway leads back to the west.
+
+turn 26  e -- streams re-synchronised, scarier turn -1
+
+turn 27  hint
+  run400   I don't understand what you mean!
+  scarier  Do you really want to view hints? [Y/N] What in here is helpful (1) - You need to search carefully in here, especially behind objects. - Look behind the painting and the plaque, making sure that you have moulded your hand into a screwdriver first for the plaque. What in here is helpful (2) - Inside the safe is what you need. To open it you need to turn the dial to a number. - The number can be taken from the date under the plaque. After opening the safe, another mould should allow you to carry away what you find.
+
+turn 28  y
+  run400   I don't understand what you mean!
+  scarier  The plaque is screwed to the wall, although some of the screws do look like they have been unscrewed recently and not been fully screwed back in. It reads that this office belongs to the Assistant Head Chemicals Researcher, whoever that is.
+
+turn 29  x plaque -- streams re-synchronised, scarier turn -1
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

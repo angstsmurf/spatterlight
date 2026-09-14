@@ -1,0 +1,174 @@
+
+> 1
+  
+Roof of the Building
+You are on the roof of the retro Global Building, which has 15 floors and was built around 6 years ago. A strong wind is blowing from the west and it looks like it could easily rain sometime today. A large antenna is whipping in the wind to your right and the air conditioning equipment in front of you is making a very loud noise. Just at your feet is the closed door leading down to the roof exit. You can go north, northeast, east, southeast, south, southwest, west, northwest and down.  A dirty, smelly old tramp is lying on the floor.  
+
+> x me
+You are as well as can be expected, considering the circumstances.  You are wearing a long leather coat.  
+
+> i
+You are wearing a long leather coat, and you are carrying a JK54 rifle, a sheet of paper, a knife and a map.  
+
+The tramp asks, "Are you sure you don't have a quid?"
+"No," you reply.
+He continues, "Are you up here to carry out some maintenance work?"
+"Get lost old man," you reply.
+
+> read paper
+Mayer, the name of your target is Terry Allen.
+Your target can be recognised by the following description (no photograph unfortunately) - 
+He always seems to wear jeans, is of normal build but has a very large hooked nose.
+He is also known to favour wearing shoes, which is an odd fact to be given.
+Unconfirmed sighting in the restaurant part of town.
+The fee is $169,000; to be paid in the usual manner.
+
+You are a little concerned about the poor description Lee has given you.  Without a photo you are hoping that not too many people today have a large nose.  A large airplane roars overhead, you are very close to the airport here.
+
+> read map
+   /\
+North
+
+					Bridge Street (elect)
+
+		Windsor Road (animals)			Lombard Street (bank)
+
+Bailey Road (food)								Grange Street (insurance)
+
+		Middle Street (mobile)			Cambridge Road (gold)
+
+					Mill Road (art)  
+
+The tramp asks, "Are you up here to clean the windows?"
+"Get lost old man," you reply.
+
+> x tramp
+It is one of those dirty, smelly, unshaven tramps who hang around the town and who has probably been drinking far too much. Although, it is a very odd place for a tramp to be and he looks a lot cleaner than you would expect.  The tramp is wearing a pair of old corduroy trousers, a filthy camel brown jacket and a pair of trainers, and carrying a bottle.
+
+> throw knife at tramp
+Looking around quickly to make sure no-one else is around you take out your knife and throw it at the poor old tramp. He lets out a scream and then is silent. Something has fallen from his clothes.  
+
+> get knife
+You take the knife.  
+
+> x tramp
+It is the body of a dead, smelly old tramp.  The dead tramp is wearing a pair of old corduroy trousers, a filthy camel brown jacket and a pair of trainers, and carrying a bottle and a police radio.
+
+> get badge
+You take the badge.  
+
+> x badge
+It is a police badge, the tramp must have been an undercover policeman.  
+
+> get radio
+You take the radio.  A small flock of birds, probably pigeons, fly overhead.
+
+> turn on radio
+You turn on the police radio.
+
+Suddenly a voice says, "Echo Three to Echo Four, Echo Three to Echo Four, come in, over."
+
+Do you answer Y or N?  
+
+> y
+Speaking into the radio you say, "Echo Four to Echo Three, over."
+The voices answers, "Confirm picture taken of suspects, over?"
+You reply, "Confirm over."
+
+Turning off the radio, your mind races on what you have heard. "Pictures of the suspects? They must have taken pictures, so where is the camera?" You quickly look around but cannot see one, but it must be up on the roof somewhere.  
+
+> search air conditioning
+Just part of the roof clutter you get on tall buildings. The equipment is making a lot of noise at the moment.  A camera is on the air conditioning equipment.  
+
+> get camera
+You take the camera.  
+
+> s
+You move south.
+South end of the roof
+You are at the southern end of the building which overlooks Mill Road.  In front of you is a low brick wall and as you examine below it seems to be the art gallery part of town. The various buildings around you generate little interest. From here you can go north.  Below, you can see a man standing in the street.  
+
+> x man
+Using the scope of the gun you can see that he is wearing an open navy coat and has a paint-spattered t-shirt underneath. He also has on white chinos and a pair of black winklepickers on his feet. He has ginger neatly cut hair and a base down triangular shaped face. With a bushy beard, he is a tall and flabby build and you notice that he has an extremely large nose. He is holding a small brown cardboard box. At the moment he looking up at this building.
+
+> shoot man
+Using the scope of the gun you target the man, at the same time moving your finger onto the trigger. Taking a slightly deeper breath than normal, you exhale, and then pause. Gently, you increase the tension on the trigger until the rifle fires. Waiting until the recoil of the weapon has stopped you then release the trigger.
+
+Your target has collapsed to the ground.  Looks like it is time to leave.  
+
+Something hits the roof making a 'ffutt' sound. Looking around quickly you say aloud, "Hey! That sounded like a bullet?"  You can hear a police car; you stand still for a moment but it seems to be heading away.
+
+> throw camera
+You throw the camera over the wall and it disappears out of sight.  Someone has stopped and is looking at the body.
+
+> throw radio
+You throw the radio over the wall and it disappears out of sight.  Someone has stopped and is looking at the body.  
+
+Something hits the roof making a 'ffutt' sound. 
+
+> n
+You move north.
+Roof of the Building
+You are on the roof of the retro Global Building, which has 15 floors and was built around 6 years ago. A strong wind is blowing from the west and it looks like it could easily rain sometime today. A large antenna is whipping in the wind to your right and the air conditioning equipment in front of you is making a very loud noise. Just at your feet is the closed door leading down to the roof exit. You can go north, northeast, east, southeast, south, southwest, west, northwest and down.  The body of a dead undercover policeman is lying here.  
+
+> sw
+You move southwest.
+Southwest end of the roof
+You are at the southwest end of the building which overlooks Middle Street.  In front of you is a low brick wall and as you examine below it seems to be the mobile phone part of town. None of the buildings around you arouse any interest. From here you can go north and northeast.  A 9mm round for your JK54 rifle is lying on the floor.  You can see a man standing in the street, below.  
+
+> get bullet
+You pickup the 9mm round and load it into your weapon.  
+
+Something hits the roof making a 'ffutt' sound. 
+
+> ne
+You move northeast.
+Roof of the Building
+You are on the roof of the retro Global Building, which has 15 floors and was built around 6 years ago. A strong wind is blowing from the west and it looks like it could easily rain sometime today. A large antenna is whipping in the wind to your right and the air conditioning equipment in front of you is making a very loud noise. Just at your feet is the closed door leading down to the roof exit. You can go north, northeast, east, southeast, south, southwest, west, northwest and down.  The body of a dead undercover policeman is lying here.  
+
+> nw
+You move northwest.
+Northwest end of the roof
+You are at the northwest end of the building which overlooks Windsor Road.  In front of you is a low brick wall and as you examine below it seems to be the pet shop part of town. About 300m away you can see the slightly taller Bakewell Insurance Building. From here you can go southeast.  Below, you can see a man standing in the street.  You can hear a police car; you stand still for a moment but it seems to be heading away.
+
+> x sniper
+The sniper is too far away, all you can see clearly through your gun sight is his head.  
+
+Something hits the roof making a 'ffutt' sound. 
+
+> shoot sniper
+Using the scope of the gun you target the sniper, at the same time moving your finger onto the trigger. Taking a slightly deeper breath than normal, you exhale, and then pause. Gently, you increase the tension on the trigger until the rifle fires. Waiting until the recoil of the weapon has stopped you then release the trigger. The sniper disappears from view, it looks like it is time to leave.  
+
+> se
+You move southeast.
+Roof of the Building
+You are on the roof of the retro Global Building, which has 15 floors and was built around 6 years ago. A strong wind is blowing from the west and it looks like it could easily rain sometime today. A large antenna is whipping in the wind to your right and the air conditioning equipment in front of you is making a very loud noise. Just at your feet is the closed door leading down to the roof exit. You can go north, northeast, east, southeast, south, southwest, west, northwest and down.  The body of a dead undercover policeman is lying here.  
+
+> open door
+You open the door.  
+
+> d
+You move down.
+Top of the Stairs
+With a low ceiling and poor lighting, it feels particularly claustrophobic here. The banister guarding the top of the staircase has definitely seen better days and looks a little rotten. The only light is coming from the open door above you, which leads up onto the roof. The stairs lead down to the exit from the building.  
+
+> d
+Going down the stairs will end the game.  Do you want to do this now Y or N?  
+
+> y
+You go down the stairs.  
+It looks like you have taken out the right man. The newspapers tomorrow will contain the story of how someone called Terry Allen was killed by a single shot, fired from the roof of the Global Building. Apparently he was involved with Japanese crime gangs and it is believed this was a gangland killing.  
+
+The story also goes on about the murder of an undercover policeman on the roof of the Global Building. Half to yourself you mutter, "Well he wasn't that good at being an undercover cop!"  
+
+Also in the newspaper is the story of a police marksman who was murdered on the roof of the Bakewell Insurance Building. Someone close to the investigation has reported that police believe it was the gunman sighted on the Global Building the same day.  
+
+Well, at least you took out the right target. You will need to start thinking about how you are going to spend the money.  
+
+You managed to score 100 out of 100.
+
+THE END
+
+Feel free to report any bugs, send praise or give general feedback to richardo@delron.org.uk
+
+www.delron.org.uk

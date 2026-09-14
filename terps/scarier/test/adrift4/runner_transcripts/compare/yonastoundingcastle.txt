@@ -1,0 +1,49 @@
+feed        201 commands
+runner      189 turns echoed
+scarier     201 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 169  footsteps
+  run400   Ye gnome fumeth o'er ye answer. "What are ye, some kinda riddlin' hotshot? Well, just tryeth solving ye last gnomish gnaming riddle..." [presseth of yon return key to continue] "Can ye gnameth ye first e'er monkey to surviveth of ye olde rocket flighte?" If ye sayeth ye magical answer-word, then ye shalt probably win.
+  scarier  Ye maketh no sense. To learneth how to maketh yon sense, typeth tutorial and presseth of yon return key.
+
+turn 170  yorick
+  run400   "B-b-but... gnoooooooooooooo...!" Ye scream of ye gnome echoeth about ye room as ye gnome-- defeated by ye wit and/or knowledge of trivia-- turneth into ye brick o' gold and hovereth down to ye feet! Yon giant slug, with naught to do, slithereth away, leaving ye passage through yon skull nostril free. (See Puzzle Footnote 7) [presseth of yon return key to continue] Skull Gate Ye standeth before ye sinister Skull Gate! Yon narrow, perfidious path leadeth ye toward yon terribly gruesome, Cyclopean skull bone. From out yon only eye socket protrudeth yon precarious, cliffesque spike. Yon puddle of magma nearly surroundeth ye entire bony gate. If ye dare, ye may sally forth, ho!, westward through ye nostril socket-- or giveth in to ye fears & retreateth to ye north! Also here is ye brick o' gold.
+  scarier  Ye maketh no sense. To learneth how to maketh yon sense, typeth tutorial and presseth of yon return key.
+
+turn 172  get gold
+  run400   Ye taketh of ye brick o' gold and stuffeth it in ye treasure sack. Ye hath gained 1 treasure! [presseth yon return key to continue] Skull Gate Ye standeth before ye sinister Skull Gate! Yon narrow, perfidious path leadeth ye toward yon terribly gruesome, Cyclopean skull bone. From out yon only eye socket protrudeth yon precarious, cliffesque spike. Yon puddle of magma nearly surroundeth ye entire bony gate. If ye dare, ye may sally forth, ho!, westward through ye nostril socket-- or giveth in to ye fears & retreateth to ye north!
+  scarier  Taketh what?
+
+turn 174  w
+  run400   Ye Olde Labyrinth Ye standeth at yon tunnel crossways of smooth, dwarfish walls. Straight tunnels leadeth in all cardinal directions. To ye east ye recognizeth ye olde Skull Gate. Oh, no! Ye hath enter'd one of ye olde improbable mazes! Ye adventurer's intuition may serveth ye well, here. Ye can typeth intuit maze to causeth ye maze to unfold its secrets to ye.
+  scarier  Ye moveth west. At Ye Toll Boothe Ye standeth in yon narrow stone corridor, which leadeth west to ye archerarium. Yon toll boothe blocketh ye waye east, howe'er; its sign readeth, "Wooden nickels ONLY!" Ye Dwarfish Yeoman sitteth at ye toll boothe with yon jar.
+
+turn 175  s
+  run400   Ye moveth south. Ye Olde Labyrinth Ye standeth at some corner in ye dwarfish labyrinth. A twisty corridor stretcheth off to ye west and yon straighter corridor goeth northward.
+  scarier  Ye cannot go in that direction, but ye may moveth east and west.
+
+turn 176  w
+  run400   Ye moveth west. Ye Olde Labyrinth Ye standeth at some corner in ye dwarfish labyrinth. Ye corridor to ye west hath been built straightly, but ye northerly corridor looketh twisty. Within some cracks in ye floor groweth yon weird fungus.
+  scarier  Ye moveth west. Ye Archerarium Ye standeth in ye room for ye testing of archery skills by archers and archer-type people. If ye, too, saweth fit to practiceth ye skills at bowmanship, ye might shoot yon targets with whate'er ye hath that'll shoot (if anything). Or, if ye felt like one of ye real hotshots, ye could tryeth ye luck at hitting ye wooden nickel that hangeth far o'erhead. Yon pointless parlour layeth to ye north, and another corridor leadeth ye east. Lo, ye magic arrow gleameth at ye splendiferously from upon yon floor or ground.
+
+turn 177  get fungus
+  run400   Ye taketh yon weird fungus.
+  scarier  Taketh what?
+
+turn 178  w
+  run400   Ye moveth west. Ye Olde Labyrinth Ye standeth at some corner in ye dwarfish labyrinth. A straight tunnel doth meander east and yon twisty one unwindeth to ye north.
+  scarier  Ye cannot go in that direction, but ye may moveth north and east.
+
+turn 179  n
+  run400   Ye moveth north. Ye Olde Labyrinth Ye standeth at some corner in ye dwarfish labyrinth. Ye corridor to ye north hath been built straightly, but ye westerly corridor looketh twisty.
+  scarier  Ye moveth north. In Ye Pointless Parlour Ye standeth in ye pointless place, which ye thinketh might hath been one of yon parlours or something back in ye good olde days. Now 'tis mostly bare, and likely to maketh ye excogitate broodingly if ye be up for such a thing. Ye eastern wall hath in it yon semi-circular hole where it meeteth yon floor. Curiously electrical, pungent odours wafteth from ye room to ye north, while nothing special wafteth from ye room to ye south. Westward, yon plethora o' P words putteth yon pucker upon ye lips.
+
+turn 180  w
+  run400   Ye moveth west. Ye Olde Labyrinth Ye standeth at yon tunnel crossways of smooth, dwarfish walls. Ye straight tunnels leadeth north and south. In ye western wall yon golden door standeth gleamingly in its jamb! Ye Guardian Ogre guardeth this area. Ye Guardian Ogre roareth and closeth in upon ye from ye other end o' yon room, swinging his club recklessly!
+  scarier  Ye moveth west. In Ye Passageway o' Paintings Ye perambulations pauseth in ye olde palace path which hath been purposed for ye purveyance & perlustration of portraiture. Yon plenteous paintings, plated in porcelain, packeth ye pillaresque plaster partition upon which they're plugged. Partway up (past ye perimeter of ye personal partakage and/or pilfering) protudeth yon parapet, upon which poiseth yon priceless picture o' ye pucesque perch (or, perhaps, yon pisces of ye puce-ish or puce-like persuasion). Plus, ye picayune placards posteth ye olde presentations on yon painters. Paces east passeth yon pointless parlour, or ye could possibly ploddeth off west. Also here is yon narcoleptic weasel.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

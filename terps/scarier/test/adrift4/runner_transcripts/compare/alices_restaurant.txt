@@ -1,0 +1,19 @@
+feed        85 commands
+runner      84 turns echoed
+scarier     85 turns, feed[0] is scarier turn 0
+
+RULE 2 -- 1 command(s) the Runner never echoed.  Everything
+after the first of them is out of step and is NOT an engine
+difference until the feed is fixed and the row re-driven:
+    feed[84]  ask Sargeant about paper
+
+turn 37  get out of bus
+  run400   You're on foot. You are in front of a gothic wooden church. The paint is peeling and the stained glass windows are in disrepair, but it retains much of its beauty and charm especially at this time of year. Although the colors reached their peak a couple of weeks ago there are still enough orange leaves on the trees to remind you of a New England post card. On the east side of the church you can make out Alice's garden. Your VW microbus is parked here on a road heading north. You'll have to get back in the bus if you want to go that way. It's too far to walk. There is a mailbox here. You are no longer in the bus.
+  scarier  You're on foot. You are in front of a gothic wooden church. The paint is peeling and the stained glass windows are in disrepair, but it retains much of its beauty and charm especially at this time of year. Although the colors reached their peak a couple of weeks ago there are still enough orange leaves on the trees to remind you of a New England post card. On the east side of the church you can make out Alice's garden. Your VW microbus is parked here on a road heading north. You'll have to get back in the bus if you want to go that way. It's too far to walk. There is a mailbox here. You can move north and east.
+
+turn 64  get out of bus
+  run400   You're on foot. You are in front of a gothic wooden church. The paint is peeling and the stained glass windows are in disrepair, but it retains much of its beauty and charm especially at this time of year. Although the colors reached their peak a couple of weeks ago there are still enough orange leaves on the trees to remind you of a New England post card. On the east side of the church you can make out Alice's garden. Your VW microbus is parked here on a road heading north. You'll have to get back in the bus if you want to go that way. It's too far to walk. There is a mailbox here. You are no longer in the bus.
+  scarier  You're on foot. You are in front of a gothic wooden church. The paint is peeling and the stained glass windows are in disrepair, but it retains much of its beauty and charm especially at this time of year. Although the colors reached their peak a couple of weeks ago there are still enough orange leaves on the trees to remind you of a New England post card. On the east side of the church you can make out Alice's garden. Your VW microbus is parked here on a road heading north. You'll have to get back in the bus if you want to go that way. It's too far to walk. There is a mailbox here. You can move north and east.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

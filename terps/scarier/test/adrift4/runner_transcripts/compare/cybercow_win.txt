@@ -1,0 +1,33 @@
+feed        127 commands
+runner      124 turns echoed
+scarier     126 turns, feed[0] is scarier turn 2
+
+RULE 2 -- 3 command(s) the Runner never echoed.  Everything
+after the first of them is out of step and is NOT an engine
+difference until the feed is fixed and the row re-driven:
+    feed[124]  z
+    feed[125]  z
+    feed[126]  z
+
+turn 72  x fairy
+  run400   The fairy darts in circles around the warm bowl of CyberCow milk. The rain has stopped.
+  scarier  Vluurinik struggles between your fingers. She seems terrified of something. The rain has stopped.
+
+turn 97  read envelope
+  run400   "Hero." The envelope is closed. A trickle of water runs past your feet from the direction of the well.
+  scarier  "Hero." A trickle of water runs past your feet from the direction of the well.
+
+turn 103  e
+  run400   You move east. Bottom of the Well The stone wall leads up to a small circular view of the sky. A rope dangles here. The CyberCow, victorious, has lain it head on the ruptured hulk of the Robot and weeps bitterly. CyberCow is here. You can move west and up.
+  scarier  You move east. Bottom of the Well The stone wall leads up to a small circular view of the sky. A rope dangles here. The CyberCow, victorious, has lain it head on the ruptured hulk of the Robot and weeps bitterly. CyberCow and Robot are here. You can move west and up.
+
+turn 118  x berry
+  run400   I can tell you nothing about that.
+  scarier  Please be more clear, what do you want to examine? The berry or the berry?
+
+turn 123  z -- the Runner appended [Press any key to end], which is the host's own keypress prompt (ALR-rewritten in some games), not game text.  The turn is identical either side of it.
+
+1 turn(s) differed only by the Runner's trailing keypress prompt.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

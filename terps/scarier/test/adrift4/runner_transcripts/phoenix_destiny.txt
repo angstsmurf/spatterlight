@@ -1,0 +1,78 @@
+
+> Human
+You are now a human.  
+
+> Warrior
+You are now a warrior.  
+
+> height 180
+You are now 180 centimeters tall.  
+
+> weight 80
+You now weigh 80 kilograms.  
+
+> age 25
+You are 25 years old.  You may now embark on your quest, but remember, there are many dangers awaiting you...  
+
+> west
+You move west.
+Outside Of Your Hut
+You are standing outside of your hut, which is to the east. A large oak tree dominates most of your property, and casts a large shadow across the road which leads west. Another small dirt path veers off to the southeast, which heads down to a small stream. The sun is shining in the sky.  You can walk east, west and southeast.  
+
+> southeast
+You move southeast.
+By The Stream
+You are standing at the end of the path by a quiet running stream. The water is crystal clear and has a few pebbles lying at the bottom. Across the stream is a large paddock which is owned by your neighbour. The sun is shining in the sky. (to drink the water type drink water)  You can walk northwest.  
+
+> drink water
+You kneel down on the ground and scoop up some water in your hand and drink it. It tastes lovely, very refreshing.  
+
+> northwest
+You move northwest.
+Outside Of Your Hut
+You are standing outside of your hut, which is to the east. A large oak tree dominates most of your property, and casts a large shadow across the road which leads west. Another small dirt path veers off to the southeast, which heads down to a small stream. The sun is shining in the sky.  You can walk east, west and southeast.  
+
+> west
+You move west.
+At The Front Gate
+You are standing at the front gate of your house. A small wooden mailbox with the number 4 painted on it sits to the side of the road. The gate is made out of a few wooden planks and a latch. The dirt road goes east back to your hut and west onto the main road towards the city. The sun is shining in the sky.  You can walk east and west.  
+
+> west
+You move west.
+The Main Road
+You are standing on the main road, which goes north to the mountains and south to the town of Azeroth. To the east of you is your front gate. Lovely flowers line the side of the road and the thick forest trees cast a lovely shadow across the grass. The sun is shining in the sky.  You can walk east.  
+
+> south
+You start walking down the road, which heads to the town of Azeroth. Along the way you admire the great pine forest which runs for miles down the main road. The occasional villager walks by carrying a sack of food he bought from town. About 20 minutes later you finally arrive near the town.  A man walks by carrying a sack of food he bought from the town.
+
+> south
+You move south.
+Idan Road - Northern End
+You are standing at the northern end of Idan Road, a busy street full of villagers and shops. The road is made out of large stone slabs. To the east of you is the towns armoury, which is open from 6:00 - 20:00 and to the west is the towns blacksmith, which is open 7:00 - 20:00. The road continues south and north. The sun is shining in the sky.  Many people walk down the streets looking through shop windows.  You can walk north and south.  
+
+> south
+You move south.
+Idan Road - Middle
+You are standing in the middle Idan Road, which is surrounded by shops and villagers. To the west is the Tavern, which is open from 9:00 - 24:00 and to the east is Madam Karlan's Potion Store, which is open from 12:00 - 14:00. The road continues north and south. The sun is shining in the sky.  Many people walk down the streets looking through shop windows.  You can walk north and south.  
+
+> south
+You move south.
+At An Intersection
+You are standing in the middle of an intersection, which heads north, south, east and west down the long stone roads. The sun is shining in the sky..  Many people walk down the streets looking through shop windows.  You can walk north, east, south and west.  A crying little boy runs by being pursued by his mother.  
+
+> date
+Date & Time
+Time: 7:36
+Date: It is the 1st of January, 1236 A.D  
+
+> vitals
+Vitals
+Energy Level: 283
+Food Level: 283
+Water Level: 213
+Stomach Capacity: 52 out of 200
+Alcohol Level: 0 out of 25  
+
+> wealth
+Wealth
+Gold: 100  

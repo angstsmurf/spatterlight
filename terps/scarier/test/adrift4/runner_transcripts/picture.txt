@@ -1,0 +1,15 @@
+
+> sit on bench
+You sit down on the wooden bench and hear a voice coming from the picture:
+ "It't nice to have someone to talk to."
+You can ask the picture - or just p - about several things. Anytime you can ask p about "topics", to get a list of appropriate subjects to discuss.
+
+> ask picture about bird
+"The bird in the cage is a parrot".
+
+> ask picture about parrot
+"I am a parrot!"
+
+The title of the picture is "The Parrot's Cage".
+
+[Press any key to end]

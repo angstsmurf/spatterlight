@@ -1,0 +1,72 @@
+feed        193 commands
+runner      159 turns echoed
+scarier     159 turns, feed[0] is scarier turn 0
+
+RULE 2 -- 34 command(s) the Runner never echoed.  Everything
+after the first of them is out of step and is NOT an engine
+difference until the feed is fixed and the row re-driven:
+    feed[159]  attack urgorn
+    feed[160]  attack urgorn
+    feed[161]  attack urgorn
+    feed[162]  attack urgorn
+    feed[163]  attack urgorn
+    feed[164]  attack urgorn
+    feed[165]  attack urgorn
+    feed[166]  attack urgorn
+    feed[167]  attack urgorn
+    feed[168]  attack urgorn
+    feed[169]  attack urgorn
+    feed[170]  attack urgorn
+    feed[171]  attack urgorn
+    feed[172]  attack urgorn
+    feed[173]  attack urgorn
+    feed[174]  attack urgorn
+    feed[175]  attack urgorn
+    feed[176]  attack urgorn
+    feed[177]  attack urgorn
+    feed[178]  attack urgorn
+    ... and 14 more
+
+turn 27  get all from large stone table
+  run400   You take the Glaven stone from the large stone table. You can't take any more, as your hands are full.
+  scarier  You take the Glaven stone from the large stone table. That is too heavy for you to carry.
+
+turn 99  open chest
+  run400   Command not understood
+  scarier  You can't open that.
+
+turn 124  nw
+  run400   You move northwest. Uron Dark Path The air is very dense now, the smog fills your nostrils with foul air. There are pools of slime and mud all around here. Southeast will take you down the mountain. Northeast will take you up. The air has become extremely dense and choking.
+  scarier  You move northwest. Uron Dark Path The air is very dense now, the smog fills your nostrils with foul air. There are pools of slime and mud all around here. Southeast will take you down the mountain. Northeast will take you up.
+
+turn 126  n
+  run400   You move north. Uron Castle Entrance The walls of the castle reach high in the air. The smell fades now, and the air appears less dense. It is replaced with a feeling that you are unwanted. There is a large wooden door that looks extremely thick. The path leads South down the mountain.
+  scarier  You move north. Uron Castle Entrance The walls of the castle reach high in the air. The smell fades now, and the air appears less dense. It is replaced with a feeling that you are unwanted. There is a large wooden door that looks extremely thick. The path leads South down the mountain. Haron follows you. A knight catches up to you and smiles. Clearing his throat he says: " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I have brought a gift from Natalya." Haron hands you a phial.
+
+turn 127  say the password
+  run400   The words seem to have moved the doors a little. They must be unlocked. They could probably be opened now. Haron follows you. A knight catches up to you and smiles. Clearing his throat he says: " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I have brought a gift from Natalya." Haron hands you a phial.
+  scarier  The words seem to have moved the doors a little. They must be unlocked. They could probably be opened now.
+
+turn 129  n
+  run400   You move north. Uron Castle Main Hall The hall is huge and has Gargoyles around the ceiling. When looking at one, another seems to move out of the corner of your eye. Out will take you back outside. North will take you into a long room. West will take you into a corridor. East will take you into a smaller room. Larnt is here. Haron follows you from the south. The dark knight cuts you with the blade from Uron, but it doesn't seem to do any damage.
+  scarier  You move north. Uron Castle Main Hall The hall is huge and has Gargoyles around the ceiling. When looking at one, another seems to move out of the corner of your eye. Out will take you back outside. North will take you into a long room. West will take you into a corridor. East will take you into a smaller room. Larnt is here. Haron follows you from the south. Haron cuts the dark knight with the elven sword. The dark knight cuts you with the blade from Uron, but it doesn't seem to do any damage.
+
+turn 130  attack larnt
+  run400   You hit the dark knight with the metal spade. Haron cuts the dark knight with the elven sword. The dark knight cuts you with the blade from Uron, but it doesn't seem to do any damage.
+  scarier  You hit the dark knight with the metal spade. The dark knight cuts you with the blade from Uron, but it doesn't seem to do any damage.
+
+turn 131  attack larnt
+  run400   You hit the dark knight with the metal spade. The dark knight cuts Haron with the blade from Uron.
+  scarier  You hit the dark knight with the metal spade. Haron cuts the dark knight with the elven sword. The dark knight cuts Haron with the blade from Uron.
+
+turn 132  attack larnt
+  run400   You hit the dark knight with the metal spade. Haron cuts the dark knight with the elven sword. Larnt drops to the floor with a spine chilling shriek as he dissolves into the ground.
+  scarier  You hit the dark knight with the metal spade. Larnt drops to the floor with a spine chilling shriek as he dissolves into the ground.
+
+turn 151  north
+  run400   As you pass through the door, Urgorn creates a spell that shuts the exit to the South. He then smiles, and says: Just us now, no escape. Haron follows you from the south.
+  scarier  As you pass through the door, Urgorn creates a spell that shuts the exit to the South. He then smiles, and says: Just us now, no escape. Haron follows you from the south. Haron cuts the dark lord with the elven sword. The dark lord shoots Haron with the ball of fire.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

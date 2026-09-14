@@ -1,0 +1,59 @@
+feed        186 commands
+runner      165 turns echoed
+scarier     186 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 65  get her hand
+  run400   (No female) "Katie!" you say as you throw your arm out to her. A smiling Zero plunges a butcher knife into the back of Katie and lifts her body into the air. Her body reacts violently in her final moments; you can only stare wide-eyed. He then runs out to the streets, and into the night, with Katie's lifeless body thrown over his shoulder.... [***] No reaction. No flinching. No horror. No sweating. There comes a point when one is so desensitized by violence, he or she can only stare at the events that unfold. Usually a dramatic act on your part is brought about so your conscience won't eat you alive the next day. But truly, you really didn't care too much. Katie was just a kid, she probably was going to grow up to be a whore, just like her mom. She left you to babysit claiming she had a "business meeting". You know the truth. The dollar store doesn't pay enough, even for the dog house she lives in. Everyone in the neighborhood knows she dances in a sleazy nightclub for extra cash on the side, but we still treat her like an angel. She's one of God's children, after all. [***] You don't think too hard as you walk a couple blocks down the street to use a payphone. Thinking hurts. That's something you've learned over the years. The police arrive ten minutes after you make the call. That's faster than usual. "Mr...." the policeman pauses, searching for a last name to address you by. "David." you say. "We'd like to take you down to the station and get more of your story. This isn't a very safe place right now." No shit, you think. You don't tell him that, of course. Things have certainly changed since the last time you talked to cops. You nod your head obediently, and slip into the back seat of his squad car. Police Car Riding in a police car isn't much unlike riding in the car with your mom and dad to court. There is no talking, only the noise of the car as it moves along the highway passing by houses, trees, and mysterious shapes. Comfortable black seating(surprisingly) provides a very laid-back feel to the backseat, one you wouldn't expect to find in the back of a squad car. In front of you is a sliding glass window that detaches you from the officer driving the car. On the side of you are two doors(which are locked) and two windows(which won't roll down). Behind you is the rear window(which certainly doesn't open). You have voluntarily trapped yourself. The policeman is here.
+  scarier  (No female) Take what?
+
+turn 67  z -- streams re-synchronised, scarier turn +2
+
+turn 68  z
+  run400   Time passes... What have you done to deserve....this?
+  scarier  Time passes... Why...
+
+turn 69  z
+  run400   Time passes... Does God hate you?
+  scarier  Time passes... Why is this happening?
+
+turn 70  z -- streams re-synchronised, scarier turn +1
+
+turn 71  z
+  run400   Time passes... Why...
+  scarier  Time passes... The police slides open the glass window. "Almost there, only a couple more miles until we arrive at the station." he says before closing the window again.
+
+turn 72  z
+  run400   Time passes... Why is this happening?
+  scarier  Time passes...
+
+turn 73  z
+  run400   Time passes... There has to be an explanation for this....for all of this...
+  scarier  Time passes...
+
+turn 74  z -- streams re-synchronised, scarier turn +1
+
+turn 75  z
+  run400   Time passes... The police slides open the glass window. "Almost there, only a couple more miles until we arrive at the station." he says before closing the window again.
+  scarier  Time passes... The lights on the car flicker on and off for a moment.
+
+turn 78  z
+  run400   Time passes... Looking through the window, you don't recognize where you are. Even though you know the neighborhood and the places surrounding it like a book.
+  scarier  Time passes... The lights on the car flicker off.
+
+turn 79  z -- streams re-synchronised, scarier turn +1
+
+turn 80  z
+  run400   Time passes... The lights on the car flicker on and off for a moment.
+  scarier  Time passes... You hear the swish sound of the sliding window opening followed by the policeman's frantic words. "...gEt...EVER.....eVeRRR...geTget!...eVvveer.." he says in a raspy voice.
+
+turn 82  z -- streams re-synchronised, scarier turn -1
+
+turn 83  z
+  run400   Time passes... The lights on the car flicker off.
+  scarier  Time passes... "geEEEEet! GeT! gEt! GET! EvvvVVeerr! Get! EvER! EEEEEvvvvver!" the policeman's voice sounds nothing like himself and he breathes heavily in between words.
+
+... stopping after 10 differing turns
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

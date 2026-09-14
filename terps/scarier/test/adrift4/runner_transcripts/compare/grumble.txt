@@ -1,0 +1,33 @@
+feed        276 commands
+runner      262 turns echoed
+scarier     275 turns, feed[0] is scarier turn 0
+
+RULE 2 -- 1 command(s) the Runner never echoed.  Everything
+after the first of them is out of step and is NOT an engine
+difference until the feed is fixed and the row re-driven:
+    feed[275]  y
+
+turn 0  n -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   Who are you? Who are you?Before we start, let's just decide what type of hero you really are. Are you: a) Tall and strapping, the type of fellow who strides through life without a care in the world, content in the fact that, while others might have the brains, he has the looks. b) Average. The sort of hero who, in another existence, might find employment as a brick wall or an amusing piece of scenery. In short, pretty mundane. c) Short and ugly. Not the ideal choice for a hero you might think, but short and ugly sometimes wins through where tall and strapping doesn't. People are more likely to take pity on you because of your obvious shortcomings. Whatever your decision, make it now!
+  scarier  Who are you? Who are you? Before we start, let's just decide what type of hero you really are. Are you: a) Tall and strapping, the type of fellow who strides through life without a care in the world, content in the fact that, while others might have the brains, he has the looks. b) Average. The sort of hero who, in another existence, might find employment as a brick wall or an amusing piece of scenery. In short, pretty mundane. c) Short and ugly. Not the ideal choice for a hero you might think, but short and ugly sometimes wins through where tall and strapping doesn't. People are more likely to take pity on you because of your obvious shortcomings. Whatever your decision, make it now!
+
+turn 1  a -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   Done. You're tall, strapping, handsome and likely to get into more fights than a professional boxer because the people of Harrenden take a serious dislike to people like you. When you're ready, press a key and let the bloodshed begin... Oscoe's Sleazepit Oscoe's SleazepitYou're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar in Stipplemoore (a reputation it easily lives up to). A singer stands on a stage off to one side, murdering some folk song. Nearby a couple of orcs are setting fire to a dwarf. Over by the bar, several dubious looking individuals throw back pints of beer. All in all, not the best of surroundings for the beginning of your adventure... A flight of winding steps lead upwards, a door leads out and a corridor leads east Vulgur the bartender, Tarquin and Boswell are here. Some Orcs are here.
+  scarier  Done. You're tall, strapping, handsome and likely to get into more fights than a professional boxer because the people of Harrenden take a serious dislike to people like you. When you're ready, press a key and let the bloodshed begin... Oscoe's Sleazepit Oscoe's Sleazepit You're in the main room of Oscoe's Sleazepit, reputed to be the hardest bar in Stipplemoore (a reputation it easily lives up to). A singer stands on a stage off to one side, murdering some folk song. Nearby a couple of orcs are setting fire to a dwarf. Over by the bar, several dubious looking individuals throw back pints of beer. All in all, not the best of surroundings for the beginning of your adventure... A flight of winding steps lead upwards, a door leads out and a corridor leads east Vulgur the bartender, Tarquin and Boswell are here. Some Orcs are here.
+
+turn 6  u -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   You move up. Your room Your roomYou're in your room at the Sleazepit. The less said about the decor the better, but if vomit-stained walls ever become a fashion accessory the owner of the Sleazepit will make a killing. Aside from the trough that serves as your bed and a greasy window letting in murky sunlight there is little to be seen here. A flight of winding steps lead down
+  scarier  You move up. Your room Your room You're in your room at the Sleazepit. The less said about the decor the better, but if vomit-stained walls ever become a fashion accessory the owner of the Sleazepit will make a killing. Aside from the trough that serves as your bed and a greasy window letting in murky sunlight there is little to be seen here. A flight of winding steps lead down
+
+turn 207  pull button
+  run400   You can't see the button.
+  scarier  You pull, but nothing happens.
+
+turn 274  quit
+  run400   > Hmmm. Didn't understand a word of that! Try something else.
+  scarier  Do you really want to quit? [Y/N]
+
+173 turn(s) differed by whitespace only (170 not shown) -- see the note above.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

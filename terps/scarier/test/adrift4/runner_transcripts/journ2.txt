@@ -1,0 +1,84 @@
+
+> male
+	It's late.  You toss and turn gently, trying not to disturb your spouse's peaceful slumber.  Thoughts are racing through your mind.  You're miserable at work, burned completely out on what you do.  You hate it.  Other pains are invading your mind, as well.  Your children keep you too occupied to have time to yourself.  Not that you really resent them.  In fact it's the opposite;  you love them so much that you want to give them time enough to serve their needs.  But, it seems as though you have no time to get any sort of piece of mind.  No time to reflect, to think, to do an enjoyable activity, to even have time to vegetate and do nothing.  Financial problems are brewing.  Missing bonuses has put an unbelievable strain on not only being able to keep up with the bills and the house payment and the car payments, but also you your relationship with your wife.  The fitful rest continues.
+	A quick glance at the clock notes that the red glowing numbers are lighting the room and pushing on you the fact that it's two in the morning.  A deep cleansing sigh isn't enough to rid the discomfort well enough to invoke even a cursory sleep, so you slide your body wearily around, dropping your feet to the floor.  You just sit there a moment pondering your thoughts.
+	Trying to invoke some sort of relief, you get up in hopes that movement or just doing something different will clear your mind.  It doesn't.  But, you're up now.  You can't sleep standing up.  There must be some activity to provide a mental distraction to the plagues in your head.
+
+The bedroom 
+	Your bedroom is only partially lighted, with a beam of bright moonlight straining in between the blinds over the window.  The door to the bathroom to the north dangles on its hinge, leaving it almost half way open.  The bedroom door to the east is shut completely.  The dressor mirror reflects the red glow of the clock menacingly, nagging at you to return to sleep.  Also here is the mirror.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+	As you are looking around the room, trying to gather an indication of what might be happening, you happen to glance across the mirror.  Something about the mirror pulls you towards it.  The glass loosens into elastic-like waves.  In fact, there appears not to be any glass anymore.  Silver waves undulate across the mirror, like an ocean of mercury with a genlte breeze rippling the surface.  
+
+> z
+Time passes...
+
+> go through mirror
+	Carefully placing your leg through the remaining frame of the mirror, you step inside the small vessel and sit with oars poised in your hands.  An amazing peacefulness befalls you, like the calm after a long storm.  
+The Mirror Portal 
+	You are in the midst of a vast silver ocean which extends in all directions for as far as you can see.  The mercury-like water ripples as a gentle breeze flows across it.  Voices whisper from somewhere distant, echoing all around you. "It's a boy!"  "It's your mother.  She isn't doing well."  "I don't care!  You shouldn't spend money we don't have!"  "Don't worry, honey.  I'm sure the dog hasn't gone far."   A warm light glows orange, like a brilliant sunset.  A small island lies to the distant north.  
+
+> n
+You move north.
+The Island 
+	The tiny island features a long rope, which handily pulls you ashore.  The soft sediment beneath your bare feet relaxes you with a comfortable feeling that you are someplace protective. There seems to be nothing else of interest here, besides a small wishing well, made with large, smooth rocks and a tall palm.  Also here is a long heavy rope.  
+
+> take rope
+You pick up the long heavy rope.  
+
+> tie rope to palm
+	You tie the rope snugly to the palm tree in a manner that seems very sturdy.  
+
+> drop rope in well
+	The rope slides down the well, uncoiling until it stretches to its full length deep into the darkness so far that you cannot see its end.  
+
+> down
+The Well Pit 
+	Jagged rock points downward, like the sharp spikes that normally run along the driveway entrance to a secure parking lot.  The barbs of these rocks covers the walls of a long, earthen tunnel that travels far up to a tiny, round opening with warm, orange sunlight barely making its way down to you, resting on a muddy floor.  You have climbed down, but you can not possibly climb up.  A large iron gate guards an exit to the south.  Your long rope dangles from the top of the tunnel.  
+
+> s
+You move south.
+The Lair 
+	A dark room, lit by the dim flickering light of flames from small torches on the walls, lays itself out in front of you with grim, almost reddish walls that give a foreboding appearance.  The northern wall of the large, stone room is broken by the presence of a large hearth that takes up a majority of the space.  An enormous creature crouches in front of the hearth, watching flames from a roaring fire flicker across.  A large iron gate is locked shut in the northwestern corner of the room.  Three other exits lead out, one to the east, one to the west, and one to the south.  Each is so dark as to not give any clue where it leads.  The creature stands and stairs.  
+	The creature suddenly jolts himself to his feet and turns his gaze rapidly towards you.  With a blast of hot breath from his nose, his black eyes pierce through you and melt your soul with uneasiness.  He watches your every move, or lack thereof.  
+
+> s
+	As you begin to move the creature blasts through the air in winged flight and lands directly in front you, blocking your progress.  He drops his head down, to be level with your own, then moves his face directly into yours, staring deep into your eyes.  As you gaze back at the black eyes, you notice that they do not reflect, and nausea sets in with your uneasy soul.  Just as you begin to feel you are going to pass out underneath the pressure, the creature smiles and backs away just slightly enough to hand you something.  It’s a card.  The creature then steps aside and allows you to pass.  
+
+> i
+You are carrying the King of Hearts.  
+
+> score
+You have already done that.  

@@ -1,0 +1,47 @@
+feed        245 commands
+runner      244 turns echoed
+scarier     245 turns, feed[0] is scarier turn 0
+
+RULE 2 -- 1 command(s) the Runner never echoed.  Everything
+after the first of them is out of step and is NOT an engine
+difference until the feed is fixed and the row re-driven:
+    feed[244]  open it
+
+turn 10  x it
+  run400   (the tweed jacket) The tweed jacket is a delightful brown colour. It looks a bit worn, especially at the elbows. Inside the tweed jacket is a small key.
+  scarier  (a tweed jacket) The tweed jacket is a delightful brown colour. It looks a bit worn, especially at the elbows. Inside the tweed jacket is a small key.
+
+turn 24  inventory
+  run400   I am wearing my clothes, and I am carrying a pint of lager, a small key and a tweed jacket. Boff says, "Wow! I wish I had half the stuff you've got."
+  scarier  Boff says, "Wow! I wish I had half the stuff you've got."
+
+turn 62  open it
+  run400   (the manilla envelope) I tear open the envelope. Inside, I find a Gold card.
+  scarier  (a manilla envelope) I tear open the envelope. Inside, I find a Gold card.
+
+turn 63  drop it
+  run400   (the manilla envelope) I drop the manilla envelope.
+  scarier  (a manilla envelope) I drop the manilla envelope.
+
+turn 79  drop it
+  run400   (the juicy pork chop) I drop the pork chop. Angus immediately pounces on the chop, and starts chewing away. It starts to rain.
+  scarier  (a juicy pork chop) I drop the pork chop. Angus immediately pounces on the chop, and starts chewing away. It starts to rain.
+
+turn 83  open drain with it
+  run400   (the large shark hook) With a bit of effort, I manage to get the drain open with the shark hook.
+  scarier  (a large shark hook) With a bit of effort, I manage to get the drain open with the shark hook.
+
+turn 129  ask aslan about it
+  run400   (the witch's magic wand) "I stole it from the witch when she wasn't looking. It's what she uses to turn people to stone."
+  scarier  (the witch's magic wand) "Sorry, I don't know anything about that."
+
+turn 151  give it to madge
+  run400   (the small black cat) I hand Madge her cat. "Oh, my baby!" Madge cuddles the cat tightly - the cat's eyes bulge out slightly. "I'm so grateful, here, take this." Madge removes the amulet from around her neck, and gives it to me
+  scarier  (a small black cat) I hand Madge her cat. "Oh, my baby!" Madge cuddles the cat tightly - the cat's eyes bulge out slightly. "I'm so grateful, here, take this." Madge removes the amulet from around her neck, and gives it to me
+
+turn 211  ask her about good time
+  run400   (Suzie) Suzie looks me up and down. "You're quite nice, but that's not why you're here."
+  scarier  (Suzie) "Oh, that. That'll be referring to my musical talents."
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

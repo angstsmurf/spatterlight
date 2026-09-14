@@ -1,0 +1,30 @@
+feed        203 commands
+runner      203 turns echoed
+scarier     203 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 0  4 -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   Your Bedchamber Your BedchamberYou're in your bedchamber which is a large, sprawling room filled with a hideous mismatch of furniture, clothing and junk. Quite why you need such a large bedchamber is a mystery but it's the done thing what with you being a noble and everything. Sunlight through a coloured window illuminates the room, banishing shadows away from your bed, desk, bureau, wardrobe, closet and shower. Exits lie: in and down
+  scarier  Your Bedchamber Your Bedchamber You're in your bedchamber which is a large, sprawling room filled with a hideous mismatch of furniture, clothing and junk. Quite why you need such a large bedchamber is a mystery but it's the done thing what with you being a noble and everything. Sunlight through a coloured window illuminates the room, banishing shadows away from your bed, desk, bureau, wardrobe, closet and shower. Exits lie: in and down
+
+turn 10  down -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   You move down. Main Hall Main HallYou're in the main hall of Castle Stroppenheim. This a huge chamber which looks to have been hacked out of the side of a cliff by a builder with more enthusiam than taste. Walls lean at weird angles and the ceiling, assuming there is one, is so far above you as to be hidden in the murky shadows that seem a permanent fixture of your new home. Dominating the centre of the main hall is a partially-finished statue of you that, one day, will magically greet everyone who enters your domain. There are a number of corridors and passageways leading away from here but quite a few are blocked due to building work being underway. Exits lie: north, south, east, west, northeast, southeast, southwest, up and down
+  scarier  You move down. Main Hall Main Hall You're in the main hall of Castle Stroppenheim. This a huge chamber which looks to have been hacked out of the side of a cliff by a builder with more enthusiam than taste. Walls lean at weird angles and the ceiling, assuming there is one, is so far above you as to be hidden in the murky shadows that seem a permanent fixture of your new home. Dominating the centre of the main hall is a partially-finished statue of you that, one day, will magically greet everyone who enters your domain. There are a number of corridors and passageways leading away from here but quite a few are blocked due to building work being underway. Exits lie: north, south, east, west, northeast, southeast, southwest, up and down
+
+turn 12  s -- WHITESPACE ONLY (a separator one side has and the other has not).  The .txt transcript drops alignment-only breaks; re-check with fast.sh DUMP_SCROLLBACK before calling it an engine bug.
+  run400   You move south. Courtyard CourtyardThe main courtyard of Castle Stroppenheim isn't a very impressive site at the best of times, which this most certainly isn't. The dead (and still steaming) bodies of a couple of your servants the dragon lunched on don't add a lot to the decor and there is a definite atmosphere of unease floating around (or maybe that's just the roasted bodies again). A pair of broken gates lead southwards out of the courtyard and into the big, bad world. Off to one side are the stables which, while a little charred, are at least upright. Exits lie: north, south, west and up Stimmons your bodyguard and Doris the maid are here.
+  scarier  You move south. Courtyard Courtyard The main courtyard of Castle Stroppenheim isn't a very impressive site at the best of times, which this most certainly isn't. The dead (and still steaming) bodies of a couple of your servants the dragon lunched on don't add a lot to the decor and there is a definite atmosphere of unease floating around (or maybe that's just the roasted bodies again). A pair of broken gates lead southwards out of the courtyard and into the big, bad world. Off to one side are the stables which, while a little charred, are at least upright. Exits lie: north, south, west and up Stimmons your bodyguard and Doris the maid are here.
+
+turn 68  give empty beer mug to perry
+  run400   You can't take anything from the empty beer mug. "A fair trade as I'm sure you'll agree," says Perry as you hand him the empty beer mug and he hands you the mace of might. Too fair a trade? You wonder. "And just to make myself feel better for giving you such rubbish, have this stuffed cat as well."
+  scarier  "A fair trade as I'm sure you'll agree," says Perry as you hand him the empty beer mug and he hands you the mace of might. Too fair a trade? You wonder. "And just to make myself feel better for giving you such rubbish, have this stuffed cat as well."
+
+turn 155  get key of pure harry
+  run400   I don't think Harry would appreciate being handled.
+  scarier  You take the key of pure Harry.
+
+122 turn(s) differed by whitespace only (119 not shown) -- see the note above.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

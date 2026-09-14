@@ -1,0 +1,554 @@
+
+> skip
+
+
+*	*	*	*	*	*	*	*	*	*
+
+DANNY
+
+You are wading through a clear mountain stream. It's just like the one you knew as a child back on Earth. Brown trout shimmer and twitch around your legs and you hover, bent over, estimating distance, water resistance, the speed of your own muscles, the pattern of the trout school. With pure instinct, you plunge your hand into the stream and it comes out holding a wriggling, muscular brown fish - about 6 inches long now, but it'll grow with lightning speed, you think, chuckling. You are about to throw it back, when it looks at you with its cold round eyes, gasping in the alien air, and starts making an ear-spitting, rhythmic screech. You drop the fish and open your eyes at the same time.
+
+Cursing, you jolt awake and the first thing you do is look over at the Captain's chair. Mercifully, she isn't there and didn't see you nod off on watch. Miss Deleanora and Mrs Williamsby are talking loudly and excitedly to each other. The red alert alarm is blaring.
+
+You look at the view-screen. Stars, moving normally along. But there are two conspicuously bright ones, not moving. Quite still, unblinking. 
+
+'Danny McPhee, will you please wake the hell up!' Miss Deleanora shouts. The Captain bursts in. 
+
+'Who activated the Red Alert!' She hisses with uncharacteristic sharpness. 'Only the Captain has that prerogative. Why didn't you call me?' She says this last to you, and you stammer without actually saying anything. Miss Deleanora glares at you.
+
+Press any key
+
+
+The Bridge
+The red alert beacon flashes, giving the room an eerie, almost disco-like atmosphere. Your chair sits near the middle of the room, facing the giant view-screen. Stretching across the room in front of your chair is the control board, with the piloting controls at hand, the information computer panel in front of the Captain's chair to your left, and the weapons controls further left.
+
+Behind and to the left is the communication officer's station, and next to her, the systems monitor's station.
+
+To the right of the Captain's chair is a double-lift, one leading down to the engine room, and the other is the Captain's personal access up to her quarters. Another door leads east to the Briefing Room.
+
+Captain Sun ponders the view.  Miss Deleanora mans the system monitor station.  Mrs Williamsby concentrates on the airwaves traffic through her padded headphones.
+
+> z
+Time passes...
+
+
+'Captain, I activated Red Alert, because I couldn't raise the approaching ships on the com.' Mrs Williamsby explains calmly. 'I assumed they were hostile.'
+
+'And I confirmed that they were headed straight for us at two thousand knots, and are now,' Miss Deleanora checks her screen, 'only fourteen thousand clicks away.'
+
+Captain Sun rests her hand on the back of your chair. 'Okay, fair enough. I'm sorry I snapped at you. Handar!' She barks into mid-air. 'Get your ass down here NOW.'
+
+
+> z
+Time passes...
+
+
+Handar makes an unhurried entrance through the doors from the Briefing Room. 
+
+'Captain, it's the Techthon.' Miss Deleanora gravely calls out.
+
+Your heart sinks. Their weapons will be state-of-the-art, and their Captains will be state-of-the-shoot first, talk later. 
+
+
+> z
+Time passes...
+
+
+You realise that your day has arrived. Mr Handar may have the firepower, but only you can wow the enemy with your daring and innovative flying power. The enemy (if that is, in fact, what they are) are closing in fast. In another couple hours they will be in firing range, assuming they don't have some kind of super-weapon that can out-reach your own.
+
+The two vessels are coming towards you from NNE, on a relatively level vertical plane.
+
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+The vessels are almost within firing range. You have several options, and you try to focus on your Flight Academy training (having had no actual experience in this kind of thing). You can move NNE to meet them head-on, keep going DEAD AHEAD or try to evade by turning SSW. 
+
+
+> nne
+You turn to face the enemy, presenting them with as small a target as possible. Of course, with starship technology, that is not a huge advantage, but it will limit thier attack to the most heavily defended parts of the Volant. This is proved by a sudden volley from one of the Techthon ships, which just misses the Volant. 'They've just shot across our bows!' You exclaim.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+
+*	*	*	*	*	*	*	*	*	*	*
+
+JACQUILINE
+
+You look to Deleanora. 'Tell me, what do you know?'
+
+'Captain' Deleanora turns to you, ashen-faced. 'I've confirmed they are Pyroxene class. Weapons charged.'
+
+You stare at the approaching beacons of trouble, but no ideas are forthcoming. The Techthon are a tricky species - bot only are they technologically sophisticated, but ruthless and single-minded (not to mention bloody-minded). 
+
+You have three options; the same three options of any hostile encounter. Attack. Flee. Negotiate. To attack could be suicide. To negotiate you need to be able to communicate, and that so far has not been possible. Fleeing is looking better and better. Then the dreadful news comes over the com system.
+
+'Captain,' A breathless Penelope Haley, Chief Engineer, transmits. 'That near miss wasn't exactly a miss. An arcing node hit our waste hatch and the engines are overheating. We have to shut down to treading power immediately.'
+
+'Can you fix it?'
+
+'Yes, we should be able to sort it out, but only if we shut the engine down to minimal power.'
+
+You give the nod to Danny and he complies. You are now, officially, a sitting duck.
+
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+Mrs Williamsby suddenly jumps up from her chair. 'They're communicating Captain, listen.' She does something, and the metal-edged voice comes out of the Bridge com system, with the typically odd syntax of the Techthon accent.
+
+'Can you hear me, I am required to talk to Captain. Obey. Repeat: can you hear me?'
+
+You try to think of something to say.
+
+
+> z
+Time passes...
+
+> talk to techthon
+'Patch me through' You say to Mrs Williamsby, who configures your voice com, and then nods to indicate you are good to go.
+
+'Yes, I can hear you. I am Captain Sun of the Volant. May I ask why you are firing at us?'
+
+'You harbour a fugitive, we know. This fugitive is our enemy, so you are our enemy. Prepare for boarding.'
+
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+'Captain, they are almost within boarding range', Danny McPhee informs you. Handar has hands poised over the weapons controls, as if about to conduct an orchestra.
+
+'I can't let them board.' The others nod agreement. The Techthon are not friendly to the Worlds and Planets Union, and have a habit of using any excuse to pick away at its authority. Who knows what they might do to the crew.
+
+You resist the urge to nag Haley - you know she is working as fast as she can. You still have charged weapons. You can FIGHT - hold them off and wait for reinforcements, which haven't yet responded to Williamsby's continual SOS - or continue trying to hail them so you can STALL by claiming you are investigating this allegation of harbouring a fugitive.
+
+> stall
+
+To open fire - even if you start with the ultra-subtle new phyto-neutron ray - could bring a rain of retaliation and further losses to ship's integrity, possibilities of casualties, and an avenging boarding party. You decide to stall for time. Now you just have to convince the Techthon that you are investigating thier claim.
+
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> talk to techthon
+'Techthon Captain. I am investigating your claim that a fugitive is on board. I have no knowledge of such an individual, but I am ordering a search of the entire ship. If you give me some information on this person, it will give us a better chance at finding him and returning him to you.
+
+'The fugitive is a Prehipsonite, Jeljel Ha Wennwa, wanted for guerrilla activities against Techthon forces. He has escaped from custody before he could be brought to trial. You have one hour.'
+
+You feel a rush of relief. That was much easier than you expected. One problem with this new scenario is that Techthons, although not friendly allies, do have certain recognised rights in the eyes of the WPU - and trying people for crimes committed against them is one of those. Yet the Techthons are notoriously harsh in their sentencing, and subjecting anyone to a Techthon prison is essentially handing them over to their executioners.
+
+The other problem, of course, is whether this Prehipsonite is actually on board.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+
+*	*	*	*	*	*	*	*	*	*	*
+
+PENELOPE
+
+Why is it that whenever you are in a hurry, things always take so long? 'Where's the damn multi-riveter?' You ask aloud, but no one replies. You are peering though an access tunnel to the damaged bit of casing forming the waste hatch. You have already constructed a force-field around the damaged area so can approach it. 
+
+Engine Room
+The Volant, although not a large ship, has a top-of-the-range power system, which, even to the untrained eye, is a wonder of pulsating energy and gleaming bioformic substances. In the centre of the room is the heart of the power supply - a real heart - biological, with veins and arteries, ventricles and flaps. The difference between the ship's heart and a mamillian heart is that it actually produces plasma, the fuel that keeps the ship alive and moving. And it is a luminescent green colour.
+
+The tubes that act as veins and arteries snake from the heart in all directions to the ship's power grid, carrying recharged plasma from the heart, and returning depleted plasma back to it. The exhaust casing is cracked and weakened due to the seemingly inadvertent effect of the near-miss from the Techthons. The power is down to the minimum needed to keep the ships primary systems online.
+
+This room is dedicated to the housing and maintenance of the heart, it's surrounding construction (the polyflitic glass that encases it, the tubes and the waste-flow valves), and the waste hatch, or 'exhaust' as it's called in engineer's lingo. Various night-shift engineering crewmen tend to the heart. It is still and quiet, in the late hours of the night. 
+
+A door leads east to the Cargo Bay, and a lift goes up to the Bridge.
+
+
+
+> z
+Time passes...
+
+> e
+You move east.
+Cargo Bay
+The largest space on ship, nearly everything is stored here. Racks of equipment lines the walls, barrels, boxes and crates of all shapes and sizes are stacked here and there. A broken visi-pod lies in a heap in one corner. There are even things hanging from the ceiling. It is still and quiet, in the late hours of the night. The Transporter Room is east, the Brig northeast, and the Engine room west. A lift leads up to the Mess Hall.  As you scrounge around in the Cargo Bay, Aldos marches in with two other crewmen and they snatch rigorpistols off a rack on the wall and arm them.
+
+> x racks
+Adjustable racks line the walls, holding all manner of equipment. A locked gunrack stands near the door.  On the equipment racks is a multi-riveter, some rivets and a waste hatch casing.
+
+> get all from racks
+You take the multi-riveter, the rivets and the waste hatch casing from the equipment racks.
+
+> w
+You move west.
+Engine Room
+The Volant, although not a large ship, has a top-of-the-range power system, which, even to the untrained eye, is a wonder of pulsating energy and gleaming bioformic substances. In the centre of the room is the heart of the power supply - a real heart - biological, with veins and arteries, ventricles and flaps. The difference between the ship's heart and a mamillian heart is that it actually produces plasma, the fuel that keeps the ship alive and moving. And it is a luminescent green colour.
+
+The tubes that act as veins and arteries snake from the heart in all directions to the ship's power grid, carrying recharged plasma from the heart, and returning depleted plasma back to it. The exhaust casing is cracked and weakened due to the seemingly inadvertent effect of the near-miss from the Techthons. The power is down to the minimum needed to keep the ships primary systems online.
+
+This room is dedicated to the housing and maintenance of the heart, it's surrounding construction (the polyflitic glass that encases it, the tubes and the waste-flow valves), and the waste hatch, or 'exhaust' as it's called in engineer's lingo. Various night-shift engineering crewmen tend to the heart. It is still and quiet, in the late hours of the night. 
+
+A door leads east to the Cargo Bay, and a lift goes up to the Bridge.
+
+
+
+> fix casing
+Carrying the multi-riveter, rivets and replacement casing, you crawl through the access tunnel (oh how you wish they could be a few inches wider), and rivet the casing onto the bulkhead, where the waste hatch was damaged. Backing out, you call the Captain.
+
+'Exhaust fixed, Captain, you can power up now. Give it 30 minutes to get back to full power.'
+
+'Well, finally,' an exasperated Captain Sun transmits back.
+Press any key
+
+*	*	*	*	*	*	*	*	*	*	*	
+
+
+ALDOS
+
+You have heeded the Captain's call, and are armed and ready, having gathered a couple of trustworthy, battle-trained crewmen. You have gathered them in the Briefing Room.
+
+
+Briefing Room
+A rectangular table fills most of this small room, with enough chairs around it for all five of the senior officers, and three others depending on the meeting. An ICP panel in widescreen view is built into the bulkhead at the head of the table, and smaller versions sunk under plexiglass on the table in front of each chair. Doors lead west to the Bridge and east to the Mess Hall. It is still and quiet, in the late hours of the night.
+
+> talk to team
+'The Prehipsonite may be armed,' you warn them. 'If you see it, shoot to disable, but not to stun. We want him conscious.' 
+
+'Sir', one of the crewmen asks, 'What if the Techthon decide to board us? What should we do?'
+
+You think for a minute. 'Don't try to fight them. Our hand weapons will be no match. I doubt they will kill any of us if unprovoked.' The men and women you chose, not ones to surrender easily, are obviously not of the same mind. 'I know that you are all programmed to fight to the death, 'til the last man down, and all that. That's why you are my security team. But right now, we have to be realistic. I am thinking about the rest of the crew - this isn't yet a life or death situation. What we really need to do is find that stowaway, pronto. Clear?'
+
+
+
+> talk to team
+You know the Prehipsonite cannot be in any of the publicly inhabited rooms of the ship, or he would have been found in the time since you left Bambeecha. You say as much to your team.
+
+'That leaves two options.' 
+
+One of the crewmen nods and snorts. 'It's either being hidden by a crewmember...'
+
+'Like an officer, with thier own private quarters...' Another one interjects.
+
+'Or it's hiding in the access tunnels.'
+
+'Too big for the pipes, tubes or lift shaft spaces.'
+
+You nod in agreement. Doling out the rigourpistols, you have have to decide whether the team should stay together and comb the ship, able to cover each other in the event the stowaway is armed and dangerous (you have all decided to assume it exists), or divide the team to make faster time.
+
+> divide
+
+It makes no sense to keep the group together. You have little time, and there's only the one stowaway. Pointing, you give the orders.
+
+'You two, come with me. You take command, and you two cover him. Take the lower decks, and don't forget to check behind all the removable panels. I don't want hear a thing from you unless you find it. Got it?'
+
+The other team of three nod and leave the room. You have two crew members as back-up only, but your decision should double the speed at which you find the renegade.
+
+
+> e
+You move east.
+The Mess Hall
+The Mess Hall isn't very large (the Volant not being a commodious ship), but as the ship's crew eats in shifts, it doesn't get too cramped. There is no kitchen, this new vessel instead providing dulpicators with a range of foods on offer that can be called up a the push of a button. Of course, not everyone is happy with the selection, but it suits most people and occasions. Five duplicators line one wall, and in the middle of the room are three long tables lined by benches, where a few night-owl crewmen and women sit, having a late snack and chatting. A porthole shows the starfield of space outside.
+
+Doors lead west to the Briefing Room and east to Sick Bay. A lift goes either up to the Recreation Room on the upper deck, or down to the Cargo Bay on the lower deck. 
+
+The security team follows you from the west.
+
+> u
+You move up.
+Recreation Room
+This is the hub of the living area of the upper deck. A snacks-only duplicator is here, as well as several chairs and a basic holographic visi-pod. 
+
+Doors lead off from here to the crew's Quarters:
+SW - Captain's Quarters 
+W - Chief Engineer's Quarters
+NW - First Quarters (male junior officers) 
+N - Second Quarters (female junior officers and crewmen)
+NE - Security Officers Quarters
+E - Third Quarters (male crewmen)
+SE - Doctor's Quarters 
+S - Bathrooms
+
+Or you can go down to the Mess Hall. It is still and quiet, in the late hours of the night.  The security team follows you from below.
+
+> e
+You move east.
+
+
+Third Quarters
+Typically for the common Quarters, three sets of double-bunks, one above the other, are aligned along one side of the room. On the other side, at the foot of the beds, are built-in lockers. In this men's accommodation, there is a strong scent of clashing colognes and hair gels, mixed with the sharp odours of dirty socks. Posters hang at various angles on the walls, and someone has facetiously placed a Tibridi-fur rug on the floor. A small audio-pod hangs from the ceiling in the middle of the room. A panel on the far wall from the door has ACP 2-14S-8B stamped in black on it.
+
+Most of the bunks are filled with men, tossing and turning, or quietly chatting. One pair keeps bursting into short, hardly-stifled snickers.
+
+A door leads west.  The security team follows you from the west.
+
+> open panel
+You open the panel and peer down a long, silvery tunnel, which stretches away to the north. Cool air puffs on your face.
+
+> n
+You move north.
+AC Passageway 3-14S-2B
+One of many endless-seeming air conditioning passages. According to the location sticker on a panel nearby, it is on the 3rd deck (from the bottom), 14th from starboard, 2nd from the bow. You peer through the vent, and can just about see the goings-on in Third Quarters. Not that there's much going on at the minute, except your security team who are waiting impatiently for you. You can go west.  The security team follows you from the south.
+
+> w
+You move west.
+AC Passageway 3-14S-5B
+One of many endless-seeming air conditioning passages. According to the location sticker on a panel nearby, it is on the 3rd deck (from the bottom), 14th from starboard, 5th from the bow. The Recreation Room is just visible through the vent. A single crewman is watching the visi-pod, and two others are fast asleep on chairs. You can go north, east and west.   The security team follows you from the east.
+
+> n
+You move north.
+AC Passageway 3-18S-5B
+One of many endless-seeming air conditioning passages. According to the location sticker on a panel nearby, it is on the 3rd deck (from the bottom), 18th from starboard, 5th from the bow. Some laughter surprises you, until you remember that of course, you are next to Second Quarters. Unfortunately the holes in the vent are far too small to get much satisfaction out of looking into the female Quarters, but the women appear to be having some kind of late night chat in thier underwear, so you waste a bit of time trying to get a better look. You can go south or up.  The security team follows you from the south.
+
+> u
+You move up.
+Waste Flow Pipe (stinky)
+You almost gag as you make your way down the waste flow pipe which leads from the bathrooms to the compactor. Luckily the night-time flush-through has been done. You can go east or down.  Jeljel Ha Wennwa is here, shivering.  The security team follows you from below.  
+'Hold it right there!' You say to the Prehipsonite. 'Don't make a move. I'm not going to hurt you.'
+
+The reptilian man seems barely conscious. He opens his eyes, and seems to see you, but you can't be sure.
+
+He doesn't appear to be much of a threat. You easily drag him out of the air conditioning system and into Third Quarters, where your waiting team immediately crouch and train thier rigourpistols on the stowaway.
+
+'Take him to the brig,' you say, and they take Jeljel Ha Wennwa by the upper arms and haul his limp body off. 'Captain, we found the stowaway.' You say into thin air. 'He's on his way to the brig now.' After securing the access panel, you take a little snort of hakihak which had been stuffed under your thumbnail and wait a minute for the effects to kick in. Ahhh. Victory is pleasant.
+
+Press any key
+
+Brig
+The brig contains two cells and a watchstation. Never used, the virgin cells in the brig are spotlessly clean, but harsh and uncomfortable. A simple cot with a thin blanket and a shower/toilet area in the corner are their only fittings. The entire front of the cells are transparent - with a forcefield that can be altered if need be depending on the lifeform inside. The watchstation is a one-way viewing area with a chair and small table - regulations specifying that someone always be on watch if a cell is occupied.
+
+There's a lift that goes directly to the Security Officer's Quarters, and doors leading north to the Morgue, southwest to the Cargo Bay, and northwest to the Transporter Room.   
+Press any key
+
+The Prehipsonite stands forlornly in one of the cells. You realise that although he looks to be cowering, he is in fact shivering with cold. Probably used to the heat of his home world, a renowned hot planet with three young suns. How he managed to survive in the AC passages you have no idea.
+
+'Go ahead and question him.' The Captain says, 'I want to watch first.' You are both in the watchstation, but you move out in front of the cell itself. Jeljel stares at you, hunched and shivering.
+
+'Take the blanket,' you say. He ignores you.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+'What on earth are you doing?' Fornkan Helb bursts into the Brig and begins attempting to release the forcefield. 'Release forcefield!' He cries, then 'Open cell! Break off...'
+
+'Helb!' You say, 'This is my prisoner, what are you doing?' The Doctor isn't able to release the forcefield, not having the clearance to do so. He glowers at you.
+
+'You cannot get any information from him here - he is cold-blooded. Can't you see, he's fading? He needs to be warmed up, and I need to examine him before you kill him!'
+
+
+Press any key
+
+*	*	*	*	*	*	*	*	*	*	*
+
+FORNKAN
+
+You can't believe the barbarity of people, sometimes. Anyone running from the Techthons should be protected, not chucked into the brig like any common criminal. This refugee will not end up christening your morgue - you are sure about that. However, you know that the crew, possibly even thier lives and your own, depend on getting this situation sorted out.
+
+Captain Sun comes out of the watchstation. 'Fornkan...' She begins, but you interrupt, abashed.
+
+'Captain! I'm so, so sorry - I didn't realise you were there.'
+
+'We have to get the story from this fellow - the Techthon are not a people to mess around with. Now, you know what's going on with this Prehipsonite better than any of us. Tell me what to do.'
+
+Aldos passes his rigourpistol from one hand to another and glares at you. You are torn between your intense feelings of empathy for the man in the cell, and the desire to protect the crew and ship. You can either stand your ground and insist on examining and warming Ha Wennwa, or give in to Aldos' instincts and allow them to question him immediately.
+
+
+> stand your ground
+
+'Sunny,' you revert to your basis of friendship to state your case to the Captain. 'He'll be no use to you like this anyway. He can't even think straight. Give me a few minutes to at least get him warmed up. You can interrogate him while I examine him.'
+
+Aldos snorts. The Captain, however, nods. 'That sounds reasonable. I agree. Aldos, take him up to Sick Bay now.'
+
+  
+Sick Bay
+With only twenty crewmen on board, the Volant only has a miniature sick bay.  One examining table in the corner, two pull-out cots, and a desk and chair for the ship's doctor, Fornkan Helb, to work at. An ICP is on one wall, next to body-scanner. There are also two cupboards containing various medical equipment and medications. 
+
+A door leads west to the Mess Hall, and a small lift leads up to the Doctor's Quarters, and down to the Morgue.  It is still and quiet, in the late hours of the night.
+
+> warm jeljel
+You put Jeljel in the Body Scanner, and set it to a high heat setting. Meanwhile you ready a heat blanket, and when he's ready, you wrap him in it.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+*	*	*	*	*	*	*	*	*	*	
+
+JEJEL
+
+Your body and brain are slowly coming back into focus.  The faces around you are becoming clearer - you can read thier expressions now. So it wasn't a dream, hiding out from the Techthon in the frigid spaces of an alien ship, your discovery by the blue-skinned being, your removal to this wonderful, warm, preciously warm place. Your senses returned, finally.
+
+'Jeljel Ha Wennwa, can you understand me?' You hear. Then, 'He should be able to hear us, his brain activity is nearly at normal levels...'
+
+You feel like you can talk, sanely, now.
+
+
+> z
+Time passes...
+
+> talk to doctor
+'I can understand you', you croak, 'I can. Thank you. I'm feeling much better now. Thank you.'
+
+'Ah,' the voice says and you realise it was the Doctor who had been speaking. 'Captain, he's resurfaced.' The Doctor smiles at you. 'You'll be fine, don't worry. We aren't going to hurt you.'
+
+The Captain and the Security Officer peer at you alongside the Doctor.
+
+
+> talk to doctor
+
+'Please, let me tell you the whole story, before you come to any judgement.' You say.
+
+The three officers glance at each other, and the Captain nods.
+
+'The Techthons, who you tolerate in the sector, are pirates. They are murderers and slave traders. I know you have treaties with them, but you don't have all the information.'
+
+'We have people who keep an eye on the Techthons, Jeljel, they are not allowed to breach our treaties.' The Captain explains.
+
+'No, they disguise themselves. Techthons, disguised as Canelian scrap traders, descended on my village a year ago - they took five hundred people, none of whom have been seen again. This included my life-partner, Mela. She was pregnant.' You see the Captain give Aldos a look - raised eyebrow. You aren't sure exactly what that means.
+
+Press any key
+
+'I joined a group which spy on the Techthon.' You continue, 'All we do is collect data on thier illegal activities - we aren't terrorists and we don't sabotage them in any way. We have terabytes of data on them, and we will soon present it to the WPU. But I... well, over time, I couldn't take it anymore. I got vengeful. I used my connections to try to get information on Mela's whereabouts, or existence even, and in the process I was discovered. I tried to escape, and some Techthon soldiers got killed. I have discovered not one shred of information on Mela, for all my troubles.'
+
+'How did you get on the ship?' The Security Officer asks.
+
+'I followed your pilot and some others to your ship, and when thier back was turned as they loaded things into your cargo area, I slipped in. I found a loose panel, and got access to the air-flow system. At first, I admit, I did spy on the crew.' The others take in breath at this, and you know they aren't happy. 'But it was only to decide how safe it woud be to make myself known to you. Then, the cold atmosphere got to me, and I became too weak to even move, much less present my case to you.'
+
+
+> z
+Time passes...
+Press any key
+
+*	*	*	*	*	*	*	*	*	*	*	
+
+
+JACQUILINE
+
+'I really think you should let him rest now,' Fornkan Helb whispers to you after Jeljel's speech. You barely register Fornkan's presence, much less his admonitions. The Techthon flouting the treaties so substantially is a major allegation indeed. 
+
+Your mind whirrs with questions: how seriously can you take Ha Wennwa, and if you believe him, what should you do with the information; what is going to happen now that you don't have to, officially, give him up as a fugitive from justice? In fact, you can give him asylum on the grounds of his usefulness as a witness to these atrocities, something the WPU will be interested to have on hand. Another problem - how to keep the Techthons from pursuing you until they destroy you - it seems obvious now that the Prehipsonite is more than a fugitive - he's a threat to thier current status quo in the sector. If they know you have him... well, it just doesn't bear thinking about.
+
+In spite of what the Doctor said, and how badly Ha Wennwa looks, you will need more information.
+
+Sick Bay
+With only twenty crewmen on board, the Volant only has a miniature sick bay.  One examining table in the corner, two pull-out cots, and a desk and chair for the ship's doctor, Fornkan Helb, to work at. An ICP is on one wall, next to body-scanner. There are also two cupboards containing various medical equipment and medications. 
+
+A door leads west to the Mess Hall, and a small lift leads up to the Doctor's Quarters, and down to the Morgue.  It is still and quiet, in the late hours of the night.  Aldos stands here, trying to look important.   Fornkan Helb fiddles with something.  Jeljel Ha Wennwa is here, shivering.
+
+> z
+Time passes...
+
+> talk to jeljel
+
+'Jeljel,' you say, against the Doctor's protestations. 'I need more information on the Techthon. I have decided to believe what you say, it explains a lot. There are two Techthon warships nearby, within boarding distance. They are extremely intersted in boarding us. I'm not even sure how we managed to keep them away this long, except that perhaps they don't want to raise our suspicions even more than they already have.'
+
+'Yes, yes, that is probably true,' Jeljel agrees. 'But they will stop at nothing to get me back. You cannot negotiate with them, and you won't be able to stall them for long.'
+
+'You've been aboard this ship for some time. Tell me the truth now, have you ever accessed our computer system?'
+
+'Yess, once. I know what you're going to ask - and no, you cannot outgun the Techthon. You also cannot outrun them. At least not in any conventional sense. They are, however, more reliant on technology, and less reliant on instinct and trickery.'
+
+'So if we can't out-manouver them, we may be able to outsmart them.' You decide to leave Jeljel and head for the Bridge. 'Aldos, stay here and guard him. Fornkan, make him as comfortable as possible.'
+
+The Bridge
+The command centre of the ship, you feel almost as comfortable on the Bridge as in your own quarters. All the crew members who work in this room are your friends and are trustworthy fellow officers who have, so far, never let you down, or questioned your authority without very good reason.
+
+The colour scheme is pale grey and navy blue like the rest of the newly-commissioned ship, comfortable, but not luxurious.
+
+Your chair sits near the middle of the room, facing the giant view-screen. Stretching across the room in front of your chair is the control board, with the piloting controls to your right, and the weapons controls to your left. In front of your chair is the information computer panel. Behind and to the left is the communication officer's station, and next to her, the systems monitor's station.
+
+To the right of the Captain's chair is a double-lift, one leading down to the engine room, and the other is your personal access up to your quarters. Another door leads east to the Briefing Room.
+
+The pilot, Danny, is gazing out at space.  Mr Handar examines his array of weaponry controls.  Miss Deleanora mans the system monitor station.  Mrs Williamsby concentrates on the airwaves traffic through her padded headphones.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+You have had some time to think, and you are still finding it difficult to come up with any solution to this problem of getting away from, or destroying, the Techthon. They outgun you. They can outrun you. There is no way you can best thier technology. 
+
+Suddenly you have an idea. What is the main weakness of almost all lifeforms? 
+
+'Fornkan Helb, please report to the Bridge.' You state into the air. Danny looks at you askance, but says nothing. His mind is probably working out every possible scenario as well.
+
+After a few moments, Fornkan comes through from the Briefing Room. 'Yes Captain, are you all right? No one reported any casualties on the Bridge...'
+
+
+
+> talk to doctor
+
+You can feel the excitement rising in you. A good idea often does that to you. 'Fornkan, how much do you know about the Techthon physiognomy?'
+
+'I know a lot, Captain.' He pauses and breaks into a smile. 'And I know what you're thinking.'
+
+'Well?'
+
+'There are two things about the Techthon that may be considered weaknesses. First, they see the world in the lower ranges of light only - from infrared up to about green. They are easily blinded by higher wavelengths, although this is only possible when they are on their home world, or on their ship, when they aren't wearing helmets. Second, they have a sort of 'sixth sense' whereby they can pick up x-ray radiation in their nasal cavities. Whilst their instrumentation and body armour, as well as their fitted technology, can instantly correct for overexposure, these physiological attributes are not so adaptable.'
+
+So, you can take out their eyesight with a beam of bright light, and then use the ultra-subtle phyto-neutron ray against thier detection system - hopefully knocking out all their visual aids. You can then target their hatchways (the weakest points in the hulls) with the phyto-neutron ray and blast them with x-rays in the hopes some will leak through and further confuse the Techthon. While the ships' crews are temporarily disabled in this way, you can either fight, in the hopes of permanently disabling them, or flee before they have a chance to trace your trajectory.
+
+
+
+
+> flee
+
+You give Handar instructions for the electro-magnetic advantage you devised, and turn immediately to Danny.
+
+'Do absolutely nothing until we've confirmed thier visual system is disabled. Then I want to you head straight between them. Change your direction, but only slightly - keep on an average course for the Halcyon System. Don't worry, we aren't really going to visit my sister - we're going to change course later on for Prehipson.'
+
+'Aye, aye.' Danny readies his course and waits for the confirmation.
+
+
+On Prehipson, you accompany Jeljel Ha Wennwa to the governor, who has been briefed on the secret spy network on illegal Techthon activity. He gives you the information so far collected. It is the beginning stages of a cause that will go on for years and take you to many brinks of disaster, but, eventually, the Techthon will be forced to pay for thier misdeeds, and become virtual vassals of the World Planetary Unions. You daughter will eventually join the Techthon alliance against the WPU 30 years later, in defiance of the totalitarian regime the Techthon 'problem' helped to engender.
+
+
+THE END
+
+
+
+You have won! Good for you! You can still restore a saved game, restart or undo (like you need to).

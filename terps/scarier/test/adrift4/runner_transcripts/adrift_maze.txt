@@ -1,0 +1,127 @@
+
+> n
+You move north.
+Maze A
+You are in a twisty maze, Section A.  You can move north, east and south.
+
+> e
+You move east.
+Maze A
+You are in a twisty maze, Section A.  You can move north, east and west.
+
+> e
+You move east.
+Maze A
+You are in a twisty maze, Section A.  You can move north, east, south and west.
+
+> e
+You move east.
+Maze D
+You are in a twisty maze, Section D.  You can move north, south and west.
+
+> s
+You move south.
+Maze D
+You are in a twisty maze, Section D  You can move north and east.
+
+> e
+You move east.
+Maze D
+You are in a twisty maze, Section D.  You can move west and northeast.
+
+> ne
+You move northeast.
+Maze D
+You are in a twisty maze, Section D.  A powerful wizard is here.  You can move east, southwest and northwest.  Wizard vanishes to the north-west.
+
+> e
+You move east.
+Maze R
+You are in a twisty maze, Section R.  You can move north, east, south and west.
+
+> e
+You move east.
+Maze R
+You are in a twisty maze, Section R.  You can move east and west.
+
+> e
+You move east.
+Maze R
+You are in a twisty maze, Section R.  You can move north, west and southeast.
+
+> se
+You move southeast.
+Maze R
+You are in a twisty maze, Section R.  You can move east and northwest.
+
+> e
+You move east.
+Maze I
+You are in a twisty maze, Section I.  You can move north and west.
+
+> n
+You move north.
+Maze I
+You are in a twisty maze, Section I.  You can move north and south.
+
+> n
+You move north.
+Maze I
+You are in a twisty maze, Section I.  You can move east and south.
+
+> e
+You move east.
+Maze F
+You are in a twisty maze, Section F.  A strange looking alien is here.  You can move east, south and west.
+
+> e
+You move east.
+Maze F
+You are in a twisty maze, Section F.  You can move east and west.
+
+> e
+You move east.
+Maze F
+You are in a twisty maze, Section F.  You can move east and west.
+
+> e
+You move east.
+Maze T
+You are in a twisty maze, Section T.  You can move east and west.
+
+> e
+You move east.
+Maze T
+You are in a twisty maze, Section T.  You can move east, south and west.
+
+> s
+You move south.
+Maze T
+You are in a twisty maze, Section T.  You can move north and south.
+
+> s
+You move south.
+Maze T
+You are in a twisty maze, Section T.  You can move north and south.
+
+> s
+You move south.
+Trophy Room
+You are in the ADRIFT Trophy Room.  Also here is a trophy.  You can only move north.
+
+> x trophy
+It is a very tropy with a golden cup and giant letters that spell out ADRIFT.  It look like there is some writing on it.
+
+> read it
+(a trophy)
+It has the following engraved on it.
+
+adventurer
+
+> take it
+(a trophy)
+You take the trophy and hold it up proudly.
+
+Congratulations!  You WIN!
+
+[Press any key to end]

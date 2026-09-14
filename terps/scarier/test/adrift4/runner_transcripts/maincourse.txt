@@ -1,0 +1,242 @@
+
+> north
+(Standing up first)
+SoMorph moves north.
+Corridor Alpha
+
+SoMorph in cross corridor. Cross Corridor confuse SoMorph a little.
+
+SoMorph notice tubes on ceiling. Small lights in floor. Dirty walls.
+
+Always dirty these humans. Dirty.
+
+No windows! Why no windows???
+
+Corridor split into four. Exits to North, West and South.
+
+  
+To east is bathroom, but door is closed.
+
+  SoMorph can move north, south and west.  
+Somorph thinking that Brian did this. 
+
+Brian not like Somorph. Brian rival for Somorph's job on home planet Omorphos.
+
+Did Brian do this?
+
+
+
+> look
+Corridor Alpha
+
+SoMorph in cross corridor. Cross Corridor confuse SoMorph a little.
+
+SoMorph notice tubes on ceiling. Small lights in floor. Dirty walls.
+
+Always dirty these humans. Dirty.
+
+No windows! Why no windows???
+
+Corridor split into four. Exits to North, West and South.
+
+  
+To east is bathroom, but door is closed.
+
+  SoMorph can move north, south and west.  
+Or maybe SoMorph got drunk?
+
+Somorph cannot remember much. Just in case, SoMorph will have words with Brian when Somorph get home.
+
+
+
+> attack cat
+I don't understand what you mean!
+
+> look
+Corridor Alpha
+
+SoMorph in cross corridor. Cross Corridor confuse SoMorph a little.
+
+SoMorph notice tubes on ceiling. Small lights in floor. Dirty walls.
+
+Always dirty these humans. Dirty.
+
+No windows! Why no windows???
+
+Corridor split into four. Exits to North, West and South.
+
+  
+To east is bathroom, but door is closed.
+
+  SoMorph can move north, south and west.
+
+> attack cat
+I don't understand what you mean!
+
+> eat cat
+SoMorph not see pesky dead feline anywhere.  
+Somorph think he not on planet Omorphos any more. 
+
+Somorph on some ship. Must change course to go home.
+
+And have words with Brian. 
+
+
+
+
+
+> take cat fur
+Take what?
+
+> open door
+SoMorph open the bathroom door.
+
+> east
+SoMorph moves east.
+Bathroom
+
+Bathroom small. And very dirty.
+
+SoMorph not like dirty bathroom. 
+
+SoMorph see toilet here.
+
+SoMorph see big red button above toilet. And writing. 
+
+It say "Do not push button while the ship is in hyperspace or at a station."
+
+SoMorph chuckles.
+
+  
+SoMorph see bathroom door open. Corridor to West.
+
+  SoMorph can only move west.
+
+> close door
+SoMorph close the bathroom door.
+
+> open loo
+SoMorph open the toilet.
+
+> use toilet
+SoMorph not need toilet right now. Not before SoMorph eat something at least.
+
+> wear cat fur
+Wear what?
+
+> push button
+nothing happens
+
+> open door
+SoMorph open the bathroom door.
+
+> west
+SoMorph moves west.
+Corridor Alpha
+
+SoMorph in cross corridor. Cross Corridor confuse SoMorph a little.
+
+SoMorph notice tubes on ceiling. Small lights in floor. Dirty walls.
+
+Always dirty these humans. Dirty.
+
+No windows! Why no windows???
+
+Corridor split into four. Exits to North, West and South.
+
+  
+To east is bathroom. SoMorph see bathroom door is open.
+
+  SoMorph can move north, east, south and west.
+
+> west
+SoMorph moves west.
+Cryo Stasis Room
+
+SoMorph think this cryo stasis room.
+
+Room is cold, so must be cryo stasis room. SoMorph not like cold.
+
+Room is empty. Only Cryo Tube here. So must be cryo stasis room.
+
+SoMorph think at least room is clean. Wish room was warmer.
+
+SoMorph see exit to East.  SoMorph can only move east.
+
+> attack human
+I don't understand what you mean!
+
+> look
+Cryo Stasis Room
+
+SoMorph think this cryo stasis room.
+
+Room is cold, so must be cryo stasis room. SoMorph not like cold.
+
+Room is empty. Only Cryo Tube here. So must be cryo stasis room.
+
+SoMorph think at least room is clean. Wish room was warmer.
+
+SoMorph see exit to East.  SoMorph can only move east.
+
+> look
+Cryo Stasis Room
+
+SoMorph think this cryo stasis room.
+
+Room is cold, so must be cryo stasis room. SoMorph not like cold.
+
+Room is empty. Only Cryo Tube here. So must be cryo stasis room.
+
+SoMorph think at least room is clean. Wish room was warmer.
+
+SoMorph see exit to East.  SoMorph can only move east.
+
+> attack human
+I don't understand what you mean!
+
+> eat human
+SoMorph not see human anywhere.
+
+> remove cat fur
+Remove what?
+
+> east
+SoMorph moves east.
+Corridor Alpha
+
+SoMorph in cross corridor. Cross Corridor confuse SoMorph a little.
+
+SoMorph notice tubes on ceiling. Small lights in floor. Dirty walls.
+
+Always dirty these humans. Dirty.
+
+No windows! Why no windows???
+
+Corridor split into four. Exits to North, West and South.
+
+  
+To east is bathroom. SoMorph see bathroom door is open.
+
+  SoMorph can move north, east, south and west.
+
+> north
+SoMorph moves north.
+Command Deck
+
+SoMorph think this be command deck of ship.
+
+Not much here though. No chairs! Do humans not sit???
+
+SoMorph see viewer on wall. SoMorph can read viewer. 
+
+SoMorph see dust everywhere. Lots of dust.
+
+Also, computer here. It say 'FRANK' on it. SoMorph can talk to computer, but he not seem very friendly to SoMorph.
+
+SoMorph can go South to corridor.
+
+  Also here is some catnip.  Frank is here.  SoMorph can only move south.
+
+> main course
+"I'm sorry. I am only programmed to accept requests from humans. Disgusting purple aliens with tentacles cannot change the course of the ship. Have a nice day!"

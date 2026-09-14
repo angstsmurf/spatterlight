@@ -1,0 +1,32 @@
+feed        30 commands
+runner      30 turns echoed
+scarier     31 turns, feed[0] is scarier turn 1
+
+RULE 2 -- every feed command was echoed.
+
+turn 13  buy rawhide armor
+  run400   I don't think that is for sale.
+  scarier  You count out $90 to buy the armor. You mutter to Golapho that you'd like to buy it. He mutters under his breath and reaches down, throws the armor to you, and takes the money, all without leaving his seat. You have $376 and 50 cents.
+
+turn 14  wear the rawhide armor
+  run400   Wear what?
+  scarier  You put on the rawhide armor.
+
+turn 18  buy a hunting sword
+  run400   You give $80 to Calado and ask for the hunting sword. He grins and hands you the sword. "Happy huntin!" He says, assuming that's why you're buying the sword. You have $386 and 50 cents.
+  scarier  You give $80 to Calado and ask for the hunting sword. He grins and hands you the sword. "Happy huntin!" He says, assuming that's why you're buying the sword. You have $296 and 50 cents.
+
+turn 22  rent a room
+  run400   You count out $50 and hand it to Gralle. She smiles and points to your room. You now have $336 and 50 cents. You have 24 hours left at your room in Gralle's Inn.
+  scarier  You count out $50 and hand it to Gralle. She smiles and points to your room. You now have $246 and 50 cents. You have 24 hours left at your room in Gralle's Inn.
+
+turn 28  stats
+  run400   These are your stats: Wealth: $336, and 50 cents. Number of turns passed: 26 For Stamina, Strength, and Defense values, type status.
+  scarier  These are your stats: Wealth: $246, and 50 cents. Number of turns passed: 26 For Stamina, Strength, and Defense values, type status.
+
+turn 29  wealth
+  run400   Money Status: You have $336. You have ¢50.
+  scarier  Money Status: You have $246. You have ¢50.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

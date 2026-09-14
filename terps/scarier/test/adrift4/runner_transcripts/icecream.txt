@@ -1,0 +1,20 @@
+
+> take cone
+  You already have an empty cone.
+
+
+> scoop ice cream
+You reach down and get a scoop of ice cream.
+  "What's taking so long up there? I've got to get to a funeral!" some guy shouts from the end of the line.
+
+
+> place ice cream in cone
+  Holding the cone in one hand, you place the scooped ice cream carefully on the top with the other.
+  The ice cream falls on the floor!
+  "Hey!" the customer shouts. "I'm waiting here. Can'tcha be a little more careful?"
+  "Wilbur! Clean that up!" Ron shouts.
+
+> give cone to customer
+  You reach out to give the customer an empty cone. This infuriates the customer and he leaves in a huff.
+  Ronald scowls.
+
