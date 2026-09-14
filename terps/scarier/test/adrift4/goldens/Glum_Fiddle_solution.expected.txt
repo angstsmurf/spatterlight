@@ -236,6 +236,11 @@ Glum suddenly turns and heads south.
 > wait
 Time passes...
 
+> x pile of boulders
+The boulders are piled up across a small area of the valley.  On the pile of
+boulders is a large pink, tasseled cushion, a lace doily, an oil lamp, a
+silver tray, a silver teapot, a wooden plank and a set of china cups.
+
 > take cushion
 You take the large pink, tasseled cushion.
 
@@ -245,10 +250,10 @@ You take the lace doily.
 > take lamp
 You take the oil lamp.
 
+Glum suddenly turns and heads south.
+
 > take tray
 You take the silver tray.
-
-Glum suddenly turns and heads south.
 
 > take teapot
 You take the silver teapot.
@@ -326,8 +331,8 @@ you can see of it between stands of some kind of swamp bush.
 The pile of boulders is visible to the north, and a stand of trees is to the
 east.
 
-Glum, standing nearby, seems to be having a bright idea, face lighting up,
-finger in mid-air. But then it goes away, and he frowns.
+Glum Fiddle is here, fiddling with his housecoat, under which he wears
+nothing.
 
 > take slime in teapot
 You scoop up some slime from the marsh with the teapot.

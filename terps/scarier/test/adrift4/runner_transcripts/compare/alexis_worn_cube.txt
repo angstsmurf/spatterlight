@@ -27,10 +27,6 @@ difference until the feed is fixed and the row re-driven:
     feed[178]  attack urgorn
     ... and 14 more
 
-turn 27  get all from large stone table
-  run400   You take the Glaven stone from the large stone table. You can't take any more, as your hands are full.
-  scarier  You take the Glaven stone from the large stone table. That is too heavy for you to carry.
-
 turn 99  open chest
   run400   Command not understood
   scarier  You can't open that.
@@ -66,6 +62,18 @@ turn 132  attack larnt
 turn 151  north
   run400   As you pass through the door, Urgorn creates a spell that shuts the exit to the South. He then smiles, and says: Just us now, no escape. Haron follows you from the south.
   scarier  As you pass through the door, Urgorn creates a spell that shuts the exit to the South. He then smiles, and says: Just us now, no escape. Haron follows you from the south. Haron cuts the dark lord with the elven sword. The dark lord shoots Haron with the ball of fire.
+
+turn 152  attack urgorn
+  run400   You hit the dark lord with the metal spade. Haron cuts the dark lord with the elven sword. The dark lord shoots Haron with the ball of fire.
+  scarier  You hit the dark lord with the metal spade.
+
+turn 153  attack urgorn -- streams re-synchronised, scarier turn +1
+
+turn 154  attack urgorn -- streams re-synchronised, scarier turn +2
+
+turn 155  attack urgorn -- streams re-synchronised, scarier turn -2
+
+turn 156  attack urgorn -- streams re-synchronised, scarier turn -2
 
 ... stopping after 10 differing turns
 (the openings differ too -- banner, graphics notice or the

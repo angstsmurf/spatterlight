@@ -426,6 +426,11 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 # 25), `ne se ne ne` back, +5 recovered.  The old "What do you want to attack
 # Narfild with?" prototype answer is not needed: with the spade carried the
 # question never came under this ordering.
+#
+# Re-blessed 2026-09-15: `get all from large stone table` now ends "You can't
+# take any more, as your hands are full." as in the Runner (Adrift_145_alexis_rt
+# T28).  run390's take-from (insides) tests size before weight, and its all
+# form prints one summary instead of refusing the size-81 knife itself.
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=1
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
@@ -447,6 +452,9 @@ alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=1
 # task 66 (`easy`), so on Hard he stays in the village.  The one
 # "You can't get anything from that." (`get all from chest` at the Longmore
 # chest plate) is carried over from the old golden.
+#
+# Re-blessed 2026-09-15 for the same 3.9 take-from summary as the row above:
+# T27 matches Adrift_146_alexis_worn_cube_rt.
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=2
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_46_topaz.txt,
 # feed cmdfile_w_topaz.txt, 23 commands, PRE=1).  23/23 echoed with ONE real
@@ -1696,13 +1704,20 @@ ADRIFTMAS_Party_solution.txt|ADRIFTMAS_Party.taf|"Merry ADRIFTMAS TO ALL!  And t
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  One walk line moves a turn.
-# Still open (2026-09-12, the put port): six `put <thing> in sack` turns in
-# the corpus sweep differ, and the Runner is the vaguer side -- run400 prints
-# "(Taking that first)" / "You put that inside the hessian sack."
-# (Adrift_583_Glum_Fiddle.txt:205-206) where scarier names the object.  4.0's
-# implicit-take-then-put has a wording arm the put probes never reached.
 # Re-blessed 2026-09-13 for the 4.0 per-turn event "ticked" byte and the event
 # check right after an execute-task action; event/RNG timing only.
+# Walkthrough changed and re-blessed 2026-09-15: a task command's %object%
+# binds only an object the player has seen (run400 458E6C gates on [48],
+# run390 44ABEA on [44]; uip_match_entity under uip_strict_reference).
+# Glum's belongings lie on the pile of boulders unlisted, so in the Runner
+# (Adrift_220_Glum_Fiddle_rt.txt) every `take <cushion/doily/...>` at T16-22
+# missed TASK 19 and got "Take what?", and the game was never won.  The feed
+# now examines the pile first, which lists all seven.  Re-driven on run400x
+# with the new feed (Adrift_128_Glum_Fiddle_rt.txt): the Runner lists the
+# pile, takes all seven and wins 100/100.  This also closes the 2026-09-12
+# "(Taking that first)" / "You put that inside the hessian sack." lead
+# (Adrift_583): that was the put's implicit take of an object the failed
+# `take` never picked up.  With the takes working, run400 names the object.
 Glum_Fiddle_solution.txt|Glum Fiddle.taf|Your score:100 out of 100.|SCR_SKIP_WAITKEY=1
 JGrim_solution.txt|JGrim1.0.taf|WHOOOOOSH|SCR_SKIP_WAITKEY=1
 # Measured 2026-09-07: re-driven in run400 with the corrected feed

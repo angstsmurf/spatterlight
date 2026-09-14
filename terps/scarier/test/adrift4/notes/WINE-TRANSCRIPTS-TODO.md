@@ -379,8 +379,8 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 
 - **Carrying limits.** **Ported 2026-09-15** (see the index):
   businessasusual T20/T24 and provenance T722/T724 now match on every turn,
-  and wilkins T22/T107 match. The 3.9 twin, alexis T28, is still open (see
-  below).
+  and wilkins T22/T107 match. The 3.9 twin, alexis T28, was ported the same
+  day.
 - **Noun resolution and ambiguity:**
   - hub T70-73: `x lower right cupboard` gets "Which right cupboard. The right
     lower cupboard or the right upper cupboard?". The typed adjective order
@@ -389,8 +389,6 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     tincture..." or a `Which tincture.` prompt, and T117 drops a different
     object.
   - xfiles T62 `open phone book`: the Runner answers with the cell phone.
-  - Glum_Fiddle T16-22 `take <cushion/doily/lamp>`: the Runner says "Take
-    what?", Scarier takes.
   - 3monkeys T40 `get husk`: the Runner says "Huh?", Scarier takes the coconut
     husk (see T54's implicit take).
   - onnafa T155 `get key of pure harry`: the Runner says "I don't think Harry
@@ -433,12 +431,6 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 
 **Engine, 3.9:**
 
-- **Carrying:** alexis T28 `get all from large stone table` (and
-  alexis_worn_cube T27): the Runner says "You can't take any more, as your
-  hands are full", Scarier "That is too heavy for you to carry". It needs
-  run390's take pre-pass fit count and its summary sentence (455676 in
-  annotations.tsv: strict `<` fit tests in the container pass, weight
-  before size in the main loop).
 - **Noun resolution:** the Runner matches on the head noun and answers for
   an object the adjective rules out, or asks where Scarier picks:
   - stardust T38 `take needle box`: "You've already got the sharp needle!"
@@ -513,7 +505,9 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   Scarier says "can't put an object inside itself!".
 - **Scope.** None of these is measured:
   - the never-seen "You can't see that." branch at 471995;
-  - the two-pass `%object%` scope filter proper (`SCR_TRACE_SCOPE`);
+  - the two-pass `%object%` scope filter proper (`SCR_TRACE_SCOPE`). Its
+    seen gate is ported (see the index). Its present-before-absent binding
+    order is not;
   - the NPC seen gate for `%character%` (xfiles `look up byers`).
 - **Second-noun ambiguity:**
   - The wording of an instrument ambiguity is unmeasured (sswhore `unlock
@@ -533,9 +527,7 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   exposure is zero.
 - **Put row corners** (all unmeasured):
   - `(Taking X first)` ahead of a closed-container refusal;
-  - `put all in <the container, held alone>`;
-  - Glum_Fiddle's `(Taking that first)` / `You put that inside` pronoun
-    wording (Adrift_583).
+  - `put all in <the container, held alone>`.
 - **Output filter:**
   - Where the ALR pass sees trailing spaces is unlocated.
   - The NewParse `%` pattern binary path is unmeasured.
@@ -767,10 +759,10 @@ every Runner.
   - It takes ALL of therest off, not just that tail: 48AC62 jumps past the
     call at 48AFE4, so the "You can't <verb> X" arms go too and an empty
     buffer prints DontUnderstand; only the catch-all subset is kept.
-    `[4.0]` iachini T185 (uncommitted, STANDARD_ENDED_FALLBACK_COMMANDS)
+    `[4.0]` iachini T185 (STANDARD_ENDED_FALLBACK_COMMANDS, ab85a3e4e)
   - CompleteText is tested raw: a task text of just spaces counts as output,
     so the line is handled and no DontUnderstand follows. `[4.0]` wumpusrun
-    T10, probes Adrift_128_wumpA..D (uncommitted, task_run_task_unrestricted)
+    T10, probes Adrift_128_wumpA..D (task_run_task_unrestricted, ab85a3e4e)
   - The catch-all tests the line-top object's presence after the task, and
     that answer is a turn. `[4.0]` seaside `do form` (24dcc8e5a)
   - A line a task answered that names a term two present NPCs share is not
@@ -878,6 +870,13 @@ every Runner.
     (07bbd664d)
   - sit, stand and lie need the object on the room floor. `[3.8+]` house
     T124 (4e7df6dff)
+- **A task's `%object%` binds only a seen object.** run400's matcher skips
+  an object whose seen byte is clear (458E6C, [48]); run390's checktask
+  binding does the same (44ABEA, [44]). `take cushion` with the cushion
+  lying unlisted on the pile misses the task, and the library answers "Take
+  what?". The present-before-absent pass order is not ported. `[3.9+]`
+  Glum_Fiddle T16-22; the feed now examines the pile first, and Adrift_128
+  wins (`uip_match_entity`, 2026-09-15)
 
 ### Put and take-from
 
@@ -928,6 +927,19 @@ every Runner.
   cleared (4906A2), so it never phantom-weighs object 0. `[4.0]` wilkins
   T22/T107, businessasusual T20/T24, provenance T722/T724, riding_home T1
   (`lib_take_over_capacity`, 2026-09-15)
+- **3.9 take-from capacity.** insides() tests size first and weight second
+  (4638C8/4638DE). Weight is waived when the container is held; size never
+  is. A single named take-from refuses per object ("<Your> hands are full." /
+  "That is too heavy for you to carry."). The all/and forms work
+  differently:
+  - A pre-pass counts the objects that fit. If none do, the answer is "<Your>
+    hands are full." or "That is too heavy." and nothing is taken
+    (4634F9).
+  - Otherwise nothing is refused per object. One summary follows: "<You>
+    can't take any more, as it is too heavy." if any object failed on
+    weight, else "... as <your> hands are full." (463BDB/463C04).
+  - `[3.9]` alexis T28, alexis_worn_cube T27
+    (`lib_take_from_over_capacity_390`, 2026-09-15)
 
 ### NPCs, walks and battle
 

@@ -1,49 +1,16 @@
-feed        70 commands
-runner      70 turns echoed
-scarier     70 turns, feed[0] is scarier turn 0
+feed        71 commands
+runner      71 turns echoed
+scarier     71 turns, feed[0] is scarier turn 0
 
 RULE 2 -- every feed command was echoed.
 
-turn 16  take cushion
-  run400   Take what?
-  scarier  You take the large pink, tasseled cushion.
+turn 0  game
+  run400   Tiny Gatehouse All around you gorse, gnarled trees and tough, spiky grass struggles to grow. A tiny cottage nestles between a couple of large boulders. Blackberry vines trail across the boulders and the mossy roof of the cottage. A sign in front of the cottage has two boards on it, one pointing at the cottage saying 'Gait-Huose', and the other pointing to the east toward the entrance to a large cave, saying 'Caive'. The signs were painted in a rough hand with black paint. An Irish Wolfhound is by the tiny gatehouse > I don't understand what you mean. > I don't understand what you mean.
+  scarier  Tiny Gatehouse All around you gorse, gnarled trees and tough, spiky grass struggles to grow. A tiny cottage nestles between a couple of large boulders. Blackberry vines trail across the boulders and the mossy roof of the cottage. A sign in front of the cottage has two boards on it, one pointing at the cottage saying 'Gait-Huose', and the other pointing to the east toward the entrance to a large cave, saying 'Caive'. The signs were painted in a rough hand with black paint. An Irish Wolfhound is by the tiny gatehouse
 
-turn 17  take doily
-  run400   Take what?
-  scarier  You take the lace doily.
+turn 70  jump -- the Runner appended [Press any key to end], which is the host's own keypress prompt (ALR-rewritten in some games), not game text.  The turn is identical either side of it.
 
-turn 18  take lamp
-  run400   Take what?
-  scarier  You take the oil lamp.
+1 turn(s) differed only by the Runner's trailing keypress prompt.
 
-turn 19  take tray
-  run400   Take what? Glum suddenly turns and heads south.
-  scarier  You take the silver tray. Glum suddenly turns and heads south.
-
-turn 20  take teapot
-  run400   Take what?
-  scarier  You take the silver teapot.
-
-turn 21  take cups
-  run400   Take what?
-  scarier  You take the set of china cups.
-
-turn 22  take plank
-  run400   Take what?
-  scarier  You take the wooden plank.
-
-turn 23  light lamp with branch
-  run400   You don't have the oil lamp.
-  scarier  You light the lamp with the hot end of the branch you pulled out of the fire.
-
-turn 24  put cushion in sack
-  run400   (Taking that first) You put that inside the hessian sack.
-  scarier  You put the large pink, tasseled cushion inside the hessian sack.
-
-turn 25  put doily in sack
-  run400   (Taking that first) You put that inside the hessian sack.
-  scarier  You put the lace doily inside the hessian sack.
-
-... stopping after 10 differing turns
 (the openings differ too -- banner, graphics notice or the
  Runner's own startup lines; usually not an engine difference)

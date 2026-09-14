@@ -2291,6 +2291,18 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
       scr_int alias_count, alias, extent;
 
       /*
+       * A task command's %object% binds only an object the player has seen:
+       * run400's matcher skips any object whose seen byte is clear (458E6C,
+       * gate on [48]), and so does run390's checktask binding (44ABEA,
+       * [44]).  Glum Fiddle `take cushion`, with the cushion lying unlisted
+       * on the pile of boulders, so misses task 19 `[take/get/pick up]
+       * %object%` and the library answers "Take what?" (Adrift_220 T16).
+       */
+      if (uip_strict_reference && !is_character
+          && !gs_object_seen (game, index))
+        continue;
+
+      /*
        * Compare the entity's name, then each of its aliases, both prefixed
        * and not.  Alias -1 stands for the name itself.
        */

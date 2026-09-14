@@ -1,7 +1,7 @@
 tag	file	source	version	exe	seed	pre	popups	env	win_marker	verdict
 3monkeys	3monkeys.txt	driven:Adrift_277_3monkeys_rt.txt	4.00	run400x.exe	149	0		SCR_SEED=149	no	10+ differing turn(s)
 ADRIFTMAS_Party	ADRIFTMAS_Party.txt	driven:Adrift_219_ADRIFTMAS_Party_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
-Glum_Fiddle	Glum_Fiddle.txt	driven:Adrift_220_Glum_Fiddle_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
+Glum_Fiddle	Glum_Fiddle.txt	driven:Adrift_128_Glum_Fiddle_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 JGrim	JGrim.txt	driven:Adrift_221_JGrim_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 ShadricksUnderground	ShadricksUnderground.txt	driven:Adrift_213_ShadricksUnderground_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 Tear	Tear.txt	driven:Adrift_216_Tear_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
@@ -14,7 +14,7 @@ agent4f	agent4f.txt	driven:Adrift_205_agent4f_rt.txt	4.00	run400x.exe	1234	0			y
 akron	akron.rtf	driven:Adrift_288_akron_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
 albert_is_lost	albert_is_lost.txt	driven:Adrift_351_albert_is_lost_rt.txt	4.00	run400x.exe	42	2		SCR_SEED=42 SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 alchemist	alchemist.txt	driven:Adrift_499_alchemist_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
-alexis	alexis.txt	driven:Adrift_145_alexis_rt.txt	3.90	run390x.exe	1	0		SCR_SEED=1	yes	10+ differing turn(s)
+alexis	alexis.txt	driven:Adrift_145_alexis_rt.txt	3.90	run390x.exe	1	0		SCR_SEED=1	yes	10 differing turn(s)
 alexis_worn_cube	alexis_worn_cube.txt	driven:Adrift_146_alexis_worn_cube_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	10+ differing turn(s), 34 lost command(s)
 aliasagent	aliasagent.txt	driven:Adrift_428_aliasagent_rt.txt	4.00	run400x.exe	1234	0	Player		yes	0 differing turn(s), 1 lost command(s)
 alices_restaurant	alices_restaurant.rtf	driven:Adrift_302_alices_restaurant_rt.rtf	3.70	run370x.exe	1234	0			no	2 differing turn(s), 1 lost command(s)

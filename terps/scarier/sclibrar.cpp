@@ -8467,6 +8467,28 @@ lib_take_over_capacity (scr_gameref_t game, scr_int object, scr_bool *is_size)
 
 
 /*
+ * lib_take_from_over_capacity_390()
+ *
+ * 3.9's take-from has its own capacity test, in insides() rather than takes().
+ * It tests size first (4638C8) and weight second (4638DE).  The weight test
+ * is waived when the container itself is held by the player (container
+ * [22] = 0); the size test never is.  ALEXIS `get all from large stone table`
+ * refuses the size-81 knife by size: "You can't take any more, as your hands
+ * are full."  (Adrift_145 T28.)
+ */
+static scr_bool
+lib_take_from_over_capacity_390 (scr_gameref_t game, scr_int object,
+                                 scr_int container, scr_bool *is_size)
+{
+  *is_size = lib_object_too_large (game, object);
+  if (*is_size)
+    return TRUE;
+  return gs_object_position (game, container) != OBJ_HELD_PLAYER
+         && lib_object_too_heavy (game, object);
+}
+
+
+/*
  * lib_cmd_take_npc()
  *
  * Reject attempts to take an npc.
@@ -8810,6 +8832,14 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * the first.
    */
   lib_list_t over_capacity, over_is_size;
+  /*
+   * 3.9 take-from: the capacity test lives in insides(), with its own order
+   * and, for the all/and forms, its own reporting; see below.
+   */
+  const scr_bool from_390 = is_associate_object
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
+      && !lib_is_version_400 (game);
+  const scr_bool from_390_multi = from_390 && !lib_take_from_single_named;
   assert (!is_associate_object || !is_associate_npc);
 
   /*
@@ -8869,7 +8899,7 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       {
         scr_bool is_size;
 
-        if (lib_take_over_capacity (game, object, &is_size))
+        if (!from_390 && lib_take_over_capacity (game, object, &is_size))
           {
             over_capacity.push_back (object);
             over_is_size.push_back (is_size);
@@ -8914,6 +8944,62 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * the associate is an NPC, we're going to refuse all acquisitions later
    * on, by forcing object references.
    */
+  /*
+   * 3.9's all/and take-from first counts the objects that would fit, adding
+   * each fitting one to running size and weight totals (run390 463394-4634F4,
+   * with no held-container waiver).  If none fits it answers "<Your> hands are
+   * full." when any failed on size, otherwise "That is too heavy.", and takes
+   * nothing (4634F9-463545).
+   */
+  if (from_390_multi)
+    {
+      scr_int size, weight, fits;
+      scr_bool any_size, any_weight;
+
+      size = lib_carried_size (game);
+      weight = lib_carried_weight (game);
+      fits = 0;
+      any_size = any_weight = FALSE;
+      for (object = 0; object < object_count; object++)
+        {
+          if (!game->object_references[object]
+              || !(gs_object_position (game, object) == OBJ_IN_OBJECT
+                   || gs_object_position (game, object) == OBJ_ON_OBJECT)
+              || gs_object_parent (game, object) != associate)
+            continue;
+
+          if (size + obj_get_size (game, object)
+              > obj_get_player_size_limit (game))
+            any_size = TRUE;
+          else if (weight + obj_get_weight (game, object)
+                   > obj_get_player_weight_limit (game))
+            any_weight = TRUE;
+          else
+            {
+              size += obj_get_size (game, object);
+              weight += obj_get_weight (game, object);
+              fits++;
+            }
+        }
+
+      if (fits == 0 && (any_size || any_weight))
+        {
+          if (any_size)
+            lib_print_clause (game, has_printed,
+                              "Your hands are full.",
+                              "My hands are full.",
+                              "%player%'s hands are full.");
+          else
+            lib_print_clause (game, has_printed,
+                              "That is too heavy.",
+                              "That is too heavy.",
+                              "That is too heavy.");
+          for (object = 0; object < object_count; object++)
+            game->object_references[object] = FALSE;
+          return;
+        }
+    }
+
   total = 0;
   if (!is_associate_npc)
     {
@@ -8966,7 +9052,10 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
               {
                 scr_bool is_size;
 
-                if (lib_take_over_capacity (game, object, &is_size))
+                if (from_390
+                    ? lib_take_from_over_capacity_390 (game, object, parent,
+                                                       &is_size)
+                    : lib_take_over_capacity (game, object, &is_size))
                   {
                     over_capacity.push_back (object);
                     over_is_size.push_back (is_size);
@@ -9093,6 +9182,33 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * details.  Each over-weight object gets its own sentence, in the order
    * encountered; a "hands are full" size refusal is printed at most once.
    */
+  /*
+   * 3.9's all/and take-from refuses nothing object by object.  After the loop
+   * it appends one summary: the weight wording if any object failed on weight,
+   * otherwise the size one (run390 463BB5-463C2B).
+   */
+  if (from_390_multi && !over_capacity.empty ())
+    {
+      scr_bool any_weight = FALSE;
+      size_t over;
+
+      for (over = 0; over < over_capacity.size (); over++)
+        any_weight |= !over_is_size[over];
+      if (any_weight)
+        lib_print_clause (game, has_printed,
+                          "You can't take any more, as it is too heavy.",
+                          "I can't take any more, as it is too heavy.",
+                          "%player% can't take any more, as it is too heavy.");
+      else
+        lib_print_clause (game, has_printed,
+                          "You can't take any more, as your hands are full.",
+                          "I can't take any more, as my hands are full.",
+                          "%player% can't take any more, as %player%'s hands"
+                          " are full.");
+      has_printed = TRUE;
+      over_capacity.clear ();
+    }
+
   {
     scr_bool size_reported;
     size_t over;

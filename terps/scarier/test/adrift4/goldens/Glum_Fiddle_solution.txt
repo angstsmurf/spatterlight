@@ -35,6 +35,10 @@
 # lets the pigs out, which is the lie you tell the Ogre at the stalagmites.
 # The eight "wait"s in the barrel cover EVENT 13's 5-8 turn random delay
 # before Glum steps on the cracked plank and falls into the chasm.
+# "x pile of boulders" before the takes: Glum's belongings lie on the pile
+# unlisted, and 4.0 binds a task's %object% only to an object the player has
+# seen (run400 458E6C), so without the examine every "take" misses TASK 19 and
+# the library answers "Take what?" (Adrift_220 T16).
 # Six <waitkey> pauses: one before the menu, two after "say sandwich" (the dog
 # encounter re-prints itself), one on the third "wait" (the courier), two after
 # "jump" (the diary and the score).  The row sets SCR_SKIP_WAITKEY=1, so they
@@ -55,6 +59,7 @@ wait
 wait
 wait
 wait
+x pile of boulders
 take cushion
 take doily
 take lamp
