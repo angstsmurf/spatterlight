@@ -208,8 +208,7 @@ kidnappers disappear out into the mall.  "Cassie!!!", they cry.
 Press enter to continue
 
 > wait
-
-The golden-haired girl comes running up to you and grabs hold of your arm.
+  The golden-haired girl comes running up to you and grabs hold of your arm.
 "Help!!", she pleads.
 
 1) "I'll do my best."
@@ -315,13 +314,12 @@ Time passes...
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-Laurie gets on behind you.
-Putting your faith in Laurie's improbable hope that the motorcycle will
-somehow work despite its current condition, you try starting up the
-engine....and it works!  Laurie seems not to be surprised at all by such a
-miracle.   As you zip through the city streets in pursuit of the helicopter
-that you can see far ahead in the night sky, she mutters only, "My
-sister...they finally got you..."
+Laurie gets on behind you.  Putting your faith in Laurie's improbable hope
+that the motorcycle will somehow work despite its current condition, you try
+starting up the engine....and it works!  Laurie seems not to be surprised at
+all by such a miracle.   As you zip through the city streets in pursuit of
+the helicopter that you can see far ahead in the night sky, she mutters only,
+"My sister...they finally got you..."
 
 Press enter to continue
 
@@ -534,8 +532,7 @@ by a brick wall.
 > get on dumpster
 Using hands and feet you clamber up onto the dumpster lid.  From there it is
 a simple matter to step over to the brick wall.  The small window is in
-reach.
-Laurie comes up after you.
+reach.  Laurie comes up after you.
 
 > open window
 You press against the window and to your surprise it opens with the most
@@ -1086,7 +1083,7 @@ turning, the events replay over and over until you manage to drift off...
 
 Press enter to continue
 
-    You rested well, quite well.  Your body feels thoroughly refreshed.
+      You rested well, quite well.  Your body feels thoroughly refreshed.
 Whatever it is that you dreamt of fades from your memory quickly, and your
 mind is clear and untroubled when your eyelids finally slide open and the
 morning breaks...
@@ -1131,7 +1128,8 @@ stairway north.
 
     "Good morning", says Laurie cheerfully.  "I hope I didn't awaken you.  I
 was thinking you might like some hashbrowns.  They should be done soon."
-The toaster is now on.
+
+    Laurie turns on the toaster.
 
 > wait
 Time passes...
@@ -1285,8 +1283,7 @@ Your motorcycle is parked close by.
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-
-Where will you go?
+  Where will you go?
 a) Majesty Mall
 b) Langston Bridge
 c) Monika's House
@@ -1299,7 +1296,7 @@ Press enter to continue
 
 >
 
-You arrive and park in front of Ethan's...
+  You arrive and park in front of Ethan's...
 
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
@@ -1389,8 +1386,7 @@ distance apart.  Your motorcycle is parked here.
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-
-Where will you go?
+  Where will you go?
 a) Majesty Mall
 b) Langston Bridge
 c) Monika's House
@@ -1403,7 +1399,7 @@ Press enter to continue
 
 >
 
-You arrive back at Monika's without incident...
+  You arrive back at Monika's without incident...
 
 The route back to Monika's was not minutely engraved in your mind and you
 nearly took a wrong turn at several places.  But at the sight of the quaint
@@ -1531,8 +1527,7 @@ Your motorcycle is parked close by.
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-
-Where will you go?
+  Where will you go?
 a) Majesty Mall
 b) Langston Bridge
 c) Monika's House
@@ -1546,7 +1541,7 @@ Press enter to continue
 
 >
 
-You arrive at the Plaza...
+  You arrive at the Plaza...
 
 The traffic kept increasing all the way up here to the point where being on
 one's feet was wholly preferable to the stop and go of travel by motor
@@ -1656,13 +1651,13 @@ not a bad-looking young man."
 3) "Neither are you."
 
 > 3
-    "I knew you'd say so", she replies.
-"My name is Katryn.  And you are Petter.  I've been looking forward to
-meeting you ever since last night when I heard of your escapade.  That was
-quite the rescue, wasn't it?  No, you are not being patronized!  I'm rightly
-impressed with what you were able to accomplish in the face of opposition
-that was...not insubstantial.  Not to take away from your heroics, but we
-would not hire the same men a second time."
+    "I knew you'd say so", she replies.  "My name is Katryn.  And you are
+Petter.  I've been looking forward to meeting you ever since last night when
+I heard of your escapade.  That was quite the rescue, wasn't it?  No, you are
+not being patronized!  I'm rightly impressed with what you were able to
+accomplish in the face of opposition that was...not insubstantial.  Not to
+take away from your heroics, but we would not hire the same men a second
+time."
 
 1) "Those were your men?"
 2) "How do you know about that?"
@@ -1758,8 +1753,7 @@ Time passes...
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-
-Where will you go?
+  Where will you go?
 a) Majesty Mall
 b) Langston Bridge
 c) Monika's House
@@ -1774,7 +1768,7 @@ Press enter to continue
 
 >
 
-You arrive and park in front of Ethan's...
+  You arrive and park in front of Ethan's...
 
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
@@ -1868,8 +1862,7 @@ distance apart.  Your motorcycle is parked here.
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-
-Where will you go?
+  Where will you go?
 a) Majesty Mall
 b) Langston Bridge
 c) Monika's House
@@ -1884,7 +1877,7 @@ Press enter to continue
 
 >
 
-You arrive back at Monika's without incident...
+  You arrive back at Monika's without incident...
 
 It's good to be getting back, and this not only for anticipation of delicious
 homemade cooking.
@@ -2311,8 +2304,7 @@ Your motorcycle is parked close by.
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-
-Where will you go?
+  Where will you go?
 a) Majesty Mall
 b) Langston Bridge
 c) Monika's House
@@ -2327,7 +2319,7 @@ Press enter to continue
 
 >
 
-You arrive and park in front of Ethan's...
+  You arrive and park in front of Ethan's...
 
 Front of Ethan's
     You stand at a plain concrete apartment complex.  The door to the south
@@ -2398,8 +2390,7 @@ distance apart.  Your motorcycle is parked here.
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-
-Where will you go?
+  Where will you go?
 a) Majesty Mall
 b) Langston Bridge
 c) Monika's House
@@ -2414,7 +2405,7 @@ Press enter to continue
 
 >
 
-You arrive at the Industrial District...
+  You arrive at the Industrial District...
 
 It has grown quite dark by the time you pull up by the back door of the site.
  The door is open.  The time designated for your clandestine meeting with
@@ -2449,8 +2440,8 @@ packed rows of crates stacked tall and neatly.  An empty aisle exists between
 these crates down the center of the room, and along its perimeter.  Spanning
 the far end of the warehouse is a ledge about a man's height off the ground,
 and you can see an exit up at the southern end of it.  The only exit at
-ground level is the door to the east from which you entered.
-It's rather dark in here.
+ground level is the door to the east from which you entered.  It's rather
+dark in here.
 
     The door shuts behind you by itself.
 
@@ -2564,9 +2555,8 @@ louder.
 > climb over steam roller
 By using the fallen crate as a step you are able to get atop the oncoming
 steam roller and propel yourself to the aisle behind it, out of danger's way.
-
-Shortly thereafter the three vehicles collide with a great tumultuous crash.
-There is thankfully no explosion.  However, several stacks of crates tumble
+ Shortly thereafter the three vehicles collide with a great tumultuous crash.
+ There is thankfully no explosion.  However, several stacks of crates tumble
 to the ground around the area of the wreckage creating no small sound.  It is
 a little while before the engines of the wrecked vehicles fail and there is
 finally silence in the room.  You are unhurt in any way.
@@ -2638,7 +2628,7 @@ Press enter to continue
 
 >
 
-A motorcycle has pulled up in the middle of the road, crossing both
+  A motorcycle has pulled up in the middle of the road, crossing both
 lanes--your motorcycle.  The engine is still going.   A woman that you
 recognize sits in the vehicle.  She speaks.
     "Good evening, handsome.  How 'bout a ride?"
@@ -2726,8 +2716,7 @@ Your motorcycle is parked close by.
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-
-Where will you go?
+  Where will you go?
 a) Majesty Mall
 b) Langston Bridge
 c) Monika's House
@@ -2742,7 +2731,7 @@ Press enter to continue
 
 >
 
-You arrive and park in front of Ethan's...
+  You arrive and park in front of Ethan's...
 
 Already things look bad.  The front door of Ethan's apartment has been flung
 open, but there is nobody in sight.
@@ -2819,8 +2808,7 @@ distance apart.  Your motorcycle is parked here.
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-
-Where will you go?
+  Where will you go?
 a) Majesty Mall
 b) Langston Bridge
 c) Monika's House
@@ -2835,7 +2823,7 @@ Press enter to continue
 
 >
 
-You arrive at the Plaza...
+  You arrive at the Plaza...
 
 The gaiety of the Plaza does not penetrate your heart on this morning when
 Laurie is not to be found.  Though the sun is shining brightly, all is bleak.
@@ -2941,8 +2929,7 @@ Your motorcycle is parked along the street.
 
 > ride the motorcycle
 (Sitting on the motorcycle first)
-
-Where will you go?
+  Where will you go?
 a) Majesty Mall
 b) Langston Bridge
 c) Monika's House
@@ -2960,7 +2947,7 @@ Press enter to continue
 
 >
 
-The sun is just beginning its descent when you finally reach this valley.
+  The sun is just beginning its descent when you finally reach this valley.
 You are sore from the long ride.  It must have been nearly three hours since
 you began it.  The last two hours of it you saw little more than empty
 wilderness, with hardly even a tree to dot the land.  Now at last the
@@ -3769,8 +3756,7 @@ waves his arm and a few of the knives shoot forward.
 Time passes...
 
     "There!", says Laurie, grabbing your arm and running towards the
-satellite dish.  You take cover behind it.
-Katryn gets behind it, also.
+satellite dish.  You take cover behind it.  Katryn gets behind it, also.
 
     Octal's knives strike the satellite dish and bounce off around the
 vicinity.  Octal responds to this by causing the satellite dish to rotate
@@ -3831,10 +3817,10 @@ cockpit.
 > head butt octal
 You aren't close enough to him yet.
 
-    The helicopter begins to lift off from the ground.
-The helicopter then begins to turn in air until the cockpit is facing you.
-The pitch of the main rotor changes.  Octal begins to bring the helicopter in
-a course for where you and the others are standing.  He means to ram you!
+    The helicopter begins to lift off from the ground.  The helicopter then
+begins to turn in air until the cockpit is facing you.  The pitch of the main
+rotor changes.  Octal begins to bring the helicopter in a course for where
+you and the others are standing.  He means to ram you!
     But Laurie stands her ground, still gripping the PK battery that she
 recently acquired.   Then, to the consternation of Octal, the tail rotor
 quits rotating completely!  The chopper begins to spin uncontrollably around
@@ -3876,9 +3862,9 @@ What becomes of him after--leave it to me."
 
     With the helicopter gone and the conflict over, the roof of the silo that
 was the R.O.S.A. research complex is silent as an autumn night.  The last
-traces of red in the sky have all but dispersed.
-Laurie comes over to be held by you.  She poignantly watches the close of the
-first of many sunsets in a new world of hope for her and her sister.
+traces of red in the sky have all but dispersed.  Laurie comes over to be
+held by you.  She poignantly watches the close of the first of many sunsets
+in a new world of hope for her and her sister.
 
 Press enter to continue
 
@@ -3889,8 +3875,7 @@ EPILOGUE
 One week later . . .
 
 > put band on octal
-
-    "You could have come sooner, Laurie.  I had the hardware replaced
+      "You could have come sooner, Laurie.  I had the hardware replaced
 yesterday.  Everything was set up and ready for you."  Ethan can't seem to
 keep his eyes off of the girl.  The bandages on his head and shoulder make
 his appearance worse than it needs be.  One half expects him at any moment to
@@ -3898,10 +3883,9 @@ rip them off and throw them to the floor, the same as an ant that is
 discovered to be crawling on the person.
     "No, Ethan, I wanted to be sure it was safe for Cassie and I to come out
 again", answers Laurie, who has been in much brighter spirits the past few
-days than you had ever observed before.
-"Now, with that man in the hospital, and R.O.S.A. in disarray.... Well,
-Petter and I were there ourselves when it all happened, of course", adds
-Laurie as she flashes you a smile.
+days than you had ever observed before.  "Now, with that man in the hospital,
+and R.O.S.A. in disarray.... Well, Petter and I were there ourselves when it
+all happened, of course", adds Laurie as she flashes you a smile.
     Ethan, who doesn't notice it, or tries not to, finishes her sentence,
 "But one can't be too careful.  I understand."  He looks uncomfortable.
     "Cassie wanted to be here for this, too", says Laurie,  "but as soon as I
@@ -3926,13 +3910,12 @@ rapidly up the screen.
     "Here we are", announces Ethan.  Thirty seconds later and the very
 records of concern are displayed; names and numbers of individuals:
 "...Laurie Hemmings, ID 107...Cassie Hemmings, ID 113..." and many others.
-
-"Please, be done with them", says Laurie, pursing her lips.  Ethan hesitates
-for a second, then hits the delete key.  Then again.  And again and again.
-A tear wells up in Laurie's eye as Ethan continues.  Only when every record
-is gone does he jack out of the system, shutting his computer down completely
-for the sake of finality.  Laurie, her sister, and the names of many others
-have at long last been liberated.
+    "Please, be done with them", says Laurie, pursing her lips.  Ethan
+hesitates for a second, then hits the delete key.  Then again.  And again and
+again.   A tear wells up in Laurie's eye as Ethan continues.  Only when every
+record is gone does he jack out of the system, shutting his computer down
+completely for the sake of finality.  Laurie, her sister, and the names of
+many others have at long last been liberated.
     "I've never felt this free", says Laurie with a sniffle.  A tissue box
 that was lying on the floor somewhere rises into the air and floats across
 gently into her lap.  Ethan is simultaneously touched by Laurie's
@@ -3960,9 +3943,9 @@ Two months later . . .
 
 > wait
 
-    Katryn pushes open the door to the office room and steps aside to let you
-enter.  "There you are, darling, your new HQ.  Take a look around.  What do
-you think?"
+      Katryn pushes open the door to the office room and steps aside to let
+you enter.  "There you are, darling, your new HQ.  Take a look around.  What
+do you think?"
     It is certainly large for an office room.  Five people could probably
 work here comfortably.  But this room is to be exclusively yours.  Besides
 the desk, shelves, cabinets, and other items you would expect to find
@@ -4010,7 +3993,7 @@ THE END
 
 > wait
 
-YOUR SCORES THIS GAME
+                YOUR SCORES THIS GAME
                   Laurie                          8
                  Cassie                          0
             -------NA-------                 --NA--

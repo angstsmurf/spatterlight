@@ -123,9 +123,8 @@ You move west.
 Tunnel
 You are in a narrow tunnel. You can stand, just. It slants down slightly, and
 has a bare sandstone floors and walls. The ceiling is hard packed earth.You
-can go west.
-Suddenly, the tunnel exit to the round chamber collapses in on itself. You
-have a mouth full of dust.
+can go west.  Suddenly, the tunnel exit to the round chamber collapses in on
+itself. You have a mouth full of dust.
 
 The atmosphere in this blocked off tunnel feels dank and musty. It seems
 there is no air shaft in this place, or if there was it is blocked.

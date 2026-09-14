@@ -788,7 +788,6 @@ EXITS: North, South, East, West, Northwest
 In the centre of an area cleared of trees, a totem pole has been built. It is
 easily thirty feet tall and topped by a figure with a scowling face. In the
 four cardinal directions lie ancient cairns.
-
    As you approach the totem, you notice something about it is different.
 
 > x figure
@@ -899,16 +898,14 @@ the rest is sturdy enough. While unlikely to stop a forceful blow, this at
 least ought to turn it from a killing strike to merely a wounding one. There
 is an unusual glass faceplate on the helm, unlike any you have seen before.
 It is currently lowered. A faint light emanates from it.}
-
-_        locket {A silver locket, quite expensive you would imagine, though
+  _        locket {A silver locket, quite expensive you would imagine, though
 you're unlikely to find anyone around here willing to pay a price for it. You
 would normally be able to open and close it, but it has been damaged and
 remains permanently open. In the interior a detailed drawing of a man with
 straggly hair who is smiling happily. He appears to be wearing some kind of
 sailor's outfit.}
-
-_        golden skull {Smaller than a grown man's. Perhaps a child's? But why
-the gold colour? The skull is made of bone and seems wholly normal, aside
+  _        golden skull {Smaller than a grown man's. Perhaps a child's? But
+why the gold colour? The skull is made of bone and seems wholly normal, aside
 from the unusual colour.}
 _        torch {The torch blazes with a light that seems unnatural in its
 intensity, not to mention the fact that it is blue in colour and smells
@@ -1075,7 +1072,6 @@ The hold is poorly lit but the hole in one wall allows you to see enough to
 make your way. The floor is awash with water from the river and the contents
 of the hold; you also catch sight of what appears to be a corpse, bobbing up
 and down in the water. A ladder leads up to another area of the ship.
-
    You hear a sound from above, as though someone was moving around in the
 upper part of the boat.
 
@@ -1092,16 +1088,14 @@ the rest is sturdy enough. While unlikely to stop a forceful blow, this at
 least ought to turn it from a killing strike to merely a wounding one. There
 is an unusual glass faceplate on the helm, unlike any you have seen before.
 It is currently lowered. A faint light emanates from it.}
-
-_        locket {A silver locket, quite expensive you would imagine, though
+  _        locket {A silver locket, quite expensive you would imagine, though
 you're unlikely to find anyone around here willing to pay a price for it. You
 would normally be able to open and close it, but it has been damaged and
 remains permanently open. In the interior a detailed drawing of a man with
 straggly hair who is smiling happily. He appears to be wearing some kind of
 sailor's outfit.}
-
-_        golden skull {Smaller than a grown man's. Perhaps a child's? But why
-the gold colour? The skull is made of bone and seems wholly normal, aside
+  _        golden skull {Smaller than a grown man's. Perhaps a child's? But
+why the gold colour? The skull is made of bone and seems wholly normal, aside
 from the unusual colour.}
 _        torch {The torch blazes with a light that seems unnatural in its
 intensity, not to mention the fact that it is blue in colour and smells
@@ -1337,19 +1331,16 @@ the rest is sturdy enough. While unlikely to stop a forceful blow, this at
 least ought to turn it from a killing strike to merely a wounding one. There
 is an unusual glass faceplate on the helm, unlike any you have seen before.
 It is currently lowered. A faint light emanates from it.}
-
-_        locket {A silver locket, quite expensive you would imagine, though
+  _        locket {A silver locket, quite expensive you would imagine, though
 you're unlikely to find anyone around here willing to pay a price for it. You
 would normally be able to open and close it, but it has been damaged and
 remains permanently open. In the interior a detailed drawing of a man with
 straggly hair who is smiling happily. He appears to be wearing some kind of
 sailor's outfit.}
-
-_        logbook {Many, many years old, and worn heavily by the passing of
+  _        logbook {Many, many years old, and worn heavily by the passing of
 the ages. Did this belong to the captain of this ship?}
-
-_        golden skull {Smaller than a grown man's. Perhaps a child's? But why
-the gold colour? The skull is made of bone and seems wholly normal, aside
+  _        golden skull {Smaller than a grown man's. Perhaps a child's? But
+why the gold colour? The skull is made of bone and seems wholly normal, aside
 from the unusual colour.}
 _        torch {The torch blazes with a light that seems unnatural in its
 intensity, not to mention the fact that it is blue in colour and smells
@@ -1488,19 +1479,16 @@ the rest is sturdy enough. While unlikely to stop a forceful blow, this at
 least ought to turn it from a killing strike to merely a wounding one. There
 is an unusual glass faceplate on the helm, unlike any you have seen before.
 It is currently lowered. A faint light emanates from it.}
-
-_        locket {A silver locket, quite expensive you would imagine, though
+  _        locket {A silver locket, quite expensive you would imagine, though
 you're unlikely to find anyone around here willing to pay a price for it. You
 would normally be able to open and close it, but it has been damaged and
 remains permanently open. In the interior a detailed drawing of a man with
 straggly hair who is smiling happily. He appears to be wearing some kind of
 sailor's outfit.}
-
-_        logbook {Many, many years old, and worn heavily by the passing of
+  _        logbook {Many, many years old, and worn heavily by the passing of
 the ages. Did this belong to the captain of this ship?}
-
-_        golden skull {Smaller than a grown man's. Perhaps a child's? But why
-the gold colour? The skull is made of bone and seems wholly normal, aside
+  _        golden skull {Smaller than a grown man's. Perhaps a child's? But
+why the gold colour? The skull is made of bone and seems wholly normal, aside
 from the unusual colour.}
 _        torch {The torch blazes with a light that seems unnatural in its
 intensity, not to mention the fact that it is blue in colour and smells
@@ -1673,12 +1661,10 @@ the rest is sturdy enough. While unlikely to stop a forceful blow, this at
 least ought to turn it from a killing strike to merely a wounding one. There
 is an unusual glass faceplate on the helm, unlike any you have seen before.
 It is currently lowered. A faint light emanates from it.}
-
-_        logbook {Many, many years old, and worn heavily by the passing of
+  _        logbook {Many, many years old, and worn heavily by the passing of
 the ages. Did this belong to the captain of this ship?}
-
-_        golden skull {Smaller than a grown man's. Perhaps a child's? But why
-the gold colour? The skull is made of bone and seems wholly normal, aside
+  _        golden skull {Smaller than a grown man's. Perhaps a child's? But
+why the gold colour? The skull is made of bone and seems wholly normal, aside
 from the unusual colour.}
 _        black spike {It appears to be a weapon of some kind, though it feels
 chill and uncomfortable to the touch. Perhaps the broken tip of a spear? It
@@ -2454,11 +2440,9 @@ the rest is sturdy enough. While unlikely to stop a forceful blow, this at
 least ought to turn it from a killing strike to merely a wounding one. There
 is an unusual glass faceplate on the helm, unlike any you have seen before.
 It is currently lowered. A faint light emanates from it.}
-
-_        logbook {Many, many years old, and worn heavily by the passing of
+  _        logbook {Many, many years old, and worn heavily by the passing of
 the ages. Did this belong to the captain of this ship?}
-
-_        torch {The torch blazes with a light that seems unnatural in its
+  _        torch {The torch blazes with a light that seems unnatural in its
 intensity, not to mention the fact that it is blue in colour and smells
 faintly of radiation. You're not altogether sure how safe it is being near
 this torch for any length of time.}
@@ -2603,11 +2587,9 @@ the rest is sturdy enough. While unlikely to stop a forceful blow, this at
 least ought to turn it from a killing strike to merely a wounding one. There
 is an unusual glass faceplate on the helm, unlike any you have seen before.
 It is currently lowered. A faint light emanates from it.}
-
-_        logbook {Many, many years old, and worn heavily by the passing of
+  _        logbook {Many, many years old, and worn heavily by the passing of
 the ages. Did this belong to the captain of this ship?}
-
-_        torch {The torch blazes with a light that seems unnatural in its
+  _        torch {The torch blazes with a light that seems unnatural in its
 intensity, not to mention the fact that it is blue in colour and smells
 faintly of radiation. You're not altogether sure how safe it is being near
 this torch for any length of time.}

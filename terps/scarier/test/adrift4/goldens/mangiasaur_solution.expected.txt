@@ -14,56 +14,51 @@ growing mangiasaur needs all the food it can find.
 It's like sweet dust.  Kinda nice, but not much to it.
 
 > eat fly
-They fill the air around you and it's easy to pounce on one.
-There is a satisfying crunch as you snap your mouth shut on its squishy
-little body.  A little rumination and the fly slides down your gullet into
-your belly.
-The fly's nutrients are exactly what you need to grow bigger and stronger.
-The food is refreshing.  Your hunger is mitigated for now. While you digest
-the bug, your body grows a little bit larger.
+They fill the air around you and it's easy to pounce on one.  There is a
+satisfying crunch as you snap your mouth shut on its squishy little body.  A
+little rumination and the fly slides down your gullet into your belly.  The
+fly's nutrients are exactly what you need to grow bigger and stronger.  The
+food is refreshing.  Your hunger is mitigated for now. While you digest the
+bug, your body grows a little bit larger.
 A small fly buzzes past you, en route to its lunch at a tiny pink flower bud
 nearby.
 
 > eat fly
-They fill the air around you and it's easy to pounce on one.
-There is a satisfying crunch as you snap your mouth shut on its squishy
-little body.  A little rumination and the fly slides down your gullet into
-your belly.
-The fly's nutrients are exactly what you need to grow bigger and stronger.  A
+They fill the air around you and it's easy to pounce on one.  There is a
+satisfying crunch as you snap your mouth shut on its squishy little body.  A
+little rumination and the fly slides down your gullet into your belly.  The
+fly's nutrients are exactly what you need to grow bigger and stronger.  A
 good meal.  You'll be satisfied for a while now. While you digest the bug,
 your body grows a little bit larger.
 
 > eat fly
-They fill the air around you and it's easy to pounce on one.
-There is a satisfying crunch as you snap your mouth shut on its squishy
-little body.  A little rumination and the fly slides down your gullet into
-your belly.
-The fly's nutrients are exactly what you need to grow bigger and stronger.
-The food fills that last bit of space in your powerful belly. While you
-digest the bug, your body grows a little bit larger.
+They fill the air around you and it's easy to pounce on one.  There is a
+satisfying crunch as you snap your mouth shut on its squishy little body.  A
+little rumination and the fly slides down your gullet into your belly.  The
+fly's nutrients are exactly what you need to grow bigger and stronger.  The
+food fills that last bit of space in your powerful belly. While you digest
+the bug, your body grows a little bit larger.
 
 > eat fly
-They fill the air around you and it's easy to pounce on one.
-There is a satisfying crunch as you snap your mouth shut on its squishy
-little body.  A little rumination and the fly slides down your gullet into
-your belly.
-The fly's nutrients are exactly what you need to grow bigger and stronger.
+They fill the air around you and it's easy to pounce on one.  There is a
+satisfying crunch as you snap your mouth shut on its squishy little body.  A
+little rumination and the fly slides down your gullet into your belly.  The
+fly's nutrients are exactly what you need to grow bigger and stronger.
 Though you were already full of food when you ate, your stomach makes room
 for the food. While you digest the bug, your body grows a little bit larger.
 A small fly buzzes past you, en route to its lunch at a tiny pink flower bud
 nearby.
 
 > eat fly
-They fill the air around you and it's easy to pounce on one.
-There is a satisfying crunch as you snap your mouth shut on its squishy
-little body.  A little rumination and the fly slides down your gullet into
-your belly.
+They fill the air around you and it's easy to pounce on one.  There is a
+satisfying crunch as you snap your mouth shut on its squishy little body.  A
+little rumination and the fly slides down your gullet into your belly.
 
 The flies nearby have finally identified you as a predator, and the small
-swarms migrate to food a little further away from you.
-The fly's nutrients are exactly what you need to grow bigger and stronger.
-Though you were already full of food when you ate, your stomach makes room
-for the food. While you digest the bug, your body grows a little bit larger.
+swarms migrate to food a little further away from you.  The fly's nutrients
+are exactly what you need to grow bigger and stronger.  Though you were
+already full of food when you ate, your stomach makes room for the food.
+While you digest the bug, your body grows a little bit larger.
 
 > eat bud
 You stoop to bite one off the branch and catch a whiff of the sweet pollen in
@@ -284,11 +279,10 @@ the pink dust is enough to make your mouth water.
 
 > eat bird
 You can't catch them in the air, but you can certainly catch one standing
-idly on a branch.
-You close your jaws on the feathery food before it even sees you.
-Under all the feathery fluff, you find a pretty good meal.  Though you were
-already full of food when you ate, your stomach makes room for the food. The
-nourishment fuels your growth even as you are licking your lips.
+idly on a branch.  You close your jaws on the feathery food before it even
+sees you.  Under all the feathery fluff, you find a pretty good meal.  Though
+you were already full of food when you ate, your stomach makes room for the
+food. The nourishment fuels your growth even as you are licking your lips.
 
 > d
 You glide down from your canopy birthplace into the dark forest floor below.
@@ -306,59 +300,51 @@ your stomach returning to normal as you process your excess of food.
 
 > eat bug
 It's not like to you need to know where these bugs are to eat them.  The air
-is so saturated that you need only open your mouth to catch one.
-You crunch the tiny morsel to nothing and digest it in seconds.  Though you
-were already full of food when you ate, your stomach makes room for the food.
+is so saturated that you need only open your mouth to catch one.  You crunch
+the tiny morsel to nothing and digest it in seconds.  Though you were already
+full of food when you ate, your stomach makes room for the food.
 Unfortunately, it's too little food to help you grow at all.
 You hear a flapping of wings as a bat approaches.
 The buzzing of bugs gets louder as a swarm of them moves closer to you.
 
 > eat moss
-You munch on a nearby patch of moss.
-Though you were already full of food when you ate, your stomach makes room
-for the food.
+You munch on a nearby patch of moss.  Though you were already full of food
+when you ate, your stomach makes room for the food.
 
 > eat moss
-You munch on a nearby patch of moss.
-Though you were already full of food when you ate, your stomach makes room
-for the food.
+You munch on a nearby patch of moss.  Though you were already full of food
+when you ate, your stomach makes room for the food.
 Your stomach is still full and fat.  It's a good feeling.
 The buzzing of bugs gets louder as a swarm of them moves closer to you.
 
 > eat moss
-You munch on a nearby patch of moss.
-Though you were already full of food when you ate, your stomach makes room
-for the food.
+You munch on a nearby patch of moss.  Though you were already full of food
+when you ate, your stomach makes room for the food.
 The bat is gone as quickly as it arrived.
 
 > eat moss
-You munch on a nearby patch of moss.
-Though you were already full of food when you ate, your stomach makes room
-for the food.
+You munch on a nearby patch of moss.  Though you were already full of food
+when you ate, your stomach makes room for the food.
 The buzzing of bugs gets louder as a swarm of them moves closer to you.
 
 > eat moss
-You munch on a nearby patch of moss.
-Though you were already full of food when you ate, your stomach makes room
-for the food.
+You munch on a nearby patch of moss.  Though you were already full of food
+when you ate, your stomach makes room for the food.
 
 > eat moss
-You munch on a nearby patch of moss.
-Though you were already full of food when you ate, your stomach makes room
-for the food.
+You munch on a nearby patch of moss.  Though you were already full of food
+when you ate, your stomach makes room for the food.
 You hear a flapping of wings as a bat approaches.
 The buzzing of bugs gets louder as a swarm of them moves closer to you.
 
 > eat moss
-You munch on a nearby patch of moss.
-Though you were already full of food when you ate, your stomach makes room
-for the food.
+You munch on a nearby patch of moss.  Though you were already full of food
+when you ate, your stomach makes room for the food.
 Little rodents scurry around in the darkness, digging in the dirt.
 
 > eat moss
-You munch on a nearby patch of moss.
-Though you were already full of food when you ate, your stomach makes room
-for the food.
+You munch on a nearby patch of moss.  Though you were already full of food
+when you ate, your stomach makes room for the food.
 The bat is gone as quickly as it arrived.
 
 > eat bat
@@ -432,9 +418,8 @@ While you're by no means starving, You could certainly fit a bit more food in
 there.
 
 > eat slug
-You stoop to lap up a slimy little slug.
-It tastes digusting.  It does ease your hunger a little, but is it really
-worth it?
+You stoop to lap up a slimy little slug.  It tastes digusting.  It does ease
+your hunger a little, but is it really worth it?
 
 > eat scale crawler
 You're not quite big enough to challenge on of these scaly beasts.  You'll
@@ -670,8 +655,8 @@ I don't understand what you are trying to eat.
 I don't understand what you are trying to eat.
 
 > eat bristle bush
-It's really not very good.
-The food fills that last bit of space in your powerful belly.
+It's really not very good.  The food fills that last bit of space in your
+powerful belly.
 
 > eat roots
 They look tasty, but the ground is packed here and your feet aren't great for
@@ -711,14 +696,13 @@ Your score is 24 out of a maximum of 74.  (32%)
 > eat platter
 You snap up the platter into your mouth.  You chew for a moment, enjoying the
 sensation of all the wonderful new textures and flavors.  The juices.  The
-.... you taste something familiar.  You taste. . .
-caterpillars, like the ones you first swallowed back in the forest canopy,
-only with a hint of sourness and some kind of sweet powder...
-hard-shelled beetle bodies, shells heated to a thin crispy coating!  These
-humans are capable of such wonders!...
-and many more incredible delicacies.  As you swish it all around in your
-mouth you are overcome with a wonderful warmth.  You are full.  You are full
-and ready to nap.  So you do.
+.... you taste something familiar.  You taste. . .  caterpillars, like the
+ones you first swallowed back in the forest canopy, only with a hint of
+sourness and some kind of sweet powder...  hard-shelled beetle bodies, shells
+heated to a thin crispy coating!  These humans are capable of such
+wonders!...  and many more incredible delicacies.  As you swish it all around
+in your mouth you are overcome with a wonderful warmth.  You are full.  You
+are full and ready to nap.  So you do.
 
 And every day from now on you awake to more beautiful platter of delicacies,
 followed by naps, with occassional journeys into the wilderness to help your

@@ -138,9 +138,8 @@ arms.
 "Hey, buddy, let's not be too hasty,' he says, 'here, have a cigar!"
 
 He offers you a cigar from his monogrammed cigar case. Which is especially
-nice because that boa constrictor made off with your cigarettes.
-"C'mon," says the gorilla, waggling the cigar, "I'll bet you're gasping for a
-smoke!"
+nice because that boa constrictor made off with your cigarettes.  "C'mon,"
+says the gorilla, waggling the cigar, "I'll bet you're gasping for a smoke!"
 
 > take cigar
 "Don't mind if I do," you say. Very decent of the gorilla to offer you a

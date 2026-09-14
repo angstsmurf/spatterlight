@@ -463,7 +463,6 @@ will fetch whatever you have ticked. A glance down the coupon lists: 1) vial
 of fiery poison (guaranteed to kill a man in five seconds flat or your money
 back); 2) some gunpowder; 3) a barrel; 4) a figurine of Yandalla the High
 Priestess; 5) an extra coupon; 6) a genie in a bottle.
-
    At the moment, none of the boxes are ticked.
 
 > tick box 1
@@ -684,7 +683,6 @@ as it is onto the side of the palace by bolts which you are sure are a little
 on the thin side. A drop of some fifty feet (calculated at just slightly
 further than a spear can be thrown by a strong man) below you is Steinmaster
 Plaza, the heart of the city. Back to the north is your bedchamber.
-
    You avoided the balcony as often as you could during your reign. Despite
 Verenor's assurances that the fifty foot distance between here and the ground
 was too far for anybody to stand a chance of throwing a spear at you, you
@@ -859,9 +857,9 @@ adequate replacement for his father but he should suffice."
 at least you have managed to leave a reasonable replacement in your stead.
    Satisfied that everything has gone according to plan, you fade away.
 
-An ending to be sure - and the best one in the game to boot! You brought your
-wayward son around and succeeded in well and truly killing yourself in such a
-way that you can never be resurrected again. Well done!
+  An ending to be sure - and the best one in the game to boot! You brought
+your wayward son around and succeeded in well and truly killing yourself in
+such a way that you can never be resurrected again. Well done!
 
 [more]
 

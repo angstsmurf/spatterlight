@@ -28,8 +28,7 @@ You have found (and now hold) the Master's instruction Book.
 > look apparatus
 It is all too complicated and technical to understand . . .
 Only the Master knows what does what ! . . .
- Ahhhh,  you have found something special ! . . .
-You have the Elixir !
+ Ahhhh,  you have found something special ! . . .  You have the Elixir !
 
 > give elixir to master
 The Master carefully takes the elixir from you and hands you a key.

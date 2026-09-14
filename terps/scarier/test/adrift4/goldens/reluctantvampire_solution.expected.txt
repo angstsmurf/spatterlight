@@ -2074,8 +2074,8 @@ Anyway-"
 
 [Press a key, Lord of the Unliving.]
 
-"You've been very helpful, Jeff," you say, deciding you've learnt enough from
-him.
+  "You've been very helpful, Jeff," you say, deciding you've learnt enough
+from him.
      "So you're going to let me go?" he asks, hope flaring for a moment in
 his eyes.
      You shrug. "In a manner of speaking," you say, and then you lunge
@@ -2088,7 +2088,7 @@ your liking.
 
 [Press a key, Lord of the Unliving.]
 
-"So wot now?" asks Jemma, sucking on a gobstopper.
+  "So wot now?" asks Jemma, sucking on a gobstopper.
      "Now we" (or me anyway, you add silently) "go to the Cobrini and see
 what we can find out."
 
@@ -2884,10 +2884,10 @@ change into a bat in the first place. Deal with Maltormo now, cry out
 
 [Press a key, if you would be so kind.]
 
-You fly up the vertical tunnel as fast as your wings can carry you. At every
-moment, you expect to see Maltormo's desiccated face looming over the top and
-then something huge and bat-crushing to come tumbling down the tunnel. But
-you reach the top and nothing untoward happens.
+  You fly up the vertical tunnel as fast as your wings can carry you. At
+every moment, you expect to see Maltormo's desiccated face looming over the
+top and then something huge and bat-crushing to come tumbling down the
+tunnel. But you reach the top and nothing untoward happens.
      In the middle of the large room that awaits you there is Maltormo
 himself, clutching a curved dagger to the throat of a battered looking man
 who is kneeling on the floor. You can't see his face very well from here but
@@ -2952,15 +2952,14 @@ lock onto yours as he tries to wrest the weapons from you-
 
 [Press a key, if you would be so kind.]
 
-*** Your score has just increased by 16 points! ***
-It isn't especially easy for a man to walk out of the Cobrini without someone
-wondering just why a man is there and why someone hasn't yet fanged him in
-the throat and drained his blood. But you find some makeup in Maltormo's
-study as well as some lipstick (does he simply have strange tastes or is
-there another story here to tell?) and do a pretty effective job of whitening
-the man's face to give him a vampiric skin tone. The lipstick, liberally
-applied to the mouth region, gives the expression that he's just drank some
-poor unfortunate's blood.
+*** Your score has just increased by 16 points! ***  It isn't especially easy
+for a man to walk out of the Cobrini without someone wondering just why a man
+is there and why someone hasn't yet fanged him in the throat and drained his
+blood. But you find some makeup in Maltormo's study as well as some lipstick
+(does he simply have strange tastes or is there another story here to tell?)
+and do a pretty effective job of whitening the man's face to give him a
+vampiric skin tone. The lipstick, liberally applied to the mouth region,
+gives the expression that he's just drank some poor unfortunate's blood.
      "I never thought I'd have to disguise myself as one of them," he mutters
 a time or two as you're applying the makeup.
      "It's either this or I bite you in the neck," you say, "and that way

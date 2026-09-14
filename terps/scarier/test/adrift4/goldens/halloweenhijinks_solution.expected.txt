@@ -356,10 +356,9 @@ windows, each of them opening into rooms that are dark and creepy. The main
 door lies just before you and the knocker resting on it is shaped into a
 screaming face.
    Exits lie: northwest (into Professor Squick's house) and southeast (to
-Murder Drive [3]).
-"Wicked!" gasps Lisa, clapping her hands to her face in mock horror. "I 'ear
-da guy who lives 'ere is a right evil scumbo an' he kidnaps people an'
-experiments on 'em and turns 'em inna zombees 'n' such!"
+Murder Drive [3]).  "Wicked!" gasps Lisa, clapping her hands to her face in
+mock horror. "I 'ear da guy who lives 'ere is a right evil scumbo an' he
+kidnaps people an' experiments on 'em and turns 'em inna zombees 'n' such!"
    "He needs to be locked up," you say.
    "He's me 'ero!" cries your angelic sister. "Ooh, can I 'ave his aut'graph,
 bruv?"
@@ -1450,9 +1449,9 @@ secret holiday tomorrow when we fly to Disneyland."
    Amid a chorus of "yay!" "great!" "fab!" and "is dere any choccies in
 Disneywand?" the three of you return home.
 
-Well done! You've reached the best ending in the game!
-Well done! You've reached the end of the game. If you want to have another
-go, type "restart".  Lisa follows you.
+Well done! You've reached the best ending in the game!  Well done! You've
+reached the end of the game. If you want to have another go, type "restart".
+Lisa follows you.
 
 > quit
 Do you really want to quit? [Y/N]

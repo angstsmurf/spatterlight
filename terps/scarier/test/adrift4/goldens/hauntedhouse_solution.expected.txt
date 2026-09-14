@@ -398,8 +398,8 @@ The front porch of Desther's house is quite impressive. If you didn't know
 what a dump the inside was, you might well think someone with taste lived
 here.  Desther is here.
 
-You can only move north.
-"Ah, well done," says Desther. "I see the ghosts have departed."
+You can only move north.  "Ah, well done," says Desther. "I see the ghosts
+have departed."
 
 "What about the severed head in the oven?" you ask.
 

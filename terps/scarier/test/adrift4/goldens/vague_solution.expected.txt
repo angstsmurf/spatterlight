@@ -97,8 +97,7 @@ He turns towards you and states, "Identify the game this location comes from
 and then find it written on something".
 
 The whole station shakes as a freight train rumbles through.  The shaking
-feels like it is never going to stop.
-The trainspotter writes in his book.
+feels like it is never going to stop.  The trainspotter writes in his book.
 
 > talk to trainspotter
 The Trainspotter says "Hello my name is Norman. I have had a busy day filling
@@ -164,8 +163,7 @@ weather gear is watching you.
 You hear a door close.
 
 A train thunders through the station and it doesn't sound like it is going to
-stop.
-The trainspotter writes in his book.
+stop.  The trainspotter writes in his book.
 The trainspotter looks at the platform.
 
 > give coat to drunk
@@ -288,8 +286,7 @@ is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
 weather gear is watching you.
 
 A train thunders through the station and it doesn't sound like it is going to
-stop.
-The trainspotter writes in his book.
+stop.  The trainspotter writes in his book.
 
 > east
 You move east, pushing through thick fog.
@@ -740,8 +737,7 @@ is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
 weather gear is watching you.
 
 A train thunders through the station and it doesn't sound like it is going to
-stop.
-The trainspotter writes in his book.
+stop.  The trainspotter writes in his book.
 
 Looking surprised the porter exclaims, "Solved four locations I hear". He
 looks you up and down before continuing, "Unbelievable!".
@@ -814,8 +810,8 @@ staring vacantly around.  Emma Taylor is standing behind the bar.
 Emma is leaning on the bar.
 
 > put money in jukebox
-You put some money into the jukebox and just starts playing.
-The jukebox is loudly playing rock music.
+You put some money into the jukebox and just starts playing.  The jukebox is
+loudly playing rock music.
 Colin and Fred are watching Emma.
 
 > south
@@ -827,9 +823,9 @@ square it has a high wall all the way around and the floor is concrete. The
 exits are through a metal gate to the south and back into the pub north.  You
 can also see a photograph.  Jed Peters is watching you carefully.  A small
 black and white cat strolls in from the north.
-The jukebox inside the pub is loudly playing rock music.
-You can even hear the music playing in the pub out here; it will definitely
-drown out any noise in the yard.
+The jukebox inside the pub is loudly playing rock music.  You can even hear
+the music playing in the pub out here; it will definitely drown out any noise
+in the yard.
 
 > kill jed with axe
 Using all your strength you chop the axe into Jed Peters. He lets out a
@@ -1004,8 +1000,7 @@ is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
 weather gear is watching you.
 
 A train thunders through the station and it doesn't sound like it is going to
-stop.
-The trainspotter writes in his book.
+stop.  The trainspotter writes in his book.
 
 Looking surprised the porter exclaims, "Solved seven locations I hear". He
 looks you up and down before continuing, "Amazing!".
@@ -1144,8 +1139,8 @@ leading over the tracks to platform two and east is the waiting room. To the
 south is a set of double doors with glass panels.  To the north a train is
 waiting in the station.  Against the wall you can see one of those wire frame
 rubbish bins.  A trainspotter dressed in wet weather gear is watching you.
-The station master is standing near the wall.
-Someone dressed like a Station Master wanders out of the waiting room.
+The station master is standing near the wall.  Someone dressed like a Station
+Master wanders out of the waiting room.
 
 A train arrives on Platform One.  You just manage to catch the name
 'Colesworth' on the announcement.
@@ -1160,9 +1155,8 @@ Train (doors open)
 You are on a Great Eastern Railways train.  The train has double hard looking
 seats either side of a very narrow gangway.  The train is already packed and
 you have no where to sit so I guess that means you will have to stand all the
-way.  The guard is checking tickets.
-You hear someone blowing a whistle, the doors close and the train on platform
-one pulls out of the station.
+way.  The guard is checking tickets.  You hear someone blowing a whistle, the
+doors close and the train on platform one pulls out of the station.
 
 > exam guard
 The Guard is a short man wearing a loose fitting uniform.
@@ -1194,7 +1188,6 @@ The second voice deflatedly replies, "Okay, okay, I'll just shut the computer
 down.................................".
 
 Nothingness returns.
-You have won!
 
 THE END
 

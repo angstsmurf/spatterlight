@@ -142,9 +142,9 @@ You are already carrying the SILVER ORB.
 
 > put fish in water
 The fish leaps from your grip into the dark water and disappears from sight.
-After a few moments he reappears near the surface.
-The fish swims in small circles near the edge of the fountain. A wet page has
-floated to the surface of the water.
+After a few moments he reappears near the surface.  The fish swims in small
+circles near the edge of the fountain. A wet page has floated to the surface
+of the water.
 
 > take wet page
 You take the WET PAGE from the FOUNTAIN.
@@ -568,8 +568,8 @@ You can only move out.
 "He did love me!," she screams, snatching the ring from you. "Now I can go on
 with my life!..."
 As the pathetic old woman's last word fades into the air, she collapses into
-a pile of bones and dust that goes tumbling off the surface of the chair.
-A old SILVER KEY lies among the rubble of the disintergrated bride.
+a pile of bones and dust that goes tumbling off the surface of the chair.  A
+old SILVER KEY lies among the rubble of the disintergrated bride.
 
 > take silver key
 You take the SILVER KEY.

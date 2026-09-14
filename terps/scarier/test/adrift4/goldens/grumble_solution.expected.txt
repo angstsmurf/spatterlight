@@ -902,9 +902,8 @@ without a doubt the only really cosy location in the entire game.
 
 A door leads outwards to the south
 
-  Aggie Newby is here.
-   "Lughead!" Aggie cries, throwing down her knitting. "You've come back!
-Where have you been?"
+  Aggie Newby is here.     "Lughead!" Aggie cries, throwing down her
+knitting. "You've come back! Where have you been?"
    "Duh!" says Lughead quite predictably.
    Aggie frowns. "Ah, don't give me that! We both know where you were.
 Messing around in the Sleazepit again no doubt?"
@@ -993,11 +992,10 @@ unbroken.
 
 The main room lies west
 
-  Father Kringle is here.
-   "Oh, my head!" moans Father Kringle. "Oh, my poor head! I knew I shouldn't
-have had those last seventeen pints but the temptation was too strong... I'm
-a terrible man... I don't deserve to live... I'm a terrible, terrible
-person..."
+  Father Kringle is here.     "Oh, my head!" moans Father Kringle. "Oh, my
+poor head! I knew I shouldn't have had those last seventeen pints but the
+temptation was too strong... I'm a terrible man... I don't deserve to live...
+I'm a terrible, terrible person..."
    He breaks down sobbing in what must be the worst piece of ham acting
 you've ever seen.
 
@@ -2479,10 +2477,10 @@ mirror makes your eyes water and your head ache...
 
 A door leads out
 
-  Saldor the wizard is here.
-   "Well, well," remarks Saldor. "I see not everyone in Harrenden these days
-is too stupid to pull a button. I'm afraid you'll just have to find your way
-out right now, I don't have time for visitors."
+  Saldor the wizard is here.     "Well, well," remarks Saldor. "I see not
+everyone in Harrenden these days is too stupid to pull a button. I'm afraid
+you'll just have to find your way out right now, I don't have time for
+visitors."
 
 > give batspawn to saldor
    "Ah! Just what I've been looking for all these years. You've been most
@@ -3035,9 +3033,8 @@ say, you don't feel well after seeing all this.
 
 A door leads west
 
-  Uncle Grumble is here.
-   "About bloody time you got here!" Grumble thunders upon seeing you. "Where
-the hell have you been?"
+  Uncle Grumble is here.     "About bloody time you got here!" Grumble
+thunders upon seeing you. "Where the hell have you been?"
    Of all the things you expected - praise, abject thanks, even a pitiful "ta
 very much" - this wasn't it.
    "Hey!" you say. "I risked life and limb to rescue you! You could at least

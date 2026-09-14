@@ -119,11 +119,11 @@ You can move north, south, west, southeast and southwest.
 
 > give fet egg
 You do so, and Fetlar grabs it, stuffs it into his mouth, snaps his teeth
-shut, gurgles on the yoke, and finally swallows it.
-"Mmm, that was nice," Fetlar says, wiping his lipless mouth, "One good turn
-deserves another, or evil turn in this case; here, take this sword." A
-broadsword suddenly appears in your hands. Fetlar says, "Its name is Seeker.
-It warns you when enemies are about."
+shut, gurgles on the yoke, and finally swallows it.  "Mmm, that was nice,"
+Fetlar says, wiping his lipless mouth, "One good turn deserves another, or
+evil turn in this case; here, take this sword." A broadsword suddenly appears
+in your hands. Fetlar says, "Its name is Seeker. It warns you when enemies
+are about."
 
 > n
 You move north.
@@ -407,8 +407,7 @@ Seeker hums!
 
 > wear medallion
 You put on the chain attached to a medallion.
-You hear the flutter of batlike wings.
-Seeker hums!
+You hear the flutter of batlike wings.  Seeker hums!
 
 > w
 You move west.
@@ -590,8 +589,8 @@ north wall.
 You can only move south.
 
 > turn wheel
-As you do so, you hear a grinding noise coming from the burial chamber.
-The stone wall blocking your exit from the burial chamber room seems to have
+As you do so, you hear a grinding noise coming from the burial chamber.  The
+stone wall blocking your exit from the burial chamber room seems to have
 moved. Your exit is clear.
 
 > s
@@ -985,8 +984,7 @@ Arthur pulls himself in from the west.
 You see a horrible sight. Arthur, one of the village zombies, is pulling
 himself along by his arms, as his legs have long since been eaten away.
 Fetlar shouts, "Good luck, buddy friend. I'm off for a nap. All this flapping
-about has made me feel rather tired." Fetlar flies off.
-Seeker hums!
+about has made me feel rather tired." Fetlar flies off.  Seeker hums!
 
 > attack jarris
 You stab zombie with the sword.  Holga stumbles in from the south.
@@ -1407,8 +1405,7 @@ northern edge of the Webbed Woods.
 
 You can move east and northeast.
 There is a large pack of wolves here. They block your path. You can only go
-back the way you came.
-Seeker hums!
+back the way you came.  Seeker hums!
 
 > give leg of lamb to wolves
 One of the wolves grabs the leg of lamb in its jaws and makes off with it.
@@ -1540,12 +1537,10 @@ Seeker hums!
 > examine web
 As you examine the webs, you realise that your feet are actually stuck in the
 web. You cant move your feet! .The webs strands are a quarter of an inch
-thick and very sticky.
-Seeker hums!
+thick and very sticky.  Seeker hums!
 
 > burn web
-You burn the web away with the lit pipe. Your free again!.
-Seeker hums!
+You burn the web away with the lit pipe. Your free again!.  Seeker hums!
 
 > u
 You move up.
@@ -1763,16 +1758,15 @@ the castle’s drawbridge lies.
 
 You can only move north.
 A thin mist gathers here. It turns into a female form. Maretta, vampire wife
-of Morac, has arrived. She blocks your entrance into the castle.
-Seeker hums!
+of Morac, has arrived. She blocks your entrance into the castle.  Seeker
+hums!
 
 > z
 Time passes...
 Maretta, vampire wife, recoils from the stench of garlic, but refuses to let
 you enter the castle.
 "You will have to kill me first," she says in a melodic voice, "Either that,
-or just kiss me, my sweet."
-Seeker hums!
+or just kiss me, my sweet."  Seeker hums!
 
 > z
 Time passes...
@@ -1829,8 +1823,7 @@ Melvin the Butler is here.
 Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.
-Abruptly the music stops...
-Seeker hums!
+Abruptly the music stops...  Seeker hums!
 "Hello there. Melvin’s the name, and riddles are my game. Up, up to the very
 top; up, up, you must not stop; up, up to the very top; once you’re there, no
 need to knock," says Melvin, looking rather pleased with himself.
@@ -1842,14 +1835,12 @@ Melvin waddles out to the west.
 Suddenly you hear the cracking and grinding of stone. You are interrupted
 from what you are doing as the four stone gargoyles in the main hall spring
 to life! They unfold their wings and start to fly down, menacingly, towards
-you.
-Seeker hums!
+you.  Seeker hums!
 
 > attack gargoyle #2
 You stab Gargoyle #2 with the sword.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
-brimstone…
-Seeker hums!
+brimstone…  Seeker hums!
 
 > attack gargoyle #3
 You stab Gargoyle #3 with the sword.
@@ -2030,8 +2021,7 @@ You can move east, south and west.
 Woody, the wererat, strokes his exceptionally long snout with one of his
 hands, and sniffs the air around you.
 Seeker hums!
-Zandos sighs...
-Seeker hums!
+Zandos sighs...  Seeker hums!
 "Hello, friend" says a most unsavoury voice coming from the huge tentacled
 monstrosity which stands entrapped in the pentagram. "My name is Zandos. Is
 there anything I can help you with, my friend?"
@@ -2075,8 +2065,7 @@ Seeker hums!
 A black cat suddenly darts in front of you and off into the shadows.
 
 > turn lantern on
-You do so.
-Seeker hums!
+You do so.  Seeker hums!
 
 > n
 You move north.
@@ -2103,10 +2092,8 @@ Zandos, the demon, is here.
 Zandos paces back and forth inside the pentagram.
 
 You can move east, south and west.
-A bat swoops down from above and darts off into the shadows.
-Seeker hums!
-Zandos grinds his teeth impatiently.
-Seeker hums!
+A bat swoops down from above and darts off into the shadows.  Seeker hums!
+Zandos grinds his teeth impatiently.  Seeker hums!
 The demon’s eyes watch you as you move about the room.
 You hear Melvin singing. He must be somewhere nearby.
 
@@ -2372,8 +2359,7 @@ painting #5, a painting #6 and a painting #7.  A faint mist swirls around
 you.
 
 You can move east and south.
-A bat swoops down from above and darts off into the shadows.
-Seeker hums!
+A bat swoops down from above and darts off into the shadows.  Seeker hums!
 
 > destroy painting #6
 The painting is ripped open, revealing a secret passage leading northward.
@@ -2409,8 +2395,7 @@ Seeker hums!
 > attack shadow with sword
 You stab cat with the sword.
 As you kill the cat, the witch drops to the floor in a heap, screaming in
-agony. Slowly she decays away to nothing.
-Seeker hums!
+agony. Slowly she decays away to nothing.  Seeker hums!
 
 > n
 You move north.
@@ -2485,22 +2470,19 @@ you.
 
 You can move east, south and west.
 Seeker hums!
-Zandos sighs...
-Seeker hums!
+Zandos sighs...  Seeker hums!
 The demon’s eyes watch you as you move about the room.
 
 > say nomorey palenvoid
 Zandos suddenly backs off. He eyes you cautiously. The scroll burns away as
-the spell is cast.
-Seeker hums!
+the spell is cast.  Seeker hums!
 Seeker hums!
 The demon’s eyes watch you as you move about the room.
 
 > chip pentagram with chisel
 Zandos shouts, "Free, free at last!" He heaves his great body out into the
 main hall and up the stairs. You hear a loud bang and the crackling of
-energy.
-Seeker hums!
+energy.  Seeker hums!
 
 > e
 You move east.
@@ -2575,8 +2557,7 @@ Colos, the stone golem, is here.
 
 You can only move south.
 "Colos at your service, sir, but first, the password, if you please," booms
-the golem.
-Seeker hums!
+the golem.  Seeker hums!
 
 > attack golem
 Who do you want to attack?
@@ -2591,14 +2572,12 @@ Seeker hums!
 > attack golem
 Who do you want to attack?
 Seeker hums!
-"What is the password?" booms the golem again.
-Seeker hums!
+"What is the password?" booms the golem again.  Seeker hums!
 
 > attack golem
 Who do you want to attack?
 Seeker hums!
-The golem looks like it’s getting impatient.
-Seeker hums!
+The golem looks like it’s getting impatient.  Seeker hums!
 
 > attack golem
 Who do you want to attack?
@@ -2608,14 +2587,12 @@ password after all, the golem attempts to squash you with its huge fists.
 Seeker hums!
 
 > say carom
-BOOM! The golem explodes in a shower of dust.
-Seeker hums!
+BOOM! The golem explodes in a shower of dust.  Seeker hums!
 
 > eat venison
 You eat the venison.  Not bad, but it could do with a pinch of salt!
 Mmm, that made you feel much better. But you can’t help feeling that someone
-is trying to fatten you up.
-Seeker hums!
+is trying to fatten you up.  Seeker hums!
 
 > s
 You move south.
@@ -2669,8 +2646,7 @@ This is a very long room. The smell of freshly-cooked venison fills the air.
   Also here is a table.
 
 You can move east and west.
-Strange, some more venison has just appeared on the table!
-Seeker hums!
+Strange, some more venison has just appeared on the table!  Seeker hums!
 
 > take venison
 You take the venison from the table.
@@ -2680,8 +2656,7 @@ Seeker hums!
 You eat the venison.  Not bad, but it could do with a pinch of salt!
 Mmm, that made you feel much better. But you can’t help feeling that someone
 is trying to fatten you up.
-Strange, some more venison has just appeared on the table!
-Seeker hums!
+Strange, some more venison has just appeared on the table!  Seeker hums!
 
 > take venison
 You take the venison from the table.
@@ -2840,8 +2815,7 @@ Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 Seeker hums!
 Grazilda lies in her coffin.
-Grazilda’s eyes flick open.
-Seeker hums!
+Grazilda’s eyes flick open.  Seeker hums!
 
 > stake grazilda
 As you plunge the stake into Grazilda’s heart, she screams and wines with the
@@ -3036,8 +3010,7 @@ You catch Morac on the side of his head with the sceptre. There is a flash of
 light, followed by the sound of Morac crashing through the shuttered window.
 You rush to the window to watch him fall to the courtyard below, but he does
 not. With the flapping sound of wings, you see Morac land safely on the back
-of a huge black dragon.
-Seeker hums!
+of a huge black dragon.  Seeker hums!
 
 > n
 You move north.
@@ -3080,8 +3053,7 @@ The ballista is ready to fire.
 You fire the ballista. The ballista bolt shoots forth and punctures the black
 dragon’s neck. The dragon tumbles down outside the castle walls and into the
 ocean. Morac seems to have vanished. Then you catch a glimpse of a bat flying
-northward to the stone henge.
-Seeker hums!
+northward to the stone henge.  Seeker hums!
 
 > d
 You move down.
@@ -3183,14 +3155,12 @@ leads south, away from the henge, while another leads north into the forest.
   Also here is a body.  Fetlar the overly fetid is here.  Morac is here.
 It is raining...  There is a portal here.
 
-You can move north, east, south and west.
-Seeker hums!
+You can move north, east, south and west.  Seeker hums!
 
 > kill morac
 You cleave Morac’s skull with the sceptre. A white flash of light, followed
 by a loud bang, fills the area. Morac explodes into dust. You have finally
-defeated him.
-Seeker hums!
+defeated him.  Seeker hums!
 
 > e
 You move east.
@@ -3272,13 +3242,11 @@ You can only move west.
 Andro, the sphinx, opens its mouth, and in a very rough voice says, "Oh come
 what may, and come what may be, thou shalt not pass unless thee answers thy
 riddles three.
-#1: What always ends everything?"
-Seeker hums!
+#1: What always ends everything?"  Seeker hums!
 
 > g
 Andro looks rather surprised, and speaks again, "#2: What do you break by
-saying just one word?"
-Seeker hums!
+saying just one word?"  Seeker hums!
 
 > silence
 Andro looks at you with a rather disdainful look in its eyes, and says, "Well
@@ -3288,8 +3256,7 @@ Seeker hums!
 
 > secret
 The sphinx’s eyes widen, and it says, "Very well done; you shall pass, wise
-one." With this, Andro steps to one side.
-Seeker hums!
+one." With this, Andro steps to one side.  Seeker hums!
 
 > e
 You move east.
@@ -3427,8 +3394,7 @@ Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 
 You can move north, east and west.
-You hear the flutter of batlike wings.
-Seeker hums!
+You hear the flutter of batlike wings.  Seeker hums!
 
 > w
 You move west.
@@ -3465,8 +3431,7 @@ You stand in the Great Swamp.
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
-It starts to rain...
-Seeker hums!
+It starts to rain...  Seeker hums!
 
 > n
 You move north.
@@ -3543,8 +3508,7 @@ Seeker hums!
 > z
 Time passes...
 Edna turns towards you and moans, "Thou shalt not pass. Only one way is true,
-if you defeat me the way shall be revealed."
-Seeker hums!
+if you defeat me the way shall be revealed."  Seeker hums!
 
 > z
 Time passes...
@@ -3607,8 +3571,7 @@ Seeker hums!
 As you do so, the copper plates crackle, and a bolt of electricity bursts
 from them. The fleshy mound is instantly fried, leaving just the charred
 remains.
-The copper plates stop buzzing.
-Seeker hums!
+The copper plates stop buzzing.  Seeker hums!
 
 > n
 You move north.
@@ -3626,8 +3589,7 @@ You can move north and south.
 Seeker hums!
 
 > say alam nadeer
-You do so, and strangely feel a bit relieved.
-Seeker hums!
+You do so, and strangely feel a bit relieved.  Seeker hums!
 
 > n
 You move north.
@@ -3755,8 +3717,7 @@ with, they must be rather strong indeed.
 > eat venison
 You eat the venison.  Not bad, but it could do with a pinch of salt!
 Mmm, that made you feel much better. But you can’t help feeling that someone
-is trying to fatten you up.
-Seeker hums!
+is trying to fatten you up.  Seeker hums!
 
 > e
 You move east.
@@ -3787,8 +3748,7 @@ You can move north and west.
 Seeker hums!
 
 > press iron button
-Click! You do so.
-Seeker hums!
+Click! You do so.  Seeker hums!
 
 > w
 You move west.
@@ -3849,8 +3809,7 @@ You can move north and east.
 Seeker hums!
 
 > press copper button
-Click! You do so.
-Seeker hums!
+Click! You do so.  Seeker hums!
 
 > n
 You move north.
@@ -3910,8 +3869,7 @@ You can move east and south.
 Seeker hums!
 
 > press stone button
-Click! You do so.
-Seeker hums!
+Click! You do so.  Seeker hums!
 
 > e
 You move east.
@@ -4119,8 +4077,7 @@ You can move south and west.
 Seeker hums!
 
 > press bronze button
-Click! You do so.
-Seeker hums!
+Click! You do so.  Seeker hums!
 
 > w
 You move west.
@@ -4232,8 +4189,7 @@ Seeker hums!
 
 > say borantha
 The staff that you are holding glows a brilliant white. You have a feeling
-that it’s waiting for you to do something.
-Seeker hums!
+that it’s waiting for you to do something.  Seeker hums!
 
 > snap staff
 As you break the staff, you see the stone henge fade from view, and a new

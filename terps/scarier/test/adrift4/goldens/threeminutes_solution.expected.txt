@@ -63,34 +63,31 @@ dead coroner lies slumped in the corner.
 Things don't look good.
 
 > push lever
-You push the lever down. The slab rotates 45 degrees to the right.
- The saw spins happily away to the right middle side of the slab.
+You push the lever down. The slab rotates 45 degrees to the right.   The saw
+spins happily away to the right middle side of the slab.
 
 > push lever
-You push the lever down. The slab rotates 45 degrees to the right.
- The saw spins happily away to the bottom right of the slab.
+You push the lever down. The slab rotates 45 degrees to the right.   The saw
+spins happily away to the bottom right of the slab.
 
 > press button
 You reach out and press the blue button. The saw whines loudly, then rolls
-forward.
-The saw cuts through the air. It rips through the rope tying down your right
-ankle - your foot is free!
+forward.  The saw cuts through the air. It rips through the rope tying down
+your right ankle - your foot is free!
 
 > push lever
-You push the lever down. The slab rotates 45 degrees to the right.
- The saw spins happily directly at the foot of the slab.
+You push the lever down. The slab rotates 45 degrees to the right.   The saw
+spins happily directly at the foot of the slab.
 
 > push lever
-You push the lever down. The slab rotates 45 degrees to the right.
- The saw spins happily away to the bottom left of the slab.
+You push the lever down. The slab rotates 45 degrees to the right.   The saw
+spins happily away to the bottom left of the slab.
 
 > press button
 You reach out and press the blue button. The saw whines loudly, then rolls
-forward.
-The saw cuts through the air. It rips through the rope tying down your left
-ankle - your foot is free!
-Both of your feet are now free and you hop down from the slab. The red
-numbers on the large clock flash 2:46.
+forward.  The saw cuts through the air. It rips through the rope tying down
+your left ankle - your foot is free!  Both of your feet are now free and you
+hop down from the slab. The red numbers on the large clock flash 2:46.
 
 You don't have much time left.
 

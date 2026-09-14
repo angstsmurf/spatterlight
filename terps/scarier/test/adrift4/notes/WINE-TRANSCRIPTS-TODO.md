@@ -973,10 +973,14 @@ and decompile addresses are in the harness row comments and in git history.
   one paragraph so a two-sentence Original matches; Scarier still sections
   the turn outside the room block.  The room block's half of this -- Vagabond
   room 4 -- was ported 2026-09-07, see the last section, and that closed
-  Vagabond's last divergence.  `the_pk_girl` T103 shows the other half and
-  what the paragraph really is: a completing task's own text joined to the
-  output of the task it executes (`done soon."  The toaster is now on` ->
-  `Laurie turns on the toaster`).  Measured 2026-09-07, `Adrift_427`.
+  Vagabond's last divergence.  ~~`the_pk_girl` T103/T156~~ **task half
+  PORTED 2026-09-14**: at 4.0 a task an action executes, and every task's
+  AdditionalMessage, join the turn's string with pspace()
+  (`pf_buffer_join_line`), so `done soon."  The toaster is now on` ->
+  `Laurie turns on the toaster`.  See "PORTED 2026-09-14: executed-task text
+  and AdditionalMessage join the turn" at the foot.  Still sectioned: event
+  text after a task (p4SRC `xray`, run400 `X.  EV qball.`) and the rest of
+  the turn (thetest).
 - **A walk-triggered task one step early** (`the_pk_girl` T52): task 413
   `# Laurie rejoins you at lot` is reachable only from Laurie's `WALK 2`
   (`charTask=413`), and Scarier fires it in the chapter-1 closing turn where
@@ -1049,9 +1053,9 @@ Engine leads, measured or half-measured, none blocking:
   differs on no turns);
   ~~`warlord` T72/T76 `x tapestry three/six` (run400 "You can't see that.")~~
   (**PORTED 2026-09-13** -- see "Closed 2026-09-13: `warlord` T72/T76" at the
-  foot) and T104/T112/T122 `get treat`/`bone`/`explosive cudgel` (run400 "The stove is
-  bolted to the floor."; **mechanism found, port blocked on the seen model**
-  -- see "Analysed 2026-09-13: `warlord` T104" at the foot);
+  foot) and ~~T104/T112/T122 `get treat`/`bone`/`explosive cudgel` (run400 "The stove is
+  bolted to the floor.")~~ (**PORTED 2026-09-14**, 68bc1382a -- see "PORTED
+  2026-09-14: `warlord` T104" at the foot);
   ~~`fullcircle` T43 `get all` order (run400 helm, locket, then branch)~~
   (**PORTED 2026-09-13** -- see "Closed 2026-09-13: `fullcircle` T43" at the
   foot);
@@ -1060,8 +1064,8 @@ Engine leads, measured or half-measured, none blocking:
   `reluctantvampire` T78" at the foot).
 - **`house` is not comparable** until it is re-driven with Verbose ON; the
   2026-09-12 frost-event and breaking-glass leads on that row are withdrawn.
-- **Put/task precedence at 4.0** -- the one port with a written spec; see
-  the next section.
+- (**Put/task precedence at 4.0**: **ported 2026-09-06**, see "Ported
+  2026-09-06: the 4.0 put/task precedence split".)
 - **run400 prints no `put` confirmation when the moved object is dynamic
   object #1** (`Adrift_82`-`87`, follows the object number, not the
   container, position or command spelling; 4.0-only, run390 prints).
@@ -1114,10 +1118,60 @@ Engine leads, measured or half-measured, none blocking:
 - **Silent-task test scope**: run400 tests the whole turn buffer, Scarier
   the task's own output; differs only when something wrote before the verb
   dispatch (the References echo).  No corpus row known.
-- **Timed events a turn out of step** (the_pk_girl 138/470 turns,
-  orient_express) has not been re-measured since the event-start-tick and
-  exact-tick walk fixes; re-run the compare before assuming it is still
-  there.
+- (**Timed events a turn out of step** (the_pk_girl, orient_express):
+  **CLOSED 2026-09-14, both were RNG** -- the old rows were native-RNG
+  drives, and the events' lengths are rolls (Shopkeeper 10-30, Leaving
+  Destination 10-20).  Fresh run400x drives, seed 1234:
+  `Adrift_1158_orientx.txt` is identical on all 53 turns, 47 = 47 draws;
+  `Adrift_1157_pkgsite.txt` (`VBRNG_TRACE_SITE=1`) has the Shopkeeper roll
+  at the same draw #52 on the same turn in both engines (site 46FE28, the
+  1-1 loop restarts at 4705E8 line up one for one), and wiping/pacing land
+  after the 8th/16th `wait` in both.  What the_pk_girl still differed on
+  was not timing: T156 the toaster ALR (the T103 lead below),
+  `kiss katryn` x2, `ask peddler` x2, `turn on transmitter`,
+  `attack chadwick`.  **Four of those five PORTED 2026-09-14** (attack in
+  the next bullet), and T156 **PORTED 2026-09-14** (the task-join section at
+  the foot); Adrift_1157 is identical on every turn.  The four:
+  - `kiss katryn` (T288, T398) -> "I'm not sure she would appreciate
+    that!": run400 47F7E2-47F83A / run390 45970A, 3.90+, the first NPC
+    referenced on the line (no presence test), he/she/it by Gender, `!`
+    instead of the fallback's `.` (`lib_cmd_kiss_other`).  Not ported:
+    run400's third buffer arm, which also overwrites a buffer holding
+    " can't see " (a kiss line naming a seen, absent object); unmeasured.
+  - `ask peddler about ...` (T308, T309) -> "The peddler isn't here!":
+    characters() matches Name **or any alias** at 4.0 (45E99C; the
+    peddler's aliases are man/peddler), first letter capitalised (446BB4).
+    The gate is now one helper, `lib_npc_referenced()` (3.9 keeps Name or
+    first Alias), shared with `lib_attack_absent_npc`.
+  - `turn on transmitter` (T362) -> "You can't turn the transmitter on.":
+    therest's turn refusal (489255-489367) appends " off"/" on" when the
+    typed line holds that whole word, 4.0 only (`lib_turn_particle`).
+    Moved one golden line: iachini `turn on tv` (4.0, unmeasured -- the
+    Runner's iachini runs reach that turn in a different state), re-blessed.)
+  Draw parity on the same drive: compare it WITHOUT `SCR_SKIP_WAITKEY`.
+  `sleep` ends on "Press enter to continue" and the feed's blank line 102
+  answers it in run400 (no turn; the 8 event-start draws land on `south`);
+  with `SCR_SKIP_WAITKEY=1` Scarier runs that blank line as a turn and the
+  counts drift (1203 vs 950) with no text difference.  Without it: equal at
+  every line through 364 (901 = 901), 948 vs 950 at the end.  The two
+  missing draws start at feed 365 `attack chadwick` -- run400 "The man is
+  not here!" ticks (draw 902), Scarier "Pardon me?" does not -- so they
+  are that text difference, not a new lead.
+- ~~**run400's two unported `is not here!` sites**~~ -- **attack PORTED
+  2026-09-14, humbug was never a site.**  The per-verb *attack* branch at
+  47F700 (`thepkgirl` `attack chadwick` -> "The man is not here!") is
+  `lib_attack_absent_npc()`: Battle System off, 3.90+, whole-word
+  hit/kill/kick/punch/attack, first NPC named by Name or any alias (4.0; 3.9
+  Name or first Alias) not in the room, Name capitalised at 4.0 (raw at
+  3.9, run390 45960F), an ordinary turn.  Hooked into the battle-off
+  `attack`/`hit` fall-throughs only; kill/kick/punch lines go through other
+  grammar first and stay unmeasured.  Adrift_1157 compare: `attack
+  chadwick` now matches (6 unrelated turns left); maincourse Adrift_1028
+  (`attack cat`/`attack human` -> DontUnderstand) still 28/28; goldens
+  428/428.  humbug's "But Dennis is not here!" is the authored
+  restriction FailMessage of its `[give/hand] {a/the} mug to
+  [dennis/fireman]` task, not Runner library text -- any difference there
+  is task state, not a library port.
 - **run390 `#save` event clock** (FarFromHome +1 tick per echoed save;
   largo-winch with no echoed save turn was fine): `opensave()` on paper
   skips the tick.  Probe `x` / `save` / `x` around a 2-turn event.
@@ -6160,9 +6214,11 @@ thepkgirl 20 -> 23), so `lib_npc_absent_or_unknown()` is gated
 thepkgirl's `attack chadwick` -> `The man is not here!` is **not** the tail: it
 is run400's own per-verb *attack* branch, whose `" is not here!"` sits at
 47F700, inside the branch that ends at 47F70B where `"take"`/`"get"` begins.
-humbug's `Give mug to Dennis` -> `But Dennis is not here!` is a third site
-again.  Both are still unported, and they are the corpus's only two
-`is not here!` lines.
+humbug's `Give mug to Dennis` -> `But Dennis is not here!` looked like a third
+site, but it is that game's own task FailMessage (`[give/hand] {a/the} mug to
+[dennis/fireman]`), not library text.  The attack branch was ported
+2026-09-14 as `lib_attack_absent_npc()` (Battle System off only; see the
+Still-open entry).
 
 ### Measured, not inferred: four probes on ALEXIS.TAF under run390
 
@@ -8739,3 +8795,33 @@ a marker, and whatever the walk leaves of them is removed afterwards.  Games
 with no such Original take the old path unchanged.  reluctantvampire
 re-blessed (one answer changes, win marker holds); no other row moved.  Which
 other corpus games carry such Originals has not been counted.
+
+## PORTED 2026-09-14: executed-task text and AdditionalMessage join the turn
+
+run400 builds a turn as one string, pieces joined by pspace() (two spaces
+unless the text already ends in two spaces, Chr(10) or `<br>`), and walks the
+ALR list over that string.  Scarier sections each text with its own "\n".
+Two of those sections are now joins at 4.0 (`pf_buffer_join_line`, which
+takes back our own terminator and adds the pspace; a text opening with a
+break of its own is untouched):
+
+- the CompleteText of a task an action executes (inside the hidden prefix);
+- every task's AdditionalMessage.
+
+Probe `p4SRC.taf`, `Adrift_11/12/13_p4src`: `yankee` "Y qqball.  ADD
+qqball.", `victor` "CT n=9 TXT qqball.  AM n=9 TXT qqball.", `uniform` "CTU
+qqqball.  You take the qqqball.  AMU qqball." -- Scarier now prints all three
+on one line.  Left on the probe: `xray` "X.  EV qball." (an event's text
+after the task's, still sectioned) and `uniform` after `victor` in
+Adrift_12 ("CTU.  ... AMU.", ALR state).
+
+Games: `the_pk_girl` T156 (`done soon."  The toaster is now on.` hits the
+ALR -> "Laurie turns on the toaster.") -- Adrift_1157 identical on all 406
+turns; `vague` identical on all 125 turns vs Adrift_1125, including its ALR
+`' You have won!'` -> "" now deleting the win task's text as run400 does
+(row marker moved to "Nothingness returns.").  The leading two spaces this
+puts before a text following a break-ended piece ("  Where will you go?",
+"  An ending to be sure") are Runner-true (Adrift_1157, Adrift_862);
+`unfortunately`'s marker was shortened to survive the rewrap.
+sweep_wine_breaks: runner-only 0, scarier-only 6013 -> 5622.  Goldens: 94
+rows moved, 92 whitespace-only, vague/thepkgirl as above; re-blessed.

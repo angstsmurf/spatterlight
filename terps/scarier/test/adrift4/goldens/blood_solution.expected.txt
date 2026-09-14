@@ -219,8 +219,8 @@ back alley.  You can also see a can of fly spray.  Ray Millard is playing
 pool.
 
 Ray quickly looks up from his game and says, "Hi." His voice sounds like he
-has smoked far too many cigarettes in his life.
-Ray stops playing for a moment and looks at you.
+has smoked far too many cigarettes in his life.  Ray stops playing for a
+moment and looks at you.
 Ray has potted a ball in a corner pocket.
 
 > get fly spray
@@ -306,8 +306,8 @@ Shouting you reply, "No!"
 
 Poor Frank then collapses to the floor with swellings in his throat making
 breathing very difficult. You notice that he has dropped the silver necklace
-he was carrying, you quickly pick it up and place it in your pocket.
-You wait for a moment to see if anyone heard the noise, but no-one comes. You
+he was carrying, you quickly pick it up and place it in your pocket.  You
+wait for a moment to see if anyone heard the noise, but no-one comes. You
 head back to the cemetery.
 
 You have avenged your wife.
@@ -319,8 +319,7 @@ wind which cuts straight through to your bones, chilling your very soul.
 Gloomy and depressing as this place is, it seems to match your mood
 perfectly. Standing at the side of your wife's grave, the recently completed
 headstone is the only bright thing here.  To the north is Albert Street and
-Dawson Street is to the east.
-Matthew Baylis wanders over to you.
+Dawson Street is to the east.  Matthew Baylis wanders over to you.
 
 > n
 You head north.
@@ -415,9 +414,8 @@ Using all your strength you plunge the bread knife into Rick Dawson. Seeing
 your attack he attempts to draw his weapon and shoot you but your distraction
 worked and he lets out a terrible scream and collapses onto the ground. You
 notice that he has dropped the diamond ring he was carrying, you quickly pick
-it up and place it in your pocket.
-You wait for a moment to see if anyone heard the noise, but no-one comes. You
-head back to the cemetery.
+it up and place it in your pocket.  You wait for a moment to see if anyone
+heard the noise, but no-one comes. You head back to the cemetery.
 
 You have avenged your wife.
 
@@ -428,8 +426,7 @@ wind which cuts straight through to your bones, chilling your very soul.
 Gloomy and depressing as this place is, it seems to match your mood
 perfectly. Standing at the side of your wife's grave, the recently completed
 headstone is the only bright thing here.  To the north is Albert Street and
-Dawson Street is to the east.
-Matthew Baylis wanders over to you.
+Dawson Street is to the east.  Matthew Baylis wanders over to you.
 
 > n
 You head north.
@@ -467,8 +464,8 @@ yourself.
 
 It will probably be a good idea to do two things now; first you could find
 someone who would make use of the money. Second, it would be interesting to
-see what John Morley makes of Ben not being able to pay his debts.
-Ben seems to be in some sort of daze at the moment.
+see what John Morley makes of Ben not being able to pay his debts.  Ben seems
+to be in some sort of daze at the moment.
 Ben looks out of the window.
 
 > s
@@ -650,9 +647,8 @@ wind which cuts straight through to your bones, chilling your very soul.
 Gloomy and depressing as this place is, it seems to match your mood
 perfectly. Standing at the side of your wife's grave, the recently completed
 headstone is the only bright thing here.  To the north is Albert Street and
-Dawson Street is to the east.
-You wait for a moment to see if anyone heard the noise, but no-one comes. You
-head back to the cemetery.
+Dawson Street is to the east.  You wait for a moment to see if anyone heard
+the noise, but no-one comes. You head back to the cemetery.
 
 You have avenged your wife.
 
@@ -663,8 +659,7 @@ wind which cuts straight through to your bones, chilling your very soul.
 Gloomy and depressing as this place is, it seems to match your mood
 perfectly. Standing at the side of your wife's grave, the recently completed
 headstone is the only bright thing here.  To the north is Albert Street and
-Dawson Street is to the east.
-Matthew Baylis wanders over to you.
+Dawson Street is to the east.  Matthew Baylis wanders over to you.
 
 > n
 You head north.
@@ -702,15 +697,15 @@ you want to laugh!" You return her comment with a weak smile.
 Colin and Fred are discussing politics.
 
 > insert money
-You put some money into the jukebox and make a selection.
-The jukebox is loudly playing a song by some boy band or other.
+You put some money into the jukebox and make a selection.  The jukebox is
+loudly playing a song by some boy band or other.
 Colin and Fred are whispering to each other.
 Emma is listening to Colin and Fred.
 
 > give bracelet to jed
 Jed doesn't take it but looks around and says, "Not here, lets go out to the
-Yard." Jed heads south to the yard.
-The jukebox is loudly playing a song by some boy band or other.
+Yard." Jed heads south to the yard.  The jukebox is loudly playing a song by
+some boy band or other.
 Colin and Fred are talking about horse racing.
 
 > s
@@ -721,36 +716,32 @@ The yard is just behind the pub and seems to be used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
 exits are through a metal gate to the south and back into the pub north.  An
 old garden spade has been left here.  You can also see some insecticide.  Jed
-Peters is watching you carefully.
-The jukebox inside the pub is loudly playing a song by some boy band or
-other.
-You can even hear the music playing in the pub out here, it will definitely
-drown out any noise in the yard.
+Peters is watching you carefully.  The jukebox inside the pub is loudly
+playing a song by some boy band or other.  You can even hear the music
+playing in the pub out here, it will definitely drown out any noise in the
+yard.
 
 > get spade
 You take the spade.
 The jukebox inside the pub is loudly playing a song by some boy band or
-other.
-You can even hear the music playing in the pub out here, it will definitely
-drown out any noise in the yard.
+other.  You can even hear the music playing in the pub out here, it will
+definitely drown out any noise in the yard.
 
 > give bracelet to jed
 You hand the small bracelet to Jed. He turns slightly away from you and
 starts examining the item and mutters, "This bracelet looks similar to one I
 gave to Alison." He still has his back to you, this could be your chance.
 The jukebox inside the pub is loudly playing a song by some boy band or
-other.
-You can even hear the music playing in the pub out here, it will definitely
-drown out any noise in the yard.
+other.  You can even hear the music playing in the pub out here, it will
+definitely drown out any noise in the yard.
 
 > kill jed with spade
 Using all your strength you hit Jed Peters on the head with the spade. His
 skull makes a satisfying crack and he lets out a terrible scream and
-collapses onto the ground.
-You notice that he has dropped the small bracelet, so you quickly pick it up
-and place it in your pocket.
-You wait for a moment to see if anyone heard the noise, but no-one comes. You
-head back to the cemetery.
+collapses onto the ground.   You notice that he has dropped the small
+bracelet, so you quickly pick it up and place it in your pocket.  You wait
+for a moment to see if anyone heard the noise, but no-one comes. You head
+back to the cemetery.
 
 You have avenged your wife.
 
@@ -761,8 +752,7 @@ wind which cuts straight through to your bones, chilling your very soul.
 Gloomy and depressing as this place is, it seems to match your mood
 perfectly. Standing at the side of your wife's grave, the recently completed
 headstone is the only bright thing here.  To the north is Albert Street and
-Dawson Street is to the east.
-Matthew Baylis wanders over to you.
+Dawson Street is to the east.  Matthew Baylis wanders over to you.
 You can hear a police siren.
 
 > e

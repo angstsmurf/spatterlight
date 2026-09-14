@@ -113,19 +113,15 @@ accidentally dripped over it, is a telephone.
 > paint telephone
 A few dabs of paint and the telephone looks a lot... brighter than it did
 before.
-
    Suddenly, and without any kind of warning whatsoever, a meteor comes
 crashing through the roof!
    Startled as you are by this, you still have the presence of mind to throw
 yourself to one side as it smashes down into the middle of the floor and
 blasts a pit several feet wide.
-
    "Ber-limey!" gasps Stan. "Did yer see that friggin' meteor, boss? Came
 right through the ceiling at us!"
-
    Rob stares bleakly at the meteor and rubs his eyes. "I knew I shouldn't
 have got out of bed this morning," he says.
-
    Approaching the meteor, Ted glances at you and says, "y'think if I whack
 it one it might blow up?"
    "That wouldn't be a very good idea," you say.
@@ -158,7 +154,6 @@ that's good enough for you.
 > paint desk
 Deciding the desk looks a bit drab, you splash a bit of paint on it.
    There! A definite improvement!
-
    "Oh my GOD!" comes a high-pitched whine of a voice.
    Thinking it must be the wife come to visit you on the job, you're halfway
 through the window before noticing it's actually the pretty receptionist.
@@ -185,22 +180,17 @@ brush it starts looking quite a bit better.
 You dollop some paint over the walls. It's not a particularly impressive job
 (a professional decorator might well give his opinion of it as "crap") but
 you're reasonably pleased with it.
-
    The receptionist enters with some coffee.
    "Sorry it took so long," she says, not sounding sorry at all, "but there
 was a great big spider curled up in the kettle and I had to really mash it to
 pieces before it would let go of the teabags. Anyway, here you go."
    She hands you some coffee.
-
    "Hey, grand!" says Ted.
-
    Rob grins at the coffee. "My favourite staying awake drink," he murmurs.
-
    "Ta," says Stan as the receptionist hands him his coffee. For perhaps the
 first time ever, an attractive member of the female sex enters within
 grabbing distance of Stan and doesn't get grabbed. Stan's attention seems
 focused on the job in hand. Also a first.
-
    "Well, back to work," the receptionist says.
    "I'll call you if I need more coffee," you say.
    "You can try," she says archly and departs.
@@ -262,26 +252,21 @@ call?"
 been busy."
    Another bout of yelling. Followed by: "and are you treating your workmen
 well?"
-
    "He's horrible as hell to us," mutters Ted.
    You flash him an angry glance.
    "Well, you are," says Ted.
    You grudgingly admit he might have a point there.
-
    "Of course, honey," you say to your wife. "Be home about ten, okay?"
    "This year or next?" is the snarled response before the phone is slammed
 down. But you can tell, mainly due to the lack of death threats issued by
 your nearest and dearest, that she appreciated you calling her.
-
    The receptionist walks in with some beer which she hands to you.
    "It's not very cold," she says, "but the fridge has been malfunctioning
 for years so I tend to store them in the box Mr Ostinolypakalopodopous uses
 for his dirty underpants."
-
    "I'd suggest something," says Stan, "but you'd probably think I was being
 a pig."
    "I think pigs would be insulted by that," says the receptionist.
-
    "Any more beer if I get thirsty?" you ask.
    The receptionist laughs. "Oh, sorry. You were being serious there." She
 laughs some more. "Oh, you're a funny one and no mistake."
@@ -292,12 +277,9 @@ Acting on a hunch, you dial the number for Madame Fortuna.
    "You seek to know the future," says the croaky voice on the other end of
 the phone.
    "Blimey, she's good," says Rob.
-
    "I need help," you say to Fortuna.
    "Something has occurred," she says.
-
    Stan nods in admiration. "Damnit, boss, she sure knows her stuff."
-
    "That's right," you say. "A-"
    "I do not need to know the details," Fortuna goes on. "To cure yourself of
 your recent troubles, a blood sacrifice must be made."
@@ -419,7 +401,6 @@ TWICE!" He points a fist the size of a battering ram and demands, "BEER! NOW!
 DON'T MAKE ME ASK TWICE!" He points a fist the size of a battering ram and
 demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!" He points a fist the size of a
 battering ram and demands, "BEER! NOW! DON'T MAKE ME ASK TWICE!"
-
    "Blimey, boss!" gasps Ted. "Have you seen the size of that fellow?"
    "SULLY NOT THE FORM OF THOR WITH THY UNCLEAN EYES, MORTAL!" booms Thor.
 "LEST THOU WOULDST BRING DOWN THE WRATH OF THE GOD OF THUNDER 'PON THY
@@ -427,7 +408,6 @@ LICE-RIDDEN HEAD!"
    Ted frowns, puzzling things over.
    "I think he's threatening to kill you, Ted," you say.
    Ted nods. "I had a feeling that might be the case.""""""""""
-
    Stan gawps at the figure.
 
 > wait
@@ -442,7 +422,6 @@ booms. "THE DRINK OF THE GODS! THE NECTAR OF THE TITANS! THE SCOURGE OF-" He
 tastes it. "-AH, CRAP!" After he's finished throwing up, he gives a shake of
 his head, drops his VERY big hammer on the floor, and storms off to find some
 headache tablets.
-
    "Good job he cleared off when he did," says Ted. "I was just about to take
 a swing for him."
 
@@ -452,7 +431,6 @@ Time passes...
 > give coffee to abogee
 "Ah, my favourite," he says, and drinks the coffee down in one go. "Much
 obliged. We seldom have mud in cups where I come from."
-
    Suddenly, Mr Abogee begins to chant. This he does in accompaniment to a
 Dire Straits CD he pops into his Walkman and then jigs along to the sounds of
 Walk Of Life.
@@ -468,7 +446,6 @@ I must depart."
    He throws a smoke bomb at his feet and slips away - which he does via the
 door. You're not quite sure what the smoke bomb was in aid of but maybe he
 just prefers showy exits.
-
    There comes a squeal from the receptionist followed by a swarthy fellow
 who looks like a used car salesman stepping into the office.
    "Mr O here?" he enquires, looking around the office in case 'Mr O' might
@@ -476,7 +453,6 @@ be hiding in a corner.
    "Nor right now," you say.
    "Pity. Him and me - the name's Stavros by the way, I'm an 'associate' of
 his - we're friends. Go way back."
-
    Stavros looks about to say more but instead glances down at the hammer of
 Thor lying on the ground.
    And frowns.
@@ -506,7 +482,6 @@ Time passes...
 > call mertle
 Almost before you have finished shouting, the receptionist appears at the
 doorway and hands you some choccy before returning to the reception area.
-
    "What about me, love?" cries Stan. "Wanna see my choccy?"
 
 > give choccy to stan
@@ -571,7 +546,6 @@ minus a few notes.
    "You were carrying that cash around with you all this time?" you ask.
    "Not all this time, boss," Ted says. "I, er, found it on the way to work
 this morning."
-
    The receptionist pops her head around the doorway and says, "I've got some
 strange fellow out front asking if we have any meteor ore for sale. I told
 him to go take a running jump (which is our usual response to customers) but
@@ -623,17 +597,14 @@ Time passes...
 then into the office strides a small, not very intimidating looking fellow.
    "The name's Boris," he says, and you recognise the voice of the kidnapper
 from the phone. "I've come for your ransom money for your dear old granny."
-
    "Don't you mean his brother?" asks Stan. "Least that's what you said on
 the phone."
    Boris frowns. "Er, right. Yeah. Thanks. Your brother."
    "You aren't half dopey," mutters Stan.
    Boris' eyes narrows. "You watch it, pal. His sister ain't the only one
 what can get kidnapped."
-
    "What if I don't have the ransom money?" you say.
    Boris sighs. "Then you ain't never gonna see your dad again."
-
    "If you're going to embark on a life of crime," says Ted (who knows all
 about a life of crime), "you really ought to start getting your facts
 straight."
@@ -641,7 +612,6 @@ straight."
 menacing tone of voice.
    "I ain't got a wife."
    Boris looks at him. "Nah. I can see why not."
-
    A lull falls over the office.
    "I'll wait right here for my money, buster," Boris says. "I'll give you a
 few minutes to get it together. But if I ain't got it by the time I count to,
@@ -655,7 +625,6 @@ have given him the notes you got from Ted.
 they'll both be released now so no need to concern yourself on that account.
 Your sister is okay."
    And without further ado, he shakes your hand and departs.
-
    "Yeah!" cries Stan. "You sure showed him what for, boss!"
    "No thanks to you, Stan," you say reproachfully.
    "Didn't wanna ruin your moment of glory, boss."
@@ -682,13 +651,11 @@ Time passes...
 glance over in surprise to see a hulking fellow there. He's big and
 brutal-looking and has an air of concealed violence about him. Yep,
 definitely a cop.
-
    "Blimey! A pig!" says Stan before he can stop himself.
    It doesn't look at first like Officer Bribe has even noticed the insult,
 but then as he turns to speak to you and his fist shoots out and catches Stan
 in the face, you conclude that Bribe probably did hear.
    That, or he felt like belting Stan one anyway. (You know how he feels.)
-
    "I'm here investigating a very serious charge of passing counterfeit
 money," Bribe says, the words charging out of his mouth like unstoppable
 rhinos. "I have reason to believe that you are responsible for this crime."
@@ -702,12 +669,10 @@ around the office as if debating smashing it up in case you've hidden any
 suspicious substances there. "I'll ask you a question, pal, and you'd better
 give me a straight answer or I'll be very angry. And you won't like me when
 I'm angry."
-
    "We don't like you now," mutters Stan who clearly has no idea when to keep
 quiet.
    A few seconds later, Bribe unclenches his fist, picks Stan up from the
 floor where he had fallen, and continues the questioning.
-
    "What do you want to know?" you ask, eager to avoid a pummelling for
 'obstructing the police in the lawful execution of their duties'.
    "Did you, or did you not, hand counterfeit money to one Boris Snitch? A
@@ -737,7 +702,6 @@ next time..."
 wound up in deep doodoo and no mistake."
    While you admit he might well have a point there, you're still not very
 happy about him lying to you.
-
    "Ah, the friendly face of the law," says Ted. "Makes me feel safe knowing
 they're around."
 
@@ -798,7 +762,6 @@ have been going in my absence. And," he takes a look around the office, "what
 kind of job you have made at painting my office."
    "The best job I could have done," you reply, which may - or may not - be
 the truth.
-
    "Well," says Mr Ostinolypakalopodopous. "I am impressed!"
    "You are?" you gasp. "Er... I mean, of course you are."
    "You did an excellent job here. Everything appears to be painted and neat

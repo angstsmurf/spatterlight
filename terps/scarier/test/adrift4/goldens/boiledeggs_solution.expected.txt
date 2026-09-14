@@ -101,8 +101,7 @@ Old Joe's garden
 The old stone path leads up to the window and the front door, where
 flowerpots, rocks, a doormat and so on leave any number of possible hiding
 places for the key.  There's a stone here too, lying inconspicuously in the
-middle of the grass.
-Now you've just got to find it...
+middle of the grass.  Now you've just got to find it...
 
 > lift the loose flagstone
 Heaving the flagstone off the path, you see a small brass key in the dirt
@@ -127,19 +126,18 @@ You creep gingerly up the stairs, careful not to make the slightest noise.
 
 Staircase
 The dark, carpeted stairs lead to the upstairs hallway. There are more
-pictures along the wall.
-Hiding behind the bannister, you can hear the sound of a door opening, and
-shuffling feet leaving the bedroom. Old Joe goes into the bathroom. Do you
-have time to get the box before he comes back?
+pictures along the wall.  Hiding behind the bannister, you can hear the sound
+of a door opening, and shuffling feet leaving the bedroom. Old Joe goes into
+the bathroom. Do you have time to get the box before he comes back?
 
 > up
 As silently as you know how, you hurry upstairs.
 
 Upstairs hallway
 The dark red colour scheme is starting to get really oppressive. Still more
-disapproving women glare at you from their frames.
-Probably not a good idea to hang about, I think. You can hear movement in the
-bathrom; that means the bedroom's clear...
+disapproving women glare at you from their frames.  Probably not a good idea
+to hang about, I think. You can hear movement in the bathrom; that means the
+bedroom's clear...
 
 > north
 You slip into Old Joe's bedroom, home of that little magical box that could
@@ -182,8 +180,7 @@ Old Joe's garden
 The old stone path leads up to the window and the front door, where
 flowerpots, rocks, a doormat and so on leave any number of possible hiding
 places for the key.  There's a stone here too, lying inconspicuously in the
-middle of the grass.
-There's no sign of the dog...
+middle of the grass.  There's no sign of the dog...
 
 > open box
 You open the box.

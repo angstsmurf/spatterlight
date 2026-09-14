@@ -139,9 +139,8 @@ The ruins you remember are in worse shape and occupied by peasants likened to
 medieval England.  Tents and shacks are scattered randomly as well as the
 villagers who are talking - in English!
 The villagers are working their fields, and a few wave their hands at you.
-The wizard is here.
-The wizard starts to shake his head, blinking his eyes, as he begins to
-recover from being stunned.
+The wizard is here.  The wizard starts to shake his head, blinking his eyes,
+as he begins to recover from being stunned.
 
 > x wizard
 The old man is dressed in a gaudy gown reminiscent of cartoon magicians, with
@@ -154,9 +153,8 @@ you."  He walks toward the shack to the east, looking back at you hopefully.
 Wizard's House
 The shack is much like other impoverished shelters without any modern
 amenities.  A single bed and some pieces of furniture occupy the room.
-The wizard is here.
-"Thank you for sparing my humble life," the old man apologizes.  "Please,
-sit, and I will try to explain."
+The wizard is here.  "Thank you for sparing my humble life," the old man
+apologizes.  "Please, sit, and I will try to explain."
 
 The only place to sit is on the bed, and you gingerly sit on the edge.  The
 wizard starts to pace back and forth, wringing his hands in front of him.  "I
@@ -459,8 +457,7 @@ Main Floor Hall
 You are at the eastern side of the "L" shaped hall with the long part
 extending east-west.  The hall continues directly north to rooms 11 through
 14.  A stairwell near the corner goes up to the second floor.  To the east is
-room 10.
-M'greet closes the door behind you and you hear the lock engage.
+room 10.  M'greet closes the door behind you and you hear the lock engage.
 
 > w
 You move west.
@@ -536,16 +533,15 @@ One of the villager's tending the spit, smiles and offers you to take a piece
 of meat.
 
 > take meat
-You gently tear off a piece of meat.
-The villager nods his head as to offer another piece.
+You gently tear off a piece of meat.  The villager nods his head as to offer
+another piece.
 
 > take meat
 You gently tear off a piece of meat.
 
 > take meat
-You gently tear off a piece of meat.
-The villager is starting to frown and you realize you might be getting
-greedy.
+You gently tear off a piece of meat.  The villager is starting to frown and
+you realize you might be getting greedy.
 
 > e
 You move east.
@@ -1056,11 +1052,10 @@ Several metal boxes sit on the middle of the floor.  The warlock is sitting
 crosslegged on the floor near the metal boxes.
 
 > give ybco object to warlock
-"Good.  The YBCOVMR," she enunciates each letter.
-The warlock is seated cross-legged on the floor, then opens the boxes with
-her keycard and examines the contents, looks at the YBCO object, then back in
-the box.  She reaches for a bundle of papers, flips through them, then looks
-at you.
+"Good.  The YBCOVMR," she enunciates each letter.  The warlock is seated
+cross-legged on the floor, then opens the boxes with her keycard and examines
+the contents, looks at the YBCO object, then back in the box.  She reaches
+for a bundle of papers, flips through them, then looks at you.
 
 You look back at her.
 

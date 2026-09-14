@@ -1938,7 +1938,11 @@ ptbad_solution.txt|ptbad.taf|You Win! Yay!
 # Re-blessed 2026-09-13 for 991a5f8d9's RNG draw order: the drunk's noises, Colin and
 # Fred's chatter, the cat's walk and the Williams Tower's random age (14 -> 13 years)
 # re-roll.  RNG timing only.
-vague_solution.txt|vague.taf|You have won!|SCR_SKIP_WAITKEY=1
+# Marker moved 2026-09-14: the win task's "You have won!" is joined onto the ending
+# task's text in run400, so vague's ALR ' You have won!' -> "" deletes it (Adrift_1125
+# ends "Nothingness returns.   ").  The old marker only showed because Scarier broke
+# the line there.
+vague_solution.txt|vague.taf|Nothingness returns.|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29 in run400 (arena probes EV14/EV15/EV16, Adrift_1_ev14..16.txt;
 # tick guard at 48B599: MemVar_494281 = not-a-turn flag, set by every exit of the NPC
 # examine block Proc_19_0_480674 and the 4801E1/471F02 "see no such thing" refusals):
@@ -4735,6 +4739,9 @@ salutations_solution.txt|salutations.taf|you'll decline to answer.|SCR_SKIP_WAIT
 # `tirar de la palanca` -> `pull de la palanca` (Adrift_1_vardock_bates.txt); this row
 # follows by the same rule, unmeasured:
 # `turn on tv` -> "You can't turn the 32-inch television." (was the I-don't-understand line).
+# Re-blessed 2026-09-14, one line: run400's turn refusal (489255-489367) appends the
+# typed " on"/" off" -- measured on the_pk_girl `turn on transmitter` (Adrift_1157 T362):
+# `turn on tv` -> "You can't turn the 32-inch television on."
 iachini_solution.txt|iachini.taf|You settle down in front of the TV.|SCR_SEED=202
 # La hija del relojero ("Nano", Spanish, 4.00) is the smallest 4.00 file left
 # after Salutations: ONE room, 8 tasks, 12 objects, no NPCs, and no score at
@@ -7104,7 +7111,7 @@ sigurd_solution.txt|Sigurd_Fafnesbane.taf|gold is glittering in the leather sack
 # solution to the best ending. 60 commands, `SCR_SKIP_WAITKEY=1` (frequent
 # `[more]` pauses, including after every in-game death, otherwise eat the
 # next scripted command and desync the run).
-unfortunately_solution.txt|Unfortunately.taf|An ending to be sure - and the best one in the game to boot! You brought your|SCR_SKIP_WAITKEY=1
+unfortunately_solution.txt|Unfortunately.taf|An ending to be sure - and the best one in the game to boot!|SCR_SKIP_WAITKEY=1
 # frustrated.taf ("Frustrated Interviewee"): 2005 InsideADRIFT Spring comp
 # entry. 50/50 max score. Opens with an apartment sequence recruiting three
 # friends into a game (TV channel-change, six-plus chocolates, a

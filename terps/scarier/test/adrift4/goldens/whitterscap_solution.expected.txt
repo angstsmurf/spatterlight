@@ -159,8 +159,7 @@ You need to wait for Whitterscap in the Secret Passage, first.
 
 Secret Passage!
 Charles is here.  You can ask him about buttons if you type "ask charles
-about buttons."
-Charles looks blankly at your rune for a second.
+about buttons."  Charles looks blankly at your rune for a second.
 
 > wait
 Time passes...

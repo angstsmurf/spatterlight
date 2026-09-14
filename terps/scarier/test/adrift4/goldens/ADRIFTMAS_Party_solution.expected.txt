@@ -418,10 +418,10 @@ sure everyone is having a good time.
 You can move west and northwest.  Davidw goes  to the north-west.
 
 > give money to dave
-You hand Dave the money and he begins doing his reading.
-...."Well, well, well, Santa.  It seems you've gotten yourself into a mess.
-So you need to know how to get back on the roof where all the presents are?"
-Dave looks at you closely and closes his eyes...going  into a trance.
+You hand Dave the money and he begins doing his reading.  ...."Well, well,
+well, Santa.  It seems you've gotten yourself into a mess.  So you need to
+know how to get back on the roof where all the presents are?"  Dave looks at
+you closely and closes his eyes...going  into a trance.
 
 "I see you've been to many houses tonight.....tons of cookies....lots of
 milk......Oh, I don't imagine you are going to tell the Mrs. about what
@@ -657,9 +657,9 @@ house you see all the 'Drifters gathered outside to bid you farewell.
 
 "Merry ADRIFTMAS TO ALL!  And to all a good night!"
 
-* THE END*
-*****CONTINUE******   I would like to thank Campbell Wild for creating such a
-wonderful program for us to express ourselves with.  * THANK YOU!!!!! *
+* THE END*  *****CONTINUE******   I would like to thank Campbell Wild for
+creating such a wonderful program for us to express ourselves with.  * THANK
+YOU!!!!! *
 
 Special thanks go out to MileOut and the Amazing Poodle Boy for beta testing-
 *aka* Stewart J. McAbney & Jason Guest.

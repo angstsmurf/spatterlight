@@ -68,93 +68,72 @@ NOOOOOOOOOOO!!!
 (cont.)
 
 It's starting! Get ready!
-
 Score: 0
 
 You see a blue note!
 
 > use blue button
-You hit blue!
-Superstar!!
-
+You hit blue!  Superstar!!
 Score: 10
 
 You see a red note!
 
 > use red button
-You hit red!
-Superstar!!
-
+You hit red!  Superstar!!
 Score: 20
 
 You see a red note!
 
 > use red button
-You hit red!
-Perfect!
-
+You hit red!  Perfect!
 Score: 30
 
 You see a red note!
 
 > use red button
-You hit red!
-Superstar!!
-
+You hit red!  Superstar!!
 Score: 40
 
 You see a red note!
 
 > use red button
-You hit red!
-You nailed it!
-
+You hit red!  You nailed it!
 Score: 50
 
 You see a yellow note!
 
 > use yellow button
-You hit yellow!
-You're a star!
-
+You hit yellow!  You're a star!
 Score: 60
 
 You see a green note!
 
 > use green button
-You hit green!
-Superstar!!
-
+You hit green!  Superstar!!
 Score: 70
 
 You see a yellow note!
 
 > use yellow button
-You hit yellow!
-You got it!
-
+You hit yellow!  You got it!
 Score: 80
 
 You see a green note!
 
 > use green button
-You hit green!
-You're a star!
-
+You hit green!  You're a star!
 Score: 90
 
 You see a green note!
 
 > use green button
-You hit green!
-You're a star!
+You hit green!  You're a star!
 
 ......Ten hours later...
 
 The song finally finishes!
 
-Your score is 1000.
-Rock on!
+Your score is 1000.  Rock on!
 
 Hold on! Something's happening!!!
 

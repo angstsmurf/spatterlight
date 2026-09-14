@@ -269,8 +269,8 @@ cows chewing cud to pass the time.
 
 Exits lie: southwest
 
-   "What an appalling smell, boss!" groans Doris. "I can see that my broom's
-needed here!"
+     "What an appalling smell, boss!" groans Doris. "I can see that my
+broom's needed here!"
    She sets to work and-
 
 [SEVERAL HOURS SKIPPED HERE]
@@ -963,11 +963,10 @@ you see a junction.
 Exits lie: northeast, southeast and southwest
 
   Borrible the Horrible - Scourge of the One Sea, Tyrant of the Trolls,
-Gouger of the Goblins - is here.
-   "Wull, wull," grunts the man mountain that is Borrible the Horrible. He
-hefts the fearsome axx he has in his hand and stalks towards you. "You lok
-like your a rich fella, me lad. Wot say yous and over all yus items an mebbe
-i willna killya."
+Gouger of the Goblins - is here.     "Wull, wull," grunts the man mountain
+that is Borrible the Horrible. He hefts the fearsome axx he has in his hand
+and stalks towards you. "You lok like your a rich fella, me lad. Wot say yous
+and over all yus items an mebbe i willna killya."
    "I'll not be threatened by someone who can't even speak proper
 Harrendien," you point out.
    Borrible laughs, though not in a pleasant sort of way. In more the sort of
@@ -1797,8 +1796,8 @@ A ladder set into a hole in the ground winds away into the darkness.
 
 Exits lie: southeast and down
 
-  Gondo the guard and Boris the guard are here.
-   "What went on down there?" says Gondo. "I heard the sounds of fighting."
+  Gondo the guard and Boris the guard are here.     "What went on down
+there?" says Gondo. "I heard the sounds of fighting."
    "Er, I had a slight disagreement with your boss," you say.
    "Is that slang for you chopped his head off?" asks Boris.
    "Er-"
@@ -2672,8 +2671,8 @@ be seen.
 
 Exits lie: north, south, east, west and down
 
-   A billowing mist suddenly shoots from the southern, previously unpassable
-doorway and swirls all around you.
+     A billowing mist suddenly shoots from the southern, previously
+unpassable doorway and swirls all around you.
    "Ah," says a ghostly presence, "you are clever indeed to figure out a
 puzzle as complex as that one."
    "Nah," grunts Toto. "'Ee 'ad me 'elpin' him out!"
@@ -2716,9 +2715,8 @@ And inside the cot is the dragon egg you have been searching for.
 
 Exits lie: north
 
-  Vorgon is here.
-   "Ah," says the large fellow in the armour, "you've arrived at last. I was
-wondering when you'd care to show up."
+  Vorgon is here.     "Ah," says the large fellow in the armour, "you've
+arrived at last. I was wondering when you'd care to show up."
    "An' who the bloody 'ell are ye, pal?" snaps Toto. "Yer don't half look
 like a git in that armour!"
    "My name is Vorgon," says the man. "And I am your death-"
@@ -3162,9 +3160,8 @@ Below each window lies a heavy chest.
 
 Exits lie: down
 
-  The dragon is here.
-   "AH," roars the dragon, "SO YOU HAVE COME AFTER ALL. I HAD HALF EXPECTED
-YOU MIGHT DECIDE TO FLEE."
+  The dragon is here.     "AH," roars the dragon, "SO YOU HAVE COME AFTER
+ALL. I HAD HALF EXPECTED YOU MIGHT DECIDE TO FLEE."
    "Fleeing's not in my nature," you say.
    "REALLY? AND PERHAPS YOU ALSO NOTICED THAT YOU CANNOT FLEE. THE BORDERS OF
 THIS LAND ARE VAST, ARE THEY NOT, BUT NOT SO VAST THAT ONE SUCH AS I COULD

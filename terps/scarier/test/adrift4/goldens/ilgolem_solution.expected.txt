@@ -387,9 +387,9 @@ Sotto lo scaffale intravedi l'interruttore generale della luce.
 La masticazione di Diablo si affievolisce.
 
 > accendi interruttore
-Infilando la mano sotto lo scaffale, accendi l'interruttore generale!
-Dalla cucina odi un latrato tremendo e il rumore di corrente elettrica. Segue
-la puzza di carne bruciata e il silenzio.
+Infilando la mano sotto lo scaffale, accendi l'interruttore generale!  Dalla
+cucina odi un latrato tremendo e il rumore di corrente elettrica. Segue la
+puzza di carne bruciata e il silenzio.
 
 > spegni interruttore
 Infilando la mano sotto lo scaffale, spegni l'interruttore generale!
@@ -778,10 +778,9 @@ Il cadavere di Diablo giace riverso in terra.
 Metti la mandragora dentro il tritatutto.
 
 > accendi tritatutto
-Col dito indice premi il pulsante d'avvio del tritatutto.
-Le lame del tritatutto sminuzzano rumorosamente la mandragora. Dopo alcuni
-secondi il tritatutto si ferma e della radice di mandragora resta solo una
-poltiglia.
+Col dito indice premi il pulsante d'avvio del tritatutto.  Le lame del
+tritatutto sminuzzano rumorosamente la mandragora. Dopo alcuni secondi il
+tritatutto si ferma e della radice di mandragora resta solo una poltiglia.
 
 > prendi mandragora
 Prendi la mandragora dal tritatutto.

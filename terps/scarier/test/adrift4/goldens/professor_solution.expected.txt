@@ -483,10 +483,10 @@ You carefully stand atop the Leg to Stand On and see a small lever.
 
 > pull lever
 You pull the lever and hear a low rumble. You turn around to see the floor
-open up.  There is a dark, narrow stairway leading down.
-Just as you are about to investigate further, you hear Thomas and Clayton
-coming.  You round the corner just in time to keep them from seeing the
-entrance to the secret room.
+open up.  There is a dark, narrow stairway leading down.  Just as you are
+about to investigate further, you hear Thomas and Clayton coming.  You round
+the corner just in time to keep them from seeing the entrance to the secret
+room.
 
 "It's time to fly, Von Witt.  I hope your contraption is ready.  You have
 five minutes to get to Glen's Lookout, so you better hurry." Thomas says,

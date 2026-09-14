@@ -167,12 +167,12 @@ You can hear a police car; you stand still for a moment but it seems to be
 heading away.
 
 > throw camera
-You throw the camera over the wall and it disappears out of sight.
-Someone has stopped and is looking at the body.
+You throw the camera over the wall and it disappears out of sight.  Someone
+has stopped and is looking at the body.
 
 > throw radio
-You throw the radio over the wall and it disappears out of sight.
-Someone has stopped and is looking at the body.
+You throw the radio over the wall and it disappears out of sight.  Someone
+has stopped and is looking at the body.
 
 Something hits the roof making a 'ffutt' sound.
 

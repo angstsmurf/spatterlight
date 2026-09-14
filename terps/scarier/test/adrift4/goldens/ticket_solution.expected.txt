@@ -733,8 +733,8 @@ It is an Unscheduled Stop note to the Signal Man reminding him of a change.
 It reads "Unscheduled Stop. Draycot train is stopping here today. 3.30pm"
 
 The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
-The trainspotter writes something in a notebook.
+The shaking feels like it is never going to stop.  The trainspotter writes
+something in a notebook.
 
 > ask trainspotter about beard
 "Yes, I saw him storm out of the station.  He was complaining about someone
@@ -1148,8 +1148,8 @@ You hand the gloves to the Trainspotter.  He tries them on and then says
 The young girl says "to donningby?"
 
 The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
-The trainspotter writes something in a notebook.
+The shaking feels like it is never going to stop.  The trainspotter writes
+something in a notebook.
 
 > ask trainspotter about young girl
 "Yes, I've seen her.  I think she is German. Pity my brother is not here as
@@ -1241,8 +1241,8 @@ the platform.
 
 You appear to be able to move north, east and southwest.
 A train arrives at Platform 1.  You just manage to catch the name Colesworth
-on the announcement.
-You are nearly knocked over by the crowd that gets off a train.
+on the announcement.  You are nearly knocked over by the crowd that gets off
+a train.
 
 > north
 You move north.
@@ -1347,8 +1347,8 @@ excited.  He shouts "YOU'RE A TRAINSPOTTER! Great! Lets swap train details!"
 Lets not you think to yourself.
 
 The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
-The trainspotter writes something in a notebook.
+The shaking feels like it is never going to stop.  The trainspotter writes
+something in a notebook.
 
 > se
 You move southeast.
@@ -1558,8 +1558,7 @@ platforms.  A Trainspotter dressed in wet weather gear is watching you.
 You appear to be able to move northeast and southeast.
 
 A train thunders through the station and it doesn't sound like it is going to
-stop.
-The trainspotter writes something in a notebook.
+stop.  The trainspotter writes something in a notebook.
 
 > se
 You move southeast.
@@ -1637,8 +1636,8 @@ You appear to be able to move northeast and southeast.
 "Yes, not heard of him.  Is he an explorer?"
 
 The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
-The trainspotter writes something in a notebook.
+The shaking feels like it is never going to stop.  The trainspotter writes
+something in a notebook.
 
 > ask trainspotter about john tailer
 "Yes, Tailer? was he the Governor of Massachusetts in 1711?"
@@ -1736,8 +1735,7 @@ A cat strolls out to the south.
 > se
 You can't go in that direction, but you can move east, south and northwest.
 A train arrives at Platform 2.  You just manage to catch the name Bakeswell
-on the announcement.
-a handful of people get off the train and leave.
+on the announcement.  a handful of people get off the train and leave.
 
 > x drunk
 The drunk looks very untidy and you guess that he must have slept in his
@@ -2104,8 +2102,7 @@ Time passes...
 Time passes...
 
 A train arrives at Platform 2.  You just manage to catch the name Coldon on
-the announcement.
-two people depart from the train and leave.
+the announcement.  two people depart from the train and leave.
 The Business Woman asks "The cafe seems to be shut.  Do you know of anywhere
 to eat I missed breakfast?"
 
@@ -2306,8 +2303,7 @@ platforms.  A Trainspotter dressed in wet weather gear is watching you.
 You appear to be able to move northeast and southeast.
 
 A train thunders through the station and it doesn't sound like it is going to
-stop.
-The trainspotter writes something in a notebook.
+stop.  The trainspotter writes something in a notebook.
 
 > ask trainspotter about wrapper
 "Yes, it was Joseph Fry & Son in 1847 who discovered a way to make the first
@@ -2421,8 +2417,8 @@ platforms.  A Trainspotter dressed in wet weather gear is watching you.
 You appear to be able to move northeast and southeast.
 
 The whole station seems to be shaking as a freight train rumbles through.
-The shaking feels like it is never going to stop.
-The trainspotter writes something in a notebook.
+The shaking feels like it is never going to stop.  The trainspotter writes
+something in a notebook.
 
 > ne
 You move northeast.
@@ -2461,8 +2457,7 @@ can also see a payphone.
 
 You appear to be able to move north, east and southwest.
 A train arrives at Platform 1.  You just manage to catch the name Thrumpton
-on the announcement.
-a group of children get off the train and run off.
+on the announcement.  a group of children get off the train and run off.
 
 > sw
 You move southwest.
@@ -2648,8 +2643,8 @@ stop.
 Time passes...
 
 A train arrives at Platform 2.  You just manage to catch something about
-"unscheduled stop" and  "Grantby" on the announcement.
-Someone you recognise gets off the train.
+"unscheduled stop" and  "Grantby" on the announcement.  Someone you recognise
+gets off the train.
 John Tailer looks over at you and says "Hello Colin!"
 
 (It is now 3.30pm which means you have 30 minutes left.)
@@ -2689,8 +2684,7 @@ You take the hamburger carton.
 
 You can see that the Thrumpton train is at platform 2.
 You hear someone blowing a whistle and the train on platform 2 pulls out of
-the station.
-The trainspotter writes something in a notebook.
+the station.  The trainspotter writes something in a notebook.
 
 > se
 You move southeast.
@@ -2802,14 +2796,11 @@ I have a feeling that Super Stationary will not be getting the business now!
 You appear to have been very tidy during the game and so get a little extra
 credit.
 
-The Trainspotter is very pleased with his new notepad.
-The Trainspotter loves his nice new tights and thinks they will keep him
-warm.
-You helped the lost German girl.
-You put the Station Master off using Super Stationary.
-You got rid of that damn pigeon.
-The baby has its rattle back.
-You found a possible new customer (the beardy bloke).
+The Trainspotter is very pleased with his new notepad.  The Trainspotter
+loves his nice new tights and thinks they will keep him warm.  You helped the
+lost German girl.  You put the Station Master off using Super Stationary.
+You got rid of that damn pigeon.  The baby has its rattle back.  You found a
+possible new customer (the beardy bloke).
 
 Not that bad a day after all.
 

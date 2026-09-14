@@ -77,8 +77,8 @@ You set to work on your project.  This is going to be the best slingshot ever
 
 > work
 You set to work on your project.  This is going to be the best slingshot ever
-Man, all of Noslen's hard work has paid off.  He holds in his hand one of the
-sweetest slingshots known to man.
+ Man, all of Noslen's hard work has paid off.  He holds in his hand one of
+the sweetest slingshots known to man.
 "Hey, Noslen, make out with me some more" says Jarvin
 
 > help
@@ -115,10 +115,9 @@ universe is sitting beside you.
 
 > take notes
 Staring at the direction of the teacher, you write the stuff you see on the
-board.
-All of your hard work has been rewarded...The only thing you manage to get
-out of the lecture is that you need to shoot straight at the monkey.  Not
-above and not below.  Whatever that means...
+board.  All of your hard work has been rewarded...The only thing you manage
+to get out of the lecture is that you need to shoot straight at the monkey.
+Not above and not below.  Whatever that means...
 
 > pay attention
 You nod your head as Mr. Ech rambles off some physics junk.

@@ -685,8 +685,8 @@ de grosses pierres grises et vos pas résonne sur le sol de roche. Une porte
 se trouve
 à l'extrémité du couloir. Au sud vous distinguez la petite caverne.
 
-Sorties évidentes: Nord et Sud.
-Vous avez pris rapidement dans le sac une chaine en bronze.
+Sorties évidentes: Nord et Sud.  Vous avez pris rapidement dans le sac une
+chaine en bronze.
 
 > go north
 Vous vous déplacez vers le Nord.

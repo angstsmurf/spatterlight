@@ -171,8 +171,8 @@ The metal door is jammed against the two and a half legged chair. There isn't
 much room, but there is enough space for you to crawl under.  The metal fire
 door is wedged against a rickety wooden chair. There isn't much room, but you
 could probably crawl under the door if you had to.  Smoke drifts up from the
-porthole and collects around the ceiling.
-The smoke drifts away and the smoke detector stops beeping.
+porthole and collects around the ceiling.  The smoke drifts away and the
+smoke detector stops beeping.
 
 > e
 You crawl under the door and hurry down the corridor, as red lights flash
@@ -786,9 +786,9 @@ facing a large computer panel. In front of the panel is a huge bay window,
 from which you can see the inside of the hangar. The rest of the ship lies
 behind you, to the west, and there is some kind of shuttle off to the south.
  Also here is a transparent alien dustbin.  The hideous alien waits patiently
-by a bank of computers. He watches you expectantly.
-The hideous alien turns to face you. His mouth opens, and he emits a strange
-series of hight-pitched beeps and whistles.
+by a bank of computers. He watches you expectantly.  The hideous alien turns
+to face you. His mouth opens, and he emits a strange series of hight-pitched
+beeps and whistles.
 
 'Ah, Captain, at last,' says the hideous alien, 'welcome to your ship.
 Everything is ready sir, we take off on your say so.'

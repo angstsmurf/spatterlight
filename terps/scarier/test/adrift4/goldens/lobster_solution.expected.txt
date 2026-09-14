@@ -33,7 +33,7 @@ Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
 reanimating serum and the envenomator.
 
 The mad veterinarian cackles to himself, awaiting your choice of instruments.
-"Servant, let the monsterification begin!"
+ "Servant, let the monsterification begin!"
 
 Under your telepathic command, The Servant opens up the subject to receive
 your augmentations...
@@ -48,24 +48,24 @@ You press the scalpel into The Servant's gloved hands.
 You grasp the rainbow sprinkles with one of your mighty pincers.
 
 > give sprinkles to servant
-You press the rainbow sprinkles into The Servant's gloved hands.
-The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+You press the rainbow sprinkles into The Servant's gloved hands.  The Servant
+sprinkles rainbow onto the subject.  The colours, the colours!
 
 > take envenomator
 You grasp the envenomator with one of your mighty pincers.
 
 > give envenomator to servant
-You press the envenomator into The Servant's gloved hands.
-The Servant puts all the poison onto the subject.  He channels your own
-(telepathic) maniacal laughter.
+You press the envenomator into The Servant's gloved hands.  The Servant puts
+all the poison onto the subject.  He channels your own (telepathic) maniacal
+laughter.
 
 > take serum
 You grasp the reanimating serum with one of your mighty pincers.
 
 > give serum to servant
-You press the reanimating serum into The Servant's gloved hands.
-The Servant injects the reanimating serum into the subject and, with
-bloodshot anticipation, watches it twitch.
+You press the reanimating serum into The Servant's gloved hands.  The Servant
+injects the reanimating serum into the subject and, with bloodshot
+anticipation, watches it twitch.
 
 "It's alive... it's ALIVE!"
 
@@ -111,7 +111,7 @@ Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
 reanimating serum and the envenomator.
 
 The mad veterinarian cackles to himself, awaiting your choice of instruments.
-"Servant, let the monsterification begin!"
+ "Servant, let the monsterification begin!"
 
 Under your telepathic command, The Servant opens up the subject to receive
 your augmentations...
@@ -126,24 +126,24 @@ You press the scalpel into The Servant's gloved hands.
 You grasp the rainbow sprinkles with one of your mighty pincers.
 
 > give sprinkles to servant
-You press the rainbow sprinkles into The Servant's gloved hands.
-The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+You press the rainbow sprinkles into The Servant's gloved hands.  The Servant
+sprinkles rainbow onto the subject.  The colours, the colours!
 
 > take envenomator
 You grasp the envenomator with one of your mighty pincers.
 
 > give envenomator to servant
-You press the envenomator into The Servant's gloved hands.
-The Servant puts all the poison onto the subject.  He channels your own
-(telepathic) maniacal laughter.
+You press the envenomator into The Servant's gloved hands.  The Servant puts
+all the poison onto the subject.  He channels your own (telepathic) maniacal
+laughter.
 
 > take serum
 You grasp the reanimating serum with one of your mighty pincers.
 
 > give serum to servant
-You press the reanimating serum into The Servant's gloved hands.
-The Servant injects the reanimating serum into the subject and, with
-bloodshot anticipation, watches it twitch.
+You press the reanimating serum into The Servant's gloved hands.  The Servant
+injects the reanimating serum into the subject and, with bloodshot
+anticipation, watches it twitch.
 
 "It's alive... it's ALIVE!"
 
@@ -189,7 +189,7 @@ Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
 reanimating serum and the envenomator.
 
 The mad veterinarian cackles to himself, awaiting your choice of instruments.
-"Servant, let the monsterification begin!"
+ "Servant, let the monsterification begin!"
 
 Under your telepathic command, The Servant opens up the subject to receive
 your augmentations...
@@ -204,24 +204,24 @@ You press the scalpel into The Servant's gloved hands.
 You grasp the rainbow sprinkles with one of your mighty pincers.
 
 > give sprinkles to servant
-You press the rainbow sprinkles into The Servant's gloved hands.
-The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+You press the rainbow sprinkles into The Servant's gloved hands.  The Servant
+sprinkles rainbow onto the subject.  The colours, the colours!
 
 > take envenomator
 You grasp the envenomator with one of your mighty pincers.
 
 > give envenomator to servant
-You press the envenomator into The Servant's gloved hands.
-The Servant puts all the poison onto the subject.  He channels your own
-(telepathic) maniacal laughter.
+You press the envenomator into The Servant's gloved hands.  The Servant puts
+all the poison onto the subject.  He channels your own (telepathic) maniacal
+laughter.
 
 > take serum
 You grasp the reanimating serum with one of your mighty pincers.
 
 > give serum to servant
-You press the reanimating serum into The Servant's gloved hands.
-The Servant injects the reanimating serum into the subject and, with
-bloodshot anticipation, watches it twitch.
+You press the reanimating serum into The Servant's gloved hands.  The Servant
+injects the reanimating serum into the subject and, with bloodshot
+anticipation, watches it twitch.
 
 "It's alive... it's ALIVE!"
 
@@ -267,7 +267,7 @@ Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
 reanimating serum and the envenomator.
 
 The mad veterinarian cackles to himself, awaiting your choice of instruments.
-"Servant, let the monsterification begin!"
+ "Servant, let the monsterification begin!"
 
 Under your telepathic command, The Servant opens up the subject to receive
 your augmentations...
@@ -282,24 +282,24 @@ You press the scalpel into The Servant's gloved hands.
 You grasp the rainbow sprinkles with one of your mighty pincers.
 
 > give sprinkles to servant
-You press the rainbow sprinkles into The Servant's gloved hands.
-The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+You press the rainbow sprinkles into The Servant's gloved hands.  The Servant
+sprinkles rainbow onto the subject.  The colours, the colours!
 
 > take envenomator
 You grasp the envenomator with one of your mighty pincers.
 
 > give envenomator to servant
-You press the envenomator into The Servant's gloved hands.
-The Servant puts all the poison onto the subject.  He channels your own
-(telepathic) maniacal laughter.
+You press the envenomator into The Servant's gloved hands.  The Servant puts
+all the poison onto the subject.  He channels your own (telepathic) maniacal
+laughter.
 
 > take serum
 You grasp the reanimating serum with one of your mighty pincers.
 
 > give serum to servant
-You press the reanimating serum into The Servant's gloved hands.
-The Servant injects the reanimating serum into the subject and, with
-bloodshot anticipation, watches it twitch.
+You press the reanimating serum into The Servant's gloved hands.  The Servant
+injects the reanimating serum into the subject and, with bloodshot
+anticipation, watches it twitch.
 
 "It's alive... it's ALIVE!"
 
@@ -345,7 +345,7 @@ Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
 reanimating serum and the envenomator.
 
 The mad veterinarian cackles to himself, awaiting your choice of instruments.
-"Servant, let the monsterification begin!"
+ "Servant, let the monsterification begin!"
 
 Under your telepathic command, The Servant opens up the subject to receive
 your augmentations...
@@ -360,24 +360,24 @@ You press the scalpel into The Servant's gloved hands.
 You grasp the rainbow sprinkles with one of your mighty pincers.
 
 > give sprinkles to servant
-You press the rainbow sprinkles into The Servant's gloved hands.
-The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+You press the rainbow sprinkles into The Servant's gloved hands.  The Servant
+sprinkles rainbow onto the subject.  The colours, the colours!
 
 > take envenomator
 You grasp the envenomator with one of your mighty pincers.
 
 > give envenomator to servant
-You press the envenomator into The Servant's gloved hands.
-The Servant puts all the poison onto the subject.  He channels your own
-(telepathic) maniacal laughter.
+You press the envenomator into The Servant's gloved hands.  The Servant puts
+all the poison onto the subject.  He channels your own (telepathic) maniacal
+laughter.
 
 > take serum
 You grasp the reanimating serum with one of your mighty pincers.
 
 > give serum to servant
-You press the reanimating serum into The Servant's gloved hands.
-The Servant injects the reanimating serum into the subject and, with
-bloodshot anticipation, watches it twitch.
+You press the reanimating serum into The Servant's gloved hands.  The Servant
+injects the reanimating serum into the subject and, with bloodshot
+anticipation, watches it twitch.
 
 "It's alive... it's ALIVE!"
 
@@ -423,7 +423,7 @@ Also here is the pyrogland, a rubber chicken, some rainbow sprinkles, the
 reanimating serum and the envenomator.
 
 The mad veterinarian cackles to himself, awaiting your choice of instruments.
-"Servant, let the monsterification begin!"
+ "Servant, let the monsterification begin!"
 
 Under your telepathic command, The Servant opens up the subject to receive
 your augmentations...
@@ -438,24 +438,24 @@ You press the scalpel into The Servant's gloved hands.
 You grasp the rainbow sprinkles with one of your mighty pincers.
 
 > give sprinkles to servant
-You press the rainbow sprinkles into The Servant's gloved hands.
-The Servant sprinkles rainbow onto the subject.  The colours, the colours!
+You press the rainbow sprinkles into The Servant's gloved hands.  The Servant
+sprinkles rainbow onto the subject.  The colours, the colours!
 
 > take envenomator
 You grasp the envenomator with one of your mighty pincers.
 
 > give envenomator to servant
-You press the envenomator into The Servant's gloved hands.
-The Servant puts all the poison onto the subject.  He channels your own
-(telepathic) maniacal laughter.
+You press the envenomator into The Servant's gloved hands.  The Servant puts
+all the poison onto the subject.  He channels your own (telepathic) maniacal
+laughter.
 
 > take serum
 You grasp the reanimating serum with one of your mighty pincers.
 
 > give serum to servant
-You press the reanimating serum into The Servant's gloved hands.
-The Servant injects the reanimating serum into the subject and, with
-bloodshot anticipation, watches it twitch.
+You press the reanimating serum into The Servant's gloved hands.  The Servant
+injects the reanimating serum into the subject and, with bloodshot
+anticipation, watches it twitch.
 
 "It's alive... it's ALIVE!"
 
@@ -470,6 +470,5 @@ If you or anybody you know may have had contact with the deadly,
 poison-tongued OWL, please seek help immediately.
 
 (press enter to continue)
-
 The city is totally destroyed.  The lobstery wrath of your menagerie of
 horror has prevailed!  Next: WORLD DOMINATION!

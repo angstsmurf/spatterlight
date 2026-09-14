@@ -368,9 +368,8 @@ which you now know is Susie's, while to the west is the playroom. Downstairs
 is the foyer.  Susie enters from the west.
 
 > n
-
-Susie walks to the other end of the room and looks at the door. "Yes, I know
-this is it. What do you think?"
+  Susie walks to the other end of the room and looks at the door. "Yes, I
+know this is it. What do you think?"
 
 "According to the symbols, you should be able to open it." You shrug. "I
 don't know, seems silly to me."

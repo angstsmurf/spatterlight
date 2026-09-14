@@ -73,9 +73,8 @@ You take the files from the filing cabinet.
 > shred them
 (the files)
 You feed the pages into the shredder. Grind! Grind! Grind!  They are now
-confetti.
-The SEC Investigator bursts into the room!  Luckily, you've shredded all of
-the incriminating evidence.  Whew!  That was close.
+confetti.  The SEC Investigator bursts into the room!  Luckily, you've
+shredded all of the incriminating evidence.  Whew!  That was close.
 Due to lack of evidence, the SEC is unable to prosecute your boss.  She gives
 you a promotion, and a raise!  Woohoo!
 You scored 65 out of the maximum 65!

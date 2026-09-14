@@ -258,14 +258,13 @@ You take the lighthouse log book from the round table.
 
 > x plate
 It is a plate of half finished food, which after touching you discover is
-cold.
-Someone did not get the chance to finish their meal.
+cold.  Someone did not get the chance to finish their meal.
 
 You make a note about this in your notepad.
 
 > x mug
-The mug is nearly full of cold coffee.
-Someone did not get the chance to finish their coffee.
+The mug is nearly full of cold coffee.  Someone did not get the chance to
+finish their coffee.
 
 You make a note about this in your notepad.
 

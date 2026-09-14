@@ -2098,6 +2098,67 @@ pf_buffer_pspace (scr_filterref_t filter)
 
 
 /*
+ * pf_has_hidden_prefix()
+ * pf_buffer_join_line()
+ *
+ * pf_buffer_join_line() buffers a task text the way run400 assembles it: onto
+ * the end of the turn's one string after pspace(), and not as a section of its
+ * own.  Our terminator on the text before it is taken back -- through the
+ * hidden barrier, which the Runner does not have -- and the two-space gap put
+ * in its place, then the text is buffered and terminated as
+ * pf_buffer_paragraph_line() would.  Where the buffer does not end in a
+ * terminator of ours (empty, an author's break, a Runner's own newline), or
+ * the text opens with a break of its own, it is pf_buffer_paragraph_line()
+ * unchanged: the break there reads the same either way.
+ *
+ * Measured with the ALR source probe (p4SRC.taf, run400, Adrift_12/13):
+ * `uniform`, CompleteText "CTU ball.", an action running zulu ("You take the
+ * ball."), AdditionalMessage "AMU ball.", answers on ONE line
+ * "CTU qqqball.  You take the qqqball.  AMU qqball."  It matters beyond the
+ * line structure because the ALR pass sees the joined string: the_pk_girl's
+ * Original `done soon."  The toaster is now on` spans task 832's CompleteText
+ * and that of task 699, which 832's action runs (Adrift_1157 T156).
+ */
+scr_bool
+pf_has_hidden_prefix (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  return filter->hidden > 0;
+}
+
+void
+pf_buffer_join_line (scr_filterref_t filter, const scr_char *string)
+{
+  const size_t length = filter->buffer.size ();
+
+  assert (pf_is_valid (filter));
+  assert (string);
+
+  if (!filter->is_muted
+      && !pf_text_leads_with_break (string)
+      && filter->auto_break_at >= 0
+      && (size_t) filter->auto_break_at == length
+      && length > 1
+      && filter->buffer[length - 1] == '\n')
+    {
+      filter->buffer.pop_back ();
+      filter->auto_break_at = -1;
+      if (filter->hidden > filter->buffer.size ())
+        filter->hidden = filter->buffer.size ();
+
+      if (!pf_text_ends_with_break (filter->buffer.c_str ())
+          && !(filter->buffer.size () >= 2
+               && filter->buffer[filter->buffer.size () - 1] == ' '
+               && filter->buffer[filter->buffer.size () - 2] == ' '))
+        pf_append_string (filter, "  ");
+    }
+
+  pf_buffer_paragraph_line (filter, string);
+}
+
+
+/*
  * pf_buffer_join_pending()
  * pf_clear_join_pending()
  *

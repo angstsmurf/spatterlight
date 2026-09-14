@@ -2274,7 +2274,16 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   completetext = prop_get_string (bundle, "S<-sis", vt_key);
   if (!scr_strempty (completetext))
     {
-      pf_buffer_paragraph_line (filter, completetext);
+      /*
+       * 4.0: a task an action runs joins its text onto the turn's string
+       * with pspace(), so an ALR can span it (see pf_buffer_join_line()).
+       * The hidden prefix is there exactly while an action runs.
+       */
+      if (prop_get_taf_version (bundle) >= TAF_VERSION_400
+          && pf_has_hidden_prefix (filter))
+        pf_buffer_join_line (filter, completetext);
+      else
+        pf_buffer_paragraph_line (filter, completetext);
       status |= TRUE;
     }
 
@@ -2372,7 +2381,13 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   if (!scr_strempty (additionalmessage)
       && !task_suppresses_additional_message (game))
     {
-      pf_buffer_paragraph_line (filter, additionalmessage);
+      /* 4.0 joins it onto the turn's string with pspace() as well: p4SRC.taf
+       * (run400) prints "Y qqball.  ADD qqball." for a CompleteText and an
+       * AdditionalMessage, on one line. */
+      if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+        pf_buffer_join_line (filter, additionalmessage);
+      else
+        pf_buffer_paragraph_line (filter, additionalmessage);
       status |= TRUE;
     }
 

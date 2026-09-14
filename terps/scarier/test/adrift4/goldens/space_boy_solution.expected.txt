@@ -245,8 +245,7 @@ You take the whiteredblue tile.
 
 > put whiteredblue tile on control panel
 You place the white, red, and blue tile on panel and from somewhere deep
-within the wall comes a click.
-The safe is open!
+within the wall comes a click.  The safe is open!
 
 > in
 You move in.
@@ -477,16 +476,15 @@ to the base is a plaque.
 You carefully stack the legs on top of the feet. Then you place, ever so
 gently, the chest over the legs. Now, sweating profusely, you set the arms in
 place. At last, and with a great sigh on relief, you place the head atop the
-whole thing.
-You are now holding the Statue of the Fire God.
+whole thing.  You are now holding the Statue of the Fire God.
 
 > put statue on base
 You place the statue of LAVaaH on the base and...the eyes turn red....it
 begins to shake....you hear a cracking sound and....BOOM!!!! The statue
 explodes into millions of tiny fragments that land in the magma around you
-melting back into their original forms.
-A small island rises to the south, but before you can go any further, a wall
-of magma shoots up blocking your path!
+melting back into their original forms.   A small island rises to the south,
+but before you can go any further, a wall of magma shoots up blocking your
+path!
 
 > freeze wall
 You spray the magma with ice and for an instant it cools into a shell forming
@@ -596,9 +594,9 @@ You take the wooden stick.
 The note reads "...look for the letters..."
 
 > light stick with goggles
-You squint and a small beam of heat lashes out igniting the stick.
-From the light cast off by the stick, you now can see a large letter "T"
-carved into the wall; and a narrow doorway leading west into darkness.
+You squint and a small beam of heat lashes out igniting the stick.   From the
+light cast off by the stick, you now can see a large letter "T" carved into
+the wall; and a narrow doorway leading west into darkness.
 
 > w
 You move west.

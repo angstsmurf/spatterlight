@@ -1093,12 +1093,12 @@ It is in here that the mail is stored ready to be sorted in the Post Office
 above.  This ship carries over 3000 bags of mail; you remember someone at
 lunch boring you to death with that information.  Just at the foot of the
 steps is a cupboard for securing important mail. You can see some steps
-leading up.  The room has developed quite a slope.
-The room is filling with sea water, it is currently waist high.
+leading up.  The room has developed quite a slope.  The room is filling with
+sea water, it is currently waist high.
 
 > open cupboard
-You unlock and open the cupboard. A parcel is inside the cupboard.
-The room is filling with sea water, it is currently waist high.
+You unlock and open the cupboard. A parcel is inside the cupboard.  The room
+is filling with sea water, it is currently waist high.
 
 > get parcel
 You take the parcel from the cupboard.
@@ -1384,9 +1384,9 @@ Forward Staircase, C Deck
 The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'B' deck or down the staircase to 'D'
 deck.  To the west is the entrance to the Library.  The staircase has
-developed quite a slope.
-Some people wearing lifebelts push passed and head up the stairs. You hear
-one of them say, "I overheard someone say that the ship has hit an iceberg."
+developed quite a slope.  Some people wearing lifebelts push passed and head
+up the stairs. You hear one of them say, "I overheard someone say that the
+ship has hit an iceberg."
 
 > up
 You move up.
@@ -1395,10 +1395,9 @@ Forward Staircase, B Deck
 You are on the second-class forward staircase, 'B' Deck.  Heading up the
 staircase will lead you to 'A' deck and down will take you to 'C' deck.  The
 western exit leads to the Smoking Room.  The staircase has developed quite a
-slope.
-A group of people all wearing lifebelts push past and head up the stairs. You
-hear one of them say, "I sat up in bed and saw the iceberg pass by the
-window, I could see pieces of it crumbling as it went by."
+slope.  A group of people all wearing lifebelts push past and head up the
+stairs. You hear one of them say, "I sat up in bed and saw the iceberg pass
+by the window, I could see pieces of it crumbling as it went by."
 
 > up
 You move up.
@@ -1622,9 +1621,8 @@ the crew are busy loading one of the lifeboats. You can hear the band playing
 a lively ragtime tune.  5th Officer Lowe is supervising the loading one of
 the lifeboats.  To one side is a large group of men, mostly first class
 passengers.  Some ladies and children are waiting near to the lifeboat ready
-to board the small boat.
-5th Officer Lowe looks over at you for a moment and says, "You should really
-be wearing your lifebelt sir." He looks away.
+to board the small boat.  5th Officer Lowe looks over at you for a moment and
+says, "You should really be wearing your lifebelt sir." He looks away.
 
 > open locker
 You open the locker.  A distress rocket is inside the locker.
@@ -1660,9 +1658,8 @@ not hear the reply.
 
 All you have to do now is survive the night in an open lifeboat until rescue
 arrives. It looks like you might actually get to meet your contact in New
-York.
-You even managed to escape with some additional loot; that makes the whole
-thing even more worthwhile.
+York.  You even managed to escape with some additional loot; that makes the
+whole thing even more worthwhile.
 
 You managed to score 100 out of 100 and completed all of your objectives.
 

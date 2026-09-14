@@ -69,8 +69,8 @@ Steve's dresser is locked.  Steve's alarm clock is on Steve's dresser.
 You change the hour on Steve's clock to 7.
 
 > set steve's clock minute to 42
-You change the minute on Steve's clock to 42.
-You hear a "click" - did the dresser unlock?
+You change the minute on Steve's clock to 42.  You hear a "click" - did the
+dresser unlock?
 
 > open steve's dresser
 You open Steve's dresser.  The gold key and the silver key are inside Steve's

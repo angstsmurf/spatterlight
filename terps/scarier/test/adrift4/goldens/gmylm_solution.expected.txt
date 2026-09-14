@@ -185,8 +185,8 @@ garden hose is coiled up in a corner of the garden.
 
 > turn on spigot
 I turn the spigot, which kinda sticks when it's off.  Eventually it gives and
-the water chugs out.
-After the water has been running for a while the ground gets really muddy.
+the water chugs out.  After the water has been running for a while the ground
+gets really muddy.
 
 > n
 I move north.
@@ -720,8 +720,7 @@ Baxter takes one more step forward after I pull the string, and a big nasty
 watermelon swings down from the flag pole above and explodes into his face.
 He is stunned and reels for a moment before pieces of the watermelon begin
 sliding down his face.  Baxter looks furious, and the students surrounding
-the playground cheer!
-There are no more traps to activate!
+the playground cheer!  There are no more traps to activate!
 
 Press Enter to Continue...
 

@@ -195,9 +195,9 @@ the energy requirements many times over. However, an ant could provide the
 energy required to invoke a magical object, so even with the anti-magic field
 you succeed in waking the power within the ring. It explodes into light. You
 collapse onto the floor as the energy drains from you, but retain
-consciousness. Some strength returns in a few minutes.
-You can now make out the details of the room you are in. The passage widens
-out and narrow exits head north and west.
+consciousness. Some strength returns in a few minutes.  You can now make out
+the details of the room you are in. The passage widens out and narrow exits
+head north and west.
 
 > west
 You enter a massive main hall.
@@ -440,8 +440,8 @@ bed in the inn. You fall asleep instantly.
 Your Bedroom
 You are in your bedroom in the inn. There is a bed and a chest of drawers,
 and a small window looking west. There is some writing on the wall in
-charcoal. There is a door to the south.
-The first ray of sunlight is shining through your window.
+charcoal. There is a door to the south.  The first ray of sunlight is shining
+through your window.
 You roll over in bed, realise that staying in it any longer than absolutely
 neccesary is a bad idea, and get up.
 
@@ -521,8 +521,7 @@ Hunter Aft Hold
 This is the aft hold of the Hunter. Assorted spare sails and ropes hang from
 the walls, and there are a few crates in a corner. You hammock is tied to the
 walls here. A ladder leads up to the deck and a walkway leads West to the
-forward hold.
-A ray of sunlight is shining through the hatch.
+forward hold.  A ray of sunlight is shining through the hatch.
 You realise this is what woke you. After almost thirty seconds of peace, the
 Rune Master shouts you. 'Hunter! Get up here! We're being pursued! Man the
 ballista! Hunter! IN FLAM!'

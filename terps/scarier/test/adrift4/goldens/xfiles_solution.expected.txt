@@ -174,9 +174,8 @@ illuminated by the neon lights that line the ceiling alone.  It is somewhat
 dark, and smells of exhaust and cigarette smoke.  It may be unwise to pull a
 gun on this guy.  Cancer Man awaits you in the shadows.
 
-You can move west and up.
-Cancerman has receded into the shadows and is watching you.  Cancerman
-leaves.
+You can move west and up.  Cancerman has receded into the shadows and is
+watching you.  Cancerman leaves.
 
 > x Case File 10193
 This is the Bellefleur Case File, detailing your parents' first case together
@@ -239,8 +238,7 @@ You can only move south.
 
 > use key
 The garage door begins to groan open as the key twists in the lock with a
-click.
-There's little help here, but you may want to look around anyway.
+click.  There's little help here, but you may want to look around anyway.
 
 Your phone rings and you put the receiver up to your ear.  "Mulder," you say.
  It's Ruth Savoy, your partner.  "Hi, Mulder, it's me," she says.  "I take it

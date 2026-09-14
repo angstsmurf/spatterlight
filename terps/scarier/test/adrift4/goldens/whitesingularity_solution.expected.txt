@@ -421,10 +421,10 @@ that doesn't involve me losing my husband, then take it!"
 communicators  off.
 
         You close your eyes for a moment, then look at NESCA with a
-pseudo-cheerful grin.  "So...any ideas?"
-        "Actually, sir, I do."  NESCA taps repeatedly on the keys.  ""We
-could release the reverse singularity itself straight into the black hole so
-that would annihilate each other."
+pseudo-cheerful grin.  "So...any ideas?"          "Actually, sir, I do."
+NESCA taps repeatedly on the keys.  ""We could release the reverse
+singularity itself straight into the black hole so that would annihilate each
+other."
 
         You nod.  But if you did that--as NESCA very well knows--you'd also
 lose your forcefields, your only protection against the crushing pressures

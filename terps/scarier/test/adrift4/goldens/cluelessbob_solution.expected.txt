@@ -220,11 +220,11 @@ snatches the bottle from you and throws it away.
 
 ...press a key...
 
-"I'm going to give you a choice this time, Mr Smiffy," says Bob when you are
-once more in the room you have begun to think of as the torture chamber. Is
-an iron maiden and a rack and a set of heated needles half as fearsome as a
-CD containing 321 Bob Nebwie games? "There's a wartime epic called 'Blud', a
-science fiction game which is a cross between Star Wars and Star Trek which
+  "I'm going to give you a choice this time, Mr Smiffy," says Bob when you
+are once more in the room you have begun to think of as the torture chamber.
+Is an iron maiden and a rack and a set of heated needles half as fearsome as
+a CD containing 321 Bob Nebwie games? "There's a wartime epic called 'Blud',
+a science fiction game which is a cross between Star Wars and Star Trek which
 I've called 'Wars Trek' and, wait for it, a serious work dealing which deals
 with drugs issues and emotional instability in a sensible and caring fashion.
 I've called it 'Lousy Junkies'. Which one do you want?"
@@ -358,12 +358,11 @@ Somewhere Else
 
 Fowl Smellin Tunnul
 U is in a sewer tunnul. It is drak. U see lots o stuff u don't wanna see. U
-can go north.
-You blink and wipe filthy water from your eyes. You are lying on the ground,
-in what appears to be a regular sewerage tunnel, replete with the smells and
-sensations that a regular sewerage tunnel is well known for. Despite the
-unpleasantness of the situation, you give a cry of relief! You're out of
-Bob's cellar and, better yet, you're still alive!
+can go north.  You blink and wipe filthy water from your eyes. You are lying
+on the ground, in what appears to be a regular sewerage tunnel, replete with
+the smells and sensations that a regular sewerage tunnel is well known for.
+Despite the unpleasantness of the situation, you give a cry of relief! You're
+out of Bob's cellar and, better yet, you're still alive!
    But then you stop cheering and notice something worrying. Very worrying
 indeed. The tunnel is actually spelt "tunnul". And "fowl" and "smellin"? Ye
 gods, you might be out of the cellar but you're not free of Bob's clutches

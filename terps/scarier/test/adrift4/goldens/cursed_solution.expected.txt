@@ -520,7 +520,6 @@ other apparently from gold.
 are cavernous exits to the east and west, although you can see that both
 hallways make a sharp turn to the south after a short distance, and a
 slightly smaller passage leads north.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
    What just happened? Has the king, my foster father, just rescued me or
@@ -601,7 +600,6 @@ Meeting hall (hiding behind the curtains)
 You are concealed behind one of the curtains in the meeting hall. There are
 windows right next to you that hold views of the grey sky, but there is not
 much else to see. The curtains effectively block your view of the room.
-
    The door to the courtyard opens and a servant walks in. You don't hear the
 door close again.
    The servant screams when she sees the burning curtain.
@@ -639,7 +637,6 @@ out to the courtyard, while a passage southwards leads to the antechamber.
 corner of the room, next to which you can see a small hole in the floor.
    The area immediately in front of the pedestal is covered with the
 scattered shards of an ornamental vase.
-
    Your vulpine hearing detects some sounds -- movement to the south.
 
 > n
@@ -696,11 +693,9 @@ against the castle wall.
 You leap up to grab the end of the rope with your teeth and the weight of
 your body unties the knot that is holding the door back. As it swings free
 you let go and drop back to the ground.
-
    As the door swings closed it gathers momentum and it strikes the sleeping
 horse with some force. Startled out of sleep, the horse is instantly agitated
 and begins to rear and neigh in a frightened manner.
-
    The horse lunges at the stable doors and they burst open, allowing the
 horse escape the stables and rush towards the northern end of the courtyard.
    Before you can even think to hide, a stable hand comes rushing out of the
@@ -724,7 +719,6 @@ discarded and empty crates, and a single wooden plank.
 whinnying in distress.
    There is a horse-drawn cart standing nearby, the driver idly holding the
 reins of a large, grey draught horse.
-
    Your vulpine hearing detects some sounds -- movement to the south.
 
    The servant rushes in from the west, and grabs another sack from the rear
@@ -752,7 +746,6 @@ northern end of the courtyard.
 whinnying in distress.
 
    Your vulpine hearing detects some sounds -- movement to the south.
-
    You hear the sound of the portcullis being raised.
 
    You can hear a horse neighing in distress coming from the northern end of
@@ -975,7 +968,6 @@ their best side. Construction is haphazard, materials are mismatched, and
 everything is smeared with dirt and grime. It is a depressing scene,
 especially when viewed under a leaden sky. To the southeast, beyond the
 alley, an open area can be seen beside the main road.
-
    A cold, northerly wind rushes down the alley and makes you shiver
 momentarily.
 
@@ -1032,10 +1024,8 @@ houses, you can see the city gates.
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
 it is an ragged, burlap sack, full to bursting with leaves.
-
    A cold, northerly wind rushes down the alley and makes you shiver
 momentarily.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
    The shopkeeper turns his head and faces the alley.
@@ -1043,29 +1033,24 @@ momentarily.
 > drag rake se
 You notice the shopkeeper is facing this way. Attempting to move in such an
 obvious way is bound to attract his unwanted attention.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
 > drag rake se
 You notice the shopkeeper is facing this way. Attempting to move in such an
 obvious way is bound to attract his unwanted attention.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
 > drag rake se
 You notice the shopkeeper is facing this way. Attempting to move in such an
 obvious way is bound to attract his unwanted attention.
-
    A cold, northerly wind rushes down the alley and makes you shiver
 momentarily.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
    The shopkeeper turns his head and looks to the east.
 
 > drag rake se
 You grip the rake in your teeth and drag it to the southeast.
-
    You sense some danger in the area and seek the limited concealment offered
 by the vine.
 
@@ -1095,20 +1080,16 @@ houses, you can see the city gates.
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
 it is an ragged, burlap sack, full to bursting with leaves.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
 > rip open sack
 Making any obvious movements will alert the shopkeeper to your presence.
-
    A cold, northerly wind rushes down the alley and makes you shiver
 momentarily.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
 > rip open sack
 Making any obvious movements will alert the shopkeeper to your presence.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
    The shopkeeper turns his head and looks to the east.
@@ -1116,18 +1097,14 @@ Making any obvious movements will alert the shopkeeper to your presence.
 > rip open sack
 You tear the sack with your teeth, expanding the existing tears and spreading
 the leaves and debris inside around the general area.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
 > rip open sack
 The sack is already torn open. It would seem impossible to damage it any
 further.
-
    A cold, northerly wind rushes down the alley and makes you shiver
-momentarily.
-The gust of wind catches the leaves lying on the ground and sends flurries of
-them whirling along the alley.
-
+momentarily.  The gust of wind catches the leaves lying on the ground and
+sends flurries of them whirling along the alley.
    Your vulpine hearing detects some sounds -- movement to the east.
 
    The shopkeeper turns his head and faces the alley.
@@ -1135,13 +1112,11 @@ them whirling along the alley.
 > rip open sack
 The sack is already torn open. It would seem impossible to damage it any
 further.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
 > rip open sack
 The sack is already torn open. It would seem impossible to damage it any
 further.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
 > se
@@ -1157,18 +1132,15 @@ stains near at the base. The alley continues to the northwest, and narrows to
 the south.
    Lying on the ground nearby is a rake.
    The ground here is covered with autumn coloured leaves.
-
    A cold, northerly wind rushes down the alley and makes you shiver
-momentarily.
-The gust of wind brings with it a flurry of leaves that spread themselves
-around the area.
+momentarily.  The gust of wind brings with it a flurry of leaves that spread
+themselves around the area.
 
 > open gate
 You rush forward and push the small gate of the corral with your paws, and it
 swings open gently. The sheep back away into the far corner of the corral and
 start bleating in a far more urgent manner as the gate comes to a stop. You
 dart back to your position under the vines.
-
    You have only just reached the vines when the white door suddenly swings
 open and a large, bearded man strides out. The leaves on the ground hide the
 presence of the rake and he steps on it, the pole flying up and striking him
@@ -1198,7 +1170,6 @@ the east, past a line of shops and houses, you can see the city gates.
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
 it is the remains of an old, burlap sack, lying on the ground in tatters.
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
 > w
@@ -1211,7 +1182,6 @@ you into insignificance. There is a strong smell here, too, which you assume
 is coming from within the church itself.
    In front of the church some scaffolding has been set up, on top of which
 is a workman who appears to be repairing some stonework.
-
    A harsh, cold wind whistles by, making you shiver.
 
    Somewhere in the distance you hear the sound of voices raised in
@@ -1256,7 +1226,6 @@ You wait for something to happen.
 
    Somewhere in the distance you hear the sound of voices raised in
 excitement, mingled with a few bleats from excited sheep.
-
    "Help!" the workman cries, as he dangles from the window ledge. "Help!"
 
    Guards from the city gates rush to assist the man hanging from the window
@@ -1289,7 +1258,6 @@ the east, past a line of shops and houses, you can see the city gates.
    An old maple tree stands at the corner of the alley, looking a little sad
 and neglected, particularly with most of its foliage lost to autumn. Beneath
 it is the remains of an old, burlap sack, lying on the ground in tatters.
-
    Your vulpine hearing detects some sounds -- movement to the west.
 
 > e
@@ -1393,7 +1361,6 @@ slightly.
 > yes
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
-
    The king glances quickly at your glass of wine.
    "Don't forget your wine, Rixomas," he says with a small smile. He then
 turns his attention back to the fire.
@@ -1450,7 +1417,6 @@ made no sense.
 
    You feel a draft from under the door and it makes you shiver. You pull
 your cloak around yourself even tighter.
-
    "Please enjoy your wine," Rithusar reminds you. "Don't let it go to
 waste." He then returns his gaze to the fire.
 
@@ -1509,7 +1475,6 @@ believe he was guilty."
 convicted and sentenced. How we feel about the decision won't change what
 happened."
    "Actually, it matters a great deal to me," Rithusar says, with a smile.
-
    Rithusar points to your wine glass. "I don't want to distract you too much
 with talk," he says. "Drink your wine and enjoy it." His attention then
 returns to the fire.
@@ -1715,7 +1680,6 @@ direction, although the track itself leads north.
 
    To your ears come the sounds of dogs barking, not too far away to the
 south. And with it is the sound of a horn.
-
    You notice your scent has been left behind you.
 
 > score
@@ -1917,7 +1881,6 @@ building, which resembles a mill, can also be seen to the north. A well-worn
 path leads west, up a small incline, to what seems to be an inn.
    The village appears to be protected from the howling wind somewhat, with
 only a few light gusts reaching ground level.
-
    Your vulpine hearing detects some sounds -- movement to the west.
 
 > e
@@ -2055,17 +2018,14 @@ building, which resembles a mill, can also be seen to the north. A well-worn
 path leads west, up a small incline, to what seems to be an inn.
    The village appears to be protected from the howling wind somewhat, with
 only a few light gusts reaching ground level.
-
    Your vulpine hearing detects some sounds -- movement to the west.
 
 > bark
 You bark fiercely.
-
    Your vulpine hearing detects some sounds -- movement to the west.
 
 > bark
 You bark fiercely.
-
    Your vulpine hearing detects some sounds -- movement to the west.
 
 > se
@@ -2149,7 +2109,6 @@ You wait for something to happen.
 
 > bark
 You bark fiercely.
-
    From outside the barn you hear a cry, a guttural bellow that sounds like
 the precursor to an attack. A second later the door to the barn bursts open
 and the hulking form of a Ralyon warrior rushes in.
@@ -2168,7 +2127,6 @@ and then falls still.
 > score
 Your score is 33 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
-
    Your vulpine hearing detects some sounds -- movement outside the barn.
 
 > z
@@ -2239,7 +2197,6 @@ in front of the door.
 while to the south you can see the village square. To the southwest, up a
 short incline, is the village inn, but to the west the hill becomes
 unclimbable.
-
    Your vulpine hearing detects some sounds -- movement to the southwest.
 
 > push wheelbarrow
@@ -2263,23 +2220,19 @@ past the stable is a cluster of houses that must make up the residential part
 of the town, while a mill can also be seen to the northeast. A well-worn path
 leads east to the village square, but a less travelled path heads north up a
 sharp incline.
-
    Your vulpine hearing detects some sounds -- movement to the south.
 
 > bark
 You bark fiercely.
-
    The horse reacts instantly to the noise, rearing away and screaming in
 equine terror. The rope tethering him to the stable breaks and now free, the
 horse bolts wildly, running in circles for a few moments, smashing into the
 barrels of beer in the process, before heading north and disappearing from
 view entirely. The barrels collapse into a disorganised pile on the ground.
-
    As they collapse, one on the barrels rolls down the hill to the northeast.
 And after a moment or two you hear a crashing sound in that direction.
 
 [ Your score just went up by one. ]
-
    Your vulpine hearing detects some sounds -- movement to the east.
 
 > ne
@@ -2297,7 +2250,6 @@ scattered around the remains of the door.
 while to the south you can see the village square. To the southwest, up a
 short incline, is the village inn, but to the west the hill becomes
 unclimbable.
-
    Your vulpine hearing detects some sounds -- movement to the south.
 
 > x stream
@@ -2347,7 +2299,6 @@ comfortable position.
 > jump on tray
 You ready yourself to jump from the paddle wheel and onto the metal tray, but
 you feel it is just out of reach. You decide to wait for a moment longer.
-
    Your vulpine hearing detects some sounds -- movement outside the mill.
 
    The paddle wheel turns and takes you higher. It is getting close to the
@@ -2365,7 +2316,6 @@ Inside the mill (on the metal tray)
 You are standing on the metal tray, suspended by a rope from the roof of the
 mill. Below you the paddle wheel continues to turn as water flows through the
 channel.
-
    Your vulpine hearing detects some sounds -- movement outside the mill.
 
 > z
@@ -2382,7 +2332,6 @@ You wait for something to happen.
 
 > bark
 You bark fiercely.
-
    From outside the mill you hear a cry, a guttural bellow that sounds like
 the precursor to an attack. A second later the hulking form of a Ralyon
 warrior rushes through the open door and into the mill.
@@ -2597,7 +2546,6 @@ You lie down on the ground.
    "Aha!" the warrior shouts, finally sheathing her sword. "You show trust
 and courage, revealing something of your true nature. That in itself is a
 mystery I am keen to unravel."
-
    There is another flash of light and peal of thunder, and suddenly the
 female warrior is gone. Instead, a wizened old man stands before you, his
 face wrinkled by the weight of years, half bent over and leaning on a walking
@@ -2827,7 +2775,6 @@ supposed to go back?"
 is going to happen is for you to prove your innocence. The answers must be in
 the castle. That's where the evidence is. Someone in the castle killed Prince
 Alsanter. You have to return to find the answers."
-
    Limos stands up suddenly. "And with your return in mind, I believe I might
 be able to help you a bit more."
    The wizard moves to the cupboard and pulls a number of small pots and jars
@@ -2870,7 +2817,6 @@ back at yourself for confirmation.
    "Very good," Master Limos says. "Now, there is one limitation. You
 probably won't be able to stay invisible for too long. Probably only a couple
 of minutes at a time. But it may help you gain access to the castle."
-
    "I don't know how I can ever thank you," you say.
    "Well, you've given me a good conversation, which I haven't had in a long
 time, so we're even." Limos smiles at you. "But I also knew your father, too.
@@ -3010,8 +2956,8 @@ Only one word stands out in all the documents and makes any sense at all -
 'Ralyon'.
 
 > take papers
-You take the assorted papers from the desk.
-As you move the papers around, you find a wax seal hidden underneath them.
+You take the assorted papers from the desk.  As you move the papers around,
+you find a wax seal hidden underneath them.
 
 [ Your score just went up by one. ]
 
@@ -3032,7 +2978,6 @@ the building you are in.
 > e
 You move to step back through the strange veil of light, but are pushed back
 by a powerful force.
-
    Even as you try to comprehend the magical force preventing you from
 leaving, you hear footsteps in the corridor outside. A key rattles in the
 lock and then the door suddenly swings open.
@@ -3279,9 +3224,7 @@ appointed landing. Aside from a portrait of the king adorning the western
 wall, there is not much refinement here at all. Two archways, standing
 opposite each other in the northern and southern walls, provide exits, other
 than the stairs that lead back down.
-
    You feel a change, and notice you have become visible again.
-
    Your vulpine hearing detects some sounds -- movement to the north.
 
 > s
@@ -3348,7 +3291,6 @@ polished stone, running the entire length of the corridor, is a plush carpet.
 There is just sufficient light to see the door to Lord Vonisor's rooms in the
 southern wall, while a banner in the colours of the region of Borako hangs on
 the opposite wall.
-
    Your vulpine hearing detects some sounds -- movement to the south.
 
 > open door
@@ -3515,7 +3457,6 @@ You can smell a faint, but very distinct odour here, past the mustiness that
 comes from two months of collected dust. It's a floral smell, like roses but
 with a sickly tinge to it. The source of the odour appears to be the cup on
 the table.
-
    As you contemplate what the smell might mean, you hear a door open out in
 the corridor close by. Then you hear the sound of feet walking along the
 corridor, muted somewhat by the carpet. The sound retreats into the distance,
@@ -3755,7 +3696,6 @@ after your own children."
 
 > invisible
 You think about invisibility, and immediately you disappear.
-
    There is an audible gasp from those around you as you disappear from
 sight.
 
@@ -3793,7 +3733,6 @@ polished stone, running the entire length of the corridor, is a plush carpet.
 There is a door in the northern wall which you know to be the entrance to
 Prince Tevona's rooms. Mounted on the southern wall is a plaque featuring the
 emblem of the crown princess of Rylane.
-
    Your vulpine hearing detects some sounds -- movement to the north.
 
 > e

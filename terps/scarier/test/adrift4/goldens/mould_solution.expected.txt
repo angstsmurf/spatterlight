@@ -3269,8 +3269,8 @@ closed,  and the southern door is open.
 The imp continues to follow you.  The clay dog follows you from the south.
 
 > swipe card
-You swipe the card through the eastern slot, and the eastern door opens.
-You suddenly notice that a vicious growl is emerging from behind you.
+You swipe the card through the eastern slot, and the eastern door opens.  You
+suddenly notice that a vicious growl is emerging from behind you.
 
 You turn around too slowly to stop the wolf from jumping at you. The dog has
 somehow transformed itself and it looks like it is playing no longer. Luckily

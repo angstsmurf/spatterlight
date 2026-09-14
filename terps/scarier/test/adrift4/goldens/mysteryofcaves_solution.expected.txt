@@ -513,7 +513,6 @@ To the north you go.
 Goblin cavern
 A band of goblins call this cavern home and seem very minded to kill you for
 having to nerve to trespass here. Exits lie: south.
-
    "Gaah, filthy stinkin' hooman-" one of the goblins starts to yell at you
 but another of them grabs his arm and points.
    The first goblin peers at you.
@@ -589,7 +588,6 @@ To the southeast you go.
 Painted passageway
 The walls of this passage are painted with many elaborate (and disturbing)
 images. Exits lie: northwest, east and southwest.
-
    Suddenly a dwarf pops out of nowhere!
    "That's a mighty fine sword you have there!" he proclaims and, before you
 know it, he's snatched it out of your hand. "Much obliged- urk!"
@@ -810,8 +808,8 @@ might well never return. Have you got everything you came for?
    If so, going south again will take you away from the caves.
 
 > s
-You step from the Caves. Now, to see how well you did...
-Your score is 125 out of 125.
+You step from the Caves. Now, to see how well you did...  Your score is 125
+out of 125.
    You did amazing! In fact, you got the maximum possible score! (Did you
 cheat?)
    A lifetime of leisure and relaxation awaits you because of your deeds this

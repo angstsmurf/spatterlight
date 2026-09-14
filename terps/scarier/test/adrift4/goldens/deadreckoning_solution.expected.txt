@@ -235,7 +235,6 @@ safe being out here."
    Before you can say anything, Edwin ducks back inside his house, leaving
 the front door open an inch. Trying to calm your nerves - which are currently
 climbing the walls - you follow him inside his house.
-
 ...press a key...
 
 Edwin Carter's House
@@ -586,9 +585,9 @@ and the evil that has plagued Morrow for so long explodes in a cloud of
 dust...
 ...press a key...
 
-The diner is crowded: bikers push and jostle each other; waitresses yell; the
-manager hurls abuse at an inoffensive man sitting at a table in the corner
-who has complained about the bill.
+  The diner is crowded: bikers push and jostle each other; waitresses yell;
+the manager hurls abuse at an inoffensive man sitting at a table in the
+corner who has complained about the bill.
    It is heaven.
    "I never thought I'd be pleased to see a place like this," says Edwin,
 seated opposite you and clutching a cappuccino as if his life depends on it.

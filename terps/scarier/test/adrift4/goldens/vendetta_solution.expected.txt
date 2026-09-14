@@ -102,8 +102,7 @@ call.
 (You switch on the videocom.)
 
 You are immediately greeted by the face of your 'girlfriend', Sally
-Brunswick.
-She looks elated.
+Brunswick.  She looks elated.
 "Hi Jem, you wouldn't believe what an evening I've had. Are you okay?"
 "Yes thanks," you reply. "How did the dress rehearsal go?"
 
@@ -1094,8 +1093,7 @@ You reach your destination in no time.
 
 At the edge of the Woods
 Behind you lies miles of dense, snow-covered woodland. In front of you, some
-distance to the east, is the Falcon Lithoid.
-You glance down at your watch :
+distance to the east, is the Falcon Lithoid.  You glance down at your watch :
 
         21  JAN   09:00:00 PM
 
@@ -1733,8 +1731,8 @@ This room is filled with shelves that are packed full of printed company
 records, employee records and other similar material. There is also a box of
 disks over the other side of the room.  It would take an age to sort through
 all of this, but you notice one particular folder marked 'GDV-T253' that
-stands alone from all of the others.  Also here is the loose file.
-There is a 'click' as the door locks behind you.
+stands alone from all of the others.  Also here is the loose file.  There is
+a 'click' as the door locks behind you.
 
 > open box
 You open the disk box.  The startup disk is inside the disk box.
@@ -1750,8 +1748,8 @@ Security Checkpoint
 This room has a line of laser projectors on one side of the wall which have
 now been deactivated. There is a door to the east, which has the word
 "Archive" printed on it and requires a key card to unlock. The cable you have
-cut through lies on the floor, sparking occasionally.
-There is a 'click' as the door locks behind you.
+cut through lies on the floor, sparking occasionally.  There is a 'click' as
+the door locks behind you.
 
 > n
 You move north.
@@ -1914,10 +1912,8 @@ Select 1-3 :
 
 1. Enable/Disable Lifts                                        Current Status
 : Enabled
-
 2. Enable/Disable Power (Floors 1-65)                             Current
 Status : Enabled
-
 3. Enable/Disable Passcode System (All Floors)                Current Status
 : Enabled
 
@@ -2082,15 +2078,14 @@ This room is finely decorated from floor to ceiling; exquisite paintings
 cover every available space on the wall, while four medieval suits of armour
 stand in each corner of the room, facing you accusingly. Right in front of
 you is Natalia, sitting on a high chair in the middle of the room like a
-queen upon her throne.  Sally is here.
-She is stroking a large stuffed animal lying next to the chair that looks
-like a legendary griffon, about the size of a rhinoceros. It stares at you
-with its orange, eagle-like eyes, like a predator sizing up its prey. Sitting
-behind the animal, with her arms wraped around her legs is Sally. On seeing
-you, her face lightens with joy as if someone had flipped a switch. When
-Natalia sees you, she stops stroking the animal and folds her arms; this is
-the first time you have ever seen her looking surprised; she is lost for
-words.
+queen upon her throne.  Sally is here.  She is stroking a large stuffed
+animal lying next to the chair that looks like a legendary griffon, about the
+size of a rhinoceros. It stares at you with its orange, eagle-like eyes, like
+a predator sizing up its prey. Sitting behind the animal, with her arms
+wraped around her legs is Sally. On seeing you, her face lightens with joy as
+if someone had flipped a switch. When Natalia sees you, she stops stroking
+the animal and folds her arms; this is the first time you have ever seen her
+looking surprised; she is lost for words.
 
 > kill griffon
 You look at the monster, which is staring at you with malice in its eyes. You
@@ -2187,9 +2182,9 @@ neck is thicker than your body, but is it having little effect.
 
 Griff rears up one last time before lashing out at you with the back of his
 paw. You lose your grip on him as you are thrown into the corner of the room
-like a rag doll, crashing into the suit of armour that stands there.
-Wasting no time, Griff leaps on top of you, pinning you between its legs and
-tries to bite your head with its monstrously huge beak. Will you :-
+like a rag doll, crashing into the suit of armour that stands there.  Wasting
+no time, Griff leaps on top of you, pinning you between its legs and tries to
+bite your head with its monstrously huge beak. Will you :-
 
 1 : Try to grab its beak to prevent it from biting you.
 2 : Try to kick him in the throat.

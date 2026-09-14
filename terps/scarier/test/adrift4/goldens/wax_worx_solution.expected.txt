@@ -87,8 +87,8 @@ Of course.  The deus ex ventilation shaft. Just large enough to crawl
 through, naturally.
 
 > crawl
-You get down on your knees to crawl.
-You begin to bend down, in order to crawl through the opening in the wall.
+You get down on your knees to crawl.  You begin to bend down, in order to
+crawl through the opening in the wall.
 
 Something thumps onto the floor behind you.
 
@@ -110,9 +110,8 @@ me out of this place, I will let you pass. Pick me up if you are
 trustworthy."
 
 > get marie
-You reach for Marie Antoinette's head.
-You're relieved to find it feels cool and waxen to the touch. Nothing like
-living, or dead, flesh.
+You reach for Marie Antoinette's head.  You're relieved to find it feels cool
+and waxen to the touch. Nothing like living, or dead, flesh.
 
 > crawl
 

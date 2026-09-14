@@ -480,8 +480,8 @@ You take the apollo, the ares, the athena, the demeter, the hades, the
 helios, the hera, the hermes and the zeus from the shelf.
 
 > mix artemis
-You pour some Hera, Hermes, Zeus and Apollo into the glass jar.
-You notice that the liquid in the jar has changed colour.
+You pour some Hera, Hermes, Zeus and Apollo into the glass jar.  You notice
+that the liquid in the jar has changed colour.
 
 > east
 You move east.
@@ -525,8 +525,8 @@ Calmly he replies, "Thank you for the Artemis, I suggest you cure yourself
 and then we can talk more."
 
 > mix cure
-You pour some Hera, Hermes, Zeus and Apollo into the glass jar.
-You notice that the liquid in the jar has changed colour.
+You pour some Hera, Hermes, Zeus and Apollo into the glass jar.  You notice
+that the liquid in the jar has changed colour.
 
 > drink artemis
 You gulp down the mixture and hopefully you are cured.

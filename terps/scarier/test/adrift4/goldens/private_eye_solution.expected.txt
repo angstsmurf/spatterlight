@@ -262,10 +262,9 @@ and takes a few experimental jabs.
 
 ...press a key...
 
-My phone rings and I answer it on the eighteenth ring. It's Layla Kavallon.
+  My phone rings and I answer it on the eighteenth ring. It's Layla Kavallon.
    "I'm sorry to bother you so soon," she says, "but I was just curious to
 see whether you had managed to discover anything yet."
-
    "I spoke to an unpleasant fellow who gave me some information leading to
 the cattle market and a murder which took place," I say.
    "A murder at the cattle market?" says Layla, sounding confused. "What does
@@ -582,13 +581,13 @@ double."
 
 ...press a key...
 
-The office is closing for the day when I arrive there. Jim bids me goodnight
-and I slump back in my chair and stare at the phone. Time to call Layla and
-give her the news of how the investigation is going.
+  The office is closing for the day when I arrive there. Jim bids me
+goodnight and I slump back in my chair and stare at the phone. Time to call
+Layla and give her the news of how the investigation is going.
 
 ...press a key...
 
-"Murt?" says Layla. "No. I don't think I've ever heard of that name before.
+  "Murt?" says Layla. "No. I don't think I've ever heard of that name before.
 Why do you ask?"
    I mention the circumstances in which the name came to light.
    Layla sighs. "A strip club on the waterfront? And you think my father was
@@ -672,17 +671,17 @@ something useful about Pedro Gummage.
 
 ...press a key...
 
-The office is pretty quiet when I arrive there. The filing clerk and tea girl
-are out for dinner; Jim is working on an assignment which, if it goes well,
-should ensure that the Dinkly Dell School never has its milk stolen again;
-just me and my secretary (but as she's asleep she probably doesn't count).
-Nice and peaceful.
+  The office is pretty quiet when I arrive there. The filing clerk and tea
+girl are out for dinner; Jim is working on an assignment which, if it goes
+well, should ensure that the Dinkly Dell School never has its milk stolen
+again; just me and my secretary (but as she's asleep she probably doesn't
+count). Nice and peaceful.
    I sit back in my chair, focus my thoughts, and go over everything I've
 learnt today.
 
 ...press a key...
 
-I know that Pedro Gummage and Marcus Kavallon were friends (or at least
+  I know that Pedro Gummage and Marcus Kavallon were friends (or at least
 associates) and that Marcus was looking into Gummage's death down at the
 cattle market. What I don't know is why.
    Part of me wonders if this might be a dead end. After all, Gummage has
@@ -912,11 +911,11 @@ taken to a car parked outside the house, bundled inside, and driven off.
 
 ...press a key...
 
-The feds question me for the rest of the day and seem disinclined to believe
-that I don't really know why I was kidnapped or who my kidnapper was (he got
-away apparently). They give me a small tracking device to put in my wallet
-which will allow them to keep tabs on me if I get kidnapped again. I can
-activate it by a simple squeeze.
+  The feds question me for the rest of the day and seem disinclined to
+believe that I don't really know why I was kidnapped or who my kidnapper was
+(he got away apparently). They give me a small tracking device to put in my
+wallet which will allow them to keep tabs on me if I get kidnapped again. I
+can activate it by a simple squeeze.
    I try to garner some information from the feds about what went down today,
 and how they knew where I was being held, but talking to them is slightly
 less useful than speaking to a brick wall. I get blank expressions all around
@@ -926,7 +925,7 @@ the case Igbaron but that's about the only useful piece of information I get.
 
 ...press a key...
 
-When I arrive at the office, it's to find everyone has gone home. The first
+  When I arrive at the office, it's to find everyone has gone home. The first
 thing I do is grab hold of my gun from its usual resting place in the bottom
 drawer of my desk. Whoever the kidnappers are, they knew where to find me and
 it's likely they'll be back at some point. Next time I'll be ready for them.
@@ -941,7 +940,7 @@ phone.
 
 ...press a key...
 
-I relate my findings of the day.
+  I relate my findings of the day.
    "I remember my father mentioning the name Pedro Gummage on several
 occasions," says Layla, "but he always went quiet when I asked him about it
 and would never say who Pedro Gummage was. But didn't you say he died eight
@@ -1172,7 +1171,7 @@ least he is safe now.
 
 ...press a key...
 
-Several hours pass...
+  Several hours pass...
 
 I'm going through some paperwork (actually, reading a comic book but it's
 made of paper so it still counts), when Jim wanders in and slumps in the
@@ -1347,7 +1346,7 @@ heavier) is one of the men with Marcus Kavallon.
 
 ...press a key...
 
-Evening rolls around with depressing regularity. Just for once, I fancy it
+  Evening rolls around with depressing regularity. Just for once, I fancy it
 would make a refreshing change to go straight from afternoon to midnight with
 no pause in between. But today it's evening as usual.
    And the inevitable call to Layla Kavallon to keep her informed as to what
@@ -1356,7 +1355,7 @@ I've discovered today.
 
 ...press a key...
 
-"I found another of the people in the photo you gave me," I say. "Does the
+  "I found another of the people in the photo you gave me," I say. "Does the
 name Cedric Mosswinter mean anything to you?"
    "Yes," says Layla. "He was a friend of my father's. Years ago. I don't
 remember much about him but I know they were close friends for quite some
@@ -1372,12 +1371,10 @@ Tomorrow night."
 
 ...press a key...
 
-"Very well, detective," says Layla. "Did you discover anything else?"
-
+  "Very well, detective," says Layla. "Did you discover anything else?"
    I start to tell her about Bribe Magee and his warnings regarding the
 Kavallon case but something stops me. Now isn't the time. Maybe when I've
 spoken to Bribe again, I'll be in a position to tell her more.
-
    "Nothing further for now, Miss Kavallon," I say.
    "I'll await your call tomorrow evening, detective," she says, and hangs
 up.
@@ -1512,7 +1509,7 @@ it."
 
 ...press a key...
 
-The time of the inevitable phone call to update Layla Kavallon on progress
+  The time of the inevitable phone call to update Layla Kavallon on progress
 rolls around and I dial her number with a certain amount of trepidation. Is
 what I have discovered today enough to keep her satisfied that I am making a
 reasonable amount of progress? Or is she going to decide she might be better
@@ -1521,7 +1518,7 @@ off having someone else handle the case for her?
 
 ...press a key...
 
-Layla sighs when I relay what I have discovered about the fellow called
+  Layla sighs when I relay what I have discovered about the fellow called
 Mortimer.
    "Cheeseville is a good drive out of town, Mr Chimner," she says, "and if
 it proves unworthy, then you've wasted an entire day. Can't you have one of
@@ -1634,8 +1631,8 @@ Bodango Bay is called for this weekend.
 
 ...press a key...
 
-I've barely arrived back at the office before Jim comes rushing into my room
-and announces, "solved it, boss!"
+  I've barely arrived back at the office before Jim comes rushing into my
+room and announces, "solved it, boss!"
    "It?" I ask, my brain several seconds slower than usual in keeping up with
 Jim.
    "The remote control case, boss!" he says, giving me a hurt look as if he's
@@ -1664,10 +1661,10 @@ departs my office.
 
 ...press a key...
 
-I while away the rest of the afternoon catching up on paperwork. My leads are
-pretty much all followed and if I haven't discovered enough to point me in
-the direction of where Marcus Kavallon is, I doubt I'm ever going to discover
-it.
+  I while away the rest of the afternoon catching up on paperwork. My leads
+are pretty much all followed and if I haven't discovered enough to point me
+in the direction of where Marcus Kavallon is, I doubt I'm ever going to
+discover it.
    But a strange thing happens when I try to call Layla Kavallon to inform
 her of my latest progress. She's not in! Her butler informs me she has gone
 out for the evening and isn't expected back until Monday. Very strange in the
@@ -1677,9 +1674,9 @@ found her father or at least have a good idea where he is being kept.
 
 ...press a key...
 
-I'm not usually in the office on a Saturday but with the Kavallon case going
-ahead at full speed, it doesn't seem a good idea to take a break for the
-weekend.
+  I'm not usually in the office on a Saturday but with the Kavallon case
+going ahead at full speed, it doesn't seem a good idea to take a break for
+the weekend.
 
 Day six...
 
@@ -2174,7 +2171,6 @@ Epilogue
 It's a month later and things have returned pretty much to normal at the Lep.
 R. C. Detective Agency. I'm still working high profile cases involving
 missing cats, kids playing truant and wrongly directed mail.
-
    Jim seems to be more of an asset now, though, than he used to be. Solving
 the remote control case looks to have given him a real boost in the
 enthusiasm stakes and he now applies himself to his job with a ruthless

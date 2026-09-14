@@ -146,22 +146,20 @@ and to the east a gate set in the wall.  The chimpanzee is east.
 > make fire
 You'll start a fire, that's what you'll do!  You've heard that a fire can be
 started with simple flint and steel.  The stone you found on the ground will
-do for flint.  What about steel?
-The tines of that barbecue fork might be what you need.  You begin rubbing
-the flint stone against one of the tines as rapidly as a beaver.  (I think
-that a beaver might do this sort of thing)
-After some persistence, a spark finally flies.
-It catches on your old jersey, causing a flame to ignite.
-In no time a full-fledged fire is roaring.  Fortunately, the fire does not
-spread any further, but seems content to burn in place.
+do for flint.  What about steel?  The tines of that barbecue fork might be
+what you need.  You begin rubbing the flint stone against one of the tines as
+rapidly as a beaver.  (I think that a beaver might do this sort of thing)
+After some persistence, a spark finally flies.  It catches on your old
+jersey, causing a flame to ignite.  In no time a full-fledged fire is
+roaring.  Fortunately, the fire does not spread any further, but seems
+content to burn in place.
 
     The chimpanzee screams his innermost feelings at no one in particular.
 
 > turn on fan
 You turn on the fan.  Wind begins to blow in your face at high power, the
-only built-in setting.
-The air from the fan seems to be helping the fire some.
-Furthermore, it is blowing the smoke towards the east.
+only built-in setting.  The air from the fan seems to be helping the fire
+some.  Furthermore, it is blowing the smoke towards the east.
 
     The mandrill's feelings towards you haven't changed, but he is avoiding
 the fire.
@@ -176,8 +174,7 @@ nearly taking off half your face.  Whew, it's getting hot in this cage!
 mandrill couldn't think of a good retort, or he doesn't speak chimp.
 
 > turn fan north
-You turn the fan so it is facing north.
-The smoke follows suit.
+You turn the fan so it is facing north.  The smoke follows suit.
 
     The chimpanzee escapes from the smoke over to your northeast (from your
 north).
@@ -210,11 +207,10 @@ the chimp, but in the end decides it wouldn't be worth his time.
 
 > throw banana on platform
 You lob the banana so that it lands up there on the ledge where not even you
-can reach it.
-The coordinates marking the new location of the banana are immediately picked
-up by the chimpanzee, whom Nature has bestowed with an internal banana radar.
- He edges out along a leaf of the tree, or at least it sort of looks that
-way.  Whatever the case, this ape's gonna jump.
+can reach it.  The coordinates marking the new location of the banana are
+immediately picked up by the chimpanzee, whom Nature has bestowed with an
+internal banana radar.  He edges out along a leaf of the tree, or at least it
+sort of looks that way.  Whatever the case, this ape's gonna jump.
 
     The mandrill's feelings towards you haven't changed, but he is avoiding
 the fire.
@@ -250,13 +246,11 @@ You take the bucket.
 
     The mandrill is looking around for something to destroy.
 
-    The chimpanzee spies the banana and picks it up.
-Getting ahead of the game, he goes right to peeling it, dropping the peel
-afterwards.
+    The chimpanzee spies the banana and picks it up.  Getting ahead of the
+game, he goes right to peeling it, dropping the peel afterwards.
 
 > turn fan east
-You turn the fan so it is facing east.
-The smoke follows suit.
+You turn the fan so it is facing east.  The smoke follows suit.
 
     The chimpanzee drops the banana down his throat, to use slight hyperbole.
  That is to say, he consumes it rapidly.
@@ -361,8 +355,7 @@ and to the east a gate set in the wall.  The chimpanzee is northeast in the
 tree.  The mandrill is northeast.
     The fire you started is burning here, smoke being blown towards the east.
 
-You turn the fan so it is facing northeast.
-The smoke follows suit.
+You turn the fan so it is facing northeast.  The smoke follows suit.
 
     The mandrill escapes from the smoke over to your east (from your
 northeast).
@@ -397,10 +390,9 @@ your back out of reach of the spoiled ape.
 > hit coconut with stone
 If they can do it on Survivor so can you!  You begin banging the stone
 against the coconut's husk like Neanderthal man discovering a great new Rock
-beat.
-Soon enough a crack is forced open large enough for you to pry a couple
-digits in and peel off the remaining husk, which falls to your feet.  You are
-left holding a hard coconut shell.
+beat.  Soon enough a crack is forced open large enough for you to pry a
+couple digits in and peel off the remaining husk, which falls to your feet.
+You are left holding a hard coconut shell.
 
     You hear embarassing sounds coming from the direction of the chimpanzee.
 
@@ -465,9 +457,8 @@ message across, using arms, legs, soul.
 
 The chimp seems to have understood!  He imitates your sideways motion and
 lobs the coconut the short distance to the mid-air trough.  It's so close
-that no monkey could miss.
-The coconut shell lands on the trough and comes to rest in its middle.  Is
-that not a great ape?
+that no monkey could miss.  The coconut shell lands on the trough and comes
+to rest in its middle.  Is that not a great ape?
     Now, you may or may not have been harboring a hope that the shell would
 go on rolling down the trough primly, but this cannot be.  The reason is that
 the trough is not inclined, but perfectly level.  "The game's still up", as
@@ -475,16 +466,15 @@ they say.  (They do say that, don't they?)
 
 > lift trough with fork
 You push up one end of the trough from the bottom by raising the barbecue
-fork.
-(And I'm going to go out on a limb here and assume you meant to raise the
-north end of the trough)  The coconut begins to roll down the slightly
+fork.  (And I'm going to go out on a limb here and assume you meant to raise
+the north end of the trough)  The coconut begins to roll down the slightly
 inclined trough, not unlike a bowling ball going down a gutter (usually when
-you've only got one pin left to fell).
-When it reaches the end of the trough, it falls to land precisely in the
-bucket you had cleverly placed.  The new weight of the bucket causes the cord
-to do the "pulley-thing", the upshot of which is that the gate door rises a
-few inches more, probably enough for you to get your hands underneath it and
-push it up the rest of the way!
+you've only got one pin left to fell).  When it reaches the end of the
+trough, it falls to land precisely in the bucket you had cleverly placed.
+The new weight of the bucket causes the cord to do the "pulley-thing", the
+upshot of which is that the gate door rises a few inches more, probably
+enough for you to get your hands underneath it and push it up the rest of the
+way!
 
     The mandrill's feelings towards you haven't changed, but he is avoiding
 the fire.
@@ -544,12 +534,11 @@ You chuck the coconut husk into the fire.  The fire receives it graciously.
 the fire.
 
 > lift husk with fork
-You get the coconut husk onto the barbecue fork.
-You now have something resembling a torch.
+You get the coconut husk onto the barbecue fork.  You now have something
+resembling a torch.
 
 > turn fan east
-You turn the fan so it is facing east.
-The smoke follows suit.
+You turn the fan so it is facing east.  The smoke follows suit.
 
     The mandrill escapes from the smoke over to your northeast (from your
 east).
@@ -598,11 +587,9 @@ Time passes...
     The chimpanzee is making faces at the aliens.
 
     The end of the cord dangling from the bar has been burnt completely
-through.
-The bucket drops to the ground with a loud clang, accompanied by the hook it
-had been hanging from.
-Thanks to a strategically placed barbecue fork, the gate stayed open!
-The coconut rolls out of the bucket.
+through.  The bucket drops to the ground with a loud clang, accompanied by
+the hook it had been hanging from.  Thanks to a strategically placed barbecue
+fork, the gate stayed open!  The coconut rolls out of the bucket.
 
 > get cord
 You yank the cord from its position dangling over the side of the bar.  You
@@ -680,10 +667,10 @@ mandrill is north.
     The chimpanzee runs madly towards you (from your northeast).
 
     The hornets have begun to harass all occupants of the cage, brandishing
-their stingers with disregard.  No corner of the cage is safe.
-The chimp and the mandrill, forgetting old differences, have taken to running
-around like rabid animals and futilely attempting to cover their naked bodies
-from the assault of the swarm.
+their stingers with disregard.  No corner of the cage is safe.  The chimp and
+the mandrill, forgetting old differences, have taken to running around like
+rabid animals and futilely attempting to cover their naked bodies from the
+assault of the swarm.
 
 > get mattress
 You take up your mattress from the bed.
@@ -753,9 +740,9 @@ Time passes...
 > z
 Time passes...
 
-    The mandrill runs madly over to your northwest (away from you).
-He kicks the coconut along with him, whether deliberately or inadvertently
-you can't tell.  Not that this matters to the coconut.
+    The mandrill runs madly over to your northwest (away from you).  He kicks
+the coconut along with him, whether deliberately or inadvertently you can't
+tell.  Not that this matters to the coconut.
 
     The chimpanzee runs madly over to your northwest (from your north).
 
@@ -765,18 +752,18 @@ Time passes...
 > z
 Time passes...
 
-    The mandrill runs madly over to your north (from your northwest).
-He kicks the coconut along with him, whether deliberately or inadvertently
-you can't tell.  Not that this matters to the coconut.
+    The mandrill runs madly over to your north (from your northwest).  He
+kicks the coconut along with him, whether deliberately or inadvertently you
+can't tell.  Not that this matters to the coconut.
 
     The chimpanzee runs madly over to your north (from your northwest).
 
 > z
 Time passes...
 
-    The mandrill runs madly over to your northwest (from your north).
-He kicks the coconut along with him, whether deliberately or inadvertently
-you can't tell.  Not that this matters to the coconut.
+    The mandrill runs madly over to your northwest (from your north).  He
+kicks the coconut along with him, whether deliberately or inadvertently you
+can't tell.  Not that this matters to the coconut.
 
     The chimpanzee runs madly towards you (from your north).
 
@@ -796,9 +783,9 @@ Time passes...
 > z
 Time passes...
 
-    The mandrill runs madly over to your west (from your northwest).
-He kicks the coconut along with him, whether deliberately or inadvertently
-you can't tell.  Not that this matters to the coconut.
+    The mandrill runs madly over to your west (from your northwest).  He
+kicks the coconut along with him, whether deliberately or inadvertently you
+can't tell.  Not that this matters to the coconut.
 
     The chimpanzee runs madly towards you (from your northwest).
 
@@ -839,9 +826,9 @@ Time passes...
 > z
 Time passes...
 
-    The mandrill runs madly towards you (from your west).
-He kicks the coconut along with him, whether deliberately or inadvertently
-you can't tell.  Not that this matters to the coconut.
+    The mandrill runs madly towards you (from your west).  He kicks the
+coconut along with him, whether deliberately or inadvertently you can't tell.
+ Not that this matters to the coconut.
 
     The chimpanzee runs madly over to your northwest (away from you).
 
@@ -851,9 +838,9 @@ Time passes...
 > z
 Time passes...
 
-    The mandrill runs madly over to your northwest (away from you).
-He kicks the coconut along with him, whether deliberately or inadvertently
-you can't tell.  Not that this matters to the coconut.
+    The mandrill runs madly over to your northwest (away from you).  He kicks
+the coconut along with him, whether deliberately or inadvertently you can't
+tell.  Not that this matters to the coconut.
 
     The chimpanzee runs madly towards you (from your northwest).
 
@@ -1004,15 +991,14 @@ You tie the cord around your waist as tightly as you can.
 explosions created are small, but not small enough!
 
 > jump out
-The time has come to fly this cage.
-With your friend mattress that you have known to be trustworthy lying on the
-ground directly below, your confidence in surviving this last plummet has
-taken a gainful rise.  Looking down at the ground from the opening of the
-cage, the mattress looks the size of a credit card, but surely it cannot be
-difficult to plan your descent so that your major appendages do not miss it.
-Yes, you've made your bed.  Now it's time to sleep in it.
-
-Gripping the cord in one hand you make the fateful leap...and immediately
+The time has come to fly this cage.  With your friend mattress that you have
+known to be trustworthy lying on the ground directly below, your confidence
+in surviving this last plummet has taken a gainful rise.  Looking down at the
+ground from the opening of the cage, the mattress looks the size of a credit
+card, but surely it cannot be difficult to plan your descent so that your
+major appendages do not miss it.  Yes, you've made your bed.  Now it's time
+to sleep in it.
+    Gripping the cord in one hand you make the fateful leap...and immediately
 discover that the cord is far too short to cover the length of the drop!  The
 wind goes out of you as you reach the end of it, the cord biting into your
 chest like a boa constrictor doing the constricting thing, and you discover

@@ -121,9 +121,8 @@ HiRBy takes the pair of glasses in its pincers.
 
 > take it
 (a pair of glasses)
-Irvine plucks the pair of glasses from HiRBy's pincers.
-Irvine mumbles something and dons his glasses again quickly, hoping he won't
-lose them.
+Irvine plucks the pair of glasses from HiRBy's pincers.  Irvine mumbles
+something and dons his glasses again quickly, hoping he won't lose them.
 
 A buzz emits from the door.  Someone must be outside.
 
@@ -481,9 +480,8 @@ parked in rows.  A simple path through the trees leads east to the Traglean
 capital, Ki'parandazar.
 
 The Sagittarian rests neatly between two other ships of its class.  A
-gangplank leads up into the hull of the ship.
-Some mechanics rush over to check in the spaceship, then leave Nika to her
-work.
+gangplank leads up into the hull of the ship.  Some mechanics rush over to
+check in the spaceship, then leave Nika to her work.
 HiRBy hovers over from inside.
 
 > e
@@ -1826,13 +1824,11 @@ reservoir.
 
 > get drowsy fish
 Irvine scoops the drowsy Fish of Traglea out of the reservoir without a
-struggle.
-He names it "Drowser."
+struggle.  He names it "Drowser."
 
 > get tranquil fish
 Irvine scoops the tranquil Fish of Traglea out of the reservoir without a
-struggle.
-He names it "Gillbert."
+struggle.  He names it "Gillbert."
 
 > s
 Irvine goes south.

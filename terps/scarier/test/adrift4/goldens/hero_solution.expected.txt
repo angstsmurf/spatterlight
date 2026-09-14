@@ -258,7 +258,7 @@ protestations of hatred and head off home.
 
 [more]
 
-The apartment of a super hero should, in your humble opinion, be a lavish
+  The apartment of a super hero should, in your humble opinion, be a lavish
 affair: wall-to-wall carpets, expensive decorations, paintings, portraits,
 valuable works of art. One wall should be given over to an array of monitors
 which show far away places where crimes are being committed for you to be
@@ -323,7 +323,6 @@ Cleared of the majority of the grime and decay which had accumulated beneath
 your bed, a casual glance under there reveals some soap. Why you've got some
 soap under your bed you don't know but as there's no point in leaving it
 there, you take it with you.
-
    Smelly flies in through the open window.
    "Squawk," he says angrily, which you translate as: "you could have waited
 for me!"
@@ -465,7 +464,6 @@ never liked him. Too cheeky for his own good. Needs a good smack."
 that pizza delivery kid. You see the spots on his ugly mug?" The sergeant
 winces. "Makes you wanna squeeze 'em just to see if he'd pop all the way."
    The pizza delivery kid? You wonder.
-
    There is a yell from outside then several cops come in, dragging a stunned
 felon between them.
    "We got him, sarge!" one grunts to the duty sergeant. "Put up a right
@@ -680,7 +678,6 @@ warily. "Honest."
 > show customers id
 No noticeable change comes over the customers but you think they might be
 less inclined to steal stuff if they know you're watching.
-
    "It was the doings of the Gardener," says Mr Horror to a little old lady.
    Your ears prick up at the mention of this demented super villain who
 planned to rule the world by burying everyone in his back garden. The chances
@@ -694,7 +691,6 @@ bought anything."
    "What's for sale?" you ask.
    "Er… nothing. But I'd still appreciate you staying if it's all the same."
    You decide to stay.
-
    "A right nasty piece of word was the Gardener," Mr Horror goes on. "Hate
 and rage were all he knew and he knew them well. His plan was a masterwork in
 its simplicity and yet was let down by one simple flaw." He pauses. "It was
@@ -705,7 +701,6 @@ crap."
    "Why?"
    "Er… my friendly personality and welcoming demeanour?"
    You sense something is wrong here. Maybe you should stay after all.
-
    Mr Horror continues: "irredeemably crap, unfortunately for our poor
 Gardener. When the police swooped on him he was caught in the act and his
 protestations that he was 'putting them in the garden for their own good'
@@ -875,7 +870,6 @@ leads out into the hallway outside your apartment while another exit you
 sometimes use is the window in the western wall. The drop beyond it is a
 little dizzying but it's quicker than the stairs.  Your ever reliable
 sidekick, Smelly the parrot, is here.
-
    "Look what I found, Guv'nor," says Smelly and drops a doll and a toy
 soldier onto the floor.
    "Have you been stealing toys from kids again, Smelly?" you ask with a
@@ -1017,7 +1011,6 @@ to them. It looks like a perfect place for the Cat to make its new lair.
 less said about them the better.
    A doorway leads inside while heading east will take you back to your
 apartment.
-
    You pause outside to make a quick call to the police to come and take the
 evil feline away. When they arrive and take the Cat away, the hatred in his
 eyes is readily apparent. You had best tread carefully in future around
@@ -1031,8 +1024,8 @@ sell it to pay for your Masked Defender costume. An archway to the south
 leads out into the hallway outside your apartment while another exit you
 sometimes use is the window in the western wall. The drop beyond it is a
 little dizzying but it's quicker than the stairs.  Also here is a doll and a
-toy soldier.  Your ever reliable sidekick, Smelly the parrot, is here.
-You arrive back at your apartment.
+toy soldier.  Your ever reliable sidekick, Smelly the parrot, is here.  You
+arrive back at your apartment.
 
 At Home In Your Less Than Glamorous Apartment
 Your apartment is a small, one room affair complete with a bed, toilet, bath,
@@ -1042,7 +1035,6 @@ leads out into the hallway outside your apartment while another exit you
 sometimes use is the window in the western wall. The drop beyond it is a
 little dizzying but it's quicker than the stairs.  Also here is a doll and a
 toy soldier.  Your ever reliable sidekick, Smelly the parrot, is here.
-
    "Good job you got back when you did, guv'nor!" squawks Smelly. "I got some
 important information."
    You suppress a groan. "What have you done your business on this time?"
@@ -1138,7 +1130,6 @@ your nose. Right now your sense of smell is going haywire and the desire to
 run screaming from this place is immensely strong.
    The rest of the world lies back to the south.  The Smell is here,
 polluting the very atmosphere with his unholy stench.
-
    "Buttons!" the Smell snaps when he catches sight of you approaching.
    "Buttons?" you say, one hand clasped firmly over your nose.
    "Bah, you're all the same!" he snorts. "Got a problem with an ol' fellow
@@ -1243,7 +1234,6 @@ to anything and the nearest train station is twenty miles away. Tied to them
 at this precise moment is a postman and the Paper Boys are dancing around
 him, taunting him with "choo-choo!" noises and the like. A path leads back to
 the southeast.
-
    "Hey!" says one of the four Paper Boys, pointing as you approach. "It's
 that weirdo we hung over the bridge this morning!"
    "I thought you said he was dead, Pug!" another of the Boys snaps.
@@ -1503,7 +1493,6 @@ the Paper Boys to have me killed and-"
    "And many more things besides," the super villain interrupts. "My minions
 have wreaked true havoc in this pitiful city for weeks now: the Pizza
 Delivery Kid, the Smell, the Paper Boys... Ah, the but list goes on."
-
    "You're forgetting that I've stopped three of those villains," you say.
 "They're rotting away in jail cells up and down the country."
    A flicker of unbridled rage spasms across the Tax Collector's face. "Yes.
@@ -1512,7 +1501,6 @@ strength to defeat the likes of you, Masked Defender. But enough of that for
 now. You will be bringing no one to justice because your life ends here." A
 smile briefly flickers across the Tax Collector's face. "Come then. Let us
 fight, MD. Just you and I. To the victor the spoils. To the loser..."
-
    What to do?
 
 (1)  Attack the Tax Collector

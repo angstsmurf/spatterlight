@@ -175,8 +175,8 @@ yourself up into the air vents.
 Inside the Air Vents
 The ventitlation ducts are only one inch wider than your shoulders.  This
 makes turning around impossible.  Alternating between shimmying and crawling
-you see the vent branches off to the south.
-The ceiling is so low in here that in order to move you have to crawl.
+you see the vent branches off to the south.  The ceiling is so low in here
+that in order to move you have to crawl.
 
 > s
 You move south.

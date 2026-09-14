@@ -138,7 +138,7 @@ have until midnight to kill von Lastmeer."
 dark.
 ...press a key...
 
-You come to all of a sudden, almost spilling out of your seat.
+  You come to all of a sudden, almost spilling out of your seat.
    Your seat?
    A quick glance around shows that you are back in your cabin, the papers
 scattered about you… everything, in fact, looks identical to what you saw
@@ -148,7 +148,6 @@ the train.
    But then you notice the gun in your hand, the one given to you by the
 figure in the dark room. Not a dream after all then.
    You lurch forward in your seat as the train begins to decelerate.
-
 ...press a key...
 
 A harsh voice blares over the train's tannoy system: "This is the driver. As
@@ -258,7 +257,7 @@ you head for the bar, wondering if you are the subject of some kind of
 practical joke.
 ...press a key...
 
-You slip into the hotel bar. It is crowded with the influx of passages from
+  You slip into the hotel bar. It is crowded with the influx of passages from
 the train but you see no sign of the one person you wanted to speak to: the
 driver.
    Deciding to make the best of a bad situation, you order a drink from a
@@ -382,9 +381,9 @@ cry out.
 gift shop.
 ...press a key...
 
-A bizarre sight greets you as you step into the back room: a woman - blonde,
-maybe twenty-five years of age - is tied to a chair. Electrodes have been
-attached to her scalp and arrayed on a shelf next to her are a series of
+  A bizarre sight greets you as you step into the back room: a woman -
+blonde, maybe twenty-five years of age - is tied to a chair. Electrodes have
+been attached to her scalp and arrayed on a shelf next to her are a series of
 surgical tools. Judging by the gashes on her arms, you guess the majority
 have been used on her.
    She tries to say something but the gag over her mouth prevents this.
@@ -497,7 +496,7 @@ them. Make sure they suffer before they lost consciousness."
    The accomplices close in…
 ...press a key...
 
-You open your eyes. You are lying on a cold metal table, one of a dozen in
+  You open your eyes. You are lying on a cold metal table, one of a dozen in
 this dimly-lit room. Several fellow passengers from the train occupy the
 other tables. They are all unconscious. A door in one wall, the room's only
 exit, is closed.
@@ -662,7 +661,7 @@ had you shot. Come then. To the lion's den with you. But you." He nods at
 Sharon. "You're going back to your cell."
 ...press a key...
 
-"You know who I am?" says the tall, bespectacled man leaning on the cane.
+  "You know who I am?" says the tall, bespectacled man leaning on the cane.
    You nod. "Von Lastmere."
    "Indeed."
    His quarters are stale, austere. They remind you of a monk's living
@@ -770,7 +769,7 @@ your full strength, but Erik von Lastmere is, at heart, not a strong man. The
 blow breaks his neck.
 ...press a key...
 
-"You never told me," says Sharon, "how you knew to do that."
+  "You never told me," says Sharon, "how you knew to do that."
    You look from the view over the balcony - a beautiful, sunlit bay - to
 your future wife.
    "Do what?" you ask.
@@ -783,7 +782,6 @@ decision to do nothing seemed logical, if for no other reason than it was the
 last thing von Lastmere would expect you to do. Yet since then, you have
 wondered just how you knew what the best decision to make was. Sometimes…
    "A hunch," you say. You link arms with Sharon Elson. "Just a hunch."
-
 ...press a key...
 
 THE END

@@ -70,7 +70,6 @@ usually refer to it as "the craphole". It’s one long room with a table
 running down the middle at which are crouched several dozen inmates. Your
 cell lies to the south while the prison warden's office is northeast and the
 exercise yard to the west.
-
    "Hey!" mutters an inmate. "That one's got a ferret!"
    Save me! pleads the ferret silently.
    Or maybe he doesn't and you've just started imagining things.
@@ -127,7 +126,6 @@ other. A guard with a gun watches over the proceedings. This is Trigger Happy
 Terry, the most dangerous man in the prison. A door leading into the prison
 is to the east while the gates are to the north and a meeting room to the
 southwest.
-
    THTerry has got his gun raised and his finger is squeezing on the trigger
 almost before you have time to show him the exercise yard pass.
    "Damn!" he mutters, lowering the gun with obvious reluctance. "But I guess
@@ -156,7 +154,6 @@ for the Olympics if they had such an event. Fortunately he's not here right
 now. You see his bed, the dusty patch in the corner where you spend your
 nights, a shelf containing nothing, and a door to the north.  Your cellmate,
 Hoggins, is here.
-
    "Wotcha, Bob," grunts Hoggins, letting off an enormously foul fart. "Cor!
 That wuz a stinker and no mistake! Whew!"
 
@@ -205,7 +202,6 @@ going to get.
 "Ah, sod it," mutters Hoggins. "You're gonna keep on botherin' me till I give
 you something, ain't you? Here." He tosses a coin on the floor. "Don't spend
 it all at once. Huh huh."
-
    Hoggins grunts and then farts so loudly the cell is filled with the noise
 of it.
    Not to mention the smell.
@@ -213,7 +209,6 @@ of it.
 > talk hoggins
 "Clear off!" snaps Hoggins, farting as he does so. "You ain't gettin'
 anything else! You think I'm made of money or something?"
-
    "Bloody hell!" grunts Hoggins. "That last one was a right stinker!"
 
 > get coin

@@ -79,8 +79,8 @@ You take the flashlight.
 You hear the sound of water running.
 
 > turn flashlight on
-The flashlight is now on.
-You hear the sound of water being shut off abruptly.
+The flashlight is now on.  You hear the sound of water being shut off
+abruptly.
 
 > east
 You move east.
@@ -202,8 +202,7 @@ promise.
 The girl becomes inspired and hugs you.
 
 > up
-The girl lets you pass.
-You hear the sound of water being shut off abruptly.
+The girl lets you pass.  You hear the sound of water being shut off abruptly.
 
 > south
 You move south.
@@ -375,13 +374,13 @@ You can only move south.
 You hear the sound of water being shut off abruptly.
 
 > enter father's closet
-You open the doors and enter father's closet...
-You hear the sound of water running.
+You open the doors and enter father's closet...  You hear the sound of water
+running.
 
 > x safe
 The safe is locked. To unlock safe, type 'try' followed by a four digit
-number. For example, 'try 1234'.
-You hear the sound of water being shut off abruptly.
+number. For example, 'try 1234'.  You hear the sound of water being shut off
+abruptly.
 
 > out
 You move out.
@@ -536,8 +535,8 @@ You hear the sound of water being shut off abruptly.
 You open the doors and enter father's closet...
 
 > try 2964
-Correct. You open the safe and pull out a silver medal.
-You hear the sound of water running.
+Correct. You open the safe and pull out a silver medal.  You hear the sound
+of water running.
 
 > i
 You are wearing a silver medal, and you are carrying a religious book, a

@@ -129,10 +129,9 @@ tool, you could probably navigate the thorns safely. Then again, you might be
 able to push through them.
 
 > west
-You move west.
-You slash your way through the thorn bushes with your sword-stick, the few
-spare thorns brushing against your sweater and failing to penetrate. After
-some time you reach the forest floor unharmed.
+You move west.  You slash your way through the thorn bushes with your
+sword-stick, the few spare thorns brushing against your sweater and failing
+to penetrate. After some time you reach the forest floor unharmed.
 
 Outside / In the Woods
 You stand before the house in the woods now, the hill of thorn bushes behind
@@ -167,10 +166,9 @@ A long time ago, children had no video games. You have been generally
 appalled at this idea, but the room in which you stand shows evidence of
 such. The centerpiece of the room is a magnificent rocking horse. A doorway
 to the mezzanine lies east.  Scattered wooden blocks in one corner must have
-entertained some child long, long ago.
-As you enter, the rocking horse begins tilting back and forth on its own. You
-comfort yourself with the thought that it was just the floor vibrating under
-your weight...
+entertained some child long, long ago.  As you enter, the rocking horse
+begins tilting back and forth on its own. You comfort yourself with the
+thought that it was just the floor vibrating under your weight...
 
 > examine horse
 Most of the paint has faded and chipped away, but that which is left still

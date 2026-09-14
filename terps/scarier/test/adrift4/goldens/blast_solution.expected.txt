@@ -166,8 +166,8 @@ points.
 
 > kill demon with plasma
 You pull the trigger and feel the shotgun recoil. The demon loses 15 health
-points.
-The demon collapses to the ground. After a couple of seconds it vanishes.
+points.  The demon collapses to the ground. After a couple of seconds it
+vanishes.
 
 > s
 You move south.

@@ -14888,6 +14888,47 @@ lib_npc_named_in_line (scr_gameref_t game, scr_int npc, const scr_char *input)
 }
 
 /*
+ * lib_npc_referenced()
+ *
+ * characters()' per-NPC gate.  run400 Proc_21_40_45E99C(index, 1) accepts
+ * the Name or ANY alias as a whole word of the line; run390's characters()
+ * tests the Name or the first Alias only (lib_npc_named_in_line()).
+ * the_pk_girl's peddler is Named "the peddler" with aliases man, peddler,
+ * so only the 4.0 test finds him in `ask peddler about silo`.
+ */
+static scr_bool
+lib_npc_referenced (scr_gameref_t game, scr_int npc, const scr_char *input)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+  const scr_char *name;
+  scr_int alias_count, alias;
+
+  if (!lib_is_version_400 (game))
+    return lib_npc_named_in_line (game, npc, input);
+
+  name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+  if (!scr_strempty (name) && lib_input_contains_word (input, name))
+    return TRUE;
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Alias";
+  alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      const scr_char *word;
+
+      vt_key[3].integer = alias;
+      word = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (!scr_strempty (word) && lib_input_contains_word (input, word))
+        return TRUE;
+    }
+
+  return FALSE;
+}
+
+/*
  * lib_battle_absent_npc()
  *
  * The 4.0 battle parser dobattle (Proc_11_4_47F084, entered from
@@ -14958,6 +14999,70 @@ lib_battle_absent_npc (scr_gameref_t game)
     }
 
   return printed;
+}
+
+/*
+ * lib_attack_absent_npc()
+ *
+ * With the Battle System OFF, characters()' per-NPC attack branch answers a
+ * named NPC who is elsewhere.  run400 Proc_19_0_480674, inside its
+ * `If Proc_21_40_45E99C(index, 1)` (the line names the NPC by Name or any
+ * alias and no present, seen namesake shares the word), 47F40D-47F70B: the
+ * line must hold one of hit/kill/kick/punch/attack as a whole word, no task
+ * ran (4941F8 = 0), battle off (494282 = 0), and the buffer must be empty
+ * (or end ", but nothing happens.", or hold " can't see ").  An NPC in the
+ * player's room gets the avoids/with arms; one elsewhere, with the buffer
+ * still empty, gets `Proc_21_3_446BB4(Name) & " is not here!"` (47F700) --
+ * the Name with its first letter capitalised.  No seen test, and an ordinary
+ * turn: the Runner ticks.  run390's twin in characters() @45ACD8 tests Name
+ * or first Alias and prints the Name raw (45960F).
+ *
+ * Measured 2026-09-14 on the_pk_girl under run400x (Adrift_1157 pkgsite):
+ * Chadwick, Named "~the ~[CH=%know_chadwick%]Chadwick" and elsewhere,
+ * answers `attack chadwick` with "The man is not here!", where Scarier said
+ * the game's "Pardon me?".  3.9 is from the decompile alone; 3.7/3.8 have
+ * similar per-verb sites (run370 43865D, run380 4404D9) left unported.
+ *
+ * Returns TRUE having printed for the first such NPC.
+ */
+static scr_bool
+lib_attack_absent_npc (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_bool is_400 = lib_is_version_400 (game);
+  scr_int index_;
+
+  if (prop_get_taf_version (bundle) < TAF_VERSION_390
+      || battle_is_enabled (game) || !input)
+    return FALSE;
+
+  if (!lib_input_contains_word (input, "hit")
+      && !lib_input_contains_word (input, "kill")
+      && !lib_input_contains_word (input, "kick")
+      && !lib_input_contains_word (input, "punch")
+      && !lib_input_contains_word (input, "attack"))
+    return FALSE;
+
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      const scr_char *name;
+
+      name = prop_get_indexed_string (bundle, "NPCs", index_, "Name");
+      if (scr_strempty (name)
+          || !lib_npc_referenced (game, index_, input)
+          || npc_in_room (game, index_, gs_playerroom (game)))
+        continue;
+
+      if (is_400)
+        pf_new_sentence (filter);
+      pf_buffer_string (filter, name);
+      pf_buffer_string (filter, " is not here!\n");
+      return TRUE;
+    }
+
+  return FALSE;
 }
 
 /*
@@ -15062,6 +15167,9 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
       /* 3.9+: a seen NPC named in the line but elsewhere "isn't here!" */
       if (!is_ambiguous && lib_battle_absent_npc (game))
         return TRUE;
+      /* Battle off, 3.9+: a named NPC elsewhere "is not here!" */
+      if (!is_ambiguous && lib_attack_absent_npc (game))
+        return TRUE;
       return is_ambiguous;
     }
 
@@ -15136,6 +15244,9 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
     {
       /* 3.9+: a seen NPC named in the line but elsewhere "isn't here!" */
       if (!is_ambiguous && lib_battle_absent_npc (game))
+        return TRUE;
+      /* Battle off, 3.9+: a named NPC elsewhere "is not here!" */
+      if (!is_ambiguous && lib_attack_absent_npc (game))
         return TRUE;
       return is_ambiguous;
     }
@@ -16025,9 +16136,50 @@ lib_cmd_kiss_object (scr_gameref_t game)
   return TRUE;
 }
 
+/*
+ * A kiss naming a character who is not here.  characters()' kiss branch
+ * has no in-room test: for the first NPC the line names (lib_npc_referenced)
+ * it overwrites an empty buffer, or therest's "I'm not sure it would
+ * appreciate that.", with "I'm not sure " & <gender pronoun> & " would
+ * appreciate that!" (run400 47F7E2-47F83A, run390 45970A).  Measured on
+ * the_pk_girl under run400x (Adrift_1157 pkgsite, turns 288 and 398): `kiss
+ * katryn` with Katryn elsewhere answers "I'm not sure she would appreciate
+ * that!".  3.9 is from the decompile alone.
+ */
 scr_bool
 lib_cmd_kiss_other (scr_gameref_t game)
 {
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int npc;
+
+  if (input && prop_get_taf_version (bundle) >= TAF_VERSION_390)
+    {
+      for (npc = 0; npc < gs_npc_count (game); npc++)
+        {
+          scr_vartype_t vt_key[3];
+
+          if (!lib_npc_referenced (game, npc, input))
+            continue;
+
+          vt_key[0].string = "NPCs";
+          vt_key[1].integer = npc;
+          vt_key[2].string = "Gender";
+          switch (prop_get_integer (bundle, "I<-sis", vt_key))
+            {
+            case NPC_MALE:
+              return lib_print_message (game,
+                  "I'm not sure he would appreciate that!\n");
+            case NPC_FEMALE:
+              return lib_print_message (game,
+                  "I'm not sure she would appreciate that!\n");
+            default:
+              return lib_print_message (game,
+                  "I'm not sure it would appreciate that!\n");
+            }
+        }
+    }
+
   /* Reject this attempt. */
   return lib_print_message (game, "I'm not sure it would appreciate that.\n");
 }
@@ -18173,10 +18325,13 @@ lib_cmd_ask_about_nothing (scr_gameref_t game)
           const scr_char *name;
 
           if (npc_in_room (game, npc, gs_playerroom (game))
-              || !lib_npc_named_in_line (game, npc, input))
+              || !lib_npc_referenced (game, npc, input))
             continue;
 
+          /* 4.0 capitalises the Name (Proc_21_3_446BB4); 3.9 prints it raw. */
           name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+          if (lib_is_version_400 (game))
+            pf_new_sentence (filter);
           pf_buffer_string (filter, name);
           pf_buffer_string (filter, " isn't here!\n");
           return TRUE;
@@ -18370,11 +18525,15 @@ lib_cmd_shake_other (scr_gameref_t game)
  * lib_cant_do_other()
  *
  * Central handler for a range of can't-do messages.  Yet more uninterest-
- * ing responses.
+ * ing responses.  particle follows the object name: run400's therest turn
+ * arm (489255-489367) composes " can't turn " & <that|name> & " off" when
+ * the line holds the whole word "off", else " on" for "on", else nothing
+ * (the_pk_girl Adrift_1157 turn 362: `turn on transmitter` -> "You can't
+ * turn that on.").  run370/380/390 have the one plain arm.
  */
 static scr_bool
-lib_cant_do_common (scr_gameref_t game,
-                    const scr_char *verb, scr_bool is_object)
+lib_cant_do_common (scr_gameref_t game, const scr_char *verb,
+                    scr_bool is_object, const scr_char *particle)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int object;
@@ -18388,7 +18547,9 @@ lib_cant_do_common (scr_gameref_t game,
                                              "You can't ",
                                              "I can't ", "%player% can't "));
       pf_buffer_string (filter, verb);
-      pf_buffer_string (filter, " that.\n");
+      pf_buffer_string (filter, " that");
+      pf_buffer_string (filter, particle);
+      pf_buffer_string (filter, ".\n");
       return TRUE;
     }
 
@@ -18405,6 +18566,7 @@ lib_cant_do_common (scr_gameref_t game,
   pf_buffer_string (filter, verb);
   pf_buffer_character (filter, ' ');
   lib_print_object_np (game, object);
+  pf_buffer_string (filter, particle);
   pf_buffer_string (filter, ".\n");
   return TRUE;
 }
@@ -18412,13 +18574,28 @@ lib_cant_do_common (scr_gameref_t game,
 static scr_bool
 lib_cant_do_object (scr_gameref_t game, const scr_char *verb)
 {
-  return lib_cant_do_common (game, verb, TRUE);
+  return lib_cant_do_common (game, verb, TRUE, "");
 }
 
 static scr_bool
 lib_cant_do_other (scr_gameref_t game, const scr_char *verb)
 {
-  return lib_cant_do_common (game, verb, FALSE);
+  return lib_cant_do_common (game, verb, FALSE, "");
+}
+
+/* The 4.0 turn arm's " off" / " on" particle; see lib_cant_do_common(). */
+static const scr_char *
+lib_turn_particle (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+
+  if (!input || !lib_is_version_400 (game))
+    return "";
+  if (lib_input_contains_word (input, "off"))
+    return " off";
+  if (lib_input_contains_word (input, "on"))
+    return " on";
+  return "";
 }
 
 
@@ -18502,7 +18679,7 @@ lib_cmd_touch_object (scr_gameref_t game)
 scr_bool
 lib_cmd_turn_object (scr_gameref_t game)
 {
-  return lib_cant_do_object (game, "turn");
+  return lib_cant_do_common (game, "turn", TRUE, lib_turn_particle (game));
 }
 
 scr_bool
@@ -18679,7 +18856,7 @@ lib_cmd_suck_other (scr_gameref_t game)
 scr_bool
 lib_cmd_turn_other (scr_gameref_t game)
 {
-  return lib_cant_do_other (game, "turn");
+  return lib_cant_do_common (game, "turn", FALSE, lib_turn_particle (game));
 }
 
 scr_bool
@@ -20144,7 +20321,8 @@ lib_cmd_verb_object (scr_gameref_t game)
  * thepkgirl's `attack chadwick` -> "The man is not here!" is a different
  * site: run400 keeps the pre-battle per-verb attack handler, and its own
  * absent-NPC else prints `" is not here!"` at 47F700, inside the verb branch
- * that ends at 47F70B where "take"/"get" begins.  That one is still unported.
+ * that ends at 47F70B where "take"/"get" begins.  Ported for the Battle
+ * System off as lib_attack_absent_npc().
  *
  * Measured on the 2026-09-08 whole-corpus capture: alexis_worn_cube (3.90)
  * answers `attack narfild`, `attack goblin` and `attack monster` from rooms

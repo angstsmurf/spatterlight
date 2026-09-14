@@ -1253,7 +1253,6 @@ your mother's purse on pocket money day) tells you that they're not going to
 be easy to get open.
    Exits lie: south (to the marketplace).  Snordy the guard is here,
 "protecting" the castle.
-
 ...press a key...
 
 "Ah, you're back," says Snordy, "and I hear you did a number on that monster
@@ -1384,7 +1383,6 @@ horizon. At your back stands the east gate of Grimmghoul and, beyond it, the
 village itself. From the look of the guards manning the gates you suspect
 getting back into Grimmghoul might be even harder than getting out.
    Exits lie: west (into Grimmghoul) and east (along the east road).
-
 ...press a key...
 
 The gate slams shut behind you.
@@ -1514,8 +1512,7 @@ BOOOM!!!!!
 The evil skeleton suddenly seems to pause and then shudder and then,
 surprisingly, it falls apart! It collapses into a pile of broken bones at
 your feet! Parts of it are even being blown around the clearing as you watch.
-
-"We killed it!" gasps Grumble. "We actually killed the swine!"
+     "We killed it!" gasps Grumble. "We actually killed the swine!"
    "Is it really dead?" you ask: then wince at your poor choice of words. "I
 mean, deader than it was befor- I mean, really dead and not just walking
 arou- I mean, is it going to attack us again?"
@@ -2122,8 +2119,8 @@ TIME, PAL! BEEN DRINKIN', EH?"
 sounding as if he can't decide whether to give Grolsch a big hug or take a
 swing for him.
    In the end he has time for neither as there is a flickering of arcane
-magics and out of an invisible doorway steps Arliss the wizard.
-"Greetings," says Arliss, "my name is Arliss."
+magics and out of an invisible doorway steps Arliss the wizard.  "Greetings,"
+says Arliss, "my name is Arliss."
    "We know that," says Randle. "We've known you for years."
    Arliss glances at him and sighs. "I was speaking for the benefit of our
 guest…" He turns to you. "Welcome, child of magic, I have waited a long time
@@ -2877,12 +2874,11 @@ room with a window on one wall.
    "Welcome back, child of magic," says Arliss. "Let us see how well you
 did."
    He begins to wave his hands in the air in a vaguely weird manner, chants a
-little, then says,
-"you did…" He hesitates. "Pretty remarkable. You retrieved five out of the
-six crystal possible and achieved a tremendous result." You can't help but
-wonder at how surprised he seems that you did so well. "Your magical training
-is complete, child of magic. Only one other in the history of magic has ever
-done better."
+little, then says,   "you did…" He hesitates. "Pretty remarkable. You
+retrieved five out of the six crystal possible and achieved a tremendous
+result." You can't help but wonder at how surprised he seems that you did so
+well. "Your magical training is complete, child of magic. Only one other in
+the history of magic has ever done better."
    "Was that you?" you ask, quite dazed by your success.
    "Er… not quite," says Arliss. "That other one was Brask."
    "…ah…"
@@ -2911,7 +2907,6 @@ you're in the middle of a fight when you run out of magic then you'll most
 likely be dead before you manage to recover enough energy to cast another
 spell. So be careful."
    "Gulp!" you say.
-
 ...press a key...
 
 "I suggest you collect your belongings," says Arliss, gesturing to the untidy

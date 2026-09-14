@@ -76,8 +76,8 @@ C'est une chambre des plus démunie.
 Un lit, des habits jetés à la va-vite sur le sol, un gros cendrier rempli de
 mégots sur le sol à la tête du lit.
 
-Vous pouvez seulement vous déplacer vers le Nord.
-Habillé, ça le fait mieux quand même!
+Vous pouvez seulement vous déplacer vers le Nord.  Habillé, ça le fait mieux
+quand même!
 
 > n
 La pièce principale
@@ -101,8 +101,7 @@ Vous vous saisisez du briquet.
 
 > pousser bouton
 Vous appuyez sur le bouton pour un expresso.
-Attention, c'est chaud!
-Un expresso est maintenant posé sur le bar.
+Attention, c'est chaud!  Un expresso est maintenant posé sur le bar.
 Il n'attend plus que votre gosier affamé et sec du matin.
 
 > prendre expresso
@@ -194,8 +193,7 @@ La Chef scientifique est là.
 L'autre flic, apparemment gêné ne répondit pas.
 
 > soulever drap
-Vous soulevez un drap et...
-Vous pouvez voir un corps inerte sous le drap!
+Vous soulevez un drap et...  Vous pouvez voir un corps inerte sous le drap!
 
 > x corps inerte
 C'est...le corps d'une femme, jeune et jolie. Vous reconnaissez bien là le
@@ -272,8 +270,8 @@ ici.
 La Médecin légiste est ici.
 La Chef scientifique est là.
 
-Vous pouvez seulement vous déplacer vers le Haut.
-Vous pouvez vous déplacer maintenant vers le haut.
+Vous pouvez seulement vous déplacer vers le Haut.  Vous pouvez vous déplacer
+maintenant vers le haut.
 votre adjoint semble avoir rallumé la voiture.
 
 > up
@@ -308,8 +306,8 @@ MALKOWITCH sait toujours où vous devez aller.
 C'est une voiture de police traditionnelle américaine.  MALKOWITCH est assis
 là.
 
-Sorties évidentes: Bas et in.
-Vous êtes maintenant arrivé au commissariat, entrez donc!
+Sorties évidentes: Bas et in.  Vous êtes maintenant arrivé au commissariat,
+entrez donc!
 
 > in
 Vous vous déplacez in.

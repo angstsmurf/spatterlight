@@ -388,8 +388,8 @@ The small brown terrier wandering around is whimpering at you.
 The dog is standing near the back door waiting to go out.
 
 > open door
-You open the back door.
-The dog goes out of the Kitchen into the garden with its bone.
+You open the back door.  The dog goes out of the Kitchen into the garden with
+its bone.
 
 > south
 You move south.

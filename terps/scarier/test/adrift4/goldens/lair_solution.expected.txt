@@ -2891,8 +2891,8 @@ the sound of voices.
 Exits lie: west, north and northeast (along the corridors), east (through an
 archway) and south (to the sloping corridor)
 
-   "Ah, you have returned," says the skeletal form of Lord Havelock. "And the
-woman is dead."
+     "Ah, you have returned," says the skeletal form of Lord Havelock. "And
+the woman is dead."
    "What happened there?" you ask. "That woman... You killed her."
    Havelock shakes his head. "Not I. You! You killed her. But do not feel
 bad, Marlon, for she is in a better place now than she was before. You may
@@ -3396,10 +3396,9 @@ is nothing there.
 
 Exits lie: southwest (to the corridor) and north (to the shadowy archway)
 
-  Torodim is here.
-   Kneeling by the archway is a tall, powerfully-built figure clad in robes
-of darkest night. He appears to be studying something at the base of the
-statue but looks up at you enter.
+  Torodim is here.     Kneeling by the archway is a tall, powerfully-built
+figure clad in robes of darkest night. He appears to be studying something at
+the base of the statue but looks up at you enter.
    His eyes widen.
    "You!" he hisses. He rises swiftly to his feet and you are disheartened to
 see that he stands a good foot taller than you. "You escaped then. Vaslock
@@ -3933,7 +3932,7 @@ ridged claws.
 
 Exits lie: east (to the junction) and west (along the tunnel)
 
-   "So, you dare to venture here then?" says the vampire. "Yes, I can see
+     "So, you dare to venture here then?" says the vampire. "Yes, I can see
 you. Your little tricks do not work on me. I would not have thought you had
 the nerve to come here, despite what they tell me of you."
    "Are you Vaslock?" you ask.
@@ -4067,9 +4066,9 @@ sunlight.
 which sits a man in a long, dark cape. He is watching you with a look of
 amusement on his cold features.
 
-  "So you made it this far then?" says the figure on the throne. "Impressive,
-I must say. I never expected you to reach this place. None of the others have
-done."
+    "So you made it this far then?" says the figure on the throne.
+"Impressive, I must say. I never expected you to reach this place. None of
+the others have done."
    "Spare me your words, Vaslock," you say. "You know why I'm here."
    Vaslock nods. "Indeed I do." He raises himself to his full height, a
 towering seven feet. Standing by his throne, he seems a giant of a man. Or

@@ -452,9 +452,8 @@ scrolls and leather-bound books. A gigantic marble chess set sits on the icy
 ground.
 
 Your parents are sitting on a furry rug on the ground, bound hand and foot
-with a rope to each other.
-When they see you their mouths open wide in astonishment, but you put a
-finger to your lips to keep them quiet.
+with a rope to each other.   When they see you their mouths open wide in
+astonishment, but you put a finger to your lips to keep them quiet.
 
 'Don't worry!' You whisper, 'I'm hear to save you!'
 
@@ -491,9 +490,8 @@ holding slops, are lined up on the outside of the sty.
 
 A cool breeze comes from the east, where a glacier terminates, pushing
 boulders ahead of it in its inexorable path down the mountain.  Also here is
-a wooden plank.
-Pounding footsteps herald the coming of the giant. 'Teacher!' He warbles,
-'Time for my chess lesson!'
+a wooden plank.  Pounding footsteps herald the coming of the giant.
+'Teacher!' He warbles, 'Time for my chess lesson!'
 
 Your mother squeals in fright and your father tut-tut's. 'Darling, we should
 really start running now' he advises over his half-moon specs.
@@ -615,11 +613,10 @@ You move north.
 
 Sloping tunnel
 The tunnel slopes upward, the stone around you slick and damp. You can barely
-keep your footing as you scramble up.
-You all hear a loud TWANG and two roars - one presumably the Ogre's. 'Don't
-imagine that'll keep him back for too long.' Your father says. 'In fact, we
-may even be increasing his rage...'. But you don't care, you just want to get
-out of here.
+keep your footing as you scramble up.  You all hear a loud TWANG and two
+roars - one presumably the Ogre's. 'Don't imagine that'll keep him back for
+too long.' Your father says. 'In fact, we may even be increasing his
+rage...'. But you don't care, you just want to get out of here.
 
 > take teapot from sack
 You take the silver teapot from the hessian sack.
@@ -660,11 +657,11 @@ Frantically he paws at them and chases them down the hill out of sight.
 > drop tray
 You drop the tray on the mountain side, positioning it against the angle of
 the sun reflecting down the mountain side. With any luck it will blind the
-giant, or at least distract him, as he climbs after you.
-Sure enough, as he charges up the slope after you, only marginally delayed by
-the china cup-gathering, Glum sheilds his eyes from the glare of the sun off
-the silver tray, then runs off in the wrong direction, shouting
-unintelligably the entire time.
+giant, or at least distract him, as he climbs after you.  Sure enough, as he
+charges up the slope after you, only marginally delayed by the china
+cup-gathering, Glum sheilds his eyes from the glare of the sun off the silver
+tray, then runs off in the wrong direction, shouting unintelligably the
+entire time.
 
 > take cushion from sack
 You take the large pink, tasseled cushion from the hessian sack.

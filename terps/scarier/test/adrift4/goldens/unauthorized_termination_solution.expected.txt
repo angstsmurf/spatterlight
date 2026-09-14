@@ -313,8 +313,8 @@ The oblong metal room is 10m long by 5m wide and nearly 3m in height. The
 standard hidden lighting seems to be set to a higher level than normal, it is
 certainly brighter than you prefer. A control panel is on one side of the
 room and right opposite is the teleporter.  Mu-Nu is hovering in the centre
-of the room.
-Mu-Nu appears to be looking closely at the crystal you are carrying.
+of the room.  Mu-Nu appears to be looking closely at the crystal you are
+carrying.
 
 As you appear Mu-Nu looks at the crystal you are carrying and exclaims, "That
 is a most fine item you have."
@@ -422,8 +422,7 @@ individuals. To the west are the stores and the control room is south.
 
 If the centre worried you the assembly plant is even worse; you have never
 been in such a large room. You flatten yourself against the wall until the
-power surge (panic maybe?) passes.
-Hovering in the distance is a Phi.
+power surge (panic maybe?) passes.  Hovering in the distance is a Phi.
 
 > west
 You move west.
@@ -466,13 +465,12 @@ It would appear that the memory module has not been retrieved which is most
 odd, if you could find a thermal lance you could retrieve it yourself.
 
 > turn on lance
-You turn on the lance.
-The thermal lance is making a very loud buzzing sound.
+You turn on the lance.  The thermal lance is making a very loud buzzing
+sound.
 
 > use lance
 Using the thermal lance you cut open Gamma-Sigma and remove the memory
-module.
-The thermal lance is making a very loud buzzing sound.
+module.  The thermal lance is making a very loud buzzing sound.
 
 > turn off lance
 You turn off the lance.
@@ -679,8 +677,8 @@ Tet Assembly Plant
 The vast assembly plant of the Tet creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
 All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
-individuals. To the west are the stores and the control room is south.
-A Beta model drives passed you you at high speed.
+individuals. To the west are the stores and the control room is south.  A
+Beta model drives passed you you at high speed.
 
 > west
 You move west.
@@ -770,13 +768,13 @@ odd, if you could find a thermal lance you could retrieve it yourself. His id
 badge is also missing.
 
 > turn on lance
-You turn on the lance.
-The thermal lance vibrates but makes no audible sound.
+You turn on the lance.  The thermal lance vibrates but makes no audible
+sound.
 
 > use lance
 Using the thermal lance you cut open Psi-Tau and remove the memory module.
-The module seems to have suffered quite a bit of damage.
-The thermal lance vibrates but makes no audible sound.
+The module seems to have suffered quite a bit of damage.  The thermal lance
+vibrates but makes no audible sound.
 
 > turn off lance
 You turn off the lance.
@@ -848,8 +846,8 @@ Tet Assembly Plant
 The vast assembly plant of the Tet creation centre towers about you. Spread
 out before you are machines of every shape, size, complexity and function.
 All are being serviced by an army of Alpha, Beta and Phi Series 3 and 4
-individuals. To the west are the stores and the control room is south.
-In the distance a Phi is hovering.
+individuals. To the west are the stores and the control room is south.  In
+the distance a Phi is hovering.
 
 > south
 You move south.
@@ -1306,9 +1304,8 @@ Conclusion:
 Authorized termination of Omicron-Xi, Zeta-Theta and Mu-Kappa.  To be
 reprocessed. Case concluded.
 
-Assignment Status: You have been successful.
-During the game you did not need to ask for hints and discovered 28 facts
-about the crime.
+Assignment Status: You have been successful.  During the game you did not
+need to ask for hints and discovered 28 facts about the crime.
 
 THE END
 

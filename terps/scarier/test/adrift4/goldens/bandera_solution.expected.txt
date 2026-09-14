@@ -53,9 +53,8 @@ divisa de cabo.
 
 > hablar con teniente
 Buenos días Genaro. Toma la divisa que te has ganado durante estos cinco
-años.
- El teniente Montalvo te da una divisa de cabo y se aleja,  orgulloso de su
-cachorro.
+años.    El teniente Montalvo te da una divisa de cabo y se aleja,  orgulloso
+de su cachorro.
 
 > e
 Vas al este.
@@ -113,8 +112,8 @@ de comida para vosotros.
 
 > besar a marife
 MMMMuuuuaaaaa!!!, no te olvides que mañana hemos quedado con mi madre, para
-ver que cortinas ponemos en el piso.
-Marifé con  gesto cariñoso y un guiño de ojo te da una bolsa.
+ver que cortinas ponemos en el piso.   Marifé con  gesto cariñoso y un guiño
+de ojo te da una bolsa.
 
 > e
 Vas al este.
@@ -132,8 +131,8 @@ embaldosadas hasta la mitad, mesas alargadas, unas literas al fondo de la
 habitación y una televisión en la pared.
 
 > dar bolsa a cabo
-¡Bien! chaval, ¡bien!. Coge esta llave, y hazte tu responsable de ella.
-Kike Morales te da una llave.
+¡Bien! chaval, ¡bien!. Coge esta llave, y hazte tu responsable de ella.  Kike
+Morales te da una llave.
 
 > n
 Vas al norte.

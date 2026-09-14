@@ -1463,14 +1463,14 @@ of the room there is a small drain.  On one of the walls there is a small
 official-looking sign.  There are thirteen sweets sitting on the plinth.  A
 large octopus is sprawled over most of the room.
 
-I can only move west.
-He extends a slippery tentacle in my direction and I hesitantly shake it.
-"Glad you could make it", says the octopus, "You're just in time..  Fancy a
-game of Wubble-A-Gloop?  I'm sure you do.  You do know the rules I trust,
-they're over there if you don't".  The octopus points at the sign, and places
-fourteen small sweets down on the plinth in front of him, "Okay. I'll go
-first"  The octopus looks long and hard at the fourteen sweets.  He begins to
-chortle.  The octopus takes one sweet, and sits back smugly.
+I can only move west.  He extends a slippery tentacle in my direction and I
+hesitantly shake it.  "Glad you could make it", says the octopus, "You're
+just in time..  Fancy a game of Wubble-A-Gloop?  I'm sure you do.  You do
+know the rules I trust, they're over there if you don't".  The octopus points
+at the sign, and places fourteen small sweets down on the plinth in front of
+him, "Okay. I'll go first"  The octopus looks long and hard at the fourteen
+sweets.  He begins to chortle.  The octopus takes one sweet, and sits back
+smugly.
 
 > Turn off torch
 Okay.  I turn the torch off.
@@ -1498,9 +1498,9 @@ cap, and I am carrying a torch, an amphora, a watch and a sweet.
 > Drop amphora
 Okay.  I have dropped the amphora.  The amphora shatters into thousands of
 tiny pieces.  A thick black fog blows like a tornado out of the amphora's
-remains and fills the air, making it very difficult to see.
-The octopus's large eyes are streaming in the stinging fog.  It tries to wave
-the fog away with its tentacles.
+remains and fills the air, making it very difficult to see.  The octopus's
+large eyes are streaming in the stinging fog.  It tries to wave the fog away
+with its tentacles.
 
 > Put sweet on plinth
 Okay.  Okay.  I put the sweet on the plinth.
@@ -1514,29 +1514,29 @@ the fog away with its tentacles.
 Time passes...
 
 > Get 1 sweet
-Okay.  I have taken one of the sweets and eat it.
-The octopus looks long and hard at the thirteen remaining sweets.  The
-octopus takes one sweet, and sits back.
+Okay.  I have taken one of the sweets and eat it.  The octopus looks long and
+hard at the thirteen remaining sweets.  The octopus takes one sweet, and sits
+back.
 The octopus's large eyes are streaming in the stinging fog.  It tries to wave
 the fog away with its tentacles.
 
 > Get 3 sweets
-Okay.  I have taken three of the sweets and eat them.
-The octopus looks long and hard at the nine remaining sweets.  The octopus
-takes one sweet, and sits back.
+Okay.  I have taken three of the sweets and eat them.  The octopus looks long
+and hard at the nine remaining sweets.  The octopus takes one sweet, and sits
+back.
 The fog begins to disappear
 
 > Get 3 sweets
-Okay.  I have taken three of the sweets and eat them.
-The octopus looks long and hard at the five remaining sweets.  The octopus
-takes one sweet, and sits back.
+Okay.  I have taken three of the sweets and eat them.  The octopus looks long
+and hard at the five remaining sweets.  The octopus takes one sweet, and sits
+back.
 
 > Get 3 sweets
-Okay.  I have taken three of the sweets and eat them.
-The octopus looks long and hard at the last sweet.  The octopus takes one
-sweet, and sits up with a start.  He realises he has just taken the last
-sweet and begins to howl.  The octopus sniffs and passes me the jigsaw,
-"Here, you won, take this.  Now bog off out of here - you've ruined my day"
+Okay.  I have taken three of the sweets and eat them.  The octopus looks long
+and hard at the last sweet.  The octopus takes one sweet, and sits up with a
+start.  He realises he has just taken the last sweet and begins to howl.  The
+octopus sniffs and passes me the jigsaw, "Here, you won, take this.  Now bog
+off out of here - you've ruined my day"
 
 > Read sign
 Wubble-A-Gloop is a game for two players.  Fourteen sweets are placed on a
@@ -2461,8 +2461,8 @@ Okay.  I press button number five.  It lights up.
 Okay.  I press button number six.  It lights up.
 
 > push button 7
-Okay.  I press button number seven.
-Beep.  The liquid crystal display flickers.
+Okay.  I press button number seven.  Beep.  The liquid crystal display
+flickers.
 
 > Read display
 The liquid crystal display reads HEL4
@@ -2480,8 +2480,8 @@ Okay.  I press button number four.  It lights up.
 Okay.  I press button number five.  Its light goes out.
 
 > push button 7
-Okay.  I press button number seven.
-Beep.  The liquid crystal display flickers.
+Okay.  I press button number seven.  Beep.  The liquid crystal display
+flickers.
 
 > Read display
 The liquid crystal display reads HEL46
@@ -2496,16 +2496,15 @@ Okay.  I press button number three.  Its light goes out.
 Okay.  I press button number five.  It lights up.
 
 > push button 7
-Okay.  I press button number seven.
-Beep.  The liquid crystal display flickers.
+Okay.  I press button number seven.  Beep.  The liquid crystal display
+flickers.
 
 > Read display
 The liquid crystal display reads HEL463
 
 > push button 7
-Okay.  I press button number seven.
-Beep.  The liquid crystal display flickers.
-The metal door to my west slides open.
+Okay.  I press button number seven.  Beep.  The liquid crystal display
+flickers.  The metal door to my west slides open.
 
 > Read display
 The liquid crystal display reads HEL4633
@@ -2846,8 +2845,8 @@ I am onboard the Viking longboat.  This seems to be some sort of galley area
 - boars hang up on hooks from the low beamed ceiling.  Blood slowly drips
 from the boars carcasses onto a large oval table.  There is a Viking here.
 
-Exits are north and south.
-He hands me a mug, "Here, this'll soon warm you up.."
+Exits are north and south.  He hands me a mug, "Here, this'll soon warm you
+up.."
 
 > X hair
 Good question, it is quite tangled and knotted.  Ever thought of sending it
@@ -3315,8 +3314,8 @@ Clouds of steam billow from the kettle's spout and slowly drift upwards.
 
 > Open skylight
 I open the skylight.
-Clouds of steam billow from the kettle's spout and slowly drift upwards.
-The kettle stops boiling.
+Clouds of steam billow from the kettle's spout and slowly drift upwards.  The
+kettle stops boiling.
 
 > U
 
@@ -3399,8 +3398,8 @@ Clouds of steam billow from the kettle's spout and slowly drift upwards.
 
 > Wait
 Time passes...
-Clouds of steam billow from the kettle's spout and slowly drift upwards.
-The kettle stops boiling.
+Clouds of steam billow from the kettle's spout and slowly drift upwards.  The
+kettle stops boiling.
 
 > X kettle
 In ancient times if your neighbour hadn't returned your collection of stuffed
@@ -5990,12 +5989,11 @@ I can hear a fire engine's siren.
 Time passes...
 There is a screech of brakes, and the fire engine's siren turns off.
 Dennis the fireman runs up to me, carrying a pelican.  "Are you alright
-son?".  I nod my head excitedly.
-Dennis sees the fire and rubs his chin thoughtfully.  "Hmm, that's really for
-the Gas Board to sort out.  It doesn't look too dangerous.  I'd better report
-it all the same".  Dennis takes a form out of his back pocket and begins to
-write.  "Here", he says, "Just sign your name please".  He hands me the form
-and a biro.
+son?".  I nod my head excitedly.  Dennis sees the fire and rubs his chin
+thoughtfully.  "Hmm, that's really for the Gas Board to sort out.  It doesn't
+look too dangerous.  I'd better report it all the same".  Dennis takes a form
+out of his back pocket and begins to write.  "Here", he says, "Just sign your
+name please".  He hands me the form and a biro.
 
 > X Dennis
 Dennis is a rather overweight fireman.  Dennis is wearing a uniform and a
@@ -6388,8 +6386,7 @@ Okay.  Okay.  Okay.  I put the sapphire inside the S chute.
 > Pull lever
 I pull the lever.  There is a whooshing sound from the chute and the sapphire
 disappears from view.  There is a faint tinkling sound from further down in
-the chute.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+the chute.  "No time to lose," cries Dennis, "We've got a fire to put out."
 
 > W
 
@@ -6597,10 +6594,10 @@ large metal door prevents me from going west.  A burly bouncer stands by the
 doorway.  The fire alarm is ringing loudly.
 
 Exits are north, east, south and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
-Dennis grabs hold of me, "I've been here ages, and you still haven't shown me
-as much as a spark.  I've a good mind to report you to the police."  Still
-moaning, Dennis walks off.
+"No time to lose," cries Dennis, "We've got a fire to put out."  Dennis grabs
+hold of me, "I've been here ages, and you still haven't shown me as much as a
+spark.  I've a good mind to report you to the police."  Still moaning, Dennis
+walks off.
 
 > N
 
@@ -7272,8 +7269,8 @@ Okay.  I have thrown the paper aeroplane.  The plane flies high in the air
 and begins an impressive display of aerobatics.  Horace sees the aeroplane
 and his mouth opens wide in awe.  Horace quickly remembers his role in life.
 His pupils dilate, his teeth gnash, and his eyebrows furrow as he snarls the
-word he hates more than any other: "litter".
-He leaps up and puts the tin down on the workbench.
+word he hates more than any other: "litter".  He leaps up and puts the tin
+down on the workbench.
 Horace bounds after the paper aeroplane, trying to catch it.
 
 > Get tin

@@ -50,8 +50,7 @@ You open your penknife.
 > put knife in slot
 Your penknife is too big to fit inside the slot.  A quick push and the button
 in the slot operates a quick release allowing the cargo door to lower under
-it's own weight.
-The door hit's the ground with a crash.
+it's own weight.  The door hit's the ground with a crash.
 
 > out
 You move out.
@@ -60,7 +59,6 @@ By the aircraft
 The body of your aircraft, partially buried, is beside you. All around are
 trees and the sounds of a myriad of birds and animals, many of which you
 would prefer not to meet.
-
 . . . .  Press a key to continue
 
 ___________________________

@@ -196,7 +196,6 @@ central podium; atop this, rather than a place for the priest to stand during
 sermons, is a mask some seven feet tall. Smaller masks, all built on a
 similar design, litter the floor. A door leads out.  Father Marhon stands by
 the podium, regarding me with wary eyes.
-
    "A… visitor?" murmurs Father Marhon, his eyes looking at mine. "Ah,
 greetings, child. I get so few…" he considers the word "… visitors these
 days. Well, well. Come to worship at the Mask of Vandamma, have you?"
@@ -450,7 +449,7 @@ well. We were friends, I believe, many moons ago. "Nothing more is allowed."
 say no more. But I discover some useful information from him all the same.
 ...press a key...
 
-My name is Tyrone Asmerian and I am the First of Tempest (First is my title
+  My name is Tyrone Asmerian and I am the First of Tempest (First is my title
 as the elite of the warrior forces of the God of War, Tempest). I have
 strived for many years to hold back the tide of an invasion from the goblin
 hordes of the east, acting as field commander of the armies of Tempest and
@@ -476,7 +475,6 @@ you were slain. We despaired."
    "The ship did sink," I say. The details are still hazy in my mind but I am
 sure that is indeed what happened. "But I am back now. Fill me in on what has
 happened in my absence, Gadrin. I have a war to fight."
-
 ...press a key...
 
 The war has turned badly against the forces of King Hedron IV since the
@@ -490,14 +488,12 @@ plans are even now underway to evacuate the royal family to the mountains, an
 occurrence unheard of in recorded history.
    "But now that you are back," says Gadrin, a light in his eyes. "We shall
 see how long the goblins withstand us now."
-
 ...press a key...
 
 The next morning, Gadrin leads me to the armoury where I retrieve my weapons:
 the Blade of Ashes (my enchanted long sword); a suit of plate armour
 magically enhanced to be as light as simple robes.
    "Now you are ready," says Gadrin.
-
 ...press a key...
 
 And then I am out in the streets again, the memory of how I arrived here a
@@ -669,7 +665,7 @@ Much more…
    And then, shockingly, the thing turns its head and looks at me!
 ...press a key...
 
-A harsh voice roars at me: "Asmerian - you LIVE!"
+  A harsh voice roars at me: "Asmerian - you LIVE!"
    I stagger back, the force of its voice striking me a blow akin to a
 hammer.
    "I had thought you ashes, Asmerian," the voice continues, emanating from
@@ -745,7 +741,6 @@ the sort."
 he cries. "Pass through, warrior. I have better things to do than die here at
 your hand."
    I step through the gate.
-
 ...press a key...
 
 I emerge on the far side of the gate - and find myself in the heart of the
@@ -1475,8 +1470,8 @@ TAKE ACTION AGAINST ME. SATISFIED?"
    "THEN FREE ME. I GROW TIRED OF THIS PRISON."
 ...press a key...
 
-I step forward, raise the Blade of Ashes high and then bring it slashing down
-on the nearest chain. The Blade scythes through the binding.
+  I step forward, raise the Blade of Ashes high and then bring it slashing
+down on the nearest chain. The Blade scythes through the binding.
    Whatever spell keeps the Reaper hidden fails at that moment and I
 experience a lurching horror in the pit of my stomach at the sight of it: it
 stands fifteen feet tall and has the appearance of a bloated corpse; its
@@ -1644,7 +1639,6 @@ proves equal to the task.
 gushes ichor. The Fallen roars in rage and pain, staggers towards me, but
 drops to its knees. It lands heavily. Then pitches forward. It is dead before
 it even strikes the floor.
-
 ...press a key...
 
 I stand in the throne room of the ruler of Goloron. My body aches fiercely

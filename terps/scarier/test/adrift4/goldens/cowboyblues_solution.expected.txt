@@ -82,7 +82,7 @@ buy yourself something with a bit more style.
 years of your mispent youth. You can go: north (to your house), south (to the
 arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
-As you leave your house, there is a sudden flash of gunfire and a thud as
+  As you leave your house, there is a sudden flash of gunfire and a thud as
 something strikes you painfully in the chest.
    "Shoot, da sucka wearin' a darn bullet-proof vest!" screeches an indignant
 voice.
@@ -635,9 +635,8 @@ occasional dead body sprawled in the corner for no apparent reason...
 somewhere but you're never sure exactly where. You can go: north (to a broom
 closet), northeast (to the back room) and south (to Stonetomb Square)
 
-  Higgold is here.
-"Ah," says Higgold, "our errant employee arrives at last. Where have you been
-this time, Bidge?"
+  Higgold is here.  "Ah," says Higgold, "our errant employee arrives at last.
+Where have you been this time, Bidge?"
    "That's Bodge, sir," you say.
    Higgold shrugs. "Whatever. Budge, Bidge, Bedge. It's all the same to me.
 Step into my office, Badge. We need to have a little talk."
@@ -665,10 +664,9 @@ several groaning tables. The east wall is taken up by a large glass window
 which allows anyone here an excellent look at the outside world (and vice
 versa). You can go: southwest (to the main room of the bank)
 
-  Higgold is here.
-"You took your time in getting here," says Higgold. He fusses with his tie
-for a moment before adding, "we have a delicate situation at the bank,
-Blodge, and I feel you are the only one who can sort it out."
+  Higgold is here.  "You took your time in getting here," says Higgold. He
+fusses with his tie for a moment before adding, "we have a delicate situation
+at the bank, Blodge, and I feel you are the only one who can sort it out."
    "Ah, you've heard of my legendary crime-solving abilities and want to take
 advantage of them?" you say.
    Higgold considers that then gives a short, sharp laugh. "Hardly!" he says,
@@ -727,10 +725,9 @@ Stonetomb Bank), northeast (along Murder Avenue), east (to Slaughter Row),
 southeast (to the sheriff's office), south (to Blood Alley) and west (to
 Babbage Street)
 
-  Toby is here, smiling happily as people rush by him on all sides.
-As you exit the bank, a figure dressed in black and white clothing and a
-mask, carrying a gun in one hand and a bag marked "swag" in the other, pushes
-past.
+  Toby is here, smiling happily as people rush by him on all sides.  As you
+exit the bank, a figure dressed in black and white clothing and a mask,
+carrying a gun in one hand and a bag marked "swag" in the other, pushes past.
    "Sorry, pal," says the fellow, who smells slightly worse than a pet skunk
 you used to own.
    "Don't mention it," you reply.
@@ -768,8 +765,8 @@ even a broom somewhere although whether it's hidden behind your cabinet or
 stuck under your desk is a mystery. You can go: south (to the main room of
 the bank)
 
-You realise you don't have long before Scabies comes after you. You just hope
-you can come up with a weapon before then.
+  You realise you don't have long before Scabies comes after you. You just
+hope you can come up with a weapon before then.
 
 > throw grenade
 Knowing you have only moments to spare before the disgusting entity that is
@@ -1042,10 +1039,10 @@ admiring the female customers. Whitey is by the bar, currently slamming
 someone's head into it. You can go: southeast (to the corner of Fifth and
 Mason)
 
-  Speckle, Normal, Dyanne and Spam are here.
-There is a sudden crash from one side of the saloon and an unconscious man is
-hurled across a table. At the same time, two people minding their own
-business at the bar have a block of wood slammed down on their heads.
+  Speckle, Normal, Dyanne and Spam are here.  There is a sudden crash from
+one side of the saloon and an unconscious man is hurled across a table. At
+the same time, two people minding their own business at the bar have a block
+of wood slammed down on their heads.
    "Whitey!" yells Spam. "I've warned you before about coming in here and
 killing my customers! It's not good for business! Get out! You're barred!"
    Whitey, a hulking fellow who looks about as friendly as a rabid rottweiler
@@ -1552,11 +1549,11 @@ bartender - a former sports star you gather - is combing his hair and
 admiring the female customers.  You can go: southeast (to the corner of Fifth
 and Mason)
 
-  Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.
-"Won't nobody help me?" Eccles is saying as he wanders back and forth across
-the saloon, clutching at people and begging for their assistance. "Would you
-let the poor man suffer just because he imprisoned some of your relatives for
-no reason, sold others into slavery and used to have a
+  Speckle, Normal, Dyanne, Spam, Cestus and Eccles are here.  "Won't nobody
+help me?" Eccles is saying as he wanders back and forth across the saloon,
+clutching at people and begging for their assistance. "Would you let the poor
+man suffer just because he imprisoned some of your relatives for no reason,
+sold others into slavery and used to have a
 'kill-a-Stonetomb-villager-for-a-laugh' contest? Have none of you got any
 decency? Ah-"
    It seems Eccles has seen you because he comes rushing over.
@@ -1755,7 +1752,7 @@ from one of the cells is a man in the uniform of the Stonetomb Mail Delivery
 Service who you recognise as Quiff. You can go: north (to the sheriff's
 office)
 
-As you step into the cells area of the building, you overhear a debate:
+  As you step into the cells area of the building, you overhear a debate:
 
    "... commonly known fact that the Brazilian hopping snake isn't in fact a
 snake but a peculiar monkey of the genis Homo Erratica and furthermore..."
@@ -1914,10 +1911,9 @@ wardrobe, desk, dining room table, kitchen sink, bath and various other
 sundry items.  A window looks out onto the street outside. You can go: south
 (through the front door)
 
-  Lucy is here, looking a little anxious.
-As you step into your house, Lucy (who is currently going through your
-belongings and looking mightily disappointed at what she finds) looks up and
-gives a yelp.
+  Lucy is here, looking a little anxious.  As you step into your house, Lucy
+(who is currently going through your belongings and looking mightily
+disappointed at what she finds) looks up and gives a yelp.
    "Aaaarrgghhhh!" she wails. "I am caught! Per chance I must flee!"
    And flee she does, right out of the door before you can stop her.
 
@@ -2221,7 +2217,7 @@ floor beneath them, you catch sight of a flight of creaky wooden steps
 leading up to the next floor of the warehouse. You can go: up (to the next
 floor) and northeast (to Slaughter Row)
 
-"Weel, shoot, if it ain't the peeg!" Gragg snarls and hawks all over the
+  "Weel, shoot, if it ain't the peeg!" Gragg snarls and hawks all over the
 floor. "You ain't gonna take me alive, peeg!"
    "Dead's fine by me," you respond.
    Gragg mulls this over, then shakes his head in annoyance. "'Ell wiv eet,
@@ -2309,10 +2305,10 @@ river (or river bed actually) to the east is home to a strange and maniacal
 man. You can go: west (to Stonetomb Square), southwest (into the warehouse)
 and east (to the river bed)
 
-  Egbert, Drongo and Gash are here.
-"That's a mighty fine deflection helmet you've got there, friend," says
-Egbert, making the final word sound like a bitter insult. "I've been looking
-to acquire one just like it for some time now."
+  Egbert, Drongo and Gash are here.  "That's a mighty fine deflection helmet
+you've got there, friend," says Egbert, making the final word sound like a
+bitter insult. "I've been looking to acquire one just like it for some time
+now."
    "It's not for sale," you say.
    Egbert shrugs. "I never said anything about buying it. I had more the idea
 of having Drongo and Gash pound you into the ground then take the thing from
@@ -2411,7 +2407,7 @@ Avenue extends a little way ahead to its most notorious building. You can go:
 east (to Ok's Coral), north (to Scabbit Lane) and southwest (to Stonetomb
 Square)
 
-Suddenly there is a gunshot to the east and onto the scene comes one of Mad
+  Suddenly there is a gunshot to the east and onto the scene comes one of Mad
 Jake's cronies - Herman. He is clutching the arm of a blonde-haired girl
 about nine years old who is trying to claw his eyes out.
    "Gaah, yer little brat!" he snarls. "Calm down before I-"
@@ -2464,9 +2460,9 @@ The only building that seems to still be in use is an old saloon to the north
 from which the sound of several fights emanates. You can go: north (to the
 saloon), south (to Murder Avenue) and down (the steps to the cellar)
 
-  Alissa is here.  Herman is here (looking angry).
-"Ouch!" yells Herman as Alissa gets a telling blow to his groin. "Geez, kid,
-you're really asking for a hole in the head, ain't you?"
+  Alissa is here.  Herman is here (looking angry).  "Ouch!" yells Herman as
+Alissa gets a telling blow to his groin. "Geez, kid, you're really asking for
+a hole in the head, ain't you?"
    "You wouldn't dare!" Alissa yells, going for his eyes. "My daddy nails
 people like you to walls, buddy boy! You hurt me and you'll never see your
 bo-"
@@ -2503,13 +2499,13 @@ Herman. Aside from the dent in his head where the barrel hit him there also
 appear to be several bootprints in his backside. You can go: up (to Scabbit
 Lane)
 
-  Alissa is here.
-"Well, you took your bleeding time getting down here," Alissa snaps as you
-enter the cellar. "Geez, leaving me alone with the battered and bloody corpse
-of a man you brutally murdered in cold blood without a thought for my
-wellbeing and sanctity of mind after the trauma of such an event and the
-ramifications it could have caused my fragile mind had I not been taught that
-what happens to those less fortunate than myself doesn't really matter."
+  Alissa is here.  "Well, you took your bleeding time getting down here,"
+Alissa snaps as you enter the cellar. "Geez, leaving me alone with the
+battered and bloody corpse of a man you brutally murdered in cold blood
+without a thought for my wellbeing and sanctity of mind after the trauma of
+such an event and the ramifications it could have caused my fragile mind had
+I not been taught that what happens to those less fortunate than myself
+doesn't really matter."
    You pause to digest that. "Was that a thank you for my rescuing you?" you
 venture at last.
    Alissa sighs, crosses her eyes and sighs again. "Oh, what the hell. Just
@@ -2544,8 +2540,8 @@ The only building that seems to still be in use is an old saloon to the north
 from which the sound of several fights emanates. You can go: north (to the
 saloon), south (to Murder Avenue) and down (the steps to the cellar)
 
-"Geez, what a lowdown, crappy, beatup piece of town," mutters Alissa. "Daddy
-ought to buy this place and burn it to the ground."
+  "Geez, what a lowdown, crappy, beatup piece of town," mutters Alissa.
+"Daddy ought to buy this place and burn it to the ground."
    "What about all the people who live here?" you ask.
    Alissa nods. "You're right. We could either chop them up for animal food
 or burn them with their houses, although I've heard that poor people don't
@@ -2839,7 +2835,7 @@ river (or river bed actually) to the east is home to a strange and maniacal
 man. You can go: west (to Stonetomb Square), southwest (into the warehouse)
 and east (to the river bed)
 
-An insane cackle is heard from somewhere to the east.
+  An insane cackle is heard from somewhere to the east.
 
 > w
 You move west.
@@ -2963,8 +2959,8 @@ with her brush...
 your youth. You have never yet managed to get a look inside. You can go:
 north (to Babbage Street)
 
-  Lucy is here, looking a little anxious.
-You duck into the arcade - and Lucy gives a yelp at seeing you!
+  Lucy is here, looking a little anxious.  You duck into the arcade - and
+Lucy gives a yelp at seeing you!
    "Forsooth!" she cries. "The foul miscreant has followed me here! I must
 away before I am apprehended!"
    She rushes over to the door to the manager's office and tugs vainly at it.
@@ -3016,9 +3012,9 @@ buy yourself something with a bit more style.
 years of your mispent youth. You can go: north (to your house), south (to the
 arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
-  Lucy is here, looking a little anxious.
-Leaving the arcade, you are just quick enough to see Lucy running into your
-house (with a cry of "verily I am damned!") but not quick enough to stop her.
+  Lucy is here, looking a little anxious.  Leaving the arcade, you are just
+quick enough to see Lucy running into your house (with a cry of "verily I am
+damned!") but not quick enough to stop her.
 
 > s
 You move south.
@@ -3035,7 +3031,7 @@ with her brush...
 your youth. You have never yet managed to get a look inside. You can go:
 north (to Babbage Street)
 
-You duck into the arcade - and Lucy gives a yelp at seeing you!
+  You duck into the arcade - and Lucy gives a yelp at seeing you!
    "Forsooth!" she cries. "The foul miscreant has followed me here! I must
 away before I am apprehended!"
    She rushes over and throws herself into the manager's office.
@@ -3056,7 +3052,6 @@ uninviting from here as it does when you're actually inside it. You can go:
 west (to the arcade)
 
   Lucy is here, looking a little anxious.
-
    "Aw shucks!" says Lucy. "They only went and moved the hidden exit!"
    "What hidden exit?" you ask.
    Lucy sighs. "I had a hidden exit here," she explains, "in case someone
@@ -3088,9 +3083,9 @@ now and the other where they lock the criminals up). A noticeboard off to one
 side displays a list of all the recent lawbreakers currently wanted by the
 sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
-  Sheriff Calhoun is here.
-"Well, well," says the sheriff. "If it isn't that thieving little vixen Lucy.
-You did well here, weirdo. She's a real hellcat that one and no mistake."
+  Sheriff Calhoun is here.  "Well, well," says the sheriff. "If it isn't that
+thieving little vixen Lucy. You did well here, weirdo. She's a real hellcat
+that one and no mistake."
    "Mom says to tell you hi," says Lucy.
    "Er... quite," says the sheriff, looking a tad uncomfortable.
    "She always wants to know why you didn't come visiting on her birthday
@@ -3190,11 +3185,11 @@ moulded to look like someone's home (or all things). Footprints in the mud
 around this pile indicate that someone is living here, or at least
 frequenting it from time to time. You can go: west (to Slaughter Row)
 
-  Shem is here shambling back and forth and muttering to himself.
-"Ah, the one who was foretold has returned!" proclaims Shem, standing knee
-deep in the mud of the dry river bed and holding his hands up as if welcoming
-back a long lost relative. "Glory be! The one who will free us from the evil
-dragon who threatens our castle-"
+  Shem is here shambling back and forth and muttering to himself.  "Ah, the
+one who was foretold has returned!" proclaims Shem, standing knee deep in the
+mud of the dry river bed and holding his hands up as if welcoming back a long
+lost relative. "Glory be! The one who will free us from the evil dragon who
+threatens our castle-"
    "What castle?" you ask.
    Shem pauses, glances around and curses. "Bugger! No castle! Okay, okay, I
 got this... You're here to save us from an evil vampire who wants to
@@ -3447,7 +3442,7 @@ everything aside from a table and chair.
    Oh, and Mad Jake himself of course. You can go: south (or you can try
 anyway)
 
-"Well, well, look who's finally come crawling along to my lil ol' hideout,"
+  "Well, well, look who's finally come crawling along to my lil ol' hideout,"
 says Jake. "Fingle Bodge himself. You took your time."
    "I had your cronies to deal with first," you say, trying to sound calmer
 than you feel.
@@ -3487,10 +3482,9 @@ all. A door set in the east wall leads to the outside world and you find
 yourself yearning to step through and escape from this bewildering place...
 You can go: east (to... somewhere)
 
-  Mayor Molby is here.
-"Well done, well done," says the Mayor as he catches sight of you. He comes
-over, sloshing brandy from an overfilled glass in his hand all over the
-carpet. "Why, you look a little dazed."
+  Mayor Molby is here.  "Well done, well done," says the Mayor as he catches
+sight of you. He comes over, sloshing brandy from an overfilled glass in his
+hand all over the carpet. "Why, you look a little dazed."
    "I don't remember arriving here," you say, looking around you in some
 wonder.
    "Hmph. Wonders of modern technology and all that," says the Mayor. "They
