@@ -520,13 +520,27 @@ lib_get_room_name (scr_gameref_t game, scr_int room)
   start = lib_find_starting_alt (game, room);
 
   /*
+   * run400's room lister resets the name to the room's Short (472058) and
+   * then, inside its one forwards loop over EVERY alt, lets each matching
+   * alt with a non-empty Changed overwrite it (472244-472254) -- whatever
+   * that alt's display method, and whether or not a later method-0/1 alt
+   * restarts the description.  togetyou (4.00) `infect cut`: The Ear's alt 0
+   * (task 22, method 2, Changed "The Infected Ear") sits below alt 1
+   * (method 1, M2 shown), so the Runner heads the room "The Infected Ear"
+   * (Adrift_476_togetyou.txt T16) where the start-point walk below never
+   * reached alt 0 and kept "The Ear".  Pre-4.0 keeps that walk, unmeasured.
+   */
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    start = -1;
+
+  /*
    * Run forwards through all alts lower than our starting point, or all alts
    * if no starting point found.
    */
   for (alt = (start != -1) ? start : 0; alt < alt_count; alt++)
     {
-      /* Ignore all non-method-2 alts except for the starter. */
-      if (alt != start)
+      /* Ignore all non-method-2 alts except for the starter (not 4.0). */
+      if (alt != start && prop_get_taf_version (bundle) < TAF_VERSION_400)
         {
           scr_int method;
 
@@ -12449,10 +12463,14 @@ lib_lock_check_openness (scr_gameref_t game, scr_int object,
     {
       pf_new_sentence (filter);
       lib_print_object_np (game, object);
+      /* run400 has only " is already locked!" (47610D) and " is not
+       * locked!" (476448); no " are " form. */
       pf_buffer_string (filter,
-                        lib_select_plurality (game, object,
-                                              verb->wrong_state[0],
-                                              verb->wrong_state[1]));
+                        lib_is_version_400 (game)
+                        ? verb->wrong_state[0]
+                        : lib_select_plurality (game, object,
+                                                verb->wrong_state[0],
+                                                verb->wrong_state[1]));
       return LIB_LOCK_REFUSED;
     }
 
@@ -12489,6 +12507,65 @@ lib_lock_therest_400 (scr_gameref_t game, const lib_lock_verb_t *verb,
   return TRUE;
 }
 
+/*
+ * lib_lock_absent_400()
+ *
+ * openclose's lock and unlock arms resolve their object with 463640 in mode
+ * 0 (475D91, 476141) -- present and seen, then any seen object -- on the
+ * text before "with" (475D5D), and nothing between that and the Key and
+ * openness tests looks at where the object is.  So a seen object in another
+ * room, or shut inside a closed container, still gets its state refusal:
+ * sswhore (4.00) `unlock drawer` and `unlock drawer with skeleton key` with
+ * the desk drawer seen but inside the closed desk answer "The desk drawer is
+ * not locked!" (Adrift_1105_sswhore.txt, T84/T97), where our %object% scope
+ * saw nothing and answered "You can't unlock that." and a key prompt.
+ *
+ * Only the refusal is taken here.  An absent object in the state the verb
+ * acts on (so the key would be tried) is unmeasured and left to the usual
+ * handlers, as is anything the present pass matches or ties on.
+ */
+static scr_bool
+lib_lock_absent_400 (scr_gameref_t game, const lib_lock_verb_t *verb)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_vartype_t vt_key[3], vt_rvalue;
+  std::string head;
+  size_t split;
+  scr_int object, openness;
+
+  if (!lib_is_version_400 (game) || !input)
+    return FALSE;
+  head = input;
+  split = head.find (" with ");
+  if (split != std::string::npos)
+    head = head.substr (0, split);
+
+  if (lib_verb_object_resolve_400_string (game, head.c_str (), NULL, TRUE)
+      != -2)
+    return FALSE;
+  object = lib_verb_object_resolve_400_string (game, head.c_str (), NULL,
+                                               FALSE);
+  if (object < 0)
+    return FALSE;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = object;
+  vt_key[2].string = "Openable";
+  if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
+      || vt_rvalue.integer <= 0)
+    return FALSE;
+  vt_key[2].string = "Key";
+  if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
+      || vt_rvalue.integer < 0)
+    return FALSE;
+
+  openness = gs_object_openness (game, object);
+  if (openness == verb->required_openness)
+    return FALSE;
+  return lib_lock_check_openness (game, object, verb) == LIB_LOCK_REFUSED;
+}
+
 static scr_bool
 lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
                   scr_bool with_key)
@@ -12497,6 +12574,9 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object, key = -1;
   scr_bool is_ambiguous;
+
+  if (lib_lock_absent_400 (game, verb))
+    return TRUE;
 
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, verb->verb, &is_ambiguous);
@@ -20124,8 +20204,11 @@ scr_bool
 lib_cmd_lock_other (scr_gameref_t game)
 {
   scr_bool handled;
-  const scr_bool status = lib_cant_do_with_400 (game, "lock", "", &handled);
+  scr_bool status;
 
+  if (lib_lock_absent_400 (game, &LIB_LOCK_VERB))
+    return TRUE;
+  status = lib_cant_do_with_400 (game, "lock", "", &handled);
   if (handled)
     return status;
   if (lib_is_version_400 (game) && lib_verb_object_resolve_400 (game) >= 0)
@@ -20137,8 +20220,11 @@ scr_bool
 lib_cmd_unlock_other (scr_gameref_t game)
 {
   scr_bool handled;
-  const scr_bool status = lib_cant_do_with_400 (game, "unlock", "", &handled);
+  scr_bool status;
 
+  if (lib_lock_absent_400 (game, &LIB_UNLOCK_VERB))
+    return TRUE;
+  status = lib_cant_do_with_400 (game, "unlock", "", &handled);
   if (handled)
     return status;
   if (lib_is_version_400 (game) && lib_verb_object_resolve_400 (game) >= 0)

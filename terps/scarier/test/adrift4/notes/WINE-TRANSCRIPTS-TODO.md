@@ -9884,3 +9884,58 @@ has no state line beside its open/closed suffix, so it is unmeasured.
 Goldens 428/428 (magicshow re-blessed; the golden is git-ignored).  The
 `sweep_wine_turns.py --only magicshow` row is now aligned on 151/151 turns;
 its one differing turn is the ending's press-a-key tail.
+
+## PORTED 2026-09-14: 4.0 lock/unlock refuses a seen, absent object's state
+
+sswhore ("ss whore.taf", 4.00) T84 `unlock drawer` and T97 `unlock drawer
+with skeleton key`.  The desk drawer has been seen but is inside the closed
+desk (`open drawer` just before says "You can't see the desk drawer.").
+run400 answers both "The desk drawer is not locked!".  Scarier answered "You
+can't unlock that." and "Please be more clear, what do you want to unlock?
+The brass key or the old skeleton key?".
+
+The lock and unlock arms of run400 openclose (Proc_19_3_476468) resolve the
+object with 463640 in mode 0 (present and seen, then any seen object).  They
+take the text before "with" (475D5D) and then test `Key > 0` (475DAB, 476169)
+and the openness byte.  Nothing on the way to " is not locked!" (476448) or
+" is already locked!" (47610D) tests presence.  Scarier's `%object%` rows
+only see objects in scope.
+
+New `lib_lock_absent_400()` runs at the top of `lib_lock_backend()` and of
+`lib_cmd_lock_other()` / `lib_cmd_unlock_other()`.  It applies only when:
+- the head names nothing present, and
+- the seen pass finds a unique object with Openable > 0 and Key >= 0, and
+- that object is not in the state the verb acts on.
+
+In that case it prints `lib_lock_check_openness()`'s refusal.  An absent
+object that is actually locked (for unlock) or closed (for lock), where the
+Runner would go on to the key checks, is unmeasured and still takes the
+usual handlers.  At 4.0 the state refusal is also always " is " (no " are "
+form exists in run400).
+
+Goldens 428/428 (sswhore re-blessed).  The sweep row is 135/136 aligned with
+0 differing (was 2); the LOST at 135 was already there.
+
+## PORTED 2026-09-14: 4.0 room names take every matching alt's Changed
+
+togetyou (4.00) T16 `infect cut`: the Runner heads the room "The Infected
+Ear" (Adrift_476_togetyou.txt); Scarier printed "The Ear".  The Ear has two
+alts:
+- alt 0: task 22, DisplayRoom 2, Changed "The Infected Ear", M1 "A lovely
+  infection is now taking hold…";
+- alt 1: task 38, DisplayRoom 1, M2 "In the ear canal you can see a tiny
+  cut.".
+
+run400's room lister (Proc_19_63 at 472CA4) resets the room's display name
+to its Short at 472058.  In its single forwards loop over every alt, each
+matching alt with a non-empty Changed overwrites that name (472244-472254),
+whatever the alt's display method.  The description is built in the same
+loop, and the later method-1 alt resets it to Long + M2.  That is why the
+Runner shows the new name but not alt 0's M1.
+
+`lib_get_room_name()` started from `lib_find_starting_alt()` (alt 1 here) and
+skipped non-method-2 alts, so alt 0's name was never reached.  At TAF 4.00 it
+now walks all alts with no method gate.  Pre-4.0 keeps the old walk
+(unmeasured).
+
+Goldens 428/428 (togetyou re-blessed).  togetyou's sweep row is now clean.
