@@ -593,6 +593,10 @@ circus_solution.txt|circus.taf|Congratulations.  You completed the game|SCR_SEED
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
+# Measured 2026-09-14 in run390x under VBRNG=xoshiro seed 201 (Adrift_128_colony.txt,
+# feed v4_full_rerun_cmds/colony.txt, SCR_SEED=201): 40/40 echoed, identical on every
+# turn but the ending keypress, and 20 = 20 game-stream draws.  Its rollable events
+# no longer keep the row out of the Wine comparison.
 colony_solution.txt|Colony.taf|You scored 200 out of the maximum 200!
 # Measured 2026-08-29: run400 replay, all 20 commands echoed, 19 of 20 turns
 # identical, the last differs only by the [Press any key to end] tail.
@@ -1753,6 +1757,10 @@ fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
 # meaningful ceiling comparison: the win marker is the pass/fail signal for
 # these rows, the score figure is just a recorded data point.
 sophie_solution.txt|sa.taf|You have won.|SCR_SKIP_WAITKEY=1
+# Measured 2026-09-14 in run400x under VBRNG=xoshiro, seed 210
+# (Adrift_137_sophie.txt, SCR_SEED=210): 255/255 commands echoed, draws
+# 429 = 429.  Only whitespace joins (T72 `"dou-"BOOOM`, T237 `You read:"`)
+# and the epilogue cut at the first "press a key" differ.
 sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 # cursed: no seed of its own.  The same-tick lower-event re-check (run400
 # 47059C) shortens warrior 2's seven-room mill circuit (events 99-105,
@@ -2466,6 +2474,10 @@ the_amulet_solution.txt|TheAmulet.taf|Congratulations!
 # author's own session transcript, 21 commands, 1000/1000.  SCR_SKIP_WAITKEY=1
 # is mandatory: the intro is three "Press any key to continue." screens, which
 # would otherwise eat the first three commands.
+# Measured 2026-09-14 in run390x under VBRNG=xoshiro seed 202 (Adrift_129_locked_door.txt,
+# feed v4_full_rerun_cmds/locked_door.txt, SCR_SEED=202): 21/21 echoed, identical on
+# every turn but the ending keypress, and 577 = 577 draws, command for command
+# (16 per tick; the winning `up` draws none on either side).
 locked_door_solution.txt|Locked_door_with_water_trap.taf|See if I ever dive with you two again|SCR_SKIP_WAITKEY=1
 # Marooned is a TAF version 3.80 game, and the first one in this corpus that
 # exercises the 3.8 size/weight conversion (see |V380_OBJECT:_SizeWeight_| in
@@ -3119,6 +3131,9 @@ private_eye_solution.txt|Private Eye.taf|You achieved a score of 4.|SCR_SKIP_WAI
 # is the dead end itself.
 # 2026-08-29: "I couldn't open the door!" now precedes the ending
 # (silent-End-Game rule).
+# Measured 2026-09-14 in run400x under VBRNG=xoshiro, seed 1234
+# (Adrift_128_plague1234.txt, SCR_SEED=1234): 266 turns echoed, identical on
+# every turn, draws 5840 = 5840; the Runner reaches the same ending.
 plague_solution.txt|The Plague - Redux.taf|spilling zombie blood once|SCR_SKIP_WAITKEY=1
 # ---------------------------------------------------------------------------
 # 2026-08-04 -- IRVINE QUIK & THE SEARCH FOR THE FISH OF TRAGLEA (Duncan
@@ -3560,6 +3575,11 @@ haunted_house_solution.txt|haunted.taf|You scored 1000 out of the maximum 1000!
 # measured turn shows it: the "sirens" event prints PrefText1 or PrefText2 on
 # its start turn depending on the length it rolled (run380 rolled "grows
 # steadily louder", Scarier "getting much closer").
+# Measured 2026-09-14 in run380x under VBRNG=xoshiro, seed 2
+# (Adrift_129_great2.rtf, SCR_SEED=2): the chase is measurable after all.
+# 131/132 echoed (the lost one is the final `hide`, which a .rtf never
+# holds), no differing turns, draws 6 = 6.  Seed 212 dies in the chase at
+# `turn on radio` identically on both sides.
 great_escape_solution.txt|great.taf|cry of joy, you have made it, you have escaped!!|SCR_SEED=2
 # Re-blessed 2026-09-04: pre-3.9 delayed events roll one RNG draw later (no
 # startup event tick); the measurement is on the haunt row.
@@ -8130,6 +8150,13 @@ goblin_solution.txt|goblin.taf|Oh, and before we forget- Congratulations, gobbo.
 # reads the announced form, replies from the table).  The `(Press a key)` pause
 # still eats the solution's line 183 (now a throwaway `1`); the 4 real answers are
 # lines 184-187 (`3 5 1 4`); everything from `take key` on is untouched.  150/150.
+# Measured 2026-09-14 in run400x under VBRNG=xoshiro, seed 1
+# (Adrift_128_mould1.txt, SCR_SEED=1 SCR_SKIP_WAITKEY=1): no adaptive driver
+# needed.  All 326 commands echoed, draws 58 = 58; the differences are the
+# `hint`/`y` deviation (run400 has no interactive hints) and `(Press a key)`
+# joins (T1, T4, T13, T99).  The Runner's pauses eat no line, so the
+# throwaway `1` lands in the imp fight on both sides and neither wins; the
+# two runs still end in the same fight state.
 mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|SCR_SEED=1
 # blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, revenge
 # thriller). The player's wife has been murdered by four guilty men

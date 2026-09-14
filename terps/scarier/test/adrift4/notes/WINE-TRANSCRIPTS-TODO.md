@@ -387,15 +387,25 @@ None of these blocks a golden. Grouped by what is needed to settle them.
   the `%drunk%` stack overflow described below.
 - **`motion`:** the minigame's keypresses are its turns. Re-cut the feed
   before reading anything into the row (`Adrift_425`).
-- **`mould`** needs an adaptive driver: the imp fight is seed-locked.
-- **`sophie`** is measured for its first 50 commands only. `sophie_comp`
-  and `plague` desync early.
+- **`sophie`** is measured for its first 50 commands only.
 - **Permanently unmeasurable:**
   - `dreamquest`: run400 cannot load a task with an empty Command vector.
-  - `great.taf` car chase.
   - `to_hell_and_beyond` assisted rows: Scarier-only by design.
-- **Deferred for rollable events on the route:** `Colony`,
-  `Locked_door_with_water_trap`.
+- **Rows deferred for rollable events are measurable now.** All were
+  measured 2026-09-14 under xoshiro, each with exact draw parity:
+  - `Colony` and `Locked_door_with_water_trap` (run390x, seeds 201/202):
+    identical on every turn (20 = 20, 577 = 577).
+  - `sophie_comp` (run400x, seed 210): only whitespace joins and the
+    epilogue cut differ (429 = 429).
+  - `plague` (run400x, seed 1234): identical on every turn (5840 = 5840).
+  - `great.taf` (run380x, seed 2): clean through the car chase, lacking
+    only the final `hide` the .rtf never holds (6 = 6).
+  - `mould` (run400x, seed 1): no adaptive driver needed. Only the `hint`
+    deviation and pause joins differ (58 = 58). The Runner's pauses eat no
+    line, so the throwaway `1` enters the imp fight on both sides and
+    neither reaches the win. A feed with that line dropped would reach it.
+
+  Any other row skipped only for randomness can be driven the same way.
 
 ---
 
