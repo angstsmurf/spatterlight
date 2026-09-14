@@ -406,8 +406,12 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   - xfiles T69 bare `buzzer` (the Runner says "I don't understand what you
     want me to do with A Buzzer") and T76 `get in the van` (the Runner says
     "You take VW Van."). Scarier runs the tasks in both. The ending follows.
+    **T69 ported 2026-09-15** (see the index, wildcard matcher). T76 is
+    still open.
   - the_town_of_azra T13 `buy rawhide armor`: the Runner says "I don't think
     that is for sale", Scarier buys it. The money is then off by 90.
+    **Ported 2026-09-15** (see the index): the_town_of_azra is now identical
+    on every turn.
   - les_feux T115-116 `throw grappin on rocher`: the Runner asks the attack
     question ("Qui voulez vous attaquez?"), so `throw ... on` reaches
     dobattle. Scarier's catch-all answers.
@@ -721,6 +725,13 @@ every Runner.
   - A trailing space in an all-literal task command must be typed. sommeril
     `get placemat ` (093a12d5e)
   - The SYNONYM table is sequential whole-string rewrites. Vardock
+  - The `*` matcher (457D68) does not backtrack. Each literal piece is found
+    by the first InStr and the line is cut past it. A space goes back on only
+    when the rest of the pattern starts with one, and a line gets a leading
+    space only for a pattern starting "* ". So `buy *** *rawhide armor*`
+    misses `buy rawhide armor`, and ` *Buzzer*` misses `buzzer`. run390's
+    checkwild (4346A8) never cuts the line. `[4.0]` the_town_of_azra T13,
+    xfiles T69 (`uip_wildcard_match_400`, 2026-09-15)
   - The already-done scan passes over a spent task with no RepeatText, so a
     later spent task's RepeatText answers the line. `[4.0]` crookedestate T41
     (`run_task_refusal`, 2026-09-15)

@@ -8,10 +8,6 @@ turn 62  open phone book
   run400   Your Cell Phone is already open!
   scarier  You can't open that.
 
-turn 69  buzzer
-  run400   I don't understand what you want me to do with A Buzzer.
-  scarier  Your incurable curiosity gets the better part of you again and you reach out and push the buzzer.
-
 turn 76  get in the van
   run400   You take VW Van.
   scarier  The man in the dark car watches you silently as you climb in the van. Langly slams the door shut and Frohike wheels out of the parking lot. You give the directions to Skinner. Reading over the directions, Skinner directs Frohike on the route to take north of Bellefleur. You continue into the night until Langly spots the orange "X" on the highway that the last direction denotes. Frohike drives past it to pull over and the van appears to die as he does so. The van drifts to a stop. Frohike smacks the driver's wheel with his palms. "Shit!" "No," you say. "Mulder and Scully experienced the same thing on their first trip to Bellefleur." Skinner remembers and confirms. "Yeah, their car died.. and they lost nine minutes."
@@ -30,7 +26,7 @@ turn 79  ko
 
 turn 80  the end
   run400   Nope!
-  scarier  Nope! "I'm not sure how I should feel saying this, Nathan, to be glad you've grown to be such a strong and smart young man, or to be sad that I can't protect you anymore. Either way," your father says as he extends his hand to you, "Welcome to the Resistance." You smile without knowing why as you grip it in return. You scored 295 out of the maximum 299! That is 98% of the game! You finished 4 points short.
+  scarier  Nope! "I'm not sure how I should feel saying this, Nathan, to be glad you've grown to be such a strong and smart young man, or to be sad that I can't protect you anymore. Either way," your father says as he extends his hand to you, "Welcome to the Resistance." You smile without knowing why as you grip it in return. You scored 285 out of the maximum 299! That is 95% of the game! You finished 14 points short.
 
 (the openings differ too -- banner, graphics notice or the
  Runner's own startup lines; usually not an engine difference)

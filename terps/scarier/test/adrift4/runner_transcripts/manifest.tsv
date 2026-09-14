@@ -340,7 +340,7 @@ the_cat_in_the_tree	the_cat_in_the_tree.txt	driven:Adrift_130_the_cat_in_the_tre
 the_demon_hunter	the_demon_hunter.txt	driven:Adrift_266_the_demon_hunter_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 the_hangover	the_hangover.txt	driven:Adrift_259_the_hangover_rt.txt	3.90	run390x.exe	1234	0			yes	3 differing turn(s)
 the_nonsense_machine_6000	the_nonsense_machine_6000.txt	driven:Adrift_186_the_nonsense_machine_6000_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
-the_town_of_azra	the_town_of_azra.txt	driven:Adrift_187_the_town_of_azra_rt.txt	4.00	run400x.exe	1234	3	Hero		yes	6 differing turn(s)
+the_town_of_azra	the_town_of_azra.txt	driven:Adrift_187_the_town_of_azra_rt.txt	4.00	run400x.exe	1234	3	Hero		yes	identical on every turn.
 the_town_of_azra_v390	the_town_of_azra_v390.txt	driven:Adrift_188_the_town_of_azra_v390_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 thehunter	thehunter.txt	driven:Adrift_451_thehunter_rt.txt	4.00	run400x.exe	1234	0	Hunter~male		yes	identical on every turn apart from the Runner's keypress prompt.
 thelasthour	thelasthour.txt	driven:Adrift_424_thelasthour_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 2 lost command(s)
@@ -416,7 +416,7 @@ worstgame	worstgame.txt	driven:Adrift_415_worstgame_rt.txt	4.00	run400x.exe	1234
 wreckage	wreckage.txt	driven:Adrift_199_wreckage_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 wrecked	wrecked.rtf	driven:Adrift_274_wrecked_rt.rtf	3.80	run380x.exe	15	0		SCR_SEED=15	no	0 differing turn(s), 1 lost command(s)
 wumpusrun	wumpusrun.txt	driven:Adrift_514_wumpusrun_rt.txt	4.00	run400x.exe	72	0		SCR_SEED=72	yes	identical on every turn apart from the Runner's keypress prompt.
-xfiles	xfiles.txt	driven:Adrift_175_xfiles_rt.txt	4.00	run400x.exe	1234	0			no	7 differing turn(s)
+xfiles	xfiles.txt	driven:Adrift_175_xfiles_rt.txt	4.00	run400x.exe	1234	0			no	6 differing turn(s)
 yadfa	yadfa.txt	driven:Adrift_487_yadfa_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 yak_shaving	yak_shaving.txt	driven:Adrift_135_yak_shaving_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 yeh	yeh.txt	driven:Adrift_218_yeh_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.

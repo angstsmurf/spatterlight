@@ -2444,6 +2444,7 @@ run_match_task_commands (scr_gameref_t game,
        * match it; for those, retry the match against the player's actual
        * input, stashed by run_all_commands().
        */
+      const scr_char *matched_input = string;
       if (pattern[first] == SPECIAL_PATTERN)
         ;
       else if (is_library && pattern[first] == WILDCARD_PATTERN)
@@ -2452,10 +2453,23 @@ run_match_task_commands (scr_gameref_t game,
             is_matched = uip_match (pattern, string, game);
           if (!is_matched && run_dispatch_input != NULL
               && run_pattern_names_verb (pattern, run_dispatch_input))
-            is_matched = uip_match (pattern, run_dispatch_input, game);
+            {
+              is_matched = uip_match (pattern, run_dispatch_input, game);
+              matched_input = run_dispatch_input;
+            }
         }
       else
         is_matched = uip_match (pattern, string, game);
+
+      /*
+       * 4.0 sends a command with a '*' and no group or %reference% to its
+       * own non-backtracking matcher, which refuses some lines the tree
+       * matcher takes (The Town of Azra `buy rawhide armor` against
+       * "buy *** *rawhide armor*"); see uip_wildcard_match_400().
+       */
+      if (is_matched && version >= TAF_VERSION_400
+          && strchr (pattern, WILDCARD_PATTERN) && !strpbrk (pattern, "%[{"))
+        is_matched = uip_wildcard_match_400 (pattern, matched_input);
 
       /* Stop searching if we find a match. */
       if (is_matched)

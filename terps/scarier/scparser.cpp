@@ -1114,6 +1114,95 @@ uip_set_binary_input (scr_bool binary)
   uip_binary_input = binary;
 }
 
+
+/*
+ * uip_wildcard_match_400()
+ *
+ * run400's wildcard matcher itself (Proc_19_50_457D68), for a task command
+ * with a '*' and no group or %reference%.  It walks the pattern left to right
+ * with no backtracking: each literal piece is found by the FIRST InStr in
+ * what is left of the line, and the line is cut past it (457CDA-457D02).  A
+ * space is put back in front of the line only when the pattern text after a
+ * piece's '*' starts with one (457D2E), so "* " can match nothing; the extra
+ * stars of a "**" or "***" run are dropped one at a time by the Var_96 = 1 arm
+ * (457C4E-457C6C), which puts nothing back.  A leading "* " or trailing " *"
+ * pads the line with a space first (457B62, 457B92), and the text before the
+ * first '*' must be the line's prefix (457BD0).  run390's checkwild (4346A8)
+ * never cuts the line, so this is 4.0 only.
+ *
+ * Measured on The Town of Azra (4.00): task 27 "buy *** *rawhide armor*"
+ * misses `buy rawhide armor` -- the lone " " piece eats the space inside
+ * "rawhide armor", and "rawhide armor" is then not found -- so run400 answers
+ * "I don't think that is for sale." (runner_transcripts/the_town_of_azra.txt
+ * T13), while task 28 "buy *** bronze helmet*" takes `buy a bronze helmet`.
+ * run390 sells the armor on the same line (the_town_of_azra_v390).
+ *
+ * The pattern is lower-cased and the line compared as uip_match() would see
+ * it: byte for byte while uip_binary_input is set, else lower-cased too.
+ */
+scr_bool
+uip_wildcard_match_400 (const scr_char *pattern, const scr_char *string)
+{
+  std::string pat (pattern), line (string);
+  scr_bool matched = TRUE;
+
+  for (char &c : pat)
+    c = scr_tolower (c);
+  if (!uip_binary_input)
+    for (char &c : line)
+      c = scr_tolower (c);
+  while (!line.empty () && scr_isspace (line.front ()))
+    line.erase (0, 1);
+  while (!line.empty () && scr_isspace (line.back ()))
+    line.pop_back ();
+
+  const size_t first_star = pat.find ('*');
+  if (first_star == std::string::npos)
+    return FALSE;
+
+  if (pat.compare (0, 2, "* ") == 0)
+    line.insert (0, " ");
+  if (pat.size () >= 2 && pat.compare (pat.size () - 2, 2, " *") == 0)
+    line.append (" ");
+  if (line.substr (0, first_star) != pat.substr (0, first_star))
+    matched = FALSE;
+
+  while (!pat.empty ())
+    {
+      const size_t star = pat.find ('*');
+
+      if (star == std::string::npos)
+        {
+          /* The tail must end the line (Right(line, Len(pattern))). */
+          const std::string tail = line.size () > pat.size ()
+                                   ? line.substr (line.size () - pat.size ())
+                                   : line;
+          if (tail != pat)
+            matched = FALSE;
+          pat.clear ();
+        }
+      else if (star == 0)
+        pat.erase (0, 1);
+      else
+        {
+          const size_t at = line.find (pat.substr (0, star));
+
+          if (at == std::string::npos)
+            {
+              matched = FALSE;
+              pat.clear ();
+              continue;
+            }
+          line.erase (0, at + star);
+          pat.erase (0, star + 1);
+          if (!pat.empty () && pat[0] == ' ')
+            line.insert (0, " ");
+        }
+    }
+
+  return matched;
+}
+
 static scr_bool
 uip_match_word (scr_ptnoderef_t node)
 {

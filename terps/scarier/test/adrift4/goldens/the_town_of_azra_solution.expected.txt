@@ -125,13 +125,10 @@ grumble, gives you the helmet. He takes $24 from you. You have $466 and 50
 cents.
 
 > buy rawhide armor
-You count out $90 to buy the armor. You mutter to Golapho that you'd like to
-buy it. He mutters under his breath and reaches down, throws the armor to
-you, and takes the money, all without leaving his seat. You have $376 and 50
-cents.
+I don't think that is for sale.
 
 > wear the rawhide armor
-You put on the rawhide armor.
+Wear what?
 
 > e
 You move east.
@@ -168,7 +165,7 @@ You can only move north.
 > buy a hunting sword
 You give $80 to Calado and ask for the hunting sword. He grins and hands you
 the sword. "Happy huntin!" He says, assuming that's why you're buying the
-sword. You have $296 and 50 cents.
+sword. You have $386 and 50 cents.
 
 > wield the hunting sword
 You wield the hunting sword.
@@ -196,7 +193,7 @@ You can only move northwest.
 
 > rent a room
 You count out $50 and hand it to Gralle. She smiles and points to your room.
-You now have $246 and 50 cents.
+You now have $336 and 50 cents.
 You have 24 hours left at your room in Gralle's Inn.
 
 > in
@@ -241,14 +238,14 @@ You can move north, east, south, west and southeast.
 
 > stats
 These are your stats:
-Wealth: $246, and 50 cents.
+Wealth: $336, and 50 cents.
 Number of turns passed: 26
 
 For Stamina, Strength, and Defense values, type status.
 
 > wealth
 Money Status:                                                             You
-have $246.                                             You have ¢50.
+have $336.                                             You have ¢50.
 
 > quit
 Do you really want to quit? [Y/N]

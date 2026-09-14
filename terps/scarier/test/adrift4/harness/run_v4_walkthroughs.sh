@@ -1127,6 +1127,12 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 # Adrift_424_xfiles.txt:248 and Adrift_522_xfiles.txt:248.  4.0's get_piece
 # names the object by the 463640 whole-word score, so the unknown "book" costs
 # nothing (Professor `get x rope`, Adrift_p4profmail2 T22).
+# Re-blessed 2026-09-15, T69 bare `buzzer`: run400 answers "I don't understand
+# what you want me to do with A Buzzer." (runner_transcripts/xfiles.txt).  Task
+# 21's command is ` *Buzzer*`; run400's wildcard matcher 457D68 prepends a
+# space to the line only for a pattern starting "* ", so the leading literal
+# " " fails against "buzzer" (uip_wildcard_match_400()).  The 10 points go with
+# it: 285 of 299, not 295.  6 differing turns, was 7.
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # Del Sol's 46 is 20 points larger than anything the game can actually hand
 # out, and the two missing tens are both author bugs.  Task 14 -- answering
@@ -1315,6 +1321,14 @@ the_nonsense_machine_6000_solution.txt|The_Nonsense_Machine_6000.taf|
 # Marker 27 -> 26 on 2026-08-24 with the 4.0 output filter (see the humbug
 # row): the end-of-game summary's turn counter is frozen when the winning task
 # completes, one event tick before the flush would have read it.
+# Re-blessed 2026-09-15, T13 `buy rawhide armor`: run400 says "I don't think
+# that is for sale." and T14 "Wear what?" (runner_transcripts/the_town_of_azra.txt).
+# The buy task's `buy *** *rawhide armor*` misses in run400's non-backtracking
+# wildcard matcher 457D68: each piece is found by the first InStr and the line
+# cut past it, and the extra stars of `***` add no space back, so " rawhide
+# armor" is sought in "rawhide armor".  run390's checkwild 4346A8 never cuts
+# the line, so the 3.9 twin still buys.  uip_wildcard_match_400().  The $90
+# stays in the purse to the end.  Now identical to the Runner on every turn.
 the_town_of_azra_solution.txt|The_Town_Of_Azra.taf|Number of turns passed: 26
 # Azra ships as two files and they are NOT the same game to play.  The
 # underscored IF Archive build is a 4.00-signature upconversion of the author's
