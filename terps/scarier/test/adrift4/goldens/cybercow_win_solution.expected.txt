@@ -853,7 +853,7 @@ your way through the pricker bushes at the CyberCow's lair entrance.
 Examining your reflection, you tease the berry out of your hair.
 
 > x berry
-Please be more clear, what do you want to examine?  The berry or the berry?
+Which berry.  The berry or the berry?
 
 > x fairy
 The fairy avidly stares at the berry.

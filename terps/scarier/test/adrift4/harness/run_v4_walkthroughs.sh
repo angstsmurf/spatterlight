@@ -711,6 +711,10 @@ cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # `fix robot` after the robot is built prints TASK 80's own RepeatText ("The
 # invincible robot is structurally complete...") instead of the library's "I
 # don't think you can fix the robot." -- run390 agrees (Adrift_1107_cybercow_win.txt).
+# Re-blessed 2026-09-14 for the 3.9 co() prompt (seen-gated, lib_co_candidate):
+# `x berry` is now "Which berry.  The berry or the berry?".  Still NOT the
+# Runner's "I can tell you nothing about that." -- run390's task mover never
+# stamps seen, so the berry task 170 hands over stays unseen there.
 cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
@@ -908,6 +912,10 @@ screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to g
 # (VB Command$ keeps the quoting), so the drive used a screensavers.taf copy;
 # measure.sh now refuses such a name outright rather than driving 133 commands
 # into an empty window.
+# Re-blessed 2026-09-14 for the 3.9 co() prompt: T56 `take scroll` with the
+# seen ancient and decayed scrolls present is "Which scroll.  Ancient scroll or
+# the decayed scroll?", as in run390 (runner_transcripts/secret_of_lost_world),
+# and takes nothing; the win is unaffected.
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
 # Measured 2026-08-29: run400 replay of the then-current 133-command route,
 # all 133 commands echoed, 132 of 133 turns identical, the last differing only
@@ -2212,6 +2220,10 @@ the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.
 # that justifies it is on the lair-of-the-cybercow rows above.
 # Re-blessed 2026-09-13 for 991a5f8d9's event rules: Sid's thirteen mug-drinking
 # lines are gone and the landlord's alternates re-roll.  Event/RNG timing only.
+# Re-blessed 2026-09-14 for the 3.9 co() prompt: T64 `drop cup` beside Sid's
+# seen small cup is "Which cup.  The small cup or the empty cup?", as in run390
+# (runner_transcripts/troll now identical on every turn); the drop never
+# mattered to the win.
 troll_solution.txt|Troll.taf|clean by dinner time, I'll bust your head in!|SCR_SKIP_WAITKEY=1
 # A Spot Of Bother wins at the author's own maximum, 100/100, and the upstream
 # transcript needed exactly ONE repair in 270 commands: a second `push door` in

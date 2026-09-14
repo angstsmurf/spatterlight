@@ -437,10 +437,7 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   - stardust T38 `take needle box`: "You've already got the sharp needle!"
     (T99 and the T116 ending follow);
   - secret_of_lost_world T53 `take blue gem`: "You already have the green
-    gem!". At T56 `take scroll` the Runner asks "Which scroll. Ancient scroll
-    or the decayed scroll?". T71-122 follow.
-  - troll T64 `drop cup`: "Which cup. The small cup or the empty cup?"
-    against Scarier's drop.
+    gem!". T71-122 follow. (T56's "Which scroll." is ported, see the index.)
 - **Refusal wording:**
   - thetest_win T68-77 `unlock door`: "You can't do that here!" against
     "You can't unlock the door.".
@@ -453,9 +450,13 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   - T97 `read envelope`: the Runner adds "The envelope is closed.";
   - T103: "CyberCow is here." against "CyberCow and Robot are here." (the
     robot's presence);
-  - T118 `x berry`: the Runner's answer to SCARE's "Please be more clear"
-    invention is "I can tell you nothing about that." (see "Engine, needs a
-    probe (3.9)").
+  - T118 `x berry`: the Runner says "I can tell you nothing about that.",
+    Scarier now asks "Which berry." The held berry came from task 170, and
+    run390's task executor never writes the seen byte (only openadv,
+    afteroa, viewroom, inventory, charinv, whatisinon, examines and drops
+    do), so run390 counts one seen berry. Dropping the move-action stamp
+    below 4.0 wholesale regressed ~50 rows (2026-09-14); a narrower rule is
+    owed.
 - **fantasyworld T224-296:** the Royal Knight follows the player in the
   Runner. In Scarier he is not in the room.
 - **alexis_worn_cube:** T124 has an event line one turn earlier in the Runner,
@@ -557,9 +558,8 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 - **`give <x> to <y>`** belongs in characters(), below the room refusal
   (the_hangover t42). Only the 3.7/3.8 give is ported (f83e1cf87).
 - **"Please be more clear, who do you want to <verb>?"** is a SCARE
-  invention (alexis_worn_cube t79). For `x berry` with two berries, run390
-  answers "I can tell you nothing about that." (cybercow_win T118,
-  2026-09-14). The `who` form is still unmeasured.
+  invention (alexis_worn_cube t79). The `who` form is still unmeasured; the
+  object form is now the co() prompt (cybercow_win T118, above).
 - **Per-verb absent-NPC branches:**
   - `talk to <npc>` elsewhere (hcw, alchemist): unmeasured.
   - `give obj to npc` elsewhere: unmeasured.
@@ -816,8 +816,11 @@ every Runner.
   - The object-ambiguity prompt is `Which <term>.  <NP> or <NP>?`: examine
     prompts on a Short-or-Alias tie, an unhandled verb only on a Short tie.
     It has a pending answer slot. `[4.0]` p4CO (5d90e8793)
-  - 3.7/3.8 co() has its own prompt, which replaces the output while the
-    action still happens. `[<3.9]` mikes
+  - 3.7-3.9 co() has its own prompt, which replaces the output while the
+    action still happens. `[<4.0]` mikes; 3.9 counts and lists only seen
+    namesakes (run390 generaltasks 45F346 calls co(obj, 0) per object):
+    troll T64 `drop cup`, secret_of_lost_world T56 `take scroll`
+    (2026-09-14)
   - The article test is case-sensitive: only lower-case `a`/`an`/`some`
     become `the`. p4PFX (602428ad6)
   - A typed look is an exact whole-line list, and a bare `x` exits examines

@@ -4566,6 +4566,21 @@ lib_co_object_answers_to (scr_gameref_t game, scr_int object,
 }
 
 /*
+ * TRUE if the object counts as a namesake candidate: present (obhere) and,
+ * from 3.90, also seen -- run390 co() @43B2FB and the list loop @43B4AE both
+ * test the object's seen byte (field 44) beside obhere; run380 co() has no
+ * such test.
+ */
+static scr_bool
+lib_co_candidate (scr_gameref_t game, scr_int object, scr_int room)
+{
+  if (!obj_indirectly_in_room (game, object, room))
+    return FALSE;
+  return prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
+         || gs_object_seen (game, object);
+}
+
+/*
  * Reproduce the scan.  Returns TRUE when the Runner would prompt, with
  * *prompt_term the last flagged object's term, *list_term the term the list
  * was built from (the first ambiguous object's), and *present that first
@@ -4623,7 +4638,7 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
       present = 0;
       for (other = 0; other < gs_object_count (game); other++)
         {
-          if (obj_indirectly_in_room (game, other, room)
+          if (lib_co_candidate (game, other, room)
               && lib_co_object_answers_to (game, other, term))
             present++;
         }
@@ -4661,17 +4676,17 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
   scr_int present, room, object, listed;
 
   /*
-   * 3.7 and 3.8 only.  run390 still has co() (@43B6BC) and the same
-   * end-of-turn replacement (@4607BC/460832, gated on its own task-ran
-   * flag MemVar_468198), but no longer runs the scan from generaltasks():
-   * its co() is called only from characters() (@459436/45A025/45A0F0:
-   * "give"/"attack ... with" style character commands) and sitstand()
-   * (@44413E-444827).  hangover.taf `ask doctor about approval form` with
-   * two approval forms present is answered by the doctor in run390
-   * (Adrift_1_hangover_run390.txt), where the 3.8 scan would have prompted.
-   * Those two 3.9 handlers are not ported; see WINE-TRANSCRIPTS-TODO.md.
+   * 3.7 to 3.9.  run390 runs the same scan from generaltasks() -- co(obj, 0)
+   * for every object at 45F346, just before takes()/drops() -- and reads its
+   * flag MemVar_468190 at the end of the turn (@4606BD, `(468190 < 0) Or
+   * (468198 = 1)`, 468198 being set by the task executor @43F032) to print
+   * "Which <term>.  <list>?" @4607BC/460832.  The difference is the seen
+   * gate in lib_co_candidate(): troll.taf T64 `drop cup`, with Sid's seen
+   * small cup on the bar and the carried empty cup, is "Which cup. The small
+   * cup or the empty cup?" in run390 (runner_transcripts/troll).  4.0 has
+   * its own handler-scoped prompt.
    */
-  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     return FALSE;
   if (!lib_runner_co_scan (game, command, &prompt_term, &list_term, &present))
     return FALSE;
@@ -4686,7 +4701,7 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
   listed = 0;
   for (object = 0; object < gs_object_count (game); object++)
     {
-      if (!obj_indirectly_in_room (game, object, room)
+      if (!lib_co_candidate (game, object, room)
           || !lib_co_object_answers_to (game, object, list_term))
         continue;
 

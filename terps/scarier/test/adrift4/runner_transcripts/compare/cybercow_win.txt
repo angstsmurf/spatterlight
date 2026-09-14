@@ -23,7 +23,7 @@ turn 103  e
 
 turn 118  x berry
   run400   I can tell you nothing about that.
-  scarier  Please be more clear, what do you want to examine? The berry or the berry?
+  scarier  Which berry. The berry or the berry?
 
 turn 123  z -- the Runner appended [Press any key to end], which is the host's own keypress prompt (ALR-rewritten in some games), not game text.  The turn is identical either side of it.
 

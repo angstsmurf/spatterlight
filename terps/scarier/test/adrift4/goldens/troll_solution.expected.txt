@@ -469,7 +469,7 @@ You take a cup of mineral water from the bar.
 You gulp down the water. Refreshing.
 
 > drop cup
-You drop the empty cup.
+Which cup.  The small cup or the empty cup?
 
 > light candle on fire
 You light the candle on the fire. surprisingly, the flame is a bright blue!
