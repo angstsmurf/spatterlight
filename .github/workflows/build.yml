@@ -1,0 +1,56 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Xcode ${{ matrix.xcode }}
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - xcode: "26"
+            runs-on: macos-26
+            expected_deployment_target: "10.13"
+          - xcode: "27"
+            runs-on: xcode-27
+            expected_deployment_target: "12.0"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          xcrun --show-sdk-version
+          xcrun --sdk macosx --show-sdk-path
+
+      - name: Check macOS deployment target
+        run: |
+          actual="$(
+            xcodebuild -scheme Spatterlight -destination 'platform=macOS' -showBuildSettings |
+              awk '/^[[:space:]]*MACOSX_DEPLOYMENT_TARGET[[:space:]]*=/{print $3; exit}'
+          )"
+          echo "MACOSX_DEPLOYMENT_TARGET=${actual} (expected ${{ matrix.expected_deployment_target }})"
+          test "${actual}" = "${{ matrix.expected_deployment_target }}"
+
+      - name: Build Spatterlight
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -scheme Spatterlight \
+            -destination 'platform=macOS' \
+            -configuration Debug \
+            CODE_SIGNING_ALLOWED=NO \
+            build |
+            xcbeautify --renderer github-actions
