@@ -6501,8 +6501,21 @@ lib_list_object_state (scr_gameref_t game, scr_int object, scr_bool is_described
     {
       lib_new_clause (game, is_described);
       lib_print_object_np (game, object);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, object, " is ", " are "));
+
+      /*
+       * run400 examines() builds this line at 4718E1 from a literal " is "
+       * and the raw state name, the same as the open/closed suffix above
+       * it; isare() is never consulted.  magicshow (4.00, Prefix "the",
+       * Short "gates", states "Up|Down") measures `examine gates` as "The
+       * gates are down." (Adrift_magicshow T80) only because the game's
+       * own ALRs rewrite "The gates is Down." -- an "are" never matches
+       * them.  Pre-4.0 keeps the inherited plurality, unmeasured.
+       */
+      if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+        pf_buffer_string (filter, " is ");
+      else
+        pf_buffer_string (filter,
+                          lib_select_plurality (game, object, " is ", " are "));
 
       /* Add object state string. */
       state = obj_state_name (game, object);

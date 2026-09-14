@@ -9862,3 +9862,25 @@ took the silent path.  The aligner had shown the one text difference as a
 House sober is identical on every turn; goldens 428/428;
 `sweep_wine_turns.py` is unchanged per row (272 rows: 78 clean, 162
 differing, 32 lost, the same as HEAD).
+
+## PORTED 2026-09-14: the 4.0 examine state line is always " is "
+
+magicshow (4.00) T80 `examine gates`: the Runner says "The gates are down.",
+Scarier said "The gates are Down.".  The gates are Prefix "the", Short
+"gates", states "Up|Down", StateListed.  run400 examines() builds the state
+line at 4718B2-471902 as the tensed name (Proc_21_31_448710 + the capitaliser
+Proc_21_3_446BB4), then the literal `" is "`, then the state name
+(`var_B8(64)(state-1)`) and `"."`.  It is the same shape as the open, closed
+and locked suffixes just before it, and isare() is never called.  The game
+was written against that: its own ALRs rewrite "The gates is Down." and "The
+gates is down." (and the same for Up) into "are down."/"are up.".  Scarier
+picked " are " from `obj_appears_plural()`, so no ALR matched and the state
+name kept its capital.
+
+`lib_list_object_state()` now prints a literal " is " at TAF 4.00.  Earlier
+versions keep the inherited plurality; run390's examine (44BE84-44BEC4)
+has no state line beside its open/closed suffix, so it is unmeasured.
+
+Goldens 428/428 (magicshow re-blessed; the golden is git-ignored).  The
+`sweep_wine_turns.py --only magicshow` row is now aligned on 151/151 turns;
+its one differing turn is the ending's press-a-key tail.
