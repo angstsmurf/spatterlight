@@ -759,7 +759,11 @@
 					"$(INHERITED)",
 					"$(PROJECT_DIR)/include",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx13*]" = 10.13;
+				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx14*]" = 10.13;
+				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx15*]" = 10.13;
+				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx26*]" = 10.13;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -806,7 +810,11 @@
 					"$(INHERITED)",
 					"$(PROJECT_DIR)/include",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx13*]" = 10.13;
+				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx14*]" = 10.13;
+				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx15*]" = 10.13;
+				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx26*]" = 10.13;
 				OTHER_CFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-ffast-math",
