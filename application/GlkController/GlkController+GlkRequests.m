@@ -28,6 +28,7 @@
 
 #import "NSColor+integer.h"
 #import "NSString+Categories.h"
+#import "GlkCSSBasic.h"
 
 #include "glkimp.h"
 #include "messagenames.h"
@@ -38,6 +39,347 @@
 #endif
 
 @implementation GlkController (GlkRequests)
+
+#pragma mark - CSS Basic helpers
+
+- (void)cssUnpackBuffer:(char *)buf
+                 length:(size_t)len
+                   prop:(NSString **)propOut
+                  value:(NSString **)valOut {
+    *propOut = nil;
+    *valOut = nil;
+    if (!buf || len == 0)
+        return;
+    NSUInteger propLen = 0;
+    while (propLen < len && buf[propLen] != '\0')
+        propLen++;
+    if (propLen == 0)
+        return;
+    *propOut = [[NSString alloc] initWithBytes:buf length:propLen encoding:NSUTF8StringEncoding];
+    if (propLen + 1 < len) {
+        NSUInteger valStart = propLen + 1;
+        NSUInteger valLen = 0;
+        while (valStart + valLen < len && buf[valStart + valLen] != '\0')
+            valLen++;
+        if (valLen)
+            *valOut = [[NSString alloc] initWithBytes:buf + valStart length:valLen encoding:NSUTF8StringEncoding];
+    }
+}
+
+- (void)cssUnpackSelectorBuffer:(char *)buf
+                         length:(size_t)len
+                       selector:(NSString **)selOut
+                           prop:(NSString **)propOut
+                          value:(NSString **)valOut {
+    *selOut = nil;
+    *propOut = nil;
+    *valOut = nil;
+    if (!buf || len == 0)
+        return;
+
+    NSUInteger selLen = 0;
+    while (selLen < len && buf[selLen] != '\0')
+        selLen++;
+    if (selLen)
+        *selOut = [[NSString alloc] initWithBytes:buf length:selLen encoding:NSUTF8StringEncoding];
+
+    NSUInteger propStart = selLen + 1;
+    if (propStart >= len)
+        return;
+    NSUInteger propLen = 0;
+    while (propStart + propLen < len && buf[propStart + propLen] != '\0')
+        propLen++;
+    if (propLen)
+        *propOut = [[NSString alloc] initWithBytes:buf + propStart length:propLen encoding:NSUTF8StringEncoding];
+
+    if (propStart + propLen + 1 < len) {
+        NSUInteger valStart = propStart + propLen + 1;
+        NSUInteger valLen = 0;
+        while (valStart + valLen < len && buf[valStart + valLen] != '\0')
+            valLen++;
+        if (valLen)
+            *valOut = [[NSString alloc] initWithBytes:buf + valStart length:valLen encoding:NSUTF8StringEncoding];
+    }
+}
+
+/** Map a CSS Basic Style_* class selector to a Glk style index.
+ *  Returns YES for empty selector (window), or a recognized Style_* / Style_*_para class. */
+- (BOOL)cssParseSelector:(NSString *)sel
+                styleOut:(NSUInteger *)styleOut
+                 paraOut:(BOOL *)paraOut
+              windowOut:(BOOL *)windowOut {
+    if (windowOut)
+        *windowOut = NO;
+    if (paraOut)
+        *paraOut = NO;
+    if (!sel.length) {
+        if (windowOut)
+            *windowOut = YES;
+        return YES;
+    }
+
+    static NSDictionary<NSString *, NSNumber *> *styleMap;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        styleMap = @{
+            @"Style_normal": @(style_Normal),
+            @"Style_emphasized": @(style_Emphasized),
+            @"Style_preformatted": @(style_Preformatted),
+            @"Style_header": @(style_Header),
+            @"Style_subheader": @(style_Subheader),
+            @"Style_alert": @(style_Alert),
+            @"Style_note": @(style_Note),
+            @"Style_blockquote": @(style_BlockQuote),
+            @"Style_input": @(style_Input),
+            @"Style_user1": @(style_User1),
+            @"Style_user2": @(style_User2),
+        };
+    });
+
+    NSString *className = sel;
+    if ([className hasPrefix:@"."])
+        className = [className substringFromIndex:1];
+
+    BOOL isPara = NO;
+    if ([className hasSuffix:@"_para"]) {
+        isPara = YES;
+        className = [className substringToIndex:className.length - 5];
+    }
+
+    NSNumber *styl = styleMap[className];
+    if (!styl)
+        return NO;
+    if (styleOut)
+        *styleOut = styl.unsignedIntegerValue;
+    if (paraOut)
+        *paraOut = isPara;
+    return YES;
+}
+
+- (void)handleCssHintOnWindowType:(int)wintype
+                            style:(NSUInteger)style
+                       spanOrPar:(int)spanOrPar
+                            prop:(NSString *)prop
+                           value:(NSString *)value {
+    if (style >= style_NUMSTYLES || !prop.length)
+        return;
+
+    NSMutableArray *bufferStore = (spanOrPar == CSS_Paragraph)
+        ? self.bufferCssParaHints : self.bufferCssSpanHints;
+    NSMutableArray *gridStore = (spanOrPar == CSS_Paragraph)
+        ? self.gridCssParaHints : self.gridCssSpanHints;
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            bufferStore[style][prop] = value ?: @"";
+            gridStore[style][prop] = value ?: @"";
+            break;
+        case wintype_TextGrid:
+            gridStore[style][prop] = value ?: @"";
+            break;
+        case wintype_TextBuffer:
+            bufferStore[style][prop] = value ?: @"";
+            break;
+        default:
+            return;
+    }
+}
+
+- (void)handleCssWindowHintOnWindowType:(int)wintype
+                                   prop:(NSString *)prop
+                                  value:(NSString *)value
+                                  clear:(BOOL)clear {
+    if (!prop.length)
+        return;
+
+    void (^apply)(NSMutableDictionary *) = ^(NSMutableDictionary *store) {
+        if (clear)
+            [store removeObjectForKey:prop];
+        else
+            store[prop] = value ?: @"";
+    };
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            apply(self.bufferCssWindowHints);
+            apply(self.gridCssWindowHints);
+            break;
+        case wintype_TextGrid:
+            apply(self.gridCssWindowHints);
+            break;
+        case wintype_TextBuffer:
+            apply(self.bufferCssWindowHints);
+            break;
+        default:
+            return;
+    }
+}
+
+- (void)handleCssSelectorHintOnWindowType:(int)wintype
+                                 selector:(NSString *)sel
+                                     prop:(NSString *)prop
+                                    value:(NSString *)value
+                                    clear:(BOOL)clear {
+    if (!prop.length)
+        return;
+
+    NSUInteger style = 0;
+    BOOL isPara = NO;
+    BOOL isWindow = NO;
+    if (![self cssParseSelector:sel styleOut:&style paraOut:&isPara windowOut:&isWindow])
+        return;
+
+    if (isWindow) {
+        [self handleCssWindowHintOnWindowType:wintype prop:prop value:value clear:clear];
+        return;
+    }
+
+    if (clear)
+        [self handleClearCssHintOnWindowType:wintype style:style spanOrPar:isPara ? CSS_Paragraph : CSS_Span prop:prop];
+    else
+        [self handleCssHintOnWindowType:wintype style:style spanOrPar:isPara ? CSS_Paragraph : CSS_Span prop:prop value:value];
+}
+
+- (void)handleClearCssHintOnWindowType:(int)wintype
+                                 style:(NSUInteger)style
+                            spanOrPar:(int)spanOrPar
+                                 prop:(NSString *)prop {
+    if (style >= style_NUMSTYLES || !prop.length)
+        return;
+
+    NSMutableArray *bufferStore = (spanOrPar == CSS_Paragraph)
+        ? self.bufferCssParaHints : self.bufferCssSpanHints;
+    NSMutableArray *gridStore = (spanOrPar == CSS_Paragraph)
+        ? self.gridCssParaHints : self.gridCssSpanHints;
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            [bufferStore[style] removeObjectForKey:prop];
+            [gridStore[style] removeObjectForKey:prop];
+            break;
+        case wintype_TextGrid:
+            [gridStore[style] removeObjectForKey:prop];
+            break;
+        case wintype_TextBuffer:
+            [bufferStore[style] removeObjectForKey:prop];
+            break;
+        default:
+            return;
+    }
+}
+
+- (void)handleClearStyleHintsOnWindowType:(int)wintype style:(NSUInteger)style {
+    if (style >= style_NUMSTYLES)
+        return;
+    for (NSUInteger hint = 0; hint < stylehint_NUMHINTS; hint++)
+        [self handleClearHintOnWindowType:wintype style:style hint:hint];
+}
+
+- (void)handleClearAllCssHintsOnWindowType:(int)wintype style:(NSUInteger)style {
+    if (style >= style_NUMSTYLES)
+        return;
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            [self.bufferCssSpanHints[style] removeAllObjects];
+            [self.bufferCssParaHints[style] removeAllObjects];
+            [self.gridCssSpanHints[style] removeAllObjects];
+            [self.gridCssParaHints[style] removeAllObjects];
+            break;
+        case wintype_TextGrid:
+            [self.gridCssSpanHints[style] removeAllObjects];
+            [self.gridCssParaHints[style] removeAllObjects];
+            break;
+        case wintype_TextBuffer:
+            [self.bufferCssSpanHints[style] removeAllObjects];
+            [self.bufferCssParaHints[style] removeAllObjects];
+            break;
+        default:
+            return;
+    }
+    [self handleClearStyleHintsOnWindowType:wintype style:style];
+}
+
+- (void)handleClearAllCssHintsBySelectorOnWindowType:(int)wintype selector:(NSString *)sel {
+    NSUInteger style = 0;
+    BOOL isPara = NO;
+    BOOL isWindow = NO;
+    if (![self cssParseSelector:sel styleOut:&style paraOut:&isPara windowOut:&isWindow])
+        return;
+
+    if (isWindow) {
+        switch (wintype) {
+            case wintype_AllTypes:
+                [self.bufferCssWindowHints removeAllObjects];
+                [self.gridCssWindowHints removeAllObjects];
+                break;
+            case wintype_TextGrid:
+                [self.gridCssWindowHints removeAllObjects];
+                break;
+            case wintype_TextBuffer:
+                [self.bufferCssWindowHints removeAllObjects];
+                break;
+            default:
+                break;
+        }
+        return;
+    }
+
+    NSMutableArray *bufferStore = isPara ? self.bufferCssParaHints : self.bufferCssSpanHints;
+    NSMutableArray *gridStore = isPara ? self.gridCssParaHints : self.gridCssSpanHints;
+    switch (wintype) {
+        case wintype_AllTypes:
+            [bufferStore[style] removeAllObjects];
+            [gridStore[style] removeAllObjects];
+            break;
+        case wintype_TextGrid:
+            [gridStore[style] removeAllObjects];
+            break;
+        case wintype_TextBuffer:
+            [bufferStore[style] removeAllObjects];
+            break;
+        default:
+            return;
+    }
+    [self handleClearStyleHintsOnWindowType:wintype style:style];
+}
+
+- (void)handleClearAllCssHintsByWindowType:(int)wintype {
+    void (^clearStore)(NSMutableArray *, NSMutableArray *, NSMutableDictionary *) =
+    ^(NSMutableArray *span, NSMutableArray *para, NSMutableDictionary *window) {
+        for (NSUInteger style = 0; style < style_NUMSTYLES; style++) {
+            [span[style] removeAllObjects];
+            [para[style] removeAllObjects];
+        }
+        [window removeAllObjects];
+    };
+
+    switch (wintype) {
+        case wintype_AllTypes:
+            clearStore(self.bufferCssSpanHints, self.bufferCssParaHints, self.bufferCssWindowHints);
+            clearStore(self.gridCssSpanHints, self.gridCssParaHints, self.gridCssWindowHints);
+            break;
+        case wintype_TextGrid:
+            clearStore(self.gridCssSpanHints, self.gridCssParaHints, self.gridCssWindowHints);
+            break;
+        case wintype_TextBuffer:
+            clearStore(self.bufferCssSpanHints, self.bufferCssParaHints, self.bufferCssWindowHints);
+            break;
+        default:
+            return;
+    }
+    for (NSUInteger style = 0; style < style_NUMSTYLES; style++)
+        [self handleClearStyleHintsOnWindowType:wintype style:style];
+}
+
+- (void)handleClearAllCssInlineOnWin:(GlkWindow *)reqWin {
+    if (!reqWin)
+        return;
+    [reqWin.currentInlineCSS removeAllObjects];
+    [reqWin.currentInlineParaCSS removeAllObjects];
+    reqWin.currentReverseVideo = NO;
+    [reqWin setZColorText:zcolor_Default background:zcolor_Default];
+}
 
 - (void)handleOpenPrompt:(int)fileusage {
     if (self.pendingSaveFilePath) {
@@ -1179,6 +1521,107 @@
             }
             break;
 
+        case CSSHINT: {
+            NSString *prop = nil, *val = nil;
+            [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+            [self handleCssHintOnWindowType:req->a1
+                                      style:(NSUInteger)req->a2
+                                   spanOrPar:req->a3
+                                      prop:prop
+                                     value:val];
+            break;
+        }
+
+        case CLEARCSSHINT: {
+            NSString *prop = nil, *val = nil;
+            [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+            [self handleClearCssHintOnWindowType:req->a1
+                                           style:(NSUInteger)req->a2
+                                        spanOrPar:req->a3
+                                           prop:prop];
+            break;
+        }
+
+        case CLEARALLCSSHINT:
+            [self handleClearAllCssHintsOnWindowType:req->a1 style:(NSUInteger)req->a2];
+            break;
+
+        case CSSSELECTORHINT: {
+            NSString *sel = nil, *prop = nil, *val = nil;
+            [self cssUnpackSelectorBuffer:buf length:req->len selector:&sel prop:&prop value:&val];
+            [self handleCssSelectorHintOnWindowType:req->a1
+                                          selector:sel
+                                              prop:prop
+                                             value:val
+                                             clear:NO];
+            break;
+        }
+
+        case CLEARCSSSELECTORHINT: {
+            NSString *sel = nil, *prop = nil, *val = nil;
+            [self cssUnpackSelectorBuffer:buf length:req->len selector:&sel prop:&prop value:&val];
+            [self handleCssSelectorHintOnWindowType:req->a1
+                                          selector:sel
+                                              prop:prop
+                                             value:val
+                                             clear:YES];
+            break;
+        }
+
+        case CLEARALLCSSHINTBYSELECTOR: {
+            NSString *sel = nil;
+            if (buf && req->len) {
+                NSUInteger selLen = 0;
+                while (selLen < (NSUInteger)req->len && buf[selLen] != '\0')
+                    selLen++;
+                if (selLen)
+                    sel = [[NSString alloc] initWithBytes:buf length:selLen encoding:NSUTF8StringEncoding];
+            }
+            [self handleClearAllCssHintsBySelectorOnWindowType:req->a1 selector:sel];
+            break;
+        }
+
+        case CLEARALLCSSHINTBYWINDOW:
+            [self handleClearAllCssHintsByWindowType:req->a1];
+            break;
+
+        case CLEARALLCSSINLINE:
+            [self handleClearAllCssInlineOnWin:reqWin];
+            break;
+
+        case SETCSSINLINE: {
+            if (reqWin) {
+                NSString *prop = nil, *val = nil;
+                [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+                if (prop.length) {
+                    NSMutableDictionary *store = (req->a2 == CSS_Paragraph)
+                        ? reqWin.currentInlineParaCSS : reqWin.currentInlineCSS;
+                    if (!store) {
+                        store = [NSMutableDictionary dictionary];
+                        if (req->a2 == CSS_Paragraph)
+                            reqWin.currentInlineParaCSS = store;
+                        else
+                            reqWin.currentInlineCSS = store;
+                    }
+                    store[prop] = val ?: @"";
+                }
+            }
+            break;
+        }
+
+        case CLEARCSSINLINE: {
+            if (reqWin) {
+                NSString *prop = nil, *val = nil;
+                [self cssUnpackBuffer:buf length:req->len prop:&prop value:&val];
+                if (prop.length) {
+                    NSMutableDictionary *store = (req->a2 == CSS_Paragraph)
+                        ? reqWin.currentInlineParaCSS : reqWin.currentInlineCSS;
+                    [store removeObjectForKey:prop];
+                }
+            }
+            break;
+        }
+
         case QUOTEBOX:
             if (reqWin) {
                 [((GlkTextGridWindow *)reqWin) quotebox:(NSUInteger)req->a2];
@@ -1396,10 +1839,16 @@
 //            It can also update any inline images.
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
                 reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.bufferStyleHints];
+                reqWin.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.bufferCssSpanHints];
+                reqWin.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.bufferCssParaHints];
+                reqWin.cssWindowHints = [self.bufferCssWindowHints mutableCopy] ?: [NSMutableDictionary dictionary];
                 if (req->a2 > 0)
                     [((GlkTextBufferWindow *)reqWin) updateImageAttachmentsWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
             } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
                 reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.gridStyleHints];
+                reqWin.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.gridCssSpanHints];
+                reqWin.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.gridCssParaHints];
+                reqWin.cssWindowHints = [self.gridCssWindowHints mutableCopy] ?: [NSMutableDictionary dictionary];
             } else {
                 break;
             }

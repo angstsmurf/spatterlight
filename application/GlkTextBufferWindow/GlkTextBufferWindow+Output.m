@@ -194,18 +194,23 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
     if (str.length > 1) {
         unichar c = [str characterAtIndex:str.length - 1];
         if (c == '\n') {
+            /* Do not carry NSBackgroundColor onto the deferred newline —
+               AppKit paints that attribute to the end of the line fragment. */
+            NSMutableDictionary *nlAttrs = [attributes mutableCopy];
+            [nlAttrs removeObjectForKey:NSBackgroundColorAttributeName];
             storedNewline = [[NSAttributedString alloc]
                              initWithString:@"\n"
-                             attributes:attributes];
+                             attributes:nlAttrs];
 
             str = [str substringWithRange:NSMakeRange(0, str.length - 1)];
         }
     }
     _lastchar = [str characterAtIndex:str.length - 1];
 
-    NSAttributedString *attstr = [[NSAttributedString alloc]
+    NSMutableAttributedString *attstr = [[NSMutableAttributedString alloc]
                                   initWithString:str
                                   attributes:attributes];
+    [self stripSpanBackgroundFromNewlines:attstr];
 
     [bufferTextstorage appendAttributedString:attstr];
     dirty = YES;

@@ -7,6 +7,7 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "GlkStyle.h"
+#import "GlkCSSBasic.h"
 #import "InputHistory.h"
 #import "MarginContainer.h"
 #import "BufferTextView.h"
@@ -54,6 +55,9 @@
         // Deep-copy the style hints so per-window hint changes don't affect others
         NSDictionary *styleDict = nil;
         self.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.glkctl.bufferStyleHints];
+        self.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.glkctl.bufferCssSpanHints];
+        self.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:self.glkctl.bufferCssParaHints];
+        self.cssWindowHints = [self.glkctl.bufferCssWindowHints mutableCopy] ?: [NSMutableDictionary dictionary];
 
         // Build the styles array: one NSDictionary of text attributes per Glk style.
         // When doStyles is on, game-provided style hints are applied on top of the
@@ -96,7 +100,7 @@
         textstorage = [[NSTextStorage alloc] init];
         bufferTextstorage = [textstorage mutableCopy];
 
-        layoutmanager = [[NSLayoutManager alloc] init];
+        layoutmanager = [[GlkLayoutManager alloc] init];
         layoutmanager.delegate = self;
         layoutmanager.backgroundLayoutEnabled = YES;
         layoutmanager.allowsNonContiguousLayout = NO;

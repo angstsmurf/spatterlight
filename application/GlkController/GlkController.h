@@ -43,6 +43,16 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property NSMutableArray *gridStyleHints;
 @property NSMutableArray *bufferStyleHints;
 
+/* CSS Basic hint stores: style_NUMSTYLES dictionaries of property→value.
+   Span and paragraph hints are kept separately. */
+@property NSMutableArray<NSMutableDictionary *> *bufferCssSpanHints;
+@property NSMutableArray<NSMutableDictionary *> *bufferCssParaHints;
+@property NSMutableArray<NSMutableDictionary *> *gridCssSpanHints;
+@property NSMutableArray<NSMutableDictionary *> *gridCssParaHints;
+/** Empty-selector CSS Basic hints (window-level), per wintype. */
+@property NSMutableDictionary<NSString *, NSString *> *bufferCssWindowHints;
+@property NSMutableDictionary<NSString *, NSString *> *gridCssWindowHints;
+
 @property(readonly, getter=isAlive) BOOL alive;
 
 @property(readonly) NSTimeInterval storedTimerLeft;

@@ -20,6 +20,7 @@
 #import "NSString+Categories.h"
 #import "Theme.h"
 #import "GlkStyle.h"
+#import "GlkCSSBasic.h"
 #import "Constants.h"
 #import "Game.h"
 #import "Metadata.h"
@@ -85,6 +86,9 @@
         NSDictionary *styleDict = nil;
 
         self.styleHints = [GlkWindow deepCopyOfStyleHintsArray:glkctl_.gridStyleHints];
+        self.cssSpanHints = [GlkCSSBasic deepCopyOfCSSHintArray:glkctl_.gridCssSpanHints];
+        self.cssParaHints = [GlkCSSBasic deepCopyOfCSSHintArray:glkctl_.gridCssParaHints];
+        self.cssWindowHints = [glkctl_.gridCssWindowHints mutableCopy] ?: [NSMutableDictionary dictionary];
 
         styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
         for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
@@ -118,7 +122,7 @@
         textstorage = [[NSTextStorage alloc] init];
         _bufferTextStorage = [[NSMutableAttributedString alloc] init];
 
-        layoutmanager = [[NSLayoutManager alloc] init];
+        layoutmanager = [[GlkLayoutManager alloc] init];
         layoutmanager.backgroundLayoutEnabled = YES;
 
         [textstorage addLayoutManager:layoutmanager];
@@ -175,7 +179,7 @@
     if (self) {
         _textview = [decoder decodeObjectOfClass:[GridTextView class] forKey:@"_textview"];
 
-        layoutmanager = _textview.layoutManager;
+        layoutmanager = [GlkCSSBasic ensureLayoutManagerForTextView:_textview];
         textstorage = _textview.textStorage;
         if (!textstorage)
             NSLog(@"Error! textstorage is nil!");
@@ -343,6 +347,18 @@
             attributes = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[i]]).attributeDict;
         }
 
+        NSMutableDictionary *mutableAttrs = [attributes mutableCopy] ?: [NSMutableDictionary dictionary];
+        BOOL cssReverse = NO;
+        [self applyCSSHintsToAttributes:mutableAttrs forStyle:i reverseOut:&cssReverse];
+        if (cssReverse) {
+            mutableAttrs[@"ReverseVideo"] = @(YES);
+            NSArray *hintsForStyle = self.styleHints[i];
+            if (!hintsForStyle.count || [hintsForStyle[stylehint_ReverseColor] isNotEqualTo:@(1)]) {
+                mutableAttrs = [self reversedAttributes:mutableAttrs background:self.theme.gridBackground];
+            }
+        }
+        attributes = mutableAttrs;
+
         if (usingStyles != self.theme.doStyles) {
             different = YES;
             usingStyles = self.theme.doStyles;
@@ -386,7 +402,18 @@
             id styleobject = attrs[@"GlkStyle"];
             if (styleobject) {
                 NSDictionary *blockattributes = blockStyles[(NSUInteger)[styleobject intValue]];
-                [weakSelf.bufferTextStorage setAttributes:blockattributes range:range];
+                NSMutableDictionary *restored = [blockattributes mutableCopy];
+                id glkCSS = attrs[@"GlkCSS"];
+                if (glkCSS) {
+                    restored[@"GlkCSS"] = glkCSS;
+                    [weakSelf applyPreservedInlineCSS:glkCSS toAttributes:restored allowParagraph:NO];
+                }
+                id glkCSSPara = attrs[@"GlkCSSPara"];
+                if (glkCSSPara) {
+                    restored[@"GlkCSSPara"] = glkCSSPara;
+                    [weakSelf applyPreservedInlineCSS:glkCSSPara toAttributes:restored allowParagraph:YES];
+                }
+                [weakSelf.bufferTextStorage setAttributes:restored range:range];
             }
             // Then, we re-add all the "non-Glk" style values we want to keep
             // (hyperlinks, Z-colors and reverse video)
@@ -408,6 +435,20 @@
             if (reverse) {
                 [weakSelf.bufferTextStorage addAttribute:@"ReverseVideo"
                                                    value:reverse
+                                                   range:range];
+            }
+
+            id glkCSSKeep = attrs[@"GlkCSS"];
+            if (glkCSSKeep) {
+                [weakSelf.bufferTextStorage addAttribute:@"GlkCSS"
+                                                   value:glkCSSKeep
+                                                   range:range];
+            }
+
+            id paraBg = attrs[GlkParaBackgroundAttributeName];
+            if (paraBg) {
+                [weakSelf.bufferTextStorage addAttribute:GlkParaBackgroundAttributeName
+                                                   value:paraBg
                                                    range:range];
             }
 
@@ -469,16 +510,25 @@
 }
 
 - (void)recalcBackground {
-    NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+    NSColor *bgcolor = nil;
     GlkController *glkctl = self.glkctl;
-
-    NSString *detectedFormat = glkctl.game.detectedFormat;
-    if (!([detectedFormat isEqualToString:@"glulx"] || [detectedFormat isEqualToString:@"hugo"] || [detectedFormat isEqualToString:@"zcode"])) {
-        bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
-    }
 
     if (self.theme.doStyles && bgnd > -1 && bgnd != zcolor_Default) {
         bgcolor = [NSColor colorFromInteger:bgnd];
+    }
+
+    if (!bgcolor && self.theme.doStyles) {
+        NSString *cssBg = self.cssWindowHints[@"background-color"];
+        if (cssBg.length)
+            bgcolor = [GlkCSSBasic colorFromCSSValue:cssBg];
+    }
+
+    if (!bgcolor) {
+        bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+        NSString *detectedFormat = glkctl.game.detectedFormat;
+        if (!([detectedFormat isEqualToString:@"glulx"] || [detectedFormat isEqualToString:@"hugo"] || [detectedFormat isEqualToString:@"zcode"])) {
+            bgcolor = styles[style_User1][NSBackgroundColorAttributeName];
+        }
     }
 
     if (!bgcolor)

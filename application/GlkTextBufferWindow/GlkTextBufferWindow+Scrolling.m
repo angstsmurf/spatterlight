@@ -1,6 +1,7 @@
 #import "GlkTextBufferWindowPrivate.h"
 
 #import "GlkController.h"
+#import "GlkCSSBasic.h"
 #import "Theme.h"
 #import "MarginContainer.h"
 #import "MarginImage.h"
@@ -300,7 +301,7 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
             NSTextStorage *bgStorage =
                 [[NSTextStorage alloc] initWithAttributedString:trimmedText];
 
-            NSLayoutManager *bgLayoutManager = [[NSLayoutManager alloc] init];
+            NSLayoutManager *bgLayoutManager = [[GlkLayoutManager alloc] init];
             bgLayoutManager.allowsNonContiguousLayout = NO;
             bgLayoutManager.backgroundLayoutEnabled = NO; // synchronous layout
             [bgStorage addLayoutManager:bgLayoutManager];
