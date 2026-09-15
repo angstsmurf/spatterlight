@@ -763,14 +763,16 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   /*
    * One line naming several NPCs: dobattle strikes every one of them, and
    * a battle verb naming no NPC at all asks "Who do you want to attack?";
-   * see lib_battle_attack_many().
+   * see lib_battle_attack_many().  `throw` is one of var_90's verbs too
+   * (47E9EF-47EADB): les_feux T115 `throw grappin on rocher` asks Who.
    */
-  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab] %text% with %object%",
+  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw] %text% with %object%",
    lib_cmd_attack_npcs_with},
-  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab] %text%",
+  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw] %text%",
    lib_cmd_attack_npcs},
   /* A bare battle verb asks too, ahead of `kick`'s and `hit`'s "what?". */
-  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab]", lib_cmd_attack_npcs},
+  {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw]",
+   lib_cmd_attack_npcs},
 
   /* More movement, waiting, and miscellaneous administrative commands. */
   /*

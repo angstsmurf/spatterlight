@@ -476,7 +476,9 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     on every turn.
   - les_feux T115-116 `throw grappin on rocher`: the Runner asks the attack
     question ("Qui voulez vous attaquez?"), so `throw ... on` reaches
-    dobattle. Scarier's catch-all answers.
+    dobattle. Scarier's catch-all answers. **Ported 2026-09-15:** `throw` is
+    one of dobattle's var_90 verbs (47E9EF-47EADB), but Scarier's battle
+    rows had left it out. les_feux is now identical on every turn.
   - grumble T207 `pull button`: the Runner says "You can't see the button",
     Scarier "You pull, but nothing happens". The button (obj 117, static) is
     in "More winding path"; T206 `go mirror` (task 500) shows that room's

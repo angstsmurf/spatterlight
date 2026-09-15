@@ -1232,6 +1232,11 @@ inverness_solution.txt|inverness.taf|You hear Macbeth and his wife leave the roo
 # draws, identical through T18), so every fight runs longer; no seed in 1..400
 # won with the old hit counts.  Found by sweeping seeds with 10-attack blocks,
 # then trimming each block while the route still wins.
+# Re-blessed 2026-09-15: the two `throw grappin on rocher` lines now ask "Qui
+# voulez vous attaquez?" as run400 does (runner_transcripts/les_feux.txt).
+# `throw` is one of dobattle's var_90 battle verbs (47E9EF-47EADB), and a line
+# naming no NPC gets the Who question; Scarier's battle rows had left it out
+# and the catch-all answered.  Identical to the Runner on every turn; still 75/115.
 les_feux_solution.txt|Les Feux de l'enfer.taf|Votre score est 75 sur un maximum de 115.|SCR_SEED=45 SCR_SKIP_WAITKEY=1
 # Re-blessed 2026-08-29: the Runner's generaltasks (run400 Proc_19_85_489F4C) resolves
 # the noun once, up front, with co() whole-word containment, and every generic verb

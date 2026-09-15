@@ -1298,10 +1298,10 @@ pas fait
 toutes les pièces, où alors tout simplement "quitter" pour fermer le jeu.
 
 > throw grappin on rocher
-Je ne comprends pas ce que vous voulez faire avec un grappin.
+Qui voulez vous attaquez?
 
 > throw grappin on rocher
-Je ne comprends pas ce que vous voulez faire avec un grappin.
+Qui voulez vous attaquez?
 
 > score
 Votre score est 75 sur un maximum de 115.  (65%)

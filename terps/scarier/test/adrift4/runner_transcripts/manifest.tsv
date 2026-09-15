@@ -188,7 +188,7 @@ lair	lair.txt	driven:Adrift_306_lair_rt.txt	4.00	run400x.exe	4	0		SCR_SEED=4 SCR
 largo_winch	largo_winch.txt	driven:Adrift_276_largo_winch_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 law	law.txt	driven:Adrift_311_law_rt.txt	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 lca	lca.txt	driven:Adrift_502_lca_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-les_feux	les_feux.txt	driven:Adrift_178_les_feux_rt.txt	4.00	run400x.exe	45	0		SCR_SEED=45 SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
+les_feux	les_feux.txt	driven:Adrift_178_les_feux_rt.txt	4.00	run400x.exe	45	0		SCR_SEED=45 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 life	life.txt	driven:Adrift_330_life_rt.txt	3.90	run390x.exe	1234	0	Bob~male	SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
 life_of_mike	life_of_mike.rtf	driven:Adrift_300_life_of_mike_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
 lifesimulation	lifesimulation.txt	driven:Adrift_179_lifesimulation_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	2 differing turn(s)
