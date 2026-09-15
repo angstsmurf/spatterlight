@@ -565,7 +565,7 @@ Zzzzz.  Bored are you?
 You take Your Cell Phone from Your Backpack.
 
 > open phone book
-You can't open that.
+Your Cell Phone is already open!
 
 > look up byers
 Have X-Ray vision, do you?

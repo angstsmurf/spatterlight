@@ -1133,6 +1133,12 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 # space to the line only for a pattern starting "* ", so the leading literal
 # " " fails against "buzzer" (uip_wildcard_match_400()).  The 10 points go with
 # it: 285 of 299, not 295.  6 differing turns, was 7.
+# Re-blessed 2026-09-15, T62 `open phone book`: "You can't open that." ->
+# "Your Cell Phone is already open!" (runner_transcripts/xfiles.txt:252), the
+# gap noted above.  run400's openclose opens 463640's unique present-and-seen
+# winner (4756AB); the book is in the motel room, so the held Cell Phone's
+# alias "Phone" wins alone (lib_open_close_resolved_400()).  5 differing
+# turns, all the T76 van cascade.
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # Del Sol's 46 is 20 points larger than anything the game can actually hand
 # out, and the two missing tens are both author bugs.  Task 14 -- answering

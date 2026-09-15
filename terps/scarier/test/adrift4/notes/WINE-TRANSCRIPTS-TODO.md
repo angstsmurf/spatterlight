@@ -389,6 +389,10 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     tincture..." or a `Which tincture.` prompt, and T117 drops a different
     object.
   - xfiles T62 `open phone book`: the Runner answers with the cell phone.
+    The book is back in the motel room and the held Cell Phone (alias
+    "Phone") is the only present, seen object scoring in 463640; openclose
+    uses that winner (4756AB), while Scarier's `open %object%` bound nothing.
+    **Ported 2026-09-15** (see the index): xfiles differs only from T76 on.
   - 3monkeys T40 `get husk`: the Runner says "Huh?", Scarier takes the coconut
     husk (see T54's implicit take). "Huh?" is the game's DontUnderstand
     (ALR DEFAULT=8), so run400 claims the line silently. Read 2026-09-15,
@@ -929,6 +933,10 @@ every Runner.
   - `pull` on a seen, absent object: "You can't see X.", the same therest
     clause `push` already had. `[4.0]` grumble T207 (`lib_cmd_verb_absent_400`
     on the `pull %text%` row, 2026-09-15)
+  - `open`/`close` act on 463640's unique present-and-seen winner over the
+    whole line (4756AB, 4759D5), even when the parser bound nothing:
+    `open phone book` opens the held Cell Phone (alias "Phone"). `[4.0]`
+    xfiles T62 (`lib_open_close_resolved_400`, 2026-09-15)
   - `turn on/off` refusals append the particle. `[4.0]` thepkgirl
   - `kiss` answers "I'm not sure she would appreciate that!". `[3.9+]`
     (07bbd664d)

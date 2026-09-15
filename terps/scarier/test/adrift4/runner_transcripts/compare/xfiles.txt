@@ -4,10 +4,6 @@ scarier     81 turns, feed[0] is scarier turn 0
 
 RULE 2 -- every feed command was echoed.
 
-turn 62  open phone book
-  run400   Your Cell Phone is already open!
-  scarier  You can't open that.
-
 turn 76  get in the van
   run400   You take VW Van.
   scarier  The man in the dark car watches you silently as you climb in the van. Langly slams the door shut and Frohike wheels out of the parking lot. You give the directions to Skinner. Reading over the directions, Skinner directs Frohike on the route to take north of Bellefleur. You continue into the night until Langly spots the orange "X" on the highway that the last direction denotes. Frohike drives past it to pull over and the van appears to die as he does so. The van drifts to a stop. Frohike smacks the driver's wheel with his palms. "Shit!" "No," you say. "Mulder and Scully experienced the same thing on their first trip to Bellefleur." Skinner remembers and confirms. "Yeah, their car died.. and they lost nine minutes."

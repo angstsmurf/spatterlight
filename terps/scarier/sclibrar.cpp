@@ -20495,9 +20495,46 @@ lib_cmd_clean_other (scr_gameref_t game)
   return lib_cant_do_other (game, "clean");
 }
 
+/*
+ * lib_open_close_resolved_400()
+ *
+ * run400's openclose resolves its object with Proc_21_58_463640 over the
+ * whole typed line (open 4756AB, close 4759D5), not with the name the parser
+ * bound: a unique present-and-seen winner is opened or closed even when the
+ * line also names an absent object in full.  xfiles T62 `open phone book`,
+ * the phone book left in the motel room and the cell phone (alias "Phone")
+ * held, answers "Your Cell Phone is already open!" (runner_transcripts/
+ * xfiles.txt).  TRUE when the line was taken, with *status the handler's
+ * return.
+ */
+static scr_bool
+lib_open_close_resolved_400 (scr_gameref_t game,
+                             scr_bool (*handler) (scr_gameref_t),
+                             scr_bool *status)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object;
+
+  if (!lib_is_version_400 (game) || !input || strstr (input, " with "))
+    return FALSE;
+
+  object = lib_verb_object_resolve_400_string (game, input, NULL, TRUE);
+  if (object < 0)
+    return FALSE;
+
+  gs_clear_object_references (game);
+  game->object_references[object] = TRUE;
+  *status = handler (game);
+  return TRUE;
+}
+
 scr_bool
 lib_cmd_close_other (scr_gameref_t game)
 {
+  scr_bool status;
+
+  if (lib_open_close_resolved_400 (game, lib_cmd_close_object, &status))
+    return status;
   return lib_cant_do_other (game, "close");
 }
 
@@ -20570,6 +20607,10 @@ lib_cmd_close_absent (scr_gameref_t game)
 scr_bool
 lib_cmd_open_other (scr_gameref_t game)
 {
+  scr_bool status;
+
+  if (lib_open_close_resolved_400 (game, lib_cmd_open_object, &status))
+    return status;
   return lib_cant_do_other (game, "open");
 }
 
