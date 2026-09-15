@@ -2505,7 +2505,7 @@ even work any more.
 The path leads northwest and south
 
 > pull button
-You pull, but nothing happens.
+You can't see the button.
 
 > show drawing to saldor
    "Hmm? Oh, is that Grumble? I was friends with him once, a long time ago.

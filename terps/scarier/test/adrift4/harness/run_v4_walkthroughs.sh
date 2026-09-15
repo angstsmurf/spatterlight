@@ -8124,6 +8124,11 @@ cowboyblues_solution.txt|CowboyBlues.taf|how does it feel to be a hero then, Fin
 # the East road (:1960, the task's actions put them there) and "Uncle Grumble
 # is here." drops out of the Corridor (:2100) and the Guard room (:2118),
 # where the actions walk him off.
+# Re-blessed 2026-09-15, one line: T207 `pull button` now answers "You can't
+# see the button." as run400 does (runner_transcripts/grumble.txt). `go
+# mirror` (task 500) only shows "More winding path" and scores; the player
+# stays in Saldor's home, so the button there is seen but absent, and 4.0's
+# therest clause refuses pull on it just as it does push (warlord).
 grumble_solution.txt|Whatever_Happened_to_Uncle_Grumble.taf|Your score is 208 out of a maximum of 404|SCR_SKIP_WAITKEY=1
 # magicshow.taf (AIF, adult content -- see /goldens/.gitignore): a hypnosis/
 # stage-magic themed game. The player (stage magician "Justin") performs a

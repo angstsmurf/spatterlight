@@ -390,7 +390,19 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     object.
   - xfiles T62 `open phone book`: the Runner answers with the cell phone.
   - 3monkeys T40 `get husk`: the Runner says "Huh?", Scarier takes the coconut
-    husk (see T54's implicit take).
+    husk (see T54's implicit take). "Huh?" is the game's DontUnderstand
+    (ALR DEFAULT=8), so run400 claims the line silently. Read 2026-09-15,
+    ruled out offline: the seen byte and position (task 589's "same room as
+    player" arm 48C834-48C851 stamps global_48), a 463640 tie (husk is the
+    only "husk"), an ALR blanking a take refusal, and the pre-match. Every
+    take-family task matching `get husk` or `get the coconut husk` (47, 48,
+    65-68, 76-84, 140-144, 291, 599, 616, 791-794) has an empty FailMessage
+    on its first failing restriction (45404C's index-order 'F') in Scarier's
+    state. The likeliest cause is state Scarier and the Runner print alike
+    but hold differently: with chimp_elevated (var 21) = 1, tasks 77-84 fail
+    first on restriction 1 ("Can't you see I've got my hands full?!"), a
+    fallback hit, a silent exit and DontUnderstand. Carried size in Scarier is
+    also -24 by then. Needs a Wine probe of var 21 and `count` at T40.
   - onnafa T155 `get key of pure harry`: the Runner says "I don't think Harry
     would appreciate being handled". The take-NPC branch fires on the name
     inside an object's name. **Ported 2026-09-15** (see the index): the key
@@ -427,7 +439,12 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     question ("Qui voulez vous attaquez?"), so `throw ... on` reaches
     dobattle. Scarier's catch-all answers.
   - grumble T207 `pull button`: the Runner says "You can't see the button",
-    Scarier "You pull, but nothing happens".
+    Scarier "You pull, but nothing happens". The button (obj 117, static) is
+    in "More winding path"; T206 `go mirror` (task 500) shows that room's
+    description but only scores, so the player is still in Saldor's home and
+    the button is seen but absent. Scarier's `pull %text%` row lacked the
+    4.0 absent-object clause push has. **Ported 2026-09-15** (see the index):
+    grumble now differs only at T274 (the `[Y/N]` quit prompt).
 - **Extra or missing lines:**
   - baroo T107 `close machine`: Scarier added "The machine is now closed.".
     TASK 113 is silent, but its execute-task action starts the convertor
@@ -909,6 +926,9 @@ every Runner.
 - **Other verbs:**
   - `turn` on a seen, absent object: "can't see X." `[4.0]` hcw T81
     (b6d2f4f1f)
+  - `pull` on a seen, absent object: "You can't see X.", the same therest
+    clause `push` already had. `[4.0]` grumble T207 (`lib_cmd_verb_absent_400`
+    on the `pull %text%` row, 2026-09-15)
   - `turn on/off` refusals append the particle. `[4.0]` thepkgirl
   - `kiss` answers "I'm not sure she would appreciate that!". `[3.9+]`
     (07bbd664d)

@@ -19,10 +19,6 @@ turn 6  u -- WHITESPACE ONLY (a separator one side has and the other has not).  
   run400   You move up. Your room Your roomYou're in your room at the Sleazepit. The less said about the decor the better, but if vomit-stained walls ever become a fashion accessory the owner of the Sleazepit will make a killing. Aside from the trough that serves as your bed and a greasy window letting in murky sunlight there is little to be seen here. A flight of winding steps lead down
   scarier  You move up. Your room Your room You're in your room at the Sleazepit. The less said about the decor the better, but if vomit-stained walls ever become a fashion accessory the owner of the Sleazepit will make a killing. Aside from the trough that serves as your bed and a greasy window letting in murky sunlight there is little to be seen here. A flight of winding steps lead down
 
-turn 207  pull button
-  run400   You can't see the button.
-  scarier  You pull, but nothing happens.
-
 turn 274  quit
   run400   > Hmmm. Didn't understand a word of that! Try something else.
   scarier  Do you really want to quit? [Y/N]

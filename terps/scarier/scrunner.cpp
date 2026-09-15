@@ -1143,6 +1143,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"press %text%", lib_cmd_press_other},
   {"press", lib_cmd_press_what},
   {"pull %object% *", lib_cmd_pull_object},
+  {"pull %text%", lib_cmd_verb_absent_400},
   {"pull %text%", lib_cmd_pull_other},
   {"pull", lib_cmd_pull_what},
   {"punch *", lib_cmd_punch},

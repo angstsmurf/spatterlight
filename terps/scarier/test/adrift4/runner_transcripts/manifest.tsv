@@ -146,7 +146,7 @@ gorxungula	gorxungula.txt	driven:Adrift_392_gorxungula_rt.txt	4.00	run400x.exe	1
 great_escape	great_escape.rtf	driven:Adrift_293_great_escape_rt.rtf	3.80	run380x.exe	2	0		SCR_SEED=2	no	0 differing turn(s), 1 lost command(s)
 greekschool	greekschool.txt	driven:Adrift_475_greekschool_rt.txt	4.00	run400x.exe	1234	0	Player~male		yes	6 differing turn(s)
 griswold	griswold.txt	driven:Adrift_152_griswold_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-grumble	grumble.txt	driven:Adrift_492_grumble_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	2 differing turn(s), 1 lost command(s)
+grumble	grumble.txt	driven:Adrift_492_grumble_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s), 1 lost command(s)
 halloweenhijinks	halloweenhijinks.txt	driven:Adrift_481_halloweenhijinks_rt.txt	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 haunt	haunt.rtf	driven:Adrift_290_haunt_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)
 haunted_house	haunted_house.rtf	driven:Adrift_292_haunted_house_rt.rtf	3.80	run380x.exe	1234	0			no	0 differing turn(s), 1 lost command(s)

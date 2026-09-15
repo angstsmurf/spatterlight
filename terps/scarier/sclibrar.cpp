@@ -17920,7 +17920,8 @@ lib_cmd_turn_absent (scr_gameref_t game)
  *                           an alias of the photo
  *
  * where Scarier said "You push, but nothing happens.", "You can't stand on
- * that." and "Give what?".  The give line shows why the whole line counts:
+ * that." and "Give what?".  Pull is the same: grumble T207 `pull button`,
+ * the button left behind in another room, is "You can't see the button.".  The give line shows why the whole line counts:
  * therest's give arm (488A09) is below the clause, and the object it names is
  * the photo, not the wine.  4.0 only; declines otherwise.
  */
