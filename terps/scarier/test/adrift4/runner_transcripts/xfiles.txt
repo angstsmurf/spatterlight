@@ -306,18 +306,44 @@ You move out.
 Outside Arroway Hardware Store - Bellefleur, OR
 You stand outside of the only legitimate shop left in Bellefleur and it seems to be doing remarkably well.  The newer concrete building seems to dwarf its forgotten neighbors.  Wheelbarrows lean against the outside of this building.  Also here is VW Van.  Byers, Frohike and Skinner are here.  Langly is here.   You notice a man sitting alone in a dark car.  You can move south, in and southwest.
 
-> get in the van
-You take VW Van.
+> climb in the van
+The man in the dark car watches you silently as you climb in the van.  Langly slams the door shut and Frohike wheels out of the parking lot.  You give the directions to Skinner.  
+
+Reading over the directions, Skinner directs Frohike on the route to take north of Bellefleur.  You continue into the night until Langly spots the orange "X" on the highway that the last direction denotes.  Frohike drives past it to pull over and the van appears to die as he does so.  The van drifts to a stop.  Frohike smacks the driver's wheel with his palms.  "Shit!"  "No," you say.  "Mulder and Scully experienced the same thing on their first trip to Bellefleur."  Skinner remembers and confirms.  "Yeah, their car died.. and they lost nine minutes."  
 
 > look
 Outside Arroway Hardware Store - Bellefleur, OR
-You stand outside of the only legitimate shop left in Bellefleur and it seems to be doing remarkably well.  The newer concrete building seems to dwarf its forgotten neighbors.  Wheelbarrows lean against the outside of this building.  Byers, Frohike and Skinner are here.  Langly is here.   You notice a man sitting alone in a dark car.  You can move south, in and southwest.
+You stand outside of the only legitimate shop left in Bellefleur and it seems to be doing remarkably well.  The newer concrete building seems to dwarf its forgotten neighbors.  Wheelbarrows lean against the outside of this building.  Also here is VW Van.  Byers, Frohike and Skinner are here.  Langly is here.   You notice a man sitting alone in a dark car.  You can move south, in and southwest.  Frohike looks to you and your companions and you all get out of the van.  "Looks like we found the place, huh," Langly says aloud.  Byers is hugging himself.  "This is creepy," he says.  You draw your gun in agreement.  
 
 > enter the forest
-Just a direction will do.
+Without notifying the Gunmen, you draw your gun, turn on your flashlight, and venture into the woods.  
+Forest Clearing - Bellefleur, OR
+You stand in a small clearing made in the Oregon forest.  There's a small dwelling here that looks like a hunting cabin common to this area.  You feel like you're being watched.  There's a soldier hidden in some foliage here.
 
 > ko
-Nope!
+The sentry, approaching you cooly and calmy, grips the barrel of his rifle and comes at you swinging the butt of the gun.
+
+You're prepared for the onslaught and manage to painfully deflect the first swing.  Unfortunately, you lost your gun deflecting the first blow, so you revert to your academy hand-to-hand combat training.  You knock the gun from the sentry's hands when you drop to the ground and knock his legs out from under him.
+
+Both on the ground, you scramble to deliver a knock out blow but he beats you to it and you hear the crack your nose makes as the sentry breaks it with the barrel of a pistol he produces from a sleeve.  You struggle for but lose consciousness.  
+
+You wake up in a nicely furnished guest bedroom.  You are lying on a soft bed and there is cotton wadding up your nose.  You have a migrane that is disorienting you.    There's also a taped bandage around your nose that is tickling you.  You begin to sit up but someone pushes you firmly back down against the bed.
+
+You open your eyes.  Your vision is blurred at first, but begins to clear immediately.  There are two people standing beside your bed, looking down upon you.  One is a man, and one is a woman.  As your vision clears a little more, you are stunned to see the elusive figures you have been searching for the majority of your life.  Your voice sounds raspy and congested.  "Am I dead?" you ask.  Your mother is hardly containing tears, you're not sure if they are of sorrow or joy.  "No, William, you're not dead."  She sits down on the bed beside you.
+
+Your mind is overloaded with questions and thoughts.  Just now, you are content to study them.  Your mother is older now than she was the last time you saw her, but not remarkably changed.  However, you are enamored with your father.  It is as if you were able to open a portal and see what you would look like in forty years.  He looks tired and worn with endurance, but smiles at you.  It's a rare smile.  You're gaping.  "Hello, Will" he says, awed and nervous at the same time.  "Hi," you manage after some time.  Your mother is looking back and forth between the two of you.  "William," she says, bursting with emotion,  "Meet your father, Fox Mulder."  He looks down.  "I, uh, I'm sorry about . . . so many things."  You stop him.  "Dad," you say, having wanted to call someone that all your life.  You wait until you get his attention, "It's okay.  You'll make me understand."  He looks back up at you, surprised that you're not angry at him.  He searches your face for resentment and finds none.
+
+"There's so much we need to explain to you, son," your mother says.  Frohike comes to mind.  "There were guys with me, four of them, what --"  "They're upstairs, they're all okay, they're old friends of ours," your mother tells you.  "They're much safer with us now.  I wish I could say the same about you."  You look to your mother to explain and turn to your father when she doesn't.  He meets your gaze.  "You're a threat to them, Will, because of what you are --"  "Exactly what am I?  I keep hearing that, but no one tells me."  "You're naturally immune to their virus, Will, the one they plan to use for colonization.  You were born that way.  Because your mother and I had both been experimented on, vaccinated against the viruses ourselves.  You're naturally immune, though."  He paused, allowing it to sink in.  "Each of us is born with dormant DNA in our genetic makeup, extra material that seemingly has no place.  Your dormant DNA  can be activated and that gives you some dangerous potential to them.  We're not even sure what you're capable of."  You stare at him speechless.  "Upon encountering an alien artifact during a case, I began experiencing headaches.  They got worse and worse.  Very quickly, I had developed telepathic abilities.  I had also become deathly ill and unable to communicate.  The dormant DNA I mentioned, had become activated, but at such a frantic frenzy, that it was killing my body.  Cancerman was after what I had and had surgery performed to remove part of my brain.  We're not sure what really took place.  Since, I have experienced problems related to the procedure and what took place."  You notice your mother grip his hand a little tighter.  "It was very important that we protect you from the people who might do the same to you.  But that's blown and they've located us now."   You are stunned.   "I led them straight to you."  You feel guilt and remorse.  "Not willingly, Will," your mother says.  "They didn't give you a choice, and they would have killed you if you didn't."
+
+"What now?" you ask.  "Stay.  Train with us.  Help the Resistence the way only someone like you can.  You may save us all if you do.  I'd like to tell you that you could go back if you'd like, but you can't.  They'll kill you."  Your mother looks at you.  "Do you believe in fate?" she says.  "Only when I want to," you say.
+
+
 
 > the end
 Nope!
+"I'm not sure how I should feel saying this, Nathan, to be glad you've grown to be such a strong and smart young man, or to be sad that I can't protect you anymore.  Either way," your father says as he extends his hand to you, "Welcome to the Resistance."  You smile without knowing why as you grip it in return.
+You scored 285 out of the maximum 299!
+That is 95% of the game!
+You finished 14 points short.
+
+[Press any key to end]

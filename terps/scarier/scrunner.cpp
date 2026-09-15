@@ -4523,6 +4523,37 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
         task_string = empty_line.c_str ();
     }
 
+  /*
+   * get_outer (4582D8) runs at 48A46D, BEFORE the task dispatcher at 48A481.
+   * On a get/take line with no whole-word "all" or "and", its get_piece
+   * (473A34) first pre-matches the line against take-family tasks (453C50
+   * class 1, 472D9C); a hit dispatches the task.  A miss goes on to the
+   * library take, so a line whose task only matches in the dispatcher proper
+   * is answered as a take.  Measured on The X-Files T76: "get in the van"
+   * gives "You take VW Van." (Adrift_132), where T55's same line, with task
+   * 13 pre-matching, gets in.
+   */
+  if (!status && !refused && !put_first && !repeat_pending && !inv_listed
+      && empty_result == 0
+      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      && (strncmp (string, "get ", 4) == 0
+          || strncmp (string, "take ", 5) == 0
+          || strncmp (string, "pick ", 5) == 0)
+      && !lib_input_contains_word (string, "all")
+      && !lib_input_contains_word (string, "and")
+      && lib_take_names_dynamic_400 (game, string)
+      && !lib_task_prematches_input (game, 1))
+    {
+      /* The piece names its object by whole-word score, so "get in the van"
+         is a take of the van; see lib_take_scored_400(). */
+      status = run_priority_commands (game, string);
+      if (!status)
+        {
+          const scr_ref_number_guard ref_number (game);
+          status = lib_take_scored_400 (game);
+        }
+    }
+
   const size_t task_mark = pf_buffer_length (filter);
   const scr_bool claimed_before_tasks = status;
   if (!status && !refused)

@@ -666,6 +666,11 @@ extern scr_bool lib_cmd_take_from_nowhere_all (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_nowhere (scr_gameref_t game);
 extern scr_int lib_empty_rewrite_400 (scr_gameref_t game, const scr_char *string,
                                       std::string *task_line);
+extern scr_bool lib_task_prematches_input (scr_gameref_t game,
+                                           scr_int class_filter);
+extern scr_bool lib_take_scored_400 (scr_gameref_t game);
+extern scr_bool lib_take_names_dynamic_400 (scr_gameref_t game,
+                                            const scr_char *string);
 extern scr_bool lib_cmd_put_in_nowhere (scr_gameref_t game);
 extern scr_bool lib_cmd_put_on_nowhere (scr_gameref_t game);
 extern scr_bool lib_cmd_take_all_from_npc (scr_gameref_t game);

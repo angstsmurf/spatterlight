@@ -7398,7 +7398,7 @@ lib_definite_prefix (const scr_char *prefix, scr_char *buffer, size_t size)
  * look-ups, 2 for the put/drop family, 0 for none; see
  * run_set_task_class_filter().
  */
-static scr_bool
+scr_bool
 lib_task_prematches_input (scr_gameref_t game, scr_int class_filter)
 {
   scr_bool references_buffer[LIB_ALLOCATION_AVOIDANCE_SIZE];
@@ -21658,25 +21658,52 @@ lib_cmd_put_unclear (scr_gameref_t game)
   return lib_cmd_unclear_object (game);
 }
 
+/*
+ * lib_take_scored_400()
+ *
+ * 4.0 names a take's object by whole-word score, so a line whose words did
+ * not all parse can still name one; see lib_take_multiple_common().  Also
+ * run by run_all_commands() for get_outer's take ahead of the tasks.
+ */
+scr_bool
+lib_take_scored_400 (scr_gameref_t game)
+{
+  scr_bool status;
+
+  if (!lib_is_version_400 (game)
+      || !uip_match ("[get/take/pick up/pick] %text%",
+                     run_get_dispatch_input (), game))
+    return FALSE;
+
+  lib_take_scored_fallback = TRUE;
+  status = lib_take_multiple_common (game, FALSE);
+  lib_take_scored_fallback = FALSE;
+  return status;
+}
+
+/*
+ * lib_take_names_dynamic_400()
+ *
+ * Does the whole-word noun scorer name a present, non-static object on
+ * STRING?  get_piece names its piece with 463640 in mode 1 (473011), whose
+ * candidates must be dynamic (global_24 = 0, 4631B9/4631FE).  A line naming
+ * only statics -- Pilfers' `get off bed`, Glum Fiddle's `get in barrel` --
+ * keeps the flow below, where the tasks and the get-off handler answer it.
+ */
+scr_bool
+lib_take_names_dynamic_400 (scr_gameref_t game, const scr_char *string)
+{
+  const scr_int object = lib_verb_object_resolve_400_string (game, string,
+                                                             NULL, TRUE);
+
+  return object >= 0 && !obj_is_static (game, object);
+}
+
 scr_bool
 lib_cmd_get_what (scr_gameref_t game)
 {
-  /*
-   * 4.0 names a take's object by whole-word score, so a line whose words did
-   * not all parse can still name one; see lib_take_multiple_common().
-   */
-  if (lib_is_version_400 (game)
-      && uip_match ("[get/take/pick up/pick] %text%",
-                    run_get_dispatch_input (), game))
-    {
-      scr_bool status;
-
-      lib_take_scored_fallback = TRUE;
-      status = lib_take_multiple_common (game, FALSE);
-      lib_take_scored_fallback = FALSE;
-      if (status)
-        return TRUE;
-    }
+  if (lib_take_scored_400 (game))
+    return TRUE;
   return lib_what (game, "Take");
 }
 

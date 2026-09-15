@@ -673,7 +673,7 @@ forgotten neighbors.  Wheelbarrows lean against the outside of this building.
 
 You can move south, in and southwest.
 
-> get in the van
+> climb in the van
 The man in the dark car watches you silently as you climb in the van.  Langly
 slams the door shut and Frohike wheels out of the parking lot.  You give the
 directions to Skinner.

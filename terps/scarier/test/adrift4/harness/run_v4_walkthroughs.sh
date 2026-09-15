@@ -1139,6 +1139,12 @@ toxically_earth_solution.txt|Toxically_Earth.taf|Thanks for playing RON: TOXICAL
 # winner (4756AB); the book is in the motel room, so the held Cell Phone's
 # alias "Phone" wins alone (lib_open_close_resolved_400()).  5 differing
 # turns, all the T76 van cascade.
+# Re-blessed 2026-09-15, T76 rerouted `get in the van` -> `climb in the van`.
+# run400's get_outer (4582D8) runs before the task dispatcher: task 26 `*Van*`
+# is not take-family, so the line took the van ("You take VW Van.", Adrift_132)
+# and the route stalled.  Scarier now does the same (lib_take_scored_400() ahead
+# of task pass 1).  `climb in the van` runs task 26 and wins in run400x
+# (Adrift_128_p_xfclimb.txt:309, "Welcome to the Resistance.", 285 of 299).
 xfiles_solution.txt|The_X-Files_A_New_Beginning.taf|Welcome to the Resistance.
 # Del Sol's 46 is 20 points larger than anything the game can actually hand
 # out, and the two missing tens are both author bugs.  Task 14 -- answering

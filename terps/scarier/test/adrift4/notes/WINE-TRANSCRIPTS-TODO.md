@@ -430,7 +430,8 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     The book is back in the motel room and the held Cell Phone (alias
     "Phone") is the only present, seen object scoring in 463640; openclose
     uses that winner (4756AB), while Scarier's `open %object%` bound nothing.
-    **Ported 2026-09-15** (see the index): xfiles differs only from T76 on.
+    **Ported 2026-09-15** (see the index): xfiles differed only from T76 on; T76 ported
+    too, see below.
   - 3monkeys T40 `get husk`: the Runner says "Huh?", Scarier takes the coconut
     husk (see T54's implicit take). "Huh?" is the game's DontUnderstand
     (ALR DEFAULT=8), so run400 claims the line silently. Read 2026-09-15,
@@ -498,6 +499,25 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     alone). Porting "get before tasks" without the room 10 rule would break
     T55. Next step is a Wine probe: `take van` and `get in the van` at T55,
     and `get van` at T76.
+    **T76 ported 2026-09-15.** Wine probes (run400x seed 149): at T55 `take
+    van` and `get van` both answer "You take VW Van." (Adrift_130_p_xf55take,
+    Adrift_131_p_xf55get), so room 10 has no rule of its own. T55's `get in
+    the van` runs task 13 because 13 is take-family and pre-matches (get_outer
+    472D9C, 453C50 class 1); task 26 is not. At T76 `get van` then `get in
+    van` answers "You are already carrying VW Van." (Adrift_132_p_xf76get):
+    the held van is still named, so 463640 mode 1's pass 2 applies. get_outer
+    runs for any line with whole-word get/take/pick (4580AA-4580EA). Mode 1
+    only accepts dynamic objects (global_24 = 0), and Pilfers' `get off bed`
+    and Glum's `get in barrel` (both static) keep Runner-identical library
+    and task answers. Ported in run_all_commands ahead of task pass 1: at 4.0,
+    a get/take/pick line with no "all"/"and" that names a dynamic object and
+    pre-matches no take-family task goes to the take rows and then to the
+    scored take (lib_take_names_dynamic_400, lib_take_scored_400). All three
+    probes compare identical. The old route then stalled on the taken van,
+    so the walkthrough's T76 now reads `climb in the van`, which runs task 26.
+    run400x wins with that route (Adrift_128_p_xfclimb, 285 of 299), and that
+    capture is the new runner_transcripts/xfiles.txt: identical on every turn
+    apart from the Runner's keypress prompt.
   - the_town_of_azra T13 `buy rawhide armor`: the Runner says "I don't think
     that is for sale", Scarier buys it. The money is then off by 90.
     **Ported 2026-09-15** (see the index): the_town_of_azra is now identical

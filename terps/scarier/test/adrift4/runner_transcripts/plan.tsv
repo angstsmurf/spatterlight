@@ -106,7 +106,7 @@ chooseyourown	chooseyourown.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	"A h
 fantasyworld	fantasyworld.taf	3.90	run390x.exe	1234	0	Corin		You scored 0 out of the maximum 500!	394
 sophie	sa.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You have won.	439
 sophie_comp	sophie.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	You have won.	434
-cursed	cursed.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	The honour will be all mine, father	1703
+cursed	cursed.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	The honour will be all mine, father	1719
 easter	easter.taf	4.00	run400x.exe	1234	0			***You have won***	16
 yonastoundingcastle	yonastoundingcastle.taf	4.00	run400x.exe	3	1		SCR_SEED=3 SCR_SKIP_WAITKEY=1	Incredible victory!	7731
 frog	frog.taf	4.00	run400x.exe	1234	0			So you hop away with your fairy princess, to live hoppily ever after.	1
@@ -162,7 +162,7 @@ wrecked	wrecked.taf	3.80	run380x.exe	15	0		SCR_SEED=15	Hope you enjoyed playing 
 mortality	mortality.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	one of the two good endings	385
 largo_winch	largo-winch.taf	3.90	run390x.exe	1234	0			Votre score est de 97 sur un maximum de 97!	1394
 3monkeys	3monkeys.taf	4.00	run400x.exe	149	0		SCR_SEED=149	Congratulations, you did it!	1590
-humbug	humbug.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Grandad would probably describe you as a winner.. or a cheat.	10872
+humbug	humbug.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Grandad would probably describe you as a winner.. or a cheat.	10845
 crime_adventure	Crime_Adventure.taf	3.80	run380x.exe	1234	0			Mrs Fenwick was in no danger at all, it was a friend	3
 thesisters	TheSisters.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	lifeless body of Trisha Seabourne.	16
 thepkgirl	the_pk_girl.taf	4.00	run400x.exe	24	0		SCR_SEED=24 SCR_SKIP_WAITKEY=1	Your Secret Letter is: E	1140
@@ -175,7 +175,7 @@ afdfr	AFDFR.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Life is good for Dea
 akron	akron.taf	3.80	run380x.exe	1234	0			you brave adventurer, saved yourself	0
 cave	cave.taf	3.80	run380x.exe	1234	0			You scored 1000 out of the maximum 1000!	9
 haunt	haunt.taf	3.80	run380x.exe	1234	0			You scored 84 out of the maximum 84!	84
-twilight	twilight.taf	3.80	run380x.exe	1234	0			Your score is 500 out of a maximum of 500	97
+twilight	twilight.taf	3.80	run380x.exe	1234	0			Your score is 485 out of a maximum of 500	97
 haunted_house	haunted.taf	3.80	run380x.exe	1234	0			You scored 1000 out of the maximum 1000!	2
 great_escape	great.taf	3.80	run380x.exe	2	0		SCR_SEED=2	cry of joy, you have made it, you have escaped!!	6
 tom_ceader	secret.taf	3.80	run380x.exe	1234	0			you did good work escaping from the town	1
@@ -328,7 +328,7 @@ choosethreehour	Choose_Your_Own_Three_Hour_Adventure.taf	4.00	run400x.exe	1234	0
 thelasthour	thelasthour.taf	4.00	run400x.exe	1234	0			"Here we are... MY BROTHER."	338
 sexismental	Sex is Mental.taf	4.00	run400x.exe	1234	0			Where's that broken Glass?	2
 petespunkin	Pete's Punkin Junkinator.taf	4.00	run400x.exe	1234	0			You scored 505 out of the maximum 575!	29
-crookedestate	The Crooked Estate.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	I quit momentarily, lying motionless, without any will. But, still, something	158
+crookedestate	The Crooked Estate.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	I quit momentarily, lying motionless, without any will. But, still, something	162
 aliasagent	Alias Undercover Agent.taf	4.00	run400x.exe	1234	0	Player		You scored 35 out of the maximum 35!	5
 viewtohome	A View to a Home.taf	4.00	run400x.exe	1234	0			Congratulations! You have collected all three medals! You have completed the	648
 briefcase	briefcase.taf	4.00	run400x.exe	1234	0			[The end]	6

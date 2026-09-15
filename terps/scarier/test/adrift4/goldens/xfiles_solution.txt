@@ -82,7 +82,7 @@ ne
 in
 take directions
 out
-get in the van
+climb in the van
 look
 enter the forest
 ko
