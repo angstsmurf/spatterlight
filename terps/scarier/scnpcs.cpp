@@ -1342,10 +1342,30 @@ npc_tick_npcs (scr_gameref_t game)
           for (walk = gs_npc_walkstep_count (game, npc) - 1; walk >= 0; walk--)
             {
               scr_vartype_t vt_key[5];
-              scr_int chartask;
+              scr_int chartask, other;
+              scr_bool preempted = FALSE;
 
               /* Ignore finished walks. */
               if (gs_npc_walkstep (game, npc, walk) <= 0)
+                continue;
+
+              /*
+               * A higher-numbered walk that preempts this one keeps its meet
+               * shut too: the move handler runs the walk tick's own
+               * precedence test before it looks at the CharTask (run400
+               * 4754A5-47557B).  greekschool (4.00, runner_transcripts/
+               * greekschool.txt T27/T41/T91/T100/T126/T156): Paul's WALK 1
+               * is an empty game-start walk, so walking in on him never runs
+               * his WALK 0 CharTask, task 22, whose restriction used to print
+               * "Paul gives you a look over, then resumes his searching."
+               */
+              for (other = walk + 1;
+                   other < gs_npc_walkstep_count (game, npc); other++)
+                {
+                  if (npc_walk_preempts (game, npc, other))
+                    preempted = TRUE;
+                }
+              if (preempted)
                 continue;
 
               /* Retrieve any character meeting task for the NPC. */

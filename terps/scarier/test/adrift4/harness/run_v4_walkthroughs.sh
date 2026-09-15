@@ -7376,6 +7376,10 @@ jimpond_solution.txt|JimPond.taf|and I'll be wanting you to lead the attack.|SCR
 # Wine (Adrift_1_greek_probe.txt, 154/154 echoed) answers `take exam` with
 # the translate/complete/take-exam TASK's fail text "You'll need the test,
 # first."; only `get` reaches the library take.
+# 2026-09-15: no more "Paul gives you a look over, then resumes his
+# searching." on walking in on Paul. His empty game-start WALK 1 preempts
+# WALK 0, so the typed-move meet skips WALK 0's CharTask (run400
+# 4754A5-47557B); runner_transcripts/greekschool.txt T27/41/91/100/126/156.
 greekschool_solution.txt|Greek School Adventure.taf|You scored 185 out of the maximum 275!|
 # Trick or Treat.taf by David Whyld: comic Halloween horror-house escape.
 # Derived via SCR_DUMP_TASKS structural dump (task/restr/act tables) plus

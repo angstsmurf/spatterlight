@@ -31,7 +31,7 @@ asylum	asylum.txt	harvested-native-0-draws:Adrift_712_asylum.txt	3.90	run390x.ex
 backhome	backhome.txt	harvested-xoshiro:Adrift_135_backhome_x.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 bandera	bandera.txt	driven:Adrift_513_bandera_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 barneysproblem	barneysproblem.txt	harvested-xoshiro:Adrift_136_barneysproblem_x.txt	4.00	run400x.exe	1234	5		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-baroo	baroo.txt	driven:Adrift_305_baroo_rt.txt	4.00	run400x.exe	1234	0			yes	1 differing turn(s)
+baroo	baroo.txt	driven:Adrift_305_baroo_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 beanstalk	beanstalk.txt	driven:Adrift_262_beanstalk_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 beer	beer.txt	driven:Adrift_439_beer_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 bigcitylaundry	bigcitylaundry.txt	driven:Adrift_407_bigcitylaundry_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
@@ -144,7 +144,7 @@ goblinhunt	goblinhunt.txt	driven:Adrift_204_goblinhunt_rt.txt	4.00	run400x.exe	1
 goldilocks	goldilocks.txt	driven:Adrift_150_goldilocks_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 gorxungula	gorxungula.txt	driven:Adrift_392_gorxungula_rt.txt	4.00	run400x.exe	1234	2	Lophese~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 great_escape	great_escape.rtf	driven:Adrift_293_great_escape_rt.rtf	3.80	run380x.exe	2	0		SCR_SEED=2	no	0 differing turn(s), 1 lost command(s)
-greekschool	greekschool.txt	driven:Adrift_475_greekschool_rt.txt	4.00	run400x.exe	1234	0	Player~male		yes	6 differing turn(s)
+greekschool	greekschool.txt	driven:Adrift_475_greekschool_rt.txt	4.00	run400x.exe	1234	0	Player~male		yes	identical on every turn apart from the Runner's keypress prompt.
 griswold	griswold.txt	driven:Adrift_152_griswold_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 grumble	grumble.txt	driven:Adrift_492_grumble_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s), 1 lost command(s)
 halloweenhijinks	halloweenhijinks.txt	driven:Adrift_481_halloweenhijinks_rt.txt	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -200,7 +200,7 @@ lost	lost.txt	driven:Adrift_253_lost_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WA
 lost_down	lost_down.txt	driven:Adrift_254_lost_down_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 lost_souls	lost_souls.txt	driven:Adrift_320_lost_souls_rt.txt	3.90	run390x.exe	1234	0			yes	1 differing turn(s)
 lostmines	lostmines.txt	harvested-xoshiro:Adrift_141_lostmines_x.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
-losttomb	losttomb.txt	driven:Adrift_340_losttomb_rt.txt	3.90	run390x.exe	1234	0			yes	1 differing turn(s)
+losttomb	losttomb.txt	driven:Adrift_340_losttomb_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 magicshow	magicshow.txt	driven:Adrift_493_magicshow_rt.txt	4.00	run400x.exe	1234	0	male	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 maincourse	maincourse.txt	driven:Adrift_167_maincourse_rt.txt	4.00	run400x.exe	17	2		SCR_SEED=17	yes	identical on every turn.
 mammoth	mammoth.txt	driven:Adrift_308_mammoth_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.

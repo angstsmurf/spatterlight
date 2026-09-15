@@ -202,7 +202,6 @@ meditating on the truths of the universe.  Paul is here, grumbling to himself
 and looking somewhat perplexed.
 
 You can move east and west.
-Paul gives you a look over, then resumes his searching.
 
 > east
 You move east.
@@ -328,7 +327,6 @@ meditating on the truths of the universe.  Paul is here, grumbling to himself
 and looking somewhat perplexed.
 
 You can move east and west.
-Paul gives you a look over, then resumes his searching.
 
 > open door
 You whip out your Simons Law key and open the door. You can now go up into
@@ -826,7 +824,6 @@ meditating on the truths of the universe.  Paul is here, grumbling to himself
 and looking somewhat perplexed.
 
 You can move east, west and up.
-Paul gives you a look over, then resumes his searching.
 
 > up
 You move up.
@@ -925,7 +922,6 @@ meditating on the truths of the universe.  Paul is here, grumbling to himself
 and looking somewhat perplexed.
 
 You can move east, west and up.
-Paul gives you a look over, then resumes his searching.
 
 > east
 You move east.
@@ -1246,7 +1242,6 @@ meditating on the truths of the universe.  Paul is here, grumbling to himself
 and looking somewhat perplexed.
 
 You can move east, west and up.
-Paul gives you a look over, then resumes his searching.
 
 > east
 You move east.
@@ -1535,7 +1530,6 @@ meditating on the truths of the universe.  Paul is here, grumbling to himself
 and looking somewhat perplexed.
 
 You can move east, west and up.
-Paul gives you a look over, then resumes his searching.
 
 > up
 You move up.

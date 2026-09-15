@@ -46,10 +46,20 @@ index below lead to the code.
   dreamquest. Each was driven with the golden's feed, seed and popups.
   `manifest.tsv` gives each row's compare verdict and `compare/` the
   reports. Regenerate it with `harness/runner_transcripts.py`; the
-  README explains how. All 105 differing rows are classified under "Whole-corpus
-  capture triage" in Open leads.
-- **Transcript directories** under `~/adrift-battle/runner/wine/`:
-  - `pfx/drive_c/adrift/`: the live archive. Never `rm` a glob there.
+  README explains how. All 105 rows that differed at capture are classified
+  under "Whole-corpus capture triage" in Open leads. After the ports, the
+  manifest stands at 338 identical and 89 differing (2026-09-15).
+- **Which transcript to cite.** For a wired row, compare against and cite
+  the renamed copy `runner_transcripts/<tag>.txt` (`.rtf` for 3.7/3.8), not
+  the `Adrift_<N>_<tag>` file a drive left in the prefix. The manifest's
+  `source` column records which archive file each copy came from. When a
+  re-drive of a row wins, `collect` replaces the copy, so the notes never need
+  a new filename. Only runs with no row keep their archive names: probes and
+  one-off variants such as House_sober.
+- **Transcript directories** under `~/adrift-battle/runner/wine/` (drive
+  output, not for citing):
+  - `pfx/drive_c/adrift/`: the live archive where every drive lands. Never
+    `rm` a glob there.
   - `transcripts_v4_corpus_2026-09-08/`: 427 rows, native RNG.
   - `transcripts_v4_xoshiro_2026-09-12/`: 44 rows, xoshiro. The job list is
     `xoshiro_jobs.txt`.
@@ -139,6 +149,13 @@ index below lead to the code.
 
     python3 harness/compare_wine_transcript.py --taf G --feed F --runner T \
         --env SCR_RNG=xoshiro --env SCR_SEED=1234 [--popup Hero --popup male]
+
+- **For a wired row, T is `runner_transcripts/<tag>.txt`** (see "Which
+  transcript to cite" above). `python3 harness/runner_transcripts.py
+  recompare <tag>` runs this compare with the row's own feed, seed, env and
+  popups. It rewrites `runner_transcripts/compare/<tag>.txt` and the
+  manifest verdict. Use it after an engine change instead of hand-built
+  arguments.
 
 - **Rule 2 comes first.** It prints every feed command the Runner never
   echoed. A lost command desynchronises everything after it and is a
@@ -336,11 +353,12 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   doubles came from drive.exe's retype path. It read the entry box back
   before the swallowed key had landed, so the retype went in on top of the
   original. The solo re-drives logged no retypes. bomb_threat
-  (Adrift_128) is now identical apart from the keypress prompt. humbug
-  (Adrift_130) echoes all 1060 feed commands and reaches the win marker.
-  **Closed 2026-09-15:** re-driven with the vbrng trace (Adrift_128_humbug_tr,
-  seed 1234), humbug is identical apart from the keypress prompt and draws
-  10845 = 10845. Two ports did it. T634 `X robot` at the Bus Stop names the
+  (`runner_transcripts/bomb_threat.txt`) is now identical apart from the
+  keypress prompt. humbug (`runner_transcripts/humbug.txt`) echoes all 1060
+  feed commands and reaches the win marker.
+  **Closed 2026-09-15:** re-driven with the vbrng trace (seed 1234; the
+  transcript is byte-identical to `runner_transcripts/humbug.txt`), humbug is
+  identical apart from the keypress prompt and draws 10845 = 10845. Two ports did it. T634 `X robot` at the Bus Stop names the
   static robot seen in the tunnel, so examines() answers "can't see it from
   here!" with no not-a-turn flag, and characters() overwrites that with
   the NPC. The line is a turn (7 draws). T727 `X teeth`: obhere stamps a
@@ -432,6 +450,9 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     crookedestate is now identical on every turn.
   - showtime T65 `get her hand` (after "(No female)"): the Runner runs the
     task, Scarier says "Take what?". The `z` sequence from T68 follows.
+    Harness artefact, not the engine: the feed's blank pause answers become
+    extra turns in Scarier under SCR_SKIP_WAITKEY, so the turn numbers slip
+    against runner_transcripts/showtime.txt from there on.
   - xfiles T69 bare `buzzer` (the Runner says "I don't understand what you
     want me to do with A Buzzer") and T76 `get in the van` (the Runner says
     "You take VW Van."). Scarier runs the tasks in both. The ending follows.
@@ -478,7 +499,11 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     "I don't understand where you want to get things from." must be
     suppressed somehow. Probe that before porting.
   - greekschool T27/41/91/100/126/156: Scarier adds the NPC line "Paul gives
-    you a look over..." on entering. The Runner never prints it.
+    you a look over..." on entering. The Runner never prints it. **Ported
+    2026-09-15** (see the index): Paul's empty game-start WALK 1 preempts
+    WALK 0, and the move handler's meet runs the tick's precedence test
+    (run400 4754A5-47557B) before it looks at the CharTask. greekschool is
+    now identical on every turn (runner_transcripts/greekschool.txt).
   - riding_home T47 and T50: the Runner prints an NPC conversation line and a
     progress-hint line that Scarier lacks.
   - iqsfot T158 `kick guard`: the Runner names the absent NPC by Name ("Drash
@@ -680,11 +705,15 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 ### Harness and corpus
 
 - **`house`** is comparable only as `House_sober.taf` with
-  `cmdfile_house_sober.txt`. That run (`Adrift_128_housesober.txt`) is
-  identical on every turn. The original House cannot be driven, because of
-  the `%drunk%` stack overflow described below.
-- **`motion`:** the minigame's keypresses are its turns. Re-cut the feed
-  before reading anything into the row (`Adrift_425`).
+  `cmdfile_house_sober.txt`. That run is identical on every turn. It has no
+  row, so it exists only as `Adrift_128_housesober.txt` in the prefix. The
+  original House's `runner_transcripts/house.txt` is 10+ turns blank on the
+  Runner side (T1 `e` on), because of the `%drunk%` stack overflow described
+  below.
+- **`motion`:** the minigame's keypresses are its turns.
+  `runner_transcripts/motion.txt` echoes all 351 feed commands. Apart from
+  whitespace, it differs at T257-258 and T350 (the drive minigame's map).
+  Those turns are still unread.
 - **`sophie`** is measured for its first 50 commands only.
 - **Permanently unmeasurable:**
   - `dreamquest`: run400 cannot load a task with an empty Command vector.
@@ -896,7 +925,7 @@ every Runner.
   - A part-of-character static is stamped seen by obhere (452E08/452E5E)
     when its holder is the player, or a seen NPC in the player room. 463640
     calls obhere on every object once per line. `[4.0]` humbug T727
-    `X teeth` (Adrift_29's "Nothing Special." was a desynced drive)
+    `X teeth` (an older drive's "Nothing Special." was a desync)
 - **463640 is the 4.0 noun resolver.**
   - Scoring: Short whole word +1, first alias +1, +1 per Prefix word, and an
     empty Prefix counts as `a`.
@@ -977,8 +1006,8 @@ every Runner.
   binding does the same (44ABEA, [44]). `take cushion` with the cushion
   lying unlisted on the pile misses the task, and the library answers "Take
   what?". The present-before-absent pass order is not ported. `[3.9+]`
-  Glum_Fiddle T16-22; the feed now examines the pile first, and Adrift_128
-  wins (`uip_match_entity`, 2026-09-15)
+  Glum_Fiddle T16-22; the feed now examines the pile first, and
+  `runner_transcripts/Glum_Fiddle.txt` wins (`uip_match_entity`, 2026-09-15)
 
 ### Put and take-from
 
@@ -1057,6 +1086,11 @@ every Runner.
 - **The walk tick** stamps NPCs in the player's room seen first, and the
   player-side meet fires only on a typed move. `[4.0]` the_pk_girl T52,
   Laurie's walk-meet task 413 (d1c61b0c5, 2dfd964cf)
+- **The player-side meet** skips a walk that a higher-numbered walk preempts,
+  by the same test as the tick (run400 4754A5-47557B). The Runner reaches the
+  CharTask through the dispatcher by command text; Scarier still runs it by
+  index, which the corpus does not tell apart. `[4.0]` greekschool, Paul's
+  task 22
 - **Absent NPCs:**
   - dobattle's "<Name> isn't here!" is a turn. `[3.9+]` alexis_worn_cube
     (41b1f93d3)
