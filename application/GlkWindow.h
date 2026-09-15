@@ -68,6 +68,9 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 - (void)performScroll;
 - (void)makeTransparent;
 - (void)setBgColor:(NSInteger)bc;
+/// From glk_window_set_background_color_immediate: set Normal BackColor
+/// stylehint, rebuild Normal style attrs, and retint existing Normal text.
+- (void)liveUpdateNormalBackColor:(NSInteger)bc;
 - (void)clear;
 - (void)putString:(NSString *)buf style:(NSUInteger)style;
 - (NSUInteger)unputString:(NSString *)buf;

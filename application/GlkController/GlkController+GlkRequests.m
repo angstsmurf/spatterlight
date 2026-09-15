@@ -1078,7 +1078,25 @@
             }
 
             if (reqWin) {
-                [reqWin setBgColor:req->a2];
+                if (req->a3) {
+                    // glk_window_set_background_color_immediate: also update
+                    // the Normal BackColor stylehint (controller + window)
+                    // and live-retint existing Normal text.
+                    NSMutableArray *hintsForStyle = nil;
+                    if ([reqWin isKindOfClass:[GlkTextBufferWindow class]])
+                        hintsForStyle = self.bufferStyleHints[style_Normal];
+                    else if ([reqWin isKindOfClass:[GlkTextGridWindow class]])
+                        hintsForStyle = self.gridStyleHints[style_Normal];
+                    if (hintsForStyle) {
+                        if (req->a2 < 0)
+                            hintsForStyle[stylehint_BackColor] = [NSNull null];
+                        else
+                            hintsForStyle[stylehint_BackColor] = @(req->a2);
+                    }
+                    [reqWin liveUpdateNormalBackColor:req->a2];
+                } else {
+                    [reqWin setBgColor:req->a2];
+                }
             }
             break;
 

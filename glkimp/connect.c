@@ -742,6 +742,13 @@ void win_setbgnd(int name, glui32 color)
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
 
+void win_setbgnd_immediate(int name, glui32 color)
+{
+    win_flush();
+    /* a3=1: Cocoa updates Normal BackColor stylehint + existing text */
+    sendmsg(SETBGND, name, (int)color, 1, 0, 0, 0, NULL);
+}
+
 void win_refresh(int name, float xscale, float yscale)
 {
     win_flush();

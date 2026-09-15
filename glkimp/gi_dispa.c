@@ -67,6 +67,7 @@ static gidispatch_intconst_t intconstant_table[] = {
     { "gestalt_DateTime", (20) },
     { "gestalt_DrawImage", (7) },
     { "gestalt_GarglkText", (0x1100) },
+    { "gestalt_WindowBackgroundImmediate", (0x1120) },
     { "gestalt_Graphics", (6) },
     { "gestalt_GraphicsCharInput", (23) },
     { "gestalt_GraphicsTransparency", (14) },
@@ -327,6 +328,9 @@ static gidispatch_function_t function_table[] = {
     { 0x1102, garglk_set_reversevideo, "garglk_set_reversevideo" },
     { 0x1103, garglk_set_reversevideo_stream, "garglk_set_reversevideo_stream" },
 #endif /* GLK_MODULE_GARGLKTEXT */
+#ifdef GLK_MODULE_WINDOW_BACKGROUND_IMMEDIATE
+    { 0x1120, glk_window_set_background_color_immediate, "window_set_background_color_immediate" },
+#endif /* GLK_MODULE_WINDOW_BACKGROUND_IMMEDIATE */
 };
 
 glui32 gidispatch_count_classes(void)
@@ -690,6 +694,11 @@ char *gidispatch_prototype(glui32 funcnum)
         case 0x1103: /* garglk_set_reversevideo_stream */
             return "2QbIu:";
 #endif /* GLK_MODULE_GARGLKTEXT */
+
+#ifdef GLK_MODULE_WINDOW_BACKGROUND_IMMEDIATE
+        case 0x1120: /* window_set_background_color_immediate */
+            return "2QaIu:";
+#endif /* GLK_MODULE_WINDOW_BACKGROUND_IMMEDIATE */
 
         default:
             return NULL;
@@ -1546,6 +1555,12 @@ void gidispatch_call(glui32 funcnum, glui32 numargs, gluniversal_t *arglist)
             garglk_set_reversevideo_stream( arglist[0].opaqueref, arglist[1].uint );
             break;
 #endif /* GLK_MODULE_GARGLKTEXT */
+
+#ifdef GLK_MODULE_WINDOW_BACKGROUND_IMMEDIATE
+        case 0x1120: /* window_set_background_color_immediate */
+            glk_window_set_background_color_immediate(arglist[0].opaqueref, arglist[1].uint);
+            break;
+#endif /* GLK_MODULE_WINDOW_BACKGROUND_IMMEDIATE */
 
         default:
             /* do nothing */

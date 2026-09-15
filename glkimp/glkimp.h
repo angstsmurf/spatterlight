@@ -123,8 +123,13 @@ void win_cancelmouse(int name);
 
 // This is both used for glk_window_set_background_color() and,
 //  against the Glk spec, to change the background on-the-fly
-// of buffer and grid windows.
+//  of buffer and grid windows. Does not update stylehints or
+//  already-printed text.
 void win_setbgnd(int name, glui32 color);
+
+// glk_window_set_background_color_immediate: also sets Normal
+// BackColor stylehint and live-updates existing Normal text.
+void win_setbgnd_immediate(int name, glui32 color);
 
 // Redraw a buffer window with current styles,
 // against the Glk spec.

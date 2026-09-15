@@ -499,6 +499,31 @@
     [self recalcBackground];
 }
 
+- (void)liveUpdateNormalBackColor:(NSInteger)bc {
+    bgnd = bc;
+
+    if (self.styleHints.count && styles.count > style_Normal) {
+        NSMutableArray *allHints = [self.styleHints mutableCopy];
+        NSMutableArray *normalHints = [self.styleHints[style_Normal] mutableCopy];
+        if (bc < 0)
+            normalHints[stylehint_BackColor] = [NSNull null];
+        else
+            normalHints[stylehint_BackColor] = @(bc);
+        allHints[style_Normal] = normalHints;
+        self.styleHints = allHints;
+
+        if (self.theme.doStyles) {
+            NSDictionary *newNormal =
+                [((GlkStyle *)[self.theme valueForKey:gGridStyleNames[style_Normal]])
+                 attributesWithHints:normalHints];
+            if (newNormal)
+                styles[style_Normal] = newNormal;
+        }
+    }
+
+    [self recalcBackground];
+}
+
 - (void)checkForUglyBorder {
     // This checks whether all the text in the grid window uses the same background color attribute,
     // and if so, uses this color for the window background color.
