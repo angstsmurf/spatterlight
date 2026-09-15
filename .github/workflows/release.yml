@@ -57,7 +57,7 @@ jobs:
             git log -1 --format='Applying %h %s' FETCH_HEAD
             git -c user.name=ci -c user.email=ci@localhost cherry-pick --no-commit FETCH_HEAD
           fi
-          plutil -extract com.apple.security.app-sandbox raw Spatterlight.entitlements | grep -qx true
+          plutil -extract 'com\.apple\.security\.app-sandbox' raw Spatterlight.entitlements | grep -qx true
           grep -q 'ENABLE_APP_SANDBOX = YES' Spatterlight.xcodeproj/project.pbxproj
 
       - name: Show toolchain
