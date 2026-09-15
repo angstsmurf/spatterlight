@@ -90,7 +90,7 @@ You move down.
 The light orbs reveal a barren area with exits leading out in all directions
 except down.  Currently however, all exits are being blocked off by heavy
 iron bars, which slid into place the moment you entered from the cavern.
-There is a cystal lock in the north passage, just out of reach.  A monkey is
+There is a cystal lock in the north passage, just out of reach.  a monkey is
 here.
 
 > act like monkey
@@ -135,7 +135,7 @@ leading east around the edge of the lake, to a barely visible waterfall.
 > w
 You move west.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.  A monkey is here.
+except down.  a monkey is here.
 
 > s
 You move south.
@@ -156,7 +156,7 @@ Large rocks as scattered throughout the cave.  Exits lead in all directions.
 > n
 You move north.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.  A monkey is here.
+except down.  a monkey is here.
 
 A brilliant flash of white light momentarily blinds you.  In that instance, a
 vague memory exists in your mind, the key to the mystery of how you got here.
@@ -177,7 +177,7 @@ remarks, as you haul in your catch, a metal toy car.
 > w
 You move west.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.  A monkey is here.
+except down.  a monkey is here.
 
 > w
 You move west.
@@ -206,7 +206,7 @@ what appears to be a huge petrified mushroom.
 > e
 You move east.
 The light orbs reveal a barren area with exits leading out in all directions
-except down.  A monkey is here.
+except down.  a monkey is here.
 
 > n
 You move north.

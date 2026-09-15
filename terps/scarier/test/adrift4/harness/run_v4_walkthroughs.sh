@@ -3581,6 +3581,11 @@ haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
 # that justifies it is on the lair-of-the-cybercow rows above.
 # Re-blessed 2026-09-04: pre-3.9 delayed events roll one RNG draw later (no
 # startup event tick); the measurement is on the haunt row.
+# Re-blessed 2026-09-15: "a monkey is here." keeps its lower case, as
+# runner_transcripts/twilight.rtf (run380x) prints it at T12/20/25/28/34.
+# Only run400's loader capitalises a "#" Name (491EF3); run380 appends it raw
+# (449463).  Still open: T48 `cook cheese` ("You can't do that yet." in the
+# Runner) and the 485/500 score it leads to.
 twilight_solution.txt|twilight.taf|Your score is 500 out of a maximum of 500
 # Measured 2026-09-05 in run380 (`Adven_1_haunted.rtf`, 116 commands, the
 # winning `open gate` last): 115/115 echoed, 0 differences.  Its two events

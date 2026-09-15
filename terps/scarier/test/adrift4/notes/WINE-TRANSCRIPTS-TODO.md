@@ -512,8 +512,9 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 **Engine, 3.7 / 3.8:**
 
 - **twilight (3.80):**
-  - The listing sentence keeps a lower-case Prefix ("a monkey is here")
-    where Scarier capitalises it (T12-34).
+  - The listing sentence keeps a lower-case Name ("a monkey is here")
+    where Scarier capitalised it (T12-34). **Ported 2026-09-15** (see the
+    index).
   - T48 `cook cheese`: "You can't do that yet" against the task. The T113
     score of 485 against 500 follows.
 
@@ -1112,6 +1113,10 @@ every Runner.
     (run380 4408B2). wrecked T129/T211
   - The examine-self full stop is 3.9+.
 - **Other formatting:**
+  - The "<Name> is here." sentence is capitalised only by the 4.0 loader's
+    `#` substitution (Proc_21_3_446BB4 at 491EF3). run390/380/370 append
+    the raw Name, and no Runner capitalises an author's own " is here."
+    text. `[4.0]` goldilocks; twilight T12-34 (2026-09-15)
   - `isare()` is exact and case-sensitive, and the loader fills an empty
     Prefix with "a". yeh (496c115f2)
   - 4.0 room names take every matching alt's Changed. togetyou (fee19ae2a)

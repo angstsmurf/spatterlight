@@ -1663,8 +1663,21 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
         description = lib_get_npc_inroom_text (game, npc);
         if (!scr_strcasecmp (description, "#"))
           {
-            joined.push_back (prop_get_indexed_string (bundle, "NPCs",
-                                                       npc, "Name"));
+            /*
+             * The loader's "#" substitution is where the case is decided, and
+             * it is a version split: run400 builds Proc_21_3_446BB4(Name) &
+             * " is here." (@00491EF3), capitalising the first letter, while
+             * run390 (@00466932), run380 (@00449463) and run370 (@0044071D)
+             * append the raw Name.  Nothing downstream capitalises, so an
+             * author's own " is here." text keeps its case in every version.
+             * twilight (3.80) prints "a monkey is here.", goldilocks (4.0)
+             * "My Fairy Godmother is here."
+             */
+            std::string name = prop_get_indexed_string (bundle, "NPCs",
+                                                        npc, "Name");
+            if (lib_is_version_400 (game) && !name.empty ())
+              name[0] = scr_toupper (name[0]);
+            joined.push_back (name);
           }
         else
           {
@@ -1700,7 +1713,6 @@ lib_print_room_contents (scr_gameref_t game, scr_int room)
          */
         pf_undo_auto_break (filter);
         pf_buffer_string (filter, "  ");
-        pf_new_sentence (filter);
         for (index_ = 0; index_ < joined.size (); index_++)
           {
             if (index_ > 0)
