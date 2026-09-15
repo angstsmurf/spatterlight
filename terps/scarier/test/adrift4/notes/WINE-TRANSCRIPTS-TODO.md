@@ -407,7 +407,18 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     want me to do with A Buzzer") and T76 `get in the van` (the Runner says
     "You take VW Van."). Scarier runs the tasks in both. The ending follows.
     **T69 ported 2026-09-15** (see the index, wildcard matcher). T76 is
-    still open.
+    still open. Read 2026-09-15: generaltasks calls get_outer (48A46D)
+    before the dispatcher (48A481). get_piece_inner pre-matches `get <the
+    object>` only against take-family tasks (class byte 104: a pattern
+    containing get/take/pick). Task 26 (`*Van*`, room 29) has no such
+    pattern, so the library takes the van and claims the line. That
+    explains room 29. It does not explain T55, where the Runner runs task 13
+    (`Get In The Van`, room 10) and does not take the van. Ruled out
+    offline: capacity (Scarier has 22 of 450 size), the seen byte (the van
+    is listed when the player walks in), and a 463640 tie (VW Van wins
+    alone). Porting "get before tasks" without the room 10 rule would break
+    T55. Next step is a Wine probe: `take van` and `get in the van` at T55,
+    and `get van` at T76.
   - the_town_of_azra T13 `buy rawhide armor`: the Runner says "I don't think
     that is for sale", Scarier buys it. The money is then off by 90.
     **Ported 2026-09-15** (see the index): the_town_of_azra is now identical
