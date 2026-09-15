@@ -1159,6 +1159,7 @@ extern scr_bool obj_shows_initial_description (scr_gameref_t game,
                                                scr_bool inroomdesc_absent);
 extern void obj_mark_room_objects_seen (scr_gameref_t game, scr_int room);
 extern void obj_mark_room_statics_seen (scr_gameref_t game, scr_int room);
+extern void obj_mark_npc_parts_seen (scr_gameref_t game);
 extern void obj_debug_trace (scr_bool flag);
 
 /* Game serialization functions. */

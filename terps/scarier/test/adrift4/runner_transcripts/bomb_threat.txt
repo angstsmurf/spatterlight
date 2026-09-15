@@ -117,23 +117,35 @@ A workbench table which is covered in saw dust and wood chippings.  A crowbar is
 > get all from work table
 You take the crowbar from work table.  
 
-> ss
-I don't understand what you mean!
+> s
+You move south.
+Corridor
+This is another small corridor. There is a security clearance required at this door to enter, which is to the north.  You can move north and in.  
 
 > in
-You can only move south.  
+You move in.
+The Elevator - 3rd Floor
+You are in the elevator on the 3rd floor. No one is in it except you.  You can move up, down and out.  
 
 > down
-You can only move south.  
+You move down.
+The Elevator - Ground Floor
+You are in the elevator on the ground floor. No one else is in here. You must go up to the 28th floor.  You can move up and out.  
 
 > out
-You can only move south.  
+You move out.
+The Lobby
+You are standing in the lobby of the Imperial Agency building. People are walking all about the place. There is an elevator next to you.  You can move east and in.  
 
 > e
-You can only move south.  
+You move east.
+The Footpath
+You are standing on the footpath. It is very busy here. To the west of you is the Imperial Agency building, where the bomb is supposed to be planted.  A car brakes suddenly, and five cars behind it start honking there horns.  An old man walks down the footpath and trips over, nearly losing balance. There is a manhole here which leads in the sewers.  You can move west, down and in.  
 
 > down
-You can only move south.  
+You move down.
+The Sewers
+You are underground in a dark sewer. There is a package here.  You can only move up.  
 
 > z
 Time passes...
@@ -148,13 +160,18 @@ Time passes...
 Time passes...
 
 > open package
-You can't open that.  
+You open the package.  A bomb is inside the package.  
 
 > z
 Time passes...
 
 > cut red wire
-Who do you want to attack?  
+You cut the red wire. The lights on the bomb stop flashing.  Jack: Yeah, I did it!  Anonymous: Very impressive Jack, but I'm afraid now you're going to have to die.  Further down the sewer is a man with a long beard holding a mobile phone in one hand and a uzi sub-machinegun in the other.  Anonymous: My real name is Edgar Henderson, but now you must die...  
 
 > shoot edgar
-Who do you want to attack?  
+You quickly pull out your gun and fire. You don't have much accuaracy because you reacted so quickly. The bullet hit  right between Edgar's eyes.  Edgar stumbles backwards and falls into the water, dead. You have just won Bomb Threat!  Or have you...  
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

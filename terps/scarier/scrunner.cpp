@@ -4296,6 +4296,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   run_co_task_claimed = FALSE;
   run_tasks_ran_this_command.assign (gs_task_count (game), FALSE);
   lib_verb_object_note_line_top (game);
+  obj_mark_npc_parts_seen (game);
   /*
    * The "(<npc>)" an "ask about" / "talk about" echoes comes out ahead of
    * everything, task matching included; see uip_print_ask_echo().  The

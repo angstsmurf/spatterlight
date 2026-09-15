@@ -41,7 +41,7 @@ blood	blood.txt	driven:Adrift_495_blood_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP
 bloodrelatives	bloodrelatives.txt	driven:Adrift_485_bloodrelatives_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from whitespace.
 bob_bobsly	bob_bobsly.txt	harvested-native-0-draws:Adrift_692_bob_bobsly.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 boiledeggs	boiledeggs.txt	driven:Adrift_383_boiledeggs_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
-bomb_threat	bomb_threat.txt	driven:Adrift_153_bomb_threat_rt.txt	3.90	run390x.exe	9	0		SCR_SEED=9	no	9 differing turn(s), 1 lost command(s)
+bomb_threat	bomb_threat.txt	driven:Adrift_128_bomb_threat_rt.txt	3.90	run390x.exe	9	0		SCR_SEED=9	yes	identical on every turn apart from the Runner's keypress prompt.
 briefcase	briefcase.txt	harvested-xoshiro:Adrift_134_briefcase_x.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 bsg22	bsg22.txt	driven:Adrift_459_bsg22_rt.txt	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 buried_alive	buried_alive.txt	driven:Adrift_136_buried_alive_rt.txt	4.00	run400x.exe	1234	1			yes	identical on every turn apart from the Runner's keypress prompt.
@@ -161,7 +161,7 @@ hiker	hiker.txt	driven:Adrift_370_hiker_rt.txt	4.00	run400x.exe	1234	2			yes	ide
 house	house.txt	driven:Adrift_501_house_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s)
 howitstarted	howitstarted.txt	driven:Adrift_421_howitstarted_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 1 lost command(s)
 hub	hub.txt	driven:Adrift_457_hub_rt.txt	4.00	run400x.exe	1234	0			no	10+ differing turn(s)
-humbug	humbug.txt	driven:Adrift_278_humbug_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	no	10+ differing turn(s), 466 lost command(s)
+humbug	humbug.txt	driven:Adrift_130_humbug_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
 hungry	hungry.txt	driven:Adrift_377_hungry_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 hyper_b_s	hyper_b_s.txt	driven:Adrift_164_hyper_b_s_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 10 lost command(s)
 i	i.txt	driven:Adrift_318_i_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.

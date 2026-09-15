@@ -1744,13 +1744,293 @@ I carefully make my way over the ice; past the Viking longboat and to the mainla
 Beside the Lake
 I am standing in the grounds, beside a large lake.  Most of the lake has been iced over in this freezing weather.  A huge Viking longboat has been caught in the ice's grasp, its wooden bows creaking under the pressure.  Beyond the longboat there is a small island.  Exits are north and south.
 
-> NN
-I don't know how to "nn".
+> N
+
+Manor Grounds 
+I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Exits are north, south, west and down.
 
 > W
-I can't go in that direction, but I can move north and south.
+
+Driveway
+I am standing on the drive leading to Attervist manor. It is a miserable looking building. The snow does its best to cover up the harsh jagged edges and high pointed turrets.  To my north lie the cold stone steps leading up to the manor's entrance.  Exits are north, east, south and west.
 
 > N
+
+Porch
+I am standing beside the large front door of Attervist manor.  The door has been badly warped by the ravages of time: its coat of dark green paint is peeling off in large strips, showing the older beechwood below.  A small brass letterbox has been built into the bottom of the door.  There is a button beside the door.  Exits are north and south.
+
+> N
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a torch, a scarf, some gloves, a claw, an emerald, a ruby, a hat, a mousse, a kettle, a golden casket, a pot and a bone.  Exits are north, east, south, west and up.
+
+> Remove cap
+I remove the swimming cap.
+
+> Drop all
+Okay.  I have dropped the swimming cap, the jigsaw, the fish, the filofax, the mug, the sugar lump, the bag of porridge, the sandwich and the ticket.  Schrodinger wanders towards me from the west.
+
+> Get sandwich
+Okay.  I have taken the sandwich.  Schrodinger wanders to the north.
+
+> Look
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a torch, a scarf, some gloves, a claw, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a kettle, a golden casket, a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge and a ticket.  Exits are north, east, south, west and up.
+
+> Look
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a torch, a scarf, some gloves, a claw, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a kettle, a golden casket, a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge and a ticket.  Exits are north, east, south, west and up.  Schrodinger wanders towards me from the north.  
+
+> W
+
+Dining Room
+I am in the dining room.  There is a long wooden table in the centre of the room, with the remains of an unfinished meal.  Grandad must have forgotten to clear up last night.  A small archway leads northwards, whist another doorway to my east heads back to the hall.  Exits are north and east.  Schrodinger wanders towards me from the east.  
+
+> N
+
+Kitchen
+I am in a long rectangular room with a heavy wooden table.  The walls are covered with pans, dishes and china plates.  There is a shallow doorway to my west labelled "Pantry", whist an open archway leads southwards back into the dining room.  A kennel sits in one corner of the kitchen.  There is a door to my east.  Exits are east, south and west.  Schrodinger wanders towards me from the south.  The dog sees the cat but does nothing, preferring to gnaw on its bone instead.  From inside the kennel there is a contented gnawing.  
+
+> W
+There is a movement from behind one of the taller mounds of marzipan and a shark totters around on his hind fins.  The shark smiles benignly at me, "Hello my little precious."  The shark paternally pats me on the head with a damp flipper, and flamboyantly places a small caddy on one of the pantry shelves.  The shark smiles at me again, and waggles his eyebrows in anticipation of my response.  
+Pantry
+I am in the pantry.  It is a small, dark room - the only source of light being a barred oval window built close to the ceiling in the west wall.  A definite niff of seaweed wafts around the shelves.  Small mountains of marzipan and icing sugar are liberally scattered across the damp stone floor.  Also here is a caddy.  A shark is leaning against one of the mounds of marzipan.  He gives me a knowing wink.  I can only move east.  Schrodinger wanders towards me from the east.  
+
+> Look
+Pantry
+I am in the pantry.  It is a small, dark room - the only source of light being a barred oval window built close to the ceiling in the west wall.  A definite niff of seaweed wafts around the shelves.  Small mountains of marzipan and icing sugar are liberally scattered across the damp stone floor.  Also here is a caddy.  There is a small tabby cat here, watching me intently.  A shark is leaning against one of the mounds of marzipan.  He gives me a knowing wink.  I can only move east.  A small mouse pokes its head around a mound of marzipan and squeaks at me.
+
+> Look
+Pantry
+I am in the pantry.  It is a small, dark room - the only source of light being a barred oval window built close to the ceiling in the west wall.  A definite niff of seaweed wafts around the shelves.  Small mountains of marzipan and icing sugar are liberally scattered across the damp stone floor.  Also here is a caddy.  There is a small tabby cat here, watching me intently.  A shark is leaning against one of the mounds of marzipan.  He gives me a knowing wink.  There is a small mouse here.  I can only move east.  The cat pounces on the mouse, and swipes at it with a sharp claw.  
+
+> Look
+Pantry
+I am in the pantry.  It is a small, dark room - the only source of light being a barred oval window built close to the ceiling in the west wall.  A definite niff of seaweed wafts around the shelves.  Small mountains of marzipan and icing sugar are liberally scattered across the damp stone floor.  Also here is a caddy and a mouse.  There is a small tabby cat here, watching me intently.  A shark is leaning against one of the mounds of marzipan.  He gives me a knowing wink.  I can only move east.  
+
+> Get mouse
+Okay.  I have taken the mouse.  
+
+> Stroke cat
+The cat miaows happily.  
+
+> Get caddy
+The shark gives me a hard state.  "Really cherub!  Tut tut.  Your hands aren't even clean"  He stops me from touching the caddy.  
+
+> E
+
+Kitchen
+I am in a long rectangular room with a heavy wooden table.  The walls are covered with pans, dishes and china plates.  There is a shallow doorway to my west labelled "Pantry", whist an open archway leads southwards back into the dining room.  A kennel sits in one corner of the kitchen.  There is a door to my east.  Exits are east, south and west.  Schrodinger wanders towards me from the west.  The dog sees the cat but does nothing, preferring to gnaw on its bone instead.  
+
+> S
+
+Dining Room
+I am in the dining room.  There is a long wooden table in the centre of the room, with the remains of an unfinished meal.  Grandad must have forgotten to clear up last night.  A small archway leads northwards, whist another doorway to my east heads back to the hall.  Exits are north and east.  Schrodinger wanders towards me from the north.  
+
+> E
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a torch, a scarf, some gloves, a claw, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a kettle, a golden casket, a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge and a ticket.  Exits are north, east, south, west and up.  Schrodinger wanders towards me from the west.  
+
+> Drop sandwich
+Okay.  I have dropped the sandwich.  
+
+> Get kettle
+Okay.  I have taken the kettle.
+
+> Get gloves
+Okay.  I have taken the gloves.  Schrodinger wanders to above.
+
+> Wear gloves
+Okay.  I am now wearing the gloves.  Schrodinger wanders towards me from above.
+
+> U
+
+First Floor
+I am standing on the first floor landing.  Grandad has liberally decorated this part of the manor with portraits of serious-looking ladies and gentlemen. A narrow archway draped with wooden beads leads eastwards into a bedroom, whilst northwards is the bathroom. There is a locked door to my west.  Exits are north, east, up and down.
+
+> U
+
+Second Floor
+I am standing on the second floor landing.  A low, squat doorway leads westward into the small spare bedroom.  There are locked doors to my east and north.  The rickety staircase continues its dangerous path in both up and down directions.  Exits are west, up and down.
+
+> U
+
+Third Floor
+I am on the top landing of the manor.  This landing is a lot smaller than the ones on previous floors, and looks as if it was last dusted in 1957.  In fact I doubt this part of the house can be visited much at all.  A shallow passageway leads eastward over wooden floorboards, and there is a small laundry room to my west.  Exits are east, west and down.
+
+> W
+
+Laundry Room
+I am in the tiny laundry room.  The ageing boiler wheezes like a grumpus in its vain attempt to keep the manor warm.  A collection of warm towels hang over a large pipe coming out of the boiler's side.  Also here is a hedgehog.  I can only move east.
+
+> Get hedgehog
+Okay.  I have taken the hedgehog.
+
+> X boiler
+The boiler creaks and groans in an effort to heat the manor.  Behind the boiler I can see an electrical socket.
+
+> X kettle
+In ancient times if your neighbour hadn't returned your collection of stuffed armadillos, run off with your spouse, or just generally annoyed you, etiquette demanded that you got your own back in some way.  This act of avengance usually consisted of duelling at dawn on a misty moor, or drenching them in boiling oil.
+
+Anyway, times have changed, and today people implement this instrument of the tea-brewing arts for the general purposes of drinking and scalding with friends.  What a fine fettle of quiche this is.  There is a plug attached to the bottom of the kettle.  The kettle contains some water.
+
+> Plug in kettle
+Okay.  I plug the kettle into the socket.  The water in the kettle begins to boil.
+
+> Wait
+Time passes...
+Clouds of steam billow from the kettle's spout and slowly drift upwards.  Clouds of steam billow from the kettle's spout and slowly drift upwards.  Clouds of steam billow from the kettle's spout and slowly drift upwards.
+
+> E
+I unplug the kettle from the socket, and walk away.  
+Third Floor
+I am on the top landing of the manor.  This landing is a lot smaller than the ones on previous floors, and looks as if it was last dusted in 1957.  In fact I doubt this part of the house can be visited much at all.  A shallow passageway leads eastward over wooden floorboards, and there is a small laundry room to my west.  Exits are east, west and down.  Clouds of steam billow from the kettle's spout and slowly drift upwards.
+
+> E
+
+Attic
+I am in the attic.  It is really very cold in here.  I don't think Grandad can afford to heat this part of the manor.  The only light that manages to get in here is through the skylight in the roof.  It fails, however, to adequately light the gloomy east end of the attic.  Wooden rafters hold up the manor's roof.  On one of the rafters there sits a barn owl.  Exits are east, west and up.  Clouds of steam billow from the kettle's spout and slowly drift upwards.  
+
+> Give mouse to owl
+The owl hoots appreciatively and takes the dead mouse in its beak.  The owl steps off its rafter and flies into the darker part of the attic.  Clouds of steam billow from the kettle's spout and slowly drift upwards.
+
+> Open skylight
+I open the skylight.  Clouds of steam billow from the kettle's spout and slowly drift upwards.  The kettle stops boiling.
+
+> U
+
+Roof
+I am on the snowy roof of Attervist manor.  Snow swirls around me - it is very cold up here.  A skylight has been built into the roof and leads down into an inviting attic.  Exits are east and down.
+
+> E
+
+Roof
+I am standing on the snowy roof beside a brick chimney.  From here I can see far and wide over the Attervist manor estate.  Also here is a balloon.  I can only move west.
+
+> Get balloon
+Okay.  I have taken the balloon.
+
+> Jump
+Such inane behaviour doesn't actually achieve anything, but it makes me feel a lot better.
+
+> W
+
+Roof
+I am on the snowy roof of Attervist manor.  Snow swirls around me - it is very cold up here.  A skylight has been built into the roof and leads down into an inviting attic.  Exits are east and down.
+
+> D
+
+Attic
+I am in the attic.  It is really very cold in here.  I don't think Grandad can afford to heat this part of the manor.  The only light that manages to get in here is through the skylight in the roof.  It fails, however, to adequately light the gloomy east end of the attic.  Wooden rafters hold up the manor's roof.  Exits are east, west and up.
+
+> W
+
+Third Floor
+I am on the top landing of the manor.  This landing is a lot smaller than the ones on previous floors, and looks as if it was last dusted in 1957.  In fact I doubt this part of the house can be visited much at all.  A shallow passageway leads eastward over wooden floorboards, and there is a small laundry room to my west.  Exits are east, west and down.
+
+> W
+
+Laundry Room
+I am in the tiny laundry room.  The ageing boiler wheezes like a grumpus in its vain attempt to keep the manor warm.  A collection of warm towels hang over a large pipe coming out of the boiler's side.  Partially hidden behind the boiler there is an electrical socket.  I can only move east.
+
+> Drop kettle
+Okay.  I have dropped the kettle.  
+
+> Plug in kettle
+Okay.  I plug the kettle into the socket.  The water in the kettle begins to boil.  Clouds of steam billow from the kettle's spout and slowly drift upwards.
+
+> Wait
+Time passes...
+Clouds of steam billow from the kettle's spout and slowly drift upwards.  Clouds of steam billow from the kettle's spout and slowly drift upwards.  Clouds of steam billow from the kettle's spout and slowly drift upwards.
+
+> Wait
+Time passes...
+Clouds of steam billow from the kettle's spout and slowly drift upwards.  The kettle stops boiling.
+
+> X kettle
+In ancient times if your neighbour hadn't returned your collection of stuffed armadillos, run off with your spouse, or just generally annoyed you, etiquette demanded that you got your own back in some way.  This act of avengance usually consisted of duelling at dawn on a misty moor, or drenching them in boiling oil.
+
+Anyway, times have changed, and today people implement this instrument of the tea-brewing arts for the general purposes of drinking and scalding with friends.  What a fine fettle of quiche this is.  There is a plug attached to the bottom of the kettle.  The kettle contains some salt.
+
+> Get salt
+Okay.  I have taken the salt from the kettle.
+
+> E
+
+Third Floor
+I am on the top landing of the manor.  This landing is a lot smaller than the ones on previous floors, and looks as if it was last dusted in 1957.  In fact I doubt this part of the house can be visited much at all.  A shallow passageway leads eastward over wooden floorboards, and there is a small laundry room to my west.  Exits are east, west and down.
+
+> D
+
+Second Floor
+I am standing on the second floor landing.  A low, squat doorway leads westward into the small spare bedroom.  There are locked doors to my east and north.  The rickety staircase continues its dangerous path in both up and down directions.  Exits are west, up and down.
+
+> D
+
+First Floor
+I am standing on the first floor landing.  Grandad has liberally decorated this part of the manor with portraits of serious-looking ladies and gentlemen. A narrow archway draped with wooden beads leads eastwards into a bedroom, whilst northwards is the bathroom. There is a locked door to my west.  There is a small tabby cat here, watching me intently.  Exits are north, east, up and down.  Schrodinger wanders to above.
+
+> D
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a torch, a scarf, a claw, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket, a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge, a sandwich and a ticket.  Exits are north, east, south, west and up.
+
+> E
+
+Passage
+I am in a dingy corridor leading from east to west.  The panelled walls here have recently been given a fresh lick of varnish, either that or Grandad has forgotten to feed the cat again.  There are doorways in both the north and south wall of the corridor.  Exits are north, east, south and west.
+
+> S
+
+Laboratory
+I am in Grandad's laboratory.  This is where he does most of his inventing and experimentation.  The octagonal room is full of scientific equipment, I couldn't begin to make sense of it all.  A dusty old chest stands out on the far side of the room.  A giant slug slurps around between me and the chest.  I can only move north.
+
+> Throw salt at slug
+Okay.  I have thrown the salt.  With a harrowing cry of pain the slug begins to shrivel up.  It gives a few helpless slurps before falling silent.
+
+> Open chest
+I open the chest.  Some wire clippers and a zircon are inside the chest.
+
+> Get clippers
+Okay.  I have taken the wire clippers from the chest.
+
+> Get zircon
+Okay.  I have taken the zircon from the chest.
+
+> N
+
+Passage
+I am in a dingy corridor leading from east to west.  The panelled walls here have recently been given a fresh lick of varnish, either that or Grandad has forgotten to feed the cat again.  There are doorways in both the north and south wall of the corridor.  Exits are north, east, south and west.
+
+> W
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a torch, a scarf, a claw, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket, a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge, a sandwich and a ticket.  Exits are north, east, south, west and up.
+
+> Remove gloves
+Okay.  I have taken off the gloves.  Ouch!  The hedgehog's spikes are too prickly to handle.  The hedgehog drops to the ground..  Schrodinger wanders towards me from above.
+
+> Drop all
+Okay.  I have dropped the gloves, the wire clippers, the zircon and the balloon.  
+
+> Get clippers
+Okay.  I have taken the wire clippers.  Schrodinger wanders to the west.
+
+> Get shovel
+Okay.  I have taken the shovel.
+
+> S
+
+Porch
+I am standing beside the large front door of Attervist manor.  The door has been badly warped by the ravages of time: its coat of dark green paint is peeling off in large strips, showing the older beechwood below.  A small brass letterbox has been built into the bottom of the door.  There is a button beside the door.  Exits are north and south.
+
+> S
+
+Driveway
+I am standing on the drive leading to Attervist manor. It is a miserable looking building. The snow does its best to cover up the harsh jagged edges and high pointed turrets.  To my north lie the cold stone steps leading up to the manor's entrance.  Exits are north, east, south and west.
+
+> E
 
 Manor Grounds 
 I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Exits are north, south, west and down.
@@ -1760,138 +2040,1775 @@ I am standing on the snow, just east of the road leading up to the manor's front
 Wishing Well
 I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  A high wire fence blocks my way north.  Through the fence I can see a small dirt yard.  Exits are south and down.
 
-> Remove cap
-I remove the swimming cap.
+> Cut fence with clippers
+I carefully snip a large hole in the wire fence with the clippers.
 
-> Drop all
-Okay.  I have dropped the swimming cap, the jigsaw, the fish, the filofax, the mug, the sugar lump, the bag of porridge, the sandwich and the ticket.  
-
-> Get sandwich
-Okay.  I have taken the sandwich.
-
-> Look
-Wishing Well
-I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  A high wire fence blocks my way north.  Through the fence I can see a small dirt yard.  Also here is a swimming cap, a jigsaw, a fish, a filofax, a mug, a sugar lump, a bag of porridge and a ticket.  Exits are south and down.
-
-> Look
-Wishing Well
-I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  A high wire fence blocks my way north.  Through the fence I can see a small dirt yard.  Also here is a swimming cap, a jigsaw, a fish, a filofax, a mug, a sugar lump, a bag of porridge and a ticket.  Exits are south and down.
-
-> W
-I can't go in that direction, but I can move south and down.
+> Drop clippers
+Okay.  I have dropped the wire clippers.  
 
 > N
-I can't go in that direction, but I can move south and down.
+I carefully step through the gap in the fence.  
+Yard
+I am standing in a small yard.  The ground is thinly covered by a layer of snow here.  A side wall of the manor marks the west boundary of the yard, and a thick hedge blocks passage to the east.  A large wooden hen-house is at the end of the yard, a small ramp leading inside.  To my south there is a high wire fence.  Exits are south and in.
 
-> W
-I can't go in that direction, but I can move south and down.
+> In
+
+Hen-house
+I am in the large wooden hen-house.  At least I suppose it is large for chickens and other poultry.  I am finding it a bit cramped myself.  Messy bundles of hay and straw litter the floor of the hen-house.  At the back of the hen-house there is a small wooden door.  A small ramp leads out back to the yard.  A goose clucks quietly to itself nearby.  It seems to be sitting on something.  An exit leads outside.
+
+> X door
+A small door in the back of the hen-house.  Someone has chalked the words ""A disturbing..." onto it.
+
+> Open door
+With a squeak of rusty hinges the door swings open.
+
+> N
+
+Manor Grounds 
+I am in the grounds of the manor's back garden.  Directly to my south there is the back of a wooden hen house.  A small wooden door has been built into it.  In the rest of the garden all there is to see is never-ending snow.  A zig-zaggy pathway has been ploughed through the snow to my north.  Exits are north and south.
+
+> X door
+A small door in the back of the hen-house.  Someone has chalked the words ""...figure of speech" onto it.  It is open.
+
+> N
+
+Back Garden
+I am in the grounds of the manor's back garden.  The entire area is covered with a thick, featureless blanket of snow.  There is a clothes line nearby, gently rocking in the breeze.  A weather-beaten bath rests in the snow here.  There is the end of a long chain here.  I can only move south.
+
+> X line
+Just an ordinary clothes line.  I doubt it can get much use in this weather.  A clothes peg is on the clothes line.
+
+> Get peg
+Okay.  I have taken the clothes peg from the clothes line.
+
+> Get chain
+Okay.  I have taken the chain.
+
+> X bath
+Grandad's bath is rather exposed to the elements out here.  It must get very chilly at bathtime (and a bit of a shock for the neighbours).  There is a long metal chain attached to the back of the bath, whilst a plastic funnel and button have been set into the side.  The button on the side of the bath is ominously marked "Ignition".
+
+> S
+
+Manor Grounds 
+I am in the grounds of the manor's back garden.  Directly to my south there is the back of a wooden hen house.  A small wooden door has been built into it.  In the rest of the garden all there is to see is never-ending snow.  A zig-zaggy pathway has been ploughed through the snow to my north.  I am carrying the end of a long chain.  Exits are north and south.
+
+> Drop chain
+Okay.  I have dropped the chain.
+
+> Dig
+I dig in the snow and into the hard earth below.  Suddenly the earth gives way.  There seems to be a small room down there.  It is quite a drop down to the floor though.
+
+> S
+
+Hen-house
+I am in the large wooden hen-house.  At least I suppose it is large for chickens and other poultry.  I am finding it a bit cramped myself.  Messy bundles of hay and straw litter the floor of the hen-house.  At the back of the hen-house there is a small wooden door.  A small ramp leads out back to the yard.  A goose clucks quietly to itself nearby.  It seems to be sitting on something.  Exits are north and out.
+
+> Say boo
+The goose looks quite scared.  It squawks loudly at me and jumps into a corner of the hen-house, uncovering the small object it was keeping warm.
 
 > Look
+Hen-house
+I am in the large wooden hen-house.  At least I suppose it is large for chickens and other poultry.  I am finding it a bit cramped myself.  Messy bundles of hay and straw litter the floor of the hen-house.  At the back of the hen-house there is a small wooden door.  A small ramp leads out back to the yard.  A goose clucks quietly to itself nearby.  Also here is a battery.  Exits are north and out.
+
+> Get battery
+Okay.  I have taken the battery.
+
+> Out
+
+Yard
+I am standing in a small yard.  The ground is thinly covered by a layer of snow here.  A side wall of the manor marks the west boundary of the yard, and a thick hedge blocks passage to the east.  A large wooden hen-house is at the end of the yard, a small ramp leading inside.  To my south there is a high wire fence.  Exits are south and in.
+
+> S
+
 Wishing Well
-I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  A high wire fence blocks my way north.  Through the fence I can see a small dirt yard.  Also here is a swimming cap, a jigsaw, a fish, a filofax, a mug, a sugar lump, a bag of porridge and a ticket.  Exits are south and down.
-
-> Look
-Wishing Well
-I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  A high wire fence blocks my way north.  Through the fence I can see a small dirt yard.  Also here is a swimming cap, a jigsaw, a fish, a filofax, a mug, a sugar lump, a bag of porridge and a ticket.  Exits are south and down.
-
-> Look
-Wishing Well
-I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  A high wire fence blocks my way north.  Through the fence I can see a small dirt yard.  Also here is a swimming cap, a jigsaw, a fish, a filofax, a mug, a sugar lump, a bag of porridge and a ticket.  Exits are south and down.
-
-> Get mouse
-Take what?
-
-> Stroke cat
-But I can't see the cat from here!
-
-> Get caddy
-Take what?
-
-> E
-I can't go in that direction, but I can move south and down.
+I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  There is a gap in the high wire fence to my north.  Through the fence I can see a small dirt yard.  Also here are some wire clippers.  Exits are north, south and down.
 
 > S
 
 Manor Grounds 
 I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Exits are north, south, west and down.
 
-> E
-I can't go in that direction, but I can move north, south, west and down.
-
-> Drop sandwich
-Okay.  I have dropped the sandwich.  
-
-> Get kettle
-There is nothing worth taking here.
-
-> Get gloves
-There is nothing worth taking here.
-
-> Wear gloves
-I am not holding the gloves.
-
-> U
-I can't go in that direction, but I can move north, south, west and down.
-
-> U
-I can't go in that direction, but I can move north, south, west and down.
-
-> U
-I can't go in that direction, but I can move north, south, west and down.
-
 > W
 
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable looking building. The snow does its best to cover up the harsh jagged edges and high pointed turrets.  To my north lie the cold stone steps leading up to the manor's entrance.  Exits are north, east, south and west.
 
+> N
+
+Porch
+I am standing beside the large front door of Attervist manor.  The door has been badly warped by the ravages of time: its coat of dark green paint is peeling off in large strips, showing the older beechwood below.  A small brass letterbox has been built into the bottom of the door.  There is a button beside the door.  Exits are north and south.
+
+> N
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, an envelope, a torch, a scarf, some gloves, a claw, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket, a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge, a sandwich, a ticket, a hedgehog, a zircon and a balloon.  Exits are north, east, south, west and up.
+
+> U
+
+First Floor
+I am standing on the first floor landing.  Grandad has liberally decorated this part of the manor with portraits of serious-looking ladies and gentlemen. A narrow archway draped with wooden beads leads eastwards into a bedroom, whilst northwards is the bathroom. There is a locked door to my west.  Exits are north, east, up and down.
+
+> E
+
+Grandad's Bedroom
+I am in Grandad's bedroom.  The usual bedroom things are here: a large bed, a full length mirror and a Mark III sub-atomic particle accelerator.  A month's supply of longjohns have been carefully allowed to fester in one corner of the bedroom.  There is a narrow archway set into the west wall, draped in wooden beads.  A wooden chute has been built into one of the walls.  Also here is a trombone.  I can only move west.
+
+> Get trombone
+Okay.  I have taken the trombone.
+
+> X bed
+A luxurious bed.  Some sheets are on the bed.
+
+> Get sheets
+Okay.  I have taken the sheets from the bed.
+
+> Wear peg
+Okay.  I am now wearing the clothes peg.
+
+> Get longjohns
+I manage to pick up the longjohns for a few seconds, and then with a sigh of relief let them go.  A buss pass drops from the pile of laundry.
+
+> Drop peg
+Okay.  I have dropped the clothes peg.  
+
+> Get pass
+Okay.  I have taken the bus pass.
+
+> X chute
+The chute is quite narrow and made out of wood.  It leads down into darkness.  There is a small wooden lever attached to the side of the chute, and on the front an ornate letter "A" has been engraved.
+
+> W
+
+First Floor
+I am standing on the first floor landing.  Grandad has liberally decorated this part of the manor with portraits of serious-looking ladies and gentlemen. A narrow archway draped with wooden beads leads eastwards into a bedroom, whilst northwards is the bathroom. There is a locked door to my west.  Exits are north, east, up and down.
+
+> N
+
+Bathroom
+I am in the bathroom.  There is a matching bathroom suite here: bath, basin, and toilet.  Or rather there should be a bath.  Grandad ripped it out a few years ago with much muttering and nose-tapping.  A cabinet hangs on one of the walls next to a mirror.  South leads backout to the first floor landing.  I can only move south.
+
+> Open cabinet
+I open the bathroom cabinet.  A plaster is inside the bathroom cabinet.
+
+> Get plaster
+Okay.  I have taken the plaster from the bathroom cabinet.
+
+> X basin
+The grubby wash basin is complemented by the usual grubby tap.  Some lard is inside the basin.
+
+> X trombone
+A particularly devious instrument of torture.  This method of applying pain has been handed down from generation to generation since it was first revealed in the 1950s.  First you take one trombone.  Lubricate it thoroughly with half a pound of lard.  Now, with one foot held in a horizontal position, slowly insert it into your pet terrapin's ******.  Now blow, taking deep breaths and thinking of H****d Macmillan.  Don't worry if your trousers don't fit, that's perfectly normal for a trombone player.  Alternatively, if you want to inflict REAL pain (and lets face it, who doesn't..) just have a go at playing "Bad Penny Blues" at 3 o'clock in the morning, with only a book of logarithms for sheet music.
+
+Author's note: That last section was censored by my publisher, Charles P Subotsky.  Personally I saw nothing wrong with it, and if anyone is looking for a terrapin-minder for the holidays I am available at the usual address.
+
+> S
+
+First Floor
+I am standing on the first floor landing.  Grandad has liberally decorated this part of the manor with portraits of serious-looking ladies and gentlemen. A narrow archway draped with wooden beads leads eastwards into a bedroom, whilst northwards is the bathroom. There is a locked door to my west.  Exits are north, east, up and down.
+
+> D
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, an envelope, a torch, a scarf, some gloves, a claw, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket, a fish, a pot, a bone, a filofax, a mug, a sugar lump, a bag of porridge, a sandwich, a ticket, a hedgehog, a zircon and a balloon.  Exits are north, east, south, west and up.
+
+> Drop all
+Okay.  I have dropped the shovel, the battery, the trombone, the sheets, the bus pass and the plaster.  
+
+> Get envelope
+Okay.  I have taken the envelope.
+
+> Read it
+(the envelope)
+Addressed to Grandad Widdershins, Attervist Manor, Windmill Lane, Kent.  It is still sealed.
+
+> Open it
+(the envelope)
+I tear open the envelope.  The envelope contains a Christmas card.
+
+> Get card
+Okay.  I have taken the Christmas card from the envelope.
+
+> Read it
+(the Christmas card)
+Two robins are perched on the front of the Christmas card.  Inside a message is written in mum's familiar handwriting:  "Grandad, have a Happy Xmas, love from all the family.  xxx.  PS. Don't forget young Sidney is visiting for a few days on Tuesday..  xxx"  Schrodinger wanders towards me from above.
+
+> Drop envelope
+Okay.  I have dropped the envelope.  Schrodinger wanders to the west.
+
+> Get scarf
+Okay.  I have taken the scarf.  Schrodinger wanders towards me from the west.
+
+> Get claw
+Okay.  I have taken the claw.  Schrodinger wanders to above.
+
+> Get trombone
+Okay.  I have taken the trombone.
+
+> Get pass
+Okay.  I have taken the bus pass.
+
+> Get torch
+Okay.  I have taken the torch.
+
+> Get shovel
+Okay.  I have taken the shovel.
+
+> Get lump
+Okay.  I have taken the sugar lump.
+
+> Get ticket
+Okay.  I have taken the ticket.
+
+> Get hat
+Okay.  I have taken the hat.
+
+> Wear hat
+Okay.  I am now wearing the hat.
+
+> E
+
+Passage
+I am in a dingy corridor leading from east to west.  The panelled walls here have recently been given a fresh lick of varnish, either that or Grandad has forgotten to feed the cat again.  There are doorways in both the north and south wall of the corridor.  Exits are north, east, south and west.
+
+> E
+
+Sitting Room
+I am in the sitting room.  This room is full of archaeological bric-a-brac and paraphernalia.  To the north there is a locked door, looking out over the large back garden.  In a dingy corner of the room there is a voluminous armchair with an attractive paisley print.  An open fireplace is built into the east wall.  Also here is a document.  The familiar figure of Grandad slouches in the armchair snoring loudly.  I can only move west.
+
+> Blow trombone
+Parrppp!  I blow the trombone straight into Grandad's left ear.  He leaps out of the chair with a scream, affects an agressive Aikidopose, and prepares to attack.  I smile weakly and Grandad comes to his senses, "Ah!  Sidney my lad..  Don't know what came over me.  Must have fallen asleep for a jot, dinner last night you know.  Anyway, yes, quite, hmm"  Grandad forgets what he was talking about and clears his throat, "My word, that's a fine trombone you have there.  May I?"
+I pass Grandad the trombone.
+
+> Give card to Grandad
+Grandad reads the Christmast card and smiles, "Thanks my lad.  And a bonny hoots McGonagall to you too"  Grandad flamboyantly takes a sock out of his breast pocket and begins to polish the trombone with it.
+
+> Give scarf to Grandad
+"Thank you", Grandad puts on the scarf.  Having finished polishing the outside of the trombone, Grandad turns his attention to the inside.
+
+> Ask Grandad about Jasper
+"A nasty kettle of fish.  I'd avoid him if I were you"  Grandad seems to have got his hand stuck in the trombone.
+
+> Ask Grandad about Horace
+"Man's a genius.. the work he did on my bath, unbelievable"  Grandad manages to extricate his hand and throws the trombone down in disgust.  Muttering under his breath Grandad begins to rummage around the bric-a-brac strewn around the room.  With a whoop of joy he uncovers a lantern.  
+
+> Get trombone
+Okay.  I have taken the trombone.  Grandad walks to the west.
+
+> W
+
+Passage
+I am in a dingy corridor leading from east to west.  The panelled walls here have recently been given a fresh lick of varnish, either that or Grandad has forgotten to feed the cat again.  There are doorways in both the north and south wall of the corridor.  Grandad stands nearby.  Exits are north, east, south and west.
+
+> W
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, an envelope, some gloves, a swimming cap, a jigsaw, an emerald, a ruby, a mousse, a golden casket, a fish, a pot, a bone, a filofax, a mug, a bag of porridge, a sandwich, a hedgehog, a zircon, a balloon, a battery, some sheets and a plaster.  Exits are north, east, south, west and up.  Schrodinger wanders towards me from above.
+
+> Drop trombone
+Okay.  I have dropped the trombone.  
+
+> N
+
+Alcove
+I am in a cramped alcove underneath the manor's main staircase.  Here, another smaller stairway leads down into the gloom.  This leads down into Grandad's cellar.  To my south there is the main area of the hall.  A cord hangs from the ceiling of the alcove.  Exits are south and down.
+
+> D
+
+Cellar
+I am in the cellar.  The cellar is brimming with mechanical junk.  A strong smell of damp fills the air, making it quite hard to breath down here.  In one corner a robot stands silently.  A rickety wooden staircase makes its way up between the bric-a-brac.  There is a narrow opening to my east, leading into darkness.  A wooden chute has been built into one of the walls.  A beechwood armchair sits in the middle of the cellar.  There is a small chimpanzee here.  Exits are east and up.
+
+> Turn on torch
+Okay.  I turn the torch on.
+
+> E
+
+Tunnel 
+I am in a low tunnel.  The floor is covered in bat droppings, and they squelch noisily beneath my impatient feet.  The walls of the tunnel have been made out of bright red brick, and look quite old.  As well as this a strange liquid is dripping down from a lead pipe running along the length of the tunnel.  All in all, it's lovely.  Exits are east and west.
+
+> E
+
+T-Junction
+I am at a T-junction in the underground tunnel.  A lead pipe runs along the tunnel ceiling from the west.  It makes a sharp turn and continues southwards.  An odd liquid drips intermittently from the pipe.  The tunnel continues in three directions from this point.  West leads back towards the cellar.  Exits are east, south and west.
+
+> S
+
+Tunnel 
+I am in a dark underground tunnel.  There is an archway to my east leading into a softly list room.  Beside the archway there is a small, dumpy robot.  On the west wall there is a strange pattern of ancient runes.  Beneath the runes there is a small socket.  A long extension lead runs along the tunnel floor to my south.  Also here is a monocle.  Exits are north, east and south.
+
+> S
+
+Tunnel 
+I am in a dark underground tunnel.  To my south there is an extremely ornate marble archway.  The crawling vines and twisting ivy give it an almost majestic look.  Through the archway all I can see is a hazy mist.  Next to the archway there is a small fire alarm.  A long extension lead runs north and east along the ground.  Also here is a hammer.  Exits are north, east and south.
+
+> E
+
+Tunnel 
+I am in a gloomy underground tunnel.  An antiquated washing machine sits by the north wall.  A long extension lead runs along the bottom of the wall.  It heads off in an westerly direction.  An aardvark is curled up on top of the washing machine.  Exits are east, south and west.
+
+> S
+
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> Turn off torch
+Okay.  I turn the torch off.
+
+> Read sign
+"The Golden Gulp - Drinking place for the rich and finnish.  Liquors, beverages and hot dinners made on site.  Juniors must be accompanied by an adult. Prize raffle tonite:
+1st prize - Trip to Ma Golightly's House of Fun. All expenses paid.
+2nd prize - Curse of the Varangian T-shirt.
+3rd prize - Surprise supa-dupa mystery package."
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.  Grandad enters from the north.
+
+> Look
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Grandad stands nearby.  Exits are north, east, south and west.
+
+> S
+The bouncer moves to stop me, but Grandad's voice calls back "Don't worry.  He's with me".  The bouncer waves me in with a grunt.  
+Golden Gulp
+I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla and home-made shepherd's pie fills the air.  Small hairy creatures sit at tables scattered around the room, drinking and singing loudly.  Another group of creatures is gathered to the south, crowded around the bar.  Exits are north and south.  Grandad enters from the north.
+
+> X table
+The plastic table is covered in small pools of spilt liquor.  A token is on the plastic table.  Grandad picks something off a table and sits down.
+
+> Get token
+Okay.  I have taken the token from the table.  "That's the idea", Grandad reaches into his pocket, "I've got one as well".  Grandad blows his nose on a bright blue token.  Just before he puts it back in his pocket I notice it has the number 5 on it.
+
+> Look
+Golden Gulp
+I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla and home-made shepherd's pie fills the air.  Small hairy creatures sit at tables scattered around the room, drinking and singing loudly.  Another group of creatures is gathered to the south, crowded around the bar.  Grandad is sitting at one of the tables.  Exits are north and south.
+
+> Look
+Golden Gulp
+I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla and home-made shepherd's pie fills the air.  Small hairy creatures sit at tables scattered around the room, drinking and singing loudly.  Another group of creatures is gathered to the south, crowded around the bar.  Grandad is sitting at one of the tables.  Exits are north and south.
+
+> Look
+Golden Gulp
+I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla and home-made shepherd's pie fills the air.  Small hairy creatures sit at tables scattered around the room, drinking and singing loudly.  Another group of creatures is gathered to the south, crowded around the bar.  Grandad is sitting at one of the tables.  Exits are north and south.
+
+> Look
+Golden Gulp
+I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla and home-made shepherd's pie fills the air.  Small hairy creatures sit at tables scattered around the room, drinking and singing loudly.  Another group of creatures is gathered to the south, crowded around the bar.  Grandad is sitting at one of the tables.  Exits are north and south.
+
+> Look
+Golden Gulp
+I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla and home-made shepherd's pie fills the air.  Small hairy creatures sit at tables scattered around the room, drinking and singing loudly.  Another group of creatures is gathered to the south, crowded around the bar.  Grandad is sitting at one of the tables.  Exits are north and south.
+
+> Look
+Golden Gulp
+I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla and home-made shepherd's pie fills the air.  Small hairy creatures sit at tables scattered around the room, drinking and singing loudly.  Another group of creatures is gathered to the south, crowded around the bar.  Grandad is sitting at one of the tables.  Exits are north and south.  
+"A voice carries through the den, although it is hard to see where it comes from: "Good evening ladies and gentlemen.  Before we start the raffle tonight I'd just like to draw your attention to the wide selection of liquors and beverages available from the bar.  Hot dinners are also made on site for those intimate liaisons"
+
+"Anyway, back to the serious business: The Golden Gulp Raffle Bonanza.  And tonight on the prize conveyor belt we have up for grabs: A Curse of the Varangian T-shirt, a mystery - but I am told very exciting - package, and top prize tonight.. an all-expenses trip to Ma Golightly's House of Fun!"
+
+There is an appreciative cheer from the crowd, and Grandad looks pretty excited too.
+
+> Look
+Golden Gulp
+I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla and home-made shepherd's pie fills the air.  Small hairy creatures sit at tables scattered around the room, drinking and singing loudly.  Another group of creatures is gathered to the south, crowded around the bar.  Grandad is sitting at one of the tables.  Exits are north and south.  "And the winner of the third prize, the mystery package, is the holder of token orange 9!".  I look at my ticket, it's orange 9!  A loud grumble fills the den.  I squeeze my way through the crowd.  The orange token is snatched from me and a package thrust into my hands.  I return to Grandad, "Congratulations my lad"
+
+> Open package
+The package seems to have been wrapped extremely well.  In fact, too well.  I tear at the paper and sticky tape but make little progress.  
+"The winner of the second prize, this delightful Curse of the Varangian T-shirt, is token green 4!".  A loud cheer fills the den as a furry creature collects his prize T-shirt.
+
+> Look
+Golden Gulp
+I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla and home-made shepherd's pie fills the air.  Small hairy creatures sit at tables scattered around the room, drinking and singing loudly.  Another group of creatures is gathered to the south, crowded around the bar.  Grandad is sitting at one of the tables.  Exits are north and south.  
+"And the top prize tonight goes to blue 5!".  Grandad jumps up and down with joy, "It's me!  It's my token!".  Grandad dances a little jig through the crowd.  A few seconds he returns, a broad smile on face, "An all-expenses trip to Ma Golightly's House of Fun!  This is my lucky day!"  Grandad waves his prize ticket in front of me for a few seconds and then shoves it in his breast pocket.
+
+> Look
+Golden Gulp
+I am in the seedy Golden Gulp drinking den.  A strong smell of sarsaparilla and home-made shepherd's pie fills the air.  Small hairy creatures sit at tables scattered around the room, drinking and singing loudly.  Another group of creatures is gathered to the south, crowded around the bar.  Grandad is sitting at one of the tables.  Exits are north and south.  
+
+> N
+
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.  Grandad enters from the south.
+
+> N
+
+Dark
+Everything is dark.  I can see a light to my south.  Exits are east, south and west.  Grandad enters from the south.
+
+> W
+
+Dark
+Everything is dark.  Exits are north, east and south.  Grandad enters from the east.
+
+> S
+A strange chill runs down my spine.  Are you sure you want me to go that way? (Y/N)
+
+> Y
+Okay.  There is a blinding flash, and for a brief few seconds I feel as if I am trying to walk through a plate of bangers and mash.  I quickly come to my senses - How can this be happening?  I don't even like sausages.  
+Waiting Room
+I am in a small, square room with no windows.  On one wall there is a small blue telephone, whilst the rest of the wall is covered by posters.  There is an open doorway to my south, whilst the entire northern wall is taken up by a curious mist.  I can hear innocuous muzak being played gently in the background.  A wooden chute has been built into one of the walls.  A Viking is slumped in the corner.  Exits are north and south.  Grandad enters from the north.  Olaf hiccups, "Hic!"
+
+> S
+I step through the doorway and out into the open air.  Something strikes me as being unusual, and then I realise: the lack of snow.  
+Bus Stop
+I am standing by a bus stop in a rural country lane.  There is a windowless concrete building to my north.  The lane continues its twisty journey east and west for a while before disappearing into a strange thick mist.  A strange-looking robot stands authoritatively beside the bus stop.  Exits are north, east and west.
+
+> X robot
+The robot is made out of a curious arrangement of angular coat hangers and digestive biscuits.  It doesn't look very friendly.  In the middle of the robot's chest area there is a small turquoise button.  Grandad enters from the north.
+
+> i
+I am wearing some trousers, a shirt and a hat, and I am carrying a shovel, a torch, a claw, a sugar lump, a ticket, a bus pass and a package.
+
+> Push button
+I press the button.  The robot's x-ray eyes scan me and my belongings.  The robot gives out a high fluting whistle.  Almost immediately a coach trundles into view and stops at the bus stop.
+
+> X coach
+The coach belongs to the Real World Parallel Dimension Interface Corporation.  I think it is waiting for me to get inside.
+
+> Enter coach
+I get onto the coach and sit down close to the driver.  The coach is quite full of passengers, most of them elderly ladies.  What is particularly odd is that all the passengers share a similarly blank expression.  It is quite eerie.  The coach enters the mist and I feel myself getting tired.  It has been a long day so far, and so much yet to be done.  With a lazy yawn I fall asleep.
+
+The sound of a neighing horse wakes me.  I find myself lying face-down in a field of cold snow.  I quickly stand up, shake the snow off me, and take stock of my predicament:  
+Field
+I am in a snow-covered field.  Nearby, a mossy tombstone pokes up through the snow.  To my west, over a high hedge, I can see Attervist manor.  I don't think I'll be able to climb the hedge on my own.  Nearby a horse is chewing on a patch of grass which has managed to break through the snow.
+
+> X tombstone
+The tombstone is covered in moss: "Septimus Baronson 1812-1844".
+
+> Dig
+I dig a small hole.
+
+> Dig
+I dig a little deeper.
+
+> Dig
+My shovel hits something solid.  I clear the earth with my hands and uncover a coffin.
+
+> Open coffin
+With a loud creak the coffin opens.  A bronze key is inside the coffin and a zombie.  There is a piercing roar and the zombie leaps out of the coffin.
+
+> Give claw to zombie
+The zombie snatches the claw from my hands and begins to munch on it.
+
+> Get key
+Okay.  I have taken the bronze key from the coffin.
+
+> Give lump to horse
+The horse happily chomps on the sugar lump.
+
+> Ride horse
+I mount the horse.  With a gleeful neigh the horse jumps over the hedge into the grounds of Attervist manor.  With a gentle pat of thanks I jump down to the ground.  I have never like riding horses.  I remember one summer I spent with my parents in Blackpool.  I rode along the seafront on the back of a donkey.  I have never felt so ill in my life.  Mal de mare I suppose you could call it.
+
+The horse jumps back over the hedge to the field.
+
+> Look
+Manor Grounds 
+I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Exits are north, south, west and down.
+
+> N
+
+Wishing Well
+I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  There is a gap in the high wire fence to my north.  Through the fence I can see a small dirt yard.  Also here are some wire clippers.  Exits are north, south and down.
+
+> N
+I carefully step through the gap in the fence.  
+Yard
+I am standing in a small yard.  The ground is thinly covered by a layer of snow here.  A side wall of the manor marks the west boundary of the yard, and a thick hedge blocks passage to the east.  A large wooden hen-house is at the end of the yard, a small ramp leading inside.  To my south there is a high wire fence.  Exits are south and in.
+
+> In
+
+Hen-house
+I am in the large wooden hen-house.  At least I suppose it is large for chickens and other poultry.  I am finding it a bit cramped myself.  Messy bundles of hay and straw litter the floor of the hen-house.  At the back of the hen-house there is a small wooden door.  A small ramp leads out back to the yard.  A goose clucks quietly to itself nearby.  Exits are north and out.
+
+> N
+
+Manor Grounds 
+I am in the grounds of the manor's back garden.  Directly to my south there is the back of a wooden hen house.  A small wooden door has been built into it.  In the rest of the garden all there is to see is never-ending snow.  A zig-zaggy pathway has been ploughed through the snow to my north.  A man-sized gap has been uncovered in the snow here, revealing a small underground room.  It is quite a jump down to the floor though.  There is the end of a long chain here.  Exits are north, south and down.
+
+> Get chain
+Okay.  I have taken the chain.
+
+> D
+With a cry of "Geronimo" I leap down the gap.  Unfortunately the floor seems even further away than I had originally estimated.  Wumph!  Luckily there is a soft mattress to break my fall.  I stand up, dust myself down, and examine my surroundings.  
+North Alcove
+I am standing next to an oval display case.  The case is doing its best to hold up a particularly derelict-looking wall.  A small metal dial is attached to the north wall.  I am carrying the end of a long chain.  There is a man-sized gap in the ceiling above me, looking out on the winter sky.  It is a little high to reach though.  Also here is a mattress.  I can only move south.
+
+> S
+
+Centre Chamber
+I am in a large square chamber carved out of marble.  Beside me there is a rectangular glass case.  The case stretches for almost the entire width of the room from east to west.  A crumbling brick archway leads westward back to the staircase, whilst north, south, and east reach into gloomy alcoves.  I am carrying the end of a long chain.  Exits are north, east, south and west.
+
+> S
+
+South Alcove
+I am standing in the south alcove.  The alcove is dominated by a large display case shaped like a crescent.  The case is covered in thick cobwebs.  Hanging over the display case there is a small dial.  There is a strengthened door firmly set into the wall to my south.  I am carrying the end of a long chain.  I can only move north.
+
+> Open door with key
+The door swings open.
+
+> Drop key
+Okay.  I have dropped the bronze key.  
+
+> S
+
+Tunnel
+I am in a damp tunnel.  Mud slurps around my feet every time I move.  There is an archway to my east.  A few bricks have fallen away to my west, allowing access back to the bottom of the well.  Someone has taken the effort of installing a fluorescent light into the ceiling of the tunnel.  It flickers intermittently.  There is an open door to my north.  An ornately carved lever sticks up through the mud on the floor.  I am carrying the end of a long chain.  Exits are north, east, south and west.
+
+> Drop chain
+Okay.  I have dropped the chain.
+
+> E
+
+Crypt
+I am in a gloomy underground crypt.  On one wall of the crypt there is a small round pressure dial and a grey button.  A wide perspex tube rises upwards from the centre of the room and twists and turns until it eventually goes straight up through the brick ceiling.  To my west an archway leads back to the tunnel.  There seems to be something trapped inside the tube.  I can only move west.
+
+> X tube
+The tube is about 2 feet wide in diameter and is made out of clear perspex.  A small cuddly wumpus is trapped inside the tube.
+
+> X wumpus
+A cuddly wumpus, a small round ball of a creature, covered in soft pink fur.  Over the years the wumpus species has suffered more than most.  Misguided adventurers have been lead to believe that wumpi are large, fang-ridden creatures with a taste for human blood, and that "Hunt the Wumpus" is an honourable pastime.  The truth couldn't be more different: The wumpus is a timid creature who far prefers an evening in with a good book and Mozart on the hi-fi to mayhem and slaughter.  The wumpus looks very distressed inside the tube.  It scratches pathetically at the perspex.
+
+> Push button
+The pressure dial flickers into life.  A loud humming pervades the crypt as the dial's needle rises.
+
+> W
+
+Tunnel
+I am in a damp tunnel.  Mud slurps around my feet every time I move.  There is an archway to my east.  A few bricks have fallen away to my west, allowing access back to the bottom of the well.  Someone has taken the effort of installing a fluorescent light into the ceiling of the tunnel.  It flickers intermittently.  There is an open door to my north.  An ornately carved lever sticks up through the mud on the floor.  There is the end of a long chain here.  Exits are north, east, south and west.  
+
+> W
+
+Dark
+Everything is dark.  Exits are east and up.  
+
+> U
+
+Wishing Well
+I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  There is a gap in the high wire fence to my north.  Through the fence I can see a small dirt yard.  Also here are some wire clippers.  Exits are north, south and down.  The ground shakes violently.  
+
+> S
+
+Manor Grounds 
+I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Exits are north, south, west and down.  
+
+> W
+
+Driveway
+I am standing on the drive leading to Attervist manor. It is a miserable looking building. The snow does its best to cover up the harsh jagged edges and high pointed turrets.  To my north lie the cold stone steps leading up to the manor's entrance.  Exits are north, east, south and west.  
+
+> N
+
+Porch
+I am standing beside the large front door of Attervist manor.  The door has been badly warped by the ravages of time: its coat of dark green paint is peeling off in large strips, showing the older beechwood below.  A small brass letterbox has been built into the bottom of the door.  There is a button beside the door.  Exits are north and south.  
+
+> N
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, an envelope, some gloves, a swimming cap, a jigsaw, an emerald, a ruby, a mousse, a golden casket, a fish, a pot, a bone, a filofax, a mug, a bag of porridge, a sandwich, a hedgehog, a zircon, a balloon, a battery, a trombone, some sheets and a plaster.  Exits are north, east, south, west and up.  
+
+> Remove hat
+I remove the hat.  Schrodinger wanders towards me from the west.  
+
+> Drop all
+Okay.  I have dropped the shovel, the torch, the hat, the ticket, the bus pass and the package.  Schrodinger wanders to the west.  
+
+> U
+
+First Floor
+I am standing on the first floor landing.  Grandad has liberally decorated this part of the manor with portraits of serious-looking ladies and gentlemen. A narrow archway draped with wooden beads leads eastwards into a bedroom, whilst northwards is the bathroom. There is a locked door to my west.  Exits are north, east, up and down.  
+
+> N
+
+Bathroom
+I am in the bathroom.  There is a matching bathroom suite here: bath, basin, and toilet.  Or rather there should be a bath.  Grandad ripped it out a few years ago with much muttering and nose-tapping.  A cabinet hangs on one of the walls next to a mirror.  South leads backout to the first floor landing.  I can only move south.
+
+> Turn on tap
+Okay.  I turn the tap on.  Water gurgles into the basin.
+
+> Wash hands
+Okay.  I wash my hands in the water and shake them dry.
+
+> Wash hair
+Okay.  I wash all the flour out of my hair.  I shake my head dry.
+
+> Turn off tap
+Okay.  I turn the tap off.
+
+> S
+
+First Floor
+I am standing on the first floor landing.  Grandad has liberally decorated this part of the manor with portraits of serious-looking ladies and gentlemen. A narrow archway draped with wooden beads leads eastwards into a bedroom, whilst northwards is the bathroom. There is a locked door to my west.  Exits are north, east, up and down.
+
+> D
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a torch, some gloves, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket, a fish, a pot, a bone, a filofax, a mug, a bag of porridge, a sandwich, a ticket, a hedgehog, a zircon, a balloon, a battery, a trombone, some sheets, a bus pass, a plaster and a package.  Exits are north, east, south, west and up.
+
+> Get gloves
+Okay.  I have taken the gloves.  Schrodinger wanders towards me from the west.
+
+> Wear it
+(the gloves)
+Okay.  I am now wearing the gloves.  Schrodinger wanders to above.
+
 > Get hedgehog
-Ouch!  The hedgehog's spikes are too prickly to handle.
+Okay.  I have taken the hedgehog.  Schrodinger wanders towards me from above.
 
-> X boiler
-Nothing Special.
+> Comb hair with hedgehog
+Okay.  I comb my hair with the hedgehog.  Ouch!  Its not easy..
 
-> X kettle
-I can't see the kettle from here!
+> X hair
+Very smart: a wonderfully trendy centre parting.  Schrodinger wanders to the west.
 
-> Plug in kettle
-But I cannot see a socket here.
+> Remove gloves
+Okay.  I have taken off the gloves.  Ouch!  The hedgehog's spikes are too prickly to handle.  The hedgehog drops to the ground..
 
-> Wait
-Time passes...
+> Drop all
+Okay.  I have dropped the gloves.  
+
+> W
+
+Dining Room
+I am in the dining room.  There is a long wooden table in the centre of the room, with the remains of an unfinished meal.  Grandad must have forgotten to clear up last night.  A small archway leads northwards, whist another doorway to my east heads back to the hall.  There is a small tabby cat here, watching me intently.  Exits are north and east.
+
+> N
+
+Kitchen
+I am in a long rectangular room with a heavy wooden table.  The walls are covered with pans, dishes and china plates.  There is a shallow doorway to my west labelled "Pantry", whist an open archway leads southwards back into the dining room.  A kennel sits in one corner of the kitchen.  There is a door to my east.  Exits are east, south and west.
+
+> W
+
+Pantry
+I am in the pantry.  It is a small, dark room - the only source of light being a barred oval window built close to the ceiling in the west wall.  A definite niff of seaweed wafts around the shelves.  Small mountains of marzipan and icing sugar are liberally scattered across the damp stone floor.  Also here is a caddy.  A shark is leaning against one of the mounds of marzipan.  He gives me a knowing wink.  I can only move east.
+
+> Say please
+"Herummph", the shark clears his throat, "Well at least you're being polite now"
+
+> Get caddy
+Okay.  I have taken the caddy.
+
+> Open caddy
+I open the caddy.  Some toffee is inside the caddy.
+
+> Get toffee
+Okay.  I have taken the toffee from the caddy.
+
+> Drop caddy
+Okay.  I have dropped the caddy.  
+
+> E
+
+Kitchen
+I am in a long rectangular room with a heavy wooden table.  The walls are covered with pans, dishes and china plates.  There is a shallow doorway to my west labelled "Pantry", whist an open archway leads southwards back into the dining room.  A kennel sits in one corner of the kitchen.  There is a door to my east.  Exits are east, south and west.  From inside the kennel there is a contented gnawing.
+
+> S
+
+Dining Room
+I am in the dining room.  There is a long wooden table in the centre of the room, with the remains of an unfinished meal.  Grandad must have forgotten to clear up last night.  A small archway leads northwards, whist another doorway to my east heads back to the hall.  Exits are north and east.  Schrodinger wanders towards me from the east.
+
+> E
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a torch, some gloves, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket, a fish, a pot, a bone, a filofax, a mug, a bag of porridge, a sandwich, a ticket, a hedgehog, a zircon, a balloon, a battery, a trombone, some sheets, a bus pass, a plaster and a package.  Exits are north, east, south, west and up.  Schrodinger wanders towards me from the west.
+
+> Get mousse
+Okay.  I have taken the mousse.  Schrodinger wanders to above.
+
+> S
+
+Porch
+I am standing beside the large front door of Attervist manor.  The door has been badly warped by the ravages of time: its coat of dark green paint is peeling off in large strips, showing the older beechwood below.  A small brass letterbox has been built into the bottom of the door.  There is a button beside the door.  Exits are north and south.
+
+> S
+
+Driveway
+I am standing on the drive leading to Attervist manor. It is a miserable looking building. The snow does its best to cover up the harsh jagged edges and high pointed turrets.  To my north lie the cold stone steps leading up to the manor's entrance.  Exits are north, east, south and west.
 
 > E
 
 Manor Grounds 
-I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Also here is a sandwich.  Exits are north, south, west and down.
+I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Exits are north, south, west and down.
 
-> E
-I can't go in that direction, but I can move north, south, west and down.
+> Wait
+Time passes...
 
-> Give mouse to owl
-Give what?
+> Wait
+Time passes...
 
-> Open skylight
-I can't open that.
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+I can hear the sound of a hunting horn in the distance.  Suddenly, without warning, a small, furry wumpus leaps over the bramble hedge and lands with a soft thud at my feet.  
+
+> Give mousse to wumpus
+The wumpus eagerly scoffs the chocolate mousse, licks its lips, and..  THUD!.. keels over.
+
+> Get wumpus
+Okay.  I have taken the wumpus.
+
+> D
+
+Oily cave
+I am in a dark and damp cave.  There is barely enough room to stand up in here.  Large pools of oil splash around my feet.  There is a dark tunnel leading off to my south.  The walls of this hideous place are covered in some sort of thick, black tar.  I can only move up.
+
+> Drop wumpus
+Okay.  I have dropped the wumpus.  The wumpus yawns and rolls over in a pool of oil.
 
 > U
-I can't go in that direction, but I can move north, south, west and down.
 
-> E
-I can't go in that direction, but I can move north, south, west and down.
+Manor Grounds 
+I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Exits are north, south, west and down.
 
-> Get balloon
-Take what?
+> Close trapdoor
+The trapdoor slams shut.  
 
-> Jump
-Such inane behaviour doesn't actually achieve anything, but it makes me feel a lot better.
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+There is a loud rustle and a skinny man climbs over the bramble hedge.  He drops down with a thud in front of me.  It is Jasper Slake, Grandad's unkind neighbour.  He is new to the area having made his fortune in dentistry.  "Blasted vermin", spits Jasper, "Came through my greenhouse window.. landed in my begonias.. Well, I'll show it"    
+
+> X Jasper
+Jasper is Grandad's evil neighbour.  I don't like him.  He's a dentist.  Jasper has an untidy thatch of ginger hair, and is wearing jodphurs and a long cloak.  His snarling face reveals a row of golden teeth.  He seems to be searching for something.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying some toffee.  Jasper looks at me, "Do you know where it is?  You better not be hiding it from me.."  
+
+> X teeth
+The trouble with being a dentist is that you still have to get someone else to look after your own chompers.  Whoever is Jasper's dentist can't be very good, or else he wouldn't need all those gold teeth.  No wonder he's always so unpleasant to people.  
+
+> i
+I am wearing some trousers and a shirt, and I am carrying some toffee.  Jasper looks over the snowy lawn towards the manor, "And you can tell the old boy I'm having this estate.. whatever it takes.."  
+
+> Give toffee to Jasper
+Jasper pops the toffee in his mouth and begins to chew.  
+
+> Ask Jasper about wumpus
+"Exterminate the vermin.  That's my motto"  Jasper laughs, "Your Grandad can't hold out for long, he hasn't got a penny to his name.."  Jasper chews vigorously.
+
+> Wait
+Time passes...
+  Jasper sniffs the air, "Where did it get to?".  He looks at me, "Oh yes, and I wouldn't believe all your Grandad's stories about hidden treasure.  He's getting old.. and desperate.  This time next year I'll be the new lord of Attervist manor."  Jasper chews vigorously.  
+
+> Wait
+Time passes...
+Jasper looks around, "Where did that wumpus get to?  Nothing like fresh blood to start the day.. Heh heh"  Jasper chews vigorously.  "Blasted vermin", spits Jasper, "Came through my greenhouse window.. landed in my begonias.. Well, I'll show it"  Jasper chews vigorously.
+
+> Wait
+Time passes...
+  Jasper clutches his jaw, "Awwwgghh!  Not another one!".  His face turns purple in rage as he reaches into his mouth and pulls something out.  He throws the offending item to the ground.  
+
+> Get tooth
+Okay.  I have taken the tooth.  
+
+> Wait
+Time passes...
+      
+
+> Wait
+Time passes...
+      
+
+> Wait
+Time passes...
+    Jasper looks fed up, "Bah Humbug!  I'm never going to catch that blasted vermin".  Scowling he clambers back over the hedge.  Something falls out of his cloak as he pulls himself over.  
+
+> Look
+Manor Grounds 
+I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a trapdoor here.  Also here is a polaroid.  Exits are north, south and west.  
+
+> Get polaroid
+Okay.  I have taken the polaroid.  
+
+> Open trapdoor
+I use all my might to heave the trapdoor open.  A narrow shaft is revealed, leading downwards into the gloom.  
+
+> D
+
+Oily cave
+I am in a dark and damp cave.  There is barely enough room to stand up in here.  Large pools of oil splash around my feet.  There is a dark tunnel leading off to my south.  The walls of this hideous place are covered in some sort of thick, black tar.  Also here is a wumpus.  I can only move up.
+
+> Get wumpus
+Okay.  I have taken the wumpus.  Weakened by the oil in its fur the wumpus makes no attempt to escape.
+
+> U
+
+Manor Grounds 
+I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Exits are north, south, west and down.  
 
 > W
 
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable looking building. The snow does its best to cover up the harsh jagged edges and high pointed turrets.  To my north lie the cold stone steps leading up to the manor's entrance.  Exits are north, east, south and west.
 
+> N
+
+Porch
+I am standing beside the large front door of Attervist manor.  The door has been badly warped by the ravages of time: its coat of dark green paint is peeling off in large strips, showing the older beechwood below.  A small brass letterbox has been built into the bottom of the door.  There is a button beside the door.  Exits are north and south.
+
+> N
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a torch, some gloves, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a golden casket, a fish, a pot, a bone, a filofax, a mug, a bag of porridge, a sandwich, a ticket, a hedgehog, a zircon, a balloon, a battery, a trombone, some sheets, a bus pass, a plaster and a package.  Exits are north, east, south, west and up.
+
+> Drop all
+Okay.  I have dropped the wumpus, the tooth and the polaroid.  
+
+> Get balloon
+Okay.  I have taken the balloon.  Schrodinger wanders towards me from above.
+
+> Get package
+Okay.  I have taken the package.  Schrodinger wanders to above.
+
+> Get filofax
+Okay.  I have taken the filofax.
+
+> Get plaster
+Okay.  I have taken the plaster.
+
+> Get tooth
+Okay.  I have taken the tooth.  Schrodinger wanders towards me from above.
+
+> Get wumpus
+Okay.  I have taken the wumpus.  Schrodinger wanders to the west.
+
+> Get bag
+Okay.  I have taken the bag of porridge.
+
+> Get torch
+Okay.  I have taken the torch.
+
+> N
+
+Alcove
+I am in a cramped alcove underneath the manor's main staircase.  Here, another smaller stairway leads down into the gloom.  This leads down into Grandad's cellar.  To my south there is the main area of the hall.  A cord hangs from the ceiling of the alcove.  Exits are south and down.
+
 > D
-I can't go in that direction, but I can move north, east, south and west.
+
+Cellar
+I am in the cellar.  The cellar is brimming with mechanical junk.  A strong smell of damp fills the air, making it quite hard to breath down here.  In one corner a robot stands silently.  A rickety wooden staircase makes its way up between the bric-a-brac.  There is a narrow opening to my east, leading into darkness.  A wooden chute has been built into one of the walls.  A beechwood armchair sits in the middle of the cellar.  There is a small chimpanzee here.  Exits are east and up.
+
+> Turn on torch
+Okay.  I turn the torch on.
+
+> E
+
+Tunnel 
+I am in a low tunnel.  The floor is covered in bat droppings, and they squelch noisily beneath my impatient feet.  The walls of the tunnel have been made out of bright red brick, and look quite old.  As well as this a strange liquid is dripping down from a lead pipe running along the length of the tunnel.  All in all, it's lovely.  Exits are east and west.
+
+> E
+
+T-Junction
+I am at a T-junction in the underground tunnel.  A lead pipe runs along the tunnel ceiling from the west.  It makes a sharp turn and continues southwards.  An odd liquid drips intermittently from the pipe.  The tunnel continues in three directions from this point.  West leads back towards the cellar.  Exits are east, south and west.
+
+> S
+
+Tunnel 
+I am in a dark underground tunnel.  There is an archway to my east leading into a softly list room.  Beside the archway there is a small, dumpy robot.  On the west wall there is a strange pattern of ancient runes.  Beneath the runes there is a small socket.  A long extension lead runs along the tunnel floor to my south.  Also here is a monocle.  Exits are north, east and south.
+
+> S
+
+Tunnel 
+I am in a dark underground tunnel.  To my south there is an extremely ornate marble archway.  The crawling vines and twisting ivy give it an almost majestic look.  Through the archway all I can see is a hazy mist.  Next to the archway there is a small fire alarm.  A long extension lead runs north and east along the ground.  Also here is a hammer.  Exits are north, east and south.
+
+> S
+
+Waiting Room
+I am in a small, square room with no windows.  On one wall there is a small blue telephone, whilst the rest of the wall is covered by posters.  There is an open doorway to my south, whilst the entire northern wall is taken up by a curious mist.  I can hear innocuous muzak being played gently in the background.  A wooden chute has been built into one of the walls.  A Viking is slumped in the corner.  Exits are north and south.
+
+> Turn off torch
+Okay.  I turn the torch off.  Olaf mutters something about a very sad story.  Olaf hiccups, "Hic!"
+
+> X Olaf
+Olaf Yggdrasil, a burly Viking oarsman.  Vikings is one of the most greatly feared races in history.  Their love of fine sculpture and iambic pentameter is only exceeded by their desire to chop up lesser creatures into tiny, ill-fitting jigsaw pieces.  Many a peaceful hamlet would be darkened by the arrival of a Viking death-fleet equipped with blow-up Venus de Milos, solar powered circular saws, and a copy of Norton Utilities.
+
+Olaf is very very drunk.  He looks a shade depressed.  Olaf is carrying a rucksack.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying a torch, a filofax, a bag of porridge, a balloon, a plaster, a package, a wumpus and a tooth.
+
+> Ask Olaf about story
+Olaf sniffs, "Oh it's so stupid.  I was going to Hic! ring up my aunty to tell her I'd be late home for my porridge, but I can't remember her telephone number!  I know it's ridiculous Hic! but all I can remember is her National Insurance number, and that's.. Hic!"
+
+> Pop balloon
+With a loud BANG! I burst the balloon.  Olaf looks up with a start, "My hiccups!  They've gone!"
+
+> Ask Olaf about story
+Olaf sniffs, "Oh it's so stupid.  I was going to ring up my aunty to tell her I'd be late home for my porridge, but I can't remember her telephone number!  I know it's ridiculous but all I can remember is her National Insurance number, and that's.. 42950385"
+
+> N
+
+Dark
+Everything is dark.  Exits are north, east and south.
+
+> E
+
+Dark
+Everything is dark.  I can see a light to my south.  Exits are east, south and west.
+
+> S
+
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> E
+
+Tunnel 
+I am in an underground tunnel.  The tunnel is constructed out of a bright red brick, and is rather unpleasant to the eye.  I hate to imagine what kind of creatures live down here.  A wooden chute has been built into one of the walls.  A raging wall of fire blocks my way southwards.  Exits are east, south and west.
+
+> E
+
+Tunnel 
+I am at a turning in the tunnel.  A mass of electronic diodes and valves dominate the east wall of the tunnel.  It is virtually impossible to see the brickwork underneath.  A small button is hidden amid the wires and circuit boards.  A grubby computer sits on the floor, attached to the wall's circuitry through optical fibres.  There is a marble pedestal here.  Also here is a humbug.  A hacker stands beside the computer.  Exits are north and west.
+
+> X hacker
+The hacker's name is Alex.  He looks a bit of a computer junkie.  I'd best be careful, they're a dangerous breed.  Alex is wearing an anorak, and carrying a stanley knife.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying a torch, a filofax, a bag of porridge, a plaster, a package, a wumpus and a tooth.
+
+> Give package to hacker
+The hacker smiles, "Cor thanks!  How did you know it was my birthday?".  The hacker tears easily into the package with his stanley knife.  Inside there is a sparkling new computer.  The hacker almost kisses me in excitement, "Wow.  Thanks!".  He connects the new computer to the wall.
+
+> X computer
+The computer is the very state-of-the-art technology.  It has a liquid crystal display.  The computer seems to be in the middle of a communications package.  It is waiting for a number to be typed in.
+
+> Read filofax
+A fat personal organiser, as used by yuppy Scandinavians the world over.  Inside there is assortment of telephone numbers and addresses.  One telephone number has been written in bright green ink: "Viking Contact Society: 010473351922."
+
+> Type 010473351922 on computer
+I type on the computer.  There is a bleep from the computer and it logs onto the Viking Contact Society.
+
+> X computer
+The computer is the very state-of-the-art technology.  It has a liquid crystal display.  The computer is connected to the Viking Contact Society Bulletin Board.  It is waiting for a National Insurance number to be typed on the keyboard.
+
+> Type 42950385 on computer
+I type on the computer.  There is a bleep from the computer and it finds the address and telephone number of Olaf's aunty.
+
+> X computer
+The computer is the very state-of-the-art technology.  It has a liquid crystal display.  The computer is displaying the address and phone number of Olaf's aunty.  Her telephone number is 010475234092.
+
+> Drop filofax
+Okay.  I have dropped the filofax.  
+
+> Type Log Off on computer
+I type on the computer.  The computer logs off the Viking Society Bulletin Board.
+
+> W
+
+Tunnel 
+I am in an underground tunnel.  The tunnel is constructed out of a bright red brick, and is rather unpleasant to the eye.  I hate to imagine what kind of creatures live down here.  A wooden chute has been built into one of the walls.  A raging wall of fire blocks my way southwards.  Exits are east, south and west.
+
+> W
+
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> N
+
+Dark
+Everything is dark.  I can see a light to my south.  Exits are east, south and west.
+
+> W
+
+Dark
+Everything is dark.  Exits are north, east and south.
+
+> S
+
+Waiting Room
+I am in a small, square room with no windows.  On one wall there is a small blue telephone, whilst the rest of the wall is covered by posters.  There is an open doorway to my south, whilst the entire northern wall is taken up by a curious mist.  I can hear innocuous muzak being played gently in the background.  A wooden chute has been built into one of the walls.  A Viking is slumped in the corner.  Exits are north and south.
+
+> Say 010475234092
+Olaf leaps up with a start, "That's it!  That's my aunty's telephone number!".  He pushes past me and begins dialling on the telephone.  A broad smile crosses his face, and he starts talking loudly in Norwegian.  His conversation over he runs northwards into the mist.  I notice Olaf has left behind his rucksack and call after him.  But it is too late.
+
+> Get rucksack
+Okay.  I have taken the rucksack.  Olaf sniffs.
+
+> Open rucksack
+I open the rucksack.  Some white powder is inside the rucksack.  Olaf mutters something about a very sad story.
+
+> Get powder
+Okay.  I have taken the white powder from the rucksack.
+
+> Put powder in chute
+Okay.  I put the white powder inside the D chute.  
+
+> X chute
+The chute is quite narrow and made out of wood.  It leads down into darkness.  There is a small wooden lever attached to the side of the chute, and on the front an ornate letter "D" has been engraved.  Some white powder is inside the D chute.
+
+> Pull lever
+I pull the lever.  There is a whooshing sound from the chute and the white powder disappears from view.
+
+> N
+
+Dark
+Everything is dark.  Exits are north, east and south.
+
+> E
+
+Dark
+Everything is dark.  I can see a light to my south.  Exits are east, south and west.
+
+> S
+
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  Exits are north, east, south and west.
+
+> E
+
+Tunnel 
+I am in an underground tunnel.  The tunnel is constructed out of a bright red brick, and is rather unpleasant to the eye.  I hate to imagine what kind of creatures live down here.  A wooden chute has been built into one of the walls.  A raging wall of fire blocks my way southwards.  Exits are east, south and west.
+
+> E
+
+Tunnel 
+I am at a turning in the tunnel.  A mass of electronic diodes and valves dominate the east wall of the tunnel.  It is virtually impossible to see the brickwork underneath.  A small button is hidden amid the wires and circuit boards.  A grubby computer sits on the floor, attached to the wall's circuitry through optical fibres.  There is a marble pedestal here.  Also here is a humbug and a filofax.  A hacker stands beside the computer.  Exits are north and west.
+
+> Sit on pedestal
+I sit down on the marble pedestal.
+
+> Push button
+There is a tinkling sound and the tunnel slowly fades away..
+
+Rubbish Tip
+I am in an enormous room, it could be almost as large as an aircraft hanger or a couple of football pitches.  Junk and garbage litter the floor for as far as I can see, in some places piled as high as small buildings.  In the high roof of the ceiling there is a large dark hole.  Also here is a crowbar, some white powder and a raspberry.  A fairy sits on a pile of junk nearby.  She doesn't look very happy.  Exits are north, east, south and west.
+
+> Get powder
+Okay.  I have taken the white powder.
+
+> X fairy
+A diaphanous fairy with wings made out of wire gauze.  She looks very beautiful.  She looks as if she has been crying.  The fairy is carrying a magic wand.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying a torch, a bag of porridge, a plaster, a rucksack, a wumpus, a tooth and some white powder.
+
+> X wand
+A magic wand.  It has a silver star on the end.  The wand is broken.
+
+> Ask fairy about wand
+"I sat on it by mistake!"
+
+> Give plaster to fairy
+The fairy perks up and smiles at me.  "How clever you are!", she exclaims, tying the plaster around the broken part of the wand.  She jumps for joy and gives me a warm hug, "Thank you so much!". The fairy gives the wand a practice wave...  "Oops.. I shouldn't have done... "  Her voice fades into the ether as the junk slowly disappears around me.
+
+> Sit on pedestal
+I sit down on the marble pedestal.
+
+> Push button
+There is a tinkling sound and the tunnel slowly fades away..
+
+Rubbish Tip
+I am in an enormous room, it could be almost as large as an aircraft hanger or a couple of football pitches.  Junk and garbage litter the floor for as far as I can see, in some places piled as high as small buildings.  In the high roof of the ceiling there is a large dark hole.  Also here is a crowbar and a raspberry.  A fairy sits on a pile of junk nearby.  Exits are north, east, south and west.
+
+> Get raspberry
+Okay.  I have taken the raspberry.
+
+> Blow raspberry at fairy
+Prrrrppp!  The fairy chuckles at my antics and clicks her fingers, "There", she says, "Have another ten points"
+
+> Drop raspberry
+Okay.  I have dropped the raspberry.  
+
+> Kiss fairy
+I give the fairy a gentle kiss on the cheek.  She smiles..  The fairy floats over to a large pile of rubbish and pulls out a sparkling diamond, "Here, have this"
+
+> Give tooth to fairy
+The fairy beams, "Thank you!  Now shut your eyes and I'll give you a surprise."  I shut my eyes, after all, who argues with fairies?  I hear a tinkling bell in the back of my mind and the fairy's voice fading into the distance, "Glad to be of service!"
+
+Tunnel 
+I am at a turning in the tunnel.  A mass of electronic diodes and valves dominate the east wall of the tunnel.  It is virtually impossible to see the brickwork underneath.  A small button is hidden amid the wires and circuit boards.  A grubby computer sits on the floor, attached to the wall's circuitry through optical fibres.  There is a marble pedestal here.  Also here is a humbug and a filofax.  A hacker stands beside the computer.  Exits are north and west.
+
+> Turn on torch
+Okay.  I turn the torch on.
+
+> N
+
+Tunnel 
+I am in the underground tunnel.  Crawling vines climb up the tunnel's walls.  A large metal door prevents me from going east.  There is a small wooden stool here.  Exits are south and west.
+
+> Put bag on stool
+Okay.  Okay.  I put the bag of porridge on the stool.  There is a harsh grating noise from the east.  Slowly but surely the metal door begins to slide open.
+
+> E
+
+Oubiette
+I am in a tiny, almost closet-like, room.  This is just the sort of place you could leave people you want to forget about.  A shiver runs down my spine at the thought of being stuck here.  Also here is an amethyst.  I can only move west.
+
+> Get amethyst
+Okay.  I have taken the amethyst.
+
+> W
+
+Tunnel 
+I am in the underground tunnel.  Crawling vines climb up the tunnel's walls.  A large metal door prevents me from going east.  There is a small wooden stool here.  Exits are east, south and west.
+
+> W
+
+Tunnel 
+I am in a gloomy underground tunnel.  An antiquated washing machine sits by the north wall.  A long extension lead runs along the bottom of the wall.  It heads off in an westerly direction.  An aardvark is curled up on top of the washing machine.  Exits are east, south and west.
+
+> X machine
+It is a battered washing machine.  There is a small door built into the front of the machine.  Above the door there is an octagonal green button and a small liquid crystal display.  There is a plug attached to the rear of the machine.  The washing machine is plugged into the extension lead.  The washing machine is closed.
+
+> Open door
+I open the washing machine.
+
+> Put powder in machine
+Okay.  I put the white powder inside the washing machine.  
+
+> Put wumpus in machine
+Okay.  I put the wumpus inside the washing machine.  
+
+> Close door
+I close the washing machine.
+
+> Push button
+The washing machine begins to whirr.  From inside the machine there is a spinning sound and I can see water collecting behind the door.  The water begins to turn into frothy bubbles of soap.  After a few more spins the water drains away, and the washing machine falls silent once more.
+
+> Open door
+The door to the washing machine swings open.  The washing machine contains a wumpus.  With a loud whoop of joy the wumpus jumps out of the washing machine.  It does a little tapdance and shows off its sparkling clean fur.  There isn't a trace of oil to be seen!  The wumpus gives me a firm hug around the ankles and gives me a sparkling sapphire.  With a smile the wumpus toddles off to the west.
+
+> W
+
+Tunnel 
+I am in a dark underground tunnel.  To my south there is an extremely ornate marble archway.  The crawling vines and twisting ivy give it an almost majestic look.  Through the archway all I can see is a hazy mist.  Next to the archway there is a small fire alarm.  A long extension lead runs north and east along the ground.  Also here is a hammer.  Exits are north, east and south.
+
+> N
+
+Tunnel 
+I am in a dark underground tunnel.  There is an archway to my east leading into a softly list room.  Beside the archway there is a small, dumpy robot.  On the west wall there is a strange pattern of ancient runes.  Beneath the runes there is a small socket.  A long extension lead runs along the tunnel floor to my south.  Also here is a monocle.  Exits are north, east and south.
+
+> N
+
+T-Junction
+I am at a T-junction in the underground tunnel.  A lead pipe runs along the tunnel ceiling from the west.  It makes a sharp turn and continues southwards.  An odd liquid drips intermittently from the pipe.  The tunnel continues in three directions from this point.  West leads back towards the cellar.  Exits are east, south and west.
+
+> W
+
+Tunnel 
+I am in a low tunnel.  The floor is covered in bat droppings, and they squelch noisily beneath my impatient feet.  The walls of the tunnel have been made out of bright red brick, and look quite old.  As well as this a strange liquid is dripping down from a lead pipe running along the length of the tunnel.  All in all, it's lovely.  Exits are east and west.
+
+> W
+
+Cellar
+I am in the cellar.  The cellar is brimming with mechanical junk.  A strong smell of damp fills the air, making it quite hard to breath down here.  In one corner a robot stands silently.  A rickety wooden staircase makes its way up between the bric-a-brac.  There is a narrow opening to my east, leading into darkness.  A wooden chute has been built into one of the walls.  A beechwood armchair sits in the middle of the cellar.  There is a small chimpanzee here.  Exits are east and up.
+
+> Turn off torch
+Okay.  I turn the torch off.
+
+> U
+
+Alcove
+I am in a cramped alcove underneath the manor's main staircase.  Here, another smaller stairway leads down into the gloom.  This leads down into Grandad's cellar.  To my south there is the main area of the hall.  A cord hangs from the ceiling of the alcove.  Exits are south and down.
+
+> S
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, some gloves, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a golden casket, a fish, a pot, a bone, a mug, a sandwich, a ticket, a hedgehog, a zircon, a battery, a trombone, some sheets, a bus pass and a polaroid.  There is a small tabby cat here, watching me intently.  Exits are north, east, south, west and up.  Schrodinger wanders to the north.
+
+> Drop all
+Okay.  I have dropped the torch, the rucksack, the tooth, the diamond, the amethyst and the sapphire.  Schrodinger wanders towards me from the north.
+
+> Get torch
+Okay.  I have taken the torch.  Schrodinger wanders to the north.
+
+> Get mug
+Okay.  I have taken the mug.
+
+> Get sheets
+Okay.  I have taken the sheets.  Schrodinger wanders towards me from the north.
+
+> N
+
+Alcove
+I am in a cramped alcove underneath the manor's main staircase.  Here, another smaller stairway leads down into the gloom.  This leads down into Grandad's cellar.  To my south there is the main area of the hall.  A cord hangs from the ceiling of the alcove.  Exits are south and down.
+
+> D
+
+Cellar
+I am in the cellar.  The cellar is brimming with mechanical junk.  A strong smell of damp fills the air, making it quite hard to breath down here.  In one corner a robot stands silently.  A rickety wooden staircase makes its way up between the bric-a-brac.  There is a narrow opening to my east, leading into darkness.  A wooden chute has been built into one of the walls.  A beechwood armchair sits in the middle of the cellar.  There is a small chimpanzee here.  Exits are east and up.
+
+> Turn on torch
+Okay.  I turn the torch on.
+
+> E
+
+Tunnel 
+I am in a low tunnel.  The floor is covered in bat droppings, and they squelch noisily beneath my impatient feet.  The walls of the tunnel have been made out of bright red brick, and look quite old.  As well as this a strange liquid is dripping down from a lead pipe running along the length of the tunnel.  All in all, it's lovely.  Exits are east and west.
+
+> E
+
+T-Junction
+I am at a T-junction in the underground tunnel.  A lead pipe runs along the tunnel ceiling from the west.  It makes a sharp turn and continues southwards.  An odd liquid drips intermittently from the pipe.  The tunnel continues in three directions from this point.  West leads back towards the cellar.  Exits are east, south and west.
+
+> S
+
+Tunnel 
+I am in a dark underground tunnel.  There is an archway to my east leading into a softly list room.  Beside the archway there is a small, dumpy robot.  On the west wall there is a strange pattern of ancient runes.  Beneath the runes there is a small socket.  A long extension lead runs along the tunnel floor to my south.  Also here is a monocle.  Exits are north, east and south.
+
+> S
+
+Tunnel 
+I am in a dark underground tunnel.  To my south there is an extremely ornate marble archway.  The crawling vines and twisting ivy give it an almost majestic look.  Through the archway all I can see is a hazy mist.  Next to the archway there is a small fire alarm.  A long extension lead runs north and east along the ground.  Also here is a hammer.  Exits are north, east and south.
+
+> Get hammer
+Okay.  I have taken the hammer.
+
+> X alarm
+A small, red fire alarm.  A message says: "Break glass with hammer".
+
+> Break glass with hammer
+I smash the alarm glass with the hammer.  Immediately the alarm begins to ring loudly.
+
+> Drop hammer
+Okay.  I have dropped the hammer.  
+
+> E
+
+Tunnel 
+I am in a gloomy underground tunnel.  An antiquated washing machine sits by the north wall.  A long extension lead runs along the bottom of the wall.  It heads off in an westerly direction.  An aardvark is curled up on top of the washing machine.  The fire alarm is ringing loudly.  Exits are east, south and west.
+
+> S
+
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  The fire alarm is ringing loudly.  Exits are north, east, south and west.
+
+> E
+
+Tunnel 
+I am in an underground tunnel.  The tunnel is constructed out of a bright red brick, and is rather unpleasant to the eye.  I hate to imagine what kind of creatures live down here.  A wooden chute has been built into one of the walls.  A raging wall of fire blocks my way southwards.  The fire alarm is ringing loudly.  Exits are east, south and west.
+
+> Turn off torch
+Okay.  I turn the torch off.  I can hear a fire engine's siren.
+
+> Wait
+Time passes...
+There is a screech of brakes, and the fire engine's siren turns off.  Dennis the fireman runs up to me, carrying a pelican.  "Are you alright son?".  I nod my head excitedly.  Dennis sees the fire and rubs his chin thoughtfully.  "Hmm, that's really for the Gas Board to sort out.  It doesn't look too dangerous.  I'd better report it all the same".  Dennis takes a form out of his back pocket and begins to write.  "Here", he says, "Just sign your name please".  He hands me the form and a biro.
+
+> X Dennis
+Dennis is a rather overweight fireman.  Dennis is wearing a uniform and a helmet, and carrying a pelican.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying a torch, a mug, some sheets, a biro and a form.  The mug contains some tea.  
+
+> Give mug to Dennis
+Dennis takes his helmet off, "Don't mind if I do.. thanks very much."  He sips thoughtfully on the tea.  
+
+> Hit Dennis
+Before he can react I take a swing at the side of Dennis's head.  With a groan Dennis falls to the ground, unconscious.  The pelican jumps out of his hands and flies west.  
+
+> Get helmet
+Okay.  I have taken the helmet from Dennis.  
+
+> Get uniform
+Okay.  I have taken the uniform from Dennis.  
+
+> Tie Dennis with sheets
+Okay.  I tie Dennis up with the sheets.  
+
+> X Dennis
+Dennis is a rather overweight fireman.  He is lying unconscious on the ground.  Dennis is wearing his underwear, and carrying a mug.
+
+> i
+I am wearing some trousers and a shirt, and I am carrying a torch, some sheets, a biro, a uniform, a helmet and a form.  
+
+> X underwear
+I couldn't even begin to describe Dennis's underwear.  
+
+> Smell underwear
+Don't be disgusting!  Heh heh.  Okay, have another ten points.  
+
+> Sign form
+Okay.  I sign my name on the form.  
+
+> Wear uniform
+Okay.  I am now wearing the uniform.  
+
+> Wear helmet
+Okay.  I am now wearing the helmet.  
+
+> Drop all
+Okay.  I have dropped the torch, the sheets, the biro and the form.  
+
+> X uniform
+A fireman's uniform.  It is made from an asbestos-like material to prevent burns.  
+
+> S
+As I walk through the wall of fire even the fireman's protective uniform burns away.  
+Dead End
+I am at a dead end in the underground tunnel.  The red brick walls here are virtually invisible beneath a thick layer of soot.  A small metal wheel is set into one of the walls.  A wooden chute has been built into one of the walls.  The fire alarm is ringing loudly.  A raging wall of fire blocks my way northwards.  The fire alarm is ringing loudly.  I can only move north.
+
+> Turn off wheel
+I turn the wheel.  The wall of fire to my north goes out almost immediately.
+
+> X chute
+The chute is quite narrow and made out of wood.  It leads down into darkness.  There is a small wooden lever attached to the side of the chute, and on the front an ornate letter "Z" has been engraved.
+
+> N
+
+Tunnel 
+I am in an underground tunnel.  The tunnel is constructed out of a bright red brick, and is rather unpleasant to the eye.  I hate to imagine what kind of creatures live down here.  A wooden chute has been built into one of the walls.  Also here is a torch, some sheets, a biro and a form.  Dennis the fireman lies unconscious on the ground.  The fire alarm is ringing loudly.  Exits are east, south and west.  
+
+> Get torch
+Okay.  I have taken the torch.  
+
+> Turn on torch
+Okay.  I turn the torch on.  
+
+> W
+
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  The fire alarm is ringing loudly.  Exits are north, east, south and west.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> N
+
+Tunnel 
+I am in a gloomy underground tunnel.  An antiquated washing machine sits by the north wall.  A long extension lead runs along the bottom of the wall.  It heads off in an westerly direction.  An aardvark is curled up on top of the washing machine.  The fire alarm is ringing loudly.  Exits are east, south and west.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> W
+
+Tunnel 
+I am in a dark underground tunnel.  To my south there is an extremely ornate marble archway.  The crawling vines and twisting ivy give it an almost majestic look.  Through the archway all I can see is a hazy mist.  Next to the archway there is a small fire alarm.  A long extension lead runs north and east along the ground.  Also here is a hammer.  The fire alarm is ringing loudly.  Exits are north, east and south.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> N
+
+Tunnel 
+I am in a dark underground tunnel.  There is an archway to my east leading into a softly list room.  Beside the archway there is a small, dumpy robot.  On the west wall there is a strange pattern of ancient runes.  Beneath the runes there is a small socket.  A long extension lead runs along the tunnel floor to my south.  Also here is a monocle.  The fire alarm is ringing loudly.  Exits are north, east and south.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> N
+
+T-Junction
+I am at a T-junction in the underground tunnel.  A lead pipe runs along the tunnel ceiling from the west.  It makes a sharp turn and continues southwards.  An odd liquid drips intermittently from the pipe.  The tunnel continues in three directions from this point.  West leads back towards the cellar.  The fire alarm is ringing loudly.  Exits are east, south and west.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> W
+
+Tunnel 
+I am in a low tunnel.  The floor is covered in bat droppings, and they squelch noisily beneath my impatient feet.  The walls of the tunnel have been made out of bright red brick, and look quite old.  As well as this a strange liquid is dripping down from a lead pipe running along the length of the tunnel.  All in all, it's lovely.  The fire alarm is ringing loudly.  Exits are east and west.  "No time to lose," cries Dennis, "We've got a fire to put out."  
+
+> W
+
+Cellar
+I am in the cellar.  The cellar is brimming with mechanical junk.  A strong smell of damp fills the air, making it quite hard to breath down here.  In one corner a robot stands silently.  A rickety wooden staircase makes its way up between the bric-a-brac.  There is a narrow opening to my east, leading into darkness.  A wooden chute has been built into one of the walls.  A beechwood armchair sits in the middle of the cellar.  There is a small chimpanzee here.  The fire alarm is ringing loudly.  Exits are east and up.
+
+> Turn off torch
+Okay.  I turn the torch off.
+
+> U
+
+Alcove
+I am in a cramped alcove underneath the manor's main staircase.  Here, another smaller stairway leads down into the gloom.  This leads down into Grandad's cellar.  To my south there is the main area of the hall.  A cord hangs from the ceiling of the alcove.  Exits are south and down.
+
+> S
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, some gloves, a swimming cap, a jigsaw, an emerald, a ruby, a hat, a golden casket, a fish, a pot, a bone, a sandwich, a ticket, a hedgehog, a zircon, a battery, a trombone, a bus pass, a rucksack, a tooth, a polaroid, a diamond, an amethyst and a sapphire.  There is a small tabby cat here, watching me intently.  Exits are north, east, south, west and up.  Schrodinger wanders to above.
+
+> Get battery
+Okay.  I have taken the battery.
+
+> X torch
+The torch is large and bulky, and is a product of the Instant Karma Corporation.  There is a small compartment in the torch for a battery.  The torch is closed.
+
+> Open torch
+Okay.  I open the torch.  As soon as the Instant Karma battery comes into contact with the open air it begins to disintegrate.  A gust of air blows the last dusty fragments away.
+
+> Put battery in torch
+Okay.  I put the battery inside the torch.  
+
+> Close torch
+I close the torch.
+
+> Get zircon
+Okay.  I have taken the zircon.
+
+> Get ruby
+Okay.  I have taken the ruby.
+
+> Get emerald
+Okay.  I have taken the emerald.
+
+> Get sapphire
+Okay.  I have taken the sapphire.
+
+> Get amethyst
+Okay.  I have taken the amethyst.
+
+> Get diamond
+Okay.  I have taken the diamond.
+
+> Get gloves
+Okay.  I have taken the gloves.
+
+> Wear it
+(the gloves)
+Okay.  I am now wearing the gloves.
+
+> Get hedgehog
+Okay.  I have taken the hedgehog.
+
+> U
+
+First Floor
+I am standing on the first floor landing.  Grandad has liberally decorated this part of the manor with portraits of serious-looking ladies and gentlemen. A narrow archway draped with wooden beads leads eastwards into a bedroom, whilst northwards is the bathroom. There is a locked door to my west.  Exits are north, east, up and down.
+
+> E
+
+Grandad's Bedroom
+I am in Grandad's bedroom.  The usual bedroom things are here: a large bed, a full length mirror and a Mark III sub-atomic particle accelerator.  A month's supply of longjohns have been carefully allowed to fester in one corner of the bedroom.  There is a narrow archway set into the west wall, draped in wooden beads.  A wooden chute has been built into one of the walls.  Also here is a clothes peg.  I can only move west.
+
+> X chute
+The chute is quite narrow and made out of wood.  It leads down into darkness.  There is a small wooden lever attached to the side of the chute, and on the front an ornate letter "A" has been engraved.
+
+> Put amethyst in chute
+Okay.  I put the amethyst inside the A chute.  
+
+> Pull lever
+I pull the lever.  There is a whooshing sound from the chute and the amethyst disappears from view.  There is a faint tinkling sound from further down in the chute.
+
+> W
+
+First Floor
+I am standing on the first floor landing.  Grandad has liberally decorated this part of the manor with portraits of serious-looking ladies and gentlemen. A narrow archway draped with wooden beads leads eastwards into a bedroom, whilst northwards is the bathroom. There is a locked door to my west.  There is a small tabby cat here, watching me intently.  Exits are north, east, up and down.  Schrodinger wanders to below.
+
+> D
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a swimming cap, a jigsaw, a hat, a golden casket, a fish, a pot, a bone, a sandwich, a ticket, a trombone, a bus pass, a rucksack, a tooth and a polaroid.  There is a small tabby cat here, watching me intently.  Exits are north, east, south, west and up.
+
+> N
+
+Alcove
+I am in a cramped alcove underneath the manor's main staircase.  Here, another smaller stairway leads down into the gloom.  This leads down into Grandad's cellar.  To my south there is the main area of the hall.  A cord hangs from the ceiling of the alcove.  Exits are south and down.
+
+> D
+
+Cellar
+I am in the cellar.  The cellar is brimming with mechanical junk.  A strong smell of damp fills the air, making it quite hard to breath down here.  In one corner a robot stands silently.  A rickety wooden staircase makes its way up between the bric-a-brac.  There is a narrow opening to my east, leading into darkness.  A wooden chute has been built into one of the walls.  A beechwood armchair sits in the middle of the cellar.  There is a small chimpanzee here.  The fire alarm is ringing loudly.  Exits are east and up.
+
+> Turn on torch
+Okay.  I turn the torch on.
+
+> E
+
+Tunnel 
+I am in a low tunnel.  The floor is covered in bat droppings, and they squelch noisily beneath my impatient feet.  The walls of the tunnel have been made out of bright red brick, and look quite old.  As well as this a strange liquid is dripping down from a lead pipe running along the length of the tunnel.  All in all, it's lovely.  The fire alarm is ringing loudly.  Exits are east and west.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> E
+
+T-Junction
+I am at a T-junction in the underground tunnel.  A lead pipe runs along the tunnel ceiling from the west.  It makes a sharp turn and continues southwards.  An odd liquid drips intermittently from the pipe.  The tunnel continues in three directions from this point.  West leads back towards the cellar.  The fire alarm is ringing loudly.  Exits are east, south and west.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> E
+
+Tunnel 
+I am at the end of the red brick tunnel by an iron grating and a wooden chute.  Through the grating I can see what seems to be some sort of entrance chamber.  To the side of the chamber there is a stone staircase.  Something round is hanging on the chamber's wall, but it is hard to make out from this distance.  The fire alarm is ringing loudly.  I can only move west.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> X chute
+The chute is quite narrow and made out of wood.  It leads down into darkness.  There is a small wooden lever attached to the side of the chute, and on the front an ornate letter "S has been engraved.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> Put sapphire in chute
+Okay.  Okay.  Okay.  I put the sapphire inside the S chute.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> Pull lever
+I pull the lever.  There is a whooshing sound from the chute and the sapphire disappears from view.  There is a faint tinkling sound from further down in the chute.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> W
+
+T-Junction
+I am at a T-junction in the underground tunnel.  A lead pipe runs along the tunnel ceiling from the west.  It makes a sharp turn and continues southwards.  An odd liquid drips intermittently from the pipe.  The tunnel continues in three directions from this point.  West leads back towards the cellar.  The fire alarm is ringing loudly.  Exits are east, south and west.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> S
+
+Tunnel 
+I am in a dark underground tunnel.  There is an archway to my east leading into a softly list room.  Beside the archway there is a small, dumpy robot.  On the west wall there is a strange pattern of ancient runes.  Beneath the runes there is a small socket.  A long extension lead runs along the tunnel floor to my south.  Also here is a monocle.  The fire alarm is ringing loudly.  Exits are north, east and south.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> S
+
+Tunnel 
+I am in a dark underground tunnel.  To my south there is an extremely ornate marble archway.  The crawling vines and twisting ivy give it an almost majestic look.  Through the archway all I can see is a hazy mist.  Next to the archway there is a small fire alarm.  A long extension lead runs north and east along the ground.  Also here is a hammer.  The fire alarm is ringing loudly.  Exits are north, east and south.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> S
+
+Waiting Room
+I am in a small, square room with no windows.  On one wall there is a small blue telephone, whilst the rest of the wall is covered by posters.  There is an open doorway to my south, whilst the entire northern wall is taken up by a curious mist.  I can hear innocuous muzak being played gently in the background.  A wooden chute has been built into one of the walls.  Exits are north and south.
+
+> X chute
+The chute is quite narrow and made out of wood.  It leads down into darkness.  There is a small wooden lever attached to the side of the chute, and on the front an ornate letter "D" has been engraved.  Olaf sniffs.
+
+> Put diamond in chute
+Okay.  I put the diamond inside the D chute.  
+
+> Pull lever
+I pull the lever.  There is a whooshing sound from the chute and the diamond disappears from view.  There is a faint tinkling sound from further down in the chute.
+
+> N
+
+Tunnel 
+I am in a dark underground tunnel.  To my south there is an extremely ornate marble archway.  The crawling vines and twisting ivy give it an almost majestic look.  Through the archway all I can see is a hazy mist.  Next to the archway there is a small fire alarm.  A long extension lead runs north and east along the ground.  Also here is a hammer.  The fire alarm is ringing loudly.  Exits are north, east and south.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> E
+
+Tunnel 
+I am in a gloomy underground tunnel.  An antiquated washing machine sits by the north wall.  A long extension lead runs along the bottom of the wall.  It heads off in an westerly direction.  An aardvark is curled up on top of the washing machine.  The fire alarm is ringing loudly.  Exits are east, south and west.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> S
+
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  The fire alarm is ringing loudly.  Exits are north, east, south and west.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> W
+
+Storage Room
+I am in a tiny storage room.  An ageing food dispenser stands beside one wall.  There is barely enough room for me to squeeze in here as well.  The entire room has been painted a lazy shade of ochre.  A wooden chute has been built into one of the walls.  The fire alarm is ringing loudly.  I can only move east.
+
+> X chute
+The chute is quite narrow and made out of wood.  It leads down into darkness.  There is a small wooden lever attached to the side of the chute, and on the front an ornate letter "E" has been engraved.
+
+> Put emerald in chute
+Okay.  I put the emerald inside the E chute.  
+
+> Pull lever
+I pull the lever.  There is a whooshing sound from the chute and the emerald disappears from view.  There is a faint tinkling sound from further down in the chute.
+
+> E
+
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  The fire alarm is ringing loudly.  Exits are north, east, south and west.  "No time to lose," cries Dennis, "We've got a fire to put out."
+
+> E
+
+Tunnel 
+I am in an underground tunnel.  The tunnel is constructed out of a bright red brick, and is rather unpleasant to the eye.  I hate to imagine what kind of creatures live down here.  A wooden chute has been built into one of the walls.  Also here are some sheets, a biro and a form.  Dennis the fireman lies unconscious on the ground.  The fire alarm is ringing loudly.  Exits are east, south and west.  
+
+> X chute
+The chute is quite narrow and made out of wood.  It leads down into darkness.  There is a small wooden lever attached to the side of the chute, and on the front an ornate letter "R" has been engraved.  
+
+> Put ruby in chute
+Okay.  Okay.  I put the ruby inside the R chute.  
+
+> Pull lever
+I pull the lever.  There is a whooshing sound from the chute and the ruby disappears from view.  There is a faint tinkling sound from further down in the chute.  
+
+> S
+
+Dead End
+I am at a dead end in the underground tunnel.  The red brick walls here are virtually invisible beneath a thick layer of soot.  A small metal wheel is set into one of the walls.  A wooden chute has been built into one of the walls.  The fire alarm is ringing loudly.  A pile of ash rests on the ground.  The fire alarm is ringing loudly.  I can only move north.
+
+> X chute
+The chute is quite narrow and made out of wood.  It leads down into darkness.  There is a small wooden lever attached to the side of the chute, and on the front an ornate letter "Z" has been engraved.
+
+> Put zircon in chute
+Okay.  I put the zircon inside the Z chute.  
+
+> Pull lever
+I pull the lever.  There is a whooshing sound from the chute and the zircon disappears from view.  There is a faint tinkling sound from further down in the chute.
+
+> N
+
+Tunnel 
+I am in an underground tunnel.  The tunnel is constructed out of a bright red brick, and is rather unpleasant to the eye.  I hate to imagine what kind of creatures live down here.  A wooden chute has been built into one of the walls.  Also here are some sheets, a biro and a form.  Dennis the fireman lies unconscious on the ground.  The fire alarm is ringing loudly.  Exits are east, south and west.  
+
+> W
+
+Tunnel 
+I am in an underground tunnel lit by harsh neon lights.  A large open doorway to my south is covered in tinsel and bunting.  Amid the decorations there is a hastily chalked-up sign.  Through the doorway comes the sound of drunken song.  On the wall to my west there is a peculiar arrangement of buttons.  A large metal door prevents me from going west.  A burly bouncer stands by the doorway.  The fire alarm is ringing loudly.  Exits are north, east, south and west.  "No time to lose," cries Dennis, "We've got a fire to put out."  Dennis grabs hold of me, "I've been here ages, and you still haven't shown me as much as a spark.  I've a good mind to report you to the police."  Still moaning, Dennis walks off.
+
+> N
+
+Tunnel 
+I am in a gloomy underground tunnel.  An antiquated washing machine sits by the north wall.  A long extension lead runs along the bottom of the wall.  It heads off in an westerly direction.  An aardvark is curled up on top of the washing machine.  The fire alarm is ringing loudly.  Exits are east, south and west.
+
+> W
+
+Tunnel 
+I am in a dark underground tunnel.  To my south there is an extremely ornate marble archway.  The crawling vines and twisting ivy give it an almost majestic look.  Through the archway all I can see is a hazy mist.  Next to the archway there is a small fire alarm.  A long extension lead runs north and east along the ground.  Also here is a hammer.  The fire alarm is ringing loudly.  Exits are north, east and south.
+
+> N
+
+Tunnel 
+I am in a dark underground tunnel.  There is an archway to my east leading into a softly list room.  Beside the archway there is a small, dumpy robot.  On the west wall there is a strange pattern of ancient runes.  Beneath the runes there is a small socket.  A long extension lead runs along the tunnel floor to my south.  Also here is a monocle.  The fire alarm is ringing loudly.  Exits are north, east and south.
+
+> Get monocle
+Okay.  I have taken the monocle.
+
+> Wear it
+(the monocle)
+Okay.  I am now wearing the monocle.  As soon as I put on the monocle my eyesight is dramatically distorted.  All I can see now is a menagerie of distorted shapes and squiggles.  No wonder Grandad has such a strange view of the world.
+
+> Read runes
+The rune's squiggles have transformed into readable letters: "Deposit the treasures and say the magic word "Tevobicab" at the allotted position".  Hmm, weird.
+
+> Drop monocle
+Okay.  I have dropped the monocle.  The torch flickers briefly.
+
+> N
+
+T-Junction
+I am at a T-junction in the underground tunnel.  A lead pipe runs along the tunnel ceiling from the west.  It makes a sharp turn and continues southwards.  An odd liquid drips intermittently from the pipe.  The tunnel continues in three directions from this point.  West leads back towards the cellar.  The fire alarm is ringing loudly.  Exits are east, south and west.
+
+> W
+
+Tunnel 
+I am in a low tunnel.  The floor is covered in bat droppings, and they squelch noisily beneath my impatient feet.  The walls of the tunnel have been made out of bright red brick, and look quite old.  As well as this a strange liquid is dripping down from a lead pipe running along the length of the tunnel.  All in all, it's lovely.  The fire alarm is ringing loudly.  Exits are east and west.
+
+> W
+
+Cellar
+I am in the cellar.  The cellar is brimming with mechanical junk.  A strong smell of damp fills the air, making it quite hard to breath down here.  In one corner a robot stands silently.  A rickety wooden staircase makes its way up between the bric-a-brac.  There is a narrow opening to my east, leading into darkness.  A wooden chute has been built into one of the walls.  A beechwood armchair sits in the middle of the cellar.  There is a small chimpanzee here.  The fire alarm is ringing loudly.  Exits are east and up.
+
+> Turn off torch
+Okay.  I turn the torch off.
+
+> Drop gloves
+I have dropped the gloves.  Ouch!  The hedgehog's spikes are too prickly to handle.  The hedgehog drops to the ground..  There is a whirr from the corner of the cellar and the robot springs into life.  Slowly but surely it makes its way over to the gloves and drags it towards the chute.  With a clank it throws the gloves down the chute and returns to its corner of the cellar.  There is a loud whooshing sound from the chute.
+
+> Say Tevobicab
+With a gurgle a map is spat out of the chute.  There is a whirr from the corner of the cellar and the robot springs into life.  Slowly but surely it makes its way over to the hedgehog and drags it towards the chute.  With a clank it throws the hedgehog down the chute and returns to its corner of the cellar.  There is a loud whooshing sound from the chute.
+
+> Get map
+Okay. I have taken the map.
+There is a sound behind me and I spin round.  It is Jasper!  And he's got Grandad!  Jasper laughs, "You've lost lad.  I've been watching you for sometime now.  Hand over the map, or the old boy gets it!"
+
+Jasper twists Grandad's arm behind his back.  Grandad struggles in vain and calls to me, "It's true Sidney.  It's all been a set-up.  The raffle, he fixed that to get me out of the way.  The blasted fellow even drugged my mousse last night to make me sleepy!"
+
+Jasper cackles and looks around the room, "You didn't really think I was interested in this heap, did you? I've known about the treasure for months.  Hah hah"
+
+Jasper's eyes shine with insane greed, "Make up your mind lad.  Give me the map or you'll never see the old fool again.  Hah hah!"  With a final evil cackle Jasper runs off, dragging Grandad after him.
+
+A few seconds pass, and I consider the enormity of my dilemma.  On the one hand I have riches beyond belief and on the other I have the life of Grandad.  I must save him!  But what can I do?  I can't let Jasper have the map.. can I?
+
+> X map
+The ageing map shows an enormous treasure hidden in the back garden.  I think I'll need Grandad's help to find it though.
+
+> U
+
+Alcove
+I am in a cramped alcove underneath the manor's main staircase.  Here, another smaller stairway leads down into the gloom.  This leads down into Grandad's cellar.  To my south there is the main area of the hall.  A cord hangs from the ceiling of the alcove.  Exits are south and down.
+
+> S
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a swimming cap, a jigsaw, a hat, a golden casket, a fish, a pot, a bone, a sandwich, a ticket, a trombone, a bus pass, a rucksack, a tooth and a polaroid.  Exits are north, east, south, west and up.
+
+> Drop torch
+Okay.  I have dropped the torch.  
+
+> Get casket
+Okay.  I have taken the golden casket.
+
+> X casket
+The golden casket is bedecked with gold and jewels.  It looks very valuable.  The golden casket is open.  Some pepper is inside the golden casket.
+
+> Get pepper
+Okay.  I have taken the pepper from the golden casket.
+
+> Drop casket
+Okay.  I have dropped the golden casket.  
+
+> Get trombone
+Okay.  I have taken the trombone.
+
+> Get pot
+Okay.  I have taken the pot.
+
+> Get polaroid
+Okay.  I have taken the polaroid.
+
+> E
+
+Passage
+I am in a dingy corridor leading from east to west.  The panelled walls here have recently been given a fresh lick of varnish, either that or Grandad has forgotten to feed the cat again.  There are doorways in both the north and south wall of the corridor.  Exits are north, east, south and west.
+
+> N
+
+Study
+I am in Grandad's study.  An elegant antique desk can be seen in one corner of the room; at least it would be seen if there weren't so many papers strewn all over it.  The rest of the room is taken up by hundreds of finely-bound books, arranged in an organised system of random piles and heaps.  There is a locked door to my east.  Also here is a nailfile.  Jasper is snarling nearby.  I can only move south.
+
+> S
+
+Passage
+I am in a dingy corridor leading from east to west.  The panelled walls here have recently been given a fresh lick of varnish, either that or Grandad has forgotten to feed the cat again.  There are doorways in both the north and south wall of the corridor.  Exits are north, east, south and west.
+
+> W
+
+Hallway
+I am in the entrance hallway of the building.  A rickety stairway leads upwards into the gloom.  I can't say it looks particularly safe.  A large persian rug lies in a large circle before me. The front door is to my south.  Also here is a satchel, a shovel, an envelope, a torch, a swimming cap, a jigsaw, a hat, a golden casket, a fish, a bone, a sandwich, a ticket, a bus pass, a rucksack and a tooth.  Exits are north, east, south, west and up.
+
+> S
+
+Porch
+I am standing beside the large front door of Attervist manor.  The door has been badly warped by the ravages of time: its coat of dark green paint is peeling off in large strips, showing the older beechwood below.  A small brass letterbox has been built into the bottom of the door.  There is a button beside the door.  Exits are north and south.
+
+> S
+
+Driveway
+I am standing on the drive leading to Attervist manor. It is a miserable looking building. The snow does its best to cover up the harsh jagged edges and high pointed turrets.  To my north lie the cold stone steps leading up to the manor's entrance.  Exits are north, east, south and west.
 
 > W
 
@@ -1903,11 +3820,194 @@ I am standing in the manor grounds to the west of the driveway.  There is a smal
 Manor Grounds 
 I am standing in the grounds, by a long hedge of brambles.  The brambles are very prickly and are covered in frosty cobwebs.  There is a small gap in the hedge to my west, with a small sign beside it.  A snowy track meanders its way northwards into a wooded copse.  Also here is a parchment.  Exits are north, east and west.
 
-> Drop kettle
-I am not holding the kettle.
+> N
 
-> Plug in kettle
-But I cannot see a socket here.
+Clearing
+I am in a small clearing in a wooded copse in the manor grounds.  In the centre of the clearing, at the base of a dead tree, there is a small hole leading downwards.  I suppose if I really wanted to, I might just be able to squeeze down it.  All ways bar southwards out of this clearing are blocked by brambles and heavy snow.  Nearby a baby bear cub scavenges around for food in the snow.  Exits are south and down.
+
+> X trombone
+A particularly devious instrument of torture.  This method of applying pain has been handed down from generation to generation since it was first revealed in the 1950s.  First you take one trombone.  Lubricate it thoroughly with half a pound of lard.  Now, with one foot held in a horizontal position, slowly insert it into your pet terrapin's ******.  Now blow, taking deep breaths and thinking of H****d Macmillan.  Don't worry if your trousers don't fit, that's perfectly normal for a trombone player.  Alternatively, if you want to inflict REAL pain (and lets face it, who doesn't..) just have a go at playing "Bad Penny Blues" at 3 o'clock in the morning, with only a book of logarithms for sheet music.  There is a sock stuck halfway down this trombone.
+
+Author's note: That last section was censored by my publisher, Charles P Subotsky.  Personally I saw nothing wrong with it, and if anyone is looking for a terrapin-minder for the holidays I am available at the usual address.
+
+> X pot
+A large earthenware pot.  The pot is closed.
+
+> Open pot
+I open the pot.  Some honey is inside the pot.
+
+> Pour honey in trombone
+Okay.  I pour the honey in the trombone.  With a gurgle the honey disappears down the trombone.
+
+> Drop trombone
+Okay.  I have dropped the trombone.  The baby bear edges nervously towards the trombone and sniffs it cautiously.  WIth a look of excitement it puts its tiny paw down the trombone and drags out the sock with its claws.  The bear licks the honey off the sock.
+
+> Get trombone
+Okay.  I have taken the trombone.
+
+> Get sock
+Okay.  I have taken the sock.
+
+> X sock
+A natty purple sock.  This sort of thing is lethal in the wrong hands.
+
+> Wear sock
+If it's all the same to you I'd rather not.
+
+> S
+
+Manor Grounds 
+I am standing in the grounds, by a long hedge of brambles.  The brambles are very prickly and are covered in frosty cobwebs.  There is a small gap in the hedge to my west, with a small sign beside it.  A snowy track meanders its way northwards into a wooded copse.  Also here is a parchment.  Exits are north, east and west.
+
+> W
+I stumble through the maze's entrance, and take a few random twists and turns along the snow covered pathways.. I get a grip of myself and try to assess the situation:  
+The Maze 
+I am standing in the maze on a snow covered pathway.  Twisty long pathways lead away from here, bordered by high hedges.  The hedges are made out of prickly brambles and are covered with frosty cobwebs.  Exits are north, east, south and west.
+
+> Drop pot
+Okay.  I have dropped the pot.  At once I feel a heavy hand upon my shoulder.  I turn round and see a stocky figure warmly wrapped up against the cold.  It is Horace, Grandad's gardener.  He is stooping under the not inconsiderable weight of a large plastic dustbin strapped onto his back.  Horace wipes his forehead, snatches the pot up off the ground and throws it into the dustbin.  Horace grunts incomprehensibly, and shuffles north.  As he shuffles away Horace slips on a patch of ice and lands - WUMPH! - headfirst into a pile of snow.  Mumbling under his breath, Horace slowly picks himself up, blows the last flakes of snow out of his nostrils and lumbers away.
+
+> Drop sock
+Okay.  I have dropped the sock.  At once I feel a heavy hand upon my shoulder.  I turn round and see a stocky figure warmly wrapped up against the cold.  It is Horace, Grandad's gardener.  He is stooping under the not inconsiderable weight of a large plastic dustbin strapped onto his back.  Horace wipes his forehead, snatches me up and throws me head-first into the dustbin.  Aaaeerrgghhhhh!  Everything goes dark as my head cracks into the dustbin's contents.  With a distinctly groggy head I slowly regain consciousness.  I have been shoved into a large plastic dustbin.  Now I know what it must feel like to be yesterday's papers.  I don't believe these things can have been designed with ergonomics top of the list.  The rubbish beneath me doesn't make the most comfortable bedding, so I quickly crawl out.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a paper aeroplane and a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Get plane
+Okay.  I have taken the paper aeroplane.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.
+
+> Look
+Hut
+I am inside a dingy hut.  The piles of mechanical bric-a-brac and gardening equipment make it quite cramped in here.  A plastic dustbin sits in one corner of the hut, beside a long wooden workbench.  Also here is a can.  Horace, Grandad's rather tubby gardener, is here.  An exit leads outside.  Horace reaches into his back pocket and takes out a small tin.
+
+> Throw plane
+Okay.  I have thrown the paper aeroplane.  The plane flies high in the air and begins an impressive display of aerobatics.  Horace sees the aeroplane and his mouth opens wide in awe.  Horace quickly remembers his role in life.  His pupils dilate, his teeth gnash, and his eyebrows furrow as he snarls the word he hates more than any other: "litter".  He leaps up and puts the tin down on the workbench.  Horace bounds after the paper aeroplane, trying to catch it.
+
+> Get tin
+Okay.  I have taken the tin from horace's workbench.  Horace bounds after the paper aeroplane, trying to catch it.
+
+> Open it
+(the tin)
+I open the tin.  Some snuff is inside the tin.  Horace bounds after the paper aeroplane, trying to catch it.
+
+> Put pepper in tin
+Okay.  I put the pepper inside the tin.  Horace bounds after the paper aeroplane, trying to catch it.
+
+> Close tin
+I close the tin.  Horace bounds after the paper aeroplane, trying to catch it.
+
+> Wait
+Time passes...
+Horace catches the paper aeroplane.  He looks very pleased with himself.  Horace grabs the tin off me, and puts it in his back pocket.
 
 > Wait
 Time passes...
@@ -1915,325 +4015,144 @@ Time passes...
 > Wait
 Time passes...
 
-> X kettle
-I can't see the kettle from here!
+> Wait
+Time passes...
 
-> Get salt
-Take what?
+> Wait
+Time passes...
 
-> E
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+
+> Wait
+Time passes...
+Horace reaches into his back pocket and takes out a small tin.  Horace opens the tin and takes a brown substance out between his finger and thumb.  This he unceremoniously snorts up his nostrils.  Slowly his nose begins to twitch, and then... Achoooo!  He picks up the tin and puts it in his back pocket.
+
+> Get can
+Okay.  I have taken the can.
+
+> Out
 
 Manor Grounds 
 I am standing in the manor grounds to the west of the driveway.  There is a small round hut here in the middle of the lawn.  It has been almost completely hidden under the heavy blanket of the snow.  It doesn't look a very large hut - I expect only one or maybe two people could fit in there at a time.  Exits are east, west and in.
 
-> D
-I can't go in that direction, but I can move east, west and in.
-
-> D
-I can't go in that direction, but I can move east, west and in.
-
-> D
-I can't go in that direction, but I can move east, west and in.
-
 > E
 
 Driveway
 I am standing on the drive leading to Attervist manor. It is a miserable looking building. The snow does its best to cover up the harsh jagged edges and high pointed turrets.  To my north lie the cold stone steps leading up to the manor's entrance.  Exits are north, east, south and west.
-
-> S
-But that would take me out of the grounds of Attervist manor.  I am not sure I want to do that yet.
-
-> Throw salt at slug
-I don't know how to "throw salt at slug".
-
-> Open chest
-I can't open that.
-
-> Get clippers
-Take what?
-
-> Get zircon
-Take what?
-
-> N
-
-Porch
-I am standing beside the large front door of Attervist manor.  The door has been badly warped by the ravages of time: its coat of dark green paint is peeling off in large strips, showing the older beechwood below.  A small brass letterbox has been built into the bottom of the door.  There is a button beside the door.  Exits are north and south.
-
-> W
-I can't go in that direction, but I can move north and south.
-
-> Remove gloves
-I am not wearing the gloves!
-
-> Drop all
-I am carrying nothing!
-
-> Get clippers
-Take what?
-
-> Get shovel
-There is nothing worth taking here.
-
-> S
-
-Driveway
-I am standing on the drive leading to Attervist manor. It is a miserable looking building. The snow does its best to cover up the harsh jagged edges and high pointed turrets.  To my north lie the cold stone steps leading up to the manor's entrance.  Exits are north, east, south and west.
-
-> S
-But that would take me out of the grounds of Attervist manor.  I am not sure I want to do that yet.
 
 > E
 
 Manor Grounds 
-I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Also here is a sandwich.  Exits are north, south, west and down.
+I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Exits are north, south, west and down.  
 
 > N
 
 Wishing Well
-I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  A high wire fence blocks my way north.  Through the fence I can see a small dirt yard.  Also here is a swimming cap, a jigsaw, a fish, a filofax, a mug, a sugar lump, a bag of porridge and a ticket.  Exits are south and down.
-
-> Cut fence with clippers
-But I am not carrying any clippers.
-
-> Drop clippers
-Drop what?
-
-> N
-I can't go in that direction, but I can move south and down.
-
-> In
-I can't go in that direction, but I can move south and down.
-
-> X door
-Nothing Special.
-
-> Open door
-I can't open that.
-
-> N
-I can't go in that direction, but I can move south and down.
-
-> X door
-Nothing Special.
-
-> N
-I can't go in that direction, but I can move south and down.
-
-> X line
-Nothing Special.
-
-> Get peg
-Take what?
-
-> Get chain
-Take what?
-
-> X bath
-Nothing Special.
-
-> S
-
-Manor Grounds 
-I am standing on the snow, just east of the road leading up to the manor's front door.  A long line of beechwood trees mark out the sides of the driveway.  There is a long bramble hedge covered in frosty cobwebs blocking my way further east.  There is a recently opened trapdoor here.  Also here is a sandwich.  Exits are north, south, west and down.
-
-> Drop chain
-Drop what?
-
-> Dig
-But I am not carrying a shovel.
-
-> S
-
-Beside the Lake
-I am standing in the grounds, beside a large lake.  Most of the lake has been iced over in this freezing weather.  A huge Viking longboat has been caught in the ice's grasp, its wooden bows creaking under the pressure.  Beyond the longboat there is a small island.  Exits are north and south.
-
-> Say boo
-Gosh, that was very impressive.
-
-> Look
-Beside the Lake
-I am standing in the grounds, beside a large lake.  Most of the lake has been iced over in this freezing weather.  A huge Viking longboat has been caught in the ice's grasp, its wooden bows creaking under the pressure.  Beyond the longboat there is a small island.  Exits are north and south.
-
-> Get battery
-Take what?
-
-> Out
-I can't go in that direction, but I can move north and south.
-
-> S
-With some trepidateion I begin to walk across the slippery ice.  The ice gently creaks under the pressure of my feet as I pass by the Viking longboat.  Ah.  This doesn't seem so bad.  CRACK!  Without warning the ice begins to split.  I make a desperate lunge for the side of the longboat, my head briefly submerged underwater, and haul myself aboard.  
-Viking Longboat 
-I am standing on the north deck of the Viking longboat.  From this vantage point I can see Attervist manor in all its glory.  A marble statue stands nearby, and a rope leads down the side of the boat's bows onto a patch of dangerous looking ice.  A low doorway leads southwards into the galley area of the boat.  Exits are south and down.
-
-> S
-
-Viking Galley
-I am onboard the Viking longboat.  This seems to be some sort of galley area - boars hang up on hooks from the low beamed ceiling.  Blood slowly drips from the boars carcasses onto a large oval table.  There is a Viking here.  He is crouched over the table, trying to assemble a complex jigsaw puzzle.  Exits are north and south.
-
-> W
-I can't go in that direction, but I can move north and south.
-
-> N
-
-Viking Longboat 
-I am standing on the north deck of the Viking longboat.  From this vantage point I can see Attervist manor in all its glory.  A marble statue stands nearby, and a rope leads down the side of the boat's bows onto a patch of dangerous looking ice.  A low doorway leads southwards into the galley area of the boat.  Exits are south and down.
-
-> N
-I can't go in that direction, but I can move south and down.
-
-> U
-I can't go in that direction, but I can move south and down.
-
-> E
-I can't go in that direction, but I can move south and down.
-
-> Get trombone
-Take what?
-
-> X bed
-Nothing Special.
-
-> Get sheets
-Take what?
-
-> Wear peg
-Wear what?
-
-> Get longjohns
-Take what?
-
-> Drop peg
-Drop what?
-
-> Get pass
-Take what?
-
-> X chute
-Nothing Special.
-
-> W
-I can't go in that direction, but I can move south and down.
-
-> N
-I can't go in that direction, but I can move south and down.
-
-> Open cabinet
-I can't open that.
-
-> Get plaster
-Take what?
-
-> X basin
-Nothing Special.
-
-> X trombone
-Nothing Special.
-
-> S
-
-Viking Galley
-I am onboard the Viking longboat.  This seems to be some sort of galley area - boars hang up on hooks from the low beamed ceiling.  Blood slowly drips from the boars carcasses onto a large oval table.  There is a Viking here.  He is crouched over the table, trying to assemble a complex jigsaw puzzle.  Exits are north and south.
+I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  There is a gap in the high wire fence to my north.  Through the fence I can see a small dirt yard.  Also here are some wire clippers.  Exits are north, south and down.
 
 > D
-I can't go in that direction, but I can move north and south.
 
-> Drop all
-I am carrying nothing!
-
-> Get envelope
-There is nothing worth taking here.
-
-> Read it
-(the envelope)
-I can't see the envelope from here!
-
-> Open it
-(the envelope)
-I tear open the envelope.  The envelope contains a Christmas card.
-
-> Get card
-Take what?
-
-> Read it
-(the Christmas card)
-I can't see the Christmas card from here!
-
-> Drop envelope
-I am not holding the envelope.
-
-> Get scarf
-There is nothing worth taking here.
-
-> Get claw
-There is nothing worth taking here.
-
-> Get trombone
-Take what?
-
-> Get pass
-Take what?
-
-> Get torch
-It is not clear which torch I am referring to.
-
-> Get shovel
-There is nothing worth taking here.
-
-> Get lump
-There is nothing worth taking here.
-
-> Get ticket
-There is nothing worth taking here.
-
-> Get hat
-There is nothing worth taking here.
-
-> Wear hat
-I am not holding the hat.
+Dark
+Everything is dark.  Exits are east and up.
 
 > E
-I can't go in that direction, but I can move north and south.
 
-> E
-I can't go in that direction, but I can move north and south.
+Tunnel
+I am in a damp tunnel.  Mud slurps around my feet every time I move.  There is an archway to my east.  A few bricks have fallen away to my west, allowing access back to the bottom of the well.  Someone has taken the effort of installing a fluorescent light into the ceiling of the tunnel.  It flickers intermittently.  There is an open door to my north.  An ornately carved lever sticks up through the mud on the floor.  Through the bars I can see the familiar figure of Grandad.  There is the end of a long chain here.  He doesn't seem particularly bothered by his capture: he is sleeping beneath an ultraviolet light.  Huh, and I was so worried about him.  Exits are north, east, south and west.
 
 > Blow trombone
-But I am not carrying the trombone.
-
-> Give card to Grandad
-But I am not carrying a card!
-
-> Give scarf to Grandad
-But I am not carrying a scarf!
-
-> Ask Grandad about Jasper
-Grandad isn't here!
-
-> Ask Grandad about Horace
-Horace isn't here!
-
-> Get trombone
-Take what?
-
-> W
-I can't go in that direction, but I can move north and south.
-
-> W
-I can't go in that direction, but I can move north and south.
+Parrppp!  With a start Grandad wakes up.  He leaps up (knocking his head on the ultraviolet light first), "Ah yes.  Sidney my lad.  Glad you could make it.  Now how about rustling up a little escape plan, eh?"  Grandad looks at me expectantly.
 
 > Drop trombone
-Drop what?
+Okay.  I have dropped the trombone.  
+
+> Get chain
+Okay.  I have taken the chain.
+
+> Tie chain to bars
+I try and tie the chain to the bars.  "Good idea Sidney", Grandad reaches through the bars and helps me tie the chain.
+
+> W
+The chain won't stretch any further, and I am forced to drop it.  
+Dark
+Everything is dark.  Exits are east and up.
+
+> U
+
+Wishing Well
+I am standing next to the high bramble hedge by an old well.  Just this side of the hedge there is a wide perspex tube rising about eight foot into the air.  The tube seems to continue deep down into the ground.  That certainly wasn't here last time I visited Grandad.  A side wall of the manor is to my west.  There is a gap in the high wire fence to my north.  Through the fence I can see a small dirt yard.  Also here are some wire clippers.  Exits are north, south and down.
+
+> N
+I carefully step through the gap in the fence.  
+Yard
+I am standing in a small yard.  The ground is thinly covered by a layer of snow here.  A side wall of the manor marks the west boundary of the yard, and a thick hedge blocks passage to the east.  A large wooden hen-house is at the end of the yard, a small ramp leading inside.  To my south there is a high wire fence.  Exits are south and in.
+
+> In
+
+Hen-house
+I am in the large wooden hen-house.  At least I suppose it is large for chickens and other poultry.  I am finding it a bit cramped myself.  Messy bundles of hay and straw litter the floor of the hen-house.  At the back of the hen-house there is a small wooden door.  A small ramp leads out back to the yard.  A goose clucks quietly to itself nearby.  Exits are north and out.
 
 > N
 
-Viking Longboat 
-I am standing on the north deck of the Viking longboat.  From this vantage point I can see Attervist manor in all its glory.  A marble statue stands nearby, and a rope leads down the side of the boat's bows onto a patch of dangerous looking ice.  A low doorway leads southwards into the galley area of the boat.  Exits are south and down.
+Manor Grounds 
+I am in the grounds of the manor's back garden.  Directly to my south there is the back of a wooden hen house.  A small wooden door has been built into it.  In the rest of the garden all there is to see is never-ending snow.  A zig-zaggy pathway has been ploughed through the snow to my north.  A man-sized gap has been uncovered in the snow here, revealing a small underground room.  It is quite a jump down to the floor though.  Exits are north, south and down.
 
-> D
+> N
 
-I slide down the rope onto the thin ice.  As I let go of the rope the ice splits in two.  I make a desperate effort to run to the shore.. but it is too late, there is only water beneath me.. Aaerrrgghhh!  The lake's deathly cold waters close over my head for the last time.  
+Back Garden
+I am in the grounds of the manor's back garden.  The entire area is covered with a thick, featureless blanket of snow.  There is a clothes line nearby, gently rocking in the breeze.  A weather-beaten bath rests in the snow here.  I can only move south.
 
-Sorry.. you appear to be dead.
-You scored 690 out of a possible 2000 and managed to complete 35% of this adventure.  Grandad would probably describe you as a finely judged collection of steam whistles.
-[Press a key to continue...]
+> X bath
+Grandad's bath is rather exposed to the elements out here.  It must get very chilly at bathtime (and a bit of a shock for the neighbours).  There is a long metal chain attached to the back of the bath, whilst a plastic funnel and button have been set into the side.  The button on the side of the bath is ominously marked "Ignition".
+
+> X can
+A metal can smelling of petrol.  Some petrol is inside the can.
+
+> Pour petrol in funnel
+Okay.  I pour the petrol in the funnel.  With a gurgle the petrol disappears down the funnel.
+
+> Drop can
+Okay.  I have dropped the can.  
+
+> Push button
+I press the button on the side of the bath.  With a roar the bath speeds northwards, the chain tightening as it does so.  The bath is straining to pull the chain.  With a loud wrenching sound the bath shoots forwards into a drift of snow.  There is a faint cry from nearby, it is Grandad!  He's free!
+
+With a whoop of joy I run southwards and jump down the hole.  I run past the display cases and come towards the priesthole.  The bars have been wrenched aside by the metal chain.  Grandad is standing underneath the ultraviolet light doing a merry tapdance.  Grandad gives me a big bear hug, "We did it!  We did it!"
+
+"Not so fast!".  Grandad and I turn round.  Jasper is standing nearby, he must have heard the celebrations!  He doesn't look very happy, "No more Mister Nice-guy, hand over the map.. or else".  Jasper takes a long sabre out from under his cloak.
+
+Out of the corner of my eye I see the polaroid transforming.  It must be affected by the ultraviolet light!  Grandad puts his arm protectively around me, "Leave the boy alone. You've no reason to harm him"
+
+The polaroid continues to develop..  Jasper snarls, "I'll harm you all, if you don't hand over that map!"
+
+A figure begins to emerge in the polaroid.  It is strangely familiar..  Grandad stuffs the map into his mouth and begins to chew, "Well if that's the way you want it.  I'll eat the thing!"
+
+The polaroid finishes developing under the ultraviolet light.  It is a picture of Jasper at the Annual General Meeting of Evil Dentists.  There is something odd about the picture of him though.  I tap Grandad on the shoulder.  Grandad looks down at the polaroid and stifles a giggle.  Jasper raises his sabre to Grandad's throat, "Spit
+it out, or I'll cut your throat open and get it that way.  You're a senile old FOOL!"
+
+Grandad takes the polaroid from me and holds it up, "Well at least I'm not BALD!!".  Grandad swipes at Jasper's head and snatches off a ginger toupee!  Jasper!  He's as bald as a coot!
+
+Jasper turns purple with embarrassment, "WHAT!?  HOW!?  WHO!?  WHERE DID YOU GET THAT FROM!?"  Jasper tries to snatch the polaroid off Grandad.  "Nyeahh Nyeahh", says Grandad.
+
+With a loud cry of "Bah Humbug!"  Jasper runs off, his tail between his legs.  Grandad slaps me on the back and laughs, "I think that's the last we'll see of him.  Come on.  We've got treasure to find".  And with that Grandad and I return to the back garden.
+
+All in all, it's been quite an adventure.  The octopus, the Vikings, and that nasty Jasper Slake.  Never did find out what I had to do with that terrapin, but never mind.
+
+What's important is that Grandad is safe, and with this map Attervist manor's future is assured.  I give Grandad a friendly hug and he smiles at me: We've won!
+
+You scored 2000 out of a possible 2000 and managed to complete 100% of this adventure.  Grandad would probably describe you as a winner.. or a cheat.
+[Press a key to continue...]  
+
+
+You scored 2000 out of the maximum 2000!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

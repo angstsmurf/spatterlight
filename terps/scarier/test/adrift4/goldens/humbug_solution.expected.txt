@@ -4482,12 +4482,12 @@ Exits are north, east and west.
 > X robot
 The robot is made out of a curious arrangement of angular coat hangers and
 digestive biscuits.  It doesn't look very friendly.  In the middle of the
-robot's chest area there is a small turquoise button.
+robot's chest area there is a small turquoise button.  Grandad enters from
+the north.
 
 > i
 I am wearing some trousers, a shirt and a hat, and I am carrying a shovel, a
-torch, a claw, a sugar lump, a ticket, a bus pass and a package.  Grandad
-enters from the north.
+torch, a claw, a sugar lump, a ticket, a bus pass and a package.
 
 > Push button
 I press the button.  The robot's x-ray eyes scan me and my belongings.  The
@@ -4779,11 +4779,11 @@ balloon, a battery, a trombone, some sheets and a plaster.
 Exits are north, east, south, west and up.
 
 > Remove hat
-I remove the hat.
+I remove the hat.  Schrodinger wanders towards me from the west.
 
 > Drop all
 Okay.  I have dropped the shovel, the torch, the hat, the ticket, the bus
-pass and the package.  Schrodinger wanders towards me from the west.
+pass and the package.  Schrodinger wanders to the west.
 
 > U
 
@@ -4841,34 +4841,32 @@ a fish, a pot, a bone, a filofax, a mug, a bag of porridge, a sandwich, a
 ticket, a hedgehog, a zircon, a balloon, a battery, a trombone, some sheets,
 a bus pass, a plaster and a package.
 
-Exits are north, east, south, west and up.  Schrodinger wanders towards me
-from the north.
+Exits are north, east, south, west and up.
 
 > Get gloves
-Okay.  I have taken the gloves.
+Okay.  I have taken the gloves.  Schrodinger wanders towards me from the
+west.
 
 > Wear it
 (the gloves)
-Okay.  I am now wearing the gloves.  Schrodinger wanders to the west.
+Okay.  I am now wearing the gloves.  Schrodinger wanders to above.
 
 > Get hedgehog
-Okay.  I have taken the hedgehog.  Schrodinger wanders towards me from the
-west.
+Okay.  I have taken the hedgehog.  Schrodinger wanders towards me from above.
 
 > Comb hair with hedgehog
-Okay.  I comb my hair with the hedgehog.  Ouch!  Its not easy..  Schrodinger
-wanders to the north.
+Okay.  I comb my hair with the hedgehog.  Ouch!  Its not easy..
 
 > X hair
-Very smart: a wonderfully trendy centre parting.
+Very smart: a wonderfully trendy centre parting.  Schrodinger wanders to the
+west.
 
 > Remove gloves
 Okay.  I have taken off the gloves.  Ouch!  The hedgehog's spikes are too
 prickly to handle.  The hedgehog drops to the ground..
 
 > Drop all
-Okay.  I have dropped the gloves.  Schrodinger wanders towards me from the
-north.
+Okay.  I have dropped the gloves.
 
 > W
 
@@ -4876,9 +4874,10 @@ Dining Room
 I am in the dining room.  There is a long wooden table in the centre of the
 room, with the remains of an unfinished meal.  Grandad must have forgotten to
 clear up last night.  A small archway leads northwards, whist another doorway
-to my east heads back to the hall.
+to my east heads back to the hall.  There is a small tabby cat here, watching
+me intently.
 
-Exits are north and east.  Schrodinger wanders towards me from the east.
+Exits are north and east.
 
 > N
 
@@ -4890,7 +4889,6 @@ dining room.  A kennel sits in one corner of the kitchen.  There is a door to
 my east.
 
 Exits are east, south and west.
-From inside the kennel there is a contented gnawing.
 
 > W
 
@@ -4930,6 +4928,7 @@ dining room.  A kennel sits in one corner of the kitchen.  There is a door to
 my east.
 
 Exits are east, south and west.
+From inside the kennel there is a contented gnawing.
 
 > S
 
@@ -4937,10 +4936,9 @@ Dining Room
 I am in the dining room.  There is a long wooden table in the centre of the
 room, with the remains of an unfinished meal.  Grandad must have forgotten to
 clear up last night.  A small archway leads northwards, whist another doorway
-to my east heads back to the hall.  There is a small tabby cat here, watching
-me intently.
+to my east heads back to the hall.
 
-Exits are north and east.  Schrodinger wanders to the east.
+Exits are north and east.  Schrodinger wanders towards me from the east.
 
 > E
 
@@ -4952,14 +4950,13 @@ Also here is a satchel, a shovel, an envelope, a torch, some gloves, a
 swimming cap, a jigsaw, an emerald, a ruby, a hat, a mousse, a golden casket,
 a fish, a pot, a bone, a filofax, a mug, a bag of porridge, a sandwich, a
 ticket, a hedgehog, a zircon, a balloon, a battery, a trombone, some sheets,
-a bus pass, a plaster and a package.  There is a small tabby cat here,
-watching me intently.
+a bus pass, a plaster and a package.
 
-Exits are north, east, south, west and up.  Schrodinger wanders to the west.
+Exits are north, east, south, west and up.  Schrodinger wanders towards me
+from the west.
 
 > Get mousse
-Okay.  I have taken the mousse.  Schrodinger wanders towards me from the
-west.
+Okay.  I have taken the mousse.  Schrodinger wanders to above.
 
 > S
 
@@ -5091,45 +5088,47 @@ Jasper looks at me, "Do you know where it is?  You better not be hiding it
 from me.."
 
 > X teeth
-Nothing Special.
+The trouble with being a dentist is that you still have to get someone else
+to look after your own chompers.  Whoever is Jasper's dentist can't be very
+good, or else he wouldn't need all those gold teeth.  No wonder he's always
+so unpleasant to people.
 
 > i
 I am wearing some trousers and a shirt, and I am carrying some toffee.
-
-> Give toffee to Jasper
-Jasper pops the toffee in his mouth and begins to chew.
 Jasper looks over the snowy lawn towards the manor, "And you can tell the old
 boy I'm having this estate.. whatever it takes.."
 
+> Give toffee to Jasper
+Jasper pops the toffee in his mouth and begins to chew.
+
 > Ask Jasper about wumpus
 "Exterminate the vermin.  That's my motto"
-
+Jasper laughs, "Your Grandad can't hold out for long, he hasn't got a penny
+to his name.."
 Jasper chews vigorously.
 
 > Wait
 Time passes...
-Jasper laughs, "Your Grandad can't hold out for long, he hasn't got a penny
-to his name.."
 
-Jasper chews vigorously.
 Jasper sniffs the air, "Where did it get to?".  He looks at me, "Oh yes, and
 I wouldn't believe all your Grandad's stories about hidden treasure.  He's
 getting old.. and desperate.  This time next year I'll be the new lord of
 Attervist manor."
+Jasper chews vigorously.
 
 > Wait
 Time passes...
-
-Jasper chews vigorously.
 Jasper looks around, "Where did that wumpus get to?  Nothing like fresh blood
 to start the day.. Heh heh"
+Jasper chews vigorously.
 
+"Blasted vermin", spits Jasper, "Came through my greenhouse window.. landed
+in my begonias.. Well, I'll show it"
 Jasper chews vigorously.
 
 > Wait
 Time passes...
-"Blasted vermin", spits Jasper, "Came through my greenhouse window.. landed
-in my begonias.. Well, I'll show it"
+
 Jasper clutches his jaw, "Awwwgghh!  Not another one!".  His face turns
 purple in rage as he reaches into his mouth and pulls something out.  He
 throws the offending item to the ground.
@@ -5227,26 +5226,25 @@ pass, a plaster and a package.
 Exits are north, east, south, west and up.
 
 > Drop all
-Okay.  I have dropped the wumpus, the tooth and the polaroid.  Schrodinger
-wanders towards me from above.
+Okay.  I have dropped the wumpus, the tooth and the polaroid.
 
 > Get balloon
-Okay.  I have taken the balloon.  Schrodinger wanders to above.
+Okay.  I have taken the balloon.  Schrodinger wanders towards me from above.
 
 > Get package
-Okay.  I have taken the package.
+Okay.  I have taken the package.  Schrodinger wanders to above.
 
 > Get filofax
 Okay.  I have taken the filofax.
 
 > Get plaster
-Okay.  I have taken the plaster.  Schrodinger wanders towards me from above.
+Okay.  I have taken the plaster.
 
 > Get tooth
-Okay.  I have taken the tooth.  Schrodinger wanders to the west.
+Okay.  I have taken the tooth.  Schrodinger wanders towards me from above.
 
 > Get wumpus
-Okay.  I have taken the wumpus.
+Okay.  I have taken the wumpus.  Schrodinger wanders to the west.
 
 > Get bag
 Okay.  I have taken the bag of porridge.
@@ -5335,10 +5333,11 @@ background.  A wooden chute has been built into one of the walls.  A Viking
 is slumped in the corner.
 
 Exits are north and south.
-Olaf hiccups, "Hic!"
 
 > Turn off torch
 Okay.  I turn the torch off.
+Olaf mutters something about a very sad story.
+Olaf hiccups, "Hic!"
 
 > X Olaf
 Olaf Yggdrasil, a burly Viking oarsman.  Vikings is one of the most greatly
@@ -5354,7 +5353,6 @@ rucksack.
 > i
 I am wearing some trousers and a shirt, and I am carrying a torch, a filofax,
 a bag of porridge, a balloon, a plaster, a package, a wumpus and a tooth.
-Olaf mutters something about a very sad story.
 
 > Ask Olaf about story
 Olaf sniffs, "Oh it's so stupid.  I was going to Hic! ring up my aunty to
@@ -5365,7 +5363,6 @@ Insurance number, and that's.. Hic!"
 > Pop balloon
 With a loud BANG! I burst the balloon.  Olaf looks up with a start, "My
 hiccups!  They've gone!"
-Olaf sniffs.
 
 > Ask Olaf about story
 Olaf sniffs, "Oh it's so stupid.  I was going to ring up my aunty to tell her
@@ -5530,9 +5527,11 @@ behind his rucksack and call after him.  But it is too late.
 
 > Get rucksack
 Okay.  I have taken the rucksack.
+Olaf sniffs.
 
 > Open rucksack
 I open the rucksack.  Some white powder is inside the rucksack.
+Olaf mutters something about a very sad story.
 
 > Get powder
 Okay.  I have taken the white powder from the rucksack.
@@ -5549,7 +5548,6 @@ the D chute.
 > Pull lever
 I pull the lever.  There is a whooshing sound from the chute and the white
 powder disappears from view.
-Olaf mutters something about a very sad story.
 
 > N
 
@@ -5833,8 +5831,7 @@ Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
 Grandad's cellar.  To my south there is the main area of the hall.  A cord
-hangs from the ceiling of the alcove.  There is a small tabby cat here,
-watching me intently.
+hangs from the ceiling of the alcove.
 
 Exits are south and down.
 
@@ -5847,23 +5844,24 @@ persian rug lies in a large circle before me. The front door is to my south.
 Also here is a satchel, a shovel, an envelope, some gloves, a swimming cap, a
 jigsaw, an emerald, a ruby, a hat, a golden casket, a fish, a pot, a bone, a
 mug, a sandwich, a ticket, a hedgehog, a zircon, a battery, a trombone, some
-sheets, a bus pass and a polaroid.
+sheets, a bus pass and a polaroid.  There is a small tabby cat here, watching
+me intently.
 
-Exits are north, east, south, west and up.  Schrodinger wanders towards me
-from the north.
+Exits are north, east, south, west and up.  Schrodinger wanders to the north.
 
 > Drop all
 Okay.  I have dropped the torch, the rucksack, the tooth, the diamond, the
-amethyst and the sapphire.  Schrodinger wanders to above.
+amethyst and the sapphire.  Schrodinger wanders towards me from the north.
 
 > Get torch
-Okay.  I have taken the torch.
+Okay.  I have taken the torch.  Schrodinger wanders to the north.
 
 > Get mug
 Okay.  I have taken the mug.
 
 > Get sheets
-Okay.  I have taken the sheets.
+Okay.  I have taken the sheets.  Schrodinger wanders towards me from the
+north.
 
 > N
 
@@ -6199,8 +6197,9 @@ Also here is a satchel, a shovel, an envelope, some gloves, a swimming cap, a
 jigsaw, an emerald, a ruby, a hat, a golden casket, a fish, a pot, a bone, a
 sandwich, a ticket, a hedgehog, a zircon, a battery, a trombone, a bus pass,
 a rucksack, a tooth, a polaroid, a diamond, an amethyst and a sapphire.
+There is a small tabby cat here, watching me intently.
 
-Exits are north, east, south, west and up.
+Exits are north, east, south, west and up.  Schrodinger wanders to above.
 
 > Get battery
 Okay.  I have taken the battery.
@@ -6219,10 +6218,10 @@ last dusty fragments away.
 Okay.  I put the battery inside the torch.
 
 > Close torch
-I close the torch.  Schrodinger wanders towards me from above.
+I close the torch.
 
 > Get zircon
-Okay.  I have taken the zircon.  Schrodinger wanders to the west.
+Okay.  I have taken the zircon.
 
 > Get ruby
 Okay.  I have taken the ruby.
@@ -6237,11 +6236,10 @@ Okay.  I have taken the sapphire.
 Okay.  I have taken the amethyst.
 
 > Get diamond
-Okay.  I have taken the diamond.  Schrodinger wanders towards me from the
-west.
+Okay.  I have taken the diamond.
 
 > Get gloves
-Okay.  I have taken the gloves.  Schrodinger wanders to the north.
+Okay.  I have taken the gloves.
 
 > Wear it
 (the gloves)
@@ -6293,9 +6291,9 @@ I am standing on the first floor landing.  Grandad has liberally decorated
 this part of the manor with portraits of serious-looking ladies and
 gentlemen. A narrow archway draped with wooden beads leads eastwards into a
 bedroom, whilst northwards is the bathroom. There is a locked door to my
-west.
+west.  There is a small tabby cat here, watching me intently.
 
-Exits are north, east, up and down.
+Exits are north, east, up and down.  Schrodinger wanders to below.
 
 > D
 
@@ -6308,7 +6306,7 @@ hat, a golden casket, a fish, a pot, a bone, a sandwich, a ticket, a
 trombone, a bus pass, a rucksack, a tooth and a polaroid.  There is a small
 tabby cat here, watching me intently.
 
-Exits are north, east, south, west and up.  Schrodinger wanders to the north.
+Exits are north, east, south, west and up.
 
 > N
 
@@ -6316,8 +6314,7 @@ Alcove
 I am in a cramped alcove underneath the manor's main staircase.  Here,
 another smaller stairway leads down into the gloom.  This leads down into
 Grandad's cellar.  To my south there is the main area of the hall.  A cord
-hangs from the ceiling of the alcove.  There is a small tabby cat here,
-watching me intently.
+hangs from the ceiling of the alcove.
 
 Exits are south and down.
 
@@ -6441,6 +6438,7 @@ Exits are north and south.
 The chute is quite narrow and made out of wood.  It leads down into darkness.
  There is a small wooden lever attached to the side of the chute, and on the
 front an ornate letter "D" has been engraved.
+Olaf sniffs.
 
 > Put diamond in chute
 Okay.  I put the diamond inside the D chute.
@@ -6449,7 +6447,6 @@ Okay.  I put the diamond inside the D chute.
 I pull the lever.  There is a whooshing sound from the chute and the diamond
 disappears from view.  There is a faint tinkling sound from further down in
 the chute.
-Olaf sniffs.
 
 > N
 

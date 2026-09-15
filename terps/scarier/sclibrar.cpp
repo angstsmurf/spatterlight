@@ -6105,14 +6105,38 @@ scr_bool
 lib_cmd_examine_npc (scr_gameref_t game)
 {
   scr_int npc;
-  scr_bool is_ambiguous;
+  scr_bool is_ambiguous, was_admin;
 
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, "examine", &is_ambiguous);
   if (npc == -1)
     return is_ambiguous;
 
+  was_admin = game->is_admin;
   lib_describe_npc (game, npc);
+
+  /*
+   * 4.0: the NPC arm of characters() (47FE19-480157) stores no not-a-turn
+   * flag; a plain `x <npc>` is administrative only because examines() ran
+   * first and found no object, whose "see no such thing" arm stores
+   * MemVar_494281 at 471F02.  When the 463640 scorer's seen pass instead
+   * settles on a unique object that is not here, examines answers "can't
+   * see <it> from here!" (471958) with no flag, characters() overwrites it
+   * with the description, and the line is a turn.  Humbug T634 `X robot` at
+   * the Bus Stop, with the static robot (213) seen in the tunnel: run400
+   * draws for the tick and Grandad arrives on that line
+   * (Adrift_128_humbug_tr.txt).
+   */
+  if (lib_is_version_400 (game))
+    {
+      const scr_char *input = run_get_dispatch_input ();
+      scr_int object;
+
+      object = lib_verb_object_resolve_400_string (game, input, NULL, FALSE);
+      if (object >= 0
+          && !obj_indirectly_in_room (game, object, gs_playerroom (game)))
+        game->is_admin = was_admin;
+    }
   return TRUE;
 }
 

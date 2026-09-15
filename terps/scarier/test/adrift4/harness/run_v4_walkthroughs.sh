@@ -2801,6 +2801,12 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # player has never had described, so they are not seen and the examine falls
 # through to the default.  That single line is the second live confirmation
 # the seen model rests on.
+# CORRECTION 2026-09-15: Adrift_29 was desynced there -- its `X Jasper` also
+# answered "Nothing Special." because Jasper never arrived.  The clean xoshiro
+# drive (Adrift_128_humbug_tr.txt T727) describes the teeth: run400's obhere
+# stamps a part-of-character static seen while its seen NPC is in the room
+# (452E5E), and 463640 runs obhere over every object once per line.  Ported
+# as obj_mark_npc_parts_seen() (scobjcts.cpp).
 # Re-blessed again 2026-08-24, with twenty-eight other rows, for the version
 # gate on "(Getting off X first)" / "(Standing up first)" (sclibrar.cpp
 # lib_go).  This row is where it was measured: command 254, a bare "W" off the
@@ -2900,6 +2906,11 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # Re-blessed 2026-09-14: `Get token` now prints task 192's text, as in
 # Adrift_4_humbug.txt (4.0 auto-"from" take port; referenced object cleared
 # per line and restored around speculative probes).
+# Re-blessed 2026-09-15 for two ports measured on the xoshiro drive
+# Adrift_128_humbug_tr.txt (now identical, 10845 draws each side):
+# `X robot` naming a seen-absent static robot is a turn (lib_cmd_examine_npc),
+# and Jasper's teeth are seen once he stands there (obj_mark_npc_parts_seen).
+# Grandad's arrival moves from `i` to `X robot`; the rest is the cat's walk.
 humbug_solution.txt|humbug.taf|Grandad would probably describe you as a winner.. or a cheat.|SCR_SKIP_WAITKEY=1
 # Crime Adventure (M Whitmore) -- ADRIFT 3.80, 36 rooms, 23 tasks, 2 NPCs.
 # WIN in 90 commands, scoring 65/95 -- and 65 is the real ceiling in a 3.8

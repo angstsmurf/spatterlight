@@ -1370,6 +1370,55 @@ obj_mark_room_statics_seen (scr_gameref_t game, scr_int room)
 }
 
 /*
+ * obj_mark_npc_parts_seen()
+ *
+ * 4.0: mark seen every part-of-character static whose holder is the player,
+ * or a seen character in the player's room.  run400's presence test obhere
+ * (452E9C) writes the seen byte itself in its &HE2 branch -- parent 0 at
+ * 452E08, a parent NPC in the player room whose own seen byte (26) is 1 at
+ * 452E5E -- and the up-front noun resolver 463640, called once per typed line
+ * from generaltasks (48A3F5), runs obhere over the whole object table in its
+ * first pass (4630D5-46311C).  So a character's parts become referenceable on
+ * the first line typed while the seen character stands there, with no room
+ * listing needed.  Measured on humbug (Adrift_128_humbug_tr.txt, T727):
+ * Jasper arrives by event, `X Jasper`, `i`, then `X teeth` describes his
+ * teeth (object 180, part of Jasper) instead of "Nothing Special.".
+ */
+void
+obj_mark_npc_parts_seen (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+  scr_int index_;
+
+  if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+    return;
+
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      scr_int npc;
+
+      if (gs_object_seen (game, index_) || !obj_is_static (game, index_)
+          || !gs_object_static_unmoved (game, index_))
+        continue;
+
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = index_;
+      vt_key[2].string = "Where";
+      vt_key[3].string = "Type";
+      if (prop_get_integer (bundle, "I<-siss", vt_key) != ROOMLIST_NPC_PART)
+        continue;
+
+      vt_key[2].string = "Parent";
+      npc = prop_get_integer (bundle, "I<-sis", vt_key);
+      if (npc == 0
+          || (npc_in_room (game, npc - 1, gs_playerroom (game))
+              && gs_npc_seen (game, npc - 1)))
+        gs_set_object_seen (game, index_, TRUE);
+    }
+}
+
+/*
  * obj_debug_trace()
  *
  * Set object tracing on/off.

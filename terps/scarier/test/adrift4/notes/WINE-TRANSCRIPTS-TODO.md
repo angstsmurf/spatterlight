@@ -332,8 +332,21 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   because drive.exe reads UTF-8), so largo_winch and enquete_a_hauts_risques
   differed on every turn. It now always encodes latin-1, and both rows are
   identical on every turn apart from the keypress tail.
-- **Doubled keystrokes, re-drive owed:** bomb_threat T25 `ss` (eats
-  feed[26]); humbug T448 `NN` (466 commands lost after it).
+- **Doubled keystrokes, re-driven 2026-09-15 (solo, maxpar 1):** both
+  doubles came from drive.exe's retype path. It read the entry box back
+  before the swallowed key had landed, so the retype went in on top of the
+  original. The solo re-drives logged no retypes. bomb_threat
+  (Adrift_128) is now identical apart from the keypress prompt. humbug
+  (Adrift_130) echoes all 1060 feed commands and reaches the win marker.
+  **Closed 2026-09-15:** re-driven with the vbrng trace (Adrift_128_humbug_tr,
+  seed 1234), humbug is identical apart from the keypress prompt and draws
+  10845 = 10845. Two ports did it. T634 `X robot` at the Bus Stop names the
+  static robot seen in the tunnel, so examines() answers "can't see it from
+  here!" with no not-a-turn flag, and characters() overwrites that with
+  the NPC. The line is a turn (7 draws). T727 `X teeth`: obhere stamps a
+  part-of-character static seen when its seen NPC is in the room, so Jasper's
+  teeth are described. The Schrodinger turns after T672 were only the drift
+  those two caused.
 - **light_up (seed 133), 217 lost from feed[294]:** at T293 `west` both sides
   of the compare die ("scored 58 out of the maximum 0"), and the Runner then
   takes no more input. The blessed golden never dies there. It has no
@@ -845,6 +858,9 @@ every Runner.
 - **Administrative turns and the counter:**
   - An NPC examine and a nothing-found examine are administrative turns;
     so is `read` via examines. `[4.0]` EV14-16, house T150
+  - Only examines' "see no such thing" (471F02) sets the flag. characters()'
+    NPC arm sets none. So `x <npc>` whose line has a unique seen but absent
+    object as the winner is a turn. `[4.0]` humbug T634 `X robot`
   - In run390 hint, help, clear, time, version, save, restore and undo are
     ordinary turns, and the counter counts every line element, so `both`
     counts twice. `[3.9]` p39ADMIN (a211db2f1, b526c013b)
@@ -877,6 +893,10 @@ every Runner.
   - A unique absent-seen winner answers "can't see X from here!" and ticks.
     A tie or no winner answers "see no such thing" and does not tick.
     `[3.9+]` (386c9c570)
+  - A part-of-character static is stamped seen by obhere (452E08/452E5E)
+    when its holder is the player, or a seen NPC in the player room. 463640
+    calls obhere on every object once per line. `[4.0]` humbug T727
+    `X teeth` (Adrift_29's "Nothing Special." was a desynced drive)
 - **463640 is the 4.0 noun resolver.**
   - Scoring: Short whole word +1, first alias +1, +1 per Prefix word, and an
     empty Prefix counts as `a`.
