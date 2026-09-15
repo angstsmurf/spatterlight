@@ -1826,6 +1826,12 @@ sophie_comp_solution.txt|sophie.taf|You have won.|SCR_SKIP_WAITKEY=1
 # 2026-08-29; still 93 points.
 # Re-blessed 2026-09-13 for 991a5f8d9's RNG draw order: the courtyard's horse-in-
 # distress alternates re-roll.  RNG timing only.
+# Re-blessed 2026-09-15: zero-length event 89 (wet fur, starter task 1368)
+# starts after its tick on `creep over stones`, keeps run400's +1 (46FE49)
+# and finishes a turn later, so `nw` straight after `wag tail` is refused
+# ("The wind on your wet body makes you shiver"), as in
+# runner_transcripts/cursed.txt:976-983.  The route waits two turns first.
+# Identical to the Runner on every turn; still 33 points at the end of Part One.
 cursed_solution.txt|cursed.taf|The honour will be all mine, father|SCR_SKIP_WAITKEY=1
 # 2026-08-29: the basket refusal now precedes the ending (silent-End-Game rule).
 # 2026-09-07, re-blessed: it does not.  run400 (Adrift_273_easter.txt:304-308)
@@ -7479,6 +7485,12 @@ deardiary_solution.txt|Dear Diary.taf|FUCK YOU ERIK|
 # once 4.0 capacity-checks takes out of carried containers (2026-09-15),
 # T1 `take cane` is refused as too heavy.  run400 takes it
 # (runner_transcripts/riding_home.txt); golden unchanged.
+# Re-blessed 2026-09-15 with the two lines only run400 printed: T47 event 8
+# runs the completed task 104, whose failing restriction prints "Erica and
+# Krystal continue their conversation..." (45FB78 walks the restrictions
+# before the done test).  T50 zero-length event 9 keeps the +1 of its
+# out-of-order start (46FE49) and runs task 118 a tick later, printing the
+# 90% hint.  Only T55's "[Press any key to end]" still differs.
 riding_home_solution.txt|Riding_Home.taf|You have won "Riding Home."|SCR_SKIP_WAITKEY=1
 # Dear Diary 2 - Prom Night.taf by Wotan-Anubis (AIF): sequel to Dear Diary --
 # same 3.90 engine, no Events/NPC walks (all 11 NPCs are stationary), so the

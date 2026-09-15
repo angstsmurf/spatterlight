@@ -145,6 +145,9 @@ e
 creep over stones
 shake
 wag tail
+# wet fur blocks movement until event 89's run finishes (runner_transcripts/cursed.txt:983)
+z
+z
 nw
 score
 # --- Part Two: Tallum village, the barn ---

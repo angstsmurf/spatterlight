@@ -700,6 +700,32 @@ evt_finish_event (scr_gameref_t game, scr_int event)
 
           run_task_run_by_index (game, task);
         }
+      else if (gs_task_done (game, task) && task_where_allows_run (game, task)
+               && game->is_running)
+        {
+          /*
+           * A completed task cannot run again, but run400's by-index runner
+           * (Proc_19_21_45FB78) walks the restrictions (455C60) BEFORE it
+           * looks at the task's done and repeatable bytes (45FA38), so a
+           * failing restriction still prints its FailMessage.  Called from an
+           * event (arg 2 = 1) a passing one prints nothing, not the
+           * RepeatText.  "Riding Home" pins it
+           * (runner_transcripts/riding_home.txt): event 8 keeps running the
+           * completed "Samantha calls" task 104, and the Runner prints its
+           * "Erica and Krystal continue their conversation" FailMessage on
+           * a later `wait`.
+           */
+          const scr_char *fail_message;
+          scr_bool restrictions_passed;
+
+          if (evt_trace)
+            scr_trace ("Event: event checking completed task %ld\n", task);
+
+          if (restr_eval_task_restrictions (game, task, &restrictions_passed,
+                                            &fail_message)
+              && !restrictions_passed && fail_message)
+            pf_buffer_paragraph_line (filter, fail_message);
+        }
       else
         {
           if (evt_trace)
@@ -1251,8 +1277,21 @@ evt_tick_event (scr_gameref_t game, scr_int event)
          * the room description, and its end never arrives.  Leave the clock
          * alone, or the decrement below would take it negative and "finish"
          * an event the Runner never finishes.
+         *
+         * Only a clock of zero parks.  A start that kept run400's +1 (the
+         * "started after its tick this turn" case in ES_AWAITING) holds 1,
+         * and run400's next running block takes it to 0 and finishes the
+         * event like any other.  "Riding Home" pins it
+         * (runner_transcripts/riding_home.txt): event 9 (zero-length,
+         * starter "You get off the bus") is started and finished by the
+         * execute-task check on the bus-stop turn, printing task 118's 90%
+         * FailMessage.  The finish zeroed its snapshot (470548, task 118
+         * stays incomplete), so the ordered pass starts it again with the
+         * +1 kept, and the Runner prints the 90% line a second time after
+         * `enter home`.
          */
-        if (evt_is_zero_length (game, event))
+        if (evt_is_zero_length (game, event)
+            && gs_event_time (game, event) <= 0)
           {
             if (evt_trace)
               scr_trace ("Event: zero-length event %ld is parked\n", event);

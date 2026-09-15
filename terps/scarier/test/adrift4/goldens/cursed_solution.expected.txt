@@ -1793,6 +1793,16 @@ You shake yourself vigorously, sending droplets of water in all directions.
 > wag tail
 You wag your tail a few times.
 
+> z
+You wait for something to happen.
+
+   Your fur coat dries slowly.
+
+> z
+You wait for something to happen.
+
+   More of the water dries out of your fur coat.
+
 > nw
 You trot northwest, through the waving grass. A short time later you emerge
 from it completely.
@@ -1811,8 +1821,6 @@ of the wind can be felt below.
 > score
 Your score is 27 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
-
-   Your fur coat dries out completely.
 
 > n
 You trot north towards the rise, but stop suddenly when your vulpine senses
@@ -1895,6 +1903,8 @@ itself. The door to the barn, which is painted a dull red colour, is
 currently shut.
    To the south you can see some animal stalls, and in the north you can see
 some fields. The village square lies to the west.
+
+   Your fur coat dries out completely.
 
 > s
 You trot south.
@@ -3189,8 +3199,6 @@ A powerful smell begins to spread out from the hearth, almost overwhelming
 your senses and causing your eyes to water. Soon the whole room is filled
 with the rich, acrid smell.
 
-   The dog sneezes a couple of times, whimpers, then settles down again.
-
 > invisible
 You think about invisibility, and immediately you disappear.
 
@@ -3383,6 +3391,8 @@ archway marks the exit to the north.
 the wizard Rixomas' rooms. It is currently is closed.
    Lord Vonisor enters from the west.
 
+   Lord Vonisor rubs the back of his head impatiently.
+
 > n
 You trot north.
 
@@ -3430,9 +3440,6 @@ the crown prince of Rylane.
    "Absolutely," Lord Vonisor says, before stepping forward and opening the
 door.
 
-   Lord Vonisor pulls out his sword and checks the blade for any marks and
-flaws. He returns the blade to the scabbard.
-
 > n
 As you move to enter the door, Lord Vonisor steps forward and says, "It looks
 dark in there. I'd better go first with the candle." He moves into the room
@@ -3451,6 +3458,9 @@ of rich green which has been spoiled by a dark, sinister stain near the edge.
 open to the south.
    Standing a short distance away is Lord Vonisor, who is looking at you but
 is obviously ready for anything.
+
+   Lord Vonisor pulls out his sword and checks the blade for any marks and
+flaws. He returns the blade to the scabbard.
 
 > smell
 You can smell a faint, but very distinct odour here, past the mustiness that
@@ -3505,8 +3515,6 @@ Prince Tevona's rooms. Mounted on the southern wall is a plaque featuring the
 emblem of the crown princess of Rylane.
    Lord Vonisor enters from the east.
 
-   Lord Vonisor rubs the back of his head impatiently.
-
 > open door
 "Lord Vonisor," you begin, "would you open this door?"
    "Err," Lord Vonisor looks suddenly nervous. "Look, I think should keep the
@@ -3516,6 +3524,8 @@ Princess out of this --"
 to the door and knocks on it gently. When there is no answer he opens it very
 carefully and peers inside.
    "You're right," he says. "No one there. Be my guest."
+
+   Lord Vonisor rubs the back of his head impatiently.
 
 > in
 You trot in.

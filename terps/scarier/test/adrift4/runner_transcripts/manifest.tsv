@@ -74,7 +74,7 @@ crm	crm.txt	harvested-native-0-draws:Adrift_604_crm.txt	3.90	run390x.exe	1234	0	
 croft	croft.txt	driven:Adrift_348_croft_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 crookedestate	crookedestate.txt	driven:Adrift_427_crookedestate_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	no	identical on every turn.
 cruel	cruel.txt	harvested-native-0-draws:Adrift_479_cruel.txt	3.90	run390x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
-cursed	cursed.txt	driven:Adrift_227_cursed_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
+cursed	cursed.txt	driven:Adrift_227_cursed_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	no	identical on every turn.
 cyber	cyber.txt	driven:Adrift_156_cyber_rt.txt	4.00	run400x.exe	1234	0			yes	1 differing turn(s)
 cyber2	cyber2.txt	driven:Adrift_157_cyber2_rt.txt	4.00	run400x.exe	1234	0			yes	2 differing turn(s)
 cybercow	cybercow.txt	driven:Adrift_159_cybercow_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	1 differing turn(s)
@@ -278,7 +278,7 @@ renuntio	renuntio.txt	driven:Adrift_331_renuntio_rt.txt	3.90	run390x.exe	1234	0	
 report	report.txt	harvested-native-0-draws:Adrift_706_report.txt	3.90	run390x.exe	1234	0	Sam~male		yes	identical on every turn apart from the Runner's keypress prompt.
 requiem	requiem.txt	driven:Adrift_488_requiem_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 richard	richard.txt	driven:Adrift_333_richard_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
-riding_home	riding_home.txt	driven:Adrift_478_riding_home_rt.txt	4.00	run400x.exe	1234	6	Andy	SCR_SKIP_WAITKEY=1	yes	3 differing turn(s)
+riding_home	riding_home.txt	driven:Adrift_478_riding_home_rt.txt	4.00	run400x.exe	1234	6	Andy	SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 rift	rift.txt	driven:Adrift_363_rift_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 rking	rking.txt	driven:Adrift_496_rking_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 rockband	rockband.txt	driven:Adrift_468_rockband_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1 SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.

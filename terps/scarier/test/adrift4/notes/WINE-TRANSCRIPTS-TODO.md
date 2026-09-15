@@ -403,8 +403,9 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   that only the Runner prints), alexis T126-127 (companion strike order,
   Haron's arrival one turn apart).
 - cursed from T137: the wet-fur event still blocks movement in the Runner
-  ("dries slowly" vs "dries out completely"). The rest of the row follows.
-  This is either event timing or a roll.
+  ("dries slowly" vs "dries out completely"). **Ported 2026-09-15** (see the
+  index): event timing, not a roll. cursed is now identical on every turn;
+  the route waits two turns before `nw`.
 
 **Engine, 4.0:**
 
@@ -505,7 +506,8 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     (run400 4754A5-47557B) before it looks at the CharTask. greekschool is
     now identical on every turn (runner_transcripts/greekschool.txt).
   - riding_home T47 and T50: the Runner prints an NPC conversation line and a
-    progress-hint line that Scarier lacks.
+    progress-hint line that Scarier lacks. **Ported 2026-09-15** (see the
+    index). Only T55's closing "[Press any key to end]" still differs.
   - iqsfot T158 `kick guard`: the Runner names the absent NPC by Name ("Drash
     the Guard is not here."), Scarier by the typed word ("guard is not
     here."). **Ported 2026-09-15** (see the index): not the typed word but
@@ -1124,6 +1126,15 @@ every Runner.
     Vardock
   - Rolls exclude the upper bound. A backwards range still draws, flooring
     toward minus infinity. hyper_b_s (a288e471b)
+  - A zero-length event that starts after its tick this turn keeps the +1
+    (start from state 2 sets clock = roll + 1, 46FE49; the running block
+    runs once per turn, 46FF48). It parks until the next tick rather than
+    finishing at once. riding_home T50 (event 9, task 118's 90% hint), cursed
+    T137 (event 89, wet fur). 2026-09-15
+- **Completed tasks.** A 4.0 event that runs a completed task still walks the
+  task's restrictions (45FB78 calls 455C60 before the done/repeatable test),
+  so a failing restriction prints its message. A passing one prints nothing.
+  riding_home T47 (event 8, task 104). 2026-09-15
 - **Look text.** An event's look text is gated on the room being described,
   not on the player's room. goldilocks, cybercow
 - **RNG parity.** `SCR_RNG=xoshiro` matches vbrng draw for draw, and it is
