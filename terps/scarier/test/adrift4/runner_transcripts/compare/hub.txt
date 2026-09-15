@@ -4,46 +4,9 @@ scarier     112 turns, feed[0] is scarier turn 0
 
 RULE 2 -- every feed command was echoed.
 
-turn 70  x lower right cupboard
-  run400   Which right cupboard. The right lower cupboard or the right upper cupboard?
-  scarier  There are some stainless-steel, copper-bottom pots and pans in here, including the saucepan I normally use to make baked beans or soup. The right lower cupboard is closed.
+turn 111  water plants
+  run400   I carefully water the plants on the window sill. > I don't understand you. > I don't understand you. > I don't understand you.
+  scarier  I carefully water the plants on the window sill.
 
-turn 71  open lower right cupboard
-  run400   I don't want to open that right now.
-  scarier  I open the right lower cupboard. A saucepan is inside the right lower cupboard.
-
-turn 72  take saucepan
-  run400   Take what?
-  scarier  I take the saucepan from the right lower cupboard.
-
-turn 73  x upper right cupboard
-  run400   Which right cupboard. The right lower cupboard or the right upper cupboard?
-  scarier  There are cans, bottles and packets of food in here. Maybe I can eat bit a of food now. The right upper cupboard is closed.
-
-turn 74  open upper right cupboard
-  run400   I don't want to open that right now.
-  scarier  I open the right upper cupboard. A tin can of Baxter's is inside the right upper cupboard.
-
-turn 75  take tin can
-  run400   Take what?
-  scarier  I take the tin can of Baxter's from the right upper cupboard.
-
-turn 78  open tin can with can opener
-  run400   I don't have the can.
-  scarier  I put the can opener on the minestrone soup can, and turn the lever. A lovely smell of tomato and garlic wafts out.
-
-turn 79  put soup in pan
-  run400   I'm not holding the can.
-  scarier  The soup slides easy out of the can and into the saucepan. I throw the can into the bin.
-
-turn 81  put saucepan on hob
-  run400   I need to be holding the saucepan.
-  scarier  I put the saucepan, with the soup in it, on the hob. From past experience I know how easily it burns on this hob - I'll have to move it once its done, to another part of the hob. The soup starts boiling.
-
-turn 82  x hob
-  run400   The hob is ceramic, flush with the countertops. I've been admonished many times not to drop things on it, or scratch it. I can turn it on by touching the panel at the side.
-  scarier  The hob is ceramic, flush with the countertops. I've been admonished many times not to drop things on it, or scratch it. I can turn it on by touching the panel at the side. A saucepan is on the hob.
-
-... stopping after 10 differing turns
 (the openings differ too -- banner, graphics notice or the
  Runner's own startup lines; usually not an engine difference)

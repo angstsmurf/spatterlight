@@ -392,23 +392,23 @@ I take the drying-up cloth from the right drawer.
 I dry the clean dishes with the Leaning Tower tea-towel, buffing them to a
 high shine.
 
-> x lower right cupboard
+> x right lower cupboard
 There are some stainless-steel, copper-bottom pots and pans in here,
 including the saucepan I normally use to make baked beans or soup.  The right
 lower cupboard is closed.
 
-> open lower right cupboard
+> open right lower cupboard
 I open the right lower cupboard.  A saucepan is inside the right lower
 cupboard.
 
 > take saucepan
 I take the saucepan from the right lower cupboard.
 
-> x upper right cupboard
+> x right upper cupboard
 There are cans, bottles and packets of food in here. Maybe I can eat bit a of
 food now.  The right upper cupboard is closed.
 
-> open upper right cupboard
+> open right upper cupboard
 I open the right upper cupboard.  A tin can of Baxter's is inside the right
 upper cupboard.
 

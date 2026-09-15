@@ -7035,7 +7035,10 @@ cluelessbob_solution.txt|In_the_Claws_of_Clueless_Bob.taf|score of 12 - well don
 # take/wear clothes, unopened cupboards, missing take-fairy-liquid, wrong
 # hose/toilet-paper phrasing, wrong hob order) that had to be corrected.
 # "toilet paper" collides with the scenery noun "toilet" -- use the
-# registered alias. 112 commands, no env vars needed.
+# registered alias. 112 commands, no env vars needed. T70-75 say
+# `x/open right lower cupboard`, not "lower right": run400 asks "Which right
+# cupboard." for the latter and refuses `open` (runner_transcripts/hub.txt),
+# and Scarier now does the same.
 hub_solution.txt|hub.taf|driveway, and take off down the suburban street, not once looking back.|
 # YNKaboom.taf ("The Ascot"): pure yes/no CYOA, no formal score system (0
 # ChangeScore actions; 5 EndGame endings differentiated only by an

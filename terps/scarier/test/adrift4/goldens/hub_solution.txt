@@ -68,11 +68,11 @@ wash dirty dishes
 x right drawer
 take drying-up cloth
 dry clean dishes
-x lower right cupboard
-open lower right cupboard
+x right lower cupboard
+open right lower cupboard
 take saucepan
-x upper right cupboard
-open upper right cupboard
+x right upper cupboard
+open right upper cupboard
 take tin can
 x left drawer
 take can opener

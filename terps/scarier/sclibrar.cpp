@@ -4866,6 +4866,7 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
  * ambiguous!".  The sibling string "That wasn't one of the options!" was
  * never triggered by any cell and is still unexplained.
  */
+static scr_bool lib_cant_do_other (scr_gameref_t game, const scr_char *verb);
 static scr_int lib_verb_object_name_score (scr_gameref_t game, scr_int object,
                                            const scr_char *input);
 static scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
@@ -5139,6 +5140,75 @@ lib_co_400_raise_for_references (scr_gameref_t game)
         }
     }
 
+  return FALSE;
+}
+
+/*
+ * The examine path's test for a line SCARE's parser bound to one object: the
+ * Runner's pass 1 settles on any present object whose Short the line holds;
+ * failing that, every present object with a Short or alias in the line is a
+ * candidate, and the first contained name (candidates in index order, Short
+ * then aliases) that two or more of them answer to is the question's term.
+ */
+static scr_bool
+lib_co_400_raise_for_contained_aliases (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_int room = gs_playerroom (game);
+  std::vector<scr_int> candidates;
+  scr_int object, index_;
+
+  if (!input)
+    return FALSE;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+      scr_bool hit;
+
+      if (!lib_co_candidate (game, object, room))
+        continue;
+      if (lib_co_contains (input, prop_get_indexed_string (bundle, "Objects",
+                                                           object, "Short")))
+        return FALSE;
+
+      hit = FALSE;
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+      for (alias = 0; alias < alias_count && !hit; alias++)
+        {
+          vt_key[3].integer = alias;
+          hit = lib_co_contains (input, prop_get_string (bundle, "S<-sisi",
+                                                         vt_key));
+        }
+      if (hit)
+        candidates.push_back (object);
+    }
+  if (candidates.size () < 2)
+    return FALSE;
+
+  for (index_ = 0; index_ < (scr_int) candidates.size (); index_++)
+    {
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+
+      object = candidates[index_];
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+      for (alias = 0; alias < alias_count; alias++)
+        {
+          const scr_char *name;
+
+          vt_key[3].integer = alias;
+          name = prop_get_string (bundle, "S<-sisi", vt_key);
+          if (scr_strempty (name) || !lib_co_contains (input, name)
+              || lib_co_400_namesake_count (game, candidates, name) < 2)
+            continue;
+
+          lib_co_400_raise (game, name, candidates);
+          return TRUE;
+        }
+    }
   return FALSE;
 }
 
@@ -5559,6 +5629,25 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
                 }
             }
         }
+    }
+
+  /*
+   * run400's examine narrows by names the LINE contains, not by the longest
+   * one: with no present object's Short in the line, every present object
+   * whose alias the line holds is a candidate, and a name two of them share
+   * raises the question even though a longer alias picks one out.  hub T70
+   * `x lower right cupboard` (aliases "lower right cupboard" and "right
+   * cupboard" on one, "right cupboard" on the other) answers "Which right
+   * cupboard.  The right lower cupboard or the right upper cupboard?"
+   * (Adrift_128_p_hub_adj.txt, runner_transcripts/hub.txt).
+   */
+  if (count == 1 && lib_is_version_400 (game) && lib_co_400_forced () < 0
+      && strcmp (verb, "examine") == 0
+      && lib_co_400_raise_for_contained_aliases (game))
+    {
+      if (is_ambiguous)
+        *is_ambiguous = TRUE;
+      return -1;
     }
 
   /* If the reference is unambiguous, set in variables and return it. */
@@ -12590,6 +12679,18 @@ lib_cmd_open_object (scr_gameref_t game)
   if (lib_open_close_with_400 (game, "open", &is_ambiguous))
     return is_ambiguous;
 
+  /*
+   * openclose resolves by the whole-line score even when the parser bound an
+   * object; a tie leaves it with none and the flat refusal (hub T82 `open
+   * lower right cupboard`: "I can't open that.", ALR-rewritten by the game).
+   */
+  if (lib_is_version_400 (game)
+      && run_get_dispatch_input ()
+      && !strstr (run_get_dispatch_input (), " with ")
+      && lib_verb_object_resolve_400_string (game, run_get_dispatch_input (),
+                                             NULL, TRUE) == -1)
+    return lib_cant_do_other (game, "open");
+
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, "open", &is_ambiguous);
   if (object == -1)
@@ -12720,6 +12821,18 @@ lib_cmd_close_object (scr_gameref_t game)
 
   if (lib_open_close_with_400 (game, "close", &is_ambiguous))
     return is_ambiguous;
+
+  /*
+   * openclose resolves by the whole-line score even when the parser bound an
+   * object; a tie leaves it with none and the flat refusal (hub T82 `open
+   * lower right cupboard`: "I can't open that.", ALR-rewritten by the game).
+   */
+  if (lib_is_version_400 (game)
+      && run_get_dispatch_input ()
+      && !strstr (run_get_dispatch_input (), " with ")
+      && lib_verb_object_resolve_400_string (game, run_get_dispatch_input (),
+                                             NULL, TRUE) == -1)
+    return lib_cant_do_other (game, "close");
 
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, "close", &is_ambiguous);

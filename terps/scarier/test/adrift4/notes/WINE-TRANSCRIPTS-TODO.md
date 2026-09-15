@@ -417,6 +417,12 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   - hub T70-73: `x lower right cupboard` gets "Which right cupboard. The right
     lower cupboard or the right upper cupboard?". The typed adjective order
     differs from the Prefix order. Scarier picks the object. The row cascades.
+    **Ported 2026-09-15:** examine asks when two present objects share an
+    alias the line holds, even if a longer alias names one of them
+    (lib_co_400_raise_for_contained_aliases). open and close refuse a
+    whole-line score tie with "I can't open that." (T82). The walkthrough
+    now uses the Runner-safe `x right lower cupboard`. The recompare's one
+    remaining diff is the feed's trailing blank line.
   - wilkins T110-117: `drop tincture of <name>` gets "It is not clear which
     tincture..." or a `Which tincture.` prompt, and T117 drops a different
     object.
@@ -438,7 +444,29 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     but hold differently: with chimp_elevated (var 21) = 1, tasks 77-84 fail
     first on restriction 1 ("Can't you see I've got my hands full?!"), a
     fallback hit, a silent exit and DontUnderstand. Carried size in Scarier is
-    also -24 by then. Needs a Wine probe of var 21 and `count` at T40.
+    also -24 by then.
+    **Wine probes 2026-09-15** (probe_cmds/3m_t40*.txt, the route through
+    `hit coconut with stone`, then the variants; Adrift_128/130 p_3m40*):
+    - Still fails after: an immediate `take husk`, `get coconut husk` or
+      `get all` (husk skipped); drop fork; take stone ("already carrying",
+      library); x stone (task 180); `hit again` (task 592); drop coconut.
+    - Works after: look, z, i, count, xyzzy, x husk/coconut/fork/flint/chimp,
+      `wear sheet`, `put fork in bucket`. Also `z; x stone; take husk`, so a
+      task line after a clear does not poison again.
+    - `drop coconut; take coconut` also fails ("That command wasn't
+      understood."), but `drop fork; take fork` takes the fork. So only the
+      objects the hit task touched (coconut restrictions, husk moved by 589
+      "carried by player" then "same room as player") are refused.
+    - So the poison is set by the hit line and survives task lines and the
+      get/drop handlers (48A457-48A46D). It clears on any line that reaches
+      the library handlers after the dispatcher at 48A481.
+    - Read and ruled out: 463640 (Me(424)/Me(428) re-seeded every call, no
+      carried state); 44B578/452E9C (compare [26] to the live player room);
+      MemVar_4941EC (every writer stores &HFF). The only globals wear/remove
+      (48A48C) write are 4941B0, 494174 and 4941EC.
+    - get_piece is silent only at 473229 (463640 mode 1 returns -1 and the
+      pre-match hits). The rule itself is still not found; next is a
+      debugger watch on the husk's record between the hit and `take husk`.
   - onnafa T155 `get key of pure harry`: the Runner says "I don't think Harry
     would appreciate being handled". The take-NPC branch fires on the name
     inside an object's name. **Ported 2026-09-15** (see the index): the key
