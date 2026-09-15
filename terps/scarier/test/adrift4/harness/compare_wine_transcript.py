@@ -244,9 +244,11 @@ def pause_counts(lines, popups):
     2026-08-29).
     """
     counts = []
+    previous = ""
     for line in lines:
-        if line.startswith(">"):
+        if is_scarier_prompt(line, previous):
             counts.append(0)
+        previous = line
         if counts:
             counts[-1] += len(re.findall(r"\[WAITKEY\]", line))
     return counts[popups:]
@@ -444,6 +446,25 @@ def split_runner(lines, feed, lookahead, start=0):
     return intro, turns, losses
 
 
+SCARIER_WIDTH = 78
+
+
+def is_scarier_prompt(line, previous):
+    """A `>` line that the harness prompted, not game text wrapped onto one.
+
+    Scarier wraps at 78 columns, so a word of game text can start a line with
+    `>`: albert_is_lost T21's `>UNDOeth?"` cut that turn at "Drat,"
+    (2026-09-15).  Such a line is a wrap exactly when its first word would
+    not have fitted on the non-blank line before it.
+    """
+    if not line.startswith(">"):
+        return False
+    words = line.split()
+    if not previous.strip() or not words:
+        return True
+    return len(previous.rstrip()) + 1 + len(words[0]) <= SCARIER_WIDTH
+
+
 def split_scarier(lines):
     """Split a scarier replay on its `>` prompts.
 
@@ -453,9 +474,12 @@ def split_scarier(lines):
     turns = []
     pending = []
     intro = None
+    previous = ""
 
     for line in lines:
-        if line.startswith(">"):
+        prompt = is_scarier_prompt(line, previous)
+        previous = line
+        if prompt:
             if intro is None:
                 intro = "\n".join(pending)
             else:

@@ -513,8 +513,12 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     here."). **Ported 2026-09-15** (see the index): not the typed word but
     NPC 15, Named "guard"; the task %character% now binds the first match.
 - **Output filter:** albert_is_lost T21 `get motherload`: the Runner prints a
-  literal ` >UNDOeth?"` that Scarier drops. It is probably an unknown
-  `<...>` tag swallowed.
+  literal ` >UNDOeth?"` that Scarier drops. **Closed 2026-09-15, compare
+  artefact:** Scarier prints it too, but its 78-column wrap put `>UNDOeth?"`
+  at the start of a line and `split_scarier()` took that for a prompt.
+  `is_scarier_prompt()` now treats a `>` line as a wrap when its first word
+  would not fit on the non-blank line before it. A full recompare moved only
+  albert_is_lost, which is now identical apart from the keypress prompt.
 - **JGrim** is clean apart from the epilogue.
 
 **Engine, 3.9:**
