@@ -7,13 +7,5 @@ after the first of them is out of step and is NOT an engine
 difference until the feed is fixed and the row re-driven:
     feed[115]  e
 
-turn 48  cook cheese
-  run400   You can't do that yet.
-  scarier  Finding a match in a small tin on top of the stove, you fire it up, and cook the moldy cheese in the oven. It turns a nice brown color.
-
-turn 113  score
-  run400   Your score is 485 out of a maximum of 500. (97%)
-  scarier  Your score is 500 out of a maximum of 500. (100%)
-
 (the openings differ too -- banner, graphics notice or the
  Runner's own startup lines; usually not an engine difference)

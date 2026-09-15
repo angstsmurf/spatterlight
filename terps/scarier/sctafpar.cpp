@@ -2593,6 +2593,27 @@ parse_fixup_v380_objstate_restr (scr_int obj, scr_int ivar1, scr_int ivar2,
       return;
     }
 
+  /*
+   * The Runner reads Obj2 - 1 as a raw index into the whole object table
+   * (run380 tasks() 44CA87-44CC93, run370 441867), so Obj2 may name a static
+   * object.  A static's parent is -1 (run380 openadv 4484F6) and it is never
+   * in or held by anything, so every one of these tests fails.  The dynamic
+   * conversion below would instead move the test onto the preceding dynamic
+   * object.  twilight.taf task 59 `cook *cheese*` names the static stove
+   * (Obj2 = 57) "inside container 7" where the cheese was meant; run380
+   * answers "You can't do that yet." after `put cheese in stove`
+   * (runner_transcripts/twilight.rtf).  Var3 = 0 makes the restriction
+   * always false.
+   */
+  if (obj > 0
+      && prop_get_indexed_boolean (parse_bundle, "Objects", obj - 1, "Static"))
+    {
+      dynamic = parse_v380_object_to_dynamic (obj - 1);
+      parse_fixup_v380_restr (0, 3, dynamic >= 0 ? dynamic + 3 : 3, 4, 0,
+                              failmessage);
+      return;
+    }
+
   /* Convert obj from object to dynamic index. */
   dynamic = parse_v380_object_to_dynamic (obj - 1);
 

@@ -3584,9 +3584,15 @@ haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
 # Re-blessed 2026-09-15: "a monkey is here." keeps its lower case, as
 # runner_transcripts/twilight.rtf (run380x) prints it at T12/20/25/28/34.
 # Only run400's loader capitalises a "#" Name (491EF3); run380 appends it raw
-# (449463).  Still open: T48 `cook cheese` ("You can't do that yet." in the
-# Runner) and the 485/500 score it leads to.
-twilight_solution.txt|twilight.taf|Your score is 500 out of a maximum of 500
+# (449463).
+# Re-blessed 2026-09-15, 500 -> 485: task 59 `cook *cheese*` restricts Obj2 =
+# 57, the STATIC stove, to be inside container 7.  run380 indexes Obj2 - 1 raw
+# (tasks() 44CA87), a static is never inside anything, and twilight.rtf T48
+# answers "You can't do that yet." after `put cheese in stove`, so its 15
+# points are unreachable (T113 "Your score is 485").  Scarier's dynamic-index
+# conversion had moved the test onto the cheese; parse_fixup_v380_objstate_restr
+# now makes a static Obj2 always fail.
+twilight_solution.txt|twilight.taf|Your score is 485 out of a maximum of 500
 # Measured 2026-09-05 in run380 (`Adven_1_haunted.rtf`, 116 commands, the
 # winning `open gate` last): 115/115 echoed, 0 differences.  Its two events
 # are RNG-timed but have no room list, so nothing they do is visible.

@@ -516,7 +516,8 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     where Scarier capitalised it (T12-34). **Ported 2026-09-15** (see the
     index).
   - T48 `cook cheese`: "You can't do that yet" against the task. The T113
-    score of 485 against 500 follows.
+    score of 485 against 500 follows. **Ported 2026-09-15** (see the index):
+    task 59's Obj2 names the static stove.
 
 ### Load failures
 
@@ -775,6 +776,14 @@ every Runner.
     "I don't think <NPC> would appreciate being handled." when the line has
     take/get/pick up and names a present NPC; the take stands. `[4.0]` onnafa
     T155 (`lib_take_npc_overwrite_400`, 2026-09-15)
+  - A 3.7/3.8 task's Obj2 location restriction reads Obj2 - 1 as a raw index
+    into the whole object table (run380 tasks() 44CA87, run370 441867), and
+    the Runner's put stores the container's object index as parent (run380
+    446166). An Obj2 naming a static object therefore always fails, where the
+    dynamic-index conversion had moved the test onto the preceding dynamic
+    object. Only twilight's corpus task 59 (Obj2 57 = the stove) has one.
+    `[3.7/3.8]` twilight T48, 500 -> 485 (`parse_fixup_v380_objstate_restr`,
+    2026-09-15)
 - **Word rules:**
   - `take` becomes `get` before parsing. `[3.8]` great
   - `z` means wait only from 3.90. cave
