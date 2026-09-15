@@ -1,0 +1,215 @@
+name: Release
+
+# Builds a signed, notarized Spatterlight.zip on Xcode 26 (so it still runs on
+# High Sierra). master stays sandbox-free: the release branch's single
+# "Enable sandboxing, extensions, app groups, signing, hardened runtime"
+# commit is cherry-picked onto the checkout here and never committed.
+#
+# Setup: create an Environment named "release" (Settings -> Environments),
+# add yourself as a required reviewer, and give it these secrets:
+#   DEVELOPER_ID_P12_BASE64    base64 of the "Developer ID Application" cert + key
+#                              exported from Keychain Access as .p12
+#   DEVELOPER_ID_P12_PASSWORD  the .p12 export password
+#   NOTARY_KEY_P8_BASE64       base64 of an App Store Connect API key (.p8),
+#                              Users and Access -> Integrations -> Team Keys
+#   NOTARY_KEY_ID              that key's Key ID
+#   NOTARY_ISSUER_ID           the Issuer ID shown above the key list
+# e.g. base64 -i cert.p12 | gh secret set DEVELOPER_ID_P12_BASE64 --env release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or commit to build
+        required: true
+        default: master
+
+concurrency:
+  group: release-${{ inputs.ref || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Sign and notarize (Xcode 26)
+    runs-on: macos-26
+    environment: release
+    permissions:
+      contents: write
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_26.6.app/Contents/Developer
+      TEAM_ID: 6U7YY3724Y
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+          fetch-depth: 0
+
+      - name: Apply release branch signing commit
+        run: |
+          git fetch --no-tags origin release
+          if git merge-base --is-ancestor FETCH_HEAD HEAD; then
+            echo "Checkout already contains the release branch tip"
+          else
+            git log -1 --format='Applying %h %s' FETCH_HEAD
+            git -c user.name=ci -c user.email=ci@localhost cherry-pick --no-commit FETCH_HEAD
+          fi
+          plutil -extract com.apple.security.app-sandbox raw Spatterlight.entitlements | grep -qx true
+          grep -q 'ENABLE_APP_SANDBOX = YES' Spatterlight.xcodeproj/project.pbxproj
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          xcrun --sdk macosx --show-sdk-version
+
+      - name: Import Developer ID certificate
+        env:
+          DEVELOPER_ID_P12_BASE64: ${{ secrets.DEVELOPER_ID_P12_BASE64 }}
+          DEVELOPER_ID_P12_PASSWORD: ${{ secrets.DEVELOPER_ID_P12_PASSWORD }}
+        run: |
+          keychain="$RUNNER_TEMP/signing.keychain-db"
+          keychain_password="$(uuidgen)"
+          printf '%s' "$DEVELOPER_ID_P12_BASE64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security create-keychain -p "$keychain_password" "$keychain"
+          security set-keychain-settings -lut 21600 "$keychain"
+          security unlock-keychain -p "$keychain_password" "$keychain"
+          security import "$RUNNER_TEMP/cert.p12" -k "$keychain" -f pkcs12 \
+            -P "$DEVELOPER_ID_P12_PASSWORD" -T /usr/bin/codesign
+          rm "$RUNNER_TEMP/cert.p12"
+          security set-key-partition-list -S apple-tool:,apple: -k "$keychain_password" "$keychain" > /dev/null
+          security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
+          security find-identity -v -p codesigning "$keychain" |
+            grep "Developer ID Application: .*(${TEAM_ID})"
+          echo "KEYCHAIN=$keychain" >> "$GITHUB_ENV"
+
+      - name: Archive
+        run: |
+          set -o pipefail
+          xcodebuild archive \
+            -scheme Spatterlight \
+            -configuration Release \
+            -destination 'generic/platform=macOS' \
+            -archivePath "$RUNNER_TEMP/Spatterlight.xcarchive" \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Developer ID Application" \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            PROVISIONING_PROFILE_SPECIFIER= \
+            OTHER_CODE_SIGN_FLAGS="--keychain $KEYCHAIN" |
+            xcbeautify --renderer github-actions
+
+      - name: Export Developer ID app
+        run: |
+          set -o pipefail
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>developer-id</string>
+            <key>signingStyle</key><string>manual</string>
+            <key>signingCertificate</key><string>Developer ID Application</string>
+            <key>teamID</key><string>${TEAM_ID}</string>
+          </dict>
+          </plist>
+          EOF
+          xcodebuild -exportArchive \
+            -archivePath "$RUNNER_TEMP/Spatterlight.xcarchive" \
+            -exportPath "$RUNNER_TEMP/export" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" |
+            xcbeautify --renderer github-actions
+          app="$RUNNER_TEMP/export/Spatterlight.app"
+          echo "APP=$app" >> "$GITHUB_ENV"
+          echo "VERSION=$(plutil -extract CFBundleShortVersionString raw "$app/Contents/Info.plist")" >> "$GITHUB_ENV"
+
+      - name: Verify signatures, sandbox and deployment target
+        run: |
+          codesign --verify --deep --strict --verbose=2 "$APP"
+          fail=0
+          while IFS= read -r -d '' f; do
+            file -b "$f" | grep -q 'Mach-O' || continue
+            rel="${f#$APP/}"
+            info="$(codesign -dvv "$f" 2>&1)"
+            grep -q "TeamIdentifier=${TEAM_ID}" <<<"$info" || { echo "::error::$rel: not signed by ${TEAM_ID}"; fail=1; }
+            case "$rel" in
+              Contents/MacOS/*|Contents/PlugIns/*.appex/Contents/MacOS/*)
+                grep -q 'flags=.*runtime' <<<"$info" || { echo "::error::$rel: no hardened runtime"; fail=1; } ;;
+            esac
+            case "$rel" in
+              Contents/MacOS/*|Contents/Frameworks/*)
+                min="$(otool -arch x86_64 -l "$f" |
+                  awk '/LC_VERSION_MIN_MACOSX|LC_BUILD_VERSION/{c=1} c&&/^ *(version|minos) /{print $2; exit}')"
+                if [ "$(printf '%s\n10.13\n' "$min" | sort -V | tail -1)" != 10.13 ]; then
+                  echo "::error::$rel: x86_64 minimum macOS is $min, expected 10.13"; fail=1
+                fi ;;
+            esac
+          done < <(find "$APP/Contents" -type f -perm +111 -print0)
+          # plutil key paths split on dots, so escape them
+          ent() { codesign -d --entitlements - --xml "$1" 2>/dev/null |
+            plutil -extract "$(sed 's/\./\\./g' <<<"$2")" raw - 2>/dev/null; }
+          [ "$(ent "$APP" com.apple.security.app-sandbox)" = true ] ||
+            { echo "::error::Spatterlight.app is not sandboxed"; fail=1; }
+          for terp in "$APP"/Contents/MacOS/*; do
+            [ "$(basename "$terp")" = Spatterlight ] && continue
+            [ "$(ent "$terp" com.apple.security.inherit)" = true ] ||
+              { echo "::error::$(basename "$terp"): missing com.apple.security.inherit"; fail=1; }
+          done
+          exit $fail
+
+      - name: Notarize and staple
+        env:
+          NOTARY_KEY_P8_BASE64: ${{ secrets.NOTARY_KEY_P8_BASE64 }}
+          NOTARY_KEY_ID: ${{ secrets.NOTARY_KEY_ID }}
+          NOTARY_ISSUER_ID: ${{ secrets.NOTARY_ISSUER_ID }}
+        run: |
+          key="$RUNNER_TEMP/notary.p8"
+          printf '%s' "$NOTARY_KEY_P8_BASE64" | base64 --decode > "$key"
+          auth=(--key "$key" --key-id "$NOTARY_KEY_ID" --issuer "$NOTARY_ISSUER_ID")
+          zip="$RUNNER_TEMP/notarize.zip"
+          ditto -c -k --sequesterRsrc --keepParent "$APP" "$zip"
+          xcrun notarytool submit "$zip" "${auth[@]}" --wait --output-format json | tee "$RUNNER_TEMP/notary.json"
+          id="$(plutil -extract id raw "$RUNNER_TEMP/notary.json")"
+          xcrun notarytool log "$id" "${auth[@]}" "$RUNNER_TEMP/notary-log.json" || true
+          test "$(plutil -extract status raw "$RUNNER_TEMP/notary.json")" = Accepted
+          xcrun stapler staple "$APP"
+          xcrun stapler validate "$APP"
+          spctl --assess --type execute --verbose=2 "$APP"
+          mkdir -p "$RUNNER_TEMP/dist"
+          ditto -c -k --sequesterRsrc --keepParent "$APP" "$RUNNER_TEMP/dist/Spatterlight.zip"
+          ditto -c -k "$RUNNER_TEMP/Spatterlight.xcarchive/dSYMs" "$RUNNER_TEMP/dist/Spatterlight-${VERSION}-dSYMs.zip"
+
+      - name: Upload notarized app
+        uses: actions/upload-artifact@v7
+        with:
+          name: Spatterlight-${{ env.VERSION }}
+          path: ${{ runner.temp }}/dist/Spatterlight.zip
+          if-no-files-found: error
+
+      - name: Upload dSYMs and notary log
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: Spatterlight-${{ env.VERSION }}-debug
+          path: |
+            ${{ runner.temp }}/dist/*-dSYMs.zip
+            ${{ runner.temp }}/notary-log.json
+          if-no-files-found: ignore
+
+      - name: Attach to draft GitHub release
+        if: startsWith(github.ref, 'refs/tags/v') && github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="$GITHUB_REF_NAME"
+          [ "$tag" = "v$VERSION" ] || echo "::warning::Tag $tag does not match CFBundleShortVersionString $VERSION"
+          gh release view "$tag" > /dev/null 2>&1 ||
+            gh release create "$tag" --draft --verify-tag --title "Spatterlight $VERSION" --notes ""
+          gh release upload "$tag" "$RUNNER_TEMP/dist/Spatterlight.zip" --clobber
+
+      - name: Clean up keychain and key
+        if: always()
+        run: |
+          [ -n "${KEYCHAIN:-}" ] && security delete-keychain "$KEYCHAIN" || true
+          rm -f "$RUNNER_TEMP/notary.p8" "$RUNNER_TEMP/cert.p12"
