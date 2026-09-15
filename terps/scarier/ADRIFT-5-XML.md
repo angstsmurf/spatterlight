@@ -278,7 +278,8 @@ Tags are case-insensitive. Unknown tags are usually ignored (unless an ALR rewri
 
 **`<font>` attributes** (any combination):
 
-- `color="#RRGGBB"` or `color="RRGGBB"` — text colour (note: RGB _not_ OLE BGR)
+- `color=…` / `colour=…` — text colour: a named colour (below), hex (`#RRGGBB` / `RRGGBB`; RGB _not_ OLE BGR), or `default` (restore adventure output colour).
+  - Named colours: `black`, `blue`, `cyan` / `turquoise` / `aqua`, `gray`, `green`, `lime`, `magenta` / `fuchsia`, `maroon`, `navy`, `olive`, `orange`, `pink`, `purple`, `red`, `silver`, `teal`, `white`, `yellow`
 - `face="Font Name"` — typeface
 - `size="N"` — absolute point size (ADRIFT treats body default as 12pt)
 - `size="+N"` / `size="-N"` — relative to the current font size
@@ -290,6 +291,7 @@ Example: `<font face="Courier New" size=14 color="#00FFFF">mono cyan</font>`
 | Tag | Meaning |
 |-----|---------|
 | `<cls>` | Clear the main output window |
+| `<bgcolor=…>` or `<bgcolour=…>` | Set the main output window background (not a text-run highlight). Accepts the same named colours as `color=` above. Distinct from adventure-header [`BackgroundColour`](#26-colours-backgroundcolour-inputcolour-outputcolour-linkcolour), which is the default pane colour at load |
 | `<del>` | Delete the previous character of output (backspace one glyph) |
 | `<wait N>` | Pause **N** seconds (N may be fractional), then continue |
 | `<waitkey>` | Pause until the player presses a key |
