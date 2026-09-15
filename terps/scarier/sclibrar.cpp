@@ -29,6 +29,7 @@
 
 #include <assert.h>
 #include <limits.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12169,7 +12170,7 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
  * for the Battle System falls through, leaving non-battle games' behaviour for
  * these words exactly as it was.
  */
-static /*
+/*
  * lib_battle_absent_npc_400()
  *
  * The 4.0 battle parser dobattle (Proc_11_4_47F084, entered from
