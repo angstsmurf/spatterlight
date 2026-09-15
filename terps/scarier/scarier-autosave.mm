@@ -152,6 +152,10 @@ static void scarier_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:st->map_shown forKey:@"scarier_map_shown"];
     [encoder encodeInt32:st->map_at_top forKey:@"scarier_map_at_top"];
     [encoder encodeInt32:st->map_zoom forKey:@"scarier_map_zoom"];
+    [encoder encodeInt32:st->map_follow forKey:@"scarier_map_follow"];
+    [encoder encodeInt32:st->map_cx forKey:@"scarier_map_cx"];
+    [encoder encodeInt32:st->map_cy forKey:@"scarier_map_cy"];
+    [encoder encodeInt32:st->map_page forKey:@"scarier_map_page"];
     [encoder encodeInt32:st->map_colourful forKey:@"scarier_map_colourful"];
     [encoder encodeInt32:st->colour_on forKey:@"scarier_colour_on"];
     [encoder encodeInt32:st->rng_usenative forKey:@"scarier_rng_usenative"];
@@ -186,6 +190,12 @@ static void scarier_library_unarchive(TempLibrary *library, NSCoder *decoder)
     st->map_shown = [decoder decodeInt32ForKey:@"scarier_map_shown"];
     st->map_at_top = [decoder decodeInt32ForKey:@"scarier_map_at_top"];
     st->map_zoom = [decoder decodeInt32ForKey:@"scarier_map_zoom"];
+    st->map_follow =
+        [decoder containsValueForKey:@"scarier_map_follow"]
+            ? [decoder decodeInt32ForKey:@"scarier_map_follow"] : 1;
+    st->map_cx = [decoder decodeInt32ForKey:@"scarier_map_cx"];
+    st->map_cy = [decoder decodeInt32ForKey:@"scarier_map_cy"];
+    st->map_page = [decoder decodeInt32ForKey:@"scarier_map_page"];
     st->map_colourful = [decoder decodeInt32ForKey:@"scarier_map_colourful"];
     st->colour_on = [decoder decodeInt32ForKey:@"scarier_colour_on"];
     st->rng_usenative =
