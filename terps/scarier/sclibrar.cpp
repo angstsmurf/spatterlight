@@ -10812,6 +10812,24 @@ lib_cmd_take_from_nowhere_all (scr_gameref_t game)
     return FALSE;
 
   /*
+   * A bare `empty` is no take-from: get_outer's Replace wants "empty " with
+   * its space, so the line reaches the library untouched and the game's
+   * DontUnderstand answers it (onnafa "Nope. Didn't mean a thing to me that
+   * didn't.", trickortreat "Sorry. That's not a command used in this
+   * adventure." -- p_onnafa_empty, p_tot_empty, run400x 2026-09-15).
+   */
+  if (lib_is_version_400 (game))
+    {
+      const scr_char *input = run_get_dispatch_input ();
+
+      while (input && *input == ' ')
+        input++;
+      if (input && strncmp (input, "empty", 5) == 0
+          && input[5 + strspn (input + 5, " ")] == NUL)
+        return FALSE;
+    }
+
+  /*
    * Not a turn in 4.0: run400 472F31 sets the not-a-turn flag (MemVar_494281)
    * beside this refusal, so no event, walk or counter ticks -- measured on
    * escape_to_new_york turn 187 `get all from gladstone bag` (xoshiro trace
@@ -10880,6 +10898,166 @@ lib_cmd_take_from_nowhere (scr_gameref_t game)
   lib_print_object_np (game, object);
   pf_buffer_string (filter, " isn't in or on anything!\n");
   return TRUE;
+}
+
+
+static std::string
+lib_empty_composed_name (scr_gameref_t game, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_char buffer[256];
+  std::string name;
+
+  name = lib_definite_prefix (prop_get_indexed_string (bundle, "Objects",
+                                                       object, "Prefix"),
+                              buffer, sizeof (buffer));
+  name += ' ';
+  name += prop_get_indexed_string (bundle, "Objects", object, "Short");
+  return name;
+}
+
+/*
+ * lib_empty_rewrite_400()
+ *
+ * run400's get_outer (Proc_19_22_4582D8) runs on every line just ahead of
+ * the task dispatcher (generaltasks 48A46D, above 48A481), and its first act
+ * is `If c("empty") Then line = Replace(line, "empty ", "get all from ")`:
+ * the whole word ANYWHERE in the line, replaced as a binary substring, every
+ * occurrence (458073-4580A1).  A line that merely names an "empty ..."
+ * object becomes a take-from.  If it then has get/take/pick (or remove with
+ * from) and "all", the line is pre-matched in mode 1 (45810C) -- a hit
+ * leaves the REWRITTEN line for the dispatcher -- and otherwise its first
+ * " from " split goes to get_piece (473A34), which resolves the container
+ * from everything after " from " (472E03-472F19):
+ *
+ *   nothing        "I don't understand where you want to get things from."
+ *                  and the line is over, not a turn (472F25/472F31)
+ *   not a holder   "You can't take anything from <the X>." (4739CA), and
+ *                  the line is NOT claimed: get_outer restores the typed line
+ *                  (4582BC-4582D1) and the dispatcher and library answer it
+ *                  as well, joined after two spaces
+ *
+ * Measured with run400x, 2026-09-15: onnafa `give empty beer mug to perry`
+ * (runner_transcripts/onnafa.txt:626) is the refusal then task text; with the
+ * mug gone, `x empty beer mug` is the unresolved message alone
+ * (p_onnafa_empty); trickortreat's study `x empty space` is the refusal then
+ * task 162's FailMessage, and in the wrong room `climb into empty space` is
+ * the unresolved message (p_tot17a, p_tot_empty).  A line that begins with
+ * "empty" is left to the take-from rows, and a holder that IS a container
+ * or surface (a take the Runner would run), a tied noun and an " and " split
+ * are not modelled.
+ *
+ * Returns 0 when nothing happened, 1 when the line is claimed, 2 when the
+ * refusal was printed and the line runs on, 3 when the rewritten line in
+ * *task_line pre-matched a task and goes to the dispatcher instead.
+ */
+scr_int
+lib_empty_rewrite_400 (scr_gameref_t game, const scr_char *string,
+                       std::string *task_line)
+{
+  static const scr_char *const TAKE_VERBS[] = { "remove ", "pick ", "take " };
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_bool references_buffer[LIB_ALLOCATION_AVOIDANCE_SIZE];
+  scr_bool *references, is_hit;
+  std::vector<scr_int> tied;
+  std::string line, from_text;
+  const scr_char *start;
+  scr_int object, index_;
+  size_t at;
+
+  if (!lib_is_version_400 (game) || !string
+      || !lib_input_contains_word (string, "empty"))
+    return 0;
+  for (start = string; *start == ' '; start++)
+    ;
+  if (strncmp (start, "empty", 5) == 0
+      && (start[5] == ' ' || start[5] == NUL))
+    return 0;
+
+  line = string;
+  for (at = 0; (at = line.find ("empty ", at)) != std::string::npos; at += 13)
+    line.replace (at, 6, "get all from ");
+  if (line == string)
+    return 0;
+  if (!(lib_input_contains_word (line.c_str (), "get")
+        || lib_input_contains_word (line.c_str (), "take")
+        || lib_input_contains_word (line.c_str (), "pick")
+        || (lib_input_contains_word (line.c_str (), "remove")
+            && lib_input_contains_word (line.c_str (), "from")))
+      || !lib_input_contains_word (line.c_str (), "all"))
+    return 0;
+
+  references = lib_save_object_references (game, references_buffer,
+                                           LIB_ALLOCATION_AVOIDANCE_SIZE);
+  run_set_task_class_filter (1);
+  is_hit = run_does_command_match (game, line.c_str (), TRUE);
+  run_set_task_class_filter (0);
+  lib_restore_object_references (game, references);
+  if (references != references_buffer)
+    scr_free (references);
+  if (is_hit)
+    {
+      *task_line = line;
+      return 3;
+    }
+
+  for (const scr_char *verb : TAKE_VERBS)
+    {
+      for (at = 0; (at = line.find (verb, at)) != std::string::npos; at += 4)
+        line.replace (at, strlen (verb), "get ");
+    }
+  at = line.find (" from ");
+  if (at == std::string::npos || line.find (" and ") != std::string::npos)
+    return 0;
+  from_text = line.substr (at + 6);
+
+  /*
+   * A present object by exact name, then any object, then the scorer.  The
+   * name is 448710(obj,0)'s: the tensed prefix and the short name, so "space"
+   * is nobody's name in tot (objects 49 "the empty" space and 107 "the" empty
+   * space), and the wrong-room `climb into empty space` falls to the scorer's
+   * seen gate and the unresolved message (Adrift_135_p_tot_empty.txt:324).
+   */
+  object = -1;
+  for (index_ = 0; index_ < gs_object_count (game) && object < 0; index_++)
+    {
+      if (obj_indirectly_in_room (game, index_, gs_playerroom (game))
+          && scr_strcasecmp (from_text.c_str (),
+                             lib_empty_composed_name (game, index_).c_str ())
+             == 0)
+        object = index_;
+    }
+  for (index_ = 0; index_ < gs_object_count (game) && object < 0; index_++)
+    {
+      if (scr_strcasecmp (from_text.c_str (),
+                          lib_empty_composed_name (game, index_).c_str ()) == 0)
+        object = index_;
+    }
+  if (object < 0)
+    {
+      object = lib_verb_object_resolve_400_string (game, from_text.c_str (),
+                                                   &tied, TRUE);
+      if (object == -1)
+        return 0;
+    }
+
+  if (object < 0)
+    {
+      game->is_admin = TRUE;
+      lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
+      return 1;
+    }
+  if (obj_is_container (game, object) || obj_is_surface (game, object))
+    return 0;
+
+  lib_print_response_object (game,
+                             "You can't take anything from ",
+                             "I can't take anything from ",
+                             "%player% can't take anything from ",
+                             object, ".\n");
+  pf_note_trailing_auto_break (filter);
+  pf_buffer_join_pending (filter);
+  return 2;
 }
 
 

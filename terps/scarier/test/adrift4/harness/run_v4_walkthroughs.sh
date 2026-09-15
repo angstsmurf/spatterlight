@@ -8518,6 +8518,10 @@ alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # would appreciate being handled." with Red Harry (alias Harry) present -- the
 # run400 characters() take arm (47F70B) overwrites the take line, but the key
 # is still taken (runner_transcripts/onnafa.txt:1622).
+# Re-blessed 2026-09-15: `give empty beer mug to perry` prints "You can't take
+# anything from the empty beer mug." ahead of Perry's trade text. run400
+# get_outer (458073) rewrites "empty " to "get all from " on every line, and
+# the take-from refuses the non-container mug (runner_transcripts/onnafa.txt:626).
 onnafa_solution.txt|ONNAFA.TAF|your score turned out at 82|SCR_SKIP_WAITKEY=1
 # Full win, 30/30 (confirmed max via exhaustive audit of every ACT type=4
 # scoring task in the SCR_DUMP_TASKS structural dump). Collects the starting

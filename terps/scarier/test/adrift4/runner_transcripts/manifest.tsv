@@ -235,7 +235,7 @@ neighbours	neighbours.txt	driven:Adrift_435_neighbours_rt.txt	4.00	run400x.exe	1
 newton	newton.txt	driven:Adrift_360_newton_rt.txt	4.00	run400x.exe	1234	1			yes	identical on every turn.
 ohhuman	ohhuman.txt	driven:Adrift_395_ohhuman_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 oldchurch	oldchurch.txt	driven:Adrift_466_oldchurch_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from the Runner's keypress prompt.
-onnafa	onnafa.txt	driven:Adrift_500_onnafa_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+onnafa	onnafa.txt	driven:Adrift_500_onnafa_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 orient_express	orient_express.txt	driven:Adrift_169_orient_express_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 outline	outline.txt	driven:Adrift_376_outline_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from the Runner's keypress prompt.
 overtheedge	overtheedge.txt	harvested-xoshiro:Adrift_143_overtheedge_x.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

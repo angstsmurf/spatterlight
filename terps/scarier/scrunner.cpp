@@ -4200,8 +4200,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   std::vector<std::string> put_clauses;
   scr_bool repeat_found, repeat_pending, inv_listed;
   const scr_char *task_string;
-  std::string fragment;
-  scr_int prior_npc;
+  std::string fragment, empty_line;
+  scr_int prior_npc, empty_result;
 
   /*
    * Adrift command matching is just weird, perhaps broken.  In theory, a
@@ -4508,6 +4508,21 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       && run_unnamed_put_fragment (string, fragment))
     task_string = fragment.c_str ();
 
+  /*
+   * get_outer's "empty " rewrite sits between put_drop_list and the
+   * dispatcher; see lib_empty_rewrite_400().  A refusal leaves its join
+   * pending for whatever answers the typed line next.
+   */
+  empty_result = 0;
+  if (!status && !refused && !put_first && !repeat_pending)
+    {
+      empty_result = lib_empty_rewrite_400 (game, string, &empty_line);
+      if (empty_result == 1)
+        status = TRUE;
+      else if (empty_result == 3)
+        task_string = empty_line.c_str ();
+    }
+
   const size_t task_mark = pf_buffer_length (filter);
   const scr_bool claimed_before_tasks = status;
   if (!status && !refused)
@@ -4667,6 +4682,9 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   if (status && !game->is_admin && run_any_task_ran_this_command ()
       && lib_npc_400_line_names_namesakes (game, string))
     game->is_admin = TRUE;
+
+  if (empty_result == 2)
+    pf_clear_join_pending (filter);
 
   run_dispatch_input = NULL;
   run_tasks_ran_this_command.clear ();

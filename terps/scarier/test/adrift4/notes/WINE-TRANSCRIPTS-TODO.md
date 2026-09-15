@@ -492,15 +492,21 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     event, whose StartText the dispatcher's buffer test counts. **Ported
     2026-09-14** (see the index): baroo now matches on every turn.
   - onnafa T68 `give empty beer mug to perry`: the Runner adds "You can't
-    take anything from the empty beer mug." ahead of the task text. Rule
-    found, not ported: get_outer (4582D8) runs on every line just ahead of
-    the dispatcher (48A46D) and, when "empty" is a whole word ANYWHERE,
-    Replaces "empty " with "get all from ". The line then has `get` and
-    `from`, so the take-from branch refuses the non-container mug and returns
-    FALSE, and the task still runs. trickortreat's `climb into empty space`
-    (from-part names nothing) shows no line, so the unresolved branch's
-    "I don't understand where you want to get things from." must be
-    suppressed somehow. Probe that before porting.
+    take anything from the empty beer mug." ahead of the task text.
+    get_outer (4582D8) runs on every line just ahead of the dispatcher
+    (48A46D). When "empty" is a whole word ANYWHERE, it Replaces "empty "
+    with "get all from ". The line then has `get` and `from`. If a take-family
+    task pre-matches the rewritten line (453C50 mode 1), the dispatcher sees
+    that line. Otherwise get_piece resolves the from-part in this order:
+    exact 448710(obj,0) name ("the empty space"), present first; then the
+    seen-gated scorer. Unresolved prints "I don't understand where you want
+    to get things from." and is not a turn. A non-container prints the
+    refusal and returns FALSE, so the task still runs. Wine probes
+    (Adrift_135_p_tot_empty, tot_room17_a/b/c, onnafa_empty): Study
+    `x empty space` refuses and then shows task 162's fail text. The
+    wrong-room `climb into empty space` gets the unresolved message. A bare
+    `empty` is DontUnderstand. **Ported 2026-09-15** (see the index): onnafa
+    now matches apart from whitespace, and trickortreat is still identical.
   - greekschool T27/41/91/100/126/156: Scarier adds the NPC line "Paul gives
     you a look over..." on entering. The Runner never prints it. **Ported
     2026-09-15** (see the index): Paul's empty game-start WALK 1 preempts
