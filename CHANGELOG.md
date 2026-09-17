@@ -1,5 +1,42 @@
 # Change log
 
+## Unreleased
+
+### Scarier (Adrift)
+- Text set in Wingdings, Wingdings 3 or Symbol is translated to Unicode, as Webdings already was. Games that put meaning in a symbol font — the aliens' speech in *The Most Average Man in the World*, the row of droplets in *The Reluctant Resurrectee* — now read as the author meant them to instead of spilling raw letters.
+- The default map colours are now less flat, with in-between tints added to the previous two.
+
+#### Adrift 3.7 to 4
+- Adrift 3.7 and 3.8 games are now played by their own runners' rules rather than 3.9's: the earlier wording for taking, putting, opening and refusing, PUT IN and PUT ON as a single handler, container listings, the disambiguation prompt, the refusals for things that are not here, and the descriptions and restrictions those versions evaluate differently.
+- Random numbers are drawn from a stream compatible with the original runners, so games that turn on chance — and the games whose walkthroughs depend on it — play out as they do there.
+- More of the battle system, settled against the 3.9 and 4.0 runners: a blow strikes every character the line names, "Who do you want to attack?" and "What do you want to attack X with?" carry on into the next line, THROW is a battle verb, stamina recovery can revive a fallen character, and the narration follows the game's chosen perspective.
+- The meta-commands are the runner's own. PAST, BYE, END and ENDGAME are understood, declining the QUIT confirmation answers as the original does, and a dozen invented commands — among them STATS, HINTS, BRIEF, VERBOSE and NOTIFY — no longer quietly take a line away from the game's own tasks.
+- UNDO prints the output of the turn it restores, in the wording each runner version uses.
+- Autosave now keeps the whole session: what AGAIN would repeat, the command history, the pronouns, a pending "Which one?" question, and the verbose and score-notification settings.
+- Another long round of parser and world-model work measured command by command against all four runners: which object a noun resolves to and how ties are broken, the "Which one?" prompt itself, the precedence of PUT and TAKE and their auto-supplied "from", capacity limits, what counts as having been seen, ALR and synonym rewriting, wildcard task matching, and the rule that one typed line runs at most one game task.
+- Timed events and character walks follow the runners more closely again: walk steps land on the exact tick, a stopped walk still stamps the walker, events recheck the restrictions of a task that has already run, and the turn an event starts is itself a tick.
+- Text-heavy and event-heavy games are considerably faster. The ALR table is indexed instead of scanned in full for every line, undo snapshots are no longer compressed, and the map's unchanging data is read once per game rather than at every prompt.
+- All of the above is held in place by a regression suite that replays a walkthrough for more than 400 Adrift games, and by a library of transcripts recorded from the original 3.7, 3.8, 3.9 and 4.0 runners for each of them.
+
+#### Adrift 5
+- Turning the music off at a game's opening question — the name prompt in *Grandpa's Ranch*, for instance — now keeps it off once play begins.
+- Identical `<# #>` expression tags inside one block of text all show the first one's value, as the original runner's replace-all does.
+
+### Geas (Quest)
+
+#### Quest 5
+- Fixes a crash in *Whitefield Academy of Witchcraft*, and with it the order in which `on ready` callbacks run.
+- A "Continue..." link appears while the game is waiting for a keypress.
+- A turnscript can no longer fire between a command's question and its answer, matching the original's turn boundary.
+- Rooms that the map library can never reach on its own — one entered by a script rather than through an exit, or through an exit revealed after the player was already next to it — are charted anyway, so *The Acreage* draws its map instead of printing errors.
+
+### General
+- Spatterlight now answers `glk_style_measure` for size, weight, obliqueness and proportional spacing, so an interpreter that asks about the current theme's fonts gets a real answer.
+- Fixes a crash when loading a sound or image whose resource number is very large, which killed some Adrift games at their first prompt.
+- The Adrift interpreter can take its game data from an already-open file, for ports that have no file system of their own.
+- Builds again on Xcode 27 and with GCC 9, and releases are now built, signed and notarized by an automated workflow.
+- Thanks to Dan Fabulich (@dfabulich) for the Quest 5 fixes, the `glk_style_measure` support, the map colour scheme and the build fixes.
+
 ## Release 1.5.4
 
 ### Bocfel (Z-code)
