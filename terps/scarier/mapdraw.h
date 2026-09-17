@@ -167,21 +167,9 @@ extern map_surface_t *map_surface_new (int w, int h);
 extern void map_surface_free (map_surface_t *s);
 
 /* The host's text style, normally the Glk buffer's style_Normal.  Black on
-   white until the host says otherwise.  How the two colours are spent on the
-   drawing depends on the scheme below. */
+   white until the host says otherwise.  The map mixes them as paper and ink:
+   shaded room cards, a filled-in player's room, and faded connectors. */
 extern void map_set_palette (unsigned int background, unsigned int text);
-
-/* MAP_SCHEME_STANDARD mixes `background` and `text` as paper and ink:
-   shaded room cards, a filled-in player's room, faded connectors.  No
-   third hue.  MAP_SCHEME_DERIVED keeps those cards but paints you-are-here
-   in amber (with orange/cyan fallbacks) the way the ADRIFT runner did.
-   Standard until the host says otherwise; the setting is the host's to
-   remember. */
-enum {
-  MAP_SCHEME_STANDARD = 0,
-  MAP_SCHEME_DERIVED = 1
-};
-extern void map_set_colour_scheme (int scheme);
 
 /* What the renderer needs to know about the run.  Keeping this a callback
    table is what lets the map be drawn from the headless harness (and diffed)

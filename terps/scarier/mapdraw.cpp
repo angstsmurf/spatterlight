@@ -49,31 +49,20 @@ const char *const map_dirs[MAP_N_DIRS] = {
    The host passes the two colours in (map_set_palette); until it does, black
    on white.  Only the badge accents are fixed in either scheme.
 
-   Two schemes are on offer, chosen by map_set_colour_scheme:
+   Paper and ink seed a small hierarchy:
 
-     MAP_SCHEME_STANDARD  paper and ink seed a small hierarchy, with no
-                          third hue:
+     canvas      = background
+     room fill   = a little ink mixed into paper
+     here fill   = the room card mixed further toward ink, so the player's
+                   room reads as the filled-in box
+     strokes     = ink
+     labels      = ink or paper, on the other side of the fill
+     links/stubs = ink faded toward paper
 
-                            canvas      = background
-                            room fill   = a little ink mixed into paper
-                            here fill   = the room card mixed further toward
-                                          ink, so the player's room reads as
-                                          the filled-in box
-                            strokes     = ink
-                            labels      = ink or paper, on the other side
-                                          of the fill
-                            links/stubs = ink faded toward paper
-
-                          Links are then drawn near-opaque, since the fading
-                          is already in the colour.
-
-     MAP_SCHEME_DERIVED   the same cards, but the player's room is mixed
-                          toward amber (ADRIFT's yellow), with orange and
-                          cyan fallbacks if amber collapses into the card,
-                          and the here-stroke picks up a little gold. */
+   Links are then drawn near-opaque, since the fading is already in the
+   colour. */
 static unsigned int map_bg = 0xFFFFFF;
 static unsigned int map_fg = 0x000000;
-static int map_scheme = MAP_SCHEME_STANDARD;
 
 /* Resolved by rebuild_derived_palette() for whichever scheme is in force. */
 static unsigned int map_room_fill = 0xFFFFFF;
@@ -92,11 +81,6 @@ static int map_palette_ready = 0;
 #define ICON_OUT       0xE06090
 #define ICON_UP        0xFEBC2E     /* the Finder window's yellow button */
 #define ICON_DOWN      0x4060D0
-#define ACCENT_AMBER   0xFFF3A0
-#define ACCENT_GOLD    0xB8860B
-#define ACCENT_ORANGE  0xFFB060
-#define ACCENT_CYAN    0x60D8E8
-
 static int
 rgb_chan (unsigned int rgb, int shift)
 {
@@ -134,32 +118,6 @@ rgb_luminance (unsigned int rgb)
        + 0.0722 * (rgb_chan (rgb, 0) / 255.0);
 }
 
-static double
-rgb_contrast (unsigned int a, unsigned int b)
-{
-  double la = rgb_luminance (a) + 0.05;
-  double lb = rgb_luminance (b) + 0.05;
-  return la > lb ? la / lb : lb / la;
-}
-
-static double
-rgb_dist (unsigned int a, unsigned int b)
-{
-  double dr = rgb_chan (a, 16) - rgb_chan (b, 16);
-  double dg = rgb_chan (a, 8) - rgb_chan (b, 8);
-  double db = rgb_chan (a, 0) - rgb_chan (b, 0);
-  return sqrt (dr * dr + dg * dg + db * db);
-}
-
-static int
-rgb_near_gray (unsigned int rgb)
-{
-  int r = rgb_chan (rgb, 16), g = rgb_chan (rgb, 8), b = rgb_chan (rgb, 0);
-  int mx = r > g ? (r > b ? r : b) : (g > b ? g : b);
-  int mn = r < g ? (r < b ? r : b) : (g < b ? g : b);
-  return (mx - mn) < 12;
-}
-
 /* Room fills are drawn at this alpha over the canvas (Map.vb ~200).  Label
    contrast must be measured against the blended on-screen colour, not the
    raw fill -- otherwise a mid amber over black picks black ink that then
@@ -185,132 +143,31 @@ paper_ink_label_on (unsigned int fill)
   return fg_l > bg_l ? map_fg : map_bg;
 }
 
-static unsigned int
-best_label_on (unsigned int fill)
-{
-  unsigned int cands[4];
-  unsigned int best = 0;
-  double best_c = -1.0;
-  double fill_l = rgb_luminance (fill);
-  /* Mid and dark fills: light ink.  Bright fills (light-theme amber): dark
-     ink.  WCAG alone prefers black on a muddy olive that still reads poorly
-     in the 8x8 map font. */
-  int want_light = fill_l < 0.60;
-  int i, pass;
-
-  cands[0] = map_fg;
-  cands[1] = map_bg;
-  cands[2] = 0x000000;
-  cands[3] = 0xFFFFFF;
-
-  for (pass = 0; pass < 2; pass++)
-    {
-      for (i = 0; i < 4; i++)
-        {
-          double cand_l = rgb_luminance (cands[i]);
-          double c;
-          if (pass == 0)
-            {
-              if (want_light && cand_l < 0.55)
-                continue;
-              if (!want_light && cand_l >= 0.55)
-                continue;
-            }
-          c = rgb_contrast (fill, cands[i]);
-          if (c > best_c)
-            {
-              best_c = c;
-              best = cands[i];
-            }
-        }
-      if (best_c > 0.0)
-        break;
-    }
-  return best;
-}
-
 static void
 rebuild_derived_palette (void)
 {
   int dark = rgb_luminance (map_bg) < 0.45;
   double room_t = dark ? 0.18 : 0.12;
-  double here_t = dark ? 0.80 : 0.70;
   double fill_a = MAP_ROOM_FILL_ALPHA / 255.0;
-  unsigned int accents[3];
-  unsigned int accent;
-  unsigned int here;
   unsigned int room_eff, here_eff;
-  int i;
 
   map_palette_ready = 1;
 
-  if (map_scheme != MAP_SCHEME_DERIVED)
-    {
-      /* Paper and ink only: rooms sit a little off the canvas; the player's
-         room is mixed further toward ink so it reads as the filled-in box.
-         Shallow here-mixes landed on a mid grey whose label then failed to
-         invert. */
-      map_room_fill = mix_rgb (map_bg, map_fg, room_t);
-      map_room_stroke = map_fg;
-      map_here_fill = mix_rgb (map_room_fill, map_fg,
-                              dark ? 0.85 : 0.90);
-      map_here_stroke = map_fg;
-      room_eff = mix_rgb (map_bg, map_room_fill, fill_a);
-      here_eff = mix_rgb (map_bg, map_here_fill, fill_a);
-      map_label = paper_ink_label_on (room_eff);
-      map_here_label = paper_ink_label_on (here_eff);
-      map_link = mix_rgb (map_bg, map_fg, dark ? 0.50 : 0.60);
-      map_stub = mix_rgb (map_bg, map_fg, dark ? 0.35 : 0.40);
-      map_link_alpha = 220;
-      map_link_alpha_far = 70;
-      return;
-    }
-
-  accents[0] = ACCENT_AMBER;
-  accents[1] = ACCENT_ORANGE;
-  accents[2] = ACCENT_CYAN;
-
+  /* Paper and ink only: rooms sit a little off the canvas; the player's
+     room is mixed further toward ink so it reads as the filled-in box.
+     Shallow here-mixes landed on a mid grey whose label then failed to
+     invert. */
   map_room_fill = mix_rgb (map_bg, map_fg, room_t);
-  /* Near-neutral cards (default black-on-white) get a touch of amber so
-     they keep the ADRIFT beige instead of flat gray.  Skip once the theme
-     already carries a hue. */
-  if (rgb_near_gray (map_room_fill))
-    map_room_fill = mix_rgb (map_room_fill, ACCENT_AMBER, 0.08);
-
   map_room_stroke = map_fg;
-
-  accent = accents[0];
-  for (i = 0; i < 3; i++)
-    {
-      here = mix_rgb (map_room_fill, accents[i], here_t);
-      if (rgb_dist (here, map_room_fill) >= 40.0)
-        {
-          accent = accents[i];
-          break;
-        }
-    }
-  map_here_fill = mix_rgb (map_room_fill, accent, here_t);
-  /* On dark paper a shallow mix left a muddy olive; keep lifting toward the
-     accent until the *on-screen* card (after MAP_ROOM_FILL_ALPHA over the
-     canvas) is a readable gold that can carry dark ink. */
-  if (dark)
-    {
-      for (i = 0;
-           i < 6
-           && rgb_luminance (mix_rgb (map_bg, map_here_fill, fill_a)) < 0.65;
-           i++)
-        map_here_fill = mix_rgb (map_here_fill, accent, 0.40);
-    }
-  map_here_stroke = mix_rgb (map_fg, ACCENT_GOLD, 0.50);
-
+  map_here_fill = mix_rgb (map_room_fill, map_fg,
+                          dark ? 0.85 : 0.90);
+  map_here_stroke = map_fg;
   room_eff = mix_rgb (map_bg, map_room_fill, fill_a);
   here_eff = mix_rgb (map_bg, map_here_fill, fill_a);
-  map_label = best_label_on (room_eff);
-  map_here_label = best_label_on (here_eff);
-
+  map_label = paper_ink_label_on (room_eff);
+  map_here_label = paper_ink_label_on (here_eff);
   map_link = mix_rgb (map_bg, map_fg, dark ? 0.50 : 0.60);
   map_stub = mix_rgb (map_bg, map_fg, dark ? 0.35 : 0.40);
-  /* The fading is in the colour now, so draw the line itself near-opaque. */
   map_link_alpha = 220;
   map_link_alpha_far = 70;
 }
@@ -327,14 +184,6 @@ map_set_palette (unsigned int background, unsigned int text)
 {
   map_bg = background & 0xFFFFFF;
   map_fg = text & 0xFFFFFF;
-  rebuild_derived_palette ();
-}
-
-void
-map_set_colour_scheme (int scheme)
-{
-  map_scheme = (scheme == MAP_SCHEME_DERIVED) ? MAP_SCHEME_DERIVED
-                                              : MAP_SCHEME_STANDARD;
   rebuild_derived_palette ();
 }
 
