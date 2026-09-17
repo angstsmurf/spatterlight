@@ -1,6 +1,6 @@
 feed        72 commands
 runner      72 turns echoed
-scarier     74 turns, feed[0] is scarier turn 2
+scarier     75 turns, feed[0] is scarier turn 2
 
 RULE 2 -- every feed command was echoed.
 

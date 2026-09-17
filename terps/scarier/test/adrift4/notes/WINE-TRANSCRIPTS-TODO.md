@@ -49,6 +49,16 @@ index below lead to the code.
   README explains how. All 105 rows that differed at capture are classified
   under "Whole-corpus capture triage" in Open leads. After the ports, the
   manifest stands at 338 identical and 89 differing (2026-09-15).
+  **2026-09-17:** the engine now buffers the Runner's
+  `[Press any key to end]` under the headless harness, cursed and hub were
+  re-driven off stale captures, and every 3.7/3.8 row had the last command
+  its `.rtf` could not hold grafted back from the Runner's own window.
+  vendetta's two real empty turns at "* Press Enter *" now reach scarier, and
+  suzypowers got the ending block its live capture was killed before writing.
+  The manifest stands at 342 identical on every turn, 28 identical apart from
+  whitespace and 57 with a compare report; the only rows still losing a feed
+  command are 3.9/4.0, where the loss is the keypress wait and no text is
+  missing.
 - **Which transcript to cite.** For a wired row, compare against and cite
   the renamed copy `runner_transcripts/<tag>.txt` (`.rtf` for 3.7/3.8), not
   the `Adrift_<N>_<tag>` file a drive left in the prefix. The manifest's
@@ -136,11 +146,20 @@ index below lead to the code.
 - **3.7/3.8 have no live transcript.**
   - Save Transcript writes an `.rtf`, and par.sh names it
     `Adrift_<N>_<tag>.rtf`.
-  - The last command is missing from it.
+  - The last command is missing from it. Graft it back from the window --
+    see `DUMP_SCROLLBACK` below.
   - A death or end-game modal wipes the scrollback.
   - `£` comes out as `Â£`.
-- **`DUMP_SCROLLBACK=<file>`** saves the RichTextBox's own text. Use it to
-  prove a line break is a transcript artefact.
+- **`DUMP_SCROLLBACK=<file>`** saves the RichTextBox's own text
+  (`WM_GETTEXT`), which is the window itself, exactly, and needs no
+  screenshot or OCR. Use it to prove a line break is a transcript artefact,
+  and to recover what a transcript file could not hold:
+  `dump_par.sh` drives a whole job file that way and
+  `harness/graft_scrollback_tail.py` appends the difference to the archived
+  transcript. It closed all 19 3.7/3.8 rows on 2026-09-17 and recovered
+  nothing on 3.9/4.0, whose transcript is written live -- there the
+  end-of-feed losses are the keypress wait eating the command, with no text
+  behind them. `runner_transcripts/README.md`, "Grafted tails".
 - **Kill Wine with `pkill -9 -f wine; pkill -f wineserver`.** fast.sh and
   par.sh also reap the orphaned `winedevice.exe` processes. The prefix is
   shared mutable state: never drive it from two sessions at once.
@@ -183,7 +202,20 @@ index below lead to the code.
 ### 5. Classify each differing turn
 
 1. **Capture artefact, name it and ignore it:**
-   - the Runner's `[Press any key to end]` tail;
+   - the Runner's `[Press any key to end]` tail -- **only where Scarier has
+     no tail of its own.** Since 2026-09-17 the engine buffers the same
+     prompt (`task_print_end_keyprompt()`, which the headless harness opts
+     into), so an ending turn normally matches outright; what is left is the
+     "just stop" ending, which run400 leaves promptless (45E11F), and older
+     captures. Blank-line counts around it are never a difference: the
+     comparison collapses whitespace, and the goldens run through `cat -s`.
+     Measured 2026-09-17 over the 223 `runner_transcripts/` rows that reach
+     an ending both sides share: 214 match the Runner's blank gap before the
+     prompt exactly, 9 are one blank short (the_amulet, frog, hiker, takeone,
+     apokalupsis, Glum_Fiddle, hauntedhouse, perspectives, sexismental) --
+     every one an ending whose text carries its own trailing `<br>`, which
+     the print filter collapses against the block terminator it adds, where
+     the Runner keeps both;
    - a `<centre>` join (the tag converter drops alignment breaks);
    - a `<waitkey>` line join;
    - a `<waitkey><cls>` butt-join;
@@ -405,7 +437,11 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 - cursed from T137: the wet-fur event still blocks movement in the Runner
   ("dries slowly" vs "dries out completely"). **Ported 2026-09-15** (see the
   index): event timing, not a roll. cursed is now identical on every turn;
-  the route waits two turns before `nw`.
+  the route waits two turns before `nw`. **Re-driven 2026-09-17:** the
+  archived capture was the one from before those two waits, so a recompare
+  read them as two commands the Runner never echoed and everything past
+  T137 as a difference. The fresh capture is identical again, marker and
+  all.
 
 **Engine, 4.0:**
 
@@ -421,8 +457,11 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     alias the line holds, even if a longer alias names one of them
     (lib_co_400_raise_for_contained_aliases). open and close refuse a
     whole-line score tie with "I can't open that." (T82). The walkthrough
-    now uses the Runner-safe `x right lower cupboard`. The recompare's one
-    remaining diff is the feed's trailing blank line.
+    now uses the Runner-safe `x right lower cupboard`. **Re-driven
+    2026-09-17:** the archived capture still answered the old, pre-port
+    route, which cost four feed commands to a RULE 2 desync; the fresh
+    capture echoes all 112 and reaches the win marker. What is left is one
+    differing turn, T79, under "Task versus library" below.
   - wilkins T110-117: `drop tincture of <name>` gets "It is not clear which
     tincture..." or a `Which tincture.` prompt, and T117 drops a different
     object.
@@ -473,6 +512,12 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     inside an object's name. **Ported 2026-09-15** (see the index): the key
     is still taken, only the answer is overwritten.
 - **Task versus library:**
+  - hub T79 `put soup in pan`: the Runner answers with the library's "I put
+    that inside the saucepan.", Scarier runs the task ("The soup slides easy
+    out of the can and into the saucepan. I throw the can into the bin.").
+    Found 2026-09-17, when the row was re-driven and the RULE 2 desync that
+    had been hiding everything past T70 went away. Not classified yet;
+    compare with the put-versus-task rules already in the index.
   - crookedestate T41 `peel wallpaper`: the Runner runs the task, Scarier
     says "don't understand what you want me to do with the walls". Also at
     T44 `save`, the Runner adds an event line. **Ported 2026-09-15** (see the
@@ -535,6 +580,19 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     4.0 absent-object clause push has. **Ported 2026-09-15** (see the index):
     grumble now differs only at T274 (the `[Y/N]` quit prompt).
 - **Extra or missing lines:**
+  - haunt (3.80) T84 `down`, the winning move: both sides print the same
+    event line, "You hear the chiming of the grandfather clock." The Runner
+    puts it LAST, after the whole ending block and after
+    `[Press any key to end]`; Scarier puts it in the turn, right after
+    "Horace lurches in from above." and ahead of the task's ending text.
+    Found 2026-09-17, the moment the row's last command was grafted back on
+    (`runner_transcripts/README.md`, "Grafted tails") -- until then that
+    whole turn was the one the .rtf never held. **Suspect the capture, not
+    the engine, first:** text after the keypress prompt is what a Runner
+    timer tick during the ending's wait looks like, and light_up's dump
+    ends with two event paragraphs past its own prompt the same way. A
+    probe wants a 3.80 game with a short-period event and a task that ends
+    the game on a known turn.
   - baroo T107 `close machine`: Scarier added "The machine is now closed.".
     TASK 113 is silent, but its execute-task action starts the convertor
     event, whose StartText the dispatcher's buffer test counts. **Ported
@@ -776,7 +834,8 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   `runner_transcripts/motion.txt` echoes all 351 feed commands. Apart from
   whitespace, it differs at T257-258 and T350 (the drive minigame's map).
   Those turns are still unread.
-- **`sophie`** is measured for its first 50 commands only.
+- **`sophie`** (sa.taf) is measured in full. `runner_transcripts/sophie.txt`
+  (2026-09-14) echoes all 256 feed commands and is identical on every turn.
 - **Permanently unmeasurable:**
   - `dreamquest`: run400 cannot load a task with an empty Command vector.
   - `to_hell_and_beyond` assisted rows: Scarier-only by design.
@@ -788,7 +847,9 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     epilogue cut differ (429 = 429).
   - `plague` (run400x, seed 1234): identical on every turn (5840 = 5840).
   - `great.taf` (run380x, seed 2): clean through the car chase, lacking
-    only the final `hide` the .rtf never holds (6 = 6).
+    only the final `hide` the .rtf never holds (6 = 6). That `hide` was
+    grafted back from the window on 2026-09-17 and the row is identical on
+    every turn.
   - `mould` (run400x, seed 1): no adaptive driver needed. Only the `hint`
     deviation and pause joins differ (58 = 58). The Runner's pauses eat no
     line, so the throwaway `1` enters the imp fight on both sides and

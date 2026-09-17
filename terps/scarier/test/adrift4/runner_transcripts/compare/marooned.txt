@@ -1,11 +1,8 @@
 feed        119 commands
-runner      118 turns echoed
+runner      119 turns echoed
 scarier     119 turns, feed[0] is scarier turn 0
 
-RULE 2 -- 1 command(s) the Runner never echoed.  Everything
-after the first of them is out of step and is NOT an engine
-difference until the feed is fixed and the row re-driven:
-    feed[118]  wait
+RULE 2 -- every feed command was echoed.
 
 turn 53  throw map
   run400   You throw it and it lands in the ocean and disappears.

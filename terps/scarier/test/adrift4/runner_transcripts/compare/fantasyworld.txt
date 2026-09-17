@@ -24,9 +24,5 @@ turn 296  e
   run400   You move east. Base of Mountain You are standing at the foot of the mountains and in the valley of Kings. To the north is the treacherous moutnain pass and to the south, the trail continues toward Harmon's Glade. The ancient forest seems to encroach right up to the mountain and the trail on either side of it. You have not walked in that ancient forest but stories say that if you lose your way, you can stumble about there forever. The King is here and he is surrounded by his Royal guards. You can't see what he is doing as he seems to be lounging about reading the book you acquired for him and fingering Melvin's medallion. Royal Knight is here. Demon from the west.
   scarier  You move east. Base of Mountain You are standing at the foot of the mountains and in the valley of Kings. To the north is the treacherous moutnain pass and to the south, the trail continues toward Harmon's Glade. The ancient forest seems to encroach right up to the mountain and the trail on either side of it. You have not walked in that ancient forest but stories say that if you lose your way, you can stumble about there forever. The King is here and he is surrounded by his Royal guards. You can't see what he is doing as he seems to be lounging about reading the book you acquired for him and fingering Melvin's medallion. Demon from the west.
 
-turn 321  ask dragon about quest -- the Runner appended [Press any key to end], which is the host's own keypress prompt (ALR-rewritten in some games), not game text.  The turn is identical either side of it.
-
-1 turn(s) differed only by the Runner's trailing keypress prompt.
-
 (the openings differ too -- banner, graphics notice or the
  Runner's own startup lines; usually not an engine difference)

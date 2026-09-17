@@ -1,5 +1,5 @@
-feed        523 commands
-runner      518 turns echoed
+feed        524 commands
+runner      519 turns echoed
 scarier     523 turns, feed[0] is scarier turn 0
 
 RULE 2 -- every feed command was echoed.

@@ -183,7 +183,13 @@ def scarier_run(taf, feed, encoding, env_extra, popup_answers, markers=False):
     # text box and the engine reads single bytes.  Encoding stdin as UTF-8
     # turned `é` into two bytes no .taf word matches, so largo_winch and
     # enquete_a_hauts_risques differed on every turn (2026-09-14).
-    stdin = "\n".join(list(popup_answers) + list(feed)).encode("latin-1",
+    #
+    # Terminate the LAST line too.  A feed that ends in a real empty turn
+    # (vendetta's "* Press Enter *", 2026-09-17) otherwise handed scarier an
+    # unterminated "" -- EOF, not a blank line -- so its final prompt starved
+    # and the turn the Runner did play came back empty.
+    stdin = "".join(line + "\n" for line
+                    in list(popup_answers) + list(feed)).encode("latin-1",
                                                                 "replace")
     done = subprocess.run([scare, os.path.expanduser(taf)], input=stdin,
                           stdout=subprocess.PIPE,
@@ -254,7 +260,35 @@ def pause_counts(lines, popups):
     return counts[popups:]
 
 
-def read_feed(path, taf=None, env_extra=(), popup_answers=(), skip_wired=True):
+def trailing_empty_turns(runner_lines):
+    """Bare prompts the Runner echoed after the last command it was given.
+
+    A blank at the very END of the command file is ambiguous in a way the ones
+    before it are not: it is either the key that answers the Runner's own
+    "[Press any key to end]", which is not a turn, or a REAL empty turn the
+    game asked for -- Vendetta prints "* Press Enter *" mid-ending and takes
+    two of them before it reaches The End (2026-09-17).  The pause classifier
+    cannot tell those apart, because under SCR_SKIP_WAITKEY scarier pauses at
+    neither.
+
+    The Runner can: it echoes "> " for a turn and nothing at all for a key.
+    So count the run of EMPTY echoes at the end of its transcript.  A row
+    whose Runner never echoes (showgt off, or a 3.7/3.8 .rtf) scores 0 and
+    keeps the old reading, which is the safe one -- it can only drop a blank,
+    never invent a turn the Runner did not take.
+    """
+    echoes = [line.strip()[1:].strip() for line in runner_lines
+              if line.strip().startswith(">")]
+    count = 0
+    for echo in reversed(echoes):
+        if echo:
+            break
+        count += 1
+    return count
+
+
+def read_feed(path, taf=None, env_extra=(), popup_answers=(), skip_wired=True,
+              empty_tail=0):
     """The commands as they were driven in: what the Runner treated as a turn.
 
     A blank line in the command file is a bare Return, and what that IS depends
@@ -281,7 +315,7 @@ def read_feed(path, taf=None, env_extra=(), popup_answers=(), skip_wired=True):
     lines, encoding = cmdfile_lines(path)
     if taf is None:
         return [l.strip() for l in lines if l.strip()], encoding
-    feed = None
+    feed, popped = None, 0
     candidate = [l.strip() for l in lines]
     while candidate and not candidate[-1]:
         candidate.pop()
@@ -306,9 +340,12 @@ def read_feed(path, taf=None, env_extra=(), popup_answers=(), skip_wired=True):
                 else:
                     break
             prompt += 1
+        popped = 0
         while candidate and not candidate[-1]:
             candidate.pop()
-    return feed, encoding
+            popped += 1
+    # ...and put back the ones trailing_empty_turns() saw the Runner take.
+    return feed + [""] * min(popped, empty_tail), encoding
 
 
 def raw_lines_all_echoed(feed_path, runner_lines):
@@ -334,16 +371,18 @@ def raw_lines_all_echoed(feed_path, runner_lines):
         a.lower() == b.lower() for a, b in zip(raw, echoes))
 
 
-# The Runner's own end-of-session prompt.  It is not game text: the host
-# appends "[Press any key to end]" when it is about to block on a keypress
-# (Form1.endmessage, and the `endgame` branch at run400 loc_48AAC9 quoted in
-# sclibrar.cpp lib_cmd_endgame), and the headless harness has no keypress to
-# block on -- so it can only ever read as a divergence on the very turn a
-# replay wins.  It also passes through the game's ALR table on its way to the
-# transcript, so it is not always in English: Vardock Bates rewrites it to
-# "[Pulsa cualquier tecla para terminar]".  Hence the shape, not the wording,
-# is what is recognised -- a trailing [...] fragment, and only when removing it
-# makes the whole turn match, so nothing else can hide behind it.
+# The Runner's own end-of-session prompt.  The engine now buffers it too --
+# task_print_end_keyprompt(), which the headless harness opts into with
+# scr_set_end_keyprompt() -- so an ending turn usually matches outright and
+# this never fires.  It stays for the rows where it still can: a transcript
+# captured before an ending Scarier reaches some other way, or a replay that
+# ends through a path the Runner does not tail (the "just stop" ending, which
+# run400 leaves promptless at 45E11F).  The prompt passes through the game's
+# ALR table on its way to the transcript, so it is not always in English:
+# Vardock Bates rewrites it to "[Pulsa cualquier tecla para terminar]".  Hence
+# the shape, not the wording, is what is recognised -- a trailing [...]
+# fragment, and only when removing it makes the whole turn match, so nothing
+# else can hide behind it.
 RUNNER_TRAILING_BRACKET = re.compile(r"\s*(\[[^\[\]]*\])\s*$")
 
 
@@ -541,9 +580,11 @@ def main():
     # that whenever it has a .taf; with --scarier and no .taf there is nothing
     # to measure with, and the old assumption -- every blank answers a pause --
     # is all that is left.
-    feed, encoding = read_feed(args.feed, args.taf, args.env, args.popup)
+    runner_lines = read_lines(args.runner)
+    feed, encoding = read_feed(args.feed, args.taf, args.env, args.popup,
+                               empty_tail=trailing_empty_turns(runner_lines))
     runner_intro, runner_turns, losses = split_runner (
-        read_lines(args.runner), feed, args.lookahead, args.start)
+        runner_lines, feed, args.lookahead, args.start)
 
     if args.scarier:
         scarier_lines = read_lines(args.scarier)
@@ -573,7 +614,7 @@ def main():
           % (len(scarier_turns), args.offset))
     print()
 
-    if losses and raw_lines_all_echoed(args.feed, read_lines(args.runner)):
+    if losses and raw_lines_all_echoed(args.feed, runner_lines):
         # Every line of the command file, blanks included, came back as an
         # echo in order -- nothing was lost.  What differs is which of those
         # blanks was a pause answer: read_feed classifies them from SCARIER's

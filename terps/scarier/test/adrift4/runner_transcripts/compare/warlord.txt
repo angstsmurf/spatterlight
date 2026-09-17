@@ -1,6 +1,6 @@
 feed        397 commands
 runner      290 turns echoed
-scarier     397 turns, feed[0] is scarier turn 0
+scarier     398 turns, feed[0] is scarier turn 0
 
 RULE 2 -- 66 command(s) the Runner never echoed.  Everything
 after the first of them is out of step and is NOT an engine

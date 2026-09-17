@@ -8,6 +8,9 @@ popup answers and file version.
     python3 harness/runner_transcripts.py jobs [out] # xoshiro_par.sh job file for the rest
     python3 harness/runner_transcripts.py collect   # compare fresh drives, copy, manifest
     python3 harness/runner_transcripts.py recompare [tag...]  # re-compare stored transcripts
+    python3 harness/runner_transcripts.py dumpjobs [tag...]   # dump_par.sh job file
+                                                    # (default: every row that
+                                                    # still lost a command)
 
 Per row:
   * Runner  -- by .taf header bytes 8-10: 4.00 run400x, 3.90 run390x,
@@ -262,21 +265,43 @@ def harvest():
     print("%d/%d rows in %s" % (len(entries), len(planned), OUT))
 
 
+def job_line(p, suffix):
+    copy = os.path.join(PFX, "w_%s.taf" % p["tag"])
+    source = os.path.join(ROOT, "games", p["taf"])
+    if not os.path.exists(copy):
+        shutil.copy2(source, copy)
+    elif not filecmp.cmp(copy, source, shallow=False):
+        sys.exit("%s differs from games/%s; refusing to overwrite" % (copy, p["taf"]))
+    return "|".join([p["tag"] + suffix, os.path.basename(copy),
+                     "%s/%s.txt" % (FEEDS_REL, p["tag"]), p["exe"], p["seed"],
+                     p["pre"], p["popups"]])
+
+
 def jobs(out):
     entries = read_manifest()
     lines = []
     for p in read_plan():
         if p["tag"] in entries and entries[p["tag"]]["verdict"].startswith("identical"):
             continue
-        copy = os.path.join(PFX, "w_%s.taf" % p["tag"])
-        source = os.path.join(ROOT, "games", p["taf"])
-        if not os.path.exists(copy):
-            shutil.copy2(source, copy)
-        elif not filecmp.cmp(copy, source, shallow=False):
-            sys.exit("%s differs from games/%s; refusing to overwrite" % (copy, p["taf"]))
-        lines.append("|".join([p["tag"] + JOB_SUFFIX, os.path.basename(copy),
-                               "%s/%s.txt" % (FEEDS_REL, p["tag"]), p["exe"], p["seed"],
-                               p["pre"], p["popups"]]))
+        lines.append(job_line(p, JOB_SUFFIX))
+    with open(out, "w", encoding="utf-8") as fh:
+        fh.write("\n".join(lines) + "\n")
+    print("%d job(s) -> %s" % (len(lines), out))
+
+
+def dumpjobs(tags, out):
+    """A job file for dump_par.sh, which keeps the Runner's WINDOW, not its file.
+
+    No JOB_SUFFIX: dump_par.sh names each dump after the job, and
+    graft_scrollback_tail.py looks one up by the manifest tag.  Given no tags,
+    every row that still lost a feed command -- those are the only ones whose
+    transcript can be missing anything.
+    """
+    if not tags:
+        entries = read_manifest()
+        tags = [t for t in sorted(entries)
+                if "lost command" in entries[t]["verdict"]]
+    lines = [job_line(p, "") for p in read_plan() if p["tag"] in set(tags)]
     with open(out, "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines) + "\n")
     print("%d job(s) -> %s" % (len(lines), out))
@@ -368,6 +393,10 @@ if __name__ == "__main__":
         harvest()
     elif command == "jobs":
         jobs(sys.argv[2] if len(sys.argv) > 2 else os.path.join(WINE, "xoshiro_jobs_runner_transcripts.txt"))
+    elif command == "dumpjobs":
+        dumpjobs([a for a in sys.argv[2:] if not a.endswith(".txt")],
+                 next((a for a in sys.argv[2:] if a.endswith(".txt")),
+                      os.path.join(WINE, "dump_jobs.txt")))
     elif command == "collect":
         collect()
     elif command == "recompare":

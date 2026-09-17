@@ -4,9 +4,9 @@ scarier     112 turns, feed[0] is scarier turn 0
 
 RULE 2 -- every feed command was echoed.
 
-turn 111  water plants
-  run400   I carefully water the plants on the window sill. > I don't understand you. > I don't understand you. > I don't understand you.
-  scarier  I carefully water the plants on the window sill.
+turn 79  put soup in pan
+  run400   I put that inside the saucepan.
+  scarier  The soup slides easy out of the can and into the saucepan. I throw the can into the bin.
 
 (the openings differ too -- banner, graphics notice or the
  Runner's own startup lines; usually not an engine difference)

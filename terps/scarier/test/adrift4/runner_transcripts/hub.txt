@@ -254,23 +254,23 @@ I take the drying-up cloth from the right drawer.
 > dry clean dishes
 I dry the clean dishes with the Leaning Tower tea-towel, buffing them to a high shine.
 
-> x lower right cupboard
-Which right cupboard.  The right lower cupboard or the right upper cupboard?
+> x right lower cupboard
+There are some stainless-steel, copper-bottom pots and pans in here, including the saucepan I normally use to make baked beans or soup.  The right lower cupboard is closed.
 
-> open lower right cupboard
-I don't want to open that right now.
+> open right lower cupboard
+I open the right lower cupboard.  A saucepan is inside the right lower cupboard.
 
 > take saucepan
-Take what?
+I take the saucepan from the right lower cupboard.
 
-> x upper right cupboard
-Which right cupboard.  The right lower cupboard or the right upper cupboard?
+> x right upper cupboard
+There are cans, bottles and packets of food in here. Maybe I can eat bit a of food now.  The right upper cupboard is closed.
 
-> open upper right cupboard
-I don't want to open that right now.
+> open right upper cupboard
+I open the right upper cupboard.  A tin can of Baxter's is inside the right upper cupboard.
 
 > take tin can
-Take what?
+I take the tin can of Baxter's from the right upper cupboard.
 
 > x left drawer
 There is a cultery holder in this drawer with some silverware inside.  The left drawer is open.  A can opener is inside the left drawer.
@@ -279,25 +279,25 @@ There is a cultery holder in this drawer with some silverware inside.  The left 
 I take the can opener from the left drawer.
 
 > open tin can with can opener
-I don't have the can.
+I put the can opener on the minestrone soup can, and turn the lever. A lovely smell of tomato and garlic wafts out.
 
 > put soup in pan
-I'm not holding the can.
+I put that inside the saucepan.  
 
 > press on
 I press the 'on' button.  The hob is starts glowing red.
 
 > put saucepan on hob
-I need to be holding the saucepan.
+I put the saucepan, with the soup in it, on the hob. From past experience I know how easily it burns on this hob - I'll have to move it once its done, to another part of the hob.  The soup starts boiling.
 
 > x hob
-The hob is ceramic, flush with the countertops. I've been admonished many times not to drop things on it, or scratch it. I can turn it on by touching the panel at the side.
+The hob is ceramic, flush with the countertops. I've been admonished many times not to drop things on it, or scratch it. I can turn it on by touching the panel at the side.  A saucepan is on the hob.
 
 > x panel
 The touch-panel allows me to turn on the hob rings. There's an on and an off button.
 
 > move pan
-The soup needs to be cooked.  A whiff of smoke comes from somewhere.
+I move the saucepan to a cool part of the hob. Ah, this will be good. I dig a spoon out of the left drawer and eat soup directly out of the pan (well, at least it wasn't out of the can, although if they ever sell soup in microwavable cans, anything is possible). When I finish, the can goes in the bin, the pan and spoon are quickly washed and dried, and I'm feeling in slightly better spirits.  A whiff of smoke comes from somewhere.
 
 > press off
 I press the 'off' button.
@@ -402,13 +402,22 @@ A chopping block takes up much of the centre of the room. A counter runs along o
 It smells much better in here now that those rotten vegetables are gone.
 
 > water plants
-I carefully water the plants on the window sill.
+I carefully water the plants on the window sill.  
+Proudly I survey my work on the house and garden. Everything looks pretty much back to normal. I feel a sense of satisfaction, but when I think of Marta walking in the front door, setting down her suitcase, and sighing with jet-lag, I know she won't even notice. She expects the house to be clean all the time. She won't say a word - after all, it's the only job I have right now, keeping her house clean.
 
-> 
-I don't understand you.
+At least she doesn't expect me to cook. Or have her children. Sighing, I go to the hammock in the garden. At least now I can have a little rest. 
 
-> 
-I don't understand you.
+Flopping into my trusty hammock, I try to sleep, but since I know Marta will be arriving any moment, I find it impossible to sleep. I try to remember where she's gone. It's been such a strange day - I haven't felt my normal self at all. Waking up on the sofa, having drunk so much (and so many different kinds) of alcohol, strange mood swings. I'm not old enough for a mid-life crisis, am I?
 
-> 
-I don't understand you.
+And that stained knife - I've pushed it to the back of my mind, but what was it doing on the table? Why was it wrapped up in paper towels? And that pizza on the floor in the shed - how come I can't remember anything after that argument we had when she walked in on me, pizza in hand? Suddenly I decide the best way to remember is to return to the scene of the crime, as it were.
+
+I roll out of the hammock and head for the shed. Opening the door, I stand inside willing myself to remember. Argument, Marta away, stained knife, stained paper towels, pizza, anger, blinding rage, regret... 
+
+And my brain suddenly wakes up, as if from a long dream. Marta, Marta - you are here, I remember now... here in this shed! I can see her now, a dark slumped shape at the back, behind the boxes - invisible to me during my time of denial. It's her, covered in blood - dried now, and I reach out to her. Of course, she's dead - I stabbed her.
+
+The argument - it was about that letter. I'd found it in her things in our room, and tried to gather my thoughts in here in private. She found me, unsuspecting until I boiled over in jealous rage. She had the knife - was going to open some boxes - I grabbed it from her and we struggled together. Then she fell, behind the boxes and I looked at my hand, holding a bloody knife. Truimphant, then panicked, running into the house...
+
+Now that I have forced myself to admit my crime, I find that regret is mixed with self-pity, and self-preservation. I didn't hate Marta. No, I just didn't love her anymore. I didn't miss her. And this house, I don't hate it, but I won't miss it either. I know what I need to do. I go back to the house and find my wallet and car keys. I put on a light jacket and sunglasses. I open the Victorian glazed front door and exit into the world - a world I had almost forgotten existed. A world with nosey neighbors, police, prison. 
+
+I lock the door to the house, unlock the blue Vauxhall Zafira sitting in our driveway, and take off down the suburban street, not once looking back.
+[Press any key to end]
