@@ -164,3 +164,5 @@ journey to the beginning of your new life. You're a demonhunter.
 You scored 6 out of the maximum 5!
 That is 120% of the game!
 You finished -1 points short.
+
+[Press any key to end]

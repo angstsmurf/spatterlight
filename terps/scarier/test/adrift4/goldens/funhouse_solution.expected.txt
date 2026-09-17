@@ -153,3 +153,5 @@ thank you for bravely protecting this important information
 You scored 310 out of the maximum 410!
 That is 75% of the game!
 You finished 100 points short.
+
+[Press any key to end]

@@ -94,3 +94,5 @@ in your honor.
 You scored 98 out of the maximum 125!
 That is 78% of the game!
 You finished 27 points short.
+
+[Press any key to end]

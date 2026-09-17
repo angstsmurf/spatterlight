@@ -167,3 +167,5 @@ THE END,or is it?
 Better luck next time.
 You scored 150 out of the maximum 150!
 That is 100% of the game!
+
+[Press any key to end]

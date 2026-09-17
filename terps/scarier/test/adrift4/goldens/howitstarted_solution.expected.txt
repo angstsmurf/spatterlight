@@ -362,3 +362,5 @@ You have won the game! With little help from me, I might add.
 You scored 6 out of the maximum 6!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

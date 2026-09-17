@@ -459,3 +459,5 @@ your chest.  Utterly betrayed, you die, and are never heard of again...
 You scored 210 out of the maximum 100!
 That is 210% of the game!
 You finished -110 points short.
+
+[Press any key to end]

@@ -94,3 +94,5 @@ Congratulations psychopath, you're now a pyro. I hope you're happy.
 You scored 1000 out of the maximum 1000!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

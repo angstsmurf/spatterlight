@@ -778,3 +778,5 @@ proceeds to count.
 million you can afford to miss the odd note here and there.
 
 Well done! You've reached the best ending in the game!
+
+[Press any key to end]

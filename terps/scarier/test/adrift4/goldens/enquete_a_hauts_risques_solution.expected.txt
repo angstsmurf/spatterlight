@@ -1485,3 +1485,5 @@ Morgane! Papa va te sortir de là..."
 Votre score est de 59 sur un maximum de 59!
 C'est 100% du jeu!
 Well done - you scored maximum points!
+
+[Press any key a end]

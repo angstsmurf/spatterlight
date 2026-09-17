@@ -745,3 +745,5 @@ une touche pour continuer]
 Votre score est de 100 sur un maximum de 100!
 C'est 100% du jeu!
 Well done - you scored maximum points!
+
+[Press any key a end]

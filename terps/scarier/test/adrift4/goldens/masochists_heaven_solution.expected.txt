@@ -107,3 +107,5 @@ more like it!"
 You scored 15 out of the maximum 15!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

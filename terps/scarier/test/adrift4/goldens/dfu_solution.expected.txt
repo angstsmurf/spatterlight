@@ -185,3 +185,5 @@ Thank you, and good night.
 You scored 999999999 out of the maximum 999999999!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

@@ -1836,3 +1836,5 @@ big palace like throne room. You are now ruler of Beyond.......
 You scored 265 out of the maximum 373!
 That is 71% of the game!
 You finished 108 points short.
+
+[Press any key to end]

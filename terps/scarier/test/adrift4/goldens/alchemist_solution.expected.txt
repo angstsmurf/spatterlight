@@ -4637,3 +4637,5 @@ tomorrow.
 You scored 490 out of the maximum 0!
 That is 100% of the game!
 You finished -490 points short.
+
+[Press any key to end]

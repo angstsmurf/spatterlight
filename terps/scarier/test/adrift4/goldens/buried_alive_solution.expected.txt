@@ -474,3 +474,5 @@ now on.
 Well done. You got to the end of this short but extremely silly game.
 Consider yourself a fully-fledged member of the Curtain Ring Salesman's
 Guild.
+
+[Press any key to end]

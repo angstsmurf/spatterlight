@@ -105,3 +105,5 @@ You have saved the Dreamworld, and thus you have saved all life.
 You scored 50 out of the maximum 50!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

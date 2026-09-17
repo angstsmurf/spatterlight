@@ -586,3 +586,5 @@ bad you'll never what it was.
 Better luck next time.
 You scored 151 out of the maximum 229!
 That is 65% of the game!
+
+[Press any key to end]

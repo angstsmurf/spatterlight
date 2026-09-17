@@ -914,3 +914,5 @@ Congratulations, you are no longer Marooned!
 You scored 80 out of the maximum 140!
 That is 57% of the game!
 You finished 60 points short.
+
+[Press any key to end]

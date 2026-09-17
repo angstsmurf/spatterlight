@@ -1535,6 +1535,27 @@ scr_get_locale (void)
 
 
 /*
+ * scr_set_end_keyprompt()
+ * scr_get_end_keyprompt()
+ *
+ * Turn the Runner's end-of-session prompt on and off.  Off by default; see
+ * task_print_end_keyprompt() in sctasks.cpp for what it is and where the
+ * Runner writes it.
+ */
+void
+scr_set_end_keyprompt (scr_bool flag)
+{
+  run_set_end_keyprompt (flag);
+}
+
+scr_bool
+scr_get_end_keyprompt (void)
+{
+  return run_get_end_keyprompt ();
+}
+
+
+/*
  * scr_set_portable_random()
  * scr_reseed_random_sequence()
  *

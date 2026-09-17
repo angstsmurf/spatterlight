@@ -651,3 +651,5 @@ be telling you this wonderful story right now? Of course not. But that is
 another tale for another time...
 
 THE END
+
+[Press any key to end]

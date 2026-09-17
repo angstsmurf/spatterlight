@@ -21,3 +21,5 @@ You are somewhere.
 You scored 3 out of the maximum 3!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

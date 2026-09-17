@@ -299,3 +299,5 @@ I'll put the gun on the floor, and then open the door slowly, ok?"
 
 ***
 Congratulations, you achieved the Negotiation Style Ending!
+
+[Press any key to end]

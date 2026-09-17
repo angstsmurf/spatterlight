@@ -156,3 +156,4 @@ of "Grand Wumpus Hunter" until the next Wumpus Run.
 You are escorted from the arena to enjoy the fruits of your labours ... a
 nice bath, an excellent meal, a fat bank account (totalling 297000 gold
 pieces) and a little bit (or whatever else) on the side ...
+[Press any key to end]

@@ -391,3 +391,5 @@ You feel ready for a barbeque.
 You scored 1300 out of the maximum 1300!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

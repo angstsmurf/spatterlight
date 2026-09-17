@@ -2995,3 +2995,5 @@ s'exclame Simon.
 Votre score est de 97 sur un maximum de 97!
 C'est 99% du jeu!
 Well done - you scored maximum points!
+
+[Press any key a end]

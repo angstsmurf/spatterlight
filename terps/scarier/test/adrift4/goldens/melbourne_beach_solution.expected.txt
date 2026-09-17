@@ -574,3 +574,5 @@ on this game.
 You scored 38 out of the maximum 41!
 That is 92% of the game!
 You finished 3 points short.
+
+[Press any key to end]

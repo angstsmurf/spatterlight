@@ -283,3 +283,5 @@ you can relax now. The ship owes you, crewman." The Chief Engineer smiles at
 you, as you hear the bridge crew in the background cheer.
 
 Congratulations, You saved the ship!
+
+[Press any key to end]

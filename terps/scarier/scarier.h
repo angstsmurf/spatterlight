@@ -182,6 +182,12 @@ extern void scr_set_game_debugger_enabled (scr_game game, scr_bool flag);
 extern scr_bool scr_get_game_debugger_enabled (scr_game game);
 extern scr_bool scr_run_game_debugger_command (scr_game game,
                                              const scr_char *debug_command);
+/* The Runner's "[Press any key to end]" prompt, off by default.  A host that
+   ends a completed game by waiting for a keypress, as the Windows Runner does,
+   turns it on; one that offers its own ending choices leaves it off. */
+extern void scr_set_end_keyprompt (scr_bool flag);
+extern scr_bool scr_get_end_keyprompt (void);
+
 extern void scr_set_portable_random (scr_bool flag);
 extern void scr_reseed_random_sequence (scr_uint new_seed);
 extern scr_uint scr_default_random_seed (void);

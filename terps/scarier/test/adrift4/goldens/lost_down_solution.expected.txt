@@ -387,3 +387,5 @@ You fall
 .
 
 The Game is Over.
+
+[Press any key to end]

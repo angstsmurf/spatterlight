@@ -9097,3 +9097,5 @@ Look for PROVENANCE II in the summer of 2006!!!
 You scored 260 out of the maximum 300!
 That is 86% of the game!
 You finished 40 points short.
+
+[Press any key to end]

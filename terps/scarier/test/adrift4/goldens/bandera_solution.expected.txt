@@ -218,3 +218,5 @@ en el infinito montañero.......Tu guardia ha terminado.....
  Tu puntuación es de 100  de un máximo de 100!
  Eso es un 100%  del juego!
 Well done - you puntosd maximum points!
+
+[Pulsa cualquier tecla para terminar]

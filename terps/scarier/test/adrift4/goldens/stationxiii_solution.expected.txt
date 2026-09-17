@@ -622,3 +622,5 @@ To be continued...
 You scored 200 out of the maximum 9!
 That is 2222% of the game!
 You finished -191 points short.
+
+[Press any key to end]

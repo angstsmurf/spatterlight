@@ -640,3 +640,5 @@ ghost story you won't be forgetting anytime soon.
 You scored 485 out of the maximum 500!
 That is 97% of the game!
 You finished 15 points short.
+
+[Press any key to end]

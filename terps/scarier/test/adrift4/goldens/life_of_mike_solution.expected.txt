@@ -540,3 +540,5 @@ Ypu ask her outYou win
 You scored 32020 out of the maximum 32020!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

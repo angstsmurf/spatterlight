@@ -241,3 +241,5 @@ never know...
 You scored 13 out of the maximum 12!
 That is 108% of the game!
 You finished -1 points short.
+
+[Press any key to end]

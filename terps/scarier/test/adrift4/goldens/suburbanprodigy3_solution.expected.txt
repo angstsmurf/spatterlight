@@ -158,3 +158,5 @@ Listen dude, you've played these games before. Step it up!
 You scored 80 out of the maximum 80!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

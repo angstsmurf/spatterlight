@@ -79,3 +79,4 @@ Thanks for playing this intro. I hope you like it and if you really do maybe
 i'll make it into a full game!
 
 END, for now.
+[Press any key to end]

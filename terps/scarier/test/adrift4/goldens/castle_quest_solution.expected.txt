@@ -115,3 +115,5 @@ games too. Thanks for playing!
 You scored 50 out of the maximum 50!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

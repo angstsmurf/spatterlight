@@ -183,3 +183,5 @@ too... we can't tell... it's...
 a look at this..."
 
 [--THE END--]
+
+[Press any key to end]

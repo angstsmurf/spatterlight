@@ -189,3 +189,5 @@ Your days of being a slave are over.  You are a free cow now.
 You scored 100 out of the maximum 130!
 That is 76% of the game!
 You finished 30 points short.
+
+[Press any key to end]

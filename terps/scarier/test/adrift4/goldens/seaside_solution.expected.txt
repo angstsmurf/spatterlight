@@ -405,3 +405,5 @@ Congratulations! Your day at the seaside is complete.
 You scored 9 out of the maximum 9!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

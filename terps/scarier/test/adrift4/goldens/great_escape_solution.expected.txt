@@ -936,3 +936,5 @@ cry of joy, you have made it, you have escaped!!
 You scored 1460 out of the maximum 1860!
 That is 78% of the game!
 You finished 400 points short.
+
+[Press any key to end]

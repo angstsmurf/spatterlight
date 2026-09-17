@@ -215,3 +215,5 @@ The sword suddenly adresses you. Mortal, together, we will avenge the death
 of my dear Paragon!!
 
 The two of you set out into the forest.
+
+[Press any key to end]

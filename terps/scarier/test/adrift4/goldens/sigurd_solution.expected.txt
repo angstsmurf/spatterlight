@@ -116,3 +116,5 @@ gold is glittering in the leather sack in your luggage.
 
 Since then you were called Sigurd Fafnesbane, or Sigurd who killed the dragon
 Fafner.
+
+[Press any key to end]

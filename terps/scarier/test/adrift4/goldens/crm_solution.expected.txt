@@ -172,3 +172,5 @@ Jojo is carted off.
 You scored 25 out of the maximum 25!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

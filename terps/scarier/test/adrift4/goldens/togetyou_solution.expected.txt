@@ -219,3 +219,5 @@ get you!"
 
 Feel free to report any bugs, send praise or give general feedback to
 trouble@rotter.freeserve.co.uk
+
+[Press any key to end]

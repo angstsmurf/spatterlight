@@ -95,3 +95,5 @@ A Monster !!!!
 You scored 1100 out of the maximum 1000!
 That is 110% of the game!
 You finished -100 points short.
+
+[Press any key to end]

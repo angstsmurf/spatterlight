@@ -139,3 +139,5 @@ Slipping your amulet underneath your robes, you head back into town
 apprehensive, yet triumphant!
 
 Congratulations!
+
+[Press any key to end]

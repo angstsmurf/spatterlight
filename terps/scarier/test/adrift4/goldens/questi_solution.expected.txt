@@ -100,3 +100,5 @@ the inside out...  You didn't find the flesh you desperately sought.
 I'm afraid you are dead!
 You scored 10 out of the maximum 10!
 That is 100% of the game!
+
+[Press any key to end]

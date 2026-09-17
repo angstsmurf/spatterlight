@@ -1022,3 +1022,5 @@ clean by dinner time, I'll bust your head in!"
 You scored 185 out of the maximum 190!
 That is 97% of the game!
 You finished 5 points short.
+
+[Press any key to end]

@@ -198,3 +198,5 @@ The next six spaces are shown below:
 You roll a five and move to square 100.
 Yes! You have made it to the end of the game. It is completed and you have
 done it!
+
+[Press any key to end]

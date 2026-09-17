@@ -1445,3 +1445,5 @@ vacates the atmosphere heading back into space.
 You scored 16 out of the maximum 16!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

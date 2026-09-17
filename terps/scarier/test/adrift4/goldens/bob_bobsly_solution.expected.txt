@@ -164,3 +164,5 @@ mail. I'll Be Back!
 You scored 155 out of the maximum 155!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

@@ -5785,6 +5785,31 @@ run_prompt_player_gender (scr_gameref_t game)
 
 
 /*
+ * run_set_end_keyprompt()
+ * run_get_end_keyprompt()
+ *
+ * Host control of the Runner's end-of-session prompt, "[Press any key to end]"
+ * (off by default; see task_print_end_keyprompt()).  A host that ends a
+ * completed game by blocking on a keypress, as the Windows Runner does, turns
+ * it on; one that offers its own RESTART/UNDO/QUIT choices instead leaves it
+ * off rather than print a prompt no key can answer.
+ */
+static scr_bool run_end_keyprompt = FALSE;
+
+void
+run_set_end_keyprompt (scr_bool flag)
+{
+  run_end_keyprompt = flag;
+}
+
+scr_bool
+run_get_end_keyprompt (void)
+{
+  return run_end_keyprompt;
+}
+
+
+/*
  * run_main_loop()
  *
  * Main interpreter loop.

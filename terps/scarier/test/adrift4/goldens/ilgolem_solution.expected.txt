@@ -1035,3 +1035,5 @@ Complimenti, hai completato l'avventura!
 Hai guadagnato 42 punti su un totale di 45!
 Questo è 93% del gioco!
 Hai completato il gioco mancando 3 punti bonus.
+
+[ Game over ... premi un tasto]

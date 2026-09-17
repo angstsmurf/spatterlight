@@ -723,3 +723,5 @@ competition!
 You scored 24 out of the maximum 74!
 That is 32% of the game!
 You finished 50 points short.
+
+[Press any key to end]

@@ -120,3 +120,5 @@ pestilence (basically, more of your kind) throughout the world.
 You scored 7 out of the maximum 7!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

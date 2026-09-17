@@ -1008,6 +1008,8 @@ extern void run_quit (scr_gameref_t game);
 extern scr_bool run_is_running (scr_gameref_t game);
 extern scr_int run_get_restart_count (void);
 extern scr_bool run_has_completed (scr_gameref_t game);
+extern void run_set_end_keyprompt (scr_bool flag);
+extern scr_bool run_get_end_keyprompt (void);
 extern scr_bool run_is_undo_available (scr_gameref_t game);
 extern void run_debug_trace (scr_bool flag);
 extern void run_get_attributes (scr_gameref_t game,
@@ -1063,6 +1065,7 @@ extern scr_bool task_run_task (scr_gameref_t game, scr_int task, scr_bool forwar
 extern void task_print_end_game_message (scr_gameref_t game);
 extern void task_print_end_game_summary (scr_gameref_t game, scr_bool is_win,
                                          scr_bool is_death);
+extern void task_print_end_keyprompt (scr_gameref_t game);
 extern void task_debug_trace (scr_bool flag);
 extern void task_set_move_assist (scr_bool flag);
 extern scr_bool task_get_move_assist (void);

@@ -235,3 +235,4 @@ Confession
 A 3hour comp entry
 Written by Mystery
 November 2004
+[Press any key to end]

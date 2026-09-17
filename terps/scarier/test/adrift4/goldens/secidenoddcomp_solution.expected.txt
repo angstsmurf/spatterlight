@@ -217,3 +217,5 @@ The Author
 You scored 102 out of the maximum 102!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

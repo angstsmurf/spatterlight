@@ -1543,3 +1543,5 @@ streched out and clasped you, but you escaped...for now.
 You scored 145 out of the maximum 155!
 That is 93% of the game!
 You finished 10 points short.
+
+[Press any key to end]

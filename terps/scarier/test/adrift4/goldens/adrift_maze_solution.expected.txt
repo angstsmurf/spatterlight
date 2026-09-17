@@ -210,3 +210,5 @@ adventurer
 You take the trophy and hold it up proudly.
 
 Congratulations!  You WIN!
+
+[Press any key to end]

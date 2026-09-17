@@ -472,3 +472,5 @@ poison-tongued OWL, please seek help immediately.
 (press enter to continue)
 The city is totally destroyed.  The lobstery wrath of your menagerie of
 horror has prevailed!  Next: WORLD DOMINATION!
+
+[Press any key to end]

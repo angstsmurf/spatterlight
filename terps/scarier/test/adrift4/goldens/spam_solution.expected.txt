@@ -121,3 +121,5 @@ Your rank for this game is Spam King
 You scored 20 out of the maximum 20!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

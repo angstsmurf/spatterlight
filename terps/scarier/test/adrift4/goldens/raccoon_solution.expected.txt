@@ -144,3 +144,5 @@ entrance to the can is down.
 > down
 You dive headfirst into the can, easily shredding thin plastic bags with your
 claws and blissfully settling down to enjoy a well-earned night of gluttony.
+
+[Press any key to end]

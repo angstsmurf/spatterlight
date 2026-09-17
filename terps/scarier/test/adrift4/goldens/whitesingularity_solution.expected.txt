@@ -723,3 +723,5 @@ peace and bliss.
         You've gone to the core, saved the world, earned a Nobel prize with
 its corresponding benefits, and now you have a kid on the way--life can't get
 much better than this.
+
+[Press any key to end]

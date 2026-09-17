@@ -965,3 +965,5 @@ the library.
 Your pants feels heavier than they usually do, and as you reach into your
 pockets you pull out handfuls of precious gems.
 Looks like the old Merlin did read your mind correctly after all.
+
+[Press any key to end]

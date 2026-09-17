@@ -380,3 +380,5 @@ FINAL SCORE: REAL PIRATE!
 Ye scored 10 out of the maximum 10!
 That is 100% of the game!
 Well done - ye scored maximum points!
+
+[Press any key to end]

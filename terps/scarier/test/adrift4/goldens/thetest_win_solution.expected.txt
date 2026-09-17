@@ -607,3 +607,5 @@ teacher are entirely coincidental.
 You scored 20 out of the maximum 25!
 That is 80% of the game!
 You finished 5 points short.
+
+[Press any key to end]

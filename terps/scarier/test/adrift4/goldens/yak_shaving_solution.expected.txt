@@ -709,3 +709,5 @@ In the final version Shangri-La will include such exotic locations as:
 * The Shangri-La Washerette and Folk Art Museum
 
 Thanks for playing!
+
+[Press any key to end]

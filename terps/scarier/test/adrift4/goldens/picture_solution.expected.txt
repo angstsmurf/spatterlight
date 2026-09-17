@@ -22,3 +22,5 @@ ask p about "topics", to get a list of appropriate subjects to discuss.
 "I am a parrot!"
 
 The title of the picture is "The Parrot's Cage".
+
+[Press any key to end]

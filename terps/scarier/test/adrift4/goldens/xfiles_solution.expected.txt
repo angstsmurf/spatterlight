@@ -800,3 +800,5 @@ return.
 You scored 285 out of the maximum 299!
 That is 95% of the game!
 You finished 14 points short.
+
+[Press any key to end]

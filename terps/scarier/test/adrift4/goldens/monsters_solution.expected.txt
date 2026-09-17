@@ -315,3 +315,5 @@ I sit bolt upright and scream...
 You scored 40 out of the maximum 40!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

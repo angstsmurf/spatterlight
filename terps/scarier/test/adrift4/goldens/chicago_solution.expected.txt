@@ -267,3 +267,5 @@ for the office, at least you'll be sleeping in comfort.
 You scored 75 out of the maximum 0!
 That is 100% of the game!
 You finished -75 points short.
+
+[Press any key to end]

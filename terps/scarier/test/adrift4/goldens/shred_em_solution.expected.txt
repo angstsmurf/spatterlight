@@ -80,3 +80,5 @@ you a promotion, and a raise!  Woohoo!
 You scored 65 out of the maximum 65!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

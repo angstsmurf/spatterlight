@@ -241,3 +241,5 @@ Congratulations! You worked out the puzzle.
 ...
 
 Have a peanut.
+
+[Press any key to end]

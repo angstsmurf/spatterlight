@@ -138,3 +138,5 @@ rotter@delron.co.uk
 You scored 8 out of the maximum 8!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

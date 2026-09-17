@@ -1540,6 +1540,60 @@ task_print_end_game_summary (scr_gameref_t game, scr_bool is_win,
           pf_buffer_string (filter, " points short.\n");
         }
     }
+
+  /* Every branch closes the summary with a *second* CRLF, leaving a blank line
+     under its last line: run400's win branch at 45DF05 ("Well done...") and
+     45DF3D/45DF4D ("... points short."), its lose branch at 45E0C0 ("... % of
+     the game!") and the shared death sub at 45246E all end "& CRLF & CRLF",
+     and run390 builds the same pairs inline (43F35D, 43F53B, 43F6C4).  That
+     blank line is the one in the measured shapes above, and it is all that
+     separates the summary from the end-of-session prompt, which the Runner
+     appends with no separator of its own; see task_print_end_keyprompt(). */
+  pf_buffer_character (filter, '\n');
+}
+
+
+/*
+ * task_print_end_keyprompt()
+ *
+ * Append the Runner's end-of-session prompt, "[Press any key to end]", to the
+ * text of the turn that ended the game.
+ *
+ * It is the last thing every ending adds, after the score summary and outside
+ * the MaxScore > 0 guard, and it is appended with no separator whatever:
+ *
+ *     out = out & "[Press any key to end]"            ' run400 45DF82 (win),
+ *                                                     ' 45E0F5 (lose),
+ *                                                     ' 4524DA (death)
+ *
+ * -- after which the Runner blocks on a keypress and the process is gone.  The
+ * blank line above it in a transcript is not the prompt's: it is the second
+ * CRLF of whatever printed last, the score summary's (task_print_end_game_
+ * summary()) or, with no summary, the ending branch's own.  So nothing is
+ * added here beyond the literal.
+ *
+ * It goes into the turn's text buffer like any other line, which is why a
+ * game's ALR table can rewrite it (Vardock Bates turns it into "[Pulsa
+ * cualquier tecla para terminar]"), and every one of the four Runners carries
+ * the literal, so it is not gated on a version.  The `endgame` command writes
+ * the same tail inline; see lib_cmd_endgame().
+ *
+ * The "just stop" ending is the one that does not get it: run400's var_88 = 4
+ * branch (45E11F) only disables the Adventure menu, and neither run390 nor the
+ * older pair has a fourth prompt site either.
+ *
+ * Hosts opt in: run_set_end_keyprompt().  A Glk host that offers its own
+ * ending choices instead of blocking on a key leaves it off.
+ */
+void
+task_print_end_keyprompt (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (!run_get_end_keyprompt ())
+    return;
+
+  pf_buffer_string (filter, "[Press any key to end]");
 }
 
 
@@ -1664,6 +1718,7 @@ task_print_end_game_message (scr_gameref_t game)
         res_handle_resource (game, "ss", vt_key);
 
         task_print_end_game_summary (game, TRUE, FALSE);
+        task_print_end_keyprompt (game);
         break;
       }
 
@@ -1681,6 +1736,7 @@ task_print_end_game_message (scr_gameref_t game)
         pf_undo_auto_break (filter);
       pf_buffer_string (filter, "\n\nBetter luck next time.\n");
       task_print_end_game_summary (game, FALSE, FALSE);
+      task_print_end_keyprompt (game);
       break;
 
     case 2:
@@ -1690,10 +1746,14 @@ task_print_end_game_message (scr_gameref_t game)
       pf_buffer_string (filter, lib_get_death_message (game));
       pf_buffer_character (filter, '\n');
       task_print_end_game_summary (game, FALSE, TRUE);
+      task_print_end_keyprompt (game);
       break;
 
     case 3:
-      /* "Just stop": the Runner prints no message and no summary either. */
+      /* "Just stop": the Runner prints nothing at all -- no message, no
+         summary, and not even the end-of-session prompt.  endmessage's var_88
+         = 4 branch (45E11F) disables the Adventure menu and falls straight to
+         the flush. */
       break;
 
     default:

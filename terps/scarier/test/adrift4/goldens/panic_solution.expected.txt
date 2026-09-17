@@ -585,3 +585,5 @@ Your rating is Messiah.
 You achieved 40 points from a possible 60!
 That is 66% of 'Panic. I pray you'll play again.!
 You finished 20 in deficit..
+
+[Press any key to end]

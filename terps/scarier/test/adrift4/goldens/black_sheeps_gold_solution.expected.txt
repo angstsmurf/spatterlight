@@ -1620,3 +1620,5 @@ Congratulations.  You've beaten Black Sheep's Gold!
 You scored 120 out of the maximum 120!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

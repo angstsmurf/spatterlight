@@ -1530,3 +1530,5 @@ so, a cigar cutter slips out of your pyjama pocket...
 You scored 100 out of the maximum 100!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

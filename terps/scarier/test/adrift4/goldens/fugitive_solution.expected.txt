@@ -2033,3 +2033,5 @@ begin a new life, on a different place and with different people.
 You scored 656 out of the maximum 666!
 That is 98% of the game!
 You finished 10 points short.
+
+[Press any key to end]

@@ -450,3 +450,5 @@ street.
 Congratulations!  You've done it.  It's no small task to stay on top of your
 laundry in Big City and you have triumphed.  Now it's time to pla....start
 cooking dinner.
+
+[Press any key to end]

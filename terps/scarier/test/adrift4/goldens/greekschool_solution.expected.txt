@@ -1614,3 +1614,5 @@ You are a Greek School survivor! Well done!
 You scored 185 out of the maximum 275!
 That is 67% of the game!
 You finished 90 points short.
+
+[Press any key to end]

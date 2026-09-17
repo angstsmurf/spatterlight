@@ -196,3 +196,5 @@ Life has just got more interesting for Julius, master-thief of the
 Southbanks.
 
 [The end]
+
+[Press any key to end]

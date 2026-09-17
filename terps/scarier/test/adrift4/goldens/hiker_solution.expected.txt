@@ -52,3 +52,5 @@ THE END
 You have found Ending Three of Three.
 
 Thank you for playing.
+
+[Press any key to end]

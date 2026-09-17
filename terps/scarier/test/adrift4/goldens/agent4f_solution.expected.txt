@@ -97,3 +97,5 @@ You wake with a start.  What a terrible dream!
 
 > z
 Time passes...
+
+[Press any key to end]

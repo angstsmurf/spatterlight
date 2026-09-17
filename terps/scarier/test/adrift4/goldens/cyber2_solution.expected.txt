@@ -208,3 +208,5 @@ Congrtulatons, you have beaton Cyber Warp 2!
 You scored 355 out of the maximum 355!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

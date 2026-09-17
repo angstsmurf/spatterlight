@@ -548,3 +548,5 @@ our old cow to market."
 *** You have won ***
 
 Thank you for playing "Beanstalk the and Jack".
+
+[Press any key to end]

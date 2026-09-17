@@ -792,3 +792,5 @@ the vehicle  surges forward.
 You scored 140 out of the maximum 145!
 That is 96% of the game!
 You finished 5 points short.
+
+[Press any key to end]

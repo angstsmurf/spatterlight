@@ -51,3 +51,5 @@ Good job then!
 You scored 0 out of the maximum 1000!
 That is 0% of the game!
 You finished 1000 points short.
+
+[Press any key to end]

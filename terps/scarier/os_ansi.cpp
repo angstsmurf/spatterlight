@@ -629,9 +629,30 @@ main (int argc, const char *argv[])
   if (getenv ("SCR_DEBUGGER_ENABLED"))
     scr_set_game_debugger_enabled (game, TRUE);
 
+  /*
+   * This port stands in for the Windows Runner's console the way the Wine
+   * transcripts capture it, so it ends a completed game the way the Runner
+   * does, with "[Press any key to end]" (see task_print_end_keyprompt()).  A
+   * Glk host with its own RESTART/UNDO/QUIT offer leaves this off.
+   */
+  scr_set_end_keyprompt (TRUE);
+
   game_file = argv[1];
 
   scr_interpret_game (game);
+
+  /*
+   * The prompt above carries no terminator of its own -- the Runner blocks on
+   * a keypress there -- so flush what the wrapper is still holding and end the
+   * transcript on a line break like every other line.
+   */
+  if (line_length > 0)
+    {
+      full_flush ();
+      putchar ('\n');
+    }
+  fflush (stdout);
+
   scr_free_game (game);
   return EXIT_SUCCESS;
 }

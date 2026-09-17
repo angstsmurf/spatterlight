@@ -135,3 +135,5 @@ for now you had better get on with the task at hand.
 You scored 5 out of the maximum 5!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

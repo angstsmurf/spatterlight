@@ -442,3 +442,5 @@ to the exit, ready to face the world. Or what there is left of it.
 You scored 41 out of the maximum 43!
 That is 95% of the game!
 You finished 2 points short.
+
+[Press any key to end]

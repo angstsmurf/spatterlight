@@ -104,3 +104,5 @@ In an alley behind Denny's.
 You scored 0 out of the maximum 0!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

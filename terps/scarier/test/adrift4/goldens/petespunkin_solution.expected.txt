@@ -341,3 +341,5 @@ just knowing that next year, you'll be rolling in dough.
 You scored 505 out of the maximum 575!
 That is 87% of the game!
 You finished 70 points short.
+
+[Press any key to end]

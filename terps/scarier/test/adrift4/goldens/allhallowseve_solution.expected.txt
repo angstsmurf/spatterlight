@@ -352,3 +352,5 @@ Thats right, you can't see a ninja.........
 You scored 23 out of the maximum 26!
 That is 88% of the game!
 You finished 3 points short.
+
+[Press any key to end]

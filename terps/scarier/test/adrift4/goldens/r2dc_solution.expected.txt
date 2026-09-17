@@ -217,3 +217,5 @@ RETURN TO DRACULA'S CASTLE III: DRACULA'S CASTLE GOES HAWAIIAN
 You scored 1000000 out of the maximum 1000000!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

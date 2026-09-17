@@ -186,3 +186,5 @@ Nothingness....
 
   [This ends the first part of "The Cave of Morpheus." To continue, please
 open the file entitled "tcom2"]
+
+[Press any key to end]

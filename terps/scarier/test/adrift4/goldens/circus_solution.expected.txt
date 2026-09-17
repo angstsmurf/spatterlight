@@ -703,3 +703,5 @@ two puzzles.
 You scored 64 out of the maximum 140!
 That is 45% of the game!
 You finished 76 points short.
+
+[Press any key to end]

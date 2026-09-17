@@ -41,7 +41,10 @@ def endtail_only(runner_turn, scarier_turn):
     """The Runner's own `[Press any key to end]` and nothing else.
 
     Every ending row carries it: the Runner waits for a key where the harness
-    simply stops.  It is not an engine difference and it swamps the census.
+    simply stops.  The engine buffers the same tail now
+    (task_print_end_keyprompt(), opted into by the headless harness), so this
+    is normally already equal; it stays for the rows where only the Runner
+    has it.
     """
     rw = " ".join(runner_turn.split())
     if not rw.endswith(ENDTAIL):

@@ -128,3 +128,5 @@ The End
 You scored 1 out of the maximum 1!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

@@ -349,3 +349,5 @@ again - a single bright green bud.
 You have chosen to look upon your own mortality.
 
 Have you won or lost?
+
+[Press any key to end]

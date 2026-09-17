@@ -206,3 +206,5 @@ You scored 2 out of the maximum 2!
 Well, that's 100% of the score!
 That's ending 2 of 2.  But did you know you could get this ending and have an
 even higher score if you tried to quilt?
+
+[Press any key to end]

@@ -1086,3 +1086,5 @@ future some, but I think that about sizes up your intentions, doesn't it?
 The chimp chitters agreement.
 
 *** Congratulations, you did it!  (What took you so long?) ***
+
+[Press any key to end]

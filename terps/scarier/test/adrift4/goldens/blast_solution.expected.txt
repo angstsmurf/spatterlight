@@ -184,3 +184,5 @@ You exit the building.  You have won!!!!
 
 Feel free to report any bugs, send praise or give general feedback to
 richardo@delron.co.uk
+
+[Press any key to end]

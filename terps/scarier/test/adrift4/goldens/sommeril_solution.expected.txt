@@ -883,3 +883,5 @@ www.angelfire.com/games5/sommeril
 You scored 85 out of the maximum 100!
 That is 85% of the game!
 You finished 15 points short.
+
+[Press any key to end]

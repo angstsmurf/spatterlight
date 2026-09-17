@@ -7550,3 +7550,5 @@ adventure.  Grandad would probably describe you as a winner.. or a cheat.
 You scored 2000 out of the maximum 2000!
 That is 100% of the game!
 Well done - you scored maximum points!
+
+[Press any key to end]

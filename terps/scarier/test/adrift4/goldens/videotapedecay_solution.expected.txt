@@ -1279,3 +1279,5 @@ want out."
 OUT? You want OUT? You got it!
 
 And fade to white.
+
+[Press any key to end]

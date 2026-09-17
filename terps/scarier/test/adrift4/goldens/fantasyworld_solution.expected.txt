@@ -3015,3 +3015,5 @@ unknown.
 You scored 0 out of the maximum 500!
 That is 0% of the game!
 You finished 500 points short.
+
+[Press any key to end]

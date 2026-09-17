@@ -624,3 +624,5 @@ again..."
 Up to the last sentence, you thought you really were in Hell, but the words
 "never have to work again" have restored your faith. You're in Heaven after
 all.
+
+[Press any key to end]

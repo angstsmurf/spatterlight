@@ -47,3 +47,4 @@ maintained.  Xorax is here.
 > open vial
 You open the vial, releasing the virus into the air.
 You win! Yay!
+[Press any key to end]

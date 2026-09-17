@@ -1434,3 +1434,5 @@ FOREVER in the future!
 You scored 360 out of the maximum 372!
 That is 96% of the game!
 You finished 12 points short.
+
+[Press any key to end]

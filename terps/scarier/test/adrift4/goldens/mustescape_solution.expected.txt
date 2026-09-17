@@ -1215,3 +1215,5 @@ Not that your boss will like that.
 
 [If you play this game again, and you want to skip the fight scenes, type
 cheat during one of your turns in the fight.]
+
+[Press any key to end]

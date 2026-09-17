@@ -244,3 +244,5 @@ FIN.
 You puntosd 0 fuera of the maximum 0!
 That is 100% of the game!
 Well done - you puntosd maximum points!
+
+[Press any key to end]

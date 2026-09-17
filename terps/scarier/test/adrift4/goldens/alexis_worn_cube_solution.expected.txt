@@ -1087,3 +1087,5 @@ You for playing this game.
 You scored 58 out of the maximum 65!
 That is 89% of the game!
 You finished 7 points short.
+
+[Press any key to end]

@@ -368,3 +368,5 @@ Chris
 You scored 60 out of the maximum 2400!
 That is 2% of the game!
 You finished 2340 points short.
+
+[Press any key to end]

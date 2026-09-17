@@ -2625,9 +2625,9 @@ lib_cmd_quit (scr_gameref_t game)
  * run380 loc_442xxx, run390 loc_45FB94, run400 loc_48AAC9), and every literal
  * is in all four constant pools, so it is not gated on a version.
  *
- * "[Press any key to end]" is the Runner's own end-of-session prompt and is
- * supplied by the host here, not by the library; see the transcript note in
- * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
+ * "[Press any key to end]" is the Runner's own end-of-session prompt, printed
+ * here for a host that ends the session on a keypress the way the Runner does;
+ * see task_print_end_keyprompt().
  */
 scr_bool
 lib_cmd_endgame (scr_gameref_t game)
@@ -2653,6 +2653,13 @@ lib_cmd_endgame (scr_gameref_t game)
   snprintf (buffer, sizeof (buffer), "%ld", percent);
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, "% of the game!\n");
+
+  /* The second of the block's two CRLFs, and then the Runner's own
+     end-of-session prompt on the far side of the blank line it leaves
+     ("...% of the game!" & CRLF & CRLF & the prompt), exactly as
+     Form1.endmessage closes an ending; see task_print_end_keyprompt(). */
+  pf_buffer_character (filter, '\n');
+  task_print_end_keyprompt (game);
 
   /* Stop the game, and note that it's not resumeable -- the gameover byte the
      Runner sets here is the same one an EndGame task action writes. */

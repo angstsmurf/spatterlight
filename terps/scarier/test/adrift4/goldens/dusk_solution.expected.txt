@@ -359,3 +359,5 @@ Unfortunately You got your shoes muddy.   You walked into a spider's web.
 You've done 10 of  the 10 things you would have wanted to do.
 
 Most importantly you finally saw a tree frog!
+
+[Press any key to end]

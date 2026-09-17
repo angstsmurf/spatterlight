@@ -1013,3 +1013,5 @@ DOG!
 You scored 1009 out of the maximum 1374!
 That is 73% of the game!
 You finished 365 points short.
+
+[Press any key to end]
