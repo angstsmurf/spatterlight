@@ -368,25 +368,18 @@ rule, not RNG (deaths, 2026-09-19).
 
 - Epilogue or pause text landing one turn late, or cut at the final
   keypress: endgame T9, mortality T41-48,
-  iqsfot T41-42, aliasagent 5 (`score` after the game ended).
+  iqsfot T41-42.
 - Whitespace-only joins or the trailing `[Press any key to end]`; the
   28 "apart from whitespace" rows. Glum_Fiddle turn 0 is the startup echo
   above.
 - Lost commands after an ending: thelasthour's last `wait` only. That row
   runs without SCR_SKIP_WAITKEY, so one ending "Press a key." swallows a
   solution line in Scarier and the extra `wait` makes up for it; the Wine
-  feed answers the pause with its own blank line. Trimmed 2026-09-19: the
-  trailing lines that never changed Scarier's transcript (padding `z`,
-  `wait`, `score`, `quit`/`y`, spare battle turns) are gone from
-  thepkgirl, confession, darkness, cybercow_win, questi, thelasthour,
-  aliasagent, egghunt, howitstarted, sswhore, will, grumble,
-  lifesimulation, sun_empire, alexis_worn_cube, snakes_and_ladders,
-  hyper_b_s and light_up, and those rows were re-driven. Two kept lines
-  the Runner needs although Scarier does not: whitterscap's `quit` (a game
-  task; the win ending) and hyper_b_s's last blank line (the score summary
-  prints on the next input). Comment-only tails (journ2, circus, losttomb)
-  and house's post-death route are left as written.
-- life `piss` and the_hangover are the silent-task deviation;
+  feed answers the pause with its own blank line. The other rows' trailing
+  padding was trimmed and re-driven 2026-09-19 (1cc5dbc55; the kept lines
+  the Runner needs are in the row comments).
+- lifesimulation T6 `turn off tv`, life `piss` and the_hangover are the
+  silent-task deviation;
   alices_restaurant the run370 double matcher pass; sandy_meta_number the
   SCARE meta-commands.
 - Load failures left from the 09-06/09-07 corpus batches: six rows raised
@@ -407,8 +400,9 @@ rule, not RNG (deaths, 2026-09-19).
   Scarier says "can't put an object inside itself!".
 - **Put resolution ordering:** the 4.0 put fragment fallback scores every
   present object in one pass, where 463640 mode 2 tries held objects first
-  (index, "Put and take-from", hub T79; ported for plain `drop` only). A
-  held/loose tie would differ.
+  (index, "Put and take-from", hub T79). The held-first pass is ported
+  for plain `drop` (`lib_drop_resolve_400`), not for `put`; a held/loose
+  tie on a put line would differ.
   Also unread: why the seen-gated %text% parse missed TheADRIFTProject's
   already-seen battery (`put battery in remote`), which the fallback covers.
 - **Scope.** None of these is measured:
@@ -474,9 +468,9 @@ rule, not RNG (deaths, 2026-09-19).
 - **Examine:** run390's examine state line has not been read. Ask-topic
   overwrite: run390 lets the last matching topic win, Scarier keeps the
   first.
-- **Events:** a restart that rolls 0 parks for good at 4.0 (index, "Events
-  and RNG"); run390/run380's finish test and restart store are not read, so
-  pre-4.0 still finishes such an event on its next tick.
+- **Events, pre-4.0:** the rolls-0 restart rule is ported at 4.0 (index,
+  "Events and RNG"); run390/run380's finish test and restart store are
+  unread, so pre-4.0 still finishes such an event on its next tick.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
