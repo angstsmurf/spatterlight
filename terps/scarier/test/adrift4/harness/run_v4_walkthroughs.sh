@@ -7044,7 +7044,16 @@ cluelessbob_solution.txt|In_the_Claws_of_Clueless_Bob.taf|score of 12 - well don
 # registered alias. 112 commands, no env vars needed. T70-75 say
 # `x/open right lower cupboard`, not "lower right": run400 asks "Which right
 # cupboard." for the latter and refuses `open` (runner_transcripts/hub.txt),
-# and Scarier now does the same.
+# and Scarier now does the same. T79 `put soup in pan`: the minestrone soup
+# sits inside the tin can task 11 opened, revealed by no listing of its own,
+# so run400's %text% matcher (seen-gated, TAF_VERSION >= 3.90) cannot name
+# it -- but its mode 2 fallback scores present objects directly, ignoring
+# seen, finds the soup (alias "soup" scores 1), and moves it while leaving
+# it unseen; the name composer then answers "that" rather than the real
+# name for an object still unseen, so run400 (and now Scarier) says "I put
+# that inside the saucepan." instead of running task 12's authored text
+# (runner_transcripts/hub.txt:285). See lib_put_fragment_present_object()
+# and lib_put_print_object_or_that() in sclibrar.cpp.
 hub_solution.txt|hub.taf|driveway, and take off down the suburban street, not once looking back.|
 # YNKaboom.taf ("The Ascot"): pure yes/no CYOA, no formal score system (0
 # ChangeScore actions; 5 EndGame endings differentiated only by an

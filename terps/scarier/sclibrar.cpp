@@ -13808,6 +13808,37 @@ lib_check_put_in_recursion (scr_gameref_t game,
 static scr_int lib_put_seen_absent = -1;
 
 /*
+ * The twin case: an object present but still unseen, resolved for the rest
+ * of that one command by asking the scorer directly instead of the seen-gated
+ * %text% parse; see lib_put_fragment_present_object() and
+ * lib_put_in_multiple_common().  Named so lib_put_print_object_or_that() can
+ * tell this one object to print as "that" rather than by name -- the object
+ * genuinely remains unseen, and the Runner's name composer answers "that"
+ * for any unseen object it is asked to print (see the "Getting off" comment
+ * above lib_cmd_go_*()).
+ */
+static scr_int lib_put_present_unseen = -1;
+
+/*
+ * lib_put_print_object_or_that()
+ *
+ * lib_print_object_np(), except for the one object this command resolved
+ * despite it being unseen: that one prints as "that", matching the Runner's
+ * name composer.  Measured on hub (run400, 2026-09-17): the minestrone soup,
+ * revealed only by task 11 opening the tin can with no listing of its own,
+ * answers `put soup in pan` with "I put that inside the saucepan." rather
+ * than naming the soup.
+ */
+static void
+lib_put_print_object_or_that (scr_gameref_t game, scr_int object)
+{
+  if (object == lib_put_present_unseen)
+    pf_buffer_string (gs_get_filter (game), "that");
+  else
+    lib_print_object_np (game, object);
+}
+
+/*
  * lib_put_named_filter()
  * lib_put_all_filter()
  *
@@ -14388,7 +14419,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
       lib_print_list (game, list,
                       is_all_form && prop_get_taf_version (gs_get_bundle (game))
                                      < TAF_VERSION_390
-                      ? lib_print_object : lib_print_object_np,
+                      ? lib_print_object : lib_put_print_object_or_that,
                       " and ");
       pf_buffer_string (filter, " inside ");
       lib_print_object_np (game, container);
@@ -15098,6 +15129,47 @@ lib_put_fragment_names_nothing (scr_gameref_t game)
 }
 
 /*
+ * lib_put_fragment_present_object()
+ *
+ * The unique highest-scoring object among those merely PRESENT (seen or
+ * not) that the unnamed put fragment names -- run400's mode 2 scorer,
+ * asked directly rather than through the seen-gated %text% parse above.
+ * -1 for none or a tie, exactly like lib_verb_object_resolve_400_string();
+ * a tie is left to the ordinary flow (which will itself fail and fall to
+ * the unclear-object/rewrite handling below in the caller).
+ */
+static scr_int
+lib_put_fragment_present_object (scr_gameref_t game, const scr_char *fragment)
+{
+  scr_int index_, object, best, best_count;
+
+  object = -1;
+  best = 0;
+  best_count = 0;
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      scr_int score;
+
+      if (!obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+        continue;
+
+      score = lib_verb_object_name_score (game, index_, fragment);
+      if (score == 0)
+        continue;
+      if (score > best)
+        {
+          object = index_;
+          best = score;
+          best_count = 1;
+        }
+      else if (score == best)
+        best_count++;
+    }
+
+  return best_count == 1 ? object : -1;
+}
+
+/*
  * lib_put_in_present_filter()
  *
  * The universe run390's put names its object from, before any test of where
@@ -15609,7 +15681,11 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
   /* Parse the multiple objects list to find the target objects. */
   struct seen_absent_reset
     {
-      ~seen_absent_reset () { lib_put_seen_absent = -1; }
+      ~seen_absent_reset ()
+      {
+        lib_put_seen_absent = -1;
+        lib_put_present_unseen = -1;
+      }
     } seen_absent_guard;
   scr_bool parsed = lib_parse_multiple_objects (game,
                                    is_except ? "retain" : "move",
@@ -15626,24 +15702,56 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
    * jar." (Adrift_1162, 2026-09-14).  An unseen noun still falls to the
    * clobbering exit below.
    */
-  if (!parsed && !is_except && lib_is_version_400 (game)
-      && lib_put_fragment_names_nothing (game))
+  if (!parsed && !is_except && lib_is_version_400 (game))
     {
       const scr_char *input = run_get_dispatch_input ();
       std::string fragment;
 
       if (input && run_unnamed_put_fragment (input, fragment))
         {
-          const scr_int seen = lib_verb_object_resolve_400_string
-                                 (game, fragment.c_str (), NULL, FALSE);
-
-          if (seen >= 0 && !obj_is_static (game, seen))
+          if (lib_put_fragment_names_nothing (game))
             {
-              lib_put_seen_absent = seen;
-              gs_clear_multiple_references (game);
-              game->multiple_references[seen] = TRUE;
-              references = 1;
-              parsed = TRUE;
+              const scr_int seen = lib_verb_object_resolve_400_string
+                                     (game, fragment.c_str (), NULL, FALSE);
+
+              if (seen >= 0 && !obj_is_static (game, seen))
+                {
+                  lib_put_seen_absent = seen;
+                  gs_clear_multiple_references (game);
+                  game->multiple_references[seen] = TRUE;
+                  references = 1;
+                  parsed = TRUE;
+                }
+            }
+          else
+            {
+              /*
+               * The fragment names something present after all -- just not
+               * anything the seen-gated %text% parse above could see.  Ask
+               * the scorer directly, the same way run400's own mode 2 does;
+               * see lib_put_fragment_present_object().
+               */
+              const scr_int present =
+                lib_put_fragment_present_object (game, fragment.c_str ());
+
+              if (present >= 0 && !obj_is_static (game, present))
+                {
+                  /*
+                   * Only the genuinely unseen case prints as "that" --
+                   * lib_put_fragment_present_object() ignores seen state
+                   * when it searches, so it can also recover an object the
+                   * top parse missed for some other reason while it was
+                   * already seen (measured on TheADRIFTProject, 2026-09-19:
+                   * `put battery in remote` finds an already-seen battery
+                   * this way and must still name it, not say "that").
+                   */
+                  if (!gs_object_seen (game, present))
+                    lib_put_present_unseen = present;
+                  gs_clear_multiple_references (game);
+                  game->multiple_references[present] = TRUE;
+                  references = 1;
+                  parsed = TRUE;
+                }
             }
         }
     }

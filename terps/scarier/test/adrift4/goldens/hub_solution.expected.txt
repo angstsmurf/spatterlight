@@ -427,8 +427,7 @@ I put the can opener on the minestrone soup can, and turn the lever. A lovely
 smell of tomato and garlic wafts out.
 
 > put soup in pan
-The soup slides easy out of the can and into the saucepan. I throw the can
-into the bin.
+I put that inside the saucepan.
 
 > press on
 I press the 'on' button.

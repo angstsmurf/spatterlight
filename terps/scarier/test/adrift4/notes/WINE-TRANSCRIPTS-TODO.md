@@ -513,11 +513,24 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
     is still taken, only the answer is overwritten.
 - **Task versus library:**
   - hub T79 `put soup in pan`: the Runner answers with the library's "I put
-    that inside the saucepan.", Scarier runs the task ("The soup slides easy
+    that inside the saucepan.", Scarier ran the task ("The soup slides easy
     out of the can and into the saucepan. I throw the can into the bin.").
     Found 2026-09-17, when the row was re-driven and the RULE 2 desync that
-    had been hiding everything past T70 went away. Not classified yet;
-    compare with the put-versus-task rules already in the index.
+    had been hiding everything past T70 went away. **Ported 2026-09-19**
+    (see the index): engine bug, not a task-versus-library priority issue --
+    the soup is present (inside the tin can task 11 opened) but never
+    *seen* (no listing of the can's contents), so the seen-gated %text%
+    matcher can't name it and the library's `put` handler used to fall
+    straight to the task. run400's own fallback (mode 2 of its object
+    scorer) finds present objects by score regardless of seen state, moves
+    the soup, and leaves it unseen -- so the name composer answers "that"
+    for it rather than its real name. Ported as
+    lib_put_fragment_present_object() and lib_put_print_object_or_that()
+    in sclibrar.cpp, reusing lib_put_fragment_names_nothing()'s existing
+    diagnosis in its docstring. Narrowed after a TheADRIFTProject regression
+    (`put battery in remote`) showed the same fallback recovering an
+    object the top parse missed for an unrelated reason while it was
+    already seen -- that case must still print the real name, not "that".
   - crookedestate T41 `peel wallpaper`: the Runner runs the task, Scarier
     says "don't understand what you want me to do with the walls". Also at
     T44 `save`, the Runner adds an event line. **Ported 2026-09-15** (see the
@@ -1194,6 +1207,17 @@ every Runner.
     weight, else "... as <your> hands are full." (463BDB/463C04).
   - `[3.9]` alexis T28, alexis_worn_cube T27
     (`lib_take_from_over_capacity_390`, 2026-09-15)
+- **4.0 put names a present-but-unseen object by asking the scorer
+  directly.** The seen-gated %text% matcher can't name an object inside an
+  unlisted-but-open container, but run400's object scorer (463640, its
+  "mode 2") finds it anyway by scoring every present object regardless of
+  seen state, moves it, and leaves it unseen -- so the name composer
+  answers "that" for it rather than its real name (the same "unseen ->
+  that" rule as the "Getting off X" precedent). Only fires when the top
+  parse's failure really is the seen-gate: a present object the top parse
+  missed for some other reason, while already seen, still gets its real
+  name. `[4.0]` hub T79 (`lib_put_fragment_present_object`,
+  `lib_put_print_object_or_that`, 2026-09-19)
 
 ### NPCs, walks and battle
 
