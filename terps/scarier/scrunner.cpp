@@ -2349,6 +2349,116 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
 }
 
 
+/*
+ * run_wait_anywhere()
+ *
+ * Every Runner answers a line holding the whole word `wait` ANYWHERE with
+ * "Time passes..." and the wait turns, if no handler above has written a
+ * message by then: `If c("wait") [Or line = "z"] And msg = ""` (run370
+ * 43C1B3, run380 442A07, run390 45FCA2, run400 48ABB8 -- 4.0's c() too).
+ * That gate sits after the tasks and the handlers that enter on words
+ * anywhere in the line (takes, drops, wears, removes, sitstand, openclose,
+ * examines, score, profanity), and before whereis, gotoplace and therest.
+ * So `wait stone` with the stone elsewhere, `please wait`, `wait here`,
+ * `push stone wait` and `turn wait` all pass time.  A line holding an
+ * earlier handler's word is left to the rows that already answer it; give,
+ * ask, talk and say are left alone too, as are directions and inventory:
+ * not measured.  run370's openclose writes nothing unless the line names an
+ * openable object (4264E7), so there `open stone wait` passes time; 3.8 on
+ * refuse the open.  `look wait` is examines' from 3.9 (bare `look`), time
+ * passing at 3.7/3.8.
+ *
+ * gotoplace still runs after it and adds its "Unknown place." -- `goto hall
+ * wait` answers both.  A goto that walks prints "Moving to..." straight to
+ * the screen and jumps past the message print and the turn's tick (run370
+ * 42BDEE "&&&"), so the "Time passes..." is lost and only the wait loop's
+ * WaitTurns - 1 ticks run: the walk is administrative and the wait counter
+ * stays set.  run370x reaches that with `wait goto hall`, the game's goto
+ * word and "goto" each cut from the front.
+ *
+ * Measured 2026-09-19 with cmdfile_pwait.txt / cmdfile_pwait4.txt on
+ * p37GOTO, p38GOTO, p39GOTO and p4EXAM: run370x Adrift_144_pwait37.rtf,
+ * run380x Adrift_145_pwait38.rtf, run390x Adrift_146_pwait39.txt, run400x
+ * Adrift_147_pwait4.txt.
+ */
+static scr_bool
+run_wait_anywhere (scr_gameref_t game, const scr_char *string)
+{
+  static const scr_char *const EARLIER[] = {
+    "get", "take", "pick", "from", "drop", "put", "leave", "wear", "remove",
+    "strip", "sit", "stand", "lie", "x", "examine", "look at", "ex", "exam",
+    "read", "score", "give", "ask", "talk", "say", "i", "inventory",
+    "north", "n", "east", "e", "south", "s", "west", "w", "up", "u", "down",
+    "d", "in", "out", "northeast", "ne", "northwest", "nw", "southeast", "se",
+    "southwest", "sw", "shit", "fuck", "bastard", "cunt", "crap", "hell",
+    "shag", "bollocks", "bollox", "piss", NULL
+  };
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int version = run_get_version (bundle);
+  const scr_char *const *word;
+  const auto has_word = [&] (const scr_char *what) -> scr_bool
+    {
+      return version >= TAF_VERSION_400
+             ? lib_input_contains_word (string, what)
+             : run_c_word_pre400 (version, string, what) >= 0;
+    };
+
+  if (game->pending_endgame != 0 || !has_word ("wait"))
+    return FALSE;
+
+  /* The plain forms keep their own rows. */
+  if (scr_strncasecmp (string, "wait", 4) == 0
+      && strspn (string + 4, " 0123456789") == strlen (string + 4))
+    return FALSE;
+
+  for (word = EARLIER; *word; word++)
+    if (has_word (*word))
+      return FALSE;
+  if ((version >= TAF_VERSION_390 && has_word ("bugger"))
+      || (version < TAF_VERSION_400 && has_word ("bloody"))
+      || (version >= TAF_VERSION_380 && has_word ("look in"))
+      || (version >= TAF_VERSION_390 && (has_word ("look") || has_word ("l"))))
+    return FALSE;
+
+  if (has_word ("open") || has_word ("close"))
+    {
+      scr_int object;
+
+      if (version >= TAF_VERSION_380)
+        return FALSE;
+      for (object = 0; object < gs_object_count (game); object++)
+        {
+          const scr_char *name =
+              prop_get_indexed_string (bundle, "Objects", object, "Short");
+          const scr_int openness = gs_object_openness (game, object);
+
+          if ((openness == OBJ_OPEN || openness == OBJ_CLOSED)
+              && name && name[0] != NUL && has_word (name))
+            return FALSE;
+        }
+    }
+
+  const size_t mark = pf_buffer_length (filter);
+  const scr_bool was_admin = game->is_admin;
+
+  lib_cmd_wait (game);
+  const size_t after = pf_buffer_length (filter);
+  game->is_admin = FALSE;
+  if (lib_cmd_go_place (game) && game->is_admin)
+    {
+      const std::string moving = pf_cut_tail (filter, after);
+
+      pf_truncate (filter, mark);
+      pf_buffer_string (filter, moving.c_str ());
+      return TRUE;
+    }
+
+  game->is_admin = was_admin;
+  return TRUE;
+}
+
+
 static scr_bool
 run_standard_commands (scr_gameref_t game, const scr_char *string)
 {
@@ -5372,6 +5482,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
         }
       if (!status)
         status = run_therest_absent_370 (game, library_string);
+      if (!status)
+        status = run_wait_anywhere (game, library_string);
       if (!status)
         status = run_standard_verb_commands (game, library_string);
       /*

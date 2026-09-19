@@ -221,13 +221,13 @@ not by a tick.
 
 ### Engine, every version
 
-- **Pre-4.0 `wait` anywhere:** generaltasks answers any line holding the
-  word `wait` (c(), whole word) with "Time passes..." and a tick, after
-  the tasks, examines and give and before gotoplace and therest (run370
-  43C1B3, run380 442A07). Scarier's `[wait]` rows are exact-line, so
-  `wait stone` with the stone elsewhere is "You can't see the stone."
-  where run370x says "Time passes..." (Adrift_142_p37cantsee.rtf). 3.8 is
-  unmeasured and 3.9 unread.
+- **Unknown verb on an absent object** (`z stone`, the stone elsewhere):
+  3.7 and 4.0 say "You can't see the stone." as Scarier does, but run380x
+  says "You must be in the same room as the stone to be able to do
+  anything with it." and run390x gives DontUnderstand. Neither Runner's
+  handler has been read, and only `z` has been tried. p38GOTO/p39GOTO,
+  `cmdfile_pwait.txt` (run380x Adrift_145_pwait38.rtf, run390x
+  Adrift_146_pwait39.txt).
 
 ### Harness and compare
 
@@ -468,6 +468,28 @@ next to the named function and in `annotations.tsv`.
   handler's word (take, put, wear, x, read, open, give, wait, where, goto,
   question words, ask/talk/say) keep their own answer. `[3.7]` p37GOTO,
   run370x Adrift_142_p37cantsee.rtf (`run_therest_absent_370`, 2026-09-19)
+- **`wait` anywhere, every version:** `If c("wait") [Or line = "z"] And
+  msg = ""` answers "Time passes..." and the wait turns (run370 43C1B3,
+  run380 442A07, run390 45FCA2, run400 48ABB8; 4.0's c() too). It comes
+  after the tasks and the handlers that enter on words anywhere in the line
+  (take, drop, wear, remove, sit/stand/lie, open/close, examines, score,
+  swearing), and before whereis, gotoplace and therest. So `wait stone`
+  (stone elsewhere), `please wait`, `wait here`, `push stone wait` and
+  `turn wait` pass time; `waiting` does not. `look wait` passes time at
+  3.7/3.8 and is examines' from 3.9. run370's openclose writes nothing
+  unless the object is openable, so 3.7 `open stone wait` passes time,
+  while 3.8+ say "You can't open the stone!". gotoplace still runs after
+  it: `goto hall wait` is "Time passes..." then "Unknown place.". A goto
+  that walks jumps past the message print and the end tick (run370 42BDEE
+  "&&&"), so only "Moving to..." shows and only the loop's WaitTurns - 1
+  ticks run. run370x walks `wait goto hall`, cutting the game's goto word
+  and then "goto" from the front. Lines with give, ask, talk, say,
+  inventory or a direction keep their old answer (unmeasured). p37GOTO,
+  p38GOTO, p39GOTO, p4EXAM, feeds
+  `~/adrift-battle/runner/wine/cmdfile_pwait.txt` / `cmdfile_pwait4.txt`
+  (run370x Adrift_144_pwait37.rtf, run380x Adrift_145_pwait38.rtf, run390x
+  Adrift_146_pwait39.txt, run400x Adrift_147_pwait4.txt)
+  (`run_wait_anywhere`, 2026-09-19)
 - **Task matching:**
   - One game task per typed line; a silent task lets the library run, never
     a second task. House (c74b1b90c)

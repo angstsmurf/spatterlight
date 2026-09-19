@@ -2446,6 +2446,25 @@ pf_truncate (scr_filterref_t filter, size_t length)
   filter->join_pending = FALSE;
 }
 
+/*
+ * pf_cut_tail()
+ *
+ * Remove the buffered text from offset "from" on and return it, for a caller
+ * that has to drop something printed before it and then put it back.
+ */
+std::string
+pf_cut_tail (scr_filterref_t filter, size_t from)
+{
+  assert (pf_is_valid (filter));
+
+  if (from >= filter->buffer.size ())
+    return std::string ();
+
+  const std::string tail = filter->buffer.substr (from);
+  pf_truncate (filter, from);
+  return tail;
+}
+
 
 /*
  * pf_new_sentence()

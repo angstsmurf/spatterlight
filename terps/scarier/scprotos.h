@@ -361,6 +361,7 @@ extern void pf_prepend_string (scr_filterref_t filter,
 extern size_t pf_buffer_length (scr_filterref_t filter);
 extern void pf_hoist_tail (scr_filterref_t filter, size_t from);
 extern void pf_truncate (scr_filterref_t filter, size_t length);
+extern std::string pf_cut_tail (scr_filterref_t filter, size_t from);
 extern void pf_new_sentence (scr_filterref_t filter);
 extern void pf_mute (scr_filterref_t filter);
 extern void pf_clear_mute (scr_filterref_t filter);
