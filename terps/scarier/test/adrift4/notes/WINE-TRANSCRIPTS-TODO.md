@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 347 identical on every turn, 28 identical apart from
-  whitespace, 52 with a compare report. Every differing row is classified
+- **Manifest:** 349 identical on every turn, 28 identical apart from
+  whitespace, 50 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -270,10 +270,6 @@ index below. Rows not named here differ only by a capture artefact (see
 
 ### Engine, 4.0
 
-- **zelda T60 `buy ganon mask`:** Scarier adds "The shopkeeper pulls an
-  ocarina from his pocket and plays a familiar sounding tune."; run400
-  doesn't. Draws 468 vs 487, parting around Runner T53-55. T190 is an
-  epilogue cut only.
 - **thepkgirl T312 `south`:** run400 fires "somebody passing by slips you a
   buck"; Scarier doesn't. Cumulative draws are equal through T312, then
   run400 is +1 at T313 and Scarier +1 at T314 (1139 vs 1140). Event/draw
@@ -398,7 +394,7 @@ rule, not RNG (deaths, 2026-09-19).
 
 - Epilogue or pause text landing one turn late, or cut at the final
   keypress: JGrim T102, endgame T8-9, frustrated T84, mortality T41-48,
-  iqsfot T41-42, aliasagent 5 (`score` after the game ended), zelda T190.
+  iqsfot T41-42, aliasagent 5 (`score` after the game ended).
 - Whitespace-only joins or the trailing `[Press any key to end]`; the
   28 "apart from whitespace" rows. Glum_Fiddle turn 0 is the startup echo
   above.
@@ -494,6 +490,9 @@ rule, not RNG (deaths, 2026-09-19).
 - **Examine:** run390's examine state line has not been read. Ask-topic
   overwrite: run390 lets the last matching topic win, Scarier keeps the
   first.
+- **Events:** a restart that rolls 0 parks for good at 4.0 (index, "Events
+  and RNG"); run390/run380's finish test and restart store are not read, so
+  pre-4.0 still finishes such an event on its next tick.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
@@ -970,6 +969,12 @@ every Runner.
     runs once per turn, 46FF48). It parks until the next tick rather than
     finishing at once. riding_home T50 (event 9, task 118's 90% hint), cursed
     T137 (event 89, wet fur). 2026-09-15
+  - A 4.0 event whose restart ROLLS 0 (Time1 = 0) parks for good: the
+    restart stores the roll with no +1 (4705E3-470605), the next running
+    block takes the clock to -1, and the finish test is `clock = 0`
+    (470251), so no PrefTime text, finish or restart draw ever follows.
+    Pre-4.0 unmeasured, keeps the authored-length test. zelda T52-60
+    (event 5, the shopkeeper's ocarina; 468 = 468 draws). 2026-09-19
 - **Completed tasks.** A 4.0 event that runs a completed task still walks the
   task's restrictions (45FB78 calls 455C60 before the done/repeatable test),
   so a failing restriction prints its message. A passing one prints nothing.

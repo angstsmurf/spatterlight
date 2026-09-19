@@ -7250,6 +7250,11 @@ backhome_solution.txt|Back Home.taf|You are back.  Back home.|SCR_SKIP_WAITKEY=1
 # present." joins a task-shown room block whose actions move her in.  The whole
 # replay is now clean against Adrift_319_zelda.txt apart from one timed
 # shopkeeper line.
+# That line closed 2026-09-19 (identical on every turn against
+# runner_transcripts/zelda.txt, 468 = 468 draws): the shopkeeper event (5,
+# Time 0-15, restart) rolls 0 on its T52 restart, and run400 stores that roll
+# with no +1 and finishes only on `clock = 0` (470251), so the event parks for
+# the rest of the game and the T60 ocarina line never comes.  Re-blessed.
 zelda_solution.txt|zelda.taf|Well done - you scored maximum points!|SCR_SKIP_WAITKEY=1
 # Showtime_at_the_Gallows.taf: babysitting horror-comedy. No score system;
 # every outcome (death or true ending) is a plain room-move into "The End",

@@ -1289,8 +1289,21 @@ evt_tick_event (scr_gameref_t game, scr_int event)
          * stays incomplete), so the ordered pass starts it again with the
          * +1 kept, and the Runner prints the 90% line a second time after
          * `enter home`.
+         *
+         * At 4.0 a zero ROLLED from a range parks the same way.  The restart
+         * roll (4705E3-470605) stores Int((Time2 - Time1) * Rnd) + Time1 with
+         * no +1, the next running block takes the clock to -1, and the finish
+         * test at 470251 is `clock = 0`, so the event runs on for good: no
+         * PrefTime text, no finish and no further restart draws.  "Zelda"
+         * pins it (runner_transcripts/zelda.txt): the mask-shop shopkeeper
+         * (event 5, Time 0-15, restart) rolls 0 on the T52 restart, and
+         * run400 never plays the T60 ocarina line and draws 19 fewer numbers
+         * over the game.  Pre-4.0 keeps the authored test, because the 3.9/3.8
+         * immediate-restart fixup leaves a clock at 0 on purpose (see
+         * evt_is_zero_length()).
          */
-        if (evt_is_zero_length (game, event)
+        if ((evt_is_zero_length (game, event)
+             || evt_taf_version (game, event) >= TAF_VERSION_400)
             && gs_event_time (game, event) <= 0)
           {
             if (evt_trace)
