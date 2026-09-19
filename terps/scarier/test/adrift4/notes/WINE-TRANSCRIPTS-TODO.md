@@ -294,9 +294,6 @@ not by a tick.
   of the turn (thetest, a two-sentence Original). Expect a large
   reblessing: the task-text join alone moved 94 rows, and
   sweep_wine_breaks still counts 5622 Scarier-only breaks.
-- **p4TAMB side finding:** `rub red box` answers "You can't rub the red
-  box." although the task is `rub %object%`, while `rub box` runs it. Not
-  chased.
 
 ### Engine, needs a probe (3.9)
 
@@ -825,6 +822,17 @@ next to the named function and in `annotations.tsv`.
     (07bbd664d)
   - sit, stand and lie need the object on the room floor. `[3.8+]` house
     T124 (4e7df6dff)
+- **A task's `%object%` substitutes the bare Short or Alias, and nothing
+  else.** No Prefix, no article: `pa brass key` runs a `pa %object%` task
+  over Short "brass key" / Prefix "a small", and `pa key`, `pa a brass
+  key`, `pa the brass key` and `pa small brass key` all miss it. 3.90
+  folds case, 4.0 does not; before 3.90 `%object%` matches nothing. A
+  missed line falls to the library, whose noun resolver is prefix- and
+  article-tolerant, so `rub red box` over `rub %object%` answers "You
+  can't rub the red box." while `rub box` runs the task (p4TAMB, the
+  former "side finding"; Scarier already matched). `[3.9+]` p39CASE
+  Adrift_1_p39case (`uip_compare_reference_strict`, 2026-08-25; TAMB
+  closed 2026-09-19)
 - **A task's `%object%` binds only a seen object** (run400 matcher and
   run390 checktask alike). `take cushion` with the cushion lying unlisted
   on the pile misses the task, and the library answers "Take what?". The
