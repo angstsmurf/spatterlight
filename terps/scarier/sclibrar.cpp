@@ -23013,17 +23013,23 @@ lib_dont_think_other (scr_gameref_t game, const scr_char *verb)
  * Assorted don't-think messages.
  */
 /*
- * run400's therest clear arm (4896AC) answers any line holding the word
- * "clear": "You can't clear the rope with the knife." (p4WITHQ2.taf,
- * Adrift_1159).  Only the 4.0 object form is measured; everything else falls
- * through as before.
+ * therest's clear arm (run400 4896AC, run390 45E2AF, run380 444AC3, run370
+ * 43DFB7) answers any line holding the word "clear" that the exact-line
+ * clear/cls/clr command did not take: "You can't clear the rope." / "...
+ * the rope with the knife." (p4WITHQ2, Adrift_1159 and Adrift_1204), and
+ * "You can't clear that." for a word naming nothing, a turn at every version
+ * (Adrift_1202 run380, Adrift_1203 run370, Adrift_1205 run390, Adrift_1204).
  */
 scr_bool
 lib_cmd_clear_object (scr_gameref_t game)
 {
-  if (!lib_is_version_400 (game))
-    return FALSE;
   return lib_cant_do_object (game, "clear");
+}
+
+scr_bool
+lib_cmd_clear_other (scr_gameref_t game)
+{
+  return lib_cant_do_other (game, "clear");
 }
 
 scr_bool

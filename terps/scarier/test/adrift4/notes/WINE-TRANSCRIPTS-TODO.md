@@ -334,7 +334,6 @@ not by a tick.
   supporter that is neither held nor static nor a container; a static
   container; `except` forms; `put all in <nothing>`.
 - **Pre-4.0 room-name alt walk** is unmeasured.
-- **`clear`** at run370/380/390 is unmeasured.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
 
@@ -665,6 +664,18 @@ next to the named function and in `annotations.tsv`.
     ordinary turns, and the counter counts every line element, so `both`
     counts twice. `[3.9]` p39ADMIN (a211db2f1, b526c013b)
   - There are no administrative turns and no startup tick below 3.9.
+  - run380 counts line elements too: its counter goes up at the top of
+    generaltasks (441A21), so `turns` counts itself. `[3.8]` p38ADMIN
+    Adrift_1202: `look probe clear cls clr turns` answers 6 (Scarier said
+    5). run370 has no counter and answers `turns` "I don't understand."
+    (p37ADMIN Adrift_1203; the `turns` version gate is policy).
+- **clear.** Bare `clear`/`cls`/`clr` empties the window and prints "Screen
+  cleared.", a turn below 4.0 and administrative at 4.0. Any other line
+  holding the word goes to therest's clear arm: "You can't clear the rope."
+  for an object, "You can't clear that." for a word naming nothing, a turn
+  at every version. `[all]` p37ADMIN/p38ADMIN/p39ADMIN/p4WITHQ2,
+  Adrift_1202-1205 (lib_cmd_clear_other). Scarier said "I don't
+  understand." below 4.0 for both forms and at 4.0 for the second.
 - **The room refusal** runs inside the library, ahead of therest. `[3.9]`
   (9fbb40881) Before 3.9, drop, put and give refuse ahead of it. `[<3.9]`
   cave, greatc (f83e1cf87)

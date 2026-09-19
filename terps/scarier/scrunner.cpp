@@ -61,17 +61,20 @@ namespace { struct run_loop_halt {}; }
  * run_counts_line_elements()
  *
  * TRUE if the game's turn counter advances once per input line element as
- * it is read, rather than once per completed non-administrative turn.  Only
- * 3.9 does this; see run_player_input().  run380's counter (44F138) moves
- * with its every-command tail, and run400's is not measured apart from its
- * administrative turns.
+ * it is read, rather than once per completed non-administrative turn.  3.9
+ * and 3.8 do this; see run_player_input().  run380 adds one to its counter
+ * MemVar_44F138 at the top of generaltasks (441A21), where the jump back for
+ * the next `then` element (443453) also lands, so its `turns` counts itself:
+ * `look probe clear cls clr turns` answers 6 (p38ADMIN, Adrift_1202).
+ * run370 has no counter and no `turns`; run400's is not measured apart from
+ * its administrative turns.
  */
 static scr_bool
 run_counts_line_elements (scr_gameref_t game)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
 
-  return version >= TAF_VERSION_390 && version < TAF_VERSION_400;
+  return version >= TAF_VERSION_380 && version < TAF_VERSION_400;
 }
 
 
@@ -1238,6 +1241,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"feel *", lib_cmd_feel},
   {"fight *", lib_cmd_fight},
   {"clear %object% *", lib_cmd_clear_object},
+  {"clear %text%", lib_cmd_clear_other},
   {"fix %object% *", lib_cmd_fix_object},
   {"fix %text%", lib_cmd_fix_other},
   {"fix", lib_cmd_fix_what},
@@ -5882,9 +5886,9 @@ run_player_input (scr_gameref_t game)
 
   /*
    * 3.9 counts line elements, not turns: generaltasks adds one to its turn
-   * counter MemVar_4681A4 at its very top (45EC5B), before the not-a-turn
-   * flag is even cleared, so `turns`, a DontUnderstand line and a blank line
-   * all count.  Every jump back for the next queued element (4609F9) lands
+   * counter MemVar_4681A4 at its very top (45EC5B), as run380 does to
+   * MemVar_44F138 (441A21), before the not-a-turn flag is even cleared, so
+   * `turns`, a DontUnderstand line and a blank line all count.  Every jump back for the next queued element (4609F9) lands
    * above the increment too.  `again` does not: run390 answers the `turns`
    * that follows 18 elements with 19 twice over (Adrift_1161_p39admin.txt).
    * The end-of-turn tail in run_main_loop() leaves the counter alone at 3.9.
@@ -5905,7 +5909,8 @@ run_player_input (scr_gameref_t game)
        * 4601A5 never fires for a "With what?" or "Wear what?" answer
        * (`knife`, `coin` each count once in the same drive).
        */
-      if (scr_strcasecmp (line_element, "both") == 0)
+      if (scr_strcasecmp (line_element, "both") == 0
+          && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390)
         game->turns++;
     }
 
@@ -6989,8 +6994,8 @@ run_main_loop (scr_gameref_t game)
       if (status && !game->is_admin)
         {
           /*
-           * Increment turn counter, and clear notifications done flag.  3.9
-           * counted this line's elements as it read them; see
+           * Increment turn counter, and clear notifications done flag.  3.8
+           * and 3.9 counted this line's elements as they read them; see
            * run_player_input().
            */
           if (!run_counts_line_elements (game))

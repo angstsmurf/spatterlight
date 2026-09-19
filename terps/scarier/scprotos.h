@@ -844,6 +844,7 @@ extern scr_bool lib_cmd_feed (scr_gameref_t game);
 extern scr_bool lib_cmd_fight (scr_gameref_t game);
 extern scr_bool lib_cmd_feel (scr_gameref_t game);
 extern scr_bool lib_cmd_clear_object (scr_gameref_t game);
+extern scr_bool lib_cmd_clear_other (scr_gameref_t game);
 extern scr_bool lib_cmd_fix_object (scr_gameref_t game);
 extern scr_bool lib_cmd_fix_other (scr_gameref_t game);
 extern scr_bool lib_cmd_fix_what (scr_gameref_t game);
