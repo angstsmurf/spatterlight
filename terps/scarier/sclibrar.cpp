@@ -5038,6 +5038,8 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
   return TRUE;
 }
 
+static void lib_battle_who_store (const std::string &pending);
+
 scr_bool
 lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
 {
@@ -5094,6 +5096,25 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
     }
   pf_buffer_string (filter, "?");
   pf_buffer_character (filter, '\n');
+
+  /*
+   * 3.9 takes an answer.  The prompt leaves Short & "|" & line in
+   * MemVar_4681D0 (460810; the Alias form 460886) and generaltasks, on a next
+   * line nothing answered (460022), splices the answer into the line where
+   * the term was and runs that: `wear hat` / `red` is "You put on the red
+   * hat.", `open box` / `red` is "The red box is already open!", `close
+   * box` / `red box` closes it.  An answer that leaves it ambiguous just
+   * asks again: `remove hat` / `hat` and `wear hat` / `zzz` (the line
+   * becomes `wear zzz hat`); `open box` / `hat` is "Which box.  The red hat
+   * or the blue hat?" from the rerun `open hat box` (the list is built once
+   * per turn, the term is the last flagged).  A line something answers
+   * drops the question (`close box` / `look`).  3.7/3.8 store nothing
+   * (run380 4432AA, run370 43C997).  See lib_battle_who_continuation().
+   * p39TASK run390x Adrift_185_ppfx_39.txt (cmdfile_p39pfx.txt),
+   * 2026-09-19.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    lib_battle_who_store (std::string (prompt_term) + "|" + command);
   return TRUE;
 }
 
@@ -20269,16 +20290,50 @@ lib_battle_who_note_unanswered (void)
   lib_battle_who_unanswered = TRUE;
 }
 
+static void
+lib_battle_who_store (const std::string &pending)
+{
+  lib_battle_who_pending = pending;
+}
+
 /* The line to run instead, or empty when the prefix does not apply. */
 std::string
 lib_battle_who_continuation (const scr_char *command, scr_bool status)
 {
   std::string rerun;
+  size_t bar;
 
   if (lib_battle_who_pending.empty () || scr_strempty (command)
       || (status && !lib_battle_who_unanswered)
       || lib_battle_who_pending == command)
     return rerun;
+
+  /*
+   * A 3.9 "Which <term>.  <list>?" left Short & "|" & line
+   * (lib_co_ambiguity_prompt).  run390 460022-460188: the term is cut off
+   * the front, the line is what remains, and where the line holds the term
+   * the answer goes in its place -- followed by the term itself unless the
+   * answer already has it as a word (c(), 46010A) -- and the rest of the
+   * line after it.  A line without the term takes the plain prefix form
+   * (4601A5), line & " " & answer.
+   */
+  bar = lib_battle_who_pending.find ('|');
+  if (bar != std::string::npos)
+    {
+      const std::string term (lib_battle_who_pending.substr (0, bar));
+      const std::string line (lib_battle_who_pending.substr (bar + 1));
+      size_t at = line.find (term);
+
+      lib_battle_who_pending.clear ();
+      if (at == std::string::npos)
+        return line + " " + command;
+
+      rerun = line.substr (0, at) + command;
+      if (!lib_co_contains (command, term.c_str ()))
+        rerun += " " + term;
+      rerun += " " + line.substr (at + term.length ());
+      return rerun;
+    }
 
   rerun = lib_battle_who_pending + " " + command;
   lib_battle_who_pending.clear ();
@@ -23299,8 +23354,15 @@ lib_cmd_examine_other (scr_gameref_t game)
                     || scr_strcasecmp (line, "examine") == 0;
           scr_free (line);
           if (is_bare)
-            return lib_is_version_390 (game)
-                   && lib_what (game, "Examine");
+            {
+              if (!lib_is_version_390 (game))
+                return FALSE;
+              lib_what (game, "Examine");
+              /* `x` / `stone` examines the stone (Adrift_185_ppfx_39.txt);
+               * lib_what() stores only a line equal to its verb. */
+              lib_battle_who_pending = input;
+              return TRUE;
+            }
         }
     }
 
@@ -24862,29 +24924,43 @@ lib_what (scr_gameref_t game, const scr_char *verb)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *input = run_get_dispatch_input ();
 
-  /* checkverb's bare verb leaves the line pending; drop, take and drink
-   * are not checkverb verbs.  See lib_question_with_rule(). */
-  if (input && scr_strcasecmp (input, verb) == 0
-      && strcmp (verb, "Drop") != 0 && strcmp (verb, "Take") != 0
-      && strcmp (verb, "Drink") != 0)
+  /*
+   * checkverb's bare verb leaves the line pending.  At 4.0 drop, take and
+   * drink are not checkverb verbs and leave nothing (see
+   * lib_question_with_rule()).
+   *
+   * 3.9 is broader: EVERY "<Verb> what?" answer leaves the line in
+   * MemVar_4681D0, which generaltasks (4601A5) puts in front of the next
+   * line nothing else answers -- checkverb's arms (42A504: push, pull, kick,
+   * hit, turn, climb, break, lock, smash ...) and the handlers' own rows
+   * alike: `drop` / `coin` drops the coin, `take` / `coin` picks it up,
+   * `wear` / `red hat` puts it on, `remove` / `red hat` takes it off,
+   * `examine` or `x` / `stone` examines it, `give` / `coin` asks "Give the
+   * coin to who?".  The prefix lives one line: `push` / `look` / `stone` is
+   * the catch-all (4606A4 clears a prefix the answered line left alone).
+   * The splitter's next element is such a line too: `push, stone` is "Push
+   * what?" then "You push the stone.".  p39TASK, run390x
+   * Adrift_185_ppfx_39.txt (cmdfile_p39pfx.txt), Adrift_179_ptaskc_39.txt
+   * (cmdfile_ptaskcomma.txt), 2026-09-19.
+   *
+   * What checkverb compares is the line as typed, but what it stores is
+   * the line as generaltasks holds it by then -- after the bare-give
+   * completion at 45FAB9.  So `give` prints "(to Nobody)" and "Give what?"
+   * and stores "give to nobody"; `coin` then reruns "give to nobody coin",
+   * which has its "to" and is not completed again: no second echo, and
+   * the give handler asks "Give the coin to who?" (Adrift_185 T44-45).
+   */
+  if (input && lib_is_version_390 (game))
     {
-      /*
-       * run390's checkverb (42A504) is the same routine as run400's: the
-       * "<Verb> what?" message and the line itself into MemVar_4681D0, which
-       * the top of generaltasks (45EC3A) puts in front of the next line
-       * nothing else answers.  The splitter's next element is such a line:
-       * `push, stone` / `push,stone` / `push , stone` is "Push what?" then
-       * "You push the stone." from the `push stone` task (p39TASK,
-       * Adrift_179_ptaskc_39.txt, 2026-09-19).  Only checkverb's own verbs
-       * store it; run390's removes() does not (see
-       * lib_question_prefix_from_line), and which of the other "what?"
-       * rows are checkverb arms at 3.9 is unmeasured.
-       */
-      if (lib_is_version_390 (game) && strcmp (verb, "Remove") != 0)
+      const scr_char *typed = run_get_line_input ();
+
+      if (typed && scr_strcasecmp (typed, verb) == 0)
         lib_battle_who_pending = input;
-      else
-        lib_question_prefix_from_line (game);
     }
+  else if (input && scr_strcasecmp (input, verb) == 0
+           && strcmp (verb, "Drop") != 0 && strcmp (verb, "Take") != 0
+           && strcmp (verb, "Drink") != 0)
+    lib_question_prefix_from_line (game);
 
   pf_buffer_string (filter, verb);
   pf_buffer_string (filter, " what?\n");
@@ -24948,6 +25024,15 @@ lib_cmd_cut_what (scr_gameref_t game)
 scr_bool
 lib_cmd_drink_what (scr_gameref_t game)
 {
+  /*
+   * Below 4.0 therest's drink arm is a plain `If c("drink") Then msg = Ary(0)
+   * & " can't drink " & name & "."` (run390 45D64F, run380 443EA9, run370
+   * 43D398) with no checkverb, so a bare `drink` is "You can't drink that."
+   * and leaves no prefix (`drink` / `stone` is the catch-all).  p39TASK
+   * run390x Adrift_185_ppfx_39.txt, 2026-09-19.
+   */
+  if (!lib_is_version_400 (game))
+    return lib_cant_do_other (game, "drink");
   return lib_what (game, "Drink");
 }
 
@@ -26324,6 +26409,37 @@ lib_cmd_verb_object (scr_gameref_t game)
         }
       else
         return FALSE;
+    }
+
+  /*
+   * 3.9: the catch-all is a walk of the objects in index order (run390
+   * 4601D4-460284) -- co(obj, 0), the seen byte, obhere() -- and the FIRST
+   * present match is the one named (var_CA = 2 shuts the later ones out).
+   * co() with two present namesakes needs the Prefix's last word in the
+   * line, so a bare `red box` beside the blue box names the red one and
+   * `box` alone names neither (the end-of-turn "Which box." asks instead).
+   * Our matcher's references are the wrong instrument for that: `red box`
+   * binds both boxes.  Adrift_185_ppfx_39.txt T35-37 (`red box`, `red hat`,
+   * `blue hat`), 2026-09-19.
+   */
+  if (lib_is_version_390 (game) && lib_co_400_forced () < 0)
+    {
+      const scr_char *input = run_get_dispatch_input ();
+      const scr_int room = gs_playerroom (game);
+
+      count = 0;
+      object = -1;
+      for (index_ = 0; input && index_ < gs_object_count (game); index_++)
+        {
+          if (gs_object_seen (game, index_)
+              && obj_indirectly_in_room (game, index_, room)
+              && lib_co_pre400 (game, input, index_, 0))
+            {
+              count = 1;
+              object = index_;
+              break;
+            }
+        }
     }
 
   if (count != 1)

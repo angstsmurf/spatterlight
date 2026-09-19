@@ -2860,6 +2860,18 @@ static std::string run_co_pending_input;
 static scr_bool run_co_task_claimed = FALSE;
 
 /*
+ * The element as it reached run_all_commands(), before the give and
+ * ask/talk reference rewrites: run390's checkverb compares the typed line
+ * against its verb (42A4F4), so a bare `give` is still "give" there even
+ * though the line it stores is the rewritten one.
+ */
+const scr_char *
+run_get_line_input (void)
+{
+  return run_co_pending_input.empty () ? NULL : run_co_pending_input.c_str ();
+}
+
+/*
  * The line element `again` repeats.  run_player_input() owns it; it sits out
  * here so that run_session_state() can keep it across an autosave.
  */

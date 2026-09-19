@@ -314,11 +314,12 @@ not by a tick.
   the silent skip of a held object are ported. The rest of the main multi
   loop at 454CA3 after a partial pre-pass (worn objects, a named absent
   object beside a candidate) is unread.
-- **run390's Who-prefix consumption** at 460022 is assumed, not measured.
-  checkverb's "<Verb> what?" prefix (the same MemVar_4681D0) is measured
-  only within a split line (p39TASK `push, stone`); its carry into the
-  next typed line, and which "what?" rows are checkverb arms at 3.9, are
-  not.
+- **run390's battle "Who do you want to attack?" prefix** (44D1F4) is
+  the same MemVar_4681D0 and takes the plain 4601A5 rerun, but no battle
+  game has been driven through it. The checkverb / handler "what?" carry
+  and the "Which X." answer splice are measured and ported (p39TASK
+  cmdfile_p39pfx.txt, Adrift_185_ppfx_39.txt, 2026-09-19); 460022 turned
+  out to be the Which-prompt answer splice, not a Who path.
 - **Take-from:** the " and " clause picks the last container in 3.9 and the
   first in 4.0; 3.9's " and " collection bug; the pending slot after `Get X
   from what?`; surface-vs-container wording of the parent-derivation arm.
@@ -743,6 +744,39 @@ next to the named function and in `annotations.tsv`.
   `x coin and the hat` / `and large` examine the coin. `[4.0]` p4AND
   Adrift_955 (`lib_examine_referencedob_400`, `lib_disambiguate_object`,
   2026-09-19)
+
+- **Every "<Verb> what?" leaves the line as a prefix:** checkverb's arms
+  (push, pull, kick, hit, turn, climb, break, lock, smash) and the
+  handlers' own rows (drop, take, wear, remove, open, close, examine, x,
+  give) store the line in MemVar_4681D0 when the typed line IS the verb
+  (42A4F4 and kin), and generaltasks prepends it to the next line nothing
+  answers (4601A5, rerun from 45EC4B): `push` / `stone` pushes the stone,
+  `give` / `coin` asks "Give the coin to who?". The prefix lives one line
+  (4606A4 clears one the answered line left alone): `push` / `look` /
+  `stone` is the catch-all. `push zzz` / `stone` stores nothing. What is
+  stored is the line after the bare-give completion, so `give` stores
+  "give to nobody" and the rerun is not completed (and echoed) again.
+  `[3.9]` p39TASK cmdfile_p39pfx.txt, run390x Adrift_185_ppfx_39.txt
+  (`lib_what`, `run_get_line_input`, 2026-09-19)
+- **`drink` bare is "You can't drink that." below 4.0** (run390 45D64F),
+  not "Drink what?"; eat, open, close, read and say leave no prefix.
+  `[<4.0]` p39TASK Adrift_185_ppfx_39.txt (`lib_cmd_drink_what`,
+  2026-09-19)
+- **A "Which X.  list?" answer is spliced into the line:** the prompt
+  stores Short & "|" & line (460810/460886); the next unanswered line's
+  text replaces the term in the stored line, followed by the term itself
+  unless the answer already holds it as a word (46010A), and the line is
+  rerun (460022-460188): `wear hat` / `red` runs `wear red hat`, `open
+  box` / `hat` runs `open hat box` ("Which box.  The red hat or the blue
+  hat?", the list being built from the answer's own namesakes). "That
+  wasn't one of the options!" (460890) is unreachable in practice.
+  `[3.9]` p39TASK Adrift_185_ppfx_39.txt (`lib_co_ambiguity_prompt`,
+  `lib_battle_who_store`, `lib_battle_who_continuation`, 2026-09-19)
+- **3.9 object catch-all is a co(obj, 0) walk in index order:** the first
+  present, seen object co() matches is named (4601D4-460284), so a bare
+  `red box` beside the blue box is "I don't understand what you want me to
+  do with the red box." and bare `box` is the Which prompt. `[3.9]`
+  p39TASK Adrift_185_ppfx_39.txt (`lib_cmd_verb_object`, 2026-09-19)
 
 ### Nouns, scope and the seen model
 
