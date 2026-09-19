@@ -12745,6 +12745,29 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
 
 
 /*
+ * lib_drop_and_arm_pre400()
+ *
+ * Before 4.0 drops() picks its arm by c() on the whole line: "all" first,
+ * then "and" (run390 4455E5/445607, run380 43869F/4386CD, run370 the same
+ * code).  The "and" arm walks every object, counts the ones held or worn
+ * whose name co() finds and that no "drop <Short>" task claims, and drops
+ * those.  When it counted none it sets " not carrying anything." (run390
+ * 445841-44586B, run380 4388E6) and does not name the objects, so the
+ * one-object "don't have <X>!" refusal never speaks on this arm.  pPUTFULL39
+ * `drop coin and stone on junk`, both on the floor, is "You are not carrying
+ * anything." (run390x Adrift_pputfull39.txt, 2026-09-19).
+ */
+static scr_bool
+lib_drop_and_arm_pre400 (scr_gameref_t game)
+{
+  const scr_char *const line = run_get_dispatch_input ();
+
+  return !lib_is_version_400 (game) && line
+         && !lib_co_contains (line, "all") && lib_co_contains (line, "and");
+}
+
+
+/*
  * lib_drop_multiple_common()
  *
  * Drop the objects held by the player and listed in %text%, or -- for
@@ -12782,7 +12805,16 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
   objects = lib_apply_filter (game,
                               resolver, -1, is_except,
                               &references);
-  if (objects > 0 || references > 0)
+  if (objects == 0 && !is_except && lib_drop_and_arm_pre400 (game))
+    {
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You are not carrying anything.",
+                                             "I am not carrying anything.",
+                                             "%player% is not carrying anything."));
+      library_printed = TRUE;
+    }
+  else if (objects > 0 || references > 0)
     library_printed = lib_drop_backend (game);
   else
     {
@@ -16712,6 +16744,18 @@ lib_put_no_object_pre400 (scr_gameref_t game)
 static scr_bool
 lib_put_not_reachable_pre400 (scr_gameref_t game)
 {
+  if (lib_put_refusal_first_390 (game))
+    {
+      const size_t from = pf_buffer_length (gs_get_filter (game));
+
+      lib_print_response_message (game,
+                                  "You can't see that.\n",
+                                  "I can't see that.\n",
+                                  "%player% can't see that.\n");
+      lib_put_sweep_390 (game, run_get_dispatch_input (), from);
+      return TRUE;
+    }
+
   if (run_priority_defer_if_active ())
     return FALSE;
 
@@ -16997,11 +17041,18 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
     return TRUE;
 
   /*
-   * What a pre-4.0 put does with a static is unmeasured -- p39DARK has none
-   * -- so a line that names one is left exactly where it was, for the task
-   * passes and the generic tail below them.
+   * What a 3.7/3.8 put does with a static is unmeasured, so a line that
+   * names one there is left exactly where it was, for the task passes and
+   * the generic tail below them.  3.9 goes on: insides() counts only the
+   * dynamic objects it could move (461AF8), so a static that is present
+   * leaves the message at "You put " and the target's own refusals first,
+   * then " can't see that." (4624EF) and the sweep, as for any object it
+   * could not reach.  pPUTFULL39 `put statue in cupboard`, both statics in
+   * the room and the cupboard open, is "You can't see that." (run390x
+   * Adrift_pputfull39.txt, 2026-09-19).
    */
-  for (object = 0; has_object && object < object_count; object++)
+  for (object = 0; has_object && is_pre_390 && object < object_count;
+       object++)
     {
       if (game->multiple_references[object] && obj_is_static (game, object))
         {
@@ -17928,9 +17979,23 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
   size_t cut;
   scr_int object, named, chosen;
 
-  if (!lib_put_refusal_first_390 (game) || !line
-      || lib_co_contains (line, "all"))
+  if (!lib_put_refusal_first_390 (game) || !line)
     return FALSE;
+
+  /*
+   * c("all") skips the two-names test (461646) but not the target choice:
+   * with no object named past the preposition var_8C stays -1 and insides()
+   * refuses at 461769 like any other line.  pPUTFULL39 `put all in junk` /
+   * `put all on junk` are "You can't put anything inside that!" / "... onto
+   * that!" (run390x Adrift_pputfull39.txt, 2026-09-19).  A named target is
+   * left to the "put all" rows.
+   */
+  if (lib_co_contains (line, "all"))
+    {
+      if (lib_put_target_390 (game, line) != -1)
+        return FALSE;
+      goto refuse;
+    }
 
   named = 0;
   for (object = 0; object < gs_object_count (game); object++)
@@ -17986,6 +18051,7 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
       return status;
     }
 
+refuse:
   {
     const size_t from = pf_buffer_length (gs_get_filter (game));
 

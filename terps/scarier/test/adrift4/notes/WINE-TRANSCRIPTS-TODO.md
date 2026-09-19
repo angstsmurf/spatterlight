@@ -313,11 +313,17 @@ not by a tick.
 - **Take-from:** the " and " clause picks the last container in 3.9 and the
   first in 4.0; 3.9's " and " collection bug; the pending slot after `Get X
   from what?`; surface-vs-container wording of the parent-derivation arm.
-- **Put:** a locked container; a named static; an object on a floor
-  supporter; `put all in <nothing>`; the `drop X in/on junk` spelling of the
-  "that!" refusal (only `put` is ported); the " is full." arm at 461E9D,
-  which never spoke on pPUTREF39E even with the bag exactly full; the onto
-  and-arm with a supporter over capacity (its count takes every candidate).
+- **Put:** `put everything in <nothing>` is unmeasured: c("all") skips the two-name
+  test, but "everything" does not. A static that is NOT present (another
+  room) named in a 3.9 put is also unmeasured. The " is full." arm at
+  461E59 speaks only when something fits and the bag is still full, so it
+  is effectively dead; it needs a size-0 object.
+- **Drop:** the pre-4.0 "and" arm with no object named at all (`drop foo
+  and bar`). By the code it is "not carrying anything."; Scarier says "Drop
+  what?". The arm drops only held/worn objects (o(22) 0 or &H9C), not ones
+  inside a held container, and Scarier's named filter drops those too.
+  3.7/3.8 share the code (run380 4386CD, run370 4306DA), but only 3.9 is
+  measured.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
 - **Examine:** run390's examine state line has not been read.
@@ -932,6 +938,34 @@ next to the named function and in `annotations.tsv`.
     the moment". `[3.9]` Adrift_pputref394/395/396.txt, the last on
     pPUTREF39E (`make_39_putrefprobe.py --emptybag`) (`lib_put_in_backend`,
     2026-09-19)
+  - `put all in/on <nothing>`: c("all") skips the two-name test (461646)
+    but not the target choice. With nothing named after the preposition
+    the answer is "You can't put anything inside/onto that!", then the
+    sweep. `[3.9]` pPUTFULL39 (make_39_putfullprobe.py),
+    Adrift_pputfull39.txt (`lib_put_that_390`, 2026-09-19)
+  - A present static named as the object: insides() counts only movable
+    dynamics (461AF8), so the target's refusals come first, then "You can't
+    see that." (4624EF) and the sweep. An object it cannot reach takes the
+    same refusal-first path. `[3.9]` pPUTFULL39 `put statue in cupboard`
+    (`lib_put_named_pre400`, `lib_put_not_reachable_pre400`, 2026-09-19)
+  - Also measured identical on pPUTFULL39, with no code change:
+    - an object on a floor supporter gives "You can't do that!";
+    - the onto and-arm over capacity puts every candidate, floor objects
+      included;
+    - a static target in another room gives "Put the coin inside what?";
+    - a full bag gives "can't fit ... at the moment" / "Nothing will fit";
+    - `drop coin in junk` / `drop coin and stone in junk` are drops ("You
+      drop the coin." / "... the stone."), so the drop spelling never
+      reaches the "that!" refusal.
+
+    Pre-4.0 has no lock state (the V390 schema reads no Key, and there is no
+    "locked" string), so "locked container" is moot.
+  - Pre-4.0 drops() picks its arm by c("all"), then c("and"). The "and"
+    arm drops the named held/worn objects that no "drop <Short>" task
+    claims, and it never names a missing one. With none dropped it says
+    "You are not carrying anything." (run390 445841, run380 4388E6).
+    `[3.7-3.9]` pPUTFULL39 `drop coin and stone on junk`
+    (`lib_drop_and_arm_pre400`, 2026-09-19)
   - Player MaxSize/MaxWt use Val(Left(Format(v, "000"), 2)) × mult ^
     Val(Right(v, 1)) in both the run390 and run400 loaders (464B14,
     48F980). This matches the plain decode below 1000 (the largest in the
