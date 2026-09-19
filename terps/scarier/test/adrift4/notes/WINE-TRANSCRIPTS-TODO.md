@@ -332,9 +332,6 @@ not by a tick.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
-- **run380's task sweep after a *refused* take-from** is not ported.
-  run380's count<2 put refusal also precedes checktask, but run380 has no
-  sweep (445A0F).
 - **3.8 `lie on bed` from the next room** is "You can't lie on that." and
   4.0's is "You can't see the bed."; both already match. The 3.8 object
   loop's scope test is unread.
@@ -701,7 +698,10 @@ next to the named function and in `annotations.tsv`.
   are run400's alone. Every pre-4.0 lock/unlock line is therest's and loses
   to the room refusal. `[<4.0]` thetest_win T68-77 (fe64ab0f3)
 - **run380's post-take-from task sweep.** tra `get meat` also runs `get
-  *knives*`. `[3.8]` (4f79695e4)
+  *knives*`. `[3.8]` (4f79695e4) The sweep (447405) follows every
+  take-from whose source was found, refusals and take-all included; only
+  "You can't do that!" skips it. Its text joins the refusal's line.
+  run370 has no sweep. `[3.8]` p38TFSW Adrift_186/188 (2026-09-19)
 - **The player-name prompt** splits by version (Workflow step 2).
   (39bfe4cec)
 - **Meta commands:**
@@ -1187,6 +1187,19 @@ next to the named function and in `annotations.tsv`.
 - **The take-from handler's own answers.** The 3.9 insides() decision
   procedure; `empty` is take-all-from in 4.0 only. p39DARK/p4TFROM
   (2ab1a7c5d)
+- **Pre-3.9 take-from answers.** In run380, closed (446D19) overwrites
+  not-holding (446CFB). Nothing to take is "There is nothing inside
+  <raw Prefix> <Short>." even for a surface in 3.7. In 3.8 a single named
+  object is a bare "You take ", because 446FB0 writes " take " and 4474C7
+  tests " get ". No "is not inside" line exists before 3.9. run370's
+  insides() needs c("get")/c("remove") plus c("from") (43A745), so
+  `take gem from box` is the catch-all. A bare take's rewrite (4368C4)
+  lands only for a `get` line: `get gem` is "You are not holding a box."
+  and `take gem`/`pick up gem` are "Take what?". A take-from a
+  non-container is the catch-all as well. `[3.7/3.8]` p37TFSW/p38TFSW
+  (`make_3738_tfsweepprobe.py`), Adrift_185-190
+  (`lib_take_from_line_370`, `lib_take_from_answer_370`,
+  `lib_take_from_nothing_taken_pre390`, 2026-09-19)
 - **4.0 take capacity.** Each object is tested for size first ("<Your>
   hands are full.") and weight second ("<The X> is too heavy for you to
   carry at the moment."), even out of a container the player holds. A
@@ -1272,8 +1285,9 @@ next to the named function and in `annotations.tsv`.
   all arm skips only a name after " but " (run380 438793, run390 4456AB;
   run370 has no "but"), and nothing left is " not carrying anything."
   (run380 4388E6), never the exception's "don't have". Already right and
-  re-confirmed: 3.7 bare take from a held or static container is "Take
-  what?", 3.8's takes it; put into an open static container; the closed
+  re-confirmed: 3.7 bare `take` from a held or static container is "Take
+  what?" (a `get` line reaches it, see pre-3.9 take-from answers), 3.8's
+  takes it; put into an open static container; the closed
   static refusal; `put coin on table` with the table a dynamic surface
   on the floor is "You are not holding a table.". `[3.7/3.8/3.9]` probes
   p37PUT/p38PUT/p39PUT (`make_3738_putprobe.py`), run370x/run380x/run390x

@@ -79,6 +79,7 @@ SEP = "\xbd\xd0"
 LIT, CAVE = 1, 2
 
 # name, prefix, description, where, kind, capacity, openable, static
+#   openable: 0 none | 1 open | 2 closed
 #   where: ("room", n) | ("held",) | ("in", name) | ("on", name)
 #   kind:  "" | "container" | "surface"
 OBJECTS = [
@@ -229,10 +230,11 @@ def build(version):
             s(1 if name in WEARABLE else 0)   # Wearable
             s(0)                      # SizeWeight (3.8/3.7: burden class)
             s(parent)
+        # openable: 0 none, 1 open, 2 closed
         if version >= 400:
-            s(5 if openable else 0)   # Openable: 4.0 stores OPEN as 5
+            s((0, 5, 6)[openable])    # Openable: 4.0 stores OPEN as 5
         else:
-            s(6 if openable else 0)   # ... and 3.9 and earlier as 6
+            s((0, 6, 5)[openable])    # ... and 3.9 and earlier as 6
         if openable and version >= 400:
             s(0)                      # Key
         s(SITLIE.get(name, 0))        # SitLie

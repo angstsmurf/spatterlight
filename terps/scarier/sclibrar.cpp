@@ -10219,8 +10219,14 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
        * measured turn is `get coin from box` with the coin in hand and the
        * box open and empty, "The coin is not inside the box!" (Adrift_973) --
        * so there is no held-or-worn exemption above.
+       *
+       * 3.7/3.8 have no such sentence (no "not inside"/"not on" in run370 or
+       * run380): their take loop (run380 446FC5) skips a named object that
+       * is not in the container without a word.  A line that takes nothing
+       * at all is lib_take_from_nothing_taken_pre390()'s.
        */
-      if (!list.empty () && !lib_is_version_400 (game))
+      if (!list.empty () && !lib_is_version_400 (game)
+          && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
         {
           lib_new_clause (game, has_printed);
           lib_print_list (game, list, lib_print_object_np, " and ");
@@ -10546,6 +10552,33 @@ lib_take_from_npc_backend (scr_gameref_t game, scr_int associate)
 
 
 /*
+ * lib_take_from_line_370()
+ *
+ * run370's insides() is entered only by a line holding c("get") and
+ * c("from"), or c("remove") and c("from") (43A745) -- run380's gate
+ * (4468B3) admits take and pick as well.  So at 3.7 `take gem from box` is
+ * no take-from at all but the catch-all's "I don't understand what you
+ * want me to do with the box.", and a bare take's rewrite into "<line> from
+ * <parent>" (4368C4) only lands in insides() when the line says get: with
+ * a gem in an open box on the floor, `get gem` is "You are not holding a
+ * box." while `take gem` and `pick up gem` are "Take what?", and a nut in a
+ * held bag is "You get a nut from the bag." for `get nut` and "Take what?"
+ * for `take nut` (p37TFSW, run370x Adrift_189_ptfsw3_37.rtf, 2026-09-19).
+ * TRUE if the typed line would reach insides().
+ */
+static scr_bool
+lib_take_from_line_370 (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *input = run_get_dispatch_input ();
+
+  return input
+         && (run_c_word_pre400 (version, input, "get") >= 0
+             || run_c_word_pre400 (version, input, "remove") >= 0);
+}
+
+
+/*
  * lib_take_filter()
  *
  * Helper function for deciding if an object may be acquired in this context.
@@ -10565,9 +10598,11 @@ lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
    * Runners' "and"-list take mode does the same -- while excluding the
    * contents of closed containers.
    *
-   * Not on 3.7, though.  Reaching inside is run380's takes() rewrite of a
-   * plain "take X" into "take X from <parent>" (loc_43E47B; see
-   * lib_take_container_unheld), and run370 has no such rewrite: a bare take
+   * Not on 3.7, though, unless the line says get.  Reaching inside is
+   * run380's takes() rewrite of a plain "take X" into "take X from
+   * <parent>" (loc_43E47B; see lib_take_container_unheld).  run370 has the
+   * same rewrite (4368C4), but its insides() only takes a get or remove
+   * line (lib_take_from_line_370), so for take or pick up a bare take
    * naming something that sits in or on another object names nothing at all
    * and falls to the catch-all.  Measured on the same turn of two probes,
    * `take coin` with the coin inside an open box standing on the cave
@@ -10578,7 +10613,8 @@ lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
    * is untouched -- run370 plays `get coin from box` perfectly well
    * (Adrift_986:27) and applies the same hold gate to it (Adrift_987:18).
    */
-  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
+      && !lib_take_from_line_370 (game))
     return obj_directly_in_room (game, object, gs_playerroom (game))
            && !obj_is_static (game, object);
 
@@ -11592,7 +11628,8 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
     }
 
   /*
-   * 3.7 has no bare take that reaches inside anything; see lib_take_filter.
+   * 3.7 has no bare take that reaches inside anything, unless the line says
+   * get; see lib_take_filter.
    * Drop what the noun named in or on another object -- run370's takes()
    * never had it as a candidate -- and, if that empties the line, decline
    * the row so it falls to the catch-all the Runner reaches: `take coin`
@@ -11600,7 +11637,8 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
    * (p37DARK, Adrift_987:48 / Adrift_988:41, 2026-09-12).
    */
   if (!is_except
-      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
+      && !lib_take_from_line_370 (game))
     {
       scr_int index_;
 
@@ -11830,6 +11868,51 @@ lib_take_from_unseen_refusal (scr_gameref_t game, scr_int associate)
 
 
 /*
+ * lib_take_from_nothing_inside_pre390()
+ *
+ * 3.7/3.8's own "There is nothing inside a bag.": the object's raw Prefix
+ * and Short (run380 446F60 and 44750A, run370 43AD4D and 43B109), where 3.9
+ * names it definitely.  The all/and arm (446F60) says "inside" whatever the
+ * object is, and run370 has no other literal, so a surface gets it too:
+ * `get all from tray`, the tray an empty supporter, is "There is nothing
+ * inside a tray." in run370x and run380x (p37TFSW/p38TFSW,
+ * Adrift_187/188_ptfsw2_3x.rtf, 2026-09-19).
+ */
+static void
+lib_take_from_nothing_inside_pre390 (scr_gameref_t game, scr_int associate)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  pf_buffer_string (filter, "There is nothing inside ");
+  lib_print_object (game, associate);
+  pf_buffer_character (filter, '.');
+}
+
+
+/*
+ * lib_take_from_nothing_taken_pre390()
+ *
+ * A pre-3.9 take-from that named objects, none of them in the container.
+ * insides() sets its message to "<You> take " before the take loop and,
+ * when nothing was added, compares it with "<You> get " (run380 4474C7).
+ * run370 spells the take "You get ", so the test holds and the answer is
+ * "There is nothing inside a bag."; run380 reworded the take and not the
+ * test, so the bare "You take " goes out, trailing space and all.  `get
+ * coin from bag` with the coin in hand: run370x "There is nothing inside a
+ * bag.", run380x "You take " (p37TFSW/p38TFSW, Adrift_187/188_ptfsw2_3x.rtf,
+ * 2026-09-19).
+ */
+static void
+lib_take_from_nothing_taken_pre390 (scr_gameref_t game, scr_int associate)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
+    lib_take_from_nothing_inside_pre390 (game, associate);
+  else
+    pf_buffer_string (gs_get_filter (game), lib_take_from_verb (game));
+}
+
+
+/*
  * lib_take_from_empty()
  *
  * Common error handling for when nothing is taken from a container or
@@ -11839,6 +11922,13 @@ static void
 lib_take_from_empty (scr_gameref_t game, scr_int associate, scr_bool is_except)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+
+  if (!is_except
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    {
+      lib_take_from_nothing_inside_pre390 (game, associate);
+      return;
+    }
 
   if (obj_is_container (game, associate) && obj_is_surface (game, associate))
     {
@@ -11963,6 +12053,63 @@ lib_take_from_empty_verb (scr_gameref_t game)
 
 
 /*
+ * lib_take_from_answer_370()
+ *
+ * run370's insides() has no answer for taking from something that is
+ * neither a container nor a surface: its tail (43AF92) tests only c("in")
+ * and c("on"), so a take-from line leaves the message empty and generaltasks
+ * goes on to therest and its catch-all, which names the first object on the
+ * line, in index order, that is here.  `get coin from stone` is "I don't
+ * understand what you want me to do with the coin." and `get all from
+ * stone` "... with the stone." (p37TFSW, run370x Adrift_185_ptfsw_37.rtf,
+ * 2026-09-19), where run380 says "You can't take anything from the stone!".
+ * A line without get or remove never reaches insides() at all
+ * (lib_take_from_line_370), so it gets the same catch-all whatever the
+ * source is.  An object the player has not been shown is "What <Short>?",
+ * as in lib_cmd_verb_object().  TRUE once this has answered; FALSE for any
+ * other version or object.
+ */
+static scr_bool
+lib_take_from_answer_370 (scr_gameref_t game, scr_int associate)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object;
+
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_380
+      || (lib_take_from_line_370 (game)
+          && (obj_is_container (game, associate)
+              || obj_is_surface (game, associate))))
+    return FALSE;
+
+  gs_clear_multiple_references (game);
+  for (object = 0; input && object < gs_object_count (game); object++)
+    {
+      if (!obj_indirectly_in_room (game, object, gs_playerroom (game))
+          || !lib_co_pre400 (game, input, object, 0))
+        continue;
+
+      var_set_ref_object (gs_get_vars (game), object);
+      if (!gs_object_seen (game, object))
+        {
+          pf_buffer_string (filter, "What ");
+          pf_buffer_string (filter, prop_get_indexed_string (bundle, "Objects",
+                                                             object, "Short"));
+          pf_buffer_string (filter, "?\n");
+          return TRUE;
+        }
+      uip_note_definite_reference ();
+      lib_print_wrapped_object (game,
+                                "I don't understand what you want me to do with ",
+                                object, ".\n");
+      return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
  * lib_take_from_is_valid()
  *
  * Validate the supporter requested in "take from" commands.
@@ -11980,8 +12127,9 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
    * `get all from torch` is "You can't take anything from the torch!" in
    * run390 and "You can't take anything from the torch." in run400
    * (Adrift_969/972, 2026-09-10).  run370 has no such literal at all -- its
-   * tail at loc_43AF92 tests only c("in") and c("on") -- so what 3.70 says
-   * instead is still unmeasured; it shares the 3.8 wording here.
+   * tail at loc_43AF92 tests only c("in") and c("on") -- and 3.70 never
+   * gets here: its callers answer with the catch-all first
+   * (lib_take_from_answer_370).
    */
   if (!(obj_is_container (game, associate)
         || obj_is_surface (game, associate)))
@@ -11991,14 +12139,7 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
                                  "I can't take anything from ",
                                  "%player% can't take anything from ",
                                  associate,
-                                 lib_is_version_400 (game) ? ".\n" : "!\n");
-      return FALSE;
-    }
-
-  /* Pre-3.9: a dynamic supporter must be held or worn (run380 446CFB). */
-  if (lib_take_container_unheld (game, associate))
-    {
-      lib_print_not_holding (game, associate, ".\n");
+                                 lib_is_version_400 (game) ? "." : "!");
       return FALSE;
     }
 
@@ -12020,14 +12161,27 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
           pf_new_sentence (filter);
           lib_print_object_np (game, associate);
           /* Always " is ": see openness in lib_cmd_examine_object(). */
-          pf_buffer_string (filter, " is closed.\n");
+          pf_buffer_string (filter, " is closed.");
         }
       else
         lib_print_response_object (game,
                                    "You can't get anything from ",
                                    "I can't get anything from ",
                                    "%player% can't get anything from ",
-                                   associate, " as it is closed!\n");
+                                   associate, " as it is closed!");
+      return FALSE;
+    }
+
+  /*
+   * Pre-3.9: a dynamic container or supporter must be held or worn (run380
+   * 446CFB).  The closed test at 446D19 runs after it and overwrites its
+   * message, so a closed chest on the floor is "as it is closed!", not "not
+   * holding" -- p37TFSW/p38TFSW `get stone from chest`, run370x/run380x
+   * Adrift_185/186_ptfsw_3x.rtf, 2026-09-19.
+   */
+  if (lib_take_container_unheld (game, associate))
+    {
+      lib_print_not_holding (game, associate, ".");
       return FALSE;
     }
 
@@ -12057,9 +12211,16 @@ lib_cmd_take_all_from (scr_gameref_t game)
   if (associate == -1)
     return is_ambiguous;
 
-  /* Validate the associate object to take from. */
-  if (!lib_take_from_is_valid (game, associate))
+  /* Validate the associate object to take from; 3.7 has its own answer.
+     run380's task sweep follows a refusal too. */
+  if (lib_take_from_answer_370 (game, associate))
     return TRUE;
+  if (!lib_take_from_is_valid (game, associate))
+    {
+      lib_take_from_task_sweep_380 (game);
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
@@ -12074,6 +12235,7 @@ lib_cmd_take_all_from (scr_gameref_t game)
   else
     lib_take_from_empty (game, associate, FALSE);
 
+  lib_take_from_task_sweep_380 (game);
   pf_buffer_character (filter, '\n');
   return TRUE;
 }
@@ -12161,7 +12323,10 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (is_400)
     {
       if (!lib_take_from_is_valid (game, associate))
-        return TRUE;
+        {
+          pf_buffer_character (filter, '\n');
+          return TRUE;
+        }
 
       if (!lib_take_from_has_contents (game, associate))
         {
@@ -12186,9 +12351,16 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
   /* Note single-object takes; the backend prints their prefix raw pre-4.0. */
   lib_take_from_single_named = !is_except && references == 1;
 
-  /* Validate the associate object to take from; 4.0 did it above. */
-  if (!is_400 && !lib_take_from_is_valid (game, associate))
+  /* Validate the associate object to take from; 4.0 did it above, and 3.7
+     may decline.  run380's task sweep follows a refusal too. */
+  if (!is_400 && lib_take_from_answer_370 (game, associate))
     return TRUE;
+  if (!is_400 && !lib_take_from_is_valid (game, associate))
+    {
+      lib_take_from_task_sweep_380 (game);
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
 
   /* As a special case, complain about requests to retain the associate. */
   if (is_except
@@ -12211,7 +12383,13 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
       return TRUE;
     }
 
-  if (objects > 0 || references > 0)
+  if (!is_except && objects == 0 && references > 0
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    {
+      gs_clear_multiple_references (game);
+      lib_take_from_nothing_taken_pre390 (game, associate);
+    }
+  else if (objects > 0 || references > 0)
     lib_take_from_object_backend (game, associate);
   else if (lib_take_from_unseen (game, associate))
     lib_take_from_unseen_refusal (game, associate);
