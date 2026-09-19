@@ -270,26 +270,14 @@ index below. Rows not named here differ only by a capture artefact (see
 
 ### Engine, 4.0
 
-- **3monkeys T40 `get husk`:** the Runner says "Huh?" (the game's
-  DontUnderstand, ALR DEFAULT=8, so run400 claims the line silently);
-  Scarier takes the coconut husk. Ruled out offline (2026-09-15): the seen
-  byte and position, a 463640 tie (husk is the only "husk"), an ALR
-  blanking a take refusal, the pre-match; every take-family task matching
-  the line has an empty FailMessage on its first failing restriction in
-  Scarier's state. Wine probes (probe_cmds/3m_t40*.txt, Adrift_128/130
-  p_3m40*) narrowed it to a poison set by the `hit coconut with stone` line:
-  - still fails after an immediate `take husk`, `get coconut husk`, `get
-    all` (husk skipped), `drop fork`, `take stone`, `x stone` (task 180),
-    `hit again` (task 592), `drop coconut`; `drop coconut; take coconut`
-    fails too, while `drop fork; take fork` takes the fork -- only the
-    objects the hit task touched are refused;
-  - works after any line that reaches the library handlers past the
-    dispatcher at 48A481: look, z, i, count, xyzzy, x husk/coconut/fork/
-    flint/chimp, `wear sheet`, `put fork in bucket`; a task line after
-    such a clear does not poison again.
-  - Read and ruled out: 463640 (no carried state), 44B578/452E9C,
-    MemVar_4941EC; get_piece is silent only at 473229. Next is a debugger
-    watch on the husk's record between the hit and `take husk`.
+- **3monkeys, left after the T41 port (2026-09-19):** three turns, all
+  unmasked by the fix (the old report stopped at 10+):
+  - T65 `get sheet` (worn): the Runner says "You are already carrying your
+    sheet.", Scarier "You're already wearing your sheet!";
+  - T109 `e`: the Runner's room block has "There are anvils all over the
+    place." before the objects line, Scarier's lacks it;
+  - T111 `jump out` (the win): the Runner's text ends with "> GIVE FINGER TO
+    DR. WICKETT", Scarier's does not.
 - **cellar T120 `undo`:** the Runner's "Undone." replays the restored turn's
   story text (with its `[MORE]`); Scarier's replays a not-understood line.
   Probably the known undo-slot deviation (Scarier skips administrative
@@ -580,6 +568,17 @@ every Runner.
   - The task pre-matcher is restriction-aware. The fallback pass wants a
     FailMessage or a spent RepeatText, and a fallback hit is silent. `[4.0]`
     House task 60 (c38297f1e, 5fc9ef8d1)
+  - The pre-matcher's fallback reads a per-task restriction cache (one T/F
+    per restriction, task record +100). The cache is written only when a
+    walk with arg_10=1 FAILS (455BEE/455C3B) and is never cleared. Those
+    walks are task_pick's, BEFORE the pattern match, on every eligible task
+    up to the first that passes and matches (454DDF); the fallback's own
+    walk when the cache is empty (453F2D); and dispatch-by-index (45FA02).
+    The fallback re-checks each cached 'F' alone (453F7D). One still
+    failing with a FailMessage is a hit (453FA1), and a clean scan hits on
+    a RepeatText (453FE2). So a stale cache can claim a line silently, and
+    get_piece then answers DontUnderstand. `[4.0]` 3monkeys T41 `get husk`
+    after `hit coconut` (`restr_cache_fallback`, 2026-09-19)
   - A trailing space in an all-literal task command must be typed. sommeril
     `get placemat ` (093a12d5e)
   - The SYNONYM table is sequential whole-string rewrites. Vardock

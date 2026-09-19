@@ -28,6 +28,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <string>
+#include <vector>
+
 #include "scarier.h"
 #include "scprotos.h"
 #include "scgamest.h"
@@ -199,6 +202,8 @@ restr_object_in_place (scr_gameref_t game,
       else
         npc = var3 - 2;
 
+      if (npc < 0)
+        return FALSE;
       return obj_indirectly_in_room (game, object,
                                      gs_npc_location (game, npc) - 1);
 
@@ -583,6 +588,15 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
   else if (var1 > 1)
     npc1 = var1 - 2;
 
+  /*
+   * "The referenced character" with none referenced fails.  Ordinary
+   * dispatch evaluates restrictions only after a pattern match, but 4.0's
+   * task_pick walks them BEFORE matching (see restr_cache_fallback()), where
+   * a task naming %character% can meet an unset reference.
+   */
+  if (var1 == 1 && npc1 < 0)
+    return FALSE;
+
   /* Player or NPC? */
   if (var1 == 0)
     {
@@ -598,6 +612,8 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
             npc2 = var3 - 2;
           if (var3 == 0)       /* Player */
             return TRUE;
+          else if (npc2 < 0)
+            return FALSE;
           else
             return npc_in_room (game, npc2, gs_playerroom (game));
 
@@ -643,6 +659,8 @@ restr_pass_task_char (scr_gameref_t game, scr_int var1, scr_int var2, scr_int va
             npc2 = var_get_ref_character (vars);
           else if (var3 > 1)
             npc2 = var3 - 2;
+          if (npc2 < 0)
+            return FALSE;
           return npc_in_room (game, npc1, gs_npc_location (game, npc2) - 1);
 
         case 3:                /* Not alone */
@@ -1021,6 +1039,9 @@ static scr_int restr_eval_task = 0;
 /* The id of the lowest-indexed failing restriction. */
 static scr_int restr_lowest_fail = -1;
 
+/* Each restriction's own result, "T" or "F", in index order. */
+static std::string restr_eval_bits;
+
 /*
  * restr_eval_start()
  *
@@ -1040,6 +1061,7 @@ restr_eval_start (scr_gameref_t game, scr_int task)
 
   /* Clear lowest indexed failing restriction. */
   restr_lowest_fail = -1;
+  restr_eval_bits.clear ();
 }
 
 
@@ -1079,6 +1101,7 @@ restr_eval_action (scr_char token)
                                               restr_eval_task,
                                               restr_eval_restriction);
         restr_eval_push (result);
+        restr_eval_bits += result ? 'T' : 'F';
 
         /*
          * If the restriction failed, and there isn't yet a first failing one
@@ -1414,4 +1437,125 @@ restr_eval_task_restrictions (scr_gameref_t game,
   else
     *fail_message = restr_get_fail_message (game, task, lowest_fail);
   return TRUE;
+}
+
+
+/*
+ * restr_eval_task_restrictions_cached()
+ * restr_cache_fallback()
+ * restr_cache_reset()
+ *
+ * run400's per-task restriction result cache.  Each task record carries a
+ * String at offset 100 holding one "T"/"F" per restriction, in index order,
+ * with the mask's A/O and brackets stripped.  Only restriction_walk
+ * Proc_19_64_455C60 writes it (455BEE/455C3B), and only when it is called
+ * with arg_10 = 1 AND the task's restrictions fail -- a passing walk leaves
+ * the old string where it is, and nothing ever clears it.  The arg_10 = 1
+ * walks are task_pick 454EF0 (@454DDF, before its pattern match; the
+ * dispatcher's own task look-up, which stops at the first task it picks),
+ * the fallback 45404C when the string is still empty (@453F2D), and the
+ * by-index runner's dispatch filter 45FB78 (@45FA02).  The pre-matcher's
+ * first pass (453B44) walks with arg_10 = 0 and writes nothing.
+ *
+ * The fallback 45404C (task_prematch_fallback) then reads the string rather
+ * than walking again: at each "F" it re-evaluates that one restriction
+ * (Proc_19_2_481DA0(task, i, 1)); one that now passes is skipped, one that
+ * still fails ends the task -- a hit when its FailMessage is non-empty
+ * (@453FA1), a miss otherwise (@453FC6 -> 454034).  With no "F" left
+ * failing, a non-empty RepeatText is the hit (@453FE2).
+ *
+ * So a task the dispatcher has not walked since its state changed answers
+ * from stale results.  3monkeys (run400x site traces, VBRNG_SEED=149, T41):
+ * `take husk` right after `hit coconut with stone` is "Huh?" with no tick.
+ * Task 616 `* get *nut*` (restrictions: the coconut in room 12, empty
+ * message; the player can reach the cluster, "You grope for the nearest
+ * cluster...") still carries "TF" from an earlier turn -- `hit coconut`'s
+ * task_pick stopped at task 586 before reaching it.  The take piece's
+ * pre-matcher re-evaluates restriction 2, which fails with its message, so
+ * the take exits silently; only then does the dispatcher's task_pick walk
+ * 616 afresh ("FF"), and its own fallback finds restriction 1's empty
+ * message, so nothing answers.  With a `z` in between, z's task_pick walks
+ * every task, 616 reads "FF" in the take too, and "You take the coconut
+ * husk."
+ *
+ * The cache is runtime state, not saved: a restore does not touch the task
+ * records, while a restart reloads the file (restr_cache_reset()).
+ */
+static std::vector<std::string> restr_cache;
+
+scr_bool
+restr_eval_task_restrictions_cached (scr_gameref_t game, scr_int task,
+                                     scr_bool *pass,
+                                     const scr_char **fail_message)
+{
+  if (!restr_eval_task_restrictions (game, task, pass, fail_message))
+    return FALSE;
+
+  if (!*pass)
+    {
+      if (restr_cache.size () <= (size_t) task)
+        restr_cache.resize (gs_task_count (game) > task
+                            ? gs_task_count (game) : task + 1);
+      restr_cache[task] = restr_eval_bits;
+#ifdef SCARIER_DUMP_TOOLS
+      if (getenv ("SCR_TRACE_RCACHE")
+          && atol (getenv ("SCR_TRACE_RCACHE")) == task)
+        fprintf (stderr, "RCACHE task=%ld [%s]\n", (long) task,
+                 restr_eval_bits.c_str ());
+#endif
+    }
+  return TRUE;
+}
+
+/*
+ * Returns -1 when a cached "F" restriction still fails, with its FailMessage
+ * (NULL if empty) in fail_message; 0 when none does, and the caller then
+ * looks at the RepeatText.
+ */
+scr_int
+restr_cache_fallback (scr_gameref_t game, scr_int task,
+                      const scr_char **fail_message)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int restr_count, restriction;
+
+  *fail_message = NULL;
+
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = task;
+  vt_key[2].string = "Restrictions";
+  restr_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+
+  if (restr_count > 0
+      && (restr_cache.size () <= (size_t) task || restr_cache[task].empty ()))
+    {
+      scr_bool pass;
+      const scr_char *message;
+
+      restr_eval_task_restrictions_cached (game, task, &pass, &message);
+    }
+  if (restr_cache.size () <= (size_t) task)
+    return 0;
+
+  /* A copy: the re-evaluation below may not rewrite it, but be safe. */
+  const std::string bits = restr_cache[task];
+  for (restriction = 0; restriction < restr_count; restriction++)
+    {
+      if ((size_t) restriction >= bits.size () || bits[restriction] != 'F')
+        continue;
+
+      if (!restr_pass_task_restriction (game, task, restriction))
+        {
+          *fail_message = restr_get_fail_message (game, task, restriction);
+          return -1;
+        }
+    }
+  return 0;
+}
+
+void
+restr_cache_reset (void)
+{
+  restr_cache.clear ();
 }

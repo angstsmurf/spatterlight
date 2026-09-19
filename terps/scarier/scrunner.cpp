@@ -2869,6 +2869,56 @@ run_task_run_speaks (scr_gameref_t game, scr_int task, scr_bool is_forwards)
          && pf_buffer_length (filter) > length;
 }
 
+/*
+ * run_restriction_cache_task_pick()
+ *
+ * The restriction-cache half of run400's task_pick Proc_19_66_454EF0, as the
+ * dispatcher 44CCE0 calls it for the typed line (@44CBDB): tasks in index
+ * order that pass the class filter, are in scope for the room and whose
+ * state allows a run -- including a spent one with a RepeatText -- have
+ * their restrictions walked with arg_10 = 1 (@454DDF) BEFORE the pattern
+ * match, so a failing walk rewrites the task's cached results, and the
+ * look-up stops at the first task that passes and matches.  Tasks after it
+ * keep whatever they last cached.  See restr_cache_fallback().
+ */
+static void
+run_restriction_cache_task_pick (scr_gameref_t game, const scr_char *string)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int task_count = gs_task_count (game);
+  scr_int task;
+
+  for (task = 0; task < task_count; task++)
+    {
+      const scr_bool forwards = task_can_run_task_directional (game, task,
+                                                               TRUE);
+      const scr_bool reverse = task_can_run_task_directional (game, task,
+                                                              FALSE);
+      const scr_bool spent = task_is_done_refused (game, task)
+                             && !scr_strempty (prop_get_indexed_string (
+                                    bundle, "Tasks", task, "RepeatText"));
+      const scr_char *fail_message;
+      scr_bool pass;
+
+      if (!run_task_passes_class_filter (game, task)
+          || !task_where_allows_run (game, task))
+        continue;
+      if (!forwards && !reverse && !spent)
+        continue;
+
+      if (!restr_eval_task_restrictions_cached (game, task,
+                                                &pass, &fail_message)
+          || !pass)
+        continue;
+
+      if (((forwards || spent)
+           && run_match_task_commands (game, task, string, TRUE, FALSE))
+          || (reverse
+              && run_match_task_commands (game, task, string, FALSE, FALSE)))
+        break;
+    }
+}
+
 static scr_bool
 run_game_commands_common (scr_gameref_t game, const scr_char *string,
                           scr_bool include_restrictions, scr_bool is_library,
@@ -3053,6 +3103,31 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
                   && run_match_task_commands (game, task, string,
                                               is_forwards, is_library))
                 {
+                  /*
+                   * 4.0: the dispatcher's fallback (45404C @44CCA5) answers
+                   * from the cached restriction results, printing the
+                   * FailMessage of the first cached failure that still
+                   * fails; see restr_cache_fallback().  Either way the task
+                   * is done with once a cached failure still fails.
+                   */
+                  if (is_restriction_first)
+                    {
+                      const scr_char *fail_message;
+
+                      if (restr_cache_fallback (game, task,
+                                                &fail_message) < 0)
+                        {
+                          if (fail_message)
+                            {
+                              run_note_task_ran (game, task);
+                              pf_buffer_paragraph_line (gs_get_filter (game),
+                                                        fail_message);
+                              is_handled = TRUE;
+                            }
+                        }
+                      break;
+                    }
+
                   if (run_task_is_loudly_restricted (game, task))
                     {
                       run_note_task_ran (game, task);
@@ -3309,6 +3384,30 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
               if (!matched_forwards && !matched_reverse)
                 continue;
 
+              /*
+               * 4.0: the fallback 45404C reads the task's cached restriction
+               * results instead of walking; see restr_cache_fallback().
+               */
+              if (pass_number == 1
+                  && run_get_version (gs_get_bundle (game))
+                     >= TAF_VERSION_400)
+                {
+                  if (restr_cache_fallback (game, task, &fail_message) < 0)
+                    {
+                      if (!fail_message)
+                        continue;
+                      if (match_kind)
+                        *match_kind = 3;
+                      return TRUE;
+                    }
+                  if (scr_strempty (prop_get_indexed_string (
+                          gs_get_bundle (game), "Tasks", task, "RepeatText")))
+                    continue;
+                  if (match_kind)
+                    *match_kind = 1;
+                  return TRUE;
+                }
+
               if (!restr_eval_task_restrictions (game, task,
                                                  &pass, &fail_message))
                 pass = TRUE, fail_message = NULL;
@@ -3401,6 +3500,16 @@ run_task_run_by_index (scr_gameref_t game, scr_int task)
     {
       if (run_is_task_function (patterns[command], game))
         break;
+    }
+
+  /* The dispatch filter's walk (45FA02) caches a failing result. */
+  if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      && game->is_running)
+    {
+      const scr_char *fail_message;
+      scr_bool pass;
+
+      restr_eval_task_restrictions_cached (game, task, &pass, &fail_message);
     }
 
   return task_run_task (game, task, TRUE);
@@ -4554,6 +4663,10 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
         }
     }
 
+  if (!status && !refused
+      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+    run_restriction_cache_task_pick (game, task_string);
+
   const size_t task_mark = pf_buffer_length (filter);
   const scr_bool claimed_before_tasks = status;
   if (!status && !refused)
@@ -4747,6 +4860,16 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
   if (getenv ("SCR_TRACE_MATCH"))
     fprintf (stderr, "DISPATCH input=[%s]\n", string);
 #endif
+
+  /*
+   * This is the dispatcher 44CCE0 as the library handlers call it, and its
+   * task_pick refreshes the restriction cache first: 3monkeys' take piece
+   * dispatches "get the coconut husk" after its pre-match hit on task 616's
+   * stale results, and that dispatch's own fallback, reading the fresh
+   * ones, finds nothing to say (run400x site trace, T41).
+   */
+  if (include_restrictions)
+    run_restriction_cache_task_pick (game, string);
 
   return run_game_commands_common (game, string, include_restrictions, TRUE,
                                    FALSE);
@@ -6420,6 +6543,7 @@ run_create (scr_read_callbackref_t callback, void *opaque)
     return NULL;
   else if (if_get_trace_flag (SCR_DUMP_TAF))
     taf_debug_dump (taf);
+  restr_cache_reset ();
 
   /*
    * Any construction step below can throw (scr_fatal on a corrupt game);
@@ -6557,6 +6681,7 @@ run_restart_handler (scr_gameref_t game)
 
   /* A restart is a fresh load in the Runner: replay its load-time draws. */
   run_runner_load_draws (game);
+  restr_cache_reset ();
 
   /* Destroy invalid game status strings. */
   game->current_room_name.reset ();

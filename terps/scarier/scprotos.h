@@ -1077,6 +1077,13 @@ extern scr_bool restr_object_in_state (scr_gameref_t game,
 extern scr_bool restr_eval_task_restrictions (scr_gameref_t game,
                                              scr_int task, scr_bool *pass,
                                              const scr_char **fail_message);
+extern scr_bool restr_eval_task_restrictions_cached (scr_gameref_t game,
+                                                    scr_int task,
+                                                    scr_bool *pass,
+                                                    const scr_char **fail_message);
+extern scr_int restr_cache_fallback (scr_gameref_t game, scr_int task,
+                                     const scr_char **fail_message);
+extern void restr_cache_reset (void);
 extern void restr_debug_trace (scr_bool flag);
 
 /* NPC gender enumeration and functions. */

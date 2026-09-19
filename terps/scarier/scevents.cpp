@@ -721,8 +721,9 @@ evt_finish_event (scr_gameref_t game, scr_int event)
           if (evt_trace)
             scr_trace ("Event: event checking completed task %ld\n", task);
 
-          if (restr_eval_task_restrictions (game, task, &restrictions_passed,
-                                            &fail_message)
+          if (restr_eval_task_restrictions_cached (game, task,
+                                                   &restrictions_passed,
+                                                   &fail_message)
               && !restrictions_passed && fail_message)
             pf_buffer_paragraph_line (filter, fail_message);
         }

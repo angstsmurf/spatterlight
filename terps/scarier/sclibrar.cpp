@@ -7816,6 +7816,7 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
    * @462B84): only tasks carrying the take flag can answer. */
   run_set_task_class_filter (1);
   lib_rebuilt_raw_dispatch = TRUE;
+  lib_rebuilt_silent_continues = TRUE;
   if (gs_object_position (game, object) == OBJ_IN_OBJECT)
     status = lib_try_game_command_common (game, "get", object,
                                           "from",
@@ -7824,6 +7825,7 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
   else
     status = lib_try_game_command_common (game, "get", object,
                                           NULL, -1, FALSE, FALSE, FALSE, TRUE);
+  lib_rebuilt_silent_continues = FALSE;
   lib_rebuilt_raw_dispatch = FALSE;
   run_set_task_class_filter (0);
   return status;

@@ -2782,6 +2782,15 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # shape, ghosttown's whitespace-only AdditionalMessage included.
 # 2026-09-13: seed re-pinned 123 -> 515 for the RNG-parity rules; the mandrill
 # fight is narrow and nothing below 515 wins (1-1000 scan: 515, 726, 799, 814, 927).
+# Re-blessed 2026-09-19 for the 4.0 restriction cache (restr_cache_fallback):
+# T41 `get husk` right after `hit coconut with stone` is "Huh?" with no tick,
+# as in runner_transcripts/3monkeys.txt.  task_pick's walk on the hit line left
+# task 616 (`* get *nut*`) cached [TF]; the take pre-match re-checks only
+# restriction 2, which still fails with "You grope for the nearest cluster...",
+# so the line is claimed, the dispatch refreshes the cache to [FF] and prints
+# nothing, and get_piece answers DontUnderstand.  Every later turn shifts one
+# tick; the win still holds.  Probes: probe_cmds/3m_site_{a,b}.txt (a `z`
+# between the lines clears it and the husk is taken).
 3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!|SCR_SEED=149
 # Humbug (Graham Cluley 1990/1997, converted to ADRIFT 4.00 by Campbell Wild)
 # -- WIN with the FULL 2000/2000, "a winner.. or a cheat", in 1048 commands.
