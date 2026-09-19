@@ -573,6 +573,7 @@ extern scr_bool uip_match (const scr_char *pattern,
 extern void uip_set_strict_reference (scr_bool strict, scr_bool match_case);
 extern void uip_set_containment (scr_bool enabled);
 extern void uip_set_binary_input (scr_bool binary);
+extern void uip_set_task_commands (scr_bool task_commands);
 extern scr_bool uip_wildcard_match_400 (const scr_char *pattern,
                                         const scr_char *string);
 extern scr_bool uip_wildcard_match_pre400 (const scr_char *pattern,
@@ -664,6 +665,7 @@ extern scr_bool lib_cmd_statusline (scr_gameref_t game);
 extern scr_bool lib_cmd_version (scr_gameref_t game);
 extern scr_bool lib_cmd_look (scr_gameref_t game);
 extern scr_bool lib_cmd_look_typed (scr_gameref_t game);
+extern scr_bool lib_look_is_not_examine_pre390 (scr_gameref_t game);
 extern scr_bool lib_cmd_print_room_exits (scr_gameref_t game);
 extern void lib_print_room_exits (scr_gameref_t game, scr_int room);
 extern scr_bool lib_cmd_wait (scr_gameref_t game);

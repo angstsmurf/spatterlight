@@ -2313,8 +2313,15 @@ run_therest_pre400 (scr_gameref_t game, const scr_char *string)
       || game->pending_endgame != 0)
     return FALSE;
 
+  /*
+   * A winner opening the line has had its own row, except a 3.7/3.8 look
+   * that examines declined: therest's look arm answers it here.
+   */
   winner = run_therest_winner_pre400 (version, string, &offset);
-  if (!winner || offset == 0)
+  if (!winner
+      || (offset == 0
+          && !(strcmp (winner, "look") == 0
+               && lib_look_is_not_examine_pre390 (game))))
     return FALSE;
 
   if (strcmp (winner, "look") == 0 || strcmp (winner, "examine") == 0
@@ -2990,6 +2997,24 @@ private:
   const scr_bool strict_;
 };
 
+/*
+ * scr_task_commands_guard
+ *
+ * Marks the matches in its lifetime as task commands for the parser, which
+ * keeps the pre-3.9 comma boundary to the library's patterns; see
+ * uip_match_whitespace().
+ */
+class scr_task_commands_guard
+{
+public:
+  scr_task_commands_guard () { uip_set_task_commands (TRUE); }
+  ~scr_task_commands_guard () { uip_set_task_commands (FALSE); }
+
+  scr_task_commands_guard (const scr_task_commands_guard &) = delete;
+  scr_task_commands_guard &
+  operator= (const scr_task_commands_guard &) = delete;
+};
+
 
 /*
  * run_pre390_first_named_object()
@@ -3061,6 +3086,7 @@ run_match_task_commands (scr_gameref_t game,
   const scr_int version = run_get_version (gs_get_bundle (game));
   const scr_strict_reference_guard strict_reference
       (version >= TAF_VERSION_390, version >= TAF_VERSION_400);
+  const scr_task_commands_guard task_commands;
 
   /*
    * 4.0 compares a task command against the line as it stands, so the two

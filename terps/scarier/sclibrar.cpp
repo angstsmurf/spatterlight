@@ -2532,8 +2532,8 @@ lib_cmd_look (scr_gameref_t game)
  * answers "Nothing special." there, as do `examine room`, `look room`, `x
  * the room`, `look at room` and `look around`; `l room` is DontUnderstand.
  * Only the four listed lines look, in any case.  (`x,` is "Nothing
- * special." there too, but Scarier's matcher does not see the `x` in it and
- * answers DontUnderstand.)  p37EXAM/p38EXAM, run370x
+ * special." there too: the comma ends the word -- see
+ * uip_match_whitespace().)  p37EXAM/p38EXAM, run370x
  * Adrift_173_pbare37.rtf / Adrift_175_pbare37b.rtf, run380x
  * Adrift_172_pbare38.rtf / Adrift_174_pbare38b.rtf
  * (`cmdfile_p3738bare.txt`, `cmdfile_p3738bare2.txt`).
@@ -4448,6 +4448,41 @@ lib_cmd_go_place (scr_gameref_t game)
 
 
 /*
+ * lib_look_is_not_examine_pre390()
+ *
+ * Does a 3.7/3.8 line the library's examine rows matched on a bare "look"
+ * miss examines altogether?  Their entry test is c() on x, examine, look at,
+ * ex, exam and read, plus look in from 3.8 (run370 434E2A, run380 43C69D),
+ * and plain "look" is none of them, so `look coin` goes on to therest()'s
+ * look arm (run380 44439D) and answers "Nothing special." whether the coin
+ * is here, elsewhere, never seen or not an object at all; `look me` and
+ * `look all` the same.  3.7 has no "look in" either, and its therest()
+ * refuses an absent object first ("You can't see the statue.").  p37EXAM/
+ * p38EXAM, run370x plookobj37 / run380x plookobj38 (`cmdfile_plookobj.txt`)
+ * and pxcomma37b / pxcomma38b (`cmdfile_pxcomma2.txt`).  From 3.9 examines
+ * takes a plain look too.
+ */
+scr_bool
+lib_look_is_not_examine_pre390 (scr_gameref_t game)
+{
+  static const scr_char *const ENTRY[] = {
+    "x", "examine", "look at", "ex", "exam", "read", NULL
+  };
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_char *const *word;
+
+  if (version >= TAF_VERSION_390 || !input
+      || run_c_word_pre400 (version, input, "look") < 0)
+    return FALSE;
+  for (word = ENTRY; *word; word++)
+    if (run_c_word_pre400 (version, input, *word) >= 0)
+      return FALSE;
+  return !(version >= TAF_VERSION_380
+           && run_c_word_pre400 (version, input, "look in") >= 0);
+}
+
+/*
  * lib_cmd_examine_self()
  *
  * Show the long description of a player.
@@ -4461,6 +4496,10 @@ lib_cmd_examine_self (scr_gameref_t game)
   scr_int task, object;
   lib_list_t list;
   const scr_char *description, *position = NULL;
+
+  /* Pre-3.9 `look X`; see lib_look_is_not_examine_pre390(). */
+  if (lib_look_is_not_examine_pre390 (game))
+    return FALSE;
 
   /*
    * The darkness fork again, this time on its `x me` arm: run390 44C424
@@ -6666,6 +6705,10 @@ lib_cmd_examine_npc (scr_gameref_t game)
   scr_int npc;
   scr_bool is_ambiguous, was_admin;
 
+  /* Pre-3.9 `look X`; see lib_look_is_not_examine_pre390(). */
+  if (lib_look_is_not_examine_pre390 (game))
+    return FALSE;
+
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, "examine", &is_ambiguous);
   if (npc == -1)
@@ -7564,6 +7607,10 @@ lib_cmd_examine_object (scr_gameref_t game)
   scr_int object, task, npc;
   scr_bool is_described, is_ambiguous, should_be;
   const scr_char *description, *resource;
+
+  /* Pre-3.9 `look X`; see lib_look_is_not_examine_pre390(). */
+  if (lib_look_is_not_examine_pre390 (game))
+    return FALSE;
 
   /* A 4.0 tie that referencedob settles on an absent object. */
   if (lib_examine_tied_absent_400 (game))
@@ -22797,6 +22844,10 @@ lib_cmd_profanity_pre_400 (scr_gameref_t game)
 scr_bool
 lib_cmd_examine_all (scr_gameref_t game)
 {
+  /* Pre-3.9 `look all`; see lib_look_is_not_examine_pre390(). */
+  if (lib_look_is_not_examine_pre390 (game))
+    return FALSE;
+
   return lib_print_message (game, "Please examine one object at a time.\n");
 }
 
@@ -22959,6 +23010,10 @@ lib_npc_examine_absent (scr_gameref_t game)
 scr_bool
 lib_cmd_examine_other (scr_gameref_t game)
 {
+  /* Pre-3.9 `look X`; see lib_look_is_not_examine_pre390(). */
+  if (lib_look_is_not_examine_pre390 (game))
+    return FALSE;
+
   /*
    * A bare `x`, `ex` or `examine` never reaches this tail from 3.9 on:
    * examines exits on it at once (run400 471340, run390 44B758).  run400's
@@ -23076,6 +23131,10 @@ lib_cmd_look_anywhere_pre_400 (scr_gameref_t game)
 scr_bool
 lib_cmd_examine_absent (scr_gameref_t game)
 {
+  /* Pre-3.9 `look X`; see lib_look_is_not_examine_pre390(). */
+  if (lib_look_is_not_examine_pre390 (game))
+    return FALSE;
+
   /* Pre-3.9; see lib_absent_named_object_pre_390(). */
   const scr_int object = lib_absent_named_object_pre_390 (game);
 

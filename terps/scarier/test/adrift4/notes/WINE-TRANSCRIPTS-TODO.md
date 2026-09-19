@@ -330,13 +330,13 @@ not by a tick.
 - **run380's task sweep after a *refused* take-from** is not ported.
   run380's count<2 put refusal also precedes checktask, but run380 has no
   sweep (445A0F).
-- **`x,` at 3.7/3.8** is "Nothing special." (the Runner's c() finds `x`
-  before the comma); Scarier's matcher does not and answers DontUnderstand.
-  Same for `ex,`. p37EXAM/p38EXAM, run380x Adrift_178_pexab38.rtf.
 - **3.8 `lie on bed` from the next room** is "You can't lie on that." and
   4.0's is "You can't see the bed."; both already match. The 3.8 object
   loop's scope test is unread.
 - **Pre-4.0 room-name alt walk** is unmeasured.
+- **A comma in a task command match:** the library treats `verb, noun` as
+  `verb noun` (ported), but whether run370/run380's task matcher does is
+  unmeasured, so Scarier's task pass still needs the literal line.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
 
@@ -806,6 +806,23 @@ next to the named function and in `annotations.tsv`.
     p39EXAM/p4EXAM, run370x Adrift_173/175, run380x Adrift_172/174/178,
     run390x Adrift_176, run400x Adrift_177 (`cmdfile_p3738bare*.txt`,
     `cmdfile_pexabbr.txt`) (`lib_cmd_look_typed`, `lib_cmd_examine_other`,
+    2026-09-19)
+  - Pre-4.0 `look X` is no examine at 3.7/3.8. examines enters on c() of
+    x, examine, look at, ex, exam, read (3.8 also look in), so `look coin`,
+    `look me`, `look all`, `look zzz` and a seen or unseen absent object
+    reach therest's look arm: "Nothing special.". 3.7 has no `look in` and
+    refuses an absent object first ("You can't see the statue."). `[<3.9]`
+    p37EXAM/p38EXAM, run370x plookobj37 / run380x plookobj38
+    (`cmdfile_plookobj.txt`) (`lib_look_is_not_examine_pre390`,
+    `run_therest_pre400`, 2026-09-19)
+  - A comma after a word is a space to 3.7/3.8's library: c() ends a word
+    at a comma and no splitter cuts there. `x, coin`, `x , coin`, `look at,
+    coin`, `read, coin`, `drop, coin` and `take, coin` answer as without it;
+    `x,` and `x,coin` are "Nothing special." (the next word must follow a
+    space). Library patterns only; a task command meeting a comma is
+    unmeasured. `[<3.9]` p37EXAM/p38EXAM, run370x pxcomma37/pxcomma37b,
+    run380x pxcomma38/pxcomma38b, Adrift_178_pexab38.rtf
+    (`cmdfile_pxcomma.txt`, `cmdfile_pxcomma2.txt`) (`uip_match_whitespace`,
     2026-09-19)
 - **Carried objects.** Only a listing, or the task mover, reveals what the
   player carries, and `i` stamps them seen. yak_shaving (8e006d2f5)

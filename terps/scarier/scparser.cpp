@@ -1114,6 +1114,20 @@ uip_set_binary_input (scr_bool binary)
   uip_binary_input = binary;
 }
 
+/*
+ * Set around task command matching (run_match_task_commands()), which keeps
+ * a pre-3.9 comma out of the word boundary; uip_comma_is_space is set per
+ * match from it and the game's version -- see uip_match_whitespace().
+ */
+static scr_bool uip_task_commands = FALSE;
+static scr_bool uip_comma_is_space = FALSE;
+
+void
+uip_set_task_commands (scr_bool task_commands)
+{
+  uip_task_commands = task_commands;
+}
+
 
 /*
  * uip_wildcard_match_400()
@@ -1364,6 +1378,31 @@ uip_match_whitespace (scr_bool hard)
       /* Space match, advance position and return. */
       while (uip_string[uip_posn] != NUL && scr_isspace (uip_string[uip_posn]))
         uip_posn++;
+      return TRUE;
+    }
+
+  /*
+   * 3.7/3.8 never split a line at a comma, and every handler finds its verb
+   * with c(), whose word may end at a comma (run370 423C80, run380 429048).
+   * So a comma right after a word is a space to the library: `x, coin`,
+   * `look at, coin`, `read, coin`, `drop, coin` and `take, coin` answer as
+   * they do without it.  The word after it must still start after a space,
+   * so `x,coin` examines nothing: the boundary matches but the comma stays
+   * for the wildcard, and the answer is "Nothing special.".  p37EXAM/p38EXAM,
+   * run370x pxcomma37 / run380x pxcomma38 (`cmdfile_pxcomma.txt`).  Library
+   * patterns only; how a pre-3.9 task command meets a comma is unmeasured.
+   */
+  if (uip_comma_is_space && uip_string[uip_posn] == ','
+      && uip_posn > 0 && !scr_isspace (uip_string[uip_posn - 1]))
+    {
+      if (uip_string[uip_posn + 1] == NUL
+          || scr_isspace (uip_string[uip_posn + 1]))
+        {
+          uip_posn++;
+          while (uip_string[uip_posn] != NUL
+                 && scr_isspace (uip_string[uip_posn]))
+            uip_posn++;
+        }
       return TRUE;
     }
 
@@ -2812,16 +2851,19 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
   {
     const scr_bool was_binary = uip_binary_active;
     const scr_char *const was_punctuation = uip_word_end_punctuation;
+    const scr_bool was_comma_space = uip_comma_is_space;
     const scr_int version = prop_get_taf_version (gs_get_bundle (game));
 
     uip_word_end_punctuation = (version == TAF_VERSION_390) ? ",."
                                : (version < TAF_VERSION_390) ? "," : "";
+    uip_comma_is_space = version < TAF_VERSION_390 && !uip_task_commands;
 
     uip_binary_active = uip_binary_input && strpbrk (pattern, "*[{")
                         && !strchr (pattern, '%');
     match = uip_match_node (tree);
     uip_binary_active = was_binary;
     uip_word_end_punctuation = was_punctuation;
+    uip_comma_is_space = was_comma_space;
   }
 
   /* Clean up matching, and free the pattern tree unless it is cached. */
