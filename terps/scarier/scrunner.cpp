@@ -310,9 +310,17 @@ run_split_word_names_object (scr_gameref_t game, const scr_char *word)
 /*
  * Return the offset of the effective cut in LINE, with *SEP_LENGTH the
  * length of the separator there, or -1 when the line holds no cut.  The
- * four kinds are tried at every position; the earliest that survives the
- * object test wins, which is the same sequence the Runner's four passes
- * produce because each cut's tail is re-split when it is read back.
+ * four kinds are tried in the Runner's PASS order, not by position:
+ * generaltasks calls the splitter once per separator (48A0DA "," then
+ * 48A0E8 ". ", 48A0F6 " and ", 48A104 " then "), and each pass works on
+ * the head the previous pass left, so a later kind can only shorten the
+ * head.  The queue the Runner keeps is its tails joined ", ", the later
+ * pass's tail first (459742-459753), which reads back exactly as the rest
+ * of the line does here once the caller strips the whitespace after the
+ * separator.  Measured on p4AND (run400 Adrift_956): `x coin and box, x
+ * hat` is "x coin and box" then "x hat", the comma cut first and the
+ * " and " then suppressed by "box"; the earliest-position order Scarier
+ * used cut at " and " because "box," carries the comma and names nothing.
  */
 static scr_int
 run_find_split_400 (scr_gameref_t game, const scr_char *line,
@@ -320,22 +328,24 @@ run_find_split_400 (scr_gameref_t game, const scr_char *line,
 {
   static const scr_char *const SEPARATORS[] = {",", ". ", " and ", " then "};
 
-  scr_int posn;
+  scr_int best = -1;
+  size_t kind;
 
-  /*
-   * Position 0 is never a cut here: the element loop below always takes the
-   * first character of the line, so that input like "." is one parser
-   * complaint rather than two empty commands.
-   */
-  for (posn = 1; line[posn] != NUL; posn++)
+  for (kind = 0; kind < sizeof (SEPARATORS) / sizeof (*SEPARATORS); kind++)
     {
-      size_t kind;
+      const scr_char *const separator = SEPARATORS[kind];
+      const size_t length = strlen (separator);
+      const scr_int limit = (best < 0) ? (scr_int) strlen (line) : best;
+      scr_int posn;
 
-      for (kind = 0; kind < sizeof (SEPARATORS) / sizeof (*SEPARATORS);
-           kind++)
+      /*
+       * Position 0 is never a cut here: the element loop below always takes
+       * the first character of the line, so that input like "." is one
+       * parser complaint rather than two empty commands.  Only the current
+       * head, before any earlier pass's cut, is searched.
+       */
+      for (posn = 1; posn < limit && line[posn] != NUL; posn++)
         {
-          const scr_char *const separator = SEPARATORS[kind];
-          const size_t length = strlen (separator);
           const scr_char *tail;
           scr_char word[LINE_BUFFER_SIZE];
           size_t extent;
@@ -343,10 +353,18 @@ run_find_split_400 (scr_gameref_t game, const scr_char *line,
           if (strncmp (line + posn, separator, length) != 0)
             continue;
 
-          /* first_word() of the tail, leading spaces stripped. */
+          /*
+           * first_word() of the tail, leading spaces stripped (449980):
+           * trailing punctuation stays on the word, so "box," names
+           * nothing -- but the tail ends where the current head does,
+           * since an earlier pass's cut has already taken the rest of the
+           * line (and its comma) off to the queue.
+           */
           tail = line + posn + length;
           tail += strspn (tail, " ");
           extent = strcspn (tail, " ");
+          if (tail + extent > line + limit)
+            extent = (tail < line + limit) ? (line + limit) - tail : 0;
           if (extent >= sizeof (word))
             extent = sizeof (word) - 1;
           memcpy (word, tail, extent);
@@ -355,22 +373,29 @@ run_find_split_400 (scr_gameref_t game, const scr_char *line,
           if (run_split_word_names_object (game, word))
             continue;
 
+          best = posn;
           *sep_length = (scr_int) length;
-          return posn;
-        }
-
-      /*
-       * A period at the very end of the line is not one of the Runner's
-       * four separators -- it has no space after it -- but cutting there
-       * costs nothing (the tail is empty) and keeps "n." typed by a
-       * walkthrough working exactly as it always has.
-       */
-      if (line[posn] == '.' && line[posn + 1] == NUL)
-        {
-          *sep_length = 1;
-          return posn;
+          break;
         }
     }
+  if (best >= 0)
+    return best;
+
+  /*
+   * A period at the very end of the line is not one of the Runner's four
+   * separators -- it has no space after it -- but cutting there costs
+   * nothing (the tail is empty) and keeps "n." typed by a walkthrough
+   * working exactly as it always has.
+   */
+  {
+    const size_t length = strlen (line);
+
+    if (length > 1 && line[length - 1] == '.')
+      {
+        *sep_length = 1;
+        return (scr_int) length - 1;
+      }
+  }
   return -1;
 }
 
@@ -5778,11 +5803,12 @@ run_player_input (scr_gameref_t game)
       if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
         {
           /*
-           * 4.0 cuts the line at the earliest separator whose tail does not
-           * begin with an object name; see run_find_split_400().  The
-           * separator goes, and any whitespace after it: that prevents
-           * "i. ." looking like "i" and ""; it instead looks like "i" and
-           * ".", and results in a parser complaint.
+           * 4.0 cuts the line at the first separator, in pass order, whose
+           * tail does not begin with an object name; see
+           * run_find_split_400().  The separator goes, and any whitespace
+           * after it: that prevents "i. ." looking like "i" and ""; it
+           * instead looks like "i" and ".", and results in a parser
+           * complaint.
            */
           const scr_int split = (line_buffer[0] == NUL)
                                 ? -1

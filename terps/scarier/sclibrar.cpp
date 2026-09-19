@@ -5374,6 +5374,9 @@ lib_co_400_raise (scr_gameref_t game, const scr_char *term,
  * comes from the lowest-indexed ambiguous object rather than from the order
  * the nouns were typed in.
  */
+static scr_int lib_examine_referencedob_400 (scr_gameref_t game,
+                                             const scr_char *input);
+
 static scr_bool
 lib_co_400_raise_for_references (scr_gameref_t game)
 {
@@ -5979,6 +5982,41 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
     }
 
   /*
+   * Two or more DIFFERENT present objects on a 4.0 examine line -- `x coin
+   * and the hat`, which the splitter keeps whole because "the" names no
+   * object -- never raise a question.  examines() takes referencedob's
+   * pick (Proc_19_88_457034, lib_examine_referencedob_400()): pass C
+   * counts each candidate's Prefix words in the line, and an equal count
+   * is &HFE, "Sorry, I'm not sure which object you're referring to."
+   * (4719EA, still a turn); no Prefix word typed leaves the last marked.
+   * Measured on p4AND (run400 Adrift_955/956): `x coin and a hat` -> the
+   * Sorry line, "a" being both objects' Prefix; `x coin and the hat`, `x
+   * coin and hat and box` -> one description.
+   */
+  if (lib_is_version_400 (game) && strcmp (verb, "examine") == 0
+      && lib_co_400_forced () < 0 && run_get_dispatch_input ())
+    {
+      const scr_int pick
+        = lib_examine_referencedob_400 (game, run_get_dispatch_input ());
+
+      if (pick == -2)
+        {
+          pf_buffer_string (filter, "Sorry, I'm not sure which object"
+                                    " you're referring to.\n");
+          if (is_ambiguous)
+            *is_ambiguous = TRUE;
+          return -1;
+        }
+      if (pick >= 0)
+        {
+          var_set_ref_object (vars, pick);
+          if (is_ambiguous)
+            *is_ambiguous = FALSE;
+          return pick;
+        }
+    }
+
+  /*
    * 3.9 examine asks nothing either.  co() is false for each of two seen,
    * present namesakes (it only raises the end-of-turn flag), so
    * referencedob() counts none and returns -1, and examines() answers
@@ -6094,9 +6132,16 @@ lib_disambiguate_object (scr_gameref_t game,
  * Proc_21_38_454CB0: case-insensitive, and a hit only where the word is
  * bounded by the line's ends or spaces.  Public for run_all_commands()'s
  * recovery gate, the `c("status")` test at 47DCA1.
+ *
+ * The Runner's c() also ends a word at ",", "." or "?" (454C07-454C39),
+ * which is what lets "coin," score on `drop coin, hat`; the 4.0-only
+ * callers below take that through lib_input_contains_word_400().  The
+ * 3.9 helper's terminators are unmeasured, so the paths shared with 3.9
+ * keep the space-only test.
  */
-scr_bool
-lib_input_contains_word (const scr_char *input, const scr_char *word)
+static scr_bool
+lib_input_contains_word_ended (const scr_char *input, const scr_char *word,
+                               const scr_char *terminators)
 {
   const scr_int length = strlen (word);
   const scr_char *scan;
@@ -6108,11 +6153,24 @@ lib_input_contains_word (const scr_char *input, const scr_char *word)
     {
       if ((scan == input || scan[-1] == ' ')
           && scr_strncasecmp (scan, word, length) == 0
-          && (scan[length] == NUL || scan[length] == ' '))
+          && (scan[length] == NUL
+              || strchr (terminators, scan[length]) != NULL))
         return TRUE;
     }
 
   return FALSE;
+}
+
+scr_bool
+lib_input_contains_word (const scr_char *input, const scr_char *word)
+{
+  return lib_input_contains_word_ended (input, word, " ");
+}
+
+static scr_bool
+lib_input_contains_word_400 (const scr_char *input, const scr_char *word)
+{
+  return lib_input_contains_word_ended (input, word, " ,.?");
 }
 
 /*
@@ -7116,7 +7174,7 @@ lib_co_400_name_word (scr_gameref_t game, scr_int object, const scr_char *input)
   scr_int alias_count, alias;
 
   name = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  if (!scr_strempty (name) && lib_input_contains_word (input, name))
+  if (!scr_strempty (name) && lib_input_contains_word_400 (input, name))
     return name;
 
   word = NULL;
@@ -7125,7 +7183,7 @@ lib_co_400_name_word (scr_gameref_t game, scr_int object, const scr_char *input)
     {
       vt_key[3].integer = alias;
       name = prop_get_string (bundle, "S<-sisi", vt_key);
-      if (!scr_strempty (name) && lib_input_contains_word (input, name))
+      if (!scr_strempty (name) && lib_input_contains_word_400 (input, name))
         word = name;
     }
   return word;
@@ -7205,7 +7263,7 @@ lib_examine_referencedob_400 (scr_gameref_t game, const scr_char *input)
           next = strchr (word, ' ');
           if (next)
             *next++ = NUL;
-          if (word[0] == NUL || !lib_input_contains_word (input, word))
+          if (word[0] == NUL || !lib_input_contains_word_400 (input, word))
             continue;
           found++;
           if (found == best)
@@ -10389,6 +10447,28 @@ lib_cmd_take_absent (scr_gameref_t game)
   if (!lib_is_version_400 (game) || !input)
     return FALSE;
 
+  /*
+   * An "and" list (473121-473221) resolves each piece on its own in mode
+   * 1, which scores only what is here, so absent objects never tie: with
+   * nothing present marked, the handler runs to its empty-buffer tail,
+   * "There is nothing worth taking here." (473A13) -- never "Take what?".
+   * Measured on p4AND from Bravo, `get hat and coin` with both seen in
+   * Alpha (run400 Adrift_956).
+   */
+  if (lib_input_contains_word_400 (input, "and"))
+    {
+      for (object = 0; object < gs_object_count (game); object++)
+        {
+          const scr_char *term;
+
+          if (lib_take_absent_score (game, object, input, &term) > 0
+              && obj_indirectly_in_room (game, object, gs_playerroom (game)))
+            return FALSE;
+        }
+      pf_buffer_string (filter, "There is nothing worth taking here.\n");
+      return TRUE;
+    }
+
   best_score = 0;
   best_count = 0;
   best_object = -1;
@@ -10470,6 +10550,102 @@ lib_cmd_take_absent (scr_gameref_t game)
 
 /* Set by lib_cmd_get_what() only; see the scored fallback below. */
 static scr_bool lib_take_scored_fallback = FALSE;
+
+static const scr_char *lib_drop_named_term_400 (scr_gameref_t game,
+                                                scr_int object,
+                                                const scr_char *input,
+                                                scr_bool last_alias);
+static scr_int lib_co_400_namesake_count (scr_gameref_t game,
+                                          const std::vector<scr_int> &objects,
+                                          const scr_char *name);
+static scr_int lib_take_resolve_400_string (scr_gameref_t game,
+                                            const scr_char *input,
+                                            std::vector<scr_int> *tied);
+
+/*
+ * lib_take_tie_400()
+ *
+ * The 4.0 take handler's own answer to a line that names two different
+ * present objects without "and": `get coin, hat`, kept whole by the
+ * splitter because "hat" names an object.  Proc_19_23 resolves the WHOLE
+ * fragment with the noun scorer (473011, 463640 mode 1), and a tie whose
+ * objects share no name -- co() left Me(424) at -1, no "Which" question
+ * pending -- prints "It is not clear which " & <the last tied object's
+ * typed name> & " you are referring to." (47335F-4733A5) and takes
+ * nothing.  A unique winner is the only object marked (473022), whatever
+ * else the line said.  Measured on p4AND, run400 Adrift_955: `get coin,
+ * hat` with both held -> "It is not clear which hat you are referring
+ * to.", the coin scoring because c() ends a word at the comma.  Two
+ * namesakes present still ask "Which <term>" (p4TAKE2), which
+ * lib_co_400_raise() handles before this.
+ *
+ * Returns TRUE when it has answered the line.  *references is narrowed
+ * to the scorer's winner where the parser bound more than one object.
+ */
+static scr_bool
+lib_take_tie_400 (scr_gameref_t game, scr_int *references)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *line = run_get_dispatch_input ();
+  std::vector<scr_int> tied;
+  scr_int object, index_;
+
+  if (!lib_is_version_400 (game) || !line || lib_co_400_forced () >= 0
+      || lib_input_contains_word_400 (line, "all")
+      || lib_input_contains_word_400 (line, "and"))
+    return FALSE;
+
+  object = lib_take_resolve_400_string (game, line, &tied);
+  if (object >= 0)
+    {
+      if (*references > 1)
+        {
+          gs_clear_multiple_references (game);
+          game->multiple_references[object] = TRUE;
+          *references = 1;
+        }
+      return FALSE;
+    }
+  if (object != -1)
+    return FALSE;
+
+  /* A name two of the tied objects answer to is co()'s question instead. */
+  for (index_ = 0; index_ < (scr_int) tied.size (); index_++)
+    {
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+      const scr_char *name;
+
+      name = prop_get_indexed_string (bundle, "Objects", tied[index_],
+                                      "Short");
+      if (!scr_strempty (name) && lib_input_contains_word_400 (line, name)
+          && lib_co_400_namesake_count (game, tied, name) > 1)
+        return FALSE;
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects",
+                                       tied[index_]);
+      for (alias = 0; alias < alias_count; alias++)
+        {
+          vt_key[3].integer = alias;
+          name = prop_get_string (bundle, "S<-sisi", vt_key);
+          if (!scr_strempty (name)
+              && lib_input_contains_word_400 (line, name)
+              && lib_co_400_namesake_count (game, tied, name) > 1)
+            return FALSE;
+        }
+    }
+
+  pf_buffer_string (filter, "It is not clear which ");
+  pf_buffer_string (filter,
+                    lib_drop_named_term_400 (game, tied.back (), line, FALSE));
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         " you are referring to.\n",
+                                         " I am referring to.\n",
+                                         " %player% is referring to.\n"));
+  gs_clear_multiple_references (game);
+  return TRUE;
+}
 
 /*
  * lib_take_from_task_sweep_380()
@@ -10809,6 +10985,10 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
       references = 1;
     }
   else if (references == 0)
+    return TRUE;
+
+  /* 4.0: the whole fragment resolved once; see lib_take_tie_400(). */
+  if (!is_except && lib_take_tie_400 (game, &references))
     return TRUE;
 
   /* Pre-4.0: a held or worn namesake indexed below the one object the line
@@ -12460,7 +12640,7 @@ lib_drop_named_term_400 (scr_gameref_t game, scr_int object,
   scr_int alias_count, alias;
 
   term = prop_get_indexed_string (bundle, "Objects", object, "Short");
-  if (!last_alias && lib_input_contains_word (input, term))
+  if (!last_alias && lib_input_contains_word_400 (input, term))
     return term;
 
   alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
@@ -12470,7 +12650,7 @@ lib_drop_named_term_400 (scr_gameref_t game, scr_int object,
 
       vt_key[3].integer = alias;
       name = prop_get_string (bundle, "S<-sisi", vt_key);
-      if (scr_strempty (name) || !lib_input_contains_word (input, name))
+      if (scr_strempty (name) || !lib_input_contains_word_400 (input, name))
         continue;
       term = name;
       if (!last_alias)
@@ -12495,13 +12675,19 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
   std::string line;
   scr_int object, pending, last_tied, mark_count;
 
+  /*
+   * A comma is no bar: the splitter keeps `drop coin, hat` whole when
+   * "hat" names an object (p4AND, run400 Adrift_955), and name_object
+   * then scores the whole fragment, "coin," counting because c() ends a
+   * word at a comma -- so the coin and the hat tie and the answer is "It
+   * is not clear which hat you are referring to.".
+   */
   *references = -1;
   if (!lib_is_version_400 (game) || !input
-      || !lib_input_contains_word (input, "drop")
-      || lib_input_contains_word (input, "all")
-      || lib_input_contains_word (input, "everything")
-      || lib_input_contains_word (input, "and")
-      || strchr (input, ','))
+      || !lib_input_contains_word_400 (input, "drop")
+      || lib_input_contains_word_400 (input, "all")
+      || lib_input_contains_word_400 (input, "everything")
+      || lib_input_contains_word_400 (input, "and"))
     return FALSE;
 
   line = run_normalise_put_line (input);
@@ -23268,7 +23454,7 @@ lib_verb_object_name_score (scr_gameref_t game,
   score = 0;
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
   if (shortname && shortname[0] != NUL
-      && lib_input_contains_word (input, shortname))
+      && lib_input_contains_word_400 (input, shortname))
     score = 1;
 
   alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
@@ -23279,7 +23465,7 @@ lib_verb_object_name_score (scr_gameref_t game,
       vt_key[3].integer = alias;
       alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
       if (alias_name && alias_name[0] != NUL
-          && lib_input_contains_word (input, alias_name))
+          && lib_input_contains_word_400 (input, alias_name))
         {
           score++;
           break;
@@ -23306,7 +23492,7 @@ lib_verb_object_name_score (scr_gameref_t game,
       next = strchr (word, ' ');
       if (next)
         *next++ = NUL;
-      if (word[0] != NUL && lib_input_contains_word (input, word))
+      if (word[0] != NUL && lib_input_contains_word_400 (input, word))
         score++;
     }
   scr_free (copy);
@@ -23318,10 +23504,59 @@ lib_verb_object_name_score (scr_gameref_t game,
  * The one caller that leaves it off is put_drop_list's own " on " split
  * test; see lib_put_split_400().
  */
+typedef scr_bool (*lib_resolve_admit_t) (scr_gameref_t game,
+                                         scr_int object, scr_int pass);
+
+static scr_bool
+lib_resolve_admit_mode0 (scr_gameref_t game, scr_int object, scr_int pass)
+{
+  if (!gs_object_seen (game, object))
+    return FALSE;
+  return pass > 0
+         || obj_indirectly_in_room (game, object, gs_playerroom (game));
+}
+
+/*
+ * The take handler's 463640 mode 1 (463161-463224): a candidate is
+ * visible where it is (44B578), dynamic, seen, and on the first pass not
+ * held or worn by the player, directly or inside something held (44615C,
+ * which ignores openness).  A second pass admits held objects when the
+ * first found no unique winner (46360D: any negative result, a tie
+ * included).  hub `take drying-up cloth` with the sink cloth held, and
+ * ilgolem `prendi mano mozzata del nonno` with the static "nonno" in the
+ * room, both resolve uniquely in run400 (runner_transcripts/hub.txt:251,
+ * ilgolem.txt:312) where a plain present-and-seen scan would tie.
+ */
+static scr_bool
+lib_resolve_held_400 (scr_gameref_t game, scr_int object)
+{
+  switch (gs_object_position (game, object))
+    {
+    case OBJ_HELD_PLAYER:
+    case OBJ_WORN_PLAYER:
+      return TRUE;
+    case OBJ_IN_OBJECT:
+    case OBJ_ON_OBJECT:
+      return lib_resolve_held_400 (game, gs_object_parent (game, object));
+    default:
+      return FALSE;
+    }
+}
+
+static scr_bool
+lib_resolve_admit_take (scr_gameref_t game, scr_int object, scr_int pass)
+{
+  if (obj_is_static (game, object) || !gs_object_seen (game, object))
+    return FALSE;
+  if (!obj_indirectly_in_room (game, object, gs_playerroom (game)))
+    return FALSE;
+  return pass > 0 || !lib_resolve_held_400 (game, object);
+}
+
 static scr_int
-lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
-                                    std::vector<scr_int> *tied,
-                                    scr_bool present_only)
+lib_verb_object_resolve_400_scan (scr_gameref_t game, const scr_char *input,
+                                  std::vector<scr_int> *tied,
+                                  lib_resolve_admit_t admit, scr_int pass)
 {
   scr_int index_, object, best, best_count;
 
@@ -23337,10 +23572,7 @@ lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
     {
       scr_int score;
 
-      if (!gs_object_seen (game, index_))
-        continue;
-      if (present_only
-          && !obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+      if (!admit (game, index_, pass))
         continue;
 
       score = lib_verb_object_name_score (game, index_, input);
@@ -23366,6 +23598,31 @@ lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
     }
 
   return best_count > 1 ? -1 : object;
+}
+
+static scr_int
+lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
+                                    std::vector<scr_int> *tied,
+                                    scr_bool present_only)
+{
+  return lib_verb_object_resolve_400_scan (game, input, tied,
+                                           lib_resolve_admit_mode0,
+                                           present_only ? 0 : 1);
+}
+
+/* Mode 1: two passes, the second only after no unique winner (46360D). */
+static scr_int
+lib_take_resolve_400_string (scr_gameref_t game, const scr_char *input,
+                             std::vector<scr_int> *tied)
+{
+  scr_int object;
+
+  object = lib_verb_object_resolve_400_scan (game, input, tied,
+                                             lib_resolve_admit_take, 0);
+  if (object < 0)
+    object = lib_verb_object_resolve_400_scan (game, input, tied,
+                                               lib_resolve_admit_take, 1);
+  return object;
 }
 
 static scr_int

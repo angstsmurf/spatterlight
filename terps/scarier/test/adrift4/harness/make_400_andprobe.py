@@ -62,8 +62,14 @@ narrower: it sees only an " and " at or beyond the preposition split, runs
 its clauses inside ONE turn with no separator between their answers, drops a
 trailing clause that has no preposition of its own, and hoists an implicit
 take above everything (name_object prints that straight to the textbox).
-Left unported: name_object's in-command "and"/"all" list loops at 46E04E /
-46E0B2.  Write-up in notes/WINE-TRANSCRIPTS-TODO.md.
+The last six cells (2026-09-19): the splitter's four cuts are ordered
+passes, each on the head the previous pass left (`x coin and box, x hat`
+cuts at the comma); a whole-line take/drop tie between objects that share
+no name says "It is not clear which hat you are referring to." (the
+take scorer's first pass skips held objects); an absent `get hat and coin`
+is one flat "There is nothing worth taking here."; and `x coin and a hat`
+ties on the prefix word and prints "Sorry, I'm not sure which object
+you're referring to." as a turn.  Write-up in notes/WINE-TRANSCRIPTS-TODO.md.
 
 Usage:
     python3 make_400_andprobe.py p4AND.plain

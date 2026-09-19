@@ -263,8 +263,6 @@ not by a tick.
 
 ### Engine, needs a probe (4.0)
 
-- **name_object's own list loops (46E04E / 46E0B2)** are not rebuilt. Six
-  cells, wording off the Runner.
 - **`put box in box`:** run400 announces the take and prints nothing;
   Scarier says "can't put an object inside itself!".
 - **Put resolution ordering:** the 4.0 put fragment fallback scores every
@@ -581,6 +579,12 @@ next to the named function and in `annotations.tsv`.
     starts with any object's Short, Prefix word or Alias (case-sensitive).
     The put clause loop puts several objects in one turn. `[4.0]` p4AND
     (dffce55df)
+  - The four 4.0 cuts are passes in that order, each on the head the
+    previous pass left, and the tail's first word is read inside that head:
+    `x coin and box, x hat` cuts at the comma (the `, x hat` tail's word
+    "x" names nothing) and never at ` and ` (its tail word is "box", an
+    object). What the queue receives is the later tail followed by the
+    older one. `[4.0]` p4AND Adrift_956 (`run_find_split_400`, 2026-09-19)
   - Pre-4.0 never looks at the object table. run370/run380 cut only at
     `then`, at the first substring hit (`x athens then look` runs `x a`,
     `s`, `look`). run390 cuts at the first `,`, then `. ` in the head, then
@@ -715,6 +719,30 @@ next to the named function and in `annotations.tsv`.
   "Which X." prompt stays silent. 3.9 examine then answers an ambiguous
   pair "Nothing special." (co() is false for each, referencedob returns
   -1). `[3.9]` cybercow_win T118 `x berry` (`run_note_dispatched_task_ran`,
+  2026-09-19)
+- **A whole-line take or drop with two names and no `and`** (`get coin,
+  hat`, `drop coin, hat`, kept whole because "hat" names an object): the
+  handler resolves the whole fragment with the noun scorer (463640 mode 1
+  for take), and a tie between objects that share no name answers "It is
+  not clear which <last tied object's typed name> you are referring to."
+  and moves nothing; a unique winner is the only object taken, whatever
+  else the line said. Two namesakes still get the "Which" question. c()
+  ends a word at a space, `,`, `.` or `?`, so the comma-bound "coin" scores
+  too. The take scorer's candidates are dynamic, seen, visible objects; the
+  first pass leaves out anything held or worn (or inside something held),
+  and a second pass admits them only when the first found no unique
+  winner. `[4.0]` p4AND Adrift_955 (`lib_take_tie_400`,
+  `lib_take_resolve_400_string`, `lib_drop_named_400`,
+  `lib_input_contains_word_400`, 2026-09-19)
+- **`get X and Y` with neither present:** the "and" list loop marks
+  nothing, and the take handler prints "There is nothing worth taking
+  here." with no per-object refusal; one present object takes it alone.
+  `[4.0]` p4AND Adrift_956 (`lib_cmd_take_absent`, 2026-09-19)
+- **`x coin and a hat`:** referencedob's prefix-word pass counts "a" for
+  both objects, the scores tie, and the examine handler prints "Sorry, I'm
+  not sure which object you're referring to." as a turn of its own (4719EA);
+  `x coin and the hat` / `and large` examine the coin. `[4.0]` p4AND
+  Adrift_955 (`lib_examine_referencedob_400`, `lib_disambiguate_object`,
   2026-09-19)
 
 ### Nouns, scope and the seen model
