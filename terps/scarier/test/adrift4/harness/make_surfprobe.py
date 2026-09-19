@@ -95,6 +95,11 @@ OBJECTS = [
 NAMES = [o[0] for o in OBJECTS]
 # SitLie per object name (bit 0 sit/stand on, bit 1 lie on); others 0.
 SITLIE = {}
+# Object names that are wearable (dynamic objects only).
+WEARABLE = set()
+# Tasks: (command, CompleteText) pairs, all repeatable, unrestricted, Where =
+# all rooms.  The first must stay `probe` -> "PROBE OK.".
+TASKS = [("probe", "PROBE OK.")]
 
 
 def type_index(name, kinds):
@@ -221,7 +226,7 @@ def build(version):
             s(1 if kind == "surface" else 0)
             s(capacity * 10 + 2 if capacity else 0)
         if not static:
-            s(0)                      # Wearable
+            s(1 if name in WEARABLE else 0)   # Wearable
             s(0)                      # SizeWeight (3.8/3.7: burden class)
             s(parent)
         if version >= 400:
@@ -242,54 +247,55 @@ def build(version):
             s(""); s(0)               # InRoomDesc OnlyWhenNotMoved
 
     # ----------------------------------------------------------------- TASKS
-    s(1)
-    if version >= 400:
-        s(1); s("probe")              # V$Command count, then the command
-    else:
-        s(0); s("probe")              # W$Command: count 0 -> one command
-    s("PROBE OK.")                    # CompleteText
-    s("")                             # ReverseMessage
-    s("")                             # RepeatText (must stay empty)
-    s("")                             # AdditionalMessage
-    s(0)                              # ShowRoomDesc
-    s(1)                              # Repeatable
-    if version >= 390:
-        s(0)                          # Reversible
+    s(len(TASKS))
+    for command, text in TASKS:
         if version >= 400:
-            s(0)                      # V$ReverseCommand: count 0, no strings
+            s(1); s(command)              # V$Command count, then the command
         else:
-            s(0); s("")               # W$ReverseCommand: count 0 -> one
-        s(3)                          # Where: all rooms
-        s("")                         # Question
-        s(0)                          # Restrictions
-        s(0)                          # Actions
-        if version >= 400:
-            s("")                     # RestrMask
-    else:
-        s(0)                          # Score
-        s(0)                          # SingleScore
-        for _ in range(6):            # [6]<TASK_MOVE>Movements
-            s(0); s(0)
+            s(0); s(command)              # W$Command: count 0 -> one command
+        s(text)                           # CompleteText
+        s("")                             # ReverseMessage
+        s("")                             # RepeatText (must stay empty)
+        s("")                             # AdditionalMessage
+        s(0)                              # ShowRoomDesc
+        s(1)                              # Repeatable
+        if version >= 390:
+            s(0)                          # Reversible
+            if version >= 400:
+                s(0)                      # V$ReverseCommand: count 0, no strings
+            else:
+                s(0); s("")               # W$ReverseCommand: count 0 -> one
+            s(3)                          # Where: all rooms
+            s("")                         # Question
+            s(0)                          # Restrictions
+            s(0)                          # Actions
+            if version >= 400:
+                s("")                     # RestrMask
+        else:
+            s(0)                          # Score
+            s(0)                          # SingleScore
+            for _ in range(6):            # [6]<TASK_MOVE>Movements
+                s(0); s(0)
+                if version >= 380:
+                    s(0)                  # Var3 -- 3.7 has none
+            s(0)                          # Reversible
+            s(0); s("")                   # ReverseCommand
+            s(0); s(0)                    # WearObj1 WearObj2
+            s(0); s(0); s(0)              # HoldObj1 HoldObj2 HoldObj3
+            s(0)                          # Obj1
+            s(0); s(0)                    # Task TaskNotDone
+            s(""); s(""); s(""); s("")    # TaskMsg HoldMsg WearMsg CompanyMsg
+            s(0)                          # NotInSameRoom
+            s(0)                          # NPC
+            s("")                         # Obj1Msg
+            s(0)                          # Obj1Room
+            s(3)                          # Where: all rooms
+            s(0)                          # KillsPlayer
+            s(0)                          # HoldingSameRoom
+            s("")                         # Question
+            s(0)                          # Obj2
             if version >= 380:
-                s(0)                  # Var3 -- 3.7 has none
-        s(0)                          # Reversible
-        s(0); s("")                   # ReverseCommand
-        s(0); s(0)                    # WearObj1 WearObj2
-        s(0); s(0); s(0)              # HoldObj1 HoldObj2 HoldObj3
-        s(0)                          # Obj1
-        s(0); s(0)                    # Task TaskNotDone
-        s(""); s(""); s(""); s("")    # TaskMsg HoldMsg WearMsg CompanyMsg
-        s(0)                          # NotInSameRoom
-        s(0)                          # NPC
-        s("")                         # Obj1Msg
-        s(0)                          # Obj1Room
-        s(3)                          # Where: all rooms
-        s(0)                          # KillsPlayer
-        s(0)                          # HoldingSameRoom
-        s("")                         # Question
-        s(0)                          # Obj2
-        if version >= 380:
-            s(0)                      # BWinGame -- 3.7 keeps it in the header
+                s(0)                      # BWinGame -- 3.7 keeps it in the header
 
     # ---------------------------------------------------------------- EVENTS
     s(0)                              # Events

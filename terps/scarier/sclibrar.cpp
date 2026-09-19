@@ -4903,6 +4903,10 @@ lib_first_alias (const scr_prop_setref_t bundle, scr_vartype_t *vt_key,
 }
 
 
+/* Set once a 3.7 library handler has settled the line's object; see
+ * lib_co_note_line_top(). */
+static scr_bool lib_co_prompt_370_blocked = FALSE;
+
 /* TRUE if the object's Short or Alias is exactly the term. */
 static scr_bool
 lib_co_object_answers_to (scr_gameref_t game, scr_int object,
@@ -5053,6 +5057,16 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
    * its own handler-scoped prompt.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+    return FALSE;
+  /*
+   * run370 has no scan in generaltasks: co() is called only from therest()
+   * (43CC86) and insides(), so a line one of the other handlers settled --
+   * `wear hat`, `drop hat`, `x hat` with two hats -- never asks; each of
+   * them answers its own way (lib_disambiguate_object_common).  p37TASK,
+   * Adrift_183_pname_37.rtf / Adrift_179_pname2_37.rtf, 2026-09-19.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
+      && lib_co_prompt_370_blocked)
     return FALSE;
   if (!lib_runner_co_scan (game, command, &prompt_term, &list_term, &present))
     return FALSE;
@@ -5932,6 +5946,24 @@ lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
  * resolved into just one object.  The resolver function can normally be the
  * same as the function used to filter objects for multiple references.
  */
+static scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
+                               scr_int object, scr_int mode);
+static scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
+
+/*
+ * lib_co_note_line_top()
+ *
+ * TRUE once a 3.7 library handler has settled this line's object; see
+ * lib_disambiguate_object_common() and lib_co_ambiguity_prompt().  Cleared
+ * at the top of every line by run_all_commands().
+ */
+void
+lib_co_note_line_top (scr_gameref_t game)
+{
+  (void) game;
+  lib_co_prompt_370_blocked = FALSE;
+}
+
 static scr_int
 lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
                                scr_bool (*resolver)
@@ -5942,6 +5974,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_bool requires_seen = lib_matcher_requires_seen (game);
+  const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
   scr_int count, index_, object, listed;
 
   /*
@@ -5981,6 +6014,78 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
       for (index_ = 0; index_ < gs_object_count (game); index_++)
         game->object_references[index_] = (index_ == object);
       count = 1;
+    }
+
+  /*
+   * 3.7's handlers never call co(): only therest() (run370 43CC86) and
+   * insides() do, so the end-of-turn "Which <term>." is raised only by a
+   * line the catch-all or put answered.  Note that a handler of this line
+   * has its object(s); lib_co_ambiguity_prompt() then stays quiet.
+   */
+  if (taf_version < TAF_VERSION_380 && count > 0
+      && strncmp (verb, "put", 3) != 0 && strcmp (verb, "move") != 0)
+    lib_co_prompt_370_blocked = TRUE;
+
+  /*
+   * 3.8 and 3.9 put each candidate through co() -- run380 co(obj) from
+   * drops, wears, removes, openclose, examines, takes and the rest, run390
+   * co(obj, mode) (43B6BC) -- BEFORE any handler filter: the term's present
+   * namesakes are counted, and with two or more the object passes only if
+   * the last word of its Prefix is typed (lib_co_pre400).  So `wear hat`
+   * with the red hat in hand and the blue one on the floor wears NOTHING at
+   * 3.8/3.9 -- held-ness never narrowed the count -- and the turn is the
+   * "Which hat.  The red hat or the blue hat?" the generaltasks scan raises;
+   * likewise remove, open, close, take and drop (3.8).  3.9's takes() uses
+   * mode 1 (loose in the room) and drops() mode 2 (isheld), which do
+   * narrow.  Measured on p38TASK/p39TASK (Adrift_184_pname_38.rtf,
+   * Adrift_182_pname2_38.rtf, Adrift_185_pname_39.txt,
+   * Adrift_185_pname2_39.txt, 2026-09-19).  3.9's examine keeps its own
+   * "Nothing special." below.
+   */
+  if (count > 1 && taf_version >= TAF_VERSION_380
+      && taf_version < TAF_VERSION_400 && run_get_dispatch_input ()
+      && !(taf_version >= TAF_VERSION_390 && strcmp (verb, "examine") == 0))
+    {
+      const scr_char *line = run_get_dispatch_input ();
+      scr_int mode = 0, kept = 0;
+
+      if (taf_version >= TAF_VERSION_390)
+        {
+          if (strcmp (verb, "drop") == 0)
+            mode = 2;
+          else if (strcmp (verb, "take") == 0)
+            mode = 1;
+        }
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (game->object_references[index_]
+              && lib_co_pre400 (game, line, index_, mode))
+            kept++;
+        }
+      if (kept == 0
+          && lib_runner_co_scan (game, line, NULL, NULL, NULL))
+        {
+          /* Every candidate refused; the prompt is the turn's answer. */
+          if (is_ambiguous)
+            *is_ambiguous = TRUE;
+          return -1;
+        }
+      if (kept > 0 && kept < count)
+        {
+          count = 0;
+          object = -1;
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            {
+              if (game->object_references[index_]
+                  && lib_co_pre400 (game, line, index_, mode))
+                {
+                  count++;
+                  object = index_;
+                }
+              else
+                game->object_references[index_] = FALSE;
+            }
+        }
     }
 
   /*
@@ -6034,6 +6139,107 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
                     game->object_references[index_] = FALSE;
                 }
             }
+        }
+    }
+
+  /*
+   * 3.7 has no co() in its handlers, and each settles a namesake its own
+   * way (p37TASK, Adrift_183_pname_37.rtf / Adrift_179_pname2_37.rtf,
+   * 2026-09-19; two hats, red held and blue loose, two open boxes loose):
+   *
+   *   drops (430DDC) / takes (436280): every held (loose) namesake lacking
+   *     the last word of its Prefix in the line is marked and skipped,
+   *     unless it is the only one there is -- so two in hand is "Drop
+   *     what?", two on the floor "Take what?"; the "Which ... drop/take"
+   *     strings at 430866 are dead code.
+   *   wears (42C9FC) / removes: the loop puts on EVERY held wearable
+   *     namesake (takes off every worn one), each overwriting the message,
+   *     and "not holding"/"can't wear" goes only into an empty message: red
+   *     held and blue loose is "You put on a red hat.", red worn and blue
+   *     held "You put on a blue hat.".
+   *   openclose (426770): every namesake changes state, the last speaks:
+   *     `close box` closes both, "You close the blue box.".
+   *   examines (4359D5): "Which hat would you like to examine.  The red hat
+   *     or the blue hat?" over the present namesakes, no state change.
+   *
+   * The wear/remove/open/close loops are folded here as "act on all but
+   * the last directly, hand the last to the handler", so the handler's own
+   * wording answers for the last one exactly as the Runner's overwriting
+   * loop leaves it.
+   */
+  if (count > 1 && taf_version < TAF_VERSION_380)
+    {
+      const scr_bool is_wear = strcmp (verb, "wear") == 0;
+      const scr_bool is_remove = strcmp (verb, "remove") == 0;
+      const scr_bool is_open = strcmp (verb, "open") == 0;
+      const scr_bool is_close = strcmp (verb, "close") == 0;
+
+      if (strcmp (verb, "drop") == 0 || strcmp (verb, "take") == 0)
+        {
+          lib_what (game, strcmp (verb, "drop") == 0 ? "Drop" : "Take");
+          if (is_ambiguous)
+            *is_ambiguous = TRUE;
+          return -1;
+        }
+      if (strcmp (verb, "examine") == 0)
+        {
+          pf_buffer_string (filter, "Which ");
+          pf_buffer_string (filter,
+                            prop_get_indexed_string (gs_get_bundle (game),
+                                                     "Objects", object,
+                                                     "Short"));
+          pf_buffer_string (filter, " would you like to examine.  ");
+          pf_new_sentence (filter);
+          listed = 0;
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            {
+              if (!game->object_references[index_])
+                continue;
+              if (listed > 0)
+                pf_buffer_string (filter, listed == count - 1 ? " or " : ", ");
+              lib_print_object_np (game, index_);
+              listed++;
+            }
+          pf_buffer_string (filter, "?\n");
+          if (is_ambiguous)
+            *is_ambiguous = TRUE;
+          return -1;
+        }
+      if (is_wear || is_remove || is_open || is_close)
+        {
+          scr_int first = -1, last = -1;
+
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            {
+              scr_bool acts;
+
+              if (!game->object_references[index_])
+                continue;
+              if (first == -1)
+                first = index_;
+              if (is_wear || is_remove)
+                acts = resolver && resolver (game, index_, resolver_arg);
+              else
+                acts = gs_object_openness (game, index_)
+                       == (is_open ? OBJ_CLOSED : OBJ_OPEN);
+              if (!acts)
+                continue;
+              if (last != -1)
+                {
+                  if (is_wear)
+                    gs_object_player_wear (game, last);
+                  else if (is_remove)
+                    gs_object_player_get (game, last);
+                  else
+                    gs_set_object_openness (game, last,
+                                            is_open ? OBJ_OPEN : OBJ_CLOSED);
+                }
+              last = index_;
+            }
+          object = last != -1 ? last : first;
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            game->object_references[index_] = (index_ == object);
+          count = 1;
         }
     }
 
@@ -10947,6 +11153,34 @@ lib_take_from_task_sweep_380 (scr_gameref_t game)
  * dishwasher.".  Nor does life_of_mike T28 `take truck keys` (run380) with
  * the mustang keys, aliased "keys" too, in hand.
  */
+/* run390 isheld() @42A34C: field 22 is 0 (held), &H9C (worn), or &HF6/&HEC
+ * (in/on) with a parent that isheld; nothing else counts. */
+static scr_bool
+lib_isheld_390 (scr_gameref_t game, scr_int object)
+{
+  scr_int depth;
+
+  for (depth = 0; depth < 64; depth++)
+    {
+      if (obj_is_static (game, object)
+          && gs_object_static_unmoved (game, object))
+        return FALSE;
+      switch (gs_object_position (game, object))
+        {
+        case OBJ_HELD_PLAYER:
+        case OBJ_WORN_PLAYER:
+          return TRUE;
+        case OBJ_IN_OBJECT:
+        case OBJ_ON_OBJECT:
+          object = gs_object_parent (game, object);
+          continue;
+        default:
+          return FALSE;
+        }
+    }
+  return FALSE;
+}
+
 static scr_bool
 lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
                scr_int mode)
@@ -11000,6 +11234,29 @@ lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
         }
       if (loose > 0)
         count = loose;
+    }
+  /*
+   * Mode 2 is drops()' (run390 4458CF): the recount is over isheld()
+   * (42A34C) -- held, worn, or in or on a parent that isheld, recursively,
+   * no openness test.  So `drop hat` with the red hat in hand and the blue
+   * one on the floor recounts to one and drops the red hat -- under the
+   * end-of-turn "Which hat." all the same, generaltasks' mode-0 scan
+   * having flagged it -- while red worn and blue held recounts to two and
+   * drops nothing (p39TASK, Adrift_185_pname_39.txt / Adrift_185_pname2_39.txt,
+   * 2026-09-19).
+   */
+  if (count > 1 && mode == 2 && taf_version >= TAF_VERSION_390)
+    {
+      scr_int held = 0;
+
+      for (other = 0; other < gs_object_count (game); other++)
+        {
+          if (lib_co_object_answers_to (game, other, term)
+              && lib_isheld_390 (game, other))
+            held++;
+        }
+      if (held > 0)
+        count = held;
     }
   if (count > 1)
     {
@@ -24097,9 +24354,19 @@ lib_cmd_move_object (scr_gameref_t game)
   return lib_cant_do_object (game, "move");
 }
 
+/*
+ * The rub arm is run400's alone: no "rub" sits in run370, run380 or run390
+ * (string census, decompiles), so below 4.0 `rub coin` that no task takes
+ * is the object catch-all's "I don't understand what you want me to do with
+ * the coin." and `rub,coin` (no whole word "coin") "I don't understand."
+ * (p37TASK/p38TASK, Adrift_176_ptaskc_37.rtf, Adrift_177_ptaskc_38.rtf;
+ * p39TASK Adrift_179_ptaskc_39.txt, 2026-09-19).
+ */
 scr_bool
 lib_cmd_rub_object (scr_gameref_t game)
 {
+  if (!lib_is_version_400 (game))
+    return FALSE;
   return lib_cant_do_object (game, "rub");
 }
 
@@ -24408,6 +24675,8 @@ lib_cmd_stop_other (scr_gameref_t game)
 scr_bool
 lib_cmd_rub_other (scr_gameref_t game)
 {
+  if (!lib_is_version_400 (game))
+    return FALSE;
   return lib_cant_do_other (game, "rub");
 }
 
@@ -24598,7 +24867,24 @@ lib_what (scr_gameref_t game, const scr_char *verb)
   if (input && scr_strcasecmp (input, verb) == 0
       && strcmp (verb, "Drop") != 0 && strcmp (verb, "Take") != 0
       && strcmp (verb, "Drink") != 0)
-    lib_question_prefix_from_line (game);
+    {
+      /*
+       * run390's checkverb (42A504) is the same routine as run400's: the
+       * "<Verb> what?" message and the line itself into MemVar_4681D0, which
+       * the top of generaltasks (45EC3A) puts in front of the next line
+       * nothing else answers.  The splitter's next element is such a line:
+       * `push, stone` / `push,stone` / `push , stone` is "Push what?" then
+       * "You push the stone." from the `push stone` task (p39TASK,
+       * Adrift_179_ptaskc_39.txt, 2026-09-19).  Only checkverb's own verbs
+       * store it; run390's removes() does not (see
+       * lib_question_prefix_from_line), and which of the other "what?"
+       * rows are checkverb arms at 3.9 is unmeasured.
+       */
+      if (lib_is_version_390 (game) && strcmp (verb, "Remove") != 0)
+        lib_battle_who_pending = input;
+      else
+        lib_question_prefix_from_line (game);
+    }
 
   pf_buffer_string (filter, verb);
   pf_buffer_string (filter, " what?\n");

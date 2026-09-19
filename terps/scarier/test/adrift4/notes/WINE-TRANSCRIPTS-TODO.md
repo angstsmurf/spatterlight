@@ -29,7 +29,7 @@ the index lead to the code.
 
 ## Where things stand (2026-09-19)
 
-- **Goldens:** 429/429.
+- **Goldens:** 428/428.
 - **`runner_transcripts/`** holds one Runner transcript per row except
   dreamquest, each driven with the golden's feed, seed and popups. 3.9/4.0
   rows come from the vbrng Runners (`run390x`/`run400x`, xoshiro, seed 1234
@@ -303,8 +303,10 @@ not by a tick.
   patterns (`[`, `{`) skip it at every version.
 - **"Please be more clear, who do you want to <verb>?"** is a SCARE
   invention (alexis_worn_cube t79). The `who` form is unmeasured. For the
-  object form, 3.9 examine answers "Nothing special." (ported); 3.9's other
-  verbs are unmeasured.
+  object form, 3.9 examine answers "Nothing special." (ported); wear,
+  remove, drop, open, close and take refuse through co() and the
+  end-of-turn prompt is the answer (ported, p39TASK). give, put, read and
+  the rest are assumed to refuse the same way.
 - **Per-verb absent-NPC branches:** talk, give and take are measured and
   ported (p39ABSNPC). kill/kick/punch still go through other grammar
   first. The attack branch is ported.
@@ -313,20 +315,21 @@ not by a tick.
   loop at 454CA3 after a partial pre-pass (worn objects, a named absent
   object beside a candidate) is unread.
 - **run390's Who-prefix consumption** at 460022 is assumed, not measured.
+  checkverb's "<Verb> what?" prefix (the same MemVar_4681D0) is measured
+  only within a split line (p39TASK `push, stone`); its carry into the
+  next typed line, and which "what?" rows are checkverb arms at 3.9, are
+  not.
 - **Take-from:** the " and " clause picks the last container in 3.9 and the
   first in 4.0; 3.9's " and " collection bug; the pending slot after `Get X
   from what?`; surface-vs-container wording of the parent-derivation arm.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
-- **Drop:** the pre-4.0 "and" arm skips an object inside a held container
-  (o(22) 0 or &H9C only); ported that way, not measured.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
-- **Handlers other than take** were measured on single matches only.
 - **run380's task sweep after a *refused* take-from** is not ported.
   run380's count<2 put refusal also precedes checktask, but run380 has no
   sweep (445A0F).
@@ -334,9 +337,6 @@ not by a tick.
   4.0's is "You can't see the bed."; both already match. The 3.8 object
   loop's scope test is unread.
 - **Pre-4.0 room-name alt walk** is unmeasured.
-- **A comma in a task command match:** the library treats `verb, noun` as
-  `verb noun` (ported), but whether run370/run380's task matcher does is
-  unmeasured, so Scarier's task pass still needs the literal line.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
 
@@ -785,6 +785,55 @@ next to the named function and in `annotations.tsv`.
     action still happens (mikes). 3.9 counts and lists only seen namesakes:
     troll T64 `drop cup`, secret_of_lost_world T56 `take scroll`. `[<4.0]`
     (2026-09-14)
+  - Namesakes in the pre-4.0 handlers (two hats, red held and blue loose;
+    two open boxes loose). 3.8 and 3.9 put every candidate through co()
+    before any held/worn/openness filter, so `wear hat`, `remove hat`,
+    `open box`, `close box`, `take box` and 3.8's `drop hat` do nothing
+    and the turn is the prompt; 3.9's drops() recounts with mode 2
+    (isheld: held, worn, or in/on a held parent) and drops the red hat
+    under the prompt, its takes() with mode 1 (loose in the room). 3.7's
+    handlers never call co() -- only therest() and insides() do -- so the
+    prompt is never raised for them: drops/takes skip every held (loose)
+    namesake lacking its Prefix's last word unless it is the only one
+    ("Drop what?" / "Take what?" for two), wears/removes act on EVERY
+    held wearable (worn) namesake with the last one's message, openclose
+    changes EVERY namesake's state ("You close the blue box." closes
+    both), and examines asks "Which hat would you like to examine.  The
+    red hat or the blue hat?". `[<4.0]` p37TASK/p38TASK/p39TASK
+    (`make_3738_taskprobe.py`), run370x Adrift_183_pname_37.rtf /
+    Adrift_179_pname2_37.rtf, run380x Adrift_184_pname_38.rtf /
+    Adrift_182_pname2_38.rtf, run390x Adrift_185_pname_39.txt /
+    Adrift_185_pname2_39.txt (`cmdfile_pnamesake.txt`,
+    `cmdfile_pnamesake2.txt`) (`lib_disambiguate_object_common`,
+    `lib_co_pre400` mode 2, `lib_co_note_line_top`, 2026-09-19)
+  - A comma in a task command: 3.7/3.8's task matcher wants the literal
+    line. `push, stone`, `push , stone` and `push stone,` miss the `push
+    stone` task and are the library's "You push the stone, but nothing
+    happens."; `push,stone` is "You push, but nothing happens." (the comma
+    is a space to the library, not to checktask). `rub, coin` misses the
+    `rub *` task and is the object catch-all, `rub,coin` DontUnderstand;
+    the `%object%` task the same. `say hello, world` matches its own comma
+    only literally; `say hello,world` / `say hello , world` are the say
+    reply. 3.9 splits at the comma: `push, stone` / `push,stone` / `push ,
+    stone` are "Push what?" then "You push the stone." -- checkverb's
+    prefix (MemVar_4681D0, 42A504) carries `push` into the split element
+    exactly as 4.0's does -- and `push stone,` runs the task whole. 3.9's
+    `rub, coin` is the `rub *` task then the object catch-all, `say hello,
+    world` the say reply then DontUnderstand. `[<4.0]` p37TASK/p38TASK/
+    p39TASK, run370x Adrift_176_ptaskc_37.rtf, run380x
+    Adrift_177_ptaskc_38.rtf, run390x Adrift_179_ptaskc_39.txt
+    (`cmdfile_ptaskcomma.txt`) (`lib_what`, 2026-09-19)
+  - The rub arm is 4.0's alone: no "rub" in run370/run380/run390. Below
+    4.0 `rub coin` that no task takes is the object catch-all and
+    `rub,coin` DontUnderstand. `[<4.0]` same transcripts
+    (`lib_cmd_rub_object`, `lib_cmd_rub_other`, 2026-09-19)
+  - The pre-4.0 drop "and" arm skips an object inside a held open
+    container: `drop nut and coin` with the nut in the held bag drops only
+    the coin, `drop nut and stone` is "You are not carrying anything.",
+    while a plain `drop nut` drops it. As ported. `[<4.0]`
+    p37TASK/p38TASK/p39TASK, run370x Adrift_180_pdroph_37.rtf, run380x
+    Adrift_181_pdroph_38.rtf, run390x Adrift_182_pdroph_39.txt
+    (`cmdfile_pdropheld.txt`) (2026-09-19)
   - The article test is case-sensitive: only lower-case `a`/`an`/`some`
     become `the`. p4PFX (602428ad6)
   - A typed look is an exact whole-line list, and a bare `x` exits examines
