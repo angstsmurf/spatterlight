@@ -35,7 +35,10 @@ Feeds (all in ~/adrift-battle/runner/wine): cmdfile_p3738put.txt
 Adrift_155_p38put2.rtf); cmdfile_p39takeall*.txt; cmdfile_p3739drop.txt
 (3.9, Adrift_160_p39drop.txt) and cmdfile_p3738drop.txt, the same without
 the `put everything` lines that crash run370/run380 (Adrift_160_p37drop.rtf,
-Adrift_161_p38drop.rtf).
+Adrift_161_p38drop.rtf).  cmdfile_p3738takeand.txt: `take X and Y` with
+nothing takeable and a held object beside a candidate, all three versions
+(jobs_ptakeand.txt; Adrift_170_ptakeand_37.rtf, Adrift_171_ptakeand_38.rtf,
+Adrift_172_ptakeand_39.txt).
 """
 import sys
 

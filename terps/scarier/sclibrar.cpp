@@ -11065,30 +11065,42 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
 }
 
 /*
- * lib_take_and_none_390()
+ * lib_take_and_none_pre400()
  *
- * run390 takes()'s "and" arm (var_A8 = 2, set at 45455D when the line has
- * c("and") and no c("all")) pre-passes every object (45483A-454ACF) before
- * taking anything: each non-static one co(obj, 1) names counts in var_122,
- * and each of those that is seen (o(44)) and loose in the room, or in or on
- * something on the floor or a static present here, is a candidate -- it
- * either fits (var_C8) or sets the too-big flag var_D8.  With no candidate
- * at all the summary at 454B08-454B5B answers "<You> can't get either of
- * them." when exactly two objects were named, else "... any of them.", and
- * nothing else in takes() speaks.  Held objects and characters are named
- * but never candidates, so p39ABSNPC `take erin and stone` with the stone
- * held is "You can't get any of them." (run390x Adrift_1206_p39absnpc.txt
- * T36), not the held refusal.  run370 4361B3 / run380 43DCC1 have the "any"
- * wording only and are not ported.
+ * takes()'s "and" arm (var_A8/var_B4 = 2, set when the line has c("and")
+ * and no c("all"): run390 45455D, run380 43D81A, run370 435EBA) pre-passes
+ * every object before taking anything.  A dynamic object the line names is
+ * a candidate when it lies loose in the player's room, or -- 3.8 and 3.9 --
+ * in or on something loose here or a static present here; it either fits
+ * or sets the hands-full flag.  With no candidate at all the summary
+ * answers and nothing else in takes() speaks: 3.9 (454B08-454B5B) says
+ * "<You> can't get either of them." when exactly two non-static objects
+ * were named (var_122), else "... any of them."; run380 43DCC1 and run370
+ * 4361B3 have the "any" form only.
+ *
+ * The versions name and filter differently.  run390 names with co(obj, 1)
+ * (45483A) and wants the object seen (o(44)); run380 names with co(obj)
+ * (43DA69) and has no seen test, so p38PUT's gem in the open static chest,
+ * never listed, is a candidate and `take gem and coin` takes it; run370
+ * names by c(Short) (43607F; c(Alias) only rewrites the line first) and
+ * counts nothing in or on anything, so there the same line is "You can't
+ * get any of them.".  Held objects and characters are named but never
+ * candidates: p39ABSNPC `take erin and stone` with the stone held (run390x
+ * Adrift_1206_p39absnpc.txt T36), and p3xPUT `take coin and stone`, `take
+ * nut and coin` (the nut in the held bag), `take statue and cupboard`,
+ * `take zzz and qqq` (run370x/run380x/run390x Adrift_170/171/172_ptakeand,
+ * cmdfile_p3738takeand.txt).  Each Runner's pre-pass also skips an object
+ * whose "get <Short>" pre-matches a task; not modelled.
  */
 static scr_bool
-lib_take_and_none_390 (scr_gameref_t game)
+lib_take_and_none_pre400 (scr_gameref_t game)
 {
+  const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *line = run_get_dispatch_input ();
   const scr_int room = gs_playerroom (game);
   scr_int object, named = 0;
 
-  if (prop_get_taf_version (gs_get_bundle (game)) != TAF_VERSION_390
+  if (taf_version >= TAF_VERSION_400
       || !line || lib_input_contains_word (line, "all")
       || !lib_input_contains_word (line, "and"))
     return FALSE;
@@ -11100,12 +11112,13 @@ lib_take_and_none_390 (scr_gameref_t game)
       if (obj_is_static (game, object) || !lib_take_co_pre400 (game, line, object))
         continue;
       named++;
-      if (!gs_object_seen (game, object))
+      if (taf_version >= TAF_VERSION_390 && !gs_object_seen (game, object))
         continue;
       position = gs_object_position (game, object);
       if (obj_directly_in_room (game, object, room))
         return FALSE;
-      if ((position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
+      if (taf_version >= TAF_VERSION_380
+          && (position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
           && obj_directly_in_room (game, gs_object_parent (game, object), room))
         return FALSE;
     }
@@ -11113,8 +11126,9 @@ lib_take_and_none_390 (scr_gameref_t game)
   pf_buffer_string (gs_get_filter (game),
                     lib_select_response (game, "You", "I", "%player%"));
   pf_buffer_string (gs_get_filter (game),
-                    named == 2 ? " can't get either of them.\n"
-                               : " can't get any of them.\n");
+                    named == 2 && taf_version >= TAF_VERSION_390
+                    ? " can't get either of them.\n"
+                    : " can't get any of them.\n");
   return TRUE;
 }
 
@@ -11133,7 +11147,7 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   scr_int objects, references;
   scr_bool library_printed;
 
-  if (!is_except && lib_take_and_none_390 (game))
+  if (!is_except && lib_take_and_none_pre400 (game))
     return TRUE;
 
   /*
@@ -11256,6 +11270,39 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
         {
           gs_clear_multiple_references (game);
           return FALSE;
+        }
+    }
+
+  /*
+   * Pre-4.0's "and" arm seeds the message with "<You> pick up " before the
+   * take loop, and the already-got write (run380 43E00E, run370's twin) only
+   * fires while the message does not start with that, so a held object the
+   * line also names is skipped without a word: `take table and stone` with
+   * the stone in hand is "You pick up the table." in run370x, run380x and
+   * run390x alike (Adrift_170/171/172_ptakeand).  Worn objects keep their
+   * answer (43E05E has no such gate; unmeasured).
+   */
+  if (!is_except && references > 1
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    {
+      const scr_char *line = run_get_dispatch_input ();
+      scr_int index_, held = 0;
+
+      if (line && lib_input_contains_word (line, "and")
+          && !lib_input_contains_word (line, "all"))
+        {
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            if (game->multiple_references[index_]
+                && gs_object_position (game, index_) == OBJ_HELD_PLAYER)
+              held++;
+          if (held > 0 && held < references)
+            {
+              for (index_ = 0; index_ < gs_object_count (game); index_++)
+                if (game->multiple_references[index_]
+                    && gs_object_position (game, index_) == OBJ_HELD_PLAYER)
+                  game->multiple_references[index_] = FALSE;
+              references -= held;
+            }
         }
     }
 

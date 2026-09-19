@@ -308,9 +308,10 @@ not by a tick.
 - **Per-verb absent-NPC branches:** talk, give and take are measured and
   ported (p39ABSNPC). kill/kick/punch still go through other grammar
   first. The attack branch is ported.
-- **Take "and" with a candidate present:** only the zero-candidate summary
-  is ported. The main multi loop at 454CA3 after a partial pre-pass is
-  unread.
+- **Take "and" with a candidate present:** the zero-candidate summary and
+  the silent skip of a held object are ported. The rest of the main multi
+  loop at 454CA3 after a partial pre-pass (worn objects, a named absent
+  object beside a candidate) is unread.
 - **run390's Who-prefix consumption** at 460022 is assumed, not measured.
 - **Take-from:** the " and " clause picks the last container in 3.9 and the
   first in 4.0; 3.9's " and " collection bug; the pending slot after `Get X
@@ -336,9 +337,6 @@ not by a tick.
   4.0's is "You can't see the bed."; both already match. The 3.8 object
   loop's scope test is unread.
 - **Pre-4.0 room-name alt walk** is unmeasured.
-- **Take "and" with nothing takeable:** run370 4361B3 and run380 43DCC1
-  say " can't get any of them." with no "either" form. The pre-pass is
-  unread and not ported; 3.9's is.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
 
@@ -925,12 +923,22 @@ next to the named function and in `annotations.tsv`.
 
 ### Put and take-from
 
-- **3.9 take "and" with nothing takeable.** takes()' "and" arm pre-passes
-  the objects co(obj,1) names. When none of them is seen and loose in the
-  room, or in or on something here, it prints "You can't get either of
-  them." for exactly two named, else "any of them." (454B08-454B5B). A held
-  stone is named but never a candidate. `[3.9]` p39ABSNPC T36
-  (lib_take_and_none_390)
+- **Pre-4.0 take "and" with nothing takeable.** takes()' "and" arm
+  pre-passes the objects the line names. When none is a candidate it
+  prints "You can't get any of them."; 3.9 says "either of them." for
+  exactly two named (454B08). A candidate is a dynamic object loose in the
+  room, or at 3.8/3.9 in or on something loose here or a static here. 3.9
+  names with co(obj,1) and wants it seen; 3.8 names with co(obj), no seen
+  test (the unlisted gem in the open static chest counts); 3.7 names by
+  c(Short) and counts only loose objects (43DCC1 / 4361B3). A held object
+  is named, never a candidate. `[<4.0]` p39ABSNPC T36; p3xPUT with
+  `cmdfile_p3738takeand.txt`, Adrift_170/171/172_ptakeand
+  (lib_take_and_none_pre400)
+- **Pre-4.0 "and" take skips held objects silently.** The arm seeds the
+  message with "You pick up " and the already-got write only fires while
+  the message does not start with it (run380 43E00E), so `take table and
+  stone` with the stone held is "You pick up the table." `[<4.0]`
+  Adrift_170/171/172_ptakeand (lib_take_multiple_common)
 
 - **4.0 put/task precedence.** A completable library put beats a passing
   task. A size or capacity refusal prints without claiming the line, and
