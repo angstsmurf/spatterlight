@@ -11911,6 +11911,279 @@ lib_cmd_drop_all (scr_gameref_t game)
 }
 
 
+static scr_int lib_verb_object_name_score (scr_gameref_t game,
+                                           scr_int object,
+                                           const scr_char *input);
+static std::string::size_type lib_put_split_400 (scr_gameref_t game,
+                                                 const std::string &line,
+                                                 scr_bool has_all,
+                                                 scr_bool on_test,
+                                                 scr_bool *on_branch);
+
+/*
+ * lib_drop_resolve_400()
+ *
+ * The noun resolver a plain 4.0 `drop X` goes through: put_drop_list 459DB4
+ * hands the whole line to name_object 46E5D8, which calls
+ * Proc_21_58_463640(line, 2, 0).  Mode 2 is two passes over the objects in
+ * index order: pass 0 takes only what the player holds or wears, directly or
+ * inside or on something held (Proc_21_46_44615C, 46323F), pass 1 everything
+ * present (Proc_21_44_452E9C, 463252); neither has a seen gate.  Each object
+ * is scored as lib_verb_object_name_score() does, and
+ *
+ *   - the first hit of a pass (var_86 < 0 and var_A0 = 0, 46338C) becomes
+ *     the result whatever its score, and pass 0 marks it;
+ *   - a hit equal to the best score (var_94, 4633C3) is a tie: the result
+ *     becomes -(object+2) and pass 0 marks the object -- but first
+ *     Me(424), the pending object (MemVar_4941EC), is set to this object if
+ *     its Short equals the Short of object Abs(var_86) (4633F0).  After the
+ *     first tie var_86 is -(k+2), so the comparison is with the object TWO
+ *     indexes past the last tied one, not with the tied object itself;
+ *   - a higher score (463421) takes the result outright, resets the count
+ *     and Me(424), and leaves every earlier mark standing.
+ *
+ * The best score is not reset between the passes.  A pass-0 tie (or
+ * nothing) saves the count and Me(424) and runs pass 1 (46361D); pass 1
+ * restores the saved Me(424) when it counted more hits than pass 0
+ * (46355E).  The list the prompt shows (Me(428)) is always the pass-0
+ * marks.
+ *
+ * name_object then says "It is not clear which <term> you are referring
+ * to." for a tie with no pending object (46E192, term 446C74 of the last
+ * tied object: its Short if the line has it, else its first alias the line
+ * has), and generaltasks prompts "Which <term>.  <list>?" for one with a
+ * pending object (48B6B1-48B80C, term its Short replaced by the last of its
+ * aliases the line has) -- administrative, as every such prompt is.
+ * Measured on wilkins T110-T117 (runner_transcripts/wilkins.txt): with the
+ * base tincture and the tinctures of alice, gertrude, irene, leanor, marie,
+ * mary and rose held, `drop tincture of alice`, `... gertrude` and
+ * `... marie` are not clear, `... irene` and `... mary` ask "Which
+ * tincture.", `... leanor` and `... rose` drop, and `drop tincture of wai
+ * lin` (on the floor) drops the base tincture, the one held object the line
+ * names.
+ *
+ * Returns the resolved object, -1 for a tie (with *PENDING, *LAST_TIED and
+ * MARKED filled), or -2 when nothing scored in pass 1 either, the mode-0
+ * fallback the existing path covers.
+ */
+static scr_int
+lib_drop_resolve_400 (scr_gameref_t game, const scr_char *input,
+                      scr_int *pending, scr_int *last_tied,
+                      std::vector<scr_int> *marked, scr_int *mark_count)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int object_count = gs_object_count (game);
+  std::vector<scr_bool> marks (object_count, FALSE);
+  scr_int pass, result, best, count, me, saved_count, saved_me, object;
+
+  best = 0;
+  saved_count = 0;
+  saved_me = -1;
+  result = -1;
+  count = 0;
+  me = -1;
+  for (pass = 0; pass < 2; pass++)
+    {
+      result = -1;
+      me = -1;
+      for (object = 0; object < object_count; object++)
+        {
+          scr_int score;
+
+          if (pass == 0)
+            {
+              marks[object] = FALSE;
+              if (!(gs_object_position (game, object) == OBJ_HELD_PLAYER
+                    || gs_object_position (game, object) == OBJ_WORN_PLAYER
+                    || obj_indirectly_held_by_player (game, object)))
+                continue;
+            }
+          else if (!obj_indirectly_in_room (game, object,
+                                            gs_playerroom (game)))
+            continue;
+
+          score = lib_verb_object_name_score (game, object, input);
+          if (score == 0)
+            continue;
+
+          if (result < 0 && count == 0)
+            {
+              result = object;
+              count = 1;
+              if (pass == 0)
+                marks[object] = TRUE;
+            }
+          else if (score == best)
+            {
+              const scr_int other = result < 0 ? -result : result;
+
+              if (other < object_count)
+                {
+                  const scr_char *name, *other_name;
+
+                  name = prop_get_indexed_string (bundle, "Objects", object,
+                                                  "Short");
+                  other_name = prop_get_indexed_string (bundle, "Objects",
+                                                        other, "Short");
+                  if (strcmp (name, other_name) == 0)
+                    me = object;
+                }
+              result = -object - 2;
+              count++;
+              if (pass == 0)
+                marks[object] = TRUE;
+            }
+
+          if (score > best)
+            {
+              result = object;
+              best = score;
+              me = -1;
+              count = 1;
+            }
+        }
+
+      if (pass == 0)
+        {
+          if (result >= 0)
+            break;
+          saved_count = count;
+          saved_me = me;
+          count = 0;
+        }
+      else if (count > 1 && count > saved_count)
+        me = saved_me;
+    }
+
+  if (result >= 0)
+    return result;
+  if (result == -1)
+    return -2;
+
+  marked->clear ();
+  for (object = 0; object < object_count; object++)
+    {
+      if (marks[object])
+        marked->push_back (object);
+    }
+  *mark_count = saved_count;
+  *pending = me;
+  *last_tied = -result - 2;
+  return -1;
+}
+
+/*
+ * The name 446C74 gives an object in the line: its Short when that is a
+ * whole word of it, else the first alias that is.
+ */
+static const scr_char *
+lib_drop_named_term_400 (scr_gameref_t game, scr_int object,
+                         const scr_char *input, scr_bool last_alias)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *term;
+  scr_vartype_t vt_key[4];
+  scr_int alias_count, alias;
+
+  term = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  if (!last_alias && lib_input_contains_word (input, term))
+    return term;
+
+  alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      const scr_char *name;
+
+      vt_key[3].integer = alias;
+      name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (scr_strempty (name) || !lib_input_contains_word (input, name))
+        continue;
+      term = name;
+      if (!last_alias)
+        break;
+    }
+  return term;
+}
+
+/*
+ * The 4.0 plain `drop X`: see lib_drop_resolve_400().  Returns TRUE when the
+ * line is answered here -- a prompt or the not-clear refusal -- and
+ * otherwise, for a unique held winner, leaves just that object in the
+ * multiple references with *REFERENCES 1, or *REFERENCES -1 to leave the
+ * line to the ordinary parse.
+ */
+static scr_bool
+lib_drop_named_400 (scr_gameref_t game, scr_int *references)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  std::vector<scr_int> marked;
+  std::string line;
+  scr_int object, pending, last_tied, mark_count;
+
+  *references = -1;
+  if (!lib_is_version_400 (game) || !input
+      || !lib_input_contains_word (input, "drop")
+      || lib_input_contains_word (input, "all")
+      || lib_input_contains_word (input, "everything")
+      || lib_input_contains_word (input, "and")
+      || strchr (input, ','))
+    return FALSE;
+
+  line = run_normalise_put_line (input);
+  if (lib_put_split_400 (game, line, FALSE, TRUE, NULL) != std::string::npos)
+    return FALSE;
+
+  object = lib_co_400_forced ();
+  if (object < 0)
+    {
+      object = lib_drop_resolve_400 (game, input, &pending, &last_tied,
+                                     &marked, &mark_count);
+      if (object == -2)
+        return FALSE;
+    }
+
+  if (object == -1)
+    {
+      if (pending < 0)
+        {
+          pf_buffer_string (filter, "It is not clear which ");
+          pf_buffer_string (filter,
+                            lib_drop_named_term_400 (game, last_tied,
+                                                     input, FALSE));
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                                 " you are referring to.\n",
+                                                 " I am referring to.\n",
+                                                 " %player% is referring to.\n"));
+          return TRUE;
+        }
+
+      /* Me(428) is joined by a countdown from the pass-0 count; with more
+       * marks than that the Runner runs names together, unmeasured. */
+      if ((scr_int) marked.size () == mark_count)
+        {
+          lib_co_400_raise (game,
+                            lib_drop_named_term_400 (game, pending,
+                                                     input, TRUE),
+                            marked);
+          return TRUE;
+        }
+      return FALSE;
+    }
+
+  if (!(gs_object_position (game, object) == OBJ_HELD_PLAYER
+        || gs_object_position (game, object) == OBJ_WORN_PLAYER
+        || obj_indirectly_held_by_player (game, object)))
+    return FALSE;
+
+  gs_clear_multiple_references (game);
+  game->multiple_references[object] = TRUE;
+  *references = 1;
+  return FALSE;
+}
+
+
 /*
  * lib_drop_multiple_common()
  *
@@ -11925,6 +12198,10 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
   scr_int objects, references;
   scr_bool library_printed;
 
+  references = -1;
+  if (!is_except && lib_drop_named_400 (game, &references))
+    return TRUE;
+
   /*
    * Named objects may also be dropped from worn; the "all" universe that
    * "drop all except ..." works over is held objects only.
@@ -11932,9 +12209,11 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
   resolver = is_except ? lib_drop_filter : lib_drop_named_filter;
 
   /* Parse the multiple objects list to find the target objects. */
-  if (!lib_parse_multiple_objects (game, is_except ? "retain" : "drop",
-                                   resolver, -1,
-                                   &references))
+  if (references == 1)
+    ;
+  else if (!lib_parse_multiple_objects (game, is_except ? "retain" : "drop",
+                                        resolver, -1,
+                                        &references))
     return FALSE;
   else if (references == 0)
     return TRUE;

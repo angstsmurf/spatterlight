@@ -8,13 +8,14 @@ golden and write the evidence into the game's row comment in
 3.80, 3.90, 4.00). Only the Runner binary and the capture flow change with
 the version.
 
-**Pruned 2026-09-14.** This file had grown to 10,000 lines of dated
-per-port write-ups. It now holds the workflow, the open leads, the
-deliberate deviations and a one-line index of every ported rule. The full
-write-ups (probe tables, Runner addresses, corpus fallout per port) are in
-git history:
+**Pruned 2026-09-14 and again 2026-09-19.** This file holds the workflow,
+the open leads, the deliberate deviations and a one-line index of every
+ported rule. The dated per-port write-ups (probe tables, Runner addresses,
+corpus fallout per port) live in git history and in the row comments of
+`run_v4_walkthroughs.sh`:
 
-    git show 72fd5ea08:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # last full version
+    git show 55dd84ee1:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # with the 2026-09-14..19 triage write-ups
+    git show 72fd5ea08:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # last full version before the 09-14 prune
     git show 45e20596:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md    # before the 2026-09-06 compaction
 
 Comments in `run_v4_walkthroughs.sh` and the probe generators cite sections
@@ -24,55 +25,35 @@ index below lead to the code.
 
 ---
 
-## Where things stand (2026-09-14)
+## Where things stand (2026-09-19)
 
-- **Goldens:** 429/429 (2026-09-19).
-- **Sweep:** `python3 harness/sweep_wine_turns.py` at 8cf9cce63 covers 272
-  archived rows: 80 clean, 160 differing, 32 lost a feed command.
-- **Every remaining low-count differing row has been triaged** as one of
-  three things:
-  - RNG, because the capture predates vbrng.
-  - A `<centre>` transcript artefact.
-  - A harness artefact: `(Press a key)` eating a bridge token, or a popup
-    name.
-- **No engine lead is left in the archive.** The sweep reads each game's
-  highest-numbered transcript. Outside the 44-game xoshiro batch, that is the
-  2026-09-08 corpus capture, which was taken before vbrng existed. So its
-  random values cannot be compared.
-- **The next source of engine leads** is fresh `run400x`/`run390x`
-  `VBRNG=xoshiro` captures of the RNG-divergent rows (see "Driving" below).
-- **Whole-corpus xoshiro capture (2026-09-14):** `runner_transcripts/` in
-  this tree has one Runner transcript for each of the 428 rows except
-  dreamquest. Each was driven with the golden's feed, seed and popups.
-  `manifest.tsv` gives each row's compare verdict and `compare/` the
-  reports. Regenerate it with `harness/runner_transcripts.py`; the
-  README explains how. All 105 rows that differed at capture are classified
-  under "Whole-corpus capture triage" in Open leads. After the ports, the
-  manifest stands at 338 identical and 89 differing (2026-09-15).
-  **2026-09-17:** the engine now buffers the Runner's
-  `[Press any key to end]` under the headless harness, cursed and hub were
-  re-driven off stale captures, and every 3.7/3.8 row had the last command
-  its `.rtf` could not hold grafted back from the Runner's own window.
-  vendetta's two real empty turns at "* Press Enter *" now reach scarier, and
-  suzypowers got the ending block its live capture was killed before writing.
-  The manifest stands at 342 identical on every turn, 28 identical apart from
-  whitespace and 57 with a compare report; the only rows still losing a feed
-  command are 3.9/4.0, where the loss is the keypress wait and no text is
-  missing.
+- **Goldens:** 429/429.
+- **`runner_transcripts/`** holds one Runner transcript per row except
+  dreamquest, each driven with the golden's feed, seed and popups. 3.9/4.0
+  rows come from the vbrng Runners (`run390x`/`run400x`, xoshiro, seed 1234
+  unless the row sets one), so draws compare value for value; 3.7/3.8 rows
+  are `.rtf` captures with the last command grafted back from the Runner's
+  window. `manifest.tsv` carries each row's compare verdict and
+  `compare/<tag>.txt` the report for a row that differs. Regenerate with
+  `harness/runner_transcripts.py`; its README explains how, and
+  `recompare <tag>` refreshes one row after an engine change.
+- **Manifest:** 347 identical on every turn, 28 identical apart from
+  whitespace, 52 with a compare report. Every differing row is classified
+  under "Open leads". A row that "lost" feed commands is either an ending
+  both sides share (the keypress wait eats the rest of the feed, no text is
+  missing) or one of the harness leads listed there.
 - **Which transcript to cite.** For a wired row, compare against and cite
-  the renamed copy `runner_transcripts/<tag>.txt` (`.rtf` for 3.7/3.8), not
-  the `Adrift_<N>_<tag>` file a drive left in the prefix. The manifest's
-  `source` column records which archive file each copy came from. When a
-  re-drive of a row wins, `collect` replaces the copy, so the notes never need
-  a new filename. Only runs with no row keep their archive names: probes and
+  `runner_transcripts/<tag>.txt` (`.rtf` for 3.7/3.8), never the
+  `Adrift_<N>_<tag>` file a drive left in the prefix. The manifest's `source`
+  column records which archive file each copy came from; a winning re-drive
+  replaces the copy through `collect`, so the notes never need a new
+  filename. Only runs with no row keep their archive names: probes and
   one-off variants such as House_sober.
-- **Transcript directories** under `~/adrift-battle/runner/wine/` (drive
-  output, not for citing):
-  - `pfx/drive_c/adrift/`: the live archive where every drive lands. Never
-    `rm` a glob there.
-  - `transcripts_v4_corpus_2026-09-08/`: 427 rows, native RNG.
-  - `transcripts_v4_xoshiro_2026-09-12/`: 44 rows, xoshiro. The job list is
-    `xoshiro_jobs.txt`.
+- **Older archives** under `~/adrift-battle/runner/wine/`
+  (`transcripts_v4_corpus_2026-09-08/`, native RNG;
+  `transcripts_v4_xoshiro_2026-09-12/`, 44 rows) predate the whole-corpus
+  capture and hold no engine lead (triaged 2026-09-14). `pfx/drive_c/adrift/`
+  is the live archive where every drive lands: never `rm` a glob there.
 
 ---
 
@@ -202,20 +183,17 @@ index below lead to the code.
 ### 5. Classify each differing turn
 
 1. **Capture artefact, name it and ignore it:**
-   - the Runner's `[Press any key to end]` tail -- **only where Scarier has
-     no tail of its own.** Since 2026-09-17 the engine buffers the same
-     prompt (`task_print_end_keyprompt()`, which the headless harness opts
-     into), so an ending turn normally matches outright; what is left is the
-     "just stop" ending, which run400 leaves promptless (45E11F), and older
-     captures. Blank-line counts around it are never a difference: the
-     comparison collapses whitespace, and the goldens run through `cat -s`.
-     Measured 2026-09-17 over the 223 `runner_transcripts/` rows that reach
-     an ending both sides share: 214 match the Runner's blank gap before the
-     prompt exactly, 9 are one blank short (the_amulet, frog, hiker, takeone,
-     apokalupsis, Glum_Fiddle, hauntedhouse, perspectives, sexismental) --
-     every one an ending whose text carries its own trailing `<br>`, which
-     the print filter collapses against the block terminator it adds, where
-     the Runner keeps both;
+   - the Runner's `[Press any key to end]` tail, only where Scarier has no
+     tail of its own: since 2026-09-17 the engine buffers the same prompt
+     (`task_print_end_keyprompt()`, headless harness opt-in), so an ending
+     turn normally matches outright; what is left is the "just stop" ending,
+     which run400 leaves promptless (45E11F). Blank-line counts around it
+     are never a difference (the comparison collapses whitespace, the
+     goldens run through `cat -s`); the 9 rows one blank short there are
+     endings whose text carries its own trailing `<br>`, which the print
+     filter collapses against the block terminator it adds;
+   - a startup echo: the Runner answers a feed's leading blank lines with
+     "I don't understand what you mean." inside turn 0 (Glum_Fiddle);
    - a `<centre>` join (the tag converter drops alignment breaks);
    - a `<waitkey>` line join;
    - a `<waitkey><cls>` butt-join;
@@ -285,383 +263,65 @@ index below lead to the code.
 
 ## Open leads
 
-None of these blocks a golden. Grouped by what is needed to settle them.
+None of these blocks a golden. Every closed item's write-up is in git
+history (`55dd84ee1`) and in its row comment; the ported rules are in the
+index below. Rows not named here differ only by a capture artefact (see
+"Nothing owed").
 
-### Re-driven under xoshiro (2026-09-14)
+### Engine, 4.0
 
-Jobs: `~/adrift-battle/runner/wine/xoshiro_jobs_0914_owed*.txt`, feeds in
-`v4_xoshiro_cmds_0914b/`, same seed as each row's `SCR_SEED` (1234 where
-the row has none).
-
-- **Clean, draw counts equal:**
-  - beer 83; aliasagent 5 (`score` lands after the game ended);
-    hcw 8 (`lower susan into trunk` matches).
-  - forum 7; briefcase 6; backhome 180; barneysproblem 6; silk_noil 6;
-    lostmines 17; aegis 17; overtheedge 41.
-  - lost_souls 0 (T20 `darkness...I` vs `darkness... I` spacing only);
-    goblin 1803.
-  - mould seed 1: the Runner wins too, 161 = 161. The feed drops solution
-    line 183 (`1`, pause-eaten in Scarier).
-  - yonastoundingcastle 7731, every turn identical. Compare it with its
-    blank lines stripped: `read_feed` misclassifies its pause blanks.
-  - wonderwombat 6768: the Runner reaches `THUMPER KICKS ASS!!!`. RULE 2's
-    "124 lost commands" from T116 is the compare: the Runner joins `> w` onto
-    the line after a pause-answer blank (harness lead, same family as yonas).
-  - gmylm 18, every turn identical. The 15 MB .taf plus the draw trace
-    (~400 MB of `vbRND(Missing)` after `Randomize 1976` at load) takes
-    longer than drive.exe's 25 s load cap. Drive it with `LOAD_SLEEP=600`.
-
-The 2026-09-08 event-phase off-by-one list and the old lost_souls, goblin
-and wonderwombat items were RNG, as the 09-14 triage said. What remains is
-engine:
-
-- **`zelda` T60 `buy ganon mask`:** Scarier adds "The shopkeeper pulls an
+- **zelda T60 `buy ganon mask`:** Scarier adds "The shopkeeper pulls an
   ocarina from his pocket and plays a familiar sounding tune."; run400
   doesn't. Draws 468 vs 487, parting around Runner T53-55. T190 is an
   epilogue cut only.
-- **`thepkgirl` T312 `south`:** run400 fires "somebody passing by slips you a
+- **thepkgirl T312 `south`:** run400 fires "somebody passing by slips you a
   buck"; Scarier doesn't. Cumulative draws are equal through T312, then
   run400 is +1 at T313 and Scarier +1 at T314 (1139 vs 1140). Event/draw
   placement. feed[406] `wait` falls after game end.
-- **`losttomb` T85-87 (draws 10 = 10), a 3.90 row:** run390 prints no put
-  message for `put dung beetle on green pillar`, and the pillars sink that
-  same turn. insides() ends a put that moved its named object by emptying the
-  buffer and running tasks(1) on the typed line (4626B6/4626C5), restoring the
-  put text only if nothing printed (46275A). TASK 30 (bare `*`) now passes.
-  **Ported 2026-09-14** (see the index): losttomb now matches on every turn.
-- **`shadowpeak` (all three rows, seed 1):** the draw streams agree up to
-  Andro's first riddle. The golden answers it `g`; run400 treats a
-  whole-line `g` as *again* before any task matches (run400 89FE2 tests the
-  line first) and repeats `e`. Scarier's `[again/g/last/previous]` is a
-  library row, so the riddle task claims `g` first. TASK 404 also takes
-  `say g`, so the three goldens now answer that, and with it shadowpeak
-  (534 turns, 63965 draws), allgargoyles (578, 68084) and killwraith (569,
-  67227) match run400 on every turn. (allgargoyles' first drive got a doubled
-  `uu` keystroke at feed[487]; a solo re-drive was clean.) 3.90 agrees with
-  run400: its repeat-word block
-  (`!!`/`again`/`last`/`previous`/`!`/`g`, 45F094) sits above `tasks(0)` at
-  45F48B. run370/run380 test the same words minus `g` (43B3C9 / 441B79).
-  **Ported 2026-09-14** (see the index): no golden moved.
-
-### Whole-corpus capture triage (2026-09-14)
-
-Every non-identical row of `runner_transcripts/manifest.tsv` has been read from
-`compare/<tag>.txt` (first 10 differing turns). Rows already covered elsewhere
-in this file are not repeated here: zelda, thepkgirl, losttomb, everything,
-the_hangover, the_town_of_azra_v390, lost_souls, wonderwombat,
-yonastoundingcastle, aliasagent, mould, house, motion, alices_restaurant (the
-run370 double matcher pass), sandy_meta_number (SCARE meta-commands) and the
-to_hell_and_beyond assisted rows. For the explicit games (amy, bsg22,
-riding_home, sswhore, wilkins) the notes below are schematic by design.
-Draw counts were not taken in this pass. Every "RNG" item still needs the
-`RND #` count against `SCR_TRACE_RAND` before it can be called real.
-
-**Capture and compare artefacts (nothing owed):**
-
-- Epilogue or pause text landing one turn late, or cut at the final keypress:
-  JGrim T102 (the Runner's `THE END`), endgame T8-9, frustrated T84,
-  vendetta T206, mortality T41-48, iqsfot T41-42, suzypowers T30 (the feed
-  ends on the `[MORE]`, so the Runner never prints the ending and its win
-  marker is missing), bsg22 T13 (the Runner's play-again tail).
-- Whitespace-only joins or the trailing `[Press any key to end]`: amy T17,
-  cyber T19, skydiver T22, foresthouse3 T71, inmemory, riding_home T55,
-  wheels_must_turn, grumble and onnafa (heading joins), warlord (3 joins).
-- Lost commands after an ending both sides share: confession (Scarier also
-  ends at feed[15]), snakes_and_ladders, darkness, questi, thelasthour,
-  sun_empire, will, sswhore, egghunt, howitstarted.
-- hyper_b_s "10 lost": the Runner does echo each attack-menu `a`/`p` key
-  (Attack Menu follows every `> a`). The aligner loses them. Compare lead.
-- `[Y/N]` prompts the Runner never asks: grumble T274 and lifesimulation T15
-  `quit`.
-
-**Harness and compare leads:**
-
-- **Accented feeds FIXED 2026-09-14.** `compare_wine_transcript.py`
-  `scarier_run()` encoded Scarier's stdin in the cmdfile's encoding (UTF-8,
-  because drive.exe reads UTF-8), so largo_winch and enquete_a_hauts_risques
-  differed on every turn. It now always encodes latin-1, and both rows are
-  identical on every turn apart from the keypress tail.
-- **Doubled keystrokes, re-driven 2026-09-15 (solo, maxpar 1):** both
-  doubles came from drive.exe's retype path. It read the entry box back
-  before the swallowed key had landed, so the retype went in on top of the
-  original. The solo re-drives logged no retypes. bomb_threat
-  (`runner_transcripts/bomb_threat.txt`) is now identical apart from the
-  keypress prompt. humbug (`runner_transcripts/humbug.txt`) echoes all 1060
-  feed commands and reaches the win marker.
-  **Closed 2026-09-15:** re-driven with the vbrng trace (seed 1234; the
-  transcript is byte-identical to `runner_transcripts/humbug.txt`), humbug is
-  identical apart from the keypress prompt and draws 10845 = 10845. Two ports did it. T634 `X robot` at the Bus Stop names the
-  static robot seen in the tunnel, so examines() answers "can't see it from
-  here!" with no not-a-turn flag, and characters() overwrites that with
-  the NPC. The line is a turn (7 draws). T727 `X teeth`: obhere stamps a
-  part-of-character static seen when its seen NPC is in the room, so Jasper's
-  teeth are described. The Schrodinger turns after T672 were only the drift
-  those two caused.
-- **light_up (seed 133), 217 lost from feed[294]:** at T293 `west` both sides
-  of the compare die ("scored 58 out of the maximum 0"), and the Runner then
-  takes no more input. The blessed golden never dies there. It has no
-  `maximum` line at all. So the compare's rebuilt feed does not reproduce the
-  golden's route. Diff the feed against the solution (pause blanks) before
-  reading anything into it.
+- **3monkeys T40 `get husk`:** the Runner says "Huh?" (the game's
+  DontUnderstand, ALR DEFAULT=8, so run400 claims the line silently);
+  Scarier takes the coconut husk. Ruled out offline (2026-09-15): the seen
+  byte and position, a 463640 tie (husk is the only "husk"), an ALR
+  blanking a take refusal, the pre-match; every take-family task matching
+  the line has an empty FailMessage on its first failing restriction in
+  Scarier's state. Wine probes (probe_cmds/3m_t40*.txt, Adrift_128/130
+  p_3m40*) narrowed it to a poison set by the `hit coconut with stone` line:
+  - still fails after an immediate `take husk`, `get coconut husk`, `get
+    all` (husk skipped), `drop fork`, `take stone`, `x stone` (task 180),
+    `hit again` (task 592), `drop coconut`; `drop coconut; take coconut`
+    fails too, while `drop fork; take fork` takes the fork -- only the
+    objects the hit task touched are refused;
+  - works after any line that reaches the library handlers past the
+    dispatcher at 48A481: look, z, i, count, xyzzy, x husk/coconut/fork/
+    flint/chimp, `wear sheet`, `put fork in bucket`; a task line after
+    such a clear does not poison again.
+  - Read and ruled out: 463640 (no carried state), 44B578/452E9C,
+    MemVar_4941EC; get_piece is silent only at 473229. Next is a debugger
+    watch on the husk's record between the hit and `take husk`.
 - **cellar T120 `undo`:** the Runner's "Undone." replays the restored turn's
-  story text (with its `[MORE]`). Scarier's replays a not-understood line.
-  This is probably the known undo-slot deviation (Scarier skips
-  administrative lines), but it has not been confirmed.
+  story text (with its `[MORE]`); Scarier's replays a not-understood line.
+  Probably the known undo-slot deviation (Scarier skips administrative
+  lines), not confirmed.
 
-**RNG or draw placement (draw counts owed):**
+### RNG or draw placement (draw counts owed)
 
-- **Ported 2026-09-14: room text is printed before the tick when exits are
-  listed.** Not an RNG split: wumpusrun seed 72 draws the same 115 values in
-  both engines. Every Runner's room builder, on appending the ShowExits list,
-  prints the turn's text so far through the output filter (run400 viewroom
-  472BFF-472C73, printer 47B568; run390 44813D, run380 439B83, run370 433108),
-  so its %variables%/ALRs resolve before the NPC/event tick. Scarier filtered
-  the whole turn at the flush, after the tick. Now `pf_print_so_far()` from
-  `lib_print_room_exits()`. Settled: wumpusrun (identical), bomb_threat T0,
-  alchemist's passer-by lines (first difference T32 -> T303), hhorror's dark
-  rooms (10+ -> 4 turns).
-- hhorror (seed 50): 4 turns left, T25 dark text then the zombie's attack
-  roll at T38/T134/T142.
+Each needs the `RND #` count against `SCR_TRACE_RAND` before it can be
+called real; equal counts with differing text mean a value or candidate
+rule, not RNG (deaths, 2026-09-19).
+
+- hhorror (seed 50): T25 dark text, then the zombie's attack roll at
+  T38/T134/T142.
 - alchemist (3.90): from T303 (`give rose to king`), unread.
 - reluctantvampire (seed 6): the `[Press a key, <epithet>]` roll is one draw
-  apart from T132. The Runner's T133 is Scarier's T132.
+  apart from T132; the Runner's T133 is Scarier's T132.
 - warlord (seed 6) T288 `push barrel`: the barrel rolls west in the Runner
-  and northwest in Scarier. The rest of the row follows (66 lost from
-  feed[318]).
-- wumpusrun (seed 72): the random move verb ("depart" vs "press on") from T0.
+  and northwest in Scarier; 66 lost from feed[318] follow.
 - marooned (3.80, seed 3) T53 `throw map`: the Runner has no shark.
-- Battle rolls: cyber2 T15/T26, alexis T126-127 (companion strike order,
-  Haron's arrival one turn apart).  **deaths and spirits_flight ported
-  2026-09-19** (see the index, "Battle"): the 3.9 type-7 range cap, the raw
-  attitude byte and the raw speed index; both rows are identical on every
-  turn with equal draw counts (deaths 11 = 11).
-- cursed from T137: the wet-fur event still blocks movement in the Runner
-  ("dries slowly" vs "dries out completely"). **Ported 2026-09-15** (see the
-  index): event timing, not a roll. cursed is now identical on every turn;
-  the route waits two turns before `nw`. **Re-driven 2026-09-17:** the
-  archived capture was the one from before those two waits, so a recompare
-  read them as two commands the Runner never echoed and everything past
-  T137 as a difference. The fresh capture is identical again, marker and
-  all.
+- Battle rolls: cyber2 T15/T26; alexis T126-127 (companion strike order,
+  Haron's arrival one turn apart).
 
-**Engine, 4.0:**
+### Engine, 3.9
 
-- **Carrying limits.** **Ported 2026-09-15** (see the index):
-  businessasusual T20/T24 and provenance T722/T724 now match on every turn,
-  and wilkins T22/T107 match. The 3.9 twin, alexis T28, was ported the same
-  day.
-- **Noun resolution and ambiguity:**
-  - hub T70-73: `x lower right cupboard` gets "Which right cupboard. The right
-    lower cupboard or the right upper cupboard?". The typed adjective order
-    differs from the Prefix order. Scarier picks the object. The row cascades.
-    **Ported 2026-09-15:** examine asks when two present objects share an
-    alias the line holds, even if a longer alias names one of them
-    (lib_co_400_raise_for_contained_aliases). open and close refuse a
-    whole-line score tie with "I can't open that." (T82). The walkthrough
-    now uses the Runner-safe `x right lower cupboard`. **Re-driven
-    2026-09-17:** the archived capture still answered the old, pre-port
-    route, which cost four feed commands to a RULE 2 desync; the fresh
-    capture echoes all 112 and reaches the win marker. What is left is one
-    differing turn, T79, under "Task versus library" below.
-  - wilkins T110-117: `drop tincture of <name>` gets "It is not clear which
-    tincture..." or a `Which tincture.` prompt, and T117 drops a different
-    object.
-  - xfiles T62 `open phone book`: the Runner answers with the cell phone.
-    The book is back in the motel room and the held Cell Phone (alias
-    "Phone") is the only present, seen object scoring in 463640; openclose
-    uses that winner (4756AB), while Scarier's `open %object%` bound nothing.
-    **Ported 2026-09-15** (see the index): xfiles differed only from T76 on; T76 ported
-    too, see below.
-  - 3monkeys T40 `get husk`: the Runner says "Huh?", Scarier takes the coconut
-    husk (see T54's implicit take). "Huh?" is the game's DontUnderstand
-    (ALR DEFAULT=8), so run400 claims the line silently. Read 2026-09-15,
-    ruled out offline: the seen byte and position (task 589's "same room as
-    player" arm 48C834-48C851 stamps global_48), a 463640 tie (husk is the
-    only "husk"), an ALR blanking a take refusal, and the pre-match. Every
-    take-family task matching `get husk` or `get the coconut husk` (47, 48,
-    65-68, 76-84, 140-144, 291, 599, 616, 791-794) has an empty FailMessage
-    on its first failing restriction (45404C's index-order 'F') in Scarier's
-    state. The likeliest cause is state Scarier and the Runner print alike
-    but hold differently: with chimp_elevated (var 21) = 1, tasks 77-84 fail
-    first on restriction 1 ("Can't you see I've got my hands full?!"), a
-    fallback hit, a silent exit and DontUnderstand. Carried size in Scarier is
-    also -24 by then.
-    **Wine probes 2026-09-15** (probe_cmds/3m_t40*.txt, the route through
-    `hit coconut with stone`, then the variants; Adrift_128/130 p_3m40*):
-    - Still fails after: an immediate `take husk`, `get coconut husk` or
-      `get all` (husk skipped); drop fork; take stone ("already carrying",
-      library); x stone (task 180); `hit again` (task 592); drop coconut.
-    - Works after: look, z, i, count, xyzzy, x husk/coconut/fork/flint/chimp,
-      `wear sheet`, `put fork in bucket`. Also `z; x stone; take husk`, so a
-      task line after a clear does not poison again.
-    - `drop coconut; take coconut` also fails ("That command wasn't
-      understood."), but `drop fork; take fork` takes the fork. So only the
-      objects the hit task touched (coconut restrictions, husk moved by 589
-      "carried by player" then "same room as player") are refused.
-    - So the poison is set by the hit line and survives task lines and the
-      get/drop handlers (48A457-48A46D). It clears on any line that reaches
-      the library handlers after the dispatcher at 48A481.
-    - Read and ruled out: 463640 (Me(424)/Me(428) re-seeded every call, no
-      carried state); 44B578/452E9C (compare [26] to the live player room);
-      MemVar_4941EC (every writer stores &HFF). The only globals wear/remove
-      (48A48C) write are 4941B0, 494174 and 4941EC.
-    - get_piece is silent only at 473229 (463640 mode 1 returns -1 and the
-      pre-match hits). The rule itself is still not found; next is a
-      debugger watch on the husk's record between the hit and `take husk`.
-  - onnafa T155 `get key of pure harry`: the Runner says "I don't think Harry
-    would appreciate being handled". The take-NPC branch fires on the name
-    inside an object's name. **Ported 2026-09-15** (see the index): the key
-    is still taken, only the answer is overwritten.
-- **Task versus library:**
-  - hub T79 `put soup in pan`: the Runner answers with the library's "I put
-    that inside the saucepan.", Scarier ran the task ("The soup slides easy
-    out of the can and into the saucepan. I throw the can into the bin.").
-    Found 2026-09-17, when the row was re-driven and the RULE 2 desync that
-    had been hiding everything past T70 went away. **Ported 2026-09-19**
-    (see the index): engine bug, not a task-versus-library priority issue --
-    the soup is present (inside the tin can task 11 opened) but never
-    *seen* (no listing of the can's contents), so the seen-gated %text%
-    matcher can't name it and the library's `put` handler used to fall
-    straight to the task. run400's own fallback (mode 2 of its object
-    scorer) finds present objects by score regardless of seen state, moves
-    the soup, and leaves it unseen -- so the name composer answers "that"
-    for it rather than its real name. Ported as
-    lib_put_fragment_present_object() and lib_put_print_object_or_that()
-    in sclibrar.cpp, reusing lib_put_fragment_names_nothing()'s existing
-    diagnosis in its docstring. Narrowed after a TheADRIFTProject regression
-    (`put battery in remote`) showed the same fallback recovering an
-    object the top parse missed for an unrelated reason while it was
-    already seen -- that case must still print the real name, not "that".
-  - crookedestate T41 `peel wallpaper`: the Runner runs the task, Scarier
-    says "don't understand what you want me to do with the walls". Also at
-    T44 `save`, the Runner adds an event line. **Ported 2026-09-15** (see the
-    index): spent task 47 has no RepeatText and hid spent task 48's.
-    crookedestate is now identical on every turn.
-  - showtime T65 `get her hand` (after "(No female)"): the Runner runs the
-    task, Scarier says "Take what?". The `z` sequence from T68 follows.
-    Harness artefact, not the engine: the feed's blank pause answers become
-    extra turns in Scarier under SCR_SKIP_WAITKEY, so the turn numbers slip
-    against runner_transcripts/showtime.txt from there on.
-  - xfiles T69 bare `buzzer` (the Runner says "I don't understand what you
-    want me to do with A Buzzer") and T76 `get in the van` (the Runner says
-    "You take VW Van."). Scarier runs the tasks in both. The ending follows.
-    **T69 ported 2026-09-15** (see the index, wildcard matcher). T76 is
-    still open. Read 2026-09-15: generaltasks calls get_outer (48A46D)
-    before the dispatcher (48A481). get_piece_inner pre-matches `get <the
-    object>` only against take-family tasks (class byte 104: a pattern
-    containing get/take/pick). Task 26 (`*Van*`, room 29) has no such
-    pattern, so the library takes the van and claims the line. That
-    explains room 29. It does not explain T55, where the Runner runs task 13
-    (`Get In The Van`, room 10) and does not take the van. Ruled out
-    offline: capacity (Scarier has 22 of 450 size), the seen byte (the van
-    is listed when the player walks in), and a 463640 tie (VW Van wins
-    alone). Porting "get before tasks" without the room 10 rule would break
-    T55. Next step is a Wine probe: `take van` and `get in the van` at T55,
-    and `get van` at T76.
-    **T76 ported 2026-09-15.** Wine probes (run400x seed 149): at T55 `take
-    van` and `get van` both answer "You take VW Van." (Adrift_130_p_xf55take,
-    Adrift_131_p_xf55get), so room 10 has no rule of its own. T55's `get in
-    the van` runs task 13 because 13 is take-family and pre-matches (get_outer
-    472D9C, 453C50 class 1); task 26 is not. At T76 `get van` then `get in
-    van` answers "You are already carrying VW Van." (Adrift_132_p_xf76get):
-    the held van is still named, so 463640 mode 1's pass 2 applies. get_outer
-    runs for any line with whole-word get/take/pick (4580AA-4580EA). Mode 1
-    only accepts dynamic objects (global_24 = 0), and Pilfers' `get off bed`
-    and Glum's `get in barrel` (both static) keep Runner-identical library
-    and task answers. Ported in run_all_commands ahead of task pass 1: at 4.0,
-    a get/take/pick line with no "all"/"and" that names a dynamic object and
-    pre-matches no take-family task goes to the take rows and then to the
-    scored take (lib_take_names_dynamic_400, lib_take_scored_400). All three
-    probes compare identical. The old route then stalled on the taken van,
-    so the walkthrough's T76 now reads `climb in the van`, which runs task 26.
-    run400x wins with that route (Adrift_128_p_xfclimb, 285 of 299), and that
-    capture is the new runner_transcripts/xfiles.txt: identical on every turn
-    apart from the Runner's keypress prompt.
-  - the_town_of_azra T13 `buy rawhide armor`: the Runner says "I don't think
-    that is for sale", Scarier buys it. The money is then off by 90.
-    **Ported 2026-09-15** (see the index): the_town_of_azra is now identical
-    on every turn.
-  - les_feux T115-116 `throw grappin on rocher`: the Runner asks the attack
-    question ("Qui voulez vous attaquez?"), so `throw ... on` reaches
-    dobattle. Scarier's catch-all answers. **Ported 2026-09-15:** `throw` is
-    one of dobattle's var_90 verbs (47E9EF-47EADB), but Scarier's battle
-    rows had left it out. les_feux is now identical on every turn.
-  - grumble T207 `pull button`: the Runner says "You can't see the button",
-    Scarier "You pull, but nothing happens". The button (obj 117, static) is
-    in "More winding path"; T206 `go mirror` (task 500) shows that room's
-    description but only scores, so the player is still in Saldor's home and
-    the button is seen but absent. Scarier's `pull %text%` row lacked the
-    4.0 absent-object clause push has. **Ported 2026-09-15** (see the index):
-    grumble now differs only at T274 (the `[Y/N]` quit prompt).
-- **Extra or missing lines:**
-  - haunt (3.80) T84 `down`, the winning move: both sides print the same
-    event line, "You hear the chiming of the grandfather clock." The Runner
-    puts it LAST, after the whole ending block and after
-    `[Press any key to end]`; Scarier puts it in the turn, right after
-    "Horace lurches in from above." and ahead of the task's ending text.
-    Found 2026-09-17, the moment the row's last command was grafted back on
-    (`runner_transcripts/README.md`, "Grafted tails") -- until then that
-    whole turn was the one the .rtf never held. **Suspect the capture, not
-    the engine, first:** text after the keypress prompt is what a Runner
-    timer tick during the ending's wait looks like, and light_up's dump
-    ends with two event paragraphs past its own prompt the same way. A
-    probe wants a 3.80 game with a short-period event and a task that ends
-    the game on a known turn.
-  - baroo T107 `close machine`: Scarier added "The machine is now closed.".
-    TASK 113 is silent, but its execute-task action starts the convertor
-    event, whose StartText the dispatcher's buffer test counts. **Ported
-    2026-09-14** (see the index): baroo now matches on every turn.
-  - onnafa T68 `give empty beer mug to perry`: the Runner adds "You can't
-    take anything from the empty beer mug." ahead of the task text.
-    get_outer (4582D8) runs on every line just ahead of the dispatcher
-    (48A46D). When "empty" is a whole word ANYWHERE, it Replaces "empty "
-    with "get all from ". The line then has `get` and `from`. If a take-family
-    task pre-matches the rewritten line (453C50 mode 1), the dispatcher sees
-    that line. Otherwise get_piece resolves the from-part in this order:
-    exact 448710(obj,0) name ("the empty space"), present first; then the
-    seen-gated scorer. Unresolved prints "I don't understand where you want
-    to get things from." and is not a turn. A non-container prints the
-    refusal and returns FALSE, so the task still runs. Wine probes
-    (Adrift_135_p_tot_empty, tot_room17_a/b/c, onnafa_empty): Study
-    `x empty space` refuses and then shows task 162's fail text. The
-    wrong-room `climb into empty space` gets the unresolved message. A bare
-    `empty` is DontUnderstand. **Ported 2026-09-15** (see the index): onnafa
-    now matches apart from whitespace, and trickortreat is still identical.
-  - greekschool T27/41/91/100/126/156: Scarier adds the NPC line "Paul gives
-    you a look over..." on entering. The Runner never prints it. **Ported
-    2026-09-15** (see the index): Paul's empty game-start WALK 1 preempts
-    WALK 0, and the move handler's meet runs the tick's precedence test
-    (run400 4754A5-47557B) before it looks at the CharTask. greekschool is
-    now identical on every turn (runner_transcripts/greekschool.txt).
-  - riding_home T47 and T50: the Runner prints an NPC conversation line and a
-    progress-hint line that Scarier lacks. **Ported 2026-09-15** (see the
-    index). Only T55's closing "[Press any key to end]" still differs.
-  - iqsfot T158 `kick guard`: the Runner names the absent NPC by Name ("Drash
-    the Guard is not here."), Scarier by the typed word ("guard is not
-    here."). **Ported 2026-09-15** (see the index): not the typed word but
-    NPC 15, Named "guard"; the task %character% now binds the first match.
-- **Output filter:** albert_is_lost T21 `get motherload`: the Runner prints a
-  literal ` >UNDOeth?"` that Scarier drops. **Closed 2026-09-15, compare
-  artefact:** Scarier prints it too, but its 78-column wrap put `>UNDOeth?"`
-  at the start of a line and `split_scarier()` took that for a prompt.
-  `is_scarier_prompt()` now treats a `>` line as a wrap when its first word
-  would not fit on the non-blank line before it. A full recompare moved only
-  albert_is_lost, which is now identical apart from the keypress prompt.
-- **JGrim** is clean apart from the epilogue.
-
-**Engine, 3.9:**
-
-- **Noun resolution:** **Ported 2026-09-19** (see the index, "Absent-object
-  refusals" and "Task move-object"): takes() lets a held namesake indexed
-  below the target speak (`lib_co_pre400`), and 3.9's move-object stamps
-  no seen byte for an into/onto destination whose parent is unseen.
-  - stardust T38 `take needle box`: "You've already got the sharp needle!";
-    the route now says `take box` and the row is identical on every turn.
-  - secret_of_lost_world T53 `take blue gem`: "You already have the green
-    gem!" because the T52 put left the gem unseen; the route now examines
-    the boat and the skeleton first. T118 `put red gem on statue` and the
-    T125 potion followed (index: "Put and take-from", "Battle"); the row is
-    identical on every turn.
 - **Refusal wording:**
   - thetest_win T68-77 `unlock door`: "You can't do that here!" against
     "You can't unlock the door.".
@@ -672,208 +332,186 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 - **cybercow_win:**
   - T72 `x fairy`: a different description (state);
   - T97 `read envelope`: the Runner adds "The envelope is closed.";
-  - T103: "CyberCow is here." against "CyberCow and Robot are here." (the
-    robot's presence);
+  - T103: "CyberCow is here." against "CyberCow and Robot are here.";
   - T118 `x berry`: the Runner says "I can tell you nothing about that.",
-    Scarier now asks "Which berry." The held berry came from task 170, and
-    run390's task executor never writes the seen byte (only openadv,
-    afteroa, viewroom, inventory, charinv, whatisinon, examines and drops
-    do), so run390 counts one seen berry. Dropping the move-action stamp
-    below 4.0 wholesale regressed ~50 rows (2026-09-14); a narrower rule is
-    owed.
+    Scarier asks "Which berry.". The held berry came from task 170, and
+    run390's task executor never stamps a seen byte for an object handed to
+    a character (index, "Task move-object"), so run390 counts one seen berry.
+    Dropping the move-action stamp below 4.0 wholesale regressed ~50 rows
+    (2026-09-14); the 2026-09-19 per-destination port did not move this
+    row, so something else keeps Scarier's berry seen.
 - **fantasyworld T224-296:** the Royal Knight follows the player in the
   Runner. In Scarier he is not in the room.
-- **alexis_worn_cube:** T124 has an event line one turn earlier in the Runner,
-  and 34 `attack urgorn` are lost after an earlier end.
+- **alexis_worn_cube:** T124 has an event line one turn earlier in the
+  Runner, and 34 `attack urgorn` are lost after an earlier end.
+- **everything T38 `read diary`:** the run390 silent-task DontUnderstand
+  (deliberate deviation); the ending at T39 is identical.
 
-**Engine, 3.7 / 3.8:**
+### Engine, 3.7 / 3.8
 
-- **twilight (3.80):**
-  - The listing sentence keeps a lower-case Name ("a monkey is here")
-    where Scarier capitalised it (T12-34). **Ported 2026-09-15** (see the
-    index).
-  - T48 `cook cheese`: "You can't do that yet" against the task. The T113
-    score of 485 against 500 follows. **Ported 2026-09-15** (see the index):
-    task 59's Obj2 names the static stove.
+- **haunt (3.80) T84 `down`, the winning move:** both sides print "You hear
+  the chiming of the grandfather clock." The Runner puts it LAST, after the
+  ending block and `[Press any key to end]`; Scarier puts it in the turn
+  after "Horace lurches in from above.". Suspect the capture first: text
+  after the keypress prompt is what a timer tick during the ending's wait
+  looks like, and light_up's dump ends with two event paragraphs past its
+  own prompt the same way. A probe wants a 3.80 game with a short-period
+  event and a task that ends the game on a known turn.
 
-### Load failures
+### Harness and compare
 
-- **Solved 2026-09-14:** the 09-07 load failures (the_town_of_azra_v390,
-  ecod2, everything, archie, chosen) are all 3.90 games that were fed to
-  run400. On run390x (`xoshiro_jobs_0914_loadfail.txt`) all five load and
-  echo every command:
-  - ecod2, chosen and archie match on every turn.
-  - everything T38 `read diary`: run390 prints "I don't understand what you
-    mean!" for silent TASK 14 (the known run390 silent-task deviation). The
-    ending at T39 is identical.
-  - **the_town_of_azra T60 `status` (draws 76 = 76), PORTED 2026-09-14:**
-    run390 prints the 3.90 layout `Stamina: 80 (102) Hit strength: 6 (1)
-    Defense value: 3 (0)` (dobattle 44C595..44C80F). Scarier now prints it
-    below 4.0 (`lib_print_battle_status_390`), and the row is identical on
-    every turn.
-  - wonderwombat loads under run400x. gmylm's "no titled Runner window" was
-    only the 25 s load cap.
-- Six rows raised `evaluate error - Subscript out of range` mid-game in the
-  09-06 corpus batch.
-- TheADRIFTProject crashed with run-time error 401 at command 92.
-- darkness finishes at feed[99] with 11 lines left.
+- **hyper_b_s "10 lost":** the Runner does echo each attack-menu `a`/`p`
+  key (Attack Menu follows every `> a`); the aligner loses them.
+- **light_up (seed 133), 217 lost from feed[294]:** at T293 `west` both
+  sides of the compare die ("scored 58 out of the maximum 0"). The blessed
+  golden never dies there and has no `maximum` line, so the compare's
+  rebuilt feed does not reproduce the golden's route. Diff the feed against
+  the solution (pause blanks) before reading anything into it.
+- **showtime from T65:** the feed's blank pause answers become extra turns in
+  Scarier under SCR_SKIP_WAITKEY, so turn numbers slip against
+  `runner_transcripts/showtime.txt` from there on. Not the engine.
+- **wonderwombat, yonastoundingcastle:** the Runner joins `> w` onto the line
+  after a pause-answer blank, which RULE 2 reads as lost commands
+  (wonderwombat "124 lost" from T116); `read_feed` misclassifies yonas's
+  pause blanks. Both rows are turn-identical when compared with blank lines
+  stripped.
+- **motion:** the minigame's keypresses are its turns.
+  `runner_transcripts/motion.txt` echoes all 351 feed commands and, apart
+  from whitespace, differs at T257-258 and T350 (the drive minigame's map).
+  Unread.
+- **house** is comparable only as `House_sober.taf` with
+  `cmdfile_house_sober.txt` (identical on every turn; no row, so it exists
+  only as `Adrift_128_housesober.txt` in the prefix). The original row is
+  10+ turns blank on the Runner side from T1 because of the `%drunk%` ALR
+  stack overflow (a deliberate deviation).
+- **mould (seed 1):** the Runner's pauses eat no line, so the feed's
+  throwaway `1` enters the imp fight on both sides and neither reaches the
+  win; a feed with that line dropped would. Otherwise only the `hint`
+  deviation and pause joins differ (58 = 58).
+- **gmylm** (15 MB .taf, ~400 MB draw trace at load) needs `LOAD_SLEEP=600`
+  to get past drive.exe's 25 s load cap.
+- **Permanently unmeasurable:** `dreamquest` (run400 cannot load a task with
+  an empty Command vector); the `to_hell_and_beyond` assisted rows
+  (Scarier-only by design).
+
+### Nothing owed (capture and compare artefacts)
+
+- Epilogue or pause text landing one turn late, or cut at the final
+  keypress: JGrim T102, endgame T8-9, frustrated T84, mortality T41-48,
+  iqsfot T41-42, aliasagent 5 (`score` after the game ended), zelda T190.
+- Whitespace-only joins or the trailing `[Press any key to end]`; the
+  28 "apart from whitespace" rows. Glum_Fiddle turn 0 is the startup echo
+  above.
+- Lost commands after an ending both sides share: confession, darkness
+  (feed[99] with 11 lines left), questi, thelasthour, sun_empire, will,
+  sswhore, egghunt, howitstarted, snakes_and_ladders.
+- `[Y/N]` prompts the Runner never asks: grumble T274 and lifesimulation
+  T15 `quit`; life `piss` and the_hangover are the silent-task deviation;
+  alices_restaurant the run370 double matcher pass; sandy_meta_number the
+  SCARE meta-commands.
+- Load failures left from the 09-06/09-07 corpus batches: six rows raised
+  `evaluate error - Subscript out of range` mid-game; TheADRIFTProject
+  crashed with run-time error 401 at command 92. (The 3.90 games that
+  "failed to load" had been fed to run400; all load on run390x.)
 
 ### Engine, needs a probe (4.0)
 
 - **Silent put confirmation for object #1.** run400 prints no `put`
-  confirmation when the moved object is dynamic object #1 (Adrift_82-87).
-  run390 prints one.
-  - The listing does not single out index 0: name_object 46E23C/46E3FA,
-    insides 46639C. The next step is a live trace of var_A4/var_A6.
-  - No corpus row touches it.
-- **name_object's own list loops (46E04E / 46E0B2)** are not rebuilt. That
-  is six cells, and the wording must come off the Runner.
+  confirmation when the moved object is dynamic object #1 (Adrift_82-87);
+  run390 prints one. The listing does not single out index 0 (name_object
+  46E23C/46E3FA, insides 46639C); next is a live trace of var_A4/var_A6. No
+  corpus row touches it.
+- **name_object's own list loops (46E04E / 46E0B2)** are not rebuilt. Six
+  cells, wording off the Runner.
 - **`put box in box`:** run400 announces the take and prints nothing, where
   Scarier says "can't put an object inside itself!".
+- **Put resolution ordering:** the 4.0 put fragment fallback scores every
+  present object in one pass, where 463640 mode 2 tries held objects first
+  (index, "Put and take-from", hub T79; ported for plain `drop` only). A
+  held/loose tie would differ.
+  Also unread: why the seen-gated %text% parse missed TheADRIFTProject's
+  already-seen battery (`put battery in remote`), which the fallback covers.
 - **Scope.** None of these is measured:
   - the never-seen "You can't see that." branch at 471995;
-  - the two-pass `%object%` scope filter proper (`SCR_TRACE_SCOPE`). Its
-    seen gate is ported (see the index). Its present-before-absent binding
-    order is not;
+  - the two-pass `%object%` scope filter proper (`SCR_TRACE_SCOPE`); its
+    seen gate is ported, its present-before-absent binding order is not;
   - the NPC seen gate for `%character%` (xfiles `look up byers`).
-- **Second-noun ambiguity:**
-  - The wording of an instrument ambiguity is unmeasured (sswhore `unlock
-    drawer with key`).
-  - The same goes for a tie inside either half of a " with " split.
-  - Also unmeasured: lock/unlock of an object with a Key whose " with "
-    left half resolves to nothing.
-  - Also unmeasured: absent lock/unlock where the object really is locked
-    (the key-check path).
-- **Ambiguity prompts:**
-  - co()'s crowded arm (454454) and its &HFE/&HFF answers are not modelled.
-  - "That wasn't one of the options!" has never been triggered.
-  - Unmeasured: whether an object ambiguity on a task-answered line also
-    suppresses the tick.
+- **Second-noun ambiguity:** the wording of an instrument ambiguity
+  (sswhore `unlock drawer with key`); a tie inside either half of a " with "
+  split; lock/unlock with a Key whose left half resolves to nothing; absent
+  lock/unlock where the object really is locked.
+- **Ambiguity prompts:** co()'s crowded arm (454454) and its &HFE/&HFF
+  answers; "That wasn't one of the options!" has never been triggered;
+  whether an object ambiguity on a task-answered line also suppresses the
+  tick.
 - **Events:** an event with RestartType=2, an immediate starter and a
   non-zero length fires once in run400, but Scarier re-arms it. Corpus
   exposure is zero.
-- **Put row corners** (all unmeasured):
-  - `(Taking X first)` ahead of a closed-container refusal;
-  - `put all in <the container, held alone>`.
-- **Output filter:**
-  - Where the ALR pass sees trailing spaces is unlocated.
-  - The NewParse `%` pattern binary path is unmeasured.
-  - The drop rebuild at 46F33B is unmeasured.
+- **Put row corners:** `(Taking X first)` ahead of a closed-container
+  refusal; `put all in <the container, held alone>`.
+- **Output filter:** where the ALR pass sees trailing spaces; the NewParse
+  `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
   43D289) have been read but not measured.
 - **The run400 loader's "Anonymous" fill** for an empty PlayerName with
-  PromptName off is unmeasured.
+  PromptName off.
 - **Silent-task test scope, the unported rest.** run400 tests the whole turn
-  buffer. Scarier now counts anything a task's run adds (baroo, see the
-  index) but still ignores text written before the dispatch. No corpus row
-  is known.
+  buffer. Scarier counts anything a task's run adds (baroo) but still
+  ignores text written before the dispatch. No corpus row is known.
 - **Turn sectioning, the unported rest.** run400 builds the turn as one
   string joined with pspace() and runs the ALR pass over it. Scarier joins
-  only the room block (2026-09-07) and, at 4.0, the text of a task run by
-  an action plus every AdditionalMessage (`pf_buffer_join_line`,
-  2026-09-14). Everything else is still its own section, so an ALR
-  Original spanning a join does not match. This is unfinished, not policy.
-  - An event's text after a task's text: p4SRC `xray`, where run400 prints
-    "X.  EV qball." on one line. Measure it first.
-  - The rest of the turn: thetest (a two-sentence Original).
-  - Expect a large golden reblessing. The task-text join alone moved 94 rows
-    (92 whitespace only), and sweep_wine_breaks still counts 5622
-    Scarier-only breaks.
+  only the room block and, at 4.0, an executed task's text plus every
+  AdditionalMessage (`pf_buffer_join_line`). Everything else is its own
+  section, so an ALR Original spanning a join does not match. Unfinished,
+  not policy:
+  - an event's text after a task's text (p4SRC `xray`: run400 prints
+    "X.  EV qball." on one line); measure first;
+  - the rest of the turn (thetest, a two-sentence Original);
+  - expect a large reblessing: the task-text join alone moved 94 rows (92
+    whitespace only), and sweep_wine_breaks still counts 5622 Scarier-only
+    breaks.
 
 ### Engine, needs a probe (3.9)
 
 - **`give <x> to <y>`** belongs in characters(), below the room refusal
   (the_hangover t42). Only the 3.7/3.8 give is ported (f83e1cf87).
 - **"Please be more clear, who do you want to <verb>?"** is a SCARE
-  invention (alexis_worn_cube t79). The `who` form is still unmeasured; the
-  object form is now the co() prompt (cybercow_win T118, above).
-- **Per-verb absent-NPC branches:**
-  - `talk to <npc>` elsewhere (hcw, alchemist): unmeasured.
-  - `give obj to npc` elsewhere: unmeasured.
-  - run390's take `is not here!` at 4596E1 (Battle System off): unmeasured.
-  - The attack branch is ported.
-  - kill/kick/punch lines go through other grammar first; unmeasured.
+  invention (alexis_worn_cube t79). The `who` form is unmeasured; the object
+  form is the co() prompt (cybercow_win T118, above).
+- **Per-verb absent-NPC branches:** `talk to <npc>` elsewhere (hcw,
+  alchemist); `give obj to npc` elsewhere; run390's take `is not here!` at
+  4596E1 (Battle System off); kill/kick/punch lines go through other grammar
+  first. The attack branch is ported.
 - **run390's Who-prefix consumption** at 460022 is assumed, not measured.
-- **Take-from:**
-  - the " and " clause picks the last container in 3.9 and the first in
-    4.0;
-  - 3.9's " and " collection bug;
-  - the pending slot after `Get X from what?`;
-  - surface-vs-container wording of the parent-derivation arm.
-- **Put:**
-  - the put parser at 461769 ("can't put anything inside/on that!");
-  - "onto";
-  - a locked container;
-  - a named static;
-  - an object on a floor supporter;
-  - `put all in <nothing>`.
+- **Take-from:** the " and " clause picks the last container in 3.9 and the
+  first in 4.0; 3.9's " and " collection bug; the pending slot after `Get X
+  from what?`; surface-vs-container wording of the parent-derivation arm.
+- **Put:** the put parser at 461769 ("can't put anything inside/on that!");
+  "onto"; a locked container; a named static; an object on a floor
+  supporter; `put all in <nothing>`.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
-- **Examine and the ALR pass:**
-  - run390's examine state line has not been read (the move-object seen
-    stamp was, 2026-09-19: index, "Task move-object").
-  - The 3.9 type-7 battle branch: READ 2026-09-19 (index, "Battle").
-  - Ask-topic overwrite: run390 lets the last matching topic win, Scarier
-    keeps the first.
+- **Examine:** run390's examine state line has not been read. Ask-topic
+  overwrite: run390 lets the last matching topic win, Scarier keeps the
+  first.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
 - **Handlers other than take** were measured on single matches only.
 - **run380's post-take-from task sweep** after a *refused* take-from is not
   ported.
-- **Examine:** 3.7/3.8 examines have no bare-verb exit (unmeasured
-  corners). run370's sit/stand/lie has no location test (42AEC8,
-  unported).
-- **Ask topics:** substring matching with the last match winning is measured
-  and ported (wrecked). A topic whose Task gate picks an empty AltReply is
-  still unmeasured.
-- **Put:**
-  - 3.7 static container `open`;
-  - 3.7 bare take from a held container;
-  - `put X in Y` where X names nothing and Y is a bad container;
-  - a supporter that is neither held nor static nor a container;
-  - a static container;
-  - `except` forms;
-  - `put all in <nothing>`.
+- **Examine:** 3.7/3.8 examines have no bare-verb exit (unmeasured corners).
+  run370's sit/stand/lie has no location test (42AEC8, unported).
+- **Ask topics:** a topic whose Task gate picks an empty AltReply is
+  unmeasured (substring matching with the last match winning is ported).
+- **Put:** 3.7 static container `open`; 3.7 bare take from a held
+  container; `put X in Y` where X names nothing and Y is a bad container; a
+  supporter that is neither held nor static nor a container; a static
+  container; `except` forms; `put all in <nothing>`.
 - **Pre-4.0 room-name alt walk** is unmeasured.
 - **run380 442F5D** (the catch-all speaks for the first present, seen
   object) is unmeasured.
 - **`clear`** at run370/380/390 is unmeasured.
-
-### Harness and corpus
-
-- **`house`** is comparable only as `House_sober.taf` with
-  `cmdfile_house_sober.txt`. That run is identical on every turn. It has no
-  row, so it exists only as `Adrift_128_housesober.txt` in the prefix. The
-  original House's `runner_transcripts/house.txt` is 10+ turns blank on the
-  Runner side (T1 `e` on), because of the `%drunk%` stack overflow described
-  below.
-- **`motion`:** the minigame's keypresses are its turns.
-  `runner_transcripts/motion.txt` echoes all 351 feed commands. Apart from
-  whitespace, it differs at T257-258 and T350 (the drive minigame's map).
-  Those turns are still unread.
-- **`sophie`** (sa.taf) is measured in full. `runner_transcripts/sophie.txt`
-  (2026-09-14) echoes all 256 feed commands and is identical on every turn.
-- **Permanently unmeasurable:**
-  - `dreamquest`: run400 cannot load a task with an empty Command vector.
-  - `to_hell_and_beyond` assisted rows: Scarier-only by design.
-- **Rows deferred for rollable events are measurable now.** All were
-  measured 2026-09-14 under xoshiro, each with exact draw parity:
-  - `Colony` and `Locked_door_with_water_trap` (run390x, seeds 201/202):
-    identical on every turn (20 = 20, 577 = 577).
-  - `sophie_comp` (run400x, seed 210): only whitespace joins and the
-    epilogue cut differ (429 = 429).
-  - `plague` (run400x, seed 1234): identical on every turn (5840 = 5840).
-  - `great.taf` (run380x, seed 2): clean through the car chase, lacking
-    only the final `hide` the .rtf never holds (6 = 6). That `hide` was
-    grafted back from the window on 2026-09-17 and the row is identical on
-    every turn.
-  - `mould` (run400x, seed 1): no adaptive driver needed. Only the `hint`
-    deviation and pause joins differ (58 = 58). The Runner's pauses eat no
-    line, so the throwaway `1` enters the imp fight on both sides and
-    neither reaches the win. A feed with that line dropped would reach it.
-
-  Any other row skipped only for randomness can be driven the same way.
 
 ---
 
@@ -1074,6 +712,13 @@ every Runner.
   - NPCs are never candidates. `[4.0]` House throw (0743cefef)
   - therest's absent-seen clause scores every object the line names.
     `[4.0]` warlord, house doors (5662e7397)
+  - Mode 2 (a plain `drop X`, put_drop_list -> name_object) scores held
+    objects first, then everything present; the best score carries over.
+    A tie prompts `Which <term>.` only when Me(424) (MemVar_4941EC) is set,
+    and that is set by comparing each tied object's Short with the object
+    TWO indexes past the previous tie (Abs(-(k+2)), 4633F0), else "It is
+    not clear which <term> ..." (46E192). `[4.0]` wilkins T110-T117
+    (`lib_drop_resolve_400`, 2026-09-19)
 - **4.0 named take:**
   - The take falls back on every seen object: "nothing worth taking here" /
     "not clear which". `[4.0]` p4TAKE (7d051a7d7)

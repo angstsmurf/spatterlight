@@ -7174,7 +7174,8 @@ dreamquest_solution.txt|Dream Quest.taf|Well done - you scored maximum points!|
 # women only -- all bodies/characters are explicitly adult, no minors --
 # matching the gamma/croft/amy precedent). No formal EndGame/win-ending
 # exists anywhere in the task table; the declared MaxScore=95 is purely
-# nominal, not an enforced cap -- diligent play banks 117/95 (123%).
+# nominal, not an enforced cap -- diligent play banks 117/95 (123%); the
+# walkthrough, under the Runner's drop resolution, ends on 114.
 # Authoring bugs found: several NPC-specific "repeat" tasks corrupt an
 # internal identity-state string (one via a trailing space, one via a
 # copy-paste of the wrong identity) making some transformations unsafe to
@@ -7187,10 +7188,16 @@ dreamquest_solution.txt|Dream Quest.taf|Well done - you scored maximum points!|
 # Re-blessed 2026-09-15 for 4.0's take capacity order (run400 get_piece_inner
 # 46302C, size before weight): T22 `take times` at 99/90 on both axes and the
 # T107 `take all` tail now answer "My hands are full." as in
-# runner_transcripts/wilkins.txt (Adrift_850 line 84).  Still differing there:
-# T110-117 `drop tincture of <name>` ambiguity (a noun-resolution lead, not
-# carrying) and what follows from it.
-wilkins_solution.txt|The_Strange_Tale_of_Dr_Wilkins.taf|My score is 117 out of a maximum of 95.|
+# runner_transcripts/wilkins.txt (Adrift_850 line 84).
+# Re-blessed 2026-09-19 for 4.0's plain-drop noun resolver (run400
+# Proc_21_58_463640 mode 2, name_object 46E192, generaltasks 48B6B1; see
+# lib_drop_resolve_400()): T110/T111/T114 `drop tincture of alice/gertrude/
+# marie` now answer "It is not clear which tincture I am referring to.",
+# T112/T115 (irene, mary) the administrative "Which tincture.  ..." prompt,
+# and T117 `drop tincture of wai lin` drops the base tincture, so those
+# tinctures stay held and the run ends on 114/95 as the Runner's does.
+# Identical to runner_transcripts/wilkins.txt on every turn.
+wilkins_solution.txt|The_Strange_Tale_of_Dr_Wilkins.taf|My score is 114 out of a maximum of 95.|
 # darkness.taf: single-location (lighthouse) exploration/repair game.
 # Score comes from four sources: 7 of 8 "mystery notes" (the keeper's hat
 # is a genuine 0-point decoy), repairing the generator across three `mend

@@ -402,7 +402,7 @@ wheels_must_turn	wheels_must_turn.txt	driven:Adrift_329_wheels_must_turn_rt.txt	
 where_are_my_keys	where_are_my_keys.txt	driven:Adrift_251_where_are_my_keys_rt.txt	4.00	run400x.exe	13	0		SCR_SEED=13 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 whitesingularity	whitesingularity.txt	driven:Adrift_509_whitesingularity_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 whitterscap	whitterscap.txt	driven:Adrift_389_whitterscap_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
-wilkins	wilkins.txt	driven:Adrift_462_wilkins_rt.txt	4.00	run400x.exe	1234	0			no	10+ differing turn(s)
+wilkins	wilkins.txt	driven:Adrift_462_wilkins_rt.txt	4.00	run400x.exe	1234	0			no	identical on every turn.
 will	will.txt	driven:Adrift_144_will_rt.txt	4.00	run400x.exe	1234	0			yes	0 differing turn(s), 1 lost command(s)
 windy2	windy2.txt	driven:Adrift_334_windy2_rt.txt	3.90	run390x.exe	1234	0	Sam		yes	identical on every turn.
 wingman1	wingman1.txt	harvested-native-0-draws:Adrift_746_wingman1.txt	3.90	run390x.exe	1234	0	Hero		yes	identical on every turn.
