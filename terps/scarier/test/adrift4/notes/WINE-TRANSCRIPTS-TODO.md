@@ -323,7 +323,6 @@ not by a tick.
   (o(22) 0 or &H9C only); ported that way, not measured.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
-- **Examine:** run390's examine state line has not been read.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
@@ -331,8 +330,9 @@ not by a tick.
 - **run380's task sweep after a *refused* take-from** is not ported.
   run380's count<2 put refusal also precedes checktask, but run380 has no
   sweep (445A0F).
-- **Examine:** 3.7/3.8 examines have no bare-verb exit (unmeasured
-  corners).
+- **`x,` at 3.7/3.8** is "Nothing special." (the Runner's c() finds `x`
+  before the comma); Scarier's matcher does not and answers DontUnderstand.
+  Same for `ex,`. p37EXAM/p38EXAM, run380x Adrift_178_pexab38.rtf.
 - **3.8 `lie on bed` from the next room** is "You can't lie on that." and
   4.0's is "You can't see the bed."; both already match. The 3.8 object
   loop's scope test is unread.
@@ -792,6 +792,21 @@ next to the named function and in `annotations.tsv`.
     (4.0). lair (5662e7397)
   - The examine state line is always " is ". `[4.0]` magicshow T80
     (e0f709c46)
+    Only 4.0 has one: the 3.7-3.9 schemas carry no states, and run390's
+    tail (44BE60-44BEEE) is the open/closed line, then whatisinon().
+  - Bare examines. The typed look is the same exact whole-line list at
+    3.7/3.8 (`l`, `look`, `x room`, `x location`, any case), so bare `x`,
+    `ex`, `examine`, `exam`, `look at`, `read`, `x the`, `examine room`,
+    `look room`, `look around` are "Nothing special." there and `l room` is
+    DontUnderstand. At 3.9 examines' bare exit hands `x`/`ex`/`examine` to
+    therest's checkverb: "Examine what?" (also `x,`, split at the comma);
+    `exam` stays "Nothing special.". At 4.0 bare `x`/`ex` is DontUnderstand
+    and `exam`, `look at`, `read` are "You see no such thing.". `ex zzz` and
+    `exam zzz` are examines' at every version. `[3.7-4.0]` p37EXAM/p38EXAM/
+    p39EXAM/p4EXAM, run370x Adrift_173/175, run380x Adrift_172/174/178,
+    run390x Adrift_176, run400x Adrift_177 (`cmdfile_p3738bare*.txt`,
+    `cmdfile_pexabbr.txt`) (`lib_cmd_look_typed`, `lib_cmd_examine_other`,
+    2026-09-19)
 - **Carried objects.** Only a listing, or the task mover, reveals what the
   player carries, and `i` stamps them seen. yak_shaving (8e006d2f5)
 - **Task move-object** stamps seen per destination. `[4.0]` aliasagent

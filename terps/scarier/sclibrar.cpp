@@ -2527,8 +2527,16 @@ lib_cmd_look (scr_gameref_t game)
  * listed, the cobalt key an earlier task dropped there stays unseen and the
  * next `get all` leaves it behind.
  *
- * 3.7/3.8 examines has no such exit, so what a bare `x` answers there is
- * unread; the loose pattern is left alone below 3.9.
+ * 3.7/3.8 examines has no such exit, but the list is just as exact, so a
+ * bare `x`, `ex`, `examine`, `exam` or `look at` enters examines and
+ * answers "Nothing special." there, as do `examine room`, `look room`, `x
+ * the room`, `look at room` and `look around`; `l room` is DontUnderstand.
+ * Only the four listed lines look, in any case.  (`x,` is "Nothing
+ * special." there too, but Scarier's matcher does not see the `x` in it and
+ * answers DontUnderstand.)  p37EXAM/p38EXAM, run370x
+ * Adrift_173_pbare37.rtf / Adrift_175_pbare37b.rtf, run380x
+ * Adrift_172_pbare38.rtf / Adrift_174_pbare38b.rtf
+ * (`cmdfile_p3738bare.txt`, `cmdfile_p3738bare2.txt`).
  */
 scr_bool
 lib_cmd_look_typed (scr_gameref_t game)
@@ -2539,7 +2547,7 @@ lib_cmd_look_typed (scr_gameref_t game)
   };
   const scr_char *input = run_get_dispatch_input ();
 
-  if (input && (lib_is_version_390 (game) || lib_is_version_400 (game)))
+  if (input)
     {
       scr_char *line = (scr_char *) scr_malloc (strlen (input) + 1);
       const scr_char *const *entry;
@@ -2547,7 +2555,12 @@ lib_cmd_look_typed (scr_gameref_t game)
 
       strcpy (line, input);
       scr_normalize_string (line);
-      for (entry = LOOK_LINES; *entry && !is_look; entry++)
+      /* The pre-3.9 list stops after "x location". */
+      for (entry = LOOK_LINES;
+           *entry && !is_look
+           && (entry - LOOK_LINES < 4
+               || lib_is_version_390 (game) || lib_is_version_400 (game));
+           entry++)
         is_look = scr_strcasecmp (line, *entry) == 0;
       scr_free (line);
       if (!is_look)
@@ -7178,13 +7191,11 @@ lib_list_object_state (scr_gameref_t game, scr_int object, scr_bool is_described
        * Short "gates", states "Up|Down") measures `examine gates` as "The
        * gates are down." (Adrift_magicshow T80) only because the game's
        * own ALRs rewrite "The gates is Down." -- an "are" never matches
-       * them.  Pre-4.0 keeps the inherited plurality, unmeasured.
+       * them.  Only 4.0 gets here: the 3.7-3.9 schemas have no states
+       * (ZCurrentState), and run390's examine tail (44BE60-44BEEE) is just
+       * the open/closed line and whatisinon().
        */
-      if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
-        pf_buffer_string (filter, " is ");
-      else
-        pf_buffer_string (filter,
-                          lib_select_plurality (game, object, " is ", " are "));
+      pf_buffer_string (filter, " is ");
 
       /* Add object state string. */
       state = obj_state_name (game, object);
@@ -22950,9 +22961,15 @@ lib_cmd_examine_other (scr_gameref_t game)
 {
   /*
    * A bare `x`, `ex` or `examine` never reaches this tail from 3.9 on:
-   * examines exits on it at once (run400 471340, run390 44B758) and the line
-   * falls to the game's DontUnderstand -- see lib_cmd_look_typed().  `exam`
-   * is not in that test and still comes here.
+   * examines exits on it at once (run400 471340, run390 44B758).  run400's
+   * line falls to the game's DontUnderstand -- see lib_cmd_look_typed() --
+   * but run390's therest() still has checkverb arms for all three (45E64E-
+   * 45E67C), so 3.9 answers "Examine what?".  `exam` is not in that test and
+   * still comes here: "Nothing special." at 3.9, "You see no such thing." at
+   * 4.0.  3.7/3.8 have no exit, and every bare form is "Nothing special.".
+   * p39EXAM run390x Adrift_176_pexab39.txt, p4EXAM run400x
+   * Adrift_177_pexab4.txt, p38EXAM run380x Adrift_178_pexab38.rtf
+   * (`cmdfile_pexabbr.txt`).
    */
   if (lib_is_version_390 (game) || lib_is_version_400 (game))
     {
@@ -22970,7 +22987,8 @@ lib_cmd_examine_other (scr_gameref_t game)
                     || scr_strcasecmp (line, "examine") == 0;
           scr_free (line);
           if (is_bare)
-            return FALSE;
+            return lib_is_version_390 (game)
+                   && lib_what (game, "Examine");
         }
     }
 
