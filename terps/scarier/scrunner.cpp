@@ -2139,6 +2139,179 @@ run_standard_fallback_commands (scr_gameref_t game, const scr_char *string)
 }
 
 
+/*
+ * run_c_word_pre400()
+ *
+ * The pre-4.0 Runners' c(word) test (run370 423C80, run380 429048, run390
+ * 4334B0): the FIRST case-insensitive InStr hit that starts the line or
+ * follows a space decides, and it is true only if the word ends there -- at
+ * the end of the line, a space or a comma, and at 3.9 a period too.  A hit
+ * inside a word is skipped, so `unblock` never holds `block`; a word-start
+ * hit that runs on stops the search, so `lookout look` holds no `look`.
+ * Returns the hit's offset, or -1.
+ */
+scr_int
+run_c_word_pre400 (scr_int version, const scr_char *line, const scr_char *word)
+{
+  const scr_int length = strlen (word);
+  const scr_char *hit;
+  scr_char end;
+
+  for (hit = line; *hit != NUL; hit++)
+    {
+      if (scr_strncasecmp (hit, word, length) != 0)
+        continue;
+      if (hit == line || hit[-1] == ' ')
+        break;
+    }
+  if (*hit == NUL)
+    return -1;
+
+  end = hit[length];
+  if (end == NUL || end == ' ' || end == ','
+      || (end == '.' && version == TAF_VERSION_390))
+    return hit - line;
+  return -1;
+}
+
+
+/*
+ * run_therest_winner_pre400()
+ *
+ * Pre-4.0 therest() is not a verb-first table.  It is one long run of
+ * keyword arms, each `If c("<verb>") Then msg = ...`, over the whole line,
+ * and each arm overwrites the message the one before it wrote, so the LAST
+ * arm whose keyword the line holds answers (run380 443CBB-445521; run390
+ * 45D465-45EB86, where most arms go through checkverb 42A504 with the same
+ * c() test).  Measured on p38ASK/p39ASK with cmdfile_pkw.txt (run380x
+ * Adrift_128_pkw38.rtf, run390x Adrift_130_pkw39.txt): `zzz push stone`,
+ * `stone jump` and `zzz cut stone` answer the verb wherever it stands;
+ * `push and pull stone` and `push stone pull` pull, `push stone and kick`
+ * kicks, `buy stone kiss` kisses, `drink push stone` pushes and `climb stone
+ * and sit on stone` sits.  talk, block and lock only write an empty message,
+ * so they lose to any earlier arm.  The arms that live above therest() (open,
+ * read, ...) have answered before any of this runs.
+ *
+ * Returns the winning arm's keyword and sets *offset to where c() found it,
+ * or returns NULL.
+ */
+static const scr_char *
+run_therest_winner_pre400 (scr_int version, const scr_char *line,
+                           scr_int *offset)
+{
+  /* In therest() order; '?' marks an arm that needs an empty message. */
+  static const scr_char *const ARMS_380[] = {
+    "open", "close", "eat", "drink", "give", "ask", "talk to", "?talk",
+    "say", "look", "clean", "run", "stop", "read", "wash", "cut", "hit",
+    "kill", "move", "lift", "light", "suck", "feel", "turn", "go", "enter",
+    "smell", "push", "pull", "press", "shake", "clear", "clean", "kick",
+    "punch", "fight", "jump", "feed", "unblock", "?block", "unlock",
+    "?lock", "climb", "listen", "shout", "sing", "hum", "dance", "whistle",
+    "cry", "wait", "buy", "sell", "break", "destroy", "smash", "kiss", "fly",
+    "feed", "feel", "please", "fix", "repair", "mend", "date", "time",
+    "sleep", "sit on", "sit in", "stand on", "stand in", "lie on", "lie in",
+    NULL
+  };
+  static const scr_char *const ARMS_390[] = {
+    "open", "close", "eat", "drink", "give", "ask", "talk to", "?talk",
+    "say", "look", "clean", "run", "stop", "read", "wash", "cut", "kill",
+    "move", "lift", "light", "suck", "feel", "touch", "turn", "go", "enter",
+    "smell", "push", "pull", "press", "shake", "kick", "hit", "clear",
+    "punch", "fight", "jump", "feed", "unblock", "block", "unlock", "lock",
+    "climb", "listen", "shout", "sing", "hum", "dance", "whistle", "cry",
+    "wait", "examine", "ex", "x", "buy", "sell", "break", "destroy", "smash",
+    "kiss", "fly", "feed", "feel", "please", "fix", "repair", "mend", "date",
+    "time", "sleep", "sit on", "sit in", "stand on", "stand in", "lie on",
+    "lie in", "xyzzy", NULL
+  };
+  const scr_char *const *arm;
+  const scr_char *winner = NULL;
+
+  for (arm = (version == TAF_VERSION_390) ? ARMS_390 : ARMS_380; *arm; arm++)
+    {
+      const scr_bool needs_empty = (*arm)[0] == '?';
+      const scr_char *const word = *arm + (needs_empty ? 1 : 0);
+      scr_int found;
+
+      /* run370 has no shake arm. */
+      if (version < TAF_VERSION_380 && strcmp (word, "shake") == 0)
+        continue;
+      if (needs_empty && winner)
+        continue;
+
+      found = run_c_word_pre400 (version, line, word);
+      if (found >= 0)
+        {
+          winner = word;
+          *offset = found;
+        }
+    }
+
+  return winner;
+}
+
+
+/*
+ * run_therest_pre400()
+ *
+ * When the winning arm's keyword does not open the line, answer the line as
+ * if it did: the keyword is moved to the front and the library runs again,
+ * so its "<verb> %object% *" row answers with the object therest() found
+ * (the fallback rows resolve by containment).  The look arm, and 3.9's
+ * examine arms, answer the flat "Nothing special." whatever object the line
+ * names.  Returns TRUE if the line was answered.
+ */
+static scr_bool
+run_therest_pre400 (scr_gameref_t game, const scr_char *string)
+{
+  static scr_bool is_active = FALSE;
+  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_char *winner;
+  scr_int offset = -1;
+  std::string moved;
+  scr_bool answered;
+
+  if (is_active || version >= TAF_VERSION_400
+      || game->pending_endgame != 0)
+    return FALSE;
+
+  winner = run_therest_winner_pre400 (version, string, &offset);
+  if (!winner || offset == 0)
+    return FALSE;
+
+  if (strcmp (winner, "look") == 0 || strcmp (winner, "examine") == 0
+      || strcmp (winner, "ex") == 0 || strcmp (winner, "x") == 0)
+    {
+      pf_buffer_string (gs_get_filter (game), "Nothing special.\n");
+      return TRUE;
+    }
+
+  moved = winner;
+  moved += ' ';
+  moved.append (string, offset);
+  moved += ' ';
+  moved.append (string + offset + strlen (winner));
+
+  /* Tidy the spaces the cut left behind. */
+  {
+    std::string tidy;
+    for (const scr_char c : moved)
+      if (c != ' ' || (!tidy.empty () && tidy.back () != ' '))
+        tidy += c;
+    while (!tidy.empty () && tidy.back () == ' ')
+      tidy.pop_back ();
+    moved = tidy;
+  }
+
+  is_active = TRUE;
+  answered = run_standard_verb_commands (game, moved.c_str ())
+             || run_standard_give_npc_commands (game, moved.c_str ())
+             || run_standard_fallback_commands (game, moved.c_str ());
+  is_active = FALSE;
+  return answered;
+}
+
+
 static scr_bool
 run_standard_commands (scr_gameref_t game, const scr_char *string)
 {
@@ -2146,6 +2319,9 @@ run_standard_commands (scr_gameref_t game, const scr_char *string)
     return TRUE;
 
   if (run_standard_give_npc_commands (game, string))
+    return TRUE;
+
+  if (run_therest_pre400 (game, string))
     return TRUE;
 
   if (run_standard_fallback_commands (game, string))
@@ -5092,6 +5268,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
         status = run_task_refusal (game, library_string, REFUSAL_PASS_MID);
       if (!status)
         status = run_standard_give_npc_commands (game, library_string);
+      if (!status)
+        status = run_therest_pre400 (game, library_string);
       if (!status)
         status = run_standard_fallback_commands (game, library_string);
       if (!status)

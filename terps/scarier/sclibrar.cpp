@@ -20864,39 +20864,20 @@ lib_cmd_examine_other (scr_gameref_t game)
  * `look.` (run390x Adrift_1190) -- 3.9's c() also ends a word at a period,
  * 3.8 answers `look.` with the game's DontUnderstand.
  *
- * c() is the Runner's, not uip_contains_words(): the FIRST case-insensitive
- * InStr hit that starts at position 1 or after a space decides, and it is
- * true only if the word ends there (end of line, a space, a comma, and at
- * 3.9 a period).  `lookout look` is false.  The row sits above the object
- * and character catch-alls, which the Runner reaches only on an empty
- * message; the therest() arms below it (clean, run, push, ...) overwrite it
- * in the Runner but are verb-first here, so a line like `look, push lamp` is
- * still not the Runner's.
+ * c() is the Runner's (run_c_word_pre400()), not uip_contains_words().
+ * The row sits above the object and character catch-alls, which the Runner
+ * reaches only on an empty message.  A line whose look is overwritten by a
+ * later arm (`look, push lamp`) never gets here: run_therest_pre400() has
+ * answered it with that arm.
  */
 scr_bool
 lib_cmd_look_anywhere_pre_400 (scr_gameref_t game)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *const input = run_get_dispatch_input ();
-  const scr_char *hit;
-  scr_char end;
 
-  if (version >= TAF_VERSION_400 || !input)
-    return FALSE;
-
-  for (hit = input; *hit != NUL; hit++)
-    {
-      if (scr_strncasecmp (hit, "look", 4) != 0)
-        continue;
-      if (hit == input || hit[-1] == ' ')
-        break;
-    }
-  if (*hit == NUL)
-    return FALSE;
-
-  end = hit[4];
-  if (!(end == NUL || end == ' ' || end == ','
-        || (end == '.' && version == TAF_VERSION_390)))
+  if (version >= TAF_VERSION_400 || !input
+      || run_c_word_pre400 (version, input, "look") < 0)
     return FALSE;
 
   return lib_print_message (game, "Nothing special.\n");

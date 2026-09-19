@@ -219,12 +219,16 @@ differences (alexis and alexis_worn_cube T99 `open chest`, everything T38
 silent-task deviation below, and since 2026-09-19 they differ by text only,
 not by a tick.
 
-### Engine, 3.7 / 3.8
+### Engine, every version
 
-- **therest()'s keyword-anywhere arms** after look (`c("clean")`,
-  `c("run")`, `c("push")`, ..., last writer wins). Scarier matches these
-  verb-first, so `look, push lamp` is not the Runner's answer. Unmeasured;
-  no golden types one.
+- **`go <place>` that names no exit** (every version): the Runners'
+  gotoplace answers " can't get there from here." or "Unknown place."
+  (run370 42BE15/42BE26, run380 432030/432041, run390 43CC0F/43CC20,
+  run400 464E3B/464E4C). Scarier keeps upstream SCARE's "I don't know how
+  to get there from here." plus the exits list (`lib_cmd_go_room`). The
+  p39ASK probe's `go stone` gives "Unknown place."; 3.8 answers that line
+  from therest's go arm instead ("Just a direction will do."). Unmeasured
+  beyond that one cell; which of the two strings applies when is unread.
 
 ### Harness and compare
 
@@ -497,6 +501,20 @@ next to the named function and in `annotations.tsv`.
     c()'s FIRST hit at a word start decides, so `look. look` at 3.8 stays
     DontUnderstand. The row sits above the object and character catch-alls.
     `[<4.0]` same probes (`lib_cmd_look_anywhere_pre_400`, 2026-09-19)
+  - The rest of therest()'s cascade works the same way: every
+    `If c("<verb>") Then msg = ...` arm tests the WHOLE line and the LAST
+    matching arm wins, so `push and pull stone`, `push stone pull` and
+    `drink push stone` answer as pull/pull/push, `sing and dance` dances,
+    `stone jump` jumps and `please push stone` is "Your kindness gets you
+    nowhere.". Arms that need an empty message (talk, block and lock at
+    3.7/3.8; only talk at 3.9) only win when no earlier arm has.
+    Handlers above therest (open, read, examine, take, ...) still answer
+    first: `open stone push` = "You can't open the stone!". Scarier moves
+    the winning keyword to the front of the line and dispatches the
+    library again. `[<4.0]` p38ASK/p39ASK, `cmdfile_pkw.txt` (run380x
+    Adrift_128_pkw38.rtf, run390x Adrift_130_pkw39.txt), 21/21 cells at
+    3.8 and 20/21 at 3.9 (`go stone`, above) (`run_therest_pre400`,
+    2026-09-19)
 - **Spent tasks:**
   - Pre-4.0 checktask writes a spent task's RepeatText to the buffer and
     keeps scanning: a later passing task still runs, and a later
