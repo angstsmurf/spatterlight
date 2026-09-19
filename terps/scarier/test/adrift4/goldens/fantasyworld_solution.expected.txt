@@ -2017,7 +2017,7 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.    The King is here and he is surrounded by his
 Royal guards.  You can't see what he is doing as he seems to be lounging
 about reading the book you acquired for him and fingering Melvin's medallion.
-   King Harmon is here.
+   Royal Knight and King Harmon are here.
 
 > ask harmon about book
 "You never cease to amaze me," the King says softly as his guards move to
@@ -2112,7 +2112,7 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.    The King is here and he is surrounded by his
 Royal guards.  You can't see what he is doing as he seems to be lounging
 about reading the book you acquired for him and fingering Melvin's medallion.
-   Also here is Demon gate.  Demon is here.
+   Also here is Demon gate.  Royal Knight and Demon are here.
 
 > n
 You move north.
@@ -2452,7 +2452,7 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.    The King is here and he is surrounded by his
 Royal guards.  You can't see what he is doing as he seems to be lounging
 about reading the book you acquired for him and fingering Melvin's medallion.
-   Also here is Demon gate.  Demon is here.
+   Also here is Demon gate.  Royal Knight and Demon are here.
 
 > throw ruby box into gate
 You take the ruby box which seems to be glowing brigthly with a strange light
@@ -2676,7 +2676,7 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.    The King is here and he is surrounded by his
 Royal guards.  You can't see what he is doing as he seems to be lounging
 about reading the book you acquired for him and fingering Melvin's medallion.
- Demon  from the north.
+   Royal Knight is here.  Demon  from the north.
 
 > w
 You move west.
@@ -2737,7 +2737,7 @@ in that ancient forest but stories say that if you lose your way, you can
 stumble about there forever.    The King is here and he is surrounded by his
 Royal guards.  You can't see what he is doing as he seems to be lounging
 about reading the book you acquired for him and fingering Melvin's medallion.
- Demon  from the west.
+   Royal Knight is here.  Demon  from the west.
 
 > n
 You move north.

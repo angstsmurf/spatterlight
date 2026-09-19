@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 374 identical on every turn, 31 identical apart from
-  whitespace, 22 with a compare report. Every differing row is classified
+- **Manifest:** 375 identical on every turn, 31 identical apart from
+  whitespace, 21 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -304,8 +304,6 @@ strike order, Haron's arrival one turn apart) are not a battle rule:
     open that.". This is the silent-task deviation (task 14 has no
     CompleteText), not refusal wording, and its extra tick causes all of
     alexis's later battle differences (2026-09-19 draw census).
-- **fantasyworld T224-296:** the Royal Knight follows the player in the
-  Runner. In Scarier he is not in the room.
 - **everything T38 `read diary`:** the run390 silent-task DontUnderstand
   (deliberate deviation); the ending at T39 is identical.
 
@@ -989,6 +987,15 @@ every Runner.
     The player dies from it only in 4.0 (48D810). The 3.9 player arm
     (456C20) has no test. `[3.9+]` cybercow_win T103 task 167
     (`battle_change_attribute`, 2026-09-19)
+
+- **Task move "to same room as" (Var2 = 2)** names its NPC by RAW array
+  index at 3.9, in the NPC arm (run390 execute_action 4567C9-4567EB) and the
+  player arm (456514-456531) alike: no player or referenced-character slots.
+  run400 keeps 0 = player, 1 = referenced, N = NPC N-2 (48CE62-48CED7).
+  3.7/3.8 movements never produce it. `[3.9]` fantasyworld task 92 sends the
+  Royal Knight to Var3 = 27, King Harmon (was the Barmaid); T224-296 now
+  identical. Corpus exposure at 3.90: fantasyworld's two, panic's one
+  (`task_same_room_npc_390`, 2026-09-19)
 
 ### Events and RNG
 

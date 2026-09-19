@@ -922,6 +922,27 @@ task_move_npc_to_room (scr_gameref_t game, scr_int npc, scr_int room)
 
 
 /*
+ * task_same_room_npc_390()
+ *
+ * The "to same room as" arm (Var2 = 2) at 3.90 names its NPC by raw array
+ * index: run390 execute_action copies MemVar_468028(Var3).room for the NPC
+ * arm (4567C9-4567EB) and the player arm (456514-456531) alike, with no
+ * player or referenced-character entries ahead of the NPCs.  run400 decodes
+ * the same field as 0 = player, 1 = referenced, N = NPC N-2 (48CE62-48CED7).
+ * 3.7/3.8 have no such action (their movements convert to player and object
+ * moves only).  fantasyworld task 92 moves the Royal Knight to Var3 = 27,
+ * King Harmon, whom the action before it has just sent to Base of Mountain;
+ * read as N-2 it named the Barmaid.  Returns the NPC, or -1 when Var3 names
+ * none (the Runner would raise a subscript error).
+ */
+static scr_int
+task_same_room_npc_390 (scr_gameref_t game, scr_int var3)
+{
+  return (var3 >= 0 && var3 < gs_npc_count (game)) ? var3 : -1;
+}
+
+
+/*
  * task_run_move_npc_action()
  *
  * Move player or NPC.
@@ -931,6 +952,8 @@ task_run_move_npc_action (scr_gameref_t game,
                           scr_int var1, scr_int var2, scr_int var3)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
+  const scr_bool is_v390 = prop_get_taf_version (gs_get_bundle (game))
+                           < TAF_VERSION_400;
   scr_int npc, room, ref_npc = -1;
 
   /* Player or NPC? */
@@ -962,17 +985,16 @@ task_run_move_npc_action (scr_gameref_t game,
           return;
 
         case 2:                /* To same room as... */
-          switch (var3)
-            {
-            case 0:            /* ...player! */
-              return;
-            case 1:            /* ...referenced NPC */
-              npc = var_get_ref_character (vars);
-              break;
-            default:           /* ...specified NPC */
-              npc = var3 - 2;
-              break;
-            }
+          if (is_v390)
+            npc = task_same_room_npc_390 (game, var3);
+          else if (var3 == 0)  /* ...player! */
+            return;
+          else if (var3 == 1)  /* ...referenced NPC */
+            npc = var_get_ref_character (vars);
+          else                 /* ...specified NPC */
+            npc = var3 - 2;
+          if (npc < 0)
+            return;
 
           if (task_trace)
             scr_trace ("Task: moving player to same room as NPC %ld\n", npc);
@@ -1069,6 +1091,22 @@ task_run_move_npc_action (scr_gameref_t game,
           return;
 
         case 2:                /* To same room as... */
+          if (is_v390)
+            {
+              ref_npc = task_same_room_npc_390 (game, var3);
+              if (ref_npc < 0)
+                return;
+              if (task_trace)
+                {
+                  scr_trace ("Task: moving NPC %ld to"
+                            " same room as NPC %ld (3.90 raw index)\n",
+                            npc, ref_npc);
+                }
+
+              room = gs_npc_location (game, ref_npc) - 1;
+              task_move_npc_to_room (game, npc, room);
+              return;
+            }
           switch (var3)
             {
             case 0:            /* ...player */

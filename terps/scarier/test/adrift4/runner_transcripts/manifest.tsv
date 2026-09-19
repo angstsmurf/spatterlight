@@ -117,7 +117,7 @@ escape_from_insanity	escape_from_insanity.txt	harvested-native-0-draws:Adrift_69
 escape_to_new_york	escape_to_new_york.txt	driven:Adrift_249_escape_to_new_york_rt.txt	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 everything	everything.txt	driven:Adrift_321_everything_rt.txt	3.90	run390x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 existence	existence.txt	driven:Adrift_380_existence_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-fantasyworld	fantasyworld.txt	driven:Adrift_224_fantasyworld_rt.txt	3.90	run390x.exe	1234	0	Corin		yes	5 differing turn(s)
+fantasyworld	fantasyworld.txt	driven:Adrift_224_fantasyworld_rt.txt	3.90	run390x.exe	1234	0	Corin		yes	identical on every turn.
 farfromhome	farfromhome.txt	driven:Adrift_326_farfromhome_rt.txt	3.90	run390x.exe	1234	1	Sam	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 finalquestion	finalquestion.txt	driven:Adrift_444_finalquestion_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 firstpug	firstpug.txt	driven:Adrift_436_firstpug_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.

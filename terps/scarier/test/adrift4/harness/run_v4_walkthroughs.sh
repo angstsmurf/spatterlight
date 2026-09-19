@@ -1858,6 +1858,11 @@ chooseyourown_solution.txt|chooseyourown.taf|"A hunch," you say. You link arms w
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
+# Re-blessed 2026-09-19: task 92's "move Royal Knight to same room as" names
+# its NPC by RAW index at 3.9 (run390 execute_action 4567C9-4567EB), so
+# Var3 = 27 is King Harmon, at Base of Mountain, not the Barmaid (4.0's N-2).
+# runner_transcripts/fantasyworld.txt (run390x seed 1234) was 5 turns apart
+# (T224-296, Knight missing) and is now identical on every turn.
 fantasyworld_solution.txt|fantasyworld.taf|You scored 0 out of the maximum 500!
 # Grumble's arrival is missing from 12 turns of these two goldens ON PURPOSE:
 # sa.taf carries 65 ALRs whose Original spans the two-space join and deletes
