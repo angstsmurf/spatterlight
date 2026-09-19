@@ -330,18 +330,21 @@ not by a tick.
   sweep (445A0F).
 - **Examine:** 3.7/3.8 examines have no bare-verb exit (unmeasured
   corners).
-- **Sit/stand/lie corners** (p37SIT..p4SIT covers the rest):
-  - Pre-3.9 `sit on the ground`: c("on") sends it to the object loop, so
-    by the code it is therest's; Scarier gives the bare-sit answer.
-  - 3.9+ `lie on floor` / `stand on floor`: sitstand has no ground arm for
-    them and writes nothing (run400 46BB03, run390 444807); what answers
-    next is unmeasured. Scarier gives the bare lie/stand answer.
-  - 3.9+ `get off X` answers "not standing on anything!" before it resolves
-    X, and a later co() match overwrites an earlier one (run390 4443E1).
-    Scarier resolves X first.
-  - A line matching two blocks (`sit ... lie ...`) runs both, the later
-    message winning.
-  - `x me` and the room block with a pre-3.9 stale parent (see the index).
+- **Sit/stand/lie: a line matching two blocks.** sitstand tests
+  c("sit"), c("stand") and c("lie") anywhere in the line, as independent
+  blocks, and the last message wins (run390 444010, run400 46B370). `sit
+  lie` is "You lie down on the ground." in every Runner, and a following
+  `stand` is "You stand up."; Scarier says "I don't understand." Before
+  4.0, `sit on stool and lie on chair` is "You lie down on a/the chair."
+  (4.0 splits the line, and Scarier matches it there); Scarier 3.7 sits on
+  the chair, 3.8/3.9 ask "what do you want to sit on?". Porting it means
+  letting sitstand claim any line with those words after the take, drop,
+  wear and battle handlers and before openclose (run390 45F50D), so check
+  the corpus for lines that contain them. p37SIT..p4SIT,
+  `cmdfile_p3738sit3.txt` turns 29-32.
+- **3.8 `lie on bed` from the next room** is "You can't lie on that." and
+  4.0's is "You can't see the bed."; both already match. The 3.8 object
+  loop's scope test is unread.
 - **Pre-4.0 room-name alt walk** is unmeasured.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
@@ -872,6 +875,25 @@ next to the named function and in `annotations.tsv`.
     (`lib_cmd_sit_scan_370`, `lib_sitstand_claims_370`).
   - 4.0 absent sit/lie targets are therest's "You can't see the X.", as
     stand already was (`lib_cmd_verb_absent_400` rows).
+  - `sit`, `lie` or `stand on the ground/floor` is "You can't sit/lie/
+    stand on that." when the line names on/in, except 3.9+ sit, which has
+    a ground arm (run400 46BB03, run390 444807). Feed
+    `cmdfile_p3738sit3.txt`: run370x Adrift_166, run380x Adrift_167,
+    run390x Adrift_168, run400x Adrift_169 (`lib_floor_named`).
+  - 3.9+ `get off X` answers "You are not standing on anything!" before it
+    looks at X (run400 46B702, run390 4443E1).
+  - Before 4.0, takes() runs first and excludes only `get on` and `get
+    down` (run390 4544C6), so `get off stool` is a take. 3.7/3.8 have no
+    get-off: "You pick up the stool.", "You can't take a chair.". In 3.9 a
+    take that happened stands (45F439 leaves generaltasks); otherwise
+    sitstand's answer replaces it.
+  - The 3.7/3.8 static take refusal names the raw Prefix: "You can't take
+    a chair." (run380 43E697, run370 4369FF).
+  - 3.7/3.8 `x me` with an empty PlayerDesc is one string (run370 435AED,
+    run380 43D43E). "circumstances." gets its full stop only before the
+    sitting or lying clause. Standing on an object is "...the circumstances
+    You are standing on a stool.", with two spaces and no full stop. The
+    object is named by its raw Prefix.
 - **A task's `%object%` substitutes the bare Short or Alias, and nothing
   else.** No Prefix, no article: `pa brass key` runs a `pa %object%` task
   over Short "brass key" / Prefix "a small", and `pa key`, `pa a brass

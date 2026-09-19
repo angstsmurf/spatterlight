@@ -4480,6 +4480,59 @@ lib_cmd_examine_self (scr_gameref_t game)
   description = prop_get_string (bundle, "S<-ss", vt_key);
   if (!scr_strempty (description))
     pf_buffer_string (filter, description);
+  else if (prop_get_taf_version (bundle) < TAF_VERSION_390)
+    {
+      /*
+       * 3.7/3.8 build the whole reply in one piece (run370 435AED-435BEA,
+       * run380 43D43E): the fallback's own full stop comes only with the
+       * sitting/lying clause, the standing-on clause follows with two spaces
+       * and no full stop before it, the object is named by its raw Prefix,
+       * and one "." closes the lot.  run370x p3738sit3 (2026-09-19): "...the
+       * circumstances.  You are sitting down on a stool." and "...the
+       * circumstances  You are standing on a stool.".
+       */
+      const scr_int parent = gs_playerparent (game);
+
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                       "You are as well as can be expected,"
+                                       " considering the circumstances",
+                                       "I am as well as can be expected,"
+                                       " considering the circumstances",
+                                       "%player% is as well as can be"
+                                       " expected, considering the"
+                                       " circumstances"));
+      if (gs_playerposition (game) == 1 || gs_playerposition (game) == 2)
+        {
+          pf_buffer_string (filter, ".  ");
+          pf_buffer_string (filter,
+                            gs_playerposition (game) == 1
+                            ? lib_select_response (game,
+                                                   "You are sitting down",
+                                                   "I am sitting down",
+                                                   "%player% is sitting down")
+                            : lib_select_response (game,
+                                                   "You are lying down",
+                                                   "I am lying down",
+                                                   "%player% is lying down"));
+        }
+      if (parent != -1)
+        {
+          if (gs_playerposition (game) == 0)
+            {
+              pf_buffer_string (filter, "  ");
+              pf_buffer_string (filter,
+                                lib_select_response (game,
+                                                     "You are standing",
+                                                     "I am standing",
+                                                     "%player% is standing"));
+            }
+          pf_buffer_string (filter, " on ");
+          lib_print_object_raw (game, parent);
+        }
+      pf_buffer_character (filter, '.');
+      goto worn;
+    }
   else
     {
       pf_buffer_string (filter,
@@ -4554,6 +4607,7 @@ lib_cmd_examine_self (scr_gameref_t game)
         pf_buffer_character (filter, '.');
     }
 
+worn:
   /* Find and list each object worn by the player. */
   for (object = 0; object < gs_object_count (game); object++)
     {
@@ -10153,7 +10207,13 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
                          ? '!' : '.',
                          "You can't take ",
                          "I can't take ",
-                         "%player% can't take ");
+                         "%player% can't take ",
+                         /* 3.7/3.8 name it by the raw Prefix: "You can't
+                            take a chair." (run380 43E697, run370 4369FF;
+                            run370x/run380x p3738sit3, 2026-09-19). */
+                         prop_get_taf_version (gs_get_bundle (game))
+                         >= TAF_VERSION_390
+                         ? lib_print_object_np : lib_print_object_raw);
 
   lib_take_single_named = FALSE;
   lib_take_from_single_named = FALSE;
@@ -13613,6 +13673,7 @@ lib_cmd_inventory (scr_gameref_t game)
   scr_bool wearing;
   lib_list_t list;
 
+worn:
   /* Find and list each object worn by the player. */
   for (object = 0; object < gs_object_count (game); object++)
     {
@@ -21318,9 +21379,30 @@ lib_cmd_get_on_object (scr_gameref_t game)
   return lib_stand_sit_lie (game, MOVE_GET_ON);
 }
 
+/*
+ * lib_floor_named()
+ *
+ * TRUE when a floor row's line says `on`/`in` the ground or floor.  Only the
+ * 3.9+ sit block has an arm for that (run400 46B39E, run390 444077); lie
+ * and stand, and every block before 3.9 (whose c("on") takes the object
+ * loop), find no object and write nothing, so the line falls to therest's
+ * "You can't sit on that." (p37SIT..p4SIT, cmdfile_p3738sit3.txt: run370x
+ * Adrift_166_p37sit3.rtf, run380x Adrift_167_p38sit3.rtf, run390x
+ * Adrift_168_p39sit3.txt, run400x Adrift_169_p4sit3.txt, 2026-09-19).
+ */
+static scr_bool
+lib_floor_named (void)
+{
+  const scr_char *line = run_get_dispatch_input ();
+
+  return line && (lib_co_contains (line, "on") || lib_co_contains (line, "in"));
+}
+
 scr_bool
 lib_cmd_stand_on_floor (scr_gameref_t game)
 {
+  if (lib_floor_named ())
+    return FALSE;
   return lib_stand_sit_lie (game, MOVE_STAND_FLOOR);
 }
 
@@ -21333,6 +21415,9 @@ lib_cmd_sit_on_object (scr_gameref_t game)
 scr_bool
 lib_cmd_sit_on_floor (scr_gameref_t game)
 {
+  if (lib_floor_named ()
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return FALSE;
   return lib_stand_sit_lie (game, MOVE_SIT_FLOOR);
 }
 
@@ -21345,6 +21430,8 @@ lib_cmd_lie_on_object (scr_gameref_t game)
 scr_bool
 lib_cmd_lie_on_floor (scr_gameref_t game)
 {
+  if (lib_floor_named ())
+    return FALSE;
   return lib_stand_sit_lie (game, MOVE_LIE_FLOOR);
 }
 
@@ -21422,6 +21509,58 @@ lib_cmd_get_off_object (scr_gameref_t game)
 {
   scr_int object;
   scr_bool is_ambiguous;
+
+  /*
+   * Before 4.0 the line reaches takes() first: its entry test excludes only
+   * c("get on") and c("get down") (run390 4544C6), and generaltasks leaves on
+   * a take that happened (45F439) before sitstand (45F50D) runs.  3.7/3.8
+   * have no get-off at all, so `get off stool` IS a take: "You pick up the
+   * stool.", "You can't take a chair.", "You've already got a stool!"
+   * (run370x/run380x p3738sit3, 2026-09-19).  In 3.9 a take that happened
+   * stands; any other take answer is overwritten by sitstand's below.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && (!lib_has_get_off (game) || gs_playerparent (game) == -1))
+    {
+      const scr_filterref_t filter = gs_get_filter (game);
+      const scr_char *line = run_get_dispatch_input ();
+      const scr_char *rest = line ? strstr (line, " off ") : NULL;
+      const size_t mark = pf_buffer_length (filter);
+      scr_int held_before, held_after;
+      scr_bool taken;
+
+      held_before = 0;
+      for (object = 0; object < gs_object_count (game); object++)
+        held_before += gs_object_position (game, object) == OBJ_HELD_PLAYER;
+      taken = FALSE;
+      if (rest)
+        {
+          var_set_ref_text (gs_get_vars (game), rest + 5);
+          taken = lib_cmd_take_multiple (game);
+        }
+      if (!lib_has_get_off (game))
+        return taken;
+      held_after = 0;
+      for (object = 0; object < gs_object_count (game); object++)
+        held_after += gs_object_position (game, object) == OBJ_HELD_PLAYER;
+      if (taken && held_after > held_before)
+        return TRUE;
+      pf_truncate (filter, mark);
+    }
+  else if (!lib_has_get_off (game))
+    return FALSE;
+
+  /*
+   * 3.9+ get-off asks about the parent before it looks at the name: `get
+   * off chair` standing on nothing is "You are not standing on anything!"
+   * (run400 46B702, run390 4443E1; run390x Adrift_168_p39sit3.txt, run400x
+   * Adrift_169_p4sit3.txt, 2026-09-19).
+   */
+  if (gs_playerparent (game) == -1)
+    return lib_print_response_message (game,
+                                "You are not standing on anything!\n",
+                                "I am not standing on anything!\n",
+                                "%player% is not standing on anything!\n");
 
   /* Get the referenced object; if none, consider complete. */
   object = lib_disambiguate_object (game, "get off", &is_ambiguous);
