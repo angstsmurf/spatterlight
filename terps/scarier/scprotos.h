@@ -775,6 +775,8 @@ extern scr_bool lib_cmd_open_absent (scr_gameref_t game);
 extern scr_bool lib_cmd_close_absent (scr_gameref_t game);
 extern scr_bool lib_cmd_close_other (scr_gameref_t game);
 extern scr_bool lib_cmd_lock_other (scr_gameref_t game);
+extern scr_bool lib_cmd_lock_object_pre_400 (scr_gameref_t game);
+extern scr_bool lib_cmd_unlock_object_pre_400 (scr_gameref_t game);
 extern scr_bool lib_cmd_lock_what (scr_gameref_t game);
 extern scr_bool lib_cmd_unlock_other (scr_gameref_t game);
 extern scr_bool lib_cmd_unlock_what (scr_gameref_t game);

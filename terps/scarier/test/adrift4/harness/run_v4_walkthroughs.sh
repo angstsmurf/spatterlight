@@ -1464,6 +1464,12 @@ thetest_solution.txt|thetest.taf|Your score is 5 out of a maximum of 25.|SCR_SKI
 # the fixed seed; see thetest_walkthrough.md for the mechanism.  Re-derived
 # 2026-08-31 (191 commands): the exact-tick walk-move gate shifted the Robot
 # Guard's storms-in/out schedule, so every shout was re-timed; still 20/25.
+# Re-blessed 2026-09-19: no Runner before 4.0 has a lock handler -- run370/380/390's
+# only lock wording is therest's checkverb " can't unlock " (run390 45E468), which
+# sits below the out-of-room task refusal (loc_45FFE8).  So `unlock door` in the
+# Room of Eternal Dialing, with task 14 `unlock door` confined to room 0, is "You
+# can't do that here!" (runner_transcripts/thetest_win.txt T68-77), not the old
+# "You can't unlock the door.".  Still 20/25; identical to the Runner on every turn.
 thetest_win_solution.txt|thetest.taf|Well done!  You won!|SCR_SKIP_WAITKEY=1 SCR_SEED=8
 # Measured 2026-08-29: run400 replay, 12 commands echoed and all 12 identical
 # before a real-time <wait> pause ate the next one; a cmdfile with #sleep lines

@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 370 identical on every turn, 31 identical apart from
-  whitespace, 26 with a compare report. Every differing row is classified
+- **Manifest:** 372 identical on every turn, 31 identical apart from
+  whitespace, 24 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -300,8 +300,6 @@ strike order, Haron's arrival one turn apart) are not a battle rule:
 ### Engine, 3.9
 
 - **Refusal wording:**
-  - thetest_win T68-77 `unlock door`: "You can't do that here!" against
-    "You can't unlock the door.".
   - alexis T99 `open chest`: "Command not understood" against "You can't
     open that.". This is the silent-task deviation (task 14 has no
     CompleteText), not refusal wording, and its extra tick causes all of
@@ -692,6 +690,11 @@ every Runner.
 - **The room refusal** runs inside the library, ahead of therest. `[3.9]`
   (9fbb40881) Before 3.9, drop, put and give refuse ahead of it. `[<3.9]`
   cave, greatc (f83e1cf87)
+- **No lock handler before 4.0.** run370/380/390 carry no lock wording but
+  therest's checkverb " can't lock " / " can't unlock " (run390 45E468);
+  " is not locked!" and the key messages are run400's alone. So every
+  pre-4.0 lock/unlock line is therest's and loses to the room refusal.
+  `[<4.0]` thetest_win T68-77 (fe64ab0f3)
 - **run380's post-take-from task sweep.** tra `get meat` also runs `get
   *knives*`. `[3.8]` (4f79695e4)
 - **The player-name prompt** splits by version (see Workflow step 2).

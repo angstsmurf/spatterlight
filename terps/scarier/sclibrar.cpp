@@ -13746,6 +13746,22 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
   scr_int object, key = -1;
   scr_bool is_ambiguous;
 
+  /*
+   * No Runner before 4.0 has a lock handler.  run370, run380 and run390 carry
+   * no lock wording beyond therest()'s checkverb pair " can't lock " /
+   * " can't unlock " (run390 45E468/45E4AD); " is not locked!", " is already
+   * locked!", " as it is open." and " don't have anything to unlock " are
+   * run400's alone (index/pool.py -s ock).  So below 4.0 every lock and
+   * unlock line is therest's, which run390 reaches only after the
+   * out-of-room task refusal at loc_45FFE8: thetest (3.90) `unlock door` in
+   * the Room of Eternal Dialing, with task 14 `unlock door` confined to room
+   * 0, is "You can't do that here!" (runner_transcripts/thetest_win.txt
+   * T68-77), not "You can't unlock the door.".  Decline, and let the
+   * fallback rows below the refusal answer -- lib_cmd_lock_object_pre_400().
+   */
+  if (!lib_is_version_400 (game))
+    return FALSE;
+
   if (lib_lock_absent_400 (game, verb))
     return TRUE;
 
@@ -21855,6 +21871,31 @@ lib_cmd_unlock_other (scr_gameref_t game)
   if (lib_is_version_400 (game) && lib_verb_object_resolve_400 (game) >= 0)
     return FALSE;
   return lib_cant_do_other (game, "unlock");
+}
+
+/*
+ * lib_cmd_lock_object_pre_400()
+ * lib_cmd_unlock_object_pre_400()
+ *
+ * Pre-4.0 therest's lock and unlock arms: " can't unlock " & <the object, or
+ * "that"> & <the " with " suffix> & ".", with no test of the object's
+ * openness or key (see lib_lock_backend(), which declines below 4.0).  They
+ * sit in STANDARD_FALLBACK_COMMANDS, below the room refusal.
+ */
+scr_bool
+lib_cmd_lock_object_pre_400 (scr_gameref_t game)
+{
+  if (lib_is_version_400 (game))
+    return FALSE;
+  return lib_cant_do_object (game, "lock");
+}
+
+scr_bool
+lib_cmd_unlock_object_pre_400 (scr_gameref_t game)
+{
+  if (lib_is_version_400 (game))
+    return FALSE;
+  return lib_cant_do_object (game, "unlock");
 }
 
 scr_bool

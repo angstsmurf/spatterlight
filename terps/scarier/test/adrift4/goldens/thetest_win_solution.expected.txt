@@ -315,46 +315,46 @@ is another door to the east.  It's locked.
 You can only move west.
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 
 > unlock door
-You can't unlock the door.  Robot Guard storms in from the east.
+You can't do that here!  Robot Guard storms in from the east.
 A robot guard hits you with the robot's chain.
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 A robot guard hits you with the robot's chain.
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 A robot guard hits you with the robot's chain.
 
 > unlock door
-You can't unlock the door.  Robot Guard stamps out to the east.
+You can't do that here!  Robot Guard stamps out to the east.
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 
 > unlock door
-You can't unlock the door.
+You can't do that here!
 
 > dial 987
 You: Who's there?
