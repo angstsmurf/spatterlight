@@ -507,11 +507,29 @@ obj_get_weight (scr_gameref_t game, scr_int object)
  * really object-related except that they deal with sizing multiples.
  */
 static scr_int
-obj_convert_player_limit (scr_int value, scr_int multiple)
+obj_convert_player_limit (scr_gameref_t game, scr_int value,
+                          scr_int multiple)
 {
-  /* 'Tens' of value multiplied by the scale factor to the power 'units'. */
-  return (value / OBJ_DIMENSION_DIVISOR)
-         * obj_scale (multiple, value % OBJ_DIMENSION_DIVISOR);
+  scr_int count;
+
+  /*
+   * 'Tens' of value multiplied by the scale factor to the power 'units'.
+   * Both Runners' loaders (run390 464B14-464C39, run400 48F980-48FAA5) take
+   * Val(Left(Format(value, "000"), 2)) * multiple ^ Val(Right(..., 1)), so a
+   * value of 1000 or more keeps only its first two digits as the count; the
+   * units digit is still the last one.  No corpus game stores one (the
+   * largest is 994); unlike Capacity's 3.9 first-digit decode, nothing below
+   * 1000 differs.  3.8's pair is synthesised from MaxCarried by the V380
+   * fixup, so it keeps the plain decode.
+   */
+  count = value / OBJ_DIMENSION_DIVISOR;
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    {
+      while (count >= 100)
+        count /= OBJ_DIMENSION_DIVISOR;
+    }
+
+  return count * obj_scale (multiple, value % OBJ_DIMENSION_DIVISOR);
 }
 
 scr_int
@@ -522,7 +540,8 @@ obj_get_player_size_limit (scr_gameref_t game)
 
   max_size = prop_get_global_integer (bundle, "MaxSize");
 
-  return obj_convert_player_limit (max_size, obj_get_size_multiple (game));
+  return obj_convert_player_limit (game, max_size,
+                                   obj_get_size_multiple (game));
 }
 
 scr_int
@@ -533,7 +552,8 @@ obj_get_player_weight_limit (scr_gameref_t game)
 
   max_weight = prop_get_global_integer (bundle, "MaxWt");
 
-  return obj_convert_player_limit (max_weight, obj_get_weight_multiple (game));
+  return obj_convert_player_limit (game, max_weight,
+                                   obj_get_weight_multiple (game));
 }
 
 

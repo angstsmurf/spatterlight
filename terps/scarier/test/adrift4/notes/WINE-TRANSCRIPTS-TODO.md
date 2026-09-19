@@ -315,13 +315,9 @@ not by a tick.
   from what?`; surface-vs-container wording of the parent-derivation arm.
 - **Put:** a locked container; a named static; an object on a floor
   supporter; `put all in <nothing>`; the `drop X in/on junk` spelling of the
-  "that!" refusal (only `put` is ported). insides() finds the preposition
-  with InStr(line, "in"), which hits the "in" inside "coin": `put coin and
-  stone in junk` targets the stone ("You can't put anything inside the
-  stone.", pPUTREF39 Adrift_pputref39.txt:8). Unported; Scarier says
-  "...inside that!".
-- **Player MaxSize/MaxWt at 3.9** may share the Capacity first-digit decode
-  (a value of 100 or more). Unread.
+  "that!" refusal (only `put` is ported); the " is full." arm at 461E9D,
+  which never spoke on pPUTREF39E even with the bag exactly full; the onto
+  and-arm with a supporter over capacity (its count takes every candidate).
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
 - **Examine:** run390's examine state line has not been read.
@@ -920,6 +916,27 @@ next to the named function and in `annotations.tsv`.
     one size-1 object, not ten (run390 46537C). run400 takes Left(s, Len(s)
     - 1). `[3.9]` Adrift_pputrefv4.txt (`obj_get_container_capacity`,
     2026-09-19)
+  - The target is chosen after InStr(line, Left(var_E0, 2)), a raw
+    substring search, so the "in" inside "coin" or the "on" inside "stone"
+    counts as the preposition. `put coin and stone in junk` targets the
+    stone: "You can't put anything inside the stone." A valid target gets the
+    other named objects put into it: `put stone and tray on junk` gives "You
+    put the stone onto the tray." `[3.9]` Adrift_pputref39.txt:8,
+    Adrift_pputref393.txt (`lib_put_target_390`, 2026-09-19)
+  - The all/and put counts before it moves. It walks the named objects in
+    index order and counts each one whose size fits in the space left after
+    the ones before it. It then moves the FIRST that many, whatever their
+    sizes. If any are left over it adds "  You can't put any more inside
+    the bag as it is full." A count of 0 gives "Nothing will fit inside
+    the bag." and names no object. A single object keeps "can't fit ... at
+    the moment". `[3.9]` Adrift_pputref394/395/396.txt, the last on
+    pPUTREF39E (`make_39_putrefprobe.py --emptybag`) (`lib_put_in_backend`,
+    2026-09-19)
+  - Player MaxSize/MaxWt use Val(Left(Format(v, "000"), 2)) × mult ^
+    Val(Right(v, 1)) in both the run390 and run400 loaders (464B14,
+    48F980). This matches the plain decode below 1000 (the largest in the
+    corpus is 994), so it is not a divergence in practice.
+    (`obj_convert_player_limit`, 2026-09-19)
 - **A 3.8 in/on object with an unset parent** goes in the first container.
   (5cf3d7059)
 - **The take-from handler's own answers.** The 3.9 insides() decision

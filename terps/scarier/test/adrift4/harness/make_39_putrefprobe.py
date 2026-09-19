@@ -41,10 +41,19 @@ and the LOUD pass's FailMessage replaces it (Adrift_pputrefv4.txt; see
 make_39_putclmprobe.py for puts that fit).  The scale factors are 3, as the
 editor writes them.
 
-Feeds: cmdfile_pputref.txt (Adrift_pputref39.txt) and cmdfile_pputref2.txt
-in ~/adrift-battle/runner/wine/.
+Feeds (in ~/adrift-battle/runner/wine/):
+- cmdfile_pputref.txt (Adrift_pputref39.txt);
+- cmdfile_pputref2.txt (Adrift_pputref392.txt);
+- cmdfile_pputref3.txt (Adrift_pputref393.txt), the mid-word targets: a
+  valid tray/bag target gets the other object put into it;
+- cmdfile_pputref4.txt / 5 (Adrift_pputref394/395.txt): and/all puts into
+  the full bag, "Nothing will fit inside the bag.";
+- cmdfile_pputref6.txt (Adrift_pputref396.txt), on the --emptybag build
+  (pPUTREF39E.taf): a partial fit, "You put the stone and the lamp inside
+  the bag.  You can't put any more inside the bag as it is full."
 
-Usage: python3 make_39_putrefprobe.py [out.taf]
+Usage: python3 make_39_putrefprobe.py [--emptybag] [out.taf]
+
 """
 import sys
 
@@ -90,9 +99,13 @@ obj("lamp", 1)                                          # 2
 obj("box", 1, container=1, capacity=100, openable=5)    # 3, container 1
 obj("tray", 1, surface=1, capacity=100)                 # 4
 obj("pebble", 1)                                        # 5
-obj("bag", 1, container=1, capacity=100, openable=6)    # 6, container 2
-obj("gem", 2, parent=1)                                 # 7, in the bag
-obj("ring", 2, parent=1)                                # 8, in the bag
+# EMPTYBAG=1 (pPUTREF39E.taf): the bag empty with room for two size-1
+# objects, gem and ring carried, for the and-put's partial fit.
+EMPTYBAG = "--emptybag" in sys.argv
+obj("bag", 1, container=1, capacity=200 if EMPTYBAG else 100,
+    openable=6)                                         # 6, container 2
+obj("gem", 1 if EMPTYBAG else 2, parent=0 if EMPTYBAG else 1)  # 7
+obj("ring", 1 if EMPTYBAG else 2, parent=0 if EMPTYBAG else 1) # 8
 
 # TASKS
 NEVER = [(3 + 5, 4, 1, None)]           # pebble inside box
@@ -142,7 +155,8 @@ def draw():
 for _ in range(14): draw()
 obf = bytes(b ^ draw() for b in body)
 
-out = sys.argv[1] if len(sys.argv) > 1 else "pPUTREF39.taf"
+args = [a for a in sys.argv[1:] if a != "--emptybag"]
+out = args[0] if args else "pPUTREF39.taf"
 open(out, "wb").write(SIG + obf)
 open(out + ".plain", "wb").write(body)
 print("wrote %s (%d bytes)" % (out, 14 + len(obf)))

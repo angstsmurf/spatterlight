@@ -15427,6 +15427,13 @@ lib_put_in_closed_400 (scr_gameref_t game, scr_int container,
 
 
 /*
+ * Set while lib_put_that_390() hands a mid-word target to the named-put
+ * pipeline: the objects come from co() alone, and the put is 3.9's and-arm
+ * however many there are.
+ */
+static scr_bool lib_put_mid_word_390 = FALSE;
+
+/*
  * lib_put_in_backend()
  *
  * Common backend handler for placing objects in containers.  Places all
@@ -15445,9 +15452,15 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
   scr_int length_before, length_after_tasks;
   scr_bool closed_refusal_only;
   scr_bool has_printed, is_refusal_only, task_claimed;
-  scr_bool static_refused, recursion_rejected, has_moved;
+  scr_bool static_refused, recursion_rejected, has_moved, nothing_fits_390;
+  scr_int entry_count;
   lib_put_outcome_t outcome;
   lib_list_t list, pending;
+
+  /* How many objects the line named, for 3.9's all/and arm below. */
+  entry_count = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    entry_count += game->object_references[object] ? 1 : 0;
 
   /*
    * Try game commands for all referenced objects first.  If any succeed,
@@ -15621,6 +15634,83 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
   capacity = obj_get_container_capacity (game, container);
   free_space = obj_get_container_free_space (game, container);
 
+  /*
+   * Version 3.9's all/and arm counts before it moves anything: insides()
+   * (461AF8-461BDB) walks the objects in index order, counting each whose
+   * Size fits in what is left once the ones counted before it are charged,
+   * and then (461EE8-46239B) moves the FIRST that many of them, whatever
+   * their sizes, capping the list with "  You can't put any more inside
+   * the bag as it is full." at the first one left over and saying nothing
+   * of the rest.  A count of nil is "Nothing will fit inside the bag."
+   * (461E0B), with no object named.  pPUTREF39.taf / pPUTREF39E.taf
+   * (--emptybag), run390x, 2026-09-19: `put stone and pebble in bag` with
+   * the bag full is "Nothing will fit inside the bag.", as is `put all in
+   * bag` (Adrift_pputref394.txt:5/11); with room for two, `put stone and
+   * pebble and lamp in bag` is "You put the stone and the lamp inside the
+   * bag.  You can't put any more inside the bag as it is full." (Adrift_
+   * pputref396.txt:5).  A single object keeps the size/capacity pair
+   * below.  The " is full." arm at 461E9D never spoke on these probes,
+   * the bag exactly full included, so it is not modelled.
+   */
+  nothing_fits_390 = FALSE;
+  if (lib_is_version_390 (game)
+      && (is_all_form || entry_count > 1 || lib_put_mid_word_390))
+    {
+      scr_int fits, spent, left_over, remaining;
+
+      fits = spent = remaining = 0;
+      free_space = obj_get_container_free_space (game, container);
+      for (object = 0; object < object_count; object++)
+        {
+          remaining += game->object_references[object] ? 1 : 0;
+          if (game->object_references[object]
+              && obj_get_size (game, object) <= free_space - spent)
+            {
+              spent += obj_get_size (game, object);
+              fits++;
+            }
+        }
+
+      /* Nothing fits: leave the references for the refusal below. */
+      nothing_fits_390 = fits == 0 && remaining > 0;
+
+      list.clear ();
+      left_over = 0;
+      for (object = 0; fits > 0 && object < object_count; object++)
+        {
+          if (!game->object_references[object])
+            continue;
+
+          game->object_references[object] = FALSE;
+          if (static_cast<scr_int> (list.size ()) < fits)
+            {
+              list.push_back (object);
+              gs_object_move_into (game, object, container);
+            }
+          else
+            left_over++;
+        }
+
+      if (!list.empty ())
+        {
+          lib_print_clause (game, has_printed,
+                            "You put ", "I put ", "%player% put ");
+          lib_print_list (game, list, lib_put_print_object_or_that, " and ");
+          lib_print_wrapped_object (game, " inside ", container, ".");
+          if (left_over > 0)
+            {
+              pf_buffer_string (filter, "  ");
+              lib_print_response_object (game,
+                                         "You can't put any more inside ",
+                                         "I can't put any more inside ",
+                                         "%player% can't put any more inside ",
+                                         container, " as it is full.");
+            }
+          has_printed = TRUE;
+          has_moved = TRUE;
+        }
+    }
+
   /* Put in every object that remains referenced. */
   list.clear ();
   for (object = 0; object < object_count; object++)
@@ -15712,6 +15802,17 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
    * refusal that spoke first counts the same way.
    */
   is_refusal_only = !has_printed || closed_refusal_only;
+
+  /* 3.9's all/and arm with nothing fitting names no object; see above. */
+  if (nothing_fits_390)
+    {
+      for (object = 0; object < object_count; object++)
+        game->object_references[object] = FALSE;
+      lib_new_clause (game, has_printed);
+      lib_print_wrapped_object (game, "Nothing will fit inside ",
+                                container, ".");
+      has_printed = TRUE;
+    }
 
   /*
    * Report objects not put in because of their size.  These objects remain in
@@ -16874,9 +16975,10 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
   references = 0;
 
   /* Name the object over everything present, out of reach or not. */
-  has_object = lib_parse_multiple_objects (game, "move",
-                                           lib_put_in_present_filter,
-                                           -1, &references);
+  has_object = !lib_put_mid_word_390
+               && lib_parse_multiple_objects (game, "move",
+                                              lib_put_in_present_filter,
+                                              -1, &references);
   if (!has_object && !is_pre_390
       && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
       && lib_put_co_resolve_390 (game, container, &references))
@@ -17589,10 +17691,11 @@ lib_put_co_reachable (scr_gameref_t game, scr_int object)
 }
 
 /* insides()' "further right" test: either name of I past either name of
- * the choice, the choice's name found. */
+ * the choice, the choice's name found.  3.9 also wants I's name past PAST,
+ * the preposition's position; 3.7/3.8 pass 0. */
 static scr_bool
 lib_put_co_further_right (scr_gameref_t game, const scr_char *line,
-                          scr_int object, scr_int chosen)
+                          scr_int object, scr_int chosen, scr_int past)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *names[2], *chosen_names[2];
@@ -17613,7 +17716,9 @@ lib_put_co_further_right (scr_gameref_t game, const scr_char *line,
         continue;
       for (name = 0; name < 2; name++)
         {
-          if (lib_put_co_position (line, names[name]) > chosen_at)
+          const scr_int at = lib_put_co_position (line, names[name]);
+
+          if (at > chosen_at && at > past)
             return TRUE;
         }
     }
@@ -17645,7 +17750,7 @@ lib_put_co_refusal_pre390 (scr_gameref_t game)
           chosen = object;
           pinned = lib_put_co_reachable (game, object);
         }
-      else if (lib_put_co_further_right (game, line, object, chosen))
+      else if (lib_put_co_further_right (game, line, object, chosen, 0))
         chosen = object;
     }
   if (matches < 2)
@@ -17754,12 +17859,64 @@ lib_cmd_put_on_nowhere (scr_gameref_t game)
  * fails, answer "You can't put anything inside that!" / "onto that!"
  * (Adrift_pputref392.txt:8/12), where Scarier printed the FailMessage.
  *
+ * The target is insides()' own choice (461000-461641), 3.8's loop (see
+ * lib_put_co_refusal_pre390()) with one more test: an object's Short or
+ * alias must first appear in the line after InStr(line, Left(var_E0, 2)),
+ * where var_E0 is "onto" when the line holds the whole word on or onto and
+ * "inside" otherwise.  That InStr is a raw substring search, so the "in"
+ * inside "coin" or the "on" inside "stone" counts as the preposition:
+ * `put coin and stone in junk` chooses the stone and answers "You can't put
+ * anything inside the stone." (pPUTREF39 T4, Adrift_pputref39.txt:8), which
+ * is the wrong-kind refusal of lib_put_in_is_valid().  A choice that is a
+ * valid open container or surface would put the other object into it; that
+ * arm is unmeasured and declines.  (The Runner tests the chooser's own name
+ * against the preposition with an un-LCased Short, so a capitalised Short
+ * may never displace a pinned choice; also unmeasured, not modelled.)
+ *
  * These rows sit in the priority table so as to answer ahead of the tasks;
  * anything that is not this case declines to the rows below and to the
- * put-nowhere catch-alls, and 3.7, 3.8 and 4.0 never get here at all.  The
- * preposition is found as a whole word here; the Runner's own InStr(line,
- * "in") also hits the "in" inside "coin", which is not ported.
+ * put-nowhere catch-alls, and 3.7, 3.8 and 4.0 never get here at all.  A
+ * line whose whole-word preposition is followed by an object name is left to
+ * the ordinary rows.
  */
+static scr_bool lib_put_on_is_valid (scr_gameref_t game, scr_int supporter);
+
+static scr_int
+lib_put_target_390 (scr_gameref_t game, const scr_char *line)
+{
+  const scr_bool on = lib_co_contains (line, "on")
+                      || lib_co_contains (line, "onto");
+  const scr_int past = lib_put_co_position (line, on ? "on" : "in");
+  scr_int object, chosen;
+  scr_bool pinned;
+
+  chosen = -1;
+  pinned = FALSE;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (!lib_put_co_named_term (game, line, object))
+        continue;
+
+      if (chosen == -1 || !pinned)
+        {
+          const scr_char *const shortname =
+              prop_get_indexed_string (gs_get_bundle (game),
+                                       "Objects", object, "Short");
+
+          if (lib_put_co_position (line, shortname) > past
+              || lib_put_co_position (line, lib_put_co_alias (game, object))
+                 > past)
+            {
+              chosen = object;
+              pinned = lib_put_co_reachable (game, object);
+            }
+        }
+      else if (lib_put_co_further_right (game, line, object, chosen, past))
+        chosen = object;
+    }
+  return chosen;
+}
+
 static scr_bool
 lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
 {
@@ -17769,7 +17926,7 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
   const scr_char *const *words = typed_on ? on_words : in_words;
   std::string lower, tail;
   size_t cut;
-  scr_int object, named;
+  scr_int object, named, chosen;
 
   if (!lib_put_refusal_first_390 (game) || !line
       || lib_co_contains (line, "all"))
@@ -17804,6 +17961,29 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
     {
       if (lib_put_co_named_term (game, tail.c_str (), object))
         return FALSE;
+    }
+
+  /* A mid-word preposition can still leave the Runner a target. */
+  chosen = lib_put_target_390 (game, lower.c_str ());
+  if (chosen != -1)
+    {
+      const scr_bool on = lib_co_contains (line, "on")
+                          || lib_co_contains (line, "onto");
+
+      scr_bool status;
+
+      if (!(on ? lib_put_on_is_valid (game, chosen)
+               : lib_put_in_is_valid (game, chosen)))
+        {
+          lib_put_refusal_swept = FALSE;
+          return TRUE;
+        }
+
+      gs_clear_multiple_references (game);
+      lib_put_mid_word_390 = TRUE;
+      status = lib_put_named_pre400 (game, chosen, on);
+      lib_put_mid_word_390 = FALSE;
+      return status;
     }
 
   {
