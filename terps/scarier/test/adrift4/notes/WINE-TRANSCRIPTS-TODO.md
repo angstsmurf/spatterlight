@@ -263,10 +263,6 @@ not by a tick.
 
 ### Engine, needs a probe (4.0)
 
-- **Silent put confirmation for object #1.** run400 prints no `put`
-  confirmation when the moved object is dynamic object #1; run390 prints
-  one. The listing does not single out index 0 (name_object 46E23C/46E3FA,
-  insides 46639C); next is a live trace of var_A4/var_A6. No corpus row.
 - **name_object's own list loops (46E04E / 46E0B2)** are not rebuilt. Six
   cells, wording off the Runner.
 - **`put box in box`:** run400 announces the take and prints nothing;
@@ -392,8 +388,31 @@ not by a tick.
 - **ALR stack overflows.** House's `%drunk%` ALR loop and a mutual `A -> B`
   / `B -> A` pair overflow the stack in run400, which then prints nothing.
   Scarier's depth cap prints the intended line.
-- **run400 `put all on <supporter in the room>`** with two or more items
-  runs out of stack and moves only the first. Scarier completes the move.
+- **run400's carried-weight cycle on dynamic object #1** (found 2026-09-19,
+  closes the "silent put confirmation for object #1" lead). 447680, the
+  recursive "weight of an object and its contents" walk, sums every object
+  whose parent field (record +46) equals the object's index and never looks
+  at the position, and the parent field of an object that has never been
+  inside or on anything is still 0 = object #1. So the first put or drop of
+  object #1 into a container, or onto a supporter, that has never itself
+  been moved into anything makes a #1 <-> container cycle: move_object
+  4528D8 has already written both fields when it calls the walk (4527FD),
+  the walk dies of "Out of stack space", evaluate's handler (457298,
+  Proc_19_76_4467A0 "evaluate error") swallows it and the turn prints
+  nothing. The object IS inside, and every later weight walk that reaches
+  the pair dies the same way, so `take <object #1>`, `take <container>`
+  and `put all` are silent no-ops from then on. The old "`put all on
+  <supporter in the room>` moves only the first" bullet (surf3/surf6,
+  Adrift_995/1016) is this bug: `all` moves object #1 first, and the held
+  supporter was immune (Adrift_997) because taking it had written -1 into
+  its parent field. Measured on put7.taf: `put jar in box`, `take jar`,
+  then `put bean in jar` prints and the bean comes back out
+  (Adrift_put7_cycle); `put all in jar` moves only the bean
+  (Adrift_put7_all); the vbrng.dll stack sampler caught the 447600-44767A
+  frames (Adrift_put7_trace, `VBRNG_SAMPLE`). run390 has no recursive
+  weight walk (its only self-recursive procedure is the `then` splitter
+  42D820) and prints normally. Scarier prints the confirmation and moves
+  every item. No corpus row reaches it.
 - **Undo slots:** Scarier skips administrative lines, which the Runner
   records.
 - **`NPCWalkAlert`:** a synthesized task pair with no run400 counterpart.

@@ -2188,6 +2188,24 @@ CONFIGS = {
     # wording, so it is one handler.  Rule: run400 prints no confirmation for
     # a completed put/drop-into when the moved object is dynamic object #1.
     # Scarier prints all three; recorded, not ported.
+    #
+    # MECHANISM (2026-09-19, vbrng.dll stack sampler, run400x): the silence
+    # is a swallowed "evaluate error - Out of stack space".  447680, the
+    # recursive carried-weight walk, sums every object whose parent field
+    # (+46) equals the object's index without checking the position, and an
+    # object that has never been inside anything still has parent 0 = object
+    # #1.  move_object 4528D8 writes bean.parent = jar, then walks weight(bean)
+    # -> jar (parent 0) -> bean (parent jar) -> ... until the stack dies; the
+    # move stands, the message is lost, and every later weight walk over the
+    # pair (`take bean`, `take jar`, `put all`) dies the same way.  Proof:
+    # `put jar in box`, `take jar` (parent now -1), `put bean in jar` prints
+    # "Player put the bean inside the jar." and `take bean` works, while a
+    # following `put bean in cup` (cup never moved) is silent again
+    # (Adrift_put7_cycle.txt, cmdfile_put7_cycle.txt); `put all in jar` moves
+    # only the bean (Adrift_put7_all.txt).  The surf6 "put all on a room
+    # supporter moves only the first" deviation is the same bug.  run390 has
+    # no recursive weight walk and prints.  Deliberate deviation, see
+    # notes/WINE-TRANSCRIPTS-TODO.md.
 'PUT7': dict(name="Probe PUT7",
     player=(200,0,0,0,0,0,0,0,0,0),
     sizemult=3, weightmult=3, maxsize=902, maxwt=902,
