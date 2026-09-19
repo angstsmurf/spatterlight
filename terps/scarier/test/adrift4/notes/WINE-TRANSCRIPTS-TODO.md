@@ -8,22 +8,23 @@ golden and write the evidence into the game's row comment in
 3.80, 3.90, 4.00). Only the Runner binary and the capture flow change with
 the version.
 
-**Pruned 2026-09-14 and twice on 2026-09-19.** This file holds the workflow,
-the open leads, the deliberate deviations and a short index of every ported
-rule. The dated write-ups (probe tables, Runner addresses, corpus fallout per
-port) live in the row comments of `run_v4_walkthroughs.sh`, in the code
-comment next to each function the index names, in
-`~/Adrift_decompile/index/annotations.tsv`, and in git history:
+**Pruned 2026-09-14, twice on 2026-09-19 and again on 2026-09-20.** This
+file holds the workflow, the open leads, the deliberate deviations and a
+one-entry-per-rule index of everything ported. The evidence behind each
+index entry (probe feeds, `Adrift_<N>_<tag>` transcript names, Runner
+addresses, corpus fallout) lives in the row comments of
+`run_v4_walkthroughs.sh`, in the code comment next to the function the entry
+names, in `~/Adrift_decompile/index/annotations.tsv`, and in git history:
 
-    git show aee976374:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # before this prune; full 2026-09-19 entries
+    git show c182b2fa6:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # before the 09-20 prune; full 2026-09-19 entries with transcript names and addresses
+    git show aee976374:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # before the second 09-19 prune
     git show 55dd84ee1:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # with the 2026-09-14..19 triage write-ups
     git show 72fd5ea08:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md   # last full version before the 09-14 prune
     git show 45e20596:terps/scarier/test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md    # before the 2026-09-06 compaction
 
 Row comments and probe generators cite sections by title ("Ported
 2026-09-10: the take-from handler's own answers" and so on). Grep the
-`72fd5ea08` version for the title. The commit hashes and function names in
-the index lead to the code.
+`72fd5ea08` version for the title; grep `c182b2fa6` for a transcript name.
 
 ---
 
@@ -45,13 +46,12 @@ the index lead to the code.
 - **Which transcript to cite.** For a wired row, cite
   `runner_transcripts/<tag>.txt` (`.rtf` for 3.7/3.8), never the
   `Adrift_<N>_<tag>` file a drive left in the prefix. The manifest's `source`
-  column records which archive file each copy came from, and a winning
-  re-drive replaces the copy through `collect`. Only runs with no row keep
-  their archive names: probes and one-off variants such as House_sober.
-- **Older archives** under `~/adrift-battle/runner/wine/`
-  (`transcripts_v4_corpus_2026-09-08/`, `transcripts_v4_xoshiro_2026-09-12/`)
-  hold no engine lead. `pfx/drive_c/adrift/` is the live archive where every
-  drive lands: never `rm` a glob there.
+  column records which archive file each copy came from. Only runs with no
+  row keep their archive names: probes and one-off variants such as
+  House_sober.
+- **Older archives** under `~/adrift-battle/runner/wine/` hold no engine
+  lead. `pfx/drive_c/adrift/` is the live archive where every drive lands:
+  never `rm` a glob there.
 
 ---
 
@@ -79,16 +79,14 @@ the index lead to the code.
 - **`harness/make_wine_cmdfile.py`** builds the feed from the golden. It
   strips comments, reads the startup waitkeys that `SCR_MARK_WAITKEY=1`
   measured into `PRE`, and emits the `#sleep` and pause markers for every
-  span, including the span after the last command. Whitespace-only lines go
-  out as bare Returns.
+  span. Whitespace-only lines go out as bare Returns.
 - **Empty solution lines are commands**, not pauses. The Runner answers
   them "Huh?" or similar.
 - **A pause marker must be answered by a blank line, never a real command.**
   Without `SCR_SKIP_WAITKEY`, scare's `[Press any key]` reads a whole stdin
   line, so a golden can pass while a pause swallows a command. The Runner's
   pauses never eat a typed line: it runs as a turn, and a `look` there ticks
-  events and draws. light_up (ten lines) and mould (one) were repaired this
-  way on 2026-09-19; both goldens are byte-identical after it.
+  events and draws. light_up and mould were repaired this way on 2026-09-19.
 - **Name and gender prompts are not feed lines.** Pass them as
   `POPUP_ANSWERS="Hero|male"` on the drive and as `--popup` on the compare.
   run400 always asks; run390 only while PlayerName is blank; 3.7/3.8 never.
@@ -117,14 +115,13 @@ the index lead to the code.
   (par.sh names it `Adrift_<N>_<tag>.rtf`) that is missing the last command.
   A death or end-game modal wipes the scrollback. `£` comes out as `Â£`.
 - **`DUMP_SCROLLBACK=<file>`** saves the RichTextBox's own text
-  (`WM_GETTEXT`): the window itself, exactly, no screenshot or OCR. Use it
-  to prove a line break is a transcript artefact and to recover what an
-  `.rtf` could not hold. `dump_par.sh` drives a job file that way and
+  (`WM_GETTEXT`): the window itself, no screenshot or OCR. Use it to prove a
+  line break is a transcript artefact and to recover what an `.rtf` could
+  not hold. `dump_par.sh` drives a job file that way and
   `harness/graft_scrollback_tail.py` appends the difference to the archived
-  transcript. It closed all 19 3.7/3.8 rows on 2026-09-17; on 3.9/4.0 the
-  transcript is live, so end-of-feed losses there are the keypress wait
-  eating a command with no text behind it. See `runner_transcripts/README.md`,
-  "Grafted tails".
+  transcript. On 3.9/4.0 the transcript is live, so an end-of-feed loss
+  there is the keypress wait eating a command with no text behind it. See
+  `runner_transcripts/README.md`, "Grafted tails".
 - **Kill Wine with `pkill -9 -f wine; pkill -f wineserver`.** fast.sh and
   par.sh reap orphaned `winedevice.exe`. The prefix is shared mutable state:
   never drive it from two sessions at once.
@@ -162,13 +159,12 @@ the index lead to the code.
 1. **Capture artefact, name it and ignore it:** the Runner's `[Press any
    key to end]` tail where Scarier has none (only the "just stop" ending,
    which run400 leaves promptless; `task_print_end_keyprompt()` buffers the
-   prompt for every other ending); blank-line counts around an ending (whitespace collapses,
-   goldens run through `cat -s`); a startup echo ("I don't understand what
-   you mean." for a feed's leading blank lines, Glum_Fiddle); a `<centre>`
-   join; a `<waitkey>` line join or `<waitkey><cls>` butt-join; a wrap
-   inside an unbreakable token; `[MORE]` splits; `.rtf` mojibake; the
-   epilogue cut at the final keypress; rule-2 "lost" lines after an
-   identical ending.
+   prompt for every other ending); blank-line counts around an ending
+   (goldens run through `cat -s`); a startup echo for a feed's leading blank
+   lines (Glum_Fiddle); a `<centre>` join; a `<waitkey>` line join or
+   `<waitkey><cls>` butt-join; a wrap inside an unbreakable token; `[MORE]`
+   splits; `.rtf` mojibake; the epilogue cut at the final keypress; rule-2
+   "lost" lines after an identical ending.
 2. **Harness.** Suspect first: Verbose OFF; missing popup answers; a
    startup pause that offset the streams; `[Y/N]` answers Scarier asks and
    the Runner never does (`hint`, `quit`); a `#save` in the compare (the
@@ -199,10 +195,10 @@ the index lead to the code.
   cell otherwise.
 - **3.90 probes:** `harness/make_39_*probe.py` writes the schema directly.
   The generators only convert upward.
-- **3.70/3.80 probes:** `make_37_/make_38_darkprobe.py`,
-  `make_3738_examprobe.py`, `make_surfprobe.py`, hand-authored. A
-  hand-built .taf must parse to exact EOF in `harness/scare`. Every version
-  needs its own probe file (run400 says `Incorrect version`).
+- **3.70/3.80 probes:** `make_37_/make_38_*probe.py`, `make_3738_*probe.py`,
+  hand-authored. A hand-built .taf must parse to exact EOF in
+  `harness/scare`. Every version needs its own probe file (run400 says
+  `Incorrect version`).
 - **The .taf files stay untracked**; the generator is the artefact.
 - **Other oracles:** the corpus's ALR *Original* strings (an author only
   rewrites what the Runner printed); the exe string pools;
@@ -237,11 +233,10 @@ not by a tick.
 
 - Epilogue or pause text one turn late or cut at the final keypress:
   endgame T9, mortality T29/T32, iqsfot T41-42.
-- motion T257-258: the Runner's echo for T258 landed one room block early
-  (`l` shows the drive room twice, each block opening with `<cls>`); with
-  whitespace stripped both sides show the same frames in the same order.
-  The other reported turns are Scarier's 80-column wrap on long `O----`
-  rows.
+- motion T257-258: the Runner's echo for T258 landed one room block early;
+  with whitespace stripped both sides show the same frames in the same
+  order. The other reported turns are Scarier's 80-column wrap on long
+  `O----` rows.
 - mould (seed 1; the Runner wins 150/150): the `hint`/`y` deviation, plus
   T99-101, where a bare Return after `s` is a real empty turn and the next
   blank answers the pause; the compare splits the turn differently, same
@@ -258,8 +253,7 @@ not by a tick.
   on purpose to print the score).
 - Load failures from the 09-06/09-07 batches: six rows raised `evaluate
   error - Subscript out of range` mid-game; TheADRIFTProject crashed with
-  run-time error 401 at command 92. (The 3.90 games that "failed to load"
-  had been fed to run400; all load on run390x.)
+  run-time error 401 at command 92.
 
 ### Engine, needs a probe (4.0)
 
@@ -302,28 +296,18 @@ not by a tick.
   emulated, so 3.9 commands with a reference skip the check. Group
   patterns (`[`, `{`) skip it at every version.
 - **"Please be more clear, who do you want to <verb>?"** is a SCARE
-  invention (alexis_worn_cube t79). Both forms are closed below 4.0. The
-  object form: 3.9 examine answers "Nothing special." (ported); wear,
-  remove, drop, open, close, take, give, put, read, eat and the checkverb
-  arms all refuse through co(), and the end-of-turn prompt is the answer
-  (p39TASK cmdfile_p39clear.txt, Adrift_185_ppclear_39.txt, 2026-09-19).
-  The `who` form: pre-4.0 never asks (see "Namesake characters" in the
-  index). Still open: two present namesakes with the **Battle System on**
-  (dobattle, not characters()), which keeps SCARE's question below 4.0,
-  and 4.0 verbs where `lib_npc_400_raise_for_line` declines.
-- **Per-verb absent-NPC branches:** talk, give and take are measured and
-  ported (p39ABSNPC). The attack branch is ported. `kill`/`punch dave`
-  are measured and already matched (p39NPCAMB, Adrift_198_pnpckill39).
+  invention. Both forms are closed below 4.0 (see "Namesake characters"
+  and the pre-4.0 namesake handlers in the index). Still open: two present
+  namesakes with the **Battle System on** (dobattle, not characters()),
+  which keeps SCARE's question below 4.0, and 4.0 verbs where
+  `lib_npc_400_raise_for_line` declines.
 - **Take "and" with a candidate present:** the zero-candidate summary and
   the silent skip of a held object are ported. The rest of the main multi
   loop at 454CA3 after a partial pre-pass (worn objects, a named absent
   object beside a candidate) is unread.
 - **run390's battle "Who do you want to attack?" prefix** (44D1F4) is
   the same MemVar_4681D0 and takes the plain 4601A5 rerun, but no battle
-  game has been driven through it. The checkverb / handler "what?" carry
-  and the "Which X." answer splice are measured and ported (p39TASK
-  cmdfile_p39pfx.txt, Adrift_185_ppfx_39.txt, 2026-09-19); 460022 turned
-  out to be the Which-prompt answer splice, not a Who path.
+  game has been driven through it.
 - **Take-from:** the " and " clause picks the last container in 3.9 and the
   first in 4.0; 3.9's " and " collection bug; the pending slot after `Get X
   from what?`; surface-vs-container wording of the parent-derivation arm.
@@ -332,22 +316,23 @@ not by a tick.
   object.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
+- **The "With what?" prefix continuation** (45D3E0) is not modelled.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
-- **3.8 `lie on bed` from the next room** is "You can't lie on that." and
-  4.0's is "You can't see the bed."; both already match. The 3.8 object
-  loop's scope test is unread.
+- **The 3.8 object loop's scope test** is unread (`lie on bed` from the next
+  room already matches: "You can't lie on that.").
 - **Pre-4.0 room-name alt walk** is unmeasured.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
 - **Why `attack dave` is DontUnderstand at 3.7/3.8** (battle off) while
   `hit`/`kick dave` get "Dave avoids your feeble attempts." is unread:
-  run380's characters() arm at 440260 ORs c("attack") in with the others,
-  and "attack" is in no other string of either exe. Ported as measured
-  (`lib_attack_line_pre390`). `kill dave` = "Now that isn't very nice."
-  and `punch dave` = the Mike Tyson line in both, already matching
-  (Adrift_196/197_pnpckill37/38).
+  run380's characters() arm ORs c("attack") in with the others, and
+  "attack" is in no other string of either exe. Ported as measured
+  (`lib_attack_line_pre390`).
+- **A task command meeting a comma** at 3.7/3.8 is measured for the
+  literal-line cases only (see "A comma in a task command" in the index);
+  the library's comma-as-space rule is not known to reach checktask.
 
 ---
 
@@ -363,19 +348,11 @@ not by a tick.
   DontUnderstand is (`silent_task_390` in run_all_commands()), so only the
   text differs. That fixed every alexis battle difference after T99.
 - **run370 double matcher pass** (arlo `get out of bus`).
-- **3.7/3.8 `put all in <nothing>` / `put all on <nothing>` crash the
-  Runner.** run370x and run380x stop with "Run-time error '9': Subscript
-  out of range" and lose the transcript (p37PUT/p38PUT,
-  `cmdfile_p3738putallin.txt` / `cmdfile_p3738putallon.txt`, 2026-09-19).
-  `put everything in zzz` crashes both the same way (`cmdfile_p3739drop.txt`
-  cmd 5, par/p37drop.log). Scarier keeps its sane answer.
-- **run370 bare `eat` crashes the Runner** with the same "Run-time error
-  '9'" (`cmdfile_pbareverb.txt` on p37NPCAMB, par/pbareverb37.log,
-  2026-09-19). run380 answers DontUnderstand; Scarier's 3.7 answer is kept.
-- **run370 `eat <character>` crashes the Runner** with the same "Run-time
-  error '9'" (`eat guard`, `eat dave`: `cmdfile_pnpcamb.txt` on p37NPCAMB,
-  Adrift_191_pnpcamb37.rtf, 2026-09-19). run380 answers DontUnderstand, and
-  so does Scarier at 3.7.
+- **3.7/3.8 Runner crashes ("Run-time error '9': Subscript out of
+  range", transcript lost):** `put all in <nothing>`, `put all on
+  <nothing>` and `put everything in zzz` on run370x and run380x; bare `eat`
+  and `eat <character>` on run370 (run380 answers DontUnderstand). Scarier
+  keeps its sane answer in each case (p37PUT/p38PUT, p37NPCAMB, 2026-09-19).
 - **SCARE meta-commands** `wait N`, `hist N` and `redo N` exist in no
   Runner. Eleven more inventions are compiled out by
   `SCARIER_NO_ABBREVIATIONS`.
@@ -389,31 +366,23 @@ not by a tick.
 - **ALR stack overflows.** House's `%drunk%` ALR loop and a mutual `A -> B`
   / `B -> A` pair overflow the stack in run400, which then prints nothing.
   Scarier's depth cap prints the intended line.
-- **run400's carried-weight cycle on dynamic object #1** (found 2026-09-19,
-  closes the "silent put confirmation for object #1" lead). 447680, the
-  recursive "weight of an object and its contents" walk, sums every object
-  whose parent field (record +46) equals the object's index and never looks
-  at the position, and the parent field of an object that has never been
-  inside or on anything is still 0 = object #1. So the first put or drop of
-  object #1 into a container, or onto a supporter, that has never itself
-  been moved into anything makes a #1 <-> container cycle: move_object
-  4528D8 has already written both fields when it calls the walk (4527FD),
-  the walk dies of "Out of stack space", evaluate's handler (457298,
-  Proc_19_76_4467A0 "evaluate error") swallows it and the turn prints
-  nothing. The object IS inside, and every later weight walk that reaches
-  the pair dies the same way, so `take <object #1>`, `take <container>`
-  and `put all` are silent no-ops from then on. The old "`put all on
-  <supporter in the room>` moves only the first" bullet (surf3/surf6,
-  Adrift_995/1016) is this bug: `all` moves object #1 first, and the held
-  supporter was immune (Adrift_997) because taking it had written -1 into
-  its parent field. Measured on put7.taf: `put jar in box`, `take jar`,
-  then `put bean in jar` prints and the bean comes back out
-  (Adrift_put7_cycle); `put all in jar` moves only the bean
-  (Adrift_put7_all); the vbrng.dll stack sampler caught the 447600-44767A
-  frames (Adrift_put7_trace, `VBRNG_SAMPLE`). run390 has no recursive
-  weight walk (its only self-recursive procedure is the `then` splitter
-  42D820) and prints normally. Scarier prints the confirmation and moves
-  every item. No corpus row reaches it.
+- **run400's carried-weight cycle on dynamic object #1.** The recursive
+  weight walk (447680) sums every object whose parent field equals the
+  object's index without looking at the position, and an object that has
+  never been inside or on anything still has parent 0 = object #1. So the
+  first put or drop of object #1 into a never-moved container or supporter
+  makes a #1 <-> container cycle: move_object has already written both
+  fields, the walk dies of "Out of stack space", evaluate's handler
+  swallows it and the turn prints nothing. The object IS moved, and every
+  later weight walk that reaches the pair dies the same way, so `take
+  <object #1>`, `take <container>` and `put all` are silent no-ops from
+  then on. This is also why `put all on <supporter in the room>` used to
+  move only the first object (surf3/surf6): `all` moves object #1 first. A
+  held supporter is immune because taking it wrote -1 into its parent
+  field. run390 has no recursive weight walk and prints normally. Scarier
+  prints the confirmation and moves every item. No corpus row reaches it.
+  Measured on put7.taf and PSTAT, caught by the vbrng.dll stack sampler
+  (`VBRNG_SAMPLE`), 2026-09-19.
 - **Undo slots:** Scarier skips administrative lines, which the Runner
   records.
 - **`NPCWalkAlert`:** a synthesized task pair with no run400 counterpart.
@@ -424,106 +393,85 @@ not by a tick.
 
 ## Rules measured and ported (index)
 
-One entry each, with the game or probe that found the rule and the commit,
-function or date that ported it. Version gates are in brackets: `[4.0]` is
-4.00 only, `[3.9+]` is 3.90 and 4.00, `[<4.0]` is 3.70-3.90, `[<3.9]` is
-3.70/3.80. No bracket means every Runner. Addresses are in the code comment
-next to the named function and in `annotations.tsv`.
+One entry per rule: the rule, the game or probe that found it, and the
+commit, function or date that ported it. Version gates are in brackets:
+`[4.0]` is 4.00 only, `[3.9+]` is 3.90 and 4.00, `[<4.0]` is 3.70-3.90,
+`[<3.9]` is 3.70/3.80. No bracket means every Runner. Addresses, feeds and
+transcript names are in the code comment next to the named function, in
+`annotations.tsv`, and in the `c182b2fa6` version of this file.
 
 ### Parser and dispatch
 
-- **`goto <place>` / `go <place>`:** gotoplace runs after the tasks and
-  meta commands and before the room refusal and therest, so it outranks
-  "Just a direction will do.". 3.9+ takes `goto` anywhere or a line
-  starting `go `; 3.7/3.8 take `goto` or a line starting `go to` (so `go
-  tower` asks for a place called "go tower"). The name matches exactly,
-  then as a substring. Answers: `Which "x"?` list, "You are already x!",
-  "You can't get there from here." (named but unreachable), "Unknown
-  place.". A walk prints "Moving to x...", types each step (the last
-  direction leading to the next room) as a turn of its own, then "Arrived
-  x."; the goto line itself is no turn. The route finder tests every exit
-  restriction as a task, and 4.0 uses visited rooms only. A bare `goto` is
-  DontUnderstand. p38GOTO/p39GOTO/p4GOTO (`harness/make_3{8,9}_gotoprobe.py`,
-  `make_400_gotoprobe.py`; run380x Adrift_132_pgoto38.rtf, run390x
-  Adrift_133_pgoto39.txt, run400x Adrift_133_p4goto.txt, bare goto
-  Adrift_133_pgoto38b.rtf / Adrift_134_pgoto39b.txt) (`lib_cmd_go_place`,
+- **`goto <place>` / `go <place>`.** gotoplace runs after the tasks and
+  meta commands and before the room refusal and therest. 3.9+ takes `goto`
+  anywhere or a line starting `go `; 3.7/3.8 take `goto` or `go to`. The
+  name matches exactly, then as a substring. Answers: `Which "x"?`, "You
+  are already x!", "You can't get there from here.", "Unknown place.". A
+  walk prints "Moving to x...", types each step as a turn of its own, then
+  "Arrived x."; the goto line itself is no turn. The route finder tests
+  every exit restriction as a task; 4.0 uses visited rooms only. Bare
+  `goto` is DontUnderstand. p38GOTO/p39GOTO/p4GOTO (`lib_cmd_go_place`,
   2026-09-19)
-- **`goto` with more on the line** (`go to kitchen, look`): each walk step
-  runs as a nested generaltasks. Pre-4.0 keeps the split queue in a local
-  (var_E4), so the walk and "Arrived" come first and the rest of the line
-  follows in the same turn. run400 keeps it in a global and empties it at
-  the top of every generaltasks (48A01F), so a goto that walks throws the
-  rest of the line away; one that doesn't walk ("already", "Unknown
-  place.") keeps it. Pre-4.0 examines() runs ahead of gotoplace and takes
-  any line with one of its entry words (x, examine, look at, ex, exam,
-  read; 3.8+ look in; 3.9 also look, l), so `go to kitchen and read` is
-  "Nothing special." (3.8 `... and look` stays "Unknown place."). Feeds
-  `~/adrift-battle/runner/wine/cmdfile_pgotosplit*.txt`: run390x
-  Adrift_135_pgs39.txt / Adrift_136_pgs39b.txt, run400x Adrift_136_pgs4.txt
-  / Adrift_137_pgs4b.txt, run380x Adrift_134_pgs38.rtf /
-  Adrift_135_pgs38b.rtf (`run_goto_rest`, `lib_cmd_go_place`, 2026-09-19)
-- **3.7 goto:** answers as 3.8. run370 also takes the game's own word for
-  goto (command slot 15) anywhere, leaves on it alone, and cuts its length
-  plus one off the front before the goto cuts: `rove kitchen` walks, `a
-  rove hall` walks to "blue hall" ("e hall"), bare `rove` is
-  DontUnderstand, `goto kitchen` still walks. It is no synonym (sctafpar
-  V370 fixup). `[3.7]` p37GOTO/p37GOTOW (`harness/make_37_gotoprobe.py
-  [word]`; run370x Adrift_136-141/143) (`lib_cmd_go_place`, 2026-09-19)
-- **3.7 therest refuses an absent object first:** a line that reaches
-  therest and names an object that is not here is "You can't see the X."
-  (definite) before any verb arm (43D169): go, enter, push, smell, kiss,
-  turn, jump, sing, look, climb, sit on, fly. Lines holding an earlier
-  handler's word (take, put, wear, x, read, open, give, wait, where, goto,
-  question words, ask/talk/say) keep their own answer. `[3.7]` p37GOTO,
-  run370x Adrift_142_p37cantsee.rtf (`run_therest_absent_370`, 2026-09-19)
-- **`wait` anywhere, every version:** `If c("wait") [Or line = "z"] And
-  msg = ""` answers "Time passes..." and the wait turns (run370 43C1B3,
-  run380 442A07, run390 45FCA2, run400 48ABB8; 4.0's c() too). It comes
-  after the tasks and the handlers that enter on words anywhere in the line
-  (take, drop, wear, remove, sit/stand/lie, open/close, examines, score,
-  swearing), and before whereis, gotoplace and therest. So `wait stone`
-  (stone elsewhere), `please wait`, `wait here`, `push stone wait` and
-  `turn wait` pass time; `waiting` does not. `look wait` passes time at
-  3.7/3.8 and is examines' from 3.9. run370's openclose writes nothing
-  unless the object is openable, so 3.7 `open stone wait` passes time,
-  while 3.8+ say "You can't open the stone!". gotoplace still runs after
-  it: `goto hall wait` is "Time passes..." then "Unknown place.". A goto
-  that walks jumps past the message print and the end tick (run370 42BDEE
-  "&&&"), so only "Moving to..." shows and only the loop's WaitTurns - 1
-  ticks run. run370x walks `wait goto hall`, cutting the game's goto word
-  and then "goto" from the front. Lines with give, ask, talk, say,
-  inventory or a direction keep their old answer (unmeasured). p37GOTO,
-  p38GOTO, p39GOTO, p4EXAM, feeds
-  `~/adrift-battle/runner/wine/cmdfile_pwait.txt` / `cmdfile_pwait4.txt`
-  (run370x Adrift_144_pwait37.rtf, run380x Adrift_145_pwait38.rtf, run390x
-  Adrift_146_pwait39.txt, run400x Adrift_147_pwait4.txt)
-  (`run_wait_anywhere`, 2026-09-19)
-- **Unknown verb, pre-4.0 catch-all:** a line no handler answers walks
-  every object it names, in index order. A seen, present object gives "I
-  don't understand what you want me to do with X."; a seen, absent one
-  gives "<player> must be in the same room as X to be able to do anything
-  with it."; an unseen one gives "What <Short>?". The present answer beats
-  the absent one, and an unseen object speaks only if nothing else has
-  (run380 442F5D-443134). 3.8's therest checks only the first *present*
-  object (443C69), so `frob stone`, `z stone` and `eat statue` from the
-  wrong room get the same-room answer, and `push statue` is "You push, but
-  nothing happens.". 3.7's therest refuses absent objects first ("You
-  can't see the X.", whether seen or not), so there only the "What X?" arm
-  shows. In 3.9, co() matches only present, seen objects, so an absent-only
-  line is DontUnderstand. 4.0 is unchanged ("You can't see the X."). The
-  pre-4.0 eat arm speaks only for a present object, and "I don't
-  understand what you are trying to eat." is 4.0's (4889C7). **Seen stamp,
-  3.7/3.8:** the generaltasks pre-pass (run370 43B6C6, run380 441F21) runs
-  on every line that names zero objects or two or more (Short/Alias,
-  anywhere). It marks every present object seen: held, worn, loose on the
-  floor, and statics in the room. It never touches container contents. So
-  `n` reveals the room you leave, and `frob stone` (one name) does not.
-  p37EXAM/p38EXAM/p39EXAM/p4EXAM, feeds `cmdfile_pverb.txt`,
-  `cmdfile_pseenA.txt`, `cmdfile_pseenB.txt` (run370x Adrift_146_pverb37 /
-  Adrift_150-151_pseen*37.rtf, run380x Adrift_147_pverb38 /
-  Adrift_148-149_pseen*38.rtf, run390x Adrift_148_pverb39.txt, run400x
-  Adrift_149_pverb4.txt) (`lib_verb_object_catch_all_pre390`,
-  `lib_prepass_seen_3738`, 2026-09-19)
+- **`goto` with more on the line.** Pre-4.0 walks first and then runs the
+  rest of the line in the same turn; run400 empties its split queue at the
+  top of every generaltasks, so a goto that walks throws the rest away
+  while one that doesn't walk keeps it. Pre-4.0 examines() runs ahead of
+  gotoplace and takes any line with one of its entry words, so `go to
+  kitchen and read` is "Nothing special.". (`run_goto_rest`, 2026-09-19)
+- **3.7 goto.** Answers as 3.8, and run370 also takes the game's own goto
+  word (command slot 15) anywhere, cutting its length plus one off the
+  front: `rove kitchen` walks, `a rove hall` walks to "blue hall". It is no
+  synonym. `[3.7]` p37GOTO/p37GOTOW (`lib_cmd_go_place`, 2026-09-19)
+- **3.7 therest refuses an absent object first:** "You can't see the X."
+  before any verb arm (go, enter, push, smell, kiss, turn, jump, sing, look,
+  climb, sit on, fly). Lines holding an earlier handler's word keep their
+  own answer. `[3.7]` p37GOTO (`run_therest_absent_370`, 2026-09-19)
+- **`wait` anywhere, every version.** `c("wait")` (or `z` at 3.9+) with an
+  empty message answers "Time passes..." and the wait turns. It comes after
+  the tasks and the word-anywhere handlers (take, drop, wear, remove,
+  sit/stand/lie, open/close, examines, score, swearing) and before whereis,
+  gotoplace and therest: `wait stone`, `please wait`, `push stone wait`
+  pass time; `waiting` does not. `look wait` passes time at 3.7/3.8 and is
+  examines' from 3.9. run370's openclose writes nothing unless the object
+  is openable, so 3.7 `open stone wait` passes time. `goto hall wait` is
+  "Time passes..." then "Unknown place."; a goto that walks skips the
+  message and the end tick, so only WaitTurns - 1 ticks run. p37GOTO,
+  p38GOTO, p39GOTO, p4EXAM (`run_wait_anywhere`, 2026-09-19)
+  - Lines the gate reaches with an empty message pass time whatever else
+    they say: `give coin to bob wait`, `say hello wait`, `i wait`,
+    `inventory wait`, `n wait`, `hint wait` and `help wait` are all "Time
+    passes..." at every version (the give echo, inventory and hint arms
+    write nothing that survives; the direction is never walked). `score
+    wait` prints the score, `shit wait` swears, `sit wait` sits, and
+    `ask`/`talk to bob wait` speak. `[all]` p37SITN, p38SITN, p39SITN,
+    p4SITN (2026-09-20)
+- **`score` anywhere, every version.** generaltasks' score arm (run370
+  43BB98, run380 4423EC, run390 45F6B5, run400 48A6AE) enters on c("score")
+  anywhere, overwrites whatever was written before it (sitstand included:
+  `score sit` prints the score and does not sit) and is no turn. Lines
+  holding a take/drop/put/wear/remove/examine or swear word keep their own
+  answer. `[all]` p37SITN..p4SITN (`run_score_anywhere`, 2026-09-20)
+- **Swearing anywhere overwrites.** The profanity arm (run370 43BEB5, run380
+  442709, run390 45F8E4, run400 48A976) runs after sitstand and score, so
+  `shit sit` is the swear reply and the player stays standing. `[all]`
+  p37SITN..p4SITN (`lib_sitstand_anywhere`, 2026-09-20)
+- **Unknown verb, pre-4.0 catch-all.** A line no handler answers walks
+  every object it names in index order: a seen present object gives "I
+  don't understand what you want me to do with X.", a seen absent one
+  "<player> must be in the same room as X to be able to do anything with
+  it.", an unseen one "What <Short>?". Present beats absent; unseen speaks
+  only if nothing else has. 3.8's therest checks only the first present
+  object. 3.7 refuses absent objects first, so only its "What X?" arm
+  shows. In 3.9 co() matches only present seen objects, so an absent-only
+  line is DontUnderstand. The pre-4.0 eat arm speaks only for a present
+  object; "I don't understand what you are trying to eat." is 4.0's.
+  `[<4.0]` p37EXAM/p38EXAM/p39EXAM/p4EXAM
+  (`lib_verb_object_catch_all_pre390`, 2026-09-19)
+- **Seen stamp, 3.7/3.8.** The generaltasks pre-pass runs on every line
+  naming zero objects or two or more and marks every present object seen
+  (held, worn, loose, statics in the room; never container contents). So
+  `n` reveals the room you leave and `frob stone` does not. `[<3.9]`
+  p37EXAM/p38EXAM (`lib_prepass_seen_3738`, 2026-09-19)
 - **Task matching:**
   - One game task per typed line; a silent task lets the library run, never
     a second task. House (c74b1b90c)
@@ -538,27 +486,22 @@ next to the named function and in `annotations.tsv`.
     House task 60 (c38297f1e, 5fc9ef8d1)
   - The fallback reads a per-task restriction cache (one T/F per
     restriction) written only when a task_pick, fallback or
-    dispatch-by-index walk FAILS, and never cleared. It re-checks each
-    cached 'F' alone; one still failing with a FailMessage is a hit, and a
-    clean scan hits on a RepeatText. So a stale cache can claim a line
-    silently and get_piece answers DontUnderstand. `[4.0]` 3monkeys T41
-    `get husk` after `hit coconut` (`restr_cache_fallback`, 2026-09-19)
+    dispatch-by-index walk FAILS, and never cleared. A stale cache can claim
+    a line silently and get_piece answers DontUnderstand. `[4.0]` 3monkeys
+    T41 (`restr_cache_fallback`, 2026-09-19)
   - A trailing space in an all-literal task command must be typed. sommeril
-    `get placemat ` (093a12d5e)
+    (093a12d5e)
   - Before 4.0 a `*` command also has to pass checkwild: prefix before the
-    first `*`, each later piece anywhere in the line, the text after the
-    last `*` equal to the line's end. run390 pads the line for a leading
-    "* " or trailing " *"; run380/run370 pad nothing. 3.7/3.8 put the Short
-    of the lowest-index object c() finds in place of %object% first.
-    `[<4.0]` alchemist T300, `[<3.9]` marooned T53 `throw map`
-    (`uip_wildcard_match_pre400`, 2026-09-19)
+    first `*`, each later piece anywhere, the text after the last `*` equal
+    to the line's end. run390 pads for a leading "* " or trailing " *";
+    run380/run370 pad nothing. 3.7/3.8 put the Short of the lowest-index
+    object c() finds in place of %object% first. `[<4.0]` alchemist T300,
+    `[<3.9]` marooned T53 (`uip_wildcard_match_pre400`, 2026-09-19)
   - The SYNONYM table is sequential whole-string rewrites. Vardock
   - The 4.0 `*` matcher does not backtrack: each literal piece is found by
-    the first InStr and the line is cut past it; a space goes back on only
-    when the rest of the pattern starts with one. So `buy *** *rawhide
-    armor*` misses `buy rawhide armor`. run390's checkwild never cuts.
-    `[4.0]` the_town_of_azra T13, xfiles T69 (`uip_wildcard_match_400`,
-    2026-09-15)
+    the first InStr and the line is cut past it. run390's checkwild never
+    cuts. `[4.0]` the_town_of_azra T13, xfiles T69
+    (`uip_wildcard_match_400`, 2026-09-15)
   - The already-done scan passes over a spent task with no RepeatText, so a
     later spent task's RepeatText answers the line. `[4.0]` crookedestate
     T41 (`run_task_refusal`, 2026-09-15)
@@ -569,10 +512,23 @@ next to the named function and in `annotations.tsv`.
     take/get/pick up and names a present NPC; the take stands. `[4.0]`
     onnafa T155 (`lib_take_npc_overwrite_400`, 2026-09-15)
   - A 3.7/3.8 task's Obj2 location restriction reads Obj2 - 1 as a raw
-    index into the whole object table, and put stores the container's
-    object index as parent. An Obj2 naming a static object therefore always
-    fails. `[<3.9]` twilight T48 (`parse_fixup_v380_objstate_restr`,
-    2026-09-15)
+    index into the whole object table, so an Obj2 naming a static object
+    always fails. `[<3.9]` twilight T48
+    (`parse_fixup_v380_objstate_restr`, 2026-09-15)
+  - A comma in a task command: 3.7/3.8's matcher wants the literal line
+    (`push, stone`, `push stone,` miss the `push stone` task; `push,stone`
+    is the library's, the comma being a space to it). 3.9 splits at the
+    comma: `push, stone` is "Push what?" then "You push the stone.", the
+    checkverb prefix carrying `push` into the split element. `[<4.0]`
+    p37TASK/p38TASK/p39TASK (`lib_what`, 2026-09-19)
+  - A task's `%object%` substitutes the bare Short or Alias: no Prefix, no
+    article, so `pa a brass key` misses a `pa %object%` task and falls to
+    the prefix-tolerant library. 3.90 folds case, 4.0 does not; before 3.90
+    `%object%` matches nothing. `[3.9+]` p39CASE, p4TAMB
+    (`uip_compare_reference_strict`, 2026-08-25)
+  - A task's `%object%` binds only a seen object. The present-before-absent
+    pass order is not ported. `[3.9+]` Glum_Fiddle T16-22
+    (`uip_match_entity`, 2026-09-15)
 - **Word rules:** `take` becomes `get` before parsing `[3.8]` (great); `z`
   means wait only from 3.90 (cave); `again`/`last`/`previous` are tested on
   the whole line before any task, and `g` joins them from 3.90 (shadowpeak
@@ -580,46 +536,36 @@ next to the named function and in `annotations.tsv`.
 - **Line splitting:**
   - 4.0 cuts at `,`, `. `, ` and ` and ` then `, suppressed when the tail
     starts with any object's Short, Prefix word or Alias (case-sensitive).
-    The put clause loop puts several objects in one turn. `[4.0]` p4AND
-    (dffce55df)
-  - The four 4.0 cuts are passes in that order, each on the head the
-    previous pass left, and the tail's first word is read inside that head:
-    `x coin and box, x hat` cuts at the comma (the `, x hat` tail's word
-    "x" names nothing) and never at ` and ` (its tail word is "box", an
-    object). What the queue receives is the later tail followed by the
-    older one. `[4.0]` p4AND Adrift_956 (`run_find_split_400`, 2026-09-19)
+    The four cuts are passes in that order, each on the head the previous
+    pass left. `[4.0]` p4AND (dffce55df, `run_find_split_400`, 2026-09-19)
   - Pre-4.0 never looks at the object table. run370/run380 cut only at
     `then`, at the first substring hit (`x athens then look` runs `x a`,
     `s`, `look`). run390 cuts at the first `,`, then `. ` in the head, then
     `then`. No pre-4.0 Runner cuts at a period with no space after it.
     run390 replaces an empty then-head with everything queued behind it;
-    3.8 answers it with DontUnderstand. `[<4.0]` p38ASK/p39ASK,
-    `cmdfile_psplit.txt` + `cmdfile_psplit2.txt` (`run_find_split_pre400`,
-    2026-09-19)
-  - No Runner drops the rest of a line after a DontUnderstand element;
-    upstream SCARE's discard is gone at every version. (2026-09-19)
+    3.8 answers it with DontUnderstand. `[<4.0]` p38ASK/p39ASK
+    (`run_find_split_pre400`, 2026-09-19)
+  - No Runner drops the rest of a line after a DontUnderstand element.
+    (2026-09-19)
   - A name followed by punctuation the splitter left still resolves: `,`
-    ends a word at 3.7/3.8, `,` or `.` at 3.9, as in c(). (`uip_is_word_end`,
+    ends a word at 3.7/3.8, `,` or `.` at 3.9. (`uip_is_word_end`,
     2026-09-19)
+  - A comma after a word is a space to 3.7/3.8's library: `x, coin`,
+    `drop, coin` answer as without it; `x,` and `x,coin` are "Nothing
+    special." (the next word must follow a space). `[<3.9]` p37EXAM/p38EXAM
+    (`uip_match_whitespace`, 2026-09-19)
   - Pre-4.0 therest() answers "Nothing special." to c("look") anywhere in
-    the line: `look,`, `zzz, look`, `, look` (3.8) and `look.` (3.9 only).
-    c()'s FIRST hit at a word start decides, so `look. look` at 3.8 stays
-    DontUnderstand. The row sits above the object and character catch-alls.
-    `[<4.0]` same probes (`lib_cmd_look_anywhere_pre_400`, 2026-09-19)
-  - The rest of therest()'s cascade works the same way: every
-    `If c("<verb>") Then msg = ...` arm tests the WHOLE line and the LAST
-    matching arm wins, so `push and pull stone`, `push stone pull` and
-    `drink push stone` answer as pull/pull/push, `sing and dance` dances,
-    `stone jump` jumps and `please push stone` is "Your kindness gets you
-    nowhere.". Arms that need an empty message (talk, block and lock at
-    3.7/3.8; only talk at 3.9) only win when no earlier arm has.
-    Handlers above therest (open, read, examine, take, ...) still answer
-    first: `open stone push` = "You can't open the stone!". Scarier moves
-    the winning keyword to the front of the line and dispatches the
-    library again. `[<4.0]` p38ASK/p39ASK, `cmdfile_pkw.txt` (run380x
-    Adrift_128_pkw38.rtf, run390x Adrift_130_pkw39.txt), 21/21 cells at
-    3.8 and 21/21 at 3.9 since gotoplace was ported (`run_therest_pre400`,
+    the line (`look,`, `zzz, look`, `look.` at 3.9 only); c()'s FIRST hit at
+    a word start decides. `[<4.0]` (`lib_cmd_look_anywhere_pre_400`,
     2026-09-19)
+  - therest()'s cascade: every `If c("<verb>")` arm tests the WHOLE line
+    and the LAST matching arm wins (`push stone pull` pulls, `stone jump`
+    jumps, `please push stone` is "Your kindness gets you nowhere."). Arms
+    that need an empty message (talk, block and lock at 3.7/3.8; only talk
+    at 3.9) only win when no earlier arm has. Handlers above therest still
+    answer first. Scarier moves the winning keyword to the front and
+    dispatches again. `[<4.0]` p38ASK/p39ASK, 21/21 cells at 3.8 and 3.9
+    (`run_therest_pre400`, 2026-09-19)
 - **Spent tasks:**
   - Pre-4.0 checktask writes a spent task's RepeatText to the buffer and
     keeps scanning: a later passing task still runs, and a later
@@ -645,25 +591,64 @@ next to the named function and in `annotations.tsv`.
     of every topic, no break; a match whose chosen reply (AltReply once the
     Task is done) is empty does not count; a "*" subject answers only while
     nothing has; the last answer stands. From 3.9 a subject matches by c():
-    whole word, case-insensitive, text may go on after it. p39ASK/p4ASK/
-    p38ASK (make_{39,400,38}_askprobe.py)
+    whole word, case-insensitive. p39ASK/p4ASK/p38ASK
+  - The 3.7/3.8 ask topic matches by substring, and the last match wins
+    (wrecked T129/T211). A typed `<subject>` with no topic is "Smart Alec!";
+    run390/run400 escape "<" at input. p38ASK
+  - The bare `ask` hint has no final full stop in any Runner. (2026-09-19)
 - **Case handling.** Every Runner lower-cases input, but the character
   resolver's tail is case-sensitive, so a SYNONYM carrying a capital makes
   its NPC unreferenceable. bandera (0390eb300)
-- **Question prefixes.** "Wear what?", "Remove what?", the give prefix,
-  checkverb on a bare verb and "...with?" store the line as a prefix for
-  the next input. The "with?" line is not a turn. `[4.0]` (daf951a81)
+- **Question prefixes, 4.0.** "Wear what?", "Remove what?", the give
+  prefix, checkverb on a bare verb and "...with?" store the line as a
+  prefix for the next input. The "with?" line is not a turn. `[4.0]`
+  (daf951a81)
+- **Question prefixes, 3.9.** Every "<Verb> what?" (checkverb's arms and
+  the handlers' own rows) stores the line when the typed line IS the verb,
+  and generaltasks prepends it to the next line nothing answers: `push` /
+  `stone` pushes the stone, `give` / `coin` asks "Give the coin to who?".
+  The prefix lives one line. `push zzz` / `stone` stores nothing. Bare give
+  stores its completed "give to nobody" line, so the rerun is not echoed
+  again. `[3.9]` p39TASK (`lib_what`, `run_get_line_input`, 2026-09-19)
+- **`drink` bare is "You can't drink that." below 4.0**, not "Drink what?";
+  eat, open, close, read and say leave no prefix. `[<4.0]` p39TASK
+  (`lib_cmd_drink_what`, 2026-09-19)
+- **A "Which X.  list?" answer is spliced into the line (3.9):** the next
+  unanswered line's text replaces the term in the stored line, followed by
+  the term itself unless the answer already holds it as a word, and the
+  line is rerun: `wear hat` / `red` runs `wear red hat`, `open box` / `hat`
+  runs `open hat box` and re-asks from the answer's own namesakes. "That
+  wasn't one of the options!" is unreachable in practice. `[3.9]` p39TASK
+  (`lib_co_ambiguity_prompt`, `lib_battle_who_store`,
+  `lib_battle_who_continuation`, 2026-09-19)
+- **3.9 object catch-all is a co(obj, 0) walk in index order:** the first
+  present, seen object co() matches is named, so bare `red box` beside the
+  blue box is "I don't understand what you want me to do with the red box."
+  and bare `box` is the Which prompt. `[3.9]` p39TASK
+  (`lib_cmd_verb_object`, 2026-09-19)
+- **The "(to Nobody)" echo outlives the Which prompt:** the bare-give
+  completion prints its echo as it rewrites the line, and the end-of-turn
+  "Which X." replaces only the turn's answer. read, put, eat and the
+  checkverb arms on an ambiguous noun are the prompt alone. `[<4.0]`
+  p39TASK (`lib_co_ambiguity_prompt`, `pf_leading_reference`, 2026-09-19)
 - **The " with " split.** therest resolves both halves: "don't have",
   "Don't be daft!", or a " with <X>" suffix on about thirty verb refusals.
   Corners: open/close/read/fix/clear with, and take looking up only `get
   <name>`. `[4.0]`; run390 twin `lib_with_clause_390` (daf951a81,
   b526c013b)
+- **Pre-4.0 "with" lines.** 3.9 therest with-arm: with battle off, a line
+  with the word "with" that the 2+-object split did not claim answers "I
+  don't understand what you want me to do with <the X>!" for the first co()
+  object after "with", else "With what?"; it beats characters(), so `kill
+  dave with stone` never reaches the attack arm at 3.9 (battle on keeps
+  dobattle). 3.8+ history rewrite: a line starting "with " is prefixed with
+  the previous typed line (blank lines count; not run370). `[<4.0]`
+  p37/p38/p39NPCAMB (`lib_with_arm_390`, 2026-09-19)
 - **Line endings:**
-  - A task that ends the game takes ALL of therest off the line, not just
-    the unhandled-verb tail: the "You can't <verb> X" arms go too, an empty
-    buffer prints DontUnderstand, only the catch-all subset is kept. `[4.0]`
-    relojero, easter, iachini T185 (f038d76bf,
-    STANDARD_ENDED_FALLBACK_COMMANDS, ab85a3e4e)
+  - A task that ends the game takes ALL of therest off the line: the "You
+    can't <verb> X" arms go too, an empty buffer prints DontUnderstand, only
+    the catch-all subset is kept. `[4.0]` relojero, easter, iachini T185
+    (f038d76bf, STANDARD_ENDED_FALLBACK_COMMANDS, ab85a3e4e)
   - CompleteText is tested raw: a task text of just spaces counts as
     output, so no DontUnderstand follows. `[4.0]` wumpusrun T10
     (task_run_task_unrestricted, ab85a3e4e)
@@ -674,51 +659,44 @@ next to the named function and in `annotations.tsv`.
   - The object analogue: when a task ran and the line names an NPC (or is a
     `give` with the NPC present), characters() runs co(obj, 0) over every
     object, and the last object whose name word is on the line decides. Two
-    or more present, seen namesakes leave the pending index set, which
-    skips the tick and prints the task's text with no question. `[4.0]`
-    cyber2 T14 `give electric uniform to lightning` (two "Uniform"s; 44 =
-    44 draws), p4TAMB `poke toy` with no NPC IS a turn
+    or more present, seen namesakes skip the tick and print the task's text
+    with no question. `[4.0]` cyber2 T14, p4TAMB
     (`lib_co_400_line_leaves_which_pending`, 2026-09-19)
 - **Administrative turns and the counter:**
   - An NPC examine and a nothing-found examine are administrative turns;
     so is `read` via examines. `[4.0]` EV14-16, house T150
   - Only examines' "see no such thing" sets the flag; characters()' NPC arm
     sets none, so `x <npc>` whose line has a unique seen-but-absent object
-    as the winner is a turn. `[4.0]` humbug T634 `X robot`
+    as the winner is a turn. `[4.0]` humbug T634
   - In run390 hint, help, clear, time, version, save, restore and undo are
     ordinary turns, and the counter counts every line element, so `both`
     counts twice. `[3.9]` p39ADMIN (a211db2f1, b526c013b)
   - There are no administrative turns and no startup tick below 3.9.
-  - run380 counts line elements too: its counter goes up at the top of
-    generaltasks (441A21), so `turns` counts itself. `[3.8]` p38ADMIN
-    Adrift_1202: `look probe clear cls clr turns` answers 6 (Scarier said
-    5). run370 has no counter and answers `turns` "I don't understand."
-    (p37ADMIN Adrift_1203; the `turns` version gate is policy).
+  - run380 counts line elements too, at the top of generaltasks, so `turns`
+    counts itself. run370 has no counter and answers `turns` "I don't
+    understand." (the `turns` gate is policy). `[<3.9]` p38ADMIN/p37ADMIN
 - **clear.** Bare `clear`/`cls`/`clr` empties the window and prints "Screen
   cleared.", a turn below 4.0 and administrative at 4.0. Any other line
   holding the word goes to therest's clear arm: "You can't clear the rope."
-  for an object, "You can't clear that." for a word naming nothing, a turn
-  at every version. `[all]` p37ADMIN/p38ADMIN/p39ADMIN/p4WITHQ2,
-  Adrift_1202-1205 (lib_cmd_clear_other). Scarier said "I don't
-  understand." below 4.0 for both forms and at 4.0 for the second.
+  / "You can't clear that.", a turn at every version. `[all]`
+  p37ADMIN/p38ADMIN/p39ADMIN/p4WITHQ2 (lib_cmd_clear_other)
 - **The room refusal** runs inside the library, ahead of therest. `[3.9]`
   (9fbb40881) Before 3.9, drop, put and give refuse ahead of it. `[<3.9]`
   cave, greatc (f83e1cf87)
-- **Pre-4.0 give to a present NPC** runs below the room refusal (run390
-  characters(), run380 therest()), and run390's give writes only into an
-  empty message or one holding " might need " / "I don't understand". So a
-  Where=0 task matching the line wins with "You can't do that here!".
-  `[<4.0]` the_hangover T42 (run_standard_give_npc_commands; the rows are
-  deferred out of the verb pass). At 4.0 the give sits above the refusal.
+- **Pre-4.0 give to a present NPC** runs below the room refusal, and
+  run390's give writes only into an empty message or one holding " might
+  need " / "I don't understand". So a Where=0 task matching the line wins
+  with "You can't do that here!". `[<4.0]` the_hangover T42
+  (run_standard_give_npc_commands). At 4.0 the give sits above the refusal.
 - **No lock handler before 4.0.** Pre-4.0 carries only therest's checkverb
   " can't lock " / " can't unlock "; " is not locked!" and the key messages
   are run400's alone. Every pre-4.0 lock/unlock line is therest's and loses
   to the room refusal. `[<4.0]` thetest_win T68-77 (fe64ab0f3)
 - **run380's post-take-from task sweep.** tra `get meat` also runs `get
-  *knives*`. `[3.8]` (4f79695e4) The sweep (447405) follows every
-  take-from whose source was found, refusals and take-all included; only
-  "You can't do that!" skips it. Its text joins the refusal's line.
-  run370 has no sweep. `[3.8]` p38TFSW Adrift_186/188 (2026-09-19)
+  *knives*`. The sweep follows every take-from whose source was found,
+  refusals and take-all included; only "You can't do that!" skips it. Its
+  text joins the refusal's line. run370 has no sweep. `[3.8]` p38TFSW
+  (4f79695e4, 2026-09-19)
 - **The player-name prompt** splits by version (Workflow step 2).
   (39bfe4cec)
 - **Meta commands:**
@@ -735,75 +713,25 @@ next to the named function and in `annotations.tsv`.
     turn's output (1c834df1b).
 - **A task an event or walk runs is "a task ran"**, so the end-of-turn
   "Which X." prompt stays silent. 3.9 examine then answers an ambiguous
-  pair "Nothing special." (co() is false for each, referencedob returns
-  -1). `[3.9]` cybercow_win T118 `x berry` (`run_note_dispatched_task_ran`,
-  2026-09-19)
-- **A whole-line take or drop with two names and no `and`** (`get coin,
-  hat`, `drop coin, hat`, kept whole because "hat" names an object): the
-  handler resolves the whole fragment with the noun scorer (463640 mode 1
-  for take), and a tie between objects that share no name answers "It is
-  not clear which <last tied object's typed name> you are referring to."
-  and moves nothing; a unique winner is the only object taken, whatever
-  else the line said. Two namesakes still get the "Which" question. c()
-  ends a word at a space, `,`, `.` or `?`, so the comma-bound "coin" scores
-  too. The take scorer's candidates are dynamic, seen, visible objects; the
-  first pass leaves out anything held or worn (or inside something held),
-  and a second pass admits them only when the first found no unique
-  winner. `[4.0]` p4AND Adrift_955 (`lib_take_tie_400`,
-  `lib_take_resolve_400_string`, `lib_drop_named_400`,
-  `lib_input_contains_word_400`, 2026-09-19)
-- **`get X and Y` with neither present:** the "and" list loop marks
-  nothing, and the take handler prints "There is nothing worth taking
+  pair "Nothing special.". `[3.9]` cybercow_win T118
+  (`run_note_dispatched_task_ran`, 2026-09-19)
+- **Whole-line take or drop with two names and no `and`** (`get coin,
+  hat`, kept whole because "hat" names an object): the noun scorer resolves
+  the whole fragment; a tie between objects sharing no name is "It is not
+  clear which <last tied name> you are referring to." and moves nothing; a
+  unique winner is the only object taken. The take scorer's candidates are
+  dynamic, seen, visible; the first pass leaves out anything held or worn,
+  and a second pass admits them only when the first found no unique winner.
+  `[4.0]` p4AND (`lib_take_tie_400`, `lib_take_resolve_400_string`,
+  `lib_drop_named_400`, `lib_input_contains_word_400`, 2026-09-19)
+- **`get X and Y` with neither present:** "There is nothing worth taking
   here." with no per-object refusal; one present object takes it alone.
-  `[4.0]` p4AND Adrift_956 (`lib_cmd_take_absent`, 2026-09-19)
+  `[4.0]` p4AND (`lib_cmd_take_absent`, 2026-09-19)
 - **`x coin and a hat`:** referencedob's prefix-word pass counts "a" for
-  both objects, the scores tie, and the examine handler prints "Sorry, I'm
-  not sure which object you're referring to." as a turn of its own (4719EA);
-  `x coin and the hat` / `and large` examine the coin. `[4.0]` p4AND
-  Adrift_955 (`lib_examine_referencedob_400`, `lib_disambiguate_object`,
-  2026-09-19)
-
-- **Every "<Verb> what?" leaves the line as a prefix:** checkverb's arms
-  (push, pull, kick, hit, turn, climb, break, lock, smash) and the
-  handlers' own rows (drop, take, wear, remove, open, close, examine, x,
-  give) store the line in MemVar_4681D0 when the typed line IS the verb
-  (42A4F4 and kin), and generaltasks prepends it to the next line nothing
-  answers (4601A5, rerun from 45EC4B): `push` / `stone` pushes the stone,
-  `give` / `coin` asks "Give the coin to who?". The prefix lives one line
-  (4606A4 clears one the answered line left alone): `push` / `look` /
-  `stone` is the catch-all. `push zzz` / `stone` stores nothing. What is
-  stored is the line after the bare-give completion, so `give` stores
-  "give to nobody" and the rerun is not completed (and echoed) again.
-  `[3.9]` p39TASK cmdfile_p39pfx.txt, run390x Adrift_185_ppfx_39.txt
-  (`lib_what`, `run_get_line_input`, 2026-09-19)
-- **`drink` bare is "You can't drink that." below 4.0** (run390 45D64F),
-  not "Drink what?"; eat, open, close, read and say leave no prefix.
-  `[<4.0]` p39TASK Adrift_185_ppfx_39.txt (`lib_cmd_drink_what`,
-  2026-09-19)
-- **A "Which X.  list?" answer is spliced into the line:** the prompt
-  stores Short & "|" & line (460810/460886); the next unanswered line's
-  text replaces the term in the stored line, followed by the term itself
-  unless the answer already holds it as a word (46010A), and the line is
-  rerun (460022-460188): `wear hat` / `red` runs `wear red hat`, `open
-  box` / `hat` runs `open hat box` ("Which box.  The red hat or the blue
-  hat?", the list being built from the answer's own namesakes). "That
-  wasn't one of the options!" (460890) is unreachable in practice.
-  `[3.9]` p39TASK Adrift_185_ppfx_39.txt (`lib_co_ambiguity_prompt`,
-  `lib_battle_who_store`, `lib_battle_who_continuation`, 2026-09-19)
-- **3.9 object catch-all is a co(obj, 0) walk in index order:** the first
-  present, seen object co() matches is named (4601D4-460284), so a bare
-  `red box` beside the blue box is "I don't understand what you want me to
-  do with the red box." and bare `box` is the Which prompt. `[3.9]`
-  p39TASK Adrift_185_ppfx_39.txt (`lib_cmd_verb_object`, 2026-09-19)
-
-- **The "(to Nobody)" echo outlives the Which prompt:** the bare-give
-  completion prints its echo as it rewrites the line (45FAB9 -> 47B568),
-  and the end-of-turn "Which X." replaces only the turn's answer, so
-  `give hat` with two hats is "(to Nobody)" then "Which hat.  The red hat
-  or the blue hat?". read, put, eat and the checkverb arms on an ambiguous
-  noun are the prompt alone. `[<4.0]` p39TASK cmdfile_p39clear.txt,
-  run390x Adrift_185_ppclear_39.txt (`lib_co_ambiguity_prompt`,
-  `pf_leading_reference`, 2026-09-19)
+  both objects, the scores tie, and examine prints "Sorry, I'm not sure
+  which object you're referring to." as a turn; `x coin and the hat`
+  examines the coin. `[4.0]` p4AND (`lib_examine_referencedob_400`,
+  `lib_disambiguate_object`, 2026-09-19)
 
 ### Nouns, scope and the seen model
 
@@ -813,7 +741,7 @@ next to the named function and in `annotations.tsv`.
   no winner answers "see no such thing" and does not tick. `[3.9+]`
   (386c9c570). A part-of-character static is stamped seen by obhere when
   its holder is the player or a seen NPC in the player's room. `[4.0]`
-  humbug T727 `X teeth`
+  humbug T727
 - **463640 is the 4.0 noun resolver.** Scoring: Short whole word +1, first
   alias +1, +1 per Prefix word, an empty Prefix counts as `a`. With two
   objects named, a tie gives the game's DontUnderstand. NPCs are never
@@ -821,11 +749,10 @@ next to the named function and in `annotations.tsv`.
   scores every object the line names. `[4.0]` warlord, house doors
   (5662e7397)
   - Mode 2 (a plain `drop X`) scores held objects first, then everything
-    present; the best score carries over. A tie prompts `Which <term>.`
-    only when Me(424) is set, which happens by comparing each tied object's
-    Short with the object TWO indexes past the previous tie, else "It is
-    not clear which <term> ...". `[4.0]` wilkins T110-T117
-    (`lib_drop_resolve_400`, 2026-09-19)
+    present. A tie prompts `Which <term>.` only when Me(424) is set, which
+    happens by comparing each tied object's Short with the object TWO
+    indexes past the previous tie, else "It is not clear which <term> ...".
+    `[4.0]` wilkins T110-T117 (`lib_drop_resolve_400`, 2026-09-19)
 - **4.0 named take.** The take falls back on every seen object: "nothing
   worth taking here" / "not clear which" (p4TAKE, 7d051a7d7). It runs the
   tasks' `get <the object>` before both refusals (icecream T0, 8f2898bd4).
@@ -834,6 +761,8 @@ next to the named function and in `annotations.tsv`.
 - **Auto-"from" take.** 4.0 retakes a seen object "from" its holder, and
   the referenced object is cleared before each typed line, so a type-1
   Var1=0 restriction is silent. `[4.0]` warlord T104 (68bc1382a)
+- **4.0 single take of a worn object** counts worn as held: "You are
+  already carrying X." `[4.0]` 3monkeys T65 (2026-09-19)
 - **Examine:**
   - referencedob answers a tie with an absent, unseen object: "You can't
     see that." `[4.0]` warlord T72/T76 (b6d2f4f1f)
@@ -844,96 +773,50 @@ next to the named function and in `annotations.tsv`.
     It has a pending answer slot. `[4.0]` p4CO (5d90e8793)
   - 3.7-3.9 co() has its own prompt, which replaces the output while the
     action still happens (mikes). 3.9 counts and lists only seen namesakes:
-    troll T64 `drop cup`, secret_of_lost_world T56 `take scroll`. `[<4.0]`
-    (2026-09-14)
-  - Namesakes in the pre-4.0 handlers (two hats, red held and blue loose;
-    two open boxes loose). 3.8 and 3.9 put every candidate through co()
-    before any held/worn/openness filter, so `wear hat`, `remove hat`,
-    `open box`, `close box`, `take box` and 3.8's `drop hat` do nothing
-    and the turn is the prompt; 3.9's drops() recounts with mode 2
-    (isheld: held, worn, or in/on a held parent) and drops the red hat
-    under the prompt, its takes() with mode 1 (loose in the room). 3.7's
-    handlers never call co() -- only therest() and insides() do -- so the
-    prompt is never raised for them: drops/takes skip every held (loose)
+    troll T64, secret_of_lost_world T56. `[<4.0]` (2026-09-14)
+  - Namesakes in the pre-4.0 handlers. 3.8 and 3.9 put every candidate
+    through co() before any held/worn/openness filter, so `wear hat`,
+    `remove hat`, `open box`, `close box`, `take box` and 3.8's `drop hat`
+    do nothing and the turn is the prompt; 3.9's drops() recounts with mode
+    2 (held, worn, or in/on a held parent) and takes() with mode 1 (loose in
+    the room). 3.7's handlers never call co(): drops/takes skip every held
     namesake lacking its Prefix's last word unless it is the only one
-    ("Drop what?" / "Take what?" for two), wears/removes act on EVERY
-    held wearable (worn) namesake with the last one's message, openclose
-    changes EVERY namesake's state ("You close the blue box." closes
-    both), and examines asks "Which hat would you like to examine.  The
-    red hat or the blue hat?". `[<4.0]` p37TASK/p38TASK/p39TASK
-    (`make_3738_taskprobe.py`), run370x Adrift_183_pname_37.rtf /
-    Adrift_179_pname2_37.rtf, run380x Adrift_184_pname_38.rtf /
-    Adrift_182_pname2_38.rtf, run390x Adrift_185_pname_39.txt /
-    Adrift_185_pname2_39.txt (`cmdfile_pnamesake.txt`,
-    `cmdfile_pnamesake2.txt`) (`lib_disambiguate_object_common`,
-    `lib_co_pre400` mode 2, `lib_co_note_line_top`, 2026-09-19)
-  - A comma in a task command: 3.7/3.8's task matcher wants the literal
-    line. `push, stone`, `push , stone` and `push stone,` miss the `push
-    stone` task and are the library's "You push the stone, but nothing
-    happens."; `push,stone` is "You push, but nothing happens." (the comma
-    is a space to the library, not to checktask). `rub, coin` misses the
-    `rub *` task and is the object catch-all, `rub,coin` DontUnderstand;
-    the `%object%` task the same. `say hello, world` matches its own comma
-    only literally; `say hello,world` / `say hello , world` are the say
-    reply. 3.9 splits at the comma: `push, stone` / `push,stone` / `push ,
-    stone` are "Push what?" then "You push the stone." -- checkverb's
-    prefix (MemVar_4681D0, 42A504) carries `push` into the split element
-    exactly as 4.0's does -- and `push stone,` runs the task whole. 3.9's
-    `rub, coin` is the `rub *` task then the object catch-all, `say hello,
-    world` the say reply then DontUnderstand. `[<4.0]` p37TASK/p38TASK/
-    p39TASK, run370x Adrift_176_ptaskc_37.rtf, run380x
-    Adrift_177_ptaskc_38.rtf, run390x Adrift_179_ptaskc_39.txt
-    (`cmdfile_ptaskcomma.txt`) (`lib_what`, 2026-09-19)
-  - The rub arm is 4.0's alone: no "rub" in run370/run380/run390. Below
-    4.0 `rub coin` that no task takes is the object catch-all and
-    `rub,coin` DontUnderstand. `[<4.0]` same transcripts
+    ("Drop what?" for two), wears/removes act on EVERY held namesake with
+    the last one's message, openclose changes EVERY namesake's state, and
+    examines asks "Which hat would you like to examine.  The red hat or the
+    blue hat?". `[<4.0]` p37TASK/p38TASK/p39TASK
+    (`lib_disambiguate_object_common`, `lib_co_pre400` mode 2,
+    `lib_co_note_line_top`, 2026-09-19)
+  - The rub arm is 4.0's alone. Below 4.0 `rub coin` that no task takes is
+    the object catch-all and `rub,coin` DontUnderstand. `[<4.0]`
     (`lib_cmd_rub_object`, `lib_cmd_rub_other`, 2026-09-19)
   - The pre-4.0 drop "and" arm skips an object inside a held open
     container: `drop nut and coin` with the nut in the held bag drops only
-    the coin, `drop nut and stone` is "You are not carrying anything.",
-    while a plain `drop nut` drops it. As ported. `[<4.0]`
-    p37TASK/p38TASK/p39TASK, run370x Adrift_180_pdroph_37.rtf, run380x
-    Adrift_181_pdroph_38.rtf, run390x Adrift_182_pdroph_39.txt
-    (`cmdfile_pdropheld.txt`) (2026-09-19)
+    the coin, `drop nut and stone` is "You are not carrying anything.".
+    `[<4.0]` p37TASK/p38TASK/p39TASK (2026-09-19)
   - The article test is case-sensitive: only lower-case `a`/`an`/`some`
     become `the`. p4PFX (602428ad6)
   - A typed look is an exact whole-line list, and a bare `x` exits examines
     (3.9+). The NPC examine overwrites the object's text and still ticks
     (4.0). lair (5662e7397)
   - The examine state line is always " is ". `[4.0]` magicshow T80
-    (e0f709c46)
-    Only 4.0 has one: the 3.7-3.9 schemas carry no states, and run390's
-    tail (44BE60-44BEEE) is the open/closed line, then whatisinon().
-  - Bare examines. The typed look is the same exact whole-line list at
-    3.7/3.8 (`l`, `look`, `x room`, `x location`, any case), so bare `x`,
-    `ex`, `examine`, `exam`, `look at`, `read`, `x the`, `examine room`,
-    `look room`, `look around` are "Nothing special." there and `l room` is
-    DontUnderstand. At 3.9 examines' bare exit hands `x`/`ex`/`examine` to
-    therest's checkverb: "Examine what?" (also `x,`, split at the comma);
-    `exam` stays "Nothing special.". At 4.0 bare `x`/`ex` is DontUnderstand
-    and `exam`, `look at`, `read` are "You see no such thing.". `ex zzz` and
-    `exam zzz` are examines' at every version. `[3.7-4.0]` p37EXAM/p38EXAM/
-    p39EXAM/p4EXAM, run370x Adrift_173/175, run380x Adrift_172/174/178,
-    run390x Adrift_176, run400x Adrift_177 (`cmdfile_p3738bare*.txt`,
-    `cmdfile_pexabbr.txt`) (`lib_cmd_look_typed`, `lib_cmd_examine_other`,
-    2026-09-19)
-  - Pre-4.0 `look X` is no examine at 3.7/3.8. examines enters on c() of
-    x, examine, look at, ex, exam, read (3.8 also look in), so `look coin`,
-    `look me`, `look all`, `look zzz` and a seen or unseen absent object
-    reach therest's look arm: "Nothing special.". 3.7 has no `look in` and
-    refuses an absent object first ("You can't see the statue."). `[<3.9]`
-    p37EXAM/p38EXAM, run370x plookobj37 / run380x plookobj38
-    (`cmdfile_plookobj.txt`) (`lib_look_is_not_examine_pre390`,
+    (e0f709c46). Only 4.0 has one: the 3.7-3.9 schemas carry no states, and
+    run390's tail is the open/closed line, then whatisinon().
+  - Bare examines. At 3.7/3.8 the typed look is the same exact whole-line
+    list (`l`, `look`, `x room`, `x location`), so bare `x`, `ex`,
+    `examine`, `exam`, `look at`, `read`, `x the`, `examine room`, `look
+    around` are "Nothing special." and `l room` is DontUnderstand. At 3.9
+    bare `x`/`ex`/`examine` reach checkverb: "Examine what?"; `exam` stays
+    "Nothing special.". At 4.0 bare `x`/`ex` is DontUnderstand and `exam`,
+    `look at`, `read` are "You see no such thing.". `ex zzz` and `exam zzz`
+    are examines' at every version. `[3.7-4.0]` p37EXAM/p38EXAM/p39EXAM/
+    p4EXAM (`lib_cmd_look_typed`, `lib_cmd_examine_other`, 2026-09-19)
+  - `look X` is no examine at 3.7/3.8. examines enters on c() of x,
+    examine, look at, ex, exam, read (3.8 also look in), so `look coin`,
+    `look me`, `look zzz` and an absent object reach therest's look arm:
+    "Nothing special.". 3.7 has no `look in` and refuses an absent object
+    first. `[<3.9]` p37EXAM/p38EXAM (`lib_look_is_not_examine_pre390`,
     `run_therest_pre400`, 2026-09-19)
-  - A comma after a word is a space to 3.7/3.8's library: c() ends a word
-    at a comma and no splitter cuts there. `x, coin`, `x , coin`, `look at,
-    coin`, `read, coin`, `drop, coin` and `take, coin` answer as without it;
-    `x,` and `x,coin` are "Nothing special." (the next word must follow a
-    space). Library patterns only; a task command meeting a comma is
-    unmeasured. `[<3.9]` p37EXAM/p38EXAM, run370x pxcomma37/pxcomma37b,
-    run380x pxcomma38/pxcomma38b, Adrift_178_pexab38.rtf
-    (`cmdfile_pxcomma.txt`, `cmdfile_pxcomma2.txt`) (`uip_match_whitespace`,
-    2026-09-19)
 - **Carried objects.** Only a listing, or the task mover, reveals what the
   player carries, and `i` stamps them seen. yak_shaving (8e006d2f5)
 - **Task move-object** stamps seen per destination. `[4.0]` aliasagent
@@ -980,108 +863,92 @@ next to the named function and in `annotations.tsv`.
   - sit, stand and lie need the object on the room floor. `[3.8+]` house
     T124 (4e7df6dff)
 - **Sit, stand and lie follow each Runner's sitstand.** `[all]` p37SIT,
-  p38SIT, p39SIT, p4SIT (`make_3738_sitprobe.py`, feeds
-  `cmdfile_p3738sit.txt` / `cmdfile_p3738sit2.txt`: run370x
-  Adrift_162/164, run380x Adrift_163/165, run390x Adrift_164/166, run400x
-  Adrift_166/167; `lib_stand_sit_lie`, 2026-09-19)
+  p38SIT, p39SIT, p4SIT (`lib_stand_sit_lie`, 2026-09-19)
   - No object arm asks whether the player is already there: `sit on stool`
     twice sits twice. Sitting on an object is "sit down on" even from
-    lying. Before 3.9 the object is named by its authored Prefix ("You sit
-    down on a stool.").
+    lying. Before 3.9 the object is named by its authored Prefix.
   - Bare `stand` at position 0 is "already standing!", even standing on an
     object.
   - Pre-3.9 bare `sit`/`lie` keep the parent and never name it ("You sit
-    up.", "You lie down on the ground."); only `stand` clears it ("You
-    stand up from the stool."). 3.9+ names it: `sit` standing on O is "sit
-    down on the O"; lying on a sittable O is "sit up on the O"; `lie` on a
-    lieable O is "lie down on the O", otherwise "on the ground." and the
-    parent goes.
+    up.", "You lie down on the ground."); only `stand` clears it. 3.9+
+    names it: `sit` standing on O is "sit down on the O"; lying on a
+    sittable O is "sit up on the O"; `lie` on a lieable O is "lie down on
+    the O", otherwise "on the ground." and the parent goes.
   - 3.9+ `sit on the ground` on the floor is "are already sitting on the
     floor!" (or "ground!") with a literal "are".
-  - Pre-3.9 moveroom only looks at the position: standing on an object,
-    a move prints no "(Getting off ...)" and the parent survives it
-    (run370 422FD0, run380 428244). `stand on crate`, `s`, `sit`, `stand`
-    is "You stand up from the crate."
-  - run370's object loop matches Short or Alias with no scope or location
-    test, the last match winning (42AE7D), and runs before therest's
-    "can't see" test: `sit on bed` from the next room sits on it
-    (`lib_cmd_sit_scan_370`, `lib_sitstand_claims_370`).
-  - 4.0 absent sit/lie targets are therest's "You can't see the X.", as
-    stand already was (`lib_cmd_verb_absent_400` rows).
-  - `sit`, `lie` or `stand on the ground/floor` is "You can't sit/lie/
-    stand on that." when the line names on/in, except 3.9+ sit, which has
-    a ground arm (run400 46BB03, run390 444807). Feed
-    `cmdfile_p3738sit3.txt`: run370x Adrift_166, run380x Adrift_167,
-    run390x Adrift_168, run400x Adrift_169 (`lib_floor_named`).
+  - Pre-3.9 moveroom only looks at the position: standing on an object, a
+    move prints no "(Getting off ...)" and the parent survives it.
+  - run370's object loop matches Short or Alias with no scope test, the
+    last match winning, and runs before therest's "can't see" test: `sit on
+    bed` from the next room sits on it (`lib_cmd_sit_scan_370`,
+    `lib_sitstand_claims_370`).
+  - 4.0 absent sit/lie targets are therest's "You can't see the X."
+    (`lib_cmd_verb_absent_400`).
+  - `sit`, `lie` or `stand on the ground/floor` is "You can't sit/lie/stand
+    on that." when the line names on/in, except 3.9+ sit, which has a
+    ground arm (`lib_floor_named`).
   - 3.9+ `get off X` answers "You are not standing on anything!" before it
-    looks at X (run400 46B702, run390 4443E1).
-  - Before 4.0, takes() runs first and excludes only `get on` and `get
-    down` (run390 4544C6), so `get off stool` is a take. 3.7/3.8 have no
-    get-off: "You pick up the stool.", "You can't take a chair.". In 3.9 a
-    take that happened stands (45F439 leaves generaltasks); otherwise
-    sitstand's answer replaces it.
+    looks at X. Before 4.0, takes() runs first and excludes only `get on`
+    and `get down`, so `get off stool` is a take; 3.7/3.8 have no get-off.
+    In 3.9 a take that happened stands; otherwise sitstand's answer
+    replaces it.
   - The 3.7/3.8 static take refusal names the raw Prefix: "You can't take
-    a chair." (run380 43E697, run370 4369FF).
+    a chair."
   - sitstand is blocks entered on c("sit"), c("stand"), c("lie") ANYWHERE
-    in the line, run in code order and each overwriting the one message
-    (run390 444010 called at 45F50D, run400 46B370). `sit lie`, `lie
-    stand`, `stand up sit down lie down` are "You lie down on the ground.";
-    `stand sit` and `sit stand` "You stand up."; `please sit`, `sit
-    quietly`, `push stone sit`, `open stool sit`, `wear coin sit` and
-    pre-4.0 `sit and wait` "You sit down on the ground."; `sit on stool
-    lie` lies on the stool; `sit on chair stand on stool` stands on the
-    chair (last object in index order); `x stool sit` examines and still
-    sits. Pre-4.0 `sit on stool and lie on chair` lies on the chair. Lines
-    holding take/drop/inventory/give/ask/talk/say/direction/score/hint/
-    profanity words are left alone (unmeasured); a successful wear or
-    remove on such a line is unmeasured. Feed `cmdfile_p3738sit4.txt`:
-    run370x Adrift_168, run380x Adrift_169, run390x Adrift_170, run400x
-    Adrift_171 (`lib_sitstand_anywhere`). Volant `stand your ground` (solution line 45)
-    is "You are already standing!" (Adrift_256).
-  - `lay` is a lie word in run400 only (46BACE): 3.7-3.9 `lay down` is "I
-    don't understand." and `lay on stool` therest's "I don't understand
-    what you want me to do with the stool." (`lib_lay_pre400`).
-  - 3.7/3.8 `x me` with an empty PlayerDesc is one string (run370 435AED,
-    run380 43D43E). "circumstances." gets its full stop only before the
-    sitting or lying clause. Standing on an object is "...the circumstances
-    You are standing on a stool.", with two spaces and no full stop. The
-    object is named by its raw Prefix.
-- **A task's `%object%` substitutes the bare Short or Alias, and nothing
-  else.** No Prefix, no article: `pa brass key` runs a `pa %object%` task
-  over Short "brass key" / Prefix "a small", and `pa key`, `pa a brass
-  key`, `pa the brass key` and `pa small brass key` all miss it. 3.90
-  folds case, 4.0 does not; before 3.90 `%object%` matches nothing. A
-  missed line falls to the library, whose noun resolver is prefix- and
-  article-tolerant, so `rub red box` over `rub %object%` answers "You
-  can't rub the red box." while `rub box` runs the task (p4TAMB, the
-  former "side finding"; Scarier already matched). `[3.9+]` p39CASE
-  Adrift_1_p39case (`uip_compare_reference_strict`, 2026-08-25; TAMB
-  closed 2026-09-19)
-- **A task's `%object%` binds only a seen object** (run400 matcher and
-  run390 checktask alike). `take cushion` with the cushion lying unlisted
-  on the pile misses the task, and the library answers "Take what?". The
-  present-before-absent pass order is not ported. `[3.9+]` Glum_Fiddle
-  T16-22 (`uip_match_entity`, 2026-09-15)
+    in the line, run in code order and each overwriting the one message:
+    `sit lie` lies, `stand sit` stands, `please sit` and `push stone sit`
+    sit on the ground, `sit on chair stand on stool` stands on the chair
+    (last object in index order), `x stool sit` examines and still sits
+    (`lib_sitstand_anywhere`). Volant `stand your ground` is "You are
+    already standing!".
+  - `lay` is a lie word in run400 only: 3.7-3.9 `lay down` is "I don't
+    understand." and `lay on stool` the catch-all (`lib_lay_pre400`).
+  - 3.7/3.8 `x me` with an empty PlayerDesc is one string; "circumstances."
+    gets its full stop only before the sitting or lying clause, and standing
+    on an object is "...the circumstances  You are standing on a stool."
+    with two spaces and no full stop.
+  - 3.7/3.8 `x me` never lists what the player wears (run370 435A9B-435BEA,
+    run380 43D3EC-43D53B have no worn loop); only `i` does. 3.9+ appends
+    "You are wearing ...". p37SITN, p38SITN (2026-09-20)
+- **What a sit/stand/lie word does to the rest of its line.** `[all]`
+  p37SITN, p38SITN, p39SITN, p4SITN, cmdfile_psitn.txt
+  (`lib_sitstand_anywhere`, `run_line_for_sitstand`, 2026-09-20)
+  - Everything generaltasks writes before sitstand loses to it: `give coin
+    to bob sit` (the give echo arm is later but only writes when the message
+    is empty, and gives nothing), `i sit`, `inventory sit`, `hint sit`,
+    `help sit` and `say hello sit` all just sit. A direction word is never
+    walked: `n sit`, `north sit` sit in place.
+  - Everything after sitstand overwrites it and leaves the player standing:
+    score, the swear words and characters() at 460675 (`talk to bob sit`
+    is the "ask Bob about" hint, 3.7-4.0). The examines only replace the
+    text; the move stands (`x stool sit`, above).
+  - Pre-4.0 characters() takes `ask` only at column 5 (`InStr(1, line,
+    LCase(name)) = 5` at run390 459818): `ask bob about hat sit` answers
+    the topic, `sit ask bob about hat` sits. 4.0 speaks from anywhere.
+  - takes and drops claim first (`take stool sit` takes; `drop stool sit`
+    drops), each with its own summary. wears/removes act and are then
+    overwritten: `wear hat sit` puts the hat on and prints "You sit down on
+    the ground." (`i` shows it worn), `remove hat sit` takes it off and
+    sits, `wear hat lie` wears and lies. 4.0 wears runs its object loop
+    the same way.
+  - `put coin on stool sit`: 3.8/3.9 refuse the put ("You can't put
+    anything on/onto the stool.") and the refusal stands; 3.7 and 4.0 sit
+    on the stool with the coin still held. So the port lets put claim only
+    when it moved something, at 3.8/3.9 also when it refused.
 
 ### Put and take-from
 
-- **Pre-4.0 take "and" with nothing takeable.** takes()' "and" arm
-  pre-passes the objects the line names. When none is a candidate it
-  prints "You can't get any of them."; 3.9 says "either of them." for
-  exactly two named (454B08). A candidate is a dynamic object loose in the
+- **Pre-4.0 take "and" with nothing takeable.** When none of the named
+  objects is a candidate: "You can't get any of them."; 3.9 says "either of
+  them." for exactly two. A candidate is a dynamic object loose in the
   room, or at 3.8/3.9 in or on something loose here or a static here. 3.9
   names with co(obj,1) and wants it seen; 3.8 names with co(obj), no seen
-  test (the unlisted gem in the open static chest counts); 3.7 names by
-  c(Short) and counts only loose objects (43DCC1 / 4361B3). A held object
-  is named, never a candidate. `[<4.0]` p39ABSNPC T36; p3xPUT with
-  `cmdfile_p3738takeand.txt`, Adrift_170/171/172_ptakeand
+  test; 3.7 names by c(Short) and counts only loose objects. A held object
+  is named, never a candidate. `[<4.0]` p39ABSNPC T36, p3xPUT
   (lib_take_and_none_pre400)
-- **Pre-4.0 "and" take skips held objects silently.** The arm seeds the
-  message with "You pick up " and the already-got write only fires while
-  the message does not start with it (run380 43E00E), so `take table and
+- **Pre-4.0 "and" take skips held objects silently:** `take table and
   stone` with the stone held is "You pick up the table." `[<4.0]`
-  Adrift_170/171/172_ptakeand (lib_take_multiple_common)
-
+  (lib_take_multiple_common)
 - **4.0 put/task precedence.** A completable library put beats a passing
   task. A size or capacity refusal prints without claiming the line, and
   the task follows. The implicit take is gated on a mode-1 pre-match and
@@ -1095,9 +962,6 @@ next to the named function and in `annotations.tsv`.
   to `put X `, so the catch-all speaks; a silent unnamed put also leaves the
   answer to the catch-all (icecream, house T263; 8f2898bd4, 5a8ac82fb).
   `[4.0]`
-- **4.0 single take of a worn object** counts worn as held, so `get <worn
-  thing>` says "You are already carrying X." `[4.0]` 3monkeys T65
-  (2026-09-19)
 - **The put handler's own answers** (rules A-H): the bang; "is closed";
   "already inside" (4.0 only); the pre-4.0 put universe; the object's
   failure outranking the container's; `Put X inside what?`; the `put all`
@@ -1115,231 +979,152 @@ next to the named function and in `annotations.tsv`.
     among those held, lying in the player's room or worn; the claimant runs
     checktask QUIET (a failing restriction restores the buffer). Nothing
     eligible named leaves generaltasks' pass to run LOUD with the put text
-    still in the buffer. troll T116 (quiet), losttomb T85 and
-    secret_of_lost_world T118 (loud) (`lib_put_sweep_claims_390`,
-    `run_typed_line_task_commands`, 2026-09-19)
-  - insides() resolves the single put's object with co(obj, 0) over every
-    object (Short or Alias as a word, the prefix only when present) and
-    moves the first seen, present, held-or-loose one; a prefix naming an
-    absent namesake is not heard. `[3.9]` secret_of_lost_world T118 `put
-    red gem on statue` moves the green gem (`lib_put_co_resolve_390`,
+    still in the buffer. troll T116, losttomb T85, secret_of_lost_world
+    T118 (`lib_put_sweep_claims_390`, `run_typed_line_task_commands`,
     2026-09-19)
-  - insides() answers a put whose line names fewer than two objects (object
-    absent or unseen, or no container named) BEFORE its task look-up: "Put
-    <the X> inside/onto what?" or "You can't do that!", then the sweep.
-    `[3.9]` cybercow T62 `put bones in robot` with the bones never made
+  - insides() resolves the single put's object with co(obj, 0) over every
+    object and moves the first seen, present, held-or-loose one; a prefix
+    naming an absent namesake is not heard. `[3.9]` secret_of_lost_world
+    T118 (`lib_put_co_resolve_390`, 2026-09-19)
+  - insides() answers a put whose line names fewer than two objects BEFORE
+    its task look-up: "Put <the X> inside/onto what?" or "You can't do
+    that!", then the sweep. `[3.9]` cybercow T62
     (`lib_put_refusal_first_390`, 2026-09-19)
   - The target refusals also come before the task look-up, then the sweep:
     "You can't put anything inside/onto <the X>." (wrong kind), "... as it
-    is closed!", and "You can't put anything inside/onto that!" (two or more
-    objects named anywhere in the game, none after the preposition, no
-    "all"). A failing task with a claimant leaves the refusal; with none
-    (both objects in a bag) the LOUD FailMessage replaces it; a passing task
-    replaces it. `[3.9]` pPUTREF39 (make_39_putrefprobe.py),
-    Adrift_pputref39.txt / Adrift_pputref392.txt (`lib_put_refusal_sweep_390`,
-    `lib_put_that_390`, 2026-09-19)
-  - A put that comes to nothing but a size or capacity refusal moves nothing,
-    so there is no sweep: generaltasks' LOUD pass gets the line and a
+    is closed!", and "You can't put anything inside/onto that!" (two or
+    more objects named anywhere, none after the preposition, no "all"). A
+    failing task with a claimant leaves the refusal; with none the LOUD
+    FailMessage replaces it; a passing task replaces it. `[3.9]` pPUTREF39
+    (`lib_put_refusal_sweep_390`, `lib_put_that_390`, 2026-09-19)
+  - A put that comes to nothing but a size or capacity refusal moves
+    nothing, so there is no sweep: the LOUD pass gets the line and a
     matching task's FailMessage replaces the refusal. A matching FAILING
-    task never claims a put that fits (pPUTCLM39: literal, wildcard,
-    %object% and empty-FailMessage tasks all let the object move). `[3.9]`
-    pPUTREF39 `put coin in bag` → "T6 FAIL." (`lib_put_named_pre400`,
-    2026-09-19)
+    task never claims a put that fits. `[3.9]` pPUTREF39, pPUTCLM39
+    (`lib_put_named_pre400`, 2026-09-19)
   - Capacity decodes the count from the FIRST digit only:
     Val(Left(Format(cap, "00"), 1)) × mult ^ Val(Right(..., 1)), so 100 is
-    one size-1 object, not ten (run390 46537C). run400 takes Left(s, Len(s)
-    - 1). `[3.9]` Adrift_pputrefv4.txt (`obj_get_container_capacity`,
+    one size-1 object, not ten. run400 takes Left(s, Len(s) - 1). `[3.9]`
+    (`obj_get_container_capacity`, 2026-09-19)
+  - The target is chosen after a raw substring search for the preposition,
+    so the "in" inside "coin" or the "on" inside "stone" counts: `put coin
+    and stone in junk` targets the stone. A valid target gets the other
+    named objects put into it. `[3.9]` pPUTREF39 (`lib_put_target_390`,
     2026-09-19)
-  - The target is chosen after InStr(line, Left(var_E0, 2)), a raw
-    substring search, so the "in" inside "coin" or the "on" inside "stone"
-    counts as the preposition. `put coin and stone in junk` targets the
-    stone: "You can't put anything inside the stone." A valid target gets the
-    other named objects put into it: `put stone and tray on junk` gives "You
-    put the stone onto the tray." `[3.9]` Adrift_pputref39.txt:8,
-    Adrift_pputref393.txt (`lib_put_target_390`, 2026-09-19)
-  - The all/and put counts before it moves. It walks the named objects in
-    index order and counts each one whose size fits in the space left after
-    the ones before it. It then moves the FIRST that many, whatever their
-    sizes. If any are left over it adds "  You can't put any more inside
-    the bag as it is full." A count of 0 gives "Nothing will fit inside
-    the bag." and names no object. A single object keeps "can't fit ... at
-    the moment". `[3.9]` Adrift_pputref394/395/396.txt, the last on
-    pPUTREF39E (`make_39_putrefprobe.py --emptybag`) (`lib_put_in_backend`,
+  - The all/and put counts before it moves: it walks the named objects in
+    index order, counts each one whose size fits in the space left, then
+    moves the FIRST that many, whatever their sizes. Leftovers add "  You
+    can't put any more inside the bag as it is full."; a count of 0 gives
+    "Nothing will fit inside the bag."; a single object keeps "can't fit
+    ... at the moment". `[3.9]` pPUTREF39/pPUTREF39E (`lib_put_in_backend`,
     2026-09-19)
-  - `put all in/on <nothing>`: c("all") skips the two-name test (461646)
-    but not the target choice. With nothing named after the preposition
-    the answer is "You can't put anything inside/onto that!", then the
-    sweep. `[3.9]` pPUTFULL39 (make_39_putfullprobe.py),
-    Adrift_pputfull39.txt (`lib_put_that_390`, 2026-09-19)
+  - `put all in/on <nothing>`: c("all") skips the two-name test but not the
+    target choice, so the answer is "You can't put anything inside/onto
+    that!", then the sweep. `[3.9]` pPUTFULL39 (`lib_put_that_390`,
+    2026-09-19)
   - A present static named as the object: insides() counts only movable
-    dynamics (461AF8), so the target's refusals come first, then "You can't
-    see that." (4624EF) and the sweep. An object it cannot reach takes the
-    same refusal-first path. `[3.9]` pPUTFULL39 `put statue in cupboard`
-    (`lib_put_named_pre400`, `lib_put_not_reachable_pre400`, 2026-09-19)
-  - Also measured identical on pPUTFULL39, with no code change:
-    - an object on a floor supporter gives "You can't do that!";
-    - the onto and-arm over capacity puts every candidate, floor objects
-      included;
-    - a static target in another room gives "Put the coin inside what?";
-    - a full bag gives "can't fit ... at the moment" / "Nothing will fit";
-    - `drop coin in junk` / `drop coin and stone in junk` are drops ("You
-      drop the coin." / "... the stone."), so the drop spelling never
-      reaches the "that!" refusal.
-
-    Pre-4.0 has no lock state (the V390 schema reads no Key, and there is no
-    "locked" string), so "locked container" is moot.
-  - Pre-4.0 drops() picks its arm by c("all"), then c("and"). The "and"
-    arm drops the named held/worn objects that no "drop <Short>" task
-    claims, and it never names a missing one. With none dropped it says
-    "You are not carrying anything." (run390 445841, run380 4388E6).
-    `[3.7-3.9]` pPUTFULL39 `drop coin and stone on junk`
-    (`lib_drop_and_arm_pre400`, 2026-09-19)
+    dynamics, so the target's refusals come first, then "You can't see
+    that." and the sweep. An unreachable object takes the same path.
+    `[3.9]` pPUTFULL39 (`lib_put_named_pre400`,
+    `lib_put_not_reachable_pre400`, 2026-09-19)
+  - Also measured identical on pPUTFULL39 with no code change: an object on
+    a floor supporter gives "You can't do that!"; the onto and-arm over
+    capacity puts every candidate; a static target in another room gives
+    "Put the coin inside what?"; `drop coin in junk` is a drop. Pre-4.0 has
+    no lock state, so "locked container" is moot.
+  - Pre-4.0 drops() picks its arm by c("all"), then c("and"). The "and" arm
+    drops the named held/worn objects that no "drop <Short>" task claims,
+    never names a missing one, and with none dropped says "You are not
+    carrying anything." `[<4.0]` pPUTFULL39 (`lib_drop_and_arm_pre400`,
+    2026-09-19)
   - Player MaxSize/MaxWt use Val(Left(Format(v, "000"), 2)) × mult ^
-    Val(Right(v, 1)) in both the run390 and run400 loaders (464B14,
-    48F980). This matches the plain decode below 1000 (the largest in the
-    corpus is 994), so it is not a divergence in practice.
-    (`obj_convert_player_limit`, 2026-09-19)
+    Val(Right(v, 1)) in both loaders, which matches the plain decode below
+    1000 (the corpus maximum is 994). (`obj_convert_player_limit`,
+    2026-09-19)
 - **A 3.8 in/on object with an unset parent** goes in the first container.
   (5cf3d7059)
 - **The take-from handler's own answers.** The 3.9 insides() decision
   procedure; `empty` is take-all-from in 4.0 only. p39DARK/p4TFROM
   (2ab1a7c5d)
-- **Pre-3.9 take-from answers.** In run380, closed (446D19) overwrites
-  not-holding (446CFB). Nothing to take is "There is nothing inside
-  <raw Prefix> <Short>." even for a surface in 3.7. In 3.8 a single named
-  object is a bare "You take ", because 446FB0 writes " take " and 4474C7
-  tests " get ". No "is not inside" line exists before 3.9. run370's
-  insides() needs c("get")/c("remove") plus c("from") (43A745), so
-  `take gem from box` is the catch-all. A bare take's rewrite (4368C4)
-  lands only for a `get` line: `get gem` is "You are not holding a box."
-  and `take gem`/`pick up gem` are "Take what?". A take-from a
-  non-container is the catch-all as well. `[3.7/3.8]` p37TFSW/p38TFSW
-  (`make_3738_tfsweepprobe.py`), Adrift_185-190
-  (`lib_take_from_line_370`, `lib_take_from_answer_370`,
+- **Pre-3.9 take-from answers.** In run380, closed overwrites not-holding.
+  Nothing to take is "There is nothing inside <raw Prefix> <Short>." even
+  for a surface in 3.7. In 3.8 a single named object is a bare "You take ".
+  No "is not inside" line exists before 3.9. run370's insides() needs
+  c("get")/c("remove") plus c("from"), so `take gem from box` is the
+  catch-all; a bare take's rewrite lands only for a `get` line (`get gem`
+  is "You are not holding a box.", `take gem` is "Take what?"). `[<3.9]`
+  p37TFSW/p38TFSW (`lib_take_from_line_370`, `lib_take_from_answer_370`,
   `lib_take_from_nothing_taken_pre390`, 2026-09-19)
-- **4.0 take capacity.** Each object is tested for size first ("<Your>
-  hands are full.") and weight second ("<The X> is too heavy for you to
-  carry at the moment."), even out of a container the player holds. A
-  player-held object loads with its container field cleared, so it never
-  phantom-weighs object 0. `[4.0]` wilkins T22/T107, businessasusual
-  T20/T24, provenance T722/T724, riding_home T1
+- **4.0 take capacity.** Size is tested first ("<Your> hands are full.")
+  and weight second ("<The X> is too heavy for you to carry at the
+  moment."), even out of a container the player holds. A player-held object
+  loads with its container field cleared, so it never phantom-weighs object
+  0. `[4.0]` wilkins, businessasusual, provenance, riding_home
   (`lib_take_over_capacity`, 2026-09-15)
-- **3.9 take-from capacity.** insides() tests size first and weight second;
-  weight is waived when the container is held, size never. A single named
-  take-from refuses per object. The all/and forms pre-count the objects
-  that fit: if none, "<Your> hands are full." / "That is too heavy." and
-  nothing is taken; otherwise nothing is refused per object and one summary
-  follows ("<You> can't take any more, as it is too heavy." if any failed
-  on weight, else "... as <your> hands are full."). `[3.9]` alexis T28,
-  alexis_worn_cube T27 (`lib_take_from_over_capacity_390`, 2026-09-15)
+- **3.9 take-from capacity.** Size first, weight second; weight is waived
+  when the container is held, size never. A single named take-from refuses
+  per object. The all/and forms pre-count the objects that fit: if none,
+  "<Your> hands are full." / "That is too heavy."; otherwise one summary
+  follows. `[3.9]` alexis T28, alexis_worn_cube T27
+  (`lib_take_from_over_capacity_390`, 2026-09-15)
 - **4.0 put names a present-but-unseen object by asking the scorer
-  directly.** The seen-gated %text% matcher can't name an object inside an
-  unlisted-but-open container, but 463640 mode 2 scores every present
-  object regardless of seen state, moves it, and leaves it unseen, so the
-  name composer answers "that" for it. Fires only when the top parse's
-  failure really is the seen gate. `[4.0]` hub T79
-  (`lib_put_fragment_present_object`, `lib_put_print_object_or_that`,
-  2026-09-19)
+  directly.** 463640 mode 2 scores every present object regardless of seen
+  state, moves it, and leaves it unseen, so the name composer answers
+  "that". Fires only when the top parse's failure really is the seen gate.
+  `[4.0]` hub T79 (`lib_put_fragment_present_object`,
+  `lib_put_print_object_or_that`, 2026-09-19)
 - **4.0 `put box in box` takes the box first.** insides tests possession
-  (44615C @465EED) before the itself-test (arg_10 = arg_C @465FA0), and
-  name_object's take piece has already run by then: with the box on the
-  floor run400 prints "(Taking the box first)" / "You can't put an object
-  inside itself!" and the box is in hand afterwards; held, only the itself
-  line; a ring inside the box changes nothing. The wording is chosen by the
-  target's flags (465FDA "in or on itself!" container+surface, 46600C "onto
-  itself!" surface only, 46602A "inside itself!"), not by the preposition.
-  Scarier's guard used to run before the take and left the box on the floor.
-  Both backends now test after the deferred task pass, only for an object
-  the take left in hand. PSTAT's silent cmd 13/18 cells are the object #1
-  weight-cycle deviation (the coin, #1, inside the box), not a rule. `[4.0]`
-  probe PBOXBOX, Adrift_1192 (`lib_put_in_backend`, `lib_put_on_backend`,
-  2026-09-19)
-- **4.0 put noun = name_object's mode-2 scorer, held first.** 46E5D8 hands
-  the object fragment to 463640 mode 2 (@46E02D): pass 0 over what is held
-  (directly or inside something held), pass 1 over everything present, no
-  seen gate; the same resolver as plain `drop`. `put key in box` with the
-  brass key held and the iron key loose puts the brass key with no prompt;
-  with the brass key inside the held box it is "already inside"; both gems
-  loose tie in pass 1 and the 46355E restore clears the pending object, so
-  "It is not clear which gem you are referring to."; both coins held tie in
-  pass 0 and keep it, "Which coin.  The gold coin or the silver coin?".
-  Scarier's seen-gated matcher asked "Which key." for the first two and
-  prompted for the gems. The all/and/except forms keep the ordinary parse.
-  TheADRIFTProject's `put battery in remote` now resolves here rather than
-  through the present-object fallback. `[4.0]` probe PPUTTIE, Adrift_1193
-  (`lib_put_named_400`, reusing `lib_drop_resolve_400`, 2026-09-19)
+  before the itself-test, and the take piece has already run: "(Taking the
+  box first)" / "You can't put an object inside itself!" and the box is in
+  hand. The wording follows the target's flags ("in or on itself!",
+  "onto itself!", "inside itself!"), not the preposition. `[4.0]` PBOXBOX
+  (`lib_put_in_backend`, `lib_put_on_backend`, 2026-09-19)
+- **4.0 put noun = the mode-2 scorer, held first**, the same resolver as
+  plain `drop`, no seen gate: `put key in box` with the brass key held and
+  the iron key loose puts the brass key with no prompt; both gems loose tie
+  in pass 1 and give "It is not clear which gem you are referring to.";
+  both coins held tie in pass 0 and prompt "Which coin.". The all/and/
+  except forms keep the ordinary parse. `[4.0]` PPUTTIE
+  (`lib_put_named_400`, 2026-09-19)
 - **4.0 closed container: the take comes first; `put all` counts hands
-  before it looks at the lid.** insides (46639C) tests the target's state
-  at 4661BE/4661C9 (" is locked!" / " is closed!") after name_object's take
-  piece, the tasks() call, the possession and itself tests, and ahead of
-  the size test, so `put ring in box` with the box shut prints "(Taking the
-  ring first)" / "The box is closed!" and the ring IS taken; a shut chest
-  on the floor is the same shape. Scarier refused from the container check
-  before the take. The refusal is size-like: printed, line left for the
-  task pass. `put all in <X>` never reaches insides when nothing is held:
-  name_object counts held objects (44615C @46E553-46E580) and says "You are
-  carrying nothing!" (46E5BC) even against a shut container; with X the
-  only thing carried it says nothing and the catch-all answers, shut or
-  open, as the surface row already did. Scarier had printed the closed
-  refusal in both cases. The all rows' tentative pass now settles a refusal
-  like the named rows' (they are not put_first), or the STANDARD twin
-  printed it twice. `[4.0]` probe PCLOSED, Adrift_1194/1195
-  (`lib_put_in_closed_400`, `lib_put_all_common`, 2026-09-19)
-- **Pre-4.0 put leftovers: a fragment that names nothing, `except`, the
-  3.7 static open, drop-all-except.** In insides() (run380 4457A1) the
-  co() name count var_A6 comes before the target's tests. A fragment that
-  names nothing anywhere leaves the target alone on the line, so 3.7/3.8
-  say "You can't do that!" ahead of the container refusals: `put zzz in
-  statue` / `in coin` / `in chest` (open or shut). An object named but out
-  of reach still counts, so the target-first order measured on p38DARK
-  stands. insides() has no exception list before 4.0: `put all
-  except/but X in/on Y` is `put all in/on Y` at 3.7, 3.8 and 3.9, and X is
-  put too. With nothing held that gives the all arm's empty answers (3.7
-  "You have nothing to put inside the cupboard.", 3.8 "You are not
-  carrying anything.", 3.9 "Nothing will fit inside the cupboard.").
-  run370's openclose does not list a static container either: `open
-  chest` is the bare "You open the chest.", where run380 lists. drops()'
-  all arm skips only a name after " but " (run380 438793, run390 4456AB;
-  run370 has no "but"), and nothing left is " not carrying anything."
-  (run380 4388E6), never the exception's "don't have". Already right and
-  re-confirmed: 3.7 bare `take` from a held or static container is "Take
-  what?" (a `get` line reaches it, see pre-3.9 take-from answers), 3.8's
-  takes it; put into an open static container; the closed
-  static refusal; `put coin on table` with the table a dynamic surface
-  on the floor is "You are not holding a table.". `[3.7/3.8/3.9]` probes
-  p37PUT/p38PUT/p39PUT (`make_3738_putprobe.py`), run370x/run380x/run390x
-  Adrift_154_p37put2.rtf, Adrift_155_p38put2.rtf, Adrift_154_p39put.txt
+  before the lid.** `put ring in box` with the box shut prints "(Taking the
+  ring first)" / "The box is closed!" and the ring IS taken; the refusal is
+  size-like, printed with the line left for the task pass. `put all in
+  <X>` with nothing held says "You are carrying nothing!" even against a
+  shut container; with X the only thing carried it says nothing and the
+  catch-all answers. `[4.0]` PCLOSED (`lib_put_in_closed_400`,
+  `lib_put_all_common`, 2026-09-19)
+- **Pre-4.0 put leftovers.** A fragment that names nothing anywhere makes
+  3.7/3.8 say "You can't do that!" ahead of the container refusals (an
+  object named but out of reach still counts, so p38DARK's target-first
+  order stands). There
+  is no exception list before 4.0: `put all except X in Y` is `put all in
+  Y` at 3.7-3.9 and X is put too; with nothing held, the all arm's empty
+  answer (3.7 "You have nothing to put inside the cupboard.", 3.8 "You are
+  not carrying anything.", 3.9 "Nothing will fit inside the cupboard.").
+  run370's openclose does not list a static container (`open chest` is the
+  bare "You open the chest."). drops()' all arm skips only a name after
+  " but " (run370 has no "but"). `[<4.0]` p37PUT/p38PUT/p39PUT
   (`lib_put_co_count_pre390`, `lib_cmd_put_in_except_multiple`,
   `lib_cmd_drop_except_multiple`, `lib_cmd_open_object`, 2026-09-19)
-- **3.9 take all sweeps open containers; "and" beats "all" in put.**
-  After the floor, run390 takes() (4558CE-455B28) sweeps every open
-  container or surface lying directly in the room through the take-from
-  arm: `take all` with six objects in the open static cupboard is "You
-  take the coin, ... and the table from the cupboard." (a first-take
-  sentence is joined with two spaces). insides() sets var_CC = 1 on
-  c("all") and then 2 on c("and") (4618D4-46190C), so `put all except
-  coin and stone in cupboard` is the and-arm: only co()-named objects
-  held or loose in the room count, and with both on the held table it is
-  "Nothing will fit inside the cupboard." The capacity arms of the sweep
-  (insides() = 2, 455A68) and the and-arm's worn objects are not
-  modelled. `[3.9]` p39PUT T23-30 (Adrift_154_p39put.txt), probes
-  Adrift_p39takeall.txt / Adrift_p39takeall2b.txt
-  (`lib_take_all_sweep_390`, `lib_put_all_common`, 2026-09-19)
+- **3.9 take all sweeps open containers; "and" beats "all" in put.** After
+  the floor, run390 takes() sweeps every open container or surface lying
+  directly in the room through the take-from arm ("You take the coin, ...
+  from the cupboard."). insides() sets its mode on c("all") and then
+  c("and"), so `put all except coin and stone in cupboard` is the and-arm.
+  The sweep's capacity arms and the and-arm's worn objects are not
+  modelled. `[3.9]` p39PUT T23-30 (`lib_take_all_sweep_390`,
+  `lib_put_all_common`, 2026-09-19)
 - **Pre-4.0 drop "and" arm walks, never parses; `everything` = `all`;
-  3.7/3.8 absent static target can't see.** drops()' "and" arm (run390
-  4457A0-445813) marks every object held or worn directly whose name
-  co(obj, 0) finds, so `drop foo and bar` is "You are not carrying
-  anything." and `drop coin and foo` is "You drop the coin." `[<4.0]`.
-  run390 generaltasks rewrites "everything" to "all" (45F225), so `put
-  everything in/on zzz` is the put-all refusal "You can't put anything
-  inside/onto that!" `[3.9]` (3.7/3.8 crash, see deviations). The pre-3.9
-  whole-game target search finds a static container in another room, and
-  insides() then says "You can't see a cupboard." after the not-a-container
-  refusal `[<3.9]`; 3.9 never finds it ("Put the coin inside what?").
-  p37PUT/p38PUT/p39PUT, `cmdfile_p3738drop.txt` / `cmdfile_p3739drop.txt`:
-  run370x Adrift_160_p37drop.rtf, run380x Adrift_161_p38drop.rtf, run390x
-  Adrift_160_p39drop.txt (`lib_drop_and_arm_collect_pre400`,
-  `lib_put_that_390`, `lib_put_static_absent_pre390`, 2026-09-19)
+  3.7/3.8 absent static target can't see.** `drop foo and bar` is "You are
+  not carrying anything." and `drop coin and foo` is "You drop the coin."
+  `[<4.0]`. run390 rewrites "everything" to "all", so `put everything in
+  zzz` is the put-all refusal `[3.9]` (3.7/3.8 crash, see deviations). The
+  pre-3.9 whole-game target search finds a static container in another
+  room and says "You can't see a cupboard." after the not-a-container
+  refusal `[<3.9]`; 3.9 never finds it. p37PUT/p38PUT/p39PUT
+  (`lib_drop_and_arm_collect_pre400`, `lib_put_that_390`,
+  `lib_put_static_absent_pre390`, 2026-09-19)
 
 ### NPCs, walks and battle
 
@@ -1348,81 +1133,42 @@ next to the named function and in `annotations.tsv`.
   c(Name) Or c(Alias(0)) anywhere in the line. An arm that assigns the
   message outright leaves the LAST named NPC's answer; one guarded by an
   empty message leaves the FIRST's. With Ann and Bob, both "a guard", here
-  and Cora, a third, next door and unseen:
-  - Last present: `x guard` (and `x tall guard`, `x big dave`: examine by
-    containment, which SCARE's %character% missed, all versions), `ask
-    guard`, `ask guard about key` ("BOB KEY."), 3.9 `take stone from
-    guard`.
-  - Last named, here or not, no seen test: `talk to guard` and `talk to
-    guard about key` (Cora's hint), `where is guard` ("You haven't seen
-    Cora yet!"), 3.7/3.8 `take guard` and `take stone from guard` ("Cora
-    is not here!").
-  - First present: `give stone to guard`, `give guard stone`, 3.9 `take
-    guard`, `hit`/`kick guard`, and the 3.9 catch-all (`hug guard`, a bare
-    `guard`: "... with Ann."). First named, here or not: 3.9 `kiss guard`.
-  - 3.7/3.8 single characters: `kiss dave` is therest's "I'm not sure it
-    would appreciate that." (no characters() kiss arm); `attack dave`,
-    `hug dave`, `eat dave` are DontUnderstand (no catch-all); `take cora`
-    and `take stone from cora` are "Cora is not here!". A 3.7 take line
-    without get/remove never reaches insides(), so `take stone from dave`
-    is the take refusal.
-  - 3.9 `take stone from cora` (Cora absent) is the no-source "The stone
-    isn't in or on anything!".
-  - The bare `ask` hint has no final full stop in any Runner.
-  `[<4.0]` p37/p38/p39NPCAMB (make_3738_npcambprobe.py, `cmdfile_pnpcamb.txt`
-  / `cmdfile_pnpcamb37.txt` Adrift_193_pnpcamb39 / Adrift_192_pnpcamb38 /
-  Adrift_193_pnpcamb37b, `cmdfile_pnpcone.txt` / `cmdfile_pnpcone37.txt`
-  Adrift_196 / 195 / 194; `lib_disambiguate_npc_pick`, 2026-09-19)
-- **Pre-4.0 "with" lines and 3.7/3.8 characters() arms.**
-  - 3.9 therest with-arm (run390 45D2B7): with battle off, a line with the
-    word "with" that the 2+-object split did not claim answers "I don't
-    understand what you want me to do with <the X>!" for the first co()
-    object whose Short or first Alias sits after "with", else "With what?".
-    It beats characters(), so `kill dave with stone` never reaches the
-    attack arm at 3.9. Battle on keeps dobattle (above therest, 45F4AF;
-    secret_of_lost_world). The "With what?" prefix continuation (45D3E0)
-    is not modelled.
-  - 3.8+ history rewrite (run380 441C9D, run390 45F2AF, run400 48A399; not
-    run370): a line starting "with " is prefixed with the previous typed
-    line (blank lines count).
-  - 3.7/3.8: `talk`/`speak` anywhere in the line with a named character
-    gives the ask hint for the last one named, no room test (run380
-    4405D7, run370 438748). A present character named in an examine line
-    overwrites the answer (`x dave with stone` = "A quiet man.", run380
-    440D0B, run370 438E23). The attack arm answers "<Name> is not here!"
-    for an absent first-named NPC (4404D9 / 43865D) and " don't have
-    <X>!" for a not-held with-object (44047B / 4385FF). Bare `hit` is the
-    attack arm, not "Hit what?".
-  `[<4.0]` p37/p38/p39NPCAMB (`cmdfile_pnpckill.txt`, `cmdfile_pnpcwith.txt`;
-  Adrift_196/197/198_pnpckill37/38/39, Adrift_198/199/200_pnpcwith37/38/39;
-  `lib_with_arm_390`, `lib_hit_absent_npc_pre390`,
+  and Cora, a third, next door and unseen: last present for `x guard`
+  (examine by containment, all versions), `ask guard [about key]`, 3.9
+  `take stone from guard`; last named, here or not, for `talk to guard`,
+  `where is guard`, 3.7/3.8 `take guard` ("Cora is not here!"); first
+  present for `give stone to guard`, 3.9 `take guard`, `hit`/`kick guard`
+  and the 3.9 catch-all; first named for 3.9 `kiss guard`. 3.7/3.8 single
+  characters: `kiss dave` is therest's "I'm not sure it would appreciate
+  that."; `attack`, `hug`, `eat dave` are DontUnderstand; a 3.7 take line
+  without get/remove never reaches insides(). 3.9 `take stone from cora`
+  (absent) is "The stone isn't in or on anything!". `[<4.0]`
+  p37/p38/p39NPCAMB (`lib_disambiguate_npc_pick`, 2026-09-19)
+- **3.7/3.8 characters() arms.** `talk`/`speak` anywhere in the line with a
+  named character gives the ask hint for the last one named, no room test.
+  A present character named in an examine line overwrites the answer (`x
+  dave with stone` = "A quiet man."). The attack arm answers "<Name> is not
+  here!" for an absent first-named NPC and " don't have <X>!" for a
+  not-held with-object. Bare `hit` is the attack arm, not "Hit what?".
+  `[<3.9]` p37/p38NPCAMB (`lib_hit_absent_npc_pre390`,
   `lib_talk_hint_anywhere_pre390`, 2026-09-19)
-- **Bare verbs below 3.9.** run370/run380 have no checkverb, so a bare
-  verb runs its own arm with no object ("You can't lock that.", "You might
-  need that.", "You press, but nothing happens.", "I don't think that is
-  for sale."); only Take/Drop/Wear/Remove/With and 3.8's Open/Close ask
+- **Bare verbs below 3.9.** run370/run380 have no checkverb, so a bare verb
+  runs its own arm with no object ("You can't lock that.", "You might need
+  that.", "You press, but nothing happens.", "I don't think that is for
+  sale."); only Take/Drop/Wear/Remove/With and 3.8's Open/Close ask
   "what?". Bare `give` is "(to Nobody) You don't have that.". No touch arm
-  below 3.9 and no shake arm in 3.7 (catch-all, bare or not). fix/repair/
-  mend share one arm, "I don't think you can fix <X>." (run370 43E850,
-  run380 44535C). Rub is 4.0-only, so at 3.9 a bare `rub` is left to the
-  pending prefix: `repair` / `rub` = "I don't think you can repair that.".
-  `[<4.0]` p37/p38/p39NPCAMB (`cmdfile_pbareverb.txt`,
-  `cmdfile_pbareverb37.txt` without `eat`; Adrift_202_pbareverb37.rtf,
-  Adrift_201_pbareverb38.rtf, Adrift_202_pbareverb39.txt;
-  `lib_bare_verb_pre390`, 2026-09-19)
+  below 3.9 and no shake arm in 3.7. fix/repair/mend share one arm, "I
+  don't think you can fix <X>.". Rub is 4.0-only, so at 3.9 a bare `rub` is
+  left to the pending prefix. `[<4.0]` p37/p38/p39NPCAMB
+  (`lib_bare_verb_pre390`, 2026-09-19)
 - **3.9 absent characters, per verb.** `talk to`/`speak to` any named
-  character, even an absent or unseen one, gives the "ask X about"
-  hint. The hint at 45975C has no room gate, and the ask branch's
-  "isn't here!" loses to it. `give obj to <absent npc>` (also `give npc
-  obj`) is the object catch-all "I don't understand what you want me to do
-  with the stone.". therest's give stays silent at 45D696 once any
-  character is named, so the line reaches 46024A before characters(). A
-  bare `give stone` echoes "(to <last named>)" (rewrite 45F9D5, "(to " at
-  45FAB9) and runs as that. `take <absent npc>` is "Take what?", because
-  takes() answers before characters()' "is not here!" (4596E1). run390
-  names a character by Name or Alias(0) only. `[3.9]` p39ABSNPC
-  (make_39_absnpcprobe.py, Adrift_1206_p39absnpc.txt)
-
+  character, even absent or unseen, gives the "ask X about" hint (no room
+  gate; the ask branch's "isn't here!" loses to it). `give obj to <absent
+  npc>` is the object catch-all. A bare `give stone` echoes "(to <last
+  named>)" and runs as that. `take <absent npc>` is "Take what?", because
+  takes() answers before characters()' "is not here!". run390 names a
+  character by Name or Alias(0) only. `[3.9]` p39ABSNPC
+  (make_39_absnpcprobe.py)
 - **Walk announcements.** The announcement joins the turn's paragraph, and
   ALRs span the join. 4.0 capitalises the Name. sa.taf, p4WALKALR,
   p4WALKCAP
@@ -1455,29 +1201,26 @@ next to the named function and in `annotations.tsv`.
     attack?", continued into the next line. shadowpeak, light_up
     (327feeb9c, e4e85ea89, 3d59b700d, 13f13e66d, 512543515)
   - Type-7 attribute raises are capped at max with no zero floor, at 3.9
-    and 4.0 alike (ungated); the max attributes are a plain add. The dodge
-    pronoun is he/she/it by Gender. wes_ghn, les_feux (4c7c20f64);
+    and 4.0 alike; the max attributes are a plain add. The dodge pronoun is
+    he/she/it by Gender. wes_ghn, les_feux (4c7c20f64);
     secret_of_lost_world T125-126/T164, spirits_flight T17/T27 (2026-09-19)
   - The attitude action stores Var3 RAW into the NPC's byte (0 neutral, 1
-    ally, 2 enemy), no combo reorder. deaths T42/T48/T49 (2026-09-19)
+    ally, 2 enemy). deaths T42/T48/T49 (2026-09-19)
   - The 3.9 speed action indexes the NPC by Var2 RAW, no
     referenced-character case. `[3.9]` deaths T35-T49 (2026-09-19)
   - The 3.9 blow has no accuracy roll: hit iff hitstrength >
-    armourstrength, damage = max(0, hit - armour), no draw; hitstrength =
-    strength + best weapon, armourstrength = defence + worn objects' field
-    76; getnexthit at speed 1 draws Int(Rnd*1)+1, the rest are constants.
+    armourstrength, damage = max(0, hit - armour); hitstrength = strength +
+    best weapon, armourstrength = defence + worn objects' field 76;
+    getnexthit at speed 1 draws Int(Rnd*1)+1, the rest are constants.
     Scarier's `battle_legacy` path; read 2026-09-19.
   - Stamina recovery is a per-line pass that revives the dead;
     `battle_select_target` takes 0-stamina targets. (544868698, e78827349)
   - A type-7 stamina action that leaves an NPC at <=0 kills it. The player
-    dies from it only in 4.0; the 3.9 player arm has no test. `[3.9+]`
-    cybercow_win T103 task 167 (`battle_change_attribute`, 2026-09-19)
+    dies from it only in 4.0. `[3.9+]` cybercow_win T103
+    (`battle_change_attribute`, 2026-09-19)
 - **Task move "to same room as" (Var2 = 2)** names its NPC by RAW array
-  index at 3.9, in the NPC arm and the player arm alike: no player or
-  referenced-character slots. run400 keeps 0 = player, 1 = referenced, N =
-  NPC N-2. 3.7/3.8 movements never produce it. `[3.9]` fantasyworld task 92
-  (the Royal Knight goes to King Harmon, not the Barmaid; T224-296
-  identical). Corpus exposure at 3.90: fantasyworld's two, panic's one
+  index at 3.9, in the NPC arm and the player arm alike. run400 keeps 0 =
+  player, 1 = referenced, N = NPC N-2. `[3.9]` fantasyworld task 92
   (`task_same_room_npc_390`, 2026-09-19)
 
 ### Events and RNG
@@ -1495,54 +1238,38 @@ next to the named function and in `annotations.tsv`.
   - An event that starts PAUSED (pauser done, resumer not) keeps the
     start's roll + 1: the pause test exits checkevent before the decrement,
     so after the resume it ends one turn later than its roll. thepkgirl
-    T152-T171 (event 118), which moved the T312 "slips you a buck".
-    (2026-09-19)
+    T152-T171 (2026-09-19)
   - An event whose clock ROLLS 0 parks for good, at every version: the
-    restart (RestartType 1) and the start off a waiting clock both store
-    the roll with no +1, the running block decrements first, and the finish
-    test is `clock = 0`, so the clock sits at -1: no PrefTime text, finish
-    or restart draw ever follows, and the LookText stays. A zero-length
-    event is the case that always rolls 0. Only the task start adds 1 (so
-    its roll 0 finishes on the start turn). zelda T52-60 (event 5; 468 =
-    468 draws); probe pEVROLL events A and B
-    (`harness/make_39_evrollprobe.py [out] [38]`, run390x
-    Adrift_1200_pevroll39.txt, run380x Adrift_1201_pevroll38.rtf; run370
-    events() 431B5D/43247A/432068/432173 read, same shape) (2026-09-19)
+    restart and the start off a waiting clock both store the roll with no
+    +1, the running block decrements first, and the finish test is `clock =
+    0`, so the clock sits at -1. Only the task start adds 1. zelda T52-60;
+    probe pEVROLL (`harness/make_39_evrollprobe.py [out] [38]`) (2026-09-19)
   - A restart-after-delay event with an immediate or task starter is a
-    one-shot whatever its length, at every version: the finish block (4706BE) sets the state
-    to waiting, draws Rnd once (4706CE) and stores
+    one-shot at every version: the finish block draws Rnd once and stores
     Int(Rnd * (EndTime - StartTime)) + StartTime, which is 0 because those
-    two fields are only read from the taf for a random-delay starter; the
-    waiting block (46FD26) decrements before it tests for zero, so the
-    clock sits at -1 for good. No StartText, no LookText afterwards. The
-    Rnd is still drawn. run390 448E23-448E7F and run370 43249F-4324F4 are
-    the same (run390's variant d re-arms because its starter is a random
-    delay). Probe EVRS, Adrift_1196 ("R2 FINISH." once; control R1
-    restarts every three turns); probe pEVROLL event C, Adrift_1200/1201
-    ("C FINISH." on turn 2 only, no "C LOOK." afterwards) (2026-09-19)
+    fields are only read for a random-delay starter, and the waiting block
+    decrements before it tests for zero. No StartText or LookText
+    afterwards; the Rnd is still drawn. Probes EVRS, pEVROLL event C
+    (2026-09-19)
 - **Pre-4.0 ending mid-tick.** The ending (WinText, summary, "[Press any
   key to end]") is composed as the task that armed it finishes, right after
-  the action loop. The prompt is no wait, and the tail's ended test was
-  made before characters(), so a walk's task that ends the game is followed
-  by events() in the same tick. Event texts join pre-4.0 with the two-space
-  separator unless the buffer ends in Chr(10) or "  ". `[<4.0]` haunt T84
-  ("...end]  You hear the chiming of the grandfather clock."). 4.0 keeps
-  the end-of-turn endmessage. (2026-09-19)
+  the action loop, and the tail's ended test was made before characters(),
+  so a walk's task that ends the game is followed by events() in the same
+  tick. Event texts join pre-4.0 with the two-space separator unless the
+  buffer ends in Chr(10) or "  ". `[<4.0]` haunt T84. 4.0 keeps the
+  end-of-turn endmessage. (2026-09-19)
 - **Completed tasks.** A 4.0 event that runs a completed task still walks
   the task's restrictions, so a failing restriction prints its message and
-  a passing one prints nothing. riding_home T47 (event 8, task 104)
-  (2026-09-15)
+  a passing one prints nothing. riding_home T47 (2026-09-15)
 - **Static objects moved by events.** A 4.0 static's presence is its
   per-room array o(28). The start mover (Obj1) replaces the rooms; the
   finish movers (Obj2/Obj3) only add one, clearing for hidden or held
-  alone. The array starts as the Where list, so finish moves pile up.
-  `[4.0]` 3monkeys T109 (the anvils in all four corners) (2026-09-19)
+  alone. `[4.0]` 3monkeys T109 (2026-09-19)
 - **The phantom object.** The 3.9/4.0 object array is `0 To count` and
-  loaded 0..count-1. The spare slot's zero position reads as "held", and
-  the "all held" scan tests it before its exit, so the first "all held"
-  move of a game also moves the phantom, and a roomgroup destination draws
-  getaroom. After that it isn't held unless it's handed back. `[3.9+]`
-  hhorror T25 (4979 = 4979 draws) (`task_move_phantom_object`, 2026-09-19)
+  loaded 0..count-1. The spare slot's zero position reads as "held", so the
+  first "all held" move of a game also moves the phantom, and a roomgroup
+  destination draws getaroom. `[3.9+]` hhorror T25
+  (`task_move_phantom_object`, 2026-09-19)
 - **Look text.** An event's look text is gated on the room being described,
   not on the player's room. goldilocks, cybercow
 - **RNG parity.** `SCR_RNG=xoshiro` matches vbrng draw for draw, and it is
@@ -1551,13 +1278,11 @@ next to the named function and in `annotations.tsv`.
 
 ### Output, wording and the room block
 
-- **An empty authored PlayerName is "Anonymous" at 4.0.** run400's
-  openadv fills the field at load (48F39F), and %player% and the
-  third-person pronoun array (48F6F2) both read it, PromptName off or not.
-  run390 has no load-time default (unmeasured; Scarier keeps SCARE's
-  "Player" before 4.0). `[4.0]` probe ANON, Adrift_1198 ("Anonymous is
-  carrying nothing.", "Name is [Anonymous]."); goldens woof, aliasagent,
-  greekschool re-blessed (`%player%`, scvars.cpp, 2026-09-19)
+- **An empty authored PlayerName is "Anonymous" at 4.0.** run400 fills the
+  field at load, and %player% and the third-person pronoun array both read
+  it, PromptName off or not. run390 has no load-time default (unmeasured;
+  Scarier keeps SCARE's "Player" before 4.0). `[4.0]` probe ANON; goldens
+  woof, aliasagent, greekschool re-blessed (scvars.cpp, 2026-09-19)
 - **The room block is ONE string.** viewroom joins the description,
   InRoomDescs, "Also here", the "X is here." sentence, NPC texts and event
   LookTexts with pspace(), a conditional two spaces. The heading is `"\n" +
@@ -1593,17 +1318,13 @@ next to the named function and in `annotations.tsv`.
   - "(Getting off that first)" for an unseen parent. `[3.9+]` gateway
   - The 3.7/3.8 inventory listing does not claim the line, so a matching
     task's text follows it. wrecked T24
-  - The 3.7/3.8 ask topic matches by substring, and the last match wins
-    (wrecked T129/T211). A typed `<subject>` with no topic is "Smart Alec!";
-    run390/run400 escape "<" at input, so 3.9 and 4.0 never reach theirs.
-    p38ASK
   - The examine-self full stop is 3.9+.
   - The NPC examine overwrite applies at 3.9 too: a task's text is replaced
     by the NPC's description; the namesake check stays 4.0 only. `[3.9+]`
-    cybercow_win T72 `x fairy` (2026-09-19)
+    cybercow_win T72 (2026-09-19)
   - Pre-4.0 read ends in the examine tail, the openness line and the
-    contents. `[<4.0]` cybercow_win T97 `read envelope`
-    (`lib_read_tail_pre400`, 2026-09-19)
+    contents. `[<4.0]` cybercow_win T97 (`lib_read_tail_pre400`,
+    2026-09-19)
 - **Other formatting:**
   - The "<Name> is here." sentence is capitalised only by the 4.0 loader's
     `#` substitution. run390/380/370 append the raw Name, and no Runner

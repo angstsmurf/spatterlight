@@ -4583,7 +4583,16 @@ lib_cmd_examine_self (scr_gameref_t game)
           lib_print_object_raw (game, parent);
         }
       pf_buffer_character (filter, '.');
-      goto worn;
+      /*
+       * And that is the whole reply: neither run370's block (435A9B-435BEA)
+       * nor run380's (43D3EC-43D53B) walks the worn objects, so a 3.7/3.8
+       * `x me` never says "You are wearing ..." -- only `i` does.  run370x/
+       * run380x p37SITN/p38SITN `wear hat sit` then `x me` (Adrift_203_
+       * psitn_37.rtf, Adrift_204_psitn_38.rtf, 2026-09-20): "...the
+       * circumstances.  You are sitting down." while `i` lists the hat worn.
+       */
+      pf_buffer_character (filter, '\n');
+      return TRUE;
     }
   else
     {
@@ -4659,8 +4668,7 @@ lib_cmd_examine_self (scr_gameref_t game)
         pf_buffer_character (filter, '.');
     }
 
-worn:
-  /* Find and list each object worn by the player. */
+  /* Find and list each object worn by the player (3.9+, see above). */
   for (object = 0; object < gs_object_count (game); object++)
     {
       if (gs_object_position (game, object) == OBJ_WORN_PLAYER)
@@ -22694,6 +22702,54 @@ lib_sitstand_block (scr_gameref_t game, scr_int movement, size_t mark)
 
 
 /*
+ * lib_sitstand_strip()
+ *
+ * The line with its sit/stand/lie words (4.0 also lay) and a "down"/"up"
+ * right after each cut out, for the rows that must see the rest of it.
+ */
+static std::string
+lib_sitstand_strip (const scr_char *line, scr_int taf_version)
+{
+  std::string out;
+  const scr_char *p = line;
+
+  while (*p)
+    {
+      const scr_char *end = p;
+      size_t length;
+
+      while (*end && *end != ' ')
+        end++;
+      length = end - p;
+      const scr_bool is_move =
+          (length == 3 && (scr_strncasecmp (p, "sit", 3) == 0
+                           || scr_strncasecmp (p, "lie", 3) == 0
+                           || (taf_version >= TAF_VERSION_400
+                               && scr_strncasecmp (p, "lay", 3) == 0)))
+          || (length == 5 && scr_strncasecmp (p, "stand", 5) == 0);
+      if (is_move)
+        {
+          p = end + strspn (end, " ");
+          if ((scr_strncasecmp (p, "down", 4) == 0
+               && (p[4] == NUL || p[4] == ' '))
+              || (scr_strncasecmp (p, "up", 2) == 0
+                  && (p[2] == NUL || p[2] == ' ')))
+            {
+              p += p[0] == 'd' || p[0] == 'D' ? 4 : 2;
+              p += strspn (p, " ");
+            }
+          continue;
+        }
+      if (!out.empty ())
+        out += ' ';
+      out.append (p, length);
+      p = end + strspn (end, " ");
+    }
+  return out;
+}
+
+
+/*
  * lib_sitstand_anywhere()
  *
  * The Runner's sitstand is one proc of blocks, each entered on its word
@@ -22721,30 +22777,64 @@ lib_sitstand_block (scr_gameref_t game, scr_int movement, size_t mark)
  *   sit and wait (3.7-3.9)              "You sit down on the ground."
  * A line whose only such word leads it, followed by nothing, down/up, or
  * on/in, is left to the rows that already answer it with their own
- * refusals.  Lines holding the take, drop, inventory, give, ask, talk, say,
- * direction, score, hint and profanity words are left alone: not measured.
- * Returns TRUE when it answered the line; an examine line gets the move and
- * FALSE, so the examine row speaks.
+ * refusals.
+ *
+ * The rest of generaltasks around it, measured on p37SITN..p4SITN (the SIT
+ * world plus a worn hat and Bob with a "hat" topic) with cmdfile_psitn.txt
+ * (run370x Adrift_203_psitn_37.rtf, run380x Adrift_204_psitn_38.rtf, run390x
+ * Adrift_205_psitn_39.txt, run400x Adrift_206_psitn_4.txt, 2026-09-20):
+ *   - takes and drops claim the line (GoTo past sitstand): `take stool
+ *     sit` takes, `drop stool sit` drops, no move.  A refused put claims
+ *     at 3.8 and 3.9 ("You can't put anything on the stool.") but not at
+ *     3.7 or 4.0, where `put coin on stool sit` sits ON THE STOOL -- the
+ *     put's refusal is overwritten and the object loop takes the stool.
+ *   - inventory, the help hint, give, say, a direction and `hint` (an exact
+ *     line) all lose to the sit: `i sit`, `sit i`, `inventory sit`, `n sit`,
+ *     `sit n`, `north sit`, `help sit`, `hint sit`, `say hello sit`, `give
+ *     coin to bob sit` are "You sit down on the ground.", nothing listed,
+ *     nobody moved, the coin kept.  Everything below the wait gate is
+ *     `If msg = "" Then` (run390 45FFE8, 460004), so therest never speaks.
+ *   - wears and removes DO their move before sitstand overwrites them:
+ *     `wear hat sit` wears the hat and says "You sit down on the ground."
+ *     (x me: "...sitting down. You are wearing a hat."); `remove hat sit`
+ *     removes it the same way, 4.0 included.
+ *   - `score` anywhere (run390 45F6B5, run400 48A6AE) and the swearing arm
+ *     (run390 45F8E4-45F9CE, run400 48A976) come AFTER sitstand and
+ *     overwrite it: `score sit` sits and prints the score, `shit sit` sits
+ *     and prints the language line.  `bugger`/`bloody` only where that
+ *     Runner's list has them.
+ *   - characters() runs last and overwrites too.  `talk to bob sit` sits and
+ *     answers 'Use the format "ask Bob about [subject]".' at every version
+ *     (c("talk to"), run390 45973D).  `ask bob about hat sit` sits and
+ *     answers "BOB HAT."; `sit ask bob about hat` does so only in 4.0 --
+ *     the pre-4.0 ask arm wants the character's name at column 5, i.e.
+ *     "ask <name> ..." leading the line (InStr(...) <> 5 skips it, run390
+ *     459818-459895), so 3.7/3.8/3.9 answer "You sit down on the ground."
+ * run_line runs the standard rows on a stripped line for the wear/remove
+ * and 3.7/4.0 put pre-runs.  On FALSE with *rest set, the caller should
+ * dispatch the rest of the line from *rest (the sit words cut), so the ask
+ * and talk rows see the shape they know.  Returns TRUE when it answered the
+ * line; an examine line gets the move and FALSE, so the examine row speaks.
  */
 scr_bool
-lib_sitstand_anywhere (scr_gameref_t game)
+lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
+                       std::string *rest)
 {
   static const scr_char *const LEFT_ALONE[] = {
-    "get", "take", "pick", "drop", "put", "leave", "i", "inventory", "give",
-    "ask", "talk", "say", "tell", "north", "n", "east", "e", "south", "s",
-    "west", "w", "u", "d", "out", "northeast", "ne", "northwest", "nw",
-    "southeast", "se", "southwest", "sw", "score", "hint", "hints", "help",
-    "shit", "fuck", "bastard", "cunt", "crap", "hell", "shag", "bollocks",
-    "bollox", "piss", "bugger", "bloody", NULL
+    "get", "take", "pick", "drop", "leave", NULL
   };
   static const scr_char *const EXAMINES[] = {
     "x", "examine", "look at", "ex", "exam", "read", NULL
+  };
+  static const scr_char *const PROFANITY[] = {
+    "shit", "fuck", "bastard", "cunt", "crap", "hell", "shag", "bollocks",
+    "bollox", "piss", NULL
   };
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *line = run_get_dispatch_input ();
   const scr_char *const *word;
-  scr_bool sit, stand, lie, examine;
+  scr_bool sit, stand, lie, examine, profanity, score, speaks;
   scr_int blocks;
 
   if (!line || game->pending_endgame != 0)
@@ -22762,35 +22852,43 @@ lib_sitstand_anywhere (scr_gameref_t game)
     if (lib_co_contains (line, *word))
       return FALSE;
 
+  const scr_bool wearish = lib_co_contains (line, "wear")
+                           || lib_co_contains (line, "put on")
+                           || lib_co_contains (line, "remove");
+  const scr_bool putish = !wearish && lib_co_contains (line, "put");
+  if (putish
+      && (taf_version == TAF_VERSION_380 || taf_version == TAF_VERSION_390))
+    return FALSE;
+
   if (blocks == 1)
     {
       static const scr_char *const VERBS[] = {
         "sit", "stand", "lie", "lay", NULL
       };
-      const scr_char *rest = NULL;
+      const scr_char *rest_ = NULL;
 
-      for (word = VERBS; *word && !rest; word++)
+      for (word = VERBS; *word && !rest_; word++)
         {
           const size_t length = strlen (*word);
 
           if (scr_strncasecmp (line, *word, length) == 0
               && (line[length] == NUL || line[length] == ' '))
-            rest = line + length;
+            rest_ = line + length;
         }
-      if (rest)
+      if (rest_)
         {
-          rest += strspn (rest, " ");
-          if (scr_strncasecmp (rest, "down", 4) == 0
-              && (rest[4] == NUL || rest[4] == ' '))
-            rest += 4;
-          else if (scr_strncasecmp (rest, "up", 2) == 0
-                   && (rest[2] == NUL || rest[2] == ' '))
-            rest += 2;
-          rest += strspn (rest, " ");
-          if (rest[0] == NUL
-              || ((scr_strncasecmp (rest, "on", 2) == 0
-                   || scr_strncasecmp (rest, "in", 2) == 0)
-                  && (rest[2] == NUL || rest[2] == ' ')))
+          rest_ += strspn (rest_, " ");
+          if (scr_strncasecmp (rest_, "down", 4) == 0
+              && (rest_[4] == NUL || rest_[4] == ' '))
+            rest_ += 4;
+          else if (scr_strncasecmp (rest_, "up", 2) == 0
+                   && (rest_[2] == NUL || rest_[2] == ' '))
+            rest_ += 2;
+          rest_ += strspn (rest_, " ");
+          if (rest_[0] == NUL
+              || ((scr_strncasecmp (rest_, "on", 2) == 0
+                   || scr_strncasecmp (rest_, "in", 2) == 0)
+                  && (rest_[2] == NUL || rest_[2] == ' ')))
             return FALSE;
         }
     }
@@ -22803,6 +22901,49 @@ lib_sitstand_anywhere (scr_gameref_t game)
           && (lib_co_contains (line, "look") || lib_co_contains (line, "l"))))
     examine = TRUE;
 
+  profanity = FALSE;
+  for (word = PROFANITY; *word && !profanity; word++)
+    profanity = lib_co_contains (line, *word);
+  if ((taf_version >= TAF_VERSION_390 && lib_co_contains (line, "bugger"))
+      || (taf_version < TAF_VERSION_400 && lib_co_contains (line, "bloody")))
+    profanity = TRUE;
+  score = lib_co_contains (line, "score");
+
+  /* characters() overwrites last: talk-to anywhere, ask leading pre-4.0. */
+  speaks = lib_co_contains (line, "talk to");
+  if (lib_co_contains (line, "ask"))
+    speaks = speaks || taf_version >= TAF_VERSION_400
+             || scr_strncasecmp (line, "ask ", 4) == 0;
+
+  const std::string stripped = lib_sitstand_strip (line, taf_version);
+
+  if ((wearish || putish) && run_line && !stripped.empty ())
+    {
+      /*
+       * wears() and removes() run before sitstand and keep their move; a
+       * 3.7/4.0 put keeps the line only when it moved something (a refusal
+       * does not claim there, see the note above).  The text goes either
+       * way: sitstand writes over it.
+       */
+      const size_t before = pf_buffer_length (filter);
+      std::vector<scr_int> positions;
+      scr_int object;
+
+      if (putish)
+        for (object = 0; object < gs_object_count (game); object++)
+          positions.push_back (gs_object_position (game, object)
+                               * (gs_object_count (game) + 2)
+                               + gs_object_parent (game, object) + 1);
+      run_line (game, stripped.c_str ());
+      if (putish)
+        for (object = 0; object < gs_object_count (game); object++)
+          if (gs_object_position (game, object)
+              * (gs_object_count (game) + 2)
+              + gs_object_parent (game, object) + 1 != positions[object])
+            return TRUE;
+      pf_truncate (filter, before);
+    }
+
   const size_t mark = pf_buffer_length (filter);
   if (sit)
     lib_sitstand_block (game, MOVE_SIT, mark);
@@ -22811,6 +22952,23 @@ lib_sitstand_anywhere (scr_gameref_t game)
   if (lie)
     lib_sitstand_block (game, MOVE_LIE, mark);
 
+  if (speaks)
+    {
+      pf_truncate (filter, mark);
+      if (rest)
+        *rest = stripped;
+      return FALSE;
+    }
+  if (profanity)
+    {
+      pf_truncate (filter, mark);
+      return lib_cmd_profanity (game);
+    }
+  if (score)
+    {
+      pf_truncate (filter, mark);
+      return lib_cmd_score (game);
+    }
   if (examine)
     {
       pf_truncate (filter, mark);
@@ -22818,7 +22976,6 @@ lib_sitstand_anywhere (scr_gameref_t game)
     }
   return pf_buffer_length (filter) > mark;
 }
-
 
 /*
  * lib_cmd_get_off_object()

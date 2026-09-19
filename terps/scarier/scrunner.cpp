@@ -2435,6 +2435,84 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
 
 
 /*
+ * The player's current command element (pronoun-substituted), stashed by
+ * run_all_commands() so that library-initiated match attempts can consult
+ * the verb the player actually typed alongside the library's canonical
+ * constructed command ("get <object>", and so on).
+ */
+static const scr_char *run_dispatch_input = NULL;
+
+/*
+ * run_line_for_sitstand()
+ *
+ * lib_sitstand_anywhere()'s pre-run of the standard rows on a line with the
+ * sit words cut out (wears, removes and the 3.7/4.0 put run before sitstand
+ * in generaltasks and keep their move).
+ */
+static scr_bool
+run_line_for_sitstand (scr_gameref_t game, const scr_char *line)
+{
+  const scr_char *saved = run_dispatch_input;
+  scr_bool status;
+
+  run_dispatch_input = line;
+  status = run_standard_verb_commands (game, line);
+  run_dispatch_input = saved;
+  return status;
+}
+
+
+/*
+ * run_score_anywhere()
+ *
+ * Every Runner's score arm is `If c("score") Then` -- the whole word
+ * anywhere in the line -- and it assigns the message, overwriting whatever
+ * sitstand, inventory, the help hint or examines had written, and marks the
+ * line administrative (run370 43BB98, run380 4423EC, run390 45F6B5 with
+ * MemVar_468219 = 1, run400 48A6AE with MemVar_494281).  It sits above the
+ * wait gate, so `score wait` is the score and no time passes; below takes,
+ * drops, wears and removes, which claim or act first, and above the
+ * swearing arm, which overwrites it.  Measured 2026-09-20 on p37SITN..p4SITN
+ * (cmdfile_psitn.txt: `score sit`, `score wait`; the sit case is
+ * lib_sitstand_anywhere()'s).  A line holding one of those earlier or later
+ * handlers' words is left to its rows: not measured.
+ */
+static scr_bool
+run_score_anywhere (scr_gameref_t game, const scr_char *string)
+{
+  static const scr_char *const OTHERS[] = {
+    "get", "take", "pick", "from", "drop", "put", "leave", "wear", "remove",
+    "strip", "sit", "stand", "lie", "x", "examine", "look at", "ex", "exam",
+    "read", "shit", "fuck", "bastard", "cunt", "crap", "hell", "shag",
+    "bollocks", "bollox", "piss", "bugger", "bloody", NULL
+  };
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int version = run_get_version (bundle);
+  const scr_char *const *word;
+  const auto has_word = [&] (const scr_char *what) -> scr_bool
+    {
+      return version >= TAF_VERSION_400
+             ? lib_input_contains_word (string, what)
+             : run_c_word_pre400 (version, string, what) >= 0;
+    };
+
+  if (game->pending_endgame != 0 || !has_word ("score")
+      || scr_strcasecmp (string, "score") == 0)
+    return FALSE;
+  for (word = OTHERS; *word; word++)
+    if (has_word (*word))
+      return FALSE;
+  if (version >= TAF_VERSION_400 && has_word ("lay"))
+    return FALSE;
+  if ((version >= TAF_VERSION_380 && has_word ("look in"))
+      || (version >= TAF_VERSION_390 && (has_word ("look") || has_word ("l"))))
+    return FALSE;
+
+  return lib_cmd_score (game);
+}
+
+
+/*
  * run_wait_anywhere()
  *
  * Every Runner answers a line holding the whole word `wait` ANYWHERE with
@@ -2446,9 +2524,19 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
  * examines, score, profanity), and before whereis, gotoplace and therest.
  * So `wait stone` with the stone elsewhere, `please wait`, `wait here`,
  * `push stone wait` and `turn wait` all pass time.  A line holding an
- * earlier handler's word is left to the rows that already answer it; give,
- * ask, talk and say are left alone too, as are directions and inventory:
- * not measured.  run370's openclose writes nothing unless the line names an
+ * earlier handler's word is left to the rows that already answer it.
+ * Give, say, inventory and a direction are NOT such words: inventory()
+ * writes a message sitstand-fashion but nothing below wears() claims
+ * without moving something, and give, say and the directions are all
+ * `If msg = ""` arms below the gate -- so `give coin to bob wait`, `say
+ * hello wait`, `i wait`, `inventory wait` and `n wait` are "Time passes..."
+ * with nothing given, listed or walked (p37SITN..p4SITN, cmdfile_psitn.txt:
+ * run370x Adrift_203_psitn_37.rtf, run380x Adrift_204_psitn_38.rtf, run390x
+ * Adrift_205_psitn_39.txt, run400x Adrift_206_psitn_4.txt, 2026-09-20).
+ * ask/talk stay with their rows: characters() overwrites the wait text
+ * with the reply (`ask bob about hat wait` is "BOB HAT.").  `score wait`
+ * is the score's (run_score_anywhere() runs first).  up/down/in/out with
+ * wait: not measured.  run370's openclose writes nothing unless the line names an
  * openable object (4264E7), so there `open stone wait` passes time; 3.8 on
  * refuse the open.  `look wait` is examines' from 3.9 (bare `look`), time
  * passing at 3.7/3.8.
@@ -2472,10 +2560,8 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
   static const scr_char *const EARLIER[] = {
     "get", "take", "pick", "from", "drop", "put", "leave", "wear", "remove",
     "strip", "sit", "stand", "lie", "x", "examine", "look at", "ex", "exam",
-    "read", "score", "give", "ask", "talk", "say", "i", "inventory",
-    "north", "n", "east", "e", "south", "s", "west", "w", "up", "u", "down",
-    "d", "in", "out", "northeast", "ne", "northwest", "nw", "southeast", "se",
-    "southwest", "sw", "shit", "fuck", "bastard", "cunt", "crap", "hell",
+    "read", "score", "ask", "talk", "up", "down", "in", "out",
+    "shit", "fuck", "bastard", "cunt", "crap", "hell",
     "shag", "bollocks", "bollox", "piss", NULL
   };
   const scr_filterref_t filter = gs_get_filter (game);
@@ -2765,14 +2851,6 @@ run_pattern_names_verb (const scr_char *pattern, const scr_char *string)
 
   return FALSE;
 }
-
-/*
- * The player's current command element (pronoun-substituted), stashed by
- * run_all_commands() so that library-initiated match attempts can consult
- * the verb the player actually typed alongside the library's canonical
- * constructed command ("get <object>", and so on).
- */
-static const scr_char *run_dispatch_input = NULL;
 
 /* Set while a 4.0 question continuation with a double space runs; see
  * run_match_task_commands(). */
@@ -5607,8 +5685,9 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
        */
       scr_owned_string rewritten (uip_rewrite_references (game, string,
                                                          prior_npc, ask_echo));
-      const scr_char *const library_string =
+      const scr_char *library_string =
           rewritten ? rewritten.get () : string;
+      std::string sitstand_rest;
       run_dispatch_input = library_string;
       /*
        * Pre-4.0 the already-done refusal outranks the standard library; see
@@ -5627,7 +5706,19 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
         }
       /* sitstand enters on its words anywhere; see lib_sitstand_anywhere(). */
       if (!status)
-        status = lib_sitstand_anywhere (game);
+        {
+          status = lib_sitstand_anywhere (game, run_line_for_sitstand,
+                                          &sitstand_rest);
+          if (!status && !sitstand_rest.empty ())
+            {
+              /* The move is made; the rest of the line goes on without
+                 the sit words, the shape the ask/talk rows know. */
+              library_string = sitstand_rest.c_str ();
+              run_dispatch_input = library_string;
+            }
+        }
+      if (!status)
+        status = run_score_anywhere (game, library_string);
       if (!status)
         status = run_therest_absent_370 (game, library_string);
       if (!status)

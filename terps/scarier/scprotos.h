@@ -765,7 +765,11 @@ extern scr_bool lib_cmd_lie_on_object (scr_gameref_t game);
 extern scr_bool lib_cmd_lie_on_floor (scr_gameref_t game);
 extern scr_bool lib_cmd_sit_scan_370 (scr_gameref_t game);
 extern scr_bool lib_sitstand_claims_370 (scr_gameref_t game);
-extern scr_bool lib_sitstand_anywhere (scr_gameref_t game);
+typedef scr_bool (*lib_line_runner_t) (scr_gameref_t game,
+                                       const scr_char *line);
+extern scr_bool lib_sitstand_anywhere (scr_gameref_t game,
+                                       lib_line_runner_t run_line,
+                                       std::string *rest);
 extern scr_bool lib_cmd_stand_scan_370 (scr_gameref_t game);
 extern scr_bool lib_cmd_lie_scan_370 (scr_gameref_t game);
 extern scr_bool lib_cmd_get_on_object (scr_gameref_t game);

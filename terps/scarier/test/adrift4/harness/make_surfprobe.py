@@ -305,11 +305,18 @@ def build(version):
 
     # ---------------------------------------------------------------- EVENTS
     s(0)                              # Events
-    if version >= 400 and NPCS:
-        raise SystemExit("NPCS: no 4.0 NPC writer")
     s(len(NPCS))                      # NPCs
     for name, prefix, alias, desc, room_, inroom, topics, gender in NPCS:
-        s(name); s(prefix); s(alias); s(desc)
+        s(name); s(prefix)
+        if version >= 400:
+            # V$Alias: a count, then the strings (make_400_askprobe.py).
+            if alias:
+                s(1); s(alias)
+            else:
+                s(0)
+        else:
+            s(alias)                  # [1]$Alias
+        s(desc)
         s(room_)                      # StartRoom (1-based; 0 = nowhere)
         s("")                         # AltText
         s(0)                          # Task
