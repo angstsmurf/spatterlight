@@ -4965,6 +4965,73 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
 }
 
 /*
+ * lib_prepass_seen_3738()
+ *
+ * 3.7/3.8 generaltasks opens every line element with a pass over the object
+ * table that counts the objects the line names -- by Short or Alias,
+ * anywhere in the game (run370 43B502, run380 co() at 441D5D).  Exactly one
+ * makes it the antecedent and stops there.  Any other count -- none, or two
+ * and more -- runs a second loop (run370 43B6C6, run380 441F21) whose tail
+ * sits outside its name test and stamps the seen byte on EVERY present
+ * object: dynamic ones held, worn or loose on the player's floor, statics
+ * whose room array covers the player's room (run370 43B8C3-43B918, run380
+ * 442124-442179).  Nothing inside a container or on a surface is touched.
+ *
+ * So `n` marks everything in the room the player is walking out of, while
+ * `frob stone`, naming one object, leaves the stone unknown.  Measured on
+ * p38EXAM/p37EXAM (Adrift_148_pseenA38 .. Adrift_151_pseenB37.rtf): `frob
+ * stone` twice in the start room is "What stone?" both times; after `n` the
+ * stone is known ("You must be in the same room as the stone ..." in 3.8),
+ * and `frob coin`, the coin inside the crate, is still "What coin?".
+ */
+void
+lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int object, room, named;
+
+  if (!command || prop_get_taf_version (bundle) >= TAF_VERSION_390)
+    return;
+
+  named = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+      scr_bool names;
+
+      names = lib_co_contains (command, prop_get_indexed_string
+                                          (bundle, "Objects", object, "Short"));
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+      for (alias = 0; !names && alias < alias_count; alias++)
+        {
+          vt_key[3].integer = alias;
+          names = lib_co_contains (command,
+                                   prop_get_string (bundle, "S<-sisi", vt_key));
+        }
+      if (names)
+        named++;
+    }
+  if (named == 1)
+    return;
+
+  room = gs_playerroom (game);
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (gs_object_seen (game, object))
+        continue;
+      if (obj_is_static (game, object)
+          ? obj_directly_in_room (game, object, room)
+            || (!gs_object_static_unmoved (game, object)
+                && gs_object_position (game, object) == OBJ_HELD_PLAYER)
+          : gs_object_position (game, object) == OBJ_HELD_PLAYER
+            || gs_object_position (game, object) == OBJ_WORN_PLAYER
+            || gs_object_position (game, object) == room + 1)
+        gs_set_object_seen (game, object, TRUE);
+    }
+}
+
+/*
  * lib_co_400_*()
  *
  * The 4.0 object-ambiguity prompt, its pending question, and the answer
@@ -21190,6 +21257,17 @@ lib_cmd_dance (scr_gameref_t game)
 scr_bool
 lib_cmd_eat_other (scr_gameref_t game)
 {
+  /*
+   * A 4.0 string (run400 4889C7).  run380's eat arm (443D6E) and run390's
+   * (45D4EF) speak only for a present object, so with none the line goes
+   * on to the catch-all: `eat statue` from the wrong room is the same-room
+   * answer in 3.8 (147_pverb38.txt) and "I don't understand." in 3.9
+   * (Adrift_148_pverb39.txt).
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
+      && !lib_is_version_400 (game))
+    return FALSE;
+
   return lib_print_message (game,
                             "I don't understand what you are trying to eat.\n");
 }
@@ -23747,6 +23825,106 @@ lib_cmd_put_container_400 (scr_gameref_t game)
  *
  * Handlers for unrecognized verbs with known object/NPC.
  */
+/*
+ * lib_verb_object_catch_all_pre390()
+ *
+ * The 3.7/3.8 catch-all for a line no handler answered: run380 442F5D-443134
+ * (run370 has the same loop).  It walks every object co() matches, in index
+ * order, and keeps one message:
+ *
+ *   seen and present   "I don't understand what you want me to do with X."
+ *   seen, not present  "<player> must be in the same room as X to be able
+ *                       to do anything with it."
+ *   never seen         "What <Short>?"
+ *
+ * A seen object speaks while nothing has been said yet or while a seen
+ * object has already spoken, and the present answer outranks the absent
+ * one, so the first present object on the line wins; an unseen object
+ * speaks only into an empty buffer.  co() never reads the seen byte before
+ * 3.9, so an unseen object is matched and asked about -- `frob stone` in the
+ * Test Room of p38EXAM, the stone not yet listed, is "What stone?"
+ * (147_pverb38.txt, and the same in 3.7's 146_pverb37.txt).
+ *
+ * 3.7's therest() refuses an absent object with "You can't see X." before
+ * the catch-all is reached (see run_therest_absent_370()), so 3.7 never
+ * hears the same-room answer: every absent line in 146_pverb37.txt is "You
+ * can't see the X.", and only the unseen-present answer is carried to 3.7,
+ * at the tail of lib_cmd_verb_object().  This is 3.8's.  Its therest()
+ * checks only the first present
+ * object (443C69), so an absent one falls through to this loop: `frob
+ * stone`, `z stone` and `eat statue` from the wrong room are "You must be in
+ * the same room as the X to be able to do anything with it.", and `frob
+ * coin`, the coin never listed out of its crate, is "What coin?".
+ *
+ * Returns the present object the caller goes on to answer for, -2 once this
+ * has printed its own answer, or -1 when there is nothing to say.
+ */
+static scr_int
+lib_verb_object_catch_all_pre390 (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_var_setref_t vars = gs_get_vars (game);
+  scr_int object, rank, pick, unseen;
+
+  rank = 0;
+  pick = -1;
+  unseen = -1;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (!game->object_references[object])
+        continue;
+
+      if (gs_object_seen (game, object))
+        {
+          if (!(unseen == -1 || rank > 0))
+            continue;
+
+          if (obj_indirectly_in_room (game, object, gs_playerroom (game)))
+            {
+              if (rank < 2)
+                {
+                  pick = object;
+                  rank = 2;
+                }
+            }
+          else if (rank < 1)
+            {
+              pick = object;
+              rank = 1;
+            }
+        }
+      else if (unseen == -1 && rank == 0)
+        unseen = object;
+    }
+
+  if (rank == 2)
+    return pick;
+
+  if (rank == 1)
+    {
+      var_set_ref_object (vars, pick);
+      lib_print_response_object (game,
+                                 "You must be in the same room as ",
+                                 "I must be in the same room as ",
+                                 "%player% must be in the same room as ",
+                                 pick,
+                                 " to be able to do anything with it.\n");
+      return -2;
+    }
+
+  if (unseen >= 0)
+    {
+      pf_buffer_string (filter, "What ");
+      pf_buffer_string (filter,
+                        prop_get_indexed_string (gs_get_bundle (game),
+                                                 "Objects", unseen, "Short"));
+      pf_buffer_string (filter, "?\n");
+      return -2;
+    }
+
+  return -1;
+}
+
 scr_bool
 lib_cmd_verb_object (scr_gameref_t game)
 {
@@ -23814,8 +23992,40 @@ lib_cmd_verb_object (scr_gameref_t game)
         }
     }
 
+  /*
+   * 3.8: the Runner's own catch-all speaks here, walking every object
+   * the line names in index order -- see lib_verb_object_catch_all_pre390().
+   * It hands back the present object the rest of this handler answers for,
+   * or says its piece itself.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_380
+      && lib_co_400_forced () < 0)
+    {
+      const scr_int present = lib_verb_object_catch_all_pre390 (game);
+
+      if (present == -2)
+        return TRUE;
+      if (present >= 0)
+        {
+          count = 1;
+          object = present;
+        }
+      else
+        return FALSE;
+    }
+
   if (count != 1)
     {
+      /*
+       * 3.9: co(obj, 0) (run390 43B6BC) matches only an object that is both
+       * present and seen, so a line naming nothing here matches nothing, the
+       * catch-all at 4601D4 stays silent and the DontUnderstand text answers.
+       * p39EXAM (Adrift_148_pverb39.txt): `frob stone`, `z stone`, `frob
+       * statue` and `eat statue` from the wrong room are all "I don't
+       * understand."
+       */
+      if (lib_is_version_390 (game))
+        return FALSE;
 
       /*
        * No object of that name is here.  Before giving up on the command --
@@ -23983,6 +24193,22 @@ lib_cmd_verb_object (scr_gameref_t game)
    * `throw shovel` then `x it` echoes "(the shovel)" -- see
    * uip_definite_form() in scparser.cpp.
    */
+  /*
+   * 3.7: therest() has already refused an absent object, so the catch-all
+   * only ever meets present ones -- and one the player has not been shown
+   * is "What <Short>?" (see lib_verb_object_catch_all_pre390()).
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
+      && !gs_object_seen (game, object))
+    {
+      pf_buffer_string (gs_get_filter (game), "What ");
+      pf_buffer_string (gs_get_filter (game),
+                        prop_get_indexed_string (gs_get_bundle (game),
+                                                 "Objects", object, "Short"));
+      pf_buffer_string (gs_get_filter (game), "?\n");
+      return TRUE;
+    }
+
   uip_note_definite_reference ();
   lib_print_wrapped_object (game, "I don't understand what you want me to do with ",
                             object, ".\n");

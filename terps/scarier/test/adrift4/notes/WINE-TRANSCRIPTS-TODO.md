@@ -219,16 +219,6 @@ differences (alexis and alexis_worn_cube T99 `open chest`, everything T38
 silent-task deviation below, and since 2026-09-19 they differ by text only,
 not by a tick.
 
-### Engine, every version
-
-- **Unknown verb on an absent object** (`z stone`, the stone elsewhere):
-  3.7 and 4.0 say "You can't see the stone." as Scarier does, but run380x
-  says "You must be in the same room as the stone to be able to do
-  anything with it." and run390x gives DontUnderstand. Neither Runner's
-  handler has been read, and only `z` has been tried. p38GOTO/p39GOTO,
-  `cmdfile_pwait.txt` (run380x Adrift_145_pwait38.rtf, run390x
-  Adrift_146_pwait39.txt).
-
 ### Harness and compare
 
 - **house** is comparable only as `House_sober.taf` with
@@ -371,8 +361,6 @@ not by a tick.
   supporter that is neither held nor static nor a container; a static
   container; `except` forms; `put all in <nothing>`.
 - **Pre-4.0 room-name alt walk** is unmeasured.
-- **run380 442F5D** (the catch-all speaks for the first present, seen
-  object) is unmeasured.
 - **`clear`** at run370/380/390 is unmeasured.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
@@ -490,6 +478,32 @@ next to the named function and in `annotations.tsv`.
   (run370x Adrift_144_pwait37.rtf, run380x Adrift_145_pwait38.rtf, run390x
   Adrift_146_pwait39.txt, run400x Adrift_147_pwait4.txt)
   (`run_wait_anywhere`, 2026-09-19)
+- **Unknown verb, pre-4.0 catch-all:** a line no handler answers walks
+  every object it names, in index order. A seen, present object gives "I
+  don't understand what you want me to do with X."; a seen, absent one
+  gives "<player> must be in the same room as X to be able to do anything
+  with it."; an unseen one gives "What <Short>?". The present answer beats
+  the absent one, and an unseen object speaks only if nothing else has
+  (run380 442F5D-443134). 3.8's therest checks only the first *present*
+  object (443C69), so `frob stone`, `z stone` and `eat statue` from the
+  wrong room get the same-room answer, and `push statue` is "You push, but
+  nothing happens.". 3.7's therest refuses absent objects first ("You
+  can't see the X.", whether seen or not), so there only the "What X?" arm
+  shows. In 3.9, co() matches only present, seen objects, so an absent-only
+  line is DontUnderstand. 4.0 is unchanged ("You can't see the X."). The
+  pre-4.0 eat arm speaks only for a present object, and "I don't
+  understand what you are trying to eat." is 4.0's (4889C7). **Seen stamp,
+  3.7/3.8:** the generaltasks pre-pass (run370 43B6C6, run380 441F21) runs
+  on every line that names zero objects or two or more (Short/Alias,
+  anywhere). It marks every present object seen: held, worn, loose on the
+  floor, and statics in the room. It never touches container contents. So
+  `n` reveals the room you leave, and `frob stone` (one name) does not.
+  p37EXAM/p38EXAM/p39EXAM/p4EXAM, feeds `cmdfile_pverb.txt`,
+  `cmdfile_pseenA.txt`, `cmdfile_pseenB.txt` (run370x Adrift_146_pverb37 /
+  Adrift_150-151_pseen*37.rtf, run380x Adrift_147_pverb38 /
+  Adrift_148-149_pseen*38.rtf, run390x Adrift_148_pverb39.txt, run400x
+  Adrift_149_pverb4.txt) (`lib_verb_object_catch_all_pre390`,
+  `lib_prepass_seen_3738`, 2026-09-19)
 - **Task matching:**
   - One game task per typed line; a silent task lets the library run, never
     a second task. House (c74b1b90c)

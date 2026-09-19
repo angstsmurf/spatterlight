@@ -1009,6 +1009,8 @@ extern scr_bool lib_question_with_rule (scr_gameref_t game,
                                         const scr_char *line);
 extern scr_int lib_co_400_answer_object (scr_gameref_t game,
                                          const scr_char *line);
+extern void lib_prepass_seen_3738 (scr_gameref_t game,
+                                   const scr_char *command);
 extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,
                                         const scr_char *command);
 extern void run_priority_defer (void);
