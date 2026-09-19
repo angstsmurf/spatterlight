@@ -15409,21 +15409,6 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
         continue;
 
       /*
-       * Reject and remove attempts to place objects in themselves.  This
-       * guard is ours, not name_object's -- run400 announces "(Taking the
-       * box first)" for `put box in box` and then says nothing whatever
-       * (probe PSTAT commands 13 and 18) -- so a line it rejects never
-       * reaches the report below either.
-       */
-      if (!lib_check_put_in_recursion (game, object, container, !has_printed))
-        {
-          game->object_references[object] = FALSE;
-          has_printed = TRUE;
-          recursion_rejected = TRUE;
-          continue;
-        }
-
-      /*
        * Version 4.0 picks up an object it has been asked to put down, and it
        * does so BEFORE the handler's task look-up.  run400's name_object
        * loop runs the take piece at loc_46E2B5 and only then hands the pair
@@ -15433,6 +15418,19 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
        * Measured on frustrated turns 53-55 (Adrift_274_frustrated.txt):
        * `put small rock on left pan` matches task 511 `put*small*left*` and
        * still opens "(Taking the small rock first)".
+       *
+       * It runs ahead of the self-container test as well: insides tests
+       * possession (Proc_21_46_44615C @465EED) before it tests arg_10 =
+       * arg_C (@465FA0), and name_object's take piece has already run by
+       * then.  Probe PBOXBOX (Adrift_1192.txt): `put box in box` with the
+       * box on the floor prints "(Taking the box first)" / "You can't put
+       * an object inside itself!" and the box IS taken -- `i` answers "You
+       * are carrying a box." -- where the same line with the box held
+       * prints only the itself line, and a ring inside the box changes
+       * nothing.  Probe PSTAT's silent commands 13 and 18 are not a
+       * counter-measurement: there the coin, object #1, sits inside the
+       * box, and run400's carried-weight cycle (447680) eats the report;
+       * see the deliberate deviation in notes/WINE-TRANSCRIPTS-TODO.md.
        */
       {
         scr_bool take_printed = FALSE;
@@ -15459,6 +15457,22 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
       if (lib_is_version_400 (game))
         {
           pending.push_back (object);
+          continue;
+        }
+
+      /*
+       * Reject and remove attempts to place objects in themselves.  Pre-4.0
+       * never gets this far with a direct self-put -- the callers answer
+       * "Put the box inside what?" / "You can't do that!" first (see
+       * lib_put_what_pre400) -- so this is the subtle case, the container
+       * already inside the object.  The 4.0 test sits after the deferred
+       * task pass below.
+       */
+      if (!lib_check_put_in_recursion (game, object, container, !has_printed))
+        {
+          game->object_references[object] = FALSE;
+          has_printed = TRUE;
+          recursion_rejected = TRUE;
           continue;
         }
 
@@ -15494,6 +15508,37 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
           game->multiple_references[pending_object] = FALSE;
           has_printed = TRUE;
           task_claimed = TRUE;
+        }
+    }
+
+  /*
+   * 4.0's self-container test, in insides' own place: after the take phase
+   * and the tasks() call at 465EB5, after the possession test at 465EED --
+   * so only an object the take left in hand reaches it, a failed take
+   * having already moved it to the "You are not holding ..." report -- and
+   * before the "already inside", size and capacity tests (arg_10 = arg_C
+   * @465FA0, the wording chosen by the target's flags at 465FDA/46600C/
+   * 46602A).  Probe PBOXBOX (Adrift_1192.txt): `put box in box` with the
+   * box on the floor prints "(Taking the box first)" / "You can't put an
+   * object inside itself!" and the box IS taken -- `i` answers "You are
+   * carrying a box." -- where the same line with the box held prints only
+   * the itself line, and a ring inside the box changes nothing.  Probe
+   * PSTAT's silent commands 13 and 18 are not a counter-measurement: there
+   * the coin, object #1, sits inside the box, and run400's carried-weight
+   * cycle (447680) eats the report; see the deliberate deviation in
+   * notes/WINE-TRANSCRIPTS-TODO.md.
+   */
+  for (const scr_int pending_object : pending)
+    {
+      if (!game->object_references[pending_object])
+        continue;
+
+      if (!lib_check_put_in_recursion (game, pending_object, container,
+                                       !has_printed))
+        {
+          game->object_references[pending_object] = FALSE;
+          has_printed = TRUE;
+          recursion_rejected = TRUE;
         }
     }
   length_after_tasks = lib_output_length (game);
@@ -17548,16 +17593,6 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter,
       if (!game->object_references[object])
         continue;
 
-      /* Reject and remove attempts to place objects on themselves; the
-       * guard is ours, not name_object's (see lib_put_in_backend). */
-      if (!lib_check_put_on_recursion (game, object, supporter, !has_printed))
-        {
-          game->object_references[object] = FALSE;
-          has_printed = TRUE;
-          recursion_rejected = TRUE;
-          continue;
-        }
-
       /*
        * Version 4.0 picks up an object it has been asked to put down, and it
        * does so BEFORE the handler's task look-up.  run400's name_object
@@ -17580,6 +17615,16 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter,
       if (lib_is_version_400 (game))
         {
           pending.push_back (object);
+          continue;
+        }
+
+      /* Reject and remove attempts to place objects on themselves; the
+       * 4.0 test sits after the deferred task pass (see lib_put_in_backend). */
+      if (!lib_check_put_on_recursion (game, object, supporter, !has_printed))
+        {
+          game->object_references[object] = FALSE;
+          has_printed = TRUE;
+          recursion_rejected = TRUE;
           continue;
         }
 
@@ -17615,6 +17660,27 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter,
           game->multiple_references[pending_object] = FALSE;
           has_printed = TRUE;
           task_claimed = TRUE;
+        }
+    }
+
+  /*
+   * 4.0's self-supporter test, after the take phase, the tasks() call and
+   * the possession test, as insides orders it; see lib_put_in_backend,
+   * which is the measured side of the same handler (probe PBOXBOX).  The
+   * wording at 46600C is the surface one whenever the target is a surface
+   * and not also a container.
+   */
+  for (const scr_int pending_object : pending)
+    {
+      if (!game->object_references[pending_object])
+        continue;
+
+      if (!lib_check_put_on_recursion (game, pending_object, supporter,
+                                       !has_printed))
+        {
+          game->object_references[pending_object] = FALSE;
+          has_printed = TRUE;
+          recursion_rejected = TRUE;
         }
     }
   length_after_tasks = lib_output_length (game);

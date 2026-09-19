@@ -263,8 +263,6 @@ not by a tick.
 
 ### Engine, needs a probe (4.0)
 
-- **`put box in box`:** run400 announces the take and prints nothing;
-  Scarier says "can't put an object inside itself!".
 - **Put resolution ordering:** the 4.0 put fragment fallback scores every
   present object in one pass, where 463640 mode 2 tries held objects first.
   The held-first pass is ported for plain `drop` (`lib_drop_resolve_400`),
@@ -920,6 +918,20 @@ next to the named function and in `annotations.tsv`.
   name composer answers "that" for it. Fires only when the top parse's
   failure really is the seen gate. `[4.0]` hub T79
   (`lib_put_fragment_present_object`, `lib_put_print_object_or_that`,
+  2026-09-19)
+- **4.0 `put box in box` takes the box first.** insides tests possession
+  (44615C @465EED) before the itself-test (arg_10 = arg_C @465FA0), and
+  name_object's take piece has already run by then: with the box on the
+  floor run400 prints "(Taking the box first)" / "You can't put an object
+  inside itself!" and the box is in hand afterwards; held, only the itself
+  line; a ring inside the box changes nothing. The wording is chosen by the
+  target's flags (465FDA "in or on itself!" container+surface, 46600C "onto
+  itself!" surface only, 46602A "inside itself!"), not by the preposition.
+  Scarier's guard used to run before the take and left the box on the floor.
+  Both backends now test after the deferred task pass, only for an object
+  the take left in hand. PSTAT's silent cmd 13/18 cells are the object #1
+  weight-cycle deviation (the coin, #1, inside the box), not a rule. `[4.0]`
+  probe PBOXBOX, Adrift_1192 (`lib_put_in_backend`, `lib_put_on_backend`,
   2026-09-19)
 
 ### NPCs, walks and battle

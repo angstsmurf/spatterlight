@@ -2030,6 +2030,28 @@ CONFIGS = {
 #                            thelasthour reproduced exactly, and a check that
 #                            a `put` task does not set the take gate's mode-1
 #                            filter and so cannot suppress the announcement.
+# PBOXBOX: `put box in box` at 4.0, with dynamic object #1 kept out of the
+# way (PSTAT's cmd 13/18 silence had the coin, object #1, inside the box, so
+# the implicit take's carried-weight walk 447680 cycled -- the deviation in
+# the 46E5D8/447680 annotations -- and the itself-test at 46602A never ran).
+# The pebble is object #1 and is never moved; the box is object #2.
+#
+#      2  put box in box     box on the floor: the take piece first?
+#      4  put box in box     box held
+#      6  put box in box     box held with the ring inside
+#      8  put box in box     box on the floor with the ring inside
+#     10  put pebble in box  object #1 into the box: the PSTAT cycle, control
+#     12  put box in box     after the cycle: PSTAT's silent cell reproduced?
+ 'PBOXBOX': dict(name="Probe PBOXBOX", persp=1,
+    rooms=[("Test Arena","A bare arena.",{})],
+    player=(200,0,0,0,0,0,0,0,0,0),
+    #        prefix short pos wpn prot hv meth acc wear cont parent sw  cap
+    objects=[("a","pebble",4,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("a","box",   4,  0,  0,  0,  0,  0,  0,   1,    0,    2,  100),
+             ("a","ring",  4,  0,  0,  0,  0,  0,  0,   0,    0,    2)],
+    statics=[],
+    npcs=[],
+    tasks=[]),
  'PSTAT': dict(name="Probe PSTAT", persp=1,
     rooms=[("Test Arena","A bare arena.",{})],
     player=(200,0,0,0,0,0,0,0,0,0),
