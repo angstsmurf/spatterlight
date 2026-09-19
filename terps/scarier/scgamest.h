@@ -361,6 +361,12 @@ typedef struct scr_game_s
    * with the "capacity" metacommand. */
   scr_bool capacity_recompute;
 
+  /* The 3.9/4.0 Runner's phantom object: its object array is dimensioned
+   * 0 To count and loaded 0..count-1, so slot [count] stays zeroed -- and
+   * a zero position reads as "held by the player".  TRUE while that slot
+   * is still held; see task_move_phantom_object(). */
+  scr_bool runner_phantom_held;
+
   /* Miscellaneous library and main loop conveniences. */
   scr_int waitcounter;
   scr_bool has_notified;

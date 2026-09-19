@@ -359,6 +359,20 @@ gs_set_carried_suspend (scr_gameref_t gs, scr_bool flag)
   gs->carried_suspend = flag;
 }
 
+scr_bool
+gs_runner_phantom_held (scr_gameref_t gs)
+{
+  assert (gs_is_game_valid (gs));
+  return gs->runner_phantom_held;
+}
+
+void
+gs_set_runner_phantom_held (scr_gameref_t gs, scr_bool flag)
+{
+  assert (gs_is_game_valid (gs));
+  gs->runner_phantom_held = flag;
+}
+
 void
 gs_carried_adjust (scr_gameref_t gs, scr_int weight, scr_int size)
 {
@@ -1227,6 +1241,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->carried_ready = FALSE;
   game->carried_suspend = FALSE;
   game->capacity_recompute = FALSE;
+  game->runner_phantom_held = TRUE;
 
   /* Create rooms state array. */
   vt_key[0].string = "Rooms";
@@ -1993,6 +2008,10 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->carried_weight = from->carried_weight;
   to->carried_size = from->carried_size;
   to->carried_ready = from->carried_ready;
+
+  /* Undo carries the phantom along.  A restore copies in the freshly loaded
+   * game's, so a restored save brings back a still-held one -- unmeasured. */
+  to->runner_phantom_held = from->runner_phantom_held;
 }
 
 

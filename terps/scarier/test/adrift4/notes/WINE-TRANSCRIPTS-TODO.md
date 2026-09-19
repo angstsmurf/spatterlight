@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 367 identical on every turn, 31 identical apart from
-  whitespace, 29 with a compare report. Every differing row is classified
+- **Manifest:** 368 identical on every turn, 31 identical apart from
+  whitespace, 28 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -279,8 +279,6 @@ Each needs the `RND #` count against `SCR_TRACE_RAND` before it can be
 called real; equal counts with differing text mean a value or candidate
 rule, not RNG (deaths, 2026-09-19).
 
-- hhorror (seed 50): T25 dark text, then the zombie's attack roll at
-  T38/T134/T142.
 - alchemist (3.90): from T300 (`give rose to king`), unread.
 - marooned (3.80, seed 3) T53 `throw map`: the Runner has no shark.
 - Battle rolls: cyber2 T15/T26; alexis T126-127 (companion strike order,
@@ -983,6 +981,14 @@ every Runner.
   checkevent 4702FF-4704F7) only add one, clearing for hidden or held
   alone. The array starts as the Where list, so finish moves pile up.
   3monkeys T109 (the anvils in all four corners). 2026-09-19
+- **The phantom object.** The 3.9/4.0 object array is `0 To count` and
+  loaded 0..count-1. The spare slot's zero position reads as "held", and
+  the "all held" scan tests it before its exit (run390 455C58, run400
+  48C237). So the first "all held" move of a game also moves the phantom,
+  and a roomgroup destination draws getaroom (455E5C). After that it isn't
+  held unless it's handed back. `[3.9+]` hhorror T25 (GHOST MOVING STUFF
+  with empty hands; 4979 = 4979 draws), `task_move_phantom_object`.
+  2026-09-19
 - **Look text.** An event's look text is gated on the room being described,
   not on the player's room. goldilocks, cybercow
 - **RNG parity.** `SCR_RNG=xoshiro` matches vbrng draw for draw, and it is

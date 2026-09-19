@@ -4864,6 +4864,10 @@ renuntio_solution.txt|Renuntio.taf|Yo-nos me alzo y estiendo mis-nos brazos|SCR_
 # resolved when run390 prints the turn so far on appending the exits list
 # (44813D), before the tick -- the wumpusrun row has the rule.  The Runner
 # compare went from 10+ differing turns to 4, all the zombie's attack roll.
+# Re-blessed 2026-09-19, 4 hunks: the ghost's first visit (GHOST MOVING STUFF,
+# all held to a roomgroup) also moves the Runner's phantom object and draws
+# once -- task_move_phantom_object() in sctasks.cpp.  One dark-room line and
+# three zombie attacks move; the Runner compare is now identical.
 hhorror_solution.txt|hhorror.taf|It has been a long and frightful night|SCR_SEED=50 SCR_SKIP_WAITKEY=1
 # Where Is Richard?: a 1000/1000 win in 68 commands, and the corpus's cleanest
 # witness for the one-level container nesting in "held by the player".  The

@@ -464,6 +464,8 @@ extern scr_int gs_playerparent (scr_gameref_t gs);
 extern scr_int gs_carried_weight (scr_gameref_t gs);
 extern scr_int gs_carried_size (scr_gameref_t gs);
 extern void gs_set_carried_suspend (scr_gameref_t gs, scr_bool flag);
+extern scr_bool gs_runner_phantom_held (scr_gameref_t gs);
+extern void gs_set_runner_phantom_held (scr_gameref_t gs, scr_bool flag);
 extern void gs_carried_adjust (scr_gameref_t gs, scr_int weight, scr_int size);
 extern scr_bool gs_runner_possessed (scr_gameref_t gs, scr_int object);
 extern void gs_carried_recompute (scr_gameref_t gs);

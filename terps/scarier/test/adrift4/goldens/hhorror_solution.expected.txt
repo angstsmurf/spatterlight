@@ -180,7 +180,7 @@ You hear a strange, spine chilling groan.
 You move down.
 
 Entrance Hall
-You are surrounded by the dark.
+Shadows and shapes loom in the darkness.
 
 You can move north, east, south, west and up.
 
@@ -285,6 +285,8 @@ poison and a table.
 
 You can move north, east, west and down.  Zombie stumbles towards you from
 the north.
+The zombie has spotted you and attacks!
+He thumps you with his clenched fists, causing you much pain.
 You hear a strange, spine chilling groan.
 
 > w
@@ -1023,8 +1025,6 @@ The molotov cocktail is alight and burning.
 
 You can move north, east, west and down.  Zombie stumbles towards you from
 the north.
-The zombie has spotted you and attacks!
-He thumps you with his clenched fists, causing you much pain.
 You hear a strange, spine chilling groan.
 
 > use kit
@@ -1099,8 +1099,6 @@ temperature is rather hot.  Also here is a plunger.  A plant monster grows
 here.
 
 You can move north and south.  Zombie stumbles towards you from the south.
-The zombie has spotted you and attacks!
-He thumps you with his clenched fists, causing you much pain.
 
 > take plunger
 You pick up the plunger.  Zombie Stumbles away from you to the north.

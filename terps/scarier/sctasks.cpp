@@ -787,6 +787,67 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
 
 
 /*
+ * task_move_phantom_object()
+ *
+ * Move the 3.9/4.0 Runner's phantom object at the end of an "all held" move.
+ * The Runner dimensions its object array 0 To count but loads only
+ * 0..count-1, so the extra slot stays zeroed, and position 0 is "held by
+ * the player".  The "all held" scan (run390 execute_action 455C58-455CA0,
+ * run400 Proc_19_10 48C237-48C27F) tests a slot before its "reached the
+ * count" exit, so it reaches slot [count] and, while that is still held,
+ * moves it like any held object: nothing to weigh, not static, off to the
+ * destination.  Nothing ever shows it, but a roomgroup destination draws
+ * getaroom's Rnd (run390 455E5C).  Once moved anywhere but the player's
+ * hands it is no longer held, so this happens at most once a game unless
+ * something hands it back.  hhorror's GHOST MOVING STUFF (all held to
+ * group 1) is the measured case: the one mid-game getaroom draw in the
+ * seed-50 census, on the ghost's first visit with empty hands.
+ *
+ * The move's tail can also set the referenced-object name from the phantom
+ * (run390 456302-456349) when it lands in the player's room; not ported.
+ */
+static void
+task_move_phantom_object (scr_gameref_t game, scr_int var2, scr_int var3)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+
+  if (!gs_runner_phantom_held (game))
+    return;
+
+  switch (var2)
+    {
+    case 1:                    /* To roomgroup part */
+      if (task_trace)
+        scr_trace ("Task: moving phantom object to random room in group"
+                   " %ld\n", var3);
+      /* An empty group writes getaroom's 0, which is still "held". */
+      if (lib_random_roomgroup_member (game, var3) < 0)
+        return;
+      break;
+
+    case 4:                    /* Held by */
+    case 5:                    /* Worn by */
+    case 6:                    /* Same room as */
+      if (var2 == 4 && var3 == 0)
+        return;                 /* Handed straight back to the player. */
+      if (var3 == 1 && var_get_ref_character (vars) < 0)
+        return;                 /* No referenced character: abandoned. */
+      break;
+
+    case 0:                    /* To room (or hidden) */
+    case 2:                    /* Into object */
+    case 3:                    /* Onto object */
+      break;
+
+    default:
+      return;
+    }
+
+  gs_set_runner_phantom_held (game, FALSE);
+}
+
+
+/*
  * task_run_move_object_action()
  *
  * Demultiplex an object move action and execute it.
@@ -807,6 +868,8 @@ task_run_move_object_action (scr_gameref_t game,
           if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
             task_move_object (game, object, var2, var3);
         }
+      if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+        task_move_phantom_object (game, var2, var3);
       break;
 
     case 1:                    /* All worn */
