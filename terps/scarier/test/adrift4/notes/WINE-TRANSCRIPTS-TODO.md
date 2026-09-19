@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 373 identical on every turn, 31 identical apart from
-  whitespace, 23 with a compare report. Every differing row is classified
+- **Manifest:** 374 identical on every turn, 31 identical apart from
+  whitespace, 22 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -304,17 +304,6 @@ strike order, Haron's arrival one turn apart) are not a battle rule:
     open that.". This is the silent-task deviation (task 14 has no
     CompleteText), not refusal wording, and its extra tick causes all of
     alexis's later battle differences (2026-09-19 draw census).
-- **cybercow_win:**
-  - T72 `x fairy`: a different description (state);
-  - T97 `read envelope`: the Runner adds "The envelope is closed.";
-  - T103: "CyberCow is here." against "CyberCow and Robot are here.";
-  - T118 `x berry`: the Runner says "I can tell you nothing about that.",
-    Scarier asks "Which berry.". The held berry came from task 170, and
-    run390's task executor never stamps a seen byte for an object handed to
-    a character (index, "Task move-object"), so run390 counts one seen berry.
-    Dropping the move-action stamp below 4.0 wholesale regressed ~50 rows
-    (2026-09-14); the 2026-09-19 per-destination port did not move this
-    row, so something else keeps Scarier's berry seen.
 - **fantasyworld T224-296:** the Royal Knight follows the player in the
   Runner. In Scarier he is not in the room.
 - **everything T38 `read diary`:** the run390 silent-task DontUnderstand
@@ -464,8 +453,9 @@ strike order, Haron's arrival one turn apart) are not a battle rule:
 - **`give <x> to <y>`** belongs in characters(), below the room refusal
   (the_hangover t42). Only the 3.7/3.8 give is ported (f83e1cf87).
 - **"Please be more clear, who do you want to <verb>?"** is a SCARE
-  invention (alexis_worn_cube t79). The `who` form is unmeasured; the object
-  form is the co() prompt (cybercow_win T118, above).
+  invention (alexis_worn_cube t79). The `who` form is unmeasured. For the
+  object form, 3.9 examine answers "Nothing special." (ported, see the index)
+  and other verbs get the co() prompt; 3.9's other verbs are unmeasured.
 - **Per-verb absent-NPC branches:** `talk to <npc>` elsewhere (hcw,
   alchemist); `give obj to npc` elsewhere; run390's take `is not here!` at
   4596E1 (Battle System off); kill/kick/punch lines go through other grammar
@@ -709,6 +699,13 @@ every Runner.
     blundering." at 3.8, "Undone." / "I can't undo any more of your
     blunderings!" at 3.9/4.0 (6314d19d4). At 3.9+ it replays the restored
     turn's output (1c834df1b).
+- **A task an event or walk runs is "a task ran"** (run390 execute_task
+  sets 468198 at 43F032, and events() 46067A runs before the guard at
+  4606BD), so the end-of-turn "Which X." prompt stays silent. 3.9 examine
+  then answers an ambiguous pair "Nothing special.": co() is false for each,
+  so referencedob returns -1 (44BF94). `[3.9]` cybercow_win T118 `x berry`
+  (`run_note_dispatched_task_ran`, 2026-09-19). run380 sets its flag in
+  tasks() (44D0BA); its event route is unread.
 
 ### Nouns, scope and the seen model
 
@@ -987,6 +984,11 @@ every Runner.
     Already Scarier's `battle_legacy` path; read 2026-09-19.
   - Stamina recovery is a per-line pass that revives the dead;
     `battle_select_target` takes 0-stamina targets. (544868698, e78827349)
+  - A type-7 stamina action that leaves an NPC at <=0 kills it (run390
+    456CD7/456D8D -> killchar 42D410; run400 48D89B/48D929 -> Proc_11_3).
+    The player dies from it only in 4.0 (48D810). The 3.9 player arm
+    (456C20) has no test. `[3.9+]` cybercow_win T103 task 167
+    (`battle_change_attribute`, 2026-09-19)
 
 ### Events and RNG
 
@@ -1097,6 +1099,13 @@ every Runner.
     Monsters_r2
   - The score summary prints after every EndGame; NotifyScore defaults to
     OFF.
+- The NPC examine overwrite: a task's text is replaced by the NPC's
+  description in 3.9 too (run390 characters 459E2A, gate 4592B8); the
+  namesake check stays 4.0 only. `[3.9+]` cybercow_win T72 `x fairy`
+  (2026-09-19)
+- Pre-4.0 read ends in the examine tail, the openness line and the contents
+  (run390 44BE30 -> 44BE60). `[<4.0]` cybercow_win T97 `read envelope`
+  (`lib_read_tail_pre400`, 2026-09-19)
 
 ### Ported 2026-09-19: object namesakes on a task line (cyber2)
 

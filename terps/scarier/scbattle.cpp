@@ -285,8 +285,9 @@ battle_attribute_max (scr_gameref_t game, scr_int npc, const scr_char *base)
 }
 
 
-/* Forward declaration; defined with the combat helpers below. */
+/* Forward declarations; defined with the combat helpers below. */
 static scr_int battle_speed_roll (scr_gameref_t game, scr_int npc);
+static void battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible);
 
 /*
  * battle_seed_attributes()
@@ -572,6 +573,30 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
       stamina = (npc < 0) ? gs_playerstamina (game)
                           : gs_npc_stamina (game, npc);
       stamina += value;
+      if (stamina > battle->maxstamina)
+        stamina = battle->maxstamina;
+      /*
+       * A change that leaves an NPC at or below zero kills it, in both
+       * Runners: run390 execute_action 4573DC stores min(max, cur + delta)
+       * and calls killchar (42D410) when the result is <= 0 (456CD7 for the
+       * referenced character, 456D8D for NPC var2-2); run400 does the same
+       * at 48D89B / 48D929 into Proc_11_3_44B13C, the death sub the damage
+       * path uses.  The player dies of it only in 4.0 (48D803 ->
+       * Proc_21_62_4524FC); run390's player arm (456C20) has no test.
+       * cybercow_win T103: task 167 "#kill sane robot" takes 1000 off the
+       * stamina-0 Robot (NPC 4), which run390 then removes from Bottom of
+       * the Well -- "CyberCow is here.", not "CyberCow and Robot are here.".
+       */
+      if (stamina <= 0
+          && (npc >= 0 || !battle_is_legacy_version (game)))
+        {
+          if (npc < 0)
+            gs_set_playerstamina (game, 0);
+          else
+            gs_set_npc_stamina (game, npc, 0);
+          battle_kill (game, npc, TRUE);
+          break;
+        }
       if (stamina < 0)
         stamina = 0;
       if (stamina > battle->maxstamina)

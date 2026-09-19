@@ -5701,6 +5701,23 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
       return -1;
     }
 
+  /*
+   * 3.9 examine asks nothing either.  co() is false for each of two seen,
+   * present namesakes (it only raises the end-of-turn flag), so
+   * referencedob() counts none and returns -1, and examines() answers
+   * "Nothing special." (run390 42DF43 -> 44BF94).  The "Which <term>." that
+   * lib_co_ambiguity_prompt() prints replaces it when no task ran;
+   * cybercow_win T118 `x berry` is the case where the "#Rain" event's task
+   * did run.
+   */
+  if (lib_is_version_390 (game) && strcmp (verb, "examine") == 0)
+    {
+      pf_buffer_string (filter, "Nothing special.\n");
+      if (is_ambiguous)
+        *is_ambiguous = TRUE;
+      return -1;
+    }
+
   /* The object reference is ambiguous, so list the choices. */
   pf_buffer_string (filter, "Please be more clear, what do you want to ");
   pf_buffer_string (filter, verb);
@@ -6969,6 +6986,15 @@ static scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
  * object "skeleton" and Havelock's skeleton (alias skeleton) share the room,
  * and `x skeleton` answers only "Havelock's skeletal remains sit on the
  * throne..." (Adrift_332_lair.txt:1573, Adrift_674_lair.txt:1574).
+ *
+ * run390 has the same arm (characters() 459E2A-459FD9, called at 460675
+ * below therest), gated only on c(Name) or c(Alias) at 4592B8, no task ran
+ * (468198) and the NPC in the player's room, and it too assigns the
+ * description untested.  Measured on Lair of the CyberCow (3.90,
+ * runner_transcripts/cybercow_win.txt T72): object 4 "the fairy" and
+ * Vluurinik (alias fairy) share the meadow, and `x fairy` answers only "The
+ * fairy darts in circles around the warm bowl of CyberCow milk.", the
+ * character's AltText.  3.8 is unread and left alone.
  */
 static scr_int
 lib_examine_npc_overwrite_400 (scr_gameref_t game)
@@ -6976,8 +7002,10 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
   const scr_char *input = run_get_dispatch_input ();
   scr_int npc, found = -1;
 
-  if (!input || !lib_is_version_400 (game)
-      || lib_npc_400_find_namesakes (game, NULL, NULL))
+  if (!input
+      || !(lib_is_version_400 (game) || lib_is_version_390 (game))
+      || (lib_is_version_400 (game)
+          && lib_npc_400_find_namesakes (game, NULL, NULL)))
     return -1;
 
   for (npc = 0; npc < gs_npc_count (game); npc++)
@@ -6987,6 +7015,95 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
         found = npc;
     }
   return found;
+}
+
+/*
+ * lib_examine_tail()
+ *
+ * What follows an object's description in an examine: its openness state,
+ * any listed state, and what is on and in it.  Returns the updated
+ * is_described.  Pre-4.0 `read` is answered inside examines() and falls
+ * into this same tail; see lib_read_object().
+ */
+static scr_bool
+lib_examine_tail (scr_gameref_t game, scr_int object, scr_bool is_described)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int openness;
+  scr_bool is_statussed, is_mentioned;
+
+  vt_key[0].string = "Objects";
+
+  /* If the object is openable, print its openness state. */
+  openness = gs_object_openness (game, object);
+  switch (openness)
+    {
+    case OBJ_OPEN:
+    case OBJ_CLOSED:
+    case OBJ_LOCKED:
+      {
+        /*
+         * Openness state, indexed by openness from OBJ_OPEN.  Always " is ":
+         * no Runner inflects this one.  run370, run380, run390 and run400
+         * each carry only " is open." / " is closed." / " is locked."
+         * (run400 examine at 47395C and 4717F5/47183E/471887), with no
+         * " are " variant anywhere in their string pools, and man_overboard
+         * (4.00) measures `x drawers` as "The set of drawers is closed."
+         * where we used to select "are" from the "some"-ish prefix.
+         */
+        static const scr_char *const states[] = {
+          " is open.", " is closed.", " is locked."
+        };
+
+        /*
+         * How the object is named here splits at 4.0.  run370, run380 and
+         * run390 all build the line as `"  The " & Name & " is open."` from
+         * the bare Short name -- run370 loc_435629/loc_435659, run380
+         * loc_43CF4A/loc_43CF7A, run390 loc_44BE84/loc_44BEB4 -- so a
+         * multi-word prefix vanishes: gamma.taf (3.90, Prefix "a mini",
+         * Short "fridge") measures `x mini fridge` as "The fridge is
+         * open." (Adrift_3_gamma.txt).  run400 instead composes the name
+         * with the tensed prefix (Proc_21_31_448710 at 4717D1): man
+         * overboard.taf (4.00, Prefix "the set of", Short "drawers")
+         * measures `x drawers` as "The set of drawers is closed."
+         */
+        lib_new_clause (game, is_described);
+        if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+          {
+            pf_buffer_string (filter, "the ");
+            pf_buffer_string (filter,
+                              prop_get_indexed_string (bundle, "Objects",
+                                                       object, "Short"));
+          }
+        else
+          lib_print_object_np (game, object);
+        pf_buffer_string (filter, states[openness - OBJ_OPEN]);
+        is_described |= TRUE;
+      }
+      break;
+
+    default:
+      break;
+    }
+
+  /* Add any extra details for stateful objects. */
+  vt_key[1].integer = object;
+  vt_key[2].string = "CurrentState";
+  is_statussed = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
+  if (is_statussed)
+    {
+      vt_key[2].string = "StateListed";
+      is_mentioned = prop_get_boolean (bundle, "B<-sis", vt_key);
+      if (is_mentioned)
+        is_described |= lib_list_object_state (game, object, is_described);
+    }
+
+  /* List out what's on and what's inside the object. */
+  is_described |= lib_list_in_on_object (game, object, is_described);
+
+  return is_described;
 }
 
 /*
@@ -7000,8 +7117,8 @@ lib_cmd_examine_object (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[3];
-  scr_int object, task, openness, npc;
-  scr_bool is_described, is_statussed, is_mentioned, is_ambiguous, should_be;
+  scr_int object, task, npc;
+  scr_bool is_described, is_ambiguous, should_be;
   const scr_char *description, *resource;
 
   /* A 4.0 tie that referencedob settles on an absent object. */
@@ -7105,72 +7222,7 @@ lib_cmd_examine_object (scr_gameref_t game)
       res_handle_resource (game, "sis", vt_key);
     }
 
-  /* If the object is openable, print its openness state. */
-  openness = gs_object_openness (game, object);
-  switch (openness)
-    {
-    case OBJ_OPEN:
-    case OBJ_CLOSED:
-    case OBJ_LOCKED:
-      {
-        /*
-         * Openness state, indexed by openness from OBJ_OPEN.  Always " is ":
-         * no Runner inflects this one.  run370, run380, run390 and run400
-         * each carry only " is open." / " is closed." / " is locked."
-         * (run400 examine at 47395C and 4717F5/47183E/471887), with no
-         * " are " variant anywhere in their string pools, and man_overboard
-         * (4.00) measures `x drawers` as "The set of drawers is closed."
-         * where we used to select "are" from the "some"-ish prefix.
-         */
-        static const scr_char *const states[] = {
-          " is open.", " is closed.", " is locked."
-        };
-
-        /*
-         * How the object is named here splits at 4.0.  run370, run380 and
-         * run390 all build the line as `"  The " & Name & " is open."` from
-         * the bare Short name -- run370 loc_435629/loc_435659, run380
-         * loc_43CF4A/loc_43CF7A, run390 loc_44BE84/loc_44BEB4 -- so a
-         * multi-word prefix vanishes: gamma.taf (3.90, Prefix "a mini",
-         * Short "fridge") measures `x mini fridge` as "The fridge is
-         * open." (Adrift_3_gamma.txt).  run400 instead composes the name
-         * with the tensed prefix (Proc_21_31_448710 at 4717D1): man
-         * overboard.taf (4.00, Prefix "the set of", Short "drawers")
-         * measures `x drawers` as "The set of drawers is closed."
-         */
-        lib_new_clause (game, is_described);
-        if (prop_get_taf_version (bundle) < TAF_VERSION_400)
-          {
-            pf_buffer_string (filter, "the ");
-            pf_buffer_string (filter,
-                              prop_get_indexed_string (bundle, "Objects",
-                                                       object, "Short"));
-          }
-        else
-          lib_print_object_np (game, object);
-        pf_buffer_string (filter, states[openness - OBJ_OPEN]);
-        is_described |= TRUE;
-      }
-      break;
-
-    default:
-      break;
-    }
-
-  /* Add any extra details for stateful objects. */
-  vt_key[1].integer = object;
-  vt_key[2].string = "CurrentState";
-  is_statussed = prop_get_integer (bundle, "I<-sis", vt_key) != 0;
-  if (is_statussed)
-    {
-      vt_key[2].string = "StateListed";
-      is_mentioned = prop_get_boolean (bundle, "B<-sis", vt_key);
-      if (is_mentioned)
-        is_described |= lib_list_object_state (game, object, is_described);
-    }
-
-  /* List out what's on and what's inside the object. */
-  is_described |= lib_list_in_on_object (game, object, is_described);
+  is_described = lib_examine_tail (game, object, is_described);
 
   /*
    * If nothing yet said, print a default response.
@@ -8696,7 +8748,8 @@ lib_take_npc_overwrite_400 (scr_gameref_t game)
 {
   const scr_char *input = run_get_dispatch_input ();
 
-  if (!input
+  /* run390's take arm (459658) appends rather than assigns; not ported. */
+  if (!input || !lib_is_version_400 (game)
       || !(lib_input_contains_word (input, "take")
            || lib_input_contains_word (input, "get")
            || lib_input_contains_word (input, "pick up")))
@@ -17336,6 +17389,26 @@ lib_read_tied_object_400 (scr_gameref_t game)
 
 static scr_bool lib_read_object (scr_gameref_t game, scr_int object);
 
+/*
+ * lib_read_tail_pre400()
+ *
+ * End a read answer.  Pre-4.0 `read` is answered inside examines(), and
+ * every arm of it -- the ReadText, "can't read <the X>!", the description a
+ * readable object with no ReadText falls back to, the darkness line -- goes
+ * on into the examine tail: the openness state ("  The <Short> is closed.")
+ * and whatisinon()'s contents.  run390 44BE30 -> 44BE60-44BEE6, run380
+ * 43CF22, run370 435629.  Measured on Lair of the CyberCow (3.90,
+ * runner_transcripts/cybercow_win.txt T97): `read envelope` answers
+ * "\"Hero.\"  The envelope is closed.".  4.0 is unread and left alone.
+ */
+static void
+lib_read_tail_pre400 (scr_gameref_t game, scr_int object)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    lib_examine_tail (game, object, TRUE);
+  pf_buffer_character (gs_get_filter (game), '\n');
+}
+
 scr_bool
 lib_cmd_read_object (scr_gameref_t game)
 {
@@ -17376,7 +17449,8 @@ lib_read_object (scr_gameref_t game, scr_int object)
                                  "You can't see ",
                                  "I can't see ",
                                  "%player% can't see ",
-                                 object, " very clearly.\n");
+                                 object, " very clearly.");
+      lib_read_tail_pre400 (game, object);
       return TRUE;
     }
 
@@ -17391,7 +17465,8 @@ lib_read_object (scr_gameref_t game, scr_int object)
                                  "You can't read ",
                                  "I can't read ",
                                  "%player% can't read ",
-                                 object, "!\n");
+                                 object, "!");
+      lib_read_tail_pre400 (game, object);
       return TRUE;
     }
 
@@ -17401,7 +17476,7 @@ lib_read_object (scr_gameref_t game, scr_int object)
   if (!scr_strempty (readtext))
     {
       pf_buffer_string (filter, readtext);
-      pf_buffer_character (filter, '\n');
+      lib_read_tail_pre400 (game, object);
       return TRUE;
     }
 
@@ -17426,7 +17501,7 @@ lib_read_object (scr_gameref_t game, scr_int object)
       pf_buffer_character (filter, '.');
     }
 
-  pf_buffer_character (filter, '\n');
+  lib_read_tail_pre400 (game, object);
   return TRUE;
 }
 

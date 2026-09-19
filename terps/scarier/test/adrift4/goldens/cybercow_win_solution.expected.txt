@@ -516,7 +516,7 @@ You can only move east.
 The warm seasonable rain is nearly over.
 
 > x fairy
-Vluurinik struggles between your fingers.  She seems terrified of something.
+The fairy darts in circles around the warm bowl of CyberCow milk.
 The rain has stopped.
 
 > catch fairy
@@ -705,7 +705,7 @@ C."
 Surely your friend wasn't so foolish as to forget that CyberCows cannot read?
 
 > read envelope
-"Hero."
+"Hero."  The envelope is closed.
 A trickle of water runs past your feet from the direction of the well.
 
 > open envelope
@@ -760,7 +760,7 @@ You move east.
 Bottom of the Well
 The stone wall leads up to a small circular view of the sky.  A rope dangles
 here.  The CyberCow, victorious, has lain it head on the ruptured hulk of the
-Robot and weeps bitterly.  CyberCow and Robot are here.
+Robot and weeps bitterly.  CyberCow is here.
 
 You can move west and up.
 
@@ -853,7 +853,7 @@ your way through the pricker bushes at the CyberCow's lair entrance.
 Examining your reflection, you tease the berry out of your hair.
 
 > x berry
-Which berry.  The berry or the berry?
+I can tell you nothing about that.
 
 > x fairy
 The fairy avidly stares at the berry.

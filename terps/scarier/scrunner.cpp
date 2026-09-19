@@ -3689,6 +3689,27 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
  * walk CharTask/ObjectTask path above (in the 3.9 Runner both are the same
  * P-code sequence); run_event_task() is the event-facing name.
  */
+/*
+ * run_note_dispatched_task_ran()
+ *
+ * An event's or a walk's task counts as "a task ran" for the pre-4.0
+ * ambiguity prompt too.  run390's execute_task sets MemVar_468198 on entry
+ * (43F032), whoever called it, and events() (46067A) and the walks in
+ * characters() (460675) run before the prompt's guard `(468190 < 0) Or
+ * (468198 = 1)` at 4606BD.  cybercow_win T118 `x berry`, with the held
+ * berry and the static one in the hair both seen: the "#Rain" event runs
+ * task 18 every turn, so run390 prints no "Which berry." and answers
+ * examines()'s own "Nothing special." (referencedob -1, 44BF94; the game's
+ * ALR makes it "I can tell you nothing about that").  3.9 only; run380 sets
+ * its flag inside tasks() (44D0BA), but its event route is unread.
+ */
+static void
+run_note_dispatched_task_ran (scr_gameref_t game)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    run_co_task_claimed = TRUE;
+}
+
 static void
 run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
 {
@@ -3708,7 +3729,10 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
       /* No command text to dispatch; run the task directly. */
       if (task_can_run_task_directional (game, eventtask, TRUE)
           && run_task_is_unrestricted (game, eventtask))
-        task_run_task (game, eventtask, TRUE);
+        {
+          run_note_dispatched_task_ran (game);
+          task_run_task (game, eventtask, TRUE);
+        }
       return;
     }
 
@@ -3752,6 +3776,7 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
                        " task=%ld\n", task, command, eventtask);
           }
 #endif
+          run_note_dispatched_task_ran (game);
           task_run_task (game, task, TRUE);
           return;
         }

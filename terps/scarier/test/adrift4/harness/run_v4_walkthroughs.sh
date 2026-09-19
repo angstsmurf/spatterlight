@@ -744,6 +744,18 @@ cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # `x berry` is now "Which berry.  The berry or the berry?".  Still NOT the
 # Runner's "I can tell you nothing about that." -- run390's task mover never
 # stamps seen, so the berry task 170 hands over stays unseen there.
+# Re-blessed 2026-09-19, now identical to run390 on every turn:
+#  T72  3.9 examine of an NPC overwrites the task's text too (run390 characters
+#       459E2A, gate 4592B8), as 4.0 does.
+#  T97  pre-4.0 read ends in the examine tail (44BE30 -> 44BE60): openness line
+#       and contents.
+#  T103 task 167's type-7 stamina drop to <=0 kills the robot (execute_action
+#       456D8D -> killchar 42D410; run400 48D929 Proc_11_3).
+#  T118 `x berry` -> "I can tell you nothing about that.": the 09-14 guess above
+#       was wrong.  The "#Rain" event's task sets "a task ran" (execute_task
+#       43F032), which skips the end-of-turn Which prompt (guard 4606BD), and
+#       examines answers "Nothing special." for the ambiguous pair
+#       (referencedob -1 -> 44BF94), rewritten by the game's ALR.
 cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of the CyberCow.
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
