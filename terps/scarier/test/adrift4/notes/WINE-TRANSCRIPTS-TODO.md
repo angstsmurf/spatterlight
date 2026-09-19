@@ -309,9 +309,12 @@ strike order, Haron's arrival one turn apart) are not a battle rule:
 
 ### Engine, 3.7 / 3.8
 
-None open. haunt T84 is closed: a pre-4.0 ending is composed when its task
-finishes, so events ticking after it land past the prompt (see "Events and
-RNG" in the index).
+- haunt T84 is closed: a pre-4.0 ending is composed when its task finishes
+  (see "Events and RNG" in the index). Look-anywhere is ported (index,
+  "Line splitting"). Still open, and unmeasured: therest()'s other
+  keyword-anywhere arms (`c("clean")`, `c("run")`, `c("push")`, ...,
+  last writer wins), which Scarier matches verb-first only. No golden
+  types one.
 
 ### Harness and compare
 
@@ -485,13 +488,6 @@ RNG" in the index).
   ported.
 - **Examine:** 3.7/3.8 examines have no bare-verb exit (unmeasured corners).
   run370's sit/stand/lie has no location test (42AEC8, unported).
-- **The line splitter:** run380/run370 cut a typed line only at a
-  whole-word `then` (run380 441A4B, run370 43B29B), with no "," or ". "
-  pass, which 3.9 added (45EC8E). Scarier still cuts pre-3.9 lines at
-  both (run_is_separator), so `ask erin about key, please` prints "ERIN
-  KEY." and then "Your kindness gets you nowhere." where run380 prints
-  "ERIN KEY." alone (p38ASK, make_38_askprobe.py). This needs a golden
-  sweep of the 3.7/3.8 rows whose solutions type "," or ". ".
 - **Put:** 3.7 static container `open`; 3.7 bare take from a held
   container; `put X in Y` where X names nothing and Y is a bad container; a
   supporter that is neither held nor static nor a container; a static
@@ -626,6 +622,34 @@ every Runner.
     when the tail starts with any object's Short, Prefix word or Alias
     (case-sensitive). The put clause loop puts several objects in one turn.
     `[4.0]` p4AND (dffce55df)
+  - Pre-4.0 never looks at the object table. run370/run380 cut only at a
+    whole-word `then` (c(), 3.8 word ends: space, `,`, end), at the first
+    substring "then", so `x athens then look` runs `x a`, `s`, `look`.
+    run390 cuts at the first `,`, then at `. ` in the head, then at `then`.
+    No pre-4.0 Runner cuts at a period with no space after it (`probe.` is
+    DontUnderstand). run390 replaces an empty then-head with everything
+    queued behind it (45F079), so `then look` is one `look`; 3.8 answers the
+    empty head with DontUnderstand. `[<4.0]` p38ASK/p39ASK,
+    `cmdfile_psplit.txt` + `cmdfile_psplit2.txt` (run380x Adven_4/5.rtf,
+    run390x Adrift_1190/1191), `run_find_split_pre400` (2026-09-19)
+  - No Runner drops the rest of a line after a DontUnderstand element
+    (`zzz, look` answers both at 3.9, `zzz then look` at 3.8). Upstream
+    SCARE's discard is gone at every version. Same probes (2026-09-19)
+  - A name followed by punctuation the splitter left in the line still
+    resolves: `,` ends a word at 3.7/3.8, and `,` or `.` at 3.9, as in c()
+    (`x stone, look` at 3.8; `x stone.` and `x stone.look` at 3.9).
+    `uip_is_word_end` (2026-09-19).
+  - Pre-4.0 therest() answers "Nothing special." to c("look") anywhere in
+    the line (run370 43D906, run380 44439D, run390 45DB9F). The typed-look
+    list has already taken an exact `look`, so this catches `look,`,
+    `zzz, look`, `, look` (3.8) and `look.` (3.9 only; 3.8 is
+    DontUnderstand). c()'s FIRST hit at a word start decides, so
+    `look. look` at 3.8 stays DontUnderstand. The row sits above the object
+    and character catch-alls. Not ported: the therest() arms after it
+    (clean, run, push, ...) overwrite it in the Runner, but Scarier's rows
+    for them are verb-first, so `look, push lamp` is not the Runner's
+    answer. `[<4.0]` same probes, `lib_cmd_look_anywhere_pre_400`
+    (2026-09-19)
 - **Spent tasks:**
   - Pre-4.0 checktask 44B4DD writes a spent task's RepeatText to the buffer
     and keeps scanning. A later passing task still runs, and a later

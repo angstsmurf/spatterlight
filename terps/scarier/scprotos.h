@@ -794,6 +794,7 @@ extern scr_bool lib_cmd_profanity_390 (scr_gameref_t game);
 extern scr_bool lib_cmd_profanity_pre_400 (scr_gameref_t game);
 extern scr_bool lib_cmd_examine_all (scr_gameref_t game);
 extern scr_bool lib_cmd_examine_other (scr_gameref_t game);
+extern scr_bool lib_cmd_look_anywhere_pre_400 (scr_gameref_t game);
 extern scr_bool lib_cmd_examine_absent (scr_gameref_t game);
 extern scr_bool lib_cmd_locate_other (scr_gameref_t game);
 extern scr_bool lib_cmd_unix_like (scr_gameref_t game);

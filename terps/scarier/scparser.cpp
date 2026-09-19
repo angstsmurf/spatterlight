@@ -1860,6 +1860,27 @@ uip_set_containment (scr_bool enabled)
 
 
 /*
+ * Punctuation that ends a name the way a space does.  Every Runner's c()
+ * accepts a hit followed by a space or the end of the line; run370 423C80
+ * and run380 429048 also accept a ",", and run390 4334B0 a "," or a ".".
+ * That only shows where the splitter leaves the punctuation in the line:
+ * 3.8 never splits on a comma, so `x stone, look` examines the stone
+ * (Adven_4.rtf), and 3.9 never cuts at a period with no space after it, so
+ * `x stone.` and `x stone.look` do (Adrift_1190).  4.0 is untouched: it cuts
+ * a line's final period off before the parser sees it (run_find_split_400).
+ * Set per match from the game's version in uip_match().
+ */
+static const scr_char *uip_word_end_punctuation = "";
+
+static scr_bool
+uip_is_word_end (scr_char character)
+{
+  return character == NUL || scr_isspace (character)
+         || strchr (uip_word_end_punctuation, character) != NULL;
+}
+
+
+/*
  * uip_compare_reference_strict()
  *
  * The strict comparator described above: the name must appear at the current
@@ -1882,7 +1903,7 @@ uip_compare_reference_strict (const scr_char *name)
         return 0;
     }
 
-  if (scr_isspace (uip_string[posn]) || uip_string[posn] == NUL)
+  if (uip_is_word_end (uip_string[posn]))
     return posn;
   return 0;
 }
@@ -1955,7 +1976,7 @@ uip_compare_reference (const scr_char *words)
    * We reached the end of words.  If we're at the end of the match string, or
    * at spaces, we've matched.
    */
-  if (scr_isspace (uip_string[posn]) || uip_string[posn] == NUL)
+  if (uip_is_word_end (uip_string[posn]))
     return posn;
 
   /* More text after the match, so it's not quite a match. */
@@ -2230,8 +2251,7 @@ uip_contains_words (const scr_char *words)
         continue;
       if (scr_strncasecmp (uip_string + posn, words, length) != 0)
         continue;
-      if (scr_isspace (uip_string[posn + length])
-          || uip_string[posn + length] == NUL)
+      if (uip_is_word_end (uip_string[posn + length]))
         return TRUE;
     }
 
@@ -2791,11 +2811,17 @@ uip_match (const scr_char *pattern, const scr_char *string, scr_gameref_t game)
   uip_match_start (cleansed, game);
   {
     const scr_bool was_binary = uip_binary_active;
+    const scr_char *const was_punctuation = uip_word_end_punctuation;
+    const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+
+    uip_word_end_punctuation = (version == TAF_VERSION_390) ? ",."
+                               : (version < TAF_VERSION_390) ? "," : "";
 
     uip_binary_active = uip_binary_input && strpbrk (pattern, "*[{")
                         && !strchr (pattern, '%');
     match = uip_match_node (tree);
     uip_binary_active = was_binary;
+    uip_word_end_punctuation = was_punctuation;
   }
 
   /* Clean up matching, and free the pattern tree unless it is cached. */

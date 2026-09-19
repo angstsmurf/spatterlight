@@ -20850,6 +20850,59 @@ lib_cmd_examine_other (scr_gameref_t game)
 }
 
 /*
+ * lib_cmd_look_anywhere_pre_400()
+ *
+ * Pre-4.0 therest() tests c("look") over the WHOLE line, not just its first
+ * word, and answers the flat "Nothing special." (run370 43D906, run380
+ * 44439D, run390 45DB9F):
+ *
+ *     If c("look") Or (input = "l" And msg = "") Then msg = "Nothing special."
+ *
+ * The typed-look list (lib_cmd_look_typed()) has already taken an exact
+ * `look`, so what reaches here is a line with "look" somewhere else in it:
+ * `look,`, `zzz, look` and `, look` (run380x Adven_5.rtf) and, at 3.9 only,
+ * `look.` (run390x Adrift_1190) -- 3.9's c() also ends a word at a period,
+ * 3.8 answers `look.` with the game's DontUnderstand.
+ *
+ * c() is the Runner's, not uip_contains_words(): the FIRST case-insensitive
+ * InStr hit that starts at position 1 or after a space decides, and it is
+ * true only if the word ends there (end of line, a space, a comma, and at
+ * 3.9 a period).  `lookout look` is false.  The row sits above the object
+ * and character catch-alls, which the Runner reaches only on an empty
+ * message; the therest() arms below it (clean, run, push, ...) overwrite it
+ * in the Runner but are verb-first here, so a line like `look, push lamp` is
+ * still not the Runner's.
+ */
+scr_bool
+lib_cmd_look_anywhere_pre_400 (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *const input = run_get_dispatch_input ();
+  const scr_char *hit;
+  scr_char end;
+
+  if (version >= TAF_VERSION_400 || !input)
+    return FALSE;
+
+  for (hit = input; *hit != NUL; hit++)
+    {
+      if (scr_strncasecmp (hit, "look", 4) != 0)
+        continue;
+      if (hit == input || hit[-1] == ' ')
+        break;
+    }
+  if (*hit == NUL)
+    return FALSE;
+
+  end = hit[4];
+  if (!(end == NUL || end == ' ' || end == ','
+        || (end == '.' && version == TAF_VERSION_390)))
+    return FALSE;
+
+  return lib_print_message (game, "Nothing special.\n");
+}
+
+/*
  * lib_cmd_examine_absent()
  *
  * `x <object seen elsewhere>`, once every other examine row has declined it.

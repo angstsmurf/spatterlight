@@ -75,30 +75,141 @@ run_counts_line_elements (scr_gameref_t game)
 
 
 /*
- * run_is_separator()
+ * run_then_in_line_pre400()
+ * run_find_split_pre400()
  *
- * Return TRUE if the character at the given position in the line buffer acts
- * as a player-input command separator.  A comma always separates.  A period
- * separates only when followed by whitespace or the end of the line.
+ * The pre-4.0 splitters.  run370 43B29B and run380 441A4B have one test,
+ * c("then") at the top of generaltasks: when the line holds "then" as a
+ * word, it is cut at the first InStr "then" -- a substring, so `x athens
+ * then look` runs "x a", "s" and "look" -- the head less one trailing
+ * space, the tail less one leading space and run as the next command.
+ * There is no comma and no ". " pass, so `x stone, look` is one command.
+ * run390 (45EC8E-45F091) cuts at the first ",", then in what is left at the
+ * first ". ", then -- if c("then") holds on that -- at the first "then",
+ * each tail queued ahead of the rest and re-split when it is read back, so
+ * the earliest surviving kind is the cut.  No Runner below 4.0 cuts at a
+ * period with no space after it: `look.` is one command.
  *
- * This matches the ADRIFT Runner, whose input splitter (verified by reverse-
- * engineering run390/run400) normalises on ", ", ". " and "then" -- i.e. it
- * splits on a period only when that period is followed by a space.  A period
- * embedded in a word (e.g. "login to think.com", or a decimal like "3.5") is
- * therefore part of the command, not a separator.  Splitting on a bare period
- * made such commands untypeable and rendered games that rely on them
- * unwinnable (e.g. "The Annihilation of think.com").  Splitting on a trailing
- * period is harmless (and preserves long-standing behaviour for input like
- * "n.").
+ * c() (run370 423C80, run380 429048, run390 4334B0): the first InStr hit
+ * that starts the text or follows a space decides; it is a word if it runs
+ * to the end or is followed by a space or "," -- or "." from 3.9.
+ *
+ * Measured 2026-09-19 on p38ASK / p39ASK with cmdfile_psplit.txt (run380x
+ * Adven_4.rtf, run390x Adrift_1190.txt).
  */
 static scr_bool
-run_is_separator (const scr_char *line, scr_int posn)
+run_then_in_line_pre400 (const scr_char *line, scr_int length,
+                         scr_bool period_ends)
 {
-  if (line[posn] == ',')
-    return TRUE;
-  if (line[posn] == '.')
-    return line[posn + 1] == NUL || scr_isspace (line[posn + 1]);
+  scr_int posn;
+
+  for (posn = 0; posn + 4 <= length; posn++)
+    {
+      if (strncmp (line + posn, "then", 4) != 0)
+        continue;
+      if (posn == 0 || line[posn - 1] == ' ')
+        {
+          const scr_int after = posn + 4;
+
+          return after == length || line[after] == ' ' || line[after] == ','
+                 || (period_ends && line[after] == '.');
+        }
+    }
   return FALSE;
+}
+
+/*
+ * Return the length of the head of LINE, with *TAIL the offset its tail
+ * starts at, or -1 when the line holds no cut.
+ */
+static scr_int
+run_find_split_pre400 (scr_int version, const scr_char *line, scr_int *tail)
+{
+  const scr_char *found;
+  scr_int head = (scr_int) strlen (line), cut = -1, sep_length = 0;
+
+  if (version >= TAF_VERSION_390)
+    {
+      found = strchr (line, ',');
+      if (found)
+        {
+          head = cut = (scr_int) (found - line);
+          sep_length = 1;
+        }
+      for (found = line; found - line + 1 < head; found++)
+        {
+          if (found[0] == '.' && found[1] == ' ')
+            {
+              head = cut = (scr_int) (found - line);
+              sep_length = 2;
+              break;
+            }
+        }
+    }
+
+  if (run_then_in_line_pre400 (line, head, version >= TAF_VERSION_390))
+    {
+      for (found = line; strncmp (found, "then", 4) != 0; found++)
+        ;
+      cut = (scr_int) (found - line);
+      sep_length = 4;
+    }
+
+  if (cut < 0)
+    return -1;
+  *tail = cut + sep_length + (line[cut + sep_length] == ' ' ? 1 : 0);
+  return cut;
+}
+
+/*
+ * run_empty_then_head_390()
+ *
+ * run390's "then" pass ends at 45F079: `If line = "" Then line = queue :
+ * queue = ""`.  An empty head -- `then look` -- is replaced by everything
+ * queued behind it, and that command is not split again: the queue is the
+ * then-tail, the ". "-tail and the comma-tail, each less one leading space,
+ * joined with ", " (45EDEF, 45EF5C).  So `then look` is one `look`, and
+ * `look then then look` runs `look` twice (Adrift_1191).  run370/run380
+ * have no such test and answer the empty head with DontUnderstand.
+ */
+static std::string
+run_empty_then_head_390 (const scr_char *line)
+{
+  const scr_char *comma, *stop;
+  std::string queue;
+  scr_int head;
+
+  comma = strchr (line, ',');
+  head = comma ? (scr_int) (comma - line) : (scr_int) strlen (line);
+  stop = line + head;
+  for (const scr_char *dot = line; dot + 1 < line + head; dot++)
+    {
+      if (dot[0] == '.' && dot[1] == ' ')
+        {
+          stop = dot;
+          break;
+        }
+    }
+
+  auto append = [&queue] (const scr_char *from, const scr_char *to)
+    {
+      std::string text (from, to - from);
+
+      if (!text.empty () && text[0] == ' ')
+        text.erase (0, 1);
+      if (text.empty ())
+        return;
+      if (!queue.empty ())
+        queue += ", ";
+      queue += text;
+    };
+
+  append (line + 4, stop);
+  if (stop < line + head)
+    append (stop + 2, line + head);
+  if (comma)
+    append (comma + 1, comma + strlen (comma));
+  return queue;
 }
 
 
@@ -139,11 +250,8 @@ run_is_separator (const scr_char *line, scr_int posn)
  * box and hat in desk` is one turn through put_drop_list's own clause loop
  * (lib_put_clauses_400).
  *
- * Pre-4.0 Runners split on far less and never consult the object table:
- * run390 does "," then ". " then a whole-word "then" inline in its input
- * handler (45EC8E-45F091), with no " and " pass at all, and run380 recurses
- * on " then " (425DE2).  Only the 4.0 shape is ported here; the others keep
- * run_is_separator() above, which is what Scarier has always done.
+ * Pre-4.0 Runners split on far less and never consult the object table;
+ * see run_find_split_pre400() above.
  */
 static scr_bool
 run_split_word_names_object (scr_gameref_t game, const scr_char *word)
@@ -1201,6 +1309,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"xyzzy *", lib_cmd_xyzzy},
   {"campbell", lib_cmd_egotistic},
   {"[yes/no] *", lib_cmd_yes_or_no},
+  {"*", lib_cmd_look_anywhere_pre_400},
   {"* %object% *", lib_cmd_verb_object},
   {"put *", lib_cmd_put_where_400},
   {"* %character% *", lib_cmd_verb_npc},
@@ -5239,12 +5348,11 @@ run_player_input (scr_gameref_t game)
         if_print_character ('\n');
 
       /*
-       * Find the length of the next input line element.  Unless the line
-       * buffer is empty, we always take the first character, even if it's a
-       * separator.  This catches odd input like "." and turns it into a
-       * parser complaint, rather than treating it as two empty commands with
-       * a separator between them; this makes it close to what Inform does
-       * with similar inputs.
+       * Find the length of the next input line element.  At 4.0, unless the
+       * line buffer is empty, we always take the first character, even if
+       * it's a separator.  This catches odd input like "." and turns it into
+       * a parser complaint, rather than treating it as two empty commands
+       * with a separator between them.
        */
       scr_int sep_length = 1;
 
@@ -5252,7 +5360,10 @@ run_player_input (scr_gameref_t game)
         {
           /*
            * 4.0 cuts the line at the earliest separator whose tail does not
-           * begin with an object name; see run_find_split_400().
+           * begin with an object name; see run_find_split_400().  The
+           * separator goes, and any whitespace after it: that prevents
+           * "i. ." looking like "i" and ""; it instead looks like "i" and
+           * ".", and results in a parser complaint.
            */
           const scr_int split = (line_buffer[0] == NUL)
                                 ? -1
@@ -5260,27 +5371,39 @@ run_player_input (scr_gameref_t game)
                                                       &sep_length);
 
           length = (split < 0) ? (scr_int) strlen (line_buffer) : split;
+          extent = length;
+          extent += (line_buffer[length] == NUL) ? 0 : sep_length;
+          extent += strspn (line_buffer + extent, WHITESPACE);
         }
       else
         {
-          length = (line_buffer[0] == NUL) ? 0 : 1;
-          while (line_buffer[length] != NUL
-                 && !run_is_separator (line_buffer, length))
-            length++;
+          /*
+           * Pre-4.0 keeps its tail as the Runner does, less one leading
+           * space, and the head may be empty (`then look`); see
+           * run_find_split_pre400().
+           */
+          const scr_int version = prop_get_taf_version (bundle);
+
+          length = run_find_split_pre400 (version, line_buffer, &extent);
+          if (length < 0)
+            length = extent = (scr_int) strlen (line_buffer);
+          else if (length == 0 && version == TAF_VERSION_390
+                   && strncmp (line_buffer, "then", 4) == 0)
+            {
+              const std::string queue = run_empty_then_head_390 (line_buffer);
+
+              strncpy (line_buffer, queue.c_str (), LINE_BUFFER_SIZE - 1);
+              line_buffer[LINE_BUFFER_SIZE - 1] = NUL;
+              length = extent = (scr_int) strlen (line_buffer);
+            }
         }
 
       /*
-       * Make this the current input element, and remove it, the separator,
-       * and any trailing whitespace, from the front of the line buffer.
-       * Removing whitespace prevents "i. ." looking like "i" and ""; it
-       * instead looks like "i" and ".", and results in a parser complaint.
+       * Make this the current input element, and remove it and the
+       * separator from the front of the line buffer.
        */
       memcpy (line_element, line_buffer, length);
       line_element[length] = NUL;
-
-      extent = length;
-      extent += (line_buffer[length] == NUL) ? 0 : sep_length;
-      extent += strspn (line_buffer + extent, WHITESPACE);
       memmove (line_buffer,
                line_buffer + extent, strlen (line_buffer) - extent + 1);
 
@@ -5555,19 +5678,16 @@ run_player_input (scr_gameref_t game)
       pf_buffer_character (filter, '\n');
 
       /*
-       * On a line element that's not understood, throw out any remaining
-       * input line elements.
-       *
-       * 4.0 keeps them: the queue is re-read at the very END of run400's
+       * A line element that's not understood leaves the rest of the line
+       * alone.  Upstream SCARE threw the remaining elements out here; no
+       * Runner does.  run400 re-reads its queue at the very END of
        * generaltasks (48BCF2, `If MemVar_4942E4 <> "" Then MemVar_494174 =
        * MemVar_4942E4 : GoTo 489FEB`), below every exit the DontUnderstand
-       * text can take, so a failed element costs the rest of the line
-       * nothing.  `wave zzz and yyy` on the p4AND probe answers NO IDEA
-       * twice (Adrift_955); with the discard it answered once.  Pre-4.0 is
-       * unmeasured and keeps the old behaviour.
+       * text can take: `wave zzz and yyy` on the p4AND probe answers NO IDEA
+       * twice (Adrift_955).  run390 answers `zzz, look` with NO IDEA and
+       * the room (Adrift_1191), run380 `zzz then look` with "I don't
+       * understand." and the room (Adven_5.rtf).
        */
-      if (prop_get_taf_version (bundle) < TAF_VERSION_400)
-        line_buffer[0] = NUL;
       return status;
     }
   else
