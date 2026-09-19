@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <string>
 #include <vector>
 
 #include "scarier.h"
@@ -902,19 +903,16 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"enter *", lib_cmd_just_a_direction},
 
   /*
-   * The room-request rows.  `goto X` and `go to X` are gotoplace() at every
-   * version; a bare `go X` only became one in 3.9, so under 3.7 and 3.8 it
-   * falls to the nudge instead -- see lib_cmd_just_a_direction_pre_390(),
-   * which returns FALSE from 3.9 on and lets the two `go` rows after it have
-   * the command.
+   * gotoplace() itself, which tests the whole line: "goto" anywhere, or a
+   * line starting "go " (3.9+) or "go to" (3.7, 3.8).  See
+   * lib_cmd_go_place().  What it leaves is a bare `goto`, which nothing
+   * answers (DontUnderstand in run380x Adrift_133_pgoto38b.rtf, run390x
+   * Adrift_134_pgoto39b.txt, run400x Adrift_133_p4goto.txt), and under 3.7 and
+   * 3.8 a `go X` that does not start "go to", which gets the nudge -- see
+   * lib_cmd_just_a_direction_pre_390().
    */
-  {"goto %text%", lib_cmd_go_room},
-  {"goto *", lib_cmd_print_room_exits},
-  {"go to %text%", lib_cmd_go_room},
-  {"go to *", lib_cmd_print_room_exits},
+  {"*", lib_cmd_go_place},
   {"go *", lib_cmd_just_a_direction_pre_390},
-  {"go %text%", lib_cmd_go_room},
-  {"go *", lib_cmd_print_room_exits},
   {"[exits/directions/where]", lib_cmd_print_room_exits},
 #ifdef SCARIER_NO_ABBREVIATIONS
   {"[wait] %number%", lib_cmd_wait_number},
@@ -2545,6 +2543,64 @@ static const scr_char *run_dispatch_input = NULL;
 /* Set while a 4.0 question continuation with a double space runs; see
  * run_match_task_commands(). */
 static scr_bool run_rerun_skips_tasks = FALSE;
+
+/*
+ * The steps of a `go <place>` walk still to be typed, and what to say on
+ * arrival; see lib_cmd_go_place().  The Runner's route finder types each
+ * direction into the input box and presses Return (SendKeys), so each step
+ * is a line read at the prompt like any other: echoed, lower-cased, a turn
+ * of its own.  run_goto_arrival_due marks the last step's turn, after which
+ * run_main_loop() prints the arrival.
+ */
+static std::vector<std::string> run_goto_steps;
+static size_t run_goto_next = 0;
+static std::string run_goto_arrival;
+static scr_bool run_goto_arrival_due = FALSE;
+
+void
+run_queue_goto_step (const scr_char *step)
+{
+  run_goto_steps.push_back (step);
+}
+
+void
+run_set_goto_arrival (const scr_char *text)
+{
+  run_goto_arrival = text;
+}
+
+static void
+run_cancel_goto_walk (void)
+{
+  run_goto_steps.clear ();
+  run_goto_next = 0;
+  run_goto_arrival.clear ();
+  run_goto_arrival_due = FALSE;
+}
+
+/*
+ * scr_take_scripted_line()
+ *
+ * For the ports' line readers: TRUE and the next walk step in buffer if a
+ * walk is under way, in place of reading from the player.  The port prints
+ * its prompt first and echoes the step as if typed.
+ */
+scr_bool
+scr_take_scripted_line (scr_char *buffer, scr_int length)
+{
+  if (run_goto_next >= run_goto_steps.size ())
+    return FALSE;
+
+  strncpy (buffer, run_goto_steps[run_goto_next++].c_str (), length - 1);
+  buffer[length - 1] = NUL;
+  if (run_goto_next >= run_goto_steps.size ())
+    {
+      run_goto_steps.clear ();
+      run_goto_next = 0;
+      run_goto_arrival_due = TRUE;
+    }
+  return TRUE;
+}
 
 /*
  * run_get_dispatch_input()
@@ -5450,6 +5506,7 @@ run_player_input (scr_gameref_t game)
       memset (line_element, NUL, sizeof (line_element));
       lib_co_400_reset ();
       lib_battle_who_reset ();
+      run_cancel_goto_walk ();
       return TRUE;
     }
 
@@ -5927,6 +5984,7 @@ run_player_input (scr_gameref_t game)
       || (was_undo_available && !game->undo_available))
     {
       line_buffer[0] = NUL;
+      run_cancel_goto_walk ();
       return status;
     }
 
@@ -6734,6 +6792,20 @@ run_main_loop (scr_gameref_t game)
           if (!run_co_task_claimed)
             lib_co_ambiguity_prompt (game, run_co_pending_input.c_str ());
           run_co_pending_input.clear ();
+        }
+
+      /*
+       * The last step of a `go <place>` walk has had its turn: the Runner's
+       * route finder gets control back from SendKeys and prints the arrival
+       * (run390 43CBB9, run380 431FF2).  A walk the game ended stops there.
+       */
+      if (run_goto_arrival_due || !game->is_running
+          || game->pending_endgame != 0)
+        {
+          if (run_goto_arrival_due && game->is_running
+              && game->pending_endgame == 0)
+            pf_buffer_string (filter, run_goto_arrival.c_str ());
+          run_cancel_goto_walk ();
         }
 
       /*

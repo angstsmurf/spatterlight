@@ -128,6 +128,7 @@ extern scr_bool scr_load_undo_game_from_callback (scr_game game,
                                        void *opaque);
 extern void scr_note_resources_synced (scr_game game);
 extern void scr_note_autorestored (void);
+extern scr_bool scr_take_scripted_line (scr_char *buffer, scr_int length);
 extern scr_bool scr_load_game_from_callback (scr_game game,
                                            scr_int (*callback)
                                            (void *, scr_byte *, scr_int),

@@ -635,7 +635,7 @@ extern scr_bool lib_cmd_go_northeast (scr_gameref_t game);
 extern scr_bool lib_cmd_go_southeast (scr_gameref_t game);
 extern scr_bool lib_cmd_go_northwest (scr_gameref_t game);
 extern scr_bool lib_cmd_go_southwest (scr_gameref_t game);
-extern scr_bool lib_cmd_go_room (scr_gameref_t game);
+extern scr_bool lib_cmd_go_place (scr_gameref_t game);
 extern scr_bool lib_cmd_verbose (scr_gameref_t game);
 extern scr_bool lib_cmd_brief (scr_gameref_t game);
 extern scr_bool lib_cmd_notify_on_off (scr_gameref_t game);
@@ -964,6 +964,8 @@ extern void run_set_task_class_filter (scr_int mode);
 extern scr_bool run_in_priority_pass (void);
 extern scr_bool run_in_put_clause_loop (void);
 extern const scr_char *run_get_dispatch_input (void);
+extern void run_queue_goto_step (const scr_char *step);
+extern void run_set_goto_arrival (const scr_char *text);
 extern scr_int run_c_word_pre400 (scr_int version, const scr_char *line,
                                   const scr_char *word);
 extern void lib_verb_object_note_line_top (scr_gameref_t game);

@@ -351,6 +351,16 @@ os_read_line (scr_char *buffer, scr_int length)
   putchar ('>');
   if (echo_input)
     putchar (' ');
+
+  /* A `go <place>` walk types its own steps; show each as typed. */
+  if (scr_take_scripted_line (buffer, length))
+    {
+      fputs (buffer, stdout);
+      putchar ('\n');
+      fflush (stdout);
+      return TRUE;
+    }
+
   fflush (stdout);
   os_ansi_input_line++;
   if (!fgets (buffer, length, stdin))

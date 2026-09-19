@@ -4008,12 +4008,14 @@ lib_cmd_just_a_direction (scr_gameref_t game)
  * lib_cmd_just_a_direction_pre_390()
  *
  * `go <somewhere>` only reaches the Runner's gotoplace() from 3.9 on.  In 3.7
- * and 3.8 the sub is guarded on the whole word `goto`, or on a `go to ` with
- * an argument, and nothing else (run370 loc_42B994, run380 loc_431B8D); 3.9
- * and 4.0 relaxed the second half of that test to a bare `go ` prefix (run390
- * loc_43C764, run400 loc_46494C).  So under the older Runners a `go bedroom`
- * is not a room request at all -- it reaches no direction and no place, and
- * generaltasks answers it with the nudge above.
+ * and 3.8 the sub is guarded on the whole word `goto`, or on a line starting
+ * "go to" with more after it, and nothing else (run370 loc_42B994, run380
+ * loc_431B8D); 3.9 and 4.0 relaxed the second half of that test to a bare
+ * `go ` prefix (run390 loc_43C764, run400 loc_46494C).  So under the older
+ * Runners a `go bedroom` is not a room request at all -- it reaches no
+ * direction and no place, and generaltasks answers it with the nudge above.
+ * (`go tower` does start "go to", and asks for a place called "go tower";
+ * see lib_cmd_go_place().)
  */
 scr_bool
 lib_cmd_just_a_direction_pre_390 (scr_gameref_t game)
@@ -4050,164 +4052,313 @@ lib_cmd_go_southwest (scr_gameref_t game)
 
 
 /*
- * lib_skip_article()
+ * lib_goto_reachable()
  *
- * Bypass any "a"/"an"/"the" prefix on a filtered, normalized room name,
- * returning the name trimmed of it.
- */
-static scr_char *
-lib_skip_article (scr_char *name)
-{
-  scr_char *skipped;
-
-  if (scr_compare_word (name, "a", 1))
-    skipped = name + 1;
-  else if (scr_compare_word (name, "an", 2))
-    skipped = name + 2;
-  else if (scr_compare_word (name, "the", 3))
-    skipped = name + 3;
-  else
-    skipped = name;
-
-  return scr_trim_string (skipped);
-}
-
-
-/*
- * lib_compare_rooms()
+ * The Runner's route finder (run390 Proc_2_8_43EF20, run380 Proc_2_8_434C50,
+ * run400 Proc_21_9_465C14): a breadth-first search from the player's room
+ * over directions 0 to 7, or 11 with an eight point compass.  An exit is
+ * usable when its restriction is zero or task (restriction - 1) has the done
+ * state 1 - Var2 -- the restriction type is never read, so an object state
+ * restriction is tested as a task too -- and its destination is a room.  4.0
+ * routes only through rooms the player has visited (the room's global_84).
  *
- * Helper for lib_cmd_go_room().  Compare the name of the passed in room
- * with the string passed in, and return TRUE if they match.  The routine
- * requires that string is filtered, stripped, trimmed and normalized.
+ * Returns TRUE if target can be reached, and the room after room in the path
+ * in path[room]; the start counts as reachable from itself.
  */
 static scr_bool
-lib_compare_rooms (scr_gameref_t game, scr_int room, const scr_char *string)
+lib_goto_reachable (scr_gameref_t game, scr_int target,
+                    std::vector<scr_int> &path)
 {
-  const scr_var_setref_t vars = gs_get_vars (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_char *name, *compare_name;
-  scr_bool status;
+  const scr_bool is_400 = prop_get_taf_version (bundle) >= TAF_VERSION_400;
+  const scr_int rooms = gs_room_count (game);
+  const scr_int directions = lib_compass_names (game) == DIRNAMES_8 ? 12 : 8;
+  const scr_int start = gs_playerroom (game);
+  std::vector<scr_int> parent (rooms, -1), queue;
+  std::vector<char> seen (rooms, 0);
+  size_t head;
 
-  /* Get the name of the room, and filter it down to a plain string. */
-  name = pf_filter (lib_get_room_name (game, room), vars, bundle);
-  pf_strip_tags (name);
-  scr_normalize_string (scr_trim_string (name));
+  seen[start] = 1;
+  queue.push_back (start);
+  for (head = 0; head < queue.size (); head++)
+    {
+      const scr_int room = queue[head];
+      scr_int direction;
 
-  /* Bypass any prefix on the room name. */
-  compare_name = lib_skip_article (name);
+      for (direction = 0; direction < directions; direction++)
+        {
+          scr_vartype_t vt_key[5], vt_rvalue;
+          scr_int destination, restriction;
 
-  /* Compare strings, then free the allocated name. */
-  status = scr_strcasecmp (compare_name, string) == 0;
-  scr_free (name);
+          vt_key[0].string = "Rooms";
+          vt_key[1].integer = room;
+          vt_key[2].string = "Exits";
+          vt_key[3].integer = direction;
+          if (!prop_get (bundle, "I<-sisi", &vt_rvalue, vt_key))
+            continue;
 
-  return status;
+          vt_key[4].string = "Var1";
+          restriction = prop_get_integer (bundle, "I<-sisis", vt_key);
+          if (restriction > 0)
+            {
+              scr_int check;
+
+              vt_key[4].string = "Var2";
+              check = prop_get_integer (bundle, "I<-sisis", vt_key);
+              if (restriction > gs_task_count (game)
+                  || (gs_task_done (game, restriction - 1) ? 1 : 0)
+                     != 1 - check)
+                continue;
+            }
+
+          vt_key[4].string = "Dest";
+          destination = prop_get_integer (bundle, "I<-sisis", vt_key) - 1;
+          if (destination < 0 || destination >= rooms || seen[destination])
+            continue;
+          if (is_400 && !gs_room_seen (game, destination))
+            continue;
+
+          seen[destination] = 1;
+          parent[destination] = room;
+          queue.push_back (destination);
+        }
+    }
+
+  if (!seen[target])
+    return FALSE;
+
+  path.assign (rooms, -1);
+  for (scr_int room = target; room != start; room = parent[room])
+    path[parent[room]] = room;
+  return TRUE;
 }
 
 
 /*
- * lib_cmd_go_room()
+ * lib_goto_step_name()
  *
- * A weak replica of the Runner's claimed ability to go to a named room via
- * rooms that have already been visited using a shortest-path search.  This
- * version scans adjacent rooms for accessibility, and then generates the
- * required directional move for any unique match.
+ * The direction the Runner types for one step of a walk: the LAST direction
+ * out of room whose destination is next, with no restriction test, spelled
+ * the way its route finder writes it into the input box.
+ */
+static const scr_char *
+lib_goto_step_name (scr_gameref_t game, scr_int room, scr_int next)
+{
+  static const scr_char *const STEP_NAMES[] = {
+    "North", "East", "South", "West", "Up", "Down", "In", "Out",
+    "NorthEast", "SouthEast", "SouthWest", "NorthWest"
+  };
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int directions = lib_compass_names (game) == DIRNAMES_8 ? 12 : 8;
+  const scr_char *name = NULL;
+  scr_int direction;
+
+  for (direction = 0; direction < directions; direction++)
+    {
+      scr_vartype_t vt_key[5], vt_rvalue;
+
+      vt_key[0].string = "Rooms";
+      vt_key[1].integer = room;
+      vt_key[2].string = "Exits";
+      vt_key[3].integer = direction;
+      vt_key[4].string = "Dest";
+      if (prop_get (bundle, "I<-sisis", &vt_rvalue, vt_key)
+          && vt_rvalue.integer - 1 == next)
+        name = STEP_NAMES[direction];
+    }
+  return name;
+}
+
+
+/*
+ * lib_cmd_go_place()
  *
- * Note that rooms can have the same name after they've been cleaned up for
- * text comparisons, for example, two "Manor Grounds" at the start of Humbug,
- * differentiated within the game with trailing "<some_tag>" components.
+ * The Runner's gotoplace() (run370 42BD50 area, run380 432054, run390
+ * 43C7B0, run400 464998), called from generaltasks after the tasks and the
+ * meta commands and before the room refusal and therest(), so it outranks
+ * the "Just a direction will do." nudge and every therest verb.
+ *
+ * It takes a line holding the word "goto", or one starting "go " (3.9 and
+ * 4.0) or "go to" (3.7, 3.8: a bare prefix test, so `go tower` enters and
+ * asks for a place called "go tower").  "goto", "go to" and "go" alone
+ * leave.  It then cuts "goto ", "go to " and (3.9+) "go " from the front, in
+ * that order, each wherever c() finds the word, and matches what is left
+ * against the lower-cased room names: exactly first, and when that does not
+ * give exactly one reachable room, as a substring.  4.0 counts only rooms
+ * the player has visited.
+ *
+ * One room walks there: "Moving to <room>..." and then each direction of
+ * the route typed into the input box as a line of its own (SendKeys), then
+ * "Arrived <room>.".  The goto line itself is not a turn: gotoplace sets it
+ * to "&&&", which jumps past the characters/events tick.  Measured on
+ * p39GOTO / p38GOTO / p4GOTO (harness/make_39_gotoprobe.py,
+ * make_38_gotoprobe.py, make_400_gotoprobe.py), run390x
+ * Adrift_133_pgoto39.txt, run380x Adrift_132_pgoto38.rtf and run400x
+ * Adrift_133_p4goto.txt.
  */
 scr_bool
-lib_cmd_go_room (scr_gameref_t game)
+lib_cmd_go_place (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_var_setref_t vars = gs_get_vars (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_bool is_trapped, is_ambiguous;
-  scr_int direction, destination, index_;
-  const scr_char *const *dirnames;
-  scr_char *name, *compare_name;
+  const scr_int version = prop_get_taf_version (bundle);
+  const scr_char *const input = run_get_dispatch_input ();
+  const scr_int rooms = gs_room_count (game);
+  std::vector<scr_int> path;
+  std::vector<char> marked (rooms, 0);
+  std::string line, text;
+  scr_int count, target, room;
+  scr_bool named_elsewhere;
 
-  /* Determine the requested room, and filter it down to a plain string. */
-  name = pf_filter (var_get_ref_text (vars), vars, bundle);
-  pf_strip_tags (name);
-  scr_normalize_string (scr_trim_string (name));
+  if (!input)
+    return FALSE;
+  line = input;
 
-  /* Bypass any prefix on the request room name. */
-  compare_name = lib_skip_article (name);
-
-  /* See if the named room is the current player room. */
-  if (lib_compare_rooms (game, gs_playerroom (game), compare_name))
+  const auto has_word = [&] (const scr_char *word) -> scr_bool
     {
-      pf_buffer_string (filter, "You are already there!\n");
-      scr_free (name);
-      return TRUE;
+      return version >= TAF_VERSION_400
+             ? lib_input_contains_word (line.c_str (), word)
+             : run_c_word_pre400 (version, line.c_str (), word) >= 0;
+    };
+  const auto drop_front = [&] (size_t length)
+    {
+      line = (line.size () > length) ? line.substr (length) : std::string ();
+    };
+
+  if (version >= TAF_VERSION_390)
+    {
+      if (!has_word ("goto") && line.compare (0, 3, "go ") != 0)
+        return FALSE;
+      if (line == "goto" || line == "go to" || line == "go")
+        return FALSE;
+    }
+  else
+    {
+      if (!(has_word ("goto") && line != "goto")
+          && !(line.compare (0, 5, "go to") == 0 && line.size () > 5))
+        return FALSE;
+      if (line == "goto" || line == "go to")
+        return FALSE;
     }
 
-  /* Decide on four or eight point compass names list. */
-  dirnames = lib_compass_names (game);
+  if (has_word ("goto"))
+    drop_front (5);
+  if (has_word ("go to"))
+    drop_front (6);
+  if (version >= TAF_VERSION_390 && has_word ("go"))
+    drop_front (3);
+  text = line;
 
-  /* Search adjacent and available rooms for a name match. */
-  is_trapped = TRUE;
-  is_ambiguous = FALSE;
-  direction = -1;
-  destination = -1;
-  for (index_ = 0; dirnames[index_]; index_++)
+  /* The rooms' names, lower-cased, as the Runner compares them. */
+  std::vector<std::string> names (rooms);
+  for (room = 0; room < rooms; room++)
     {
-      scr_int location;
+      const scr_char *name = prop_get_indexed_string (bundle, "Rooms", room,
+                                                      "Short");
+      names[room] = name ? name : "";
+      for (char &c : names[room])
+        c = scr_tolower (c);
+    }
 
-      if (lib_room_exit_available (game, gs_playerroom (game), index_))
+  const auto visited = [&] (scr_int candidate) -> scr_bool
+    {
+      return version < TAF_VERSION_400 || gs_room_seen (game, candidate);
+    };
+
+  /* Pass one: exact names. */
+  count = 0;
+  target = -1;
+  named_elsewhere = FALSE;
+  for (room = 0; room < rooms; room++)
+    {
+      if (names[room] == text && visited (room)
+          && lib_goto_reachable (game, room, path))
         {
-          is_trapped = FALSE;
+          target = room;
+          count++;
+          marked[room] = 1;
+        }
+    }
 
-          /*
-           * Room is available.  Compare its name with that requested provided
-           * that it's a location we've not already accepted (that is, some
-           * rooms are reachable by multiple directions, such as both "south"
-           * and "out").
-           */
-          if (lib_room_exit_destination (game, index_, &location)
-              && location != destination
-              && lib_compare_rooms (game, location, compare_name))
+  /* Pass two: any name holding the text, when pass one found not one. */
+  if (count != 1)
+    {
+      count = 0;
+      for (room = 0; room < rooms; room++)
+        {
+          if (names[room].find (text) == std::string::npos || !visited (room))
+            continue;
+          named_elsewhere = TRUE;
+          if (lib_goto_reachable (game, room, path))
             {
-              if (direction != -1)
-                is_ambiguous = TRUE;
-              direction = index_;
-              destination = location;
+              target = room;
+              count++;
+              marked[room] = 1;
             }
         }
     }
-  scr_free (name);
 
-  /* If trapped or it's unclear where to go, handle these cases. */
-  if (is_trapped)
+  if (count == 0)
     {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                      "You can't go in any direction!\n",
-                                      "I can't go in any direction!\n",
-                                      "%player% can't go in any direction!\n"));
-      return TRUE;
-    }
-  else if (is_ambiguous)
-    {
-      pf_buffer_string (filter,
-                        "I'm not clear about where you want to go."
-                        "  Please try using just a direction.\n");
-      pf_buffer_character (filter, '\n');
-      lib_cmd_print_room_exits (game);
-      return TRUE;
-     }
-
-  /* If no match, note it, otherwise handle as standard directional move. */
-  if (direction == -1)
-    {
-      pf_buffer_string (filter, "I don't know how to get there from here.\n");
-      pf_buffer_character (filter, '\n');
-      lib_cmd_print_room_exits (game);
-      return TRUE;
+      if (named_elsewhere)
+        return lib_print_response_message (game,
+                              "You can't get there from here.\n",
+                              "I can't get there from here.\n",
+                              "%player% can't get there from here.\n");
+      return lib_print_message (game, "Unknown place.\n");
     }
 
-  return lib_go (game, direction);
+  if (count > 1)
+    {
+      pf_buffer_string (filter, "Which \"");
+      pf_buffer_string (filter, text.c_str ());
+      pf_buffer_string (filter, "\"?\n");
+      for (room = 0; room < rooms; room++)
+        {
+          if (!marked[room])
+            continue;
+          pf_buffer_character (filter, '\'');
+          pf_buffer_string (filter, prop_get_indexed_string (bundle, "Rooms",
+                                                             room, "Short"));
+          pf_buffer_character (filter, '\'');
+          count--;
+          pf_buffer_string (filter, count > 0 ? ", " : ".");
+          if (count == 1)
+            pf_buffer_string (filter, "or ");
+        }
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
+
+  if (target == gs_playerroom (game))
+    {
+      pf_buffer_string (filter, lib_select_response (game, "You are already ",
+                                                     "I am already ",
+                                                     "%player% is already "));
+      pf_buffer_string (filter, names[target].c_str ());
+      pf_buffer_string (filter, "!\n");
+      return TRUE;
+    }
+
+  /*
+   * Walk it.  The route is fixed now and typed blindly: each step is the
+   * last direction leading to the next room, whatever happens on the way.
+   */
+  lib_goto_reachable (game, target, path);
+  for (room = gs_playerroom (game); room != target; room = path[room])
+    {
+      const scr_char *step = lib_goto_step_name (game, room, path[room]);
+
+      if (step)
+        run_queue_goto_step (step);
+    }
+  run_set_goto_arrival (("Arrived " + names[target] + ".\n").c_str ());
+
+  pf_buffer_string (filter, "Moving to ");
+  pf_buffer_string (filter, names[target].c_str ());
+  pf_buffer_string (filter, "...\n");
+  game->is_admin = TRUE;
+  return TRUE;
 }
 
 

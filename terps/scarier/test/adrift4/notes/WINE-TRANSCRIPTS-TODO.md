@@ -221,14 +221,12 @@ not by a tick.
 
 ### Engine, every version
 
-- **`go <place>` that names no exit** (every version): the Runners'
-  gotoplace answers " can't get there from here." or "Unknown place."
-  (run370 42BE15/42BE26, run380 432030/432041, run390 43CC0F/43CC20,
-  run400 464E3B/464E4C). Scarier keeps upstream SCARE's "I don't know how
-  to get there from here." plus the exits list (`lib_cmd_go_room`). The
-  p39ASK probe's `go stone` gives "Unknown place."; 3.8 answers that line
-  from therest's go arm instead ("Just a direction will do."). Unmeasured
-  beyond that one cell; which of the two strings applies when is unread.
+- **`goto <place>` on a line with more elements** (`goto garden, look`):
+  the Runner types each walk step with SendKeys, which nests, so it may
+  run the rest of the line after the first step. Scarier runs the rest of
+  the line first and the steps after. Unmeasured.
+- **gotoplace at 3.7:** run370's extra map/var_180 conditions are unread,
+  and no 3.7 probe has been run (3.8 is measured).
 
 ### Harness and compare
 
@@ -425,6 +423,22 @@ next to the named function and in `annotations.tsv`.
 
 ### Parser and dispatch
 
+- **`goto <place>` / `go <place>`:** gotoplace runs after the tasks and
+  meta commands and before the room refusal and therest, so it outranks
+  "Just a direction will do.". 3.9+ takes `goto` anywhere or a line
+  starting `go `; 3.7/3.8 take `goto` or a line starting `go to` (so `go
+  tower` asks for a place called "go tower"). The name matches exactly,
+  then as a substring. Answers: `Which "x"?` list, "You are already x!",
+  "You can't get there from here." (named but unreachable), "Unknown
+  place.". A walk prints "Moving to x...", types each step (the last
+  direction leading to the next room) as a turn of its own, then "Arrived
+  x."; the goto line itself is no turn. The route finder tests every exit
+  restriction as a task, and 4.0 uses visited rooms only. A bare `goto` is
+  DontUnderstand. p38GOTO/p39GOTO/p4GOTO (`harness/make_3{8,9}_gotoprobe.py`,
+  `make_400_gotoprobe.py`; run380x Adrift_132_pgoto38.rtf, run390x
+  Adrift_133_pgoto39.txt, run400x Adrift_133_p4goto.txt, bare goto
+  Adrift_133_pgoto38b.rtf / Adrift_134_pgoto39b.txt) (`lib_cmd_go_place`,
+  2026-09-19)
 - **Task matching:**
   - One game task per typed line; a silent task lets the library run, never
     a second task. House (c74b1b90c)
@@ -513,7 +527,7 @@ next to the named function and in `annotations.tsv`.
     the winning keyword to the front of the line and dispatches the
     library again. `[<4.0]` p38ASK/p39ASK, `cmdfile_pkw.txt` (run380x
     Adrift_128_pkw38.rtf, run390x Adrift_130_pkw39.txt), 21/21 cells at
-    3.8 and 20/21 at 3.9 (`go stone`, above) (`run_therest_pre400`,
+    3.8 and 21/21 at 3.9 since gotoplace was ported (`run_therest_pre400`,
     2026-09-19)
 - **Spent tasks:**
   - Pre-4.0 checktask writes a spent task's RepeatText to the buffer and

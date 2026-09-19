@@ -5856,9 +5856,10 @@ os_read_line (scr_char *buffer, scr_int length)
 #endif
 
   /* A walk set going by a click on the map supplies the next direction itself,
-     in place of reading one from the player.  Echo it so the transcript reads
-     as though it had been typed. */
-  if (gsc_sc_walk_next (buffer, length))
+     in place of reading one from the player, and so does a `go <place>`
+     walk.  Echo it so the transcript reads as though it had been typed. */
+  if (gsc_sc_walk_next (buffer, length)
+      || scr_take_scripted_line (buffer, length))
     {
       glk_set_style (style_Input);
       glk_put_string ((char *) buffer);
