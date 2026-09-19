@@ -318,13 +318,6 @@ not by a tick.
   room) named in a 3.9 put is also unmeasured. The " is full." arm at
   461E59 speaks only when something fits and the bag is still full, so it
   is effectively dead; it needs a size-0 object.
-- **Take all into an open static container.** p39PUT `take all` with the
-  coin, stone, bag, nut, gem and table lying in the open static cupboard is
-  "You take the coin, the stone, the bag, the nut, the gem and the table
-  from the cupboard." Scarier says "There is nothing to pick up here."
-  run390 takes() is unread. The table was carried there by the earlier
-  `put all except stone in cupboard`, since put ignores the exception.
-  run390x Adrift_154_p39put.txt turns 23-30 are all this one difference.
 - **Drop:** the pre-4.0 "and" arm with no object named at all (`drop foo
   and bar`). By the code it is "not carrying anything."; Scarier says "Drop
   what?". The arm drops only held/worn objects (o(22) 0 or &H9C), not ones
@@ -1080,6 +1073,20 @@ next to the named function and in `annotations.tsv`.
   Adrift_154_p37put2.rtf, Adrift_155_p38put2.rtf, Adrift_154_p39put.txt
   (`lib_put_co_count_pre390`, `lib_cmd_put_in_except_multiple`,
   `lib_cmd_drop_except_multiple`, `lib_cmd_open_object`, 2026-09-19)
+- **3.9 take all sweeps open containers; "and" beats "all" in put.**
+  After the floor, run390 takes() (4558CE-455B28) sweeps every open
+  container or surface lying directly in the room through the take-from
+  arm: `take all` with six objects in the open static cupboard is "You
+  take the coin, ... and the table from the cupboard." (a first-take
+  sentence is joined with two spaces). insides() sets var_CC = 1 on
+  c("all") and then 2 on c("and") (4618D4-46190C), so `put all except
+  coin and stone in cupboard` is the and-arm: only co()-named objects
+  held or loose in the room count, and with both on the held table it is
+  "Nothing will fit inside the cupboard." The capacity arms of the sweep
+  (insides() = 2, 455A68) and the and-arm's worn objects are not
+  modelled. `[3.9]` p39PUT T23-30 (Adrift_154_p39put.txt), probes
+  Adrift_p39takeall.txt / Adrift_p39takeall2b.txt
+  (`lib_take_all_sweep_390`, `lib_put_all_common`, 2026-09-19)
 
 ### NPCs, walks and battle
 

@@ -10254,6 +10254,67 @@ lib_take_all_filter (scr_gameref_t game, scr_int object, scr_int unused)
 }
 
 
+static scr_bool lib_take_from_filter (scr_gameref_t game, scr_int object,
+                                      scr_int associate);
+
+/*
+ * lib_take_all_sweep_390()
+ *
+ * 3.9's `take all` also empties every open container and every surface in
+ * the room, after the floor.  run390 takes() (4558CE-455B28) runs, when the
+ * line has "all", over every object that lies on the room's floor or is a
+ * static present in the room, and is an open container or a surface; for each
+ * it sets the line to "get all" and calls insides() with it, which is the
+ * take-from handler (its gate is `c("from") Or (c("all") And container > 0)`).
+ * The floor's own text is kept only if the floor pass took something (var_86,
+ * set at 454FC5); every piece that took something is joined to the previous
+ * one by two spaces.  A container with nothing the player has seen in it
+ * says nothing, and a closed one is not visited.  No 3.7/3.8/4.0 Runner has
+ * the loop ("get all" is a run390-only literal).
+ *
+ * Measured on p39PUT (run390x Adrift_154_p39put.txt T23; feeds
+ * cmdfile_p39takeall.txt / cmdfile_p39takeall2.txt, Adrift_p39takeall.txt /
+ * Adrift_p39takeall2b.txt, 2026-09-19): "You take the coin, ... and the
+ * table from the cupboard." with nothing on the floor; "You pick up the
+ * table.  You take the gem from the cupboard." with the open chest empty
+ * after it; "You take the gem from the cupboard.  You take the coin from the
+ * chest."; an unseen gem in the open chest is left behind, and a closed
+ * chest is skipped.  The capacity arms (insides() returning 2, and the
+ * "can't take any more/anything, as ... hands are full." rewrite at 455A68)
+ * are not modelled.
+ */
+static scr_bool
+lib_take_all_sweep_390 (scr_gameref_t game, scr_bool has_printed)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int associate, objects;
+
+  for (associate = 0; associate < gs_object_count (game); associate++)
+    {
+      if (!obj_directly_in_room (game, associate, gs_playerroom (game)))
+        continue;
+      if (!((obj_is_container (game, associate)
+             && gs_object_openness (game, associate) <= OBJ_OPEN)
+            || obj_is_surface (game, associate)))
+        continue;
+
+      gs_set_multiple_references (game);
+      objects = lib_apply_filter (game,
+                                  lib_take_from_filter, associate, FALSE, NULL);
+      gs_clear_multiple_references (game);
+      if (objects == 0)
+        continue;
+
+      if (has_printed)
+        pf_buffer_string (filter, "  ");
+      lib_take_from_single_named = FALSE;
+      lib_take_from_object_backend (game, associate);
+      has_printed = TRUE;
+    }
+  return has_printed;
+}
+
+
 /*
  * lib_cmd_take_all()
  *
@@ -10264,6 +10325,7 @@ lib_cmd_take_all (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int objects;
+  scr_bool has_printed;
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
@@ -10272,7 +10334,10 @@ lib_cmd_take_all (scr_gameref_t game)
   gs_clear_multiple_references (game);
   if (objects > 0)
     lib_take_backend (game);
-  else
+  has_printed = objects > 0;
+  if (prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390)
+    has_printed = lib_take_all_sweep_390 (game, has_printed);
+  if (!has_printed)
     pf_buffer_string (filter,
                       lib_is_version_400 (game)
                       ? "There is nothing worth taking here."
@@ -16419,6 +16484,33 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
                                     : lib_put_in_not_container_filter,
                               container, FALSE, NULL);
   gs_clear_multiple_references (game);
+
+  /*
+   * 3.9's insides() tests c("and") AFTER c("all") (4618D4-46190C), so a
+   * line holding both is the and-arm, var_CC = 2, whose count pass
+   * (461B4B-461B87) keeps only the objects co(obj, 0) names.  p39PUT T29
+   * `put all except coin and stone in cupboard`, the coin and stone lying
+   * on the held table, is "Nothing will fit inside the cupboard." (run390x
+   * Adrift_154_p39put.txt, 2026-09-19): neither named object is held or
+   * loose in the room, and the table, unnamed, is not a candidate.  (The
+   * and-arm also admits worn objects, 461B38; not modelled.)
+   */
+  if (lib_is_version_390 (game) && run_get_dispatch_input ()
+      && lib_co_contains (run_get_dispatch_input (), "and"))
+    {
+      scr_int object;
+
+      for (object = 0; object < gs_object_count (game); object++)
+        {
+          if (game->object_references[object]
+              && !lib_co_pre400 (game, run_get_dispatch_input (), object, 0))
+            {
+              game->object_references[object] = FALSE;
+              objects--;
+            }
+        }
+    }
+
   outcome = {};
   if (objects > 0)
     outcome = is_on ? lib_put_on_backend (game, container, TRUE)
