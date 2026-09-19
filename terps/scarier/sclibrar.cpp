@@ -15371,6 +15371,62 @@ lib_put_nothing_carried_400 (scr_gameref_t game, scr_bool has_printed)
 
 
 /*
+ * lib_put_in_closed_400()
+ *
+ * 4.0's closed-container refusal, printed from insides' own place in the
+ * put: after name_object's take piece, the tasks() call, the possession and
+ * itself tests, and before the size and capacity tests (run400 46639C, the
+ * state test at 4661BE = 7 " is locked!" / 4661C9 = 6 " is closed!", ahead
+ * of the size test at 466219).  Because the take piece has already run, a
+ * put into a shut container still ACQUIRES the object: probe PCLOSED
+ * (Adrift_1194.txt) `put ring in box` with the box held and shut prints
+ * "(Taking the ring first)" / "The box is closed!" and `i` then lists the
+ * ring; `put coin in chest` with the chest shut on the floor is the same
+ * shape, "(Taking the coin first)" / "The chest is closed!", and the coin
+ * is held afterwards.  An object already in hand draws the refusal alone
+ * (`put stone in box`, "The box is closed!").  Returns TRUE and drops every
+ * remaining reference when it refused, so the size and capacity tests see
+ * nothing; like those, the refusal leaves the line for the task pass, since
+ * insides exits without setting its result byte.
+ */
+static scr_bool
+lib_put_in_closed_400 (scr_gameref_t game, scr_int container,
+                       scr_bool has_printed)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object, object_count;
+  scr_bool any_referenced;
+
+  if (!lib_is_version_400 (game)
+      || gs_object_openness (game, container) <= OBJ_OPEN)
+    return FALSE;
+
+  any_referenced = FALSE;
+  object_count = gs_object_count (game);
+  for (object = 0; object < object_count; object++)
+    {
+      if (game->object_references[object])
+        {
+          game->object_references[object] = FALSE;
+          any_referenced = TRUE;
+        }
+    }
+  if (!any_referenced)
+    return FALSE;
+
+  lib_new_clause (game, has_printed);
+  lib_print_object_np (game, container);
+  pf_buffer_string (filter,
+                    lib_select_plurality (game, container, " is", " are"));
+  if (gs_object_openness (game, container) == OBJ_LOCKED)
+    pf_buffer_string (filter, " locked!");
+  else
+    pf_buffer_string (filter, " closed!");
+  return TRUE;
+}
+
+
+/*
  * lib_put_in_backend()
  *
  * Common backend handler for placing objects in containers.  Places all
@@ -15387,6 +15443,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
   const scr_filterref_t filter = gs_get_filter (game);
   scr_int object_count, object, count, capacity, free_space;
   scr_int length_before, length_after_tasks;
+  scr_bool closed_refusal_only;
   scr_bool has_printed, is_refusal_only, task_claimed;
   scr_bool static_refused, recursion_rejected, has_moved;
   lib_put_outcome_t outcome;
@@ -15544,6 +15601,19 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
   length_after_tasks = lib_output_length (game);
 
   /*
+   * 4.0's closed-container test, in insides' own place: after the take
+   * phase, the tasks and the itself test, before size and capacity.  It is
+   * a refusal in the size refusal's sense -- printed, and the line left
+   * for the task pass -- unless something already spoke ahead of it.
+   */
+  closed_refusal_only = FALSE;
+  if (lib_put_in_closed_400 (game, container, has_printed))
+    {
+      closed_refusal_only = !has_printed;
+      has_printed = TRUE;
+    }
+
+  /*
    * Retrieve the container's total volume, and the volume it has left.  The
    * free space is tracked across the loop below rather than recomputed, since
    * each object put in spends some of it.
@@ -15638,9 +15708,10 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
 
   /*
    * A put that moved nothing and said nothing so far is about to say only
-   * the size and capacity refusals below; see the return value.
+   * the size and capacity refusals below; see the return value.  A closed
+   * refusal that spoke first counts the same way.
    */
-  is_refusal_only = !has_printed;
+  is_refusal_only = !has_printed || closed_refusal_only;
 
   /*
    * Report objects not put in because of their size.  These objects remain in
@@ -16051,8 +16122,16 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
       return FALSE;
     }
 
-  /* If the container is closed, reject now. */
-  if (gs_object_openness (game, container) > OBJ_OPEN)
+  /*
+   * If the container is closed, reject now -- before 4.0 only.  4.0's closed
+   * test is insides' own, and it sits late: run400 name_object has already
+   * run its take piece (@46E2B5) before insides (46639C) tests the target's
+   * state at 4661BE/4661C9, after the tasks() call, the possession test and
+   * the itself test.  So at 4.0 it belongs to the backend, after the take
+   * phase; see lib_put_in_closed_400().
+   */
+  if (gs_object_openness (game, container) > OBJ_OPEN
+      && !lib_is_version_400 (game))
     {
       if (run_priority_defer_if_active ())
         return FALSE;
@@ -16068,24 +16147,11 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
        * box as it is closed!" (p39DARK, Adrift_978:28) against run400 "The
        * box is closed!" (p4TFROM, Adrift_979:18), 2026-09-12.
        */
-      if (!lib_is_version_400 (game))
-        {
-          lib_print_response_object (game,
-                                     "You can't put anything inside ",
-                                     "I can't put anything inside ",
-                                     "%player% can't put anything inside ",
-                                     container, " as it is closed!\n");
-          return FALSE;
-        }
-
-      pf_new_sentence (filter);
-      lib_print_object_np (game, container);
-      pf_buffer_string (filter,
-                        lib_select_plurality (game, container, " is", " are"));
-      if (gs_object_openness (game, container) == OBJ_LOCKED)
-        pf_buffer_string (filter, " locked!\n");
-      else
-        pf_buffer_string (filter, " closed!\n");
+      lib_print_response_object (game,
+                                 "You can't put anything inside ",
+                                 "I can't put anything inside ",
+                                 "%player% can't put anything inside ",
+                                 container, " as it is closed!\n");
       return FALSE;
     }
 
@@ -16180,20 +16246,28 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
            * "I don't understand what you want me to do with the table."
            * (p4SURF, Adrift_997:6), where the same command with nothing at
            * all in hand is "You are carrying nothing!" (p4SURF,
-           * Adrift_995:16).  Only the surface row is measured, so only it
-           * is gated; the container row keeps what it had, and its own
-           * carrying-the-container-alone case is still open.
+           * Adrift_995:16).  The container row is the same shape, and the
+           * shut state of the container changes nothing on either arm: probe
+           * PCLOSED, `put all in box` with the box the only thing carried,
+           * answers "I don't understand what you want me to do with the
+           * box." both shut and just opened (Adrift_1194.txt:11/13), and with
+           * nothing at all in hand `put all in chest` / `put all in box`
+           * against SHUT containers on the floor answer "You are carrying
+           * nothing!" (Adrift_1195.txt:4/5) -- name_object counts the held
+           * objects with 44615C @46E553-46E580 and speaks at 46E5BC only
+           * when the count is nil, ahead of any insides call, and so ahead
+           * of the closed test.  Something else in hand reaches insides and
+           * its closed refusal, "The chest is closed!" (Adrift_1195.txt:7).
            */
-          if (is_on)
-            {
-              scr_int index_;
+          {
+            scr_int index_;
 
-              for (index_ = 0; index_ < gs_object_count (game); index_++)
-                {
-                  if (gs_object_position (game, index_) == OBJ_HELD_PLAYER)
-                    return FALSE;
-                }
-            }
+            for (index_ = 0; index_ < gs_object_count (game); index_++)
+              {
+                if (gs_object_position (game, index_) == OBJ_HELD_PLAYER)
+                  return FALSE;
+              }
+          }
           pf_buffer_string (filter,
                             lib_select_response (game,
                                                "You are carrying nothing!",

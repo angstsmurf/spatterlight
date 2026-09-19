@@ -5392,7 +5392,26 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     status = run_game_commands_in_parser_context (game, task_string,
                                                   FALSE, TRUE);
   if (!status && !put_first && !inv_listed && !repeat_pending)
-    status = run_priority_commands (game, string);
+    {
+      status = run_priority_commands (game, string);
+      /*
+       * The all/everything put rows are not put_first (see
+       * run_is_put_command), so their tentative pass runs here, and a
+       * refusal-only put among them -- the 4.0 closed-container refusal
+       * from lib_put_in_closed_400(), a size or capacity refusal -- has
+       * printed its refusal and left the line for the task passes exactly
+       * as a named row's does above.  Settle it the same way, or the
+       * STANDARD_COMMANDS twin below prints the refusal a second time:
+       * probe PCLOSED `put all in chest` with the chest shut and a stone in
+       * hand is one "The chest is closed!" (Adrift_1195.txt:7).
+       */
+      if (!status && run_priority_refused)
+        {
+          refused = TRUE;
+          pf_note_trailing_auto_break (filter);
+          pf_buffer_join_pending (filter);
+        }
+    }
   if (!status)
     status = run_game_commands_in_parser_context (game, task_string,
                                                   FALSE, FALSE);

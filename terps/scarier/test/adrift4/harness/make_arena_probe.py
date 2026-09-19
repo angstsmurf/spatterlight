@@ -64,8 +64,15 @@ def build(cfg):
         cap = o[12] if len(o) > 12 else (100 if cont else 0)
         s(pre); s(short); s(0); s(0)
         s("A probe object."); s(pos); s(0); s(0); s("")
+        # Openable is index 13: 0 not openable, 5 open, 6 closed, 7 locked
+        # (4.0 values, no exchange).  An openable object carries a Key field
+        # right after it; -1 = no key.
+        openable = o[13] if len(o) > 13 else 0
         s(cont); s(0); s(cap); s(wear); s(sw); s(parent)
-        s(0); s(0); s(0); s(0)
+        s(openable)
+        if openable in (5, 6, 7):
+            s(-1)                               # Key: none
+        s(0); s(0); s(0)                        # SitLie Edible Readable
         s(wpn); s(0); s(0)
         s(prot); s(hv); s(meth); s(acc)
         s(""); s(0)
@@ -2078,6 +2085,23 @@ CONFIGS = {
              ("a blue","gem", 4,  0,  0,  0,  0,  0,  0,   0,    0,    2),
              ("a gold","coin",1,  0,  0,  0,  0,  0,  0,   0,    0,    2),
              ("a silver","coin",1,0,  0,  0,  0,  0,  0,   0,    0,    2)],
+    statics=[],
+    npcs=[],
+    tasks=[]),
+ 'PCLOSED': dict(name="Probe PCLOSED", persp=1,
+    # Put corners: the "(Taking X first)" line against a CLOSED container
+    # (held box #2, room chest #3), and `put all in <container>` with the
+    # container the only thing carried, shut and then opened.  The pebble is
+    # dynamic object #1 and is never moved (447680 weight-cycle deviation).
+    rooms=[("Test Arena","A bare arena.",{})],
+    player=(200,0,0,0,0,0,0,0,0,0),
+    #        prefix short pos wpn prot hv meth acc wear cont parent sw  cap open
+    objects=[("a","pebble", 4,  0,  0,  0,  0,  0,  0,   0,    0,    2,    0,  0),
+             ("a","box",    1,  0,  0,  0,  0,  0,  0,   1,    0,    2,  100,  6),
+             ("a","chest",  4,  0,  0,  0,  0,  0,  0,   1,    0,    2,  100,  6),
+             ("a","ring",   4,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("a","coin",   4,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("a","stone",  1,  0,  0,  0,  0,  0,  0,   0,    0,    2)],
     statics=[],
     npcs=[],
     tasks=[]),

@@ -279,8 +279,6 @@ not by a tick.
 - **Events:** an event with RestartType=2, an immediate starter and a
   non-zero length fires once in run400, but Scarier re-arms it. Corpus
   exposure is zero.
-- **Put corners:** `(Taking X first)` ahead of a closed-container refusal;
-  `put all in <the container, held alone>`.
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -941,6 +939,23 @@ next to the named function and in `annotations.tsv`.
   TheADRIFTProject's `put battery in remote` now resolves here rather than
   through the present-object fallback. `[4.0]` probe PPUTTIE, Adrift_1193
   (`lib_put_named_400`, reusing `lib_drop_resolve_400`, 2026-09-19)
+- **4.0 closed container: the take comes first; `put all` counts hands
+  before it looks at the lid.** insides (46639C) tests the target's state
+  at 4661BE/4661C9 (" is locked!" / " is closed!") after name_object's take
+  piece, the tasks() call, the possession and itself tests, and ahead of
+  the size test, so `put ring in box` with the box shut prints "(Taking the
+  ring first)" / "The box is closed!" and the ring IS taken; a shut chest
+  on the floor is the same shape. Scarier refused from the container check
+  before the take. The refusal is size-like: printed, line left for the
+  task pass. `put all in <X>` never reaches insides when nothing is held:
+  name_object counts held objects (44615C @46E553-46E580) and says "You are
+  carrying nothing!" (46E5BC) even against a shut container; with X the
+  only thing carried it says nothing and the catch-all answers, shut or
+  open, as the surface row already did. Scarier had printed the closed
+  refusal in both cases. The all rows' tentative pass now settles a refusal
+  like the named rows' (they are not put_first), or the STANDARD twin
+  printed it twice. `[4.0]` probe PCLOSED, Adrift_1194/1195
+  (`lib_put_in_closed_400`, `lib_put_all_common`, 2026-09-19)
 
 ### NPCs, walks and battle
 
