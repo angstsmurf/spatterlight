@@ -4692,9 +4692,88 @@ worn:
  */
 static scr_bool lib_npc_400_raise_for_line (scr_gameref_t game);
 
+/*
+ * How a pre-4.0 Runner settles a line naming two present characters.  It
+ * never asks: characters() is one loop over every NPC in index order, and
+ * each verb's arm either assigns the message outright, so the LAST named
+ * character wins, or only when the message is still empty, so the FIRST
+ * does.  Measured on p37/p38/p39NPCAMB (make_3738_npcambprobe.py; Ann and
+ * Bob both "a guard" in the room, Cora a third guard next door), run370x
+ * Adrift_193_pnpcamb37b, run380x Adrift_192, run390x Adrift_193:
+ *
+ *   LAST    x guard (description), ask guard (hint), ask guard about key
+ *           (topic), 3.9 take stone from guard ("Bob is not carrying...")
+ *   FIRST   give (to) guard, 3.9 take guard, hit/kick guard, the 3.9
+ *           character catch-all (hug/eat/bare `guard`)
+ *
+ * talk to, where is, 3.9 kiss and 3.7/3.8 take and take-from test no room
+ * at all and are settled by their callers.  NPC_PICK_ASK keeps SCARE's own
+ * question, which is also what 4.0 does in its own way.
+ */
+enum { NPC_PICK_ASK, NPC_PICK_FIRST, NPC_PICK_LAST };
+
+static scr_int lib_disambiguate_npc_pick (scr_gameref_t game,
+                                          const scr_char *verb,
+                                          scr_bool *is_ambiguous,
+                                          scr_int pick);
+
 static scr_int
 lib_disambiguate_npc (scr_gameref_t game,
                       const scr_char *verb, scr_bool *is_ambiguous)
+{
+  return lib_disambiguate_npc_pick (game, verb, is_ambiguous, NPC_PICK_ASK);
+}
+
+/*
+ * lib_last_named_npc()
+ *
+ * The last NPC, in index order, that the line named, present or not and
+ * seen or not -- what a plainly assigning characters() arm with no room test
+ * leaves behind.  Call before lib_disambiguate_npc(), which clears the
+ * references it filters out.  -1 for none.
+ */
+static scr_int
+lib_last_named_npc (scr_gameref_t game)
+{
+  scr_int index_, npc;
+
+  npc = -1;
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      if (game->npc_references[index_])
+        npc = index_;
+    }
+  return npc;
+}
+
+/*
+ * lib_print_npc_not_here_pre390()
+ *
+ * run380 characters()' take arm (44054B-44059A) and run370's alike: for
+ * every character the line names, "I don't think <prefix> <alias> would
+ * appreciate being handled." if here, else "<Name> is not here!", assigned
+ * outright -- so the last named character settles it, with no seen test.
+ * `take cora` and `take stone from cora` with Cora next door, never met:
+ * "Cora is not here!" (run370x Adrift_194, run380x Adrift_195), where 3.9
+ * says "Take what?".  TRUE once it has answered for an absent character.
+ */
+static scr_bool
+lib_print_npc_not_here_pre390 (scr_gameref_t game, scr_int npc)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (npc == -1 || npc_in_room (game, npc, gs_playerroom (game)))
+    return FALSE;
+
+  pf_buffer_string (filter, prop_get_indexed_string (gs_get_bundle (game),
+                                                     "NPCs", npc, "Name"));
+  pf_buffer_string (filter, " is not here!\n");
+  return TRUE;
+}
+
+static scr_int
+lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
+                           scr_bool *is_ambiguous, scr_int pick)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
@@ -4745,6 +4824,25 @@ lib_disambiguate_npc (scr_gameref_t game,
           pf_buffer_string (filter, "?\n");
         }
       return -1;
+    }
+
+  /* Pre-4.0 never asks; see NPC_PICK_FIRST/NPC_PICK_LAST above. */
+  if (pick != NPC_PICK_ASK && !lib_is_version_400 (game))
+    {
+      npc = -1;
+      for (index_ = 0; index_ < gs_npc_count (game); index_++)
+        {
+          if (game->npc_references[index_])
+            {
+              npc = index_;
+              if (pick == NPC_PICK_FIRST)
+                break;
+            }
+        }
+      var_set_ref_character (vars, npc);
+      if (is_ambiguous)
+        *is_ambiguous = FALSE;
+      return npc;
     }
 
   /* 4.0 asks its own question instead; see lib_npc_400_raise_for_line(). */
@@ -6950,7 +7048,8 @@ lib_cmd_examine_npc (scr_gameref_t game)
     return FALSE;
 
   /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, "examine", &is_ambiguous);
+  npc = lib_disambiguate_npc_pick (game, "examine", &is_ambiguous,
+                                   NPC_PICK_LAST);
   if (npc == -1)
     return is_ambiguous;
 
@@ -9499,8 +9598,29 @@ lib_cmd_take_npc (scr_gameref_t game)
   scr_int npc;
   scr_bool is_ambiguous;
 
-  /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, "take", &is_ambiguous);
+  /*
+   * 3.7/3.8: the last character the line names answers, here or not; see
+   * lib_print_npc_not_here_pre390().  `take guard` with Ann and Bob here and
+   * Cora next door is "Cora is not here!" (run370x Adrift_193_pnpcamb37b,
+   * run380x Adrift_192).
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    {
+      npc = lib_last_named_npc (game);
+      if (npc == -1)
+        return FALSE;
+      if (!lib_print_npc_not_here_pre390 (game, npc))
+        {
+          var_set_ref_character (gs_get_vars (game), npc);
+          lib_print_take_npc_refusal (game, npc);
+        }
+      return TRUE;
+    }
+
+  /* Get the referenced npc, and if none, consider complete.  3.9 fills an
+     empty buffer, so the FIRST present character answers (Adrift_193). */
+  npc = lib_disambiguate_npc_pick (game, "take", &is_ambiguous,
+                                   NPC_PICK_FIRST);
   if (npc == -1)
     return is_ambiguous;
 
@@ -12779,6 +12899,49 @@ lib_take_from_npc_filter (scr_gameref_t game, scr_int object, scr_int associate)
 
 
 /*
+ * lib_take_from_npc_pre390()
+ *
+ * Which character a 3.7/3.8 take-from-character line is about.  run380
+ * characters()' take arm (44054B) fires for any line holding take, get or
+ * pick up, so it speaks first for the LAST character named, here or not;
+ * insides() then overwrites it only for a character who is here.  So `take
+ * stone from cora`, Cora next door, is "Cora is not here!" (run370x
+ * Adrift_194, run380x Adrift_195), and with Ann and Bob both guards here and
+ * Cora a third, `take stone from guard` is Cora's too (Adrift_192,
+ * Adrift_193_pnpcamb37b).  At 3.7 a line without get or remove never
+ * reaches insides() (lib_take_from_line_370), so the take arm's answer
+ * stands: `take stone from dave` is "I don't think   would appreciate being
+ * handled." (Adrift_194).  3.9 picks the last PRESENT character instead
+ * ("Bob is not carrying the stone!", Adrift_193_pnpcamb39).
+ *
+ * TRUE once this has answered.  Otherwise *npc is the character to take
+ * from, or -1 to leave it to lib_disambiguate_npc_pick().
+ */
+static scr_bool
+lib_take_from_npc_pre390 (scr_gameref_t game, scr_int *npc)
+{
+  *npc = -1;
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    return FALSE;
+
+  *npc = lib_last_named_npc (game);
+  if (*npc == -1)
+    return FALSE;
+  if (lib_print_npc_not_here_pre390 (game, *npc))
+    return TRUE;
+
+  var_set_ref_character (gs_get_vars (game), *npc);
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
+      && !lib_take_from_line_370 (game))
+    {
+      lib_print_take_npc_refusal (game, *npc);
+      return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
  * lib_cmd_take_all_from_npc()
  *
  * Attempt to take all objects held or worn by a given NPC.
@@ -12791,7 +12954,11 @@ lib_cmd_take_all_from_npc (scr_gameref_t game)
   scr_bool is_ambiguous;
 
   /* Get the referenced NPC, and if none, consider complete. */
-  associate = lib_disambiguate_npc (game, "take from", &is_ambiguous);
+  if (lib_take_from_npc_pre390 (game, &associate))
+    return TRUE;
+  if (associate == -1)
+    associate = lib_disambiguate_npc_pick (game, "take from", &is_ambiguous,
+                                           NPC_PICK_LAST);
   if (associate == -1)
     return is_ambiguous;
 
@@ -12828,7 +12995,26 @@ lib_take_from_npc_multiple_common (scr_gameref_t game, scr_bool is_except)
   scr_bool is_ambiguous;
 
   /* Get the referenced NPC, and if none, consider complete. */
-  associate = lib_disambiguate_npc (game, "take from", &is_ambiguous);
+  if (lib_take_from_npc_pre390 (game, &associate))
+    return TRUE;
+  if (associate == -1)
+    {
+      scr_int named = lib_last_named_npc (game);
+
+      associate = lib_disambiguate_npc_pick (game, "take from", &is_ambiguous,
+                                             NPC_PICK_LAST);
+
+      /*
+       * 3.9, a source naming only an absent character: insides() finds no
+       * source here and answers from its no-source arm, as for `get coin
+       * from zzzz` -- `take stone from cora`, the stone held and Cora next
+       * door, is "The stone isn't in or on anything!" (run390x
+       * Adrift_196_pnpcone39).
+       */
+      if (associate == -1 && !is_ambiguous && named != -1 && !is_except
+          && lib_is_version_390 (game))
+        return lib_cmd_take_from_nowhere (game);
+    }
   if (associate == -1)
     return is_ambiguous;
 
@@ -13800,7 +13986,8 @@ lib_cmd_give_object_npc (scr_gameref_t game)
    * picasso to julie` in Mrs Walters' living room, Julie elsewhere and task
    * 22 confined to room 4, is "You can't do that here." (Adven_1_greatc.rtf).
    */
-  npc = lib_disambiguate_npc (game, "give to", &is_ambiguous);
+  npc = lib_disambiguate_npc_pick (game, "give to", &is_ambiguous,
+                                   NPC_PICK_FIRST);
   if (npc == -1)
     return is_ambiguous;
 
@@ -15668,8 +15855,29 @@ lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
   scr_int npc, topic;
   scr_bool is_ambiguous;
 
-  /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
+  /*
+   * Pre-4.0 `talk to X about Y`: the talk hint arm assigns the message for
+   * every character named, here or not, and only a present character's
+   * conversation arm, which runs after it, overwrites it.  So the LAST
+   * character named settles it: with Ann and Bob here and Cora next door,
+   * all three guards, `talk to guard about key` is Cora's hint, not "BOB
+   * KEY." (run370x/run380x/run390x, Adrift_193_pnpcamb37b/192/193).
+   */
+  if (hint_when_silent && !lib_is_version_400 (game))
+    {
+      npc = lib_last_named_npc (game);
+      if (npc != -1 && !npc_in_room (game, npc, gs_playerroom (game)))
+        {
+          var_set_ref_character (gs_get_vars (game), npc);
+          lib_print_wrapped_npc (game, "Use the format \"ask ",
+                                 npc, lib_ask_format_subject (game));
+          return TRUE;
+        }
+    }
+
+  /* Get the referenced npc, and if none, consider complete.  Pre-4.0 takes
+     the LAST present character: `ask guard about key` is "BOB KEY.". */
+  npc = lib_disambiguate_npc_pick (game, verb, &is_ambiguous, NPC_PICK_LAST);
   if (npc == -1)
     return is_ambiguous;
 
@@ -20109,7 +20317,9 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
     return TRUE;
 
   /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
+  npc = lib_disambiguate_npc_pick (game, verb, &is_ambiguous,
+                                   battle_is_enabled (game)
+                                   ? NPC_PICK_ASK : NPC_PICK_FIRST);
   if (npc == -1)
     {
       /* 3.9+: a seen NPC named in the line but elsewhere "isn't here!" */
@@ -20187,7 +20397,9 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
     return TRUE;
 
   /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, verb, &is_ambiguous);
+  npc = lib_disambiguate_npc_pick (game, verb, &is_ambiguous,
+                                   battle_is_enabled (game)
+                                   ? NPC_PICK_ASK : NPC_PICK_FIRST);
   if (npc == -1)
     {
       /* 3.9+: a seen NPC named in the line but elsewhere "isn't here!" */
@@ -20890,15 +21102,40 @@ lib_cmd_attack_npcs_with (scr_gameref_t game)
  * require a wielded weapon whose method matches (chop 0, cut 1, hit 2,
  * shoot 3, stab 4, throw 5) when the Battle System is enabled.
  */
+/*
+ * lib_attack_line_pre390()
+ *
+ * 3.7/3.8 with the Battle System off answer `attack dave` with
+ * DontUnderstand, while `hit dave` and `kick dave` get "Dave avoids your
+ * feeble attempts." (run370x Adrift_194_pnpcone37, run380x Adrift_195,
+ * 2026-09-19).  Why is not read: run380 characters()' arm at 440260 lists
+ * c("attack") among hit/kill/kick/punch, and "attack" is in no other string
+ * in either exe.  TRUE for such a line, which the caller leaves unhandled.
+ */
+static scr_bool
+lib_attack_line_pre390 (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+
+  return prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
+         && !battle_is_enabled (game) && input
+         && scr_strncasecmp (input, "attack", 6) == 0
+         && (input[6] == ' ' || input[6] == NUL);
+}
+
 scr_bool
 lib_cmd_attack_npc (scr_gameref_t game)
 {
+  if (lib_attack_line_pre390 (game))
+    return FALSE;
   return lib_battle_attack_bare (game, "attack", -1, TRUE);
 }
 
 scr_bool
 lib_cmd_attack_npc_with (scr_gameref_t game)
 {
+  if (lib_attack_line_pre390 (game))
+    return FALSE;
   return lib_battle_attack_with (game, "attack", -1, TRUE);
 }
 
@@ -21224,6 +21461,17 @@ lib_cmd_kiss_npc (scr_gameref_t game)
   scr_vartype_t vt_key[3];
   scr_int npc, gender;
   scr_bool is_ambiguous;
+
+  /*
+   * Pre-4.0 has no present-character kiss: 3.9's characters() arm names the
+   * FIRST character the line names, here or not, and 3.7/3.8 have no arm at
+   * all, leaving therest's "I'm not sure it would appreciate that." (run380
+   * 4451EC; `kiss dave`, run370x Adrift_194, run380x Adrift_195).  Both are
+   * lib_cmd_kiss_other()'s; `kiss guard` with Ann and Bob here is Ann's
+   * "she" at 3.9 (run390x Adrift_193_pnpcamb39).
+   */
+  if (!lib_is_version_400 (game))
+    return FALSE;
 
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, "kiss", &is_ambiguous);
@@ -22898,12 +23146,20 @@ lib_cmd_locate_npc (scr_gameref_t game)
       pf_buffer_string (filter, "I don't know where that is.\n");
       return TRUE;
     }
-  else if (count > 1)
+  else if (count > 1 && lib_is_version_400 (game))
     {
       pf_buffer_string (filter,
                         "Please be more clear about who you want to locate.\n");
       return TRUE;
     }
+
+  /*
+   * Pre-4.0 assigns the answer outright for every character named, so the
+   * LAST one named answers, here or not: `where is guard` with Ann and Bob
+   * here and Cora next door is "You haven't seen Cora yet!", and once she
+   * is met "Cora is cave." (run370x/run380x/run390x, Adrift_193_pnpcamb37b/
+   * 192/193; run380 440B3E).  npc is already the last named.
+   */
 
   /*
    * The reference is unambiguous, so we're responsible for noting it in
@@ -23558,6 +23814,34 @@ lib_cmd_examine_other (scr_gameref_t game)
     }
 
   /*
+   * Pre-4.0 characters() names a character by c(Name) Or c(Alias) anywhere
+   * in the line, and its examine arm assigns the description of every one
+   * that is here -- so `x big dave` and `x tall guard`, which SCARE's
+   * %character% pattern does not bind, describe Dave and (of Ann and Bob,
+   * both guards) Bob, the LAST present (run370x/run380x/run390x,
+   * Adrift_193_pnpcamb37b/192/193; run380 440D0B).
+   */
+  if (!lib_is_version_400 (game))
+    {
+      const scr_char *input = run_get_dispatch_input ();
+      scr_int npc, found = -1;
+
+      for (npc = 0; input && npc < gs_npc_count (game); npc++)
+        {
+          if (npc_in_room (game, npc, gs_playerroom (game))
+              && lib_npc_named_in_line (game, npc, input))
+            found = npc;
+        }
+      if (found != -1)
+        {
+          for (npc = 0; npc < gs_npc_count (game); npc++)
+            game->npc_references[npc] = (npc == found);
+          if (lib_cmd_examine_npc (game))
+            return TRUE;
+        }
+    }
+
+  /*
    * characters() rewrites this tail when the noun names an absent character;
    * see lib_npc_examine_absent().  4.0 has already set its not-a-turn flag
    * by then (471F02, before characters() runs), so the named answer is an
@@ -23970,20 +24254,25 @@ lib_cmd_yes_or_no (scr_gameref_t game)
  *   run380 loc_44062F, loc_440A6B   "ask " & name & " about [subject]" & "."
  *   run380 loc_444219               "ask [character] about [subject]"
  *   run390 loc_45976B / loc_45DA37, run400 loc_47F879 / loc_488D55: as 3.8.
+ *
+ * The generic hint has no full stop after its closing quote in any release
+ * (run400 488D6E-488D8C appends only Chr(34)); measured on run370, run380 and
+ * run390, p3xNPCAMB `ask` (Adrift_194/195/196).  The per-character hint does
+ * append "." (run400 47F8C4).
  */
 static const scr_char *
 lib_ask_format_subject (scr_gameref_t game)
 {
   return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
-         ? " about [subject]\".\n" : " about <subject>\".\n";
+         ? " about [subject]\".\n" : " about &lt;subject&gt;\".\n";
 }
 
 static const scr_char *
 lib_ask_format_character (scr_gameref_t game)
 {
   return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
-         ? "Use the format \"ask [character] about [subject]\".\n"
-         : "Use the format \"ask <character> about <subject>\".\n";
+         ? "Use the format \"ask [character] about [subject]\"\n"
+         : "Use the format \"ask &lt;character&gt; about &lt;subject&gt;\"\n";
 }
 
 
@@ -24029,7 +24318,7 @@ lib_cmd_ask_npc (scr_gameref_t game)
   scr_bool is_ambiguous;
 
   /* Get the referenced npc, and if none, consider complete. */
-  npc = lib_disambiguate_npc (game, "ask", &is_ambiguous);
+  npc = lib_disambiguate_npc_pick (game, "ask", &is_ambiguous, NPC_PICK_LAST);
   if (npc == -1)
     return is_ambiguous;
 
@@ -24089,6 +24378,25 @@ lib_cmd_talk_to_npc (scr_gameref_t game)
    */
   named = prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
           ? lib_any_named_npc (game) : -1;
+
+  /*
+   * Pre-4.0 assigns the hint outright for every character named, here or
+   * not, so the LAST one named answers -- 3.7 and 3.8 included, whose arm
+   * (run380 4405D7) has no room test either.  `talk to guard` with Ann and
+   * Bob here and Cora next door, never met, is "Use the format "ask Cora
+   * about [subject]"." (run370x/run380x/run390x, Adrift_193_pnpcamb37b/
+   * 192/193).
+   */
+  if (!lib_is_version_400 (game))
+    {
+      npc = lib_last_named_npc (game);
+      if (npc == -1)
+        return FALSE;
+      var_set_ref_character (gs_get_vars (game), npc);
+      lib_print_wrapped_npc (game, "Use the format \"ask ",
+                             npc, lib_ask_format_subject (game));
+      return TRUE;
+    }
 
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, "talk to", &is_ambiguous);
@@ -26961,7 +27269,19 @@ lib_cmd_verb_npc (scr_gameref_t game)
   if (lib_is_version_400 (game) && game->pending_endgame != 0)
     return FALSE;
 
-  /* Ensure the reference is unambiguous. */
+  /*
+   * 3.7/3.8 have no character catch-all: run380 characters() has arms for
+   * named verbs only, so `hug dave`, `eat dave` or a bare `dave` end on
+   * DontUnderstand (run380x Adrift_195_pnpcone38, run370x Adrift_194).
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return FALSE;
+
+  /*
+   * Ensure the reference is unambiguous.  3.9 fills an empty buffer, so of
+   * two present characters the FIRST answers: `hug guard` with Ann and Bob
+   * both guards is "... with Ann." (run390x Adrift_193_pnpcamb39).
+   */
   count = 0;
   npc = -1;
   for (index_ = 0; index_ < gs_npc_count (game); index_++)
@@ -26971,9 +27291,12 @@ lib_cmd_verb_npc (scr_gameref_t game)
           && npc_in_room (game, index_, gs_playerroom (game)))
         {
           count++;
-          npc = index_;
+          if (npc == -1 || lib_is_version_400 (game))
+            npc = index_;
         }
     }
+  if (count > 1 && !lib_is_version_400 (game))
+    count = 1;
   /*
    * 4.0: namesakes get generaltasks' "Which <term>." question, which is
    * asked of the line before any library branch (run400 48B6AE-48BB92).

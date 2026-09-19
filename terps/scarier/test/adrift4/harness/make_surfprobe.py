@@ -101,6 +101,10 @@ WEARABLE = set()
 # Tasks: (command, CompleteText) pairs, all repeatable, unrestricted, Where =
 # all rooms.  The first must stay `probe` -> "PROBE OK.".
 TASKS = [("probe", "PROBE OK.")]
+# NPCs: (name, prefix, alias, description, room, in-room text, topics,
+# gender), topics a list of (subject, reply).  No walks.  3.7/3.8 store no
+# gender; 3.9 does.
+NPCS = []
 
 
 def type_index(name, kinds):
@@ -301,7 +305,22 @@ def build(version):
 
     # ---------------------------------------------------------------- EVENTS
     s(0)                              # Events
-    s(0)                              # NPCs
+    if version >= 400 and NPCS:
+        raise SystemExit("NPCS: no 4.0 NPC writer")
+    s(len(NPCS))                      # NPCs
+    for name, prefix, alias, desc, room_, inroom, topics, gender in NPCS:
+        s(name); s(prefix); s(alias); s(desc)
+        s(room_)                      # StartRoom (1-based; 0 = nowhere)
+        s("")                         # AltText
+        s(0)                          # Task
+        s(len(topics))                # Topics
+        for subject, reply in topics:
+            s(subject); s(reply); s(0); s("")
+        s(0)                          # Walks
+        s(1); s("wanders in"); s("wanders off")
+        s(inroom)                     # InRoomText
+        if version >= 390:
+            s(gender)                 # Gender (0 male, 1 female)
     s(0)                              # RoomGroups
     if version == 370:
         for w in ("north", "east", "south", "west", "up", "down", "in", "out",

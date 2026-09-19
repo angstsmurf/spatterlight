@@ -302,12 +302,15 @@ not by a tick.
   emulated, so 3.9 commands with a reference skip the check. Group
   patterns (`[`, `{`) skip it at every version.
 - **"Please be more clear, who do you want to <verb>?"** is a SCARE
-  invention (alexis_worn_cube t79). The `who` form is unmeasured. The
-  object form is closed: 3.9 examine answers "Nothing special." (ported);
-  wear, remove, drop, open, close, take, give, put, read, eat and the
-  checkverb arms all refuse through co() and the end-of-turn prompt is
-  the answer (p39TASK cmdfile_p39clear.txt, Adrift_185_ppclear_39.txt,
-  2026-09-19).
+  invention (alexis_worn_cube t79). Both forms are closed below 4.0. The
+  object form: 3.9 examine answers "Nothing special." (ported); wear,
+  remove, drop, open, close, take, give, put, read, eat and the checkverb
+  arms all refuse through co(), and the end-of-turn prompt is the answer
+  (p39TASK cmdfile_p39clear.txt, Adrift_185_ppclear_39.txt, 2026-09-19).
+  The `who` form: pre-4.0 never asks (see "Namesake characters" in the
+  index). Still open: two present namesakes with the **Battle System on**
+  (dobattle, not characters()), which keeps SCARE's question below 4.0,
+  and 4.0 verbs where `lib_npc_400_raise_for_line` declines.
 - **Per-verb absent-NPC branches:** talk, give and take are measured and
   ported (p39ABSNPC). kill/kick/punch still go through other grammar
   first. The attack branch is ported.
@@ -338,6 +341,11 @@ not by a tick.
 - **Pre-4.0 room-name alt walk** is unmeasured.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
+- **Why `attack dave` is DontUnderstand at 3.7/3.8** (battle off) while
+  `hit`/`kick dave` get "Dave avoids your feeble attempts." is unread:
+  run380's characters() arm at 440260 ORs c("attack") in with the others,
+  and "attack" is in no other string of either exe. Ported as measured
+  (`lib_attack_line_pre390`); `kill`/`punch dave` are unmeasured.
 
 ---
 
@@ -359,6 +367,10 @@ not by a tick.
   `cmdfile_p3738putallin.txt` / `cmdfile_p3738putallon.txt`, 2026-09-19).
   `put everything in zzz` crashes both the same way (`cmdfile_p3739drop.txt`
   cmd 5, par/p37drop.log). Scarier keeps its sane answer.
+- **run370 `eat <character>` crashes the Runner** with the same "Run-time
+  error '9'" (`eat guard`, `eat dave`: `cmdfile_pnpcamb.txt` on p37NPCAMB,
+  Adrift_191_pnpcamb37.rtf, 2026-09-19). run380 answers DontUnderstand, and
+  so does Scarier at 3.7.
 - **SCARE meta-commands** `wait N`, `hist N` and `redo N` exist in no
   Runner. Eleven more inventions are compiled out by
   `SCARIER_NO_ABBREVIATIONS`.
@@ -1326,6 +1338,36 @@ next to the named function and in `annotations.tsv`.
 
 ### NPCs, walks and battle
 
+- **Namesake characters, pre-4.0: no question, first or last wins.**
+  characters() is one loop over every NPC in index order, naming each by
+  c(Name) Or c(Alias(0)) anywhere in the line. An arm that assigns the
+  message outright leaves the LAST named NPC's answer; one guarded by an
+  empty message leaves the FIRST's. With Ann and Bob, both "a guard", here
+  and Cora, a third, next door and unseen:
+  - Last present: `x guard` (and `x tall guard`, `x big dave`: examine by
+    containment, which SCARE's %character% missed, all versions), `ask
+    guard`, `ask guard about key` ("BOB KEY."), 3.9 `take stone from
+    guard`.
+  - Last named, here or not, no seen test: `talk to guard` and `talk to
+    guard about key` (Cora's hint), `where is guard` ("You haven't seen
+    Cora yet!"), 3.7/3.8 `take guard` and `take stone from guard` ("Cora
+    is not here!").
+  - First present: `give stone to guard`, `give guard stone`, 3.9 `take
+    guard`, `hit`/`kick guard`, and the 3.9 catch-all (`hug guard`, a bare
+    `guard`: "... with Ann."). First named, here or not: 3.9 `kiss guard`.
+  - 3.7/3.8 single characters: `kiss dave` is therest's "I'm not sure it
+    would appreciate that." (no characters() kiss arm); `attack dave`,
+    `hug dave`, `eat dave` are DontUnderstand (no catch-all); `take cora`
+    and `take stone from cora` are "Cora is not here!". A 3.7 take line
+    without get/remove never reaches insides(), so `take stone from dave`
+    is the take refusal.
+  - 3.9 `take stone from cora` (Cora absent) is the no-source "The stone
+    isn't in or on anything!".
+  - The bare `ask` hint has no final full stop in any Runner.
+  `[<4.0]` p37/p38/p39NPCAMB (make_3738_npcambprobe.py, `cmdfile_pnpcamb.txt`
+  / `cmdfile_pnpcamb37.txt` Adrift_193_pnpcamb39 / Adrift_192_pnpcamb38 /
+  Adrift_193_pnpcamb37b, `cmdfile_pnpcone.txt` / `cmdfile_pnpcone37.txt`
+  Adrift_196 / 195 / 194; `lib_disambiguate_npc_pick`, 2026-09-19)
 - **3.9 absent characters, per verb.** `talk to`/`speak to` any named
   character, even an absent or unseen one, gives the "ask X about"
   hint. The hint at 45975C has no room gate, and the ask branch's
