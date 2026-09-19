@@ -2088,6 +2088,20 @@ CONFIGS = {
     statics=[],
     npcs=[],
     tasks=[]),
+ 'EVRS': dict(name="Probe EVRS", persp=1,
+    # Immediate-starter events of non-zero length: R2 restarts "after a
+    # delay" (RestartType 2), R1 restarts immediately (RestartType 1, the
+    # measured control: "FINISH.  START." every period in run400).
+    rooms=[("Test Arena","A bare arena.",{})],
+    player=(200,0,0,0,0,0,0,0,0,0),
+    objects=[("a","pebble", 4,  0,  0,  0,  0,  0,  0)],
+    statics=[],
+    npcs=[],
+    tasks=[],
+    events=[dict(short="R2", affected=0, starter=1, restart=2, time1=2, time2=2,
+                 starttext="R2 START.", looktext="R2 LOOK.", finishtext="R2 FINISH."),
+            dict(short="R1", affected=0, starter=1, restart=1, time1=3, time2=3,
+                 starttext="R1 START.", looktext="R1 LOOK.", finishtext="R1 FINISH.")]),
  'PCLOSED': dict(name="Probe PCLOSED", persp=1,
     # Put corners: the "(Taking X first)" line against a CLOSED container
     # (held box #2, room chest #3), and `put all in <container>` with the

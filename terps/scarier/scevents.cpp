@@ -852,6 +852,25 @@ evt_finish_event (scr_gameref_t game, scr_int event)
    * the affected task fire EVERY turn, which is how TheADRIFTProject's
    * "#Pill Check" ran a turn early.
    *
+   * At 4.0 the length does not matter: EVERY restart-after-delay event with
+   * an immediate or task starter is a one-shot.  run400's finish block
+   * (4706BE) sets the state byte to 0 (waiting), draws Rnd once (4706CE) and
+   * stores Int(Rnd * (EndTime - StartTime)) + StartTime as the clock with no
+   * +1.  StartTime/EndTime are only read from the taf for a random-delay
+   * starter, so for these two they are 0 and the clock is 0; the waiting
+   * block (46FD26) decrements BEFORE it tests for zero, so the clock goes to
+   * -1 and the event never starts again.  Probed live 2026-09-19 in run400
+   * (probe EVRS, make_arena_probe.py, Adrift_1196.txt): R2 (RestartType 2,
+   * immediate starter, length 2) printed "R2 FINISH." on the first wait and
+   * nothing afterwards -- no StartText, no LookText in the final `look` --
+   * where the control R1 (RestartType 1) printed "R1 FINISH.  R1 START."
+   * every three turns.  Scarier used to re-arm R2 every two turns.  The Rnd
+   * is still consumed, so draw it here to keep the stream cadence.
+   *
+   * Pre-4.0 keeps the zero-length gate alone: run390 variant d (RestartType
+   * 2 with a length) prints its StartText on every re-arm, see
+   * evt_fixup_v390_v380_immediate_restart().
+   *
    * Restart-immediately is deliberately NOT gated: run400 really does start
    * such an event again -- EV5's H1 printed its StartText a second time and
    * showed its LookText in every later room description -- it just never
@@ -860,10 +879,15 @@ evt_finish_event (scr_gameref_t game, scr_int event)
   if (restarttype == 2
       && (evt_get_starter_type (game, event) == 1
           || evt_get_starter_type (game, event) == 3)
-      && evt_is_zero_length (game, event))
+      && (evt_is_zero_length (game, event)
+          || evt_taf_version (game, event) >= TAF_VERSION_400))
     {
       if (evt_trace)
-        scr_trace ("Event: zero-length event %ld will not restart\n", event);
+        scr_trace ("Event: restart-after-delay event %ld will not restart\n",
+                   event);
+
+      if (evt_taf_version (game, event) >= TAF_VERSION_400)
+        scr_randomint_exclusive (0, 0);
 
       gs_set_event_state (game, event, ES_FINISHED);
       gs_set_event_time (game, event, 0);
@@ -872,7 +896,7 @@ evt_finish_event (scr_gameref_t game, scr_int event)
 
   switch (restarttype)
     {
-    case -1:                   /* Zero-length one-shot, handled above. */
+    case -1:                   /* One-shot, handled above. */
       break;
 
     case 0:                    /* Don't restart. */

@@ -276,9 +276,6 @@ not by a tick.
   whether an object ambiguity on a task-answered line also suppresses the
   tick; 454454's prefix contest handing the write to a namesake with more
   Prefix words typed (not modelled in `lib_co_400_line_leaves_which_pending`).
-- **Events:** an event with RestartType=2, an immediate starter and a
-  non-zero length fires once in run400, but Scarier re-arms it. Corpus
-  exposure is zero.
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -1039,6 +1036,16 @@ next to the named function and in `annotations.tsv`.
     finish or restart draw ever follows. Pre-4.0 unmeasured, keeps the
     authored-length test. `[4.0]` zelda T52-60 (event 5; 468 = 468 draws)
     (2026-09-19)
+  - A 4.0 restart-after-delay event with an immediate or task starter is a
+    one-shot whatever its length: the finish block (4706BE) sets the state
+    to waiting, draws Rnd once (4706CE) and stores
+    Int(Rnd * (EndTime - StartTime)) + StartTime, which is 0 because those
+    two fields are only read from the taf for a random-delay starter; the
+    waiting block (46FD26) decrements before it tests for zero, so the
+    clock sits at -1 for good. No StartText, no LookText afterwards. The
+    Rnd is still drawn. Pre-4.0 keeps the zero-length gate only (run390
+    variant d re-arms with its StartText). `[4.0]` probe EVRS, Adrift_1196
+    ("R2 FINISH." once; control R1 restarts every three turns) (2026-09-19)
 - **Pre-4.0 ending mid-tick.** The ending (WinText, summary, "[Press any
   key to end]") is composed as the task that armed it finishes, right after
   the action loop. The prompt is no wait, and the tail's ended test was
