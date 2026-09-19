@@ -17024,6 +17024,99 @@ lib_put_shut_in_container_400 (scr_gameref_t game, scr_int container)
   return found;
 }
 
+/*
+ * lib_put_named_400()
+ *
+ * The 4.0 put noun goes through name_object's own resolver, not the
+ * seen-gated %text% matcher: 46E5D8 hands the object fragment
+ * (MemVar_494174, the line up to " in "/" on ") to Proc_21_58_463640 in mode
+ * 2 (@46E02D), the same two-pass scorer a plain `drop X` uses -- pass 0 over
+ * what the player holds, directly or inside something held, pass 1 over
+ * everything present, no seen gate in either; see lib_drop_resolve_400().
+ * Probe PPUTTIE (Adrift_1193.txt, 2026-09-19), a box in hand:
+ *
+ *   put key in box   brass key held, iron key on the floor
+ *                    You put the brass key inside the box.   (no prompt)
+ *   put key in box   the brass key now inside the held box
+ *                    The brass key is already inside the box!
+ *   put gem in box   both gems on the floor: a pass-1 tie, the pending
+ *                    object cleared by the restore at 46355E
+ *                    It is not clear which gem you are referring to.
+ *   put coin in box  both coins held: a pass-0 tie, pending object kept
+ *                    Which coin.  The gold coin or the silver coin?
+ *
+ * Scarier's matcher used to ask "Which key." for the first two and prompt
+ * for the gems.  The all/and/except forms take name_object's own branches
+ * (46E053, 46E0B7) and are left to the ordinary parse.  Returns TRUE when
+ * the line is answered here (a prompt or the not-clear refusal); otherwise
+ * a unique winner is left alone in the multiple references with
+ * *REFERENCES 1, or *REFERENCES stays -1 for the ordinary parse.
+ */
+static scr_bool
+lib_put_named_400 (scr_gameref_t game, scr_int *references)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *fragment = var_get_ref_text (gs_get_vars (game));
+  std::vector<scr_int> marked;
+  scr_int object, pending, last_tied, mark_count;
+
+  *references = -1;
+  if (!lib_is_version_400 (game) || !fragment || !run_get_dispatch_input ()
+      || lib_input_contains_word_400 (fragment, "all")
+      || lib_input_contains_word_400 (fragment, "everything")
+      || lib_input_contains_word_400 (fragment, "and")
+      || lib_input_contains_word_400 (fragment, "except"))
+    return FALSE;
+
+  object = lib_co_400_forced ();
+  if (object < 0)
+    {
+      object = lib_drop_resolve_400 (game, fragment, &pending, &last_tied,
+                                     &marked, &mark_count);
+      if (object == -2)
+        return FALSE;
+    }
+
+  if (object == -1)
+    {
+      if (pending < 0)
+        {
+          pf_buffer_string (filter, "It is not clear which ");
+          pf_buffer_string (filter,
+                            lib_drop_named_term_400 (game, last_tied,
+                                                     fragment, FALSE));
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                                 " you are referring to.\n",
+                                                 " I am referring to.\n",
+                                                 " %player% is referring to.\n"));
+          return TRUE;
+        }
+
+      /* As lib_drop_named_400(): the run-together list is unmeasured. */
+      if ((scr_int) marked.size () == mark_count)
+        {
+          lib_co_400_raise (game,
+                            lib_drop_named_term_400 (game, pending,
+                                                     fragment, TRUE),
+                            marked);
+          return TRUE;
+        }
+      return FALSE;
+    }
+
+  /*
+   * Mode 2 has no seen gate, and the Runner's name composer answers "that"
+   * for an object still unseen; see lib_put_print_object_or_that().
+   */
+  if (!gs_object_seen (game, object))
+    lib_put_present_unseen = object;
+  gs_clear_multiple_references (game);
+  game->multiple_references[object] = TRUE;
+  *references = 1;
+  return FALSE;
+}
+
 
 /*
  * lib_put_in_multiple_common()
@@ -17061,7 +17154,11 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
         lib_put_present_unseen = -1;
       }
     } seen_absent_guard;
-  scr_bool parsed = lib_parse_multiple_objects (game,
+  references = -1;
+  if (!is_except && lib_put_named_400 (game, &references))
+    return TRUE;
+  scr_bool parsed = references == 1
+                    || lib_parse_multiple_objects (game,
                                    is_except ? "retain" : "move",
                                    is_except ? lib_put_in_not_container_filter
                                              : lib_put_in_resolve_filter,
@@ -17857,11 +17954,19 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (!is_except && !lib_is_version_400 (game))
     return lib_put_named_pre400 (game, supporter, TRUE);
 
-  /* Parse the multiple objects list to find the target objects. */
-  if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
-                                   is_except ? lib_put_on_not_supporter_filter
-                                             : lib_put_on_resolve_filter,
-                                   is_except ? supporter : -1, &references))
+  /* Parse the multiple objects list to find the target objects; the 4.0
+   * noun goes through name_object's resolver first (lib_put_named_400). */
+  references = -1;
+  if (!is_except && lib_put_named_400 (game, &references))
+    return TRUE;
+  if (references == 1)
+    ;
+  else if (!lib_parse_multiple_objects (game, is_except ? "retain" : "move",
+                                        is_except
+                                        ? lib_put_on_not_supporter_filter
+                                        : lib_put_on_resolve_filter,
+                                        is_except ? supporter : -1,
+                                        &references))
     return FALSE;
   else if (references == 0)
     return TRUE;

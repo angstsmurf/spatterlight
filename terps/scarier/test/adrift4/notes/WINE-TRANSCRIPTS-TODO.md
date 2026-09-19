@@ -263,12 +263,6 @@ not by a tick.
 
 ### Engine, needs a probe (4.0)
 
-- **Put resolution ordering:** the 4.0 put fragment fallback scores every
-  present object in one pass, where 463640 mode 2 tries held objects first.
-  The held-first pass is ported for plain `drop` (`lib_drop_resolve_400`),
-  not for `put`; a held/loose tie on a put line would differ. Also unread:
-  why the seen-gated %text% parse missed TheADRIFTProject's already-seen
-  battery (`put battery in remote`), which the fallback covers.
 - **Scope, unmeasured:** the never-seen "You can't see that." branch at
   471995; the two-pass `%object%` scope filter proper (`SCR_TRACE_SCOPE`):
   its seen gate is ported, its present-before-absent order is not; the NPC
@@ -933,6 +927,20 @@ next to the named function and in `annotations.tsv`.
   weight-cycle deviation (the coin, #1, inside the box), not a rule. `[4.0]`
   probe PBOXBOX, Adrift_1192 (`lib_put_in_backend`, `lib_put_on_backend`,
   2026-09-19)
+- **4.0 put noun = name_object's mode-2 scorer, held first.** 46E5D8 hands
+  the object fragment to 463640 mode 2 (@46E02D): pass 0 over what is held
+  (directly or inside something held), pass 1 over everything present, no
+  seen gate; the same resolver as plain `drop`. `put key in box` with the
+  brass key held and the iron key loose puts the brass key with no prompt;
+  with the brass key inside the held box it is "already inside"; both gems
+  loose tie in pass 1 and the 46355E restore clears the pending object, so
+  "It is not clear which gem you are referring to."; both coins held tie in
+  pass 0 and keep it, "Which coin.  The gold coin or the silver coin?".
+  Scarier's seen-gated matcher asked "Which key." for the first two and
+  prompted for the gems. The all/and/except forms keep the ordinary parse.
+  TheADRIFTProject's `put battery in remote` now resolves here rather than
+  through the present-object fallback. `[4.0]` probe PPUTTIE, Adrift_1193
+  (`lib_put_named_400`, reusing `lib_drop_resolve_400`, 2026-09-19)
 
 ### NPCs, walks and battle
 

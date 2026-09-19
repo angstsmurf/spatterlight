@@ -2052,6 +2052,35 @@ CONFIGS = {
     statics=[],
     npcs=[],
     tasks=[]),
+# PPUTTIE: the 4.0 put noun with a held/loose namesake pair.  name_object
+# 46E5D8 resolves the object fragment with 463640 mode 2 (@46E02D): pass 1
+# scores only objects indirectly held (44615C), pass 2 every present object
+# (452E9C), no seen gate in either.  So `put key in box` with the brass key
+# in hand and the iron key on the floor should take the brass key without a
+# Which prompt; both keys loose, or both coins held, should tie into one.
+# The pebble is object #1 and is never moved (the 447680 weight cycle).
+#
+#      2  put key in box     brass held, iron loose: brass, no prompt?
+#      4  put key in box     brass now inside the held box: still pass 1?
+#      5  drop key           drop's own held-first pass (control)
+#      7  put gem in box     both gems loose: tie -> Which gem?
+#      8  look               what the pending prompt does with a plain line
+#      9  put coin in box    both coins held: pass-1 tie -> Which coin?
+ 'PPUTTIE': dict(name="Probe PPUTTIE", persp=1,
+    rooms=[("Test Arena","A bare arena.",{})],
+    player=(200,0,0,0,0,0,0,0,0,0),
+    #        prefix short pos wpn prot hv meth acc wear cont parent sw  cap
+    objects=[("a","pebble",   4,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("a","box",      1,  0,  0,  0,  0,  0,  0,   1,    0,    2,  100),
+             ("a brass","key",1,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("an iron","key",4,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("a red","gem",  4,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("a blue","gem", 4,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("a gold","coin",1,  0,  0,  0,  0,  0,  0,   0,    0,    2),
+             ("a silver","coin",1,0,  0,  0,  0,  0,  0,   0,    0,    2)],
+    statics=[],
+    npcs=[],
+    tasks=[]),
  'PSTAT': dict(name="Probe PSTAT", persp=1,
     rooms=[("Test Arena","A bare arena.",{})],
     player=(200,0,0,0,0,0,0,0,0,0),
