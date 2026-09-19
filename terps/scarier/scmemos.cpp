@@ -371,6 +371,8 @@ memo_is_load_available (scr_memo_setref_t memento)
  * memo_get_undo_count()
  * memo_get_undo()
  * memo_append_undo()
+ * memo_get_undo_text()
+ * memo_set_undo_text()
  *
  * Undo-ring export/import for the Spatterlight autosave.  The ring holds
  * serialized games; export walks the used slots oldest first (starting at the
@@ -393,14 +395,13 @@ memo_get_undo_count (scr_memo_setref_t memento)
   return count;
 }
 
-const scr_byte *
-memo_get_undo (scr_memo_setref_t memento, scr_int index_, scr_int *length)
+/* The index_'th used slot, oldest first, scanning forwards from the cursor
+   (the next slot to be written, so also the oldest when full); NULL if none. */
+static scr_memoref_t
+memo_undo_slot (scr_memo_setref_t memento, scr_int index_)
 {
   scr_int slot, seen;
-  assert (memo_is_valid (memento));
 
-  /* The index_'th used slot, oldest first, scanning forwards from the
-   * cursor (the next slot to be written, so also the oldest when full). */
   seen = 0;
   for (slot = 0; slot < MEMO_UNDO_TABLE_SIZE; slot++)
     {
@@ -411,15 +412,53 @@ memo_get_undo (scr_memo_setref_t memento, scr_int index_, scr_int *length)
       if (memo->length > 0)
         {
           if (seen == index_)
-            {
-              *length = memo->length;
-              return memo->serialized_game;
-            }
+            return memo;
           seen++;
         }
     }
-  *length = 0;
   return NULL;
+}
+
+const scr_byte *
+memo_get_undo (scr_memo_setref_t memento, scr_int index_, scr_int *length)
+{
+  scr_memoref_t memo;
+  assert (memo_is_valid (memento));
+
+  memo = memo_undo_slot (memento, index_);
+  *length = memo ? memo->length : 0;
+  return memo ? memo->serialized_game : NULL;
+}
+
+/* The output each ring entry replays on undo (see memo_load_game()).  It
+   travels in the autosave's session section, set after the ring is rebuilt. */
+const scr_char *
+memo_get_undo_text (scr_memo_setref_t memento, scr_int index_)
+{
+  scr_memoref_t memo;
+  assert (memo_is_valid (memento));
+
+  memo = memo_undo_slot (memento, index_);
+  return memo && memo->text ? memo->text : "";
+}
+
+void
+memo_set_undo_text (scr_memo_setref_t memento, scr_int index_,
+                    const scr_char *text)
+{
+  scr_memoref_t memo;
+  assert (memo_is_valid (memento));
+
+  memo = memo_undo_slot (memento, index_);
+  if (!memo)
+    return;
+  scr_free (memo->text);
+  memo->text = NULL;
+  if (text)
+    {
+      memo->text = (scr_char *) scr_malloc (strlen (text) + 1);
+      strcpy (memo->text, text);
+    }
 }
 
 void

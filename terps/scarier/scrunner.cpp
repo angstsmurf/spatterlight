@@ -5475,6 +5475,10 @@ run_player_input (scr_gameref_t game)
  *   - a question the next line answers: the 4.0 ambiguity prompt (see
  *     lib_co_400_raise()) and the question prefix ("Who do you want to
  *     attack?", "Wear what?", "...with?");
+ *   - the output each undo state replays after "Undone." (see
+ *     lib_cmd_undo()): the finished turn's, still to be taken by the next
+ *     line; the undo game's; and one per memo ring entry, oldest first, set
+ *     after the container has rebuilt the ring;
  *   - the player's settings: verbose, score notification and wait turns;
  *   - the name and gender typed at the startup prompts, which live in the
  *     property bundle.
@@ -5593,6 +5597,12 @@ run_session_state (scr_gameref_t game)
   uip_get_pronoun_flags (&used, &definite);
   run_session_put (out, "pronoun_flags", run_session_join ({used, definite}));
 
+  run_session_put (out, "printed", pf_get_printed (gs_get_filter (game)));
+  if (game->undo_available)
+    run_session_put (out, "undo_text", run_undo_text);
+  for (scr_int index_ = 0; index_ < memo_get_undo_count (memento); index_++)
+    run_session_put (out, "ring_text", memo_get_undo_text (memento, index_));
+
   run_session_put (out, "again", run_prior_element);
   memo_first_command (memento);
   while (memo_more_commands (memento))
@@ -5628,6 +5638,7 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
   std::string which_term, which_command, which_candidates;
   std::string prefix, prefix_at_line;
   scr_bool has_which = FALSE, has_prefix = FALSE, has_history = FALSE;
+  scr_int ring_text = 0;
   scr_vartype_t vt_key[2];
   size_t pos = 0;
 
@@ -5677,6 +5688,12 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
         run_session_set_pronouns (game, game->undo, value);
       else if (key == "pronoun_flags" && numbers.size () >= 2)
         uip_set_pronoun_flags (numbers[0] != 0, numbers[1] != 0);
+      else if (key == "printed")
+        pf_set_printed (gs_get_filter (game), value);
+      else if (key == "undo_text" && game->undo_available)
+        run_undo_text = value;
+      else if (key == "ring_text")
+        memo_set_undo_text (memento, ring_text++, value.c_str ());
       else if (key == "again" && length < LINE_BUFFER_SIZE)
         memcpy (run_prior_element, value.c_str (), length + 1);
       else if (key == "history")

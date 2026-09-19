@@ -1362,6 +1362,8 @@ pf_append_string (scr_filterref_t filter, const scr_char *string)
 
 /*
  * pf_take_printed()
+ * pf_get_printed()
+ * pf_set_printed()
  * pf_buffer_printed()
  *
  * Take, and clear, the text flushed out since the last take; and buffer such
@@ -1377,6 +1379,23 @@ pf_take_printed (scr_filterref_t filter)
 
   text.swap (filter->printed);
   return text;
+}
+
+/* Peek at and put back the text still to be taken, for an autosave: at a
+   prompt it is the finished turn's output, which the next line's undo
+   snapshot takes. */
+const std::string &
+pf_get_printed (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+  return filter->printed;
+}
+
+void
+pf_set_printed (scr_filterref_t filter, const std::string &text)
+{
+  assert (pf_is_valid (filter));
+  filter->printed = text;
 }
 
 void

@@ -385,6 +385,8 @@ extern void pf_refilter (scr_filterref_t filter,
 /* The text pf_flush() has printed since the last call, taken and cleared;
    and a way to buffer such already-filtered text back, for undo's replay. */
 extern std::string pf_take_printed (scr_filterref_t filter);
+extern const std::string &pf_get_printed (scr_filterref_t filter);
+extern void pf_set_printed (scr_filterref_t filter, const std::string &text);
 extern void pf_buffer_printed (scr_filterref_t filter,
                                scr_var_setref_t vars, scr_prop_setref_t bundle,
                                const std::string &text);
@@ -418,6 +420,10 @@ extern const scr_byte *memo_get_undo (scr_memo_setref_t memento,
                                       scr_int index_, scr_int *length);
 extern void memo_append_undo (scr_memo_setref_t memento,
                               const scr_byte *data, scr_int length);
+extern const scr_char *memo_get_undo_text (scr_memo_setref_t memento,
+                                           scr_int index_);
+extern void memo_set_undo_text (scr_memo_setref_t memento, scr_int index_,
+                                const scr_char *text);
 extern void memo_save_command (scr_memo_setref_t memento,
                                const scr_char *command, scr_int timestamp,
                                scr_int turns);
