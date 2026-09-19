@@ -329,10 +329,19 @@ not by a tick.
   run380's count<2 put refusal also precedes checktask, but run380 has no
   sweep (445A0F).
 - **Examine:** 3.7/3.8 examines have no bare-verb exit (unmeasured
-  corners). run370's sit/stand/lie has no location test (42AEC8, unported).
-- **Drop:** 3.7 `drop all except X` with things held. run370 has no "but"
-  at all, so by the code it drops X too (ported that way); only the
-  nothing-held cell is measured.
+  corners).
+- **Sit/stand/lie corners** (p37SIT..p4SIT covers the rest):
+  - Pre-3.9 `sit on the ground`: c("on") sends it to the object loop, so
+    by the code it is therest's; Scarier gives the bare-sit answer.
+  - 3.9+ `lie on floor` / `stand on floor`: sitstand has no ground arm for
+    them and writes nothing (run400 46BB03, run390 444807); what answers
+    next is unmeasured. Scarier gives the bare lie/stand answer.
+  - 3.9+ `get off X` answers "not standing on anything!" before it resolves
+    X, and a later co() match overwrites an earlier one (run390 4443E1).
+    Scarier resolves X first.
+  - A line matching two blocks (`sit ... lie ...`) runs both, the later
+    message winning.
+  - `x me` and the room block with a pre-3.9 stale parent (see the index).
 - **Pre-4.0 room-name alt walk** is unmeasured.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
@@ -834,6 +843,35 @@ next to the named function and in `annotations.tsv`.
     (07bbd664d)
   - sit, stand and lie need the object on the room floor. `[3.8+]` house
     T124 (4e7df6dff)
+- **Sit, stand and lie follow each Runner's sitstand.** `[all]` p37SIT,
+  p38SIT, p39SIT, p4SIT (`make_3738_sitprobe.py`, feeds
+  `cmdfile_p3738sit.txt` / `cmdfile_p3738sit2.txt`: run370x
+  Adrift_162/164, run380x Adrift_163/165, run390x Adrift_164/166, run400x
+  Adrift_166/167; `lib_stand_sit_lie`, 2026-09-19)
+  - No object arm asks whether the player is already there: `sit on stool`
+    twice sits twice. Sitting on an object is "sit down on" even from
+    lying. Before 3.9 the object is named by its authored Prefix ("You sit
+    down on a stool.").
+  - Bare `stand` at position 0 is "already standing!", even standing on an
+    object.
+  - Pre-3.9 bare `sit`/`lie` keep the parent and never name it ("You sit
+    up.", "You lie down on the ground."); only `stand` clears it ("You
+    stand up from the stool."). 3.9+ names it: `sit` standing on O is "sit
+    down on the O"; lying on a sittable O is "sit up on the O"; `lie` on a
+    lieable O is "lie down on the O", otherwise "on the ground." and the
+    parent goes.
+  - 3.9+ `sit on the ground` on the floor is "are already sitting on the
+    floor!" (or "ground!") with a literal "are".
+  - Pre-3.9 moveroom only looks at the position: standing on an object,
+    a move prints no "(Getting off ...)" and the parent survives it
+    (run370 422FD0, run380 428244). `stand on crate`, `s`, `sit`, `stand`
+    is "You stand up from the crate."
+  - run370's object loop matches Short or Alias with no scope or location
+    test, the last match winning (42AE7D), and runs before therest's
+    "can't see" test: `sit on bed` from the next room sits on it
+    (`lib_cmd_sit_scan_370`, `lib_sitstand_claims_370`).
+  - 4.0 absent sit/lie targets are therest's "You can't see the X.", as
+    stand already was (`lib_cmd_verb_absent_400` rows).
 - **A task's `%object%` substitutes the bare Short or Alias, and nothing
   else.** No Prefix, no article: `pa brass key` runs a `pa %object%` task
   over Short "brass key" / Prefix "a small", and `pa key`, `pa a brass

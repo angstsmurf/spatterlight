@@ -837,6 +837,10 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"sit {down/up} {[on/in] {the} [ground/floor]}", lib_cmd_sit_on_floor},
   {"stand {up/down} {[on/in] {the} [ground/floor]}", lib_cmd_stand_on_floor},
   {"[lie/lay] {down/up} {[on/in] {the} [ground/floor]}", lib_cmd_lie_on_floor},
+  /* 3.7's scope-free sitstand loops; see lib_cmd_sit_scan_370(). */
+  {"sit {down/up} [on/in] *", lib_cmd_sit_scan_370},
+  {"stand {up/down} [on/in] *", lib_cmd_stand_scan_370},
+  {"[lie/lay] {down/up} [on/in] *", lib_cmd_lie_scan_370},
   {"eat %object%", lib_cmd_eat_object},
 
   /* Dressing up, and dressing down. */
@@ -1181,9 +1185,11 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"unlock %object% *", lib_cmd_unlock_object_pre_400},
   {"unlock %text%", lib_cmd_unlock_other},
   {"unlock", lib_cmd_unlock_what},
+  {"sit {down/up} [on/in] *", lib_cmd_verb_absent_400},
   {"sit {down/up} [on/in] *", lib_cmd_sit_other},
   {"stand {up/down} [on/in] *", lib_cmd_verb_absent_400},
   {"stand {up/down} [on/in] *", lib_cmd_stand_other},
+  {"[lie/lay] {down/up} [on/in] *", lib_cmd_verb_absent_400},
   {"[lie/lay] {down/up} [on/in] *", lib_cmd_lie_other},
   {"[remove/take off/doff] *", lib_cmd_remove_what},
   {"[drop/put down] *", lib_cmd_drop_what},
@@ -2122,9 +2128,11 @@ static scr_commands_t STANDARD_ENDED_FALLBACK_COMMANDS[] = {
   {"open *", lib_cmd_open_other},
   {"close %object%", lib_cmd_close_absent},
   {"close *", lib_cmd_close_other},
+  {"sit {down/up} [on/in] *", lib_cmd_verb_absent_400},
   {"sit {down/up} [on/in] *", lib_cmd_sit_other},
   {"stand {up/down} [on/in] *", lib_cmd_verb_absent_400},
   {"stand {up/down} [on/in] *", lib_cmd_stand_other},
+  {"[lie/lay] {down/up} [on/in] *", lib_cmd_verb_absent_400},
   {"[lie/lay] {down/up} [on/in] *", lib_cmd_lie_other},
   {"[remove/take off/doff] *", lib_cmd_remove_what},
   {"[drop/put down] *", lib_cmd_drop_what},
@@ -2376,6 +2384,8 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
   for (word = EARLIER; *word; word++)
     if (run_c_word_pre400 (version, string, *word) >= 0)
       return FALSE;
+  if (lib_sitstand_claims_370 (game))
+    return FALSE;
 
   return lib_therest_absent_370 (game);
 }

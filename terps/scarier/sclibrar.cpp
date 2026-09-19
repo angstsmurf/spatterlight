@@ -3741,7 +3741,7 @@ lib_go (scr_gameref_t game, scr_int direction)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   scr_bool is_trapped, is_exitable[12];
-  scr_int destination, index_;
+  scr_int destination, index_, stale_parent;
   const scr_char *const *dirnames;
 
   /* Decide on four or eight point compass names list. */
@@ -3877,8 +3877,20 @@ lib_go (scr_gameref_t game, scr_int direction)
    * run390x answers `east` with "(Getting off that first)" (Adrift_163,
    * 2026-09-14).  run370/380 concatenate the name directly, with no seen
    * test.
+   *
+   * Before 3.9 moveroom looks only at the position (run370 422FD0, run380
+   * the same): a player standing on an object walks off it with no line, and
+   * the parent object survives the move -- only the sit/lie branch clears
+   * it.  So `stand on crate`, `s`, `sit`, `stand` is "You move south.", ...,
+   * "You stand up from the crate." (p37SIT/p38SIT, run370x
+   * Adrift_164_p37sit2.rtf, run380x Adrift_165_p38sit2.rtf, 2026-09-19).
+   * run380's take-from reach test reads the same stale parent (446BA5).
    */
-  if (gs_playerparent (game) != -1)
+  stale_parent = -1;
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
+      && gs_playerposition (game) == 0)
+    stale_parent = gs_playerparent (game);
+  else if (gs_playerparent (game) != -1)
     {
       pf_buffer_string (filter, "(Getting off ");
       if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
@@ -3901,6 +3913,7 @@ lib_go (scr_gameref_t game, scr_int direction)
   pf_buffer_string (filter, ".\n");
 
   gs_move_player_to_room (game, destination);
+  gs_set_playerparent (game, stale_parent);
   game->player_moved_by_command = TRUE;
 
   /* Describe the new room and return. */
@@ -20859,6 +20872,243 @@ enum
 };
 
 /*
+ * lib_stand_sit_lie_floor_pre390()
+ *
+ * The bare sit/stand/lie arms of the pre-3.9 sitstand (run380 4340C5,
+ * 4342C7, 434509; run370 42AF3C, 42B0E4, 42B2C9).  Sitting or lying down
+ * on the floor keeps the parent object: only standing up clears it, so
+ * `stand on stool`, `lie`, `sit`, `stand` is "You lie down on the ground.",
+ * "You sit up.", "You stand up from the stool.".  Standing on an object is
+ * position 0, so a bare `stand` there is "You are already standing!".
+ * p37SIT/p38SIT (make_3738_sitprobe.py), cmdfile_p3738sit2.txt, run370x
+ * Adrift_164_p37sit2.rtf, run380x Adrift_165_p38sit2.rtf, 2026-09-19.
+ */
+static scr_bool
+lib_stand_sit_lie_floor_pre390 (scr_gameref_t game, scr_int movement)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int position = gs_playerposition (game);
+
+  switch (movement)
+    {
+    case MOVE_STAND_FLOOR:
+      if (position == 0)
+        return lib_print_response_message (game,
+                                          "You are already standing!\n",
+                                          "I am already standing!\n",
+                                          "%player% is already standing!\n");
+      pf_buffer_string (filter,
+                        lib_select_response (game, "You stand up",
+                                             "I stand up",
+                                             "%player% stand up"));
+      if (gs_playerparent (game) != -1)
+        {
+          pf_buffer_string (filter, " from ");
+          lib_print_object_np (game, gs_playerparent (game));
+        }
+      pf_buffer_string (filter, ".\n");
+      gs_set_playerposition (game, 0);
+      gs_set_playerparent (game, -1);
+      return TRUE;
+
+    case MOVE_SIT_FLOOR:
+      if (position == 1)
+        return lib_print_response_message (game,
+                                     "You are already sitting down.\n",
+                                     "I am already sitting down.\n",
+                                     "%player% is already sitting down.\n");
+      if (position == 2)
+        lib_print_response_message (game, "You sit up.\n", "I sit up.\n",
+                                    "%player% sit up.\n");
+      else
+        lib_print_response_message (game,
+                                    "You sit down on the ground.\n",
+                                    "I sit down on the ground.\n",
+                                    "%player% sit down on the ground.\n");
+      gs_set_playerposition (game, 1);
+      return TRUE;
+
+    case MOVE_LIE_FLOOR:
+      if (position == 2)
+        return lib_print_response_message (game,
+                                       "You are already lying down.\n",
+                                       "I am already lying down.\n",
+                                       "%player% is already lying down.\n");
+      lib_print_response_message (game, "You lie down on the ground.\n",
+                                  "I lie down on the ground.\n",
+                                  "%player% lie down on the ground.\n");
+      gs_set_playerposition (game, 2);
+      return TRUE;
+
+    default:
+      return FALSE;
+    }
+}
+
+
+/*
+ * lib_stand_sit_lie_floor_390()
+ *
+ * The bare sit/stand/lie arms of the 3.9/4.0 sitstand, which is one proc in
+ * both (run390 444010-444A04, run400 46B370-46BCF8).  Unlike pre-3.9 these
+ * name the parent object:
+ *   - `sit` standing on O is "sit down on the O" and keeps O, whatever its
+ *     SitLie; lying on O is "sit up on the O" when O is sittable, else "sit
+ *     up on the ground." -- still keeping O.
+ *   - `lie` standing or sitting on O is "lie down on the O" when O is
+ *     lieable (SitLie > 1), else "lie down on the ground." and O is dropped.
+ *   - `stand` at position 0 is "already standing!" even on an object.
+ * `sit on the ground/floor` is its own arm: "sit down on the ground." from
+ * any place but the floor, where it is "are already sitting on the floor!"
+ * (or "ground!") with a literal "are".  p39SIT/p4SIT, run390x
+ * Adrift_166_p39sit2.txt, run400x Adrift_167_p4sit2.txt, 2026-09-19.
+ */
+static scr_bool
+lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_int position = gs_playerposition (game);
+  const scr_int parent = gs_playerparent (game);
+  scr_int sit_lie;
+  scr_vartype_t vt_key[3];
+
+  sit_lie = 0;
+  if (parent != -1)
+    {
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = parent;
+      vt_key[2].string = "SitLie";
+      sit_lie = prop_get_integer (bundle, "I<-sis", vt_key);
+    }
+
+  switch (movement)
+    {
+    case MOVE_STAND_FLOOR:
+      /* Same as pre-3.9 (run400 46B9D7-46BAB1, run390 4446E3-4447B9). */
+      return lib_stand_sit_lie_floor_pre390 (game, movement);
+
+    case MOVE_SIT_FLOOR:
+      if (lib_co_contains (line, "on") || lib_co_contains (line, "in"))
+        {
+          /* run400 46B3BC-46B43E, run390 444086-44410F. */
+          if (position == 1 && parent == -1)
+            {
+              pf_buffer_string (filter,
+                                lib_select_response (game, "You", "I",
+                                                     "%player%"));
+              pf_buffer_string (filter,
+                                lib_co_contains (line, "floor")
+                                ? " are already sitting on the floor!\n"
+                                : " are already sitting on the ground!\n");
+              return TRUE;
+            }
+          lib_print_response_message (game,
+                                      "You sit down on the ground.\n",
+                                      "I sit down on the ground.\n",
+                                      "%player% sit down on the ground.\n");
+          gs_set_playerposition (game, 1);
+          gs_set_playerparent (game, -1);
+          return TRUE;
+        }
+      if (position == 1)
+        return lib_print_response_message (game,
+                                     "You are already sitting down.\n",
+                                     "I am already sitting down.\n",
+                                     "%player% is already sitting down.\n");
+      if (position == 2)
+        {
+          if (parent != -1 && (sit_lie == 1 || sit_lie == 3))
+            lib_print_response_object (game, "You sit up on ", "I sit up on ",
+                                       "%player% sit up on ", parent, ".\n");
+          else
+            lib_print_response_message (game, "You sit up on the ground.\n",
+                                        "I sit up on the ground.\n",
+                                        "%player% sit up on the ground.\n");
+        }
+      else if (parent != -1)
+        lib_print_response_object (game, "You sit down on ", "I sit down on ",
+                                   "%player% sit down on ", parent, ".\n");
+      else
+        lib_print_response_message (game, "You sit down on the ground.\n",
+                                    "I sit down on the ground.\n",
+                                    "%player% sit down on the ground.\n");
+      gs_set_playerposition (game, 1);
+      return TRUE;
+
+    case MOVE_LIE_FLOOR:
+      /* run400 46BBFC-46BCCC, run390 44491F-4449F7. */
+      if (position == 2)
+        return lib_print_response_message (game,
+                                       "You are already lying down.\n",
+                                       "I am already lying down.\n",
+                                       "%player% is already lying down.\n");
+      if (parent != -1 && sit_lie > 1)
+        lib_print_response_object (game, "You lie down on ", "I lie down on ",
+                                   "%player% lie down on ", parent, ".\n");
+      else
+        {
+          lib_print_response_message (game, "You lie down on the ground.\n",
+                                      "I lie down on the ground.\n",
+                                      "%player% lie down on the ground.\n");
+          gs_set_playerparent (game, -1);
+        }
+      gs_set_playerposition (game, 2);
+      return TRUE;
+
+    default:
+      return FALSE;
+    }
+}
+
+
+/*
+ * lib_sit_lie_scan_370()
+ *
+ * run370's sitstand object loop (42AE7D, stand 42B025, lie 42B20A) has no
+ * co() and no location test: it takes every object whose Short or Alias is
+ * a whole word of the line and whose SitLie fits, held, contained or in
+ * another room alike, and the last match wins.  p37SIT `sit on bed` from the
+ * other room is "You sit down on a bed.", and a held stool is sat on
+ * (run370x Adrift_162_p37sit.rtf, 2026-09-19).  Returns -1 for no match;
+ * the line then falls to therest, whose answers Scarier already gives
+ * ("You can't see the crate." for `lie on crate`, sit-only, elsewhere).
+ */
+static scr_int
+lib_sit_lie_scan_370 (scr_gameref_t game, scr_int movement_mask)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *line = run_get_dispatch_input ();
+  scr_vartype_t vt_key[4];
+  scr_int object, match;
+
+  match = -1;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *alias;
+      scr_bool named;
+
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = object;
+      vt_key[2].string = "Short";
+      named = lib_co_contains (line, prop_get_string (bundle, "S<-sis",
+                                                      vt_key));
+      alias = lib_first_alias (bundle, vt_key, "Objects", object);
+      if (!named && !(alias && lib_co_contains (line, alias)))
+        continue;
+
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = object;
+      vt_key[2].string = "SitLie";
+      if (prop_get_integer (bundle, "I<-sis", vt_key) & movement_mask)
+        match = object;
+    }
+  return match;
+}
+
+
+/*
  * lib_stand_sit_lie()
  *
  * Central handler for stand, sit, and lie commands.
@@ -20869,11 +21119,13 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_int object, position;
-  const scr_char *already_doing_that, *success_message;
+  const scr_char *success_message;
+  scr_bool is_pre_390;
 
-  /* Initialize variables to avoid gcc warnings. */
-  already_doing_that = FALSE;
-  success_message = FALSE;
+  is_pre_390 = prop_get_taf_version (bundle) < TAF_VERSION_390;
+  if (is_pre_390 ? lib_stand_sit_lie_floor_pre390 (game, movement)
+                 : lib_stand_sit_lie_floor_390 (game, movement))
+    return TRUE;
 
   /* Get a target object for movement, -1 if floor. */
   switch (movement)
@@ -20931,6 +21183,13 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
             scr_fatal ("lib_sit_stand_lie: movement error, %ld\n", movement);
           }
 
+        if (prop_get_taf_version (bundle) < TAF_VERSION_380)
+          {
+            object = lib_sit_lie_scan_370 (game, movement_mask);
+            if (object != -1)
+              break;
+          }
+
         /* Get the referenced object; if none, consider complete. */
         object = lib_disambiguate_object (game, disambiguate, &is_ambiguous);
         if (object == -1)
@@ -20942,7 +21201,7 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
          * when it is a dynamic object whose room is the player's, or a static
          * one listed in that room, and only then read SitLie (run400
          * 46B8F2-46B93A, run390 4445F8-44463A, run380 434042); run370's loop
-         * has no location test at all (42AEC8), unported.  A held stool is never
+         * has no location test at all (lib_sit_lie_scan_370).  A held stool is never
          * stood on, and the line falls to the "can't stand on" refusal.
          * House.taf's `stand on stool` with the stool in hand, whose ALR turns
          * that refusal into "While you're still holding it?" (Adrift_128).
@@ -20964,138 +21223,52 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
         break;
       }
 
-    case MOVE_STAND_FLOOR:
-    case MOVE_SIT_FLOOR:
-    case MOVE_LIE_FLOOR:
-      object = -1;
-      break;
-
     default:
       scr_fatal ("lib_sit_stand_lie: movement error, %ld\n", movement);
     }
 
-  /* Set up confirmation messages and position. */
+  /*
+   * No sitstand object arm asks whether the player is already there: `sit on
+   * stool` twice is "You sit down on the stool." twice, and sitting on an
+   * object is "sit down on" even from lying (run400 46B4D4/46B958/46BB7D,
+   * run390 4441A7/444661/444890, run380 43408C/43428E/4344D0, run370
+   * 42AF05/42B0AD/42B292).  Before 3.9 the object is named by its authored
+   * Prefix, not "the": "You sit down on a stool.".  p37SIT..p4SIT
+   * (make_3738_sitprobe.py), cmdfile_p3738sit2.txt, run370x
+   * Adrift_164_p37sit2.rtf, run380x Adrift_165_p38sit2.rtf, run390x
+   * Adrift_166_p39sit2.txt, run400x Adrift_167_p4sit2.txt, 2026-09-19.
+   */
   switch (movement)
     {
     case MOVE_STAND:
     case MOVE_GET_ON:
-      already_doing_that = lib_select_response (game,
-                                            "You are already standing on ",
-                                            "I am already standing on ",
-                                            "%player% is already standing on ");
-      success_message = lib_select_response (game,
-                                             "You stand on ",
+      success_message = lib_select_response (game, "You stand on ",
                                              "I stand on ",
                                              "%player% stand on ");
       position = 0;
       break;
-
-    case MOVE_STAND_FLOOR:
-      already_doing_that = lib_select_response (game,
-                                             "You are already standing!\n",
-                                             "I am already standing!\n",
-                                             "%player% is already standing!\n");
-      success_message = lib_select_response (game,
-                                             "You stand up",
-                                             "I stand up",
-                                             "%player% stand up");
-      position = 0;
-      break;
-
     case MOVE_SIT:
-      already_doing_that = lib_select_response (game,
-                                             "You are already sitting on ",
-                                             "I am already sitting on ",
-                                             "%player% is already sitting on ");
-      if (gs_playerposition (game) == 2)
-        success_message = lib_select_response (game,
-                                               "You sit up on ",
-                                               "I sit up on ",
-                                               "%player% sit up on ");
-      else
-        success_message = lib_select_response (game,
-                                               "You sit down on ",
-                                               "I sit down on ",
-                                               "%player% sit down on ");
+      success_message = lib_select_response (game, "You sit down on ",
+                                             "I sit down on ",
+                                             "%player% sit down on ");
       position = 1;
       break;
-
-    case MOVE_SIT_FLOOR:
-      already_doing_that = lib_select_response (game,
-                                         "You are already sitting down.\n",
-                                         "I am already sitting down.\n",
-                                         "%player% is already sitting down.\n");
-      if (gs_playerposition (game) == 2)
-        success_message = lib_select_response (game,
-                                           "You sit up on the ground.\n",
-                                           "I sit up on the ground.\n",
-                                           "%player% sit up on the ground.\n");
-      else
-        success_message = lib_select_response (game,
-                                         "You sit down on the ground.\n",
-                                         "I sit down on the ground.\n",
-                                         "%player% sit down on the ground.\n");
-      position = 1;
-      break;
-
     case MOVE_LIE:
-      already_doing_that = lib_select_response (game,
-                                               "You are already lying on ",
-                                               "I am already lying on ",
-                                               "%player% is already lying on ");
-      success_message = lib_select_response (game,
-                                             "You lie down on ",
+      success_message = lib_select_response (game, "You lie down on ",
                                              "I lie down on ",
                                              "%player% lie down on ");
       position = 2;
       break;
-
-    case MOVE_LIE_FLOOR:
-      already_doing_that = lib_select_response (game,
-                                           "You are already lying down.\n",
-                                           "I am already lying down.\n",
-                                           "%player% is already lying down.\n");
-      success_message = lib_select_response (game,
-                                         "You lie down on the ground.\n",
-                                         "I lie down on the ground.\n",
-                                         "%player% lie down on the ground.\n");
-      position = 2;
-      break;
-
     default:
       scr_fatal ("lib_sit_stand_lie: movement error, %ld\n", movement);
     }
 
-  /* See if already doing this. */
-  if (gs_playerposition (game) == position && gs_playerparent (game) == object)
-    {
-      pf_buffer_string (filter, already_doing_that);
-      if (object != -1)
-        {
-          lib_print_object_np (game, object);
-          pf_buffer_string (filter, ".\n");
-        }
-      return TRUE;
-    }
-
-  /* Confirm movement, with special case for getting off an object. */
   pf_buffer_string (filter, success_message);
-  if (movement == MOVE_STAND_FLOOR)
-    {
-      if (gs_playerparent (game) != -1)
-        {
-          pf_buffer_string (filter, " from ");
-          lib_print_object_np (game, gs_playerparent (game));
-        }
-      pf_buffer_string (filter, ".\n");
-    }
-  else if (object != -1)
-    {
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, ".\n");
-    }
-
-  /* Adjust player position and parent. */
+  if (is_pre_390)
+    lib_print_object_raw (game, object);
+  else
+    lib_print_object_np (game, object);
+  pf_buffer_string (filter, ".\n");
   gs_set_playerposition (game, position);
   gs_set_playerparent (game, object);
   return TRUE;
@@ -21173,6 +21346,68 @@ scr_bool
 lib_cmd_lie_on_floor (scr_gameref_t game)
 {
   return lib_stand_sit_lie (game, MOVE_LIE_FLOOR);
+}
+
+
+/*
+ * lib_cmd_sit_scan_370()
+ * lib_cmd_stand_scan_370()
+ * lib_cmd_lie_scan_370()
+ *
+ * run370's object loops (lib_sit_lie_scan_370) look at no scope, so an
+ * object in another room is sat on even when no %object% row binds it:
+ * p37SIT `sit on bed` from the Lit Room is "You sit down on a bed." (run370x
+ * Adrift_162_p37sit.rtf, 2026-09-19).  3.7 only; declines when nothing
+ * matches, leaving the line to the therest refusals below.
+ */
+static scr_bool
+lib_sit_stand_lie_scan_370 (scr_gameref_t game, scr_int movement)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
+      || lib_sit_lie_scan_370 (game, movement == MOVE_LIE
+                                     ? OBJ_LIEABLE_MASK
+                                     : OBJ_STANDABLE_MASK) == -1)
+    return FALSE;
+  return lib_stand_sit_lie (game, movement);
+}
+
+/*
+ * lib_sitstand_claims_370()
+ *
+ * TRUE when run370's sitstand, which runs before therest, would take the
+ * line: its therest "can't see" test (lib_therest_absent_370) must then
+ * stand aside for the rows above.
+ */
+scr_bool
+lib_sitstand_claims_370 (scr_gameref_t game)
+{
+  const scr_char *line = run_get_dispatch_input ();
+
+  if (!line || !(lib_co_contains (line, "on") || lib_co_contains (line, "in")))
+    return FALSE;
+  if ((lib_co_contains (line, "sit") || lib_co_contains (line, "stand"))
+      && lib_sit_lie_scan_370 (game, OBJ_STANDABLE_MASK) != -1)
+    return TRUE;
+  return (lib_co_contains (line, "lie") || lib_co_contains (line, "lay"))
+         && lib_sit_lie_scan_370 (game, OBJ_LIEABLE_MASK) != -1;
+}
+
+scr_bool
+lib_cmd_sit_scan_370 (scr_gameref_t game)
+{
+  return lib_sit_stand_lie_scan_370 (game, MOVE_SIT);
+}
+
+scr_bool
+lib_cmd_stand_scan_370 (scr_gameref_t game)
+{
+  return lib_sit_stand_lie_scan_370 (game, MOVE_STAND);
+}
+
+scr_bool
+lib_cmd_lie_scan_370 (scr_gameref_t game)
+{
+  return lib_sit_stand_lie_scan_370 (game, MOVE_LIE);
 }
 
 

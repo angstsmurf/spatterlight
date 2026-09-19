@@ -93,6 +93,8 @@ OBJECTS = [
     ("bench",  "a",  "A stone bench.",   ("room", CAVE),  "surface",   5, 0, 1),
 ]
 NAMES = [o[0] for o in OBJECTS]
+# SitLie per object name (bit 0 sit/stand on, bit 1 lie on); others 0.
+SITLIE = {}
 
 
 def type_index(name, kinds):
@@ -228,7 +230,7 @@ def build(version):
             s(6 if openable else 0)   # ... and 3.9 and earlier as 6
         if openable and version >= 400:
             s(0)                      # Key
-        s(0)                          # SitLie
+        s(SITLIE.get(name, 0))        # SitLie
         if not static:
             s(0)                      # Edible
         s(0)                          # Readable
