@@ -76,7 +76,7 @@ crookedestate	crookedestate.txt	driven:Adrift_427_crookedestate_rt.txt	4.00	run4
 cruel	cruel.txt	harvested-native-0-draws:Adrift_479_cruel.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 cursed	cursed.txt	driven:Adrift_128_cursed_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 cyber	cyber.txt	driven:Adrift_156_cyber_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn apart from whitespace.
-cyber2	cyber2.txt	driven:Adrift_157_cyber2_rt.txt	4.00	run400x.exe	1234	0			yes	2 differing turn(s)
+cyber2	cyber2.txt	driven:Adrift_157_cyber2_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 cybercow	cybercow.txt	driven:Adrift_159_cybercow_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	1 differing turn(s)
 cybercow_win	cybercow_win.txt	driven:Adrift_132_cybercow_win_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	4 differing turn(s)
 dancing_even_him	dancing_even_him.txt	driven:Adrift_265_dancing_even_him_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

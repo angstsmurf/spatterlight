@@ -623,6 +623,14 @@ cyber_solution.txt|cyber.taf|THE END,or is it?
 # identical.  Turns 15 and 26 differ by one battle line each (the Ninja Chef's
 # opening attack, the Elemental Master's counter) -- battle rolls, rule 3, not
 # comparable across RNGs; turn 28 is the [Press any key to end] tail.
+# Re-blessed 2026-09-19: those two lines were not the RNG.  `give electric
+# uniform to lightning` (T14) runs task 6 while the Fire and Electric
+# Uniforms, both Short "Uniform", are present, and run400 does not count that
+# line as a turn.  characters()' co() scan leaves the pending index set, so
+# 48B5B5 skips the tick (lib_co_400_line_leaves_which_pending()).  Scarier
+# drew the extra event roll there, which shifted the Ninja Chef's and Mr.
+# Bissoff's attack counters by one.  Now 44 = 44 draws, and runner_transcripts
+# recompare is identical on every turn.
 cyber2_solution.txt|cyber2.taf|you have beaton Cyber Warp 2!
 # 3.90.  Re-blessed 2026-08-24 for one line: Vluurinik's room description at
 # command ~185 goes from "Vluurinik flits around." to "Vluurinik darts in

@@ -983,6 +983,8 @@ extern void lib_battle_who_get_prefix (std::string *pending,
                                        std::string *at_line);
 extern void lib_battle_who_set_prefix (const std::string &pending,
                                        const std::string &at_line);
+extern scr_bool lib_co_400_line_leaves_which_pending (scr_gameref_t game,
+                                                     const scr_char *line);
 extern scr_bool lib_npc_400_line_names_namesakes (scr_gameref_t game,
                                                   const scr_char *line);
 extern scr_bool lib_ask_npc_topic_after_task_390 (scr_gameref_t game,

@@ -4917,10 +4917,14 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * sun_empire_site.txt, VBRNG_SEED=10, commands 58 and 63, site-tagged
    * draws): `get sample from orgaan soldier` with the two soldiers Skyrv and
    * Skynd present runs task 63/64, and neither the Code Red siren nor the
-   * battle draws a thing that turn.
+   * battle draws a thing that turn.  characters()' co() scan over the
+   * objects does the same for an object name that two present objects share
+   * (lib_co_400_line_leaves_which_pending(); Cyberclones II `give electric
+   * uniform to lightning`).
    */
   if (status && !game->is_admin && run_any_task_ran_this_command ()
-      && lib_npc_400_line_names_namesakes (game, string))
+      && (lib_npc_400_line_names_namesakes (game, string)
+          || lib_co_400_line_leaves_which_pending (game, string)))
     game->is_admin = TRUE;
 
   if (empty_result == 2)

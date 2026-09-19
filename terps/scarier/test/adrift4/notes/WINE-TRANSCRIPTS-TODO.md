@@ -279,8 +279,9 @@ Each needs the `RND #` count against `SCR_TRACE_RAND` before it can be
 called real; equal counts with differing text mean a value or candidate
 rule, not RNG (deaths, 2026-09-19).
 
-- Battle rolls: cyber2 T15/T26; alexis T126-127 (companion strike order,
-  Haron's arrival one turn apart).
+- Battle rolls: alexis T126-127 (companion strike order, Haron's arrival
+  one turn apart). cyber2 T15/T26 is closed; see "Ported 2026-09-19: object
+  namesakes on a task line" below.
 
 ### Engine, 3.9
 
@@ -1069,3 +1070,36 @@ every Runner.
     Monsters_r2
   - The score summary prints after every EndGame; NotifyScore defaults to
     OFF.
+
+### Ported 2026-09-19: object namesakes on a task line (cyber2)
+
+cyber2 T15/T26 were one battle line each: the Ninja Chef's opening attack
+and the Elemental Master's counter. The draw counts were 44 (run400x) against
+45 (Scarier), with the same stream order. The extra draw was the per-turn
+event restart on T14, `give electric uniform to lightning`. That line runs
+task 6, and run400 does not count it as a turn. The missing tick shifts the
+attack counters of the speed-2 NPCs (Ninja Chef, Mr. Bissoff) by one.
+Adrift_128/130/131_c2{a,b,c}.txt replay the first 14 commands plus variants.
+
+The rule: the task-ran line is an object analogue of the NPC namesake no-tick.
+- run400 characters() runs co(obj, 0) over every object when the line names
+  an NPC (480180), and again for `give` with the NPC in the room
+  (48022F-480384). The examine arm skips this only on a line no task ran.
+- Each co() picks the object's name word (Short, else the last alias on the
+  line) and counts the present, seen objects answering to it:
+  - one resets Me(424) = MemVar_4941EC to -1 (46485E);
+  - two or more take the "Which" arm, which leaves it at -2 (4645D4) or at
+    the object (464767).
+- The last object whose word is on the line decides. Anything but -1 skips
+  the tick at 48B5B5, and 48B60C prints the task's text with no question.
+- The `&HFF`/`&HFE` in the decompile are LitI2_Byte, sign-extended to -1/-2.
+  That is why co() can test `Me(424) < 0`.
+- The p4TAMB probe (harness/make_400_taskambprobe.py, Adrift_p4tamb.txt)
+  confirms that `poke toy` with two present toys and no NPC IS a turn.
+- Ported as lib_co_400_line_leaves_which_pending() (sclibrar.cpp), next to
+  the NPC test at the end of run_all_commands(). Not modelled: 454454's
+  prefix contest can hand the arm's write to a namesake with more Prefix
+  words typed.
+- Result: only cyber2 moved, and it is identical on every turn.
+- Side finding, not chased: in p4TAMB, `rub red box` answers "You can't rub
+  the red box." although the task is `rub %object%`, while `rub box` runs it.

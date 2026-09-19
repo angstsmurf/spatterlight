@@ -17506,6 +17506,74 @@ lib_npc_referenced (scr_gameref_t game, scr_int npc, const scr_char *input)
 }
 
 /*
+ * lib_co_400_line_leaves_which_pending()
+ *
+ * The object analogue of lib_npc_400_line_names_namesakes().  Unless its
+ * examine arm takes the line (only when no task ran), run400's characters()
+ * (Proc_19_0_480674) calls co(object, 0) (Proc_21_39_46486C) for EVERY
+ * object, once for each NPC the line names by Name or any alias (480180,
+ * behind 45E99C(npc, 1)), and again for `give` with that NPC in the player's
+ * room (48022F-480384).  Each call picks the object's name word
+ * (lib_co_400_name_word()) and counts the present, seen objects answering to
+ * it.  Exactly one sets the pending-disambiguation index Me(424) =
+ * MemVar_4941EC back to -1 (46485E).  Two or more take the "Which" arm at
+ * 464560, which leaves it at -2 (4645D4) or at the object (464767).  A word
+ * nobody present answers to leaves it alone.  So the last object whose word
+ * is on the line decides.  Anything but -1 skips the tick at 48B5B5.  With a
+ * task run for the line, 48B60C prints the task's text and asks nothing.
+ *
+ * The decompiler writes these sentinels as `&HFF`/`&HFE`.  They are
+ * LitI2_Byte, sign-extended into an Integer, which is why co() tests
+ * `Me(424) < 0`.
+ *
+ * Measured on Cyberclones II (4.00): `give electric uniform to lightning`,
+ * with the Fire Uniform worn and the Electric Uniform held, runs task 6 and
+ * draws nothing that turn (Adrift_128/130/131_c2*.txt).  `poke toy` in
+ * p4TAMB.taf, with two present toys and no NPC, IS a turn.
+ *
+ * Not modelled: the arm's 454454 prefix contest can hand the write to a
+ * namesake with more Prefix words typed, which leaves the index at -1 only
+ * if an earlier one-namesake word already reset it.
+ */
+scr_bool
+lib_co_400_line_leaves_which_pending (scr_gameref_t game, const scr_char *line)
+{
+  const scr_int room = gs_playerroom (game);
+  scr_bool scans, pending;
+  scr_int npc, object;
+
+  if (!line || !lib_is_version_400 (game))
+    return FALSE;
+
+  scans = FALSE;
+  for (npc = 0; npc < gs_npc_count (game) && !scans; npc++)
+    {
+      if (lib_npc_referenced (game, npc, line)
+          || (npc_in_room (game, npc, room)
+              && lib_input_contains_word (line, "give")))
+        scans = TRUE;
+    }
+  if (!scans)
+    return FALSE;
+
+  pending = FALSE;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *word = lib_co_400_name_word (game, object, line);
+      scr_int count;
+
+      if (!word)
+        continue;
+      count = lib_co_400_present_namesakes (game, word);
+      if (count == 1)
+        pending = FALSE;
+      else if (count > 1)
+        pending = TRUE;
+    }
+  return pending;
+}
+
+/*
  * lib_battle_absent_npc()
  *
  * The 4.0 battle parser dobattle (Proc_11_4_47F084, entered from

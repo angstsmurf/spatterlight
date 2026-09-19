@@ -111,8 +111,6 @@ Kitchen
 The place where the food is prepaired.  Ninja Chef is prepared for battle!
 
 You can move east and out.
-The Ninja Chef attacks you with Chinese Death Stars, but you manage to avoid
-it.
 
 > shoot chef
 You shoot the ninja chef.
@@ -193,6 +191,8 @@ weapon! All of a sudden, Lightning comes in!  Mr. Bissoff is here.
 
 You can only move south.
 The Elemental Master manages to avoid Lightning's attack.
+The Elemental Master attacks you with Wave Motion Cannon, but you manage to
+avoid it.
 
 > use firebolt
 You use a powerful enough firebolt, he dies!
