@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 364 identical on every turn, 29 identical apart from
-  whitespace, 34 with a compare report. Every differing row is classified
+- **Manifest:** 367 identical on every turn, 31 identical apart from
+  whitespace, 29 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -270,10 +270,8 @@ index below. Rows not named here differ only by a capture artefact (see
 
 ### Engine, 4.0
 
-- **cellar T120 `undo`:** the Runner's "Undone." replays the restored turn's
-  story text (with its `[MORE]`); Scarier's replays a not-understood line.
-  Probably the known undo-slot deviation (Scarier skips administrative
-  lines), not confirmed.
+None open. (cellar T120 `undo` was the compare's feed, not the engine; see
+"Harness and compare".)
 
 ### RNG or draw placement (draw counts owed)
 
@@ -283,11 +281,7 @@ rule, not RNG (deaths, 2026-09-19).
 
 - hhorror (seed 50): T25 dark text, then the zombie's attack roll at
   T38/T134/T142.
-- alchemist (3.90): from T303 (`give rose to king`), unread.
-- reluctantvampire (seed 6): the `[Press a key, <epithet>]` roll is one draw
-  apart from T132; the Runner's T133 is Scarier's T132.
-- warlord (seed 6) T288 `push barrel`: the barrel rolls west in the Runner
-  and northwest in Scarier; 66 lost from feed[318] follow.
+- alchemist (3.90): from T300 (`give rose to king`), unread.
 - marooned (3.80, seed 3) T53 `throw map`: the Runner has no shark.
 - Battle rolls: cyber2 T15/T26; alexis T126-127 (companion strike order,
   Haron's arrival one turn apart).
@@ -337,14 +331,17 @@ rule, not RNG (deaths, 2026-09-19).
   golden never dies there and has no `maximum` line, so the compare's
   rebuilt feed does not reproduce the golden's route. Diff the feed against
   the solution (pause blanks) before reading anything into it.
-- **showtime from T65:** the feed's blank pause answers become extra turns in
-  Scarier under SCR_SKIP_WAITKEY, so turn numbers slip against
-  `runner_transcripts/showtime.txt` from there on. Not the engine.
-- **wonderwombat, yonastoundingcastle:** the Runner joins `> w` onto the line
-  after a pause-answer blank, which RULE 2 reads as lost commands
-  (wonderwombat "124 lost" from T116); `read_feed` misclassifies yonas's
-  pause blanks. Both rows are turn-identical when compared with blank lines
-  stripped.
+- **Fixed 2026-09-19: `read_feed` misread pause counts.** Its fixed-point
+  loop indexed the previous replay's pause counts by the new candidate's
+  prompt number, so each blank it ate shifted every later count by one. The
+  loop crept forward a few pauses per pass and ran out of its six passes on
+  long feeds, leaving pause answers in the feed as empty Scarier turns.
+  Fixing that cleared six rows: cellar (a blank left after `no` became the
+  turn the third `undo` undid), reluctantvampire and warlord (both filed
+  above as RNG), showtime, wonderwombat and yonastoundingcastle (all three
+  filed here as pause joins). It also exposed hero's closing `statusline`
+  (see "Nothing owed"). alchemist, iqsfot and mortality kept the same
+  differences under new turn numbers.
 - **motion:** the minigame's keypresses are its turns.
   `runner_transcripts/motion.txt` echoes all 351 feed commands and, apart
   from whitespace, differs at T257-258 and T350 (the drive minigame's map).
@@ -367,7 +364,8 @@ rule, not RNG (deaths, 2026-09-19).
 ### Nothing owed (capture and compare artefacts)
 
 - Epilogue or pause text landing one turn late, or cut at the final
-  keypress: endgame T9, mortality T41-48,
+  keypress: endgame T9, mortality T29/T32 (the Runner's cutscene resumes after an
+  empty turn),
   iqsfot T41-42.
 - Whitespace-only joins or the trailing `[Press any key to end]`; the
   28 "apart from whitespace" rows. Glum_Fiddle turn 0 is the startup echo
@@ -380,8 +378,9 @@ rule, not RNG (deaths, 2026-09-19).
   the Runner needs are in the row comments).
 - lifesimulation T6 `turn off tv`, life `piss` and the_hangover are the
   silent-task deviation;
-  alices_restaurant the run370 double matcher pass; sandy_meta_number the
-  SCARE meta-commands.
+  alices_restaurant the run370 double matcher pass; sandy_meta_number and
+  hero's closing `statusline` the SCARE meta-commands (hero's walkthrough
+  uses `statusline` on purpose to print the score).
 - Load failures left from the 09-06/09-07 corpus batches: six rows raised
   `evaluate error - Subscript out of range` mid-game; TheADRIFTProject
   crashed with run-time error 401 at command 92. (The 3.90 games that

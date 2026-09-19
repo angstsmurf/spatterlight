@@ -326,35 +326,45 @@ def read_feed(path, taf=None, env_extra=(), popup_answers=(), skip_wired=True,
     lines, encoding = cmdfile_lines(path)
     if taf is None:
         return [l.strip() for l in lines if l.strip()], encoding
-    feed, popped = None, 0
-    candidate = [l.strip() for l in lines]
-    while candidate and not candidate[-1]:
-        candidate.pop()
+    # `kept` holds the command-file indices of the lines replayed as prompts;
+    # the replay's pause counts are indexed by it.  Until 2026-09-19 the
+    # counts were read by the NEW candidate's prompt number instead, so every
+    # blank eaten shifted the counts after it by one and the loop crept to its
+    # fixed point a few pauses per pass: cellar ran out of passes with a blank
+    # left after `no`, the third `undo` undid that empty turn, and T120 read
+    # as an engine difference.
+    def trimmed(indices):
+        tail = 0
+        while indices and not lines[indices[-1]].strip():
+            indices.pop()
+            tail += 1
+        return indices, tail
+
+    kept, popped = trimmed(list(range(len(lines))))
+    feed = None
     for _ in range(6):
-        if candidate == feed:
+        if feed == kept:
             break
-        feed = candidate
-        counts = pause_counts(scarier_run(taf, feed, encoding, env_extra,
+        feed = kept
+        counts = pause_counts(scarier_run(taf, [lines[i].strip() for i in feed],
+                                          encoding, env_extra,
                                           popup_answers, markers=True),
                               len(popup_answers))
-        candidate, index, prompt = [], 0, 0
-        while index < len(lines):
-            candidate.append(lines[index].strip())
-            index += 1
+        eaten = set()
+        for prompt, index in enumerate(feed):
             # a pause eats the next line -- but only if it is blank; a pause
             # sitting on a real command is a mis-wired solution, and the
             # Runner will have eaten it too, so leave it in the feed and let
             # the lost-command report say so
+            following = index + 1
             for _ in range(counts[prompt] if prompt < len(counts) else 0):
-                if index < len(lines) and not lines[index].strip():
-                    index += 1
+                if following < len(lines) and not lines[following].strip():
+                    eaten.add(following)
+                    following += 1
                 else:
                     break
-            prompt += 1
-        popped = 0
-        while candidate and not candidate[-1]:
-            candidate.pop()
-            popped += 1
+        kept, popped = trimmed([i for i in range(len(lines)) if i not in eaten])
+    feed = [lines[i].strip() for i in feed]
     # ...and put back the ones trailing_empty_turns() saw the Runner take.
     return feed + [""] * min(popped, empty_tail), encoding
 
