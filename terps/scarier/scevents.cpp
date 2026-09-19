@@ -618,26 +618,6 @@ evt_get_starter_type (scr_gameref_t game, scr_int event)
 }
 
 
-/*
- * evt_is_zero_length()
- *
- * TRUE for an event authored with no duration at all, Time1 == Time2 == 0.
- * Such an event behaves quite unlike a one-turn event in the real Runners --
- * see the "parks" comment in evt_tick_event() -- so it is worth a name.
- *
- * The test is on the AUTHORED length, not on the rolled one: a length rolled
- * from a range that happens to include zero was never probed, and the 3.9/3.8
- * immediate-restart fixup deliberately runs an event with one turn already
- * spent, which would otherwise be mistaken for a parked event.
- */
-static scr_bool
-evt_is_zero_length (scr_gameref_t game, scr_int event)
-{
-  return evt_cached_integer (game, event, EVT_TIME1, "Time1") == 0
-         && evt_cached_integer (game, event, EVT_TIME2, "Time2") == 0;
-}
-
-
 static void evt_tick_event_and_settle (scr_gameref_t game, scr_int event);
 static scr_bool evt_has_starter_task (scr_gameref_t game, scr_int event);
 
@@ -867,9 +847,13 @@ evt_finish_event (scr_gameref_t game, scr_int event)
    * every three turns.  Scarier used to re-arm R2 every two turns.  The Rnd
    * is still consumed, so draw it here to keep the stream cadence.
    *
-   * Pre-4.0 keeps the zero-length gate alone: run390 variant d (RestartType
-   * 2 with a length) prints its StartText on every re-arm, see
-   * evt_fixup_v390_v380_immediate_restart().
+   * Pre-4.0 is the same: run390 448E23-448E7F and run370 43249F-4324F4 set
+   * waiting on a StartTime/EndTime roll, and their waiting blocks decrement
+   * first too.  Probe pEVROLL event C (immediate starter, RestartType 2, Time
+   * 2; make_39_evrollprobe.py, run390x Adrift_1200, run380x Adrift_1201)
+   * printed "C FINISH." on turn 2 only and no "C LOOK." afterwards.  The
+   * run390 variant d that re-arms with its StartText every time has a
+   * random-delay starter, whose StartTime/EndTime are real.
    *
    * Restart-immediately is deliberately NOT gated: run400 really does start
    * such an event again -- EV5's H1 printed its StartText a second time and
@@ -878,16 +862,13 @@ evt_finish_event (scr_gameref_t game, scr_int event)
    */
   if (restarttype == 2
       && (evt_get_starter_type (game, event) == 1
-          || evt_get_starter_type (game, event) == 3)
-      && (evt_is_zero_length (game, event)
-          || evt_taf_version (game, event) >= TAF_VERSION_400))
+          || evt_get_starter_type (game, event) == 3))
     {
       if (evt_trace)
         scr_trace ("Event: restart-after-delay event %ld will not restart\n",
                    event);
 
-      if (evt_taf_version (game, event) >= TAF_VERSION_400)
-        scr_randomint_exclusive (0, 0);
+      scr_randomint_exclusive (0, 0);
 
       gs_set_event_state (game, event, ES_FINISHED);
       gs_set_event_time (game, event, 0);
@@ -938,37 +919,19 @@ evt_finish_event (scr_gameref_t game, scr_int event)
       break;
 
     case 2:                    /* Restart after delay. */
-      startertype = evt_get_starter_type (game, event);
-      switch (startertype)
-        {
-        case 1:                /* Immediate. */
-          if (evt_fixup_v390_v380_immediate_restart (game, event))
-            break;
-          else
-            evt_start_event (game, event, FALSE);
-          break;
+      {
+        scr_int start, end;
 
-        case 2:                /* Random delay. */
-          {
-            scr_int start, end;
-
-            gs_set_event_state (game, event, ES_WAITING);
-            start = evt_cached_integer (game, event, EVT_START_TIME,
-                                        "StartTime");
-            end = evt_cached_integer (game, event, EVT_END_TIME, "EndTime");
-            gs_set_event_time (game, event,
-                               scr_randomint_exclusive (start, end));
-            break;
-          }
-
-        case 3:                /* After task. */
-          gs_set_event_state (game, event, ES_AWAITING);
-          gs_set_event_time (game, event, 0);
-          break;
-
-        default:
+        /* Only a random-delay starter gets here; the others are one-shots. */
+        startertype = evt_get_starter_type (game, event);
+        if (startertype != 2)
           scr_fatal ("evt_finish_event: unknown StarterType\n");
-        }
+
+        gs_set_event_state (game, event, ES_WAITING);
+        start = evt_cached_integer (game, event, EVT_START_TIME, "StartTime");
+        end = evt_cached_integer (game, event, EVT_END_TIME, "EndTime");
+        gs_set_event_time (game, event, scr_randomint_exclusive (start, end));
+      }
       break;
 
     default:
@@ -1280,20 +1243,19 @@ evt_tick_event (scr_gameref_t game, scr_int event)
             evt_start_event (game, event, FALSE);
 
             /*
-             * If the event time was set to zero, finish immediately -- unless
-             * the event has no length at all, in which case it PARKS: started
-             * but never finishing.  A zero-length event reached off a running
-             * clock behaves quite differently from one reached at game start
-             * or off a starter task, both of which finish on the spot.  Probed
-             * live in run400 2026-08-02 (probe EV4): the event printed its
-             * StartText on the turn the delay expired, then showed its LookText
-             * in every later room description and never printed its FinishText
-             * or ran its affected task.  Del Sol's "physics distraction 3" is
-             * exactly this shape.
+             * Never finish here.  The Runners' waiting block stores the roll
+             * with NO +1 (run370 431B5D, run380/run390 448395, run400 46FD66)
+             * and falls into the running block in the same call, which
+             * decrements before its `clock = 0` finish test; evt_tick_events()
+             * re-ticks the event through ES_RUNNING for that.  A roll of 1
+             * therefore finishes this turn, and a roll of 0 goes to -1 and
+             * PARKS: started, never finishing, its LookText in every later
+             * room description.  Probed in run400 2026-08-02 on a zero-length
+             * event (probe EV4, Del Sol's "physics distraction 3" shape), and
+             * 2026-09-19 on a length rolled 0 from Time 0..1 (probe pEVROLL
+             * event B, run390x Adrift_1200, run380x Adrift_1201: "B START."
+             * and no "B FINISH.").
              */
-            if (gs_event_time (game, event) <= 0
-                && !evt_is_zero_length (game, event))
-              evt_finish_event (game, event);
           }
       }
       break;
@@ -1391,13 +1353,17 @@ evt_tick_event (scr_gameref_t game, scr_int event)
          * pins it (runner_transcripts/zelda.txt): the mask-shop shopkeeper
          * (event 5, Time 0-15, restart) rolls 0 on the T52 restart, and
          * run400 never plays the T60 ocarina line and draws 19 fewer numbers
-         * over the game.  Pre-4.0 keeps the authored test, because the 3.9/3.8
-         * immediate-restart fixup leaves a clock at 0 on purpose (see
-         * evt_is_zero_length()).
+         * over the game.
+         *
+         * Every Runner has this shape: run390 stores the restart roll at
+         * 448E05, decrements at 44892B and tests `clock = 0` at 448A6B;
+         * run370 43247A / 432068 / 432173 the same.  Probe pEVROLL
+         * (make_39_evrollprobe.py, run390x Adrift_1200_pevroll39.txt, run380x
+         * Adrift_1201_pevroll38.rtf): event A (task starter, RestartType 1,
+         * Time 0..1, so every roll is 0) prints "A FINISH." on the `ping`
+         * turn only, and "A LOOK." shows in every later look.
          */
-        if ((evt_is_zero_length (game, event)
-             || evt_taf_version (game, event) >= TAF_VERSION_400)
-            && gs_event_time (game, event) <= 0)
+        if (gs_event_time (game, event) <= 0)
           {
             if (evt_trace)
               scr_trace ("Event: zero-length event %ld is parked\n", event);

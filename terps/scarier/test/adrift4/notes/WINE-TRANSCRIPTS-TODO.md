@@ -320,9 +320,6 @@ not by a tick.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
 - **Examine:** run390's examine state line has not been read.
-- **Events, pre-4.0:** the rolls-0 restart rule is ported at 4.0 only;
-  run390/run380's finish test and restart store are unread, so pre-4.0
-  still finishes such an event on its next tick.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
@@ -1036,22 +1033,29 @@ next to the named function and in `annotations.tsv`.
     so after the resume it ends one turn later than its roll. thepkgirl
     T152-T171 (event 118), which moved the T312 "slips you a buck".
     (2026-09-19)
-  - A 4.0 event whose restart ROLLS 0 (Time1 = 0) parks for good: the
-    restart stores the roll with no +1, the next running block takes the
-    clock to -1, and the finish test is `clock = 0`, so no PrefTime text,
-    finish or restart draw ever follows. Pre-4.0 unmeasured, keeps the
-    authored-length test. `[4.0]` zelda T52-60 (event 5; 468 = 468 draws)
-    (2026-09-19)
-  - A 4.0 restart-after-delay event with an immediate or task starter is a
-    one-shot whatever its length: the finish block (4706BE) sets the state
+  - An event whose clock ROLLS 0 parks for good, at every version: the
+    restart (RestartType 1) and the start off a waiting clock both store
+    the roll with no +1, the running block decrements first, and the finish
+    test is `clock = 0`, so the clock sits at -1: no PrefTime text, finish
+    or restart draw ever follows, and the LookText stays. A zero-length
+    event is the case that always rolls 0. Only the task start adds 1 (so
+    its roll 0 finishes on the start turn). zelda T52-60 (event 5; 468 =
+    468 draws); probe pEVROLL events A and B
+    (`harness/make_39_evrollprobe.py [out] [38]`, run390x
+    Adrift_1200_pevroll39.txt, run380x Adrift_1201_pevroll38.rtf; run370
+    events() 431B5D/43247A/432068/432173 read, same shape) (2026-09-19)
+  - A restart-after-delay event with an immediate or task starter is a
+    one-shot whatever its length, at every version: the finish block (4706BE) sets the state
     to waiting, draws Rnd once (4706CE) and stores
     Int(Rnd * (EndTime - StartTime)) + StartTime, which is 0 because those
     two fields are only read from the taf for a random-delay starter; the
     waiting block (46FD26) decrements before it tests for zero, so the
     clock sits at -1 for good. No StartText, no LookText afterwards. The
-    Rnd is still drawn. Pre-4.0 keeps the zero-length gate only (run390
-    variant d re-arms with its StartText). `[4.0]` probe EVRS, Adrift_1196
-    ("R2 FINISH." once; control R1 restarts every three turns) (2026-09-19)
+    Rnd is still drawn. run390 448E23-448E7F and run370 43249F-4324F4 are
+    the same (run390's variant d re-arms because its starter is a random
+    delay). Probe EVRS, Adrift_1196 ("R2 FINISH." once; control R1
+    restarts every three turns); probe pEVROLL event C, Adrift_1200/1201
+    ("C FINISH." on turn 2 only, no "C LOOK." afterwards) (2026-09-19)
 - **Pre-4.0 ending mid-tick.** The ending (WinText, summary, "[Press any
   key to end]") is composed as the task that armed it finishes, right after
   the action loop. The prompt is no wait, and the tail's ended test was
