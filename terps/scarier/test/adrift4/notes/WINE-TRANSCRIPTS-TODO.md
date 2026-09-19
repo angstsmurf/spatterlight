@@ -345,7 +345,8 @@ RNG" in the index).
   10+ turns blank on the Runner side from T1 because of the `%drunk%` ALR
   stack overflow (a deliberate deviation).
 - **gmylm** (15 MB .taf, ~400 MB draw trace at load) needs `LOAD_SLEEP=600`
-  to get past drive.exe's 25 s load cap.
+  to get past drive.exe's 25 s load cap. Its copy was harvested that way and
+  is identical on every turn; this note only matters for a re-drive.
 - **Permanently unmeasurable:** `dreamquest` (run400 cannot load a task with
   an empty Command vector); the `to_hell_and_beyond` assisted rows
   (Scarier-only by design).
@@ -455,8 +456,6 @@ RNG" in the index).
   +44 = 1, then a second pass over +8) is not emulated, so 3.9 commands
   with a reference skip the check. Group patterns (`[`, `{`) skip it at
   every version.
-- **`give <x> to <y>`** belongs in characters(), below the room refusal
-  (the_hangover t42). Only the 3.7/3.8 give is ported (f83e1cf87).
 - **"Please be more clear, who do you want to <verb>?"** is a SCARE
   invention (alexis_worn_cube t79). The `who` form is unmeasured. For the
   object form, 3.9 examine answers "Nothing special." (ported, see the index)
@@ -683,6 +682,14 @@ every Runner.
 - **The room refusal** runs inside the library, ahead of therest. `[3.9]`
   (9fbb40881) Before 3.9, drop, put and give refuse ahead of it. `[<3.9]`
   cave, greatc (f83e1cf87)
+- **Pre-4.0 give to a present NPC** runs below the room refusal: run390's
+  characters() (45A0BA) and run380's therest() (440E8C) sit under it, and
+  run390's give writes only into an empty message, or one holding " might
+  need " or "I don't understand" (45A11D-45A167). So a Where=0 task matching
+  the line wins with "You can't do that here!". `[<4.0]` the_hangover T42
+  `give the doctor some french fries` (run_standard_give_npc_commands; the
+  rows are deferred out of the verb pass). At 4.0 the give is in the input
+  routine (48A98A), above the refusal.
 - **No lock handler before 4.0.** run370/380/390 carry no lock wording but
   therest's checkverb " can't lock " / " can't unlock " (run390 45E468);
   " is not locked!" and the key messages are run400's alone. So every

@@ -302,7 +302,7 @@ you give me some fries, I'll give you the keys out of here and the second
 approval form. If not, you can rot in here with those three pyschos.
 
 > give the doctor some french fries
-Doctor doesn't seem interested in the french fries.
+You can't do that here!
 
 > s
 You move south.

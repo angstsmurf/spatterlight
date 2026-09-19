@@ -1775,6 +1775,12 @@ run_move_commands (const scr_prop_setref_t bundle)
 static scr_bool run_npc_library_blocked (scr_gameref_t game);
 static scr_bool run_npc_row_blocked (const scr_commands_t *command);
 
+/*
+ * Set while the pre-4.0 verb pass runs, so that the give-to-character rows
+ * wait for run_standard_give_npc_commands() below the room refusal.
+ */
+static scr_bool run_defer_give_npc = FALSE;
+
 static scr_bool
 run_try_command_table (scr_commandsref_t command,
                        scr_gameref_t game, const scr_char *string)
@@ -1784,6 +1790,9 @@ run_try_command_table (scr_commandsref_t command,
 
   for (; command->command; command++)
     {
+      if (run_defer_give_npc && command->handler == lib_cmd_give_object_npc)
+        continue;
+
       /*
        * Once a game task has run for this line, most of the Runner's
        * character handler answers nothing: the who (47F32C), hit/kill/kick/
@@ -1859,8 +1868,56 @@ run_movement_succeeds (scr_gameref_t game, const scr_char *string)
  * fallback bucket below because the refusal goes between the two; see the
  * ordering note on run_task_refusal().
  */
+static scr_bool run_standard_verb_commands_inner (scr_gameref_t game,
+                                                  const scr_char *string);
+
 static scr_bool
 run_standard_verb_commands (scr_gameref_t game, const scr_char *string)
+{
+  /*
+   * Pre-4.0 the give to a present character is characters()'s (run390
+   * 45A0BA) or therest()'s (run380 440E8C), both below the room refusal,
+   * and run390's give writes only into an empty message (or one holding
+   * " might need " / "I don't understand", 45A11D-45A167).  the_hangover
+   * (3.90) T42 `give the doctor some french fries`, with Where=0 task 10
+   * matching it: "You can't do that here!" (runner_transcripts/
+   * the_hangover.txt), not "Doctor doesn't seem interested in the french
+   * fries.".  4.0 gives in the input routine (48A98A), above the refusal.
+   */
+  run_defer_give_npc =
+      run_get_version (gs_get_bundle (game)) < TAF_VERSION_400;
+  const scr_bool status = run_standard_verb_commands_inner (game, string);
+  run_defer_give_npc = FALSE;
+  return status;
+}
+
+/*
+ * The give-to-character rows of STANDARD_COMMANDS, run pre-4.0 between the
+ * room refusal and the fallback bucket; see run_standard_verb_commands().
+ */
+static scr_bool
+run_standard_give_npc_commands (scr_gameref_t game, const scr_char *string)
+{
+  static scr_commands_t GIVE_NPC_COMMANDS[] = {
+    {"give %object% to %character%", lib_cmd_give_object_npc},
+    {"give %character% %object%", lib_cmd_give_object_npc},
+    {"give %object% %character%", lib_cmd_give_object_npc},
+    {NULL, NULL}
+  };
+
+  if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+    return FALSE;
+  if (run_try_command_table (GIVE_NPC_COMMANDS, game, string))
+    return TRUE;
+  uip_set_containment (TRUE);
+  const scr_bool contained =
+      run_try_command_table (GIVE_NPC_COMMANDS, game, string);
+  uip_set_containment (FALSE);
+  return contained;
+}
+
+static scr_bool
+run_standard_verb_commands_inner (scr_gameref_t game, const scr_char *string)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
@@ -1977,6 +2034,9 @@ static scr_bool
 run_standard_commands (scr_gameref_t game, const scr_char *string)
 {
   if (run_standard_verb_commands (game, string))
+    return TRUE;
+
+  if (run_standard_give_npc_commands (game, string))
     return TRUE;
 
   if (run_standard_fallback_commands (game, string))
@@ -4921,6 +4981,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
        */
       if (!status)
         status = run_task_refusal (game, library_string, REFUSAL_PASS_MID);
+      if (!status)
+        status = run_standard_give_npc_commands (game, library_string);
       if (!status)
         status = run_standard_fallback_commands (game, library_string);
       if (!status)
