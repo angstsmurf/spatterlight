@@ -221,8 +221,13 @@ not by a tick.
 
 ### Engine, every version
 
-- **gotoplace at 3.7:** run370's extra map/var_180 conditions are unread,
-  and no 3.7 probe has been run (3.8 is measured).
+- **Pre-4.0 `wait` anywhere:** generaltasks answers any line holding the
+  word `wait` (c(), whole word) with "Time passes..." and a tick, after
+  the tasks, examines and give and before gotoplace and therest (run370
+  43C1B3, run380 442A07). Scarier's `[wait]` rows are exact-line, so
+  `wait stone` with the stone elsewhere is "You can't see the stone."
+  where run370x says "Time passes..." (Adrift_142_p37cantsee.rtf). 3.8 is
+  unmeasured and 3.9 unread.
 
 ### Harness and compare
 
@@ -449,6 +454,20 @@ next to the named function and in `annotations.tsv`.
   Adrift_135_pgs39.txt / Adrift_136_pgs39b.txt, run400x Adrift_136_pgs4.txt
   / Adrift_137_pgs4b.txt, run380x Adrift_134_pgs38.rtf /
   Adrift_135_pgs38b.rtf (`run_goto_rest`, `lib_cmd_go_place`, 2026-09-19)
+- **3.7 goto:** answers as 3.8. run370 also takes the game's own word for
+  goto (command slot 15) anywhere, leaves on it alone, and cuts its length
+  plus one off the front before the goto cuts: `rove kitchen` walks, `a
+  rove hall` walks to "blue hall" ("e hall"), bare `rove` is
+  DontUnderstand, `goto kitchen` still walks. It is no synonym (sctafpar
+  V370 fixup). `[3.7]` p37GOTO/p37GOTOW (`harness/make_37_gotoprobe.py
+  [word]`; run370x Adrift_136-141/143) (`lib_cmd_go_place`, 2026-09-19)
+- **3.7 therest refuses an absent object first:** a line that reaches
+  therest and names an object that is not here is "You can't see the X."
+  (definite) before any verb arm (43D169): go, enter, push, smell, kiss,
+  turn, jump, sing, look, climb, sit on, fly. Lines holding an earlier
+  handler's word (take, put, wear, x, read, open, give, wait, where, goto,
+  question words, ask/talk/say) keep their own answer. `[3.7]` p37GOTO,
+  run370x Adrift_142_p37cantsee.rtf (`run_therest_absent_370`, 2026-09-19)
 - **Task matching:**
   - One game task per typed line; a silent task lets the library run, never
     a second task. House (c74b1b90c)

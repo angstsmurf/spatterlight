@@ -636,6 +636,7 @@ extern scr_bool lib_cmd_go_southeast (scr_gameref_t game);
 extern scr_bool lib_cmd_go_northwest (scr_gameref_t game);
 extern scr_bool lib_cmd_go_southwest (scr_gameref_t game);
 extern scr_bool lib_cmd_go_place (scr_gameref_t game);
+extern scr_bool lib_therest_absent_370 (scr_gameref_t game);
 extern scr_bool lib_cmd_verbose (scr_gameref_t game);
 extern scr_bool lib_cmd_brief (scr_gameref_t game);
 extern scr_bool lib_cmd_notify_on_off (scr_gameref_t game);

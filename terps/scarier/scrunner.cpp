@@ -2310,6 +2310,45 @@ run_therest_pre400 (scr_gameref_t game, const scr_char *string)
 }
 
 
+/*
+ * run_therest_absent_370()
+ *
+ * 3.7's therest() refuses a line naming an absent object before any verb
+ * arm -- see lib_therest_absent_370().  Only a line that reaches therest()
+ * gets it: one holding a therest arm keyword that no earlier generaltasks
+ * handler takes (run370 43B942-43C644).  Those handlers enter on c() words
+ * anywhere in the line -- takes, drops, wears and removes (435E28, 430475,
+ * 42C533, 4295FF), openclose (4264E7), examines (434E2A), give (43BED8),
+ * wait (43C1B3), whereis (42F9FF), gotoplace, thank and the question words
+ * (43C499) -- and keep their own wording, so a line holding any of them is
+ * left to them.  ask, talk and say are left alone too: not measured.
+ */
+static scr_bool
+run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
+{
+  static const scr_char *const EARLIER[] = {
+    "get", "take", "pick", "from", "drop", "put", "leave", "wear", "remove",
+    "strip", "open", "close", "x", "examine", "look at", "ex", "exam", "read",
+    "give", "wait", "where", "find", "locate", "goto", "go to", "thank",
+    "when", "who", "what", "how", "can", "why", "score", "ask", "talk", "say",
+    NULL
+  };
+  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_char *const *word;
+  scr_int offset;
+
+  if (version >= TAF_VERSION_380 || game->pending_endgame != 0)
+    return FALSE;
+  if (!run_therest_winner_pre400 (version, string, &offset))
+    return FALSE;
+  for (word = EARLIER; *word; word++)
+    if (run_c_word_pre400 (version, string, *word) >= 0)
+      return FALSE;
+
+  return lib_therest_absent_370 (game);
+}
+
+
 static scr_bool
 run_standard_commands (scr_gameref_t game, const scr_char *string)
 {
@@ -5331,6 +5370,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
            */
           status = run_task_refusal (game, string, REFUSAL_PASS_PRE);
         }
+      if (!status)
+        status = run_therest_absent_370 (game, library_string);
       if (!status)
         status = run_standard_verb_commands (game, library_string);
       /*

@@ -3164,9 +3164,15 @@ parse_fixup_v370 (const scr_char *fixup)
           word = prop_get_indexed_string (parse_bundle, "Commands",
                                           command, "Word");
 
-          /* Ignore an unset or unchanged command word. */
+          /*
+           * Ignore an unset or unchanged command word.  A renamed "goto" is
+           * no synonym: run370's gotoplace tests the author's word itself
+           * alongside "goto" and cuts its own length -- see
+           * lib_cmd_go_place().
+           */
           if (!word || word[0] == NUL
-              || strcmp (word, V370_COMMANDS[command]) == 0)
+              || strcmp (word, V370_COMMANDS[command]) == 0
+              || strcmp (V370_COMMANDS[command], "goto") == 0)
             continue;
 
           /* Rewrite the author's word back into the standard one. */

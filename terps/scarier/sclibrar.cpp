@@ -4225,6 +4225,33 @@ lib_cmd_go_place (scr_gameref_t game)
       line = (line.size () > length) ? line.substr (length) : std::string ();
     };
 
+  /*
+   * run370 also takes the game's own word for "goto" (command slot 15,
+   * MemVar_4460FC(&HF)) anywhere in the line, leaves on it alone, and cuts
+   * it as its length plus one from the front before the "goto" and "go to"
+   * cuts (42B8E9-42BA4F).  `a rove hall` is "Moving to blue hall..." ("e
+   * hall"), `rove kitchen` walks, bare `rove` is DontUnderstand and `goto
+   * kitchen` still walks: p37GOTOW (harness/make_37_gotoprobe.py), run370x
+   * Adrift_141_pgoto37w.rtf and Adrift_143_pgoto37w2.rtf.
+   */
+  std::string alias;
+  if (version < TAF_VERSION_380)
+    {
+      scr_vartype_t vt_key[3], vt_rvalue;
+
+      vt_key[0].string = "Commands";
+      vt_key[1].integer = 15;
+      vt_key[2].string = "Word";
+      if (prop_get (bundle, "S<-sis", &vt_rvalue, vt_key)
+          && vt_rvalue.string && vt_rvalue.string[0] != NUL)
+        {
+          alias = vt_rvalue.string;
+          for (char &c : alias)
+            c = scr_tolower (c);
+        }
+    }
+  const scr_bool has_alias = !alias.empty () && has_word (alias.c_str ());
+
   if (version >= TAF_VERSION_390)
     {
       if (!has_word ("goto") && line.compare (0, 3, "go ") != 0)
@@ -4235,9 +4262,10 @@ lib_cmd_go_place (scr_gameref_t game)
   else
     {
       if (!(has_word ("goto") && line != "goto")
-          && !(line.compare (0, 5, "go to") == 0 && line.size () > 5))
+          && !(line.compare (0, 5, "go to") == 0 && line.size () > 5)
+          && !has_alias)
         return FALSE;
-      if (line == "goto" || line == "go to")
+      if (line == "goto" || line == "go to" || (!alias.empty () && line == alias))
         return FALSE;
     }
 
@@ -4270,6 +4298,8 @@ lib_cmd_go_place (scr_gameref_t game)
         return lib_cmd_examine_other (game);
     }
 
+  if (has_alias)
+    drop_front (alias.size () + 1);
   if (has_word ("goto"))
     drop_front (5);
   if (has_word ("go to"))
@@ -6218,6 +6248,37 @@ lib_cant_see_named_pre_390 (scr_gameref_t game, scr_int object,
     lib_print_object_raw (game, object);
   pf_buffer_string (filter, suffix);
   return TRUE;
+}
+
+
+/*
+ * lib_therest_absent_370()
+ *
+ * run370's therest() opens with a test the later Runners dropped
+ * (43D169-43D187): when the line names an object that is not here, it
+ * answers "You can't see " & tense(Prefix) & " " & Short & "." and leaves
+ * before any verb arm.  The caller only asks for lines that get this far in
+ * the Runner -- see run_therest_absent_370().  Measured on p37GOTO
+ * (harness/make_37_gotoprobe.py), run370x Adrift_142_p37cantsee.rtf: with
+ * the stone in another room, go, enter, push, smell, kiss, turn, jump, buy,
+ * open, sing, look, climb, sit on and fly the stone are all "You can't see
+ * the stone.", and with it present go, push and kiss answer as ever.
+ *
+ * Returns TRUE if the line was answered.
+ */
+scr_bool
+lib_therest_absent_370 (scr_gameref_t game)
+{
+  scr_int object;
+
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380)
+    return FALSE;
+
+  object = lib_absent_named_object_pre_390 (game);
+  if (object == -1)
+    return FALSE;
+
+  return lib_cant_see_named_pre_390 (game, object, TRUE, ".\n");
 }
 
 
