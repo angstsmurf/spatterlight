@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 369 identical on every turn, 31 identical apart from
-  whitespace, 27 with a compare report. Every differing row is classified
+- **Manifest:** 370 identical on every turn, 31 identical apart from
+  whitespace, 26 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -279,7 +279,6 @@ Each needs the `RND #` count against `SCR_TRACE_RAND` before it can be
 called real; equal counts with differing text mean a value or candidate
 rule, not RNG (deaths, 2026-09-19).
 
-- marooned (3.80, seed 3) T53 `throw map`: the Runner has no shark.
 - Battle rolls: cyber2 T15/T26; alexis T126-127 (companion strike order,
   Haron's arrival one turn apart).
 
@@ -443,6 +442,13 @@ rule, not RNG (deaths, 2026-09-19).
 
 ### Engine, needs a probe (3.9)
 
+- **checkwild, the unported half.** `uip_wildcard_match_pre400` only vetoes
+  a tree match. checkwild's middle pieces need not be in order, so a line
+  the tree refuses (`* king * rose *` typed as "rose ... king") may still
+  match in the Runner. 3.9's %object% substitution (44AAD6: c(Short) and
+  +44 = 1, then a second pass over +8) is not emulated, so 3.9 commands
+  with a reference skip the check. Group patterns (`[`, `{`) skip it at
+  every version.
 - **`give <x> to <y>`** belongs in characters(), below the room refusal
   (the_hangover t42). Only the 3.7/3.8 give is ported (f83e1cf87).
 - **"Please be more clear, who do you want to <verb>?"** is a SCARE
@@ -563,13 +569,16 @@ every Runner.
     after `hit coconut` (`restr_cache_fallback`, 2026-09-19)
   - A trailing space in an all-literal task command must be typed. sommeril
     `get placemat ` (093a12d5e)
-  - Before 4.0 a trailing space in a `*` command must be typed too:
-    checkwild (run390 4346A8) compares the text after the last `*` with the
-    line's end literally and pads the line only for a pattern ending " *";
-    run400 trims the pattern. `[<4.0]` alchemist T300 `give rose to king`
-    against task 114's "* rose * king " (the Runner gives the library's
-    "doesn't seem interested"; walkthrough now `distract king`, identical on
-    every turn, 2026-09-19)
+  - Before 4.0 a `*` command also has to pass checkwild (run390 4346A8,
+    run380 4295E0, run370 4243D4): prefix before the first `*`, each later
+    piece anywhere in the line, the text after the last `*` equal to the
+    line's end. run390 pads the line for a leading "* " or trailing " *";
+    run380/run370 pad nothing, so "throw %object% *" needs text after the
+    object. 3.7/3.8 put the Short name of the lowest-index object c() finds
+    in place of %object% first (43B78B, replaceob 427704 mode 1).
+    `[<4.0]` alchemist T300 "* rose * king " (walkthrough now `distract
+    king`); `[<3.9]` marooned T53 `throw map` runs task 45, not 15's shark
+    (`uip_wildcard_match_pre400`, 2026-09-19)
   - The SYNONYM table is sequential whole-string rewrites. Vardock
   - The `*` matcher (457D68) does not backtrack. Each literal piece is found
     by the first InStr and the line is cut past it. A space goes back on only

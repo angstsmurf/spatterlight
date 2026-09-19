@@ -2660,6 +2660,12 @@ marooned_solution.txt|marooned.taf|Congratulations, you are no longer Marooned!|
 # -- "(the graffiti)", "(Harold)" -- 25 lines, the exact set 7f7349c7 took out.
 # run370 Sub Form1.its @2CA9C / run380 @326B4 print it with no Appearance gate;
 # from P-code, no 3.8 replay has measured it yet.
+# Re-blessed 2026-09-19, one line: T53 `throw map` at the lagoon.  run380's
+# checkwild (4295E0) never pads the line, so task 15's "throw %object% *" --
+# "throw map *" after replaceob -- wants text after "map", and the Runner
+# runs task 45's "throw %object%" instead: "You throw it and it lands in the
+# ocean and disappears." (runner_transcripts/marooned.rtf; the shark line is
+# gone).  The compare is now identical on every turn.
 # Re-blessed 2026-08-29 for the same-turn re-check of lower-indexed events
 # started by a finishing event's task (evt_finish_event); measured on the
 # vardock_bates row.  The train legs roll Time 15-20 each, so the

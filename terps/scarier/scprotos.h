@@ -574,6 +574,9 @@ extern void uip_set_containment (scr_bool enabled);
 extern void uip_set_binary_input (scr_bool binary);
 extern scr_bool uip_wildcard_match_400 (const scr_char *pattern,
                                         const scr_char *string);
+extern scr_bool uip_wildcard_match_pre400 (const scr_char *pattern,
+                                           const scr_char *string,
+                                           scr_bool pad);
 extern scr_char *uip_replace_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_assign_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_get_pronoun_flags (scr_bool *used, scr_bool *pending_definite);

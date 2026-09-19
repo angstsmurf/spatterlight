@@ -1203,6 +1203,64 @@ uip_wildcard_match_400 (const scr_char *pattern, const scr_char *string)
   return matched;
 }
 
+
+/*
+ * uip_wildcard_match_pre400()
+ *
+ * The 3.7-3.9 checkwild (run390 4346A8, run380 4295E0, run370 4243D4), for a
+ * task command with a '*'.  The text before the first '*' must be the line's
+ * prefix; every later literal piece need only occur somewhere in the line
+ * (InStr on the whole line, nothing cut, so order is free); the text after the
+ * last '*' must be the line's end, Right(line, Len(piece)).  run390 pads the
+ * line with a space first for a pattern starting "* " or ending " *"
+ * (4344F0, 434520); run380 and run370 pad nothing, so there "throw %object% *"
+ * needs something typed after the object and "* x" something before it.
+ *
+ * The caller has already put an object's name in place of any %object%.
+ * Case is ignored: run390 lower-cases the pattern and the line is lower-case
+ * by then.
+ */
+scr_bool
+uip_wildcard_match_pre400 (const scr_char *pattern, const scr_char *string,
+                           scr_bool pad)
+{
+  std::string pat (pattern), line (string);
+
+  for (char &c : pat)
+    c = scr_tolower (c);
+  for (char &c : line)
+    c = scr_tolower (c);
+  while (!line.empty () && scr_isspace (line.front ()))
+    line.erase (0, 1);
+  while (!line.empty () && scr_isspace (line.back ()))
+    line.pop_back ();
+
+  const size_t first_star = pat.find ('*');
+  if (first_star == std::string::npos)
+    return FALSE;
+
+  if (pad && pat.compare (0, 2, "* ") == 0)
+    line.insert (0, " ");
+  if (pad && pat.size () >= 2 && pat.compare (pat.size () - 2, 2, " *") == 0)
+    line.append (" ");
+  if (line.substr (0, first_star) != pat.substr (0, first_star))
+    return FALSE;
+
+  while (!pat.empty ())
+    {
+      const size_t star = pat.find ('*');
+
+      if (star == std::string::npos)
+        return line.size () >= pat.size ()
+               && line.compare (line.size () - pat.size (), pat.size (), pat)
+                  == 0;
+      if (star > 0 && line.find (pat.substr (0, star)) == std::string::npos)
+        return FALSE;
+      pat.erase (0, star + 1);
+    }
+  return TRUE;
+}
+
 static scr_bool
 uip_match_word (scr_ptnoderef_t node)
 {

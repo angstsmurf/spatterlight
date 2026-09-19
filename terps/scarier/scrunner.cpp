@@ -2378,6 +2378,50 @@ private:
 
 
 /*
+ * run_pre390_first_named_object()
+ *
+ * The Short name of the lowest-index object whose name run380's c() (429048)
+ * finds in the line: case-insensitive, starting the line or after a space,
+ * ending the line or before a space or comma.  NULL if none.
+ */
+static const scr_char *
+run_pre390_first_named_object (scr_gameref_t game, const scr_char *line)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  std::string text (line);
+  scr_int object;
+
+  for (char &c : text)
+    c = scr_tolower (c);
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *name =
+          prop_get_indexed_string (bundle, "Objects", object, "Short");
+      std::string word (name ? name : "");
+      size_t at = 0;
+
+      if (word.empty ())
+        continue;
+      for (char &c : word)
+        c = scr_tolower (c);
+      while ((at = text.find (word, at)) != std::string::npos)
+        {
+          const size_t end = at + word.size ();
+
+          if (at == 0 || text[at - 1] == ' ')
+            {
+              if (end == text.size () || text[end] == ' ' || text[end] == ',')
+                return name;
+              break;
+            }
+          at++;
+        }
+    }
+  return NULL;
+}
+
+
+/*
  * run_match_task_commands()
  *
  * Helper for run_game_commands_common().
@@ -2447,26 +2491,8 @@ run_match_task_commands (scr_gameref_t game,
        * match it; for those, retry the match against the player's actual
        * input, stashed by run_all_commands().
        */
-      /*
-       * 3.7-3.9 hand a command with a '*' to checkwild (run390 4346A8)
-       * as the author typed it: the text after the last '*' must equal the
-       * end of the line, and the line is padded with a space only for a
-       * pattern ending in " *".  A command ending in a stray space after its
-       * last piece therefore matches nothing.  (run400 trims the pattern
-       * first; a literal-only pattern is NODE_HARD_WHITESPACE at every
-       * version.)  Alchemist (3.90) task 114's only alternative that takes
-       * `give rose to king` is "* rose * king ", and run390 answers it with
-       * the library's "Rudolph II. doesn't seem interested in the rose."
-       * (runner_transcripts/alchemist.txt T300).
-       */
-      const size_t pattern_length = strlen (pattern);
-      const scr_bool pre400_tail_space =
-          version < TAF_VERSION_400 && pattern_length > 0
-          && scr_isspace (pattern[pattern_length - 1])
-          && strchr (pattern, WILDCARD_PATTERN) && !strpbrk (pattern, "[{");
-
       const scr_char *matched_input = string;
-      if (pattern[first] == SPECIAL_PATTERN || pre400_tail_space)
+      if (pattern[first] == SPECIAL_PATTERN)
         ;
       else if (is_library && pattern[first] == WILDCARD_PATTERN)
         {
@@ -2491,6 +2517,58 @@ run_match_task_commands (scr_gameref_t game,
       if (is_matched && version >= TAF_VERSION_400
           && strchr (pattern, WILDCARD_PATTERN) && !strpbrk (pattern, "%[{"))
         is_matched = uip_wildcard_match_400 (pattern, matched_input);
+
+      /*
+       * 3.7-3.9 send a command with a '*' to checkwild instead, which
+       * compares the pieces literally; see uip_wildcard_match_pre400().
+       * Two of its refusals matter against the tree matcher:
+       *
+       * - The text after the last '*' must equal the end of the line, so a
+       *   command ending in a stray space matches nothing.  Alchemist (3.90)
+       *   task 114's only command taking `give rose to king` is "* rose *
+       *   king ", and run390 answers the line with the library's "Rudolph
+       *   II. doesn't seem interested in the rose." (runner_transcripts/
+       *   alchemist.txt T300).
+       * - run380/run370 never pad the line, so "throw %object% *" needs
+       *   something after the object.  Marooned (3.80) T53 `throw map` at the
+       *   lagoon: run380 skips task 15 ("You toss it into the water and the
+       *   shark darts for it") for task 45's "throw %object%" ("You throw it
+       *   and it lands in the ocean", runner_transcripts/marooned.rtf).
+       *
+       * Before checkwild, 3.7/3.8 put in place of %object% the Short name of
+       * the lowest-index object c() finds in the line, as a whole word
+       * (run380 checktask 43B78B, replaceob 427704 mode 1); 3.9's
+       * substitution has a further gate, so there only a command with no
+       * reference is checked.
+       */
+      if (is_matched && version < TAF_VERSION_400
+          && strchr (pattern, WILDCARD_PATTERN) && !strpbrk (pattern, "[{"))
+        {
+          std::string literal (pattern);
+          scr_bool checkable = TRUE;
+
+          if (literal.find ('%') != std::string::npos)
+            {
+              const size_t at = literal.find ("%object%");
+
+              checkable = version < TAF_VERSION_390
+                          && at != std::string::npos
+                          && literal.find ('%', at + 8) == std::string::npos
+                          && literal.find ('%') == at;
+              if (checkable)
+                {
+                  const scr_char *name =
+                      run_pre390_first_named_object (game, matched_input);
+
+                  if (name)
+                    literal.replace (at, 8, name);
+                }
+            }
+          if (checkable)
+            is_matched = uip_wildcard_match_pre400
+                (literal.c_str (), matched_input,
+                 version >= TAF_VERSION_390);
+        }
 
       /* Stop searching if we find a match. */
       if (is_matched)

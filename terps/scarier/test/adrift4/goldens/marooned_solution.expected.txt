@@ -400,9 +400,7 @@ Even though it is nighttime, you can dimly make out your surroundings.
 
 > throw map
 
-You toss it into the water and the shark darts for it. He circles it a few
-times, then comes up under it and swallows it whole. He disappears into the
-ocean.
+You throw it and it lands in the ocean and disappears.
 
 > north
 You move north.
