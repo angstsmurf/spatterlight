@@ -1621,6 +1621,7 @@ wreckage_solution.txt|Wreckage.taf|you've rescued yourself
 # lister started building the Runner's one concatenated string, so "A toolbox
 # is here.  George is here." now matches the Original and is rewritten.
 vagabond_solution.txt|Vagabond.taf|The End|SCR_SKIP_WAITKEY=1
+# Re-blessed 2026-09-19: an empty authored PlayerName is "Anonymous" at 4.0 (probe ANON, Adrift_1198), not "Player".
 woof_solution.txt|Woof.taf|I'm back.|SCR_SEED=5
 # Measured 2026-09-05 in run400 under Wine (Adrift_26_undefined.txt, feed
 # cmdfile_w_undefined_drive.txt): 4/4 echoed, identical but the ending
@@ -6764,6 +6765,7 @@ crookedestate_solution.txt|The Crooked Estate.taf|I quit momentarily, lying moti
 # `unlock`+`open`); a safe combination that only registers via `examine
 # dial` after each `turn dial to N` (turning alone gives no feedback). 41
 # lines (name-prompt response + 40 commands), no env vars.
+# Re-blessed 2026-09-19: an empty authored PlayerName is "Anonymous" at 4.0 (probe ANON, Adrift_1198), not "Player".
 aliasagent_solution.txt|Alias Undercover Agent.taf|You scored 35 out of the maximum 35!|
 # A View to a Home.taf (4.00): completed (all three medals collected into
 # the trophy case) -- no scoring system at all (MaxScore=0, zero ACT
@@ -7604,6 +7606,7 @@ jimpond_solution.txt|JimPond.taf|and I'll be wanting you to lead the attack.|SCR
 # searching." on walking in on Paul. His empty game-start WALK 1 preempts
 # WALK 0, so the typed-move meet skips WALK 0's CharTask (run400
 # 4754A5-47557B); runner_transcripts/greekschool.txt T27/41/91/100/126/156.
+# Re-blessed 2026-09-19: an empty authored PlayerName is "Anonymous" at 4.0 (probe ANON, Adrift_1198), not "Player".
 greekschool_solution.txt|Greek School Adventure.taf|You scored 185 out of the maximum 275!|
 # Trick or Treat.taf by David Whyld: comic Halloween horror-house escape.
 # Derived via SCR_DUMP_TASKS structural dump (task/restr/act tables) plus

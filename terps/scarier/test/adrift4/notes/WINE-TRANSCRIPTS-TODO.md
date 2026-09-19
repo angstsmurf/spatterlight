@@ -280,8 +280,6 @@ not by a tick.
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
   43D289): read, not measured.
-- **The run400 loader's "Anonymous" fill** for an empty PlayerName with
-  PromptName off.
 - **Silent-task test scope, the unported rest.** run400 tests the whole
   turn buffer. Scarier counts anything a task's run adds (baroo) but still
   ignores text written before the dispatch. No corpus row is known.
@@ -1085,6 +1083,13 @@ next to the named function and in `annotations.tsv`.
 
 ### Output, wording and the room block
 
+- **An empty authored PlayerName is "Anonymous" at 4.0.** run400's
+  openadv fills the field at load (48F39F), and %player% and the
+  third-person pronoun array (48F6F2) both read it, PromptName off or not.
+  run390 has no load-time default (unmeasured; Scarier keeps SCARE's
+  "Player" before 4.0). `[4.0]` probe ANON, Adrift_1198 ("Anonymous is
+  carrying nothing.", "Name is [Anonymous]."); goldens woof, aliasagent,
+  greekschool re-blessed (`%player%`, scvars.cpp, 2026-09-19)
 - **The room block is ONE string.** viewroom joins the description,
   InRoomDescs, "Also here", the "X is here." sentence, NPC texts and event
   LookTexts with pspace(), a conditional two spaces. The heading is `"\n" +

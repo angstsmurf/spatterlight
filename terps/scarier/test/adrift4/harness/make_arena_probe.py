@@ -16,7 +16,7 @@ def build(cfg):
     s(cfg['name']); s("SCARE probe"); s("I don't understand.")
     s(cfg.get('persp', 2)); s(1); s(0); s(1); s(1)  # Persp ShowExits WaitTurns DispFirstRoom BattleSystem
     s(cfg.get('maxscore', 0))               # MaxScore (run400's end-of-game summary divides by it)
-    s("Player"); s(0); s("A test fighter.")
+    s(cfg.get('playername', "Player")); s(0); s("A test fighter.")  # PlayerName PromptName PlayerDesc
     s(0); s(0); s(0); s(0)                  # Task Position ParentObject Gender
     # MaxSize / MaxWt are packed the way every dimension in the file is:
     # 'tens' times the scale factor raised to the 'units'.  100 = 10 x m^0.
@@ -2088,6 +2088,12 @@ CONFIGS = {
     statics=[],
     npcs=[],
     tasks=[]),
+    # ANON: an empty authored PlayerName with PromptName off.  run400's
+    # openadv (48F39F) is read as filling "Anonymous" at load; measure what
+    # %player% and the third-person library wording print.
+    'ANON': dict(name="Probe ANON", persp=2, playername="", rooms=[("Test Arena","A bare arena.",{})],
+       player=(200,0,0,0,0,0,0,0,0,0), objects=[("a","pebble", 4, 0,0,0,0,0,0)], statics=[], npcs=[],
+       tasks=[dict(commands=["say name"], complete="Name is [%player%].", repeatable=1)]),
  'EVRS': dict(name="Probe EVRS", persp=1,
     # Immediate-starter events of non-zero length: R2 restarts "after a
     # delay" (RestartType 2), R1 restarts immediately (RestartType 1, the

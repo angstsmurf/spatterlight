@@ -1293,12 +1293,23 @@ var_get_system (scr_var_setref_t vars,
       const scr_char *playername;
 
       /*
-       * Return player's name from properties, or just "Player" if not set
-       * in the properties.
+       * Return player's name from properties.  An empty authored name is
+       * "Anonymous" at 4.0: run400's openadv fills it at load (48F39F,
+       * `If field(4) = "" Then field(4) = "Anonymous"`), and that field is
+       * what %player% and the third-person pronoun array (48F6F2) read.
+       * Measured live 2026-09-19, probe ANON (make_arena_probe.py,
+       * Adrift_1198.txt, PromptName off, Perspective third): `i` answers
+       * "Anonymous is carrying nothing." and a task's "Name is [%player%]."
+       * prints "Name is [Anonymous]."  Scarier said "Player" for both.
+       *
+       * run390 has no load-time default (its name prompt is the only
+       * writer, 4416C8), so before 4.0 the empty name would stay empty;
+       * that has not been measured, and SCARE's "Player" stays there.
        */
       playername = prop_get_global_string (bundle, "PlayerName");
       if (scr_strempty (playername))
-        playername = "Player";
+        playername = prop_get_taf_version (bundle) >= TAF_VERSION_400
+                     ? "Anonymous" : "Player";
 
       return var_return_string (playername, type, vt_rvalue);
     }
