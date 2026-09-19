@@ -3235,12 +3235,17 @@ uip_phrase_in (const std::string &lowered, const scr_char *phrase)
  *
  * Whichever string was chosen is then lower-cased and looked for in the
  * command with a case-SENSITIVE InStr; see uip_case_folds_name().
+ *
+ * run390 names a character by c(LCase(Name)) Or c(LCase(Alias(0))) alone --
+ * characters() 4592B8 for the register, the give rewrite's count at
+ * 45F9FB-45FA89 -- and c() lower-cases both sides (4334B0).
  */
 static scr_bool
 uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered,
                const scr_char *command)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_bool is_390 = prop_get_taf_version (bundle) == TAF_VERSION_390;
   const scr_char *chosen = NULL;
   scr_vartype_t vt_key[4];
   scr_int alias_count, alias;
@@ -3255,6 +3260,8 @@ uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered,
 
       vt_key[2].string = "Alias";
       alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+      if (is_390 && alias_count > 1)
+        alias_count = 1;
       for (alias = 0; alias < alias_count; alias++)
         {
           const scr_char *alias_name;
@@ -3266,6 +3273,8 @@ uip_npc_named (scr_gameref_t game, scr_int npc, const std::string &lowered,
         }
     }
 
+  if (is_390)
+    return chosen != NULL;
   return chosen && uip_case_folds_name_in (command, chosen);
 }
 
@@ -3362,10 +3371,11 @@ uip_line_names_npc (scr_gameref_t game, const scr_char *string)
  * command, print through Proc_21_19_47B568 behind MemVar_4942BA, and splice
  * LCase(Name) into the line.  run370 loc_43BED8/43BFC9 and loc_4380CF/
  * 438185 (run380 the same) do both with no gate -- 3.7 has no Appearance
- * menu.  run390 keeps only the ask/talk pair (loc_459036/459107, behind
- * m_showbrackets) and has no "(to " literal, so the give rewrite is gated
- * out there.  P-code only so far; vardock_bates turn 16 showed "(to
- * Vagabundo)" live but after a lost command.
+ * menu.  run390 has both too: the ask/talk pair at loc_459036/459107 and
+ * the give rewrite in generaltasks at 45F9D5-45FB13 ("(to " at 45FAB9).
+ * Measured p39ABSNPC (run390x, Adrift_1206_p39absnpc.txt): `give stone`
+ * after `talk to gina` echoes "(to Gina)" and runs as `give stone to gina`.
+ * vardock_bates turn 16 showed "(to Vagabundo)" live in 4.0.
  *
  * Returns a fresh string if anything was rewritten, else NULL.
  */
@@ -3434,8 +3444,7 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
   std::string lowered = uip_lowered (string);
   scr_bool modified = FALSE;
 
-  if ((version < TAF_VERSION_390 || version >= TAF_VERSION_400)
-      && uip_phrase_in (lowered, "give") && !uip_phrase_in (lowered, "to"))
+  if (uip_phrase_in (lowered, "give") && !uip_phrase_in (lowered, "to"))
     {
       scr_int index_;
       scr_bool named = FALSE;

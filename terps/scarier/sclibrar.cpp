@@ -11065,6 +11065,61 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
 }
 
 /*
+ * lib_take_and_none_390()
+ *
+ * run390 takes()'s "and" arm (var_A8 = 2, set at 45455D when the line has
+ * c("and") and no c("all")) pre-passes every object (45483A-454ACF) before
+ * taking anything: each non-static one co(obj, 1) names counts in var_122,
+ * and each of those that is seen (o(44)) and loose in the room, or in or on
+ * something on the floor or a static present here, is a candidate -- it
+ * either fits (var_C8) or sets the too-big flag var_D8.  With no candidate
+ * at all the summary at 454B08-454B5B answers "<You> can't get either of
+ * them." when exactly two objects were named, else "... any of them.", and
+ * nothing else in takes() speaks.  Held objects and characters are named
+ * but never candidates, so p39ABSNPC `take erin and stone` with the stone
+ * held is "You can't get any of them." (run390x Adrift_1206_p39absnpc.txt
+ * T36), not the held refusal.  run370 4361B3 / run380 43DCC1 have the "any"
+ * wording only and are not ported.
+ */
+static scr_bool
+lib_take_and_none_390 (scr_gameref_t game)
+{
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_int room = gs_playerroom (game);
+  scr_int object, named = 0;
+
+  if (prop_get_taf_version (gs_get_bundle (game)) != TAF_VERSION_390
+      || !line || lib_input_contains_word (line, "all")
+      || !lib_input_contains_word (line, "and"))
+    return FALSE;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      scr_int position;
+
+      if (obj_is_static (game, object) || !lib_take_co_pre400 (game, line, object))
+        continue;
+      named++;
+      if (!gs_object_seen (game, object))
+        continue;
+      position = gs_object_position (game, object);
+      if (obj_directly_in_room (game, object, room))
+        return FALSE;
+      if ((position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
+          && obj_directly_in_room (game, gs_object_parent (game, object), room))
+        return FALSE;
+    }
+
+  pf_buffer_string (gs_get_filter (game),
+                    lib_select_response (game, "You", "I", "%player%"));
+  pf_buffer_string (gs_get_filter (game),
+                    named == 2 ? " can't get either of them.\n"
+                               : " can't get any of them.\n");
+  return TRUE;
+}
+
+
+/*
  * lib_take_multiple_common()
  *
  * Take the objects available to the player and listed in %text%, or -- for
@@ -11077,6 +11132,9 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int);
   scr_int objects, references;
   scr_bool library_printed;
+
+  if (!is_except && lib_take_and_none_390 (game))
+    return TRUE;
 
   /*
    * "take all except ..." works over the "all" universe, which excludes
@@ -13191,6 +13249,12 @@ lib_cmd_give_object_npc (scr_gameref_t game)
   return TRUE;
 }
 
+/*
+ * Set by lib_cmd_give_object() when 3.9's give leaves the line to the object
+ * catch-all; the `give *` row right below it then declines too, once.
+ */
+static scr_bool lib_give_defer_catch_all = FALSE;
+
 scr_bool
 lib_cmd_give_object (scr_gameref_t game)
 {
@@ -13211,6 +13275,31 @@ lib_cmd_give_object (scr_gameref_t game)
                                  "%player% don't have ",
                                  object, "!\n");
       return TRUE;
+    }
+
+  /*
+   * run390's therest give (45D696-45D816) asks "to who?" only when no
+   * character's Name or first Alias is anywhere in the line, whatever room
+   * they are in.  A named one elsewhere leaves the buffer empty, and the
+   * line falls to the object catch-all (46024A), which runs before
+   * characters() (460675).  Measured p39ABSNPC (Adrift_1206_p39absnpc.txt):
+   * `give stone to erin` (seen), `give stone to fred` (never seen), `give
+   * erin stone` and `give stone to girl` (Alias) from the next room all
+   * answer "I don't understand what you want me to do with the stone.".
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390)
+    {
+      const scr_char *input = run_get_dispatch_input ();
+      scr_int npc;
+
+      for (npc = 0; input && npc < gs_npc_count (game); npc++)
+        {
+          if (lib_npc_referenced (game, npc, input))
+            {
+              lib_give_defer_catch_all = TRUE;
+              return FALSE;
+            }
+        }
     }
 
   /* After all that, we have to ask (and shouldn't this be "to whom?"). */
@@ -23356,9 +23445,16 @@ lib_cmd_talk_to_npc (scr_gameref_t game)
    * (run400 488DA2) rather than falling through to it.  Capture the named
    * NPC before lib_disambiguate_npc()'s own room/seen filter clears the
    * reference.  Measured escape_to_new_york turns 199-200 `talk to
-   * goodson` (Ticket run400 xoshiro trace 2026-09-12).
+   * goodson` (Ticket run400 xoshiro trace 2026-09-12).  run390's hint
+   * (45975C-4597C0) has no room gate either, and nothing after it in
+   * characters() overwrites it for an absent NPC: the "isn't here!" arm
+   * (459C2A) wants an empty or "can't talk to that." buffer.  Measured
+   * p39ABSNPC (Adrift_1206_p39absnpc.txt): `talk to fred` (never seen),
+   * `speak to erin`, `talk to erin about key` and `talk to girl` (Alias)
+   * from the next room all answer the hint.
    */
-  named = lib_is_version_400 (game) ? lib_any_named_npc (game) : -1;
+  named = prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
+          ? lib_any_named_npc (game) : -1;
 
   /* Get the referenced npc, and if none, consider complete. */
   npc = lib_disambiguate_npc (game, "talk to", &is_ambiguous);
@@ -24858,6 +24954,11 @@ lib_cmd_get_what (scr_gameref_t game)
 scr_bool
 lib_cmd_give_what (scr_gameref_t game)
 {
+  if (lib_give_defer_catch_all)
+    {
+      lib_give_defer_catch_all = FALSE;
+      return FALSE;
+    }
   lib_question_prefix_from_line (game);
   return lib_what (game, "Give");
 }

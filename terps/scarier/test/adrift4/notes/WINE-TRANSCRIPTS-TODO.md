@@ -305,10 +305,12 @@ not by a tick.
   invention (alexis_worn_cube t79). The `who` form is unmeasured. For the
   object form, 3.9 examine answers "Nothing special." (ported); 3.9's other
   verbs are unmeasured.
-- **Per-verb absent-NPC branches:** `talk to <npc>` elsewhere (hcw,
-  alchemist); `give obj to npc` elsewhere; run390's take `is not here!` at
-  4596E1 (Battle System off); kill/kick/punch go through other grammar
+- **Per-verb absent-NPC branches:** talk, give and take are measured and
+  ported (p39ABSNPC). kill/kick/punch still go through other grammar
   first. The attack branch is ported.
+- **Take "and" with a candidate present:** only the zero-candidate summary
+  is ported. The main multi loop at 454CA3 after a partial pre-pass is
+  unread.
 - **run390's Who-prefix consumption** at 460022 is assumed, not measured.
 - **Take-from:** the " and " clause picks the last container in 3.9 and the
   first in 4.0; 3.9's " and " collection bug; the pending slot after `Get X
@@ -334,6 +336,9 @@ not by a tick.
   4.0's is "You can't see the bed."; both already match. The 3.8 object
   loop's scope test is unread.
 - **Pre-4.0 room-name alt walk** is unmeasured.
+- **Take "and" with nothing takeable:** run370 4361B3 and run380 43DCC1
+  say " can't get any of them." with no "either" form. The pre-pass is
+  unread and not ported; 3.9's is.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
 
@@ -920,6 +925,13 @@ next to the named function and in `annotations.tsv`.
 
 ### Put and take-from
 
+- **3.9 take "and" with nothing takeable.** takes()' "and" arm pre-passes
+  the objects co(obj,1) names. When none of them is seen and loose in the
+  room, or in or on something here, it prints "You can't get either of
+  them." for exactly two named, else "any of them." (454B08-454B5B). A held
+  stone is named but never a candidate. `[3.9]` p39ABSNPC T36
+  (lib_take_and_none_390)
+
 - **4.0 put/task precedence.** A completable library put beats a passing
   task. A size or capacity refusal prints without claiming the line, and
   the task follows. The implicit take is gated on a mode-1 pre-match and
@@ -1166,6 +1178,19 @@ next to the named function and in `annotations.tsv`.
   `lib_put_that_390`, `lib_put_static_absent_pre390`, 2026-09-19)
 
 ### NPCs, walks and battle
+
+- **3.9 absent characters, per verb.** `talk to`/`speak to` any named
+  character, even an absent or unseen one, gives the "ask X about"
+  hint. The hint at 45975C has no room gate, and the ask branch's
+  "isn't here!" loses to it. `give obj to <absent npc>` (also `give npc
+  obj`) is the object catch-all "I don't understand what you want me to do
+  with the stone.". therest's give stays silent at 45D696 once any
+  character is named, so the line reaches 46024A before characters(). A
+  bare `give stone` echoes "(to <last named>)" (rewrite 45F9D5, "(to " at
+  45FAB9) and runs as that. `take <absent npc>` is "Take what?", because
+  takes() answers before characters()' "is not here!" (4596E1). run390
+  names a character by Name or Alias(0) only. `[3.9]` p39ABSNPC
+  (make_39_absnpcprobe.py, Adrift_1206_p39absnpc.txt)
 
 - **Walk announcements.** The announcement joins the turn's paragraph, and
   ALRs span the join. 4.0 capitalises the Name. sa.taf, p4WALKALR,
