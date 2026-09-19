@@ -21421,16 +21421,20 @@ lib_cmd_sit_on_floor (scr_gameref_t game)
   return lib_stand_sit_lie (game, MOVE_SIT_FLOOR);
 }
 
+static scr_bool lib_lay_pre400 (scr_gameref_t game);
+
 scr_bool
 lib_cmd_lie_on_object (scr_gameref_t game)
 {
+  if (lib_lay_pre400 (game))
+    return FALSE;
   return lib_stand_sit_lie (game, MOVE_LIE);
 }
 
 scr_bool
 lib_cmd_lie_on_floor (scr_gameref_t game)
 {
-  if (lib_floor_named ())
+  if (lib_floor_named () || lib_lay_pre400 (game))
     return FALSE;
   return lib_stand_sit_lie (game, MOVE_LIE_FLOOR);
 }
@@ -21475,7 +21479,7 @@ lib_sitstand_claims_370 (scr_gameref_t game)
   if ((lib_co_contains (line, "sit") || lib_co_contains (line, "stand"))
       && lib_sit_lie_scan_370 (game, OBJ_STANDABLE_MASK) != -1)
     return TRUE;
-  return (lib_co_contains (line, "lie") || lib_co_contains (line, "lay"))
+  return lib_co_contains (line, "lie")
          && lib_sit_lie_scan_370 (game, OBJ_LIEABLE_MASK) != -1;
 }
 
@@ -21494,7 +21498,254 @@ lib_cmd_stand_scan_370 (scr_gameref_t game)
 scr_bool
 lib_cmd_lie_scan_370 (scr_gameref_t game)
 {
+  if (lib_lay_pre400 (game))
+    return FALSE;
   return lib_sit_stand_lie_scan_370 (game, MOVE_LIE);
+}
+
+
+/*
+ * lib_lay_pre400()
+ *
+ * TRUE for a line whose verb is `lay` in a pre-4.0 game.  Only run400's lie
+ * block tests c("lay") (46BACE, beside c("lie") at 46BAC1); run370, run380
+ * and run390 have no such word, so `lay down` is "I don't understand." and
+ * `lay on stool` "I don't understand what you want me to do with the stool."
+ * (p37SIT..p4SIT, cmdfile_p3738sit4.txt: run370x Adrift_168_psit4_37.rtf,
+ * run380x Adrift_169_psit4_38.rtf, run390x Adrift_170_psit4_39.txt, run400x
+ * Adrift_171_psit4_4.txt, 2026-09-19).  The [lie/lay] rows decline on it.
+ */
+static scr_bool
+lib_lay_pre400 (scr_gameref_t game)
+{
+  const scr_char *line = run_get_dispatch_input ();
+
+  return line && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
+         && scr_strncasecmp (line, "lay", 3) == 0
+         && (line[3] == NUL || line[3] == ' ');
+}
+
+
+/*
+ * lib_sitstand_block()
+ *
+ * One block of the Runner's sitstand, entered on its word anywhere in the
+ * line: with c("on") Or c("in") the object loop, where every object that
+ * passes writes and the last in index order wins, else the bare arm.  The
+ * 3.8+ loop takes an object when co(obj) passes, it lies on the floor of
+ * the player's room and its SitLie fits (run400 46B4D4/46B8F2/46BB1A, run390
+ * 4441A7/4445F8/44481C, run380 434042); run370's has no scope at all
+ * (lib_sit_lie_scan_370).  From 3.9 the sit block first takes its
+ * ground/floor arm when the line names one, and the loop still runs after
+ * it (run400 46B39E, run390 444077).  Each write replaces what the line has
+ * said so far from mark: the Runner keeps one message and overwrites it.
+ */
+static void
+lib_sitstand_block (scr_gameref_t game, scr_int movement, size_t mark)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int taf_version = prop_get_taf_version (bundle);
+  const scr_char *line = run_get_dispatch_input ();
+  const auto replace_from = [&] (size_t before)
+    {
+      if (pf_buffer_length (filter) > before && before > mark)
+        {
+          const std::string text = pf_cut_tail (filter, before);
+
+          pf_truncate (filter, mark);
+          pf_buffer_string (filter, text.c_str ());
+        }
+    };
+  const size_t before = pf_buffer_length (filter);
+  scr_int mask, object, match;
+
+  if (!(lib_co_contains (line, "on") || lib_co_contains (line, "in")))
+    {
+      const scr_int floor_movement = movement == MOVE_SIT ? MOVE_SIT_FLOOR
+                                     : movement == MOVE_LIE ? MOVE_LIE_FLOOR
+                                     : MOVE_STAND_FLOOR;
+
+      if (taf_version < TAF_VERSION_390)
+        lib_stand_sit_lie_floor_pre390 (game, floor_movement);
+      else
+        lib_stand_sit_lie_floor_390 (game, floor_movement);
+      replace_from (before);
+      return;
+    }
+
+  if (movement == MOVE_SIT && taf_version >= TAF_VERSION_390
+      && (lib_co_contains (line, "ground") || lib_co_contains (line, "floor")))
+    {
+      lib_stand_sit_lie_floor_390 (game, MOVE_SIT_FLOOR);
+      replace_from (before);
+    }
+
+  mask = movement == MOVE_LIE ? OBJ_LIEABLE_MASK : OBJ_STANDABLE_MASK;
+  match = -1;
+  if (taf_version < TAF_VERSION_380)
+    match = lib_sit_lie_scan_370 (game, mask);
+  else
+    for (object = 0; object < gs_object_count (game); object++)
+      {
+        if (lib_co_pre400 (game, line, object, 0)
+            && obj_directly_in_room (game, object, gs_playerroom (game))
+            && (prop_get_indexed_integer (bundle, "Objects", object, "SitLie")
+                & mask))
+          match = object;
+      }
+  if (match == -1)
+    return;
+
+  const size_t loop_before = pf_buffer_length (filter);
+  pf_buffer_string (filter,
+                    movement == MOVE_SIT
+                    ? lib_select_response (game, "You sit down on ",
+                                           "I sit down on ",
+                                           "%player% sit down on ")
+                    : movement == MOVE_LIE
+                    ? lib_select_response (game, "You lie down on ",
+                                           "I lie down on ",
+                                           "%player% lie down on ")
+                    : lib_select_response (game, "You stand on ",
+                                           "I stand on ",
+                                           "%player% stand on "));
+  if (taf_version < TAF_VERSION_390)
+    lib_print_object_raw (game, match);
+  else
+    lib_print_object_np (game, match);
+  pf_buffer_string (filter, ".\n");
+  gs_set_playerposition (game, movement == MOVE_SIT ? 1
+                               : movement == MOVE_LIE ? 2 : 0);
+  gs_set_playerparent (game, match);
+  replace_from (loop_before);
+}
+
+
+/*
+ * lib_sitstand_anywhere()
+ *
+ * The Runner's sitstand is one proc of blocks, each entered on its word
+ * ANYWHERE in the line -- c("sit"), c("stand"), c("lie") (4.0 also
+ * c("lay")) -- run in that code order whatever the word order, all sharing
+ * the player's position and parent, each overwriting the one message
+ * (run400 46B370-46BCF8, run390 444010-444A04, run380 433F8x-4345xx,
+ * run370 42AE7D-42B3xx).  generaltasks calls it unconditionally after the
+ * takes, drops, inventory and task handlers have left on a line they
+ * claimed, and after wears, removes, battle and hints have written only a
+ * message it may overwrite; openclose after it writes nothing once it has
+ * (run390 Call sitstand() 45F50D, openclose 45F512).  examines comes later
+ * still and replaces the text but not the move.  Measured on p37SIT..p4SIT
+ * with cmdfile_p3738sit4.txt (run370x Adrift_168_psit4_37.rtf, run380x
+ * Adrift_169_psit4_38.rtf, run390x Adrift_170_psit4_39.txt, run400x
+ * Adrift_171_psit4_4.txt, 2026-09-19), every Runner alike:
+ *   sit lie, lie stand                  "You lie down on the ground."
+ *   stand sit, sit stand                "You stand up."
+ *   please sit, sit quietly, push stone sit, open stool sit, wear coin sit
+ *                                       "You sit down on the ground."
+ *   sit on stool lie, lie on stool sit  "You lie down on the stool."
+ *   sit on chair stand on stool         "You stand on the chair." (index)
+ *   stand up sit down lie down          "You lie down on the ground."
+ *   x stool sit                         the stool's description; sitting
+ *   sit and wait (3.7-3.9)              "You sit down on the ground."
+ * A line whose only such word leads it, followed by nothing, down/up, or
+ * on/in, is left to the rows that already answer it with their own
+ * refusals.  Lines holding the take, drop, inventory, give, ask, talk, say,
+ * direction, score, hint and profanity words are left alone: not measured.
+ * Returns TRUE when it answered the line; an examine line gets the move and
+ * FALSE, so the examine row speaks.
+ */
+scr_bool
+lib_sitstand_anywhere (scr_gameref_t game)
+{
+  static const scr_char *const LEFT_ALONE[] = {
+    "get", "take", "pick", "drop", "put", "leave", "i", "inventory", "give",
+    "ask", "talk", "say", "tell", "north", "n", "east", "e", "south", "s",
+    "west", "w", "u", "d", "out", "northeast", "ne", "northwest", "nw",
+    "southeast", "se", "southwest", "sw", "score", "hint", "hints", "help",
+    "shit", "fuck", "bastard", "cunt", "crap", "hell", "shag", "bollocks",
+    "bollox", "piss", "bugger", "bloody", NULL
+  };
+  static const scr_char *const EXAMINES[] = {
+    "x", "examine", "look at", "ex", "exam", "read", NULL
+  };
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_char *const *word;
+  scr_bool sit, stand, lie, examine;
+  scr_int blocks;
+
+  if (!line || game->pending_endgame != 0)
+    return FALSE;
+
+  sit = lib_co_contains (line, "sit");
+  stand = lib_co_contains (line, "stand");
+  lie = lib_co_contains (line, "lie")
+        || (taf_version >= TAF_VERSION_400 && lib_co_contains (line, "lay"));
+  blocks = sit + stand + lie;
+  if (blocks == 0)
+    return FALSE;
+
+  for (word = LEFT_ALONE; *word; word++)
+    if (lib_co_contains (line, *word))
+      return FALSE;
+
+  if (blocks == 1)
+    {
+      static const scr_char *const VERBS[] = {
+        "sit", "stand", "lie", "lay", NULL
+      };
+      const scr_char *rest = NULL;
+
+      for (word = VERBS; *word && !rest; word++)
+        {
+          const size_t length = strlen (*word);
+
+          if (scr_strncasecmp (line, *word, length) == 0
+              && (line[length] == NUL || line[length] == ' '))
+            rest = line + length;
+        }
+      if (rest)
+        {
+          rest += strspn (rest, " ");
+          if (scr_strncasecmp (rest, "down", 4) == 0
+              && (rest[4] == NUL || rest[4] == ' '))
+            rest += 4;
+          else if (scr_strncasecmp (rest, "up", 2) == 0
+                   && (rest[2] == NUL || rest[2] == ' '))
+            rest += 2;
+          rest += strspn (rest, " ");
+          if (rest[0] == NUL
+              || ((scr_strncasecmp (rest, "on", 2) == 0
+                   || scr_strncasecmp (rest, "in", 2) == 0)
+                  && (rest[2] == NUL || rest[2] == ' ')))
+            return FALSE;
+        }
+    }
+
+  examine = FALSE;
+  for (word = EXAMINES; *word && !examine; word++)
+    examine = lib_co_contains (line, *word);
+  if ((taf_version >= TAF_VERSION_380 && lib_co_contains (line, "look in"))
+      || (taf_version >= TAF_VERSION_390
+          && (lib_co_contains (line, "look") || lib_co_contains (line, "l"))))
+    examine = TRUE;
+
+  const size_t mark = pf_buffer_length (filter);
+  if (sit)
+    lib_sitstand_block (game, MOVE_SIT, mark);
+  if (stand)
+    lib_sitstand_block (game, MOVE_STAND, mark);
+  if (lie)
+    lib_sitstand_block (game, MOVE_LIE, mark);
+
+  if (examine)
+    {
+      pf_truncate (filter, mark);
+      return FALSE;
+    }
+  return pf_buffer_length (filter) > mark;
 }
 
 
@@ -23888,6 +24139,8 @@ lib_cmd_sit_other (scr_gameref_t game)
 scr_bool
 lib_cmd_lie_other (scr_gameref_t game)
 {
+  if (lib_lay_pre400 (game))
+    return FALSE;
   if (lib_checkverb_bare_400 (game, "lie on", "Lie on")
       || lib_checkverb_bare_400 (game, "lie in", "Lie in")
       || lib_checkverb_bare_400 (game, "lay on", "Lay on")

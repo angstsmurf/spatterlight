@@ -330,18 +330,6 @@ not by a tick.
   sweep (445A0F).
 - **Examine:** 3.7/3.8 examines have no bare-verb exit (unmeasured
   corners).
-- **Sit/stand/lie: a line matching two blocks.** sitstand tests
-  c("sit"), c("stand") and c("lie") anywhere in the line, as independent
-  blocks, and the last message wins (run390 444010, run400 46B370). `sit
-  lie` is "You lie down on the ground." in every Runner, and a following
-  `stand` is "You stand up."; Scarier says "I don't understand." Before
-  4.0, `sit on stool and lie on chair` is "You lie down on a/the chair."
-  (4.0 splits the line, and Scarier matches it there); Scarier 3.7 sits on
-  the chair, 3.8/3.9 ask "what do you want to sit on?". Porting it means
-  letting sitstand claim any line with those words after the take, drop,
-  wear and battle handlers and before openclose (run390 45F50D), so check
-  the corpus for lines that contain them. p37SIT..p4SIT,
-  `cmdfile_p3738sit3.txt` turns 29-32.
 - **3.8 `lie on bed` from the next room** is "You can't lie on that." and
   4.0's is "You can't see the bed."; both already match. The 3.8 object
   loop's scope test is unread.
@@ -889,6 +877,25 @@ next to the named function and in `annotations.tsv`.
     sitstand's answer replaces it.
   - The 3.7/3.8 static take refusal names the raw Prefix: "You can't take
     a chair." (run380 43E697, run370 4369FF).
+  - sitstand is blocks entered on c("sit"), c("stand"), c("lie") ANYWHERE
+    in the line, run in code order and each overwriting the one message
+    (run390 444010 called at 45F50D, run400 46B370). `sit lie`, `lie
+    stand`, `stand up sit down lie down` are "You lie down on the ground.";
+    `stand sit` and `sit stand` "You stand up."; `please sit`, `sit
+    quietly`, `push stone sit`, `open stool sit`, `wear coin sit` and
+    pre-4.0 `sit and wait` "You sit down on the ground."; `sit on stool
+    lie` lies on the stool; `sit on chair stand on stool` stands on the
+    chair (last object in index order); `x stool sit` examines and still
+    sits. Pre-4.0 `sit on stool and lie on chair` lies on the chair. Lines
+    holding take/drop/inventory/give/ask/talk/say/direction/score/hint/
+    profanity words are left alone (unmeasured); a successful wear or
+    remove on such a line is unmeasured. Feed `cmdfile_p3738sit4.txt`:
+    run370x Adrift_168, run380x Adrift_169, run390x Adrift_170, run400x
+    Adrift_171 (`lib_sitstand_anywhere`). Volant `stand your ground` (solution line 45)
+    is "You are already standing!" (Adrift_256).
+  - `lay` is a lie word in run400 only (46BACE): 3.7-3.9 `lay down` is "I
+    don't understand." and `lay on stool` therest's "I don't understand
+    what you want me to do with the stool." (`lib_lay_pre400`).
   - 3.7/3.8 `x me` with an empty PlayerDesc is one string (run370 435AED,
     run380 43D43E). "circumstances." gets its full stop only before the
     sitting or lying clause. Standing on an object is "...the circumstances

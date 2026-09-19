@@ -5542,6 +5542,9 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
            */
           status = run_task_refusal (game, string, REFUSAL_PASS_PRE);
         }
+      /* sitstand enters on its words anywhere; see lib_sitstand_anywhere(). */
+      if (!status)
+        status = lib_sitstand_anywhere (game);
       if (!status)
         status = run_therest_absent_370 (game, library_string);
       if (!status)

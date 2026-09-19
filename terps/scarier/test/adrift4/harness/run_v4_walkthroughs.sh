@@ -7659,6 +7659,11 @@ trickortreat_solution.txt|Trick or Treat.taf|You flee to freedom.|SCR_SKIP_WAITK
 # Adrift_256_volant.txt line 129, the same turn in the same state, where the
 # old golden carried the game task's "You either can't have it, or don't need
 # it at this moment."
+# Re-blessed 2026-09-19, one line, for the sitstand-anywhere port (see
+# notes/WINE-TRANSCRIPTS-TODO.md).  `stand your ground` with no task to take it
+# reaches sitstand, whose stand block enters on c("stand") anywhere: "You are
+# already standing!" -- Adrift_256_volant.txt line 186, where the old golden
+# carried the game's DontUnderstand.
 volant_solution.txt|volant.taf|You have won! Good for you!|
 # Dear Diary.taf by Wotan-Anubis (AIF): a 3.90 coming-out romance -- dump
 # Erik, fall for his sister Erin, win her over across a swim/dinner/movie

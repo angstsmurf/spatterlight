@@ -226,7 +226,7 @@ Time passes...
 Time passes...
 
 > stand your ground
-I don't understand what you mean!
+You are already standing!
 
 > warm jeljel
 I don't understand what you mean!
