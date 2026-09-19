@@ -2551,11 +2551,22 @@ static scr_bool run_rerun_skips_tasks = FALSE;
  * is a line read at the prompt like any other: echoed, lower-cased, a turn
  * of its own.  run_goto_arrival_due marks the last step's turn, after which
  * run_main_loop() prints the arrival.
+ *
+ * run_goto_rest holds what was left of the typed line when the walk began
+ * (`go to kitchen, look`).  Pre-4.0 generaltasks keeps its split queue in a
+ * local (run390 var_E4, run380 var_E4), so each step, typed into the box
+ * and run as a nested generaltasks, never sees it: the walk and its arrival
+ * come first, then the rest of the line (run390x Adrift_135_pgs39.txt,
+ * run380x Adrift_134_pgs38.rtf).  run400 keeps the queue in the global
+ * MemVar_4942E4 and empties it at the top of every generaltasks (48A01F),
+ * so the first step throws the rest of the line away (run400x
+ * Adrift_136_pgs4.txt); see run_player_input().
  */
 static std::vector<std::string> run_goto_steps;
 static size_t run_goto_next = 0;
 static std::string run_goto_arrival;
 static scr_bool run_goto_arrival_due = FALSE;
+static std::string run_goto_rest;
 
 void
 run_queue_goto_step (const scr_char *step)
@@ -2570,12 +2581,19 @@ run_set_goto_arrival (const scr_char *text)
 }
 
 static void
-run_cancel_goto_walk (void)
+run_finish_goto_walk (void)
 {
   run_goto_steps.clear ();
   run_goto_next = 0;
   run_goto_arrival.clear ();
   run_goto_arrival_due = FALSE;
+}
+
+static void
+run_cancel_goto_walk (void)
+{
+  run_finish_goto_walk ();
+  run_goto_rest.clear ();
 }
 
 /*
@@ -5553,6 +5571,18 @@ run_player_input (scr_gameref_t game)
        * If there's none buffered, read a new line of player input.  Other-
        * wise, separate output so far with a newline.
        */
+      /*
+       * A pre-4.0 walk is over: the rest of the line it held back runs now,
+       * in the same turn as the arrival.  See run_goto_rest.
+       */
+      if (line_buffer[0] == NUL && !run_goto_rest.empty ()
+          && run_goto_steps.empty () && !run_goto_arrival_due)
+        {
+          strncpy (line_buffer, run_goto_rest.c_str (), LINE_BUFFER_SIZE - 1);
+          line_buffer[LINE_BUFFER_SIZE - 1] = NUL;
+          run_goto_rest.clear ();
+        }
+
       if (line_buffer[0] == NUL)
         {
           if_read_line (line_buffer, sizeof (line_buffer));
@@ -5973,6 +6003,19 @@ run_player_input (scr_gameref_t game)
         }
       else
         game->redo_sequence = 0;
+    }
+
+  /*
+   * This element set a `go <place>` walk going: its steps are read at the
+   * prompt, so the rest of the line must not run first.  Pre-4.0 holds it
+   * until the arrival; run400's first step empties the queue.  See
+   * run_goto_rest.
+   */
+  if (run_goto_next < run_goto_steps.size () && line_buffer[0] != NUL)
+    {
+      if (prop_get_taf_version (bundle) < TAF_VERSION_400)
+        run_goto_rest = line_buffer;
+      line_buffer[0] = NUL;
     }
 
   /*
@@ -6799,14 +6842,14 @@ run_main_loop (scr_gameref_t game)
        * route finder gets control back from SendKeys and prints the arrival
        * (run390 43CBB9, run380 431FF2).  A walk the game ended stops there.
        */
-      if (run_goto_arrival_due || !game->is_running
-          || game->pending_endgame != 0)
+      if (run_goto_arrival_due && game->is_running
+          && game->pending_endgame == 0)
         {
-          if (run_goto_arrival_due && game->is_running
-              && game->pending_endgame == 0)
-            pf_buffer_string (filter, run_goto_arrival.c_str ());
-          run_cancel_goto_walk ();
+          pf_buffer_string (filter, run_goto_arrival.c_str ());
+          run_finish_goto_walk ();
         }
+      else if (!game->is_running || game->pending_endgame != 0)
+        run_cancel_goto_walk ();
 
       /*
        * End of turn: if an EndGame task action armed an ending, print it now.

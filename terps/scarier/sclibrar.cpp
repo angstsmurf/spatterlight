@@ -4241,6 +4241,35 @@ lib_cmd_go_place (scr_gameref_t game)
         return FALSE;
     }
 
+  /*
+   * Pre-4.0 generaltasks calls examines() first (run390 45F684, run380
+   * 4423C3, run370 43BB6F), and examines() takes any line holding one of its
+   * entry words anywhere (c(), whole word): x, examine, look at, look in, ex,
+   * exam, read, and from 3.9 bare look and l (run390 44B76C-44B833, run380
+   * 43C69D, run370 434E2A, which has no "look in").  With no object named it
+   * answers from its tail, "Nothing special." in a lit room: run390x
+   * Adrift_135_pgs39.txt and Adrift_136_pgs39b.txt (`go to kitchen and
+   * look`, `... and l`, `... and read`, `... with x`, `... and look in`),
+   * run380x Adrift_135_pgs38b.rtf (`go to first room and read`, `... and
+   * x`; `go to kitchen and look` is gotoplace's "Unknown place.").  A goto
+   * line that also names an object is not measured.  4.0 splits `and look`
+   * off first (run400x Adrift_137_pgs4b.txt).
+   */
+  if (version < TAF_VERSION_400)
+    {
+      static const scr_char *const EXAMINE_WORDS[] = {
+        "x", "examine", "look at", "ex", "exam", "read", NULL
+      };
+
+      for (const scr_char *const *word = EXAMINE_WORDS; *word; word++)
+        if (has_word (*word))
+          return lib_cmd_examine_other (game);
+      if ((version >= TAF_VERSION_380 && has_word ("look in"))
+          || (version >= TAF_VERSION_390
+              && (has_word ("look") || has_word ("l"))))
+        return lib_cmd_examine_other (game);
+    }
+
   if (has_word ("goto"))
     drop_front (5);
   if (has_word ("go to"))

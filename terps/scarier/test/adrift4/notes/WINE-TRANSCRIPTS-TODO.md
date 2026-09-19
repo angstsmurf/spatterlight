@@ -221,10 +221,6 @@ not by a tick.
 
 ### Engine, every version
 
-- **`goto <place>` on a line with more elements** (`goto garden, look`):
-  the Runner types each walk step with SendKeys, which nests, so it may
-  run the rest of the line after the first step. Scarier runs the rest of
-  the line first and the steps after. Unmeasured.
 - **gotoplace at 3.7:** run370's extra map/var_180 conditions are unread,
   and no 3.7 probe has been run (3.8 is measured).
 
@@ -439,6 +435,20 @@ next to the named function and in `annotations.tsv`.
   Adrift_133_pgoto39.txt, run400x Adrift_133_p4goto.txt, bare goto
   Adrift_133_pgoto38b.rtf / Adrift_134_pgoto39b.txt) (`lib_cmd_go_place`,
   2026-09-19)
+- **`goto` with more on the line** (`go to kitchen, look`): each walk step
+  runs as a nested generaltasks. Pre-4.0 keeps the split queue in a local
+  (var_E4), so the walk and "Arrived" come first and the rest of the line
+  follows in the same turn. run400 keeps it in a global and empties it at
+  the top of every generaltasks (48A01F), so a goto that walks throws the
+  rest of the line away; one that doesn't walk ("already", "Unknown
+  place.") keeps it. Pre-4.0 examines() runs ahead of gotoplace and takes
+  any line with one of its entry words (x, examine, look at, ex, exam,
+  read; 3.8+ look in; 3.9 also look, l), so `go to kitchen and read` is
+  "Nothing special." (3.8 `... and look` stays "Unknown place."). Feeds
+  `~/adrift-battle/runner/wine/cmdfile_pgotosplit*.txt`: run390x
+  Adrift_135_pgs39.txt / Adrift_136_pgs39b.txt, run400x Adrift_136_pgs4.txt
+  / Adrift_137_pgs4b.txt, run380x Adrift_134_pgs38.rtf /
+  Adrift_135_pgs38b.rtf (`run_goto_rest`, `lib_cmd_go_place`, 2026-09-19)
 - **Task matching:**
   - One game task per typed line; a silent task lets the library run, never
     a second task. House (c74b1b90c)
