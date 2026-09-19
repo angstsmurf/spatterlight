@@ -15816,10 +15816,57 @@ lib_put_in_present_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * 3.7 and 3.8 keep what they had.
  */
 static scr_bool lib_put_co_refusal_pre390 (scr_gameref_t game);
+static void lib_put_sweep_390 (scr_gameref_t game, const scr_char *input,
+                               size_t from);
+
+/*
+ * lib_put_refusal_first_390()
+ *
+ * TRUE if this refusal is run390's to give before any task sees the line.
+ * insides() runs above tasks(0) in generaltasks (45F471 / 45F48B), and its
+ * first question, before the task look-up at 461A6C, is how many objects
+ * co() names in the line (461000-461641).  co() answers only for a present,
+ * seen object, so a put whose object is absent or never seen counts one
+ * name, the container's, and fewer than two is answered on the spot
+ * (461646-461754): "Put <the X> inside what?" when the object was named and
+ * the container was not, "You can't do that!" otherwise.  Both go to the
+ * post-put sweep (462550), whose claimant runs the tasks QUIET and whose
+ * absence leaves them LOUD, as after a put that moved something; see
+ * lib_put_task_sweep_390().
+ *
+ * Measured on Lair of the CyberCow (runner_transcripts/cybercow.txt T62,
+ * run390x, 2026-09-19): `put bones in robot` with the bones never made --
+ * the fairy got away -- is "You can't do that!".  The robot, lying in the
+ * cellar, claims the sweep; tasks 81-85 all match and all fail QUIET, so
+ * task 85's FailMessage "You're not holding the little bones to install
+ * them in the Invincible Robot." never replaces the refusal, where the
+ * deferred refusal had let the loud task pass print it.
+ *
+ * Only the refusals the priority pass reaches are moved; the put-nowhere
+ * catch-alls below STANDARD_COMMANDS still follow the task passes.
+ */
+static scr_bool
+lib_put_refusal_first_390 (scr_gameref_t game)
+{
+  return lib_is_version_390 (game) && run_in_priority_pass ()
+         && run_get_dispatch_input ();
+}
 
 static scr_bool
 lib_put_no_object_pre400 (scr_gameref_t game)
 {
+  if (lib_put_refusal_first_390 (game))
+    {
+      const size_t from = pf_buffer_length (gs_get_filter (game));
+
+      lib_print_response_message (game,
+                                  "You can't do that!\n",
+                                  "I can't do that!\n",
+                                  "%player% can't do that!\n");
+      lib_put_sweep_390 (game, run_get_dispatch_input (), from);
+      return TRUE;
+    }
+
   if (run_priority_defer_if_active ())
     return FALSE;
 
@@ -15853,6 +15900,18 @@ lib_put_what_pre400 (scr_gameref_t game, scr_int object, scr_bool typed_on)
 
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     return FALSE;
+
+  if (lib_put_refusal_first_390 (game))
+    {
+      const size_t from = pf_buffer_length (filter);
+
+      pf_buffer_string (filter, "Put ");
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter,
+                        typed_on ? " onto what?\n" : " inside what?\n");
+      lib_put_sweep_390 (game, run_get_dispatch_input (), from);
+      return TRUE;
+    }
 
   if (run_priority_defer_if_active ())
     return FALSE;
@@ -15945,16 +16004,37 @@ lib_put_sweep_claims_390 (scr_gameref_t game, const scr_char *line)
   return FALSE;
 }
 
+/*
+ * lib_put_sweep_390()
+ *
+ * The sweep itself, on whatever insides() left in the buffer from `from`:
+ * the task pass it picks, and the put text put back only if that pass said
+ * nothing.
+ */
+static void
+lib_put_sweep_390 (scr_gameref_t game, const scr_char *input, size_t from)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_bool is_loud = !lib_put_sweep_claims_390 (game, input);
+  const scr_char *buffer;
+  std::string text;
+
+  buffer = pf_get_buffer (filter);
+  if (buffer && strlen (buffer) > from)
+    text = buffer + from;
+  pf_truncate (filter, from);
+  run_typed_line_task_commands (game, input, is_loud);
+  if (pf_buffer_length (filter) == from && !text.empty ())
+    pf_buffer_string (filter, text.c_str ());
+}
+
 static void
 lib_put_task_sweep_390 (scr_gameref_t game, scr_int container,
                         const lib_list_t &moving, size_t from)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *input = run_get_dispatch_input ();
-  const scr_char *buffer;
-  std::string text;
-  scr_bool has_moved = FALSE, is_loud;
+  scr_bool has_moved = FALSE;
 
   if (version < TAF_VERSION_390 || version >= TAF_VERSION_400 || !input)
     return;
@@ -15969,15 +16049,7 @@ lib_put_task_sweep_390 (scr_gameref_t game, scr_int container,
   if (!has_moved)
     return;
 
-  is_loud = !lib_put_sweep_claims_390 (game, input);
-
-  buffer = pf_get_buffer (filter);
-  if (buffer && strlen (buffer) > from)
-    text = buffer + from;
-  pf_truncate (filter, from);
-  run_typed_line_task_commands (game, input, is_loud);
-  if (pf_buffer_length (filter) == from && !text.empty ())
-    pf_buffer_string (filter, text.c_str ());
+  lib_put_sweep_390 (game, input, from);
 }
 
 

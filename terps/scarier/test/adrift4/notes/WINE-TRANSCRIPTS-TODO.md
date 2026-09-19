@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 372 identical on every turn, 31 identical apart from
-  whitespace, 24 with a compare report. Every differing row is classified
+- **Manifest:** 373 identical on every turn, 31 identical apart from
+  whitespace, 23 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -303,9 +303,7 @@ strike order, Haron's arrival one turn apart) are not a battle rule:
   - alexis T99 `open chest`: "Command not understood" against "You can't
     open that.". This is the silent-task deviation (task 14 has no
     CompleteText), not refusal wording, and its extra tick causes all of
-    alexis's later battle differences (2026-09-19 draw census)..
-  - cybercow T62 `put bones in robot`: "You can't do that!" against
-    Scarier's "You're not holding the little bones to install them...".
+    alexis's later battle differences (2026-09-19 draw census).
 - **cybercow_win:**
   - T72 `x fairy`: a different description (state);
   - T97 `read envelope`: the Runner adds "The envelope is closed.";
@@ -883,6 +881,17 @@ every Runner.
     absent namesake is not heard. `[3.9]` secret_of_lost_world T118 `put red
     gem on statue` moves the green gem (`lib_put_co_resolve_390`,
     2026-09-19)
+  - 3.9 insides() answers a put whose line co() names fewer than two
+    objects in (object absent or unseen, or no container named) BEFORE its
+    task look-up: "Put <the X> inside/onto what?" or "You can't do that!"
+    (461646-461754; checktask is at 461A6C), then the same sweep (462550).
+    Scarier used to defer the refusal to the loud task pass, where a
+    FailMessage replaced it. `[3.9]` cybercow T62 `put bones in robot`,
+    with the bones never made: the robot claims the sweep, tasks 81-85 fail
+    QUIET, and the refusal stands (`lib_put_refusal_first_390`,
+    2026-09-19). Not ported: run380's count<2 refusal also comes before
+    checktask, but run380 has no sweep (445A0F); and the 3.9 container
+    refusals at 461769/461803 also come before checktask.
 - **A 3.8 in/on object with an unset parent** goes in the first container.
   (5cf3d7059)
 - **The take-from handler's own answers.** The 3.9 insides() decision

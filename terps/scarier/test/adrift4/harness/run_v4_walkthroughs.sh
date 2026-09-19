@@ -763,6 +763,13 @@ cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of
 # 10/10 ceiling is already demonstrated by the sibling cybercow_win_solution.txt
 # row above (gentler branch, "You scored 10 out of the maximum 10! ... Well
 # done - you scored maximum points!").  Not a bug; nothing to re-derive here.
+# Re-blessed 2026-09-19, one line (T62): `put bones in robot`, with the bones never
+# made, is now "You can't do that!" instead of task 85's FailMessage "You're not
+# holding the little bones ...".  run390 insides() counts the co()-named objects
+# BEFORE its task look-up (461646-461754, checktask at 461A6C); an absent or
+# unseen object leaves one name, the refusal prints, and the post-put sweep
+# (462550) finds the robot in the room and runs tasks 81-85 QUIET, so no
+# FailMessage replaces it.  Runner-true: runner_transcripts/cybercow.txt T62.
 cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
 # deaths (3.90).  Measured 2026-09-19 against run390x (runner_transcripts/deaths,
 # seed 1234, 11 = 11 draws on the same eleven turns): identical on every turn

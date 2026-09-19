@@ -532,7 +532,7 @@ robot.
 You can only move up.
 
 > put bones in robot
-You're not holding the little bones to install them in the Invincible Robot.
+You can't do that!
 
 > up
 You move up.
