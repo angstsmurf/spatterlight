@@ -258,9 +258,9 @@ It's Sunday and it's December.
 Your stats are
 Fun=0
 Health=%health%
-Sleep=904
-Bladder=16
-Communication=904
+Sleep=907
+Bladder=19
+Communication=907
 Hunger=4
 
 > quit

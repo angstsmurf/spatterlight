@@ -431,6 +431,11 @@ shadowpeak_killwraith_solution.txt|Shadowpeak.taf|completed the adventure Shadow
 # take any more, as your hands are full." as in the Runner (Adrift_145_alexis_rt
 # T28).  run390's take-from (insides) tests size before weight, and its all
 # form prints one summary instead of refusing the size-81 knife itself.
+# Re-blessed 2026-09-19: the 3.9 silent-task line keeps the library's answer
+# (the deliberate deviation) but is no longer a turn, as in run390.  T99 `open chest` (task 14, no CompleteText) drew 6 values where run390x
+# draws none (alexis_tr_trace.txt), which put every later battle roll and
+# Haron's arrival a turn out of phase.  Now equal draws on every turn, and
+# the recompare against Adrift_145_alexis_rt differs only at T99's text.
 alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=1
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
@@ -455,6 +460,10 @@ alexis_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=1
 #
 # Re-blessed 2026-09-15 for the same 3.9 take-from summary as the row above:
 # T27 matches Adrift_146_alexis_worn_cube_rt.
+# Re-blessed 2026-09-19: the 3.9 silent-task line keeps the library's answer
+# (the deliberate deviation) but is no longer a turn, as in run390.  Same T99 `open chest`: the recompare
+# is down to that one turn's text, and the T124 event line and early ending
+# are gone.
 alexis_worn_cube_solution.txt|ALEXIS.TAF|you have beaten Urgorn|SCR_SEED=2
 # Measured 2026-09-05: full run400 replay under Wine (Adrift_46_topaz.txt,
 # feed cmdfile_w_topaz.txt, 23 commands, PRE=1).  23/23 echoed with ONE real
@@ -4817,6 +4826,10 @@ asylum_solution.txt|as.taf|A large plaque sat on the wall|SCR_SKIP_WAITKEY=1
 # declares.  `piss` is on the route deliberately: T24 runs its two actions
 # and has empty completion text, so a working command reports "I don't
 # understand what you mean!".
+# Re-blessed 2026-09-19: the 3.9 silent-task line keeps the library's answer
+# (the deliberate deviation) but is no longer a turn, as in run390.  T24 `piss` no
+# longer ticks the clock/decay events; the recompare differs only at T4's
+# text (`piss`, the deviation itself).
 life_solution.txt|life.taf|Health=%health%|SCR_SKIP_WAITKEY=1
 # Renuntio: the corpus's first SPANISH v4 game (ifarchive adrift/spanish/).
 # One EndGame action, no score, no variables, and the row is worth having for

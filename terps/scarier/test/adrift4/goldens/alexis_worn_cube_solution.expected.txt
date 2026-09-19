@@ -838,6 +838,7 @@ Uron Dark Path
 The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
 mountain. Northeast will take you up.
+The air has become extremely dense and choking.
 
 > ne
 You move northeast.
@@ -853,15 +854,15 @@ Uron Castle Entrance
 The walls of the castle reach high in the air. The smell fades now, and the
 air appears less dense. It is replaced with a feeling that you are unwanted.
 There is a large wooden door that looks extremely thick. The path leads South
-down the mountain.  Haron follows you.
+down the mountain.
+
+> say the password
+The words seem to have moved the doors a little. They must be unlocked. They
+could probably be opened now.  Haron follows you.
 A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."
 Haron hands you a phial.
-
-> say the password
-The words seem to have moved the doors a little. They must be unlocked. They
-could probably be opened now.
 
 > open door
 The doors slowly creak open. A darkness that seems to come out of the doors,
@@ -876,22 +877,22 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Haron
 follows you from the south.
-Haron cuts the dark knight with the elven sword.
-The dark knight cuts you with the blade from Uron, but it doesn't seem to do
-any damage.
-
-> attack larnt
-You hit the dark knight with the metal spade.
 The dark knight cuts you with the blade from Uron, but it doesn't seem to do
 any damage.
 
 > attack larnt
 You hit the dark knight with the metal spade.
 Haron cuts the dark knight with the elven sword.
+The dark knight cuts you with the blade from Uron, but it doesn't seem to do
+any damage.
+
+> attack larnt
+You hit the dark knight with the metal spade.
 The dark knight cuts Haron with the blade from Uron.
 
 > attack larnt
 You hit the dark knight with the metal spade.
+Haron cuts the dark knight with the elven sword.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -1027,6 +1028,9 @@ the North.  Haron follows you.
 As you pass through the door, Urgorn creates a spell that shuts the exit to
 the South. He then smiles, and says:
  Just us now, no escape.  Haron follows you from the south.
+
+> attack urgorn
+You hit the dark lord with the metal spade.
 Haron cuts the dark lord with the elven sword.
 The dark lord shoots Haron with the ball of fire.
 
@@ -1052,9 +1056,6 @@ You hit the dark lord with the metal spade.
 > attack urgorn
 You hit the dark lord with the metal spade.
 Haron cuts the dark lord with the elven sword.
-
-> attack urgorn
-You hit the dark lord with the metal spade.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the

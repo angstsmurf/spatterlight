@@ -749,7 +749,7 @@ impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.  There is an eagle above you circling around your
 head.  Serond follows you from the west.
 Serond shoots a large eagle with the oak staff.
-A large eagle hits you, but it doesn't seem to do any damage.
+A large eagle hits Serond.
 
 > attack eagle
 You hit a large eagle with the magic cube.
@@ -800,7 +800,7 @@ Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
  There is a Narn here.  Serond follows you.
 Serond shoots the little Narn with the oak staff.
-The little Narn hits Serond.
+The little Narn hits you.
 
 > e
 You move east.
@@ -879,7 +879,7 @@ The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.  There is a large Narn here.  Serond follows you.
 Serond shoots a large Narn with the oak staff.
-A large Narn hits you.
+A large Narn hits Serond.
 
 > nw
 You move northwest.
@@ -912,11 +912,7 @@ could probably be opened now.
 
 > open door
 The doors slowly creak open. A darkness that seems to come out of the doors,
-consumes you.  Haron follows you.
-A knight catches up to you and smiles. Clearing his throat he says:
-" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
-have brought a gift from Natalya."
-Haron hands you a phial.
+consumes you.
 
 > n
 You move north.
@@ -927,13 +923,16 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Serond
 follows you from the south.
-Serond shoots the dark knight with the oak staff.  Haron follows you from the
-south.
-Haron cuts the dark knight with the elven sword.
-The dark knight cuts you with the blade from Uron.
+Serond shoots the dark knight with the oak staff.  Haron follows you.
+A knight catches up to you and smiles. Clearing his throat he says:
+" I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
+have brought a gift from Natalya."
+Haron hands you a phial.
+The dark knight cuts Haron with the blade from Uron.
 
 > attack larnt
 You hit the dark knight with the magic cube.
+Serond shoots the dark knight with the oak staff.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -1074,17 +1073,16 @@ the South. He then smiles, and says:
  Just us now, no escape.  Serond follows you from the south.
 Serond shoots the dark lord with the oak staff.  Haron follows you from the
 south.
-Haron cuts the dark lord with the elven sword.
-The dark lord shoots Serond with the ball of fire.
-Serond drops to the floor and as he looks you in the eye, he whispers: "Good
-Luck" His body then magically dissapears.
 
 > attack urgorn
 You hit the dark lord with the magic cube.
+Serond shoots the dark lord with the oak staff.
+Haron cuts the dark lord with the elven sword.
+The dark lord shoots Haron with the ball of fire.
 
 > attack urgorn
 You hit the dark lord with the magic cube.
-Haron cuts the dark lord with the elven sword.
+Serond shoots the dark lord with the oak staff.
 
 > attack urgorn
 You hit the dark lord with the magic cube.

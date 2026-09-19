@@ -2342,7 +2342,9 @@ run_npc_row_blocked (const scr_commands_t *command)
  * Long Journey Home stops at 5/90 in the Lair, exactly where run390 does --
  * and those goldens now hold the Runner's brick.  The silent-task half (a task
  * that runs and prints nothing leaving "I don't understand.") is still left
- * out; see RUNNER_TESTS_TODO.md section 4.
+ * out; see RUNNER_TESTS_TODO.md section 4.  Only its clock is ported
+ * (2026-09-19, 3.9 only): the line is not a turn, although the library now
+ * answers it (silent_task_390 in run_all_commands()).
  */
 
 /*
@@ -4779,6 +4781,21 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
                                                   TRUE, FALSE);
   const scr_bool task_claimed = !claimed_before_tasks && status
                                 && run_any_task_ran_this_command ();
+  /*
+   * 3.9: a task that ran and printed nothing claims the line in run390,
+   * which prints the game's DontUnderstand text, and the line is not a turn.
+   * Scarier deliberately lets the library answer instead (see the note
+   * "Measured 2026-08-23 (make_39_doneprobe.py" above), but keeps the Runner's
+   * clock: no turn, no walk and no event tick.  ALEXIS.TAF T99 `open chest`
+   * (task 14 `open * chest`, no CompleteText) draws nothing in run390x
+   * (alexis_tr_trace.txt), and ticking there put every later battle roll a
+   * turn out of phase.
+   */
+  const scr_bool silent_task_390 = !claimed_before_tasks && !status
+      && run_any_task_ran_this_command ()
+      && pf_buffer_length (filter) == task_mark
+      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390
+      && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400;
 
   /*
    * dobattle (run400 Proc_11_4_47F084), called from generaltasks at 48A4A2
@@ -4893,6 +4910,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    */
   if (status && repeat_found && !repeat_pending)
     game->is_admin = FALSE;
+  if (silent_task_390)
+    game->is_admin = TRUE;
 
   /*
    * 3.9: a character's topic reply replaces what a task printed for an ask or

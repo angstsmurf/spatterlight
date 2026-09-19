@@ -279,9 +279,23 @@ Each needs the `RND #` count against `SCR_TRACE_RAND` before it can be
 called real; equal counts with differing text mean a value or candidate
 rule, not RNG (deaths, 2026-09-19).
 
-- Battle rolls: alexis T126-127 (companion strike order, Haron's arrival
-  one turn apart). cyber2 T15/T26 is closed; see "Ported 2026-09-19: object
-  namesakes on a task line" below.
+None open. cyber2 T15/T26 is closed; see "Ported 2026-09-19: object
+namesakes on a task line" below. alexis T106-149 (target picks, companion
+strike order, Haron's arrival one turn apart) are not a battle rule:
+- Draw counts (run390x seed 1, alexis_tr_trace.txt, Adrift_128_alexis_tr.txt)
+  are equal on every turn through T98.
+- T99 `open chest` draws 0 in the Runner and 6 in Scarier. Task 14
+  `open * chest` has no CompleteText, so run390 prints the game's
+  DontUnderstand ("Command not understood") and does not count a turn.
+- Scarier falls through to the library ("You can't open that.") and ticks.
+  That is the silent-task deviation (see "Engine, 3.9" alexis T99 and the
+  lifesimulation/life/the_hangover line).
+- Everything after T99 was one tick out of phase. FIXED 2026-09-19 by
+  porting the clock half only, at 3.9. The library still answers the line
+  (the deviation stays, by the user's choice), but it is administrative, as
+  run390's DontUnderstand is (`silent_task_390` in run_all_commands()).
+  alexis, alexis_worn_cube and life were re-blessed, and each recompare now
+  differs only at the deviation's own text.
 
 ### Engine, 3.9
 
@@ -289,7 +303,9 @@ rule, not RNG (deaths, 2026-09-19).
   - thetest_win T68-77 `unlock door`: "You can't do that here!" against
     "You can't unlock the door.".
   - alexis T99 `open chest`: "Command not understood" against "You can't
-    open that.".
+    open that.". This is the silent-task deviation (task 14 has no
+    CompleteText), not refusal wording, and its extra tick causes all of
+    alexis's later battle differences (2026-09-19 draw census)..
   - cybercow T62 `put bones in robot`: "You can't do that!" against
     Scarier's "You're not holding the little bones to install them...".
 - **cybercow_win:**
@@ -305,8 +321,6 @@ rule, not RNG (deaths, 2026-09-19).
     row, so something else keeps Scarier's berry seen.
 - **fantasyworld T224-296:** the Royal Knight follows the player in the
   Runner. In Scarier he is not in the room.
-- **alexis_worn_cube:** T124 has an event line one turn earlier in the
-  Runner, and 34 `attack urgorn` are lost after an earlier end.
 - **everything T38 `read diary`:** the run390 silent-task DontUnderstand
   (deliberate deviation); the ending at T39 is identical.
 
@@ -373,8 +387,9 @@ rule, not RNG (deaths, 2026-09-19).
   feed answers the pause with its own blank line. The other rows' trailing
   padding was trimmed and re-driven 2026-09-19 (1cc5dbc55; the kept lines
   the Runner needs are in the row comments).
-- lifesimulation T6 `turn off tv`, life `piss` and the_hangover are the
-  silent-task deviation;
+- lifesimulation T6 `turn off tv`, life `piss`, the_hangover and alexis /
+  alexis_worn_cube T99 `open chest` are the silent-task deviation (text only;
+  at 3.9 the line is no longer a turn, 2026-09-19);
   alices_restaurant the run370 double matcher pass; sandy_meta_number and
   hero's closing `statusline` the SCARE meta-commands (hero's walkthrough
   uses `statusline` on purpose to print the score).
