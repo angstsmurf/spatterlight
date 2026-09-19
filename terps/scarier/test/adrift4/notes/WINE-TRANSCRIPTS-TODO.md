@@ -348,12 +348,6 @@ not by a tick.
   (`lib_attack_line_pre390`). `kill dave` = "Now that isn't very nice."
   and `punch dave` = the Mike Tyson line in both, already matching
   (Adrift_196/197_pnpckill37/38).
-- **Bare-verb "<Verb> what?" below 3.9.** run370/run380 have no checkverb;
-  the only "what?" literals are Take, Drop, Wear, Remove, With and 3.8's
-  Open/Close. Every other `_what` fallback row (~40) is probably a SCARE
-  invention at 3.7/3.8. Only bare `hit` is measured: it is the attack arm,
-  not "Hit what?" (ported via `lib_cmd_hit_other`).
-  Needs a bare-verb drive on p37/p38.
 
 ---
 
@@ -375,6 +369,9 @@ not by a tick.
   `cmdfile_p3738putallin.txt` / `cmdfile_p3738putallon.txt`, 2026-09-19).
   `put everything in zzz` crashes both the same way (`cmdfile_p3739drop.txt`
   cmd 5, par/p37drop.log). Scarier keeps its sane answer.
+- **run370 bare `eat` crashes the Runner** with the same "Run-time error
+  '9'" (`cmdfile_pbareverb.txt` on p37NPCAMB, par/pbareverb37.log,
+  2026-09-19). run380 answers DontUnderstand; Scarier's 3.7 answer is kept.
 - **run370 `eat <character>` crashes the Runner** with the same "Run-time
   error '9'" (`eat guard`, `eat dave`: `cmdfile_pnpcamb.txt` on p37NPCAMB,
   Adrift_191_pnpcamb37.rtf, 2026-09-19). run380 answers DontUnderstand, and
@@ -1400,6 +1397,19 @@ next to the named function and in `annotations.tsv`.
   Adrift_196/197/198_pnpckill37/38/39, Adrift_198/199/200_pnpcwith37/38/39;
   `lib_with_arm_390`, `lib_hit_absent_npc_pre390`,
   `lib_talk_hint_anywhere_pre390`, 2026-09-19)
+- **Bare verbs below 3.9.** run370/run380 have no checkverb, so a bare
+  verb runs its own arm with no object ("You can't lock that.", "You might
+  need that.", "You press, but nothing happens.", "I don't think that is
+  for sale."); only Take/Drop/Wear/Remove/With and 3.8's Open/Close ask
+  "what?". Bare `give` is "(to Nobody) You don't have that.". No touch arm
+  below 3.9 and no shake arm in 3.7 (catch-all, bare or not). fix/repair/
+  mend share one arm, "I don't think you can fix <X>." (run370 43E850,
+  run380 44535C). Rub is 4.0-only, so at 3.9 a bare `rub` is left to the
+  pending prefix: `repair` / `rub` = "I don't think you can repair that.".
+  `[<4.0]` p37/p38/p39NPCAMB (`cmdfile_pbareverb.txt`,
+  `cmdfile_pbareverb37.txt` without `eat`; Adrift_202_pbareverb37.rtf,
+  Adrift_201_pbareverb38.rtf, Adrift_202_pbareverb39.txt;
+  `lib_bare_verb_pre390`, 2026-09-19)
 - **3.9 absent characters, per verb.** `talk to`/`speak to` any named
   character, even an absent or unseen one, gives the "ask X about"
   hint. The hint at 45975C has no room gate, and the ask branch's

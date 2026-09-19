@@ -24763,6 +24763,37 @@ lib_cmd_kill_other (scr_gameref_t game)
 
 
 /*
+ * run370 and run380 have no checkverb: the only "<Verb> what?" literals
+ * they hold are Take, Drop, Wear, Remove, With and 3.8's Open/Close.  A
+ * bare verb runs the verb's own arm with no object, so `lock` is "You
+ * can't lock that.", `break` "You might need that.", `press` "You press,
+ * but nothing happens.".  Neither has a touch arm (touch is 3.9's, run390
+ * 45EB9C) and run370 has no shake arm (run380 444A4E), so those lines,
+ * bare or not, go to the catch-all.  Their fix arm is `c("fix") Or
+ * c("repair") Or c("mend")` with one message, "I don't think you can fix
+ * that." (run370 43E850, run380 44535C); 3.9 gives each verb its own.
+ * p37/p38NPCAMB `cmdfile_pbareverb.txt`, run370x Adrift_202_pbareverb37.rtf,
+ * run380x Adrift_201_pbareverb38.rtf, 2026-09-19.
+ */
+static scr_bool
+lib_bare_verb_pre390 (scr_gameref_t game)
+{
+  return prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390;
+}
+
+static scr_bool
+lib_no_shake_arm (scr_gameref_t game)
+{
+  return prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380;
+}
+
+static const scr_char *
+lib_fix_verb_pre390 (scr_gameref_t game, const scr_char *verb)
+{
+  return lib_bare_verb_pre390 (game) ? "fix" : verb;
+}
+
+/*
  * lib_nothing_happens_common()
  * lib_nothing_happens_object()
  * lib_nothing_happens_other()
@@ -24952,6 +24983,8 @@ lib_cmd_pull_object (scr_gameref_t game)
 scr_bool
 lib_cmd_shake_object (scr_gameref_t game)
 {
+  if (lib_no_shake_arm (game))
+    return FALSE;
   return lib_nothing_happens_object (game, "shake", "shakes");
 }
 
@@ -24992,6 +25025,8 @@ lib_cmd_pull_other (scr_gameref_t game)
 scr_bool
 lib_cmd_shake_other (scr_gameref_t game)
 {
+  if (lib_no_shake_arm (game))
+    return FALSE;
   return lib_nothing_happens_other (game, "shake", "shakes");
 }
 
@@ -25165,6 +25200,8 @@ lib_cmd_suck_object (scr_gameref_t game)
 scr_bool
 lib_cmd_touch_object (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return FALSE;
   return lib_cant_do_object (game, "touch");
 }
 
@@ -25475,6 +25512,8 @@ lib_cmd_turn_other (scr_gameref_t game)
 scr_bool
 lib_cmd_touch_other (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return FALSE;
   return lib_cant_do_other (game, "touch");
 }
 
@@ -25603,13 +25642,13 @@ lib_cmd_fix_object (scr_gameref_t game)
 scr_bool
 lib_cmd_mend_object (scr_gameref_t game)
 {
-  return lib_dont_think_object (game, "mend");
+  return lib_dont_think_object (game, lib_fix_verb_pre390 (game, "mend"));
 }
 
 scr_bool
 lib_cmd_repair_object (scr_gameref_t game)
 {
-  return lib_dont_think_object (game, "repair");
+  return lib_dont_think_object (game, lib_fix_verb_pre390 (game, "repair"));
 }
 
 scr_bool
@@ -25621,13 +25660,13 @@ lib_cmd_fix_other (scr_gameref_t game)
 scr_bool
 lib_cmd_mend_other (scr_gameref_t game)
 {
-  return lib_dont_think_other (game, "mend");
+  return lib_dont_think_other (game, lib_fix_verb_pre390 (game, "mend"));
 }
 
 scr_bool
 lib_cmd_repair_other (scr_gameref_t game)
 {
-  return lib_dont_think_other (game, "repair");
+  return lib_dont_think_other (game, lib_fix_verb_pre390 (game, "repair"));
 }
 
 
@@ -25694,48 +25733,64 @@ lib_what (scr_gameref_t game, const scr_char *verb)
 scr_bool
 lib_cmd_block_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_block_other (game);
   return lib_what (game, "Block");
 }
 
 scr_bool
 lib_cmd_break_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_break_other (game);
   return lib_what (game, "Break");
 }
 
 scr_bool
 lib_cmd_destroy_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_break_other (game);
   return lib_what (game, "Destroy");
 }
 
 scr_bool
 lib_cmd_smash_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_break_other (game);
   return lib_what (game, "Smash");
 }
 
 scr_bool
 lib_cmd_buy_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_buy_other (game);
   return lib_what (game, "Buy");
 }
 
 scr_bool
 lib_cmd_clean_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_clean_other (game);
   return lib_what (game, "Clean");
 }
 
 scr_bool
 lib_cmd_climb_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_climb_other (game);
   return lib_what (game, "Climb");
 }
 
 scr_bool
 lib_cmd_cut_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_cut_other (game);
   return lib_what (game, "Cut");
 }
 
@@ -25757,6 +25812,8 @@ lib_cmd_drink_what (scr_gameref_t game)
 scr_bool
 lib_cmd_fix_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_fix_other (game);
   return lib_what (game, "Fix");
 }
 
@@ -25776,108 +25833,150 @@ lib_cmd_hit_what (scr_gameref_t game)
 scr_bool
 lib_cmd_kick_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_kick_other (game);
   return lib_what (game, "Kick");
 }
 
 scr_bool
 lib_cmd_light_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_light_other (game);
   return lib_what (game, "Light");
 }
 
 scr_bool
 lib_cmd_lift_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_lift_other (game);
   return lib_what (game, "Lift");
 }
 
 scr_bool
 lib_cmd_mend_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_mend_other (game);
   return lib_what (game, "Mend");
 }
 
 scr_bool
 lib_cmd_move_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_move_other (game);
   return lib_what (game, "Move");
 }
 
 scr_bool
 lib_cmd_press_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_press_other (game);
   return lib_what (game, "Press");
 }
 
 scr_bool
 lib_cmd_pull_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_pull_other (game);
   return lib_what (game, "Pull");
 }
 
 scr_bool
 lib_cmd_push_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_push_other (game);
   return lib_what (game, "Push");
 }
 
 scr_bool
 lib_cmd_repair_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_repair_other (game);
   return lib_what (game, "Repair");
 }
 
 scr_bool
 lib_cmd_sell_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_sell_other (game);
   return lib_what (game, "Sell");
 }
 
 scr_bool
 lib_cmd_shake_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_shake_other (game);
   return lib_what (game, "Shake");
 }
 
 scr_bool
 lib_cmd_rub_what (scr_gameref_t game)
 {
+  /*
+   * No Runner below 4.0 has a rub arm, so a bare `rub` is left for the
+   * catch-all -- and at 3.9 for the pending "<Verb> what?" prefix:
+   * `repair` / `rub` is "I don't think you can repair that." (run390x
+   * Adrift_202_pbareverb39.txt T23-24).
+   */
+  if (!lib_is_version_400 (game))
+    return FALSE;
   return lib_what (game, "Rub");
 }
 
 scr_bool
 lib_cmd_stop_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_stop_other (game);
   return lib_what (game, "Stop");
 }
 
 scr_bool
 lib_cmd_suck_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_suck_other (game);
   return lib_what (game, "Suck");
 }
 
 scr_bool
 lib_cmd_touch_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_touch_other (game);
   return lib_what (game, "Touch");
 }
 
 scr_bool
 lib_cmd_turn_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_turn_other (game);
   return lib_what (game, "Turn");
 }
 
 scr_bool
 lib_cmd_unblock_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_unblock_other (game);
   return lib_what (game, "Unblock");
 }
 
 scr_bool
 lib_cmd_wash_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_wash_other (game);
   return lib_what (game, "Wash");
 }
 
@@ -26179,6 +26278,22 @@ lib_cmd_give_what (scr_gameref_t game)
       lib_give_defer_catch_all = FALSE;
       return FALSE;
     }
+
+  /*
+   * run370/run380 have no "Give what?": therest's give arm names what it
+   * found, and with nothing that is "that" (run380 443EF1, run370 43D495),
+   * so a bare `give` is "(to Nobody) You don't have that."  run370x
+   * Adrift_202_pbareverb37.rtf, run380x Adrift_201_pbareverb38.rtf.
+   */
+  if (lib_bare_verb_pre390 (game))
+    {
+      pf_buffer_string (gs_get_filter (game),
+                        lib_select_response (game,
+                                             "You don't have that.\n",
+                                             "I don't have that.\n",
+                                             "%player% don't have that.\n"));
+      return TRUE;
+    }
   lib_question_prefix_from_line (game);
   return lib_what (game, "Give");
 }
@@ -26259,12 +26374,16 @@ lib_cmd_wear_what (scr_gameref_t game)
 scr_bool
 lib_cmd_lock_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_lock_other (game);
   return lib_what (game, "Lock");
 }
 
 scr_bool
 lib_cmd_unlock_what (scr_gameref_t game)
 {
+  if (lib_bare_verb_pre390 (game))
+    return lib_cmd_unlock_other (game);
   return lib_what (game, "Unlock");
 }
 
