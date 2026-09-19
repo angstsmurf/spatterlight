@@ -14043,63 +14043,47 @@ lib_cmd_lock_object (scr_gameref_t game)
 
 
 /*
- * lib_compare_subject()
+ * lib_subject_in_text_390()
  *
- * Compare a subject, comma or NUL terminated.  Helper for ask.
+ * The 3.9/4.0 subject test, the Runner's c(subject, text) (run390 4334B0):
+ * both lower-cased, the first InStr hit that starts the text or follows a
+ * space decides -- a match if it runs to the end of the text or is followed
+ * by a space, "," or ".", no match otherwise, without looking further.  A hit
+ * inside a word is skipped and the search resumes one character on.  The
+ * subject is comma-terminated at posn, less its leading spaces, as nextsub()
+ * hands it over.
  */
 static scr_bool
-lib_compare_subject (const scr_char *subject, scr_int posn,
-                     const scr_char *string)
+lib_subject_in_text_390 (const scr_char *subject, scr_int posn,
+                         const scr_char *string)
 {
-  scr_int word_posn, string_posn;
+  std::string word, text (string);
+  scr_int end;
+  size_t from, hit;
 
-  /* Skip any leading subject spaces. */
-  for (word_posn = posn;
-       subject[word_posn] != NUL && scr_isspace (subject[word_posn]);)
-    word_posn++;
-  for (string_posn = 0;
-       string[string_posn] != NUL && scr_isspace (string[string_posn]);)
-    string_posn++;
+  while (subject[posn] != NUL && scr_isspace (subject[posn]))
+    posn++;
+  for (end = posn; subject[end] != NUL && subject[end] != COMMA;)
+    end++;
+  word.assign (subject + posn, end - posn);
+  if (word.empty ())
+    return FALSE;
+  for (auto &c : word)
+    c = scr_tolower (c);
+  for (auto &c : text)
+    c = scr_tolower (c);
 
-  /* Match characters from words with the string at position. */
-  while (TRUE)
+  for (from = 0; (hit = text.find (word, from)) != std::string::npos;
+       from = hit + 1)
     {
-      /* Any character mismatch means no match. */
-      if (scr_tolower (subject[word_posn]) != scr_tolower (string[string_posn]))
-        return FALSE;
-
-      /* Move to next character in each. */
-      word_posn++;
-      string_posn++;
-
-      /*
-       * If at space, advance over whitespace in subjects list.  Stop when we
-       * hit the end of the element or list.
-       */
-      while (scr_isspace (subject[word_posn])
-             && subject[word_posn] != COMMA && subject[word_posn] != NUL)
-        word_posn++;
-
-      /* Advance over whitespace in the current string too. */
-      while (scr_isspace (string[string_posn]) && string[string_posn] != NUL)
-        string_posn++;
-
-      /*
-       * If we found the end of the subject, and the end of the current string,
-       * we've matched.  If not at the end of the current string, though, only
-       * a partial match.
-       */
-      if (subject[word_posn] == NUL || subject[word_posn] == COMMA)
+      if (hit == 0 || text[hit - 1] == ' ')
         {
-          if (string[string_posn] == NUL)
-            break;
-          else
-            return FALSE;
+          const size_t after = hit + word.size ();
+          return after == text.size () || text[after] == ' '
+                 || text[after] == ',' || text[after] == '.';
         }
     }
-
-  /* Matched in the loop; return TRUE. */
-  return TRUE;
+  return FALSE;
 }
 
 /*
@@ -14107,7 +14091,7 @@ lib_compare_subject (const scr_char *subject, scr_int posn,
  *
  * The 3.7/3.8 subject test: the comma-terminated subject at posn, less its
  * leading spaces, occurs anywhere in the lower-cased text.  See
- * lib_npc_find_topics().
+ * lib_npc_find_topic().
  */
 static scr_bool
 lib_subject_in_text_3738 (const scr_char *subject, scr_int posn,
@@ -14195,26 +14179,45 @@ static const scr_char *lib_ask_format_subject (scr_gameref_t game);
  * overwrite it (loc_440918), so the topic still wins where there is one.
  */
 /*
- * lib_npc_find_topics()
+ * lib_npc_find_topic()
  *
- * The topic whose subject list names the referenced text, and the NPC's "*"
- * topic, each -1 if there is none.
+ * The topic that answers an ask about the referenced text, -1 if none.  Every
+ * Runner walks the topics and their comma-separated subjects with no break
+ * (run370 438A23, run380 4408B2, run390 4599C6, run400 47F9D8):
+ *
+ *   if subject matches Or subject = "*":
+ *     if subject <> "*" Or found = 0:
+ *       reply = (Task > 0 And task done) ? AltReply : Reply
+ *       if reply <> "": msg = reply; found = 1
+ *
+ * So the last topic with a non-empty reply answers, a "*" subject answers only
+ * while nothing has, and a topic whose chosen reply is empty leaves an earlier
+ * answer standing.  The match test is InStr below 3.9 (see
+ * lib_subject_in_text_3738) and c() from 3.9 (lib_subject_in_text_390).
+ * Measured on p39ASK.taf / p4ASK.taf (make_39_askprobe.py, run390x and run400x
+ * alike): "red key" then "key" topics answer `the red key` and `red key` with
+ * "key"; `the key.` finds "key"; "coin" then "coin"-with-an-empty-AltReply
+ * answers from the first once the task is done; a "*" before "coin" is
+ * overwritten by it.  The 3.7/3.8 substring test is measured on wrecked T211
+ * (run380x): `ask her about good time` gets Suzie's "me, myself" reply, since
+ * "time" contains "me".
  */
-static void
-lib_npc_find_topics (scr_gameref_t game, scr_int npc,
-                     scr_int *topic_match, scr_int *default_topic)
+static scr_int
+lib_npc_find_topic (scr_gameref_t game, scr_int npc)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_bool is_3738 = prop_get_taf_version (bundle) < TAF_VERSION_390;
+  const scr_char *const text = var_get_ref_text (vars);
   scr_vartype_t vt_key[5];
-  scr_int topic_count, topic;
+  scr_int topic_count, topic, answer;
 
   /* Get the topics the NPC converses about. */
   vt_key[0].string = "NPCs";
   vt_key[1].integer = npc;
   vt_key[2].string = "Topics";
   topic_count = prop_get_child_count (bundle, "I<-sis", vt_key);
-  *topic_match = *default_topic = -1;
+  answer = -1;
   for (topic = 0; topic < topic_count; topic++)
     {
       const scr_char *subjects;
@@ -14225,50 +14228,40 @@ lib_npc_find_topics (scr_gameref_t game, scr_int npc,
       vt_key[4].string = "Subject";
       subjects = prop_get_string (bundle, "S<-sisis", vt_key);
 
-      /* If this is the special "*" topic, note and continue. */
-      if (!scr_strcasecmp (subjects, "*"))
-        {
-          if (lib_trace)
-            scr_trace ("Library: \"*\" is %ld\n", topic);
-
-          *default_topic = topic;
-          continue;
-        }
-
       /* Split into subjects by comma delimiter. */
       for (posn = 0; subjects[posn] != NUL;)
         {
-          if (lib_trace)
-            scr_trace ("Library: subject %s[%ld]\n", subjects, posn);
+          scr_int start, end;
+          scr_bool is_star;
 
-          /*
-           * See if this subject matches.  3.7 and 3.8 test InStr(text,
-           * subject) > 0, binary compare, on the lower-cased line: any
-           * substring, with nextsub() stripping leading spaces (run380
-           * 4408B2 and 429B78, run370 438A23).  The topic loop runs to the
-           * end, so the last matching topic answers.  Measured on wrecked
-           * T211 (run380x): `ask her about good time` gets Suzie's "me,
-           * myself" reply, since "time" contains "me".
-           */
-          if (prop_get_taf_version (bundle) < TAF_VERSION_390
-              ? lib_subject_in_text_3738 (subjects, posn,
-                                          var_get_ref_text (vars))
-              : lib_compare_subject (subjects, posn, var_get_ref_text (vars)))
+          /* nextsub(): skip leading spaces and commas; "*" is the subject. */
+          for (start = posn; subjects[start] == ' ' || subjects[start] == COMMA;)
+            start++;
+          if (subjects[start] == NUL)
+            break;
+          for (end = start; subjects[end] != NUL && subjects[end] != COMMA;)
+            end++;
+          is_star = (end - start == 1 && subjects[start] == '*');
+
+          if (lib_trace)
+            scr_trace ("Library: subject %s[%ld]\n", subjects, start);
+
+          if ((is_star
+               || (is_3738 ? lib_subject_in_text_3738 (subjects, start, text)
+                           : lib_subject_in_text_390 (subjects, start, text)))
+              && (!is_star || answer == -1)
+              && !scr_strempty (lib_npc_topic_response (game, npc, topic)))
             {
               if (lib_trace)
-                scr_trace ("Library: matched\n");
+                scr_trace ("Library: topic %ld answers\n", topic);
 
-              *topic_match = topic;
-              break;
+              answer = topic;
             }
 
-          /* Move to next subject, or end of list. */
-          while (subjects[posn] != COMMA && subjects[posn] != NUL)
-            posn++;
-          if (subjects[posn] == COMMA)
-            posn++;
+          posn = end;
         }
     }
+  return answer;
 }
 
 static scr_bool
@@ -14276,7 +14269,7 @@ lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
                    scr_bool hint_when_silent)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_int npc, topic_match, default_topic;
+  scr_int npc, topic;
   scr_bool is_ambiguous;
 
   /* Get the referenced npc, and if none, consider complete. */
@@ -14287,13 +14280,25 @@ lib_ask_npc_about (scr_gameref_t game, const scr_char *verb,
   if (lib_trace)
     scr_trace ("Library: asking NPC %ld\n", npc);
 
-  lib_npc_find_topics (game, npc, &topic_match, &default_topic);
+  topic = lib_npc_find_topic (game, npc);
+  if (topic != -1 && lib_npc_reply_to (game, npc, topic))
+    return TRUE;
 
-  /* Handle any matched subject first, and "*" second. */
-  if (topic_match != -1 && lib_npc_reply_to (game, npc, topic_match))
-    return TRUE;
-  else if (default_topic != -1 && lib_npc_reply_to (game, npc, default_topic))
-    return TRUE;
+  /*
+   * 3.7/3.8 answer an unanswered `<subject>` -- the placeholder of the
+   * ask-format hint, typed literally -- with "Smart Alec!", over the talk-to
+   * hint too (run380 4409B7, run370 438B28).  run390 and run400 keep the
+   * test (459B12, 47FB0E) but can never reach it: their Return handlers
+   * escape every "<" as "&lt;" (run390 436130, run400 45C4E8), which the
+   * 3.7/3.8 ones do not.  Measured on p38ASK.taf (make_38_askprobe.py,
+   * run380x) against p39ASK/p4ASK: `ask erin about <subject>`.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
+      && strcmp (var_get_ref_text (gs_get_vars (game)), "<subject>") == 0)
+    {
+      pf_buffer_string (filter, "Smart Alec!\n");
+      return TRUE;
+    }
 
   /* No topic matched, so `talk to` falls back on the hint it displaced. */
   if (hint_when_silent)
@@ -14351,7 +14356,7 @@ lib_cmd_talk_to_npc_about (scr_gameref_t game)
 scr_bool
 lib_ask_npc_topic_after_task_390 (scr_gameref_t game, size_t mark)
 {
-  scr_int index_, npc, count, topic_match, default_topic, topic;
+  scr_int index_, npc, count, topic;
 
   count = 0;
   npc = -1;
@@ -14368,15 +14373,8 @@ lib_ask_npc_topic_after_task_390 (scr_gameref_t game, size_t mark)
   if (count != 1)
     return FALSE;
 
-  lib_npc_find_topics (game, npc, &topic_match, &default_topic);
-  if (topic_match != -1
-      && !scr_strempty (lib_npc_topic_response (game, npc, topic_match)))
-    topic = topic_match;
-  else if (default_topic != -1
-           && !scr_strempty (lib_npc_topic_response (game, npc,
-                                                     default_topic)))
-    topic = default_topic;
-  else
+  topic = lib_npc_find_topic (game, npc);
+  if (topic == -1)
     return FALSE;
 
   pf_truncate (gs_get_filter (game), mark);

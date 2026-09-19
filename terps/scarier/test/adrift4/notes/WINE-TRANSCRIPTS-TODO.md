@@ -473,9 +473,7 @@ RNG" in the index).
   supporter; `put all in <nothing>`.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
-- **Examine:** run390's examine state line has not been read. Ask-topic
-  overwrite: run390 lets the last matching topic win, Scarier keeps the
-  first.
+- **Examine:** run390's examine state line has not been read.
 - **Events, pre-4.0:** the rolls-0 restart rule is ported at 4.0 (index,
   "Events and RNG"); run390/run380's finish test and restart store are
   unread, so pre-4.0 still finishes such an event on its next tick.
@@ -487,8 +485,13 @@ RNG" in the index).
   ported.
 - **Examine:** 3.7/3.8 examines have no bare-verb exit (unmeasured corners).
   run370's sit/stand/lie has no location test (42AEC8, unported).
-- **Ask topics:** a topic whose Task gate picks an empty AltReply is
-  unmeasured (substring matching with the last match winning is ported).
+- **The line splitter:** run380/run370 cut a typed line only at a
+  whole-word `then` (run380 441A4B, run370 43B29B), with no "," or ". "
+  pass, which 3.9 added (45EC8E). Scarier still cuts pre-3.9 lines at
+  both (run_is_separator), so `ask erin about key, please` prints "ERIN
+  KEY." and then "Your kindness gets you nowhere." where run380 prints
+  "ERIN KEY." alone (p38ASK, make_38_askprobe.py). This needs a golden
+  sweep of the 3.7/3.8 rows whose solutions type "," or ". ".
 - **Put:** 3.7 static container `open`; 3.7 bare take from a held
   container; `put X in Y` where X names nothing and Y is a bad container; a
   supporter that is neither held nor static nor a container; a static
@@ -644,6 +647,14 @@ every Runner.
     female" at 3.9+, "Nobody" below. showtime
   - A 3.9 topic reply overwrites the task text. `[3.9]` zombies, ms_mobius,
     alchemist (8c4d3260b)
+  - Which topic answers an ask is one loop in every Runner (run380 4408B2,
+    run390 4599C6, run400 47F9D8). It walks every subject of every topic
+    with no break. A match whose chosen reply (AltReply once the Task is
+    done) is empty does not count. A "*" subject answers only while nothing
+    has. The last answer stands. From 3.9 a subject matches by c()
+    (4334B0): whole word, case-insensitive, and the text may go on after
+    it, so `the red key` finds "key". p39ASK/p4ASK/p38ASK
+    (make_{39,400,38}_askprobe.py)
 - **Case handling.** Every Runner lower-cases input, but the character
   resolver's tail is case-sensitive, so a SYNONYM that carries a capital
   makes its NPC unreferenceable. bandera (0390eb300)
@@ -1116,7 +1127,9 @@ every Runner.
   - The 3.7/3.8 inventory listing does not claim the line, so a matching
     task's text follows it (run380 4421C2). wrecked T24
   - The 3.7/3.8 ask topic matches by substring, and the last match wins
-    (run380 4408B2). wrecked T129/T211
+    (run380 4408B2). wrecked T129/T211. A typed `<subject>` with no topic
+    is "Smart Alec!" (run380 4409B7); run390/run400 escape "<" at input
+    (436130, 45C4E8), so 3.9 and 4.0 never reach theirs. p38ASK
   - The examine-self full stop is 3.9+.
 - **Other formatting:**
   - The "<Name> is here." sentence is capitalised only by the 4.0 loader's
