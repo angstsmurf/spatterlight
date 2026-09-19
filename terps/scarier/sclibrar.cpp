@@ -7820,7 +7820,16 @@ static scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
  * runner_transcripts/cybercow_win.txt T72): object 4 "the fairy" and
  * Vluurinik (alias fairy) share the meadow, and `x fairy` answers only "The
  * fairy darts in circles around the warm bowl of CyberCow milk.", the
- * character's AltText.  3.8 is unread and left alone.
+ * character's AltText.
+ *
+ * run380's arm (440D0B-440D88) and run370's (438E23) are the same again:
+ * c("x") Or c("ex") Or c("examine") Or c("look at") Or c("exam") [And no
+ * task ran, 3.8 only, by VB precedence], the NPC named by Name or first
+ * Alias (lib_npc_named_in_line()) and in the room, the description or
+ * "There's nothing special about <Name>." assigned outright, then charinv.
+ * Measured on p37/p38NPCAMB (make_3738_npcambprobe.py, cmdfile_pnpcwith.txt):
+ * `x dave with stone` answers "A quiet man." (run370x Adrift_198_pnpcwith37,
+ * run380x Adrift_199_pnpcwith38), not the stone's description.
  */
 static scr_int
 lib_examine_npc_overwrite_400 (scr_gameref_t game)
@@ -7829,7 +7838,6 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
   scr_int npc, found = -1;
 
   if (!input
-      || !(lib_is_version_400 (game) || lib_is_version_390 (game))
       || (lib_is_version_400 (game)
           && lib_npc_400_find_namesakes (game, NULL, NULL)))
     return -1;
@@ -7966,7 +7974,7 @@ lib_cmd_examine_object (scr_gameref_t game)
    */
   gs_set_object_seen (game, object, TRUE);
 
-  /* 4.0: a present character the line names overwrites the answer. */
+  /* A present character the line names overwrites the answer. */
   npc = lib_examine_npc_overwrite_400 (game);
   if (npc != -1)
     {
@@ -14721,7 +14729,8 @@ lib_with_half_400 (scr_gameref_t game, const scr_char *half)
  */
 static lib_with_clause_t
 lib_with_clause_390 (scr_gameref_t game, const std::string &line,
-                     size_t split, scr_int *object, scr_int *instrument)
+                     size_t split, scr_int *object, scr_int *instrument,
+                     scr_bool quiet = FALSE)
 {
   const std::string head = line.substr (0, split);
   const std::string tail = line.substr (split + 6);
@@ -14746,12 +14755,15 @@ lib_with_clause_390 (scr_gameref_t game, const std::string &line,
 
   if (present < 0)
     {
-      pf_buffer_string (gs_get_filter (game), "With what?\n");
+      if (!quiet)
+        pf_buffer_string (gs_get_filter (game), "With what?\n");
       return LIB_WITH_ANSWERED;
     }
   if (!obj_is_static (game, *instrument)
       && gs_object_position (game, *instrument) != OBJ_HELD_PLAYER)
     {
+      if (quiet)
+        return LIB_WITH_ANSWERED;
       lib_print_response_object (game, "You don't have ", "I don't have ",
                                  "%player% don't have ", *instrument, ".\n");
       return LIB_WITH_ANSWERED;
@@ -14801,6 +14813,109 @@ lib_with_clause_400 (scr_gameref_t game, scr_int *object, scr_int *instrument)
       return LIB_WITH_ANSWERED;
     }
   return LIB_WITH_SUFFIX;
+}
+
+/*
+ * lib_with_arm_390_applies()
+ * lib_with_arm_390()
+ *
+ * run390's therest opens (45D2B7-45D3E7), right after the two-object split
+ * of lib_with_clause_390(), with an arm for every other line holding the
+ * whole word "with": the split did not claim it (var_D8 = ""), so no verb
+ * below it will see an instrument.  It walks the objects co(obj, 0) finds
+ * and answers the first whose Short or first Alias sits after "with" --
+ * InStr against the lower-cased line, so case-sensitive -- with "I don't
+ * understand what you want me to do with <the X>!"; failing that, "With
+ * what?".  Either way therest ends there, and characters(), which run390
+ * calls below it (460675), finds the message taken: its attack arm wants
+ * an empty one.  run380, run370 and run400 have no such arm.
+ *
+ * Measured on p39NPCAMB (make_3738_npcambprobe.py), run390x Adrift_198_
+ * pnpckill39 and Adrift_200_pnpcwith39 (cmdfile_pnpckill.txt, cmdfile_
+ * pnpcwith.txt): `attack/hit/kill/kick/punch/fight/hug/cut/push dave with
+ * stone`, `zzz with stone` and `hit cora with stone` (Cora next door) are
+ * the "!" line; `hit dave with zzz`, `talk with dave`, `dance with dave`,
+ * `zzz with`, `stone with`, `push stone with zzz`, `hit stone with dave` and
+ * `kick stone with` are "With what?".  Handlers above therest keep the line
+ * (`x dave with stone`, `wait with stone`), and the ask arm overwrites it
+ * (`ask dave about key with stone` is "DAVE KEY.").
+ *
+ * The arm stores the prefix Left(line, InStr("with") + 4) for a question
+ * continuation too (45D3E0); like the split's own "With what?" (45D1A0)
+ * it is not modelled, as no probe has followed one with an answer.
+ */
+scr_bool
+lib_with_arm_390_applies (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object, instrument;
+  std::string line;
+  size_t split;
+
+  if (!input || !lib_is_version_390 (game)
+      || !lib_input_contains_word (input, "with"))
+    return FALSE;
+
+  line = input;
+  split = line.find (" with ");
+  return split == std::string::npos
+         || lib_with_clause_390 (game, line, split, &object, &instrument,
+                                 TRUE) != LIB_WITH_SUFFIX;
+}
+
+scr_bool
+lib_with_arm_390 (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object, instrument;
+  const scr_char *with;
+  std::string line;
+  size_t split;
+
+  if (!lib_with_arm_390_applies (game))
+    return FALSE;
+
+  /* The two-object split's own answers come first. */
+  line = input;
+  split = line.find (" with ");
+  if (split != std::string::npos
+      && lib_with_clause_390 (game, line, split, &object, &instrument)
+         == LIB_WITH_ANSWERED)
+    return TRUE;
+
+  with = strstr (input, "with");
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      scr_vartype_t vt_key[4];
+      const scr_char *name, *found;
+
+      if (!lib_co_pre400 (game, input, object, 0))
+        continue;
+
+      name = prop_get_indexed_string (bundle, "Objects", object, "Short");
+      found = scr_strempty (name) ? NULL : strstr (input, name);
+      if (!(found && found > with)
+          && lib_alias_prepare (bundle, vt_key, "Objects", object) > 0)
+        {
+          vt_key[3].integer = 0;
+          name = prop_get_string (bundle, "S<-sisi", vt_key);
+          found = scr_strempty (name) ? NULL : strstr (input, name);
+        }
+      if (found && found > with)
+        {
+          pf_buffer_string (filter,
+                            "I don't understand what you want me to do"
+                            " with ");
+          lib_print_object_np (game, object);
+          pf_buffer_string (filter, "!\n");
+          return TRUE;
+        }
+    }
+
+  pf_buffer_string (filter, "With what?\n");
+  return TRUE;
 }
 
 /*
@@ -20176,8 +20291,9 @@ lib_battle_absent_npc (scr_gameref_t game)
  * Measured 2026-09-14 on the_pk_girl under run400x (Adrift_1157 pkgsite):
  * Chadwick, Named "~the ~[CH=%know_chadwick%]Chadwick" and elsewhere,
  * answers `attack chadwick` with "The man is not here!", where Scarier said
- * the game's "Pardon me?".  3.9 is from the decompile alone; 3.7/3.8 have
- * similar per-verb sites (run370 43865D, run380 4404D9) left unported.
+ * the game's "Pardon me?".  3.9 is from the decompile alone; 3.7/3.8's
+ * per-verb sites (run370 43865D, run380 4404D9) are
+ * lib_hit_absent_npc_pre390().
  *
  * Returns TRUE having printed for the first such NPC.
  */
@@ -20428,7 +20544,17 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
     }
 
   /* Ensure the referenced object is held.  The Runner: "Player is not
-   * carrying the rock!" (probe pWS2 -- unlike wield's "aren't carrying"). */
+   * carrying the rock!" (probe pWS2 -- unlike wield's "aren't carrying").
+   * Battle off, pre-4.0 characters()' own with-loop says "<You> don't have
+   * <the X>!" (run380 44047B, run370 4385FF): `hit dave with stone`, the
+   * stone dropped (run370x Adrift_198_pnpcwith37, run380x Adrift_199). */
+  if (gs_object_position (game, object) != OBJ_HELD_PLAYER
+      && !battle_is_enabled (game) && !lib_is_version_400 (game))
+    {
+      lib_print_response_object (game, "You don't have ", "I don't have ",
+                                 "%player% don't have ", object, "!\n");
+      return TRUE;
+    }
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
     {
       lib_print_response_object (game,
@@ -24158,9 +24284,53 @@ lib_cmd_sleep (scr_gameref_t game)
   return lib_print_message (game, "Zzzzz.  Bored are you?\n");
 }
 
+/*
+ * 3.7 and 3.8's talk hint (run370 loc_438748, run380 loc_4405D7) is guarded
+ * by c("talk") Or c("speak") inside the named-character block -- the words
+ * need not be next to each other, and there is no room test.  So `talk with
+ * dave` is the hint too, where the `[talk/speak] %character%` rows miss it:
+ * 'Use the format "ask Dave about <subject>".' (run370x Adrift_198_pnpcwith37)
+ * and '... [subject]".' (run380x Adrift_199_pnpcwith38).  The last character
+ * named wins, as for lib_cmd_talk_to_npc().
+ */
+static const scr_char *lib_ask_format_subject (scr_gameref_t game);
+
+static scr_bool
+lib_talk_hint_anywhere_pre390 (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int index_, npc = -1;
+
+  if (!input
+      || prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    return FALSE;
+
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      if (lib_npc_referenced (game, index_, input))
+        npc = index_;
+    }
+  if (npc == -1)
+    return FALSE;
+
+  var_set_ref_character (gs_get_vars (game), npc);
+  lib_print_wrapped_npc (game, "Use the format \"ask ",
+                         npc, lib_ask_format_subject (game));
+  return TRUE;
+}
+
+scr_bool
+lib_cmd_speak_pre390 (scr_gameref_t game)
+{
+  return lib_talk_hint_anywhere_pre390 (game);
+}
+
 scr_bool
 lib_cmd_talk (scr_gameref_t game)
 {
+  if (lib_talk_hint_anywhere_pre390 (game))
+    return TRUE;
+
   return lib_print_response_message (game,
       "No-one listens to your rabblings.\n",
       "No-one listens to my rabblings.\n",
@@ -24700,6 +24870,47 @@ lib_nothing_happens_other (scr_gameref_t game,
 
 
 /*
+ * lib_hit_absent_npc_pre390()
+ *
+ * run380 characters()' attack arm (440260-4404D9) and run370's (4383CD)
+ * enter for hit/kill/kick/punch/attack when the message is empty or ends
+ * ", but nothing happens." -- what therest's hit and kick arms (run380
+ * 444598, 444B65) always leave -- and for the first character the line
+ * names (Name or first Alias, no seen test) that is not in the room assign
+ * "<Name> is not here!" (4404D9; run370 43865D).  So `hit cora` and `hit
+ * cora with stone`, Cora next door and never met, are "Cora is not here!" (run370x
+ * Adrift_196_pnpckill37 / Adrift_198_pnpcwith37, run380x Adrift_197 /
+ * Adrift_199), where kill and punch keep therest's own line.  3.9 is
+ * lib_attack_absent_npc().
+ */
+static scr_bool
+lib_hit_absent_npc_pre390 (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int npc;
+
+  if (!input || prop_get_taf_version (bundle) >= TAF_VERSION_390
+      || battle_is_enabled (game))
+    return FALSE;
+
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      if (!lib_npc_referenced (game, npc, input))
+        continue;
+      if (npc_in_room (game, npc, gs_playerroom (game)))
+        return FALSE;
+
+      pf_buffer_string (gs_get_filter (game),
+                        prop_get_indexed_string (bundle, "NPCs", npc, "Name"));
+      pf_buffer_string (gs_get_filter (game), " is not here!\n");
+      return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
  * lib_cmd_*()
  *
  * Shake, rattle and roll, and assorted nothing-happens handlers.
@@ -24707,12 +24918,16 @@ lib_nothing_happens_other (scr_gameref_t game,
 scr_bool
 lib_cmd_hit_object (scr_gameref_t game)
 {
+  if (lib_hit_absent_npc_pre390 (game))
+    return TRUE;
   return lib_nothing_happens_object (game, "hit", "hits");
 }
 
 scr_bool
 lib_cmd_kick_object (scr_gameref_t game)
 {
+  if (lib_hit_absent_npc_pre390 (game))
+    return TRUE;
   return lib_nothing_happens_object (game, "kick", "kicks");
 }
 
@@ -24743,12 +24958,16 @@ lib_cmd_shake_object (scr_gameref_t game)
 scr_bool
 lib_cmd_hit_other (scr_gameref_t game)
 {
+  if (lib_hit_absent_npc_pre390 (game))
+    return TRUE;
   return lib_nothing_happens_other (game, "hit", "hits");
 }
 
 scr_bool
 lib_cmd_kick_other (scr_gameref_t game)
 {
+  if (lib_hit_absent_npc_pre390 (game))
+    return TRUE;
   return lib_nothing_happens_other (game, "kick", "kicks");
 }
 
@@ -25541,9 +25760,16 @@ lib_cmd_fix_what (scr_gameref_t game)
   return lib_what (game, "Fix");
 }
 
+/*
+ * run370 and run380 have no checkverb, and no "Hit what?" literal: a bare
+ * `hit` is therest's hit arm with no object, "You hit, but nothing
+ * happens." (run370x Adrift_196_pnpckill37, run380x Adrift_197_pnpckill38).
+ */
 scr_bool
 lib_cmd_hit_what (scr_gameref_t game)
 {
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return lib_cmd_hit_other (game);
   return lib_what (game, "Hit");
 }
 

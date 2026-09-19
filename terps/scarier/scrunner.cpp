@@ -1326,6 +1326,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"suck", lib_cmd_suck_what},
   {"talk to * about *", lib_cmd_ask_about_nothing},
   {"talk *", lib_cmd_talk},
+  {"speak *", lib_cmd_speak_pre390},
   {"thank *", lib_cmd_thank},
   {"turn %object% *", lib_cmd_turn_object},
   {"turn %object% *", lib_cmd_turn_absent},
@@ -1926,6 +1927,36 @@ static scr_bool run_npc_row_blocked (const scr_commands_t *command);
  */
 static scr_bool run_defer_give_npc = FALSE;
 
+/*
+ * Set while the 3.9 verb pass runs on a line run390's therest with-arm will
+ * answer (lib_with_arm_390()): the characters() attack rows, which run390
+ * calls below therest, wait for it -- and lose to it.  With the Battle
+ * System on, those rows are dobattle's, which run390 calls above therest
+ * (45F4AF): secret_of_lost_world's `hit ghost with excalibur` is a blow.
+ */
+static scr_bool run_defer_with_390 = FALSE;
+
+static scr_bool
+run_is_with_deferred_handler (scr_bool (*handler) (scr_gameref_t))
+{
+  static scr_bool (*const DEFERRED[]) (scr_gameref_t) = {
+    lib_cmd_attack_npc, lib_cmd_attack_npc_with, lib_cmd_attack_npcs,
+    lib_cmd_attack_npcs_with, lib_cmd_chop_npc, lib_cmd_chop_npc_with,
+    lib_cmd_cut_npc, lib_cmd_cut_npc_with, lib_cmd_fight_npc,
+    lib_cmd_fight_npc_with, lib_cmd_hit_npc_with, lib_cmd_kill_npc,
+    lib_cmd_kill_npc_with, lib_cmd_shoot_npc, lib_cmd_shoot_npc_with,
+    lib_cmd_slap_npc, lib_cmd_slap_npc_with, lib_cmd_stab_npc,
+    lib_cmd_stab_npc_with, lib_cmd_throw_npc_with, NULL
+  };
+
+  for (scr_int index_ = 0; DEFERRED[index_]; index_++)
+    {
+      if (DEFERRED[index_] == handler)
+        return TRUE;
+    }
+  return FALSE;
+}
+
 static scr_bool
 run_try_command_table (scr_commandsref_t command,
                        scr_gameref_t game, const scr_char *string)
@@ -1936,6 +1967,8 @@ run_try_command_table (scr_commandsref_t command,
   for (; command->command; command++)
     {
       if (run_defer_give_npc && command->handler == lib_cmd_give_object_npc)
+        continue;
+      if (run_defer_with_390 && run_is_with_deferred_handler (command->handler))
         continue;
 
       /*
@@ -2031,8 +2064,11 @@ run_standard_verb_commands (scr_gameref_t game, const scr_char *string)
    */
   run_defer_give_npc =
       run_get_version (gs_get_bundle (game)) < TAF_VERSION_400;
+  run_defer_with_390 = !battle_is_enabled (game)
+                       && lib_with_arm_390_applies (game);
   const scr_bool status = run_standard_verb_commands_inner (game, string);
   run_defer_give_npc = FALSE;
+  run_defer_with_390 = FALSE;
   return status;
 }
 
@@ -2876,6 +2912,14 @@ run_get_line_input (void)
  * here so that run_session_state() can keep it across an autosave.
  */
 static scr_char run_prior_element[LINE_BUFFER_SIZE];
+
+/*
+ * The last two typed lines, lower-cased, as the Runner's command history
+ * holds them: run390 shifts every new line into MemVar_468100 at 436268-
+ * 43629F, run380 into MemVar_44F098, so (1) is the line being run and (2)
+ * the one typed before it.  Blank lines go in too.  See run_with_history().
+ */
+static std::string run_typed_line, run_previous_typed_line;
 
 /*
  * The output that left the temporary game, and the undo game, in their
@@ -5599,6 +5643,9 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
         status = run_task_refusal (game, library_string, REFUSAL_PASS_MID);
       if (!status)
         status = run_standard_give_npc_commands (game, library_string);
+      /* run390's therest opens with its "with" arm. */
+      if (!status)
+        status = lib_with_arm_390 (game);
       if (!status)
         status = run_therest_pre400 (game, library_string);
       if (!status)
@@ -5779,6 +5826,8 @@ run_player_input (scr_gameref_t game)
       memset (line_buffer, NUL, sizeof (line_buffer));
       memset (run_prior_element, NUL, sizeof (run_prior_element));
       memset (line_element, NUL, sizeof (line_element));
+      run_typed_line.clear ();
+      run_previous_typed_line.clear ();
       lib_co_400_reset ();
       lib_battle_who_reset ();
       run_cancel_goto_walk ();
@@ -5865,6 +5914,8 @@ run_player_input (scr_gameref_t game)
            */
           for (scr_char *cursor = line_buffer; *cursor != NUL; cursor++)
             *cursor = scr_tolower (*cursor);
+          run_previous_typed_line = run_typed_line;
+          run_typed_line = line_buffer;
         }
       else
         if_print_character ('\n');
@@ -5995,6 +6046,23 @@ run_player_input (scr_gameref_t game)
    */
   command = replaced ? scr_normalize_string (replaced.get ())
             : (filtered ? scr_normalize_string (filtered.get ()) : line_element);
+
+  /*
+   * 3.8 on, an element beginning "with " is glued onto the line typed before
+   * it: `If Left(line, 5) = "with " Then line = history(2) & " " & line`,
+   * after the synonyms, pronouns and the everything/slap/take/except
+   * rewrites (run380 441C9D, run390 45F2AF, run400 48A399; run370 has none).
+   * So after `look`, `with stone` runs as "look with stone" -- the stone's
+   * description at 3.9 (run390x Adrift_200_pnpcwith39) and "Nothing
+   * special." at 3.8 (run380x Adrift_199_pnpcwith38).
+   */
+  std::string with_history;
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_380
+      && strncmp (command, "with ", 5) == 0)
+    {
+      with_history = run_previous_typed_line + " " + command;
+      command = with_history.c_str ();
+    }
 
   /*
    * Upstream SCARE echoed the rewritten command in italic square brackets,
@@ -6470,6 +6538,8 @@ run_session_state (scr_gameref_t game)
     run_session_put (out, "ring_text", memo_get_undo_text (memento, index_));
 
   run_session_put (out, "again", run_prior_element);
+  run_session_put (out, "typed_line", run_typed_line);
+  run_session_put (out, "previous_typed_line", run_previous_typed_line);
   memo_first_command (memento);
   while (memo_more_commands (memento))
     {
@@ -6562,6 +6632,10 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
         memo_set_undo_text (memento, ring_text++, value.c_str ());
       else if (key == "again" && length < LINE_BUFFER_SIZE)
         memcpy (run_prior_element, value.c_str (), length + 1);
+      else if (key == "typed_line")
+        run_typed_line = value;
+      else if (key == "previous_typed_line")
+        run_previous_typed_line = value;
       else if (key == "history")
         {
           const scr_char *entry;

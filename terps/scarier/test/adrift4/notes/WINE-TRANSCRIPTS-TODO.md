@@ -312,8 +312,8 @@ not by a tick.
   (dobattle, not characters()), which keeps SCARE's question below 4.0,
   and 4.0 verbs where `lib_npc_400_raise_for_line` declines.
 - **Per-verb absent-NPC branches:** talk, give and take are measured and
-  ported (p39ABSNPC). kill/kick/punch still go through other grammar
-  first. The attack branch is ported.
+  ported (p39ABSNPC). The attack branch is ported. `kill`/`punch dave`
+  are measured and already matched (p39NPCAMB, Adrift_198_pnpckill39).
 - **Take "and" with a candidate present:** the zero-candidate summary and
   the silent skip of a held object are ported. The rest of the main multi
   loop at 454CA3 after a partial pre-pass (worn objects, a named absent
@@ -345,7 +345,15 @@ not by a tick.
   `hit`/`kick dave` get "Dave avoids your feeble attempts." is unread:
   run380's characters() arm at 440260 ORs c("attack") in with the others,
   and "attack" is in no other string of either exe. Ported as measured
-  (`lib_attack_line_pre390`); `kill`/`punch dave` are unmeasured.
+  (`lib_attack_line_pre390`). `kill dave` = "Now that isn't very nice."
+  and `punch dave` = the Mike Tyson line in both, already matching
+  (Adrift_196/197_pnpckill37/38).
+- **Bare-verb "<Verb> what?" below 3.9.** run370/run380 have no checkverb;
+  the only "what?" literals are Take, Drop, Wear, Remove, With and 3.8's
+  Open/Close. Every other `_what` fallback row (~40) is probably a SCARE
+  invention at 3.7/3.8. Only bare `hit` is measured: it is the attack arm,
+  not "Hit what?" (ported via `lib_cmd_hit_other`).
+  Needs a bare-verb drive on p37/p38.
 
 ---
 
@@ -1368,6 +1376,30 @@ next to the named function and in `annotations.tsv`.
   / `cmdfile_pnpcamb37.txt` Adrift_193_pnpcamb39 / Adrift_192_pnpcamb38 /
   Adrift_193_pnpcamb37b, `cmdfile_pnpcone.txt` / `cmdfile_pnpcone37.txt`
   Adrift_196 / 195 / 194; `lib_disambiguate_npc_pick`, 2026-09-19)
+- **Pre-4.0 "with" lines and 3.7/3.8 characters() arms.**
+  - 3.9 therest with-arm (run390 45D2B7): with battle off, a line with the
+    word "with" that the 2+-object split did not claim answers "I don't
+    understand what you want me to do with <the X>!" for the first co()
+    object whose Short or first Alias sits after "with", else "With what?".
+    It beats characters(), so `kill dave with stone` never reaches the
+    attack arm at 3.9. Battle on keeps dobattle (above therest, 45F4AF;
+    secret_of_lost_world). The "With what?" prefix continuation (45D3E0)
+    is not modelled.
+  - 3.8+ history rewrite (run380 441C9D, run390 45F2AF, run400 48A399; not
+    run370): a line starting "with " is prefixed with the previous typed
+    line (blank lines count).
+  - 3.7/3.8: `talk`/`speak` anywhere in the line with a named character
+    gives the ask hint for the last one named, no room test (run380
+    4405D7, run370 438748). A present character named in an examine line
+    overwrites the answer (`x dave with stone` = "A quiet man.", run380
+    440D0B, run370 438E23). The attack arm answers "<Name> is not here!"
+    for an absent first-named NPC (4404D9 / 43865D) and " don't have
+    <X>!" for a not-held with-object (44047B / 4385FF). Bare `hit` is the
+    attack arm, not "Hit what?".
+  `[<4.0]` p37/p38/p39NPCAMB (`cmdfile_pnpckill.txt`, `cmdfile_pnpcwith.txt`;
+  Adrift_196/197/198_pnpckill37/38/39, Adrift_198/199/200_pnpcwith37/38/39;
+  `lib_with_arm_390`, `lib_hit_absent_npc_pre390`,
+  `lib_talk_hint_anywhere_pre390`, 2026-09-19)
 - **3.9 absent characters, per verb.** `talk to`/`speak to` any named
   character, even an absent or unseen one, gives the "ask X about"
   hint. The hint at 45975C has no room gate, and the ask branch's
