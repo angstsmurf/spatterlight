@@ -707,7 +707,18 @@ ser_save_object_location (scr_gameref_t game, scr_int object)
     {
       /* Relocated static object: present in its current room, or nowhere. */
       const scr_int position = gs_object_position (game, object);
-      if (position >= 1 && position <= gs_room_count (game))
+      const std::vector<scr_int> &rooms = game->objects[object].static_rooms;
+
+      /* ...or, once 4.0 finish moves have piled up, in all of these. */
+      if (position != OBJ_HELD_PLAYER && !rooms.empty ())
+        {
+          std::vector<scr_int>::size_type index_;
+
+          ser_buffer_int_special (rooms.size ());
+          for (index_ = 0; index_ < rooms.size (); index_++)
+            ser_buffer_int_special (rooms[index_] + 1);
+        }
+      else if (position >= 1 && position <= gs_room_count (game))
         {
           ser_buffer_int_special (1);
           ser_buffer_int_special (position);
@@ -1286,8 +1297,9 @@ ser_object_parent_valid (scr_gameref_t game, scr_int position, scr_int parent)
  *     reads the same as unmoved, and comes back unmoved;
  *   - in 4.0 Runner format a static is a room list (count, then 1-based
  *     rooms).  The bundle's own list is unmoved; one room, or none, is an
- *     event's move there, or out of sight.  (The saver writes a static held
- *     by the player as none.)
+ *     event's move there, or out of sight, and several are 4.0 finish moves
+ *     piled up (evt_move_object).  (The saver writes a static held by the
+ *     player as none.)
  *
  * Until 2026-09-14 both forms were discarded, so every restore -- a saved
  * game, the undo tail and Spatterlight's autosave -- put an event-moved static
@@ -1328,11 +1340,22 @@ ser_restore_object_location (scr_gameref_t game, scr_int object,
               game->objects[object].position = OBJ_HIDDEN;
               gs_set_object_static_unmoved (game, object, FALSE);
             }
-          else if (count == 1 && rooms[1] >= 1
-                   && rooms[1] <= gs_room_count (game))
+          else
             {
-              game->objects[object].position = rooms[1];
+              /* One room or several (4.0 finish moves add, see
+                 evt_move_object); the last written is the position. */
+              scr_bool valid = TRUE;
+
+              for (index_ = 1; index_ <= count; index_++)
+                valid &= rooms[index_] >= 1
+                         && rooms[index_] <= gs_room_count (game);
+              if (!valid)
+                return;
+              game->objects[object].position = rooms[count];
               gs_set_object_static_unmoved (game, object, FALSE);
+              gs_object_static_rooms_clear (game, object);
+              for (index_ = 1; index_ <= count; index_++)
+                gs_object_static_rooms_add (game, object, rooms[index_] - 1);
             }
         }
     }

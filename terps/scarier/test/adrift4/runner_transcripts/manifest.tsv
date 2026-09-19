@@ -1,8 +1,8 @@
 tag	file	source	version	exe	seed	pre	popups	env	win_marker	verdict
-3monkeys	3monkeys.txt	driven:Adrift_277_3monkeys_rt.txt	4.00	run400x.exe	149	0		SCR_SEED=149	no	3 differing turn(s)
+3monkeys	3monkeys.txt	driven:Adrift_128_3monkeys_rt.txt	4.00	run400x.exe	149	0		SCR_SEED=149 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 ADRIFTMAS_Party	ADRIFTMAS_Party.txt	driven:Adrift_219_ADRIFTMAS_Party_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 Glum_Fiddle	Glum_Fiddle.txt	driven:Adrift_128_Glum_Fiddle_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
-JGrim	JGrim.txt	driven:Adrift_221_JGrim_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+JGrim	JGrim.txt	driven:Adrift_221_JGrim_rt.txt	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 ShadricksUnderground	ShadricksUnderground.txt	driven:Adrift_213_ShadricksUnderground_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 Tear	Tear.txt	driven:Adrift_216_Tear_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 TheADRIFTProject	TheADRIFTProject.txt	driven:Adrift_212_TheADRIFTProject_rt.txt	4.00	run400x.exe	1234	2	Drifter~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -111,7 +111,7 @@ ecod2	ecod2.txt	harvested-native-0-draws:Adrift_605_ecod2.txt	3.90	run390x.exe	1
 ecod3	ecod3.txt	driven:Adrift_203_ecod3_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 egghunt	egghunt.txt	driven:Adrift_147_egghunt_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 elascensor	elascensor.txt	driven:Adrift_508_elascensor_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-endgame	endgame.txt	driven:Adrift_232_endgame_rt.txt	4.00	run400x.exe	1234	0			no	2 differing turn(s)
+endgame	endgame.txt	driven:Adrift_232_endgame_rt.txt	4.00	run400x.exe	1234	0			no	1 differing turn(s)
 enquete_a_hauts_risques	enquete_a_hauts_risques.txt	driven:Adrift_268_enquete_a_hauts_risques_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 escape_from_insanity	escape_from_insanity.txt	harvested-native-0-draws:Adrift_694_escape_from_insanity.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 escape_to_new_york	escape_to_new_york.txt	driven:Adrift_249_escape_to_new_york_rt.txt	4.00	run400x.exe	2	0		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -131,7 +131,7 @@ foresthouse3	foresthouse3.txt	driven:Adrift_437_foresthouse3_rt.txt	4.00	run400x
 forum	forum.txt	driven:Adrift_236_forum_rt.txt	4.00	run400x.exe	1	1		SCR_SEED=1 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 forum2	forum2.txt	driven:Adrift_242_forum2_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 frog	frog.txt	driven:Adrift_230_frog_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
-frustrated	frustrated.txt	driven:Adrift_472_frustrated_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
+frustrated	frustrated.txt	driven:Adrift_472_frustrated_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 fugitive	fugitive.txt	driven:Adrift_307_fugitive_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 fullcircle	fullcircle.txt	driven:Adrift_480_fullcircle_rt.txt	4.00	run400x.exe	2	3		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 funhouse	funhouse.txt	driven:Adrift_162_funhouse_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.

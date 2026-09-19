@@ -655,7 +655,7 @@ tree.  The mandrill is north.
     The chimpanzee screams his innermost feelings at no one in particular.
 
 > get sheet
-You're already wearing your sheet!
+You are already carrying your sheet.
 
 > put the sheet over my head
 You put the sheet over yourself.  You might look like a ghost, but it beats
@@ -1035,6 +1035,7 @@ from a point high up on the south wall is a long cylindrical bar.
     You see to the west your bed, to the northwest a platform, and to the
 north a coconut tree.  Also to the west is the fire that you started.
     A thick swarm of hornets fills the air.
+    There are anvils all over the place.
     Lying on the ground here is a small hook, a coconut and a bucket.
     The mandrill, harassed by the hornets, is running to and fro like a
 madman.

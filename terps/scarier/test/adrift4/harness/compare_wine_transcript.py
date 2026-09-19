@@ -165,6 +165,13 @@ def scarier_run(taf, feed, encoding, env_extra, popup_answers, markers=False):
         name, _, value = assignment.partition("=")
         env[name] = value
     env["SCR_SKIP_WAITKEY"] = "1"
+    # Mark the real prompts (os_ansi puts \x02 in front of them) and move
+    # every unmarked '>' off column 0 below, so no splitter here can take game
+    # text for a prompt.  3monkeys' and JGrim's endings print their own
+    # "> GIVE FINGER TO DR. WICKETT" lines, and those were cut off as extra
+    # turns: the win turn read as a difference and scarier ran two turns
+    # longer than the Runner (2026-09-19).
+    env["SCR_MARK_PROMPT"] = "1"
     if markers:
         env["SCR_MARK_WAITKEY"] = "1"
     # The two built-in questions are asked by the Runner in InputBox dialogs
@@ -195,7 +202,11 @@ def scarier_run(taf, feed, encoding, env_extra, popup_answers, markers=False):
                           stdout=subprocess.PIPE,
                           stderr=subprocess.STDOUT if markers
                           else subprocess.DEVNULL, env=env)
-    return done.stdout.decode("latin-1").replace("\r\n", "\n").split("\n")
+    lines = done.stdout.decode("latin-1").replace("\r\n", "\n").split("\n")
+    return [line[1:].replace("\x02", "") if line.startswith("\x02>")
+            else " " + line if line.startswith(">")
+            else line.replace("\x02", "")
+            for line in lines]
 
 
 def default_popup_answers(taf, env_extra):

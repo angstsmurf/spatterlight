@@ -498,6 +498,12 @@ extern scr_int gs_object_state (scr_gameref_t gs, scr_int object);
 extern scr_bool gs_object_seen (scr_gameref_t gs, scr_int object);
 extern scr_bool gs_object_unmoved (scr_gameref_t gs, scr_int object);
 extern scr_bool gs_object_static_unmoved (scr_gameref_t gs, scr_int object);
+extern void gs_object_static_rooms_clear (scr_gameref_t gs, scr_int object);
+extern void gs_object_static_rooms_add (scr_gameref_t gs,
+                                        scr_int object, scr_int room);
+extern scr_bool gs_object_static_rooms_empty (scr_gameref_t gs, scr_int object);
+extern scr_bool gs_object_in_static_rooms (scr_gameref_t gs,
+                                           scr_int object, scr_int room);
 extern scr_int gs_object_position (scr_gameref_t gs, scr_int object);
 extern scr_int gs_object_parent (scr_gameref_t gs, scr_int object);
 extern scr_int gs_object_runner_parent (scr_gameref_t gs, scr_int object);

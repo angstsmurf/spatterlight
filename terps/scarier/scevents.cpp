@@ -293,18 +293,48 @@ evt_can_see_event (scr_gameref_t game, scr_int event)
 /*
  * evt_move_object()
  *
- * Move an object from within an event.
+ * Move an object from within an event.  at_start is TRUE for the start
+ * object (Obj1), FALSE for the two finish objects (Obj2, Obj3).
+ *
+ * In 4.0 a static object's presence is its per-room array o(28), and the two
+ * movers treat it differently.  The start mover, Proc_19_16_45614C (event row
+ * 2), clears every room before setting the new one (456056-45609E); the
+ * finish loop inside checkevent (4702FF-4704F7, rows 0 and 1) only SETS
+ * o(28)(room) -- it clears the array for "hidden" and "held" alone.  So
+ * finish moves pile up: 3monkeys' two anvil events each drop the anvils into
+ * two corners and the Runner then lists "There are anvils all over the
+ * place." in the Southeast Corner (T109, run400x, 2026-09-19), where Scarier
+ * had kept only the last move, the Northeast.  The array starts as the
+ * bundle's Where list (openadv 49031A), so that is kept too.
  */
 static void
-evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
+evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
+                 scr_bool at_start)
 {
   /* Ignore negative values of object. */
   if (object >= 0)
     {
+      const scr_bool room_set = obj_is_static (game, object)
+          && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+      scr_int added = -1;
+
       if (evt_trace)
         {
           scr_trace ("Event: moving object %ld to room %ld\n",
                     object, destination);
+        }
+
+      /* First move of a 4.0 static: seed the set from its Where list. */
+      if (room_set && gs_object_static_unmoved (game, object))
+        {
+          scr_int room;
+
+          gs_object_static_rooms_clear (game, object);
+          for (room = 0; room < gs_room_count (game); room++)
+            {
+              if (obj_directly_in_room (game, object, room))
+                gs_object_static_rooms_add (game, object, room);
+            }
         }
 
       /*
@@ -329,11 +359,15 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
 
         case 1:                /* Same room as player. */
           gs_object_to_room (game, object, gs_playerroom (game));
+          added = gs_playerroom (game);
           break;
 
         default:
           if (destination < gs_room_count (game) + 2)
-            gs_object_to_room (game, object, destination - 2);
+            {
+              gs_object_to_room (game, object, destination - 2);
+              added = destination - 2;
+            }
           else
             {
               scr_int roomgroup, room;
@@ -341,11 +375,23 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination)
               roomgroup = destination - gs_room_count (game) - 2;
               room = lib_random_roomgroup_member (game, roomgroup);
               if (room >= 0)     /* Empty group: leave the object in place. */
-                gs_object_to_room (game, object, room);
+                {
+                  gs_object_to_room (game, object, room);
+                  added = room;
+                }
             }
           break;
         }
       gs_set_carried_suspend (game, FALSE);
+
+      if (room_set)
+        {
+          if (destination == -1 || destination == 0
+              || (at_start && destination > 1 && added >= 0))
+            gs_object_static_rooms_clear (game, object);
+          if (added >= 0)
+            gs_object_static_rooms_add (game, object, added);
+        }
 
       /*
        * If static, mark as no longer unmoved.
@@ -511,7 +557,7 @@ evt_start_event (scr_gameref_t game, scr_int event, scr_bool silent)
   /* Move event object to destination. */
   obj1 = evt_cached_integer (game, event, EVT_OBJ1, "Obj1") - 1;
   obj1dest = evt_cached_integer (game, event, EVT_OBJ1_DEST, "Obj1Dest") - 1;
-  evt_move_object (game, obj1, obj1dest);
+  evt_move_object (game, obj1, obj1dest, TRUE);
 
   /* Set the event's state and time. */
   gs_set_event_state (game, event, ES_RUNNING);
@@ -616,11 +662,11 @@ evt_finish_event (scr_gameref_t game, scr_int event)
   /* Move event objects to destination. */
   obj2 = evt_cached_integer (game, event, EVT_OBJ2, "Obj2") - 1;
   obj2dest = evt_cached_integer (game, event, EVT_OBJ2_DEST, "Obj2Dest") - 1;
-  evt_move_object (game, obj2, obj2dest);
+  evt_move_object (game, obj2, obj2dest, FALSE);
 
   obj3 = evt_cached_integer (game, event, EVT_OBJ3, "Obj3") - 1;
   obj3dest = evt_cached_integer (game, event, EVT_OBJ3_DEST, "Obj3Dest") - 1;
-  evt_move_object (game, obj3, obj3dest);
+  evt_move_object (game, obj3, obj3dest, FALSE);
 
   /* See if there is an affected task. */
   task = evt_cached_integer (game, event, EVT_TASK_AFFECTED, "TaskAffected")

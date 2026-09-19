@@ -1943,6 +1943,7 @@ debug_compare_object (scr_gameref_t from, scr_gameref_t with, scr_int object)
 
   return from_object->unmoved == with_object->unmoved
          && from_object->static_unmoved == with_object->static_unmoved
+         && from_object->static_rooms == with_object->static_rooms
          && from_object->position == with_object->position
          && from_object->parent == with_object->parent
          && from_object->openness == with_object->openness

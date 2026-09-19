@@ -909,6 +909,8 @@ obj_static_in_room (scr_gameref_t game, scr_int object, scr_int room,
     {
       if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
         return is_indirect ? gs_player_in_room (game, room) : FALSE;
+      else if (!gs_object_static_rooms_empty (game, object))
+        return gs_object_in_static_rooms (game, object, room);
       else
         return gs_object_position (game, object) - 1 == room;
     }

@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 361 identical on every turn, 29 identical apart from
-  whitespace, 37 with a compare report. Every differing row is classified
+- **Manifest:** 364 identical on every turn, 29 identical apart from
+  whitespace, 34 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -270,14 +270,6 @@ index below. Rows not named here differ only by a capture artefact (see
 
 ### Engine, 4.0
 
-- **3monkeys, left after the T41 port (2026-09-19):** three turns, all
-  unmasked by the fix (the old report stopped at 10+):
-  - T65 `get sheet` (worn): the Runner says "You are already carrying your
-    sheet.", Scarier "You're already wearing your sheet!";
-  - T109 `e`: the Runner's room block has "There are anvils all over the
-    place." before the objects line, Scarier's lacks it;
-  - T111 `jump out` (the win): the Runner's text ends with "> GIVE FINGER TO
-    DR. WICKETT", Scarier's does not.
 - **cellar T120 `undo`:** the Runner's "Undone." replays the restored turn's
   story text (with its `[MORE]`); Scarier's replays a not-understood line.
   Probably the known undo-slot deviation (Scarier skips administrative
@@ -375,7 +367,7 @@ rule, not RNG (deaths, 2026-09-19).
 ### Nothing owed (capture and compare artefacts)
 
 - Epilogue or pause text landing one turn late, or cut at the final
-  keypress: JGrim T102, endgame T8-9, frustrated T84, mortality T41-48,
+  keypress: endgame T9, mortality T41-48,
   iqsfot T41-42, aliasagent 5 (`score` after the game ended).
 - Whitespace-only joins or the trailing `[Press any key to end]`; the
   28 "apart from whitespace" rows. Glum_Fiddle turn 0 is the startup echo
@@ -829,6 +821,10 @@ every Runner.
   - `put X in Y` where X names nothing present clobbers the line to `put X
     `, so the catch-all speaks. A silent unnamed put also leaves the answer
     to the catch-all. `[4.0]` icecream, house T263 (8f2898bd4, 5a8ac82fb)
+- **4.0 single take of a worn object.** get_piece tests possession with
+  44615C, which counts worn as held, so `get <worn thing>` says "You are
+  already carrying X." (not "already wearing"). `[4.0]` 3monkeys T65
+  (2026-09-19)
 - **The put handler's own answers** (rules A-H):
   - the bang;
   - "is closed";
@@ -988,6 +984,12 @@ every Runner.
   task's restrictions (45FB78 calls 455C60 before the done/repeatable test),
   so a failing restriction prints its message. A passing one prints nothing.
   riding_home T47 (event 8, task 104). 2026-09-15
+- **Static objects moved by events.** A 4.0 static's presence is its
+  per-room array o(28) (obhere 452E67). The start mover (Obj1,
+  Proc_19_16_45614C) replaces the rooms; the finish movers (Obj2/Obj3,
+  checkevent 4702FF-4704F7) only add one, clearing for hidden or held
+  alone. The array starts as the Where list, so finish moves pile up.
+  3monkeys T109 (the anvils in all four corners). 2026-09-19
 - **Look text.** An event's look text is gated on the room being described,
   not on the player's room. goldilocks, cybercow
 - **RNG parity.** `SCR_RNG=xoshiro` matches vbrng draw for draw, and it is

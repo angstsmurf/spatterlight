@@ -613,6 +613,42 @@ gs_object_static_unmoved (scr_gameref_t gs, scr_int object)
   return gs->objects[object].static_unmoved;
 }
 
+/* A 4.0 event-moved static's room-presence set; see scr_objectstate_t. */
+void
+gs_object_static_rooms_clear (scr_gameref_t gs, scr_int object)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  gs->objects[object].static_rooms.clear ();
+}
+
+void
+gs_object_static_rooms_add (scr_gameref_t gs, scr_int object, scr_int room)
+{
+  std::vector<scr_int> *rooms;
+  std::vector<scr_int>::iterator at;
+  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  rooms = &gs->objects[object].static_rooms;
+  at = std::lower_bound (rooms->begin (), rooms->end (), room);
+  if (at == rooms->end () || *at != room)
+    rooms->insert (at, room);
+}
+
+scr_bool
+gs_object_static_rooms_empty (scr_gameref_t gs, scr_int object)
+{
+  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  return gs->objects[object].static_rooms.empty ();
+}
+
+scr_bool
+gs_object_in_static_rooms (scr_gameref_t gs, scr_int object, scr_int room)
+{
+  const std::vector<scr_int> *rooms;
+  assert (gs_is_game_valid (gs) && gs_in_range (object, gs->object_count));
+  rooms = &gs->objects[object].static_rooms;
+  return std::binary_search (rooms->begin (), rooms->end (), room);
+}
+
 scr_int
 gs_object_position (scr_gameref_t gs, scr_int object)
 {

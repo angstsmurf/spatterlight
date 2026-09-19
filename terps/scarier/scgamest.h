@@ -87,6 +87,13 @@ typedef struct scr_objectstate_s
   scr_bool seen;
   scr_bool unmoved;
   scr_bool static_unmoved;
+  /*
+   * A 4.0 static object's room-presence set once an event has moved it: the
+   * Runner's per-room array o(28), which is all its presence test reads for
+   * a static (obhere, run400 General 452E67).  Sorted 0-based rooms.  Empty
+   * means "use position", which is all pre-4.0 games and legacy saves have.
+   */
+  std::vector<scr_int> static_rooms;
 } scr_objectstate_t;
 
 /* Task state structure, tracks task done, and if task scored. */

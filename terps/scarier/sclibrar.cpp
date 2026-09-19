@@ -9503,13 +9503,24 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * The remainder of this routine is common error reporting for both object
    * and NPC associates (and also for no associates).
    */
+  /*
+   * 4.0's single-take piece tests possession with 44615C, which counts a
+   * WORN object as carried (position 0 or &H9C, run400 General 4460F4), so
+   * a single-named take of worn clothing gets the held object's task look-up
+   * and "You are already carrying <object>." -- not "already wearing".
+   * 3monkeys T65 `get sheet` with the sheet worn (run400x, 2026-09-19).
+   */
+  const scr_bool worn_is_held = lib_is_version_400 (game)
+                                && lib_take_single_named;
   list.clear ();
   for (object = 0; object < object_count; object++)
     {
       if (!game->multiple_references[object])
         continue;
 
-      if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
+      if (gs_object_position (game, object) != OBJ_HELD_PLAYER
+          && !(worn_is_held
+               && gs_object_position (game, object) == OBJ_WORN_PLAYER))
         continue;
 
       list.push_back (object);

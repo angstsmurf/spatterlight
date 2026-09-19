@@ -161,7 +161,7 @@ marooned	marooned.taf	3.80	run380x.exe	3	0		SCR_SEED=3	Congratulations, you are 
 wrecked	wrecked.taf	3.80	run380x.exe	15	0		SCR_SEED=15	Hope you enjoyed playing Wrecked.	777
 mortality	mortality.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	one of the two good endings	385
 largo_winch	largo-winch.taf	3.90	run390x.exe	1234	0			Votre score est de 97 sur un maximum de 97!	1394
-3monkeys	3monkeys.taf	4.00	run400x.exe	149	0		SCR_SEED=149	Congratulations, you did it!	1590
+3monkeys	3monkeys.taf	4.00	run400x.exe	149	0		SCR_SEED=149 SCR_SKIP_WAITKEY=1	Congratulations, you did it!	1590
 humbug	humbug.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Grandad would probably describe you as a winner.. or a cheat.	10845
 crime_adventure	Crime_Adventure.taf	3.80	run380x.exe	1234	0			Mrs Fenwick was in no danger at all, it was a friend	3
 thesisters	TheSisters.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	lifeless body of Trisha Seabourne.	16

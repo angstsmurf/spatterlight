@@ -2791,7 +2791,16 @@ largo_winch_solution.txt|largo-winch.taf|Votre score est de 97 sur un maximum de
 # nothing, and get_piece answers DontUnderstand.  Every later turn shifts one
 # tick; the win still holds.  Probes: probe_cmds/3m_site_{a,b}.txt (a `z`
 # between the lines clears it and the husk is taken).
-3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!|SCR_SEED=149
+# 2026-09-19: SCR_SKIP_WAITKEY wired (the golden does not change; the Wine
+# feed then answers the win text's three pauses, which the game splits with
+# its own "> GIVE FINGER TO ..." lines).  Re-blessed twice the same day,
+# both run400x-measured in runner_transcripts/3monkeys.txt, which is now
+# identical on every turn: T65 `get sheet` with the sheet worn is "You are
+# already carrying your sheet." (get_piece's possession test 44615C counts
+# worn), and T109's Southeast Corner lists "There are anvils all over the
+# place." -- events 6 and 7's finish moves ADD rooms to a static (checkevent
+# 4702FF-4704F7), so the anvils lie in all four corners, not just the last.
+3monkeys_solution.txt|3monkeys.taf|Congratulations, you did it!|SCR_SEED=149|SCR_SKIP_WAITKEY=1
 # Humbug (Graham Cluley 1990/1997, converted to ADRIFT 4.00 by Campbell Wild)
 # -- WIN with the FULL 2000/2000, "a winner.. or a cheat", in 1048 commands.
 # The route is pjg's step-by-step solution for the ORIGINAL v5.0 game

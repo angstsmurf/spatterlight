@@ -202,16 +202,23 @@ def main():
             continue
         numbered.append((prompt, line))
     lines = []
-    for at, cmd in numbered:
+    for n, (at, cmd) in enumerate(numbered):
         lines.append(cmd)
         # everything the NEXT span prints, interleaved as it was printed: a
         # blank Return answers a pause, a #sleep waits out a real-time <wait>.
-        for kind, seconds in (order[at] if at < len(order) else []):
+        # The last command owns every span after it: a game can print its own
+        # "> COMMAND" lines, which split the tail into spans no command
+        # reaches.  3monkeys' win text prints "> GIVE FINGER TO DR. WICKETT"
+        # and "> GIVE FINGER TO DR. GLEE", each followed by a <waitkey>; only
+        # the first of its three pauses got a Return, and the Runner's
+        # transcript broke off at the first of those lines (2026-09-19).
+        spans = order[at:at + 1] if n + 1 < len(numbered) else order[at:]
+        for kind, seconds in [m for span in spans for m in span]:
             lines.append("" if kind == "key" else "#sleep %d" % (seconds + 1))
     with open(out, "w") as fh:
         fh.write("\n".join(lines) + "\n")
     last = numbered[-1][0] if numbered else 0
-    tail = pauses[last] if last < len(pauses) else 0
+    tail = sum(pauses[last:])
     print("PRE=%d  commands=%d  mid-game pauses=%d  after-last=%d  intro-wait=%ds  sleeps=%d"
           % (pre, len(cmds), sum(pauses[1:len(cmds)]), tail, waits[0], sum(waits[1:])))
 

@@ -340,6 +340,14 @@ os_read_line (scr_char *buffer, scr_int length)
 
   if (echo_input)
     putchar ('\n');
+  /*
+   * Compare aid: with SCR_MARK_PROMPT set, a \x02 in front of the prompt
+   * tells it apart from game text that begins a line with '>'.  3monkeys'
+   * ending prints "> GIVE FINGER TO DR. WICKETT", which the Wine compare
+   * otherwise split off as a turn of its own (2026-09-19).
+   */
+  if (getenv ("SCR_MARK_PROMPT"))
+    putchar ('\x02');
   putchar ('>');
   if (echo_input)
     putchar (' ');

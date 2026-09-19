@@ -752,3 +752,13 @@ The time has come to fly this cage.  With your friend mattress that you have kno
     That is it.  No more.
 
 > GIVE FINGER TO DR. WICKETT
+
+    Dr. Wickett backs off slowly.  "N-now, hold on.  Aren't you proud to have been the first?  Most of us didin't think you could pull it off.  Dr. Glee tried to get me to put up more than $10 but, you know, I'm not much of a gambling man..."
+
+> GIVE FINGER TO DR. GLEE
+
+    Shaking visibly, Dr. Wickett stammers, "Y-you mustn't lose sight of what is required of man in the name of science.  Now see here.  Y-you have got--"
+    But Dr. Glee is pulling his arm to run for it, and he quickly agrees that is a sound plan.  It's good for him that he does because it means his neck isn't there for your fingers to wring when they reach that spot in the air.  The chimpanzee points in the direction that the two have fled as you pursue them out the room, into the hall, out of the building, across Madison Lane, through the city park, through a residential area, through an apple orchard, over the prairie, through a plot of corn fields, over the Atlantic, across the Sahara, and, well, you get the idea.  We're projecting ahead in to the future some, but I think that about sizes up your intentions, doesn't it?  The chimp chitters agreement.
+
+*** Congratulations, you did it!  (What took you so long?) ***
+[Press any key to end]
