@@ -313,10 +313,15 @@ not by a tick.
 - **Take-from:** the " and " clause picks the last container in 3.9 and the
   first in 4.0; 3.9's " and " collection bug; the pending slot after `Get X
   from what?`; surface-vs-container wording of the parent-derivation arm.
-- **Put:** the container refusals at 461769/461803 ("can't put anything
-  inside/on that!") also precede checktask, unported; "onto"; a locked
-  container; a named static; an object on a floor supporter; `put all in
-  <nothing>`.
+- **Put:** a locked container; a named static; an object on a floor
+  supporter; `put all in <nothing>`; the `drop X in/on junk` spelling of the
+  "that!" refusal (only `put` is ported). insides() finds the preposition
+  with InStr(line, "in"), which hits the "in" inside "coin": `put coin and
+  stone in junk` targets the stone ("You can't put anything inside the
+  stone.", pPUTREF39 Adrift_pputref39.txt:8). Unported; Scarier says
+  "...inside that!".
+- **Player MaxSize/MaxWt at 3.9** may share the Capacity first-digit decode
+  (a value of 100 or more). Unread.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
 - **Examine:** run390's examine state line has not been read.
@@ -894,6 +899,27 @@ next to the named function and in `annotations.tsv`.
     <the X> inside/onto what?" or "You can't do that!", then the sweep.
     `[3.9]` cybercow T62 `put bones in robot` with the bones never made
     (`lib_put_refusal_first_390`, 2026-09-19)
+  - The target refusals also come before the task look-up, then the sweep:
+    "You can't put anything inside/onto <the X>." (wrong kind), "... as it
+    is closed!", and "You can't put anything inside/onto that!" (two or more
+    objects named anywhere in the game, none after the preposition, no
+    "all"). A failing task with a claimant leaves the refusal; with none
+    (both objects in a bag) the LOUD FailMessage replaces it; a passing task
+    replaces it. `[3.9]` pPUTREF39 (make_39_putrefprobe.py),
+    Adrift_pputref39.txt / Adrift_pputref392.txt (`lib_put_refusal_sweep_390`,
+    `lib_put_that_390`, 2026-09-19)
+  - A put that comes to nothing but a size or capacity refusal moves nothing,
+    so there is no sweep: generaltasks' LOUD pass gets the line and a
+    matching task's FailMessage replaces the refusal. A matching FAILING
+    task never claims a put that fits (pPUTCLM39: literal, wildcard,
+    %object% and empty-FailMessage tasks all let the object move). `[3.9]`
+    pPUTREF39 `put coin in bag` → "T6 FAIL." (`lib_put_named_pre400`,
+    2026-09-19)
+  - Capacity decodes the count from the FIRST digit only:
+    Val(Left(Format(cap, "00"), 1)) × mult ^ Val(Right(..., 1)), so 100 is
+    one size-1 object, not ten (run390 46537C). run400 takes Left(s, Len(s)
+    - 1). `[3.9]` Adrift_pputrefv4.txt (`obj_get_container_capacity`,
+    2026-09-19)
 - **A 3.8 in/on object with an unset parent** goes in the first container.
   (5cf3d7059)
 - **The take-from handler's own answers.** The 3.9 insides() decision

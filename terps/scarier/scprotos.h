@@ -692,6 +692,8 @@ extern scr_bool lib_take_names_dynamic_400 (scr_gameref_t game,
                                             const scr_char *string);
 extern scr_bool lib_cmd_put_in_nowhere (scr_gameref_t game);
 extern scr_bool lib_cmd_put_on_nowhere (scr_gameref_t game);
+extern scr_bool lib_cmd_put_in_that_390 (scr_gameref_t game);
+extern scr_bool lib_cmd_put_on_that_390 (scr_gameref_t game);
 extern scr_bool lib_cmd_take_all_from_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_npc_except_multiple (scr_gameref_t game);
 extern scr_bool lib_cmd_take_from_npc_multiple (scr_gameref_t game);

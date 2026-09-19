@@ -16060,6 +16060,59 @@ static scr_bool lib_put_on_not_supporter_filter (scr_gameref_t game,
 
 
 /*
+ * lib_put_refusal_swept
+ * lib_put_invalid_result()
+ *
+ * run390 insides() settles the target before its task look-up at 461A6C,
+ * exactly as it does a line naming fewer than two objects (see
+ * lib_put_refusal_first_390()): the wrong-kind refusals "You can't put
+ * anything inside/onto <the X>." (4623F8) and the shut container's "... as it
+ * is closed!" are written with no checktask of their own, and the post-put
+ * sweep at 462550 then decides.  A claimant named in the line runs the tasks
+ * QUIET, so a failing task leaves the refusal standing; with none, the LOUD
+ * pass lets its FailMessage replace it; a passing task replaces it either
+ * way.  Measured on pPUTREF39.taf (make_39_putrefprobe.py), run390x,
+ * 2026-09-19 (Adrift_pputref39.txt / Adrift_pputref392.txt), each line with
+ * a matching task whose restriction fails:
+ *
+ *   put coin in lamp    You can't put anything inside the lamp.
+ *   put coin in box     You can't put anything inside the box as it is closed!
+ *   put coin on box     You can't put anything onto the box.
+ *   put gem in ring     T7 FAIL.   (both in the bag: no claimant, LOUD)
+ *   put stone in box    T10 PASS.  (a passing task)
+ *
+ * where the deferred refusals had let every one of them print its task's
+ * FailMessage.  The validators run the sweep themselves and raise this flag,
+ * so that their callers claim the line rather than hand it on.
+ */
+static scr_bool lib_put_refusal_swept = FALSE;
+
+static scr_bool
+lib_put_invalid_result (void)
+{
+  if (lib_put_refusal_swept)
+    {
+      lib_put_refusal_swept = FALSE;
+      return TRUE;
+    }
+  return !run_in_priority_pass ();
+}
+
+/* The refusal-first sweep itself, on text printed since from. */
+static void lib_put_sweep_390 (scr_gameref_t game,
+                               const scr_char *input, size_t from);
+
+static void
+lib_put_refusal_sweep_390 (scr_gameref_t game, size_t from)
+{
+  lib_put_sweep_390 (game, run_get_dispatch_input (), from);
+  lib_put_refusal_swept = TRUE;
+}
+
+static scr_bool lib_put_refusal_first_390 (scr_gameref_t game);
+
+
+/*
  * lib_put_in_is_valid()
  *
  * Validate the container requested in "put in" commands.
@@ -16077,7 +16130,10 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
        * task's fail message can claim the input first; the STANDARD_COMMANDS
        * duplicate prints it when no task does (run400-verified, 2026-08-02).
        */
-      if (run_priority_defer_if_active ())
+      const scr_bool is_first = lib_put_refusal_first_390 (game);
+      const size_t from = pf_buffer_length (filter);
+
+      if (!is_first && run_priority_defer_if_active ())
         return FALSE;
       /*
        * Only 4.0 shouts.  The pre-4.0 Runners all carry the literal
@@ -16095,6 +16151,8 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
                                  "%player% can't put anything inside ",
                                  container,
                                  lib_is_version_400 (game) ? "!\n" : ".\n");
+      if (is_first)
+        lib_put_refusal_sweep_390 (game, from);
       return FALSE;
     }
 
@@ -16133,7 +16191,10 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
   if (gs_object_openness (game, container) > OBJ_OPEN
       && !lib_is_version_400 (game))
     {
-      if (run_priority_defer_if_active ())
+      const scr_bool is_first = lib_put_refusal_first_390 (game);
+      const size_t from = pf_buffer_length (filter);
+
+      if (!is_first && run_priority_defer_if_active ())
         return FALSE;
 
       /*
@@ -16152,6 +16213,8 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
                                  "I can't put anything inside ",
                                  "%player% can't put anything inside ",
                                  container, " as it is closed!\n");
+      if (is_first)
+        lib_put_refusal_sweep_390 (game, from);
       return FALSE;
     }
 
@@ -16183,7 +16246,7 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
   /* Validate the target object to put onto or into (deferred -> unhandled). */
   if (is_on ? !lib_put_on_is_valid (game, container)
             : !lib_put_in_is_valid (game, container))
-    return !run_in_priority_pass ();
+    return lib_put_invalid_result ();
 
   /* Filter objects into references, then handle with the backend. */
   gs_set_multiple_references (game);
@@ -16676,10 +16739,10 @@ lib_put_sweep_claims_390 (scr_gameref_t game, const scr_char *line)
  * nothing.
  */
 static void
-lib_put_sweep_390 (scr_gameref_t game, const scr_char *input, size_t from)
+lib_put_task_pass_390 (scr_gameref_t game, const scr_char *input,
+                       size_t from, scr_bool is_loud)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_bool is_loud = !lib_put_sweep_claims_390 (game, input);
   const scr_char *buffer;
   std::string text;
 
@@ -16690,6 +16753,13 @@ lib_put_sweep_390 (scr_gameref_t game, const scr_char *input, size_t from)
   run_typed_line_task_commands (game, input, is_loud);
   if (pf_buffer_length (filter) == from && !text.empty ())
     pf_buffer_string (filter, text.c_str ());
+}
+
+static void
+lib_put_sweep_390 (scr_gameref_t game, const scr_char *input, size_t from)
+{
+  lib_put_task_pass_390 (game, input, from,
+                         !lib_put_sweep_claims_390 (game, input));
 }
 
 static void
@@ -16888,7 +16958,7 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
             : !lib_put_in_is_valid (game, container))
     {
       gs_clear_multiple_references (game);
-      return !run_in_priority_pass ();
+      return lib_put_invalid_result ();
     }
 
   /* The container is fine, so now the object fragment gets its answer. */
@@ -16927,6 +16997,20 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
   status = is_on ? lib_put_on_finish (game, outcome)
                  : lib_put_in_finish (game, outcome);
   lib_put_task_sweep_390 (game, container, moving, sweep_from);
+
+  /*
+   * A 3.9 put that came to nothing but a size or capacity refusal moved
+   * nothing, so no sweep runs; insides() returns unclaimed and generaltasks'
+   * LOUD tasks(0) gets the line with the refusal still in the buffer, where
+   * a matching task's FailMessage overwrites it.  pPUTREF39.taf, run390x,
+   * 2026-09-19: `put coin in bag` with the bag full is "T6 FAIL." (Adrift_
+   * pputref392.txt:5) and the coin stays in hand, where with no task the
+   * same line is "The coin can't fit inside the bag at the moment."; a
+   * passing task likewise speaks alone (make_39_putprobe.py PUTBIG).
+   */
+  if (outcome.is_refusal_only && lib_is_version_390 (game)
+      && run_in_priority_pass () && run_get_dispatch_input ())
+    lib_put_task_pass_390 (game, run_get_dispatch_input (), sweep_from, TRUE);
   return status;
 }
 
@@ -17365,7 +17449,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
 
   /* Validate the container object to put into (deferred -> unhandled). */
   if (!lib_put_in_is_valid (game, container))
-    return !run_in_priority_pass ();
+    return lib_put_invalid_result ();
 
   /* As a special case, complain about requests to retain the container. */
   if (is_except
@@ -17655,6 +17739,105 @@ lib_cmd_put_on_nowhere (scr_gameref_t game)
 
 
 /*
+ * lib_cmd_put_in_that_390()
+ * lib_cmd_put_on_that_390()
+ *
+ * run390 insides() counts, over the whole object table, every object co()
+ * finds named in the line (var_8A, 461000-461641), and separately notes the
+ * one named after the preposition (var_8C).  With two or more named, no
+ * "all", and none of them after the preposition, it writes "You can't put
+ * anything inside that!" / "onto that!" (461769) before any task look-up,
+ * and the post-put sweep follows (4624BF -> 462550): a claimant named in the
+ * line runs the tasks QUIET, so a failing task leaves the refusal standing.
+ * pPUTREF39.taf (make_39_putrefprobe.py), run390x, 2026-09-19: `put pebble
+ * and stone in junk` / `on junk`, each with a matching task whose restriction
+ * fails, answer "You can't put anything inside that!" / "onto that!"
+ * (Adrift_pputref392.txt:8/12), where Scarier printed the FailMessage.
+ *
+ * These rows sit in the priority table so as to answer ahead of the tasks;
+ * anything that is not this case declines to the rows below and to the
+ * put-nowhere catch-alls, and 3.7, 3.8 and 4.0 never get here at all.  The
+ * preposition is found as a whole word here; the Runner's own InStr(line,
+ * "in") also hits the "in" inside "coin", which is not ported.
+ */
+static scr_bool
+lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
+{
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_char *const in_words[] = {"into", "inside", "in", NULL};
+  const scr_char *const on_words[] = {"onto", "on", NULL};
+  const scr_char *const *words = typed_on ? on_words : in_words;
+  std::string lower, tail;
+  size_t cut;
+  scr_int object, named;
+
+  if (!lib_put_refusal_first_390 (game) || !line
+      || lib_co_contains (line, "all"))
+    return FALSE;
+
+  named = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (lib_put_co_named_term (game, line, object))
+        named++;
+    }
+  if (named < 2)
+    return FALSE;
+
+  /* The text after the first whole-word preposition must name nothing. */
+  lower = line;
+  for (char &c : lower)
+    c = scr_tolower (c);
+  cut = std::string::npos;
+  for (const scr_char *const *word = words; *word; word++)
+    {
+      const std::string needle = std::string (" ") + *word + " ";
+      const size_t at = (" " + lower + " ").find (needle);
+
+      if (at != std::string::npos && (cut == std::string::npos || at < cut))
+        cut = at + needle.length () - 1;
+    }
+  if (cut == std::string::npos || cut > lower.length ())
+    return FALSE;
+  tail = lower.substr (cut);
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (lib_put_co_named_term (game, tail.c_str (), object))
+        return FALSE;
+    }
+
+  {
+    const size_t from = pf_buffer_length (gs_get_filter (game));
+
+    lib_print_response_message (game,
+                                 typed_on
+                                 ? "You can't put anything onto that!\n"
+                                 : "You can't put anything inside that!\n",
+                                 typed_on
+                                 ? "I can't put anything onto that!\n"
+                                 : "I can't put anything inside that!\n",
+                                 typed_on
+                                 ? "%player% can't put anything onto that!\n"
+                                 : "%player% can't put anything inside that!\n");
+    lib_put_sweep_390 (game, line, from);
+  }
+  return TRUE;
+}
+
+scr_bool
+lib_cmd_put_in_that_390 (scr_gameref_t game)
+{
+  return lib_put_that_390 (game, FALSE);
+}
+
+scr_bool
+lib_cmd_put_on_that_390 (scr_gameref_t game)
+{
+  return lib_put_that_390 (game, TRUE);
+}
+
+
+/*
  * lib_cmd_put_in_except_multiple()
  * lib_cmd_put_in_multiple()
  *
@@ -17936,8 +18119,11 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
   /* Verify that the supporter object is a supporter. */
   if (!obj_is_surface (game, supporter))
     {
+      const scr_bool is_first = lib_put_refusal_first_390 (game);
+      const size_t from = pf_buffer_length (filter);
+
       /* Deferred in the tentative priority pass; see lib_put_in_is_valid. */
-      if (run_priority_defer_if_active ())
+      if (!is_first && run_priority_defer_if_active ())
         return FALSE;
       /*
        * Three generations, three spellings, and Scarier had none of them: it
@@ -17962,6 +18148,8 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
                                    : "%player% can't put anything onto ",
                                  supporter,
                                  lib_is_version_400 (game) ? "!\n" : ".\n");
+      if (is_first)
+        lib_put_refusal_sweep_390 (game, from);
       return FALSE;
     }
 
@@ -18051,7 +18239,7 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
 
   /* Validate the supporter object to put into. */
   if (!lib_put_on_is_valid (game, supporter))
-    return !run_in_priority_pass ();
+    return lib_put_invalid_result ();
 
   /* As a special case, complain about requests to retain the supporter. */
   if (is_except

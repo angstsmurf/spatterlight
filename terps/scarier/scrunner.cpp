@@ -675,6 +675,9 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
   {"put [all/everything] [[except/but] {for}/apart from] %text%"
    " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple},
   {"put %text% [on/onto/on top of] %object%", lib_cmd_put_on_multiple},
+  /* 3.9's "can't put anything inside/onto that!"; see lib_put_that_390(). */
+  {"put %text% [in/into/inside {of}] *", lib_cmd_put_in_that_390},
+  {"put %text% [on/onto/on top of] *", lib_cmd_put_on_that_390},
   {"[[drop/put down] [all/everything]/put [all/everything] down]",
    lib_cmd_drop_all},
   {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%",

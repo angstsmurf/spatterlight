@@ -696,16 +696,32 @@ obj_get_player_burden_limit (scr_gameref_t game)
  * is not charged against the container any more than against its carrier.  A
  * Capacity of 0 is full from the start rather than unlimited.  3.8 has only
  * the one refusal for all of this, "The box is full." (see sclibrar.c).
+ *
+ * Version 3.9 reads only the FIRST digit of the count.  Its loader (run390
+ * 46537C-46540C) takes Val(Left(Format(Capacity, "00"), 1)) times the scale
+ * factor to the power of Val(Right(..., 1)), so a Capacity of 100 is one
+ * object of size 1, not ten.  run400 fixed it: its loader takes
+ * Left(s, Len(s) - 1) (4904D3-490574).  Measured on pPUTREF39.taf
+ * (make_39_putrefprobe.py) under run390x, 2026-09-19: an empty bag of
+ * Capacity 100 takes the stone and then refuses four more size-1 objects
+ * with "The lamp can't fit inside the bag at the moment." (Adrift_pputrefv4).
  */
 scr_int
 obj_get_container_capacity (scr_gameref_t game, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int capacity, packed;
+  scr_int capacity, packed, count;
 
   packed = prop_get_indexed_integer (bundle, "Objects", object, "Capacity");
 
-  capacity = (packed / OBJ_DIMENSION_DIVISOR)
+  count = packed / OBJ_DIMENSION_DIVISOR;
+  if (prop_get_taf_version (bundle) == TAF_VERSION_390)
+    {
+      while (count >= OBJ_DIMENSION_DIVISOR)
+        count /= OBJ_DIMENSION_DIVISOR;
+    }
+
+  capacity = count
              * obj_scale (obj_get_size_multiple (game),
                           packed % OBJ_DIMENSION_DIVISOR);
 
