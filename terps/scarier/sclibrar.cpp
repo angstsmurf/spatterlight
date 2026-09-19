@@ -5073,8 +5073,21 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
   if (!lib_runner_co_scan (game, command, &prompt_term, &list_term, &present))
     return FALSE;
 
-  /* The whole turn's output goes; only the prompt is shown. */
-  pf_empty (filter);
+  /*
+   * The whole turn's output goes; only the prompt is shown.  The bare-give
+   * completion's "(to Nobody)" is not part of it: the Runner prints that
+   * echo as it rewrites the line (run390 45FAB9 -> 47B568), so `give hat`
+   * with two hats is "(to Nobody)" and then "Which hat.  The red hat or
+   * the blue hat?" (p39TASK, run390x Adrift_185_ppclear_39.txt, 2026-09-19).
+   */
+  {
+    const std::string echo (pf_leading_reference (filter));
+
+    pf_empty (filter);
+    if (!echo.empty ())
+      pf_buffer_reference (filter,
+                           echo.substr (1, echo.size () - 3).c_str ());
+  }
   pf_buffer_string (filter, "Which ");
   pf_buffer_string (filter, prompt_term);
   pf_buffer_string (filter, ".  ");

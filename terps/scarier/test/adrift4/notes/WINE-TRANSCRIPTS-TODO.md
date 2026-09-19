@@ -302,11 +302,12 @@ not by a tick.
   emulated, so 3.9 commands with a reference skip the check. Group
   patterns (`[`, `{`) skip it at every version.
 - **"Please be more clear, who do you want to <verb>?"** is a SCARE
-  invention (alexis_worn_cube t79). The `who` form is unmeasured. For the
-  object form, 3.9 examine answers "Nothing special." (ported); wear,
-  remove, drop, open, close and take refuse through co() and the
-  end-of-turn prompt is the answer (ported, p39TASK). give, put, read and
-  the rest are assumed to refuse the same way.
+  invention (alexis_worn_cube t79). The `who` form is unmeasured. The
+  object form is closed: 3.9 examine answers "Nothing special." (ported);
+  wear, remove, drop, open, close, take, give, put, read, eat and the
+  checkverb arms all refuse through co() and the end-of-turn prompt is
+  the answer (p39TASK cmdfile_p39clear.txt, Adrift_185_ppclear_39.txt,
+  2026-09-19).
 - **Per-verb absent-NPC branches:** talk, give and take are measured and
   ported (p39ABSNPC). kill/kick/punch still go through other grammar
   first. The attack branch is ported.
@@ -777,6 +778,15 @@ next to the named function and in `annotations.tsv`.
   `red box` beside the blue box is "I don't understand what you want me to
   do with the red box." and bare `box` is the Which prompt. `[3.9]`
   p39TASK Adrift_185_ppfx_39.txt (`lib_cmd_verb_object`, 2026-09-19)
+
+- **The "(to Nobody)" echo outlives the Which prompt:** the bare-give
+  completion prints its echo as it rewrites the line (45FAB9 -> 47B568),
+  and the end-of-turn "Which X." replaces only the turn's answer, so
+  `give hat` with two hats is "(to Nobody)" then "Which hat.  The red hat
+  or the blue hat?". read, put, eat and the checkverb arms on an ambiguous
+  noun are the prompt alone. `[<4.0]` p39TASK cmdfile_p39clear.txt,
+  run390x Adrift_185_ppclear_39.txt (`lib_co_ambiguity_prompt`,
+  `pf_leading_reference`, 2026-09-19)
 
 ### Nouns, scope and the seen model
 

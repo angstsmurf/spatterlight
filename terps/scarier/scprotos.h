@@ -397,6 +397,7 @@ extern scr_char *pf_transfer_buffer (scr_filterref_t filter);
    actions run, the way pf_transfer_buffer() does for pre-4.0. */
 extern void pf_buffer_reference (scr_filterref_t filter,
                                  const scr_char *text);
+extern std::string pf_leading_reference (scr_filterref_t filter);
 extern size_t pf_hide_prefix (scr_filterref_t filter);
 extern void pf_reveal_prefix (scr_filterref_t filter, size_t previous);
 extern void pf_empty (scr_filterref_t filter);

@@ -1657,6 +1657,28 @@ pf_buffer_reference (scr_filterref_t filter, const scr_char *text)
 
 
 /*
+ * pf_leading_reference()
+ *
+ * The bracketed reference line the turn opened with, "(to Nobody)\n", when
+ * that is all the buffer holds ahead of pf_buffer_reference()'s mark; empty
+ * otherwise.  The Runner prints the echo straight to the window (47B568)
+ * while the turn's answer builds in its own string, so a later "Which X."
+ * prompt that replaces the answer leaves the echo standing.
+ */
+std::string
+pf_leading_reference (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  if (filter->reference_at <= 0
+      || (size_t) filter->reference_at > filter->buffer.size ()
+      || filter->buffer[0] != '(')
+    return std::string ();
+  return filter->buffer.substr (0, (size_t) filter->reference_at);
+}
+
+
+/*
  * pf_hide_prefix()
  * pf_reveal_prefix()
  *
