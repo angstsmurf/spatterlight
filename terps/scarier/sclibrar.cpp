@@ -12841,9 +12841,39 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
  *
  * Facets of lib_drop_multiple_common().
  */
+/*
+ * Before 4.0 there is no except list either.  drops()' c("all") arm drops
+ * everything held or worn and skips only an object whose name falls after
+ * " but " (run380 438793-4387BD, run390 4456AB; run380 changes "except" to
+ * "but" first, 441C72), and run370 has no "but" at all, so its `drop all
+ * except X` is `drop all`.  Nothing left to drop is the all arm's " not
+ * carrying anything." (run380 4388E6), never a complaint about the
+ * exception: p37PUT / p38PUT `drop all except coin` with nothing held (run370x
+ * / run380x Adrift_154_p37put2.rtf, Adrift_155_p38put2.rtf, 2026-09-19).
+ */
 scr_bool
 lib_cmd_drop_except_multiple (scr_gameref_t game)
 {
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (lib_is_version_400 (game))
+    return lib_drop_multiple_common (game, TRUE);
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
+    return lib_cmd_drop_all (game);
+
+  gs_set_multiple_references (game);
+  if (lib_apply_filter (game, lib_drop_filter, -1, FALSE, NULL) == 0)
+    {
+      gs_clear_multiple_references (game);
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             "You are not carrying anything.",
+                                             "I am not carrying anything.",
+                                             "%player% is not carrying anything."));
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
+  gs_clear_multiple_references (game);
   return lib_drop_multiple_common (game, TRUE);
 }
 
@@ -13918,14 +13948,15 @@ lib_cmd_open_object (scr_gameref_t game)
            * stone and a coin." (p38DARK, Adrift_982:57 / Adrift_983:33).
            * 2026-09-12.  run370 does hold the "  Inside " literal and does
            * print it from `x box` (Adrift_986:21), so this is openclose's
-           * own reach and not a missing string.  The STATIC arm is untested
-           * on 3.7 -- p37DARK has no static container -- and is left
-           * listing.
+           * own reach and not a missing string.  Nor does it list the
+           * static arm: p37PUT `open chest`, a static container in the room
+           * with a gem inside, is the bare "You open the chest." (run370x
+           * Adrift_154_p37put2.rtf, 2026-09-19), where run380 adds "  Inside
+           * the chest is a gem." (Adrift_155_p38put2.rtf).
            */
-          if (obj_is_static (game, object)
-              || (gs_object_position (game, object) == OBJ_HELD_PLAYER
-                  && prop_get_taf_version (gs_get_bundle (game))
-                     >= TAF_VERSION_380))
+          if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
+              && (obj_is_static (game, object)
+                  || gs_object_position (game, object) == OBJ_HELD_PLAYER))
             lib_list_in_object_pre_390 (game, object);
         }
       else
@@ -16845,6 +16876,23 @@ lib_put_what_pre400 (scr_gameref_t game, scr_int object, scr_bool typed_on)
 static scr_bool lib_put_co_named_term (scr_gameref_t game,
                                        const scr_char *line, scr_int object);
 
+/* insides()' co() name count over the whole game (run380 var_A6). */
+static scr_int
+lib_put_co_count_pre390 (scr_gameref_t game)
+{
+  const scr_char *line = run_get_dispatch_input ();
+  scr_int object, matches = 0;
+
+  if (!line)
+    return 2;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (lib_put_co_named_term (game, line, object))
+        matches++;
+    }
+  return matches;
+}
+
 static scr_bool
 lib_put_sweep_claims_390 (scr_gameref_t game, const scr_char *line)
 {
@@ -17031,10 +17079,18 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
     {
       /*
        * 3.7 and 3.8 invert 3.9's precedence and answer for the CONTAINER
-       * first, so a noun that names nothing cannot speak until the
-       * container has passed its own three tests; see below.
+       * first -- but only once insides() has counted two co() names on the
+       * line (var_A6, run380 4457A1; "You can't do that!" below that).  A
+       * fragment that names nothing ANYWHERE leaves the container alone on
+       * the line, and the flat refusal outranks its tests: p37PUT/p38PUT
+       * `put zzz in statue` (static, no container), `put zzz in coin`
+       * (held, no container) and `put zzz in chest` (static container,
+       * open and shut) are all "You can't do that!" (run370x / run380x
+       * Adrift_154_p37put2.rtf, Adrift_155_p38put2.rtf, 2026-09-19).  An
+       * object named but out of reach still counts, and goes on to the
+       * container tests below.
        */
-      if (!is_pre_390)
+      if (!is_pre_390 || lib_put_co_count_pre390 (game) < 2)
         return lib_put_no_object_pre400 (game);
     }
   else if (references == 0)
@@ -18088,10 +18144,20 @@ lib_cmd_put_on_that_390 (scr_gameref_t game)
  * lib_cmd_put_in_multiple()
  *
  * Facets of lib_put_in_multiple_common().
+ *
+ * Before 4.0 insides() has no exception list at all: "except" and "but"
+ * appear only in the take and drop handlers (run380 43D8EE / 438793, run390
+ * drops 4456AB; run370 has neither word), so `put all except X in Y` is
+ * c("all")'s arm and puts everything.  p37PUT / p38PUT / p39PUT `put all
+ * except stone in cupboard` put the stone too (run370x / run380x / run390x
+ * Adrift_154_p37put2.rtf, Adrift_155_p38put2.rtf, Adrift_154_p39put.txt,
+ * 2026-09-19).
  */
 scr_bool
 lib_cmd_put_in_except_multiple (scr_gameref_t game)
 {
+  if (!lib_is_version_400 (game))
+    return lib_cmd_put_all_in (game);
   return lib_put_in_multiple_common (game, TRUE);
 }
 
@@ -18517,6 +18583,8 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
 scr_bool
 lib_cmd_put_on_except_multiple (scr_gameref_t game)
 {
+  if (!lib_is_version_400 (game))
+    return lib_cmd_put_all_on (game);
   return lib_put_on_multiple_common (game, TRUE);
 }
 

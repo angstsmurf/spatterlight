@@ -318,6 +318,13 @@ not by a tick.
   room) named in a 3.9 put is also unmeasured. The " is full." arm at
   461E59 speaks only when something fits and the bag is still full, so it
   is effectively dead; it needs a size-0 object.
+- **Take all into an open static container.** p39PUT `take all` with the
+  coin, stone, bag, nut, gem and table lying in the open static cupboard is
+  "You take the coin, the stone, the bag, the nut, the gem and the table
+  from the cupboard." Scarier says "There is nothing to pick up here."
+  run390 takes() is unread. The table was carried there by the earlier
+  `put all except stone in cupboard`, since put ignores the exception.
+  run390x Adrift_154_p39put.txt turns 23-30 are all this one difference.
 - **Drop:** the pre-4.0 "and" arm with no object named at all (`drop foo
   and bar`). By the code it is "not carrying anything."; Scarier says "Drop
   what?". The arm drops only held/worn objects (o(22) 0 or &H9C), not ones
@@ -336,10 +343,9 @@ not by a tick.
   sweep (445A0F).
 - **Examine:** 3.7/3.8 examines have no bare-verb exit (unmeasured
   corners). run370's sit/stand/lie has no location test (42AEC8, unported).
-- **Put:** 3.7 static container `open`; 3.7 bare take from a held
-  container; `put X in Y` where X names nothing and Y is a bad container; a
-  supporter that is neither held nor static nor a container; a static
-  container; `except` forms; `put all in <nothing>`.
+- **Drop:** 3.7 `drop all except X` with things held. run370 has no "but"
+  at all, so by the code it drops X too (ported that way); only the
+  nothing-held cell is measured.
 - **Pre-4.0 room-name alt walk** is unmeasured.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
@@ -358,6 +364,11 @@ not by a tick.
   DontUnderstand is (`silent_task_390` in run_all_commands()), so only the
   text differs. That fixed every alexis battle difference after T99.
 - **run370 double matcher pass** (arlo `get out of bus`).
+- **3.7/3.8 `put all in <nothing>` / `put all on <nothing>` crash the
+  Runner.** run370x and run380x stop with "Run-time error '9': Subscript
+  out of range" and lose the transcript (p37PUT/p38PUT,
+  `cmdfile_p3738putallin.txt` / `cmdfile_p3738putallon.txt`, 2026-09-19).
+  Scarier keeps its sane answer.
 - **SCARE meta-commands** `wait N`, `hist N` and `redo N` exist in no
   Runner. Eleven more inventions are compiled out by
   `SCARIER_NO_ABBREVIATIONS`.
@@ -1044,6 +1055,31 @@ next to the named function and in `annotations.tsv`.
   like the named rows' (they are not put_first), or the STANDARD twin
   printed it twice. `[4.0]` probe PCLOSED, Adrift_1194/1195
   (`lib_put_in_closed_400`, `lib_put_all_common`, 2026-09-19)
+- **Pre-4.0 put leftovers: a fragment that names nothing, `except`, the
+  3.7 static open, drop-all-except.** In insides() (run380 4457A1) the
+  co() name count var_A6 comes before the target's tests. A fragment that
+  names nothing anywhere leaves the target alone on the line, so 3.7/3.8
+  say "You can't do that!" ahead of the container refusals: `put zzz in
+  statue` / `in coin` / `in chest` (open or shut). An object named but out
+  of reach still counts, so the target-first order measured on p38DARK
+  stands. insides() has no exception list before 4.0: `put all
+  except/but X in/on Y` is `put all in/on Y` at 3.7, 3.8 and 3.9, and X is
+  put too. With nothing held that gives the all arm's empty answers (3.7
+  "You have nothing to put inside the cupboard.", 3.8 "You are not
+  carrying anything.", 3.9 "Nothing will fit inside the cupboard.").
+  run370's openclose does not list a static container either: `open
+  chest` is the bare "You open the chest.", where run380 lists. drops()'
+  all arm skips only a name after " but " (run380 438793, run390 4456AB;
+  run370 has no "but"), and nothing left is " not carrying anything."
+  (run380 4388E6), never the exception's "don't have". Already right and
+  re-confirmed: 3.7 bare take from a held or static container is "Take
+  what?", 3.8's takes it; put into an open static container; the closed
+  static refusal; `put coin on table` with the table a dynamic surface
+  on the floor is "You are not holding a table.". `[3.7/3.8/3.9]` probes
+  p37PUT/p38PUT/p39PUT (`make_3738_putprobe.py`), run370x/run380x/run390x
+  Adrift_154_p37put2.rtf, Adrift_155_p38put2.rtf, Adrift_154_p39put.txt
+  (`lib_put_co_count_pre390`, `lib_cmd_put_in_except_multiple`,
+  `lib_cmd_drop_except_multiple`, `lib_cmd_open_object`, 2026-09-19)
 
 ### NPCs, walks and battle
 
