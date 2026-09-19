@@ -226,11 +226,9 @@ Hall1 west
 this is the hallway leading to the bedrooms of apartment 1   Debbie is here.
 
 You can only move west.
-Debbie hits you with frying pan, but it doesn't seem to do any damage.
 
 > kill debbie
 as debbie dies she disapppears and the pan falls to the floor
-Debbie hits you, but it doesn't seem to do any damage.
 
 > east
 You move east.
@@ -275,7 +273,7 @@ any damage.
 
 > kill ross
 ross dissapears and you don't know where he went   Joshua walks in .
-Joshua stabs a tall well built  man with sword of hope.
+A tall well built  man hits you, but it doesn't seem to do any damage.
 
 > north
 You move north.
@@ -294,7 +292,6 @@ this is the hallway leading to the bedrooms of apartment 1   Also here is
 frying pan.  Debbie is here.
 
 You can move east and west.  Joshua walks in  from the east.
-Debbie hits you, but it doesn't seem to do any damage.
 
 > west
 You move west.
@@ -331,11 +328,11 @@ this is the top floor of the building of death.  There are two doors on each
 side of the hallway.    Demon is here.
 
 You can move east, west and down.  Joshua walks in  from below.
-Joshua stabs a small  demon with sword of hope.
-the demon disappears in a flash of light
+A small  demon hits you, but it doesn't seem to do any damage.
 
 > kill witch
 the witch disappears with a laugh
+A small  demon hits you, but it doesn't seem to do any damage.
 
 > up
 You move up.

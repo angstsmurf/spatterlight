@@ -164,7 +164,7 @@ You walk south.
 Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
 A fierce wind blows.  Moyru is here.
-An evil witch hits you, but it doesn't seem to do any damage.
+An evil witch hits you.
 Lamanluie cuts An evil witch with the old rusty broken blood-stained
 scimitar.
 
@@ -369,6 +369,8 @@ The serpentine guardian hits you.
 
 > attack crynasalda
 You stab The serpentine guardian with The Spirit Dagger.
+Lamanluie cuts The serpentine guardian with the old rusty broken
+blood-stained scimitar.
 Crynasalda collapses. The water elemental leaves her body and transforms
 itself into an object.
 The Sea Serpent's Scales floats magically onto your body.

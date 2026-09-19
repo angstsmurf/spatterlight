@@ -747,6 +747,21 @@ cybercow_win_solution.txt|lair-of-the-cybercow.taf|Thank you for playing Lair of
 # row above (gentler branch, "You scored 10 out of the maximum 10! ... Well
 # done - you scored maximum points!").  Not a bug; nothing to re-derive here.
 cybercow_solution.txt|lair-of-the-cybercow.taf|Your score is 6 out of a maximum of 10.
+# deaths (3.90).  Measured 2026-09-19 against run390x (runner_transcripts/deaths,
+# seed 1234, 11 = 11 draws on the same eleven turns): identical on every turn
+# after two type-7 battle-action rules read off run390 execute_action (4573DC):
+#   * Attitude is written RAW (456BB1-456BF4 store CByte(Var3) into the NPC's
+#     byte 108; run400 48D747-48D78A do the same into 172).  Scarier reordered
+#     the value as a Generator combo index, so `kill ross` (task 7, attitude of
+#     NPC 0 = 0) kept Joshua an ally: Ross and the demon then had two candidates
+#     and struck Joshua on the pick where the Runner, with Joshua neutral, has
+#     only the player (T42, T48, T49 "hits you").
+#   * Speed (3.9 index 7) indexes the NPC array by Var2 RAW (45738D), with no
+#     referenced-character case: `kill jim` (task 15, speed of target 1 = 3)
+#     re-arms NPC 1, not Joshua at NPC 0, so Joshua never stabs every third
+#     turn (T35-T49 "Joshua stabs ... with sword of hope" were Scarier's own).
+# Both rules are ported ungated for attitude and `[<4.0]` for the speed index;
+# see WINE-TRANSCRIPTS-TODO.md "Battle" in the index.
 deaths_solution.txt|deaths.taf|crumbles into dust
 # Re-blessed 2026-09-07 for the same capitalisation rule as the trabula row above: `wife hits you with the pot.` -> `Wife`.  This row's transcript (Adrift_176) never reaches the battle turn, so the line follows from the rule rather than from a measurement of its own.
 donuts_intro_solution.txt|donuts_intro.taf|To be continued (maybe)..
@@ -928,6 +943,32 @@ screen_savers_solution.txt|The Screen Savers On Planet X.taf|You've managed to g
 # seen ancient and decayed scrolls present is "Which scroll.  Ancient scroll or
 # the decayed scroll?", as in run390 (runner_transcripts/secret_of_lost_world),
 # and takes nothing; the win is unaffected.
+# Route repaired and re-blessed 2026-09-19 against run390x
+# (runner_transcripts/secret_of_lost_world, seed 1234, now identical on every
+# turn).  The Runner could NOT win with the old feed, so the walkthrough moved:
+#   * T52 `put tooth in skull` moves the blue gem onto the fresh skeleton
+#     without a seen stamp (run390 execute_action stamps into/onto only when
+#     the parent is seen, 455F53/455FCA, and the skeleton had never been
+#     listed), so the old T53 `take blue gem` had ONE seen "gem" present for
+#     takes()'s co() -- the held green one -- and answered "You already have
+#     the green gem!" (lib_co_pre400).  The route now looks first: `x boat`,
+#     `x fresh skeleton`, then `take blue gem` takes it from the skeleton.
+#   * The old T56 `take scroll` was the co() prompt "Which scroll." and took
+#     nothing (the 2026-09-14 note above); the route now says `take decayed
+#     scroll`.
+#   * T118 `put red gem on statue` with only the green gem in play: run390's
+#     insides() offers every object to co(obj, 0), which does not consult the
+#     prefix, so the green gem is moved onto the statue and the loud task sweep
+#     then prints task 5's "You don't have a red gem." (lib_put_co_resolve_390,
+#     lib_put_task_sweep_390; probe Adrift_128_solwred).  With the repaired
+#     route the red gem is held by then and the game's own task answers.
+#   * T125 `drink green potion` (+20 strength, +20 defence, then +20 to both
+#     maxes, all against a 30 max): run390 caps a range raise at the max
+#     (Proc_2_1_427948 = min, 456EFA/45714E) exactly as run400 does, so the
+#     player stays 30/30 and the ghost's 50 lands: "A ghost hits you." at
+#     T125-T126 and Kronos at T164, where Scarier's uncapped 50 defence
+#     printed ", but it doesn't seem to do any damage.".  battle_change_attribute
+#     now caps for every version.
 secret_of_lost_world_solution.txt|SecretOfLostWorld.taf|The ship is slowly sailing away
 # Measured 2026-08-29: run400 replay of the then-current 133-command route,
 # all 133 commands echoed, 132 of 133 turns identical, the last differing only
@@ -1327,6 +1368,13 @@ shadow_of_the_past_solution.txt|Shadow_Of_The_Past.taf|You now realize that the 
 # Re-blessed 2026-09-12: the RNG stream now follows the Wine Runners draw for draw
 # (load-time rolls, battle order, 3.9 Speed 1 = every turn); Colony/yeh/Del Sol verified
 # identical to run390x/run400x under vbrng.  NPC walks and battles shift accordingly.
+# Re-blessed 2026-09-19 for the 3.9 type-7 range cap (see the
+# secret_of_lost_world row): the cake's +3 defence against a max of 5 changes
+# nothing, so the witch's 6 lands at T17 ("An evil witch hits you."); Moyru's
+# death lifts the max to 10, the cheese's +3 then counts and the sorceress's 6
+# does no damage at T27.  runner_transcripts/spirits_flight (run390x, seed
+# 1234) is now identical on every turn; Lamanluie's extra cut at T55 follows
+# from the same stats.
 spirits_flight_solution.txt|The_Spirits_Flight.taf|Your score is 50 out of a maximum of 95.
 # Measured 2026-08-29: run400 replay, all 12 commands echoed, 12 of 12 turns
 # identical.  Re-driven 2026-09-05 against today's engine
@@ -2280,6 +2328,10 @@ the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.
 # seen small cup is "Which cup.  The small cup or the empty cup?", as in run390
 # (runner_transcripts/troll now identical on every turn); the drop never
 # mattered to the win.
+# 2026-09-19, no golden change: `put breadcrumbs in basin` with the basin held
+# is the QUIET half of the 3.9 post-put sweep -- the basin claims it, task 51's
+# second restriction fails silently, and the put text stands (run390 462553-
+# 462760 with 4626B6; probes Adrift_128_trolldrop / Adrift_130_trollfire).
 troll_solution.txt|Troll.taf|clean by dinner time, I'll bust your head in!|SCR_SKIP_WAITKEY=1
 # A Spot Of Bother wins at the author's own maximum, 100/100, and the upstream
 # transcript needed exactly ONE repair in 270 commands: a second `push door` in
@@ -4622,6 +4674,12 @@ farfromhome_solution.txt|FarFromHome.taf|You scored 50 out of the maximum 50!|SC
 # reference-resolution port lands, the route's repair is `take box` (obj12's own
 # alias; verified offline to still reach T35).  Write-up:
 # notes/WINE-TRANSCRIPTS-TODO.md, "run390 is not longest-match either".
+# PORTED and the route repaired 2026-09-19: takes() lets a held namesake
+# indexed below the target speak first (run390 4551E4, lib_co_pre400), so
+# `take needle box` is the Runner's "You've already got the sharp needle!" and
+# the golden now says `take box` (obj12's own alias), which still reaches
+# ending T35.  runner_transcripts/stardust (run390x, seed 1234) is identical
+# on every turn.
 stardust_solution.txt|S_Tar_Dus.taf|You decide to go with the plant lady and
 # Diary of a Stripper is AIF: the game's text is sexually explicit, so its
 # solution and golden are deliberately NOT committed (they are in .gitignore).
@@ -5032,6 +5090,11 @@ vetknow2_solution.txt|vetknow2.taf|AND THE NEW WORLD CHAMPION IS|SCR_SKIP_WAITKE
 # lib_put_task_sweep_390): `put dung beetle on green pillar` prints the pillars
 # sinking instead of the put message.  run390x runner_transcripts/losttomb.txt
 # now matches on every turn.
+# Re-read 2026-09-19: T85 is the LOUD half of that sweep -- nothing eligible
+# is named (the pillar is static and not in the sweep's set), the put text is
+# still in the buffer when generaltasks' tasks(0) (45F48B) matches task 30,
+# and its text replaces it.  Same output, now the same mechanism as the
+# troll and secret_of_lost_world rows.
 losttomb_solution.txt|losttombv2.taf|you and Rupert start the trek back to camp.
 # The Long Journey Home (Danny Chabino, 20 June 2001) is UNFINISHABLE, and the
 # row is anchored on the score line for the same reason The Hangover's is.

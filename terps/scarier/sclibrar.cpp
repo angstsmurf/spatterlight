@@ -10146,6 +10146,237 @@ lib_take_from_task_sweep_380 (scr_gameref_t game)
 }
 
 /*
+ * lib_take_held_namesake_preempt_pre400()
+ *
+ * The pre-4.0 takes() walks EVERY object in index order and lets each one
+ * whose Short or Alias sits in the typed line write the answer, whether or
+ * not it is the object the line meant.  A held one writes "<You>'ve already
+ * got <object>!" (run390 @454EC5, run380 @43E03E, run370 @436561) and a
+ * worn one "<You> are already wearing <object>!" (run390 @454F31, run380
+ * @43E0A2), both raising the outcome rank to 4.  The branch that takes an
+ * object out of a container, off a surface or from a character -- the one
+ * that rewrites the line into "take X from <parent>" -- is gated on the
+ * buffer being still empty (or " pick up "/" from here!") AND rank < 3
+ * (run390 @4551E4, run380 @43E3F6/@43E41F), so a held namesake indexed
+ * BELOW the target has already spoken and the target is never taken.  An
+ * object lying loose in the room is different: "<You> pick up X." overwrites
+ * the buffer (run390 @455014), so only the not-in-the-room targets lose.
+ *
+ * Measured in run390 (runner_transcripts/stardust T38, 2026-09-19): `take
+ * needle box` with the sharp needle (object 3) in hand and the needle box
+ * (object 12) on the desk answers "You've already got the sharp needle!"
+ * and leaves the box where it was -- T99 `put needle in box` is then "You
+ * don't have the box.".  secret_of_lost_world T53 `take blue gem` with the
+ * green gem (11) held and the blue gem (12) on the fresh skeleton: "You
+ * already have the green gem!" (the game's ALR of "You've already got"),
+ * the blue gem still listed on the skeleton at T55.  Scarier resolved the
+ * line to the box / the blue gem alone and took it.
+ *
+ * Only the single-named plain take: the "and" list and "all" walk other
+ * modes of the loop.  Below 3.9 the object prints its raw prefix, as the
+ * already-got list below does (p38EXAM, Adrift_1165).  3.7 has no
+ * from-parent branch at all -- a bare take of something in or on an object
+ * writes nothing (lib_take_filter) -- so there the namesake speaks from
+ * either side of the target; the last one in index order, as every write
+ * overwrites.  A 3.8/3.9 namesake ABOVE the target is left alone: the
+ * rewrite has run by the time it speaks and what the caller does with the
+ * rewritten line is unmeasured.
+ */
+/*
+ * The test the takes() loop puts each object through before letting it
+ * write: run390 @454E1D co(obj, 1), run380 @43DFC3 co(obj), run370 @4364E6
+ * a bare c(Short).  co() (run390 @43B6BC, run380 @42DE60) is false unless
+ * the object's Short or Alias sits in the line; the term found is then
+ * counted over every present object answering to it (obhere, and seen from
+ * 3.9 -- lib_co_candidate).  With more than one, 3.9's mode 1 recounts
+ * only the ones lying loose in the player's room (@43B37B, field 22 =
+ * room) and uses that count when it is not zero; if the term is still
+ * ambiguous the object passes only when the last word of its own Prefix is
+ * in the line (@43B572 / @42DD47), otherwise 3.9 asks that the object
+ * itself be present and seen (@43B661) where 3.8 passes it outright
+ * (@42DDEA).  So `take blue plate` with the red plate in hand and the blue
+ * one seen in the dishwasher does NOT let the red plate speak: two "plate"s
+ * present, none loose, and "red" is not in the line -- deardiary T52
+ * (runner_transcripts/deardiary, run390): "I take a blue plate from the
+ * dishwasher.".  Nor does life_of_mike T28 `take truck keys` (run380) with
+ * the mustang keys, aliased "keys" too, in hand.
+ */
+static scr_bool
+lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
+               scr_int mode)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int taf_version = prop_get_taf_version (bundle);
+  const scr_char *shortname, *term;
+  scr_int room, other, count;
+
+  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  term = lib_co_contains (line, shortname) ? shortname : NULL;
+  if (!term && taf_version >= TAF_VERSION_380)
+    {
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+      for (alias = 0; alias < alias_count && !term; alias++)
+        {
+          const scr_char *alias_name;
+
+          vt_key[3].integer = alias;
+          alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+          if (lib_co_contains (line, alias_name))
+            term = alias_name;
+        }
+    }
+  if (!term)
+    return FALSE;
+  if (taf_version < TAF_VERSION_380)
+    return TRUE;
+
+  room = gs_playerroom (game);
+  count = 0;
+  for (other = 0; other < gs_object_count (game); other++)
+    {
+      if (lib_co_candidate (game, other, room)
+          && lib_co_object_answers_to (game, other, term))
+        count++;
+    }
+  if (count > 1 && mode == 1 && taf_version >= TAF_VERSION_390)
+    {
+      scr_int loose = 0;
+
+      for (other = 0; other < gs_object_count (game); other++)
+        {
+          if (lib_co_object_answers_to (game, other, term)
+              && !obj_is_static (game, other)
+              && gs_object_position (game, other) == room + 1)
+            loose++;
+        }
+      if (loose > 0)
+        count = loose;
+    }
+  if (count > 1)
+    {
+      const scr_char *prefix;
+
+      prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
+      return lib_co_contains (line, lib_co_lastword (prefix));
+    }
+  if (taf_version >= TAF_VERSION_390)
+    return lib_co_candidate (game, object, room);
+  return TRUE;
+}
+
+static scr_bool
+lib_take_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object)
+{
+  return lib_co_pre400 (game, line, object, 1);
+}
+
+static scr_bool
+lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
+                                       scr_bool unresolved)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int taf_version = prop_get_taf_version (bundle);
+  const scr_char *line = run_get_dispatch_input ();
+  scr_int object, target, limit, speaker;
+
+  if (!line || taf_version >= TAF_VERSION_400)
+    return FALSE;
+
+  /*
+   * With no object resolved at all (unresolved: the parser found nothing
+   * for the noun, as when the only namesake of the typed words is unseen),
+   * takes() still walks every object, and a held or worn one whose co()
+   * passes still writes the buffer: secret_of_lost_world T53 `take blue gem`
+   * with the blue gem unseen on the fresh skeleton and the green gem in hand
+   * answers "You already have the green gem!" (run390, ALR-rewritten
+   * "'ve already got "; runner_transcripts/secret_of_lost_world, 2026-09-19).
+   */
+  /*
+   * takes() is entered on c("get") Or c("take") Or c("pick"), And Not
+   * c("from"), c("get on"), c("get down") (454476-4544DE), so `take off
+   * bathrobe` reaches its loop too and the worn bathrobe writes " are already
+   * wearing "; but the loop does not set the function's result (var_86 stays
+   * 0 there; 455B28 is the taken exit), so generaltasks goes on to removes()
+   * 45F49E, whose own line REPLACES the buffer: the_hangover T50 `take off
+   * bathrobe` -> "You remove your bathrobe.", deardiary T5 `take off dress`
+   * -> "I remove the blue dress." (runner_transcripts/deardiary).  Scarier's
+   * remove rows sit below the take row, so decline here and let them answer.
+   * Whether removes() also overwrites a refused `take off <held>` is unread.
+   */
+  if (unresolved && lib_co_contains (line, "off"))
+    return FALSE;
+
+  target = -1;
+  if (!unresolved)
+    {
+      for (object = 0; object < gs_object_count (game); object++)
+        {
+          if (!game->multiple_references[object])
+            continue;
+          if (target != -1)
+            return FALSE;
+          target = object;
+        }
+      if (target == -1)
+        return FALSE;
+    }
+
+  switch (unresolved ? OBJ_IN_OBJECT : gs_object_position (game, target))
+    {
+    case OBJ_IN_OBJECT:
+    case OBJ_ON_OBJECT:
+      break;
+    case OBJ_HELD_NPC:
+    case OBJ_WORN_NPC:
+      if (taf_version < TAF_VERSION_380)
+        return FALSE;
+      break;
+    default:
+      return FALSE;
+    }
+
+  limit = taf_version < TAF_VERSION_380 || unresolved
+          ? gs_object_count (game) : target;
+  speaker = -1;
+  for (object = 0; object < limit; object++)
+    {
+      if (object == target)
+        continue;
+      if (gs_object_position (game, object) != OBJ_HELD_PLAYER
+          && gs_object_position (game, object) != OBJ_WORN_PLAYER)
+        continue;
+      if (lib_take_co_pre400 (game, line, object))
+        speaker = object;
+    }
+  if (speaker == -1)
+    return FALSE;
+
+  if (gs_object_position (game, speaker) == OBJ_HELD_PLAYER)
+    pf_buffer_string (filter,
+                      lib_select_response (game,
+                                           "You've already got ",
+                                           "I've already got ",
+                                           "%player%'ve already got "));
+  else
+    pf_buffer_string (filter,
+                      lib_select_response (game,
+                                           "You are already wearing ",
+                                           "I am already wearing ",
+                                           "%player% is already wearing "));
+  if (taf_version >= TAF_VERSION_390)
+    lib_print_object_np (game, speaker);
+  else
+    lib_print_object_raw (game, speaker);
+  pf_buffer_string (filter, "!\n");
+  gs_clear_multiple_references (game);
+  return TRUE;
+}
+
+/*
  * lib_take_multiple_common()
  *
  * Take the objects available to the player and listed in %text%, or -- for
@@ -10188,6 +10419,11 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
       const scr_char *text = var_get_ref_text (gs_get_vars (game));
       scr_int object;
 
+      /* Pre-4.0: a held or worn namesake still answers a noun that resolved
+         to nothing; see lib_take_held_namesake_preempt_pre400(). */
+      if (!is_except && lib_take_held_namesake_preempt_pre400 (game, TRUE))
+        return TRUE;
+
       if (!lib_take_scored_fallback || is_except || !text
           || strchr (text, ',') || lib_input_contains_word (text, "and"))
         return FALSE;
@@ -10200,6 +10436,47 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
     }
   else if (references == 0)
     return TRUE;
+
+  /* Pre-4.0: a held or worn namesake indexed below the one object the line
+     named answers for it when that object is not loose in the room; see
+     lib_take_held_namesake_preempt_pre400(). */
+  if (!is_except && references == 1
+      && lib_take_held_namesake_preempt_pre400 (game, FALSE))
+    return TRUE;
+
+  /*
+   * Pre-4.0, takes() reaches an object only through co(idx, 1) (run390
+   * 454E1D, run380 43DFC3, run370 4364E6), so the one object the parser
+   * resolved is still not taken when that test fails for it: two seen
+   * namesakes present with no loose one and no Prefix word typed is the
+   * pending "Which <term>" ambiguity, and NOTHING moves.  secret_of_lost_world
+   * T59 `take scroll` with the ancient scroll in hand and the decayed scroll
+   * on the fresh skeleton prints "Which scroll.  Ancient scroll or the
+   * decayed scroll?" and leaves the decayed scroll where it was, so T74
+   * `give princess decayed scroll` fails its held restriction ("You can't do
+   * that right now.") and the lily, the red gem and the win never come
+   * (run390, runner_transcripts/secret_of_lost_world, 2026-09-19).  Scarier
+   * printed the same prompt over a take that had quietly happened.  Decline
+   * the row: the ambiguity prompt replaces the turn's output anyway, and a
+   * plain miss falls to the catch-all "Take what?" the Runner's empty buffer
+   * reaches.
+   */
+  if (!is_except && references == 1
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    {
+      const scr_char *line = run_get_dispatch_input ();
+      scr_int target;
+
+      for (target = 0; target < gs_object_count (game); target++)
+        if (game->multiple_references[target])
+          break;
+      if (line && target < gs_object_count (game)
+          && !lib_take_co_pre400 (game, line, target))
+        {
+          gs_clear_multiple_references (game);
+          return FALSE;
+        }
+    }
 
   /*
    * 3.7 has no bare take that reaches inside anything; see lib_take_filter.
@@ -15282,19 +15559,84 @@ lib_put_what_pre400 (scr_gameref_t game, scr_int object, scr_bool typed_on)
 /*
  * lib_put_task_sweep_390()
  *
- * run390's insides() ends a put that moved its named object with one more
- * task look-up (4626B6-462760): it saves the message buffer, empties it, runs
- * tasks(1) on the typed line, and puts the saved text back only if the buffer
- * is still empty afterwards -- so a task that the move itself enabled speaks
- * INSTEAD of "You put X onto Y.".  The "all" and "and" forms rebuild a line
- * per object instead, and are not ported.  Lost Tomb (3.90, run390x,
- * runner_transcripts/losttomb.txt T85): `put dung beetle on green pillar`
- * completes the pillar puzzle, and task 30 (bare `*`, restricted to all four
- * animals on their pillars) prints "The four pillars slowly sink into the
- * ground." on the put's own line, with no put message.  3.9 only; run380
- * sweeps take-from lines instead (lib_take_from_task_sweep_380()), and run400
- * dispatches its insides look-ups before the move.
+ * run390's insides() moves a single named object and writes "You put X onto
+ * Y." (461F8A-46210D) without ever setting its own result; that is left to
+ * the sweep that follows (462553-462760), and it decides which task pass the
+ * line gets afterwards.  The sweep walks every object whose o(22) is 0 (held),
+ * the player's room (a dynamic lying there, or a static authored with
+ * InitialPosition 4 + room, which is the only o(22) a static ever has) or
+ * &H9C (worn), and the first one co() finds named in the line claims the put:
+ * the buffer is emptied, tasks(1) -- checktask(line, 0), QUIET -- runs on the
+ * typed line, the result becomes 1, and the put text comes back only if the
+ * buffer is still empty (462760).  A task the move enabled then speaks
+ * instead of the put text; one whose restrictions fail says nothing.
+ * Nothing named and eligible means the result stays 0, and generaltasks goes
+ * on to tasks(0) (45F48B) -- checktask(line, 1), LOUD -- with the put text
+ * still in the buffer: a matched task's failing restriction overwrites it
+ * with the FailMessage (452BBD), a passing one runs and replaces it.  The
+ * moved object itself never qualifies (it is now &HF6/&HEC), so the usual
+ * claimant is the container, and only when it is held or lying in the room.
+ *
+ * Measured, run390 (2026-09-19):
+ *   - Lost Tomb (runner_transcripts/losttomb.txt T85): `put dung beetle on
+ *     green pillar` -- pillar static, nothing else eligible named -- moves the
+ *     beetle and the LOUD pass runs task 30 (bare `*`, all four animals on
+ *     their pillars), whose "The four pillars slowly sink into the ground."
+ *     replaces the put message.
+ *   - Secret of the Lost World (runner_transcripts/secret_of_lost_world.txt
+ *     T118-T119, and the probe Adrift_128_solwred): `put red gem on statue`
+ *     names the held green gem (co() matches Short "gem"; the prefix is not
+ *     consulted), moves it onto the static statue, and the LOUD pass matches
+ *     task 5 `* red * statue`, whose first restriction wants the red gem held:
+ *     "You don't have a red gem." replaces the put text, and `x statue` then
+ *     shows "A green gem is on ancient statue.".  T119 `put green gem on
+ *     statue` finds the gem already there and task 6's "You don't have a
+ *     green gem." is all that prints.
+ *   - Troll (runner_transcripts/troll.txt T116, run400x and the drop/firewater
+ *     probes Adrift_128_trolldrop, Adrift_130_trollfire): `put breadcrumbs in
+ *     basin` with the basin HELD -- the basin claims the sweep, the QUIET pass
+ *     matches task 51 `* breadcrumbs * basin *` whose second restriction
+ *     fails, and the put text "You put the lot of breadcrumbs inside the wash
+ *     basin." stands.
+ * The "all" and "and" forms rebuild a line per object instead, and are not
+ * ported.  3.9 only; run380 sweeps take-from lines instead
+ * (lib_take_from_task_sweep_380()), and run400 dispatches its insides
+ * look-ups before the move.
  */
+static scr_bool lib_put_co_named_term (scr_gameref_t game,
+                                       const scr_char *line, scr_int object);
+
+static scr_bool
+lib_put_sweep_claims_390 (scr_gameref_t game, const scr_char *line)
+{
+  const scr_int playerroom = gs_playerroom (game);
+  const scr_int object_count = gs_object_count (game);
+  scr_int object;
+
+  for (object = 0; object < object_count; object++)
+    {
+      scr_bool is_eligible;
+
+      if (obj_is_static (game, object))
+        {
+          const scr_int code = obj_initial_location_code (game, object);
+
+          is_eligible = code == 0 || code == playerroom + 1;
+        }
+      else
+        {
+          const scr_int position = gs_object_position (game, object);
+
+          is_eligible = position == OBJ_HELD_PLAYER
+                        || position == OBJ_WORN_PLAYER
+                        || position == playerroom + 1;
+        }
+      if (is_eligible && lib_put_co_named_term (game, line, object))
+        return TRUE;
+    }
+  return FALSE;
+}
+
 static void
 lib_put_task_sweep_390 (scr_gameref_t game, scr_int container,
                         const lib_list_t &moving, size_t from)
@@ -15304,7 +15646,7 @@ lib_put_task_sweep_390 (scr_gameref_t game, scr_int container,
   const scr_char *input = run_get_dispatch_input ();
   const scr_char *buffer;
   std::string text;
-  scr_bool has_moved = FALSE;
+  scr_bool has_moved = FALSE, is_loud;
 
   if (version < TAF_VERSION_390 || version >= TAF_VERSION_400 || !input)
     return;
@@ -15319,13 +15661,71 @@ lib_put_task_sweep_390 (scr_gameref_t game, scr_int container,
   if (!has_moved)
     return;
 
+  is_loud = !lib_put_sweep_claims_390 (game, input);
+
   buffer = pf_get_buffer (filter);
   if (buffer && strlen (buffer) > from)
     text = buffer + from;
   pf_truncate (filter, from);
-  run_typed_line_task_commands (game, input);
+  run_typed_line_task_commands (game, input, is_loud);
   if (pf_buffer_length (filter) == from && !text.empty ())
     pf_buffer_string (filter, text.c_str ());
+}
+
+
+/*
+ * lib_put_co_resolve_390()
+ *
+ * run390's insides() does not parse the object fragment at all.  Its
+ * single-object loop (461EE8-462125) offers every object to co(obj, 0) --
+ * the Short, or failing that an Alias, typed as a whole word, the prefix
+ * consulted only when present, seen namesakes make the term ambiguous -- and
+ * moves each one that is also seen (o(44)), present (obhere), not the
+ * container, and either held or lying loose in the player's room (o(22) =
+ * room).  So a prefix word that names an ABSENT namesake is simply not
+ * heard: secret_of_lost_world T118 (run390, runner_transcripts/
+ * secret_of_lost_world.txt and the probe Adrift_128_solwred, 2026-09-19)
+ * `put red gem on statue` with the green gem the only gem in play moves the
+ * green gem onto the statue -- `x statue` afterwards: "A green gem is on
+ * ancient statue.", and `i` no longer lists it.  (What prints is task 5's
+ * "You don't have a red gem."; see lib_put_task_sweep_390().)
+ *
+ * Only reached when the parser found nothing under the typed words; a
+ * fragment the parser does resolve is left to it.  3.9 only -- run380's
+ * insides is unmeasured here.
+ */
+static scr_bool
+lib_put_co_resolve_390 (scr_gameref_t game, scr_int container,
+                        scr_int *references)
+{
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_int room = gs_playerroom (game);
+  const scr_int object_count = gs_object_count (game);
+  scr_int object, count = 0;
+
+  if (!line)
+    return FALSE;
+
+  for (object = 0; object < object_count; object++)
+    {
+      const scr_int position = gs_object_position (game, object);
+
+      if (object == container || obj_is_static (game, object))
+        continue;
+      if (position != OBJ_HELD_PLAYER && position != room + 1)
+        continue;
+      if (!gs_object_seen (game, object)
+          || !obj_indirectly_in_room (game, object, room))
+        continue;
+      if (!lib_co_pre400 (game, line, object, 0))
+        continue;
+      game->multiple_references[object] = TRUE;
+      count++;
+    }
+  if (count == 0)
+    return FALSE;
+  *references = count;
+  return TRUE;
 }
 
 
@@ -15363,6 +15763,10 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
   has_object = lib_parse_multiple_objects (game, "move",
                                            lib_put_in_present_filter,
                                            -1, &references);
+  if (!has_object && !is_pre_390
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && lib_put_co_resolve_390 (game, container, &references))
+    has_object = TRUE;
   if (!has_object)
     {
       /*

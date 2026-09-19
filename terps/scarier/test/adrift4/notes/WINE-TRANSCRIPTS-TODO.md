@@ -26,7 +26,7 @@ index below lead to the code.
 
 ## Where things stand (2026-09-14)
 
-- **Goldens:** 428/428.
+- **Goldens:** 429/429 (2026-09-19).
 - **Sweep:** `python3 harness/sweep_wine_turns.py` at 8cf9cce63 covers 272
   archived rows: 80 clean, 160 differing, 32 lost a feed command.
 - **Every remaining low-count differing row has been triaged** as one of
@@ -430,10 +430,11 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
   feed[318]).
 - wumpusrun (seed 72): the random move verb ("depart" vs "press on") from T0.
 - marooned (3.80, seed 3) T53 `throw map`: the Runner has no shark.
-- Battle rolls: deaths (3.90) T35-49, cyber2 T15/T26, spirits_flight (3.90)
-  T17 (a "doesn't seem to do any damage" suffix) and T45 (a companion strike
-  that only the Runner prints), alexis T126-127 (companion strike order,
-  Haron's arrival one turn apart).
+- Battle rolls: cyber2 T15/T26, alexis T126-127 (companion strike order,
+  Haron's arrival one turn apart).  **deaths and spirits_flight ported
+  2026-09-19** (see the index, "Battle"): the 3.9 type-7 range cap, the raw
+  attitude byte and the raw speed index; both rows are identical on every
+  turn with equal draw counts (deaths 11 = 11).
 - cursed from T137: the wet-fur event still blocks movement in the Runner
   ("dries slowly" vs "dries out completely"). **Ported 2026-09-15** (see the
   index): event timing, not a roll. cursed is now identical on every turn;
@@ -650,12 +651,17 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 
 **Engine, 3.9:**
 
-- **Noun resolution:** the Runner matches on the head noun and answers for
-  an object the adjective rules out, or asks where Scarier picks:
-  - stardust T38 `take needle box`: "You've already got the sharp needle!"
-    (T99 and the T116 ending follow);
+- **Noun resolution:** **Ported 2026-09-19** (see the index, "Absent-object
+  refusals" and "Task move-object"): takes() lets a held namesake indexed
+  below the target speak (`lib_co_pre400`), and 3.9's move-object stamps
+  no seen byte for an into/onto destination whose parent is unseen.
+  - stardust T38 `take needle box`: "You've already got the sharp needle!";
+    the route now says `take box` and the row is identical on every turn.
   - secret_of_lost_world T53 `take blue gem`: "You already have the green
-    gem!". T71-122 follow. (T56's "Which scroll." is ported, see the index.)
+    gem!" because the T52 put left the gem unseen; the route now examines
+    the boat and the skeleton first. T118 `put red gem on statue` and the
+    T125 potion followed (index: "Put and take-from", "Battle"); the row is
+    identical on every turn.
 - **Refusal wording:**
   - thetest_win T68-77 `unlock door`: "You can't do that here!" against
     "You can't unlock the door.".
@@ -804,10 +810,9 @@ Draw counts were not taken in this pass. Every "RNG" item still needs the
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
 - **Examine and the ALR pass:**
-  - run390's examine state line and move-object seen stamp have not been
-    read.
-  - The 3.9 type-7 battle branch has not been read; Scarier keeps the zero
-    floors.
+  - run390's examine state line has not been read (the move-object seen
+    stamp was, 2026-09-19: index, "Task move-object").
+  - The 3.9 type-7 battle branch: READ 2026-09-19 (index, "Battle").
   - Ask-topic overwrite: run390 lets the last matching topic win, Scarier
     keeps the first.
 
@@ -1103,12 +1108,25 @@ every Runner.
   player carries, and `i` stamps them seen. yak_shaving (8e006d2f5)
 - **Task move-object** stamps seen per destination. `[4.0]` aliasagent
   (e478cdbd6)
+  - 3.9 stamps by destination the same way (run390 455C24-4573DA: room only
+    when the player's, into/onto only when the parent is seen, held/worn by
+    the player always, a character's room when it is the player's), except
+    that an object handed to or worn by a character is never stamped
+    (456099-4560DA, 45618B-4561DA). `[3.9]` secret_of_lost_world T52/T53
+    (2026-09-19)
 - **Darkness** is the condition AND HideObjects, and it gates the seen
   flag. A dark examine answers "can't see X very clearly." `[<4.0]` p39DARK
   (9aff3fda9)
 - **Absent-object refusals:**
   - co() matches anywhere; the handlers refuse with Prefix + Short, and in
     takes() the last match speaks. `[<3.9]` p37EXAM/p38EXAM (b526c013b)
+  - takes() walks every object in index order and lets each one co() names
+    write; a HELD namesake below the target says "You've already got X!"
+    (run390 4551E4, run380 43E3F6) and the target is never taken. 3.9's co()
+    mode 1 recounts loose room objects and falls back to the Prefix's last
+    word (43B37B/43B572), so deardiary T52 `take blue plate` still takes the
+    blue one. `[<4.0]` stardust T38, secret_of_lost_world T53
+    (`lib_co_pre400`, 2026-09-19)
   - 3.9 drop answers "You don't have the stone!".
 - **Lock and wear:**
   - lock/unlock has no refusal for an object without a key, so the
@@ -1182,6 +1200,21 @@ every Runner.
   buffer and runs the tasks on the typed line; the put text comes back only
   if nothing printed (run390 4626B6/4626C5/46275A). `[3.9]` losttomb T85
   (`lib_put_task_sweep_390`, 2026-09-14)
+  - Re-read 2026-09-19: the sweep (462553-462760) is claimed by the first
+    object co() finds named in the line among those held, lying in the
+    player's room or worn (o(22) = 0 / room / &H9C); the claimant runs
+    tasks(1) = checktask(line, 0), QUIET (a failing restriction restores the
+    buffer, 452BE6).  Nothing eligible named leaves the result 0 and
+    generaltasks' tasks(0) (45F48B) runs LOUD on the line with the put text
+    still in the buffer (FailMessage overwrites, 452BBD).  troll T116 (quiet,
+    held basin), losttomb T85 and secret_of_lost_world T118 (loud).
+    (`lib_put_sweep_claims_390`, `run_typed_line_task_commands`, 2026-09-19)
+  - 3.9 insides() resolves the single put's object with co(obj, 0) over every
+    object -- Short or Alias as a word, the prefix only when present -- and
+    moves the first seen, present, held-or-loose one; a prefix naming an
+    absent namesake is not heard. `[3.9]` secret_of_lost_world T118 `put red
+    gem on statue` moves the green gem (`lib_put_co_resolve_390`,
+    2026-09-19)
 - **A 3.8 in/on object with an unset parent** goes in the first container.
   (5cf3d7059)
 - **The take-from handler's own answers.** The 3.9 insides() decision
@@ -1259,6 +1292,22 @@ every Runner.
     (327feeb9c, e4e85ea89, 3d59b700d, 13f13e66d, 512543515)
   - Type-7 attribute raises are capped at max with no zero floor. The dodge
     pronoun is he/she/it by Gender. `[4.0]` wes_ghn, les_feux (4c7c20f64)
+  - 3.9 caps the same way: run390 execute_action 4573DC writes
+    Proc_2_1_427948(max, cur + delta) = min() for strength (456EFA/456F64)
+    and defence (45714E/4571B8); the max attributes are a plain add
+    (45704D/4572A1). Now ungated. secret_of_lost_world T125-126/T164,
+    spirits_flight T17/T27 (2026-09-19)
+  - The attitude action stores Var3 RAW into the NPC's byte (run390
+    456BB1-456BF4, run400 48D747-48D78A; 0 neutral, 1 ally, 2 enemy) -- no
+    combo reorder. deaths T42/T48/T49 (2026-09-19)
+  - The 3.9 speed action indexes the NPC by Var2 RAW (45738D), no
+    referenced-character case. `[3.9]` deaths T35-T49 (2026-09-19)
+  - The 3.9 blow (chardohit 442C7C) has no accuracy roll: hit iff
+    hitstrength > armourstrength (4424F1), damage = max(0, hit - armour)
+    (442585, Proc_2_0_4279A4 = max), no draw. hitstrength 42B7EC = strength
+    + best weapon; armourstrength 42DB6C = defence + worn objects' field 76.
+    getnexthit 42C678: speed 1 draws Int(Rnd*1)+1, the rest are constants.
+    Already Scarier's `battle_legacy` path; read 2026-09-19.
   - Stamina recovery is a per-line pass that revives the dead;
     `battle_select_target` takes 0-stamina targets. (544868698, e78827349)
 

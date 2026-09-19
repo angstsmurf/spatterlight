@@ -1171,11 +1171,13 @@ obj_indirectly_held_by_player (scr_gameref_t game, scr_int object)
  * The Runner's o(26) exactly as its loader computes it (run400
  * @00490255-@004902BD): the authored InitialPosition less one, with "in a
  * container" and "on a surface" folded onto &HF6 and &HEC and everything
- * above them losing a further two, so that a room ends up one-based.  Only
+ * above them losing a further two, so that a room ends up one-based.
  * obj_shows_initial_description() needs it, and there only the room and
- * "held by the player" codes can ever match anything.
+ * "held by the player" codes can ever match anything; run390's post-put
+ * sweep (lib_put_task_sweep_390()) reads the same field for a static, whose
+ * o(22) the loader never touches again.
  */
-static scr_int
+scr_int
 obj_initial_location_code (scr_gameref_t game, scr_int object)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);

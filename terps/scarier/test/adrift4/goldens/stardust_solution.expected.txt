@@ -278,7 +278,7 @@ pins, and other things.  A sharp needle and a needle box are on the desk.
 > take needle
 You take a sharp needle from the desk.
 
-> take needle box
+> take box
 You take a needle box from the desk.
 
 > e

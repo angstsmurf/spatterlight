@@ -550,8 +550,8 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
     const scr_bool was_possessed = gs_runner_possessed (game, object);
     const scr_int weight = obj_get_weight (game, object);
     const scr_int size = obj_get_size (game, object);
-    const scr_bool is_v400 =
-        prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+    const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
+    const scr_bool is_v400 = taf_version >= TAF_VERSION_400;
     scr_bool stamp_seen = FALSE;
 
     gs_set_carried_suspend (game, TRUE);
@@ -648,8 +648,11 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
               return;
             }
           gs_object_npc_get (game, object, npc);
-          stamp_seen = obj_indirectly_in_room (game, object,
-                                               gs_playerroom (game));
+          /* 3.9 never stamps an object handed to a character (run390
+             execute_action @456099-4560DA writes fields 22 and 42 only). */
+          stamp_seen = is_v400
+                       && obj_indirectly_in_room (game, object,
+                                                  gs_playerroom (game));
         }
       else                      /* NPC id */
         {
@@ -658,8 +661,9 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
               && obj_indirectly_in_room (game, object, gs_playerroom (game)))
             gs_set_object_seen (game, object, TRUE);
           gs_object_npc_get (game, object, var3 - 2);
-          stamp_seen = obj_indirectly_in_room (game, object,
-                                               gs_playerroom (game));
+          stamp_seen = is_v400
+                       && obj_indirectly_in_room (game, object,
+                                                  gs_playerroom (game));
         }
       break;
 
@@ -757,9 +761,25 @@ task_move_object (scr_gameref_t game, scr_int object, scr_int var2, scr_int var3
      * never.  Alias Undercover Agent is the row: the lunch task puts the
      * plate onto the dinner tray before the player has examined the table,
      * so the plate stays unseen and `take plate` answers "Take what?".
-     * run390 is unread; earlier versions keep the visibility stamp.
+     *
+     * run390's execute_action (455C24-4573DA) stamps by destination the
+     * same way -- room only when the player's (455E16), into/onto only when
+     * the parent is seen (455F53, 455FCA), held or worn by the player always
+     * (45602E, 45612E), same room as the player always (456232) and as a
+     * character when that character's room is the player's (456287, 4562EE),
+     * a roomgroup never -- except that an object handed to or worn by a
+     * character is never stamped (456099-4560DA, 45618B-4561DA), where 4.0
+     * stamps a held one it can see afterwards.  secret_of_lost_world T52
+     * `put tooth in skull` (run390, runner_transcripts/secret_of_lost_world,
+     * 2026-09-19) moves the blue gem onto the fresh skeleton before anything
+     * has listed the skeleton, so the gem stays unseen, and the next turn's
+     * `take blue gem` has one seen "gem" present -- the held green one --
+     * for takes()'s co() to name: "You already have the green gem!".  With
+     * the visibility stamp Scarier counted two and took the blue gem.
+     * Earlier versions keep the visibility stamp, unread.
      */
-    if (is_v400 ? stamp_seen
+    if (taf_version >= TAF_VERSION_390
+        ? stamp_seen
         : obj_indirectly_in_room (game, object, gs_playerroom (game)))
       gs_set_object_seen (game, object, TRUE);
   }
@@ -1829,6 +1849,31 @@ task_run_change_battle_action (scr_gameref_t game,
 {
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int npc;
+
+  /*
+   * The parser has already rewritten a 3.9 file's attribute index into the
+   * 4.0 numbering (parse_fixup_v390_battle_attribute: 5->7 defence, 6->8
+   * max defence, 7->0xB speed), so var1 is 4.0-numbered here for every
+   * version.  run390 execute_action (4573DC) then agrees with run400 on the
+   * targets of everything but Speed: its speed arm (45735E-45738D) writes
+   * MemVar_468028(var2).global_122 = CByte(var3) -- the NPC array indexed by
+   * var2 RAW, with no referenced-character case and no -1 -- where 4.0
+   * (and 3.9 attitude, 456B91-456BF4) take 0 = referenced character and
+   * N >= 1 = NPC N-1.  deaths task 15 ("kill jim": speed of target 1 = 3)
+   * re-arms NPC 1 in run390, not the ally Joshua at NPC 0, which is why the
+   * Runner never shows Joshua stabbing every third turn
+   * (runner_transcripts/deaths T42, T48).
+   */
+  if (var1 == 0xB
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    {
+      if (var2 < 0 || var2 >= gs_npc_count (game))
+        return;
+      if (task_trace)
+        scr_trace ("Task: setting 3.9 speed of NPC %ld to %ld\n", var2, var3);
+      battle_change_attribute (game, var2, 0xB, var3);
+      return;
+    }
 
   if (var1 == 0 || var1 == 0xB)
     {

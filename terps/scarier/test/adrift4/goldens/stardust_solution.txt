@@ -118,7 +118,7 @@ enter mansion
 w
 x desk
 take needle
-take needle box
+take box
 e
 e
 x table

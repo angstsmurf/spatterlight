@@ -931,7 +931,8 @@ extern void res_cancel_resources (scr_gameref_t game);
 extern scr_bool run_game_task_commands (scr_gameref_t game,
                                        const scr_char *string);
 extern scr_bool run_typed_line_task_commands (scr_gameref_t game,
-                                              const scr_char *string);
+                                              const scr_char *string,
+                                              scr_bool loud);
 extern scr_bool run_task_run_by_index (scr_gameref_t game, scr_int task);
 extern void run_npc_walk_task (scr_gameref_t game, scr_int walktask);
 extern void run_event_task (scr_gameref_t game, scr_int eventtask);
@@ -1132,6 +1133,8 @@ enum
   OBJ_LOCKED = 7
 };
 
+extern scr_int obj_initial_location_code (scr_gameref_t game,
+                                          scr_int object);
 extern scr_bool obj_is_static (scr_gameref_t game, scr_int object);
 extern scr_bool obj_is_container (scr_gameref_t game, scr_int object);
 extern scr_bool obj_is_surface (scr_gameref_t game, scr_int object);

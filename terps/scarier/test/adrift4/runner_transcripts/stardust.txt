@@ -149,8 +149,8 @@ It is covered in dust. On the desk is a sewing machine and some scissors, pins, 
 > take needle
 You take a sharp needle from the desk.
 
-> take needle box
-You've already got the sharp needle!
+> take box
+You take a needle box from the desk.
 
 > e
 You move east.
@@ -404,7 +404,7 @@ It's really cramped in here. And it smells. Do you really have to go to the bath
 You flush the toilet. Now maybe it won't smell so bad in here.
 
 > put needle in box
-You don't have the box.
+You put the needle in the box. Smart move. I think you just saved yourself a pin-prick.
 
 > out
 You move out.
@@ -478,10 +478,9 @@ Open Area
 What a weird place. It looks like you stepped right into another dimension! Looking up, you find yourself staring straight into space. There are billions of stars in the sky and you can see the moon looming above. Looking down, you see that you are standing on a black and white checkerboard. There's a sign here.  Hey... there's a new area to the southwest. Why don't you try and go there?  You can move north, east, south and west.  Squirrel scampers up from the north.  Vampy glides in from the north.  Old Man hobbles up from the north.  Plant Lady prances along from the north.
 
 > sw
-You walk past the sign from the area you first arrived in. Suddenly, you are in a strange room in the middle of space. It has no walls, and no ceiling. "This place looks hella weird!" exclaims the squirrel. "I've never seen anything like this. What could it mean?" asks Vampy. "Never in my long and miserable life have I been in this area before. That could only mean... is this the afterlife?" suggests the Old Man. "I don't think so. Jillian, you MUST have had a reason for coming here," says the Plant Lady. You are about to answer, but suddenly a portal manifests from out of nowhere. "That's...the way home," you say to yourself, amazed that your adventure is suddenly cut so short. You turn around and say goodbye to all of your friends, giving each of them a hug in turn. They are all sad to see you go, but they know you have to. You step through the portal... Man! Talk about a headache. You wake up in a hospital bed. Turns out you've been in a two-week coma. Now that you're awake, you should be fine. It turns out the lady that hit you on the head was angry because she thought you were the girl who kidnapped her pet terrier. Well, your friends may have all been figments of your comatose imagination, but they will live on in your head, and you will live on in the world of the conscious.
-
-Better luck next time.
+You walk past the sign from the area you first arrived in. Suddenly, you are in a strange room in the middle of space. It has no walls, and no ceiling. "This place looks hella weird!" exclaims the squirrel. "I've never seen anything like this. What could it mean?" asks Vampy. "Never in my long and miserable life have I been in this area before. That could only mean... is this the afterlife?" suggests the Old Man. "I don't think so. Jillian, you MUST have had a reason for coming here," says the Plant Lady. You are about to answer, but suddenly a portal manifests from out of nowhere. "That's...the way home," you say to yourself, amazed that your adventure is suddenly cut so short. You are about to step into the portal when you feel a hand on your shoulder. "Wait, are you going somewhere?" asks the plant lady, frowning slightly. You decide to think about this for a moment. Do you REALLY want to leave all your nice new friends and go back to the boring, NORMAL world where crazy old ladies hit you on the head for no reason? ...Didn't think so! "You know what? I think I'll stay right here." Suddenly the portal disappears and you are right where you started. You decide to go with the plant lady and become one of her kind, and you move into the garden with her in the mansion's garden where you take care of the flowers and dance in the moonlight. You and your friends live happily ever after.  
 You scored 0 out of the maximum 0!
 That is 100% of the game!
+Well done - you scored maximum points!
 
 [Press any key to end]

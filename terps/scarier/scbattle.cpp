@@ -529,24 +529,6 @@ battle_start (scr_gameref_t game)
 
 
 /*
- * battle_attitude_from_ui()
- *
- * Remap the "Change Attitude" task-action enum (the editor's combo order,
- * 0 = Ally, 1 = Neutral, 2 = Enemy) to the internal attitude encoding used by
- * the combat code and the bundle (0 = Neutral, 1 = Ally, 2 = Enemy).
- */
-static scr_int
-battle_attitude_from_ui (scr_int value)
-{
-  switch (value)
-    {
-    case 0:  return 1;       /* Ally. */
-    case 1:  return 0;       /* Neutral. */
-    default: return 2;       /* Enemy. */
-    }
-}
-
-/*
  * battle_change_attribute()
  *
  * Apply a type-7 "Change battle attribute" task action to the player (npc < 0)
@@ -554,9 +536,11 @@ battle_attitude_from_ui (scr_int value)
  * Stamina, 2 = Max Stamina, 3/5/7/9 = Strength/Accuracy/Defence/Agility, 4/6/8/
  * 0xA = their Max caps, 0xB = Speed).  Attitude and Speed are set to the given
  * enum value; every other attribute changes by the signed delta.  Current
- * stamina is re-clamped to its (possibly changed) maximum.  At 4.0 a range
- * change is capped at the attribute's max and a max change is a plain add;
- * the 3.9 path floors both at zero instead.
+ * stamina is re-clamped to its (possibly changed) maximum.  A range change
+ * is capped at the attribute's max and a max change is a plain add, in both
+ * Runners.  A 3.9 file's attribute numbering (5 = defence, 7 = speed) has
+ * already been rewritten to this one by the parser
+ * (parse_fixup_v390_battle_attribute).
  */
 void
 battle_change_attribute (scr_gameref_t game, scr_int npc,
@@ -569,7 +553,19 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
   switch (attribute)
     {
     case 0:                            /* Attitude (set, NPCs only). */
-      battle->attitude = battle_attitude_from_ui (value);
+      /*
+       * The value is written to the NPC's attitude byte as it stands, in
+       * both Runners: run400 execute_action 48D747-48D78A and run390
+       * 456BB1-456BF4 store CByte(var3) into record 172 / 108, the same
+       * byte the loader fills from the .taf (0 = neutral, 1 = ally, 2 =
+       * enemy, the encoding charhitwho's "3 - attitude" test reads).  Scarier
+       * used to reorder it as if it were a Generator combo index (0 = ally,
+       * 1 = neutral), which kept deaths' Joshua an ally through the `kill
+       * ross` action that sets him to 0: the Runner then has one candidate
+       * for Ross's and the demon's blows, and it is always the player
+       * (runner_transcripts/deaths T42, T48, T49; 11 = 11 draws either way).
+       */
+      battle->attitude = value;
       break;
 
     case 1:                            /* Stamina (current, delta). */
@@ -603,39 +599,39 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
 
     case 3: case 5: case 7: case 9:    /* Str/Acc/Def/Agi range (delta). */
       slot = (attribute - 3) / 2;
-      if (!battle_legacy)
-        {
-          /*
-           * run400 execute_action type 7 (48E08D for Defence, the same shape
-           * for each ranged attribute) sets lo = Proc_21_1(lo + delta, max)
-           * and hi = Proc_21_1(hi + delta, max), and Proc_21_1_442D5C is
-           * plain min(): the raise is CAPPED at the attribute's max, with
-           * no zero floor.  wes_ghn T76: Defence 10..20 (max 20) +15 is
-           * 20..20 in the Runner, so Hope's 30-strength sword still cuts;
-           * an uncapped 25..35 made it "doesn't seem to do any damage".
-           */
-          battle->lo[slot] = battle->lo[slot] + value < battle->max[slot]
-                             ? battle->lo[slot] + value : battle->max[slot];
-          battle->hi[slot] = battle->hi[slot] + value < battle->max[slot]
-                             ? battle->hi[slot] + value : battle->max[slot];
-          break;
-        }
-      battle->lo[slot] += value;
-      if (battle->lo[slot] < 0)
-        battle->lo[slot] = 0;
-      battle->hi[slot] += value;
-      if (battle->hi[slot] < 0)
-        battle->hi[slot] = 0;
+      /*
+       * run400 execute_action type 7 (48E08D for Defence, the same shape
+       * for each ranged attribute) sets lo = Proc_21_1(lo + delta, max)
+       * and hi = Proc_21_1(hi + delta, max), and Proc_21_1_442D5C is
+       * plain min(): the raise is CAPPED at the attribute's max, with
+       * no zero floor.  wes_ghn T76: Defence 10..20 (max 20) +15 is
+       * 20..20 in the Runner, so Hope's 30-strength sword still cuts;
+       * an uncapped 25..35 made it "doesn't seem to do any damage".
+       *
+       * run390 is the same rule: execute_action 4573DC writes strength =
+       * Proc_2_1_427948(max, cur + delta) at 456EFA (player) / 456F64
+       * (NPC), defence at 45714E / 4571B8, and Proc_2_1_427948 is min()
+       * too (Scarier used to floor at zero and not cap at 3.9).  solw's
+       * green potion (+20 strength, +20 defence, then +20 to both maxes)
+       * therefore leaves the player at 30/30: the ghost's 50 lands with
+       * damage ("A ghost hits you.", runner_transcripts/secret_of_lost_world
+       * T125-T126, Kronos T164), where the uncapped 50 defence printed
+       * ", but it doesn't seem to do any damage.".  spirits_flight's cake
+       * (+3 defence, max 5) changes nothing, so the witch's 6 lands at T17;
+       * Moyru's death lifts the max to 10 and the cheese's +3 then counts,
+       * so the sorceress's 6 does no damage at T27 -- both as the Runner.
+       */
+      battle->lo[slot] = battle->lo[slot] + value < battle->max[slot]
+                         ? battle->lo[slot] + value : battle->max[slot];
+      battle->hi[slot] = battle->hi[slot] + value < battle->max[slot]
+                         ? battle->hi[slot] + value : battle->max[slot];
       break;
 
     case 4: case 6: case 8: case 0xA:  /* Max Str/Acc/Def/Agi (delta). */
       slot = (attribute - 4) / 2;
+      /* run400 48E2A6 and run390 457048 (max strength) / 4572A1 (max
+         defence): a plain add, no floor and no re-clamp of lo/hi. */
       battle->max[slot] += value;
-      /* run400 48E2A6: a plain add, no floor and no re-clamp of lo/hi. */
-      if (!battle_legacy && battle->max[slot] < 0)
-        break;
-      if (battle->max[slot] < 0)
-        battle->max[slot] = 0;
       break;
 
     case 0xB:                          /* Speed (set, NPCs only). */

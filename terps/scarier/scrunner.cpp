@@ -4755,15 +4755,21 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
 /*
  * run_typed_line_task_commands()
  *
- * Offer a line to the tasks the way run390's tasks(1) does from inside a
- * library handler on the player's own words: a bare `*` matches, as it would
- * from the dispatcher, and restrictions are not honoured (pre-4.0).  Still one
- * task per line.  See lib_put_task_sweep_390().
+ * Offer a line to the tasks the way run390 does from inside a library
+ * handler on the player's own words: a bare `*` matches, as it would from
+ * the dispatcher.  Quiet (`loud` FALSE) is the handler's own tasks(1), which
+ * is checktask(line, 0) (42BD5E): passrest() puts the entry buffer back when
+ * running is 0 (452BE6), so a matched task whose restrictions fail says
+ * nothing.  Loud (`loud` TRUE) is generaltasks' tasks(0) (45F48B), reached
+ * when the handler's result stayed 0: checktask(line, 1) lets the failing
+ * restriction's FailMessage overwrite the buffer (452BBD) and the put text
+ * with it.  Still one task per line.  See lib_put_task_sweep_390().
  */
 scr_bool
-run_typed_line_task_commands (scr_gameref_t game, const scr_char *string)
+run_typed_line_task_commands (scr_gameref_t game, const scr_char *string,
+                              scr_bool loud)
 {
-  return run_game_commands_common (game, string, FALSE, FALSE, FALSE);
+  return run_game_commands_common (game, string, loud, FALSE, FALSE);
 }
 
 
