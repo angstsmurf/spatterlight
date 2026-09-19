@@ -29,6 +29,13 @@ Usage:
 Session (from ~/adrift-battle/runner/wine):
     VBRNG=xoshiro TRANSCRIPT=Adrift_p38put.txt ./fast.sh p38PUT.taf \\
         cmdfile_p3738put.txt run380x.exe
+
+Feeds (all in ~/adrift-battle/runner/wine): cmdfile_p3738put.txt
+(Adrift_154_p39put.txt); cmdfile_p3738put2.txt (Adrift_154_p37put2.rtf,
+Adrift_155_p38put2.rtf); cmdfile_p39takeall*.txt; cmdfile_p3739drop.txt
+(3.9, Adrift_160_p39drop.txt) and cmdfile_p3738drop.txt, the same without
+the `put everything` lines that crash run370/run380 (Adrift_160_p37drop.rtf,
+Adrift_161_p38drop.rtf).
 """
 import sys
 

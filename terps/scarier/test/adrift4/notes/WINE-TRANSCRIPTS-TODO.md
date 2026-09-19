@@ -313,17 +313,11 @@ not by a tick.
 - **Take-from:** the " and " clause picks the last container in 3.9 and the
   first in 4.0; 3.9's " and " collection bug; the pending slot after `Get X
   from what?`; surface-vs-container wording of the parent-derivation arm.
-- **Put:** `put everything in <nothing>` is unmeasured: c("all") skips the two-name
-  test, but "everything" does not. A static that is NOT present (another
-  room) named in a 3.9 put is also unmeasured. The " is full." arm at
-  461E59 speaks only when something fits and the bag is still full, so it
-  is effectively dead; it needs a size-0 object.
-- **Drop:** the pre-4.0 "and" arm with no object named at all (`drop foo
-  and bar`). By the code it is "not carrying anything."; Scarier says "Drop
-  what?". The arm drops only held/worn objects (o(22) 0 or &H9C), not ones
-  inside a held container, and Scarier's named filter drops those too.
-  3.7/3.8 share the code (run380 4386CD, run370 4306DA), but only 3.9 is
-  measured.
+- **Put:** the " is full." arm at 461E59 speaks only when something fits
+  and the bag is still full, so it is effectively dead; it needs a size-0
+  object.
+- **Drop:** the pre-4.0 "and" arm skips an object inside a held container
+  (o(22) 0 or &H9C only); ported that way, not measured.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
 - **Examine:** run390's examine state line has not been read.
@@ -361,7 +355,8 @@ not by a tick.
   Runner.** run370x and run380x stop with "Run-time error '9': Subscript
   out of range" and lose the transcript (p37PUT/p38PUT,
   `cmdfile_p3738putallin.txt` / `cmdfile_p3738putallon.txt`, 2026-09-19).
-  Scarier keeps its sane answer.
+  `put everything in zzz` crashes both the same way (`cmdfile_p3739drop.txt`
+  cmd 5, par/p37drop.log). Scarier keeps its sane answer.
 - **SCARE meta-commands** `wait N`, `hist N` and `redo N` exist in no
   Runner. Eleven more inventions are compiled out by
   `SCARIER_NO_ABBREVIATIONS`.
@@ -1087,6 +1082,21 @@ next to the named function and in `annotations.tsv`.
   modelled. `[3.9]` p39PUT T23-30 (Adrift_154_p39put.txt), probes
   Adrift_p39takeall.txt / Adrift_p39takeall2b.txt
   (`lib_take_all_sweep_390`, `lib_put_all_common`, 2026-09-19)
+- **Pre-4.0 drop "and" arm walks, never parses; `everything` = `all`;
+  3.7/3.8 absent static target can't see.** drops()' "and" arm (run390
+  4457A0-445813) marks every object held or worn directly whose name
+  co(obj, 0) finds, so `drop foo and bar` is "You are not carrying
+  anything." and `drop coin and foo` is "You drop the coin." `[<4.0]`.
+  run390 generaltasks rewrites "everything" to "all" (45F225), so `put
+  everything in/on zzz` is the put-all refusal "You can't put anything
+  inside/onto that!" `[3.9]` (3.7/3.8 crash, see deviations). The pre-3.9
+  whole-game target search finds a static container in another room, and
+  insides() then says "You can't see a cupboard." after the not-a-container
+  refusal `[<3.9]`; 3.9 never finds it ("Put the coin inside what?").
+  p37PUT/p38PUT/p39PUT, `cmdfile_p3738drop.txt` / `cmdfile_p3739drop.txt`:
+  run370x Adrift_160_p37drop.rtf, run380x Adrift_161_p38drop.rtf, run390x
+  Adrift_160_p39drop.txt (`lib_drop_and_arm_collect_pre400`,
+  `lib_put_that_390`, `lib_put_static_absent_pre390`, 2026-09-19)
 
 ### NPCs, walks and battle
 

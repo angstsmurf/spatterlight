@@ -12833,6 +12833,41 @@ lib_drop_and_arm_pre400 (scr_gameref_t game)
 
 
 /*
+ * lib_drop_and_arm_collect_pre400()
+ *
+ * The "and" arm's own walk (run390 4457A0-445813): it never parses the list,
+ * so a word that names nothing is simply not found.  Every object held or
+ * worn directly (o(22) 0 or &H9C, not one inside a held container) whose
+ * name co(obj, 0) finds is marked in multiple_references; returns the count.
+ * p37PUT/p38PUT/p39PUT `drop foo and bar` is "You are not carrying
+ * anything." and `drop coin and foo` is "You drop the coin." (run370x
+ * Adrift_160_p37drop.rtf, run380x Adrift_161_p38drop.rtf, run390x
+ * Adrift_160_p39drop.txt, 2026-09-19), where Scarier said "Drop what?" and
+ * "I only understood you as far as wanting to drop the coin.".
+ */
+static scr_int
+lib_drop_and_arm_collect_pre400 (scr_gameref_t game)
+{
+  const scr_char *const line = run_get_dispatch_input ();
+  scr_int object, count;
+
+  gs_clear_multiple_references (game);
+  count = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if ((gs_object_position (game, object) == OBJ_HELD_PLAYER
+           || gs_object_position (game, object) == OBJ_WORN_PLAYER)
+          && lib_co_pre400 (game, line, object, 0))
+        {
+          game->multiple_references[object] = TRUE;
+          count++;
+        }
+    }
+  return count;
+}
+
+
+/*
  * lib_drop_multiple_common()
  *
  * Drop the objects held by the player and listed in %text%, or -- for
@@ -12859,6 +12894,8 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
   /* Parse the multiple objects list to find the target objects. */
   if (references == 1)
     ;
+  else if (!is_except && lib_drop_and_arm_pre400 (game))
+    references = lib_drop_and_arm_collect_pre400 (game);
   else if (!lib_parse_multiple_objects (game, is_except ? "retain" : "drop",
                                         resolver, -1,
                                         &references))
@@ -16342,6 +16379,35 @@ static scr_bool lib_put_refusal_first_390 (scr_gameref_t game);
 
 
 /*
+ * lib_put_static_absent_pre390()
+ *
+ * lib_put_target_pre390() finds a target anywhere in the game, and 3.7/3.8
+ * insides() then refuses a static one that is not in the player's room with
+ * "You can't see " & Prefix & " " & Short & "." -- the arm
+ * lib_put_co_refusal_pre390() already gives for a line it could not parse.
+ * p37PUT/p38PUT, standing in the cave with the open static cupboard in the
+ * lit room: `put coin in cupboard` is "You can't see a cupboard." (run370x
+ * Adrift_160_p37drop.rtf, run380x Adrift_161_p38drop.rtf, 2026-09-19);
+ * Scarier had put the coin into it.  The not-a-container refusal comes
+ * first: `put coin in statue`, the plain static statue also left behind, is
+ * "You can't put anything inside the statue." on the same turns.  The
+ * static surface is the same handler, and unmeasured.
+ */
+static scr_bool
+lib_put_static_absent_pre390 (scr_gameref_t game, scr_int target)
+{
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
+      || !obj_is_static (game, target)
+      || obj_directly_in_room (game, target, gs_playerroom (game)))
+    return FALSE;
+  if (run_priority_defer_if_active ())
+    return TRUE;
+  lib_cant_see_named_pre_390 (game, target, FALSE, ".\n");
+  return TRUE;
+}
+
+
+/*
  * lib_put_in_is_valid()
  *
  * Validate the container requested in "put in" commands.
@@ -16393,6 +16459,8 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
    * locker where it stands, which is just as well, since nothing could ever
    * pick one up.  Both measured 2026-08-03.
    */
+  if (lib_put_static_absent_pre390 (game, container))
+    return FALSE;
   if (obj_uses_burden_model (game)
       && !obj_is_static (game, container)
       && gs_object_position (game, container) != OBJ_HELD_PLAYER)
@@ -18136,9 +18204,11 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
    * refuses at 461769 like any other line.  pPUTFULL39 `put all in junk` /
    * `put all on junk` are "You can't put anything inside that!" / "... onto
    * that!" (run390x Adrift_pputfull39.txt, 2026-09-19).  A named target is
-   * left to the "put all" rows.
+   * left to the "put all" rows.  generaltasks has already made "everything"
+   * "all" (Replace at 45F225), so `put everything in zzz` / `on zzz` refuse
+   * the same way (p39PUT, run390x Adrift_160_p39drop.txt, 2026-09-19).
    */
-  if (lib_co_contains (line, "all"))
+  if (lib_co_contains (line, "all") || lib_co_contains (line, "everything"))
     {
       if (lib_put_target_390 (game, line) != -1)
         return FALSE;
@@ -18573,6 +18643,8 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
    * pebble and the box onto the table." on run390 (Adrift_1009:3), and
    * run400 moves onto it too (Adrift_1016:6).
    */
+  if (lib_put_static_absent_pre390 (game, supporter))
+    return FALSE;
   if (is_pre_390
       && obj_uses_burden_model (game)
       && !obj_is_static (game, supporter)
