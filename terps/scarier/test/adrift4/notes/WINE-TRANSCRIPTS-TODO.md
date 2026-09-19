@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 375 identical on every turn, 31 identical apart from
-  whitespace, 21 with a compare report. Every differing row is classified
+- **Manifest:** 377 identical on every turn, 31 identical apart from
+  whitespace, 19 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -309,22 +309,25 @@ strike order, Haron's arrival one turn apart) are not a battle rule:
 
 ### Engine, 3.7 / 3.8
 
-- **haunt (3.80) T84 `down`, the winning move:** both sides print "You hear
-  the chiming of the grandfather clock." The Runner puts it LAST, after the
-  ending block and `[Press any key to end]`; Scarier puts it in the turn
-  after "Horace lurches in from above.". Suspect the capture first: text
-  after the keypress prompt is what a timer tick during the ending's wait
-  looks like, and light_up's dump ends with two event paragraphs past its
-  own prompt the same way. A probe wants a 3.80 game with a short-period
-  event and a task that ends the game on a known turn.
+None open. haunt T84 is closed: a pre-4.0 ending is composed when its task
+finishes, so events ticking after it land past the prompt (see "Events and
+RNG" in the index).
 
 ### Harness and compare
 
-- **light_up (seed 133), 203 lost from feed[294] (217 before the 2026-09-19 trim):** at T293 `west` both
-  sides of the compare die ("scored 58 out of the maximum 0"). The blessed
-  golden never dies there and has no `maximum` line, so the compare's
-  rebuilt feed does not reproduce the golden's route. Diff the feed against
-  the solution (pause blanks) before reading anything into it.
+- **Fixed 2026-09-19: solution lines eaten by a pause.** Without
+  SCR_SKIP_WAITKEY, scare's `[Press any key]` pause reads a whole stdin line,
+  so a golden can pass even when a pause swallows a real command. The Runner's
+  pauses never eat a typed command: it runs the line as a turn, and a `look`
+  there ticks events and draws. light_up had ten such lines (the opening `2 2`,
+  five `look`s and three lighter takes), drifted and died at T293 `west`.
+  mould had one (the throwaway `1` before the imp fight). Both are now blank
+  lines, and both goldens are byte-identical. light_up is identical on every
+  turn through THE END. make_wine_cmdfile.py now also sends whitespace-only
+  lines as bare Returns: the driver typed mould's `" "` lines, which gave
+  `>  ` / "I don't understand what you mean!" turns. A scan of every non-SKIP
+  row (pause marker followed by a non-blank solution line) found only rows
+  already identical, plus thelasthour (filed).
 - **Fixed 2026-09-19: `read_feed` misread pause counts.** Its fixed-point
   loop indexed the previous replay's pause counts by the new candidate's
   prompt number, so each blank it ate shifted every later count by one. The
@@ -336,19 +339,11 @@ strike order, Haron's arrival one turn apart) are not a battle rule:
   filed here as pause joins). It also exposed hero's closing `statusline`
   (see "Nothing owed"). alchemist (closed since), iqsfot and mortality
   kept the same differences under new turn numbers.
-- **motion:** the minigame's keypresses are its turns.
-  `runner_transcripts/motion.txt` echoes all 351 feed commands and, apart
-  from whitespace, differs at T257-258 and T350 (the drive minigame's map).
-  Unread.
 - **house** is comparable only as `House_sober.taf` with
   `cmdfile_house_sober.txt` (identical on every turn; no row, so it exists
   only as `Adrift_128_housesober.txt` in the prefix). The original row is
   10+ turns blank on the Runner side from T1 because of the `%drunk%` ALR
   stack overflow (a deliberate deviation).
-- **mould (seed 1):** the Runner's pauses eat no line, so the feed's
-  throwaway `1` enters the imp fight on both sides and neither reaches the
-  win; a feed with that line dropped would. Otherwise only the `hint`
-  deviation and pause joins differ (58 = 58).
 - **gmylm** (15 MB .taf, ~400 MB draw trace at load) needs `LOAD_SLEEP=600`
   to get past drive.exe's 25 s load cap.
 - **Permanently unmeasurable:** `dreamquest` (run400 cannot load a task with
@@ -361,6 +356,18 @@ strike order, Haron's arrival one turn apart) are not a battle rule:
   keypress: endgame T9, mortality T29/T32 (the Runner's cutscene resumes after an
   empty turn),
   iqsfot T41-42.
+- motion T257-258 (read 2026-09-19): the Runner's echo for T258 landed one
+  room block early. `l` (TURN LEFT) shows the drive room twice, and each
+  block opens with a `<cls>`. The Runner's T257 ends on the second block's
+  bare `The Drive` heading, and that block's map follows the echo. With
+  whitespace stripped, T257+T258 are the same frames in the same order
+  (A, B, B) on both sides. The other `l` turns, including T350, are
+  identical. The remaining reported turns (T120-122 etc.) are Scarier's
+  80-column wrap splitting the long `O----` rows.
+- mould (seed 1, re-driven 2026-09-19; the Runner wins 150/150): the
+  `hint`/`y` deviation (run400 has no interactive hints), plus T99-101. There,
+  after `s`, a bare Return is a real empty turn and the next blank answers the
+  pause; the compare splits that turn differently, but the text is the same.
 - Whitespace-only joins or the trailing `[Press any key to end]`; the
   28 "apart from whitespace" rows. Glum_Fiddle turn 0 is the startup echo
   above.
@@ -1023,6 +1030,18 @@ every Runner.
     (470251), so no PrefTime text, finish or restart draw ever follows.
     Pre-4.0 unmeasured, keeps the authored-length test. zelda T52-60
     (event 5, the shopkeeper's ocarina; 468 = 468 draws). 2026-09-19
+- **Pre-4.0 ending mid-tick.** The ending (WinText, summary, "[Press any
+  key to end]") is composed as the task that armed it finishes: run380
+  tasks() 44E2F9-44E4DE, right after the action loop; run390 execute_task
+  and run370 tasks() hold the same literal. The prompt is no wait
+  (Text1_KeyDown 43EAA5 calls endgame() on the next key), and the tail's
+  ended test (443176) was made before characters(), so a walk's task that
+  ends the game is followed by events() in the same tick. Event texts join
+  pre-4.0 with the two-space separator unless the buffer ends in Chr(10)
+  or "  " (run380 439F69, run370 431CA5, run390 pspace 4484A7). `[<4.0]`
+  haunt T84 (Horace meets object 3, task 23 wins, then "...end]  You hear
+  the chiming of the grandfather clock."). Only haunt moved in the corpus.
+  4.0 keeps the end-of-turn endmessage. 2026-09-19
 - **Completed tasks.** A 4.0 event that runs a completed task still walks the
   task's restrictions (45FB78 calls 455C60 before the done/repeatable test),
   so a failing restriction prints its message. A passing one prints nothing.

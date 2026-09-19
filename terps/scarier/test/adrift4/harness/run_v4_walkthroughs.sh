@@ -866,6 +866,13 @@ jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=3
 # pass (run400 47E682), counters seeded = Recovery at load and no alive
 # filter, so recovered points land on different turns; 187 no longer wins,
 # 148 does (only winner in 1..400).
+# 2026-09-19: the ten solution lines a `[Press any key to continue]` ate
+# (the opening `2 2`, five `look`s, and `take lighter`/`take double-lighter`/
+# `take lighter` at the Chapter 5 cut) are now blank lines.  Scarier's golden is
+# byte-identical (the pause eats a line either way), but the Runner's pauses
+# never eat a typed command, so it had run all ten as turns, drifted the RNG,
+# and died at T293 `west`.  With the blanks, run400x seed 133 is identical on
+# every turn through THE END.
 light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=133
 # Measured live in run400 under Wine (2026-08-24), full replay, Verbose ON.
 # The game is NOT winnable in the real Runner: "Cat sheepishly enters from
@@ -3747,6 +3754,14 @@ cave_solution.txt|cave.taf|You scored 1000 out of the maximum 1000!
 #    recognises and answers: score, turns, count, hint, help, about, clear,
 #    history, where.  great_escape (3.80, a `score` mid-chase) gained its
 #    "sirens" event line from it.
+# Re-blessed 2026-09-19, the last turn: T84 `down` wins through Horace's
+# walk (meets object 3 -> task 23, end game).  run380 composes the ending
+# inside tasks() as the task finishes (44E4DE), "[Press any key to end]" is
+# no wait (43EAA5), and events() runs after characters() in the same tick,
+# so the Clock chime lands past the prompt, joined by checkevent's two
+# spaces (439F69): "...end]  You hear the chiming of the grandfather
+# clock."  Scarier had printed the chime first and the ending at the end of
+# the turn.  runner_transcripts/haunt.rtf now identical on every turn.
 haunt_solution.txt|haunt.taf|You scored 84 out of the maximum 84!
 # Re-blessed 2026-08-24 for the empty-M1 room-alt start rule; the measurement
 # that justifies it is on the lair-of-the-cybercow rows above.
@@ -6877,6 +6892,10 @@ reactor1_solution.txt|reactor_1.taf|Congratulations, You saved the ship!|SCR_SEE
 # `* * * * * * * * *`); by turn 7 run400 has burned all nine and lost the
 # minigame.  Re-cut the feed for a game whose turn IS its keypress before
 # reading anything into that.
+# Re-driven since with a turn-per-keypress feed (runner_transcripts/motion.txt,
+# run400x seed 1041): all 352 commands echoed and every turn matches apart
+# from whitespace, except T257-258, where the Runner's echo landed one
+# <cls> room block early (same frames, same order; 2026-09-19).
 motion_solution.txt|Motion.taf|You scored 100 out of the maximum 100!|SCR_SEED=1041 SCR_SKIP_WAITKEY=1
 # tophat.taf (4.00): the game's only ending, reached in three commands --
 # no scoring system (zero ACT type=4). A one-room vignette narrated from
@@ -8517,6 +8536,12 @@ goblin_solution.txt|goblin.taf|Oh, and before we forget- Congratulations, gobbo.
 # joins (T1, T4, T13, T99).  The Runner's pauses eat no line, so the
 # throwaway `1` lands in the imp fight on both sides and neither wins; the
 # two runs still end in the same fight state.
+# 2026-09-19: line 183 (the throwaway `1`) is now a blank line, so the pause
+# answer is a bare Return on both sides; the golden is byte-identical.
+# make_wine_cmdfile.py also sends the solution's " " lines as bare Returns (the
+# driver had typed the spaces).  Re-driven in run400x seed 1: the Runner wins
+# 150/150, and every turn matches except the `hint`/`y` deviation and the
+# T99-101 empty-turn/pause join.
 mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|SCR_SEED=1
 # blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, revenge
 # thriller). The player's wife has been murdered by four guilty men

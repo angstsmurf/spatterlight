@@ -148,7 +148,7 @@ greekschool	greekschool.txt	driven:Adrift_475_greekschool_rt.txt	4.00	run400x.ex
 griswold	griswold.txt	driven:Adrift_152_griswold_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 grumble	grumble.txt	driven:Adrift_145_grumble_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.
 halloweenhijinks	halloweenhijinks.txt	driven:Adrift_481_halloweenhijinks_rt.txt	4.00	run400x.exe	1234	7		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-haunt	haunt.rtf	driven:Adrift_290_haunt_rt.rtf+tail	3.80	run380x.exe	1234	0			yes	1 differing turn(s)
+haunt	haunt.rtf	driven:Adrift_290_haunt_rt.rtf+tail	3.80	run380x.exe	1234	0			yes	identical on every turn.
 haunted_house	haunted_house.rtf	driven:Adrift_292_haunted_house_rt.rtf+tail	3.80	run380x.exe	1234	0			yes	identical on every turn.
 hauntedhouse	hauntedhouse.txt	driven:Adrift_233_hauntedhouse_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 hcw	hcw.txt	harvested-xoshiro:Adrift_131_hcw_x.txt	4.00	run400x.exe	2	2		SCR_SEED=2 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
@@ -192,7 +192,7 @@ les_feux	les_feux.txt	driven:Adrift_178_les_feux_rt.txt	4.00	run400x.exe	45	0		S
 life	life.txt	driven:Adrift_330_life_rt.txt	3.90	run390x.exe	1234	0	Bob~male	SCR_SKIP_WAITKEY=1	yes	1 differing turn(s)
 life_of_mike	life_of_mike.rtf	driven:Adrift_300_life_of_mike_rt.rtf+tail	3.80	run380x.exe	1234	0			yes	identical on every turn apart from whitespace.
 lifesimulation	lifesimulation.txt	driven:Adrift_136_lifesimulation_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	1 differing turn(s)
-light_up	light_up.txt	driven:Adrift_134_light_up_rt.txt	4.00	run400x.exe	133	0		SCR_SEED=133	no	0 differing turn(s), 203 lost command(s)
+light_up	light_up.txt	driven:Adrift_128_light_up_rt.txt	4.00	run400x.exe	133	2		SCR_SEED=133	yes	identical on every turn.
 lobster	lobster.txt	driven:Adrift_393_lobster_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 locked_door	locked_door.txt	driven:Adrift_272_locked_door_rt.txt	3.90	run390x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 longbarrow	longbarrow.txt	driven:Adrift_378_longbarrow_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
@@ -223,7 +223,7 @@ monsters	monsters.txt	driven:Adrift_270_monsters_rt.txt	4.00	run400x.exe	1234	0	
 morning_headache	morning_headache.txt	driven:Adrift_324_morning_headache_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 mortality	mortality.txt	driven:Adrift_275_mortality_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
 motion	motion.txt	driven:Adrift_432_motion_rt.txt	4.00	run400x.exe	1041	1		SCR_SEED=1041 SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
-mould	mould.txt	driven:Adrift_494_mould_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1	no	10+ differing turn(s)
+mould	mould.txt	driven:Adrift_128_mould_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	10+ differing turn(s)
 mr_smith	mr_smith.txt	driven:Adrift_180_mr_smith_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn.
 ms_mobius	ms_mobius.txt	driven:Adrift_323_ms_mobius_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 murder_great_falls	murder_great_falls.txt	driven:Adrift_342_murder_great_falls_rt.txt	3.90	run390x.exe	1234	2	Sam~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.

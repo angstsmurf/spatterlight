@@ -2626,6 +2626,23 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
     pf_refilter (filter, gs_get_vars (game), bundle);
 
+  /*
+   * Pre-4.0 composes the ending as the task that armed it finishes, not at
+   * the end of the turn: run380 tasks() appends WinText, the summary and
+   * "[Press any key to end]" to the turn buffer right after the task's
+   * action loop (44E2F9-44E4DE), and "[Press any key to end]" is no wait --
+   * Text1_KeyDown only calls endgame() on the next key (43EAA5).  So a task
+   * a walk runs from characters() ends the game mid-tick, and events() still
+   * runs (the tail's ended test at 443176 was made before the tick) and
+   * appends its text after the prompt.  haunt T84: Horace meets object 3,
+   * task 23 wins, and the Clock event's chime follows "[Press any key to
+   * end]" (runner_transcripts/haunt.rtf).  The end-of-turn call in the run
+   * loop stays the 4.0 path.
+   */
+  if (prop_get_taf_version (bundle) < TAF_VERSION_400
+      && game->pending_endgame != 0)
+    task_print_end_game_message (game);
+
   /* Return status -- TRUE if matched and we output something. */
   return status;
 }

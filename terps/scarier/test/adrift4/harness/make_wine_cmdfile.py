@@ -148,7 +148,11 @@ def main():
         outl = []
         prompt = 0
         for l in lines:
-            outl.append(l)
+            # A whitespace-only line is a bare Return to Scarier and to the
+            # compare, but the driver TYPES it: mould's " " lines reached the
+            # Runner as ">  " / "I don't understand what you mean!" where the
+            # golden answered a pause with them (2026-09-19).
+            outl.append(l if l.strip() else "")
             prompt += 1
             if prompt < len(waits) and waits[prompt]:
                 outl.append("#sleep %d" % (waits[prompt] + 1))

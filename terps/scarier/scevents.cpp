@@ -459,6 +459,30 @@ evt_taf_version (scr_gameref_t game, scr_int event)
 }
 
 
+/*
+ * evt_buffer_text()
+ *
+ * Buffer an event's Start, Finish or PrefText.  Pre-4.0 checkevent puts the
+ * two-space separator ahead of it when the turn's text neither is empty nor
+ * ends in Chr(10) or "  " -- inline in run380 (439F69-439F86, 43A401,
+ * 43A50A) and run370 (431CA5, 432143, 4321FE), pspace() in run390 (4484A7,
+ * 4489AC, 448AA4).  Our sections end with a newline, so this only shows
+ * after text left unterminated on purpose: haunt T84, where a walk's task
+ * ends the game mid-tick and the Clock chime follows the ending's bare
+ * "[Press any key to end]" -- "...end]  You hear the chiming of the
+ * grandfather clock." (runner_transcripts/haunt.rtf).
+ */
+static void
+evt_buffer_text (scr_gameref_t game, scr_int event, const scr_char *text)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (evt_taf_version (game, event) < TAF_VERSION_400)
+    pf_buffer_pspace (filter);
+  pf_buffer_paragraph_line (filter, text);
+}
+
+
 static void evt_start_event (scr_gameref_t game, scr_int event,
                              scr_bool silent);
 
@@ -525,7 +549,6 @@ evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
 static void
 evt_start_event (scr_gameref_t game, scr_int event, scr_bool silent)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[4];
   scr_int time1, time2, obj1, obj1dest;
@@ -545,7 +568,7 @@ evt_start_event (scr_gameref_t game, scr_int event, scr_bool silent)
       starttext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!scr_strempty (starttext) && !silent)
         {
-          pf_buffer_paragraph_line (filter, starttext);
+          evt_buffer_text (game, event, starttext);
         }
 
       /* Handle any associated resource. */
@@ -650,7 +673,7 @@ evt_finish_event (scr_gameref_t game, scr_int event)
       finishtext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!scr_strempty (finishtext))
         {
-          pf_buffer_paragraph_line (filter, finishtext);
+          evt_buffer_text (game, event, finishtext);
         }
 
       /* Handle any associated resource. */
@@ -1131,7 +1154,6 @@ evt_resumer_task_is_complete (scr_gameref_t game, scr_int event)
 static void
 evt_handle_preftime_notifications (scr_gameref_t game, scr_int event)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_vartype_t vt_key[4];
   scr_int preftime1, preftime2;
@@ -1147,7 +1169,7 @@ evt_handle_preftime_notifications (scr_gameref_t game, scr_int event)
       preftext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!scr_strempty (preftext))
         {
-          pf_buffer_paragraph_line (filter, preftext);
+          evt_buffer_text (game, event, preftext);
         }
 
       vt_key[2].string = "Res";
@@ -1162,7 +1184,7 @@ evt_handle_preftime_notifications (scr_gameref_t game, scr_int event)
       preftext = prop_get_string (bundle, "S<-sis", vt_key);
       if (!scr_strempty (preftext))
         {
-          pf_buffer_paragraph_line (filter, preftext);
+          evt_buffer_text (game, event, preftext);
         }
 
       vt_key[2].string = "Res";

@@ -1,5 +1,5 @@
-2
-2
+
+
 open trunk
 get flashlight
 north
@@ -112,7 +112,7 @@ look
 
 
 look
-look
+
 look
 look
 look
@@ -131,7 +131,7 @@ take red box
 open red box
 take child
 use blanket on child
-look
+
 look
 look
 look
@@ -155,14 +155,14 @@ look
 look
 look
 open box
-look
+
 look
 look
 look
 look
 look
 his name is Shane
-look
+
 look
 look
 look
@@ -189,7 +189,7 @@ put green orb in yellow orb
 put yellow orb in orange orb
 put orange orb in red orb
 shout
-look
+
 look
 look
 look
@@ -396,9 +396,9 @@ take double-lighter
 take lighter
 attack higher
 take double-lighter
-take lighter
-take double-lighter
-take lighter
+
+
+
 attack ozgat
 take double-lighter
 take lighter
@@ -504,3 +504,4 @@ look
 look
 look
 look
+
