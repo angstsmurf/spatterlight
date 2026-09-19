@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 368 identical on every turn, 31 identical apart from
-  whitespace, 28 with a compare report. Every differing row is classified
+- **Manifest:** 369 identical on every turn, 31 identical apart from
+  whitespace, 27 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -279,7 +279,6 @@ Each needs the `RND #` count against `SCR_TRACE_RAND` before it can be
 called real; equal counts with differing text mean a value or candidate
 rule, not RNG (deaths, 2026-09-19).
 
-- alchemist (3.90): from T300 (`give rose to king`), unread.
 - marooned (3.80, seed 3) T53 `throw map`: the Runner has no shark.
 - Battle rolls: cyber2 T15/T26; alexis T126-127 (companion strike order,
   Haron's arrival one turn apart).
@@ -338,8 +337,8 @@ rule, not RNG (deaths, 2026-09-19).
   turn the third `undo` undid), reluctantvampire and warlord (both filed
   above as RNG), showtime, wonderwombat and yonastoundingcastle (all three
   filed here as pause joins). It also exposed hero's closing `statusline`
-  (see "Nothing owed"). alchemist, iqsfot and mortality kept the same
-  differences under new turn numbers.
+  (see "Nothing owed"). alchemist (closed since), iqsfot and mortality
+  kept the same differences under new turn numbers.
 - **motion:** the minigame's keypresses are its turns.
   `runner_transcripts/motion.txt` echoes all 351 feed commands and, apart
   from whitespace, differs at T257-258 and T350 (the drive minigame's map).
@@ -564,6 +563,13 @@ every Runner.
     after `hit coconut` (`restr_cache_fallback`, 2026-09-19)
   - A trailing space in an all-literal task command must be typed. sommeril
     `get placemat ` (093a12d5e)
+  - Before 4.0 a trailing space in a `*` command must be typed too:
+    checkwild (run390 4346A8) compares the text after the last `*` with the
+    line's end literally and pads the line only for a pattern ending " *";
+    run400 trims the pattern. `[<4.0]` alchemist T300 `give rose to king`
+    against task 114's "* rose * king " (the Runner gives the library's
+    "doesn't seem interested"; walkthrough now `distract king`, identical on
+    every turn, 2026-09-19)
   - The SYNONYM table is sequential whole-string rewrites. Vardock
   - The `*` matcher (457D68) does not backtrack. Each literal piece is found
     by the first InStr and the line is cut past it. A space goes back on only

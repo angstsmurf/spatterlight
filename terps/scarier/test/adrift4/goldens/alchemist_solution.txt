@@ -298,7 +298,7 @@ get rose
 north
 up
 north
-give rose to king
+distract king
 get bowl
 south
 down

@@ -2617,7 +2617,7 @@ II. is resting in his brocade arm-chair.
 
 I can go south and west.
 
-> give rose to king
+> distract king
 I show the beauty of the rose to the King and convince him to go out into the
 garden.
 

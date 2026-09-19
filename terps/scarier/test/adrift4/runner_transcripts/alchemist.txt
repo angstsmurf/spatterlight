@@ -1373,11 +1373,11 @@ I walk north.
 In the royal bedroom
 The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  Rudolph II. is resting in his brocade arm-chair.  I can go south and west.  
 
-> give rose to king
-Rudolph II. doesn't seem interested in the rose.  
+> distract king
+I show the beauty of the rose to the King and convince him to go out into the garden.  
 
 > get bowl
-I cannot steal the bowl while the King is watching.  
+I get a large metal bowl from the scales, causing the other bowl collapse under the weight of gold.  
 
 > south
 I walk south.
@@ -1392,10 +1392,10 @@ The stairway leads up, surrounded by tiled walls and an arched ceiling above. Wo
 > south
 I walk south.
 In the southern garden
-The southern garden is peaceful and filled with sweet smells. Upon the grass, different kinds of flowers grow, along with a lawn of roses by the eastern wall. There is a bench to sit on and watch butterflies fluttering on the flowers.  I can only go north.  
+The southern garden is peaceful and filled with sweet smells. Upon the grass, different kinds of flowers grow, along with a lawn of roses by the eastern wall. There is a bench to sit on and watch butterflies fluttering on the flowers.  Rudolph II. is standing in the middle of the garden.  I can only go north.  
 
 > talk to king
-Use the format "ask Rudolph II. about [subject]".  
+"If you have nothing better to do than walk around, asking people things they don't know, you might as well do something useful. A precious statue has been stolen from the sculpture gallery. I would be happy if you could find it," the King declares with a stone-cold face.  
 
 > north
 I walk north.
@@ -1410,7 +1410,7 @@ The stairway leads down, surrounded by tiled walls and an arched ceiling above. 
 > north
 I walk north.
 In the royal bedroom
-The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  Rudolph II. is resting in his brocade arm-chair.  I can go south and west.  
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  I can go south and west.  
 
 > west
 I walk west.
@@ -1440,10 +1440,10 @@ The gallery is a long and wide hall, framed with tall windows on the northern si
 > east
 I walk east.
 In the eastern gallery
-The gallery is a long and wide hall, framed with tall windows on the northern side and statues on the southern one. Several chandeliers are suspended from the ceiling, while a red carpet is covering the floor and the walls are giving the place a warm feel with lots of leather tiles.  A young man is standing in the middle of the room, staring at the statues.  I can only go west.  
+The gallery is a long and wide hall, framed with tall windows on the northern side and statues on the southern one. Several chandeliers are suspended from the ceiling, while a red carpet is covering the floor and the walls are giving the place a warm feel with lots of leather tiles.  There is also a piece of paper.  A young man is standing in the middle of the room, staring at the statues.  I can only go west.  
 
 > get paper
-Take what?  
+I take the piece of paper.  
 
 > west
 I walk west.
@@ -1481,7 +1481,11 @@ By the royal pond
 The royal pond is large, with clean blue water, and offers a nice hideaway for those who need it. It is surrounded by large grassy areas and many trees. There are also some solid benches, offering a place to rest and relax.  The poet is sitting on the grass, writing words down constantly.  A warm, light breeze blows gently in my face.  I can only go east.  
 
 > talk to poet
-Use the format "ask Joseph Draconus about [subject]".  
+"Yes, I know this poem," utters the poet as he takes the piece of paper.
+"Tell me about it," I demand.
+"I have wrote this one a long while ago. I sold it to a poor guy who wanted to gift his girlfriend," the poet explains.
+"Who was this man?" I ask.
+"I did not question him. But I remember he was worn out and dirty, almost like a gardener, digging in the earth."  
 
 > east
 I walk east.
@@ -1489,7 +1493,7 @@ In the royal garden
 The garden is a rich mixture of flowers and trees of all kinds, a lot of them having been brought from distant countries. Several benches are scattered along the grassy paths.  A warm, light breeze blows gently in my face.  I get a glimpse of a bird flying high above my head.  I can go south, west and in.  
 
 > dig
-I have no reason to dig up the ground.  
+I get hold of the shovel and dig deep into the ground. Soon I happen upon a dirty pack wrapped in linen and I lift it up into the sunlight.  
 
 > south
 I walk south.
@@ -1529,7 +1533,7 @@ The armory is a small room with tiled walls and a red carpet covering the floor.
 > east
 I walk east.
 In the royal bedroom
-The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  Rudolph II. is resting in his brocade arm-chair.  I can go south and west.  
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  I can go south and west.  
 
 > south
 I walk south.
@@ -1544,10 +1548,10 @@ The stairway leads up, surrounded by tiled walls and an arched ceiling above. Wo
 > south
 I walk south.
 In the southern garden
-The southern garden is peaceful and filled with sweet smells. Upon the grass, different kinds of flowers grow, along with a lawn of roses by the eastern wall. There is a bench to sit on and watch butterflies fluttering on the flowers.  A light shower of rain is fluttering down.  I can only go north.  
+The southern garden is peaceful and filled with sweet smells. Upon the grass, different kinds of flowers grow, along with a lawn of roses by the eastern wall. There is a bench to sit on and watch butterflies fluttering on the flowers.  Rudolph II. is standing in the middle of the garden.  A light shower of rain is fluttering down.  I can only go north.  
 
 > give bust to king
-I don't have the bust.  
+I give the statue to the King, receiving nothing but words of gratitude.  
 
 > north
 I walk north.
@@ -1562,7 +1566,7 @@ The stairway leads down, surrounded by tiled walls and an arched ceiling above. 
 > north
 I walk north.
 In the royal bedroom
-The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  Rudolph II. is resting in his brocade arm-chair.  I can go south and west.  
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  I can go south and west.  
 
 > west
 I walk west.
@@ -1847,7 +1851,7 @@ The armory is a small room with tiled walls and a red carpet covering the floor.
 > east
 I walk east.
 In the royal bedroom
-The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  Rudolph II. is resting in his brocade arm-chair.  I can go south and west.  
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  I can go south and west.  
 
 > south
 I walk south.
@@ -1862,7 +1866,7 @@ The stairway leads up, surrounded by tiled walls and an arched ceiling above. Wo
 > south
 I walk south.
 In the southern garden
-The southern garden is peaceful and filled with sweet smells. Upon the grass, different kinds of flowers grow, along with a lawn of roses by the eastern wall. There is a bench to sit on and watch butterflies fluttering on the flowers.  A light shower of rain is fluttering down.  I can only go north.  
+The southern garden is peaceful and filled with sweet smells. Upon the grass, different kinds of flowers grow, along with a lawn of roses by the eastern wall. There is a bench to sit on and watch butterflies fluttering on the flowers.  Rudolph II. is standing in the middle of the garden.  A light shower of rain is fluttering down.  I can only go north.  
 
 > get rose
 I get some rose petals.  
@@ -1880,7 +1884,7 @@ The stairway leads down, surrounded by tiled walls and an arched ceiling above. 
 > north
 I walk north.
 In the royal bedroom
-The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  Rudolph II. is resting in his brocade arm-chair.  I can go south and west.  
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  I can go south and west.  
 
 > west
 I walk west.
@@ -2237,19 +2241,19 @@ The cellar is a large space located deep under the castle's luxurious rooms. The
 I remember what the note said I must do to create the spell of fire. I empty the contents of the earth sack into the Athanor, followed by the water from a pot. Then a gust of air from my lungs sets the whole set of elements on fire.  
 
 > bowl on athanor
-I don't have the bowl.  
+I place the bowl into the firing oven.  
 
 > gold on athanor
-I can't do that yet.  
+I place the gold onto the bowl.  
 
 > silver on athanor
-No, not yet.  
+I let the silver liquid flow onto the bowl.  
 
 > mercury on athanor
-I can't put it in there yet.  
+I let the mercury mix with other metals.  
 
 > copper on athanor
-If I did that the whole thing could blow up.  
+I let the fire melt off the top of the key. I might still need the rest.  
 
 > up
 I walk up.
@@ -2264,10 +2268,10 @@ The courtyard is a large square area, paved with white stones and looking over a
 > west
 I walk west.
 By the western gate
-Framing along the white stony pathway, the gate is huge and made of stone. Above the entrance there is a big table saying something in a language I don't understand.  I can only go east.  
+Framing along the white stony pathway, the gate is huge and made of stone. Above the entrance there is a big table saying something in a language I don't understand.  A soldier is guarding the entrance.  I can only go east.  
 
 > give knife to guard
-I can't do that.  
+I return the knife to the soldier. He doesn't say anything.  
 
 > east
 I walk east.
@@ -2292,7 +2296,7 @@ The armory is a small room with tiled walls and a red carpet covering the floor.
 > east
 I walk east.
 In the royal bedroom
-The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  Rudolph II. is resting in his brocade arm-chair.  I can go south and west.  
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  I can go south and west.  
 
 > south
 I walk south.
@@ -2307,10 +2311,10 @@ The stairway leads up, surrounded by tiled walls and an arched ceiling above. Wo
 > south
 I walk south.
 In the southern garden
-The southern garden is peaceful and filled with sweet smells. Upon the grass, different kinds of flowers grow, along with a lawn of roses by the eastern wall. There is a bench to sit on and watch butterflies fluttering on the flowers.  A light shower of rain is fluttering down.  I can only go north.  
+The southern garden is peaceful and filled with sweet smells. Upon the grass, different kinds of flowers grow, along with a lawn of roses by the eastern wall. There is a bench to sit on and watch butterflies fluttering on the flowers.  Rudolph II. is standing in the middle of the garden.  A light shower of rain is fluttering down.  I can only go north.  
 
 > give key to king
-The King is not here.  
+I return the key to the King.  
 
 > north
 I walk north.
@@ -2325,7 +2329,7 @@ The stairway leads down, surrounded by tiled walls and an arched ceiling above. 
 > north
 I walk north.
 In the royal bedroom
-The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  Rudolph II. is resting in his brocade arm-chair.  I can go south and west.  
+The royal bedroom is large, with leather-tiled walls, a painted ceiling with golden chandeliers, a big blue stove, a blue and golden carpet on the floor and a bookshelf covering the northern wall. The room is richly equipped; in the corner there is a bed, in the center stands a table with chairs, an armchair is surrounded by big vases, the scales or a globe. Some portraits line up on the walls and the windows overview the southern garden.  I can go south and west.  
 
 > west
 I walk west.
@@ -2348,13 +2352,33 @@ In the cellar
 The cellar is a large space located deep under the castle's luxurious rooms. There is an oven called Athanor attached to the southern side of the room, a strange picture on the wall and a staircase winding to the upper floor. In the middle stands a large table covered with flasks, which are scattered across the rest of the room as well.  Thomas Erikkson is boiling liquids in his flasks.  The magician is rubbing his beard and staring beyond reality.  I can go east and up.  
 
 > iron on athanor
-Everything has its time.  
+I point the sword into the flames and watch it melt, piece by piece, like it was a candle-wax.  
 
 > tin on athanor
-I will do that, later.  
+I put the tin cup onto the bowl.  
 
 > lead on athanor
-I should wait with this one.  
+I toss the piece of lead into the fire. The mixture of metal melts together, creating a flowing black liquid, which, when taken out of the heat, cools off into a snow-white color. Then the form begins to darken and crumble, finally leaving a crimson, bloody red powder.  
 
-> 
-That makes no sense.
+Alessandro d'Estino's Journal
+
+August 17, 1613
+
+I have succeeded in the creation of the Elixir of Life. I have fulfilled the King's wish, completed his task. But I never went back to tell him.
+
+It occured to me at the moment when I stood with the vial of the precious life-giving liquid in my hands, that if I took it to the King, he could and would make the world a battlefield. He would be an invincible leader, able to set destruction to the world.
+
+I left the castle immediately and headed for my homeland. There, in the garden of my old house, I sat down and thought. So many things happened, so many yet to come. I recalled a picture of my Clarissa, as she ran bare-foot, laughing, through the flower field. Then I saw her dying in my arms, and the sun dried tears on my cheeks before they could fall to the ground, just like it did then, many years ago.
+
+I took the vial. I have had enough of fears to know and wish not to be any part of the world at all. For not being part of their deadly games, for my own Clarissa's death, for the love of angels and their golden light and for myself - I drank.
+
+As I write these lines, ten years after I have willingly became what I became to watch the history take its turns, the King's brother had taken over the land, leaving the King himself sick and broken. Fate had it that he died this winter, winter that stands for cold, cruel and slow death. I don't pity him, not anymore than I would pity anybody's departure for the shadowland.
+
+But me, I am immortal. I am changeless and flawless and I am wandering the world to learn all that there is left to know. I have set my steps on a road to walk through eternity, without regrets or fears, and I can't wait to see tomorrow.
+
+
+You scored 490 out of the maximum 0!
+That is 100% of the game!
+You finished -490 points short.
+
+[Press any key to end]

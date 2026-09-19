@@ -13,7 +13,7 @@ afdfr	afdfr.txt	driven:Adrift_287_afdfr_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP
 agent4f	agent4f.txt	driven:Adrift_205_agent4f_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 akron	akron.rtf	driven:Adrift_288_akron_rt.rtf+tail	3.80	run380x.exe	1234	0			yes	identical on every turn.
 albert_is_lost	albert_is_lost.txt	driven:Adrift_351_albert_is_lost_rt.txt	4.00	run400x.exe	42	2		SCR_SEED=42 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-alchemist	alchemist.txt	driven:Adrift_499_alchemist_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	no	10+ differing turn(s)
+alchemist	alchemist.txt	driven:Adrift_128_alchemist_rt.txt	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 alexis	alexis.txt	driven:Adrift_145_alexis_rt.txt	3.90	run390x.exe	1	0		SCR_SEED=1	yes	10 differing turn(s)
 alexis_worn_cube	alexis_worn_cube.txt	driven:Adrift_146_alexis_worn_cube_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	10+ differing turn(s)
 aliasagent	aliasagent.txt	driven:Adrift_142_aliasagent_rt.txt	4.00	run400x.exe	1234	0	Player		yes	identical on every turn.

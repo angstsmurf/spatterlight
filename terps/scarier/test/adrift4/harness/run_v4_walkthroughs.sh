@@ -8604,6 +8604,15 @@ datewithdeath_solution.txt|datewithdeath.taf|And you have a whole life ahead of 
 # on appending the exits list (44813D), before the tick moves the RNG on --
 # the wumpusrun row has the rule.  The Runner compare's first difference
 # moved from T32 to T303.
+# Walkthrough changed 2026-09-19: `give rose to king` -> `distract king`.  The
+# only command of task 114 that takes the old line is "* rose * king ", with a
+# trailing space, and run390's checkwild (4346A8) makes that space part of the
+# line's required ending, so the Runner answered with the library's "Rudolph
+# II. doesn't seem interested in the rose." and the King never left
+# (Adrift_499_alchemist_rt.txt T300).  Scarier now refuses such a pattern
+# before 4.0 as well.  `distract king` is the task's "distract * king *".
+# Re-driven the same day: runner_transcripts/alchemist.txt is identical on
+# every turn through the win.
 alchemist_solution.txt|alchemist.taf|That is 100% of the game|SCR_SKIP_WAITKEY=1
 # ONNAFA.TAF (David Whyld). Full win: retrieve the dragon egg (flushed down
 # the privy as backstory) and hand it back to the dragon at the castle

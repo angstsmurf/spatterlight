@@ -2447,8 +2447,26 @@ run_match_task_commands (scr_gameref_t game,
        * match it; for those, retry the match against the player's actual
        * input, stashed by run_all_commands().
        */
+      /*
+       * 3.7-3.9 hand a command with a '*' to checkwild (run390 4346A8)
+       * as the author typed it: the text after the last '*' must equal the
+       * end of the line, and the line is padded with a space only for a
+       * pattern ending in " *".  A command ending in a stray space after its
+       * last piece therefore matches nothing.  (run400 trims the pattern
+       * first; a literal-only pattern is NODE_HARD_WHITESPACE at every
+       * version.)  Alchemist (3.90) task 114's only alternative that takes
+       * `give rose to king` is "* rose * king ", and run390 answers it with
+       * the library's "Rudolph II. doesn't seem interested in the rose."
+       * (runner_transcripts/alchemist.txt T300).
+       */
+      const size_t pattern_length = strlen (pattern);
+      const scr_bool pre400_tail_space =
+          version < TAF_VERSION_400 && pattern_length > 0
+          && scr_isspace (pattern[pattern_length - 1])
+          && strchr (pattern, WILDCARD_PATTERN) && !strpbrk (pattern, "[{");
+
       const scr_char *matched_input = string;
-      if (pattern[first] == SPECIAL_PATTERN)
+      if (pattern[first] == SPECIAL_PATTERN || pre400_tail_space)
         ;
       else if (is_library && pattern[first] == WILDCARD_PATTERN)
         {
