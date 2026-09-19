@@ -1,31 +1,8 @@
-feed        193 commands
+feed        159 commands
 runner      159 turns echoed
 scarier     159 turns, feed[0] is scarier turn 0
 
-RULE 2 -- 34 command(s) the Runner never echoed.  Everything
-after the first of them is out of step and is NOT an engine
-difference until the feed is fixed and the row re-driven:
-    feed[159]  attack urgorn
-    feed[160]  attack urgorn
-    feed[161]  attack urgorn
-    feed[162]  attack urgorn
-    feed[163]  attack urgorn
-    feed[164]  attack urgorn
-    feed[165]  attack urgorn
-    feed[166]  attack urgorn
-    feed[167]  attack urgorn
-    feed[168]  attack urgorn
-    feed[169]  attack urgorn
-    feed[170]  attack urgorn
-    feed[171]  attack urgorn
-    feed[172]  attack urgorn
-    feed[173]  attack urgorn
-    feed[174]  attack urgorn
-    feed[175]  attack urgorn
-    feed[176]  attack urgorn
-    feed[177]  attack urgorn
-    feed[178]  attack urgorn
-    ... and 14 more
+RULE 2 -- every feed command was echoed.
 
 turn 99  open chest
   run400   Command not understood

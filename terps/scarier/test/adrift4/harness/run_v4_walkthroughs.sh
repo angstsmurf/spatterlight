@@ -808,6 +808,9 @@ gateway_solution.txt|gateway.taf|THE END
 # dead in five punches where the old build could never kill it.  The residual
 # 7 diverging turns are the harness losing 12 of the 28 fed commands to the
 # Runner's Battle-System menu prompts, not engine behaviour.
+# 2026-09-19: the 15 battle lines past the kill are trimmed; the last blank
+# line stays, because run400 prints the score summary only on the next
+# input.  The re-drive is identical on every turn.
 hyper_b_s_solution.txt|hyper_b_s.taf|The Flare Rat is dead! Mission complete!
 jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=3
 # Re-blessed 2026-09-06: 71 `attack riven/ozgat/higher` lines answered by DontUnderstand (no turn) became "X isn't here!" turns (run400 dobattle 47EFE5, House Adrift_110); dropped as pure no-ops so the turn thread is unchanged.  Still wins.
@@ -3189,6 +3192,23 @@ thesisters_solution.txt|TheSisters.taf|lifeless body of Trisha Seabourne.|SCR_SK
 # the rule is measured on the rows above and below instead.
 # Seeded 2026-09-13: the unseeded run stopped winning under the RNG-parity rules; seed 6
 # wins (1-200 scan: 6, 27, 29, 33, 35).
+# Closed 2026-09-19 (T312 `south`, "somebody passing by slips you a buck"):
+# event 118 "timer until guitarist leaves monument" (Time 18) starts PAUSED on
+# T152 `e` -- its pauser, task 1137, is already done -- and resumes on T153.
+# run400's start stores roll + 1 (46FE49) and the pause test inside the
+# running block exits checkevent before the decrement (46FFCC, 47013E), so
+# the +1 survives the pause and 118 finishes on T171, not T170: the Runner's
+# vbrng trace (VBRNG_TRACE_SITE=1, seed 24) has the 46FE28 start rolls of
+# 119 and 234 at #592/#593 on T171.  Scarier started them on T170, which
+# handed event 319 ("handed money in intersection", Time 8-10) an 8 where
+# the Runner rolled a 9, and its finish landed on T315 instead of T314.
+# Ported in evt_tick_event (ES_AWAITING immediate pause, every version:
+# run390 44891F and run380 43A335 are the same shape).  Re-blessed: the only
+# change is the buck line; draws are 1139 = 1139 and equal turn for turn;
+# the compare is 0 differing turns.  The solution's last `wait` (line 407)
+# came after the game had ended and only answered "[Press any key to end]" in
+# both engines; it is gone, and the re-driven row (Adrift_128_thepkgirl_rt.txt,
+# byte-identical to the previous capture) compares identical on every turn.
 thepkgirl_solution.txt|the_pk_girl.taf|Your Secret Letter is: E|SCR_SEED=24 SCR_SKIP_WAITKEY=1
 # Second Chance (David Whyld, 2005) replays its shipped Walkthrough.pdf
 # VERBATIM -- 49 commands, not one repair, straight to the good ending.  The
@@ -6026,7 +6046,8 @@ murdermansionntro_solution.txt|MurderMansionntro.taf|Thank you for trying my Int
 # PRE=0): 21/21 echoed and every comparable turn identical, tail only.  Both
 # sides finish 2/2 on "ending 2 of 2".  The game's TYPED silent tasks
 # (`* s *`, `* south *`) never fire, because the wired route spells the
-# direction out.
+# direction out.  The closing `quit` is a game task (the win), not padding:
+# the 2026-09-19 trim removed it and the Runner never reached the ending.
 whitterscap_solution.txt|whitterscap.taf|You win with the best score and stuff, yeah!
 # The Dangers of Driving at Night (unscored horror vignette): drive north
 # through the accident event, pay the gas station clerk, spare Chris some

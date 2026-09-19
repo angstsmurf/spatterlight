@@ -15,5 +15,3 @@ buy chips
 south
 look
 score
-quit
-y

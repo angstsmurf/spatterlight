@@ -37,8 +37,8 @@ index below lead to the code.
   `compare/<tag>.txt` the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py`; its README explains how, and
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 349 identical on every turn, 28 identical apart from
-  whitespace, 50 with a compare report. Every differing row is classified
+- **Manifest:** 361 identical on every turn, 29 identical apart from
+  whitespace, 37 with a compare report. Every differing row is classified
   under "Open leads". A row that "lost" feed commands is either an ending
   both sides share (the keypress wait eats the rest of the feed, no text is
   missing) or one of the harness leads listed there.
@@ -270,10 +270,6 @@ index below. Rows not named here differ only by a capture artefact (see
 
 ### Engine, 4.0
 
-- **thepkgirl T312 `south`:** run400 fires "somebody passing by slips you a
-  buck"; Scarier doesn't. Cumulative draws are equal through T312, then
-  run400 is +1 at T313 and Scarier +1 at T314 (1139 vs 1140). Event/draw
-  placement. feed[406] `wait` falls after game end.
 - **3monkeys T40 `get husk`:** the Runner says "Huh?" (the game's
   DontUnderstand, ALR DEFAULT=8, so run400 claims the line silently);
   Scarier takes the coconut husk. Ruled out offline (2026-09-15): the seen
@@ -356,9 +352,7 @@ rule, not RNG (deaths, 2026-09-19).
 
 ### Harness and compare
 
-- **hyper_b_s "10 lost":** the Runner does echo each attack-menu `a`/`p`
-  key (Attack Menu follows every `> a`); the aligner loses them.
-- **light_up (seed 133), 217 lost from feed[294]:** at T293 `west` both
+- **light_up (seed 133), 203 lost from feed[294] (217 before the 2026-09-19 trim):** at T293 `west` both
   sides of the compare die ("scored 58 out of the maximum 0"). The blessed
   golden never dies there and has no `maximum` line, so the compare's
   rebuilt feed does not reproduce the golden's route. Diff the feed against
@@ -398,11 +392,21 @@ rule, not RNG (deaths, 2026-09-19).
 - Whitespace-only joins or the trailing `[Press any key to end]`; the
   28 "apart from whitespace" rows. Glum_Fiddle turn 0 is the startup echo
   above.
-- Lost commands after an ending both sides share: confession, darkness
-  (feed[99] with 11 lines left), questi, thelasthour, sun_empire, will,
-  sswhore, egghunt, howitstarted, snakes_and_ladders.
-- `[Y/N]` prompts the Runner never asks: grumble T274 and lifesimulation
-  T15 `quit`; life `piss` and the_hangover are the silent-task deviation;
+- Lost commands after an ending: thelasthour's last `wait` only. That row
+  runs without SCR_SKIP_WAITKEY, so one ending "Press a key." swallows a
+  solution line in Scarier and the extra `wait` makes up for it; the Wine
+  feed answers the pause with its own blank line. Trimmed 2026-09-19: the
+  trailing lines that never changed Scarier's transcript (padding `z`,
+  `wait`, `score`, `quit`/`y`, spare battle turns) are gone from
+  thepkgirl, confession, darkness, cybercow_win, questi, thelasthour,
+  aliasagent, egghunt, howitstarted, sswhore, will, grumble,
+  lifesimulation, sun_empire, alexis_worn_cube, snakes_and_ladders,
+  hyper_b_s and light_up, and those rows were re-driven. Two kept lines
+  the Runner needs although Scarier does not: whitterscap's `quit` (a game
+  task; the win ending) and hyper_b_s's last blank line (the score summary
+  prints on the next input). Comment-only tails (journ2, circus, losttomb)
+  and house's post-death route are left as written.
+- life `piss` and the_hangover are the silent-task deviation;
   alices_restaurant the run370 double matcher pass; sandy_meta_number the
   SCARE meta-commands.
 - Load failures left from the 09-06/09-07 corpus batches: six rows raised
@@ -969,6 +973,12 @@ every Runner.
     runs once per turn, 46FF48). It parks until the next tick rather than
     finishing at once. riding_home T50 (event 9, task 118's 90% hint), cursed
     T137 (event 89, wet fur). 2026-09-15
+  - An event that starts PAUSED (pauser done, resumer not) keeps the
+    start's roll + 1: the pause test inside the running block exits
+    checkevent before the decrement (run400 46FFCC / 47013E, run390
+    44891F, run380 43A335), so after the resume it ends one turn later
+    than its roll. thepkgirl T152-T171 (event 118, Time 18), which moved
+    event 319's roll and the T312 "slips you a buck". 2026-09-19
   - A 4.0 event whose restart ROLLS 0 (Time1 = 0) parks for good: the
     restart stores the roll with no +1 (4705E3-470605), the next running
     block takes the clock to -1, and the finish test is `clock = 0`

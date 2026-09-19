@@ -39,4 +39,3 @@ examine dial
 turn dial to 47
 examine dial
 open safe
-score

@@ -26,4 +26,3 @@ enter shack
 attack goblin with sword
 enter basket
 flip lever
-score

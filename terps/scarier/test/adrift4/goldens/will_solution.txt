@@ -121,4 +121,3 @@ s
 s
 look
 give will to lewis
-score

@@ -1,13 +1,8 @@
-feed        127 commands
+feed        124 commands
 runner      124 turns echoed
 scarier     126 turns, feed[0] is scarier turn 2
 
-RULE 2 -- 3 command(s) the Runner never echoed.  Everything
-after the first of them is out of step and is NOT an engine
-difference until the feed is fixed and the row re-driven:
-    feed[124]  z
-    feed[125]  z
-    feed[126]  z
+RULE 2 -- every feed command was echoed.
 
 turn 72  x fairy
   run400   The fairy darts in circles around the warm bowl of CyberCow milk. The rain has stopped.

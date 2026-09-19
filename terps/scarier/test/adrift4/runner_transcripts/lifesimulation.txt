@@ -58,8 +58,3 @@ This is the Hudson Shopping Centre. To the north is the Supermarket, To the Sout
 
 > score
 Your score is 0 out of a maximum of 0.  (0%)
-
-> quit
-
-> y
-I don't understand what you mean!

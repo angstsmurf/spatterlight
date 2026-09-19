@@ -1387,6 +1387,20 @@ evt_tick_event (scr_gameref_t game, scr_int event)
              * start turn's decrement and leaves checkevent() there, so a
              * pause on the start turn suppresses the notification and
              * finish checks below.
+             *
+             * It suppresses the decrement too, so the clock keeps the
+             * roll PLUS ONE the start stored (run400 46FFCC pause, 47013E
+             * Exit Sub ahead of the 47013F decrement; run390 44891F and
+             * run380 43A335 are the same shape), and the resume turn's
+             * decrement only brings it back to the roll: an event that
+             * starts paused ends one turn later than its roll after the
+             * resume.  thepkgirl (seed 24) pins it: event 118 "timer until
+             * guitarist leaves monument" (Time 18, pauser 1137 already
+             * done) starts paused on T152 `e`, resumes on T153, and the
+             * Runner starts its successors 119 and 234 on T171, not T170
+             * (46FE28 draws #592/#593); the shifted draw gives event 319 a
+             * 9 instead of an 8, and "somebody passing by slips you a buck"
+             * lands on T312 `south`.
              */
             if (evt_pauser_task_is_complete (game, event)
                 && !evt_resumer_task_is_complete (game, event))
@@ -1394,6 +1408,8 @@ evt_tick_event (scr_gameref_t game, scr_int event)
                 if (evt_trace)
                   scr_trace ("Event: pause complete, immediate pause\n");
 
+                gs_set_event_time (game, event,
+                                   gs_event_time (game, event) + 1);
                 gs_set_event_state (game, event, ES_PAUSED);
                 break;
               }

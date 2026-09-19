@@ -80,5 +80,3 @@ w
 s
 shoot windows
 w
-quit
-y

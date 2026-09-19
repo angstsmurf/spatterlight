@@ -2365,8 +2365,3 @@ A flight of winding steps lead down
 
 > score
 Your score is 208 out of a maximum of 404.  (51%)
-
-> quit
-
-> 
-   Hmmm. Didn't understand a word of that! Try something else.

@@ -259,5 +259,3 @@ wait
 give nulgas potion to grumble
 u
 score
-quit
-y

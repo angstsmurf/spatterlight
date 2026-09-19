@@ -2917,6 +2917,11 @@ only.  Numerous people walk past you in every which direction, their
 destinations not deducible from reading only their faces.  The patter of feet
 on pavement is heard continually.
 
+    As you are walking through the intersection, somebody passing by slips
+you a buck.  Naturally, you didn't get a good look at the benefactor.  Might
+it have been Katryn's man sent out to assist you?  You may never know.  You
+add the money to your pocket.
+
 > south
 You move south.
 

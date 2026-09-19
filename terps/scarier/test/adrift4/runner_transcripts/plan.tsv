@@ -165,7 +165,7 @@ largo_winch	largo-winch.taf	3.90	run390x.exe	1234	0			Votre score est de 97 sur 
 humbug	humbug.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	Grandad would probably describe you as a winner.. or a cheat.	10845
 crime_adventure	Crime_Adventure.taf	3.80	run380x.exe	1234	0			Mrs Fenwick was in no danger at all, it was a friend	3
 thesisters	TheSisters.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	lifeless body of Trisha Seabourne.	16
-thepkgirl	the_pk_girl.taf	4.00	run400x.exe	24	0		SCR_SEED=24 SCR_SKIP_WAITKEY=1	Your Secret Letter is: E	1140
+thepkgirl	the_pk_girl.taf	4.00	run400x.exe	24	0		SCR_SEED=24 SCR_SKIP_WAITKEY=1	Your Secret Letter is: E	1139
 second_chance	second chance.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	congratulating me on a job well done.	80
 private_eye	Private Eye.taf	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	You achieved a score of 4.	1
 plague	The Plague - Redux.taf	4.00	run400x.exe	1234	6		SCR_SKIP_WAITKEY=1	spilling zombie blood once	5840
