@@ -3459,15 +3459,57 @@ run_match_task_commands (scr_gameref_t game,
       else
         is_matched = uip_match (pattern, string, game);
 
+      const scr_bool wild = strchr (pattern, WILDCARD_PATTERN) != NULL;
+      const scr_bool group = strpbrk (pattern, "[{") != NULL;
+
       /*
-       * 4.0 sends a command with a '*' and no group or %reference% to its
-       * own non-backtracking matcher, which refuses some lines the tree
-       * matcher takes (The Town of Azra `buy rawhide armor` against
-       * "buy *** *rawhide armor*"); see uip_wildcard_match_400().
+       * 4.0's command loop (45D9FC-45DBA4) tests a command three ways, in
+       * this order, stopping at the first that takes:
+       *
+       *   1. `LCase(line) = LCase(cmd)` (45DA51) -- plain equality;
+       *   2. `If InStr(cmd, "*") > 0` (45DA8C), Proc_19_50_457D68 -- the
+       *      non-backtracking wildcard matcher, uip_wildcard_match_400();
+       *   3. `If ([ And ]) Or ({ And })` (45DADB-45DB42), Proc_9_4_45D940 --
+       *      NewParse, the group expander, which is the tree here.
+       *
+       * So a '*' command is answered by the wildcard matcher, which refuses
+       * some lines the tree takes (The Town of Azra `buy rawhide armor`
+       * against "buy *** *rawhide armor*"), and a GROUP is expanded LAST --
+       * after the whole command has been tried as a literal, brackets and
+       * all, and after a '*' in it has been matched literally too.
+       *
+       * Measured on p4GROUP (make_groupprobe.py, Adrift_210_gr400.txt and
+       * _gr400b.txt, 2026-09-20).  Task 1 is "zog [rock/gem]": run400 takes
+       * `zog rock` and `zog gem` by step 3 AND `zog [rock/gem]` by step 1,
+       * while `zog [gem/rock]`, `zog [rock/gem ]` and `zog rock/gem` are
+       * refused -- equality on the raw pattern, no normalising beyond the
+       * case fold and the input's own space collapse (`zog  [rock/gem]`
+       * takes).  Task 3 is "* blip [red/blue] *": `xxx blip [red/blue] yyy`
+       * runs it by step 2 and `xxx blip red yyy` matches nothing, so step 3
+       * never expands a group in a '*' command.  run390 answers the same
+       * feed identically (Adrift_209_gr390b.txt) -- its checktask has the
+       * same equality-then-checkwild shape with step 3 missing.
+       *
+       * Only steps 1 and 2 are done here; step 3 is the tree, which has
+       * already run.  A command with a %reference% belongs to 458E6C /
+       * 46918C, which substitute and then repeat these same three tests.
+       *
+       * One cell is knowingly left: the Runner collapses a KEYBOARD line's
+       * spaces before all three tests, so `zog  [rock/gem]` runs task 1
+       * there and not here.  It does not collapse a line it builds itself,
+       * which is what run_rerun_skips_tasks above is for, and separating
+       * the two would buy one cell that needs a typed line carrying both a
+       * double space and a bracket.
        */
-      if (is_matched && version >= TAF_VERSION_400
-          && strchr (pattern, WILDCARD_PATTERN) && !strpbrk (pattern, "%[{"))
-        is_matched = uip_wildcard_match_400 (pattern, matched_input);
+      if (version >= TAF_VERSION_400 && !strchr (pattern, '%'))
+        {
+          if (is_matched && wild)
+            is_matched = uip_wildcard_match_400 (pattern, matched_input);
+          else if (!is_matched && group)
+            is_matched = scr_strcasecmp (pattern, matched_input) == 0
+                         || (wild && uip_wildcard_match_400 (pattern,
+                                                             matched_input));
+        }
 
       /*
        * 3.7-3.9 send a command with a '*' to checkwild instead, which
@@ -3524,10 +3566,33 @@ run_match_task_commands (scr_gameref_t game,
        * tolerant tree matcher took all three here because nothing below 3.90
        * had ever turned the substitution on outside checkwild.
        */
-      const scr_bool wild = strchr (pattern, WILDCARD_PATTERN) != NULL;
-
-      if (version < TAF_VERSION_400 && !strpbrk (pattern, "[{")
+      /*
+       * A GROUP is 4.0 syntax, and below 4.0 it is not syntax at all: it is
+       * punctuation the command has to be typed with.  checktask holds no
+       * '[', ']', '{' or '}' literal anywhere -- not in run390 (body
+       * 44AA5A-44B6E6), not in run380 (43B6A3-43C51D), not in run370
+       * (433227-433E4A) -- so after the substitution there is nothing but
+       * the equality at 44B0E2 and, for a '*' command, checkwild at 44B139
+       * to route a group to.  Measured on p*GROUP (make_groupprobe.py,
+       * scrollback_gr370.txt, scrollback_gr380.txt, Adrift_209_gr390.txt,
+       * 2026-09-20): all three Runners answer `zog rock` and `zog gem`
+       * against task 1's "zog [rock/gem]" with the object catch-all and run
+       * the task on `zog [rock/gem]`; `nurb rock` and `nurb the rock` miss
+       * "nurb {the} rock" and `nurb {the} rock` takes it; `frob` and `frob
+       * up` miss "frob {up}" and `frob {up}` takes it.  So a group command
+       * joins the pre-4.0 arm rather than skipping it, and it joins even
+       * with no '*' in it, where the test is plain equality.
+       *
+       * Zero corpus exposure, measured 2026-09-20 over every .taf in
+       * games/ and downloaded/ (SCR_DUMP_TASKS, 405 games that load; the 14
+       * pre-4.0 stragglers whose dump never fires scanned raw with
+       * taf_pattern_scan.plaintext()): 6685 task commands carry a group and
+       * every one of them is in a 4.00 file.  Below 4.00 the bracketed
+       * lines are all ALR keys and display text ("[month=1]", "[talk=3]").
+       */
+      if (version < TAF_VERSION_400
           && (wild
+              || group
               || (is_matched && version < TAF_VERSION_390
                   && strstr (pattern, "%object%") != NULL)))
         {

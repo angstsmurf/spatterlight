@@ -294,8 +294,10 @@ not by a tick.
   by checkwild" in the index. ~~3.9's %object% substitution (44AAD6) is not
   emulated.~~ **Closed 2026-09-20** -- see "A pre-4.0 task command's
   %object% and %character% are substituted from the line" in the index.
-  What is left: group patterns (`[`, `{`) skip the check at every version,
-  and %number% / %t_number% (44ADxx) hand a command back to the tree.
+  ~~Group patterns (`[`, `{`) skip the check at every version.~~ **Closed
+  2026-09-20** -- see "A task command's GROUP is the LAST thing 4.0 tries,
+  and below 4.0 it is not syntax at all" in the index. What is left:
+  %number% / %t_number% (44ADxx) hand a command back to the tree.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
@@ -894,6 +896,31 @@ transcript names are in the code comment next to the named function, in
   away and unseen. %number% and %t_number% are not emulated and hand the
   command back to the tree. `[<4.0]` p37/p38/p39/p4WILDREF
   (`run_pre400_substitute_references`, 2026-09-20)
+- **A task command's GROUP is the LAST thing 4.0 tries, and below 4.0 it is
+  not syntax at all.** run400's command loop (45D9FC-45DBA4) tests a
+  command three ways and stops at the first that takes: plain equality
+  (45DA51), then, for a `*` command, the wildcard matcher (45DA8C ->
+  457D68), and only then NewParse's group expansion (45DADB -> 45D940). So
+  every group command is matched *literally* before it is matched by
+  expansion, and a group inside a `*` command is never expanded at all.
+  p4GROUP task `zog [rock/gem]` runs on `zog rock`, `zog gem` **and** `zog
+  [rock/gem]`, while `* blip [red/blue] *` runs on `xxx blip [red/blue]
+  yyy` and not on `xxx blip red yyy`. Pre-4.0 checktask is that loop with
+  the third step missing: it holds no `[`, `]`, `{` or `}` literal anywhere
+  (run390 44AA5A-44B6E6, run380 43B6A3-43C51D, run370 433227-433E4A), so a
+  group below 4.0 is punctuation the player has to type -- `zog rock` is
+  the object catch-all in all three Runners and `zog [rock/gem]` runs the
+  task. The literal test is plain equality: reordering the alternatives,
+  adding a space inside the group and dropping the brackets are all
+  refused, case is folded, and a keyboard line's double space is collapsed
+  first (that last cell is the one deviation left -- the Runner does not
+  collapse a line it builds itself, and separating the two would buy a cell
+  needing a typed double space *and* a bracket). Zero corpus exposure
+  either way, measured over every .taf in `games/` and `downloaded/`: all
+  6685 group-bearing task commands are in 4.00 files, and no game at any
+  version puts a `*` and a group in one command, so the suite is 429 PASS
+  before and after. `[all]` p37/p38/p39/p4GROUP (`run_match_task_commands`,
+  2026-09-20)
 - **The pre-4.0 ask block wants the name at column 5.** characters()' one
   position test, and the only one in the handler: 459882 skips the whole
   `c("ask") Or c("talk to")` conversation block unless `InStr(line,
