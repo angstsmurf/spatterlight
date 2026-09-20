@@ -322,28 +322,44 @@ not by a tick.
   object.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
-- **The "With what?" prefix continuation** (45D3E0) is not modelled, and
-  3.90 is the odd version out. Four cells fell out of p*TEXTSRC
-  (2026-09-20) with tasks `frob %object% with zzz` and `wibb %object% with
-  rock`, fed `frob rock` / `with zzz` / `wibb gem` / `with rock`:
-
-  | | 3.70 | 3.80 | 3.90 | 4.00 |
-  |---|---|---|---|---|
-  | `with zzz` | "I don't understand." | WITH1 [a rock] | **"With what?"** | WITH1 [a rock] |
-  | `wibb gem` | catch-all gem | catch-all gem | **"You don't have the gem."** | catch-all gem |
-  | `with rock` | catch-all rock | WITH2 [a rock] | **"You don't have the rock."** | WITH2 [a gem] |
-
-  So 3.80 and 4.00 do the `with ` history prepend at 45F2AF and the
-  prepended line reaches the task matcher, 3.70 has no such arm at all, and
-  3.90 -- which the decompile says has the prepend too -- answers with the
-  handler instead and then treats the next two lines as continuations of
-  it. Scarier prepends at every version from 3.80 and answers WITH1/WITH2
-  at 3.90, so all three 3.90 cells deviate. Whether 3.90's prepend fires
-  with a different `history(2)` (its history counts line ELEMENTS, see
-  45EC5B) or is pre-empted outright is unmeasured; it needs a probe that
-  feeds `with ...` after a known run of lines and prints the line back.
-  The same three cells also show 4.00's WITH2 naming the GEM where 3.80
-  names the rock -- the two-pass walk again, see the %object% index entry.
+- **The "With what?" prefix continuation** (run390 45D3E0/45D1A0) is
+  measured but not ported (p*WITHPFX, `harness/make_withprefixprobe.py`,
+  feeds `cmdfile_pwithpfx3.txt`/`5`/`6`/`7`, Adrift_222_wr390 /
+  224_wt390 / 224_wu390 / 224_wv390, 2026-09-20). 3.90 alone keeps a
+  prefix when it answers "With what?": `Left(line, InStr(line, "with") + 4)`
+  -- the line truncated just past the word, the instrument half thrown
+  away. A later line is retried as `<prefix> <line>` only if the line
+  alone is not understood (DontUnderstand or the object catch-all), and
+  the retry goes through **therest only**, never the task matcher: with
+  tasks `fff with zzz ggg`, `with zzz ggg` and `ggg with zzz` all wired,
+  `fff` / `with zzz` / `ggg` is "With what?" twice and no task ever fires.
+  A line therest answers by itself keeps its own answer and drops the
+  prefix (`cut rock`, bare `push` = "Push what?", `i`, `look`), and so
+  does any task (`probe`). What the retry reaches is the ordinary 3.9
+  therest: two or more objects named and the split claims it (`hhh gem` /
+  `with zzz` / `rock` is "You don't have the rock."), one object and the
+  with-arm answers, but only if the object's FIRST occurrence in the
+  joined line sits after "with" -- `hhh gem` / `with zzz` / `gem` is
+  "With what?" again, because the gem is already named in the prefix.
+  Porting it means a pending-prefix retry hook beside the ordinary
+  question prefix in `run_all_commands()`, gated to 3.90 and to therest.
+- **`open X with Y` and `read X with Y` below 4.0.** Open (p*WITHPFX feed
+  `cmdfile_pwithpfx4.txt`, Adrift_222_ws370 / 223_ws380 / 224_ws390 /
+  225_ws400, 2026-09-20): with the gem held, `open rock with gem` is
+  "You can't open the rock with the gem." at 3.70 and 4.00 -- the object
+  from the head, the instrument as a suffix -- but "You can't open the
+  gem!" at 3.80 and 3.90, which name the INSTRUMENT and take the
+  exclamation mark. Scarier answers 3.70 about the gem and asks
+  "Please be more clear, what do you want to open?  The gem or the rock?"
+  at 3.80/3.90. Read: `read rock with gem` is the examine ambiguity
+  prompt "Which rock would you like to examine.  The gem or the rock?"
+  at 3.70/3.80 (read is the examine tail there), "You can't read the
+  gem!" at 3.90 and "You can't read the rock!" at 4.00; Scarier says
+  "Nothing special." below 4.0. Whether the 3.8/3.9 rule is "the last
+  object named on the line" or something the split leaves behind needs a
+  probe without " with " (`open gem rock`, `open rock gem`), and a static
+  instrument for the 3.9 "Don't be daft!" cell that is still read off the
+  listing.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
@@ -376,7 +392,24 @@ not by a tick.
   range", transcript lost):** `put all in <nothing>`, `put all on
   <nothing>` and `put everything in zzz` on run370x and run380x; bare `eat`
   and `eat <character>` on run370 (run380 answers DontUnderstand). Scarier
-  keeps its sane answer in each case (p37PUT/p38PUT, p37NPCAMB, 2026-09-19).
+  keeps its sane answer in each case (p37PUT/p38PUT, p37NPCAMB,
+  2026-09-19); and a line starting `with ` whose previous typed line was
+  BLANK on run380x (p38WITHPFX, `cmdfile_pwithpfx.txt`, 2026-09-20 -- the
+  drive died at that command and the feed was re-cut as
+  `cmdfile_pwithpfx2.txt`).
+- **A blank previous line under the `with ` prepend.** `eee` /
+  <Return> / `with www`, with a task spelled `with www`: run370 never
+  prepends and matches it; run380 crashes (above); run390 prints garbage
+  -- "Which pearl.  The gem or the rock?", a disambiguation prompt
+  naming an object nothing on the line mentions; run400 answers "I don't
+  understand.", because its joined line is " with www" with the empty
+  history's separating space still on the front and no task matches
+  that. Scarier joins the same way but its task matcher does not see the
+  leading space, so it matches the task at every version from 3.80. Not
+  ported: a blank line is the only way in, two of the three Runners
+  answer nonsense, and the fix means making task matching sensitive to
+  leading whitespace. p*WITHPFX, Adrift_219_wp390 / 220_wp400
+  (2026-09-20).
 - **SCARE meta-commands** `wait N`, `hist N` and `redo N` exist in no
   Runner. Eleven more inventions are compiled out by
   `SCARIER_NO_ABBREVIATIONS`.
@@ -462,6 +495,40 @@ transcript names are in the code comment next to the named function, in
   word (command slot 15) anywhere, cutting its length plus one off the
   front: `rove kitchen` walks, `a rove hall` walks to "blue hall". It is no
   synonym. `[3.7]` p37GOTO/p37GOTOW (`lib_cmd_go_place`, 2026-09-19)
+- **The `with ` history prepend `[3.8+]`.** A line that starts with
+  `with ` is rewritten as `<the previous typed line> <this line>` before
+  anything tests it, and the rewritten line reaches the task matcher.
+  run370 has no such arm: `aaa` / `with zzz` matches a task spelled
+  `with zzz` there and a task spelled `aaa with zzz` at 3.80, 3.90 and
+  4.00. It is the previous TYPED line, not the previous element -- one
+  line `ccc, ddd` then `with xxx` matches `ccc, ddd with xxx` at every
+  version that prepends, although 3.90 splits that line into two elements
+  and run390's history counts elements (45EC5B). 3.90 does prepend,
+  which the p*TEXTSRC cells had made doubtful; those cells were the
+  %object% snapshot rule below and the "With what?" continuation.
+  p*WITHPFX (`make_withprefixprobe.py`, `cmdfile_pwithpfx.txt`,
+  Adrift_217_wp370 / 219_wq380 / 219_wp390 / 220_wp400, 2026-09-20)
+- **The " with " clause runs at every version, not just 3.9+.** run370
+  and run380 split a line holding " with " exactly as run390 does -- the
+  instrument is the last object named after the split, present if any is
+  -- and answer "With what?" for one that is not present, "<You> don't
+  have the X." for a dynamic one not held, and put " with <the X>" before
+  the full stop of the can't-do and nothing-happens arms otherwise.
+  `cut`, `push`, `fix`/`repair`/`mend`, `lock`/`unlock`, `turn` and
+  `clear` all carry the suffix at 3.70 and 3.80 (`smell` does not: it
+  keeps "The rock smells normal."). `[<4.0]` p*WITHPFX
+  (`lib_with_clause_400`'s version gate dropped, 2026-09-20)
+- **3.7 makes the " with " split above its absent-object test.** `cut
+  rock with pearl` with the pearl in another room is "With what?", not
+  "You can't see the pearl." `[3.7]` p37WITHPFX
+  (`lib_with_clause_claims`, 2026-09-20)
+- **`break` takes the clause's refusals and none of its suffix.** `break
+  rock with gem` is "<You> don't have the gem." while the gem is loose
+  and "<You> might need the rock." once it is held -- no " with the gem"
+  at any version. The arm ends in an exclamation mark below 3.90 ("You
+  might need the rock!"), bare or with an instrument. p*WITHPFX feeds 4
+  and 8, Adrift_222_ws370..225_ws400 and Adrift_224_wx370..227_wx400
+  (`lib_cmd_break_object`, 2026-09-20)
 - **3.7 therest refuses an absent object first:** "You can't see the X."
   before any verb arm (go, enter, push, smell, kiss, turn, jump, sing, look,
   climb, sit on, fly). Lines holding an earlier handler's word keep their
