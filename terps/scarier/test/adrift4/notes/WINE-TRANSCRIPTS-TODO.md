@@ -371,16 +371,6 @@ not by a tick.
   length or word order at all; it looks like an artefact of how run400
   builds the reference list, and wants the decompilation rather than
   another probe. Nothing a walkthrough types reaches it.
-- **4.0 `take` over two namesakes.** With the rock aliased "gem",
-  run400's `take gem` is "It is not clear which gem you are referring
-  to."; Scarier asks "Which gem.  The gem or the rock?" (p4OPENA,
-  Adrift_235_oy400, 2026-09-20). Both strings are the Runner's own, so
-  this is which of them takes() reaches, not an invention. The same feed's
-  `x gem` is the "Which gem." question in both, so it is a takes()
-  question and not a co() one. It is the ALIAS world alone: p4TAKEP and
-  p4TAKEQ, whose crowds are same-Short namesakes, ask "Which pin.  Old red
-  pin or new red pin?" in Scarier and the Runner alike.
-
 ### Engine, needs a probe (3.7 / 3.8)
 
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
@@ -968,6 +958,27 @@ transcript names are in the code comment next to the named function, in
   very blue" answer `take red gem` but not `take very gem`, and pins
   Prefixed "big red" / "small red" refuse `take big pin`. `[<3.9]`
   p*TAKEP/p*TAKEQ (`lib_co_prefix_word`, 2026-09-20)
+- **4.0 take asks with the same pending object drop does.** run400 has two
+  answers for a crowded noun -- the question "Which gem.  The gem or the
+  gem?" and the flat "It is not clear which gem you are referring to." --
+  and takes() picks between them exactly as drops() does, through
+  name_object's 463640 and its Me(424) pending object, only in mode 1
+  (pass 0 what is NOT held, pass 1 everything present) instead of mode 2.
+  The question needs both halves of that model: two tied objects with the
+  same **Short** (a pair joined by an alias is always flat), and a tie the
+  verb's OWN pass made -- when the verb's side of the room held nothing,
+  pass 1 counts more than pass 0 and restores pass 0's empty Me(424), so
+  `take pad` over two held pads and `drop gem` over two loose gems are
+  flat while `take gem` and `drop pad` ask. That also settles p4OPENA's
+  `take gem`: by then the gem and the rock aliased "gem" were both loose,
+  so it is the alias cell. Nothing below 4.0 is in this -- see "Pre-4.0
+  take/drop over several namesakes" -- and name_object's prompt, unlike
+  the generaltasks scan's, prints in full with a question already open:
+  p4TAKER's `drop cog` asks and the `drop pad` right after it asks again.
+  `[4.0]` p4TAKER/p39TAKER (`make_taketieprobe.py`,
+  `cmdfile_ptaketie.txt`, Adrift_242_pe390, Adrift_243_pe400;
+  `lib_name_object_resolve_400`, `lib_co_400_raise_common`,
+  `lib_disambiguate_object_common`, 2026-09-20)
 - **Pre-4.0 read is examines()' object too.** A `read` line naming more
   than one object is settled exactly as `x` settles it: 3.90 by
   referencedob()'s last-word pass (`read rock gem` -> "You can't read the

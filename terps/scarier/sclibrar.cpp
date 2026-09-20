@@ -5763,13 +5763,21 @@ lib_co_400_namesake_count (scr_gameref_t game,
 }
 
 /*
- * Raise the question.  With one already open the Runner does not print a
- * second prompt, only the short refusal; either way the line is
+ * Raise the question.  With one already open the generaltasks scan does not
+ * print a second prompt, only the short refusal; either way the line is
  * administrative and the question that was open is now spent.
+ *
+ * FROM_SCAN says the question is that scan's.  name_object's own prompt --
+ * the one a crowded take, drop or put reaches through 463640 -- is raised by
+ * a handler that RAN, and it prints in full whatever was open before: run400
+ * answers p4TAKER's `drop cog` with "Which cog.  The cog or the cog?" and
+ * the `drop pad` right after it with "Which pad.  The pad or the pad?"
+ * (Adrift_243_pe400, 2026-09-20).
  */
 static void
-lib_co_400_raise (scr_gameref_t game, const scr_char *term,
-                  const std::vector<scr_int> &objects)
+lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
+                         const std::vector<scr_int> &objects,
+                         scr_bool from_scan)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *command;
@@ -5777,7 +5785,7 @@ lib_co_400_raise (scr_gameref_t game, const scr_char *term,
 
   game->is_admin = TRUE;
 
-  if (lib_co_400_was_pending)
+  if (from_scan && lib_co_400_was_pending)
     {
       pf_buffer_string (filter, "That is still ambiguous!\n");
       return;
@@ -5804,6 +5812,21 @@ lib_co_400_raise (scr_gameref_t game, const scr_char *term,
   lib_co_400_term = term;
   lib_co_400_command = command ? command : "";
   lib_co_400_candidates = objects;
+}
+
+static void
+lib_co_400_raise (scr_gameref_t game, const scr_char *term,
+                  const std::vector<scr_int> &objects)
+{
+  lib_co_400_raise_common (game, term, objects, TRUE);
+}
+
+/* name_object's prompt; see lib_co_400_raise_common(). */
+static void
+lib_co_400_raise_named (scr_gameref_t game, const scr_char *term,
+                        const std::vector<scr_int> &objects)
+{
+  lib_co_400_raise_common (game, term, objects, FALSE);
 }
 
 /*
@@ -6448,6 +6471,17 @@ lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
 static scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
                                scr_int object, scr_int mode);
 static scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
+static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
+                                            const scr_char *input,
+                                            scr_bool is_take,
+                                            scr_int *pending,
+                                            scr_int *last_tied,
+                                            std::vector<scr_int> *marked,
+                                            scr_int *mark_count);
+static const scr_char *lib_drop_named_term_400 (scr_gameref_t game,
+                                                scr_int object,
+                                                const scr_char *input,
+                                                scr_bool last_alias);
 
 /*
  * lib_co_note_line_top()
@@ -7119,6 +7153,58 @@ pre400_take_done:
           pf_buffer_string (filter, "?\n");
         }
       return -1;
+    }
+
+  /*
+   * A 4.0 take does not ask about every crowd: takes() names its object with
+   * 463640 mode 1, whose pending object decides between the question and the
+   * flat "It is not clear which <term> you are referring to."  See
+   * lib_name_object_resolve_400(), where p4TAKER's ten cells are.
+   */
+  if (count > 1 && lib_is_version_400 (game) && lib_co_400_forced () < 0
+      && strcmp (verb, "take") == 0 && run_get_dispatch_input ())
+    {
+      const scr_char *line = run_get_dispatch_input ();
+      std::vector<scr_int> marked;
+      scr_int pending, last_tied, mark_count;
+
+      object = lib_name_object_resolve_400 (game, line, TRUE, &pending,
+                                            &last_tied, &marked,
+                                            &mark_count);
+      if (object >= 0)
+        {
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            game->object_references[index_] = (index_ == object);
+          var_set_ref_object (vars, object);
+          if (is_ambiguous)
+            *is_ambiguous = FALSE;
+          return object;
+        }
+      if (object == -1 && pending < 0)
+        {
+          pf_buffer_string (filter, "It is not clear which ");
+          pf_buffer_string (filter,
+                            lib_drop_named_term_400 (game, last_tied,
+                                                     line, FALSE));
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                                 " you are referring to.\n",
+                                                 " I am referring to.\n",
+                                                 " %player% is referring to.\n"));
+          if (is_ambiguous)
+            *is_ambiguous = TRUE;
+          return -1;
+        }
+      if (object == -1 && (scr_int) marked.size () == mark_count)
+        {
+          lib_co_400_raise_named (game,
+                                  lib_drop_named_term_400 (game, pending, line,
+                                                           TRUE),
+                                  marked);
+          if (is_ambiguous)
+            *is_ambiguous = TRUE;
+          return -1;
+        }
     }
 
   /*
@@ -12001,9 +12087,10 @@ static scr_int lib_take_resolve_400_string (scr_gameref_t game,
  * nothing.  A unique winner is the only object marked (473022), whatever
  * else the line said.  Measured on p4AND, run400 Adrift_955: `get coin,
  * hat` with both held -> "It is not clear which hat you are referring
- * to.", the coin scoring because c() ends a word at the comma.  Two
- * namesakes present still ask "Which <term>" (p4TAKE2), which
- * lib_co_400_raise() handles before this.
+ * to.", the coin scoring because c() ends a word at the comma.  A line
+ * whose noun the parser itself found a crowd for never gets here: that is
+ * lib_name_object_resolve_400()'s, in lib_disambiguate_object_common(),
+ * and it has the Me(424) pending object p4TAKER measured.
  *
  * Returns TRUE when it has answered the line.  *references is narrowed
  * to the scorer's winner where the parser bound more than one object.
@@ -15338,15 +15425,18 @@ static std::string::size_type lib_put_split_400 (scr_gameref_t game,
                                                  scr_bool *on_branch);
 
 /*
- * lib_drop_resolve_400()
+ * lib_name_object_resolve_400()
  *
- * The noun resolver a plain 4.0 `drop X` goes through: put_drop_list 459DB4
- * hands the whole line to name_object 46E5D8, which calls
- * Proc_21_58_463640(line, 2, 0).  Mode 2 is two passes over the objects in
- * index order: pass 0 takes only what the player holds or wears, directly or
- * inside or on something held (Proc_21_46_44615C, 46323F), pass 1 everything
- * present (Proc_21_44_452E9C, 463252); neither has a seen gate.  Each object
- * is scored as lib_verb_object_name_score() does, and
+ * The noun resolver a plain 4.0 `drop X` or `take X` goes through:
+ * put_drop_list 459DB4 hands the whole line to name_object 46E5D8, which
+ * calls Proc_21_58_463640(line, 2, 0), and the take handler the same thing
+ * with mode 1.  Both modes are two passes over the objects in index order:
+ * pass 0 takes only one side of the room -- what the player holds or wears,
+ * directly or inside or on something held, for mode 2 (Proc_21_46_44615C,
+ * 46323F), and for mode 1 exactly what it will not (lib_resolve_admit_take())
+ * -- and pass 1 everything present (Proc_21_44_452E9C, 463252); mode 2 has
+ * no seen gate.  Each object is scored as lib_verb_object_name_score() does,
+ * and
  *
  *   - the first hit of a pass (var_86 < 0 and var_A0 = 0, 46338C) becomes
  *     the result whatever its score, and pass 0 marks it;
@@ -15379,14 +15469,43 @@ static std::string::size_type lib_put_split_400 (scr_gameref_t game,
  * lin` (on the floor) drops the base tincture, the one held object the line
  * names.
  *
+ * IS_TAKE swaps pass 0 for the take side, and p4TAKER measured that this one
+ * model decides which of the two answers a crowded take reaches as well
+ * (run400 Adrift_243_pe400, 2026-09-20).  Its world is five pairs of
+ * namesakes, every Prefix "a" so no Prefix word narrows anything, and the
+ * ten lines fall out cell for cell:
+ *
+ *   take gem   both loose, one Short    Which gem.  The gem or the gem?
+ *   take cog   one held, one loose      You take the cog.
+ *   take pad   both HELD, one Short     It is not clear which pad ...
+ *   take orb   both loose, one by ALIAS It is not clear which orb ...
+ *   take tin   held Short, loose alias  You take the pin.
+ *   drop gem   both loose               It is not clear which gem ...
+ *   drop cog   both held, one Short     Which cog.  The cog or the cog?
+ *   drop pad   both held, one Short     Which pad.  The pad or the pad?
+ *   drop orb   both loose, one by ALIAS It is not clear which orb ...
+ *   drop tin   both held, one by ALIAS  It is not clear which tin ...
+ *
+ * So the question needs BOTH a tie the verb's own pass makes -- pass 1
+ * restoring the saved Me(424) is what flattens `take pad` and `drop gem`,
+ * where the verb's side of the room held nothing and pass 1 counted more --
+ * and two tied objects with the same Short, which is what flattens every
+ * pair joined by an alias.  It also retro-explains p4OPENA's `take gem`
+ * (Adrift_235_oy400): the gem and the rock aliased "gem" were both loose by
+ * then, so it is the `take orb` cell.
+ *
  * Returns the resolved object, -1 for a tie (with *PENDING, *LAST_TIED and
  * MARKED filled), or -2 when nothing scored in pass 1 either, the mode-0
  * fallback the existing path covers.
  */
+static scr_bool lib_resolve_admit_take (scr_gameref_t game, scr_int object,
+                                        scr_int pass);
+
 static scr_int
-lib_drop_resolve_400 (scr_gameref_t game, const scr_char *input,
-                      scr_int *pending, scr_int *last_tied,
-                      std::vector<scr_int> *marked, scr_int *mark_count)
+lib_name_object_resolve_400 (scr_gameref_t game, const scr_char *input,
+                             scr_bool is_take, scr_int *pending,
+                             scr_int *last_tied,
+                             std::vector<scr_int> *marked, scr_int *mark_count)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_int object_count = gs_object_count (game);
@@ -15410,13 +15529,17 @@ lib_drop_resolve_400 (scr_gameref_t game, const scr_char *input,
           if (pass == 0)
             {
               marks[object] = FALSE;
-              if (!(gs_object_position (game, object) == OBJ_HELD_PLAYER
-                    || gs_object_position (game, object) == OBJ_WORN_PLAYER
-                    || obj_indirectly_held_by_player (game, object)))
+              if (is_take
+                  ? !lib_resolve_admit_take (game, object, 0)
+                  : !(gs_object_position (game, object) == OBJ_HELD_PLAYER
+                      || gs_object_position (game, object) == OBJ_WORN_PLAYER
+                      || obj_indirectly_held_by_player (game, object)))
                 continue;
             }
-          else if (!obj_indirectly_in_room (game, object,
-                                            gs_playerroom (game)))
+          else if (is_take
+                   ? !lib_resolve_admit_take (game, object, 1)
+                   : !obj_indirectly_in_room (game, object,
+                                              gs_playerroom (game)))
             continue;
 
           score = lib_verb_object_name_score (game, object, input);
@@ -15523,7 +15646,7 @@ lib_drop_named_term_400 (scr_gameref_t game, scr_int object,
 }
 
 /*
- * The 4.0 plain `drop X`: see lib_drop_resolve_400().  Returns TRUE when the
+ * The 4.0 plain `drop X`: see lib_name_object_resolve_400().  Returns TRUE when the
  * line is answered here -- a prompt or the not-clear refusal -- and
  * otherwise, for a unique held winner, leaves just that object in the
  * multiple references with *REFERENCES 1, or *REFERENCES -1 to leave the
@@ -15560,8 +15683,9 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
   object = lib_co_400_forced ();
   if (object < 0)
     {
-      object = lib_drop_resolve_400 (game, input, &pending, &last_tied,
-                                     &marked, &mark_count);
+      object = lib_name_object_resolve_400 (game, input, FALSE, &pending,
+                                            &last_tied, &marked,
+                                            &mark_count);
       if (object == -2)
         return FALSE;
     }
@@ -15586,10 +15710,10 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
        * marks than that the Runner runs names together, unmeasured. */
       if ((scr_int) marked.size () == mark_count)
         {
-          lib_co_400_raise (game,
-                            lib_drop_named_term_400 (game, pending,
-                                                     input, TRUE),
-                            marked);
+          lib_co_400_raise_named (game,
+                                  lib_drop_named_term_400 (game, pending,
+                                                           input, TRUE),
+                                  marked);
           return TRUE;
         }
       return FALSE;
@@ -20640,7 +20764,8 @@ lib_put_shut_in_container_400 (scr_gameref_t game, scr_int container)
  * (MemVar_494174, the line up to " in "/" on ") to Proc_21_58_463640 in mode
  * 2 (@46E02D), the same two-pass scorer a plain `drop X` uses -- pass 0 over
  * what the player holds, directly or inside something held, pass 1 over
- * everything present, no seen gate in either; see lib_drop_resolve_400().
+ * everything present, no seen gate in either; see
+ * lib_name_object_resolve_400().
  * Probe PPUTTIE (Adrift_1193.txt, 2026-09-19), a box in hand:
  *
  *   put key in box   brass key held, iron key on the floor
@@ -20679,8 +20804,9 @@ lib_put_named_400 (scr_gameref_t game, scr_int *references)
   object = lib_co_400_forced ();
   if (object < 0)
     {
-      object = lib_drop_resolve_400 (game, fragment, &pending, &last_tied,
-                                     &marked, &mark_count);
+      object = lib_name_object_resolve_400 (game, fragment, FALSE, &pending,
+                                            &last_tied, &marked,
+                                            &mark_count);
       if (object == -2)
         return FALSE;
     }
@@ -20704,10 +20830,10 @@ lib_put_named_400 (scr_gameref_t game, scr_int *references)
       /* As lib_drop_named_400(): the run-together list is unmeasured. */
       if ((scr_int) marked.size () == mark_count)
         {
-          lib_co_400_raise (game,
-                            lib_drop_named_term_400 (game, pending,
-                                                     fragment, TRUE),
-                            marked);
+          lib_co_400_raise_named (game,
+                                  lib_drop_named_term_400 (game, pending,
+                                                           fragment, TRUE),
+                                  marked);
           return TRUE;
         }
       return FALSE;
