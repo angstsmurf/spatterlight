@@ -286,14 +286,6 @@ not by a tick.
   of the turn (thetest, a two-sentence Original). Expect a large
   reblessing: the task-text join alone moved 94 rows, and
   sweep_wine_breaks still counts 5622 Scarier-only breaks.
-- **4.0 `status`' table literals.** run400 47DDB8 onwards writes the column
-  headings as `"Stamina:</c> <0>ileeerfeetts</0>"`, `"<c>Hit
-  strength:</c><0>ilmfeeee</0>"`, `iilmee fttts`, `iirmttt`, `eeemee
-  rfetts` -- the tag converter leaves the junk inside `<0>..</0>` in, so
-  the Runner really prints "Stamina: ileeerfeetts" (p4BATT turn 33). The
-  leading "Stamina: ileeerfeetts" line above the table and the one before
-  "You are wielding a sword." are the same literal. Scarier prints the
-  headings clean.
 
 ### Engine, needs a probe (3.9)
 
@@ -352,6 +344,22 @@ not by a tick.
   measured and ours: "I don't understand.", two turns, p39WITH T25); the
   battle-disabled `status`/`statusline` fallback; the help/about/time/
   version texts; `turns`/`version` version gates.
+- **4.0 `status`' table label junk.** run400's battle status table pads its
+  labels with visible nonsense: the literals at 47DD0E/47DD67/47DDE1/
+  47DEC0/47DF9F/47E07E (and their NPC twins from 47E144) are
+  `<0>Stamina: ileeerfeetts</0> `, `Stamina:</c> <0>ileeerfeetts</0>`,
+  `<c>Hit strength:</c><0>ilmfeeee</0>`, `<0>iilmee fttts</0>`,
+  `<0>iirmttt</0>` and `<0>eeemee rfetts</0> `, confirmed byte for byte in
+  run400.exe at 0x12906/0x129B8. `<0>` is not a hide tag -- the converter
+  at 47A688 turns it into `<font color=default>` and `</0>` (47A69F) just
+  pops the font stack -- so the Runner really prints "Stamina:
+  ileeerfeetts", "Hit strength:ilmfeeee" and the rest (p4BATT turn 33,
+  Adrift_1208:118-124). All the padding letters are narrow glyphs
+  (i l m e f r t s), which is what they were for; the author left them
+  visible, and reused the stamina literal as the label of both the header
+  row and the "You are wielding ..." row. A display accident no author
+  intended, so by the deviation policy scarier keeps its clean headings and
+  its own column padding. Not a lead. (2026-09-20)
 - **Empty-Prefix double space** in object listings.
 - **ALR stack overflows.** House's `%drunk%` ALR loop and a mutual `A -> B`
   / `B -> A` pair overflow the stack in run400, which then prints nothing.
