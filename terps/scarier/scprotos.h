@@ -697,6 +697,7 @@ extern scr_int lib_empty_rewrite_400 (scr_gameref_t game, const scr_char *string
                                       std::string *task_line);
 extern scr_bool lib_task_prematches_input (scr_gameref_t game,
                                            scr_int class_filter);
+extern scr_bool lib_drop_what_pre390 (scr_gameref_t game);
 extern scr_bool lib_take_scored_400 (scr_gameref_t game);
 extern scr_bool lib_take_names_dynamic_400 (scr_gameref_t game,
                                             const scr_char *string);

@@ -108,6 +108,22 @@ WEAPONS = set()
 # Tasks: (command, CompleteText) pairs, all repeatable, unrestricted, Where =
 # all rooms.  The first must stay `probe` -> "PROBE OK.".
 TASKS = [("probe", "PROBE OK.")]
+# Events, as dicts so a probe need only name the fields it cares about; see
+# the EVENTS block in build() for what each one is.  Empty by default.
+EVENT_DEFAULTS = {
+    "short": "an event", "starter": 1, "start_time": 1, "end_time": 1,
+    "task_num": 0, "restart": 1, "task_finished": 0, "time1": 1, "time2": 1,
+    "start_text": "", "look_text": "", "finish_text": "", "task_affected": 0,
+}
+EVENTS = []
+
+
+def event(**kwargs):
+    ev = dict(EVENT_DEFAULTS)
+    ev.update(kwargs)
+    return ev
+
+
 # NPCs: (name, prefix, alias, description, room, in-room text, topics,
 # gender), topics a list of (subject, reply).  No walks.  3.7/3.8 store no
 # gender; 3.9 does.
@@ -378,7 +394,29 @@ def build(version):
                 s(0)                      # BWinGame -- 3.7 keeps it in the header
 
     # ---------------------------------------------------------------- EVENTS
-    s(0)                              # Events
+    # One schema for all four versions (sctafpar.cpp V380_V370_EVENT_DESC and
+    # the 3.90/4.00 EVENT), the later two adding a [5]<RESOURCE>Res that
+    # writes nothing while Sound and Graphics are both off.  StarterType 1 is
+    # immediate, 2 between StartTime and EndTime turns, 3 after a task;
+    # RestartType 1 restarts the moment the event finishes, which is what
+    # makes an event that runs its TaskAffected on every single turn.
+    s(len(EVENTS))
+    for ev in EVENTS:
+        s(ev["short"])
+        s(ev["starter"])              # StarterType
+        if ev["starter"] == 2:
+            s(ev["start_time"]); s(ev["end_time"])
+        elif ev["starter"] == 3:
+            s(ev["task_num"])         # 1-based index into TASKS
+        s(ev["restart"])              # RestartType
+        s(ev["task_finished"])        # BTaskFinished (1 = un-finish instead)
+        s(ev["time1"]); s(ev["time2"])
+        s(ev["start_text"]); s(ev["look_text"]); s(ev["finish_text"])
+        s(3)                          # Where: all rooms
+        s(0); s(0); s(0); s("")       # PauseTask BPauserCompleted PrefTime1 .
+        s(0); s(0); s(0); s("")       # ResumeTask BResumerCompleted PrefTime2
+        s(0); s(0); s(0); s(0); s(0); s(0)   # Obj2 Obj2Dest Obj3 .. Obj1 ..
+        s(ev["task_affected"])        # TaskAffected, 1-based; 0 = none
     s(len(NPCS))                      # NPCs
     for name, prefix, alias, desc, room_, inroom, topics, gender in NPCS:
         s(name); s(prefix)

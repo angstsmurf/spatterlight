@@ -16178,6 +16178,129 @@ lib_drop_and_arm_pre400 (scr_gameref_t game)
 
 
 /*
+ * lib_drop_task_blocked_pre390()
+ *
+ * Below 3.90 a drop line gets exactly ONE look at the task matcher, and
+ * that look is inside drops().  run380 438659 (run370 430475 is the same
+ * code) takes every line saying drop / put down / leave / the game's own
+ * verb 12, and generaltasks GoTo's past the general tasks(0) pass whenever
+ * drops() CLAIMS -- which is not the same as writing a message, because the
+ * message buffer is global and survives a handler that hands the line on.
+ * drops() claims by setting its handled flag var_94, and the only places
+ * that happens on the one-object arm are 438E94 (run370 430C55), reached
+ * for any object held or worn at all, and 4389xx (430A1D), the print loop's
+ * own act-on-an-object arm.  So:
+ *
+ *   - Carrying and wearing NOTHING, drops() writes "Drop what?" into the
+ *     buffer at 438FE6 (430DCF) and hands the line on anyway.  A task then
+ *     runs from tasks(0) and overwrites it; nothing matching leaves the
+ *     "Drop what?" standing.
+ *   - Carrying or wearing ANYTHING, drops() claims, and the line's one
+ *     chance at a task is 438F4F (430D38), at the bottom of the object walk
+ *     438E68 (430C29) behind 438E8E (430C4F) "field 22 is 0 or &H9C" and
+ *     438EF4 (430CDD) "co() finds this object's name in the line".  Name
+ *     nothing held or worn and the matched task never runs, while 4386F5
+ *     (430511) has already set var_A6 = 0 and 438AD5 (4308B0) has shut the
+ *     whole library print loop -- so the buffer stays empty and 438FE6
+ *     writes "Drop what?".
+ *
+ * Measured 2026-09-20 on run370 and run380, which answer identically.
+ * p3xDROPGATE (make_3738_dropgateprobe.py: loose coin and pebble, held bean
+ * and cloak, tasks `drop a coin` `drop coin bean` `drop zzz` `drop a
+ * cloak`), Adrift_dropgate37.rtf / Adrift_dropgate38.rtf:
+ *
+ *   drop a coin     "Drop what?"  -- the task matched and did not run
+ *   drop coin bean  "DROPCB."     -- the held bean is named, the coin is not
+ *   drop zzz        "Drop what?"  -- the line names nothing that exists
+ *   drop a cloak    "DROPCLOAK."  -- after `wear cloak`, the &H9C arm
+ *   drop a coin     "DROPCOIN."   -- once the coin is in hand
+ *   leave zzz       "Drop what?"  -- `leave` claims too, and `put down`
+ *   leave bean      "You drop the bean."
+ *   leave a coin    "You don't have a coin!"  -- no task matched, so the
+ *                   print loop spoke and the claim only hid the task arm
+ *
+ * p3xEMPTYHAND (loose coin and pebble, nothing held, tasks `drop a coin`
+ * and `drop zzz`), transcripts eh37 / eh38 / eh237 / eh238:
+ *
+ *   drop a coin     "DROPCOIN."   -- empty-handed, drops() did not claim
+ *   drop a pebble   "You don't have a pebble!"
+ *   drop zzz        "DROPZZZ."
+ *   drop qqq        "Drop what?"  -- the buffer nothing overwrote
+ *   leave qqq       "Drop what?"
+ *   put down qqq    "Drop what?"
+ *   take a coin / drop a coin     "DROPCOIN."  -- now named and held
+ *
+ * Alice's Restaurant (arlo.taf, 3.70) is the corpus case: `leave station`
+ * at the police station, carrying nothing, runs its task (run370
+ * arlo37.rtf).  With the empty-handed arm missing, Scarier answered "Drop
+ * what?" and lost the ending.
+ *
+ * 3.90 keeps the same walk (445D79-445DAF) and its own "Drop what?" at
+ * 445F0B stays live -- p39DROPGATE `drop qqq` answers it -- but 44562A
+ * runs a matching task at the checktask gate itself, before the walk, so
+ * the walk's gate never bites: p39DROPGATE answers DROPCOIN and DROPZZZ
+ * with nothing in hand (Adrift_dropgate39.txt, Adrift_dropgate39b.txt).
+ * Hence the 3.90 cut.  Only the one-object arm is measured; the "all" and
+ * "and" arms rewrite the line per object and are left alone.
+ */
+static scr_bool
+lib_drop_task_blocked_pre390 (scr_gameref_t game)
+{
+  const scr_char *const line = run_get_dispatch_input ();
+  scr_bool carrying;
+  scr_int object;
+
+  if (!line
+      || prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+    return FALSE;
+
+  /* drops()' own entry test, and then only its one-object arm. */
+  if (!(lib_co_contains (line, "drop")
+        || lib_co_contains (line, "put down")
+        || lib_co_contains (line, "leave")
+        || (lib_co_contains (line, "put") && lib_co_contains (line, "down"))))
+    return FALSE;
+  if (lib_co_contains (line, "all") || lib_co_contains (line, "and"))
+    return FALSE;
+
+  carrying = FALSE;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (gs_object_position (game, object) != OBJ_HELD_PLAYER
+          && gs_object_position (game, object) != OBJ_WORN_PLAYER)
+        continue;
+
+      /* The object walk would dispatch the task on this one. */
+      if (lib_co_pre400 (game, line, object, 0))
+        return FALSE;
+      carrying = TRUE;
+    }
+
+  /* Empty-handed the handler never claims, so the line goes on to the
+     ordinary task pass. */
+  if (!carrying)
+    return FALSE;
+
+  /* Nothing to dispatch with; a task that matched is silenced, and the
+     library print loop it gated stays shut too. */
+  return lib_task_prematches_input (game, 0);
+}
+
+scr_bool
+lib_drop_what_pre390 (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (!lib_drop_task_blocked_pre390 (game))
+    return FALSE;
+
+  pf_buffer_string (filter, "Drop what?");
+  pf_buffer_character (filter, '\n');
+  return TRUE;
+}
+
+
+/*
  * lib_drop_and_arm_collect_pre400()
  *
  * The "and" arm's own walk (run390 4457A0-445813): it never parses the list,

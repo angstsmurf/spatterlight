@@ -270,6 +270,18 @@ the_hangover T34) went identical with that port on 2026-09-20.
   raised by a " with " line comes out of ONE half", "A 4.0 lock or unlock
   never asks which key" and "A 4.0 crowd is the WHOLE line's, and its
   first object decides".
+- **3.90 rewrites the line too, and Scarier stops at 3.80.** run390 has no
+  `change()` helper, which is why the decompile README's rewrite table
+  carried an empty 3.90 column -- but it has the rewrites inline, as
+  `Replace(line, old, new, 1, -1, 0)` calls right after the snapshot store
+  at 45F20F: "everything"->"all" 45F225, "slap"->"hit" 45F246,
+  "except"->"but" 45F267 and "apart from"->"but" 45F288 (no take->get).
+  `scprintf.cpp` BUILTIN[] caps every row at 3.80 and has no `apart from`
+  row at all, so Scarier rewrites nothing at 3.90. Two probes owed: whether
+  the rows simply belong at 3.90, and whether Replace's SUBSTRING reach
+  shows -- 3.7/3.8's change() is gated on the whole-word matcher c(), so an
+  object named `exception` should survive there and not at 3.90. Read
+  2026-09-20 (Adrift_decompile 45F20F, README table corrected).
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -286,7 +298,6 @@ the_hangover T34) went identical with that port on 2026-09-20.
   of the turn (thetest, a two-sentence Original). Expect a large
   reblessing: the task-text join alone moved 94 rows, and
   sweep_wine_breaks still counts 5622 Scarier-only breaks.
-
 - **checkwild, the unported rest.** Every arm this lead once listed is
   closed; the index carries them ("Before 4.0 a `*` command is decided by
   checkwild", "A pre-4.0 task command's %object% walk takes an object's
@@ -296,63 +307,69 @@ the_hangover T34) went identical with that port on 2026-09-20.
   variable>% is a substitution"). What is left of it: a command carrying
   any marker Scarier does not know is still handed back to the pattern
   tree, and the SOURCE run390's walk reads is a deviation of its own,
-  below.
-- **3.90 spells a `%object%` command from a SNAPSHOT of the line, and tests
-  it against the rewritten one.** Measured, not ported (p39TEXTSRC,
-  Adrift_215_ts390.txt, 2026-09-20). checktask's walk searches
-  MemVar_468224, the line as it stood at the end of the synonym pass
-  (45F20F); everything generaltasks does to the line below that --
-  "everything"->"all" 45F225, "slap"->"hit" 45F246,
-  "except"/"apart from"->"but" 45F267/45F288, the `with ` history prepend
-  45F2AF -- is invisible to it, while the equality at 44B0E2 and checkwild
-  at 44B139 test the rewritten line. With objects named `hit` and `slap`,
-  task `zog %object%` is refused by `zog slap` at 3.90 (the walk binds the
-  slap, the test is against "zog hit") and taken at 3.80, which has one
-  string. The fallback pair at 44ABFE/44AC98 would repair that, but its
-  guard is `MemVar_4681A8 = &HFF`, the per-TURN referenced object cleared
-  once at 45EC68, so the first task command on the line whose walk binds
-  anything consumes it: `nurb except` with an object named `but` is refused
-  at 3.90 because task 1's `blip %object%` fell back first. Scarier caps
-  the built-in rewrites at 3.80 (scprintf.cpp BUILTIN[]) and keeps one
-  string, so it takes both lines. Porting this means carrying the snapshot
-  and the per-turn flag through `run_pre400_substitute_references()`.
-- ~~**Two-object canonical prefixed retry:** the run390 half is not
-  re-measured. The 4.0 half is closed.~~ **CLOSED and PORTED 2026-09-20**
-  -- no pre-4.0 Runner has the retry at all, in any family. See "No
-  pre-4.0 Runner rebuilds the line from the object's Prefix" in the index.
-- **The blank previous line** in the `with ` history prepend: run380
-  crashes ("Run-time error '9'"), run390 prints a garbage "Which pearl.
-  The gem or the rock?" and run400 leaves " with www", leading space and
-  all. Only run400's cell is Scarier's; the 3.90 garbage prompt is the one
-  turn of `cmdfile_pwithpfx.txt` that still differs (Adrift_219_wp390
-  turn 14), and nothing a walkthrough types reaches it.
+  under "Deliberate deviations".
+
 ### Engine, needs a probe (3.7 / 3.8)
 
-- **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
-  is unread; the 3.9 rule is ported.
-- **A 3.7/3.8 `drop` task needs its object HELD** -- measured 2026-09-20 on
-  the way past the prefixed-retry probe, not explained and not ported. The
-  literal, unrestricted, all-rooms task `drop a coin` runs on run370 and
-  run380 while the coin is carried ("DROPPFX.") and does NOT run once the
-  coin has been dropped in the same room: the same line is then "Drop
-  what?" and the task never fires (`p37PRETRY`/`p38PRETRY`,
-  `cmdfile_pretry3738c.txt`, Adrift_pretry37c.rtf / Adrift_pretry38c.rtf --
-  the feed drops and re-takes the coin, and the answer flips back to
-  "DROPPFX." both times it is in hand). 3.9 runs the task either way
-  (Adrift_pretry39b turn 24), which is what Scarier does at every version.
-  Two things make this odd enough to want the p-code: the task's command is
-  a literal with no `%object%` to bind, and a *different* object in the same
-  place answers differently -- `drop a pebble`, matching no task, is the
-  pre-3.9 co() line "You don't have a pebble!" (run370, same transcript),
-  not "Drop what?". So the bare "Drop what?" arm at run380 @438FE6 is being
-  reached for a line that plainly names something. No corpus row hits it
-  (goldens 428/428 with Scarier's answer).
+- **`leave` is a drop verb below 4.0, and Scarier does not know it.** The
+  handler's claim test is `c("drop") Or c("put down") Or c("leave") Or
+  (c("put") And c("down") And <flag> = 0)` at run380 438659, run370 430475
+  and still at run390 44554E-4455B3; run400 has no `"leave"` string at all.
+  Scarier's table row is `[drop/put down] *`, so `leave qqq` is "I don't
+  understand." where run370, run380 and run390 all answer "Drop what?"
+  (p3xEMPTYHAND, eh237 / eh238 / eh39d.txt, 2026-09-20). Held objects are
+  fine -- `leave bean` is "You drop the bean." on run370 -- so only the
+  what?-arm and the absent-noun refusal are owed. Adding a pre-4.0 `leave *`
+  row is a wider change than the task gate below (every `leave <direction>`
+  line in the corpus would start answering "Drop what?" when the player is
+  carrying something), so it is written up rather than done.
 
 ---
 
 ## Deliberate deviations (measured, not ported)
 
 - **run370 double matcher pass** (arlo `get out of bus`).
+- **run380's event route to the task-ran flag.** MEASURED 2026-09-20, not
+  ported. run380 clears `MemVar_44F12C` at the top of generaltasks (441A28)
+  and sets it in tasks() 44D0BA whenever a task actually runs; the
+  end-of-turn guard 4431B0 is `(MemVar_44F124 < 0) Or (CInt(MemVar_44F12C) =
+  1)`, and the second disjunct is what stops the whole turn being replaced
+  by `Which <term>.  <list>?`. An event reaches it: generaltasks calls
+  characters() 443179 and events() 44317E BEFORE the guard, and checkevent
+  43A753 sets 44F0B0 to the affected task's command and dispatches
+  tasks(CByte(1)) at 43A762. run370 has no such flag -- its guard 43C8D3 is
+  `If (MemVar_446140 < 0)` alone -- and its two probe files are
+  byte-identical. p3xEVQ2 (`make_3738_eventflagprobe.py`: two hats both
+  Short "hat", the adjective the last word of the Prefix, plus an immediate
+  event that restarts every turn and runs a `zzev` task; each version built
+  twice, once with TaskAffected 0):
+
+  | line | run380 control | run380 + event | run370 control | run370 + event |
+  |---|---|---|---|---|
+  | `poke hat` | prompt | prompt | prompt | prompt |
+  | `x hat` | prompt | "Nothing special." + ev | own examine prompt | same + ev |
+  | `take hat` | prompt | "Take what?" + ev | "Take what?" | same + ev |
+  | `put hat` | prompt | prompt | prompt | prompt |
+
+  `poke hat` and `put hat` keep the prompt everywhere because they leave the
+  buffer empty, so 443160 substitutes DontUnderstand and never reaches
+  characters()/events() -- no tick, no flag. Gating
+  `run_note_dispatched_task_ran()` down to 3.80 on its own makes p38EVQ2
+  WORSE, 2/4 cells to 0/4, because suppressing the prompt uncovers three
+  answers Scarier does not have: 3.8 examines' "Nothing special.", takes'
+  "Take what?" (3.9 too -- run390 gives "Take what?  EVENT TASK RAN." where
+  Scarier gives only the event text), and run380's therest, which says
+  nothing at all for an ambiguous noun where Scarier says "I don't
+  understand what you want me to do with the red hat." All three live in
+  `lib_disambiguate_object_common()`'s `kept == 0` path, which returns -1
+  with `*is_ambiguous` set so the handler prints nothing; only `examine_390`
+  is exempted today. The flag belongs at 3.80; those three go first.
+- **3.7 alias namesakes under an unknown verb.** In the p3xEVQ world where
+  the Shorts are "red hat"/"blue hat" and the shared Alias is "hat",
+  run370 answers `poke hat` with "I don't understand what you want me to do
+  with the red hat." where Scarier prints the end-of-turn `Which hat.` 
+  prompt -- a 3.70 co()-term split (Short vs Alias) not chased further
+  (p37EVQ, Adrift_evq_p37EVQ.rtf, 2026-09-20).
 - **3.7/3.8 Runner crashes ("Run-time error '9': Subscript out of
   range", transcript lost):** `put all in <nothing>`, `put all on
   <nothing>` and `put everything in zzz` on run370x and run380x; bare `eat`
@@ -375,6 +392,25 @@ the_hangover T34) went identical with that port on 2026-09-20.
   answer nonsense, and the fix means making task matching sensitive to
   leading whitespace. p*WITHPFX, Adrift_219_wp390 / 220_wp400
   (2026-09-20).
+- **3.90 spells a `%object%` command from a SNAPSHOT of the line, and tests
+  it against the rewritten one.** Measured, not ported (p39TEXTSRC,
+  Adrift_215_ts390.txt, 2026-09-20). checktask's walk searches
+  MemVar_468224, the line as it stood at the end of the synonym pass
+  (45F20F); everything generaltasks does to the line below that --
+  "everything"->"all" 45F225, "slap"->"hit" 45F246,
+  "except"/"apart from"->"but" 45F267/45F288, the `with ` history prepend
+  45F2AF -- is invisible to it, while the equality at 44B0E2 and checkwild
+  at 44B139 test the rewritten line. With objects named `hit` and `slap`,
+  task `zog %object%` is refused by `zog slap` at 3.90 (the walk binds the
+  slap, the test is against "zog hit") and taken at 3.80, which has one
+  string. The fallback pair at 44ABFE/44AC98 would repair that, but its
+  guard is `MemVar_4681A8 = &HFF`, the per-TURN referenced object cleared
+  once at 45EC68, so the first task command on the line whose walk binds
+  anything consumes it: `nurb except` with an object named `but` is refused
+  at 3.90 because task 1's `blip %object%` fell back first. Scarier caps
+  the built-in rewrites at 3.80 (scprintf.cpp BUILTIN[]) and keeps one
+  string, so it takes both lines. Porting this means carrying the snapshot
+  and the per-turn flag through `run_pre400_substitute_references()`.
 - **SCARE meta-commands** `wait N`, `hist N` and `redo N` exist in no
   Runner. Eleven more inventions are compiled out by
   `SCARIER_NO_ABBREVIATIONS`.
@@ -440,6 +476,29 @@ transcript names are in the code comment next to the named function, in
 
 ### Parser and dispatch
 
+- **Below 3.90 an empty-handed drop line is the only one a task can
+  claim.** drops() takes every line saying drop / put down / leave (run380
+  438659, run370 430475), and generaltasks branches on the handler's
+  *handled* flag, not on the message buffer. On the one-object arm that flag
+  is only set inside the held-or-worn test at 438E94 (430C55), so with
+  nothing carried or worn the line is handed straight on to the ordinary
+  tasks(0) pass and the "Drop what?" just written at 438FE6 (430DCF) is
+  overwritten by whatever answers next. Carrying anything at all, drops()
+  claims, and the line's one chance at a task is 438F4F (430D38), behind
+  "field 22 is 0 or &H9C" AND "co() finds this object's name in the line" --
+  name nothing held and the matched task never runs, while checktask having
+  matched (4386F5 / 430511) has already shut the whole library print loop at
+  438AD5 (4308B0), so the answer is the bare "Drop what?". The gate is
+  "something the line names is held or worn", not "the task's own object is
+  held", and a worn one counts. 3.90 keeps the same walk but runs a matching
+  task at the checktask gate above it (44562A), so a task fires with empty
+  hands there; its own "Drop what?" (445F0B) is still live for `drop qqq`.
+  4.0 has no `"leave"` string at all. p3xDROPGATE and p3xEMPTYHAND
+  (`make_3738_dropgateprobe.py`), Adrift_dropgate37/38.rtf,
+  Adrift_dropgate39.txt, eh37 / eh38 / eh237 / eh238 / eh39d.txt, and
+  Alice's Restaurant's `leave station` empty-handed on run370 (arlo37.rtf).
+  PORTED 2026-09-20 as `lib_drop_what_pre390()`, called from run_all_commands
+  just above the task passes.
 - **`goto <place>` / `go <place>`.** gotoplace runs after the tasks and
   meta commands and before the room refusal and therest. 3.9+ takes `goto`
   anywhere or a line starting `go `; 3.7/3.8 take `goto` or `go to`. The

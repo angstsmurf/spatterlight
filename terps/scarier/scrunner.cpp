@@ -5224,8 +5224,32 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
  * berry and the static one in the hair both seen: the "#Rain" event runs
  * task 18 every turn, so run390 prints no "Which berry." and answers
  * examines()'s own "Nothing special." (referencedob -1, 44BF94; the game's
- * ALR makes it "I can tell you nothing about that").  3.9 only; run380 sets
- * its flag inside tasks() (44D0BA), but its event route is unread.
+ * ALR makes it "I can tell you nothing about that").
+ *
+ * 3.80 has the same route and 3.70 has none -- MEASURED 2026-09-20, NOT
+ * ported, see notes/WINE-TRANSCRIPTS-TODO.md.  p3xEVQ2 from
+ * make_3738_eventflagprobe.py is two hats both Short "hat" with the
+ * adjective as the Prefix's last word, plus an immediate event that
+ * restarts every turn and runs a `zzev` task; each version is built twice,
+ * once with TaskAffected 0.  run380's control answers "Which hat.  The red
+ * hat or the blue hat?" to all of `poke hat`, `x hat`, `take hat` and
+ * `put hat`, and with the event running the task `x hat` becomes "Nothing
+ * special.  EVENT TASK RAN." and `take hat` "Take what?  EVENT TASK RAN." --
+ * generaltasks calls events() 44317E before the guard 4431B0
+ * `(44F124 < 0) Or (44F12C = 1)`, and checkevent 43A762 dispatches
+ * tasks(CByte(1)), which sets 44F12C at 44D0BA.  run370's guard 43C8D3 is
+ * `(446140 < 0)` alone and its two files are byte-identical.
+ *
+ * Gating this down to 3.80 on its own makes p38EVQ2 worse, not better,
+ * because suppressing the prompt uncovers three handler answers Scarier
+ * does not have: 3.8 examines' "Nothing special." and takes' "Take what?"
+ * (lib_disambiguate_object_common returns -1 with *is_ambiguous and the
+ * handler prints nothing -- only 3.9 examine is let through, `examine_390`),
+ * and run380's therest, which says nothing at all for an ambiguous noun
+ * where Scarier says "I don't understand what you want me to do with the
+ * red hat."  run390 keeps `take hat` = "Take what?" too, so the takes()
+ * half is a 3.9 gap as well.  The flag belongs at 3.80; those three do
+ * first.
  */
 static void
 run_note_dispatched_task_ran (scr_gameref_t game)
@@ -6319,6 +6343,17 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   if (!status && !refused
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     run_restriction_cache_task_pick (game, task_string);
+
+  /*
+   * Below 3.90 a drop line's one and only look at the task matcher is the
+   * one inside drops(), and drops() only dispatches from an object walk
+   * that skips everything not held or worn.  Name nothing in hand and the
+   * matched task is silenced along with the library refusal it gated, and
+   * the empty buffer is filled with "Drop what?" (run380 438FE6, run370
+   * 430DCF).  See lib_drop_what_pre390().
+   */
+  if (!status && !refused && lib_drop_what_pre390 (game))
+    status = TRUE;
 
   const size_t task_mark = pf_buffer_length (filter);
   const scr_bool claimed_before_tasks = status;
