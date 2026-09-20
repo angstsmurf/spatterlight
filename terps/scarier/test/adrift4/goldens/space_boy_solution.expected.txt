@@ -982,19 +982,16 @@ at all!  Your arch-nemesis Evil Man is here. It would appear that he has been
 waiting for you to reach him. As you enter the room he stands to his feet and
 pointing his hooked hand towards you he exclaims, "Now I will finish you once
 and for all!" He lunges out tying to remove your head with the tip of his
-sword.
-Evil Man hits you.
+sword.  Evil Man hits you.
 
 > take cape
 As you touch the cape,...POW!!!...the Power of Space returns to you...you are
 Space Boy once again. Your items drop to the floor, there power drained
 during your quest. The living room is to the east, and a door stands open to
-the west.
-Evil Man hits you, but it doesn't seem to do any damage.
+the west.  Evil Man hits you, but it doesn't seem to do any damage.
 
 > drop cape to the floor
-You drop the red Cape.
-Evil Man hits you.
+You drop the red Cape.  Evil Man hits you.
 
 > w
 You move west.

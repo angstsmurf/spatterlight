@@ -84,12 +84,12 @@ Tonerith Pass
 This wide path continues to the East. You can see the hills of Forecarn north
 of here but there is no path running there. You can here the sound of rushing
 water in the distance.  You can also see the Tonerith stone.  There is a grey
-wolf circling you.
-A grey wolf hits you, but it doesn't seem to do any damage.
+wolf circling you.  A grey wolf hits you, but it doesn't seem to do any
+damage.
 
 > take tonerith stone
-You pick up the Tonerith stone.
-A grey wolf hits you, but it doesn't seem to do any damage.
+You pick up the Tonerith stone.  A grey wolf hits you, but it doesn't seem to
+do any damage.
 
 > west
 You move west.
@@ -211,9 +211,8 @@ This cave is huge and the walls glitter with the water trickling down. There
 is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
-blocked by a large troll.  Narfild is here.
-The large troll hits you with the large club, but it doesn't seem to do any
-damage.
+blocked by a large troll.  Narfild is here.  The large troll hits you with
+the large club, but it doesn't seem to do any damage.
 
 > w
 You move west.
@@ -252,17 +251,15 @@ with a square cave to the West.
 You move east.
 
 Main Cave
-It is too dark to see.
-The large troll hits you with the large club, but it doesn't seem to do any
-damage.
+It is too dark to see.  The large troll hits you with the large club, but it
+doesn't seem to do any damage.
 
 > attack narfild
 You hit the large troll with the metal spade.
 
 > attack narfild
-You hit the large troll with the metal spade.
-The large troll hits you with the large club, but it doesn't seem to do any
-damage.
+You hit the large troll with the metal spade.  The large troll hits you with
+the large club, but it doesn't seem to do any damage.
 
 > attack narfild
 You hit the large troll with the metal spade.
@@ -344,9 +341,8 @@ The ground is extremely boggy here. Every footstep is a difficult strain.
 With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
-direction.  The Longmore marsh king is here.
-A swamp monster stabs you with the pointy stick, but it doesn't seem to do
-any damage.
+direction.  The Longmore marsh king is here.  A swamp monster stabs you with
+the pointy stick, but it doesn't seem to do any damage.
 
 > se
 You move southeast.
@@ -540,25 +536,23 @@ Kedarn forest clearing
 You stand in the middle of a barren circle. All around the trees seem to be
 closing in. West will take you down a tiny path. Another clearer path leads
 northwest.  You can also see the Kedarn stone.  There is a Forester Goblin
-hanging from a tree here.
-A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
-seem to do any damage.
+hanging from a tree here.  A forest dwelling goblin shoots you with the bow
+and arrow, but it doesn't seem to do any damage.
 
 > attack goblin
-You hit a forest dwelling goblin with the metal spade.
-A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
-seem to do any damage.
+You hit a forest dwelling goblin with the metal spade.  A forest dwelling
+goblin shoots you with the bow and arrow, but it doesn't seem to do any
+damage.
 
 > attack goblin
-You hit a forest dwelling goblin with the metal spade.
-A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
-seem to do any damage.
-The birds high above your head hoot and cheep to each other.
+You hit a forest dwelling goblin with the metal spade.  A forest dwelling
+goblin shoots you with the bow and arrow, but it doesn't seem to do any
+damage.  The birds high above your head hoot and cheep to each other.
 
 > attack goblin
-You hit a forest dwelling goblin with the metal spade.
-A forest dwelling goblin shoots you with the bow and arrow, but it doesn't
-seem to do any damage.
+You hit a forest dwelling goblin with the metal spade.  A forest dwelling
+goblin shoots you with the bow and arrow, but it doesn't seem to do any
+damage.
 
 > attack goblin
 You hit a forest dwelling goblin with the metal spade.
@@ -608,34 +602,28 @@ The ground is extremely boggy here. Every footstep is a difficult strain.
 With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
-direction.  The Longmore marsh king is here.
-A swamp monster stabs you with the pointy stick, but it doesn't seem to do
-any damage.
+direction.  The Longmore marsh king is here.  A swamp monster stabs you with
+the pointy stick, but it doesn't seem to do any damage.
 
 > attack monster
-You hit a swamp monster with the metal spade.
-A swamp monster stabs you with the pointy stick, but it doesn't seem to do
-any damage.
+You hit a swamp monster with the metal spade.  A swamp monster stabs you with
+the pointy stick, but it doesn't seem to do any damage.
 
 > attack monster
-You hit a swamp monster with the metal spade.
-A swamp monster stabs you with the pointy stick, but it doesn't seem to do
-any damage.
+You hit a swamp monster with the metal spade.  A swamp monster stabs you with
+the pointy stick, but it doesn't seem to do any damage.
 
 > attack monster
-You hit a swamp monster with the metal spade.
-A swamp monster stabs you with the pointy stick, but it doesn't seem to do
-any damage.
+You hit a swamp monster with the metal spade.  A swamp monster stabs you with
+the pointy stick, but it doesn't seem to do any damage.
 
 > attack monster
-You hit a swamp monster with the metal spade.
-A swamp monster stabs you with the pointy stick, but it doesn't seem to do
-any damage.
+You hit a swamp monster with the metal spade.  A swamp monster stabs you with
+the pointy stick, but it doesn't seem to do any damage.
 
 > attack monster
-You hit a swamp monster with the metal spade.
-A swamp monster stabs you with the pointy stick, but it doesn't seem to do
-any damage.
+You hit a swamp monster with the metal spade.  A swamp monster stabs you with
+the pointy stick, but it doesn't seem to do any damage.
 
 > attack monster
 You hit a swamp monster with the metal spade.
@@ -697,16 +685,15 @@ You are standing on the edge of a huge ravine. Below you the cliff drops
 about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.  There is an eagle above you circling around your
-head.
-A large eagle hits you, but it doesn't seem to do any damage.
+head.  A large eagle hits you, but it doesn't seem to do any damage.
 
 > attack eagle
-You hit a large eagle with the metal spade.
-A large eagle hits you, but it doesn't seem to do any damage.
+You hit a large eagle with the metal spade.  A large eagle hits you, but it
+doesn't seem to do any damage.
 
 > attack eagle
-You hit a large eagle with the metal spade.
-A large eagle hits you, but it doesn't seem to do any damage.
+You hit a large eagle with the metal spade.  A large eagle hits you, but it
+doesn't seem to do any damage.
 
 > attack eagle
 You hit a large eagle with the metal spade.
@@ -753,8 +740,8 @@ You move northeast.
 
 Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
- There is a Narn here.
-The little Narn hits you, but it doesn't seem to do any damage.
+ There is a Narn here.  The little Narn hits you, but it doesn't seem to do
+any damage.
 
 > e
 You move east.
@@ -828,8 +815,8 @@ You move northeast.
 Uron Dark Path
 The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
-take you up the mountain.  There is a large Narn here.
-A large Narn hits you, but it doesn't seem to do any damage.
+take you up the mountain.  There is a large Narn here.  A large Narn hits
+you, but it doesn't seem to do any damage.
 
 > nw
 You move northwest.
@@ -880,18 +867,17 @@ The dark knight cuts you with the blade from Uron, but it doesn't seem to do
 any damage.
 
 > attack larnt
-You hit the dark knight with the metal spade.
-Haron cuts the dark knight with the elven sword.
-The dark knight cuts you with the blade from Uron, but it doesn't seem to do
-any damage.
+You hit the dark knight with the metal spade.  Haron cuts the dark knight
+with the elven sword.  The dark knight cuts you with the blade from Uron, but
+it doesn't seem to do any damage.
 
 > attack larnt
-You hit the dark knight with the metal spade.
-The dark knight cuts Haron with the blade from Uron.
+You hit the dark knight with the metal spade.  The dark knight cuts Haron
+with the blade from Uron.
 
 > attack larnt
-You hit the dark knight with the metal spade.
-Haron cuts the dark knight with the elven sword.
+You hit the dark knight with the metal spade.  Haron cuts the dark knight
+with the elven sword.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -1029,32 +1015,30 @@ the South. He then smiles, and says:
  Just us now, no escape.  Haron follows you from the south.
 
 > attack urgorn
-You hit the dark lord with the metal spade.
-Haron cuts the dark lord with the elven sword.
-The dark lord shoots Haron with the ball of fire.
+You hit the dark lord with the metal spade.  Haron cuts the dark lord with
+the elven sword.  The dark lord shoots Haron with the ball of fire.
 
 > attack urgorn
 You hit the dark lord with the metal spade.
 
 > attack urgorn
-You hit the dark lord with the metal spade.
-Haron cuts the dark lord with the elven sword.
+You hit the dark lord with the metal spade.  Haron cuts the dark lord with
+the elven sword.
 
 > attack urgorn
 You hit the dark lord with the metal spade.
 
 > attack urgorn
-You hit the dark lord with the metal spade.
-Haron cuts the dark lord with the elven sword.
-The dark lord shoots you with the ball of fire, but it doesn't seem to do any
-damage.
+You hit the dark lord with the metal spade.  Haron cuts the dark lord with
+the elven sword.  The dark lord shoots you with the ball of fire, but it
+doesn't seem to do any damage.
 
 > attack urgorn
 You hit the dark lord with the metal spade.
 
 > attack urgorn
-You hit the dark lord with the metal spade.
-Haron cuts the dark lord with the elven sword.
+You hit the dark lord with the metal spade.  Haron cuts the dark lord with
+the elven sword.
 Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the

@@ -1590,8 +1590,16 @@ Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
 
-Chip is here.
-Chip hits me, but it doesn't seem to do any damage.
+Chip is here.  Chip hits me, but it doesn't seem to do any damage.
+
+> look
+
+Cell 6
+Metal walls on all sides, no padding, and a single dim light: that is what
+this room is. The only distinct thing about it is the big numeral 6 painted
+into the north wall. There is no visible door.  Also here is a green box.
+
+Chip is here.  Chip hits me.
 
 > look
 
@@ -1601,7 +1609,6 @@ this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
 
 Chip is here.
-Chip hits me.
 
 > look
 
@@ -1610,7 +1617,7 @@ Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
 
-Chip is here.
+Chip is here.  Chip hits me, but it doesn't seem to do any damage.
 
 > look
 
@@ -1619,8 +1626,7 @@ Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
 
-Chip is here.
-Chip hits me, but it doesn't seem to do any damage.
+Chip is here.  Chip hits me.
 
 > look
 
@@ -1629,63 +1635,43 @@ Metal walls on all sides, no padding, and a single dim light: that is what
 this room is. The only distinct thing about it is the big numeral 6 painted
 into the north wall. There is no visible door.  Also here is a green box.
 
-Chip is here.
-Chip hits me.
-
-> look
-
-Cell 6
-Metal walls on all sides, no padding, and a single dim light: that is what
-this room is. The only distinct thing about it is the big numeral 6 painted
-into the north wall. There is no visible door.  Also here is a green box.
-
-Chip is here.
-Chip hits me, but it doesn't seem to do any damage.
+Chip is here.  Chip hits me, but it doesn't seem to do any damage.
 
 > take green box
 I take the green box.
 
 > open green box
-I open the green box.  A lighter is inside the green box.
-Chip hits me.
+I open the green box.  A lighter is inside the green box.  Chip hits me.
 
 > take lighter
-I take the lighter from the green box.
-Chip hits me.
+I take the lighter from the green box.  Chip hits me.
 
 > attack chip
-I throw the lighter at Chip.
-Chip hits me.
+I throw the lighter at Chip.  Chip hits me.
 
 > take lighter
-I take the lighter.
-Chip hits me, but it doesn't seem to do any damage.
+I take the lighter.  Chip hits me, but it doesn't seem to do any damage.
 
 > attack chip
-I throw the lighter at Chip.
-Chip hits me.
+I throw the lighter at Chip.  Chip hits me.
 
 > take lighter
-I take the lighter.
-Chip hits me.
+I take the lighter.  Chip hits me.
 
 > attack chip
 I throw the lighter at Chip.
 
 > take lighter
-I take the lighter.
-Chip hits me.
+I take the lighter.  Chip hits me.
 
 > attack chip
 I throw the lighter at Chip.
 
 > take lighter
-I take the lighter.
-Chip hits me, but it doesn't seem to do any damage.
+I take the lighter.  Chip hits me, but it doesn't seem to do any damage.
 
 > attack chip
-I throw the lighter at Chip.
-Chip hits me.
+I throw the lighter at Chip.  Chip hits me.
 
 > take lighter
 I take the lighter.
@@ -1767,10 +1753,8 @@ bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 
-An ozgat is here.
-Ozgat hits me.
-Scotty hits Ozgat.
-Ozgat manages to avoid Chip's attack.
+An ozgat is here.  Ozgat hits me.  Scotty hits Ozgat.  Ozgat manages to avoid
+Chip's attack.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -1782,25 +1766,17 @@ I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
 > attack ozgat
-I throw the lighter at Ozgat.
-Ozgat hits Donna.
-Lina hits Ozgat.
-Scotty hits Ozgat, but it doesn't seem to do any damage.
-Ozgat manages to avoid Donna's attack.
+I throw the lighter at Ozgat.  Ozgat hits Donna.  Lina hits Ozgat.  Scotty
+hits Ozgat, but it doesn't seem to do any damage.  Ozgat manages to avoid
+Donna's attack.
 
 > take lighter
-I take the lighter.
-Ozgat hits me.
-Scotty hits Ozgat, but it doesn't seem to do any damage.
-Ozgat manages to avoid Chip's attack.
+I take the lighter.  Ozgat hits me.  Scotty hits Ozgat, but it doesn't seem
+to do any damage.  Ozgat manages to avoid Chip's attack.
 
 > attack ozgat
-I throw the lighter at Ozgat.
-Ozgat hits Tippant.
-Lina hits Ozgat.
-Scotty hits Ozgat.
-Tippant hits Ozgat.
-Donna hits Ozgat.
+I throw the lighter at Ozgat.  Ozgat hits Tippant.  Lina hits Ozgat.  Scotty
+hits Ozgat.  Tippant hits Ozgat.  Donna hits Ozgat.
 
 The ozgat explodes, flinging sharp metal fragments at my party. Everyone
 suffers damage.
@@ -1868,13 +1844,9 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.  A
-riven is here.
-Lina hits Riven.
-Scotty hits Riven.
-Tippant hits Riven.
-Donna hits Riven.
-Riven manages to avoid Chip's attack.
-Scotty manages to avoid Riven's attack.
+riven is here.  Lina hits Riven.  Scotty hits Riven.  Tippant hits Riven.
+Donna hits Riven.  Riven manages to avoid Chip's attack.  Scotty manages to
+avoid Riven's attack.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -1886,16 +1858,13 @@ I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
 > attack riven
-I throw the lighter at Riven.
-Scotty hits Riven, but it doesn't seem to do any damage.
+I throw the lighter at Riven.  Scotty hits Riven, but it doesn't seem to do
+any damage.
 
 > take lighter
-I take the lighter.
-Lina hits Riven.
-Scotty hits Riven, but it doesn't seem to do any damage.
-Riven manages to avoid Donna's attack.
-Riven manages to avoid Chip's attack.
-Riven hits Tippant.
+I take the lighter.  Lina hits Riven.  Scotty hits Riven, but it doesn't seem
+to do any damage.  Riven manages to avoid Donna's attack.  Riven manages to
+avoid Chip's attack.  Riven hits Tippant.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -1909,13 +1878,11 @@ before...with a plastic gloss.
 It thunders in the distance. Streaks of green lightning are in the sky.
 
 > attack riven
-I throw the lighter at Riven.
-Scotty hits Riven.
-Riven manages to avoid Chip's attack.
+I throw the lighter at Riven.  Scotty hits Riven.  Riven manages to avoid
+Chip's attack.
 
 > take lighter
-I take the lighter.
-Lina hits Riven.
+I take the lighter.  Lina hits Riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
@@ -2020,18 +1987,12 @@ bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 
-An ozgat and A riven are here.
-Lina hits Ozgat.
-Scotty hits Ozgat.
-Donna hits Ozgat.
-Ozgat hits Tippant.
-Riven hits Chip.
+An ozgat and A riven are here.  Lina hits Ozgat.  Scotty hits Ozgat.  Donna
+hits Ozgat.  Ozgat hits Tippant.  Riven hits Chip.
 
 > attack ozgat
-I throw the lighter at Ozgat.
-Scotty hits Ozgat.
-Riven manages to avoid Chip's attack.
-Ozgat hits Tippant.
+I throw the lighter at Ozgat.  Scotty hits Ozgat.  Riven manages to avoid
+Chip's attack.  Ozgat hits Tippant.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2044,19 +2005,14 @@ drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
 > take lighter
-I take the lighter.
-Lina hits Ozgat.
-Scotty hits Ozgat, but it doesn't seem to do any damage.
-Tippant hits Riven.
-Donna hits Ozgat, but it doesn't seem to do any damage.
-Chip hits Ozgat, but it doesn't seem to do any damage.
-Ozgat hits Lina.
-Riven hits Chip.
+I take the lighter.  Lina hits Ozgat.  Scotty hits Ozgat, but it doesn't seem
+to do any damage.  Tippant hits Riven.  Donna hits Ozgat, but it doesn't seem
+to do any damage.  Chip hits Ozgat, but it doesn't seem to do any damage.
+Ozgat hits Lina.  Riven hits Chip.
 
 > attack riven
-I throw the lighter at Riven.
-Scotty hits Ozgat.
-Scotty manages to avoid Ozgat's attack.
+I throw the lighter at Riven.  Scotty hits Ozgat.  Scotty manages to avoid
+Ozgat's attack.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -2064,13 +2020,10 @@ Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
 > take lighter
-I take the lighter.
-Lina hits Ozgat.
-Scotty hits Ozgat, but it doesn't seem to do any damage.
-Riven manages to avoid Donna's attack.
-Ozgat manages to avoid Chip's attack.
-Ozgat hits Lina.
-Donna manages to avoid Riven's attack.
+I take the lighter.  Lina hits Ozgat.  Scotty hits Ozgat, but it doesn't seem
+to do any damage.  Riven manages to avoid Donna's attack.  Ozgat manages to
+avoid Chip's attack.  Ozgat hits Lina.  Donna manages to avoid Riven's
+attack.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2085,9 +2038,8 @@ It thunders in the distance. Streaks of green lightning are in the sky.
 I throw the lighter at Ozgat.
 
 The ozgat explodes, flinging sharp metal fragments at my party. Everyone
-suffers damage.
-Lina hits Riven.
-Scotty hits Riven, but it doesn't seem to do any damage.
+suffers damage.  Lina hits Riven.  Scotty hits Riven, but it doesn't seem to
+do any damage.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -2099,25 +2051,17 @@ floating and go crashing to the ground.
 My skin gets unusually warm for a second. It feels like it's burning.
 
 > take lighter
-I take the lighter.
-Lina hits Riven.
-Scotty hits Riven.
-Tippant hits Riven.
-Riven manages to avoid Donna's attack.
-Chip hits Riven.
-Riven hits Scotty.
+I take the lighter.  Lina hits Riven.  Scotty hits Riven.  Tippant hits
+Riven.  Riven manages to avoid Donna's attack.  Chip hits Riven.  Riven hits
+Scotty.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Riven.
-Scotty hits Riven.
+I am already carrying the lighter.  Lina hits Riven.  Scotty hits Riven.
 Riven manages to avoid Chip's attack.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Riven, but it doesn't seem to do any damage.
-Donna hits Riven.
-Riven hits Chip.
+I am already carrying the lighter.  Scotty hits Riven, but it doesn't seem to
+do any damage.  Donna hits Riven.  Riven hits Chip.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2126,19 +2070,15 @@ I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Riven.
-Scotty hits Riven.
+I am already carrying the lighter.  Lina hits Riven.  Scotty hits Riven.
 Chip hits Riven, but it doesn't seem to do any damage.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Riven.
-Scotty hits Riven, but it doesn't seem to do any damage.
-Tippant hits Riven.
+I am already carrying the lighter.  Lina hits Riven.  Scotty hits Riven, but
+it doesn't seem to do any damage.  Tippant hits Riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
@@ -2489,9 +2429,8 @@ couple of kilometers or so, there is a ceiling of rocks. Gnarled and twisted
 bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.  Red
-Riven and Blue Riven are here.
-Lina hits Red riven.
-Scotty hits Blue riven, but it doesn't seem to do any damage.
+Riven and Blue Riven are here.  Lina hits Red riven.  Scotty hits Blue riven,
+but it doesn't seem to do any damage.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -2504,19 +2443,15 @@ desperation and I stand up.
 Which riven.  Red riven or Blue riven?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Scotty hits Red riven.
-Donna hits Blue riven.
-Red riven manages to avoid Chip's attack.
-Red riven hits Scotty.
-Blue riven hits Donna.
+I am already carrying the double-lighter.  Scotty hits Red riven.  Donna hits
+Blue riven.  Red riven manages to avoid Chip's attack.  Red riven hits
+Scotty.  Blue riven hits Donna.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Red riven.
-Scotty hits Blue riven.
+I am already carrying the lighter.  Lina hits Red riven.  Scotty hits Blue
+riven.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -2528,22 +2463,18 @@ smaller pellets escape through holes in the ground.
 Which riven.  Red riven or Blue riven?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Red riven.
-Scotty hits Blue riven, but it doesn't seem to do any damage.
-Tippant hits Blue riven.
-Donna hits Red riven, but it doesn't seem to do any damage.
-Chip hits Red riven, but it doesn't seem to do any damage.
-Red riven hits Chip.
-Blue riven hits Tippant.
+I am already carrying the double-lighter.  Lina hits Red riven.  Scotty hits
+Blue riven, but it doesn't seem to do any damage.  Tippant hits Blue riven.
+Donna hits Red riven, but it doesn't seem to do any damage.  Chip hits Red
+riven, but it doesn't seem to do any damage.  Red riven hits Chip.  Blue
+riven hits Tippant.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Red riven.
-Scotty hits Blue riven, but it doesn't seem to do any damage.
+I am already carrying the lighter.  Lina hits Red riven.  Scotty hits Blue
+riven, but it doesn't seem to do any damage.
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -2555,18 +2486,14 @@ My skin gets unusually warm for a second. It feels like it's burning.
 Which riven.  Red riven or Blue riven?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Red riven.
-Scotty hits Red riven.
-Donna hits Red riven, but it doesn't seem to do any damage.
-Blue riven manages to avoid Chip's attack.
-Red riven hits Chip.
-I manage to avoid Blue riven's attack.
+I am already carrying the double-lighter.  Lina hits Red riven.  Scotty hits
+Red riven.  Donna hits Red riven, but it doesn't seem to do any damage.  Blue
+riven manages to avoid Chip's attack.  Red riven hits Chip.  I manage to
+avoid Blue riven's attack.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Blue riven, but it doesn't seem to do any damage.
-Red riven manages to avoid Chip's attack.
+I am already carrying the lighter.  Scotty hits Blue riven, but it doesn't
+seem to do any damage.  Red riven manages to avoid Chip's attack.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2575,16 +2502,12 @@ is spreading all over my body.
 Which riven.  Red riven or Blue riven?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Blue riven.
-Scotty hits Red riven, but it doesn't seem to do any damage.
-Tippant hits Blue riven.
+I am already carrying the double-lighter.  Lina hits Blue riven.  Scotty hits
+Red riven, but it doesn't seem to do any damage.  Tippant hits Blue riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
-body, and soon there is no trace of it.
-Donna hits Red riven.
-Chip hits Red riven, but it doesn't seem to do any damage.
-Red riven hits Donna.
+body, and soon there is no trace of it.  Donna hits Red riven.  Chip hits Red
+riven, but it doesn't seem to do any damage.  Red riven hits Donna.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2596,8 +2519,7 @@ Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Red riven.
+I am already carrying the lighter.  Scotty hits Red riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
 body, and soon there is no trace of it.
@@ -2693,21 +2615,16 @@ bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 
-I feel a presence. A higher is here.
-Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Chip hits Higher.
+I feel a presence. A higher is here.  Lina hits Higher.  Scotty hits Higher,
+but it doesn't seem to do any damage.  Chip hits Higher.
 
 > attack higher
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Tippant hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher.
-Chip hits Higher.
-Higher hits Chip.
+I am already carrying the double-lighter.  Scotty hits Higher, but it doesn't
+seem to do any damage.  Tippant hits Higher, but it doesn't seem to do any
+damage.  Donna hits Higher.  Chip hits Higher.  Higher hits Chip.
 
 Chip begins coughing...hard. Chunks of blood and flesh come out of his mouth.
 
@@ -2720,18 +2637,15 @@ Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Higher.
-Scotty hits Higher.
+I am already carrying the lighter.  Lina hits Higher.  Scotty hits Higher.
 
 > attack higher
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher, but it doesn't seem to do any damage.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher, but it doesn't seem to do any damage.  Donna hits Higher, but it
+doesn't seem to do any damage.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2741,8 +2655,8 @@ drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher, but it doesn't seem to do any damage.
+I am already carrying the lighter.  Scotty hits Higher, but it doesn't seem
+to do any damage.
 
 Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
@@ -2751,12 +2665,9 @@ the ground long enough for it to calm to a breeze.
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher.
-Tippant hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
-I manage to avoid Higher's attack.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher.  Tippant hits Higher.  Donna hits Higher, but it doesn't seem to do
+any damage.  I manage to avoid Higher's attack.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -2765,8 +2676,7 @@ Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher.
+I am already carrying the lighter.  Scotty hits Higher.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -2775,10 +2685,8 @@ sand-like nature. I barely avoid it.
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher.  Donna hits Higher, but it doesn't seem to do any damage.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -2789,8 +2697,7 @@ floating and go crashing to the ground.
 My skin gets unusually warm for a second. It feels like it's burning.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher.
+I am already carrying the lighter.  Scotty hits Higher.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2799,10 +2706,8 @@ engine is right next to me.
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher.
-Tippant hits Higher.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher.  Tippant hits Higher.
 
 I no longer detect the Higher's presence.
 
@@ -2956,12 +2861,9 @@ bushes mark the landscape.  Huge rocks are everywhere, and the ground has a
 sand-like consistency, but is hardened at places. Everywhere looks the
 same...but everything is so different. It is not clear where I can go.
 
-An ozgat, A higher and A riven are here.
-Lina hits Ozgat.
-Scotty hits Riven.
-Donna hits Riven.
-Ozgat hits Tippant.
-Scotty manages to avoid Riven's attack.
+An ozgat, A higher and A riven are here.  Lina hits Ozgat.  Scotty hits
+Riven.  Donna hits Riven.  Ozgat hits Tippant.  Scotty manages to avoid
+Riven's attack.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -2970,10 +2872,8 @@ engine is right next to me.
 What do you want to attack Ozgat with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Ozgat.
-Scotty hits Ozgat.
-Ozgat hits Donna.
+I am already carrying the double-lighter.  Lina hits Ozgat.  Scotty hits
+Ozgat.  Ozgat hits Donna.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -2983,13 +2883,10 @@ drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Riven manages to avoid Tippant's attack.
-Donna hits Higher, but it doesn't seem to do any damage.
-Ozgat hits Lina.
-Higher hits Tippant.
-Scotty manages to avoid Riven's attack.
+I am already carrying the lighter.  Scotty hits Higher, but it doesn't seem
+to do any damage.  Riven manages to avoid Tippant's attack.  Donna hits
+Higher, but it doesn't seem to do any damage.  Ozgat hits Lina.  Higher hits
+Tippant.  Scotty manages to avoid Riven's attack.
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
@@ -3001,20 +2898,17 @@ It thunders in the distance. Streaks of green lightning are in the sky.
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Ozgat.
-Scotty hits Riven, but it doesn't seem to do any damage.
-Scotty manages to avoid Ozgat's attack.
+I am already carrying the double-lighter.  Lina hits Ozgat.  Scotty hits
+Riven, but it doesn't seem to do any damage.  Scotty manages to avoid Ozgat's
+attack.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Ozgat, but it doesn't seem to do any damage.
-Donna hits Higher, but it doesn't seem to do any damage.
-Ozgat hits Donna.
-I manage to avoid Riven's attack.
+I am already carrying the lighter.  Scotty hits Ozgat, but it doesn't seem to
+do any damage.  Donna hits Higher, but it doesn't seem to do any damage.
+Ozgat hits Donna.  I manage to avoid Riven's attack.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -3023,10 +2917,8 @@ back, louder than ever.
 What do you want to attack Riven with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Ozgat.
-Scotty hits Ozgat.
-Ozgat hits Tippant.
+I am already carrying the double-lighter.  Lina hits Ozgat.  Scotty hits
+Ozgat.  Ozgat hits Tippant.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -3038,14 +2930,10 @@ floating and go crashing to the ground.
 My skin gets unusually warm for a second. It feels like it's burning.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Riven.
-Scotty hits Riven.
-Tippant hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
-Ozgat hits me.
-Scotty manages to avoid Higher's attack.
-Donna manages to avoid Riven's attack.
+I am already carrying the lighter.  Lina hits Riven.  Scotty hits Riven.
+Tippant hits Higher.  Donna hits Higher, but it doesn't seem to do any
+damage.  Ozgat hits me.  Scotty manages to avoid Higher's attack.  Donna
+manages to avoid Riven's attack.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -3053,21 +2941,17 @@ The sound of knives scraping against glass reverberate across the landscape.
 What do you want to attack Ozgat with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Ozgat.
+I am already carrying the double-lighter.  Lina hits Ozgat.
 
 The ozgat explodes, flinging sharp metal fragments at my party. Everyone
-suffers damage.
-Scotty hits Riven.
+suffers damage.  Scotty hits Riven.
 
 I lapse into a coughing fit, unable to control myself. I cough up a thick
 purple substance. I wipe my mouth.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Riven manages to avoid Donna's attack.
-Riven hits Lina.
+I am already carrying the lighter.  Scotty hits Higher, but it doesn't seem
+to do any damage.  Riven manages to avoid Donna's attack.  Riven hits Lina.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -3079,28 +2963,24 @@ smaller pellets escape through holes in the ground.
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher, but it doesn't seem to do any damage.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Riven, but it doesn't seem to do any damage.
-Tippant hits Riven, but it doesn't seem to do any damage.
-Riven manages to avoid Donna's attack.
-Donna manages to avoid Higher's attack.
-Lina manages to avoid Riven's attack.
+I am already carrying the lighter.  Scotty hits Riven, but it doesn't seem to
+do any damage.  Tippant hits Riven, but it doesn't seem to do any damage.
+Riven manages to avoid Donna's attack.  Donna manages to avoid Higher's
+attack.  Lina manages to avoid Riven's attack.
 
 > attack riven
 What do you want to attack Riven with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Riven.
-Scotty hits Riven.
+I am already carrying the double-lighter.  Lina hits Riven.  Scotty hits
+Riven.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
@@ -3110,11 +2990,9 @@ drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Riven.
-Scotty hits Higher.
-Riven manages to avoid Donna's attack.
-Scotty manages to avoid Riven's attack.
+I am already carrying the lighter.  Lina hits Riven.  Scotty hits Higher.
+Riven manages to avoid Donna's attack.  Scotty manages to avoid Riven's
+attack.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -3123,8 +3001,7 @@ back, louder than ever.
 Ozgat isn't here!
 Ozgat isn't here!
 Ozgat isn't here!
-Lina hits Riven.
-Scotty hits Riven.
+Lina hits Riven.  Scotty hits Riven.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -3133,20 +3010,17 @@ Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Riven.
-Scotty hits Riven, but it doesn't seem to do any damage.
-Riven manages to avoid Tippant's attack.
-Donna hits Higher, but it doesn't seem to do any damage.
-Donna manages to avoid Higher's attack.
-Lina manages to avoid Riven's attack.
+I am already carrying the double-lighter.  Lina hits Riven.  Scotty hits
+Riven, but it doesn't seem to do any damage.  Riven manages to avoid
+Tippant's attack.  Donna hits Higher, but it doesn't seem to do any damage.
+Donna manages to avoid Higher's attack.  Lina manages to avoid Riven's
+attack.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Riven.
-Scotty hits Higher, but it doesn't seem to do any damage.
+I am already carrying the lighter.  Lina hits Riven.  Scotty hits Higher, but
+it doesn't seem to do any damage.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -3161,15 +3035,13 @@ My skin gets unusually warm for a second. It feels like it's burning.
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Riven.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Donna hits Riven, but it doesn't seem to do any damage.
-Riven hits Donna.
+I am already carrying the double-lighter.  Lina hits Riven.  Scotty hits
+Higher, but it doesn't seem to do any damage.  Donna hits Riven, but it
+doesn't seem to do any damage.  Riven hits Donna.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher, but it doesn't seem to do any damage.
+I am already carrying the lighter.  Scotty hits Higher, but it doesn't seem
+to do any damage.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
@@ -3181,15 +3053,12 @@ purple substance. I wipe my mouth.
 What do you want to attack Riven with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Riven.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Tippant hits Riven.
+I am already carrying the double-lighter.  Lina hits Riven.  Scotty hits
+Higher, but it doesn't seem to do any damage.  Tippant hits Riven.
 
 The riven falls to the ground, defeated. The surface of the earth absorbs its
-body, and soon there is no trace of it.
-Donna hits Higher.
-Donna manages to avoid Higher's attack.
+body, and soon there is no trace of it.  Donna hits Higher.  Donna manages to
+avoid Higher's attack.
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
@@ -3198,9 +3067,7 @@ before...with a plastic gloss.
 It thunders in the distance. Streaks of green lightning are in the sky.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Higher.
-Scotty hits Higher.
+I am already carrying the lighter.  Lina hits Higher.  Scotty hits Higher.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -3209,17 +3076,16 @@ Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher, but it doesn't seem to do any damage.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher, but it doesn't seem to do any damage.  Donna hits Higher, but it
+doesn't seem to do any damage.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher, but it doesn't seem to do any damage.
+I am already carrying the lighter.  Scotty hits Higher, but it doesn't seem
+to do any damage.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
@@ -3231,17 +3097,12 @@ desperation and I stand up.
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher.
-Tippant hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
-Donna manages to avoid Higher's attack.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher.  Tippant hits Higher.  Donna hits Higher, but it doesn't seem to do
+any damage.  Donna manages to avoid Higher's attack.
 
 > take lighter
-I am already carrying the lighter.
-Lina hits Higher.
-Scotty hits Higher.
+I am already carrying the lighter.  Lina hits Higher.  Scotty hits Higher.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
@@ -3250,17 +3111,15 @@ Rain comes down in large, thick globs. It also come up from the ground;
 smaller pellets escape through holes in the ground.
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher.  Donna hits Higher, but it doesn't seem to do any damage.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher, but it doesn't seem to do any damage.
+I am already carrying the lighter.  Scotty hits Higher, but it doesn't seem
+to do any damage.
 
 I do not feel the ground underneath me. I look down and see that I am
 floating. I am lifted almost two meters off of the ground before I stop
@@ -3269,19 +3128,17 @@ floating and go crashing to the ground.
 My skin gets unusually warm for a second. It feels like it's burning.
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Tippant hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher, but it doesn't seem to do any damage.
-Higher hits Donna.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher, but it doesn't seem to do any damage.  Tippant hits Higher, but it
+doesn't seem to do any damage.  Donna hits Higher, but it doesn't seem to do
+any damage.  Higher hits Donna.
 
 Bits of ice barrage me from the side. It feels like a thousand tiny
 toothpicks are trying to make their way into my body.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher, but it doesn't seem to do any damage.
+I am already carrying the lighter.  Scotty hits Higher, but it doesn't seem
+to do any damage.
 
 Everything goes silent for a moment. Then it all the noise comes rushing
 back, louder than ever.
@@ -3293,10 +3150,8 @@ purple substance. I wipe my mouth.
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher.  Donna hits Higher, but it doesn't seem to do any damage.
 
 The ground in front of me drops out, creating a swirling vortex of a
 sand-like nature. I barely avoid it.
@@ -3305,42 +3160,37 @@ Wind gathers at a furious pace, blowing me backwards a few steps. I hold onto
 the ground long enough for it to calm to a breeze.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher, but it doesn't seem to do any damage.
+I am already carrying the lighter.  Scotty hits Higher, but it doesn't seem
+to do any damage.
 
 The sound of knives scraping against glass reverberate across the landscape.
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher.
-Tippant hits Higher.
-Donna hits Higher, but it doesn't seem to do any damage.
-Donna manages to avoid Higher's attack.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher.  Tippant hits Higher.  Donna hits Higher, but it doesn't seem to do
+any damage.  Donna manages to avoid Higher's attack.
 
 Buzzing noises reach my ears. A powerful noise; it sounds like a damn jet
 engine is right next to me.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher, but it doesn't seem to do any damage.
+I am already carrying the lighter.  Scotty hits Higher, but it doesn't seem
+to do any damage.
 
 I hear a popping noise, and suddenly all the air is sucked from my lungs. I
 drop to the ground, clutching at my neck. The air returns after seconds of
 desperation and I stand up.
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
-Scotty hits Higher, but it doesn't seem to do any damage.
-Donna hits Higher, but it doesn't seem to do any damage.
+I am already carrying the double-lighter.  Lina hits Higher.  Scotty hits
+Higher, but it doesn't seem to do any damage.  Donna hits Higher, but it
+doesn't seem to do any damage.
 
 Dirt clumps hit me in the face and legs. They feel like paintballs. The pain
 is spreading all over my body.
 
 > take lighter
-I am already carrying the lighter.
-Scotty hits Higher.
+I am already carrying the lighter.  Scotty hits Higher.
 
 Thick fog envelopes me and my surroundings. My vision is obscured for a short
 time...and then the smoke vanishes, and everything before me is clearer than
@@ -3352,8 +3202,7 @@ It thunders in the distance. Streaks of green lightning are in the sky.
 What do you want to attack Higher with?
 
 > take double-lighter
-I am already carrying the double-lighter.
-Lina hits Higher.
+I am already carrying the double-lighter.  Lina hits Higher.
 
 I no longer detect the Higher's presence.
 

@@ -62,8 +62,7 @@ You move east.
 
 Middle Bridge
 The bridge is no more stable here.  It continues east and west.  A soldier is
-here.
-A soldier attacks you with the rapier, but you manage to avoid it.
+here.  A soldier attacks you with the rapier, but you manage to avoid it.
 
 > x soldier
 The old warrior looks like he's seen one too many battles.  Soldier is
@@ -73,9 +72,7 @@ carrying a silver key and a rapier.
 You stab a soldier with the sword.
 
 > attack soldier
-You stab a soldier with the sword.
-
-Soldier falls down, dead.
+You stab a soldier with the sword.  Soldier falls down, dead.
 
 > attack soldier
 Soldier isn't here!
@@ -163,13 +160,11 @@ The Troll is uglier than most, and seems very nasty.  Troll is carrying a
 rusty key and a bar.
 
 > attack troll
-You stab a Troll with the sword.
-A Troll attacks you with the bar, but you manage to avoid it.
+You stab a Troll with the sword.  A Troll attacks you with the bar, but you
+manage to avoid it.
 
 > attack troll
-You stab a Troll with the sword.
-
-Troll falls down, dead.
+You stab a Troll with the sword.  Troll falls down, dead.
 
 > attack troll
 Troll isn't here!

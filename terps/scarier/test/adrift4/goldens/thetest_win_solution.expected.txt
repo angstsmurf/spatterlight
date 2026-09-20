@@ -322,12 +322,10 @@ You can't do that here!  Robot Guard storms in from the east.
 A robot guard hits you with the robot's chain.
 
 > unlock door
-You can't do that here!
-A robot guard hits you with the robot's chain.
+You can't do that here!  A robot guard hits you with the robot's chain.
 
 > unlock door
-You can't do that here!
-A robot guard hits you with the robot's chain.
+You can't do that here!  A robot guard hits you with the robot's chain.
 
 > unlock door
 You can't do that here!  Robot Guard stamps out to the east.
@@ -522,8 +520,8 @@ A robot guard hits you with the robot's chain.
 
 > shout 91
 You shout 91 at the robot but it ignores you.  However, when you starting
-shouting it looked slightly afraid.
-A robot guard hits you with the robot's chain.
+shouting it looked slightly afraid.  A robot guard hits you with the robot's
+chain.
 
 > shout 91
 You shout 91 at the robot but it ignores you.  However, when you starting
@@ -540,8 +538,8 @@ You pick up yet another key.  Robot Guard storms in from the west.
 A robot guard hits you with the robot's chain.
 
 > take teleporter
-You pick up the portable teleporter.
-A robot guard hits you with the robot's chain.
+You pick up the portable teleporter.  A robot guard hits you with the robot's
+chain.
 
 > west
 You move west.
@@ -556,8 +554,7 @@ You can move east and west.
 > teleport
 As I said, its broken.  The entire destination circuit has been broken off.
 But as I told you it might still work, here it goes.  Colours swirl around
-you.  Then you arrive.
-A robot guard hits you with the robot's chain.
+you.  Then you arrive.  A robot guard hits you with the robot's chain.
 
 > look
 

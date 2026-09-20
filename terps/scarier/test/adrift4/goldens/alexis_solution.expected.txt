@@ -80,12 +80,11 @@ You move east.
 Tonerith Pass
 This wide path continues to the East. You can see the hills of Forecarn north
 of here but there is no path running there. You can here the sound of rushing
-water in the distance.  You can also see the Tonerith stone.
-A grey wolf hits you.
+water in the distance.  You can also see the Tonerith stone.  A grey wolf
+hits you.
 
 > attack wolf
-You hit a grey wolf with the magic cube.
-A grey wolf hits you.
+You hit a grey wolf with the magic cube.  A grey wolf hits you.
 
 > attack wolf
 You hit a grey wolf with the magic cube.
@@ -188,8 +187,8 @@ is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.  Narfild is here.  Serond follows you.
-Serond shoots the large troll with the oak staff.
-The large troll hits Serond with the large club.
+Serond shoots the large troll with the oak staff.  The large troll hits
+Serond with the large club.
 
 > e
 You move east.
@@ -343,8 +342,8 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.  Serond follows you.
-Serond shoots a swamp monster with the oak staff.
-A swamp monster stabs you with the pointy stick.
+Serond shoots a swamp monster with the oak staff.  A swamp monster stabs you
+with the pointy stick.
 
 > se
 You move southeast.
@@ -506,9 +505,8 @@ bridge.  The Bridgekeeper is here.  Serond follows you.
 Serond shoots an angry dwarf with the oak staff.
 
 > attack bridgekeeper
-You hit an angry dwarf with the magic cube.
-Serond shoots an angry dwarf with the oak staff.
-An angry dwarf chops Serond with the iron axe.
+You hit an angry dwarf with the magic cube.  Serond shoots an angry dwarf
+with the oak staff.  An angry dwarf chops Serond with the iron axe.
 
 > attack bridgekeeper
 You hit an angry dwarf with the magic cube.
@@ -629,8 +627,8 @@ You stand in the middle of a barren circle. All around the trees seem to be
 closing in. West will take you down a tiny path. Another clearer path leads
 northwest.  You can also see the Kedarn stone.  There is a Forester Goblin
 hanging from a tree here.  Serond follows you.
-Serond shoots a forest dwelling goblin with the oak staff.
-A forest dwelling goblin shoots you with the bow and arrow.
+Serond shoots a forest dwelling goblin with the oak staff.  A forest dwelling
+goblin shoots you with the bow and arrow.
 
 > attack goblin
 You hit a forest dwelling goblin with the magic cube.
@@ -682,12 +680,12 @@ With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
 direction.  The Longmore marsh king is here.  Serond follows you.
-Serond shoots a swamp monster with the oak staff.
-A swamp monster stabs you with the pointy stick.
+Serond shoots a swamp monster with the oak staff.  A swamp monster stabs you
+with the pointy stick.
 
 > attack monster
-You hit a swamp monster with the magic cube.
-Serond shoots a swamp monster with the oak staff.
+You hit a swamp monster with the magic cube.  Serond shoots a swamp monster
+with the oak staff.
 The swamp monster slowly melts into the marsh. It then dissapears.
 
 > ne
@@ -748,8 +746,7 @@ about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.  There is an eagle above you circling around your
 head.  Serond follows you from the west.
-Serond shoots a large eagle with the oak staff.
-A large eagle hits Serond.
+Serond shoots a large eagle with the oak staff.  A large eagle hits Serond.
 
 > attack eagle
 You hit a large eagle with the magic cube.
@@ -799,8 +796,7 @@ You move northeast.
 Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
  There is a Narn here.  Serond follows you.
-Serond shoots the little Narn with the oak staff.
-The little Narn hits you.
+Serond shoots the little Narn with the oak staff.  The little Narn hits you.
 
 > e
 You move east.
@@ -878,8 +874,7 @@ Uron Dark Path
 The path turns marshier here, great pools of boiling mud litter the path. The
 smell is choking. Southwest will take you down the mountain. Northwest will
 take you up the mountain.  There is a large Narn here.  Serond follows you.
-Serond shoots a large Narn with the oak staff.
-A large Narn hits Serond.
+Serond shoots a large Narn with the oak staff.  A large Narn hits Serond.
 
 > nw
 You move northwest.
@@ -926,12 +921,12 @@ follows you from the south.
 Serond shoots the dark knight with the oak staff.  Haron follows you.
 A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
-have brought a gift from Natalya."  Haron hands you a phial.
-The dark knight cuts Haron with the blade from Uron.
+have brought a gift from Natalya."  Haron hands you a phial.  The dark knight
+cuts Haron with the blade from Uron.
 
 > attack larnt
-You hit the dark knight with the magic cube.
-Serond shoots the dark knight with the oak staff.
+You hit the dark knight with the magic cube.  Serond shoots the dark knight
+with the oak staff.
 Larnt drops to the floor with a spine chilling shriek as he dissolves into
 the ground.
 
@@ -1074,14 +1069,13 @@ Serond shoots the dark lord with the oak staff.  Haron follows you from the
 south.
 
 > attack urgorn
-You hit the dark lord with the magic cube.
-Serond shoots the dark lord with the oak staff.
-Haron cuts the dark lord with the elven sword.
-The dark lord shoots Haron with the ball of fire.
+You hit the dark lord with the magic cube.  Serond shoots the dark lord with
+the oak staff.  Haron cuts the dark lord with the elven sword.  The dark lord
+shoots Haron with the ball of fire.
 
 > attack urgorn
-You hit the dark lord with the magic cube.
-Serond shoots the dark lord with the oak staff.
+You hit the dark lord with the magic cube.  Serond shoots the dark lord with
+the oak staff.
 
 > attack urgorn
 You hit the dark lord with the magic cube.

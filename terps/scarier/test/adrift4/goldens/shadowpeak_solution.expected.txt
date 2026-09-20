@@ -563,8 +563,8 @@ you!!! This be Alam Nadeer, the dreaded wraith.
 Seeker hums!
 
 > take vial
-You take the vial from the sarcophagus.
-Wraith hits you, but it doesn't seem to do any damage.
+You take the vial from the sarcophagus.  Wraith hits you, but it doesn't seem
+to do any damage.
 Seeker hums!
 
 > stand on sarcophagus
@@ -1299,9 +1299,8 @@ You open the large wooden box.  A leg of lamb is inside the large wooden box.
 > take lamb
 You take the leg of lamb from the large wooden box.
 Bambi, a child zombie, climbs out of the box. Covered in salt, she edges
-towards you.
-Zombie hits you, but it doesn't seem to do any damage.
-Seeker hums!
+towards you.  Zombie hits you, but it doesn't seem to do any damage.  Seeker
+hums!
 
 > attack bambi
 You stab zombie with the sword.
@@ -1840,17 +1839,15 @@ With a bang!, the gargoyle shatters, leaving nothing but the smell of
 brimstone…  Seeker hums!
 
 > attack gargoyle #3
-You stab Gargoyle #3 with the sword.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #3 attacks you with the pike, but you manage to avoid it.
-Seeker hums!
+You stab Gargoyle #3 with the sword.  Gargoyle #1 attacks you with the
+military fork, but you manage to avoid it.  Gargoyle #3 attacks you with the
+pike, but you manage to avoid it.  Seeker hums!
 
 > attack gargoyle #4
 You stab Gargoyle #4 with the sword.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
-brimstone…
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+brimstone…  Gargoyle #1 attacks you with the military fork, but you manage to
+avoid it.  Seeker hums!
 A black cat suddenly darts in front of you and off into the shadows.
 
 > s
@@ -1914,14 +1911,12 @@ You can only move north.
 You take the sword.  Gargoyle #1 flies in from the north.
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Gargoyle #3 flies in from the north.
-Gargoyle #3 attacks you with the pike, but you manage to avoid it.
-Seeker hums!
+Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker
+hums!
 
 > take shield
-You take the Shield.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+You take the Shield.  Gargoyle #1 stabs you with the military fork, but it
+doesn't seem to do any damage.  Seeker hums!
 
 > take gold coin
 You take gold coin.  Seeker hums!
@@ -1996,9 +1991,8 @@ Seeker hums!
 > z
 Time passes...
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.
-Seeker hums!
+damage.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any
+damage.  Seeker hums!
 
 > w
 You move west.
@@ -2208,8 +2202,8 @@ water.
 You can move north, east and up.  Gargoyle #1 flies in.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.  Gargoyle #3 flies in.
-Gargoyle #3 attacks you with the pike, but you manage to avoid it.
-Seeker hums!
+Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker
+hums!
 
 > u
 You move up.
@@ -2684,10 +2678,9 @@ damage.  Gargoyle #3 flies in.
 Seeker hums!
 
 > take stake
-You take the stake.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.
-Seeker hums!
+You take the stake.  Gargoyle #1 attacks you with the military fork, but you
+manage to avoid it.  Gargoyle #3 stabs you with the pike, but it doesn't seem
+to do any damage.  Seeker hums!
 
 > e
 You move east.
@@ -2789,15 +2782,14 @@ northward.
 You can move north and south.  Gargoyle #1 flies in.
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Gargoyle #3 flies in.
-Gargoyle #3 attacks you with the pike, but you manage to avoid it.
-Seeker hums!
+Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker
+hums!
 Seeker hums!
 You hear the shuffling of feet elsewhere in the castle.
 
 > open coffin #2
-You open the coffin #2.  A sceptre is inside the coffin #2.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
+You open the coffin #2.  A sceptre is inside the coffin #2.  Gargoyle #1
+stabs you with the military fork, but it doesn't seem to do any damage.
 Seeker hums!
 Grazilda lies in her coffin.  Grazilda’s eyes flick open.  Seeker hums!
 
@@ -2806,20 +2798,17 @@ As you plunge the stake into Grazilda’s heart, she screams and wines with the
 pain. Her whole body convulses, then at last she is silent. Her body
 evaporates into the air, along with the stake that brought about her end.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 Seeker hums!
 
 > take sceptre
-You take the sceptre from the coffin #2.
-Gargoyle #3 attacks you with the pike, but you manage to avoid it.
-Seeker hums!
+You take the sceptre from the coffin #2.  Gargoyle #3 attacks you with the
+pike, but you manage to avoid it.  Seeker hums!
 Seeker hums!
 
 > open coffin #11
-You open the coffin #11.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+You open the coffin #11.  Gargoyle #1 attacks you with the military fork, but
+you manage to avoid it.  Seeker hums!
 Seeker hums!
 The coffin is empty. You can only wonder where the occupant is now.
 
@@ -2906,21 +2895,17 @@ Seeker hums!
 
 > unlock iron chest with golden key
 You unlock iron chest with golden key.
-Gargoyle #1 stabs you with the military fork.
-Gargoyle #3 attacks you with the pike, but you manage to avoid it.
-Seeker hums!
+Gargoyle #1 stabs you with the military fork.  Gargoyle #3 attacks you with
+the pike, but you manage to avoid it.  Seeker hums!
 
 > open iron chest
-You open iron chest.  A ballista bolt is inside iron chest.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
+You open iron chest.  A ballista bolt is inside iron chest.  Gargoyle #1
+stabs you with the military fork, but it doesn't seem to do any damage.
 Seeker hums!
 
 > take ballista bolt
-You take the ballista bolt from iron chest.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+You take the ballista bolt from iron chest.  Gargoyle #1 stabs you with the
+military fork, but it doesn't seem to do any damage.  Seeker hums!
 
 > w
 You move west.
@@ -2979,11 +2964,9 @@ thwarted, Morac decides on a new tactic. His eyes fix on your own as he tries
 to hypnotize you.
 
 > look away
-You do so, thwarting Morac’s attack yet again.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.
-Seeker hums!
+You do so, thwarting Morac’s attack yet again.  Gargoyle #1 stabs you with
+the military fork, but it doesn't seem to do any damage.  Gargoyle #3 stabs
+you with the pike, but it doesn't seem to do any damage.  Seeker hums!
 Morac’s face turns red with rage. He suddenly holds one hand up, palm open,
 as you feel a tugging sensation from your chest.
 
@@ -3440,10 +3423,8 @@ Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Seeker hums!
 
 > open double doors
-You open the double doors.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+You open the double doors.  Gargoyle #1 stabs you with the military fork, but
+it doesn't seem to do any damage.  Seeker hums!
 
 > n
 You move north.
@@ -3492,8 +3473,7 @@ if you defeat me the way shall be revealed."  Seeker hums!
 
 > z
 Time passes...
-You manage to avoid construct's attack.
-Seeker hums!
+You manage to avoid construct's attack.  Seeker hums!
 
 > sleep
 You do so, and wake up feeling rather refreshed.
@@ -3503,20 +3483,17 @@ damage.  Gargoyle #3 flies in.
 Seeker hums!
 
 > attack edna
-You stab construct with the sword.
-You manage to avoid construct's attack.
+You stab construct with the sword.  You manage to avoid construct's attack.
 Seeker hums!
 
 > attack edna
-You stab construct with the sword.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #3 attacks you with the pike, but you manage to avoid it.
-Seeker hums!
+You stab construct with the sword.  Gargoyle #1 attacks you with the military
+fork, but you manage to avoid it.  Gargoyle #3 attacks you with the pike, but
+you manage to avoid it.  Seeker hums!
 
 > attack edna
-You stab construct with the sword.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-You manage to avoid construct's attack.
+You stab construct with the sword.  Gargoyle #1 attacks you with the military
+fork, but you manage to avoid it.  You manage to avoid construct's attack.
 Seeker hums!
 
 > attack edna
@@ -3527,11 +3504,9 @@ The northern passage suddenly glows momentarily.
 Seeker hums!
 
 > take fleshy mound
-You take fleshy mound.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.
-Seeker hums!
+You take fleshy mound.  Gargoyle #1 stabs you with the military fork, but it
+doesn't seem to do any damage.  Gargoyle #3 stabs you with the pike, but it
+doesn't seem to do any damage.  Seeker hums!
 
 > n
 You move north.
@@ -3585,9 +3560,9 @@ Seeker hums!
 > rub lamp
 The lamp shudders slightly, then a cloud of smoke whooshes out of it. When
 the smoke clears, a tall blue man stands in front of you, arms folded, and
-wearing a loincloth.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #3 attacks you with the pike, but you manage to avoid it.
+wearing a loincloth.  Gargoyle #1 attacks you with the military fork, but you
+manage to avoid it.  Gargoyle #3 attacks you with the pike, but you manage to
+avoid it.
 Olmo speaks, "Wishes three, I have for ye, tho only one will be of help to
 thee. Pick your letter: a, b, or c."
 " Wish a is to meet Morac face to face, have it over and done with, cut short
@@ -3607,8 +3582,7 @@ You notice that an opening has appeared in the ceiling.
 The voice of Olmo lingers on momentarily; you hear the words, "Try and catch
 the wind."
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 
 > u
 You move up.
@@ -3954,8 +3928,7 @@ You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
 
 You can move north, east and south.
-You manage to avoid minotaur's attack.
-Seeker hums!
+You manage to avoid minotaur's attack.  Seeker hums!
 Seeker Hums!
 
 > attack damastus
@@ -3970,8 +3943,7 @@ You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
 
 You can move north and south.
-You manage to avoid minotaur's attack.
-Seeker hums!
+You manage to avoid minotaur's attack.  Seeker hums!
 Seeker Hums!
 
 > attack damastus
@@ -3986,8 +3958,7 @@ You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
 
 You can move north, east, south and west.
-You manage to avoid minotaur's attack.
-Seeker hums!
+You manage to avoid minotaur's attack.  Seeker hums!
 Seeker Hums!
 
 > attack damastus
@@ -4002,8 +3973,7 @@ You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
 
 You can move north and south.
-You manage to avoid minotaur's attack.
-Seeker hums!
+You manage to avoid minotaur's attack.  Seeker hums!
 Seeker Hums!
 
 > attack damastus
@@ -4015,9 +3985,8 @@ Seeker Hums!
 > attack damastus
 You stab minotaur with the sword.
 Damastus screams in pain, and, with that, falls to the ground with a loud
-thud!
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+thud!  Gargoyle #1 attacks you with the military fork, but you manage to
+avoid it.  Seeker hums!
 
 > n
 You move north.
@@ -4097,15 +4066,13 @@ You can move north and up.  Gargoyle #1 flies in.  Gargoyle #3 flies in.
 Seeker hums!
 
 > take greaves
-You take the arm and leg greaves.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.
-Seeker hums!
+You take the arm and leg greaves.  Gargoyle #1 attacks you with the military
+fork, but you manage to avoid it.  Gargoyle #3 stabs you with the pike, but
+it doesn't seem to do any damage.  Seeker hums!
 
 > wear greaves
-You put on the arm and leg greaves.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+You put on the arm and leg greaves.  Gargoyle #1 attacks you with the
+military fork, but you manage to avoid it.  Seeker hums!
 
 > u
 You move up.
@@ -4180,8 +4147,8 @@ earth, and all is lit by a deep red sky. It seems the only safe way to travel
 is past a rather large, black iron gate to north, or south to a river of
 lava.
 Gargoyle #1 flies in.  Gargoyle #3 flies in.
-Gargoyle #3 attacks you with the pike, but you manage to avoid it.
-Seeker hums!
+Gargoyle #3 attacks you with the pike, but you manage to avoid it.  Seeker
+hums!
 
 You hear a load voice boom out!! "Well, well, well, you didn’t think it would
 be that easy, did you? The staff you broke was also infused with Morac’s
@@ -4310,8 +4277,7 @@ listening. While doing so, a jet of flame streams from one of its heads and
 sears you with its blistering heat.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
-Hound of hades hits you, but it doesn't seem to do any damage.
-Seeker hums!
+Hound of hades hits you, but it doesn't seem to do any damage.  Seeker hums!
 Seeker Hums!  You are feeling very tired, indeed, and realise you should find
 somewhere to sleep!
 
@@ -4319,16 +4285,14 @@ somewhere to sleep!
 You stab hound of hades with the sword.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
-Hound of hades hits you, but it doesn't seem to do any damage.
-Seeker hums!
+Hound of hades hits you, but it doesn't seem to do any damage.  Seeker hums!
 Seeker Hums!
 
 > attack cerberus
 You stab hound of hades with the sword.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
-Hound of hades hits you, but it doesn't seem to do any damage.
-Seeker hums!
+Hound of hades hits you, but it doesn't seem to do any damage.  Seeker hums!
 Seeker Hums!
 Cerberus' serpent tail lashes round and bites your arm with its poisonous
 fangs, but your arm greaves deflect the blow.
@@ -4346,9 +4310,8 @@ Seeker hums!
 > attack cerberus
 Cerberus isn't here!
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #3 stabs you with the pike, but it doesn't seem to do any damage.
-Seeker hums!
+damage.  Gargoyle #3 stabs you with the pike, but it doesn't seem to do any
+damage.  Seeker hums!
 
 > n
 You move north.

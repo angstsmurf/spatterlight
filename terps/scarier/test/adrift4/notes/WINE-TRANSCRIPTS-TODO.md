@@ -313,10 +313,11 @@ the_hangover T34) went identical with that port on 2026-09-20.
   paragraph, at every version" in the index: p4ALRSRC `xray` at 4.0, troll's
   hunger events at 3.90), and so is the other side of it, the library
   answer's own terminator ("A library answer has no terminator of its own").
-  So is the AdditionalMessage, now at every version. What is left is a
+  So is the AdditionalMessage, now at every version, and so is an NPC's
+  battle blow ("An NPC's blow joins the turn's string"). What is left is a
   task's CompleteText, which only a 4.0 task that an action runs joins; the
-  186 single-newline Scarier-only breaks the archive still shows are mostly
-  that, plus NPC walk lines and battle strikes. The corpus case is
+  158 single-newline Scarier-only breaks the archive still shows are mostly
+  that, plus NPC walk lines. The corpus case is
   `thetest` (3.90), whose ALRs include two-sentence Originals that span
   exactly such a join:
   `You drop your clothes.  Nice try fish face!` (library drop + task text),
@@ -2424,6 +2425,25 @@ transcript names are in the code comment next to the named function, in
   whitespace only; sweep_wine_breaks 5735 -> 5694 Scarier-only breaks, of
   which the meaningful single-newline kind 221 -> 187, runner-only unchanged
   at 2, no row worse, 17 better)
+- **An NPC's blow joins the turn's string.** chardohit -- the NPC's blow --
+  calls pspace() at the head of every one of its four printing branches, so
+  the sentence runs on after whatever the turn has already said: run390
+  442C7C at 4424E6 (bare-handed, landed and no damage), 442610 (armed, both
+  outcomes), 4427EF and 442911 (the same two against the other class of
+  target), and run400 4654F8 at the matching 465072, 46513D, 4651EF and
+  46537F. killchar does it too, ahead of " falls down, dead." (run400
+  44B105). The PLAYER's blow does not: dohit (run390 438B50, run400 45E578)
+  writes `MemVar_4941B0 = MemVar_4941B0 & Ary(0) & " hit " & ...` with no
+  separator at all -- the same bare concatenation that glues one line's
+  several strikes together -- so only an NPC attacker joins. trabula (4.00)
+  is byte-exact either way: `attack soldier` is "You stab a soldier with the
+  sword.  Soldier falls down, dead." and the Middle Bridge arrival is "A
+  soldier is here.  A soldier attacks you with the rapier, but you manage to
+  avoid it." (runner_transcripts/trabula.txt, lines 48 and 62). `[all]`
+  (`battle_blow_join`, `pf_buffer_join_open`, 2026-09-20; 29 goldens moved,
+  whitespace only; sweep_wine_breaks 5693 -> 5662 Scarier-only breaks, of
+  which the meaningful single-newline kind 186 -> 158, runner-only unchanged
+  at 2, no row worse, 9 better)
 - **An event's text joins the turn's paragraph, at every version.**
   checkevent puts the two-space separator ahead of every one of its texts --
   inline in run370 (431CA5, 432143, 4321FE) and run380 (439F69-439F86,

@@ -334,9 +334,8 @@ the Clown is here, laughing maniacly.  Bill is here, playing the calliope.
 
 > show mirror to bill
 You show Bill the funhouse mirror.  He stops playing the calliope and starts
-preening in the wavy mirror.  He laughs at his silly image.
-The mad clown hits you with the foam bat, but it doesn't seem to do any
-damage.
+preening in the wavy mirror.  He laughs at his silly image.   The mad clown
+hits you with the foam bat, but it doesn't seem to do any damage.
 
 > e
 You move east.
@@ -493,22 +492,22 @@ clown costumes and a trunk of props, a lit makeup mirror and table.  The exit
 is to the west.  Zippo the cowboy clown is here, applying makeup.
 
 > turn lock 13
-You turn the lock to the number 13.
-The clown shoots you with the toy gun, but it doesn't seem to do any damage.
+You turn the lock to the number 13.  The clown shoots you with the toy gun,
+but it doesn't seem to do any damage.
 
 > turn lock 9
 You turn the lock to the number 9.
 
 > turn lock 5
-You turn the lock to the number 5.
-The clown shoots you with the toy gun, but it doesn't seem to do any damage.
+You turn the lock to the number 5.  The clown shoots you with the toy gun,
+but it doesn't seem to do any damage.
 
 > open trunk
 You open the trunk.
 
 > take videocamera
-You take the videocamera from the trunk.
-The clown shoots you with the toy gun, but it doesn't seem to do any damage.
+You take the videocamera from the trunk.  The clown shoots you with the toy
+gun, but it doesn't seem to do any damage.
 
 > w
 You move west.

@@ -226,32 +226,32 @@ You move north.
 
 Observatory
 You enter the observatory. It is a dimly lit room with few candles and an
-open drawer.   Watch out! A mobster is here, in this room!!!
-The Italian mobster shoots you with the Remington 410 shotgun.
+open drawer.   Watch out! A mobster is here, in this room!!!  The Italian
+mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > s
 You move south.
@@ -270,28 +270,28 @@ You move north.
 
 Observatory
 You enter the observatory. It is a dimly lit room with few candles and an
-open drawer.   Watch out! A mobster is here, in this room!!!
-The Italian mobster shoots you with the Remington 410 shotgun.
+open drawer.   Watch out! A mobster is here, in this room!!!  The Italian
+mobster shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
-You shoot the Italian mobster with Colt .45 pistol.
-The Italian mobster shoots you with the Remington 410 shotgun.
+You shoot the Italian mobster with Colt .45 pistol.  The Italian mobster
+shoots you with the Remington 410 shotgun.
 
 > shoot fernelli with pistol
 You shoot the Italian mobster with Colt .45 pistol.
@@ -595,8 +595,8 @@ You move north.
 Mountain Path
 This is the path that leads from the road all the way up to the summit. You
 are surrounded by trees and can only move forward. There are footprints
-leading up the slope.   A gigantic grizzley bear is here too, watch out!
-A grizzley bear hits you.
+leading up the slope.   A gigantic grizzley bear is here too, watch out!  A
+grizzley bear hits you.
 
 > n
 You move north.

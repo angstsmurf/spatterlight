@@ -353,6 +353,7 @@ extern void pf_note_trailing_auto_break (scr_filterref_t filter);
 extern void pf_buffer_answer_break (scr_filterref_t filter);
 extern void pf_buffer_pspace (scr_filterref_t filter);
 extern scr_bool pf_has_hidden_prefix (scr_filterref_t filter);
+extern void pf_buffer_join_open (scr_filterref_t filter);
 extern void pf_buffer_join_line (scr_filterref_t filter,
                                  const scr_char *string);
 extern scr_bool pf_ends_with_double_space (scr_filterref_t filter);

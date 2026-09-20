@@ -493,22 +493,19 @@ has delivered to your belly.
 
        "But, if ya intend to side with those no account gods and the
 rest...well I'm afraid I'm gonna have to tan your hide," Hope states with a
-grim look in her pretty eyes...
-Hope hits you.
+grim look in her pretty eyes...  Hope hits you.
 
 > attack hope
 You cut Hope with the Soul Scythe.
 
 > attack hope
-You cut Hope with the Soul Scythe.
-Hope hits you.
+You cut Hope with the Soul Scythe.  Hope hits you.
 
 > attack hope
 You cut Hope with the Soul Scythe.
 
 > attack hope
-You cut Hope with the Soul Scythe.
-Hope hits you.
+You cut Hope with the Soul Scythe.  Hope hits you.
 
 > attack hope
 You cut Hope with the Soul Scythe.
@@ -765,9 +762,8 @@ lifts up her blade and assumes a warrior's posture, "now ya'll should know
 that that is just plain rude. I'm gonna have to show ya'll what the light of
 Hope kin do..."
 
-She smiles from ear to ear as she lunges at the both of you...
-Hope manages to avoid Charity Bell's attack.
-Hope cuts you with the Stripper Sword.
+She smiles from ear to ear as she lunges at the both of you...  Hope manages
+to avoid Charity Bell's attack.  Hope cuts you with the Stripper Sword.
 
 >
 Your words... they're so unclear
@@ -779,22 +775,19 @@ Your words... they're so unclear
 Your words... they're so unclear
 
 > attack hope
-You cut Hope with the Soul Scythe.
-Charity Bell hits Hope.
+You cut Hope with the Soul Scythe.  Charity Bell hits Hope.
+
+> attack hope
+You cut Hope with the Soul Scythe.  Hope manages to avoid Charity Bell's
+attack.  Hope attacks Charity Bell with the Stripper Sword, but she manages
+to avoid it.
 
 > attack hope
 You cut Hope with the Soul Scythe.
-Hope manages to avoid Charity Bell's attack.
-Hope attacks Charity Bell with the Stripper Sword, but she manages to avoid
-it.
 
 > attack hope
-You cut Hope with the Soul Scythe.
-
-> attack hope
-You cut Hope with the Soul Scythe.
-Hope manages to avoid Charity Bell's attack.
-Hope cuts you with the Stripper Sword.
+You cut Hope with the Soul Scythe.  Hope manages to avoid Charity Bell's
+attack.  Hope cuts you with the Stripper Sword.
 
 > attack hope
 You cut Hope with the Soul Scythe.

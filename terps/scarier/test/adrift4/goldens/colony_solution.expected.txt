@@ -187,9 +187,9 @@ looks almost rusted through . There are lights on the top of the tower that
 are still illuminated for some reason .  A small alien is here.
 
 You can move down and in.
-A  small alien hits you, but it doesn't seem to do any damage.
-A streak of lightning flashes on the horizon and a whirl of flame spits from
-the sky where the lightning went down .
+A  small alien hits you, but it doesn't seem to do any damage.  A streak of
+lightning flashes on the horizon and a whirl of flame spits from the sky
+where the lightning went down .
 
 > in
 You move in.
@@ -203,8 +203,7 @@ elevator but a large hole is in the floor .
 You can move down and out.
 
 > climb cable
-You climb the steel cable to the tower top .
-A  large alien hits you.
+You climb the steel cable to the tower top .  A  large alien hits you.
 
 > look
 
@@ -220,18 +219,17 @@ You can only move down.
 A  large alien hits you.
 
 > take all
-You pick up the light helmet and explode on inmpact bullets.
-A  large alien hits you.
+You pick up the light helmet and explode on inmpact bullets.  A  large alien
+hits you.
 
 > wear light helmet
-You put on the light helmet.
-A  large alien hits you, but it doesn't seem to do any damage.
-A streak of lightning flashes on the horizon and a whirl of flame spits from
-the sky where the lightning went down .
+You put on the light helmet.  A  large alien hits you, but it doesn't seem to
+do any damage.  A streak of lightning flashes on the horizon and a whirl of
+flame spits from the sky where the lightning went down .
 
 > load bullets
-You put the eoi bullets into the gun.
-A  large alien hits you, but it doesn't seem to do any damage.
+You put the eoi bullets into the gun.  A  large alien hits you, but it
+doesn't seem to do any damage.
 
 > d
 You move down.

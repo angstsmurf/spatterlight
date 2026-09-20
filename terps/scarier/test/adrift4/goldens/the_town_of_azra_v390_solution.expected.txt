@@ -282,40 +282,31 @@ You can move north and south.
 A bandit hits you.
 
 > attack bandit
-You chop a bandit with the hunting sword.
-A bandit hits you.
+You chop a bandit with the hunting sword.  A bandit hits you.
 
 > attack bandit
-You chop a bandit with the hunting sword.
-A bandit hits you.
+You chop a bandit with the hunting sword.  A bandit hits you.
 
 > attack bandit
-You chop a bandit with the hunting sword.
-A bandit hits you.
+You chop a bandit with the hunting sword.  A bandit hits you.
 
 > attack bandit
-You chop a bandit with the hunting sword.
-A bandit hits you.
+You chop a bandit with the hunting sword.  A bandit hits you.
 
 > attack bandit
-You chop a bandit with the hunting sword.
-A bandit hits you.
+You chop a bandit with the hunting sword.  A bandit hits you.
 
 > attack bandit
-You chop a bandit with the hunting sword.
-A bandit hits you.
+You chop a bandit with the hunting sword.  A bandit hits you.
 
 > attack bandit
-You chop a bandit with the hunting sword.
-A bandit hits you.
+You chop a bandit with the hunting sword.  A bandit hits you.
 
 > attack bandit
-You chop a bandit with the hunting sword.
-A bandit hits you.
+You chop a bandit with the hunting sword.  A bandit hits you.
 
 > attack bandit
-You chop a bandit with the hunting sword.
-A bandit hits you.
+You chop a bandit with the hunting sword.  A bandit hits you.
 
 > attack bandit
 You chop a bandit with the hunting sword.

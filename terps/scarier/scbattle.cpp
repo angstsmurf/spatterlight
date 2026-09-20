@@ -1226,10 +1226,11 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
     }
   else if (visible && !battle_legacy)
     {
-      pf_buffer_character (filter, '\n');
+      pf_buffer_join_open (filter);
       battle_print_combatant (game, npc,
                               BATTLE_FORM_SUBJECT, BATTLE_NAME_NAME);
-      pf_buffer_string (filter, " falls down, dead.\n");
+      pf_buffer_string (filter, " falls down, dead.");
+      pf_buffer_answer_break (filter);
     }
 
   /*
@@ -1296,6 +1297,36 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
 /* Attack verbs by weapon method code, base (player) form; NPCs append "s". */
 static const scr_char *const BATTLE_METHOD_VERBS[6]
     = {"chop", "cut", "hit", "shoot", "stab", "throw"};
+
+/*
+ * battle_blow_join()
+ *
+ * Open an NPC's blow onto the turn's string, the way the Runner does.
+ * chardohit -- the NPC's blow -- calls pspace() at the head of every one of
+ * its four printing branches, so the sentence runs on after whatever the turn
+ * has already said rather than starting a line of its own: run390 442C7C at
+ * 4424E6 (bare-handed landed / no damage), 442610 (armed, both outcomes),
+ * 4427EF and 442911 (the same two against the other class of target), and
+ * run400 4654F8 at the matching 465072, 46513D, 4651EF and 46537F.  killchar
+ * does it too, ahead of " falls down, dead." (run400 44B105).
+ *
+ * The player's own blow does NOT: dohit (run390 438B50, run400 45E578) writes
+ * MemVar_4941B0 = MemVar_4941B0 & Ary(0) & " hit " & ... with no separator at
+ * all, which is the same bare concatenation that glues one line's several
+ * strikes together (see lib_battle_attack_many).  So only an NPC attacker
+ * joins here.
+ *
+ * Measured across the archive: a player strike and the counter-blow it draws
+ * share a line -- "You stab a bandit with the hunting sword.  A bandit hits
+ * you." -- and so does anything the NPC tick prints after one
+ * (runner_transcripts, sweep_wine_breaks.py).
+ */
+static void
+battle_blow_join (scr_gameref_t game, scr_int attacker)
+{
+  if (attacker != BATTLE_PLAYER)
+    pf_buffer_join_open (gs_get_filter (game));
+}
 
 /*
  * battle_resolve()
@@ -1376,6 +1407,7 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
 
       if (visible)
         {
+          battle_blow_join (game, attacker);
           battle_print_combatant (game, attacker,
                                   BATTLE_FORM_SUBJECT_CAPITALISED, naming);
           if (method == 5)
@@ -1414,15 +1446,22 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
       if (damage > 0)
         {
           if (visible)
-            pf_buffer_string (filter, ".\n");
+            {
+              pf_buffer_character (filter, '.');
+              pf_buffer_answer_break (filter);
+            }
           battle_apply_damage (game, target, damage, visible);
         }
       else if (visible)
-        pf_buffer_string (filter,
-                          ", but it doesn't seem to do any damage.\n");
+        {
+          pf_buffer_string (filter,
+                            ", but it doesn't seem to do any damage.");
+          pf_buffer_answer_break (filter);
+        }
     }
   else if (visible)
     {
+      battle_blow_join (game, attacker);
       if (method < 0)
         {
           battle_print_combatant (game, target, BATTLE_FORM_SUBJECT, naming);
@@ -1430,14 +1469,16 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
                                                  : " manages to avoid ");
           battle_print_combatant (game, attacker,
                                   BATTLE_FORM_POSSESSIVE, naming);
-          pf_buffer_string (filter, " attack.\n");
+          pf_buffer_string (filter, " attack.");
+          pf_buffer_answer_break (filter);
         }
       else if (attacker < 0)
         {
           battle_print_combatant (game, target, BATTLE_FORM_SUBJECT, naming);
           pf_buffer_string (filter, " manages to avoid your attack with ");
           lib_print_object_np (game, weapon);
-          pf_buffer_string (filter, ".\n");
+          pf_buffer_character (filter, '.');
+          pf_buffer_answer_break (filter);
         }
       else
         {
@@ -1475,8 +1516,9 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
             }
           else
             battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
-          pf_buffer_string (filter, (target < 0) ? " manage to avoid it.\n"
-                                                 : " manages to avoid it.\n");
+          pf_buffer_string (filter, (target < 0) ? " manage to avoid it."
+                                                 : " manages to avoid it.");
+          pf_buffer_answer_break (filter);
         }
     }
 }

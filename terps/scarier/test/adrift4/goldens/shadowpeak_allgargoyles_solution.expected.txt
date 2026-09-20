@@ -563,8 +563,8 @@ you!!! This be Alam Nadeer, the dreaded wraith.
 Seeker hums!
 
 > take vial
-You take the vial from the sarcophagus.
-Wraith hits you, but it doesn't seem to do any damage.
+You take the vial from the sarcophagus.  Wraith hits you, but it doesn't seem
+to do any damage.
 Seeker hums!
 
 > stand on sarcophagus
@@ -1329,9 +1329,7 @@ You open the large wooden box.  A leg of lamb is inside the large wooden box.
 > take lamb
 You take the leg of lamb from the large wooden box.
 Bambi, a child zombie, climbs out of the box. Covered in salt, she edges
-towards you.
-You manage to avoid zombie's attack.
-Seeker hums!
+towards you.  You manage to avoid zombie's attack.  Seeker hums!
 
 > attack bambi
 You stab zombie with the sword.
@@ -1586,15 +1584,15 @@ You can only move down.
 Seeker hums!
 
 > attack haraxis
-You stab giant spider with the sword.
-Giant spider hits you, but it doesn't seem to do any damage.
+You stab giant spider with the sword.  Giant spider hits you, but it doesn't
+seem to do any damage.
 
 > z
 Time passes...
 
 > attack haraxis
-You stab giant spider with the sword.
-Giant spider hits you, but it doesn't seem to do any damage.
+You stab giant spider with the sword.  Giant spider hits you, but it doesn't
+seem to do any damage.
 
 > z
 Time passes...
@@ -1860,11 +1858,8 @@ you.  Seeker hums!
 > attack gargoyle #2
 You stab Gargoyle #2 with the sword.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
-brimstone…
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Gargoyle #4 cuts you with the glaive.
-Seeker hums!
+brimstone…  Gargoyle #1 stabs you with the military fork, but it doesn't seem
+to do any damage.  Gargoyle #4 cuts you with the glaive.  Seeker hums!
 You hear the sound of a cat’s "meow".
 
 > attack gargoyle #3
@@ -1875,9 +1870,8 @@ brimstone…  Seeker hums!
 > attack gargoyle #4
 You stab Gargoyle #4 with the sword.
 With a bang!, the gargoyle shatters, leaving nothing but the smell of
-brimstone…
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+brimstone…  Gargoyle #1 attacks you with the military fork, but you manage to
+avoid it.  Seeker hums!
 
 > s
 You move south.
@@ -1941,15 +1935,12 @@ Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Seeker hums!
 
 > take shield
-You take the Shield.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+You take the Shield.  Gargoyle #1 attacks you with the military fork, but you
+manage to avoid it.  Seeker hums!
 
 > take gold coin
-You take gold coin.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+You take gold coin.  Gargoyle #1 stabs you with the military fork, but it
+doesn't seem to do any damage.  Seeker hums!
 
 > n
 You move north.
@@ -2026,8 +2017,7 @@ Seeker hums!
 
 > z
 Time passes...
-Gargoyle #1 stabs you with the military fork.
-Seeker hums!
+Gargoyle #1 stabs you with the military fork.  Seeker hums!
 
 > z
 Time passes...
@@ -2036,8 +2026,7 @@ Seeker hums!
 > z
 Time passes...
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 
 > z
@@ -2053,8 +2042,7 @@ Seeker hums!
 > z
 Time passes...
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 
 > z
 Time passes...
@@ -2064,8 +2052,7 @@ Seeker hums!
 > z
 Time passes...
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 
 > z
 Time passes...
@@ -2158,8 +2145,7 @@ pentagram room, while from the south you can feel a cool breeze.
 
 You can move north and south.  Gargoyle #1 flies in.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 
 > n
 You move north.
@@ -2602,8 +2588,7 @@ Dong! You hear a bell toll elsewhere in the castle.
 > unlock steel door with brooch
 You unlock steel door with the brooch.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 
 > open steel door
 You open steel door.  Seeker hums!
@@ -2747,8 +2732,7 @@ equipment being full of grime and dirt. West leads to the dining room.
 
 You can move south, west and down.  Gargoyle #1 flies in.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 
 > s
 You move south.
@@ -2848,8 +2832,7 @@ Seeker hums!
 > take silver key
 You take silver key.  Gargoyle #1 flies in.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 Seeker hums!
 Dong! You hear a bell toll elsewhere in the castle.
 
@@ -2859,9 +2842,8 @@ Seeker hums!
 Seeker hums!
 
 > open cell door
-You open the cell door.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+You open the cell door.  Gargoyle #1 attacks you with the military fork, but
+you manage to avoid it.  Seeker hums!
 As you open the cell door, Margo springs to her feet. You notice a terrible
 change coming over her, she flings the cell door wide open, ripping it off
 its hinges. Hair quickly starts to grow all over her body. You stand,
@@ -2869,15 +2851,13 @@ stunned, as she continues to destroy the cell. Suddenly she stops and stands
 transformed before you. Margo, the village maid, is a werewolf.  Seeker hums!
 
 > attack margo with sword
-You stab werewolf with the sword.
-Gargoyle #1 stabs you with the military fork.
-Seeker hums!
+You stab werewolf with the sword.  Gargoyle #1 stabs you with the military
+fork.  Seeker hums!
 Seeker hums!
 
 > attack margo with sword
-You stab werewolf with the sword.
-Werewolf hits you, but it doesn't seem to do any damage.
-Seeker hums!
+You stab werewolf with the sword.  Werewolf hits you, but it doesn't seem to
+do any damage.  Seeker hums!
 Seeker hums!
 
 > n
@@ -2923,8 +2903,7 @@ Seeker hums!
 > open coffin #11
 You open the coffin #11.  Gargoyle #1 flies in.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 Seeker hums!
 The coffin is empty. You can only wonder where the occupant is now.
 
@@ -3018,8 +2997,7 @@ You open iron chest.  A ballista bolt is inside iron chest.  Seeker hums!
 > take ballista bolt
 You take the ballista bolt from iron chest.  Gargoyle #1 flies in.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 
 > w
 You move west.
@@ -3111,8 +3089,7 @@ Morac flies around the castle on his black dragon.
 
 You can move north and up.  Gargoyle #1 flies in.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.
-Seeker hums!
+damage.  Seeker hums!
 
 > n
 You move north.
@@ -3657,8 +3634,8 @@ You can move north, east, south and west.
 > z
 Time passes...
 Edna turns towards you and moans, "Thou shalt not pass. Only one way is true,
-if you defeat me the way shall be revealed."
-You manage to avoid construct's attack.
+if you defeat me the way shall be revealed."  You manage to avoid construct's
+attack.
 
 > z
 Time passes...
@@ -3671,8 +3648,7 @@ You manage to avoid construct's attack.
 You stab construct with the sword.
 
 > attack edna
-You stab construct with the sword.
-You manage to avoid construct's attack.
+You stab construct with the sword.  You manage to avoid construct's attack.
 
 > attack edna
 You stab construct with the sword.

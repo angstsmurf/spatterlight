@@ -251,8 +251,8 @@ damage.
 
 > kill beth
 as beth dies she drops the bat and falls to the floor.  but she raises from
-the floor with a look of amazement on her face
-A lovely  girl hits you, but it doesn't seem to do any damage.
+the floor with a look of amazement on her face  A lovely  girl hits you, but
+it doesn't seem to do any damage.
 
 > south
 You move south.
@@ -267,9 +267,8 @@ You can move north, south and west.
 You move south.
 
 Master bedroom
-this is the master bedroom in the house of death   Ross is here.
-A tall well built  man hits you with metal glove, but it doesn't seem to do
-any damage.
+this is the master bedroom in the house of death   Ross is here.  A tall well
+built  man hits you with metal glove, but it doesn't seem to do any damage.
 
 > kill ross
 ross dissapears and you don't know where he went   Joshua walks in .
@@ -331,8 +330,8 @@ You can move east, west and down.  Joshua walks in  from below.
 A small  demon hits you, but it doesn't seem to do any damage.
 
 > kill witch
-the witch disappears with a laugh
-A small  demon hits you, but it doesn't seem to do any damage.
+the witch disappears with a laugh   A small  demon hits you, but it doesn't
+seem to do any damage.
 
 > up
 You move up.

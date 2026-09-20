@@ -2253,7 +2253,13 @@ pf_buffer_pspace (scr_filterref_t filter)
 
 /*
  * pf_has_hidden_prefix()
+ * pf_buffer_join_open()
  * pf_buffer_join_line()
+ *
+ * pf_buffer_join_open() is the separator half on its own, for text a caller
+ * assembles piece by piece rather than handing over as one string -- a battle
+ * blow, say, which is a name, a verb, another name and a full stop.  Call it
+ * once, before the first piece.
  *
  * pf_buffer_join_line() buffers a task text the way run400 assembles it: onto
  * the end of the turn's one string after pspace(), and not as a section of its
@@ -2288,16 +2294,16 @@ pf_has_hidden_prefix (scr_filterref_t filter)
 }
 
 void
-pf_buffer_join_line (scr_filterref_t filter, const scr_char *string)
+pf_buffer_join_open (scr_filterref_t filter)
 {
   const size_t length = filter->buffer.size ();
 
   assert (pf_is_valid (filter));
-  assert (string);
 
-  if (!filter->is_muted
-      && !pf_text_leads_with_break (string)
-      && filter->auto_break_at >= 0
+  if (filter->is_muted)
+    return;
+
+  if (filter->auto_break_at >= 0
       && (size_t) filter->auto_break_at == length
       && length > 1
       && filter->buffer[length - 1] == '\n')
@@ -2315,8 +2321,18 @@ pf_buffer_join_line (scr_filterref_t filter, const scr_char *string)
                && filter->buffer[filter->buffer.size () - 2] == ' '))
         pf_append_string (filter, "  ");
     }
-  else if (!filter->is_muted && !pf_text_leads_with_break (string))
+  else
     pf_buffer_pspace (filter);
+}
+
+void
+pf_buffer_join_line (scr_filterref_t filter, const scr_char *string)
+{
+  assert (pf_is_valid (filter));
+  assert (string);
+
+  if (!filter->is_muted && !pf_text_leads_with_break (string))
+    pf_buffer_join_open (filter);
 
   pf_buffer_paragraph_line (filter, string);
 }

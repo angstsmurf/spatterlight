@@ -279,17 +279,14 @@ Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
 L'assassin se débrouille a  échapper à votre attaque avec une épée longue.
-
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
 Vous tranchez l'assassin avec une épée longue.
-
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
 L'assassin se débrouille a  échapper à votre attaque avec une épée longue.
-
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
@@ -300,22 +297,18 @@ Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
 L'assassin se débrouille a  échapper à votre attaque avec une épée longue.
-
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
 L'assassin se débrouille a  échapper à votre attaque avec une épée longue.
-
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
 Vous tranchez l'assassin avec une épée longue.
-
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
 Vous tranchez l'assassin avec une épée longue.
-
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
@@ -432,14 +425,12 @@ Des cris strident retentissent...
 
 > attack ogre
 Vous tranchez un ogre avec une épée longue.
-
 Vous arrivez à éviter l'attaque de l'ogre.
 
 Des cris strident retentissent...
 
 > attack ogre
 Vous tranchez un ogre avec une épée longue.
-
 Vous arrivez à éviter l'attaque de l'ogre.
 
 Des cris strident retentissent...
@@ -561,14 +552,12 @@ Des cris strident retentissent...
 
 > attack goule
 Vous tranchez une goule avec une épée longue.
-
 Vous arrivez à éviter l'attaque de la goule.
 
 Des cris strident retentissent...
 
 > attack goule
 Vous tranchez une goule avec une épée longue.
-
 Vous arrivez à éviter l'attaque de la goule.
 
 Des cris strident retentissent...
@@ -600,7 +589,6 @@ se trouve
 Un Démon d'éffroi est ici, prêt à vous attaquer !
 
 Vous pouvez seulement vous déplacer vers le Sud.
-
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > open porte
@@ -622,27 +610,22 @@ Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > attack demon
 Vous tranchez un démon avec une épée longue.
-
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > attack demon
 Vous tranchez un démon avec une épée longue.
-
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > attack demon
 Vous tranchez un démon avec une épée longue.
-
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > attack demon
 Vous tranchez un démon avec une épée longue.
-
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > attack demon
 Vous tranchez un démon avec une épée longue.
-
 Vous arrivez à éviter l'attaque du démon d'éffroi.
 
 > attack demon
@@ -732,22 +715,15 @@ quel bois je me chauffe!"
 Quatre gardes du chaos arrivent de nulle part.
 
 Vous arrivez à éviter l'attaque du voyou.
-
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 Vous tranchez un voyou avec une épée longue.
-
 Vous arrivez à éviter l'attaque du voyou.
-
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
@@ -755,33 +731,22 @@ Vous tranchez un voyou avec une épée longue,
 mais cela ne fait aucun domage.
 
 Vous arrivez à éviter l'attaque du voyou.
-
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 Vous tranchez un voyou avec une épée longue.
-
 Vous arrivez à éviter l'attaque du voyou.
-
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 Vous tranchez un voyou avec une épée longue.
-
 Vous arrivez à éviter l'attaque du voyou.
-
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
@@ -789,54 +754,41 @@ Vous tranchez un voyou avec une épée longue.
 Le voyou du chaos s'écroule par terre dans une marre de sang.
 
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 voyou n'est pas la!
 
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 voyou n'est pas la!
 
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 voyou n'est pas la!
 
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voyou
 voyou n'est pas la!
 
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
 Vous tranchez un voleur avec une épée longue.
-
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
@@ -844,36 +796,25 @@ Vous tranchez un voleur avec une épée longue,
 mais cela ne fait aucun domage.
 
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
 Vous tranchez un voleur avec une épée longue.
-
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
 Vous tranchez un voleur avec une épée longue.
-
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
 Vous tranchez un voleur avec une épée longue.
-
 Vous arrivez à éviter l'attaque du voleur.
-
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
@@ -881,35 +822,30 @@ Vous tranchez un voleur avec une épée longue.
 Le voleur du chaos tombe raide mort sur le sol.
 
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
 voleur n'est pas la!
 
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
 voleur n'est pas la!
 
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
 voleur n'est pas la!
 
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > attack voleur
 voleur n'est pas la!
 
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > ne
@@ -1168,7 +1104,6 @@ Un skinned est ici.  Un truant du chaos est ici, l'air menaçant.
 Sorties évidentes: Nord-Est et Sud-Ouest.
 
 Vous arrivez à éviter l'attaque du skinned.
-
 Vous arrivez à éviter l'attaque du truant.
 
 > sw

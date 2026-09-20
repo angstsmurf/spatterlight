@@ -1790,12 +1790,10 @@ possibly fit into.  There seems to be a wind blowing into that hole.
 You reach your arm into the hole and it seems to go back a long way.  Then,
 you feel something with your fingertips and it seems to bite you.  You jerk
 your arm out of the hole and something follows it flowing out of the hole and
-into the room.
-Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
+into the room.  Aline stabs Skull Collector with light rapier, but it doesn't
+seem to do any damage.  Mat stabs Skull Collector with bronze sword, but it
+doesn't seem to do any damage.  Gail hits Skull Collector, but it doesn't
+seem to do any damage.
 
 > n
 You move north.
@@ -1813,7 +1811,6 @@ Center of Catacombs
 This is a large room beneath the King's dungeon.  There is a pit in the
 center of the chamber that you don't want to get to close to as it seems to
 yawn darkly below you.  There are exits to the north, south, east, and west.
-
 Skull Collector hits Gail, but it doesn't seem to do any damage.
 
 > w
@@ -1842,79 +1839,58 @@ leave thisss place and go where there is no light... ah the cool darkness."
  "How may you leave this place?" You ask.
 
  "I can travel within... but you are too strong... even if you are willing,
-you will fight me... the one who I want will not come to me."
-Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
-Skull Collector hits Mat, but it doesn't seem to do any damage.
+you will fight me... the one who I want will not come to me."   Aline stabs
+Skull Collector with light rapier, but it doesn't seem to do any damage.  Mat
+stabs Skull Collector with bronze sword, but it doesn't seem to do any
+damage.  Gail hits Skull Collector, but it doesn't seem to do any damage.
+Shade hits Skull Collector.  Skull Collector hits Mat, but it doesn't seem to
+do any damage.
 
 > wait
 Time passes...
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
+damage.  Mat stabs Skull Collector with bronze sword, but it doesn't seem to
+do any damage.  Gail hits Skull Collector, but it doesn't seem to do any
+damage.  Shade hits Skull Collector.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
+damage.  Mat stabs Skull Collector with bronze sword, but it doesn't seem to
+do any damage.  Gail hits Skull Collector, but it doesn't seem to do any
+damage.  Shade hits Skull Collector.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
-Skull Collector hits Aline.
+damage.  Mat stabs Skull Collector with bronze sword, but it doesn't seem to
+do any damage.  Gail hits Skull Collector, but it doesn't seem to do any
+damage.  Shade hits Skull Collector.  Skull Collector hits Aline.
 
 > wait
 Time passes...
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
+damage.  Mat stabs Skull Collector with bronze sword, but it doesn't seem to
+do any damage.  Gail hits Skull Collector, but it doesn't seem to do any
+damage.  Shade hits Skull Collector.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
+damage.  Mat stabs Skull Collector with bronze sword, but it doesn't seem to
+do any damage.  Gail hits Skull Collector, but it doesn't seem to do any
+damage.  Shade hits Skull Collector.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
-Skull Collector hits Gail, but it doesn't seem to do any damage.
+damage.  Mat stabs Skull Collector with bronze sword, but it doesn't seem to
+do any damage.  Gail hits Skull Collector, but it doesn't seem to do any
+damage.  Shade hits Skull Collector.  Skull Collector hits Gail, but it
+doesn't seem to do any damage.
 
 > wait
 Time passes...
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
+damage.  Mat stabs Skull Collector with bronze sword, but it doesn't seem to
+do any damage.  Gail hits Skull Collector, but it doesn't seem to do any
+damage.  Shade hits Skull Collector.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
+damage.  Mat stabs Skull Collector with bronze sword, but it doesn't seem to
+do any damage.  Gail hits Skull Collector, but it doesn't seem to do any
+damage.  Shade hits Skull Collector.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
-damage.
-Mat stabs Skull Collector with bronze sword, but it doesn't seem to do any
-damage.
-Gail hits Skull Collector, but it doesn't seem to do any damage.
-Shade hits Skull Collector.
+damage.  Mat stabs Skull Collector with bronze sword, but it doesn't seem to
+do any damage.  Gail hits Skull Collector, but it doesn't seem to do any
+damage.  Shade hits Skull Collector.
 With a wet sounding gurgle, the Skull Collector starts to fall apart as
 whatever force drove the creature flees.   Soon, it is nothing more than a
 pile of bones with a fleshy heart entangled amongst them.

@@ -274,12 +274,10 @@ is supposed to be a bed. You think you see a rat scurry out from under the
 hay and hide in a dark corner. Very cosy, you think darkly.
   A Rapist is here.
 
-EXIT:   west.
-An ugly rapist hits you with the rock.
+EXIT:   west.  An ugly rapist hits you with the rock.
 
 > get flower
-You get the purple flower.
-An ugly rapist hits you with the rock.
+You get the purple flower.  An ugly rapist hits you with the rock.
 
 > west
 You move west.

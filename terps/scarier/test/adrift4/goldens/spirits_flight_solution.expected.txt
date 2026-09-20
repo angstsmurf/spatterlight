@@ -163,10 +163,8 @@ You walk south.
 
 Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
-A fierce wind blows.  Moyru is here.
-An evil witch hits you.
-Lamanluie cuts An evil witch with the old rusty broken blood-stained
-scimitar.
+A fierce wind blows.  Moyru is here.  An evil witch hits you.  Lamanluie cuts
+An evil witch with the old rusty broken blood-stained scimitar.
 
 > attack moyru
 You stab An evil witch with The Spirit Dagger.
@@ -204,9 +202,8 @@ You emerge from the cavern to find yourself up in the clouds on a ridge. This
 must be the ridge of storms.  Fergo is here.
 
 You can only move down.
-A winged guardian stabs you with Fletched Spear.
-Lamanluie cuts A winged guardian with the old rusty broken blood-stained
-scimitar.
+A winged guardian stabs you with Fletched Spear.  Lamanluie cuts A winged
+guardian with the old rusty broken blood-stained scimitar.
 
 > attack fergo
 You stab A winged guardian with The Spirit Dagger.
@@ -236,9 +233,8 @@ The path leads to a cliff top to the south and Whistle Hamlet to the north.
 A steady wind blows.  Morana is here.
 
 You can only move south.
-An evil sorceress hits you, but it doesn't seem to do any damage.
-Lamanluie cuts An evil sorceress with the old rusty broken blood-stained
-scimitar.
+An evil sorceress hits you, but it doesn't seem to do any damage.  Lamanluie
+cuts An evil sorceress with the old rusty broken blood-stained scimitar.
 
 > attack morana
 You stab An evil sorceress with The Spirit Dagger.
@@ -320,8 +316,8 @@ A thin tunnel under the water.  Serpanern is here.
 
 You can only move north.
 Lamanluie cuts The tunnel beast with the old rusty broken blood-stained
-scimitar.
-The tunnel beast hits Lamanluie, but it doesn't seem to do any damage.
+scimitar.  The tunnel beast hits Lamanluie, but it doesn't seem to do any
+damage.
 
 > attack serpanern
 You stab The tunnel beast with The Spirit Dagger.
@@ -362,15 +358,12 @@ You climb down.
 Sea Serpent's Cave
 The cave is full of drawings of mystical sea creatures. Stalactites of
 wondrous colour hang from the ceiling. Bleeched coral is growing in the far
-corner.  Crynasalda is here.
-Lamanluie cuts The serpentine guardian with the old rusty broken
-blood-stained scimitar.
-The serpentine guardian hits you.
+corner.  Crynasalda is here.  Lamanluie cuts The serpentine guardian with the
+old rusty broken blood-stained scimitar.  The serpentine guardian hits you.
 
 > attack crynasalda
-You stab The serpentine guardian with The Spirit Dagger.
-Lamanluie cuts The serpentine guardian with the old rusty broken
-blood-stained scimitar.
+You stab The serpentine guardian with The Spirit Dagger.  Lamanluie cuts The
+serpentine guardian with the old rusty broken blood-stained scimitar.
 Crynasalda collapses. The water elemental leaves her body and transforms
 itself into an object.
 The Sea Serpent's Scales floats magically onto your body.
@@ -502,9 +495,8 @@ The magma is oozing everywhere and your body breaks into a sweat. Each drop
 from your body drips onto the ground and sizzles mightily.  Kelorano is here.
 
 You can only move west.
-Lamanluie cuts The lava guardian with An old broken scimitar.
-The lava guardian hits you with Ever-burning torch.
-You feel cold.
+Lamanluie cuts The lava guardian with An old broken scimitar.  The lava
+guardian hits you with Ever-burning torch.  You feel cold.
 
 > kelorano t1
 Lava engulfs Kelorano's body. He screams and you only hope that he is
@@ -518,13 +510,12 @@ as though it'll erupt any minute. It creeps ever so slowly at you.  Lamanluie
 and Kelorano are here.
 
 You can only move west.  You feels as though you should leave quickly.
-Lamanluie cuts The lava guardian with An old scimitar.
-The lava guardian hits Lamanluie.
+Lamanluie cuts The lava guardian with An old scimitar.  The lava guardian
+hits Lamanluie.
 
 > get amber
-You pick up The Amber of Flames.
-Lamanluie cuts The lava guardian with An old scimitar.
-The lava guardian hits Lamanluie.
+You pick up The Amber of Flames.  Lamanluie cuts The lava guardian with An
+old scimitar.  The lava guardian hits Lamanluie.
 
 > west
 You walk west.
@@ -562,8 +553,8 @@ The path is dry and cracked. The sun beats down on you hard. The air is hot
 and dry.  A lizard is hissing at you, blocking your way.  Slikerma is here.
 
 You can only move west.
-Lamanluie cuts A fire lizard with An old scimitar.
-A fire lizard hits you, but it doesn't seem to do any damage.
+Lamanluie cuts A fire lizard with An old scimitar.  A fire lizard hits you,
+but it doesn't seem to do any damage.
 
 > attack slikerma
 You stab A fire lizard with The Spirit Dagger.

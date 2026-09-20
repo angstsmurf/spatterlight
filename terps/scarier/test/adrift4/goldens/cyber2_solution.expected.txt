@@ -189,10 +189,9 @@ Mr. Bissoff's Room
 You are in the room with Mr. Bissoff! As soon as you get in, he snatches your
 weapon! All of a sudden, Lightning comes in!  Mr. Bissoff is here.
 
-You can only move south.
-The Elemental Master manages to avoid Lightning's attack.
-The Elemental Master attacks you with Wave Motion Cannon, but you manage to
-avoid it.
+You can only move south.  The Elemental Master manages to avoid Lightning's
+attack.  The Elemental Master attacks you with Wave Motion Cannon, but you
+manage to avoid it.
 
 > use firebolt
 You use a powerful enough firebolt, he dies!
