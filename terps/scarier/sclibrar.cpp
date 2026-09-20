@@ -20736,6 +20736,7 @@ lib_cmd_put_all_on (scr_gameref_t game)
  * parse rejects it for sitting inside the can.  Ask the scorer directly.
  */
 static scr_bool lib_cmd_unclear_object (scr_gameref_t game);
+static scr_bool lib_is_put_where_line_400 (scr_gameref_t game);
 static scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
 
 static scr_bool
@@ -29822,6 +29823,21 @@ lib_cmd_put_unclear (scr_gameref_t game)
     return FALSE;
 
   /*
+   * A put line with no preposition never reaches the refusal at all: the
+   * put-where branch 46DC34 sits ABOVE 46E165 in name_object, and it takes
+   * every line holding the whole word "put" with neither " in " nor " on "
+   * and no "down".  So an unresolvable noun there is "Where do you want to
+   * put that?", not this refusal -- which is the 46DD19 arm the branch's
+   * own comment already names, reached here for the first time.  Measured
+   * on p4REW: run400 answers `blorp put` "Where do you want to put that?"
+   * (Adrift_251_casc40.txt), and put_drop_list enters on the whole word, so
+   * `put blorp` walks the same path.  Left to lib_cmd_put_where_400(),
+   * further down the standard table.
+   */
+  if (lib_is_put_where_line_400 (game))
+    return FALSE;
+
+  /*
    * name_object already stayed silent for this line: its direct object named
    * nothing and a put/drop-class task pre-matched it (46E15A), so the tasks
    * ran on the clobbered fragment and the catch-all answers, whichever noun
@@ -30332,7 +30348,12 @@ lib_is_put_where_line_400 (scr_gameref_t game)
 
   if (!lib_is_version_400 (game) || !input)
     return FALSE;
-  return scr_strncasecmp (input, "put ", 4) == 0
+  /* The Runner's gate is the WHOLE WORD "put" anywhere in the line, not a
+   * "put " at the front: put_drop_list is entered on c("put") Or c("drop")
+   * and 46DC34 re-tests the same word.  So bare `put` and `blorp put` both
+   * land here, both answering "Where do you want to put that?" (p4REW,
+   * Adrift_251_casc40.txt).  See run_hoist_verb_400(). */
+  return lib_input_contains_word (input, "put")
          && !strstr (input, " in ") && !strstr (input, " on ")
          && !strstr (input, " into ") && !strstr (input, " onto ")
          && !lib_input_contains_word (input, "down");

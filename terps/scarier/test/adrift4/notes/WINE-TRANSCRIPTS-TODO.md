@@ -287,14 +287,19 @@ the_hangover T34) went identical with that port on 2026-09-20.
       what?" and `blorp put` answers "Give what?" -- a cascade arm picking a
       verb the line does not contain, so the 3.9 route is NOT simply
       "contains the word".
-    * 4.00 diverges on twenty-nine of thirty-four: essentially every
-      library verb fires from anywhere in the line. `blorp give` is the
-      shape that shows the two halves are separate -- Scarier already
-      prints the "(to Nobody)" prefix and then loses the verb.
+    * 4.00 is now PORTED -- see "A 4.0 library verb is matched anywhere in
+      the line" in the index. All 36 cells of `cmdfile_pcasc.txt` match.
   Nothing in the corpus types a nonsense head, so the suite says nothing
-  about this; the 428 rows stay green either way. Port order should be 4.00
-  first (one rule, twenty-nine cells) and 3.90 last (the eat/put cells need
-  the run390 cascade read before anything is written).
+  about this; the 428 rows stay green either way. 3.90 goes last (the
+  eat/put cells need the run390 cascade read before anything is written).
+  What the 4.00 port deliberately leaves open, at every version: a line
+  naming TWO of these verbs. The Runner settles that by its call order, and
+  the order is not one order -- the handlers the input routine calls claim,
+  so the FIRST of them wins, while therest (run400 489F4C) is a cascade of
+  `If c(...)` arms each overwriting the message before it, so the LAST of
+  those wins, and characters() runs below everything and overwrites again.
+  The probe types one verb per line, so none of that is measured and
+  `run_hoist_verb_400()` stands aside for such a line.
 - **A 3.9 drop or take matches its noun ANYWHERE in the line.** Falling out
   of the p39WHAT probe below: run390's drops (445F20) and takes (455B34)
   pick their object with co(obj, 2) / co(obj, 1), which matches a name
@@ -521,6 +526,32 @@ transcript names are in the code comment next to the named function, in
 `annotations.tsv`, and in the `c182b2fa6` version of this file.
 
 ### Parser and dispatch
+
+- **A 4.0 library verb is matched anywhere in the line.** run400's input
+  routine enters every one of its library handlers on `c(<word>)` -- the
+  whole word, wherever it sits -- so a nonsense head changes nothing:
+  `blorp take` is "Take what?", `blorp take coin` "You take the coin.",
+  `blorp eat` "I don't understand what you are trying to eat.", `blorp sit`
+  "You sit down on the ground." The handlers are put_drop_list 459DB4,
+  get_outer 4582D8, wears 463C30, removes 4624B0, sitstand 46BCFC,
+  openclose 476468, examines 471F94, give 48A985, whereis 4684E4,
+  gotoplace 464E90, therest 489F4C and characters 480674, called from
+  48A462/48A46D/48A48C/48A491/48A510/48A515/48A67B/48A985/48ACB0/48ACD7/
+  48AFE4/48B56E. Three of the thirty-four words the probe types are NOT in
+  any of them and stay "I don't understand." -- `search`, `wave` and
+  `throw` (the last only outside dobattle). `blorp give` shows the two
+  halves are separate: the "(to Nobody)" echo, then "Give what?". The
+  object half needed nothing -- the 4.0 rows already score their noun over
+  the whole line, so `take blorp coin` already worked. Ported as
+  `run_hoist_verb_400()` in scrunner.cpp: hoist the one verb to the front
+  and let the anchored table answer. It stands aside when the line's first
+  word is already a table head (so `x light` stays an examine) and when the
+  line names two of the verbs, which is not measured -- see the open lead.
+  The put/drop pre-pass ahead of the tasks reads the same hoisted line,
+  which is what makes `blorp drop coin` "You drop the coin." p4REW,
+  `cmdfile_pcasc.txt`, run400x Adrift_251_casc40.txt (2026-09-20): all 36
+  cells match, the 428 rows are unmoved and sweep_wine_breaks is identical
+  either way (no corpus line types a nonsense head).
 
 - **The Runner rewrites the typed line before anything looks at it, at
   every version, and 3.90/4.00 do it by SUBSTRING.** Below 3.90 the

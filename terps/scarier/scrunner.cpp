@@ -2641,6 +2641,191 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
   return TRUE;
 }
 
+/*
+ * run_hoist_verb_400()
+ *
+ * 4.0 matches its library verb ANYWHERE in the line, and Scarier anchors
+ * most of it.  Every handler the input routine calls enters on c(<word>) --
+ * the whole word, wherever it sits -- so a nonsense head changes nothing:
+ * run400 answers `blorp take` "Take what?", `blorp take coin` "You take the
+ * coin.", `blorp eat` "I don't understand what you are trying to eat.",
+ * `blorp sit` "You sit down on the ground." and so on for twenty-nine of the
+ * thirty-four verbs the probe types, though `blorp` is in no vocabulary.
+ * (`search`, `wave` and `throw` are "I don't understand." because no arm
+ * holds those words outside dobattle; `give` is the shape that shows the two
+ * halves are separate, printing the "(to Nobody)" echo and then "Give
+ * what?".)  Measured 2026-09-20 on p4REW with cmdfile_pcasc.txt, run400x
+ * Adrift_251_casc40.txt.
+ *
+ * Scarier's table is anchored at the head, so the port is a rewrite rather
+ * than a re-plumbing: hoist the verb to the front and let the ordinary rows
+ * answer the line they already know.  The object half needs nothing -- the
+ * 4.0 rows already bind their noun by score over the whole line, so `take
+ * blorp coin` is already "You take the coin.".
+ *
+ * The hoist is deliberately narrow, and the narrowing is where the rule is
+ * still owed:
+ *
+ *  - Nothing happens when the line's FIRST word is one of these verbs.  The
+ *    anchored pass has already had that line and declined, so a hoist could
+ *    only re-answer it, and every walkthrough line that starts with a verb
+ *    is left exactly as it was.
+ *  - Nothing happens when the line holds two or more of them.  The Runner
+ *    settles that by its call order, and the order is not one order: the
+ *    handlers the input routine calls claim (put_drop_list 459DB4, get_outer
+ *    4582D8, wears 463C30, removes 4624B0, sitstand 46BCFC, openclose
+ *    476468, examines 471F94, give 48A985, whereis 4684E4, gotoplace
+ *    464E90), so the FIRST of them wins, while therest 489F4C is one long
+ *    cascade of `If c(...)` arms each overwriting the message before it
+ *    (488807 open, 488885 eat, ... 489F3B xyzzy), so the LAST of those wins,
+ *    and characters() 480674 runs below everything and overwrites again.
+ *    None of that is measured -- the probe types one verb per line -- so a
+ *    line naming two is left as it was.  See the open lead in
+ *    notes/WINE-TRANSCRIPTS-TODO.md.
+ *
+ * The word list is read straight out of the Runner: the literals each of
+ * those procs hands to c() (Proc_21_38_454CB0) and to therest's verb helper
+ * Proc_19_86_4455F8, in call order.  The particles those arms test as a
+ * SECOND word are left out ("with", "about", "off", "on", "to", "from",
+ * "all", "in"), as are the meta words the input routine answers itself
+ * ("score", "wait", "turns", "version", "undo" -- `wait` is already matched
+ * anywhere by run_wait_anywhere(), `score` by run_score_anywhere(), and the
+ * sitstand words by lib_sitstand_anywhere()).  dobattle's verbs are in only
+ * while the Battle System is on, which is the gate run400 puts on the call
+ * itself (48A4A2).
+ */
+static const scr_char *const HOIST_VERBS_400[] = {
+  /* put_drop_list 459DB4, get_outer 4582D8. */
+  "put", "drop", "empty", "get", "take", "pick",
+  /* wears 463C30, removes 4624B0. */
+  "wear", "put on", "remove", "take off",
+  /* openclose 476468, examines 471F94, give 48A985. */
+  "open", "close", "lock", "unlock",
+  "examine", "look at", "look in", "read", "look", "give",
+  /* whereis 4684E4, gotoplace 464E90. */
+  "where", "find", "locate", "goto", "go to", "go",
+  /* therest 489F4C, in its own cascade order. */
+  "eat", "drink", "ask", "talk to", "talk", "say", "clean", "run", "stop",
+  "wash", "cut", "kill", "move", "lift", "light", "suck", "feel", "touch",
+  "rub", "turn", "enter", "smell", "push", "pull", "press", "shake", "kick",
+  "hit", "clear", "punch", "fight", "jump", "feed", "unblock", "block",
+  "climb", "listen", "shout", "sing", "hum", "dance", "whistle", "cry",
+  "buy", "sell", "break", "destroy", "smash", "kiss", "fly", "please",
+  "fix", "repair", "mend", "sleep", "xyzzy",
+  /* characters 480674. */
+  "speak to", "pick up",
+  NULL
+};
+
+/* dobattle 47F084, called only with the Battle System on. */
+static const scr_char *const HOIST_VERBS_BATTLE_400[] = {
+  "wield", "attack", "chop", "shoot", "stab", "throw", NULL
+};
+
+/*
+ * Heads the anchored pass owns that are not hoistable verbs themselves:
+ * the abbreviations, the meta rows and the words the input routine answers
+ * before any of the handlers above.  A line starting with one of these has
+ * already been offered to the table as it stands, so it is left alone -- `x
+ * light` stays an examine and does not become `light x`.
+ */
+static const scr_char *const HOIST_HEADS_400[] = {
+  "x", "ex", "exam", "l", "i", "inv", "inventory", "z", "wait",
+  "score", "turns", "time", "date", "version", "undo", "quit", "save",
+  "restore", "restart", "help", "hint", "about", "credits", "search",
+  "wave", "throw", "leave", "strip", "sit", "stand", "lie", "lay",
+  "n", "s", "e", "w", "ne", "nw", "se", "sw", "u", "d", "in", "out",
+  "north", "south", "east", "west", "northeast", "northwest",
+  "southeast", "southwest", "up", "down", "yes", "no", "wield", "attack",
+  NULL
+};
+
+/*
+ * The longest list entry whose words sit at WORD, or NULL.  Words are
+ * separated by single spaces: the line reaches here lower-cased and already
+ * rewritten, the shape c()'s padded InStr sees.
+ */
+static const scr_char *
+run_hoist_verb_at (scr_gameref_t game, const scr_char *word)
+{
+  const scr_char *const *entry;
+  const scr_char *best = NULL;
+  scr_int pass;
+
+  for (pass = 0; pass < 2; pass++)
+    {
+      if (pass == 1 && !battle_is_enabled (game))
+        break;
+      for (entry = (pass == 0 ? HOIST_VERBS_400 : HOIST_VERBS_BATTLE_400);
+           *entry; entry++)
+        {
+          const scr_int length = strlen (*entry);
+
+          if (scr_strncasecmp (word, *entry, length) == 0
+              && (word[length] == NUL || word[length] == ' ')
+              && (!best || length > (scr_int) strlen (best)))
+            best = *entry;
+        }
+    }
+  return best;
+}
+
+static scr_bool
+run_hoist_verb_400 (scr_gameref_t game, const scr_char *string,
+                    std::string &hoisted)
+{
+  const scr_char *scan, *found = NULL;
+  const scr_char *found_at = NULL;
+
+  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      || !string || string[0] == NUL)
+    return FALSE;
+
+  for (const scr_char *const *head = HOIST_HEADS_400; *head; head++)
+    {
+      const scr_int length = strlen (*head);
+
+      if (scr_strncasecmp (string, *head, length) == 0
+          && (string[length] == NUL || string[length] == ' '))
+        return FALSE;
+    }
+
+  for (scan = string; *scan != NUL; scan++)
+    {
+      const scr_char *verb;
+
+      if (scan != string && scan[-1] != ' ')
+        continue;
+      verb = run_hoist_verb_at (game, scan);
+      if (!verb)
+        continue;
+      /* The head is the anchored pass's, and it has already declined. */
+      if (scan == string)
+        return FALSE;
+      /* Two verbs: the Runner's order decides, and it is not measured. */
+      if (found)
+        return FALSE;
+      found = verb;
+      found_at = scan;
+    }
+  if (!found)
+    return FALSE;
+
+  hoisted = found;
+  const std::string head (string, found_at - string);
+  const std::string tail (found_at + strlen (found));
+
+  if (!head.empty ())
+    {
+      hoisted += " ";
+      /* The verb's own trailing space went with it. */
+      hoisted.append (head, 0, head.size () - 1);
+    }
+  if (!tail.empty ())
+    hoisted += tail;
+  return TRUE;
+}
+
 
 static scr_bool
 run_standard_commands (scr_gameref_t game, const scr_char *string)
@@ -6208,13 +6393,24 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * lib_put_clauses_400() and the block below.
    */
   put_clauses.clear ();
+  /*
+   * put_drop_list is one of the handlers 4.0 enters on its verb ANYWHERE in
+   * the line, so this pre-pass reads the same hoisted line the library does
+   * further down -- `blorp drop coin` is "You drop the coin.", not the
+   * leftover-word answer the line as typed scores.  See run_hoist_verb_400().
+   */
+  std::string put_hoisted;
+  const scr_char *put_line = string;
+  if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      && run_hoist_verb_400 (game, string, put_hoisted))
+    put_line = put_hoisted.c_str ();
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && !repeat_pending)
-    lib_put_clauses_400 (game, string, put_clauses);
+    lib_put_clauses_400 (game, put_line, put_clauses);
   put_first = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
               && !repeat_pending
               && run_is_put_command (game, put_clauses.empty ()
-                                           ? string
+                                           ? put_line
                                            : put_clauses[0].c_str ());
   status = FALSE;
   refused = FALSE;
@@ -6303,7 +6499,9 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
         }
       else
         {
-          status = run_priority_commands (game, string);
+          run_dispatch_input = put_line;
+          status = run_priority_commands (game, put_line);
+          run_dispatch_input = string;
           refused = !status && run_priority_refused;
           if (refused)
             {
@@ -6519,6 +6717,17 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
           rewritten ? rewritten.get () : string;
       std::string sitstand_rest;
       run_dispatch_input = library_string;
+      /*
+       * 4.0 enters its library handlers on the whole verb ANYWHERE in the
+       * line, so a line whose verb is not at the head is answered with the
+       * verb hoisted to the front; see run_hoist_verb_400().
+       */
+      std::string hoisted;
+      if (run_hoist_verb_400 (game, library_string, hoisted))
+        {
+          library_string = hoisted.c_str ();
+          run_dispatch_input = library_string;
+        }
       /*
        * Pre-4.0 the already-done refusal outranks the standard library; see
        * the note on run_task_refusal().  The room half still runs after it.
