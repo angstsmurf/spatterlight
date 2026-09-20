@@ -905,9 +905,8 @@ raining...
 
 You can move north, east, south, west, northeast, southeast, southwest and
 northwest.
-You catch a faint whiff of Fetlar. He must be somewhere nearby.
-You are feeling very tired, indeed, and realise you should find somewhere to
-sleep!
+You catch a faint whiff of Fetlar. He must be somewhere nearby.  You are
+feeling very tired, indeed, and realise you should find somewhere to sleep!
 
 > se
 You move southeast.
@@ -1655,9 +1654,8 @@ the eyes of Lazaraz must be very poor, as they seem to overlook you. Maybe
 the light of day makes it harder for him to see.
 Madam Evenov waves her arms across you and utters a few strange words. "
 There its done, you may travel through the fog with out any ill effects now "
-she wheezes .
-It starts getting rather dark. The full moon illuminates the land with its
-eerie glow.
+she wheezes .  It starts getting rather dark. The full moon illuminates the
+land with its eerie glow.
 Madam Evenov shuffles a pack of cards and picks four at random. She holds the
 four in her hands in a fan like shape, and rasps, "Pick a number, one, two,
 three, or four, to see your future and where you must go."
@@ -1772,8 +1770,8 @@ The hallway stretches southward into darkness. To the east and west are
 darkened rooms; to the north, the front doors.
 
 You can move east, south and west.
-The front doors of the castle slam shut behind you.
-You hear the haunting sound of organ music echoing through out the castle.
+The front doors of the castle slam shut behind you.  You hear the haunting
+sound of organ music echoing through out the castle.
 
 > s
 You move south.
@@ -2865,8 +2863,7 @@ Seeker hums!
 You open the coffin #2.  A sceptre is inside the coffin #2.
 Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
 Seeker hums!
-Grazilda lies in her coffin.
-Grazilda’s eyes flick open.  Seeker hums!
+Grazilda lies in her coffin.  Grazilda’s eyes flick open.  Seeker hums!
 
 > stake grazilda
 As you plunge the stake into Grazilda’s heart, she screams and wines with the
@@ -3034,9 +3031,9 @@ You can only move south.  Gargoyle #1 flies in.
 Seeker hums!
 The wooden door slams shut.
 A huge fireball hurtles from Morac toward you. Luckily for you, the shield
-that you wear takes the brunt of it.
-Seeing that his fireball spell has been thwarted, Morac decides on a new
-tactic. His eyes fix on your own as he tries to hypnotize you.
+that you wear takes the brunt of it.  Seeing that his fireball spell has been
+thwarted, Morac decides on a new tactic. His eyes fix on your own as he tries
+to hypnotize you.
 
 > look away
 You do so, thwarting Morac’s attack yet again.
@@ -4349,8 +4346,7 @@ Seeker hums!
 
 > say borantha
 The staff that you are holding glows a brilliant white. You have a feeling
-that it’s waiting for you to do something.
-It stops raining...
+that it’s waiting for you to do something.  It stops raining...
 Fetlar smiles and sniffs the air, as a foul smell erupts from him.  Seeker
 hums!
 

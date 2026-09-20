@@ -193,8 +193,8 @@ You can only move northwest.
 
 > rent a room
 You count out $50 and hand it to Gralle. She smiles and points to your room.
-You now have $336 and 50 cents.
-You have 24 hours left at your room in Gralle's Inn.
+You now have $336 and 50 cents.  You have 24 hours left at your room in
+Gralle's Inn.
 
 > in
 You move in.

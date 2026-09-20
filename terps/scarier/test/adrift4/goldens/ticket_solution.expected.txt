@@ -498,8 +498,7 @@ here.  I tried to explain that we have only had business people here today.
 It couldn't possibility be one of them."
 
 It has started to rain very heavily.  You realise that this place looks a lot
-worse in the wet.
-It is still raining very hard.
+worse in the wet.  It is still raining very hard.
 
 > ask station master about wallet
 "a gentleman seems to think he lost one at the station. We have only had

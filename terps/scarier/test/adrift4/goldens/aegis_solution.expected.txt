@@ -500,9 +500,8 @@ Finally reaching the abandoned stretch of pier indicated by Gorrister, you
 hear quiet, urgent voices coming from the warehouse up ahead and quickly duck
 behind a pile of old crates, tugging Oxblood down next to you, before peeking
 back out to get an idea of where the thieves are and how to deal with them.
-
-You hear a splash behind you.
-Oxblood raises his head from the water and tugs on the edge of your cloak.
+   You hear a splash behind you.  Oxblood raises his head from the water and
+tugs on the edge of your cloak.
 
 > examine netting
 A tangled pile of netting, most of it damaged past repair.   An old net is

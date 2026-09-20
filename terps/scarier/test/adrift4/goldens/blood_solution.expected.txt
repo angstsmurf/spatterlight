@@ -752,8 +752,8 @@ wind which cuts straight through to your bones, chilling your very soul.
 Gloomy and depressing as this place is, it seems to match your mood
 perfectly. Standing at the side of your wife's grave, the recently completed
 headstone is the only bright thing here.  To the north is Albert Street and
-Dawson Street is to the east.  Matthew Baylis wanders over to you.
-You can hear a police siren.
+Dawson Street is to the east.  Matthew Baylis wanders over to you.  You can
+hear a police siren.
 
 > e
 You head east.

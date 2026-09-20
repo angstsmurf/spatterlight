@@ -234,9 +234,9 @@ against the cunningly painted backdrop of the house, so much nearer than you
 supposed.
 
 The figment of your fears has vanished. You see what tripped you up. A
-figure, lying on its belly beneath the bushes.
-The tip of Marie's wig tickles your chin as the head moves slightly.
-Accidentally, or to get your attention?
+figure, lying on its belly beneath the bushes.  The tip of Marie's wig
+tickles your chin as the head moves slightly. Accidentally, or to get your
+attention?
 
 > ask charlie about house
 Words form, not on the motionless lips, but in your mind.

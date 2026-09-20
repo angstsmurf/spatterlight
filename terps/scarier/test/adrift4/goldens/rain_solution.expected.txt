@@ -410,8 +410,8 @@ catch the pieces of china that are attempting to slide to the floor with the
 other.
 
 In the midst of all this, something small and metallic clatters to the floor
-at your feet. Once all the dishes are safe, you go to look for it.
-You hear a door slam, followed by angry grumbling and approaching footsteps.
+at your feet. Once all the dishes are safe, you go to look for it.    You
+hear a door slam, followed by angry grumbling and approaching footsteps.
 
 > take key
 You take the iron key.

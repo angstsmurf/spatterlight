@@ -306,11 +306,20 @@ the_hangover T34) went identical with that port on 2026-09-20.
   string joined with pspace() and runs the ALR pass over it. Scarier joins
   only the room block and, at 4.0, an executed task's text plus every
   AdditionalMessage (`pf_buffer_join_line`); everything else is its own
-  section, so an ALR Original spanning a join does not match. Unfinished,
-  not policy: an event's text after a task's text (p4SRC `xray`); the rest
-  of the turn (thetest, a two-sentence Original). Expect a large
-  reblessing: the task-text join alone moved 94 rows, and
-  sweep_wine_breaks still counts 5622 Scarier-only breaks.
+  section, so an ALR Original spanning a join does not match. The event
+  half is CLOSED: 4.0 event texts now join (see "An event's text joins the
+  turn's paragraph at 4.0 too" in the index, p4SRC `xray`). What is left is
+  the rest of the turn -- library answers, refusals, NPC texts -- which at
+  4.0 and pre-4.0 alike the Runner joins with pspace() and Scarier still
+  keeps as its own section. The corpus case is `thetest` (3.90), whose ALRs
+  include two-sentence Originals that span exactly such a join:
+  `You drop your clothes.  Nice try fish face!` (library drop + task text),
+  `Why shout numbers now?  You: Who's there?`, `Why shout numbers now?  Y`,
+  `Why shout numbers now?  C`, and the 3-sentence
+  `You shout %number% at the robot ... it looked slightly afraid.  You`.
+  Expect a large reblessing: the task-text join alone moved 94 rows, the
+  event join 52, and sweep_wine_breaks still counts 5772 Scarier-only
+  breaks against 2 runner-only.
 - **checkwild, the unported rest.** Every arm this lead once listed is
   closed; the index carries them ("Before 4.0 a `*` command is decided by
   checkwild", "A pre-4.0 task command's %object% walk takes an object's
@@ -2375,6 +2384,20 @@ transcript names are in the code comment next to the named function, in
   tick. Event texts join pre-4.0 with the two-space separator unless the
   buffer ends in Chr(10) or "  ". `[<4.0]` haunt T84. 4.0 keeps the
   end-of-turn endmessage. (2026-09-19)
+- **An event's text joins the turn's paragraph at 4.0 too.** checkevent
+  calls the same pspace() (run400 44A9F4) ahead of every one of its texts --
+  StartText 46FECB, PrefText 4701BF, FinishText 47028A, the restart's
+  470633 -- so the event's text is part of the turn's ONE string and the ALR
+  pass walks the join. Where the Runner's own string really stops at a
+  newline, pspace adds nothing and the text starts a fresh line anyway:
+  4.0's "Time passes..." carries a vbCrLf of its own (48ABDA). Probe p4ALRSRC
+  (`make_400_alrsrcprobe.py`), Adrift_10/11_p4src.txt: `xray`, a task whose
+  CompleteText is "X." starting an event whose StartText is "EV ball.", is
+  "X.  EV qball." on one line, while the FinishText two `wait`s later is
+  "Time passes..." / "FIN qball." on two. `[4.0]` (`evt_buffer_text`,
+  2026-09-20; 52 goldens moved, whitespace only; sweep_wine_breaks
+  5892 -> 5772 Scarier-only breaks, runner-only unchanged at 2, no row worse
+  on any axis)
 - **Completed tasks.** A 4.0 event that runs a completed task still walks
   the task's restrictions, so a failing restriction prints its message and
   a passing one prints nothing. riding_home T47 (2026-09-15)

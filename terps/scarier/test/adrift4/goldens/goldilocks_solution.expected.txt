@@ -1772,11 +1772,10 @@ Laura Ashley dress and my underwear.
 I can move west and up.
 
 > alakazam
-'ALAKAZAM!'
-Immediately the magic porridge pot begins to fill up with extremely hot
-porridge. It just sort of swirls up from the bottom of the pot like an
-expensive special effect. Within seconds the pot is full and the porridge
-begins to run down the sides...
+'ALAKAZAM!'  Immediately the magic porridge pot begins to fill up with
+extremely hot porridge. It just sort of swirls up from the bottom of the pot
+like an expensive special effect. Within seconds the pot is full and the
+porridge begins to run down the sides...
 
 > u
 I scramble up the rickety steps just in time - a moment later the lower part

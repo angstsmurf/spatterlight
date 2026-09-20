@@ -275,9 +275,9 @@ neck. Probably just sweat.
 The Meadow
 The meadow stretches to the west and  northeast. A fence blocks your way east
 while undergrowth and briars impede movement in other directions. Near the
-fence, in the corner of the meadow, a white birch glows in the twilight.
-You have to use your tongue to dislodge a strawberry seed that stuck between
-your teeth.
+fence, in the corner of the meadow, a white birch glows in the twilight.  You
+have to use your tongue to dislodge a strawberry seed that stuck between your
+teeth.
 
 > x birch
 Against the black backdrop of fields and bushes the  white birch appears

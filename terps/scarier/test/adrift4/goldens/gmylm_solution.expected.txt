@@ -655,8 +655,8 @@ need to climb up to the top of the crawl tube and then I'm ready to go.
 > climb tube
 I climb up the stairs and into the crawl tube. From here I can see the whole
 playground, and more importantly, I have a bunch of little pull strings in
-front of me to activate my traps!
-The bullies should be here soon.  All that's left now is to wait.
+front of me to activate my traps!  The bullies should be here soon.  All
+that's left now is to wait.
 
 > wait
 Time passes...

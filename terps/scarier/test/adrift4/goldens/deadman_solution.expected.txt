@@ -379,8 +379,7 @@ the pounding weakens
 There's blood everywhere
 silence.
 
-The door stands closed and latched.
-The pounding at the door returns.
+The door stands closed and latched.  The pounding at the door returns.
 
 > z
 Time passes...
@@ -393,8 +392,8 @@ Captain, let me in! The pounding continues.
 > z
 Time passes...
 
-There's blood everywhere.  The pounding fades.
-The pounding at the door returns.
+There's blood everywhere.  The pounding fades.  The pounding at the door
+returns.
 
 > z
 Time passes...

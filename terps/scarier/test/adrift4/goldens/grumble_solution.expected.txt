@@ -293,9 +293,8 @@ a pretty sparse location. There is a big building off to one side.
 Dark wood lies to the south, the centre of town is northeast and the big
 building stands westwards
 
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+   The rain goes on and on...     There is a crash of thunder from above and
+a moment later it starts to rain all over you.
 
 > ne
 You move northeast.
@@ -377,10 +376,8 @@ Roads lie north, east, southeast and southwest and the Sleazepit lies in
 > x fruitseller
    Rummaging through the pockets of the unfortunate fellow like a petty
 thief, you come across an apple and an orange as well as a single coin. You
-pocket all three.
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+pocket all three.     The rain goes on and on...     There is a crash of
+thunder from above and a moment later it starts to rain all over you.
 
 > wake fruitseller
    You nudge him a couple of times and he abruptly comes to.
@@ -465,9 +462,8 @@ air with their pointless yelling.
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+   The rain goes on and on...     There is a crash of thunder from above and
+a moment later it starts to rain all over you.
 
 > e
 You move east.
@@ -496,8 +492,8 @@ Exits lie east and west
 fight (mainly because you win).
    You wipe the floor with the guards but, alas, take several quite bad
 injuries in the process. The sword Bludrinker drinks its fair share of blud
-today.
-   The rain seems to let up for a moment then comes down worse than ever.
+today.     The rain seems to let up for a moment then comes down worse than
+ever.
 
 > talk guards
    "Personally I'd let the dwarf burn," grunts Vlad, clutching his groin
@@ -506,10 +502,9 @@ where 'someone' gave him a hefty punch.
    "Damned if I know or care!" says Vlad with feeling.
 
 > cond
-   You have 18 Life Points remaining.
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+   You have 18 Life Points remaining.     The rain goes on and on...
+There is a crash of thunder from above and a moment later it starts to rain
+all over you.
 
 > e
 Crossroads
@@ -608,9 +603,8 @@ outside world.
 
 Exits lie east and west
 
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+   The rain goes on and on...     There is a crash of thunder from above and
+a moment later it starts to rain all over you.
 
 > w
 You move west.
@@ -684,9 +678,8 @@ a pretty sparse location. There is a big building off to one side.
 Dark wood lies to the south, the centre of town is northeast and the big
 building stands westwards
 
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+   The rain goes on and on...     There is a crash of thunder from above and
+a moment later it starts to rain all over you.
 
 > ne
 You move northeast.
@@ -752,11 +745,10 @@ a pretty sparse location. There is a big building off to one side.
 Dark wood lies to the south, the centre of town is northeast and the big
 building stands westwards
 
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
-   A little birdie flies down from the sky, flutters around your head for a
-while, then poops on your shoulder before flying away.
+   The rain goes on and on...     There is a crash of thunder from above and
+a moment later it starts to rain all over you.     A little birdie flies down
+from the sky, flutters around your head for a while, then poops on your
+shoulder before flying away.
 
 > s
 Deep, dark woods
@@ -856,9 +848,9 @@ a pretty sparse location. There is a big building off to one side.
 Dark wood lies to the south, the centre of town is northeast and the big
 building stands westwards
 
-   The rain... will it ever stop?
-   A little birdie flies down from the sky, flutters around your head for a
-while, then poops on your shoulder before flying away.
+   The rain... will it ever stop?     A little birdie flies down from the
+sky, flutters around your head for a while, then poops on your shoulder
+before flying away.
 
 > ne
 You move northeast.
@@ -934,9 +926,8 @@ ground outside the alley, looking a little the worse for wear, is Fosk.
 
 Vildung Square is east, a house lies north and the dark alley northwest
 
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+   The rain goes on and on...     There is a crash of thunder from above and
+a moment later it starts to rain all over you.
 
 > e
 You move east.
@@ -1095,9 +1086,8 @@ the residence of the gravedigger.
 
 Bourbon Avenue lies south and the cemetery northeast
 
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+   The rain goes on and on...     There is a crash of thunder from above and
+a moment later it starts to rain all over you.
 
 > smash gates
    Using your great strength you attack the gates, batter them into the
@@ -1327,8 +1317,8 @@ Vildung Square is east, a house lies north and the dark alley northwest
 baby!"
    Another kid wanders off and taps the bomb with his knife. "Not bad,
 mister. Maybe you aren't so bad fer a git. C'mon, fellers, let's go torch
-somefin!"
-   The rain seems to let up for a moment then comes down worse than ever.
+somefin!"     The rain seems to let up for a moment then comes down worse
+than ever.
 
 > give love to kids
    You hand over the true love.
@@ -1354,9 +1344,8 @@ air with their pointless yelling.
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+   The rain goes on and on...     There is a crash of thunder from above and
+a moment later it starts to rain all over you.
 
 > in
 You move in.
@@ -1471,9 +1460,8 @@ air with their pointless yelling.
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+   The rain goes on and on...     There is a crash of thunder from above and
+a moment later it starts to rain all over you.
 
 > sw
 You move southwest.
@@ -1692,9 +1680,8 @@ air with their pointless yelling.
 
 Roads lie north, east, southeast and southwest and the Sleazepit lies in
 
-   The rain goes on and on...
-   There is a crash of thunder from above and a moment later it starts to
-rain all over you.
+   The rain goes on and on...     There is a crash of thunder from above and
+a moment later it starts to rain all over you.
 
 > e
 You move east.
@@ -1758,9 +1745,9 @@ From here you can go northwest, southwest, south, east and in
 pig medicine. "A strange one as well, carrying around a vial of pig medicine
 all that time on the slight off chance that you might need it."
    "I've played these sort of games before," you say with a knowing smile.
-   "Ah," says the man. "That explains it all."
-   Several birds are fluttering overhead. Remembering what happened last
-time, you keep an eye out for them.
+   "Ah," says the man. "That explains it all."     Several birds are
+fluttering overhead. Remembering what happened last time, you keep an eye out
+for them.
 
 > e
 You move east.
@@ -2234,9 +2221,8 @@ the gravedigger's hut in
 back under.
 
 > open hut
-   The door swings open. A horrible smell wafts out of the hut.
-  You hear a weird sound off to one side but it doesn't look as if there's
-anything there.
+   The door swings open. A horrible smell wafts out of the hut.    You hear a
+weird sound off to one side but it doesn't look as if there's anything there.
 
 > in
 Gravedigger's hut
@@ -2797,9 +2783,8 @@ of having one leg longer than the other so I've never really been able to
 save up much in the way of cash or useful items that you might need. So I'm
 afraid the only reward you're likely to get here is my thanks. So thanks."
    That's the last time, you decide, you do a favour for someone without
-making sure they're rich beforehand.
-   Several birds are fluttering overhead. Remembering what happened last
-time, you keep an eye out for them.
+making sure they're rich beforehand.     Several birds are fluttering
+overhead. Remembering what happened last time, you keep an eye out for them.
 
 > climb hedge
 Ploughed field
@@ -3002,9 +2987,9 @@ You're in a corridor. There is a sign on one wall.
 
 The corridor leads northeast, southwest and southeast
 
-  A guard is here.
-   As you enter, the guard takes one look at you and gasps, "blimey! I don't
-much like the look of this headcase! I'm off for reinforcements!"
+  A guard is here.     As you enter, the guard takes one look at you and
+gasps, "blimey! I don't much like the look of this headcase! I'm off for
+reinforcements!"
    He dashes off to the southwest.
 
 > se
@@ -3351,9 +3336,8 @@ to the east, beyond which you can just make out a field.
 
     From the junction you can go northwest, south and southeast
 
-  Baribar the peasant is here.
-   Several birds are fluttering overhead. Remembering what happened last
-time, you keep an eye out for them.
+  Baribar the peasant is here.     Several birds are fluttering overhead.
+Remembering what happened last time, you keep an eye out for them.
 
 > nw
 You move northwest.

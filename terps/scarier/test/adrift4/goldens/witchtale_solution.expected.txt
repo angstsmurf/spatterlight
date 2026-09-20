@@ -220,8 +220,7 @@ The trees tower like giants and extend everywhere. There is barely a hint of
 a trail at all, just fallen logs and boulders and the sea of trees. I can
 hear the river gurgling to the south back at Gorpi's bridge. To the north the
 trees open up into a clearing. Ragoria's den is here buried underneath the
-foliage, so I can go in as well.
-A few birds glide by overhead, squawking.
+foliage, so I can go in as well.  A few birds glide by overhead, squawking.
 My hair falls in my face (I get so annoyed when that happens). I brush it out
 of the way.
 
@@ -373,22 +372,21 @@ a trail at all, just fallen logs and boulders and the sea of trees. I can
 hear the river gurgling to the south back at Gorpi's bridge. To the north the
 trees open up into a clearing. Ragoria's den is here buried underneath the
 foliage, so I can go in as well.  A large spider sits beside a displaced
-rock. What a frightful creature!
-A few birds glide by overhead, squawking.
+rock. What a frightful creature!  A few birds glide by overhead, squawking.
 Leif the fairy dragon is here, resting on a high branch in a tree.
 
 > tickle leif
 I grab the flying fairy dragon and began to tickle him all over. His body
 begins vibrating, he begins to squeak violently, and he curls up and sneezes
-a powdery blast of sprite dust. Ha, that was fun!
-The sounds of the forest are soothing and the air is clear and light.
-Leif the fairy dragon is here, trying to crawl under a surfaced root.
+a powdery blast of sprite dust. Ha, that was fun!  The sounds of the forest
+are soothing and the air is clear and light.  Leif the fairy dragon is here,
+trying to crawl under a surfaced root.
 
 > take spider
 I grab the writhing spider and dump it into one of my pockets. I can feel it
 squirming around - nasty.
-I can hear animals rustling the foliage around me.
-Leif the fairy dragon is here, flying in wild loops.
+I can hear animals rustling the foliage around me.  Leif the fairy dragon is
+here, flying in wild loops.
 
 > south
 I move south.
@@ -399,9 +397,8 @@ in moss. A bubbling river winds around the trees, the only means across it is
 a bridge to the north. The trail forks to the west and leads towards the
 water.  Gorpi the troll is here, rubbing his hairy belly and making a face
 that reminds me of a sickly raison. The little bugger must be hungry. I
-wounder what he likes to eat besides grues?
-I wish that I could just finish this already and get on to learning real
-spells...
+wounder what he likes to eat besides grues?  I wish that I could just finish
+this already and get on to learning real spells...
 
 > west
 I take the side path where the foliage becomes very dense and the trail less
@@ -444,8 +441,8 @@ dreadful thing Gorpi quickly retreats under the bridge.
 Gorpi pops back up, holding something.
 
 "A bottle of dragon's blood, wot! A gift for the witcher for feeding great
-Gorpi!" He hands me the bottle and I put it away.
-A loud cackle of thunder signals that a storm is on the way.
+Gorpi!" He hands me the bottle and I put it away.  A loud cackle of thunder
+signals that a storm is on the way.
 
 > north
 I move north.
@@ -457,15 +454,15 @@ hear the river gurgling to the south back at Gorpi's bridge. To the north the
 trees open up into a clearing. Ragoria's den is here buried underneath the
 foliage, so I can go in as well.  Some sprite dust has fallen on the ground.
 Rain is tumbling down, turning this place into a bog.
-I can hear animals rustling the foliage around me.
-Leif the fairy dragon is here, flying in wild loops.
+I can hear animals rustling the foliage around me.  Leif the fairy dragon is
+here, flying in wild loops.
 
 > take dust
 I grab the sprite dust and almost let go when the dust makes a noise: *SMACK*
 It wouldn't be so bad if that was it, but it's not - the smacking sounds
 continue as I place the dust into my pocket, muffling it.
-A few birds glide by overhead, squawking.
-Leif the fairy dragon is here, resting on a high branch in a tree.
+A few birds glide by overhead, squawking.  Leif the fairy dragon is here,
+resting on a high branch in a tree.
 
 > north
 I move north.
@@ -481,9 +478,8 @@ I spy a rabbit running across the field, half buried in the meadow.
 > say i spy a tall tower
 After uttering the words, it appears right before my eyes. It's so real that
 I don't understand why I didn't see it before. I knew something fishy was
-going on in this clearing, and now the secret is revealed!
-My hair falls in my face (I get so annoyed when that happens). I brush it out
-of the way.
+going on in this clearing, and now the secret is revealed!  My hair falls in
+my face (I get so annoyed when that happens). I brush it out of the way.
 
 > in
 I move in.
@@ -521,8 +517,8 @@ hear the river gurgling to the south back at Gorpi's bridge. To the north the
 trees open up into a clearing. Ragoria's den is here buried underneath the
 foliage, so I can go in as well.  Rain is tumbling down, turning this place
 into a bog.
-A few birds glide by overhead, squawking.
-Leif the fairy dragon is here, resting on a high branch in a tree.
+A few birds glide by overhead, squawking.  Leif the fairy dragon is here,
+resting on a high branch in a tree.
 
 > south
 I move south.
@@ -584,8 +580,7 @@ The trees tower like giants and extend everywhere. There is barely a hint of
 a trail at all, just fallen logs and boulders and the sea of trees. I can
 hear the river gurgling to the south back at Gorpi's bridge. To the north the
 trees open up into a clearing. Ragoria's den is here buried underneath the
-foliage, so I can go in as well.
-A few birds glide by overhead, squawking.
+foliage, so I can go in as well.  A few birds glide by overhead, squawking.
 Leif the fairy dragon is here, resting on a high branch in a tree.
 
 > in
@@ -596,9 +591,8 @@ There's dust everywhere, and no use trying to brush it around - it's stuck
 onto everything. Stuffy old tomes fill most of the nooks and crannies in her
 den, stacked high and ready to topple at the slightest breeze. The only exit
 is the door that leads out to the forest.  Ragoria the old witch is here,
-stirring the contents of her cauldron.
-My hair falls in my face (I get so annoyed when that happens). I brush it out
-of the way.
+stirring the contents of her cauldron.  My hair falls in my face (I get so
+annoyed when that happens). I brush it out of the way.
 
 > look
 

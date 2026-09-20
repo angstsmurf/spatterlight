@@ -279,9 +279,8 @@ reach the bottom in once piece.
 
 > feed fish
 You pop the top on the meat and plop it into the water.  The fish swarm in a
-frenzy on the meat.
-The piranhas are feeding feverishly upon the meat.  They act if the haven't
-been fed in ages.
+frenzy on the meat.  The piranhas are feeding feverishly upon the meat.  They
+act if the haven't been fed in ages.
 
 > swim
 You jump into the famed Slapp's Lake and swim towards the center.

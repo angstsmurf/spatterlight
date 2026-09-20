@@ -50,8 +50,8 @@ The good doctor takes the acorn from the large oak tree.
 
 > tie acorn to pole
 The good doctor ponders something for a moment. "I haff ein idea!" he says.
-He then proceeds to tie an acorn to the end of his sonic fishing pole.
-A woman screams, "Won't somebody please help her?!"
+He then proceeds to tie an acorn to the end of his sonic fishing pole.  A
+woman screams, "Won't somebody please help her?!"
 
 > n
 The good doctor walks north.
@@ -128,8 +128,8 @@ like to walk in the shade, chat idly with friends, or have illicit sex behind
 the biggest oak tree in town with a complete stranger. Some people also like
 the gardens. The paths of the park rejoin Nifty Street to the north.
 
-Several people appear to be clustered around a well.
-A man exclaims, "We've got to get her out of there!"
+Several people appear to be clustered around a well.  A man exclaims, "We've
+got to get her out of there!"
 
 > put squirrel in well
 The good doctor walks over to the well and sets the squirrel on the edge.

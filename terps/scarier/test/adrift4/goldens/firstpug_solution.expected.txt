@@ -202,11 +202,10 @@ Hmm. Anyone even slightly less perceptive than you might have missed it, but
 the bottom of the chest's interior is a couple of inches higher than the
 floor. You search the rest of the chest interior thoroughly and find the
 catch that releases the false bottom! Sitting in the hidey hole underneath is
-Danthil. You scoop him up.
-As you do, you remember Danthil's powers -- the ability to heal, to make
-things grow, and to enhance the physical prowess of whoever carries him.
-Images of Selana tearing holes in practice dummies with her bare hands spring
-back to mind.
+Danthil. You scoop him up.  As you do, you remember Danthil's powers -- the
+ability to heal, to make things grow, and to enhance the physical prowess of
+whoever carries him. Images of Selana tearing holes in practice dummies with
+her bare hands spring back to mind.
 
 > s
 You move south.

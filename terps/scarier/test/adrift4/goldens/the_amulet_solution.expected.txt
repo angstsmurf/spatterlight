@@ -90,10 +90,9 @@ fittings.
 > cast levitate on ruby
 Casting the levitate spell onto the amulet, you see the amulet rise from
 around the Lord An's neck.  Momentarily hung up, the gold chain jostles the
-skeleton until the amulet floats free.
-Disturbing the amulet wakens the mummified bat from its perch atop the
-sarcophagus.  With a piercing shriek, it flies straight towards you with
-outstretched claws.
+skeleton until the amulet floats free.  Disturbing the amulet wakens the
+mummified bat from its perch atop the sarcophagus.  With a piercing shriek,
+it flies straight towards you with outstretched claws.
 
 > l
 
@@ -106,9 +105,8 @@ side of the archway.  To the south is a stone stairway leading up to the
 crypt exit.  Runic markings are engraved around the doorway.  A human
 skeleton lies half buried in the floor in the corner of the room.  Swooping
 back and forth in an agitated manner, an ancient mummified bat attempts to
-rake out your eyes and throat with each pass.
-On the last pass, the mummified bat barely misses digging its claws into your
-eye socket.
+rake out your eyes and throat with each pass.  On the last pass, the
+mummified bat barely misses digging its claws into your eye socket.
 
 > cast turn undead on bat
 A warm orange aura blazes from your outstreched hand towards the flying bat.

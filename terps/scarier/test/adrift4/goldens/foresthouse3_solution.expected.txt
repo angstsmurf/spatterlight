@@ -466,8 +466,7 @@ you. You immediately whirl to push at it but to no avail.
 
 Descent
 As you descend this brick staircase, you can feel the heat intensifying,
-coming from below.
-Heavy breathing comes from behind you.
+coming from below.  Heavy breathing comes from behind you.
 
 > d
 You continue to descend the stairs...
@@ -488,8 +487,7 @@ You continue to descend the stairs...
 You continue to descend the stairs...
 
 > d
-You continue to descend the stairs...
-You sense a dark presence nearby.
+You continue to descend the stairs...  You sense a dark presence nearby.
 
 > d
 You continue to descend the stairs...
@@ -516,8 +514,8 @@ head. It roars and lunges at you, but you dodge the attack.
 > attack beast
 You circle around the beast. It looks ready to lunge. Just as it does, you
 dig a fist into its stomach - or where you think its stomach would be - and
-it slides into the far wall.
-You get the feeling that something is following you.
+it slides into the far wall.  You get the feeling that something is following
+you.
 
 > attack beast
 You throw a kick at the beast's face but it latches its fangs onto your leg.
@@ -573,8 +571,8 @@ Foyer
 Planks are missing from the floor here, replaced with black, empty void. The
 front door is stained a dark red that appears to be pulsing, though this may
 be a trick of the light. Your passage to the kitchen is blocked, but you can
-go east to the dining room or up to the upper hall.
-You get the feeling that something is following you.
+go east to the dining room or up to the upper hall.  You get the feeling that
+something is following you.
 
 > unlock door with key
 You unlock the front door with the key.

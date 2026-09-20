@@ -191,8 +191,7 @@ Taking a quick look around the crowded elevator, you realise you're not the
 only one. Nobody looks comfortable.
 
 A large map is plastered on one of the reflective walls, and there is a
-smaller sign above the lift buttons.
-The lift doors ease closed behind you.
+smaller sign above the lift buttons.  The lift doors ease closed behind you.
 
 > x map
 The map shows the full layout of the Cittian. The 2,000 luxury rooms in the
@@ -431,9 +430,8 @@ Muzak plays softly in the background.  A glamorous shop assistant ignores
 you.  A pretty spanish maid vacuums the floor.
 
 > drop mud
-You drop the mud on the carpet and step back, waiting.
-A middle-aged man admires a notebook with The Cittian emblazoned on the
-front.
+You drop the mud on the carpet and step back, waiting.  A middle-aged man
+admires a notebook with The Cittian emblazoned on the front.
 
 > wait
 Time passes...
@@ -791,8 +789,8 @@ to face you. His mouth opens, and he emits a strange series of hight-pitched
 beeps and whistles.
 
 'Ah, Captain, at last,' says the hideous alien, 'welcome to your ship.
-Everything is ready sir, we take off on your say so.'
-The hideous alien gestures towards the large Captain's chair.
+Everything is ready sir, we take off on your say so.'  The hideous alien
+gestures towards the large Captain's chair.
 
 > look
 
@@ -914,10 +912,10 @@ the ship.
 few seconds of whirring and smoke, it adds 'food processing complete. Please
 enjoy your food.'
 
-Amidst the grey steam, you can't make out a gleaming foodstuff.
-You hear the 'swoosh' of laser pistols firing against the door. Mercifully,
-it seems to be strong enough to withstand the barrage. Still, those escape
-pods look awfully inviting. If only you knew how to launch them . . .
+Amidst the grey steam, you can't make out a gleaming foodstuff.  You hear the
+'swoosh' of laser pistols firing against the door. Mercifully, it seems to be
+strong enough to withstand the barrage. Still, those escape pods look awfully
+inviting. If only you knew how to launch them . . .
 
 > look in microwave
 The thing looks like a microwave. It also looks obscenely complicated, and is

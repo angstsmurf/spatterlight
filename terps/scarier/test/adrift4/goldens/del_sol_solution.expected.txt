@@ -22,15 +22,15 @@ anyway because it IS high school.
 Whatever you end up making Noslen do, each class is only XX turns long and
 then its off to the next class.  If Noslen could just get through the day
 without dying…it would be a good thing.
-Hey dude, want to smoke some weed?  asks, harry, the class stoner.
-"Hey Noslen, You are such a stud.  Come make out with me behind the band
-saw."  says  Jarvin, the class looser.  Your'e not sure.  If the girl you
-really want to mack with, Hina, finds out, she might not want to hand out
-with you any more.  But, behind the band saw, how would she ever find out?
-"Hey Noslen, you are really good at woodshop, will you help me with my
-project.  I don't even know what wood looks like and I'm supposed to build a
-table by the end of class."  Bob is definetly the class idiot.  How can you
-refuse such stupidity?
+Hey dude, want to smoke some weed?  asks, harry, the class stoner.  "Hey
+Noslen, You are such a stud.  Come make out with me behind the band saw."
+says  Jarvin, the class looser.  Your'e not sure.  If the girl you really
+want to mack with, Hina, finds out, she might not want to hand out with you
+any more.  But, behind the band saw, how would she ever find out?  "Hey
+Noslen, you are really good at woodshop, will you help me with my project.  I
+don't even know what wood looks like and I'm supposed to build a table by the
+end of class."  Bob is definetly the class idiot.  How can you refuse such
+stupidity?
 
 > work
 You set to work on your project.  This is going to be the best slingshot ever
@@ -49,14 +49,14 @@ You set to work on your project.  This is going to be the best slingshot ever
 
 > work
 You set to work on your project.  This is going to be the best slingshot ever
-More weed dude?, asks Harry.
+ More weed dude?, asks Harry.
 
 > work
 You set to work on your project.  This is going to be the best slingshot ever
 
 > work
 You set to work on your project.  This is going to be the best slingshot ever
-The best weed ever!!! exclaims Harry
+ The best weed ever!!! exclaims Harry
 
 > work
 You set to work on your project.  This is going to be the best slingshot ever
@@ -66,7 +66,7 @@ You set to work on your project.  This is going to be the best slingshot ever
 
 > work
 You set to work on your project.  This is going to be the best slingshot ever
-"Hey Noslen, help me out will ya, I don't know how to turn this machine
+ "Hey Noslen, help me out will ya, I don't know how to turn this machine
 on..." asks  Bob.
 
 > work
@@ -78,8 +78,8 @@ You set to work on your project.  This is going to be the best slingshot ever
 > work
 You set to work on your project.  This is going to be the best slingshot ever
  Man, all of Noslen's hard work has paid off.  He holds in his hand one of
-the sweetest slingshots known to man.
-"Hey, Noslen, make out with me some more" says Jarvin
+the sweetest slingshots known to man.  "Hey, Noslen, make out with me some
+more" says Jarvin
 
 > help
 Grudgingly, you go over to where Bob is and help him figure out whatever he
@@ -91,9 +91,9 @@ The weed makes you feel loopy.   This not the best stuff you've had.
 > make out with jarvin
 Ah man, this is good stuff!  There's nothing like some sweet woodshop lovin!
 You better hope that Hina doesn't catch wind of this or else she really will
-drop you forever
-"Noslen, you are the best!", says Jarvin.  Lets make out some more.
-"Noslen, you are the best.  help me with this wood will ya" asks Bob
+drop you forever  "Noslen, you are the best!", says Jarvin.  Lets make out
+some more.  "Noslen, you are the best.  help me with this wood will ya" asks
+Bob
 
 > z
 Time passes...
@@ -140,8 +140,8 @@ really is a moron.  Mr Ech is teaching the kids how to add...He needs help on
 this?
 
 > gamble
-Sweet!  Playing with these morons you can win big money!
-"Noslen...come win some big money... lets GAMBLE" the gamblers tell you.
+Sweet!  Playing with these morons you can win big money!  "Noslen...come win
+some big money... lets GAMBLE" the gamblers tell you.
 
 > z
 Time passes...
@@ -202,19 +202,16 @@ Practice...Practice...Practice....Noslen thinks.
 > z
 Time passes...
 "CHECK OUT that girl Noslen.  Imagine what you could do with her..."says your
-perverted friends.
-"CHECK OUT that blond chick, Noslen.."  Says your perverted friend.
-"The brunnette chick is so hot...CHECK OUT her moves!" says your perverted
-friend.
+perverted friends.  "CHECK OUT that blond chick, Noslen.."  Says your
+perverted friend.  "The brunnette chick is so hot...CHECK OUT her moves!"
+says your perverted friend.
 
 > z
 Time passes...
-Perfect practice makes perfect....
-Awesome students practice....
+Perfect practice makes perfect....  Awesome students practice....
 "No man....The best thing to do is to come over here and CHILL OUT" say the
-loosers in the back
-"CHILL OUT with us Noslen..." say the loosers in the back.
-"CHILL OUT with us Noslen..."say the loosers in the back.
+loosers in the back  "CHILL OUT with us Noslen..." say the loosers in the
+back.  "CHILL OUT with us Noslen..."say the loosers in the back.
 "MAKE OUT with me Noslen" asks some random hot chick.
 
 > z

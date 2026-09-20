@@ -1739,9 +1739,8 @@ If you can kill her, I will cast a spell on you to neutralize the effects of
 Morac’s fog."
 Madam Evenov waves her arms across you and utters a few strange words. "
 There its done, you may travel through the fog with out any ill effects now "
-she wheezes .
-It starts getting rather dark. The full moon illuminates the land with its
-eerie glow.
+she wheezes .  It starts getting rather dark. The full moon illuminates the
+land with its eerie glow.
 Madam Evenov shuffles a pack of cards and picks four at random. She holds the
 four in her hands in a fan like shape, and rasps, "Pick a number, one, two,
 three, or four, to see your future and where you must go."
@@ -1834,8 +1833,8 @@ The hallway stretches southward into darkness. To the east and west are
 darkened rooms; to the north, the front doors.
 
 You can move east, south and west.
-The front doors of the castle slam shut behind you.
-You hear the haunting sound of organ music echoing through out the castle.
+The front doors of the castle slam shut behind you.  You hear the haunting
+sound of organ music echoing through out the castle.
 
 > s
 You move south.
@@ -2922,8 +2921,7 @@ Seeker hums!
 > open coffin #2
 You open the coffin #2.  A sceptre is inside the coffin #2.
 Seeker hums!
-Grazilda lies in her coffin.
-Grazilda’s eyes flick open.  Seeker hums!
+Grazilda lies in her coffin.  Grazilda’s eyes flick open.  Seeker hums!
 
 > stake grazilda
 As you plunge the stake into Grazilda’s heart, she screams and wines with the
@@ -3091,16 +3089,16 @@ You can only move south.
 Seeker hums!
 The wooden door slams shut.
 A huge fireball hurtles from Morac toward you. Luckily for you, the shield
-that you wear takes the brunt of it.
-Seeing that his fireball spell has been thwarted, Morac decides on a new
-tactic. His eyes fix on your own as he tries to hypnotize you.
+that you wear takes the brunt of it.  Seeing that his fireball spell has been
+thwarted, Morac decides on a new tactic. His eyes fix on your own as he tries
+to hypnotize you.
 
 > look away
 You do so, thwarting Morac’s attack yet again.  Seeker hums!
 You hear Melvin singing. He must be somewhere nearby.
-Dong! You hear a bell toll elsewhere in the castle.
-Morac’s face turns red with rage. He suddenly holds one hand up, palm open,
-as you feel a tugging sensation from your chest.
+Dong! You hear a bell toll elsewhere in the castle.  Morac’s face turns red
+with rage. He suddenly holds one hand up, palm open, as you feel a tugging
+sensation from your chest.
 
 > attack morac with sceptre
 You catch Morac on the side of his head with the sceptre. There is a flash of
@@ -3366,8 +3364,7 @@ Rossi looks nervously about with its large goggle eyes. It looks frightened.
 > kill morac
 You cleave Morac’s skull with the sceptre. A white flash of light, followed
 by a loud bang, fills the area. Morac explodes into dust. You have finally
-defeated him.
-You hear the distant howling of wolves.
+defeated him.  You hear the distant howling of wolves.
 Rossi looks nervously about with its large goggle eyes. It looks frightened.
 
 > e
@@ -4230,9 +4227,8 @@ It starts to rain...
 
 > say borantha
 The staff that you are holding glows a brilliant white. You have a feeling
-that it’s waiting for you to do something.
-You hear the distant howling of wolves.
-A chill wind blows southerly.
+that it’s waiting for you to do something.  You hear the distant howling of
+wolves.  A chill wind blows southerly.
 
 > snap staff
 As you break the staff, you see the stone henge fade from view, and a new

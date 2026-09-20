@@ -274,8 +274,7 @@ Multitudes of young people wait outside nightclubs and other entertainment
 venues as the night begins to draw in. There is still a bitter chill in the
 air, yet this does not seem to affect the atmosphere of the place. Along the
 busy roadside are several taxi posts, marked out in yellow.  A policeman is
-here, watching people as they walk by.
-The freezing wind howls around you.
+here, watching people as they walk by.  The freezing wind howls around you.
 
 > x taxi post
 A taxi post is just a small electronic box with a single button on top,
@@ -320,15 +319,13 @@ It is snowing.
 
 > wait
 Time passes...
-It is snowing.
-An autocab moves out of the main body of traffic and into the parking lane;
-it looks like it is going to pull up nearby.
+It is snowing.  An autocab moves out of the main body of traffic and into the
+parking lane; it looks like it is going to pull up nearby.
 
 > wait
 Time passes...
-It is snowing.
-The autocab pulls up right alongside you and its gull-wing style doors open,
-beckoning you in.
+It is snowing.  The autocab pulls up right alongside you and its gull-wing
+style doors open, beckoning you in.
 
 > in
 You get inside the autocab and the doors close before you have even sat down.
@@ -408,8 +405,7 @@ You move east.
 Pedestrianised Zone
 Lit by antique, cast-iron street lamps, this area looks a little more lively,
 even if most of the small shops around this area have closed for the evening.
-To the east is the Palladium.
-It is snowing.
+To the east is the Palladium.  It is snowing.
 
 > e
 Outside the Palladium
@@ -424,8 +420,7 @@ A man in a fancy tuxedo, probably an actor, leans against the wall with a
 smug grin on his face.
 "Nice suitcase you got there." he calls out to you, gesturing with his foot.
 "Drop dead." you reply, walking past him. He laughs out loud and walks off
-into the night.
-It is snowing.
+into the night.  It is snowing.
 
 > n
 You move north.
@@ -972,9 +967,8 @@ west, from which a cold draft blows.  Also here is the gun case.
 
 > hit man
 
-Perhaps a little interrogation would be in order...
-You charge into the room and pin the man to the floor so he cannot escape; he
-stares at you in terror.
+Perhaps a little interrogation would be in order...  You charge into the room
+and pin the man to the floor so he cannot escape; he stares at you in terror.
 "H- how did...?" He stutters.
 "Where is Sally?" you ask, grabing him by the collar.
 "The girl? She isn't here," you draw one arm back in response to this, your
@@ -1109,8 +1103,7 @@ running from north to south, which prevents you from getting anywhere near
 it. This is not the only problem; there are security cameras equipped with
 what appear IR/M sensors mounted on posts about halfway between the fence and
 the building. You would be seen by these things even if you did manage to
-scale the fence.
-It is snowing.
+scale the fence.  It is snowing.
 
 > s
 You move south.
@@ -1121,8 +1114,7 @@ running from north to south, which prevents you from getting anywhere near
 it. This is not the only problem; there are security cameras equipped with
 what appear IR/M sensors mounted on posts about halfway between the fence and
 the building. You would be seen by these things even if you did manage to
-scale the fence.
-It is snowing.
+scale the fence.  It is snowing.
 
 > s
 You move south.
@@ -1133,8 +1125,7 @@ running from north to south, which prevents you from getting anywhere near
 it. This is not the only problem; there are security cameras equipped with
 what appear IR/M sensors mounted on posts about halfway between the fence and
 the building. You would be seen by these things even if you did manage to
-scale the fence.
-It is snowing.
+scale the fence.  It is snowing.
 
 > s
 You move south.
@@ -1145,8 +1136,8 @@ which prevents you from getting anywhere near it. This is not the only
 problem; there are security cameras equipped with what appear IR/M sensors
 mounted on posts about halfway between the fence and the building. You would
 be seen by these things even if you did manage to scale the fence. You are at
-the corner of the fence, which leads both to the north and to the east.
-It is snowing.
+the corner of the fence, which leads both to the north and to the east.  It
+is snowing.
 
 > e
 You move east.
@@ -1157,8 +1148,7 @@ running from east to west, which prevents you from getting anywhere near it.
 This is not the only problem; there are security cameras equipped with what
 appear IR/M sensors mounted on posts about halfway between the fence and the
 building. You would be seen by these things even if you did manage to scale
-the fence.
-It is snowing.
+the fence.  It is snowing.
 
 > e
 You move east.
@@ -1169,8 +1159,7 @@ running from east to west, which prevents you from getting anywhere near it.
 This is not the only problem; there are security cameras equipped with what
 appear IR/M sensors mounted on posts about halfway between the fence and the
 building. You would be seen by these things even if you did manage to scale
-the fence.
-It is snowing.
+the fence.  It is snowing.
 
 > e
 You move east.
@@ -1180,8 +1169,7 @@ Here, there is a gap in the fence about twenty feet wide, which is sealed by
 a sliding metal gate. Right outside this gate is a small guardhouse with a
 signpost outside. To the south is a long road that leads from deep into the
 forest right up to the gate. The entrance to the lithoid lies behind the
-gate, to the north.
-It is snowing.
+gate, to the north.  It is snowing.
 
 > in
 You move in.
@@ -1229,8 +1217,7 @@ Here, there is a gap in the perimeter fence about twenty feet wide, which
 grants access to the Falcon now that the gate has been opened. Right outside
 this gate is a small guardhouse with a signpost outside. To the south is a
 long road that leads from deep into the forest right up to the base of the
-lithoid itself.
-It is snowing.
+lithoid itself.  It is snowing.
 
 > n
 Car Park Entrance
@@ -1400,9 +1387,9 @@ need to get rid of him if you are to reach the lift.  A guard is here.
 As soon as you have finished dialing the number, the videocom on the wall
 begins to bleep, which immediately attracts the guard's attention.
 "Not again." he mutters, walking over to the videocom. You decide to leave
-the phone ringing, just to see what he does.
-The guard switches on the videocom and stands with his back to you. The
-screen reads "No Image Received".
+the phone ringing, just to see what he does.  The guard switches on the
+videocom and stands with his back to you. The screen reads "No Image
+Received".
 "Another audio-only? What is it this time?" He asks.
 
 > kill man
@@ -1498,8 +1485,8 @@ they are saying. One of them wipes the sweat from his brow.
 Time passes...
 One of the guards looks towards the room you are in for a moment, before
 turning around and walks towards the balcony. The other guard watches his
-colleague go outside and then decides to head down the corridor.
-It is now very hot in here, almost like the jungle.
+colleague go outside and then decides to head down the corridor.  It is now
+very hot in here, almost like the jungle.
 
 > wait
 Time passes...
@@ -1637,8 +1624,7 @@ Balcony
 The balcony outside the Lithoid is made of steel tube and is so small it is
 barely large enough for two people to stand on. The wind is less ferocious
 now, but still carries a deathly chill. The guard is here too, standing with
-his back to you.  A tall guard is here.
-It is snowing.
+his back to you.  A tall guard is here.  It is snowing.
 
 > kill guard
 Given his present position, you cannot resist the temptation of picking him
@@ -2205,8 +2191,8 @@ as it breathes its last.
 
 >
 
-Ignoring Sally and yourself, Natalia slowly gets up from her chair walks over
-to the dead griffon with tears welling in her eyes. Gone is the look of
+  Ignoring Sally and yourself, Natalia slowly gets up from her chair walks
+over to the dead griffon with tears welling in her eyes. Gone is the look of
 malevolence, arrogance and anger that marred her face. She slumps down onto
 the floor right next to Griff's corpse, cradling it's head in her arms,
 stroking it gently, as if it was still alive. She starts to sob, as if she

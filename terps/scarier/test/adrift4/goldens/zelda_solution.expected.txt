@@ -748,8 +748,8 @@ As you might expect, the windmill is nearly hollow on the inside. Down the
 center runs a great wood shaft, which connects the wind energy to gear system
 on the floor. Right now, the wind is fairly still, so the gears aren't
 turning. There is an exit east.  The Windmill Man stands near the gear
-mechanism, cranking away on his phonograph.
-Zelda looks at the Windmill Man and rolls her eyes.
+mechanism, cranking away on his phonograph.  Zelda looks at the Windmill Man
+and rolls her eyes.
 
 > sell wind waker
 
@@ -936,8 +936,8 @@ Graveyard
 The gravestones here have lately sprung up here almost as quickly as they
 could be made. They surround you, and seem to be closing in on your location.
 It is very dark, as the field is almost carved into a hillside and the only
-light comes from the moon. There is an exit west.
-You can hear movement of some sort, behind you.
+light comes from the moon. There is an exit west.  You can hear movement of
+some sort, behind you.
 
 > z
 Time passes...

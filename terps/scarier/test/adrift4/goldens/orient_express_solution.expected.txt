@@ -224,9 +224,8 @@ and wobbles a bit, and falls to the ground.
 > take card
 You take the card from the floor, then explain who you are. You instruct the
 conductor and the waiter to dump Igotta Bigbottom in the bathroom that is out
-of order.
-The train begins to slow. You are sure that you must be arriving in
-Hopeimakeit.
+of order.   The train begins to slow. You are sure that you must be arriving
+in Hopeimakeit.
 
 > n
 You move north.
@@ -301,13 +300,12 @@ walks towards you from inside.
 You look around and don't see Miss Fortune anywhere. You were certain that
 she said she'd be here.  You pick up the receiver to call Anita, when you
 realize that you don't have a number for her, and give up the thought. You
-hang up the phone.
-Just as you put the receiver down, the phone rings. You quickly pick it up.
-The voice of a man bends your ear. "Listen, and listen carefully , man. I
-have your lady friend here. She is a mighty fine piece of work. We know what
-you did to Bigbottom. If you don't want the same thing to happen to your lady
-friend, you'd better better get the cash from the address you found on that
-card. You don't have much time."
+hang up the phone.  Just as you put the receiver down, the phone rings. You
+quickly pick it up. The voice of a man bends your ear. "Listen, and listen
+carefully , man. I have your lady friend here. She is a mighty fine piece of
+work. We know what you did to Bigbottom. If you don't want the same thing to
+happen to your lady friend, you'd better better get the cash from the address
+you found on that card. You don't have much time."
 
 > w
 You move west.
@@ -337,9 +335,8 @@ You hand the card to Habibo. He looks you over and see's that you can be
 trusted, only because his best customer is at your side. He hands the card to
 a dark figure behind the window. A moment later a brown paper sack is given
 back to him. He hands you the bag and says "There's a little something in it
-for you, sweetie." as he pats Ivanna on the buns.
-You hear a car approaching. You assume that some one is coming to make a
-purchase.
+for you, sweetie." as he pats Ivanna on the buns.   You hear a car
+approaching. You assume that some one is coming to make a purchase.
 
 > examine ivanna
 You quickly check to se if Ivanna is alright. You can tell right away that
@@ -349,9 +346,8 @@ and try to keep her still. She whispers to you, "I
 nev...er.......w..w..wanted  it...to  be like.....th...this. Sh....Shh....She
 is in....An....Anita....is in the......" With her last ounce of strength, she
 looks at you with caring eyes. Or maybe drunken eye's.  Ivanna goes limp in
-your arms.  Moments later Habibo  takes Ivanna's lifeless body away.
-Using your body as a shield, you cover Ivanna, and try to stay low to the
-ground.
+your arms.  Moments later Habibo  takes Ivanna's lifeless body away.  Using
+your body as a shield, you cover Ivanna, and try to stay low to the ground.
 As the accelerates around the corner, you check to make sure neither of you
 were hit.  Ivanna wasn't so lucky.
 

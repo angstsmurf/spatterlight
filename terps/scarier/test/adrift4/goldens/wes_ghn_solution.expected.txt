@@ -147,11 +147,11 @@ going on?
       "Oh dear, its about to get ugly. You have to remember, Wes: Not
 everyone here is your ally. There are forces in this building that absolutely
 hate you. "
-      With that she closes the door and leaves.
-Suddenly, you hear a roaring noise that shakes the Foyer. The injured around
-you begin beating their limbs across the floor and howling through slathering
-jaws. All about you innumerable eyes slowly begin to turn in your direction.
-This doesn't feel right.
+      With that she closes the door and leaves.   Suddenly, you hear a
+roaring noise that shakes the Foyer. The injured around you begin beating
+their limbs across the floor and howling through slathering jaws. All about
+you innumerable eyes slowly begin to turn in your direction. This doesn't
+feel right.
 
 >
 Your words... they're so unclear
@@ -215,8 +215,8 @@ top.
 You can move north and south.
 
 > ring bell
-You ring the bell but nothing appears to happen.
-From somewhere far off you can hear the sound of inhuman laughter...
+You ring the bell but nothing appears to happen.   From somewhere far off you
+can hear the sound of inhuman laughter...
 
 >
 Your words... they're so unclear

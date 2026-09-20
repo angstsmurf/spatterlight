@@ -190,8 +190,8 @@ see that the trapdoor is now unguarded.
 
 > d
 You casually stroll over to the trapdoor, looking at Oliver at all times. You
-then quickly slip through the trapdoor unseen.
-A rat scurries past your feet!
+then quickly slip through the trapdoor unseen.  A rat scurries past your
+feet!
 
 > look
 
@@ -498,8 +498,8 @@ You can move east and west.
 
 > fill lantern with oil
 You fill the lantern and flick the deluxe flint to ignite it. It shines nice
-and bright. You leave the lantern permanently lit.
-Black waves churn in the sea sending a fine mist into the air.
+and bright. You leave the lantern permanently lit.  Black waves churn in the
+sea sending a fine mist into the air.
 
 > e
 You move east.
@@ -659,8 +659,8 @@ a rope ladder hanging down from them. To the west you can see the village
 library.
 
 You can move east, west and up.
-You hear a clap of thunder. The mist around you glows briefly.
-You hear an owl
+You hear a clap of thunder. The mist around you glows briefly.  You hear an
+owl
 
 > e
 You move east.
@@ -716,8 +716,8 @@ You open the large wardrobe.  A fishing coat is inside the large wardrobe.
 You take the fishing coat from the large wardrobe.
 
 > wear coat
-You slip into the thick coat. You start to feel warm already.
-A rat scurries past your feet!
+You slip into the thick coat. You start to feel warm already.  A rat scurries
+past your feet!
 
 > drink brandy
 You drain the bottle of the liquid. You feel a warm sensation inside. You
@@ -837,8 +837,7 @@ the middle. The stone is large and finely engraved with carvings of a sword
 and shield.
 
 You can only move west.
-You hear an owl
-A rat scurries past your feet!
+You hear an owl  A rat scurries past your feet!
 
 > look
 
@@ -856,8 +855,7 @@ You hear a clap of thunder. The mist around you glows briefly.
 You start digging up the grave, stopping every now and again to wipe your
 brow. Two hours later you start to see the outlines of a wooden coffin down
 inside the hole. You throw the spade to the ground before entering the grave,
-not seeing any further use for it.
-A rat scurries past your feet!
+not seeing any further use for it.  A rat scurries past your feet!
 
 > d
 You can only move up.
@@ -954,9 +952,8 @@ dance around you.
 
 > use monocle
 When you hold the monocle to your eye you see that red outline appears on the
-wall. The shape looks that of a door entrance.
-Soft flakes of snow start to fall from the clear sky. The wind makes them
-dance around you.
+wall. The shape looks that of a door entrance.  Soft flakes of snow start to
+fall from the clear sky. The wind makes them dance around you.
 
 > n
 You move north.
@@ -1038,14 +1035,14 @@ The glow from the lava pool gives the cave a nice orange warm colour.
 You can move north, east and south.
 
 > e
-You go eastwards..
-As you walk into the room you  are greeted by an astonishing sight. Some Orcs
-start to charge towards you, but the bracelet starts to pulsate. Even in your
-pocket it emits a green shield like glow. Suddenly, a green bolt fires from
-your body and hits one of the Orcs. It then starts to hit the next, and the
-next, chaining them together and dragging them towards the ground like some
-huge green serpent. You see that they are actually sinking into the solid
-stone floor. As quickly as it started, it finishes, leaving only silence.
+You go eastwards..  As you walk into the room you  are greeted by an
+astonishing sight. Some Orcs start to charge towards you, but the bracelet
+starts to pulsate. Even in your pocket it emits a green shield like glow.
+Suddenly, a green bolt fires from your body and hits one of the Orcs. It then
+starts to hit the next, and the next, chaining them together and dragging
+them towards the ground like some huge green serpent. You see that they are
+actually sinking into the solid stone floor. As quickly as it started, it
+finishes, leaving only silence.
 
 > n
 You move north.
@@ -1174,10 +1171,9 @@ the mission that lays ahead.
 
 > open door
 You push the large door with all your might. The door just opens enough for
-you to slip through.
-You look up and notice clouds making way and the bright sun breaking through.
-The site of the sun makes you feel better and you feel more confident with
-the mission that lays ahead.
+you to slip through.  You look up and notice clouds making way and the bright
+sun breaking through. The site of the sun makes you feel better and you feel
+more confident with the mission that lays ahead.
 
 > n
 You move north.
@@ -1404,8 +1400,8 @@ This crypt is very creepy and freezing cold as you walk down the snow covered
 steps (The snow on the steps makes you think that this door has been opened
 recently). You see many old rotten coffins and headstones neatly lined
 together. One coffin catches your eye as it looks pretty new in fact, it's
-immaculate...  The crypt door has slammed behind you!
-The crypt door slams closed behind you!
+immaculate...  The crypt door has slammed behind you!  The crypt door slams
+closed behind you!
 
 > open coffin
 As you slide the lid to one side you see the heart-stopping image of what
@@ -1413,16 +1409,14 @@ nightmares are made of. Victor lies before you with his arms crossed over his
 chest. The stench makes you recoil for a second. He lays neatly dressed in a
 suit of fine cloth. His hair is as black as his soul and his skin is pale and
 smooth. His eyelids slide back to reveal blood red eyes and he smiles with a
-somewhat toothy grin. Better act fast or you could be elevenses.
-"How dare you invade my home, mortal" Victor hisses. He starts to uncross his
-arms and  gets ready to strike.
-The crypt door slams closed behind you!
+somewhat toothy grin. Better act fast or you could be elevenses.  "How dare
+you invade my home, mortal" Victor hisses. He starts to uncross his arms and
+gets ready to strike.  The crypt door slams closed behind you!
 
 > throw water at victor
 You quickly splash Victor with holy water. It seems to burn his skin as smoke
 starts to rise from him. He seems to be stunned with the pain. Tears roll
-from his blood-red eyes.
-The crypt door slams closed behind you!
+from his blood-red eyes.  The crypt door slams closed behind you!
 
 > attack victor with arrow
 You quickly draw out the sharp arrow shaft in one hand and the hammer in the
@@ -1433,8 +1427,7 @@ Unable to move, he can only look as you pound the makeshift stake into his
 heart further. Blood trickles from the corners of Victor's mouth and his eyes
 almost stand out in agony. Eventually he goes limp and his eyes stare blankly
 at the crypt ceiling. All you here is a low gurgling noise coming from
-Victor's throat.
-The crypt door slams closed behind you!
+Victor's throat.   The crypt door slams closed behind you!
 
 > use cutter on finger
 You slice through the ice cold finger and it falls by Victor's side. You pick

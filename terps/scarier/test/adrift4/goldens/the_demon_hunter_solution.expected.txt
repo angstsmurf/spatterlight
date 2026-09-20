@@ -101,10 +101,9 @@ You take the spear feeling its cool weight in your hands.
 > s
 The Chapel
 This Chapel is virtually empty save for a monk's desk, a simple wooden chair,
-and a small bed.
-Upon entering this room, the first thing you notice is the old man sitting in
-a chair hunched over his desk chanting in a monotone voice. As you move
-closer, he raises his head and the humming sound stops.
+and a small bed.  Upon entering this room, the first thing you notice is the
+old man sitting in a chair hunched over his desk chanting in a monotone
+voice. As you move closer, he raises his head and the humming sound stops.
 
  He opens his eyes and stares into your face for a moment or two before
 opening his mouth to speak, "So you HAVE come at last?" His voice sounds as

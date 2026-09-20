@@ -1703,9 +1703,8 @@ If you can kill her, I will cast a spell on you to neutralize the effects of
 Morac’s fog."
 Madam Evenov waves her arms across you and utters a few strange words. "
 There its done, you may travel through the fog with out any ill effects now "
-she wheezes .
-It starts getting rather dark. The full moon illuminates the land with its
-eerie glow.
+she wheezes .  It starts getting rather dark. The full moon illuminates the
+land with its eerie glow.
 Madam Evenov shuffles a pack of cards and picks four at random. She holds the
 four in her hands in a fan like shape, and rasps, "Pick a number, one, two,
 three, or four, to see your future and where you must go."
@@ -1807,8 +1806,8 @@ The hallway stretches southward into darkness. To the east and west are
 darkened rooms; to the north, the front doors.
 
 You can move east, south and west.
-The front doors of the castle slam shut behind you.
-You hear the haunting sound of organ music echoing through out the castle.
+The front doors of the castle slam shut behind you.  You hear the haunting
+sound of organ music echoing through out the castle.
 
 > s
 You move south.
@@ -2287,8 +2286,8 @@ northward.
 You can move north and south.
 Seeker hums!
 Seeker hums!
-You hear the shuffling of feet elsewhere in the castle.
-A faint mist starts collecting in the room.
+You hear the shuffling of feet elsewhere in the castle.  A faint mist starts
+collecting in the room.
 
 > open coffin #7
 You open the coffin #7.  A brooch and The remains of Maldus are inside the
@@ -2496,8 +2495,8 @@ Berto, the bald raven, is here.  A faint mist swirls around you.
 
 You can move north, east, south, west, up and down.
 Seeker hums!
-You hear Melvin singing. He must be somewhere nearby.
-You feel the hairs on the back your neck stand up.
+You hear Melvin singing. He must be somewhere nearby.  You feel the hairs on
+the back your neck stand up.
 
 > u
 You move up.
@@ -2814,8 +2813,7 @@ You open the coffin #2.  A sceptre is inside the coffin #2.
 Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
 damage.
 Seeker hums!
-Grazilda lies in her coffin.
-Grazilda’s eyes flick open.  Seeker hums!
+Grazilda lies in her coffin.  Grazilda’s eyes flick open.  Seeker hums!
 
 > stake grazilda
 As you plunge the stake into Grazilda’s heart, she screams and wines with the
@@ -2992,9 +2990,9 @@ Gargoyle #3 flies in.
 Seeker hums!
 The wooden door slams shut.
 A huge fireball hurtles from Morac toward you. Luckily for you, the shield
-that you wear takes the brunt of it.
-Seeing that his fireball spell has been thwarted, Morac decides on a new
-tactic. His eyes fix on your own as he tries to hypnotize you.
+that you wear takes the brunt of it.  Seeing that his fireball spell has been
+thwarted, Morac decides on a new tactic. His eyes fix on your own as he tries
+to hypnotize you.
 
 > look away
 You do so, thwarting Morac’s attack yet again.
@@ -4333,9 +4331,8 @@ Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Hound of hades hits you, but it doesn't seem to do any damage.
 Seeker hums!
-Seeker Hums!
-You are feeling very tired, indeed, and realise you should find somewhere to
-sleep!
+Seeker Hums!  You are feeling very tired, indeed, and realise you should find
+somewhere to sleep!
 
 > attack cerberus
 You stab hound of hades with the sword.

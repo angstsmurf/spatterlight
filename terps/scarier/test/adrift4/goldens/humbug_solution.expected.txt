@@ -1516,15 +1516,13 @@ Time passes...
 > Get 1 sweet
 Okay.  I have taken one of the sweets and eat it.  The octopus looks long and
 hard at the thirteen remaining sweets.  The octopus takes one sweet, and sits
-back.
-The octopus's large eyes are streaming in the stinging fog.  It tries to wave
-the fog away with its tentacles.
+back.  The octopus's large eyes are streaming in the stinging fog.  It tries
+to wave the fog away with its tentacles.
 
 > Get 3 sweets
 Okay.  I have taken three of the sweets and eat them.  The octopus looks long
 and hard at the nine remaining sweets.  The octopus takes one sweet, and sits
-back.
-The fog begins to disappear
+back.  The fog begins to disappear
 
 > Get 3 sweets
 Okay.  I have taken three of the sweets and eat them.  The octopus looks long
@@ -2743,8 +2741,8 @@ torch, a mousse, a golden casket, a fish and a bone.  Some pepper is inside
 the golden casket.
 
 > Give bone to dog
-The dog howls with delight and clamps its jaws into the bone.
-From inside the kennel there is a contented gnawing.
+The dog howls with delight and clamps its jaws into the bone.  From inside
+the kennel there is a contented gnawing.
 
 > X table
 The wooden kitchen table is old and heavy.  A pot is on the kitchen table.
@@ -3089,8 +3087,7 @@ my east.
 Exits are east, south and west.  Schrodinger wanders towards me from the
 south.
 The dog sees the cat but does nothing, preferring to gnaw on its bone
-instead.
-From inside the kennel there is a contented gnawing.
+instead.  From inside the kennel there is a contented gnawing.
 
 > W
 There is a movement from behind one of the taller mounds of marzipan and a
@@ -3983,14 +3980,12 @@ I pass Grandad the trombone.
 
 > Give card to Grandad
 Grandad reads the Christmast card and smiles, "Thanks my lad.  And a bonny
-hoots McGonagall to you too"
-Grandad flamboyantly takes a sock out of his breast pocket and begins to
-polish the trombone with it.
+hoots McGonagall to you too"  Grandad flamboyantly takes a sock out of his
+breast pocket and begins to polish the trombone with it.
 
 > Give scarf to Grandad
-"Thank you", Grandad puts on the scarf.
-Having finished polishing the outside of the trombone, Grandad turns his
-attention to the inside.
+"Thank you", Grandad puts on the scarf.  Having finished polishing the
+outside of the trombone, Grandad turns his attention to the inside.
 
 > Ask Grandad about Jasper
 "A nasty kettle of fish.  I'd avoid him if I were you"
@@ -5104,8 +5099,7 @@ Jasper pops the toffee in his mouth and begins to chew.
 > Ask Jasper about wumpus
 "Exterminate the vermin.  That's my motto"
 Jasper laughs, "Your Grandad can't hold out for long, he hasn't got a penny
-to his name.."
-Jasper chews vigorously.
+to his name.."  Jasper chews vigorously.
 
 > Wait
 Time passes...
@@ -5113,22 +5107,18 @@ Time passes...
 Jasper sniffs the air, "Where did it get to?".  He looks at me, "Oh yes, and
 I wouldn't believe all your Grandad's stories about hidden treasure.  He's
 getting old.. and desperate.  This time next year I'll be the new lord of
-Attervist manor."
-Jasper chews vigorously.
+Attervist manor."  Jasper chews vigorously.
 
 > Wait
 Time passes...
 Jasper looks around, "Where did that wumpus get to?  Nothing like fresh blood
-to start the day.. Heh heh"
-Jasper chews vigorously.
+to start the day.. Heh heh"  Jasper chews vigorously.
 
 "Blasted vermin", spits Jasper, "Came through my greenhouse window.. landed
-in my begonias.. Well, I'll show it"
-Jasper chews vigorously.
+in my begonias.. Well, I'll show it"  Jasper chews vigorously.
 
 > Wait
 Time passes...
-
 Jasper clutches his jaw, "Awwwgghh!  Not another one!".  His face turns
 purple in rage as he reaches into his mouth and pulls something out.  He
 throws the offending item to the ground.
@@ -5335,8 +5325,7 @@ is slumped in the corner.
 Exits are north and south.
 
 > Turn off torch
-Okay.  I turn the torch off.
-Olaf mutters something about a very sad story.
+Okay.  I turn the torch off.  Olaf mutters something about a very sad story.
 Olaf hiccups, "Hic!"
 
 > X Olaf
@@ -5980,8 +5969,7 @@ ringing loudly.
 Exits are east, south and west.
 
 > Turn off torch
-Okay.  I turn the torch off.
-I can hear a fire engine's siren.
+Okay.  I turn the torch off.  I can hear a fire engine's siren.
 
 > Wait
 Time passes...
@@ -7267,8 +7255,8 @@ and begins an impressive display of aerobatics.  Horace sees the aeroplane
 and his mouth opens wide in awe.  Horace quickly remembers his role in life.
 His pupils dilate, his teeth gnash, and his eyebrows furrow as he snarls the
 word he hates more than any other: "litter".  He leaps up and puts the tin
-down on the workbench.
-Horace bounds after the paper aeroplane, trying to catch it.
+down on the workbench.  Horace bounds after the paper aeroplane, trying to
+catch it.
 
 > Get tin
 Okay.  I have taken the tin from horace's workbench.

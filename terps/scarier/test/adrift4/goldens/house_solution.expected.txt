@@ -550,8 +550,8 @@ door.  High up on one wall you notice a dent in the plaster.  A suit of
 armour stands in one corner.  Someone has removed an old thredbare rug from
 its place on the floor, rolled it up and placed it to one side.  You can also
 see a dining room table and a wooden trapdoor.  Cathy seems to have gone
-catatonic.
-Cathy stirs and looks at you.  Some colour has come back into her cheeks.
+catatonic.  Cathy stirs and looks at you.  Some colour has come back into her
+cheeks.
 
 > n
 You move north.
@@ -726,7 +726,6 @@ leeds to the lounge while the door to the west leeds to the dining room.  The
 front door is behind you and stands beside a narrow window with its own
 wooden shutter.  You can also see a wooden stool.  Cathy seems to have
 recovered.
-
 (PRESS ENTER TO CONTINUE)
 
 Meanwhile...
@@ -1713,13 +1712,12 @@ embodiment of schizophrenia.  The left half of her body is clothed in lush
 silks and jewels.  That side of her head reveals a beautiful pale face with
 long blond hair and blue eye.  Her right side is naked and the flesh has all
 but dropped away revealing meat and bone.  That side of her face is all
-skull.
-The woman gestures to an empty chair so you sit facing her across the table.
-She says, "OK honey, here's the rules.  You stand up?  Bad things happen.
-You look behind you?  Bad things happen.  You annoy me in any way?  Bad
-things happen.  Now a smart lad like you might start to think, 'Hey I'm dead
-anyway.  How could anything worse happen'".  Her tombstone grin widens as she
-continues, "Want to bet on it"?
+skull.  The woman gestures to an empty chair so you sit facing her across the
+table.  She says, "OK honey, here's the rules.  You stand up?  Bad things
+happen.  You look behind you?  Bad things happen.  You annoy me in any way?
+Bad things happen.  Now a smart lad like you might start to think, 'Hey I'm
+dead anyway.  How could anything worse happen'".  Her tombstone grin widens
+as she continues, "Want to bet on it"?
 (PRESS ANY KEY)
 
 She places seven dominoes side down and facing away from you onto her side of

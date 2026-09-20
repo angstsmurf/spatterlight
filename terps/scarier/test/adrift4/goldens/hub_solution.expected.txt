@@ -430,14 +430,12 @@ smell of tomato and garlic wafts out.
 I put that inside the saucepan.
 
 > press on
-I press the 'on' button.
-The hob is starts glowing red.
+I press the 'on' button.  The hob is starts glowing red.
 
 > put saucepan on hob
 I put the saucepan, with the soup in it, on the hob. From past experience I
 know how easily it burns on this hob - I'll have to move it once its done, to
-another part of the hob.
-The soup starts boiling.
+another part of the hob.  The soup starts boiling.
 
 > x hob
 The hob is ceramic, flush with the countertops. I've been admonished many
@@ -454,8 +452,7 @@ spoon out of the left drawer and eat soup directly out of the pan (well, at
 least it wasn't out of the can, although if they ever sell soup in
 microwavable cans, anything is possible). When I finish, the can goes in the
 bin, the pan and spoon are quickly washed and dried, and I'm feeling in
-slightly better spirits.
-A whiff of smoke comes from somewhere.
+slightly better spirits.  A whiff of smoke comes from somewhere.
 
 > press off
 I press the 'off' button.

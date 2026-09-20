@@ -471,6 +471,19 @@ evt_taf_version (scr_gameref_t game, scr_int event)
  * ends the game mid-tick and the Clock chime follows the ending's bare
  * "[Press any key to end]" -- "...end]  You hear the chiming of the
  * grandfather clock." (runner_transcripts/haunt.rtf).
+ *
+ * 4.0's checkevent calls the same pspace() (run400 44A9F4) ahead of every one
+ * of them -- StartText 46FECB, PrefText 4701BF, FinishText 47028A, the
+ * restart's text 470633 -- so the event's text is part of the turn's ONE
+ * string, and the ALR pass walks the join.  Where the Runner's own string
+ * really stops at a newline, pspace() adds nothing and the text starts a
+ * fresh line anyway: 4.0's "Time passes..." carries a vbCrLf of its own
+ * (48ABDA), which pf_buffer_hard_break() records, and pf_buffer_join_line()
+ * takes back only a terminator of OURS.  Measured on the ALR source probe
+ * (p4ALRSRC, run400, Adrift_10/11_p4src.txt): `xray` -- a task with
+ * CompleteText "X." starting an event whose StartText is "EV ball." -- is
+ * "X.  EV qball." on one line, while the FinishText two `wait`s later is
+ * "Time passes..." / "FIN qball." on two.
  */
 static void
 evt_buffer_text (scr_gameref_t game, scr_int event, const scr_char *text)
@@ -478,8 +491,12 @@ evt_buffer_text (scr_gameref_t game, scr_int event, const scr_char *text)
   const scr_filterref_t filter = gs_get_filter (game);
 
   if (evt_taf_version (game, event) < TAF_VERSION_400)
-    pf_buffer_pspace (filter);
-  pf_buffer_paragraph_line (filter, text);
+    {
+      pf_buffer_pspace (filter);
+      pf_buffer_paragraph_line (filter, text);
+    }
+  else
+    pf_buffer_join_line (filter, text);
 }
 
 

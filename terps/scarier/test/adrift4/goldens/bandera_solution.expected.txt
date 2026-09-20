@@ -24,8 +24,7 @@ guardia está mirando una revista de tunning y un soldado juega con su móvil.
 
 > observar
  Paredes embaldosadas hasta la mitad, mesas alargadas, unas literas al fondo
-de la habitación y una televisión en la pared.
-La televisión está encendida.
+de la habitación y una televisión en la pared.  La televisión está encendida.
 
 > x cabo
 Kike Morales, un pistolín que llegó hace un año de una de esas unidades en

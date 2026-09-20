@@ -27,10 +27,9 @@ ROOM.
 > inspect boxes
 You INSPECT more banana BOXES. As you open one, something furry and black
 skitters out of the box and runs across your hand. It vanishes into the
-SHADOWS.
-SPIDERS start to crawl from the BOXES.  Big black tropical ones!  INSPECT the
-ROOM to find a quick means of dealing with them.  You will have to be quick
-(10 turns max)!
+SHADOWS.  SPIDERS start to crawl from the BOXES.  Big black tropical ones!
+INSPECT the ROOM to find a quick means of dealing with them.  You will have
+to be quick (10 turns max)!
 
 > use hoover
 The old hoover starts up, the noise filling the warehouse ROOM.  How could

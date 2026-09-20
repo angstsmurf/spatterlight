@@ -240,9 +240,9 @@ childeren are playing with a ball in the street. They take no notice of you.
 
 You can move north, south and in.
  Up ahead, you glimpse a black robed figure - a hooded man -  walking in the
-distance, but he disappears into the swirling fog.
-A line of tiny naked mice, each with a perfectly formed human ear growing on
-its back, runs across the street a few feet ahead of you.
+distance, but he disappears into the swirling fog.  A line of tiny naked
+mice, each with a perfectly formed human ear growing on its back, runs across
+the street a few feet ahead of you.
 
 > s
 You move south.

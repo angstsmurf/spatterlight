@@ -1049,8 +1049,8 @@ You seem to have landed in the midst of endless void. Occasional flashes of
 light pass your vision but you have no real context for them... there seems
 to be nothing for them to illuminate.
 
-You can move north, east, south, west, up and down.
-Something weird is going on here... and all this dark is really depressing...
+You can move north, east, south, west, up and down.  Something weird is going
+on here... and all this dark is really depressing...
 
 > north
 You move north.

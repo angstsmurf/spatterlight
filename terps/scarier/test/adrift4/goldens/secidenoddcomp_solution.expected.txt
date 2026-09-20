@@ -78,8 +78,8 @@ You drop the stool.
 You stand on the stool.
 
 > take shotgun
-You reach up and grab the shotgun.
-You hear the faint sound of cackling laughter - is it real?
+You reach up and grab the shotgun.  You hear the faint sound of cackling
+laughter - is it real?
 
 > load shotgun with shells
 You crack open the shotgun, push in the two shells, and snap it shut.
@@ -97,8 +97,7 @@ former of which ends at an old iron stove. All of the drawers and cabinet
 doors are missing, their interiors empty and decaying. Even the stove and a
 doorway to the east are without doors. Above the western counter lies a
 window from which the moon's rays light the room, illuminating the many holes
-in the floor.
-Something howls in the distance.
+in the floor.  Something howls in the distance.
 
 > shoot window with shotgun
 You pull the trigger and unleash a blast of force, shattering the window.
@@ -134,8 +133,8 @@ Bedroom
 The three windows here are boarded up but thin rays of moonlight shine
 through the cracks. The only points of interest are a bedframe which has long
 lost any use and an upturned dresser in one corner. To the north is a
-bathroom while to the south lies the play room.
-You hear the faint sound of cackling laughter - is it real?
+bathroom while to the south lies the play room.  You hear the faint sound of
+cackling laughter - is it real?
 
 > n
 You move north.
@@ -166,8 +165,7 @@ outside? The floor is some kind of unbroken stone which fades eastward and
 disappears into the void. You've never seen darkness of this kind outside.
 You must still be inside the house...  A small, black key is lying on the
 floor here.  An old man is standing flush against the wall. Only his eyes
-move, following your every motion.
-Something howls in the distance.
+move, following your every motion.  Something howls in the distance.
 
 > take key
 You take the ornate key.

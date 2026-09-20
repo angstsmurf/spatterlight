@@ -683,8 +683,7 @@ choice but to share the glory with his professor. Not that you're overly
 excited about sharing the coming limelight.
 
 > skip delay
-No time to look around, eh?
-The doorbell rings.
+No time to look around, eh?  The doorbell rings.
 
 > answer the door
 You open the front door; Justin's goofy grin is staring you in the face when
@@ -798,8 +797,7 @@ the hallway. A bookshelf covers the north wall, a fireplace sits in the
 middle of the west wall, and the south wall has a picture window looking out
 on your front yard. You keep the room dark and moody, with lamps behind the
 brown leather chair and large couch for ease of reading. A small table rests
-beside the chair. The hallway is to the east.
-The doorbell rings.
+beside the chair. The hallway is to the east.  The doorbell rings.
 
 > e
 (Getting off leather chair first)

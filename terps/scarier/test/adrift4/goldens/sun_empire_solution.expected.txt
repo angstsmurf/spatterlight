@@ -358,8 +358,7 @@ have incoming hostile Orgaan units.  Initiating code red.  Code Red".
 With that the voice is gone, there is a moment of silence broken finally by a
 siren wail in the distance.  Jeriah Eldon exits to the south.
 A previously non-descript red light blinks to life in the center of the
-ceiling.
-The code red warning light blinks urgently.
+ceiling.  The code red warning light blinks urgently.
 
 > x mark
 Of a tall, muscular build, Mark descends from old Andromedan stock.  His
@@ -378,8 +377,7 @@ You can hear the wail of a distant emergency siren.
 > z
 Time passes...
 A previously non-descript red light blinks to life in the center of the
-ceiling.
-Several muffled explosions are heard in the distance.
+ceiling.  Several muffled explosions are heard in the distance.
 
 > z
 Time passes...
@@ -388,9 +386,8 @@ You can hear the wail of a distant emergency siren.
 > z
 Time passes...
 A previously non-descript red light blinks to life in the center of the
-ceiling.
-The rattling of gunfire occurs close to the lab.  There is another muffled
-explosion;however distinctly outside the lab itself.
+ceiling.  The rattling of gunfire occurs close to the lab.  There is another
+muffled explosion;however distinctly outside the lab itself.
 
 > z
 Time passes...
@@ -399,14 +396,13 @@ You can hear the wail of a distant emergency siren.
 > z
 Time passes...
 A previously non-descript red light blinks to life in the center of the
-ceiling.
-Four Orgaan soldiers breach the laboratory doors with a hand grenade spewing
-metal debris and paper across the laboratory.  Rushing in, two quickly find
-cover and begin shooting at the scientists in the room.  A third soldier
-spots the Kantan guard and rushes him with his weapon.  The Kantan guard was
-prepared and cuts him down halfway across the floor.  Rushing the two under
-cover, a lucky head shot takes out another Orgaan soldier before the Kantan
-guard is brought down by the other.
+ceiling.  Four Orgaan soldiers breach the laboratory doors with a hand
+grenade spewing metal debris and paper across the laboratory.  Rushing in,
+two quickly find cover and begin shooting at the scientists in the room.  A
+third soldier spots the Kantan guard and rushes him with his weapon.  The
+Kantan guard was prepared and cuts him down halfway across the floor.
+Rushing the two under cover, a lucky head shot takes out another Orgaan
+soldier before the Kantan guard is brought down by the other.
 
 The fourth Orgaan soldier lobs a hand grenade across the laboratory before
 ducking for cover.
@@ -533,8 +529,8 @@ natural and treacherous walkway from the laboratory control room to the
 breached cafeteria.  The code red warning light is on.  Skyrv runs in from
 the east.  Skynd runs in from the east.
 A previously non-descript red light blinks to life in the center of the
-ceiling.
-BeeDoop...  BeeDoop... There appears to be some activity on the VidCom.
+ceiling.  BeeDoop...  BeeDoop... There appears to be some activity on the
+VidCom.
 
 > answer vidcom
 Answering the vidcom, a Kantan security guard appears on the small monitor.

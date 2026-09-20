@@ -863,10 +863,9 @@ of them is very large. You should remove it.
 
 > take cozies
 You remove the cozy and are stunned at what you find. Well, you thought you
-would be stunned.
-Dust flies up, and swirls around a bit, before it settles, once again.
-A large mirror was covered by a cozy. You get a little excited, you must be
-on the right track.
+would be stunned.   Dust flies up, and swirls around a bit, before it
+settles, once again.  A large mirror was covered by a cozy. You get a little
+excited, you must be on the right track.
 
 > look
 
@@ -904,11 +903,11 @@ Your score is 80 out of a maximum of 200.  (40%)
 You spray some of the cleaner on the mirror, and wipe it clean.
 
 > break glass
-You hurl the brick at the mirror, shattering it in a million pieces.
-A large piece of paper flies into your hands, and you nearly jump out of your
-skin, as you realize that it's Selma's Will. Just then you notice the sun is
-nearly set. You have to get this to Mr. Lewis before sundown, if you want to
-save Selma's house. HURRY!
+You hurl the brick at the mirror, shattering it in a million pieces.  A large
+piece of paper flies into your hands, and you nearly jump out of your skin,
+as you realize that it's Selma's Will. Just then you notice the sun is nearly
+set. You have to get this to Mr. Lewis before sundown, if you want to save
+Selma's house. HURRY!
 
 > i
 You are carrying Selma's Will.

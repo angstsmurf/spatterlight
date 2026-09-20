@@ -414,8 +414,8 @@ You are in the bar.  As usual, it does good business on hot days because of
 the cheap but functional air-con unit.  A infinitely large bowl of cress is
 on the bar.  You can leave to the west to the town centre or go to the public
 toilets to the north.  Through a small, shabby back door you can go into the
-re-hab camp.  Barry the barkeeper is serving behind the bar.
-You really need to empty your bladder.
+re-hab camp.  Barry the barkeeper is serving behind the bar.  You really need
+to empty your bladder.
 
 > look
 
@@ -589,8 +589,7 @@ your head.
 
 > inflate self
 You attach the valve to the canister and inflate yourself up.  Now you're
-really fat.
-Smoke, laughter and lard fills the air.
+really fat.  Smoke, laughter and lard fills the air.
 
 > south
 You move south.
