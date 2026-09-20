@@ -3315,9 +3315,26 @@ run_match_task_commands (scr_gameref_t game,
        * substitution has a further gate, so there only a command with no
        * reference is checked.
        */
-      if (is_matched && version < TAF_VERSION_400
-          && strchr (pattern, WILDCARD_PATTERN) && !strpbrk (pattern, "[{"))
+      /*
+       * The same substitution decides a pre-3.9 command with no '*' at all,
+       * and there the comparison is plain equality: checktask rewrites its
+       * copy of the command and tests it against the whole line.  So the
+       * Short has to be typed bare.  p37CHREF and p38CHREF answer `nurb
+       * rock` with task 2's "NURBED a big rock." and `nurb a big rock` and
+       * `nurb big rock` -- the rock's Prefix is "a big" -- with the object
+       * catch-all, "I don't understand what you want me to do with the big
+       * rock." (Adrift_chref370b.rtf, Adrift_chref380b.rtf, 2026-09-20).
+       * That is 3.9's and 4.0's answer too, where the strict comparator in
+       * uip_compare_candidate() already refuses the prefixed forms; the
+       * tolerant tree matcher took all three here because nothing below 3.90
+       * had ever turned the substitution on outside checkwild.
+       */
+      if (is_matched && version < TAF_VERSION_400 && !strpbrk (pattern, "[{")
+          && (strchr (pattern, WILDCARD_PATTERN)
+              || (version < TAF_VERSION_390
+                  && strstr (pattern, "%object%") != NULL)))
         {
+          const scr_bool wild = strchr (pattern, WILDCARD_PATTERN) != NULL;
           std::string literal (pattern);
           scr_bool checkable = TRUE;
 
@@ -3338,10 +3355,12 @@ run_match_task_commands (scr_gameref_t game,
                     literal.replace (at, 8, name);
                 }
             }
-          if (checkable)
+          if (checkable && wild)
             is_matched = uip_wildcard_match_pre400
                 (literal.c_str (), matched_input,
                  version >= TAF_VERSION_390);
+          else if (checkable)
+            is_matched = scr_strcasecmp (literal.c_str (), matched_input) == 0;
         }
 
       /* Stop searching if we find a match. */

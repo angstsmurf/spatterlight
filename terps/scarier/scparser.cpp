@@ -1856,10 +1856,17 @@ uip_skip_article (const scr_char *string, scr_int start)
  *
  * -- so strict binding starts at 3.90, and only the case fold is lost at 4.0.
  * run390 does it in Form1.frm:13991ff, through c() and the seen byte at
- * .global_44, rewriting the task command in place.  Neither run370.exe nor
- * run380.exe contains the string "%object%" at all, so before 3.90 such a
- * pattern matches nothing whatever the player types, and the tolerant matcher
- * there is harmless.
+ * .global_44, rewriting the task command in place.
+ *
+ * Before 3.90 the substitution is a different animal, and an earlier draft of
+ * this comment had it wrong: the UTF-16 string census finds "%object%" in all
+ * four Runners (only "%character%" is missing below 3.90).  run370 and run380
+ * do substitute, but they pick ONE object by the line rather than by the
+ * pattern's position -- see run_pre390_first_named_object() -- and then
+ * compare the rewritten pattern against the whole line, so the strict flag
+ * never reaches this matcher there.  Measured on p37CHREF/p38CHREF
+ * (Adrift_chref370b.rtf, Adrift_chref380b.rtf, 2026-09-20): `nurb rock` runs
+ * the task, `nurb a big rock` and `nurb big rock` do not.
  *
  * This is task-command matching only.  The library's own patterns and the
  * variable functions go through the Runner's noun resolver, which is
@@ -1926,6 +1933,11 @@ uip_is_word_end (scr_char character)
  * position exactly as authored -- 4.0 -- or bar its case -- 3.90 -- against a
  * lowercased view of the input, and must end on a word boundary.  Returns the
  * new position on match, else zero.
+ *
+ * A %character% folds case at 4.0 as well, because run400's matcher LCase()s
+ * whichever of the Name (4691B4) or the Alias (469207) it is about to put in
+ * place of the reference, where the %object% arm substitutes the Short raw.
+ * The asymmetry is one-sided and it is the Runner's, not ours.
  */
 static scr_int
 uip_compare_reference_strict (const scr_char *name)
@@ -1935,7 +1947,7 @@ uip_compare_reference_strict (const scr_char *name)
   posn = uip_posn;
   for (wpos = 0; name[wpos] != NUL; wpos++, posn++)
     {
-      const scr_char wanted = uip_strict_case
+      const scr_char wanted = uip_strict_case && !uip_strict_is_character
                               ? name[wpos] : scr_tolower (name[wpos]);
 
       if (wanted != scr_tolower (uip_string[posn]))
@@ -2242,8 +2254,19 @@ uip_compare_candidate (const scr_uip_candidate_t &candidate)
 {
   size_t form;
 
-  /* 4.0 task commands substitute the bare name, and nothing else. */
-  if (uip_strict_reference && !uip_strict_is_character)
+  /*
+   * A task command substitutes the bare name, and nothing else -- for a
+   * %character% as much as for a %object%.  Both Runners that carry the
+   * reference rewrite the command with Replace(): run400 at 4691D8/46922E
+   * and run390 at 44AD8A/44B385 put the Name or Alias in place of the
+   * pattern's %character%, and neither ever composes a Prefix form.  So
+   * p4CHREF's `frob a big dave`, `frob big dave` and `frob the dave`, with
+   * Dave's Prefix "a big", all miss the `frob %character%` task in run400
+   * and run390 alike and fall to the character catch-all, "I don't
+   * understand what you want to do with Dave." (Adrift_chref400b.txt,
+   * Adrift_chref390b.txt, 2026-09-20).
+   */
+  if (uip_strict_reference)
     return uip_compare_reference_strict (candidate.plain);
 
   for (form = 0; form < candidate.forms.size (); form++)
@@ -2452,6 +2475,24 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
   else
     gs_clear_object_references (game);
 
+  /*
+   * Before 3.90 a task command's %character% matches nothing whatever the
+   * player types.  Neither run370.exe nor run380.exe holds the literal
+   * "%character%" at all -- the UTF-16 string census finds one copy in
+   * run390.exe and one in run400.exe and none in the two older Runners,
+   * where "%object%" is present in all four -- so their checktask never
+   * rewrites the command and the pattern can only meet a line spelling the
+   * reference out.  p37CHREF and p38CHREF answer `frob dave` "I don't
+   * understand." with Dave standing in the room and seen, and answer every
+   * other cell of the p4CHREF feed the same way (Adrift_chref370b.rtf,
+   * Adrift_chref380b.rtf, 2026-09-20).  The %object% half of this has its
+   * own pre-3.9 shape, a single substitution chosen by the line rather than
+   * by the pattern's position; see run_pre390_first_named_object().
+   */
+  if (is_character && uip_task_commands
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return FALSE;
+
   /* Ensure cached candidates for this game, and get the input's lead
      character -- a candidate whose own leads differ cannot match. */
   uip_synchronize_cache (game);
@@ -2563,6 +2604,32 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
           && !gs_object_seen (game, index))
         continue;
 
+      /*
+       * A task command's %character% has a seen gate of its own at 4.0, and
+       * it is the SEEN BYTE ALONE: run400's %character% matcher (468DFC,
+       * loop 469162) admits an NPC on `CInt(npc.global_26) = 1` -- field 26,
+       * the byte npc_in_command() reads as var_DC(26) -- and tests no room
+       * at all.  So a character the player has met and walked away from
+       * still binds, and one never met never does.  p4CHREF `frob eve`,
+       * with Eve in the Cave and unmet, is "I don't understand."; after a
+       * `n` and an `s` the same line runs the task, and `frob dave` typed
+       * in the Cave runs it on the Dave left behind in the Lit Room
+       * (Adrift_chref400b.txt, 2026-09-20).  This is the gate behind xfiles
+       * `look up byers` against task "Look up *%character%*": at the FBI
+       * parking garage the Lone Gunmen have not been met, so run400 answers
+       * with examines' "You see no such thing."
+       * (runner_transcripts/xfiles.txt).
+       *
+       * run390's checktask has no gate whatever -- its loops at 44AD48 and
+       * 44B323 walk the whole NPC array -- so 3.9 binds a character who is
+       * nowhere at all: p39CHREF `frob fay`, Fay having been given no start
+       * room, runs the task (Adrift_chref390b.txt).
+       */
+      if (uip_strict_reference && is_character
+          && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
+          && !gs_npc_seen (game, index))
+        continue;
+
       /* npc_in_command mode 0: only a present, seen character binds. */
       if (pass > 0 && is_character
           && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
@@ -2581,13 +2648,27 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
                                                  ? entity.name
                                                  : entity.aliases[alias];
 
+          /*
+           * A 3.9 task's %character% is the Name and nothing else.  run400
+           * substitutes the Name (4691A9) and then walks the Alias array
+           * (4691F8); run390's checktask reads `.global_0` only, in both of
+           * its loops (44AD5C, 44B334), and never touches the alias.  Eve is
+           * aliased "spook" in p39CHREF: run390 answers `frob spook` with
+           * the library -- "Who?" before she is met, "Eve is not here!"
+           * after -- where run400 runs the task (2026-09-20).
+           */
+          if (uip_strict_reference && is_character && alias >= 0
+              && prop_get_taf_version (gs_get_bundle (game))
+                 < TAF_VERSION_400)
+            continue;
+
           if (uip_trace)
             scr_trace ("UIParser: trying %s%s\n",
                        alias < 0 ? "" : "alias ", candidate.plain);
 
           if (pass == 0)
             {
-              if (!(uip_strict_reference && !is_character)
+              if (!uip_strict_reference
                   && candidate.leads.find (input_lead) == std::string::npos)
                 continue;
 

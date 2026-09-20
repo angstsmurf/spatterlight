@@ -259,13 +259,14 @@ not by a tick.
 
 - **Scope, unmeasured:** the never-seen "You can't see that." branch at
   471995; the two-pass `%object%` scope filter proper (`SCR_TRACE_SCOPE`):
-  its seen gate is ported, its present-before-absent order is not; the NPC
-  seen gate for `%character%` (xfiles `look up byers`).
+  its seen gate is ported, its present-before-absent order is not. (The NPC
+  seen gate for `%character%` is measured and ported -- see "A task
+  command's `%character%` at 4.0" in the index.)
 - **Second-noun ambiguity:** wording of an instrument ambiguity (sswhore
   `unlock drawer with key`); a tie inside either half of a " with " split;
   lock/unlock with a Key whose left half resolves to nothing; absent
   lock/unlock where the object really is locked.
-- **Ambiguity prompts:** co()'s crowded arm (454454) and its &HFE/&HFF
+- **Ambiguity prompts:** co()'s crowded arm (454454) and its -2/-1
   answers; "That wasn't one of the options!" has never been triggered;
   whether an object ambiguity on a task-answered line also suppresses the
   tick. (454454's Prefix contest itself is measured and ported -- see "The
@@ -771,7 +772,7 @@ transcript names are in the code comment next to the named function, in
   Proc_21_49_450610(word) = index` -- the contest's winner returns the
   containment TRUE and every rival returns FALSE, so the catch-all names
   the winner and prints "I don't understand what you want to do with
-  <Name>." Only a tie (450610 = &HFF) flags Me(424) and leaves the "Which
+  <Name>." Only a tie (450610 = -1) flags Me(424) and leaves the "Which
   <term>." question to generaltasks. p4PFX `blue guard`, a line with no
   verb at all and three characters aliased "guard", is "... with Bob."
   where Scarier printed the bare DontUnderstand. `[4.0]` p4PFX
@@ -789,6 +790,60 @@ transcript names are in the code comment next to the named function, in
   not 4.0's alone -- what 4.0 adds is the Prefix contest, so 4.0 keeps the
   forms (they settle the same crowd) and pre-4.0 drops them. `[<4.0]`
   p39PFX, p39PFX2 (`uip_build_entities`, `uip_match_entity`, 2026-09-20)
+- **A task command's `%character%` at 4.0 is gated by the seen byte
+  alone.** The substitution loop at 468DFC walks the NPC array from 469162
+  under `CInt(npc.global_26) = 1` -- field 26, the character's own SEEN
+  byte, the field npc_in_command() reads as var_DC(26) -- and under nothing
+  else. There is no room test, so a character the player has met and walked
+  away from still binds. It tries the LCase()d Name (4691A9, compare
+  4691D8) and then each LCase()d Alias (4691F8, compare 46922E), and
+  rewrites the pattern in place at 469574 with the Name. No Prefix form is
+  built, so a typed article or Prefix word kills the match. p4CHREF: with
+  Dave present and seen, `frob dave` is "FROBBED Dave." while `frob a big
+  dave`, `frob big dave` and `frob the dave` are all "I don't understand
+  what you want to do with Dave." -- the character catch-all, because the
+  reference missed and the namesake scan still found him. Before `n`, `frob
+  eve` (absent, unseen), `frob spook` (her alias) and `frob fay` (nowhere,
+  never seen) are all the bare "I don't understand."; after `n` and back
+  `s`, `frob eve` and `frob spook` both run the task with Eve absent, and
+  so does `frob dave` from the Cave. This closes the "NPC seen gate for
+  `%character%`" lead. `[4.0]` p4CHREF, Adrift_chref400b
+  (`uip_match_entity`, 2026-09-20)
+- **3.9 binds a task's `%character%` by Name anywhere, ungated.** run390's
+  checktask loops the NPC array twice (44AD48 and 44B323) with no gate at
+  all -- no seen byte, no room, no presence -- and tests `c(Name)` only
+  (44AD5C/44B334, compare 44AD8A/44B385), never an Alias. So 3.9 is the
+  mirror of 4.0 on both axes: p39CHREF answers `frob fay` "FROBBED Fay."
+  with Fay in no room at all and never seen, and `frob eve` likewise before
+  she is ever met, while `frob spook` -- Eve's alias -- falls right through
+  to the library, "Who?" before she is met and "Eve is not here!" after.
+  The article cells match 4.0's: `frob a big dave` and `frob the dave`
+  miss. `[3.9]` p39CHREF, Adrift_chref390b (`uip_match_entity`,
+  2026-09-20)
+- **Below 3.9 a task's `%character%` matches nothing.** The UTF-16 string
+  census finds "%character%" in run390.exe and run400.exe and in neither
+  older Runner -- "%object%" is in all four -- so run370/run380's checktask
+  never rewrites the pattern and it can only meet a line that spells the
+  reference out literally. Every `frob` cell of the p4CHREF feed is "I
+  don't understand." under both, with Dave standing in the room and seen.
+  `[<3.9]` p37CHREF, p38CHREF, Adrift_chref370b, Adrift_chref380b
+  (`uip_match_entity`, 2026-09-20)
+- **The pre-3.9 `%object%` substitution reaches plain commands too, and
+  compares equal.** The one-object-by-the-line rewrite already ported for
+  checkwild patterns (see "the pre-3.9 first named object" in this index,
+  run380 checktask 43B78B into replaceob 427704) is not a checkwild
+  speciality: run370/run380 substitute for any pattern holding "%object%"
+  and then compare the rewritten pattern against the whole line, `*`
+  wildcards or not. Where there is no `*` the comparison is plain equality,
+  so the line must be the pattern with the object's Short in place and
+  nothing more. p37CHREF/p38CHREF, task `nurb %object%` over a rock with
+  Prefix "a big": `nurb rock` is "NURBED a big rock." and both `nurb a big
+  rock` and `nurb big rock` are "I don't understand." -- the Short binds,
+  the Prefix never does, and the completion text still prints the full
+  Prefix form. marooned.taf (3.80) carries five such commands (`light`,
+  `burn`, `throw`, `toss %object%`), so the corpus exercises it. `[<3.9]`
+  p37CHREF, p38CHREF (`run_match_task_commands`,
+  `run_pre390_first_named_object`, 2026-09-20)
 - **The pre-4.0 ask block wants the name at column 5.** characters()' one
   position test, and the only one in the handler: 459882 skips the whole
   `c("ask") Or c("talk to")` conversation block unless `InStr(line,
