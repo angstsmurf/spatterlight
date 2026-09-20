@@ -276,12 +276,6 @@ the_hangover T34) went identical with that port on 2026-09-20.
   p37REW/p38REW/p39REW/p4REW with `cmdfile_pcasc.txt` (Adrift_250_casc37b
   .rtf, 249_casc38.rtf, 250_casc39.txt, 251_casc40.txt), 34 verb words
   against a nonsense head. What the probe still shows open:
-    * run390's `blorp put`, which answers "Give what?" -- a cascade arm
-      picking a verb the line does not contain, so the 3.9 route is not
-      simply "contains the word". Needs the run390 cascade read before
-      anything is written. (`blorp eat` = "Drop what?" turned out not to be
-      that: it is the previous line's "Drop what?" question taking the next
-      line as its answer, which Scarier already does.)
     * A line naming TWO of these verbs, at every version. The Runner
       settles that by its call order, and the order is not one order -- the
       handlers the input routine calls claim, so the FIRST of them wins,
@@ -568,7 +562,14 @@ transcript names are in the code comment next to the named function, in
   remove already agreed, through `lib_absent_named_object_pre_390()`).
   p37REW/p38REW/p39REW with `cmdfile_pcasc.txt` (Adrift_250_casc37b.rtf,
   249_casc38.rtf, 250_casc39.txt, 2026-09-20) and p39WHAT under run390x
-  (`Adrift_p39what2.txt`, `cmdfile_p39what2.txt`), 36/36 and 8/8. PORTED
+  (`Adrift_p39what2.txt`, `cmdfile_p39what2.txt`), 8/8. Every cell the
+  cascade transcripts hold now agrees -- 34 at 3.70 and 35 at 3.80 (the
+  .rtf drops the last command, as ever), 36 at 3.90 and 4.00 -- but for one
+  `look` cell that differs only by Scarier's own auto-break in front of the
+  exits list (`pf_buffer_answer_break`, corpus-wide and older than this).
+  Beware a cell comparator written against these transcripts: the 3.9/4.0
+  `.txt` echoes a command as `> cmd`, the `.rtf` as `cmd`, and a matcher
+  that misses the prompt silently compares nothing at all. PORTED
   2026-09-21 as `lib_move_named_whole_line_pre400()` in sclibrar.cpp,
   called from `lib_take_multiple_common()` (mode 1) and
   `lib_drop_multiple_common()` (mode 2). Two deliberate narrowings, both
@@ -954,9 +955,18 @@ transcript names are in the code comment next to the named function, in
   `drop zzz` / `hat` drops it and `take zzz` / `hat` picks it up, while
   `wear zzz` / `wield zzz` answers "Wear what?" a second time and
   `drop zzz` / `look` / `hat` is the catch-all. (The pre-prune note's
-  claim that run390's removes sets no prefix is wrong.) `[3.9]`
-  p39TASK, p39WHAT (`make_39_whatprobe.py`, `cmdfile_p39what.txt`)
-  (`lib_what`, `run_get_line_input`, 2026-09-20)
+  claim that run390's removes sets no prefix is wrong.) therest's give arm
+  is a FIFTH handler of that kind: "Give what?" (45D70B) is followed at
+  45D712 by the same unconditional `MemVar_4681D0 = MemVar_468118`. What it
+  stores is the line the bare-give completion has already finished, so
+  `blorp give` stores "blorp give to nobody" and the next line runs on from
+  there -- it has its "to", is not completed again, and prints no second
+  "(to Nobody)". That is the whole of run390's `blorp give` / `blorp put`
+  pair, "Give what?" twice with only one echo: `put` names no route of its
+  own, and 45D70B is the only "Give what?" in the run390 P-code. `[3.9]`
+  p39TASK, p39WHAT (`make_39_whatprobe.py`, `cmdfile_p39what.txt`), the
+  give pair on p39REW with `cmdfile_pcasc.txt` (Adrift_250_casc39.txt)
+  (`lib_what`, `run_get_line_input`, 2026-09-20; the give arm 2026-09-21)
 - **The 4.0 drop/take setter branches are DEAD CODE.** run400's takes
   (Proc_19_6_47C83C, body 47B60C-47C83B = P32Dasm `mdlSpreadTheLoad.Sub_20_7`)
   and drops (Proc_19_7_46FB8C, body 46F118-46FB8B = `Sub_20_8`) have ZERO

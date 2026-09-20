@@ -29422,9 +29422,22 @@ lib_what (scr_gameref_t game, const scr_char *verb)
        * and `wear zzz` / `wield zzz` answers "Wear what?" a second time
        * before `hat` wears it.  The prefix still lives exactly one line:
        * `drop zzz` / `look` / `hat` is the catch-all.
+       *
+       * therest's give arm is a fifth: its "Give what?" at 45D70B is
+       * followed at 45D712 by the same unconditional `MemVar_4681D0 =
+       * MemVar_468118`, with no bare-verb test above it.  What it stores is
+       * the line the bare-give completion has already finished, so `blorp
+       * give` stores "blorp give to nobody" and the next line runs on from
+       * there: it has its "to", is not completed again, and prints no second
+       * "(to Nobody)".  That is the whole of run390's `blorp give` /
+       * `blorp put` pair -- "Give what?" twice, the second time with no
+       * echo -- and `put` names no route of its own (Adrift_250_casc39.txt,
+       * cmdfile_pcasc.txt, 2026-09-20; the only "Give what?" in the run390
+       * P-code is 45D70B).
        */
       if (strcmp (verb, "Take") == 0 || strcmp (verb, "Drop") == 0
-          || strcmp (verb, "Wear") == 0 || strcmp (verb, "Remove") == 0)
+          || strcmp (verb, "Wear") == 0 || strcmp (verb, "Remove") == 0
+          || strcmp (verb, "Give") == 0)
         lib_battle_who_pending = input;
       else if (typed && scr_strcasecmp (typed, verb) == 0)
         lib_battle_who_pending = input;
