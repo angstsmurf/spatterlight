@@ -123,12 +123,28 @@ p*OPENW could not, because only one of that world's objects opened:
     already open!" -- an already-open object still wins the line over a
     plain one, and the handler's own wording answers for it.  `close box
     gem` then closes the box.
-  * 4.00 is the open lead and nothing else: only `open box gem chest`,
-    `open chest gem box` and `open chest box gem` (candidates {0,1,3},
-    whatever the word order) ask "Which chest.  The box, the gem or the
-    chest?"; `open box chest` {0,3}, `open box gem rock chest` {0,1,2,3},
-    `open box rock chest` {0,2,3} and `open gem rock chest` {1,2,3} are
-    all the flat "You can't open that.".
+  * 4.00: only `open box gem chest`, `open chest gem box` and `open chest
+    box gem` (candidates {0,1,3}, whatever the word order) ask "Which
+    chest.  The box, the gem or the chest?"; `open box chest` {0,3}, `open
+    box gem rock chest` {0,1,2,3}, `open box rock chest` {0,2,3} and `open
+    gem rock chest` {1,2,3} are all the flat "You can't open that.".
+
+WHAT THE 4.00 MATRIX TURNED OUT TO BE (2026-09-20): name_object's 463640
+again, the walk a crowded `drop` makes (lib_name_object_resolve_400 in
+sclibrar.cpp), run in mode 0 -- one pass, the co(i, 0) gate.  Which of
+run400's two tie answers openclose reaches is that walk's Me(424) pending
+object, and the matrix is its index+2 quirk and nothing else: after a tie
+at index k the result holds -(k+2), so the NEXT tied object's Short is
+compared with the Short of the object TWO indexes past k.  {0,1,3} ties at
+1, which points the comparison at object 3 -- the tied object itself,
+which of course matches -- so Me(424) becomes 3 and the question names it.
+Every other set either compares two different Shorts ({0,1,2}: object 2's
+"rock" against object 3's "chest" or "slab") or reads past the end of the
+object table ({0,2,3} and {1,2,3}: other = 4).  That is why p*OPENL, with
+the chest at index 0, answers the very same `open rock gem chest` flat,
+and why p*OPENT asks about {0,1,3} with openable objects at both ends but
+not about {0,3} with the same two.  Ported as lib_open_close_tie_400();
+all five probes are now identical to their Runners on every turn.
 
 Usage:
     python3 make_openwithprobe.py [pair|amb|low] [370|380|390|400|all]

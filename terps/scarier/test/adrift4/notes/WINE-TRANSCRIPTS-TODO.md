@@ -343,34 +343,6 @@ not by a tick.
   "With what?" again, because the gem is already named in the prefix.
   Porting it means a pending-prefix retry hook beside the ordinary
   question prefix in `run_all_commands()`, gated to 3.90 and to therest.
-- **The 4.0 open/close question over several nouns.** run400 answers
-  `open rock gem chest` with "Which chest.  The gem, the rock or the
-  chest?" and `open chest gem` (one noun naming two objects) the same way,
-  but `open slab rock`, `open gem rock` and `close rock gem` -- none of
-  them naming anything openable -- with the flat "You can't open/close
-  that." (p*OPENW / p*OPENA, Adrift_233_ox400 / 235_oy400, 2026-09-20).
-  Scarier prints the flat refusal in all of them, and it matches run400 on
-  every OTHER line of all five probes. Two readings have been measured and
-  killed: p*OPENL (`low`, the same world with the chest at index 0)
-  answers the very same `open rock gem chest` with "You can't open that."
-  (Adrift_237_oz400), so it is not "an openable object is among the
-  candidates"; and p*OPENT (`pair`, box(0) and chest(3) both closed
-  containers, gem(1), rock(2)) answers `open gem chest` and `open chest
-  box` flat while asking about `open box gem chest` (Adrift_239_pa400,
-  Adrift_238_pb400), so it is not "the last candidate by index is the one
-  the verb could act on" either. The whole matrix so far, by the INDICES
-  of the objects the line names (word order makes no difference -- `open
-  chest gem box` and `open chest box gem` ask exactly as `open box gem
-  chest` does):
-
-      {0,1,3}    the question, term = the object at 3
-      {0,1,2}  {0,2,3}  {1,2,3}  {0,1,2,3}  {0,1}  {1,2}    flat
-
-  in all three worlds alike, whichever of them holds the openable object.
-  {0,1,3} asking and {0,2,3} not is not a rule about openability, name
-  length or word order at all; it looks like an artefact of how run400
-  builds the reference list, and wants the decompilation rather than
-  another probe. Nothing a walkthrough types reaches it.
 ### Engine, needs a probe (3.7 / 3.8)
 
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
@@ -979,6 +951,28 @@ transcript names are in the code comment next to the named function, in
   `cmdfile_ptaketie.txt`, Adrift_242_pe390, Adrift_243_pe400;
   `lib_name_object_resolve_400`, `lib_co_400_raise_common`,
   `lib_disambiguate_object_common`, 2026-09-20)
+- **4.0 open/close ask by the same pending object, and its index+2
+  quirk.** A crowded `open X Y Z` that openclose cannot settle is usually
+  the flat "You can't open that.", but sometimes the ambiguity question:
+  `open rock gem chest` and `open chest gem` are "Which chest.  The gem,
+  the rock or the chest?". By the INDICES of the objects the line names --
+  word order makes no difference -- the measured matrix is `{0,1,3}` the
+  question and `{0,1}` `{1,2}` `{0,1,2}` `{0,2,3}` `{1,2,3}` `{0,1,2,3}`
+  all flat, in all three probe worlds alike, whichever of them holds the
+  openable object. It is not openability, name length or word order: it is
+  name_object's 463640 again, in mode 0 (one pass, the co(i, 0) gate), and
+  the whole matrix is that walk's Me(424) **index+2** quirk. After a tie at
+  index k the result holds -(k+2), so the next tied object's Short is
+  compared with the Short of the object TWO past k; `{0,1,3}` ties at 1,
+  which points the comparison at object 3 -- the tied object itself, which
+  matches itself -- so Me(424) becomes 3 and the question is raised about
+  it. Every other set either compares two different Shorts or reads past
+  the end of the object table. `[4.0]` p4OPENW/p4OPENA/p4OPENL/p4OPENT
+  (`make_openwithprobe.py`, `cmdfile_popenw2.txt`, `cmdfile_popena.txt`,
+  `cmdfile_popenl.txt`, `cmdfile_popent.txt`, `cmdfile_popent2.txt`;
+  Adrift_233_ox400, Adrift_235_oy400, Adrift_237_oz400, Adrift_239_pa400,
+  Adrift_238_pb400; `lib_open_close_tie_400`,
+  `lib_name_object_resolve_400`, 2026-09-20)
 - **Pre-4.0 read is examines()' object too.** A `read` line naming more
   than one object is settled exactly as `x` settles it: 3.90 by
   referencedob()'s last-word pass (`read rock gem` -> "You can't read the

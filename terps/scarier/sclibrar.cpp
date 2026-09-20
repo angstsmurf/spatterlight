@@ -6473,7 +6473,7 @@ static scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
 static scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
 static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
                                             const scr_char *input,
-                                            scr_bool is_take,
+                                            scr_int mode,
                                             scr_int *pending,
                                             scr_int *last_tied,
                                             std::vector<scr_int> *marked,
@@ -7168,7 +7168,7 @@ pre400_take_done:
       std::vector<scr_int> marked;
       scr_int pending, last_tied, mark_count;
 
-      object = lib_name_object_resolve_400 (game, line, TRUE, &pending,
+      object = lib_name_object_resolve_400 (game, line, 1, &pending,
                                             &last_tied, &marked,
                                             &mark_count);
       if (object >= 0)
@@ -15494,16 +15494,23 @@ static std::string::size_type lib_put_split_400 (scr_gameref_t game,
  * (Adrift_235_oy400): the gem and the rock aliased "gem" were both loose by
  * then, so it is the `take orb` cell.
  *
+ * MODE 0 is the plain one-pass scan most of the Runner's callers use, the
+ * co(i, 0) gate and no second chance (lib_resolve_admit_mode0()); openclose
+ * is one of them, and the pending object is what decides whether a crowded
+ * `open X Y Z` asks or is flat.  See lib_open_close_tie_400().
+ *
  * Returns the resolved object, -1 for a tie (with *PENDING, *LAST_TIED and
- * MARKED filled), or -2 when nothing scored in pass 1 either, the mode-0
+ * MARKED filled), or -2 when nothing scored in the last pass either, the
  * fallback the existing path covers.
  */
 static scr_bool lib_resolve_admit_take (scr_gameref_t game, scr_int object,
                                         scr_int pass);
+static scr_bool lib_resolve_admit_mode0 (scr_gameref_t game, scr_int object,
+                                         scr_int pass);
 
 static scr_int
 lib_name_object_resolve_400 (scr_gameref_t game, const scr_char *input,
-                             scr_bool is_take, scr_int *pending,
+                             scr_int mode, scr_int *pending,
                              scr_int *last_tied,
                              std::vector<scr_int> *marked, scr_int *mark_count)
 {
@@ -15529,14 +15536,17 @@ lib_name_object_resolve_400 (scr_gameref_t game, const scr_char *input,
           if (pass == 0)
             {
               marks[object] = FALSE;
-              if (is_take
-                  ? !lib_resolve_admit_take (game, object, 0)
-                  : !(gs_object_position (game, object) == OBJ_HELD_PLAYER
-                      || gs_object_position (game, object) == OBJ_WORN_PLAYER
-                      || obj_indirectly_held_by_player (game, object)))
+              if (mode == 0
+                  ? !lib_resolve_admit_mode0 (game, object, 0)
+                  : mode == 1
+                    ? !lib_resolve_admit_take (game, object, 0)
+                    : !(gs_object_position (game, object) == OBJ_HELD_PLAYER
+                        || gs_object_position (game, object)
+                           == OBJ_WORN_PLAYER
+                        || obj_indirectly_held_by_player (game, object)))
                 continue;
             }
-          else if (is_take
+          else if (mode == 1
                    ? !lib_resolve_admit_take (game, object, 1)
                    : !obj_indirectly_in_room (game, object,
                                               gs_playerroom (game)))
@@ -15585,10 +15595,10 @@ lib_name_object_resolve_400 (scr_gameref_t game, const scr_char *input,
 
       if (pass == 0)
         {
-          if (result >= 0)
-            break;
           saved_count = count;
           saved_me = me;
+          if (result >= 0 || mode == 0)
+            break;
           count = 0;
         }
       else if (count > 1 && count > saved_count)
@@ -15683,7 +15693,7 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
   object = lib_co_400_forced ();
   if (object < 0)
     {
-      object = lib_name_object_resolve_400 (game, input, FALSE, &pending,
+      object = lib_name_object_resolve_400 (game, input, 2, &pending,
                                             &last_tied, &marked,
                                             &mark_count);
       if (object == -2)
@@ -17121,6 +17131,74 @@ lib_open_close_with_400 (scr_gameref_t game, const scr_char *verb,
 }
 
 /*
+ * lib_open_close_tie_400()
+ *
+ * openclose resolves by the whole-line score even when the parser bound an
+ * object; a tie leaves it with none, and run400 has two answers for it.  The
+ * flat one is the hub T82 case (`open lower right cupboard`: "I can't open
+ * that.", ALR-rewritten by the game), but a crowded line sometimes gets the
+ * ambiguity question instead: `open rock gem chest` and `open chest gem` are
+ * "Which chest.  The gem, the rock or the chest?" (p4OPENW / p4OPENA,
+ * Adrift_233_ox400, Adrift_235_oy400, 2026-09-20).
+ *
+ * Which one it is was a long open lead, because by the INDICES of the objects
+ * the line names -- word order makes no difference -- the matrix reads
+ *
+ *     {0,1,3}   the question, the term being the object at 3
+ *     {0,1}  {1,2}  {0,1,2}  {0,2,3}  {1,2,3}  {0,1,2,3}   flat
+ *
+ * in all three probe worlds alike, whichever of them holds the openable
+ * object (p4OPENL has the chest at index 0 and answers the very same `open
+ * rock gem chest` flat, Adrift_237_oz400; p4OPENT has closed containers at
+ * both 0 and 3 and still asks only about {0,1,3}, Adrift_239_pa400 /
+ * Adrift_238_pb400).  So it is not openability, not name length and not word
+ * order.
+ *
+ * It is the pending object of the very same 463640 walk a `drop` makes, run
+ * here in mode 0 -- one pass, the co(i, 0) gate -- and the whole matrix is
+ * that walk's Me(424) index+2 quirk: after a tie at index k the result holds
+ * -(k+2), so the NEXT tied object's Short is compared with the Short of the
+ * object two indexes past k.  {0,1,3} ties at 1, which makes the next
+ * comparison object 3 -- the tied object itself, which of course matches, so
+ * Me(424) becomes 3 and the question is raised about it.  Every other set
+ * either compares two different Shorts or looks past the end of the object
+ * table.  See lib_name_object_resolve_400().
+ */
+static scr_bool
+lib_open_close_tie_400 (scr_gameref_t game, const scr_char *verb,
+                        scr_bool *status)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  std::vector<scr_int> marked;
+  scr_int object, pending, last_tied, mark_count;
+
+  if (!lib_is_version_400 (game) || !input || strstr (input, " with "))
+    return FALSE;
+
+  /* An answer to a question names its object outright; it cannot tie. */
+  if (lib_co_400_forced () >= 0)
+    return FALSE;
+
+  object = lib_name_object_resolve_400 (game, input, 0, &pending, &last_tied,
+                                        &marked, &mark_count);
+  if (object != -1)
+    return FALSE;
+
+  if (pending >= 0 && (scr_int) marked.size () == mark_count)
+    {
+      lib_co_400_raise_named (game,
+                              lib_drop_named_term_400 (game, pending, input,
+                                                       TRUE),
+                              marked);
+      *status = TRUE;
+      return TRUE;
+    }
+
+  *status = lib_cant_do_other (game, verb);
+  return TRUE;
+}
+
+/*
  * lib_cmd_open_object()
  *
  * Attempt to open the referenced object.
@@ -17135,17 +17213,8 @@ lib_cmd_open_object (scr_gameref_t game)
   if (lib_open_close_with_400 (game, "open", &is_ambiguous))
     return is_ambiguous;
 
-  /*
-   * openclose resolves by the whole-line score even when the parser bound an
-   * object; a tie leaves it with none and the flat refusal (hub T82 `open
-   * lower right cupboard`: "I can't open that.", ALR-rewritten by the game).
-   */
-  if (lib_is_version_400 (game)
-      && run_get_dispatch_input ()
-      && !strstr (run_get_dispatch_input (), " with ")
-      && lib_verb_object_resolve_400_string (game, run_get_dispatch_input (),
-                                             NULL, TRUE) == -1)
-    return lib_cant_do_other (game, "open");
+  if (lib_open_close_tie_400 (game, "open", &is_ambiguous))
+    return is_ambiguous;
 
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, "open", &is_ambiguous);
@@ -17286,17 +17355,8 @@ lib_cmd_close_object (scr_gameref_t game)
   if (lib_open_close_with_400 (game, "close", &is_ambiguous))
     return is_ambiguous;
 
-  /*
-   * openclose resolves by the whole-line score even when the parser bound an
-   * object; a tie leaves it with none and the flat refusal (hub T82 `open
-   * lower right cupboard`: "I can't open that.", ALR-rewritten by the game).
-   */
-  if (lib_is_version_400 (game)
-      && run_get_dispatch_input ()
-      && !strstr (run_get_dispatch_input (), " with ")
-      && lib_verb_object_resolve_400_string (game, run_get_dispatch_input (),
-                                             NULL, TRUE) == -1)
-    return lib_cant_do_other (game, "close");
+  if (lib_open_close_tie_400 (game, "close", &is_ambiguous))
+    return is_ambiguous;
 
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, "close", &is_ambiguous);
@@ -20804,7 +20864,7 @@ lib_put_named_400 (scr_gameref_t game, scr_int *references)
   object = lib_co_400_forced ();
   if (object < 0)
     {
-      object = lib_name_object_resolve_400 (game, fragment, FALSE, &pending,
+      object = lib_name_object_resolve_400 (game, fragment, 2, &pending,
                                             &last_tied, &marked,
                                             &mark_count);
       if (object == -2)
