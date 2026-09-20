@@ -9704,6 +9704,20 @@ lib_try_game_command_common (scr_gameref_t game,
                              scr_bool use_definite = FALSE)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+  /*
+   * No pre-4.0 Runner rebuilds the line from the resolved object's authored
+   * Prefix.  Measured on p37PRETRY / p38PRETRY / p39PRETRY (2026-09-20,
+   * make_39_pretryprobe.py and make_3738_pretryprobe.py; transcripts
+   * Adrift_127, Adrift_pretry39b, Adrift_pretry3{7,8}{,b}): all three answer
+   * `take pebble` against a task `take a pebble`, `get stone` against `get a
+   * stone`, `put bean in jar` against `put a bean in a jar` and `drop coin`
+   * against `drop a coin` out of the library, with every one of those tasks
+   * alive when its own spelling is typed.  The crossed pairs (`get pebble`,
+   * `take stone`) rule out a canonical-verb rebuild as well as a typed-verb
+   * one.  Only the bare-name form below survives, and only for one object.
+   */
+  const scr_bool no_prefixed_retry
+    = prop_get_taf_version (bundle) < TAF_VERSION_400;
 
   if (use_typed_verb)
     verb = lib_typed_verb (verb);
@@ -9796,11 +9810,17 @@ lib_try_game_command_common (scr_gameref_t game,
        * its prefixed form too, which is what lets Wax Worx's "get * head"
        * claim "get marie" via "get Marie Antoinette's head" -- the wildcard
        * absorbs the prefix there, matching the Runner.)
+       *
+       * Pre-4.0 there is no rebuilt line at all: the put handler moves the
+       * bean and the task never sees a thing.
        */
       sprintf (command, "%s %s %s %s %s %s", verb,
                prefix, name, preposition, associate_prefix, associate_name);
-      status = lib_rebuilt_raw_dispatch ? lib_run_rebuilt_line_400 (game, command)
-                            : run_game_task_commands (game, command);
+      status = no_prefixed_retry
+               ? FALSE
+               : (lib_rebuilt_raw_dispatch
+                  ? lib_run_rebuilt_line_400 (game, command)
+                  : run_game_task_commands (game, command));
     }
   else
     {
@@ -9824,11 +9844,17 @@ lib_try_game_command_common (scr_gameref_t game,
        * failed its restrictions this turn; that is what the Runner shows
        * too (cobl: "take medicine" after "look in rubbish" prints the
        * task's fail text, not the library take -- run400 probe
-       * 2026-08-30).
+       * 2026-08-30).  Pre-4.0 keeps only the prefix-less form: there the
+       * typed line has already been past the tasks, so the retry is a way
+       * for an ALIAS to reach one, not a second spelling of the noun the
+       * player used.
        */
       sprintf (command, "%s %s %s", verb, prefix, name);
-      status = lib_rebuilt_raw_dispatch ? lib_run_rebuilt_line_400 (game, command)
-                            : run_game_task_commands (game, command);
+      status = no_prefixed_retry
+               ? FALSE
+               : (lib_rebuilt_raw_dispatch
+                  ? lib_run_rebuilt_line_400 (game, command)
+                  : run_game_task_commands (game, command));
       if (!status && !use_definite
           && !lib_object_short_name_is_ambiguous (game, object))
         {
@@ -9892,8 +9918,10 @@ lib_try_game_command_short_canonical (scr_gameref_t game,
  * CompleteText nor the RepeatText is ever printed (Adrift_952.txt,
  * 2026-09-08).  "drop the hat" simply is not `drop hat`.
  *
- * Pre-4.0 keeps the authored-prefix form and its bare-name retry, where the
- * typed line has already been past the tasks before the library sees it.
+ * Pre-4.0 has no authored-prefix form either -- run370/380/390 all answer
+ * `drop coin` against a task `drop a coin` out of the library (p3xPRETRY,
+ * 2026-09-20) -- and keeps only the bare-name retry, the typed line having
+ * already been past the tasks before the library sees it.
  */
 static scr_bool
 lib_try_game_command_short_definite (scr_gameref_t game,
@@ -10101,9 +10129,10 @@ lib_try_game_command_with_object (scr_gameref_t game,
  * charger", which no pattern of its `#Charge battery` task matches, and the
  * author's own run400 transcript still shows the task firing: it is the
  * rebuild "put the small battery in the battery charger" that `put * battery
- * * charger *` claims.  Pre-4.0 keeps the authored-prefix retry of
- * lib_try_game_command_with_object(), and there the typed line has already
- * been through the tasks before the library sees it.
+ * * charger *` claims.  Pre-4.0 offers the tasks nothing at all here: the
+ * p3xPRETRY probes put the bean in the jar on all three Runners with `put a
+ * bean in a jar` matched and passing (2026-09-20), and there the typed line
+ * has already been through the tasks before the library sees it.
  */
 static scr_bool
 lib_try_game_command_with_object_400 (scr_gameref_t game,

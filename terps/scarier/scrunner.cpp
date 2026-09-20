@@ -6110,7 +6110,9 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * its `put fish in fountain` (task 18's text where the Runner puts the
    * fish, Adrift_78) and left `take wet page` answered on the next turn
    * where run400 says "Take what?".  Pre-4.0 keeps the peek order: Scarier
-   * matches run390 on the put39 probe as it stands.
+   * matches run390 on the put39 probe on all twelve lines (the last of
+   * them, the prefixed `put a bean in a jar` row, closed 2026-09-20 with
+   * the pre-4.0 canonical-retry suppression in sclibrar.cpp).
    *
    * A put the 4.0 library REFUSES on size or capacity is different again:
    * every message path of that handler exits without setting its return

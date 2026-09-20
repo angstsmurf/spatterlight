@@ -316,8 +316,10 @@ the_hangover T34) went identical with that port on 2026-09-20.
   the built-in rewrites at 3.80 (scprintf.cpp BUILTIN[]) and keeps one
   string, so it takes both lines. Porting this means carrying the snapshot
   and the per-turn flag through `run_pre400_substitute_references()`.
-- **Two-object canonical prefixed retry:** the run390 half is not
-  re-measured. The 4.0 half is closed.
+- ~~**Two-object canonical prefixed retry:** the run390 half is not
+  re-measured. The 4.0 half is closed.~~ **CLOSED and PORTED 2026-09-20**
+  -- no pre-4.0 Runner has the retry at all, in any family. See "No
+  pre-4.0 Runner rebuilds the line from the object's Prefix" in the index.
 - **The blank previous line** in the `with ` history prepend: run380
   crashes ("Run-time error '9'"), run390 prints a garbage "Which pearl.
   The gem or the rock?" and run400 leaves " with www", leading space and
@@ -328,6 +330,23 @@ the_hangover T34) went identical with that port on 2026-09-20.
 
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
+- **A 3.7/3.8 `drop` task needs its object HELD** -- measured 2026-09-20 on
+  the way past the prefixed-retry probe, not explained and not ported. The
+  literal, unrestricted, all-rooms task `drop a coin` runs on run370 and
+  run380 while the coin is carried ("DROPPFX.") and does NOT run once the
+  coin has been dropped in the same room: the same line is then "Drop
+  what?" and the task never fires (`p37PRETRY`/`p38PRETRY`,
+  `cmdfile_pretry3738c.txt`, Adrift_pretry37c.rtf / Adrift_pretry38c.rtf --
+  the feed drops and re-takes the coin, and the answer flips back to
+  "DROPPFX." both times it is in hand). 3.9 runs the task either way
+  (Adrift_pretry39b turn 24), which is what Scarier does at every version.
+  Two things make this odd enough to want the p-code: the task's command is
+  a literal with no `%object%` to bind, and a *different* object in the same
+  place answers differently -- `drop a pebble`, matching no task, is the
+  pre-3.9 co() line "You don't have a pebble!" (run370, same transcript),
+  not "Drop what?". So the bare "Drop what?" arm at run380 @438FE6 is being
+  reached for a line that plainly names something. No corpus row hits it
+  (goldens 428/428 with Scarier's answer).
 
 ---
 
@@ -862,6 +881,28 @@ transcript names are in the code comment next to the named function, in
   which object you're referring to." as a turn; `x coin and the hat`
   examines the coin. `[4.0]` p4AND (`lib_examine_referencedob_400`,
   `lib_disambiguate_object`, 2026-09-19)
+- **No pre-4.0 Runner rebuilds the line from the object's Prefix.** After
+  the library has moved something it offers the tasks a second, canonical
+  spelling at 4.0 -- the definite form, `put the bean in the jar`. Below
+  4.0 there is no such line at all, in any family: run370, run380 and
+  run390 all answer the library's own wording to `take pebble` against a
+  live task `take a pebble`, to `get stone` against `get a stone`, to `put
+  bean in jar` against `put a bean in a jar` and to `drop coin` against
+  `drop a coin`, with every one of those tasks printing its CompleteText
+  the moment its own spelling is typed. The crossed pairs (`get pebble`,
+  `take stone`) miss too, so it is not a canonical-verb rebuild either,
+  and `put down coin` misses `drop a coin`. Scarier keeps only the
+  prefix-less retry pre-4.0: there the typed line has already been past
+  the tasks, so that retry is how an ALIAS reaches one, not a second
+  spelling of the noun the player used. `[<4.0]` p37PRETRY / p38PRETRY /
+  p39PRETRY (`make_3738_pretryprobe.py`, `make_39_pretryprobe.py`,
+  `cmdfile_pfx39.txt`, `cmdfile_pretry3738.txt`/`b`, Adrift_127,
+  Adrift_pretry39b, Adrift_pretry3{7,8}{,b}) (`no_prefixed_retry` in
+  `lib_try_game_command_common`, 2026-09-20). Closing it also closed the
+  last row of the put39 probe: Scarier now matches Adrift_88 on all 12
+  lines, where the bean-and-jar turn used to be the one open pre-4.0
+  divergence in that table. Corpus 428/428 before and after, so the retry
+  was dead code below 4.0 in practice.
 
 ### Nouns, scope and the seen model
 
