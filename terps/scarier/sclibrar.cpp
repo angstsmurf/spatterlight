@@ -9479,7 +9479,10 @@ static const scr_char *
 lib_typed_verb (const scr_char *verb)
 {
   static const scr_char *const GET_FORMS[] = {"get", "take", "pick up", "pick"};
-  static const scr_char *const DROP_FORMS[] = {"drop", "put down"};
+  /* `leave` is a drop spelling below 4.0 only, but a 4.0 `leave` line never
+   * reaches a drop handler, so it never asks here; see
+   * lib_cmd_leave_all_pre400(). */
+  static const scr_char *const DROP_FORMS[] = {"drop", "put down", "leave"};
   const scr_char *const *forms;
   scr_int count, index_;
   const scr_char *input;
@@ -9487,7 +9490,7 @@ lib_typed_verb (const scr_char *verb)
   if (strcmp (verb, "get") == 0)
     forms = GET_FORMS, count = 4;
   else if (strcmp (verb, "drop") == 0)
-    forms = DROP_FORMS, count = 2;
+    forms = DROP_FORMS, count = 3;
   else
     return verb;
 
@@ -16451,6 +16454,70 @@ scr_bool
 lib_cmd_drop_multiple (scr_gameref_t game)
 {
   return lib_drop_multiple_common (game, FALSE);
+}
+
+
+/*
+ * lib_cmd_leave_all_pre400()
+ * lib_cmd_leave_except_multiple_pre400()
+ * lib_cmd_leave_multiple_pre400()
+ * lib_cmd_leave_absent_pre400()
+ * lib_cmd_leave_what_pre400()
+ *
+ * Below 4.0 `leave` is a third spelling of `drop`, and not a verb of its
+ * own: every pre-4.0 drops() opens on `c("drop") Or c("put down") Or
+ * c("leave") Or (c("put") And c("down") And <flag> = 0)` -- run370 430475,
+ * run380 438659, run390 44554E-4455B3 -- so a `leave` line enters the drop
+ * handler and takes whichever of its arms the rest of the line picks.  4.0's
+ * drops() still tests the word (46F15E-46F197), but nothing routes a `leave`
+ * line to it: run400 answers every one of them from the catch-all, which is
+ * what Scarier already does, so these rows decline there.
+ *
+ * Measured 2026-09-20 on p37/p38/p39/p4DROPGATE (loose coin and pebble, held
+ * bean and cloak; make_3738_dropgateprobe.py, which now builds the 4.0 world
+ * too), feeds cmdfile_leavegate.txt and cmdfile_leaveall.txt, transcripts
+ * lg37.rtf / lg38.rtf / lg39.txt / lg40.txt and la37.rtf:
+ *
+ *   leave bean     "You drop the bean."       -- named and held
+ *   leave coin     "You don't have a coin!"   -- named, loose in the room
+ *                  ("You don't have the coin!" at 3.9)
+ *   leave qqq      "Drop what?"               -- names nothing
+ *   leave          "Drop what?"
+ *   leave north    "Drop what?", and the player does not move: generaltasks
+ *                  calls drops() well above moves() (run370 43B958 vs
+ *                  43BAEB) and a claimed line jumps to the turn tail
+ *   leave all      "You drop the bean and the cloak."
+ *   leave bean and cloak / leave all except bean -- `drop`'s own answers
+ *   leave everything, hands empty   "You are not carrying anything."
+ *
+ * 3.70, 3.80 and 3.90 answer that feed identically bar the 3.9 article, and
+ * Scarier already matched every cell of it with `drop` typed in place of
+ * `leave`.  run400 answers the same feed "I don't understand." and "I don't
+ * understand what you want me to do with the bean." throughout (lg40.txt).
+ *
+ * Only the drop arms take the new spelling; the put rows keep `drop` and
+ * `put down` alone.  `drop X in Y` is not a put before 4.0 either -- run390
+ * answers `drop lamp in box` with "You drop the lamp." (p39SURF, lp39.txt)
+ * where Scarier puts the lamp inside the box -- but that is the put rows'
+ * own deviation, and it is written up in WINE-TRANSCRIPTS-TODO rather than
+ * changed here.
+ */
+scr_bool
+lib_cmd_leave_all_pre400 (scr_gameref_t game)
+{
+  return !lib_is_version_400 (game) && lib_cmd_drop_all (game);
+}
+
+scr_bool
+lib_cmd_leave_except_multiple_pre400 (scr_gameref_t game)
+{
+  return !lib_is_version_400 (game) && lib_cmd_drop_except_multiple (game);
+}
+
+scr_bool
+lib_cmd_leave_multiple_pre400 (scr_gameref_t game)
+{
+  return !lib_is_version_400 (game) && lib_cmd_drop_multiple (game);
 }
 
 
@@ -29705,6 +29772,19 @@ lib_cmd_drop_what (scr_gameref_t game)
     }
 
   return lib_what (game, "Drop");
+}
+
+/* The `leave` spellings of the two rows above; see lib_cmd_leave_all_pre400(). */
+scr_bool
+lib_cmd_leave_absent_pre400 (scr_gameref_t game)
+{
+  return !lib_is_version_400 (game) && lib_cmd_drop_absent_pre390 (game);
+}
+
+scr_bool
+lib_cmd_leave_what_pre400 (scr_gameref_t game)
+{
+  return !lib_is_version_400 (game) && lib_cmd_drop_what (game);
 }
 
 scr_bool

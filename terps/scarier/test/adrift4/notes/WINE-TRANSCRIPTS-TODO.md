@@ -322,25 +322,22 @@ the_hangover T34) went identical with that port on 2026-09-20.
   tree, and the SOURCE run390's walk reads is a deviation of its own,
   under "Deliberate deviations".
 
-### Engine, needs a probe (3.7 / 3.8)
-
-- **`leave` is a drop verb below 4.0, and Scarier does not know it.** The
-  handler's claim test is `c("drop") Or c("put down") Or c("leave") Or
-  (c("put") And c("down") And <flag> = 0)` at run380 438659, run370 430475
-  and still at run390 44554E-4455B3; run400 has no `"leave"` string at all.
-  Scarier's table row is `[drop/put down] *`, so `leave qqq` is "I don't
-  understand." where run370, run380 and run390 all answer "Drop what?"
-  (p3xEMPTYHAND, eh237 / eh238 / eh39d.txt, 2026-09-20). Held objects are
-  fine -- `leave bean` is "You drop the bean." on run370 -- so only the
-  what?-arm and the absent-noun refusal are owed. Adding a pre-4.0 `leave *`
-  row is a wider change than the task gate below (every `leave <direction>`
-  line in the corpus would start answering "Drop what?" when the player is
-  carrying something), so it is written up rather than done.
-
 ---
 
 ## Deliberate deviations (measured, not ported)
 
+- **`drop X in Y` is not a put below 4.0.** MEASURED 2026-09-20, not
+  ported. run390 answers `drop lamp in box`, `drop lamp on table` and the
+  `leave` spellings of both with a flat "You drop the lamp.", and the lamp
+  lands on the floor: pre-4.0 drops() claims the line on the verb alone and
+  never looks for a container clause, so the preposition is just part of
+  the rest of the line. Scarier routes them to the put rows instead and
+  answers "You put the lamp inside the box." / "You put the lamp onto the
+  table.", which then shifts the next `take lamp` to "You take a lamp from
+  the box.". p39SURF, `cmdfile_leaveput.txt`, lp39.txt. The friendlier
+  behaviour is long-standing and no corpus row turns on it, so the pre-4.0
+  put rows keep `drop` and `put down`; the `leave` port deliberately did
+  not widen them.
 - **run370 double matcher pass** (arlo `get out of bus`).
 - **run380's event route to the task-ran flag.** MEASURED 2026-09-20, not
   ported. run380 clears `MemVar_44F12C` at the top of generaltasks (441A28)
@@ -526,12 +523,38 @@ transcript names are in the code comment next to the named function, in
   held", and a worn one counts. 3.90 keeps the same walk but runs a matching
   task at the checktask gate above it (44562A), so a task fires with empty
   hands there; its own "Drop what?" (445F0B) is still live for `drop qqq`.
-  4.0 has no `"leave"` string at all. p3xDROPGATE and p3xEMPTYHAND
+  4.0's drops() still tests `"leave"` (46F15E-46F197), but nothing routes a
+  `leave` line to it -- see the `leave` entry below. p3xDROPGATE and p3xEMPTYHAND
   (`make_3738_dropgateprobe.py`), Adrift_dropgate37/38.rtf,
   Adrift_dropgate39.txt, eh37 / eh38 / eh237 / eh238 / eh39d.txt, and
   Alice's Restaurant's `leave station` empty-handed on run370 (arlo37.rtf).
   PORTED 2026-09-20 as `lib_drop_what_pre390()`, called from run_all_commands
   just above the task passes.
+- **Below 4.0 `leave` is a third spelling of `drop`; at 4.0 it is not a
+  verb at all.** Every pre-4.0 drops() opens on `c("drop") Or c("put down")
+  Or c("leave") Or (c("put") And c("down") And <flag> = 0)` -- run370
+  430475, run380 438659, run390 44554E-4455B3 -- so a `leave` line enters
+  the drop handler and takes whichever arm the rest of the line picks:
+  `leave bean` "You drop the bean.", `leave coin` (loose in the room) "You
+  don't have a coin!" ("the coin!" at 3.9), `leave qqq` and bare `leave`
+  "Drop what?", `leave all` / `leave X and Y` / `leave all except X` the
+  drop answers, and `leave everything` empty-handed "You are not carrying
+  anything.". `leave north` is "Drop what?" *and the player does not move*,
+  because generaltasks calls drops() well above moves() (run370 43B958 vs
+  43BAEB) and a claimed line jumps to the turn tail (43C885). run400's
+  drops() still holds the word (46F15E-46F197), but nothing routes a
+  `leave` line there: run400 answers the same feed "I don't understand." /
+  "I don't understand what you want me to do with the bean." throughout,
+  which is what Scarier already did at every version. p37/p38/p39/p4DROPGATE
+  (`make_3738_dropgateprobe.py`, which now builds the 4.0 world too),
+  `cmdfile_leavegate.txt` and `cmdfile_leaveall.txt`, lg37.rtf / lg38.rtf /
+  lg39.txt / lg40.txt / la37.rtf (2026-09-20). PORTED 2026-09-20 as
+  version-gated `lib_cmd_leave_*_pre400()` rows beside the drop rows in
+  PRIORITY_COMMANDS, STANDARD_ABOVE_REFUSAL_COMMANDS and
+  STANDARD_FALLBACK_COMMANDS, plus `"leave"` in `lib_typed_verb()`'s
+  DROP_FORMS. Only the drop arms take the spelling; the put rows keep
+  `drop` and `put down` alone -- see "`drop X in Y` is not a put below 4.0"
+  under "Deliberate deviations".
 - **`goto <place>` / `go <place>`.** gotoplace runs after the tasks and
   meta commands and before the room refusal and therest. 3.9+ takes `goto`
   anywhere or a line starting `go `; 3.7/3.8 take `goto` or `go to`. The

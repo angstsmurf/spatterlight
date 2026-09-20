@@ -9,7 +9,9 @@ says the gate is not the task matcher:
 
     438659  the line is claimed whenever it says drop/put down/leave, or
             put AND down with 44F0E7 clear -- run390 445575 still pushes
-            "leave", run400 has no such string at all.
+            "leave", and so does run400's drops() at 46F15E-46F197, but at
+            4.0 nothing routes a `leave` line to drops() and every one of
+            them falls to the catch-all instead (lg40.txt).
     4386F5  checktask(line) sets var_A6 = 1 only when NO task matched, and
             438AD5 `If (var_A6 > 0)` gates the whole library print loop --
             a task-matched line therefore prints neither "You drop the X."
@@ -53,8 +55,20 @@ held/worn walk byte-for-byte (P32Dasm 00045D79) and its own "Drop what?"
 (445F0B) still answers `drop qqq`, but 44562A runs a matching task at the
 checktask gate, above the walk, so a task fires with nothing in hand.
 
+4.00 is built as the other contrast, for the `leave` feeds: it answers every
+`leave` line "I don't understand." / "I don't understand what you want me to
+do with the bean.", which is the catch-all and not drops().  The DROPGATE
+world doubles as the `leave`-is-`drop` probe -- cmdfile_leavegate.txt
+(leave / leave qqq / leave coin / leave bean / leave north) and
+cmdfile_leaveall.txt (leave all / leave X and Y / leave all except X /
+leave everything empty-handed), transcripts lg37.rtf lg38.rtf lg39.txt
+lg40.txt la37.rtf, 2026-09-20.  3.7/3.8/3.9 answer them exactly as `drop`
+does, bar the 3.9 article in "You don't have the coin!", and `leave north`
+is "Drop what?" with no movement, because generaltasks calls drops() well
+above moves() (run370 43B958 vs 43BAEB).
+
 Usage:
-    python3 make_3738_dropgateprobe.py [370|380|390|all]
+    python3 make_3738_dropgateprobe.py [370|380|390|400|all]
 
 Session (from ~/adrift-battle/runner/wine):
     ./fast.sh p37DROPGATE.taf  cmdfile_dropgate.txt  run370.exe
@@ -99,12 +113,12 @@ WORLDS = [
 
 if __name__ == "__main__":
     arg = sys.argv[1] if len(sys.argv) > 1 else "all"
-    for v in ([370, 380, 390] if arg == "all" else [int(arg)]):
+    for v in ([370, 380, 390, 400] if arg == "all" else [int(arg)]):
         for tag, objects, tasks, wearable in WORLDS:
             surf.OBJECTS = objects
             surf.NAMES = [o[0] for o in objects]
             surf.WEARABLE = wearable
             surf.TASKS = tasks
             surf.OUT = {370: "p37%s.taf" % tag, 380: "p38%s.taf" % tag,
-                        390: "p39%s.taf" % tag}
+                        390: "p39%s.taf" % tag, 400: "p4%s.taf" % tag}
             surf.emit(v)

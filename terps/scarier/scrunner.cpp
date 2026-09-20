@@ -684,6 +684,13 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    lib_cmd_drop_except_multiple},
   {"[drop/put down] %text%", lib_cmd_drop_multiple},
   {"put %text% down", lib_cmd_drop_multiple},
+  /* Below 4.0 `leave` is a third spelling of `drop`; see
+   * lib_cmd_leave_all_pre400().  The all-row has to come first, as "leave
+   * all" matches the named row with %text% = "all" as well. */
+  {"leave [all/everything]", lib_cmd_leave_all_pre400},
+  {"leave [all/everything] [[except/but] {for}/apart from] %text%",
+   lib_cmd_leave_except_multiple_pre400},
+  {"leave %text%", lib_cmd_leave_multiple_pre400},
 
   /*
    * Inventory display.  Treated as a priority system command so that it is
@@ -1163,6 +1170,7 @@ static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
    * that here.".  See lib_cmd_drop_absent_pre390().
    */
   {"[drop/put down] *", lib_cmd_drop_absent_pre390},
+  {"leave *", lib_cmd_leave_absent_pre400},
   {NULL, NULL}
 };
 
@@ -1193,6 +1201,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"[lie/lay] {down/up} [on/in] *", lib_cmd_lie_other},
   {"[remove/take off/doff] *", lib_cmd_remove_what},
   {"[drop/put down] *", lib_cmd_drop_what},
+  {"leave *", lib_cmd_leave_what_pre400},
   {"[wear/put on/don] *", lib_cmd_wear_what},
   /* 4.0 only, below the wear row so `put on X` keeps its own refusal; see
    * lib_cmd_put_unclear(). */
