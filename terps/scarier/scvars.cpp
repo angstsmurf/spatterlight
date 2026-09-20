@@ -982,8 +982,17 @@ var_get_system (scr_var_setref_t vars,
         }
       else
         {
-          scr_error ("var_get_system: no referenced character yet\n");
-          return var_return_string ("[Character unknown]", type, vt_rvalue);
+          /*
+           * An unbound reference is printed RAW, in every Runner: the
+           * substitution simply does not happen, so the pattern itself
+           * reaches the player.  p*OBJREF's task 2 `zork` prints "ZORKED
+           * %object% and %character%." -- its command binds neither -- and
+           * all four Runners answer it literally, including the turn right
+           * after `nurb rock` has bound the red rock (Adrift_objref370.rtf,
+           * objref380.rtf, objref390.txt, objref400.txt, 2026-09-20).  We
+           * used to print "[Character unknown]".
+           */
+          return var_return_string ("%character%", type, vt_rvalue);
         }
     }
 
@@ -1129,8 +1138,8 @@ var_get_system (scr_var_setref_t vars,
         }
       else
         {
-          scr_error ("var_get_system: no referenced object yet\n");
-          return var_return_string ("[Object unknown]", type, vt_rvalue);
+          /* Raw, like the unbound %character% above: p*OBJREF `zork`. */
+          return var_return_string ("%object%", type, vt_rvalue);
         }
     }
 
@@ -1633,8 +1642,8 @@ var_get_system (scr_var_setref_t vars,
         }
       else
         {
-          scr_error ("var_get_system: no referenced object yet\n");
-          return var_return_string ("[Object unknown]", type, vt_rvalue);
+          /* Raw by the same mechanism, the substitution never happening. */
+          return var_return_string ("%theobject%", type, vt_rvalue);
         }
     }
 

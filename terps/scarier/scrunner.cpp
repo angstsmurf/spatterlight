@@ -2748,6 +2748,9 @@ typedef struct
 {
   scr_bool known[2];                          /* indexed [forwards] */
   std::vector<const scr_char *> patterns[2];
+  /* 3.7 rewrites a matched command in place; the rewritten text lives here
+     and patterns[] points into it.  See run_370_rewrite_task_command(). */
+  std::vector<std::string> rewritten[2];
 } scr_task_commands_t;
 
 static scr_bool run_task_passes_class_filter (scr_gameref_t game,
@@ -2786,9 +2789,58 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
           cached->patterns[direction]
               .push_back (prop_get_string (bundle, "S<-sisi", vt_key));
         }
+      cached->rewritten[direction].resize (command_count);
       cached->known[direction] = TRUE;
     }
   return cached->patterns[direction];
+}
+
+
+/*
+ * run_370_rewrite_task_command()
+ *
+ * 3.7 substitutes a task command's %object% INTO THE TASK, and the rewrite
+ * outlives the turn.  run370's checktask (4332CA) copies the command aside
+ * into var_D0, replaces %object% with the Short of each object its c() finds
+ * in the line -- writing the result back over the command record at 433377,
+ * so only the first match has a %object% left to replace -- and restores the
+ * saved copy at 43342B when the command did not match.  On a MATCH the
+ * original never goes back, and the task is left holding a command naming
+ * one object for the rest of the session, with no %object% for a later turn
+ * to bind.
+ *
+ * p37OBJREF, whose task 1 is `nurb %object%` printing "NURBED %object%.",
+ * with three rocks sharing the Short "rock":
+ *
+ *   `nurb rock`, then `nurb rock` again -> "NURBED a red rock." and then
+ *   "NURBED %object%.": the second line still matches the command, now
+ *   literally "nurb rock", but binds nothing (Adrift_objref370.rtf).
+ *   `nurb gem` first instead -> "NURBED a gem.", and `nurb rock` after it
+ *   is the library's "Which rock.  The big rock or the red rock?", the task
+ *   being spelled "nurb gem" now (Adrift_objref370b.rtf).
+ *   A line that does NOT match leaves the command alone: `frob rock` (the
+ *   object catch-all) and `x coin` both keep `nurb coin` working as a task
+ *   afterwards (Adrift_objref370e.rtf, objref370c.rtf, 2026-09-20).
+ *
+ * run380 works on a copy throughout -- p38OBJREF answers every cell of both
+ * feeds normally (Adrift_objref380.rtf, objref380b.rtf) -- so this is 3.7's
+ * alone.  The rewrite belongs to the loaded game rather than to game state:
+ * like the Runner's own task record it is not undone by UNDO and not
+ * restored from a save, so it lives in the pattern cache.
+ */
+static void
+run_370_rewrite_task_command (scr_gameref_t game, scr_int task,
+                              scr_bool forwards, scr_int command,
+                              const std::string &text)
+{
+  const int direction = forwards ? 1 : 0;
+  scr_task_commands_t *cached;
+
+  run_task_command_patterns (game, task, forwards);
+  cached = &run_cache[task];
+  cached->rewritten[direction][command] = text;
+  cached->patterns[direction][command] =
+      cached->rewritten[direction][command].c_str ();
 }
 
 /*
@@ -3336,7 +3388,7 @@ run_match_task_commands (scr_gameref_t game,
         {
           const scr_bool wild = strchr (pattern, WILDCARD_PATTERN) != NULL;
           std::string literal (pattern);
-          scr_bool checkable = TRUE;
+          scr_bool checkable = TRUE, substituted = FALSE;
 
           if (literal.find ('%') != std::string::npos)
             {
@@ -3352,7 +3404,10 @@ run_match_task_commands (scr_gameref_t game,
                       run_pre390_first_named_object (game, matched_input);
 
                   if (name)
-                    literal.replace (at, 8, name);
+                    {
+                      literal.replace (at, 8, name);
+                      substituted = TRUE;
+                    }
                 }
             }
           if (checkable && wild)
@@ -3361,6 +3416,12 @@ run_match_task_commands (scr_gameref_t game,
                  version >= TAF_VERSION_390);
           else if (checkable)
             is_matched = scr_strcasecmp (literal.c_str (), matched_input) == 0;
+
+          /* 3.7 keeps the substitution it just made, for good, when the
+             command matched on it -- run_370_rewrite_task_command(). */
+          if (is_matched && substituted && version < TAF_VERSION_380)
+            run_370_rewrite_task_command (game, task, forwards, command,
+                                          literal);
         }
 
       /* Stop searching if we find a match. */
@@ -3375,14 +3436,20 @@ run_match_task_commands (scr_gameref_t game,
                        task, pattern, string);
           }
           {
-            /* SCR_TRACE_SCOPE: report matches the real Runner would refuse
-             * or bind differently.  Its parser only matches a %object%
-             * against objects present to the player (probed live in Topaz
-             * and pBP2), while uip_match_entity() has no scope filter and
-             * binds the LAST name match.  SCOPE-MISS = no matched object is
-             * present (the Runner would fail the whole command); SCOPE-BIND
-             * = the bound object is absent while a present one also
-             * matched (the Runner would bind the present one). */
+            /* SCR_TRACE_SCOPE: flag a turn where scope decides which
+             * object a %object% task command binds.  What the audit was
+             * written for is now measured and ported -- 4.0 makes two
+             * passes, present-and-seen then absent-but-seen, and takes the
+             * FIRST in index order of whichever pass bound (p4OBJREF,
+             * Adrift_objref400.txt; uip_match_entity()) -- so this is no
+             * longer a divergence report but a way of finding the corpus
+             * turns that exercise the rule, and of watching the older
+             * Runners, which have no scope test at all and let the LAST
+             * seen namesake win wherever it stands.  SCOPE-MISS = nothing
+             * that matched is present, so 4.0 bound on its second pass;
+             * SCOPE-BIND = the bound object is absent while a present one
+             * also matched, which below 4.0 is the Runner's answer and at
+             * 4.0 should no longer happen. */
             static const scr_bool trace_scope =
                 getenv ("SCR_TRACE_SCOPE") != NULL;
             if (trace_scope && strstr (pattern, "%object%") != NULL)
@@ -6230,7 +6297,7 @@ run_player_input (scr_gameref_t game)
   lib_battle_who_begin_element (is_new_line);
 
   /*
-   * 3.9 and 4.0 forget the referenced object and character at the top of
+   * Every Runner forgets the referenced object and character at the top of
    * every command: run400 generaltasks stores &HFF in MemVar_494208 and
    * MemVar_49420A at 48A004/48A009, run390 in MemVar_4681A8/4681AA at
    * 45EC66/45EC6B.  Only an %object% / %character% bind or a library handler
@@ -6240,12 +6307,18 @@ run_player_input (scr_gameref_t game)
    * Professor's task 7 (`take mailbox`, square) is the case: run400 never
    * runs it (Adrift_p4profmail*.txt), Scarier used to pass it on the mailbox
    * left over from `examine mailbox`.
+   *
+   * 3.7 and 3.8 forget too, which p*OBJREF's task 2 shows from the printing
+   * side: `zork`, whose command binds nothing, prints its text's %object%
+   * and %character% raw on the turn right after `nurb rock` bound the red
+   * rock, in all four Runners (Adrift_objref370.rtf, objref380.rtf,
+   * objref390.txt, objref400.txt, 2026-09-20).  Below 3.90 the reference
+   * looks to be local to checktask, which is the same thing seen from the
+   * other end.  We kept the older Runners' references across the line and
+   * printed "ZORKED a red rock."
    */
-  if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
-    {
-      var_set_ref_object (vars, -1);
-      var_set_ref_character (vars, -1);
-    }
+  var_set_ref_object (vars, -1);
+  var_set_ref_character (vars, -1);
 
   /*
    * The repeat words are tested on the whole line before any task gets it:

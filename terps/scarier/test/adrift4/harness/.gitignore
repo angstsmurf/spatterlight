@@ -15,3 +15,11 @@ scmap_dump
 
 # Probe .taf generators also emit a plaintext sidecar for eyeballing.
 *.taf.plain
+
+# Probe worlds.  The generator is the artefact, not the .taf it writes: every
+# make_*probe.py rebuilds its p<version><TAG>.taf from scratch, and the 4.00
+# ones are packed against a donor that IS tracked (p4TAKE.taf and the handful
+# of other p*.taf committed before this rule).  New probe files stay out of
+# the tree -- see "Probes and offline oracles" in
+# ../notes/WINE-TRANSCRIPTS-TODO.md.
+p[0-9]*.taf

@@ -258,10 +258,10 @@ not by a tick.
 ### Engine, needs a probe (4.0)
 
 - **Scope, unmeasured:** the never-seen "You can't see that." branch at
-  471995; the two-pass `%object%` scope filter proper (`SCR_TRACE_SCOPE`):
-  its seen gate is ported, its present-before-absent order is not. (The NPC
-  seen gate for `%character%` is measured and ported -- see "A task
-  command's `%character%` at 4.0" in the index.)
+  471995. (The two-pass `%object%` scope filter itself is measured and
+  ported -- see "A task's `%object%` binds only a seen object" in the
+  index -- as is the NPC seen gate for `%character%`, under "A task
+  command's `%character%` at 4.0".)
 - **Second-noun ambiguity:** wording of an instrument ambiguity (sswhore
   `unlock drawer with key`); a tie inside either half of a " with " split;
   lock/unlock with a Key whose left half resolves to nothing; absent
@@ -522,9 +522,27 @@ transcript names are in the code comment next to the named function, in
     the prefix-tolerant library. 3.90 folds case, 4.0 does not; before 3.90
     `%object%` matches nothing. `[3.9+]` p39CASE, p4TAMB
     (`uip_compare_reference_strict`, 2026-08-25)
-  - A task's `%object%` binds only a seen object. The present-before-absent
-    pass order is not ported. `[3.9+]` Glum_Fiddle T16-22
-    (`uip_match_entity`, 2026-09-15)
+  - A task's `%object%` binds only a seen object. 4.0 then makes TWO
+    passes over the object array -- present-and-seen (458E6C's `arg_14`
+    against `obj_indirectly_in_room()` at 44B578), then, only if that bound
+    nothing, absent-but-seen (the tail self-call at 458E64) -- and the
+    FIRST namesake in index order wins each pass. 3.90 has no scope test
+    and no break, so its LAST seen namesake wins wherever it stands; 3.80
+    binds an unseen absent object too. `[3.9+]` Glum_Fiddle T16-22,
+    p39OBJREF/p4OBJREF (`uip_match_entity`, 2026-09-20)
+  - 3.7 writes the `%object%` substitution back INTO the task record and
+    restores it only when the line did not match (run370 4332CA/433377,
+    restore guarded at 43342B), so the first matching `%object%` line of a
+    session spells that task's command for good: a later `nurb rock` runs
+    the task with nothing bound and prints the text's `%object%` raw, and
+    `nurb coin` no longer reaches it at all. run380 answers every cell
+    normally. `[3.7]` p37OBJREF (`run_370_rewrite_task_command`,
+    2026-09-20)
+  - An unbound `%object%` / `%character%` / `%theobject%` in a task's TEXT
+    prints RAW in every Runner, and no Runner carries a binding from one
+    typed line into the next -- the forget at the top of a command is not
+    the 3.9+ rule we had it for. `[all]` p37/p38/p39/p4OBJREF task 2
+    (`var_get_system`, `run_match_task_commands`, 2026-09-20)
 - **Word rules:** `take` becomes `get` before parsing `[3.8]` (great); `z`
   means wait only from 3.90 (cave); `again`/`last`/`previous` are tested on
   the whole line before any task, and `g` joins them from 3.90 (shadowpeak

@@ -2452,8 +2452,10 @@ uip_case_folds_name (const scr_char *name)
  *
  * Match a %character% or an %object% reference.  These search all of the NPC
  * or object names and aliases for possible matches, and set the game's
- * npc_references or object_references flag for any that match.  The final
- * one to match is also stored in variables.
+ * npc_references or object_references flag for any that match.  One of them
+ * is also stored in variables as the reference proper: normally the final
+ * one to match, but a 4.0 task command's %character% or %object% keeps the
+ * first, and its %object% weighs scope before index.
  */
 static scr_bool
 uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
@@ -2579,9 +2581,40 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * absent answers come from.  "unlock iron chest with golden key"
    * (shadowpeak) binds in place and never reaches this pass.
    */
+  /*
+   * A 4.0 task command's %object% is bound by SCOPE first and index second.
+   * run400's matcher (458E6C) takes the scope it wants as an argument and
+   * tests `obj_indirectly_in_room(i) = arg_14` -- 44B578, -1 where the
+   * object stands within reach and 0 where it does not -- so one call sees
+   * PRESENT objects only; it Exit Subs on the first object that also passes
+   * the seen gate, storing that index in 494208; and the tail at 458E64
+   * calls itself again with arg_14 = 0, the ABSENT-but-seen pass.  So the
+   * lowest-indexed present namesake wins, and an absent one binds only when
+   * no present namesake does.  p4OBJREF has three rocks sharing the Short
+   * "rock" with Prefixes "a big" (0, Lit Room), "a small" (1, Cave) and "a
+   * red" (2, Lit Room), and task `nurb %object%` printing "NURBED
+   * %object%.": run400 answers `nurb rock` in the Lit Room "NURBED a big
+   * rock." and the same line in the Cave "NURBED a small rock."
+   * (Adrift_objref400.txt, 2026-09-20).  We bound the last namesake to
+   * match, "a red rock", in both rooms.
+   *
+   * Below 4.0 there is no scope test at all: run390's checktask walks the
+   * whole object array under `c(name, cmd) And .global_44 = 1` (44AAD6 for
+   * the Short, 44AB65 for the Alias) with no break, so the LAST seen
+   * namesake wins wherever it stands -- run390 answers all three cells "NURBED
+   * a red rock." (Adrift_objref390.txt) -- and pre-3.9 the substitution is
+   * the line's own, see run_pre390_first_named_object().
+   */
+  const scr_bool strict_scoped = uip_strict_reference && !is_character
+                                 && prop_get_taf_version (gs_get_bundle (game))
+                                    >= TAF_VERSION_400;
+
   max_extent = 0;
   scr_bool strict_first_bound = FALSE;
   entity_count = cache.size ();
+  for (scr_int scope = 0; scope < (strict_scoped ? 2 : 1) && max_extent == 0;
+       scope++)
+    {
   for (scr_int pass = 0; pass < 2 && max_extent == 0; pass++)
     {
       if (pass > 0 && !contain)
@@ -2603,6 +2636,17 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
       if (uip_strict_reference && !is_character
           && !gs_object_seen (game, index))
         continue;
+
+      /* 458E6C's own argument: scope 0 is the present pass, scope 1 the
+         absent one, and scope 1 runs only when scope 0 bound nothing. */
+      if (strict_scoped)
+        {
+          const scr_bool present =
+              obj_indirectly_in_room (game, index, gs_playerroom (game));
+
+          if (scope == 0 ? !present : present)
+            continue;
+        }
 
       /*
        * A task command's %character% has a seen gate of its own at 4.0, and
@@ -2705,18 +2749,28 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
                * not here." as "Drash the Guard is not here."
                * (runner_transcripts/iqsfot.txt:1240), not "guard is not here."
                */
-              if (is_character
-                  && !(uip_strict_reference && strict_first_bound))
-                var_set_ref_character (vars, index);
-              else
-                var_set_ref_object (vars, index);
+              /*
+               * A 4.0 task command's %object% keeps the FIRST object in
+               * index order too, within the scope pass that found it:
+               * 458E6C Exit Subs on the hit.  p4OBJREF `nurb rock` in the
+               * Lit Room, rocks 0 "a big" and 2 "a red" both present and
+               * seen, is "NURBED a big rock." (Adrift_objref400.txt).
+               */
+              if (!(uip_strict_reference && strict_first_bound))
+                {
+                  if (is_character)
+                    var_set_ref_character (vars, index);
+                  else
+                    var_set_ref_object (vars, index);
+                }
               references[index] = TRUE;
-              if (is_character
+              if ((is_character || strict_scoped)
                   && prop_get_taf_version (gs_get_bundle (game))
                      >= TAF_VERSION_400)
                 strict_first_bound = TRUE;
             }
         }
+    }
     }
     }
 
