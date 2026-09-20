@@ -276,14 +276,27 @@ the_hangover T34) went identical with that port on 2026-09-20.
   p37REW/p38REW/p39REW/p4REW with `cmdfile_pcasc.txt` (Adrift_250_casc37b
   .rtf, 249_casc38.rtf, 250_casc39.txt, 251_casc40.txt), 34 verb words
   against a nonsense head. What the probe still shows open:
-    * A line naming TWO of these verbs, at every version. The Runner
-      settles that by its call order, and the order is not one order -- the
-      handlers the input routine calls claim, so the FIRST of them wins,
-      while therest (run400 489F4C) is a cascade of `If c(...)` arms each
-      overwriting the message before it, so the LAST of those wins, and
-      characters() runs below everything and overwrites again. The probe
-      types one verb per line, so none of that is measured and
-      `run_hoist_verb_line()` stands aside for such a line.
+    * A line naming TWO of these verbs. Measured and ported below 4.0 --
+      see "Below 4.0 a two-verb line is decided by the call order" in the
+      index. **4.0 is still open**, and it is a different machine: takes
+      46FB8C and drops 46F118 are dead code there (the call census on the
+      drops annotation), so the answers come from put_drop_list 459DB4 ->
+      name_object -> insides, and the measured shape is drops BEFORE takes
+      (`take drop coin` and `drop take coin` are both "You are not holding
+      the coin.", `take drop` is "Drop what?"), with therest's cascade
+      keeping the LAST arm (`push pull coin` is "You pull the coin, but
+      nothing happens.", `kick hit coin` is "You hit the coin, but nothing
+      happens."). p4REW `cmdfile_p2verb.txt` Adrift_254_2v40.txt and
+      p4TWO `cmdfile_p2verb3.txt` Adrift_258_2x40.txt (2026-09-21) hold 19
+      and 8 unexplained cells between them.
+    * The one pre-4.0 cell left over: `x take off hat` with the hat WORN.
+      wears and removes are plain `Call`s (run390 45F499/45F49E, run380
+      4421FC/442201) and so can never claim, so removes takes the hat off
+      and therest's examines arm then overwrites its message -- run370x and
+      run390x answer "A felt hat." with the hat off. Scarier keeps the state
+      right and prints "You remove the hat."; one line of one contrived
+      cell, and the fix wants a two-step dispatch (act, `pf_truncate`,
+      answer) that nothing else needs yet.
     * run370's own word for each of take/drop/wear/remove/examine, command
       slots 10-14 (`MemVar_4460FC(&HA)`..`(&HE)`, beside the slot-15 goto
       word `lib_cmd_go_place()` already reads). The probe game defines
@@ -580,6 +593,44 @@ transcript names are in the code comment next to the named function, in
   which of them speaks is unmeasured -- and requiring uniqueness only
   among the objects the caller's filter accepts moved `wrecked` (run380)
   turn 118 `drop room key`, so the whole table it is.
+
+- **Below 4.0 a two-verb line is decided by the call order, never by word
+  order.** The third half of the two bullets above. Since every one of the
+  five handlers enters on a whole-word c() over the WHOLE line, `x get
+  coin` satisfies takes() and examines() alike, and generaltasks calls them
+  in ONE fixed order -- takes, drops, inventory, insides, tasks, wears,
+  removes, then therest (run390 45F439-45F49E, run380 4421A3-442201,
+  run370 43B958-43B98A). takes and drops sit inside `If CBool(...) Then
+  GoTo` the turn tail, so one that ACTS claims the line; one that only
+  writes a refusal does not, and the next handler overwrites it. wears and
+  removes are plain `Call`s and can never claim at all. So the answer to a
+  two-verb line depends only on where the object is: coin loose `x get
+  coin` "You pick up the coin.", coin held `get x coin` "A gold coin.",
+  coin held `wear take coin` "You've already got the coin!", coin loose
+  `remove drop coin` "You don't have the coin!" and `remove wear coin` "You
+  are not holding the coin.", hat loose `remove take hat` "You pick up the
+  hat.", hat worn `take remove hat` "You remove the hat." and `drop take
+  hat` "You drop the hat.". With NOTHING named the examine arm only fills
+  an empty buffer, so `drop take` is "Take what?" and `examine wear` "Wear
+  what?". `take off <loose thing>` is a take at 3.70 and 3.90 ("You pick up
+  the coin."), and at 3.80 too by another road -- 441C61 rewrites take->get
+  first, so `take off hat` is `get off hat` there and removes never enters.
+  p3xREW with `cmdfile_p2verb.txt` (Adrift_251_2v37.rtf, 252_2v38.rtf,
+  253_2v39.txt) and `cmdfile_p2verb2.txt` (253_2w37.rtf, 254_2w38.rtf,
+  255_2w39.txt); the wearable cells needed a new probe,
+  `make_twoverbprobe.py` -> p3xTWO, with `cmdfile_p2verb3.txt`
+  (255_2x37.rtf, 256_2x38.rtf, 257_2x39.txt), all 2026-09-21. PORTED as
+  `lib_two_verb_line_pre400()` (sclibrar.cpp), which re-spells the line
+  around the handler the order leaves speaking; `run_hoist_verb_line()`
+  asks it before its own scan, because the head may be a verb itself. The
+  three feeds go 11/11/10 -> 4/6/4 mismatches, 428/428 and the Wine sweep
+  byte-identical. What the four leftovers are: one two-verb cell (`x take
+  off hat` worn, in the open list above) and three single-verb wordings
+  this probe turned up on the way -- pre-4.0 `wear <worn>` ends with NO
+  terminator ("You are already wearing a hat"), 3.80/3.90 `take <worn>` is
+  "You are already wearing X!" where Scarier contracts it to "You're", and
+  3.70 `take <worn>` does not see the object at all ("You can't see a hat
+  from here!").
 
 - **The Runner rewrites the typed line before anything looks at it, at
   every version, and 3.90/4.00 do it by SUBSTRING.** Below 3.90 the

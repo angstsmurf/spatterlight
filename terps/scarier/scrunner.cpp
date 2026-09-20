@@ -2867,6 +2867,24 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
   if (!string || string[0] == NUL)
     return FALSE;
 
+  /*
+   * Below 4.0 a line naming TWO of the five anchored handlers is decided by
+   * generaltasks' call order and not by where the words sit, so it is
+   * re-spelled even when the head is a verb itself -- `drop take hat` with
+   * the hat worn is "You drop the hat.", `take remove hat` is "You remove
+   * the hat.".  See lib_two_verb_line_pre400().
+   */
+  {
+    std::string decided;
+
+    if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+        && lib_two_verb_line_pre400 (game, string, &decided))
+      {
+        hoisted = decided;
+        return TRUE;
+      }
+  }
+
   if (run_hoist_longest (HOIST_HEADS_400, string))
     return FALSE;
 

@@ -17120,6 +17120,202 @@ lib_remove_filter (scr_gameref_t game, scr_int object, scr_int unused)
 
 
 /*
+ * lib_two_verb_line_pre400()
+ *
+ * A line naming TWO library verbs, below 4.0.  Every one of the five
+ * handlers Scarier anchors enters on a whole-word c() test over the WHOLE
+ * line, so `x get coin` satisfies takes() and examines() alike, and
+ * generaltasks calls them in ONE fixed order (run380 4421A3-442201, run370
+ * 43B958-43B98A, run390 45F439-45F49E):
+ *
+ *     takes, drops, inventory, insides, tasks, wears, removes, ... therest
+ *
+ * A handler that ACTS claims the line -- `If CBool(takes()) Then GoTo` the
+ * turn tail -- while one that only writes a refusal does not, and the next
+ * handler runs on and may overwrite it.  So WORD ORDER NEVER DECIDES below
+ * 4.0: `take drop coin` and `drop take coin` both answer from the same
+ * order, and which of them speaks depends only on where the object is.
+ *
+ * Measured on p3xREW with cmdfile_p2verb.txt (Adrift_251_2v37.rtf,
+ * 252_2v38.rtf, 253_2v39.txt) and cmdfile_p2verb2.txt (253_2w37.rtf,
+ * 254_2w38.rtf, 255_2w39.txt), and on the new wearable probe p3xTWO
+ * (make_twoverbprobe.py) with cmdfile_p2verb3.txt (255_2x37.rtf,
+ * 256_2x38.rtf, 257_2x39.txt), 2026-09-21.  The cells that carry the rule:
+ *
+ *   coin loose   `x get coin`     "You pick up the coin."   takes acts
+ *   coin held    `get x coin`     "A gold coin."            takes cannot,
+ *                                                           examines does
+ *   coin held    `wear take coin` "You've already got the coin!"
+ *   coin loose   `remove drop coin` "You don't have the coin!"
+ *   coin loose   `remove wear coin` "You are not holding the coin."
+ *   hat loose    `remove take hat` "You pick up the hat."    takes acts
+ *   hat worn     `take remove hat` "You remove the hat."     takes cannot,
+ *                                                            removes does
+ *   hat worn     `drop take hat`  "You drop the hat."        drops takes a
+ *                                                            worn object
+ *   hat worn     `x take hat`     "A felt hat."
+ *   hat held     `x take off hat` "A felt hat."
+ *   hat held     `take off hat`   "You've already got the hat!"  (3.70;
+ *                                 3.80 rewrites take->get first, 441C61,
+ *                                 so removes never enters there either)
+ *   hat worn     `take off hat`   "You remove the hat."      (3.70/3.90)
+ *   nothing      `drop take`      "Take what?"
+ *   nothing      `examine wear`   "Wear what?"
+ *
+ * The last two are why examines is not simply last: with an object named it
+ * overwrites whatever refusal the four above it left (it is down in therest,
+ * which runs below everything), but with NOTHING named its "Nothing
+ * special." only ever fills an EMPTY buffer, so the earlier handler's
+ * question survives.
+ *
+ * Scarier answers a line from one anchored row, so the port is a re-spelling
+ * like run_hoist_verb_line()'s: work out which handler the Runner's order
+ * would leave speaking, and hand the row that handler's own line.  Narrow on
+ * purpose -- a list line ("all", "and"), a static object and a name two
+ * objects answer to are all left exactly as they were, the first two because
+ * their arms walk co() themselves and the last because the disambiguation
+ * the Runner's namesake count asks for is not this rule's business.
+ */
+enum
+{
+  LIB_PRE400_TAKE, LIB_PRE400_DROP, LIB_PRE400_WEAR,
+  LIB_PRE400_REMOVE, LIB_PRE400_EXAMINE, LIB_PRE400_HANDLERS
+};
+
+/* Every word the five entry tests hold, longest phrases first, so that
+   "take off" is stripped whole where "take" alone would leave "off". */
+static const scr_char *const LIB_PRE400_VERB_WORDS[] = {
+  "put down", "put on", "take off", "look at", "look in",
+  "get", "take", "pick", "drop", "leave", "wear", "remove",
+  "examine", "exam", "read", "ex", "x", NULL
+};
+
+static const scr_char *const LIB_PRE400_CANONICAL[LIB_PRE400_HANDLERS] = {
+  "take", "drop", "wear", "remove", "examine"
+};
+
+scr_bool
+lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
+                          std::string *rewritten)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  scr_bool present[LIB_PRE400_HANDLERS], acts[LIB_PRE400_HANDLERS];
+  scr_int handler, object, found, count;
+  const scr_char *scan;
+  std::string rest;
+
+#define LIB_PRE400_C(word) (run_c_word_pre400 (version, line, (word)) >= 0)
+
+  if (version >= TAF_VERSION_400 || !line || line[0] == NUL)
+    return FALSE;
+  if (LIB_PRE400_C ("all") || LIB_PRE400_C ("and"))
+    return FALSE;
+
+  present[LIB_PRE400_TAKE] = LIB_PRE400_C ("get") || LIB_PRE400_C ("take")
+                             || (LIB_PRE400_C ("pick")
+                                 && !LIB_PRE400_C ("from"));
+  present[LIB_PRE400_DROP] = LIB_PRE400_C ("drop") || LIB_PRE400_C ("put down")
+                             || LIB_PRE400_C ("leave")
+                             || (LIB_PRE400_C ("put") && LIB_PRE400_C ("down"));
+  present[LIB_PRE400_WEAR] = LIB_PRE400_C ("wear") || LIB_PRE400_C ("put on");
+  present[LIB_PRE400_REMOVE] = LIB_PRE400_C ("remove")
+                               || LIB_PRE400_C ("take off");
+  present[LIB_PRE400_EXAMINE] = LIB_PRE400_C ("x") || LIB_PRE400_C ("examine")
+                                || LIB_PRE400_C ("look at")
+                                || LIB_PRE400_C ("ex") || LIB_PRE400_C ("exam")
+                                || LIB_PRE400_C ("read")
+                                || (version >= TAF_VERSION_380
+                                    && LIB_PRE400_C ("look in"));
+
+  count = 0;
+  for (handler = 0; handler < LIB_PRE400_HANDLERS; handler++)
+    count += present[handler] ? 1 : 0;
+  if (count < 2)
+    return FALSE;
+
+  /* The one object the line names, by co() over the whole line. */
+  found = -1;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (!lib_co_pre400 (game, line, object, 1))
+        continue;
+      if (found != -1)
+        return FALSE;
+      found = object;
+    }
+  if (found != -1 && obj_is_static (game, found))
+    return FALSE;
+
+  acts[LIB_PRE400_TAKE] = found != -1 && lib_take_filter (game, found, -1);
+  /* drops() takes a worn object off the player too; see
+     lib_drop_named_filter(). */
+  acts[LIB_PRE400_DROP] = found != -1
+                          && (lib_drop_filter (game, found, -1)
+                              || lib_remove_filter (game, found, -1));
+  acts[LIB_PRE400_WEAR] = found != -1 && lib_wear_filter (game, found, -1);
+  acts[LIB_PRE400_REMOVE] = found != -1 && lib_remove_filter (game, found, -1);
+  acts[LIB_PRE400_EXAMINE] = FALSE;
+
+  handler = -1;
+  for (object = LIB_PRE400_TAKE; object <= LIB_PRE400_REMOVE; object++)
+    {
+      if (present[object] && acts[object])
+        {
+          handler = object;
+          break;
+        }
+    }
+  if (handler == -1 && present[LIB_PRE400_EXAMINE] && found != -1)
+    handler = LIB_PRE400_EXAMINE;
+  for (object = LIB_PRE400_TAKE; handler == -1 && object <= LIB_PRE400_REMOVE;
+       object++)
+    {
+      if (present[object])
+        handler = object;
+    }
+  if (handler == -1)
+    handler = LIB_PRE400_EXAMINE;
+
+  /* The line with every verb word taken out of it, which is what the
+     winning handler's own object walk would have been left looking at. */
+  for (scan = line; *scan != NUL; )
+    {
+      const scr_char *const *word;
+      scr_int matched = 0;
+
+      if (scan == line || scan[-1] == ' ')
+        {
+          for (word = LIB_PRE400_VERB_WORDS; *word && !matched; word++)
+            {
+              const scr_int length = strlen (*word);
+
+              if (scr_strncasecmp (scan, *word, length) == 0
+                  && (scan[length] == NUL || scan[length] == ' '))
+                matched = length;
+            }
+        }
+      if (matched > 0)
+        {
+          scan += matched;
+          scan += strspn (scan, " ");
+          continue;
+        }
+      rest.push_back (*scan++);
+    }
+
+  *rewritten = LIB_PRE400_CANONICAL[handler];
+  if (!rest.empty ())
+    {
+      *rewritten += " ";
+      *rewritten += rest;
+    }
+  return TRUE;
+
+#undef LIB_PRE400_C
+}
+
+
+/*
  * lib_cmd_remove_all()
  *
  * Remove all objects currently held by the player.
