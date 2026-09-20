@@ -263,9 +263,12 @@ not by a tick.
   index -- as is the NPC seen gate for `%character%`, under "A task
   command's `%character%` at 4.0".)
 - **Second-noun ambiguity:** wording of an instrument ambiguity (sswhore
-  `unlock drawer with key`); a tie inside either half of a " with " split;
-  lock/unlock with a Key whose left half resolves to nothing; absent
-  lock/unlock where the object really is locked.
+  `unlock drawer with key`) -- the rest of this lead is measured and
+  ported, see "A 4.0 open or close resolves the whole line" and "A 4.0
+  lock or unlock works on a seen-but-absent object" in the index. A tie
+  inside a " with " half is still unwitnessed: p4LOCK cannot raise one,
+  because 463640 scores the whole Short and "stone" matches neither
+  "red stone" nor "blue stone".
 - **Ambiguity prompts:** co()'s crowded arm (454454) and its -2/-1
   answers; "That wasn't one of the options!" has never been triggered;
   whether an object ambiguity on a task-answered line also suppresses the
@@ -979,6 +982,31 @@ transcript names are in the code comment next to the named function, in
   Adrift_233_ox400, Adrift_235_oy400, Adrift_237_oz400, Adrift_239_pa400,
   Adrift_238_pb400; `lib_open_close_tie_400`,
   `lib_name_object_resolve_400`, 2026-09-20)
+- **A 4.0 open or close resolves the WHOLE line, " with " tail and all.**
+  therest's with-arm ("You can't open the box with the coin.") only ever
+  answers the lines openclose let go. openclose scores the whole typed
+  line with 463640 in mode 0 (open 4756AB, close 4759D5), so the tail is
+  not a barrier -- it is more candidates. With p4LOCK's locked box and its
+  key, the held coin: in Alpha both score, the walk ties and therest
+  answers; `open box with zzz`, zzz naming nothing, has the box alone and
+  opens it; and from Beta, with the box seen but left behind, `open box
+  with coin` has the held coin alone and answers openclose's own "You
+  can't open the coin!". An empty present pass with a unique seen winner
+  still gets the "can't see" refusal (4887A0). `[4.0]` p4LOCK
+  (`make_400_lockprobe.py`, `cmdfile_lock3.txt`, Adrift_lock3.txt;
+  `lib_open_close_with_400`, 2026-09-20)
+- **A 4.0 lock or unlock works on a seen-but-absent object.** The arms cut
+  the line at " with " (475D5D), resolve the head with 463640 in mode 0
+  (475D91, 476141) and then run in full -- openness refusals, Key test,
+  the unlock itself -- without ever asking where the object is. From
+  p4LOCK's Beta, with the box locked back in Alpha and the coin in hand,
+  `lock box with coin` is "You lock the box with the coin.", `unlock box`
+  is "You unlock the box with the coin.", and `unlock box with zzz` /
+  `lock box with zzz` are the plain openness refusals, an unresolved named
+  key taking the keyless branch (4763ED) with no pick-up on the way. This
+  generalises the sswhore refusal already noted. `[4.0]` p4LOCK
+  (`cmdfile_lock2.txt`, Adrift_lock2.txt; `lib_lock_absent_object_400`,
+  `lib_lock_backend`, 2026-09-20)
 - **Pre-4.0 read is examines()' object too.** A `read` line naming more
   than one object is settled exactly as `x` settles it: 3.90 by
   referencedob()'s last-word pass (`read rock gem` -> "You can't read the

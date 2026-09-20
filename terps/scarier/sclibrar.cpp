@@ -17123,17 +17123,37 @@ lib_cant_do_suffix_pre400 (scr_gameref_t game, const scr_char *verb,
  * p4LOCK's box (key = the held coin) answers "You can't open the box with the
  * coin." before and after `unlock box with coin` (Adrift_1162).  TRUE when
  * the line was taken, with *status the handler's return.
+ *
+ * But therest only ever sees the line openclose let go.  openclose resolves
+ * over the WHOLE typed line, " with " tail and all (open 4756AB, close
+ * 4759D5), and a unique present-and-seen winner is the object it acts on --
+ * so the tail is not a barrier, it is more candidates.  p4LOCK / run400,
+ * cmdfile_lock3.txt (Adrift_lock3.txt, 2026-09-20): in Alpha, where the box
+ * and the coin both score, `open box with coin` ties and falls to therest
+ * ("You can't open the box with the coin."), but `open box with zzz` -- zzz
+ * naming nothing -- has the box alone and opens it, and from Beta, with the
+ * box seen but left behind, `open box with coin` has the held coin alone and
+ * answers openclose's own "You can't open the coin!".  Only a tie, or a line
+ * nothing present matches at all, reaches the refusal below.
  */
 static scr_bool
 lib_open_close_with_400 (scr_gameref_t game, const scr_char *verb,
                          scr_bool *status)
 {
   const scr_char *input = run_get_dispatch_input ();
-  scr_int first;
+  scr_int first, whole;
   scr_bool handled;
 
   if (!lib_is_version_400 (game) || !input || !strstr (input, " with "))
     return FALSE;
+
+  whole = lib_verb_object_resolve_400_string (game, input, NULL, TRUE);
+  if (whole >= 0)
+    {
+      gs_clear_object_references (game);
+      game->object_references[whole] = TRUE;
+      return FALSE;
+    }
 
   std::string line (input);
   first = lib_with_half_400 (game, line.substr (0, line.find (" with ")).c_str ());
@@ -17661,22 +17681,27 @@ lib_lock_therest_400 (scr_gameref_t game, const lib_lock_verb_t *verb,
  * not locked!" (Adrift_1105_sswhore.txt, T84/T97), where our %object% scope
  * saw nothing and answered "You can't unlock that." and a key prompt.
  *
- * Only the refusal is taken here.  An absent object in the state the verb
- * acts on (so the key would be tried) is unmeasured and left to the usual
- * handlers, as is anything the present pass matches or ties on.
+ * The whole arm runs on that object, not just its state refusal: from Beta,
+ * with p4LOCK's box left locked in Alpha and its key -- the coin -- in hand,
+ * run400 answers `lock box with coin` "You lock the box with the coin." and
+ * then `unlock box` "You unlock the box with the coin.", and only the
+ * openness refusals when the box is already in the state asked for
+ * (cmdfile_lock2.txt / Adrift_lock2.txt, 2026-09-20).  Returns the object,
+ * or -1 when the present pass matched or tied, when the head names nothing
+ * seen, or when the object has no Openable/Key for the arm to work on.
  */
-static scr_bool
-lib_lock_absent_400 (scr_gameref_t game, const lib_lock_verb_t *verb)
+static scr_int
+lib_lock_absent_object_400 (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *input = run_get_dispatch_input ();
   scr_vartype_t vt_key[3], vt_rvalue;
   std::string head;
   size_t split;
-  scr_int object, openness;
+  scr_int object;
 
   if (!lib_is_version_400 (game) || !input)
-    return FALSE;
+    return -1;
   head = input;
   split = head.find (" with ");
   if (split != std::string::npos)
@@ -17684,27 +17709,24 @@ lib_lock_absent_400 (scr_gameref_t game, const lib_lock_verb_t *verb)
 
   if (lib_verb_object_resolve_400_string (game, head.c_str (), NULL, TRUE)
       != -2)
-    return FALSE;
+    return -1;
   object = lib_verb_object_resolve_400_string (game, head.c_str (), NULL,
                                                FALSE);
   if (object < 0)
-    return FALSE;
+    return -1;
 
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
   vt_key[2].string = "Openable";
   if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
       || vt_rvalue.integer <= 0)
-    return FALSE;
+    return -1;
   vt_key[2].string = "Key";
   if (!prop_get (bundle, "I<-sis", &vt_rvalue, vt_key)
       || vt_rvalue.integer < 0)
-    return FALSE;
+    return -1;
 
-  openness = gs_object_openness (game, object);
-  if (openness == verb->required_openness)
-    return FALSE;
-  return lib_lock_check_openness (game, object, verb) == LIB_LOCK_REFUSED;
+  return object;
 }
 
 static scr_bool
@@ -17732,13 +17754,52 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
   if (!lib_is_version_400 (game))
     return FALSE;
 
-  if (lib_lock_absent_400 (game, verb))
-    return TRUE;
+  /*
+   * 4.0 never asks what to use: openclose() starts var_88 at -1 (475C63),
+   * sets it only from a " with " half that resolves (475CB0, and the present
+   * objects' loop at 475CD2), and a lock arm left at -1 takes the keyless
+   * branch -- the object's own key if held (476360), else "<player> don't
+   * have anything to unlock <it> with!" (4763ED; lock 4760A6), with no
+   * pick-up on the way.  House's `unlock back door with metal key` before the
+   * key was ever seen (Adrift_128_housesober.txt, T137).  The question itself
+   * is in no Runner's string pool, 3.7 to 4.0, so the older versions keep
+   * SCARE's wording only because their arms are unread.
+   */
+  scr_bool key_unnamed_400 = FALSE;
+  scr_bool absent_400 = FALSE;
 
-  /* Get the referenced object, and if none, consider complete. */
-  object = lib_disambiguate_object (game, verb->verb, &is_ambiguous);
-  if (object == -1)
-    return is_ambiguous;
+  /*
+   * The arm's own object comes first: it resolved the head of the line with
+   * 463640 and does not care where the object is, so a seen-but-absent one
+   * is locked and unlocked just the same.  Its key then comes from the
+   * " with " half alone (475CB0) -- the parser bound no reference text for a
+   * line it could not place -- and a half that resolves to nothing leaves
+   * var_88 at -1, the keyless branch.
+   */
+  object = lib_lock_absent_object_400 (game);
+  if (object >= 0)
+    {
+      const scr_char *input = run_get_dispatch_input ();
+      const scr_char *tail = input ? strstr (input, " with ") : NULL;
+
+      absent_400 = TRUE;
+      with_key = FALSE;
+      if (tail)
+        {
+          key = lib_with_half_400 (game, tail + 6);
+          if (key >= 0)
+            with_key = TRUE;
+          else
+            key_unnamed_400 = TRUE;
+        }
+    }
+  else
+    {
+      /* Get the referenced object, and if none, consider complete. */
+      object = lib_disambiguate_object (game, verb->verb, &is_ambiguous);
+      if (object == -1)
+        return is_ambiguous;
+    }
 
   /*
    * run400's lock and unlock arms in openclose (Proc_19_3_476468) resolve
@@ -17778,21 +17839,9 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
 
   /*
    * Now try to get the key from referenced text, and disambiguate as usual.
+   * The absent-object arm above already has its key, from the " with " half.
    */
-  /*
-   * 4.0 never asks what to use: openclose() starts var_88 at -1 (475C63),
-   * sets it only from a " with " half that resolves (475CB0, and the present
-   * objects' loop at 475CD2), and a lock arm left at -1 takes the keyless
-   * branch -- the object's own key if held (476360), else "<player> don't
-   * have anything to unlock <it> with!" (4763ED; lock 4760A6), with no
-   * pick-up on the way.  House's `unlock back door with metal key` before the
-   * key was ever seen (Adrift_128_housesober.txt, T137).  The question itself
-   * is in no Runner's string pool, 3.7 to 4.0, so the older versions keep
-   * SCARE's wording only because their arms are unread.
-   */
-  scr_bool key_unnamed_400 = FALSE;
-
-  if (with_key)
+  if (with_key && !absent_400)
     {
       const scr_var_setref_t vars = gs_get_vars (game);
 
@@ -28053,8 +28102,8 @@ lib_cmd_lock_other (scr_gameref_t game)
   scr_bool handled;
   scr_bool status;
 
-  if (lib_lock_absent_400 (game, &LIB_LOCK_VERB))
-    return TRUE;
+  if (lib_lock_absent_object_400 (game) >= 0)
+    return lib_lock_backend (game, &LIB_LOCK_VERB, FALSE);
   status = lib_cant_do_with_400 (game, "lock", "", &handled);
   if (handled)
     return status;
@@ -28069,8 +28118,8 @@ lib_cmd_unlock_other (scr_gameref_t game)
   scr_bool handled;
   scr_bool status;
 
-  if (lib_lock_absent_400 (game, &LIB_UNLOCK_VERB))
-    return TRUE;
+  if (lib_lock_absent_object_400 (game) >= 0)
+    return lib_lock_backend (game, &LIB_UNLOCK_VERB, FALSE);
   status = lib_cant_do_with_400 (game, "unlock", "", &handled);
   if (handled)
     return status;

@@ -18,9 +18,40 @@
 Rooms Alpha (north -> Beta) and Beta (south -> Alpha); Gamma is unreachable.
 A length-1 self-restarting event prints TICK. on every counted turn.
 
+WHAT IT MEASURED (2026-09-20; Adrift_1162_p4lock.txt, and the second-noun
+ambiguity lead's own two feeds, Adrift_lock2.txt and Adrift_lock3.txt):
+
+  * `open X with Y` IS therest's refusal -- but only for the lines openclose
+    let go.  openclose resolves over the WHOLE typed line, tail included
+    (4756AB/4759D5), so in Alpha `open box with coin` ties (box and coin both
+    score) and falls to therest, while `open box with zzz` has the box alone
+    and opens it, and from Beta `open box with coin` has the held coin alone
+    and answers "You can't open the coin!".  Only a tie, or a line nothing
+    present matches, reaches "You can't open the box with the coin."  PORTED
+    2026-09-20 (lib_open_close_with_400).
+  * The lock and unlock arms cut the line at " with " and then act on a
+    seen-but-absent object, key and all: from Beta, `lock box with coin`
+    locks the box left in Alpha, `unlock box` unlocks it again with the coin
+    in hand, and `unlock box with zzz` / `lock box with zzz` give only the
+    openness refusals ("The box is not locked!", "You can't lock the box as
+    it is open.") -- an unresolved named key takes the keyless branch
+    (4763ED).  PORTED 2026-09-20 (lib_lock_absent_object_400 and the
+    absent arm in lib_lock_backend); both feeds are identical to run400 on
+    every turn.
+  * No tie is reachable inside a with-half here after all: the Shorts are
+    "red stone"/"blue stone" and 463640 scores the whole Short, so "stone"
+    resolves to nothing, not to a tie.
+  * The mutual ALR pair AAA <-> BBB is the one deliberate deviation left:
+    run400 recurses until "Out of stack space" and prints nothing for `ping`
+    (turn 28), where Scarier's loop bound stops and prints "AAA.".
+
 Usage:
     python3 make_400_lockprobe.py p4LOCK.plain
     python3 taftool.py pack p4LOCK.plain p4TAKE.taf p4LOCK.taf
+Feeds (in ~/adrift-battle/runner/wine):
+    cmdfile_lock.txt    the five corners above
+    cmdfile_lock2.txt   lock/unlock with the box seen and absent
+    cmdfile_lock3.txt   open/close with a second noun, present and absent
 """
 import sys
 
