@@ -30352,7 +30352,7 @@ lib_is_put_where_line_400 (scr_gameref_t game)
    * "put " at the front: put_drop_list is entered on c("put") Or c("drop")
    * and 46DC34 re-tests the same word.  So bare `put` and `blorp put` both
    * land here, both answering "Where do you want to put that?" (p4REW,
-   * Adrift_251_casc40.txt).  See run_hoist_verb_400(). */
+   * Adrift_251_casc40.txt).  See run_hoist_verb_line(). */
   return lib_input_contains_word (input, "put")
          && !strstr (input, " in ") && !strstr (input, " on ")
          && !strstr (input, " into ") && !strstr (input, " onto ")

@@ -2642,10 +2642,10 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
 }
 
 /*
- * run_hoist_verb_400()
+ * run_hoist_verb_line()
  *
- * 4.0 matches its library verb ANYWHERE in the line, and Scarier anchors
- * most of it.  Every handler the input routine calls enters on c(<word>) --
+ * Every Runner matches its library verb ANYWHERE in the line, and Scarier
+ * anchors most of it.  Every handler the input routine calls enters on c(<word>) --
  * the whole word, wherever it sits -- so a nonsense head changes nothing:
  * run400 answers `blorp take` "Take what?", `blorp take coin` "You take the
  * coin.", `blorp eat` "I don't understand what you are trying to eat.",
@@ -2662,6 +2662,20 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
  * answer the line they already know.  The object half needs nothing -- the
  * 4.0 rows already bind their noun by score over the whole line, so `take
  * blorp coin` is already "You take the coin.".
+ *
+ * Below 4.0 the same is true, but only five handlers are still anchored in
+ * Scarier: takes, drops, wears, removes and examines (HOIST_VERBS_PRE400
+ * carries their words and the addresses).  Everything else already matches
+ * its word anywhere, which is why `blorp drink`, `blorp push`, `blorp sit`
+ * and `blorp read` already agreed.  run370x Adrift_250_casc37b.rtf and
+ * run380x Adrift_249_casc38.rtf answer `blorp take` "Take what?", `blorp
+ * drop` "Drop what?", `blorp wear` "Wear what?", `blorp remove` "Remove
+ * what?" and `blorp examine` "Nothing special."; run390x
+ * Adrift_250_casc39.txt the same five.  What is left after the hoist at
+ * those versions is the NOUN half -- `blorp take coin` is "You pick up the
+ * coin." because takes()/drops() resolve with co() over the whole line,
+ * where Scarier reads the text after the verb -- and run390's `blorp put`,
+ * which answers "Give what?"; both are open leads.
  *
  * The hoist is deliberately narrow, and the narrowing is where the rule is
  * still owed:
@@ -2723,12 +2737,49 @@ static const scr_char *const HOIST_VERBS_BATTLE_400[] = {
 };
 
 /*
+ * Below 4.0 only five handlers carry a `%object%` and an "X what?" form, and
+ * those are the ones Scarier anchors: takes (run380 43D788, run370 435E28)
+ * `get` / `take` / `pick` -- and `pick` only with no "from" in the line --
+ * drops (438659 / 430475) `drop` / `put down` / `leave`, wears (432D5C /
+ * 42C533) `wear` / `put on`, removes (42FD4C / 4295FF) `remove` / `take
+ * off`, and examines (43C69D / 434E2A) `x` / `examine` / `look at` / `ex` /
+ * `exam` / `read`, with `look in` added at 3.80 and NO bare `look` at
+ * either.  Everything else pre-4.0 already matches its word anywhere
+ * (run_therest_pre400(), run_therest_absent_370(), lib_sitstand_anywhere()),
+ * which is why `blorp drink`, `blorp push` and `blorp sit` already agree.
+ * run370 also takes the game's own word for each of these from command
+ * slots 10-14, the way lib_cmd_go_place() takes slot 15; that half is not
+ * measured and not ported.
+ */
+static const scr_char *const HOIST_VERBS_PRE400[] = {
+  "get", "take", "pick",
+  "drop", "put down", "leave",
+  "wear", "put on", "remove", "take off",
+  "x", "examine", "look at", "ex", "exam", "read",
+  NULL
+};
+
+/*
+ * Verb words that are not hoistable but still decide a line: if one of these
+ * opens the line, or stands beside the hoistable verb, the line is left as
+ * it was.  This is the pre-4.0 half of HOIST_VERBS_400 plus the spellings
+ * only the older Runners have.
+ */
+static const scr_char *const HOIST_VERBS_EXTRA[] = {
+  "x", "ex", "exam", "leave", "strip", "put down", "put on", "take off",
+  "look at", "look in", "pick up", "get up", NULL
+};
+
+/*
  * Heads the anchored pass owns that are not hoistable verbs themselves:
  * the abbreviations, the meta rows and the words the input routine answers
  * before any of the handlers above.  A line starting with one of these has
  * already been offered to the table as it stands, so it is left alone -- `x
  * light` stays an examine and does not become `light x`.
  */
+/* The line run_hoist_verb_at() is scanning, for its cross-word tests. */
+static const scr_char *run_hoist_line = NULL;
+
 static const scr_char *const HOIST_HEADS_400[] = {
   "x", "ex", "exam", "l", "i", "inv", "inventory", "z", "wait",
   "score", "turns", "time", "date", "version", "undo", "quit", "save",
@@ -2746,57 +2797,87 @@ static const scr_char *const HOIST_HEADS_400[] = {
  * rewritten, the shape c()'s padded InStr sees.
  */
 static const scr_char *
-run_hoist_verb_at (scr_gameref_t game, const scr_char *word)
+run_hoist_longest (const scr_char *const *table, const scr_char *word)
 {
   const scr_char *const *entry;
   const scr_char *best = NULL;
-  scr_int pass;
 
-  for (pass = 0; pass < 2; pass++)
+  for (entry = table; *entry; entry++)
     {
-      if (pass == 1 && !battle_is_enabled (game))
-        break;
-      for (entry = (pass == 0 ? HOIST_VERBS_400 : HOIST_VERBS_BATTLE_400);
-           *entry; entry++)
-        {
-          const scr_int length = strlen (*entry);
+      const scr_int length = strlen (*entry);
 
-          if (scr_strncasecmp (word, *entry, length) == 0
-              && (word[length] == NUL || word[length] == ' ')
-              && (!best || length > (scr_int) strlen (best)))
-            best = *entry;
-        }
+      if (scr_strncasecmp (word, *entry, length) == 0
+          && (word[length] == NUL || word[length] == ' ')
+          && (!best || length > (scr_int) strlen (best)))
+        best = *entry;
     }
   return best;
 }
 
+/* The verb this word begins, or NULL: the one the line would be re-spelled
+   around.  4.0 hoists every library verb, the older Runners only the five
+   handlers that anchor. */
+static const scr_char *
+run_hoist_verb_at (scr_gameref_t game, const scr_char *word)
+{
+  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_char *best;
+
+  if (version < TAF_VERSION_400)
+    {
+      best = run_hoist_longest (HOIST_VERBS_PRE400, word);
+      /* takes() wants `pick` with no "from" in the line (43D788). */
+      if (best && strcmp (best, "pick") == 0
+          && run_c_word_pre400 (version, run_hoist_line, "from") >= 0)
+        best = NULL;
+      /* examines() has no "look in" before 3.80 (434E2A). */
+      if (best && version < TAF_VERSION_380 && strcmp (best, "look in") == 0)
+        best = NULL;
+      return best;
+    }
+
+  best = run_hoist_longest (HOIST_VERBS_400, word);
+  if (!best && battle_is_enabled (game))
+    best = run_hoist_longest (HOIST_VERBS_BATTLE_400, word);
+  return best;
+}
+
+/* A verb word of any kind, hoistable or not. */
+static const scr_char *
+run_hoist_any_verb_at (scr_gameref_t game, const scr_char *word)
+{
+  const scr_char *best = run_hoist_verb_at (game, word);
+
+  if (!best)
+    best = run_hoist_longest (HOIST_VERBS_400, word);
+  if (!best)
+    best = run_hoist_longest (HOIST_VERBS_EXTRA, word);
+  if (!best && battle_is_enabled (game))
+    best = run_hoist_longest (HOIST_VERBS_BATTLE_400, word);
+  return best;
+}
+
 static scr_bool
-run_hoist_verb_400 (scr_gameref_t game, const scr_char *string,
+run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
                     std::string &hoisted)
 {
   const scr_char *scan, *found = NULL;
   const scr_char *found_at = NULL;
 
-  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
-      || !string || string[0] == NUL)
+  if (!string || string[0] == NUL)
     return FALSE;
 
-  for (const scr_char *const *head = HOIST_HEADS_400; *head; head++)
-    {
-      const scr_int length = strlen (*head);
+  if (run_hoist_longest (HOIST_HEADS_400, string))
+    return FALSE;
 
-      if (scr_strncasecmp (string, *head, length) == 0
-          && (string[length] == NUL || string[length] == ' '))
-        return FALSE;
-    }
-
+  run_hoist_line = string;
   for (scan = string; *scan != NUL; scan++)
     {
       const scr_char *verb;
 
       if (scan != string && scan[-1] != ' ')
         continue;
-      verb = run_hoist_verb_at (game, scan);
+      verb = run_hoist_any_verb_at (game, scan);
       if (!verb)
         continue;
       /* The head is the anchored pass's, and it has already declined. */
@@ -2804,6 +2885,9 @@ run_hoist_verb_400 (scr_gameref_t game, const scr_char *string,
         return FALSE;
       /* Two verbs: the Runner's order decides, and it is not measured. */
       if (found)
+        return FALSE;
+      verb = run_hoist_verb_at (game, scan);
+      if (!verb)
         return FALSE;
       found = verb;
       found_at = scan;
@@ -6397,12 +6481,12 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * put_drop_list is one of the handlers 4.0 enters on its verb ANYWHERE in
    * the line, so this pre-pass reads the same hoisted line the library does
    * further down -- `blorp drop coin` is "You drop the coin.", not the
-   * leftover-word answer the line as typed scores.  See run_hoist_verb_400().
+   * leftover-word answer the line as typed scores.  See run_hoist_verb_line().
    */
   std::string put_hoisted;
   const scr_char *put_line = string;
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
-      && run_hoist_verb_400 (game, string, put_hoisted))
+      && run_hoist_verb_line (game, string, put_hoisted))
     put_line = put_hoisted.c_str ();
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && !repeat_pending)
@@ -6720,10 +6804,10 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       /*
        * 4.0 enters its library handlers on the whole verb ANYWHERE in the
        * line, so a line whose verb is not at the head is answered with the
-       * verb hoisted to the front; see run_hoist_verb_400().
+       * verb hoisted to the front; see run_hoist_verb_line().
        */
       std::string hoisted;
-      if (run_hoist_verb_400 (game, library_string, hoisted))
+      if (run_hoist_verb_line (game, library_string, hoisted))
         {
           library_string = hoisted.c_str ();
           run_dispatch_input = library_string;

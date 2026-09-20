@@ -270,36 +270,38 @@ the_hangover T34) went identical with that port on 2026-09-20.
   raised by a " with " line comes out of ONE half", "A 4.0 lock or unlock
   never asks which key" and "A 4.0 crowd is the WHOLE line's, and its
   first object decides".
-- **The library verb is matched anywhere in the line, and Scarier anchors
-  some of it.** Falling out of the rewrite probe above: run370/380/390/400
-  all answer `blorp take` with "Take what?" and `blorp take coin` with "You
-  pick up the coin.", though `blorp` is in no vocabulary. Scarier already
-  does this for a handful of verbs (`wait`, `look`, `sit`/`stand`, and the
-  pre-4.0 therest cascade's `open`/`eat`/`drink`/...), but not for the five
-  that carry a `%object%` and an "X what?" form. Measured 2026-09-20 on
+- **The library verb is matched anywhere in the line: the REST of it.** The
+  verb half is now ported at every version -- see "A library verb is matched
+  anywhere in the line" in the index. Measured 2026-09-20 on
   p37REW/p38REW/p39REW/p4REW with `cmdfile_pcasc.txt` (Adrift_250_casc37b
   .rtf, 249_casc38.rtf, 250_casc39.txt, 251_casc40.txt), 34 verb words
-  against a nonsense head:
-    * 3.70/3.80 diverge on five: `take`, `drop`, `wear`, `remove` ("X
-      what?") and `examine` ("Nothing special."), plus their `... coin`
-      forms, which the Runner runs for real.
-    * 3.90 diverges on those five and two more: `blorp eat` answers "Drop
-      what?" and `blorp put` answers "Give what?" -- a cascade arm picking a
-      verb the line does not contain, so the 3.9 route is NOT simply
-      "contains the word".
-    * 4.00 is now PORTED -- see "A 4.0 library verb is matched anywhere in
-      the line" in the index. All 36 cells of `cmdfile_pcasc.txt` match.
+  against a nonsense head. What the probe still shows open:
+    * The NOUN half below 4.0. `blorp take coin` is "You pick up the coin."
+      and `blorp drop coin` "You drop the coin." in all three older
+      Runners; Scarier hoists the verb and then reads the text after it, so
+      `take blorp coin` is "Take what?" and `drop blorp coin` "You don't
+      have a coin!". This is the same rule as the next bullet, now measured
+      at 3.70 and 3.80 as well as 3.90.
+    * run390's `blorp put`, which answers "Give what?" -- a cascade arm
+      picking a verb the line does not contain, so the 3.9 route is not
+      simply "contains the word". Needs the run390 cascade read before
+      anything is written. (`blorp eat` = "Drop what?" turned out not to be
+      that: it is the previous line's "Drop what?" question taking the next
+      line as its answer, which Scarier already does.)
+    * A line naming TWO of these verbs, at every version. The Runner
+      settles that by its call order, and the order is not one order -- the
+      handlers the input routine calls claim, so the FIRST of them wins,
+      while therest (run400 489F4C) is a cascade of `If c(...)` arms each
+      overwriting the message before it, so the LAST of those wins, and
+      characters() runs below everything and overwrites again. The probe
+      types one verb per line, so none of that is measured and
+      `run_hoist_verb_line()` stands aside for such a line.
+    * run370's own word for each of take/drop/wear/remove/examine, command
+      slots 10-14 (`MemVar_4460FC(&HA)`..`(&HE)`, beside the slot-15 goto
+      word `lib_cmd_go_place()` already reads). The probe game defines
+      none, so this is unmeasured and unported.
   Nothing in the corpus types a nonsense head, so the suite says nothing
-  about this; the 428 rows stay green either way. 3.90 goes last (the
-  eat/put cells need the run390 cascade read before anything is written).
-  What the 4.00 port deliberately leaves open, at every version: a line
-  naming TWO of these verbs. The Runner settles that by its call order, and
-  the order is not one order -- the handlers the input routine calls claim,
-  so the FIRST of them wins, while therest (run400 489F4C) is a cascade of
-  `If c(...)` arms each overwriting the message before it, so the LAST of
-  those wins, and characters() runs below everything and overwrites again.
-  The probe types one verb per line, so none of that is measured and
-  `run_hoist_verb_400()` stands aside for such a line.
+  about any of it; the 428 rows stay green either way.
 - **A 3.9 drop or take matches its noun ANYWHERE in the line.** Falling out
   of the p39WHAT probe below: run390's drops (445F20) and takes (455B34)
   pick their object with co(obj, 2) / co(obj, 1), which matches a name
@@ -527,7 +529,7 @@ transcript names are in the code comment next to the named function, in
 
 ### Parser and dispatch
 
-- **A 4.0 library verb is matched anywhere in the line.** run400's input
+- **A library verb is matched anywhere in the line.** run400's input
   routine enters every one of its library handlers on `c(<word>)` -- the
   whole word, wherever it sits -- so a nonsense head changes nothing:
   `blorp take` is "Take what?", `blorp take coin` "You take the coin.",
@@ -552,6 +554,23 @@ transcript names are in the code comment next to the named function, in
   `cmdfile_pcasc.txt`, run400x Adrift_251_casc40.txt (2026-09-20): all 36
   cells match, the 428 rows are unmoved and sweep_wine_breaks is identical
   either way (no corpus line types a nonsense head).
+  Below 4.0 the same is true, but only five handlers were still anchored in
+  Scarier -- everything else already matched its word anywhere
+  (`run_therest_pre400()`, `run_therest_absent_370()`,
+  `lib_sitstand_anywhere()`), which is why `blorp drink`, `blorp push`,
+  `blorp sit` and `blorp read` already agreed. The five and their entry
+  disjunctions, all `c()` tests: takes (run380 43D788, run370 435E28) `get`
+  / `take` / `pick` -- `pick` only with no "from" in the line -- drops
+  (438659 / 430475) `drop` / `put down` / `leave`, wears (432D5C / 42C533)
+  `wear` / `put on`, removes (42FD4C / 4295FF) `remove` / `take off`, and
+  examines (43C69D / 434E2A) `x` / `examine` / `look at` / `ex` / `exam` /
+  `read`, with `look in` added at 3.80 and NO bare `look` at either. So
+  `blorp take` is "Take what?", `blorp wear` "Wear what?" and `blorp
+  examine` "Nothing special." run370x Adrift_250_casc37b.rtf, run380x
+  Adrift_249_casc38.rtf, run390x Adrift_250_casc39.txt (2026-09-20); same
+  `run_hoist_verb_line()`, same narrowing. The NOUN half of those five is
+  still open, and so is run370's own word for each of them (command slots
+  10-14) -- see the open lead.
 
 - **The Runner rewrites the typed line before anything looks at it, at
   every version, and 3.90/4.00 do it by SUBSTRING.** Below 3.90 the
