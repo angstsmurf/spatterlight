@@ -24121,9 +24121,14 @@ lib_cmd_attack_npcs_with (scr_gameref_t game)
  * 3.7/3.8 with the Battle System off answer `attack dave` with
  * DontUnderstand, while `hit dave` and `kick dave` get "Dave avoids your
  * feeble attempts." (run370x Adrift_194_pnpcone37, run380x Adrift_195,
- * 2026-09-19).  Why is not read: run380 characters()' arm at 440260 lists
- * c("attack") among hit/kill/kick/punch, and "attack" is in no other string
- * in either exe.  TRUE for such a line, which the caller leaves unhandled.
+ * 2026-09-19).  Read 2026-09-20: the feeble line is characters()' attack
+ * arm, which the turn tail runs only behind a therest message ending ", but
+ * nothing happens." -- and therest has hit/kick/push/pull/press arms but no
+ * "attack" arm, so a bare `attack` line reaches the tail with nothing
+ * written: DontUnderstand, no tick.  The arm's c("attack") only ever fires
+ * on a line that also holds one of those verbs (`push attack dave`), which
+ * is lib_hit_arm_pre390() under the push/pull/press handlers.  TRUE for
+ * such a line, which the caller leaves unhandled.
  */
 static scr_bool
 lib_attack_line_pre390 (scr_gameref_t game)
@@ -28027,41 +28032,164 @@ lib_nothing_happens_other (scr_gameref_t game,
 }
 
 
+static scr_bool lib_catch_all_names_pre390 (scr_gameref_t game,
+                                            scr_int object);
+
 /*
- * lib_hit_absent_npc_pre390()
+ * lib_hit_arm_pre390()
  *
- * run380 characters()' attack arm (440260-4404D9) and run370's (4383CD)
- * enter for hit/kill/kick/punch/attack when the message is empty or ends
- * ", but nothing happens." -- what therest's hit and kick arms (run380
- * 444598, 444B65) always leave -- and for the first character the line
- * names (Name or first Alias, no seen test) that is not in the room assign
- * "<Name> is not here!" (4404D9; run370 43865D).  So `hit cora` and `hit
- * cora with stone`, Cora next door and never met, are "Cora is not here!" (run370x
- * Adrift_196_pnpckill37 / Adrift_198_pnpcwith37, run380x Adrift_197 /
- * Adrift_199), where kill and punch keep therest's own line.  3.9 is
- * lib_attack_absent_npc().
+ * The pre-4.0 characters() attack arm (run380 440260-4404DD, run370
+ * 4383CD-438661), and why `attack dave` is DontUnderstand at 3.7/3.8
+ * while `hit dave` is "Dave avoids your feeble attempts." (run370x
+ * Adrift_242_pattackarm37, run380x Adrift_243_pattackarm38, 2026-09-20).
+ *
+ * generaltasks' turn tail (run380 443160, run370 43C4xx) runs characters()
+ * only when therest left a message, else prints DontUnderstand and ticks
+ * nothing.  The arm itself enters for a line holding c("hit"), c("kill"),
+ * c("kick"), c("punch") or c("attack") -- 3.8 adds "and no task ran" -- but
+ * ONLY when the message is empty or ends ", but nothing happens.", which is
+ * what therest's hit (444598), push (44492A), pull (44499F), press (4449D9)
+ * and kick (444B65) arms leave.  therest has no "attack" arm at all, so a
+ * bare `attack dave` reaches the tail with an empty message: DontUnderstand,
+ * no tick, and c("attack") in the arm is dead unless another of those verbs
+ * carries it -- `push attack dave`, `attack dave push` and `pull attack dave`
+ * are all "Dave avoids your feeble attempts." on both Runners, and `push
+ * attack cora` with Cora next door is "Cora is not here!".  kill and punch
+ * keep therest's own "Now that isn't very nice." / "Who do you think you
+ * are, Mike Tyson?" because those do not end ", but nothing happens.".
+ *
+ * The arm walks the characters in index order and takes the first the line
+ * names (c(Name) Or c(Alias(0)), no seen test).  Not in the room: "<Name>
+ * is not here!" (4404D9; 43865D).  In the room, no c("with"): "<Name>
+ * avoids <your> feeble attempts.".  With c("with"): a loop over every
+ * object the line names (3.8 co(), 3.7 c(Short) Or c(Alias(0))) whose Short
+ * or first Alias sits after the "with" -- a BINARY InStr of the raw name
+ * against the lower-cased line, so a capitalised Short never passes --
+ * writing, and the LAST match wins: not held "<You> don't have <the X>!"
+ * (44047B; 4385FF), Weapon "<You> swing at <Name> with <the X>, but you
+ * miss." (4403CF; 438557), else "I don't think <the X> would be a very
+ * affective weapon!" (440424; 4385A8).  No match leaves therest's
+ * nothing-happens line standing.  3.9 is lib_attack_absent_npc().
+ *
+ * Returns TRUE having printed; FALSE leaves the caller's own line.
  */
 static scr_bool
-lib_hit_absent_npc_pre390 (scr_gameref_t game)
+lib_hit_arm_pre390 (scr_gameref_t game)
 {
+  static const scr_char *const VERBS[] =
+      { "hit", "kill", "kick", "punch", "attack", NULL };
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
   const scr_char *input = run_get_dispatch_input ();
+  const scr_int version = prop_get_taf_version (bundle);
+  const scr_char *const *verb;
   scr_int npc;
 
-  if (!input || prop_get_taf_version (bundle) >= TAF_VERSION_390
-      || battle_is_enabled (game))
+  if (!input || version >= TAF_VERSION_390 || battle_is_enabled (game))
+    return FALSE;
+
+  for (verb = VERBS; *verb; verb++)
+    if (run_c_word_pre400 (version, input, *verb) >= 0)
+      break;
+  if (!*verb)
     return FALSE;
 
   for (npc = 0; npc < gs_npc_count (game); npc++)
     {
+      std::string lowered (input);
+      scr_int object, pick, with_at;
+      scr_vartype_t vt_key[4];
+
       if (!lib_npc_referenced (game, npc, input))
         continue;
-      if (npc_in_room (game, npc, gs_playerroom (game)))
+
+      if (!npc_in_room (game, npc, gs_playerroom (game)))
+        {
+          pf_buffer_string (filter, prop_get_indexed_string (bundle, "NPCs",
+                                                             npc, "Name"));
+          pf_buffer_string (filter, " is not here!\n");
+          return TRUE;
+        }
+
+      if (run_c_word_pre400 (version, input, "with") < 0)
+        {
+          lib_print_npc_np (game, npc);
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                       " avoids your feeble attempts.\n",
+                                       " avoids my feeble attempts.\n",
+                                       " avoids %player%'s feeble attempts.\n"));
+          return TRUE;
+        }
+
+      /* The Runner's line is lower-cased before the arm; InStr binary. */
+      for (std::string::size_type i = 0; i < lowered.size (); i++)
+        lowered[i] = tolower ((unsigned char) lowered[i]);
+      with_at = lowered.find ("with");
+
+      pick = -1;
+      for (object = 0; object < gs_object_count (game); object++)
+        {
+          const scr_char *shortname, *alias;
+          scr_bool named, after;
+
+          shortname = prop_get_indexed_string (bundle, "Objects",
+                                               object, "Short");
+          if (lib_alias_prepare (bundle, vt_key, "Objects", object) > 0)
+            {
+              vt_key[3].integer = 0;
+              alias = prop_get_string (bundle, "S<-sisi", vt_key);
+            }
+          else
+            alias = "";
+
+          named = version == TAF_VERSION_380
+                  ? lib_catch_all_names_pre390 (game, object)
+                  : run_c_word_pre400 (version, input, shortname) >= 0
+                    || (alias[0] != NUL
+                        && run_c_word_pre400 (version, input, alias) >= 0);
+          if (!named)
+            continue;
+
+          after = FALSE;
+          if (shortname[0] != NUL)
+            {
+              std::string::size_type at = lowered.find (shortname);
+              after = at != std::string::npos && (scr_int) at > with_at;
+            }
+          if (!after && alias[0] != NUL)
+            {
+              std::string::size_type at = lowered.find (alias);
+              after = at != std::string::npos && (scr_int) at > with_at;
+            }
+          if (after)
+            pick = object;
+        }
+      if (pick == -1)
         return FALSE;
 
-      pf_buffer_string (gs_get_filter (game),
-                        prop_get_indexed_string (bundle, "NPCs", npc, "Name"));
-      pf_buffer_string (gs_get_filter (game), " is not here!\n");
+      if (gs_object_position (game, pick) != OBJ_HELD_PLAYER)
+        {
+          lib_print_response_object (game, "You don't have ", "I don't have ",
+                                     "%player% don't have ", pick, "!\n");
+          return TRUE;
+        }
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = pick;
+      vt_key[2].string = "Weapon";
+      if (prop_get_boolean (bundle, "B<-sis", vt_key))
+        {
+          lib_print_response_npc (game, "You swing at ", "I swing at ",
+                                  "%player% swing at ", npc, " with ");
+          lib_print_object_np (game, pick);
+          pf_buffer_string (filter,
+                            lib_select_response (game, ", but you miss.\n",
+                                                 ", but I miss.\n",
+                                                 ", but misses.\n"));
+        }
+      else
+        lib_print_wrapped_object (game, "I don't think ", pick,
+                                  " would be a very affective weapon!\n");
       return TRUE;
     }
   return FALSE;
@@ -28076,7 +28204,7 @@ lib_hit_absent_npc_pre390 (scr_gameref_t game)
 scr_bool
 lib_cmd_hit_object (scr_gameref_t game)
 {
-  if (lib_hit_absent_npc_pre390 (game))
+  if (lib_hit_arm_pre390 (game))
     return TRUE;
   return lib_nothing_happens_object (game, "hit", "hits");
 }
@@ -28084,7 +28212,7 @@ lib_cmd_hit_object (scr_gameref_t game)
 scr_bool
 lib_cmd_kick_object (scr_gameref_t game)
 {
-  if (lib_hit_absent_npc_pre390 (game))
+  if (lib_hit_arm_pre390 (game))
     return TRUE;
   return lib_nothing_happens_object (game, "kick", "kicks");
 }
@@ -28092,18 +28220,24 @@ lib_cmd_kick_object (scr_gameref_t game)
 scr_bool
 lib_cmd_press_object (scr_gameref_t game)
 {
+  if (lib_hit_arm_pre390 (game))
+    return TRUE;
   return lib_nothing_happens_object (game, "press", "presses");
 }
 
 scr_bool
 lib_cmd_push_object (scr_gameref_t game)
 {
+  if (lib_hit_arm_pre390 (game))
+    return TRUE;
   return lib_nothing_happens_object (game, "push", "pushes");
 }
 
 scr_bool
 lib_cmd_pull_object (scr_gameref_t game)
 {
+  if (lib_hit_arm_pre390 (game))
+    return TRUE;
   return lib_nothing_happens_object (game, "pull", "pulls");
 }
 
@@ -28118,7 +28252,7 @@ lib_cmd_shake_object (scr_gameref_t game)
 scr_bool
 lib_cmd_hit_other (scr_gameref_t game)
 {
-  if (lib_hit_absent_npc_pre390 (game))
+  if (lib_hit_arm_pre390 (game))
     return TRUE;
   return lib_nothing_happens_other (game, "hit", "hits");
 }
@@ -28126,7 +28260,7 @@ lib_cmd_hit_other (scr_gameref_t game)
 scr_bool
 lib_cmd_kick_other (scr_gameref_t game)
 {
-  if (lib_hit_absent_npc_pre390 (game))
+  if (lib_hit_arm_pre390 (game))
     return TRUE;
   return lib_nothing_happens_other (game, "kick", "kicks");
 }
@@ -28134,18 +28268,24 @@ lib_cmd_kick_other (scr_gameref_t game)
 scr_bool
 lib_cmd_press_other (scr_gameref_t game)
 {
+  if (lib_hit_arm_pre390 (game))
+    return TRUE;
   return lib_nothing_happens_other (game, "press", "presses");
 }
 
 scr_bool
 lib_cmd_push_other (scr_gameref_t game)
 {
+  if (lib_hit_arm_pre390 (game))
+    return TRUE;
   return lib_nothing_happens_other (game, "push", "pushes");
 }
 
 scr_bool
 lib_cmd_pull_other (scr_gameref_t game)
 {
+  if (lib_hit_arm_pre390 (game))
+    return TRUE;
   return lib_nothing_happens_other (game, "pull", "pulls");
 }
 

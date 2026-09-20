@@ -390,11 +390,6 @@ the_hangover T34) went identical with that port on 2026-09-20.
 
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
-- **Why `attack dave` is DontUnderstand at 3.7/3.8** (battle off) while
-  `hit`/`kick dave` get "Dave avoids your feeble attempts." is unread:
-  run380's characters() arm ORs c("attack") in with the others, and
-  "attack" is in no other string of either exe. Ported as measured
-  (`lib_attack_line_pre390`).
 
 ---
 
@@ -2049,6 +2044,27 @@ transcript names are in the code comment next to the named function, in
   without get/remove never reaches insides(). 3.9 `take stone from cora`
   (absent) is "The stone isn't in or on anything!". `[<4.0]`
   p37/p38/p39NPCAMB (`lib_disambiguate_npc_pick`, 2026-09-19)
+- **Pre-4.0 attack arm hides behind ", but nothing happens.", so a bare
+  `attack` line is DontUnderstand.** generaltasks' turn tail runs
+  characters() only when therest left a message; the attack arm (run380
+  440260, run370 4383CD) then needs c(hit|kill|kick|punch|attack) -- 3.8
+  also "no task ran" -- and a buffer that is empty or ends ", but nothing
+  happens.", which only therest's hit/push/pull/press/kick arms leave.
+  therest has no attack arm, so `attack dave` reaches the tail empty:
+  "I don't understand.", no tick. c("attack") fires only behind one of those
+  verbs: `push attack dave`, `attack dave push`, `pull attack dave` are all
+  "Dave avoids your feeble attempts.", `push attack cora` (next door) is
+  "Cora is not here!"; `kill`/`punch dave` keep therest's own "Now that
+  isn't very nice." / "Who do you think you are, Mike Tyson?" because those
+  do not end ", but nothing happens.". The with-loop takes the LAST named
+  object whose raw Short/Alias(0) sits after "with" (binary InStr against
+  the lower-cased line): not held "You don't have the stone!", Weapon "You
+  swing at Dave with the stone, but you miss." (comma, all Runners), else
+  "I don't think the stone would be a very affective weapon!"; `attack dave
+  with stone` is the stone's catch-all. Identical at 3.7 and 3.8. `[<3.9]`
+  cmdfile_pattackarm.txt on p37/p38NPCAMB, run370x Adrift_242_pattackarm37,
+  run380x Adrift_243_pattackarm38 (`lib_hit_arm_pre390` under the
+  hit/kick/push/pull/press object and other handlers, 2026-09-20)
 - **Namesake characters with the Battle System ON: dobattle strikes them
   all.** run390's dobattle (44CC1C-44D1D5) has no loop break either, so a
   line naming two present characters by Name or first Alias strikes both
