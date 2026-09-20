@@ -999,8 +999,9 @@ extern scr_int run_c_word_pre400 (scr_int version, const scr_char *line,
 extern void lib_verb_object_note_line_top (scr_gameref_t game);
 extern void lib_co_note_line_top (scr_gameref_t game);
 extern void lib_co_400_reset (void);
-extern void lib_co_400_begin_line (void);
+extern void lib_co_400_begin_line (scr_bool is_new_line);
 extern scr_bool lib_co_400_question_pending (void);
+extern void lib_co_400_take_question (void);
 extern const scr_char *lib_co_400_pending_command (void);
 extern scr_int lib_co_400_forced (void);
 extern void lib_co_400_set_forced (scr_int object);

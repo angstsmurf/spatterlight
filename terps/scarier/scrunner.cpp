@@ -6951,11 +6951,13 @@ run_player_input (scr_gameref_t game)
    */
 
   /*
-   * Note whether a 4.0 ambiguity prompt left a question open, and close it:
-   * whatever this line turns out to be, the question is spent by the end of
-   * it.  See lib_co_400_raise() in sclibrar.cpp.
+   * Note whether a 4.0 ambiguity prompt left a question open.  The question
+   * a typed LINE began with is spent by its first element; one raised by an
+   * earlier element of the same line is not, and the element that meets it
+   * answers "That wasn't one of the options!".  See lib_co_400_raise() in
+   * sclibrar.cpp.
    */
-  lib_co_400_begin_line ();
+  lib_co_400_begin_line (is_new_line);
   lib_battle_who_begin_element (is_new_line);
   lib_with_prefix_390_begin_element ();
 
@@ -7076,6 +7078,7 @@ run_player_input (scr_gameref_t game)
     {
       const scr_int answer = lib_co_400_answer_object (game, command);
 
+      lib_co_400_take_question ();
       pf_empty (filter);
       if (lib_co_400_pending_is_npc ())
         {

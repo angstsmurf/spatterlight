@@ -85,6 +85,37 @@ The measurements and the rule they add up to are written up in
 notes/WINE-TRANSCRIPTS-TODO.md and in the lib_co_400_*() block comment in
 sclibrar.cpp; they were ported 2026-09-07.
 
+Five more feeds (2026-09-20) settle the one string those six never
+triggered, "That wasn't one of the options!":
+
+    cmdfile_co7.txt  two ambiguous elements in ONE typed
+                     line, by `and`, `then` and `. `      Adrift_co7
+    cmdfile_co8.txt  three of them, mixed terms, and
+                     `turns` between (none is a turn)     Adrift_co8
+    cmdfile_co9.txt  three and four elements: which arm
+                     each one lands in                    Adrift_co9
+    cmdfile_co10.txt the same ambiguity on the NEXT typed
+                     line, and a different one            Adrift_co10
+    cmdfile_co11.txt the elements that say nothing --
+                     `chop tree`, `zzz` -- beside those
+                     that reply                           Adrift_co11
+
+What they show: generaltasks keeps the question (494234) and the term of
+the last prompt (4941F4) separately.  The question is taken at the top of
+a typed LINE (489FD4) and spent by its first element (48B5FC), so one
+raised by an earlier element of the SAME line is still standing at 48B6AE
+and answers "That wasn't one of the options!" without looking at the
+candidates; only with no question standing is the term compared with the
+last prompt's -- equal is "That is still ambiguous!", different is a full
+prompt -- and an element that flags no ambiguity forgets that term
+(48B61F).  An element that produced NO reply never gets that far: the
+answer slot claims it first (48AFF3), which is what separates `chop tree
+and chop tree` (still ambiguous) from `x tree and x tree` (wasn't one of
+the options).  PORTED 2026-09-20; co7-co11 are identical to run400 on
+every turn but one, `chop tree and chop keys`, where run400 REBUILDS the
+line from the answer instead of scoring the candidates -- see the open
+lead of that name in the notes.
+
 Usage:
     python3 make_400_coprobe.py p4CO.plain
     python3 taftool.py pack p4CO.plain <donor.taf> p4CO.taf

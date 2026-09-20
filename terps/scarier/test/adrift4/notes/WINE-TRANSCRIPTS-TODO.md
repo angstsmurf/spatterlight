@@ -270,10 +270,24 @@ not by a tick.
   because 463640 scores the whole Short and "stone" matches neither
   "red stone" nor "blue stone".
 - **Ambiguity prompts:** co()'s crowded arm (454454) and its -2/-1
-  answers; "That wasn't one of the options!" has never been triggered;
-  whether an object ambiguity on a task-answered line also suppresses the
-  tick. (454454's Prefix contest itself is measured and ported -- see "The
-  4.0 Prefix contest" in the index.)
+  answers; whether an object ambiguity on a task-answered line also
+  suppresses the tick. (454454's Prefix contest itself is measured and
+  ported -- see "The 4.0 Prefix contest" in the index, and "That wasn't
+  one of the options!" for the 4.0 state machine.)
+- **A 4.0 answer REBUILDS the line rather than scoring the candidates.**
+  generaltasks splices the answer words into the stored command in front
+  of the term and re-runs the whole thing (48B097-48B15B), the way 3.90's
+  prompt does; Scarier instead scores the answer against the prompt's own
+  candidates and re-runs the original command with the winner forced
+  (`lib_co_400_answer_object`, `lib_co_400_forced`). The two agree
+  wherever the rebuilt line resolves to one object, and the one cell that
+  separates them is `chop tree and chop keys` on p4CO: run400 rebuilds
+  `chop chop keys tree`, which names the keys as well, and asks "Which
+  keys.  The red tree, the blue tree, the mustang key or the truck key?",
+  where Scarier finds nothing of "chop keys" among the two trees and says
+  "That is still ambiguous!" (Adrift_co11 turn 15, 2026-09-20). Porting it
+  means unpicking `lib_co_400_forced` from both resolvers and from the
+  three suppressors that consult it, so it is its own job.
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -1007,6 +1021,34 @@ transcript names are in the code comment next to the named function, in
   generalises the sswhore refusal already noted. `[4.0]` p4LOCK
   (`cmdfile_lock2.txt`, Adrift_lock2.txt; `lib_lock_absent_object_400`,
   `lib_lock_backend`, 2026-09-20)
+- **"That wasn't one of the options!" is the 4.0 question meeting a SECOND
+  element of the same typed line.** generaltasks keeps two things, not
+  one: the question (494234, "term|command") and the term of the last
+  prompt (4941F4). The question is taken at the top of a typed LINE
+  (489FD4) and spent by its first element (48B5FC) -- the queue drain and
+  the answer re-runs jump back in below that capture, at 489FEB -- so a
+  question raised by an EARLIER element of the line being run is still
+  standing at 48B6AE, where the candidate list is not consulted at all:
+  "That wasn't one of the options!", and the question is dropped
+  (48BB5D/48BB8E). Only then is the term compared with the last prompt's
+  (48B6F6, 48B80F for a character): equal is "That is still ambiguous!"
+  and clears both, different is a full prompt, and an element that flags
+  no ambiguity at all forgets the term (48B61F). So on p4CO `x tree and x
+  tree` is prompt + wasn't-one-of, `x tree and x tree and x tree` adds
+  still-ambiguous, `x tree and x rock and x tree` still says wasn't-one-of
+  (the question survives an element that did something), `x tree` / `x
+  tree` / `x tree` is prompt / still-ambiguous / prompt, and `x tree` / `x
+  keys` gets a second full prompt -- which is what proves the arm is a
+  comparison of terms and not a flag. An element that says NOTHING never
+  reaches any of this: the answer slot claims it first (48AFF3, gated on
+  the reply MemVar_4941B0 being empty), which is why `chop tree and chop
+  tree` -- the unhandled-verb tie, whose catch-all the ambiguity holds
+  back -- is "That is still ambiguous!" where `x tree and x tree` is not,
+  and why the element after an answered one is dropped with the rest of
+  the line. `[4.0]` p4CO (`make_400_coprobe.py`, `cmdfile_co7.txt` ..
+  `cmdfile_co11.txt`, Adrift_co7..co11; `lib_co_400_begin_line`,
+  `lib_co_400_raise_common`, `lib_co_400_take_question`,
+  `lib_co_400_raise_for_short_tie`, 2026-09-20)
 - **Pre-4.0 read is examines()' object too.** A `read` line naming more
   than one object is settled exactly as `x` settles it: 3.90 by
   referencedob()'s last-word pass (`read rock gem` -> "You can't read the

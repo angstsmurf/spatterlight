@@ -5591,8 +5591,60 @@ lib_prepass_seen_3738 (scr_gameref_t game, const scr_char *command)
  *
  * Either answer clears the question: Adrift_925's `x keys` gets the full
  * prompt again immediately after `chop keys` had answered "That is still
- * ambiguous!".  The sibling string "That wasn't one of the options!" was
- * never triggered by any cell and is still unexplained.
+ * ambiguous!".
+ *
+ * The sibling string "That wasn't one of the options!" belongs to the OTHER
+ * half of the state.  generaltasks keeps two things, not one: the question
+ * itself (MemVar_494234, "term|command") and the term of the last prompt
+ * (MemVar_4941F4).  They are spent differently.
+ *
+ *   - The question is taken at the top of a typed LINE and spent by its
+ *     first element: 489FD4 copies it into var_98 -- and 489FEB, where the
+ *     queue drain and the answer re-runs jump back in, skips that copy -- and
+ *     48B5FC clears it again when it is still the same string.  A question
+ *     raised by an EARLIER ELEMENT of the line being run is therefore never
+ *     spent, and 48B6AE finds it still standing: the candidate list is not
+ *     consulted at all, the answer is "That wasn't one of the options!", and
+ *     the question is dropped (48BB5D/48BB8E).
+ *   - The prompted term outlives that.  48B6F6 (and 48B80F for a character)
+ *     compares it with the term this element flagged and prints "That is
+ *     still ambiguous!" only when they are the same string, clearing both;
+ *     48BB53 stores the term of every full prompt.  An element that flagged
+ *     no ambiguity at all forgets it (48B61F), and 48BB92 clears the flagged
+ *     term at the end of every element.
+ *
+ * Measured on p4CO with run400 (Adrift_co7 to Adrift_co11, 2026-09-20), all
+ * administrative -- `turns` never moves:
+ *
+ *     x tree and x tree        ->  prompt / wasn't one of the options
+ *     x tree then x tree       ->  the same, and so is `x tree. x tree`
+ *     x keys and x tree        ->  prompt / wasn't one of the options
+ *     x tree and x tree and x tree
+ *                              ->  prompt / wasn't / still ambiguous
+ *     x tree and x tree and x keys
+ *                              ->  prompt / wasn't / Which keys...?
+ *     x keys and x tree and x tree
+ *                              ->  Which keys...? / wasn't / Which tree...?
+ *     x tree and x rock and x tree
+ *                              ->  prompt / A plain thing. / wasn't
+ *     x tree / x tree / x tree ->  prompt / still ambiguous / prompt
+ *     x tree / x keys          ->  prompt / Which keys...?
+ *     x rock and x tree / x keys
+ *                              ->  prompt / Which keys...?
+ *
+ * The last two are what proves the "still ambiguous" arm is a comparison of
+ * terms and not a flag: a DIFFERENT ambiguity right after a pending question
+ * gets a full prompt.  `x tree and x rock and x tree` is what proves the
+ * question survives an element that did something, and `x tree and x tree
+ * and x tree` that "wasn't one of the options" leaves the prompted term
+ * behind for the element after it.
+ *
+ * An element that says NOTHING never reaches any of this: the answer slot
+ * claims it first, and takes the rest of the typed line with it.  That is
+ * the whole difference between `chop tree and chop tree` (prompt, then the
+ * slot's own "That is still ambiguous!") and `x tree and x tree`, and
+ * `chop tree and chop tree and chop tree` prints nothing for its third
+ * element at all -- see lib_co_400_raise_for_short_tie().
  */
 static scr_bool lib_cant_do_other (scr_gameref_t game, const scr_char *verb);
 static scr_int lib_verb_object_name_score (scr_gameref_t game, scr_int object,
@@ -5611,6 +5663,13 @@ static std::string lib_co_400_command;
 static std::vector<scr_int> lib_co_400_candidates;
 static scr_int lib_co_400_forced_object = -1;
 
+/* var_98: the question this typed line began with, still to be spent. */
+static scr_bool lib_co_400_spend = FALSE;
+
+/* MemVar_4941F4, and whether this element flagged an ambiguity at all. */
+static std::string lib_co_400_prompt_term;
+static scr_bool lib_co_400_flagged = FALSE;
+
 void
 lib_co_400_reset (void)
 {
@@ -5621,6 +5680,9 @@ lib_co_400_reset (void)
   lib_co_400_candidates.clear ();
   lib_co_400_forced_object = -1;
   lib_co_400_refused = FALSE;
+  lib_co_400_spend = FALSE;
+  lib_co_400_prompt_term.clear ();
+  lib_co_400_flagged = FALSE;
 }
 
 /*
@@ -5650,12 +5712,34 @@ lib_co_400_set_question (scr_bool pending, const std::string &term,
   lib_co_400_candidates = candidates;
 }
 
-/* Called once per typed line element, before it is dispatched. */
+/*
+ * Called once per typed line element, before it is dispatched.  IS_NEW_LINE
+ * marks the first element of a typed line, the only one that can spend the
+ * question that was standing when the line was read (489FD4 / 48B5FC); a
+ * question raised by an earlier element of the SAME line survives into this
+ * one and becomes "That wasn't one of the options!".
+ *
+ * The prompted term (48BB53) is forgotten by the first element that flags no
+ * ambiguity at all (48B61F), which is why `x tree` / `look` / `x tree` gets
+ * two full prompts.
+ */
 void
-lib_co_400_begin_line (void)
+lib_co_400_begin_line (scr_bool is_new_line)
 {
+  if (!lib_co_400_flagged)
+    lib_co_400_prompt_term.clear ();
+  lib_co_400_flagged = FALSE;
+
+  if (is_new_line)
+    lib_co_400_spend = lib_co_400_pending;
+
+  /* The answer slot reads the question as it stood BEFORE the spend. */
   lib_co_400_was_pending = lib_co_400_pending;
-  lib_co_400_pending = FALSE;
+  if (lib_co_400_spend)
+    {
+      lib_co_400_pending = FALSE;
+      lib_co_400_spend = FALSE;
+    }
   lib_co_400_refused = FALSE;
 }
 
@@ -5663,6 +5747,18 @@ scr_bool
 lib_co_400_question_pending (void)
 {
   return lib_co_400_was_pending;
+}
+
+/*
+ * Either answer takes the question with it before the original line is
+ * re-run (48B152 and 48B193, both just before the jump back to 489FEB).
+ * The term, the command and the candidates stay where they are: the slot is
+ * still reading them, and the next prompt writes them all again.
+ */
+void
+lib_co_400_take_question (void)
+{
+  lib_co_400_pending = FALSE;
 }
 
 const scr_char *
@@ -5786,10 +5882,28 @@ lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
 
   game->is_admin = TRUE;
 
-  if (from_scan && lib_co_400_was_pending)
+  if (from_scan)
     {
-      pf_buffer_string (filter, "That is still ambiguous!\n");
-      return;
+      /* 48B6AE, on a question an earlier element of this line raised. */
+      if (lib_co_400_pending)
+        {
+          pf_buffer_string (filter, "That wasn't one of the options!\n");
+          lib_co_400_pending = FALSE;
+          lib_co_400_term.clear ();
+          lib_co_400_command.clear ();
+          lib_co_400_candidates.clear ();
+          lib_co_400_flagged = TRUE;
+          return;
+        }
+
+      /* 48B6F6/48B80F: the same term prompted for twice running. */
+      lib_co_400_flagged = TRUE;
+      if (!lib_co_400_prompt_term.empty () && lib_co_400_prompt_term == term)
+        {
+          pf_buffer_string (filter, "That is still ambiguous!\n");
+          lib_co_400_prompt_term.clear ();
+          return;
+        }
     }
 
   pf_buffer_string (filter, "Which ");
@@ -5813,6 +5927,8 @@ lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
   lib_co_400_term = term;
   lib_co_400_command = command ? command : "";
   lib_co_400_candidates = objects;
+  if (from_scan)
+    lib_co_400_prompt_term = term;      /* 48BB53 */
 }
 
 static void
@@ -5985,6 +6101,23 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
 
   if (!input || tied.size () < 2)
     return FALSE;
+
+  /*
+   * With a question already open this element never reaches the prompt at
+   * all.  generaltasks tries the ANSWER first (48AFF3), and its gate is
+   * "this element has said nothing yet" -- MemVar_4941B0, cleared at the top
+   * of every element (489FEE) and still empty here because the ambiguity
+   * flag holds the unhandled-verb catch-all back.  So `chop tree` twice over
+   * is the answer slot's "That is still ambiguous!" and not the scan's
+   * "That wasn't one of the options!", which only an element that DID answer
+   * -- an examine, whose reply is in the buffer -- can reach (Adrift_co11,
+   * 2026-09-20).
+   */
+  if (lib_co_400_question_pending ())
+    {
+      lib_co_400_note_refusal ();
+      return FALSE;
+    }
 
   for (index_ = 0; index_ < (scr_int) tied.size (); index_++)
     {
