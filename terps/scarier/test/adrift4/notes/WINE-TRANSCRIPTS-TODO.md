@@ -270,17 +270,11 @@ the_hangover T34) went identical with that port on 2026-09-20.
   whether an object ambiguity on a task-answered line also
   suppresses the tick. (454454's Prefix contest itself is measured and
   ported -- see "The 4.0 Prefix contest" in the index, and "That wasn't
-  one of the options!" for the 4.0 state machine.) The two p4WTIE cells
-  this still costs, both WITHOUT " with " (2026-09-20, Adrift_wtie6/7):
-  `chop stone knife` is run400's DontUnderstand text where SCARE prompts
-  -- the knife is the first hit and no tied Short matches the object the
-  pending test looks at, so Me(424) is never set, which only the full
-  `lib_name_object_resolve_400` model tells apart from p4CO's `chop tree
-  rock` (a prompt in both) -- and `cut stone knife` is therest's "You
-  can't cut that.", a filled buffer swallowing the parked question, where
-  SCARE prompts. The measured half of the second-noun lead is now in the
-  index, under "A 4.0 question raised by a " with " line comes out of ONE
-  half" and "A 4.0 lock or unlock never asks which key".
+  one of the options!" for the 4.0 state machine.) The second-noun lead is
+  now measured and ported in full; see the index, under "A 4.0 question
+  raised by a " with " line comes out of ONE half", "A 4.0 lock or unlock
+  never asks which key" and "A 4.0 crowd is the WHOLE line's, and its
+  first object decides".
 - **Two 4.0 turns SCARE does not count** (p4WTIE, 2026-09-20; both
   pre-date the with-half port, checked against the build before it).
   `take stone with knife` prompts AND ticks in run400, where the same
@@ -1077,6 +1071,24 @@ transcript names are in the code comment next to the named function, in
   (`cmdfile_wtie.txt`, `cmdfile_wtie5.txt` .. `cmdfile_wtie9.txt`;
   Adrift_wtie, Adrift_wtie5..9; `lib_with_split_crowd_400`,
   `lib_disambiguate_object`, `lib_cmd_verb_object`, 2026-09-20)
+- **A 4.0 crowd is the WHOLE line's, and its FIRST object decides whether
+  the question is asked.** Away from examine, the candidates are 463640's
+  over the whole typed line -- every object of the top score, a second
+  noun included -- and not the `%object% *` reference set a library row
+  bound. The walk keeps one best, and only a tie whose Short matches that
+  best's parks the pending object (Me(424)) the question is asked from, so
+  a namesake pair named AFTER some other object of the same score asks
+  nothing at all: `chop stone knife` is the game's DontUnderstand text,
+  where `chop stone`, `chop stone with knife` and p4CO's `chop tree rock`
+  (the pair first, the odd one after) all ask. A crowd that asks nothing
+  leaves the handler with no object rather than a listing, and the command
+  goes on to its own `%text%` row: `cut stone knife` is "You can't cut
+  that." and `open box knife` "You can't open that.", both counted turns.
+  That retires SCARE's "Please be more clear, what do you want to
+  <verb>?", which is in no Runner's string pool, from every 4.0 path but
+  examine's. `[4.0]` p4WTIE (`cmdfile_wtie6.txt`, `cmdfile_wtie7.txt`;
+  Adrift_wtie6/7; `lib_co_400_raise_for_short_tie`,
+  `lib_disambiguate_object`, 2026-09-20)
 - **"That wasn't one of the options!" is the 4.0 question meeting a SECOND
   element of the same typed line.** generaltasks keeps two things, not
   one: the question (494234, "term|command") and what the last prompt

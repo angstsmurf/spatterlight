@@ -6272,7 +6272,8 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *input = run_get_dispatch_input ();
-  scr_int index_;
+  const scr_char *term;
+  scr_int index_, count;
 
   if (!input || tied.size () < 2)
     return FALSE;
@@ -6294,35 +6295,34 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
       return FALSE;
     }
 
+  /*
+   * The crowd's FIRST object decides: the walk keeps one best, and only a
+   * tie whose Short matches the best's parks the pending object the
+   * question is asked from.  So a namesake pair the line names after some
+   * other object of the same score never asks -- p4WTIE's `chop stone
+   * knife` is the game's DontUnderstand text, where `chop stone` and
+   * p4CO's `chop tree rock` (the pair first, the odd one after) both ask
+   * (Adrift_wtie6/7, 2026-09-20).
+   */
+  term = prop_get_indexed_string (bundle, "Objects", tied[0], "Short");
+  if (scr_strempty (term) || !lib_input_contains_word (input, term))
+    return FALSE;
+
+  count = 0;
   for (index_ = 0; index_ < (scr_int) tied.size (); index_++)
     {
-      const scr_char *term;
-      scr_int other, count;
+      const scr_char *name;
 
-      term = prop_get_indexed_string (bundle, "Objects", tied[index_],
+      name = prop_get_indexed_string (bundle, "Objects", tied[index_],
                                       "Short");
-      if (scr_strempty (term) || !lib_input_contains_word (input, term))
-        continue;
-
-      count = 0;
-      for (other = 0; other < (scr_int) tied.size (); other++)
-        {
-          const scr_char *name;
-
-          name = prop_get_indexed_string (bundle, "Objects", tied[other],
-                                          "Short");
-          if (!scr_strempty (name) && scr_strcasecmp (name, term) == 0)
-            count++;
-        }
-      if (count < 2)
-        continue;
-
-      lib_co_400_raise (game, lib_co_400_scan_term_400 (game, tied, term),
-                        tied);
-      return TRUE;
+      if (!scr_strempty (name) && scr_strcasecmp (name, term) == 0)
+        count++;
     }
+  if (count < 2)
+    return FALSE;
 
-  return FALSE;
+  lib_co_400_raise (game, lib_co_400_scan_term_400 (game, tied, term), tied);
+  return TRUE;
 }
 
 /*
@@ -7515,10 +7515,10 @@ pre400_take_done:
    * do you want to <verb>?" is a SCARE invention -- the string is in none of
    * the four Runner binaries -- and what run400 really prints where two
    * present objects answer to the typed noun is the same "Which <term>.
-   * <list>?" the 3.7/3.8 scan above raises.  Measured on the examine path
-   * (see lib_co_400_raise()); the other library commands that disambiguate
-   * an object were not measured, but they cannot be printing an invented
-   * string either, so they share the wording here.
+   * <list>?" the 3.7/3.8 scan above raises (see lib_co_400_raise()).  Away
+   * from examine no 4.0 command reaches the listing at all: a crowd that
+   * asks nothing hands the handler no object, and the command goes on to
+   * its own %text% row.
    */
   if (lib_is_version_400 (game))
     {
@@ -7530,20 +7530,46 @@ pre400_take_done:
        * stones and not the box, and `x knife with stone` the same, where an
        * examine whose own half ties keeps the whole line's list below.
        */
-      if (lib_with_split_crowd_400 (game,
-                                    strcmp (verb, "examine") == 0, &crowd))
+      const scr_bool examine = strcmp (verb, "examine") == 0;
+      scr_bool raised;
+
+      if (lib_with_split_crowd_400 (game, examine, &crowd))
+        raised = lib_co_400_raise_for_short_tie (game, crowd);
+      else if (examine)
+        raised = lib_co_400_raise_for_references (game);
+      else
         {
-          if (lib_co_400_raise_for_short_tie (game, crowd))
-            {
-              if (is_ambiguous)
-                *is_ambiguous = TRUE;
-              return -1;
-            }
+          /*
+           * Away from examine the crowd is 463640's, over the whole line,
+           * and not the reference set our own `%object% *` row bound: a
+           * second noun of the same score joins it, and a crowd it leads
+           * asks nothing.  p4WTIE `cut stone knife` is therest's "You
+           * can't cut that." where `cut stone` asks (Adrift_wtie6,
+           * 2026-09-20) -- the knife is the crowd's first object, so the
+           * stones never park a pending object.
+           */
+          raised = lib_verb_object_resolve_400_string
+                     (game, run_get_dispatch_input (), &crowd, TRUE) == -1
+                   && lib_co_400_raise_for_short_tie (game, crowd);
         }
-      else if (lib_co_400_raise_for_references (game))
+      if (raised)
         {
           if (is_ambiguous)
             *is_ambiguous = TRUE;
+          return -1;
+        }
+      if (!examine)
+        {
+          /*
+           * And a 4.0 crowd that asks nothing leaves the handler with no
+           * object at all rather than a listing: the command goes on to
+           * its own %text% row, which is where "You can't cut that." and
+           * "You can't open that." come from (Adrift_wtie6 `cut stone
+           * knife`, `open box knife`, 2026-09-20).  The invented listing
+           * below is 3.9-and-below's alone.
+           */
+          if (is_ambiguous)
+            *is_ambiguous = FALSE;
           return -1;
         }
     }
