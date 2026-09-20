@@ -275,14 +275,68 @@ the_hangover T34) went identical with that port on 2026-09-20.
   raised by a " with " line comes out of ONE half", "A 4.0 lock or unlock
   never asks which key" and "A 4.0 crowd is the WHOLE line's, and its
   first object decides".
-- **Two 4.0 turns SCARE does not count** (p4WTIE, 2026-09-20; both
-  pre-date the with-half port, checked against the build before it).
-  `take stone with knife` prompts AND ticks in run400, where the same
-  prompt from `take stone`, or from any therest verb with a " with " on
-  the line, does not. And an ANSWER that rebuilds a with-line ticks: `cut
-  rope with stone` / `red stone` is "You don't have the red stone." plus
-  the event, where SCARE prints the line without spending a turn
-  (Adrift_wtie6 turn 11, Adrift_wtie8 turn 10).
+- **A 4.0 turn SCARE does not count** (p4WTIE, 2026-09-20; measured
+  against the build before the with-half port). `take stone with knife`
+  prompts AND ticks in run400, where the same prompt from `take stone`,
+  or from any therest verb with a " with " on the line, does not. (The
+  other half of this lead, the answer that rebuilds a with-line, is
+  PORTED -- see "A 4.0 answer REBUILDS the typed line" in the index.)
+
+  PARKED 2026-09-20, with the measuring done and the mechanism one step
+  short. The tick test is `loc_48B599: If 4941AD = 0 Then If 494281 = 0
+  And 4941EC = -1 Then 494204 += 1 : 468DA0() : 449310()`, and the SAME
+  4941EC decides at 48B60C whether the handler's own text is printed as
+  it stands (< 0) or generaltasks sets 494281 = 1 and rebuilds its own
+  registered "Which X." prompt from 4941EC/4941F0 (>= 0). So a 4.0
+  ambiguity that ticks is one whose prompt is NOT answerable, and the two
+  look identical on the page. Adrift_wtie15 measures exactly that: `take
+  stone with knife` prompts and ticks, and the answer `red stone` is "I
+  don't understand what you want me to do with the red stone." with no
+  tick and no stone taken, while bare `take stone` prompts without a tick
+  and the answer `blue stone` is "You take the blue stone.  TICK." Same
+  prompt text, opposite machines behind it.
+
+  The measured take cells (wtie11/12/16/17, run400, `look` between every
+  pair): TICK for `stone|knife`, `stone|box`, `stone|rope`, `stone|coin`,
+  `stone|emerald`, `ruby|stone`, `emerald|stone` (and for `rope|knife` /
+  `zzz|knife`, which resolve the knife outright and reach the take loop,
+  where 473589 sets 4941EC = -1 -- those are understood); NO tick for
+  `stone|zzz`, `stone|qqq`, `stone|` (empty tail), `rope|stone`,
+  `knife|stone`, `box|stone`, `zzz|stone` and bare `take stone`. The fit
+  is: TICK iff the HEAD half names a mode-1 pass-0 candidate (dynamic,
+  present, NOT held, seen) and the TAIL half names some object -- word
+  order decides, although the resolve does not (`take rope with ruby`
+  takes the ruby, wtie17). wtie18 is the unhandled-verb control: no `cut
+  ... with ...` cell ticks, and therest 489F4C resolves the HEAD first
+  (`cut zzz with stone` -> "NO IDEA.") and only then the TAIL.
+
+  What the listing says, and why it does not reach the measurement yet.
+  The line never gets past takes(): 4733BD prints "Which <Short>.  <list>"
+  only when 4941EC >= 0, get_outer returns 0, but the buffer is no longer
+  empty, so 44CCE0 reports the line handled at 44CCC0 and 48A489 jumps to
+  48B4E3 -- therest, and every other resolver on the chain, is skipped.
+  The scorer 463640 (46328C-463387) counts whole-word Short/alias/Prefix
+  hits with no regard for position, so "get stone with knife" and "get
+  knife with stone" score identically; walking its arms (46339C first,
+  4633C3 tie with the sticky `Short(Abs(var_86))` +2 quirk, 463421 better,
+  46361D restart, 46353E pass-1 restore `Me(424) = var_A8`) gives
+  4941EC = 5 (the blue stone) for BOTH, i.e. no tick for either. The
+  writer that leaves -1 on the ticking half is still unfound. Ruled out:
+  the scorer's order; a second takes() call (the " and " loop is not
+  entered); a " with " split inside takes() (its only 463640 calls are
+  472EF1, 473011, 473184); every other 463640 caller (476468, 463C30,
+  4624B0, 459DB4, 46E5D8, 48C0F0, 489F4C -- all verb-gated or skipped);
+  the task dispatcher 44CCE0 (it only calls execute_task 45A3EC, and so
+  4941EC's writer at 45A3CE, when 454EF0 found a task, and p4WTIE's one
+  task does not match); the NPC loop at 48B56E and characters() 480674
+  (no NPCs in the probe). Next step, unfinished: read 48B4E3-48B599 (the
+  "With what?" block, 494234 = 494174 & " with ", 494281 = 1) line by
+  line -- it is the only code between the jump and the tick test -- and,
+  failing that, instrument rather than derive: vbrng.dll already runs
+  inside the process and reads the P-code IP out of ESI, so a debug
+  register on 0x4941EC plus a vectored handler would name the last writer
+  outright. Feeds: `~/adrift-battle/runner/wine/cmdfile_wtie1[1-8].txt`
+  -> `pfx/drive_c/adrift/Adrift_wtie1[1-8].txt`.
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -1147,9 +1201,17 @@ transcript names are in the code comment next to the named function, in
   shared, and `chop keys`, `chop rock keys`, `chop hut keys` are all
   refusals. Why the hut/shed pair parks nothing at 4941EC where the trees
   and keys do is NOT modelled; the aliases are read off our own tie
-  instead. `[4.0]` p4CO (`cmdfile_co12.txt` .. `cmdfile_co14.txt`,
-  Adrift_co12..co14; `lib_co_400_object_answer_line`,
-  `lib_co_400_scan_term_400`, `lib_co_400_raise_common`, 2026-09-20)
+  instead. And the rebuilt line is a TURN of its own: 489FEB is above the
+  stores that mark a line administrative, so the answer is counted by what
+  the rebuilt line does, not by the prompt that asked for it -- `cut rope
+  with stone` is the question and no tick, and `red stone` runs `cut rope
+  with red stone`, says "You don't have the red stone." and ticks, where
+  SCARE printed the refusal without spending a turn. A re-run that asks
+  again marks itself, and so does the still-ambiguous arm, so only a line
+  that did something reaches the clock. `[4.0]` p4CO (`cmdfile_co12.txt`
+  .. `cmdfile_co14.txt`, Adrift_co12..co14) and p4WTIE (Adrift_wtie6 turn
+  11, Adrift_wtie8 turn 10); `lib_co_400_object_answer_line`,
+  `lib_co_400_scan_term_400`, `lib_co_400_raise_common`, 2026-09-20
 - **Pre-4.0 read is examines()' object too.** A `read` line naming more
   than one object is settled exactly as `x` settles it: 3.90 by
   referencedob()'s last-word pass (`read rock gem` -> "You can't read the

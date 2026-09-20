@@ -40,7 +40,7 @@ does its own work:
 A length-1 self-restarting event prints TICK. on every counted turn, so an
 administrative line can be told from a turn.
 
-The ten feeds driven, all run400, all 2026-09-20
+The eighteen feeds driven, all run400, all 2026-09-20
 (~/adrift-battle/runner/wine/cmdfile_wtie*.txt ->
 pfx/drive_c/adrift/Adrift_wtie*.txt):
 
@@ -62,6 +62,24 @@ pfx/drive_c/adrift/Adrift_wtie*.txt):
             and `chop zzz with stone`
     wtie9   the examine matrix, head and tail, knife/rope/box/zzz
     wtie10  the pick-up proved with `i` on both sides of it
+    wtie11  the take matrix: `take stone with knife/zzz`, `take
+            rope/zzz with stone`, then the stones taken and dropped, and
+            `take stone from knife`
+    wtie12  the same head/tail swap for held and alias nouns: `take knife
+            with stone`, `take ruby with knife`, `take gems with knife`
+    wtie13  the nonsense tail (`take ruby with zzz` takes the ruby) and
+            the drop cells, held and tied (`drop coin with knife/zzz`)
+    wtie14  the four cells that tell the tick apart: `take stone with
+            qqq`, `... with knife`, bare `take stone`, `take stone with`
+    wtie15  the prompts ANSWERED: the ticking one is not answerable ("I
+            don't understand what you want me to do with the red stone.",
+            no tick), the quiet one is ("You take the blue stone.")
+    wtie16  `take ruby/emerald with stone` and back, and the two cells
+            that resolve outright (`take rope/zzz with knife`)
+    wtie17  the word-order test: box/stone, knife/stone and rope/ruby
+            both ways round -- identical candidate sets, opposite ticks
+    wtie18  the `cut` control: no unhandled-verb cell ticks, and the head
+            half is resolved before the tail (`cut zzz with stone`)
 
 Usage:
     python3 make_400_withtieprobe.py p4WTIE.plain

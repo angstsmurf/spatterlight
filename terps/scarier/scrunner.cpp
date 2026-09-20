@@ -7110,6 +7110,19 @@ run_player_input (scr_gameref_t game)
       lib_co_400_take_question ();
       pf_empty (filter);
 
+      /*
+       * 489FEB is above the stores that mark a line administrative, so the
+       * re-run starts a turn of its own and the answer is counted by what
+       * the rebuilt line does -- not by the prompt that asked for it.
+       * p4WTIE, run400 Adrift_wtie8 turn 10: `cut rope with stone` is the
+       * question and no turn, and `red stone` runs `cut rope with red
+       * stone`, answers "You don't have the red stone." and ticks.  A
+       * re-run that asks again marks itself (lib_co_400_raise_common()),
+       * and so does the still-ambiguous arm below, so only a line that did
+       * something reaches the clock.
+       */
+      game->is_admin = FALSE;
+
       status = run_all_commands (game, rerun.c_str ());
       if (!status)
         {
