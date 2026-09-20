@@ -336,7 +336,28 @@ not by a tick.
   object.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
-- **The "With what?" prefix continuation** (45D3E0) is not modelled.
+- **The "With what?" prefix continuation** (45D3E0) is not modelled, and
+  3.90 is the odd version out. Four cells fell out of p*TEXTSRC
+  (2026-09-20) with tasks `frob %object% with zzz` and `wibb %object% with
+  rock`, fed `frob rock` / `with zzz` / `wibb gem` / `with rock`:
+
+  | | 3.70 | 3.80 | 3.90 | 4.00 |
+  |---|---|---|---|---|
+  | `with zzz` | "I don't understand." | WITH1 [a rock] | **"With what?"** | WITH1 [a rock] |
+  | `wibb gem` | catch-all gem | catch-all gem | **"You don't have the gem."** | catch-all gem |
+  | `with rock` | catch-all rock | WITH2 [a rock] | **"You don't have the rock."** | WITH2 [a gem] |
+
+  So 3.80 and 4.00 do the `with ` history prepend at 45F2AF and the
+  prepended line reaches the task matcher, 3.70 has no such arm at all, and
+  3.90 -- which the decompile says has the prepend too -- answers with the
+  handler instead and then treats the next two lines as continuations of
+  it. Scarier prepends at every version from 3.80 and answers WITH1/WITH2
+  at 3.90, so all three 3.90 cells deviate. Whether 3.90's prepend fires
+  with a different `history(2)` (its history counts line ELEMENTS, see
+  45EC5B) or is pre-empted outright is unmeasured; it needs a probe that
+  feeds `with ...` after a known run of lines and prints the line back.
+  The same three cells also show 4.00's WITH2 naming the GEM where 3.80
+  names the rock -- the two-pass walk again, see the %object% index entry.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
