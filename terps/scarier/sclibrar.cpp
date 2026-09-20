@@ -19481,6 +19481,53 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
   free_space = obj_get_container_free_space (game, container);
 
   /*
+   * run390's " is full." arm (461E59): after the count and its refusals,
+   * before the move, an `inside` put whose container is already holding
+   * exactly its capacity answers "<The X> is full." and moves nothing --
+   * but only while something on the line still fits, which for a full
+   * container means a size of nil.  Size is SizeMultiple raised to the
+   * SizeWeight's tens digit, so a size of nil needs a SizeMultiple of nil,
+   * which the ADRIFT editor never writes; pPUTFULL39 could not raise the
+   * arm and it was read as dead.  It is not: pPUTZERO39 (SizeMultiple 0,
+   * a bag of capacity 2 holding a coin and a stone, `put feather in bag`
+   * with the feather at SizeWeight 10) is "The bag is full." in run390 and
+   * the feather stays in hand (Adrift_pputzero39.txt).  The same line with
+   * a size-1 pebble is the ordinary "The pebble can't fit inside the bag
+   * at the moment.", so the per-object refusal above still comes first,
+   * and `put all in bag` with two size-0 objects held is "The bag is
+   * full." rather than "Nothing will fit inside the bag." -- the count
+   * sees them fit, so the nil-count refusal never speaks.  A surface is
+   * barred by the arm's third test (var_E0 = "inside"): the same probe
+   * puts three objects onto a plate of capacity 2 without a word.
+   *
+   * That measurement also settles obj_scale()'s long-standing claim that a
+   * multiple of nil gives a size of nil, which nothing had tested.
+   */
+  if (lib_is_version_390 (game) && free_space == 0
+      && obj_is_container (game, container))
+    {
+      scr_bool any_fits = FALSE;
+
+      for (object = 0; object < object_count; object++)
+        {
+          if (game->object_references[object]
+              && obj_get_size (game, object) <= free_space)
+            any_fits = TRUE;
+        }
+
+      if (any_fits)
+        {
+          for (object = 0; object < object_count; object++)
+            game->object_references[object] = FALSE;
+
+          lib_new_clause (game, has_printed);
+          lib_print_object_np (game, container);
+          pf_buffer_string (filter, " is full.");
+          has_printed = TRUE;
+        }
+    }
+
+  /*
    * Version 3.9's all/and arm counts before it moves anything: insides()
    * (461AF8-461BDB) walks the objects in index order, counting each whose
    * Size fits in what is left once the ones counted before it are charged,
@@ -19496,7 +19543,8 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
    * bag.  You can't put any more inside the bag as it is full." (Adrift_
    * pputref396.txt:5).  A single object keeps the size/capacity pair
    * below.  The " is full." arm at 461E9D never spoke on these probes,
-   * the bag exactly full included, so it is not modelled.
+   * the bag exactly full included, because it wants an object that fits
+   * into a container with nothing left; it is modelled just above.
    */
   nothing_fits_390 = FALSE;
   if (lib_is_version_390 (game)

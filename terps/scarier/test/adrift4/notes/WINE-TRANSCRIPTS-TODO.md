@@ -257,11 +257,15 @@ the_hangover T34) went identical with that port on 2026-09-20.
 
 ### Engine, needs a probe (4.0)
 
-- **Scope, unmeasured:** the never-seen "You can't see that." branch at
-  471995. (The two-pass `%object%` scope filter itself is measured and
-  ported -- see "A task's `%object%` binds only a seen object" in the
-  index -- as is the NPC seen gate for `%character%`, under "A task
-  command's `%character%` at 4.0".)
+- ~~**Scope, unmeasured:** the never-seen "You can't see that." branch at
+  471995.~~ STALE, struck 2026-09-20: that branch was measured and ported
+  on 2026-09-13 as `lib_examine_tied_absent_400()` -- warlord T72/T76 `x
+  tapestry three|six`, where referencedob's pass C leaves the unseen
+  tapestries of room 35 -- and the warlord row is identical on every turn.
+  (The two-pass `%object%` scope filter is measured and ported too -- see
+  "A task's `%object%` binds only a seen object" in the index -- as is the
+  NPC seen gate for `%character%`, under "A task command's `%character%`
+  at 4.0".)
 - **Ambiguity prompts:** co()'s crowded arm (454454) and its -2/-1
   answers; which of them parks 4941EC, the object whose aliases the
   prompt's term is drawn from -- p4CO's trees and keys park one, its
@@ -383,9 +387,10 @@ the_hangover T34) went identical with that port on 2026-09-20.
   the built-in rewrites at 3.80 (scprintf.cpp BUILTIN[]) and keeps one
   string, so it takes both lines. Porting this means carrying the snapshot
   and the per-turn flag through `run_pre400_substitute_references()`.
-- **Put:** the " is full." arm at 461E59 speaks only when something fits
-  and the bag is still full, so it is effectively dead; it needs a size-0
-  object.
+- ~~**Put:** the " is full." arm at 461E59~~ CLOSED 2026-09-20: it is not
+  dead, it just needs a size-0 object, and a size-0 object needs a
+  SizeMultiple of 0. See "run390's ' is full.' arm wants a size-0 object"
+  in the index.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
 - **The blank previous line** in the `with ` history prepend: run380
@@ -1917,6 +1922,24 @@ transcript names are in the code comment next to the named function, in
     "Nothing will fit inside the bag."; a single object keeps "can't fit
     ... at the moment". `[3.9]` pPUTREF39/pPUTREF39E (`lib_put_in_backend`,
     2026-09-19)
+  - **run390's " is full." arm wants a size-0 object.** 461E59 sits after
+    the count and its refusals and before the move: a container already
+    holding exactly its capacity, with something on the line that still
+    fits, answers "<The X> is full." and moves nothing. Something fitting
+    into a full container means a size of nil, and size is SizeMultiple
+    raised to the SizeWeight's tens digit, so it takes a SizeMultiple of 0
+    -- which the ADRIFT editor never writes, which is why the arm read as
+    dead. With one: `put feather in bag` (bag capacity 2, a coin and a
+    stone inside, feather SizeWeight 10) is "The bag is full." and the
+    feather stays in hand; a size-1 pebble on the same line is the
+    ordinary "The pebble can't fit inside the bag at the moment.", so the
+    per-object refusal still comes first; `put all in bag` with two size-0
+    objects held is "The bag is full." and not "Nothing will fit inside
+    the bag."; and a surface takes all three (the arm's third test is
+    var_E0 = "inside"). The same probe is the first measurement of
+    obj_scale()'s zero multiple. `[3.9]` pPUTZERO39
+    (`make_39_putzeroprobe.py`, `cmdfile_pputzero.txt`,
+    Adrift_pputzero39.txt; `lib_put_in_backend`, 2026-09-20)
   - `put all in/on <nothing>`: c("all") skips the two-name test but not the
     target choice, so the answer is "You can't put anything inside/onto
     that!", then the sweep. `[3.9]` pPUTFULL39 (`lib_put_that_390`,
