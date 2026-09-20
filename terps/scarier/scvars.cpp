@@ -1103,9 +1103,6 @@ var_get_system (scr_var_setref_t vars,
   else if (strcmp (name, "number") == 0)
     {
       /* Return the referenced number, or 0 if none yet. */
-      if (!vars->is_number_referenced)
-        scr_error ("var_get_system: no referenced number yet\n");
-
       return var_return_integer (vars->referenced_number, type, vt_rvalue);
     }
 
@@ -1480,30 +1477,28 @@ var_get_system (scr_var_setref_t vars,
 
   else if (strcmp (name, "t_number") == 0)
     {
-      /* See if we have a referenced number yet. */
-      if (vars->is_number_referenced)
-        {
-          scr_int number;
-          const scr_char *retval;
+      scr_int number;
+      const scr_char *retval;
 
-          /* Return the referenced number as a string. */
-          number = vars->referenced_number;
-          if (number >= 0 && number < VAR_NUMBERS_SIZE)
-            retval = VAR_NUMBERS[number];
-          else
-            {
-              vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 32);
-              snprintf (vars->temporary, 32, "%ld", number);
-              retval = vars->temporary;
-            }
-
-          return var_return_string (retval, type, vt_rvalue);
-        }
+      /*
+       * There is no such thing as "no referenced number yet": the Runner
+       * keeps one Long (run390 MemVar_4681AC, run400 MemVar_49420C) and it
+       * starts at 0, so the very first turn of p39NUMREF and p4NUMREF
+       * answers task 5's `zap` with "ZAP [0] [zero]." before any line has
+       * named a number (Adrift_211_nr390.txt, Adrift_212_nr400.txt,
+       * 2026-09-20).  We used to print "[Number unknown]".
+       */
+      number = vars->referenced_number;
+      if (number >= 0 && number < VAR_NUMBERS_SIZE)
+        retval = VAR_NUMBERS[number];
       else
         {
-          scr_error ("var_get_system: no referenced number yet\n");
-          return var_return_string ("[Number unknown]", type, vt_rvalue);
+          vars->temporary = (decltype(vars->temporary)) scr_realloc (vars->temporary, 32);
+          snprintf (vars->temporary, 32, "%ld", number);
+          retval = vars->temporary;
         }
+
+      return var_return_string (retval, type, vt_rvalue);
     }
 
   else if (strncmp (name, "t_", 2) == 0)
@@ -1811,6 +1806,52 @@ var_is_user_ordered (scr_var_setref_t vars, const scr_char *name)
   assert (var_is_valid (vars));
   return prop_get_taf_version (vars->bundle) >= TAF_VERSION_390
          && var_find (vars, name) != NULL;
+}
+
+
+/*
+ * var_is_unknown_reference()
+ *
+ * TRUE when NAME is a reference this file's Runner has never heard of, so
+ * the marker reaches the player raw -- the same thing an unbound %character%
+ * does, and for the same reason: the substitution simply does not happen.
+ *
+ * Which references a Runner knows is a plain string census of the exe, and
+ * it splits cleanly by version: "%object%" is in all four, "%character%"
+ * from 3.80, "%number%" and "%t_number%" from 3.90, "%text%" at 4.00 only
+ * (run370 and run380 hold no "%number%", "%t_number%" or "%text%" literal
+ * anywhere at all).  p37NUMREF and p38NUMREF confirm the print side:
+ * task 5's `zap` answers "ZAP [%number%] [%t_number%]." at every turn of
+ * the feed, including the turns right after a line naming a number, while
+ * p39NUMREF and p4NUMREF answer "ZAP [5] [five]." (Adrift_209_nr370.rtf,
+ * Adrift_210_nr380.rtf, Adrift_211_nr390.txt, Adrift_212_nr400.txt,
+ * 2026-09-20).  The matcher side is run_match_task_commands().
+ */
+scr_bool
+var_is_unknown_reference (scr_var_setref_t vars, const scr_char *name)
+{
+  const scr_int version = prop_get_taf_version (vars->bundle);
+
+  assert (var_is_valid (vars));
+  if (strcmp (name, "number") == 0 || strcmp (name, "t_number") == 0)
+    return version < TAF_VERSION_390;
+  if (strcmp (name, "text") == 0)
+    return version < TAF_VERSION_400;
+  return FALSE;
+}
+
+
+/*
+ * var_number_word()
+ *
+ * int2text() (run390 429048's caller, numintext2 42946C), the Runner's
+ * spelling of the numbers zero to twenty; NULL outside that range.
+ */
+const scr_char *
+var_number_word (scr_int number)
+{
+  return number >= 0 && number < VAR_NUMBERS_SIZE
+         ? VAR_NUMBERS[number] : NULL;
 }
 
 scr_bool

@@ -299,6 +299,8 @@ extern const scr_char *var_get_string (scr_var_setref_t vars,
                                       const scr_char *name);
 extern scr_bool var_is_user_ordered (scr_var_setref_t vars,
                                      const scr_char *name);
+extern scr_bool var_is_unknown_reference (scr_var_setref_t vars,
+                                          const scr_char *name);
 extern scr_bool var_interpolate_user_ordered (scr_var_setref_t vars,
                                               std::string &text);
 extern scr_var_setref_t var_create (scr_prop_setref_t bundle);
@@ -312,6 +314,7 @@ extern scr_int var_get_ref_character (scr_var_setref_t vars);
 extern scr_int var_get_ref_object (scr_var_setref_t vars);
 extern scr_int var_get_ref_number (scr_var_setref_t vars);
 extern scr_bool var_is_number_referenced (scr_var_setref_t vars);
+extern const scr_char *var_number_word (scr_int number);
 extern void var_restore_ref_number (scr_var_setref_t vars,
                                     scr_int number, scr_bool is_referenced);
 extern const scr_char *var_get_ref_text (scr_var_setref_t vars);

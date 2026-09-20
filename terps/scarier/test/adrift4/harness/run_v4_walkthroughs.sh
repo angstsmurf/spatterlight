@@ -4507,6 +4507,15 @@ bob_bobsly_solution.txt|BobBobsly.taf|You scored 155 out of the maximum 155!
 # stream, an unparsed command consumes a different amount again).  Ends
 # debt-free with $1,955,720,463 -- just under the 32-bit ceiling the real VB6
 # Runner would overflow at.  See notes/Druggy_Lane_walkthrough.md.
+# This row is the corpus witness for the 3.90 %number% substitution ported on
+# 2026-09-20 (make_numrefprobe.py): every `buy 50 weed` in the route matches
+# through "buy %number% weed", and two of the game's commands glue the marker
+# to a wildcard ("take *%number%*", "*pay *%number%*") so checkwild decides
+# them.  %number% used to be matched positionally by the pattern tree; it is
+# now spelled out with numintext()'s digits before the command is tested at
+# all, and this route, circus, Vampire, thetest, The Town Of Azra and The
+# Screen Savers On Planet X -- the six 3.90 games in the corpus that carry a
+# %number% command, 50 commands between them -- are all unmoved by the change.
 druggy_lane_solution.txt|druggy_lane.taf|You have managed to deal your way to freedom!
 # Escape from Insanity -- 1000/1000, one padded cell, a six-step tool chain.
 # `use rock on button` is typed twice on purpose: TASK 11 claims it first and

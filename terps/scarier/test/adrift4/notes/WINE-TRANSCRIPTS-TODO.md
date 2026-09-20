@@ -296,8 +296,15 @@ not by a tick.
   %object% and %character% are substituted from the line" in the index.
   ~~Group patterns (`[`, `{`) skip the check at every version.~~ **Closed
   2026-09-20** -- see "A task command's GROUP is the LAST thing 4.0 tries,
-  and below 4.0 it is not syntax at all" in the index. What is left:
-  %number% / %t_number% (44ADxx) hand a command back to the tree.
+  and below 4.0 it is not syntax at all" in the index. ~~%number% /
+  %t_number% (44ADxx) hand a command back to the tree.~~ **Closed
+  2026-09-20** -- see "A task command's %number% is a substitution, and
+  below 3.90 it is a literal" in the index. The lead is now closed but for
+  two arms nobody has measured: run390's SECOND pair of object loops
+  (44ABFE, 44AC98), which repeats the walk against checktask's own `text`
+  argument when the first pair bound nothing, and the generic
+  `%<variable>%` / `%t_<var>%` arms at 44AF25 and 44AFF8. A command
+  carrying any other marker is still handed back to the tree.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
@@ -893,8 +900,9 @@ transcript names are in the code comment next to the named function, in
   adds %character% at 44AD2A, by Name with no gate whatever: the King
   binds from the Cave he was left out of. 3.7/3.8 know only the Short and
   gate on nothing at all, which is how p38WILDREF binds a coin two rooms
-  away and unseen. %number% and %t_number% are not emulated and hand the
-  command back to the tree. `[<4.0]` p37/p38/p39/p4WILDREF
+  away and unseen. %number% and %t_number% follow at 44ADxx (see the next
+  entry but one); a command carrying any other marker is still handed back
+  to the tree. `[<4.0]` p37/p38/p39/p4WILDREF
   (`run_pre400_substitute_references`, 2026-09-20)
 - **A task command's GROUP is the LAST thing 4.0 tries, and below 4.0 it is
   not syntax at all.** run400's command loop (45D9FC-45DBA4) tests a
@@ -921,6 +929,37 @@ transcript names are in the code comment next to the named function, in
   version puts a `*` and a group in one command, so the suite is 429 PASS
   before and after. `[all]` p37/p38/p39/p4GROUP (`run_match_task_commands`,
   2026-09-20)
+- **A task command's %number% is a substitution, and below 3.90 it is a
+  literal.** checktask spells the marker out before it tests the command at
+  all -- run390 44ADDF for %number% (numintext, 4332C8) and 44AE8B for
+  %t_number% (numintext2, 42946C), run400 the same pair inside
+  Proc_19_36_45F268 -- so it is never a positional wildcard, and a `*`
+  command carrying one is decided pre-4.0 by *checkwild*, whose pieces are
+  order-free. p39NUMREF's `* zog * %number% *` runs on `blip 7 zog`, and
+  `blip 9 zog 3 blip` answers "NUM2 [9]." -- numintext takes the LEFTMOST
+  digit in the line, not the one the pattern reached; run400 substitutes
+  identically and then cuts, so it refuses both. That pair of cells is the
+  whole 3.90/4.00 split. numintext is nobody's idea of a parser: leftmost
+  digit, the non-space run from there, a "-" if the character before it is
+  one, then `Val()` -- which is why `zork 007 apples` and `zork 3x apples`
+  match nothing at either version, the command being spelled "zork 7
+  apples" / "zork 3 apples". Both markers are replaced with DIGITS while
+  the output filter spells %t_number% out, so a %t_number% command can
+  match nothing at all (`frob five` and `frob 5` are both refused). The
+  number is one Long, written even by a command that does not match (`nurb
+  5 blip` runs nothing and the next `zap` prints 5), left alone by a line
+  with no digit, and 0 until something sets it -- turn 1's `zap` is "ZAP
+  [0] [zero].", not the "[Number unknown]" Scarier used to print. Below
+  3.90 none of this exists: run370 and run380 hold no `%number%`,
+  `%t_number%` or `%text%` literal anywhere in the exe, so all three are
+  text the player has to type and the output filter prints them raw (`zap`
+  -> "ZAP [%number%] [%t_number%]."); `%text%` stays a literal at 3.90 too.
+  Real corpus exposure, unlike the group lead: 50 3.90 commands in six
+  games, several glued to wildcards (druggy_lane `take *%number%*`, Vampire
+  `push * %number% *`, circus `turn* lock* %number%`), all six with
+  goldens, none of which moved. 428 PASS before and after. `[all]`
+  p37/p38/p39/p4NUMREF (`run_substitute_number_references`,
+  `var_is_unknown_reference`, 2026-09-20)
 - **The pre-4.0 ask block wants the name at column 5.** characters()' one
   position test, and the only one in the handler: 459882 skips the whole
   `c("ask") Or c("talk to")` conversation block unless `InStr(line,

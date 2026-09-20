@@ -3250,6 +3250,214 @@ run_replace_all (std::string &text, const scr_char *find,
 
 
 /*
+ * run_val()
+ *
+ * VB's Val() over a token with no spaces in it: an optional sign, digits,
+ * an optional fractional part, and everything from the first character that
+ * is none of those thrown away.  Val("007") is 7 and Val("3x") is 3, which
+ * is the whole reason a line and the command it just spelled can disagree.
+ */
+static double
+run_val (const std::string &token)
+{
+  double sign = 1.0, value = 0.0, scale = 0.1;
+  size_t at = 0;
+
+  if (at < token.size () && (token[at] == '-' || token[at] == '+'))
+    sign = token[at++] == '-' ? -1.0 : 1.0;
+  for (; at < token.size () && isdigit ((unsigned char) token[at]); at++)
+    value = value * 10.0 + (token[at] - '0');
+  if (at < token.size () && token[at] == '.')
+    for (at++; at < token.size () && isdigit ((unsigned char) token[at]); at++)
+      {
+        value += (token[at] - '0') * scale;
+        scale *= 0.1;
+      }
+  return sign * value;
+}
+
+
+/*
+ * run_line_number()
+ *
+ * numintext() (run390 4332C8, run400 Proc_19_52_453A48), and it is nobody's
+ * idea of a parser.  Take the LOWEST position in the line at which any of
+ * the characters "0".."9" occurs -- a 0..9 loop over InStr keeping the
+ * minimum, 433112-43317E -- collect the non-space run STARTING AT THAT
+ * CHARACTER (433198-433208), prepend "-" when the character before it is one
+ * (433227-433265), and take Val() of that (433268), clamped to a signed
+ * 32-bit range and rounded by CLng (4332B1).  Return FALSE, leaving the
+ * stored number alone, when the line holds no digit at all: the whole body
+ * including the write to MemVar_4681AC sits inside `If var_8A < 32000`
+ * (433183-4332BB), so `zork five apples` does not clear what the line
+ * before it set.
+ */
+static scr_bool
+run_line_number (const std::string &line, scr_int *number)
+{
+  size_t at = std::string::npos, end;
+  std::string token;
+  double value;
+  scr_int digit;
+
+  for (digit = 0; digit < 10; digit++)
+    {
+      const size_t found = line.find ((scr_char) ('0' + digit));
+
+      if (found != std::string::npos
+          && (at == std::string::npos || found < at))
+        at = found;
+    }
+  if (at == std::string::npos)
+    return FALSE;
+
+  for (end = at; end < line.size () && line[end] != ' '; end++)
+    ;
+  token = line.substr (at, end - at);
+  if (at > 0 && line[at - 1] == '-')
+    token.insert (token.begin (), '-');
+
+  value = run_val (token);
+  if (value > 2147483647.0)
+    value = 2147483647.0;
+  if (value < -2147483647.0)
+    value = -2147483647.0;
+  *number = (scr_int) nearbyint (value);
+  return TRUE;
+}
+
+
+/*
+ * run_line_number_word()
+ *
+ * numintext2() (run390 42946C, run400 Proc_19_53_444458): `For n = 0 To
+ * &H14`, `c(int2text(n), "")` -- c() with an empty second argument searches
+ * the input line -- and no early exit, so it is looking for a number SPELLED
+ * OUT, whole-word, and the LAST n whose word is in the line wins.
+ */
+static scr_bool
+run_line_number_word (const std::string &line, scr_int *number)
+{
+  scr_bool is_found = FALSE;
+  scr_int n;
+
+  for (n = 0; n <= 20; n++)
+    {
+      if (run_line_names_word (line, var_number_word (n)))
+        {
+          *number = n;
+          is_found = TRUE;
+        }
+    }
+  return is_found;
+}
+
+
+/*
+ * run_substitute_number_references()
+ *
+ * Put in place of a task command's %number% and %t_number% the DIGITS of the
+ * number the line names, and store that number as the game's referenced one.
+ *
+ * checktask does this straight after the %object% and %character% walks and
+ * before it tests the command at all (run390 44ADDF and 44AE8B; run400's
+ * substituter Proc_19_36_45F268 is the same routine in mdlSpreadTheLoad,
+ * %number% at 45F03C and %t_number% at 45F0AA).  Two things follow:
+ *
+ *  - %number% is not a positional wildcard: it is a SUBSTITUTION, like
+ *    %object%, so a '*' command carrying one is decided pre-4.0 by checkwild,
+ *    whose pieces are found by InStr anywhere in the line and in any order.
+ *    p39NUMREF's task 2 is "* zog * %number% *", and run390 runs it on `blip
+ *    7 zog` and answers `blip 9 zog 3 blip` with "NUM2 [9]." -- numintext
+ *    took the 9 because it is the leftmost digit, not because the pattern
+ *    reached it.  run400 refuses both, its own matcher cutting the line as it
+ *    goes (Adrift_211_nr390.txt, Adrift_212_nr400.txt, 2026-09-20).
+ *  - the substituted command has to equal the line that produced it, and
+ *    Val() makes that fail: `zork 007 apples` spells "zork 7 apples" and
+ *    `zork 3x apples` spells "zork 3 apples", so both are refused at 3.90
+ *    and at 4.00 while a positional matcher takes them.
+ *
+ * Both markers are replaced with digits -- Format(MemVar_4681AC) at 44AE15
+ * and CStr(MemVar_4681AC) at 44AEBE -- although the OUTPUT filter spells
+ * %t_number% out (45B21B, int2text).  So the words-vs-digits split is real
+ * everywhere except here, and a %t_number% command can match nothing: the
+ * line says "five" and the command it is compared against says "5"
+ * (p*NUMREF task 3 "frob %t_number%" is refused for `frob five` and for
+ * `frob 5` in all four Runners).
+ *
+ * Both write the same Long, and they write it whether or not the task goes
+ * on to match: `nurb 5 blip` runs nothing and the next `zap` still prints
+ * "ZAP [5] [five].".
+ */
+static void
+run_substitute_number_references (scr_gameref_t game,
+                                  const std::string &lowered,
+                                  std::string &literal)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  scr_char digits[32];
+  scr_int number;
+
+  if (literal.find ("%number%") != std::string::npos
+      && run_line_number (lowered, &number))
+    {
+      var_set_ref_number (vars, number);
+      snprintf (digits, sizeof (digits), "%ld", number);
+      run_replace_all (literal, "%number%", digits);
+    }
+  if (literal.find ("%t_number%") != std::string::npos
+      && run_line_number_word (lowered, &number))
+    {
+      var_set_ref_number (vars, number);
+      snprintf (digits, sizeof (digits), "%ld", number);
+      run_replace_all (literal, "%t_number%", digits);
+    }
+}
+
+
+/*
+ * run_pattern_references()
+ *
+ * The set of %reference% markers a task command carries, as a bitmask, or
+ * RUN_REF_OTHER for a marker that is none of the four.
+ */
+enum
+{
+  RUN_REF_OBJECT = 1, RUN_REF_CHARACTER = 2,
+  RUN_REF_NUMBER = 4, RUN_REF_TEXT = 8, RUN_REF_OTHER = 16
+};
+
+static scr_int
+run_pattern_references (const scr_char *pattern)
+{
+  const std::string text (pattern);
+  scr_int found = 0;
+  size_t at;
+
+  for (at = 0; (at = text.find ('%', at)) != std::string::npos; )
+    {
+      const size_t end = text.find ('%', at + 1);
+      const std::string token = end == std::string::npos
+                                ? std::string ()
+                                : text.substr (at, end - at + 1);
+
+      if (token == "%object%")
+        found |= RUN_REF_OBJECT;
+      else if (token == "%character%")
+        found |= RUN_REF_CHARACTER;
+      else if (token == "%number%" || token == "%t_number%")
+        found |= RUN_REF_NUMBER;
+      else if (token == "%text%")
+        found |= RUN_REF_TEXT;
+      else
+        return found | RUN_REF_OTHER;
+      at = end + 1;
+    }
+  return found;
+}
+
+
+/*
  * run_pre400_substitute_references()
  *
  * Put in place of a pre-4.0 task command's %object% and %character% the name
@@ -3274,10 +3482,17 @@ run_replace_all (std::string &text, const scr_char *find,
  * %character% arrives at 3.90 (44AD2A), by Name, with no gate whatever: the
  * King binds from the Cave he is not in.
  *
- * Not emulated: %number% and %t_number% (44ADxx), which is why a command
- * holding one is handed back; and run390's second pair of loops (44ABFE,
- * 44AC98), which repeats the walk against checktask's own `text` argument
- * when the first pair bound nothing.
+ * %number% and %t_number% follow, at 3.90 and not below -- see
+ * run_substitute_number_references().  A marker this version has never heard
+ * of is left standing, which is a substitution of a kind: below 3.90
+ * "%number%" is a literal the player has to type, exactly as "%character%"
+ * is below 3.80 (run370 and run380 hold no "%number%", "%t_number%" or
+ * "%text%" string anywhere), and "%text%" is one below 4.00.
+ *
+ * Not emulated: run390's second pair of object loops (44ABFE, 44AC98), which
+ * repeats the walk against checktask's own `text` argument when the first
+ * pair bound nothing, and the generic user-variable arms at 44AF25 and
+ * 44AFF8.  A command holding any other marker is still handed back.
  */
 static scr_bool
 run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
@@ -3288,24 +3503,14 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_int version = run_get_version (bundle);
   std::string lowered (line);
-  size_t at;
 
   literal = pattern;
   *object = *character = -1;
   for (char &c : lowered)
     c = scr_tolower (c);
 
-  for (at = 0; (at = literal.find ('%', at)) != std::string::npos; )
-    {
-      const size_t end = literal.find ('%', at + 1);
-      const std::string token = end == std::string::npos
-                                ? std::string ()
-                                : literal.substr (at, end - at + 1);
-
-      if (token != "%object%" && token != "%character%")
-        return FALSE;
-      at = end + 1;
-    }
+  if (run_pattern_references (pattern) & RUN_REF_OTHER)
+    return FALSE;
 
   if (literal.find ("%object%") != std::string::npos)
     {
@@ -3366,6 +3571,9 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
             run_replace_all (literal, "%character%", name);
         }
     }
+
+  if (version >= TAF_VERSION_390)
+    run_substitute_number_references (game, lowered, literal);
 
   return TRUE;
 }
@@ -3463,6 +3671,21 @@ run_match_task_commands (scr_gameref_t game,
       const scr_bool group = strpbrk (pattern, "[{") != NULL;
 
       /*
+       * Which %reference% markers the command carries decides who answers
+       * it.  %number% and %t_number% are a SUBSTITUTION in every Runner that
+       * knows them, never a positional wildcard, so the tree's answer is
+       * beside the point: see run_substitute_number_references().  Below
+       * 3.90 they are not markers at all, nor is %text% below 4.00, and a
+       * command carrying one has to be typed with the percent signs in it.
+       */
+      const scr_int refs = run_pattern_references (pattern);
+      const scr_bool numeric = (refs & RUN_REF_NUMBER)
+                               && version >= TAF_VERSION_390;
+      const scr_bool literal_ref =
+          ((refs & RUN_REF_NUMBER) && version < TAF_VERSION_390)
+          || ((refs & RUN_REF_TEXT) && version < TAF_VERSION_400);
+
+      /*
        * 4.0's command loop (45D9FC-45DBA4) tests a command three ways, in
        * this order, stopping at the first that takes:
        *
@@ -3501,9 +3724,47 @@ run_match_task_commands (scr_gameref_t game,
        * the two would buy one cell that needs a typed line carrying both a
        * double space and a bracket.
        */
-      if (version >= TAF_VERSION_400 && !strchr (pattern, '%'))
+      if (version >= TAF_VERSION_400
+          && (refs == 0 || refs == RUN_REF_NUMBER))
         {
-          if (is_matched && wild)
+          if (numeric)
+            {
+              /*
+               * A 4.0 command whose only markers are numbers is substituted
+               * first (Proc_19_36_45F268) and then put through the same
+               * three tests, on the spelled-out command.  Step 3 is
+               * uip_match(), here only as the group expander, and it is
+               * reached only when step 2's `If InStr(cmd, "*") > 0` was
+               * false, so a group inside a '*' command is still never
+               * expanded.  humbug's task 123 is why step 3 has to stay:
+               * "[push/press] {button} [%number%/%t_number%]" is a group
+               * whose alternatives ARE the two markers, and `push button 2`
+               * reaches NewParse spelled "[push/press] {button}
+               * [2/%t_number%]".
+               *
+               * A marker the line did not name is left standing and the
+               * tree can be trusted with it: "%t_number%" is a plain word to
+               * the tokenizer, and a leftover "%number%" means the line
+               * holds no digit at all -- numintext takes the leftmost one,
+               * so there is no third case -- and uip_match_number() then
+               * refuses wherever the pattern puts it.
+               */
+              std::string lowered (matched_input), literal;
+
+              for (char &c : lowered)
+                c = scr_tolower (c);
+              literal = pattern;
+              run_substitute_number_references (game, lowered, literal);
+
+              is_matched =
+                  scr_strcasecmp (literal.c_str (), matched_input) == 0
+                  || (wild
+                      ? uip_wildcard_match_400 (literal.c_str (),
+                                                matched_input)
+                      : (group && uip_match (literal.c_str (),
+                                             matched_input, game)));
+            }
+          else if (is_matched && wild)
             is_matched = uip_wildcard_match_400 (pattern, matched_input);
           else if (!is_matched && group)
             is_matched = scr_strcasecmp (pattern, matched_input) == 0
@@ -3593,6 +3854,8 @@ run_match_task_commands (scr_gameref_t game,
       if (version < TAF_VERSION_400
           && (wild
               || group
+              || numeric
+              || literal_ref
               || (is_matched && version < TAF_VERSION_390
                   && strstr (pattern, "%object%") != NULL)))
         {

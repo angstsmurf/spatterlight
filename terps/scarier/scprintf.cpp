@@ -464,6 +464,7 @@ pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
       if (sscanf (cursor, "%%%[^%]%c", name.data (), &close) != 2
           || close != PERCENT
           || var_is_user_ordered (vars, name.data ())
+          || var_is_unknown_reference (vars, name.data ())
           || !var_get (vars, name.data (), &type, &vt_rvalue))
         {
           buffer.append (cursor, 1);
