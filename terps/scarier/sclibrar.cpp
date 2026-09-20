@@ -5670,6 +5670,10 @@ static std::vector<scr_int> lib_co_400_candidates;
 /* var_98: the question this typed line began with, still to be spent. */
 static scr_bool lib_co_400_spend = FALSE;
 
+/* A handler's own prompt (name_object's, not the generaltasks scan's) was
+   raised by this line element; see lib_openclose_with_half_400(). */
+static scr_bool lib_co_400_named_raised = FALSE;
+
 /*
  * MemVar_4941F4, and whether this element flagged an ambiguity at all.
  *
@@ -5699,6 +5703,7 @@ lib_co_400_reset (void)
   lib_co_400_prompt_list.clear ();
   lib_co_400_prompt_seen = FALSE;
   lib_co_400_flagged = FALSE;
+  lib_co_400_named_raised = FALSE;
 }
 
 /*
@@ -5748,6 +5753,7 @@ lib_co_400_begin_line (scr_bool is_new_line)
       lib_co_400_prompt_seen = FALSE;
     }
   lib_co_400_flagged = FALSE;
+  lib_co_400_named_raised = FALSE;
 
   if (is_new_line)
     lib_co_400_spend = lib_co_400_pending;
@@ -5786,6 +5792,33 @@ lib_co_400_take_question (void)
   lib_co_400_pending = FALSE;
   lib_co_400_was_pending = FALSE;
   lib_co_400_refused = FALSE;
+}
+
+/*
+ * Did a handler's own "Which" prompt go up for this line element?  The
+ * generaltasks scan's prompt (48B6AE) is raised after openclose has run and
+ * is not this; see lib_openclose_with_half_400().
+ */
+scr_bool
+lib_co_400_named_question_raised (void)
+{
+  return lib_co_400_named_raised;
+}
+
+/*
+ * The prompt was printed but generaltasks never registered the question:
+ * 48B60C saw Me(424) = -1 and printed the buffer as it stood.  The text
+ * stays; the question, its term, its command and its candidates go, and
+ * the next line is no answer to anything.
+ */
+void
+lib_co_400_drop_question (void)
+{
+  lib_co_400_pending = FALSE;
+  lib_co_400_refused = FALSE;
+  lib_co_400_term.clear ();
+  lib_co_400_command.clear ();
+  lib_co_400_candidates.clear ();
 }
 
 /*
@@ -5938,6 +5971,8 @@ lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
       lib_co_400_prompt_list = objects;         /* 48BB53 */
       lib_co_400_prompt_seen = TRUE;
     }
+  else
+    lib_co_400_named_raised = TRUE;
 }
 
 static void
@@ -7498,11 +7533,12 @@ pre400_take_done:
             *is_ambiguous = TRUE;
           return -1;
         }
+      /* 4733BD: the term is the LAST tied object's raw Short. */
       if (object == -1 && (scr_int) marked.size () == mark_count)
         {
           lib_co_400_raise_named (game,
-                                  lib_drop_named_term_400 (game, pending, line,
-                                                           TRUE),
+                                  prop_get_indexed_string (bundle, "Objects",
+                                                           last_tied, "Short"),
                                   marked);
           if (is_ambiguous)
             *is_ambiguous = TRUE;
@@ -12425,87 +12461,84 @@ static scr_int lib_take_resolve_400_string (scr_gameref_t game,
                                             std::vector<scr_int> *tied);
 
 /*
- * lib_take_tie_400()
+ * lib_take_whole_line_400()
  *
- * The 4.0 take handler's own answer to a line that names two different
- * present objects without "and": `get coin, hat`, kept whole by the
- * splitter because "hat" names an object.  Proc_19_23 resolves the WHOLE
- * fragment with the noun scorer (473011, 463640 mode 1), and a tie whose
- * objects share no name -- co() left Me(424) at -1, no "Which" question
- * pending -- prints "It is not clear which " & <the last tied object's
- * typed name> & " you are referring to." (47335F-4733A5) and takes
- * nothing.  A unique winner is the only object marked (473022), whatever
- * else the line said.  Measured on p4AND, run400 Adrift_955: `get coin,
- * hat` with both held -> "It is not clear which hat you are referring
- * to.", the coin scoring because c() ends a word at the comma.  A line
- * whose noun the parser itself found a crowd for never gets here: that is
- * lib_name_object_resolve_400()'s, in lib_disambiguate_object_common(),
- * and it has the Me(424) pending object p4TAKER measured.
+ * get_piece (Proc_19_23_473A34) names a take's object from the WHOLE
+ * fragment before it parses anything: 473011 hands the line to the noun
+ * scorer 463640 in mode 1 (lib_name_object_resolve_400()), and what comes
+ * back decides the piece whatever else the line said.  A unique winner is
+ * the only object marked (473022): p4WTIE (run400, Adrift_wtie12/16/17,
+ * 2026-09-20) has `take rope with ruby` take the ruby and `take rope with
+ * knife` and `take zzz with knife` answer "You are already carrying the
+ * knife." -- the static rope is never a candidate, the held knife only on
+ * the second pass.  A tie with a pending object asks (4733BD): "Which " &
+ * the LAST tied object's raw Short & ".  " & the pass-0 marks & "?", so
+ * `take ruby with stone` is "Which ruby.  The red stone, the blue stone or
+ * the ruby?" and `take knife with stone`, the knife skipped on pass 0, is
+ * "Which stone.  The red stone or the blue stone?" (Adrift_wtie16/17).  A
+ * tie with none (Me(424) < 0, 47333C) is the flat "It is not clear which "
+ * & <the last tied object's typed name, 446C74> & " you are referring to."
+ * (47335F-4733A5): p4AND `get coin, hat`, both held, "It is not clear
+ * which hat you are referring to." (Adrift_955), the coin scoring because
+ * c() ends a word at the comma.
  *
- * Returns TRUE when it has answered the line.  *references is narrowed
- * to the scorer's winner where the parser bound more than one object.
+ * Returns TRUE when it has answered the line.  *BOUND is set when a unique
+ * winner is now the one referenced object, and the caller skips its own
+ * parse; a line the scorer names nothing on keeps the parser's flow.
  */
 static scr_bool
-lib_take_tie_400 (scr_gameref_t game, scr_int *references)
+lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
+                         scr_bool *bound)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *line = run_get_dispatch_input ();
-  std::vector<scr_int> tied;
-  scr_int object, index_;
+  std::vector<scr_int> marked;
+  scr_int object, pending, last_tied, mark_count;
 
+  *bound = FALSE;
   if (!lib_is_version_400 (game) || !line
       || lib_input_contains_word_400 (line, "all")
       || lib_input_contains_word_400 (line, "and"))
     return FALSE;
 
-  object = lib_take_resolve_400_string (game, line, &tied);
+  object = lib_name_object_resolve_400 (game, line, 1, &pending, &last_tied,
+                                        &marked, &mark_count);
   if (object >= 0)
     {
-      if (*references > 1)
-        {
-          gs_clear_multiple_references (game);
-          game->multiple_references[object] = TRUE;
-          *references = 1;
-        }
+      gs_clear_multiple_references (game);
+      game->multiple_references[object] = TRUE;
+      *references = 1;
+      *bound = TRUE;
       return FALSE;
     }
   if (object != -1)
     return FALSE;
 
-  /* A name two of the tied objects answer to is co()'s question instead. */
-  for (index_ = 0; index_ < (scr_int) tied.size (); index_++)
+  if (pending < 0)
     {
-      const scr_prop_setref_t bundle = gs_get_bundle (game);
-      scr_vartype_t vt_key[4];
-      scr_int alias_count, alias;
-      const scr_char *name;
-
-      name = prop_get_indexed_string (bundle, "Objects", tied[index_],
-                                      "Short");
-      if (!scr_strempty (name) && lib_input_contains_word_400 (line, name)
-          && lib_co_400_namesake_count (game, tied, name) > 1)
-        return FALSE;
-      alias_count = lib_alias_prepare (bundle, vt_key, "Objects",
-                                       tied[index_]);
-      for (alias = 0; alias < alias_count; alias++)
-        {
-          vt_key[3].integer = alias;
-          name = prop_get_string (bundle, "S<-sisi", vt_key);
-          if (!scr_strempty (name)
-              && lib_input_contains_word_400 (line, name)
-              && lib_co_400_namesake_count (game, tied, name) > 1)
-            return FALSE;
-        }
+      pf_buffer_string (filter, "It is not clear which ");
+      pf_buffer_string (filter,
+                        lib_drop_named_term_400 (game, last_tied, line,
+                                                 FALSE));
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             " you are referring to.\n",
+                                             " I am referring to.\n",
+                                             " %player% is referring to.\n"));
+      gs_clear_multiple_references (game);
+      return TRUE;
     }
 
-  pf_buffer_string (filter, "It is not clear which ");
-  pf_buffer_string (filter,
-                    lib_drop_named_term_400 (game, tied.back (), line, FALSE));
-  pf_buffer_string (filter,
-                    lib_select_response (game,
-                                         " you are referring to.\n",
-                                         " I am referring to.\n",
-                                         " %player% is referring to.\n"));
+  /* Me(428) is joined by a countdown from the pass-0 count; with more marks
+   * than that the Runner runs names together, unmeasured. */
+  if ((scr_int) marked.size () != mark_count)
+    return FALSE;
+
+  lib_co_400_raise_named (game,
+                          prop_get_indexed_string (bundle, "Objects",
+                                                   last_tied, "Short"),
+                          marked);
   gs_clear_multiple_references (game);
   return TRUE;
 }
@@ -13541,6 +13574,16 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (!is_except)
     parsed = lib_take_and_400 (game, &references) == 1;
 
+  /* 4.0: the whole fragment scored first; see lib_take_whole_line_400(). */
+  if (!is_except && !parsed)
+    {
+      scr_bool bound;
+
+      if (lib_take_whole_line_400 (game, &references, &bound))
+        return TRUE;
+      parsed = bound;
+    }
+
   /* Parse the multiple objects list to find the target objects. */
   if (parsed)
     ;
@@ -13581,10 +13624,6 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
       references = 1;
     }
   else if (references == 0)
-    return TRUE;
-
-  /* 4.0: the whole fragment resolved once; see lib_take_tie_400(). */
-  if (!is_except && !parsed && lib_take_tie_400 (game, &references))
     return TRUE;
 
   /* Pre-4.0: a held or worn namesake indexed below the one object the line
@@ -22879,6 +22918,9 @@ lib_npc_referenced (scr_gameref_t game, scr_int npc, const scr_char *input)
  * namesake with more Prefix words typed, which leaves the index at -1 only
  * if an earlier one-namesake word already reset it.
  */
+static scr_bool lib_co_400_scan_objects_pending (scr_gameref_t game,
+                                                 const scr_char *line);
+
 scr_bool
 lib_co_400_line_leaves_which_pending (scr_gameref_t game, const scr_char *line)
 {
@@ -22900,6 +22942,21 @@ lib_co_400_line_leaves_which_pending (scr_gameref_t game, const scr_char *line)
   if (!scans)
     return FALSE;
 
+  return lib_co_400_scan_objects_pending (game, line);
+}
+
+/*
+ * The co(object, 0) loop itself, over every object in index order from a
+ * Me(424) of -1; see lib_co_400_line_leaves_which_pending() above for what
+ * each call does.  Returns TRUE when the loop leaves the index at an object
+ * or at -2, so that a "Which" question is pending.
+ */
+static scr_bool
+lib_co_400_scan_objects_pending (scr_gameref_t game, const scr_char *line)
+{
+  scr_bool pending;
+  scr_int object;
+
   pending = FALSE;
   for (object = 0; object < gs_object_count (game); object++)
     {
@@ -22915,6 +22972,69 @@ lib_co_400_line_leaves_which_pending (scr_gameref_t game, const scr_char *line)
         pending = TRUE;
     }
   return pending;
+}
+
+/*
+ * lib_openclose_with_half_400()
+ *
+ * Why `take stone with knife` is a turn and `take stone` is not, both
+ * answered "Which stone.  The red stone or the blue stone?" (p4WTIE,
+ * run400 Adrift_wtie11-17 and Adrift_wtiewatch, 2026-09-20).  get_piece's
+ * prompt leaves Me(424) = MemVar_4941EC at the pending object and returns
+ * FALSE from get_outer, so generaltasks goes on down its handler list to
+ * openclose (Proc_19_44_476468, called at 48A515), and openclose begins
+ * every line holding the whole word "with" the same way (475C63-475D6C):
+ *
+ *   var_88 = -1
+ *   If c("with") Then var_88 = 463640(Right(line, Len(line) -
+ *                                      InStr(1, line, "with")), 0, 0)
+ *   If var_88 < 0 Then For each object: If co(object, 0) Then
+ *       If InStr(line, Short) > InStr(line, "with") Then var_88 = object
+ *
+ * The scorer's restart label (4630BC) writes Me(424) = -1 before it looks
+ * at a thing, so a tail after "with" that names one seen object -- the
+ * knife, the box, the rope, the held coin -- leaves the index at -1 and
+ * the loop is skipped: the tick test at 48B5B5 passes and 48B60C prints
+ * the buffer as it stands, registering no question.  A tail that names
+ * nothing (`take stone with zzz`, `take stone with`) or two namesakes
+ * (`take knife with stone`) sends the loop over EVERY object, and co()
+ * puts the index back: one present seen namesake for an object's word on
+ * the line resets it to -1, two or more set it to the object, the last
+ * object named in index order deciding -- so `take ruby with stone` (the
+ * ruby, index 6, after the stones) ticks and `take rope with stone` (the
+ * rope, index 0, before them) does not.  Watched on the run400x
+ * MemVar_4941EC watchpoint (VBRNG_WATCH=4941EC, wtie_watch_trace.txt):
+ * the last write on `take stone with knife` is the 5 -> -1 of 463640
+ * called from 475CB5, and on `take stone with zzz` the -1 -> 4 -> 5 of
+ * co() called from 475CF4, then the register tail 48BBF3.
+ *
+ * Only a prompt raised BEFORE openclose is exposed: take (get_outer
+ * 48A46D), drop and put (put_drop_list 48A462), wear and remove.  therest's
+ * own crowd (`cut stone with knife`) is raised after it and stays a
+ * question, and so does the generaltasks scan's.  The Runner's tail runs
+ * from the character after the "w" of the first "with" in the line (InStr,
+ * not a whole-word find); "ith" scores nothing, so the text after the word
+ * is what counts.
+ *
+ * Returns TRUE when openclose left Me(424) at -1: the line is a turn and no
+ * question stands.
+ */
+scr_bool
+lib_openclose_with_half_400 (scr_gameref_t game, const scr_char *line)
+{
+  const scr_char *with;
+
+  if (!line || !lib_is_version_400 (game)
+      || !lib_input_contains_word_400 (line, "with"))
+    return FALSE;
+
+  with = strstr (line, "with");
+  if (!with)
+    return FALSE;
+  if (lib_with_half_400 (game, with + 1) >= 0)
+    return TRUE;
+
+  return !lib_co_400_scan_objects_pending (game, line);
 }
 
 /*

@@ -6554,6 +6554,22 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     game->is_admin = TRUE;
 
   /*
+   * 4.0: a handler's own "Which" prompt on a line holding "with" is undone
+   * by openclose, which runs below the handlers and rewrites the pending
+   * index from the text after "with" (475C63-475D6C).  Where it leaves the
+   * index at -1 the prompt stays printed but the question is never
+   * registered and the line is a turn: `take stone with knife` ticks,
+   * `take stone` does not.  See lib_openclose_with_half_400().
+   */
+  if (status && lib_co_400_named_question_raised ()
+      && !run_any_task_ran_this_command ()
+      && lib_openclose_with_half_400 (game, string))
+    {
+      lib_co_400_drop_question ();
+      game->is_admin = FALSE;
+    }
+
+  /*
    * 4.0: and when no task ran, the same scan ASKS.  The question belongs to
    * generaltasks (48B6AE-48BB92), not to any verb: it comes after everything
    * the line printed and replaces it, whatever answered.  Measured

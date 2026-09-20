@@ -270,68 +270,6 @@ the_hangover T34) went identical with that port on 2026-09-20.
   raised by a " with " line comes out of ONE half", "A 4.0 lock or unlock
   never asks which key" and "A 4.0 crowd is the WHOLE line's, and its
   first object decides".
-- **A 4.0 turn SCARE does not count** (p4WTIE, 2026-09-20; measured
-  against the build before the with-half port). `take stone with knife`
-  prompts AND ticks in run400, where the same prompt from `take stone`,
-  or from any therest verb with a " with " on the line, does not. (The
-  other half of this lead, the answer that rebuilds a with-line, is
-  PORTED -- see "A 4.0 answer REBUILDS the typed line" in the index.)
-
-  PARKED 2026-09-20, with the measuring done and the mechanism one step
-  short. The tick test is `loc_48B599: If 4941AD = 0 Then If 494281 = 0
-  And 4941EC = -1 Then 494204 += 1 : 468DA0() : 449310()`, and the SAME
-  4941EC decides at 48B60C whether the handler's own text is printed as
-  it stands (< 0) or generaltasks sets 494281 = 1 and rebuilds its own
-  registered "Which X." prompt from 4941EC/4941F0 (>= 0). So a 4.0
-  ambiguity that ticks is one whose prompt is NOT answerable, and the two
-  look identical on the page. Adrift_wtie15 measures exactly that: `take
-  stone with knife` prompts and ticks, and the answer `red stone` is "I
-  don't understand what you want me to do with the red stone." with no
-  tick and no stone taken, while bare `take stone` prompts without a tick
-  and the answer `blue stone` is "You take the blue stone.  TICK." Same
-  prompt text, opposite machines behind it.
-
-  The measured take cells (wtie11/12/16/17, run400, `look` between every
-  pair): TICK for `stone|knife`, `stone|box`, `stone|rope`, `stone|coin`,
-  `stone|emerald`, `ruby|stone`, `emerald|stone` (and for `rope|knife` /
-  `zzz|knife`, which resolve the knife outright and reach the take loop,
-  where 473589 sets 4941EC = -1 -- those are understood); NO tick for
-  `stone|zzz`, `stone|qqq`, `stone|` (empty tail), `rope|stone`,
-  `knife|stone`, `box|stone`, `zzz|stone` and bare `take stone`. The fit
-  is: TICK iff the HEAD half names a mode-1 pass-0 candidate (dynamic,
-  present, NOT held, seen) and the TAIL half names some object -- word
-  order decides, although the resolve does not (`take rope with ruby`
-  takes the ruby, wtie17). wtie18 is the unhandled-verb control: no `cut
-  ... with ...` cell ticks, and therest 489F4C resolves the HEAD first
-  (`cut zzz with stone` -> "NO IDEA.") and only then the TAIL.
-
-  What the listing says, and why it does not reach the measurement yet.
-  The line never gets past takes(): 4733BD prints "Which <Short>.  <list>"
-  only when 4941EC >= 0, get_outer returns 0, but the buffer is no longer
-  empty, so 44CCE0 reports the line handled at 44CCC0 and 48A489 jumps to
-  48B4E3 -- therest, and every other resolver on the chain, is skipped.
-  The scorer 463640 (46328C-463387) counts whole-word Short/alias/Prefix
-  hits with no regard for position, so "get stone with knife" and "get
-  knife with stone" score identically; walking its arms (46339C first,
-  4633C3 tie with the sticky `Short(Abs(var_86))` +2 quirk, 463421 better,
-  46361D restart, 46353E pass-1 restore `Me(424) = var_A8`) gives
-  4941EC = 5 (the blue stone) for BOTH, i.e. no tick for either. The
-  writer that leaves -1 on the ticking half is still unfound. Ruled out:
-  the scorer's order; a second takes() call (the " and " loop is not
-  entered); a " with " split inside takes() (its only 463640 calls are
-  472EF1, 473011, 473184); every other 463640 caller (476468, 463C30,
-  4624B0, 459DB4, 46E5D8, 48C0F0, 489F4C -- all verb-gated or skipped);
-  the task dispatcher 44CCE0 (it only calls execute_task 45A3EC, and so
-  4941EC's writer at 45A3CE, when 454EF0 found a task, and p4WTIE's one
-  task does not match); the NPC loop at 48B56E and characters() 480674
-  (no NPCs in the probe). Next step, unfinished: read 48B4E3-48B599 (the
-  "With what?" block, 494234 = 494174 & " with ", 494281 = 1) line by
-  line -- it is the only code between the jump and the tick test -- and,
-  failing that, instrument rather than derive: vbrng.dll already runs
-  inside the process and reads the P-code IP out of ESI, so a debug
-  register on 0x4941EC plus a vectored handler would name the last writer
-  outright. Feeds: `~/adrift-battle/runner/wine/cmdfile_wtie1[1-8].txt`
-  -> `pfx/drive_c/adrift/Adrift_wtie1[1-8].txt`.
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -914,7 +852,7 @@ transcript names are in the code comment next to the named function, in
   unique winner is the only object taken. The take scorer's candidates are
   dynamic, seen, visible; the first pass leaves out anything held or worn,
   and a second pass admits them only when the first found no unique winner.
-  `[4.0]` p4AND (`lib_take_tie_400`, `lib_take_resolve_400_string`,
+  `[4.0]` p4AND (`lib_take_whole_line_400`, `lib_take_resolve_400_string`,
   `lib_drop_named_400`, `lib_input_contains_word_400`, 2026-09-19)
 - **`get X and Y` with neither present:** "There is nothing worth taking
   here." with no per-object refusal; one present object takes it alone.
@@ -1210,6 +1148,53 @@ transcript names are in the code comment next to the named function, in
   .. `cmdfile_co14.txt`, Adrift_co12..co14) and p4WTIE (Adrift_wtie6 turn
   11, Adrift_wtie8 turn 10); `lib_co_400_object_answer_line`,
   `lib_co_400_scan_term_400`, `lib_co_400_raise_common`, 2026-09-20
+- **A 4.0 turn SCARE does not count: a take's "Which" prompt is unanswerable
+  and TICKS when the " with " half names an object.** `take stone with
+  knife` prints "Which stone.  The red stone or the blue stone?" exactly as
+  bare `take stone` does, but the two are opposite machines: bare `take
+  stone` registers the question and is administrative (4941EC >= 0 at
+  48B5B5), where the with-line registers nothing, counts the turn, runs
+  the events, and the answer `red stone` is the game's DontUnderstand text
+  (Adrift_wtie15). The writer that leaves 4941EC at -1 is NOT in takes():
+  it is openclose (476468), which runs unconditionally at 48A515 after the
+  take has already printed. Its with-half (475C63-475D6C): `var_88 = -1;
+  If c("with") Then var_88 = 463640(Right(line, Len - InStr(line,
+  "with")), 0, 0)` -- and the scorer's restart at 4630BC sets Me(424) =
+  -1 before it walks -- `If var_88 < 0 Then For each object: If co(obj,
+  0) [46486C] Then If InStr(line, Short) > InStr(line, "with") Then var_88
+  = obj`. co(obj, 0) re-parks Me(424) for every object whose word the line
+  holds: one present seen namesake -> -1, two or more -> the tied index.
+  So the tick fits "the tail RESOLVES an object" (`stone|knife`,
+  `stone|box`, `stone|rope`, `stone|coin`, `stone|emerald`, `ruby|stone`,
+  `emerald|stone`: the scorer settles it at -1 and the co loop finds
+  nothing to re-raise, or the last object it names is unique) and "no
+  tick" fits "the tail names nothing" (`stone|zzz`, `stone|qqq`, empty
+  tail: the co loop walks the line's words and the stone pair re-parks
+  the index). Measured with a watchpoint on 4941EC (VBRNG_WATCH, see
+  rng/README.md "Watchpoint"): `take stone with knife` ends 5 -> -1 from
+  463640 called at 475CB5; `take stone with zzz` ends -1 -> 4 -> 5 from
+  co() at 475CF4, then 48BBF3 registers the question. The old fit "the
+  head names a pass-0 candidate" was a coincidence of which cells were
+  driven. Two more things the port needed to match run400 cell for cell:
+  get_piece scores the WHOLE typed fragment with 463640 in mode 1 (473011)
+  before any word-order parse, so `take rope with ruby` takes the ruby and
+  `take stone with knife` ties the two stones with the knife left out; and
+  the Which term is the LAST tied object's raw Short (4733BD:
+  Objects(-(var_BA+2)).global_4), where the "not clear which" arm (473336,
+  when Me(424) < 0) names the last tied object's typed name. Unmeasured:
+  `take stone with gems` (alias tie in the tail; predicted no tick); a
+  " with " line on a handler that prompts nothing (`unlock door with key`
+  with two keys), where the co loop would leave a tie for the generaltasks
+  scan to ask -- the scan model stays NPC-gated; and a drop/put prompt on
+  a with-line. Open: `take stone from knife` is "Which stone.  The red
+  stone or the blue stone?" with no tick in run400 (get_piece's "from" arm
+  472EF1 resolves the container in mode 0 and then scores the piece) where
+  Scarier answers "You can't take anything from the knife." (Adrift_wtie11
+  turn 16). `[4.0]` p4WTIE (`cmdfile_wtie11.txt` .. `cmdfile_wtie18.txt`,
+  `cmdfile_wtiewatch.txt`; Adrift_wtie11..18, Adrift_wtiewatch,
+  `wtie_watch_trace.txt`; `lib_openclose_with_half_400`,
+  `lib_co_400_named_question_raised`, `lib_take_whole_line_400`,
+  `run_all_commands`, 2026-09-20)
 - **Pre-4.0 read is examines()' object too.** A `read` line naming more
   than one object is settled exactly as `x` settles it: 3.90 by
   referencedob()'s last-word pass (`read rock gem` -> "You can't read the

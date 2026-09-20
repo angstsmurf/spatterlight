@@ -1002,6 +1002,8 @@ extern void lib_co_400_reset (void);
 extern void lib_co_400_begin_line (scr_bool is_new_line);
 extern scr_bool lib_co_400_question_pending (void);
 extern void lib_co_400_take_question (void);
+extern scr_bool lib_co_400_named_question_raised (void);
+extern void lib_co_400_drop_question (void);
 extern void lib_co_400_note_refusal (void);
 extern scr_bool lib_co_400_line_refused (void);
 extern void lib_co_400_print_still_ambiguous (scr_gameref_t game);
@@ -1020,6 +1022,8 @@ extern void lib_battle_who_set_prefix (const std::string &pending,
                                        const std::string &at_line);
 extern scr_bool lib_co_400_line_leaves_which_pending (scr_gameref_t game,
                                                      const scr_char *line);
+extern scr_bool lib_openclose_with_half_400 (scr_gameref_t game,
+                                             const scr_char *line);
 extern scr_bool lib_npc_400_line_names_namesakes (scr_gameref_t game,
                                                   const scr_char *line);
 extern scr_bool lib_npc_400_raise_for_line_string (scr_gameref_t game,
