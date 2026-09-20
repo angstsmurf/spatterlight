@@ -29325,7 +29325,24 @@ lib_what (scr_gameref_t game, const scr_char *verb)
     {
       const scr_char *typed = run_get_line_input ();
 
-      if (typed && scr_strcasecmp (typed, verb) == 0)
+      /*
+       * The four 3.9 object handlers store the line AS TYPED, not only a
+       * line that is the bare verb: takes 455890/455897, drops 445F0B/
+       * 445F12, wears 43D27F/43D286 and removes 439FBF/439FC6 all end with
+       * `If msg = "" Then msg = "<Verb> what?" : MemVar_4681D0 = the line`.
+       * checkverb's own arms (42A4F4) keep the bare-verb test, which is why
+       * `push zzz` stores nothing while `wear zzz` does.  Measured p39WHAT
+       * (run390x Adrift_p39what.txt, cmdfile_p39what.txt, 2026-09-20):
+       * `wear zzz` / `hat` puts the hat on, `remove zzz` / `hat` takes it
+       * off, `drop zzz` / `hat` drops it, `take zzz` / `hat` picks it up,
+       * and `wear zzz` / `wield zzz` answers "Wear what?" a second time
+       * before `hat` wears it.  The prefix still lives exactly one line:
+       * `drop zzz` / `look` / `hat` is the catch-all.
+       */
+      if (strcmp (verb, "Take") == 0 || strcmp (verb, "Drop") == 0
+          || strcmp (verb, "Wear") == 0 || strcmp (verb, "Remove") == 0)
+        lib_battle_who_pending = input;
+      else if (typed && scr_strcasecmp (typed, verb) == 0)
         lib_battle_who_pending = input;
     }
   else if (input && scr_strcasecmp (input, verb) == 0

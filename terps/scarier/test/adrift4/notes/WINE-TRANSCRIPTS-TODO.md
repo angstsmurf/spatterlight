@@ -297,8 +297,18 @@ the_hangover T34) went identical with that port on 2026-09-20.
   the run390 cascade read before anything is written).
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
-- **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
-  43D289): read, not measured.
+- **A 3.9 drop or take matches its noun ANYWHERE in the line.** Falling out
+  of the p39WHAT probe below: run390's drops (445F20) and takes (455B34)
+  pick their object with co(obj, 2) / co(obj, 1), which matches a name
+  anywhere in the line, so `drop zzz hat`
+  answers "You drop the hat." and `take zzz hat` "You pick up the hat.",
+  where Scarier binds `%object%` from the tail after the verb and answers
+  "Drop what?" / "Take what?". The other two handlers already agree:
+  `wear zzz hat` and `remove zzz hat` match in both, because Scarier routes
+  them through `lib_absent_named_object_pre_390()`. Measured on p39WHAT
+  under run390x (`Adrift_p39what2.txt`, `cmdfile_p39what2.txt`,
+  2026-09-20). This is the same shape as the verb-anywhere bullet above --
+  the noun half of it -- and belongs with that port, after the 4.00 half.
 - **Silent-task test scope, the unported rest.** run400 tests the whole
   turn buffer. Scarier counts anything a task's run adds (baroo) but still
   ignores text written before the dispatch. No corpus row is known.
@@ -875,12 +885,34 @@ transcript names are in the code comment next to the named function, in
   prefix for the next input. The "with?" line is not a turn. `[4.0]`
   (daf951a81)
 - **Question prefixes, 3.9.** Every "<Verb> what?" (checkverb's arms and
-  the handlers' own rows) stores the line when the typed line IS the verb,
-  and generaltasks prepends it to the next line nothing answers: `push` /
-  `stone` pushes the stone, `give` / `coin` asks "Give the coin to who?".
-  The prefix lives one line. `push zzz` / `stone` stores nothing. Bare give
-  stores its completed "give to nobody" line, so the rerun is not echoed
-  again. `[3.9]` p39TASK (`lib_what`, `run_get_line_input`, 2026-09-19)
+  the handlers' own rows) stores a line, and generaltasks (4601A5)
+  prepends it to the next line nothing answers: `push` / `stone` pushes
+  the stone, `give` / `coin` asks "Give the coin to who?". The prefix
+  lives one line. Bare give stores its completed "give to nobody" line, so
+  the rerun is not echoed again. checkverb's own arms (42A4F4) store only
+  a line that IS the verb, so `push zzz` / `stone` stores nothing -- but
+  the four object handlers store the line AS TYPED: takes 455890/45589A,
+  drops 445F0B/445F15, wears 43D27F/43D289 and removes 439FBF/439FC9 each
+  end `If msg = "" Then msg = "<Verb> what?" : MemVar_4681D0 = the line`.
+  So `wear zzz` / `hat` wears the hat, `remove zzz` / `hat` takes it off,
+  `drop zzz` / `hat` drops it and `take zzz` / `hat` picks it up, while
+  `wear zzz` / `wield zzz` answers "Wear what?" a second time and
+  `drop zzz` / `look` / `hat` is the catch-all. (The pre-prune note's
+  claim that run390's removes sets no prefix is wrong.) `[3.9]`
+  p39TASK, p39WHAT (`make_39_whatprobe.py`, `cmdfile_p39what.txt`)
+  (`lib_what`, `run_get_line_input`, 2026-09-20)
+- **The 4.0 drop/take setter branches are DEAD CODE.** run400's takes
+  (Proc_19_6_47C83C, body 47B60C-47C83B = P32Dasm `mdlSpreadTheLoad.Sub_20_7`)
+  and drops (Proc_19_7_46FB8C, body 46F118-46FB8B = `Sub_20_8`) have ZERO
+  call sites anywhere in the run400 P-code, where wears (`Sub_20_9`,
+  463C30) and removes (`Sub_20_10`, 4624B0) have one each. Their prefix
+  setters 47C7F1 and 46FB7D are therefore unreachable and there is nothing
+  to port; `drop zzz` / `take zzz` reach the live sites instead
+  (name_object 46E179, get_piece 473A25) and store no prefix, which is what
+  ptbad measured. The drops-only string " would you like to drop.  "
+  (46F583) appears in no transcript. Census by xref table plus a raw P-code
+  call count, 2026-09-20; several annotations still credit these two
+  procedures with behaviour reached elsewhere. `[4.0]` (no code change)
 - **`drink` bare is "You can't drink that." below 4.0**, not "Drink what?";
   eat, open, close, read and say leave no prefix. `[<4.0]` p39TASK
   (`lib_cmd_drink_what`, 2026-09-19)
