@@ -3225,11 +3225,18 @@ run_npc_row_blocked (const scr_commands_t *command)
  * of everything but the take/drop/inventory/put handlers and the NPC examine.
  * It costs the walkthroughs that used to win past a spent `*` task -- The
  * Long Journey Home stops at 5/90 in the Lair, exactly where run390 does --
- * and those goldens now hold the Runner's brick.  The silent-task half (a task
- * that runs and prints nothing leaving "I don't understand.") is still left
- * out; see RUNNER_TESTS_TODO.md section 4.  Only its clock is ported
- * (2026-09-19, 3.9 only): the line is not a turn, although the library now
- * answers it (silent_task_390 in run_all_commands()).
+ * and those goldens now hold the Runner's brick.
+ *
+ * The silent half is PORTED too (2026-09-20, 3.9 only): its clock went first
+ * (2026-09-19, the line is not a turn) and now the claim, silent_task_390 in
+ * run_all_commands() skipping the whole library block so the DontUnderstand
+ * text comes out.  RUNNER_TESTS_TODO.md section 4 priced that at 15 goldens
+ * and four lost walkthroughs, but that was before the spent-task port had
+ * taken most of those cells: re-measured it costs six goldens and no win --
+ * alexis, alexis_worn_cube, lifesimulation, life and everything change one
+ * line of text, the_hangover two turns -- and all six rows then match their
+ * Runner transcripts exactly.  3.7/3.8 are left alone: checktask is the same
+ * routine there, but no probe has been run and no corpus row asks.
  */
 
 /*
@@ -6347,14 +6354,22 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   const scr_bool task_claimed = !claimed_before_tasks && status
                                 && run_any_task_ran_this_command ();
   /*
-   * 3.9: a task that ran and printed nothing claims the line in run390,
-   * which prints the game's DontUnderstand text, and the line is not a turn.
-   * Scarier deliberately lets the library answer instead (see the note
-   * "Measured 2026-08-23 (make_39_doneprobe.py" above), but keeps the Runner's
-   * clock: no turn, no walk and no event tick.  ALEXIS.TAF T99 `open chest`
-   * (task 14 `open * chest`, no CompleteText) draws nothing in run390x
-   * (alexis_tr_trace.txt), and ticking there put every later battle roll a
-   * turn out of phase.
+   * 3.9: a task that ran and printed nothing claims the line in run390 --
+   * tasks() returns it, generaltasks skips everything below the dispatcher,
+   * and an empty buffer is printed as the game's DontUnderstand text -- and
+   * the line is not a turn.  Both halves are ours now: the clock first
+   * (2026-09-19; ALEXIS.TAF T99 `open chest`, task 14 `open * chest` with no
+   * CompleteText, draws nothing in run390x per alexis_tr_trace.txt, and
+   * ticking there put every later battle roll a turn out of phase), then the
+   * claim (2026-09-20), which is the `!silent_task_390` guard on the library
+   * block below: status stays FALSE, so run_process_input_line() prints
+   * DontUnderstand, and nothing between here and there speaks.
+   *
+   * It is what run390 answers `read diary` in everything, `piss` in life,
+   * `turn off tv` in lifesimulation and `open chest` in alexis with, and in
+   * the_hangover it also keeps the filing cabinet shut: the task matched and
+   * did nothing, so the library never opens it and the approval form stays
+   * inside.  See the note "Measured 2026-08-23 (make_39_doneprobe.py" above.
    */
   const scr_bool silent_task_390 = !claimed_before_tasks && !status
       && run_any_task_ran_this_command ()
@@ -6407,7 +6422,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     }
   if (inv_listed)
     status = TRUE;
-  if (!status)
+  if (!status && !silent_task_390)
     {
       /*
        * Only now, with every task pass declined, does the Runner rewrite a

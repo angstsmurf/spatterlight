@@ -40,9 +40,10 @@ Row comments and probe generators cite sections by title ("Ported
   the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py` (its README explains how);
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 377 identical on every turn, 31 identical apart from
-  whitespace, 19 with a report. Every differing row is classified under
-  "Open leads" or "Nothing owed".
+- **Manifest:** 383 identical on every turn, 31 identical apart from
+  whitespace, 13 with a report. Every differing row is classified under
+  "Open leads" or "Nothing owed" -- and since the silent-task port
+  (2026-09-20) none of them is an engine difference.
 - **Which transcript to cite.** For a wired row, cite
   `runner_transcripts/<tag>.txt` (`.rtf` for 3.7/3.8), never the
   `Adrift_<N>_<tag>` file a drive left in the prefix. The manifest's `source`
@@ -209,11 +210,10 @@ Row comments and probe generators cite sections by title ("Ported
 ## Open leads
 
 None blocks a golden. Rows not named here differ only by a capture
-artefact. The 4.0 and 3.9 engine lists are empty: the remaining 3.9
-differences (alexis and alexis_worn_cube T99 `open chest`, everything T38
-`read diary`, lifesimulation T6, life `piss`, the_hangover) are the
-silent-task deviation below, and since 2026-09-19 they differ by text only,
-not by a tick.
+artefact. The 4.0 and 3.9 engine lists are empty: the six 3.9 rows that
+were the silent-task deviation (alexis and alexis_worn_cube T99 `open
+chest`, everything T38 `read diary`, lifesimulation T6, life `piss`,
+the_hangover T34) went identical with that port on 2026-09-20.
 
 ### Harness and compare
 
@@ -352,15 +352,6 @@ not by a tick.
 
 ## Deliberate deviations (measured, not ported)
 
-- **Pre-4.0 silent-turn DontUnderstand.** A matched task whose turn prints
-  nothing gets "I don't understand what you mean!" in run390. Scarier runs
-  the task and falls through to the library. Cases: hangover `open the
-  filing cabinet`, everything `read diary`, lifesimulation `turn off tv`,
-  life `piss`, alexis `open chest`. The world state agrees in all of them.
-  The *spent*-task half is ported (cc7470bf8), and since 2026-09-19 the
-  clock half too at 3.9: the line is administrative, as run390's
-  DontUnderstand is (`silent_task_390` in run_all_commands()), so only the
-  text differs. That fixed every alexis battle difference after T99.
 - **run370 double matcher pass** (arlo `get out of bus`).
 - **3.7/3.8 Runner crashes ("Run-time error '9': Subscript out of
   range", transcript lost):** `put all in <nothing>`, `put all on
@@ -684,6 +675,21 @@ transcript names are in the code comment next to the named function, in
     (4e53b89ce)
   - The post-library RepeatText fallback also checks restrictions. `[4.0]`
     hcw T227 (b6d2f4f1f)
+  - **A 3.9 task that RAN and printed nothing claims the line too**, and
+    the empty buffer comes out as the game's DontUnderstand text: tasks()
+    returns the task and generaltasks skips everything below the
+    dispatcher, so the library verb that would have answered never runs.
+    The line is administrative (ported 2026-09-19); the claim followed on
+    2026-09-20 (`silent_task_390` guards the library block in
+    run_all_commands()). It costs six goldens and no win: alexis and
+    alexis_worn_cube T99 `open chest`, everything T38 `read diary`,
+    lifesimulation T6 `turn off tv` and life `piss` change one line of
+    text, and the_hangover T34 also keeps the filing cabinet shut, so
+    `take approval form` is "Take what?" -- all six rows went identical to
+    their Runner transcripts. 4.0 falls through to the library instead.
+    3.7/3.8 are unmeasured and left alone. `[3.9]` p39done
+    (make_39_doneprobe.py, Adrift_18/19), alexis, everything,
+    lifesimulation, life, the_hangover
 - **The task-ran NPC gate.** Once a task has run for the line, the
   character handler's take, examine, where, attack and talk-to branches are
   shut; give, ask-about and kiss survive. The take-NPC line names Prefix +

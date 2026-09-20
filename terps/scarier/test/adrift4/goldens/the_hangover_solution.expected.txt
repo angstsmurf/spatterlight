@@ -248,11 +248,10 @@ Leopard". You should probably try to open the cabinet.  The cabinet is
 closed.
 
 > open the filing cabinet
-You open the cabinet.  Card name replacement approval form is inside the
-cabinet.
+What you typed doesn't work.
 
 > take approval form
-You take card name replacement approval form from the cabinet.
+Take what?
 
 > n
 You move north.

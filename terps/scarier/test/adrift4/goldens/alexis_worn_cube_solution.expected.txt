@@ -651,7 +651,7 @@ It is too dark to see.
 The chest's lock slowly turns and with a clunk, the chest is unlocked.
 
 > open chest
-You can't open that.
+Command not understood
 
 > x large chest
 You can't see that very clearly.

@@ -229,12 +229,7 @@ I am carrying her diary.
 expression: the passion, the excitement, and the sense of discovery.
 
 > read diary
-   There is much within its perfumed pages written in her sweet scrawl.
-Elaborately detailed are excitable accounts of our romantic exchanges, of our
-sexual appetites, and...hold on! What is this? Who is Etienne? And why does
-her words allude to him as a partner, as a lover, when it was I that consumed
-her heart? And I was with her that very day! Bitch! But my heart says
-differently...she was the world to me, the world and more...who was I to her?
+I don't understand what you mean!
 
 > out
    I could never spend another minute in my nay! Emanuelle's room - the
