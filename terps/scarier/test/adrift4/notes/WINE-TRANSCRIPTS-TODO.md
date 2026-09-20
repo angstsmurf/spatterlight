@@ -624,13 +624,35 @@ transcript names are in the code comment next to the named function, in
   around the handler the order leaves speaking; `run_hoist_verb_line()`
   asks it before its own scan, because the head may be a verb itself. The
   three feeds go 11/11/10 -> 4/6/4 mismatches, 428/428 and the Wine sweep
-  byte-identical. What the four leftovers are: one two-verb cell (`x take
-  off hat` worn, in the open list above) and three single-verb wordings
-  this probe turned up on the way -- pre-4.0 `wear <worn>` ends with NO
-  terminator ("You are already wearing a hat"), 3.80/3.90 `take <worn>` is
-  "You are already wearing X!" where Scarier contracts it to "You're", and
-  3.70 `take <worn>` does not see the object at all ("You can't see a hat
-  from here!").
+  byte-identical. Of the four leftovers three were single-verb wordings the
+  probe turned up on the way, ported straight after in the entry below; the
+  last is the one two-verb cell `x take off hat` worn, in the open list
+  above. The feeds now stand at 1/0/1.
+
+- **"Already wearing" is never contracted, and below 4.0 the wear arm
+  leaves the sentence open.** Every Runner builds this message the same
+  way, `<pronoun> & " " & <are> & " already wearing " & <name>` -- takes at
+  run390 454F31, run380 43E0A2, run400 47BE82, all of them ending "!"; and
+  wears at run390 43CF8B, run380 432FCB, run370 42C7B6, none of which adds
+  a terminator at all, where run400 4638FE alone appends "!". So `wear hat`
+  with the hat on is "You are already wearing a hat" with nothing after it
+  below 4.0. The name follows the usual split, the plain Prefix & " " &
+  Short concatenation below 3.90 and the definite printer from 3.90 on, so
+  3.70 and 3.80 say "a hat" where 3.90 says "the hat". Scarier had
+  "You're already wearing" -- a form that appears in none of the four
+  listings -- a full stop on the wear arm, and the definite name
+  everywhere. The third cell is 3.70's takes(), which has NO worn arm:
+  it tests position 0 (436561, "'ve already got") and the room constant
+  (436585, the pick-up branch) and nothing else, so a worn object falls
+  through to the same " can't see <raw> from here!" arm an absent one gets
+  (436909/43696A) -- `take hat` with the hat worn is "You can't see a hat
+  from here!" there, against "You are already wearing a hat!" at 3.80.
+  Measured on p37TWO/p38TWO/p39TWO with `cmdfile_p2verb3.txt` cells 7, 9,
+  22 and 29 (Adrift_255_2x37.rtf, 256_2x38.rtf, 257_2x39.txt, 2026-09-21).
+  PORTED in `lib_take_backend_common()` and `lib_wear_backend()`;
+  `lib_print_object_list()` now takes '\0' for an arm that leaves the
+  sentence open. The three feeds go 4/6/4 -> 1/0/1 mismatches, 428/428 and
+  the Wine sweep byte-identical.
 
 - **The Runner rewrites the typed line before anything looks at it, at
   every version, and 3.90/4.00 do it by SUBSTRING.** Below 3.90 the

@@ -1416,7 +1416,10 @@ lib_print_object_list (scr_gameref_t game, scr_bool has_printed,
   lib_print_clause (game, has_printed,
                     second_person, first_person, third_person);
   lib_print_list (game, list, print_item, conjunction);
-  pf_buffer_character (filter, terminator);
+  /* '\0' for the arms that leave the sentence open, as the pre-4.0 wear
+     handler's "<You> are already wearing <object>" does. */
+  if (terminator != '\0')
+    pf_buffer_character (filter, terminator);
   return TRUE;
 }
 
@@ -11856,10 +11859,42 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       game->multiple_references[object] = FALSE;
     }
 
-  has_printed |= lib_print_object_list (game, has_printed, list, " and ", '!',
-                                        "You're already wearing ",
-                                        "I'm already wearing ",
-                                        "%player% is already wearing ");
+  /*
+   * No Runner contracts this one.  Every take path builds it as
+   * <pronoun> & " " & <are> & " already wearing " & <name> & "!" -- run400
+   * 47BE82, run390 454F31, run380 43E0A2 -- so "You're" was never right; the
+   * name is the plain Prefix & " " & Short concatenation below 3.9 and the
+   * definite printer from 3.9 on, as everywhere else on this path.
+   *
+   * 3.7 has no worn arm at all: its takes() tests position 0 (held,
+   * "'ve already got", 436561) and the room constant (the pick-up branch,
+   * 436585) and nothing else, so a worn object falls through to the same
+   * " can't see <raw> from here!" arm an absent one gets (436909/43696A).
+   *
+   * p37TWO/p38TWO/p39TWO `take hat` with the hat worn (cmdfile_p2verb3.txt
+   * cell 7, Adrift_255_2x37.rtf / 256_2x38.rtf / 257_2x39.txt, 2026-09-21):
+   * "You can't see a hat from here!" / "You are already wearing a hat!" /
+   * "You are already wearing the hat!".
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
+      && !list.empty ())
+    {
+      /* The arm assigns the whole message per object, so the last one
+         speaks; the raw name is this handler's own concatenation. */
+      lib_new_clause (game, has_printed);
+      lib_cant_see_named_pre_390 (game, list.back (), FALSE, " from here!");
+      has_printed = TRUE;
+    }
+  else
+    has_printed |= lib_print_object_list (game, has_printed, list, " and ", '!',
+                                          "You are already wearing ",
+                                          "I am already wearing ",
+                                          "%player% is already wearing ",
+                                          prop_get_taf_version
+                                          (gs_get_bundle (game))
+                                          >= TAF_VERSION_390
+                                          ? lib_print_object_np
+                                          : lib_print_object_raw);
 
   for (npc = 0; npc < gs_npc_count (game); npc++)
     {
@@ -16892,14 +16927,31 @@ lib_wear_backend (scr_gameref_t game)
       game->multiple_references[object] = FALSE;
     }
 
-  /* The 4.0 Runner ends this with "!"; pre-4.0 Runners build the wear-path
-     variant of this message without the "!" (run400 47BE3C/4638FE vs
-     run380 432FCB). */
+  /*
+   * The 4.0 Runner ends this with "!" (4638FE: ... & var_CC where var_CC is
+   * "!"); the pre-4.0 Runners build the wear-path variant of the message
+   * with NO terminator at all -- run390 43CF8B and run380 432FCB
+   * (`... & " already wearing " & var_208(0) & " " & var_208(4)`) and run370
+   * 42C7B6 all stop at the name.  Below 3.9 that name is the plain
+   * Prefix & " " & Short the concatenation shows; 3.9 and 4.0 call the
+   * definite printer instead (42B0E8 / 448710).
+   *
+   * p37TWO/p38TWO/p39TWO `wear hat` with the hat already worn
+   * (cmdfile_p2verb3.txt cells 9 and 22, Adrift_255_2x37.rtf /
+   * 256_2x38.rtf / 257_2x39.txt, 2026-09-21): "You are already wearing a
+   * hat" twice over at 3.7 and 3.8, "You are already wearing the hat" at
+   * 3.9, in every case with the sentence left open.
+   */
   has_printed |= lib_print_object_list (game, has_printed, list, " and ",
-                                        lib_is_version_400 (game) ? '!' : '.',
+                                        lib_is_version_400 (game) ? '!' : '\0',
                                         "You are already wearing ",
                                         "I am already wearing ",
-                                        "%player% is already wearing ");
+                                        "%player% is already wearing ",
+                                        prop_get_taf_version
+                                        (gs_get_bundle (game))
+                                        >= TAF_VERSION_390
+                                        ? lib_print_object_np
+                                        : lib_print_object_raw);
 
   list.clear ();
   for (object = 0; object < object_count; object++)
