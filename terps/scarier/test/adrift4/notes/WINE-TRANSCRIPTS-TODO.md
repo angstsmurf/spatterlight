@@ -302,7 +302,6 @@ not by a tick.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
-- **Pre-4.0 room-name alt walk** is unmeasured.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
 - **Why `attack dave` is DontUnderstand at 3.7/3.8** (battle off) while
@@ -1538,6 +1537,12 @@ transcript names are in the code comment next to the named function, in
   - `isare()` is exact and case-sensitive, and the loader fills an empty
     Prefix with "a". yeh (496c115f2)
   - 4.0 room names take every matching alt's Changed. togetyou (fee19ae2a)
+  - Below 4.0 a room's name is always its Short. "Changed" is a field of
+    the 4.0 room-alt record only, so every alt this loader synthesises for
+    a 3.7/3.8/3.9 game carries an empty one, and the Runners never look:
+    run390's viewroom heads the room with the Short alone (447749) and
+    run380's (439C08) reaches its alt array only for description text.
+    `[<4.0]` read, not probed (`lib_get_room_name`, 2026-09-20)
   - The multi-take line comes before the earlier task text. `[4.0]`
     fullcircle T43 (b6d2f4f1f)
   - The (Getting off X first) bracket line prints on its own line.

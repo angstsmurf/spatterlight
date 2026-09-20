@@ -528,7 +528,18 @@ lib_get_room_name (scr_gameref_t game, scr_int room)
    * (task 22, method 2, Changed "The Infected Ear") sits below alt 1
    * (method 1, M2 shown), so the Runner heads the room "The Infected Ear"
    * (Adrift_476_togetyou.txt T16) where the start-point walk below never
-   * reached alt 0 and kept "The Ear".  Pre-4.0 keeps that walk, unmeasured.
+   * reached alt 0 and kept "The Ear".
+   *
+   * Pre-4.0 keeps the start-point walk, and it can never be seen to differ:
+   * no Runner below 4.0 can change a room's name at all.  "Changed" is a
+   * field of the 4.0 ROOM_ALT record only (sctafpar.cpp's grammar), so the
+   * alts this loader synthesises for a 3.7/3.8/3.9 game are all written with
+   * Changed "" (parse_fixup_v390_v380_room_alt), and the Runners agree:
+   * run390's viewroom heads the room with `"<b>" & rooms(broom).Short &
+   * "</b>"` and consults no alt (447741-447754), while run380's viewroom
+   * (439C08) reaches the alt array only for description text
+   * (var_A4(60).n(n), 43952F/4395EC/4396A9).  So the walk below decides the
+   * name only for a 4.0 game, where it is bypassed.
    */
   if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
     start = -1;
