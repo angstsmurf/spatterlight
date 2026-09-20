@@ -138,15 +138,14 @@ rag.
 > drink whiskey
 You take a mouthful, slosh it around a bit, then swallow. It tastes like hot
 dish water and burns all the way down. Does wonders for your mouth ulcers
-though.
-Having sampled the landlords inventory, you wait patiently for the coach to
-arrive. But after what feels like an age has passed (10 minutes) you begin to
-feel quite parched and decide to have another drink to wet your whistle. Then
-a couple more, just to pass the time. One more, for a toast to the clan, oh
-and best not forget a few for the road (it is a long journey after all.)
-Before you know it, the day has turned into night and you have had more
-drinks than you can count.  The sound of horses hoofs can be heard from
-outside.
+though.  Having sampled the landlords inventory, you wait patiently for the
+coach to arrive. But after what feels like an age has passed (10 minutes) you
+begin to feel quite parched and decide to have another drink to wet your
+whistle. Then a couple more, just to pass the time. One more, for a toast to
+the clan, oh and best not forget a few for the road (it is a long journey
+after all.) Before you know it, the day has turned into night and you have
+had more drinks than you can count.  The sound of horses hoofs can be heard
+from outside.
 
 > out
 You move out.

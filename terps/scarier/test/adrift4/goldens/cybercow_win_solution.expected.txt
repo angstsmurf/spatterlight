@@ -562,18 +562,15 @@ The robot grabs your arm and twists it behind your back!
 -PATHETIC. HUMAN.-SAY. UNCLE.-
 
 > say uncle
-"Uncle"?
-The robot grabs your arm and twists it behind your back!
+"Uncle"?  The robot grabs your arm and twists it behind your back!
 -SAY. UNCLE.- Robot commands.
-
--SAY. IT.-
+  -SAY. IT.-
 
 > uncle
 -I. THOUGHT. SO. - YOU. ARE. WEAK. - LIKE. ALL. HUMANS.-
 The robot seems smug.
 -WHY. DID. YOU. CONSTRUCT. ME. PATHETIC. HUMAN.- The Robot demands.
-You are being telepathically probed!
---
+You are being telepathically probed!  --
 
 > z
 --  -CYBERCOW? - WHAT. IS. THIS. CYBERCOW. PLANNING.-
@@ -582,8 +579,7 @@ You can feel the harsh mechanical examination of your most private thoughts.
 
 > z
 --  -TAKE. ME. TO. THE.CYBERCOW. - NOW.-
-The Robot seems to enjoy this experience.
---
+The Robot seems to enjoy this experience.  --
 
 > z
 --  The Robot releases you with a mean little shove.
@@ -631,8 +627,8 @@ moist here.  The end of the rope dangles here, providing you with a way back
 up.  To the west you can see the narrow entrance to the CyberCow's lair.
 The CyberCow is here.
 
-You can move west and up.  The Robot marches in  from above.
-The Robot and the CyberCow lock eyes.
+You can move west and up.  The Robot marches in  from above.  The Robot and
+the CyberCow lock eyes.
   The Robot begins charging its ray weapon.
 --Ah:  there's really no good place to be in the bottom of the well here, if
 the Robot fires that thing.
@@ -878,8 +874,7 @@ you--
 You pause a moment...
 The fairy circles behind you, bumps you in the top of the head once --
 And is gone.
-
---It takes you a good long moment to realize what happened:
+  --It takes you a good long moment to realize what happened:
 The fairy examined you from all angles --
 And then, in the only place she considered safe, she kissed you.  And then
 left.

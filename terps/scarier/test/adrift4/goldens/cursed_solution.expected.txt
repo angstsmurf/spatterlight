@@ -555,7 +555,6 @@ closed at the moment, while a passage southwards leads to the antechamber.
    A tall, basalt pedestal is positioned in the north-western corner of the
 room.
    On top of the pedestal is a large, ornamental vase.
-
    Your vulpine hearing detects some sounds -- voices on the other side of
 the door.
 
@@ -569,7 +568,6 @@ second later, slamming into the floor with considerable force and further
 crushing the remains of the vase.
    Where the base of the pedestal rested a small hole in the floor can now be
 seen.
-
    Your vulpine hearing detects some sounds -- voices on the other side of
 the door.
 
@@ -578,7 +576,6 @@ You grab the frayed curtain with your teeth and tug firmly, but nothing seems
 to happen. Again you pull and this time are rewarded with the sound of cloth
 tearing high above you. With one more firm pull the entire curtain rips away
 from the rail and ends up in a pile at your feet.
-
    Your vulpine hearing detects some sounds -- voices on the other side of
 the door.
 
@@ -587,7 +584,6 @@ You grab one end of the fallen curtain with your teeth and drag it to the
 fire. With a toss of your head you manage to throw it onto the low burning
 fire, where it smoulders for a moment before bursting into flame. Smoke
 billows into the hall.
-
    Your vulpine hearing detects some sounds -- voices on the other side of
 the door.
 
@@ -1329,7 +1325,6 @@ You suspect the king might want to talk about some of the following things:
 > yes
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
-
    The wind rattles against the windows, making both you and the king jump
 slightly.
 
@@ -1389,7 +1384,6 @@ made no sense.
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
-
    You feel a draft from under the door and it makes you shiver. You pull
 your cloak around yourself even tighter.
    "Please enjoy your wine," Rithusar reminds you. "Don't let it go to
@@ -1410,7 +1404,6 @@ made no sense.
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
-
    An soft, eerie sound reaches your ears as the wind blows across the top of
 the chimney.
 
@@ -1465,7 +1458,6 @@ made no sense.
 > no
 A strange thought comes to your mind, but you quickly dismiss it. It really
 made no sense.
-
    The wind rattles against the windows, making both you and the king jump
 slightly.
 
@@ -1568,20 +1560,17 @@ nearby.
 > think
 It is so hard to think, your mind wanders constantly, randomly...but you
 think you feel something...
-
 Your vulpine hearing detects some sounds nearby. Your vulpine eyes detect
 movement nearby. Your vulpine senses detect an odour nearby.
 
 > feel
 You can feel your feet.
-
 Your vulpine senses detect an odour nearby. Your vulpine hearing detects some
 sounds nearby. Your vulpine eyes detect movement nearby. Your vulpine eyes
 detect movement nearby.
 
 > feel feet
 You can feel your feet, and beneath them you can feel the ground.
-
 Your vulpine hearing detects some sounds nearby. Your vulpine eyes detect
 movement nearby. Your vulpine hearing detects some sounds nearby. Your
 vulpine hearing detects some sounds nearby. Your vulpine hearing detects some
@@ -1589,7 +1578,6 @@ sounds nearby. Your vulpine senses detect an odour nearby.
 
 > feel ground
 The ground is covered in grass.
-
 Your vulpine eyes detect movement nearby. Your vulpine hearing detects
 something like a horn sound nearby. Your vulpine eyes detect movement nearby.
 Your vulpine eyes detect movement nearby. Your vulpine hearing detects some
@@ -1599,7 +1587,6 @@ detect an odour nearby.
 > feel grass
 The grass is thick and soft, cool to the touch. In various places you can see
 clumps of small white flowers.
-
 Your vulpine senses detect an odour nearby. Your vulpine eyes detect movement
 nearby. ... My nose ... Your vulpine hearing detects some sounds nearby. Your
 vulpine hearing detects something like a horn sound nearby. Your vulpine eyes
@@ -1611,7 +1598,6 @@ detect movement nearby.
 The flowers are giving off a gentle, sweet fragrance that mingles with the
 crisp, alpine smell of the pines trees all around which you hear creaking in
 a strong wind.
-
 Your vulpine hearing detects some sounds nearby. Your vulpine senses detect
 an odour nearby. Your vulpine eyes detect movement nearby. Your vulpine
 senses detect an odour nearby. Your vulpine hearing detects some sounds
@@ -1652,7 +1638,6 @@ covered with grass that waves in the wind. Dotted here and there are small
 bunches of late blooming alpine flowers that are giving off a strong
 fragrance. Despite the undergrowth, you have freedom of movement in every
 direction, although the track itself leads north.
-
    To your ears come the sounds of dogs barking, not too far away to the
 south. And with it is the sound of a horn.
    You notice your scent has been left behind you.
@@ -1660,7 +1645,6 @@ south. And with it is the sound of a horn.
 > score
 Your score is 24 out of a maximum of 101. Enter FULL SCORE to see a complete
 breakdown of the scoring items.
-
    Somewhere to the south, over the sound of the wind in the trees, you can
 hear dogs barking excitedly not far away.
 
@@ -1676,7 +1660,6 @@ overhead, bringing with it various scents and fragrances that you are still
 learning to catalogue. Shrubs decorate the base of the trees, and have spread
 all over, but they don't impede your progress too much. There is a track here
 that runs north/south, but you can move in any direction.
-
    Piercing through the sound of the wind, the howl of a hunting dog
 following a scent reaches your ears.
 
@@ -1692,7 +1675,6 @@ water depth is not great though, for the track makes no attempt to bridge the
 water. The far bank consists of loose stones and shale, and beyond you can
 see the track continuing to the north. Otherwise you can move in any
 direction.
-
    You hear the blast of a horn somewhere to the south, but closer now than
 it was.
 
@@ -1709,7 +1691,6 @@ grassland, over the loose shale of the stream bank. A northerly wind blows
 cold, frigid mountain air, along with a variety of scents and smells, plants
 and animals you are still trying to pinpoint. Above you the sky is grey and
 forbidding.
-
    The noise of a pack of dog barking with the excitement of a chase sounds
 loud in your ears, even above the sound of the wind.
 
@@ -1724,7 +1705,6 @@ end here at the stream, for beyond the stream, over the loose shale on the
 northern bank, is nothing but open grasslands, waving in the cold, northerly
 wind. Apart from the northeast, where the valley wall protrudes into the
 valley itself, you can move in any direction.
-
    Another howl cuts through the sound of the wind, followed almost
 immediately by a horn.
 
@@ -1877,7 +1857,6 @@ itself. The door to the barn, which is painted a dull red colour, is
 currently shut.
    To the south you can see some animal stalls, and in the north you can see
 some fields. The village square lies to the west.
-
    Your fur coat dries out completely.
 
 > s
@@ -2276,7 +2255,6 @@ being lifted up slowly.
 > jump on tray
 You ready yourself to jump from the paddle wheel and onto the metal tray, but
 you feel it is just out of reach. You decide to wait for a moment longer.
-
    As the paddle wheel turns, you move yourself into a better, more
 comfortable position.
 
@@ -2284,7 +2262,6 @@ comfortable position.
 You ready yourself to jump from the paddle wheel and onto the metal tray, but
 you feel it is just out of reach. You decide to wait for a moment longer.
    Your vulpine hearing detects some sounds -- movement outside the mill.
-
    The paddle wheel turns and takes you higher. It is getting close to the
 top now.
 
@@ -2439,7 +2416,6 @@ of the location.
    To the north, past a couple of enormous piles of boulders, a narrow
 passage can be seen which leads into a tight ravine. The only other viable
 direction for movement is back along the trail eastwards.
-
    Your vulpine senses detect danger nearby.
 
 > x rocks
@@ -2449,7 +2425,6 @@ near the entrance to the ravine.
 > x bushes
 The gorse bushes are not very big, but their branches are quite dense. There
 are a number of bushes scattered around the plateau.
-
    You feel a tingling sensation as you stand and survey the area.
 
 > listen
@@ -3364,7 +3339,6 @@ archway marks the exit to the north.
    There is a door in the southern wall which you know to be the entrance to
 the wizard Rixomas' rooms. It is currently is closed.
    Lord Vonisor enters from the west.
-
    Lord Vonisor rubs the back of his head impatiently.
 
 > n
@@ -3431,7 +3405,6 @@ of rich green which has been spoiled by a dark, sinister stain near the edge.
 open to the south.
    Standing a short distance away is Lord Vonisor, who is looking at you but
 is obviously ready for anything.
-
    Lord Vonisor pulls out his sword and checks the blade for any marks and
 flaws. He returns the blade to the scabbard.
 
@@ -3497,7 +3470,6 @@ Princess out of this --"
 to the door and knocks on it gently. When there is no answer he opens it very
 carefully and peers inside.
    "You're right," he says. "No one there. Be my guest."
-
    Lord Vonisor rubs the back of his head impatiently.
 
 > in

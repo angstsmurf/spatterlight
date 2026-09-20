@@ -22,8 +22,8 @@ You move north.
 
 Trabula's
 Trabula's Emporium is more than just an equipment store, it seems like they
-have everything you could want!  Trabula is here.
-"Ah I'm so glad to see you," the man says.
+have everything you could want!  Trabula is here.  "Ah I'm so glad to see
+you," the man says.
 
 "There's some things across the bridge that were stolen from me.  A diamond
 ring, and a bag of antique gold coins.  If you can retrieve them for me I

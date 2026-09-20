@@ -9,8 +9,8 @@ decorating.
 
 Office
 Your boss' office has a great view of Manhattan.  There is a desk here, a
-filing cabinet, and a paper shredder.
-The telephone rings.  You better answer it.
+filing cabinet, and a paper shredder.  The telephone rings.  You better
+answer it.
 
 > answer phone
 You pick up the phone.

@@ -351,8 +351,8 @@ This sprawling room is sectioned in two by a long, multi-level stainless
 steel table.  The main lab exit is to the east and the control stairwell is
 to the south.  Against the west wall is a large single piece of equipment,
 the DNA analysis computer, that takes up half the wall.  Jeriah Eldon is
-pacing here musing over a notepad.  Mark Eridian walks in from the south.
-A loud voice breaks into the room over the com system:  "All personnel.  We
+pacing here musing over a notepad.  Mark Eridian walks in from the south.  A
+loud voice breaks into the room over the com system:  "All personnel.  We
 have incoming hostile Orgaan units.  Initiating code red.  Code Red".
 
 With that the voice is gone, there is a moment of silence broken finally by a
@@ -682,9 +682,8 @@ but I'm not.  I'll get my turn to pay the Orgaans in kind for their deaths."
 You smile back at him, "Ok, now you're getting all chatty on me.  Let's get
 out of here."
 Skyrv hits Malthew, but it doesn't seem to do any damage.  Skynd hits you.
-Malthew hits Skynd.
-In complete surprise, the attack catches the Orgaan off guard taking him down
-forever.
+Malthew hits Skynd.  In complete surprise, the attack catches the Orgaan off
+guard taking him down forever.
 
 > get sample from malthew
 Pressing the genetic sampler to his arm, you take Malthew's genetic sample.
@@ -737,8 +736,8 @@ hits Skyrv.
 > shoot windows
 The 401K Auto Rifle chips away at the plasteel until finally with a
 satisfying crunch one of the windows gives way to an opening to the gardens.
-Malthew manages to avoid Skyrv's attack.  Malthew hits Skyrv.
-The attack cuts down the Orgaan who falls face forward to the floor.
+Malthew manages to avoid Skyrv's attack.  Malthew hits Skyrv.  The attack
+cuts down the Orgaan who falls face forward to the floor.
 
 > w
 Rushing out into the western gardens, a few Orgaan soldiers from the interior

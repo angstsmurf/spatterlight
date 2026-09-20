@@ -78,8 +78,8 @@ handrails look like they are bronze.  You can go west to a corridor, east to
 the forward staircase and to the southeast is a barber shop.
 
 > look under chair
-You look under the chair and find a tie pin, which you pick up.
-You hear a door close.
+You look under the chair and find a tie pin, which you pick up.  You hear a
+door close.
 
 > open suitcase
 You open the suitcase.  Inside the suitcase is a receipt, some wires and a
@@ -257,8 +257,7 @@ Aft Staircase, G Deck
 The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. The staircase leads up to 'F' deck and heading south will take you
 onto 'G' deck.  One of the crew (a man named Collins) is leaning against the
-wall.
-Collins scratches his nose.
+wall.  Collins scratches his nose.
 
 > south
 You move south.
@@ -314,8 +313,8 @@ You open the suitcase.  Inside the suitcase is a receipt, some wires, a bank
 note and a tie pin.
 
 > get receipt
-You take the receipt from the suitcase.
-The postal clerk looks in one of the mail bags.
+You take the receipt from the suitcase.  The postal clerk looks in one of the
+mail bags.
 
 > close suitcase
 You close the suitcase.
@@ -324,8 +323,7 @@ You close the suitcase.
 You hand the receipt to the clerk who looks at it for a moment and says,
 "This should be easy to find, hang on I'll go and look."
 He disappears for a moment and then returns with a parcel which he hands to
-you.
-The postal clerk rubs his chin.
+you.  The postal clerk rubs his chin.
 
 > exam clerk
 Looking to be in his early forties, with greying hair and moustache and an
@@ -343,8 +341,7 @@ will probably be a good idea not to be seen carrying it about the ship.
 
 > open suitcase
 You open the suitcase.  Inside the suitcase is some wires, a bank note and a
-tie pin.
-The postal clerk rubs his chin.
+tie pin.  The postal clerk rubs his chin.
 
 > put coin in suitcase
 You put the coin inside the suitcase.
@@ -505,8 +502,8 @@ panelled in two contrasting veneers of maple and mahogany (you spent a couple
 of years working as a carpenter). The decorative mouldings and all the
 handrails look like they are bronze.  You can go west to a corridor, east to
 the forward staircase and to the southeast is a barber shop.  The concerned
-looking ship's barber is here.
-The barber moves his weight from one foot to the other.
+looking ship's barber is here.  The barber moves his weight from one foot to
+the other.
 
 > talk to barber
 The barber looks you up and down and then says, "Do you know that you look
@@ -517,8 +514,7 @@ The barber has obviously recognised you so you will need to act quickly.
 
 > open suitcase
 You open the suitcase.  Inside the suitcase is some wires, a bank note, a
-coin and a tie pin.
-The barber moves his weight from one foot to the other.
+coin and a tie pin.  The barber moves his weight from one foot to the other.
 
 > get note
 You take the bank note from the suitcase.
@@ -988,9 +984,8 @@ You move west.
 Corridor, F Deck
 You are in a bright white panelled corridor which heads east as far as you
 can see.  In the opposite direction is the aft staircase and a cabin door is
-south.
-At the western end of the corridor you can see Mr Jones waiting. At the
-moment it does not look like he has seen you. You will need some sort of
+south.  At the western end of the corridor you can see Mr Jones waiting. At
+the moment it does not look like he has seen you. You will need some sort of
 disguise if you are going to get passed him.
 
 > west
@@ -1082,8 +1077,8 @@ Post Office, G Deck
 The ship's Post Office houses a range of bags, bins and pigeonholes for
 sorting the mail. To your west is a corridor (Scotland Road) and some steps
 lead down.  The room has developed quite a slope.  The postal clerk is
-looking around and appears very worried.
-The postal clerk is urgently stuffing parcels in one of the mail bags.
+looking around and appears very worried.  The postal clerk is urgently
+stuffing parcels in one of the mail bags.
 
 > down
 You move down.
@@ -1275,8 +1270,7 @@ of years working as a carpenter). The decorative mouldings and all the
 handrails look like they are bronze.  You can go west to a corridor, east to
 the forward staircase and to the southeast is a barber shop.  The place is
 full of people wearing lifebelts and everyone seems to be talking at once.
-The worried looking ship's barber is here.
-The barber winks at you.
+The worried looking ship's barber is here.  The barber winks at you.
 
 > east
 You move east.
@@ -1491,11 +1485,10 @@ The walls are oak panelled with silver-plated metal brackets holding oak
 handrails. You can go either up to 'B' deck or down the staircase to 'D'
 deck.  To the west is the entrance to the Library.  The staircase has
 developed quite a slope.  The Master-at-Arms is stood watching you very
-carefully.
-With the Master-at-arms hanging around it would not be a good idea to let him
-catch you with anything stolen.
-With the Master-at-arms hanging around it would not be a good idea to let him
-catch you with anything stolen.
+carefully.  With the Master-at-arms hanging around it would not be a good
+idea to let him catch you with anything stolen.  With the Master-at-arms
+hanging around it would not be a good idea to let him catch you with anything
+stolen.
 
 > west
 You move west.

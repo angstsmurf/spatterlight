@@ -867,7 +867,8 @@ passage has had the feel of being in a damp, forgotten sewer all along.
 
 > up
 As you come near the hatch, the manhole cover slides off seemingly by itself.
-The three of you climb up the ladder one after another, yourself in the lead.
+ The three of you climb up the ladder one after another, yourself in the
+lead.
 
     Laurie replaces the manhole cover.  "It isn't safe for us to be here
 either", she whispers.  Holding her shoulders in the cold night air, she

@@ -167,8 +167,8 @@ A fierce wind blows.  Moyru is here.  An evil witch hits you.  Lamanluie cuts
 An evil witch with the old rusty broken blood-stained scimitar.
 
 > attack moyru
-You stab An evil witch with The Spirit Dagger.
-Moyru cackles one last time before her body melts into a puddle of water.
+You stab An evil witch with The Spirit Dagger.  Moyru cackles one last time
+before her body melts into a puddle of water.
 
 > south
 You walk south.
@@ -206,9 +206,8 @@ Lamanluie cuts A winged guardian with the old rusty broken blood-stained
 scimitar.
 
 > attack fergo
-You stab A winged guardian with The Spirit Dagger.
-Fergo collapses. The wind elemental leaves his body and transforms itself
-into an object.
+You stab A winged guardian with The Spirit Dagger.  Fergo collapses. The wind
+elemental leaves his body and transforms itself into an object.
 The Fletched Spear floats magically into your hands.  The ridge is no longer
 windy. However, a gust of wind clears the clouds behind you, showing the path
 out.
@@ -237,8 +236,8 @@ do any damage.  Lamanluie cuts An evil sorceress with the old rusty broken
 blood-stained scimitar.
 
 > attack morana
-You stab An evil sorceress with The Spirit Dagger.
-Morana screeches before she disappears in a puff of smoke.
+You stab An evil sorceress with The Spirit Dagger.  Morana screeches before
+she disappears in a puff of smoke.
 
 > attack morana
 Morana isn't here!
@@ -319,8 +318,8 @@ broken blood-stained scimitar.  The tunnel beast hits Lamanluie, but it
 doesn't seem to do any damage.
 
 > attack serpanern
-You stab The tunnel beast with The Spirit Dagger.
-It's body shrivels and is instantly consumed by fishes.
+You stab The tunnel beast with The Spirit Dagger.  It's body shrivels and is
+instantly consumed by fishes.
 
 > attack serpanern
 Serpanern isn't here!
@@ -550,8 +549,8 @@ You can only move west.  Lamanluie cuts A fire lizard with An old scimitar.
 A fire lizard hits you, but it doesn't seem to do any damage.
 
 > attack slikerma
-You stab A fire lizard with The Spirit Dagger.
-Bright red blood oozes from Slikerma's fatal wound.
+You stab A fire lizard with The Spirit Dagger.  Bright red blood oozes from
+Slikerma's fatal wound.
 
 > attack slikerma
 Slikerma isn't here!

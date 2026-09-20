@@ -596,16 +596,16 @@ de quitter le pays." dites-vous. "Pourquoi voulez-vous nous fuir? Avez-vous
 quelque chose à vous reprocher?" demande Patrick en fixant Roberto du regard.
 "Je ne parlerai qu'en présence de mon avocat." assure le criminel. "Ce n'est
 pas grave. Cela n'enlève rien aux charges qui pèsent contre vous." affirme le
-commissaire en se saisissant du passeport.
-Le commissaire Guersant prend la parole: "C'est du bon boulot Lucas! Les
-différents éléments recueillis lors de cette perquisition deviendront
-probablement des preuves à charge contre Roberto Amato. Je pense notamment à
-la batte de baseball et au passeport falsifié. Je vais faire transmettre
-cette batte aux experts afin qu'ils pratiquent des analyses. Cependant, nous
-ne pourrons nous présenter devant le juge qu'à partir du moment où nous
-obtiendrons les résultats de ces analyses." "Que va-t-on faire de lui en
-attendant les résultats?" demandez-vous. "Conduisez-le en cellule. Je vous
-donne la clé." répond le commissaire. Votre chef vous tend une clé.
+commissaire en se saisissant du passeport.  Le commissaire Guersant prend la
+parole: "C'est du bon boulot Lucas! Les différents éléments recueillis lors
+de cette perquisition deviendront probablement des preuves à charge contre
+Roberto Amato. Je pense notamment à la batte de baseball et au passeport
+falsifié. Je vais faire transmettre cette batte aux experts afin qu'ils
+pratiquent des analyses. Cependant, nous ne pourrons nous présenter devant le
+juge qu'à partir du moment où nous obtiendrons les résultats de ces
+analyses." "Que va-t-on faire de lui en attendant les résultats?"
+demandez-vous. "Conduisez-le en cellule. Je vous donne la clé." répond le
+commissaire. Votre chef vous tend une clé.
 
 > prendre clé
 Vous prenez la clé. Le commissaire prend alors la parole: "Enfermez-le dans
@@ -1037,13 +1037,12 @@ et le noir." affirme Martin.
 Vous coupez le câble vert.
 
 > couper câble noir
-Vous coupez le câble noir.
-"C'est fait! Que dois-je faire maintenant?"" demandez-vous en collant le
-téléphone à votre oreille. "Pour être franc, je n'en sais rien." avoue
-Martin. "Comment ça?" questionnez-vous. "Bien que nous ayons affaire à un
-montage relativement simple, un énorme problème se pose." "Lequel?"
-interrogez-vous. "Je vais être bref. Il faut couper l'un des deux câbles
-restants." "Mais lequel?" insistez-vous. "L'un des deux câbles permet
+Vous coupez le câble noir.  "C'est fait! Que dois-je faire maintenant?""
+demandez-vous en collant le téléphone à votre oreille. "Pour être franc, je
+n'en sais rien." avoue Martin. "Comment ça?" questionnez-vous. "Bien que nous
+ayons affaire à un montage relativement simple, un énorme problème se pose."
+"Lequel?" interrogez-vous. "Je vais être bref. Il faut couper l'un des deux
+câbles restants." "Mais lequel?" insistez-vous. "L'un des deux câbles permet
 seulement d'établir un lien entre le détonateur et la charge explosive. En
 revanche, l'autre câble sert au déclenchement de l'explosion. La section de
 ce second câble peut être fatale. En bref, il faut couper le câble ne

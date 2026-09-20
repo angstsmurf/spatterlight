@@ -531,8 +531,8 @@ dumpster. To the south is a nightclub called "The Pussycat", a women only
 club. To the north is Mull street.  Also here is an old lighter.  Steve the
 Snake is looking around eagerly, smoking a cigarette.
 
-You can move north and south.
-"Hey, are you the guy who called me?" asks Steve. "Yeah, I want a good time," you say. "Did you bring the goods?" says Steve. "What goods?" you ask. "Y'know, the goods!" yells Steve. "I have no idea what the hell you are talking about," you say. "Look mother fucker, we had an arrangement, you give me the goods and I give
+You can move north and south.  "Hey, are you the guy who called me?" asks
+Steve. "Yeah, I want a good time," you say. "Did you bring the goods?" says Steve. "What goods?" you ask. "Y'know, the goods!" yells Steve. "I have no idea what the hell you are talking about," you say. "Look mother fucker, we had an arrangement, you give me the goods and I give
 you the cash!" yells Steve. "Look, I have no idea what the goods are, I just came here to have a good
 time," you yell. "You won't get a good time until you bringing me the mother fucking goods!"
 yells Steve. "Calm down man!" you say. "SHUT UP AND BRING ME THE GOODS!" screams Steve. "Look, what are the goods?" you ask. "The cocaine, boy!" yells Steve. "Nope, I don't have no cocaine on me," you say. "WHAT! NO COCAINE! You go and find me some cocaine and I'll give you the
@@ -1282,8 +1282,8 @@ You grab your mug and drink back some beer. Lovely.
 You grab your mug and drink back some beer. Lovely.
 
 > drink beer
-You grab your mug and drink back some beer. Lovely.
-Bob takes your mug and begins to wipe it up.
+You grab your mug and drink back some beer. Lovely.  Bob takes your mug and
+begins to wipe it up.
 
 > buy beer
 "Hey Bob, give us a beer," you yell. "Sure Thumper," says Bob. He grabs a mug and fills it to the top of beer,
@@ -1302,8 +1302,8 @@ You grab your mug and drink back some beer. Lovely.
 You grab your mug and drink back some beer. Lovely.
 
 > drink beer
-You grab your mug and drink back some beer. Lovely.
-Bob takes your mug and begins to wipe it up.
+You grab your mug and drink back some beer. Lovely.  Bob takes your mug and
+begins to wipe it up.
 
 > nw
 You move northwest.
@@ -1347,8 +1347,8 @@ You grab your mug and drink back some beer. Lovely.
 You grab your mug and drink back some beer. Lovely.
 
 > drink beer
-You grab your mug and drink back some beer. Lovely.
-Bob takes your mug and begins to wipe it up.
+You grab your mug and drink back some beer. Lovely.  Bob takes your mug and
+begins to wipe it up.
 
 > buy beer
 "Hey Bob, give us a beer," you yell. "Sure Thumper," says Bob. He grabs a mug and fills it to the top of beer,
@@ -1378,9 +1378,8 @@ then hands it to you. You hand Bob $5.
 You grab your mug and drink back some beer. Lovely.
 
 > drink beer
-You grab your mug and drink back some beer. Lovely.
-You fall over on the ground, and you suddenly are transported to a wonderful
-place.
+You grab your mug and drink back some beer. Lovely.  You fall over on the
+ground, and you suddenly are transported to a wonderful place.
 
 > look
 
@@ -1489,8 +1488,8 @@ You can only move east.
 
 > give component to matthew
 "Hey Matt, I got the Titus Component," you say handing him the small ball. "Really? Where did you get it from?" asks Matt taking the ball. "Same place you got the idea of making a weather device, while I was drunk,"
-you say. "Eureka! Now I can finish creating my weather device!" says Matthew.
-"Hey, Thumper! I'm about to try it out, wanna watch?" asks Matthew. "Sure thing," you say. Matthew walks up to the window and opens it, he points his gun out the
+you say. "Eureka! Now I can finish creating my weather device!" says Matthew.  "Hey,
+Thumper! I'm about to try it out, wanna watch?" asks Matthew. "Sure thing," you say. Matthew walks up to the window and opens it, he points his gun out the
 window. "What sort of weather do you want to create?" asks Matthew. "Rain!" you yell. "Alright, rain it is," says Matthew. He points to a little button on the
 device and presses it. It starts glowing very brightly, and thunder begins to
 rumble. ZZZAAAPPP!!! A lightning bolt strikes in the sky, and it begins to
@@ -1658,8 +1657,7 @@ You can move north and south.
 
 > kick door
 You kick down the front door, and it lands on the ground with a thud, dust
-rising from beneath it. You step inside.
-"Hello ladies," you say. "What the fuck are you doing here?" asks Dazza shocked. "I'm here to blow your head off," you say. Daniel starts edgeing away, his hands behind his back. You lift up your AK47 rifle. "Any last words?" you say. "Yeah, I've got two, NOW DANIEL!" yells Dazza. Daniel pulls out an UZI submachinegun and starts firing at you wildly.
+rising from beneath it. You step inside.  "Hello ladies," you say. "What the fuck are you doing here?" asks Dazza shocked. "I'm here to blow your head off," you say. Daniel starts edgeing away, his hands behind his back. You lift up your AK47 rifle. "Any last words?" you say. "Yeah, I've got two, NOW DANIEL!" yells Dazza. Daniel pulls out an UZI submachinegun and starts firing at you wildly.
 
 EVERYTHING GOES IN SLOW MOTION
 BANG! You bend over backwards and dodge out of the way of the bullet.
@@ -1674,8 +1672,8 @@ RETURN TO NORMAL SPEED
 face. You begin to speak, when... "Dodge this". You look up to see Womby, your flatmate holding a handgun to Daniel's head. BANG! Brain matter flies onto the wall, and Daniel falls to the ground. You look
 up, and Womby grabs you by the hand, lifting you up. "Thanks for that," you say to Womby. "No problem Thumper, I saw you get on the bus, so I drove after you in my
 monster truck," says Womby. "You have a monster truck?" you ask. "Yeah, it's a beauty, I traded with Cameron for a hockey puck, and I
-couldn't refuse," says Womby. "Wait, you mean the hockey puck that Carlos McTwist signed?" you ask. "Yeah, that one," says Womby. "Womby, how could you!" you ask.
-"But it was a really good deal!" says Womby. "Yeah, but that's my most treasured item, I can't believe I let you borrow
+couldn't refuse," says Womby. "Wait, you mean the hockey puck that Carlos McTwist signed?" you ask. "Yeah, that one," says Womby. "Womby, how could you!" you ask.  "But it was a really good deal!" says
+Womby. "Yeah, but that's my most treasured item, I can't believe I let you borrow
 that!" you yell angrily. "Oh yeah, by the way, where did Dazza go?" asks Womby. You look around, but you can't see Dazza. A nerve pops in your head. "fuck! fuck! fuck! He got away! Oh I just want to
 kick something!" you yell. You kick the wall, and your leg goes right through it. "Oh well, we'll find him eventually," says Womby. "I better, now I'm really mad!" you yell. "Let's go home," says Womby. "Okay" you say. You walk outside and see Womby's monster truck. "Gee, that was a good deal," you say looking at the enormous beast. You get inside, and Womby begins driving down the road.
 

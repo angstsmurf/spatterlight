@@ -317,10 +317,10 @@ Oakland Avenue.  The porch windows are large with wire screens.  There is an
 old beat up telephone pole in front of the cottage with a clothes line
 running from it.  There is an old tree stump directly in front of the
 cottage.  Uncle George's cottage is on the south side of the road.  Hovey
-shuffles towards you from the north.
-Your grandfather eye's you and says, "Hey Timmy, would you run up to the
-store and get the paper and a box of plain donuts?  Just tell 'em 'paper for
-Reid'.  OK?"  You nod and say, "Ok Grandpa".
+shuffles towards you from the north.  Your grandfather eye's you and says,
+"Hey Timmy, would you run up to the store and get the paper and a box of
+plain donuts?  Just tell 'em 'paper for Reid'.  OK?"  You nod and say, "Ok
+Grandpa".
 
 > w
 You move west.
@@ -371,10 +371,10 @@ wooded door that leads to a crawl space below the cottage.  The door is set
 below the surface of the grass and wooden boards hold back the dirt from the
 depression.  The grass is very long and is in need of whackin'.  Grandpa or
 Dad should be out here with the bladed golf club.  Dad is here.  Hovey
-shuffles towards you from the south.
-Your grandfather eye's you and says, "Hey Timmy, would you run up to the
-store and get the paper and a box of plain donuts?  Just tell 'em 'paper for
-Reid'.  OK?"  You nod and say, "Ok Grandpa".
+shuffles towards you from the south.  Your grandfather eye's you and says,
+"Hey Timmy, would you run up to the store and get the paper and a box of
+plain donuts?  Just tell 'em 'paper for Reid'.  OK?"  You nod and say, "Ok
+Grandpa".
 
 > in
 You move in.

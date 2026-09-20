@@ -585,10 +585,9 @@ You move south.
 
 Nowhere
 All around you is pure white nothing, save for fluctuating portals to the
-east and west.  The Master is here.
-The blackness fades to white and you find you are standing. Around you is a
-white nothingness, devoid of anything but yourself. All of your possessions
-have vanished.
+east and west.  The Master is here.  The blackness fades to white and you
+find you are standing. Around you is a white nothingness, devoid of anything
+but yourself. All of your possessions have vanished.
 Across from you stands a man. He's tall and lanky, with oval-shaped glasses
 over blue eyes and short, brown hair. After a moment you realize: he is you.
 

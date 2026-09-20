@@ -443,8 +443,8 @@ Vous arrivez à éviter l'attaque de l'ogre.
 Des cris strident retentissent...
 
 > attack ogre
-Vous tranchez un ogre avec une épée longue.
-Votre coup est fatal pour l'ogre qui s'éffondre sur le sol.
+Vous tranchez un ogre avec une épée longue.  Votre coup est fatal pour l'ogre
+qui s'éffondre sur le sol.
 
 Des cris strident retentissent...
 

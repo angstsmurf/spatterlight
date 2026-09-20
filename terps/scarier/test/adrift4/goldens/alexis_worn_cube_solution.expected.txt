@@ -265,8 +265,8 @@ the large club, but it doesn't seem to do any damage.
 You hit the large troll with the metal spade.
 
 > attack narfild
-You hit the large troll with the metal spade.
-Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
+You hit the large troll with the metal spade.  Narfild, lets out a loud grunt
+as he lurches forward and slumps to the floor.
 
 > nw
 You move northwest.
@@ -555,9 +555,9 @@ goblin shoots you with the bow and arrow, but it doesn't seem to do any
 damage.
 
 > attack goblin
-You hit a forest dwelling goblin with the metal spade.
-The Goblin drops from the tree and lands on the floor. Then, it's little body
-shrivels and turns to dust, it is then blown away by the light wind.
+You hit a forest dwelling goblin with the metal spade.  The Goblin drops from
+the tree and lands on the floor. Then, it's little body shrivels and turns to
+dust, it is then blown away by the light wind.
 
 > take kedarn stone
 You pick up the Kedarn stone.
@@ -626,8 +626,8 @@ You hit a swamp monster with the metal spade.  A swamp monster stabs you with
 the pointy stick, but it doesn't seem to do any damage.
 
 > attack monster
-You hit a swamp monster with the metal spade.
-The swamp monster slowly melts into the marsh. It then dissapears.
+You hit a swamp monster with the metal spade.  The swamp monster slowly melts
+into the marsh. It then dissapears.
 
 > ne
 You move northeast.
@@ -696,9 +696,8 @@ You hit a large eagle with the metal spade.  A large eagle hits you, but it
 doesn't seem to do any damage.
 
 > attack eagle
-You hit a large eagle with the metal spade.
-The eagle makes a last flap of it's enormous wings and falls deep into the
-ravine out of view.
+You hit a large eagle with the metal spade.  The eagle makes a last flap of
+it's enormous wings and falls deep into the ravine out of view.
 
 > w
 You move west.
@@ -845,8 +844,8 @@ down the mountain.
 
 > say the password
 The words seem to have moved the doors a little. They must be unlocked. They
-could probably be opened now.  Haron follows you.
-A knight catches up to you and smiles. Clearing his throat he says:
+could probably be opened now.  Haron follows you.  A knight catches up to you
+and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."  Haron hands you a phial.
 
@@ -876,9 +875,8 @@ with the blade from Uron.
 
 > attack larnt
 You hit the dark knight with the metal spade.  Haron cuts the dark knight
-with the elven sword.
-Larnt drops to the floor with a spine chilling shriek as he dissolves into
-the ground.
+with the elven sword.  Larnt drops to the floor with a spine chilling shriek
+as he dissolves into the ground.
 
 > n
 You move north.
@@ -1037,8 +1035,7 @@ You hit the dark lord with the metal spade.
 
 > attack urgorn
 You hit the dark lord with the metal spade.  Haron cuts the dark lord with
-the elven sword.
-Receiving one more hit, Urgorn falls backwards.
+the elven sword.  Receiving one more hit, Urgorn falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the
 air. As it flies up, you can see that in the centre of the light are the

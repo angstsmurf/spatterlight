@@ -572,9 +572,9 @@ battered old locker. Some stone steps lead up and down.  You can also see a
 fire extinguisher.
 
 > mend generator
-You fill the generator with the fuel you are carrying.
-You fit the battery you are carrying to the generator.
-You fit the spark plug you are carrying to the generator.
+You fill the generator with the fuel you are carrying.  You fit the battery
+you are carrying to the generator.  You fit the spark plug you are carrying
+to the generator.
 
 > mend generator
 I don't think you can mend the small generator.

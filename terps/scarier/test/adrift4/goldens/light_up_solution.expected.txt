@@ -1677,8 +1677,7 @@ I throw the lighter at Chip.  Chip hits me.
 I take the lighter.
 
 > attack chip
-I throw the lighter at Chip.
-"Good job."
+I throw the lighter at Chip.  "Good job."
 
 I look up, trying to spot the source of the voice.
 

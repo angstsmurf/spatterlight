@@ -1143,9 +1143,8 @@ I move in.
 The train looks like a normal train.  Lots of seats, big windows etc.  There
 is a cubicle near the rear of the carriage.  Boris is here.
 
-I can move in and out.
-"Can I see your ticket please sir?  Thanks, that seems fine."  Boris stamps
-my ticket.
+I can move in and out.  "Can I see your ticket please sir?  Thanks, that
+seems fine."  Boris stamps my ticket.
 
 > wait
 Time passes...

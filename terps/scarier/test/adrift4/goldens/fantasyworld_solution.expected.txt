@@ -184,8 +184,7 @@ run to to a cabin to the east.   You never actually entered the cabin because
 it belongs to an old reclusive mage.  Also here is a bright red rose.
 
 > get rose
-You pick up the bright red rose.
-You gain a few hit points
+You pick up the bright red rose.  You gain a few hit points
 
 > e
 You move east.
@@ -358,8 +357,7 @@ The way here is steep but managable.  To the south lies the valley where your
 village lies.  If you really look, you can just make it out in the haze of
 distance.  The path continues to wind to the west.   As you look around, you
 notice something high up to the east but don't see any obvious way to get
-there.    Ghoul is here.
-You gain a few hit points
+there.    Ghoul is here.  You gain a few hit points
 
 > turn ghoul
 You mutter the holy words and the ghoul groans and then tumbles to the ground
@@ -505,19 +503,12 @@ pass.
 > turn greater ghoul
 You mutter the holy words and the Greater Ghoul groans and then tumbles to
 the ground dead.  You hear a moan and another Greater Ghoul shambles into the
-pass.
-You gain a few hit points
+pass.  You gain a few hit points
 
 > turn greater ghoul
 You mutter the holy words and the Greater Ghoul groans and then tumbles to
 the ground dead.  You hear a moan and another Greater Ghoul shambles into the
-pass.
-You feel more powerful
-
-> turn greater ghoul
-You mutter the holy words and the Greater Ghoul groans and then tumbles to
-the ground dead.  You hear a moan and another Greater Ghoul shambles into the
-pass.
+pass.  You feel more powerful
 
 > turn greater ghoul
 You mutter the holy words and the Greater Ghoul groans and then tumbles to
@@ -588,7 +579,11 @@ pass.
 You mutter the holy words and the Greater Ghoul groans and then tumbles to
 the ground dead.  You hear a moan and another Greater Ghoul shambles into the
 pass.
-You feel more powerful
+
+> turn greater ghoul
+You mutter the holy words and the Greater Ghoul groans and then tumbles to
+the ground dead.  You hear a moan and another Greater Ghoul shambles into the
+pass.  You feel more powerful
 
 > e
 You move east.
@@ -624,8 +619,7 @@ You move north.
 The trail
 You have reached the trail.  To the north is the bridge which leads to your
 home.  To the south, the trial continues.  You can leave the trail at any
-time by traveling to the east or the west.
-You gain a few hit points
+time by traveling to the east or the west.  You gain a few hit points
 
 > e
 You move east.
@@ -811,8 +805,8 @@ the north is the treacherous moutnain pass and to the south, the trail
 continues toward Harmon's Glade.  The ancient forest seems to encroach right
 up to the mountain and the trail on either side of it.  You have not walked
 in that ancient forest but stories say that if you lose your way, you can
-stumble about there forever.    Highwayman is here.
-You gain a few hit points
+stumble about there forever.    Highwayman is here.  You gain a few hit
+points
 
 > s
 You move south.
@@ -982,8 +976,8 @@ ask one more task of you and you will be rewarded greatly for it."
  "What task?" You ask.
 
  "It will be a simple matter, I assure you.  I require a book that was stolen
-from me by a group of bandits.  Return it and I shall reward you well."
-You gain a few hit points
+from me by a group of bandits.  Return it and I shall reward you well."  You
+gain a few hit points
 
 > e
 You move east.
@@ -1151,8 +1145,8 @@ buildup as if a landslide buried something forever.    Bandit Lord and
 Greater Ghoul are here.
 
 > buy poison
-"Here, take it!" The Bandit Lord says as he rushes off.
-You gain a few hit points
+"Here, take it!" The Bandit Lord says as he rushes off.  You gain a few hit
+points
 
 > poison meat
 You carefully unstopper the vial of virulent poison and pour it on the chunk
@@ -1333,8 +1327,7 @@ climber could ascend to the peak.
 
 > climb rock
 You start to climb the rock chimney and though its a challenging climb, you
-make it easily.
-You gain a few hit points
+make it easily.  You gain a few hit points
 
 > e
 You move east.
@@ -1558,8 +1551,8 @@ can head east to the farmhouse proper  Selkie and Jed's dogs are here.
 You toss the poisoned chunk of meat to Jed's dogs and they leap at the meat
 devouring it quiickly.  You wait and after a moment, one of the dogs starts
 to whimper and lurches about the yard panting harshly as if it can't breathe.
- Then, it falls over dead.  The other dogs die just as quickly.
-You gain a few hit points
+ Then, it falls over dead.  The other dogs die just as quickly.  You gain a
+few hit points
 
 > e
 You move east.
@@ -1747,8 +1740,8 @@ again.
 
  "Why didn't you do that before?" you ask her and she smiles sweetly at you.
 
- "I can't leave your side," she answers softly, "now that we're bonded."
-You gain a few hit points
+ "I can't leave your side," she answers softly, "now that we're bonded."  You
+gain a few hit points
 
 > d
 You move down.
@@ -1818,9 +1811,9 @@ You move west.
 
 Catacombs
 This tunnel winds down into the earth and there is a stench wafting up at you
-from below.  It leads forward into a dark room.
-The shrink potion starts to wear off and you feel a tingling sensation as
-suddenly you return to your normal size.
+from below.  It leads forward into a dark room.  The shrink potion starts to
+wear off and you feel a tingling sensation as suddenly you return to your
+normal size.
 
 > w
 You move west.
@@ -1890,15 +1883,13 @@ damage.  Shade hits Skull Collector.
 Aline stabs Skull Collector with light rapier, but it doesn't seem to do any
 damage.  Mat stabs Skull Collector with bronze sword, but it doesn't seem to
 do any damage.  Gail hits Skull Collector, but it doesn't seem to do any
-damage.  Shade hits Skull Collector.
-With a wet sounding gurgle, the Skull Collector starts to fall apart as
-whatever force drove the creature flees.   Soon, it is nothing more than a
-pile of bones with a fleshy heart entangled amongst them.
-You feel more powerful
+damage.  Shade hits Skull Collector.  With a wet sounding gurgle, the Skull
+Collector starts to fall apart as whatever force drove the creature flees.
+Soon, it is nothing more than a pile of bones with a fleshy heart entangled
+amongst them.  You feel more powerful
 
 > get heart
-You pick up the heart.
-You gain a few hit points
+You pick up the heart.  You gain a few hit points
 
 > e
 You move east.
@@ -2106,8 +2097,7 @@ Mountain peak
 You have reached the summit of the pass and before you you can see the valley
 of the King.  The fair city of Harmon's Glade  lies to far to the south and
 as you gaze northward, you can only see the winding mountian pass that you
-just traversed.
-You gain a few hit points
+just traversed.  You gain a few hit points
 
 > n
 You move north.
@@ -2292,8 +2282,7 @@ You move east.
 Trail
 The trail leads northward and south into the head of the moutain pass.  You
 can leave the trail at anytime by going to the west.  To the west is a
-massive graveyard.
-You gain a few hit points
+massive graveyard.  You gain a few hit points
 
 > n
 You move north.
@@ -2466,8 +2455,7 @@ You are near the summit of the pass.  On either side of you the cliffs rise
 high above you blocking out the sun.  This would be a perfect place for an
 ambush.    The trail continues south and to the west, there is a huge rock
 buildup as if a landslide buried something forever.    Greater Ghoul is here.
- Demon  from the south.
-You gain a few hit points
+ Demon  from the south.  You gain a few hit points
 
 > e
 You move east.
@@ -2672,8 +2660,7 @@ circular clearing.  Ancient lore tells you that this is a dryad grove.  What
 you remember of Dryads is shaky but you recall that they are beautiful
 godesses of the forest and punish any who trespass upon their lands.  As you
 enter, a Dryad rushes up to you.  "You are a great hero, you must assist me."
- Merna is here.  Demon  from the north.
-You gain a few hit points
+ Merna is here.  Demon  from the north.  You gain a few hit points
 
 > kill demon
 As the demon enters the Dryad circle, its footsteps leave smoldering
@@ -2690,8 +2677,8 @@ then falls to her knees her face ashen with pain and shock.  You rush to her
 and catch her as she falls.
 
  "I have failed," she cries, her tears hot against your hand.  "I must rest,"
-she says softly and then seems to fade away in your arms.
-You feel more powerful.
+she says softly and then seems to fade away in your arms.  You feel more
+powerful.
 
 > n
 You move north.
@@ -2874,8 +2861,7 @@ the foul head before pressing her lips against the demon's.
 sudden gasp, Caroline releases the creature and is flung across the crypt
 smashing statues as she lands.  She rises, anger flashing in her eyes but
 then her step falters as she changes into a gaseous form and flows into the
-stone sarcophogus.
-You feel more powerful
+stone sarcophogus.  You feel more powerful
 
 > out
 You move out.
@@ -2886,8 +2872,7 @@ nice and cheery place during the day but at night people are loathe to come
 here as it is haunted by a vampire or other fell undead.   There is a crypt
 here that seems older than the village itself.  If you wanted, you could
 enter it.    There is an open grave here that was home to the zombie that you
-turned.  Demon  from inside.
-You gain a few hit points
+turned.  Demon  from inside.  You gain a few hit points
 
 > e
 You move east.

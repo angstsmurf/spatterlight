@@ -316,9 +316,13 @@ the_hangover T34) went identical with that port on 2026-09-20.
   So is the AdditionalMessage, now at every version, an NPC's battle blow
   ("An NPC's blow joins the turn's string"), an NPC's walk announcement and
   the `exits` answer ("A walk announcement and an exits list end at the full
-  stop"). What is left is a task's CompleteText, which only a 4.0 task that
-  an action runs joins; the 132 single-newline Scarier-only breaks the
-  archive still shows are mostly that. The corpus case is
+  stop"), and now a dispatched task's CompleteText, at every version ("A
+  task the engine dispatched joins its CompleteText onto the turn's
+  string"). What is left is the CompleteText of a task the player's own line
+  matched, which the Runner does not join but REPLACES the turn's string
+  with -- and that replacement is deliberately not ported, because Scarier's
+  handlers already keep the turn's text exactly where the Runner's callers
+  put it back; nothing measured differs. The corpus case is
   `thetest` (3.90), whose ALRs include two-sentence Originals that span
   exactly such a join:
   `You drop your clothes.  Nice try fish face!` (library drop + task text),
@@ -329,8 +333,9 @@ the_hangover T34) went identical with that port on 2026-09-20.
   there are a reading of the source, not a divergence to chase.)
   Expect a large reblessing: the task-text join alone moved 94 rows, the
   event join 52 then 30, the library terminator 39, the AdditionalMessage
-  16, and sweep_wine_breaks still counts 5636 Scarier-only breaks against 2
-  runner-only -- though 5504 of that total is the `<centre>` artefact
+  16, the dispatched CompleteText 76, and sweep_wine_breaks still counts
+  5514 Scarier-only breaks against 2
+  runner-only -- though 5486 of that total is the `<centre>` artefact
   (a blank line, `k2`), so the raw figure is a poor target on its own and
   the `k1` count is the one to watch.
 - **checkwild, the unported rest.** Every arm this lead once listed is
@@ -2469,6 +2474,44 @@ transcript names are in the code comment next to the named function, in
   moved, whitespace only; sweep_wine_breaks 5662 -> 5636 Scarier-only
   breaks, single-newline kind 158 -> 132, runner-only unchanged at 2, no row
   worse, 11 better)
+- **A task the engine dispatched joins its CompleteText onto the turn's
+  string.** execute_task takes a mode argument, and that argument is the
+  whole of the difference between the two kinds of task run. With mode 1 it
+  calls pspace() and appends: `out = out & CompleteText` (run390
+  43F106-43F132, run400 45A239-45A265). With any other mode it REPLACES the
+  turn's string with the text (run390 43F15F-43F172, where the write is
+  plainly `MemVar_468154 = CompleteText`; run400 45A27D-45A2AD, where the
+  same write reads `var_AC & CompleteText` with var_AC never assigned
+  anywhere in the body, so `""`). The caller is what preserves the turn:
+  run390's `inventory` saves `out & "  "` into var_110 at 439B55-439B5C
+  before calling execute_task(0, ...) at 439B72 and puts it back afterwards
+  -- pointless unless mode 0 clears the buffer. Mode 1 is what Sub_20_22 /
+  Proc_19_21_45FB78 passes at run400 45FA66 (our run_task_run_by_index: an
+  "execute task" action, an event's TaskAffected, a walk's CharTask and
+  ObjectTask, a battle task), what run400's `inventory` passes at 45C2FD,
+  and what checkevent passes when it dispatches by command text (run390
+  42D3F5, run380 43A762); the typed line's own matcher passes 0 and its
+  fallback pass 2 (run390 generaltasks 45F48B, 460584). Only the join is
+  ported: Scarier's handlers already keep the turn's text exactly where the
+  Runner's callers put it back, so the replacement changes nothing
+  measurable. shadowpeak (4.00): "You take the pair of leather gloves.  It
+  starts to rain...  You hear the flutter of batlike wings." and "You open
+  the vial.  The group of fairies seem to have cast some type of magical
+  spell...  The open vial starts to pulsate..."; timmy_reid (3.80):
+  "...shuffles towards you from the north.  Your grandfather eye's you and
+  says, ..."; pyramid (4.00): "You put the golden beetle inside the
+  depression.  The beetle presses home into the depression..."; viewtohome
+  (4.00): "You hear the sound of water running.  Congratulations! You have
+  collected all three medals!" (runner_transcripts/shadowpeak.txt:82,382,
+  timmy_reid.rtf:147, pyramid.txt:45, viewtohome.txt:503). `[all]`
+  (`task_push_dispatched_run`, `task_in_dispatched_run`,
+  `run_task_run_by_index`, `run_task_command_dispatch`, 2026-09-20; 76
+  goldens moved, whitespace only -- two of them, pyramid and viewtohome,
+  needed their suite win marker shortened because the join rewraps the line
+  it sat on; sweep_wine_breaks 5636 -> 5514 Scarier-only breaks,
+  single-newline kind 132 -> 28, runner-only unchanged at 2, no row worse,
+  44 better -- and paint, fullcircle, thelasthour and spot_of_bother now
+  match their Runner transcript with no break at all)
 - **An NPC's blow joins the turn's string.** chardohit -- the NPC's blow --
   calls pspace() at the head of every one of its four printing branches, so
   the sentence runs on after whatever the turn has already said: run390

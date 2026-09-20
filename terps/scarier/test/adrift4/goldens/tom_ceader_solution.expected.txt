@@ -104,9 +104,8 @@ You give the money to the key maker and he starts working on the machines .
 
 > wait
 Time passes...
-"hey pal your keys ready ."
-The keymaker says "Thanks for the job , heres your key" and hands you the key
-.
+"hey pal your keys ready ."  The keymaker says "Thanks for the job , heres
+your key" and hands you the key .
 
 > out
 You move out.

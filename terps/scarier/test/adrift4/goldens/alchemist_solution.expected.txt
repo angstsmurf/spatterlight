@@ -2094,9 +2094,8 @@ behind and above the altar are allowing the sunlight to come in sparsely.
 There are two lines of wooden benches, a basin and some cups on the altar.
 The high priest is watching over the cathedral with a stone-cold face.
 
-I can go north and west.
-"Good job," wonders the Priest at my coming. "Now pour the water into the
-basin."
+I can go north and west.  "Good job," wonders the Priest at my coming. "Now
+pour the water into the basin."
 
 > put water in basin
 I empty the contents of the pot into the marble basin. The water splashes as
@@ -3322,9 +3321,8 @@ Above the entrance there is a big table saying something in a language I
 don't understand.  A woman is standing by the gate, looking around
 desperately.
 
-I can only go east.
-As soon as they see each other, the mother and her daughter run to embrace,
-and with many thanks they walk away.
+I can only go east.  As soon as they see each other, the mother and her
+daughter run to embrace, and with many thanks they walk away.
 
 > east
 I walk east.
@@ -3832,8 +3830,8 @@ I can go south and in.
 "I have talked to your girlfriend, but she refuses to meet you ever again," I
 speak, making the young man cry like a child. "I want to change her mind, and
 I need a piece of your body."
-He stops crying for a while, then gives me a bit of his hair.
-Now as I have all the ingredients, I can mix them up in the cup of wine.
+He stops crying for a while, then gives me a bit of his hair.  Now as I have
+all the ingredients, I can mix them up in the cup of wine.
 
 > south
 I walk south.
@@ -3976,9 +3974,9 @@ no windows, just a square hole as an entrance. The tower must be very old,
 judging from the state of decay.  A young man is standing by the tower.  A
 warm, light breeze blows gently in my face.
 
-I can go south and in.
-As soon as the lovers see each other, they run together, to kiss and embrace,
-and with whispered words and laughter they disappear in the distance.
+I can go south and in.  As soon as the lovers see each other, they run
+together, to kiss and embrace, and with whispered words and laughter they
+disappear in the distance.
 
 > south
 I walk south.

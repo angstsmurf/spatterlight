@@ -187,11 +187,10 @@ You pull a rock out of the wooden bucket.
 
 You put the smooth rock into the copper cup.  The copper chain is lowered by
 the weight of the stone, and just as it reaches the first hole on the wall,
-you hear a soft click.
-You hear the sound of three hard clicks.  Suddenly, the set of chains starts
-retracting into the ceiling, until they are out of sight.  The large iron
-door unlocks with a series of clicks.  The door swings open, hopefully
-revealing the exit to this place.
+you hear a soft click.  You hear the sound of three hard clicks.  Suddenly,
+the set of chains starts retracting into the ceiling, until they are out of
+sight.  The large iron door unlocks with a series of clicks.  The door swings
+open, hopefully revealing the exit to this place.
 
 > north
 You move north, passing the through the iron doorway.

@@ -104,8 +104,7 @@ You take the badge.
 It is a police badge, the tramp must have been an undercover policeman.
 
 > get radio
-You take the radio.
-A small flock of birds, probably pigeons, fly overhead.
+You take the radio.  A small flock of birds, probably pigeons, fly overhead.
 
 > turn on radio
 You turn on the police radio.
@@ -162,9 +161,8 @@ release the trigger.
 Your target has collapsed to the ground.  Looks like it is time to leave.
 
 Something hits the roof making a 'ffutt' sound. Looking around quickly you
-say aloud, "Hey! That sounded like a bullet?"
-You can hear a police car; you stand still for a moment but it seems to be
-heading away.
+say aloud, "Hey! That sounded like a bullet?"  You can hear a police car; you
+stand still for a moment but it seems to be heading away.
 
 > throw camera
 You throw the camera over the wall and it disappears out of sight.  Someone
@@ -226,9 +224,8 @@ You are at the northwest end of the building which overlooks Windsor Road.
 In front of you is a low brick wall and as you examine below it seems to be
 the pet shop part of town. About 300m away you can see the slightly taller
 Bakewell Insurance Building. From here you can go southeast.  Below, you can
-see a man standing in the street.
-You can hear a police car; you stand still for a moment but it seems to be
-heading away.
+see a man standing in the street.  You can hear a police car; you stand still
+for a moment but it seems to be heading away.
 
 > x sniper
 The sniper is too far away, all you can see clearly through your gun sight is

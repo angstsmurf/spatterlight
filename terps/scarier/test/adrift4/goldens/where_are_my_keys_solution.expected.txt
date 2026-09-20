@@ -457,8 +457,7 @@ machine next to it.  The window over the kitchen sink is just as clear as the
 rest of the windows in this house.  A table is positioned in the centre of
 the room and on the floor near the back door is a small dog basket.  The hall
 is to the east, the door to the back garden south and what looks like a
-cupboard under the stairs is southeast.
-You can hear a dog howling.
+cupboard under the stairs is southeast.  You can hear a dog howling.
 
 > turn on kettle
 You turn on the kettle which starts to boil.
@@ -468,24 +467,21 @@ You open the packet of headache tablets. You look inside the packet for
 tablets and can see six.
 
 > get tablet
-You take a tablet from the packet.
-You can hear a dog howling.
+You take a tablet from the packet.  You can hear a dog howling.
 
 > eat tablet
 You take one of the headache tablets and swallow it.
 
 > x sink
 The kitchen sink is filled to the top with dirty dishes of every size and
-type.
-You can hear a dog howling.
+type.  You can hear a dog howling.
 
 > get dirty dishes
 You try to lift the dirty dishes from the sink but you can't.  As you are
 messing about with the dishes a teaspoon falls to the floor.
 
 > get all
-You take the teaspoon.
-You can hear a dog howling.
+You take the teaspoon.  You can hear a dog howling.
 
 > make coffee
 You put a spoonful of coffee in the mug. You pour hot water into the mug.
@@ -496,8 +492,7 @@ You drink the mug of coffee. You feel a little better.
 
 > make coffee
 You put a spoonful of coffee in the mug. You pour hot water into the mug.
-The mug now contains hot black coffee.
-You can hear a dog howling.
+The mug now contains hot black coffee.  You can hear a dog howling.
 
 > drink coffee
 You drink the mug of coffee. You feel a little better.
@@ -531,8 +526,7 @@ is closed.
 
 > open gate
 
-You open the front gate.
-You can hear a dog howling.
+You open the front gate.  You can hear a dog howling.
 
 > north
 

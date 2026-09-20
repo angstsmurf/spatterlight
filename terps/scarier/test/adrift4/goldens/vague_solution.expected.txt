@@ -52,8 +52,7 @@ out.  An old magazine and a pencil are inside the rubbish bin.
 
 > get magazine
 You take the old magazine from the rubbish bin.  A small black and white cat
-strolls out to the east.
-The drunk makes a snoring sound.
+strolls out to the east.  The drunk makes a snoring sound.
 
 You hear a voice coming from somewhere behind you, "Are you still wasting
 your time? Your dinner is nearly ready!"
@@ -104,8 +103,8 @@ The Trainspotter says "Hello my name is Norman. I have had a busy day filling
 in my book".
 
 You pretend to show some interest but he moves the book away, as if trying to
-hide it.  For some reason you are aware that it has no relevance.
-The drunk makes a whimpering sound.
+hide it.  For some reason you are aware that it has no relevance.  The drunk
+makes a whimpering sound.
 
 > open door
 You open the set of double doors with glass panels.
@@ -163,12 +162,12 @@ weather gear is watching you.
 You hear a door close.
 
 A train thunders through the station and it doesn't sound like it is going to
-stop.  The trainspotter writes in his book.
-The trainspotter looks at the platform.
+stop.  The trainspotter writes in his book.  The trainspotter looks at the
+platform.
 
 > give coat to drunk
-You cover the drunk with the coat, he drops a booklet onto the platform.
-The drunk makes a sighing sound.
+You cover the drunk with the coat, he drops a booklet onto the platform.  The
+drunk makes a sighing sound.
 
 > look
 
@@ -298,15 +297,15 @@ pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
 Road and the yard behind the pub is to the south.  Colin Turner is standing
 at the bar.  Fred Sutton is staring vacantly around.  Emma Taylor is standing
-behind the bar.
-Colin and Fred are talking about a soap that was on last night.
+behind the bar.  Colin and Fred are talking about a soap that was on last
+night.
 
 Looking at your manhood and smiling Emma remarks, "Hello love, you will catch
 a cold dressed like that!".
 
 Puzzled and confused you look around in disbelief, you are in a public house.
  Looking briefly out of the pub windows you can see ordinary looking streets.
-Emma is cleaning a glass with a cloth.
+ Emma is cleaning a glass with a cloth.
 
 > exam bar
 The narrow bar (the pub's counter) is surprisingly clean and tidy.  Some
@@ -320,15 +319,14 @@ You take the paper from the narrow bar.
 
 > buy pint
 Emma pours you a pint and smiling says, "That will be a pound, love". You
-hand over a pound and she passes you the beer.
-Colin and Fred are talking about a boxing match on the television last night.
+hand over a pound and she passes you the beer.  Colin and Fred are talking
+about a boxing match on the television last night.
 
 > give pint to fred
 You hand the pint over to Fred who is smiling from ear to ear. Colin is
 standing just to your right trying to look thirsty. Fred puts the pad down on
 the bar and drinks the beer in a couple of goes.  Whilst he is busy you pick
-up the pad he has been carrying.
-Emma is listening to Fred and Colin.
+up the pad he has been carrying.  Emma is listening to Fred and Colin.
 
 > east
 You move east, pushing through thick fog.
@@ -609,8 +607,7 @@ tramp.
 
 > give note to tramp
 You hand the note to the tramp who, after studying it, replies, "Correct,
-this location is from Target".
-You can see a helicopter in the distance.
+this location is from Target".  You can see a helicopter in the distance.
 
 > kill tramp with knife
 Looking around quickly to make sure no-one else is around you take out your
@@ -774,8 +771,8 @@ Obviously noticing your nakedness he looks puzzled for a moment, but returns
 to his work.
 
 > exam pigeonhole
-Examining the pigeonholes you find a handout hidden amongst the mail.
-The postal clerk puts a parcel into a pigeon hole.
+Examining the pigeonholes you find a handout hidden amongst the mail.  The
+postal clerk puts a parcel into a pigeon hole.
 
 > give playbill to postal clerk
 You hand the playbill to the Postal Clerk who, after studying it, replies,
@@ -806,13 +803,12 @@ pub's narrow bar is in front of you and just inside the door is a dart board
 and a wall mounted jukebox. To the west is Albert Street, east is Draycot
 Road and the yard behind the pub is to the south.  A cat is silently
 wandering around.  Colin Turner is standing at the bar.  Fred Sutton is
-staring vacantly around.  Emma Taylor is standing behind the bar.
-Emma is leaning on the bar.
+staring vacantly around.  Emma Taylor is standing behind the bar.  Emma is
+leaning on the bar.
 
 > put money in jukebox
 You put some money into the jukebox and just starts playing.  The jukebox is
-loudly playing rock music.
-Colin and Fred are watching Emma.
+loudly playing rock music.  Colin and Fred are watching Emma.
 
 > south
 You move south.
@@ -843,8 +839,8 @@ tracks to platform two and east is the waiting room. To the south is a set of
 double doors with glass panels.  Against the wall you can see one of those
 wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
 is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
-weather gear is watching you.
-The trainspotter looks at his watch and writes in his book.
+weather gear is watching you.  The trainspotter looks at his watch and writes
+in his book.
 
 Looking surprised the porter exclaims, "Solved six locations I hear". He
 looks you up and down before continuing, "Amazing!".
@@ -922,9 +918,8 @@ tracks to platform two and east is the waiting room. To the south is a set of
 double doors with glass panels.  Against the wall you can see one of those
 wire frame rubbish bins.  A porter is here leaning against the wall.  A drunk
 is sleeping off a heavy night on a bench.  A trainspotter dressed in wet
-weather gear is watching you.
-The drunk makes a whimpering sound.
-The trainspotter looks at his watch and writes in his book.
+weather gear is watching you.  The drunk makes a whimpering sound.  The
+trainspotter looks at his watch and writes in his book.
 
 > west
 You move west.
@@ -1008,9 +1003,8 @@ looks you up and down before continuing, "Amazing!".
 You hand the paper to the Porter who, after studying it, replies, "Correct,
 this location is from 'Ticket to No Where'".
 
-The porter heads south.
-The drunk makes a whimpering sound.
-The trainspotter rocks from one foot to the other.
+The porter heads south.  The drunk makes a whimpering sound.  The
+trainspotter rocks from one foot to the other.
 
 > east
 You move east.

@@ -84,9 +84,8 @@ Charlie is bustling about, putting food on trays.
 > look under table
 At first, you see nothing extraordinary about the table but you pick up one
 end of it and something rolls out from under it.  Nerisa walks briskly in
-from the west.
-"CHARLIE!" Nerisa barks at the unsuspecting cook.  "Have you been talking too
-much again?"
+from the west.  "CHARLIE!" Nerisa barks at the unsuspecting cook.  "Have you
+been talking too much again?"
 
 "Who me?" asks Charlie.  "Well, I never!" The two are so absorbed in their
 exchange of word that they don't realize you can hear them from across the
@@ -110,9 +109,8 @@ food. That's all."
 "That's just about enough out of you, Charlie!" Nerisa exclaims.  "Go take 5
 and then get back here and make your deliveries."  Charlie throws food down
 on one last tray and rushes to follow her instructions.  Nerisa storms out
-after him.
-You're left alone in the room.  You know you have at least ten minutes (10
-turns) to use what's here to SEND a MESSAGE to Sydney.
+after him.  You're left alone in the room.  You know you have at least ten
+minutes (10 turns) to use what's here to SEND a MESSAGE to Sydney.
 
 > wait
 Time passes...

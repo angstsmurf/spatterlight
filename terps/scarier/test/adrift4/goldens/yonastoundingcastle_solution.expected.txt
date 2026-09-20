@@ -177,11 +177,10 @@ ye could climb ye way back down without much of yon fussing and/or
 consternation.  Ye doth see yon sooty string hanging up here.
 
 > get string
-Ye taketh yon sooty string.
-Unfortunarily, yon string turneth out to be terribly slippery and it droppeth
-from ye hands-- ye believeth it disappeareth into yon stewpot.  Howe'er, ye
-manageth to catch of ye grimy key which appeareth to have been tied to ye
-other end of yon string.
+Ye taketh yon sooty string.  Unfortunarily, yon string turneth out to be
+terribly slippery and it droppeth from ye hands-- ye believeth it
+disappeareth into yon stewpot.  Howe'er, ye manageth to catch of ye grimy key
+which appeareth to have been tied to ye other end of yon string.
 
 Ye may confirmeth ye hath yon grimy key by typing i to checketh ye inventory.
 

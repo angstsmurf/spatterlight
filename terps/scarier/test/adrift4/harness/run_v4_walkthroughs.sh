@@ -2081,7 +2081,7 @@ forum2_solution.txt|forum2.taf|***You have won!***|SCR_SKIP_WAITKEY=1
 # Measured 2026-09-07: re-driven in run400 with the corrected feed
 # (Adrift_443_pyramid.txt, 11/11 echoed) -- identical on every turn apart from
 # the Runner's own [Press any key to end].
-pyramid_solution.txt|pyramid.taf|moves out of your way allowing you to make a hasty retreat.|SCR_SKIP_WAITKEY=1
+pyramid_solution.txt|pyramid.taf|allowing you to make a hasty retreat.|SCR_SKIP_WAITKEY=1
 # Measured 2026-08-29: run400 replay, all 16 commands echoed, 15 of 16 turns
 # identical.  The Runner's transcript stops dead at the echo of the final
 # "press 1" -- the winning paragraph never reaches Adrift_1.txt (end-of-game
@@ -6801,7 +6801,7 @@ aliasagent_solution.txt|Alias Undercover Agent.taf|You scored 35 out of the maxi
 # faith gesture) -- serious/dark theme, no sexual content, proceeds under
 # normal wiring per the thelasthour precedent, not AIF treatment. 122
 # commands, no env vars.
-viewtohome_solution.txt|A View to a Home.taf|Congratulations! You have collected all three medals! You have completed the|
+viewtohome_solution.txt|A View to a Home.taf|Congratulations! You have collected all three medals!|
 # briefcase.taf (Julius the master-thief, 4.00): WON, the game's only
 # ending, no scoring system (zero ACT type=4). A tight two-hidden-event
 # timing puzzle: taking the briefcase only sets a flag, with a 1-turn-

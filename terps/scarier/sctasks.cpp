@@ -48,6 +48,26 @@ enum { TASK_MAXIMUM_RECURSION = 128 };
 static scr_bool task_trace = FALSE;
 
 /*
+ * How deep we are inside a task the engine dispatched rather than the player's
+ * line -- an event's TaskAffected, a walk's CharTask or ObjectTask, an
+ * "execute task" action, a battle task.
+ *
+ * The Runner's execute_task takes a mode argument, and it is the whole of the
+ * difference between the two kinds of run.  With mode 1 the task's CompleteText
+ * is joined onto the turn's one string after pspace() (run390 43F106-43F132,
+ * run400 45A239-45A265); with any other mode the string is REPLACED by the
+ * text (run390 43F15F, run400 45A27D-45A2AD, where the replacement reads
+ * `msg = var_AC & CompleteText` with var_AC never assigned), and the caller
+ * is the one that preserves whatever the turn had said -- run390's inventory
+ * saves `out & "  "` before the call and puts it back afterwards (439B55).
+ * Mode 1 is what Sub_20_22 passes (run400 45FA66, our run_task_run_by_index)
+ * and what checkevent passes when it dispatches by command text (run390
+ * 42D3F5, run380 43A762); the typed line's own matcher passes 0 and its
+ * fallback pass 2 (run390 generaltasks 45F48B, 460584).
+ */
+static scr_int task_dispatch_depth = 0;
+
+/*
  * Optional "move assist" mode (opt-in, off by default; sibling of the Battle
  * System's combat assist).  An ADRIFT 4.0 move task action stores its
  * destination type as a combo-box ListIndex; VB leaves an untouched combo at
@@ -2525,12 +2545,19 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
       ? completetext[0] != '\0' : !scr_strempty (completetext))
     {
       /*
-       * 4.0: a task an action runs joins its text onto the turn's string
+       * A task the engine dispatched joins its text onto the turn's string
        * with pspace(), so an ALR can span it (see pf_buffer_join_line()).
-       * The hidden prefix is there exactly while an action runs.
+       * That is the Runner's execute_task mode 1, and it covers an event's
+       * task, a walk's, a battle's and the one an "execute task" action runs
+       * -- see task_dispatch_depth.  The hidden prefix says the same thing
+       * for the action case at 4.0, where the turn's text stays in the buffer
+       * behind the barrier while the actions run; keep it, because the
+       * refusal a 4.0 put leaves pending (pf_buffer_join_pending) reaches
+       * here through the typed line's own matcher.
        */
-      if (prop_get_taf_version (bundle) >= TAF_VERSION_400
-          && pf_has_hidden_prefix (filter))
+      if (task_in_dispatched_run ()
+          || (prop_get_taf_version (bundle) >= TAF_VERSION_400
+              && pf_has_hidden_prefix (filter)))
         pf_buffer_join_line (filter, completetext);
       else
         pf_buffer_paragraph_line (filter, completetext);
@@ -2677,6 +2704,36 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
 
   /* Return status -- TRUE if matched and we output something. */
   return status;
+}
+
+
+/*
+ * task_push_dispatched_run()
+ * task_pop_dispatched_run()
+ * task_in_dispatched_run()
+ *
+ * Bracket a task run the engine asked for, so that task_run_task_unrestricted()
+ * can tell it from the one the player's line matched; see task_dispatch_depth.
+ * Nesting is why this is a count rather than a flag -- anything a dispatched
+ * task runs was dispatched too.
+ */
+void
+task_push_dispatched_run (void)
+{
+  task_dispatch_depth++;
+}
+
+void
+task_pop_dispatched_run (void)
+{
+  assert (task_dispatch_depth > 0);
+  task_dispatch_depth--;
+}
+
+scr_bool
+task_in_dispatched_run (void)
+{
+  return task_dispatch_depth > 0;
 }
 
 

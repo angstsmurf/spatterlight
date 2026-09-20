@@ -87,8 +87,8 @@ hits you.
 You hit a grey wolf with the magic cube.  A grey wolf hits you.
 
 > attack wolf
-You hit a grey wolf with the magic cube.
-The wolf limps away, badly hurt. It won't be likely to bother you again.
+You hit a grey wolf with the magic cube.  The wolf limps away, badly hurt. It
+won't be likely to bother you again.
 
 > take tonerith stone
 You pick up the Tonerith stone.
@@ -140,9 +140,9 @@ You stand on the banks of the Forecarn river, the fast rushing water flows
 from the west to the east. The sound is almost deafening. Across the other
 side of the river is a cobblestone path leading away. There is another path
 to the West leading to the Dusteron desert.   There is a rotted tree standing
- just next to the river.  Serond follows you.
-Serond walks up to you and shakes your hand. "I found you at last Alexis!
-However, let us not talk for long, there is little time."
+ just next to the river.  Serond follows you.  Serond walks up to you and
+shakes your hand. "I found you at last Alexis! However, let us not talk for
+long, there is little time."
 "However, I bring you a gift. Now, where did I put it?
  Ah! here it is. Serond hands you a small gourd."
 
@@ -261,8 +261,8 @@ It is too dark to see.  Serond follows you from the west.  Serond shoots the
 large troll with the oak staff.
 
 > attack narfild
-You hit the large troll with the magic cube.
-Narfild, lets out a loud grunt as he lurches forward and slumps to the floor.
+You hit the large troll with the magic cube.  Narfild, lets out a loud grunt
+as he lurches forward and slumps to the floor.
 
 > nw
 You move northwest.
@@ -508,10 +508,10 @@ You hit an angry dwarf with the magic cube.  Serond shoots an angry dwarf
 with the oak staff.  An angry dwarf chops Serond with the iron axe.
 
 > attack bridgekeeper
-You hit an angry dwarf with the magic cube.
-The dwarf, with his last ounce of strength lifts himself to the side of the
-bridge. He removes his shirt and axe and then he slumps over the wall and
-falls into the river with a huge splash.
+You hit an angry dwarf with the magic cube.  The dwarf, with his last ounce
+of strength lifts himself to the side of the bridge. He removes his shirt and
+axe and then he slumps over the wall and falls into the river with a huge
+splash.
 
 > ne
 You move northeast.
@@ -630,9 +630,9 @@ dwelling goblin with the oak staff.  A forest dwelling goblin shoots you with
 the bow and arrow.
 
 > attack goblin
-You hit a forest dwelling goblin with the magic cube.
-The Goblin drops from the tree and lands on the floor. Then, it's little body
-shrivels and turns to dust, it is then blown away by the light wind.
+You hit a forest dwelling goblin with the magic cube.  The Goblin drops from
+the tree and lands on the floor. Then, it's little body shrivels and turns to
+dust, it is then blown away by the light wind.
 
 > take kedarn stone
 You pick up the Kedarn stone.
@@ -684,8 +684,8 @@ the pointy stick.
 
 > attack monster
 You hit a swamp monster with the magic cube.  Serond shoots a swamp monster
-with the oak staff.
-The swamp monster slowly melts into the marsh. It then dissapears.
+with the oak staff.  The swamp monster slowly melts into the marsh. It then
+dissapears.
 
 > ne
 You move northeast.
@@ -748,9 +748,8 @@ head.  Serond follows you from the west.  Serond shoots a large eagle with
 the oak staff.  A large eagle hits Serond.
 
 > attack eagle
-You hit a large eagle with the magic cube.
-The eagle makes a last flap of it's enormous wings and falls deep into the
-ravine out of view.
+You hit a large eagle with the magic cube.  The eagle makes a last flap of
+it's enormous wings and falls deep into the ravine out of view.
 
 > w
 You move west.
@@ -917,17 +916,16 @@ another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Serond
 follows you from the south.  Serond shoots the dark knight with the oak
-staff.  Haron follows you.
-A knight catches up to you and smiles. Clearing his throat he says:
+staff.  Haron follows you.  A knight catches up to you and smiles. Clearing
+his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."  Haron hands you a phial.  The dark knight
 cuts Haron with the blade from Uron.
 
 > attack larnt
 You hit the dark knight with the magic cube.  Serond shoots the dark knight
-with the oak staff.
-Larnt drops to the floor with a spine chilling shriek as he dissolves into
-the ground.
+with the oak staff.  Larnt drops to the floor with a spine chilling shriek as
+he dissolves into the ground.
 
 > n
 You move north.
@@ -1076,8 +1074,8 @@ You hit the dark lord with the magic cube.  Serond shoots the dark lord with
 the oak staff.
 
 > attack urgorn
-You hit the dark lord with the magic cube.
-Receiving one more hit, Urgorn falls backwards.
+You hit the dark lord with the magic cube.  Receiving one more hit, Urgorn
+falls backwards.
 He loses his balance and tips into the pit behind him. As he falls, he
 releases an almighty ball of light. It travels up out of the pit and into the
 air. As it flies up, you can see that in the centre of the light are the

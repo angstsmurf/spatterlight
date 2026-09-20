@@ -121,8 +121,8 @@ Lined by sad little houses you cannot help but feel depressed here.  East
 leads to Albert Street, to the west is Castle Avenue and you know without
 looking that to the north is a seedy corner shop. You avoid looking south but
 the terrible feeling of grief and despair still overtakes you; it is the
-front door of your home.  Terry Unsworth is busy sweeping the road.
-Terry scratches his crotch.
+front door of your home.  Terry Unsworth is busy sweeping the road.  Terry
+scratches his crotch.
 
 > n
 You move north.
@@ -137,8 +137,7 @@ Charlie looks at you for a brief moment and then resumes his work of looking
 bored.
 
 You are suddenly overwhelmed by a complete feeling of misery and briefly you
-have a flashback of your wife lying on the floor.
-Charlie stretches.
+have a flashback of your wife lying on the floor.  Charlie stretches.
 
 > x counter
 The old counter has seen some service.  On the counter is a peanut, a meat
@@ -148,8 +147,8 @@ pie, a bottle of perfume and a booklet.
 You buy the bottle of scent for £5.
 
 > buy pie
-You purchase the meat pie for £2.
-Charlie takes a few paces behind the counter.
+You purchase the meat pie for £2.  Charlie takes a few paces behind the
+counter.
 
 > get peanut
 You take the peanut from the counter.
@@ -171,8 +170,8 @@ Castle Avenue
 The houses are larger and the cars parked outside more expensive, so this is
 the better part of town but it still seems a very bleak place. London Road is
 to the east and a small park can just be seen to the west.  An alley is north
-and to the south is a betting shop.  Alison Clarke is standing here.
-Alison looks up and down the road.
+and to the south is a betting shop.  Alison Clarke is standing here.  Alison
+looks up and down the road.
 
 > give perfume to alison
 You hand the bottle of perfume to Alison who exclaims, "Elite! My favourite."
@@ -220,8 +219,7 @@ pool.
 
 Ray quickly looks up from his game and says, "Hi." His voice sounds like he
 has smoked far too many cigarettes in his life.  Ray stops playing for a
-moment and looks at you.
-Ray has potted a ball in a corner pocket.
+moment and looks at you.  Ray has potted a ball in a corner pocket.
 
 > get fly spray
 You take the can of fly spray.  Ray stops playing for a moment and looks at
@@ -371,8 +369,7 @@ ground.
 As you look around the park something jogs a memory and it suddenly all comes
 back to you. You are walking with your wife, hand in hand. You are talking
 about the future, about starting a family. You stand quite still for several
-minutes and quietly call her name.
-Tom wipes his nose on his sleeve.
+minutes and quietly call her name.  Tom wipes his nose on his sleeve.
 
 > s
 You move south.
@@ -448,8 +445,8 @@ dirty.  On the walls are various posters showing examples of different dragon
 tattoos. A white counter is located against the rear wall of the shop and you
 can see a certificate hanging on the wall just inside the door. The only exit
 from this miserable place is behind you to the south.  You can see a
-discarded cigarette.  Ben Crosby is standing here.
-Ben glances at you for a moment and with a look of distain looks away.
+discarded cigarette.  Ben Crosby is standing here.  Ben glances at you for a
+moment and with a look of distain looks away.
 
 > give packet to ben
 You hand the small packet to Ben who snatches it from your hand. He places
@@ -465,8 +462,7 @@ yourself.
 It will probably be a good idea to do two things now; first you could find
 someone who would make use of the money. Second, it would be interesting to
 see what John Morley makes of Ben not being able to pay his debts.  Ben seems
-to be in some sort of daze at the moment.
-Ben looks out of the window.
+to be in some sort of daze at the moment.  Ben looks out of the window.
 
 > s
 You move south.
@@ -533,8 +529,7 @@ money to pay.
 John Morley looks up and says, "What do you want? You don't owe me any money
 at the moment."
 "Sorry my mistake," you lie.
-He shakes his head and ignores you.
-John looks out of the window.
+He shakes his head and ignores you.  John looks out of the window.
 
 > n
 You move north.
@@ -555,7 +550,7 @@ The houses are larger and the cars parked outside more expensive, so this is
 the better part of town but it still seems a very bleak place. London Road is
 to the east and a small park can just be seen to the west.  An alley is north
 and to the south is a betting shop.  Terry Unsworth wanders in from the east.
-Terry yawns.
+ Terry yawns.
 
 > w
 You move west.
@@ -567,8 +562,7 @@ money elsewhere. With its overgrown flower beds and wild bushes it has an air
 of neglect about it. You are standing next to one of the only wooden benches
 not to be vandalised and just at its side is a rubbish bin. Castle Avenue is
 to the east of you and a small path leads away to the south.  Tom Addison is
-here.
-Tom scratches his crotch.
+here.  Tom scratches his crotch.
 
 > give wad to tom
 You hand the wad of money to Tom who just stares at it for a moment. He then
@@ -601,8 +595,7 @@ The houses are larger and the cars parked outside more expensive, so this is
 the better part of town but it still seems a very bleak place. London Road is
 to the east and a small park can just be seen to the west.  An alley is north
 and to the south is a betting shop.  Terry Unsworth is busy sweeping the
-road.
-Terry scratches his leg.
+road.  Terry scratches his leg.
 
 > e
 You move east.
@@ -693,20 +686,18 @@ behind the bar.
 The barmaid, Emma, looks up and says cheerily, "Hello darling, you look a bit
 under the weather. I'm sure a drink will cheer you up a bit."
 Under your breath you mutter, "Try having your wife murdered and see how much
-you want to laugh!" You return her comment with a weak smile.
-Colin and Fred are discussing politics.
+you want to laugh!" You return her comment with a weak smile.  Colin and Fred
+are discussing politics.
 
 > insert money
 You put some money into the jukebox and make a selection.  The jukebox is
-loudly playing a song by some boy band or other.
-Colin and Fred are whispering to each other.
-Emma is listening to Colin and Fred.
+loudly playing a song by some boy band or other.  Colin and Fred are
+whispering to each other.  Emma is listening to Colin and Fred.
 
 > give bracelet to jed
 Jed doesn't take it but looks around and says, "Not here, lets go out to the
 Yard." Jed heads south to the yard.  The jukebox is loudly playing a song by
-some boy band or other.
-Colin and Fred are talking about horse racing.
+some boy band or other.  Colin and Fred are talking about horse racing.
 
 > s
 You move south.

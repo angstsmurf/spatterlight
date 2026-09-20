@@ -222,12 +222,11 @@ Handle with care".
 Okay.  I have taken the torch.
 
 > Hit chimp
-The chimpanzee blows a raspberry at me.
-There is a whirr from the corner of the cellar and the robot springs into
-life.  Slowly but surely it makes its way over to the raspberry and drags it
-towards the chute.  With a clank it throws the raspberry down the chute and
-returns to its corner of the cellar.  There is a loud whooshing sound from
-the chute.
+The chimpanzee blows a raspberry at me.  There is a whirr from the corner of
+the cellar and the robot springs into life.  Slowly but surely it makes its
+way over to the raspberry and drags it towards the chute.  With a clank it
+throws the raspberry down the chute and returns to its corner of the cellar.
+There is a loud whooshing sound from the chute.
 
 > X chute
 The chute is quite narrow and made out of wood.  It leads down into darkness.
@@ -582,12 +581,11 @@ clank it throws the crate down the chute and returns to its corner of the
 cellar.  There is a loud whooshing sound from the chute.
 
 > Drop crowbar
-Okay.  I have dropped the crowbar.
-There is a whirr from the corner of the cellar and the robot springs into
-life.  Slowly but surely it makes its way over to the crowbar and drags it
-towards the chute.  With a clank it throws the crowbar down the chute and
-returns to its corner of the cellar.  There is a loud whooshing sound from
-the chute.
+Okay.  I have dropped the crowbar.  There is a whirr from the corner of the
+cellar and the robot springs into life.  Slowly but surely it makes its way
+over to the crowbar and drags it towards the chute.  With a clank it throws
+the crowbar down the chute and returns to its corner of the cellar.  There is
+a loud whooshing sound from the chute.
 
 > U
 
@@ -3131,8 +3129,8 @@ marzipan and icing sugar are liberally scattered across the damp stone floor.
 intently.  A shark is leaning against one of the mounds of marzipan.  He
 gives me a knowing wink.  There is a small mouse here.
 
-I can only move east.
-The cat pounces on the mouse, and swipes at it with a sharp claw.
+I can only move east.  The cat pounces on the mouse, and swipes at it with a
+sharp claw.
 
 > Look
 
@@ -3288,8 +3286,8 @@ I doubt this part of the house can be visited much at all.  A shallow
 passageway leads eastward over wooden floorboards, and there is a small
 laundry room to my west.
 
-Exits are east, west and down.
-Clouds of steam billow from the kettle's spout and slowly drift upwards.
+Exits are east, west and down.  Clouds of steam billow from the kettle's
+spout and slowly drift upwards.
 
 > E
 
@@ -3300,18 +3298,17 @@ get in here is through the skylight in the roof.  It fails, however, to
 adequately light the gloomy east end of the attic.  Wooden rafters hold up
 the manor's roof.  On one of the rafters there sits a barn owl.
 
-Exits are east, west and up.
-Clouds of steam billow from the kettle's spout and slowly drift upwards.
+Exits are east, west and up.  Clouds of steam billow from the kettle's spout
+and slowly drift upwards.
 
 > Give mouse to owl
 The owl hoots appreciatively and takes the dead mouse in its beak.  The owl
-steps off its rafter and flies into the darker part of the attic.
-Clouds of steam billow from the kettle's spout and slowly drift upwards.
+steps off its rafter and flies into the darker part of the attic.  Clouds of
+steam billow from the kettle's spout and slowly drift upwards.
 
 > Open skylight
-I open the skylight.
-Clouds of steam billow from the kettle's spout and slowly drift upwards.  The
-kettle stops boiling.
+I open the skylight.  Clouds of steam billow from the kettle's spout and
+slowly drift upwards.  The kettle stops boiling.
 
 > U
 
@@ -3383,8 +3380,8 @@ Okay.  I have dropped the kettle.
 
 > Plug in kettle
 Okay.  I plug the kettle into the socket.  The water in the kettle begins to
-boil.
-Clouds of steam billow from the kettle's spout and slowly drift upwards.
+boil.  Clouds of steam billow from the kettle's spout and slowly drift
+upwards.
 
 > Wait
 Time passes...
@@ -6668,20 +6665,18 @@ Okay.  I turn the torch off.
 
 > Drop gloves
 I have dropped the gloves.  Ouch!  The hedgehog's spikes are too prickly to
-handle.  The hedgehog drops to the ground..
-There is a whirr from the corner of the cellar and the robot springs into
-life.  Slowly but surely it makes its way over to the gloves and drags it
-towards the chute.  With a clank it throws the gloves down the chute and
-returns to its corner of the cellar.  There is a loud whooshing sound from
-the chute.
+handle.  The hedgehog drops to the ground..  There is a whirr from the corner
+of the cellar and the robot springs into life.  Slowly but surely it makes
+its way over to the gloves and drags it towards the chute.  With a clank it
+throws the gloves down the chute and returns to its corner of the cellar.
+There is a loud whooshing sound from the chute.
 
 > Say Tevobicab
-With a gurgle a map is spat out of the chute.
-There is a whirr from the corner of the cellar and the robot springs into
-life.  Slowly but surely it makes its way over to the hedgehog and drags it
-towards the chute.  With a clank it throws the hedgehog down the chute and
-returns to its corner of the cellar.  There is a loud whooshing sound from
-the chute.
+With a gurgle a map is spat out of the chute.  There is a whirr from the
+corner of the cellar and the robot springs into life.  Slowly but surely it
+makes its way over to the hedgehog and drags it towards the chute.  With a
+clank it throws the hedgehog down the chute and returns to its corner of the
+cellar.  There is a loud whooshing sound from the chute.
 
 > Get map
 Okay. I have taken the map.
@@ -7237,8 +7232,8 @@ equipment make it quite cramped in here.  A plastic dustbin sits in one
 corner of the hut, beside a long wooden workbench.  Also here is a can.
 Horace, Grandad's rather tubby gardener, is here.
 
-An exit leads outside.
-Horace reaches into his back pocket and takes out a small tin.
+An exit leads outside.  Horace reaches into his back pocket and takes out a
+small tin.
 
 > Throw plane
 Okay.  I have thrown the paper aeroplane.  The plane flies high in the air

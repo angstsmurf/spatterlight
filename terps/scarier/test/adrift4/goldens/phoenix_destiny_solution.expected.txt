@@ -124,9 +124,8 @@ You are now 180 centimeters tall.
 You now weigh 80 kilograms.
 
 > age 25
-You are 25 years old.
-You may now embark on your quest, but remember, there are many dangers
-awaiting you...
+You are 25 years old.  You may now embark on your quest, but remember, there
+are many dangers awaiting you...
 
 > west
 You move west.

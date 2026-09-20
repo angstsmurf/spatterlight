@@ -154,8 +154,8 @@ You take the Shield.
 
 > hide from dragon
 You manage to find a decent place to hide, and Shade, the black dragon, pulls
-up into the sky and moves on.
-Fetlar smiles and sniffs the air, as a foul smell erupts from him.
+up into the sky and moves on.  Fetlar smiles and sniffs the air, as a foul
+smell erupts from him.
 
 > n
 You move north.
@@ -234,10 +234,9 @@ The impassable Kuskarian Range mountains can be seen to the north, while, to
 the east, the forest thickens.
 Reevling the Warrior is here.
 
-You can move south and west.
-Reevling, the warrior, looks you up and down, sighs, and mumbles something
-about your being... nothing but another villager waiting to be turned into a
-zombie.
+You can move south and west.  Reevling, the warrior, looks you up and down,
+sighs, and mumbles something about your being... nothing but another villager
+waiting to be turned into a zombie.
 
 > w
 You move west.
@@ -276,8 +275,7 @@ Shadow Forest.
 The impassable Kuskarian Range mountains can be seen to the north.
   Also here is a  very large log.  Fang is here.
 
-You can move north, east and west.
-Seeker hums!
+You can move north, east and west.  Seeker hums!
 Seeker hums!
 Wolf cuts you with the fine set of teeth in its muzzle, but it doesn't seem
 to do any damage.
@@ -321,13 +319,11 @@ leads south, away from the henge, while another leads north into the forest.
   Also here is a body and a staff.  Rossi, the muck dweller, is here.  It is
 raining...
 
-You can move north, east, south and west.
-Upon seeing you, Rossi gets a little excited and grunts the word "easy "
-followed by a strange, muffled noise sounding something like the word
-"target".
-Rossi, the muck dweller, deftly takes hold of the sword with its
-exceptionally long fingers, and before you know it, the sword vanishes in a
-cloud of muck.
+You can move north, east, south and west.  Upon seeing you, Rossi gets a
+little excited and grunts the word "easy " followed by a strange, muffled
+noise sounding something like the word "target".  Rossi, the muck dweller,
+deftly takes hold of the sword with its exceptionally long fingers, and
+before you know it, the sword vanishes in a cloud of muck.
 
 > give rose to rossi
 Rossi grabs hold of the rose with its nasty elongated fingers, but no sooner
@@ -414,10 +410,9 @@ You are inside a cave leading into the mountainside. To the west, the cave
 goes deeper, but it is somewhat obscured by the large boulder blocking it.
 Basilisk is here.
 
-You can only move east.
-The basilisk locks its gaze onto you, but not for long, as its gaze collides
-with the mirrored medallion and the basilisk’s petrifying effect is turned
-upon itself. the basilisk has turned to stone.
+You can only move east.  The basilisk locks its gaze onto you, but not for
+long, as its gaze collides with the mirrored medallion and the basilisk’s
+petrifying effect is turned upon itself. the basilisk has turned to stone.
 
 > e
 You move east.
@@ -549,8 +544,8 @@ There is a crack in the stonework on the east wall; too small to climb
 through, though it does let a ray of sunlight in, which brightens the room a
 little.
 There is an iron handle sticking out of the ceiling.
-  Also here is a sarcophagus.
-A stone wall drops down behind you, blocking your exit from this building!
+  Also here is a sarcophagus.  A stone wall drops down behind you, blocking
+your exit from this building!
 
 > open sarcophagus
 You open the sarcophagus.  A vial is inside the sarcophagus.  As you open the
@@ -562,18 +557,15 @@ Seeker hums!
 
 > take vial
 You take the vial from the sarcophagus.  Wraith hits you, but it doesn't seem
-to do any damage.
-Seeker hums!
+to do any damage.  Seeker hums!
 
 > attack alam nadeer
 You stab wraith with the sword.  Wraith hits you, but it doesn't seem to do
-any damage.
-Seeker hums!
+any damage.  Seeker hums!
 
 > attack alam nadeer
-You stab wraith with the sword.
-With a sigh of relief, you finally put Alam Nadeer to rest. His body
-dissipates into the air. The wraith is no more.
+You stab wraith with the sword.  With a sigh of relief, you finally put Alam
+Nadeer to rest. His body dissipates into the air. The wraith is no more.
  Glowing writing appears on the floor of the room. It reads, "When all is
 lost and the end is nigh, leave this place and reach for the sky."
 The writing then fades away.
@@ -666,11 +658,10 @@ the impassable Kuskarian Range mountains. However, a cave entrance leads into
 the mountains, to the east.
 Grumski the Giant is here.
 
-You can move east, south, west and southwest.
-Grumski looks like a typical giant, apart from the fact that he is big for
-even giantkind. His massive physique dwarves yours in comparison. He looks
-very sad. Grumski says, "HEY THERE, MANLING, YOU GOTTA HELP ME! THOSE DAMN
-FAIRIES ARE RUINING MY LIFE!"
+You can move east, south, west and southwest.  Grumski looks like a typical
+giant, apart from the fact that he is big for even giantkind. His massive
+physique dwarves yours in comparison. He looks very sad. Grumski says, "HEY
+THERE, MANLING, YOU GOTTA HELP ME! THOSE DAMN FAIRIES ARE RUINING MY LIFE!"
 
 > e
 You move east.
@@ -680,16 +671,14 @@ The sunlight streams into the entrance hall of the cave, making visible a
 room further into the east. West leads back out onto the grassy plains.
 A group of fairies are here.
 
-You can only move west.
-The group of fairies seem to have cast some type of magical spell barring you
-from going any further into the cave.
+You can only move west.  The group of fairies seem to have cast some type of
+magical spell barring you from going any further into the cave.
 
 > open vial
-You open the vial.
-The group of fairies seem to have cast some type of magical spell barring you
-from going any further into the cave.
-The open vial starts to pulsate when near the fairies. Suddenly it explodes
-in a shower of crystal and smoke. You hear the high-pitched squeals of the
+You open the vial.  The group of fairies seem to have cast some type of
+magical spell barring you from going any further into the cave.  The open
+vial starts to pulsate when near the fairies. Suddenly it explodes in a
+shower of crystal and smoke. You hear the high-pitched squeals of the
 fairies, and are momentarily blinded by the explosion. When the smoke finally
 clears, you realise the fairies have gone. Grumski shouts with glee! "AND NOW
 GRUMSKI WILL HELP MANLING." He quickly stomps into the cave and checks that
@@ -940,9 +929,8 @@ and pants.
 You take the pair of thick leather boots.
 
 > wear boots
-You put on the pair of thick leather boots.
-You feel weak, and very tired. Your strength starts to ebb away. You
-definitely need to sleep.
+You put on the pair of thick leather boots.  You feel weak, and very tired.
+Your strength starts to ebb away. You definitely need to sleep.
 
 > se
 You move southeast.
@@ -980,41 +968,35 @@ while south leads further into the village.
   Also here is a market stall and a Well.
 
 You can move north, east, south, west and down.  Jarris staggers in from the
-east.
-Seeker hums!
-You manage to avoid zombie's attack.
-Fetlar shouts, "Good luck, buddy friend. I'm off for a nap. All this flapping
-about has made me feel rather tired." Fetlar flies off.
+east.  Seeker hums!
+You manage to avoid zombie's attack.  Fetlar shouts, "Good luck, buddy
+friend. I'm off for a nap. All this flapping about has made me feel rather
+tired." Fetlar flies off.
 
 > attack jarris
-You stab zombie with the sword.
-You see a horrible sight. Arthur, one of the village zombies, is pulling
-himself along by his arms, as his legs have long since been eaten away.
-Jarris lumbers off to the west.
+You stab zombie with the sword.  You see a horrible sight. Arthur, one of the
+village zombies, is pulling himself along by his arms, as his legs have long
+since been eaten away.  Jarris lumbers off to the west.
 
 > z
 Time passes...
-Jarris staggers in from the west.
-Seeker hums!
+Jarris staggers in from the west.  Seeker hums!
 Arthur pulls himself in from below.  Seeker hums!
 
 > attack jarris
-You stab zombie with the sword.
-Jarris slumps to the floor and dies with his toothy grin still imprinted on
-his face.  Arthur pulls himself away to below.
+You stab zombie with the sword.  Jarris slumps to the floor and dies with his
+toothy grin still imprinted on his face.  Arthur pulls himself away to below.
 
 > z
 Time passes...
 
 > z
 Time passes...
-Holga stumbles in from the east.
-Seeker hums!
+Holga stumbles in from the east.  Seeker hums!
 
 > attack holga
-You stab zombie with the sword.
-Holga keels over and is at last put to rest. Her undead hand is loosely
-holding a garlic bud.
+You stab zombie with the sword.  Holga keels over and is at last put to rest.
+Her undead hand is loosely holding a garlic bud.
 
 > z
 Time passes...
@@ -1045,21 +1027,19 @@ Time passes...
 Arthur pulls himself in from below.  Seeker hums!
 
 > attack arthur
-You stab zombie with the sword.
-Arthur falls face down as he his finally put out of his misery.
+You stab zombie with the sword.  Arthur falls face down as he his finally put
+out of his misery.
 
 > z
 Time passes...
 
 > z
 Time passes...
-Boris lumbers in from the south.
-Seeker hums!
+Boris lumbers in from the south.  Seeker hums!
 Zombie hits you, but it doesn't seem to do any damage.
 
 > attack boris
-You stab zombie with the sword.
-Boris falls down, quite dead.
+You stab zombie with the sword.  Boris falls down, quite dead.
 
 > e
 You move east.
@@ -1171,9 +1151,8 @@ You move up.
 Inn’s stairs.
 You stand halfway up the spiral staircase. The stairs creak with your weight.
 
-You can move up and down.
-You hear footsteps and laughter from upstairs. Could Morac have found you
-already?
+You can move up and down.  You hear footsteps and laughter from upstairs.
+Could Morac have found you already?
 
 > u
 You move up.
@@ -1226,14 +1205,12 @@ You open the large wooden box.  A leg of lamb is inside the large wooden box.
  Seeker hums!
 
 > take lamb
-You take the leg of lamb from the large wooden box.
-Bambi, a child zombie, climbs out of the box. Covered in salt, she edges
-towards you.  Zombie hits you, but it doesn't seem to do any damage.  Seeker
-hums!
+You take the leg of lamb from the large wooden box.  Bambi, a child zombie,
+climbs out of the box. Covered in salt, she edges towards you.  Zombie hits
+you, but it doesn't seem to do any damage.  Seeker hums!
 
 > attack bambi
-You stab zombie with the sword.
-The poor child keels over and finally dies.
+You stab zombie with the sword.  The poor child keels over and finally dies.
 
 > e
 You move east.
@@ -1329,9 +1306,8 @@ A footpath.
 The footpath leads from the northeast to the south. To the west lies the
 northern edge of the Webbed Woods.
 
-You can move east and northeast.
-There is a large pack of wolves here. They block your path. You can only go
-back the way you came.  Seeker hums!
+You can move east and northeast.  There is a large pack of wolves here. They
+block your path. You can only go back the way you came.  Seeker hums!
 
 > give leg of lamb to wolves
 One of the wolves grabs the leg of lamb in its jaws and makes off with it.
@@ -1445,8 +1421,8 @@ either very difficult or impossible. There are numerous amounts of cobwebs
 here.
   Also here is a gypsy caravan and small table.  Madam Evenov is here.
 
-You can move north, east, west, southeast and northwest.
-" Cross my palm with silver and I will help you " she croaks.
+You can move north, east, west, southeast and northwest.  " Cross my palm
+with silver and I will help you " she croaks.
 
 > e
 You move east.
@@ -1486,8 +1462,7 @@ Up a large oak tree.
 There is a huge web up here littered with the husks of hapless victims.
 Haraxis, the giant spider, is here.
 
-You can only move down.
-Seeker hums!
+You can only move down.  Seeker hums!
 
 > attack haraxis
 You stab giant spider with the sword.  Giant spider hits you, but it doesn't
@@ -1509,12 +1484,10 @@ Haraxis isn't here!
 
 > z
 Time passes...
-Haraxis skitters in.
-Seeker hums!
+Haraxis skitters in.  Seeker hums!
 
 > attack haraxis
-You stab giant spider with the sword.
-Seeker hums!
+You stab giant spider with the sword.  Seeker hums!
 Giant spider hits you.
 
 > attack haraxis
@@ -1534,9 +1507,8 @@ You stab giant spider with the sword.  Giant spider hits you.
 Time passes...
 
 > attack haraxis
-You stab giant spider with the sword.
-The giant spider slumps to the ground with a loud squelch. The horrible
-creature is dead.
+You stab giant spider with the sword.  The giant spider slumps to the ground
+with a loud squelch. The horrible creature is dead.
 
 > z
 Time passes...
@@ -1638,25 +1610,23 @@ You can move north, east, west, southeast and northwest.
 She quickly puts the coin in her robes. " To the east lies the lair of
 Haraxis the giant spider " she sputters. " She has been troubling me of late.
 If you can kill her, I will cast a spell on you to neutralize the effects of
-Morac’s fog."  Lazaraz rides over from the north.
-You feel a tremble down your spine, and a cold, unholy chill fills the air.
-Lazaraz seems to be looking for someone. He pulls his steed to and fro, but
-the eyes of Lazaraz must be very poor, as they seem to overlook you. Maybe
-the light of day makes it harder for him to see.
+Morac’s fog."  Lazaraz rides over from the north.  You feel a tremble down
+your spine, and a cold, unholy chill fills the air. Lazaraz seems to be
+looking for someone. He pulls his steed to and fro, but the eyes of Lazaraz
+must be very poor, as they seem to overlook you. Maybe the light of day makes
+it harder for him to see.
 Madam Evenov waves her arms across you and utters a few strange words. "
 There its done, you may travel through the fog with out any ill effects now "
 she wheezes .  It starts getting rather dark. The full moon illuminates the
-land with its eerie glow.
-Madam Evenov shuffles a pack of cards and picks four at random. She holds the
-four in her hands in a fan like shape, and rasps, "Pick a number, one, two,
-three, or four, to see your future and where you must go."
-Seeker Hums!
+land with its eerie glow.  Madam Evenov shuffles a pack of cards and picks
+four at random. She holds the four in her hands in a fan like shape, and
+rasps, "Pick a number, one, two, three, or four, to see your future and where
+you must go."  Seeker Hums!
 
 > one
 "You have chosen the queen of spades," she gasps. "The prize you seek is
 hidden deep in the depths of Shadowpeak; find the crypts, and you shall find
-your prize in the dark queen’s coffin."
-Seeker Hums!
+your prize in the dark queen’s coffin."  Seeker Hums!
 
 > se
 You move southeast.
@@ -1701,10 +1671,9 @@ The castle doors stand open, and the portcullis is only half closed.
 Southward past the entrance is the castle’s courtyard, while, to the north,
 the castle’s drawbridge lies.
 
-You can only move north.
-A thin mist gathers here. It turns into a female form. Maretta, vampire wife
-of Morac, has arrived. She blocks your entrance into the castle.  Seeker
-hums!
+You can only move north.  A thin mist gathers here. It turns into a female
+form. Maretta, vampire wife of Morac, has arrived. She blocks your entrance
+into the castle.  Seeker hums!
 
 > z
 Time passes...
@@ -1748,9 +1717,9 @@ castle’s front doors lie to the south, while to the northeast and the
 northwest stand the front watch towers of the castle.
   Also here are the castle’s front doors.
 
-You can move north, northeast and northwest.
-The castle’s front doors slowly creak open, as if they were expecting you.
-Beyond, you can see a dimly lit, long hall leading into the castle proper.
+You can move north, northeast and northwest.  The castle’s front doors slowly
+creak open, as if they were expecting you. Beyond, you can see a dimly lit,
+long hall leading into the castle proper.
 
 > s
 You move south.
@@ -1759,9 +1728,9 @@ The long hall.
 The hallway stretches southward into darkness. To the east and west are
 darkened rooms; to the north, the front doors.
 
-You can move east, south and west.
-The front doors of the castle slam shut behind you.  You hear the haunting
-sound of organ music echoing through out the castle.
+You can move east, south and west.  The front doors of the castle slam shut
+behind you.  You hear the haunting sound of organ music echoing through out
+the castle.
 
 > s
 You move south.
@@ -1775,9 +1744,8 @@ organ that rests in the centre of this room.
 Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.  Woody scampers in from
-the west.
-Woody, the wererat, strokes his exceptionally long snout with one of his
-hands, and sniffs the air around you.
+the west.  Woody, the wererat, strokes his exceptionally long snout with one
+of his hands, and sniffs the air around you.
 Abruptly the music stops...  Seeker hums!
 Woody, the wererat, starts a coughing fit. His ribs nearly burst through his
 skinny body. The sound he makes is horrible, and phlegm flies everywhere from
@@ -1795,9 +1763,9 @@ to life! They unfold their wings and start to fly down, menacingly, towards
 you.  Seeker hums!
 
 > attack gargoyle #2
-You stab Gargoyle #2 with the sword.
-With a bang!, the gargoyle shatters, leaving nothing but the smell of
-brimstone…  Woody scampers away to the east.  Seeker hums!
+You stab Gargoyle #2 with the sword.  With a bang!, the gargoyle shatters,
+leaving nothing but the smell of brimstone…  Woody scampers away to the east.
+ Seeker hums!
 
 > z
 Time passes...
@@ -1806,15 +1774,14 @@ Gargoyle #4 cuts you with the glaive, but it doesn't seem to do any damage.
 Seeker hums!
 
 > attack gargoyle #3
-You stab Gargoyle #3 with the sword.
-With a bang!, the gargoyle shatters, leaving nothing but the smell of
-brimstone…  Woody scampers in from the east.  Seeker hums!
+You stab Gargoyle #3 with the sword.  With a bang!, the gargoyle shatters,
+leaving nothing but the smell of brimstone…  Woody scampers in from the east.
+ Seeker hums!
 
 > attack gargoyle #4
-You stab Gargoyle #4 with the sword.
-With a bang!, the gargoyle shatters, leaving nothing but the smell of
-brimstone…  Gargoyle #1 stabs you with the military fork, but it doesn't seem
-to do any damage.  Seeker hums!
+You stab Gargoyle #4 with the sword.  With a bang!, the gargoyle shatters,
+leaving nothing but the smell of brimstone…  Gargoyle #1 stabs you with the
+military fork, but it doesn't seem to do any damage.  Seeker hums!
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 
 > s
@@ -1836,11 +1803,10 @@ You drop the Shield.
 > swim
 You plunge into the fountain.
 
-In the fountain’s depths.
-You plunge deep into the fountain’s depths. You swim ever downward, then,
-sharply, the walls of the fountain’s depths bend upwards in a U-turn. Your
-head breaks the water’s surface. As you gasp for air and climb out of the
-basin, you notice you’re in quite a different room.
+In the fountain’s depths.  You plunge deep into the fountain’s depths. You
+swim ever downward, then, sharply, the walls of the fountain’s depths bend
+upwards in a U-turn. Your head breaks the water’s surface. As you gasp for
+air and climb out of the basin, you notice you’re in quite a different room.
 
 The hidden chapel.
 An air of tranquillity envelopes this small room with the rippling sound of
@@ -1848,9 +1814,9 @@ water.
   Also here is a altar to Horamis.
 
 > put pipe on altar
-You put the smoking pipe and weed onto the altar to Horamis.
-As you do so, the pipe and weed suddenly disappear from the altar and are
-replaced by the unbroken staff of Borantha.
+You put the smoking pipe and weed onto the altar to Horamis.  As you do so,
+the pipe and weed suddenly disappear from the altar and are replaced by the
+unbroken staff of Borantha.
 
 The hidden chapel.
 An air of tranquillity envelopes this small room with the rippling sound of
@@ -2266,15 +2232,14 @@ Shadow, the black cat, is here.
 Rucktebar the Witch is here.
 A faint mist swirls around you.
 
-You can move north and south.
-Shadow meeeows...
+You can move north and south.  Shadow meeeows...
 Seeker hums!
 Seeker hums!
 
 > attack shadow with sword
-You stab cat with the sword.
-As you kill the cat, the witch drops to the floor in a heap, screaming in
-agony. Slowly she decays away to nothing.  Seeker hums!
+You stab cat with the sword.  As you kill the cat, the witch drops to the
+floor in a heap, screaming in agony. Slowly she decays away to nothing.
+Seeker hums!
 
 > n
 You move north.
@@ -2370,8 +2335,8 @@ obscured by the majestic pipe organ that rests in the centre of this room.
 Berto, the bald raven, is here.  A faint mist swirls around you.
 
 You can move north, east, south, west, up and down.  Seeker hums!
-You feel the hairs on the back your neck stand up.
-Berto squawks the words, "Quoth said the raven....... nevermore!"
+You feel the hairs on the back your neck stand up.  Berto squawks the words,
+"Quoth said the raven....... nevermore!"
 
 > u
 You move up.
@@ -2423,9 +2388,8 @@ This room has a set of iron steps spiralling upward. The steps are blocked,
 however, by the large stone golem standing in front of them.
 Colos, the stone golem, is here.
 
-You can only move south.
-"Colos at your service, sir, but first, the password, if you please," booms
-the golem.  Seeker hums!
+You can only move south.  "Colos at your service, sir, but first, the
+password, if you please," booms the golem.  Seeker hums!
 
 > attack golem
 Who do you want to attack?
@@ -2512,17 +2476,16 @@ This is a very long room. The smell of freshly-cooked venison fills the air.
   Also here is a table.
 
 You can move east and west.  Gargoyle #1 flies in.  Gargoyle #1 stabs you
-with the military fork.
-Strange, some more venison has just appeared on the table!  Seeker hums!
+with the military fork.  Strange, some more venison has just appeared on the
+table!  Seeker hums!
 
 > take venison
 You take the venison from the table.  Seeker hums!
 
 > eat venison
 You eat the venison.  Not bad, but it could do with a pinch of salt!
-Gargoyle #1 stabs you with the military fork.
-Mmm, that made you feel much better. But you can’t help feeling that someone
-is trying to fatten you up.
+Gargoyle #1 stabs you with the military fork.  Mmm, that made you feel much
+better. But you can’t help feeling that someone is trying to fatten you up.
 Strange, some more venison has just appeared on the table!  Seeker hums!
 
 > take venison
@@ -2709,9 +2672,8 @@ This room is filled with barred cells; all are locked. It is very dusty and
 dirty in here.
   Also here is silver key and a cell door.  Margo is here.
 
-You can only move north.
-"Please set me free. I am Margo, a village maid. I was captured by Morac.
-Please set me free," she cries.
+You can only move north.  "Please set me free. I am Margo, a village maid. I
+was captured by Morac. Please set me free," she cries.
 Seeker hums!
 Seeker hums!
 
@@ -3052,8 +3014,7 @@ one is fully intact.
 
 You can only move south.  Seeker hums!
 As you open the coffin, you seem to have set off some type of spell. A
-magical portal as opened up on the north wall.
-You feel almost safe in here.
+magical portal as opened up on the north wall.  You feel almost safe in here.
 
 > enter portal
 You do so, and arrive back at the stone henge. Through the portal you can now
@@ -3082,8 +3043,7 @@ Shadow Forest gap.
 To the east, there is a gap in the forest’s trees.
 Fang is here.
 
-You can move north, east and west.
-Seeker hums!
+You can move north, east and west.  Seeker hums!
 Fang darts off to the north.
 You catch a faint whiff of Fetlar. He must be somewhere nearby.  Seeker hums!
 
@@ -3150,10 +3110,9 @@ the mountain, but is somewhat obscured by the large sphinx standing in front
 of you!
 Andro, the sphinx, is here.
 
-You can only move west.
-Andro, the sphinx, opens its mouth, and in a very rough voice says, "Oh come
-what may, and come what may be, thou shalt not pass unless thee answers thy
-riddles three.
+You can only move west.  Andro, the sphinx, opens its mouth, and in a very
+rough voice says, "Oh come what may, and come what may be, thou shalt not
+pass unless thee answers thy riddles three.
 #1: What always ends everything?"  Seeker hums!
 
 > say g
@@ -3208,10 +3167,9 @@ Seeker hums!
 
 > z
 Time passes...
-Quentis rides over from the east.
-Quentis is an imposing fellow with lance in hand. He wears full plate armour,
-and is dressed in the colours of Tesslesar. Dents and bloodstains mar his
-armour.
+Quentis rides over from the east.  Quentis is an imposing fellow with lance
+in hand. He wears full plate armour, and is dressed in the colours of
+Tesslesar. Dents and bloodstains mar his armour.
 He quickly spurts out, "Greetings, and thank you, friend, in these hard
 times. Here, take this." On saying this, Quentis places a finely crafted horn
 beside your feet. "Keep it somewhere safe and secret, for it is a holy relic.
@@ -3395,8 +3353,7 @@ Rossi looks nervously about with its large goggle eyes. It looks frightened.
 
 > z
 Time passes...
-Fang darts into the area from the north.
-Seeker hums!
+Fang darts into the area from the north.  Seeker hums!
 Wolf attacks you with the fine set of teeth in its muzzle, but you manage to
 avoid it.  Rossi stalks off to the south-west.  Seeker hums!
 
@@ -3534,9 +3491,9 @@ You stab construct with the sword.  You manage to avoid construct's attack.
 Seeker hums!
 
 > attack edna
-You stab construct with the sword.
-Edna keels over and collapses to the floor. The magical energy that held its
-body together pours out, leaving only a fleshy mound of rotten flesh.
+You stab construct with the sword.  Edna keels over and collapses to the
+floor. The magical energy that held its body together pours out, leaving only
+a fleshy mound of rotten flesh.
 The northern passage suddenly glows momentarily.
 Seeker hums!
 
@@ -3609,9 +3566,8 @@ You can only move south.  Seeker hums!
 > rub lamp
 The lamp shudders slightly, then a cloud of smoke whooshes out of it. When
 the smoke clears, a tall blue man stands in front of you, arms folded, and
-wearing a loincloth.
-Olmo speaks, "Wishes three, I have for ye, tho only one will be of help to
-thee. Pick your letter: a, b, or c."
+wearing a loincloth.  Olmo speaks, "Wishes three, I have for ye, tho only one
+will be of help to thee. Pick your letter: a, b, or c."
 " Wish a is to meet Morac face to face, have it over and done with, cut short
 your race.
 Wish b: a blessing from the gods in times of need, to stop the evil, oh!,
@@ -3970,9 +3926,8 @@ Seeker hums!
 Seeker Hums!
 
 > attack damastus
-You stab minotaur with the sword.
-Damastus screams in pain, and, with that, falls to the ground with a loud
-thud!  Seeker hums!
+You stab minotaur with the sword.  Damastus screams in pain, and, with that,
+falls to the ground with a loud thud!  Seeker hums!
 You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
 
@@ -4123,9 +4078,8 @@ You can move north, east, south and west.  Seeker hums!
 
 > say borantha
 The staff that you are holding glows a brilliant white. You have a feeling
-that it’s waiting for you to do something.  It stops raining...
-Fetlar smiles and sniffs the air, as a foul smell erupts from him.  Seeker
-hums!
+that it’s waiting for you to do something.  It stops raining...  Fetlar
+smiles and sniffs the air, as a foul smell erupts from him.  Seeker hums!
 
 > snap staff
 As you break the staff, you see the stone henge fade from view, and a new
@@ -4255,10 +4209,9 @@ This tunnel travels from north to south. The heat here is tremendous, as
 fumes rise from cracks on the cavernous walls.
 Cerberus, the hound of Hades, is here.
 
-You can only move south.
-Cerberus belches forth an ear-splitting howl, sounding an alarm to anyone
-listening. While doing so, a jet of flame streams from one of its heads and
-sears you with its blistering heat.
+You can only move south.  Cerberus belches forth an ear-splitting howl,
+sounding an alarm to anyone listening. While doing so, a jet of flame streams
+from one of its heads and sears you with its blistering heat.
 Cerberus' serpent tail lashes round and tries to bite you with its poisonous
 fangs, but you manage to deflect the blow with the shield you are wearing.
 Hound of hades hits you, but it doesn't seem to do any damage.  Seeker hums!
@@ -4288,9 +4241,8 @@ You manage to avoid hound of hades's attack.  Seeker hums!
 Seeker Hums!
 
 > attack cerberus
-You stab hound of hades with the sword.
-Cerberus yelps, and falls to the hot cavernous floor, dead. Its body slowly
-fades away.
+You stab hound of hades with the sword.  Cerberus yelps, and falls to the hot
+cavernous floor, dead. Its body slowly fades away.
 Seeker hums!
 
 > attack cerberus
@@ -4333,19 +4285,19 @@ This room is huge; some two hundred feet long and half as wide. Benches and
 cages line the side walls, while a large red carpet leads up the centre of
 the room towards a large stone throne.
    Asmodeus is here sitting on his throne.  There is a gathering of devils
-here sitting on the benches.
-Asmodeus speaks, "And so the brave knight finally arrives. Welcome, Loralang,
-welcome to my humble abode. You have been summoned here to witness an event
-of great importance to me. You see, Morac’s soul…" on saying this, he pulls a
-withered maggot from his pocket with a humanoid head. The maggot’s head
-resembles Morac’s. Asmodeus carries on, "…is now mine. The fool whom you have
-slain is about to be devoured." Asmodeus pops the maggot into his mouth and
-munches on it, taking time to savour the taste, and swallowing slowly. He
-turns to the gathering of devils ( Geryon, Dispater, Bhaalzebub, and Gary
-Glitter are here, to name but a few members of this gathering of devils) and
-speaks again, "Let this be a warning to anyone who fails me." Asmodeus turns
-his gaze back onto you. "As for you, brave knight of Tesslesar, you have two
-choices: join me as a servant of evil, or die! Choose now; join, or die."
+here sitting on the benches.  Asmodeus speaks, "And so the brave knight
+finally arrives. Welcome, Loralang, welcome to my humble abode. You have been
+summoned here to witness an event of great importance to me. You see, Morac’s
+soul…" on saying this, he pulls a withered maggot from his pocket with a
+humanoid head. The maggot’s head resembles Morac’s. Asmodeus carries on, "…is
+now mine. The fool whom you have slain is about to be devoured." Asmodeus
+pops the maggot into his mouth and munches on it, taking time to savour the
+taste, and swallowing slowly. He turns to the gathering of devils ( Geryon,
+Dispater, Bhaalzebub, and Gary Glitter are here, to name but a few members of
+this gathering of devils) and speaks again, "Let this be a warning to anyone
+who fails me." Asmodeus turns his gaze back onto you. "As for you, brave
+knight of Tesslesar, you have two choices: join me as a servant of evil, or
+die! Choose now; join, or die."
 Seeker hums!
 A large portcullis slams down behind you, blocking you from the golden door
 and your only way out!

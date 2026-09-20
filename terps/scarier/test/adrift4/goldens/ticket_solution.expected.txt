@@ -1844,8 +1844,7 @@ to regain control "sorry, just don't call that number again."
 
 > open pet food
 You open the tin of cat food.  You are greeted with a terrible smell of old
-tuna and rotting socks.
-The cat seems to be following you.
+tuna and rotting socks.  The cat seems to be following you.
 The Business man hears the cat and turns sharply and starts shouting at it.
 "GO AWAY! CLEAR OFF!  GET LOST! MOVE!"
 
@@ -1853,14 +1852,12 @@ The Business man hears the cat and turns sharply and starts shouting at it.
 It is a betting slip for the race today at 4.30pm.  Looks like Bill Peters
 has put £1000 on a horse called "Rumbling Mount" at 10/1.
 You can hear a small bell tinkling which sounds just like one of those bells
-worn by a cat.
-The cat seems to be following you.
+worn by a cat.  The cat seems to be following you.
 The Business man hears the cat and turns sharply and starts shouting at it.
 "GO AWAY! CLEAR OFF!  GET LOST! MOVE!"
 
 > get bell
-You take the bell from the cat.
-The cat seems to be following you.
+You take the bell from the cat.   The cat seems to be following you.
 
 > put food in pocket
 You carefully put the cat food in the Business Man's pocket.  The cat jumps

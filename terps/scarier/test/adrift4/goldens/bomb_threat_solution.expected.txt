@@ -284,9 +284,9 @@ My real name is Edgar Henderson, but now you must die...
 
 > shoot edgar
 You quickly pull out your gun and fire. You don't have much accuaracy because
-you reacted so quickly. The bullet hit  right between Edgar's eyes.
-Edgar stumbles backwards and falls into the water, dead. You have just won
-Bomb Threat!
+you reacted so quickly. The bullet hit  right between Edgar's eyes.  Edgar
+stumbles backwards and falls into the water, dead. You have just won Bomb
+Threat!
 Or have you...
 
 You scored 0 out of the maximum 0!

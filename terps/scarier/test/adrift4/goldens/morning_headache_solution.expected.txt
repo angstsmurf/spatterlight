@@ -38,8 +38,8 @@ bear the marks of a party you probably held last night(or perhaps you're just
 a real pig). A bookshelf. contains the books from your education.  What is
 really puzzling is the beautiful naked woman sleeping on the couch. Her
 clothes lies strewn around on the floor. You can go east to the bedroom, or
-north to the kitchen.  The alarm clock buzzes.
-The buzzing of the clock doesn't seem to have any effect on the woman.
+north to the kitchen.  The alarm clock buzzes.  The buzzing of the clock
+doesn't seem to have any effect on the woman.
 
 > put trouser on woman
 She sure wakes up. You quickly hide the trousers before she understands what
@@ -47,9 +47,8 @@ is going on. "Oh, my head", she whimpers. She looks up at you, a small
 grimace spreads across her face. She shakes her head a little. "Well, I'd
 better get home to my husband. By the way, you were great last night, but you
 snore like a hurricane. I had to sleep here on the couch, I wouldn't  have
-slept for a minute otherwise." She gets up and starts to dress.
-"Oh, please, get some clothes on!", she adds when observing that you aren't
-dressed.
+slept for a minute otherwise." She gets up and starts to dress.  "Oh, please,
+get some clothes on!", she adds when observing that you aren't dressed.
 
 > ask woman about phone
 "Sure, its 555-35700. Give me a ring. No wait, here is my card, so you won't

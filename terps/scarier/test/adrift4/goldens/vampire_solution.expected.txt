@@ -282,8 +282,8 @@ face. She is even after norwegian standards a very attractive girl.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
-face. She is even after norwegian standards a very attractive girl.
-Your watch makes a small beep.
+face. She is even after norwegian standards a very attractive girl.  Your
+watch makes a small beep.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful

@@ -213,11 +213,10 @@ are worn and the walls are bare plaster.  You guess that the door to the east
 leeds to the lounge while the door to the west leeds to the dining room.  The
 front door is behind you and stands beside a narrow window with its own
 wooden shutter.  You can also see a wooden stool.  Cathy is roughly shaking
-you.
-Cathy suddenly rushes over and grabs you.  She begins to shout hysterically
-saying, "It's my fault, it's all my fault.  We should never have done it.
-Damien swore he knew what he was doing.  I don't understand what went
-wrong...I....I...".  She gulps air and continues to shake you.
+you.  Cathy suddenly rushes over and grabs you.  She begins to shout
+hysterically saying, "It's my fault, it's all my fault.  We should never have
+done it.  Damien swore he knew what he was doing.  I don't understand what
+went wrong...I....I...".  She gulps air and continues to shake you.
 
 > i
 You are carrying a note and a diary.
@@ -610,15 +609,14 @@ door.  High up on one wall you notice a dent in the plaster.  A suit of
 armour stands in one corner.  Someone has removed an old thredbare rug from
 its place on the floor, rolled it up and placed it to one side.  You can also
 see a dining room table and a wooden trapdoor.  Cathy seems to have
-recovered.
-Cathy takes a deep breath then says, "OK Michael.  Heres what happened.  As
-you've probably guessed by now the role play thing I do isn't the dice and
-model kind.  It's for real.  There are things in this universe that....well
-we don't have time for long explanations.  We need to see what we can salvage
-from this sorry situation.  First things first.  In my team I'm the weapons
-expert.  I don't do magic or strategy.  I just do the shooting and let the
-others do the puzzle solving.  So if you find any weapons and you don't feel
-comfortable about violence then give them to me".
+recovered.  Cathy takes a deep breath then says, "OK Michael.  Heres what
+happened.  As you've probably guessed by now the role play thing I do isn't
+the dice and model kind.  It's for real.  There are things in this universe
+that....well we don't have time for long explanations.  We need to see what
+we can salvage from this sorry situation.  First things first.  In my team
+I'm the weapons expert.  I don't do magic or strategy.  I just do the
+shooting and let the others do the puzzle solving.  So if you find any
+weapons and you don't feel comfortable about violence then give them to me".
 She pauses and smiles saying, "By the way.  I haven't thanked you yet for
 dragging me in here.  So thank you.  It brings back memories being in
 granddads old house again.  I somehow knew it would be safe here.  Strange

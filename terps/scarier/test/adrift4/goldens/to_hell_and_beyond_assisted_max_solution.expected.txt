@@ -484,15 +484,15 @@ Kitchen
 This is the kitchen. You can see a chair and a sink.  There's a cat in the
 sink.  Koir and Cat are here.
 
-You can only move west.
-You sneak up on Koir and his friend and hear them talking.
-                     "Hey, you know this new guy in town. The one wearing the
-black robe. " says Koir.    "Yeah. What about him?" says his friend.
-"This guy said he would give me 1000 gold coins if I killed him. So you up to
-it?" says Koir.        "Yeah. I´m up for it." says his friend.
-     Unfortunately for you, they see you and tie you up and leave you there.
-They also locked the front doors to the mansion. They can´t be opened from
-the inside.                           press any key                You manage to untie yourself. It´s a good thing bad people aren´t good
+You can only move west.  You sneak up on Koir and his friend and hear them
+talking.                                         "Hey, you know this new guy
+in town. The one wearing the black robe. " says Koir.    "Yeah. What about
+him?" says his friend.     "This guy said he would give me 1000 gold coins if
+I killed him. So you up to it?" says Koir.        "Yeah. I´m up for it." says
+his friend.                     Unfortunately for you, they see you and tie
+you up and leave you there. They also locked the front doors to the mansion.
+They can´t be opened from the inside.                           press any key
+               You manage to untie yourself. It´s a good thing bad people aren´t good
 at tying things.
 
 > turn on water
@@ -962,8 +962,8 @@ You move north.
 Tunnel 3
 The path splits to the east and west.  Big rat is here.
 
-You can move east, south and west.  Trace hits Big rat with the Whip.
-You kill the rat. You get 7 gold coins.
+You can move east, south and west.  Trace hits Big rat with the Whip.  You
+kill the rat. You get 7 gold coins.
 
 > e
 You move east.
@@ -1300,9 +1300,9 @@ This place is huge. To the north is a living room. To the south is the
 kitchen. To the north is a staircase leading up.  But what's important now is
 finding the mayor. Trace is a friend of his.  Warth is here.
 
-You can move north, south, west and out.
-"Ah. It is you Trace. The guest bedroom is ready. The mayor is not at home.
-Why don´t you get some sleep. He´ll meet with you tomorrow.
+You can move north, south, west and out.  "Ah. It is you Trace. The guest
+bedroom is ready. The mayor is not at home. Why don´t you get some sleep.
+He´ll meet with you tomorrow.
 
 > w
 You move west.
@@ -1513,8 +1513,8 @@ Grassland
   Big scorpion is here.
 
 You can move north and south.  Trace hits Big scorpion with the Whip.  Enevez
-hits Big scorpion with the Staff.
-You kill the scorpion and collect your bounty. 75 gold coins.
+hits Big scorpion with the Staff.  You kill the scorpion and collect your
+bounty. 75 gold coins.
 
 > n
 You move north.
@@ -1523,8 +1523,7 @@ Grassland
 The path continues north.  Thief is here.
 
 You can move north and south.  Trace hits Thief with the Whip.  Enevez hits
-Thief with the Staff.
-You kill the thief and take 30 gold coins.
+Thief with the Staff.  You kill the thief and take 30 gold coins.
 
 > n
 You move north.
@@ -1549,9 +1548,9 @@ Grassland
 Just a little further to the east is a ship. The path also leads west.
 Bandit is here.
 
-You can move east and west.  Trace hits Bandit with the Whip.
-You thrust your sword through the bandit's body and then draw it out. You get
-25 gold coins and a key.
+You can move east and west.  Trace hits Bandit with the Whip.  You thrust
+your sword through the bandit's body and then draw it out. You get 25 gold
+coins and a key.
 
 > e
 You move east.
@@ -1650,9 +1649,8 @@ You move in.
 Sulfan tavern
 You step inside the tavern.  Trace and Enevez are here.
 
-You can only move out.
-"We have decided to kill assassinate Koir. That way his troops won´t have a
-leader and it will be easier to defeat them.
+You can only move out.  "We have decided to kill assassinate Koir. That way
+his troops won´t have a leader and it will be easier to defeat them.
 
 > w
 You move west.
@@ -1736,16 +1734,16 @@ The mayor's bedroom
 You enter the mayor's bedroom. You can see Koir standing there facing away
 from you.  Koir is here.
 
-You can only move east.
-You run towards Koir and swing your sword but your sword catches nothing but
-air. You see that he is now standing in one of the corners of the room. He
-raises his hand. A fiery red glow appears in his hand. Suddenly the room is
-engulfed in flames. When the flames are gone, you are no longer standing
-inside the mayor´s bedroom but a large cave. And where Koir stood now stands
-a humanoid beast.    "Xozim." says Trace in fear.       "Yes. It is I, Xozim.
-I used the body of Koir. I´ve returned from the fiery pits that I was cast
-into." says Xozim.  Trace hits Xozim with the Whip.  Enevez hits Xozim with
-the Staff.  Enevez hits Xozim with the Staff.  Xozim hits you.
+You can only move east.  You run towards Koir and swing your sword but your
+sword catches nothing but air. You see that he is now standing in one of the
+corners of the room. He raises his hand. A fiery red glow appears in his
+hand. Suddenly the room is engulfed in flames. When the flames are gone, you
+are no longer standing inside the mayor´s bedroom but a large cave. And where
+Koir stood now stands a humanoid beast.    "Xozim." says Trace in fear.
+"Yes. It is I, Xozim. I used the body of Koir. I´ve returned from the fiery
+pits that I was cast into." says Xozim.  Trace hits Xozim with the Whip.
+Enevez hits Xozim with the Staff.  Enevez hits Xozim with the Staff.  Xozim
+hits you.
 
 > z
 Time passes...
@@ -1753,15 +1751,15 @@ Trace hits Xozim with the Whip.  Enevez hits Xozim with the Staff.  Enevez
 hits Xozim with the Staff.
 Trace hits Xozim with the Whip.  Enevez hits Xozim with the Staff.  Enevez
 hits Xozim with the Staff.  Xozim hits Enevez.
-Trace hits Xozim with the Whip.
-You thrust your sword into the demon´s chest one final time. The demon
-screams in pain as he turns to dust.                  "You have killed Xozim.
-He was the ruler of Beyond. And since you killed him you can CLAIM THE
-THRONE. But I believe you would most likely want to go home. If you want to
-go home you can do so in this cave. The exit is in that hole over there."
-says Trace.        It is now up to you to choose. GO HOME and you will return
-back to earth. CLAIM THE THRONE and you will become the almighty ruler of ths
-world and possibly turn it into a better place. The choise is yours.
+Trace hits Xozim with the Whip.  You thrust your sword into the demon´s chest
+one final time. The demon screams in pain as he turns to dust.
+  "You have killed Xozim. He was the ruler of Beyond. And since you killed
+him you can CLAIM THE THRONE. But I believe you would most likely want to go
+home. If you want to go home you can do so in this cave. The exit is in that
+hole over there." says Trace.        It is now up to you to choose. GO HOME
+and you will return back to earth. CLAIM THE THRONE and you will become the
+almighty ruler of ths world and possibly turn it into a better place. The
+choise is yours.
 
 > z
 Time passes...

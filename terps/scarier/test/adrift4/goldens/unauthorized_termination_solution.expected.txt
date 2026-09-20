@@ -253,8 +253,8 @@ The hexagonal metal room is nearly 5m in height and 10m across. A security
 monitor is on one side of the room, to your right the interrogator and
 virtually opposite is the teleporter. With the standard hidden lighting set
 to a low level, most of the room is in darkness.  Zeta-Theta is standing
-against the wall.
-Zeta-Theta appears to be looking at the pebble you are carrying.
+against the wall.  Zeta-Theta appears to be looking at the pebble you are
+carrying.
 
 > talk to zeta-theta
 "Hail Zeta-Theta."

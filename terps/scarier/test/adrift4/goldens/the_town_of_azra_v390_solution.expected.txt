@@ -308,8 +308,8 @@ You chop a bandit with the hunting sword.  A bandit hits you.
 You chop a bandit with the hunting sword.  A bandit hits you.
 
 > attack bandit
-You chop a bandit with the hunting sword.
-You kill the vile bandit! Hopefully he was carrying a lot of money.
+You chop a bandit with the hunting sword.  You kill the vile bandit!
+Hopefully he was carrying a lot of money.
 
 > search for money
 You search the dead body for some money. You now have $683 and 108 cents.
@@ -335,8 +335,8 @@ You chop an animal with the hunting sword.
 You chop an animal with the hunting sword.
 
 > attack deer
-You chop an animal with the hunting sword.
-You strike the deer one last and final time, and it falls dead!
+You chop an animal with the hunting sword.  You strike the deer one last and
+final time, and it falls dead!
 
 > take the deer carcass
 You pick up the deer carcass.

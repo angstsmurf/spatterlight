@@ -44,8 +44,8 @@ You unzip the pocket.  Some more fluff is inside your clothes.
 You take some more fluff from your clothes.
 
 > drop fluff
-You drop the fluff.
-The fluff is dragged away into the machine.  It sneezes loudly.
+You drop the fluff.  The fluff is dragged away into the machine.  It sneezes
+loudly.
 
 > z
 Time passes...
@@ -54,8 +54,8 @@ Time passes...
 You take some more fluff from your clothes.
 
 > drop fluff
-You drop the fluff.
-The fluff is dragged away into the machine.  It sneezes loudly.
+You drop the fluff.  The fluff is dragged away into the machine.  It sneezes
+loudly.
 
 > z
 Time passes...
@@ -64,12 +64,11 @@ Time passes...
 You take some more fluff from your clothes.
 
 > drop fluff
-You drop the fluff.
-The fluff rolls away into the machine.  You wait. The machine starts crying
-and sneezing.  It breaks into a fit of coughs then shudders.  It stops.
-You've just thrown a bit of fluff into a machine thats allergic to it.  The
-conveyer stops a moment later, and you keep running and are thrown against
-the opposite wall.
+You drop the fluff.  The fluff rolls away into the machine.  You wait. The
+machine starts crying and sneezing.  It breaks into a fit of coughs then
+shudders.  It stops.  You've just thrown a bit of fluff into a machine thats
+allergic to it.  The conveyer stops a moment later, and you keep running and
+are thrown against the opposite wall.
 
 > z
 Time passes...

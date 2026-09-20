@@ -631,11 +631,11 @@ extrañado.
 
 > esperar
 El tiempo pasa...
-El coche se detiene delante de tu destino.
-Una pequeña escalinata te conduce al interior del museo. En la entrada puedes
-ver un gran cartel donde se anuncia la exposición: "Tesoros Egipcios".  Tu
-mirada se fija en el cuello del taxista, puedes sentir el latido de su
-corazón y oler su sangre caliente...estás hambriento....¡de...sangre!
+El coche se detiene delante de tu destino.  Una pequeña escalinata te conduce
+al interior del museo. En la entrada puedes ver un gran cartel donde se
+anuncia la exposición: "Tesoros Egipcios".  Tu mirada se fija en el cuello
+del taxista, puedes sentir el latido de su corazón y oler su sangre
+caliente...estás hambriento....¡de...sangre!
 
 > esperar
 El tiempo pasa...

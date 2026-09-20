@@ -72,8 +72,7 @@ the inner door is a sad looking plant sitting in a plastic pot. The extensive
 waiting facilities seem to consist of one plastic seat.
 
 > put brick on desk
-You carefully place the brick on the button.
-The door to the north opens.
+You carefully place the brick on the button.  The door to the north opens.
 
 > north
 With the brick holding down the button you go north, through the door. The
@@ -114,8 +113,8 @@ Store Room
 The long, low room smells of oil and something else which you can't quite
 place.  Nearly all the available space is filled with pipes, cables and
 junction boxes.  Pushed against one wall is a large wooden crate. To the
-north are some stairs leading up.
-You can see someone trying to hide behind a large crate.
+north are some stairs leading up.  You can see someone trying to hide behind
+a large crate.
 
 > exam someone
 The lab assistant appears to be in his mid-twenties, with a pale complexion
@@ -373,9 +372,8 @@ The plain white walls are dripping with condensation and the flooring looks
 to be covered in some sort of anti-slip surface. Along the ceiling are rows
 of harsh fluorescent lights. North leads to some stairs, east to a security
 office, west to a hold cell and south is an office. On the wall next to the
-holding cell door is a small metal lever.
-You hear someone call out, "Someone, anyone, please help me." The voice
-sounds female.
+holding cell door is a small metal lever.  You hear someone call out,
+"Someone, anyone, please help me." The voice sounds female.
 
 > east
 You move east.

@@ -49,8 +49,7 @@ you press 7 on the intercom
 you press 2 on the intercom
 
 > press 4
-you press 4 on the intercom
-the front door unlocks with a click
+you press 4 on the intercom  the front door unlocks with a click
 
 > south
 You move south.

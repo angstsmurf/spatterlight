@@ -225,16 +225,16 @@ Inside the Smith's hut
 You have ventured inside the Smith's hut. The forge is still glowing,
 indicating that the Smith was at work on something less than two hours ago.
 All around the walls and on the floor are tools, benches and other bits of
-junk. There is only one way back out again.
-The Smith himself appears, brandishing a crossbow. He lowers it when he sees
-it is you. `Thank goodness you're here,' he says in a low voice. `You see, I
-have a problem. Nobody has bought much in the way of tools this season, and
-I've just run out of food. I was just about to rob the grainhouse, and I
-really don't want to do that. They might trace it to me. But now you're here,
-and I would really appreciate it if you robbed it for me. You have nothing to
-lose,  I'll let you have half the grain, and I'll give you a good long rope
-for your trouble- when you come back with the grain. And you can keep the
-crowbar. Here it is here.' he finishes.
+junk. There is only one way back out again.  The Smith himself appears,
+brandishing a crossbow. He lowers it when he sees it is you. `Thank goodness
+you're here,' he says in a low voice. `You see, I have a problem. Nobody has
+bought much in the way of tools this season, and I've just run out of food. I
+was just about to rob the grainhouse, and I really don't want to do that.
+They might trace it to me. But now you're here, and I would really appreciate
+it if you robbed it for me. You have nothing to lose,  I'll let you have half
+the grain, and I'll give you a good long rope for your trouble- when you come
+back with the grain. And you can keep the crowbar. Here it is here.' he
+finishes.
 
 > out
 You move out.
@@ -283,10 +283,10 @@ Inside the Smith's hut
 You have ventured inside the Smith's hut. The forge is still glowing,
 indicating that the Smith was at work on something less than two hours ago.
 All around the walls and on the floor are tools, benches and other bits of
-junk. There is only one way back out again.  The Smith is still here.
-You give the Smith half of the pile of grain. His eyes light up, and he
-hurries away to stash it somewhere. He returns with a rope, and gives it to
-you. `Here,' he says `and thank you.'
+junk. There is only one way back out again.  The Smith is still here.  You
+give the Smith half of the pile of grain. His eyes light up, and he hurries
+away to stash it somewhere. He returns with a rope, and gives it to you.
+`Here,' he says `and thank you.'
 
 > out
 You move out.
@@ -313,14 +313,13 @@ feet of people over centuries.
 You move in.
 
 Inside your house
-You are inside your own house.
-You are met in your house by your mother, who is sitting up by candle light.
-`Yotihuac! As soon as I heard you escaped, I thought I'd better wait to see
-if you turned up,'  she says. `Are you hungry? Here, have this tortilla. It's
-got apples in. It's my last one.' She lowers her voice. `I really shouldn't
-be talking to you, but since your father died, you're all I've got.'  You
-glance around the room, and it looks just like you left it- after a whole day
-of being away. The door is the only way Out.
+You are inside your own house.  You are met in your house by your mother, who
+is sitting up by candle light. `Yotihuac! As soon as I heard you escaped, I
+thought I'd better wait to see if you turned up,'  she says. `Are you hungry?
+Here, have this tortilla. It's got apples in. It's my last one.' She lowers
+her voice. `I really shouldn't be talking to you, but since your father died,
+you're all I've got.'  You glance around the room, and it looks just like you
+left it- after a whole day of being away. The door is the only way Out.
 
 > eat tortilla
 You eat the apple flavoured tortilla. After your day without food, it tastes

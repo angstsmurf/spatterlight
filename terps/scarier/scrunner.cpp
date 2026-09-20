@@ -5129,6 +5129,17 @@ run_task_run_by_index (scr_gameref_t game, scr_int task)
       run_task_command_patterns (game, task, TRUE);
   scr_int command;
 
+  /*
+   * Sub_20_22 hands every one of its tasks to execute_task with mode 1
+   * (run400 45FA66), so the task's CompleteText joins the turn's string
+   * rather than replacing it.  RAII because task_run_task() can throw.
+   */
+  struct dispatch_guard
+  {
+    dispatch_guard () { task_push_dispatched_run (); }
+    ~dispatch_guard () { task_pop_dispatched_run (); }
+  } guard;
+
   for (command = 1; command < (scr_int) patterns.size (); command++)
     {
       if (run_is_task_function (patterns[command], game))
@@ -5274,6 +5285,17 @@ run_task_command_dispatch (scr_gameref_t game, scr_int eventtask)
   scr_vartype_t vt_key[4];
   const scr_char *command;
   scr_int task_count, task;
+
+  /*
+   * checkevent dispatches by command text with mode 1 too (run390 42D3F5,
+   * run380 43A762), so whichever task the text matches joins the turn's
+   * string like Sub_20_22's.
+   */
+  struct dispatch_guard
+  {
+    dispatch_guard () { task_push_dispatched_run (); }
+    ~dispatch_guard () { task_pop_dispatched_run (); }
+  } guard;
 
   /* Get the task's first command pattern; nothing to match if absent. */
   vt_key[0].string = "Tasks";

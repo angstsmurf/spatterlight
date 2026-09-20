@@ -531,8 +531,7 @@ Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
 wonder if you'll be able to hail a taxi.  Volunteer is here.
 
-You can move north, east, south, west, in and southwest.
-Your legs are sore.
+You can move north, east, south, west, in and southwest.  Your legs are sore.
 
 > n
 You move north.
@@ -696,10 +695,10 @@ forgotten neighbors.  Wheelbarrows lean against the outside of this building.
  Also here is VW Van.  Byers, Frohike and Skinner are here.  Langly is here.
  You notice a man sitting alone in a dark car.
 
-You can move south, in and southwest.
-Frohike looks to you and your companions and you all get out of the van.
-"Looks like we found the place, huh," Langly says aloud.  Byers is hugging
-himself.  "This is creepy," he says.  You draw your gun in agreement.
+You can move south, in and southwest.  Frohike looks to you and your
+companions and you all get out of the van.  "Looks like we found the place,
+huh," Langly says aloud.  Byers is hugging himself.  "This is creepy," he
+says.  You draw your gun in agreement.
 
 > enter the forest
 Without notifying the Gunmen, you draw your gun, turn on your flashlight, and

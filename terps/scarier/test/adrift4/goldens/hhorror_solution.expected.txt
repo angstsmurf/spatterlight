@@ -171,9 +171,9 @@ You move south.
 Landing
 You cannot see.
 
-You can move north, east, west and down.  Ghost appears from the west.
-A strange chill fills the air.  Zombie stumbles towards you from the west.
-You hear a strange, spine chilling groan.
+You can move north, east, west and down.  Ghost appears from the west.  A
+strange chill fills the air.  Zombie stumbles towards you from the west.  You
+hear a strange, spine chilling groan.
 
 > d
 You move down.
@@ -283,9 +283,9 @@ off the walls. An impressive staircase glides down.  Also here is a bottle of
 poison and a table.
 
 You can move north, east, west and down.  Zombie stumbles towards you from
-the north.
-The zombie has spotted you and attacks!  He thumps you with his clenched
-fists, causing you much pain.  You hear a strange, spine chilling groan.
+the north.  The zombie has spotted you and attacks!  He thumps you with his
+clenched fists, causing you much pain.  You hear a strange, spine chilling
+groan.
 
 > w
 You move west.
@@ -468,9 +468,8 @@ Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
 
 You can move north, east, south and west.  Zombie stumbles towards you from
-the east.
-The zombie has spotted you and attacks!  He thumps you with his clenched
-fists, causing you much pain.
+the east.  The zombie has spotted you and attacks!  He thumps you with his
+clenched fists, causing you much pain.
 
 > take bible
 You pick up holy bible.  Zombie Stumbles away from you to the west.
@@ -1063,9 +1062,8 @@ Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
 
 You can move north, east, south and west.  Zombie stumbles towards you from
-the south.
-The zombie has spotted you and attacks!  He thumps you with his clenched
-fists, causing you much pain.
+the south.  The zombie has spotted you and attacks!  He thumps you with his
+clenched fists, causing you much pain.
 
 > n
 You move north.

@@ -205,9 +205,9 @@ You can move north and south.  The guy hits you, but it doesn't seem to do
 any damage.
 
 > attack guy
-You cut The guy with Kinda Sharp Sword.
-You killed the Bastard Trying to Kill You.  It wasn't hard, but it was sure
-fun.  Now that he is dead, you can search his body or somthing, right?
+You cut The guy with Kinda Sharp Sword.  You killed the Bastard Trying to
+Kill You.  It wasn't hard, but it was sure fun.  Now that he is dead, you can
+search his body or somthing, right?
 
 > search guy
 You search him and find THE GOLDEN SOAP!  Better pick it up soon, and take it
