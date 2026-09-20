@@ -286,6 +286,37 @@ not by a tick.
   of the turn (thetest, a two-sentence Original). Expect a large
   reblessing: the task-text join alone moved 94 rows, and
   sweep_wine_breaks still counts 5622 Scarier-only breaks.
+- **4.0's namesake question names the OBJECT that shares the character's
+  index.** The question itself is ported (see the index entry below), but
+  its term is not always the character's. Both halves of the generaltasks
+  block read ONE untyped index, `MemVar_4941EC`, and the object half
+  (48B6B1) gets first refusal: it runs when that index is also a valid
+  object index AND the line names that object, printing the object's
+  `Short` over the character list. In p4BATT the flagged character is Bob,
+  index 2, and object 2 is the stone, so `attack guard with stone`,
+  `give stone to guard`, `x guard stone` and `x stone guard` are all
+  "Which **stone**.  A guard or a guard?" while `x guard sword` (object 0),
+  `attack guard with club` (object 1), `give club to guard` and `x guard
+  dave` are "Which guard" (run400x Adrift_1208 and Adrift_1209,
+  2026-09-20). It is a plain index collision -- not "the object the
+  handler resolved", not "the last object named" -- so modelling it means
+  carrying the raw namesake index, which scarier does not. Two p4BATT
+  turns still differ on it. Worth a probe that pins down which index the
+  character scan stores (first namesake? last? the 0-based or the N-2
+  one?) before porting, since with three namesakes the collision moves.
+  While measuring it, note that in p4BATT *every* answer to the question
+  is "That is still ambiguous!" -- `ann`, `x guard`, `club` and `nonsense`
+  alike (Adrift_1209): the answer re-runs the original line with the
+  answer words spliced in before the term, which still names both guards,
+  so `MemVar_4941F0` comes back equal to `MemVar_4941F4`.
+- **4.0 `status`' table literals.** run400 47DDB8 onwards writes the column
+  headings as `"Stamina:</c> <0>ileeerfeetts</0>"`, `"<c>Hit
+  strength:</c><0>ilmfeeee</0>"`, `iilmee fttts`, `iirmttt`, `eeemee
+  rfetts` -- the tag converter leaves the junk inside `<0>..</0>` in, so
+  the Runner really prints "Stamina: ileeerfeetts" (p4BATT turn 33). The
+  leading "Stamina: ileeerfeetts" line above the table and the one before
+  "You are wielding a sword." are the same literal. Scarier prints the
+  headings clean.
 
 ### Engine, needs a probe (3.9)
 
@@ -295,29 +326,6 @@ not by a tick.
   still match in the Runner. 3.9's %object% substitution (44AAD6) is not
   emulated, so 3.9 commands with a reference skip the check. Group
   patterns (`[`, `{`) skip it at every version.
-- **4.0's namesake question belongs to generaltasks, not to a verb.**
-  p4BATT (run400x Adrift_1208, 2026-09-20) answers "Which guard.  A guard
-  or a guard?" to `x guard`, `attack guard`, `attack guard dave`, `status
-  guard`, `talk to guard`, `where is guard`, `give stone to guard` and bare
-  `guard` alike -- the question replaces whatever the line printed, even a
-  real answer ("You don't have the stone!"). Scarier raises it only from
-  `lib_disambiguate_npc_pick()` and the battle tail, so `status guard`,
-  `where is guard` and `give stone to guard` still keep their own text (two
-  of them SCARE's "Please be more clear about ..." inventions). The general
-  shape is generaltasks 48B815/48BA87; the turn flag half is already
-  modelled in `run_player_input()`. Two wrinkles to settle with it: the
-  term is the OBJECT's when the line names one (`attack guard with stone`
-  and `give stone to guard` are "Which **stone**.  A guard or a guard?",
-  where `attack guard with club` is "Which guard."), and a task that
-  answered the line suppresses the question entirely.
-- **4.0 `status`' table literals.** run400 47DDB8 onwards writes the column
-  headings as `"Stamina:</c> <0>ileeerfeetts</0>"`, `"<c>Hit
-  strength:</c><0>ilmfeeee</0>"`, `iilmee fttts`, `iirmttt`, `eeemee
-  rfetts` -- the tag converter leaves the junk inside `<0>..</0>` in, so
-  the Runner really prints "Stamina: ileeerfeetts" (p4BATT turn 33). The
-  leading "Stamina: ileeerfeetts" line above the table and the one before
-  "You are wielding a sword." are the same literal. Scarier prints the
-  headings clean.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
@@ -1234,6 +1242,20 @@ transcript names are in the code comment next to the named function, in
   `attack` / `ann` strikes Ann, and `look` spends it. `[3.9, 4.0]` p39BATT
   Adrift_1207, p4BATT Adrift_1208 (`lib_battle_line_names_many`,
   `lib_battle_400_namesake_tail`, 2026-09-20)
+- **4.0's namesake question belongs to generaltasks, not to any verb.** It
+  comes after everything the line printed and REPLACES it, whatever
+  answered: p4BATT gives "Which guard.  A guard or a guard?" to `x guard`,
+  `attack guard`, `attack guard dave`, `status guard`, `talk to guard`,
+  `where is guard`, `give stone to guard`, `give club to guard` and the
+  bare noun `guard` alike, and the give lines lose a real answer ("You
+  don't have the stone!") to it. Only a task that claimed the line escapes
+  (`probe` keeps its text; 48B60C) -- and even then the scan has already
+  run, which is why such a line is not a turn. So the raise belongs at the
+  tail of `run_all_commands()`, gated on 4.0, the game still running and no
+  task having run, not in each verb: that alone retired SCARE's invented
+  "Please be more clear about whose status you want." and "... about who
+  you want to locate.". `[4.0]` p4BATT Adrift_1208, Adrift_1209
+  (`lib_npc_400_raise_for_line_string`, 2026-09-20)
 - **3.7/3.8 characters() arms.** `talk`/`speak` anywhere in the line with a
   named character gives the ask hint for the last one named, no room test.
   A present character named in an examine line overwrites the answer (`x

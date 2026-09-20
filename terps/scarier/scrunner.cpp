@@ -5791,6 +5791,38 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
           || lib_co_400_line_leaves_which_pending (game, string)))
     game->is_admin = TRUE;
 
+  /*
+   * 4.0: and when no task ran, the same scan ASKS.  The question belongs to
+   * generaltasks (48B6AE-48BB92), not to any verb: it comes after everything
+   * the line printed and replaces it, whatever answered.  Measured
+   * 2026-09-20 on p4BATT (Ann and Bob both "a guard", Dave and a third guard
+   * next door; run400x Adrift_1208 and Adrift_1209) -- `x guard`, `attack
+   * guard`, `attack guard dave`, `status guard`, `talk to guard`, `where is
+   * guard`, `give stone to guard`, `give club to guard` and the bare noun
+   * `guard` all answer "Which guard.  A guard or a guard?", and the last two
+   * lose a real answer ("You don't have the stone!") to it.  `probe`, a
+   * task, keeps its own text (the 48B60C gate above).
+   *
+   * Both halves of the question read ONE untyped index, MemVar_4941EC, and
+   * the object half (48B6B1) gets first refusal: it runs when that index is
+   * also a valid object index AND the line names that object, printing the
+   * OBJECT's name over the character list.  In p4BATT the flagged character
+   * is Bob, index 2, and object 2 is the stone, so `attack guard with stone`
+   * and `give stone to guard` are "Which stone.  A guard or a guard?" while
+   * `x guard sword` (object 0) and `attack guard with club` (object 1) are
+   * "Which guard." -- a plain index collision, not a term choice.  Left
+   * unmodelled; see the lead in notes/WINE-TRANSCRIPTS-TODO.md.
+   */
+  if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      && game->is_running
+      && !run_any_task_ran_this_command ()
+      && lib_npc_400_line_names_namesakes (game, string))
+    {
+      pf_empty (filter);
+      lib_npc_400_raise_for_line_string (game, string);
+      status = TRUE;
+    }
+
   if (empty_result == 2)
     pf_clear_join_pending (filter);
 

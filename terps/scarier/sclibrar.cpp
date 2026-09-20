@@ -5950,7 +5950,7 @@ lib_npc_400_line_names_namesakes (scr_gameref_t game, const scr_char *line)
 }
 
 static scr_bool
-lib_npc_400_raise_for_line (scr_gameref_t game)
+lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_filterref_t filter = gs_get_filter (game);
@@ -5959,7 +5959,7 @@ lib_npc_400_raise_for_line (scr_gameref_t game)
   const scr_char *term;
   scr_int index_;
 
-  if (!lib_npc_400_find_namesakes (game, &term_string, &namesakes))
+  if (!lib_npc_400_find_namesakes_in (game, input, &term_string, &namesakes))
     return FALSE;
   term = term_string.c_str ();
 
@@ -6000,10 +6000,23 @@ lib_npc_400_raise_for_line (scr_gameref_t game)
 
       lib_co_400_pending = TRUE;
       lib_co_400_term = term;
-      lib_co_400_command = run_get_dispatch_input ();
+      lib_co_400_command = input ? input : "";
       lib_co_400_candidates.clear ();
       return TRUE;
     }
+}
+
+static scr_bool
+lib_npc_400_raise_for_line (scr_gameref_t game)
+{
+  return lib_npc_400_raise_for_line_in (game, run_get_dispatch_input ());
+}
+
+/* The same, for run_player_input()'s tail, where the dispatch input is gone. */
+scr_bool
+lib_npc_400_raise_for_line_string (scr_gameref_t game, const scr_char *line)
+{
+  return lib_npc_400_raise_for_line_in (game, line);
 }
 
 /*

@@ -1016,6 +1016,8 @@ extern scr_bool lib_co_400_line_leaves_which_pending (scr_gameref_t game,
                                                      const scr_char *line);
 extern scr_bool lib_npc_400_line_names_namesakes (scr_gameref_t game,
                                                   const scr_char *line);
+extern scr_bool lib_npc_400_raise_for_line_string (scr_gameref_t game,
+                                                   const scr_char *line);
 extern scr_bool lib_ask_npc_topic_after_task_390 (scr_gameref_t game,
                                                   size_t mark);
 extern scr_bool lib_input_contains_word (const scr_char *input,
