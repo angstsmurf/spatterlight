@@ -349,11 +349,19 @@ not by a tick.
   but `open slab rock`, `open gem rock` and `close rock gem` -- none of
   them naming anything openable -- with the flat "You can't open/close
   that." (p*OPENW / p*OPENA, Adrift_233_ox400 / 235_oy400, 2026-09-20).
-  Scarier prints the flat refusal in all of them. The rule looks like "an
-  openable object among the candidates raises the question, otherwise the
-  flat refusal", with the term the last candidate by index -- which is the
-  openable one in both probes, so the two readings are not yet separated.
-  Needs a probe with the openable object at a LOW index.
+  Scarier prints the flat refusal in all of them. p*OPENL (the same world
+  with the chest moved to index 0, `low` in the generator) separates the
+  two readings and kills the simple one: run400 answers the very same
+  `open rock gem chest` with "You can't open that." there
+  (Adrift_237_oz400), so it is not "an openable object is among the
+  candidates". What fits every cell measured so far is **the LAST
+  candidate by index is the one the verb could act on**: chest last and
+  closed -> the question (p*OPENW, p*OPENA), chest first with the rock
+  last -> the flat refusal (p*OPENL), and `open slab rock`, `open gem
+  rock`, `close chest rock` and `close rock gem`, whose last candidate
+  acts in none of them, are flat everywhere. It wants a world with TWO
+  openable objects, one first and one last, to confirm. Scarier matches
+  run400 on every other line of all three probes, p*OPENL included.
 - **4.0 `take` over two namesakes.** With the rock aliased "gem",
   run400's `take gem` is "It is not clear which gem you are referring
   to."; Scarier asks "Which gem.  The gem or the rock?" (p4OPENA,

@@ -92,6 +92,19 @@ also answers to "gem"):
     is the therest refusal, not an open.  See the open leads in
     notes/WINE-TRANSCRIPTS-TODO.md.
 
+p*OPENL (`low`, cmdfile_popenl.txt, Adrift_234_oz370 .. 237_oz400) moves
+the chest to index 0 and confirms all of it from the other side: `open
+rock gem chest` still opens the chest at 3.70/3.80/3.90, `open gem rock`
+is the gem by word position at 3.70 and by index at 3.80/3.90 (the gem
+is both here), `close rock gem` is "You can't close the rock." at all
+three -- the rock is the FIRST name and the HIGHER index, so close really
+does go by word position -- and `x chest gem` / `read chest gem` are
+"Which gem would you like to examine.  The chest or the gem?" at
+3.70/3.80, the term being the last match by index.  At 4.00 the same
+`open rock gem chest` is "You can't open that.", which is what killed
+"an openable object raises the question"; Scarier matches all four
+Runners on every line of this feed.
+
 Usage:
     python3 make_openwithprobe.py [370|380|390|400|all]
 Session (from ~/adrift-battle/runner/wine):
@@ -132,10 +145,29 @@ def amb():
                 390: "p39OPENA.taf", 400: "p4OPENA.taf"}
 
 
+def low():
+    """The same world with the chest FIRST, as p*OPENL.taf.
+
+    run400 answers `open rock gem chest` with "Which chest.  The gem, the
+    rock or the chest?", and in p*OPENW the chest is both the only openable
+    object and the last candidate by index, so the term could be either.
+    Here it is the first, and the two readings part company: "Which chest."
+    means the openable object names the question, "Which slab." (or "Which
+    rock.") means the last candidate by index does.
+    """
+    surf.OBJECTS = [surf.OBJECTS[3]] + surf.OBJECTS[:3]
+    surf.NAMES = [o[0] for o in surf.OBJECTS]
+    surf.OUT = {370: "p37OPENL.taf", 380: "p38OPENL.taf",
+                390: "p39OPENL.taf", 400: "p4OPENL.taf"}
+
+
 if __name__ == "__main__":
     args = sys.argv[1:] or ["all"]
     if args[0] == "amb":
         amb()
+        args = args[1:] or ["all"]
+    elif args[0] == "low":
+        low()
         args = args[1:] or ["all"]
     arg = args[0]
     for v in ([370, 380, 390, 400] if arg == "all" else [int(arg)]):
