@@ -88,10 +88,9 @@ You drift through the air vent.
 
 Air ventilation ducts
 You are in an air ventilation duct branching off in all directions at various
-places.
-You head north hoping to find an exit. about 20 meters from the bathroom you
-hear some voices from an air went to another room to the west. To the north
-you can now see an exit out to the back yard of the hotel.
+places.  You head north hoping to find an exit. about 20 meters from the
+bathroom you hear some voices from an air went to another room to the west.
+To the north you can now see an exit out to the back yard of the hotel.
 
 > listen
 You stop by the air went and listen.

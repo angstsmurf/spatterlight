@@ -303,19 +303,20 @@ the_hangover T34) went identical with that port on 2026-09-20.
   turn buffer. Scarier counts anything a task's run adds (baroo) but still
   ignores text written before the dispatch. No corpus row is known.
 - **Turn sectioning, the unported rest.** run400 builds the turn as one
-  string joined with pspace() and runs the ALR pass over it. Scarier joins
-  only the room block and, at 4.0, an executed task's text plus every
-  AdditionalMessage (`pf_buffer_join_line`); everything else is its own
-  section, so an ALR Original spanning a join does not match. The event
+  string joined with pspace() and runs the ALR pass over it, and so do the
+  pre-4.0 Runners. Scarier now joins the room block, every event text, every
+  AdditionalMessage and a 4.0 task's text behind an action
+  (`pf_buffer_join_line`), and library answers leave a terminator a join can
+  take back (`pf_buffer_answer_break`); what is still its own section cannot
+  carry an ALR Original that spans the join. The event
   half is CLOSED at every version (see "An event's text joins the turn's
   paragraph, at every version" in the index: p4ALRSRC `xray` at 4.0, troll's
   hunger events at 3.90), and so is the other side of it, the library
   answer's own terminator ("A library answer has no terminator of its own").
-  What is left is a task's text: its CompleteText, which only a 4.0 task an
-  action runs joins, and its AdditionalMessage, which `sctasks.cpp` joins
-  only at 4.0 (troll t17 puts one onto a ShowRoomDesc room block at 3.90).
-  The 187 single-newline Scarier-only breaks the archive still shows are
-  mostly those, plus NPC walk lines and battle strikes. The corpus case is
+  So is the AdditionalMessage, now at every version. What is left is a
+  task's CompleteText, which only a 4.0 task that an action runs joins; the
+  186 single-newline Scarier-only breaks the archive still shows are mostly
+  that, plus NPC walk lines and battle strikes. The corpus case is
   `thetest` (3.90), whose ALRs include two-sentence Originals that span
   exactly such a join:
   `You drop your clothes.  Nice try fish face!` (library drop + task text),
@@ -325,9 +326,9 @@ the_hangover T34) went identical with that port on 2026-09-20.
   (thetest itself already matches the Runner on every turn, so the ALRs
   there are a reading of the source, not a divergence to chase.)
   Expect a large reblessing: the task-text join alone moved 94 rows, the
-  event join 52 then 30, the library terminator 39, and sweep_wine_breaks
-  still counts 5694 Scarier-only breaks against 2 runner-only -- though
-  5507 of that total is the room-heading `<centre>` transcript artefact
+  event join 52 then 30, the library terminator 39, the AdditionalMessage
+  16, and sweep_wine_breaks still counts 5693 Scarier-only breaks against 2
+  runner-only -- though 5507 of that total is the `<centre>` artefact
   (a blank line, `k2`), so the raw figure is a poor target on its own and
   the `k1` count is the one to watch.
 - **checkwild, the unported rest.** Every arm this lead once listed is
@@ -2394,6 +2395,17 @@ transcript names are in the code comment next to the named function, in
   tick. Event texts join pre-4.0 with the two-space separator unless the
   buffer ends in Chr(10) or "  ". `[<4.0]` haunt T84. 4.0 keeps the
   end-of-turn endmessage. (2026-09-19)
+- **A task's AdditionalMessage joins the turn's string at every version.**
+  It goes on after the two-space separator, not on a line of its own:
+  run370 441C78 appends "  " and the message outright, run380 44D03F guards
+  that with `Right(out, 2) <> "  "` (which is the superliam suppression, see
+  `task_suppresses_additional_message`), run390 43F1C5 calls pspace() at
+  43F1C8, and run400 does the same. troll t17 (3.90) is the corpus case:
+  `get in coach` ends with the coach room's block and then "The sun is
+  creeping up in the morning sky..." on the same line
+  (runner_transcripts/troll.txt). `[all]` (`sctasks.cpp`, 2026-09-20; was
+  4.0-only; 16 goldens moved, whitespace only; sweep_wine_breaks
+  5694 -> 5693, k1 187 -> 186, runner-only unchanged at 2)
 - **A library answer has no terminator of its own.** The Runner's library
   handlers append their sentence to the turn's one string and stop there;
   the break after it is ours, not theirs, so whatever the turn prints next

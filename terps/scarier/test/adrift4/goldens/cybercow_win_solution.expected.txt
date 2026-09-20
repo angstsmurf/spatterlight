@@ -287,8 +287,7 @@ You pick up the heavy cross.
 
 > hit bell with cross
 Raising the cross like a baseball bat, you strike the bell.  --  "BONG!
-BONG!  BONG!ngngngng" goes the bell.
-(You think you might be deaf.)
+BONG!  BONG!ngngngng" goes the bell.  (You think you might be deaf.)
 
 > drop cross
 You drop the heavy cross.
@@ -858,9 +857,8 @@ The fairy avidly stares at the berry.
 You hold out the berry.
 The fairy shifts its attention between your face and the berry--
 --several times. Finally, and seemingly with some desperation, she snatches
-the berry out of your grasp and flies out of reach!
-The fairy cicles warily out of reach, looking at you -- and then at the berry
-in its grasp.
+the berry out of your grasp and flies out of reach!  The fairy cicles warily
+out of reach, looking at you -- and then at the berry in its grasp.
 But over time, she looks more at the berry.
 
 > z

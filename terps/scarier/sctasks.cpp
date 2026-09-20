@@ -2605,13 +2605,19 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
   if (!scr_strempty (additionalmessage)
       && !task_suppresses_additional_message (game))
     {
-      /* 4.0 joins it onto the turn's string with pspace() as well: p4SRC.taf
-       * (run400) prints "Y qqball.  ADD qqball." for a CompleteText and an
-       * AdditionalMessage, on one line. */
-      if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
-        pf_buffer_join_line (filter, additionalmessage);
-      else
-        pf_buffer_paragraph_line (filter, additionalmessage);
+      /*
+       * It joins the turn's string with the two-space separator, at every
+       * version: run370 441C78 appends "  " and the message outright, run380
+       * 44D03F guards that with `Right(out, 2) <> "  "` (the superliam
+       * suppression, see task_suppresses_additional_message), run390 43F1C5
+       * calls pspace() at 43F1C8, and run400 does the same -- p4SRC.taf
+       * prints "Y qqball.  ADD qqball." for a CompleteText and an
+       * AdditionalMessage, on one line.  troll t17 (3.90) says it below 4.0:
+       * `get in coach` ends with the coach room's block and then "The sun is
+       * creeping up in the morning sky..." on the same line
+       * (runner_transcripts/troll.txt).
+       */
+      pf_buffer_join_line (filter, additionalmessage);
       status |= TRUE;
     }
 

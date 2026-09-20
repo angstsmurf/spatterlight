@@ -176,9 +176,9 @@ jumping back on his coach and gallops off ever onward.
 Highway
 You're by the side of a wide, well worn track, stretching far off to the east
 and west. A large, gnarled tree with branches that hang like broken fingers
-grows by a path leading off to the north through a dense wood.
-The sun is creeping up in the morning sky, your stomach grumbles and your
-head is spinning.
+grows by a path leading off to the north through a dense wood.  The sun is
+creeping up in the morning sky, your stomach grumbles and your head is
+spinning.
 
 > north
 You move north.

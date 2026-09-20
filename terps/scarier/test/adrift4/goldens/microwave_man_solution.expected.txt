@@ -34,11 +34,11 @@ You cut a big gash in the microwave door's protective cover.
 > hold up glass
 You hold up the shard of glass, hoping the radioactive beams about to bombard
 you will reflect off it and blast down the door.  You grit your teeth as
-Coffee Man presses some buttons on the microwave and presses 'START'.
-Yes!  The beams shoot at you but bounce off of the glass!  You steer the
-beams in the direction of the microwave door... and the door pops open!  The
-microwave shuts itself off when the door opens!  Coffee Man is halfway
-through pressing the buttons!
+Coffee Man presses some buttons on the microwave and presses 'START'.  Yes!
+The beams shoot at you but bounce off of the glass!  You steer the beams in
+the direction of the microwave door... and the door pops open!  The microwave
+shuts itself off when the door opens!  Coffee Man is halfway through pressing
+the buttons!
 
 > take gun
 You take a small pistol from some aluminum clothes.

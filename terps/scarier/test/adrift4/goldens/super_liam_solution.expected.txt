@@ -32,13 +32,13 @@ invisible force.   Hey!, you say.  You fly for a while until you start to
 fall.
 You are standing in a large cave.  The cave is lit up by dozens if of
 lanterns.  You see a man sitting down in a chair.  He is wearing a
-multi-colored scarf and holding a cane.    Man is here.
-The man looks at you and says  "Thank you for coming.  I am teh man in the
-multi-colored scarf.  I have brought you here cause I need your help.  I need
-you to save the world.  It seems a robot named x1 has escaped from a lbratory
-and is reeking habic on the world.  Oh that's rite!  You don't Super powers
-yet.  I almost Forgot.  I need you cause your the only one who can do it.  A
-chain then apears from the time of the ceiling.  He says "Pull this chain."
+multi-colored scarf and holding a cane.    Man is here.  The man looks at you
+and says  "Thank you for coming.  I am teh man in the multi-colored scarf.  I
+have brought you here cause I need your help.  I need you to save the world.
+It seems a robot named x1 has escaped from a lbratory and is reeking habic on
+the world.  Oh that's rite!  You don't Super powers yet.  I almost Forgot.  I
+need you cause your the only one who can do it.  A chain then apears from the
+time of the ceiling.  He says "Pull this chain."
 
 > pull chain
 You pull the chain.  You float up in the air.  You feel kind of quezy but
@@ -166,8 +166,8 @@ open the door
 You can only move east.  The Mermaid follows you from the east.
 
 > open door
-c-r-e-e-k it opens, you see a long hallway.  Good job
-the mermaid blows you a kiss and then giggles, you ignore her.
+c-r-e-e-k it opens, you see a long hallway.  Good job  the mermaid blows you
+a kiss and then giggles, you ignore her.
 
 > in
 You move in.
@@ -187,8 +187,7 @@ You can only move south.  The Mermaid follows you from the south.
 > push piano
 clunk clunk clunk.  twinkle twinkle.  crash!  The piano goes flying down the
 stairs.  Wow.  that was cool.  it busted open the door, and you can see
-daylight.  Good Job
-A cat runs out from under the reckage of the piano
+daylight.  Good Job  A cat runs out from under the reckage of the piano
 
 > down
 You walk down the stairs and feel your self pass out.  You fall asleep.  You

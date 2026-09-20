@@ -287,8 +287,8 @@ You can move north and east.
 > check email
 You read your email... From: eBay To:Knukls82@aol.com Subject:eBay out bid
 notice...... we would like to inform you that you have been out bid on item
-#874629564 the auction for: Two rather large cats. thanks again  -eBay
-you can go to  website by typing "url [address]"
+#874629564 the auction for: Two rather large cats. thanks again  -eBay  you
+can go to  website by typing "url [address]"
 
 > url www.ebay.com
 you log onto ebay. Type search [item] to search for something.

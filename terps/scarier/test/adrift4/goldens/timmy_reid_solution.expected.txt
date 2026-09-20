@@ -49,13 +49,12 @@ hidden above the kitchen door.  You reach you hand way up, sliding it back
 and fourth and you catch your finger on the brad and you hear a light
 clinking sound.  You're not hurt too bad but there will be blood.  You close
 your fingers around the key and bring it down.  This looks like the key to
-your room at home.  You hope it unlocks the kitchen door.
-Your smarts have gained you 10 points.
+your room at home.  You hope it unlocks the kitchen door.  Your smarts have
+gained you 10 points.
 
 > unlock the kitchen door
 You slide the key into the lock and slowly turn it.  You  feel only slight
-resistance and the door is unlocked.
-You've earned 5 points
+resistance and the door is unlocked.  You've earned 5 points
 
 > pull the clothesline
 You grab hold of the clothesline just above the deck railing and pull it
@@ -108,16 +107,16 @@ hard and searing pain envelopes you.  While you were jumping up and down on
 one leg, something brushes against your head.  Finally, you calm down enough
 to get back to the task at hand.  Your efforts are finally paid off as your
 hand closes on the old fuses that were up on a shelf in the south west corner
-of the room.
-Your memory is quite good.  You earn 10 points for getting to work early.
+of the room.  Your memory is quite good.  You earn 10 points for getting to
+work early.
 
 > push the fuses into the fuse box
 You slowly push the fuse cartridge into the slot in the fuse box.  There's a
 loud snap and a flash of blue light.  A fine stream of bluish smoke wafts
 upward from the fuse box.
 You are standing in the small cottage living room.  The living room is pitch
-dark.  Jon is here.
-You've earned 5 additional points for doing the right thing.
+dark.  Jon is here.  You've earned 5 additional points for doing the right
+thing.
 
 > turn on the living room light
 You have successfully  turned on the living room light
@@ -128,8 +127,8 @@ There's a mirror and some miscellaneous stuff on the south wall.  On the west
 wall is an antique clock , a small fuse box and a magazine rack.  There is
 also a crummy old couch there.  To the north is a stairway leading upstairs,
 the bathroom door and a corner seat.  A small plastic sea gull hangs on the
-end of the chain that dangles from the light above.  Jon is here.
-You get only 2 points for doing something obvious.
+end of the chain that dangles from the light above.  Jon is here.  You get
+only 2 points for doing something obvious.
 
 > s
 You move south.
@@ -201,8 +200,7 @@ here.
 > get the magazine
 You grab the corner of the magazine and pull it from under the mattress.  You
 are delighted to find that it is as you hoped.  A Playboy magazine.
-Hippee!!!
-You receive 10 points although the book is reward enough.
+Hippee!!!  You receive 10 points although the book is reward enough.
 
 > down
 You move down.
@@ -240,9 +238,8 @@ through some lumber off  in the distance.
 
 > get grandpa's shoes
 You are able to convince grandpa to give you his shoes.  You sit down and
-lace 'em up.  You feel energized.
-You receive 10 points for being clever.  The faint odor of snappers wafts
-towards you from the south.
+lace 'em up.  You feel energized.  You receive 10 points for being clever.
+The faint odor of snappers wafts towards you from the south.
 
 > in
 You move in.
@@ -272,9 +269,8 @@ You cleverly pull your pants down.  You are quite proud of yourself.
 
 > piss
 You close your eyes and relieve yourself right here and now.  A feeling of
-total relief overcomes you.
-You are awarded 5 points for good hygene.  The faint odor of snappers wafts
-off to the south.
+total relief overcomes you.  You are awarded 5 points for good hygene.  The
+faint odor of snappers wafts off to the south.
 
 > s
 You move south.
@@ -394,8 +390,7 @@ begin moving the panels when you hear a sudden clang.  You immediately drop
 the panels half expecting the cottage to come falling down.  You must have
 dislodged one of the cottage supports.  You bend over and look behind the
 panels and discover that an old shovel has fallen from it's position on some
-nails when you moved the boards.  Phew!!!
-Your score has gone up by 10.
+nails when you moved the boards.  Phew!!!  Your score has gone up by 10.
 
 > get shovel
 You pick up the beat up shovel.
@@ -423,8 +418,7 @@ swing it side to side, it makes a powerful whoosh sound.  The grass is quite
 long here and deserves a nice cut.  You begin swinging the blade back and
 fourth, leaving a trail of long green organic confetti.  In no time at all,
 you have cut the grass on the side and back yards.  Dad will be so proud of
-you.
-Your score has gone up by 5 for helping your father out.
+you.  Your score has gone up by 5 for helping your father out.
 
 > drop golf club
 You drop the bladed golf club.
@@ -517,8 +511,8 @@ You take a moment and bow your head and pray to God.  You pray that your
 brother will get lost, and soon.  You pray that you will find your guitar.
 You pray that Grandpa doesn't ask you how far you would have been if he
 didn't call you back.  You pray that you can find your brand new baseball
-that you lost through the gym window.
-You are at peace with yourself and you begin to feel a bit lucky.
+that you lost through the gym window.  You are at peace with yourself and you
+begin to feel a bit lucky.
 
 > s
 You move south.
@@ -624,7 +618,7 @@ see the wizard..." and "You're the one that I want..." from Grease.  As you
 end the show, the grove dwellers offer you an enormous spattering of
 applause.  You bow in appreciation and blow them a big kiss.  You wish that
 this moment would never end.  Unfortunately, it does and the crowd disperses.
-You've just earned 15 points for being ballsey.
+ You've just earned 15 points for being ballsey.
 
 > out
 You move out.
@@ -688,8 +682,7 @@ toward you.  "Thanks kid", he says and starts rearranging some displays.
 > make a cap bomb
 You follow Kevin's instructions on making a cap bomb to perfection.  You have
 a tightly bound cap bomb that will certainly scare the kaka out of someone.
-Now the question is what should I do with it?
-Your score just went up by 10.
+Now the question is what should I do with it?  Your score just went up by 10.
 
 > out
 You move out.
@@ -703,9 +696,9 @@ You start to do what you got to do.  Just as you reach the point where you
 can't stop, two Old Orchard Beach police officers come into view.  They see
 what you've done and are coming after you.  Each officer grabs an arm and
 says "You're coming downtown young man!".  You are dragged away and led to
-the Old Orchard Beach Police Station.  You are very scared.
-After serving a one hour sentence for juvenile indecent exposure you are
-released and are free to go.
+the Old Orchard Beach Police Station.  You are very scared.  After serving a
+one hour sentence for juvenile indecent exposure you are released and are
+free to go.
 
 > look
 
@@ -722,8 +715,8 @@ You take a jelly donut from the small coffee table.
 You attempt to get on the good side of Captain Miller and offer him the jelly
 filled donut.  He holds his stomach and puts on a great big smile.  He take
 the donut and pats you on the head with a white powdery hand.  A cloud of
-powder dust envelops your head.
-Your score has gone up by 5 because you're so nice to fat policemen.
+powder dust envelops your head.  Your score has gone up by 5 because you're
+so nice to fat policemen.
 
 > steal the skeleton key
 You find yourself uncontrollably drawn to the skeleton key dangling from a
@@ -739,9 +732,8 @@ You are standing at the top of Old Orchard St.  To the north is the Old
 Orchard Beach Police Station (you wouldn't dare go in there).  To the east
 descends Old Orchard St. all the way down to The Pier.  Saco Ave is to your
 south.  The Tattoo Parlour is just in sight down the hill.  Traffic is
-zipping by in both directions.
-You may have just made an enemy, but you have the key that you so keenly
-desired.  Score 10 for timmy.
+zipping by in both directions.  You may have just made an enemy, but you have
+the key that you so keenly desired.  Score 10 for timmy.
 
 > e
 You move east.
@@ -781,8 +773,8 @@ newly formed wound.  Sting leans back and admires his work.  After a short
 moment, he reaches under the wall counter and brings up a green metal box.
 He points at it and says, "Get some stuff out of the medical kit and fix up
 your arm.  There's some gauze, tape and some bandages in there."  You say
-"Thanks" in a low voice, still dealing with the pain.
-Add 5 points to your score for having some balls.
+"Thanks" in a low voice, still dealing with the pain.  Add 5 points to your
+score for having some balls.
 
 > get medical kit
 You take a medical kit from the wall counter.
@@ -821,8 +813,8 @@ both directions.
 > pick some grapes
 You reach your hands deep into the tangled grape vines and feel a nice bunch
 of grapes.  You twist the stem and pull, retreiving some purple grapes.
-These grapes remind you of the grapes behind Colt's house.
-Your score went up by 100, sorry 5 and only the first time you do it!
+These grapes remind you of the grapes behind Colt's house.  Your score went
+up by 100, sorry 5 and only the first time you do it!
 
 > take the apple-like fruit
 You gingerly wiggle your hand between throngs of painful prickers, reaching
@@ -885,8 +877,8 @@ You decide to throw a few french fries to the hungry seagulls.  To your
 surprise, they ravinously jump at your offering.  The biggest gull pounces on
 one of  the one that happened to be misfortunate enough to catch the fry and
 rips it from it's beak.  The rest of the gulls fly down and pick up the
-scraps.  They seem unappreciative yet satisfied.
-You score 5 points for being a good guy.
+scraps.  They seem unappreciative yet satisfied.  You score 5 points for
+being a good guy.
 
 > w
 You move west.
@@ -959,8 +951,7 @@ out your tickets and ask the lady for the wiffle ball.  The lady takes what's
 left of your ticket supply, reaches over to get the whiffle ball and hands it
 to you.  You roll the wiffle ball over and over, soaking up it's feel.  This
 is one of your favorite things (The Reid Constant is now officially in
-effect).
-Your score has gone up by 10.
+effect).  Your score has gone up by 10.
 
 > out
 You move out.
@@ -1037,8 +1028,7 @@ around and give it right back.  You continue hitting and getting hit for
 several minutes and the attendant shuts the ride down.  A moment of brief
 hesitation overcomes you as you step from the bumper car.  Your feet hit the
 floor and you exhale as you are not getting shocked to death.  That was
-awesome.
-Your score has gone up by 10.
+awesome.  Your score has gone up by 10.
 
 > out
 You move out.
@@ -1203,8 +1193,7 @@ You attempt to grease the bouncer's palm by offering him your 1975 Red Sox
 hat.  He quickly looks from side to side, making sure that none of his
 buddies see him taking it from you.  He quickly grabs the hat and fits it
 onto his head.  A perfect fit!  He mumbles, "Go Red Sox!" and turns his back
-to you.  You enter the bar cautiously.
-Your score has gone up by 5
+to you.  You enter the bar cautiously.  Your score has gone up by 5
 
 > light the cap bomb
 You take the cap bomb and matches from your pocket.  You are desperate for
@@ -1219,8 +1208,7 @@ you can out of the bar.  Thank goodness you made friends with the bouncer as
 he hold everybody back from you as you scramble out.  You keep running
 towards the direction of the cottage until you can run no more.  You stop
 with your hands on your knees panting for breath.  You got your guitar.
-Bravo!
-Your score has gone up by 10.
+Bravo!  Your score has gone up by 10.
 
 > s
 You move south.
@@ -1367,18 +1355,17 @@ close it.
 
 > put the boxes into the garbage container
 You lift each box, one by one, into the garbage container and close the lid.
-You've worked up quite a sweat.
-You slowly turn your head toward Jon with the realization that you can now go
-back home.  You don't know why you know, but you KNOW that you can go home
-now.  You grab your brother's arm and confidently say, "Jon, let's go!"
-Hovey shuffles towards you from the east.
+You've worked up quite a sweat.  You slowly turn your head toward Jon with
+the realization that you can now go back home.  You don't know why you know,
+but you KNOW that you can go home now.  You grab your brother's arm and
+confidently say, "Jon, let's go!"  Hovey shuffles towards you from the east.
 Your grandfather looks at you with a twinkle in his eye and says, "You're a
 good boy Timmy.  You've returned with the paper and donuts."  He pats your
 shoulder and then brushes your hair with his heavy hand.  You hand the paper
 and donuts to your grandfather and display a grand smile.  You are visibly
-happy with yourself.
-Jon looks at you gleaming, shakes his head and mutters something about a
-brown nose or something...  Your score has gone up by 5 for good citizenship.
+happy with yourself.  Jon looks at you gleaming, shakes his head and mutters
+something about a brown nose or something...  Your score has gone up by 5 for
+good citizenship.
 
 > climb up the ladder
 You check that the footing is solid and proceed gingerly up to the top of the

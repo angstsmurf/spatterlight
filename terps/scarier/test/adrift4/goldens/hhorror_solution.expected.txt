@@ -285,9 +285,8 @@ poison and a table.
 
 You can move north, east, west and down.  Zombie stumbles towards you from
 the north.
-The zombie has spotted you and attacks!
-He thumps you with his clenched fists, causing you much pain.
-You hear a strange, spine chilling groan.
+The zombie has spotted you and attacks!  He thumps you with his clenched
+fists, causing you much pain.  You hear a strange, spine chilling groan.
 
 > w
 You move west.
@@ -300,8 +299,7 @@ You can only move east.
 
 > take ball
 You take a snooker ball from the table. (A red one, in case you where
-wondering.)
-You hear a strange, spine chilling groan.
+wondering.)  You hear a strange, spine chilling groan.
 
 > put ball in blunderbuss
 You load the blunderbuss with the snooker ball.
@@ -475,8 +473,8 @@ Rose motif wallpaper peels off from the walls..  Also here is holy bible.
 
 You can move north, east, south and west.  Zombie stumbles towards you from
 the east.
-The zombie has spotted you and attacks!
-He thumps you with his clenched fists, causing you much pain.
+The zombie has spotted you and attacks!  He thumps you with his clenched
+fists, causing you much pain.
 
 > take bible
 You pick up holy bible.  Zombie Stumbles away from you to the west.
@@ -767,8 +765,7 @@ The walls and floor are bare, and boxes piled high fill the room. Dust and
 grime covers everything.
 
 You can move south and west.
-The monster melts into a puddle.
-You hear a creaking noise.
+The monster melts into a puddle.  You hear a creaking noise.
 
 > w
 You move west.
@@ -883,8 +880,7 @@ You pour the water onto the skeleton. The bones dimly glow and you hear a
 strange noise.
 
 > drop holy water
-You drop the bottle of holy water.
-You hear a strange, spine chilling groan.
+You drop the bottle of holy water.  You hear a strange, spine chilling groan.
 
 > n
 You move north.
@@ -899,8 +895,7 @@ key, a sledge hammer, a dish cloth and a dog whistle.
 You can move south and down.
 
 > take dish cloth
-You pick up the dish cloth.
-You hear a strange, spine chilling groan.
+You pick up the dish cloth.  You hear a strange, spine chilling groan.
 
 > d
 You move down.
@@ -978,8 +973,8 @@ You can move north, south, west and down.
 
 > light molotov
 Dangling the dish cloth down the side of a hob, you try the electric lighter.
-It sparks  and lights the dish cloth.  The molotov cocktail is lit.
-A strange, moaning noise can be heard in the distance.
+It sparks  and lights the dish cloth.  The molotov cocktail is lit.  A
+strange, moaning noise can be heard in the distance.
 
 > s
 You move south.
@@ -1082,8 +1077,8 @@ Rose motif wallpaper peels off from the walls..  Also here is holy bible.
 
 You can move north, east, south and west.  Zombie stumbles towards you from
 the south.
-The zombie has spotted you and attacks!
-He thumps you with his clenched fists, causing you much pain.
+The zombie has spotted you and attacks!  He thumps you with his clenched
+fists, causing you much pain.
 
 > n
 You move north.
@@ -1156,8 +1151,7 @@ You can move north and west.
 
 > unblock toilet
 You plunge away for several minutes, until you feel something shift and clunk
-against the sides of the u bend.
-You hear a creaking noise.
+against the sides of the u bend.   You hear a creaking noise.
 
 > drop plunger
 You drop the plunger.
@@ -1256,8 +1250,7 @@ rats.
 You can move south and up.
 
 > take money
-You pick up the bundle of money.
-You hear a creaking noise.
+You pick up the bundle of money.  You hear a creaking noise.
 
 > u
 You move up.
@@ -1410,8 +1403,7 @@ You can only move north.
 You pick up the silver candlestick.
 
 > take necklace
-You pick up the silver necklace.
-You hear a strange, spine chilling groan.
+You pick up the silver necklace.  You hear a strange, spine chilling groan.
 
 > n
 You move north.

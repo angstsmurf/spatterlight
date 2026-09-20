@@ -468,8 +468,7 @@ The large room isn't much warmer than outside, but at least it's less windy.
 Large carcasses of- what?- hang from the cieling on metal ropes. Most of the
 carcasses are larger than you are, but they don't look like people. There is
 an iron ladder leading upwards, and a brightly lit clean white passage to the
-north.
-This place is confusing.
+north.  This place is confusing.
 
 > n
 You walk down the bright passage for what seems like ages. Finally you get to

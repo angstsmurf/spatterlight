@@ -93,8 +93,8 @@ You pick up Volmor's Cake.
 The glittering swirls on the cake turn into a liquid that flows into your
 throat with a tickly feeling. An unusual voice cackles from your throat,
 "Thank you for trying Volmor's high nutrition cake recipes...Your Stamina,
-Strength, and Defense is now better..."
-You fall to the floor as the flavour overwhelms.
+Strength, and Defense is now better..."  You fall to the floor as the flavour
+overwhelms.
 
 > out
 (Standing up first)
@@ -212,9 +212,9 @@ scimitar.
 You stab A winged guardian with The Spirit Dagger.
 Fergo collapses. The wind elemental leaves his body and transforms itself
 into an object.
-The Fletched Spear floats magically into your hands.
-The ridge is no longer windy. However, a gust of wind clears the clouds
-behind you, showing the path out.
+The Fletched Spear floats magically into your hands.  The ridge is no longer
+windy. However, a gust of wind clears the clouds behind you, showing the path
+out.
 
 > get orb
 You pick up The Orb of Storms.
@@ -294,8 +294,8 @@ You can only move west.
 
 > break castle
 The sand castle crumbles as you break it apart. By half-way, you notice the
-floor of the sand castle is the exact same plan of the Merfolk's Domain.
-You trace with your finger the route to the Sea Serpent's cave
+floor of the sand castle is the exact same plan of the Merfolk's Domain.  You
+trace with your finger the route to the Sea Serpent's cave
 
 > give spear to clam
 The clam closes up. It burps from it's digestion. This makes it move slightly
@@ -517,8 +517,7 @@ from your body drips onto the ground and sizzles mightily.  The magma looks
 as though it'll erupt any minute. It creeps ever so slowly at you.  Lamanluie
 and Kelorano are here.
 
-You can only move west.
-You feels as though you should leave quickly.
+You can only move west.  You feels as though you should leave quickly.
 Lamanluie cuts The lava guardian with An old scimitar.
 The lava guardian hits Lamanluie.
 

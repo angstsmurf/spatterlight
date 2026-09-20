@@ -861,8 +861,7 @@ The words seem to have moved the doors a little. They must be unlocked. They
 could probably be opened now.  Haron follows you.
 A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
-have brought a gift from Natalya."
-Haron hands you a phial.
+have brought a gift from Natalya."  Haron hands you a phial.
 
 > open door
 The doors slowly creak open. A darkness that seems to come out of the doors,
@@ -1017,8 +1016,8 @@ Torture room
 The room is large, and has a huge walls made of stone. All the walls are
 covered in blood. In the centre of the room is a large table where pools of
 blood stream to the floor. There is a wide doorway to the North that appears
-to lead to a Dungeon.
-A dark figure darts out of the door to the North of here.
+to lead to a Dungeon.  A dark figure darts out of the door to the North of
+here.
 The seven stones of power are placed around the room. There is a red glow
 coming from them all. They seem to be joined by a beam of red light.
  The stones suddenly fly into the air and dissapear through the doorway to

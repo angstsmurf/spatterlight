@@ -484,9 +484,8 @@ floor and a huge hole in the customer's nose where the offending spot used to
 be. The customer stares at you in wide-eyed astonishment for a second and
 then withdraws an umbrella from her jacket and beats you to within an inch of
 your life. She then storms off, leaving you in a puddle of her pus and your
-blood.
-CONGRATULATIONS, YOU HAVE JUST COMPLETED THE UTTERLY POINTLESS BONUS TASK AND
-HAVE EARNED YOURSELF 500 POINTS!!!
+blood.  CONGRATULATIONS, YOU HAVE JUST COMPLETED THE UTTERLY POINTLESS BONUS
+TASK AND HAVE EARNED YOURSELF 500 POINTS!!!
 
 > e
 You move east.

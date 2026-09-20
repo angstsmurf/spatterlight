@@ -38,8 +38,7 @@ You can move north and south.
 
 > open window
 The window is broken and you can't seam to open the window in its present
-state.
-You can see a shadow of somthing behind the window.
+state.  You can see a shadow of somthing behind the window.
 
 > n
 You move north.
@@ -176,9 +175,9 @@ You can only move east.
 
 > push tile
 You push the tile in.  Veeerry smart of you.  Now what.  So you pushed it in.
- You wait a bit...  nothing happens.  Wait...   you hear a click.
-You start to wonder what the click came from, it didn't sound like it came
-from this room though.
+ You wait a bit...  nothing happens.  Wait...   you hear a click.  You start
+to wonder what the click came from, it didn't sound like it came from this
+room though.
 
 > e
 You move east.
@@ -278,8 +277,8 @@ up and down for joy.  as he runs to the shower room, he tosses you a key to
 the armory.  "take any weapon you want as a reward."
 
 > take doughnut
-You snatch a doughnut while the king takes a shower.  Goodness.
-You see Guido look at you.  I think he wants one of the doughnuts.
+You snatch a doughnut while the king takes a shower.  Goodness.  You see
+Guido look at you.  I think he wants one of the doughnuts.
 
 > s
 You move south.
