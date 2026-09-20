@@ -1311,61 +1311,43 @@ uip_match_word (scr_ptnoderef_t node)
   return FALSE;
 }
 
+/*
+ * A %marker% that is none of the four references is one of the game's own
+ * variables, and the Runners substitute its value into the task command
+ * before they test it -- see run_substitute_variable_references().  What is
+ * left for the tree is a command those arms hand back (one mixing a
+ * variable with an %object% at 4.00, say, or a group like COBL's
+ * "[throw/drop] [%theobject%/%object%] ..."), and there the marker has to
+ * answer the same way it would there: var_get_command_number() is the whole
+ * rule, so the value is the NUMERIC one even for a string variable, a
+ * capitalised variable Name is unreachable, and "%t_<name>%" and a marker
+ * naming nothing match nothing at all.  Measured on p39VARREF/p4VARREF
+ * (make_varrefprobe.py, Adrift_211_vr390.txt, Adrift_212_vr400.txt,
+ * 2026-09-20).
+ */
 static scr_bool
 uip_match_variable (scr_ptnoderef_t node)
 {
   const scr_gameref_t game = uip_get_game ();
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int type;
-  scr_vartype_t vt_rvalue;
-  const scr_char *name;
+  scr_char value[32];
+  scr_int number, length;
 
   /* Get the variable name to match, from overloaded word. */
   assert (node->word);
-  name = node->word;
+  if (!var_get_command_number (vars, node->word, &number))
+    return FALSE;
 
-  /* Get the variable's value. */
-  if (var_get (vars, name, &type, &vt_rvalue))
+  /* Compare the value against the current string position. */
+  snprintf (value, sizeof (value), "%ld", number);
+  length = strnlen (value, sizeof (value));
+  if (strncmp (uip_string + uip_posn, value, length) == 0)
     {
-      scr_int length;
-
-      /* Compare the value against the current string position. */
-      switch (type)
-        {
-          case VAR_INTEGER:
-            {
-              scr_char value[32];
-
-              /* Compare numeric against the current string position. */
-              snprintf (value, sizeof(value), "%ld", vt_rvalue.integer);
-              length = strnlen (value, sizeof(value));
-              if (strncmp (uip_string + uip_posn, value, length) == 0)
-                {
-                  /* Integer match, advance position and return. */
-                  uip_posn += length;
-                  return TRUE;
-                }
-              break;
-            }
-
-          case VAR_STRING:
-            /* Compare string value against the current string position. */
-            length = strlen (vt_rvalue.string);
-            if (scr_strncasecmp (uip_string + uip_posn,
-                                vt_rvalue.string, length) == 0)
-              {
-                /* String match, advance position and return. */
-                uip_posn += length;
-                return TRUE;
-              }
-            break;
-
-          default:
-            scr_fatal ("uip_match_variable: invalid variable type, %ld\n", type);
-        }
+      /* Match, advance position and return. */
+      uip_posn += length;
+      return TRUE;
     }
 
-  /* No match, or no such variable. */
   return FALSE;
 }
 

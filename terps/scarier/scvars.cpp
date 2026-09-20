@@ -1842,6 +1842,61 @@ var_is_unknown_reference (scr_var_setref_t vars, const scr_char *name)
 
 
 /*
+ * var_get_command_number()
+ *
+ * The value a task command's %<name>% substitutes, or FALSE when NAME
+ * reaches no variable of this game's own.
+ *
+ * checktask walks the variable array and, for each, InStr's `"%" & Name &
+ * "%"` in the command and Replaces it with Format(Value) (run390
+ * 44AF07-44AFDA; run400 45F105-45F1B3 inside the shared substituter
+ * Proc_19_36_45F268).  Three things follow, and p39VARREF/p4VARREF measure
+ * all three (Adrift_211_vr390.txt, Adrift_212_vr400.txt, 2026-09-20):
+ *
+ *  - The value is the NUMERIC one, always.  `word` is the string "quux" at
+ *    4.00, and run400 refuses `nurb quux` against task 4's "nurb %word%"
+ *    while running it on `nurb 0`.  (3.90 cannot even ask: its VARIABLE
+ *    record has no Type field -- sctafpar.cpp spells it `ZType`, a
+ *    defaulted zero read from nothing -- so every 3.90 variable is a
+ *    number.)
+ *  - The command is LOWER-CASED before the walk and the Name is not, so a
+ *    marker reaches a variable only when the stored Name is itself all
+ *    lower case.  Task 7 is "wibb %NUM%" against a variable `num` and
+ *    `wibb 7` runs it, so the marker's case does not matter; tasks 8 and 9
+ *    are "bork %Big%" and "snib %big%" against a variable `Big`, and `bork
+ *    5` and `snib 5` are BOTH refused, so the Name's case does.  A
+ *    capitalised variable is unreachable from any task command at all --
+ *    Riding_Home's "knock {on} {your/%NewPlayer%'s} {door}" is dead.
+ *  - "%t_<name>%" never substitutes.  Its arm is there (run390 44AFF8,
+ *    run400 45F1C6) and it spells the number out with int2text, but the
+ *    InStr that guards it searches the wrong string -- var_8C, the typed
+ *    line, where the %<name>% arm just above searched the command itself
+ *    -- so it can only fire for a line the player cannot type.  `frob
+ *    seven` and `frob 7` are both refused against task 3's "frob %t_num%".
+ *    Nor does a marker naming no variable survive as something typeable:
+ *    `blip %nosuch%` against "blip %nosuch%" is refused as well.
+ */
+scr_bool
+var_get_command_number (scr_var_setref_t vars, const scr_char *name,
+                        scr_int *number)
+{
+  std::string lowered (name);
+  scr_varref_t var;
+
+  assert (var_is_valid (vars));
+  for (char &c : lowered)
+    c = scr_tolower (c);
+
+  var = var_find (vars, lowered.c_str ());
+  if (!var)
+    return FALSE;
+
+  *number = var->type == VAR_INTEGER ? var->value.integer : 0;
+  return TRUE;
+}
+
+
+/*
  * var_number_word()
  *
  * int2text() (run390 429048's caller, numintext2 42946C), the Runner's

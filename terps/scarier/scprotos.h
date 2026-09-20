@@ -301,6 +301,9 @@ extern scr_bool var_is_user_ordered (scr_var_setref_t vars,
                                      const scr_char *name);
 extern scr_bool var_is_unknown_reference (scr_var_setref_t vars,
                                           const scr_char *name);
+extern scr_bool var_get_command_number (scr_var_setref_t vars,
+                                        const scr_char *name,
+                                        scr_int *number);
 extern scr_bool var_interpolate_user_ordered (scr_var_setref_t vars,
                                               std::string &text);
 extern scr_var_setref_t var_create (scr_prop_setref_t bundle);

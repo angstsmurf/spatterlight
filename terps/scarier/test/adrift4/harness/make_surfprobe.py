@@ -112,6 +112,12 @@ TASKS = [("probe", "PROBE OK.")]
 # gender), topics a list of (subject, reply).  No walks.  3.7/3.8 store no
 # gender; 3.9 does.
 NPCS = []
+# User variables: (name, type, value) triples, type 0 numeric and 1 string,
+# the value always written as text.  3.90 introduced them, so a non-empty
+# VARIABLES is refused below that -- and 3.90 stores NO Type field (its
+# schema in sctafpar.cpp spells it `ZType`, a defaulted zero read from
+# nothing), every 3.90 variable being numeric, so a string one needs 4.00.
+VARIABLES = []
 
 # ---------------------------------------------------------------- the battle
 # The Battle System is 3.90 and 4.00 only -- 3.7/3.8 carry no such flag and
@@ -181,6 +187,8 @@ def position_parent(where, version):
 def build(version):
     if BATTLE and version < 390:
         raise SystemExit("the Battle System does not exist before 3.90")
+    if VARIABLES and version < 390:
+        raise SystemExit("user variables do not exist before 3.90")
     L = []
 
     def s(x):
@@ -415,7 +423,12 @@ def build(version):
     else:
         s(0)                          # Synonyms
     if version >= 390:
-        s(0)                          # Variables
+        s(len(VARIABLES))             # Variables
+        for name, vtype, value in VARIABLES:
+            s(name)
+            if version >= 400:
+                s(vtype)              # 3.90 stores no Type: all are numeric
+            s(value)
         s(0)                          # ALRs
         s(0)                          # CustomFont
     s("2026")                         # CompileDate

@@ -299,12 +299,23 @@ not by a tick.
   and below 4.0 it is not syntax at all" in the index. ~~%number% /
   %t_number% (44ADxx) hand a command back to the tree.~~ **Closed
   2026-09-20** -- see "A task command's %number% is a substitution, and
-  below 3.90 it is a literal" in the index. The lead is now closed but for
-  two arms nobody has measured: run390's SECOND pair of object loops
-  (44ABFE, 44AC98), which repeats the walk against checktask's own `text`
-  argument when the first pair bound nothing, and the generic
-  `%<variable>%` / `%t_<var>%` arms at 44AF25 and 44AFF8. A command
-  carrying any other marker is still handed back to the tree.
+  below 3.90 it is a literal" in the index. ~~The generic `%<variable>%` /
+  `%t_<var>%` arms at 44AF25 and 44AFF8.~~ **Closed 2026-09-20** -- see "A
+  task command's %<user variable>% is a substitution, and its marker is
+  lower-cased while the variable's Name is not" in the index. The lead is
+  now closed but for one arm nobody has measured: run390's SECOND pair of
+  object loops (44ABFE, 44AC98), which repeats the walk against checktask's
+  own `text` argument when the first pair bound nothing. A command carrying
+  any other marker is still handed back to the tree.
+- **The four known markers are matched case-sensitively here and not
+  there.** Fallout from the variable lead, pre-existing and unmeasured: the
+  Runner lower-cases a reference marker before it looks it up (p39/p4VARREF
+  `wibb %NUM%` reaches a variable named `num`), while Scarier compares the
+  four known markers byte for byte -- `run_pattern_references()` tests
+  `token == "%character%"` and scparser.cpp's `UIP_TOKENS` lookup is a
+  plain `strncmp`. So X-Files task 30, `Molest *%Character%`, is a live
+  `%character%` command in run400 and an unknown-marker literal here. One
+  game, one task; needs a probe cell before anything is changed.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
@@ -960,6 +971,45 @@ transcript names are in the code comment next to the named function, in
   goldens, none of which moved. 428 PASS before and after. `[all]`
   p37/p38/p39/p4NUMREF (`run_substitute_number_references`,
   `var_is_unknown_reference`, 2026-09-20)
+- **A task command's %<user variable>% is a substitution, and its marker is
+  lower-cased while the variable's Name is not.** The last arm of the
+  checktask lead. run390 44AF07 walks the variable array, builds `"%" &
+  var(n).Name & "%"` (44AF25), and on an InStr hit writes
+  `Format(var(n).Value)` back over the command (44AFC2); run400 does the
+  same inside the shared substituter Proc_19_36_45F268 (45F105-45F259). So
+  a `%foo%` is spelled out before the command is tested, exactly like
+  %object% and %number%, and never a positional wildcard the way Scarier's
+  pattern tree used to treat it. Four rules, all measured on p39VARREF /
+  p4VARREF: **(1)** the value is always the NUMERIC one, so 4.00's string
+  variables spell 0 -- `nurb %word%` over word="quux" runs on `nurb 0` and
+  refuses `nurb quux`; 3.90 cannot even pose the question, its VARIABLE
+  record having no Type field at all (sctafpar.cpp spells it `ZType`, a
+  defaulted zero read from nothing), so every 3.90 variable is a number.
+  **(2)** The marker is lower-cased and the stored Name is not: `wibb
+  %NUM%` reaches `num` and runs on `wibb 7`, while `bork %Big%` and `snib
+  %big%` over a variable named `Big` reach nothing at all -- a capitalised
+  variable Name is unreachable from any command, which kills Riding_Home's
+  `{your/%NewPlayer%'s}` in the real Runner. **(3)** `%t_<name>%` never
+  substitutes anything, although the code is there (44AFF8, int2text at
+  44B03D; run400 45F1C6): its guarding InStr searches the typed line, not
+  the command, so `frob %t_num%` refuses both `frob seven` and `frob 7` at
+  both versions -- and the output filter still spells it out, `zap`
+  printing "ZAP [7] [seven] [42].". **(4)** A marker naming no variable
+  matches nothing, not even typed verbatim (`blip %nosuch%` is refused).
+  Pre-4.0 a `*` command carrying a variable is decided by checkwild and its
+  pieces are order-free, so 3.90 runs `* zog * %num% *` on `blip 7 zog`
+  where 4.0 substitutes and then cuts; that pair of cells is the whole
+  version split, and below 3.90 there is no Variables section in the TAF at
+  all. Corpus exposure is three commands in two games, both with goldens
+  (iachini `push * key * %keynum% *`, whose route types the measured `push
+  key 80`; Lair of the Vampire `drop %item%` and `give %item% to
+  %character%`), plus the dead `%NewPlayer%`; 428 PASS before and after.
+  Commands mixing a variable with `%object%`/`%character%`/`%text%`, or
+  carrying an unknown marker (COBL's `[%theobject%/%object%]`), still go to
+  the tree, where `uip_match_variable()` now answers the same four rules
+  for the marker itself. `[>=3.90]` p39/p4VARREF
+  (`run_substitute_variable_references`, `var_get_command_number`,
+  2026-09-20)
 - **The pre-4.0 ask block wants the name at column 5.** characters()' one
   position test, and the only one in the handler: 459882 skips the whole
   `c("ask") Or c("talk to")` conversation block unless `InStr(line,

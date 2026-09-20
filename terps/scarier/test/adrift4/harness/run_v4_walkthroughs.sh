@@ -5072,6 +5072,18 @@ salutations_solution.txt|salutations.taf|you'll decline to answer.|SCR_SKIP_WAIT
 # tail -- so the empty buffer meets 48B573 and prints DontUnderstand, as run400
 # does (runner_transcripts/iachini.txt T185):
 # `turn on tv` -> "I don't understand what you mean!"
+# This row is the corpus witness for the %<user variable>% substitution ported
+# on 2026-09-20 (make_varrefprobe.py).  TASK 23 is `push * key * %keynum% *`,
+# and `keynum` is rerolled by TASK 36 (`#change keynum`), so under SCR_SEED=202
+# the route's `push key 80` is the variable spelled out: run390 44AF07 and
+# run400 45F105 replace `%keynum%` with Format(value) before the command is
+# tested at all, where Scarier used to match it positionally in the pattern
+# tree.  The mirror clue ("PUSH KEY %keynum%") and the completion text expand
+# the same marker through the output filter, so the golden pins the value from
+# both sides.  The other live corpus commands are Lair of the Vampire's `drop
+# %item%` and `give %item% to %character%` (row above); Riding_Home's
+# `{your/%NewPlayer%'s}` is dead in the real Runner, the marker being
+# lower-cased while the variable's Name is not.  All three goldens unmoved.
 iachini_solution.txt|iachini.taf|You settle down in front of the TV.|SCR_SEED=202
 # La hija del relojero ("Nano", Spanish, 4.00) is the smallest 4.00 file left
 # after Salutations: ONE room, 8 tasks, 12 objects, no NPCs, and no score at

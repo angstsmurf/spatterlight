@@ -3416,20 +3416,63 @@ run_substitute_number_references (scr_gameref_t game,
 
 
 /*
+ * run_substitute_variable_references()
+ *
+ * Put in place of a task command's %<user variable>% the variable's value.
+ *
+ * The last arm of checktask's substitution, after the numbers: a loop over
+ * the whole variable array, each InStr'ing `"%" & Name & "%"` in the command
+ * and Replacing it with the value (run390 44AF07-44AFDA, run400
+ * 45F105-45F1B3).  What a marker is worth, which markers reach a variable at
+ * all and why "%t_<name>%" reaches none are all var_get_command_number().
+ */
+static void
+run_substitute_variable_references (scr_gameref_t game, std::string &literal)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  size_t at;
+
+  for (at = 0; (at = literal.find ('%', at)) != std::string::npos; )
+    {
+      const size_t end = literal.find ('%', at + 1);
+      scr_char digits[32];
+      scr_int number;
+
+      if (end == std::string::npos)
+        break;
+      if (!var_get_command_number (vars,
+                                   literal.substr (at + 1,
+                                                   end - at - 1).c_str (),
+                                   &number))
+        {
+          at = end + 1;
+          continue;
+        }
+      snprintf (digits, sizeof (digits), "%ld", number);
+      literal.replace (at, end - at + 1, digits);
+      at += strlen (digits);
+    }
+}
+
+
+/*
  * run_pattern_references()
  *
  * The set of %reference% markers a task command carries, as a bitmask, or
- * RUN_REF_OTHER for a marker that is none of the four.
+ * RUN_REF_OTHER for a marker that is none of the four and reaches no
+ * variable of the game's own either.
  */
 enum
 {
   RUN_REF_OBJECT = 1, RUN_REF_CHARACTER = 2,
-  RUN_REF_NUMBER = 4, RUN_REF_TEXT = 8, RUN_REF_OTHER = 16
+  RUN_REF_NUMBER = 4, RUN_REF_TEXT = 8, RUN_REF_VARIABLE = 16,
+  RUN_REF_OTHER = 32
 };
 
 static scr_int
-run_pattern_references (const scr_char *pattern)
+run_pattern_references (scr_gameref_t game, const scr_char *pattern)
 {
+  const scr_var_setref_t vars = gs_get_vars (game);
   const std::string text (pattern);
   scr_int found = 0;
   size_t at;
@@ -3440,6 +3483,7 @@ run_pattern_references (const scr_char *pattern)
       const std::string token = end == std::string::npos
                                 ? std::string ()
                                 : text.substr (at, end - at + 1);
+      scr_int number;
 
       if (token == "%object%")
         found |= RUN_REF_OBJECT;
@@ -3449,6 +3493,12 @@ run_pattern_references (const scr_char *pattern)
         found |= RUN_REF_NUMBER;
       else if (token == "%text%")
         found |= RUN_REF_TEXT;
+      else if (token.length () > 2
+               && var_get_command_number (vars,
+                                          token.substr (1,
+                                                        token.length () - 2)
+                                              .c_str (), &number))
+        found |= RUN_REF_VARIABLE;
       else
         return found | RUN_REF_OTHER;
       at = end + 1;
@@ -3489,10 +3539,13 @@ run_pattern_references (const scr_char *pattern)
  * is below 3.80 (run370 and run380 hold no "%number%", "%t_number%" or
  * "%text%" string anywhere), and "%text%" is one below 4.00.
  *
+ * The game's own variables come last (44AF07) -- see
+ * run_substitute_variable_references().
+ *
  * Not emulated: run390's second pair of object loops (44ABFE, 44AC98), which
  * repeats the walk against checktask's own `text` argument when the first
- * pair bound nothing, and the generic user-variable arms at 44AF25 and
- * 44AFF8.  A command holding any other marker is still handed back.
+ * pair bound nothing.  A command holding a marker that is neither a known
+ * reference nor a variable of the game's own is still handed back.
  */
 static scr_bool
 run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
@@ -3509,7 +3562,7 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
   for (char &c : lowered)
     c = scr_tolower (c);
 
-  if (run_pattern_references (pattern) & RUN_REF_OTHER)
+  if (run_pattern_references (game, pattern) & RUN_REF_OTHER)
     return FALSE;
 
   if (literal.find ("%object%") != std::string::npos)
@@ -3573,7 +3626,10 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
     }
 
   if (version >= TAF_VERSION_390)
-    run_substitute_number_references (game, lowered, literal);
+    {
+      run_substitute_number_references (game, lowered, literal);
+      run_substitute_variable_references (game, literal);
+    }
 
   return TRUE;
 }
@@ -3672,15 +3728,20 @@ run_match_task_commands (scr_gameref_t game,
 
       /*
        * Which %reference% markers the command carries decides who answers
-       * it.  %number% and %t_number% are a SUBSTITUTION in every Runner that
-       * knows them, never a positional wildcard, so the tree's answer is
-       * beside the point: see run_substitute_number_references().  Below
-       * 3.90 they are not markers at all, nor is %text% below 4.00, and a
-       * command carrying one has to be typed with the percent signs in it.
+       * it.  %number%, %t_number% and a marker naming one of the game's own
+       * variables are a SUBSTITUTION in every Runner that knows them, never
+       * a positional wildcard, so the tree's answer is beside the point:
+       * see run_substitute_number_references() and
+       * run_substitute_variable_references().  Below 3.90 numbers are not
+       * markers at all, nor is %text% below 4.00, and a command carrying
+       * one has to be typed with the percent signs in it; below 3.90 the
+       * file has no Variables section either, so nothing there can name a
+       * variable and the question does not arise.
        */
-      const scr_int refs = run_pattern_references (pattern);
+      const scr_int refs = run_pattern_references (game, pattern);
       const scr_bool numeric = (refs & RUN_REF_NUMBER)
                                && version >= TAF_VERSION_390;
+      const scr_bool variable = (refs & RUN_REF_VARIABLE) != 0;
       const scr_bool literal_ref =
           ((refs & RUN_REF_NUMBER) && version < TAF_VERSION_390)
           || ((refs & RUN_REF_TEXT) && version < TAF_VERSION_400);
@@ -3725,9 +3786,9 @@ run_match_task_commands (scr_gameref_t game,
        * double space and a bracket.
        */
       if (version >= TAF_VERSION_400
-          && (refs == 0 || refs == RUN_REF_NUMBER))
+          && (refs & ~(RUN_REF_NUMBER | RUN_REF_VARIABLE)) == 0)
         {
-          if (numeric)
+          if (numeric || variable)
             {
               /*
                * A 4.0 command whose only markers are numbers is substituted
@@ -3754,7 +3815,9 @@ run_match_task_commands (scr_gameref_t game,
               for (char &c : lowered)
                 c = scr_tolower (c);
               literal = pattern;
-              run_substitute_number_references (game, lowered, literal);
+              if (numeric)
+                run_substitute_number_references (game, lowered, literal);
+              run_substitute_variable_references (game, literal);
 
               is_matched =
                   scr_strcasecmp (literal.c_str (), matched_input) == 0
@@ -3855,6 +3918,7 @@ run_match_task_commands (scr_gameref_t game,
           && (wild
               || group
               || numeric
+              || variable
               || literal_ref
               || (is_matched && version < TAF_VERSION_390
                   && strstr (pattern, "%object%") != NULL)))
