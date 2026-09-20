@@ -2793,6 +2793,52 @@ pf_rewrite_whole_words (const scr_char *string, std::string &buffer,
 }
 
 /*
+ * pf_rewrite_substring()
+ *
+ * One whole-string rewrite pass in VB's `Replace(line, old, new, 1, -1, 0)`
+ * shape: every occurrence of original, anywhere, word boundaries or not,
+ * the scan resuming past each replacement as Replace's does.  3.90 and 4.00
+ * reach the built-in rewrites this way where 3.70/3.80 reach them through
+ * change(), which is a loop over the whole-word matcher c().  Replace's
+ * compare argument is 0, vbBinaryCompare -- but the Runner has lower-cased
+ * the line long before this point (`zog SLAP blip` runs the `zog hit blip`
+ * task in all four Runners, p*REW), so the match is folded here.
+ */
+static void
+pf_rewrite_substring (const scr_char *string, std::string &buffer,
+                      scr_bool &modified, const scr_char *&current,
+                      const scr_char *original, const scr_char *replacement,
+                      size_t replacement_length, const scr_char *what)
+{
+  const size_t original_length = strlen (original);
+  size_t offset = 0;
+
+  while (strlen (current) >= original_length
+         && offset <= strlen (current) - original_length)
+    {
+      if (scr_strncasecmp (current + offset, original, original_length) != 0)
+        {
+          offset++;
+          continue;
+        }
+
+      if (!modified)
+        {
+          buffer = string;
+          modified = TRUE;
+        }
+      buffer.replace (offset, original_length, replacement,
+                      replacement_length);
+      current = buffer.c_str ();
+      offset += replacement_length;
+
+      if (pf_trace)
+        scr_trace ("Printfilter: %s \"%s\"\n", what, buffer.c_str ());
+    }
+}
+
+
+/*
  * pf_filter_input()
  *
  * Applies synonym changes to a player input string, and returns the resulting
@@ -2873,10 +2919,47 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
    *   run380 441C3F everything->all, 441C50 slap->hit,
    *          441C61 take->get,       441C72 except->but
    *
-   * 3.9 and 4.0 replace everything/slap/except/"apart from" too (run390
-   * 45F222-45F28B, run400 48A330 area) but as substring Replace()s, and
-   * neither touches `take`; 4.0 task matching is verb-literal.  Those
-   * versions' rewrites are covered by the grammar alternatives instead.
+   * 3.9 and 4.0 have the same four rewrites as VB `Replace(line, old, new,
+   * 1, -1, 0)` calls -- a plain SUBSTRING replace -- and neither touches
+   * `take`:
+   *
+   *   run390 45F225 everything->all, 45F246 slap->hit,
+   *          45F267 except->but,     45F288 "apart from"->"but"
+   *   run400 48A30F " everything "->" all ", 48A330 " slap "->" hit ",
+   *          48A351 " but "->" except ",     48A372 " apart from "->" except "
+   *
+   * 4.0's literals carry their own spaces, so its rewrites only fire in the
+   * MIDDLE of a line and its exclusion word runs the other way, but->except
+   * where 3.90 goes except->but.  Measured 2026-09-20 on p37REW/p38REW/
+   * p39REW/p4REW (make_rewriteprobe.py, cmdfile_prew2.txt,
+   * Adrift_246_rew37b.rtf / 247_rew38b.rtf / 248_rew39b.txt /
+   * 249_rew40b.txt), tasks spelled with the POST-rewrite text:
+   *
+   *                        3.70      3.80      3.90       4.00
+   *   zog slap             ZOGHIT.   ZOGHIT.   ZOGHIT.    DontUnderstand
+   *   zog slap blip        ZOGHITB.  ZOGHITB.  ZOGHITB.   ZOGHITB.
+   *   zog unslap           no        no        ZOGUNHIT.  no
+   *   zog exception        no        no        ZOGBUTION. no
+   *   zog except           no        ZOGBUT.   ZOGBUT.    no
+   *   zog except blip      ZOGEXCB.  ZOGBUTB.  ZOGBUTB.   ZOGEXCB.
+   *   zog but blip         ZOGBUTB.  ZOGBUTB.  ZOGBUTB.   ZOGEXCB.
+   *   zog apart from blip  no        no        ZOGBUTB.   ZOGEXCB.
+   *   zog everything       ZOGALL.   ZOGALL.   ZOGALL.    DontUnderstand
+   *   everything blip      ALLLEAD.  ALLLEAD.  ALLLEAD.   DontUnderstand
+   *   zog take             Take what? ZOGGET.  Take what? Take what?
+   *   zog SLAP blip        ZOGHITB.  ZOGHITB.  ZOGHITB.   ZOGHITB.
+   *
+   * The substring reach is what `unslap` and `exception` show: from 3.90 an
+   * object named `exception` cannot be examined at all, its line becoming
+   * `x bution` (the same transcripts).  `zog SLAP blip` is the case cell:
+   * Replace's binary compare never sees a capital, so the line is already
+   * lower-cased by here.
+   *
+   * Every cell above is Scarier's answer too, bar the `zog take` column:
+   * where no rewrite makes the line a task, the Runner still answers "Take
+   * what?" and Scarier says "I don't understand."  That is a different
+   * rule -- the library verb is matched anywhere in the line -- and it is
+   * an open lead in WINE-TRANSCRIPTS-TODO, not a fault of this table.
    *
    * The 3.80-only take->get is the one that matters: it runs before ANY
    * task matching, so a 3.80 task whose command slots say only `take X` /
@@ -2896,12 +2979,23 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
       const scr_char *original;
       const scr_char *replacement;
       scr_int min_version, max_version;
+      scr_bool substring;
     };
     static const pf_builtin_rewrite_t BUILTIN[] = {
-      {"everything", "all", TAF_VERSION_370, TAF_VERSION_380},
-      {"slap", "hit", TAF_VERSION_370, TAF_VERSION_380},
-      {"take", "get", TAF_VERSION_380, TAF_VERSION_380},
-      {"except", "but", TAF_VERSION_380, TAF_VERSION_380},
+      /* change(), whole words. */
+      {"everything", "all", TAF_VERSION_370, TAF_VERSION_380, FALSE},
+      {"slap", "hit", TAF_VERSION_370, TAF_VERSION_380, FALSE},
+      {"take", "get", TAF_VERSION_380, TAF_VERSION_380, FALSE},
+      {"except", "but", TAF_VERSION_380, TAF_VERSION_380, FALSE},
+      /* Replace(), substring, in the Runners' own order. */
+      {"everything", "all", TAF_VERSION_390, TAF_VERSION_390, TRUE},
+      {"slap", "hit", TAF_VERSION_390, TAF_VERSION_390, TRUE},
+      {"except", "but", TAF_VERSION_390, TAF_VERSION_390, TRUE},
+      {"apart from", "but", TAF_VERSION_390, TAF_VERSION_390, TRUE},
+      {" everything ", " all ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
+      {" slap ", " hit ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
+      {" but ", " except ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
+      {" apart from ", " except ", TAF_VERSION_400, TAF_VERSION_400, TRUE},
     };
     scr_int version = prop_get_taf_version (bundle);
 
@@ -2909,9 +3003,14 @@ pf_filter_input (const scr_char *string, scr_prop_setref_t bundle)
       {
         if (version < entry.min_version || version > entry.max_version)
           continue;
-        pf_rewrite_whole_words (string, buffer, modified, current,
+        if (entry.substring)
+          pf_rewrite_substring (string, buffer, modified, current,
                                 entry.original, entry.replacement,
                                 strlen (entry.replacement), "builtin");
+        else
+          pf_rewrite_whole_words (string, buffer, modified, current,
+                                  entry.original, entry.replacement,
+                                  strlen (entry.replacement), "builtin");
       }
   }
 

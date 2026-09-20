@@ -270,18 +270,31 @@ the_hangover T34) went identical with that port on 2026-09-20.
   raised by a " with " line comes out of ONE half", "A 4.0 lock or unlock
   never asks which key" and "A 4.0 crowd is the WHOLE line's, and its
   first object decides".
-- **3.90 rewrites the line too, and Scarier stops at 3.80.** run390 has no
-  `change()` helper, which is why the decompile README's rewrite table
-  carried an empty 3.90 column -- but it has the rewrites inline, as
-  `Replace(line, old, new, 1, -1, 0)` calls right after the snapshot store
-  at 45F20F: "everything"->"all" 45F225, "slap"->"hit" 45F246,
-  "except"->"but" 45F267 and "apart from"->"but" 45F288 (no take->get).
-  `scprintf.cpp` BUILTIN[] caps every row at 3.80 and has no `apart from`
-  row at all, so Scarier rewrites nothing at 3.90. Two probes owed: whether
-  the rows simply belong at 3.90, and whether Replace's SUBSTRING reach
-  shows -- 3.7/3.8's change() is gated on the whole-word matcher c(), so an
-  object named `exception` should survive there and not at 3.90. Read
-  2026-09-20 (Adrift_decompile 45F20F, README table corrected).
+- **The library verb is matched anywhere in the line, and Scarier anchors
+  some of it.** Falling out of the rewrite probe above: run370/380/390/400
+  all answer `blorp take` with "Take what?" and `blorp take coin` with "You
+  pick up the coin.", though `blorp` is in no vocabulary. Scarier already
+  does this for a handful of verbs (`wait`, `look`, `sit`/`stand`, and the
+  pre-4.0 therest cascade's `open`/`eat`/`drink`/...), but not for the five
+  that carry a `%object%` and an "X what?" form. Measured 2026-09-20 on
+  p37REW/p38REW/p39REW/p4REW with `cmdfile_pcasc.txt` (Adrift_250_casc37b
+  .rtf, 249_casc38.rtf, 250_casc39.txt, 251_casc40.txt), 34 verb words
+  against a nonsense head:
+    * 3.70/3.80 diverge on five: `take`, `drop`, `wear`, `remove` ("X
+      what?") and `examine` ("Nothing special."), plus their `... coin`
+      forms, which the Runner runs for real.
+    * 3.90 diverges on those five and two more: `blorp eat` answers "Drop
+      what?" and `blorp put` answers "Give what?" -- a cascade arm picking a
+      verb the line does not contain, so the 3.9 route is NOT simply
+      "contains the word".
+    * 4.00 diverges on twenty-nine of thirty-four: essentially every
+      library verb fires from anywhere in the line. `blorp give` is the
+      shape that shows the two halves are separate -- Scarier already
+      prints the "(to Nobody)" prefix and then loses the verb.
+  Nothing in the corpus types a nonsense head, so the suite says nothing
+  about this; the 428 rows stay green either way. Port order should be 4.00
+  first (one rule, twenty-nine cells) and 3.90 last (the eat/put cells need
+  the run390 cascade read before anything is written).
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -407,10 +420,11 @@ the_hangover T34) went identical with that port on 2026-09-20.
   guard is `MemVar_4681A8 = &HFF`, the per-TURN referenced object cleared
   once at 45EC68, so the first task command on the line whose walk binds
   anything consumes it: `nurb except` with an object named `but` is refused
-  at 3.90 because task 1's `blip %object%` fell back first. Scarier caps
-  the built-in rewrites at 3.80 (scprintf.cpp BUILTIN[]) and keeps one
-  string, so it takes both lines. Porting this means carrying the snapshot
-  and the per-turn flag through `run_pre400_substitute_references()`.
+  at 3.90 because task 1's `blip %object%` fell back first. Scarier keeps one
+  string -- the rewritten one, since 2026-09-20 at 3.90 too -- so its walk
+  binds the `hit` and takes both lines. Porting this means carrying the
+  snapshot and the per-turn flag through
+  `run_pre400_substitute_references()`.
 - **SCARE meta-commands** `wait N`, `hist N` and `redo N` exist in no
   Runner. Eleven more inventions are compiled out by
   `SCARIER_NO_ABBREVIATIONS`.
@@ -476,6 +490,25 @@ transcript names are in the code comment next to the named function, in
 
 ### Parser and dispatch
 
+- **The Runner rewrites the typed line before anything looks at it, at
+  every version, and 3.90/4.00 do it by SUBSTRING.** Below 3.90 the
+  rewrites are `change()`, a loop over the whole-word matcher `c()`
+  (run370 43B41F/43B430: everything->all, slap->hit; run380 441C3F-441C72:
+  those two plus take->get and except->but). From 3.90 they are VB
+  `Replace(line, old, new, 1, -1, 0)`, a plain substring replace with no
+  word boundary at all (run390 45F225-45F288: everything->all, slap->hit,
+  except->but, "apart from"->but; no take->get), and at 4.00 every literal
+  carries its own spaces (run400 48A30F-48A372: `" everything "`->`" all "`,
+  `" slap "`->`" hit "`, and the exclusion word the OTHER WAY, `" but "`->
+  `" except "`, `" apart from "`->`" except "`). So an object named
+  `exception` cannot be examined at all from 3.90 -- `x exception` reaches
+  the parser as `x bution` -- while 4.00 rewrites nothing at the start or
+  the end of a line. The line is already lower-cased by here, which is why
+  `Replace`'s binary compare still catches a typed `SLAP`. p37REW/p38REW/
+  p39REW/p4REW, `cmdfile_prew2.txt`, Adrift_246_rew37b.rtf /
+  247_rew38b.rtf / 248_rew39b.txt / 249_rew40b.txt (2026-09-20);
+  `make_rewriteprobe.py` carries the 124-cell table, `scprintf.cpp`
+  BUILTIN[] and `pf_rewrite_substring()` the port.
 - **Below 3.90 an empty-handed drop line is the only one a task can
   claim.** drops() takes every line saying drop / put down / leave (run380
   438659, run370 430475), and generaltasks branches on the handler's
