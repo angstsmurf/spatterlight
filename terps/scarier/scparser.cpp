@@ -2463,9 +2463,38 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * does any reference with more pattern after it, where the extent decides
    * what the rest of the pattern sees.
    */
-  const scr_bool contain = uip_containment_enabled && !is_character
+  /*
+   * 4.0 resolves a trailing %character% by containment as well: run400's
+   * per-NPC check npc_in_command() (Proc_21_40_45E99C) LCase()s whichever of
+   * the Name or an Alias answers and returns InStr(Me(304), word) -- whole-
+   * word containment anywhere in the line, 45E740-45E75B -- and the Prefix
+   * contest (lib_npc_400_prefix_score()) then picks among the hits, not the
+   * word order.  p4PFX.taf has Ann "a red", Bob "a blue" and Cid "a red" all
+   * aliased "guard": run400 answers `x guard blue` with Bob's description
+   * (Adrift_1210, 2026-09-20), where a positional match sees no candidate
+   * at all and we used to say "You see no such thing."  Pre-4.0 keeps the
+   * positional match; its characters() has no contest and the last NPC in
+   * index order wins outright (run390x Adrift_1211/1213).
+   *
+   * The containment binding is npc_in_command's MODE 3 only.  Its loop at
+   * 45E6C5 counts the characters that answer to the matched word AND stand
+   * in the player's room (var_DC(14) = Me(92)) AND are seen (var_DC(26) =
+   * 1); the return at 45E740 is taken for `count > 0 And mode = 3` or for
+   * `count = 0 And mode = 1`.  Mode 3 is what hands a handler a character to
+   * act on; mode 1 is the absent tails' own test (the ask block at 47F8E5,
+   * the attack tail at 47F40D -- lib_attack_absent_npc()), which rescan the
+   * line for themselves.  So an absent character never binds here: mutaydid
+   * (4.00) rewrites `butcher mystery meat` to `attack mystery meat` through
+   * its synonym table, and although "meat" is an alias of The Mother Meat
+   * (asleep on Planet Mutaydid), run400 answers with the object arm, "You
+   * can't see the mystery meat." (Adrift_1090_mutaydid.txt).
+   */
+  const scr_bool contain = uip_containment_enabled
                            && !uip_strict_reference
-                           && uip_nothing_follows (node);
+                           && uip_nothing_follows (node)
+                           && (!is_character
+                               || prop_get_taf_version (gs_get_bundle (game))
+                                  >= TAF_VERSION_400);
   const scr_int input_end = strlen (uip_string);
 
   /*
@@ -2507,6 +2536,12 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
        */
       if (uip_strict_reference && !is_character
           && !gs_object_seen (game, index))
+        continue;
+
+      /* npc_in_command's mode 3: only a present, seen character binds. */
+      if (pass > 0 && is_character
+          && !(gs_npc_seen (game, index)
+               && npc_in_room (game, index, gs_playerroom (game))))
         continue;
 
       /*

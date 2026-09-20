@@ -268,8 +268,14 @@ not by a tick.
 - **Ambiguity prompts:** co()'s crowded arm (454454) and its &HFE/&HFF
   answers; "That wasn't one of the options!" has never been triggered;
   whether an object ambiguity on a task-answered line also suppresses the
-  tick; 454454's prefix contest handing the write to a namesake with more
-  Prefix words typed (not modelled in `lib_co_400_line_leaves_which_pending`).
+  tick. (454454's Prefix contest itself is measured and ported -- see "The
+  4.0 Prefix contest" in the index.)
+- **The 4.0 character catch-all's wording.** run400 answers p4PFX's `blue
+  guard` -- a line with no verb at all -- with "I don't understand what you
+  want to do with Bob.", where Scarier prints the bare "I don't understand."
+  The object form ("I don't understand what you want me to do with the X.")
+  is ported; this character form is a different string and a different site,
+  and no corpus row has hit it. p4PFX `blue guard` (Adrift_1210 turn 5).
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -288,6 +294,26 @@ not by a tick.
   sweep_wine_breaks still counts 5622 Scarier-only breaks.
 
 ### Engine, needs a probe (3.9)
+
+- **3.9 characters have no Prefix forms.** Scarier builds "prefix name"
+  candidate forms for an NPC at every version, but run390's characters()
+  knows only c(Name) and c(Alias): p39PFX/p39PFX2 answer `x red guard`,
+  `x a red guard` and `x the red guard` with the LAST namesake in index
+  order (Cid), exactly as they answer the bare `x guard`, where Scarier
+  picks whichever NPC the typed Prefix matches (Bob). Four cells in
+  Adrift_1211/1213. The fix is to drop the NPC prefix forms below 4.0;
+  untried, because it touches every pre-4.0 NPC reference.
+- **"Please examine one object at a time."** run390 answers p39PFX2's
+  `x big red tree`, `x red tree`, `x a red tree` and `x the red tree` with
+  it, while `x tree`, `x big tree` and `x a tree` get the ordinary
+  "Which tree.  The big red tree, the red tree or the red tree?" -- so the
+  refusal is what a *typed Prefix word* buys at 3.9, not a namesake count.
+  lastword() (42DA40) is the only Prefix test run390 has; the refusal's
+  site is not yet located. Adrift_1213 turns 14-25.
+- **3.9 `ask <prefix> guard about key`.** p39PFX answers `ask blue guard
+  about key` with "You can't talk to that." where Scarier gives Bob's topic
+  reply. Same shape as the entry above: a typed Prefix word turns a
+  character reference into a refusal at 3.9. Adrift_1211.
 
 - **checkwild, the unported half.** `uip_wildcard_match_pre400` only
   vetoes a tree match. checkwild's middle pieces need not be in order, so
@@ -732,6 +758,39 @@ transcript names are in the code comment next to the named function, in
   `lib_disambiguate_object`, 2026-09-19)
 
 ### Nouns, scope and the seen model
+
+- **The 4.0 Prefix contest.** A namesake crowd is thinned by what the line
+  holds of each candidate's own Prefix before any handler sees it: run400
+  Splits the Prefix on single spaces, tests each word against the typed line
+  with the whole-word helper 454CB0, counts the hits and keeps the strict
+  maximum -- 454454 for objects (called twice from co(), 4645C1/46473F),
+  450610 for characters (called twice from npc_in_command(), 45E895/45E8BF).
+  A unique top score above zero wins outright; a tie at the top is still a
+  crowd. Articles are ordinary Prefix words, so p4PFX2's `x the red guard`
+  examines Cid ("the red") over Ann ("a big red") and Bob ("a red"), all
+  three aliased "guard". The character question still lists every namesake;
+  the object question lists only the top scorers. Neither routine ever
+  returns -2 -- that is the caller's Me(424) marker. run390 has no Split
+  anywhere and no character contest at all; its one Prefix test is
+  lastword() (42DA40), the LAST Prefix word only and objects only. `[4.0]`
+  p4PFX/p4PFX2 (`lib_npc_400_prefix_score`, `lib_npc_400_prefix_settles`,
+  `lib_disambiguate_npc_pick`, `lib_disambiguate_object_common`, 2026-09-20)
+- **4.0 binds a trailing `%character%` by containment.** npc_in_command()
+  (45E99C) LCase()s whichever of the Name or an Alias answers and returns
+  InStr(Me(304), word): whole-word containment anywhere in the line, not at
+  the position the pattern has reached, with the Prefix contest picking
+  among the hits. run400 answers p4PFX's `x guard blue` with Bob's
+  description where a positional match sees no candidate at all. The
+  binding is npc_in_command's MODE 3 only: its loop at 45E6C5 counts the
+  characters answering to the word that stand in the player's room and are
+  seen, and 45E740 returns for `count > 0 And mode = 3` or `count = 0 And
+  mode = 1`, so an ABSENT character never binds -- mutaydid's synonym table
+  rewrites `butcher mystery meat` to `attack mystery meat`, and although
+  "meat" is an alias of the absent Mother Meat run400 answers with the
+  object arm, "You can't see the mystery meat.". Mode 1 belongs to the
+  absent tails (the ask block at 47F8E5, the attack tail at 47F40D), which
+  rescan the line themselves. Pre-4.0 keeps the positional match. `[4.0]`
+  p4PFX (`uip_match_entity`, 2026-09-20)
 
 - **The 3.8 object loop's scope test** is obhere (run380 4272E8): a
   dynamic object is present when held, worn, loose in the room, held or

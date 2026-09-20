@@ -4704,6 +4704,8 @@ static scr_bool lib_input_contains_word_400 (const scr_char *input,
 static const scr_char *lib_co_400_name_word (scr_gameref_t game,
                                              scr_int object,
                                              const scr_char *input);
+static scr_int lib_npc_400_prefix_score (scr_gameref_t game, scr_int npc,
+                                         const scr_char *input);
 
 /*
  * How a pre-4.0 Runner settles a line naming two present characters.  It
@@ -4810,6 +4812,56 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
         }
       else
         game->npc_references[index_] = FALSE;
+    }
+
+  /*
+   * 4.0's Prefix contest thins the crowd before any handler sees it: the
+   * character whose own Prefix words the line holds most of is THE
+   * character, and only a tie at the top is still a crowd.  p4PFX2's
+   * `x the red guard` examines Cid ("the red") over Ann ("a big red") and
+   * Bob ("a red"), where all three answer to "guard"; see
+   * lib_npc_400_prefix_score().  Pre-4.0 has no such contest at all -- see
+   * NPC_PICK_FIRST/NPC_PICK_LAST below -- so this is 4.0 only.
+   */
+  if (count > 1 && lib_is_version_400 (game) && run_get_dispatch_input ())
+    {
+      const scr_char *line = run_get_dispatch_input ();
+      scr_int best, kept;
+
+      best = -1;
+      kept = 0;
+      for (index_ = 0; index_ < gs_npc_count (game); index_++)
+        {
+          scr_int score;
+
+          if (!game->npc_references[index_])
+            continue;
+          score = lib_npc_400_prefix_score (game, index_, line);
+          if (score > best)
+            {
+              best = score;
+              kept = 1;
+            }
+          else if (score == best)
+            kept++;
+        }
+
+      if (kept > 0 && kept < count)
+        {
+          count = 0;
+          npc = -1;
+          for (index_ = 0; index_ < gs_npc_count (game); index_++)
+            {
+              if (game->npc_references[index_]
+                  && lib_npc_400_prefix_score (game, index_, line) == best)
+                {
+                  count++;
+                  npc = index_;
+                }
+              else
+                game->npc_references[index_] = FALSE;
+            }
+        }
     }
 
   /* If the reference is unambiguous, set in variables and return it. */
@@ -5874,6 +5926,119 @@ lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
   return FALSE;
 }
 
+/*
+ * lib_npc_400_prefix_score()
+ *
+ * The character half of the 4.0 Prefix contest: run400's namesake check
+ * (Proc_21_40_45E99C) asks Proc_21_49_450610 which of the term's namesakes
+ * the line describes best, and the answer is simply how many of a
+ * character's OWN Prefix words the line holds as whole words.  A strict
+ * maximum wins outright and nothing is asked; anything else -- a tie at
+ * any height, zero included -- leaves the ambiguity standing.
+ *
+ * Measured 2026-09-20 on p4PFX2.taf (make_prefixprobe.py ... 2): Ann "a big
+ * red", Bob "a red" and Cid "the red", all three aliased "guard" and all in
+ * the room, run400x Adrift_1212.
+ *
+ *     x guard          ->  Which guard.  A big red guard, a red guard or
+ *                          the red guard?      (0-0-0)
+ *     x red guard      ->  the same question                    (1-1-1)
+ *     x a red guard    ->  the same question                    (2-2-1)
+ *     x the red guard  ->  CID DESC.                            (1-1-2)
+ *     x big guard      ->  ANN DESC.                            (1-0-0)
+ *     x a guard        ->  the same question                    (1-1-0)
+ *
+ * `x the red guard` is the cell that settles the articles: "the" has to
+ * score like any other Prefix word for Cid to win it, and `x a red guard`
+ * would be Cid's too if only "red" counted.  So the whole Prefix is split
+ * on spaces and every word scores -- the same rule the object scorer
+ * 463640 follows (lib_verb_object_name_score()).
+ *
+ * The question's LIST is untouched by the contest: `x a red guard` still
+ * offers all three guards though Cid scores under the others.  Only the
+ * object question narrows itself to its winners; see
+ * lib_disambiguate_object_common().
+ *
+ * An empty NPC Prefix scores nothing, and that one is from the decompile
+ * rather than from a probe: the 4.0 loader substitutes "a" for an empty
+ * OBJECT prefix (4900EC) -- which is what makes a prefix-less object score
+ * a typed "a" -- and mdlSpreadTheLoad has no such default for characters.
+ *
+ * 450610's own body (4504BC-45060D) differs from ours in three ways that
+ * no probe has reached yet, all of them noted rather than modelled:
+ *
+ *   - it has NO admission test whatever, so an ABSENT character answering
+ *     to the term joins the contest and can win it away from the two in
+ *     the room.  We score only the namesakes, which are room-gated.
+ *   - its counter is reset once per character (4504DF), not once per name
+ *     as the object contest's is (45433D), so a character whose Name AND
+ *     one alias both equal the term counts its Prefix words twice.
+ *   - Split() is called with the delimiter argument Missing, so the Prefix
+ *     is cut on single spaces with no trimming; a double space yields an
+ *     empty word, which scores nothing because 454CB0("") returns 0.  Ours
+ *     does the same by walking to the next ' '.
+ *
+ * Below 4.0 there is no character contest at all -- run390 holds no Split
+ * call anywhere, and its one Prefix test, lastword() (42DA40), is reached
+ * only from takes, drops, referencedob, examines and co, all objects.  Its
+ * characters() picks by index order instead; see NPC_PICK_FIRST/LAST.
+ */
+static scr_int
+lib_npc_400_prefix_score (scr_gameref_t game, scr_int npc,
+                          const scr_char *input)
+{
+  const scr_char *prefix;
+  scr_char *copy, *word, *next;
+  scr_int score;
+
+  prefix = prop_get_indexed_string (gs_get_bundle (game), "NPCs",
+                                    npc, "Prefix");
+  if (scr_strempty (prefix))
+    return 0;
+
+  score = 0;
+  copy = (scr_char *) scr_malloc (strlen (prefix) + 1);
+  strcpy (copy, prefix);
+  for (word = copy; word; word = next)
+    {
+      next = strchr (word, ' ');
+      if (next)
+        *next++ = NUL;
+      if (word[0] != NUL && lib_input_contains_word_400 (input, word))
+        score++;
+    }
+  scr_free (copy);
+  return score;
+}
+
+/* TRUE when the contest picks one of these namesakes outright. */
+static scr_bool
+lib_npc_400_prefix_settles (scr_gameref_t game,
+                            const std::vector<scr_int> &namesakes,
+                            const scr_char *input)
+{
+  scr_int index_, best, best_count;
+
+  best = -1;
+  best_count = 0;
+  for (index_ = 0; index_ < (scr_int) namesakes.size (); index_++)
+    {
+      const scr_int score = lib_npc_400_prefix_score (game,
+                                                      namesakes[index_],
+                                                      input);
+
+      if (score > best)
+        {
+          best = score;
+          best_count = 1;
+        }
+      else if (score == best)
+        best_count++;
+    }
+
+  return best > 0 && best_count == 1;
+}
+
 static scr_bool
 lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
                                std::string *term_out,
@@ -5922,6 +6087,10 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
             namesakes.push_back (other);
         }
       if (namesakes.size () < 2)
+        continue;
+
+      /* The Prefix contest can settle the term outright; see above. */
+      if (lib_npc_400_prefix_settles (game, namesakes, input))
         continue;
 
       /*
@@ -6295,6 +6464,76 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
             {
               if (game->object_references[index_]
                   && lib_co_pre400 (game, line, index_, mode))
+                {
+                  count++;
+                  object = index_;
+                }
+              else
+                game->object_references[index_] = FALSE;
+            }
+        }
+    }
+
+  /*
+   * 4.0 runs the Prefix contest over a crowded reference instead: co()'s
+   * crowded arm (run400 454454, called from Proc_21_39_46486C) scores every
+   * candidate the way 463640 does -- the Short as a whole word, any alias,
+   * and one more for each word of the Prefix the line holds -- and keeps
+   * the strict maximum.  A single winner is the reference, and when several
+   * tie at the top it is THOSE the question offers, not the whole reference
+   * set.
+   *
+   * Measured 2026-09-20 on p4PFX2.taf, three trees Prefixed "a big red",
+   * "a red" and "the red" beside a "a" rock (run400x Adrift_1212):
+   *
+   *     x tree          ->  Which tree.  The big red tree, the red tree or
+   *                         the red tree?                       (1-1-1)
+   *     x red tree      ->  the same three                      (2-2-2)
+   *     x a red tree    ->  Which tree.  The big red tree or the red tree?
+   *                                                             (3-3-2)
+   *     x the red tree  ->  The red tree.                       (2-2-3)
+   *     x big tree      ->  A big red tree.                     (2-1-1)
+   *     x a tree        ->  Which tree.  The big red tree or the red tree?
+   *                                                             (2-2-1)
+   *
+   * The older p4CO cells still hold because their candidates all tie:
+   * `x tree rock` offers "the red tree, the blue tree or the rock" because
+   * each scores its own Short and no Prefix word was typed.
+   *
+   * Below 4.0 the same crowd is settled by the last Prefix word alone; see
+   * lib_co_pre400() above.
+   */
+  if (count > 1 && taf_version >= TAF_VERSION_400 && run_get_dispatch_input ())
+    {
+      const scr_char *line = run_get_dispatch_input ();
+      scr_int best, kept;
+
+      best = -1;
+      kept = 0;
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          scr_int score;
+
+          if (!game->object_references[index_])
+            continue;
+          score = lib_verb_object_name_score (game, index_, line);
+          if (score > best)
+            {
+              best = score;
+              kept = 1;
+            }
+          else if (score == best)
+            kept++;
+        }
+
+      if (kept > 0 && kept < count)
+        {
+          count = 0;
+          object = -1;
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            {
+              if (game->object_references[index_]
+                  && lib_verb_object_name_score (game, index_, line) == best)
                 {
                   count++;
                   object = index_;
