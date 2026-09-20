@@ -4,10 +4,11 @@ Three leads from WINE-TRANSCRIPTS-TODO.md's "Engine, needs a probe (3.7 /
 3.8)" and "(3.9)" lists share one world:
 
   * A comma in a task command match.  The library treats `verb, noun` as
-    `verb noun` at 3.7/3.8 (uip_match_whitespace), but whether run370 /
-    run380's checktask does is unmeasured.  Tasks with a literal command, a
-    `*` command, a `%object%` command and a command that itself holds a
-    comma cover the cases.
+    `verb noun` at 3.7/3.8 (uip_match_whitespace); checktask does NOT --
+    measured 2026-09-20 over tasks with a literal command, a `*` command, a
+    `%object%` command and a command that itself holds a comma, and the
+    raw line is what every one of them is matched against, in both
+    directions.  See "A comma in a task command" in the notes index.
   * The pre-4.0 drop "and" arm skips an object inside a held container
     (o(22) 0 or &H9C only).  Ported that way, never measured: the nut in the
     held bag is the cell.

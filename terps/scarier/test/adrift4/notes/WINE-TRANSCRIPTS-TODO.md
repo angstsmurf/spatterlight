@@ -403,9 +403,10 @@ the_hangover T34) went identical with that port on 2026-09-20.
   run380's characters() arm ORs c("attack") in with the others, and
   "attack" is in no other string of either exe. Ported as measured
   (`lib_attack_line_pre390`).
-- **A task command meeting a comma** at 3.7/3.8 is measured for the
-  literal-line cases only (see "A comma in a task command" in the index);
-  the library's comma-as-space rule is not known to reach checktask.
+- ~~**A task command meeting a comma** at 3.7/3.8~~ CLOSED 2026-09-20: the
+  comma-bearing command, the `*` command and the `%object%` command were
+  driven too, and no pre-4.0 checktask ever sees the comma-normalised
+  line. See "A comma in a task command" in the index.
 
 ---
 
@@ -660,8 +661,22 @@ transcript names are in the code comment next to the named function, in
     (`push, stone`, `push stone,` miss the `push stone` task; `push,stone`
     is the library's, the comma being a space to it). 3.9 splits at the
     comma: `push, stone` is "Push what?" then "You push the stone.", the
-    checkverb prefix carrying `push` into the split element. `[<4.0]`
-    p37TASK/p38TASK/p39TASK (`lib_what`, 2026-09-19)
+    checkverb prefix carrying `push` into the split element. The library's
+    comma-as-space rule does NOT reach checktask at any pre-4.0 version,
+    and it does not reach it from the TASK side either: `say hello world`
+    misses a `say hello, world` task in all three Runners, while the
+    comma-for-comma line matches it at 3.7/3.8 -- and at 3.9 nothing can,
+    the line splitting before the match (`say hello, world` is the say
+    library then "I don't understand."). A `*` command and a `%object%`
+    command are no softer: `rub, coin` and `rub,coin` miss `rub *` at
+    3.7/3.8 (catch-all, then DontUnderstand for the glued cell), and
+    `poke, stone` / `poke,stone` miss `poke %object%` the same way; 3.9
+    runs `rub *` on the split's first element and answers the second from
+    the catch-all. `[<4.0]` p37TASK/p38TASK/p39TASK,
+    `cmdfile_ptaskcomma.txt` -> Adrift_176_ptaskc_37.rtf /
+    Adrift_177_ptaskc_38.rtf / Adrift_179_ptaskc_39.txt; all cells already
+    matched, the `say` lines apart, those being Int(Rnd*5|6) draws
+    (`lib_what`, `run_match_task_commands`, 2026-09-19, closed 2026-09-20)
   - A task's `%object%` substitutes the bare Short or Alias: no Prefix, no
     article, so `pa a brass key` misses a `pa %object%` task and falls to
     the prefix-tolerant library. 3.90 folds case, 4.0 does not; before 3.90
