@@ -276,12 +276,6 @@ the_hangover T34) went identical with that port on 2026-09-20.
   p37REW/p38REW/p39REW/p4REW with `cmdfile_pcasc.txt` (Adrift_250_casc37b
   .rtf, 249_casc38.rtf, 250_casc39.txt, 251_casc40.txt), 34 verb words
   against a nonsense head. What the probe still shows open:
-    * The NOUN half below 4.0. `blorp take coin` is "You pick up the coin."
-      and `blorp drop coin` "You drop the coin." in all three older
-      Runners; Scarier hoists the verb and then reads the text after it, so
-      `take blorp coin` is "Take what?" and `drop blorp coin` "You don't
-      have a coin!". This is the same rule as the next bullet, now measured
-      at 3.70 and 3.80 as well as 3.90.
     * run390's `blorp put`, which answers "Give what?" -- a cascade arm
       picking a verb the line does not contain, so the 3.9 route is not
       simply "contains the word". Needs the run390 cascade read before
@@ -302,18 +296,6 @@ the_hangover T34) went identical with that port on 2026-09-20.
       none, so this is unmeasured and unported.
   Nothing in the corpus types a nonsense head, so the suite says nothing
   about any of it; the 428 rows stay green either way.
-- **A 3.9 drop or take matches its noun ANYWHERE in the line.** Falling out
-  of the p39WHAT probe below: run390's drops (445F20) and takes (455B34)
-  pick their object with co(obj, 2) / co(obj, 1), which matches a name
-  anywhere in the line, so `drop zzz hat`
-  answers "You drop the hat." and `take zzz hat` "You pick up the hat.",
-  where Scarier binds `%object%` from the tail after the verb and answers
-  "Drop what?" / "Take what?". The other two handlers already agree:
-  `wear zzz hat` and `remove zzz hat` match in both, because Scarier routes
-  them through `lib_absent_named_object_pre_390()`. Measured on p39WHAT
-  under run390x (`Adrift_p39what2.txt`, `cmdfile_p39what2.txt`,
-  2026-09-20). This is the same shape as the verb-anywhere bullet above --
-  the noun half of it -- and belongs with that port, after the 4.00 half.
 - **Silent-task test scope, the unported rest.** run400 tests the whole
   turn buffer. Scarier counts anything a task's run adds (baroo) but still
   ignores text written before the dispatch. No corpus row is known.
@@ -568,9 +550,35 @@ transcript names are in the code comment next to the named function, in
   `blorp take` is "Take what?", `blorp wear` "Wear what?" and `blorp
   examine` "Nothing special." run370x Adrift_250_casc37b.rtf, run380x
   Adrift_249_casc38.rtf, run390x Adrift_250_casc39.txt (2026-09-20); same
-  `run_hoist_verb_line()`, same narrowing. The NOUN half of those five is
-  still open, and so is run370's own word for each of them (command slots
-  10-14) -- see the open lead.
+  `run_hoist_verb_line()`, same narrowing. Below 4.0 the hoist runs over
+  the PRIORITY pass as well as the library cascade, because the take and
+  drop rows live in `PRIORITY_COMMANDS`, not in the cascade. run370's own
+  word for each of the five (command slots 10-14) is still open -- see the
+  open lead.
+
+- **Below 4.0 a take or a drop names its object over the WHOLE line too.**
+  The noun half of the bullet above. Neither takes() nor drops() parses
+  the words after its verb: each walks the object table in index order
+  asking co() whether the object's Short or an Alias stands anywhere in
+  the line -- takes() mode 1 (run390 454E1D, run380 43DFC3, run370
+  4364E6), drops() mode 2 (run390 4458CF, run380 438889, run370 430689).
+  So `blorp take coin` is "You pick up the coin.", `blorp drop coin` "You
+  drop the coin.", and at 3.90 `drop zzz hat` / `take zzz hat` answer the
+  same way where Scarier used to say "Drop what?" / "Take what?" (wear and
+  remove already agreed, through `lib_absent_named_object_pre_390()`).
+  p37REW/p38REW/p39REW with `cmdfile_pcasc.txt` (Adrift_250_casc37b.rtf,
+  249_casc38.rtf, 250_casc39.txt, 2026-09-20) and p39WHAT under run390x
+  (`Adrift_p39what2.txt`, `cmdfile_p39what2.txt`), 36/36 and 8/8. PORTED
+  2026-09-21 as `lib_move_named_whole_line_pre400()` in sclibrar.cpp,
+  called from `lib_take_multiple_common()` (mode 1) and
+  `lib_drop_multiple_common()` (mode 2). Two deliberate narrowings, both
+  in the comment there: it runs only from the parse-failure branch, so
+  nothing the positional parse already answers can move, and only when
+  exactly ONE object in the whole table answers co(). The Runner walks the
+  rejected objects in the same loop and they write their own refusals --
+  which of them speaks is unmeasured -- and requiring uniqueness only
+  among the objects the caller's filter accepts moved `wrecked` (run380)
+  turn 118 `drop room key`, so the whole table it is.
 
 - **The Runner rewrites the typed line before anything looks at it, at
   every version, and 3.90/4.00 do it by SUBSTRING.** Below 3.90 the

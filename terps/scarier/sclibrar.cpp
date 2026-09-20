@@ -13557,6 +13557,75 @@ lib_take_and_400 (scr_gameref_t game, scr_int *references)
 
 
 /*
+ * lib_move_named_whole_line_pre400()
+ *
+ * The noun half of "a library verb is matched anywhere in the line".  Below
+ * 4.0 neither takes() nor drops() parses the words after its verb: each one
+ * walks the object table in index order and asks co() whether the object's
+ * Short or an Alias stands ANYWHERE in the typed line -- takes() with mode 1
+ * (run390 454E1D, run380 43DFC3, run370 4364E6) and drops() with mode 2
+ * (run390 4458CF, and the same walk in run380 438889 / run370 430689).  So a
+ * word the line holds that names nothing costs nothing: `blorp take coin` is
+ * "You pick up the coin." and `blorp drop coin` "You drop the coin." in all
+ * three older Runners (p37REW/p38REW/p39REW with cmdfile_pcasc.txt --
+ * Adrift_250_casc37b.rtf, Adrift_249_casc38.rtf, Adrift_250_casc39.txt,
+ * 2026-09-20), and so are `take zzz hat` and `drop zzz hat` at 3.90 (p39WHAT,
+ * Adrift_p39what2.txt, cmdfile_p39what2.txt, same day).  Scarier binds
+ * %text% positionally, so with the verb hoisted to the front by
+ * run_hoist_verb_line() the rest of the line went to the noun and the take
+ * fell to "Take what?" while the drop fell to the absent row's "You don't
+ * have a coin!".
+ *
+ * Only from the parse's failure branch, so every line whose words the parser
+ * does account for keeps the answer it had; and only when ONE object in the
+ * whole table answers the line, the caller's own filter accepting it.  Both
+ * halves matter.  A crowd still reaches the disambiguation the Runner's own
+ * namesake count asks for; and a second co() match the filter would reject
+ * is not passed over, because the Runner walks those objects in the same
+ * loop and they write their own refusals from it -- drops()' " don't have
+ * <X>!" (run390 445CE3, run380 438E13) for a namesake that is not held --
+ * and which of the two speaks is decided by index order and a message-empty
+ * gate that nothing here measures.  wrecked (run380) `drop room key` is that
+ * case: the small key is in hand where the room key is not, and the answer
+ * has to stay the refusal it was.  The "all" and "and" arms walk co()
+ * themselves (lib_take_and_pre400, lib_drop_and_arm_collect_pre400) and are
+ * left alone here.
+ */
+static scr_bool
+lib_move_named_whole_line_pre400 (scr_gameref_t game,
+                                  scr_bool (*resolver) (scr_gameref_t,
+                                                        scr_int, scr_int),
+                                  scr_int mode, scr_int *references)
+{
+  const scr_char *const line = run_get_dispatch_input ();
+  scr_int object, found;
+
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      || !line
+      || lib_input_contains_word (line, "all")
+      || lib_input_contains_word (line, "and"))
+    return FALSE;
+
+  found = -1;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (!lib_co_pre400 (game, line, object, mode))
+        continue;
+      if (found != -1)
+        return FALSE;
+      found = object;
+    }
+  if (found == -1 || !resolver (game, found, -1))
+    return FALSE;
+
+  gs_clear_multiple_references (game);
+  game->multiple_references[found] = TRUE;
+  *references = 1;
+  return TRUE;
+}
+
+
+/*
  * lib_take_multiple_common()
  *
  * Take the objects available to the player and listed in %text%, or -- for
@@ -13653,15 +13722,23 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
       if (!is_except && lib_take_held_namesake_preempt_pre400 (game, TRUE))
         return TRUE;
 
-      if (!lib_take_scored_fallback || is_except || !text
-          || strchr (text, ',') || lib_input_contains_word (text, "and"))
+      /* Pre-4.0: takes() names its object over the WHOLE line, co(obj, 1);
+         see lib_move_named_whole_line_pre400(). */
+      if (!is_except
+          && lib_move_named_whole_line_pre400 (game, resolver, 1, &references))
+        ;
+      else if (!lib_take_scored_fallback || is_except || !text
+               || strchr (text, ',') || lib_input_contains_word (text, "and"))
         return FALSE;
-      object = lib_verb_object_resolve_400_string (game, text, NULL, TRUE);
-      if (object < 0)
-        return FALSE;
-      gs_clear_multiple_references (game);
-      game->multiple_references[object] = TRUE;
-      references = 1;
+      else
+        {
+          object = lib_verb_object_resolve_400_string (game, text, NULL, TRUE);
+          if (object < 0)
+            return FALSE;
+          gs_clear_multiple_references (game);
+          game->multiple_references[object] = TRUE;
+          references = 1;
+        }
     }
   else if (references == 0)
     return TRUE;
@@ -16378,7 +16455,13 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
   else if (!lib_parse_multiple_objects (game, is_except ? "retain" : "drop",
                                         resolver, -1,
                                         &references))
-    return FALSE;
+    {
+      /* Pre-4.0: drops() names its object over the WHOLE line, co(obj, 2);
+         see lib_move_named_whole_line_pre400(). */
+      if (is_except
+          || !lib_move_named_whole_line_pre400 (game, resolver, 2, &references))
+        return FALSE;
+    }
   else if (references == 0)
     return TRUE;
 

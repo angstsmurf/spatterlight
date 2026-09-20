@@ -6673,9 +6673,27 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   if (!status && !refused)
     status = run_game_commands_in_parser_context (game, task_string,
                                                   FALSE, TRUE);
+  /*
+   * The take and drop rows live in the priority table, not in the library
+   * cascade below, and pre-4.0 takes() and drops() are entered on their verb
+   * ANYWHERE in the line exactly as the cascade's handlers are -- run380's
+   * takes 43D788 / drops 438659, run370's 435E28 / 430475, run390's 454428 /
+   * 445500, every one of them a disjunction of c() tests.  So this pass reads
+   * the same hoisted line the cascade does; `blorp take coin` is a take of
+   * the coin.  See run_hoist_verb_line(), and lib_move_named_whole_line_pre400()
+   * for the noun half that then has to find "coin" past the nonsense word.
+   */
+  std::string priority_hoisted;
+  const scr_char *priority_line = string;
+  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && run_hoist_verb_line (game, string, priority_hoisted))
+    priority_line = priority_hoisted.c_str ();
+
   if (!status && !put_first && !inv_listed && !repeat_pending)
     {
-      status = run_priority_commands (game, string);
+      run_dispatch_input = priority_line;
+      status = run_priority_commands (game, priority_line);
+      run_dispatch_input = string;
       /*
        * The all/everything put rows are not put_first (see
        * run_is_put_command), so their tentative pass runs here, and a
