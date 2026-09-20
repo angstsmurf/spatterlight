@@ -6700,6 +6700,7 @@ run_player_input (scr_gameref_t game)
       run_previous_typed_line.clear ();
       lib_co_400_reset ();
       lib_battle_who_reset ();
+      lib_with_prefix_390_reset ();
       run_cancel_goto_walk ();
       return TRUE;
     }
@@ -6956,6 +6957,7 @@ run_player_input (scr_gameref_t game)
    */
   lib_co_400_begin_line ();
   lib_battle_who_begin_element (is_new_line);
+  lib_with_prefix_390_begin_element ();
 
   /*
    * Every Runner forgets the referenced object and character at the top of
@@ -7029,6 +7031,27 @@ run_player_input (scr_gameref_t game)
         && lib_question_with_rule (game, rerun.empty () ? command
                                                         : rerun.c_str ()))
       game->is_admin = TRUE;
+
+    /*
+     * 3.9: an open "With what?" continues a line nothing understood, as
+     * `<prefix><line>` and through therest only -- the task matcher never
+     * sees the joined line.  See lib_with_prefix_390_continuation() in
+     * sclibrar.cpp.
+     */
+    if (rerun.empty ())
+      {
+        const std::string joined (lib_with_prefix_390_continuation (command,
+                                                                    status));
+
+        if (!joined.empty ())
+          {
+            pf_empty (filter);
+            run_rerun_skips_tasks = TRUE;
+            status = run_all_commands (game, joined.c_str ());
+            run_rerun_skips_tasks = FALSE;
+          }
+      }
+    lib_with_prefix_390_end_element ();
   }
 
   /*
@@ -7386,7 +7409,7 @@ run_session_state (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_memo_setref_t memento = gs_get_memento (game);
-  std::string out, term, command, prefix, prefix_at_line;
+  std::string out, term, command, prefix, prefix_at_line, with_prefix;
   std::vector<scr_int> candidates;
   scr_bool is_pending, used, definite;
 
@@ -7439,6 +7462,8 @@ run_session_state (scr_gameref_t game)
   lib_battle_who_get_prefix (&prefix, &prefix_at_line);
   run_session_put (out, "prefix", prefix);
   run_session_put (out, "prefix_at_line", prefix_at_line);
+  lib_with_prefix_390_get (&with_prefix);
+  run_session_put (out, "with_prefix", with_prefix);
   return out;
 }
 
@@ -7448,8 +7473,9 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_memo_setref_t memento = gs_get_memento (game);
   std::string which_term, which_command, which_candidates;
-  std::string prefix, prefix_at_line;
+  std::string prefix, prefix_at_line, with_prefix;
   scr_bool has_which = FALSE, has_prefix = FALSE, has_history = FALSE;
+  scr_bool has_with_prefix = FALSE;
   scr_int ring_text = 0;
   scr_vartype_t vt_key[2];
   size_t pos = 0;
@@ -7535,6 +7561,8 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
         prefix = value, has_prefix = TRUE;
       else if (key == "prefix_at_line")
         prefix_at_line = value;
+      else if (key == "with_prefix")
+        with_prefix = value, has_with_prefix = TRUE;
     }
 
   if (has_which)
@@ -7550,6 +7578,8 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
     }
   if (has_prefix)
     lib_battle_who_set_prefix (prefix, prefix_at_line);
+  if (has_with_prefix)
+    lib_with_prefix_390_set (with_prefix);
   return TRUE;
 }
 

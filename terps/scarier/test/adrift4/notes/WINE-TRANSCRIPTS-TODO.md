@@ -322,27 +322,12 @@ not by a tick.
   object.
 - **Two-object canonical prefixed retry:** the run390 half is not
   re-measured. The 4.0 half is closed.
-- **The "With what?" prefix continuation** (run390 45D3E0/45D1A0) is
-  measured but not ported (p*WITHPFX, `harness/make_withprefixprobe.py`,
-  feeds `cmdfile_pwithpfx3.txt`/`5`/`6`/`7`, Adrift_222_wr390 /
-  224_wt390 / 224_wu390 / 224_wv390, 2026-09-20). 3.90 alone keeps a
-  prefix when it answers "With what?": `Left(line, InStr(line, "with") + 4)`
-  -- the line truncated just past the word, the instrument half thrown
-  away. A later line is retried as `<prefix> <line>` only if the line
-  alone is not understood (DontUnderstand or the object catch-all), and
-  the retry goes through **therest only**, never the task matcher: with
-  tasks `fff with zzz ggg`, `with zzz ggg` and `ggg with zzz` all wired,
-  `fff` / `with zzz` / `ggg` is "With what?" twice and no task ever fires.
-  A line therest answers by itself keeps its own answer and drops the
-  prefix (`cut rock`, bare `push` = "Push what?", `i`, `look`), and so
-  does any task (`probe`). What the retry reaches is the ordinary 3.9
-  therest: two or more objects named and the split claims it (`hhh gem` /
-  `with zzz` / `rock` is "You don't have the rock."), one object and the
-  with-arm answers, but only if the object's FIRST occurrence in the
-  joined line sits after "with" -- `hhh gem` / `with zzz` / `gem` is
-  "With what?" again, because the gem is already named in the prefix.
-  Porting it means a pending-prefix retry hook beside the ordinary
-  question prefix in `run_all_commands()`, gated to 3.90 and to therest.
+- **The blank previous line** in the `with ` history prepend: run380
+  crashes ("Run-time error '9'"), run390 prints a garbage "Which pearl.
+  The gem or the rock?" and run400 leaves " with www", leading space and
+  all. Only run400's cell is Scarier's; the 3.90 garbage prompt is the one
+  turn of `cmdfile_pwithpfx.txt` that still differs (Adrift_219_wp390
+  turn 14), and nothing a walkthrough types reaches it.
 ### Engine, needs a probe (3.7 / 3.8)
 
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
@@ -487,7 +472,8 @@ transcript names are in the code comment next to the named function, in
   version that prepends, although 3.90 splits that line into two elements
   and run390's history counts elements (45EC5B). 3.90 does prepend,
   which the p*TEXTSRC cells had made doubtful; those cells were the
-  %object% snapshot rule below and the "With what?" continuation.
+  %object% snapshot rule below and the "With what?" prefix (see "3.90's
+  'With what?' leaves a prefix").
   p*WITHPFX (`make_withprefixprobe.py`, `cmdfile_pwithpfx.txt`,
   Adrift_217_wp370 / 219_wq380 / 219_wp390 / 220_wp400, 2026-09-20)
 - **The " with " clause runs at every version, not just 3.9+.** run370
@@ -760,6 +746,26 @@ transcript names are in the code comment next to the named function, in
   dobattle). 3.8+ history rewrite: a line starting "with " is prefixed with
   the previous typed line (blank lines count; not run370). `[<4.0]`
   p37/p38/p39NPCAMB (`lib_with_arm_390`, 2026-09-19)
+- **3.90's "With what?" leaves a prefix, and only 3.90's.** Both of
+  therest's "With what?" answers -- the two-object split's (45D1A0) and the
+  with-arm's (45D3E0) -- store `Left(line, InStr(line, "with") + 4)`, the
+  line cut just past the word with the instrument half thrown away. The
+  NEXT line, if nothing understands it on its own (DontUnderstand or the
+  object catch-all), is run again as `<prefix><line>` and through
+  **therest only**: the task matcher never sees the joined line, so with
+  `fff with ggg` wired as a task, `fff` / `with zzz` / `ggg` is "With
+  what?" twice and the task never fires. A line that anything answers --
+  therest itself (`cut rock`), a bare verb ("Push what?"), `i`, `look`, a
+  task (`probe`) -- spends the prefix, but a retry that ends in "With
+  what?" stores it again from the line it just ran, and since the cut is at
+  the FIRST "with" that is the same string, which is how `hhh gem` /
+  `with zzz` / `ggg` / `rock` still reaches the rock. Inside the retry the
+  ordinary 3.9 rules run, and the split's claim counts the objects the
+  WHOLE line names, not one per half: `fff with gem rock` is "You don't
+  have the rock." although its head names nothing. `[3.90]` p39WITHPFX
+  (`make_withprefixprobe.py`, `cmdfile_pwithpfx3.txt`/`5`/`6`/`7`,
+  Adrift_222_wr390, 224_wt390, 224_wu390, 224_wv390;
+  `lib_with_prefix_390_note`, `lib_with_clause_390`, 2026-09-20)
 - **Line endings:**
   - A task that ends the game takes ALL of therest off the line: the "You
     can't <verb> X" arms go too, an empty buffer prints DontUnderstand, only

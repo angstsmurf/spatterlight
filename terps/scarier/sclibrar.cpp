@@ -5315,6 +5315,7 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
 }
 
 static void lib_battle_who_store (const std::string &pending);
+static void lib_with_prefix_390_note (scr_gameref_t game);
 
 scr_bool
 lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
@@ -16778,10 +16779,8 @@ lib_with_half_400 (scr_gameref_t game, const scr_char *half)
  *                          and nowhere else; p39WITH read it as continuing
  *                          nothing only because a `turns` sat between the
  *                          prompt and the `knife` that answered it, and a
- *                          line anything answers drops the prefix.  Not
- *                          modelled; measured on p*WITHPFX, see
- *                          lib_with_arm_390() and
- *                          notes/WINE-TRANSCRIPTS-TODO.md.
+ *                          line anything answers drops the prefix.  See
+ *                          lib_with_prefix_390_note().
  *   present, not held      "<You> don't have <X>." (45D1CA: dynamic, and
  *                          position not held); a static instrument falls
  *                          through to the suffix -- 3.9 has no "Don't be
@@ -16799,29 +16798,47 @@ lib_with_clause_390 (scr_gameref_t game, const std::string &line,
 {
   const std::string head = line.substr (0, split);
   const std::string tail = line.substr (split + 6);
-  scr_int index_, present = -1, anywhere = -1;
+  scr_int index_, present = -1, anywhere = -1, referenced = 0;
 
   *object = -1;
   for (index_ = 0; index_ < gs_object_count (game); index_++)
     {
-      if (lib_verb_object_name_score (game, index_, tail.c_str ()) > 0)
+      const scr_bool in_tail
+        = lib_verb_object_name_score (game, index_, tail.c_str ()) > 0;
+      const scr_bool in_head
+        = lib_verb_object_name_score (game, index_, head.c_str ()) > 0;
+
+      if (in_tail)
         {
           anywhere = index_;
           if (obj_indirectly_in_room (game, index_, gs_playerroom (game)))
             present = index_;
         }
-      if (lib_verb_object_name_score (game, index_, head.c_str ()) > 0
-          && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+      if (in_head && obj_indirectly_in_room (game, index_,
+                                             gs_playerroom (game)))
         *object = index_;
+      if (in_head || in_tail)
+        referenced++;
     }
   *instrument = present >= 0 ? present : anywhere;
-  if (*object < 0 || *instrument < 0 || *object == *instrument)
+  /*
+   * The count is of the objects the WHOLE line references, not of one per
+   * half: `fff with gem rock`, a prefix continuation whose head names
+   * nothing, is still the split's "You don't have the rock." at 3.90
+   * (p39WITHPFX, Adrift_224_wu390, cmdfile_pwithpfx6.txt, 2026-09-20).  Only
+   * the suffix arm needs a head object, since it is the one that prints it.
+   */
+  if (referenced < 2 || *instrument < 0 || *object == *instrument)
     return LIB_WITH_NONE;
 
   if (present < 0)
     {
       if (!quiet)
-        pf_buffer_string (gs_get_filter (game), "With what?\n");
+        {
+          pf_buffer_string (gs_get_filter (game), "With what?\n");
+          /* 45D1A0; 3.90 alone. See lib_with_prefix_390_note(). */
+          lib_with_prefix_390_note (game);
+        }
       return LIB_WITH_ANSWERED;
     }
   if (!obj_is_static (game, *instrument)
@@ -16833,7 +16850,7 @@ lib_with_clause_390 (scr_gameref_t game, const std::string &line,
                                  "%player% don't have ", *instrument, ".\n");
       return LIB_WITH_ANSWERED;
     }
-  return LIB_WITH_SUFFIX;
+  return *object < 0 ? LIB_WITH_NONE : LIB_WITH_SUFFIX;
 }
 
 static lib_with_clause_t
@@ -16935,12 +16952,7 @@ lib_with_clause_claims (scr_gameref_t game)
  *
  * The arm stores the prefix Left(line, InStr("with") + 4) for a question
  * continuation too (45D3E0), and so does the split's own "With what?"
- * (45D1A0).  Both continue: the next line that is not understood on its
- * own is retried through therest as `<prefix> <line>`, never through the
- * task matcher, and a line therest or a task answers drops the prefix.
- * Measured on p*WITHPFX (make_withprefixprobe.py, Adrift_222_wr390 ..
- * 224_wv390, 2026-09-20); not modelled, see
- * notes/WINE-TRANSCRIPTS-TODO.md.
+ * (45D1A0).  Both continue; see lib_with_prefix_390_note().
  */
 scr_bool
 lib_with_arm_390_applies (scr_gameref_t game)
@@ -17013,6 +17025,8 @@ lib_with_arm_390 (scr_gameref_t game)
     }
 
   pf_buffer_string (filter, "With what?\n");
+  /* 45D3E0; see lib_with_prefix_390_note(). */
+  lib_with_prefix_390_note (game);
   return TRUE;
 }
 
@@ -23166,6 +23180,116 @@ lib_battle_who_continuation (const scr_char *command, scr_bool status)
   rerun = lib_battle_who_pending + " " + command;
   lib_battle_who_pending.clear ();
   return rerun;
+}
+
+/*
+ * lib_with_prefix_390_*()
+ *
+ * 3.90's own question prefix, and no other Runner's: both of therest's
+ * "With what?" answers -- the two-object split's (45D1A0) and the with-arm's
+ * (45D3E0) -- store `Left(line, InStr(line, "with") + 4)`, the line cut just
+ * past the word, the instrument half thrown away.  It is not the prefix
+ * lib_battle_who_pending models: what it continues is the NEXT line that is
+ * not understood on its own, run as `<prefix><line>` through therest only --
+ * never the task matcher -- and what spends it is a line that anything
+ * answers.
+ *
+ * Measured on p*WITHPFX (make_withprefixprobe.py; feeds cmdfile_pwithpfx3,
+ * 5, 6 and 7; Adrift_222_wr390, 224_wt390, 224_wu390, 224_wv390,
+ * 2026-09-20).  With task 15 wired as `fff with ggg`:
+ *
+ *   fff / with zzz / ggg          "With what?" twice, PFX5. never printed
+ *   fff / with zzz / gem          "I don't ... do with the gem!" -- the
+ *                                 with-arm on `fff with gem`
+ *   hhh gem / with zzz / rock     "You don't have the rock." -- the split
+ *                                 on `hhh gem with rock`, two objects named
+ *   hhh gem / with zzz / gem      "With what?" again: the gem's first
+ *                                 occurrence in the joined line is BEFORE
+ *                                 "with", so the arm has nothing to name
+ *   fff / with zzz / probe        the task answers and the prefix is gone;
+ *                                 `ggg` after it is "I don't understand."
+ *   fff / with zzz / cut rock     therest answers and the prefix is gone
+ *   fff / with zzz / push | i     a bare verb or an inventory likewise
+ *
+ * The prefix lives exactly one line, like every other, but a retry that ends
+ * in "With what?" stores it again from the line it just ran -- and since the
+ * cut is at the FIRST "with", that is the same string -- which is how
+ * `hhh gem` / `with zzz` / `ggg` / `rock` still reaches the rock.
+ */
+static std::string lib_with_prefix_390;
+static scr_bool lib_with_prefix_390_fresh = FALSE;
+
+void
+lib_with_prefix_390_reset (void)
+{
+  lib_with_prefix_390.clear ();
+  lib_with_prefix_390_fresh = FALSE;
+}
+
+/* The prefix between two lines, for a Spatterlight autosave. */
+void
+lib_with_prefix_390_get (std::string *pending)
+{
+  *pending = lib_with_prefix_390;
+}
+
+void
+lib_with_prefix_390_set (const std::string &pending)
+{
+  lib_with_prefix_390 = pending;
+  lib_with_prefix_390_fresh = FALSE;
+}
+
+void
+lib_with_prefix_390_begin_element (void)
+{
+  lib_with_prefix_390_fresh = FALSE;
+}
+
+/* Called where therest prints "With what?", on the line as it was run. */
+static void
+lib_with_prefix_390_note (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_char *with;
+
+  if (!lib_is_version_390 (game) || !input)
+    return;
+  with = strstr (input, "with");
+  if (!with)
+    return;
+
+  lib_with_prefix_390 = std::string (input, with - input + 4);
+  if (input[with - input + 4] == ' ')
+    lib_with_prefix_390 += ' ';
+  lib_with_prefix_390_fresh = TRUE;
+}
+
+/* The line to run instead, or empty when the prefix does not apply. */
+std::string
+lib_with_prefix_390_continuation (const scr_char *command, scr_bool status)
+{
+  std::string rerun;
+
+  if (lib_with_prefix_390.empty () || scr_strempty (command)
+      || (status && !lib_battle_who_unanswered)
+      || lib_with_prefix_390 == command)
+    return rerun;
+
+  rerun = lib_with_prefix_390;
+  if (rerun[rerun.size () - 1] != ' ')
+    rerun += ' ';
+  rerun += command;
+  lib_with_prefix_390.clear ();
+  return rerun;
+}
+
+/* End of the element: a line that did not end in "With what?" spends it. */
+void
+lib_with_prefix_390_end_element (void)
+{
+  if (!lib_with_prefix_390_fresh)
+    lib_with_prefix_390.clear ();
 }
 
 /*

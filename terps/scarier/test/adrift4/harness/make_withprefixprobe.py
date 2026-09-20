@@ -110,7 +110,12 @@ WHAT IT MEASURED (2026-09-20; Adrift_217_wp370, 219_wq380, 219_wp390,
     and the split claims it ("You don't have the rock."), one object and
     the with-arm answers -- but only if its FIRST occurrence in the joined
     line sits after "with", so `hhh gem` / `with zzz` / `gem` is "With
-    what?" again.
+    what?" again.  PORTED 2026-09-20 (lib_with_prefix_390_note() and
+    lib_with_prefix_390_continuation() in sclibrar.cpp); feeds 3, 5, 6 and
+    7 are identical to run390 on every turn.  It corrected the split as
+    well: the "two or more objects" it needs are the objects the WHOLE line
+    names, not one per half, so `fff with gem rock` is "You don't have the
+    rock." although its head names nothing (lib_with_clause_390).
   * The " with " clause itself runs at 3.70 and 3.80 too, and `break` takes
     its refusals without its suffix and ends in "!" below 3.90; 3.70 makes
     the split above its absent-object test.  All three are ported.

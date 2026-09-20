@@ -1036,6 +1036,13 @@ extern std::string lib_battle_who_continuation (const scr_char *command,
                                                 scr_bool status);
 extern scr_bool lib_question_with_rule (scr_gameref_t game,
                                         const scr_char *line);
+extern void lib_with_prefix_390_reset (void);
+extern void lib_with_prefix_390_get (std::string *pending);
+extern void lib_with_prefix_390_set (const std::string &pending);
+extern void lib_with_prefix_390_begin_element (void);
+extern void lib_with_prefix_390_end_element (void);
+extern std::string lib_with_prefix_390_continuation (const scr_char *command,
+                                                     scr_bool status);
 extern scr_int lib_co_400_answer_object (scr_gameref_t game,
                                          const scr_char *line);
 extern void lib_prepass_seen_3738 (scr_gameref_t game,
