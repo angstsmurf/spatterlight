@@ -291,10 +291,11 @@ not by a tick.
 - **checkwild, the unported half.** ~~`uip_wildcard_match_pre400` only
   vetoes a tree match.~~ **Closed 2026-09-20** -- checkwild now decides a
   pre-4.0 `*` command outright; see "Before 4.0 a `*` command is decided
-  by checkwild" in the index. What is left: 3.9's %object% substitution
-  (44AAD6) is not emulated, so a 3.9 command with a reference still falls
-  back on the tree, and group patterns (`[`, `{`) skip the check at every
-  version.
+  by checkwild" in the index. ~~3.9's %object% substitution (44AAD6) is not
+  emulated.~~ **Closed 2026-09-20** -- see "A pre-4.0 task command's
+  %object% and %character% are substituted from the line" in the index.
+  What is left: group patterns (`[`, `{`) skip the check at every version,
+  and %number% / %t_number% (44ADxx) hand a command back to the tree.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
@@ -497,8 +498,10 @@ transcript names are in the code comment next to the named function, in
     a piece twice -- `* king * rose *` runs on `blip rose blip king blip`
     and `* zog * zog *` on `a zog b`, in all three pre-4.0 Runners, where
     4.0's cutting matcher refuses both. run390 pads for a leading "* " or
-    trailing " *"; run380/run370 pad nothing. 3.7/3.8 put the Short of the
-    lowest-index object c() finds in place of %object% first. `[<4.0]`
+    trailing " *"; run380/run370 pad nothing. All three substitute the
+    command's %object% / %character% from the line first (see "A pre-4.0
+    task command's %object% and %character% are substituted from the
+    LINE" in this index). `[<4.0]`
     alchemist T300, `[<3.9]` marooned T53, p37/p38/p39/p4WILDORD
     (`uip_wildcard_match_pre400`, `run_match_task_commands`, 2026-09-20)
   - The SYNONYM table is sequential whole-string rewrites. Vardock
@@ -869,7 +872,28 @@ transcript names are in the code comment next to the named function, in
   Prefix form. marooned.taf (3.80) carries five such commands (`light`,
   `burn`, `throw`, `toss %object%`), so the corpus exercises it. `[<3.9]`
   p37CHREF, p38CHREF (`run_match_task_commands`,
-  `run_pre390_first_named_object`, 2026-09-20)
+  `run_pre400_substitute_references`, 2026-09-20)
+- **A pre-4.0 task command's `%object%` and `%character%` are substituted
+  from the LINE, and the first hit spells the command while the last one
+  binds.** checktask (run390 44AA5A, run380 43B78B, run370 4332CA) walks
+  the whole object array with no break before it tests the command at all:
+  every hit stores its index, and Replace() fires only on the first,
+  because it leaves no "%object%" behind. So the FIRST namesake the line
+  names makes the literal that equality or checkwild then judges, and the
+  LAST is the reference the task's text expands. p39WILDREF answers `blip
+  zog blip rock blip gem blip` against `* zog * %object% *` with "WILD1 a
+  gem." -- the rock matched it, the gem is printed -- and p38WILDREF the
+  same. Because the search is over the line and checkwild's pieces are
+  order-free, `blip gem blip zog blip` runs the task at 3.7, 3.8 and 3.9
+  where the positional tree (and 4.0) refuse it. 3.90 walks twice, Short
+  then Alias (44AB65), gating both on the seen byte and on nothing else --
+  so `blip stone blip` binds the gem and an absent object binds -- and
+  adds %character% at 44AD2A, by Name with no gate whatever: the King
+  binds from the Cave he was left out of. 3.7/3.8 know only the Short and
+  gate on nothing at all, which is how p38WILDREF binds a coin two rooms
+  away and unseen. %number% and %t_number% are not emulated and hand the
+  command back to the tree. `[<4.0]` p37/p38/p39/p4WILDREF
+  (`run_pre400_substitute_references`, 2026-09-20)
 - **The pre-4.0 ask block wants the name at column 5.** characters()' one
   position test, and the only one in the handler: 459882 skips the whole
   `c("ask") Or c("talk to")` conversation block unless `InStr(line,

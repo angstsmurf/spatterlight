@@ -3203,46 +3203,171 @@ public:
 
 
 /*
- * run_pre390_first_named_object()
+ * run_line_names_word()
  *
- * The Short name of the lowest-index object whose name run380's c() (429048)
- * finds in the line: case-insensitive, starting the line or after a space,
- * ending the line or before a space or comma.  NULL if none.
+ * TRUE when run380's c() (429048) finds WORD in LINE, which must already be
+ * lowercased: the word starts the line or follows a space, and ends the line
+ * or is followed by a space or a comma.  Only the first occurrence that
+ * starts a word is looked at, exactly as c() does.
  */
-static const scr_char *
-run_pre390_first_named_object (scr_gameref_t game, const scr_char *line)
+static scr_bool
+run_line_names_word (const std::string &line, const scr_char *name)
+{
+  std::string word (name ? name : "");
+  size_t at = 0;
+
+  if (word.empty ())
+    return FALSE;
+  for (char &c : word)
+    c = scr_tolower (c);
+  while ((at = line.find (word, at)) != std::string::npos)
+    {
+      const size_t end = at + word.size ();
+
+      if (at == 0 || line[at - 1] == ' ')
+        return end == line.size () || line[end] == ' ' || line[end] == ',';
+      at++;
+    }
+  return FALSE;
+}
+
+
+/* Put WITH in place of every FIND in TEXT, the way VB's Replace() with a
+   count of -1 does. */
+static void
+run_replace_all (std::string &text, const scr_char *find,
+                 const scr_char *with)
+{
+  const size_t length = strlen (find);
+  size_t at = 0;
+
+  while ((at = text.find (find, at)) != std::string::npos)
+    {
+      text.replace (at, length, with);
+      at += strlen (with);
+    }
+}
+
+
+/*
+ * run_pre400_substitute_references()
+ *
+ * Put in place of a pre-4.0 task command's %object% and %character% the name
+ * the LINE names, and say which entity the command has thereby bound.
+ * Returns FALSE when the command holds a reference this cannot substitute,
+ * in which case there is nothing to test and the tree's answer stands.
+ *
+ * checktask (run390 44AA5A, run380 43B78B, run370 4332CA) does this before
+ * it tests the command at all, and the walk is over the whole object array
+ * with no break: every hit stores its index in MemVar_4681A8, so the LAST hit
+ * is the reference the task's text expands, while Replace() only ever fires
+ * once -- the FIRST hit spells the literal that is then compared.  The two
+ * come apart whenever a line names two namesakes, and p39WILDREF answers
+ * `blip zog blip rock blip gem blip` against "* zog * %object% *" with "WILD1
+ * a gem.": the rock (index 0) made the string that matched and the gem (index
+ * 1) is what %object% expands to (Adrift_209_wr390.txt, 2026-09-20).
+ *
+ * 3.90 walks the array twice, once for the Short (44AAD6) and once for the
+ * Alias (44AB65), and gates both on the seen byte .global_44 -- there is no
+ * scope test, so an absent object binds.  3.7/3.8 know only the Short and
+ * gate on nothing: p38WILDREF binds the coin two rooms away and unseen.
+ * %character% arrives at 3.90 (44AD2A), by Name, with no gate whatever: the
+ * King binds from the Cave he is not in.
+ *
+ * Not emulated: %number% and %t_number% (44ADxx), which is why a command
+ * holding one is handed back; and run390's second pair of loops (44ABFE,
+ * 44AC98), which repeats the walk against checktask's own `text` argument
+ * when the first pair bound nothing.
+ */
+static scr_bool
+run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
+                                  const scr_char *pattern,
+                                  std::string &literal,
+                                  scr_int *object, scr_int *character)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  std::string text (line);
-  scr_int object;
+  const scr_int version = run_get_version (bundle);
+  std::string lowered (line);
+  size_t at;
 
-  for (char &c : text)
+  literal = pattern;
+  *object = *character = -1;
+  for (char &c : lowered)
     c = scr_tolower (c);
-  for (object = 0; object < gs_object_count (game); object++)
+
+  for (at = 0; (at = literal.find ('%', at)) != std::string::npos; )
     {
-      const scr_char *name =
-          prop_get_indexed_string (bundle, "Objects", object, "Short");
-      std::string word (name ? name : "");
-      size_t at = 0;
+      const size_t end = literal.find ('%', at + 1);
+      const std::string token = end == std::string::npos
+                                ? std::string ()
+                                : literal.substr (at, end - at + 1);
 
-      if (word.empty ())
-        continue;
-      for (char &c : word)
-        c = scr_tolower (c);
-      while ((at = text.find (word, at)) != std::string::npos)
+      if (token != "%object%" && token != "%character%")
+        return FALSE;
+      at = end + 1;
+    }
+
+  if (literal.find ("%object%") != std::string::npos)
+    {
+      scr_int pass, index;
+
+      /* Pass 0 is the Short, pass 1 the Alias -- 3.90's second loop. */
+      for (pass = 0; pass < (version >= TAF_VERSION_390 ? 2 : 1); pass++)
         {
-          const size_t end = at + word.size ();
-
-          if (at == 0 || text[at - 1] == ' ')
+          for (index = 0; index < gs_object_count (game); index++)
             {
-              if (end == text.size () || text[end] == ' ' || text[end] == ',')
-                return name;
-              break;
+              scr_int alias, alias_count = 1;
+              scr_vartype_t vt_key[4];
+
+              if (version >= TAF_VERSION_390 && !gs_object_seen (game, index))
+                continue;
+              vt_key[0].string = "Objects";
+              vt_key[1].integer = index;
+              vt_key[2].string = "Alias";
+              if (pass > 0)
+                alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+              for (alias = 0; alias < alias_count; alias++)
+                {
+                  const scr_char *name;
+
+                  if (pass == 0)
+                    name = prop_get_indexed_string (bundle, "Objects", index,
+                                                    "Short");
+                  else
+                    {
+                      vt_key[3].integer = alias;
+                      name = prop_get_string (bundle, "S<-sisi", vt_key);
+                    }
+                  if (!run_line_names_word (lowered, name))
+                    continue;
+                  *object = index;
+                  if (literal.find ("%object%") != std::string::npos)
+                    run_replace_all (literal, "%object%", name);
+                  break;
+                }
             }
-          at++;
         }
     }
-  return NULL;
+
+  if (version >= TAF_VERSION_390
+      && literal.find ("%character%") != std::string::npos)
+    {
+      scr_int npc;
+
+      for (npc = 0; npc < gs_npc_count (game); npc++)
+        {
+          const scr_char *name =
+              prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+
+          if (!run_line_names_word (lowered, name))
+            continue;
+          *character = npc;
+          if (literal.find ("%character%") != std::string::npos)
+            run_replace_all (literal, "%character%", name);
+        }
+    }
+
+  return TRUE;
 }
 
 
@@ -3377,11 +3502,13 @@ run_match_task_commands (scr_gameref_t game,
        *   shark darts for it") for task 45's "throw %object%" ("You throw it
        *   and it lands in the ocean", runner_transcripts/marooned.rtf).
        *
-       * Before checkwild, 3.7/3.8 put in place of %object% the Short name of
-       * the lowest-index object c() finds in the line, as a whole word
-       * (run380 checktask 43B78B, replaceob 427704 mode 1); 3.9's
-       * substitution has a further gate, so there only a command with no
-       * reference is checked.
+       * Before either test, checktask puts in place of the command's
+       * %object% and %character% the name the line names -- see
+       * run_pre400_substitute_references(), which is the whole reason a
+       * reference-bearing command reaches checkwild at all.  A task command
+       * whose reference the line does not name keeps the literal
+       * "%object%" and so matches nothing: p39WILDREF answers `blip zog
+       * blip` against "* zog * %object% *" with "I don't understand."
        */
       /*
        * The same substitution decides a pre-3.9 command with no '*' at all,
@@ -3404,35 +3531,43 @@ run_match_task_commands (scr_gameref_t game,
               || (is_matched && version < TAF_VERSION_390
                   && strstr (pattern, "%object%") != NULL)))
         {
-          std::string literal (pattern);
-          scr_bool checkable = TRUE, substituted = FALSE;
+          std::string literal;
+          scr_int ref_object, ref_character;
+          const scr_bool checkable =
+              run_pre400_substitute_references (game, matched_input, pattern,
+                                                literal, &ref_object,
+                                                &ref_character);
+          const scr_bool substituted = checkable && literal != pattern;
 
-          if (literal.find ('%') != std::string::npos)
-            {
-              const size_t at = literal.find ("%object%");
-
-              checkable = version < TAF_VERSION_390
-                          && at != std::string::npos
-                          && literal.find ('%', at + 8) == std::string::npos
-                          && literal.find ('%') == at;
-              if (checkable)
-                {
-                  const scr_char *name =
-                      run_pre390_first_named_object (game, matched_input);
-
-                  if (name)
-                    {
-                      literal.replace (at, 8, name);
-                      substituted = TRUE;
-                    }
-                }
-            }
           if (checkable && wild)
             is_matched = uip_wildcard_match_pre400
                 (literal.c_str (), matched_input,
                  version >= TAF_VERSION_390);
           else if (checkable)
             is_matched = scr_strcasecmp (literal.c_str (), matched_input) == 0;
+
+          /*
+           * The reference the task's text expands is the walk's, not the
+           * tree's: the walk reads the line, the tree reads the pattern's
+           * position, and where they disagree the Runner prints the walk's.
+           */
+          if (is_matched && checkable)
+            {
+              const scr_var_setref_t vars = gs_get_vars (game);
+
+              if (ref_object >= 0)
+                {
+                  gs_clear_object_references (game);
+                  game->object_references[ref_object] = TRUE;
+                  var_set_ref_object (vars, ref_object);
+                }
+              if (ref_character >= 0)
+                {
+                  gs_clear_npc_references (game);
+                  game->npc_references[ref_character] = TRUE;
+                  var_set_ref_character (vars, ref_character);
+                }
+            }
 
           /* 3.7 keeps the substitution it just made, for good, when the
              command matched on it -- run_370_rewrite_task_command(). */

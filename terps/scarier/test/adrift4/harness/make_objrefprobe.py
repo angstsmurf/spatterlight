@@ -39,7 +39,7 @@ Read first, so the probe knows what to ask:
 
   * run370/run380 rewrite the pattern in checktask (run380 43B78B, run370
     4332CA) with the Short of the lowest-index object c() finds in the line
-    -- `run_pre390_first_named_object()`, which gates on NOTHING.  The gem
+    -- `run_pre400_substitute_references()`, which gates on NOTHING.  The gem
     cells below say whether that is right.  (A UTF-16LE census of the four
     exes counts "%object%" run370: 1, run380: 1, run390: 1, run400: 2, so
     the older Runners DO hold the literal; find.py's 458E6C note and

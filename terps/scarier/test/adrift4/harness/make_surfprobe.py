@@ -94,6 +94,11 @@ OBJECTS = [
     ("bench",  "a",  "A stone bench.",   ("room", CAVE),  "surface",   5, 0, 1),
 ]
 NAMES = [o[0] for o in OBJECTS]
+# One Alias per object name, by name; objects left out get none.  Every
+# version stores exactly one alias string (4.00 as a counted list), which is
+# all run390's checktask reads for a %object% (its second loop, 44AB65, takes
+# .global_8).
+ALIASES = {}
 # SitLie per object name (bit 0 sit/stand on, bit 1 lie on); others 0.
 SITLIE = {}
 # Object names that are wearable (dynamic objects only).
@@ -261,10 +266,15 @@ def build(version):
     for name, prefix, desc, where, kind, capacity, openable, static in OBJECTS:
         position, parent = position_parent(where, version)
         s(prefix); s(name)
+        alias = ALIASES.get(name, "")
         if version >= 400:
-            s(0)                      # V$Alias count
+            # V$Alias: a count, then the strings.
+            if alias:
+                s(1); s(alias)
+            else:
+                s(0)
         else:
-            s("")                     # [1]$Alias
+            s(alias)                  # [1]$Alias
         s(1 if static else 0)         # Static
         s(desc)
         s(0 if static else position)  # InitialPosition (unused for statics)

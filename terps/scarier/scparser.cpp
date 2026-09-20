@@ -1862,7 +1862,7 @@ uip_skip_article (const scr_char *string, scr_int start)
  * this comment had it wrong: the UTF-16 string census finds "%object%" in all
  * four Runners (only "%character%" is missing below 3.90).  run370 and run380
  * do substitute, but they pick ONE object by the line rather than by the
- * pattern's position -- see run_pre390_first_named_object() -- and then
+ * pattern's position -- see run_pre400_substitute_references() -- and then
  * compare the rewritten pattern against the whole line, so the strict flag
  * never reaches this matcher there.  Measured on p37CHREF/p38CHREF
  * (Adrift_chref370b.rtf, Adrift_chref380b.rtf, 2026-09-20): `nurb rock` runs
@@ -2489,7 +2489,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * other cell of the p4CHREF feed the same way (Adrift_chref370b.rtf,
    * Adrift_chref380b.rtf, 2026-09-20).  The %object% half of this has its
    * own pre-3.9 shape, a single substitution chosen by the line rather than
-   * by the pattern's position; see run_pre390_first_named_object().
+   * by the pattern's position; see run_pre400_substitute_references().
    */
   if (is_character && uip_task_commands
       && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
@@ -2603,7 +2603,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * the Short, 44AB65 for the Alias) with no break, so the LAST seen
    * namesake wins wherever it stands -- run390 answers all three cells "NURBED
    * a red rock." (Adrift_objref390.txt) -- and pre-3.9 the substitution is
-   * the line's own, see run_pre390_first_named_object().
+   * the line's own, see run_pre400_substitute_references().
    */
   const scr_bool strict_scoped = uip_strict_reference && !is_character
                                  && prop_get_taf_version (gs_get_bundle (game))
