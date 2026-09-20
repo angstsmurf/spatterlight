@@ -2758,6 +2758,70 @@ static scr_bool run_task_passes_class_filter (scr_gameref_t game,
 static const void *run_cache_game = NULL;
 static std::vector<scr_task_commands_t> run_cache;
 
+/*
+ * run_lower_command_markers()
+ *
+ * Lower-case every `%...%` marker of a task command, in place; TRUE when
+ * anything changed.
+ *
+ * A task command is already lower-case by the time any Runner's matcher sees
+ * it -- the folding happens at load, not in checktask, which holds no LCase
+ * above 44B0BA and reads the command straight out of the task record
+ * (44AAA5, 44AF12).  p*VARREF said so sideways first: the variable arm builds
+ * its marker as `"%" & Name & "%"` and looks for it with a binary-compare
+ * InStr (44AF43), yet `wibb %NUM%` reached a variable named `num` while
+ * `bork %Big%` AND `snib %big%` over a variable named `Big` reached nothing
+ * -- one rule explains both, and it is that the command was folded and the
+ * stored Name was not (var_get_command_number()).
+ *
+ * p*CASEREF then asked the four known markers directly (Adrift_215_cr370.rtf,
+ * Adrift_216_cr380.rtf, Adrift_217_cr390.txt, Adrift_218_cr400.txt,
+ * 2026-09-20): tasks `frob %Object%`, `nurb %CHARACTER%`, `blip %Number%` and
+ * `murg %TEXT%` beside their lower-case twins, fed `frob rock`, `nurb fay`,
+ * `blip 7`, `murg quux`.  Every capitalised marker runs its task, in every
+ * Runner that knows the marker at all (%character% and %number% from 3.90,
+ * %text% at 4.00; below that the command is a literal either way and the
+ * cells answer DontUnderstand on both sides).  So X-Files task 30, `Molest
+ * *%Character%`, is a live %character% command and not the unknown-marker
+ * literal this took it for.
+ *
+ * Only the markers are folded here, not the whole command.  Everything else
+ * a command holds is already compared case-insensitively -- the equality
+ * LCase()s both sides (44B0BA/44B0DA), checkwild and 4.0's wildcard matcher
+ * fold too (p*CASEREF's `* Zag * GEM *` runs on `xxx zag xxx gem xxx`
+ * everywhere, and did here before this) -- so the two models differ only
+ * where a literal's case can still show, which is 4.0's NewParse group
+ * compare (45D7FA/45D835, binary on both sides; see uip_set_binary_input()),
+ * and no measurement separates them there.
+ */
+static scr_bool
+run_lower_command_markers (std::string &command)
+{
+  scr_bool changed = FALSE;
+  size_t at = 0;
+
+  while ((at = command.find ('%', at)) != std::string::npos)
+    {
+      const size_t end = command.find ('%', at + 1);
+      size_t index_;
+
+      if (end == std::string::npos)
+        break;
+      for (index_ = at + 1; index_ < end; index_++)
+        {
+          const scr_char lowered = scr_tolower (command[index_]);
+
+          if (lowered != command[index_])
+            {
+              command[index_] = lowered;
+              changed = TRUE;
+            }
+        }
+      at = end + 1;
+    }
+  return changed;
+}
+
 static const std::vector<const scr_char *> &
 run_task_command_patterns (scr_gameref_t game, scr_int task,
                            scr_bool forwards)
@@ -2790,6 +2854,19 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
               .push_back (prop_get_string (bundle, "S<-sisi", vt_key));
         }
       cached->rewritten[direction].resize (command_count);
+
+      /* A command's markers reach the matcher lower-cased; see above. */
+      for (command = 0; command < command_count; command++)
+        {
+          std::string lowered (cached->patterns[direction][command]);
+
+          if (run_lower_command_markers (lowered))
+            {
+              cached->rewritten[direction][command] = lowered;
+              cached->patterns[direction][command] =
+                  cached->rewritten[direction][command].c_str ();
+            }
+        }
       cached->known[direction] = TRUE;
     }
   return cached->patterns[direction];

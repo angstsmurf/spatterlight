@@ -288,27 +288,16 @@ not by a tick.
   reblessing: the task-text join alone moved 94 rows, and
   sweep_wine_breaks still counts 5622 Scarier-only breaks.
 
-- **checkwild, the unported half.** ~~`uip_wildcard_match_pre400` only
-  vetoes a tree match.~~ **Closed 2026-09-20** -- checkwild now decides a
-  pre-4.0 `*` command outright; see "Before 4.0 a `*` command is decided
-  by checkwild" in the index. ~~3.9's %object% substitution (44AAD6) is not
-  emulated.~~ **Closed 2026-09-20** -- see "A pre-4.0 task command's
-  %object% and %character% are substituted from the line" in the index.
-  ~~Group patterns (`[`, `{`) skip the check at every version.~~ **Closed
-  2026-09-20** -- see "A task command's GROUP is the LAST thing 4.0 tries,
-  and below 4.0 it is not syntax at all" in the index. ~~%number% /
-  %t_number% (44ADxx) hand a command back to the tree.~~ **Closed
-  2026-09-20** -- see "A task command's %number% is a substitution, and
-  below 3.90 it is a literal" in the index. ~~The generic `%<variable>%` /
-  `%t_<var>%` arms at 44AF25 and 44AFF8.~~ **Closed 2026-09-20** -- see "A
-  task command's %<user variable>% is a substitution, and its marker is
-  lower-cased while the variable's Name is not" in the index. ~~The lead is
-  now closed but for one arm nobody has measured: run390's SECOND pair of
-  object loops (44ABFE, 44AC98).~~ **Measured 2026-09-20** (p39TEXTSRC) --
-  the walk's ORDER is ported, see "A pre-4.0 task command's %object% walk
-  takes an object's Short and its Aliases together" in the index; the
-  SOURCE the walk reads is now a known deviation of its own, below. A
-  command carrying any other marker is still handed back to the tree.
+- **checkwild, the unported rest.** Every arm this lead once listed is
+  closed; the index carries them ("Before 4.0 a `*` command is decided by
+  checkwild", "A pre-4.0 task command's %object% walk takes an object's
+  Short and its Aliases together", "A task command's GROUP is the LAST
+  thing 4.0 tries, and below 4.0 it is not syntax at all", "A task
+  command's %number% is a substitution", "A task command's %<user
+  variable>% is a substitution"). What is left of it: a command carrying
+  any marker Scarier does not know is still handed back to the pattern
+  tree, and the SOURCE run390's walk reads is a deviation of its own,
+  below.
 - **3.90 spells a `%object%` command from a SNAPSHOT of the line, and tests
   it against the rewritten one.** Measured, not ported (p39TEXTSRC,
   Adrift_215_ts390.txt, 2026-09-20). checktask's walk searches
@@ -328,9 +317,6 @@ not by a tick.
   the built-in rewrites at 3.80 (scprintf.cpp BUILTIN[]) and keeps one
   string, so it takes both lines. Porting this means carrying the snapshot
   and the per-turn flag through `run_pre400_substitute_references()`.
-- ~~**3.7/3.8's object catch-all names the first object in LINE order, not
-  in INDEX order.**~~ **Closed 2026-09-20** -- see "The 3.7/3.8 object
-  catch-all answers in index order, aliases included" in the index.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
@@ -1045,6 +1031,36 @@ transcript names are in the code comment next to the named function, in
   the tree, where `uip_match_variable()` now answers the same four rules
   for the marker itself. `[>=3.90]` p39/p4VARREF
   (`run_substitute_variable_references`, `var_get_command_number`,
+  2026-09-20)
+- **A task command's reference marker is matched without regard to case.**
+  checktask looks for a marker with `InStr(1, cmd, "%object%", 0)` (run390
+  44AAC0, the command read straight out of the task record at
+  44AAA5-44AAB5), and the 0 is vbBinaryCompare; the same shape guards
+  %character% (44AD2A), %number% (44ADDF) and the variable arm (44AF43).
+  The exe's literals are lower case, so on a binary compare a command
+  spelled `frob %Object%` ought to carry no marker at all -- and it does.
+  p37/p38/p39/p4CASEREF put the four known markers side by side with their
+  lower-case twins (`frob %Object%`, `nurb %CHARACTER%`, `blip %Number%`,
+  `murg %TEXT%`, fed `frob rock`, `nurb fay`, `blip 7`, `murg quux`) and
+  every capitalised one runs its task, in every Runner that knows the
+  marker at all: %object% everywhere, %character% and %number% from 3.90,
+  %text% at 4.00, and below that both halves are literals and both cells
+  answer DontUnderstand. So the COMMAND is lower case before any matcher
+  sees it -- checktask holds no LCase above 44B0BA, so the fold is at load,
+  and the site is not located in the listing. p*VARREF had already said so
+  sideways and fixes which side folds: `wibb %NUM%` reaches a variable
+  named `num` while `bork %Big%` *and* `snib %big%` over a variable named
+  `Big` reach nothing, which only a folded command against an unfolded
+  stored Name explains. Scarier folds the markers and nothing else, since
+  everything else in a command is already compared case-insensitively (the
+  equality LCase()s both sides at 44B0BA/44B0DA, and checkwild and 4.0's
+  wildcard matcher fold too -- p*CASEREF's `* Zag * GEM *` runs on `xxx zag
+  xxx gem xxx` everywhere, and did here before this). Corpus exposure is
+  two games: X-Files task 30 `Molest *%Character%` and its four alternative
+  commands become live %character% commands, and Riding_Home task 78
+  `knock {on} {your/%NewPlayer%'s} {door}` stays dead, the fold being on
+  the command and not on the Name. 428 PASS, no golden moved.
+  `[all versions]` p37/p38/p39/p4CASEREF (`run_lower_command_markers`,
   2026-09-20)
 - **A pre-4.0 task command's %object% walk takes an object's Short and its
   Aliases together.** 3.90's walk is ONE loop over the object array, not
