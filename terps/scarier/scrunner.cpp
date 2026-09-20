@@ -2258,6 +2258,60 @@ run_c_word_pre400 (scr_int version, const scr_char *line, const scr_char *word)
 }
 
 
+/* In therest() order; '?' marks an arm that needs an empty message. */
+static const scr_char *const THEREST_ARMS_380[] = {
+    "open", "close", "eat", "drink", "give", "ask", "talk to", "?talk",
+    "say", "look", "clean", "run", "stop", "read", "wash", "cut", "hit",
+    "kill", "move", "lift", "light", "suck", "feel", "turn", "go", "enter",
+    "smell", "push", "pull", "press", "shake", "clear", "clean", "kick",
+    "punch", "fight", "jump", "feed", "unblock", "?block", "unlock",
+    "?lock", "climb", "listen", "shout", "sing", "hum", "dance", "whistle",
+    "cry", "wait", "buy", "sell", "break", "destroy", "smash", "kiss", "fly",
+    "feed", "feel", "please", "fix", "repair", "mend", "date", "time",
+    "sleep", "sit on", "sit in", "stand on", "stand in", "lie on", "lie in",
+    NULL
+  };
+static const scr_char *const THEREST_ARMS_390[] = {
+    "open", "close", "eat", "drink", "give", "ask", "talk to", "?talk",
+    "say", "look", "clean", "run", "stop", "read", "wash", "cut", "kill",
+    "move", "lift", "light", "suck", "feel", "touch", "turn", "go", "enter",
+    "smell", "push", "pull", "press", "shake", "kick", "hit", "clear",
+    "punch", "fight", "jump", "feed", "unblock", "block", "unlock", "lock",
+    "climb", "listen", "shout", "sing", "hum", "dance", "whistle", "cry",
+    "wait", "examine", "ex", "x", "buy", "sell", "break", "destroy", "smash",
+    "kiss", "fly", "feed", "feel", "please", "fix", "repair", "mend", "date",
+    "time", "sleep", "sit on", "sit in", "stand on", "stand in", "lie on",
+    "lie in", "xyzzy", NULL
+  };
+
+/*
+ * run_therest_arm_at()
+ *
+ * TRUE when one of therest()'s own verb arms begins at WORD.  Used to tell
+ * a line that reaches therest from one an earlier handler owns; the arms
+ * that need an empty message count too, being arms all the same.
+ */
+static scr_bool
+run_therest_arm_at (scr_int version, const scr_char *word)
+{
+  const scr_char *const *arm;
+
+  for (arm = (version == TAF_VERSION_390) ? THEREST_ARMS_390 : THEREST_ARMS_380;
+       *arm; arm++)
+    {
+      const scr_char *const entry = *arm + ((*arm)[0] == '?' ? 1 : 0);
+      const scr_int length = strlen (entry);
+
+      if (version < TAF_VERSION_380 && strcmp (entry, "shake") == 0)
+        continue;
+      if (scr_strncasecmp (word, entry, length) == 0
+          && (word[length] == NUL || word[length] == ' '))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+
 /*
  * run_therest_winner_pre400()
  *
@@ -2282,35 +2336,11 @@ static const scr_char *
 run_therest_winner_pre400 (scr_int version, const scr_char *line,
                            scr_int *offset)
 {
-  /* In therest() order; '?' marks an arm that needs an empty message. */
-  static const scr_char *const ARMS_380[] = {
-    "open", "close", "eat", "drink", "give", "ask", "talk to", "?talk",
-    "say", "look", "clean", "run", "stop", "read", "wash", "cut", "hit",
-    "kill", "move", "lift", "light", "suck", "feel", "turn", "go", "enter",
-    "smell", "push", "pull", "press", "shake", "clear", "clean", "kick",
-    "punch", "fight", "jump", "feed", "unblock", "?block", "unlock",
-    "?lock", "climb", "listen", "shout", "sing", "hum", "dance", "whistle",
-    "cry", "wait", "buy", "sell", "break", "destroy", "smash", "kiss", "fly",
-    "feed", "feel", "please", "fix", "repair", "mend", "date", "time",
-    "sleep", "sit on", "sit in", "stand on", "stand in", "lie on", "lie in",
-    NULL
-  };
-  static const scr_char *const ARMS_390[] = {
-    "open", "close", "eat", "drink", "give", "ask", "talk to", "?talk",
-    "say", "look", "clean", "run", "stop", "read", "wash", "cut", "kill",
-    "move", "lift", "light", "suck", "feel", "touch", "turn", "go", "enter",
-    "smell", "push", "pull", "press", "shake", "kick", "hit", "clear",
-    "punch", "fight", "jump", "feed", "unblock", "block", "unlock", "lock",
-    "climb", "listen", "shout", "sing", "hum", "dance", "whistle", "cry",
-    "wait", "examine", "ex", "x", "buy", "sell", "break", "destroy", "smash",
-    "kiss", "fly", "feed", "feel", "please", "fix", "repair", "mend", "date",
-    "time", "sleep", "sit on", "sit in", "stand on", "stand in", "lie on",
-    "lie in", "xyzzy", NULL
-  };
   const scr_char *const *arm;
   const scr_char *winner = NULL;
 
-  for (arm = (version == TAF_VERSION_390) ? ARMS_390 : ARMS_380; *arm; arm++)
+  for (arm = (version == TAF_VERSION_390) ? THEREST_ARMS_390 : THEREST_ARMS_380;
+       *arm; arm++)
     {
       const scr_bool needs_empty = (*arm)[0] == '?';
       const scr_char *const word = *arm + (needs_empty ? 1 : 0);
@@ -2367,6 +2397,15 @@ run_therest_pre400 (scr_gameref_t game, const scr_char *string)
       || (offset == 0
           && !(strcmp (winner, "look") == 0
                && lib_look_is_not_examine_pre390 (game))))
+    return FALSE;
+
+  /*
+   * generaltasks calls takes, drops, wears, removes and examines ahead of
+   * therest, so a line naming any of them never reaches these arms at all;
+   * see lib_earlier_handler_claims_pre400().  The 3.7 refusal above this
+   * one has always known it (run_therest_absent_370's EARLIER list).
+   */
+  if (lib_earlier_handler_claims_pre400 (game, string))
     return FALSE;
 
   if (strcmp (winner, "look") == 0 || strcmp (winner, "examine") == 0
@@ -2863,6 +2902,7 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
 {
   const scr_char *scan, *found = NULL;
   const scr_char *found_at = NULL;
+  const scr_char *body = NULL;
 
   if (!string || string[0] == NUL)
     return FALSE;
@@ -2898,9 +2938,31 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
       verb = run_hoist_any_verb_at (game, scan);
       if (!verb)
         continue;
-      /* The head is the anchored pass's, and it has already declined. */
-      if (scan == string)
+      /*
+       * The head is the anchored pass's, and it has already declined --
+       * unless it is one of therest()'s own arms below 4.0, which
+       * generaltasks does not reach until the five anchored handlers have
+       * had the line: with the coin in hand `push take coin` is "You've
+       * already got a coin!", not the push arm's "but nothing happens",
+       * and `push examine coin` is the coin's description at 3.7, 3.8 and
+       * 3.9 alike.  p3xREW cmdfile_p2verb.txt cells 31, 35 and 39
+       * (Adrift_251_2v37.rtf, 252_2v38.rtf, 253_2v39.txt, 2026-09-21).
+       */
+      if (scan == string
+          && !(run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+               && !run_hoist_verb_at (game, scan)
+               && run_therest_arm_at (run_get_version (gs_get_bundle (game)),
+                                      scan)))
         return FALSE;
+      if (scan == string)
+        {
+          /* The arm word plays no part in the handler's own c() walk, so
+             it goes with the head rather than into the object clause:
+             3.9's drops row wants `drop coin`, not `drop push coin`. */
+          body = scan + strlen (verb);
+          body += strspn (body, " ");
+          continue;
+        }
       /* Two verbs: the Runner's order decides, and it is not measured. */
       if (found)
         return FALSE;
@@ -2914,7 +2976,9 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
     return FALSE;
 
   hoisted = found;
-  const std::string head (string, found_at - string);
+  if (!body)
+    body = string;
+  const std::string head (body, found_at > body ? found_at - body : 0);
   const std::string tail (found_at + strlen (found));
 
   if (!head.empty ())

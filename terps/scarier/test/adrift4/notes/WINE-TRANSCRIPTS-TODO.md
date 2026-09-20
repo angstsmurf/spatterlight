@@ -629,6 +629,34 @@ transcript names are in the code comment next to the named function, in
   last is the one two-verb cell `x take off hat` worn, in the open list
   above. The feeds now stand at 1/0/1.
 
+- **Below 4.0 a therest verb never outranks the five handlers, wherever it
+  stands.** The other side of the same coin: therest() is the LAST thing
+  generaltasks calls (run390 45D465, below 45F439's run of handler calls),
+  so a line naming any of takes/drops/wears/removes/examines is answered by
+  that handler and the verb cascade never sees it -- even when the therest
+  word OPENS the line and the handler's word comes after it. With the coin
+  in hand `push take coin` is "You've already got a coin!"; with it on the
+  floor `push drop coin` is "You don't have a coin!"; and `push examine
+  coin` is the coin's description at 3.7, 3.8 AND 3.9, where Scarier used
+  to answer 3.9's own therest examine arm, "Nothing special.". run370's
+  absent-object refusal already knew the rule -- `run_therest_absent_370`
+  skips a line holding any earlier handler's word -- it just never reached
+  the verb arms below it. p3xREW `cmdfile_p2verb.txt` cells 31, 35 and 39
+  (Adrift_251_2v37.rtf, 252_2v38.rtf, 253_2v39.txt, 2026-09-21). PORTED in
+  `run_hoist_verb_line()`: below 4.0 a head that is one of therest's own
+  arms (`run_therest_arm_at()`, over the tables the winner scan already
+  had) no longer stops the hoist, and the arm word goes with the head
+  rather than into the object clause, because the handler's c() walk never
+  looked at it -- 3.9's drops row wants `drop coin`, not `drop push coin`.
+  The three feeds go 4/6/4 -> 1/1/4 mismatches, 428/428 and the Wine sweep
+  byte-identical. What is left: the `x take off hat` cell in the open list
+  above (3.7 and 3.9), `put on <loose thing>` at 3.8/3.9 -- the Runner says
+  "You can't do that!" where Scarier says "You are not holding the coin."
+  -- and 3.9's `wear examine` / `examine wear` with NOTHING named, which is
+  "Nothing special." there and "Wear what?" at 3.7 and 3.8, so 3.9's
+  examines arm fills an empty buffer where its elders left the question
+  standing.
+
 - **"Already wearing" is never contracted, and below 4.0 the wear arm
   leaves the sentence open.** Every Runner builds this message the same
   way, `<pronoun> & " " & <are> & " already wearing " & <name>` -- takes at

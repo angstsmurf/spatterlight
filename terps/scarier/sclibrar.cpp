@@ -17246,22 +17246,19 @@ static const scr_char *const LIB_PRE400_CANONICAL[LIB_PRE400_HANDLERS] = {
   "take", "drop", "wear", "remove", "examine"
 };
 
-scr_bool
-lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
-                          std::string *rewritten)
+/*
+ * The five entry tests themselves, as each handler's own c() calls spell
+ * them (takes run380 4421A3, drops 4421B8, wears 4421E9, removes 4421F5,
+ * examines 441F9A).  Counts the handlers the line would enter.
+ */
+static scr_int
+lib_pre400_handler_words (scr_gameref_t game, const scr_char *line,
+                          scr_bool present[LIB_PRE400_HANDLERS])
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
-  scr_bool present[LIB_PRE400_HANDLERS], acts[LIB_PRE400_HANDLERS];
-  scr_int handler, object, found, count;
-  const scr_char *scan;
-  std::string rest;
+  scr_int handler, count;
 
 #define LIB_PRE400_C(word) (run_c_word_pre400 (version, line, (word)) >= 0)
-
-  if (version >= TAF_VERSION_400 || !line || line[0] == NUL)
-    return FALSE;
-  if (LIB_PRE400_C ("all") || LIB_PRE400_C ("and"))
-    return FALSE;
 
   present[LIB_PRE400_TAKE] = LIB_PRE400_C ("get") || LIB_PRE400_C ("take")
                              || (LIB_PRE400_C ("pick")
@@ -17282,6 +17279,59 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
   count = 0;
   for (handler = 0; handler < LIB_PRE400_HANDLERS; handler++)
     count += present[handler] ? 1 : 0;
+  return count;
+
+#undef LIB_PRE400_C
+}
+
+
+/*
+ * lib_earlier_handler_claims_pre400()
+ *
+ * TRUE when the line names one of the five handlers generaltasks calls
+ * ahead of therest(), so therest's verb cascade never gets to speak for it.
+ * run370's therest already knew this -- its absent-object refusal skips a
+ * line holding any earlier handler's word (run_therest_absent_370) -- and
+ * the verb arms below it are the same story at every pre-4.0 version: with
+ * the coin in hand `push take coin` is "You've already got a coin!" and
+ * `push drop coin` (coin on the floor) "You don't have a coin!", not the
+ * push arm's "but nothing happens", and `push examine coin` is the coin's
+ * description at 3.7, 3.8 AND 3.9 -- where Scarier answered 3.9's own
+ * therest examine arm, "Nothing special.".  p3xREW cmdfile_p2verb.txt cells
+ * 31, 35 and 39 (Adrift_251_2v37.rtf, 252_2v38.rtf, 253_2v39.txt,
+ * 2026-09-21).
+ */
+scr_bool
+lib_earlier_handler_claims_pre400 (scr_gameref_t game, const scr_char *line)
+{
+  scr_bool present[LIB_PRE400_HANDLERS];
+
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      || !line || line[0] == NUL)
+    return FALSE;
+
+  return lib_pre400_handler_words (game, line, present) > 0;
+}
+
+
+scr_bool
+lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
+                          std::string *rewritten)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  scr_bool present[LIB_PRE400_HANDLERS], acts[LIB_PRE400_HANDLERS];
+  scr_int handler, object, found, count;
+  const scr_char *scan;
+  std::string rest;
+
+#define LIB_PRE400_C(word) (run_c_word_pre400 (version, line, (word)) >= 0)
+
+  if (version >= TAF_VERSION_400 || !line || line[0] == NUL)
+    return FALSE;
+  if (LIB_PRE400_C ("all") || LIB_PRE400_C ("and"))
+    return FALSE;
+
+  count = lib_pre400_handler_words (game, line, present);
   if (count < 2)
     return FALSE;
 
