@@ -6360,7 +6360,8 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_bool requires_seen = lib_matcher_requires_seen (game);
-  const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int taf_version = prop_get_taf_version (bundle);
   scr_int count, index_, object, listed;
 
   /*
@@ -6425,12 +6426,20 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * mode 1 (loose in the room) and drops() mode 2 (isheld), which do
    * narrow.  Measured on p38TASK/p39TASK (Adrift_184_pname_38.rtf,
    * Adrift_182_pname2_38.rtf, Adrift_185_pname_39.txt,
-   * Adrift_185_pname2_39.txt, 2026-09-19).  3.9's examine keeps its own
-   * "Nothing special." below.
+   * Adrift_185_pname2_39.txt, 2026-09-19).
+   *
+   * 3.9's examine narrows the same way -- referencedob() (42DF43) calls the
+   * same co(obj, 0), so the last Prefix word settles a crowd for it too:
+   * `x tree red` with trees Prefixed "a red" and "a blue" is "A red tree."
+   * (p39PFX, run390x Adrift_1211 turn 17, 2026-09-20).  What it does NOT
+   * do is answer when the word narrows nothing: there co() is false for
+   * every candidate, referencedob() counts none, and examines() keeps its
+   * own "Nothing special." below, under the end-of-turn "Which tree."
    */
+  const scr_bool examine_390 = taf_version >= TAF_VERSION_390
+                               && strcmp (verb, "examine") == 0;
   if (count > 1 && taf_version >= TAF_VERSION_380
-      && taf_version < TAF_VERSION_400 && run_get_dispatch_input ()
-      && !(taf_version >= TAF_VERSION_390 && strcmp (verb, "examine") == 0))
+      && taf_version < TAF_VERSION_400 && run_get_dispatch_input ())
     {
       const scr_char *line = run_get_dispatch_input ();
       scr_int mode = 0, kept = 0;
@@ -6448,7 +6457,7 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
               && lib_co_pre400 (game, line, index_, mode))
             kept++;
         }
-      if (kept == 0
+      if (kept == 0 && !examine_390
           && lib_runner_co_scan (game, line, NULL, NULL, NULL))
         {
           /* Every candidate refused; the prompt is the turn's answer. */
@@ -6805,6 +6814,10 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * lib_co_ambiguity_prompt() prints replaces it when no task ran;
    * cybercow_win T118 `x berry` is the case where the "#Rain" event's task
    * did run.
+   *
+   * When co() is true for SEVERAL, referencedob() runs a second pass and
+   * examines() answers "Please examine one object at a time."; the crowd
+   * never reaches here, lib_examine_crowded_390() takes it first.
    */
   if (lib_is_version_390 (game) && strcmp (verb, "examine") == 0)
     {
@@ -8265,6 +8278,81 @@ lib_examine_tail (scr_gameref_t game, scr_int object, scr_bool is_described)
 }
 
 /*
+ * lib_examine_crowded_390()
+ *
+ * 3.9's examines() never asks the parser which object the line meant: it
+ * calls referencedob() (42DEF8) and takes what that returns.  Pass one
+ * counts the objects co(obj, 0) accepts -- Short or Alias in the line,
+ * then the present-and-seen namesake count, then the last word of the
+ * object's own Prefix (lib_co_pre400).  None is -1 ("Nothing special.");
+ * one is the answer.  MORE than one runs a second pass (42DF60-42DFD4)
+ * that is nothing like the first: it walks EVERY object in the game,
+ * present or not, seen or not, and keeps the ones whose Short or FIRST
+ * Alias is exactly lastword(line) -- the last space-delimited word typed.
+ * Exactly one survivor is the answer; anything else returns &HFE = -2 and
+ * examines() prints "Please examine one object at a time." (44BFA9), the
+ * line a bare `x all` gets.
+ *
+ * MEASURED p39PFX2 (run390x, Adrift_1213, 2026-09-20): three trees, all
+ * Short "tree", Prefixed "a big red", "a red" and "the red".  `x red
+ * tree`, `x a red tree`, `x the red tree` and `x big red tree` all type
+ * the last Prefix word "red" that all three share, so pass one keeps
+ * three and the second finds three Shorts "tree" -- "Please examine one
+ * object at a time." every time, the multi-word "big red tree" no help at
+ * all (the Runner has no such form; only 4.0 scores whole Prefixes, and
+ * p4PFX2 answers "A big red tree." there).  `x tree`, `x big tree` and `x
+ * a tree` type no last-Prefix word, so pass one keeps none and the turn is
+ * the ordinary "Which tree.  The big red tree, the red tree or the red
+ * tree?"  p39PFX turn 17 `x tree red` is the one-survivor case: "A red
+ * tree.".
+ *
+ * Returns the object, -2 for "one object at a time", or -3 when pass one
+ * kept fewer than two and the ordinary path should run.
+ */
+static scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
+                               scr_int object, scr_int mode);
+
+static scr_int
+lib_examine_crowded_390 (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_char *tail;
+  scr_int index_, kept, matches, match;
+
+  if (!lib_is_version_390 (game) || !line)
+    return -3;
+
+  kept = 0;
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    if (lib_co_pre400 (game, line, index_, 0))
+      kept++;
+  if (kept < 2)
+    return -3;
+
+  tail = lib_co_lastword (line);
+  matches = 0;
+  match = -1;
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      scr_vartype_t vt_key[4];
+      const scr_char *name;
+
+      name = prop_get_indexed_string (bundle, "Objects", index_, "Short");
+      if (!(name && scr_strcasecmp (name, tail) == 0))
+        {
+          name = lib_first_alias (bundle, vt_key, "Objects", index_);
+          if (!(name && name[0] != NUL && scr_strcasecmp (name, tail) == 0))
+            continue;
+        }
+      matches++;
+      match = index_;
+    }
+
+  return matches == 1 ? match : -2;
+}
+
+/*
  * lib_cmd_examine_object()
  *
  * Show the long description of the most recently referenced object.
@@ -8287,10 +8375,20 @@ lib_cmd_examine_object (scr_gameref_t game)
   if (lib_examine_tied_absent_400 (game))
     return TRUE;
 
-  /* Get the referenced object, and if none, consider complete. */
-  object = lib_disambiguate_object (game, "examine", &is_ambiguous);
-  if (object == -1)
-    return is_ambiguous;
+  /* 3.9's referencedob() settles a crowd of co()-true objects itself. */
+  object = lib_examine_crowded_390 (game);
+  if (object == -2)
+    return lib_print_message (game,
+                              "Please examine one object at a time.\n");
+  if (object >= 0)
+    var_set_ref_object (gs_get_vars (game), object);
+  else
+    {
+      /* Get the referenced object, and if none, consider complete. */
+      object = lib_disambiguate_object (game, "examine", &is_ambiguous);
+      if (object == -1)
+        return is_ambiguous;
+    }
 
   /*
    * Examining an object marks it seen.  This can matter in version 3.8
@@ -26149,6 +26247,68 @@ lib_ask_format_character (scr_gameref_t game)
  * "character most recently named by a command" register, which SCARE has no
  * equivalent of.
  */
+/*
+ * lib_pre_400_ask_column()
+ *
+ * run390 459882 and its 3.7/3.8 twins open the characters() conversation
+ * block with a POSITION test, the one place in the whole handler that cares
+ * where in the line a character is named:
+ *
+ *   var_1EC = c("ask") And InStr(line, LCase(Name)) <> 5
+ *                      And InStr(line, LCase(Alias(0))) <> 5
+ *   If var_1EC Then GoTo <past the block>          ' 459895
+ *   var_1EC = c("talk to") And InStr(line, LCase(Name)) <> 9
+ *                          And InStr(line, LCase(Alias(0))) <> 9
+ *   If var_1EC Then GoTo <past the block>          ' 45992F
+ *
+ * so the name has to start the moment "ask " or "talk to " ends -- column 5
+ * and column 9, 1-based.  Everything else in characters() is containment:
+ * the talk-to hint arm just above (45975C-4597D7) has no position test at
+ * all, which is why `talk to blue guard` still answers 'Use the format "ask
+ * Cid about [subject]".' while `ask blue guard about key` falls past the
+ * block to therest's seed, "You can't talk to that.".  run400 47F8F7 has no
+ * such test: 4.0 binds the character by containment and settles a crowd
+ * with the Prefix contest, so `ask blue guard about key` is "BOB KEY.".
+ *
+ * MEASURED p39PFX (run390x, Adrift_1211) against p4PFX (run400x,
+ * Adrift_1210), cmdfile_ppfx.txt turns 7 and 8.
+ */
+static scr_bool
+lib_pre_400_ask_column (scr_gameref_t game, scr_int npc, scr_int column)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *line = run_get_dispatch_input ();
+  scr_vartype_t vt_key[4];
+  scr_int form;
+
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+    return TRUE;
+  if (!line || (scr_int) strlen (line) <= column)
+    return FALSE;
+
+  for (form = 0; form < 2; form++)
+    {
+      const scr_char *name;
+      scr_int posn, length;
+
+      name = form == 0
+             ? prop_get_indexed_string (bundle, "NPCs", npc, "Name")
+             : lib_first_alias (bundle, vt_key, "NPCs", npc);
+      if (!name || name[0] == '\0')
+        continue;
+
+      /* InStr: the FIRST occurrence is the one that has to sit at column. */
+      length = strlen (name);
+      for (posn = 0; line[posn] != '\0'; posn++)
+        if (scr_strncasecmp (line + posn, name, length) == 0)
+          break;
+      if (line[posn] != '\0' && posn == column)
+        return TRUE;
+    }
+
+  return FALSE;
+}
+
 scr_bool
 lib_cmd_ask_npc (scr_gameref_t game)
 {
@@ -26159,6 +26319,10 @@ lib_cmd_ask_npc (scr_gameref_t game)
   npc = lib_disambiguate_npc_pick (game, "ask", &is_ambiguous, NPC_PICK_LAST);
   if (npc == -1)
     return is_ambiguous;
+
+  /* Pre-4.0 wants the name at column 5, right after "ask ". */
+  if (!lib_pre_400_ask_column (game, npc, 4))
+    return FALSE;
 
   /* Incomplete ask command, so offer help and return. */
   lib_print_wrapped_npc (game, "Use the format \"ask ",

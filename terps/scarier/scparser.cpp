@@ -2140,6 +2140,7 @@ uip_build_entities (std::vector<scr_uip_entity_t> &entities,
                     const scr_char *class_key, const scr_char *name_key)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_bool is_npc_class = strcmp (class_key, "NPCs") == 0;
   scr_int index_;
 
   entities.clear ();
@@ -2156,6 +2157,20 @@ uip_build_entities (std::vector<scr_uip_entity_t> &entities,
       vt_key[1].integer = index_;
       vt_key[2].string = "Prefix";
       prefix = prop_get_string (bundle, "S<-sis", vt_key);
+      /*
+       * A character's Prefix is 4.0's alone.  Below it, characters() knows
+       * a character by `c(Name) Or c(Alias(0))` and nothing else (run390
+       * 459109), and the Prefix is read only to compose an answer -- there
+       * is no lastword() test for characters the way there is for objects
+       * (run390 42DA40 is called from co() only).  So `x blue guard` at 3.9
+       * is just `x guard`, Cid, and `ask blue guard about key` is "You
+       * can't talk to that." -- p39PFX, run390x Adrift_1211, 2026-09-20.
+       * 4.0 keeps the forms: they lose nothing there, since 454454's
+       * Prefix contest settles the same crowd (p4PFX, Adrift_1210).
+       */
+      if (is_npc_class
+          && prop_get_taf_version (bundle) < TAF_VERSION_400)
+        prefix = "";
       vt_key[2].string = name_key;
       name = prop_get_string (bundle, "S<-sis", vt_key);
       uip_build_candidate (&entity.name, prefix, name);
@@ -2472,11 +2487,19 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * word order.  p4PFX.taf has Ann "a red", Bob "a blue" and Cid "a red" all
    * aliased "guard": run400 answers `x guard blue` with Bob's description
    * (Adrift_1210, 2026-09-20), where a positional match sees no candidate
-   * at all and we used to say "You see no such thing."  Pre-4.0 keeps the
-   * positional match; its characters() has no contest and the last NPC in
-   * index order wins outright (run390x Adrift_1211/1213).
+   * at all and we used to say "You see no such thing."
    *
-   * Only a PRESENT, SEEN character binds.  npc_in_command's loop at 45E6C5
+   * Pre-4.0 binds a trailing %character% by containment too -- run390's
+   * characters() enters the per-NPC block on `c(Name) Or c(Alias(0))`
+   * anywhere in the line (run390 459109, run380 4401AA) -- and, having no
+   * contest, simply lets the last NPC in index order win: run390 answers
+   * `x blue guard`, `x a blue guard` and a bare `blue guard` with Cid's
+   * description, the same as `x guard` (Adrift_1211).  What it does NOT
+   * have is a "<Prefix> <Name>" form to match positionally; see
+   * uip_build_entities(), which builds those from 4.0 only.
+   *
+   * At 4.0 only a PRESENT, SEEN character binds.  npc_in_command's loop
+   * at 45E6C5
    * counts the characters answering to the matched word that stand in the
    * player's room (var_DC(14) = Me(92)) and are seen (var_DC(26) = 1), and
    * mode 0 -- the mode every reference site uses, the examine scan at
@@ -2496,10 +2519,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    */
   const scr_bool contain = uip_containment_enabled
                            && !uip_strict_reference
-                           && uip_nothing_follows (node)
-                           && (!is_character
-                               || prop_get_taf_version (gs_get_bundle (game))
-                                  >= TAF_VERSION_400);
+                           && uip_nothing_follows (node);
   const scr_int input_end = strlen (uip_string);
 
   /*
@@ -2545,6 +2565,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
 
       /* npc_in_command mode 0: only a present, seen character binds. */
       if (pass > 0 && is_character
+          && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
           && !(gs_npc_seen (game, index)
                && npc_in_room (game, index, gs_playerroom (game))))
         continue;
