@@ -79,8 +79,7 @@ You are standing in the middle of the village square. There is a finely
 carved statue in it's centre.  One of the eyes catches your attention.  Perry
 the Ferryman is here.
 
-You can move north, east, south and west.
-You hear an owl
+You can move north, east, south and west.  You hear an owl
 
 > examine statue
 A finely carved statue of Saint Xion stands before you. The plaque explains
@@ -101,8 +100,7 @@ One of many fishing cottages that wasn't locked. It consists of one room up
 and one down. The sitting room is sparsely furnished with a table, chair and
 unlit fireplace. The room is not too comfortable and is quite drafty.
 
-You can move east, west and up.
-A rat scurries past your feet!
+You can move east, west and up.  A rat scurries past your feet!
 
 > examine fireplace
 You notice that the fireplace is full of ashes.
@@ -200,8 +198,7 @@ You are in a damp cellar. Barrels of ale are stored here along with hundreds
 of bottles of spirits. You see that to the south-east there is a passageway.
 Also here is a bottle of brandy.
 
-You can move up and southeast.
-A rat scurries past your feet!
+You can move up and southeast.  A rat scurries past your feet!
 
 > get brandy
 You take the bottle of brandy.
@@ -312,8 +309,7 @@ Village Centre
 You are standing in the middle of the village square. There is a finely
 carved statue in it's centre.  Perry the Ferryman is here.
 
-You can move north, east, south and west.
-You hear an owl
+You can move north, east, south and west.  You hear an owl
 
 > s
 You move south.
@@ -399,8 +395,8 @@ your foot through the floor of it, but amazingly it still floats. A small
 plaque says that this boat is owned by Perry the Ferryman.  The  ferry boat
 is moored and locked by a sturdy rusty lock and chains.
 
-You can only move east.
-Black waves churn in the sea sending a fine mist into the air.
+You can only move east.  Black waves churn in the sea sending a fine mist
+into the air.
 
 > open lock with boat key
 The lock opens and the chains fall into the sea, freeing the boat. You leave
@@ -471,8 +467,8 @@ Outside Lighthouse
 You are standing on large craggy rocks which is constantly beaten by the
 waves from all angles. To the west there is a light house.
 
-You can move east and west.
-Black waves churn in the sea sending a fine mist into the air.
+You can move east and west.  Black waves churn in the sea sending a fine mist
+into the air.
 
 > e
 You move east.
@@ -508,8 +504,8 @@ hospitable at all. The timbers of the pier are worn away from the constant
 battering of the sea. To the east you can see a dilapidated boat house and to
 the west there is a boat.
 
-You can move north, east and west.
-Black waves churn in the sea sending a fine mist into the air.
+You can move north, east and west.  Black waves churn in the sea sending a
+fine mist into the air.
 
 > n
 You move north.
@@ -610,8 +606,7 @@ tree. As you look up, you see thick branches above swaying in the breeze with
 a rope ladder hanging down from them. To the west you can see the village
 library.
 
-You can move east and west.
-You hear an owl
+You can move east and west.  You hear an owl
 
 > look
 
@@ -655,9 +650,8 @@ tree. As you look up, you see thick branches above swaying in the breeze with
 a rope ladder hanging down from them. To the west you can see the village
 library.
 
-You can move east, west and up.
-You hear a clap of thunder. The mist around you glows briefly.  You hear an
-owl
+You can move east, west and up.  You hear a clap of thunder. The mist around
+you glows briefly.  You hear an owl
 
 > e
 You move east.
@@ -686,8 +680,7 @@ One of many fishing cottages that wasn't locked. It consists of one room up
 and one down. The sitting room is sparsely furnished with a table, chair and
 unlit fireplace. The room is not too comfortable and is quite drafty.
 
-You can move east, west and up.
-A rat scurries past your feet!
+You can move east, west and up.  A rat scurries past your feet!
 
 > u
 You move up.
@@ -728,8 +721,7 @@ One of many fishing cottages that wasn't locked. It consists of one room up
 and one down. The sitting room is sparsely furnished with a table, chair and
 unlit fireplace. The room is not too comfortable and is quite drafty.
 
-You can move east, west and up.
-A rat scurries past your feet!
+You can move east, west and up.  A rat scurries past your feet!
 
 > e
 You move east.
@@ -833,8 +825,7 @@ mist covers the ground and glows in the light. There is one grave right in
 the middle. The stone is large and finely engraved with carvings of a sword
 and shield.
 
-You can only move west.
-You hear an owl  A rat scurries past your feet!
+You can only move west.  You hear an owl  A rat scurries past your feet!
 
 > look
 
@@ -845,8 +836,8 @@ mist covers the ground and glows in the light. There is one grave right in
 the middle. The stone is large and finely engraved with carvings of a sword
 and shield.
 
-You can only move west.
-You hear a clap of thunder. The mist around you glows briefly.
+You can only move west.  You hear a clap of thunder. The mist around you
+glows briefly.
 
 > dig grave with spade
 You start digging up the grave, stopping every now and again to wipe your
@@ -867,8 +858,7 @@ before you. The laughing skull of the corpse stares up at you. You decide not
 to disturb the body any further in fear of being cursed.  Also here is a
 shiny shield.
 
-You can only move up.
-A rat scurries past your feet!
+You can only move up.  A rat scurries past your feet!
 
 > get shield
 You take the shiny shield.
@@ -893,8 +883,7 @@ Village Centre (north)
 Just a small clearing here. To the east is a cemetery, to the west is an inn,
 and to the north is a gate.  Old Man Toomey is here.
 
-You can move north, east, south and west.
-You hear an owl
+You can move north, east, south and west.  You hear an owl
 
 > n
 You move north.
@@ -943,9 +932,8 @@ Mountain Path (west)
 A plain mountain wall lies northwards covered with lichen. Soft snow crunches
 underfoot.
 
-You can move east and west.
-Soft flakes of snow start to fall from the clear sky. The wind makes them
-dance around you.
+You can move east and west.  Soft flakes of snow start to fall from the clear
+sky. The wind makes them dance around you.
 
 > use monocle
 When you hold the monocle to your eye you see that red outline appears on the
@@ -1059,14 +1047,14 @@ You move south.
 Orc Entrance
 This is the Orc security post to the caves.
 
-You can move north, east and west.
-As you walk into the room you  are greeted by an astonishing sight. Some Orcs
-start to charge towards you, but the bracelet starts to pulsate. Even in your
-pocket it emits a green shield like glow. Suddenly, a green bolt fires from
-your body and hits one of the Orcs. It then starts to hit the next, and the
-next, chaining them together and dragging them towards the ground like some
-huge green serpent. You see that they are actually sinking into the solid
-stone floor. As quickly as it started, it finishes, leaving only silence.
+You can move north, east and west.  As you walk into the room you  are
+greeted by an astonishing sight. Some Orcs start to charge towards you, but
+the bracelet starts to pulsate. Even in your pocket it emits a green shield
+like glow. Suddenly, a green bolt fires from your body and hits one of the
+Orcs. It then starts to hit the next, and the next, chaining them together
+and dragging them towards the ground like some huge green serpent. You see
+that they are actually sinking into the solid stone floor. As quickly as it
+started, it finishes, leaving only silence.
 
 > e
 You move east.

@@ -1499,10 +1499,9 @@ Time passes...
 
 > wait
 Time passes...
-Short Guard walks in from the south.
-As the guard enters the room, he walks over to the control panel and begins
-pressing buttons and flipping various switches, muttering to himself as he
-does so.
+Short Guard walks in from the south.  As the guard enters the room, he walks
+over to the control panel and begins pressing buttons and flipping various
+switches, muttering to himself as he does so.
 
 > wait
 Time passes...

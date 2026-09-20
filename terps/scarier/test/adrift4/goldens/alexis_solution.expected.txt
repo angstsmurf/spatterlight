@@ -186,9 +186,9 @@ This cave is huge and the walls glitter with the water trickling down. There
 is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
-blocked by a large troll.  Narfild is here.  Serond follows you.
-Serond shoots the large troll with the oak staff.  The large troll hits
-Serond with the large club.
+blocked by a large troll.  Narfild is here.  Serond follows you.  Serond
+shoots the large troll with the oak staff.  The large troll hits Serond with
+the large club.
 
 > e
 You move east.
@@ -221,8 +221,7 @@ is a musty smell that fills the air. There is a large cave east of here and a
 smaller one to the west. Northwest takes you into a winding passage.
 Southeast takes you down a straight passage.  The path northwest is being
 blocked by a large troll.  Narfild is here.  Serond follows you from the
-east.
-Serond shoots the large troll with the oak staff.
+east.  Serond shoots the large troll with the oak staff.
 
 > w
 You move west.
@@ -258,8 +257,8 @@ It is too dark to see.  Serond follows you from the west.
 You move east.
 
 Main Cave
-It is too dark to see.  Serond follows you from the west.
-Serond shoots the large troll with the oak staff.
+It is too dark to see.  Serond follows you from the west.  Serond shoots the
+large troll with the oak staff.
 
 > attack narfild
 You hit the large troll with the magic cube.
@@ -341,9 +340,9 @@ The ground is extremely boggy here. Every footstep is a difficult strain.
 With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
-direction.  The Longmore marsh king is here.  Serond follows you.
-Serond shoots a swamp monster with the oak staff.  A swamp monster stabs you
-with the pointy stick.
+direction.  The Longmore marsh king is here.  Serond follows you.  Serond
+shoots a swamp monster with the oak staff.  A swamp monster stabs you with
+the pointy stick.
 
 > se
 You move southeast.
@@ -501,8 +500,8 @@ water is almost deafening. A mist of spray from the river blows against your
 face. The bridge is covered in Ivy and moss. The bridge crosses the river
 towards Kedarn forest to the northeast. West will take you to Tonerith
 junction.  There is a large dwarven bridgekeeper blocking your way across the
-bridge.  The Bridgekeeper is here.  Serond follows you.
-Serond shoots an angry dwarf with the oak staff.
+bridge.  The Bridgekeeper is here.  Serond follows you.  Serond shoots an
+angry dwarf with the oak staff.
 
 > attack bridgekeeper
 You hit an angry dwarf with the magic cube.  Serond shoots an angry dwarf
@@ -626,9 +625,9 @@ Kedarn forest clearing
 You stand in the middle of a barren circle. All around the trees seem to be
 closing in. West will take you down a tiny path. Another clearer path leads
 northwest.  You can also see the Kedarn stone.  There is a Forester Goblin
-hanging from a tree here.  Serond follows you.
-Serond shoots a forest dwelling goblin with the oak staff.  A forest dwelling
-goblin shoots you with the bow and arrow.
+hanging from a tree here.  Serond follows you.  Serond shoots a forest
+dwelling goblin with the oak staff.  A forest dwelling goblin shoots you with
+the bow and arrow.
 
 > attack goblin
 You hit a forest dwelling goblin with the magic cube.
@@ -679,9 +678,9 @@ The ground is extremely boggy here. Every footstep is a difficult strain.
 With all the water, it is difficult to see where any path goes. As you trudge
 through the marsh your eyes are fixed to the ground to try and be able to get
 through the ground. You can trudge northwest, southeast or attempt another
-direction.  The Longmore marsh king is here.  Serond follows you.
-Serond shoots a swamp monster with the oak staff.  A swamp monster stabs you
-with the pointy stick.
+direction.  The Longmore marsh king is here.  Serond follows you.  Serond
+shoots a swamp monster with the oak staff.  A swamp monster stabs you with
+the pointy stick.
 
 > attack monster
 You hit a swamp monster with the magic cube.  Serond shoots a swamp monster
@@ -745,8 +744,8 @@ You are standing on the edge of a huge ravine. Below you the cliff drops
 about 60ft down onto jagged rocks. The ravine is about 30ft wide and
 impossible to jump across. Jumping down would result in immediate death. West
 will take you along a path.  There is an eagle above you circling around your
-head.  Serond follows you from the west.
-Serond shoots a large eagle with the oak staff.  A large eagle hits Serond.
+head.  Serond follows you from the west.  Serond shoots a large eagle with
+the oak staff.  A large eagle hits Serond.
 
 > attack eagle
 You hit a large eagle with the magic cube.
@@ -795,8 +794,8 @@ You move northeast.
 
 Nelone mountain pass
 This long path threads through the mountains east or to a junction southwest.
- There is a Narn here.  Serond follows you.
-Serond shoots the little Narn with the oak staff.  The little Narn hits you.
+ There is a Narn here.  Serond follows you.  Serond shoots the little Narn
+with the oak staff.  The little Narn hits you.
 
 > e
 You move east.
@@ -864,8 +863,8 @@ Uron Dark Path
 This long path is completely shadowed. The little light that there is comes
 from far off in the distance. There are sharp jagged rocks on each side of
 the path. West will take you towards the bridge. Northeast will take you
-further up the mountain.  Serond follows you from the west.
-You get up and start walking again.
+further up the mountain.  Serond follows you from the west.  You get up and
+start walking again.
 
 > ne
 You move northeast.
@@ -917,8 +916,8 @@ The hall is huge and has Gargoyles around the ceiling. When looking at one,
 another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Serond
-follows you from the south.
-Serond shoots the dark knight with the oak staff.  Haron follows you.
+follows you from the south.  Serond shoots the dark knight with the oak
+staff.  Haron follows you.
 A knight catches up to you and smiles. Clearing his throat he says:
 " I am Haron, I have been sent by Queen Natalya to aid you in your quest. I
 have brought a gift from Natalya."  Haron hands you a phial.  The dark knight
@@ -1064,9 +1063,8 @@ the North.  Serond follows you.  Haron follows you.
 > north
 As you pass through the door, Urgorn creates a spell that shuts the exit to
 the South. He then smiles, and says:
- Just us now, no escape.  Serond follows you from the south.
-Serond shoots the dark lord with the oak staff.  Haron follows you from the
-south.
+ Just us now, no escape.  Serond follows you from the south.  Serond shoots
+the dark lord with the oak staff.  Haron follows you from the south.
 
 > attack urgorn
 You hit the dark lord with the magic cube.  Serond shoots the dark lord with

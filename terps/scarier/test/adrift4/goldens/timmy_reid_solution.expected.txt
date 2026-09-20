@@ -353,9 +353,9 @@ You move east.
 You are standing on Oakland Ave at the top of the cottage side yard.  To the
 south is the ball field behind the Salvation Army building.  Hovey is here.
 Hovey shuffles off to the north.  The faint odor of snappers wafts towards
-you from the west.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
+you from the west.  Electricity rips through your spine as your ears are
+attacked by one of Art's coughing fits.  It ends after several seconds and
+you wonder if he's dead.
 
 > n
 You move north.

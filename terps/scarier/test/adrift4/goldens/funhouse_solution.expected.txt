@@ -130,8 +130,7 @@ Enter Hall of Mirrors
 This room is full of mirrors. There is a door somewhere here. You have time,
 find it!  Brat Kid is here.
 
-You can move north, south and west.
-You manage to avoid Brat Kid's attack.
+You can move north, south and west.  You manage to avoid Brat Kid's attack.
 
 > west
 You move west.

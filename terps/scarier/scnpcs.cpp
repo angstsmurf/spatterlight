@@ -797,7 +797,11 @@ npc_announce (scr_gameref_t game, scr_int npc,
         pf_buffer_string (filter, " from ");
       pf_buffer_string (filter, dir);
     }
-  pf_buffer_string (filter, ".\n");
+  /* The Runner's string stops at the full stop: the newline is ours, so the
+     next thing the tick prints -- a meet task's text, an event, another
+     walker -- joins onto the announcement rather than opening a line. */
+  pf_buffer_character (filter, '.');
+  pf_buffer_answer_break (filter);
 
   /* Handle any associated resource. */
   vt_key[0].string = "NPCs";
@@ -865,7 +869,8 @@ npc_announce_hidden (scr_gameref_t game, scr_int npc)
   pf_buffer_join_always (filter, name);
   pf_buffer_character (filter, ' ');
   pf_buffer_string (filter, text);
-  pf_buffer_string (filter, ".\n");
+  pf_buffer_character (filter, '.');
+  pf_buffer_answer_break (filter);
 
   /* No resource here: unlike the two announcements above, neither run370's
      loc_4397A3 nor run400's loc_468CF9 touches the NPC's Res entries. */

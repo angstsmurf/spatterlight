@@ -82,7 +82,6 @@ Corridor split into four. Exits to North, West and South.
 To east is bathroom, but door is closed.
 
 SoMorph can move north, south and west.
-
 Somorph thinking that Brian did this.
 
 Brian not like Somorph. Brian rival for Somorph's job on home planet
@@ -107,7 +106,6 @@ Corridor split into four. Exits to North, West and South.
 To east is bathroom, but door is closed.
 
 SoMorph can move north, south and west.
-
 Or maybe SoMorph got drunk?
 
 Somorph cannot remember much. Just in case, SoMorph will have words with

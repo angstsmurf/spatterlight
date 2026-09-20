@@ -274,7 +274,6 @@ voir un coffre en bois.
 Un assassin est tapis dans l'ombre...
 
 Vous pouvez seulement vous déplacer vers l'Ouest.
-
 Vous arrivez à éviter le poignard de l'assassin.
 
 > attack assassin
@@ -1102,7 +1101,6 @@ Un petit homme à l'air hautin est devant la porte.
 Un skinned est ici.  Un truant du chaos est ici, l'air menaçant.
 
 Sorties évidentes: Nord-Est et Sud-Ouest.
-
 Vous arrivez à éviter l'attaque du skinned.
 Vous arrivez à éviter l'attaque du truant.
 

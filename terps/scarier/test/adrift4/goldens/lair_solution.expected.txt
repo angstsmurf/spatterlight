@@ -3339,9 +3339,8 @@ Perhaps you had best proceed cautiously.
 
 Exits lie: southwest (to the feasthall) and northeast (to the statue)
 
-Garrick walks towards you from the south-west.
-   To the northeast you hear the sound of a door slamming and footsteps
-heading in this direction.
+Garrick walks towards you from the south-west.     To the northeast you hear
+the sound of a door slamming and footsteps heading in this direction.
 
 > ne
 You move northeast.
@@ -3823,8 +3822,8 @@ is the one you entered the room by.
 
 Exits lie: northwest (to the end of the passage)
 
-Gragor follows you from the north-west.
-   "I hid something beyond sacks in the corner," Gragor says.
+Gragor follows you from the north-west.     "I hid something beyond sacks in
+the corner," Gragor says.
 
 > x sacks
    You open one of the sacks to see what is inside - and back away in horror

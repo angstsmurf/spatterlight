@@ -88,8 +88,8 @@ see yet , you don't think its a mine because all the mines extend from the
 main building . The tunnel is made the same way execpt it has a very large
 crack in the aluminum .  An alien is here.
 
-You can move south and up.
-An  avarage sized alien hits you, but it doesn't seem to do any damage.
+You can move south and up.  An  avarage sized alien hits you, but it doesn't
+seem to do any damage.
 
 > u
 You move up.
@@ -113,8 +113,8 @@ see yet , you don't think its a mine because all the mines extend from the
 main building . The tunnel is made the same way execpt it has a very large
 crack in the aluminum .  An alien is here.
 
-You can move south and up.
-An  avarage sized alien hits you, but it doesn't seem to do any damage.
+You can move south and up.  An  avarage sized alien hits you, but it doesn't
+seem to do any damage.
 
 > s
 You move south.
@@ -137,9 +137,9 @@ catwalk to the main entrance and the tunnel you only have to go north . Above
 you , huge clouds of flame light a pale orange ground , dispite the flaming
 clouds its very cold down here .
 
-You can move north, east and in.
-A streak of lightning flashes on the horizon and a whirl of flame spits from
-the sky where the lightning went down .
+You can move north, east and in.  A streak of lightning flashes on the
+horizon and a whirl of flame spits from the sky where the lightning went down
+.
 
 > e
 You move east.
@@ -186,10 +186,9 @@ is a large tower in the middle of the roof that has a small  door on it that
 looks almost rusted through . There are lights on the top of the tower that
 are still illuminated for some reason .  A small alien is here.
 
-You can move down and in.
-A  small alien hits you, but it doesn't seem to do any damage.  A streak of
-lightning flashes on the horizon and a whirl of flame spits from the sky
-where the lightning went down .
+You can move down and in.  A  small alien hits you, but it doesn't seem to do
+any damage.  A streak of lightning flashes on the horizon and a whirl of
+flame spits from the sky where the lightning went down .
 
 > in
 You move in.
@@ -215,8 +214,7 @@ flaming clouds outside , the window is busted and there is no air or pressure
 .  Also here is a light helmet and explode on inmpact bullets.  A large alien
 is here.
 
-You can only move down.
-A  large alien hits you.
+You can only move down.  A  large alien hits you.
 
 > take all
 You pick up the light helmet and explode on inmpact bullets.  A  large alien
@@ -280,8 +278,8 @@ see yet , you don't think its a mine because all the mines extend from the
 main building . The tunnel is made the same way execpt it has a very large
 crack in the aluminum .  An alien is here.
 
-You can move south and up.
-An  avarage sized alien hits you, but it doesn't seem to do any damage.
+You can move south and up.  An  avarage sized alien hits you, but it doesn't
+seem to do any damage.
 
 > s
 You move south.
@@ -314,9 +312,8 @@ You are standing near the cliff , there is a sturdy steel catwalk that leads
 to the main entrance of the building . west is the area that leads into a
 small tunnel .
 
-You can move north and west.
-A streak of lightning flashes on the horizon and a whirl of flame spits from
-the sky where the lightning went down .
+You can move north and west.  A streak of lightning flashes on the horizon
+and a whirl of flame spits from the sky where the lightning went down .
 
 > n
 You move north.
@@ -353,8 +350,8 @@ is a large tower in the middle of the roof that has a small  door on it that
 looks almost rusted through . There are lights on the top of the tower that
 are still illuminated for some reason .  A small alien is here.
 
-You can move down and in.
-A  small alien hits you, but it doesn't seem to do any damage.
+You can move down and in.  A  small alien hits you, but it doesn't seem to do
+any damage.
 
 > fly ship
 You get in the ship and take control , right after you leave the atmosphere

@@ -199,8 +199,7 @@ In The Spa
 You are sitting in the spa, the water tingles all around you.  Three Hot
 Bimbo Koala Babes are sitting at the other end of the spa.
 
-You can only move out.
-One of the bimbo's giggle.
+You can only move out.  One of the bimbo's giggle.
 
 > out
 You move out.
@@ -221,8 +220,7 @@ This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.
 
-You can move north, east, south and west.
-You fart.
+You can move north, east, south and west.  You fart.
 
 > n
 You move north.
@@ -378,8 +376,8 @@ You are standing in an eerie graveyard, there are graves all around you. This
 places is creeping you out, so you might leave soon. There is a small shack
 to the north you, must be the grave keepers hut.
 
-You can move north and east.
-You hear the sounds of chains being pulled along the ground.
+You can move north and east.  You hear the sounds of chains being pulled
+along the ground.
 
 > e
 You move east.
@@ -1082,8 +1080,7 @@ Mull Road goes north and south from here. To the west you can see Bobs
 Boozhouse.  A garbage truck is parked next to you.  Your spine is killing
 you.
 
-You can move north, east, south and west.
-You burp.
+You can move north, east, south and west.  You burp.
 
 > s
 You move south.

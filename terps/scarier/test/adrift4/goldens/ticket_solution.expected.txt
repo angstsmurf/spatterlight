@@ -674,8 +674,8 @@ the door to the toilets.  You can see a large poster with a picture of a
 policeman on it.  You can also see a payphone.  A large pigeon is watching
 you from the canopy over the platform.  It is still raining very hard.
 
-You appear to be able to move north, east and southwest.
-The rain finally seems to be stopping.
+You appear to be able to move north, east and southwest.  The rain finally
+seems to be stopping.
 
 > sw
 You move southwest.

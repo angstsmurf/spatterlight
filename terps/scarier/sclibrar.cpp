@@ -2379,15 +2379,23 @@ lib_print_exits_list (scr_gameref_t game, scr_int room)
                                                  "%player% can move "));
         }
       lib_print_name_list (game, list, dirnames, " and ");
-      pf_buffer_string (filter, ".\n");
+      /* The exits list is the `exits` command's answer, and like every other
+         library answer it stops at the full stop -- the room builder appends
+         it to the turn's one string (run400 472C64, run390 44813D) and the
+         walk and event tick that follows joins onto it.  shadowpeak (4.00):
+         "You can move north, east and west.  Seeker hums!"
+         (runner_transcripts/shadowpeak.txt). */
+      pf_buffer_character (filter, '.');
+      pf_buffer_answer_break (filter);
     }
   else
     {
       pf_buffer_string (filter,
                         lib_select_response (game,
-                                      "You can't go in any direction!\n",
-                                      "I can't go in any direction!\n",
-                                      "%player% can't go in any direction!\n"));
+                                      "You can't go in any direction!",
+                                      "I can't go in any direction!",
+                                      "%player% can't go in any direction!"));
+      pf_buffer_answer_break (filter);
     }
 }
 

@@ -42,8 +42,7 @@ opening on the left wall affording you a view of the living room. On the
 right wall is a set of stairs leading downward and right next to it a wooden
 closet.
 
-You can move north, south, down and in.
-You hear the sound of water running.
+You can move north, south, down and in.  You hear the sound of water running.
 
 > down
 You move down.
@@ -51,8 +50,8 @@ You move down.
 Bottom of Main Stairway
 You are standing next to an ironing board on top of which is an Iron.
 
-You can move north and up.
-You hear the sound of water being shut off abruptly.
+You can move north and up.  You hear the sound of water being shut off
+abruptly.
 
 > north
 You move north.
@@ -96,8 +95,7 @@ You move up.
 Top Of Stairs
 You are at the top of the stairs. To your right is a door leading outside.
 
-You can move east, south and down.
-You hear the sound of water running.
+You can move east, south and down.  You hear the sound of water running.
 
 > east
 You move east.
@@ -162,8 +160,8 @@ You move west.
 Family Dining Table
 You have entered a heavy traffic area. Dinner is served here daily.
 
-You can move north and east.
-You hear the sound of water being shut off abruptly.
+You can move north and east.  You hear the sound of water being shut off
+abruptly.
 
 > north
 You move north.
@@ -171,8 +169,7 @@ You move north.
 End of Short Passageway
 The passageway divides the TV Room and Family Dining Room here.
 
-You can move north, south and west.
-You hear the sound of water running.
+You can move north, south and west.  You hear the sound of water running.
 
 > west
 You move west.
@@ -180,8 +177,8 @@ You move west.
 Short Passageway
 You are in a junction of many passageways.
 
-You can move north, east, south and west.
-You hear the sound of water being shut off abruptly.
+You can move north, east, south and west.  You hear the sound of water being
+shut off abruptly.
 
 > west
 You move west.
@@ -190,8 +187,7 @@ Living Room Stairway
 You are at the foot of a stairway going up to the top floor.  There is a
 young girl sitting on the stairs.
 
-You can move east and south.
-You hear the sound of water running.
+You can move east and south.  You hear the sound of water running.
 
 > x girl
 She is seriously considering killing herself . She needs words of hope and
@@ -218,8 +214,7 @@ Ajoy's Bedroom
 This is the bedroom of Lungu's brother and Lungu is Anjan the brother of
 Ajoy.
 
-You can move east and south.
-You hear the sound of water running.
+You can move east and south.  You hear the sound of water running.
 
 > south
 You move south.
@@ -268,8 +263,8 @@ You move north.
 TopFloorPassage(Center)
 There are other rooms north and south of you.
 
-You can move north, south and down.
-You hear the sound of water being shut off abruptly.
+You can move north, south and down.  You hear the sound of water being shut
+off abruptly.
 
 > down
 You move down.
@@ -278,8 +273,7 @@ Living Room Stairway
 You are at the foot of a stairway going up to the top floor.  There is a
 young girl sitting on the stairs.
 
-You can move east, south and up.
-You hear the sound of water running.
+You can move east, south and up.  You hear the sound of water running.
 
 > east
 You move east.
@@ -315,8 +309,7 @@ There are shoes at  your feet, clothes on hangers, and hats on the top rack.
 You are somewhat confused by the size of the closet and try to explore some
 more.
 
-You can only move out.
-You hear the sound of water running.
+You can only move out.  You hear the sound of water running.
 
 > x hats
 You hop up and try on each hat and there is not a single one you like.
@@ -348,8 +341,8 @@ You move north.
 Short Passageway
 You are in a junction of many passageways.
 
-You can move north, east, south and west.
-You hear the sound of water being shut off abruptly.
+You can move north, east, south and west.  You hear the sound of water being
+shut off abruptly.
 
 > east
 You move east.
@@ -357,8 +350,7 @@ You move east.
 End of Short Passageway
 The passageway divides the TV Room and Family Dining Room here.
 
-You can move north, south and west.
-You hear the sound of water running.
+You can move north, south and west.  You hear the sound of water running.
 
 > north
 You move north.
@@ -368,8 +360,8 @@ The television is surrounded by brown sofa and two recliners, one orange and
 one matching the brown sofa. Two lovely panaramic windows gives you the view
 of a beautiful golf course across a major highway.  Here is Father's Closet.
 
-You can only move south.
-You hear the sound of water being shut off abruptly.
+You can only move south.  You hear the sound of water being shut off
+abruptly.
 
 > enter father's closet
 You open the doors and enter father's closet...  You hear the sound of water
@@ -396,8 +388,7 @@ You move south.
 End of Short Passageway
 The passageway divides the TV Room and Family Dining Room here.
 
-You can move north, south and west.
-You hear the sound of water running.
+You can move north, south and west.  You hear the sound of water running.
 
 > south
 You move south.
@@ -405,8 +396,8 @@ You move south.
 Family Dining Table
 You have entered a heavy traffic area. Dinner is served here daily.
 
-You can move north and east.
-You hear the sound of water being shut off abruptly.
+You can move north and east.  You hear the sound of water being shut off
+abruptly.
 
 > east
 You move east.
@@ -452,8 +443,8 @@ You move west.
 Short Passageway
 You are in a junction of many passageways.
 
-You can move north, east, south and west.
-You hear the sound of water running.
+You can move north, east, south and west.  You hear the sound of water
+running.
 
 > south
 You move south.
@@ -464,8 +455,8 @@ opening on the left wall affording you a view of the living room. On the
 right wall is a set of stairs leading downward and right next to it a wooden
 closet.
 
-You can move north, south, down and in.
-You hear the sound of water being shut off abruptly.
+You can move north, south, down and in.  You hear the sound of water being
+shut off abruptly.
 
 > down
 You move down.
@@ -473,8 +464,7 @@ You move down.
 Bottom of Main Stairway
 You are standing next to an ironing board on top of which is an Iron.
 
-You can move north and up.
-You hear the sound of water running.
+You can move north and up.  You hear the sound of water running.
 
 > use iron on note
 I don't understand what you mean!
@@ -498,8 +488,8 @@ opening on the left wall affording you a view of the living room. On the
 right wall is a set of stairs leading downward and right next to it a wooden
 closet.
 
-You can move north, south, down and in.
-You hear the sound of water being shut off abruptly.
+You can move north, south, down and in.  You hear the sound of water being
+shut off abruptly.
 
 > north
 You move north.
@@ -515,8 +505,7 @@ You move east.
 End of Short Passageway
 The passageway divides the TV Room and Family Dining Room here.
 
-You can move north, south and west.
-You hear the sound of water running.
+You can move north, south and west.  You hear the sound of water running.
 
 > north
 You move north.
@@ -556,8 +545,8 @@ You move south.
 End of Short Passageway
 The passageway divides the TV Room and Family Dining Room here.
 
-You can move north, south and west.
-You hear the sound of water being shut off abruptly.
+You can move north, south and west.  You hear the sound of water being shut
+off abruptly.
 
 > west
 You move west.
@@ -565,8 +554,8 @@ You move west.
 Short Passageway
 You are in a junction of many passageways.
 
-You can move north, east, south and west.
-You hear the sound of water running.
+You can move north, east, south and west.  You hear the sound of water
+running.
 
 > west
 You move west.
@@ -584,8 +573,8 @@ Living Room (East End)
 You see a maroon couch in front of which is a glass table. There is nothing
 special about either items.
 
-You can move north and west.
-You hear the sound of water being shut off abruptly.
+You can move north and west.  You hear the sound of water being shut off
+abruptly.
 
 > west
 You move west.
@@ -595,8 +584,7 @@ While standing on the oriental rug, you have a clear view of the circular
 driveway through the bay windows. There is nothing special about the rug
 while the view is spectacular.
 
-You can move north, east and west.
-You hear the sound of water running.
+You can move north, east and west.  You hear the sound of water running.
 
 > north
 You move north.
@@ -624,8 +612,8 @@ whose bedroom is upstairs. On the rear corner of the room is a bed. Opposite
 the bed is a desk which is attached to shelves which extend with incredible
 depth into the wall.
 
-You can move east and south.
-You hear the sound of water being shut off abruptly.
+You can move east and south.  You hear the sound of water being shut off
+abruptly.
 
 > search shelves
 You choose to examine the middle shelf. The volume of books is staggering.
@@ -688,8 +676,7 @@ whose bedroom is upstairs. On the rear corner of the room is a bed. Opposite
 the bed is a desk which is attached to shelves which extend with incredible
 depth into the wall.
 
-You can move east and south.
-You hear the sound of water running.
+You can move east and south.  You hear the sound of water running.
 
 > x cube
 You can achieve four faces with the cube: blue,black,white, and red. The cube
@@ -749,8 +736,8 @@ Jacuzzi Room
 Moisture is dripping on the windows. The water in the Jacuzzi is churning.
 You are welcome to go 'in' the jacuzzi.
 
-You can move east and in.
-You hear the sound of water being shut off abruptly.
+You can move east and in.  You hear the sound of water being shut off
+abruptly.
 
 > in
 You move in.

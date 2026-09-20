@@ -278,8 +278,7 @@ money hunting these bandits. (Hint- after killing a bandit, use the command
 'search for money' to search their dead bodies for money.  There is a bandit
 here!!  You currently have room rented at Gralle's Inn.
 
-You can move north and south.
-A bandit hits you.
+You can move north and south.  A bandit hits you.
 
 > attack bandit
 You chop a bandit with the hunting sword.  A bandit hits you.

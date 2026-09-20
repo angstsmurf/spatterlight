@@ -313,11 +313,12 @@ the_hangover T34) went identical with that port on 2026-09-20.
   paragraph, at every version" in the index: p4ALRSRC `xray` at 4.0, troll's
   hunger events at 3.90), and so is the other side of it, the library
   answer's own terminator ("A library answer has no terminator of its own").
-  So is the AdditionalMessage, now at every version, and so is an NPC's
-  battle blow ("An NPC's blow joins the turn's string"). What is left is a
-  task's CompleteText, which only a 4.0 task that an action runs joins; the
-  158 single-newline Scarier-only breaks the archive still shows are mostly
-  that, plus NPC walk lines. The corpus case is
+  So is the AdditionalMessage, now at every version, an NPC's battle blow
+  ("An NPC's blow joins the turn's string"), an NPC's walk announcement and
+  the `exits` answer ("A walk announcement and an exits list end at the full
+  stop"). What is left is a task's CompleteText, which only a 4.0 task that
+  an action runs joins; the 132 single-newline Scarier-only breaks the
+  archive still shows are mostly that. The corpus case is
   `thetest` (3.90), whose ALRs include two-sentence Originals that span
   exactly such a join:
   `You drop your clothes.  Nice try fish face!` (library drop + task text),
@@ -328,8 +329,8 @@ the_hangover T34) went identical with that port on 2026-09-20.
   there are a reading of the source, not a divergence to chase.)
   Expect a large reblessing: the task-text join alone moved 94 rows, the
   event join 52 then 30, the library terminator 39, the AdditionalMessage
-  16, and sweep_wine_breaks still counts 5693 Scarier-only breaks against 2
-  runner-only -- though 5507 of that total is the `<centre>` artefact
+  16, and sweep_wine_breaks still counts 5636 Scarier-only breaks against 2
+  runner-only -- though 5504 of that total is the `<centre>` artefact
   (a blank line, `k2`), so the raw figure is a poor target on its own and
   the `k1` count is the one to watch.
 - **checkwild, the unported rest.** Every arm this lead once listed is
@@ -2450,6 +2451,24 @@ transcript names are in the code comment next to the named function, in
   engine butts on without a separator of its own, and every compare
   normalises runs of whitespace, so no measurement sees it. `[<3.90]`
   (`task_print_end_game_message`, 2026-09-20; 9 goldens, whitespace only)
+- **A walk announcement and an exits list end at the full stop.** Neither
+  carries a terminator of its own: the walk announcement's separator is the
+  two spaces the Runner puts in FRONT of it, guarded on the buffer not
+  already ending in a newline (run380 441740-44174A, the text then appended
+  at 4417B0 and the bare "." at 4417C2; run370 loc_439360, run390
+  loc_45A99B, run400 @468A5D, and the hidden form at run370 loc_4397A3 /
+  run400 loc_468CF9), and the exits list is an ordinary library answer that
+  the room builder appends to the one string (run400 472C64, run390
+  44813D). So whatever the tick prints next runs on from them. shadowpeak
+  (4.00): "You can move north, east and west.  Seeker hums!"; timmy_reid
+  (3.80): "...wafts towards you from the west.  Electricity rips through
+  your spine..."; haunt (3.80): "You can only move up.  Horace lurches in
+  from above." (runner_transcripts/shadowpeak.txt, timmy_reid.rtf,
+  haunt.rtf). `[all]` (`npc_announce`, `npc_announce_hidden`,
+  `lib_print_exits_list`, `pf_buffer_answer_break`, 2026-09-20; 37 goldens
+  moved, whitespace only; sweep_wine_breaks 5662 -> 5636 Scarier-only
+  breaks, single-newline kind 158 -> 132, runner-only unchanged at 2, no row
+  worse, 11 better)
 - **An NPC's blow joins the turn's string.** chardohit -- the NPC's blow --
   calls pspace() at the head of every one of its four printing branches, so
   the sentence runs on after whatever the turn has already said: run390

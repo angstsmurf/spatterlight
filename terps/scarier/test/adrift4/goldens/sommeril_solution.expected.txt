@@ -760,9 +760,9 @@ other end of the park, to the north, the stairs to the citadel await you.  A
 large glass EYEBALL the size of a volkswagen is suspended from a dead tree by
 a string no thicker than a human hair.
 
-You can move north, south, southeast and southwest.
-A line of tiny naked mice, each with a perfectly formed human ear growing on
-its back, runs across the street a few feet ahead of you.
+You can move north, south, southeast and southwest.  A line of tiny naked
+mice, each with a perfectly formed human ear growing on its back, runs across
+the street a few feet ahead of you.
 
 > n
 You move north.

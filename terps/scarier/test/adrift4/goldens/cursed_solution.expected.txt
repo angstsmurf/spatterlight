@@ -3377,7 +3377,6 @@ wall, there is not much refinement here at all. Two archways, standing
 opposite each other in the northern and southern walls, provide exits, other
 than the stairs that lead back down.
    Lord Vonisor enters from the south.
-
    Your vulpine hearing detects some sounds -- movement to the north.
 
 > n

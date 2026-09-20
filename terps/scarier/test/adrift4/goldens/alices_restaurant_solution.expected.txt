@@ -498,10 +498,9 @@ You call Alice and ask her to bail you out of jail.  Alice has a few thoughts
 to share with you on the subject of dumping a half a ton of garbage and
 getting arrested while you're a guest at her house, but finally she arrives
 with bail money and you are released.    Alice walks towards you.  Officer
-Obie walks towards you.
-Officer Obie says, "Well, you're free to go, kid.  Don't forget to show up in
-court.  And take whatever stuff you're going to need with you.  I don't want
-to see you back here again."
+Obie walks towards you.  Officer Obie says, "Well, you're free to go, kid.
+Don't forget to show up in court.  And take whatever stuff you're going to
+need with you.  I don't want to see you back here again."
 
 > leave station
 You leave the station, prepared for your day in court.

@@ -2723,8 +2723,8 @@ west labelled "Pantry", whist an open archway leads southwards back into the
 dining room.  A kennel sits in one corner of the kitchen.  There is a door to
 my east.  Also here is a kettle.
 
-Exits are east, south and west.
-From inside the kennel there is a deep growl.
+Exits are east, south and west.  From inside the kennel there is a deep
+growl.
 
 > X kennel
 The small wooden kennel has a rather natty sloping roof.  The kennel contains
@@ -3117,8 +3117,8 @@ marzipan and icing sugar are liberally scattered across the damp stone floor.
 intently.  A shark is leaning against one of the mounds of marzipan.  He
 gives me a knowing wink.
 
-I can only move east.
-A small mouse pokes its head around a mound of marzipan and squeaks at me.
+I can only move east.  A small mouse pokes its head around a mound of
+marzipan and squeaks at me.
 
 > Look
 
@@ -4371,12 +4371,11 @@ tables scattered around the room, drinking and singing loudly.  Another group
 of creatures is gathered to the south, crowded around the bar.  Grandad is
 sitting at one of the tables.
 
-Exits are north and south.
-"And the winner of the third prize, the mystery package, is the holder of
-token orange 9!".  I look at my ticket, it's orange 9!  A loud grumble fills
-the den.  I squeeze my way through the crowd.  The orange token is snatched
-from me and a package thrust into my hands.  I return to Grandad,
-"Congratulations my lad"
+Exits are north and south.  "And the winner of the third prize, the mystery
+package, is the holder of token orange 9!".  I look at my ticket, it's orange
+9!  A loud grumble fills the den.  I squeeze my way through the crowd.  The
+orange token is snatched from me and a package thrust into my hands.  I
+return to Grandad, "Congratulations my lad"
 
 > Open package
 The package seems to have been wrapped extremely well.  In fact, too well.  I
@@ -4456,8 +4455,8 @@ curious mist.  I can hear innocuous muzak being played gently in the
 background.  A wooden chute has been built into one of the walls.  A Viking
 is slumped in the corner.
 
-Exits are north and south.  Grandad enters from the north.
-Olaf hiccups, "Hic!"
+Exits are north and south.  Grandad enters from the north.  Olaf hiccups,
+"Hic!"
 
 > S
 I step through the doorway and out into the open air.  Something strikes me
@@ -4723,8 +4722,7 @@ wasn't here last time I visited Grandad.  A side wall of the manor is to my
 west.  There is a gap in the high wire fence to my north.  Through the fence
 I can see a small dirt yard.  Also here are some wire clippers.
 
-Exits are north, south and down.
-The ground shakes violently.
+Exits are north, south and down.  The ground shakes violently.
 
 > S
 
@@ -4919,8 +4917,8 @@ west labelled "Pantry", whist an open archway leads southwards back into the
 dining room.  A kennel sits in one corner of the kitchen.  There is a door to
 my east.
 
-Exits are east, south and west.
-From inside the kennel there is a contented gnawing.
+Exits are east, south and west.  From inside the kennel there is a contented
+gnawing.
 
 > S
 
@@ -6081,8 +6079,8 @@ song.  On the wall to my west there is a peculiar arrangement of buttons.  A
 large metal door prevents me from going west.  A burly bouncer stands by the
 doorway.  The fire alarm is ringing loudly.
 
-Exits are north, east, south and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are north, east, south and west.  "No time to lose," cries Dennis,
+"We've got a fire to put out."
 
 > N
 
@@ -6092,8 +6090,8 @@ the north wall.  A long extension lead runs along the bottom of the wall.  It
 heads off in an westerly direction.  An aardvark is curled up on top of the
 washing machine.  The fire alarm is ringing loudly.
 
-Exits are east, south and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are east, south and west.  "No time to lose," cries Dennis, "We've got
+a fire to put out."
 
 > W
 
@@ -6105,8 +6103,8 @@ the archway there is a small fire alarm.  A long extension lead runs north
 and east along the ground.  Also here is a hammer.  The fire alarm is ringing
 loudly.
 
-Exits are north, east and south.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are north, east and south.  "No time to lose," cries Dennis, "We've got
+a fire to put out."
 
 > N
 
@@ -6118,8 +6116,8 @@ runes there is a small socket.  A long extension lead runs along the tunnel
 floor to my south.  Also here is a monocle.  The fire alarm is ringing
 loudly.
 
-Exits are north, east and south.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are north, east and south.  "No time to lose," cries Dennis, "We've got
+a fire to put out."
 
 > N
 
@@ -6130,8 +6128,8 @@ southwards.  An odd liquid drips intermittently from the pipe.  The tunnel
 continues in three directions from this point.  West leads back towards the
 cellar.  The fire alarm is ringing loudly.
 
-Exits are east, south and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are east, south and west.  "No time to lose," cries Dennis, "We've got
+a fire to put out."
 
 > W
 
@@ -6142,8 +6140,8 @@ made out of bright red brick, and look quite old.  As well as this a strange
 liquid is dripping down from a lead pipe running along the length of the
 tunnel.  All in all, it's lovely.  The fire alarm is ringing loudly.
 
-Exits are east and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are east and west.  "No time to lose," cries Dennis, "We've got a fire
+to put out."
 
 > W
 
@@ -6327,8 +6325,8 @@ made out of bright red brick, and look quite old.  As well as this a strange
 liquid is dripping down from a lead pipe running along the length of the
 tunnel.  All in all, it's lovely.  The fire alarm is ringing loudly.
 
-Exits are east and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are east and west.  "No time to lose," cries Dennis, "We've got a fire
+to put out."
 
 > E
 
@@ -6339,8 +6337,8 @@ southwards.  An odd liquid drips intermittently from the pipe.  The tunnel
 continues in three directions from this point.  West leads back towards the
 cellar.  The fire alarm is ringing loudly.
 
-Exits are east, south and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are east, south and west.  "No time to lose," cries Dennis, "We've got
+a fire to put out."
 
 > E
 
@@ -6351,8 +6349,8 @@ chamber.  To the side of the chamber there is a stone staircase.  Something
 round is hanging on the chamber's wall, but it is hard to make out from this
 distance.  The fire alarm is ringing loudly.
 
-I can only move west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+I can only move west.  "No time to lose," cries Dennis, "We've got a fire to
+put out."
 
 > X chute
 The chute is quite narrow and made out of wood.  It leads down into darkness.
@@ -6378,8 +6376,8 @@ southwards.  An odd liquid drips intermittently from the pipe.  The tunnel
 continues in three directions from this point.  West leads back towards the
 cellar.  The fire alarm is ringing loudly.
 
-Exits are east, south and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are east, south and west.  "No time to lose," cries Dennis, "We've got
+a fire to put out."
 
 > S
 
@@ -6391,8 +6389,8 @@ runes there is a small socket.  A long extension lead runs along the tunnel
 floor to my south.  Also here is a monocle.  The fire alarm is ringing
 loudly.
 
-Exits are north, east and south.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are north, east and south.  "No time to lose," cries Dennis, "We've got
+a fire to put out."
 
 > S
 
@@ -6404,8 +6402,8 @@ the archway there is a small fire alarm.  A long extension lead runs north
 and east along the ground.  Also here is a hammer.  The fire alarm is ringing
 loudly.
 
-Exits are north, east and south.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are north, east and south.  "No time to lose," cries Dennis, "We've got
+a fire to put out."
 
 > S
 
@@ -6441,8 +6439,8 @@ the archway there is a small fire alarm.  A long extension lead runs north
 and east along the ground.  Also here is a hammer.  The fire alarm is ringing
 loudly.
 
-Exits are north, east and south.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are north, east and south.  "No time to lose," cries Dennis, "We've got
+a fire to put out."
 
 > E
 
@@ -6452,8 +6450,8 @@ the north wall.  A long extension lead runs along the bottom of the wall.  It
 heads off in an westerly direction.  An aardvark is curled up on top of the
 washing machine.  The fire alarm is ringing loudly.
 
-Exits are east, south and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are east, south and west.  "No time to lose," cries Dennis, "We've got
+a fire to put out."
 
 > S
 
@@ -6465,8 +6463,8 @@ song.  On the wall to my west there is a peculiar arrangement of buttons.  A
 large metal door prevents me from going west.  A burly bouncer stands by the
 doorway.  The fire alarm is ringing loudly.
 
-Exits are north, east, south and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are north, east, south and west.  "No time to lose," cries Dennis,
+"We've got a fire to put out."
 
 > W
 
@@ -6501,8 +6499,8 @@ song.  On the wall to my west there is a peculiar arrangement of buttons.  A
 large metal door prevents me from going west.  A burly bouncer stands by the
 doorway.  The fire alarm is ringing loudly.
 
-Exits are north, east, south and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Exits are north, east, south and west.  "No time to lose," cries Dennis,
+"We've got a fire to put out."
 
 > E
 
@@ -6573,11 +6571,10 @@ song.  On the wall to my west there is a peculiar arrangement of buttons.  A
 large metal door prevents me from going west.  A burly bouncer stands by the
 doorway.  The fire alarm is ringing loudly.
 
-Exits are north, east, south and west.
-"No time to lose," cries Dennis, "We've got a fire to put out."  Dennis grabs
-hold of me, "I've been here ages, and you still haven't shown me as much as a
-spark.  I've a good mind to report you to the police."  Still moaning, Dennis
-walks off.
+Exits are north, east, south and west.  "No time to lose," cries Dennis,
+"We've got a fire to put out."  Dennis grabs hold of me, "I've been here
+ages, and you still haven't shown me as much as a spark.  I've a good mind to
+report you to the police."  Still moaning, Dennis walks off.
 
 > N
 

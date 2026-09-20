@@ -201,9 +201,9 @@ Ridge of Storms
 You emerge from the cavern to find yourself up in the clouds on a ridge. This
 must be the ridge of storms.  Fergo is here.
 
-You can only move down.
-A winged guardian stabs you with Fletched Spear.  Lamanluie cuts A winged
-guardian with the old rusty broken blood-stained scimitar.
+You can only move down.  A winged guardian stabs you with Fletched Spear.
+Lamanluie cuts A winged guardian with the old rusty broken blood-stained
+scimitar.
 
 > attack fergo
 You stab A winged guardian with The Spirit Dagger.
@@ -232,9 +232,9 @@ Breezy Path
 The path leads to a cliff top to the south and Whistle Hamlet to the north.
 A steady wind blows.  Morana is here.
 
-You can only move south.
-An evil sorceress hits you, but it doesn't seem to do any damage.  Lamanluie
-cuts An evil sorceress with the old rusty broken blood-stained scimitar.
+You can only move south.  An evil sorceress hits you, but it doesn't seem to
+do any damage.  Lamanluie cuts An evil sorceress with the old rusty broken
+blood-stained scimitar.
 
 > attack morana
 You stab An evil sorceress with The Spirit Dagger.
@@ -314,10 +314,9 @@ You walk south.
 Water Tunnel
 A thin tunnel under the water.  Serpanern is here.
 
-You can only move north.
-Lamanluie cuts The tunnel beast with the old rusty broken blood-stained
-scimitar.  The tunnel beast hits Lamanluie, but it doesn't seem to do any
-damage.
+You can only move north.  Lamanluie cuts The tunnel beast with the old rusty
+broken blood-stained scimitar.  The tunnel beast hits Lamanluie, but it
+doesn't seem to do any damage.
 
 > attack serpanern
 You stab The tunnel beast with The Spirit Dagger.
@@ -443,8 +442,7 @@ Dry Forest
 The forest is full of thin trees and burnt wood scraps. There seems to be an
 eerie quite.
 
-You can move north and southeast.
-You feel cold.
+You can move north and southeast.  You feel cold.
 
 > north
 You walk north.
@@ -453,8 +451,7 @@ Desert Path
 The path is dry and cracked. The sun beats down on you hard. The air is hot
 and dry.  A lizard is here.  Slikerma is here.
 
-You can only move west.
-You feel cold.
+You can only move west.  You feel cold.
 
 > west
 You walk west.
@@ -463,8 +460,7 @@ Vulcan's Forge
 A small clearing with only a hut. It appears to be a blacksmith's.  The hut
 appears cold and silent.  Afernoga is here.
 
-You can move north and east.
-You feel cold.
+You can move north and east.  You feel cold.
 
 > north
 You walk north.
@@ -474,8 +470,7 @@ The path to the volcano is tiled with natural igneous rocks. The heat become
 hotter as you reach the volcano itself. The water elemental does you a favour
 and cools you down slightly.
 
-You can move south and northeast.
-You feel cold.
+You can move south and northeast.  You feel cold.
 
 > northeast
 You walk northeast.
@@ -484,8 +479,7 @@ Spiral Path
 This path is carved right onto the edge of the volcano. Looking down, you see
 that the lava looks much more dangerous than you thought it would be.
 
-You can move east, in and southwest.
-You feel cold.
+You can move east, in and southwest.  You feel cold.
 
 > east
 You walk east.
@@ -494,9 +488,9 @@ Core of Volcano
 The magma is oozing everywhere and your body breaks into a sweat. Each drop
 from your body drips onto the ground and sizzles mightily.  Kelorano is here.
 
-You can only move west.
-Lamanluie cuts The lava guardian with An old broken scimitar.  The lava
-guardian hits you with Ever-burning torch.  You feel cold.
+You can only move west.  Lamanluie cuts The lava guardian with An old broken
+scimitar.  The lava guardian hits you with Ever-burning torch.  You feel
+cold.
 
 > kelorano t1
 Lava engulfs Kelorano's body. He screams and you only hope that he is
@@ -552,9 +546,8 @@ Desert Path
 The path is dry and cracked. The sun beats down on you hard. The air is hot
 and dry.  A lizard is hissing at you, blocking your way.  Slikerma is here.
 
-You can only move west.
-Lamanluie cuts A fire lizard with An old scimitar.  A fire lizard hits you,
-but it doesn't seem to do any damage.
+You can only move west.  Lamanluie cuts A fire lizard with An old scimitar.
+A fire lizard hits you, but it doesn't seem to do any damage.
 
 > attack slikerma
 You stab A fire lizard with The Spirit Dagger.

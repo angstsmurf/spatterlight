@@ -257,8 +257,8 @@ behind.  A helicopter crosses the space above the roofs and its searchlights
 blind your eyes for a second.  Cold raindrops are falling down like the blood
 from a victim's neck.
 
-You can go south and west.
-The alcohol is slowly disappearing from your head.
+You can go south and west.  The alcohol is slowly disappearing from your
+head.
 
 > west
 You walk west.
@@ -283,8 +283,8 @@ police sirens from behind.  A helicopter crosses the space above the roofs
 and its searchlights blind your eyes for a second.  Cold raindrops are
 falling down like the blood from a victim's neck.
 
-You can go east and south.
-The state of blindness is almost gone and you're getting sober.
+You can go east and south.  The state of blindness is almost gone and you're
+getting sober.
 
 > south
 You walk south.
@@ -296,8 +296,7 @@ by.  You can hear distant police sirens from behind.  A helicopter crosses
 the space above the roofs and its searchlights blind your eyes for a second.
 Cold raindrops are falling down like the blood from a victim's neck.
 
-You can go north and east.
-You can now see clear again.
+You can go north and east.  You can now see clear again.
 
 > east
 You walk east.

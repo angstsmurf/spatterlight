@@ -165,10 +165,9 @@ Trees seem to block your path here.
 Their long branches blocking out what little light there is, the trees seem
 to be whispering something to you.
 
-You can move south and up.
-A dark shadow appears from above. Something seems to be blocking out the
-light of the sun; on closer inspection, you notice a large black dragon
-soaring high above you.
+You can move south and up.  A dark shadow appears from above. Something seems
+to be blocking out the light of the sun; on closer inspection, you notice a
+large black dragon soaring high above you.
 
 > climb up
 Up a tree
@@ -401,8 +400,7 @@ You see a large number of statues here. There is also a cave leading into the
 mountainside, to the west.
   Also here is a Statues and a sign.
 
-You can move east and west.
-Seeker hums!
+You can move east and west.  Seeker hums!
 
 > wear medallion
 You put on the chain attached to a medallion.
@@ -906,8 +904,8 @@ spanning some 100 feet across to the opposite side, where the other cliff
 face can be seen stretching upwards.
 It is raining...
 
-You can move north, east, west, northeast and northwest.
-You hear the distant howling of wolves.
+You can move north, east, west, northeast and northwest.  You hear the
+distant howling of wolves.
 
 > ne
 You move northeast.
@@ -919,9 +917,8 @@ southeast, can still be followed. The wind blows from the west, and with it
 comes the stench of rotting vegetation.
   Also here is a fallen oak tree.  It is raining...
 
-You can move north, south, west, southeast and southwest.
-You are feeling very tired, indeed, and realise you should find somewhere to
-sleep!
+You can move north, south, west, southeast and southwest.  You are feeling
+very tired, indeed, and realise you should find somewhere to sleep!
 
 > roll oak tree
 You heave the tree to one side, revealing a crushed villager underneath.
@@ -987,8 +984,8 @@ about has made me feel rather tired." Fetlar flies off.  Seeker hums!
 > attack jarris
 You stab zombie with the sword.  Holga stumbles in from the south.
 Seeker hums!
-You manage to avoid zombie's attack.  Jarris lumbers off to below.
-Seeker hums!
+You manage to avoid zombie's attack.  Jarris lumbers off to below.  Seeker
+hums!
 
 > attack holga
 You stab zombie with the sword.
@@ -1146,8 +1143,7 @@ Time passes...
 
 > z
 Time passes...
-Arthur pulls himself in from the south.
-Seeker hums!
+Arthur pulls himself in from the south.  Seeker hums!
 
 > attack arthur
 You stab zombie with the sword.
@@ -1562,8 +1558,7 @@ either very difficult or impossible. There are numerous amounts of cobwebs
 here, and a large oak tree that towers above the rest.
   Also here is a dried husk and huge web.
 
-You can move west and up.
-Seeker hums!
+You can move west and up.  Seeker hums!
 
 > examine web
 As you examine the webs, you realise that your feet are actually stuck in the
@@ -1775,8 +1770,7 @@ Drawbridge.
 You stand on the castle’s drawbridge. It spans over a drop some thousand feet
 to the shoreline below.
 
-You can move north and south.
-Seeker hums!
+You can move north and south.  Seeker hums!
 
 > s
 You move south.
@@ -1843,8 +1837,8 @@ upwards to the next level, but this is somewhat obscured by the majestic pipe
 organ that rests in the centre of this room.
 Berto, the bald raven, is here.
 
-You can move north, east, south, west, up and down.
-A bat swoops down from above and darts off into the shadows.
+You can move north, east, south, west, up and down.  A bat swoops down from
+above and darts off into the shadows.
 Abruptly the music stops...  Seeker hums!
 Berto is walking up and down on the pipe organ.
 
@@ -1881,8 +1875,7 @@ The sound of running water fills this room, its source a large marble
 fountain that resides in its centre. To the north lies the main hall.
   Also here is gold coin.
 
-You can only move north.
-Seeker hums!
+You can only move north.  Seeker hums!
 
 > drop sword
 You drop the sword.
@@ -1930,9 +1923,8 @@ fountain that resides in its centre. To the north lies the main hall.
 You can only move north.
 
 > take sword
-You take the sword.  Gargoyle #1 flies in from the north.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+You take the sword.  Gargoyle #1 flies in from the north.  Gargoyle #1
+attacks you with the military fork, but you manage to avoid it.  Seeker hums!
 
 > take shield
 You take the Shield.  Gargoyle #1 attacks you with the military fork, but you
@@ -1952,8 +1944,7 @@ staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
 Berto, the bald raven, is here.
 
-You can move north, east, south, west, up and down.
-Seeker hums!
+You can move north, east, south, west, up and down.  Seeker hums!
 
 > e
 You move east.
@@ -1962,8 +1953,7 @@ The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
   Also here is a table.
 
-You can move east and west.
-Seeker hums!
+You can move east and west.  Seeker hums!
 
 > x table
 It is a large table, made out of some very expensive wood, no doubt; it is
@@ -2000,15 +1990,13 @@ Seeker hums!
 
 > z
 Time passes...
-Woody scampers away to the west.
-Seeker hums!
+Woody scampers away to the west.  Seeker hums!
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 
 > z
 Time passes...
-Gargoyle #1 flies in from the south.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+Gargoyle #1 flies in from the south.  Gargoyle #1 attacks you with the
+military fork, but you manage to avoid it.  Seeker hums!
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 
 > z
@@ -2036,8 +2024,7 @@ Seeker hums!
 
 > z
 Time passes...
-Berto flies out of the room.
-Seeker hums!
+Berto flies out of the room.  Seeker hums!
 
 > z
 Time passes...
@@ -2056,8 +2043,7 @@ damage.  Seeker hums!
 
 > z
 Time passes...
-Berto flutters in.
-Seeker hums!
+Berto flutters in.  Seeker hums!
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 
 > z
@@ -2090,8 +2076,7 @@ Zandos, the demon, is here.
 Melvin the Butler is here.
 Zandos paces back and forth inside the pentagram.
 
-You can move east, south and west.
-Seeker hums!
+You can move east, south and west.  Seeker hums!
 Seeker hums!
 "Hello, friend" says a most unsavoury voice coming from the huge tentacled
 monstrosity which stands entrapped in the pentagram. "My name is Zandos. Is
@@ -2110,8 +2095,8 @@ away by woodworm, leaving only the dusty remains. North leads back to the
 pentagram room, while from the south you can feel a cool breeze.
   Also here is a desk.  Woody, the wererat, is here.
 
-You can move north and south.
-A bat swoops down from above and darts off into the shadows.  Seeker hums!
+You can move north and south.  A bat swoops down from above and darts off
+into the shadows.  Seeker hums!
 
 > s
 You move south.
@@ -2123,8 +2108,7 @@ castle looming above you, but there is no way up from here. North leads back
 into the castle.
   Also here is a lantern.
 
-You can only move north.
-Seeker hums!
+You can only move north.  Seeker hums!
 
 > take lantern
 You take the lantern.  Seeker hums!
@@ -2143,9 +2127,8 @@ away by woodworm, leaving only the dusty remains. North leads back to the
 pentagram room, while from the south you can feel a cool breeze.
   Also here is a desk.
 
-You can move north and south.  Gargoyle #1 flies in.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.  Seeker hums!
+You can move north and south.  Gargoyle #1 flies in.  Gargoyle #1 stabs you
+with the military fork, but it doesn't seem to do any damage.  Seeker hums!
 
 > n
 You move north.
@@ -2158,8 +2141,7 @@ Zandos, the demon, is here.
 Woody, the wererat, is here.  Zandos paces back and forth inside the
 pentagram.
 
-You can move east, south and west.
-Seeker hums!
+You can move east, south and west.  Seeker hums!
 Seeker hums!
 The demon’s eyes watch you as you move about the room.
 
@@ -2175,8 +2157,7 @@ Melvin the Butler is here.
 Berto, the bald raven, is here.
 
 You can move north, east, south, west, up and down.  Melvin waddles out to
-the east.
-Seeker hums!
+the east.  Seeker hums!
 
 > e
 You move east.
@@ -2185,8 +2166,7 @@ The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
   Also here is a table.  Melvin the Butler is here.
 
-You can move east and west.
-Seeker hums!
+You can move east and west.  Seeker hums!
 You are feeling very tired, indeed, and realise you should find somewhere to
 sleep!
 
@@ -2198,8 +2178,7 @@ This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
   Also here is a archway.
 
-You can move south, west and down.
-Seeker hums!
+You can move south, west and down.  Seeker hums!
 You see a pair of cat’s eyes looking at you from the shadows. As soon as you
 notice them, they are gone.
 
@@ -2209,8 +2188,7 @@ You move down.
 The cellar stairs.
 You stand at the halfway point of the cellar stairs.
 
-You can move up and down.
-Seeker hums!
+You can move up and down.  Seeker hums!
 
 > d
 You move down.
@@ -2222,8 +2200,7 @@ arrive back in the kitchen. To the north, a passage leads deeper into the
 darkness, while to the east you hear the sound of rats and the lapping of
 water.
 
-You can move north, east and up.
-Seeker hums!
+You can move north, east and up.  Seeker hums!
 
 > e
 You move east.
@@ -2233,8 +2210,7 @@ This room is filled with water to about knee height. More broken racks and
 glass can be seen in this room. West leads to the cellar entrance, and to the
 south another exit can be seen.
 
-You can move south and west.
-Seeker hums!
+You can move south and west.  Seeker hums!
 Hundreds of rats are here. They gnaw at your feet, but the thick leather
 boots you wear protect you sufficiently enough.
 
@@ -2246,16 +2222,15 @@ This room is also knee-high in water. The room itself is quite small, and a
 heap of rubble is in one corner. The only exit is from the way you came in.
   Also here is a pile of rubble.
 
-You can only move north.
-Seeker hums!
+You can only move north.  Seeker hums!
 
 > x rubble
 The rubble is made up of huge chunks of stone.  A chisel is on the pile of
 rubble.  Seeker hums!
 
 > take chisel
-You take the chisel from the pile of rubble.  Gargoyle #1 flies in.
-Seeker hums!
+You take the chisel from the pile of rubble.  Gargoyle #1 flies in.  Seeker
+hums!
 
 > n
 You move north.
@@ -2265,8 +2240,7 @@ This room is filled with water to about knee height. More broken racks and
 glass can be seen in this room. West leads to the cellar entrance, and to the
 south another exit can be seen.
 
-You can move south and west.
-Seeker hums!
+You can move south and west.  Seeker hums!
 Hundreds of rats are here. They gnaw at your feet, but the thick leather
 boots you wear protect you sufficiently enough.
 You hear the shuffling of feet elsewhere in the castle.
@@ -2281,8 +2255,7 @@ arrive back in the kitchen. To the north, a passage leads deeper into the
 darkness, while to the east you hear the sound of rats and the lapping of
 water.
 
-You can move north, east and up.
-Seeker hums!
+You can move north, east and up.  Seeker hums!
 
 > u
 You move up.
@@ -2290,8 +2263,7 @@ You move up.
 The cellar stairs.
 You stand at the halfway point of the cellar stairs.
 
-You can move up and down.
-Seeker hums!
+You can move up and down.  Seeker hums!
 
 > u
 You move up.
@@ -2301,8 +2273,7 @@ This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
   Also here is a archway.
 
-You can move south, west and down.
-Seeker hums!
+You can move south, west and down.  Seeker hums!
 
 > w
 You move west.
@@ -2311,8 +2282,7 @@ The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
   Also here is a table.
 
-You can move east and west.
-Seeker hums!
+You can move east and west.  Seeker hums!
 
 > w
 You move west.
@@ -2325,8 +2295,8 @@ obscured by the majestic pipe organ that rests in the centre of this room.
 Melvin the Butler is here.
 Berto, the bald raven, is here.
 
-You can move north, east, south, west, up and down.
-A bat swoops down from above and darts off into the shadows.  Seeker hums!
+You can move north, east, south, west, up and down.  A bat swoops down from
+above and darts off into the shadows.  Seeker hums!
 
 > d
 You move down.
@@ -2336,8 +2306,7 @@ This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
 main hall stairs lead back up.
 
-You can move north, south and up.
-Seeker hums!
+You can move north, south and up.  Seeker hums!
 
 > n
 You move north.
@@ -2349,8 +2318,7 @@ You feel very uneasy in this place; something is not quite right about it.
 South leads back to the bottom of the main stairs; another exit leads
 northward.
 
-You can move north and south.
-Seeker hums!
+You can move north and south.  Seeker hums!
 Seeker hums!
 A faint mist starts collecting in the room.
 
@@ -2360,9 +2328,8 @@ coffin #7.  Seeker hums!
 Seeker hums!
 
 > take brooch
-You take the brooch from the coffin #7.  Gargoyle #1 flies in.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+You take the brooch from the coffin #7.  Gargoyle #1 flies in.  Gargoyle #1
+attacks you with the military fork, but you manage to avoid it.  Seeker hums!
 Seeker hums!
 
 > s
@@ -2373,8 +2340,7 @@ This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
 main hall stairs lead back up.  A faint mist swirls around you.
 
-You can move north, south and up.
-Seeker hums!
+You can move north, south and up.  Seeker hums!
 
 > u
 You move up.
@@ -2387,8 +2353,7 @@ obscured by the majestic pipe organ that rests in the centre of this room.
 Melvin the Butler is here.
 A faint mist swirls around you.
 
-You can move north, east, south, west, up and down.
-Seeker hums!
+You can move north, east, south, west, up and down.  Seeker hums!
 
 > w
 You move west.
@@ -2401,8 +2366,8 @@ Zandos, the demon, is here.
 Woody, the wererat, is here.  Zandos paces back and forth inside the
 pentagram.  A faint mist swirls around you.
 
-You can move east, south and west.  Woody scampers away to the south.
-Seeker hums!
+You can move east, south and west.  Woody scampers away to the south.  Seeker
+hums!
 Seeker hums!
 The demon’s eyes watch you as you move about the room.
 Dong! You hear a bell toll elsewhere in the castle.
@@ -2420,8 +2385,7 @@ south.
 painting #5, a painting #6 and a painting #7.  A faint mist swirls around
 you.
 
-You can move east and south.
-Seeker hums!
+You can move east and south.  Seeker hums!
 
 > destroy painting #6
 The painting is ripped open, revealing a secret passage leading northward.
@@ -2435,8 +2399,7 @@ The passage behind the painting.
 This dark passage slopes downwards from south to north.
 A faint mist swirls around you.
 
-You can move north and south.
-Seeker hums!
+You can move north and south.  Seeker hums!
 You hear the shuffling of feet elsewhere in the castle.
 You hear Melvin singing. He must be somewhere nearby.
 
@@ -2468,17 +2431,15 @@ This cave is dank and dark. There is a lot of unholy religious paraphernalia
 here.
   Also here is a shrine.  A faint mist swirls around you.
 
-You can only move south.
-Seeker hums!
+You can only move south.  Seeker hums!
 You suddenly feel rather dizzy, so dizzy that you black out and fall to the
 ground unconscious. When you awake, you do not know how long you have been
 unconscious for, but you feel much better now.
 
 > x shrine
 The shrine is dedicated to Xeros, the god of murder.  A scroll is on the
-shrine.  Gargoyle #1 flies in.
-Gargoyle #1 attacks you with the military fork, but you manage to avoid it.
-Seeker hums!
+shrine.  Gargoyle #1 flies in.  Gargoyle #1 attacks you with the military
+fork, but you manage to avoid it.  Seeker hums!
 
 > take scroll
 You take the scroll from the shrine.  Seeker hums!
@@ -2491,8 +2452,7 @@ You stand in a glistening cave. The passage south will take you back behind
 the painting; another passage leads northward, further into the caverns.
   Also here is a Shadow, the dead black cat.  A faint mist swirls around you.
 
-You can move north and south.
-Seeker hums!
+You can move north and south.  Seeker hums!
 
 > s
 You move south.
@@ -2501,8 +2461,7 @@ The passage behind the painting.
 This dark passage slopes downwards from south to north.
 A faint mist swirls around you.
 
-You can move north and south.
-Seeker hums!
+You can move north and south.  Seeker hums!
 
 > s
 You move south.
@@ -2517,8 +2476,7 @@ south.
 painting #5, a painting #6 and a painting #7.  A faint mist swirls around
 you.
 
-You can move north, east and south.
-Seeker hums!
+You can move north, east and south.  Seeker hums!
 
 > e
 You move east.
@@ -2531,8 +2489,7 @@ Zandos, the demon, is here.
 Zandos paces back and forth inside the pentagram.  A faint mist swirls around
 you.
 
-You can move east, south and west.
-Seeker hums!
+You can move east, south and west.  Seeker hums!
 Seeker hums!
 The demon’s eyes watch you as you move about the room.
 
@@ -2559,8 +2516,7 @@ Melvin the Butler is here.
 Berto, the bald raven, is here.  A faint mist swirls around you.
 
 You can move north, east, south, west, up and down.  Melvin waddles out to
-the east.
-Seeker hums!
+the east.  Seeker hums!
 You feel the hairs on the back your neck stand up.
 
 > u
@@ -2570,8 +2526,7 @@ The main hall stairs.
 You stand halfway up the main hall staircase.  A faint mist swirls around
 you.
 
-You can move up and down.
-Seeker hums!
+You can move up and down.  Seeker hums!
 
 > u
 You move up.
@@ -2581,8 +2536,7 @@ You stand on the topmost step. There is a door on the north wall; light
 flickers from under it.  Also here is steel door.  A faint mist swirls around
 you.
 
-You can only move down.  Gargoyle #1 flies in.
-Seeker hums!
+You can only move down.  Gargoyle #1 flies in.  Seeker hums!
 Dong! You hear a bell toll elsewhere in the castle.
 
 > unlock steel door with brooch
@@ -2605,8 +2559,7 @@ You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
   Also here is steel door.
 
-You can move north, east, south and west.
-Seeker hums!
+You can move north, east, south and west.  Seeker hums!
 
 > n
 You move north.
@@ -2666,8 +2619,7 @@ You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
   Also here is steel door.
 
-You can move north, east, south and west.
-Seeker hums!
+You can move north, east, south and west.  Seeker hums!
 
 > s
 You move south.
@@ -2676,8 +2628,7 @@ Top of the stairs.
 You stand on the topmost step. There is a door on the north wall; light
 flickers from under it.  Also here is steel door.
 
-You can move north and down.
-Seeker hums!
+You can move north and down.  Seeker hums!
 
 > d
 You move down.
@@ -2685,8 +2636,7 @@ You move down.
 The main hall stairs.
 You stand halfway up the main hall staircase.
 
-You can move up and down.
-Seeker hums!
+You can move up and down.  Seeker hums!
 
 > d
 You move down.
@@ -2697,8 +2647,7 @@ the arched ceiling. Decoration in here is sparse apart from a large stone
 staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
 
-You can move north, east, south, west, up and down.
-Seeker hums!
+You can move north, east, south, west, up and down.  Seeker hums!
 
 > e
 You move east.
@@ -2730,9 +2679,9 @@ This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
   Also here is a archway.
 
-You can move south, west and down.  Gargoyle #1 flies in.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.  Seeker hums!
+You can move south, west and down.  Gargoyle #1 flies in.  Gargoyle #1 stabs
+you with the military fork, but it doesn't seem to do any damage.  Seeker
+hums!
 
 > s
 You move south.
@@ -2742,8 +2691,7 @@ The room is packed full to the ceiling with crates of rotting foodstuffs.
 There are, however, some small walkways leading you around the crates to the
 west, east, and south.
 
-You can move north, east, south and west.
-Seeker hums!
+You can move north, east, south and west.  Seeker hums!
 
 > w
 You move west.
@@ -2752,8 +2700,7 @@ Servants’ quarters.
 Skeletons of the once-proud servants litter the floor in this room.
   Also here is a stake.
 
-You can only move east.
-Seeker hums!
+You can only move east.  Seeker hums!
 
 > take stake
 You take the stake.  Seeker hums!
@@ -2767,8 +2714,7 @@ The room is packed full to the ceiling with crates of rotting foodstuffs.
 There are, however, some small walkways leading you around the crates to the
 west, east, and south.
 
-You can move north, east, south and west.
-Seeker hums!
+You can move north, east, south and west.  Seeker hums!
 
 > n
 You move north.
@@ -2778,8 +2724,7 @@ This place is a mess, with rotting foodstuffs, and the ovens and other
 equipment being full of grime and dirt. West leads to the dining room.
   Also here is a archway.  Gargoyle #1 is here.
 
-You can move south, west and down.
-Seeker hums!
+You can move south, west and down.  Seeker hums!
 
 > w
 You move west.
@@ -2788,8 +2733,7 @@ The dining room.
 This is a very long room. The smell of freshly-cooked venison fills the air.
   Also here is a table.
 
-You can move east and west.
-Seeker hums!
+You can move east and west.  Seeker hums!
 
 > w
 You move west.
@@ -2801,8 +2745,7 @@ staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
 Berto, the bald raven, is here.
 
-You can move north, east, south, west, up and down.
-Seeker hums!
+You can move north, east, south, west, up and down.  Seeker hums!
 
 > d
 You move down.
@@ -2812,8 +2755,7 @@ This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
 main hall stairs lead back up.
 
-You can move north, south and up.
-Seeker hums!
+You can move north, south and up.  Seeker hums!
 
 > s
 You move south.
@@ -2830,9 +2772,8 @@ Seeker hums!
 Seeker hums!
 
 > take silver key
-You take silver key.  Gargoyle #1 flies in.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.  Seeker hums!
+You take silver key.  Gargoyle #1 flies in.  Gargoyle #1 stabs you with the
+military fork, but it doesn't seem to do any damage.  Seeker hums!
 Seeker hums!
 Dong! You hear a bell toll elsewhere in the castle.
 
@@ -2868,8 +2809,7 @@ This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
 main hall stairs lead back up.
 
-You can move north, south and up.
-Seeker hums!
+You can move north, south and up.  Seeker hums!
 
 > n
 You move north.
@@ -2881,8 +2821,7 @@ You feel very uneasy in this place; something is not quite right about it.
 South leads back to the bottom of the main stairs; another exit leads
 northward.
 
-You can move north and south.
-Seeker hums!
+You can move north and south.  Seeker hums!
 Seeker hums!
 
 > open coffin #2
@@ -2901,9 +2840,8 @@ You take the sceptre from the coffin #2.  Seeker hums!
 Seeker hums!
 
 > open coffin #11
-You open the coffin #11.  Gargoyle #1 flies in.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.  Seeker hums!
+You open the coffin #11.  Gargoyle #1 flies in.  Gargoyle #1 stabs you with
+the military fork, but it doesn't seem to do any damage.  Seeker hums!
 Seeker hums!
 The coffin is empty. You can only wonder where the occupant is now.
 
@@ -2915,8 +2853,7 @@ This room is filled with torture apparatus. It does not, however, seem to
 have been used for some time. Dark exits lead off to the north and south; the
 main hall stairs lead back up.
 
-You can move north, south and up.
-Seeker hums!
+You can move north, south and up.  Seeker hums!
 
 > u
 You move up.
@@ -2928,8 +2865,7 @@ staircase that winds upwards to the next level, but this is some what
 obscured by the majestic pipe organ that rests in the centre of this room.
 Berto, the bald raven, is here.
 
-You can move north, east, south, west, up and down.
-Seeker hums!
+You can move north, east, south, west, up and down.  Seeker hums!
 Berto squawks the words, "Quoth said the raven....... nevermore!"
 
 > u
@@ -2938,8 +2874,7 @@ You move up.
 The main hall stairs.
 You stand halfway up the main hall staircase.
 
-You can move up and down.
-Seeker hums!
+You can move up and down.  Seeker hums!
 
 > u
 You move up.
@@ -2948,8 +2883,7 @@ Top of the stairs.
 You stand on the topmost step. There is a door on the north wall; light
 flickers from under it.  Also here is steel door.
 
-You can move north and down.
-Seeker hums!
+You can move north and down.  Seeker hums!
 
 > n
 You move north.
@@ -2959,8 +2893,7 @@ You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
   Also here is steel door.
 
-You can move north, east, south and west.
-Seeker hums!
+You can move north, east, south and west.  Seeker hums!
 
 > e
 You move east.
@@ -2971,8 +2904,7 @@ stands motionless in the centre of the room. Her golden hair flows down her
 shoulders. She is dressed in her wedding dress.
   Also here is iron chest.
 
-You can only move west.
-Seeker hums!
+You can only move west.  Seeker hums!
 
 > kiss lady
 By kissing her, you appear to have a broken some sort of spell. Her eyes
@@ -2995,9 +2927,9 @@ You hear the shuffling of feet elsewhere in the castle.
 You open iron chest.  A ballista bolt is inside iron chest.  Seeker hums!
 
 > take ballista bolt
-You take the ballista bolt from iron chest.  Gargoyle #1 flies in.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.  Seeker hums!
+You take the ballista bolt from iron chest.  Gargoyle #1 flies in.  Gargoyle
+#1 stabs you with the military fork, but it doesn't seem to do any damage.
+Seeker hums!
 
 > w
 You move west.
@@ -3007,8 +2939,7 @@ You stand inside the large tower. Exits lead off to the four points of the
 compass. A cool breeze comes from the west.
   Also here is steel door.
 
-You can move north, east, south and west.
-Seeker hums!
+You can move north, east, south and west.  Seeker hums!
 
 > n
 You move north.
@@ -3016,8 +2947,7 @@ You move north.
 The bottom of the iron steps.
 This room has a set of iron steps spiralling upward.
 
-You can move south and up.
-Seeker hums!
+You can move south and up.  Seeker hums!
 
 > u
 You move up.
@@ -3026,8 +2956,7 @@ Atop of the iron steps.
 The steps end here at a single wooden door on the northern wall.
   Also here is wooden door.
 
-You can only move down.
-Seeker hums!
+You can only move down.  Seeker hums!
 You suddenly feel slightly lightheaded, with the horrible feeling of
 butterflies in your stomach. You realise that Morac must be very close by.
 
@@ -3045,8 +2974,7 @@ This room is full of laboratory equipment: glassware, bubbling pots, and
 burners, etc.There is a shuttered window on the north wall.
   Also here is wooden door.  Morac is here.
 
-You can only move south.
-Seeker hums!
+You can only move south.  Seeker hums!
 The wooden door slams shut.
 A huge fireball hurtles from Morac toward you. Luckily for you, the shield
 that you wear takes the brunt of it.  Seeing that his fireball spell has been
@@ -3075,8 +3003,7 @@ You hang on the window ledge. Down below, you see the castle’s western
 battlements. Vines grow from below to the height of the window ledge.
 Morac flies around the castle on his black dragon.
 
-You can move south and down.
-Seeker hums!
+You can move south and down.  Seeker hums!
 
 > d
 You move down.
@@ -3087,9 +3014,8 @@ castle, but there is no entrance into the tower from the battlements. Vines
 grow here; they climb the tower’s wall to a shuttered window high above.
 Morac flies around the castle on his black dragon.
 
-You can move north and up.  Gargoyle #1 flies in.
-Gargoyle #1 stabs you with the military fork, but it doesn't seem to do any
-damage.  Seeker hums!
+You can move north and up.  Gargoyle #1 flies in.  Gargoyle #1 stabs you with
+the military fork, but it doesn't seem to do any damage.  Seeker hums!
 
 > n
 You move north.
@@ -3101,8 +3027,7 @@ Windthrush.
   Also here is a huge ballista.  Morac flies around the castle on his black
 dragon.
 
-You can move south and down.
-Seeker hums!
+You can move south and down.  Seeker hums!
 The ballista is ready to fire.
 
 > fire
@@ -3143,8 +3068,7 @@ sleep!
 
 > z
 Time passes...
-Gargoyle #1 flies in from the south.
-Seeker hums!
+Gargoyle #1 flies in from the south.  Seeker hums!
 
 > attack gargoyle #1 with sword
 You stab Gargoyle #1 with the sword.
@@ -3287,8 +3211,7 @@ You feel very uneasy in this place; something is not quite right about it.
 South leads back to the bottom of the main stairs; another exit leads
 northward.
 
-You can move north and south.
-Seeker hums!
+You can move north and south.  Seeker hums!
 
 > n
 You move north.
@@ -3430,10 +3353,10 @@ the undead hordes are overwhelming them.
 You think it would be dangerous to move any further east.
   Also here is an enormous stack of boulders.
 
-You can move east and west.
-The sky is filled with arrows and crossbow bolts. Men and undead alike fall
-like flies below on the battlefield, while dark shapes like dragons fly above
-in the sky, taking care not to be hit by the missiles.
+You can move east and west.  The sky is filled with arrows and crossbow
+bolts. Men and undead alike fall like flies below on the battlefield, while
+dark shapes like dragons fly above in the sky, taking care not to be hit by
+the missiles.
 Seeker hums!
 
 > move tree trunk
@@ -3993,9 +3916,8 @@ You move south.
 Maze.
 You stand in a smooth-walled corridor.
 
-You can move north, east and south.
-You are feeling very tired, indeed, and realise you should find somewhere to
-sleep!
+You can move north, east and south.  You are feeling very tired, indeed, and
+realise you should find somewhere to sleep!
 
 > s
 You move south.
@@ -4020,8 +3942,7 @@ Maze.
 You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
 
-You can move north and south.
-You manage to avoid minotaur's attack.
+You can move north and south.  You manage to avoid minotaur's attack.
 Seeker Hums!
 
 > attack damastus
@@ -4034,8 +3955,8 @@ Maze.
 You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
 
-You can move north, east, south and west.
-You manage to avoid minotaur's attack.
+You can move north, east, south and west.  You manage to avoid minotaur's
+attack.
 Seeker Hums!
 
 > attack damastus
@@ -4048,8 +3969,7 @@ Maze.
 You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
 
-You can move north and south.
-You manage to avoid minotaur's attack.
+You can move north and south.  You manage to avoid minotaur's attack.
 Seeker Hums!
 
 > attack damastus
@@ -4062,8 +3982,7 @@ Maze.
 You stand in a smooth-walled corridor.
 Damastus, the minotaur, is here!
 
-You can move north, east and south.
-You manage to avoid minotaur's attack.
+You can move north, east and south.  You manage to avoid minotaur's attack.
 Seeker Hums!
 
 > attack damastus
@@ -4077,8 +3996,7 @@ You stand in a smooth-walled corridor.
 There is a bronze button here.
 Damastus, the minotaur, is here!
 
-You can move south and west.
-You manage to avoid minotaur's attack.
+You can move south and west.  You manage to avoid minotaur's attack.
 Seeker Hums!
 
 > attack damastus
@@ -4180,8 +4098,7 @@ leads south, away from the henge, while another leads north into the forest.
   Also here is a body.  Fetlar the overly fetid is here.  There is a portal
 here.
 
-You can move north, east, south and west.
-It starts to rain...
+You can move north, east, south and west.  It starts to rain...
 
 > say borantha
 The staff that you are holding glows a brilliant white. You have a feeling

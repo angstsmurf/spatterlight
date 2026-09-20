@@ -201,8 +201,8 @@ windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
 draft.  Jackass Trying to Kill You is here.  Yup, its still the first day.
 
-You can move north and south.
-The guy hits you, but it doesn't seem to do any damage.
+You can move north and south.  The guy hits you, but it doesn't seem to do
+any damage.
 
 > attack guy
 You cut The guy with Kinda Sharp Sword.

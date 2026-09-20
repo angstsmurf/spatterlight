@@ -143,8 +143,7 @@ You move west.
 Guest Room
 It is dark.
 
-You can move east and south.
-You hear a creaking noise.
+You can move east and south.  You hear a creaking noise.
 
 > wait
 Time passes...
@@ -155,8 +154,8 @@ You move east.
 Hallway
 Shadows and shapes loom in the darkness.
 
-You can move north, east, south and west.
-You hear a strange, spine chilling groan.
+You can move north, east, south and west.  You hear a strange, spine chilling
+groan.
 
 > s
 You move south.
@@ -205,8 +204,8 @@ covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
 bottle of vodka.
 
-You can move north, east, south, west and up.
-A strange, moaning noise can be heard in the distance.
+You can move north, east, south, west and up.  A strange, moaning noise can
+be heard in the distance.
 
 > n
 You move north.
@@ -254,8 +253,8 @@ Lounge
 Large leather chairs sit lazily around a low coffee table. A stone fireplace
 is built into the west wall.  Also here is a diamond ring.
 
-You can move north and west.
-A strange, moaning noise can be heard in the distance.
+You can move north and west.  A strange, moaning noise can be heard in the
+distance.
 
 > say live
 As you say the word, a strange creaking sound comes from within the chimney,
@@ -312,8 +311,7 @@ A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a bottle of
 poison and a table.
 
-You can move north, east, west and down.
-You hear a creaking noise.
+You can move north, east, west and down.  You hear a creaking noise.
 
 > d
 You move down.
@@ -334,8 +332,7 @@ Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
 a hook, a bottle of bleach and the floorboards.
 
 You can move north, east, south and west.  Zombie stumbles towards you from
-the west.
-You hear a creaking noise.
+the west.  You hear a creaking noise.
 
 > fire blunderbuss
 Summoning up all your courage, you approach the zombie and fire point blank.
@@ -413,8 +410,7 @@ and writings. A table in the middle of the room has many different books
 piled on top of it. There is a door to the north.  Also here is a big chunk
 of cheese.
 
-You can move north and east.
-You hear a creaking noise.
+You can move north and east.  You hear a creaking noise.
 
 > take cheese
 You pick up the big chunk of cheese.
@@ -503,8 +499,7 @@ Rotting carcasses of cows and sheep hang from rusty hooks in this cold,
 inhospitable room. Patches of frost cover the metal walls.  Also here is a
 can of weedkiller.
 
-You can only move south.
-You hear a creaking noise.
+You can only move south.  You hear a creaking noise.
 
 > take weedkiller
 You pick up the can of weedkiller.
@@ -517,8 +512,8 @@ Cupboards with doors hanging off the hinges line the east and west walls.
 Work surfaces run around the room and a blackened stove stands pride of place
 in the centre.
 
-You can move north, south, west and down.
-You hear a strange, spine chilling groan.
+You can move north, south, west and down.  You hear a strange, spine chilling
+groan.
 
 > w
 You move west.
@@ -538,8 +533,7 @@ stormy night. Plants of all kinds grow in pots and hanging baskets and the
 temperature is rather hot.  Also here is an iron key and a plunger.  A plant
 monster grows here.
 
-You can move north and south.
-You hear a strange, spine chilling groan.
+You can move north and south.  You hear a strange, spine chilling groan.
 
 > pour weedkiller on plant
 You pour the weedkiller all over it.
@@ -563,8 +557,8 @@ Cupboards with doors hanging off the hinges line the east and west walls.
 Work surfaces run around the room and a blackened stove stands pride of place
 in the centre.
 
-You can move north, south, west and down.
-A strange, moaning noise can be heard in the distance.
+You can move north, south, west and down.  A strange, moaning noise can be
+heard in the distance.
 
 > d
 You move down.
@@ -604,8 +598,8 @@ Dinning Room
 The splendor of a banquet is layed out upon a magnificent dinning table in
 all it's glory.
 
-You can move north, south and west.
-A strange, moaning noise can be heard in the distance.
+You can move north, south and west.  A strange, moaning noise can be heard in
+the distance.
 
 > w
 You move west.
@@ -639,8 +633,7 @@ A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
 
 You can move north, east, west and down.  Zombie stumbles towards you from
-the north.
-You hear a strange, spine chilling groan.
+the north.  You hear a strange, spine chilling groan.
 
 > n
 You move north.
@@ -659,15 +652,14 @@ Deep red carpet covers the floor. The warm barley paint cracks and flakes
 from the walls. In the ceiling is a hatch door.  Also here are the
 bloodstains.
 
-You can move north, east, south and west.
-You hear a strange, spine chilling groan.
+You can move north, east, south and west.  You hear a strange, spine chilling
+groan.
 
 > open hatch
 You use the hook to open the hatch. A rope ladder drops down.
 
 > drop hook
-You drop the hook.  Ghost appears from above.
-You hear a creaking noise.
+You drop the hook.  Ghost appears from above.  You hear a creaking noise.
 
 > s
 You move south.
@@ -685,8 +677,7 @@ Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
 
-You can move north, east, west and down.
-You hear a creaking noise.
+You can move north, east, west and down.  You hear a creaking noise.
 
 > d
 You move down.
@@ -764,8 +755,8 @@ Spare Room
 The walls and floor are bare, and boxes piled high fill the room. Dust and
 grime covers everything.
 
-You can move south and west.
-The monster melts into a puddle.  You hear a creaking noise.
+You can move south and west.  The monster melts into a puddle.  You hear a
+creaking noise.
 
 > w
 You move west.
@@ -872,8 +863,7 @@ Hidden Room
 A small room with bare walls and a rotten floor. A skeleton is spread out on
 the floor.  Also here is a silver candlestick and a silver necklace.
 
-You can only move north.
-You hear a creaking noise.
+You can only move north.  You hear a creaking noise.
 
 > pour holy water on skeleton
 You pour the water onto the skeleton. The bones dimly glow and you hear a
@@ -935,8 +925,8 @@ covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
 bottle of vodka.
 
-You can move north, east, south, west and up.
-A strange, moaning noise can be heard in the distance.
+You can move north, east, south, west and up.  A strange, moaning noise can
+be heard in the distance.
 
 > take vodka
 You pick up the bottle of vodka.
@@ -1015,8 +1005,7 @@ off the walls. An impressive staircase glides down.  Also here is a table.
 The molotov cocktail is alight and burning.
 
 You can move north, east, west and down.  Zombie stumbles towards you from
-the north.
-You hear a strange, spine chilling groan.
+the north.  You hear a strange, spine chilling groan.
 
 > use kit
 You use the kit to nurse your injuries. Ah! you feel much better.  Zombie
@@ -1031,8 +1020,8 @@ with broken toys and play things.  The evil puppet is here, lurking in the
 shadows.  The Zombie is here, trashing the place.  The molotov cocktail is
 alight and burning.
 
-You can only move west.  Zombie Stumbles away from you to the west.
-You hear a strange, spine chilling groan.
+You can only move west.  Zombie Stumbles away from you to the west.  You hear
+a strange, spine chilling groan.
 
 > throw molotov
 You throw the lit molotov at the puppet.  The bottle explodes, spraying
@@ -1045,8 +1034,7 @@ Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
 
-You can move north, east, west and down.
-You hear a creaking noise.
+You can move north, east, west and down.  You hear a creaking noise.
 
 > d
 You move down.
@@ -1066,8 +1054,7 @@ Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
 a blunderbuss, the floorboards and the dead zombie.
 
 You can move north, east, south and west.  Zombie stumbles towards you from
-the west.
-You hear a creaking noise.
+the west.  You hear a creaking noise.
 
 > n
 You move north.
@@ -1268,8 +1255,8 @@ You move west.
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
 
-You can move north, east, south and west.
-You hear a strange, spine chilling groan.
+You can move north, east, south and west.  You hear a strange, spine chilling
+groan.
 
 > n
 You move north.
@@ -1317,8 +1304,8 @@ Walls of glass paneling set in green painted wooden frames look out unto the
 stormy night. Plants of all kinds grow in pots and hanging baskets and the
 temperature is rather hot.  A plant monster grows here.
 
-You can move north and south.
-A strange, moaning noise can be heard in the distance.
+You can move north and south.  A strange, moaning noise can be heard in the
+distance.
 
 > s
 You move south.
@@ -1374,8 +1361,7 @@ from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
 from it.  Also here is a hook, a rope ladder and the bloodstains.
 
 You can move north, east, south, west and up.  Zombie stumbles towards you
-from the north.
-A strange, moaning noise can be heard in the distance.
+from the north.  A strange, moaning noise can be heard in the distance.
 
 > u
 You move up.
@@ -1425,8 +1411,8 @@ Deep red carpet covers the floor. The warm barley paint cracks and flakes
 from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
 from it.  Also here is a hook, a rope ladder and the bloodstains.
 
-You can move north, east, south, west and up.
-You hear a strange, spine chilling groan.
+You can move north, east, south, west and up.  You hear a strange, spine
+chilling groan.
 
 > n
 You move north.
@@ -1446,8 +1432,7 @@ Tiles with mermaids and sunken galleon painted on them cover every flat
 surface. A window looks out over the garden in the north wall.  Also here is
 a gold braclet.
 
-You can only move west.
-You hear a creaking noise.
+You can only move west.  You hear a creaking noise.
 
 > take braclet
 You pick up the gold braclet.
@@ -1459,8 +1444,7 @@ Master Bedroom
 The room is wide and luxurious. A huge oak bed sticks out into the room from
 the north wall and the bedding is the same shade as the cream painted walls.
 
-You can move east, south and west.
-You hear a creaking noise.
+You can move east, south and west.  You hear a creaking noise.
 
 > s
 You move south.

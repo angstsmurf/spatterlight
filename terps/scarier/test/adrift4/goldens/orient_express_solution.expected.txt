@@ -37,8 +37,8 @@ You take the pistol from the suitcase.
 
 > board train
 You climb aboard the train, and take one last look at Destination Station.
-Oddly Istink wobbles in from the east.
-You hear the conductor yell, "ALL Aboard"
+Oddly Istink wobbles in from the east.  You hear the conductor yell, "ALL
+Aboard"
 
 > give ticket to oddly istink
 The conductor takes your ticket from you." Enjoy your trip Mr. We have a
@@ -140,8 +140,7 @@ This is a fairly large bathroom. It has all the usual features. A toilet,
 sink, mirror, and this one happens to have a shower.  The walls appear as if
 they are being shook by a small earthquake.
 
-You can move west and in.
-You hear the trains whistle blow loudly.
+You can move west and in.  You hear the trains whistle blow loudly.
 
 > w
 You move west.
@@ -151,8 +150,8 @@ This car provides bathrooms for the passengers. Doors line both sides of the
 corridor.  Also here is a sign.  The walls appear as if they are being shook
 by a small earthquake.
 
-You can move north, east, south and west.
-You are thrown backward as the train begins to pull away from the station.
+You can move north, east, south and west.  You are thrown backward as the
+train begins to pull away from the station.
 
 > s
 You move south.
@@ -164,9 +163,8 @@ on top of it. The passengers do not have access to the kitchen. There is a
 booth with a large table.  The walls appear as if they are being shook by a
 small earthquake.
 
-You can only move north.
-You feel the vibration of the train as it slowly picks up speed. A low rumble
-can be heard from the advancing train.
+You can only move north.  You feel the vibration of the train as it slowly
+picks up speed. A low rumble can be heard from the advancing train.
 
 > read menu
 You gaze at the menu.
@@ -193,8 +191,7 @@ This is the lounge. Many passengers enjoy a drink or two here. There is a bar
 at the far end. There are many cocktail tables and chairs.  Igotta Bigbottom
 is here.
 
-You can only move north.
-You manage to avoid the large man's attack.
+You can only move north.  You manage to avoid the large man's attack.
 
 > z
 Time passes...
@@ -206,8 +203,8 @@ You manage to avoid the large man's attack.
 
 > z
 Time passes...
-Ivanna Stiffdrink walks towards you from the north.
-You manage to avoid the large man's attack.
+Ivanna Stiffdrink walks towards you from the north.  You manage to avoid the
+large man's attack.
 
 > z
 Time passes...
@@ -238,8 +235,8 @@ booth with a large table.  The waiter saunters over.  You take a quick look
 out the window and see the station getting larger as you approach.
 
 You can move north and south.  Ivanna Stiffdrink walks towards you from the
-south.
-The train whistle blows loudly, causing a slight ringing in your ears.
+south.  The train whistle blows loudly, causing a slight ringing in your
+ears.
 
 > n
 You move north.
@@ -262,8 +259,8 @@ a quick look out the window and see the station getting larger as you
 approach.
 
 You can move north, east, south, west and up.  Ivanna Stiffdrink walks
-towards you from the south.
-You lunge slightly to counteract the force of the train coming to a stop.
+towards you from the south.  You lunge slightly to counteract the force of
+the train coming to a stop.
 
 > n
 You move north.
@@ -360,8 +357,8 @@ It is dark and musty. Every now and then you can see something moving out of
 the corner of your eye. Shadows move across the room,  giving no indication
 of what is hiding there.  Thug , Ivill Getyou and Anita Fortune are here.
 
-You can only move east.
-You manage to avoid Thug 's attack.  You manage to avoid BIG BOSS's attack.
+You can only move east.  You manage to avoid Thug 's attack.  You manage to
+avoid BIG BOSS's attack.
 
 > examine anita
 You run over to Anita and untie her. She hugs you gratefully. "Thank you Mr.

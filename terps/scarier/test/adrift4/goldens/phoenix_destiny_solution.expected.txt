@@ -227,8 +227,8 @@ You are standing in the middle of an intersection, which heads north, south,
 east and west down the long stone roads. The sun is shining in the sky..
 Many people walk down the streets looking through shop windows.
 
-You can walk north, east, south and west.
-A crying little boy runs by being pursued by his mother.
+You can walk north, east, south and west.  A crying little boy runs by being
+pursued by his mother.
 
 > date
 Date & Time

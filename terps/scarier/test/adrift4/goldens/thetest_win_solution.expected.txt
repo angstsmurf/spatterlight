@@ -318,8 +318,8 @@ You can only move west.
 You can't do that here!
 
 > unlock door
-You can't do that here!  Robot Guard storms in from the east.
-A robot guard hits you with the robot's chain.
+You can't do that here!  Robot Guard storms in from the east.  A robot guard
+hits you with the robot's chain.
 
 > unlock door
 You can't do that here!  A robot guard hits you with the robot's chain.
@@ -376,8 +376,7 @@ on all the surfaces of this room including the floor except a small gap in
 the west wall which leads to another room.  Scattered on the ground is a
 portable teleporter.  A Robot Guard is here.
 
-You can only move west.
-A robot guard hits you with the robot's chain.
+You can only move west.  A robot guard hits you with the robot's chain.
 
 > shout 1
 You shout one and the robot scurries off.
@@ -389,8 +388,8 @@ Why shout numbers now?
 Why shout numbers now?
 
 > shout 3
-Why shout numbers now?  Robot Guard storms in from the west.
-A robot guard hits you with the robot's chain.
+Why shout numbers now?  Robot Guard storms in from the west.  A robot guard
+hits you with the robot's chain.
 
 > shout 3
 You shout three and the robot scurries off.
@@ -420,8 +419,8 @@ Why shout numbers now?
 Why shout numbers now?
 
 > shout 6
-Why shout numbers now?  Robot Guard storms in.
-A robot guard hits you with the robot's chain.
+Why shout numbers now?  Robot Guard storms in.  A robot guard hits you with
+the robot's chain.
 
 > shout 6
 You shout six and the robot scurries off.
@@ -436,8 +435,8 @@ Why shout numbers now?
 Why shout numbers now?
 
 > shout 10
-Why shout numbers now?  Robot Guard storms in from the west.
-A robot guard hits you with the robot's chain.
+Why shout numbers now?  Robot Guard storms in from the west.  A robot guard
+hits you with the robot's chain.
 
 > shout 10
 You shout ten and the robot scurries off.
@@ -467,8 +466,8 @@ Why shout numbers now?
 Why shout numbers now?
 
 > shout 15
-Why shout numbers now?  Robot Guard storms in.
-A robot guard hits you with the robot's chain.
+Why shout numbers now?  Robot Guard storms in.  A robot guard hits you with
+the robot's chain.
 
 > shout 15
 You shout fifteen and the robot scurries off.
@@ -483,8 +482,8 @@ Why shout numbers now?
 Why shout numbers now?
 
 > shout 21
-Why shout numbers now?  Robot Guard storms in from the west.
-A robot guard hits you with the robot's chain.
+Why shout numbers now?  Robot Guard storms in from the west.  A robot guard
+hits you with the robot's chain.
 
 > shout 21
 You shout 21 and the robot scurries off.
@@ -515,8 +514,8 @@ Why shout numbers now?
 Why shout numbers now?
 
 > shout 91
-Why shout numbers now?  Robot Guard storms in.
-A robot guard hits you with the robot's chain.
+Why shout numbers now?  Robot Guard storms in.  A robot guard hits you with
+the robot's chain.
 
 > shout 91
 You shout 91 at the robot but it ignores you.  However, when you starting
@@ -534,8 +533,8 @@ Why shout numbers now?
 Why shout numbers now?
 
 > take key
-You pick up yet another key.  Robot Guard storms in from the west.
-A robot guard hits you with the robot's chain.
+You pick up yet another key.  Robot Guard storms in from the west.  A robot
+guard hits you with the robot's chain.
 
 > take teleporter
 You pick up the portable teleporter.  A robot guard hits you with the robot's

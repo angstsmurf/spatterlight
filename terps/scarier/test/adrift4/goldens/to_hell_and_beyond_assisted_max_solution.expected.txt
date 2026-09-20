@@ -962,8 +962,7 @@ You move north.
 Tunnel 3
 The path splits to the east and west.  Big rat is here.
 
-You can move east, south and west.
-Trace hits Big rat with the Whip.
+You can move east, south and west.  Trace hits Big rat with the Whip.
 You kill the rat. You get 7 gold coins.
 
 > e
@@ -1513,9 +1512,8 @@ You move north.
 Grassland
   Big scorpion is here.
 
-You can move north and south.
-Trace hits Big scorpion with the Whip.  Enevez hits Big scorpion with the
-Staff.
+You can move north and south.  Trace hits Big scorpion with the Whip.  Enevez
+hits Big scorpion with the Staff.
 You kill the scorpion and collect your bounty. 75 gold coins.
 
 > n
@@ -1524,8 +1522,8 @@ You move north.
 Grassland
 The path continues north.  Thief is here.
 
-You can move north and south.
-Trace hits Thief with the Whip.  Enevez hits Thief with the Staff.
+You can move north and south.  Trace hits Thief with the Whip.  Enevez hits
+Thief with the Staff.
 You kill the thief and take 30 gold coins.
 
 > n
@@ -1551,8 +1549,7 @@ Grassland
 Just a little further to the east is a ship. The path also leads west.
 Bandit is here.
 
-You can move east and west.
-Trace hits Bandit with the Whip.
+You can move east and west.  Trace hits Bandit with the Whip.
 You thrust your sword through the bandit's body and then draw it out. You get
 25 gold coins and a key.
 
@@ -1672,9 +1669,8 @@ You move west.
 Mika town square
 Just a little bit further and you'll be at the gates.  Soldier 2 is here.
 
-You can move east and west.
-Trace hits Soldier 2 with the Whip.  Enevez hits Soldier 2 with the Staff.
-Soldier 2 hits Enevez.
+You can move east and west.  Trace hits Soldier 2 with the Whip.  Enevez hits
+Soldier 2 with the Staff.  Soldier 2 hits Enevez.
 
 > w
 You move west.

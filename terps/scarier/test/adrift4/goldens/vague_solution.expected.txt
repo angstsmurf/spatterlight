@@ -822,10 +822,9 @@ The yard is just behind the pub and is probably used for storage. About 10m
 square it has a high wall all the way around and the floor is concrete. The
 exits are through a metal gate to the south and back into the pub north.  You
 can also see a photograph.  Jed Peters is watching you carefully.  A small
-black and white cat strolls in from the north.
-The jukebox inside the pub is loudly playing rock music.  You can even hear
-the music playing in the pub out here; it will definitely drown out any noise
-in the yard.
+black and white cat strolls in from the north.  The jukebox inside the pub is
+loudly playing rock music.  You can even hear the music playing in the pub
+out here; it will definitely drown out any noise in the yard.
 
 > kill jed with axe
 Using all your strength you chop the axe into Jed Peters. He lets out a

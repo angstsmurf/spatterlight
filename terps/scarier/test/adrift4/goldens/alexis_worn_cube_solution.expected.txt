@@ -862,9 +862,8 @@ The hall is huge and has Gargoyles around the ceiling. When looking at one,
 another seems to move out of the corner of your eye.  Out will take you back
 outside. North will take you into a long room. West will take you into a
 corridor. East will take you into a smaller room.  Larnt is here.  Haron
-follows you from the south.
-The dark knight cuts you with the blade from Uron, but it doesn't seem to do
-any damage.
+follows you from the south.  The dark knight cuts you with the blade from
+Uron, but it doesn't seem to do any damage.
 
 > attack larnt
 You hit the dark knight with the metal spade.  Haron cuts the dark knight

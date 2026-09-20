@@ -38,8 +38,8 @@ You move south.
 A dirt path
   Ugly thing is here.
 
-You can move north, east and west.
-An ugly thing hits you.  Leon hits An ugly thing.
+You can move north, east and west.  An ugly thing hits you.  Leon hits An
+ugly thing.
 
 > e
 You move east.
@@ -76,8 +76,7 @@ A bow sits in the center of the room guarded by yet another vine. Another
 patch of moss leads up.  Also here are A Bow of Icy Arrows.  Animated Vine is
 here.
 
-You can move up and down.
-An alive vine hits you.  Leon hits An alive vine.
+You can move up and down.  An alive vine hits you.  Leon hits An alive vine.
 
 > get bow of icy arrows
 You pick up A Bow of Icy Arrows.  An alive vine hits Leon, but it doesn't
@@ -123,8 +122,8 @@ Final tower room.
 The tree has once again converted into a tower. A man with bushes all around
 him and vines for arms sits there.  Tree Master is here.
 
-You can only move down.
-A man made out of plants hits you.  Leon hits A man made out of plants.
+You can only move down.  A man made out of plants hits you.  Leon hits A man
+made out of plants.
 
 > destroy tree master
 You killed the tree master!
