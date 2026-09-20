@@ -1821,13 +1821,39 @@ task_print_end_game_message (scr_gameref_t game)
              * "...you return to the staging area.  Rich smiles..."
              * (Adrift_3_richard.txt) with neither side carrying authored
              * spaces (the COMPLETE/WINTEXT dumps end "area." and start
-             * "Rich").  run380 is the measured butt-join above; run370
-             * shares 3.8's inline join style (no pspace sub exists in
-             * either) and keeps the butt-join.
+             * "Rich").
+             *
+             * 3.7 and 3.8 have no pspace sub at all and join inline, with
+             * ONE space: run380 tasks() builds the win branch as
+             * `out = out & " " & WinText` (44E33C).  The butt-join this
+             * comment used to claim is what a whitespace-normalised note of
+             * the microwaveman measurement looked like -- the .rtf itself
+             * has "You shoot Coffee Man with your gun.  You win the game.
+             * You have destroyed Coffee Man...", one space between the
+             * winning task's CompleteText and the WinText
+             * (runner_transcripts/microwave_man.rtf).
+             *
+             * Nine pre-3.9 corpus rows carry the join and all nine agree,
+             * including the four whose text already ends in spaces, where
+             * this one lands on top: akron's four, haunted_house's three
+             * and super_liam's five are all one more than the authored
+             * text holds.
+             *
+             * The single space is also why haunt's ending reads "Horace
+             * lurches in from above.   You drop down into the laboratory,"
+             * with THREE: the walk announcement leaves "above.", the win
+             * task's own separator adds the two spaces it would have put in
+             * front of a CompleteText (task 23 is `- win`, with none), and
+             * this space makes the third.  We do not flush that empty
+             * task's separator -- see the "Turn sectioning" lead in
+             * notes/WINE-TRANSCRIPTS-TODO.md -- so Scarier prints one space
+             * where the Runner prints three, which no compare sees.
              */
             if (prop_get_integer (bundle, "I<-s", &vt_version)
                 >= TAF_VERSION_390)
               pf_buffer_pspace (filter);
+            else if (!scr_strempty (wintext))
+              pf_buffer_character (filter, ' ');
           }
         if (!scr_strempty (wintext))
           pf_buffer_string (filter, wintext);

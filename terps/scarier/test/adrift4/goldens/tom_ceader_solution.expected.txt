@@ -156,7 +156,7 @@ set of stairs leading to the commanders office .
 You can move east and up.
 
 > up
-you walk up the stairs."hello tom , you did good work escaping from the town
+you walk up the stairs. "hello tom , you did good work escaping from the town
 . Its good to have you back in one piece . I'll get right to the point we
 need you to do another assignment ."
 

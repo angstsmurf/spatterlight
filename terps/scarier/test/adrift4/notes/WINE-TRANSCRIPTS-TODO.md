@@ -2425,6 +2425,31 @@ transcript names are in the code comment next to the named function, in
   whitespace only; sweep_wine_breaks 5735 -> 5694 Scarier-only breaks, of
   which the meaningful single-newline kind 221 -> 187, runner-only unchanged
   at 2, no row worse, 17 better)
+- **Below 3.90 the WinText joins with ONE space.** run380 tasks() builds the
+  win branch as `out = out & " " & WinText` (44E33C); 3.90 alone routes it
+  through pspace() (run390 loc_43F255) and 4.0 opens a paragraph. Scarier
+  had a butt-join here, from a whitespace-normalised note of the
+  microwaveman measurement -- the .rtf itself has the space. Nine pre-3.9
+  rows carry the join and all nine agree, including the four whose text
+  already ended in spaces, where the extra one lands on top: "You win the
+  game. You have destroyed Coffee Man..." (microwave_man.rtf), "You read the
+  parchment aloud. Suddenly..." (cave.rtf), "...safe and sound. Well there
+  you have it..." (crime_adventure.rtf), "Ypu ask her out You win"
+  (life_of_mike.rtf), "...Thanks for getting us back home!". Your joyful
+  reunion..." (timmy_reid.rtf), "you walk up the stairs. "hello tom ..."
+  (tom_ceader.rtf), "...it really is you!" + FOUR spaces + "As Martha
+  ushers you..." (akron.rtf), "and go outside." + three + "You've done it!"
+  (haunted_house.rtf), "Congratulations!!!" + five + "You stand in a
+  sparkling room." (super_liam.rtf). NOT ported alongside it: below 4.0 a
+  task that runs flushes its two-space separator into the turn's string
+  BEFORE it tests CompleteText, so a task with no text still leaves "  "
+  behind for whatever butts on next. haunt's win task 23 is `- win` with no
+  text at all, which is why the Runner reads "Horace lurches in from
+  above.   You drop down into the laboratory," -- two spaces from the empty
+  task, one from here -- where Scarier prints one. Nothing else in the
+  engine butts on without a separator of its own, and every compare
+  normalises runs of whitespace, so no measurement sees it. `[<3.90]`
+  (`task_print_end_game_message`, 2026-09-20; 9 goldens, whitespace only)
 - **An NPC's blow joins the turn's string.** chardohit -- the NPC's blow --
   calls pspace() at the head of every one of its four printing branches, so
   the sentence runs on after whatever the turn has already said: run390

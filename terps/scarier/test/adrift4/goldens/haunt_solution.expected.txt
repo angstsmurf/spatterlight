@@ -673,7 +673,7 @@ flask that once held Eggbert's prized potion is now empty. You pray he
 doesn't notice for a while.  Also here is bottle of whisky.  Eggbert is here.
 
 You can only move up.  Horace lurches in from above.
-You drop down into the laboratory, Horace following you. Eggbert freezes,
+ You drop down into the laboratory, Horace following you. Eggbert freezes,
 then drops the test tube he was carrying. Uncle Horace fixes Eggbert with a
 blank gaze, then lurches toward him, hands outstretched. Eggbert shrinks back
 into the wall and tries feebly to defend himself, but is powerless to stop
