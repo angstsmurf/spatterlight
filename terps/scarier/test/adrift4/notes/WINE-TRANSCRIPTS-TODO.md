@@ -302,11 +302,44 @@ not by a tick.
   below 3.90 it is a literal" in the index. ~~The generic `%<variable>%` /
   `%t_<var>%` arms at 44AF25 and 44AFF8.~~ **Closed 2026-09-20** -- see "A
   task command's %<user variable>% is a substitution, and its marker is
-  lower-cased while the variable's Name is not" in the index. The lead is
+  lower-cased while the variable's Name is not" in the index. ~~The lead is
   now closed but for one arm nobody has measured: run390's SECOND pair of
-  object loops (44ABFE, 44AC98), which repeats the walk against checktask's
-  own `text` argument when the first pair bound nothing. A command carrying
-  any other marker is still handed back to the tree.
+  object loops (44ABFE, 44AC98).~~ **Measured 2026-09-20** (p39TEXTSRC) --
+  the walk's ORDER is ported, see "A pre-4.0 task command's %object% walk
+  takes an object's Short and its Aliases together" in the index; the
+  SOURCE the walk reads is now a known deviation of its own, below. A
+  command carrying any other marker is still handed back to the tree.
+- **3.90 spells a `%object%` command from a SNAPSHOT of the line, and tests
+  it against the rewritten one.** Measured, not ported (p39TEXTSRC,
+  Adrift_215_ts390.txt, 2026-09-20). checktask's walk searches
+  MemVar_468224, the line as it stood at the end of the synonym pass
+  (45F20F); everything generaltasks does to the line below that --
+  "everything"->"all" 45F225, "slap"->"hit" 45F246,
+  "except"/"apart from"->"but" 45F267/45F288, the `with ` history prepend
+  45F2AF -- is invisible to it, while the equality at 44B0E2 and checkwild
+  at 44B139 test the rewritten line. With objects named `hit` and `slap`,
+  task `zog %object%` is refused by `zog slap` at 3.90 (the walk binds the
+  slap, the test is against "zog hit") and taken at 3.80, which has one
+  string. The fallback pair at 44ABFE/44AC98 would repair that, but its
+  guard is `MemVar_4681A8 = &HFF`, the per-TURN referenced object cleared
+  once at 45EC68, so the first task command on the line whose walk binds
+  anything consumes it: `nurb except` with an object named `but` is refused
+  at 3.90 because task 1's `blip %object%` fell back first. Scarier caps
+  the built-in rewrites at 3.80 (scprintf.cpp BUILTIN[]) and keeps one
+  string, so it takes both lines. Porting this means carrying the snapshot
+  and the per-turn flag through `run_pre400_substitute_references()`.
+- **3.7/3.8's object catch-all names the first object in LINE order, not in
+  INDEX order.** Measured, not ported (p37/p38TEXTSRC, Adrift_213_ts370.rtf,
+  Adrift_214_ts380.rtf, 2026-09-20). run380 442F5D walks the objects in
+  index order and keeps the first present co() match, aliases included, so
+  `zug rock stone` and `zug stone rock` are both "I don't understand what
+  you want me to do with the gem." -- the gem is index 0 and answers to
+  "stone". Scarier answers the rock for the first line and the gem for the
+  second: `lib_verb_object_catch_all_pre390()` does walk in index order, but
+  `game->object_references[]` is filled by a resolver that picks one
+  candidate off the line rather than testing every object with
+  `lib_co_pre400` mode 0, which is what the 3.9 walk above it does (3.90
+  already answers the gem for both).
 - **The four known markers are matched case-sensitively here and not
   there.** Fallout from the variable lead, pre-existing and unmeasured: the
   Runner lower-cases a reference marker before it looks it up (p39/p4VARREF
@@ -1010,6 +1043,28 @@ transcript names are in the code comment next to the named function, in
   for the marker itself. `[>=3.90]` p39/p4VARREF
   (`run_substitute_variable_references`, `var_get_command_number`,
   2026-09-20)
+- **A pre-4.0 task command's %object% walk takes an object's Short and its
+  Aliases together.** 3.90's walk is ONE loop over the object array, not
+  two: `For var_138 ... Next var_138` with the Next at 44ABE5, testing the
+  Short (44AAEA, seen 44AAFD, store 44AB0D, Replace 44AB40) and then that
+  same object's Aliases (44AB6D, seen 44AB80, store 44AB90, Replace 44ABC3)
+  before it moves on. The Alias arm substitutes the ALIAS, `.global_8`, and
+  not the Short. With the first-hit-spells / last-hit-expands rule that
+  makes the order obj0.Short, obj0.Alias, obj1.Short, obj1.Alias, ..., and
+  a line naming one object's Short and an earlier object's Alias is spelled
+  with the alias and expands to the later object: with a gem (index 0,
+  alias "stone") and a rock (index 1), 3.90 answers BOTH `zug rock stone`
+  and `zug stone rock` against "* zug * %object% *" with "WILD [a rock]."
+  -- the gem's alias makes the string "* zug * stone *" that checkwild
+  finds, the rock's Short binds after it. 4.00 is the version that walks
+  twice, every Short and then every Alias, and answers both lines "WILD [a
+  gem]." Below 3.90 there is no Alias arm at all, which the same probe
+  shows from the other side: `blip stone` against "blip %object%" is the
+  object catch-all at 3.70 and 3.80 although co() finds the alias for it.
+  Scarier had 4.0's shape everywhere below 4.0. Zero corpus exposure (428
+  PASS before and after) -- it needs one line naming two objects, one of
+  them by an alias, against one reference-bearing command. `[<4.00]`
+  p37/p38/p39/p4TEXTSRC (`run_pre400_substitute_references`, 2026-09-20)
 - **The pre-4.0 ask block wants the name at column 5.** characters()' one
   position test, and the only one in the handler: 459882 skips the whole
   `c("ask") Or c("talk to")` conversation block unless `InStr(line,

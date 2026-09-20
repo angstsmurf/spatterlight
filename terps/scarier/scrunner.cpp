@@ -3525,10 +3525,27 @@ run_pattern_references (scr_gameref_t game, const scr_char *pattern)
  * a gem.": the rock (index 0) made the string that matched and the gem (index
  * 1) is what %object% expands to (Adrift_209_wr390.txt, 2026-09-20).
  *
- * 3.90 walks the array twice, once for the Short (44AAD6) and once for the
- * Alias (44AB65), and gates both on the seen byte .global_44 -- there is no
- * scope test, so an absent object binds.  3.7/3.8 know only the Short and
- * gate on nothing: p38WILDREF binds the coin two rooms away and unseen.
+ * 3.90 tests the Short (44AAD6) and then the Aliases (44AB65) of the SAME
+ * object before it moves on to the next -- one `For var_138 ... Next
+ * var_138`, the Next at 44ABE5 -- and the Alias arm substitutes the ALIAS,
+ * .global_8, not the Short.  So the order is obj0.Short, obj0.Alias,
+ * obj1.Short, obj1.Alias, ..., and a line naming one object's Short and an
+ * earlier object's Alias is spelled with the ALIAS and expands to the
+ * later object.  p39TEXTSRC (make_textsrcprobe.py, Adrift_215_ts390.txt,
+ * 2026-09-20) answers both `zug rock stone` and `zug stone rock` against
+ * "* zug * %object% *" with "WILD [a rock].": the gem is index 0 and binds
+ * through its alias "stone", spelling "* zug * stone *", and the rock binds
+ * after it.  Both gates are the seen byte .global_44 and nothing else --
+ * there is no scope test, so an absent object binds.
+ *
+ * 4.00 is the one that walks twice, every Short and then every Alias:
+ * run400 answers the same two lines with "WILD [a gem]." -- the rock's
+ * Short spells the string and the gem's alias is the last hit either way.
+ * That path is uip's, not this one.
+ *
+ * 3.7/3.8 know only the Short and gate on nothing: p38WILDREF binds the coin
+ * two rooms away and unseen, and p38TEXTSRC answers `blip stone` against
+ * "blip %object%" with the object catch-all, the alias reaching nothing.
  * %character% arrives at 3.90 (44AD2A), by Name, with no gate whatever: the
  * King binds from the Cave he is not in.
  *
@@ -3542,10 +3559,27 @@ run_pattern_references (scr_gameref_t game, const scr_char *pattern)
  * The game's own variables come last (44AF07) -- see
  * run_substitute_variable_references().
  *
- * Not emulated: run390's second pair of object loops (44ABFE, 44AC98), which
- * repeats the walk against checktask's own `text` argument when the first
- * pair bound nothing.  A command holding a marker that is neither a known
- * reference nor a variable of the game's own is still handed back.
+ * Not emulated, and measured 2026-09-20 (p39TEXTSRC, Adrift_215_ts390.txt):
+ * the string 3.90 searches is not `line` at all but MemVar_468224, a
+ * SNAPSHOT of the line taken at the end of the synonym pass (45F20F), so
+ * none of generaltasks' own rewrites below it -- "everything"->"all"
+ * (45F225), "slap"->"hit" (45F246), "except"/"apart from"->"but" (45F267,
+ * 45F288), the `with ` history prepend (45F2AF) -- reaches the walk, while
+ * the string the command is TESTED against is the rewritten one.  Task `zog
+ * %object%` with objects named `hit` and `slap` is refused by `zog slap`:
+ * the walk binds the slap and spells "zog slap", the test is against "zog
+ * hit", and the library answers instead ("You hit the hit, but nothing
+ * happens.").  The second pair of loops at 44ABFE/44AC98 does repeat the
+ * walk against checktask's own `text` argument, but its guard is
+ * `MemVar_4681A8 = &HFF` -- the per-TURN referenced object, cleared once at
+ * 45EC68 -- so the first task command whose walk binds anything consumes it
+ * for every later task on the same line.  `nurb except` with an object
+ * named `but` is therefore refused by task `nurb %object%`: task 1's
+ * `blip %object%` fell back first, bound the but and spelled "blip but".
+ * Scarier keeps one string and no fallback, so it takes both lines.
+ *
+ * A command holding a marker that is neither a known reference nor a
+ * variable of the game's own is still handed back.
  */
 static scr_bool
 run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
@@ -3567,42 +3601,45 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
 
   if (literal.find ("%object%") != std::string::npos)
     {
-      scr_int pass, index;
+      scr_int index;
 
-      /* Pass 0 is the Short, pass 1 the Alias -- 3.90's second loop. */
-      for (pass = 0; pass < (version >= TAF_VERSION_390 ? 2 : 1); pass++)
+      for (index = 0; index < gs_object_count (game); index++)
         {
-          for (index = 0; index < gs_object_count (game); index++)
+          scr_int alias, alias_count;
+          scr_vartype_t vt_key[4];
+          const scr_char *name;
+
+          if (version >= TAF_VERSION_390 && !gs_object_seen (game, index))
+            continue;
+
+          /* The object's Short first ... */
+          name = prop_get_indexed_string (bundle, "Objects", index, "Short");
+          if (run_line_names_word (lowered, name))
             {
-              scr_int alias, alias_count = 1;
-              scr_vartype_t vt_key[4];
+              *object = index;
+              if (literal.find ("%object%") != std::string::npos)
+                run_replace_all (literal, "%object%", name);
+            }
+          if (version < TAF_VERSION_390)
+            continue;
 
-              if (version >= TAF_VERSION_390 && !gs_object_seen (game, index))
+          /* ... then, in the same turn of the same loop, its Aliases, which
+           * substitute the ALIAS and not the Short.
+           */
+          vt_key[0].string = "Objects";
+          vt_key[1].integer = index;
+          vt_key[2].string = "Alias";
+          alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
+          for (alias = 0; alias < alias_count; alias++)
+            {
+              vt_key[3].integer = alias;
+              name = prop_get_string (bundle, "S<-sisi", vt_key);
+              if (!run_line_names_word (lowered, name))
                 continue;
-              vt_key[0].string = "Objects";
-              vt_key[1].integer = index;
-              vt_key[2].string = "Alias";
-              if (pass > 0)
-                alias_count = prop_get_child_count (bundle, "I<-sis", vt_key);
-              for (alias = 0; alias < alias_count; alias++)
-                {
-                  const scr_char *name;
-
-                  if (pass == 0)
-                    name = prop_get_indexed_string (bundle, "Objects", index,
-                                                    "Short");
-                  else
-                    {
-                      vt_key[3].integer = alias;
-                      name = prop_get_string (bundle, "S<-sisi", vt_key);
-                    }
-                  if (!run_line_names_word (lowered, name))
-                    continue;
-                  *object = index;
-                  if (literal.find ("%object%") != std::string::npos)
-                    run_replace_all (literal, "%object%", name);
-                  break;
-                }
+              *object = index;
+              if (literal.find ("%object%") != std::string::npos)
+                run_replace_all (literal, "%object%", name);
+              break;
             }
         }
     }
