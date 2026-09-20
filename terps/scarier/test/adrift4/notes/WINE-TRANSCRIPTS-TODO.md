@@ -288,12 +288,13 @@ not by a tick.
   reblessing: the task-text join alone moved 94 rows, and
   sweep_wine_breaks still counts 5622 Scarier-only breaks.
 
-- **checkwild, the unported half.** `uip_wildcard_match_pre400` only
-  vetoes a tree match. checkwild's middle pieces need not be in order, so
-  a line the tree refuses (`* king * rose *` typed as "rose ... king") may
-  still match in the Runner. 3.9's %object% substitution (44AAD6) is not
-  emulated, so 3.9 commands with a reference skip the check. Group
-  patterns (`[`, `{`) skip it at every version.
+- **checkwild, the unported half.** ~~`uip_wildcard_match_pre400` only
+  vetoes a tree match.~~ **Closed 2026-09-20** -- checkwild now decides a
+  pre-4.0 `*` command outright; see "Before 4.0 a `*` command is decided
+  by checkwild" in the index. What is left: 3.9's %object% substitution
+  (44AAD6) is not emulated, so a 3.9 command with a reference still falls
+  back on the tree, and group patterns (`[`, `{`) skip the check at every
+  version.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
@@ -487,12 +488,19 @@ transcript names are in the code comment next to the named function, in
     T41 (`restr_cache_fallback`, 2026-09-19)
   - A trailing space in an all-literal task command must be typed. sommeril
     (093a12d5e)
-  - Before 4.0 a `*` command also has to pass checkwild: prefix before the
-    first `*`, each later piece anywhere, the text after the last `*` equal
-    to the line's end. run390 pads for a leading "* " or trailing " *";
-    run380/run370 pad nothing. 3.7/3.8 put the Short of the lowest-index
-    object c() finds in place of %object% first. `[<4.0]` alchemist T300,
-    `[<3.9]` marooned T53 (`uip_wildcard_match_pre400`, 2026-09-19)
+  - Before 4.0 a `*` command is DECIDED by checkwild, not merely vetoed by
+    it (run390 checktask 44B10D takes its answer as the match flag, and
+    44B0E2 compares a starless command for equality): prefix before the
+    first `*`, each later piece found with InStr over the whole line and
+    nothing cut, the text after the last `*` equal to the line's end. So
+    the middle pieces need NOT be in order and one occurrence can satisfy
+    a piece twice -- `* king * rose *` runs on `blip rose blip king blip`
+    and `* zog * zog *` on `a zog b`, in all three pre-4.0 Runners, where
+    4.0's cutting matcher refuses both. run390 pads for a leading "* " or
+    trailing " *"; run380/run370 pad nothing. 3.7/3.8 put the Short of the
+    lowest-index object c() finds in place of %object% first. `[<4.0]`
+    alchemist T300, `[<3.9]` marooned T53, p37/p38/p39/p4WILDORD
+    (`uip_wildcard_match_pre400`, `run_match_task_commands`, 2026-09-20)
   - The SYNONYM table is sequential whole-string rewrites. Vardock
   - The 4.0 `*` matcher does not backtrack: each literal piece is found by
     the first InStr and the line is cut past it. run390's checkwild never

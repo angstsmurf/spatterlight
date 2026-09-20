@@ -3347,7 +3347,23 @@ run_match_task_commands (scr_gameref_t game,
       /*
        * 3.7-3.9 send a command with a '*' to checkwild instead, which
        * compares the pieces literally; see uip_wildcard_match_pre400().
-       * Two of its refusals matter against the tree matcher:
+       * checkwild is the whole test there and not a veto on the tree:
+       * run390's checktask compares a command with no '*' for equality
+       * (44B0E2) and, when InStr(cmd, "*") > 0 (44B10D), takes checkwild's
+       * answer as the match flag, with nothing else consulted.  So a line
+       * the tree refuses runs the task all the same, and the two ways that
+       * happens are both measured on p*WILDORD (make_wildorderprobe.py,
+       * Adrift_wildorder370.rtf/380.rtf/390.txt, 2026-09-20):
+       *
+       * - Each middle piece is looked for with InStr over the WHOLE line
+       *   and the line is never cut, so ORDER IS FREE.  Task "* king *
+       *   rose *" runs on `blip rose blip king blip` in all three
+       *   pre-4.0 Runners; 4.0's own matcher cuts, so it refuses there
+       *   (Adrift_wildorder400.txt) and the tree's answer is right.
+       * - Nothing being consumed, one occurrence satisfies a piece twice:
+       *   "* zog * zog *" runs on `a zog b`, again pre-4.0 only.
+       *
+       * Two of checkwild's refusals matter the other way round:
        *
        * - The text after the last '*' must equal the end of the line, so a
        *   command ending in a stray space matches nothing.  Alchemist (3.90)
@@ -3381,12 +3397,13 @@ run_match_task_commands (scr_gameref_t game,
        * tolerant tree matcher took all three here because nothing below 3.90
        * had ever turned the substitution on outside checkwild.
        */
-      if (is_matched && version < TAF_VERSION_400 && !strpbrk (pattern, "[{")
-          && (strchr (pattern, WILDCARD_PATTERN)
-              || (version < TAF_VERSION_390
+      const scr_bool wild = strchr (pattern, WILDCARD_PATTERN) != NULL;
+
+      if (version < TAF_VERSION_400 && !strpbrk (pattern, "[{")
+          && (wild
+              || (is_matched && version < TAF_VERSION_390
                   && strstr (pattern, "%object%") != NULL)))
         {
-          const scr_bool wild = strchr (pattern, WILDCARD_PATTERN) != NULL;
           std::string literal (pattern);
           scr_bool checkable = TRUE, substituted = FALSE;
 
