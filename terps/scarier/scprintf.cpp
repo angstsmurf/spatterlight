@@ -2228,10 +2228,16 @@ pf_buffer_pspace (scr_filterref_t filter)
  * own.  Our terminator on the text before it is taken back -- through the
  * hidden barrier, which the Runner does not have -- and the two-space gap put
  * in its place, then the text is buffered and terminated as
- * pf_buffer_paragraph_line() would.  Where the buffer does not end in a
- * terminator of ours (empty, an author's break, a Runner's own newline), or
- * the text opens with a break of its own, it is pf_buffer_paragraph_line()
- * unchanged: the break there reads the same either way.
+ * pf_buffer_paragraph_line() would.  Where there is no terminator of ours to
+ * take back the separator is still pspace()'s to decide, since the Runner
+ * calls it ahead of every text regardless: after an author's break or a
+ * Runner's own newline it adds nothing, but after a string the Runner left
+ * unterminated it adds the two spaces just the same.  That is the ending's
+ * bare "[Press any key to end]", which haunt T84 runs into when a walk's task
+ * ends the game mid-tick and the Clock chime follows -- "...end]  You hear the
+ * chiming of the grandfather clock." (runner_transcripts/haunt.rtf).  A text
+ * that opens with a break of its own is buffered unchanged: the break there
+ * reads the same either way.
  *
  * Measured with the ALR source probe (p4SRC.taf, run400, Adrift_12/13):
  * `uniform`, CompleteText "CTU ball.", an action running zulu ("You take the
@@ -2277,6 +2283,8 @@ pf_buffer_join_line (scr_filterref_t filter, const scr_char *string)
                && filter->buffer[filter->buffer.size () - 2] == ' '))
         pf_append_string (filter, "  ");
     }
+  else if (!filter->is_muted && !pf_text_leads_with_break (string))
+    pf_buffer_pspace (filter);
 
   pf_buffer_paragraph_line (filter, string);
 }

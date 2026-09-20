@@ -136,9 +136,8 @@ You stand by the roadside of Ring route 3 witch leads downtown to the west.
 To the east the road continues to the Oslo suburbs. There's not much traffic
 this time of night, but a few cars  roars past you.  You look around, but
 can't see any bus stops or taxi cabs around. To the south is the Oslo Plaza
-back yard.
-You sense that you can not stay in your mist form for much longer.
-A volkswagen golf passes by you.
+back yard.  You sense that you can not stay in your mist form for much
+longer.  A volkswagen golf passes by you.
 
 > change back
 You change back to your human form.
@@ -347,8 +346,8 @@ that's the only way you miserable wrecks are getting high tonight. Paying the
 price", he says to the junkies. The argument continues.
 
 > put heroin in beer
-You put a tiny piece of the heroin in the beer.
-The hunger is tearing at you now. You feel weak.
+You put a tiny piece of the heroin in the beer.  The hunger is tearing at you
+now. You feel weak.
 
 > w
 You move west.

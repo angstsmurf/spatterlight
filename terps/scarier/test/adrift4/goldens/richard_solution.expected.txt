@@ -39,9 +39,8 @@ You can go east, south and west.
 You turn the computer on. After a few moments the screen lights up.
 
 > type qwertyuiop
-The screen flashes.
-You hear a humming noise from somewhere above your head, and the overhead
-light dims for a moment.
+The screen flashes.  You hear a humming noise from somewhere above your head,
+and the overhead light dims for a moment.
 
 > s
 You move south.
@@ -257,8 +256,8 @@ so hot, you can't even get near them to see what lies beyond.
 You can only go south.
 
 > put mat on fire
-You put the yoga mat on the flames.
-The mat sizzles and melts, but it looks like you could get past the fire now.
+You put the yoga mat on the flames.  The mat sizzles and melts, but it looks
+like you could get past the fire now.
 
 > n
 You move north.

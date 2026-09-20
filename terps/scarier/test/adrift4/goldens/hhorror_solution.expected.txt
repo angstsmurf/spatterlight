@@ -584,8 +584,7 @@ You can move south and up.
 The rats eat the cheese in a feeding frenzy.  Ghost appears.
 
 > unlock door
-You unlock the door with the iron key.
-The rats start to choke.
+You unlock the door with the iron key.  The rats start to choke.
 
 > drop iron key
 You drop the iron key.
@@ -746,8 +745,8 @@ from the walls.
 You can move north, east, south and west.
 
 > pour bleach on monster
-You spray the bleach all over the slimy monster.
-The monster starts to bubble.
+You spray the bleach all over the slimy monster.  The monster starts to
+bubble.
 
 > e
 You move east.
@@ -981,8 +980,7 @@ You can move north, south, west and down.
 
 > light molotov
 Dangling the dish cloth down the side of a hob, you try the electric lighter.
-It sparks  and lights the dish cloth.
-The molotov cocktail is lit.
+It sparks  and lights the dish cloth.  The molotov cocktail is lit.
 A strange, moaning noise can be heard in the distance.
 
 > s
@@ -1044,8 +1042,8 @@ You can only move west.  Zombie Stumbles away from you to the west.
 You hear a strange, spine chilling groan.
 
 > throw molotov
-You throw the lit molotov at the puppet.
-The bottle explodes, spraying flaming vodka all over the puppet.
+You throw the lit molotov at the puppet.  The bottle explodes, spraying
+flaming vodka all over the puppet.
 
 > w
 You move west.

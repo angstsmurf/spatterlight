@@ -87,9 +87,9 @@ Introducing Father Wessels
 peppering his voice. "God has no time tonight; for you, for me, for this
 whole damned world."
      Brushing back his silver hair, the old man holds out a red book towards
-you, proffering it, waiting for acceptance. You duly accept.
-The old priest's sudden rattled cough is gathered by the heavy air and
-rapidly escorted into the heavens where its vim is soon diminished.
+you, proffering it, waiting for acceptance. You duly accept.  The old
+priest's sudden rattled cough is gathered by the heavy air and rapidly
+escorted into the heavens where its vim is soon diminished.
 
 > read hymnbook
 Specks of softened crayon willow from the stale pages, decreasing the ability
@@ -159,7 +159,6 @@ the upper reaches of the cathedral.
 > play d#
 On pressing the D# key a harmonic tone winds upwards through the pipes,
 rising to the upper reaches of the cathedral.
-
      The translucent shimmer of a wraith filters into the room, glides a
 short distance, and is dissolved again, into the ether.
 

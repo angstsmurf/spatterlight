@@ -16,8 +16,8 @@ red VW Microbus up to the side of the building and you are now standing in
 front of the church.
 
 > open mailbox
-The mailbox is open.
-When you open the mailbox an envelope falls out and lands at your feet.
+The mailbox is open.  When you open the mailbox an envelope falls out and
+lands at your feet.
 
 > take envelope
 You have the envelope.
@@ -36,19 +36,18 @@ You are at a wooden gothic arched doorway.
 You can move east, south and out.
 
 > knock on church door
-Knock.  Knock.
-The door opens and reveals Alice.  She immediately hugs you and welcomes you
-inside.  She apologizes for the mess.  Having all this room where the pews
-used to be, she hasn't taken out her garbage for a very long time.  It is
-piled up in a corner of the otherwise very nice sanctuary.  She updates you
-with stories of your mutual friends and about how the construction on the
-inside of the church is coming along.  Facha also seems happy to see you.
-The dog runs in circles and wags its tail.  Alice laughs and tells you that
-Facha has been quite a naughty dog lately.  She has gotten into the habit of
-digging in the garden.  She thinks that the dog has even been burying odd
-things in the yard.  Alice gestures towards a table set with a Thanksgiving
-dinner that couldn't be beat.  There is stuffing, cranberry sauce, and an
-impressive turkey.
+Knock.  Knock.  The door opens and reveals Alice.  She immediately hugs you
+and welcomes you inside.  She apologizes for the mess.  Having all this room
+where the pews used to be, she hasn't taken out her garbage for a very long
+time.  It is piled up in a corner of the otherwise very nice sanctuary.  She
+updates you with stories of your mutual friends and about how the
+construction on the inside of the church is coming along.  Facha also seems
+happy to see you.  The dog runs in circles and wags its tail.  Alice laughs
+and tells you that Facha has been quite a naughty dog lately.  She has gotten
+into the habit of digging in the garden.  She thinks that the dog has even
+been burying odd things in the yard.  Alice gestures towards a table set with
+a Thanksgiving dinner that couldn't be beat.  There is stuffing, cranberry
+sauce, and an impressive turkey.
 
 > sit
 You are now seated.
@@ -477,16 +476,15 @@ information about it."  You tell Alice you can not tell a lie, "I put that
 envelope under that garbage."  Alice takes you into the Sanctuary where she
 makes a phone call to Officer Obie.  Obie shows up a short time later and
 puts you in the back of the patrol car and takes you to the Police Officer
-Station.
-You arrive at the Police Officer Station in handcuffs, which Obie removes.
-He says, "Kid, I'm gonna put you in the cell.  You can't take all that stuff
-with you.  You're going to have to leave it here."  You leave the stuff
-behind Obie's desk.  For good measure, Obie takes your wallet and your belt.
-You say, "Obie, I can understand you wanting my wallet, so I don't have any
-money to spend in the cell, but what do you want my belt for?"  He says,
-"Kid, we don't want any hangings."  You say, "Obie, did you think I was going
-to hang myself for littering?"  Obie is not as amused by this comment as
-future audiences might be.  He puts you in the cell and removes the toilet
+Station.  You arrive at the Police Officer Station in handcuffs, which Obie
+removes.  He says, "Kid, I'm gonna put you in the cell.  You can't take all
+that stuff with you.  You're going to have to leave it here."  You leave the
+stuff behind Obie's desk.  For good measure, Obie takes your wallet and your
+belt.  You say, "Obie, I can understand you wanting my wallet, so I don't
+have any money to spend in the cell, but what do you want my belt for?"  He
+says, "Kid, we don't want any hangings."  You say, "Obie, did you think I was
+going to hang myself for littering?"  Obie is not as amused by this comment
+as future audiences might be.  He puts you in the cell and removes the toilet
 seat for good measure.  He closes the cell door behind you.
 
 > wait
@@ -508,14 +506,14 @@ to see you back here again."
 > leave station
 You leave the station, prepared for your day in court.
 The court room is in an old colonial building with uncomfortable wooden
-seats.
- On the fateful day Obie shows up with 27 8X10 color glossy photos with
-circles and arrows and a paragraph of each one explaining what each one is to
-be used as evidence against you.  It doesn't matter.  Judge James E. Hannon
-is blind, and he is not going to look at the 27 8X10 color glossy pictures
-with circles and arrows and a paragraph on the back of each one explaining
-what each one is to be used as evidence against you.  And his seeing eye dog
-Susie is color blind.  Judge Hannon addresses you, "Son, how do you plead?"
+seats.   On the fateful day Obie shows up with 27 8X10 color glossy photos
+with circles and arrows and a paragraph of each one explaining what each one
+is to be used as evidence against you.  It doesn't matter.  Judge James E.
+Hannon is blind, and he is not going to look at the 27 8X10 color glossy
+pictures with circles and arrows and a paragraph on the back of each one
+explaining what each one is to be used as evidence against you.  And his
+seeing eye dog Susie is color blind.  Judge Hannon addresses you, "Son, how
+do you plead?"
 
 > guilty
 You are found guilty of the illegal disposal of rubbish and sentenced to a
@@ -528,11 +526,11 @@ for your army physical....
 This is the building where you get injected, inspected, detected, infected,
 neglected and selected.
 
-You can only move north.
-A Mean Looking Soldier asks you for your papers and looks you over as though
-he is inspecting any other piece of government property.  You believe you see
-a brief smirk on his face as he looks at your hair.  He hands you a piece of
-paper and says, "Kid, see the psychiatrist, room 604."
+You can only move north.  A Mean Looking Soldier asks you for your papers and
+looks you over as though he is inspecting any other piece of government
+property.  You believe you see a brief smirk on his face as he looks at your
+hair.  He hands you a piece of paper and says, "Kid, see the psychiatrist,
+room 604."
 
 > north
 You move north.
@@ -590,7 +588,7 @@ You are at a door with a sign on it that says "Room 604."
 > open door
 The door is now open.
 The room is barren except for the psychiatrist's desk.  Psychiatrist is here.
-"Come in my boy," says the psychiatrist.  He is apparently trying to put you
+ "Come in my boy," says the psychiatrist.  He is apparently trying to put you
 at ease.  It is not working.  You enter room 604 anyway.  The psychiatrist
 looks at you intently and begins making notes on a pad of paper.  You think
 you hear him muttering something about "non-conformist," but maybe it's your
@@ -604,14 +602,13 @@ jumping up and down yelling "kill, kill..."  The psychiatrist starts jumping
 up and down with you yelling "kill, kill."  Now you're both jumping up and
 down yelling "kill, kill, kill, kill."  A sargeant is passing in the hall and
 when he hears the shouting he bursts into the room and pins a medal on your
-chest and says, "you're our boy."
- He leads you from the room.  As you walk down the hall he asks you, "I just
-have one more question for you, kid.  Have you ever been arrested?"  You tell
-him the story of the Alice's Restaurant Masacree in 5 part harmony and he
-stops you and askes, "Kid, have you ever been to court?"  You tell him the
-story of the 27 8x10 color glossy photos with the circles and arrows... he
-stops you again and says, "Kid, I want you to go over there and sit down on
-that bench that says "Group W."
+chest and says, "you're our boy."   He leads you from the room.  As you walk
+down the hall he asks you, "I just have one more question for you, kid.  Have
+you ever been arrested?"  You tell him the story of the Alice's Restaurant
+Masacree in 5 part harmony and he stops you and askes, "Kid, have you ever
+been to court?"  You tell him the story of the 27 8x10 color glossy photos
+with the circles and arrows... he stops you again and says, "Kid, I want you
+to go over there and sit down on that bench that says "Group W."
 You walk in and join Group W.
 This is where they put you if you may not be moral enough to join the army
 after committing your special crime.

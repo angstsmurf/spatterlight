@@ -191,8 +191,8 @@ You can walk east.
 You start walking down the road, which heads to the town of Azeroth. Along
 the way you admire the great pine forest which runs for miles down the main
 road. The occasional villager walks by carrying a sack of food he bought from
-town. About 20 minutes later you finally arrive near the town.
-A man walks by carrying a sack of food he bought from the town.
+town. About 20 minutes later you finally arrive near the town.  A man walks
+by carrying a sack of food he bought from the town.
 
 > south
 You move south.

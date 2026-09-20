@@ -419,8 +419,8 @@ Dans le salon
 Vous pénétrez dans le salon de Sharon. Il s'agit d'une petite pièce. Des
 motifs de roses ornent la tapisserie; le sol est recouvert de moquette. A
 l'Ouest, vous pouvez voir un bureau sur lequel est posé un ordinateur. Un
-fauteuil se trouve à l'Est.
-Quelque chose dépasse de sous le coussin du fauteuil.
+fauteuil se trouve à l'Est.  Quelque chose dépasse de sous le coussin du
+fauteuil.
 
 > regarder sous le coussin
 Un CD se trouve sur le fauteuil.
@@ -468,9 +468,9 @@ Vous vous déplacez vers le Nord.
 A l'accueil
 Vous entrez dans les locaux. Vous débouchez dans une petite salle. En fond de
 salle, vous pouvez voir une table sur laquelle sont posés des magazines. A
-l'Est, une secrétaire tape à l'ordinateur.
-"Je devrais peut-être jeter un oeil sur la table. Avec un peu de chance, je
-trouverai une photo de moi dans l'un des magazines." pensez-vous.
+l'Est, une secrétaire tape à l'ordinateur.  "Je devrais peut-être jeter un
+oeil sur la table. Avec un peu de chance, je trouverai une photo de moi dans
+l'un des magazines." pensez-vous.
 
 > parler à la secrétaire
 Vous vous dirigez vers la secrétaire: "Bonjour." dites-vous. "Monsieur Maroto
@@ -481,9 +481,9 @@ ne pas insister sinon j'appelle la sécurité!" "Vous êtes nouvelle dans le
 groupe W?" "Oui. Mais je sais que monsieur Winch ne viendrait pas ici sans se
 faire annoncer." Vous pensez à voix basse: "Je dois absolument parler au
 directeur de ce labo. Il faut que je trouve un moyen de convaincre cette
-secrétaire."
-"Je devrais peut-être jeter un oeil sur la table. Avec un peu de chance, je
-trouverai une photo de moi dans l'un des magazines." pensez-vous.
+secrétaire."  "Je devrais peut-être jeter un oeil sur la table. Avec un peu
+de chance, je trouverai une photo de moi dans l'un des magazines."
+pensez-vous.
 
 > regarder sur la table
 Vous examinez les magazines se trouvant sur la table. Vous finissez par en
@@ -661,8 +661,7 @@ idéaliste, un très bon chercheur et surtout pas un criminel." "Etait?
 Pourquoi parlez-vous de lui à l'imparfait?" "Je ne sais pas. Pour tout vous
 dire, j'ai un mauvais présentiment." "Je vais vous laisser Salma. Je
 reviendrai vous voir un peu plus tard." "D'accord monsieur Winch. A plus
-tard."
-Un mélangeur est posé sur une paillasse, derrière la scientifique.
+tard."  Un mélangeur est posé sur une paillasse, derrière la scientifique.
 
 > prendre le mélangeur
 Vous prenez le mélangeur.
@@ -824,9 +823,8 @@ Vous vous déplacez vers le Nord.
 Dans l'appartement
 Vous êtes dans l'appartement de Jack Place. A l'Est, contre le mur, vous
 pouvez voir un répondeur posé sur un petit meuble. Le salon se trouve au
-Nord; la chambre du chercheur est située à l'Ouest.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
-eux." pensez-vous.
+Nord; la chambre du chercheur est située à l'Ouest.  "Je devrais pouvoir
+obtenir quelque chose en combinant certains objets entre eux." pensez-vous.
 
 > nord
 Vous vous déplacez vers le Nord.
@@ -836,32 +834,27 @@ Vous pénétrez dans le salon. Il s'agit d'une petite pièce pas très bien
 décorée (papier peint déchiré, dalles usées...). Vous pouvez voir un
 fauteuil, une corbeille à papier et un bureau sur lequel est posé un
 ordinateur. Sur l'écran de l'ordinateur, vous pouvez voir l'inscription
-"Veuillez taper le mot de passe système." La cuisine se trouve au Nord.
-Vous remarquez un petit espace entre le fauteuil et le mur. "Que peut-il bien
-y avoir derrière ce fauteuil?" vous demandez-vous.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
-eux." pensez-vous.
+"Veuillez taper le mot de passe système." La cuisine se trouve au Nord.  Vous
+remarquez un petit espace entre le fauteuil et le mur. "Que peut-il bien y
+avoir derrière ce fauteuil?" vous demandez-vous.  "Je devrais pouvoir obtenir
+quelque chose en combinant certains objets entre eux." pensez-vous.
 
 > regarder derrière le fauteuil
 Une feuille de papier se trouve derrière le fauteuil. "Tout objet peut être
-utile." pensez-vous.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
-eux." pensez-vous.
+utile." pensez-vous.  "Je devrais pouvoir obtenir quelque chose en combinant
+certains objets entre eux." pensez-vous.
 
 > prendre la feuille
-Vous prenez la feuille de papier.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
-eux." pensez-vous.
+Vous prenez la feuille de papier.  "Je devrais pouvoir obtenir quelque chose
+en combinant certains objets entre eux." pensez-vous.
 
 > regarder dans la corbeille à papier
-Une cassette audio se trouve dans la corbeille à papier.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
-eux." pensez-vous.
+Une cassette audio se trouve dans la corbeille à papier.  "Je devrais pouvoir
+obtenir quelque chose en combinant certains objets entre eux." pensez-vous.
 
 > prendre la cassette audio
-Vous prenez la cassette audio.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
-eux." pensez-vous.
+Vous prenez la cassette audio.  "Je devrais pouvoir obtenir quelque chose en
+combinant certains objets entre eux." pensez-vous.
 
 > sud
 Vous vous déplacez vers le Sud.
@@ -869,9 +862,8 @@ Vous vous déplacez vers le Sud.
 Dans l'appartement
 Vous êtes dans l'appartement de Jack Place. A l'Est, contre le mur, vous
 pouvez voir un répondeur posé sur un petit meuble. Le salon se trouve au
-Nord; la chambre du chercheur est située à l'Ouest.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
-eux." pensez-vous.
+Nord; la chambre du chercheur est située à l'Ouest.  "Je devrais pouvoir
+obtenir quelque chose en combinant certains objets entre eux." pensez-vous.
 
 > insérer la cassette audio dans le répondeur
 Vous mettez la cassette dans le répondeur. Une voix d'homme avec un léger
@@ -891,8 +883,8 @@ Vous pénétrez dans le salon. Il s'agit d'une petite pièce pas très bien
 décorée (papier peint déchiré, dalles usées...). Vous pouvez voir un
 fauteuil, une corbeille à papier et un bureau sur lequel est posé un
 ordinateur. Sur l'écran de l'ordinateur, vous pouvez voir l'inscription
-"Veuillez taper le mot de passe système." La cuisine se trouve au Nord.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
+"Veuillez taper le mot de passe système." La cuisine se trouve au Nord.  "Je
+devrais pouvoir obtenir quelque chose en combinant certains objets entre
 eux." pensez-vous.
 
 > nord
@@ -900,20 +892,17 @@ Vous vous déplacez vers le Nord.
 
 La cuisine
 Vous êtes à présent dans la cuisine. A votre grande surprise, il n'y a qu'un
-réfrigérateur dans cette pièce.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
-eux." pensez-vous.
+réfrigérateur dans cette pièce.  "Je devrais pouvoir obtenir quelque chose en
+combinant certains objets entre eux." pensez-vous.
 
 > ouvrir le réfrigérateur
 Vous ouvrez la porte du réfrigérateur. Un tube à essai se trouve à
-l'intérieur.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
-eux." pensez-vous.
+l'intérieur.  "Je devrais pouvoir obtenir quelque chose en combinant certains
+objets entre eux." pensez-vous.
 
 > prendre le tube à essai
-Vous prenez le tube à essai.
-"Je devrais pouvoir obtenir quelque chose en combinant certains objets entre
-eux." pensez-vous.
+Vous prenez le tube à essai.  "Je devrais pouvoir obtenir quelque chose en
+combinant certains objets entre eux." pensez-vous.
 
 > combiner la feuille et le tube à essai
 Grâce à cette combinaison, vous découvrez un mot: AGYLAP. "On dirait un mot
@@ -1306,10 +1295,9 @@ Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
 appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
 monter se trouvent au Nord; ceux permettant de redescendre sont situés au
-Sud.
-Vous entendez la voix de Simon: "Largo! J'ai réussi à retirer l'explosif de
-la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y rejoindre par
-la porte 3A."
+Sud.  Vous entendez la voix de Simon: "Largo! J'ai réussi à retirer
+l'explosif de la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y
+rejoindre par la porte 3A."
 
 > est
 Vous vous déplacez vers l'Est.
@@ -1327,8 +1315,7 @@ Vous êtes devant la porte 4A.
 Vous vous déplacez vers l'Est.
 
 3A
-Vous êtes devant la porte 3A.
-La porte est ouverte. Simon est à l'intérieur.
+Vous êtes devant la porte 3A.  La porte est ouverte. Simon est à l'intérieur.
 
 > entrer
 Vous entrez dans l'appartement de Vladimir. Simon est là, un livre dans les
@@ -1384,8 +1371,7 @@ porte d'entrée.
 Vous vous déplacez vers le Sud.
 
 3A
-Vous êtes devant la porte 3A.
-La porte est ouverte. Simon est à l'intérieur.
+Vous êtes devant la porte 3A.  La porte est ouverte. Simon est à l'intérieur.
 
 > ouest
 Vous vous déplacez vers l'Ouest.
@@ -1406,10 +1392,9 @@ Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
 appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
 monter se trouvent au Nord; ceux permettant de redescendre sont situés au
-Sud.
-Vous entendez la voix de Simon: "Largo! J'ai réussi à retirer l'explosif de
-la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y rejoindre par
-la porte 3A."
+Sud.  Vous entendez la voix de Simon: "Largo! J'ai réussi à retirer
+l'explosif de la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y
+rejoindre par la porte 3A."
 
 > sud
 Vous descendez les escaliers. Vous revoilà au rez-de-chaussée. A l'Ouest,
@@ -1434,10 +1419,9 @@ Le premier étage
 Vous êtes au premier étage. A l'Est et à l'Ouest, vous pouvez voir des
 appartements dont les nupéros vont de 1A à 10A. Les escaliers permettant de
 monter se trouvent au Nord; ceux permettant de redescendre sont situés au
-Sud.
-Vous entendez la voix de Simon: "Largo! J'ai réussi à retirer l'explosif de
-la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y rejoindre par
-la porte 3A."
+Sud.  Vous entendez la voix de Simon: "Largo! J'ai réussi à retirer
+l'explosif de la fenêtre! Je suis dans l'appartement de Vladimir. Tu peux m'y
+rejoindre par la porte 3A."
 
 > est
 Vous vous déplacez vers l'Est.
@@ -1455,8 +1439,7 @@ Vous êtes devant la porte 4A.
 Vous vous déplacez vers l'Est.
 
 3A
-Vous êtes devant la porte 3A.
-La porte est ouverte. Simon est à l'intérieur.
+Vous êtes devant la porte 3A.  La porte est ouverte. Simon est à l'intérieur.
 
 > entrer
 Vous entrez à nouveau dans l'appartement: "Ca y est Simon, j'ai fais le
@@ -1500,8 +1483,7 @@ pas tout mon temps!" "Pardonnez-moi mais, êtes-vous Olga?" "Oui. Et vous, qui
 vous me dites la vérité. Que venez-vous faire ici?" "Je suis à la recherche
 d'un certain Vladimir Kostenko. Pouvez-vous m'aider?" "Seulement si vous me
 prouvez que vous dites vrai." Vous êtes donc en haut des escaliers, face à
-Olga.
-"Je devrais peut-être lui donner quelque chose pour lui prouver ma
+Olga.  "Je devrais peut-être lui donner quelque chose pour lui prouver ma
 franchise." pensez-vous.
 
 > donner le devis à la femme
@@ -1735,16 +1717,14 @@ une table, les yeux rivés sur un verre de Vodka posé sur cette même table.
 "Je parie que ce verre de Vodka est pour le poivrot de l'étage. J'en mettrais
 ma main au feu. Si je parviens à détourner l'attention de Tania, je pourrai
 peut-être me débarrasser de l'alcoolique du dessus!" pensez-vous. Vous pouvez
-voir un téléphone sur lequel est inscrit "9002472832".
-"Le numéro qui est inscrit sur le téléphone est probablement le numéro de
-téléphone du bar."
+voir un téléphone sur lequel est inscrit "9002472832".  "Le numéro qui est
+inscrit sur le téléphone est probablement le numéro de téléphone du bar."
 
 > regarder le téléphone
 Vous décrochez le téléphone. Pour composer un numéro, tapez "composer" puis
 le numéro que vous souhaitez composer; tapez "raccrocher" pour raccrocher le
-téléphone.
-"Le numéro qui est inscrit sur le téléphone est probablement le numéro de
-téléphone du bar."
+téléphone.  "Le numéro qui est inscrit sur le téléphone est probablement le
+numéro de téléphone du bar."
 
 > composer "9002472832"
 Vous composez le numéro du bar. Le barman décroche depuis la pièce voisine:
@@ -1816,19 +1796,18 @@ boss. Vous dégainez votre pistolet: "Relâchez-le!" ordonnez-vous. "Baisses
 ton arme! Si tu tires, ton copain y passe!" réplique le boss. "Il faut que je
 trouve un moyen de nous sortir de là." pensez-vous. Vous pouvez voir une
 bouteille de Vodka et une liasse de billets.  Aussi voici une bouteille de
-Vodka.
-"Je suis certain que pour ces mecs, l'argent est plus important que la vie
-d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
+Vodka.  "Je suis certain que pour ces mecs, l'argent est plus important que
+la vie d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
 
 > prendre la bouteille de vodka
-Vous ramassez la bouteille de Vodka.
-"Je suis certain que pour ces mecs, l'argent est plus important que la vie
-d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
+Vous ramassez la bouteille de Vodka.  "Je suis certain que pour ces mecs,
+l'argent est plus important que la vie d'un homme. Cela devrait jouer en ma
+faveur." pensez-vous.
 
 > vider la bouteille sur la liasse de billets
-Vous videz la bouteille de Vodka sur la liasse de billets.
-"Je suis certain que pour ces mecs, l'argent est plus important que la vie
-d'un homme. Cela devrait jouer en ma faveur." pensez-vous.
+Vous videz la bouteille de Vodka sur la liasse de billets.  "Je suis certain
+que pour ces mecs, l'argent est plus important que la vie d'un homme. Cela
+devrait jouer en ma faveur." pensez-vous.
 
 > allumer le briquet
 Vous allumez le briquet en vous approchant des billets: "Tous ces beaux

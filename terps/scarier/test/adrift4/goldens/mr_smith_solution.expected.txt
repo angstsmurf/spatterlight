@@ -624,8 +624,7 @@ here was to get you out of the way. I can't belive you actually bought that
 Smith might have fallen down." With that the helicopter gained much altitude
 and took off into the clear sky. You know you have to act quickly to stop
 him! If only you could snipe a vulnerable part of the helicopter from a high
-elevation...
-Hurry and stop Mr. Jones before he escapes!
+elevation...  Hurry and stop Mr. Jones before he escapes!
 
 > score
 Your score is 80 out of a maximum of 100.  (80%)

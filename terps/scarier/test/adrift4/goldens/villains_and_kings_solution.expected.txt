@@ -233,8 +233,7 @@ You can move south and west.
 You give the golden soap to the king and he yells loudly "I HAVE THE GOLDEN
 SOAP, I HAVE THE GOLDEN SOAP!"  and you slowly back away.  He also sais, "By
 they way, did you get the non-golden soap on a rope?" (if you did say "yes"
-if you didn't say "no")
-The day is half over.
+if you didn't say "no")  The day is half over.
 
 > s
 You move south.

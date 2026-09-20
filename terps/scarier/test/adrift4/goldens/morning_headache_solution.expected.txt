@@ -60,8 +60,8 @@ forget it."
 
 > eat woman
 "You never get enough, do you?", she grunts. "I'm to tired. You can eat me
-out some other time."
-"Turn it off or I'll have you evicted.", your landlord seems serious.
+out some other time."  "Turn it off or I'll have you evicted.", your landlord
+seems serious.
 
 > fuck woman
 "I'm to tired", she says. "We can do it again some other time."
@@ -97,9 +97,8 @@ is the bench. They used to do it that way, back in the 1930's, when the
 apartment was built. Now it just looks funny, not to speak of the horrible
 greenish color on the walls.  You can go south to the living room. To the
 north is the staircase down to the first floor, but you have no reason to
-leave the apartment.
-"OK, I've got to go. See you some other time.", the woman says. She walks out
-the kitchen door.
+leave the apartment.  "OK, I've got to go. See you some other time.", the
+woman says. She walks out the kitchen door.
 
 > x kitchen bench
 A plain kitchen bench mounted to the wall. You use this to prepare food.  A

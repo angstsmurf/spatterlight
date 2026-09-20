@@ -837,8 +837,8 @@ You move northwest.
 Uron Dark Path
 The air is very dense now, the smog fills your nostrils with foul air. There
 are pools of slime and mud all around here. Southeast will take you down the
-mountain. Northeast will take you up.
-The air has become extremely dense and choking.
+mountain. Northeast will take you up.  The air has become extremely dense and
+choking.
 
 > ne
 You move northeast.

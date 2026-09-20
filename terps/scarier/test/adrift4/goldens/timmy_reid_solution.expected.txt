@@ -172,9 +172,9 @@ end of the chain that dangles from the light above.
 You move up.
 The cottage stairway is extremely narrow and steep.  The stairway is dark.  A
 string fades away upstairs through a series of small eye hooks.  Also here is
-an orange frisbee and an old trackball game set.
-You hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
+an orange frisbee and an old trackball game set.  You hear a large dog
+barking off in the distance.  The sound seems to echo through the
+neighborhood.
 
 > pull string
 You pull the light string and the stairway and upstairs lights up.
@@ -189,9 +189,9 @@ clothes and there is a small linen closet over the stairway.  Above your head
 is a spider web-like tangle of string which leads to the 100 watt bulb
 hanging from the rafters in the center of the room.  Above the rafters are
 some thin sheets of plywood holding some stuffed plastic bags.  You have no
-idea what's in those bags.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
+idea what's in those bags.  Electricity rips through your spine as your ears
+are attacked by one of Art's coughing fits.  It ends after several seconds
+and you wonder if he's dead.
 
 > examine the bed
 You poke around the bed for a while and notice the corner of what looks like
@@ -235,9 +235,9 @@ You are standing in the tiny bathroom.  You thought you were chlostraphobic
 in the kitchen...  To the north is a small window with a towel rack below.
 To the east is a small shower stall.  To the west is a toilet and a vanity.
 (You have quite cleverly avoided being emprisoned with the old "knife trick"
-by taking  all the knives from the silverware drawer.)  Hovey is here.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
+by taking  all the knives from the silverware drawer.)  Hovey is here.  Your
+ears are rudely awakened by the sound of a skill saw screaming and scraping
+through some lumber off  in the distance.
 
 > get grandpa's shoes
 You are able to convince grandpa to give you his shoes.  You sit down and
@@ -287,9 +287,8 @@ wall is an antique clock , a small fuse box and a magazine rack.  There is
 also a crummy old couch there.  To the north is a stairway leading upstairs,
 the bathroom door and a corner seat.  A small plastic sea gull hangs on the
 end of the chain that dangles from the light above.  The faint odor of
-snappers is here.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
+snappers is here.  Your ears are rudely awakened by the sound of a skill saw
+screaming and scraping through some lumber off  in the distance.
 
 > e
 You move east.
@@ -342,9 +341,8 @@ You reach into your pocket and pull out the old sandwich meat.  When you hold
 it out, Puppy lifts himself off of his haunches and rips it from your hand.
 He chews it ravinously, all the time eyeing you.  To your surprise, the
 colossal dog seems to smile at you.  The old dog nuzzles your hand, turns and
-prances up the concrete steps out of sight.
-You hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
+prances up the concrete steps out of sight.  You hear a large dog barking off
+in the distance.  The sound seems to echo through the neighborhood.
 
 > e
 You move east.
@@ -488,10 +486,9 @@ pants and scurries off the field, half in fright and half in embarassment.
 When the storm subsides, you walk back to the bottom of the wall searching
 for the ball.  You can't find the ball so you determine that it must have
 gone through the window and inside the Salvation Army building.  This sucks,
-game's over.
-The sound of a skill saw ripping lumber finally fades to  stillness.
-You hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
+game's over.  The sound of a skill saw ripping lumber finally fades to
+stillness.  You hear a large dog barking off in the distance.  The sound
+seems to echo through the neighborhood.
 
 > get usable baseball glove
 You pick up the usable baseball glove.
@@ -1277,8 +1274,8 @@ of a skill saw ripping through some lumber can be heard intermittantly off in
 the distance.  You can see Billy casually riding his bike on the road near
 the cottage.  He's quite shakey due to the slow speed and tight turns but he
 doesn't falter.
-The sound of a skill saw ripping lumber finally fades to  stillness.
-You hear a large dog barking off in the distance.  The sound seems to echo
+The sound of a skill saw ripping lumber finally fades to  stillness.  You
+hear a large dog barking off in the distance.  The sound seems to echo
 through the neighborhood.
 
 > look
@@ -1342,9 +1339,9 @@ the yellow bag.
 
 > put the items into the green bag
 You take the medical kit, soap-on-a-rope and strawberry shampoo and cram them
-into the green bag.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
+into the green bag.  Electricity rips through your spine as your ears are
+attacked by one of Art's coughing fits.  It ends after several seconds and
+you wonder if he's dead.
 
 > put the items into the blue bag
 You take the white towel, push broom and tennis ball and cram them into the
@@ -1387,11 +1384,11 @@ brown nose or something...  Your score has gone up by 5 for good citizenship.
 
 > climb up the ladder
 You check that the footing is solid and proceed gingerly up to the top of the
-ladder.  Your fear of heights begins to bother you a little.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
-You hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
+ladder.  Your fear of heights begins to bother you a little.  Electricity
+rips through your spine as your ears are attacked by one of Art's coughing
+fits.  It ends after several seconds and you wonder if he's dead.  You hear a
+large dog barking off in the distance.  The sound seems to echo through the
+neighborhood.
 
 > up
 You reach a hand up and to your surprise, you feel an invisible solid ledge.

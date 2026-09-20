@@ -456,10 +456,8 @@ Swearing is now on.
 
 > you idiot
 "That insult was not even remotely insulting," says Philip. "And we have a winner, Philip the Possum!" booms a voice over the speaker. The croud goes wild. That was hard, you've got to find out something that Philip gets insulted
-by.
-You burp.
-A voice booms over the speaker. "Do you want to enter the Swear 'O' Rama
-playoffs? Sign up in the lobby!"
+by.  You burp.  A voice booms over the speaker. "Do you want to enter the
+Swear 'O' Rama playoffs? Sign up in the lobby!"
 
 > d
 You move down.
@@ -798,8 +796,8 @@ those pills, and to top it off I had to listen to Mr Funs Happy Songs for the
 whole way back, now I'm a little tired and a little cranky, BUT GIVE ME A GOD
 DAMN REWARD!" you yell. "Fine, fine, Sally!" yells Matthew. "Yes sir?" says Sally. "Get Thumper here a pack of cuban cigars," says Matthew. "Right away sir," says Sally as she walks off and grabs a packet of cuban
 cigars, then hands them to you. "Now, that's what I call a reward, thanks a bundle," you say. "I'm going to go back to my office, and work on my next project," says
-Matthew. "See you later," you say as Matt walks to the elevator. He left his electronic device!
-You are going mad, your eyes are spinning too fast.
+Matthew. "See you later," you say as Matt walks to the elevator. He left his electronic device!  You are going mad, your eyes are spinning
+too fast.
 
 > take device
 You pick up the electronic device.
@@ -1372,8 +1370,7 @@ You grab your mug and drink back some beer. Lovely.
 You grab your mug and drink back some beer. Lovely.
 
 > drink beer
-You grab your mug and drink back some beer. Lovely.
-You scratch your arse.
+You grab your mug and drink back some beer. Lovely.  You scratch your arse.
 Bob takes your mug and begins to wipe it up.
 
 > buy beer
@@ -1507,8 +1504,8 @@ in the floor. "Shhhiiitttt!!!!" he yells as he falls.
 You slip and begin to fall down the hole. "SHHHHHHIIIIIIIITTTTTTTT!!!!!!!!!!!!" you scream as you fall. You land face
 forward on the floor. Normally if someone fell from that height, there body
 would be mangled all over the floor, but since Thumper is the official
-"Wonder Wombat", it only broke his spine.
-Sally lets out a mad laugh and begins to drool.
+"Wonder Wombat", it only broke his spine.   Sally lets out a mad laugh and
+begins to drool.
 
 > w
 You move west.
@@ -1608,8 +1605,7 @@ You can only move south.
 You move along the maze, hoping to get out soon.
 
 > n
-You move along the maze, hoping to get out soon.
-You burp.
+You move along the maze, hoping to get out soon.  You burp.
 
 > n
 You move along the maze, hoping to get out soon.

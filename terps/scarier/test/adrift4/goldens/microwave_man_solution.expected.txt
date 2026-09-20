@@ -25,8 +25,8 @@ You bang on the microwave door, praying for someone to notice you.  A few
 moments pass, and a large hand opens the door!  The man which opens the door
 looks at you, and smirks.  "Ah, so it's my old enemy the little little man!"
 he says with a cackle.  The man puts a coffee mug in the microwave and closes
-the door.
-Coffee Man closes the door and begins to press buttons on the microwave.
+the door.  Coffee Man closes the door and begins to press buttons on the
+microwave.
 
 > chop door
 You cut a big gash in the microwave door's protective cover.
@@ -37,8 +37,8 @@ you will reflect off it and blast down the door.  You grit your teeth as
 Coffee Man presses some buttons on the microwave and presses 'START'.
 Yes!  The beams shoot at you but bounce off of the glass!  You steer the
 beams in the direction of the microwave door... and the door pops open!  The
-microwave shuts itself off when the door opens!
-Coffee Man is halfway through pressing the buttons!
+microwave shuts itself off when the door opens!  Coffee Man is halfway
+through pressing the buttons!
 
 > take gun
 You take a small pistol from some aluminum clothes.

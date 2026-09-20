@@ -264,10 +264,9 @@ Dressing Room
 This dressing room is like a large, walk-in closet.  Macbeth and Lady Macbeth
 use this room to change their clothes and other things.
 You search through the clothing and linens and don't find anything
-remarkable.
-Suddenly, you hear someone in the bedroom.  If you listen, you might just
-hear what they are saying.  Then again if you are caught, you risk the ire of
-the Thane of Glamis and Cawdor.
+remarkable.  Suddenly, you hear someone in the bedroom.  If you listen, you
+might just hear what they are saying.  Then again if you are caught, you risk
+the ire of the Thane of Glamis and Cawdor.
 You listen to the voices. . . .
 
 You hear Lady Macbeth and Macbeth arguing in the next room as Macbeth changes

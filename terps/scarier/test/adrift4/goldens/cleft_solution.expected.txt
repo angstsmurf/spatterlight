@@ -406,8 +406,7 @@ You depress the red button.
 You depress the blue button.
 
 > pull lever
-You pull the lever.
-You hear a klaxon sounding in the far distance.
+You pull the lever.   You hear a klaxon sounding in the far distance.
 
 > sw
 You move southwest.

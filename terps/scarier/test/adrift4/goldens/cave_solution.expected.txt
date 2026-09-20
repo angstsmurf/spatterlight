@@ -148,8 +148,7 @@ You make your way further up the tree.
 > feed bird
 You dangle the worm out at arms length, and the bird snatches it from your
 fingers greedily.  The bird instantly looks more energetic as it swallows the
-tasty morsel.
-The bird squats in it's nest, and lays a small green egg.
+tasty morsel.  The bird squats in it's nest, and lays a small green egg.
 
 > wait
 Time passes...
@@ -325,8 +324,8 @@ barking loudly, before digging a little hole in the ground, uncovering a pair
 of batteries.  Paws then runs away barking happily.
 
 > plant seed
-You put the seed into the hole, and pat some soil down on top of it.
-A small stick appears in the hole.
+You put the seed into the hole, and pat some soil down on top of it.  A small
+stick appears in the hole.
 
 > wait
 Time passes...

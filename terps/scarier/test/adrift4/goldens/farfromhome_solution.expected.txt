@@ -23,8 +23,8 @@ In the cabin
 The cabin is quite old, and the wood that composes its walls is also
 decomposing. The fireplace is full of old, blackened ashes, and a wood box
 sits nearby it. The mountain is back west, and an open trapdoor exposes a
-cellar beneath. The floor is made of dirt, so grass also grows here.
-A cool breeze blows past. The grass and plants that surround you quiver as it
+cellar beneath. The floor is made of dirt, so grass also grows here.  A cool
+breeze blows past. The grass and plants that surround you quiver as it
 caresses them.
 
 > open wood box
@@ -45,9 +45,8 @@ awful-smelling bed.
 You take a rusty bucket from the awful-smelling bed.
 
 > up
-You grasp the ladder and climb back into the cabin.
-A cool breeze blows past. The grass and plants that surround you quiver as it
-caresses them.
+You grasp the ladder and climb back into the cabin.  A cool breeze blows
+past. The grass and plants that surround you quiver as it caresses them.
 
 > w
 You move west.
@@ -63,14 +62,13 @@ You move south.
 A huge forest
 The trees are quite varied. Some are pine, some oak, some live, some dead and
 rotting. The dirt path leads south and north. You can see footprints of small
-animals in the dust. Small twigs litter the grass.
-You hear a small snap, as if a twig had been broken.
+animals in the dust. Small twigs litter the grass.  You hear a small snap, as
+if a twig had been broken.
 
 > chop down tree
 You whack the tree repeatedly with the axe. Soon, it crashes to the ground. A
-shovel dislodges from the branches.
-A cool breeze blows past. The grass and plants that surround you quiver as it
-caresses them.
+shovel dislodges from the branches.  A cool breeze blows past. The grass and
+plants that surround you quiver as it caresses them.
 
 > take shovel
 You pick up the shovel.
@@ -82,13 +80,13 @@ A large field
 This field is so big that if you went anywhere but back north, you'd get
 lost. The grass is taller here than anywhere else. It's almost up to your
 elbows. The grass moves occasionally, as a small creature moves through it.
-There is a large molehill near your right foot.
-You hear a small snap, as if a twig had been broken.
+There is a large molehill near your right foot.  You hear a small snap, as if
+a twig had been broken.
 
 > dig
 You sink the shovel into the soft earth of a molehill and start to remove the
-dirt. Soon, you expose a small hole leading down into the ground.
-A cool breeze blows past. The grass and plants that surround you quiver as it
+dirt. Soon, you expose a small hole leading down into the ground.  A cool
+breeze blows past. The grass and plants that surround you quiver as it
 caresses them.
 
 > d
@@ -110,9 +108,8 @@ This field is so big that if you went anywhere but back north, you'd get
 lost. The grass is taller here than anywhere else. It's almost up to your
 elbows. The grass moves occasionally, as a small creature moves through it.
 Dirt is scattered about the field, and you can move down through a small hole
-into a cave.
-A cool breeze blows past. The grass and plants that surround you quiver as it
-caresses them.
+into a cave.  A cool breeze blows past. The grass and plants that surround
+you quiver as it caresses them.
 
 > n
 You move north.
@@ -375,8 +372,8 @@ Western Beach
 You are standing at the base of a tall, rough-trunked palm tree. Seagulls fly
 incessantly over it, circling for ages and ages, almost as if it is a god to
 them... The wet sand smooshes around beneath your feet, making footprint
-molds that are washed away every so often.
-The tide washes in, splashing about your feet.
+molds that are washed away every so often.  The tide washes in, splashing
+about your feet.
 
 > climb tree
 You grasp the tree around its trunk and pull yourself up into the fronds,
@@ -449,8 +446,8 @@ to be a lighthouse. Its stones are aged and deteriorating, due to the
 constant battering by the waves. The sand squelches about under your feet,
 making shoe-prints that are almost immediately washed away by the tide. There
 doesn't appear to be much vegetation on the island except one thin tree at
-the back of the lighthouse.
-The tide recedes from the island, leaving wet sand where there was water.
+the back of the lighthouse.  The tide recedes from the island, leaving wet
+sand where there was water.
 
 > in
 You move in.

@@ -30,9 +30,9 @@ Giving a low, gurgling growl of displeasure it continues to advance.
 > kill beast with rock
 You strike at the shadow with the jagged rock. The  weapon meets resistance
 and the beast lets out a nearly human shriek. Driven by fear you strike again
-and again until your attacker lies still and silent at your feet.
-Pain shoots through your left hand. You feel disoriented. Not quite sure who
-you are. No idea where you are. Or why you are here.
+and again until your attacker lies still and silent at your feet.  Pain
+shoots through your left hand. You feel disoriented. Not quite sure who you
+are. No idea where you are. Or why you are here.
 
 > x creature
 Looking more closely at the crumpled form, you see that it is not a beast but
@@ -43,8 +43,8 @@ wears.
 
 > get ring
 You gingerly remove the gold ring from the dead creature. Unlike some of your
-thieving colleagues, you have never much enjoyed robbing corpses.
-Your left hand continues to throb.
+thieving colleagues, you have never much enjoyed robbing corpses.  Your left
+hand continues to throb.
 
 > x left hand
 An object resembling a faceted gem appears to be partially embedded in the
@@ -625,10 +625,10 @@ thumping that fills the grotto and passageways all around.
 You slash at the membrane. The bronze sword blade meets taut resistance for
 an instant, then the membrane tears, with an audible noise. Pulsing veins,
 ripped apart, dangle and wave, spurting blood wildly and the ragged, rent
-tissues ooze dark red ichor..
-There is a harsh chattering noise and a monstrous form, three times your
-height, scuttles through the bloody, membranous tatters which dangle like a
-torn curtain from the opening in the wall.
+tissues ooze dark red ichor..  There is a harsh chattering noise and a
+monstrous form, three times your height, scuttles through the bloody,
+membranous tatters which dangle like a torn curtain from the opening in the
+wall.
 
 It appears to be a sort of gargantuan crab. You can make out the pale dome of
 the shell below which glisten fiery eyes and slathering mandibles.

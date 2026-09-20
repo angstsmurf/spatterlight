@@ -577,20 +577,17 @@ You are being telepathically probed!
 --
 
 > z
---
--CYBERCOW? - WHAT. IS. THIS. CYBERCOW. PLANNING.-
+--  -CYBERCOW? - WHAT. IS. THIS. CYBERCOW. PLANNING.-
 You can feel the harsh mechanical examination of your most private thoughts.
 --
 
 > z
---
--TAKE. ME. TO. THE.CYBERCOW. - NOW.-
+--  -TAKE. ME. TO. THE.CYBERCOW. - NOW.-
 The Robot seems to enjoy this experience.
 --
 
 > z
---
-The Robot releases you with a mean little shove.
+--  The Robot releases you with a mean little shove.
 
 Cellar
 The work space around the well-lit table in the center of the room remains
@@ -637,8 +634,7 @@ The CyberCow is here.
 
 You can move west and up.  The Robot marches in  from above.
 The Robot and the CyberCow lock eyes.
-
-The Robot begins charging its ray weapon.
+  The Robot begins charging its ray weapon.
 --Ah:  there's really no good place to be in the bottom of the well here, if
 the Robot fires that thing.
 
@@ -877,8 +873,8 @@ a grapefruit is to a young child, messily devours the thing.
 You pause a moment...
 With purple-red berry juice running all down her face, her bare arms, and all
 over her dress, the fairy looks at you-- and smiles.
-
---The fairy lauches suddenly into the air, and flies in circles around you--
+  --The fairy lauches suddenly into the air, and flies in circles around
+you--
 
 > z
 You pause a moment...

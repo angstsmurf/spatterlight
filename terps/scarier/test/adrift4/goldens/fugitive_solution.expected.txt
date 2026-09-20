@@ -206,8 +206,8 @@ You take a can of beer from the dead punker.
 You open the can of beer.
 
 > drink beer
-You drink the beer and throw away the empty can.
-You're getting pretty drunk...
+You drink the beer and throw away the empty can.  You're getting pretty
+drunk...
 
 > west
 You walk west.

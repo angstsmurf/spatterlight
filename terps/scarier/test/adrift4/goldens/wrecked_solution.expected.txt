@@ -217,8 +217,7 @@ I can move north, east, south and in.
 
 > post it
 (an application form)
-I post the application form into the post box.
-The rain stops.
+I post the application form into the post box.  The rain stops.
 
 > east
 I move east.
@@ -348,8 +347,8 @@ gate is closed.  It is raining.
 I can only move west.
 
 > push button
-I push the red button firmly.  Slowly, the wire gate swings open.
-The rain eases slightly.
+I push the red button firmly.  Slowly, the wire gate swings open.  The rain
+eases slightly.
 
 > north
 I move north.
@@ -493,8 +492,7 @@ I can move north, east, south, west and in.
 > drop it
 (the juicy pork chop)
 I drop the pork chop.  Angus immediately pounces on the chop, and starts
-chewing away.
-It starts to rain.
+chewing away.  It starts to rain.
 
 > get hook
 I pick up the large shark hook.

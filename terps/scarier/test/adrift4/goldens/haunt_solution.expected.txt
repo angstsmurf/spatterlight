@@ -21,8 +21,8 @@ have run back outside and prayed for the wolves to come back...
 
 > x portraits
 The portrait of a pretty young girl catches your eye: Cousin Marie, 1732 -
-commited suicide 1764. "All she wanted was a kiss."
-Thunder rumbles ominously.
+commited suicide 1764. "All she wanted was a kiss."  Thunder rumbles
+ominously.
 
 > up
 You move up.
@@ -36,8 +36,8 @@ The rain continues to batter down.
 
 > x portraits
 A particularly compelling gaze catches your eye in one of the portraits -
-that of "Uncle Horace, 1746-1803. Motto: I WILL LIVE AGAIN"
-The wind howls and you shiver.
+that of "Uncle Horace, 1746-1803. Motto: I WILL LIVE AGAIN"  The wind howls
+and you shiver.
 
 > kiss marie
 Cousion Marie is not here!  Marie floats in from the east.
@@ -48,8 +48,8 @@ You lean forward and kiss Cousin Marie gently on the cheek. Though your lips
 pass through thin air, she appears to have acknowledged you for the first
 time: a smile spreads slowly across her grey face and she  fades away, still
 smiling. When she is gone completely you feel an icy sensation on your lips,
-and feel something pressed into your hand - a gold-set emerald.
-Thunder rumbles ominously.
+and feel something pressed into your hand - a gold-set emerald.  Thunder
+rumbles ominously.
 
 > w
 You move west.
@@ -62,8 +62,8 @@ The rain continues to batter down.
 
 > use emerald with crest
 The crest, now completed, slowly slides back to reveal: nothing but a scrap
-of paper, which drifts to the floor. You are very disappointed.
-The wind howls and you shiver.
+of paper, which drifts to the floor. You are very disappointed.  The wind
+howls and you shiver.
 
 > take paper
 You pick up scrap of paper.
@@ -167,8 +167,8 @@ The wind howls and you shiver.
 > put weedkiller in tank
 You pour the grey powder into the water tank and swish it in with your
 finger. A few seconds later, an ear-piercing scream erupts from the
-greenhouse, and several windows are smashed as tendrils writhe within.
-A sudden crash of lightning makes you jump.
+greenhouse, and several windows are smashed as tendrils writhe within.  A
+sudden crash of lightning makes you jump.
 
 > n
 You move north.
@@ -195,8 +195,8 @@ You can move north, south and west.
 The wind howls and you shiver.
 
 > open toolshed
-The toolshed door swings open. You discard the key.
-A sudden crash of lightning makes you jump.
+The toolshed door swings open. You discard the key.  A sudden crash of
+lightning makes you jump.
 
 > e
 You move east.
@@ -267,10 +267,8 @@ Thunder rumbles ominously.
 
 > lean ladder against window
 You lean the ladder against the open bathroom window, enabling you to climb
-up and go inside.
-The rain continues to batter down.
-You hear wolves again, and they seem to be coming closer. It may not a good
-idea to hang around...
+up and go inside.  The rain continues to batter down.  You hear wolves again,
+and they seem to be coming closer. It may not a good idea to hang around...
 
 > up
 You move up.
@@ -284,8 +282,8 @@ The wind howls and you shiver.
 
 > pull chain
 You pull the chain and the toilet flushes noisily. What fun! Wait... the
-gurgling water clears away to reveal something. A shiny key!
-A sudden crash of lightning makes you jump.
+gurgling water clears away to reveal something. A shiny key!  A sudden crash
+of lightning makes you jump.
 
 > take key from toilet
 You take drinks cabinet key from porcelain toilet.
@@ -293,12 +291,11 @@ Thunder rumbles ominously.
 
 > drink from toilet
 You have a long, cool drink from that great-tasting toilet water. Ah, that
-really hits the spot...
-The rain continues to batter down.
+really hits the spot...  The rain continues to batter down.
 
 > open door
-You slide back the bolt from the door and open it.
-The wind howls and you shiver.
+You slide back the bolt from the door and open it.  The wind howls and you
+shiver.
 
 > e
 You move east.
@@ -349,8 +346,8 @@ You can move north and west.
 A sudden crash of lightning makes you jump.
 
 > unlock cabinet
-The drinks cabinet swings open. You discard the key.
-Thunder rumbles ominously.
+The drinks cabinet swings open. You discard the key.  Thunder rumbles
+ominously.
 
 > take whisky
 You pick up bottle of whisky.
@@ -359,7 +356,7 @@ The rain continues to batter down.
 > drink whisky
 You tip the all the whisky down your neck and throw away the bottle. You feel
 very lightheaded and dizzy, then vomit profusely onto the floor. Never again!
-The wind howls and you shiver.
+ The wind howls and you shiver.
 
 > take whisky
 You pick up bottle of whisky.
@@ -472,8 +469,7 @@ Thunder rumbles ominously.
 > pour liquid into fish tank
 You pour the purple liquid into the fish tank... suddenly the piranha
 thrashes around madly, as if it is burning. Then it floats gently to the top
-of the water.
-The rain continues to batter down.
+of the water.  The rain continues to batter down.
 
 > take fish
 You take dead fish from fish tank.
@@ -481,8 +477,7 @@ The wind howls and you shiver.
 
 > put fish in whisky
 The fish disolves in the whisky! As it fizzes, you see the whisky take on a
-blue colour and a sweet smell.
-A sudden crash of lightning makes you jump.
+blue colour and a sweet smell.  A sudden crash of lightning makes you jump.
 
 > e
 You move east.
@@ -509,9 +504,8 @@ The cog fits perfectly, and the hands of the clock switch to 12:00 midnight.
 It begins to chime, but does not stop at 12. It seems the clock will keep
 chiming for ever...  From downstairs, Eggbert shouts "What! I thought that
 clock was broken!" Then you hear a muffled footsteps approaching as he comes
-to investigate.
-The wind howls and you shiver.
-You hear the chiming of the grandfather clock.
+to investigate.  The wind howls and you shiver.  You hear the chiming of the
+grandfather clock.
 
 > w
 You move west.
@@ -521,8 +515,8 @@ holds more portraits of the previous owners. Doorways go in three directions
 and stairs behind you lead downstairs.
 
 You can move east, west and down.
-A sudden crash of lightning makes you jump.
-You hear the chiming of the grandfather clock.
+A sudden crash of lightning makes you jump.  You hear the chiming of the
+grandfather clock.
 
 > down
 You move down.
@@ -532,8 +526,7 @@ decorate the walls. You have the odd feeling that the eyes are watching
 you...
 
 You can move east, south and up.
-Thunder rumbles ominously.
-You hear the chiming of the grandfather clock.
+Thunder rumbles ominously.  You hear the chiming of the grandfather clock.
 
 > e
 You move east.
@@ -542,8 +535,8 @@ perhaps of when this house was inhabited. A drinks cabinet is on the west
 wall.  Eggbert is here.
 
 You can move north and west.  Eggbert runs off to the west.
-The rain continues to batter down.
-You hear the chiming of the grandfather clock.
+The rain continues to batter down.  You hear the chiming of the grandfather
+clock.
 
 > n
 You move north.
@@ -552,8 +545,8 @@ garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
 
 You can move north, south and west.
-The wind howls and you shiver.
-You hear the chiming of the grandfather clock.
+The wind howls and you shiver.  You hear the chiming of the grandfather
+clock.
 
 > w
 You move west.
@@ -564,8 +557,8 @@ wall, and a stove rests beside the window. A hole in the ground leads down to
 the laboratory.
 
 You can move east and down.
-A sudden crash of lightning makes you jump.
-You hear the chiming of the grandfather clock.
+A sudden crash of lightning makes you jump.  You hear the chiming of the
+grandfather clock.
 
 > down
 You move down.
@@ -584,8 +577,7 @@ Stealthily, you pour the blue potion into the green mixture. Your heart beats
 as the mixture writhes, and for a second you could be sure it is screaming.
 When the reaction is over, you are left with a black sludge, which you
 carefully scoop up and put into the whisky bottle where you stored the blue
-potion.
-You hear the chiming of the grandfather clock.
+potion.  You hear the chiming of the grandfather clock.
 
 > up
 You move up.
@@ -596,8 +588,8 @@ wall, and a stove rests beside the window. A hole in the ground leads down to
 the laboratory.
 
 You can move east and down.
-The wind howls and you shiver.
-You hear the chiming of the grandfather clock.
+The wind howls and you shiver.  You hear the chiming of the grandfather
+clock.
 
 > e
 You move east.
@@ -606,8 +598,8 @@ garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
 
 You can move north, south and west.  Eggbert bumbles in from the south.
-A sudden crash of lightning makes you jump.
-You hear the chiming of the grandfather clock.
+A sudden crash of lightning makes you jump.  You hear the chiming of the
+grandfather clock.
 
 > n
 You move north.
@@ -633,13 +625,13 @@ You pour the foul-smelling sludge onto Uncle Horace's grave. As it sinks in,
 the ground begins to churn and writhe... a bony, half-rotten hand bursts
 through the mud and you almost faint with fright. Uncle Horace (deceased)
 pulls himself out of the earth and stands dumbly, unblinking, before you. But
-after all this effort - what are you going to do with him?
-The wind howls and you shiver.
+after all this effort - what are you going to do with him?  The wind howls
+and you shiver.
 
 > show paper to horace
 The zombie's head turns slowly towards the paper. Still holding it out, you
-back away. It works! For every step you take, Horace now follows you.
-A sudden crash of lightning makes you jump.
+back away. It works! For every step you take, Horace now follows you.  A
+sudden crash of lightning makes you jump.
 
 > e
 You move east.
@@ -658,8 +650,8 @@ garden. The rain patters on the tin roof above. Occasionally through the
 windows you think you can see moving shapes - or is it your imagination?
 
 You can move north, south and west.  Horace lurches in from the north.
-The rain continues to batter down.
-You hear the chiming of the grandfather clock.
+The rain continues to batter down.  You hear the chiming of the grandfather
+clock.
 
 > w
 You move west.
@@ -670,13 +662,13 @@ wall, and a stove rests beside the window. A hole in the ground leads down to
 the laboratory.
 
 You can move east and down.  Horace lurches in from the east.
-The wind howls and you shiver.
-You hear the chiming of the grandfather clock.
+The wind howls and you shiver.  You hear the chiming of the grandfather
+clock.
 
 > score
 Your score is 84 out of a maximum of 84.  (100%)
-A sudden crash of lightning makes you jump.
-You hear the chiming of the grandfather clock.
+A sudden crash of lightning makes you jump.  You hear the chiming of the
+grandfather clock.
 
 > down
 You move down.
