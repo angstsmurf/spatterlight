@@ -28,7 +28,7 @@ Row comments and probe generators cite sections by title ("Ported
 
 ---
 
-## Where things stand (2026-09-19)
+## Where things stand (2026-09-20)
 
 - **Goldens:** 428/428.
 - **`runner_transcripts/`** holds one Runner transcript per row except
@@ -301,16 +301,9 @@ not by a tick.
   namesakes with the **Battle System on** (dobattle, not characters()),
   which keeps SCARE's question below 4.0, and 4.0 verbs where
   `lib_npc_400_raise_for_line` declines.
-- **Take "and" with a candidate present:** the zero-candidate summary and
-  the silent skip of a held object are ported. The rest of the main multi
-  loop at 454CA3 after a partial pre-pass (worn objects, a named absent
-  object beside a candidate) is unread.
 - **run390's battle "Who do you want to attack?" prefix** (44D1F4) is
   the same MemVar_4681D0 and takes the plain 4601A5 rerun, but no battle
   game has been driven through it.
-- **Take-from:** the " and " clause picks the last container in 3.9 and the
-  first in 4.0; 3.9's " and " collection bug; the pending slot after `Get X
-  from what?`; surface-vs-container wording of the parent-derivation arm.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
@@ -320,8 +313,6 @@ not by a tick.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
-- **The 3.8 object loop's scope test** is unread (`lie on bed` from the next
-  room already matches: "You can't lie on that.").
 - **Pre-4.0 room-name alt walk** is unmeasured.
 - **run380's event route** to the task-ran flag (set in tasks() at 44D0BA)
   is unread; the 3.9 rule is ported.
@@ -735,6 +726,14 @@ transcript names are in the code comment next to the named function, in
 
 ### Nouns, scope and the seen model
 
+- **The 3.8 object loop's scope test** is obhere (run380 4272E8): a
+  dynamic object is present when held, worn, loose in the room, held or
+  worn by a character in the room, or INSIDE (&HF6 only, never on) a
+  present parent that is not closed; a static when it is in the room.
+  Record only: Scarier's scope already answered the same (`lie on bed`
+  from the next room "You can't lie on that.", p3xTKA cells 174/177/180);
+  the rule is reused by the 3.7/3.8 take-from container slot
+  (lib_obhere_380). `[3.8]` p37TKA, p38TKA (2026-09-20)
 - **Nothing is referenceable until something lists it.** The loader seeds
   the seen byte and afteroa sweeps it (statics only at 3.9). A unique
   absent-seen winner answers "can't see X from here!" and ticks; a tie or
@@ -946,9 +945,70 @@ transcript names are in the code comment next to the named function, in
   test; 3.7 names by c(Short) and counts only loose objects. A held object
   is named, never a candidate. `[<4.0]` p39ABSNPC T36, p3xPUT
   (lib_take_and_none_pre400)
-- **Pre-4.0 "and" take skips held objects silently:** `take table and
-  stone` with the stone held is "You pick up the table." `[<4.0]`
-  (lib_take_multiple_common)
+- **Pre-4.0 take "and", the main loop** (run380 43D788, run390 454CA3).
+  After the zero-candidate summary takes() seeds "<You> pick up " and
+  walks the co-named objects in INDEX order: a held one is silent unless
+  the message was already overwritten, when "You've already got X!"
+  replaces it; a worn one (3.8+) replaces it with "You are already wearing
+  X!"; a loose candidate is taken and listed with ", " / " and " / "." by
+  the candidates still to come, or the hands-full line is appended; an
+  object in or on something (3.8+) while the message is still the seed
+  (or ends " from here!") derives its parent: present, the line becomes
+  "<line> from <parent>" for insides(), absent "You can't see X from
+  here!". A tail still equal to the seed becomes "Please take objects from
+  one place at a time." (3.8+; 3.7 leaves it). The rewritten line then goes
+  through insides() when the container slot is valid and is silent when it
+  is not. Measured: `take table and stone` with the stone held is "You
+  pick up the table."; `take hat and stone` with the hat worn is "You are
+  already wearing a hat!the stone." (3.9 "the hat!"); `take stone and
+  nut` with the nut in a box on the floor is 3.8's dangling "You pick up
+  the stone and" (the derived take-from fails on the unheld box and says
+  nothing) and "You pick up the stone." at 3.7/3.9; `take nut and key`
+  with the box and table on the floor is 3.8's "Please take objects from
+  one place at a time." and the zero-candidate "You can't get any of
+  them." at 3.7/3.9. `[<4.0]` p3xTKA, p3xTKB (Adrift_205-207_ptka,
+  Adrift_207-209_ptkb; lib_take_and_pre400)
+- **4.0 take "and" pieces** (get_outer 4582D8 / get_piece 473A34): the
+  noun part splits on " and " and each piece resolves on its own; a piece
+  in or on something turns the whole line into a take-from of the FIRST
+  such parent, otherwise every piece is taken and each static refused in
+  turn. `[4.0]` p4TKA, p4TKB (Adrift_208_ptka_4, Adrift_210_ptkb_4;
+  lib_take_and_400)
+- **Take-from with " and ", by version.** 3.7/3.8 (insides 4468B3):
+  the container slot walks the co-named objects in index order and is
+  replaced when the current slot is not present (obhere 4272E8) or the
+  object's highest name position in the line is beyond the slot's lowest,
+  so the LAST present name after or before "from" wins; fewer than two
+  matches without "all" is "You can't do that!"; the and-form collects
+  only the named contents, the all-form everything, and an empty pick is
+  "There is nothing inside <a slot>." (plain: 3.7 nothing-inside, 3.8 the
+  bare "You take "). 3.9 (insides 462FD2): named = the first co-named SEEN
+  object before "from", container = the LAST co-named after it; fewer than
+  two matches, or no named object, without "all" is the named object's own
+  answer ("Get <the X> from what?" with the pending slot `get <X> from`
+  filled by the next line, "<The X> isn't in or on anything!", "You can't
+  do that!"); any "and" collects only the named contents and never
+  complains, so `get nut and bolt from box` takes the nut and says nothing
+  about the bolt. 4.0 (get_piece 472F1F): the names before "from" resolve
+  first (none: "Take what?"), the container is the FIRST clause after it
+  (unresolved: "I don't understand where you want to get things from.",
+  no turn), then closed / empty / contents; a line naming nothing on a
+  surface that is no container is "You can't take anything from X.",
+  otherwise "Take what?". A trailing "from" is silent at 4.0, the no-name
+  answer below 3.9 and the named answer at 3.9. `[all]` p3xTKA/p4TKA,
+  p3xTKB/p4TKB (lib_take_from_and_390, lib_take_from_and_400,
+  lib_take_from_slot_pre390, lib_take_from_nowhere_named_390,
+  lib_take_from_trailing)
+- **3.7's take-from catch-all** runs two passes over the co-named objects:
+  one present (a static in the room; a dynamic held, worn, loose here or
+  in/on a held parent) and seen, in index order, is "I don't understand
+  what you want me to do with X."; failing that the first unseen one is
+  "What <Short>?". `[3.7]` p37TKA, p37TKB (lib_take_from_answer_370,
+  lib_present_370)
+- **Pre-3.9 `i` lists held surfaces like containers:** "  Inside <the X>
+  is <list>." (whatisin1, run370 42B78E / run380 42998C) for a surface
+  too; 3.8 skips a closed container, 3.7 lists its contents. `[<3.9]`
+  p37TKB, p38TKB (lib_list_in_object_pre_390)
 - **4.0 put/task precedence.** A completable library put beats a passing
   task. A size or capacity refusal prints without claiming the line, and
   the task follows. The implicit take is gated on a mode-1 pre-match and

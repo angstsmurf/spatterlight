@@ -9660,6 +9660,10 @@ lib_cmd_take_npc (scr_gameref_t game)
    backend.  Selects the single-take "already carrying" refusal wording. */
 static scr_bool lib_take_single_named = FALSE;
 static scr_bool lib_take_refusal_claimed = FALSE;
+/* Set when a 4.0 take line was split on "and" into pieces the take
+   resolver named one by one; see lib_take_and_400().  Each piece gets the
+   single-take wording ("already carrying", "can't take X!"). */
+static scr_bool lib_take_and_pieces_400 = FALSE;
 
 /*
  * lib_take_refusal_redispatch_400()
@@ -10436,8 +10440,16 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * and "You are already carrying <object>." -- not "already wearing".
    * 3monkeys T65 `get sheet` with the sheet worn (run400x, 2026-09-19).
    */
+  /*
+   * A 4.0 line split on "and" resolves each piece through the same
+   * single-take handler (run400 4731A2 loops the pieces through
+   * Proc_19_23_473A34), so every piece gets the single wording: p4TKA
+   * `take hat and stone` with the hat worn is "You take the stone.  You are
+   * already carrying the hat." (Adrift_208_ptka_4 cells 14/40/44, 2026-09-20).
+   */
   const scr_bool worn_is_held = lib_is_version_400 (game)
-                                && lib_take_single_named;
+                                && (lib_take_single_named
+                                    || lib_take_and_pieces_400);
   list.clear ();
   for (object = 0; object < object_count; object++)
     {
@@ -10507,17 +10519,23 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
    * run380: single-named `take parchment` while holding it answers
    * "You've already got half of a parchment!".
    */
-  if (lib_is_version_400 (game) && lib_take_single_named && list.size () == 1)
+  if (lib_is_version_400 (game)
+      && ((lib_take_single_named && list.size () == 1)
+          || (lib_take_and_pieces_400 && !list.empty ())))
     {
-      lib_new_clause (game, has_printed);
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             "You are already carrying ",
-                                             "I am already carrying ",
-                                             "%player% is already carrying "));
-      lib_print_object_np (game, list[0]);
-      pf_buffer_character (filter, '.');
-      has_printed |= TRUE;
+      /* One clause per piece on an "and" line (p4TKA cells 14/40/44). */
+      for (const scr_int object : list)
+        {
+          lib_new_clause (game, has_printed);
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                                 "You are already carrying ",
+                                                 "I am already carrying ",
+                                                 "%player% is already carrying "));
+          lib_print_object_np (game, object);
+          pf_buffer_character (filter, '.');
+          has_printed |= TRUE;
+        }
     }
   else
     /* Pre-3.9 spells it Prefix & " " & Short (run380 43E03E): p38EXAM `take
@@ -10641,22 +10659,41 @@ lib_take_backend_common (scr_gameref_t game, scr_int associate,
       /* A refusal that stands leaves the line to the task dispatcher. */
       lib_take_refusal_redispatch = !list.empty ();
     }
-  lib_print_object_list (game, has_printed, list, " and ",
-                         lib_is_version_400 (game)
-                         && lib_take_single_named && list.size () == 1
-                         ? '!' : '.',
-                         "You can't take ",
-                         "I can't take ",
-                         "%player% can't take ",
-                         /* 3.7/3.8 name it by the raw Prefix: "You can't
-                            take a chair." (run380 43E697, run370 4369FF;
-                            run370x/run380x p3738sit3, 2026-09-19). */
-                         prop_get_taf_version (gs_get_bundle (game))
-                         >= TAF_VERSION_390
-                         ? lib_print_object_np : lib_print_object_raw);
+  if (lib_is_version_400 (game) && lib_take_and_pieces_400)
+    {
+      /* Each "and" piece is its own single-take refusal: p4TKA `take stone
+         and statue` -> "You take the stone.  You can't take the statue!"
+         (Adrift_208_ptka_4 cells 17/20, 2026-09-20). */
+      for (const scr_int object : list)
+        {
+          lib_list_t one;
+          one.push_back (object);
+          has_printed |= lib_print_object_list (game, has_printed, one,
+                                                " and ", '!',
+                                                "You can't take ",
+                                                "I can't take ",
+                                                "%player% can't take ",
+                                                lib_print_object_np);
+        }
+    }
+  else
+    lib_print_object_list (game, has_printed, list, " and ",
+                           lib_is_version_400 (game)
+                           && lib_take_single_named && list.size () == 1
+                           ? '!' : '.',
+                           "You can't take ",
+                           "I can't take ",
+                           "%player% can't take ",
+                           /* 3.7/3.8 name it by the raw Prefix: "You can't
+                              take a chair." (run380 43E697, run370 4369FF;
+                              run370x/run380x p3738sit3, 2026-09-19). */
+                           prop_get_taf_version (gs_get_bundle (game))
+                           >= TAF_VERSION_390
+                           ? lib_print_object_np : lib_print_object_raw);
 
   lib_take_single_named = FALSE;
   lib_take_from_single_named = FALSE;
+  lib_take_and_pieces_400 = FALSE;
 }
 
 
@@ -11655,6 +11692,585 @@ lib_take_and_none_pre400 (scr_gameref_t game)
 
 
 /*
+ * lib_instr_nocase()
+ *
+ * VB's InStr(1, line, name, vbTextCompare): the 1-based position of the
+ * first case-insensitive occurrence of name in line, 0 when absent or when
+ * name is empty.
+ */
+static scr_int
+lib_instr_nocase (const scr_char *line, const scr_char *name)
+{
+  size_t length, offset;
+
+  if (!line || !name || !*name)
+    return 0;
+  length = strlen (name);
+  for (offset = 0; line[offset]; offset++)
+    {
+      if (scr_strncasecmp (line + offset, name, length) == 0)
+        return (scr_int) offset + 1;
+    }
+  return 0;
+}
+
+
+/*
+ * lib_name_instr_range()
+ *
+ * The lowest and highest InStr positions of an object's names on the line:
+ * its Short and, 3.8 up, each Alias (run370 has rewritten aliases into the
+ * Short by now).  Names absent from the line count for nothing.  FALSE when
+ * none of the names is on the line.
+ */
+static scr_bool
+lib_name_instr_range (scr_gameref_t game, const scr_char *line,
+                      scr_int object, scr_int *lowest, scr_int *highest)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int position;
+
+  *lowest = 0;
+  *highest = 0;
+  position = lib_instr_nocase (line,
+                               prop_get_indexed_string (bundle, "Objects",
+                                                        object, "Short"));
+  if (position > 0)
+    *lowest = *highest = position;
+
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_380)
+    {
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+      for (alias = 0; alias < alias_count; alias++)
+        {
+          vt_key[3].integer = alias;
+          position = lib_instr_nocase (line,
+                                       prop_get_string (bundle, "S<-sisi",
+                                                        vt_key));
+          if (position <= 0)
+            continue;
+          if (*lowest == 0 || position < *lowest)
+            *lowest = position;
+          if (position > *highest)
+            *highest = position;
+        }
+    }
+  return *highest > 0;
+}
+
+
+/*
+ * lib_obhere_380()
+ *
+ * run380's obhere() (4272E8, Form1.frm:4950; run370 has the same).  A
+ * dynamic object is here when it is held, worn, loose in the player's room,
+ * held or worn by a character in the room, or IN a parent that is here and
+ * not closed; ON is not tested at all (only &HF6 recurses), so an object on
+ * a surface is never "here" to it.  A static object is here when its room
+ * list holds the player's room.
+ */
+static scr_bool
+lib_obhere_380 (scr_gameref_t game, scr_int object)
+{
+  const scr_int room = gs_playerroom (game);
+  scr_int parent;
+
+  if (obj_is_static (game, object))
+    return obj_indirectly_in_room (game, object, room);
+
+  switch (gs_object_position (game, object))
+    {
+    case OBJ_HELD_PLAYER:
+    case OBJ_WORN_PLAYER:
+      return TRUE;
+    case OBJ_HELD_NPC:
+    case OBJ_WORN_NPC:
+      parent = gs_object_parent (game, object);
+      return parent >= 0 && parent < gs_npc_count (game)
+             && npc_in_room (game, parent, room);
+    case OBJ_IN_OBJECT:
+      parent = gs_object_parent (game, object);
+      return parent >= 0 && parent < gs_object_count (game)
+             && lib_obhere_380 (game, parent)
+             && !(obj_is_container (game, parent)
+                  && gs_object_openness (game, parent) > OBJ_OPEN);
+    case OBJ_ON_OBJECT:
+      return FALSE;
+    default:
+      return gs_object_position (game, object) == room + 1;
+    }
+}
+
+
+/*
+ * lib_present_370()
+ *
+ * What run370's catch-all counts as present when it names the object of a
+ * take-from line it did not answer (lib_take_from_answer_370): a static
+ * object in the room, or a dynamic one loose here, held, worn, or in or on
+ * something the player carries.  Something in a box on the floor is not
+ * present to it -- `get nut from statue` names the statue, not the nut
+ * (p37TKA, run370x Adrift_205_ptka_37.rtf cell 122, 2026-09-20).
+ */
+static scr_bool
+lib_present_370 (scr_gameref_t game, scr_int object)
+{
+  const scr_int room = gs_playerroom (game);
+
+  if (obj_is_static (game, object))
+    return obj_indirectly_in_room (game, object, room);
+
+  switch (gs_object_position (game, object))
+    {
+    case OBJ_HELD_PLAYER:
+    case OBJ_WORN_PLAYER:
+      return TRUE;
+    case OBJ_IN_OBJECT:
+    case OBJ_ON_OBJECT:
+      return obj_indirectly_held_by_player (game,
+                                            gs_object_parent (game, object));
+    default:
+      return obj_directly_in_room (game, object, room);
+    }
+}
+
+
+/*
+ * lib_take_from_head()
+ *
+ * The words of a take-from line before its "from" (at offset at), minus the
+ * verb word and the "up" of "pick up": the names the line gives, trimmed.
+ */
+static std::string
+lib_take_from_head (const scr_char *line, scr_int at)
+{
+  std::string head (line, (size_t) at);
+  size_t start, end;
+
+  start = head.find_first_not_of (' ');
+  if (start == std::string::npos)
+    return "";
+  end = head.find (' ', start);
+  if (end == std::string::npos)
+    return "";
+  if (scr_strncasecmp (head.c_str () + start, "pick", 4) == 0 && end - start == 4)
+    {
+      size_t up = head.find_first_not_of (' ', end);
+
+      if (up != std::string::npos
+          && scr_strncasecmp (head.c_str () + up, "up", 2) == 0
+          && (head.size () == up + 2 || head[up + 2] == ' '))
+        end = up + 2;
+    }
+  head = head.substr (end);
+  start = head.find_first_not_of (' ');
+  if (start == std::string::npos)
+    return "";
+  end = head.find_last_not_of (' ');
+  return head.substr (start, end - start + 1);
+}
+
+
+/*
+ * lib_take_from_slot_valid_pre390()
+ *
+ * The container tests run380's insides() applies to its slot, silently:
+ * a container or surface (field 29), held or worn when dynamic, not closed.
+ */
+static scr_bool
+lib_take_from_slot_valid_pre390 (scr_gameref_t game, scr_int slot)
+{
+  if (slot < 0)
+    return FALSE;
+  if (!(obj_is_container (game, slot) || obj_is_surface (game, slot)))
+    return FALSE;
+  if (obj_is_container (game, slot)
+      && gs_object_openness (game, slot) > OBJ_OPEN)
+    return FALSE;
+  return !lib_take_container_unheld (game, slot);
+}
+
+
+static scr_bool lib_take_from_and_line (scr_gameref_t game);
+static scr_bool lib_take_from_and (scr_gameref_t game);
+static scr_bool lib_take_from_trailing (scr_gameref_t game);
+static void lib_take_from_object_backend (scr_gameref_t game, scr_int associate);
+static void lib_take_from_empty (scr_gameref_t game, scr_int associate,
+                                 scr_bool is_except);
+static void lib_take_from_task_sweep_380 (scr_gameref_t game);
+
+/*
+ * lib_take_and_pre400()
+ *
+ * Pre-4.0 takes()'s "and" arm, once lib_take_and_none_pre400() has found a
+ * candidate (run390 454B08-455B28, run380 43D788-43E996, run370's twin).
+ * The message is seeded with "<You> pick up " and the loop then runs over
+ * every non-static object the line names, in INDEX order, never in line
+ * order:
+ *
+ *   held      "<You>'ve already got X!" REPLACES the message, but only once
+ *             it no longer starts with the seed (run380 43E00E); while it
+ *             does, a held object is passed over in silence.
+ *   worn      3.8 up: "<You> are already wearing X!" replaces the message
+ *             (43E0A2), with no such gate; 3.7 has no worn arm.
+ *   loose     taken; the name is appended with ", ", " and " or "." by the
+ *             count of candidates still to come (43E61F-43E6C2), or with
+ *             the hands-full line when it will not fit (43E7C1).
+ *   in a      3.8 up, while the message is still empty or the seed, or ends
+ *   parent    " from here!": obhere() -> the line gets " from <parent>"
+ *             appended for insides() to answer (43E47B); else the message
+ *             becomes "<You> can't see X from here!".  ON is not tested.
+ *
+ * so a worn object named first and a loose one after it print as one string,
+ * "You are already wearing a hat!the stone." (run380x) / "You are already
+ * wearing the hat!the stone." (run390x); a held one is silent: `take hat and
+ * stone` with the hat in hand is "You pick up the stone.".  A tail that is
+ * still the bare seed is "Please take objects from one place at a time."
+ * (43E996; 3.9 4558B9; run370 has no such line), and the rewritten line then
+ * reaches insides(), whose answer -- the take-from, or its nothing-inside
+ * refusal -- replaces that one: `take nut and cup` with the nut in a held
+ * open box is "You take a nut from the box.", while `take nut and key` with
+ * the box on the floor stays at "Please take objects from one place at a
+ * time." because the box is not held (3.8's slot test).
+ *
+ * Measured on p37TKA/p38TKA/p39TKA (Adrift_205/206/207_ptka, cells 3, 6, 9,
+ * 14, 17, 20, 23, 32, 40, 44, 168) and p37TKB/p38TKB/p39TKB
+ * (Adrift_207/208/209_ptkb, cells 3, 8, 31, 38, 44), 2026-09-20.  3.9's own
+ * loop (454B08) prints the same strings with definite names.
+ */
+static scr_bool
+lib_take_and_pre400 (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int taf_version = prop_get_taf_version (bundle);
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_int room = gs_playerroom (game);
+  const scr_char *you;
+  scr_int object, candidates, taken, rewrite_parent;
+  scr_bool overwritten, appended, cant_see, hands_full;
+  size_t mark;
+
+  if (taf_version >= TAF_VERSION_400 || !line
+      || lib_input_contains_word (line, "all")
+      || !lib_input_contains_word (line, "and"))
+    return FALSE;
+
+  /* The pre-pass of lib_take_and_none_pre400(), counting this time. */
+  candidates = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      scr_int position;
+
+      if (obj_is_static (game, object)
+          || !lib_take_co_pre400 (game, line, object))
+        continue;
+      if (taf_version >= TAF_VERSION_390 && !gs_object_seen (game, object))
+        continue;
+      position = gs_object_position (game, object);
+      if (obj_directly_in_room (game, object, room))
+        candidates++;
+      else if (taf_version >= TAF_VERSION_380
+               && (position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
+               && obj_directly_in_room (game, gs_object_parent (game, object),
+                                        room))
+        candidates++;
+    }
+  if (candidates == 0)
+    return FALSE;
+
+  you = lib_select_response (game, "You", "I", "%player%");
+  mark = pf_buffer_length (filter);
+  pf_buffer_string (filter, you);
+  pf_buffer_string (filter, " pick up ");
+
+  taken = 0;
+  rewrite_parent = -1;
+  overwritten = appended = cant_see = hands_full = FALSE;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      scr_int position;
+
+      if (obj_is_static (game, object)
+          || !lib_take_co_pre400 (game, line, object))
+        continue;
+      if (taf_version >= TAF_VERSION_390 && !gs_object_seen (game, object))
+        continue;
+
+      position = gs_object_position (game, object);
+      if (position == OBJ_HELD_PLAYER)
+        {
+          if (overwritten)
+            {
+              pf_truncate (filter, mark);
+              pf_buffer_string (filter,
+                                lib_select_response (game,
+                                                     "You've already got ",
+                                                     "I've already got ",
+                                                     "%player%'ve already got "));
+              if (taf_version >= TAF_VERSION_390)
+                lib_print_object_np (game, object);
+              else
+                lib_print_object_raw (game, object);
+              pf_buffer_character (filter, '!');
+              cant_see = FALSE;
+            }
+        }
+      else if (position == OBJ_WORN_PLAYER)
+        {
+          if (taf_version >= TAF_VERSION_380)
+            {
+              pf_truncate (filter, mark);
+              pf_buffer_string (filter,
+                                lib_select_response (game,
+                                                     "You are already wearing ",
+                                                     "I am already wearing ",
+                                                     "%player% is already wearing "));
+              if (taf_version >= TAF_VERSION_390)
+                lib_print_object_np (game, object);
+              else
+                lib_print_object_raw (game, object);
+              pf_buffer_character (filter, '!');
+              overwritten = TRUE;
+              cant_see = FALSE;
+            }
+        }
+      else if (obj_directly_in_room (game, object, room))
+        {
+          scr_bool is_size;
+
+          if (lib_take_over_capacity (game, object, &is_size))
+            {
+              if (!hands_full)
+                {
+                  pf_buffer_string (filter, "  ");
+                  pf_buffer_string (filter, you);
+                  pf_buffer_string (filter,
+                                    lib_select_response (game,
+                                        " can't take any more, as your hands are full.",
+                                        " can't take any more, as my hands are full.",
+                                        " can't take any more, as %player%'s hands are full."));
+                  hands_full = TRUE;
+                }
+              appended = TRUE;
+            }
+          else
+            {
+              gs_object_player_get (game, object);
+              gs_set_object_unmoved (game, object, FALSE);
+              taken++;
+              candidates--;
+              lib_print_object_np (game, object);
+              pf_buffer_string (filter,
+                                candidates > 1 ? ", "
+                                : candidates == 1 ? " and " : ".");
+              appended = TRUE;
+            }
+        }
+      else if (taf_version >= TAF_VERSION_380 && position == OBJ_IN_OBJECT
+               && ((!overwritten && !appended) || cant_see))
+        {
+          if (lib_obhere_380 (game, object))
+            rewrite_parent = gs_object_parent (game, object);
+          else
+            {
+              pf_truncate (filter, mark);
+              pf_buffer_string (filter, you);
+              pf_buffer_string (filter, " can't see ");
+              if (taf_version >= TAF_VERSION_390)
+                lib_print_object_np (game, object);
+              else
+                lib_print_object_raw (game, object);
+              pf_buffer_string (filter, " from here!");
+              overwritten = TRUE;
+              cant_see = TRUE;
+            }
+        }
+    }
+
+  if (!overwritten && !appended)
+    {
+      pf_truncate (filter, mark);
+      if (taf_version < TAF_VERSION_380)
+        return FALSE;
+      pf_buffer_string (filter, "Please take objects from one place at a time.");
+    }
+
+  /* The rewritten line reaches insides(); its answer replaces the tail. */
+  if (taken == 0 && rewrite_parent != -1
+      && lib_take_from_slot_valid_pre390 (game, rewrite_parent))
+    {
+      scr_int any = 0;
+
+      gs_clear_object_references (game);
+      gs_clear_multiple_references (game);
+      for (object = 0; object < gs_object_count (game); object++)
+        {
+          if ((gs_object_position (game, object) == OBJ_IN_OBJECT
+               || gs_object_position (game, object) == OBJ_ON_OBJECT)
+              && !obj_is_static (game, object)
+              && gs_object_parent (game, object) == rewrite_parent
+              && lib_co_pre400 (game, line, object, 0)
+              && (taf_version < TAF_VERSION_390
+                  || gs_object_seen (game, object)))
+            {
+              game->object_references[object] = TRUE;
+              any++;
+            }
+        }
+      pf_truncate (filter, mark);
+      if (any > 0)
+        {
+          lib_take_from_single_named = FALSE;
+          lib_take_from_object_backend (game, rewrite_parent);
+        }
+      else
+        lib_take_from_empty (game, rewrite_parent, FALSE);
+      lib_take_from_task_sweep_380 (game);
+    }
+
+  pf_buffer_character (filter, '\n');
+  return TRUE;
+}
+
+
+/*
+ * lib_take_and_400()
+ *
+ * 4.0's takes() cuts an "and" line into pieces (Proc_19_23_473A34, entered
+ * from 4731A2 per piece) and resolves each with the noun scorer on its own,
+ * then treats the pieces as one take:
+ *
+ *   - a piece that names an object in or on something makes the whole line
+ *     a take-from of the FIRST such piece's parent, and only the pieces in
+ *     or on that parent move: `take stone and nut` with the nut in an open
+ *     box is "You take the nut from the box." and the stone stays put (p4TKB
+ *     cells 3, 8, 13, 19, 25, 31, 38, 44; p4TKA 23, 168);
+ *   - otherwise every piece is taken in index order, a held or worn one
+ *     answering "You are already carrying X." after the takes and a static
+ *     one "You can't take X!" (p4TKA cells 3, 14, 17, 20, 32, 36, 40, 44);
+ *   - a piece that names an object elsewhere (the gem in the Cave) costs
+ *     nothing; a piece that names nothing at all keeps the parser's own
+ *     answers, as does a tie.
+ *
+ * run400x Adrift_208_ptka_4.txt / Adrift_210_ptkb_4.txt, 2026-09-20.  0 when
+ * this does not apply and the ordinary parse should run; 1 when the pieces
+ * are in multiple_references and *references counts them.
+ */
+static scr_int
+lib_take_and_400 (scr_gameref_t game, scr_int *references)
+{
+  const scr_char *text = var_get_ref_text (gs_get_vars (game));
+  std::vector<scr_int> pieces, refused;
+  std::string copy;
+  size_t start;
+  scr_int object, first_parent = -1;
+
+  if (!lib_is_version_400 (game) || !text || lib_co_400_forced () >= 0
+      || lib_input_contains_word (text, "all")
+      || !lib_input_contains_word (text, "and"))
+    return 0;
+
+  copy = text;
+  start = 0;
+  while (start <= copy.size ())
+    {
+      size_t end = copy.find (" and ", start);
+      std::string piece;
+      std::vector<scr_int> tied;
+      scr_int other;
+      scr_bool known;
+
+      piece = copy.substr (start, end == std::string::npos
+                                  ? std::string::npos : end - start);
+      start = end == std::string::npos ? copy.size () + 1 : end + 5;
+
+      {
+        size_t from = piece.find_first_not_of (' ');
+        size_t to = piece.find_last_not_of (' ');
+
+        if (from == std::string::npos)
+          return 0;
+        piece = piece.substr (from, to - from + 1);
+      }
+
+      object = lib_take_resolve_400_string (game, piece.c_str (), &tied);
+      if (object == -1)
+        return 0;
+      if (object >= 0)
+        {
+          pieces.push_back (object);
+          continue;
+        }
+
+      object = lib_verb_object_resolve_400_string (game, piece.c_str (),
+                                                   NULL, TRUE);
+      if (object >= 0 && obj_is_static (game, object))
+        {
+          refused.push_back (object);
+          continue;
+        }
+
+      known = FALSE;
+      for (other = 0; other < gs_object_count (game) && !known; other++)
+        known = lib_verb_object_name_score (game, other, piece.c_str ()) > 0;
+      if (!known)
+        return 0;
+    }
+  if (pieces.empty ())
+    return 0;
+
+  for (size_t index_ = 0; index_ < pieces.size (); index_++)
+    {
+      const scr_int position = gs_object_position (game, pieces[index_]);
+
+      if (position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
+        {
+          first_parent = gs_object_parent (game, pieces[index_]);
+          break;
+        }
+    }
+
+  gs_clear_multiple_references (game);
+  *references = 0;
+  for (size_t index_ = 0; index_ < pieces.size (); index_++)
+    {
+      const scr_int piece = pieces[index_];
+      const scr_int position = gs_object_position (game, piece);
+
+      if (first_parent != -1
+          && !((position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
+               && gs_object_parent (game, piece) == first_parent))
+        continue;
+      if (!game->multiple_references[piece])
+        {
+          game->multiple_references[piece] = TRUE;
+          (*references)++;
+        }
+    }
+  if (first_parent == -1)
+    {
+      for (size_t index_ = 0; index_ < refused.size (); index_++)
+        {
+          if (!game->multiple_references[refused[index_]])
+            {
+              game->multiple_references[refused[index_]] = TRUE;
+              (*references)++;
+            }
+        }
+    }
+  if (*references == 0)
+    return 0;
+
+  lib_take_and_pieces_400 = TRUE;
+  return 1;
+}
+
+
+/*
  * lib_take_multiple_common()
  *
  * Take the objects available to the player and listed in %text%, or -- for
@@ -11667,8 +12283,38 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   scr_bool (*resolver) (scr_gameref_t, scr_int, scr_int);
   scr_int objects, references;
   scr_bool library_printed;
+  scr_bool parsed = FALSE;
+
+  /*
+   * A take line holding "from" that the take-from rows above declined --
+   * the container clause named nothing, or two things, or nothing at all --
+   * is still a take-from to every Runner (see lib_take_from_and() and
+   * lib_take_from_trailing()); pre-4.0 it is never a bare take, so the
+   * catch-alls of the take-from-nowhere rows answer it, not the held
+   * namesake or "Take what?" (`get coin from zzz` with the coin in hand:
+   * run370x/run380x "You can't do that!", run390x "The coin isn't in or on
+   * anything!"; p3xTKB Adrift_207/208/209_ptkb cell 144, 2026-09-20).
+   */
+  if (!is_except)
+    {
+      const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+      const scr_char *line = run_get_dispatch_input ();
+      const scr_int at = line ? run_c_word_pre400 (version, line, "from") : -1;
+
+      if (at >= 0)
+        {
+          if (line[at + 4 + strspn (line + at + 4, " ")] == NUL)
+            return lib_take_from_trailing (game);
+          if (lib_take_from_and_line (game))
+            return lib_take_from_and (game);
+          if (version < TAF_VERSION_400)
+            return FALSE;
+        }
+    }
 
   if (!is_except && lib_take_and_none_pre400 (game))
+    return TRUE;
+  if (!is_except && lib_take_and_pre400 (game))
     return TRUE;
 
   /*
@@ -11678,10 +12324,16 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
    */
   resolver = is_except ? lib_take_all_filter : lib_take_filter;
 
+  /* 4.0: an "and" line resolves piece by piece; see lib_take_and_400(). */
+  if (!is_except)
+    parsed = lib_take_and_400 (game, &references) == 1;
+
   /* Parse the multiple objects list to find the target objects. */
-  if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
-                                   resolver, -1,
-                                   &references))
+  if (parsed)
+    ;
+  else if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
+                                        resolver, -1,
+                                        &references))
     {
       /*
        * 4.0's get_piece (Proc_19_23_473A34) names the piece's object with the
@@ -11719,7 +12371,7 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
     return TRUE;
 
   /* 4.0: the whole fragment resolved once; see lib_take_tie_400(). */
-  if (!is_except && lib_take_tie_400 (game, &references))
+  if (!is_except && !parsed && lib_take_tie_400 (game, &references))
     return TRUE;
 
   /* Pre-4.0: a held or worn namesake indexed below the one object the line
@@ -11796,39 +12448,6 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
         }
     }
 
-  /*
-   * Pre-4.0's "and" arm seeds the message with "<You> pick up " before the
-   * take loop, and the already-got write (run380 43E00E, run370's twin) only
-   * fires while the message does not start with that, so a held object the
-   * line also names is skipped without a word: `take table and stone` with
-   * the stone in hand is "You pick up the table." in run370x, run380x and
-   * run390x alike (Adrift_170/171/172_ptakeand).  Worn objects keep their
-   * answer (43E05E has no such gate; unmeasured).
-   */
-  if (!is_except && references > 1
-      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
-    {
-      const scr_char *line = run_get_dispatch_input ();
-      scr_int index_, held = 0;
-
-      if (line && lib_input_contains_word (line, "and")
-          && !lib_input_contains_word (line, "all"))
-        {
-          for (index_ = 0; index_ < gs_object_count (game); index_++)
-            if (game->multiple_references[index_]
-                && gs_object_position (game, index_) == OBJ_HELD_PLAYER)
-              held++;
-          if (held > 0 && held < references)
-            {
-              for (index_ = 0; index_ < gs_object_count (game); index_++)
-                if (game->multiple_references[index_]
-                    && gs_object_position (game, index_) == OBJ_HELD_PLAYER)
-                  game->multiple_references[index_] = FALSE;
-              references -= held;
-            }
-        }
-    }
-
   /* Note single-object takes; the backend words some refusals differently. */
   lib_take_single_named = !is_except && references == 1;
 
@@ -11887,6 +12506,7 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
       pf_buffer_string (filter, " to pick up here.");
     }
   lib_take_single_named = FALSE;
+  lib_take_and_pieces_400 = FALSE;
 
   if (is_take_from_380 && !lib_take_refusal_claimed)
     lib_take_from_task_sweep_380 (game);
@@ -12214,31 +12834,47 @@ lib_take_from_answer_370 (scr_gameref_t game, scr_int associate)
   scr_int object;
 
   if (prop_get_taf_version (bundle) >= TAF_VERSION_380
-      || (lib_take_from_line_370 (game)
+      || (lib_take_from_line_370 (game) && associate >= 0
           && (obj_is_container (game, associate)
               || obj_is_surface (game, associate))))
     return FALSE;
 
+  /*
+   * Two passes, as the catch-all's own: first the object the line names
+   * that is present (lib_present_370) and seen, in index order; failing
+   * that, "What <Short>?" for a named object the player has not been shown,
+   * present or not -- `get nut from gem` with the gem in another room and
+   * the nut in a box on the floor is "What gem?" (p37TKA cell 125), where
+   * `get nut from statue` names the statue (cell 122) and, with the nut in
+   * a held box, the nut (p37TKB cells 165, 167; run370x Adrift_205_ptka_37 /
+   * Adrift_207_ptkb_37, 2026-09-20).
+   */
   gs_clear_multiple_references (game);
   for (object = 0; input && object < gs_object_count (game); object++)
     {
-      if (!obj_indirectly_in_room (game, object, gs_playerroom (game))
+      if (!lib_present_370 (game, object)
+          || !gs_object_seen (game, object)
           || !lib_co_pre400 (game, input, object, 0))
         continue;
 
       var_set_ref_object (gs_get_vars (game), object);
-      if (!gs_object_seen (game, object))
-        {
-          pf_buffer_string (filter, "What ");
-          pf_buffer_string (filter, prop_get_indexed_string (bundle, "Objects",
-                                                             object, "Short"));
-          pf_buffer_string (filter, "?\n");
-          return TRUE;
-        }
       uip_note_definite_reference ();
       lib_print_wrapped_object (game,
                                 "I don't understand what you want me to do with ",
                                 object, ".\n");
+      return TRUE;
+    }
+  for (object = 0; input && object < gs_object_count (game); object++)
+    {
+      if (gs_object_seen (game, object)
+          || !lib_co_pre400 (game, input, object, 0))
+        continue;
+
+      var_set_ref_object (gs_get_vars (game), object);
+      pf_buffer_string (filter, "What ");
+      pf_buffer_string (filter, prop_get_indexed_string (bundle, "Objects",
+                                                         object, "Short"));
+      pf_buffer_string (filter, "?\n");
       return TRUE;
     }
   return FALSE;
@@ -12341,6 +12977,9 @@ lib_cmd_take_all_from (scr_gameref_t game)
   /* Pre-4.0 has no "empty" verb; see lib_take_from_empty_verb(). */
   if (lib_take_from_empty_verb (game))
     return FALSE;
+  /* A line with "and" has its own rules in every Runner. */
+  if (lib_take_from_and_line (game))
+    return lib_take_from_and (game);
 
   /* Get the referenced object, and if none, consider complete. */
   associate = lib_disambiguate_object (game, "take from", &is_ambiguous);
@@ -12410,6 +13049,499 @@ lib_take_from_no_name (scr_gameref_t game)
 }
 
 
+static const scr_char *const LIB_TAKE_FROM_NOWHERE_400 =
+    "I don't understand where you want to get things from.\n";
+
+/*
+ * lib_take_from_nowhere_named_390()
+ *
+ * run390's named take-from with no container found (the arm at 462FD2; see
+ * lib_cmd_take_from_nowhere()).  Where the named object is in or on
+ * something, "Get <the X> from what?" also arms a pending slot, and a bare
+ * line typed next reruns as "get <X> from <line>": `get nut from zzz`, then
+ * `box`, is "You take a nut from the box." (p39TKB, run390x
+ * Adrift_209_ptkb_39.txt cells 139/140, 147/148, 158/159, 2026-09-20).
+ */
+static scr_bool
+lib_take_from_nowhere_named_390 (scr_gameref_t game, const scr_char *named)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  std::string copy;
+  scr_int object;
+  scr_bool is_ambiguous;
+
+  /* Take a copy; the match below rewrites the referenced text. */
+  copy = named ? named : "";
+  if (copy.empty () || !uip_match ("%object%", copy.c_str (), game))
+    return lib_take_from_no_name (game);
+
+  object = lib_disambiguate_object (game, "take", &is_ambiguous);
+  if (object == -1)
+    return is_ambiguous ? TRUE : lib_take_from_no_name (game);
+
+  if (gs_object_position (game, object) == OBJ_IN_OBJECT
+      || gs_object_position (game, object) == OBJ_ON_OBJECT)
+    {
+      pf_buffer_string (filter, "Get ");
+      lib_print_object_np (game, object);
+      pf_buffer_string (filter, " from what?\n");
+      lib_battle_who_store (std::string ("get ") + copy + " from");
+      return TRUE;
+    }
+
+  pf_new_sentence (filter);
+  lib_print_object_np (game, object);
+  pf_buffer_string (filter, " isn't in or on anything!\n");
+  return TRUE;
+}
+
+
+/*
+ * lib_take_from_trailing()
+ *
+ * A take-from whose "from" ends the line.  4.0 answers nothing at all --
+ * run400 prints an empty turn for `get nut from` (p4TKB cell 158) -- and
+ * 3.9 treats it as a container it could not find: "Get the nut from what?"
+ * with the slot armed (p39TKB cell 158).  3.7/3.8 have their one "You can't
+ * do that!" (p37TKB/p38TKB cell 158).  Adrift_207-210_ptkb, 2026-09-20.
+ */
+static scr_bool
+lib_take_from_trailing (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *line = run_get_dispatch_input ();
+  scr_int at;
+
+  if (version >= TAF_VERSION_400)
+    return TRUE;
+  if (version < TAF_VERSION_390)
+    return lib_take_from_no_name (game);
+
+  at = run_c_word_pre400 (version, line, "from");
+  if (at < 0)
+    return lib_take_from_no_name (game);
+  return lib_take_from_nowhere_named_390 (game,
+                                          lib_take_from_head (line, at).c_str ());
+}
+
+
+/*
+ * lib_take_from_and_line()
+ *
+ * TRUE for a take-from line the Runners read through their own "and"
+ * rules: 4.0 when "and" follows "from" (Proc_19_23_473A34 splits the
+ * container clause); pre-4.0 when "and" is anywhere on the line, since
+ * insides() tests c("and") over the whole line (run390 462FD2, run380
+ * 4468B3).
+ */
+static scr_bool
+lib_take_from_and_line (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *line = run_get_dispatch_input ();
+  scr_int at;
+
+  if (!line)
+    return FALSE;
+  at = run_c_word_pre400 (version, line, "from");
+  if (at < 0)
+    return FALSE;
+  if (version >= TAF_VERSION_400)
+    return run_c_word_pre400 (version, line + at + 4, "and") >= 0;
+  return lib_input_contains_word (line, "and");
+}
+
+
+/*
+ * lib_take_from_slot_pre390()
+ *
+ * run380's insides() from-branch (4468B3-44750A; run370 43A745 is the same
+ * with Short names only).  It has no parse: every object the line names is
+ * walked in index order and the container "slot" is the last one that beat
+ * the current holder -- a holder that is not obhere() is replaced outright,
+ * one that is only by an object whose highest name position on the line is
+ * past the holder's lowest (446A2F-446AE4).  So `get nut from box and bag`
+ * reaches the bag and `get nut from bag and box` the box, and `get gem
+ * from box` with the gem elsewhere the box: the object named is as good a
+ * slot as the container.  Fewer than two names without "all" is "You can't
+ * do that!" (446B1D); the slot is then tested as a container (field 29,
+ * static in the room, dynamic held, not closed: lib_take_from_is_valid)
+ * and its contents collected -- with "and" on the line only the named ones,
+ * with "all" every one, else the named ones -- and an empty collection is
+ * "There is nothing inside <a slot>." on an and/all line, else 3.7's
+ * nothing-inside / 3.8's bare "You take ".
+ *
+ * Measured on p37TKA/p38TKA (Adrift_205/206_ptka, cells 47-134, 122-130)
+ * and p37TKB/p38TKB (Adrift_207/208_ptkb, cells 67-135, 165-181),
+ * 2026-09-20.  3.7's catch-all answers first for a slot that is no
+ * container (lib_take_from_answer_370).
+ */
+static scr_bool
+lib_take_from_slot_pre390 (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int version = prop_get_taf_version (bundle);
+  const scr_char *line = run_get_dispatch_input ();
+  scr_int object, count, slot, slot_lowest, any;
+  scr_bool is_and, is_all;
+
+  if (!line)
+    return FALSE;
+  if (version < TAF_VERSION_380 && !lib_take_from_line_370 (game))
+    return lib_take_from_answer_370 (game, -1);
+
+  count = 0;
+  slot = -1;
+  slot_lowest = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      scr_int lowest, highest;
+
+      if (!lib_co_pre400 (game, line, object, 0))
+        continue;
+      count++;
+      if (!lib_name_instr_range (game, line, object, &lowest, &highest))
+        continue;
+      if (slot == -1 || !lib_obhere_380 (game, slot) || highest > slot_lowest)
+        {
+          slot = object;
+          slot_lowest = lowest;
+        }
+    }
+
+  is_and = lib_input_contains_word (line, "and");
+  is_all = lib_input_contains_word (line, "all");
+  if (count < 2 && !is_all)
+    return lib_take_from_no_name (game);
+  if (slot == -1)
+    return lib_print_response_message (game,
+                                       "You can't get anything from that.\n",
+                                       "I can't get anything from that.\n",
+                                       "%player% can't get anything from that.\n");
+
+  if (lib_take_from_answer_370 (game, slot))
+    return TRUE;
+  if (obj_is_static (game, slot)
+      && !obj_indirectly_in_room (game, slot, gs_playerroom (game)))
+    {
+      pf_buffer_string (filter,
+                        lib_select_response (game, "You can't see ",
+                                             "I can't see ",
+                                             "%player% can't see "));
+      lib_print_object (game, slot);
+      pf_buffer_character (filter, '.');
+      lib_take_from_task_sweep_380 (game);
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
+  if (!lib_take_from_is_valid (game, slot))
+    {
+      lib_take_from_task_sweep_380 (game);
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
+
+  gs_clear_object_references (game);
+  gs_clear_multiple_references (game);
+  any = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if ((gs_object_position (game, object) != OBJ_IN_OBJECT
+           && gs_object_position (game, object) != OBJ_ON_OBJECT)
+          || obj_is_static (game, object)
+          || gs_object_parent (game, object) != slot)
+        continue;
+      if ((is_and || !is_all) && !lib_co_pre400 (game, line, object, 0))
+        continue;
+      game->object_references[object] = TRUE;
+      any++;
+    }
+
+  if (any == 0)
+    {
+      if (is_and || is_all)
+        lib_take_from_nothing_inside_pre390 (game, slot);
+      else
+        lib_take_from_nothing_taken_pre390 (game, slot);
+    }
+  else
+    {
+      lib_take_from_single_named = FALSE;
+      lib_take_from_object_backend (game, slot);
+    }
+  lib_take_from_task_sweep_380 (game);
+  pf_buffer_character (filter, '\n');
+  return TRUE;
+}
+
+
+/*
+ * lib_take_from_and_390()
+ *
+ * run390's insides() on a line with "and" (462FD2-463E77).  The object
+ * named is the first the text before "from" names that is present and
+ * seen; the container is the LAST match in the text after it (`get nut from
+ * box and bag` reaches the bag); with fewer than two names on the line, or
+ * none before "from", and no "all", the answer is the named object's own
+ * ("Get <the X> from what?" in or on something, "<The X> isn't in or on
+ * anything!" loose or held, "You can't do that!" unnamed: 46309E, 46311A,
+ * 463140).  Any "and" sets the collection to the named form (var_CC = 2),
+ * which takes only the named contents of the container and complains of
+ * nothing: `get nut and bolt from box` is "You take the nut from the box."
+ * alone, `get all from box and bag` "There is nothing inside the bag.".
+ * Measured on p39TKA (Adrift_207_ptka_39, cells 47-134) and p39TKB
+ * (Adrift_209_ptkb_39, cells 67-181), 2026-09-20.
+ */
+static scr_bool
+lib_take_from_and_390 (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *line = run_get_dispatch_input ();
+  std::string before;
+  const scr_char *after;
+  scr_int at, object, count, named, container, container_at, any;
+  scr_bool is_all;
+
+  at = line ? run_c_word_pre400 (TAF_VERSION_390, line, "from") : -1;
+  if (at < 0)
+    return FALSE;
+  before.assign (line, (size_t) at);
+  after = line + at + 4;
+
+  count = 0;
+  named = -1;
+  container = -1;
+  container_at = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      scr_int lowest, highest;
+
+      if (!lib_co_pre400 (game, line, object, 0))
+        continue;
+      count++;
+      if (named == -1 && lib_co_pre400 (game, before.c_str (), object, 0))
+        named = object;
+      if (lib_co_pre400 (game, after, object, 0)
+          && lib_name_instr_range (game, after, object, &lowest, &highest)
+          && highest > container_at)
+        {
+          container = object;
+          container_at = highest;
+        }
+    }
+
+  is_all = lib_input_contains_word (line, "all");
+  if ((count < 2 || named == -1) && !is_all)
+    {
+      if (named == -1)
+        return lib_take_from_no_name (game);
+      if (gs_object_position (game, named) == OBJ_IN_OBJECT
+          || gs_object_position (game, named) == OBJ_ON_OBJECT)
+        {
+          pf_buffer_string (filter, "Get ");
+          lib_print_object_np (game, named);
+          pf_buffer_string (filter, " from what?\n");
+          lib_battle_who_store (std::string ("get ")
+                                + lib_take_from_head (line, at) + " from");
+          return TRUE;
+        }
+      pf_new_sentence (filter);
+      lib_print_object_np (game, named);
+      pf_buffer_string (filter, " isn't in or on anything!\n");
+      return TRUE;
+    }
+
+  if (container == -1)
+    return lib_print_response_message (game,
+                                       "You can't get anything from that.\n",
+                                       "I can't get anything from that.\n",
+                                       "%player% can't get anything from that.\n");
+  if (!lib_take_from_is_valid (game, container))
+    {
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
+
+  gs_clear_object_references (game);
+  gs_clear_multiple_references (game);
+  any = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (lib_take_from_filter (game, object, container)
+          && lib_co_pre400 (game, line, object, 0))
+        {
+          game->object_references[object] = TRUE;
+          any++;
+        }
+    }
+  if (any == 0)
+    lib_take_from_empty (game, container, FALSE);
+  else
+    {
+      lib_take_from_single_named = FALSE;
+      lib_take_from_object_backend (game, container);
+    }
+  pf_buffer_character (filter, '\n');
+  return TRUE;
+}
+
+
+/*
+ * lib_take_from_and_400()
+ *
+ * run400's take-from with "and" after "from": the names before "from" are
+ * resolved first, each on its own (a name that resolves to nothing, such
+ * as the ring in a closed chest never seen, is "Take what?" before the
+ * container is looked at: p4TKB cells 119/121 against 127), and the
+ * container is the FIRST clause after "from" (`get nut from box and bag`
+ * takes the nut from the box, `get nut from bag and box` is "Take what?"),
+ * an unresolvable one being the nowhere refusal.  Then the container's own
+ * tests, and only the names it holds move.  p4TKA Adrift_208_ptka_4 cells
+ * 47-134, p4TKB Adrift_210_ptkb_4 cells 67-181, 2026-09-20.
+ */
+static scr_bool
+lib_take_from_and_400 (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *line = run_get_dispatch_input ();
+  std::string names, clause;
+  std::vector<scr_int> resolved;
+  scr_int at, container, objects, references, object;
+  scr_bool is_all, tied_any = FALSE;
+  size_t start;
+
+  at = line ? run_c_word_pre400 (TAF_VERSION_400, line, "from") : -1;
+  if (at < 0)
+    return FALSE;
+
+  names = lib_take_from_head (line, at);
+  if (names.empty ())
+    return lib_print_message (game, "Take what?\n");
+  is_all = scr_strcasecmp (names.c_str (), "all") == 0
+           || scr_strcasecmp (names.c_str (), "everything") == 0;
+  if (!is_all)
+    {
+      start = 0;
+      while (start <= names.size ())
+        {
+          size_t end = names.find (" and ", start);
+          std::string piece;
+          std::vector<scr_int> tied;
+          size_t from, to;
+
+          piece = names.substr (start, end == std::string::npos
+                                       ? std::string::npos : end - start);
+          start = end == std::string::npos ? names.size () + 1 : end + 5;
+          from = piece.find_first_not_of (' ');
+          to = piece.find_last_not_of (' ');
+          if (from == std::string::npos)
+            continue;
+          piece = piece.substr (from, to - from + 1);
+
+          object = lib_take_resolve_400_string (game, piece.c_str (), &tied);
+          if (object >= 0)
+            resolved.push_back (object);
+          else if (object == -1)
+            tied_any = TRUE;
+        }
+      if (resolved.empty () && !tied_any)
+        return lib_print_message (game, "Take what?\n");
+    }
+
+  /* The container: the first clause after "from". */
+  {
+    const scr_char *rest = line + at + 4;
+    scr_int and_at;
+
+    while (*rest == ' ')
+      rest++;
+    and_at = run_c_word_pre400 (TAF_VERSION_400, rest, "and");
+    clause = and_at >= 0 ? std::string (rest, (size_t) and_at)
+                         : std::string (rest);
+    while (!clause.empty () && clause[clause.size () - 1] == ' ')
+      clause.erase (clause.size () - 1);
+  }
+  container = lib_verb_object_resolve_400_string (game, clause.c_str (),
+                                                  NULL, TRUE);
+  if (container < 0)
+    {
+      game->is_admin = TRUE;
+      return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
+    }
+
+  if (!lib_take_from_is_valid (game, container))
+    {
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
+  if (!lib_take_from_has_contents (game, container))
+    {
+      if (lib_take_from_unseen (game, container))
+        lib_take_from_unseen_refusal (game, container);
+      else
+        lib_take_from_empty (game, container, FALSE);
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
+
+  gs_clear_multiple_references (game);
+  references = 0;
+  if (is_all)
+    gs_set_multiple_references (game);
+  else
+    {
+      for (size_t index_ = 0; index_ < resolved.size (); index_++)
+        {
+          if (!game->multiple_references[resolved[index_]])
+            {
+              game->multiple_references[resolved[index_]] = TRUE;
+              references++;
+            }
+        }
+    }
+  objects = lib_apply_filter (game, lib_take_from_filter, container, FALSE,
+                              is_all ? NULL : &references);
+  gs_clear_multiple_references (game);
+  if (objects == 0)
+    {
+      if (obj_is_surface (game, container) && !obj_is_container (game, container))
+        lib_print_response_object (game,
+                                   "You can't take anything from ",
+                                   "I can't take anything from ",
+                                   "%player% can't take anything from ",
+                                   container, ".");
+      else
+        pf_buffer_string (filter, "Take what?");
+      pf_buffer_character (filter, '\n');
+      return TRUE;
+    }
+
+  lib_take_from_single_named = !is_all && resolved.size () == 1;
+  lib_take_from_object_backend (game, container);
+  pf_buffer_character (filter, '\n');
+  return TRUE;
+}
+
+
+/*
+ * lib_take_from_and()
+ *
+ * The take-from "and" line, by version; see the three above.
+ */
+static scr_bool
+lib_take_from_and (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+
+  if (version >= TAF_VERSION_400)
+    return lib_take_from_and_400 (game);
+  if (version >= TAF_VERSION_390)
+    return lib_take_from_and_390 (game);
+  return lib_take_from_slot_pre390 (game);
+}
+
+
 /*
  * lib_take_from_multiple_common()
  *
@@ -12429,6 +13561,9 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
   /* Pre-4.0 has no "empty" verb; see lib_take_from_empty_verb(). */
   if (lib_take_from_empty_verb (game))
     return FALSE;
+  /* A line with "and" has its own rules in every Runner. */
+  if (!is_except && lib_take_from_and_line (game))
+    return lib_take_from_and (game);
 
   /* Get the referenced object, and if none, consider complete. */
   associate = lib_disambiguate_object (game, "take from", &is_ambiguous);
@@ -12480,7 +13615,16 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (!lib_parse_multiple_objects (game, is_except ? "leave" : "take",
                                    lib_take_from_filter, associate,
                                    &references))
-    return lib_take_from_no_name (game);
+    {
+      /* Pre-3.9 has no parse; the names pick a slot of their own, and the
+         object named is as good a slot as the container (`get gem from box`
+         with the gem elsewhere is "You are not holding a box." with the box
+         on the floor, p37TKA/p38TKA cell 126; see lib_take_from_slot_pre390). */
+      if (!is_except
+          && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+        return lib_take_from_slot_pre390 (game);
+      return lib_take_from_no_name (game);
+    }
   else if (references == 0)
     return TRUE;
 
@@ -12515,7 +13659,24 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (is_400 && !is_except && objects == 0)
     {
       gs_clear_multiple_references (game);
-      pf_buffer_string (filter, "Take what?\n");
+      /*
+       * A plain surface has its own line for it: `get nut from table` with
+       * the key on the table is "You can't take anything from the table."
+       * (p4TKA cell 119), `get nut from tray` the same (p4TKB cell 163),
+       * where a container is "Take what?" (run400x Adrift_208_ptka_4 /
+       * Adrift_210_ptkb_4, 2026-09-20).
+       */
+      if (obj_is_surface (game, associate) && !obj_is_container (game, associate))
+        {
+          lib_print_response_object (game,
+                                     "You can't take anything from ",
+                                     "I can't take anything from ",
+                                     "%player% can't take anything from ",
+                                     associate, ".");
+          pf_buffer_character (filter, '\n');
+        }
+      else
+        pf_buffer_string (filter, "Take what?\n");
       return TRUE;
     }
 
@@ -12554,40 +13715,6 @@ scr_bool
 lib_cmd_take_from_multiple (scr_gameref_t game)
 {
   return lib_take_from_multiple_common (game, FALSE);
-}
-
-
-/*
- * lib_take_from_line_has_and()
- *
- * TRUE if the line joins two clauses with "and".  The two Runners disagree
- * about which of them names the container -- run390 takes the LAST (`get all
- * from box and stone` is "You can't take anything from the stone!" and `get
- * all from stone and box` reaches the box), run400 the FIRST (the same two
- * lines are "You take the coin from the box." and "You can't take anything
- * from the stone.") -- and run390 then collects nothing from whichever it
- * picked, because any "and" on the line sets its var_CC to 2 and the take
- * loop never runs (`get all from stone and box` with the coin in the box is
- * "There is nothing inside the box.", p39DARK Adrift_973, 2026-09-10).  None
- * of that is ported yet, so the catch-alls below stand aside for it rather
- * than answer a line they would get wrong.
- */
-static scr_bool
-lib_take_from_line_has_and (scr_gameref_t game)
-{
-  const scr_char *input, *found;
-
-  (void) game;
-  input = run_get_dispatch_input ();
-  if (!input)
-    return FALSE;
-
-  for (found = input; (found = strstr (found, "and")); found += 3)
-    {
-      if ((found == input || found[-1] == ' ') && found[3] == ' ')
-        return TRUE;
-    }
-  return FALSE;
 }
 
 
@@ -12634,15 +13761,14 @@ lib_take_from_line_has_and (scr_gameref_t game)
  * bare line re-prompts from (`empty me`, two turns on, answers "Get the coin
  * from what?" again); that slot is not ported.
  */
-static const scr_char *const LIB_TAKE_FROM_NOWHERE_400 =
-    "I don't understand where you want to get things from.\n";
-
 scr_bool
 lib_cmd_take_from_nowhere_all (scr_gameref_t game)
 {
   /* Pre-4.0 has no "empty" verb; see lib_take_from_empty_verb(). */
-  if (lib_take_from_empty_verb (game) || lib_take_from_line_has_and (game))
+  if (lib_take_from_empty_verb (game))
     return FALSE;
+  if (lib_take_from_and_line (game))
+    return lib_take_from_and (game);
 
   /*
    * A bare `empty` is no take-from: get_outer's Replace wants "empty " with
@@ -12674,6 +13800,10 @@ lib_cmd_take_from_nowhere_all (scr_gameref_t game)
       return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
     }
 
+  /* Pre-3.9 walks the names for a slot of its own first. */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    return lib_take_from_slot_pre390 (game);
+
   return lib_print_response_message (game,
                                      "You can't get anything from that.\n",
                                      "I can't get anything from that.\n",
@@ -12683,15 +13813,11 @@ lib_cmd_take_from_nowhere_all (scr_gameref_t game)
 scr_bool
 lib_cmd_take_from_nowhere (scr_gameref_t game)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_var_setref_t vars = gs_get_vars (game);
-  std::string named;
-  scr_int object;
-  scr_bool is_ambiguous;
-
   /* Pre-4.0 has no "empty" verb; see lib_take_from_empty_verb(). */
-  if (lib_take_from_empty_verb (game) || lib_take_from_line_has_and (game))
+  if (lib_take_from_empty_verb (game))
     return FALSE;
+  if (lib_take_from_and_line (game))
+    return lib_take_from_and (game);
 
   /*
    * Not a turn in 4.0: run400 472F31 sets the not-a-turn flag (MemVar_494281)
@@ -12705,32 +13831,14 @@ lib_cmd_take_from_nowhere (scr_gameref_t game)
       return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
     }
 
-  /* 3.7 and 3.8 have the one answer for every shape of the arm. */
+  /* 3.7 and 3.8 walk the names for a slot of their own (the one "You can't
+     do that!" when that finds fewer than two); 3.9 answers by the named
+     object, and arms the pending slot. */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
-    return lib_take_from_no_name (game);
+    return lib_take_from_slot_pre390 (game);
 
-  /* Take a copy; the match below rewrites the referenced text. */
-  named = var_get_ref_text (vars);
-  if (!uip_match ("%object%", named.c_str (), game))
-    return lib_take_from_no_name (game);
-
-  object = lib_disambiguate_object (game, "take", &is_ambiguous);
-  if (object == -1)
-    return is_ambiguous ? TRUE : lib_take_from_no_name (game);
-
-  if (gs_object_position (game, object) == OBJ_IN_OBJECT
-      || gs_object_position (game, object) == OBJ_ON_OBJECT)
-    {
-      pf_buffer_string (filter, "Get ");
-      lib_print_object_np (game, object);
-      pf_buffer_string (filter, " from what?\n");
-      return TRUE;
-    }
-
-  pf_new_sentence (filter);
-  lib_print_object_np (game, object);
-  pf_buffer_string (filter, " isn't in or on anything!\n");
-  return TRUE;
+  return lib_take_from_nowhere_named_390 (game,
+                                          var_get_ref_text (gs_get_vars (game)));
 }
 
 
@@ -14494,6 +15602,9 @@ lib_cmd_remove_multiple (scr_gameref_t game)
 }
 
 
+static scr_bool lib_list_in_object_pre_390 (scr_gameref_t game,
+                                            scr_int container);
+
 /*
  * lib_cmd_inventory()
  *
@@ -14590,11 +15701,28 @@ worn:
       lib_print_list (game, list, lib_print_object, " and ");
       pf_buffer_character (filter, '.');
 
-      /* Print contents of every container and surface carried. */
+      /*
+       * Print contents of every container and surface carried.  Pre-3.9 the
+       * lister is whatisin1 (run380 42998C, run370 42B78E): "  Inside <the
+       * X> is <a list>." for a surface as much as a container -- `i` with a
+       * key on a held tray is "Inside the tray is a key." in run370x and
+       * run380x -- and run380 skips a closed container where run370 lists
+       * its contents too ("Inside the chest is a ring." with the chest
+       * closed; p37TKB/p38TKB cells 2/157, Adrift_207/208_ptkb, 2026-09-20).
+       */
+      const scr_int inventory_version = prop_get_taf_version (gs_get_bundle (game));
       for (object = 0; object < gs_object_count (game); object++)
         {
-          if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
+          if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
+            continue;
+          if (inventory_version >= TAF_VERSION_390)
             lib_list_in_on_object (game, object, TRUE);
+          else if ((obj_is_container (game, object)
+                    || obj_is_surface (game, object))
+                   && !(inventory_version >= TAF_VERSION_380
+                        && obj_is_container (game, object)
+                        && gs_object_openness (game, object) > OBJ_OPEN))
+            lib_list_in_object_pre_390 (game, object);
         }
       pf_buffer_character (filter, '\n');
     }
