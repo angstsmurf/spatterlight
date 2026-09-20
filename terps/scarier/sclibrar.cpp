@@ -16249,8 +16249,8 @@ static scr_int lib_verb_object_resolve_400_string (scr_gameref_t game,
  * once both halves resolve 4887A0 answers an absent object "<You> can't see
  * the gem." (p4WITHQ2.taf, Adrift_1159, 2026-09-14).  The "With what?" arm
  * at 488505 tests an instrument neither present nor seen, which 463640
- * never returns: it is dead.  run390's twin answers differently; see
- * lib_with_clause_390().
+ * never returns: it is dead.  run390's twin answers differently, and it
+ * serves 3.70 and 3.80 as well; see lib_with_clause_390().
  */
 enum lib_with_clause_t
 { LIB_WITH_NONE, LIB_WITH_DECLINE, LIB_WITH_ANSWERED, LIB_WITH_SUFFIX };
@@ -16270,14 +16270,26 @@ lib_with_half_400 (scr_gameref_t game, const scr_char *half)
  * lib_with_clause_390()
  *
  * run390's whole-word twin (therest 45D123-45D264), measured on p39WITH.taf
- * (Adrift_1163, 2026-09-14).  It runs when the line references two or more
- * objects; the instrument is the last object named after the split that is
- * present (obhere), else the last one named anywhere (45D0D6).  Then:
+ * (Adrift_1163, 2026-09-14), and run370's and run380's too: all three
+ * answer `cut/push/fix/lock/turn/clear <object> with <instrument>` alike,
+ * "With what?" for an instrument that is not present, "<You> don't have
+ * <X>." for a dynamic one not held, and the " with <the X>" suffix when it
+ * is held (p*WITHPFX, Adrift_222_ws370 / 223_ws380 / 224_ws390,
+ * cmdfile_pwithpfx4.txt and 8, 2026-09-20).  It runs when the line
+ * references two or more objects; the instrument is the last object named
+ * after the split that is present (obhere), else the last one named
+ * anywhere (45D0D6).  Then:
  *
  *   not present            "With what?" (45D16D) -- `cut rope with gem`,
- *                          the gem seen or not.  The prefix it saves at
- *                          45D1A0 never continues a line: `knife` next is
- *                          the catch-all.
+ *                          the gem seen or not.  At 3.9 the prefix it saves
+ *                          at 45D1A0 DOES continue a line, inside therest
+ *                          and nowhere else; p39WITH read it as continuing
+ *                          nothing only because a `turns` sat between the
+ *                          prompt and the `knife` that answered it, and a
+ *                          line anything answers drops the prefix.  Not
+ *                          modelled; measured on p*WITHPFX, see
+ *                          lib_with_arm_390() and
+ *                          notes/WINE-TRANSCRIPTS-TODO.md.
  *   present, not held      "<You> don't have <X>." (45D1CA: dynamic, and
  *                          position not held); a static instrument falls
  *                          through to the suffix -- 3.9 has no "Don't be
@@ -16339,7 +16351,7 @@ lib_with_clause_400 (scr_gameref_t game, scr_int *object, scr_int *instrument)
   std::string line;
   size_t split;
 
-  if (!input || prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+  if (!input)
     return LIB_WITH_NONE;
   line = input;
   split = line.find (" with ");
@@ -16377,6 +16389,34 @@ lib_with_clause_400 (scr_gameref_t game, scr_int *object, scr_int *instrument)
 }
 
 /*
+ * lib_with_clause_claims()
+ *
+ * TRUE if the " with " split would take this line, said without printing
+ * anything.  run370's therest makes the split before the absent-object test
+ * that opens it for every other line: `cut rock with pearl`, the pearl in
+ * another room, is "With what?" and not "You can't see the pearl."
+ * (p37WITHPFX, Adrift_222_ws370.rtf, cmdfile_pwithpfx4.txt, 2026-09-20).
+ */
+scr_bool
+lib_with_clause_claims (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object, instrument;
+  std::string line;
+  size_t split;
+
+  if (!input)
+    return FALSE;
+  line = input;
+  split = line.find (" with ");
+  if (split == std::string::npos)
+    return FALSE;
+
+  return lib_with_clause_390 (game, line, split, &object, &instrument, TRUE)
+         != LIB_WITH_NONE;
+}
+
+/*
  * lib_with_arm_390_applies()
  * lib_with_arm_390()
  *
@@ -16402,8 +16442,13 @@ lib_with_clause_400 (scr_gameref_t game, scr_int *object, scr_int *instrument)
  * (`ask dave about key with stone` is "DAVE KEY.").
  *
  * The arm stores the prefix Left(line, InStr("with") + 4) for a question
- * continuation too (45D3E0); like the split's own "With what?" (45D1A0)
- * it is not modelled, as no probe has followed one with an answer.
+ * continuation too (45D3E0), and so does the split's own "With what?"
+ * (45D1A0).  Both continue: the next line that is not understood on its
+ * own is retried through therest as `<prefix> <line>`, never through the
+ * task matcher, and a line therest or a task answers drops the prefix.
+ * Measured on p*WITHPFX (make_withprefixprobe.py, Adrift_222_wr390 ..
+ * 224_wv390, 2026-09-20); not modelled, see
+ * notes/WINE-TRANSCRIPTS-TODO.md.
  */
 scr_bool
 lib_with_arm_390_applies (scr_gameref_t game)
@@ -23386,12 +23431,35 @@ lib_cmd_buy_absent (scr_gameref_t game)
  * lib_cmd_break_other()
  *
  * Standard responses to attempts to break something.
+ *
+ * The break arm takes the " with " clause's refusals like every other
+ * therest arm -- `break rock with gem`, the gem present and not held, is
+ * "<You> don't have the gem." in all four Runners -- but writes no " with
+ * <X>" suffix of its own once the instrument is held: the answer is then
+ * the plain "<You> might need the rock." (p*WITHPFX, Adrift_222_ws370 /
+ * 223_ws380 / 224_ws390 / 225_ws400, cmdfile_pwithpfx4.txt, 2026-09-20).
+ * Below 3.90 the arm ends in an exclamation mark, with or without an
+ * instrument: run370/run380 answer a bare `break rock` "You might need the
+ * rock!" where run390/run400 use a full stop (cmdfile_pwithpfx8.txt,
+ * Adrift_224_wx370 .. 227_wx400).
  */
 scr_bool
 lib_cmd_break_object (scr_gameref_t game)
 {
   scr_int object;
+  scr_int unused_object, instrument;
   scr_bool is_ambiguous;
+
+  switch (lib_with_clause_400 (game, &unused_object, &instrument))
+    {
+    case LIB_WITH_NONE:
+    case LIB_WITH_SUFFIX:
+      break;
+    case LIB_WITH_DECLINE:
+      return FALSE;
+    case LIB_WITH_ANSWERED:
+      return TRUE;
+    }
 
   /* Get the referenced object, and if none, consider complete. */
   object = lib_disambiguate_object (game, "break", &is_ambiguous);
@@ -23403,7 +23471,9 @@ lib_cmd_break_object (scr_gameref_t game)
                              "You might need ",
                              "I might need ",
                              "%player% might need ",
-                             object, ".\n");
+                             object,
+                             (prop_get_taf_version (gs_get_bundle (game))
+                              < TAF_VERSION_390) ? "!\n" : ".\n");
   return TRUE;
 }
 

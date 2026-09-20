@@ -2424,6 +2424,9 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
     return FALSE;
   if (!run_therest_winner_pre400 (version, string, &offset))
     return FALSE;
+  /* The " with " split is made above this test; see lib_with_clause_claims(). */
+  if (lib_with_clause_claims (game))
+    return FALSE;
   for (word = EARLIER; *word; word++)
     if (run_c_word_pre400 (version, string, *word) >= 0)
       return FALSE;
