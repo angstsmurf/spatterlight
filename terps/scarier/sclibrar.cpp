@@ -5956,6 +5956,85 @@ lib_co_400_raise_named (scr_gameref_t game, const scr_char *term,
 }
 
 /*
+ * lib_with_split_crowd_400()
+ *
+ * The question a line holding " with " raises comes out of ONE half, not out
+ * of the whole line.  therest splits before any verb test (4883C5) and
+ * scores each half with 463640, so the marked candidates the prompt reads
+ * back are the ones the last half scored.  p4WTIE (run400, Adrift_wtie/6/7/8
+ * /9, 2026-09-20), with "stone" the Short of two objects and a knife, a box
+ * and a rope beside them:
+ *
+ *   head ties       `cut stone with knife`, `cut stone with zzz`,
+ *                   `chop stone with knife` -- "Which stone.  The red stone
+ *                   or the blue stone?", the knife left out of the list
+ *                   although the line names it.  therest leaves at 488430
+ *                   and the catch-all asks.
+ *   head resolves   `cut knife with stone`, `cut rope with stone`, `open box
+ *                   with stone`, `close box with stone`, `x box with stone`,
+ *                   `x knife with stone`, `x rope with stone` -- the tail is
+ *                   scored next (4884DB) and ITS tie is the question, again
+ *                   the two stones alone.
+ *   head names
+ *   nothing         `chop zzz with stone` is the game's DontUnderstand text:
+ *                   therest left before the tail was ever scored, and an
+ *                   empty candidate list raises nothing.
+ *
+ * Examine is the exception, and only where the head ties: it sits above
+ * therest and answers first, with the whole line's reference set -- `x stone
+ * with knife` is "Which stone.  The knife, the red stone or the blue stone?"
+ * and `x stone with box` names the box the same way, where `x knife with
+ * stone` and `x box with stone` list the stones alone.  An examine whose
+ * head names nothing still reaches the tail (`x zzz with stone`), where the
+ * unhandled verb does not.
+ *
+ * Fills *crowd with the objects to ask about (empty = ask nothing) and
+ * returns TRUE when the split decides; FALSE leaves the caller its own
+ * whole-line list.
+ */
+static scr_int
+lib_with_half_tied_400 (scr_gameref_t game, const scr_char *half,
+                        std::vector<scr_int> *tied)
+{
+  scr_int object;
+
+  object = lib_verb_object_resolve_400_string (game, half, tied, TRUE);
+  if (object < 0)
+    object = lib_verb_object_resolve_400_string (game, half, tied, FALSE);
+
+  /* Only a tie leaves a crowd behind; a winner marked just itself. */
+  if (object != -1)
+    tied->clear ();
+  return object;
+}
+
+static scr_bool
+lib_with_split_crowd_400 (scr_gameref_t game, scr_bool examine,
+                          std::vector<scr_int> *crowd)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_char *tail = input ? strstr (input, " with ") : NULL;
+  std::string head;
+  scr_int object;
+
+  crowd->clear ();
+  if (!lib_is_version_400 (game) || !tail)
+    return FALSE;
+
+  head.assign (input, tail - input);
+  object = lib_with_half_tied_400 (game, head.c_str (), crowd);
+  if (object == -1)
+    return !examine;
+
+  crowd->clear ();
+  if (object == -2 && !examine)
+    return TRUE;
+
+  lib_with_half_tied_400 (game, tail + 6, crowd);
+  return TRUE;
+}
+
+/*
  * The examine path's test.  The candidates are every object the line
  * referenced, in index order, and the question's term is the first name --
  * Short first, then Alias -- that the line contains and that two or more of
@@ -7441,11 +7520,32 @@ pre400_take_done:
    * an object were not measured, but they cannot be printing an invented
    * string either, so they share the wording here.
    */
-  if (lib_is_version_400 (game) && lib_co_400_raise_for_references (game))
+  if (lib_is_version_400 (game))
     {
-      if (is_ambiguous)
-        *is_ambiguous = TRUE;
-      return -1;
+      std::vector<scr_int> crowd;
+
+      /*
+       * A line with " with " in it asks about one half; see
+       * lib_with_split_crowd_400().  `close box with stone` lists the two
+       * stones and not the box, and `x knife with stone` the same, where an
+       * examine whose own half ties keeps the whole line's list below.
+       */
+      if (lib_with_split_crowd_400 (game,
+                                    strcmp (verb, "examine") == 0, &crowd))
+        {
+          if (lib_co_400_raise_for_short_tie (game, crowd))
+            {
+              if (is_ambiguous)
+                *is_ambiguous = TRUE;
+              return -1;
+            }
+        }
+      else if (lib_co_400_raise_for_references (game))
+        {
+          if (is_ambiguous)
+            *is_ambiguous = TRUE;
+          return -1;
+        }
     }
 
   /*
@@ -17979,7 +18079,6 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
    * is in no Runner's string pool, 3.7 to 4.0, so the older versions keep
    * SCARE's wording only because their arms are unread.
    */
-  scr_bool key_unnamed_400 = FALSE;
   scr_bool absent_400 = FALSE;
 
   /*
@@ -18003,8 +18102,6 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
           key = lib_with_half_400 (game, tail + 6);
           if (key >= 0)
             with_key = TRUE;
-          else
-            key_unnamed_400 = TRUE;
         }
     }
   else
@@ -18057,38 +18154,43 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
    */
   if (with_key && !absent_400)
     {
-      const scr_var_setref_t vars = gs_get_vars (game);
-
-      if (!uip_match ("%object%", var_get_ref_text (vars), game))
+      if (!lib_is_version_400 (game))
         {
-          if (!lib_is_version_400 (game))
+          const scr_var_setref_t vars = gs_get_vars (game);
+
+          if (!uip_match ("%object%", var_get_ref_text (vars), game))
             {
               pf_buffer_string (filter, verb->prompt);
               return TRUE;
             }
-          with_key = FALSE;
-          key_unnamed_400 = TRUE;
-        }
-      else if (!lib_is_version_400 (game))
-        {
           key = lib_disambiguate_object (game, verb->verb_with, NULL);
           if (key == -1)
             return TRUE;
         }
       else
         {
-          /* A named key that is not in scope resolves to nothing, too. */
-          scr_bool key_ambiguous;
+          /*
+           * A present object reads its key out of the " with " half exactly
+           * as the absent arm above does -- openclose scores that text with
+           * 463640 (475CB0) and never consults the parser's references, so
+           * a half that names nothing AND a half that ties both leave var_88
+           * at -1 and take the keyless branch, silently.  p4WTIE (run400,
+           * Adrift_wtie3/4/5, 2026-09-20): with the coin as the box's key,
+           * `unlock box with stone` and `unlock box with gems` -- two "stone"
+           * Shorts, two "gems" aliases -- are "You unlock the box with the
+           * coin." just like `unlock box with zzz`, and `lock box with stone`
+           * is the lock twin.  A half that resolves to the wrong object is
+           * still the flat "You can't unlock the box with the knife.".  So
+           * 4.0 asks nothing here, and SCARE's old "<verb> that with what?"
+           * prompt -- in no Runner's string pool -- is gone: sswhore's
+           * `unlock drawer with key` invented it.
+           */
+          const scr_char *input = run_get_dispatch_input ();
+          const scr_char *tail = input ? strstr (input, " with ") : NULL;
 
-          key = lib_disambiguate_object (game, verb->verb_with,
-                                         &key_ambiguous);
-          if (key == -1)
-            {
-              if (key_ambiguous)
-                return TRUE;
-              with_key = FALSE;
-              key_unnamed_400 = TRUE;
-            }
+          key = tail ? lib_with_half_400 (game, tail + 6) : -1;
+          if (key < 0)
+            with_key = FALSE;
         }
     }
 
@@ -18110,6 +18212,20 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
         the_key = obj_dynamic_object (game, key_index);
         if (with_key)
           {
+            /*
+             * Naming the key is what picks it up: the keyless branch takes
+             * the object's Key straight out of the property and tests the
+             * hands, while the named one runs the Runner's implicit get.
+             * p4WTIE (run400, Adrift_wtie10, 2026-09-20), the coin dropped:
+             * `unlock box with coin` is "(Picking up the coin first)" then
+             * "You unlock the box with the coin." and leaves the coin
+             * carried, where bare `unlock box`, `unlock box with stone` and
+             * `unlock box with zzz` are all "You don't have anything to
+             * unlock the box with!".  The refusals come first either way --
+             * a wrong named key on the floor is the flat "You can't unlock
+             * the box with the knife.", and the state refusal "The box is
+             * already locked!" precedes both.
+             */
             if (the_key != key)
               {
                 pf_buffer_string (filter,
@@ -18121,13 +18237,10 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
                 lib_print_wrapped_object (game, " with ", key, ".\n");
                 return TRUE;
               }
+            lib_attempt_key_acquisition (game, key);
           }
         else
-          {
-            key = the_key;
-            if (!key_unnamed_400)
-              lib_attempt_key_acquisition (game, key);
-          }
+          key = the_key;
 
         /*
          * The runner asks whether the key is indirectly held by the player,
@@ -30189,10 +30302,17 @@ lib_cmd_verb_object (scr_gameref_t game)
        */
       if (lib_is_version_400 (game) && !lib_is_put_where_line_400 (game))
         {
-          std::vector<scr_int> tied;
+          std::vector<scr_int> tied, crowd;
           const scr_int resolved =
               lib_verb_object_resolve_400_common (game, &tied);
 
+          /*
+           * A " with " line asks about one half of itself, though the object
+           * it answers for stays the whole line's -- hcw's `unlock door with
+           * keys` speaks for the keys.  See lib_with_split_crowd_400().
+           */
+          if (lib_with_split_crowd_400 (game, FALSE, &crowd))
+            tied = crowd;
           if (resolved == -1
               && lib_co_400_raise_for_short_tie (game, tied))
             return TRUE;
@@ -30350,10 +30470,13 @@ lib_cmd_verb_object (scr_gameref_t game)
    */
   if (lib_is_version_400 (game))
     {
-      std::vector<scr_int> tied;
+      std::vector<scr_int> tied, crowd;
       const scr_int resolved =
           lib_verb_object_resolve_400_common (game, &tied);
 
+      /* One half asks the question; see lib_with_split_crowd_400(). */
+      if (lib_with_split_crowd_400 (game, FALSE, &crowd))
+        tied = crowd;
       if (lib_put_where_400 (game, resolved))
         return TRUE;
       if (resolved == -1)

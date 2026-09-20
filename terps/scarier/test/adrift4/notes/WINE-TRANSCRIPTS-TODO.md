@@ -262,13 +262,6 @@ the_hangover T34) went identical with that port on 2026-09-20.
   ported -- see "A task's `%object%` binds only a seen object" in the
   index -- as is the NPC seen gate for `%character%`, under "A task
   command's `%character%` at 4.0".)
-- **Second-noun ambiguity:** wording of an instrument ambiguity (sswhore
-  `unlock drawer with key`) -- the rest of this lead is measured and
-  ported, see "A 4.0 open or close resolves the whole line" and "A 4.0
-  lock or unlock works on a seen-but-absent object" in the index. A tie
-  inside a " with " half is still unwitnessed: p4LOCK cannot raise one,
-  because 463640 scores the whole Short and "stone" matches neither
-  "red stone" nor "blue stone".
 - **Ambiguity prompts:** co()'s crowded arm (454454) and its -2/-1
   answers; which of them parks 4941EC, the object whose aliases the
   prompt's term is drawn from -- p4CO's trees and keys park one, its
@@ -277,7 +270,25 @@ the_hangover T34) went identical with that port on 2026-09-20.
   whether an object ambiguity on a task-answered line also
   suppresses the tick. (454454's Prefix contest itself is measured and
   ported -- see "The 4.0 Prefix contest" in the index, and "That wasn't
-  one of the options!" for the 4.0 state machine.)
+  one of the options!" for the 4.0 state machine.) The two p4WTIE cells
+  this still costs, both WITHOUT " with " (2026-09-20, Adrift_wtie6/7):
+  `chop stone knife` is run400's DontUnderstand text where SCARE prompts
+  -- the knife is the first hit and no tied Short matches the object the
+  pending test looks at, so Me(424) is never set, which only the full
+  `lib_name_object_resolve_400` model tells apart from p4CO's `chop tree
+  rock` (a prompt in both) -- and `cut stone knife` is therest's "You
+  can't cut that.", a filled buffer swallowing the parked question, where
+  SCARE prompts. The measured half of the second-noun lead is now in the
+  index, under "A 4.0 question raised by a " with " line comes out of ONE
+  half" and "A 4.0 lock or unlock never asks which key".
+- **Two 4.0 turns SCARE does not count** (p4WTIE, 2026-09-20; both
+  pre-date the with-half port, checked against the build before it).
+  `take stone with knife` prompts AND ticks in run400, where the same
+  prompt from `take stone`, or from any therest verb with a " with " on
+  the line, does not. And an ANSWER that rebuilds a with-line ticks: `cut
+  rope with stone` / `red stone` is "You don't have the red stone." plus
+  the event, where SCARE prints the line without spending a turn
+  (Adrift_wtie6 turn 11, Adrift_wtie8 turn 10).
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -1011,12 +1022,61 @@ transcript names are in the code comment next to the named function, in
   the unlock itself -- without ever asking where the object is. From
   p4LOCK's Beta, with the box locked back in Alpha and the coin in hand,
   `lock box with coin` is "You lock the box with the coin.", `unlock box`
-  is "You unlock the box with the coin.", and `unlock box with zzz` /
-  `lock box with zzz` are the plain openness refusals, an unresolved named
-  key taking the keyless branch (4763ED) with no pick-up on the way. This
-  generalises the sswhore refusal already noted. `[4.0]` p4LOCK
-  (`cmdfile_lock2.txt`, Adrift_lock2.txt; `lib_lock_absent_object_400`,
-  `lib_lock_backend`, 2026-09-20)
+  is "You unlock the box with the coin.", and an unresolved named key
+  takes the keyless branch (4763ED). (The `unlock box with zzz` / `lock
+  box with zzz` cells of Adrift_lock2 do NOT show that: the box was
+  already unlocked by then, so they are openness refusals and prove
+  nothing. p4WTIE's feed 3 re-locks between cells and proves it properly
+  -- see the next entry.) This generalises the sswhore refusal already
+  noted. `[4.0]` p4LOCK (`cmdfile_lock2.txt`, Adrift_lock2.txt;
+  `lib_lock_absent_object_400`, `lib_lock_backend`, 2026-09-20)
+- **A 4.0 lock or unlock never asks which key, and naming the key is what
+  picks it up.** openclose starts var_88 at -1 (475C63) and sets it only
+  from a " with " half that 463640 RESOLVES (475CB0), so a half that ties
+  is a half that named nothing: with two objects Short "stone" and two
+  sharing the alias "gems", `unlock box with stone`, `unlock box with
+  gems` and `unlock box with zzz` are all the keyless branch's "You unlock
+  the box with the coin.", and `lock box with stone` the lock twin, while
+  a half that resolves to the wrong object is the flat "You can't unlock
+  the box with the knife.". No question is ever asked, so SCARE's old
+  "<verb> that with what?" -- in no Runner's string pool -- is gone; it
+  was what sswhore's `unlock drawer with key` invented. The two branches
+  differ in one more thing: the NAMED key is picked up (`unlock box with
+  coin`, the coin on the floor, is "(Picking up the coin first)" and
+  leaves it carried), where bare `unlock box`, `unlock box with stone` and
+  `unlock box with zzz` are "You don't have anything to unlock the box
+  with!" -- SCARE had the two exactly the wrong way round. Refusals come
+  first either way: a wrong named key on the floor is the flat can't-line,
+  and "The box is already locked!" precedes both. `[4.0]` p4WTIE
+  (`make_400_withtieprobe.py`, `cmdfile_wtie3.txt`, `cmdfile_wtie4.txt`,
+  `cmdfile_wtie10.txt`; Adrift_wtie3/4/10; `lib_lock_backend`,
+  2026-09-20)
+- **A 4.0 question raised by a " with " line comes out of ONE half.**
+  therest splits at " with " before any verb test (4883C5) and scores each
+  half with 463640, and the candidate list the prompt reads back is the
+  one the last half scored -- not the line's. With two objects Short
+  "stone", a knife, a box and a rope: a head that TIES parks its own crowd
+  and therest leaves (`cut stone with knife`, `cut stone with zzz`, `chop
+  stone with knife` all answer "Which stone.  The red stone or the blue
+  stone?", the knife left out although the line names it); a head that
+  RESOLVES lets the tail be scored and its tie ask instead (`cut knife
+  with stone`, `cut rope with stone`, `open box with stone`, `close box
+  with stone`); and a head that names NOTHING declines before the tail is
+  ever scored, so `chop zzz with stone` is the game's DontUnderstand text.
+  Examine is the exception, and only where its own half ties: it sits
+  above therest and answers with the whole line's reference set, so `x
+  stone with knife` is "Which stone.  The knife, the red stone or the blue
+  stone?" and `x stone with box` names the box, where `x knife with
+  stone`, `x box with stone`, `x rope with stone` and `x zzz with stone`
+  list the two stones alone -- an examine whose head names nothing still
+  reaches the tail, where an unhandled verb does not. The tie must be one
+  of Short: `open box with gems` and `close box with gems`, tied by alias
+  only, raise nothing. A second identical with-line is "That is still
+  ambiguous!", and an answer rebuilds the line (`cut rope with stone` +
+  `red stone` = "You don't have the red stone."). `[4.0]` p4WTIE
+  (`cmdfile_wtie.txt`, `cmdfile_wtie5.txt` .. `cmdfile_wtie9.txt`;
+  Adrift_wtie, Adrift_wtie5..9; `lib_with_split_crowd_400`,
+  `lib_disambiguate_object`, `lib_cmd_verb_object`, 2026-09-20)
 - **"That wasn't one of the options!" is the 4.0 question meeting a SECOND
   element of the same typed line.** generaltasks keeps two things, not
   one: the question (494234, "term|command") and what the last prompt
