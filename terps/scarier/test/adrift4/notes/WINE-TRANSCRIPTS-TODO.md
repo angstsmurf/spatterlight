@@ -377,16 +377,9 @@ not by a tick.
   Adrift_235_oy400, 2026-09-20). Both strings are the Runner's own, so
   this is which of them takes() reaches, not an invention. The same feed's
   `x gem` is the "Which gem." question in both, so it is a takes()
-  question and not a co() one.
-- **3.70 `take` over two namesakes.** run370's `take gem`, with a gem and
-  a rock that both answer to "gem", is "You pick up the rock." and `i`
-  then lists BOTH (p37OPENA, Adrift_232_oy370, 2026-09-20): takes() took
-  each and the last one spoke, as openclose does. Scarier says "Take
-  what?", which is what p37TASK measured for two namesakes with different
-  Prefixes ("a red hat" / "a blue hat"); here both Prefixes are the bare
-  "a", so the Prefix-last-word skip in `lib_disambiguate_object_common()`
-  marks both and falls to "Take what?" where the Runner takes both. What
-  the Runner does with a Prefix whose last word is the article is unread.
+  question and not a co() one. It is the ALIAS world alone: p4TAKEP and
+  p4TAKEQ, whose crowds are same-Short namesakes, ask "Which pin.  Old red
+  pin or new red pin?" in Scarier and the Runner alike.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
@@ -936,6 +929,45 @@ transcript names are in the code comment next to the named function, in
   through to the suffix, which settles the "Don't be daft!" cell
   `lib_with_clause_390()` had only read off the listing: 3.9 has no such
   line. `[<4.0]` p*OPENW/p*OPENT (`lib_cant_do_suffix_pre400`, 2026-09-20)
+- **Pre-4.0 take/drop over several namesakes.** takes() (run370 436280)
+  and drops() (430DDC) walk a crowd the way openclose() does: every
+  survivor moves and the last by index overwrites the message. `take red
+  pin`, over pins Prefixed "old red" and "new red", is "You pick up new
+  red pin." at 3.70 AND 3.80 with `i` listing both, and `drop red pin`
+  then drops both; 3.90 keeps only the FIRST by index, so the same line is
+  "You pick up old red pin." and `i` lists it alone, and 4.00 asks
+  instead ("Which pin.  Old red pin or new red pin?", and `drop red pin`
+  "It is not clear which pin you are referring to."). What survives is the
+  Prefix contest, and which crowd runs it is the version split: 3.80/3.90
+  have co() under every handler, so the crowd is the TERM's present
+  namesakes, while 3.70 has no co() at all and its crowd is the objects
+  sharing a **Short** the line names -- a rock merely ALIASED "gem" beside
+  a gem is no crowd to it, and `take gem` takes both with the rock
+  speaking (p37OPENA). takes() walks what is loose and drops() what is
+  held, so a namesake in the wrong place is not in the crowd either: two
+  orbs on the floor answer `drop orb` with drops' ordinary "You don't have
+  a orb!". With the crowd formed and nothing keeping its Prefix word the
+  turn is takes'/drops' own "Take what?" / "Drop what?" (the "Which ...
+  would you like to take" strings at 430866 are dead code), and the line
+  is answered, so no end-of-turn co() question follows it. `[<4.0]`
+  p*TAKEP/p*TAKEQ (`make_takeprefixprobe.py`, `cmdfile_ptakepfx.txt`,
+  `cmdfile_ptakeq.txt`, Adrift_238_pc370 .. 241_pc400 and 240_pd370 ..
+  243_pd400; `lib_disambiguate_object_common`,
+  `lib_namesake_crowded_pre380`, `lib_what`, 2026-09-20)
+- **Pre-3.9 Prefix words start at the SECOND word.** co() below 3.90 drops
+  the Prefix's first word -- whatever it is, article or not -- and then
+  takes the last word of what remains; 3.90 and 4.00 read the whole
+  Prefix. So a one-word Prefix tells nothing apart before 3.90: `take big
+  gem` over gems Prefixed "big" and "small" is "Take what?" at 3.70 and
+  co()'s "Which gem.  Big gem or small gem?" at 3.80, exactly as bare
+  `take gem` is, and so are `take orb` ("a") and `take cog` ("the"), while
+  3.90 answers "You pick up big gem.". Two words leave one: pins Prefixed
+  "old red"/"new red" answer `take red pin`. Three words prove it is the
+  LAST that is kept and the FIRST that is dropped, not the second that is
+  kept nor an article that is dropped: gems Prefixed "a very red" / "a
+  very blue" answer `take red gem` but not `take very gem`, and pins
+  Prefixed "big red" / "small red" refuse `take big pin`. `[<3.9]`
+  p*TAKEP/p*TAKEQ (`lib_co_prefix_word`, 2026-09-20)
 - **Pre-4.0 read is examines()' object too.** A `read` line naming more
   than one object is settled exactly as `x` settles it: 3.90 by
   referencedob()'s last-word pass (`read rock gem` -> "You can't read the

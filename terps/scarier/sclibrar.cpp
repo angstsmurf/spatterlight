@@ -5043,6 +5043,60 @@ lib_co_lastword (const scr_char *string)
 }
 
 /*
+ * lib_co_prefix_word()
+ *
+ * The one Prefix word co() matches against the typed line when a term has
+ * several present namesakes.  3.90 and 4.00 take the last word of the whole
+ * Prefix; 3.70 and 3.80 drop its FIRST word first, so a Prefix of one word
+ * -- "a", "the", or a bare adjective like "big" -- distinguishes nothing at
+ * all, and a "big red" tells nothing apart from a "small red".
+ *
+ * Measured on p*TAKEP and p*TAKEQ (Adrift_238_pc370 .. 243_pd400,
+ * 2026-09-20), everything loose in one lit room:
+ *
+ *                               3.70 / 3.80        3.90            4.00
+ *   "big" gem, "small" gem
+ *     take gem                  no             no              no
+ *     take big gem              no             the big gem     the big gem
+ *   "a" orb, "a" orb / "the" cog, "the" cog
+ *     take orb / take cog       no             no              no
+ *   "old red" pin, "new red" pin
+ *     take pin                  no             no              no
+ *     take red pin              BOTH           the old pin     no
+ *   "a very red" gem, "a very blue" gem
+ *     take very gem             no             no              no
+ *     take red gem              the red gem    the red gem     the red gem
+ *   "big red" pin, "small red" pin
+ *     take big pin              no             no              the big pin
+ *
+ * ("no" is the version's own refusal: "Take what?" at 3.70, "Which pin.
+ * Old red pin or new red pin?" at 3.80/3.90, and at 4.00 either that
+ * question or "It is not clear which pin you are referring to." from
+ * drops.)  `take red gem` answering while `take very gem` does not is what
+ * makes it the LAST word of what is left and not the second; `take big
+ * pin` failing at 3.90 as well is what makes 3.90's word the last of the
+ * WHOLE Prefix and not the first-dropped one.  4.00 is the word score
+ * instead (lib_verb_object_name_score()), which counts every Prefix word.
+ */
+static const scr_char *
+lib_co_prefix_word (scr_gameref_t game, scr_int object)
+{
+  const scr_char *prefix;
+
+  prefix = prop_get_indexed_string (gs_get_bundle (game), "Objects", object,
+                                    "Prefix");
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
+    {
+      const scr_char *space = prefix ? strchr (prefix, ' ') : NULL;
+
+      if (!space)
+        return NULL;
+      prefix = space + 1;
+    }
+  return lib_co_lastword (prefix);
+}
+
+/*
  * lib_alias_prepare()
  *
  * Point vt_key[0..2] at the given object's/NPC's ("Objects"/"NPCs") Alias
@@ -5124,6 +5178,55 @@ lib_co_candidate (scr_gameref_t game, scr_int object, scr_int room)
          || gs_object_seen (game, object);
 }
 
+static scr_bool
+lib_object_held_pre380 (scr_gameref_t game, scr_int object)
+{
+  return gs_object_position (game, object) == OBJ_HELD_PLAYER
+         || gs_object_position (game, object) == OBJ_WORN_PLAYER;
+}
+
+/*
+ * lib_namesake_crowded_pre380()
+ *
+ * Whether this object is one of the namesakes 3.7's loops find themselves
+ * crowded on: its Short is in the typed line, and two or more present
+ * objects on the verb's own side -- loose for takes(), held for drops() --
+ * carry that same Short.  3.7's handlers never call co(), so what makes a
+ * 3.7 crowd is the SHORT alone: two objects answering to one word through
+ * an Alias are not namesakes to it, and each simply acts.  p37OPENA
+ * (Adrift_232_oy370, 2026-09-20) is that side: a gem and a rock aliased
+ * "gem", both Prefixed "a", and `take gem` is "You pick up the rock." with
+ * BOTH in the inventory afterwards -- while two objects both Short "orb"
+ * and both Prefixed "a" are "Take what?" (p37TAKEP, Adrift_238_pc370).
+ */
+static scr_bool
+lib_namesake_crowded_pre380 (scr_gameref_t game, const scr_char *line,
+                             scr_int object, scr_bool want_held)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int room = gs_playerroom (game);
+  const scr_char *shortname;
+  scr_int other, present;
+
+  shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  if (scr_strempty (shortname) || !line || !lib_co_contains (line, shortname))
+    return FALSE;
+
+  present = 0;
+  for (other = 0; other < gs_object_count (game); other++)
+    {
+      const scr_char *name
+        = prop_get_indexed_string (bundle, "Objects", other, "Short");
+
+      if (lib_co_candidate (game, other, room)
+          && lib_object_held_pre380 (game, other) == want_held
+          && !scr_strempty (name)
+          && scr_strcasecmp (name, shortname) == 0)
+        present++;
+    }
+  return present > 1;
+}
+
 /*
  * Reproduce the scan.  Returns TRUE when the Runner would prompt, with
  * *prompt_term the last flagged object's term, *list_term the term the list
@@ -5147,11 +5250,10 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
 
   for (object = 0; object < gs_object_count (game); object++)
     {
-      const scr_char *shortname, *prefix, *term;
+      const scr_char *shortname, *term;
       scr_int alias_count, alias, other, present;
 
       shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
-      prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
 
       /* Pick the term the Runner would have matched on: Short, then Alias. */
       term = NULL;
@@ -5194,7 +5296,7 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
               first_term = term;
               first_present = present;
             }
-          if (lib_co_contains (command, lib_co_lastword (prefix)))
+          if (lib_co_contains (command, lib_co_prefix_word (game, object)))
             resolved = TRUE;
           else if (!resolved)
             flagged_term = term;
@@ -6767,13 +6869,6 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
       const scr_bool is_wear = strcmp (verb, "wear") == 0;
       const scr_bool is_remove = strcmp (verb, "remove") == 0;
 
-      if (strcmp (verb, "drop") == 0 || strcmp (verb, "take") == 0)
-        {
-          lib_what (game, strcmp (verb, "drop") == 0 ? "Drop" : "Take");
-          if (is_ambiguous)
-            *is_ambiguous = TRUE;
-          return -1;
-        }
       if (is_wear || is_remove)
         {
           scr_int first = -1, last = -1;
@@ -6801,6 +6896,129 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
           count = 1;
         }
     }
+
+  /*
+   * takes() (run370 436280, run380, run390) and drops() (430DDC) walk a
+   * crowded line the same way openclose() does: every survivor moves, and
+   * the last by index overwrites the message.  Below 3.90 that is the whole
+   * rule -- `take red pin` with pins Prefixed "old red" and "new red" is
+   * "You pick up new red pin." at 3.70 AND 3.80, and `i` afterwards lists
+   * both; `drop red pin` then drops both (p*TAKEP, Adrift_238_pc370 /
+   * 239_pc380, 2026-09-20).  3.90 keeps only the FIRST by index: the same
+   * line is "You pick up old red pin." and `i` lists it alone.
+   *
+   * What survives is the Prefix contest, and which crowd runs it is the
+   * version split:
+   *
+   *   3.80/3.90 have co() under every handler, so the crowd is the TERM's
+   *     present namesakes and the block above has already narrowed it.
+   *   3.70 has no co() at all, so a crowd is objects sharing a SHORT the
+   *     line names (lib_namesake_crowded_pre380), and the filter runs here:
+   *     each crowded namesake keeps its reference only if the last word of
+   *     its Prefix is typed (lib_co_prefix_word).  With none left the turn
+   *     is takes'/drops' own "Take what?" / "Drop what?" -- the "Which ...
+   *     would you like to take" strings at 430866 are dead code -- and the
+   *     line is answered, so no end-of-turn co() question follows it.
+   *
+   * Note that a one-word Prefix filters NOTHING below 3.90, because the
+   * pre-3.9 co() drops the Prefix's first word before taking its last:
+   * `take big gem` over gems Prefixed "big" and "small" is "Take what?" at
+   * 3.70 and the co() question at 3.80, exactly as bare `take gem` is,
+   * while `take red gem` over "a very red" / "a very blue" answers (p*TAKEP
+   * / p*TAKEQ, Adrift_238_pc370 .. 241_pc400 and 240_pd370 .. 243_pd400).
+   */
+  if (count > 0 && taf_version < TAF_VERSION_400
+      && (strcmp (verb, "take") == 0 || strcmp (verb, "drop") == 0)
+      && (count > 1 || taf_version < TAF_VERSION_380))
+    {
+      const scr_bool is_take = strcmp (verb, "take") == 0;
+      const scr_char *line = run_get_dispatch_input ();
+      scr_int first = -1, last = -1;
+
+      if (taf_version < TAF_VERSION_380 && line)
+        {
+          scr_int eligible = 0, kept = 0;
+
+          /*
+           * takes() walks what is loose and drops() what is held, so a
+           * namesake in the wrong place is not in the crowd at all: two
+           * orbs on the floor are "Drop what?" to nobody, they are drops'
+           * ordinary "You don't have a orb!" (p37TAKEP, Adrift_238_pc370
+           * turn 14).  With nothing eligible the loop never ran, nothing
+           * is ambiguous, and the handler's own refusal answers about the
+           * first name on the line.
+           */
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            {
+              if (game->object_references[index_]
+                  && lib_object_held_pre380 (game, index_) != is_take)
+                eligible++;
+            }
+          if (eligible == 0)
+            {
+              object = lib_first_named_pre400 (game, -1);
+              if (object == -1)
+                for (index_ = 0; index_ < gs_object_count (game); index_++)
+                  if (game->object_references[index_])
+                    {
+                      object = index_;
+                      break;
+                    }
+              for (index_ = 0; index_ < gs_object_count (game); index_++)
+                game->object_references[index_] = (index_ == object);
+              count = 1;
+              goto pre400_take_done;
+            }
+
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            {
+              if (!game->object_references[index_])
+                continue;
+              if (lib_object_held_pre380 (game, index_) == is_take
+                  || (lib_namesake_crowded_pre380 (game, line, index_,
+                                                   !is_take)
+                      && !lib_co_contains (line,
+                                           lib_co_prefix_word (game,
+                                                               index_))))
+                game->object_references[index_] = FALSE;
+              else
+                kept++;
+            }
+          if (kept == 0)
+            {
+              lib_what (game, is_take ? "Take" : "Drop");
+              lib_co_prompt_370_blocked = TRUE;
+              if (is_ambiguous)
+                *is_ambiguous = TRUE;
+              return -1;
+            }
+          count = kept;
+        }
+
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (!game->object_references[index_])
+            continue;
+          if (first == -1)
+            first = index_;
+          if (taf_version >= TAF_VERSION_390)
+            continue;
+          if (last != -1)
+            {
+              if (is_take)
+                gs_object_player_get (game, last);
+              else
+                gs_object_to_room (game, last, gs_playerroom (game));
+            }
+          last = index_;
+        }
+
+      object = taf_version >= TAF_VERSION_390 ? first : last;
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        game->object_references[index_] = (index_ == object);
+      count = 1;
+    }
+pre400_take_done:
 
   /*
    * No pre-4.0 Runner asks about a crowded open/close line either.
@@ -12065,12 +12283,7 @@ lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
         count = held;
     }
   if (count > 1)
-    {
-      const scr_char *prefix;
-
-      prefix = prop_get_indexed_string (bundle, "Objects", object, "Prefix");
-      return lib_co_contains (line, lib_co_lastword (prefix));
-    }
+    return lib_co_contains (line, lib_co_prefix_word (game, object));
   if (taf_version >= TAF_VERSION_390)
     return lib_co_candidate (game, object, room);
   return TRUE;
@@ -12960,8 +13173,15 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
    * the row: the ambiguity prompt replaces the turn's output anyway, and a
    * plain miss falls to the catch-all "Take what?" the Runner's empty buffer
    * reaches.
+   *
+   * 3.70 is not in this: its takes() calls no co() at all, and settles a
+   * crowd of its own namesakes in lib_disambiguate_object_common().  A rock
+   * ALIASED "gem" beside a gem is no crowd to it -- `take gem` takes both
+   * and the rock speaks (p37OPENA, Adrift_232_oy370, 2026-09-20) -- and
+   * this gate used to turn that into "Take what?".
    */
   if (!is_except && references == 1
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_380
       && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
     {
       const scr_char *line = run_get_dispatch_input ();
@@ -27870,6 +28090,20 @@ lib_what (scr_gameref_t game, const scr_char *verb)
            && strcmp (verb, "Drop") != 0 && strcmp (verb, "Take") != 0
            && strcmp (verb, "Drink") != 0)
     lib_question_prefix_from_line (game);
+
+  /*
+   * 3.7's takes() and drops() answer the line here when no namesake of the
+   * typed term keeps its Prefix word, and the answer stands: the Runner's
+   * `take very gem` over gems Prefixed "a very red" and "a very blue" is
+   * "Take what?", not co()'s question (p37TAKEQ, Adrift_240_pd370,
+   * 2026-09-20).  When the matcher never bound %object% at all -- the
+   * adjective is not a Prefix word, so nothing matched -- this is the only
+   * site that sees the line, so the end-of-turn co() prompt is blocked from
+   * here as well as from lib_disambiguate_object_common().
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
+      && (strcmp (verb, "Take") == 0 || strcmp (verb, "Drop") == 0))
+    lib_co_prompt_370_blocked = TRUE;
 
   pf_buffer_string (filter, verb);
   pf_buffer_string (filter, " what?\n");
