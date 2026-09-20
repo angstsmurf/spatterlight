@@ -24,8 +24,8 @@ It's a small dresser from ikea. Four drawers with accordingly: Underwear,
 shirts, pants and sweaters.  The alarm clock is on the dresser.
 
 > take alarm clock
-You take the alarm clock from the dresser.
-"Turn that damn buzzer off" your landlord screams from the ground floor.
+You take the alarm clock from the dresser.  "Turn that damn buzzer off" your
+landlord screams from the ground floor.
 
 > w
 You move west.
@@ -74,8 +74,8 @@ A big dark brown oak table from the 60's. Your friends grandma sure had bad
 taste.  The bottle is on the coffee table.
 
 > take bottle
-You take the bottle from the coffee table.
-The woman has almost finished dressing.
+You take the bottle from the coffee table.  The woman has almost finished
+dressing.
 
 > x bookshelf
 The bookshelf Larry from Ikea. You never understood why they put those fony

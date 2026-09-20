@@ -224,8 +224,8 @@ moment and looks at you.
 Ray has potted a ball in a corner pocket.
 
 > get fly spray
-You take the can of fly spray.
-Ray stops playing for a moment and looks at you.
+You take the can of fly spray.  Ray stops playing for a moment and looks at
+you.
 
 > e
 You move east.
@@ -722,10 +722,9 @@ playing in the pub out here, it will definitely drown out any noise in the
 yard.
 
 > get spade
-You take the spade.
-The jukebox inside the pub is loudly playing a song by some boy band or
-other.  You can even hear the music playing in the pub out here, it will
-definitely drown out any noise in the yard.
+You take the spade.  The jukebox inside the pub is loudly playing a song by
+some boy band or other.  You can even hear the music playing in the pub out
+here, it will definitely drown out any noise in the yard.
 
 > give bracelet to jed
 You hand the small bracelet to Jed. He turns slightly away from you and

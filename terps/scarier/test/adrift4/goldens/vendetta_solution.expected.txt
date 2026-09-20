@@ -185,8 +185,8 @@ notice that the sky is clear and the stars are twinkling brightly overhead;
 it looks like there is going to be a frost up here tonight...
 
 > open cargo hold
-You open the cargo hold.  Sally's suitcase is inside the cargo hold.
-The freezing wind howls around you.
+You open the cargo hold.  Sally's suitcase is inside the cargo hold.  The
+freezing wind howls around you.
 
 > get suitcase
 You take Sally's suitcase from the cargo hold.
@@ -280,8 +280,8 @@ here, watching people as they walk by.  The freezing wind howls around you.
 A taxi post is just a small electronic box with a single button on top,
 mounted on a post. They are used to call taxis and autocabs. These posts are
 located next to the roadside and each one has their own dedicated parking
-space for a taxi to stop.
-A tiny white snowflake flutters down from the sky and lands on your cheek.
+space for a taxi to stop.  A tiny white snowflake flutters down from the sky
+and lands on your cheek.
 A young man squeezes his way through the crowd and walks up to the roadside,
 where he stands with is hands in his pockets, jigging up and down to keep
 warm. This was not the man who was spying on you; he is far too young.

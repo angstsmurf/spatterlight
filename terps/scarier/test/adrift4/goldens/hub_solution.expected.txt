@@ -247,15 +247,13 @@ I take my watch.
 I put on my watch.
 
 > take t-shirt
-I take my t-shirt.
-I'm beginning to wish I was fully clothed.
+I take my t-shirt.  I'm beginning to wish I was fully clothed.
 
 > wear t-shirt
 I put on my t-shirt.
 
 > take jeans
-I take my jeans.
-I can see goosepimples all over my bare flesh.
+I take my jeans.  I can see goosepimples all over my bare flesh.
 
 > wear jeans
 I step into my jeans, and zip them up carefully.

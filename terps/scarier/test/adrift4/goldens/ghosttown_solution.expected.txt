@@ -290,8 +290,8 @@ opening leading back into the living room is to the west of you.
 > i
 You are wearing well worn jeans, a pair of sneakers and a T-shirt, and you
 are carrying a rusty kerosene lamp, a book of matches, a small metal box and
-an official looking document.
-The flame in the kerosene lamp starts to flicker.
+an official looking document.  The flame in the kerosene lamp starts to
+flicker.
 
 > w
 You move west.
@@ -417,8 +417,7 @@ stains of water, discolored with age, cover most of the surface, and one
 corner bears the charred  marks of fire. There is some handwriting on its
 face.
 There's a seal on the back of the envelope, showing that is hasn't been
-opened.  The old envelope is closed.
-The flame flickers and dies.
+opened.  The old envelope is closed.  The flame flickers and dies.
 You are now carrying an empty kerosene lamp. Let's hope you won't be needing
 light in the future..
 

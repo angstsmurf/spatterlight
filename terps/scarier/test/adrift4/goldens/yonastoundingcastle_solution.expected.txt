@@ -1080,9 +1080,8 @@ trunkle.
 There is nothing worth taking here.
 
 > get gem
-Ye taketh yon gem of some sort from yon takery trunkle.
-With some delight ye discovereth that it still fitteth in its olde place in
-ye treasure sack.
+Ye taketh yon gem of some sort from yon takery trunkle.  With some delight ye
+discovereth that it still fitteth in its olde place in ye treasure sack.
 
 HUZZAH!  Ye hath reclaimed some treasure.
 

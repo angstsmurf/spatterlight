@@ -122,8 +122,8 @@ water here is sparkling clean.  A plump cushion is here to make your stay
 more comfortable.
 
 > take cushion
-You take the big plump cushion.
-The locals cheer as a competitor sets a new record.
+You take the big plump cushion.  The locals cheer as a competitor sets a new
+record.
 
 > use toilet
 Your bladder refuses to obey your commands.
@@ -181,8 +181,8 @@ You take the devil's pitchfork.
 
 > i
 You are wearing a woolly jumper, and you are carrying a dirty shotgun and the
-devil's pitchfork.
-Suddenly, you feel a pain in your chest and wake up by the fountain.
+devil's pitchfork.  Suddenly, you feel a pain in your chest and wake up by
+the fountain.
 
 > look
 

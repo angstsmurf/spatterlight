@@ -257,9 +257,9 @@ Guard walks towards you from the west.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful
-face. She is even after norwegian standards a very attractive girl.
-It's been some time since you last fed. You feel that strong cursed hunger
-for blood. It's time to find a suitable victim.
+face. She is even after norwegian standards a very attractive girl.  It's
+been some time since you last fed. You feel that strong cursed hunger for
+blood. It's time to find a suitable victim.
 
 > x girl
 A  very sweet girl. With dark brown hair and eyes. With a round beautiful

@@ -31,8 +31,8 @@ caresses them.
 You open the woodbox.  An axe is inside the woodbox.
 
 > take axe
-You take an axe from the woodbox.
-You hear a small snap, as if a twig had been broken.
+You take an axe from the woodbox.  You hear a small snap, as if a twig had
+been broken.
 
 > down
 You clamber down the ladder into the cellar.
@@ -393,8 +393,8 @@ them... The wet sand smooshes around beneath your feet, making footprint
 molds that are washed away every so often.  Also here is a rotten coconut.
 
 > take coconut
-You pick up the rotten coconut.
-The tide washes in, splashing about your feet.
+You pick up the rotten coconut.  The tide washes in, splashing about your
+feet.
 
 > e
 You move east.

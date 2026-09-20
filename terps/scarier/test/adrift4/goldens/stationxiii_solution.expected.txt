@@ -387,8 +387,7 @@ You are in a small, dark cupboard.  Why isn't there any lighting in here?
 There are various maintenance implements here.  Also here is a stepladder.
 
 > take stepladder
-You take the stepladder.
-Something wet lands on your nose...
+You take the stepladder.  Something wet lands on your nose...
 
 > s
 You move south.

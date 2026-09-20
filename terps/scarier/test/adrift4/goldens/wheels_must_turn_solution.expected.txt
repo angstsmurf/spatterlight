@@ -127,9 +127,9 @@ orientated tennis match.  "With all those rags, I don't know where to start."
 > ask awning about hedge-clippers
 He shares an empty stare with you, says: "It's nothing too drastic, you
 understand?  Don't feel too bad about it.  It is far more humane than the
-gilded cage, little one."  You feel as empty as his eyes.
-A brief rumble shakes the floor of the warehouse.  Its vibration places an
-ache behind your eyes.
+gilded cage, little one."  You feel as empty as his eyes.  A brief rumble
+shakes the floor of the warehouse.  Its vibration places an ache behind your
+eyes.
 
 > ask awning about awning
 He sighs theatrically, says nothing.  You are almost certain that he is not
@@ -138,10 +138,9 @@ copper wiring.  Perhaps he is even a machine of Operose, you think
 deliriously.  Bleary-eyed fatigue follows him like a specter; but in your
 mind, you see the gearwheels jellifying in his joints, the wiring burning
 itself out like a congeries of lit fuses, the diamond teeth is his mouth
-transmogrifying to sand....
-Your teeth chatter as a second rumble shakes the floor of the warehouse.
-"What's the matter?"  Master Awning demands.  "You've recieved all your
-inoculations, haven't you?"
+transmogrifying to sand....  Your teeth chatter as a second rumble shakes the
+floor of the warehouse.  "What's the matter?"  Master Awning demands.
+"You've recieved all your inoculations, haven't you?"
 
 > ask awning about fatigue
 You hear the squeak of his rusty bear-trap jaw.  "It is the slow death that
@@ -185,29 +184,28 @@ damage.
 > ask devil about dilemma
 "The dilemma is too many toasters, and not enough laborers to power them.
 People enjoy their toast, and they will do anything to ensure that such a
-comfort remains accessible to them."
-The Devil's voice is like tarnished silverware, locked away in some dark
-cupboard.  "Sometimes you just have to start over."
+comfort remains accessible to them."  The Devil's voice is like tarnished
+silverware, locked away in some dark cupboard.  "Sometimes you just have to
+start over."
 
 > ask devil about girls
-"What?  Are the vipers well fed, then?"
-The Devil pokes around in the rubble.  "Nope," he giggles, "no worms here."
-Falling pebbles disturb the silence like little teeth.
+"What?  Are the vipers well fed, then?"  The Devil pokes around in the
+rubble.  "Nope," he giggles, "no worms here."  Falling pebbles disturb the
+silence like little teeth.
 
 > ask devil about fatigue
 "Ah, yes.  We are concerned mainly with two types of fatigue: animal and
 mechanical.  We try to remedy this with the mechanical animal.  Of course,
 this has developed a third type of fatigue: psychomechanical.  Our methods
-are not yet perfected, but..."
-The Devil reaches back to dislodge a pair of oversized hedge-clippers from
-his spine.  "Ah, what is this?" he snarls.  The rusty grin of the offending
-tool clatters at your feet.
+are not yet perfected, but..."  The Devil reaches back to dislodge a pair of
+oversized hedge-clippers from his spine.  "Ah, what is this?" he snarls.  The
+rusty grin of the offending tool clatters at your feet.
 
 > take tool
-You take the hedge-clippers.
-Abruptly, your behooved friend levitates into the darkness above, his voice
-like ice shards in your ears: "I shall now be off, little one."  A faint
-sussuration of gravity-bound pebbles puncuates his departure.
+You take the hedge-clippers.  Abruptly, your behooved friend levitates into
+the darkness above, his voice like ice shards in your ears: "I shall now be
+off, little one."  A faint sussuration of gravity-bound pebbles puncuates his
+departure.
 
 > down
 You scramble down the orange, dusty throat of the rent.

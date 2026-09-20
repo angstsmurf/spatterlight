@@ -77,26 +77,25 @@ coughing fits.  It ends after several seconds and you wonder if he's dead.
 > open refrigerator
 You open the big white refrigerator.  Inside the big white refrigerator is an
 old bottle of milk (you think), old meat, a bottle of heinz ketchup, a large
-bottle of mustard and a moxie.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
+bottle of mustard and a moxie.  Your ears are rudely awakened by the sound of
+a skill saw screaming and scraping through some lumber off  in the distance.
 
 > get meat
 You take old meat from the big white refrigerator.  You take all of the
 knives from the silverware drawer.
 
 > take the knives
-You've already got some tarnished knives!
-The sound of a skill saw ripping lumber finally fades to  stillness.
+You've already got some tarnished knives!  The sound of a skill saw ripping
+lumber finally fades to  stillness.
 
 > open kitchen cupboard
 You open the kitchen cupboard.  Inside the kitchen cupboard is yummy
 pop-tarts and a can of corn.
 
 > get pop-tarts
-You take yummy pop-tarts from the kitchen cupboard.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
+You take yummy pop-tarts from the kitchen cupboard.  Electricity rips through
+your spine as your ears are attacked by one of Art's coughing fits.  It ends
+after several seconds and you wonder if he's dead.
 
 > w
 You move west.
@@ -252,9 +251,9 @@ sides of the stall causing a thunderous rumble.  Also here is a
 soap-on-a-rope and strawberry shampoo.
 
 > get soap
-You pick up the soap-on-a-rope.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
+You pick up the soap-on-a-rope.  Electricity rips through your spine as your
+ears are attacked by one of Art's coughing fits.  It ends after several
+seconds and you wonder if he's dead.
 
 > get shampoo
 You pick up strawberry shampoo.
@@ -310,10 +309,10 @@ fastened above the porch door and an old welcome mat lies just before the
 front door.  There is a yellow bug light above the kitchen window and a
 clothes line running from a large silver colored pulley up to the telephone
 pole near the road.  Hovey is here.  The sound of a skill saw ripping through
-some lumber can be heard intermittantly off in the distance.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
-The sound of a skill saw ripping lumber finally fades to  stillness.
+some lumber can be heard intermittantly off in the distance.  Electricity
+rips through your spine as your ears are attacked by one of Art's coughing
+fits.  It ends after several seconds and you wonder if he's dead.  The sound
+of a skill saw ripping lumber finally fades to  stillness.
 
 > s
 You move south.
@@ -402,9 +401,9 @@ Your score has gone up by 10.
 You pick up the beat up shovel.
 
 > get ladder
-You pick up the old ratty stepladder.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
+You pick up the old ratty stepladder.  Electricity rips through your spine as
+your ears are attacked by one of Art's coughing fits.  It ends after several
+seconds and you wonder if he's dead.
 
 > get golf club
 You pick up the bladed golf club.
@@ -452,9 +451,9 @@ There is a large tree in shallow center field and the backs of the cottages
 on Oakland Ave. angle away to the west.  Billy is here.
 
 > wear crappy baseball glove
-You put on a crappy baseball glove.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
+You put on a crappy baseball glove.  Your ears are rudely awakened by the
+sound of a skill saw screaming and scraping through some lumber off  in the
+distance.
 
 > have a catch with billy
 You look over at Billy who is flipping a ball up and down into his glove.
@@ -1250,9 +1249,9 @@ There is a pathway leading south to the front of the Salvation Army building.
  That is also the way to the convenience store where grandpa gets his
 newspaper and donuts every day.  You can see Billy casually riding his bike
 on the road near the cottage.  He's quite shakey due to the slow speed and
-tight turns but he doesn't falter.
-Your ears are rudely awakened by the sound of a skill saw screaming and
-scraping through some lumber off  in the distance.
+tight turns but he doesn't falter.  Your ears are rudely awakened by the
+sound of a skill saw screaming and scraping through some lumber off  in the
+distance.
 
 > w
 You move west.
@@ -1273,10 +1272,9 @@ cottage.  Uncle George's cottage is on the south side of the road.  The sound
 of a skill saw ripping through some lumber can be heard intermittantly off in
 the distance.  You can see Billy casually riding his bike on the road near
 the cottage.  He's quite shakey due to the slow speed and tight turns but he
-doesn't falter.
-The sound of a skill saw ripping lumber finally fades to  stillness.  You
-hear a large dog barking off in the distance.  The sound seems to echo
-through the neighborhood.
+doesn't falter.  The sound of a skill saw ripping lumber finally fades to
+stillness.  You hear a large dog barking off in the distance.  The sound
+seems to echo through the neighborhood.
 
 > look
 
@@ -1287,9 +1285,9 @@ running from it.  There is an old tree stump directly in front of the
 cottage.  Uncle George's cottage is on the south side of the road.  Jon is
 here.  You can see Billy casually riding his bike on the road near the
 cottage.  He's quite shakey due to the slow speed and tight turns but he
-doesn't falter.
-Electricity rips through your spine as your ears are attacked by one of Art's
-coughing fits.  It ends after several seconds and you wonder if he's dead.
+doesn't falter.  Electricity rips through your spine as your ears are
+attacked by one of Art's coughing fits.  It ends after several seconds and
+you wonder if he's dead.
 
 > look
 

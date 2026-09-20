@@ -197,15 +197,13 @@ smaller sign above the lift buttons.  The lift doors ease closed behind you.
 The map shows the full layout of the Cittian. The 2,000 luxury rooms in the
 basement, and the top 46 floors for the deluxe class and above passengers.
 The gym, the dining rooms, the casino, the deck, the 1,000 person escape
-pods.
-If you strain you can almost hear someone yelling.
+pods.   If you strain you can almost hear someone yelling.
 
 > x sign
 Max Occupancy: 15 people.
 
 You look around the lift nervously, trying to do a head count. It's not good
-news.
-An ominous rumbling echoes in the distance.
+news.  An ominous rumbling echoes in the distance.
 
 > wait
 Time passes...
@@ -458,9 +456,8 @@ You take the slender vacuum hose.
 The maid notices something trapped within the vacuum.
 
 > take dollar
-You take the Cittian dollar.
-The maid wiggles her arm, her fingers lost in the depths of the vacuum
-cleaner.
+You take the Cittian dollar.  The maid wiggles her arm, her fingers lost in
+the depths of the vacuum cleaner.
 
 > e
 You leave the Gift Shop and return to the Luxury Dining Area.
@@ -960,8 +957,8 @@ You take the white chocolate Cadbury-Schweppes™ Space Bar from the thing what
 looks like a microwave.
 
 > take dustbin
-You take the transparent alien dustbin.
-You can hear what sounds like faint screams in the distance.
+You take the transparent alien dustbin.  You can hear what sounds like faint
+screams in the distance.
 
 > i
 You are carrying a white chocolate Cadbury-Schweppes™ Space Bar, a purple

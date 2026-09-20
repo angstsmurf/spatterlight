@@ -309,11 +309,13 @@ the_hangover T34) went identical with that port on 2026-09-20.
   section, so an ALR Original spanning a join does not match. The event
   half is CLOSED at every version (see "An event's text joins the turn's
   paragraph, at every version" in the index: p4ALRSRC `xray` at 4.0, troll's
-  hunger events at 3.90). What is left is the rest of the turn -- library
-  answers, refusals, NPC texts -- which at 4.0 and pre-4.0 alike the Runner
-  joins with pspace() and Scarier still keeps as its own section; so is a
-  task's AdditionalMessage below 4.0, where `sctasks.cpp` joins only at 4.0
-  (troll t17 puts one onto a ShowRoomDesc room block). The corpus case is
+  hunger events at 3.90), and so is the other side of it, the library
+  answer's own terminator ("A library answer has no terminator of its own").
+  What is left is a task's text: its CompleteText, which only a 4.0 task an
+  action runs joins, and its AdditionalMessage, which `sctasks.cpp` joins
+  only at 4.0 (troll t17 puts one onto a ShowRoomDesc room block at 3.90).
+  The 187 single-newline Scarier-only breaks the archive still shows are
+  mostly those, plus NPC walk lines and battle strikes. The corpus case is
   `thetest` (3.90), whose ALRs include two-sentence Originals that span
   exactly such a join:
   `You drop your clothes.  Nice try fish face!` (library drop + task text),
@@ -323,10 +325,11 @@ the_hangover T34) went identical with that port on 2026-09-20.
   (thetest itself already matches the Runner on every turn, so the ALRs
   there are a reading of the source, not a divergence to chase.)
   Expect a large reblessing: the task-text join alone moved 94 rows, the
-  event join 52 then 30, and sweep_wine_breaks still counts 5735
-  Scarier-only breaks against 2 runner-only -- though most of that total is
-  the room-heading `<centre>` transcript artefact, so it is a poor target
-  on its own.
+  event join 52 then 30, the library terminator 39, and sweep_wine_breaks
+  still counts 5694 Scarier-only breaks against 2 runner-only -- though
+  5507 of that total is the room-heading `<centre>` transcript artefact
+  (a blank line, `k2`), so the raw figure is a poor target on its own and
+  the `k1` count is the one to watch.
 - **checkwild, the unported rest.** Every arm this lead once listed is
   closed; the index carries them ("Before 4.0 a `*` command is decided by
   checkwild", "A pre-4.0 task command's %object% walk takes an object's
@@ -2391,6 +2394,24 @@ transcript names are in the code comment next to the named function, in
   tick. Event texts join pre-4.0 with the two-space separator unless the
   buffer ends in Chr(10) or "  ". `[<4.0]` haunt T84. 4.0 keeps the
   end-of-turn endmessage. (2026-09-19)
+- **A library answer has no terminator of its own.** The Runner's library
+  handlers append their sentence to the turn's one string and stop there;
+  the break after it is ours, not theirs, so whatever the turn prints next
+  -- an event's text, an NPC's walk line, a battle strike -- follows after
+  pspace()'s two spaces. troll (3.90) is the plainest: `drop tankard` is
+  "You drop the tankard.  Your guts rumble.  Your throat is sore." on one
+  line (runner_transcripts/troll.txt t29), and t31, t37, t43, t45, t57 say
+  the same after `drop`, `get` and `take ... from`. Two of the library's
+  newlines are NOT ours and keep their own spelling: the room heading's,
+  which the Runner stores too (`lib_print_room_name`,
+  `pf_buffer_hard_break`), and the room description block's, already noted
+  where `lib_print_room_contents` takes it back for its own "  Also here is"
+  -- marking either as an answer break makes the contents list run onto the
+  heading, which the archive catches at once (6 rows, 14 new runner-only
+  breaks). `[all]` (`pf_buffer_answer_break`, 2026-09-20; 39 goldens moved,
+  whitespace only; sweep_wine_breaks 5735 -> 5694 Scarier-only breaks, of
+  which the meaningful single-newline kind 221 -> 187, runner-only unchanged
+  at 2, no row worse, 17 better)
 - **An event's text joins the turn's paragraph, at every version.**
   checkevent puts the two-space separator ahead of every one of its texts --
   inline in run370 (431CA5, 432143, 4321FE) and run380 (439F69-439F86,

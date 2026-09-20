@@ -180,8 +180,7 @@ You see a pair of leather gloves hung over a branch of the tree.
 You can only move down.
 
 > take gloves
-You take the pair of leather gloves.
-It starts to rain...
+You take the pair of leather gloves.  It starts to rain...
 You hear the flutter of batlike wings.
 
 > wear gloves
@@ -556,11 +555,11 @@ There is an iron handle sticking out of the ceiling.
 A stone wall drops down behind you, blocking your exit from this building!
 
 > open sarcophagus
-You open the sarcophagus.  A vial is inside the sarcophagus.
-As you open the sarcophagus, a faint wisp of smoke permeates the air. It
-gradually takes shape into a frightening sight: a transparent form of a man
-with red gleaming eyes, dressed in old robes and wielding a smoky sword now
-stands in front of you!!! This be Alam Nadeer, the dreaded wraith.
+You open the sarcophagus.  A vial is inside the sarcophagus.  As you open the
+sarcophagus, a faint wisp of smoke permeates the air. It gradually takes
+shape into a frightening sight: a transparent form of a man with red gleaming
+eyes, dressed in old robes and wielding a smoky sword now stands in front of
+you!!! This be Alam Nadeer, the dreaded wraith.
 Seeker hums!
 
 > take vial
@@ -935,9 +934,8 @@ and pants.
 You take the pair of thick leather boots.
 
 > wear boots
-You put on the pair of thick leather boots.
-Lightning lances the clouds above. The rumble of thunder can be heard over
-the rain.
+You put on the pair of thick leather boots.  Lightning lances the clouds
+above. The rumble of thunder can be heard over the rain.
 You hear the flutter of batlike wings.
 
 > se
@@ -1296,7 +1294,7 @@ You can only move east.
 
 > open wooden box
 You open the large wooden box.  A leg of lamb is inside the large wooden box.
-Seeker hums!
+ Seeker hums!
 
 > take lamb
 You take the leg of lamb from the large wooden box.
@@ -1870,8 +1868,8 @@ Seeker hums!
 You drop the sword.
 
 > drop shield
-You drop the Shield.
-A bat swoops down from above and darts off into the shadows.
+You drop the Shield.  A bat swoops down from above and darts off into the
+shadows.
 You hear Melvin singing. He must be somewhere nearby.
 
 > swim
@@ -1926,8 +1924,7 @@ damage.
 Seeker hums!
 
 > take gold coin
-You take gold coin.
-Seeker hums!
+You take gold coin.  Seeker hums!
 You see a pair of cat’s eyes looking at you from the shadows. As soon as you
 notice them, they are gone.
 
@@ -1956,12 +1953,10 @@ Seeker hums!
 
 > x table
 It is a large table, made out of some very expensive wood, no doubt; it is
-very well-polished.  Some venison is on the table.
-Seeker hums!
+very well-polished.  Some venison is on the table.  Seeker hums!
 
 > take venison
-You take the venison from the table.
-Seeker hums!
+You take the venison from the table.  Seeker hums!
 
 > w
 You move west.
@@ -2182,12 +2177,10 @@ Seeker hums!
 
 > x rubble
 The rubble is made up of huge chunks of stone.  A chisel is on the pile of
-rubble.
-Seeker hums!
+rubble.  Seeker hums!
 
 > take chisel
-You take the chisel from the pile of rubble.
-Seeker hums!
+You take the chisel from the pile of rubble.  Seeker hums!
 
 > n
 You move north.
@@ -2291,13 +2284,11 @@ collecting in the room.
 
 > open coffin #7
 You open the coffin #7.  A brooch and The remains of Maldus are inside the
-coffin #7.
-Seeker hums!
+coffin #7.  Seeker hums!
 Seeker hums!
 
 > take brooch
-You take the brooch from the coffin #7.
-Seeker hums!
+You take the brooch from the coffin #7.  Seeker hums!
 Seeker hums!
 
 > s
@@ -2412,12 +2403,10 @@ unconscious for, but you feel much better now.
 
 > x shrine
 The shrine is dedicated to Xeros, the god of murder.  A scroll is on the
-shrine.
-Seeker hums!
+shrine.  Seeker hums!
 
 > take scroll
-You take the scroll from the shrine.
-Seeker hums!
+You take the scroll from the shrine.  Seeker hums!
 
 > s
 You move south.
@@ -2648,8 +2637,7 @@ You can move east and west.
 Strange, some more venison has just appeared on the table!  Seeker hums!
 
 > take venison
-You take the venison from the table.
-Seeker hums!
+You take the venison from the table.  Seeker hums!
 
 > eat venison
 You eat the venison.  Not bad, but it could do with a pinch of salt!
@@ -2658,8 +2646,7 @@ is trying to fatten you up.
 Strange, some more venison has just appeared on the table!  Seeker hums!
 
 > take venison
-You take the venison from the table.
-Seeker hums!
+You take the venison from the table.  Seeker hums!
 You hear Melvin singing. He must be somewhere nearby.
 
 > e
@@ -2774,8 +2761,7 @@ Seeker hums!
 Seeker hums!
 
 > take silver key
-You take silver key.
-Seeker hums!
+You take silver key.  Seeker hums!
 Seeker hums!
 
 > n
@@ -2969,12 +2955,10 @@ You suddenly feel slightly lightheaded, with the horrible feeling of
 butterflies in your stomach. You realise that Morac must be very close by.
 
 > wear shield
-You put on the Shield.
-Seeker hums!
+You put on the Shield.  Seeker hums!
 
 > open wooden door
-You open wooden door.
-Seeker hums!
+You open wooden door.  Seeker hums!
 
 > n
 You move north.
@@ -3308,8 +3292,7 @@ Seeker hums!
 Seeker hums!
 
 > take horn
-You take the The horn of the angels.
-Seeker hums!
+You take the The horn of the angels.  Seeker hums!
 Seeker hums!
 
 >
@@ -3477,8 +3460,7 @@ The huge stone block starts sliding slowly northward. It looks like it would
 crush you against the northern wall, if given time to do so.
 
 > open golden chest
-You open golden chest.  A lever is inside golden chest.
-Seeker hums!
+You open golden chest.  A lever is inside golden chest.  Seeker hums!
 
 > pull lever
 As you do so, you hear a clunking sound, and a small panel opens up in the
@@ -4312,8 +4294,7 @@ You unlock the iron gate with black key.
 Seeker hums!
 
 > open iron gate
-You open the iron gate.
-Seeker hums!
+You open the iron gate.  Seeker hums!
 
 > n
 You move north.

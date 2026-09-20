@@ -639,9 +639,9 @@ the mountains that ring Glum Fiddle's Valley. A narrow path leads downward,
 towards the river and the town.
 
 > take cups from sack
-You take the set of china cups from the hessian sack.
-You hear a Whoosh and a Crash and various curses in Giant as Glum Fiddle
-slides down the tunnel of slime. You and your parents dissolve into laughter.
+You take the set of china cups from the hessian sack.  You hear a Whoosh and
+a Crash and various curses in Giant as Glum Fiddle slides down the tunnel of
+slime. You and your parents dissolve into laughter.
 
 > drop cups
 You throw the cups down the mountainside, where they roll around.
@@ -655,9 +655,9 @@ hundred feet or so down, there is a ledge, and the path can be seen resuming
 its way into the forest.
 
 > take tray from sack
-You take the silver tray from the hessian sack.
-Glum Fiddle shrieks when he sees his cups rolling all over the mountainside.
-Frantically he paws at them and chases them down the hill out of sight.
+You take the silver tray from the hessian sack.  Glum Fiddle shrieks when he
+sees his cups rolling all over the mountainside. Frantically he paws at them
+and chases them down the hill out of sight.
 
 > drop tray
 You drop the tray on the mountain side, positioning it against the angle of

@@ -508,8 +508,8 @@ A tangled pile of netting, most of it damaged past repair.   An old net is
 inside the pile of netting.
 
 > get net
-You take the old net from the pile of netting.
-Oxblood dives down out of sight.
+You take the old net from the pile of netting.  Oxblood dives down out of
+sight.
 
 > mount Oxblood
 Slipping as silently as possible over the edge of the pier and into the

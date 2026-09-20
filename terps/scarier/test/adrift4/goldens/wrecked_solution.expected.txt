@@ -707,15 +707,14 @@ I can only move down.
 > x window
 The window is small and in desperate need of a clean.  It looks out onto the
 village Post Office.  The Post Office roof is flat.  It looks like there's a
-small cat stuck on the roof.  The window is closed.
-I'm starting to sober up.
+small cat stuck on the roof.  The window is closed.  I'm starting to sober
+up.
 
 > open door
 I unlock and open door number 2 with the room key.
 
 > drop room key
-I drop the room key.
-I feel okay again now.
+I drop the room key.  I feel okay again now.
 
 > in
 I move in.

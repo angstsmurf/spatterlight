@@ -547,8 +547,7 @@ You hear a strange, spine chilling groan.
 You pour the weedkiller all over it.
 
 > take iron key
-You pick up the iron key.
-The vines of the plant thrash around.
+You pick up the iron key.  The vines of the plant thrash around.
 
 > s
 You move south.
@@ -587,9 +586,8 @@ The rats eat the cheese in a feeding frenzy.  Ghost appears.
 You unlock the door with the iron key.  The rats start to choke.
 
 > drop iron key
-You drop the iron key.
-The rats couch and splutter. Their bodies twist and writh in agony, before
-falling still.
+You drop the iron key.  The rats couch and splutter. Their bodies twist and
+writh in agony, before falling still.
 
 > u
 You move up.

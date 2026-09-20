@@ -349,8 +349,8 @@ something there, but now it's gone... so what does it mean? Magic, dearie!
 Look for 3 words (at the clearing, mind you) that appear different. Put it
 all together and [say] it to reveal the secret of the clearing."
 
-Ragoria winks at me. The old hag sure knows a lot.
-Breathing in the magical air of this place, I let out a sneeze.
+Ragoria winks at me. The old hag sure knows a lot.  Breathing in the magical
+air of this place, I let out a sneeze.
 
 > ask ragoria about leif
 "Leif's a cutie, but so hyper! I could never have him in here, chewing on my
@@ -384,9 +384,8 @@ trying to crawl under a surfaced root.
 
 > take spider
 I grab the writhing spider and dump it into one of my pockets. I can feel it
-squirming around - nasty.
-I can hear animals rustling the foliage around me.  Leif the fairy dragon is
-here, flying in wild loops.
+squirming around - nasty.  I can hear animals rustling the foliage around me.
+ Leif the fairy dragon is here, flying in wild loops.
 
 > south
 I move south.
@@ -453,16 +452,16 @@ a trail at all, just fallen logs and boulders and the sea of trees. I can
 hear the river gurgling to the south back at Gorpi's bridge. To the north the
 trees open up into a clearing. Ragoria's den is here buried underneath the
 foliage, so I can go in as well.  Some sprite dust has fallen on the ground.
-Rain is tumbling down, turning this place into a bog.
-I can hear animals rustling the foliage around me.  Leif the fairy dragon is
-here, flying in wild loops.
+Rain is tumbling down, turning this place into a bog.  I can hear animals
+rustling the foliage around me.  Leif the fairy dragon is here, flying in
+wild loops.
 
 > take dust
 I grab the sprite dust and almost let go when the dust makes a noise: *SMACK*
 It wouldn't be so bad if that was it, but it's not - the smacking sounds
-continue as I place the dust into my pocket, muffling it.
-A few birds glide by overhead, squawking.  Leif the fairy dragon is here,
-resting on a high branch in a tree.
+continue as I place the dust into my pocket, muffling it.  A few birds glide
+by overhead, squawking.  Leif the fairy dragon is here, resting on a high
+branch in a tree.
 
 > north
 I move north.
@@ -472,8 +471,8 @@ The thick wall of trees opens up into a grassy clearing.  There is nothing
 here except tall grass, although it feels magical here... maybe there's
 something missing? I should ask Ragoria about this clearing, it just doesn't
 feel right. I can only go south back into the forest.  Rain is tumbling down,
-turning this place into a bog.
-I spy a rabbit running across the field, half buried in the meadow.
+turning this place into a bog.  I spy a rabbit running across the field, half
+buried in the meadow.
 
 > say i spy a tall tower
 After uttering the words, it appears right before my eyes. It's so real that
@@ -516,9 +515,8 @@ a trail at all, just fallen logs and boulders and the sea of trees. I can
 hear the river gurgling to the south back at Gorpi's bridge. To the north the
 trees open up into a clearing. Ragoria's den is here buried underneath the
 foliage, so I can go in as well.  Rain is tumbling down, turning this place
-into a bog.
-A few birds glide by overhead, squawking.  Leif the fairy dragon is here,
-resting on a high branch in a tree.
+into a bog.  A few birds glide by overhead, squawking.  Leif the fairy dragon
+is here, resting on a high branch in a tree.
 
 > south
 I move south.
@@ -528,9 +526,9 @@ The path cuts through a dense forest. A log has fallen over the path, covered
 in moss. A bubbling river winds around the trees, the only means across it is
 a bridge to the north. The trail forks to the west and leads towards the
 water.  Gorpi the troll is here, freshly fed and guarding his bridge proudly.
- Rain is tumbling down, turning this place into a bog.
-The rain begins to ease up, and now there is nothing but a light drizzle
-dripping from the forest canopy.
+ Rain is tumbling down, turning this place into a bog.  The rain begins to
+ease up, and now there is nothing but a light drizzle dripping from the
+forest canopy.
 
 > look
 
@@ -539,8 +537,8 @@ The path cuts through a dense forest. A log has fallen over the path, covered
 in moss. A bubbling river winds around the trees, the only means across it is
 a bridge to the north. The trail forks to the west and leads towards the
 water.  Gorpi the troll is here, freshly fed and guarding his bridge proudly.
- Rain is tumbling down, turning this place into a bog.
-Breathing in the magical air of this place, I let out a sneeze.
+ Rain is tumbling down, turning this place into a bog.  Breathing in the
+magical air of this place, I let out a sneeze.
 
 > wait
 Time passes...

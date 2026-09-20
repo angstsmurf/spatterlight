@@ -1193,10 +1193,9 @@ here is a hairball.  HiRBy hovers over from inside.
 Irvine's health recovers slightly.
 
 > get hairball
-Irvine picks up the hairball.
-  He disposes of it as quickly as possible and notices something inside of
-it... a magnetic card key!  He takes this with him (but he totally cleans it
-off, first, because that's gross).
+Irvine picks up the hairball.  He disposes of it as quickly as possible and
+notices something inside of it... a magnetic card key!  He takes this with
+him (but he totally cleans it off, first, because that's gross).
 
 > port
 The door slides open with a swoosh and Irvine goes port.

@@ -135,8 +135,8 @@ written on.  A plate is on the dinner tray.
 You take the plate from the dinner tray.
 
 > take tape
-You take the sticky tape from your briefcase.
-You hear Charlie's whistle coming down the hall.
+You take the sticky tape from your briefcase.  You hear Charlie's whistle
+coming down the hall.
 
 > write message to sydney
 You take your pencil and  the napkin, using it to  scribble a short message

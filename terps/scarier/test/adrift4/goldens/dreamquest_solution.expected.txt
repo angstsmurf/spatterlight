@@ -248,8 +248,7 @@ You can only move northwest.
 You take the new saw.
 
 > get lantern
-You take the brand new lantern.
-A rat scurries past your feet!
+You take the brand new lantern.  A rat scurries past your feet!
 
 > nw
 You move northwest.
@@ -373,12 +372,11 @@ You open the locker.  A mouldy beef sandwich and a fishing rod are inside the
 locker.
 
 > get sandwich
-You take the mouldy beef sandwich from the locker.
-A rat scurries past your feet!
+You take the mouldy beef sandwich from the locker.  A rat scurries past your
+feet!
 
 > get rod
-You take the fishing rod from the locker.
-A rat scurries past your feet!
+You take the fishing rod from the locker.  A rat scurries past your feet!
 
 > w
 You move west.
@@ -455,8 +453,7 @@ beam stand out like a solid rod of light.   Also here is a can of oil.
 You can only move down.
 
 > get oil
-You take the can of oil.
-A rat scurries past your feet!
+You take the can of oil.  A rat scurries past your feet!
 
 > d
 You move down.

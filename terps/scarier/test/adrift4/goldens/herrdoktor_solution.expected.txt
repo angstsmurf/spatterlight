@@ -42,8 +42,7 @@ Several people appear to be clustered around a well.
 This is the largest tree in town, planted at the town's founding as a symbol
 of its people's moral uprightness. It is also the most common place for
 teenagers to come to smoke, drink, or fornicate. Go figure.  An acorn is on
-the large oak tree.
-A man exclaims, "We've got to get her out of there!"
+the large oak tree.  A man exclaims, "We've got to get her out of there!"
 
 > take acorn
 The good doctor takes the acorn from the large oak tree.

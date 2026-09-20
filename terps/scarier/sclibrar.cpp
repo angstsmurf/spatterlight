@@ -2088,7 +2088,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
       const scr_char *buffered = pf_get_buffer (filter);
 
       if (!(buffered && pf_text_ends_with_break (buffered)))
-        pf_buffer_character (filter, '\n');
+        pf_buffer_answer_break (filter);
     }
 }
 
@@ -2442,7 +2442,7 @@ lib_print_room_exits (scr_gameref_t game, scr_int room)
       && lib_room_has_exits (game, room))
     {
       pf_print_so_far (filter, gs_get_vars (game), bundle);
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       lib_print_exits_list (game, room);
     }
 }
@@ -2512,7 +2512,7 @@ lib_cmd_look (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   lib_describe_player_room (game, TRUE);
   return TRUE;
 }
@@ -2682,7 +2682,7 @@ lib_cmd_endgame (scr_gameref_t game)
      end-of-session prompt on the far side of the blank line it leaves
      ("...% of the game!" & CRLF & CRLF & the prompt), exactly as
      Form1.endmessage closes an ending; see task_print_end_keyprompt(). */
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   task_print_end_keyprompt (game);
 
   /* Stop the game, and note that it's not resumeable -- the gameover byte the
@@ -4422,7 +4422,7 @@ lib_cmd_go_place (scr_gameref_t game)
           if (count == 1)
             pf_buffer_string (filter, "or ");
         }
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
 
@@ -4602,7 +4602,7 @@ lib_cmd_examine_self (scr_gameref_t game)
        * psitn_37.rtf, Adrift_204_psitn_38.rtf, 2026-09-20): "...the
        * circumstances.  You are sitting down." while `i` lists the hat worn.
        */
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
   else
@@ -4695,7 +4695,7 @@ lib_cmd_examine_self (scr_gameref_t game)
       pf_buffer_character (filter, '.');
     }
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -5385,7 +5385,7 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
       listed++;
     }
   pf_buffer_string (filter, "?");
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
 
   /*
    * 3.9 takes an answer.  The prompt leaves Short & "|" & line in
@@ -5959,7 +5959,7 @@ lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
       lib_print_object_np (game, objects[index_]);
     }
   pf_buffer_string (filter, "?");
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
 
   command = run_get_dispatch_input ();
   lib_co_400_pending = TRUE;
@@ -8188,7 +8188,7 @@ lib_describe_npc (scr_gameref_t game, scr_int npc)
   /* Print what the NPC is wearing and carrying. */
   lib_list_npc_inventory (game, npc, TRUE);
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
 
   /*
    * In 4.0 examining a character is not a turn: run400 counts no turn,
@@ -9361,7 +9361,7 @@ lib_cmd_examine_object (scr_gameref_t game)
         }
     }
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -12209,7 +12209,7 @@ lib_cmd_take_all (scr_gameref_t game)
                       : "There is nothing to pick up here.");
   lib_take_refusal_redispatch = FALSE;
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -13410,7 +13410,7 @@ lib_take_and_pre400 (scr_gameref_t game)
       lib_take_from_task_sweep_380 (game);
     }
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -13802,7 +13802,7 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (is_take_from_380 && !lib_take_refusal_claimed)
     lib_take_from_task_sweep_380 (game);
   if (!lib_take_refusal_claimed)
-    pf_buffer_character (filter, '\n');
+    pf_buffer_answer_break (filter);
   lib_take_refusal_claimed = FALSE;
   if (lib_take_refusal_redispatch)
     {
@@ -14284,7 +14284,7 @@ lib_cmd_take_all_from (scr_gameref_t game)
   if (!lib_take_from_is_valid (game, associate))
     {
       lib_take_from_task_sweep_380 (game);
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
 
@@ -14302,7 +14302,7 @@ lib_cmd_take_all_from (scr_gameref_t game)
     lib_take_from_empty (game, associate, FALSE);
 
   lib_take_from_task_sweep_380 (game);
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -14523,13 +14523,13 @@ lib_take_from_slot_pre390 (scr_gameref_t game)
       lib_print_object (game, slot);
       pf_buffer_character (filter, '.');
       lib_take_from_task_sweep_380 (game);
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
   if (!lib_take_from_is_valid (game, slot))
     {
       lib_take_from_task_sweep_380 (game);
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
 
@@ -14562,7 +14562,7 @@ lib_take_from_slot_pre390 (scr_gameref_t game)
       lib_take_from_object_backend (game, slot);
     }
   lib_take_from_task_sweep_380 (game);
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -14650,7 +14650,7 @@ lib_take_from_and_390 (scr_gameref_t game)
                                        "%player% can't get anything from that.\n");
   if (!lib_take_from_is_valid (game, container))
     {
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
 
@@ -14673,7 +14673,7 @@ lib_take_from_and_390 (scr_gameref_t game)
       lib_take_from_single_named = FALSE;
       lib_take_from_object_backend (game, container);
     }
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -14763,7 +14763,7 @@ lib_take_from_and_400 (scr_gameref_t game)
 
   if (!lib_take_from_is_valid (game, container))
     {
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
   if (!lib_take_from_has_contents (game, container))
@@ -14772,7 +14772,7 @@ lib_take_from_and_400 (scr_gameref_t game)
         lib_take_from_unseen_refusal (game, container);
       else
         lib_take_from_empty (game, container, FALSE);
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
 
@@ -14804,13 +14804,13 @@ lib_take_from_and_400 (scr_gameref_t game)
                                    container, ".");
       else
         pf_buffer_string (filter, "Take what?");
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
 
   lib_take_from_single_named = !is_all && resolved.size () == 1;
   lib_take_from_object_backend (game, container);
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -14886,7 +14886,7 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
     {
       if (!lib_take_from_is_valid (game, associate))
         {
-          pf_buffer_character (filter, '\n');
+          pf_buffer_answer_break (filter);
           return TRUE;
         }
 
@@ -14897,7 +14897,7 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
           else
             lib_take_from_empty (game, associate, is_except);
 
-          pf_buffer_character (filter, '\n');
+          pf_buffer_answer_break (filter);
           return TRUE;
         }
     }
@@ -14929,7 +14929,7 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (!is_400 && !lib_take_from_is_valid (game, associate))
     {
       lib_take_from_task_sweep_380 (game);
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
 
@@ -14964,7 +14964,7 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
                                      "I can't take anything from ",
                                      "%player% can't take anything from ",
                                      associate, ".");
-          pf_buffer_character (filter, '\n');
+          pf_buffer_answer_break (filter);
         }
       else
         pf_buffer_string (filter, "Take what?\n");
@@ -14985,7 +14985,7 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
     lib_take_from_empty (game, associate, is_except);
 
   lib_take_from_task_sweep_380 (game);
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -15391,7 +15391,7 @@ lib_cmd_take_all_from_npc (scr_gameref_t game)
       pf_buffer_string (filter, " is not carrying anything!");
     }
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -15457,7 +15457,7 @@ lib_take_from_npc_multiple_common (scr_gameref_t game, scr_bool is_except)
       pf_buffer_character (filter, '!');
     }
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -15831,7 +15831,7 @@ lib_cmd_drop_all (scr_gameref_t game)
                                           "%player% is not carrying anything."));
     }
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -16298,7 +16298,7 @@ lib_drop_what_pre390 (scr_gameref_t game)
     return FALSE;
 
   pf_buffer_string (filter, "Drop what?");
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -16403,7 +16403,7 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
    * line after Glum Fiddle's `drop tray` and JGrim's `drop mud`.
    */
   if (library_printed || !lib_is_version_400 (game))
-    pf_buffer_character (filter, '\n');
+    pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -16443,7 +16443,7 @@ lib_cmd_drop_except_multiple (scr_gameref_t game)
                                              "You are not carrying anything.",
                                              "I am not carrying anything.",
                                              "%player% is not carrying anything."));
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
   gs_clear_multiple_references (game);
@@ -16912,7 +16912,7 @@ lib_cmd_wear_all (scr_gameref_t game)
                                            "%player% don't have anything to wear."));
     }
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -16969,7 +16969,7 @@ lib_wear_multiple_common (scr_gameref_t game, scr_bool is_except)
     lib_print_nothing_held (game, FALSE, is_except && objects == 0,
                             " that can be worn.");
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -17060,7 +17060,7 @@ lib_cmd_remove_all (scr_gameref_t game)
                                            "%player% is not wearing anything."));
     }
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -17098,7 +17098,7 @@ lib_remove_multiple_common (scr_gameref_t game, scr_bool is_except)
     lib_print_nothing_held (game, is_except, is_except && objects == 0,
                             " that can be removed.");
 
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -17244,7 +17244,7 @@ worn:
                         && gs_object_openness (game, object) > OBJ_OPEN))
             lib_list_in_object_pre_390 (game, object);
         }
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
     }
   else
     {
@@ -17933,7 +17933,7 @@ lib_cmd_open_object (scr_gameref_t game)
         }
       else
         lib_list_in_object (game, object, TRUE, FALSE);
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
 
     case OBJ_LOCKED:
@@ -18728,7 +18728,7 @@ lib_npc_reply_to (scr_gameref_t game, scr_int npc, scr_int topic)
   if (!scr_strempty (response))
     {
       pf_buffer_string (filter, response);
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
 
@@ -20120,11 +20120,11 @@ lib_put_in_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
     {
       pf_buffer_string (filter, prop_get_global_string (gs_get_bundle (game),
                                                         "DontUnderstand"));
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
   if (!outcome.is_tasks_only)
-    pf_buffer_character (filter, '\n');
+    pf_buffer_answer_break (filter);
   return lib_put_in_refused (game, outcome.is_refusal_only);
 }
 
@@ -20139,11 +20139,11 @@ lib_put_on_finish (scr_gameref_t game, const lib_put_outcome_t &outcome)
     {
       pf_buffer_string (filter, prop_get_global_string (gs_get_bundle (game),
                                                         "DontUnderstand"));
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
   if (!outcome.is_tasks_only)
-    pf_buffer_character (filter, '\n');
+    pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -21430,7 +21430,7 @@ lib_put_already_inside_400 (scr_gameref_t game, scr_int container)
 
   if (has_printed && left == 0)
     {
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
   return FALSE;
@@ -21495,7 +21495,7 @@ lib_put_already_on_400 (scr_gameref_t game, scr_int supporter)
 
   if (has_printed && left == 0)
     {
-      pf_buffer_character (filter, '\n');
+      pf_buffer_answer_break (filter);
       return TRUE;
     }
   return FALSE;
@@ -23469,7 +23469,7 @@ lib_battle_cant_attack (scr_gameref_t game, scr_int npc, scr_int object)
   pf_buffer_string (filter, name ? name : "");
   pf_buffer_string (filter, " with ");
   lib_print_object_np (game, object);
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
 }
 
 static scr_bool
@@ -26772,7 +26772,7 @@ lib_cmd_locate_npc (scr_gameref_t game)
                                           "  (Right next to me silly!)",
                                           "  (Right next to %player% silly!)"));
     }
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
   return TRUE;
 }
 
@@ -26879,7 +26879,7 @@ lib_print_battle_attribute (scr_gameref_t game, scr_int npc,
               STATUS_COL_MAX, battle_attribute_max (game, npc, base),
               current);
   pf_buffer_string (filter, buffer);
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
 }
 
 static void
@@ -26904,7 +26904,7 @@ lib_print_battle_status (scr_gameref_t game, scr_int npc)
             STATUS_COL_LABEL, "", STATUS_COL_RANGE, "Range",
             STATUS_COL_MAX, "Max", "Current value (inc weapons/armour)");
   pf_buffer_string (filter, buffer);
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
 
   /* The stamina row is live / max / live -- no lo-hi range, no bonus. */
   stamina = (npc < 0)
@@ -26913,7 +26913,7 @@ lib_print_battle_status (scr_gameref_t game, scr_int npc)
             STATUS_COL_LABEL, "Stamina:", STATUS_COL_RANGE, stamina,
             STATUS_COL_MAX, maxstamina, stamina);
   pf_buffer_string (filter, buffer);
-  pf_buffer_character (filter, '\n');
+  pf_buffer_answer_break (filter);
 
   lib_print_battle_attribute (game, npc, "Hit strength:", "Strength", TRUE);
   lib_print_battle_attribute (game, npc, "Accuracy:", "Accuracy", TRUE);

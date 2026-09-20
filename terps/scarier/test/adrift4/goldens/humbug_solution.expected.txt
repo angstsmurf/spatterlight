@@ -1506,9 +1506,8 @@ with its tentacles.
 Okay.  Okay.  I put the sweet on the plinth.
 
 > Drop watch
-Okay.  I have dropped the watch.
-The octopus's large eyes are streaming in the stinging fog.  It tries to wave
-the fog away with its tentacles.
+Okay.  I have dropped the watch.  The octopus's large eyes are streaming in
+the stinging fog.  It tries to wave the fog away with its tentacles.
 
 > Wait
 Time passes...
@@ -3988,15 +3987,14 @@ breast pocket and begins to polish the trombone with it.
 outside of the trombone, Grandad turns his attention to the inside.
 
 > Ask Grandad about Jasper
-"A nasty kettle of fish.  I'd avoid him if I were you"
-Grandad seems to have got his hand stuck in the trombone.
+"A nasty kettle of fish.  I'd avoid him if I were you"  Grandad seems to have
+got his hand stuck in the trombone.
 
 > Ask Grandad about Horace
-"Man's a genius.. the work he did on my bath, unbelievable"
-Grandad manages to extricate his hand and throws the trombone down in
-disgust.  Muttering under his breath Grandad begins to rummage around the
-bric-a-brac strewn around the room.  With a whoop of joy he uncovers a
-lantern.
+"Man's a genius.. the work he did on my bath, unbelievable"  Grandad manages
+to extricate his hand and throws the trombone down in disgust.  Muttering
+under his breath Grandad begins to rummage around the bric-a-brac strewn
+around the room.  With a whoop of joy he uncovers a lantern.
 
 > Get trombone
 Okay.  I have taken the trombone.  Grandad walks to the west.
@@ -4277,8 +4275,7 @@ Exits are north and south.  Grandad enters from the north.
 
 > X table
 The plastic table is covered in small pools of spilt liquor.  A token is on
-the plastic table.
-Grandad picks something off a table and sits down.
+the plastic table.  Grandad picks something off a table and sits down.
 
 > Get token
 Okay.  I have taken the token from the table.  "That's the idea", Grandad
@@ -5097,9 +5094,9 @@ boy I'm having this estate.. whatever it takes.."
 Jasper pops the toffee in his mouth and begins to chew.
 
 > Ask Jasper about wumpus
-"Exterminate the vermin.  That's my motto"
-Jasper laughs, "Your Grandad can't hold out for long, he hasn't got a penny
-to his name.."  Jasper chews vigorously.
+"Exterminate the vermin.  That's my motto"  Jasper laughs, "Your Grandad
+can't hold out for long, he hasn't got a penny to his name.."  Jasper chews
+vigorously.
 
 > Wait
 Time passes...
@@ -5515,12 +5512,11 @@ conversation over he runs northwards into the mist.  I notice Olaf has left
 behind his rucksack and call after him.  But it is too late.
 
 > Get rucksack
-Okay.  I have taken the rucksack.
-Olaf sniffs.
+Okay.  I have taken the rucksack.  Olaf sniffs.
 
 > Open rucksack
-I open the rucksack.  Some white powder is inside the rucksack.
-Olaf mutters something about a very sad story.
+I open the rucksack.  Some white powder is inside the rucksack.  Olaf mutters
+something about a very sad story.
 
 > Get powder
 Okay.  I have taken the white powder from the rucksack.
@@ -6361,12 +6357,12 @@ I can only move west.
 > X chute
 The chute is quite narrow and made out of wood.  It leads down into darkness.
  There is a small wooden lever attached to the side of the chute, and on the
-front an ornate letter "S has been engraved.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+front an ornate letter "S has been engraved.  "No time to lose," cries
+Dennis, "We've got a fire to put out."
 
 > Put sapphire in chute
-Okay.  Okay.  Okay.  I put the sapphire inside the S chute.
-"No time to lose," cries Dennis, "We've got a fire to put out."
+Okay.  Okay.  Okay.  I put the sapphire inside the S chute.  "No time to
+lose," cries Dennis, "We've got a fire to put out."
 
 > Pull lever
 I pull the lever.  There is a whooshing sound from the chute and the sapphire
@@ -6425,8 +6421,7 @@ Exits are north and south.
 > X chute
 The chute is quite narrow and made out of wood.  It leads down into darkness.
  There is a small wooden lever attached to the side of the chute, and on the
-front an ornate letter "D" has been engraved.
-Olaf sniffs.
+front an ornate letter "D" has been engraved.  Olaf sniffs.
 
 > Put diamond in chute
 Okay.  I put the diamond inside the D chute.
@@ -6634,8 +6629,7 @@ treasures and say the magic word "Tevobicab" at the allotted position".  Hmm,
 weird.
 
 > Drop monocle
-Okay.  I have dropped the monocle.
-The torch flickers briefly.
+Okay.  I have dropped the monocle.  The torch flickers briefly.
 
 > N
 
@@ -7259,17 +7253,17 @@ down on the workbench.  Horace bounds after the paper aeroplane, trying to
 catch it.
 
 > Get tin
-Okay.  I have taken the tin from horace's workbench.
-Horace bounds after the paper aeroplane, trying to catch it.
+Okay.  I have taken the tin from horace's workbench.  Horace bounds after the
+paper aeroplane, trying to catch it.
 
 > Open it
 (the tin)
-I open the tin.  Some snuff is inside the tin.
-Horace bounds after the paper aeroplane, trying to catch it.
+I open the tin.  Some snuff is inside the tin.  Horace bounds after the paper
+aeroplane, trying to catch it.
 
 > Put pepper in tin
-Okay.  I put the pepper inside the tin.
-Horace bounds after the paper aeroplane, trying to catch it.
+Okay.  I put the pepper inside the tin.  Horace bounds after the paper
+aeroplane, trying to catch it.
 
 > Close tin
 I close the tin.

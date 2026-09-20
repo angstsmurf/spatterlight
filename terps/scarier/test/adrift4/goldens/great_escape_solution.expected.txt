@@ -193,12 +193,12 @@ East to the kitchen (and the horrors that lie within) or up to your upstairs
 landing. You feel that it would be innappropriate to venture out of the house
 at this point without at least a pair of well-washed trousers.  Also here is
 the letter.  First Thug and Second Thug are here.  Two enormous men crash
-through your door. They both look quite dangerous
-The men catch you and grab you. The first one shouts at you "You owe Mr
-Malloney some friggin' money!" You try to splutter a reply but they smash
-your head against the wall before you can react. Lying on the floor you
-manage to say "I'll get the money straight away." The second thug says "You'd
-better, otherwise we're gonna bury you!" You quickly scramble to your feet.
+through your door. They both look quite dangerous  The men catch you and grab
+you. The first one shouts at you "You owe Mr Malloney some friggin' money!"
+You try to splutter a reply but they smash your head against the wall before
+you can react. Lying on the floor you manage to say "I'll get the money
+straight away." The second thug says "You'd better, otherwise we're gonna
+bury you!" You quickly scramble to your feet.
 
 > converse with thugs
 You try to strike up a conversation between yourselves and the thugs but

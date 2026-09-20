@@ -831,8 +831,8 @@ killing you.
 You can only move east.
 
 > take syndrom pills
-You take a jar of chronic fooluffultitus syndrom pills from the desk.
-You fart.
+You take a jar of chronic fooluffultitus syndrom pills from the desk.  You
+fart.
 
 > d
 You slip and begin to fall down the hole. "SHHHHHHIIIIIIIITTTTTTTT!!!!!!!!!!!!" you scream as you fall. You land face

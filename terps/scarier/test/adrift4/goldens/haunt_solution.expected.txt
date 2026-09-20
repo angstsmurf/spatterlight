@@ -66,8 +66,7 @@ of paper, which drifts to the floor. You are very disappointed.  The wind
 howls and you shiver.
 
 > take paper
-You pick up scrap of paper.
-A sudden crash of lightning makes you jump.
+You pick up scrap of paper.  A sudden crash of lightning makes you jump.
 
 > e
 You move east.
@@ -103,8 +102,8 @@ You open chest of drawers.  Inside chest of drawers is packet of weedkiller.
 A sudden crash of lightning makes you jump.
 
 > take weedkiller
-You take packet of weedkiller from chest of drawers.
-Thunder rumbles ominously.
+You take packet of weedkiller from chest of drawers.  Thunder rumbles
+ominously.
 
 > n
 You move north.
@@ -181,8 +180,7 @@ You can only move south.
 Thunder rumbles ominously.
 
 > take rusty key
-You pick up rusty key.
-The rain continues to batter down.
+You pick up rusty key.  The rain continues to batter down.
 
 > s
 You move south.
@@ -207,12 +205,10 @@ You can only move west.
 Thunder rumbles ominously.
 
 > take hammer
-You pick up iron hammer.
-The rain continues to batter down.
+You pick up iron hammer.  The rain continues to batter down.
 
 > take ladder
-You pick up folding ladder.
-The wind howls and you shiver.
+You pick up folding ladder.  The wind howls and you shiver.
 
 > w
 You move west.
@@ -253,8 +249,8 @@ You can move east, south and up.
 The wind howls and you shiver.
 
 > take ticket
-You take winning lottery ticket from the umbrella stand.
-A sudden crash of lightning makes you jump.
+You take winning lottery ticket from the umbrella stand.  A sudden crash of
+lightning makes you jump.
 
 > s
 You move south.
@@ -286,8 +282,8 @@ gurgling water clears away to reveal something. A shiny key!  A sudden crash
 of lightning makes you jump.
 
 > take key from toilet
-You take drinks cabinet key from porcelain toilet.
-Thunder rumbles ominously.
+You take drinks cabinet key from porcelain toilet.  Thunder rumbles
+ominously.
 
 > drink from toilet
 You have a long, cool drink from that great-tasting toilet water. Ah, that
@@ -350,8 +346,7 @@ The drinks cabinet swings open. You discard the key.  Thunder rumbles
 ominously.
 
 > take whisky
-You pick up bottle of whisky.
-The rain continues to batter down.
+You pick up bottle of whisky.  The rain continues to batter down.
 
 > drink whisky
 You tip the all the whisky down your neck and throw away the bottle. You feel
@@ -359,8 +354,7 @@ very lightheaded and dizzy, then vomit profusely onto the floor. Never again!
  The wind howls and you shiver.
 
 > take whisky
-You pick up bottle of whisky.
-A sudden crash of lightning makes you jump.
+You pick up bottle of whisky.  A sudden crash of lightning makes you jump.
 
 > n
 You move north.
@@ -381,12 +375,12 @@ You can only move east.
 The rain continues to batter down.
 
 > open cupboard
-You open kitchen cupboard.  Inside kitchen cupboard is vial of liquid.
-The wind howls and you shiver.
+You open kitchen cupboard.  Inside kitchen cupboard is vial of liquid.  The
+wind howls and you shiver.
 
 > take vial
-You take vial of liquid from kitchen cupboard.
-A sudden crash of lightning makes you jump.
+You take vial of liquid from kitchen cupboard.  A sudden crash of lightning
+makes you jump.
 
 > hit tile with hammer
 The tile smashes away, and foolishly you were standing on it when you did so.
@@ -472,8 +466,7 @@ thrashes around madly, as if it is burning. Then it floats gently to the top
 of the water.  The rain continues to batter down.
 
 > take fish
-You take dead fish from fish tank.
-The wind howls and you shiver.
+You take dead fish from fish tank.  The wind howls and you shiver.
 
 > put fish in whisky
 The fish disolves in the whisky! As it fizzes, you see the whisky take on a

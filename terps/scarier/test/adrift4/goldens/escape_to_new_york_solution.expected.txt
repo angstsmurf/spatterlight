@@ -1101,8 +1101,8 @@ You unlock and open the cupboard. A parcel is inside the cupboard.  The room
 is filling with sea water, it is currently waist high.
 
 > get parcel
-You take the parcel from the cupboard.
-The room is filling with sea water, it is currently waist high.
+You take the parcel from the cupboard.  The room is filling with sea water,
+it is currently waist high.
 
 > up
 You head up the stairs.

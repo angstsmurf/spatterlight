@@ -32,8 +32,8 @@ You open the oven.  A tin is inside the oven.
 The scruffy ticking cat follows you.
 
 > take tin
-You take the tin from the oven.
-There's NO TIME.  THERE'S NO TIME!!! FASTER!  FASTER! DITCH! THE CAT!!!!
+You take the tin from the oven.  There's NO TIME.  THERE'S NO TIME!!! FASTER!
+ FASTER! DITCH! THE CAT!!!!
 The scruffy ticking cat follows you.
 
 > feed cat

@@ -112,15 +112,15 @@ The landlord turns around and grabs a bottle from behind him, then places it
 on the bar.
 
 > get ticket
-You take a ticket from the bar.
-The landlord scratches himself (the less you know about where the better!)
+You take a ticket from the bar.  The landlord scratches himself (the less you
+know about where the better!)
 
 > get beer
 You take a tankard from the bar.
 
 > get wine
-You take a green bottle from the bar.
-The landlord blows his nose on the rag.
+You take a green bottle from the bar.  The landlord blows his nose on the
+rag.
 
 > get whiskey
 You take a brown bottle from the bar.
@@ -275,15 +275,13 @@ south wall, while a serving wrench flitters around, cleaning and tidying.
 Sitting at one of the tables is a elderly fellow, sipping from a cup.
 
 > drop tankard
-You drop the tankard.
-Your guts rumble.  Your throat is sore.
+You drop the tankard.  Your guts rumble.  Your throat is sore.
 
 > drop green bottle
 You drop the green bottle.
 
 > drop brown bottle
-You drop the brown bottle.
-You feel hungry.  You feel thirsty.
+You drop the brown bottle.  You feel hungry.  You feel thirsty.
 
 > show barman medallion
 You dangle the medallion in front of the barman. "Ah! you're from the
@@ -314,8 +312,7 @@ from it. A shelf is on the east wall.  Your guts rumble.
 A simple wooden shelf.  A wash basin is on the shelf.
 
 > get basin
-You take a wash basin from the shelf.
-You feel hungry.  Your throat is sore.
+You take a wash basin from the shelf.  You feel hungry.  Your throat is sore.
 
 > south
 You move south.
@@ -345,15 +342,14 @@ rumble.  Your head is spinning.
 It is sturdy and simple in design.  A drawer is inside the desk.
 
 > get drawer
-You take a drawer from the desk.
-You feel hungry.
+You take a drawer from the desk.  You feel hungry.
 
 > open drawer
 You open the drawer.  A candle is inside the drawer.
 
 > get candle
-You take a candle from the drawer.
-Your stomach growls.  Your throat is sore.
+You take a candle from the drawer.  Your stomach growls.  Your throat is
+sore.
 
 > drop drawer
 You drop the drawer.
@@ -420,8 +416,8 @@ you are Sir." She says while putting it on the table, then scurries she
 surries off.
 
 > get lunch
-You take the Hunters lunch from the tree table.
-Your stomach growls.  Your head is spinning.
+You take the Hunters lunch from the tree table.  Your stomach growls.  Your
+head is spinning.
 
 > eat lunch
 You garb handfuls of food and shove it into your face, chewing noisily. Bread

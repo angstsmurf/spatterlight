@@ -2000,6 +2000,38 @@ pf_note_trailing_auto_break (scr_filterref_t filter)
 
 
 /*
+ * pf_buffer_answer_break()
+ *
+ * End a library answer.  The Runner has none of these: its handlers append
+ * their sentence to the turn's one string and stop there, and whatever comes
+ * next in the turn -- an event's text, an NPC's walk line, a battle strike --
+ * follows after pspace()'s two spaces.  We give each answer a line of its
+ * own, so the terminator has to be recorded as OURS, for pf_buffer_join_line()
+ * to take back when something does follow.
+ *
+ * troll (3.90) is the plainest measurement: `drop tankard` is "You drop the
+ * tankard.  Your guts rumble.  Your throat is sore." on one line, the two
+ * hunger events running straight on from the library's own answer
+ * (runner_transcripts/troll.txt t29), and t31, t37, t43, t45 and t57 say the
+ * same after `drop`, `get` and `take ... from`.
+ *
+ * Not every newline the library buffers is one of ours.  The room heading's
+ * is the Runner's too (lib_print_room_name, pf_buffer_hard_break), and the
+ * room description block's terminator is already noted where the contents
+ * lister can take it back on its own terms (lib_print_room_contents); those
+ * sites keep their own spelling.
+ */
+void
+pf_buffer_answer_break (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  pf_buffer_character (filter, '\n');
+  pf_note_trailing_auto_break (filter);
+}
+
+
+/*
  * pf_ends_with_double_space()
  *
  * TRUE if the text buffered so far ends in two spaces, ignoring a trailing

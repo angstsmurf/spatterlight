@@ -48,8 +48,7 @@ Also here is a space suit and a colt 45.
 You can only move up.
 
 > take colt 45
-You pick up the colt 45.
-The gas is really starting to affect you!
+You pick up the colt 45.  The gas is really starting to affect you!
 
 > wear space suit
 You are not holding the space suit.
