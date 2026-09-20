@@ -703,6 +703,7 @@ extern scr_bool lib_drop_what_pre390 (scr_gameref_t game);
 extern scr_bool lib_take_scored_400 (scr_gameref_t game);
 extern scr_bool lib_take_names_dynamic_400 (scr_gameref_t game,
                                             const scr_char *string);
+extern scr_bool lib_cmd_put_no_clause_pre400 (scr_gameref_t game);
 extern scr_bool lib_cmd_put_in_nowhere (scr_gameref_t game);
 extern scr_bool lib_cmd_put_on_nowhere (scr_gameref_t game);
 extern scr_bool lib_cmd_put_in_that_390 (scr_gameref_t game);

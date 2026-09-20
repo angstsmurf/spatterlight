@@ -1148,6 +1148,10 @@ static scr_commands_t STANDARD_TAKE_FROM_COMMANDS[] = {
  * surface twin lib_cmd_put_on_nowhere().
  */
 static scr_commands_t STANDARD_PUT_COMMANDS[] = {
+  /* The clauseless spellings, which none of the rows below can match; see
+   * lib_cmd_put_no_clause_pre400(). */
+  {"put [in/into/inside {of}] *", lib_cmd_put_no_clause_pre400},
+  {"put [on/onto/on top of] *", lib_cmd_put_no_clause_pre400},
   {"put %text% [in/into/inside {of}] *", lib_cmd_put_in_nowhere},
   {"[drop/put down] %text% [in/into/inside {of}] *", lib_cmd_put_in_nowhere},
   {"put %text% [on/onto/on top of] *", lib_cmd_put_on_nowhere},

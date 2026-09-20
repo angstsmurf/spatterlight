@@ -17129,9 +17129,55 @@ lib_cmd_wear_except_multiple (scr_gameref_t game)
   return lib_wear_multiple_common (game, TRUE);
 }
 
+/*
+ * lib_wear_is_put_line_380()
+ *
+ * At 3.80 and 3.90 a put line is never a wear, because insides() moved.
+ * All three Runners enter insides()' put branch on the same test -- c("put")
+ * with c("inside"), c("into"), c("in") or c("on") (run370 4399CD, run380
+ * 445746, run390 460EDC) -- but 3.70 calls insides() from the BOTTOM of
+ * generaltasks, below tasks(0), wears(), removes(), the hints and even the
+ * screen clear, and as a plain `Call` that can never claim (43BA0A).  3.80
+ * hoisted it above tasks(0) and made it claiming, `If CBool(insides()) Then
+ * GoTo` (4421DA), and 3.90 kept it there (45F471) -- so from 3.80 up the put
+ * branch answers first and wears() never sees the line.  4.0 gave the wear
+ * back: `put on X` is a wear there whenever the object is held or worn.
+ *
+ * p37TWO/p38TWO/p39TWO/p4TWO with cmdfile_p2puton.txt (Adrift_257_2y37.rtf,
+ * 258_2y38.rtf, 259_2y39.txt, 260_2y40.txt, 2026-09-21): `put on hat` with
+ * the hat held, worn and on the floor is "You put on a hat." / "You are
+ * already wearing a hat" / "You are not holding a hat." at 3.70 -- wears()'
+ * own three answers, its entry taking c("put on") outright (run370 42C533)
+ * -- and at 3.80 it is "You can't do that!" all three times, insides()
+ * refusing a line that co() names fewer than twice (445A2A) before it looks
+ * at any target.  3.90 answers `put on hat` the same way, but `put hat on`
+ * "Put the hat onto what?": its target pass takes only a name standing
+ * after InStr(line, "on") (461000), so the trailing spelling leaves no
+ * target and the object's own question wins.  Both fall out of the ordinary
+ * put handlers once the wear declines.
+ */
+static scr_bool
+lib_wear_is_put_line_380 (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *line = run_get_dispatch_input ();
+
+  if (version < TAF_VERSION_380 || version >= TAF_VERSION_400 || !line)
+    return FALSE;
+  if (run_c_word_pre400 (version, line, "put") < 0)
+    return FALSE;
+  return run_c_word_pre400 (version, line, "inside") >= 0
+         || run_c_word_pre400 (version, line, "into") >= 0
+         || run_c_word_pre400 (version, line, "in") >= 0
+         || run_c_word_pre400 (version, line, "on") >= 0;
+}
+
+
 scr_bool
 lib_cmd_wear_multiple (scr_gameref_t game)
 {
+  if (lib_wear_is_put_line_380 (game))
+    return FALSE;
   return lib_wear_multiple_common (game, FALSE);
 }
 
@@ -21307,6 +21353,27 @@ lib_put_no_object_pre400 (scr_gameref_t game)
                                      "You can't do that!\n",
                                      "I can't do that!\n",
                                      "%player% can't do that!\n");
+}
+
+/*
+ * lib_cmd_put_no_clause_pre400()
+ *
+ * `put on X` and `put in X`, the spellings with nothing between the verb and
+ * the preposition.  From 3.80 insides() takes them like any other put (its
+ * entry is c("put") with c("inside"/"into"/"in"/"on"), run380 445746), and
+ * the line co() names at most once, so it is answered "You can't do that!"
+ * before any target test -- 3.8 at 445A2A, 3.9 at 461646, where the target
+ * pass has already taken the one name for the container because it stands
+ * after InStr(line, "on").  3.70 never gets here: the wear rows above claim
+ * the line, insides() being a plain bottom-of-generaltasks Call there
+ * (43BA0A); see lib_wear_is_put_line_380().
+ */
+scr_bool
+lib_cmd_put_no_clause_pre400 (scr_gameref_t game)
+{
+  if (lib_is_version_400 (game))
+    return FALSE;
+  return lib_put_no_object_pre400 (game);
 }
 
 static scr_bool
@@ -30421,6 +30488,11 @@ lib_cmd_wear_what (scr_gameref_t game)
   /* Pre-3.9 wears() refuses a match anywhere in the world as not held (run380
    * 4331D4-433218); see lib_absent_named_object_pre_390(). */
   const scr_int object = lib_absent_named_object_pre_390 (game);
+
+  /* From 3.80 the put branch answered above wears(); see
+     lib_wear_is_put_line_380(). */
+  if (lib_wear_is_put_line_380 (game))
+    return FALSE;
 
   if (object != -1)
     {

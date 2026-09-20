@@ -657,6 +657,35 @@ transcript names are in the code comment next to the named function, in
   examines arm fills an empty buffer where its elders left the question
   standing.
 
+- **At 3.70 insides() runs below wears(); from 3.80 it runs above, so a
+  put line is never a wear.** All three pre-4.0 Runners enter insides()'
+  put branch on the same test -- `c("put")` with `c("inside")`, `c("into")`,
+  `c("in")` or `c("on")` (run370 4399CD, run380 445746, run390 460EDC) --
+  but they call insides() from different places. run370's generaltasks
+  calls it at the BOTTOM, below tasks(0), wears(), removes(), the hints and
+  even the screen clear, and as a plain `Call` that can never claim
+  (43BA0A). 3.80 hoisted it above tasks(0) and made it claiming, `If
+  CBool(insides()) Then GoTo` (4421DA), and 3.90 kept it there (45F471).
+  So `put on hat` is wears()' line at 3.70 -- its entry takes `c("put on")`
+  outright (42C533) -- and answers "You put on a hat." held, "You are
+  already wearing a hat" worn, "You are not holding a hat." on the floor;
+  at 3.80 and 3.90 insides() gets there first, the line co() names fewer
+  than twice, and all three are "You can't do that!" (445A2A / 461646)
+  with no wear attempted. 3.90 answers the trailing spelling `put hat on`
+  "Put the hat onto what?" instead, its target pass taking only a name
+  that stands after `InStr(line, "on")` (461000). 4.00 gave the wear back:
+  `put on hat` wears a held hat and is "You are already wearing the hat!"
+  once it is on. p37TWO/p38TWO/p39TWO with `cmdfile_p2puton.txt`
+  (Adrift_257_2y37.rtf, 258_2y38.rtf, 259_2y39.txt, 2026-09-21), 0/8/9
+  mismatches -> 0/0/0. PORTED 2026-09-21: `lib_wear_is_put_line_380()`
+  declines `lib_cmd_wear_multiple` and `lib_cmd_wear_what` from 3.80 up,
+  and the clauseless spellings that no put row could match get two new
+  STANDARD_PUT_COMMANDS rows on `lib_cmd_put_no_clause_pre400()`. This
+  closes the `put on <loose thing>` leftover from the therest entry above.
+  428/428 and the Wine sweep byte-identical. Still open: the 4.00 half,
+  where Scarier gets 6 of the 25 cells wrong (`put on <held>` should wear,
+  `put hat on` should be "Where do you want to put the hat?").
+
 - **"Already wearing" is never contracted, and below 4.0 the wear arm
   leaves the sentence open.** Every Runner builds this message the same
   way, `<pronoun> & " " & <are> & " already wearing " & <name>` -- takes at
