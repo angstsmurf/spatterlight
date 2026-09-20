@@ -270,12 +270,6 @@ not by a tick.
   whether an object ambiguity on a task-answered line also suppresses the
   tick. (454454's Prefix contest itself is measured and ported -- see "The
   4.0 Prefix contest" in the index.)
-- **The 4.0 character catch-all's wording.** run400 answers p4PFX's `blue
-  guard` -- a line with no verb at all -- with "I don't understand what you
-  want to do with Bob.", where Scarier prints the bare "I don't understand."
-  The object form ("I don't understand what you want me to do with the X.")
-  is ported; this character form is a different string and a different site,
-  and no corpus row has hit it. p4PFX `blue guard` (Adrift_1210 turn 5).
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -791,6 +785,17 @@ transcript names are in the code comment next to the named function, in
   absent tails (the ask block at 47F8E5, the attack tail at 47F40D), which
   rescan the line themselves. Pre-4.0 keeps the positional match. `[4.0]`
   p4PFX (`uip_match_entity`, 2026-09-20)
+- **The 4.0 character catch-all names the contest's winner.**
+  characters()' tail calls npc_in_command(index, 0) per NPC (4805EB), and
+  mode 0 with two or more present, seen namesakes falls to 45E892: `If
+  Proc_21_49_450610(word) = index` -- the contest's winner returns the
+  containment TRUE and every rival returns FALSE, so the catch-all names
+  the winner and prints "I don't understand what you want to do with
+  <Name>." Only a tie (450610 = &HFF) flags Me(424) and leaves the "Which
+  <term>." question to generaltasks. p4PFX `blue guard`, a line with no
+  verb at all and three characters aliased "guard", is "... with Bob."
+  where Scarier printed the bare DontUnderstand. `[4.0]` p4PFX
+  (`lib_cmd_verb_npc`, 2026-09-20)
 
 - **The 3.8 object loop's scope test** is obhere (run380 4272E8): a
   dynamic object is present when held, worn, loose in the room, held or

@@ -29311,6 +29311,51 @@ lib_cmd_verb_npc (scr_gameref_t game)
   if (count > 1 && !lib_is_version_400 (game))
     count = 1;
   /*
+   * 4.0: the Prefix contest settles the crowd before the question is even
+   * considered.  The tail calls npc_in_command(index, 0) per NPC (4805EB),
+   * and mode 0 with two or more present, seen namesakes falls to 45E892:
+   * `If Proc_21_49_450610(word) = index` -- the contest's winner returns
+   * the containment TRUE and every rival returns FALSE, so the catch-all
+   * names the winner.  Only a tie (450610 = &HFF) flags Me(424) and leaves
+   * the "Which <term>." question to generaltasks.  p4PFX `blue guard`, a
+   * line with no verb at all and three characters aliased "guard", is
+   * "I don't understand what you want to do with Bob." (Adrift_1210 turn
+   * 5), where we printed the bare DontUnderstand.
+   */
+  if (count > 1 && lib_is_version_400 (game) && run_get_dispatch_input ())
+    {
+      const scr_char *line = run_get_dispatch_input ();
+      scr_int best, kept, winner;
+
+      best = -1;
+      kept = 0;
+      winner = -1;
+      for (index_ = 0; index_ < gs_npc_count (game); index_++)
+        {
+          scr_int score;
+
+          if (!game->npc_references[index_]
+              || !gs_npc_seen (game, index_)
+              || !npc_in_room (game, index_, gs_playerroom (game)))
+            continue;
+          score = lib_npc_400_prefix_score (game, index_, line);
+          if (score > best)
+            {
+              best = score;
+              kept = 1;
+              winner = index_;
+            }
+          else if (score == best)
+            kept++;
+        }
+
+      if (best > 0 && kept == 1)
+        {
+          count = 1;
+          npc = winner;
+        }
+    }
+  /*
    * 4.0: namesakes get generaltasks' "Which <term>." question, which is
    * asked of the line before any library branch (run400 48B6AE-48BB92).
    * `attack droid and guard` splits to a bare `guard` that lands here:

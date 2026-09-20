@@ -2476,18 +2476,23 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * positional match; its characters() has no contest and the last NPC in
    * index order wins outright (run390x Adrift_1211/1213).
    *
-   * The containment binding is npc_in_command's MODE 3 only.  Its loop at
-   * 45E6C5 counts the characters that answer to the matched word AND stand
-   * in the player's room (var_DC(14) = Me(92)) AND are seen (var_DC(26) =
-   * 1); the return at 45E740 is taken for `count > 0 And mode = 3` or for
-   * `count = 0 And mode = 1`.  Mode 3 is what hands a handler a character to
-   * act on; mode 1 is the absent tails' own test (the ask block at 47F8E5,
-   * the attack tail at 47F40D -- lib_attack_absent_npc()), which rescan the
-   * line for themselves.  So an absent character never binds here: mutaydid
-   * (4.00) rewrites `butcher mystery meat` to `attack mystery meat` through
-   * its synonym table, and although "meat" is an alias of The Mother Meat
-   * (asleep on Planet Mutaydid), run400 answers with the object arm, "You
-   * can't see the mystery meat." (Adrift_1090_mutaydid.txt).
+   * Only a PRESENT, SEEN character binds.  npc_in_command's loop at 45E6C5
+   * counts the characters answering to the matched word that stand in the
+   * player's room (var_DC(14) = Me(92)) and are seen (var_DC(26) = 1), and
+   * mode 0 -- the mode every reference site uses, the examine scan at
+   * 48B556 included -- takes neither early return at 45E740 (`count > 0 And
+   * mode = 3`, `count = 0 And mode = 1`).  With one such namesake it falls
+   * to 45E8F4, which tests this NPC's own room and seen bytes before
+   * returning the containment; with several it runs the contest at 45E892
+   * and only the winner returns TRUE; with none it returns FALSE.  Mode 1
+   * is the absent tails' own test (the ask block at 47F8E5, the attack tail
+   * at 47F40D -- lib_attack_absent_npc()), which rescan the line for
+   * themselves, and mode 3, at 48B9A5 alone, answers a raised question.  So
+   * an absent character never binds here: mutaydid (4.00) rewrites `butcher
+   * mystery meat` to `attack mystery meat` through its synonym table, and
+   * although "meat" is an alias of The Mother Meat (asleep on Planet
+   * Mutaydid), run400 answers with the object arm, "You can't see the
+   * mystery meat." (Adrift_1090_mutaydid.txt).
    */
   const scr_bool contain = uip_containment_enabled
                            && !uip_strict_reference
@@ -2538,7 +2543,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
           && !gs_object_seen (game, index))
         continue;
 
-      /* npc_in_command's mode 3: only a present, seen character binds. */
+      /* npc_in_command mode 0: only a present, seen character binds. */
       if (pass > 0 && is_character
           && !(gs_npc_seen (game, index)
                && npc_in_room (game, index, gs_playerroom (game))))
