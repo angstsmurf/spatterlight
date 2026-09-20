@@ -343,23 +343,33 @@ not by a tick.
   "With what?" again, because the gem is already named in the prefix.
   Porting it means a pending-prefix retry hook beside the ordinary
   question prefix in `run_all_commands()`, gated to 3.90 and to therest.
-- **`open X with Y` and `read X with Y` below 4.0.** Open (p*WITHPFX feed
-  `cmdfile_pwithpfx4.txt`, Adrift_222_ws370 / 223_ws380 / 224_ws390 /
-  225_ws400, 2026-09-20): with the gem held, `open rock with gem` is
-  "You can't open the rock with the gem." at 3.70 and 4.00 -- the object
-  from the head, the instrument as a suffix -- but "You can't open the
-  gem!" at 3.80 and 3.90, which name the INSTRUMENT and take the
-  exclamation mark. Scarier answers 3.70 about the gem and asks
-  "Please be more clear, what do you want to open?  The gem or the rock?"
-  at 3.80/3.90. Read: `read rock with gem` is the examine ambiguity
-  prompt "Which rock would you like to examine.  The gem or the rock?"
-  at 3.70/3.80 (read is the examine tail there), "You can't read the
-  gem!" at 3.90 and "You can't read the rock!" at 4.00; Scarier says
-  "Nothing special." below 4.0. Whether the 3.8/3.9 rule is "the last
-  object named on the line" or something the split leaves behind needs a
-  probe without " with " (`open gem rock`, `open rock gem`), and a static
-  instrument for the 3.9 "Don't be daft!" cell that is still read off the
-  listing.
+- **The 4.0 open/close question over several nouns.** run400 answers
+  `open rock gem chest` with "Which chest.  The gem, the rock or the
+  chest?" and `open chest gem` (one noun naming two objects) the same way,
+  but `open slab rock`, `open gem rock` and `close rock gem` -- none of
+  them naming anything openable -- with the flat "You can't open/close
+  that." (p*OPENW / p*OPENA, Adrift_233_ox400 / 235_oy400, 2026-09-20).
+  Scarier prints the flat refusal in all of them. The rule looks like "an
+  openable object among the candidates raises the question, otherwise the
+  flat refusal", with the term the last candidate by index -- which is the
+  openable one in both probes, so the two readings are not yet separated.
+  Needs a probe with the openable object at a LOW index.
+- **4.0 `take` over two namesakes.** With the rock aliased "gem",
+  run400's `take gem` is "It is not clear which gem you are referring
+  to."; Scarier asks "Which gem.  The gem or the rock?" (p4OPENA,
+  Adrift_235_oy400, 2026-09-20). Both strings are the Runner's own, so
+  this is which of them takes() reaches, not an invention. The same feed's
+  `x gem` is the "Which gem." question in both, so it is a takes()
+  question and not a co() one.
+- **3.70 `take` over two namesakes.** run370's `take gem`, with a gem and
+  a rock that both answer to "gem", is "You pick up the rock." and `i`
+  then lists BOTH (p37OPENA, Adrift_232_oy370, 2026-09-20): takes() took
+  each and the last one spoke, as openclose does. Scarier says "Take
+  what?", which is what p37TASK measured for two namesakes with different
+  Prefixes ("a red hat" / "a blue hat"); here both Prefixes are the bare
+  "a", so the Prefix-last-word skip in `lib_disambiguate_object_common()`
+  marks both and falls to "Take what?" where the Runner takes both. What
+  the Runner does with a Prefix whose last word is the article is unread.
 
 ### Engine, needs a probe (3.7 / 3.8)
 
@@ -869,6 +879,48 @@ transcript names are in the code comment next to the named function, in
 
 ### Nouns, scope and the seen model
 
+- **Pre-4.0 never asks "Please be more clear".** That string is in NONE of
+  run370.exe, run380.exe, run390.exe or run400.exe (ASCII and UTF-16LE
+  searched, 2026-09-20): it is SCARE's own invention, and every pre-4.0
+  line that named several objects used to get it. What the Runners really
+  do, measured on p*OPENW.taf (a gem, a rock, a static slab, a closed
+  chest, the gem held) is settle the line silently, each handler its own
+  way -- see the three entries below. `[<4.0]` p*OPENW/p*OPENA
+  (`lib_disambiguate_object_common`, 2026-09-20)
+- **Pre-4.0 open over several nouns.** openclose() acts on the one object
+  that CAN be opened whatever else the line names: `open rock gem chest` is
+  "You open the chest." at 3.70, 3.80 and 3.90 alike. With none openable,
+  3.70 has no refusal of its own and the line falls to therest's can't-do
+  tail, which names the first object by **word position** and ends in a
+  full stop (`open rock gem` -> the rock, `open gem rock` -> the gem,
+  `open slab rock` -> the slab); 3.80 gave openclose its own refusal, which
+  names the lowest object **index** and ends in a bang, so the same three
+  lines are "the gem!", "the gem!" and "the rock!". `[<4.0]`
+  p*OPENW (`lib_disambiguate_object_common`, `lib_first_named_pre400`,
+  `lib_cmd_open_object`, 2026-09-20)
+- **Pre-4.0 close over several nouns.** Same acting-object rule (`close
+  chest gem` closes the chest), but `close` got no refusal of its own
+  before 4.0, so at 3.70, 3.80 AND 3.90 a line with nothing closable falls
+  to therest: first name by word position, full stop, and the two-object
+  split's " with <the instrument>" suffix kept -- `close rock gem` is "You
+  can't close the rock.", `close rock with slab` "You can't close the rock
+  with the slab.". 3.70's `open` keeps that suffix too (`open rock with
+  slab`); 3.80/3.90's own open refusal drops it. A static instrument falls
+  through to the suffix, which settles the "Don't be daft!" cell
+  `lib_with_clause_390()` had only read off the listing: 3.9 has no such
+  line. `[<4.0]` p*OPENW (`lib_cant_do_suffix_pre400`, 2026-09-20)
+- **Pre-4.0 read is examines()' object too.** A `read` line naming more
+  than one object is settled exactly as `x` settles it: 3.90 by
+  referencedob()'s last-word pass (`read rock gem` -> "You can't read the
+  gem!", `read gem rock` -> "the rock!", `read rock with slab` -> "the
+  slab!"), 3.70 and 3.80 by examines()' own question, "Which <Short of the
+  LAST match by index> would you like to examine.  <the matches, in index
+  order>?" -- so `read rock gem`, `read gem rock` and `examine rock gem`
+  are all "Which rock would you like to examine.  The gem or the rock?",
+  and `read rock with slab` is "Which slab would you like to examine.  The
+  rock or the slab?". The question is 3.7/3.8 only; 3.90 replaced it. Only
+  a line naming nothing reaches "Nothing special.". `[<4.0]` p*OPENW
+  (`lib_cmd_read_other`, `lib_disambiguate_object_common`, 2026-09-20)
 - **The 4.0 Prefix contest.** A namesake crowd is thinned by what the line
   holds of each candidate's own Prefix before any handler sees it: run400
   Splits the Prefix on single spaces, tests each word against the typed line

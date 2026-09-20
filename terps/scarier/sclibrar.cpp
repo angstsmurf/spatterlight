@@ -6361,6 +6361,84 @@ lib_co_note_line_top (scr_gameref_t game)
   lib_co_prompt_370_blocked = FALSE;
 }
 
+/*
+ * lib_name_offset_pre400()
+ * lib_first_named_pre400()
+ *
+ * Where the typed line first names an object -- the lowest offset at which
+ * its Short or any of its Aliases occurs -- and the referenced object with
+ * the lowest such offset.
+ *
+ * Pre-4.0 a line naming several objects that no handler acts on is answered
+ * by the generic can't-do tail in therest(), and that names the FIRST of
+ * them by WORD POSITION, not by object index.  Measured on p*OPENW.taf (one
+ * lit room holding a gem, a rock, a static slab and a closed chest, the gem
+ * held), 2026-09-20:
+ *
+ *     command             run370               run380/run390
+ *     open rock gem       can't open the rock. can't open the gem!
+ *     open gem rock       can't open the gem.  can't open the gem!
+ *     open slab rock      can't open the slab. can't open the rock!
+ *     close rock gem      can't close the rock.  (all three versions)
+ *     close gem rock      can't close the gem.   (all three versions)
+ *
+ * (Adrift_228_ow370 / 229_ow380 / 230_ow390, Adrift_230_ox370 / 231_ox380 /
+ * 232_ox390.)  3.80 gave `open` a refusal of its own inside openclose(),
+ * above therest, and that one names the lowest object INDEX instead and
+ * ends in a bang; `close` got none until 4.0, so it keeps falling through
+ * to therest at every pre-4.0 version.
+ */
+static scr_int
+lib_name_offset_pre400 (scr_gameref_t game, scr_int object,
+                        const scr_char *line)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4];
+  const scr_char *name, *found;
+  scr_int aliases, alias, best = -1;
+
+  name = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  if (!scr_strempty (name) && (found = strstr (line, name)) != NULL)
+    best = found - line;
+
+  aliases = lib_alias_prepare (bundle, vt_key, "Objects", object);
+  for (alias = 0; alias < aliases; alias++)
+    {
+      vt_key[3].integer = alias;
+      name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (scr_strempty (name) || !(found = strstr (line, name)))
+        continue;
+      if (best < 0 || found - line < best)
+        best = found - line;
+    }
+  return best;
+}
+
+static scr_int
+lib_first_named_pre400 (scr_gameref_t game, scr_int fallback)
+{
+  const scr_char *line = run_get_dispatch_input ();
+  scr_int index_, best = -1, offset, best_offset = 0;
+
+  if (!line)
+    return fallback;
+
+  for (index_ = 0; index_ < gs_object_count (game); index_++)
+    {
+      if (!game->object_references[index_])
+        continue;
+      offset = lib_name_offset_pre400 (game, index_, line);
+      if (offset < 0)
+        continue;
+      if (best < 0 || offset < best_offset)
+        {
+          best = index_;
+          best_offset = offset;
+        }
+    }
+  return best >= 0 ? best : fallback;
+}
+
 static scr_int
 lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
                                scr_bool (*resolver)
@@ -6643,6 +6721,46 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    * wording answers for the last one exactly as the Runner's overwriting
    * loop leaves it.
    */
+  /*
+   * examines() asks its own question, and it is not openclose's or takes':
+   * "Which <Short of the LAST match by index> would you like to examine.
+   * <the matches, in index order>?"  3.80 keeps it -- `read rock gem`, `read
+   * gem rock` and `examine rock gem` are all "Which rock would you like to
+   * examine.  The gem or the rock?" under run370 AND run380, and `read rock
+   * with slab` is "Which slab would you like to examine.  The rock or the
+   * slab?" (p*OPENW, Adrift_228_ow370 / 229_ow380 / 230_ox370 / 231_ox380,
+   * 2026-09-20) -- so the word order on the line never picks here, only the
+   * index does.  3.90 replaced the question with referencedob()'s last-word
+   * pass; see lib_examine_crowded_390().
+   *
+   * Pre-4.0 `read` is one of examines()' entry words, so it asks the same
+   * question about the same verb; see lib_cmd_read_other().
+   */
+  if (count > 1 && taf_version < TAF_VERSION_390
+      && (strcmp (verb, "examine") == 0 || strcmp (verb, "read") == 0))
+    {
+      pf_buffer_string (filter, "Which ");
+      pf_buffer_string (filter,
+                        prop_get_indexed_string (gs_get_bundle (game),
+                                                 "Objects", object, "Short"));
+      pf_buffer_string (filter, " would you like to examine.  ");
+      pf_new_sentence (filter);
+      listed = 0;
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (!game->object_references[index_])
+            continue;
+          if (listed > 0)
+            pf_buffer_string (filter, listed == count - 1 ? " or " : ", ");
+          lib_print_object_np (game, index_);
+          listed++;
+        }
+      pf_buffer_string (filter, "?\n");
+      if (is_ambiguous)
+        *is_ambiguous = TRUE;
+      return -1;
+    }
+
   if (count > 1 && taf_version < TAF_VERSION_380)
     {
       const scr_bool is_wear = strcmp (verb, "wear") == 0;
@@ -6653,30 +6771,6 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
       if (strcmp (verb, "drop") == 0 || strcmp (verb, "take") == 0)
         {
           lib_what (game, strcmp (verb, "drop") == 0 ? "Drop" : "Take");
-          if (is_ambiguous)
-            *is_ambiguous = TRUE;
-          return -1;
-        }
-      if (strcmp (verb, "examine") == 0)
-        {
-          pf_buffer_string (filter, "Which ");
-          pf_buffer_string (filter,
-                            prop_get_indexed_string (gs_get_bundle (game),
-                                                     "Objects", object,
-                                                     "Short"));
-          pf_buffer_string (filter, " would you like to examine.  ");
-          pf_new_sentence (filter);
-          listed = 0;
-          for (index_ = 0; index_ < gs_object_count (game); index_++)
-            {
-              if (!game->object_references[index_])
-                continue;
-              if (listed > 0)
-                pf_buffer_string (filter, listed == count - 1 ? " or " : ", ");
-              lib_print_object_np (game, index_);
-              listed++;
-            }
-          pf_buffer_string (filter, "?\n");
           if (is_ambiguous)
             *is_ambiguous = TRUE;
           return -1;
@@ -6712,11 +6806,63 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
                 }
               last = index_;
             }
-          object = last != -1 ? last : first;
+          /*
+           * Nothing to open or close leaves openclose() with an empty
+           * message at 3.70, so therest()'s can't-do tail answers instead,
+           * and that one takes the first name by word position; see
+           * lib_first_named_pre400().  wear/remove are not measured that
+           * way and keep the index.
+           */
+          if (last == -1 && (is_open || is_close))
+            object = lib_first_named_pre400 (game, first);
+          else
+            object = last != -1 ? last : first;
           for (index_ = 0; index_ < gs_object_count (game); index_++)
             game->object_references[index_] = (index_ == object);
           count = 1;
         }
+    }
+
+  /*
+   * 3.80 and 3.90 answer a crowded open/close line without asking anything
+   * either.  openclose() acts on the one object that CAN be opened (closed)
+   * whatever else the line names -- run370, run380 and run390 all answer
+   * `open rock gem chest` with "You open the chest." (p*OPENW,
+   * Adrift_230_ox370 / 231_ox380 / 232_ox390, 2026-09-20) -- and when none
+   * can, `open` takes its own refusal, which names the LOWEST object index
+   * on the line and ends in a bang, while `close`, which has no refusal of
+   * its own before 4.0, falls through to therest and its word-position
+   * name.  Whether a second openable object on the line is acted on as
+   * well, the way run370's loop acts on every namesake, is not measured:
+   * only one of these probes' objects opens.
+   */
+  if (count > 1 && taf_version >= TAF_VERSION_380
+      && taf_version < TAF_VERSION_400
+      && (strcmp (verb, "open") == 0 || strcmp (verb, "close") == 0))
+    {
+      const scr_bool is_open = strcmp (verb, "open") == 0;
+      scr_int lowest = -1, acts = -1;
+
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (!game->object_references[index_])
+            continue;
+          if (lowest == -1)
+            lowest = index_;
+          if (gs_object_openness (game, index_)
+              == (is_open ? OBJ_CLOSED : OBJ_OPEN))
+            acts = index_;
+        }
+
+      if (acts != -1)
+        object = acts;
+      else if (is_open)
+        object = lowest;
+      else
+        object = lib_first_named_pre400 (game, lowest);
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        game->object_references[index_] = (index_ == object);
+      count = 1;
     }
 
   /*
@@ -16563,6 +16709,48 @@ lib_cant_do_with_400 (scr_gameref_t game, const scr_char *verb,
   return TRUE;
 }
 
+/*
+ * lib_cant_do_suffix_pre400()
+ *
+ * The same refusal for a pre-4.0 handler that has no arm of its own and so
+ * leaves the line to therest(): "<You> can't <verb> <the object>", plus the
+ * " with <the instrument>" the two-object split saved, and a full stop.
+ * The split runs first, so its own answers ("With what?", "<You> don't have
+ * <X>.") come out instead; see lib_with_clause_390().
+ *
+ * Measured on p*OPENW.taf, 2026-09-20: `close rock with gem` is "You can't
+ * close the rock with the gem." at 3.70, 3.80 and 3.90 alike, and `open rock
+ * with slab` / `open slab with gem` are "You can't open the rock with the
+ * slab." / "You can't open the slab with the gem." at 3.70 (Adrift_228_
+ * ow370, Adrift_230_ox370).  The slab is static, so a static instrument does
+ * fall through to the suffix, as lib_with_clause_390()'s comment read off
+ * the listing -- 3.9 really has no "Don't be daft!".
+ */
+static scr_bool
+lib_cant_do_suffix_pre400 (scr_gameref_t game, const scr_char *verb,
+                           scr_int object)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int head = -1, instrument = -1;
+  const lib_with_clause_t clause
+    = lib_with_clause_400 (game, &head, &instrument);
+
+  if (clause == LIB_WITH_ANSWERED)
+    return TRUE;
+
+  pf_buffer_string (filter,
+                    lib_select_response (game, "You can't ", "I can't ",
+                                         "%player% can't "));
+  pf_buffer_string (filter, verb);
+  pf_buffer_character (filter, ' ');
+  lib_print_object_np (game, object);
+  if (clause == LIB_WITH_SUFFIX)
+    lib_print_wrapped_object (game, " with ", instrument, ".\n");
+  else
+    pf_buffer_string (filter, ".\n");
+  return TRUE;
+}
+
 
 /*
  * lib_open_close_with_400()
@@ -16728,14 +16916,21 @@ lib_cmd_open_object (scr_gameref_t game)
    * so the line reaches therest()'s can't-do tail, which ends in a period
    * (43D1E0): p37EXAM `open stone` is "You can't open the stone."
    * (run370 Adrift_1166, 2026-09-14); run380 (42F071) and later end in "!".
+   *
+   * Being therest's tail, 3.70's also carries the " with <the instrument>"
+   * of a two-object split, which openclose's own 3.80 refusal above it
+   * does not: `open rock with slab` is "You can't open the rock with the
+   * slab." at 3.70 and the bare "You can't open the rock!" at 3.80 and
+   * 3.90 (p*OPENW, Adrift_228_ow370 / 229_ow380 / 230_ow390, 2026-09-20).
    */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
+    return lib_cant_do_suffix_pre400 (game, "open", object);
+
   lib_print_response_object (game,
                              "You can't open ",
                              "I can't open ",
                              "%player% can't open ",
-                             object,
-                             prop_get_taf_version (gs_get_bundle (game))
-                             < TAF_VERSION_380 ? ".\n" : "!\n");
+                             object, "!\n");
   return TRUE;
 }
 
@@ -16830,13 +17025,21 @@ lib_cmd_close_object (scr_gameref_t game)
    *   `open stone` -> "You can't open the stone!"
    *   `close stone` -> "You can't close the stone."
    * and on p4EXAM.taf (4.00), Adrift_1_p4exam.txt, where both end in "!".
+   *
+   * Coming from therest, the pre-4.0 line carries the two-object split's
+   * " with <the instrument>" at every version: `close rock with gem` is
+   * "You can't close the rock with the gem." under run370, run380 and
+   * run390 alike (p*OPENW, Adrift_228_ow370 / 229_ow380 / 230_ow390,
+   * 2026-09-20).
    */
+  if (!lib_is_version_400 (game))
+    return lib_cant_do_suffix_pre400 (game, "close", object);
+
   lib_print_response_object (game,
                              "You can't close ",
                              "I can't close ",
                              "%player% can't close ",
-                             object,
-                             lib_is_version_400 (game) ? "!\n" : ".\n");
+                             object, "!\n");
   return TRUE;
 }
 
@@ -21593,6 +21796,50 @@ lib_cmd_read_other (scr_gameref_t game)
    */
   if (!lib_is_version_400 (game))
     {
+      /*
+       * Sharing examines() means sharing its object as well: a `read` line
+       * that names more than one is settled exactly as an `x` line is --
+       * 3.90 by referencedob()'s last-word pass, 3.70 and 3.80 by the
+       * "Which <X> would you like to examine." question -- and only a line
+       * naming none reaches the flat tail.  Measured on p*OPENW.taf,
+       * 2026-09-20: `read rock gem` / `read gem rock` are "You can't read
+       * the gem!" / "You can't read the rock!" under run390 and "Which rock
+       * would you like to examine.  The gem or the rock?" under run370 and
+       * run380, and `read rock with slab` is "You can't read the slab!" /
+       * "Which slab would you like to examine.  The rock or the slab?"
+       * (Adrift_228_ow370 .. 230_ow390, Adrift_230_ox370 .. 232_ox390).
+       */
+      const scr_char *line = run_get_dispatch_input ();
+      scr_int named, index_, matched = 0;
+      scr_bool is_ambiguous = FALSE;
+
+      named = lib_examine_crowded_390 (game);
+      if (named == -2)
+        return lib_print_message (game,
+                                  "Please examine one object at a time.\n");
+      /*
+       * The parser bound no object to this line, so co() has to be run over
+       * it here, the way examines() runs it.  Only a line naming two or
+       * more is taken over: one is left to the tail below, where the
+       * dispatcher put it.
+       */
+      if (named < 0 && line)
+        {
+          for (index_ = 0; index_ < gs_object_count (game); index_++)
+            {
+              game->object_references[index_]
+                = lib_co_pre400 (game, line, index_, 0);
+              if (game->object_references[index_])
+                matched++;
+            }
+          if (matched > 1)
+            named = lib_disambiguate_object (game, "read", &is_ambiguous);
+        }
+      if (named >= 0)
+        return lib_read_object (game, named);
+      if (is_ambiguous)
+        return TRUE;
+
       if (lib_room_is_dark (game, gs_playerroom (game)))
         return lib_print_response_message (game,
                                   "You can't see that very clearly.\n",
