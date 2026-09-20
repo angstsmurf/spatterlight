@@ -4699,6 +4699,11 @@ lib_cmd_examine_self (scr_gameref_t game)
  * return -1.
  */
 static scr_bool lib_npc_400_raise_for_line (scr_gameref_t game);
+static scr_bool lib_input_contains_word_400 (const scr_char *input,
+                                             const scr_char *word);
+static const scr_char *lib_co_400_name_word (scr_gameref_t game,
+                                             scr_int object,
+                                             const scr_char *input);
 
 /*
  * How a pre-4.0 Runner settles a line naming two present characters.  It
@@ -5872,15 +5877,17 @@ lib_npc_answers_to (scr_gameref_t game, scr_int npc, const scr_char *term)
 static scr_bool
 lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
                                std::string *term_out,
-                               std::vector<scr_int> *namesakes_out)
+                               std::vector<scr_int> *namesakes_out,
+                               scr_int *flagged_out)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_int room = gs_playerroom (game);
-  scr_int npc;
+  scr_int npc, found;
 
   if (!input)
     return FALSE;
 
+  found = FALSE;
   for (npc = 0; npc < gs_npc_count (game); npc++)
     {
       std::vector<scr_int> namesakes;
@@ -5917,14 +5924,29 @@ lib_npc_400_find_namesakes_in (scr_gameref_t game, const scr_char *input,
       if (namesakes.size () < 2)
         continue;
 
-      if (term_out)
-        *term_out = term;
-      if (namesakes_out)
-        *namesakes_out = namesakes;
-      return TRUE;
+      /*
+       * The Runner's loop (48B547) has no break: the term and the list are
+       * the FIRST hit's -- a later namesake writes neither, its term being
+       * in the list already (45E7B5) -- but MemVar_4941EC, the flagged
+       * index, is overwritten by every hit that is in the player's room
+       * (45E8CA), so it ends up the LAST one's.  All of ours are in the
+       * room, so: first hit for the text, last for the index.
+       */
+      if (!found)
+        {
+          if (term_out)
+            *term_out = term;
+          if (namesakes_out)
+            *namesakes_out = namesakes;
+        }
+      found = TRUE;
+      if (flagged_out)
+        *flagged_out = npc;
+      if (!flagged_out)
+        break;
     }
 
-  return FALSE;
+  return found;
 }
 
 static scr_bool
@@ -5932,7 +5954,7 @@ lib_npc_400_find_namesakes (scr_gameref_t game, std::string *term_out,
                             std::vector<scr_int> *namesakes_out)
 {
   return lib_npc_400_find_namesakes_in (game, run_get_dispatch_input (),
-                                        term_out, namesakes_out);
+                                        term_out, namesakes_out, NULL);
 }
 
 /*
@@ -5946,7 +5968,7 @@ scr_bool
 lib_npc_400_line_names_namesakes (scr_gameref_t game, const scr_char *line)
 {
   return lib_is_version_400 (game)
-         && lib_npc_400_find_namesakes_in (game, line, NULL, NULL);
+         && lib_npc_400_find_namesakes_in (game, line, NULL, NULL, NULL);
 }
 
 static scr_bool
@@ -5955,12 +5977,54 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_filterref_t filter = gs_get_filter (game);
   std::vector<scr_int> namesakes;
-  std::string term_string, lower;
+  std::string term_string, npc_term, lower;
   const scr_char *term;
-  scr_int index_;
+  scr_int index_, flagged;
 
-  if (!lib_npc_400_find_namesakes_in (game, input, &term_string, &namesakes))
+  flagged = -1;
+  if (!lib_npc_400_find_namesakes_in (game, input, &term_string, &namesakes,
+                                      &flagged))
     return FALSE;
+  /* The list is built by the character scan (45E7D3) and printed whole, so
+   * it keeps the character's term even when the object half prints. */
+  npc_term = term_string;
+
+  /*
+   * The two halves of the question read ONE untyped index, and the object
+   * half (48B6B1) gets first refusal: `MemVar_4941EC < MemVar_494050 And
+   * co(3, MemVar_4941EC)`, i.e. the flagged CHARACTER index doubles as an
+   * object index, and if the line names that object the term printed over
+   * the character list is the object's -- its Short, replaced by each alias
+   * of it that is a whole word of the line, the last winning.
+   *
+   * It is a plain collision, not a term choice.  p4BATT (run400x
+   * Adrift_1208/1209, 2026-09-20) has Dave 0, Ann 1, Bob 2, Cora 3 with Ann
+   * and Bob both "a guard", and objects sword 0, club 1, stone 2; the
+   * flagged index is Bob's 2, so `attack guard with stone`, `give stone to
+   * guard`, `x guard stone` and `x stone guard` all print "Which stone.  A
+   * guard or a guard?" while `x guard sword`, `attack guard with club`,
+   * `give club to guard` and `x guard dave` print "Which guard.".
+   */
+  if (flagged >= 0 && flagged < gs_object_count (game)
+      && gs_object_seen (game, flagged)
+      && obj_indirectly_in_room (game, flagged, gs_playerroom (game))
+      && lib_co_400_name_word (game, flagged, input))
+    {
+      const scr_char *name;
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+
+      name = prop_get_indexed_string (bundle, "Objects", flagged, "Short");
+      term_string = name ? name : "";
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", flagged);
+      for (alias = 0; alias < alias_count; alias++)
+        {
+          vt_key[3].integer = alias;
+          name = prop_get_string (bundle, "S<-sisi", vt_key);
+          if (!scr_strempty (name) && lib_input_contains_word_400 (input, name))
+            term_string = name;
+        }
+    }
   term = term_string.c_str ();
 
   /* One pass of the original loop; the braces keep its indentation. */
@@ -5972,8 +6036,8 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
           return TRUE;
         }
 
-      for (index_ = 0; term[index_] != NUL; index_++)
-        lower += (scr_char) tolower ((unsigned char) term[index_]);
+      for (index_ = 0; npc_term[index_] != NUL; index_++)
+        lower += (scr_char) tolower ((unsigned char) npc_term[index_]);
 
       pf_buffer_string (filter, "Which ");
       pf_buffer_string (filter, term);

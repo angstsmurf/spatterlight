@@ -286,29 +286,6 @@ not by a tick.
   of the turn (thetest, a two-sentence Original). Expect a large
   reblessing: the task-text join alone moved 94 rows, and
   sweep_wine_breaks still counts 5622 Scarier-only breaks.
-- **4.0's namesake question names the OBJECT that shares the character's
-  index.** The question itself is ported (see the index entry below), but
-  its term is not always the character's. Both halves of the generaltasks
-  block read ONE untyped index, `MemVar_4941EC`, and the object half
-  (48B6B1) gets first refusal: it runs when that index is also a valid
-  object index AND the line names that object, printing the object's
-  `Short` over the character list. In p4BATT the flagged character is Bob,
-  index 2, and object 2 is the stone, so `attack guard with stone`,
-  `give stone to guard`, `x guard stone` and `x stone guard` are all
-  "Which **stone**.  A guard or a guard?" while `x guard sword` (object 0),
-  `attack guard with club` (object 1), `give club to guard` and `x guard
-  dave` are "Which guard" (run400x Adrift_1208 and Adrift_1209,
-  2026-09-20). It is a plain index collision -- not "the object the
-  handler resolved", not "the last object named" -- so modelling it means
-  carrying the raw namesake index, which scarier does not. Two p4BATT
-  turns still differ on it. Worth a probe that pins down which index the
-  character scan stores (first namesake? last? the 0-based or the N-2
-  one?) before porting, since with three namesakes the collision moves.
-  While measuring it, note that in p4BATT *every* answer to the question
-  is "That is still ambiguous!" -- `ann`, `x guard`, `club` and `nonsense`
-  alike (Adrift_1209): the answer re-runs the original line with the
-  answer words spliced in before the term, which still names both guards,
-  so `MemVar_4941F0` comes back equal to `MemVar_4941F4`.
 - **4.0 `status`' table literals.** run400 47DDB8 onwards writes the column
   headings as `"Stamina:</c> <0>ileeerfeetts</0>"`, `"<c>Hit
   strength:</c><0>ilmfeeee</0>"`, `iilmee fttts`, `iirmttt`, `eeemee
@@ -1256,6 +1233,31 @@ transcript names are in the code comment next to the named function, in
   "Please be more clear about whose status you want." and "... about who
   you want to locate.". `[4.0]` p4BATT Adrift_1208, Adrift_1209
   (`lib_npc_400_raise_for_line_string`, 2026-09-20)
+- **...and its term is the OBJECT that shares the flagged character's
+  index.** Both halves of the block read that one untyped index and the
+  object half (48B6B1) gets first refusal: it prints the object's `Short`
+  -- replaced by each alias of it that is a whole word of the line, the
+  last winning -- over the character list, whenever the index is also a
+  present, seen object's and the line names it. The index is the LAST
+  present namesake's raw 0-based character index: the scan loop (48B547)
+  has no break, the term and list are the first hit's (45E7B5 refuses to
+  rebuild a list the term is already in) but 45E8CA overwrites the index
+  for every hit in the player's room. p4BATT has Dave 0, Ann 1, Bob 2,
+  Cora 3 with Ann and Bob both "a guard", and sword 0, club 1, stone 2, so
+  the flagged index is Bob's 2 and `attack guard with stone`, `give stone
+  to guard`, `x guard stone` and `x stone guard` are "Which **stone**.  A
+  guard or a guard?" where `x guard sword`, `attack guard with club`,
+  `give club to guard` and `x guard dave` are "Which guard." -- a plain
+  collision, not "the object the handler resolved" nor "the last object
+  named". `[4.0]` p4BATT Adrift_1209, now identical on every turn
+  (`lib_npc_400_find_namesakes_in` flagged index, 2026-09-20)
+- **No answer narrows a term the namesakes share.** The answer re-runs the
+  original line with the answer words spliced in BEFORE the term, so in a
+  world whose two namesakes share every word `MemVar_4941F0` comes back
+  equal to `MemVar_4941F4` whatever you type: p4BATT answers `ann`, `x
+  guard`, `club` and `nonsense` to "Which guard." and all four are "That is
+  still ambiguous!", the pair then clearing so the next line asks afresh.
+  `[4.0]` p4BATT Adrift_1209 turns 15-25 (2026-09-20)
 - **3.7/3.8 characters() arms.** `talk`/`speak` anywhere in the line with a
   named character gives the ask hint for the last one named, no room test.
   A present character named in an examine line overwrites the answer (`x
