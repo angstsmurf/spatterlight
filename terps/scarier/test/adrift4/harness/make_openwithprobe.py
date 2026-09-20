@@ -105,8 +105,33 @@ does go by word position -- and `x chest gem` / `read chest gem` are
 "an openable object raises the question"; Scarier matches all four
 Runners on every line of this feed.
 
+p*OPENT (`pair`, cmdfile_popent.txt / cmdfile_popent2.txt,
+Adrift_236_pa370 .. 239_pa400 and Adrift_238_pb400) puts a closed box at
+index 0 beside the closed chest at index 3, so a line can hold an openable
+object at either end or both.  It killed the replacement reading -- `open
+gem chest` and `open chest box` are flat at 4.00 while `open box gem
+chest` asks -- and, more usefully, it read openclose's loop from a side
+p*OPENW could not, because only one of that world's objects opened:
+
+  * `open box gem chest` is "You open the chest." at 3.70, 3.80 AND 3.90,
+    and the box is open afterwards too.  The every-namesake loop measured
+    at 3.7 in p37TASK is not 3.7's alone: all three versions act on every
+    openable object the line names and let the last by index speak.
+  * the loop's test is "openable at all", not "in the state the verb
+    wants".  With the box already open, `open box gem`, `open gem box`,
+    `open gem chest` and `open chest box` are all "The <box|chest> is
+    already open!" -- an already-open object still wins the line over a
+    plain one, and the handler's own wording answers for it.  `close box
+    gem` then closes the box.
+  * 4.00 is the open lead and nothing else: only `open box gem chest`,
+    `open chest gem box` and `open chest box gem` (candidates {0,1,3},
+    whatever the word order) ask "Which chest.  The box, the gem or the
+    chest?"; `open box chest` {0,3}, `open box gem rock chest` {0,1,2,3},
+    `open box rock chest` {0,2,3} and `open gem rock chest` {1,2,3} are
+    all the flat "You can't open that.".
+
 Usage:
-    python3 make_openwithprobe.py [370|380|390|400|all]
+    python3 make_openwithprobe.py [pair|amb|low] [370|380|390|400|all]
 Session (from ~/adrift-battle/runner/wine):
     sh par.sh job_openw.txt 4
 """
@@ -161,9 +186,34 @@ def low():
                 390: "p39OPENL.taf", 400: "p4OPENL.taf"}
 
 
+def pair():
+    """Two closed containers, one first and one last, as p*OPENT.taf.
+
+    The p*OPENW / p*OPENL pair left run400's "Which chest.  The gem, the
+    rock or the chest?" fitting only "the LAST candidate by index is the
+    one the verb could act on".  Here `open box gem chest` and `open chest
+    box` have an openable object at BOTH ends, `open box gem` and `open gem
+    box` only at the front, and `open gem chest` only at the back, so the
+    reading stands or falls on this one feed (cmdfile_popent.txt).  It
+    fell; see the p*OPENT block above for what the feed measured instead.
+    """
+    surf.OBJECTS = [
+        ("box",   "a", "A tin box.",     ("room", LIT), "container", 5, 2, 0),
+        ("gem",   "a", "A green gem.",   ("room", LIT), "",          0, 0, 0),
+        ("rock",  "a", "A grey rock.",   ("room", LIT), "",          0, 0, 0),
+        ("chest", "a", "A wooden chest.", ("room", LIT), "container", 5, 2, 0),
+    ]
+    surf.NAMES = [o[0] for o in surf.OBJECTS]
+    surf.OUT = {370: "p37OPENT.taf", 380: "p38OPENT.taf",
+                390: "p39OPENT.taf", 400: "p4OPENT.taf"}
+
+
 if __name__ == "__main__":
     args = sys.argv[1:] or ["all"]
-    if args[0] == "amb":
+    if args[0] == "pair":
+        pair()
+        args = args[1:] or ["all"]
+    elif args[0] == "amb":
         amb()
         args = args[1:] or ["all"]
     elif args[0] == "low":

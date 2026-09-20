@@ -6716,10 +6716,11 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
    *   examines (4359D5): "Which hat would you like to examine.  The red hat
    *     or the blue hat?" over the present namesakes, no state change.
    *
-   * The wear/remove/open/close loops are folded here as "act on all but
-   * the last directly, hand the last to the handler", so the handler's own
-   * wording answers for the last one exactly as the Runner's overwriting
-   * loop leaves it.
+   * The wear/remove loops are folded here as "act on all but the last
+   * directly, hand the last to the handler", so the handler's own wording
+   * answers for the last one exactly as the Runner's overwriting loop
+   * leaves it.  openclose's loop is the same fold, but 3.80 and 3.90 run it
+   * too, so it lives in the pre-4.0 block below.
    */
   /*
    * examines() asks its own question, and it is not openclose's or takes':
@@ -6765,8 +6766,6 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
     {
       const scr_bool is_wear = strcmp (verb, "wear") == 0;
       const scr_bool is_remove = strcmp (verb, "remove") == 0;
-      const scr_bool is_open = strcmp (verb, "open") == 0;
-      const scr_bool is_close = strcmp (verb, "close") == 0;
 
       if (strcmp (verb, "drop") == 0 || strcmp (verb, "take") == 0)
         {
@@ -6775,48 +6774,28 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
             *is_ambiguous = TRUE;
           return -1;
         }
-      if (is_wear || is_remove || is_open || is_close)
+      if (is_wear || is_remove)
         {
           scr_int first = -1, last = -1;
 
           for (index_ = 0; index_ < gs_object_count (game); index_++)
             {
-              scr_bool acts;
-
               if (!game->object_references[index_])
                 continue;
               if (first == -1)
                 first = index_;
-              if (is_wear || is_remove)
-                acts = resolver && resolver (game, index_, resolver_arg);
-              else
-                acts = gs_object_openness (game, index_)
-                       == (is_open ? OBJ_CLOSED : OBJ_OPEN);
-              if (!acts)
+              if (!(resolver && resolver (game, index_, resolver_arg)))
                 continue;
               if (last != -1)
                 {
                   if (is_wear)
                     gs_object_player_wear (game, last);
-                  else if (is_remove)
-                    gs_object_player_get (game, last);
                   else
-                    gs_set_object_openness (game, last,
-                                            is_open ? OBJ_OPEN : OBJ_CLOSED);
+                    gs_object_player_get (game, last);
                 }
               last = index_;
             }
-          /*
-           * Nothing to open or close leaves openclose() with an empty
-           * message at 3.70, so therest()'s can't-do tail answers instead,
-           * and that one takes the first name by word position; see
-           * lib_first_named_pre400().  wear/remove are not measured that
-           * way and keep the index.
-           */
-          if (last == -1 && (is_open || is_close))
-            object = lib_first_named_pre400 (game, first);
-          else
-            object = last != -1 ? last : first;
+          object = last != -1 ? last : first;
           for (index_ = 0; index_ < gs_object_count (game); index_++)
             game->object_references[index_] = (index_ == object);
           count = 1;
@@ -6824,24 +6803,34 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
     }
 
   /*
-   * 3.80 and 3.90 answer a crowded open/close line without asking anything
-   * either.  openclose() acts on the one object that CAN be opened (closed)
-   * whatever else the line names -- run370, run380 and run390 all answer
-   * `open rock gem chest` with "You open the chest." (p*OPENW,
-   * Adrift_230_ox370 / 231_ox380 / 232_ox390, 2026-09-20) -- and when none
-   * can, `open` takes its own refusal, which names the LOWEST object index
-   * on the line and ends in a bang, while `close`, which has no refusal of
-   * its own before 4.0, falls through to therest and its word-position
-   * name.  Whether a second openable object on the line is acted on as
-   * well, the way run370's loop acts on every namesake, is not measured:
-   * only one of these probes' objects opens.
+   * No pre-4.0 Runner asks about a crowded open/close line either.
+   * openclose() walks the referenced objects and acts on each OPENABLE one,
+   * the last by index overwriting the message -- run370, run380 and run390
+   * all answer `open rock gem chest` with "You open the chest." (p*OPENW,
+   * Adrift_230_ox370 / 231_ox380 / 232_ox390, 2026-09-20), and with two
+   * closed containers on the line all three answer `open box gem chest`
+   * with "You open the chest." and leave the box open as well (p*OPENT,
+   * Adrift_238_op370 / 239_op380 / 240_op390, 2026-09-20).  So 3.7's
+   * every-namesake loop is not 3.7's alone: 3.80 and 3.90 run the same one.
+   *
+   * The test is "openable at all", not "in the state the verb wants": with
+   * the box already open, `open box gem`, `open gem box`, `open gem chest`
+   * and `open chest box` are all "The <box|chest> is already open!" at
+   * 3.70, 3.80 and 3.90 -- the openable object still wins the line, and the
+   * handler's own already-open wording answers for it.
+   *
+   * With NONE openable the versions part company.  3.80 gave `open` a
+   * refusal of its own inside openclose(), which names the LOWEST object
+   * index on the line and ends in a bang; `close` never got one, and 3.70
+   * has neither, so those fall through to therest()'s can-do tail and its
+   * first name by WORD POSITION (lib_first_named_pre400()).
    */
-  if (count > 1 && taf_version >= TAF_VERSION_380
-      && taf_version < TAF_VERSION_400
+  if (count > 1 && taf_version < TAF_VERSION_400
       && (strcmp (verb, "open") == 0 || strcmp (verb, "close") == 0))
     {
       const scr_bool is_open = strcmp (verb, "open") == 0;
-      scr_int lowest = -1, acts = -1;
+      const scr_int wanted = is_open ? OBJ_CLOSED : OBJ_OPEN;
+      scr_int lowest = -1, last = -1;
 
       for (index_ = 0; index_ < gs_object_count (game); index_++)
         {
@@ -6849,14 +6838,17 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
             continue;
           if (lowest == -1)
             lowest = index_;
-          if (gs_object_openness (game, index_)
-              == (is_open ? OBJ_CLOSED : OBJ_OPEN))
-            acts = index_;
+          if (gs_object_openness (game, index_) == OBJ_WONTCLOSE)
+            continue;
+          if (last != -1 && gs_object_openness (game, last) == wanted)
+            gs_set_object_openness (game, last,
+                                    is_open ? OBJ_OPEN : OBJ_CLOSED);
+          last = index_;
         }
 
-      if (acts != -1)
-        object = acts;
-      else if (is_open)
+      if (last != -1)
+        object = last;
+      else if (is_open && taf_version >= TAF_VERSION_380)
         object = lowest;
       else
         object = lib_first_named_pre400 (game, lowest);

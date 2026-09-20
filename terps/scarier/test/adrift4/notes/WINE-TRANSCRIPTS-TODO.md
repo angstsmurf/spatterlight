@@ -349,19 +349,28 @@ not by a tick.
   but `open slab rock`, `open gem rock` and `close rock gem` -- none of
   them naming anything openable -- with the flat "You can't open/close
   that." (p*OPENW / p*OPENA, Adrift_233_ox400 / 235_oy400, 2026-09-20).
-  Scarier prints the flat refusal in all of them. p*OPENL (the same world
-  with the chest moved to index 0, `low` in the generator) separates the
-  two readings and kills the simple one: run400 answers the very same
-  `open rock gem chest` with "You can't open that." there
+  Scarier prints the flat refusal in all of them, and it matches run400 on
+  every OTHER line of all five probes. Two readings have been measured and
+  killed: p*OPENL (`low`, the same world with the chest at index 0)
+  answers the very same `open rock gem chest` with "You can't open that."
   (Adrift_237_oz400), so it is not "an openable object is among the
-  candidates". What fits every cell measured so far is **the LAST
-  candidate by index is the one the verb could act on**: chest last and
-  closed -> the question (p*OPENW, p*OPENA), chest first with the rock
-  last -> the flat refusal (p*OPENL), and `open slab rock`, `open gem
-  rock`, `close chest rock` and `close rock gem`, whose last candidate
-  acts in none of them, are flat everywhere. It wants a world with TWO
-  openable objects, one first and one last, to confirm. Scarier matches
-  run400 on every other line of all three probes, p*OPENL included.
+  candidates"; and p*OPENT (`pair`, box(0) and chest(3) both closed
+  containers, gem(1), rock(2)) answers `open gem chest` and `open chest
+  box` flat while asking about `open box gem chest` (Adrift_239_pa400,
+  Adrift_238_pb400), so it is not "the last candidate by index is the one
+  the verb could act on" either. The whole matrix so far, by the INDICES
+  of the objects the line names (word order makes no difference -- `open
+  chest gem box` and `open chest box gem` ask exactly as `open box gem
+  chest` does):
+
+      {0,1,3}    the question, term = the object at 3
+      {0,1,2}  {0,2,3}  {1,2,3}  {0,1,2,3}  {0,1}  {1,2}    flat
+
+  in all three worlds alike, whichever of them holds the openable object.
+  {0,1,3} asking and {0,2,3} not is not a rule about openability, name
+  length or word order at all; it looks like an artefact of how run400
+  builds the reference list, and wants the decompilation rather than
+  another probe. Nothing a walkthrough types reaches it.
 - **4.0 `take` over two namesakes.** With the rock aliased "gem",
   run400's `take gem` is "It is not clear which gem you are referring
   to."; Scarier asks "Which gem.  The gem or the rock?" (p4OPENA,
@@ -895,19 +904,29 @@ transcript names are in the code comment next to the named function, in
   chest, the gem held) is settle the line silently, each handler its own
   way -- see the three entries below. `[<4.0]` p*OPENW/p*OPENA
   (`lib_disambiguate_object_common`, 2026-09-20)
-- **Pre-4.0 open over several nouns.** openclose() acts on the one object
-  that CAN be opened whatever else the line names: `open rock gem chest` is
-  "You open the chest." at 3.70, 3.80 and 3.90 alike. With none openable,
+- **Pre-4.0 open over several nouns.** openclose() walks the objects the
+  line names and acts on every OPENABLE one, the last by index overwriting
+  the message: `open rock gem chest` is "You open the chest." at 3.70, 3.80
+  and 3.90 alike, and with two closed containers on the line (p*OPENT: a
+  box at index 0 and a chest at index 3) `open box gem chest` is "You open
+  the chest." with the box left open as well -- so 3.7's every-namesake
+  loop is not 3.7's alone, all three versions run it. The test is
+  "openable at all", not "in the state the verb wants": with the box
+  already open, `open box gem`, `open gem box`, `open gem chest` and `open
+  chest box` are all "The <box|chest> is already open!" at every pre-4.0
+  version, the openable object winning the line and the handler's own
+  already-open wording answering for it. With none openable,
   3.70 has no refusal of its own and the line falls to therest's can't-do
   tail, which names the first object by **word position** and ends in a
   full stop (`open rock gem` -> the rock, `open gem rock` -> the gem,
   `open slab rock` -> the slab); 3.80 gave openclose its own refusal, which
   names the lowest object **index** and ends in a bang, so the same three
   lines are "the gem!", "the gem!" and "the rock!". `[<4.0]`
-  p*OPENW (`lib_disambiguate_object_common`, `lib_first_named_pre400`,
-  `lib_cmd_open_object`, 2026-09-20)
-- **Pre-4.0 close over several nouns.** Same acting-object rule (`close
-  chest gem` closes the chest), but `close` got no refusal of its own
+  p*OPENW/p*OPENT (`lib_disambiguate_object_common`,
+  `lib_first_named_pre400`, `lib_cmd_open_object`, 2026-09-20)
+- **Pre-4.0 close over several nouns.** Same walk and the same openable
+  test (`close chest gem` closes the chest, `close box gem` the box), but
+  `close` got no refusal of its own
   before 4.0, so at 3.70, 3.80 AND 3.90 a line with nothing closable falls
   to therest: first name by word position, full stop, and the two-object
   split's " with <the instrument>" suffix kept -- `close rock gem` is "You
@@ -916,7 +935,7 @@ transcript names are in the code comment next to the named function, in
   slab`); 3.80/3.90's own open refusal drops it. A static instrument falls
   through to the suffix, which settles the "Don't be daft!" cell
   `lib_with_clause_390()` had only read off the listing: 3.9 has no such
-  line. `[<4.0]` p*OPENW (`lib_cant_do_suffix_pre400`, 2026-09-20)
+  line. `[<4.0]` p*OPENW/p*OPENT (`lib_cant_do_suffix_pre400`, 2026-09-20)
 - **Pre-4.0 read is examines()' object too.** A `read` line naming more
   than one object is settled exactly as `x` settles it: 3.90 by
   referencedob()'s last-word pass (`read rock gem` -> "You can't read the
