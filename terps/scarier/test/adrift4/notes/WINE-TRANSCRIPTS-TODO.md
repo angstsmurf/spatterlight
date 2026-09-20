@@ -328,27 +328,9 @@ not by a tick.
   the built-in rewrites at 3.80 (scprintf.cpp BUILTIN[]) and keeps one
   string, so it takes both lines. Porting this means carrying the snapshot
   and the per-turn flag through `run_pre400_substitute_references()`.
-- **3.7/3.8's object catch-all names the first object in LINE order, not in
-  INDEX order.** Measured, not ported (p37/p38TEXTSRC, Adrift_213_ts370.rtf,
-  Adrift_214_ts380.rtf, 2026-09-20). run380 442F5D walks the objects in
-  index order and keeps the first present co() match, aliases included, so
-  `zug rock stone` and `zug stone rock` are both "I don't understand what
-  you want me to do with the gem." -- the gem is index 0 and answers to
-  "stone". Scarier answers the rock for the first line and the gem for the
-  second: `lib_verb_object_catch_all_pre390()` does walk in index order, but
-  `game->object_references[]` is filled by a resolver that picks one
-  candidate off the line rather than testing every object with
-  `lib_co_pre400` mode 0, which is what the 3.9 walk above it does (3.90
-  already answers the gem for both).
-- **The four known markers are matched case-sensitively here and not
-  there.** Fallout from the variable lead, pre-existing and unmeasured: the
-  Runner lower-cases a reference marker before it looks it up (p39/p4VARREF
-  `wibb %NUM%` reaches a variable named `num`), while Scarier compares the
-  four known markers byte for byte -- `run_pattern_references()` tests
-  `token == "%character%"` and scparser.cpp's `UIP_TOKENS` lookup is a
-  plain `strncmp`. So X-Files task 30, `Molest *%Character%`, is a live
-  `%character%` command in run400 and an unknown-marker literal here. One
-  game, one task; needs a probe cell before anything is changed.
+- ~~**3.7/3.8's object catch-all names the first object in LINE order, not
+  in INDEX order.**~~ **Closed 2026-09-20** -- see "The 3.7/3.8 object
+  catch-all answers in index order, aliases included" in the index.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
@@ -1065,6 +1047,24 @@ transcript names are in the code comment next to the named function, in
   PASS before and after) -- it needs one line naming two objects, one of
   them by an alias, against one reference-bearing command. `[<4.00]`
   p37/p38/p39/p4TEXTSRC (`run_pre400_substitute_references`, 2026-09-20)
+- **The 3.7/3.8 object catch-all answers in index order, aliases
+  included.** run380 442F5D asks co() about EVERY object, so every object
+  whose Short or one of whose Aliases is in the line is a candidate and
+  index order alone decides which one speaks -- not the order the names
+  appear in. With a gem at index 0 aliased "stone" and a rock at index 1,
+  both `zug rock stone` and `zug stone rock` are "I don't understand what
+  you want me to do with the gem." at 3.70 and at 3.80, where Scarier
+  answered the rock for the first line: our references bind one candidate
+  off the line, which puts the answer in line order. 3.70 resolves the
+  alias here although its takes() test is a bare c(Short) -- `blip stone`
+  is the gem's catch-all in both older Runners -- so the scan reads the
+  Aliases at both versions, unlike `lib_co_pre400()`. 3.90's walk already
+  had this shape (run390 46024A, `lib_co_pre400` mode 0 per object) and
+  answers the gem for both lines; 4.00 resolves with the 463640 score and
+  answers neither. Zero corpus exposure, 428 PASS before and after -- it
+  needs an unhandled line naming two present objects, one of them by an
+  alias or by a later-indexed Short. `[<3.90]` p37/p38TEXTSRC
+  (`lib_catch_all_names_pre390`, 2026-09-20)
 - **The pre-4.0 ask block wants the name at column 5.** characters()' one
   position test, and the only one in the handler: 459882 skips the whole
   `c("ask") Or c("talk to")` conversation block unless `InStr(line,

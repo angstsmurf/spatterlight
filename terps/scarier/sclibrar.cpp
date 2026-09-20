@@ -28942,7 +28942,45 @@ lib_cmd_put_container_400 (scr_gameref_t game)
  *
  * Returns the present object the caller goes on to answer for, -2 once this
  * has printed its own answer, or -1 when there is nothing to say.
+ *
+ * The walk's membership is the Runner's, not our matcher's: run380 442F5D
+ * asks co() about EVERY object, so every object whose Short or one of whose
+ * Aliases is in the line is a candidate and index order alone decides which
+ * of them speaks.  Our references bind one candidate off the line, which
+ * puts the answer in line order instead: with a gem at index 0 aliased
+ * "stone" and a rock at index 1, run370 and run380 answer both `zug rock
+ * stone` and `zug stone rock` with "I don't understand what you want me to
+ * do with the gem." (p37/p38TEXTSRC, Adrift_213_ts370.rtf,
+ * Adrift_214_ts380.rtf, 2026-09-20), where we used to answer the rock for
+ * the first line.  3.70 resolves the alias here although its takes() test
+ * is a bare c(Short) -- `blip stone` against a game with no matching task
+ * is the gem's catch-all in both older Runners -- so the scan below reads
+ * the Aliases at both versions, unlike lib_co_pre400().
  */
+static scr_bool
+lib_catch_all_names_pre390 (scr_gameref_t game, scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *line = run_get_dispatch_input ();
+  scr_vartype_t vt_key[4];
+  scr_int alias_count, alias;
+
+  if (!line)
+    return FALSE;
+  if (lib_co_contains (line, prop_get_indexed_string (bundle, "Objects",
+                                                      object, "Short")))
+    return TRUE;
+
+  alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      vt_key[3].integer = alias;
+      if (lib_co_contains (line, prop_get_string (bundle, "S<-sisi", vt_key)))
+        return TRUE;
+    }
+  return FALSE;
+}
+
 static scr_int
 lib_verb_object_catch_all_pre390 (scr_gameref_t game)
 {
@@ -28955,7 +28993,8 @@ lib_verb_object_catch_all_pre390 (scr_gameref_t game)
   unseen = -1;
   for (object = 0; object < gs_object_count (game); object++)
     {
-      if (!game->object_references[object])
+      if (!game->object_references[object]
+          && !lib_catch_all_names_pre390 (game, object))
         continue;
 
       if (gs_object_seen (game, object))
@@ -29082,6 +29121,30 @@ lib_cmd_verb_object (scr_gameref_t game)
    * It hands back the present object the rest of this handler answers for,
    * or says its piece itself.
    */
+  /*
+   * 3.7 reaches the same walk only for its unseen arm (its therest() has
+   * already refused an absent object), but the object it speaks for is
+   * picked the same way: the first present one the line names, in index
+   * order.  p37TEXTSRC answers `zug rock stone` with the gem, index 0 and
+   * aliased "stone", not with the rock our references bound.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_370
+      && lib_co_400_forced () < 0)
+    {
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          if (lib_catch_all_names_pre390 (game, index_)
+              && (gs_object_seen (game, index_)
+                  || !lib_matcher_requires_seen (game))
+              && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+            {
+              count = 1;
+              object = index_;
+              break;
+            }
+        }
+    }
+
   if (prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_380
       && lib_co_400_forced () < 0)
     {
