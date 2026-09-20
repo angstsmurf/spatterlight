@@ -7067,43 +7067,38 @@ run_player_input (scr_gameref_t game)
    * simply spends the question: run400 answers `x tree rock` / `x rock` with
    * "A plain thing." and not with the refusal (Adrift_930).
    *
-   * The typed words go in front of the pending noun and the prompt's own
-   * candidates are re-scored; a unique winner re-runs the original command
-   * with that object forced, and anything else says "That is still
-   * ambiguous!".  Measured on p4CO.taf, Adrift_927 and Adrift_929 -- see
-   * lib_co_400_answer_object().
+   * Answering does not score the answer against the prompt's candidates at
+   * all: generaltasks splices the typed words into the stored command in
+   * front of its term and re-runs the whole line (48B097-48B15B for an
+   * object, 48B15E-48B197 when the command does not hold the term), which
+   * is how `chop tree` / `chop keys` ends in a SECOND full prompt naming
+   * the keys as well as the trees -- the rebuilt `chop chop keys tree`
+   * names them.  "That is still ambiguous!" is then the re-run's own raise
+   * meeting the list the last prompt left behind, not an answer this slot
+   * gives.  Measured on p4CO.taf, Adrift_927, Adrift_929 and Adrift_co11 --
+   * see lib_co_400_object_answer_line().
+   *
+   * 48B15B jumps to 489FEB, the top of the ELEMENT loop, which clears the
+   * element's reply and the question but NOT what the last prompt offered
+   * (48BB53's 4941F4, cleared only at the end of an element that flagged
+   * nothing).  lib_co_400_take_question() is that top: it drops the
+   * question the re-run must not answer a second time, and leaves that
+   * list standing so that the re-run's own raise can meet it.
    */
   if (lib_co_400_question_pending () && !scr_strempty (command)
       && (!status || lib_co_400_line_refused ()))
     {
-      const scr_int answer = lib_co_400_answer_object (game, command);
+      const std::string rerun (lib_co_400_pending_is_npc ()
+                               ? lib_co_400_npc_answer_line (command)
+                               : lib_co_400_object_answer_line (command));
 
       lib_co_400_take_question ();
       pf_empty (filter);
-      if (lib_co_400_pending_is_npc ())
-        {
-          /* A character question re-runs the line, answer words in front
-           * of its term; see lib_co_400_npc_answer_line(). */
-          const std::string rerun (lib_co_400_npc_answer_line (command));
 
-          status = run_all_commands (game, rerun.c_str ());
-          if (!status)
-            {
-              pf_empty (filter);
-              lib_co_400_print_still_ambiguous (game);
-              status = TRUE;
-            }
-        }
-      else if (answer >= 0)
+      status = run_all_commands (game, rerun.c_str ());
+      if (!status)
         {
-          const std::string original (lib_co_400_pending_command ());
-
-          lib_co_400_set_forced (answer);
-          status = run_all_commands (game, original.c_str ());
-          lib_co_400_set_forced (-1);
-        }
-      else
-        {
+          pf_empty (filter);
           lib_co_400_print_still_ambiguous (game);
           status = TRUE;
         }

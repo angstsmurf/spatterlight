@@ -1002,14 +1002,12 @@ extern void lib_co_400_reset (void);
 extern void lib_co_400_begin_line (scr_bool is_new_line);
 extern scr_bool lib_co_400_question_pending (void);
 extern void lib_co_400_take_question (void);
-extern const scr_char *lib_co_400_pending_command (void);
-extern scr_int lib_co_400_forced (void);
-extern void lib_co_400_set_forced (scr_int object);
 extern void lib_co_400_note_refusal (void);
 extern scr_bool lib_co_400_line_refused (void);
 extern void lib_co_400_print_still_ambiguous (scr_gameref_t game);
 extern scr_bool lib_co_400_pending_is_npc (void);
 extern std::string lib_co_400_npc_answer_line (const scr_char *line);
+extern std::string lib_co_400_object_answer_line (const scr_char *line);
 extern void lib_co_400_get_question (scr_bool *pending, std::string *term,
                                      std::string *command,
                                      std::vector<scr_int> *candidates);
@@ -1044,8 +1042,6 @@ extern void lib_with_prefix_390_begin_element (void);
 extern void lib_with_prefix_390_end_element (void);
 extern std::string lib_with_prefix_390_continuation (const scr_char *command,
                                                      scr_bool status);
-extern scr_int lib_co_400_answer_object (scr_gameref_t game,
-                                         const scr_char *line);
 extern void lib_prepass_seen_3738 (scr_gameref_t game,
                                    const scr_char *command);
 extern scr_bool lib_co_ambiguity_prompt (scr_gameref_t game,

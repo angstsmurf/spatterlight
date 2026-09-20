@@ -100,21 +100,44 @@ triggered, "That wasn't one of the options!":
                      `chop tree`, `zzz` -- beside those
                      that reply                           Adrift_co11
 
-What they show: generaltasks keeps the question (494234) and the term of
-the last prompt (4941F4) separately.  The question is taken at the top of
-a typed LINE (489FD4) and spent by its first element (48B5FC), so one
-raised by an earlier element of the SAME line is still standing at 48B6AE
-and answers "That wasn't one of the options!" without looking at the
-candidates; only with no question standing is the term compared with the
-last prompt's -- equal is "That is still ambiguous!", different is a full
-prompt -- and an element that flags no ambiguity forgets that term
-(48B61F).  An element that produced NO reply never gets that far: the
-answer slot claims it first (48AFF3), which is what separates `chop tree
-and chop tree` (still ambiguous) from `x tree and x tree` (wasn't one of
-the options).  PORTED 2026-09-20; co7-co11 are identical to run400 on
-every turn but one, `chop tree and chop keys`, where run400 REBUILDS the
-line from the answer instead of scoring the candidates -- see the open
-lead of that name in the notes.
+What they show: generaltasks keeps the question (494234) and what the last
+prompt offered (4941F4) separately.  The question is taken at the top of a
+typed LINE (489FD4) and spent by its first element (48B5FC), so one raised
+by an earlier element of the SAME line is still standing at 48B6AE and
+answers "That wasn't one of the options!" without looking at the
+candidates; only with no question standing is 4941F4 consulted -- the same
+offer again is "That is still ambiguous!", a different one is a full
+prompt -- and an element that flags no ambiguity forgets it (48B61F).  An
+element that produced NO reply never gets that far: the answer slot claims
+it first (48AFF3), which is what separates `chop tree and chop tree`
+(still ambiguous) from `x tree and x tree` (wasn't one of the options).
+PORTED 2026-09-20.
+
+Three more feeds (2026-09-20) settle what that answer slot DOES, and what
+4941F4 holds:
+
+    cmdfile_co12.txt which word the question names when the
+                     line holds several ambiguous ones      Adrift_co12
+    cmdfile_co13.txt the same with the hut/shed pair, whose
+                     Short and alias cross                  Adrift_co13
+    cmdfile_co14.txt the same term over two different
+                     candidate sets, both orders            Adrift_co14
+
+An answer is not scored against the candidates at all: 48AFF3 REBUILDS the
+typed line, splicing the answer in where the term stood (48B097-48B142) and
+re-running it from the element top (48B15B), which is why `chop tree` /
+`chop keys` ends in a second FULL prompt -- the rebuilt `chop chop keys
+tree` names the keys.  And 4941F4 is the candidate LIST, not the term: co()
+accumulates the candidates' names into 4941F0 as it walks them (464560),
+48BB53 copies that and 48B6FF compares the strings, so `x tree` then `x
+tree rock` -- one term, two objects then three -- asks the whole question
+again, while `x tree` twice is "That is still ambiguous!".  The term the
+question names is not always the tied Short either: an alias the tied
+objects SHARE, typed as a whole word of the line, replaces it (48B73C-
+48B78C reads Short(4941EC) and walks that object's aliases), so `chop keys
+tree` asks "Which keys." and `chop tree shed` asks "Which tree.".  All
+three PORTED 2026-09-20, and co3-co14 are now identical to run400 on every
+turn.
 
 Usage:
     python3 make_400_coprobe.py p4CO.plain

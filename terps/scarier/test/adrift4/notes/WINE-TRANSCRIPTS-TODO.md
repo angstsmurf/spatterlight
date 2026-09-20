@@ -270,24 +270,14 @@ not by a tick.
   because 463640 scores the whole Short and "stone" matches neither
   "red stone" nor "blue stone".
 - **Ambiguity prompts:** co()'s crowded arm (454454) and its -2/-1
-  answers; whether an object ambiguity on a task-answered line also
+  answers; which of them parks 4941EC, the object whose aliases the
+  prompt's term is drawn from -- p4CO's trees and keys park one, its
+  hut/shed pair does not, and the alias rule is ported off our own tie
+  instead (see "A 4.0 answer REBUILDS the typed line" in the index);
+  whether an object ambiguity on a task-answered line also
   suppresses the tick. (454454's Prefix contest itself is measured and
   ported -- see "The 4.0 Prefix contest" in the index, and "That wasn't
   one of the options!" for the 4.0 state machine.)
-- **A 4.0 answer REBUILDS the line rather than scoring the candidates.**
-  generaltasks splices the answer words into the stored command in front
-  of the term and re-runs the whole thing (48B097-48B15B), the way 3.90's
-  prompt does; Scarier instead scores the answer against the prompt's own
-  candidates and re-runs the original command with the winner forced
-  (`lib_co_400_answer_object`, `lib_co_400_forced`). The two agree
-  wherever the rebuilt line resolves to one object, and the one cell that
-  separates them is `chop tree and chop keys` on p4CO: run400 rebuilds
-  `chop chop keys tree`, which names the keys as well, and asks "Which
-  keys.  The red tree, the blue tree, the mustang key or the truck key?",
-  where Scarier finds nothing of "chop keys" among the two trees and says
-  "That is still ambiguous!" (Adrift_co11 turn 15, 2026-09-20). Porting it
-  means unpicking `lib_co_400_forced` from both resolvers and from the
-  three suppressors that consult it, so it is its own job.
 - **Output filter:** where the ALR pass sees trailing spaces; the NewParse
   `%` pattern binary path; the drop rebuild at 46F33B.
 - **Drop/take/wear setter branches** 46FB7D, 47C7F1 (and run390's wears at
@@ -1023,23 +1013,23 @@ transcript names are in the code comment next to the named function, in
   `lib_lock_backend`, 2026-09-20)
 - **"That wasn't one of the options!" is the 4.0 question meeting a SECOND
   element of the same typed line.** generaltasks keeps two things, not
-  one: the question (494234, "term|command") and the term of the last
-  prompt (4941F4). The question is taken at the top of a typed LINE
+  one: the question (494234, "term|command") and what the last prompt
+  offered (4941F4). The question is taken at the top of a typed LINE
   (489FD4) and spent by its first element (48B5FC) -- the queue drain and
   the answer re-runs jump back in below that capture, at 489FEB -- so a
   question raised by an EARLIER element of the line being run is still
   standing at 48B6AE, where the candidate list is not consulted at all:
   "That wasn't one of the options!", and the question is dropped
-  (48BB5D/48BB8E). Only then is the term compared with the last prompt's
-  (48B6F6, 48B80F for a character): equal is "That is still ambiguous!"
-  and clears both, different is a full prompt, and an element that flags
-  no ambiguity at all forgets the term (48B61F). So on p4CO `x tree and x
-  tree` is prompt + wasn't-one-of, `x tree and x tree and x tree` adds
+  (48BB5D/48BB8E). Only then is 4941F4 consulted (48B6F6, 48B80F for a
+  character): the same offer again is "That is still ambiguous!" and
+  clears both, a different one is a full prompt, and an element that flags
+  no ambiguity at all forgets it (48B61F). So on p4CO `x tree and x tree`
+  is prompt + wasn't-one-of, `x tree and x tree and x tree` adds
   still-ambiguous, `x tree and x rock and x tree` still says wasn't-one-of
   (the question survives an element that did something), `x tree` / `x
   tree` / `x tree` is prompt / still-ambiguous / prompt, and `x tree` / `x
   keys` gets a second full prompt -- which is what proves the arm is a
-  comparison of terms and not a flag. An element that says NOTHING never
+  comparison and not a flag. An element that says NOTHING never
   reaches any of this: the answer slot claims it first (48AFF3, gated on
   the reply MemVar_4941B0 being empty), which is why `chop tree and chop
   tree` -- the unhandled-verb tie, whose catch-all the ambiguity holds
@@ -1049,6 +1039,39 @@ transcript names are in the code comment next to the named function, in
   `cmdfile_co11.txt`, Adrift_co7..co11; `lib_co_400_begin_line`,
   `lib_co_400_raise_common`, `lib_co_400_take_question`,
   `lib_co_400_raise_for_short_tie`, 2026-09-20)
+- **A 4.0 answer REBUILDS the typed line, and what the prompt remembers
+  is the candidate LIST.** generaltasks never scores the answer against
+  the candidates. The answer slot at 48AFF3 fires when the element said
+  nothing (its reply 4941B0 is empty) and a question stands; 48B020 splits
+  "term|command", 48B07C asks whether the command holds the term, and
+  48B097-48B142 build `Left(command, at-1) & answer`, append `" " & term`
+  when the built line does not already hold the term as a word (48B0D8's
+  `c()`), then append the rest of the command past the term; 48B152 clears
+  the question, 48B158 parks 4941EC at -1, and 48B15B jumps to the element
+  top (489FEB) to run the rebuilt line. With no term in the command it is
+  just `command & " " & line` (48B15E). So `chop tree` answered `keys`
+  runs `chop chop keys tree` -- which names the keys too, and asks a
+  SECOND full question; the old "score the candidates" model answered
+  "That is still ambiguous!" there (Adrift_co11 turn 15). And 4941F4 is
+  the candidate list, not the term: co() accumulates the candidates' names
+  into 4941F0 as it walks them (the Which arm 464560), 48BB53 copies it
+  and 48B6FF compares the strings, so `x tree` then `x tree rock` -- one
+  term, two objects then three -- asks the whole question again, while `x
+  tree` twice is still-ambiguous (Adrift_co14). Scarier compares the
+  candidate objects, which differs only where two different sets would
+  render alike. Last, the term the question names need not be the tied
+  Short: an alias the tied objects SHARE, typed as a whole word of the
+  line, replaces it (48B73C-48B78C takes Short(4941EC) and walks that
+  object's aliases, 4941EC being parked by co() at 46486C), so `chop keys
+  tree`, `chop tree keys` and `chop shed keys tree` all ask "Which keys."
+  while `chop tree shed`, `chop tree hut` and `chop rock tree` ask "Which
+  tree." -- "shed" being the hut's alias but the shed's Short is not
+  shared, and `chop keys`, `chop rock keys`, `chop hut keys` are all
+  refusals. Why the hut/shed pair parks nothing at 4941EC where the trees
+  and keys do is NOT modelled; the aliases are read off our own tie
+  instead. `[4.0]` p4CO (`cmdfile_co12.txt` .. `cmdfile_co14.txt`,
+  Adrift_co12..co14; `lib_co_400_object_answer_line`,
+  `lib_co_400_scan_term_400`, `lib_co_400_raise_common`, 2026-09-20)
 - **Pre-4.0 read is examines()' object too.** A `read` line naming more
   than one object is settled exactly as `x` settles it: 3.90 by
   referencedob()'s last-word pass (`read rock gem` -> "You can't read the
