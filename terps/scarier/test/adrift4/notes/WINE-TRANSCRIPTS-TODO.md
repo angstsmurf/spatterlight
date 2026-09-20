@@ -295,15 +295,29 @@ not by a tick.
   still match in the Runner. 3.9's %object% substitution (44AAD6) is not
   emulated, so 3.9 commands with a reference skip the check. Group
   patterns (`[`, `{`) skip it at every version.
-- **"Please be more clear, who do you want to <verb>?"** is a SCARE
-  invention. Both forms are closed below 4.0 (see "Namesake characters"
-  and the pre-4.0 namesake handlers in the index). Still open: two present
-  namesakes with the **Battle System on** (dobattle, not characters()),
-  which keeps SCARE's question below 4.0, and 4.0 verbs where
-  `lib_npc_400_raise_for_line` declines.
-- **run390's battle "Who do you want to attack?" prefix** (44D1F4) is
-  the same MemVar_4681D0 and takes the plain 4601A5 rerun, but no battle
-  game has been driven through it.
+- **4.0's namesake question belongs to generaltasks, not to a verb.**
+  p4BATT (run400x Adrift_1208, 2026-09-20) answers "Which guard.  A guard
+  or a guard?" to `x guard`, `attack guard`, `attack guard dave`, `status
+  guard`, `talk to guard`, `where is guard`, `give stone to guard` and bare
+  `guard` alike -- the question replaces whatever the line printed, even a
+  real answer ("You don't have the stone!"). Scarier raises it only from
+  `lib_disambiguate_npc_pick()` and the battle tail, so `status guard`,
+  `where is guard` and `give stone to guard` still keep their own text (two
+  of them SCARE's "Please be more clear about ..." inventions). The general
+  shape is generaltasks 48B815/48BA87; the turn flag half is already
+  modelled in `run_player_input()`. Two wrinkles to settle with it: the
+  term is the OBJECT's when the line names one (`attack guard with stone`
+  and `give stone to guard` are "Which **stone**.  A guard or a guard?",
+  where `attack guard with club` is "Which guard."), and a task that
+  answered the line suppresses the question entirely.
+- **4.0 `status`' table literals.** run400 47DDB8 onwards writes the column
+  headings as `"Stamina:</c> <0>ileeerfeetts</0>"`, `"<c>Hit
+  strength:</c><0>ilmfeeee</0>"`, `iilmee fttts`, `iirmttt`, `eeemee
+  rfetts` -- the tag converter leaves the junk inside `<0>..</0>` in, so
+  the Runner really prints "Stamina: ileeerfeetts" (p4BATT turn 33). The
+  leading "Stamina: ileeerfeetts" line above the table and the one before
+  "You are wielding a sword." are the same literal. Scarier prints the
+  headings clean.
 - **Put:** the " is full." arm at 461E59 speaks only when something fits
   and the bag is still full, so it is effectively dead; it needs a size-0
   object.
@@ -1204,6 +1218,22 @@ transcript names are in the code comment next to the named function, in
   without get/remove never reaches insides(). 3.9 `take stone from cora`
   (absent) is "The stone isn't in or on anything!". `[<4.0]`
   p37/p38/p39NPCAMB (`lib_disambiguate_npc_pick`, 2026-09-19)
+- **Namesake characters with the Battle System ON: dobattle strikes them
+  all.** run390's dobattle (44CC1C-44D1D5) has no loop break either, so a
+  line naming two present characters by Name or first Alias strikes both
+  and there is no question of any kind at 3.9 -- SCARE's "Please be more
+  clear, who do you want to attack?" is an invention at every version. The
+  refusals inside the loop split: the blows and " can't attack <NPC> with
+  <obj>" APPEND (44CDE8), while " can't <verb> with <weapon>!" (44D079,
+  4.0 47EED3) ASSIGNS at both versions and " not carrying <weapon>!"
+  assigns at 3.9 (44D0E7) where 4.0 appends (47EF41) -- so `hit guard` with
+  a chopping sword and `attack guard with club` (on the floor) each answer
+  once. At 4.0 the same lines find no target at all (dobattle reads no
+  alias), print "Who do you want to attack?", and generaltasks' namesake
+  question then replaces it. Also drives run390's Who prefix (44D1F4):
+  `attack` / `ann` strikes Ann, and `look` spends it. `[3.9, 4.0]` p39BATT
+  Adrift_1207, p4BATT Adrift_1208 (`lib_battle_line_names_many`,
+  `lib_battle_400_namesake_tail`, 2026-09-20)
 - **3.7/3.8 characters() arms.** `talk`/`speak` anywhere in the line with a
   named character gives the ask hint for the last one named, no room test.
   A present character named in an examine line overwrites the answer (`x

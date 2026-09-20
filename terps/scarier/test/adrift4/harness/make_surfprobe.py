@@ -98,6 +98,8 @@ NAMES = [o[0] for o in OBJECTS]
 SITLIE = {}
 # Object names that are wearable (dynamic objects only).
 WEARABLE = set()
+# Object names dobattle will accept as a weapon (dynamic objects only).
+WEAPONS = set()
 # Tasks: (command, CompleteText) pairs, all repeatable, unrestricted, Where =
 # all rooms.  The first must stay `probe` -> "PROBE OK.".
 TASKS = [("probe", "PROBE OK.")]
@@ -105,6 +107,41 @@ TASKS = [("probe", "PROBE OK.")]
 # gender), topics a list of (subject, reply).  No walks.  3.7/3.8 store no
 # gender; 3.9 does.
 NPCS = []
+
+# ---------------------------------------------------------------- the battle
+# The Battle System is 3.90 and 4.00 only -- 3.7/3.8 carry no such flag and
+# no battle blocks at all, so BATTLE is refused for them.  Set it and the
+# GLOBAL grows a <BATTLE> block after MaxWt, every OBJECT an <OBJ_BATTLE>
+# and every NPC an <NPC_BATTLE>.  3.9 stores one value per attribute and
+# knows only Stamina, Strength and Defence; 4.0 stores each as a [lo, hi]
+# pair rolled at load (written here with lo = hi, so the roll is a constant)
+# and adds the Accuracy and Agility pairs, a Recovery and a StaminaTask.
+BATTLE = 0
+# The player's attributes.
+BATTLE_PLAYER = dict(stamina=9999, strength=1, defence=0, accuracy=1,
+                     agility=1, recovery=0)
+# Per NPC name; anything left out takes BATTLE_NPC.  Attitude 0 is neutral
+# (it never strikes back), 1 ally, 2 enemy.
+BATTLE_NPC = dict(attitude=0, stamina=9999, strength=1, defence=0,
+                  accuracy=1, agility=1, speed=1, killed_task=0, recovery=0,
+                  stamina_task=0)
+BATTLE_NPCS = {}
+# Per object name; anything left out takes BATTLE_OBJECT.  `hit` is the
+# weapon's hit value and `protection` a worn object's armour.
+BATTLE_OBJECT = dict(protection=0, hit=0, method=0, accuracy=0)
+BATTLE_OBJECTS = {}
+
+
+def battle_npc(name):
+    merged = dict(BATTLE_NPC)
+    merged.update(BATTLE_NPCS.get(name, {}))
+    return merged
+
+
+def battle_object(name):
+    merged = dict(BATTLE_OBJECT)
+    merged.update(BATTLE_OBJECTS.get(name, {}))
+    return merged
 
 
 def type_index(name, kinds):
@@ -137,6 +174,8 @@ def position_parent(where, version):
 
 
 def build(version):
+    if BATTLE and version < 390:
+        raise SystemExit("the Battle System does not exist before 3.90")
     L = []
 
     def s(x):
@@ -168,12 +207,21 @@ def build(version):
     s(0)                              # WaitTurns
     if version >= 390:
         s(1)                          # DispFirstRoom
-        s(0)                          # BattleSystem
+        s(1 if BATTLE else 0)         # BattleSystem
         s(0)                          # MaxScore
         s("Player"); s(0); s("A test subject.")
         s(0)                          # Task (0 -> no AltDesc)
         s(0); s(0); s(0)              # Position ParentObject PlayerGender
         s(102); s(102)                # MaxSize MaxWt
+        if BATTLE:
+            p = BATTLE_PLAYER
+            if version >= 400:
+                for lo in ("stamina", "strength", "accuracy", "defence",
+                           "agility"):
+                    s(p[lo]); s(p[lo])    # each attribute is a [lo, hi] pair
+                s(p["recovery"])
+            else:
+                s(p["stamina"]); s(p["strength"]); s(p["defence"])
         s(0)                          # EightPointCompass
         s(0); s(0); s(0)              # NoDebug NoScoreNotify NoMap
         s(0); s(0); s(0)              # NoAutoComplete NoControlPanel NoMouse
@@ -246,11 +294,19 @@ def build(version):
             s(0)                      # Edible
         s(0)                          # Readable
         if not static:
-            s(0)                      # Weapon
+            s(1 if name in WEAPONS else 0)    # Weapon
         if version >= 400:
             s(0)                      # CurrentState
             s(0)                      # ListFlag
+            if BATTLE:
+                b = battle_object(name)
+                s(b["protection"]); s(b["hit"]); s(b["method"])
+                s(b["accuracy"])
             s(""); s(0)               # InRoomDesc OnlyWhenNotMoved
+        elif BATTLE:
+            # 3.9 reads OBJ_BATTLE straight after Weapon: no Accuracy.
+            b = battle_object(name)
+            s(b["protection"]); s(b["hit"]); s(b["method"])
 
     # ----------------------------------------------------------------- TASKS
     s(len(TASKS))
@@ -328,6 +384,18 @@ def build(version):
         s(inroom)                     # InRoomText
         if version >= 390:
             s(gender)                 # Gender (0 male, 1 female)
+        if BATTLE:
+            b = battle_npc(name)
+            s(b["attitude"])
+            if version >= 400:
+                for lo in ("stamina", "strength", "accuracy", "defence",
+                           "agility"):
+                    s(b[lo]); s(b[lo])
+                s(b["speed"]); s(b["killed_task"])
+                s(b["recovery"]); s(b["stamina_task"])
+            else:
+                s(b["stamina"]); s(b["strength"]); s(b["defence"])
+                s(b["speed"]); s(b["killed_task"])
     s(0)                              # RoomGroups
     if version == 370:
         for w in ("north", "east", "south", "west", "up", "down", "in", "out",

@@ -21174,6 +21174,14 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
   if (method >= 0 && weapon >= 0
       && battle_weapon_method (game, weapon) != method)
     {
+      /*
+       * dobattle ASSIGNS this one (run390 44D079, run400 47EED3), where the
+       * blows and the "can't attack X with Y" refusal append, so several
+       * targets leave a single copy and it wipes whatever the line printed
+       * before it: `hit guard` with the chopping sword and two guards in the
+       * room is one "You can't hit with the sword!" (run390x Adrift_1207).
+       */
+      pf_empty (filter);
       pf_buffer_string (filter, "You can't ");
       pf_buffer_string (filter, verb);
       lib_print_wrapped_object (game, " with ", weapon, "!\n");
@@ -21523,6 +21531,7 @@ lib_battle_unnamed_target (scr_gameref_t game, scr_int npc)
 
 static scr_bool lib_battle_attack_many (scr_gameref_t game,
                                         scr_bool with_object);
+static scr_bool lib_battle_line_names_many (scr_gameref_t game);
 static void lib_battle_weapon_question (scr_gameref_t game, scr_int npc);
 
 /*
@@ -21562,9 +21571,11 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
   if (!battle_is_enabled (game) && !legacy)
     return FALSE;
 
-  /* 4.0 strikes namesakes before it asks; see lib_battle_attack_many(). */
-  if (lib_is_version_400 (game) && battle_is_enabled (game)
-      && lib_npc_400_find_namesakes (game, NULL, NULL)
+  /* A line naming several characters is dobattle's; lib_battle_attack_many(). */
+  if (battle_is_enabled (game)
+      && (lib_is_version_400 (game)
+          ? lib_npc_400_find_namesakes (game, NULL, NULL)
+          : lib_battle_line_names_many (game))
       && lib_battle_attack_many (game, FALSE))
     return TRUE;
 
@@ -21642,9 +21653,11 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
   if (!battle_is_enabled (game) && !legacy)
     return FALSE;
 
-  /* 4.0 strikes namesakes before it asks; see lib_battle_attack_many(). */
-  if (lib_is_version_400 (game) && battle_is_enabled (game)
-      && lib_npc_400_find_namesakes (game, NULL, NULL)
+  /* A line naming several characters is dobattle's; lib_battle_attack_many(). */
+  if (battle_is_enabled (game)
+      && (lib_is_version_400 (game)
+          ? lib_npc_400_find_namesakes (game, NULL, NULL)
+          : lib_battle_line_names_many (game))
       && lib_battle_attack_many (game, TRUE))
     return TRUE;
 
@@ -21842,6 +21855,41 @@ lib_battle_named_targets (scr_gameref_t game, const scr_char *input,
         targets.push_back (npc);
     }
   return targets;
+}
+
+/*
+ * lib_battle_line_names_many()
+ *
+ * TRUE when the line names two or more present characters by dobattle's own
+ * test -- pre-4.0's stand-in for lib_npc_400_find_namesakes().  run390's
+ * dobattle (44CC1C-44D1D5) has no break either, so `attack guard` with two
+ * guards in the room strikes both, and there is no namesake question at 3.9
+ * to take their place: SCARE's "Please be more clear, who do you want to
+ * attack?" is an invention at every version.  Measured 2026-09-20 on
+ * p39BATT (make_battlenpcprobe.py; Ann and Bob both "a guard"), run390x
+ * Adrift_1207: `attack/kill/kick guard` are two chops, `hit guard` (the
+ * sword chops, so the method is wrong) one refusal, `attack guard with
+ * stone` two "can't attack" refusals and `attack guard with club` one "not
+ * carrying".  The one-target lines keep the %character% rows' own path.
+ */
+static scr_bool
+lib_battle_line_names_many (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int verb_index;
+
+  if (!input)
+    return FALSE;
+
+  for (verb_index = 0; LIB_BATTLE_VERBS[verb_index].verb; verb_index++)
+    {
+      if (lib_input_contains_word (input, LIB_BATTLE_VERBS[verb_index].verb))
+        break;
+    }
+  if (!LIB_BATTLE_VERBS[verb_index].verb)
+    return FALSE;
+
+  return lib_battle_named_targets (game, input, verb_index).size () > 1;
 }
 
 /* TRUE if the line names, by dobattle's test, an NPC not in the room. */
@@ -22196,6 +22244,37 @@ lib_battle_scan_with (scr_gameref_t game, scr_int npc, const scr_char *input,
   return weapon;
 }
 
+/*
+ * lib_battle_400_namesake_tail()
+ *
+ * 4.0 asks about namesakes only AFTER dobattle has run, and the question
+ * replaces everything the line printed; the blows themselves stand.
+ * Measured 2026-09-13 on p4BATTLEMULTI: `attack guard` against the two
+ * stamina-500 Guards prints only "Which Guard.  A guard or a guard?" yet
+ * draws for two blows (Adrift_1132), and against a stamina-1 copy
+ * (p4BATTLEMULTI3) it prints both blows and both deaths with no question at
+ * all, the Guards being gone by the time generaltasks looks for them
+ * (Adrift_1137).  `attack droid guard with blaster` then `look` leaves the
+ * room empty (Adrift_1138).  Whether the question still makes the line a
+ * turn is not measured; it is left admin, as the object question is.
+ *
+ * It replaces the Who question too, which is how a line naming namesakes by
+ * an ALIAS reads at 4.0: dobattle names its targets by Name alone (47EB46),
+ * so `attack guard` against Ann and Bob, both aliased "guard", finds none
+ * and asks Who -- and generaltasks then wipes it (p4BATT, run400x
+ * Adrift_1208, 2026-09-20).
+ */
+static void
+lib_battle_400_namesake_tail (scr_gameref_t game)
+{
+  if (lib_is_version_400 (game)
+      && lib_npc_400_find_namesakes (game, NULL, NULL))
+    {
+      pf_empty (gs_get_filter (game));
+      lib_npc_400_raise_for_line (game);
+    }
+}
+
 static scr_bool
 lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
 {
@@ -22238,6 +22317,7 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
         return FALSE;
       lib_battle_who_raise (game, input, LIB_BATTLE_VERBS[verb_index].verb);
       pf_buffer_string (filter, "Who do you want to attack?\n");
+      lib_battle_400_namesake_tail (game);
       return TRUE;
     }
 
@@ -22286,6 +22366,10 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
             continue;
           if (gs_object_position (game, weapon) != OBJ_HELD_PLAYER)
             {
+              /* 4.0 appends this one (47EF41); 3.9 assigns it (44D0E7), so
+               * two targets leave one "You are not carrying the club!". */
+              if (!lib_is_version_400 (game))
+                pf_empty (filter);
               lib_print_response_object (game,
                                          "You are not carrying ",
                                          "I am not carrying ",
@@ -22320,24 +22404,7 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
   if (!struck && !refused)
     game->is_admin = TRUE;
 
-  /*
-   * 4.0 asks about namesakes only AFTER the blows, and the question replaces
-   * everything the line printed; the blows themselves stand.  Measured
-   * 2026-09-13 on p4BATTLEMULTI: `attack guard` against the two stamina-500
-   * Guards prints only "Which Guard.  A guard or a guard?" yet draws for two
-   * blows (Adrift_1132), and against a stamina-1 copy (p4BATTLEMULTI3) it
-   * prints both blows and both deaths with no question at all, the Guards
-   * being gone by the time generaltasks looks for them (Adrift_1137).
-   * `attack droid guard with blaster` then `look` leaves the room empty
-   * (Adrift_1138).  Whether the question still makes the line a turn is not
-   * measured; it is left admin, as the object question is.
-   */
-  if (lib_is_version_400 (game)
-      && lib_npc_400_find_namesakes (game, NULL, NULL))
-    {
-      pf_empty (filter);
-      lib_npc_400_raise_for_line (game);
-    }
+  lib_battle_400_namesake_tail (game);
   return TRUE;
 }
 
