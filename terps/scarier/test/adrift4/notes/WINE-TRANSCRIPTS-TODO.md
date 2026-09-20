@@ -295,8 +295,6 @@ the_hangover T34) went identical with that port on 2026-09-20.
   about this; the 428 rows stay green either way. Port order should be 4.00
   first (one rule, twenty-nine cells) and 3.90 last (the eat/put cells need
   the run390 cascade read before anything is written).
-- **Output filter:** where the ALR pass sees trailing spaces; the NewParse
-  `%` pattern binary path; the drop rebuild at 46F33B.
 - **A 3.9 drop or take matches its noun ANYWHERE in the line.** Falling out
   of the p39WHAT probe below: run390's drops (445F20) and takes (455B34)
   pick their object with co(obj, 2) / co(obj, 1), which matches a name
@@ -1682,6 +1680,36 @@ transcript names are in the code comment next to the named function, in
   the command and not on the Name. 428 PASS, no golden moved.
   `[all versions]` p37/p38/p39/p4CASEREF (`run_lower_command_markers`,
   2026-09-20)
+- **A 4.0 GROUP is the Runner's only case-SENSITIVE command test, and
+  nothing can feed it a capital.** Of the three tests at 45D9FC, equality
+  (45DA51) LCase()s both sides and the `*` matcher (457D68) lowers the
+  pattern alone (457B17), which is invisible because the typed line was
+  lowered at read (45C5DC); NewParse (45D940) folds neither side. Its two
+  compares are `EqStr` at 0005D7FA and `EqVar` at 0005D835 in
+  run400.p32dasm.txt, and a census of that whole dump finds 551 `EqStr`,
+  178 `NeStr` and no text-compare opcode at all, so every module in the exe
+  is Option Compare Binary. Two things could hand it a capital, and neither
+  does. (1) The author: p4GRPCASE's `zog [Rock/Gem]` runs on `zog rock` and
+  on `zog gem`, and `nurb {The} rock` on `nurb the rock`, so the load-time
+  fold of the task command reaches inside a group -- the first DIRECT
+  measurement of that fold, which p*CASEREF above could only infer from its
+  markers. (2) A substitution: the %object% matcher 458E6C splices the
+  Short or Alias RAW and routes a group pattern to 45D940 (458D11/458E29),
+  so `frob [%object%/zzz]` runs on `frob rock` and is refused on `frob gem`
+  where the Short is authored `Gem` -- exactly as the group-free `wibb
+  %object%` is refused, the p4BURN rule reaching the group path unchanged
+  -- while the %character% twin 4696A4 lowers the Name (4691B4) and every
+  Alias (469207) before splicing and routes groups the same way
+  (468FBB/46912D/4692E8/469542), so `blip [%character%/zzz]` runs on `blip
+  fay` with the Name authored `Fay`. Thirteen cells, and Scarier already
+  answers every one of them the way run400 does. This closes the last arm
+  of the old "output filter" lead; its other two are closed too -- the ALR
+  pass's trailing spaces are the Runner's pspace() paragraph ends, modelled
+  in `pf_replace_alrs()` since 2026-09-13, and the drop rebuild at 46F33B
+  sits inside drops 46FB8C, which the call census found to be dead code
+  (see "The 4.0 drop/take setter branches are DEAD CODE"). `[4.0]`
+  p4GRPCASE (`make_grpcaseprobe.py`, `cmdfile_pgrpcase.txt`,
+  `Adrift_grpcase400.txt`, run400x) (no code change, 2026-09-20)
 - **A pre-4.0 task command's %object% walk takes an object's Short and its
   Aliases together.** 3.90's walk is ONE loop over the object array, not
   two: `For var_138 ... Next var_138` with the Next at 44ABE5, testing the
