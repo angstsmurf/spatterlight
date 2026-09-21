@@ -40,7 +40,7 @@ does its own work:
 A length-1 self-restarting event prints TICK. on every counted turn, so an
 administrative line can be told from a turn.
 
-The eighteen feeds driven, all run400, all 2026-09-20
+The feeds driven, all run400, 2026-09-20 unless dated
 (~/adrift-battle/runner/wine/cmdfile_wtie*.txt ->
 pfx/drive_c/adrift/Adrift_wtie*.txt):
 
@@ -90,10 +90,20 @@ pfx/drive_c/adrift/Adrift_wtie*.txt):
     wtie20  (p4WTIE2) openclose's loop asks for examine, wear and a bare
             noun: `x rope with stone` asks, `x ruby with stone` describes,
             `zzz with stone` is DontUnderstand, `take flint with stone` takes
+    it1     (2026-09-21, p4WTIE) the antecedent: every cell followed by
+            `x it`, then `x knife` to reset it -- single nouns, Prefix
+            words, open/cut/push/zzz, the crowd arms of co()
+    it2     (p4WTIE) the same for " with " lines: `cut rope with gems`
+            answers NO IDEA and leaves "(emerald)" (openclose's loop runs
+            above therest), `open box with stone` leaves it alone (the open
+            arm exits first), `cut red stone with stone` "(a red stone)"
+    it3     (p4WTIE3, --desc) it1 and it2 again with a description per
+            object, so the `x it` line says which object it described
 
 Usage:
     python3 make_400_withtieprobe.py p4WTIE.plain
     python3 make_400_withtieprobe.py --alias p4WTIE2.plain  # own stone aliases
+    python3 make_400_withtieprobe.py --desc p4WTIE3.plain   # own descriptions
     python3 taftool.py pack p4WTIE.plain p4TAKE.taf p4WTIE.taf
 Drive it with, from ~/adrift-battle/runner/wine:
     TRANSCRIPT=Adrift_wtie.txt sh fast.sh p4WTIE.taf cmdfile_wtie.txt run400
@@ -148,6 +158,10 @@ s(2)
 room("Alpha", "The first room.", {0: 2})
 room("Beta", "The second room.", {2: 1})
 
+# `--desc` gives every object a description of its own (p4WTIE3,
+# 2026-09-21), so a line that describes something says which.
+DESC = "--desc" in sys.argv
+
 # OBJECTS -- the p4LOCK writer, plus aliases.
 def obj(short, static=False, prefix="a", position=4, room=1, aliases=(),
         container=0, openable=0, key=-1, capacity=22):
@@ -156,7 +170,7 @@ def obj(short, static=False, prefix="a", position=4, room=1, aliases=(),
     for a in aliases:
         s(a)
     s(1 if static else 0)
-    s("A plain thing.")
+    s(("Desc: %s %s." % (prefix, short)) if DESC else "A plain thing.")
     if static:
         s(0)
     else:
@@ -239,7 +253,7 @@ s(0)                     # CustomFont
 s("2026")                # CompileDate
 
 body = ("\r\n".join(L) + "\r\n").encode("latin-1")
-args = [a for a in sys.argv[1:] if a != "--alias"]
+args = [a for a in sys.argv[1:] if a not in ("--alias", "--desc")]
 out = args[0] if args else "p4WTIE.plain"
 open(out, "wb").write(body)
 print("wrote %s (%d bytes, %d lines)" % (out, len(body), len(L)))

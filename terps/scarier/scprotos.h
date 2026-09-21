@@ -593,6 +593,21 @@ extern void uip_assign_pronouns (scr_gameref_t game, const scr_char *string);
 extern void uip_get_pronoun_flags (scr_bool *used, scr_bool *pending_definite);
 extern void uip_set_pronoun_flags (scr_bool used, scr_bool pending_definite);
 extern void uip_note_definite_reference (void);
+
+/*
+ * The three forms a 4.0 object antecedent is held in (scr_game_t it_form):
+ * Prefix & " " & Short as authored, the tense()'d "the X", and the bare Short
+ * co()'s park arm stores (run400 464788).  Below 4.0 only the first two occur.
+ */
+enum { UIP_IT_INDEFINITE = 0, UIP_IT_DEFINITE = 1, UIP_IT_BARE = 2 };
+
+/* Stages of a 4.0 line's antecedent writes; see uip_note_antecedent_400(). */
+enum { UIP_STAGE_SCORER = 0, UIP_STAGE_CO = 1, UIP_STAGE_HANDLER = 2 };
+extern void uip_begin_antecedent_400 (void);
+extern void uip_note_antecedent_400 (scr_int object, scr_int form,
+                                     scr_int stage);
+extern scr_bool uip_pronoun_was_used (void);
+extern void uip_commit_antecedent_400 (scr_gameref_t game);
 extern scr_char *uip_rewrite_references (scr_gameref_t game,
                                          const scr_char *string,
                                          scr_int prior_npc,
@@ -1031,6 +1046,10 @@ extern void lib_verb_object_note_line_top (scr_gameref_t game);
 extern void lib_co_note_line_top (scr_gameref_t game);
 extern void lib_co_400_reset (void);
 extern void lib_co_400_begin_line (scr_bool is_new_line);
+extern void lib_antecedent_begin_line_400 (scr_gameref_t game,
+                                           const scr_char *line);
+extern void lib_openclose_with_antecedent_400 (scr_gameref_t game,
+                                               const scr_char *line);
 extern scr_bool lib_co_400_question_pending (void);
 extern void lib_co_400_take_question (void);
 extern scr_bool lib_co_400_named_question_raised (void);

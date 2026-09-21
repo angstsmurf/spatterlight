@@ -382,7 +382,7 @@ typedef struct scr_game_s
   std::vector<scr_bool> multiple_references;
   std::vector<scr_bool> npc_references;
   scr_int it_object;
-  scr_bool it_definite;
+  scr_int it_form;          /* UIP_IT_INDEFINITE, _DEFINITE or _BARE */
   scr_int him_npc;
   scr_int her_npc;
   scr_int it_npc;

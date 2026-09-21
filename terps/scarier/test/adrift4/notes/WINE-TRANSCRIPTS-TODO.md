@@ -264,9 +264,13 @@ artefact; no corpus row differs by an engine rule.
   examine question is co()'s walk" in the index), and so is the tick on a
   task-answered tied line ("A task that runs clears the 4.0 pending
   question") and the " with " line's question ("A 4.0 \" with \" line asks
-  openclose's question"). Still open:
-  - co()'s -2 arm (454454 names the object itself, 448C24's "(the X)"
-    line) is modelled for its 4941EC write only.
+  openclose's question"), and the antecedent every arm hands 448C24 ("The
+  4.0 \"it\" is whatever 448C24 was handed LAST"). Still open, both from
+  p4WTIE's it1/it3 feeds:
+  - `wear stone` with two stones on the floor: run400 asks "Which stone.
+    The red stone or the blue stone?", Scarier says "Wear what?" and ticks.
+  - `eat red stone`, the stone not held and not edible: run400 "You can't
+    eat the red stone.", Scarier "You are not holding the red stone."
 
 ---
 
@@ -2014,6 +2018,45 @@ transcript names are in the code comment next to the named function, in
   runner_transcripts verdict moved. `[4.0]` p4WTIE2
   (`make_400_withtieprobe.py --alias`, `cmdfile_wtie19.txt`,
   `cmdfile_wtie20.txt`, Adrift_wtie19/20, 2026-09-21)
+- **The 4.0 "it" is whatever 448C24 was handed LAST on the line, by
+  stage: the line-start scorer, then co()'s crowd arms, then the
+  handlers.** The setter (flag, short, articled) stores nothing on a line
+  holding the whole word "it" (flag 0, c("it") on Me(640)) or a name with
+  "<" or "#", and nothing else gates it: a question line, a NO IDEA line
+  and a turn all leave what it was handed. Its writers, in the order a line
+  meets them: generaltasks at line start (48A3F5-48A42E), `463640(line, 0,
+  0)` and, when that scores one object, name(obj, 0) "the X" -- `cut red
+  stone`, `push red stone`, `zzz red stone`, `open red stone`, `zzz stone
+  red` all "(the red stone)", `cut rope` "(the rope)"; a tie or nothing
+  leaves it (`cut stone`, `cut gems`, `take stone` keep "(a knife)").
+  co()'s -2 arm (46460F, the Prefix contest 454454 names the object
+  itself) hands Prefix & " " & Short: `cut red stone with stone` "(a red
+  stone)"; its park arm (464788) the bare Short: `cut rope with stone`,
+  `push rope with stone`, `x blue stone red stone` "(stone)"; the store at
+  464848 is dead (var_8A > 1 there, but mode 3 returned at 4643B2).
+  openclose's with-loop (475C63) runs those arms for every line that
+  reaches it, above therest's DontUnderstand: `cut rope with gems` and `cut
+  gems with stone` answer NO IDEA. and leave "(emerald)"; but its open and
+  close arms Exit Sub first when the whole line scores nothing (4756BC,
+  4759E6), so `open box with stone` asks and leaves "(a knife)". examines
+  (471749-471789) hands mode 1 of referencedob's pick when it is present,
+  even where a question then replaces the description: `x stone` "(a blue
+  stone)" (pass B counts a -2 winner as a hit, pass C keeps the last),
+  `x red stone`, `x stone red`, `x rope red stone` "(a red stone)", `x
+  gems` "(an emerald)". Scarier had one heuristic per verb and an echo that
+  could only be definite or indefinite. PORTED 2026-09-21:
+  `uip_note_antecedent_400` / `uip_commit_antecedent_400` (scparser.cpp,
+  stage ordered, the BARE form new in `it_form`, autosave-compatible),
+  `lib_antecedent_begin_line_400` (the line-start scorer),
+  `lib_co_400_walk_step` (both crowd arms),
+  `lib_openclose_with_antecedent_400` (the loop, on NO IDEA lines too),
+  `lib_examine_referencedob_ex_400` (pass B's -2 hit) and
+  `lib_cmd_examine_object`. Every p4WTIE/p4WTIE2/p4CO/p4CO2 feed is
+  identical, 428/428 goldens, no runner_transcripts verdict moved; it2 is
+  identical, it1/it3 differ only by the two open leads below (`wear stone`,
+  `eat red stone`). `[4.0]` p4WTIE (`cmdfile_it1.txt`, `cmdfile_it2.txt`)
+  and p4WTIE3 (`make_400_withtieprobe.py --desc`, `cmdfile_it3.txt`),
+  Adrift_it1/2/3, 2026-09-21
 - **A 4.0 turn SCARE does not count: a take's "Which" prompt is unanswerable
   and TICKS when the " with " half names an object.** `take stone with
   knife` prints "Which stone.  The red stone or the blue stone?" exactly as

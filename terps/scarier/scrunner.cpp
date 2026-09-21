@@ -8270,6 +8270,13 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * claimed above openclose never gets there.  See
    * lib_openclose_with_half_raise_400().
    */
+  /*
+   * openclose's loop runs on a line nobody answers, too: therest's
+   * DontUnderstand comes after it (`cut rope with gems` leaves "emerald").
+   */
+  if (reached_library && game->is_running
+      && !run_any_task_ran_this_command ())
+    lib_openclose_with_antecedent_400 (game, string);
   if (status && reached_library && game->is_running
       && !run_any_task_ran_this_command ()
       && lib_openclose_with_half_raise_400 (game, string))
@@ -8695,6 +8702,7 @@ run_player_input (scr_gameref_t game)
    * sclibrar.cpp.
    */
   lib_co_400_begin_line (is_new_line);
+  lib_antecedent_begin_line_400 (game, command);
   lib_battle_who_begin_element (is_new_line);
   lib_with_prefix_390_begin_element ();
 
@@ -8927,6 +8935,18 @@ run_player_input (scr_gameref_t game)
        * the room (Adrift_1191), run380 `zzz then look` with "I don't
        * understand." and the room (Adven_5.rtf).
        */
+
+      /*
+       * 4.0: and what the setter was handed on the way down still stands --
+       * openclose's loop runs above therest's DontUnderstand, so `cut rope
+       * with gems` answers NO IDEA and leaves "it" at the emerald (p4WTIE,
+       * Adrift_it2).  See uip_note_antecedent_400() in scparser.cpp.
+       */
+      if (run_get_version (bundle) >= TAF_VERSION_400)
+        {
+          uip_commit_antecedent_400 (game);
+          uip_set_pronoun_flags (FALSE, FALSE);
+        }
       return status;
     }
   else
@@ -8952,6 +8972,17 @@ run_player_input (scr_gameref_t game)
           game->undo_available = TRUE;
 
           uip_assign_pronouns (game, command);
+        }
+      else if (run_get_version (bundle) >= TAF_VERSION_400
+               && !game->do_restart && !game->do_restore)
+        {
+          /*
+           * A 4.0 line that was not a turn -- a question, "see no such
+           * thing" -- still leaves what the setter was handed; see
+           * uip_note_antecedent_400() in scparser.cpp.
+           */
+          uip_commit_antecedent_400 (game);
+          uip_set_pronoun_flags (FALSE, FALSE);
         }
     }
 
@@ -9122,7 +9153,7 @@ run_session_split (const std::string &text, size_t count,
 static std::string
 run_session_pronouns (scr_gameref_t game)
 {
-  return run_session_join ({game->it_object, game->it_definite,
+  return run_session_join ({game->it_object, game->it_form,
                             game->him_npc, game->her_npc, game->it_npc,
                             game->last_npc});
 }
@@ -9145,7 +9176,8 @@ run_session_set_pronouns (scr_gameref_t game, scr_gameref_t target,
     }
 
   target->it_object = values[0];
-  target->it_definite = values[1] != 0;
+  target->it_form = values[1] >= UIP_IT_INDEFINITE && values[1] <= UIP_IT_BARE
+                    ? values[1] : UIP_IT_INDEFINITE;
   target->him_npc = values[2];
   target->her_npc = values[3];
   target->it_npc = values[4];

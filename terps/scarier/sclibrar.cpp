@@ -5928,6 +5928,38 @@ lib_co_400_begin_line (scr_bool is_new_line)
   lib_co_400_refused = FALSE;
 }
 
+/*
+ * lib_antecedent_begin_line_400()
+ *
+ * generaltasks' first write of the line (48A3F5-48A42E): the whole line
+ * scored by 463640 in mode 0, and a lone winner named in its definite form
+ * -- `zzz red stone` "(the red stone)", `cut rope with blue stone ruby`
+ * "(the blue stone)" (Adrift_it1/it2, 2026-09-21).  This is also the
+ * "I don't understand what you want me to do with" reply's antecedent.
+ */
+static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
+                                            const scr_char *input,
+                                            scr_int mode, scr_int *pending,
+                                            scr_int *last_tied,
+                                            std::vector<scr_int> *marked,
+                                            scr_int *mark_count);
+
+void
+lib_antecedent_begin_line_400 (scr_gameref_t game, const scr_char *line)
+{
+  std::vector<scr_int> marked;
+  scr_int object, pending, last_tied, mark_count;
+
+  uip_begin_antecedent_400 ();
+  if (!lib_is_version_400 (game) || !line || uip_pronoun_was_used ())
+    return;
+
+  object = lib_name_object_resolve_400 (game, line, 0, &pending, &last_tied,
+                                        &marked, &mark_count);
+  if (object >= 0)
+    uip_note_antecedent_400 (object, UIP_IT_DEFINITE, UIP_STAGE_SCORER);
+}
+
 scr_bool
 lib_co_400_question_pending (void)
 {
@@ -6355,6 +6387,9 @@ static scr_int lib_co_400_present_namesakes (scr_gameref_t game,
                                              const scr_char *word);
 static scr_int lib_examine_referencedob_400 (scr_gameref_t game,
                                              const scr_char *input);
+static scr_int lib_examine_referencedob_ex_400 (scr_gameref_t game,
+                                                const scr_char *input,
+                                                scr_bool crowd_contest);
 
 /* Me(428) as co() builds it, for its substring test. */
 static std::string
@@ -6482,9 +6517,15 @@ lib_co_400_walk_step (scr_gameref_t game, scr_int object,
   if (count < 2)
     return;
 
+  /*
+   * Both arms hand the antecedent setter a name as they go (46460F, 464788;
+   * see uip_note_antecedent_400()): the -2 arm Prefix & " " & Short, the
+   * park arm the bare Short.
+   */
   if (lib_co_400_prefix_contest (game, word, input, room) == object)
     {
       *me = -2;
+      uip_note_antecedent_400 (object, UIP_IT_INDEFINITE, UIP_STAGE_CO);
       return;
     }
 
@@ -6506,7 +6547,10 @@ lib_co_400_walk_step (scr_gameref_t game, scr_int object,
 
   if (lib_co_400_prefix_contest (game, word, input, room) == -1
       && (*me < 0 || obj_indirectly_in_room (game, object, room)))
-    *me = object;
+    {
+      *me = object;
+      uip_note_antecedent_400 (object, UIP_IT_BARE, UIP_STAGE_CO);
+    }
 }
 
 static scr_bool
@@ -6547,6 +6591,16 @@ lib_co_400_raise_for_references (scr_gameref_t game)
 
   if (me < 0 || !list_ok || list.size () < 2)
     return FALSE;
+
+  /*
+   * examines has already described referencedob's pick, and named it to
+   * the antecedent setter (471749-471789), before generaltasks replaces the
+   * description with the question: `x stone` asks, and `x it` then echoes
+   * "(a blue stone)", pass A's last mark (Adrift_it1, 2026-09-21).
+   */
+  object = lib_examine_referencedob_ex_400 (game, input, TRUE);
+  if (object >= 0 && obj_indirectly_in_room (game, object, room))
+    uip_note_antecedent_400 (object, UIP_IT_INDEFINITE, UIP_STAGE_HANDLER);
 
   lib_co_400_raise (game, lib_drop_named_term_400 (game, me, input, TRUE),
                     list);
@@ -9394,7 +9448,8 @@ lib_co_400_present_namesakes (scr_gameref_t game, const scr_char *word)
 }
 
 static scr_int
-lib_examine_referencedob_400 (scr_gameref_t game, const scr_char *input)
+lib_examine_referencedob_ex_400 (scr_gameref_t game, const scr_char *input,
+                                 scr_bool crowd_contest)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   std::vector<scr_int> marked;
@@ -9420,9 +9475,13 @@ lib_examine_referencedob_400 (scr_gameref_t game, const scr_char *input)
       const scr_char *word = lib_co_400_name_word (game, marked[index_], input);
       const scr_int count = lib_co_400_present_namesakes (game, word);
 
-      if (count > 1)
+      if (count > 1 && !crowd_contest)
         return -3;
-      if (count == 1)
+      if (count == 1
+          || (count > 1
+              && lib_co_400_prefix_contest (game, word, input,
+                                            gs_playerroom (game))
+                 == marked[index_]))
         {
           hits++;
           result = marked[index_];
@@ -9465,6 +9524,12 @@ lib_examine_referencedob_400 (scr_gameref_t game, const scr_char *input)
       scr_free (copy);
     }
   return result;
+}
+
+static scr_int
+lib_examine_referencedob_400 (scr_gameref_t game, const scr_char *input)
+{
+  return lib_examine_referencedob_ex_400 (game, input, FALSE);
 }
 
 /*
@@ -9786,6 +9851,12 @@ lib_cmd_examine_object (scr_gameref_t game)
    * games, where the matcher doesn't require objects to have been seen.
    */
   gs_set_object_seen (game, object, TRUE);
+
+  /* 4.0 names a present object to the antecedent setter (471749-471789). */
+  if (lib_is_version_400 (game)
+      && (obj_indirectly_in_room (game, object, gs_playerroom (game))
+          || obj_indirectly_held_by_player (game, object)))
+    uip_note_antecedent_400 (object, UIP_IT_INDEFINITE, UIP_STAGE_HANDLER);
 
   /* A present character the line names overwrites the answer. */
   npc = lib_examine_npc_overwrite_400 (game);
@@ -25037,6 +25108,55 @@ lib_openclose_with_half_400 (scr_gameref_t game, const scr_char *line)
 }
 
 /*
+ * lib_openclose_with_antecedent_400()
+ *
+ * openclose's loop runs for every line that reaches it, question or not,
+ * and co()'s -2 and park arms hand the antecedent setter a name as they go
+ * (46460F, 464788).  So `cut rope with stone` leaves "it" at the bare
+ * "stone" and `cut red stone with stone` at "a red stone", even where the
+ * line's own question is somebody else's (therest's crowd).  The open and
+ * close arms come first and Exit Sub when the whole line scores nothing
+ * (4756BC, 4759E6): `open box with stone` never reaches the loop and leaves
+ * "it" where it was (p4WTIE3, run400 Adrift_it2, 2026-09-21).
+ *
+ * Notes the antecedent only; the question is
+ * lib_openclose_with_half_raise_400()'s.
+ */
+void
+lib_openclose_with_antecedent_400 (scr_gameref_t game, const scr_char *line)
+{
+  std::vector<scr_int> marked;
+  const scr_char *with;
+  scr_int object, me, last_tied, mark_count;
+  scr_bool list_ok;
+
+  if (!line || !lib_is_version_400 (game) || uip_pronoun_was_used ()
+      || !lib_input_contains_word_400 (line, "with"))
+    return;
+
+  if ((lib_input_contains_word_400 (line, "open")
+       || lib_input_contains_word_400 (line, "close"))
+      && lib_name_object_resolve_400 (game, line, 0, &me, &last_tied,
+                                      &marked, &mark_count) < 0)
+    return;
+
+  with = strstr (line, "with");
+  if (!with)
+    return;
+  marked.clear ();
+  object = lib_name_object_resolve_400 (game, with + 1, 0, &me, &last_tied,
+                                        &marked, &mark_count);
+  if (object >= 0)
+    return;
+  if (object != -1)
+    me = -1;
+  list_ok = (scr_int) marked.size () == mark_count;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    lib_co_400_walk_step (game, object, line, &me, &marked, &list_ok);
+}
+
+/*
  * lib_openclose_with_half_raise_400()
  *
  * And where openclose's loop leaves Me(424) at an object, generaltasks ASKS
@@ -33486,7 +33606,8 @@ lib_cmd_verb_object (scr_gameref_t game)
       return TRUE;
     }
 
-  uip_note_definite_reference ();
+  if (lib_is_version_400 (game))
+    uip_note_antecedent_400 (object, UIP_IT_DEFINITE, UIP_STAGE_SCORER);
   lib_print_wrapped_object (game, "I don't understand what you want me to do with ",
                             object, ".\n");
   lib_co_400_note_refusal ();

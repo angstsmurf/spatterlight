@@ -1686,7 +1686,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->npc_references.assign (game->npc_count, FALSE);
 
   game->it_object = -1;
-  game->it_definite = FALSE;
+  game->it_form = UIP_IT_INDEFINITE;
   game->him_npc = -1;
   game->her_npc = -1;
   game->it_npc = -1;
@@ -1988,7 +1988,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->npc_references = from->npc_references;
 
   to->it_object = from->it_object;
-  to->it_definite = from->it_definite;
+  to->it_form = from->it_form;
   to->him_npc = from->him_npc;
   to->her_npc = from->her_npc;
   to->it_npc = from->it_npc;

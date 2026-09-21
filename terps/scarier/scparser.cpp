@@ -104,6 +104,87 @@ uip_note_definite_reference (void)
 }
 
 /*
+ * The 4.0 antecedent is whatever string the setter Proc_21_41_448C24 was
+ * last handed on the line, and more of the Runner calls it than the
+ * handlers uip_definite_form() models.  In the order a line meets them:
+ *
+ *   generaltasks 48A3F5-48A42E  the line's own 463640 winner (mode 0), if
+ *                               one scores alone: "the X"
+ *   co() 46460F                 the -2 arm, the Prefix contest won by the
+ *                               object being resolved: Prefix & " " & Short
+ *   co() 464788                 the park arm (Me(424) = object): the bare
+ *                               Short, "stone" -- so a later `x it` is `x
+ *                               stone` and asks again
+ *   examines 471749-471789      referencedob's pick when present, Prefix &
+ *                               " " & Short, even when generaltasks goes on
+ *                               to replace the description with a question
+ *
+ * (co()'s third call, 464848, sits behind var_8A > 1 on a path only mode 3
+ * reaches, and mode 3 returned at 4643B2 for any var_8A > 0: dead.)  The
+ * setter stores nothing when the line holds the word "it" (flag 0), which
+ * is uip_pronoun_used here.  A question is not a turn, but these writes
+ * stand: `cut rope with stone` then `x it` echoes "(stone)" and asks
+ * "Which stone." again.
+ *
+ * Measured on p4WTIE/p4WTIE3 (make_400_withtieprobe.py [--desc], run400
+ * Adrift_it1/it2/it3, 2026-09-21): `zzz red stone` and `cut stone red`
+ * "(the red stone)" (the scorer; "red" is a Prefix word), `cut rope with
+ * blue stone ruby` "(the blue stone)", `cut red stone with stone` "(a red
+ * stone)" (the -2 arm; the line asks), `cut rope with gems` "(emerald)",
+ * `x stone` "(a blue stone)" (pass A's last mark, described and then
+ * asked about), `x blue stone red stone` "(stone)" (pass C ties: nothing
+ * described), and `open box with stone`, whose tail openclose scores
+ * without co(), leaves the antecedent alone.
+ *
+ * Scarier's library reaches these points in its own order, so the writes
+ * are kept by stage, and a handler's write -- ours, or the verb-driven
+ * uip_definite_form() one -- outranks co()'s whatever order they came in.
+ */
+static scr_int uip_antecedent_object = -1;
+static scr_int uip_antecedent_form = UIP_IT_INDEFINITE;
+static scr_int uip_antecedent_stage = -1;
+
+void
+uip_begin_antecedent_400 (void)
+{
+  uip_antecedent_object = -1;
+  uip_antecedent_stage = -1;
+}
+
+void
+uip_note_antecedent_400 (scr_int object, scr_int form, scr_int stage)
+{
+  if (uip_pronoun_used || object < 0 || stage < uip_antecedent_stage)
+    return;
+  uip_antecedent_object = object;
+  uip_antecedent_form = form;
+  uip_antecedent_stage = stage;
+}
+
+scr_bool
+uip_pronoun_was_used (void)
+{
+  return uip_pronoun_used;
+}
+
+/*
+ * Store the line's noted antecedent.  uip_assign_pronouns() calls this for
+ * a turn; the runner calls it itself for a 4.0 line that was not one.
+ */
+void
+uip_commit_antecedent_400 (scr_gameref_t game)
+{
+  if (uip_antecedent_object >= 0 && !uip_pronoun_used)
+    {
+      game->it_object = uip_antecedent_object;
+      game->it_form = uip_antecedent_form;
+      game->it_npc = -1;
+    }
+  uip_antecedent_object = -1;
+  uip_antecedent_stage = -1;
+}
+
+/*
  * A line nothing answered never reaches uip_assign_pronouns(), so both flags
  * can outlast it; a Spatterlight autosave keeps them.
  */
@@ -3205,13 +3286,16 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
            * leaves alone), and `wave wand` on the held wand makes the later
            * `drop it` the wand.
            */
-          if (game->it_definite
-              && prop_get_taf_version (bundle) < TAF_VERSION_390)
+          if (game->it_form == UIP_IT_BARE
+              && prop_get_taf_version (bundle) >= TAF_VERSION_400)
+            prefix = "";            /* co()'s park arm; see above */
+          else if (game->it_form == UIP_IT_DEFINITE
+                   && prop_get_taf_version (bundle) < TAF_VERSION_390)
             {
               definite = uip_tense_prefix_3738 (prefix);
               prefix = definite.c_str ();
             }
-          else if (game->it_definite
+          else if (game->it_form == UIP_IT_DEFINITE
                    && prop_get_taf_version (bundle) >= TAF_VERSION_400)
             {
               if (scr_compare_word (prefix, "a", 1))
@@ -3779,12 +3863,16 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
  * The Runner's antecedent is a string, composed by whichever code last called
  * the setter Proc_21_41_448C24, in the composer mode that code chose:
  *
- *   co() (object resolution)   run390 twin co @43B69E: mode 0, definite, but
- *                              only in its found-in-the-room branch; a held
- *                              object resolves through the branch at 43B456
- *                              that never stores.  Measured: `look in dustbin`
- *                              then `x it` "(the dustbin)", `look in satchel`
- *                              (held) leaves "(a satchel)".
+ *   co() (object resolution)   4.0 stores only from its crowd arms: the -2
+ *                              arm (46460F) Prefix & " " & Short, the park
+ *                              arm (464788) the bare Short; the arm at 464848
+ *                              is dead.  A lone namesake stores nothing, so
+ *                              this code keeps what was there (UIP_FORM_KEEP)
+ *                              and the crowd arms note through
+ *                              uip_note_antecedent_400().  (The old "found in
+ *                              the room" definite store is run390's co
+ *                              @43B69E; `look in dustbin` "(the dustbin)" at
+ *                              4.0 is the line-start scorer, 48A3F5.)
  *   examines @471749-471789    mode 1, indefinite: `x shovel` after `get
  *                              shovel` is back to "(a shovel)"; so is `x the
  *                              shovel`.
@@ -3887,8 +3975,13 @@ uip_definite_form (scr_gameref_t game, const scr_char *command,
       || scr_compare_word (verb, "unlock", 6))
     return UIP_FORM_DEFINITE;
 
-  /* co() alone: definite for a room object, untouched for a held one. */
-  return was_held ? UIP_FORM_KEEP : UIP_FORM_DEFINITE;
+  /*
+   * Anything else is not a handler's: what the line leaves is generaltasks'
+   * scorer write or co()'s (uip_note_antecedent_400()).  The old guess here,
+   * "definite for a room object, untouched for a held one", was run390's
+   * co() (43B69E / 43B456).
+   */
+  return UIP_FORM_KEEP;
 }
 
 
@@ -3907,6 +4000,7 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_char *current;
   scr_int saved_ref_object, saved_ref_character;
+  scr_bool handler_set;
   assert (string);
 
   if (uip_trace)
@@ -3920,8 +4014,17 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
     {
       uip_pronoun_used = FALSE;
       uip_pending_definite = FALSE;
+      uip_begin_antecedent_400 ();
       return;
     }
+
+  /*
+   * The library's own writes go in first (see uip_note_antecedent_400());
+   * the verb-driven form below is a handler's, and replaces anything but
+   * another handler's.
+   */
+  handler_set = uip_antecedent_stage == UIP_STAGE_HANDLER;
+  uip_commit_antecedent_400 (game);
   uip_pronoun_used = FALSE;
 
   /* Save var references so we can restore them later. */
@@ -3965,10 +4068,11 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
               else if (prop_get_taf_version (bundle) < TAF_VERSION_390)
                 form = UIP_FORM_DEFINITE;
 
-              if (form != UIP_FORM_KEEP)
+              if (form != UIP_FORM_KEEP && !handler_set)
                 {
                   game->it_object = object;
-                  game->it_definite = form == UIP_FORM_DEFINITE;
+                  game->it_form = form == UIP_FORM_DEFINITE
+                                  ? UIP_IT_DEFINITE : UIP_IT_INDEFINITE;
                   game->it_npc = -1;
                 }
 
