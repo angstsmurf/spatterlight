@@ -275,19 +275,13 @@ the_hangover T34) went identical with that port on 2026-09-20.
   p37REW/p38REW/p39REW/p4REW with `cmdfile_pcasc.txt` (Adrift_250_casc37b
   .rtf, 249_casc38.rtf, 250_casc39.txt, 251_casc40.txt), 34 verb words
   against a nonsense head. What the probe still shows open:
-    * A line naming TWO of these verbs. Measured and ported below 4.0 --
-      see "Below 4.0 a two-verb line is decided by the call order" in the
-      index. **4.0 is still open**, and it is a different machine: takes
-      46FB8C and drops 46F118 are dead code there (the call census on the
-      drops annotation), so the answers come from put_drop_list 459DB4 ->
-      name_object -> insides, and the measured shape is drops BEFORE takes
-      (`take drop coin` and `drop take coin` are both "You are not holding
-      the coin.", `take drop` is "Drop what?"), with therest's cascade
-      keeping the LAST arm (`push pull coin` is "You pull the coin, but
-      nothing happens.", `kick hit coin` is "You hit the coin, but nothing
-      happens."). p4REW `cmdfile_p2verb.txt` Adrift_254_2v40.txt and
-      p4TWO `cmdfile_p2verb3.txt` Adrift_258_2x40.txt (2026-09-21) hold 19
-      and 8 unexplained cells between them.
+    * A line naming TWO of these verbs is now measured and ported at every
+      version -- see "Below 4.0 a two-verb line is decided by the call
+      order" and "At 4.0 a two-verb line is decided by a DIFFERENT call
+      order" in the index. What both ports leave alone is the same short
+      list: a list line, a clauseless `put`, and the claiming handlers
+      whose place in the order nothing has measured yet (openclose, give,
+      whereis, gotoplace, characters, dobattle).
     * The one pre-4.0 cell left over: `x take off hat` with the hat WORN.
       wears and removes are plain `Call`s (run390 45F499/45F49E, run380
       4421FC/442201) and so can never claim, so removes takes the hat off
@@ -596,6 +590,51 @@ transcript names are in the code comment next to the named function, in
   probe turned up on the way, ported straight after in the entry below; the
   last is the one two-verb cell `x take off hat` worn, in the open list
   above. The feeds now stand at 1/0/1.
+
+- **At 4.0 a two-verb line is decided by a DIFFERENT call order, and word
+  order still never decides.** The same machine one version up, with
+  another cast: takes 46FB8C and drops 46F118 are dead code at 4.0 (the
+  call census on the drops annotation), so generaltasks' run is
+  put_drop_list 459DB4 (48A462), get_outer 4582D8 (48A46D), tasks 44CCE0
+  (48A481), wears 463C30 (48A48C), removes 4624B0 (48A491), examines
+  471F94 (48A67B), therest 489F4C (48AFE4), characters 480674 (48B56E).
+  put_drop_list, get_outer, tasks and examines sit inside `If
+  from_stack_1 Then GoTo loc_48B4E3` and claim; wears and removes are
+  plain `Call`s as below 4.0, but unlike below 4.0 examines runs BELOW
+  them and overwrites an already-written buffer, while therest runs only
+  on an empty one (the 48AFE1 test is `MemVar_4941B0 = ""`). wears' and
+  removes' own refusals are additionally guarded by an empty buffer
+  (463B8B in front of 463BBC). So the order that answers a line is
+  **put/drop, take, examine, wear, remove, therest**, and inside therest
+  the LAST arm the line names wins, its cascade being one `If c(...)`
+  after another each overwriting the one before. Coin loose unless said:
+  `take drop coin` and `drop take coin` are both "You are not holding the
+  coin.", `take drop` is "Drop what?"; held `examine take coin`, `wear
+  take coin`, `push take coin` and `x get coin` are all the take;
+  `examine drop coin`, `remove drop coin`, `push drop coin` the drop;
+  `push examine coin`, `wear examine` and `examine wear` the examine
+  ("You see no such thing.", not "Wear what?", because examines writes
+  unguarded); `remove wear coin` and `wear remove coin` the wear; `push
+  pull coin` and `pull push coin` both "You pull the coin, but nothing
+  happens.", `kick hit coin` and `hit kick coin` both the hit. A span
+  that carries two handlers is read by each of them its own way -- `x
+  take off hat` with the hat WORN is "You are already carrying the hat.",
+  because get_outer reads only the `take` out of removes' `take off`.
+  p4REW with `cmdfile_p2verb.txt` (Adrift_254_2v40.txt) and p4TWO with
+  `cmdfile_p2verb3.txt` (Adrift_258_2x40.txt), 2026-09-21. PORTED as
+  `run_two_verb_line_400()` (scrunner.cpp), asked from the top of
+  `run_hoist_verb_line()` beside its pre-4.0 twin and above the
+  HOIST_HEADS_400 bail, because at 4.0 too the head may be a verb itself;
+  it hoists the winning handler's own spelling to the front and leaves the
+  rest of the line, the other verb word included, exactly as it stands
+  (`wear examine` must become `examine wear` and not a bare `examine`, or
+  examines' whole-line bare-verb exit at 471340 answers instead). Narrow
+  on purpose: a list line (`all`, `and`), a lone span, a claiming handler
+  whose place is unmeasured (openclose, give, whereis, gotoplace,
+  characters, dobattle) and a clauseless `put` -- whose 46DC34 branch does
+  not claim either -- are all left alone. The two feeds go 19/8 -> 0/0
+  (`cmdfile_p2verb.txt`'s last two cells are unusable: the drive echoed
+  `ii` for feed line 52), 428/428 and both Wine sweeps byte-identical.
 
 - **Below 4.0 a therest verb never outranks the five handlers, wherever it
   stands.** The other side of the same coin: therest() is the LAST thing

@@ -2727,18 +2727,10 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
  *    anchored pass has already had that line and declined, so a hoist could
  *    only re-answer it, and every walkthrough line that starts with a verb
  *    is left exactly as it was.
- *  - Nothing happens when the line holds two or more of them.  The Runner
- *    settles that by its call order, and the order is not one order: the
- *    handlers the input routine calls claim (put_drop_list 459DB4, get_outer
- *    4582D8, wears 463C30, removes 4624B0, sitstand 46BCFC, openclose
- *    476468, examines 471F94, give 48A985, whereis 4684E4, gotoplace
- *    464E90), so the FIRST of them wins, while therest 489F4C is one long
- *    cascade of `If c(...)` arms each overwriting the message before it
- *    (488807 open, 488885 eat, ... 489F3B xyzzy), so the LAST of those wins,
- *    and characters() 480674 runs below everything and overwrites again.
- *    None of that is measured -- the probe types one verb per line -- so a
- *    line naming two is left as it was.  See the open lead in
- *    notes/WINE-TRANSCRIPTS-TODO.md.
+ *  - Nothing happens when the line holds two or more of them: that is
+ *    run_two_verb_line_400()'s business at 4.0 and
+ *    lib_two_verb_line_pre400()'s below it, and whatever they decline is
+ *    left exactly as it was.
  *
  * The word list is read straight out of the Runner: the literals each of
  * those procs hands to c() (Proc_21_38_454CB0) and to therest's verb helper
@@ -2750,28 +2742,56 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
  * sitstand words by lib_sitstand_anywhere()).  dobattle's verbs are in only
  * while the Battle System is on, which is the gate run400 puts on the call
  * itself (48A4A2).
+ *
+ * The list is kept one table per handler, in generaltasks' call order,
+ * because run_two_verb_line_400() needs to know which handler a word
+ * belongs to as well as that it is a verb.
  */
-static const scr_char *const HOIST_VERBS_400[] = {
-  /* put_drop_list 459DB4, get_outer 4582D8. */
-  "put", "drop", "empty", "get", "take", "pick",
-  /* wears 463C30, removes 4624B0. */
-  "wear", "put on", "remove", "take off",
-  /* openclose 476468, examines 471F94, give 48A985. */
-  "open", "close", "lock", "unlock",
-  "examine", "look at", "look in", "read", "look", "give",
-  /* whereis 4684E4, gotoplace 464E90. */
+static const scr_char *const HOIST_VERBS_400_PUTDROP[] = {
+  "put", "drop", NULL
+};
+
+static const scr_char *const HOIST_VERBS_400_TAKE[] = {
+  "empty", "get", "take", "pick", NULL
+};
+
+static const scr_char *const HOIST_VERBS_400_WEAR[] = {
+  "wear", "put on", NULL
+};
+
+static const scr_char *const HOIST_VERBS_400_REMOVE[] = {
+  "remove", "take off", NULL
+};
+
+/* openclose 476468, give 48A985, whereis 4684E4, gotoplace 464E90 and
+   characters 480674: claiming handlers whose place in a two-verb line is
+   not measured. */
+static const scr_char *const HOIST_VERBS_400_OTHER[] = {
+  "open", "close", "lock", "unlock", "give",
   "where", "find", "locate", "goto", "go to", "go",
-  /* therest 489F4C, in its own cascade order. */
+  "speak to", "pick up", NULL
+};
+
+static const scr_char *const HOIST_VERBS_400_EXAMINE[] = {
+  "examine", "look at", "look in", "read", "look", NULL
+};
+
+/* therest 489F4C, in its own cascade order: the LAST arm a line names is
+   the one that speaks. */
+static const scr_char *const HOIST_VERBS_400_THEREST[] = {
   "eat", "drink", "ask", "talk to", "talk", "say", "clean", "run", "stop",
   "wash", "cut", "kill", "move", "lift", "light", "suck", "feel", "touch",
   "rub", "turn", "enter", "smell", "push", "pull", "press", "shake", "kick",
   "hit", "clear", "punch", "fight", "jump", "feed", "unblock", "block",
   "climb", "listen", "shout", "sing", "hum", "dance", "whistle", "cry",
   "buy", "sell", "break", "destroy", "smash", "kiss", "fly", "please",
-  "fix", "repair", "mend", "sleep", "xyzzy",
-  /* characters 480674. */
-  "speak to", "pick up",
-  NULL
+  "fix", "repair", "mend", "sleep", "xyzzy", NULL
+};
+
+static const scr_char *const *const HOIST_TABLES_400[] = {
+  HOIST_VERBS_400_PUTDROP, HOIST_VERBS_400_TAKE, HOIST_VERBS_400_WEAR,
+  HOIST_VERBS_400_REMOVE, HOIST_VERBS_400_OTHER, HOIST_VERBS_400_EXAMINE,
+  HOIST_VERBS_400_THEREST, NULL
 };
 
 /* dobattle 47F084, called only with the Battle System on. */
@@ -2857,6 +2877,23 @@ run_hoist_longest (const scr_char *const *table, const scr_char *word)
   return best;
 }
 
+/* The longest entry any of the 4.0 handler tables holds at WORD. */
+static const scr_char *
+run_hoist_longest_400 (const scr_char *word)
+{
+  const scr_char *const *const *table;
+  const scr_char *best = NULL;
+
+  for (table = HOIST_TABLES_400; *table; table++)
+    {
+      const scr_char *const hit = run_hoist_longest (*table, word);
+
+      if (hit && (!best || strlen (hit) > strlen (best)))
+        best = hit;
+    }
+  return best;
+}
+
 /* The verb this word begins, or NULL: the one the line would be re-spelled
    around.  4.0 hoists every library verb, the older Runners only the five
    handlers that anchor. */
@@ -2879,7 +2916,7 @@ run_hoist_verb_at (scr_gameref_t game, const scr_char *word)
       return best;
     }
 
-  best = run_hoist_longest (HOIST_VERBS_400, word);
+  best = run_hoist_longest_400 (word);
   if (!best && battle_is_enabled (game))
     best = run_hoist_longest (HOIST_VERBS_BATTLE_400, word);
   return best;
@@ -2892,13 +2929,317 @@ run_hoist_any_verb_at (scr_gameref_t game, const scr_char *word)
   const scr_char *best = run_hoist_verb_at (game, word);
 
   if (!best)
-    best = run_hoist_longest (HOIST_VERBS_400, word);
+    best = run_hoist_longest_400 (word);
   if (!best)
     best = run_hoist_longest (HOIST_VERBS_EXTRA, word);
   if (!best && battle_is_enabled (game))
     best = run_hoist_longest (HOIST_VERBS_BATTLE_400, word);
   return best;
 }
+
+
+/*
+ * run_two_verb_line_400()
+ *
+ * A 4.0 line naming TWO library verbs.  Every handler generaltasks calls
+ * enters on a whole-word c() over the WHOLE line, so `x get coin` satisfies
+ * get_outer() and examines() alike, and the answer comes from the call order
+ * at 48A462-48B56E and from which of those handlers CLAIMS the line:
+ *
+ *     put_drop_list 459DB4 (48A462)   If CBool(...) Then GoTo the turn tail
+ *     get_outer     4582D8 (48A46D)   the same
+ *     tasks         44CCE0 (48A481)   the same
+ *     wears         463C30 (48A48C)   a plain Call -- can never claim
+ *     removes       4624B0 (48A491)   a plain Call -- can never claim
+ *     examines      471F94 (48A67B)   claims again
+ *     therest       489F4C (48AFE4)   called ONLY with the buffer empty
+ *     characters    480674 (48B56E)   overwrites whatever is there
+ *
+ * wears and removes write into the message without claiming, and their
+ * refusals are guarded by an EMPTY buffer (run400 463B8B in front of
+ * 463BBC), so the first of the two to write is the one that speaks; but
+ * examines runs below them and overwrites unguarded, and therest never runs
+ * at all once they have written (the 48AFE1 test is MemVar_4941B0 = "").
+ * So the order that decides a line is
+ *
+ *     put/drop, take, examine, wear, remove, therest
+ *
+ * and WORD ORDER NEVER DECIDES: `take drop coin` and `drop take coin` are
+ * both the drop.  Within therest the LAST arm the line names wins, that
+ * cascade being one `If c(...)` after another each overwriting the message
+ * before it -- `push pull coin` and `pull push coin` are both "You pull the
+ * coin, but nothing happens.", `kick hit coin` and `hit kick coin` both the
+ * hit.
+ *
+ * Measured 2026-09-21 on p4REW with cmdfile_p2verb.txt (run400x
+ * Adrift_254_2v40.txt) and on p4TWO with cmdfile_p2verb3.txt
+ * (Adrift_258_2x40.txt); the cells that carry the rule, coin loose unless
+ * said otherwise:
+ *
+ *   `take drop coin`   "You are not holding the coin."   put_drop_list
+ *   `drop take coin`   the same
+ *   `examine take coin` (held) "You are already carrying the coin."
+ *   `examine drop coin` "You are not holding the coin."
+ *   `wear take coin`   (held) "You are already carrying the coin."
+ *   `remove drop coin` "You are not holding the coin."
+ *   `remove wear coin` "You are not holding the coin."   wears, not removes
+ *   `x get coin`       "You take the coin."
+ *   `push take coin`   (held) "You are already carrying the coin."
+ *   `push examine coin` "A gold coin."
+ *   `wear examine`     "You see no such thing."   examines over "Wear what?"
+ *   `take drop`        "Drop what?"
+ *   `remove take hat`  "You take the hat."
+ *   `x take off hat`   (worn) "You are already carrying the hat."
+ *
+ * Scarier answers a line from one anchored row, so the port is the same
+ * re-spelling run_hoist_verb_line() does for a single verb: hoist the verb
+ * whose handler the order leaves speaking to the front and leave the rest of
+ * the line exactly as it stands, the other verb word included -- the winning
+ * handler resolves its noun over the whole line too, which is why `wear
+ * examine` has to become `examine wear` and not a bare `examine` (that would
+ * trip examines' whole-line bare-verb exit at 471340).
+ *
+ * Narrow on purpose.  A list line ("all", "and") is left alone, as are the
+ * claiming handlers whose place in the order is not measured (openclose,
+ * give, whereis, gotoplace, characters, dobattle) and a `put` with no
+ * container clause, whose branch at 46DC34 does not claim either -- see "A
+ * put refusal silences the wear only where it CLAIMS" for what happens
+ * there.  Two groups named by ONE word span ("take off" is get_outer's
+ * `take` and removes' `take off`; "put on" is put_drop_list's `put` and
+ * wears' `put on`) are not a two-verb line at all, and the spans have to
+ * be distinct before any of this runs.
+ */
+enum
+{
+  RUN_400_PUTDROP = 1 << 0,
+  RUN_400_TAKE = 1 << 1,
+  RUN_400_EXAMINE = 1 << 2,
+  RUN_400_WEAR = 1 << 3,
+  RUN_400_REMOVE = 1 << 4,
+  RUN_400_THEREST = 1 << 5,
+  RUN_400_OTHER = 1 << 6
+};
+
+/* Precedence, highest first: the call order above, with wears and removes
+   dropped below examines because neither can claim. */
+static const scr_int RUN_400_ORDER[] = {
+  RUN_400_PUTDROP, RUN_400_TAKE, RUN_400_EXAMINE,
+  RUN_400_WEAR, RUN_400_REMOVE, RUN_400_THEREST
+};
+
+/*
+ * The examine spellings HOIST_VERBS_400_EXAMINE leaves out because the
+ * anchored pass owns them as heads (HOIST_HEADS_400).  examines() enters on
+ * c("x") / c("ex") / c("exam") / c("l") wherever they stand, so the two-verb
+ * scan has to see them; the single-verb hoist deliberately does not, so that
+ * `blorp x coin` is left exactly as it was.
+ */
+static const scr_char *const HOIST_VERBS_400_EXAMINE_HEADS[] = {
+  "x", "ex", "exam", "l", NULL
+};
+
+static const struct
+{
+  const scr_char *const *table;
+  scr_int group;
+}
+RUN_400_GROUPS[] = {
+  { HOIST_VERBS_400_PUTDROP, RUN_400_PUTDROP },
+  { HOIST_VERBS_400_TAKE, RUN_400_TAKE },
+  { HOIST_VERBS_400_EXAMINE, RUN_400_EXAMINE },
+  { HOIST_VERBS_400_EXAMINE_HEADS, RUN_400_EXAMINE },
+  { HOIST_VERBS_400_WEAR, RUN_400_WEAR },
+  { HOIST_VERBS_400_REMOVE, RUN_400_REMOVE },
+  { HOIST_VERBS_400_THEREST, RUN_400_THEREST },
+  { HOIST_VERBS_400_OTHER, RUN_400_OTHER },
+  { NULL, 0 }
+};
+
+/*
+ * Every handler whose word stands at WORD, as a mask, and the whole span's
+ * length in *LENGTH.  0 when no verb begins there.  A span can carry two
+ * handlers, and then the two read different amounts of it: `take off` is
+ * removes' own two-word spelling and get_outer's one-word `take` at once,
+ * which is why the length a handler claims is asked for separately by
+ * run_two_verb_word_400() and never taken from here.
+ */
+static scr_int
+run_two_verb_groups_400 (scr_gameref_t game, const scr_char *word,
+                         scr_int *length)
+{
+  scr_int index, groups = 0;
+
+  *length = 0;
+  for (index = 0; RUN_400_GROUPS[index].table; index++)
+    {
+      const scr_char *const hit
+        = run_hoist_longest (RUN_400_GROUPS[index].table, word);
+
+      if (!hit)
+        continue;
+      groups |= RUN_400_GROUPS[index].group;
+      if ((scr_int) strlen (hit) > *length)
+        *length = strlen (hit);
+    }
+  if (!groups && battle_is_enabled (game))
+    {
+      const scr_char *const hit = run_hoist_longest (HOIST_VERBS_BATTLE_400,
+                                                     word);
+
+      if (hit)
+        {
+          groups = RUN_400_OTHER;
+          *length = strlen (hit);
+        }
+    }
+  return groups;
+}
+
+/* The spelling GROUP's own tables read at WORD, longest first. */
+static const scr_char *
+run_two_verb_word_400 (const scr_char *word, scr_int group)
+{
+  const scr_char *best = NULL;
+  scr_int index;
+
+  for (index = 0; RUN_400_GROUPS[index].table; index++)
+    {
+      const scr_char *hit;
+
+      if (RUN_400_GROUPS[index].group != group)
+        continue;
+      hit = run_hoist_longest (RUN_400_GROUPS[index].table, word);
+      if (hit && (!best || strlen (hit) > strlen (best)))
+        best = hit;
+    }
+  return best;
+}
+
+/* The winning span's position in therest's cascade, or -1. */
+static scr_int
+run_therest_rank_400 (const scr_char *word)
+{
+  const scr_char *const *entry;
+  scr_int rank = -1, index;
+
+  for (entry = HOIST_VERBS_400_THEREST, index = 0; *entry; entry++, index++)
+    {
+      const scr_int size = strlen (*entry);
+
+      if (scr_strncasecmp (word, *entry, size) == 0
+          && (word[size] == NUL || word[size] == ' '))
+        rank = index;
+    }
+  return rank;
+}
+
+static scr_bool
+run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
+                       std::string &hoisted)
+{
+  const scr_int version = run_get_version (gs_get_bundle (game));
+  std::vector<const scr_char *> spans;
+  const scr_char *scan, *winner_at = NULL, *winner_word = NULL;
+  scr_int winner_rank = -1, seen = 0, index;
+
+  if (version < TAF_VERSION_400 || !line || line[0] == NUL)
+    return FALSE;
+  /* The list arms walk co() themselves; not this rule's business. */
+  if (run_c_word_pre400 (version, line, "all") >= 0
+      || run_c_word_pre400 (version, line, "and") >= 0)
+    return FALSE;
+
+  for (scan = line; *scan != NUL; )
+    {
+      scr_int length, groups;
+
+      if (scan != line && scan[-1] != ' ')
+        {
+          scan++;
+          continue;
+        }
+      groups = run_two_verb_groups_400 (game, scan, &length);
+      if (!groups)
+        {
+          scan++;
+          continue;
+        }
+      /* openclose, give, whereis, gotoplace, characters and dobattle: where
+         they stand in the order is not measured, so nothing is re-spelled. */
+      if (groups & RUN_400_OTHER)
+        return FALSE;
+      spans.push_back (scan);
+      seen |= groups;
+      scan += length;
+    }
+  if (spans.size () < 2)
+    return FALSE;
+
+  /*
+   * put_drop_list's clauseless put branch (46DC34-46DD2C) prints and falls
+   * out without claiming, so a `put` with no container clause leaves the
+   * line to the handlers below it.  Not measured beside a second verb.
+   */
+  if ((seen & RUN_400_PUTDROP)
+      && run_c_word_pre400 (version, line, "drop") < 0
+      && run_c_word_pre400 (version, line, "down") < 0
+      && run_c_word_pre400 (version, line, "in") < 0
+      && run_c_word_pre400 (version, line, "into") < 0
+      && run_c_word_pre400 (version, line, "inside") < 0
+      && run_c_word_pre400 (version, line, "on") < 0
+      && run_c_word_pre400 (version, line, "onto") < 0)
+    return FALSE;
+
+  for (index = 0; !winner_at
+       && index < (scr_int) (sizeof RUN_400_ORDER / sizeof RUN_400_ORDER[0]);
+       index++)
+    {
+      const scr_int group = RUN_400_ORDER[index];
+      std::vector<const scr_char *>::const_iterator span;
+
+      if (!(seen & group))
+        continue;
+
+      /* The span that carries the winning handler: the first of them, or
+         for therest the one standing last in its cascade.  Its length is
+         that handler's OWN spelling and not the span's -- get_outer reads
+         only the `take` out of removes' `take off`. */
+      for (span = spans.begin (); span != spans.end (); span++)
+        {
+          const scr_char *const word = run_two_verb_word_400 (*span, group);
+
+          if (!word)
+            continue;
+          if (group == RUN_400_THEREST)
+            {
+              const scr_int rank = run_therest_rank_400 (*span);
+
+              if (rank <= winner_rank)
+                continue;
+              winner_rank = rank;
+            }
+          else if (winner_at)
+            continue;
+          winner_at = *span;
+          winner_word = word;
+        }
+    }
+  /* Already at the head: the anchored pass answers it as it stands. */
+  if (!winner_at || winner_at == line)
+    return FALSE;
+
+  {
+    const std::string head (line, winner_at - line);
+
+    hoisted.assign (winner_word);
+    hoisted += " ";
+    /* The verb took its own separating space with it. */
+    hoisted.append (head, 0, head.size () - 1);
+    hoisted += winner_at + strlen (winner_word);
+  }
+  return TRUE;
+}
+
 
 static scr_bool
 run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
@@ -2928,6 +3269,12 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
         return TRUE;
       }
   }
+
+  /* At 4.0 the same is true of a different call order, and there too the
+     head being a verb is no reason to leave the line alone: `x get coin` is
+     get_outer's answer.  See run_two_verb_line_400(). */
+  if (run_two_verb_line_400 (game, string, hoisted))
+    return TRUE;
 
   if (run_hoist_longest (HOIST_HEADS_400, string))
     return FALSE;
