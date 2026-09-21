@@ -13970,6 +13970,64 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
  * hat!" at 3.8 (cmdfile_p2give.txt cell 5, Adrift_269_3g37.rtf,
  * 270_3g38.rtf, 271_3g39.txt, 272_3g40.txt, 2026-09-21).
  */
+static scr_int lib_npc_find_topic (scr_gameref_t game, scr_int npc);
+static scr_bool lib_npc_reply_to (scr_gameref_t game, scr_int npc,
+                                  scr_int topic);
+
+/*
+ * lib_take_ask_overwrite_400()
+ *
+ * characters()' ask arm, the last text arm of its cascade, answering over the
+ * take arm at 4.0.  The block is entered on whole-word `ask` or `talk to`
+ * (47F8E5-47F8FF) and, with the character in the player's room, its gate is
+ * `(no task And MemVar_4942E0 = 0) Or buffer = "<player> can't talk to
+ * that."` (47F900-47F93C) -- no buffer-empty test, unlike its 3.9 twin at
+ * 4597FE, which is why 4.0 alone does this.  Inside, c("about") and the
+ * character named (45E99C mode 1) and InStr(line, "about") > 0 (47F93F-
+ * 47F96F) take the subject as Mid(line, InStr(line, "about") + 6) (47F9A5),
+ * and the topic loop ASSIGNS the reply it finds (47FA7C, 47FAA7, 47FAD2).
+ * The no-topic "does not respond" (47FB83) writes only over an empty, "can't
+ * talk to that." or " can't see " buffer, so an unanswered ask leaves the
+ * take refusal standing; the "Use the format" hint for a line with no
+ * `about` (47FBB0) is not measured and not modelled.
+ *
+ * Measured on p4ORD, cmdfile_p2chr.txt (run400x Adrift_268_3c40.txt,
+ * 2026-09-21): `take ask bob about hat` is "Bob says, 'That is a fine hat.'"
+ * and the hat is still taken; 3.7/3.8/3.9 keep their take-arm answers.
+ *
+ * TRUE once it has spoken, having truncated the buffer back to mark first.
+ */
+static scr_bool
+lib_take_ask_overwrite_400 (scr_gameref_t game, scr_int npc, size_t mark)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  const scr_char *input = run_get_dispatch_input ();
+  const scr_char *about;
+  scr_int topic;
+
+  if (!input || !lib_is_version_400 (game)
+      || !(lib_input_contains_word (input, "ask")
+           || lib_input_contains_word (input, "talk to"))
+      || !lib_input_contains_word (input, "about")
+      || !npc_in_room (game, npc, gs_playerroom (game)))
+    return FALSE;
+  about = strstr (input, "about");
+  if (!about)
+    return FALSE;
+  about += strlen (about) >= 6 ? 6 : strlen (about);
+
+  /* The topic loop reads the subject, not whatever the take referenced. */
+  const std::string saved (var_get_ref_text (vars));
+  var_set_ref_text (vars, about);
+  topic = lib_npc_find_topic (game, npc);
+  var_set_ref_text (vars, saved.c_str ());
+  if (topic == -1)
+    return FALSE;
+
+  pf_truncate (gs_get_filter (game), mark);
+  return lib_npc_reply_to (game, npc, topic);
+}
+
 static scr_bool
 lib_take_npc_overwrite_tail (scr_gameref_t game, size_t mark)
 {
@@ -13984,6 +14042,7 @@ lib_take_npc_overwrite_tail (scr_gameref_t game, size_t mark)
   pf_truncate (filter, mark);
   lib_print_take_npc_refusal (game, npc);
   lib_take_from_npc_overwrite_380 (game, npc, mark);
+  lib_take_ask_overwrite_400 (game, npc, mark);
   return TRUE;
 }
 

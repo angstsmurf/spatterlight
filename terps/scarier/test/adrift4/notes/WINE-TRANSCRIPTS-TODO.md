@@ -277,13 +277,6 @@ artefact; no corpus row differs by an engine rule.
       none, so this is unmeasured and unported.
   Nothing in the corpus types a nonsense head, so the suite says nothing
   about any of it; the 428 rows stay green either way.
-- **At 4.0 the ask arm outranks the take refusal.** `take ask bob about
-  hat` is "Bob says, 'That is a fine hat.'" at 4.0 and the take refusal
-  below it (Adrift_268_3c40.txt). run400's ask arm (47F8F7-47F9A5) gates
-  on `npc in room And ((no task And MemVar_4942E0 = 0) Or buffer =
-  "<player> can't talk to that.")` -- no buffer-empty test, unlike its
-  3.9 twin -- so it overwrites whatever the take arm just wrote. One cell
-  of one probe; not ported.
 - **At 4.0 give must lose to every other handler on the line.** Measured
   with the entry "give never overwrites" in the index below: `give take hat
   bob` is "I don't think Bob would appreciate being handled.", `give wear
@@ -736,9 +729,20 @@ transcript names are in the code comment next to the named function, in
   guard dropped) and `lib_take_from_npc_overwrite_380()` in sclibrar.cpp,
   asked from `lib_take_multiple_common()` and again from
   `lib_cmd_take_npc()`'s pre-3.9 branch -- a line like `take nut bob` never
-  reaches the first. 428/428 and both Wine sweeps byte-identical. One cell
-  stays open and is in the open list above: 4.0's ask arm overwriting the
-  take refusal. The other, the pre-4.0 two-noun take, is the entry below.
+  reaches the first. 428/428 and both Wine sweeps byte-identical. The
+  pre-4.0 two-noun take is the entry below.
+  **[4.0] The ask arm then answers over the take arm.** run400's ask block
+  (47F8E5-47F9A5) has no buffer-empty test, unlike its 3.9 twin: with
+  whole-word `ask`/`talk to` and `about`, the character present and named,
+  the subject is `Mid(line, InStr(line, "about") + 6)` and a topic reply
+  ASSIGNS over the refusal, so `take ask bob about hat` is "Bob says,
+  'That is a fine hat.'" and the hat is still taken (p4ORD
+  cmdfile_p2chr.txt, Adrift_268_3c40.txt). An unanswered ask leaves the
+  refusal ("does not respond" fills only an empty buffer); the "Use the
+  format" hint for a line with no `about` (47FBB0) is unmeasured and not
+  modelled. PORTED 2026-09-21 as `lib_take_ask_overwrite_400()`, asked
+  last from `lib_take_npc_overwrite_tail()`; 428/428, every stored Runner
+  transcript's compare unchanged.
 
 - **Below 4.0 takes() counts its loose candidates before it takes any of
   them, and two of them take NOTHING.** run390 454B95-454C9D, run380
