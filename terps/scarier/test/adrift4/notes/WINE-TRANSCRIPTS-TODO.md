@@ -267,16 +267,10 @@ artefact; no corpus row differs by an engine rule.
   whether an object ambiguity on a task-answered line also
   suppresses the tick.
 - **The library verb is matched anywhere in the line: the REST of it.** The
-  verb half, two-verb lines (every handler but those below), openclose,
-  whereis, characters, give below 4.0, dobattle and gotoplace are all
-  measured and ported -- see the index. Still open:
-    * Two-verb lines the ports leave alone, all unmeasured: a list line, a
-      clauseless `put`, and a goto beside give, wait, sit/stand/lie,
-      score, the inventory, a splitter, or a second other verb.
-    * A 4.0 walk beside a second verb: the p2goto feed never walks at 4.0,
-      because the cave is never visited (the route finder and both match
-      passes count visited rooms only). gotoplace only drives on the x
-      Runners (SendKeys needs vbrng.dll).
+  verb half, two-verb lines (list lines and a clauseless `put` too),
+  openclose, whereis, characters, give below 4.0, dobattle and gotoplace
+  (beside every verb, and walking at 4.0) are all measured and ported --
+  see the index. Still open:
     * run370's own word for each of take/drop/wear/remove/examine, command
       slots 10-14 (`MemVar_4460FC(&HA)`..`(&HE)`, beside the slot-15 goto
       word `lib_cmd_go_place()` already reads). The probe game defines
@@ -1085,6 +1079,32 @@ transcript names are in the code comment next to the named function, in
   3.7/4.0 and "(to Bob)" at 3.8/3.9. p3xORD/p4ORD, cmdfile_p2goto.txt,
   Adrift_275_5g37.rtf, 276_5g38.rtf, 277_5g39.txt, 278_5g40.txt
   (`uip_renote_named_npcs`, 2026-09-21)
+- **Two-verb list lines, a clauseless put, and a goto beside sit/stand/lie
+  or score.** A list line (`all`, `and`) that names a take or a drop and a
+  second verb is the take or drop list's at every version, which walks
+  co() over the whole line: `x take all`, `wear take all` and 4.0 `push
+  take all` take the coin and the box, `drop x all` drops everything held,
+  `x take coin and hat` with the hat held is "You pick up the coin." below
+  4.0 and "You take the coin. You are already carrying the hat." at 4.0. A
+  line with both a take and a drop word is unmeasured. Below 4.0 a put with
+  no in/on/down is no handler's, so beside take, drop or examine the other
+  handler answers: `put x coin` is "A gold coin.", `put take coin` with
+  the coin held "You've already got a coin!". At 4.0 put_drop_list writes
+  its "Where do you want to put the coin?" and does not claim; a take that
+  succeeds re-appends it after its own line (473597-4736CD: "You take the
+  coin. Where do you want to put the coin?"), and the already-carrying
+  refusal appends to it with no break (462D4E: "Where do you want to put
+  the coin?You are already carrying the coin."). A goto beside
+  sit/stand/lie or score gets the handler's answer and then gotoplace's
+  appended "Unknown place." at every version ("You sit down on the
+  ground.Unknown place.", "Your score is 0 out of a maximum of 0.
+  (0%)Unknown place."). A goto beside give, wait, the inventory, jump,
+  eat, kiss or a splitter, and 4.0 walks beside a second verb (`goto cave
+  then look` walks and drops the rest), already answered as the Runner
+  does. p3xORD/p4ORD, cmdfile_p2rest.txt, Adrift_277_9t37.rtf,
+  278_9t38.rtf, 280_9t39.txt, 281_9t40.txt (`lib_two_verb_line_pre400`,
+  `run_two_verb_line_400`, `run_put_take_400`, `run_goto_line_class`,
+  2026-09-21)
 - **The `with ` history prepend `[3.8+]`.** A line that starts with
   `with ` is rewritten as `<the previous typed line> <this line>` before
   anything tests it, and the rewritten line reaches the task matcher.

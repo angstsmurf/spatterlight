@@ -17784,7 +17784,7 @@ enum
 /* Every word the five entry tests hold, longest phrases first, so that
    "take off" is stripped whole where "take" alone would leave "off". */
 static const scr_char *const LIB_PRE400_VERB_WORDS[] = {
-  "put down", "put on", "take off", "look at", "look in",
+  "put down", "put on", "take off", "look at", "look in", "put",
   "get", "take", "pick", "drop", "leave", "wear", "remove",
   "examine", "exam", "read", "ex", "x", NULL
 };
@@ -17868,6 +17868,7 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   scr_bool present[LIB_PRE400_HANDLERS], acts[LIB_PRE400_HANDLERS];
   scr_int handler, object, found, count;
+  scr_bool bare_put = FALSE;
   const scr_char *scan;
   std::string rest;
 
@@ -17875,12 +17876,44 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
 
   if (version >= TAF_VERSION_400 || !line || line[0] == NUL)
     return FALSE;
-  if (LIB_PRE400_C ("all") || LIB_PRE400_C ("and"))
-    return FALSE;
 
   count = lib_pre400_handler_words (game, line, present);
+  /*
+   * A put with no container clause is no handler's: run370/380/390's put
+   * row wants its in/on, and the bare verb falls through to the catch-all.
+   * So beside one of the five it is only a word, and the handler answers:
+   * `put x coin` is "A gold coin.", `put take coin` with the coin held
+   * "You've already got a coin!", `put drop coin` "You drop the coin.".
+   * cmdfile_p2rest.txt cells 56, 69 and 76 (run370x Adrift_277_9t37.rtf,
+   * run380x Adrift_278_9t38.rtf, run390x Adrift_280_9t39.txt, 2026-09-21).
+   */
+  if (LIB_PRE400_C ("put") && !LIB_PRE400_C ("in") && !LIB_PRE400_C ("into")
+      && !LIB_PRE400_C ("inside") && !LIB_PRE400_C ("on")
+      && !LIB_PRE400_C ("onto") && !LIB_PRE400_C ("down"))
+    {
+      bare_put = TRUE;
+      count++;
+    }
   if (count < 2)
     return FALSE;
+
+  /*
+   * A list line (`all`, `and`) goes to the list arm of the first handler
+   * generaltasks calls that holds one, takes then drops, and that arm walks
+   * co() over the whole line on its own: `x take all` and `wear take all`
+   * are "You pick up the coin and the box.", `drop x all` "You drop the hat
+   * and the coin.", `x take coin and hat` with the hat held "You pick up the
+   * coin.".  p37ORD..p39ORD cmdfile_p2rest.txt (run370x Adrift_277_9t37.rtf,
+   * run380x Adrift_278_9t38.rtf, run390x Adrift_280_9t39.txt, 2026-09-21).
+   * A line with both a take and a drop word is not measured.
+   */
+  if (LIB_PRE400_C ("all") || LIB_PRE400_C ("and"))
+    {
+      if (present[LIB_PRE400_TAKE] == present[LIB_PRE400_DROP])
+        return FALSE;
+      handler = present[LIB_PRE400_TAKE] ? LIB_PRE400_TAKE : LIB_PRE400_DROP;
+      goto rewrite;
+    }
 
   /* The one object the line names, by co() over the whole line. */
   found = -1;
@@ -17925,6 +17958,7 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
   if (handler == -1)
     handler = LIB_PRE400_EXAMINE;
 
+rewrite:
   /* The line with every verb word taken out of it, which is what the
      winning handler's own object walk would have been left looking at. */
   for (scan = line; *scan != NUL; )
@@ -17938,6 +17972,8 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
             {
               const scr_int length = strlen (*word);
 
+              if (!bare_put && strcmp (*word, "put") == 0)
+                continue;
               if (scr_strncasecmp (scan, *word, length) == 0
                   && (scan[length] == NUL || scan[length] == ' '))
                 matched = length;
@@ -31677,6 +31713,37 @@ scr_bool
 lib_cmd_put_where_400 (scr_gameref_t game)
 {
   return lib_put_where_400 (game, lib_verb_object_resolve_400 (game));
+}
+
+/*
+ * lib_put_where_question_400()
+ *
+ * The question put_drop_list's clauseless branch writes for the line being
+ * dispatched, without printing it or ending the line: the Runner writes it
+ * into the message buffer and falls out unclaimed, so a take on the same
+ * line still has its turn (see run_put_take_400()).  FALSE for a line that
+ * branch does not take.
+ */
+scr_bool
+lib_put_where_question_400 (scr_gameref_t game, std::string *question)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const size_t mark = pf_buffer_length (filter);
+  scr_int resolved;
+
+  if (!lib_is_put_where_line_400 (game))
+    return FALSE;
+  resolved = lib_verb_object_resolve_400 (game);
+  if (resolved >= 0)
+    {
+      var_set_ref_object (gs_get_vars (game), resolved);
+      lib_print_wrapped_object (game, "Where do you want to put ",
+                                resolved, "?");
+    }
+  else
+    pf_buffer_string (filter, "Where do you want to put that?");
+  *question = pf_cut_tail (filter, mark);
+  return TRUE;
 }
 
 /*

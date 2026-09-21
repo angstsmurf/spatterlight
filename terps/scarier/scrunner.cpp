@@ -2827,8 +2827,10 @@ static const scr_char *const *const HOIST_TABLES_400[] = {
  *                              (x counts at the head only)
  * The class says which handler answers the line before gotoplace does;
  * RUN_GOTO_NONE is a line this pass leaves to the ordinary order: no goto,
- * no verb or two of them, a splitter, or a verb no cell has measured (give,
- * wait, sit/stand/lie, the inventory, score).
+ * no verb or two of them, a splitter, or give, wait or the inventory, which
+ * answer as the Runner does left to that order.  sit/stand/lie and score
+ * are RUN_GOTO_KEEP: "You sit down on the ground.Unknown place." at every
+ * version (cmdfile_p2rest.txt, Adrift_277_9t37.rtf .. 281_9t40.txt).
  */
 enum {
   RUN_GOTO_NONE, RUN_GOTO_EXAMINE, RUN_GOTO_TAKE, RUN_GOTO_DROP,
@@ -2839,8 +2841,11 @@ static scr_int
 run_goto_line_class (scr_gameref_t game, const scr_char *line)
 {
   static const scr_char *const BAIL[] = {
-    "and", "then", "with", "wait", "give", "i", "inv", "inventory", "sit",
-    "stand", "lie", "lay", "score", "put on", "take off", NULL
+    "and", "then", "with", "wait", "give", "i", "inv", "inventory",
+    "put on", "take off", NULL
+  };
+  static const scr_char *const SITSTAND[] = {
+    "sit", "stand", "lie", "lay", "score", NULL
   };
   static const scr_char *const EXAMINE[] = {
     "examine", "look at", "read", NULL
@@ -2918,6 +2923,7 @@ run_goto_line_class (scr_gameref_t game, const scr_char *line)
   note (any (DROP), RUN_GOTO_DROP);
   note (any (KEEP), RUN_GOTO_KEEP);
   note (any (OPEN), RUN_GOTO_OPEN);
+  note (any (SITSTAND), RUN_GOTO_KEEP);
 
   return groups == 1 ? found : RUN_GOTO_NONE;
 }
@@ -3719,10 +3725,8 @@ run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
 
   if (version < TAF_VERSION_400 || !line || line[0] == NUL)
     return FALSE;
-  /* The list arms walk co() themselves; not this rule's business. */
-  if (run_c_word_pre400 (version, line, "all") >= 0
-      || run_c_word_pre400 (version, line, "and") >= 0)
-    return FALSE;
+  const scr_bool list = run_c_word_pre400 (version, line, "all") >= 0
+                        || run_c_word_pre400 (version, line, "and") >= 0;
 
   for (scan = line; *scan != NUL; )
     {
@@ -3751,9 +3755,54 @@ run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
     return FALSE;
 
   /*
+   * A list line goes to put_drop_list's or get_outer's list arm, whichever
+   * the line holds, and the arm walks co() over the whole line itself:
+   * `x take all`, `push take all` and `wear take all` are "You take the
+   * coin and the box.", `drop x all` "You drop the hat and the coin.", and
+   * `x take coin and hat` with the hat held "You take the coin. You are
+   * already carrying the hat.".  p4ORD cmdfile_p2rest.txt (run400x
+   * Adrift_281_9t40.txt, 2026-09-21).  A put, and a line holding both, are
+   * not measured.
+   */
+  if (list)
+    {
+      const scr_int group = (seen & RUN_400_TAKE) ? RUN_400_TAKE
+                                                  : RUN_400_PUTDROP;
+      const scr_char *word = NULL;
+
+      if (!(seen & (RUN_400_TAKE | RUN_400_PUTDROP))
+          || ((seen & RUN_400_TAKE) && (seen & RUN_400_PUTDROP)))
+        return FALSE;
+      for (const scr_char *span : spans)
+        if (!word)
+          word = run_two_verb_word_400 (span, group);
+      if (!word || scr_strcasecmp (word, "put") == 0)
+        return FALSE;
+      hoisted.assign (word);
+      for (scan = line; *scan != NUL; )
+        {
+          scr_int length = 0;
+
+          if (scan == line || scan[-1] == ' ')
+            run_two_verb_groups_400 (game, scan, &length);
+          if (length > 0)
+            {
+              scan += length;
+              scan += strspn (scan, " ");
+              continue;
+            }
+          if (hoisted.size () == strlen (word))
+            hoisted += " ";
+          hoisted.push_back (*scan++);
+        }
+      return TRUE;
+    }
+
+  /*
    * put_drop_list's clauseless put branch (46DC34-46DD2C) prints and falls
    * out without claiming, so a `put` with no container clause leaves the
-   * line to the handlers below it.  Not measured beside a second verb.
+   * line to the handlers below it.  Beside examine or drop that is what
+   * the ordinary order already does; beside a take see run_put_take_400().
    */
   if ((seen & RUN_400_PUTDROP)
       && run_c_word_pre400 (version, line, "drop") < 0
@@ -7270,6 +7319,105 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
 
 
 /*
+ * run_put_take_400()
+ *
+ * A 4.0 line holding a clauseless put and a take.  put_drop_list is the
+ * first handler generaltasks calls, and its clauseless branch (46DC34)
+ * writes "Where do you want to put <X>?" into the message buffer and falls
+ * out without claiming, so get_outer (4582D8) has the line next.  A take
+ * that succeeds saves the buffer (var_B0, 473597), composes its own line
+ * and appends the saved text after the 44A9F4 separator (4736CD): `take put
+ * coin` is "You take the coin. Where do you want to put the coin?".  The
+ * already-carrying refusal appends to the buffer as it stands (462D4E):
+ * `put take coin` with the coin held is "Where do you want to put the
+ * coin?You are already carrying the coin.".  p4ORD cmdfile_p2rest.txt
+ * cells 62 and 69 (run400x Adrift_281_9t40.txt, 2026-09-21).  A put beside
+ * examine or drop already answers as the Runner does; any other take
+ * outcome is not measured, and the line goes on as it did.
+ */
+static scr_bool
+run_put_take_400 (scr_gameref_t game, const scr_char *string)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const size_t mark = pf_buffer_length (filter);
+  std::vector<scr_int> places;
+  std::string question, take_line;
+  scr_bool moved = FALSE;
+  scr_int object;
+
+  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      || !lib_input_contains_word (string, "put")
+      || !(lib_input_contains_word (string, "take")
+           || lib_input_contains_word (string, "get")
+           || lib_input_contains_word (string, "pick"))
+      || lib_input_contains_word (string, "all")
+      || lib_input_contains_word (string, "and")
+      || strstr (string, "take off"))
+    return FALSE;
+
+  run_dispatch_input = string;
+  if (!lib_put_where_question_400 (game, &question))
+    return FALSE;
+
+  /* get_outer's own line: the put word plays no part in its object walk. */
+  for (const scr_char *scan = string; *scan != NUL; )
+    {
+      if ((scan == string || scan[-1] == ' ')
+          && scr_strncasecmp (scan, "put", 3) == 0
+          && (scan[3] == NUL || scan[3] == ' '))
+        {
+          scan += 3;
+          scan += strspn (scan, " ");
+          continue;
+        }
+      take_line.push_back (*scan++);
+    }
+  while (!take_line.empty () && take_line[take_line.size () - 1] == ' ')
+    take_line.erase (take_line.size () - 1);
+  std::string hoisted;
+  if (run_hoist_verb_line (game, take_line.c_str (), hoisted))
+    take_line = hoisted;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      places.push_back (gs_object_position (game, object));
+      places.push_back (gs_object_parent (game, object));
+    }
+  run_dispatch_input = take_line.c_str ();
+  const scr_bool status = run_priority_commands (game, take_line.c_str ());
+  run_dispatch_input = string;
+  if (!status)
+    {
+      pf_truncate (filter, mark);
+      return FALSE;
+    }
+  for (object = 0; object < gs_object_count (game); object++)
+    if (gs_object_position (game, object) != places[2 * object]
+        || gs_object_parent (game, object) != places[2 * object + 1])
+      moved = TRUE;
+
+  std::string said = pf_cut_tail (filter, mark);
+  if (moved)
+    {
+      while (!said.empty () && said[said.size () - 1] == '\n')
+        said.erase (said.size () - 1);
+      pf_buffer_string (filter, said.c_str ());
+      pf_buffer_string (filter, " ");
+      pf_buffer_string (filter, question.c_str ());
+      pf_buffer_string (filter, "\n");
+    }
+  else if (said.find ("already carrying") != std::string::npos)
+    {
+      pf_buffer_string (filter, question.c_str ());
+      pf_buffer_string (filter, said.c_str ());
+    }
+  else
+    pf_buffer_string (filter, said.c_str ());
+  return TRUE;
+}
+
+
+/*
  * run_all_commands()
  * run_game_task_commands()
  *
@@ -7520,6 +7668,11 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
                                            : put_clauses[0].c_str ());
   status = FALSE;
   refused = FALSE;
+  if (!repeat_pending && run_put_take_400 (game, string))
+    {
+      status = TRUE;
+      put_first = FALSE;
+    }
   /*
    * The inventory listing at 48A457 comes out ahead of the dispatcher too,
    * but unlike the put/drop rows it does not take the line away from the
@@ -7738,6 +7891,12 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     }
   else if (battle_kinds & RUN_BATTLE_DROP)
     priority_line = put_line;
+  /* A 4.0 list line with a second verb is put_drop_list's or get_outer's
+     own list; see run_two_verb_line_400(). */
+  else if ((run_c_word_pre400 (TAF_VERSION_400, string, "all") >= 0
+            || run_c_word_pre400 (TAF_VERSION_400, string, "and") >= 0)
+           && run_two_verb_line_400 (game, string, priority_hoisted))
+    priority_line = priority_hoisted.c_str ();
 
   if (!status && !put_first && !inv_listed && !repeat_pending)
     {
