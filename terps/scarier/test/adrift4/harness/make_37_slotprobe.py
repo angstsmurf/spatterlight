@@ -37,11 +37,22 @@ Renamed: 10 peer, 11 grab, 12 dump, 13 don, 14 doff.
     4 coin      inside the box
     5 grab bag  loose, alias "bag"
 
+p37SLOT2 (--namesakes) adds the two cases the two-verb pass leaves alone,
+a static object (the box) under two handler words and a name two objects
+answer to:
+
+    6 red ball  loose, alias "ball"
+    7 blue ball loose, alias "ball"
+
 Usage:
-    python3 make_37_slotprobe.py          -> p37SLOT.taf
+    python3 make_37_slotprobe.py              -> p37SLOT.taf
+    python3 make_37_slotprobe.py --namesakes  -> p37SLOT2.taf
 Session (from ~/adrift-battle/runner/wine):
-    cmdfile_pslot37.txt on run370x.exe
+    cmdfile_pslot37.txt on run370x.exe (p37SLOT)
+    cmdfile_pslot37b.txt on run370x.exe (p37SLOT2)
 """
+import sys
+
 import make_surfprobe as surf
 
 LIT = surf.LIT
@@ -53,8 +64,14 @@ surf.OBJECTS = [
     ("coin",     "a", "A gold coin.",    ("in", "box"),  "",          0, 0, 0),
     ("grab bag", "a", "A lucky bag.",    ("room", LIT),  "",          0, 0, 0),
 ]
+NAMESAKES = "--namesakes" in sys.argv[1:]
+if NAMESAKES:
+    surf.OBJECTS += [
+        ("red ball",  "a", "A red ball.",  ("room", LIT), "", 0, 0, 0),
+        ("blue ball", "a", "A blue ball.", ("room", LIT), "", 0, 0, 0),
+    ]
 surf.NAMES = [o[0] for o in surf.OBJECTS]
-surf.ALIASES = {"grab bag": "bag"}
+surf.ALIASES = {"grab bag": "bag", "red ball": "ball", "blue ball": "ball"}
 surf.WEARABLE = {"hat"}
 surf.TASKS = [
     ("probe", "PROBE OK."),
@@ -67,7 +84,7 @@ surf.COMMANDS_370 = list(surf.COMMANDS_370)
 for slot, word in ((10, "peer"), (11, "grab"), (12, "dump"), (13, "don"),
                    (14, "doff")):
     surf.COMMANDS_370[slot] = word
-surf.OUT = {370: "p37SLOT.taf"}
+surf.OUT = {370: "p37SLOT2.taf" if NAMESAKES else "p37SLOT.taf"}
 
 if __name__ == "__main__":
     surf.emit(370)

@@ -271,11 +271,9 @@ artefact; no corpus row differs by an engine rule.
   openclose, whereis, characters, give, dobattle and gotoplace
   (beside every verb, and walking at 4.0) are all measured and ported --
   see the index, as is run370's own word for each of the five (command
-  slots 10-14). Still open:
-    * a 3.70 slot word on a line whose object is static or named twice. The
-      two-verb pass bails on those and the slot word then goes to the
-      first handler in call order, as the old synonym did. This is
-      unmeasured (p37SLOT has no such cell).
+  slots 10-14), and the static / named-twice cells of those words (see
+  "A static object under two verb words" in the index). Nothing is
+  known to be open here.
   Nothing in the corpus types a nonsense head, so the suite says nothing
   about any of it; the 428 rows stay green either way.
 - **Silent-task test scope, the unported rest.** run400 tests the whole
@@ -520,6 +518,36 @@ transcript names are in the code comment next to the named function, in
   name. p37SLOT (`harness/make_37_slotprobe.py`), run370x
   `cmdfile_pslot37.txt`, `Adrift_pslot37.rtf` plus
   `Adrift_pslot37_dump.txt` (2026-09-21).
+
+  `[3.7/3.8/3.9]` **A static object under two verb words; 3.70 names by
+  Short and Alias alike.** MEASURED and PORTED 2026-09-21.
+    * Static object, two handler words on the line: examine wins over the
+      take, wear and remove refusals. take+drop is take's "can't take".
+      drop+examine is "You don't have" at 3.70/3.80 (drops claims the
+      line) but the description at 3.90. With no examine word, the first
+      handler in call order answers. p37SURF/p38SURF/p39SURF after `n`,
+      `cmdfile_pstat2v.txt` -> `Adrift_280_pstat2v_37.rtf`,
+      `Adrift_281_pstat2v_38.rtf`, `Adrift_282_pstat2v_39.txt`; p37SLOT2
+      `cmdfile_pslot37b.txt` (`Adrift_pslot37b.rtf` + `_dump.txt`).
+    * run370 takes() (436D20) acts on EVERY object named by Short or Alias
+      (replacealias(obj) then c(Short)), and the last one's message
+      overwrites the rest. "You've already got" (436561) overwrites too,
+      so on an all-held line the answer is the last held object by index.
+      The whole per-object action sits under `If Not c("from")`
+      (43648C), so take-from lines are untouched.
+    * The namesake crowd (takes' var_116, 436250) counts every loose
+      object whose Short is c() in the line, not just same-Short
+      namesakes: `take coin hat` is "Take what?" (p37ORD
+      `cmdfile_p2mult.txt`, `Adrift_267_3m37.rtf`). Not on "from" lines.
+    * run370 wears (42C9FC) and removes (429998) call `replacealias(0)`
+      with a literal 0 (42C48A / 42958A): only object #0's Alias is
+      honoured, every other object must be named by its Short, else
+      "Wear what?" / "Remove what?" (`don ball` on p37SLOT2).
+  p37SLOT2 = `make_37_slotprobe.py --namesakes` (red and blue ball, alias
+  "ball"); `cmdfile_pslot37c.txt` -> `Adrift_283_pslot37c.rtf`. Port:
+  `lib_names_object_370()`, the widening and wear/remove narrowing in
+  `lib_disambiguate_object_common()`, the static arm of
+  `lib_two_verb_line_pre400()`, `lib_namesake_crowded_pre380()`.
 
 - **Below 4.0 a take or a drop names its object over the WHOLE line too.**
   The noun half of the bullet above. Neither takes() nor drops() parses

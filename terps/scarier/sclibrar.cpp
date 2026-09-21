@@ -5314,7 +5314,10 @@ lib_object_held_pre380 (scr_gameref_t game, scr_int object)
  * Whether this object is one of the namesakes 3.7's loops find themselves
  * crowded on: its Short is in the typed line, and two or more present
  * objects on the verb's own side -- loose for takes(), held for drops() --
- * carry that same Short.  3.7's handlers never call co(), so what makes a
+ * have their Shorts in it.  The count (takes' var_116, 436250) is of every
+ * such Short, not of one shared name: `take coin hat` with both loose is
+ * "Take what?" (p37ORD cmdfile_p2mult.txt, run370 Adrift_267_3m37.rtf), so
+ * same-Short namesakes are only the commonest crowd.  3.7's handlers never call co(), so what makes a
  * 3.7 crowd is the SHORT alone: two objects answering to one word through
  * an Alias are not namesakes to it, and each simply acts.  p37OPENA
  * (Adrift_232_oy370, 2026-09-20) is that side: a gem and a rock aliased
@@ -5334,6 +5337,10 @@ lib_namesake_crowded_pre380 (scr_gameref_t game, const scr_char *line,
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
   if (scr_strempty (shortname) || !line || !lib_co_contains (line, shortname))
     return FALSE;
+  /* takes() acts on nothing on a "from" line (43648C), so its take-from
+     lines are no crowd. */
+  if (!want_held && lib_co_contains (line, "from"))
+    return FALSE;
 
   present = 0;
   for (other = 0; other < gs_object_count (game); other++)
@@ -5343,11 +5350,35 @@ lib_namesake_crowded_pre380 (scr_gameref_t game, const scr_char *line,
 
       if (lib_co_candidate (game, other, room)
           && lib_object_held_pre380 (game, other) == want_held
-          && !scr_strempty (name)
-          && scr_strcasecmp (name, shortname) == 0)
+          && !scr_strempty (name) && lib_co_contains (line, name))
         present++;
     }
   return present > 1;
+}
+
+/* TRUE if the object's Short or any Alias is a whole word run of the line,
+   which is how 3.7's takes()/drops() loop names an object. */
+static scr_bool
+lib_names_object_370 (scr_gameref_t game, const scr_char *line,
+                      scr_int object)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *name;
+  scr_vartype_t vt_key[4];
+  scr_int alias_count, alias;
+
+  name = prop_get_indexed_string (bundle, "Objects", object, "Short");
+  if (!scr_strempty (name) && lib_co_contains (line, name))
+    return TRUE;
+  alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      vt_key[3].integer = alias;
+      name = prop_get_string (bundle, "S<-sisi", vt_key);
+      if (!scr_strempty (name) && lib_co_contains (line, name))
+        return TRUE;
+    }
+  return FALSE;
 }
 
 /*
@@ -7370,6 +7401,71 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
       return -1;
     }
 
+  /*
+   * run370's wears() and removes() rewrite the line's Alias with
+   * replacealias(0) -- a literal 0 (LitI2_Byte at 42C48A / 42958A), not the
+   * argument-less every-object form takes() uses -- so only object #0's
+   * Alias ever becomes a Short, and every other object must be named by
+   * its Short.  `don ball` holding a red and a blue ball, both aliased
+   * "ball", is "Wear what?" (p37SLOT2 cmdfile_pslot37b.txt,
+   * Adrift_pslot37b.rtf, 2026-09-21).
+   */
+  if (count > 0 && taf_version < TAF_VERSION_380
+      && (strcmp (verb, "wear") == 0 || strcmp (verb, "remove") == 0)
+      && run_get_dispatch_input ())
+    {
+      const scr_char *line = run_get_dispatch_input ();
+      const scr_prop_setref_t bundle = gs_get_bundle (game);
+      std::string rewritten;
+      scr_int kept = 0;
+
+      if (gs_object_count (game) > 0)
+        {
+          const scr_char *alias;
+          scr_vartype_t vt_key[4];
+
+          alias = lib_first_alias (bundle, vt_key, "Objects", 0);
+          if (!scr_strempty (alias) && lib_co_contains (line, alias))
+            {
+              const scr_char *found = strstr (line, alias);
+
+              if (found)
+                {
+                  rewritten.assign (line, found - line);
+                  rewritten += prop_get_indexed_string (bundle, "Objects", 0,
+                                                        "Short");
+                  rewritten += found + strlen (alias);
+                  line = rewritten.c_str ();
+                }
+            }
+        }
+      for (index_ = 0; index_ < gs_object_count (game); index_++)
+        {
+          const scr_char *shortname;
+
+          if (!game->object_references[index_])
+            continue;
+          shortname = prop_get_indexed_string (bundle, "Objects", index_,
+                                               "Short");
+          if (scr_strempty (shortname) || !lib_co_contains (line, shortname))
+            game->object_references[index_] = FALSE;
+          else
+            {
+              object = index_;
+              kept++;
+            }
+        }
+      if (kept == 0)
+        {
+          lib_what (game, strcmp (verb, "wear") == 0 ? "Wear" : "Remove");
+          lib_co_prompt_370_blocked = TRUE;
+          if (is_ambiguous)
+            *is_ambiguous = TRUE;
+          return -1;
+        }
+      count = kept;
+    }
+
   if (count > 1 && taf_version < TAF_VERSION_380)
     {
       const scr_bool is_wear = strcmp (verb, "wear") == 0;
@@ -7446,13 +7542,42 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
           scr_int eligible = 0, kept = 0;
 
           /*
+           * The loop visits every object, not the parser's references: one
+           * whose Alias is on the line has it rewritten to its Short first
+           * (replacealias, run370 4363F7) and then answers c(Short) like
+           * any other.  So an Alias counts as fully as a Short, and `take
+           * red ball` over a red and a blue ball both aliased "ball" picks
+           * up BOTH, "You pick up the blue ball." -- `drop red ball` drops
+           * both the same way (p37SLOT2 cmdfile_pslot37c.txt, run370x
+           * Adrift_283_pslot37c.rtf, 2026-09-21).  The loop's action is
+           * under `If Not c("from")` (43648C), so a take-from line keeps
+           * the parser's references.
+           */
+          for (index_ = 0;
+               index_ < gs_object_count (game) && !lib_co_contains (line, "from");
+               index_++)
+            {
+              if (game->object_references[index_]
+                  || obj_is_static (game, index_)
+                  || !lib_co_candidate (game, index_, gs_playerroom (game))
+                  || !lib_names_object_370 (game, line, index_))
+                continue;
+              game->object_references[index_] = TRUE;
+              count++;
+            }
+
+          /*
            * takes() walks what is loose and drops() what is held, so a
            * namesake in the wrong place is not in the crowd at all: two
            * orbs on the floor are "Drop what?" to nobody, they are drops'
            * ordinary "You don't have a orb!" (p37TAKEP, Adrift_238_pc370
            * turn 14).  With nothing eligible the loop never ran, nothing
            * is ambiguous, and the handler's own refusal answers about the
-           * first name on the line.
+           * first name on the line -- drops' refusal only fills an empty
+           * message.  takes' "You've already got" (436561) overwrites, so
+           * with every namesake in hand the LAST by index answers: `take
+           * ball` holding both balls is "You've already got a blue ball!"
+           * (Adrift_283_pslot37c.rtf).
            */
           for (index_ = 0; index_ < gs_object_count (game); index_++)
             {
@@ -7462,7 +7587,14 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
             }
           if (eligible == 0)
             {
-              object = lib_first_named_pre400 (game, -1);
+              object = -1;
+              if (is_take)
+                for (index_ = 0; index_ < gs_object_count (game); index_++)
+                  if (game->object_references[index_]
+                      && lib_object_held_pre380 (game, index_))
+                    object = index_;
+              if (object == -1)
+                object = lib_first_named_pre400 (game, -1);
               if (object == -1)
                 for (index_ = 0; index_ < gs_object_count (game); index_++)
                   if (game->object_references[index_])
@@ -18068,10 +18200,31 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
         }
       found = object;
     }
+  /*
+   * A static object acts for none of the four, and each of their refusals
+   * leaves the line open -- except drops()' below 3.90, which claims it --
+   * so examines speaks over the rest: `x take bench`, `take x bench`, `wear
+   * x bench` and `remove x bench` are all "A stone bench." at 3.70, 3.80 and
+   * 3.90, while `drop x bench` is "You don't have a bench!" at 3.70/3.80 and
+   * the description at 3.90.  With no examine word the first handler in the
+   * call order answers: `drop take bench`, `take drop bench` and `wear take
+   * bench` are "You can't take a bench.".  The 3.70 slot words go the same
+   * way (`peer grab box`, `doff peer box`; `dump grab box` is the take
+   * refusal).  p37SURF..p39SURF cmdfile_pstat2v.txt (run370x
+   * Adrift_280_pstat2v_37.rtf, run380x 281_pstat2v_38.rtf, run390x
+   * 282_pstat2v_39.txt) and p37SLOT2 cmdfile_pslot37b.txt
+   * (Adrift_pslot37b.rtf plus its scrollback dump), 2026-09-21.
+   */
   if (found != -1 && obj_is_static (game, found))
     {
-      found = -1;
-      goto unmeasured;
+      if (version < TAF_VERSION_390 && present[LIB_PRE400_DROP])
+        handler = present[LIB_PRE400_TAKE] ? LIB_PRE400_TAKE : LIB_PRE400_DROP;
+      else if (present[LIB_PRE400_EXAMINE])
+        handler = LIB_PRE400_EXAMINE;
+      else
+        for (handler = 0; !present[handler]; handler++)
+          ;
+      goto rewrite;
     }
 
   acts[LIB_PRE400_TAKE] = found != -1 && lib_take_filter (game, found, -1);
