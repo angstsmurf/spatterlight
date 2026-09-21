@@ -4244,46 +4244,35 @@ lib_goto_step_name (scr_gameref_t game, scr_int room, scr_int next)
  * Adrift_133_pgoto39.txt, run380x Adrift_132_pgoto38.rtf and run400x
  * Adrift_133_p4goto.txt.
  */
-scr_bool
-lib_cmd_go_place (scr_gameref_t game)
+/*
+ * lib_go_place_off is set by run_goto_anywhere() for the pass that answers
+ * the rest of a goto line as though gotoplace were not there.
+ */
+scr_bool lib_go_place_off = FALSE;
+
+static scr_bool lib_co_contains (const scr_char *command, const scr_char *term);
+static scr_int lib_alias_prepare (const scr_prop_setref_t bundle,
+                                  scr_vartype_t *vt_key,
+                                  const scr_char *category, scr_int index);
+
+/*
+ * lib_goto_alias()
+ *
+ * run370 also takes the game's own word for "goto" (command slot 15,
+ * MemVar_4460FC(&HF)) anywhere in the line, leaves on it alone, and cuts
+ * it as its length plus one from the front before the "goto" and "go to"
+ * cuts (42B8E9-42BA4F).  `a rove hall` is "Moving to blue hall..." ("e
+ * hall"), `rove kitchen` walks, bare `rove` is DontUnderstand and `goto
+ * kitchen` still walks: p37GOTOW (harness/make_37_gotoprobe.py), run370x
+ * Adrift_141_pgoto37w.rtf and Adrift_143_pgoto37w2.rtf.  Lower-cased; empty
+ * from 3.8 on.
+ */
+static std::string
+lib_goto_alias (scr_prop_setref_t bundle)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_int version = prop_get_taf_version (bundle);
-  const scr_char *const input = run_get_dispatch_input ();
-  const scr_int rooms = gs_room_count (game);
-  std::vector<scr_int> path;
-  std::vector<char> marked (rooms, 0);
-  std::string line, text;
-  scr_int count, target, room;
-  scr_bool named_elsewhere;
-
-  if (!input)
-    return FALSE;
-  line = input;
-
-  const auto has_word = [&] (const scr_char *word) -> scr_bool
-    {
-      return version >= TAF_VERSION_400
-             ? lib_input_contains_word (line.c_str (), word)
-             : run_c_word_pre400 (version, line.c_str (), word) >= 0;
-    };
-  const auto drop_front = [&] (size_t length)
-    {
-      line = (line.size () > length) ? line.substr (length) : std::string ();
-    };
-
-  /*
-   * run370 also takes the game's own word for "goto" (command slot 15,
-   * MemVar_4460FC(&HF)) anywhere in the line, leaves on it alone, and cuts
-   * it as its length plus one from the front before the "goto" and "go to"
-   * cuts (42B8E9-42BA4F).  `a rove hall` is "Moving to blue hall..." ("e
-   * hall"), `rove kitchen` walks, bare `rove` is DontUnderstand and `goto
-   * kitchen` still walks: p37GOTOW (harness/make_37_gotoprobe.py), run370x
-   * Adrift_141_pgoto37w.rtf and Adrift_143_pgoto37w2.rtf.
-   */
   std::string alias;
-  if (version < TAF_VERSION_380)
+
+  if (prop_get_taf_version (bundle) < TAF_VERSION_380)
     {
       scr_vartype_t vt_key[3], vt_rvalue;
 
@@ -4298,24 +4287,124 @@ lib_cmd_go_place (scr_gameref_t game)
             c = scr_tolower (c);
         }
     }
-  const scr_bool has_alias = !alias.empty () && has_word (alias.c_str ());
+  return alias;
+}
+
+
+/*
+ * lib_goto_line_enters()
+ *
+ * Whether gotoplace goes past its entry tests on this line: from 3.9 c("goto")
+ * or a line starting "go ", below it `(c("goto") And line<>"goto")`, a line
+ * starting "go to" longer than five, or 3.7's own goto word; the bare words
+ * leave at once.
+ */
+scr_bool
+lib_goto_line_enters (scr_gameref_t game, const scr_char *input)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const std::string alias = lib_goto_alias (gs_get_bundle (game));
+  const std::string line = input ? input : "";
+
+  const auto has_word = [&] (const scr_char *word) -> scr_bool
+    {
+      return version >= TAF_VERSION_400
+             ? lib_input_contains_word (line.c_str (), word)
+             : run_c_word_pre400 (version, line.c_str (), word) >= 0;
+    };
 
   if (version >= TAF_VERSION_390)
     {
       if (!has_word ("goto") && line.compare (0, 3, "go ") != 0)
         return FALSE;
-      if (line == "goto" || line == "go to" || line == "go")
-        return FALSE;
+      return !(line == "goto" || line == "go to" || line == "go");
     }
-  else
+  if (!(has_word ("goto") && line != "goto")
+      && !(line.compare (0, 5, "go to") == 0 && line.size () > 5)
+      && !(!alias.empty () && has_word (alias.c_str ())))
+    return FALSE;
+  return !(line == "goto" || line == "go to"
+           || (!alias.empty () && line == alias));
+}
+
+
+/*
+ * lib_goto_line_names_object()
+ *
+ * Whether the line names, whole word, the Short or an Alias of an object
+ * the player has or can see -- what a take, drop or openclose needs before
+ * it answers a goto line for itself; see run_goto_anywhere().
+ */
+scr_bool
+lib_goto_line_names_object (scr_gameref_t game, const scr_char *line)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int room = gs_playerroom (game);
+  scr_int object;
+
+  for (object = 0; object < gs_object_count (game); object++)
     {
-      if (!(has_word ("goto") && line != "goto")
-          && !(line.compare (0, 5, "go to") == 0 && line.size () > 5)
-          && !has_alias)
-        return FALSE;
-      if (line == "goto" || line == "go to" || (!alias.empty () && line == alias))
-        return FALSE;
+      const scr_char *shortname;
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+      scr_bool named;
+
+      if (!obj_indirectly_in_room (game, object, room)
+          && !obj_indirectly_held_by_player (game, object))
+        continue;
+      shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
+      named = shortname && lib_co_contains (line, shortname);
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+      for (alias = 0; alias < alias_count && !named; alias++)
+        {
+          const scr_char *alias_name;
+
+          vt_key[3].integer = alias;
+          alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+          named = alias_name && alias_name[0] != NUL
+                  && lib_co_contains (line, alias_name);
+        }
+      if (named)
+        return TRUE;
     }
+  return FALSE;
+}
+
+
+scr_bool
+lib_cmd_go_place (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int version = prop_get_taf_version (bundle);
+  const scr_char *const input = run_get_dispatch_input ();
+  const scr_int rooms = gs_room_count (game);
+  std::vector<scr_int> path;
+  std::vector<char> marked (rooms, 0);
+  std::string line, text;
+  scr_int count, target, room;
+  scr_bool named_elsewhere;
+
+  if (!input || lib_go_place_off)
+    return FALSE;
+  line = input;
+
+  const auto has_word = [&] (const scr_char *word) -> scr_bool
+    {
+      return version >= TAF_VERSION_400
+             ? lib_input_contains_word (line.c_str (), word)
+             : run_c_word_pre400 (version, line.c_str (), word) >= 0;
+    };
+  const auto drop_front = [&] (size_t length)
+    {
+      line = (line.size () > length) ? line.substr (length) : std::string ();
+    };
+
+  const std::string alias = lib_goto_alias (bundle);
+  const scr_bool has_alias = !alias.empty () && has_word (alias.c_str ());
+
+  if (!lib_goto_line_enters (game, line.c_str ()))
+    return FALSE;
 
   /*
    * Pre-4.0 generaltasks calls examines() first (run390 45F684, run380
@@ -25290,6 +25379,46 @@ lib_cmd_attack_npcs_with (scr_gameref_t game)
   return lib_battle_attack_many (game, TRUE);
 }
 
+/*
+ * lib_battle_line_verb()
+ * lib_battle_line_npc()
+ *
+ * dobattle's var_90 (run400 47E9EF-47EADB, run390 44CB5x): the first of its
+ * verbs the line holds as a whole word, NULL with the Battle System off or
+ * below 3.90.  And the first character the line names by dobattle's own
+ * test who is in the player's room, or -1.  run_battle_line() in
+ * scrunner.cpp reads both.
+ */
+const scr_char *
+lib_battle_line_verb (scr_gameref_t game, const scr_char *input)
+{
+  scr_int verb_index;
+
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390
+      || !battle_is_enabled (game) || !input)
+    return NULL;
+  for (verb_index = 0; LIB_BATTLE_VERBS[verb_index].verb; verb_index++)
+    {
+      if (lib_input_contains_word (input, LIB_BATTLE_VERBS[verb_index].verb))
+        return LIB_BATTLE_VERBS[verb_index].verb;
+    }
+  return NULL;
+}
+
+scr_int
+lib_battle_line_npc (scr_gameref_t game, const scr_char *input)
+{
+  scr_int npc;
+
+  for (npc = 0; npc < gs_npc_count (game); npc++)
+    {
+      if (lib_npc_named_in_line (game, npc, input)
+          && npc_in_room (game, npc, gs_playerroom (game)))
+        return npc;
+    }
+  return -1;
+}
+
 
 /*
  * lib_cmd_attack_npc()
@@ -27164,13 +27293,13 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
 {
   /*
    * takes, drops, put_drop_list and the inventory listing claim the line
-   * above openclose; gotoplace runs below it, but drive.exe cannot type a
-   * `go to` line at any Runner (error 70 pre-4.0, SendKeys glue at 4.0), so
-   * a line holding one is left exactly as it is.
+   * above openclose.  gotoplace runs below it and adds to what it says (or
+   * walks over it); run_goto_line_class() sees to that half, so a goto line
+   * gets openclose's own answer here.
    */
   static const scr_char *const LEFT_ALONE[] = {
     "get", "take", "pick", "drop", "put", "leave", "i", "inv", "inventory",
-    "goto", "go to", "go", NULL
+    NULL
   };
   static const scr_char *const EXAMINES[] = {
     "examine", "look at", "read", NULL
@@ -27241,6 +27370,17 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
   if (lib_co_contains (typed, "ask"))
     speaks = speaks || taf_version >= TAF_VERSION_400
              || scr_strncasecmp (typed, "ask ", 4) == 0;
+  /*
+   * And the `go` nudge at the end of the verb sweep, which overwrites
+   * whatever was said (lib_cmd_just_a_direction()): `open go to cave` is
+   * "Just a direction will do." at every version, since a mid-line "go to"
+   * is no gotoplace line (p2ord, run370x Adrift_271_4o37.rtf, run380x
+   * Adrift_272_4o38.rtf, run390x Adrift_275_4o39.txt, run400x
+   * Adrift_276_4o40.txt).  The nudge row answers a bare `go`.
+   */
+  const scr_bool nudged = lib_co_contains (typed, "go")
+                          && !lib_goto_line_enters (game, typed);
+  speaks = speaks || nudged;
 
   /* A line the open/close word leads, with nobody below to speak for it, is
      the anchored row's own and is answered where it always was. */
@@ -27266,7 +27406,7 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
       {
         pf_truncate (filter, mark);
         if (speaks && rest)
-          *rest = cut;
+          *rest = nudged ? std::string ("go") : cut;
         return FALSE;
       }
     return pf_buffer_length (filter) > mark;

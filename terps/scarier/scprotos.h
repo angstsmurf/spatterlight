@@ -647,6 +647,10 @@ extern scr_bool lib_cmd_go_southeast (scr_gameref_t game);
 extern scr_bool lib_cmd_go_northwest (scr_gameref_t game);
 extern scr_bool lib_cmd_go_southwest (scr_gameref_t game);
 extern scr_bool lib_cmd_go_place (scr_gameref_t game);
+extern scr_bool lib_go_place_off;
+extern scr_bool lib_goto_line_enters (scr_gameref_t game, const scr_char *line);
+extern scr_bool lib_goto_line_names_object (scr_gameref_t game,
+                                            const scr_char *line);
 extern scr_bool lib_therest_absent_370 (scr_gameref_t game);
 extern scr_bool lib_with_clause_claims (scr_gameref_t game);
 extern scr_bool lib_cmd_verbose (scr_gameref_t game);
@@ -771,6 +775,10 @@ extern scr_bool lib_cmd_fight_npc (scr_gameref_t game);
 extern scr_bool lib_cmd_fight_npc_with (scr_gameref_t game);
 extern scr_bool lib_cmd_attack_npcs (scr_gameref_t game);
 extern scr_bool lib_cmd_attack_npcs_with (scr_gameref_t game);
+extern const scr_char *lib_battle_line_verb (scr_gameref_t game,
+                                            const scr_char *input);
+extern scr_int lib_battle_line_npc (scr_gameref_t game,
+                                    const scr_char *input);
 extern scr_bool lib_cmd_wield (scr_gameref_t game);
 extern scr_bool lib_cmd_wield_other (scr_gameref_t game);
 extern scr_bool lib_cmd_sit_on_object (scr_gameref_t game);

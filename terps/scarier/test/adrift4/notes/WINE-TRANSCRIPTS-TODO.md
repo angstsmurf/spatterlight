@@ -210,10 +210,7 @@ Row comments and probe generators cite sections by title ("Ported
 ## Open leads
 
 None blocks a golden. Rows not named here differ only by a capture
-artefact. The 4.0 and 3.9 engine lists are empty: the six 3.9 rows that
-were the silent-task deviation (alexis and alexis_worn_cube T99 `open
-chest`, everything T38 `read diary`, lifesimulation T6, life `piss`,
-the_hangover T34) went identical with that port on 2026-09-20.
+artefact; no corpus row differs by an engine rule.
 
 ### Harness and compare
 
@@ -228,6 +225,9 @@ the_hangover T34) went identical with that port on 2026-09-20.
 - **Permanently unmeasurable:** `dreamquest` (run400 cannot load a task
   with an empty Command vector); the `to_hell_and_beyond` assisted rows
   (Scarier-only by design).
+- When reading `sweep_wine_breaks.py`, judge by `k1`: 5486 of the 5514
+  Scarier-only breaks are the `<centre>` blank-line artefact (`k2`), so the
+  total is a poor target on its own.
 
 ### Nothing owed (capture and compare artefacts)
 
@@ -245,12 +245,10 @@ the_hangover T34) went identical with that port on 2026-09-20.
   "apart from whitespace" rows. Glum_Fiddle turn 0 is the startup echo.
 - Lost commands after an ending: thelasthour's last `wait` only (that row
   runs without SCR_SKIP_WAITKEY, so one ending "Press a key." swallows a
-  solution line and the extra `wait` makes up for it). Other rows' trailing
-  padding was trimmed and re-driven 2026-09-19 (1cc5dbc55).
-- Deliberate deviations by row: the silent-task rows above;
-  alices_restaurant (run370 double matcher pass); sandy_meta_number and
-  hero's closing `statusline` (SCARE meta-commands; hero uses `statusline`
-  on purpose to print the score).
+  solution line and the extra `wait` makes up for it).
+- Deliberate deviations by row: alices_restaurant (run370 double matcher
+  pass); sandy_meta_number and hero's closing `statusline` (SCARE
+  meta-commands; hero uses `statusline` on purpose to print the score).
 - Load failures from the 09-06/09-07 batches: six rows raised `evaluate
   error - Subscript out of range` mid-game; TheADRIFTProject crashed with
   run-time error 401 at command 92.
@@ -263,40 +261,21 @@ the_hangover T34) went identical with that port on 2026-09-20.
   hut/shed pair does not, and the alias rule is ported off our own tie
   instead (see "A 4.0 answer REBUILDS the typed line" in the index);
   whether an object ambiguity on a task-answered line also
-  suppresses the tick. Everything else this lead once listed is closed:
-  454454's Prefix contest, the 4.0 state machine and the whole second-noun
-  family are in the index ("The 4.0 Prefix contest", "That wasn't one of
-  the options!", "A 4.0 question raised by a " with " line comes out of ONE
-  half", "A 4.0 lock or unlock never asks which key", "A 4.0 crowd is the
-  WHOLE line's, and its first object decides").
+  suppresses the tick.
 - **The library verb is matched anywhere in the line: the REST of it.** The
-  verb half is now ported at every version -- see "A library verb is matched
-  anywhere in the line" in the index. Measured 2026-09-20 on
-  p37REW/p38REW/p39REW/p4REW with `cmdfile_pcasc.txt` (Adrift_250_casc37b
-  .rtf, 249_casc38.rtf, 250_casc39.txt, 251_casc40.txt), 34 verb words
-  against a nonsense head. What the probe still shows open:
-    * A line naming TWO of these verbs is now measured and ported at every
-      version -- see "Below 4.0 a two-verb line is decided by the call
-      order" and "At 4.0 a two-verb line is decided by a DIFFERENT call
-      order" in the index. What both ports leave alone is the same short
-      list: a list line, a clauseless `put`, and the handlers whose place
-      in the order nothing has measured yet (gotoplace, dobattle). give is
-      measured -- see "give never overwrites" in the index -- and ported
-      below 4.0; its 4.0 half is its own bullet above.
-      openclose and whereis are measured and ported -- see "openclose ACTS
-      on every line and claims none of them" in the index -- and so is
-      characters() over takes(), the one cell that entry left open: see "A
-      present character named on a take line answers for it" below it.
-      gotoplace cannot be driven at all: drive.exe fails on a `go to` line
-      at every Runner.
-    * The one pre-4.0 cell left over: `x take off hat` with the hat WORN.
-      wears and removes are plain `Call`s (run390 45F499/45F49E, run380
-      4421FC/442201) and so can never claim, so removes takes the hat off
-      and therest's examines arm then overwrites its message -- run370x and
-      run390x answer "A felt hat." with the hat off. Scarier keeps the state
-      right and prints "You remove the hat."; one line of one contrived
-      cell, and the fix wants a two-step dispatch (act, `pf_truncate`,
-      answer) that nothing else needs yet.
+  verb half, two-verb lines (every handler but those below), openclose,
+  whereis, characters, give below 4.0, dobattle and gotoplace are all
+  measured and ported -- see the index. Still open:
+    * Two-verb lines the ports leave alone, all unmeasured: a list line, a
+      clauseless `put`, and a goto beside give, wait, sit/stand/lie,
+      score, the inventory, a splitter, or a second other verb.
+    * `give goto cave` is "(to Nobody)" at 3.7 and 4.0 and "(to Bob)" at
+      3.8/3.9; Scarier says Bob everywhere (cmdfile_p2goto.txt,
+      Adrift_275_5g37.rtf, 276_5g38.rtf, 277_5g39.txt, 278_5g40.txt).
+    * A 4.0 walk beside a second verb: the p2goto feed never walks at 4.0,
+      because the cave is never visited (the route finder and both match
+      passes count visited rooms only). gotoplace only drives on the x
+      Runners (SendKeys needs vbrng.dll).
     * run370's own word for each of take/drop/wear/remove/examine, command
       slots 10-14 (`MemVar_4460FC(&HA)`..`(&HE)`, beside the slot-15 goto
       word `lib_cmd_go_place()` already reads). The probe game defines
@@ -337,21 +316,6 @@ the_hangover T34) went identical with that port on 2026-09-20.
 - **Silent-task test scope, the unported rest.** run400 tests the whole
   turn buffer. Scarier counts anything a task's run adds (baroo) but still
   ignores text written before the dispatch. No corpus row is known.
-- **Turn sectioning, the unported rest.** Every join this lead once listed
-  is closed; the index carries them ("An event's text joins the turn's
-  paragraph, at every version", "A library answer has no terminator of its
-  own", "An NPC's blow joins the turn's string", "A walk announcement and
-  an exits list end at the full stop", "A task the engine dispatched joins
-  its CompleteText onto the turn's string"). What is left is the
-  CompleteText of a task the player's own line matched, which the Runner
-  REPLACES the turn's string with rather than joining -- deliberately not
-  ported, because Scarier's handlers already keep the turn's text where the
-  Runner's callers put it back, and nothing measured differs. The corpus
-  case would be `thetest` (3.90), whose ALR Originals span exactly such a
-  join, and which already matches the Runner on every turn.
-  When reading `sweep_wine_breaks.py`, judge by `k1`: 5486 of the 5514
-  Scarier-only breaks are the `<centre>` blank-line artefact (`k2`), so the
-  total is a poor target on its own.
 
 ---
 
@@ -504,6 +468,19 @@ the_hangover T34) went identical with that port on 2026-09-20.
 - **`NPCWalkAlert`:** a synthesized task pair with no run400 counterpart.
   It anticipates the ticker's restart by a tick; nothing depends on it.
 - **mould `hint`:** run400 has no interactive hints.
+- **`x take off hat` with the hat WORN, below 4.0.** Measured, not
+  ported. wears and removes are plain `Call`s (run390 45F499/45F49E,
+  run380 4421FC/442201) and so can never claim, so removes takes the hat
+  off and therest's examines arm then overwrites its message -- run370x
+  and run390x answer "A felt hat." with the hat off. Scarier keeps the
+  state right and prints "You remove the hat."; one line of one contrived
+  cell, and the fix wants a two-step dispatch (act, `pf_truncate`,
+  answer) that nothing else needs yet.
+- **A player-matched task's CompleteText replaces the turn's string.**
+  The Runner REPLACES rather than joins; not ported, because Scarier's
+  handlers already keep the turn's text where the Runner's callers put it
+  back, and nothing measured differs (`thetest`, 3.90, matches on every
+  turn). The other turn-sectioning joins are in the index.
 
 ---
 
@@ -626,8 +603,8 @@ transcript names are in the code comment next to the named function, in
   three feeds go 11/11/10 -> 4/6/4 mismatches, 428/428 and the Wine sweep
   byte-identical. Of the four leftovers three were single-verb wordings the
   probe turned up on the way, ported straight after in the entry below; the
-  last is the one two-verb cell `x take off hat` worn, in the open list
-  above. The feeds now stand at 1/0/1.
+  last is the one two-verb cell `x take off hat` worn, now under
+  "Deliberate deviations" above. The feeds now stand at 1/0/1.
 
 - **At 4.0 a two-verb line is decided by a DIFFERENT call order, and word
   order still never decides.** The same machine one version up, with
@@ -667,11 +644,13 @@ transcript names are in the code comment next to the named function, in
   rest of the line, the other verb word included, exactly as it stands
   (`wear examine` must become `examine wear` and not a bare `examine`, or
   examines' whole-line bare-verb exit at 471340 answers instead). Narrow
-  on purpose: a list line (`all`, `and`), a lone span, a handler whose place
-  is unmeasured (give, gotoplace, characters, dobattle) and a clauseless
-  `put` -- whose 46DC34 branch does not claim either -- are all left alone.
-  openclose and whereis have since been measured and ported in their own
-  entry below, as passes of their own rather than as rewrites here. The two feeds go 19/8 -> 0/0
+  on purpose: a list line (`all`, `and`), a lone span, dobattle (since
+  measured and ported: "dobattle runs below wears/removes") and a
+  clauseless `put` -- whose 46DC34 branch
+  does not claim either -- are all left alone. give, gotoplace, characters,
+  openclose and whereis have since been measured and ported in entries of
+  their own (gotoplace as run_goto_line_class()), as passes of their own
+  rather than as rewrites here. The two feeds go 19/8 -> 0/0
   (`cmdfile_p2verb.txt`'s last two cells are unusable: the drive echoed
   `ii` for feed line 52), 428/428 and both Wine sweeps byte-identical.
 
@@ -695,12 +674,11 @@ transcript names are in the code comment next to the named function, in
   rather than into the object clause, because the handler's c() walk never
   looked at it -- 3.9's drops row wants `drop coin`, not `drop push coin`.
   The three feeds go 4/6/4 -> 1/1/4 mismatches, 428/428 and the Wine sweep
-  byte-identical. What is left: the `x take off hat` cell in the open list
-  above (3.7 and 3.9), and 3.9's `wear examine` / `examine wear` with
-  NOTHING named, which is
-  "Nothing special." there and "Wear what?" at 3.7 and 3.8, so 3.9's
-  examines arm fills an empty buffer where its elders left the question
-  standing.
+  byte-identical. What is left: the `x take off hat` cell (3.7 and 3.9),
+  now under "Deliberate deviations" above, and 3.9's `wear examine` /
+  `examine wear` with NOTHING named, which is "Nothing special." there
+  and "Wear what?" at 3.7 and 3.8, so 3.9's examines arm fills an empty
+  buffer where its elders left the question standing.
 
 - **openclose ACTS on every line and claims none of them; whereis speaks
   only where nothing above it wrote.** The two handlers the two-verb ports
@@ -749,9 +727,13 @@ transcript names are in the code comment next to the named function, in
   -- which every version answers differently ("Bob says, 'That is a fine
   hat.'" at 4.0, "I don't think Bob would appreciate being handled." at 3.9,
   "Bob is not carrying the hat!" at 3.8 and the same handled line with an
-  EMPTY name at 3.7); it is in the open list above. gotoplace and dobattle
-  stay unmeasured: drive.exe cannot type a `go to` line at any Runner (error
-  70 below 4.0, SendKeys glue at 4.0) and the probe world has no battle.
+  EMPTY name at 3.7); it has since been measured and ported in the next
+  entry. gotoplace was left out here because the stock exes cannot walk
+  (SendKeys error 70 below 4.0, glue at 4.0); on run370x..run400x it has
+  since been measured and ported as run_goto_line_class() (see the
+  gotoplace bullet in the open list above). dobattle was since measured
+  and ported on a battle world of its own ("dobattle runs below
+  wears/removes").
 
 - **A present character named on a take line answers for it, and at 3.80
   an object named beside him answers again.** characters() is the LAST
@@ -866,6 +848,75 @@ transcript names are in the code comment next to the named function, in
   other handler, and openclose is in RUN_400_OTHER, which that pass bails
   on. The three leftover cells are 3.7/3.8's unechoed last command, the
   `look` exits lead below, and those 4.0 cells.
+
+- **dobattle runs below wears/removes, claims nothing, and EMPTIES the
+  buffer first; what is written after it decides the line.** Measured
+  and PORTED 2026-09-21 (run_battle_line_class()/run_battle_line() in
+  scrunner.cpp; lib_battle_line_verb()/lib_battle_line_npc() in
+  sclibrar.cpp). The last handler the two-verb entries left
+  unmeasured. Battle only exists from 3.90 (a 3.7/3.8 .taf has no battle
+  blocks), so this is run390/run400 only. Both call it as a plain `Call`
+  right after removes, gated on the Battle System byte alone (run390
+  45F4AF, run400 48A4A2), so a claiming handler ABOVE it keeps it from
+  running at all -- takes/drops/inventory/insides/tasks at 3.9,
+  put_drop_list/get_outer/tasks at 4.0 -- and nothing below it is
+  skipped. Once dobattle has found its verb (the first of attack, fight,
+  kill, kick, chop, cut, hit, shoot, stab, throw that is a whole word of
+  the line, var_90) it ASSIGNS the empty string to the buffer (run390
+  44CBFD, run400 47EAEF) before the target loop, so whatever wears,
+  removes or an unclaimed take/drop refusal wrote is gone, though what
+  they DID stands: `hit bob wear hat` puts the hat on and says only "You
+  hit Bob.", likewise `hit bob remove hat`; `wear hit bob` and `remove
+  hit bob` are "You hit Bob." where Scarier says "Wear what?"/"Remove
+  what?". Below it the handlers speak in their usual way over a full
+  buffer. The blow is still struck -- 4.0's draw count carries the 4
+  draws (run390 draws one Rnd per turn whatever happens, so it cannot
+  show this) -- and then:
+    * overwrite the blow: openclose naming an object (3.9 `hit bob open
+      box` opens it and says so; 4.0 its "not carrying" refusal), the
+      examine words (`hit bob look`, `look hit bob`, `x box hit bob` are
+      "An ordinary man." at both; 3.9 also `hit bob x box`, which 4.0
+      leaves as the blow), sit/stand (`hit bob sit`, `hit bob stand`
+      "You are already standing!"), `score`, whereis (`where is coin hit
+      bob` is "Bob is lit room.  (Right next to you silly!)" at both --
+      Scarier answers the coin; `where is coin bob` without a battle verb
+      is unmeasured), and characters' arms (`hit bob talk to bob` is the
+      ask hint, `hit bob ask bob about hat` Bob's reply);
+    * append: gotoplace, `hit bob goto cave` = "You hit Bob.Unknown
+      place." (Scarier: "Unknown place." alone);
+    * say nothing: give (`hit bob give coin to bob`, coin not held),
+      wait (`wait hit bob` is "You hit Bob."; Scarier "Time passes..."),
+      therest (`hit push bob`), and an objectless openclose (`open hit
+      bob`, `close hit bob`; 4.0 Scarier "You can't open that.").
+  The battle verb must come BEFORE the NPC's name to strike (47EBC9), so
+  `give coin to bob hit bob` strikes nobody and is "Who do you want to
+  attack?" at both -- the emptied buffer took give's "You don't have the
+  coin!" with it -- and `ask bob about hat hit bob` is Bob's reply with no
+  blow. Claimed above it: at 3.9 `hit bob drop coin` with the coin held
+  drops it, with it loose the drop refusal is wiped and the line is the
+  blow (Scarier: "Drop what?"); at 4.0 put_drop_list claims the loose
+  case too, "You are not holding the coin." with no blow. A 4.0 finding
+  on the way that is NOT dobattle's: `hit bob take coin` with the coin
+  loose takes it (get_outer claims, no blow) while printing only Bob's "I
+  don't think Bob would appreciate being handled."; Scarier prints that and
+  leaves the coin on the floor (3.9 and `take coin bob` agree already).
+  Probe `make_battleorderprobe.py` -> p39BORD/p4BORD (make_orderprobe's
+  world with the Battle System on; Bob neutral, stamina 9999, nothing a
+  weapon), `cmdfile_p2batt.txt` (Adrift_277_6b39.txt, 278_6b40.txt) and
+  the state-checked `cmdfile_p2batt2.txt` (Adrift_277_7b39.txt,
+  278_7b40.txt), run390x/run400x under VBRNG=xoshiro seed 1234
+  (`job_p2batt*.txt` via xoshiro_par.sh). Before the port Scarier had
+  10/23 and 11/29 mismatches. Now 3.9 is 0 on both feeds; 4.0 has the
+  text right in every cell and 3 + 2 cells off by one draw -- the tick
+  landing on the other side of the prompt marker, the known artefact, not
+  a missing or extra blow. The 4.0 get_outer and put_drop_list read their
+  word anywhere on a battle line (Scarier respells it: `hit bob take coin`
+  -> `take bob coin`, `hit bob drop coin` -> `drop coin`), and their
+  refusals claim; the 3.9 priority pass unclaims a take/drop that moved
+  nothing. The 428 walkthroughs and the Wine/corpus sweeps are
+  byte-identical. NB the 4.0 box in this world is not
+  openable ("You are not carrying the box!" even for a bare `open box`),
+  so 4.0 openclose here is only its refusal.
 
 - **At 3.70 insides() runs below wears(); from 3.80 it runs above, so a
   put line is never a wear.** All three pre-4.0 Runners enter insides()'

@@ -2796,6 +2796,579 @@ static const scr_char *const *const HOIST_TABLES_400[] = {
   HOIST_VERBS_400_THEREST, NULL
 };
 
+/*
+ * run_goto_line_class()
+ *
+ * gotoplace (run400 464E90, called at 48ACD7; run390 45FD8A, run380 442AE4,
+ * run370 43C22D) sits below takes, drops, wears, removes, openclose,
+ * examines and whereis in generaltasks, above therest and characters.  Its
+ * two messages are APPENDS (`MemVar_4941B0 = MemVar_4941B0 & "Unknown
+ * place."`, 464E49; " can't get there from here." 464E3B), while a walk
+ * ("&&&") drops whatever was said before it.  So on a line that holds a goto
+ * and one other verb, the other verb's handler answers first and gotoplace
+ * then either stays out (the handler claimed), adds its message with no
+ * break, or walks.  Measured on p37ORD..p4ORD with cmdfile_p2goto.txt
+ * (run370x Adrift_275_5g37.rtf, run380x Adrift_276_5g38.rtf, run390x
+ * Adrift_277_5g39.txt, run400x Adrift_278_5g40.txt, 2026-09-21):
+ *   x/examine goto cave        "Nothing special." (4.0 "You see no such
+ *                              thing."), no goto: examines claims
+ *   take goto cave             "Take what?Unknown place." (3.7 walks)
+ *   take box goto cave         3.7-3.9 "You've already got a box!Unknown
+ *                              place."; 4.0 "You are already carrying the
+ *                              box." alone
+ *   goto cave take box         "You pick up the box.", no goto text
+ *   drop goto cave             "Drop what?" alone below 3.9, "Drop
+ *                              what?Unknown place." at 3.9 and 4.0
+ *   wear goto cave             "Wear what?Unknown place." (3.8+)
+ *   where is goto cave         "I don't know where that is!Unknown place."
+ *   goto cave open box         "You open the box....Unknown place."
+ *   open/push goto cave, ask bob about goto cave   "Unknown place." alone
+ *   goto cave x box            examines below 4.0, "Unknown place." at 4.0
+ *                              (x counts at the head only)
+ * The class says which handler answers the line before gotoplace does;
+ * RUN_GOTO_NONE is a line this pass leaves to the ordinary order: no goto,
+ * no verb or two of them, a splitter, or a verb no cell has measured (give,
+ * wait, sit/stand/lie, the inventory, score).
+ */
+enum {
+  RUN_GOTO_NONE, RUN_GOTO_EXAMINE, RUN_GOTO_TAKE, RUN_GOTO_DROP,
+  RUN_GOTO_KEEP, RUN_GOTO_OPEN, RUN_GOTO_BELOW
+};
+
+static scr_int
+run_goto_line_class (scr_gameref_t game, const scr_char *line)
+{
+  static const scr_char *const BAIL[] = {
+    "and", "then", "with", "wait", "give", "i", "inv", "inventory", "sit",
+    "stand", "lie", "lay", "score", "put on", "take off", NULL
+  };
+  static const scr_char *const EXAMINE[] = {
+    "examine", "look at", "read", NULL
+  };
+  static const scr_char *const EXAMINE_SHORT[] = { "x", "ex", "exam", NULL };
+  static const scr_char *const TAKE[] = { "get", "take", "pick", NULL };
+  static const scr_char *const DROP[] = { "drop", "put", "leave", NULL };
+  static const scr_char *const KEEP[] = {
+    "wear", "remove", "where", "find", "locate", NULL
+  };
+  static const scr_char *const OPEN[] = { "open", "close", NULL };
+  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_char *const *word;
+  scr_int found = RUN_GOTO_NONE, groups = 0;
+
+  if (!line || strchr (line, ',') || strchr (line, '.')
+      || !lib_goto_line_enters (game, line))
+    return RUN_GOTO_NONE;
+
+  const auto has_word = [&] (const scr_char *w) -> scr_bool
+    {
+      return version >= TAF_VERSION_400
+             ? lib_input_contains_word (line, w)
+             : run_c_word_pre400 (version, line, w) >= 0;
+    };
+  const auto any = [&] (const scr_char *const *words) -> scr_bool
+    {
+      for (const scr_char *const *w = words; *w; w++)
+        if (has_word (*w))
+          return TRUE;
+      return FALSE;
+    };
+  const auto at_head = [&] (const scr_char *const *words) -> scr_bool
+    {
+      for (const scr_char *const *w = words; *w; w++)
+        {
+          const size_t size = strlen (*w);
+
+          if (scr_strncasecmp (line, *w, size) == 0
+              && (line[size] == NUL || line[size] == ' '))
+            return TRUE;
+        }
+      return FALSE;
+    };
+  const auto note = [&] (scr_bool hit, scr_int group)
+    {
+      if (hit)
+        {
+          found = group;
+          groups++;
+        }
+    };
+
+  if (any (BAIL))
+    return RUN_GOTO_NONE;
+
+  if (version >= TAF_VERSION_400)
+    {
+      note (any (EXAMINE) || has_word ("look in") || at_head (EXAMINE_SHORT),
+            RUN_GOTO_EXAMINE);
+      note (any (HOIST_VERBS_400_THEREST)
+            || (any (EXAMINE_SHORT) && !at_head (EXAMINE_SHORT)),
+            RUN_GOTO_BELOW);
+    }
+  else
+    {
+      note (any (EXAMINE) || any (EXAMINE_SHORT)
+            || (version >= TAF_VERSION_380 && has_word ("look in"))
+            || (version >= TAF_VERSION_390
+                && (has_word ("look") || has_word ("l"))),
+            RUN_GOTO_EXAMINE);
+      note (any (HOIST_VERBS_400_THEREST), RUN_GOTO_BELOW);
+    }
+  note (any (TAKE), RUN_GOTO_TAKE);
+  note (any (DROP), RUN_GOTO_DROP);
+  note (any (KEEP), RUN_GOTO_KEEP);
+  note (any (OPEN), RUN_GOTO_OPEN);
+
+  return groups == 1 ? found : RUN_GOTO_NONE;
+}
+
+/*
+ * run_goto_strip_head()
+ *
+ * The line without a goto word at its head ("goto", "go to", from 3.9 "go",
+ * and 3.7's own goto word), for the handlers that answer a goto line before
+ * gotoplace does.
+ */
+static scr_bool
+run_goto_strip_head (scr_gameref_t game, const scr_char *line,
+                     std::string &rest)
+{
+  const scr_int version = run_get_version (gs_get_bundle (game));
+  std::vector<std::string> heads = { "goto", "go to" };
+  scr_vartype_t vt_key[3], vt_rvalue;
+
+  if (version >= TAF_VERSION_390)
+    heads.push_back ("go");
+  if (version < TAF_VERSION_380)
+    {
+      vt_key[0].string = "Commands";
+      vt_key[1].integer = 15;
+      vt_key[2].string = "Word";
+      if (prop_get (gs_get_bundle (game), "S<-sis", &vt_rvalue, vt_key)
+          && vt_rvalue.string && vt_rvalue.string[0] != NUL)
+        heads.push_back (vt_rvalue.string);
+    }
+  for (const std::string &head : heads)
+    if (scr_strncasecmp (line, head.c_str (), head.size ()) == 0
+        && line[head.size ()] == ' ')
+      {
+        rest = line + head.size () + strspn (line + head.size (), " ");
+        return !rest.empty ();
+      }
+  return FALSE;
+}
+
+/*
+ * run_goto_after()
+ *
+ * gotoplace's turn on a line run_goto_line_class() sorted.  examines claims
+ * outright; a take or drop that moved something claims, and so does a 4.0
+ * take or drop naming an object (its own refusal is the answer) and any
+ * drop below 3.9 ("Drop what?" alone).  Otherwise gotoplace runs on the line
+ * as typed, since it cuts its words from the front of the whole line: a walk
+ * drops what the handler said, and anything else is added to it with no
+ * break.  therest and characters are below gotoplace and say nothing once it
+ * has spoken, and openclose says nothing when no object is named.
+ */
+static scr_bool
+run_goto_after (scr_gameref_t game, const scr_char *typed, scr_int goto_class,
+                size_t mark, const std::vector<scr_int> &places,
+                scr_bool status)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_bool named = lib_goto_line_names_object (game, typed);
+  scr_bool moved = FALSE, claimed = FALSE;
+  scr_int object;
+
+  lib_go_place_off = FALSE;
+  for (object = 0; object < gs_object_count (game)
+                   && 2 * object + 1 < (scr_int) places.size (); object++)
+    if (gs_object_position (game, object) != places[2 * object]
+        || gs_object_parent (game, object) != places[2 * object + 1])
+      moved = TRUE;
+
+  switch (goto_class)
+    {
+    case RUN_GOTO_EXAMINE:
+      claimed = TRUE;
+      break;
+    case RUN_GOTO_TAKE:
+      claimed = moved || (version >= TAF_VERSION_400 && named);
+      break;
+    case RUN_GOTO_DROP:
+      claimed = moved || version < TAF_VERSION_390
+                || (version >= TAF_VERSION_400 && named);
+      break;
+    default:
+      break;
+    }
+  if (claimed || game->pending_endgame != 0)
+    return status;
+
+  std::string earlier = pf_cut_tail (filter, mark);
+  if (goto_class == RUN_GOTO_BELOW || (goto_class == RUN_GOTO_OPEN && !named))
+    earlier.clear ();
+  while (!earlier.empty () && earlier[earlier.size () - 1] == '\n')
+    earlier.erase (earlier.size () - 1);
+
+  const scr_bool first_admin = game->is_admin;
+  run_dispatch_input = typed;
+  game->is_admin = FALSE;
+  if (lib_cmd_go_place (game) && game->is_admin)
+    return TRUE;
+
+  const std::string said = pf_cut_tail (filter, mark);
+  pf_buffer_string (filter, earlier.c_str ());
+  pf_buffer_string (filter, said.c_str ());
+  if (goto_class != RUN_GOTO_BELOW && !earlier.empty ())
+    game->is_admin = first_admin;
+  return status || !earlier.empty () || !said.empty ();
+}
+
+/*
+ * run_battle_line_class()
+ * run_battle_line()
+ *
+ * dobattle (run400 47F084 at 48A4A2, run390 45F4AF) is a plain Call, made
+ * below wears and removes and above everything else in the library, and it
+ * claims nothing.  What decides a line holding one of its verbs AND another
+ * handler's word is what it does to the message buffer: once var_90 -- the
+ * first of attack, fight, kill, kick, chop, cut, hit, shoot, stab and throw
+ * that the line holds as a whole word -- is set, it ASSIGNS "" to the
+ * buffer (run390 44CBFD, run400 47EAEF) before its target loop.  Measured
+ * 2026-09-21 on p39BORD/p4BORD (make_battleorderprobe.py) with
+ * cmdfile_p2batt.txt and cmdfile_p2batt2.txt, run390x Adrift_277_6b39.txt /
+ * Adrift_277_7b39.txt and run400x Adrift_278_6b40.txt / Adrift_278_7b40.txt:
+ *
+ *  - Above it, a take or drop that acts claims the line and no blow is
+ *    struck.  4.0's get_outer and put_drop_list read their word anywhere on
+ *    such a line and claim on a refusal too: `hit bob drop coin`, the coin
+ *    on the floor, is "You are not holding the coin.".  A 3.9 take or drop
+ *    that only refuses is wiped, and the same line is "You hit Bob.".
+ *  - wears and removes act and their text is wiped: `hit bob wear hat`
+ *    wears the hat and says "You hit Bob.".
+ *  - The blow needs its verb BEFORE the character's name (47EBC9); with no
+ *    target the answer is "Who do you want to attack?".
+ *  - Below it, sitstand, an openclose that names an object, examines, score,
+ *    whereis and characters()' take/where/examine/talk/ask arms overwrite
+ *    the blow; gotoplace appends to it ("You hit Bob.Unknown place."); an
+ *    objectless openclose (its refusals are buffer-gated), give, wait and
+ *    therest say nothing.
+ *
+ * 4.0's examines and characters()' examine arm take x/ex/exam at the HEAD
+ * only (Proc_21_37_447B18, 47FE19) and examine/look anywhere, so `hit bob
+ * x box` keeps the blow there, where 3.9 describes Bob.  run390's ask arm
+ * wants the character's name at column 5 (InStr = 5, 459818), which is
+ * where `hit bob ask bob about hat` has it.
+ *
+ * Only lines holding a word of one of those handlers are taken; a line of
+ * the battle verb alone keeps the %character% rows.  Lines naming two of
+ * the other handlers are not measured, and take their steps in call order.
+ */
+enum {
+  RUN_BATTLE_WEAR = 1 << 0, RUN_BATTLE_REMOVE = 1 << 1,
+  RUN_BATTLE_TAKE = 1 << 2, RUN_BATTLE_DROP = 1 << 3,
+  RUN_BATTLE_SIT = 1 << 4, RUN_BATTLE_OPEN = 1 << 5,
+  RUN_BATTLE_EXAMINE = 1 << 6, RUN_BATTLE_SCORE = 1 << 7,
+  RUN_BATTLE_GIVE = 1 << 8, RUN_BATTLE_WHERE = 1 << 9,
+  RUN_BATTLE_GOTO = 1 << 10, RUN_BATTLE_WAIT = 1 << 11,
+  RUN_BATTLE_TALK = 1 << 12, RUN_BATTLE_ASK = 1 << 13,
+  RUN_BATTLE_PLAIN = 1 << 14
+};
+
+static const struct
+{
+  const scr_char *const word;
+  const scr_int kind;
+} RUN_BATTLE_WORDS[] = {
+  {"wear", RUN_BATTLE_WEAR}, {"put on", RUN_BATTLE_WEAR},
+  {"remove", RUN_BATTLE_REMOVE}, {"take off", RUN_BATTLE_REMOVE},
+  {"get", RUN_BATTLE_TAKE}, {"take", RUN_BATTLE_TAKE},
+  {"pick", RUN_BATTLE_TAKE},
+  {"drop", RUN_BATTLE_DROP}, {"leave", RUN_BATTLE_DROP},
+  {"sit", RUN_BATTLE_SIT}, {"stand", RUN_BATTLE_SIT},
+  {"lie", RUN_BATTLE_SIT},
+  {"open", RUN_BATTLE_OPEN}, {"close", RUN_BATTLE_OPEN},
+  {"x", RUN_BATTLE_EXAMINE}, {"ex", RUN_BATTLE_EXAMINE},
+  {"exam", RUN_BATTLE_EXAMINE}, {"examine", RUN_BATTLE_EXAMINE},
+  {"look at", RUN_BATTLE_EXAMINE}, {"look", RUN_BATTLE_EXAMINE},
+  {"read", RUN_BATTLE_EXAMINE},
+  {"score", RUN_BATTLE_SCORE}, {"give", RUN_BATTLE_GIVE},
+  {"where", RUN_BATTLE_WHERE}, {"find", RUN_BATTLE_WHERE},
+  {"locate", RUN_BATTLE_WHERE},
+  {"goto", RUN_BATTLE_GOTO}, {"go to", RUN_BATTLE_GOTO},
+  {"wait", RUN_BATTLE_WAIT},
+  {"talk to", RUN_BATTLE_TALK}, {"speak to", RUN_BATTLE_TALK},
+  {"ask", RUN_BATTLE_ASK},
+  {NULL, 0}
+};
+
+static scr_int
+run_battle_line_class (scr_gameref_t game, const scr_char *line)
+{
+  const scr_int version = run_get_version (gs_get_bundle (game));
+  scr_int index, kinds = 0;
+
+  if (!line || !lib_battle_line_verb (game, line))
+    return 0;
+  for (index = 0; RUN_BATTLE_WORDS[index].word; index++)
+    {
+      const scr_char *const word = RUN_BATTLE_WORDS[index].word;
+
+      if (run_c_word_pre400 (version, line, word) < 0)
+        continue;
+      /* 4.0's examines anchors x/ex/exam to the head (447B18). */
+      if (version >= TAF_VERSION_400 && strlen (word) <= 4
+          && RUN_BATTLE_WORDS[index].kind == RUN_BATTLE_EXAMINE
+          && strncmp (word, "look", 4) != 0 && strcmp (word, "read") != 0
+          && run_c_word_pre400 (version, line, word) != 0)
+        {
+          /* No examine, but still not the %character% rows' line: `hit
+             bob x coin` is a blow. */
+          kinds |= RUN_BATTLE_PLAIN;
+          continue;
+        }
+      kinds |= RUN_BATTLE_WORDS[index].kind;
+    }
+  return kinds;
+}
+
+/* LINE with the whole word WORD taken out, once; LINE if it has none. */
+static std::string
+run_battle_cut_word (scr_int version, const std::string &line,
+                     const scr_char *word)
+{
+  const scr_int at = run_c_word_pre400 (version, line.c_str (), word);
+  std::string out;
+
+  if (at < 0)
+    return line;
+  out = line.substr (0, at);
+  out += line.substr (at + strlen (word) + strspn (line.c_str () + at
+                                                   + strlen (word), " "));
+  while (!out.empty () && out[out.size () - 1] == ' ')
+    out.erase (out.size () - 1);
+  return out;
+}
+
+/* Every object's position and parent, to tell whether a handler acted. */
+static std::vector<scr_int>
+run_battle_places (scr_gameref_t game)
+{
+  std::vector<scr_int> places;
+  scr_int object;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      places.push_back (gs_object_position (game, object));
+      places.push_back (gs_object_parent (game, object));
+    }
+  return places;
+}
+
+/* The first word of KIND the line holds, NULL for none. */
+static const scr_char *
+run_battle_kind_word (scr_int version, const scr_char *line, scr_int kind)
+{
+  scr_int index;
+
+  for (index = 0; RUN_BATTLE_WORDS[index].word; index++)
+    {
+      if (RUN_BATTLE_WORDS[index].kind == kind
+          && run_c_word_pre400 (version, line, RUN_BATTLE_WORDS[index].word)
+             >= 0)
+        return RUN_BATTLE_WORDS[index].word;
+    }
+  return NULL;
+}
+
+/*
+ * LINE re-spelled for the handler of KIND: the battle verb and the handler's
+ * own word cut out, and HEAD put in front.
+ */
+static std::string
+run_battle_respell (scr_gameref_t game, const scr_char *line, scr_int kind,
+                    const scr_char *head)
+{
+  const scr_int version = run_get_version (gs_get_bundle (game));
+  std::string rest = run_battle_cut_word (version, line,
+                                          lib_battle_line_verb (game, line));
+  const scr_char *word = run_battle_kind_word (version, rest.c_str (), kind);
+
+  if (word)
+    rest = run_battle_cut_word (version, rest, word);
+  return rest.empty () ? std::string (head) : std::string (head) + " " + rest;
+}
+
+/* Case-insensitive InStr, 0-based, -1 for no hit. */
+static scr_int
+run_battle_instr (const scr_char *line, const scr_char *word)
+{
+  const size_t length = strlen (word);
+  const scr_char *scan;
+
+  for (scan = line; *scan != NUL; scan++)
+    {
+      if (scr_strncasecmp (scan, word, length) == 0)
+        return scan - line;
+    }
+  return -1;
+}
+
+static scr_bool run_standard_commands (scr_gameref_t game,
+                                       const scr_char *string);
+
+/* The standard rows' answer to LINE, taken back out of the buffer. */
+static std::string
+run_battle_answer (scr_gameref_t game, const std::string &line)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const size_t mark = pf_buffer_length (filter);
+  const scr_char *saved = run_dispatch_input;
+  std::string lower (line);
+  size_t index;
+
+  /* Typed lines reach the rows lower-cased; so must a Name put in one. */
+  for (index = 0; index < lower.size (); index++)
+    lower[index] = tolower ((unsigned char) lower[index]);
+  run_dispatch_input = lower.c_str ();
+  run_standard_commands (game, lower.c_str ());
+  run_dispatch_input = saved;
+  return pf_cut_tail (filter, mark);
+}
+
+static scr_bool
+run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int version = run_get_version (bundle);
+  const size_t mark = pf_buffer_length (filter);
+  const scr_char *saved = run_dispatch_input;
+  const scr_int npc = lib_battle_line_npc (game, typed);
+  const scr_char *const name = npc >= 0
+      ? prop_get_indexed_string (bundle, "NPCs", npc, "Name") : NULL;
+  std::string answer, said;
+  scr_bool struck, admin;
+
+  run_dispatch_input = typed;
+  struck = lib_cmd_attack_npcs (game);
+  run_dispatch_input = saved;
+  if (!struck)
+    {
+      pf_truncate (filter, mark);
+      return FALSE;
+    }
+  answer = pf_cut_tail (filter, mark);
+  admin = game->is_admin;
+
+  /* wears and removes act above dobattle, and it wipes what they said. */
+  if (kinds & RUN_BATTLE_WEAR)
+    run_battle_answer (game, run_battle_respell (game, typed,
+                                                 RUN_BATTLE_WEAR, "wear"));
+  if (kinds & RUN_BATTLE_REMOVE)
+    run_battle_answer (game, run_battle_respell (game, typed,
+                                                 RUN_BATTLE_REMOVE,
+                                                 "remove"));
+
+  if (kinds & RUN_BATTLE_SIT)
+    {
+      /* sitstand reads its words anywhere in the line (27044). */
+      const std::string line = run_battle_cut_word (version, typed,
+                                   lib_battle_line_verb (game, typed));
+      std::string rest;
+
+      run_dispatch_input = line.c_str ();
+      lib_sitstand_anywhere (game, run_line_for_anywhere, &rest);
+      run_dispatch_input = saved;
+      said = pf_cut_tail (filter, mark);
+      if (!said.empty ())
+        answer = said;
+    }
+  /* openclose's " can't open " and " can't see " wait for an empty
+     buffer (4756EA, 475952); its other answers are assignments. */
+  if (kinds & RUN_BATTLE_OPEN)
+    {
+      const scr_char *const word = run_battle_kind_word (version, typed,
+                                                         RUN_BATTLE_OPEN);
+      said = run_battle_answer (game, run_battle_respell (game, typed,
+                                                          RUN_BATTLE_OPEN,
+                                                          word));
+      if (!said.empty () && said.find (" can't open ") == std::string::npos
+          && said.find (" can't close ") == std::string::npos
+          && said.find (" can't see ") == std::string::npos)
+        answer = said;
+    }
+  if (kinds & RUN_BATTLE_EXAMINE)
+    {
+      said = run_battle_answer (game, run_battle_respell (game, typed,
+                                                          RUN_BATTLE_EXAMINE,
+                                                          "examine"));
+      if (!said.empty ())
+        answer = said;
+    }
+  if (kinds & RUN_BATTLE_SCORE)
+    {
+      said = run_battle_answer (game, "score");
+      if (!said.empty ())
+        answer = said;
+      /* score is not a turn, blow or no blow (run390 45F6B5, run400
+         48A6AE). */
+      admin = game->is_admin;
+    }
+  if (kinds & RUN_BATTLE_WHERE)
+    {
+      std::string line;
+
+      if (name)
+        line = std::string ("where is ") + name;
+      else
+        {
+          line = run_battle_cut_word (version, typed,
+                                      lib_battle_line_verb (game, typed));
+          line = line.substr (run_c_word_pre400 (version, line.c_str (),
+                              run_battle_kind_word (version, line.c_str (),
+                                                    RUN_BATTLE_WHERE)));
+        }
+      said = run_battle_answer (game, line);
+      if (!said.empty ())
+        answer = said;
+    }
+  if (kinds & RUN_BATTLE_GOTO)
+    {
+      while (!answer.empty () && answer[answer.size () - 1] == '\n')
+        answer.erase (answer.size () - 1);
+      run_dispatch_input = typed;
+      lib_cmd_go_place (game);
+      run_dispatch_input = saved;
+      answer += pf_cut_tail (filter, mark);
+    }
+
+  /* characters(), last: its take, talk-to and ask arms assign. */
+  if (name && (kinds & RUN_BATTLE_TAKE))
+    answer = run_battle_answer (game, std::string ("take ") + name);
+  if (name && (kinds & RUN_BATTLE_TALK))
+    answer = run_battle_answer (game, std::string ("talk to ") + name);
+  if (name && (kinds & RUN_BATTLE_ASK)
+      && (version >= TAF_VERSION_400
+          || run_battle_instr (typed, name) == 4))
+    {
+      const scr_int about = run_c_word_pre400 (version, typed, "about");
+      std::string line = std::string ("ask ") + name;
+
+      if (about >= 0)
+        line += std::string (" ") + (typed + about);
+      said = run_battle_answer (game, line);
+      if (!said.empty ())
+        answer = said;
+    }
+
+  pf_buffer_string (filter, answer.c_str ());
+  game->is_admin = admin;
+  return TRUE;
+}
+
 /* dobattle 47F084, called only with the Battle System on. */
 static const scr_char *const HOIST_VERBS_BATTLE_400[] = {
   "wield", "attack", "chop", "shoot", "stab", "throw", NULL
@@ -6920,8 +7493,27 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    */
   std::string put_hoisted;
   const scr_char *put_line = string;
-  if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
-      && run_hoist_verb_line (game, string, put_hoisted))
+  /* A battle verb beside another handler's word; see run_battle_line().
+     4.0's put_drop_list, like get_outer below, takes its word anywhere on
+     such a line: `hit bob drop coin` with the coin loose is "You are not
+     holding the coin.", no blow. */
+  const scr_int battle_kinds = repeat_pending
+                               ? 0 : run_battle_line_class (game, string);
+  if ((battle_kinds & RUN_BATTLE_DROP)
+      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+    {
+      /* The words after the drop word: "drop bob coin" finds no coin. */
+      const scr_char *const word = run_battle_kind_word (TAF_VERSION_400,
+                                       string, RUN_BATTLE_DROP);
+      const scr_int at = run_c_word_pre400 (TAF_VERSION_400, string, word);
+
+      put_hoisted = at == 0
+          ? run_battle_respell (game, string, RUN_BATTLE_DROP, word)
+          : std::string (string + at);
+      put_line = put_hoisted.c_str ();
+    }
+  else if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+           && run_hoist_verb_line (game, string, put_hoisted))
     put_line = put_hoisted.c_str ();
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && !repeat_pending)
@@ -7067,25 +7659,42 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * gives "You take VW Van." (Adrift_132), where T55's same line, with task
    * 13 pre-matching, gets in.
    */
+  /*
+   * On a battle line get_outer is entered on its word anywhere, and claims
+   * the way it always does, refusal included: `hit bob take coin` takes the
+   * coin (or refuses) and strikes nothing, `take hit bob` names nothing to
+   * take and is a blow.  See run_battle_line().
+   */
+  std::string outer_battle;
+  const scr_char *outer_line = string;
+  if ((battle_kinds & RUN_BATTLE_TAKE)
+      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+    {
+      outer_battle = run_battle_respell (game, string, RUN_BATTLE_TAKE,
+          run_battle_kind_word (TAF_VERSION_400, string, RUN_BATTLE_TAKE));
+      outer_line = outer_battle.c_str ();
+    }
   if (!status && !refused && !put_first && !repeat_pending && !inv_listed
       && empty_result == 0
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
-      && (strncmp (string, "get ", 4) == 0
-          || strncmp (string, "take ", 5) == 0
-          || strncmp (string, "pick ", 5) == 0)
-      && !lib_input_contains_word (string, "all")
-      && !lib_input_contains_word (string, "and")
-      && lib_take_names_dynamic_400 (game, string)
+      && (strncmp (outer_line, "get ", 4) == 0
+          || strncmp (outer_line, "take ", 5) == 0
+          || strncmp (outer_line, "pick ", 5) == 0)
+      && !lib_input_contains_word (outer_line, "all")
+      && !lib_input_contains_word (outer_line, "and")
+      && lib_take_names_dynamic_400 (game, outer_line)
       && !lib_task_prematches_input (game, 1))
     {
       /* The piece names its object by whole-word score, so "get in the van"
          is a take of the van; see lib_take_scored_400(). */
-      status = run_priority_commands (game, string);
+      run_dispatch_input = outer_line;
+      status = run_priority_commands (game, outer_line);
       if (!status)
         {
           const scr_ref_number_guard ref_number (game);
           status = lib_take_scored_400 (game);
         }
+      run_dispatch_input = string;
     }
 
   if (!status && !refused
@@ -7118,17 +7727,56 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * the coin.  See run_hoist_verb_line(), and lib_move_named_whole_line_pre400()
    * for the noun half that then has to find "coin" past the nonsense word.
    */
-  std::string priority_hoisted;
+  std::string priority_hoisted, priority_goto_rest;
   const scr_char *priority_line = string;
-  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
-      && run_hoist_verb_line (game, string, priority_hoisted))
-    priority_line = priority_hoisted.c_str ();
+  scr_int priority_goto = RUN_GOTO_NONE;
+  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    {
+      /* A leading goto word is no verb to takes() and drops(); see
+         run_goto_line_class(). */
+      priority_goto = run_goto_line_class (game, string);
+      if (priority_goto != RUN_GOTO_NONE
+          && run_goto_strip_head (game, string, priority_goto_rest))
+        priority_line = priority_goto_rest.c_str ();
+      if (run_hoist_verb_line (game, priority_line, priority_hoisted))
+        priority_line = priority_hoisted.c_str ();
+    }
+  else if (battle_kinds & RUN_BATTLE_DROP)
+    priority_line = put_line;
 
   if (!status && !put_first && !inv_listed && !repeat_pending)
     {
+      const size_t goto_mark = pf_buffer_length (filter);
+      std::vector<scr_int> goto_places;
+      scr_int object;
+
+      if (priority_goto == RUN_GOTO_TAKE || priority_goto == RUN_GOTO_DROP)
+        for (object = 0; object < gs_object_count (game); object++)
+          {
+            goto_places.push_back (gs_object_position (game, object));
+            goto_places.push_back (gs_object_parent (game, object));
+          }
+      const std::vector<scr_int> battle_places
+          = battle_kinds ? run_battle_places (game) : std::vector<scr_int> ();
       run_dispatch_input = priority_line;
       status = run_priority_commands (game, priority_line);
       run_dispatch_input = string;
+      /* Below 4.0 a take or drop that only refused is wiped by dobattle,
+         which then has the line; 4.0's put_drop_list and get_outer claim
+         on a refusal.  See run_battle_line(). */
+      if (status && battle_kinds
+          && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+          && run_battle_places (game) == battle_places)
+        {
+          pf_truncate (filter, goto_mark);
+          status = FALSE;
+        }
+      /* A take that refused leaves gotoplace its turn: `take box goto
+         cave` with the box in hand is "You've already got a box!Unknown
+         place." below 4.0.  See run_goto_after(). */
+      if (status && !goto_places.empty ())
+        status = run_goto_after (game, string, priority_goto, goto_mark,
+                                 goto_places, status);
       /*
        * The all/everything put rows are not put_first (see
        * run_is_put_command), so their tentative pass runs here, and a
@@ -7225,6 +7873,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     }
   if (inv_listed)
     status = TRUE;
+  if (!status && !silent_task_390 && battle_kinds)
+    status = run_battle_line (game, string, battle_kinds);
   if (!status && !silent_task_390)
     {
       /*
@@ -7259,6 +7909,33 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
        * line, so a line whose verb is not at the head is answered with the
        * verb hoisted to the front; see run_hoist_verb_line().
        */
+      /*
+       * A goto line with one other verb: the verb's handler answers with
+       * gotoplace switched off, and gotoplace has its turn after the block;
+       * see run_goto_line_class().
+       */
+      const scr_int goto_class = run_goto_line_class (game, string);
+      const size_t goto_mark = pf_buffer_length (gs_get_filter (game));
+      std::vector<scr_int> goto_places;
+      std::string goto_rest;
+      if (goto_class != RUN_GOTO_NONE)
+        {
+          scr_int object;
+
+          lib_go_place_off = TRUE;
+          for (object = 0; object < gs_object_count (game); object++)
+            {
+              goto_places.push_back (gs_object_position (game, object));
+              goto_places.push_back (gs_object_parent (game, object));
+            }
+          /* A leading goto word is no verb to the handlers above
+             gotoplace: `goto cave take box` is the take's. */
+          if (run_goto_strip_head (game, library_string, goto_rest))
+            {
+              library_string = goto_rest.c_str ();
+              run_dispatch_input = library_string;
+            }
+        }
       std::string hoisted;
       if (run_hoist_verb_line (game, library_string, hoisted))
         {
@@ -7338,6 +8015,9 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
         status = run_standard_fallback_commands (game, library_string);
       if (!status)
         status = run_task_refusal (game, library_string, REFUSAL_PASS_POST);
+      if (goto_class != RUN_GOTO_NONE)
+        status = run_goto_after (game, string, goto_class, goto_mark,
+                                 goto_places, status);
     }
   /*
    * A survivor answered a line the dispatcher had already claimed: the
