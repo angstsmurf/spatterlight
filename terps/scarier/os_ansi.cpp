@@ -476,6 +476,24 @@ os_confirm (scr_int type)
        * forever reprinting the question.  Answer as the feof case above. */
       if (!fgets (buffer, sizeof (buffer), stdin))
         return type == SCR_CONF_QUIT;
+      /*
+       * Compare aid: SCR_MARK_CONFIRM=1 notes every line this question reads
+       * on stderr, in transcript order, the way SCR_MARK_WAITKEY notes a
+       * pause.  The answer is read without a prompt, so a tool that numbers
+       * input lines by prompt drifts one line per question -- mould's
+       * `hint`/`y` pairs threw the Wine compare's pause bookkeeping off
+       * (test/adrift4/harness/compare_wine_transcript.py, 2026-09-21).
+       */
+      if (getenv ("SCR_MARK_CONFIRM"))
+        {
+          scr_int length = strlen (buffer);
+
+          while (length > 0 && (buffer[length - 1] == '\n'
+                                || buffer[length - 1] == '\r'))
+            length--;
+          fflush (stdout);
+          fprintf (stderr, "[CONFIRM ate \"%.*s\"]\n", (int) length, buffer);
+        }
     }
   while (toupper (buffer[0]) != 'Y' && toupper (buffer[0]) != 'N');
 

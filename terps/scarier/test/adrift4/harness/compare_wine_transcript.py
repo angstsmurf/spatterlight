@@ -174,6 +174,7 @@ def scarier_run(taf, feed, encoding, env_extra, popup_answers, markers=False):
     env["SCR_MARK_PROMPT"] = "1"
     if markers:
         env["SCR_MARK_WAITKEY"] = "1"
+        env["SCR_MARK_CONFIRM"] = "1"
     # The two built-in questions are asked by the Runner in InputBox dialogs
     # before the transcript exists, so make_wine_cmdfile.py keeps them OUT of
     # the command file and reports them as POPUP_ANSWERS instead.  scarier
@@ -259,15 +260,21 @@ def pause_counts(lines, popups):
     printed them -- starting ON the prompt line itself, because a pause printed
     by the first line of a turn's output lands there (Vardock Bates' newspaper,
     2026-08-29).
+
+    Also how many lines each command's own [Y/N] question read.  Those
+    answers are read without a prompt (SCR_MARK_CONFIRM notes each one), so
+    they are feed lines no prompt number stands for.  Returns (pauses,
+    answers), one pair per prompt.
     """
     counts = []
     previous = ""
     for line in lines:
         if is_scarier_prompt(line, previous):
-            counts.append(0)
+            counts.append([0, 0])
         previous = line
         if counts:
-            counts[-1] += len(re.findall(r"\[WAITKEY\]", line))
+            counts[-1][0] += len(re.findall(r"\[WAITKEY\]", line))
+            counts[-1][1] += len(re.findall(r"\[CONFIRM ate ", line))
     return counts[popups:]
 
 
@@ -351,13 +358,24 @@ def read_feed(path, taf=None, env_extra=(), popup_answers=(), skip_wired=True,
                                           popup_answers, markers=True),
                               len(popup_answers))
         eaten = set()
-        for prompt, index in enumerate(feed):
+        # Walk the replay's prompts and the candidate feed together.  A prompt
+        # reads one feed line, then one more for every answer its own [Y/N]
+        # question read.  Until 2026-09-21 prompt i was taken to be feed[i],
+        # so after each of mould's `hint`/`y` pairs every count landed one
+        # command early: the blank that answers the pause after `pour acid on
+        # door` stayed in as an empty command, and the empty TURN after the
+        # rhino's `s` was eaten instead.
+        position = 0
+        for pauses, answers in counts:
+            if position >= len(feed):
+                break
+            position = min(position + 1 + answers, len(feed))
             # a pause eats the next line -- but only if it is blank; a pause
             # sitting on a real command is a mis-wired solution, and the
             # Runner will have eaten it too, so leave it in the feed and let
             # the lost-command report say so
-            following = index + 1
-            for _ in range(counts[prompt] if prompt < len(counts) else 0):
+            following = feed[position - 1] + 1
+            for _ in range(pauses):
                 if following < len(lines) and not lines[following].strip():
                     eaten.add(following)
                     following += 1

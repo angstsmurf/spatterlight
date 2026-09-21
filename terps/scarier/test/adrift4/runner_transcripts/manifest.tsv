@@ -223,7 +223,7 @@ monsters	monsters.txt	driven:Adrift_270_monsters_rt.txt	4.00	run400x.exe	1234	0	
 morning_headache	morning_headache.txt	driven:Adrift_324_morning_headache_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 mortality	mortality.txt	driven:Adrift_275_mortality_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
 motion	motion.txt	driven:Adrift_432_motion_rt.txt	4.00	run400x.exe	1041	1		SCR_SEED=1041 SCR_SKIP_WAITKEY=1	yes	2 differing turn(s)
-mould	mould.txt	driven:Adrift_128_mould_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1	yes	10+ differing turn(s)
+mould	mould.txt	driven:Adrift_282_mould_rt.txt	4.00	run400x.exe	1	0		SCR_SEED=1 WINE_FEED_NO_HINTS=1	yes	identical on every turn.
 mr_smith	mr_smith.txt	driven:Adrift_180_mr_smith_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn.
 ms_mobius	ms_mobius.txt	driven:Adrift_323_ms_mobius_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 murder_great_falls	murder_great_falls.txt	driven:Adrift_342_murder_great_falls_rt.txt	3.90	run390x.exe	1234	2	Sam~male	SCR_SKIP_WAITKEY=1	yes	identical on every turn.

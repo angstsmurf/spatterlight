@@ -35,6 +35,49 @@ def row_for(solution):
     sys.exit("no row for %s" % solution)
 
 
+def without_hints(raw, taf, env):
+    """The solution with every `hint` command, and the lines its own [Y/N]
+    question read, taken out.
+
+    A row sets WINE_FEED_NO_HINTS=1 for this.  `hint` is a SCARE meta-command
+    that asks "Do you really want to view hints? [Y/N]" inline and reads the
+    answer off stdin, while run400 answers both lines "I don't understand what
+    you mean!", so every pair puts the two sides a turn apart and the compare
+    has to re-synchronise on generic text (mould, 2026-09-21).  Neither side's
+    game moves on a hint, so the route plays the same without them.
+
+    Which lines those are is read from the replay, not guessed from the text:
+    every stdin read is one of the INPUT trace lines (a prompt, which skips
+    comments), a "[WAITKEY ate ...]" (a pause, which skips them too) or a
+    "[CONFIRM ate ...]" (the question), in the order the lines were read.
+    """
+    env = dict(env, SCR_TRACE_ADMIN="1", SCR_MARK_WAITKEY="1", SCR_MARK_CONFIRM="1")
+    env.pop("SCR_MARK_WAIT", None)
+    stdin = "".join(l + "\n" for l in raw).encode("latin-1")
+    trace = subprocess.run([os.path.join(HERE, "scare"), taf], input=stdin,
+                           stdout=subprocess.DEVNULL, stderr=subprocess.PIPE,
+                           env=env).stderr.decode("latin-1")
+    reads = re.findall(r'^(?:INPUT line=\d+ (.*)|\[(WAITKEY|CONFIRM) ate "(.*)"\])$',
+                       trace, re.M)
+    commands = [i for i, l in enumerate(raw) if not l.lstrip().startswith("#")]
+    drop = set()
+    kind = None
+    for n, (typed, marker, ate) in enumerate(reads):
+        text = typed if not marker else ate
+        if n >= len(commands) or raw[commands[n]].strip() != text.strip():
+            sys.exit("WINE_FEED_NO_HINTS: read %d (%r) is not solution line %d"
+                     % (n, text, commands[n] + 1 if n < len(commands) else -1))
+        if not marker:
+            kind = "hint" if typed.strip().lower() == "hint" else None
+            if kind:
+                drop.add(commands[n])
+        elif marker == "CONFIRM" and kind == "hint":
+            drop.add(commands[n])
+        else:
+            kind = None
+    return [l for i, l in enumerate(raw) if i not in drop], len(drop)
+
+
 def main():
     solution, out = sys.argv[1], sys.argv[2]
     row = row_for(solution)
@@ -56,9 +99,17 @@ def main():
     skip = "SCR_SKIP_WAITKEY" in env
     solpath = os.path.join(ROOT, "goldens", solution + "_solution.txt")
     with open(solpath, "rb") as fh:
-        done = subprocess.run([os.path.join(HERE, "scare"), taf], stdin=fh,
-                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                              env=env)
+        solution_bytes = fh.read()
+    raw = [l.rstrip("\r\n") for l in solution_bytes.decode("latin-1").split("\n")]
+    if raw and raw[-1] == "":
+        raw.pop()
+    if env.get("WINE_FEED_NO_HINTS"):
+        raw, dropped = without_hints(raw, taf, env)
+        solution_bytes = "".join(l + "\n" for l in raw).encode("latin-1")
+        print("WINE_FEED_NO_HINTS: %d hint line(s) and answer(s) left out" % dropped)
+    done = subprocess.run([os.path.join(HERE, "scare"), taf], input=solution_bytes,
+                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                          env=env)
     text = done.stdout.decode("latin-1")
     # pauses[i] = pauses printed after prompt i-1 and before prompt i
     # (pauses[0] = before the first prompt).
@@ -98,8 +149,6 @@ def main():
                         seconds = 1
                     waits[-1] += seconds
                     order[-1].append(("wait", seconds))
-    with open(solpath, encoding="latin-1") as fh:
-        raw = [l.rstrip("\r\n") for l in fh]
     cmds = [l for l in raw if l.strip() and not l.lstrip().startswith("#")]
 
     # The two BUILT-IN questions.  Scarier asks them inline and reads the

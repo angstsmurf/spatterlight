@@ -8575,7 +8575,14 @@ goblin_solution.txt|goblin.taf|Oh, and before we forget- Congratulations, gobbo.
 # driver had typed the spaces).  Re-driven in run400x seed 1: the Runner wins
 # 150/150, and every turn matches except the `hint`/`y` deviation and the
 # T99-101 empty-turn/pause join.
-mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|SCR_SEED=1
+# 2026-09-21: WINE_FEED_NO_HINTS=1 (read only by make_wine_cmdfile.py) leaves
+# the 11 `hint`s and the 7 `y`s their [Y/N] questions read out of the Wine
+# feed; the golden keeps them.  The T99-101 join was the compare's pause
+# bookkeeping, which numbered feed lines by prompt and so drifted one line per
+# `hint`/`y` pair (SCR_MARK_CONFIRM now counts the answers).  Re-driven in
+# run400x seed 1: the transcript is the old one minus those 18 turns, and the
+# Runner is identical on every turn.
+mould_solution.txt|mould.taf|Congratulations on winning The Potter and the Mould|SCR_SEED=1 WINE_FEED_NO_HINTS=1
 # blood.taf ("Fire in the Blood" by Richard Otter, ADRIFT 4, revenge
 # thriller). The player's wife has been murdered by four guilty men
 # (Frank Lovell, Jed Peters, Rick Dawson, Ben Crosby) and the game is

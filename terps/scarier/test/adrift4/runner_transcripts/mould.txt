@@ -85,9 +85,6 @@ Not everyone rejoiced in your good fortune though. Your parents did not approve 
 Street in front of the laboratory
 The laboratory to the north is burning down rapidly, with a fire spreading along the top of the complex. There is no siren to urge people to evacuate, and you can see no one exiting. This is a dangerous situation, made worse by the fact that your parents are probably still in there. You hope that they are all right.  You should probably call the Mould on your mobile in order to get his help. There is no one better at rescuing people from burning buildings.  
 
-> hint
-No hints currently available.
-
 > call mould
 You call the Mould and tell him about the situation, especially that your parents are probably still in there. He replies that he will be there right away, and that you should try to find a way in, whilst you are waiting.
 
@@ -97,12 +94,6 @@ He also reminds you that it would probably be a good idea to call the fire stati
 You move north.
 The laboratory complex entrance
 The complex to the north is filled with great scientific minds doing great scientific deeds. You always feel uncomfortable and out of place there. Despite the great minds, this building does not seem to have been built very fire safe though. The path leading from the street in the south heads right up to the metal door that is the entrance to this laboratory.   The door looks locked securely and you can hear someone banging on the other side. It is the only entrance to the laboratory on this side of the building.  A window with bars in front of it is next to the door. One of the bars looks slightly loose.
-
-> hint
-I don't understand what you mean!
-
-> y
-I don't understand what you mean!
 
 > mould
 What do you want to turn your hand into?
@@ -133,22 +124,10 @@ An overweight scientist is standing around here, looking at you expectantly.
 > score
 Your score is 12 out of a maximum of 150.  (8%)
 
-> hint
-I don't understand what you mean!
-
-> y
-I don't understand what you mean!
-
 > e
 You move east.
 Office of the Assistant Head Chemicals Researcher
 This untidy office belongs to the Assistant Head Chemicals Researcher according to the plaque loosely screwed to the wall. Next to the plaque is a painting that has a strange concoction of intermixing colours. The office is not that large, with a bookcase along one wall, and a large desk, filling up most of the remaining space. There is no sign of his/her research on the desk or bookcase, as you can see no chemicals. Possible the papers scattered around the desk do mean something, but you couldn't decipher them even if you tried. The fire has not reached here yet, and you need to act before it does. The exit to the hallway leads back to the west.
-
-> hint
-I don't understand what you mean!
-
-> y
-I don't understand what you mean!
 
 > x plaque
 The plaque is screwed to the wall, although some of the screws do look like they have been unscrewed recently and not been fully screwed back in. It reads that this office belongs to the Assistant Head Chemicals Researcher, whoever that is.
@@ -183,12 +162,6 @@ You have finally succeeded.  The safe is open.  A stack of beer and an indentati
 > score
 Your score is 17 out of a maximum of 150.  (11%)
 
-> hint
-I don't understand what you mean!
-
-> y
-I don't understand what you mean!
-
 > mould
 What do you want to turn your hand into?
 1 - crowbar
@@ -208,12 +181,6 @@ Inside the complex, next to the entrance
 You have made it inside the laboratory complex, and it is hotter than you had hoped. You like warm weather, but the heat here is starting to become uncomfortable. The fires have spread down here from above, with flames blocking the hallway to the north. The Mould's blast of water has temporarily cleared this area, but the fire will return soon. A broken window leads back outside to the south through some bars. A closed metal door blocks the proper exit back outside. The only other exit from this area is an office to the east.  
 
 An overweight scientist is standing around here, looking at you expectantly.
-
-> hint
-I don't understand what you mean!
-
-> y
-I don't understand what you mean!
 
 > pour acid on door
 You pour the acid from the beaker on the lock to the door. The acid is effective and quickly loosens the blockage inside the lock. You quickly mould your hand into a key and turn the lock to open the door. As soon as it is opens the scientist rushes towards the door. In his haste a few papers drop out of his folder. You pick them up to give them back, but pause when you notice a description of an acid written on them.
@@ -238,9 +205,6 @@ Waterfall aims water at the fires that threaten to enter the area.
 > score
 Your score is 20 out of a maximum of 150.  (13%)
 
-> hint
-No hints currently available.
-
 > y
 I don't understand what you mean!
 
@@ -258,9 +222,6 @@ Your parent's laboratory is to the north, further along the hallway that leads t
 
 Waterfall has entered before you and cleared out any flames.
 
-> hint
-No hints currently available.
-
 > y
 I don't understand what you mean!
 
@@ -275,12 +236,6 @@ Some long planks from the broken tables lie on the far side of the room.
 A mysterious girl, who is slightly younger than you, is tied to a chair in the centre of the room.  
 
 Waterfall stops near the entrance.
-
-> hint
-I don't understand what you mean!
-
-> y
-I don't understand what you mean!
 
 > w
 You move west.
@@ -587,9 +542,6 @@ You have wandered back outside the laboratory and are now standing on the street
 
 Waterfall is standing around, staring absently at the building.
 
-> hint
-No hints currently available.
-
 > e
 You don't know where you are headed, but anywhere is better than here. As you walk away, Waterfall rushes up behind you. She asks, "Handmade, I have an offer for you. I know you are alone right now, and I can offer you a place to stay, and even a job. I need someone young and fit to help around my house. You can still do the whole superhero thing, but you will need something else to occupy most of your life. Please, just consider this offer."
 
@@ -616,12 +568,6 @@ Waterfall is unmorphed and sitting in her wheelchair.
 
 > score
 Your score is 33 out of a maximum of 150.  (22%)
-
-> hint
-I don't understand what you mean!
-
-> y
-I don't understand what you mean!
 
 > n
 You move north.  

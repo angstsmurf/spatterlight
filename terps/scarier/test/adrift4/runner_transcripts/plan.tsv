@@ -403,7 +403,7 @@ cowboyblues	CowboyBlues.taf	4.00	run400x.exe	1234	0			how does it feel to be a h
 grumble	Whatever_Happened_to_Uncle_Grumble.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Your score is 208 out of a maximum of 404	468
 magicshow	magicshow.taf	4.00	run400x.exe	1234	0	male	SCR_SKIP_WAITKEY=1	Well done - you scored maximum points!	19
 goblin	goblin.taf	3.90	run390x.exe	1234	0			Oh, and before we forget- Congratulations, gobbo. Or, should we say...	1803
-mould	mould.taf	4.00	run400x.exe	1	0		SCR_SEED=1	Congratulations on winning The Potter and the Mould	161
+mould	mould.taf	4.00	run400x.exe	1	0		SCR_SEED=1 WINE_FEED_NO_HINTS=1	Congratulations on winning The Potter and the Mould	161
 blood	blood.taf	4.00	run400x.exe	1234	2		SCR_SKIP_WAITKEY=1	You managed to score 140 out of 140.	4763
 rking	rking.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	Overall, your score was 100 out of a total of 100.	342
 hero	competition2004__adrift__hero__hero.taf	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	the world is a better place for your actions	1235
