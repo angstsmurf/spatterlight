@@ -3328,50 +3328,33 @@ second_chance_solution.txt|second chance.taf|congratulating me on a job well don
 # PDF the transcript is 19293/19371 words identical, and that sentence is the
 # only difference.
 private_eye_solution.txt|Private Eye.taf|You achieved a score of 4.|SCR_SKIP_WAITKEY=1
-# The Plague - Redux is UNFINISHABLE as shipped, and -- like The Hangover
-# above -- the defect is the author's Where/Type = 0 (ROOMLIST_NO_ROOMS), not
-# ours.  The game's whole combat system is seven identical blocks of tasks,
-# one per zombie encounter, and EVERY task in every block sits at where=0:
+# The Plague - Redux is a WIN as shipped: the row runs the author's .doc
+# walkthrough to the game's only EndGame-win action (task 94, `open door` at
+# the Doorway, Friday Morning), and the marker is the ending's closing line.
+# (Until 2026-08-04 this row was a maximal-reachable run under an
+# "UNFINISHABLE" verdict; that verdict was wrong -- the old route was one
+# command short at the Women's Toilets cubicle.)
 #
-#   TASK 37 where=0 [f]                            <- "[F] Fight"
-#   TASK 38 where=0 [e]                            <- "[E] Escape"
-#   TASK 39 where=0 [*]                            <- the catch-all re-prompt
-#   TASK 40 where=0 [#player wins attack round - fists 4]
-#   TASK 41 where=0 [#player wins attack round - weapon 4]
-#   ...
+# What IS dead is the [F] Fight / [E] Escape system: seven identical task
+# blocks, one per zombie encounter, every task at Where/Type = 0
+# (ROOMLIST_NO_ROOMS) -- 243 of the game's 696 tasks.  A where=0 task never
+# matches input, in SCARE or in run400.exe (make_400_whereprobe.py proves the
+# rule in isolation), so once "[F] Fight or [E] Escape?" prints nothing
+# answers it.  But the author also wired pole-in-hand auto-resolution into
+# ordinary where=1 tasks, and the .doc route takes exactly that path: `in` at
+# the cubicle (task 196, which ExecTasks task 43 -- the one where=1 task of
+# the 243 -- and banks the coins), `d` at the Escalators, the Platform and
+# Carriage Roof 3, `s` at Walkway 4, `e` at the Track.  Only `open door` at
+# the cubicle (task 199) starts a fight without the bypass and strands you.
+# Confirmed 2026-08-04 in run400.exe by .tas transplant: the cubicle,
+# escalator and carriage fights print identical prose, and the ending shows
+# "Congratulations!" in the Runner's status bar.
 #
-# 243 of the game's 696 tasks are parked at where=0.  Nothing ExecTasks the
-# [f]/[e] pair, so once "[F] Fight or [E] Escape?" is printed there is no
-# input that can answer it: `f` -> "That didn't make any sense!", `fight` ->
-# "That wasn't the answer.", and `e` is eaten by the library as *east* ("The
-# only exits were out.").  The first mandatory fight is the Women's Toilet
-# cubicle, and the coins it guards are the last 10p of the GBP 1.20 the water
-# vending machine wants -- so the route dead-ends there with GBP 1.10 and
-# every later stage (Kate, the office vent, the camera batteries for the
-# torch, Ray, the staff-area keys, the tunnels, Candice, the ending) is
-# unreachable.
-#
-# Proved against the real ADRIFT 4 Runner, twice:
-#   1. test/adrift4/harness/make_400_whereprobe.py builds a 3-task 4.0 game -- alpha at
-#      where=0, beta at where=3, gamma at where=1/other-room.  run400.exe
-#      fires beta, refuses gamma, and refuses alpha with the game's own "I
-#      don't understand." -- i.e. it agrees with SCARE exactly on where=0.
-#   2. A #StartRoom-patched copy of this very game (StartRoom 0 -> 15, the
-#      Women's Toilets, repacked with taftool.py) driven in run400.exe under
-#      Wine reaches the identical cubicle scene and answers `f` with "That
-#      didn't make any sense!".  Same engine the author shipped for, same
-#      refusal.
-#
-# So the row below is a maximal-reachable run, not a win: it replays the
-# shipped walkthrough as far as it goes, types `f`/`fight`/`kill zombies` at
-# the prompt to record the three refusals, collects all five reachable coin
-# caches (rides, ticket windows, bench, condom machine, Thomas Cook desk),
-# the cable, the trainers and the jacket, and ends at the vending machine.
-# Two incidental notes: the game's discovery verb is SEARCH, not EXAMINE (the
-# .doc says "Examine the till" but only `search till` works), and `x coins`
-# is what counts the money -- `count coins` is not a verb here.  There is no
-# score system at all (`score` prints the game's "notes" text), so the marker
-# is the dead end itself.
+# Notes: the game's discovery verb is SEARCH, not EXAMINE (the .doc says
+# "Examine the till" but only `search till` works), and `x coins` is what
+# counts the money -- `count coins` is not a verb here.  There is no score
+# system at all (`score` prints the game's "notes" text), so the marker is the
+# ending's last line.  Full route: notes/The_Plague_Redux_walkthrough.md.
 # 2026-08-29: "I couldn't open the door!" now precedes the ending
 # (silent-End-Game rule).
 # Measured 2026-09-14 in run400x under VBRNG=xoshiro, seed 1234
