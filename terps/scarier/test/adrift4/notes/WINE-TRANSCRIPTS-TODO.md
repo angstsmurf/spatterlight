@@ -276,9 +276,6 @@ artefact; no corpus row differs by an engine rule.
   known to be open here.
   Nothing in the corpus types a nonsense head, so the suite says nothing
   about any of it; the 428 rows stay green either way.
-- **Silent-task test scope, the unported rest.** run400 tests the whole
-  turn buffer. Scarier counts anything a task's run adds (baroo) but still
-  ignores text written before the dispatch. No corpus row is known.
 
 ---
 
@@ -1264,6 +1261,16 @@ transcript names are in the code comment next to the named function, in
   - "Silent" means the turn buffer did not grow while the task ran, so an
     event its execute-task action starts speaks for it. `[3.9+]` baroo
     T107 (`run_task_run_speaks`, 2026-09-14)
+  - run400 tests the whole buffer (44CCC0), not its growth, but nothing
+    that can reach it before the dispatch shows. Each clause of a split
+    line starts empty (`look then frob` still ends "NO IDEA."), and the
+    "(the coin)" echo of `x it` is not in it (the silent `x {the} coin`
+    task runs and the library examine still follows). The inventory
+    listing is there (45C304 runs first) but nothing after the dispatch
+    answers `i`. So growth is the right test. `[4.0]` p4SILENT/p4SILENT2
+    (`make_400_silentprobe.py`), `cmdfile_psilent.txt` /
+    `cmdfile_psilent2.txt` -> `Adrift_284_psilent.txt`,
+    `Adrift_285_psilent2.txt`, identical on every turn (2026-09-21)
   - 4.0 task matching is verb-literal; `*`, `[..]`, `{..}` compare binary.
     A rebuilt line keeps its capitals, so a pre-match can fail to dispatch
     and fall to DontUnderstand. `[4.0]` hcw T162 (b6d2f4f1f, 5fc9ef8d1)
