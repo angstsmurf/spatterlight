@@ -273,9 +273,6 @@ artefact; no corpus row differs by an engine rule.
     * Two-verb lines the ports leave alone, all unmeasured: a list line, a
       clauseless `put`, and a goto beside give, wait, sit/stand/lie,
       score, the inventory, a splitter, or a second other verb.
-    * `give goto cave` is "(to Nobody)" at 3.7 and 4.0 and "(to Bob)" at
-      3.8/3.9; Scarier says Bob everywhere (cmdfile_p2goto.txt,
-      Adrift_275_5g37.rtf, 276_5g38.rtf, 277_5g39.txt, 278_5g40.txt).
     * A 4.0 walk beside a second verb: the p2goto feed never walks at 4.0,
       because the cave is never visited (the route finder and both match
       passes count visited rooms only). gotoplace only drives on the x
@@ -1073,6 +1070,21 @@ transcript names are in the code comment next to the named function, in
   word (command slot 15) anywhere, cutting its length plus one off the
   front: `rove kitchen` walks, `a rove hall` walks to "blue hall". It is no
   synonym. `[3.7]` p37GOTO/p37GOTOW (`lib_cmd_go_place`, 2026-09-19)
+- **gotoplace cuts the line characters() notes the last-named NPC from.**
+  gotoplace chops the global command line in place: Len-5 off the front for
+  `goto`, wherever c() found it, 6 for `go to`, 3 for `go` at 3.9+, and at
+  3.7 its own goto word first (run400 4649C1..4649CA, run380 31BC4). A
+  refusal, Which or "already" leaves the line cut, and characters() notes
+  the "(to X)" register from what is left; a walk sets "&&&" and nothing is
+  noted. Before 4.0, c("") is TRUE on a line starting with a space or comma
+  (run380 429048), so an NPC with an empty alias is named: `where is goto
+  cave` cuts to " is goto cave" and notes Bob at 3.8/3.9. 3.7 cuts its goto
+  word first and walks, and 4.0's 45E99C never tries an empty alias. `ask
+  bob about goto cave` cuts to "ob about goto cave" everywhere and names
+  nobody. So the `give goto cave` after them echoes "(to Nobody)" at
+  3.7/4.0 and "(to Bob)" at 3.8/3.9. p3xORD/p4ORD, cmdfile_p2goto.txt,
+  Adrift_275_5g37.rtf, 276_5g38.rtf, 277_5g39.txt, 278_5g40.txt
+  (`uip_renote_named_npcs`, 2026-09-21)
 - **The `with ` history prepend `[3.8+]`.** A line that starts with
   `with ` is rewritten as `<the previous typed line> <this line>` before
   anything tests it, and the rewritten line reaches the task matcher.

@@ -3538,15 +3538,82 @@ uip_last_npc_name (scr_gameref_t game, scr_int npc)
  * description, then the task-answered "give silver orb to gargoyle" makes
  * the next "ask about zzz" echo "(GARGOYLE)".
  */
+static scr_int uip_npc_before_noting = -1;
+
 void
 uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
 {
   const std::string lowered = uip_lowered (string);
   scr_int index_;
 
+  uip_npc_before_noting = game->last_npc;
   for (index_ = 0; index_ < gs_npc_count (game); index_++)
     {
       if (uip_npc_named (game, index_, lowered, string))
+        game->last_npc = index_;
+    }
+}
+
+/*
+ * uip_renote_named_npcs()
+ *
+ * gotoplace cuts the GLOBAL command line in place before characters() reads
+ * it -- Right(line, Len-5) for "goto", wherever c() found it, 6 for "go to",
+ * 3 for "go" from 3.9, and 3.7's own goto word first (run400 4649C1..4649CA,
+ * run380 31BC4) -- so the register is noted from what is left of the line,
+ * not from what was typed; after a walk the line is "&&&" and characters()
+ * never runs (run400 48B56E is jumped to 48BBAA, run370 43C8A6 needs a
+ * message).  Undo this line's noting and, when it did not walk, redo it on
+ * the cut line.
+ *
+ * Before 4.0 c() decides a hit at position 1 at once: TRUE when the line is
+ * empty or the character after the match is a space or a comma (run380
+ * 429048, run370 423C80), so c("") is TRUE on a line starting with a space
+ * and the `c(Name) Or c(Alias)` test names a character with an empty alias.
+ * `where is goto cave` cuts to " is goto cave" at 3.8/3.9 and notes Bob,
+ * whose alias is empty (p3xORD); 3.7 cuts its goto word first and walks,
+ * and 4.0's Proc_21_40_45E99C never tries an empty alias.  `ask bob about
+ * goto cave` cuts to "ob about goto cave" everywhere, naming nobody.
+ * run370x..run400x Adrift_275_5g37.rtf, 276_5g38.rtf, 277_5g39.txt,
+ * 278_5g40.txt (cmdfile_p2goto.txt): the `give goto cave` after them echoes
+ * "(to Nobody)" at 3.7/4.0 and "(to Bob)" at 3.8/3.9.
+ */
+void
+uip_renote_named_npcs (scr_gameref_t game, const scr_char *cut_line,
+                       scr_bool walked)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_bool pre_400 = prop_get_taf_version (bundle) < TAF_VERSION_400;
+  const std::string lowered = uip_lowered (cut_line);
+  const scr_bool empty_hits = pre_400
+                              && (lowered.empty () || lowered[0] == ' '
+                                  || lowered[0] == ',');
+  scr_int index_;
+
+  game->last_npc = uip_npc_before_noting;
+  if (walked)
+    return;
+
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
+    {
+      scr_bool named = uip_npc_named (game, index_, lowered, cut_line);
+
+      if (!named && empty_hits)
+        {
+          scr_vartype_t vt_key[4];
+          const scr_char *alias_name = "";
+
+          vt_key[0].string = "NPCs";
+          vt_key[1].integer = index_;
+          vt_key[2].string = "Alias";
+          if (prop_get_child_count (bundle, "I<-sis", vt_key) > 0)
+            {
+              vt_key[3].integer = 0;
+              alias_name = prop_get_string (bundle, "S<-sisi", vt_key);
+            }
+          named = scr_strempty (alias_name);
+        }
+      if (named)
         game->last_npc = index_;
     }
 }

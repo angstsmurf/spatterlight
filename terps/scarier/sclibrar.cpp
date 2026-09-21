@@ -4453,6 +4453,7 @@ lib_cmd_go_place (scr_gameref_t game)
   if (version >= TAF_VERSION_390 && has_word ("go"))
     drop_front (3);
   text = line;
+  uip_renote_named_npcs (game, line.c_str (), FALSE);
 
   /* The rooms' names, lower-cased, as the Runner compares them. */
   std::vector<std::string> names (rooms);
@@ -4558,6 +4559,7 @@ lib_cmd_go_place (scr_gameref_t game)
         run_queue_goto_step (step);
     }
   run_set_goto_arrival (("Arrived " + names[target] + ".\n").c_str ());
+  uip_renote_named_npcs (game, "", TRUE);
 
   pf_buffer_string (filter, "Moving to ");
   pf_buffer_string (filter, names[target].c_str ());

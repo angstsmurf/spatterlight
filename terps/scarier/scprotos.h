@@ -599,6 +599,9 @@ extern scr_char *uip_rewrite_references (scr_gameref_t game,
                                          scr_bool echo_printed);
 extern scr_bool uip_print_ask_echo (scr_gameref_t game, const scr_char *string);
 extern void uip_note_named_npcs (scr_gameref_t game, const scr_char *string);
+extern void uip_renote_named_npcs (scr_gameref_t game,
+                                   const scr_char *cut_line,
+                                   scr_bool walked);
 extern scr_bool uip_line_names_npc (scr_gameref_t game,
                                     const scr_char *string);
 extern void uip_forget_game (const void *game);
