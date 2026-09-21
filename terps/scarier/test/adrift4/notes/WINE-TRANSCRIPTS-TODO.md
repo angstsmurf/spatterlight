@@ -263,13 +263,12 @@ the_hangover T34) went identical with that port on 2026-09-20.
   hut/shed pair does not, and the alias rule is ported off our own tie
   instead (see "A 4.0 answer REBUILDS the typed line" in the index);
   whether an object ambiguity on a task-answered line also
-  suppresses the tick. (454454's Prefix contest itself is measured and
-  ported -- see "The 4.0 Prefix contest" in the index, and "That wasn't
-  one of the options!" for the 4.0 state machine.) The second-noun lead is
-  now measured and ported in full; see the index, under "A 4.0 question
-  raised by a " with " line comes out of ONE half", "A 4.0 lock or unlock
-  never asks which key" and "A 4.0 crowd is the WHOLE line's, and its
-  first object decides".
+  suppresses the tick. Everything else this lead once listed is closed:
+  454454's Prefix contest, the 4.0 state machine and the whole second-noun
+  family are in the index ("The 4.0 Prefix contest", "That wasn't one of
+  the options!", "A 4.0 question raised by a " with " line comes out of ONE
+  half", "A 4.0 lock or unlock never asks which key", "A 4.0 crowd is the
+  WHOLE line's, and its first object decides").
 - **The library verb is matched anywhere in the line: the REST of it.** The
   verb half is now ported at every version -- see "A library verb is matched
   anywhere in the line" in the index. Measured 2026-09-20 on
@@ -306,52 +305,21 @@ the_hangover T34) went identical with that port on 2026-09-20.
 - **Silent-task test scope, the unported rest.** run400 tests the whole
   turn buffer. Scarier counts anything a task's run adds (baroo) but still
   ignores text written before the dispatch. No corpus row is known.
-- **Turn sectioning, the unported rest.** run400 builds the turn as one
-  string joined with pspace() and runs the ALR pass over it, and so do the
-  pre-4.0 Runners. Scarier now joins the room block, every event text, every
-  AdditionalMessage and a 4.0 task's text behind an action
-  (`pf_buffer_join_line`), and library answers leave a terminator a join can
-  take back (`pf_buffer_answer_break`); what is still its own section cannot
-  carry an ALR Original that spans the join. The event
-  half is CLOSED at every version (see "An event's text joins the turn's
-  paragraph, at every version" in the index: p4ALRSRC `xray` at 4.0, troll's
-  hunger events at 3.90), and so is the other side of it, the library
-  answer's own terminator ("A library answer has no terminator of its own").
-  So is the AdditionalMessage, now at every version, an NPC's battle blow
-  ("An NPC's blow joins the turn's string"), an NPC's walk announcement and
-  the `exits` answer ("A walk announcement and an exits list end at the full
-  stop"), and now a dispatched task's CompleteText, at every version ("A
-  task the engine dispatched joins its CompleteText onto the turn's
-  string"). What is left is the CompleteText of a task the player's own line
-  matched, which the Runner does not join but REPLACES the turn's string
-  with -- and that replacement is deliberately not ported, because Scarier's
-  handlers already keep the turn's text exactly where the Runner's callers
-  put it back; nothing measured differs. The corpus case is
-  `thetest` (3.90), whose ALRs include two-sentence Originals that span
-  exactly such a join:
-  `You drop your clothes.  Nice try fish face!` (library drop + task text),
-  `Why shout numbers now?  You: Who's there?`, `Why shout numbers now?  Y`,
-  `Why shout numbers now?  C`, and the 3-sentence
-  `You shout %number% at the robot ... it looked slightly afraid.  You`.
-  (thetest itself already matches the Runner on every turn, so the ALRs
-  there are a reading of the source, not a divergence to chase.)
-  Expect a large reblessing: the task-text join alone moved 94 rows, the
-  event join 52 then 30, the library terminator 39, the AdditionalMessage
-  16, the dispatched CompleteText 76, and sweep_wine_breaks still counts
-  5514 Scarier-only breaks against 2
-  runner-only -- though 5486 of that total is the `<centre>` artefact
-  (a blank line, `k2`), so the raw figure is a poor target on its own and
-  the `k1` count is the one to watch.
-- **checkwild, the unported rest.** Every arm this lead once listed is
-  closed; the index carries them ("Before 4.0 a `*` command is decided by
-  checkwild", "A pre-4.0 task command's %object% walk takes an object's
-  Short and its Aliases together", "A task command's GROUP is the LAST
-  thing 4.0 tries, and below 4.0 it is not syntax at all", "A task
-  command's %number% is a substitution", "A task command's %<user
-  variable>% is a substitution"). What is left of it: a command carrying
-  any marker Scarier does not know is still handed back to the pattern
-  tree, and the SOURCE run390's walk reads is a deviation of its own,
-  under "Deliberate deviations".
+- **Turn sectioning, the unported rest.** Every join this lead once listed
+  is closed; the index carries them ("An event's text joins the turn's
+  paragraph, at every version", "A library answer has no terminator of its
+  own", "An NPC's blow joins the turn's string", "A walk announcement and
+  an exits list end at the full stop", "A task the engine dispatched joins
+  its CompleteText onto the turn's string"). What is left is the
+  CompleteText of a task the player's own line matched, which the Runner
+  REPLACES the turn's string with rather than joining -- deliberately not
+  ported, because Scarier's handlers already keep the turn's text where the
+  Runner's callers put it back, and nothing measured differs. The corpus
+  case would be `thetest` (3.90), whose ALR Originals span exactly such a
+  join, and which already matches the Runner on every turn.
+  When reading `sweep_wine_breaks.py`, judge by `k1`: 5486 of the 5514
+  Scarier-only breaks are the `<centre>` blank-line artefact (`k2`), so the
+  total is a poor target on its own.
 
 ---
 
@@ -650,9 +618,8 @@ transcript names are in the code comment next to the named function, in
   looked at it -- 3.9's drops row wants `drop coin`, not `drop push coin`.
   The three feeds go 4/6/4 -> 1/1/4 mismatches, 428/428 and the Wine sweep
   byte-identical. What is left: the `x take off hat` cell in the open list
-  above (3.7 and 3.9), `put on <loose thing>` at 3.8/3.9 -- the Runner says
-  "You can't do that!" where Scarier says "You are not holding the coin."
-  -- and 3.9's `wear examine` / `examine wear` with NOTHING named, which is
+  above (3.7 and 3.9), and 3.9's `wear examine` / `examine wear` with
+  NOTHING named, which is
   "Nothing special." there and "Wear what?" at 3.7 and 3.8, so 3.9's
   examines arm fills an empty buffer where its elders left the question
   standing.
