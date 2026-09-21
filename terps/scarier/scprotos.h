@@ -784,6 +784,12 @@ typedef scr_bool (*lib_line_runner_t) (scr_gameref_t game,
 extern scr_bool lib_sitstand_anywhere (scr_gameref_t game,
                                        lib_line_runner_t run_line,
                                        std::string *rest);
+extern scr_bool lib_openclose_anywhere (scr_gameref_t game,
+                                        const scr_char *typed,
+                                        lib_line_runner_t run_line,
+                                        std::string *rest);
+extern scr_bool lib_whereis_anywhere (scr_gameref_t game,
+                                      lib_line_runner_t run_line);
 extern scr_bool lib_earlier_handler_claims_pre400 (scr_gameref_t game,
                                                    const scr_char *line);
 extern scr_bool lib_two_verb_line_pre400 (scr_gameref_t game,

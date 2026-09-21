@@ -2498,14 +2498,16 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
 static const scr_char *run_dispatch_input = NULL;
 
 /*
- * run_line_for_sitstand()
+ * run_line_for_anywhere()
  *
- * lib_sitstand_anywhere()'s pre-run of the standard rows on a line with the
- * sit words cut out (wears, removes and the 3.7/4.0 put run before sitstand
- * in generaltasks and keep their move).
+ * The standard rows run on a line of a pass's own making: the sit words cut
+ * out for lib_sitstand_anywhere()'s pre-run of wears, removes and the
+ * 3.7/4.0 put, the open/close word brought to the head for
+ * lib_openclose_anywhere(), the where-is half of the line for
+ * lib_whereis_anywhere().
  */
 static scr_bool
-run_line_for_sitstand (scr_gameref_t game, const scr_char *line)
+run_line_for_anywhere (scr_gameref_t game, const scr_char *line)
 {
   const scr_char *saved = run_dispatch_input;
   scr_bool status;
@@ -7250,7 +7252,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
                                                          prior_npc, ask_echo));
       const scr_char *library_string =
           rewritten ? rewritten.get () : string;
-      std::string sitstand_rest;
+      std::string sitstand_rest, openclose_rest;
       run_dispatch_input = library_string;
       /*
        * 4.0 enters its library handlers on the whole verb ANYWHERE in the
@@ -7281,7 +7283,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       /* sitstand enters on its words anywhere; see lib_sitstand_anywhere(). */
       if (!status)
         {
-          status = lib_sitstand_anywhere (game, run_line_for_sitstand,
+          status = lib_sitstand_anywhere (game, run_line_for_anywhere,
                                           &sitstand_rest);
           if (!status && !sitstand_rest.empty ())
             {
@@ -7291,6 +7293,25 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
               run_dispatch_input = library_string;
             }
         }
+      /*
+       * openclose is the next Call generaltasks makes, and it makes it on
+       * every line; see lib_openclose_anywhere().  A handler below it that
+       * will speak for the line gets it with the open/close word cut out.
+       */
+      if (!status)
+        {
+          status = lib_openclose_anywhere (game, string, run_line_for_anywhere,
+                                           &openclose_rest);
+          if (!status && !openclose_rest.empty ())
+            {
+              library_string = openclose_rest.c_str ();
+              run_dispatch_input = library_string;
+            }
+        }
+      /* whereis is below examines and above therest; see
+         lib_whereis_anywhere(). */
+      if (!status)
+        status = lib_whereis_anywhere (game, run_line_for_anywhere);
       if (!status)
         status = run_score_anywhere (game, library_string);
       if (!status)

@@ -279,9 +279,14 @@ the_hangover T34) went identical with that port on 2026-09-20.
       version -- see "Below 4.0 a two-verb line is decided by the call
       order" and "At 4.0 a two-verb line is decided by a DIFFERENT call
       order" in the index. What both ports leave alone is the same short
-      list: a list line, a clauseless `put`, and the claiming handlers
-      whose place in the order nothing has measured yet (openclose, give,
-      whereis, gotoplace, characters, dobattle).
+      list: a list line, a clauseless `put`, and the handlers whose place
+      in the order nothing has measured yet (give, gotoplace, characters,
+      dobattle). openclose and whereis are measured and ported -- see
+      "openclose ACTS on every line and claims none of them" in the index --
+      and the one cell that entry leaves open is `take ask bob about hat`,
+      where characters() overwrites takes() at every version with a
+      different sentence. gotoplace cannot be driven at all: drive.exe
+      fails on a `go to` line at every Runner.
     * The one pre-4.0 cell left over: `x take off hat` with the hat WORN.
       wears and removes are plain `Call`s (run390 45F499/45F49E, run380
       4421FC/442201) and so can never claim, so removes takes the hat off
@@ -629,10 +634,11 @@ transcript names are in the code comment next to the named function, in
   rest of the line, the other verb word included, exactly as it stands
   (`wear examine` must become `examine wear` and not a bare `examine`, or
   examines' whole-line bare-verb exit at 471340 answers instead). Narrow
-  on purpose: a list line (`all`, `and`), a lone span, a claiming handler
-  whose place is unmeasured (openclose, give, whereis, gotoplace,
-  characters, dobattle) and a clauseless `put` -- whose 46DC34 branch does
-  not claim either -- are all left alone. The two feeds go 19/8 -> 0/0
+  on purpose: a list line (`all`, `and`), a lone span, a handler whose place
+  is unmeasured (give, gotoplace, characters, dobattle) and a clauseless
+  `put` -- whose 46DC34 branch does not claim either -- are all left alone.
+  openclose and whereis have since been measured and ported in their own
+  entry below, as passes of their own rather than as rewrites here. The two feeds go 19/8 -> 0/0
   (`cmdfile_p2verb.txt`'s last two cells are unusable: the drive echoed
   `ii` for feed line 52), 428/428 and both Wine sweeps byte-identical.
 
@@ -662,6 +668,57 @@ transcript names are in the code comment next to the named function, in
   "Nothing special." there and "Wear what?" at 3.7 and 3.8, so 3.9's
   examines arm fills an empty buffer where its elders left the question
   standing.
+
+- **openclose ACTS on every line and claims none of them; whereis speaks
+  only where nothing above it wrote.** The two handlers the two-verb ports
+  left alone, measured together because the same machine explains both.
+  openclose (run400 Proc_19_3_476468, called unconditionally at 48A515;
+  run390 45F512) is a plain `Call`, so it can never claim -- but its acting
+  arms write the buffer UNCONDITIONALLY: "You open the " (475822), " is
+  already open!" (47592D), " as it is locked!" (4757A5) and " not carrying "
+  (4758D3) all assign MemVar_4941B0 outright, while only " can't open "
+  (4756EA) and " can't see " (475952) are guarded by `= vbNullString`. So
+  the ACT survives whatever comes after it and the message does not: a
+  handler ABOVE openclose (takes, drops, tasks) claims the line and the box
+  never opens, a handler BELOW it (the typed look, examines, score, whereis,
+  characters) opens the box and then overwrites its sentence, and therest --
+  whose arms are all `If msg = "" Then` -- leaves it standing. Its entry
+  words come from c() over the whole line (`open` 475699, `close` 4759C3,
+  `lock` 475D71, `unlock` 47612F, `with` 475C73), so the word may stand
+  anywhere. With the box shut and held: `x open box`, `open examine box`,
+  `open look at box` and `open read box` all print the description (or the
+  read refusal) of an OPEN box at every version -- it opened first --
+  `push open box` is "You open the box." because therest cannot overwrite,
+  `open where is box` is "You are carrying the box!" with the box open
+  behind it, `open take box` is a take and the box stays shut, `wear open
+  hat` is the wear and `open ask bob about hat` is Bob's answer. The one
+  cell the versions split on is `open x box`: pre-4.0 it is the open box's
+  description, at 4.0 "You open the box.", because 4.0's examines anchors
+  `x`/`ex`/`exam` to the HEAD (Proc_21_37_447B18) where the older ones take
+  them with c() anywhere -- the same split "A library verb is matched
+  anywhere in the line" already records. whereis (Proc_19_33_4684E4, entered
+  on c("where")/c("find")/c("locate") at 467CE5-467D03) sits below examines
+  and above therest and behaves like any lower row: `push where is coin` is
+  "The coin is lit room." and `x where is coin` the coin's description.
+  `make_orderprobe.py` -> p37ORD/p38ORD/p39ORD/p4ORD with
+  `cmdfile_p2ord2.txt` (Adrift_263_3o37.rtf, 264_3o38.rtf, 265_3o39.txt,
+  266_3o40.txt, 2026-09-21), 24/24/23/18 mismatches -> 4/4/3/3. PORTED as
+  `lib_openclose_anywhere()` and `lib_whereis_anywhere()` (sclibrar.cpp),
+  asked from `run_all_commands()` right after the sitstand pass through the
+  shared `run_line_for_anywhere` re-entry. openclose reads the line as the
+  player TYPED it, not the dispatch line, because below 4.0 the two-verb
+  rewrite above it has already dropped the losing open word; what it hands
+  back to the row below is the dispatch line, cut only where that word is
+  still in it. It reads `open` and `close` alone: `lock`/`unlock` are left
+  out on purpose, since `pick lock` is a task command in four walkthroughs.
+  428/428 and both Wine sweeps byte-identical. What the probe leaves open is
+  one family, `take ask bob about hat` -- characters() overwriting takes()
+  -- which every version answers differently ("Bob says, 'That is a fine
+  hat.'" at 4.0, "I don't think Bob would appreciate being handled." at 3.9,
+  "Bob is not carrying the hat!" at 3.8 and the same handled line with an
+  EMPTY name at 3.7); it is in the open list above. gotoplace and dobattle
+  stay unmeasured: drive.exe cannot type a `go to` line at any Runner (error
+  70 below 4.0, SendKeys glue at 4.0) and the probe world has no battle.
 
 - **At 3.70 insides() runs below wears(); from 3.80 it runs above, so a
   put line is never a wear.** All three pre-4.0 Runners enter insides()'

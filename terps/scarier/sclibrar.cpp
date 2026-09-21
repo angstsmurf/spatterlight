@@ -26799,6 +26799,272 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
   return pf_buffer_length (filter) > mark;
 }
 
+
+/*
+ * lib_openclose_word()
+ *
+ * Where the line's first open/close word stands, and how long it is.
+ */
+static const scr_char *
+lib_openclose_word (const scr_char *line, const scr_char **word_out)
+{
+  static const scr_char *const WORDS[] = { "open", "close", NULL };
+  const scr_char *scan;
+
+  for (scan = line; *scan != NUL; scan++)
+    {
+      const scr_char *const *word;
+
+      if (scan != line && scan[-1] != ' ')
+        continue;
+      for (word = WORDS; *word; word++)
+        {
+          const size_t size = strlen (*word);
+
+          if (scr_strncasecmp (scan, *word, size) == 0
+              && (scan[size] == NUL || scan[size] == ' '))
+            {
+              *word_out = *word;
+              return scan;
+            }
+        }
+    }
+  return NULL;
+}
+
+
+/*
+ * lib_line_cut_word()
+ *
+ * The line with the span at AT, LENGTH long, taken out of it.
+ */
+static std::string
+lib_line_cut_word (const scr_char *line, const scr_char *at, size_t length)
+{
+  std::string out (line, at - line);
+  const scr_char *tail = at + length;
+
+  tail += strspn (tail, " ");
+  out += tail;
+  while (!out.empty () && out[out.size () - 1] == ' ')
+    out.erase (out.size () - 1);
+  return out;
+}
+
+
+/*
+ * lib_openclose_anywhere()
+ *
+ * openclose is a plain Call, entered on c("open") / c("close") -- the whole
+ * word ANYWHERE in the line -- and generaltasks makes it on EVERY line, one
+ * line below sitstand (run400 48A515, run390 45F512, run380 4422xx, run370
+ * 43B9xx).  It cannot claim, so the handlers below it overwrite its message
+ * while keeping its act, and the ones above it claim the line before it is
+ * reached.  Measured on p37ORD..p4ORD with cmdfile_p2ord2.txt (run370x
+ * Adrift_263_3o37.rtf, run380x Adrift_264_3o38.rtf, run390x
+ * Adrift_265_3o39.txt, run400x Adrift_266_3o40.txt, 2026-09-21), the box
+ * shut before each cell:
+ *   x open box, open examine box, open look at box   the description of an
+ *   open read box, open x box (3.7-3.9)              OPEN box; it opened
+ *   open where is box                 "You are carrying the box!", and open
+ *   push open box, open x box (4.0)   "You open the box.", therest silent
+ *   open take box                     "You take the box.", and still shut
+ *   wear open hat                     "You put on the hat." (hat unopenable)
+ * The Runner's own gate is the message buffer: its two refusals, " can't
+ * open " (4756EA) and " can't see " (475952), are written only when nothing
+ * has spoken yet, while the success (475822), " is already open!" (47592D),
+ * " as it is locked!" (4757A5) and " not carrying " (4758D3) are plain
+ * assignments that overwrite.  So the act, not the refusal, is what carries
+ * past a handler above it, and that is the test here: the pass runs the
+ * open/close row for its ACT on a line re-spelled with the word at the head,
+ * takes the message back when a handler below openclose will speak for the
+ * line, and hands that handler the line with the open/close word cut out.
+ *
+ * Only open and close are read.  The lock and unlock arms of the same proc
+ * (475D71, 47612F) are called just as unconditionally, but no probe row has
+ * stood them beside a second verb, and "pick lock" is a task command in four
+ * of the walkthroughs.
+ */
+scr_bool
+lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
+                        lib_line_runner_t run_line, std::string *rest)
+{
+  /*
+   * takes, drops, put_drop_list and the inventory listing claim the line
+   * above openclose; gotoplace runs below it, but drive.exe cannot type a
+   * `go to` line at any Runner (error 70 pre-4.0, SendKeys glue at 4.0), so
+   * a line holding one is left exactly as it is.
+   */
+  static const scr_char *const LEFT_ALONE[] = {
+    "get", "take", "pick", "drop", "put", "leave", "i", "inv", "inventory",
+    "goto", "go to", "go", NULL
+  };
+  static const scr_char *const EXAMINES[] = {
+    "examine", "look at", "read", NULL
+  };
+  static const scr_char *const EXAMINE_HEADS_400[] = {
+    "x", "ex", "exam", NULL
+  };
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_char *const *word;
+  const scr_char *at, *hit = NULL, *cut_at, *cut_hit = NULL;
+  scr_bool speaks;
+  scr_int object;
+
+  if (!typed || !line || !run_line || game->pending_endgame != 0)
+    return FALSE;
+
+  /*
+   * The tests are the typed line's, the way generaltasks hands every
+   * handler the line as it stands.  What the pass hands BACK is the line
+   * the anchored rows are already working from, since the two-verb rules
+   * above may have re-spelled it -- and below 4.0 they drop the open/close
+   * word themselves when the other verb is one of the five.
+   */
+  at = lib_openclose_word (typed, &hit);
+  if (!at)
+    return FALSE;
+  cut_at = lib_openclose_word (line, &cut_hit);
+
+  const std::string cut =
+      cut_at ? lib_line_cut_word (line, cut_at, strlen (cut_hit))
+             : std::string (line);
+
+  for (word = LEFT_ALONE; *word; word++)
+    if (lib_co_contains (typed, *word))
+      {
+        /* The claim is theirs, and only the leading open/close word stands
+           between them and the anchored row that carries it. */
+        if (at == typed && rest)
+          *rest = cut;
+        return FALSE;
+      }
+
+  /* Everything below openclose that writes over it: the typed look and
+     examines (x, ex and exam at the head only from 4.0), score, whereis,
+     and characters, whose ask arm wants the name at column 5 below 4.0. */
+  speaks = FALSE;
+  for (word = EXAMINES; *word && !speaks; word++)
+    speaks = lib_co_contains (typed, *word);
+  if ((taf_version >= TAF_VERSION_380 && lib_co_contains (typed, "look in"))
+      || (taf_version >= TAF_VERSION_390
+          && (lib_co_contains (typed, "look") || lib_co_contains (typed, "l"))))
+    speaks = TRUE;
+  for (word = EXAMINE_HEADS_400; *word && !speaks; word++)
+    {
+      const size_t size = strlen (*word);
+
+      speaks = taf_version >= TAF_VERSION_400
+               ? scr_strncasecmp (typed, *word, size) == 0
+                 && (typed[size] == NUL || typed[size] == ' ')
+               : lib_co_contains (typed, *word);
+    }
+  if (lib_co_contains (typed, "where") || lib_co_contains (typed, "find")
+      || lib_co_contains (typed, "locate") || lib_co_contains (typed, "score")
+      || lib_co_contains (typed, "talk to"))
+    speaks = TRUE;
+  if (lib_co_contains (typed, "ask"))
+    speaks = speaks || taf_version >= TAF_VERSION_400
+             || scr_strncasecmp (typed, "ask ", 4) == 0;
+
+  /* A line the open/close word leads, with nobody below to speak for it, is
+     the anchored row's own and is answered where it always was. */
+  if (at == typed && !speaks)
+    return FALSE;
+
+  {
+    const std::string body = lib_line_cut_word (typed, at, strlen (hit));
+    const std::string acting = std::string (hit)
+                               + (body.empty () ? "" : " ") + body;
+    const size_t mark = pf_buffer_length (filter);
+    std::vector<scr_int> openness;
+    scr_bool acted = FALSE;
+
+    for (object = 0; object < gs_object_count (game); object++)
+      openness.push_back (gs_object_openness (game, object));
+    run_line (game, acting.c_str ());
+    for (object = 0; object < gs_object_count (game); object++)
+      if (gs_object_openness (game, object) != openness[object])
+        acted = TRUE;
+
+    if (!acted || speaks)
+      {
+        pf_truncate (filter, mark);
+        if (speaks && rest)
+          *rest = cut;
+        return FALSE;
+      }
+    return pf_buffer_length (filter) > mark;
+  }
+}
+
+
+/*
+ * lib_whereis_anywhere()
+ *
+ * whereis (run400 4684E4, entered on c("where"), c("find") or c("locate") at
+ * 467CE5-467D03) is another plain Call generaltasks makes on every line, and
+ * it sits below examines -- which claims the line, so `x where is coin` is
+ * the coin's description and no where-is -- and above therest, whose arms
+ * are all `If msg = "" Then`: `push where is coin` is "The coin is lit
+ * room." at every version (cmdfile_p2ord2.txt cells 52 and 33; the same four
+ * transcripts as lib_openclose_anywhere()).  A line naming a handler that
+ * claims or acts above it is left alone; nothing has measured those.
+ */
+scr_bool
+lib_whereis_anywhere (scr_gameref_t game, lib_line_runner_t run_line)
+{
+  static const scr_char *const WORDS[] = {
+    "where", "find", "locate", NULL
+  };
+  static const scr_char *const LEFT_ALONE[] = {
+    "get", "take", "pick", "drop", "put", "leave", "i", "inv", "inventory",
+    "wear", "remove", "sit", "stand", "lie", "wait", "examine", "look at",
+    "look in", "look", "l", "x", "ex", "exam", "read", "ask", "talk to",
+    "goto", "go to", "go", "open", "close", "score", NULL
+  };
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_char *const *word;
+  const scr_char *scan, *at = NULL;
+
+  if (!line || !run_line || game->pending_endgame != 0)
+    return FALSE;
+
+  for (scan = line; *scan != NUL && !at; scan++)
+    {
+      if (scan != line && scan[-1] != ' ')
+        continue;
+      for (word = WORDS; *word && !at; word++)
+        {
+          const size_t size = strlen (*word);
+
+          if (scr_strncasecmp (scan, *word, size) == 0
+              && (scan[size] == NUL || scan[size] == ' '))
+            at = scan;
+        }
+    }
+  /* At the head it is the anchored row's line already. */
+  if (!at || at == line)
+    return FALSE;
+
+  for (word = LEFT_ALONE; *word; word++)
+    if (lib_co_contains (line, *word))
+      return FALSE;
+
+  {
+    const size_t mark = pf_buffer_length (filter);
+
+    run_line (game, at);
+    if (pf_buffer_length (filter) > mark)
+      return TRUE;
+    pf_truncate (filter, mark);
+    return FALSE;
+  }
+}
+
 /*
  * lib_cmd_get_off_object()
  * lib_cmd_get_off()
