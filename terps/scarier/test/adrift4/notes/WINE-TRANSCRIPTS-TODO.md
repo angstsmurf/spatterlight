@@ -280,7 +280,9 @@ the_hangover T34) went identical with that port on 2026-09-20.
       order" and "At 4.0 a two-verb line is decided by a DIFFERENT call
       order" in the index. What both ports leave alone is the same short
       list: a list line, a clauseless `put`, and the handlers whose place
-      in the order nothing has measured yet (give, gotoplace, dobattle).
+      in the order nothing has measured yet (gotoplace, dobattle). give is
+      measured -- see "give never overwrites" in the index -- and ported
+      below 4.0; its 4.0 half is its own bullet above.
       openclose and whereis are measured and ported -- see "openclose ACTS
       on every line and claims none of them" in the index -- and so is
       characters() over takes(), the one cell that entry left open: see "A
@@ -308,6 +310,30 @@ the_hangover T34) went identical with that port on 2026-09-20.
   "<player> can't talk to that.")` -- no buffer-empty test, unlike its
   3.9 twin -- so it overwrites whatever the take arm just wrote. One cell
   of one probe; not ported.
+- **At 4.0 give must lose to every other handler on the line.** Measured
+  with the entry "give never overwrites" in the index below: `give take hat
+  bob` is "I don't think Bob would appreciate being handled.", `give wear
+  hat bob` is "You put on the hat." and `give open box bob` is "You are not
+  carrying the box!" (Adrift_272_3g40.txt, 2026-09-21), and Scarier answers
+  the give in all three because its head is `give`. The port wants a
+  RUN_400_GIVE group in `run_two_verb_line_400()` ranked last in
+  RUN_400_ORDER; what blocks it is that openclose's words live in
+  RUN_400_OTHER, which that pass bails on rather than re-spells, so the
+  `give open box bob` cell cannot be reached without deciding what to do
+  about the rest of OTHER (where, find, goto, go) -- still unmeasured. Cells
+  6, 12, 14 and 20 of `cmdfile_p2give.txt`; cell 20 is downstream of 12.
+- **The exits sentence joins the room block, it does not start a
+  paragraph.** In the p3xORD/p4ORD probe worlds every Runner prints `A
+  bright room.  Also here is a coin and a box.  Bob is here.  You can only
+  move north.` as ONE line, two spaces before the exits; Scarier puts a
+  blank line in front of it. Cell 15 of `cmdfile_p2give.txt` at all four
+  versions (Adrift_269_3g37.rtf, 270_3g38.rtf, 271_3g39.txt,
+  272_3g40.txt, 2026-09-21). The corpus says the opposite is not happening
+  by accident -- volant's `... You can go west.  The security team follows
+  you from the south.` is green -- so the two cases differ by where the
+  exits sentence is appended, and nothing has read viewroom for it (the
+  room block is ONE pspace()-joined string; see the run400 `viewroom`
+  annotation). No corpus row shows the probe's shape, so the 428 stay green.
 - **Silent-task test scope, the unported rest.** run400 tests the whole
   turn buffer. Scarier counts anything a task's run adds (baroo) but still
   ignores text written before the dispatch. No corpus row is known.
@@ -803,6 +829,43 @@ transcript names are in the code comment next to the named function, in
   Save-Transcript last-command artefact at 3.7/3.8 and the open 4.0 ask
   cell). 428/428 and both Wine sweeps byte-identical. No corpus row types a
   two-noun take, so no `run_v4_walkthroughs.sh` row moved.
+
+- **give never overwrites, so a second verb on the line always outranks it;
+  and below 3.90 its refusal ends in a FULL STOP.** The handler whose place
+  in the order the two two-verb entries above left unmeasured. Every
+  Runner's character-handler give is the same shape -- run370 438F79,
+  run380 440E8C, run390 45A0BA, run400 48022F -- `c("give")` with an NPC in
+  the player's room, then a walk of every object `co(obj, 0)` names. Held or
+  worn by the player, the message is gated: it writes "<NPC> doesn't seem
+  interested in <the obj>." only when the buffer is EMPTY, or holds
+  " might need ", or holds "I don't understand" (run390 45A11D-45A167,
+  run400 48028B-4802D5). Not held, the refusal is gated on an empty buffer
+  alone (run400 480338) and reads `<player> & " don't have " & Prefix & " "
+  & Short & "."` -- run370 4390DB-4390E2, run380 440FEE-440FF5, run390
+  45A1D3-45A1F3, run400 48034C-480375 -- a FULL STOP, not the bang the take
+  and drop refusals use (run380 438E13). From 3.90 a second give answers
+  first and hides that one: run390's therest give (45D696) and run400's
+  generaltasks_verbs give (488A96), both with the bang. Below 3.90 there is
+  no second give, so the full stop is what the player sees. Because the
+  character handler's give only ever fills an empty buffer, ANY other
+  handler that wrote decides the line, word order deciding nothing: at 4.0
+  `give take hat bob` and `take give hat bob` are both "I don't think Bob
+  would appreciate being handled.", `give wear hat bob` is "You put on the
+  hat." and `give open box bob` and `open give box bob` are both "You are
+  not carrying the box!". `cmdfile_p2give.txt` on p37ORD/p38ORD/p39ORD/p4ORD
+  (Adrift_269_3g37.rtf, 270_3g38.rtf, 271_3g39.txt, 272_3g40.txt,
+  2026-09-21), 5/5/2/6 mismatches -> 2/2/1/6. PORTED the pre-4.0 halves:
+  `lib_give_not_held_pre390()` in sclibrar.cpp gives the refusal its full
+  stop below 3.90 at both give call sites, and `lib_take_npc_overwrite_tail()`
+  (the old inline tail of `lib_take_multiple_common()`, now a function) is
+  asked at the two `lib_take_held_namesake_preempt_pre400()` returns as well,
+  so `take give hat bob` with the hat in hand is the character's answer at
+  every version instead of "You've already got the hat!". 428/428 and both
+  Wine sweeps byte-identical. The 4.0 half is in the open list above: it
+  wants give in the `run_two_verb_line_400()` order, ranked below every
+  other handler, and openclose is in RUN_400_OTHER, which that pass bails
+  on. The three leftover cells are 3.7/3.8's unechoed last command, the
+  `look` exits lead below, and those 4.0 cells.
 
 - **At 3.70 insides() runs below wears(); from 3.80 it runs above, so a
   put line is never a wear.** All three pre-4.0 Runners enter insides()'

@@ -13846,6 +13846,38 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
 
 
 /*
+ * lib_take_npc_overwrite_tail()
+ *
+ * The tail every take refusal shares: a present character the line names
+ * answers over whatever takes() just wrote, and at 3.80 its take-from arm
+ * answers again over that.  See lib_take_npc_overwrite() for the arms and
+ * their gates.  Ask it wherever a take writes and returns, not only from
+ * the main loop -- the held-namesake pre-empt writes its "You've already
+ * got the hat!" and returns, and the Runner overwrites that line too:
+ * `take give hat bob` with the hat in hand is "I don't think Bob would
+ * appreciate being handled." at 3.7/3.9/4.0 and "Bob is not carrying the
+ * hat!" at 3.8 (cmdfile_p2give.txt cell 5, Adrift_269_3g37.rtf,
+ * 270_3g38.rtf, 271_3g39.txt, 272_3g40.txt, 2026-09-21).
+ */
+static scr_bool
+lib_take_npc_overwrite_tail (scr_gameref_t game, size_t mark)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int npc = lib_take_npc_overwrite (game);
+
+  if (npc == -1 || lib_take_refusal_redispatch)
+    return FALSE;
+
+  lib_take_single_named = FALSE;
+  lib_take_refusal_claimed = FALSE;
+  pf_truncate (filter, mark);
+  lib_print_take_npc_refusal (game, npc);
+  lib_take_from_npc_overwrite_380 (game, npc, mark);
+  return TRUE;
+}
+
+
+/*
  * lib_take_multiple_common()
  *
  * Take the objects available to the player and listed in %text%, or -- for
@@ -13938,9 +13970,19 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
       scr_int object;
 
       /* Pre-4.0: a held or worn namesake still answers a noun that resolved
-         to nothing; see lib_take_held_namesake_preempt_pre400(). */
-      if (!is_except && lib_take_held_namesake_preempt_pre400 (game, TRUE))
-        return TRUE;
+         to nothing; see lib_take_held_namesake_preempt_pre400().  A present
+         character the line names answers over it; see
+         lib_take_npc_overwrite_tail(). */
+      if (!is_except)
+        {
+          const size_t mark = pf_buffer_length (filter);
+
+          if (lib_take_held_namesake_preempt_pre400 (game, TRUE))
+            {
+              lib_take_npc_overwrite_tail (game, mark);
+              return TRUE;
+            }
+        }
 
       /* Pre-4.0: takes() names its object over the WHOLE line, co(obj, 1);
          see lib_move_named_whole_line_pre400(). */
@@ -13965,10 +14007,18 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
 
   /* Pre-4.0: a held or worn namesake indexed below the one object the line
      named answers for it when that object is not loose in the room; see
-     lib_take_held_namesake_preempt_pre400(). */
-  if (!is_except && references == 1
-      && lib_take_held_namesake_preempt_pre400 (game, FALSE))
-    return TRUE;
+     lib_take_held_namesake_preempt_pre400().  A present character the line
+     names answers over that too; see lib_take_npc_overwrite_tail(). */
+  if (!is_except && references == 1)
+    {
+      const size_t mark = pf_buffer_length (filter);
+
+      if (lib_take_held_namesake_preempt_pre400 (game, FALSE))
+        {
+          lib_take_npc_overwrite_tail (game, mark);
+          return TRUE;
+        }
+    }
 
   /*
    * Pre-4.0, the pre-pass counts the loose candidates first and flags them;
@@ -14094,22 +14144,11 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
 
   if (objects > 0 || references > 0)
     {
-      scr_int npc;
-
       lib_take_backend (game);
 
       /* A present character the line names overwrites the answer. */
-      npc = lib_take_npc_overwrite (game);
-      if (npc != -1 && !lib_take_refusal_redispatch)
-        {
-          lib_take_single_named = FALSE;
-          lib_take_refusal_claimed = FALSE;
-          pf_truncate (filter, take_mark);
-          lib_print_take_npc_refusal (game, npc);
-          /* 3.8's take-from arm speaks below it and overwrites it again. */
-          lib_take_from_npc_overwrite_380 (game, npc, take_mark);
-          return TRUE;
-        }
+      if (lib_take_npc_overwrite_tail (game, take_mark))
+        return TRUE;
     }
   else if (lib_is_version_400 (game))
     {
@@ -16900,6 +16939,35 @@ lib_give_not_interested_400 (scr_gameref_t game, scr_int npc, scr_int object)
 }
 
 /*
+ * lib_give_not_held_pre390()
+ *
+ * Every Runner's character-handler give refuses a thing the player is not
+ * holding with a FULL STOP, not the bang the take and drop refusals use:
+ * run370 4390DB-4390E2, run380 440FEE-440FF5, run390 45A1D3-45A1F3, run400
+ * 480338-480375 all build `<player> & " don't have " & Prefix & " " & Short`
+ * and append ".".  From 3.90 a SECOND give answers first and hides it --
+ * run390's therest give (45D696) and run400's generaltasks_verbs give
+ * (488A96), both with the bang -- while the character handler's own give
+ * only fills an empty buffer.  Below 3.90 there is no second give, so the
+ * full stop is what the player sees: `give coin to bob`, `give nut bob` and
+ * a completed `give hat` are all "You don't have the coin." at 3.7 and 3.8
+ * (cmdfile_p2give.txt cells 4, 16 and 20, Adrift_269_3g37.rtf,
+ * 270_3g38.rtf, against 271_3g39.txt, 2026-09-21).
+ */
+static void
+lib_give_not_held_pre390 (scr_gameref_t game, scr_int object)
+{
+  const scr_bool stop
+      = prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390;
+
+  lib_print_response_object (game,
+                             "You don't have ",
+                             "I don't have ",
+                             "%player% don't have ",
+                             object, stop ? ".\n" : "!\n");
+}
+
+/*
  * lib_cmd_give_object_npc()
  * lib_cmd_give_object()
  *
@@ -16972,14 +17040,11 @@ lib_cmd_give_object_npc (scr_gameref_t game)
   if (npc == -1)
     return is_ambiguous;
 
-  /* Reject if not holding the object offered. */
+  /* Reject if not holding the object offered; below 3.90 with a full stop,
+     see lib_give_not_held_pre390(). */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
     {
-      lib_print_response_object (game,
-                                 "You don't have ",
-                                 "I don't have ",
-                                 "%player% don't have ",
-                                 object, "!\n");
+      lib_give_not_held_pre390 (game, object);
       return TRUE;
     }
 
@@ -17008,14 +17073,11 @@ lib_cmd_give_object (scr_gameref_t game)
   if (object == -1)
     return is_ambiguous;
 
-  /* Reject if not holding the object offered. */
+  /* Reject if not holding the object offered; below 3.90 with a full stop,
+     see lib_give_not_held_pre390(). */
   if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
     {
-      lib_print_response_object (game,
-                                 "You don't have ",
-                                 "I don't have ",
-                                 "%player% don't have ",
-                                 object, "!\n");
+      lib_give_not_held_pre390 (game, object);
       return TRUE;
     }
 
