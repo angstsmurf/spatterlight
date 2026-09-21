@@ -7220,11 +7220,15 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
                               ? " or " : ", ");
           prefix = prop_get_indexed_string (bundle, "NPCs", namesakes[index_],
                                             "Prefix");
-          if (!scr_strempty (prefix))
-            {
-              pf_buffer_string (filter, prefix);
-              pf_buffer_character (filter, ' ');
-            }
+          /*
+           * Prefix & " " & term with no empty-Prefix test (45E811-45E82A):
+           * an empty Prefix leaves its space, and 446BB4's capital then
+           * lands on it -- "Which woman.   woman or  woman?".  The loader
+           * defaults only OBJECT prefixes to "a"; asteroid_after's and
+           * Vendetta's ALRs are written against the spaced form.
+           */
+          pf_buffer_string (filter, prefix);
+          pf_buffer_character (filter, ' ');
           pf_buffer_string (filter, lower.c_str ());
         }
       pf_buffer_string (filter, "?\n");

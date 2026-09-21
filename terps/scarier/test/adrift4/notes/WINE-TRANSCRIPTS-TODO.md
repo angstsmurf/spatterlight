@@ -366,7 +366,6 @@ artefact; no corpus row differs by an engine rule.
   row and the "You are wielding ..." row. A display accident no author
   intended, so by the deviation policy scarier keeps its clean headings and
   its own column padding. Not a lead. (2026-09-20)
-- **Empty-Prefix double space** in object listings.
 - **ALR stack overflows.** House's `%drunk%` ALR loop and a mutual `A -> B`
   / `B -> A` pair overflow the stack in run400, which then prints nothing.
   Scarier's depth cap prints the intended line.
@@ -3062,6 +3061,20 @@ transcript names are in the code comment next to the named function, in
   guard`, `club` and `nonsense` to "Which guard." and all four are "That is
   still ambiguous!", the pair then clearing so the next line asks afresh.
   `[4.0]` p4BATT Adrift_1209 turns 15-25 (2026-09-20)
+- **An empty character Prefix keeps its space in the Which list.** Each
+  item is `Prefix & " " & term` with no empty test (45E811-45E82A), and
+  the one-line capitaliser 446BB4 (`UCase(Left(s, 1))`) then lands on that
+  space, so two empty-Prefix namesakes print "Which woman.   woman or
+  woman?" -- three spaces after the stop, two before each later item, no
+  capital. Only OBJECT prefixes get the loader's "a" (4900EC), which is why
+  the deviation list once filed this under object listings. The authors
+  wrote their ALRs against the spaced form: asteroid_after's four
+  satellite prompts ("Which satellite.   satellite,  satellite or
+  satellite?" and the 2-, 3-, 5-item forms) rewrite to "Please refer to a
+  satellite by its correct name or number.", and Vendetta has one on
+  "Which girl.   girl or  girl?"; with the old unspaced list they could
+  never fire. `[4.0]` decompile + author ALRs, no Runner capture
+  (`lib_npc_400_raise_for_line_in`, 2026-09-21)
 - **3.7/3.8 characters() arms.** `talk`/`speak` anywhere in the line with a
   named character gives the ask hint for the last one named, no room test.
   A present character named in an examine line overwrites the answer (`x
