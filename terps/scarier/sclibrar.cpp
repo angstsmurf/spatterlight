@@ -27639,6 +27639,16 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
       if (gs_object_openness (game, object) != openness[object])
         acted = TRUE;
 
+    /*
+     * give fills only an EMPTY buffer, and " not carrying " (4758D3) is an
+     * outright write, so at 4.0 -- where the box must be held to open --
+     * `give open box bob` is openclose's "You are not carrying the box!"
+     * though nothing opened (p4ORD cmdfile_p2give.txt, run400x
+     * Adrift_272_3g40.txt).  Below 4.0 the box simply opens.
+     */
+    if (!acted && !speaks && taf_version >= TAF_VERSION_400
+        && lib_co_contains (typed, "give") && pf_buffer_length (filter) > mark)
+      return TRUE;
     if (!acted || speaks)
       {
         pf_truncate (filter, mark);

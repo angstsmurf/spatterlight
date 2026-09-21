@@ -2765,13 +2765,20 @@ static const scr_char *const HOIST_VERBS_400_REMOVE[] = {
   "remove", "take off", NULL
 };
 
-/* openclose 476468, give 48A985, whereis 4684E4, gotoplace 464E90 and
-   characters 480674: claiming handlers whose place in a two-verb line is
-   not measured. */
+/* openclose 476468, whereis 4684E4, gotoplace 464E90 and characters
+   480674: handlers a two-verb line leaves to passes of their own
+   (lib_openclose_anywhere(), lib_whereis_anywhere(), run_goto_line_class())
+   or whose place in the order is not measured. */
 static const scr_char *const HOIST_VERBS_400_OTHER[] = {
-  "open", "close", "lock", "unlock", "give",
+  "open", "close", "lock", "unlock",
   "where", "find", "locate", "goto", "go to", "go",
   "speak to", "pick up", NULL
+};
+
+/* give 48A985 and the character handler's give 48022F: both only ever fill
+   an EMPTY buffer, so give ranks below every other handler on the line. */
+static const scr_char *const HOIST_VERBS_400_GIVE[] = {
+  "give", NULL
 };
 
 static const scr_char *const HOIST_VERBS_400_EXAMINE[] = {
@@ -2792,8 +2799,8 @@ static const scr_char *const HOIST_VERBS_400_THEREST[] = {
 
 static const scr_char *const *const HOIST_TABLES_400[] = {
   HOIST_VERBS_400_PUTDROP, HOIST_VERBS_400_TAKE, HOIST_VERBS_400_WEAR,
-  HOIST_VERBS_400_REMOVE, HOIST_VERBS_400_OTHER, HOIST_VERBS_400_EXAMINE,
-  HOIST_VERBS_400_THEREST, NULL
+  HOIST_VERBS_400_REMOVE, HOIST_VERBS_400_OTHER, HOIST_VERBS_400_GIVE,
+  HOIST_VERBS_400_EXAMINE, HOIST_VERBS_400_THEREST, NULL
 };
 
 /*
@@ -3598,42 +3605,54 @@ enum
   RUN_400_WEAR = 1 << 3,
   RUN_400_REMOVE = 1 << 4,
   RUN_400_THEREST = 1 << 5,
-  RUN_400_OTHER = 1 << 6
+  RUN_400_OTHER = 1 << 6,
+  RUN_400_GIVE = 1 << 7
 };
 
 /* Precedence, highest first: the call order above, with wears and removes
-   dropped below examines because neither can claim. */
+   dropped below examines because neither can claim, and give last of all
+   because it never writes over anything. */
 static const scr_int RUN_400_ORDER[] = {
   RUN_400_PUTDROP, RUN_400_TAKE, RUN_400_EXAMINE,
-  RUN_400_WEAR, RUN_400_REMOVE, RUN_400_THEREST
+  RUN_400_WEAR, RUN_400_REMOVE, RUN_400_THEREST, RUN_400_GIVE
 };
 
 /*
  * The examine spellings HOIST_VERBS_400_EXAMINE leaves out because the
- * anchored pass owns them as heads (HOIST_HEADS_400).  examines() enters on
- * c("x") / c("ex") / c("exam") / c("l") wherever they stand, so the two-verb
- * scan has to see them; the single-verb hoist deliberately does not, so that
- * `blorp x coin` is left exactly as it was.
+ * anchored pass owns them as heads (HOIST_HEADS_400); the single-verb hoist
+ * deliberately does not see them, so that `blorp x coin` is left exactly as
+ * it was.  examines() enters on c("l") wherever it stands, but reads x, ex
+ * and exam at the HEAD only (Proc_21_37_447B18): `give x hat bob` is give's
+ * "Bob doesn't seem interested in the hat." (p4ORD cmdfile_p2give.txt,
+ * run400x Adrift_272_3g40.txt) and `open x box` openclose's "You open the
+ * box.".
  */
 static const scr_char *const HOIST_VERBS_400_EXAMINE_HEADS[] = {
-  "x", "ex", "exam", "l", NULL
+  "l", NULL
+};
+
+static const scr_char *const HOIST_VERBS_400_EXAMINE_AT_HEAD[] = {
+  "x", "ex", "exam", NULL
 };
 
 static const struct
 {
   const scr_char *const *table;
   scr_int group;
+  scr_bool head_only;
 }
 RUN_400_GROUPS[] = {
-  { HOIST_VERBS_400_PUTDROP, RUN_400_PUTDROP },
-  { HOIST_VERBS_400_TAKE, RUN_400_TAKE },
-  { HOIST_VERBS_400_EXAMINE, RUN_400_EXAMINE },
-  { HOIST_VERBS_400_EXAMINE_HEADS, RUN_400_EXAMINE },
-  { HOIST_VERBS_400_WEAR, RUN_400_WEAR },
-  { HOIST_VERBS_400_REMOVE, RUN_400_REMOVE },
-  { HOIST_VERBS_400_THEREST, RUN_400_THEREST },
-  { HOIST_VERBS_400_OTHER, RUN_400_OTHER },
-  { NULL, 0 }
+  { HOIST_VERBS_400_PUTDROP, RUN_400_PUTDROP, FALSE },
+  { HOIST_VERBS_400_TAKE, RUN_400_TAKE, FALSE },
+  { HOIST_VERBS_400_EXAMINE, RUN_400_EXAMINE, FALSE },
+  { HOIST_VERBS_400_EXAMINE_HEADS, RUN_400_EXAMINE, FALSE },
+  { HOIST_VERBS_400_EXAMINE_AT_HEAD, RUN_400_EXAMINE, TRUE },
+  { HOIST_VERBS_400_WEAR, RUN_400_WEAR, FALSE },
+  { HOIST_VERBS_400_REMOVE, RUN_400_REMOVE, FALSE },
+  { HOIST_VERBS_400_THEREST, RUN_400_THEREST, FALSE },
+  { HOIST_VERBS_400_OTHER, RUN_400_OTHER, FALSE },
+  { HOIST_VERBS_400_GIVE, RUN_400_GIVE, FALSE },
+  { NULL, 0, FALSE }
 };
 
 /*
@@ -3646,7 +3665,7 @@ RUN_400_GROUPS[] = {
  */
 static scr_int
 run_two_verb_groups_400 (scr_gameref_t game, const scr_char *word,
-                         scr_int *length)
+                         scr_bool at_head, scr_int *length)
 {
   scr_int index, groups = 0;
 
@@ -3654,7 +3673,8 @@ run_two_verb_groups_400 (scr_gameref_t game, const scr_char *word,
   for (index = 0; RUN_400_GROUPS[index].table; index++)
     {
       const scr_char *const hit
-        = run_hoist_longest (RUN_400_GROUPS[index].table, word);
+        = RUN_400_GROUPS[index].head_only && !at_head
+          ? NULL : run_hoist_longest (RUN_400_GROUPS[index].table, word);
 
       if (!hit)
         continue;
@@ -3678,7 +3698,8 @@ run_two_verb_groups_400 (scr_gameref_t game, const scr_char *word,
 
 /* The spelling GROUP's own tables read at WORD, longest first. */
 static const scr_char *
-run_two_verb_word_400 (const scr_char *word, scr_int group)
+run_two_verb_word_400 (const scr_char *word, scr_bool at_head,
+                       scr_int group)
 {
   const scr_char *best = NULL;
   scr_int index;
@@ -3687,7 +3708,8 @@ run_two_verb_word_400 (const scr_char *word, scr_int group)
     {
       const scr_char *hit;
 
-      if (RUN_400_GROUPS[index].group != group)
+      if (RUN_400_GROUPS[index].group != group
+          || (RUN_400_GROUPS[index].head_only && !at_head))
         continue;
       hit = run_hoist_longest (RUN_400_GROUPS[index].table, word);
       if (hit && (!best || strlen (hit) > strlen (best)))
@@ -3737,14 +3759,17 @@ run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
           scan++;
           continue;
         }
-      groups = run_two_verb_groups_400 (game, scan, &length);
+      /* A list arm walks co() over the whole line, so there a mid-line x
+         is only a word to step over: `take x all` is the take. */
+      groups = run_two_verb_groups_400 (game, scan, list || scan == line,
+                                        &length);
       if (!groups)
         {
           scan++;
           continue;
         }
-      /* openclose, give, whereis, gotoplace, characters and dobattle: where
-         they stand in the order is not measured, so nothing is re-spelled. */
+      /* openclose, whereis, gotoplace, characters and dobattle answer from
+         passes of their own or are not measured, so nothing is re-spelled. */
       if (groups & RUN_400_OTHER)
         return FALSE;
       spans.push_back (scan);
@@ -3775,7 +3800,7 @@ run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
         return FALSE;
       for (const scr_char *span : spans)
         if (!word)
-          word = run_two_verb_word_400 (span, group);
+          word = run_two_verb_word_400 (span, span == line, group);
       if (!word || scr_strcasecmp (word, "put") == 0)
         return FALSE;
       hoisted.assign (word);
@@ -3784,7 +3809,7 @@ run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
           scr_int length = 0;
 
           if (scan == line || scan[-1] == ' ')
-            run_two_verb_groups_400 (game, scan, &length);
+            run_two_verb_groups_400 (game, scan, TRUE, &length);
           if (length > 0)
             {
               scan += length;
@@ -3830,7 +3855,8 @@ run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
          only the `take` out of removes' `take off`. */
       for (span = spans.begin (); span != spans.end (); span++)
         {
-          const scr_char *const word = run_two_verb_word_400 (*span, group);
+          const scr_char *const word
+            = run_two_verb_word_400 (*span, *span == line, group);
 
           if (!word)
             continue;

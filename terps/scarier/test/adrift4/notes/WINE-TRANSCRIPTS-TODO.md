@@ -268,7 +268,7 @@ artefact; no corpus row differs by an engine rule.
   suppresses the tick.
 - **The library verb is matched anywhere in the line: the REST of it.** The
   verb half, two-verb lines (list lines and a clauseless `put` too),
-  openclose, whereis, characters, give below 4.0, dobattle and gotoplace
+  openclose, whereis, characters, give, dobattle and gotoplace
   (beside every verb, and walking at 4.0) are all measured and ported --
   see the index, as is run370's own word for each of the five (command
   slots 10-14). Still open:
@@ -278,18 +278,6 @@ artefact; no corpus row differs by an engine rule.
       unmeasured (p37SLOT has no such cell).
   Nothing in the corpus types a nonsense head, so the suite says nothing
   about any of it; the 428 rows stay green either way.
-- **At 4.0 give must lose to every other handler on the line.** Measured
-  with the entry "give never overwrites" in the index below: `give take hat
-  bob` is "I don't think Bob would appreciate being handled.", `give wear
-  hat bob` is "You put on the hat." and `give open box bob` is "You are not
-  carrying the box!" (Adrift_272_3g40.txt, 2026-09-21), and Scarier answers
-  the give in all three because its head is `give`. The port wants a
-  RUN_400_GIVE group in `run_two_verb_line_400()` ranked last in
-  RUN_400_ORDER; what blocks it is that openclose's words live in
-  RUN_400_OTHER, which that pass bails on rather than re-spells, so the
-  `give open box bob` cell cannot be reached without deciding what to do
-  about the rest of OTHER (where, find, goto, go) -- still unmeasured. Cells
-  6, 12, 14 and 20 of `cmdfile_p2give.txt`; cell 20 is downstream of 12.
 - **Silent-task test scope, the unported rest.** run400 tests the whole
   turn buffer. Scarier counts anything a task's run adds (baroo) but still
   ignores text written before the dispatch. No corpus row is known.
@@ -847,11 +835,20 @@ transcript names are in the code comment next to the named function, in
   asked at the two `lib_take_held_namesake_preempt_pre400()` returns as well,
   so `take give hat bob` with the hat in hand is the character's answer at
   every version instead of "You've already got the hat!". 428/428 and both
-  Wine sweeps byte-identical. The 4.0 half is in the open list above: it
-  wants give in the `run_two_verb_line_400()` order, ranked below every
-  other handler, and openclose is in RUN_400_OTHER, which that pass bails
-  on. The three leftover cells are 3.7/3.8's unechoed last command, the
-  `look` exits lead below, and those 4.0 cells.
+  Wine sweeps byte-identical. The three leftover cells are 3.7/3.8's
+  unechoed last command, the `look` exits lead below, and the 4.0 cells,
+  since PORTED (2026-09-21): give is its own group, RUN_400_GIVE, ranked
+  last in `run_two_verb_line_400()`'s RUN_400_ORDER (`give take hat bob`
+  -> the take, `give wear hat bob` -> the wear), and
+  `lib_openclose_anywhere()` keeps openclose's 4.0 " not carrying "
+  refusal on a give line though nothing opened (`give open box bob`). The
+  same probe showed that 4.0's examines reads x/ex/exam at the HEAD only
+  in the two-verb scan too: `give x hat bob` is give's own answer. So those
+  three spellings count as a verb only at the head, except on a list line,
+  where the arm steps over them (`take x all`). With the hat worn, `give
+  hat` is "(to Bob) You don't have the hat!", which now comes out right.
+  p4ORD `cmdfile_p2give.txt` 6 -> 0 mismatches, the other five 4.0
+  two-verb probes unchanged, 428/428, both Wine sweeps byte-identical.
 
 - **dobattle runs below wears/removes, claims nothing, and EMPTIES the
   buffer first; what is written after it decides the line.** Measured
