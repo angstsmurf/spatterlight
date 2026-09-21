@@ -3392,8 +3392,8 @@ static const scr_char *const HOIST_VERBS_BATTLE_400[] = {
  * (run_therest_pre400(), run_therest_absent_370(), lib_sitstand_anywhere()),
  * which is why `blorp drink`, `blorp push` and `blorp sit` already agree.
  * run370 also takes the game's own word for each of these from command
- * slots 10-14, the way lib_cmd_go_place() takes slot 15; that half is not
- * measured and not ported.
+ * slots 10-14, the way lib_cmd_go_place() takes slot 15; a line holding one
+ * is re-spelled by lib_two_verb_line_pre400() rather than hoisted here.
  */
 static const scr_char *const HOIST_VERBS_PRE400[] = {
   "get", "take", "pick",

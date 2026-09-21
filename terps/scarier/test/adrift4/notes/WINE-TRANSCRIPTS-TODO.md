@@ -270,11 +270,12 @@ artefact; no corpus row differs by an engine rule.
   verb half, two-verb lines (list lines and a clauseless `put` too),
   openclose, whereis, characters, give below 4.0, dobattle and gotoplace
   (beside every verb, and walking at 4.0) are all measured and ported --
-  see the index. Still open:
-    * run370's own word for each of take/drop/wear/remove/examine, command
-      slots 10-14 (`MemVar_4460FC(&HA)`..`(&HE)`, beside the slot-15 goto
-      word `lib_cmd_go_place()` already reads). The probe game defines
-      none, so this is unmeasured and unported.
+  see the index, as is run370's own word for each of the five (command
+  slots 10-14). Still open:
+    * a 3.70 slot word on a line whose object is static or named twice. The
+      two-verb pass bails on those and the slot word then goes to the
+      first handler in call order, as the old synonym did. This is
+      unmeasured (p37SLOT has no such cell).
   Nothing in the corpus types a nonsense head, so the suite says nothing
   about any of it; the 428 rows stay green either way.
 - **At 4.0 give must lose to every other handler on the line.** Measured
@@ -490,9 +491,47 @@ transcript names are in the code comment next to the named function, in
   Adrift_249_casc38.rtf, run390x Adrift_250_casc39.txt (2026-09-20); same
   `run_hoist_verb_line()`, same narrowing. Below 4.0 the hoist runs over
   the PRIORITY pass as well as the library cascade, because the take and
-  drop rows live in `PRIORITY_COMMANDS`, not in the cascade. run370's own
-  word for each of the five (command slots 10-14) is still open -- see the
-  open lead.
+  drop rows live in `PRIORITY_COMMANDS`, not in the cascade.
+
+  `[3.7]` **run370 adds the game's own word for each of the five, from
+  command slots 10-14, and it is no synonym.** Each handler tests
+  `c(MemVar_4460FC(N))` beside its own spellings:
+    * examines 434E2A slot 10;
+    * takes 435E28 slot 11, as `c(slot) And Not c("from")`. The And binds
+      before the Or, so the "from" gate applies to the slot word only;
+    * drops 430475 slot 12, gated on `MemVar_4460E3 = 0`. That flag is
+      cleared at the top of every line (43B43C) and is set only by
+      viewroom, examines, tasks and moves, none of which runs before
+      drops, so the gate is always open;
+    * wears 42C533 slot 13;
+    * removes 4295FF slot 14.
+
+  run370 has no synonyms, so the line keeps the author's word. Scarier
+  used to turn a renamed slot into a load-time synonym, which broke three
+  things:
+    * tasks heard the standard word: `grab blip` ran the `pick up blip`
+      task, and `peer at sky` was "Nothing special." instead of the
+      `peer at sky` task;
+    * an object whose name holds the word lost it: `x grab bag`, `take grab
+      bag`, `drop grab bag` and `peer grab bag` were all "Take what?";
+    * the ranking was wrong. The word is just one more entry test, so on
+      `x grab bag` and `peer grab bag` takes outranks examines and picks
+      the bag up.
+
+  Cells that already agreed:
+    * `grabs stone` and `grab coin from box` are both "I don't understand
+      what you want me to do with the ...";
+    * bare `peer` is "Nothing special.";
+    * `blorp grab stone`, `stone grab` and `GRAB stone` take the stone.
+
+  Port: the 3.7 synonym fixup skips slots 10-14.
+  `lib_pre400_handler_words()` reads the slots (`lib_command_slot_370()`,
+  which `lib_goto_alias()` now uses too). `lib_two_verb_line_pre400()`
+  rewrites a slot-word line even when only one handler is present, for the
+  rows only. It strips the slot word unless the word begins the object's
+  name. p37SLOT (`harness/make_37_slotprobe.py`), run370x
+  `cmdfile_pslot37.txt`, `Adrift_pslot37.rtf` plus
+  `Adrift_pslot37_dump.txt` (2026-09-21).
 
 - **Below 4.0 a take or a drop names its object over the WHOLE line too.**
   The noun half of the bullet above. Neither takes() nor drops() parses

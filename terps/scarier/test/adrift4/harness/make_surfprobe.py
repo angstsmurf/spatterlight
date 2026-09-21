@@ -116,6 +116,12 @@ EVENT_DEFAULTS = {
     "start_text": "", "look_text": "", "finish_text": "", "task_affected": 0,
 }
 EVENTS = []
+# 3.70's seventeen built-in command words, in slot order (0-7 directions,
+# 8 look, 9 inventory, 10 examine, 11 take, 12 drop, 13 wear, 14 remove,
+# 15 goto, 16 help); a probe renames a slot by replacing its entry.
+COMMANDS_370 = ["north", "east", "south", "west", "up", "down", "in", "out",
+                "look", "inventory", "examine", "pick up", "put down",
+                "wear", "remove", "goto", "help"]
 
 
 def event(**kwargs):
@@ -454,9 +460,7 @@ def build(version):
                 s(b["speed"]); s(b["killed_task"])
     s(0)                              # RoomGroups
     if version == 370:
-        for w in ("north", "east", "south", "west", "up", "down", "in", "out",
-                  "look", "inventory", "examine", "pick up", "put down",
-                  "wear", "remove", "goto", "help"):
+        for w in COMMANDS_370:
             s(w)                      # [17]<COMMAND>Commands
     else:
         s(0)                          # Synonyms

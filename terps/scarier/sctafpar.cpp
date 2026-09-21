@@ -2995,9 +2995,10 @@ parse_fixup_v380 (const scr_char *fixup)
  * whole of version 3.7's synonym support -- "basic synonyms ... for common
  * commands", added in Adventure Generator 3.31 -- and an author may rewrite
  * any entry: arlo.taf has "look at" where castle.taf has the standard
- * "examine".  A rewritten entry becomes a version 4.0 synonym that maps the
- * author's word back onto the standard one, which is what the library
- * commands answer to.
+ * "examine".  A rewritten direction, look, inventory or help entry becomes
+ * a version 4.0 synonym that maps the author's word back onto the standard
+ * one, which is what the library commands answer to; goto and the five
+ * object handlers read their slots themselves.
  */
 static const scr_char *const V370_COMMANDS[] = {
   "north", "east", "south", "west", "up", "down", "in", "out",
@@ -3168,11 +3169,15 @@ parse_fixup_v370 (const scr_char *fixup)
            * Ignore an unset or unchanged command word.  A renamed "goto" is
            * no synonym: run370's gotoplace tests the author's word itself
            * alongside "goto" and cuts its own length -- see
-           * lib_cmd_go_place().
+           * lib_cmd_go_place().  Nor are examine, take, drop, wear and
+           * remove (slots 10-14): each handler tests the author's word
+           * beside its own, and the line keeps it for the tasks and for
+           * object names -- see lib_pre400_handler_words().
            */
           if (!word || word[0] == NUL
               || strcmp (word, V370_COMMANDS[command]) == 0
-              || strcmp (V370_COMMANDS[command], "goto") == 0)
+              || strcmp (V370_COMMANDS[command], "goto") == 0
+              || (command >= 10 && command <= 14))
             continue;
 
           /* Rewrite the author's word back into the standard one. */

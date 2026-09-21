@@ -4265,6 +4265,35 @@ static scr_int lib_alias_prepare (const scr_prop_setref_t bundle,
                                   const scr_char *category, scr_int index);
 
 /*
+ * lib_command_slot_370()
+ *
+ * The game's own word in 3.70 command slot SLOT (MemVar_4460FC(SLOT)),
+ * lower-cased; empty from 3.8 on, which has no command block.
+ */
+static std::string
+lib_command_slot_370 (scr_prop_setref_t bundle, scr_int slot)
+{
+  std::string alias;
+
+  if (prop_get_taf_version (bundle) < TAF_VERSION_380)
+    {
+      scr_vartype_t vt_key[3], vt_rvalue;
+
+      vt_key[0].string = "Commands";
+      vt_key[1].integer = slot;
+      vt_key[2].string = "Word";
+      if (prop_get (bundle, "S<-sis", &vt_rvalue, vt_key)
+          && vt_rvalue.string && vt_rvalue.string[0] != NUL)
+        {
+          alias = vt_rvalue.string;
+          for (char &c : alias)
+            c = scr_tolower (c);
+        }
+    }
+  return alias;
+}
+
+/*
  * lib_goto_alias()
  *
  * run370 also takes the game's own word for "goto" (command slot 15,
@@ -4279,24 +4308,7 @@ static scr_int lib_alias_prepare (const scr_prop_setref_t bundle,
 static std::string
 lib_goto_alias (scr_prop_setref_t bundle)
 {
-  std::string alias;
-
-  if (prop_get_taf_version (bundle) < TAF_VERSION_380)
-    {
-      scr_vartype_t vt_key[3], vt_rvalue;
-
-      vt_key[0].string = "Commands";
-      vt_key[1].integer = 15;
-      vt_key[2].string = "Word";
-      if (prop_get (bundle, "S<-sis", &vt_rvalue, vt_key)
-          && vt_rvalue.string && vt_rvalue.string[0] != NUL)
-        {
-          alias = vt_rvalue.string;
-          for (char &c : alias)
-            c = scr_tolower (c);
-        }
-    }
-  return alias;
+  return lib_command_slot_370 (bundle, 15);
 }
 
 
@@ -17853,15 +17865,57 @@ static const scr_char *const LIB_PRE400_CANONICAL[LIB_PRE400_HANDLERS] = {
 };
 
 /*
+ * run370 adds the game's own word for each handler from its command block,
+ * c(MemVar_4460FC(N)) beside its own spellings: examines 434E2A slot 10,
+ * takes 435E28 slot 11, drops 430475 slot 12, wears 42C533 slot 13,
+ * removes 4295FF slot 14.  The word stays in the line -- run370 has no
+ * synonyms, so a task hears `grab blip` as typed -- and it is only one
+ * more entry word: take still outranks examine on `peer grab bag`, and the
+ * word can be half an object's name (`x grab bag` picks the bag up).  The
+ * take slot's test is `c(slot) And Not c("from")`, the And binding before
+ * the Or, so `grab coin from box` never enters takes while `take coin from
+ * box` does.  p37SLOT (harness/make_37_slotprobe.py), run370x
+ * cmdfile_pslot37.txt, Adrift_pslot37.rtf and its scrollback dump,
+ * 2026-09-21.  The slot words, by handler, empty where the game kept the
+ * standard word (which the own spellings already hold) or below 3.70's
+ * command block.
+ */
+static const scr_int LIB_PRE400_SLOT[LIB_PRE400_HANDLERS] = {
+  11, 12, 13, 14, 10
+};
+static const scr_char *const LIB_PRE400_SLOT_DEFAULT[LIB_PRE400_HANDLERS] = {
+  "pick up", "put down", "wear", "remove", "examine"
+};
+
+static void
+lib_pre400_slot_words (scr_gameref_t game,
+                       std::string words[LIB_PRE400_HANDLERS])
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int handler;
+
+  for (handler = 0; handler < LIB_PRE400_HANDLERS; handler++)
+    {
+      words[handler] = lib_command_slot_370 (bundle, LIB_PRE400_SLOT[handler]);
+      if (words[handler] == LIB_PRE400_SLOT_DEFAULT[handler])
+        words[handler].clear ();
+    }
+}
+
+/*
  * The five entry tests themselves, as each handler's own c() calls spell
  * them (takes run380 4421A3, drops 4421B8, wears 4421E9, removes 4421F5,
- * examines 441F9A).  Counts the handlers the line would enter.
+ * examines 441F9A), with 3.70's slot words above.  Counts the handlers the
+ * line would enter; SLOT_LINE, if given, says whether a slot word is one of
+ * the reasons.
  */
 static scr_int
 lib_pre400_handler_words (scr_gameref_t game, const scr_char *line,
-                          scr_bool present[LIB_PRE400_HANDLERS])
+                          scr_bool present[LIB_PRE400_HANDLERS],
+                          scr_bool *slot_line = NULL)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  std::string slots[LIB_PRE400_HANDLERS];
   scr_int handler, count;
 
 #define LIB_PRE400_C(word) (run_c_word_pre400 (version, line, (word)) >= 0)
@@ -17881,6 +17935,19 @@ lib_pre400_handler_words (scr_gameref_t game, const scr_char *line,
                                 || LIB_PRE400_C ("read")
                                 || (version >= TAF_VERSION_380
                                     && LIB_PRE400_C ("look in"));
+
+  if (slot_line)
+    *slot_line = FALSE;
+  lib_pre400_slot_words (game, slots);
+  for (handler = 0; handler < LIB_PRE400_HANDLERS; handler++)
+    {
+      if (slots[handler].empty () || !LIB_PRE400_C (slots[handler].c_str ())
+          || (handler == LIB_PRE400_TAKE && LIB_PRE400_C ("from")))
+        continue;
+      present[handler] = TRUE;
+      if (slot_line)
+        *slot_line = TRUE;
+    }
 
   count = 0;
   for (handler = 0; handler < LIB_PRE400_HANDLERS; handler++)
@@ -17926,8 +17993,9 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   scr_bool present[LIB_PRE400_HANDLERS], acts[LIB_PRE400_HANDLERS];
-  scr_int handler, object, found, count;
-  scr_bool bare_put = FALSE;
+  scr_int handler, handler_word, object, found, count;
+  scr_bool bare_put = FALSE, slot_line;
+  std::string slots[LIB_PRE400_HANDLERS], shortname;
   const scr_char *scan;
   std::string rest;
 
@@ -17936,7 +18004,8 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
   if (version >= TAF_VERSION_400 || !line || line[0] == NUL)
     return FALSE;
 
-  count = lib_pre400_handler_words (game, line, present);
+  count = lib_pre400_handler_words (game, line, present, &slot_line);
+  lib_pre400_slot_words (game, slots);
   /*
    * A put with no container clause is no handler's: run370/380/390's put
    * row wants its in/on, and the bare verb falls through to the catch-all.
@@ -17953,8 +18022,20 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
       bare_put = TRUE;
       count++;
     }
-  if (count < 2)
+  /*
+   * A 3.70 slot word is no word the rows below know, so a line holding one
+   * is re-spelled even with one handler in it: `grab stone` becomes `take
+   * stone` for the take row, while the tasks have already heard it as typed.
+   */
+  if (count < 2 && !slot_line)
     return FALSE;
+  if (count < 2 && !bare_put)
+    {
+      for (handler = 0; !present[handler]; handler++)
+        ;
+      found = -1;
+      goto rewrite;
+    }
 
   /*
    * A list line (`all`, `and`) goes to the list arm of the first handler
@@ -17981,11 +18062,17 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
       if (!lib_co_pre400 (game, line, object, 1))
         continue;
       if (found != -1)
-        return FALSE;
+        {
+          found = -1;
+          goto unmeasured;
+        }
       found = object;
     }
   if (found != -1 && obj_is_static (game, found))
-    return FALSE;
+    {
+      found = -1;
+      goto unmeasured;
+    }
 
   acts[LIB_PRE400_TAKE] = found != -1 && lib_take_filter (game, found, -1);
   /* drops() takes a worn object off the player too; see
@@ -18016,8 +18103,24 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
     }
   if (handler == -1)
     handler = LIB_PRE400_EXAMINE;
+  goto rewrite;
+
+unmeasured:
+  /* Left as it was -- unless a slot word would then reach rows that do not
+     know it, where the first handler in the call order has it instead. */
+  if (!slot_line)
+    return FALSE;
+  for (handler = 0; !present[handler]; handler++)
+    ;
 
 rewrite:
+  if (found != -1)
+    {
+      const scr_char *const name = prop_get_indexed_string (
+          gs_get_bundle (game), "Objects", found, "Short");
+
+      shortname = name ? name : "";
+    }
   /* The line with every verb word taken out of it, which is what the
      winning handler's own object walk would have been left looking at. */
   for (scan = line; *scan != NUL; )
@@ -18036,6 +18139,23 @@ rewrite:
               if (scr_strncasecmp (scan, *word, length) == 0
                   && (scan[length] == NUL || scan[length] == ' '))
                 matched = length;
+            }
+          /* A slot word goes too, unless it begins the object's own name:
+             `x grab bag` is a take of the grab bag. */
+          for (handler_word = 0;
+               handler_word < LIB_PRE400_HANDLERS && !matched; handler_word++)
+            {
+              const std::string &slot = slots[handler_word];
+
+              if (!slot.empty ()
+                  && scr_strncasecmp (scan, slot.c_str (), slot.size ()) == 0
+                  && (scan[slot.size ()] == NUL || scan[slot.size ()] == ' ')
+                  && !(shortname.size () > 0
+                       && scr_strncasecmp (scan, shortname.c_str (),
+                                           shortname.size ()) == 0
+                       && (scan[shortname.size ()] == NUL
+                           || scan[shortname.size ()] == ' ')))
+                matched = slot.size ();
             }
         }
       if (matched > 0)
