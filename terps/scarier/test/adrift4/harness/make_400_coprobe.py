@@ -139,8 +139,20 @@ tree` asks "Which keys." and `chop tree shed` asks "Which tree.".  All
 three PORTED 2026-09-20, and co3-co14 are now identical to run400 on every
 turn.
 
+Two more (2026-09-21) settle whether a task-answered line on a tied noun is
+a turn:
+
+    cmdfile_co16.txt `poke %object%` on the trees, the keys and
+                     mixed lines, `turns` between         Adrift_co16
+    cmdfile_co17.txt p4CO2 (--chop): a LITERAL `chop tree`
+                     task on the line that otherwise asks Adrift_co17
+
+It is, and it asks nothing: 463640 parks 4941EC before the tasks run, but
+execute_task clears it at 45A3CE.  Scarier already matched both feeds.
+
 Usage:
     python3 make_400_coprobe.py p4CO.plain
+    python3 make_400_coprobe.py --chop p4CO2.plain   # + literal `chop tree`
     python3 taftool.py pack p4CO.plain <donor.taf> p4CO.taf
 
 Drive it with, from ~/adrift-battle/runner/wine:
@@ -244,8 +256,12 @@ def task(cmd, text):
     s(0)                 # Actions
     s("")                # RestrMask
 
-s(1)
+# `--chop` adds a LITERAL task on a line 463640 ties on (p4CO2, 2026-09-21).
+CHOP = "--chop" in sys.argv
+s(2 if CHOP else 1)
 task("poke %object%", "POKE.")
+if CHOP:
+    task("chop tree", "CHOP.")
 
 # EVENTS -- one that prints "TICK." over and over, so that a turn whose
 # output the prompt REPLACES (3.8 threw the whole turn away, run380 @4431B0)
@@ -285,6 +301,7 @@ s(0)                     # CustomFont
 s("2026")                # CompileDate
 
 body = ("\r\n".join(L) + "\r\n").encode("latin-1")
-out = sys.argv[1] if len(sys.argv) > 1 else "p4CO.plain"
+args = [a for a in sys.argv[1:] if a != "--chop"]
+out = args[0] if args else "p4CO.plain"
 open(out, "wb").write(body)
 print("wrote %s (%d bytes, %d lines)" % (out, len(body), len(L)))

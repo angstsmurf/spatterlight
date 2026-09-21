@@ -261,11 +261,10 @@ artefact; no corpus row differs by an engine rule.
 
 - **Ambiguity prompts, what is left.** Which path parks 4941EC is solved
   and ported (see "A 4.0 answer REBUILDS the typed line" and "The 4.0
-  examine question is co()'s walk" in the index). Still open:
-  - whether an object ambiguity on a task-answered line also suppresses
-    the tick;
-  - the with-split question still takes the measured alias test
-    (`lib_co_400_scan_term_400`), not the pending object;
+  examine question is co()'s walk" in the index), and so is the tick on a
+  task-answered tied line ("A task that runs clears the 4.0 pending
+  question") and the " with " line's question ("A 4.0 \" with \" line asks
+  openclose's question"). Still open:
   - co()'s -2 arm (454454 names the object itself, 448C24's "(the X)"
     line) is modelled for its 4941EC write only.
 
@@ -1968,6 +1967,53 @@ transcript names are in the code comment next to the named function, in
   `lib_co_400_raise_for_references` and `lib_co_400_prefix_contest`.
   Every p4CO and p4WTIE feed is identical, and so are p4OPENA/T/W and
   p4AND. `[4.0]` p4CO (`cmdfile_co15.txt`, Adrift_co15, 2026-09-21)
+- **A task that runs clears the 4.0 pending question: the line ticks and
+  asks nothing.** 463640 runs at the top of every line (48A3F8) and parks
+  4941EC on a Short tie before any task is tried, but execute_task
+  (45A3EC) stores -1 into 4941EC at 45A3CE, right after appending its
+  CompleteText. So 48B5B5 ticks and 48B61C prints the reply with no
+  prompt. `chop tree` as a LITERAL task beside the two trees (the line
+  that asks "Which tree." with no task) prints CHOP., is a turn, and
+  leaves no question: `red` next is DontUnderstand. `poke %object%` does
+  the same for `poke tree`, and `chop tree and x rock` ticks twice. Where
+  the task does NOT match (`poke keys tree`, `poke tree hut`), the line
+  asks as before. Scarier already matched; NOTHING PORTED. `[4.0]` p4CO
+  (`cmdfile_co16.txt`, Adrift_co16) and p4CO2 (`make_400_coprobe.py
+  --chop`, `cmdfile_co17.txt`, Adrift_co17), identical on every turn,
+  2026-09-21
+- **A 4.0 " with " line asks openclose's question, or therest's, whatever
+  printed; its term is the PENDING object's.** openclose (48A515) runs on
+  every line not claimed above it (tasks, put_drop_list, get_outer) and,
+  when the text after "with" does not name one object, runs co(obj, 0) over
+  every object: one present seen namesake for an object's word resets
+  4941EC, two or more park it, the last in index order deciding (the list
+  is Me(428) as the tail's 463640 left it or co() rebuilt it). therest,
+  which runs only while nothing has been said, redoes it from the halves
+  with 463640's restart: a head naming nothing leaves -1, a head tie parks
+  the head, else a tail tie parks the tail's pending object. Either way
+  generaltasks then asks over what the handler printed, the term being
+  Short(4941EC) replaced by the last of ITS aliases the whole line holds.
+  p4WTIE2 (the red stone aliased "flint", the blue "pebble"): `x rope with
+  stone`, `x flint with stone`, `wear flint with stone`, `cut flint with
+  stone` -> "Which stone."; `x pebble with stone`, `push pebble with
+  stone`, bare `pebble with stone`, `cut pebble with stone`, `cut rope with
+  stone flint pebble` (a 2-2 tail) -> "Which pebble."; `x gems with stone`
+  -> "Which gems.  The ruby or the emerald?"; but `x ruby with stone`, `x
+  emerald with stone` describe (the ruby, index 6, resets after the
+  stones), `x stone with pebble` describes (the tail names one), `take
+  flint with stone` takes (get_outer claims), `zzz with stone` is NO IDEA.
+  (therest's head names nothing), and `unlock box with stone` unlocks with
+  the coin (openclose's lock arm, after the loop). Scarier asked only when
+  the WHOLE line tied and took the term from the crowd's shared alias.
+  PORTED 2026-09-21: `lib_openclose_with_half_raise_400` (the loop's
+  question, from the dispatch tail), `lib_with_split_crowd_400` (the tail
+  via `lib_name_object_resolve_400`, its pending object's term, asked even
+  when the whole line resolved; examine describes its head) and
+  `lib_co_400_walk_step` (co()'s step, shared with the examine walk). Every
+  p4WTIE/p4WTIE2 and p4CO/p4CO2 feed is identical, 428/428 goldens, no
+  runner_transcripts verdict moved. `[4.0]` p4WTIE2
+  (`make_400_withtieprobe.py --alias`, `cmdfile_wtie19.txt`,
+  `cmdfile_wtie20.txt`, Adrift_wtie19/20, 2026-09-21)
 - **A 4.0 turn SCARE does not count: a take's "Which" prompt is unanswerable
   and TICKS when the " with " half names an object.** `take stone with
   knife` prints "Which stone.  The red stone or the blue stone?" exactly as

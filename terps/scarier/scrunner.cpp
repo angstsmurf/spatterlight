@@ -8055,6 +8055,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
     status = TRUE;
   if (!status && !silent_task_390 && battle_kinds)
     status = run_battle_line (game, string, battle_kinds);
+  const scr_bool reached_library = !status && !silent_task_390;
   if (!status && !silent_task_390)
     {
       /*
@@ -8261,6 +8262,18 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       lib_co_400_drop_question ();
       game->is_admin = FALSE;
     }
+
+  /*
+   * 4.0: and where openclose's loop leaves the index at an object, with no
+   * handler question and no task, generaltasks asks it instead of whatever
+   * the line printed: `x rope with stone`, `wear flint with stone`.  A line
+   * claimed above openclose never gets there.  See
+   * lib_openclose_with_half_raise_400().
+   */
+  if (status && reached_library && game->is_running
+      && !run_any_task_ran_this_command ()
+      && lib_openclose_with_half_raise_400 (game, string))
+    game->is_admin = TRUE;
 
   /*
    * 4.0: and when no task ran, the same scan ASKS.  The question belongs to

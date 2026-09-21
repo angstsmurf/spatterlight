@@ -84,9 +84,16 @@ pfx/drive_c/adrift/Adrift_wtie*.txt):
             zzz/ruby/rope from box` locked and then open-and-empty, `take
             stone/zzz from knife`, `take stone/zzz from zzz` and a Which
             answered -- the piece's tie or miss answers before the box
+    wtie19  (p4WTIE2, --alias) the term is the pending object's: `cut
+            pebble with stone` "Which pebble.", `cut flint with stone`
+            "Which stone.", a 2-2 tail `cut rope with stone flint pebble`
+    wtie20  (p4WTIE2) openclose's loop asks for examine, wear and a bare
+            noun: `x rope with stone` asks, `x ruby with stone` describes,
+            `zzz with stone` is DontUnderstand, `take flint with stone` takes
 
 Usage:
     python3 make_400_withtieprobe.py p4WTIE.plain
+    python3 make_400_withtieprobe.py --alias p4WTIE2.plain  # own stone aliases
     python3 taftool.py pack p4WTIE.plain p4TAKE.taf p4WTIE.taf
 Drive it with, from ~/adrift-battle/runner/wine:
     TRANSCRIPT=Adrift_wtie.txt sh fast.sh p4WTIE.taf cmdfile_wtie.txt run400
@@ -178,8 +185,13 @@ obj("rope", static=True, prefix="the")
 obj("knife", position=1)                                   # dyn 0
 obj("coin", position=1)                                    # dyn 1
 obj("box", static=True, prefix="the", container=1, openable=7, key=1)
-obj("stone", position=4, prefix="a red")                   # dyn 2
-obj("stone", position=4, prefix="a blue")                  # dyn 3
+# `--alias` gives each stone an alias of its OWN (p4WTIE2, 2026-09-21): the
+# question's term is Short(4941EC) replaced by that object's aliases.
+ALIAS = "--alias" in sys.argv
+obj("stone", position=4, prefix="a red",
+    aliases=("flint",) if ALIAS else ())                   # dyn 2
+obj("stone", position=4, prefix="a blue",
+    aliases=("pebble",) if ALIAS else ())                  # dyn 3
 obj("ruby", position=4, aliases=("gems",))                 # dyn 4
 obj("emerald", position=4, prefix="an", aliases=("gems",)) # dyn 5
 
@@ -227,6 +239,7 @@ s(0)                     # CustomFont
 s("2026")                # CompileDate
 
 body = ("\r\n".join(L) + "\r\n").encode("latin-1")
-out = sys.argv[1] if len(sys.argv) > 1 else "p4WTIE.plain"
+args = [a for a in sys.argv[1:] if a != "--alias"]
+out = args[0] if args else "p4WTIE.plain"
 open(out, "wb").write(body)
 print("wrote %s (%d bytes, %d lines)" % (out, len(body), len(L)))

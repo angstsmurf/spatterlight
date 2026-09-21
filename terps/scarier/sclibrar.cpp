@@ -5828,6 +5828,10 @@ static scr_bool lib_co_400_spend = FALSE;
    raised by this line element; see lib_openclose_with_half_400(). */
 static scr_bool lib_co_400_named_raised = FALSE;
 
+/* therest's with-split scored this element and so owns Me(424); see
+   lib_openclose_with_half_raise_400(). */
+static scr_bool lib_co_400_therest_split = FALSE;
+
 /*
  * MemVar_4941F4, and whether this element flagged an ambiguity at all.
  *
@@ -5858,6 +5862,7 @@ lib_co_400_reset (void)
   lib_co_400_prompt_seen = FALSE;
   lib_co_400_flagged = FALSE;
   lib_co_400_named_raised = FALSE;
+  lib_co_400_therest_split = FALSE;
 }
 
 /*
@@ -5908,6 +5913,7 @@ lib_co_400_begin_line (scr_bool is_new_line)
     }
   lib_co_400_flagged = FALSE;
   lib_co_400_named_raised = FALSE;
+  lib_co_400_therest_split = FALSE;
 
   if (is_new_line)
     lib_co_400_spend = lib_co_400_pending;
@@ -6169,17 +6175,20 @@ lib_co_400_raise_named (scr_gameref_t game, const scr_char *term,
  *                   therest left before the tail was ever scored, and an
  *                   empty candidate list raises nothing.
  *
- * Examine is the exception, and only where the head ties: it sits above
- * therest and answers first, with the whole line's reference set -- `x stone
- * with knife` is "Which stone.  The knife, the red stone or the blue stone?"
- * and `x stone with box` names the box the same way, where `x knife with
- * stone` and `x box with stone` list the stones alone.  An examine whose
- * head names nothing still reaches the tail (`x zzz with stone`), where the
- * unhandled verb does not.
+ * Examine is the exception.  It sits above therest and answers first: where
+ * the head ties, with the whole line's reference set -- `x stone with knife`
+ * is "Which stone.  The knife, the red stone or the blue stone?" and `x
+ * stone with box` names the box the same way.  Where the head does not tie
+ * it describes the head's object and asks nothing of its own; `x knife with
+ * stone` and `x box with stone` list the stones alone because openclose's
+ * with-half asked first and examines never undid it (see
+ * lib_openclose_with_half_raise_400()).  The unhandled verb's head naming
+ * nothing asks nothing either (therest's restart leaves Me(424) at -1).
  *
- * Fills *crowd with the objects to ask about (empty = ask nothing) and
- * returns TRUE when the split decides; FALSE leaves the caller its own
- * whole-line list.
+ * Fills *crowd with the objects to ask about (empty = ask nothing), and
+ * *pending with the tail tie's pending object when the tail asks, *head_object
+ * with the head's object when it named one; returns TRUE when the split
+ * decides, FALSE leaves the caller its own whole-line list.
  */
 static scr_int
 lib_with_half_tied_400 (scr_gameref_t game, const scr_char *half,
@@ -6197,16 +6206,31 @@ lib_with_half_tied_400 (scr_gameref_t game, const scr_char *half,
   return object;
 }
 
+static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
+                                            const scr_char *input,
+                                            scr_int mode, scr_int *pending,
+                                            scr_int *last_tied,
+                                            std::vector<scr_int> *marked,
+                                            scr_int *mark_count);
+static const scr_char *lib_drop_named_term_400 (scr_gameref_t game,
+                                                scr_int object,
+                                                const scr_char *input,
+                                                scr_bool last_alias);
+
 static scr_bool
 lib_with_split_crowd_400 (scr_gameref_t game, scr_bool examine,
-                          std::vector<scr_int> *crowd)
+                          std::vector<scr_int> *crowd, scr_int *pending,
+                          scr_int *head_object)
 {
   const scr_char *input = run_get_dispatch_input ();
   const scr_char *tail = input ? strstr (input, " with ") : NULL;
+  std::vector<scr_int> marked;
   std::string head;
-  scr_int object;
+  scr_int object, tied_pending, last_tied, mark_count;
 
   crowd->clear ();
+  *pending = -1;
+  *head_object = -1;
   if (!lib_is_version_400 (game) || !tail)
     return FALSE;
 
@@ -6215,11 +6239,57 @@ lib_with_split_crowd_400 (scr_gameref_t game, scr_bool examine,
   if (object == -1)
     return !examine;
 
+  /*
+   * Past a head that does not tie, examine asks nothing of its own: the
+   * question is openclose's, which ran before it and which examines never
+   * undoes (lib_openclose_with_half_raise_400()).  `x ruby with stone`
+   * describes, where `x rope with stone` asks.
+   */
   crowd->clear ();
-  if (object == -2 && !examine)
+  *head_object = object;
+  if (examine || object == -2)
     return TRUE;
 
-  lib_with_half_tied_400 (game, tail + 6, crowd);
+  /*
+   * The tail is 463640's, pending object and all: the question's term is
+   * that object's Short, replaced by the last of its own aliases the whole
+   * line holds -- `cut pebble with stone` is "Which pebble.", `cut flint
+   * with stone` "Which stone." (the blue stone parks, "flint" is the red
+   * one's), and `cut rope with stone flint pebble` ties 2-2 and asks
+   * "Which pebble." too (Adrift_wtie19, 2026-09-21).  It asks whether or
+   * not the whole line named one object.
+   */
+  if (lib_name_object_resolve_400 (game, tail + 6, 0, &tied_pending,
+                                   &last_tied, &marked, &mark_count) == -1
+      && tied_pending >= 0 && (scr_int) marked.size () == mark_count
+      && marked.size () >= 2)
+    {
+      *crowd = marked;
+      *pending = tied_pending;
+    }
+  return TRUE;
+}
+
+/* The with-split's tail question; see lib_with_split_crowd_400(). */
+static scr_bool
+lib_co_400_raise_for_with_tail (scr_gameref_t game, scr_int pending,
+                                const std::vector<scr_int> &crowd)
+{
+  const scr_char *input = run_get_dispatch_input ();
+
+  if (!input || pending < 0 || crowd.size () < 2)
+    return FALSE;
+
+  /* An open question takes the element first; see
+     lib_co_400_raise_for_short_tie(). */
+  if (lib_co_400_question_pending ())
+    {
+      lib_co_400_note_refusal ();
+      return FALSE;
+    }
+
+  lib_co_400_raise (game, lib_drop_named_term_400 (game, pending, input, TRUE),
+                    crowd);
   return TRUE;
 }
 
@@ -6386,6 +6456,59 @@ lib_co_400_prefix_contest (scr_gameref_t game, const scr_char *word,
   return result;
 }
 
+/*
+ * One co(object, 0) call, as pass B below and openclose's with-half loop
+ * make it: *ME is Me(424), *LIST Me(428), *LIST_OK whether that list is one
+ * we can render (see lib_co_400_raise_for_references()).
+ */
+static void
+lib_co_400_walk_step (scr_gameref_t game, scr_int object,
+                      const scr_char *input, scr_int *me,
+                      std::vector<scr_int> *list, scr_bool *list_ok)
+{
+  const scr_int room = gs_playerroom (game);
+  const scr_char *word;
+  scr_int count;
+
+  word = lib_co_400_name_word (game, object, input);
+  if (!word)
+    return;
+  count = lib_co_400_present_namesakes (game, word);
+  if (count == 1)
+    {
+      *me = -1;
+      return;
+    }
+  if (count < 2)
+    return;
+
+  if (lib_co_400_prefix_contest (game, word, input, room) == object)
+    {
+      *me = -2;
+      return;
+    }
+
+  if (list->empty ()
+      || !strstr (lib_co_400_list_string (game, *list).c_str (), word))
+    {
+      scr_int other;
+
+      list->clear ();
+      for (other = 0; other < gs_object_count (game); other++)
+        {
+          if (gs_object_seen (game, other)
+              && obj_indirectly_in_room (game, other, room)
+              && lib_co_object_answers_to (game, other, word))
+            list->push_back (other);
+        }
+      *list_ok = TRUE;
+    }
+
+  if (lib_co_400_prefix_contest (game, word, input, room) == -1
+      && (*me < 0 || obj_indirectly_in_room (game, object, room)))
+    *me = object;
+}
+
 static scr_bool
 lib_co_400_raise_for_references (scr_gameref_t game)
 {
@@ -6418,47 +6541,8 @@ lib_co_400_raise_for_references (scr_gameref_t game)
   if (walk.size () >= 2)
     {
       for (index_ = 0; index_ < (scr_int) walk.size (); index_++)
-        {
-          const scr_char *word;
-          scr_int count;
-
-          object = walk[index_];
-          word = lib_co_400_name_word (game, object, input);
-          count = lib_co_400_present_namesakes (game, word);
-          if (count == 1)
-            {
-              me = -1;
-              continue;
-            }
-          if (count < 2)
-            continue;
-
-          if (lib_co_400_prefix_contest (game, word, input, room) == object)
-            {
-              me = -2;
-              continue;
-            }
-
-          if (list.empty ()
-              || !strstr (lib_co_400_list_string (game, list).c_str (), word))
-            {
-              scr_int other;
-
-              list.clear ();
-              for (other = 0; other < gs_object_count (game); other++)
-                {
-                  if (gs_object_seen (game, other)
-                      && obj_indirectly_in_room (game, other, room)
-                      && lib_co_object_answers_to (game, other, word))
-                    list.push_back (other);
-                }
-              list_ok = TRUE;
-            }
-
-          if (lib_co_400_prefix_contest (game, word, input, room) == -1
-              && (me < 0 || obj_indirectly_in_room (game, object, room)))
-            me = object;
-        }
+        lib_co_400_walk_step (game, walk[index_], input, &me, &list,
+                              &list_ok);
     }
 
   if (me < 0 || !list_ok || list.size () < 2)
@@ -6578,8 +6662,9 @@ lib_co_400_raise_for_contained_aliases (scr_gameref_t game)
  * walked last of all, park nothing is 463640's index+2 quirk, and the
  * unhandled-verb line now reads the pending object itself (see
  * lib_co_400_raise_for_pending_tie()) and the examine line co()'s walk
- * (lib_co_400_raise_for_references()); only the " with " split still takes
- * this alias test, the measured shape of the answer.
+ * (lib_co_400_raise_for_references()); only the " with " split's HEAD tie
+ * still takes this alias test (its tail reads the pending object too, see
+ * lib_with_split_crowd_400()).
  */
 static const scr_char *
 lib_co_400_scan_term_400 (scr_gameref_t game, const std::vector<scr_int> &tied,
@@ -8015,14 +8100,30 @@ pre400_take_done:
       /*
        * A line with " with " in it asks about one half; see
        * lib_with_split_crowd_400().  `close box with stone` lists the two
-       * stones and not the box, and `x knife with stone` the same, where an
-       * examine whose own half ties keeps the whole line's list below.
+       * stones and not the box, where an examine whose own half ties keeps
+       * the whole line's list below.
        */
       const scr_bool examine = strcmp (verb, "examine") == 0;
       scr_bool raised;
 
-      if (lib_with_split_crowd_400 (game, examine, &crowd))
-        raised = lib_co_400_raise_for_short_tie (game, crowd);
+      scr_int with_pending, with_head;
+
+      if (lib_with_split_crowd_400 (game, examine, &crowd, &with_pending,
+                                    &with_head))
+        {
+          /* An examine whose head names one object describes it; see
+             lib_with_split_crowd_400(). */
+          if (examine && with_head >= 0)
+            {
+              var_set_ref_object (vars, with_head);
+              if (is_ambiguous)
+                *is_ambiguous = FALSE;
+              return with_head;
+            }
+          raised = with_pending >= 0
+                   ? lib_co_400_raise_for_with_tail (game, with_pending, crowd)
+                   : lib_co_400_raise_for_short_tie (game, crowd);
+        }
       else if (examine)
         raised = lib_co_400_raise_for_references (game);
       else
@@ -24936,6 +25037,81 @@ lib_openclose_with_half_400 (scr_gameref_t game, const scr_char *line)
 }
 
 /*
+ * lib_openclose_with_half_raise_400()
+ *
+ * And where openclose's loop leaves Me(424) at an object, generaltasks ASKS
+ * (48B6B1), whatever the handlers printed -- unless a task ran for the line
+ * (48B60C), the line was claimed above openclose (tasks, put_drop_list,
+ * get_outer: GoTo 48B4E3), or therest, which runs only while nothing has
+ * been said and scores the line's halves again with 463640's restart,
+ * decided the index after it (lib_with_split_crowd_400()).  The list is
+ * Me(428) as the tail's 463640 left it and co() rebuilt it, the term the
+ * pending object's Short replaced by the last of its own aliases the line
+ * holds.  p4WTIE2, the red stone aliased "flint" and the blue "pebble", the
+ * ruby and the emerald both "gems" (run400 Adrift_wtie19/20, 2026-09-21):
+ *
+ *   x rope with stone         Which stone.  (the stones park after the rope)
+ *   x ruby with stone         A plain thing.  (the ruby resets them, last)
+ *   x emerald with stone      A plain thing.
+ *   x pebble with stone       Which pebble.  The red stone or the blue stone?
+ *   x flint with stone        Which stone.   (the blue stone is the one)
+ *   x gems with stone         Which gems.  The ruby or the emerald?
+ *   x stone with pebble       A plain thing.  (the tail names one)
+ *   wear flint with stone     Which stone.  (not "not holding")
+ *   take flint with stone     You take the red stone.  (get_outer claimed)
+ *   zzz with stone            NO IDEA.  (therest: a head naming nothing)
+ *
+ * Returns TRUE when it asked.
+ */
+scr_bool
+lib_openclose_with_half_raise_400 (scr_gameref_t game, const scr_char *line)
+{
+  std::vector<scr_int> marked;
+  const scr_char *with;
+  scr_int object, me, last_tied, mark_count;
+  scr_bool list_ok;
+
+  if (!line || !lib_is_version_400 (game) || lib_co_400_therest_split
+      || lib_co_400_flagged || lib_co_400_named_raised
+      || lib_co_400_question_pending ()
+      || !lib_input_contains_word_400 (line, "with"))
+    return FALSE;
+
+  /*
+   * openclose's own lock arm answers after the loop and leaves no question:
+   * `unlock box with stone` and `unlock box with gems` unlock with the coin,
+   * the box's key, and `lock box with stone` locks (p4WTIE, Adrift_wtie to
+   * wtie4).
+   */
+  if (lib_input_contains_word_400 (line, "lock")
+      || lib_input_contains_word_400 (line, "unlock"))
+    return FALSE;
+
+  with = strstr (line, "with");
+  if (!with)
+    return FALSE;
+  /* var_88: a tail naming one object skips the loop. */
+  object = lib_name_object_resolve_400 (game, with + 1, 0, &me, &last_tied,
+                                        &marked, &mark_count);
+  if (object >= 0)
+    return FALSE;
+  if (object != -1)
+    me = -1;
+  list_ok = (scr_int) marked.size () == mark_count;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    lib_co_400_walk_step (game, object, line, &me, &marked, &list_ok);
+
+  if (me < 0 || !list_ok || marked.size () < 2)
+    return FALSE;
+
+  pf_empty (gs_get_filter (game));
+  lib_co_400_raise (game, lib_drop_named_term_400 (game, me, line, TRUE),
+                    marked);
+  return TRUE;
+}
+
+/*
  * lib_battle_absent_npc()
  *
  * The 4.0 battle parser dobattle (Proc_11_4_47F084, entered from
@@ -33012,8 +33188,14 @@ lib_cmd_verb_object (scr_gameref_t game)
            * it answers for stays the whole line's -- hcw's `unlock door with
            * keys` speaks for the keys.  See lib_with_split_crowd_400().
            */
-          if (lib_with_split_crowd_400 (game, FALSE, &crowd))
+          scr_int with_pending, with_head;
+
+          lib_co_400_therest_split = TRUE;
+          if (lib_with_split_crowd_400 (game, FALSE, &crowd, &with_pending,
+                                        &with_head))
             tied = crowd;
+          if (lib_co_400_raise_for_with_tail (game, with_pending, crowd))
+            return TRUE;
           if (resolved == -1
               && lib_co_400_raise_for_short_tie (game, tied))
             return TRUE;
@@ -33175,10 +33357,16 @@ lib_cmd_verb_object (scr_gameref_t game)
       const scr_int resolved =
           lib_verb_object_resolve_400_common (game, &tied);
 
+      scr_int with_pending, with_head;
+
       /* One half asks the question; see lib_with_split_crowd_400(). */
-      if (lib_with_split_crowd_400 (game, FALSE, &crowd))
+      lib_co_400_therest_split = TRUE;
+      if (lib_with_split_crowd_400 (game, FALSE, &crowd, &with_pending,
+                                    &with_head))
         tied = crowd;
       if (lib_put_where_400 (game, resolved))
+        return TRUE;
+      if (lib_co_400_raise_for_with_tail (game, with_pending, crowd))
         return TRUE;
       if (resolved == -1)
         {
