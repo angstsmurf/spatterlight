@@ -6977,6 +6977,8 @@ lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
 static scr_bool lib_co_pre400 (scr_gameref_t game, const scr_char *line,
                                scr_int object, scr_int mode);
 static scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
+/* The container mode 4 admits from; see lib_resolve_admit_parent(). */
+static scr_int lib_resolve_parent_400 = -1;
 static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
                                             const scr_char *input,
                                             scr_int mode,
@@ -12893,6 +12895,51 @@ static scr_int lib_take_resolve_400_string (scr_gameref_t game,
                                             std::vector<scr_int> *tied);
 
 /*
+ * lib_take_tie_400()
+ *
+ * get_piece's two answers to a tie from 463640 (see
+ * lib_take_whole_line_400()): the flat "It is not clear which ..." with no
+ * pending object, else the Which question.  Returns FALSE, having printed
+ * nothing, only for a list the Runner would run together.
+ */
+static scr_bool
+lib_take_tie_400 (scr_gameref_t game, const scr_char *line, scr_int pending,
+                  scr_int last_tied, const std::vector<scr_int> &marked,
+                  scr_int mark_count)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  if (pending < 0)
+    {
+      pf_buffer_string (filter, "It is not clear which ");
+      pf_buffer_string (filter,
+                        lib_drop_named_term_400 (game, last_tied, line,
+                                                 FALSE));
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                             " you are referring to.",
+                                             " I am referring to.",
+                                             " %player% is referring to."));
+      pf_buffer_answer_break (filter);
+      gs_clear_multiple_references (game);
+      return TRUE;
+    }
+
+  /* Me(428) is joined by a countdown from the pass-0 count; with more marks
+   * than that the Runner runs names together, unmeasured. */
+  if ((scr_int) marked.size () != mark_count)
+    return FALSE;
+
+  lib_co_400_raise_named (game,
+                          prop_get_indexed_string (gs_get_bundle (game),
+                                                   "Objects", last_tied,
+                                                   "Short"),
+                          marked);
+  gs_clear_multiple_references (game);
+  return TRUE;
+}
+
+/*
  * lib_take_whole_line_400()
  *
  * get_piece (Proc_19_23_473A34) names a take's object from the WHOLE
@@ -12922,8 +12969,6 @@ static scr_bool
 lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
                          scr_bool *bound)
 {
-  const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *line = run_get_dispatch_input ();
   std::vector<scr_int> marked;
   scr_int object, pending, last_tied, mark_count;
@@ -12932,6 +12977,13 @@ lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
   if (!lib_is_version_400 (game) || !line
       || lib_input_contains_word_400 (line, "all")
       || lib_input_contains_word_400 (line, "and"))
+    return FALSE;
+
+  /* A "from" line names its container first (472E03-472F35), so a line
+     whose container resolves nothing is "I don't understand where you want
+     to get things from." however its piece ties: `take stone from zzz`
+     (p4WTIE, Adrift_wtfrom).  lib_take_from_piece_400() scores the piece. */
+  if (lib_input_contains_word_400 (line, "from"))
     return FALSE;
 
   object = lib_name_object_resolve_400 (game, line, 1, &pending, &last_tied,
@@ -12947,32 +12999,8 @@ lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
   if (object != -1)
     return FALSE;
 
-  if (pending < 0)
-    {
-      pf_buffer_string (filter, "It is not clear which ");
-      pf_buffer_string (filter,
-                        lib_drop_named_term_400 (game, last_tied, line,
-                                                 FALSE));
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                             " you are referring to.\n",
-                                             " I am referring to.\n",
-                                             " %player% is referring to.\n"));
-      gs_clear_multiple_references (game);
-      return TRUE;
-    }
-
-  /* Me(428) is joined by a countdown from the pass-0 count; with more marks
-   * than that the Runner runs names together, unmeasured. */
-  if ((scr_int) marked.size () != mark_count)
-    return FALSE;
-
-  lib_co_400_raise_named (game,
-                          prop_get_indexed_string (bundle, "Objects",
-                                                   last_tied, "Short"),
-                          marked);
-  gs_clear_multiple_references (game);
-  return TRUE;
+  return lib_take_tie_400 (game, line, pending, last_tied, marked,
+                           mark_count);
 }
 
 /*
@@ -15518,6 +15546,76 @@ lib_take_from_and (scr_gameref_t game)
 
 
 /*
+ * lib_take_from_piece_400()
+ *
+ * 4.0's get_piece names the piece of a take-from before it looks at the
+ * container at all.  The container is resolved first (472E03-472F19; nothing
+ * -> "I don't understand where you want to get things from."), then the
+ * text before "from" goes to the noun scorer 463640 in mode 1 with the
+ * container as its argument (473011): what is visibly in or on the
+ * container, then -- nothing scoring -- mode 0's present and seen objects,
+ * then every seen one (the 46361D restart).  Only a unique winner reaches the
+ * container tests of the tail (473795); a tie answers at 473336/4733BD and a
+ * piece naming nothing at 47332B, both before them.  p4WTIE (run400,
+ * Adrift_wtfrom, 2026-09-21), two loose stones with the Short "stone", a
+ * ruby and an emerald aliased "gems", a static rope, a held knife and a
+ * locked box:
+ *
+ *   take stone from box     Which stone.  The red stone or the blue stone?
+ *   take gems from box      It is not clear which gems you are referring to.
+ *   take zzz from box       Take what?
+ *   take ruby from box      The box is closed.
+ *   take rope from box      The box is closed.
+ *   take stone from knife   Which stone.  The red stone or the blue stone?
+ *   take zzz from knife     Take what?
+ *   take stone from zzz     I don't understand where you want to get things from.
+ *
+ * and with the box open and empty the three named cells are the same while
+ * `take ruby from box` is "There is nothing inside the box.".  The question
+ * is administrative and the two flat answers are turns, as for a plain take;
+ * the answer `red stone` rebuilds the line into `take red stone from box`.
+ * Adrift_wtie11 turn 16 is the held case: with both stones in hand `take
+ * stone from knife` still asks.  The -1 arm's task pre-match and its static
+ * refusal loop (473241-47330A) are not modelled; a static the line names is
+ * scored like any other object, so it reaches the tail.
+ *
+ * Returns TRUE when it has answered the line.
+ */
+static scr_bool
+lib_take_from_piece_400 (scr_gameref_t game, scr_int associate)
+{
+  const scr_char *piece = var_get_ref_text (gs_get_vars (game));
+  std::vector<scr_int> marked, tied;
+  scr_int object, pending, last_tied, mark_count;
+
+  if (!piece || lib_input_contains_word_400 (piece, "all"))
+    return FALSE;
+
+  lib_resolve_parent_400 = associate;
+  object = lib_name_object_resolve_400 (game, piece, 4, &pending, &last_tied,
+                                        &marked, &mark_count);
+  lib_resolve_parent_400 = -1;
+  if (object == -2)
+    object = lib_name_object_resolve_400 (game, piece, 0, &pending,
+                                          &last_tied, &marked, &mark_count);
+  if (object == -2)
+    object = lib_verb_object_resolve_400_string (game, piece, &tied, FALSE);
+
+  if (object >= 0)
+    return FALSE;
+  if (object == -1)
+    return !tied.empty ()
+           ? FALSE
+           : lib_take_tie_400 (game, piece, pending, last_tied, marked,
+                               mark_count);
+
+  gs_clear_multiple_references (game);
+  pf_buffer_string (gs_get_filter (game), "Take what?");
+  pf_buffer_answer_break (gs_get_filter (game));
+  return TRUE;
+}
+
+/*
  * lib_take_from_multiple_common()
  *
  * Take the objects inside or on an object and listed in %text%, or -- for
@@ -15568,6 +15666,10 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
    */
   if (is_400)
     {
+      /* The piece is named first; see lib_take_from_piece_400(). */
+      if (!is_except && lib_take_from_piece_400 (game, associate))
+        return TRUE;
+
       if (!lib_take_from_is_valid (game, associate))
         {
           pf_buffer_answer_break (filter);
@@ -16599,6 +16701,10 @@ static std::string::size_type lib_put_split_400 (scr_gameref_t game,
  * (Adrift_235_oy400): the gem and the rock aliased "gem" were both loose by
  * then, so it is the `take orb` cell.
  *
+ * MODE 4 is mode 1 with a container named (get_piece's var_92 <> &HFF): one
+ * pass over what is visibly in or on lib_resolve_parent_400; see
+ * lib_take_from_piece_400().
+ *
  * MODE 0 is the plain one-pass scan most of the Runner's callers use, the
  * co(i, 0) gate and no second chance (lib_resolve_admit_mode0()); openclose
  * is one of them, and the pending object is what decides whether a crowded
@@ -16612,6 +16718,8 @@ static scr_bool lib_resolve_admit_take (scr_gameref_t game, scr_int object,
                                         scr_int pass);
 static scr_bool lib_resolve_admit_mode0 (scr_gameref_t game, scr_int object,
                                          scr_int pass);
+static scr_bool lib_resolve_admit_parent (scr_gameref_t game, scr_int object,
+                                          scr_int pass);
 
 static scr_int
 lib_name_object_resolve_400 (scr_gameref_t game, const scr_char *input,
@@ -16643,6 +16751,8 @@ lib_name_object_resolve_400 (scr_gameref_t game, const scr_char *input,
               marks[object] = FALSE;
               if (mode == 0
                   ? !lib_resolve_admit_mode0 (game, object, 0)
+                  : mode == 4
+                  ? !lib_resolve_admit_parent (game, object, 0)
                   : mode == 1
                     ? !lib_resolve_admit_take (game, object, 0)
                     : !(gs_object_position (game, object) == OBJ_HELD_PLAYER
@@ -16702,7 +16812,7 @@ lib_name_object_resolve_400 (scr_gameref_t game, const scr_char *input,
         {
           saved_count = count;
           saved_me = me;
-          if (result >= 0 || mode == 0)
+          if (result >= 0 || mode == 0 || mode == 4)
             break;
           count = 0;
         }
@@ -31871,6 +31981,29 @@ lib_resolve_admit_take (scr_gameref_t game, scr_int object, scr_int pass)
   if (!obj_indirectly_in_room (game, object, gs_playerroom (game)))
     return FALSE;
   return pass > 0 || !lib_resolve_held_400 (game, object);
+}
+
+/*
+ * Mode 1 with a container named (463161-463224, arg <> &HFF): visible where
+ * it is (44B578) and its parent the container.  Nothing else is tested.
+ */
+static scr_bool
+lib_resolve_admit_parent (scr_gameref_t game, scr_int object, scr_int pass)
+{
+  const scr_int parent = lib_resolve_parent_400;
+
+  (void) pass;
+  if (parent < 0 || gs_object_parent (game, object) != parent)
+    return FALSE;
+  switch (gs_object_position (game, object))
+    {
+    case OBJ_ON_OBJECT:
+      return TRUE;
+    case OBJ_IN_OBJECT:
+      return gs_object_openness (game, parent) <= OBJ_OPEN;
+    default:
+      return FALSE;
+    }
 }
 
 static scr_int

@@ -1978,11 +1978,9 @@ transcript names are in the code comment next to the named function, in
   " with " line on a handler that prompts nothing (`unlock door with key`
   with two keys), where the co loop would leave a tie for the generaltasks
   scan to ask -- the scan model stays NPC-gated; and a drop/put prompt on
-  a with-line. Open: `take stone from knife` is "Which stone.  The red
-  stone or the blue stone?" with no tick in run400 (get_piece's "from" arm
-  472EF1 resolves the container in mode 0 and then scores the piece) where
-  Scarier answers "You can't take anything from the knife." (Adrift_wtie11
-  turn 16). `[4.0]` p4WTIE (`cmdfile_wtie11.txt` .. `cmdfile_wtie18.txt`,
+  a with-line. `take stone from knife` (Adrift_wtie11 turn 16) was the
+  take-from's piece being named before its container; see "4.0 take-from
+  names the piece before the container". `[4.0]` p4WTIE (`cmdfile_wtie11.txt` .. `cmdfile_wtie18.txt`,
   `cmdfile_wtiewatch.txt`; Adrift_wtie11..18, Adrift_wtiewatch,
   `wtie_watch_trace.txt`; `lib_openclose_with_half_400`,
   `lib_co_400_named_question_raised`, `lib_take_whole_line_400`,
@@ -2750,6 +2748,21 @@ transcript names are in the code comment next to the named function, in
     2026-09-19)
 - **A 3.8 in/on object with an unset parent** goes in the first container.
   (5cf3d7059)
+- **4.0 take-from names the piece before the container.** get_piece
+  resolves the container first ("I don't understand where you want to get
+  things from."), then scores the text before "from" with 463640 mode 1
+  on the container (visibly in or on it, else present and seen, else
+  seen), and only a unique winner reaches the container tests. A tie asks
+  or is flat exactly as a plain take's (`take stone from box`, box locked,
+  is "Which stone.  The red stone or the blue stone?", an alias tie "It is
+  not clear which gems you are referring to."), and a piece naming nothing
+  is "Take what?" -- all three over "The box is closed.", "There is
+  nothing inside the box." and "You can't take anything from the knife.".
+  Scarier's whole-line take scorer no longer pre-empts a `from` line, so
+  `take stone from zzz` is the container's refusal. The -1 arm's task
+  pre-match and static refusal loop are not modelled. `[4.0]` p4WTIE
+  (`cmdfile_wtfrom.txt`, Adrift_wtfrom; Adrift_wtie11 turn 16;
+  `lib_take_from_piece_400`, 2026-09-21)
 - **The take-from handler's own answers.** The 3.9 insides() decision
   procedure; `empty` is take-all-from in 4.0 only. p39DARK/p4TFROM
   (2ab1a7c5d)

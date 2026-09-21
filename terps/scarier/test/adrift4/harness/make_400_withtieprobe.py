@@ -80,6 +80,10 @@ pfx/drive_c/adrift/Adrift_wtie*.txt):
             both ways round -- identical candidate sets, opposite ticks
     wtie18  the `cut` control: no unhandled-verb cell ticks, and the head
             half is resolved before the tail (`cut zzz with stone`)
+    wtfrom  (2026-09-21, run400x) the take-from piece: `take stone/gems/
+            zzz/ruby/rope from box` locked and then open-and-empty, `take
+            stone/zzz from knife`, `take stone/zzz from zzz` and a Which
+            answered -- the piece's tie or miss answers before the box
 
 Usage:
     python3 make_400_withtieprobe.py p4WTIE.plain
