@@ -17173,10 +17173,127 @@ lib_wear_is_put_line_380 (scr_gameref_t game)
 }
 
 
+static scr_bool lib_remove_filter (scr_gameref_t game, scr_int object,
+                                   scr_int unused);
+
+/*
+ * lib_wear_would_act_390()
+ *
+ * TRUE when wears() would ACT on this line: put on an object the player
+ * holds, or answer "You are already wearing ..." for one already on.
+ *
+ * Those two arms write their message unguarded -- run390's already-wearing
+ * literal at 43CF8B and run400's at 4638DE/4638FE, the put-on move and its
+ * report at 463965/4639F2 -- where BOTH of wears()' refusals are guarded by
+ * an EMPTY message buffer: run390 43D1EF `If var_18C(22) <> 0 And
+ * MemVar_468154 = "" Then` in front of " not holding " (43D220) and run400
+ * 463B8B the same test in front of 463BBC, with " can't wear " behind a
+ * buffer that is empty or still holds that very refusal (run390
+ * 43D188-43D1A2, run400 463AC6-463B3F).
+ *
+ * The object walk is each Runner's own: co() over the whole line below 4.0,
+ * the 463640 scorer at 4.0 (see lib_wear_multiple_common()).
+ */
+static scr_bool
+lib_wear_would_act_390 (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *line = run_get_dispatch_input ();
+  scr_int object;
+
+  if (!line || line[0] == NUL)
+    return FALSE;
+
+  if (version >= TAF_VERSION_400)
+    {
+      object = lib_verb_object_resolve_400_string (game, line, NULL, TRUE);
+      if (object < 0)
+        object = lib_verb_object_resolve_400_string (game, line, NULL, FALSE);
+      return object >= 0
+             && (lib_wear_filter (game, object, -1)
+                 || lib_remove_filter (game, object, -1));
+    }
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (!lib_co_pre400 (game, line, object, 1))
+        continue;
+      if (lib_wear_filter (game, object, -1)
+          || lib_remove_filter (game, object, -1))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
+ * lib_wear_yields_to_put_390()
+ *
+ * From 3.90 a put refusal no longer settles a put/wear line by itself: the
+ * handler that wrote it can leave the line UNCLAIMED, and wears() runs
+ * afterwards and overwrites the message whenever it can act, staying silent
+ * behind its empty-buffer guards when it cannot (lib_wear_would_act_390()).
+ * 3.80 is the odd one out at either spelling: insides() claims outright
+ * there (4421DA), so a put line is never a wear whatever the object's
+ * state.
+ *
+ * Which refusal it is decides the matter at 3.90, and the spelling decides
+ * which refusal.  insides()' target pass takes a name standing after
+ * InStr(line, "on") (461000), so `put on hat` hands it the hat as the
+ * CONTAINER, the line names fewer than twice, and the "You can't do that!"
+ * arm (461646) CLAIMS; `put hat on` leaves it no target at all and the
+ * object's own "Put the hat onto what?" question (461754) does not.  Only
+ * the trailing spelling can become a wear there -- which is also the only
+ * one of the two that wears() would enter on its third clause, `c("put")
+ * And Right(line, 2) = "on"` (43CD0B-43CD29).  4.0 draws no such line:
+ * put_drop_list's question never claims, and either spelling is a wear.
+ *
+ * p3xTWO/p4TWO with cmdfile_p2puton.txt (Adrift_257_2y37.rtf, 258_2y38.rtf,
+ * 259_2y39.txt, 260_2y40.txt) and cmdfile_p2puton2.txt (259_2z37.rtf,
+ * 260_2z38.rtf, 261_2z39.txt, 262_2z40.txt), 2026-09-21.  With the hat held
+ * `put hat on` is "You put on the hat." at 3.70, 3.90 and 4.00 and "You
+ * can't do that!" at 3.80; worn, it is "You are already wearing the hat"
+ * everywhere but 3.80.  `put on hat` is that same wear at 3.70 and 4.00 and
+ * "You can't do that!" at 3.80 AND 3.90, held, worn or on the floor.  With
+ * the coin -- held, not wearable -- `put coin on` is 3.90's "Put the coin
+ * onto what?" and 4.00's "Where do you want to put the coin?", the put
+ * refusals standing because the wear could not act.
+ */
+static scr_bool
+lib_wear_yields_to_put_390 (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *line = run_get_dispatch_input ();
+  size_t length;
+
+  if (version >= TAF_VERSION_400)
+    {
+      /* The rows above have already cut the spelling down to `put on X`
+       * and `put X on`, which is wears()' own entry (463C30, c("put on")
+       * or a line ending " on"); put_drop_list enters on the bare word. */
+      if (!line || !lib_input_contains_word (line, "put"))
+        return FALSE;
+      return !lib_wear_would_act_390 (game);
+    }
+
+  if (!lib_wear_is_put_line_380 (game))
+    return FALSE;
+  if (version < TAF_VERSION_390)
+    return TRUE;
+
+  /* Right(line, 2) = "on": only the trailing spelling leaves insides()
+     without a target, and only its question lets wears() speak. */
+  length = strlen (line);
+  if (length < 2 || scr_strcasecmp (line + length - 2, "on") != 0)
+    return TRUE;
+  return !lib_wear_would_act_390 (game);
+}
+
+
 scr_bool
 lib_cmd_wear_multiple (scr_gameref_t game)
 {
-  if (lib_wear_is_put_line_380 (game))
+  if (lib_wear_yields_to_put_390 (game))
     return FALSE;
   return lib_wear_multiple_common (game, FALSE);
 }
@@ -31132,6 +31249,14 @@ lib_cmd_put_container_400 (scr_gameref_t game)
           || lib_phrase_has_word (line, "down"))
         return FALSE;
       if (lib_task_prematches_input (game, 0))
+        return FALSE;
+      /*
+       * The question does not claim the line: wears() runs after
+       * put_drop_list and overwrites it whenever it can act, so `put on
+       * <held wearable>` is the wear and `put on <worn>` "You are already
+       * wearing ...".  See lib_wear_would_act_390().
+       */
+      if (lib_wear_would_act_390 (game))
         return FALSE;
       return lib_put_where_400_common
                (game, lib_verb_object_resolve_400_string (game, line.c_str (),

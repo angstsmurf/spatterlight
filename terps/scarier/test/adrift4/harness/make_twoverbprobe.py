@@ -34,9 +34,17 @@ cell and nothing else:
 Usage:
     python3 make_twoverbprobe.py [370|380|390|400|all]
 
+The same three objects answer the put/wear question the `put on X` lead left
+open, because a wearable that is HELD is the one state in which wears() has
+something to do: cmdfile_p2puton.txt walks the hat through held, worn and
+loose, and cmdfile_p2puton2.txt the trailing spelling `put hat on` beside the
+held-but-not-wearable coin (Adrift_259_2z37.rtf, 260_2z38.rtf, 261_2z39.txt,
+262_2z40.txt, 2026-09-21).
+
 Session (from ~/adrift-battle/runner/wine), job_p2verb3.txt +
 cmdfile_p2verb3.txt:
     sh par.sh job_p2verb3.txt 4
+    sh par.sh job_p2puton2.txt 4
 """
 import sys
 

@@ -649,9 +649,52 @@ transcript names are in the code comment next to the named function, in
   and the clauseless spellings that no put row could match get two new
   STANDARD_PUT_COMMANDS rows on `lib_cmd_put_no_clause_pre400()`. This
   closes the `put on <loose thing>` leftover from the therest entry above.
-  428/428 and the Wine sweep byte-identical. Still open: the 4.00 half,
-  where Scarier gets 6 of the 25 cells wrong (`put on <held>` should wear,
-  `put hat on` should be "Where do you want to put the hat?").
+  428/428 and the Wine sweep byte-identical.
+
+- **A put refusal silences the wear only where it CLAIMS, and from 3.90 one
+  of them does not.** The entry above measured the put line with the object
+  LOOSE, which is the one state in which wears() has nothing to do; put the
+  hat in the player's hands and 3.90 and 4.00 both hand the line back to
+  it. wears()' two acting arms -- the put-on move and its report (run400
+  463965/4639F2), and "already wearing" (run390 43CF8B, run400
+  4638DE/4638FE) -- write their message unguarded and OVERWRITE whatever
+  stands in the buffer, while both of its refusals are guarded by an EMPTY
+  buffer: run390 43D1EF `If var_18C(22) <> 0 And MemVar_468154 = "" Then`
+  in front of " not holding " (43D220) and run400 463B8B the same test in
+  front of 463BBC, with " can't wear " behind a buffer that is empty or
+  still holds that very refusal (run390 43D188-43D1A2, run400
+  463AC6-463B3F). So an unclaimed put refusal survives exactly when the
+  wear cannot act.
+  At 4.00 put_drop_list's "Where do you want to put <the X>?" never claims
+  (46DC34-46DD2C sets 494281 and falls out), so EITHER spelling is a wear
+  there. At 3.90 the spelling decides, because insides()' target pass takes
+  only a name standing after `InStr(line, "on")` (461000): `put on hat`
+  hands it the hat as the CONTAINER, the line names fewer than twice, and
+  the "You can't do that!" arm (461646) claims; `put hat on` leaves it no
+  target and the object's own "Put the hat onto what?" (461754) does not --
+  which is also the only one of the two spellings wears() would enter on
+  its third clause, `c("put") And Right(line, 2) = "on"` (43CD0B-43CD29).
+  3.80 claims either way (4421DA) and 3.70 never gets that far. With the
+  hat held:
+
+        line          3.70            3.80             3.90/4.00
+        put hat on    put on a hat    can't do that!   put on the hat
+        put on hat    put on a hat    can't do that!   3.90 can't do
+                                                       that!, 4.00 wear
+
+  and worn it is "You are already wearing the hat" in the same cells. The
+  coin -- held, not wearable -- keeps the put refusal everywhere: `put coin
+  on` is "Put the coin onto what?" at 3.90 and "Where do you want to put
+  the coin?" at 4.00. p3xTWO/p4TWO with the new `cmdfile_p2puton2.txt`
+  (Adrift_259_2z37.rtf, 260_2z38.rtf, 261_2z39.txt, 262_2z40.txt,
+  2026-09-21), 0/0/5/1 mismatches, and `cmdfile_p2puton.txt` re-read for
+  4.00 (260_2y40.txt), 5 more. PORTED 2026-09-21 in
+  `lib_wear_would_act_390()` -- co() over the whole line below 4.0, the
+  463640 scorer at 4.0, then the wear and remove filters -- which
+  `lib_wear_yields_to_put_390()` puts in front of `lib_cmd_wear_multiple`
+  and the zeroed-"on"-split question in `lib_cmd_put_container_400()`. All
+  eight feeds identical on every turn, 428/428, and both Wine sweeps
+  byte-identical.
 
 - **"Already wearing" is never contracted, and below 4.0 the wear arm
   leaves the sentence open.** Every Runner builds this message the same
