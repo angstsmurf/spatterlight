@@ -10873,30 +10873,126 @@ lib_print_take_npc_refusal (scr_gameref_t game, scr_int npc)
 }
 
 /*
- * lib_take_npc_overwrite_400()
+ * lib_take_npc_overwrite()
  *
- * The present character a 4.0 object take line also names, or -1.  The same
+ * The present character an object take line also names, or -1.  The same
  * characters() pass as lib_examine_npc_overwrite_400() has a take arm
- * (47F70B-47F7BC: whole-word take/get/pick up, no task ran, NPC in the room)
- * that assigns the refusal to the message buffer without testing it, so the
- * object's take answer is thrown away while the take itself stands.
+ * (run400 47F70B-47F7BC, run390 459658-4596C6, run380 44054B-44057D,
+ * run370 4386BC-4386EE: whole-word take/get/pick up and the NPC in the room)
+ * that ASSIGNS the refusal to the message buffer without testing it, so the
+ * object's take answer is thrown away while the take itself stands.  All
+ * four start the sentence with `MemVar = "I don't think "` -- run400 47F753,
+ * run390 45966D, and the single-expression assignments at run380 44057D and
+ * run370 4386EE -- so every version clobbers.  (An earlier reading of the
+ * run390 listing, where the decompiler hangs the literal off the Prefix test
+ * at 45969B and leaves the alias-free arm at 4596BB looking like an append,
+ * said 3.9 appended and was not ported; the pushes at 45966A say otherwise
+ * and so does the Runner.)
+ *
+ * The "no task ran" halves differ by VB precedence and are not modelled:
+ * 3.9/4.0 gate all three verbs on it, 3.7 gates none, and 3.8 gates only
+ * "pick up" (`c("take") Or c("get") Or c("pick up") And notask`).  Nothing
+ * reaches here with a task already run for the line.
  *
  * Measured on ONNAFA (4.00): `get key of pure harry` with Red Harry (alias
  * Harry) present answers only "I don't think Harry would appreciate being
  * handled." (runner_transcripts/onnafa.txt:1622), and the key is used later.
+ * The pre-4.0 halves are p3xORD, cmdfile_p2chr.txt: `take hat bob`,
+ * `take coin bob`, `get hat bob`, `pick up hat bob`, `take bob hat` and
+ * `take box bob` all answer only the refusal and all still take the object
+ * (Adrift_265_3c37.rtf, 266_3c38.rtf, 267_3c39.txt, 268_3c40.txt).
  */
 static scr_int
-lib_take_npc_overwrite_400 (scr_gameref_t game)
+lib_take_npc_overwrite (scr_gameref_t game)
 {
   const scr_char *input = run_get_dispatch_input ();
 
-  /* run390's take arm (459658) appends rather than assigns; not ported. */
-  if (!input || !lib_is_version_400 (game)
+  if (!input
       || !(lib_input_contains_word (input, "take")
            || lib_input_contains_word (input, "get")
            || lib_input_contains_word (input, "pick up")))
     return -1;
   return lib_examine_npc_overwrite_400 (game);
+}
+
+/*
+ * lib_take_from_npc_overwrite_380()
+ *
+ * The 3.8 take-from arm, the LAST text arm of characters() (441093-4412AB,
+ * just above the walk ticker), so it overwrites everything above it --
+ * including the take refusal that lib_take_npc_overwrite() just printed and
+ * including the ask topic.  It is entered on whole-word get or take with the
+ * character in the player's room, and then walks the WHOLE object table:
+ * every object whose Short or first Alias the line names by c() ASSIGNS a
+ * sentence, so the highest-index match speaks.  There is no scope test of
+ * any kind and, unlike its 3.9 twin at 45A27C, no c("from") gate on the "is
+ * not carrying" halves -- that gate is exactly what 3.9 added.
+ *
+ * An object the character itself holds or wears is "<Name> refuses to give
+ * you <the object>!" (4411AA); anything else is "<Name> is not carrying <the
+ * object>!" (441227 for an object inside something else, 44128A for a loose
+ * one).  3.7 has no such arm at all.
+ *
+ * Measured on p38ORD, cmdfile_p2chr.txt (Adrift_266_3c38.rtf): `take hat
+ * bob` and `get hat bob` are "Bob is not carrying the hat!" while the hat is
+ * loose on the floor and still gets taken, `take nut bob` names the nut
+ * shut inside the box, `take hat coin bob` speaks for the coin (the higher
+ * index), `take ask bob about hat` loses the topic reply to it, and `pick up
+ * hat bob` keeps the take refusal because "pick up" is not one of this arm's
+ * two verbs.  3.7's same feed answers the take refusal throughout
+ * (Adrift_265_3c37.rtf).
+ *
+ * TRUE once it has spoken, having truncated the buffer back to mark first.
+ */
+static scr_bool
+lib_take_from_npc_overwrite_380 (scr_gameref_t game, scr_int npc, size_t mark)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *input = run_get_dispatch_input ();
+  scr_int object, found = -1;
+
+  if (!input
+      || prop_get_taf_version (bundle) != TAF_VERSION_380
+      || !(lib_input_contains_word (input, "get")
+           || lib_input_contains_word (input, "take")))
+    return FALSE;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      scr_vartype_t vt_key[4];
+      const scr_char *word;
+
+      word = prop_get_indexed_string (bundle, "Objects", object, "Short");
+      if (!scr_strempty (word) && lib_input_contains_word (input, word))
+        {
+          found = object;
+          continue;
+        }
+      word = lib_first_alias (bundle, vt_key, "Objects", object);
+      if (word && !scr_strempty (word)
+          && lib_input_contains_word (input, word))
+        found = object;
+    }
+
+  if (found == -1)
+    return FALSE;
+
+  pf_truncate (filter, mark);
+  lib_print_npc_np (game, npc);
+  if ((gs_object_position (game, found) == OBJ_HELD_NPC
+       || gs_object_position (game, found) == OBJ_WORN_NPC)
+      && gs_object_parent (game, found) == npc)
+    pf_buffer_string (filter,
+                      lib_select_response (game,
+                                           " refuses to give you ",
+                                           " refuses to give me ",
+                                           " refuses to give %player% "));
+  else
+    pf_buffer_string (filter, " is not carrying ");
+  lib_print_object_np (game, found);
+  pf_buffer_string (filter, "!\n");
+  return TRUE;
 }
 
 /*
@@ -10923,8 +11019,14 @@ lib_cmd_take_npc (scr_gameref_t game)
         return FALSE;
       if (!lib_print_npc_not_here_pre390 (game, npc))
         {
+          const size_t mark = pf_buffer_length (gs_get_filter (game));
+
           var_set_ref_character (gs_get_vars (game), npc);
           lib_print_take_npc_refusal (game, npc);
+          /* 3.8's take-from arm speaks below it; it names an object the
+             take resolver never saw, as `take nut bob` does for a nut shut
+             inside a CLOSED box (Adrift_266_3c38.rtf). */
+          lib_take_from_npc_overwrite_380 (game, npc, mark);
         }
       return TRUE;
     }
@@ -13889,14 +13991,16 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
 
       lib_take_backend (game);
 
-      /* 4.0: a present character the line names overwrites the answer. */
-      npc = lib_take_npc_overwrite_400 (game);
+      /* A present character the line names overwrites the answer. */
+      npc = lib_take_npc_overwrite (game);
       if (npc != -1 && !lib_take_refusal_redispatch)
         {
           lib_take_single_named = FALSE;
           lib_take_refusal_claimed = FALSE;
           pf_truncate (filter, take_mark);
           lib_print_take_npc_refusal (game, npc);
+          /* 3.8's take-from arm speaks below it and overwrites it again. */
+          lib_take_from_npc_overwrite_380 (game, npc, take_mark);
           return TRUE;
         }
     }

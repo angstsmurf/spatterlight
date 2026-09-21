@@ -280,13 +280,13 @@ the_hangover T34) went identical with that port on 2026-09-20.
       order" and "At 4.0 a two-verb line is decided by a DIFFERENT call
       order" in the index. What both ports leave alone is the same short
       list: a list line, a clauseless `put`, and the handlers whose place
-      in the order nothing has measured yet (give, gotoplace, characters,
-      dobattle). openclose and whereis are measured and ported -- see
-      "openclose ACTS on every line and claims none of them" in the index --
-      and the one cell that entry leaves open is `take ask bob about hat`,
-      where characters() overwrites takes() at every version with a
-      different sentence. gotoplace cannot be driven at all: drive.exe
-      fails on a `go to` line at every Runner.
+      in the order nothing has measured yet (give, gotoplace, dobattle).
+      openclose and whereis are measured and ported -- see "openclose ACTS
+      on every line and claims none of them" in the index -- and so is
+      characters() over takes(), the one cell that entry left open: see "A
+      present character named on a take line answers for it" below it.
+      gotoplace cannot be driven at all: drive.exe fails on a `go to` line
+      at every Runner.
     * The one pre-4.0 cell left over: `x take off hat` with the hat WORN.
       wears and removes are plain `Call`s (run390 45F499/45F49E, run380
       4421FC/442201) and so can never claim, so removes takes the hat off
@@ -301,6 +301,25 @@ the_hangover T34) went identical with that port on 2026-09-20.
       none, so this is unmeasured and unported.
   Nothing in the corpus types a nonsense head, so the suite says nothing
   about any of it; the 428 rows stay green either way.
+- **Below 4.0 a take naming two objects takes NOTHING.** Measured on
+  p37ORD/p38ORD/p39ORD/p4ORD with `cmdfile_p2mult.txt` (Adrift_267
+  _3m37.rtf, 268_3m38.rtf, 269_3m39.txt, 270_3m40.txt, 2026-09-21): with
+  the hat held, `take hat coin` picks up the coin at every version -- a
+  HELD object is not a candidate -- but with both on the floor `take coin
+  hat`, `take hat box` and `take hat coin box` are "Take what?" at 3.7,
+  3.8 and 3.9 and nothing moves, while 4.0 answers "It is not clear which
+  <highest-index named object> you are referring to." `take zzz coin`
+  takes the coin everywhere, so it is the count of NAMED takeable objects
+  that decides, not the word count. Scarier's 4.0 already matches; 3.7,
+  3.8 and 3.9 wrongly take the first one named. Not ported yet; no corpus
+  row types a two-noun take.
+- **At 4.0 the ask arm outranks the take refusal.** `take ask bob about
+  hat` is "Bob says, 'That is a fine hat.'" at 4.0 and the take refusal
+  below it (Adrift_268_3c40.txt). run400's ask arm (47F8F7-47F9A5) gates
+  on `npc in room And ((no task And MemVar_4942E0 = 0) Or buffer =
+  "<player> can't talk to that.")` -- no buffer-empty test, unlike its
+  3.9 twin -- so it overwrites whatever the take arm just wrote. One cell
+  of one probe; not ported.
 - **Silent-task test scope, the unported rest.** run400 tests the whole
   turn buffer. Scarier counts anything a task's run adds (baroo) but still
   ignores text written before the dispatch. No corpus row is known.
@@ -719,6 +738,50 @@ transcript names are in the code comment next to the named function, in
   EMPTY name at 3.7); it is in the open list above. gotoplace and dobattle
   stay unmeasured: drive.exe cannot type a `go to` line at any Runner (error
   70 below 4.0, SendKeys glue at 4.0) and the probe world has no battle.
+
+- **A present character named on a take line answers for it, and at 3.80
+  an object named beside him answers again.** characters() is the LAST
+  handler of the main loop (run390 called at 460675, run380 and run370
+  inside their generaltasks tail), and its gate -- `If (buffer = "") And
+  (no NPC named) Then buffer = default : skip` (run390 46063E-460650) --
+  lets it in whenever the buffer is non-empty OR the line names an NPC. Its
+  arms then cascade in address order (attack, take, take-from, where,
+  examine, kiss, talk, ask) and each ASSIGNS over the last. So the take arm
+  (run400 47F70B-47F7BC, run390 459658-4596C6, run380 44054B-44057D,
+  run370 4386BC-4386EE) replaces the take's message and nothing else: `take
+  hat bob` with Bob in the room still picks the hat up, and still prints
+  "I don't think Bob would appreciate being handled." Its verbs are
+  whole-word `take`, `get` and `pick up`, and the NPC must be in the
+  player's room. The name is `[Prefix & " "] & Alias(0)` falling back to
+  Name at 3.9/4.0, but ALWAYS `Prefix & " " & Alias(0)` below 3.9 -- so a
+  prefixless, aliasless NPC prints as a gap there: "I don't think   would
+  appreciate being handled." The "no task ran" halves of the gate differ
+  only by VB precedence (3.9/4.0 gate all three verbs; 3.7 gates none; 3.8
+  writes `c("take") Or c("get") Or c("pick up") And notask`, so only "pick
+  up" is gated) and none of that is modelled: the probe never runs a task
+  on these lines. 3.80 alone then speaks a second time. Its take-from arm
+  (441093-4412AB) is the last text arm of characters(), just above the walk
+  ticker, gated on `c("get") Or (c("take") And notask)` with the NPC in the
+  room, and it walks the WHOLE object table with no scope test at all:
+  every object whose Short (field 4) or first Alias (field 8) the line
+  names by c() assigns a sentence, so the HIGHEST-indexed match speaks.
+  Held or worn by that NPC it is "<Name> refuses to give you <the obj>!"
+  (4411AA); otherwise "<Name> is not carrying <the obj>!" (441227 /
+  44128A). Hence `take hat coin bob` is "Bob is not carrying the coin!" at
+  3.8 and `take nut bob` names a nut shut inside a CLOSED box.
+  3.90's twin (45A27C) put a `c("from")` gate on the "is not carrying"
+  halves and appends rather than assigns, so only `take hat from bob`
+  reaches it there; 3.70 has no such arm and stays on the handled refusal
+  throughout. `cmdfile_p2chr.txt` on p37ORD/p38ORD/p39ORD/p4ORD
+  (Adrift_265_3c37.rtf, 266_3c38.rtf, 267_3c39.txt, 268_3c40.txt,
+  2026-09-21), 13/13/8/1 mismatches -> 3/3/2/1. PORTED as
+  `lib_take_npc_overwrite()` (the old `_400` function with its version
+  guard dropped) and `lib_take_from_npc_overwrite_380()` in sclibrar.cpp,
+  asked from `lib_take_multiple_common()` and again from
+  `lib_cmd_take_npc()`'s pre-3.9 branch -- a line like `take nut bob` never
+  reaches the first. 428/428 and both Wine sweeps byte-identical. Two cells
+  stay open and are in the open list above: 4.0's ask arm overwriting the
+  take refusal, and the pre-4.0 two-noun take that takes nothing.
 
 - **At 3.70 insides() runs below wears(); from 3.80 it runs above, so a
   put line is never a wear.** All three pre-4.0 Runners enter insides()'
