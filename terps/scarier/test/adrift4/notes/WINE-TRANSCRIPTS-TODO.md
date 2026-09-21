@@ -301,18 +301,6 @@ the_hangover T34) went identical with that port on 2026-09-20.
       none, so this is unmeasured and unported.
   Nothing in the corpus types a nonsense head, so the suite says nothing
   about any of it; the 428 rows stay green either way.
-- **Below 4.0 a take naming two objects takes NOTHING.** Measured on
-  p37ORD/p38ORD/p39ORD/p4ORD with `cmdfile_p2mult.txt` (Adrift_267
-  _3m37.rtf, 268_3m38.rtf, 269_3m39.txt, 270_3m40.txt, 2026-09-21): with
-  the hat held, `take hat coin` picks up the coin at every version -- a
-  HELD object is not a candidate -- but with both on the floor `take coin
-  hat`, `take hat box` and `take hat coin box` are "Take what?" at 3.7,
-  3.8 and 3.9 and nothing moves, while 4.0 answers "It is not clear which
-  <highest-index named object> you are referring to." `take zzz coin`
-  takes the coin everywhere, so it is the count of NAMED takeable objects
-  that decides, not the word count. Scarier's 4.0 already matches; 3.7,
-  3.8 and 3.9 wrongly take the first one named. Not ported yet; no corpus
-  row types a two-noun take.
 - **At 4.0 the ask arm outranks the take refusal.** `take ask bob about
   hat` is "Bob says, 'That is a fine hat.'" at 4.0 and the take refusal
   below it (Adrift_268_3c40.txt). run400's ask arm (47F8F7-47F9A5) gates
@@ -779,9 +767,42 @@ transcript names are in the code comment next to the named function, in
   guard dropped) and `lib_take_from_npc_overwrite_380()` in sclibrar.cpp,
   asked from `lib_take_multiple_common()` and again from
   `lib_cmd_take_npc()`'s pre-3.9 branch -- a line like `take nut bob` never
-  reaches the first. 428/428 and both Wine sweeps byte-identical. Two cells
-  stay open and are in the open list above: 4.0's ask arm overwriting the
-  take refusal, and the pre-4.0 two-noun take that takes nothing.
+  reaches the first. 428/428 and both Wine sweeps byte-identical. One cell
+  stays open and is in the open list above: 4.0's ask arm overwriting the
+  take refusal. The other, the pre-4.0 two-noun take, is the entry below.
+
+- **Below 4.0 takes() counts its loose candidates before it takes any of
+  them, and two of them take NOTHING.** run390 454B95-454C9D, run380
+  43DCFB-43DE04, run370 4361ED-436301: before the acting loop, takes()
+  walks the object table once over the DYNAMIC objects sitting directly in
+  the player's room and raises two counters. `var_11A` (run380/run370
+  `var_116`) counts every such object the line names -- 454BF5 / 43DD53 /
+  436250, through `co(obj, 1)`, or a bare `c(Short)` at 3.70. `var_10C`
+  (`var_108`) counts the subset whose Prefix lastword the line does NOT
+  name -- 454C25 / 43DD8C / 436289 -- and each of those also gets a
+  per-object flag `var_118` (`var_114`) stamped at 454C85 / 43DDEC /
+  4362E9. The flags are wiped again ONLY when both counters are exactly 1
+  (454CF2 / 43DE66 / 436363), and the acting loop refuses any object still
+  flagged (454E47-454E62 `... And var_118(obj) = 0`; run380 43DFC3). So
+  two named loose objects leave both flagged, the loop moves nothing, the
+  buffer stays empty and the catch-all answers "Take what?" (45588D). The
+  "Which <obj> would you like to take." prompt sitting right there
+  (454CAD / 43DE41 / 43633E) is DEAD CODE -- its guard is `var_10C >
+  var_11A` and the subset can never outnumber the set. A HELD object is
+  never counted (it is not in the room), which is why `take hat coin` with
+  the hat in hand quietly picks up the coin, and an unknown word is not
+  counted either, so `take zzz coin` takes the coin. 4.00 dropped the
+  pre-pass entirely and answers "It is not clear which <highest-index named
+  object> you are referring to." instead; Scarier already matched that.
+  Measured on p37ORD/p38ORD/p39ORD/p4ORD with `cmdfile_p2mult.txt`
+  (Adrift_267_3m37.rtf, 268_3m38.rtf, 269_3m39.txt, 270_3m40.txt,
+  2026-09-21). PORTED as `lib_take_crowd_pre400()` in sclibrar.cpp, asked
+  from `lib_take_multiple_common()` before the acting loop: it declines the
+  whole row when two are named and re-points it at the single flagged
+  object when one is. All four feeds now match to the byte (bar the
+  Save-Transcript last-command artefact at 3.7/3.8 and the open 4.0 ask
+  cell). 428/428 and both Wine sweeps byte-identical. No corpus row types a
+  two-noun take, so no `run_v4_walkthroughs.sh` row moved.
 
 - **At 3.70 insides() runs below wears(); from 3.80 it runs above, so a
   put line is never a wear.** All three pre-4.0 Runners enter insides()'

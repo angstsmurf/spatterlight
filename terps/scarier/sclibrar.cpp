@@ -12942,6 +12942,89 @@ lib_take_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object)
   return lib_co_pre400 (game, line, object, 1);
 }
 
+
+/*
+ * lib_take_crowd_pre400()
+ *
+ * Below 4.0 a plain take COUNTS before it acts, and two objects named on
+ * one line stop it dead.  takes() pre-passes the whole object table (run390
+ * 454B95-454C9D, run380 43DCFB-43DE04, run370 4361ED-436301) and, for every
+ * dynamic object lying directly in the player's room that co(obj, 1) -- a
+ * bare c(Short) at 3.70 -- finds in the line, raises two counters: one for
+ * the match (run390 454BF5, run380 43DD53, run370 436250) and, when the last
+ * word of that object's own Prefix is NOT typed, a second (454C25 / 43DD8C /
+ * 436289) that also stamps a per-object flag (454C85 / 43DDEC / 4362E9).
+ * Only when BOTH counters come out at exactly 1 are the flags wiped again
+ * (454CF2 / 43DE66 / 436363), and the loop that takes objects passes over
+ * every object whose flag still stands (454E47-454E62 `... And var_118(obj)
+ * = 0`, run380 43DFC3).  So a line naming two present, takeable objects
+ * takes NEITHER, writes nothing, and comes out of takes() at the buffer-
+ * empty catch-all as "Take what?" (run390 45588D).  The "Which <X> would you
+ * like to take." prompt two lines above that clear (454CAD / 43DE41 /
+ * 43633E) is dead code in all three: its guard is `var_10C > var_11A` and
+ * the second counter can never outrun the first.
+ *
+ * A HELD object is not a candidate -- the pre-pass tests field 22 against
+ * the room constant -- so it neither blocks nor is blocked, and the main
+ * loop still lets it write "<You>'ve already got <X>!" before a loose object
+ * indexed above it overwrites that with the take.  Hence `take hat coin`
+ * with the hat in hand is "You pick up the coin." and carries both, while
+ * `take coin hat` with both on the floor is "Take what?" and carries
+ * neither.  A word that names nothing costs nothing: `take zzz coin` takes
+ * the coin.  4.00 dropped the pre-pass; there the line is the noun scorer's
+ * and the answer is "It is not clear which <object> you are referring to."
+ * for the highest-indexed object it names, which Scarier already gives.
+ *
+ * Measured 2026-09-21 on p37ORD/p38ORD/p39ORD/p4ORD with `cmdfile_p2mult
+ * .txt` (Adrift_267_3m37.rtf, 268_3m38.rtf, 269_3m39.txt, 270_3m40.txt).
+ *
+ * Returns the object the loop is left free to take, or -1; sets *crowded
+ * when every loose candidate was flagged and the take is off.
+ */
+static scr_int
+lib_take_crowd_pre400 (scr_gameref_t game, scr_bool *crowded)
+{
+  const scr_char *const line = run_get_dispatch_input ();
+  const scr_int room = gs_playerroom (game);
+  scr_int object, counted, flagged, acting, last_flagged, last_acting;
+
+  *crowded = FALSE;
+  if (!line
+      || prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      || lib_input_contains_word (line, "all")
+      || lib_input_contains_word (line, "and"))
+    return -1;
+
+  counted = flagged = acting = 0;
+  last_flagged = last_acting = -1;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (obj_is_static (game, object)
+          || gs_object_position (game, object) != room + 1
+          || !lib_co_pre400 (game, line, object, 1))
+        continue;
+      counted++;
+      if (lib_co_contains (line, lib_co_prefix_word (game, object)))
+        {
+          acting++;
+          last_acting = object;
+        }
+      else
+        {
+          flagged++;
+          last_flagged = object;
+        }
+    }
+
+  if (counted == 1 && flagged == 1)
+    return last_flagged;
+  if (acting > 0)
+    return last_acting;
+  if (counted > 0)
+    *crowded = TRUE;
+  return -1;
+}
+
 static scr_bool
 lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
                                        scr_bool unresolved)
@@ -13886,6 +13969,30 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (!is_except && references == 1
       && lib_take_held_namesake_preempt_pre400 (game, FALSE))
     return TRUE;
+
+  /*
+   * Pre-4.0, the pre-pass counts the loose candidates first and flags them;
+   * see lib_take_crowd_pre400().  Two of them and the take never happens, so
+   * decline the row and let the catch-all answer "Take what?"; one, and it
+   * is that object the loop takes, whatever the parser bound -- `take hat
+   * coin` with the hat in hand picks up the coin.
+   */
+  if (!is_except && references == 1)
+    {
+      scr_bool crowded;
+      const scr_int winner = lib_take_crowd_pre400 (game, &crowded);
+
+      if (crowded)
+        {
+          gs_clear_multiple_references (game);
+          return FALSE;
+        }
+      if (winner != -1 && !game->multiple_references[winner])
+        {
+          gs_clear_multiple_references (game);
+          game->multiple_references[winner] = TRUE;
+        }
+    }
 
   /*
    * Pre-4.0, takes() reaches an object only through co(idx, 1) (run390
