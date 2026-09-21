@@ -259,23 +259,15 @@ artefact; no corpus row differs by an engine rule.
 
 ### Engine, needs a probe (4.0)
 
-- **Ambiguity prompts:** co()'s crowded arm (454454) and its -2/-1
-  answers; which of them parks 4941EC, the object whose aliases the
-  prompt's term is drawn from -- p4CO's trees and keys park one, its
-  hut/shed pair does not, and the alias rule is ported off our own tie
-  instead (see "A 4.0 answer REBUILDS the typed line" in the index);
-  whether an object ambiguity on a task-answered line also
-  suppresses the tick.
-- **The library verb is matched anywhere in the line: the REST of it.** The
-  verb half, two-verb lines (list lines and a clauseless `put` too),
-  openclose, whereis, characters, give, dobattle and gotoplace
-  (beside every verb, and walking at 4.0) are all measured and ported --
-  see the index, as is run370's own word for each of the five (command
-  slots 10-14), and the static / named-twice cells of those words (see
-  "A static object under two verb words" in the index). Nothing is
-  known to be open here.
-  Nothing in the corpus types a nonsense head, so the suite says nothing
-  about any of it; the 428 rows stay green either way.
+- **Ambiguity prompts, what is left.** Which path parks 4941EC is solved
+  and ported (see "A 4.0 answer REBUILDS the typed line" and "The 4.0
+  examine question is co()'s walk" in the index). Still open:
+  - whether an object ambiguity on a task-answered line also suppresses
+    the tick;
+  - the with-split question still takes the measured alias test
+    (`lib_co_400_scan_term_400`), not the pending object;
+  - co()'s -2 arm (454454 names the object itself, 448C24's "(the X)"
+    line) is modelled for its 4941EC write only.
 
 ---
 
@@ -1928,8 +1920,15 @@ transcript names are in the code comment next to the named function, in
   tree." -- "shed" being the hut's alias but the shed's Short is not
   shared, and `chop keys`, `chop rock keys`, `chop hut keys` are all
   refusals. Why the hut/shed pair parks nothing at 4941EC where the trees
-  and keys do is NOT modelled; the aliases are read off our own tie
-  instead. And the rebuilt line is a TURN of its own: 489FEB is above the
+  and keys do is 463640's tie arm (4633F0), not co(): it parks an object
+  only when its Short equals Short(Abs(var_86)), and after the first tie
+  var_86 is -(k+2), so each tie is compared with the object TWO indexes
+  past the last one. `chop keys tree` compares the mustang key (3) with
+  Short(3), itself, and parks it; the hut and the shed are compared with
+  Short(3), Short(6) or Short(7) and park nothing. PORTED 2026-09-21 as
+  `lib_co_400_raise_for_pending_tie` (term = the pending object's Short,
+  replaced by the last of its aliases the line holds; list = the marks).
+  And the rebuilt line is a TURN of its own: 489FEB is above the
   stores that mark a line administrative, so the answer is counted by what
   the rebuilt line does, not by the prompt that asked for it -- `cut rope
   with stone` is the question and no tick, and `red stone` runs `cut rope
@@ -1940,6 +1939,35 @@ transcript names are in the code comment next to the named function, in
   .. `cmdfile_co14.txt`, Adrift_co12..co14) and p4WTIE (Adrift_wtie6 turn
   11, Adrift_wtie8 turn 10); `lib_co_400_object_answer_line`,
   `lib_co_400_scan_term_400`, `lib_co_400_raise_common`, 2026-09-20
+- **The 4.0 examine question is co()'s walk, and co() REBUILDS the
+  list.** examines hands a line 463640 tied to referencedob (457034),
+  and the question it leaves is whatever co() last wrote. 463640 parks
+  its pending object in 4941EC and writes its pass-0 marks as the list
+  4941F0 (46348B). Pass A runs co(i, 3) over every object, and pass B runs
+  co(i, 0) over the marked, in index order. A word with one present, seen
+  namesake resets 4941EC to -1 (46485E). A crowded word loses the Prefix
+  contest 454454, and then two things happen. First, 4941F0 is rebuilt
+  from THAT word's namesakes, but only when it is empty or lacks the word
+  as a binary substring (46462A-464733): "keys" is never in "the mustang
+  key or the truck key?", so the keys rebuild every time. Second, the
+  object is parked when 4941EC < 0 or the object is present (464767).
+  generaltasks asks whenever 4941EC ends on an object, whatever examines
+  printed. p4CO (Adrift_co15):
+  - `x keys shed` and `x shed keys` → "Which shed. The hut or the shed?"
+  - `x tree keys`, `x keys tree` and `x rock tree keys` → "Which keys.
+    The red tree or the blue tree?", because the absent tree 7 rebuilds
+    the list last and parks nothing.
+  - `x rock keys` → the two keys.
+  - `x tree rock` keeps 463640's list. The rock resets 4941EC, so the
+    absent tree 7 parks.
+  - `x shed tree` and `x tree hut` → 463640's lists.
+
+  This also resolves Adrift_925 turn 5: `chop keys` answering `x shed`
+  runs `x chop keys shed`, which ends on "The hut or the shed?" again,
+  so 48B6FF says "That is still ambiguous!". PORTED 2026-09-21 as
+  `lib_co_400_raise_for_references` and `lib_co_400_prefix_contest`.
+  Every p4CO and p4WTIE feed is identical, and so are p4OPENA/T/W and
+  p4AND. `[4.0]` p4CO (`cmdfile_co15.txt`, Adrift_co15, 2026-09-21)
 - **A 4.0 turn SCARE does not count: a take's "Which" prompt is unanswerable
   and TICKS when the " with " half names an object.** `take stone with
   knife` prints "Which stone.  The red stone or the blue stone?" exactly as

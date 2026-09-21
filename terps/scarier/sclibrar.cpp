@@ -6224,70 +6224,249 @@ lib_with_split_crowd_400 (scr_gameref_t game, scr_bool examine,
 }
 
 /*
- * The examine path's test.  The candidates are every object the line
- * referenced, in index order, and the question's term is the first name --
- * Short first, then Alias -- that the line contains and that two or more of
- * those candidates answer to.  Measured on p4CO with run400
- * (Adrift_928/929): `x tree rock` and `x rock tree` both answer
- * "Which tree.  The red tree, the blue tree or the rock?", so the list is
- * the whole reference set and not just the term's namesakes, and the term
- * comes from the lowest-indexed ambiguous object rather than from the order
- * the nouns were typed in.
+ * The examine path's test, read off run400's walk rather than off the
+ * reference set.  examines() hands a line 463640 tied (MemVar_4942F8 < -1)
+ * to referencedob (457034), and it is co() -- not a scan of its own -- that
+ * leaves the question behind:
+ *
+ *   463640   Me(424) = the tie arm's pending object (4633F0, the index+2
+ *            quirk; see lib_name_object_resolve_400()) and Me(428) = the
+ *            pass-0 marks, "the X, the Y or the Z?" (46348B).
+ *   pass A   co(i, 3) marks every object whose word has a present, seen
+ *            namesake; fewer than two marked ends the walk.
+ *   pass B   co(i, 0) over the marked, in index order.  A word with one
+ *            namesake resets Me(424) = -1 (46485E).  A crowded word runs
+ *            the Prefix contest 454454: a unique winner that is i sets
+ *            Me(424) = -2; otherwise Me(428) is REBUILT from the word's
+ *            namesakes only when it is empty or does not hold the word as a
+ *            binary substring (46462A-464733), and a contest with no winner
+ *            parks Me(424) = i when Me(424) < 0 or i is present (464767).
+ *
+ * generaltasks then asks whenever Me(424) is an object (48B6B1), whatever
+ * examines found: the term is Short(Me(424)) replaced by the last of its
+ * aliases the line holds, the list is Me(428).  Measured on p4CO with
+ * run400 (Adrift_co15, 2026-09-21) -- red tree 0, blue tree 1, rock 2,
+ * mustang key 3 and truck key 4 (both aliased "keys"), hut 5 (aliased
+ * "shed"), shed 6, and a tree 7 in the other room:
+ *
+ *   x keys shed, x shed keys   Which shed.  The hut or the shed?
+ *                              (the keys rebuild, then "shed" rebuilds)
+ *   x tree keys, x keys tree,  Which keys.  The red tree or the blue tree?
+ *   x rock tree keys           (the absent tree 7 rebuilds last and parks
+ *                              nothing; the truck key parked last)
+ *   x rock keys                Which keys.  The mustang key or the truck
+ *                              key?  (the rock resets, the keys park)
+ *   x tree rock                Which tree.  The red tree, the blue tree or
+ *                              the rock?  (463640's list stands; the rock
+ *                              resets and the absent tree 7 parks)
+ *   x shed tree                Which shed.  The red tree, the blue tree,
+ *                              the hut or the shed?
+ *   x tree hut                 Which tree.  The red tree, the blue tree or
+ *                              the hut?
+ *
+ * And Adrift_925's `chop keys` answering `x shed`: the rebuilt `x chop keys
+ * shed` ends on "The hut or the shed?" again, the list 48B6FF compares, so
+ * "That is still ambiguous!".
  */
+static scr_int lib_name_object_resolve_400 (scr_gameref_t game,
+                                            const scr_char *input,
+                                            scr_int mode, scr_int *pending,
+                                            scr_int *last_tied,
+                                            std::vector<scr_int> *marked,
+                                            scr_int *mark_count);
+static const scr_char *lib_drop_named_term_400 (scr_gameref_t game,
+                                                scr_int object,
+                                                const scr_char *input,
+                                                scr_bool last_alias);
+static const scr_char *lib_co_400_name_word (scr_gameref_t game,
+                                             scr_int object,
+                                             const scr_char *input);
+static scr_int lib_co_400_present_namesakes (scr_gameref_t game,
+                                             const scr_char *word);
 static scr_int lib_examine_referencedob_400 (scr_gameref_t game,
                                              const scr_char *input);
+
+/* Me(428) as co() builds it, for its substring test. */
+static std::string
+lib_co_400_list_string (scr_gameref_t game, const std::vector<scr_int> &list)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  std::string text;
+  scr_int index_;
+
+  for (index_ = 0; index_ < (scr_int) list.size (); index_++)
+    {
+      if (index_ > 0)
+        text += index_ == (scr_int) list.size () - 1 ? " or " : ", ";
+      text += "the ";
+      text += prop_get_indexed_string (bundle, "Objects", list[index_],
+                                       "Short");
+    }
+  return text + "?";
+}
+
+/* How many words of the object's Prefix ("a" when empty) the line holds. */
+static scr_int
+lib_co_400_prefix_hits (scr_gameref_t game, scr_int object,
+                        const scr_char *input)
+{
+  const scr_char *prefix;
+  std::string copy;
+  std::string::size_type at, next;
+  scr_int found;
+
+  prefix = prop_get_indexed_string (gs_get_bundle (game), "Objects", object,
+                                    "Prefix");
+  copy = scr_strempty (prefix) ? "a" : prefix;
+
+  found = 0;
+  for (at = 0; at <= copy.size (); at = next + 1)
+    {
+      std::string word;
+
+      next = copy.find (' ', at);
+      if (next == std::string::npos)
+        next = copy.size ();
+      word = copy.substr (at, next - at);
+      if (!word.empty () && lib_input_contains_word_400 (input, word.c_str ()))
+        found++;
+    }
+  return found;
+}
+
+/*
+ * 454454(word, room): over the objects in the room, every name field equal
+ * to the word scores its object's Prefix words in the line; the strict
+ * maximum above zero wins, anything else is -1.
+ */
+static scr_int
+lib_co_400_prefix_contest (scr_gameref_t game, const scr_char *word,
+                           const scr_char *input, scr_int room)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int object, result, best;
+
+  result = -1;
+  best = 0;
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      const scr_char *name;
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+
+      if (!obj_directly_in_room (game, object, room))
+        continue;
+
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+      for (alias = -1; alias < alias_count; alias++)
+        {
+          scr_int hits;
+
+          if (alias < 0)
+            name = prop_get_indexed_string (bundle, "Objects", object,
+                                            "Short");
+          else
+            {
+              vt_key[3].integer = alias;
+              name = prop_get_string (bundle, "S<-sisi", vt_key);
+            }
+          if (scr_strempty (name) || scr_strcasecmp (name, word) != 0)
+            continue;
+
+          hits = lib_co_400_prefix_hits (game, object, input);
+          if (hits == best)
+            result = -1;
+          else if (hits > best)
+            {
+              result = object;
+              best = hits;
+            }
+        }
+    }
+  return result;
+}
 
 static scr_bool
 lib_co_400_raise_for_references (scr_gameref_t game)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *input = run_get_dispatch_input ();
-  std::vector<scr_int> referenced;
-  scr_int object, index_;
+  const scr_int room = gs_playerroom (game);
+  std::vector<scr_int> marked, list, walk;
+  scr_int object, me, last_tied, mark_count, index_;
+  scr_bool list_ok;
 
   if (!input)
     return FALSE;
 
+  object = lib_name_object_resolve_400 (game, input, 0, &me, &last_tied,
+                                        &marked, &mark_count);
+  if (object != -1)
+    return FALSE;
+  list = marked;
+  list_ok = (scr_int) marked.size () == mark_count;
+
+  /* Pass A. */
   for (object = 0; object < gs_object_count (game); object++)
     {
-      if (game->object_references[object])
-        referenced.push_back (object);
+      const scr_char *word = lib_co_400_name_word (game, object, input);
+
+      if (word && lib_co_400_present_namesakes (game, word) > 0)
+        walk.push_back (object);
     }
-  if (referenced.size () < 2)
+
+  /* Pass B. */
+  if (walk.size () >= 2)
+    {
+      for (index_ = 0; index_ < (scr_int) walk.size (); index_++)
+        {
+          const scr_char *word;
+          scr_int count;
+
+          object = walk[index_];
+          word = lib_co_400_name_word (game, object, input);
+          count = lib_co_400_present_namesakes (game, word);
+          if (count == 1)
+            {
+              me = -1;
+              continue;
+            }
+          if (count < 2)
+            continue;
+
+          if (lib_co_400_prefix_contest (game, word, input, room) == object)
+            {
+              me = -2;
+              continue;
+            }
+
+          if (list.empty ()
+              || !strstr (lib_co_400_list_string (game, list).c_str (), word))
+            {
+              scr_int other;
+
+              list.clear ();
+              for (other = 0; other < gs_object_count (game); other++)
+                {
+                  if (gs_object_seen (game, other)
+                      && obj_indirectly_in_room (game, other, room)
+                      && lib_co_object_answers_to (game, other, word))
+                    list.push_back (other);
+                }
+              list_ok = TRUE;
+            }
+
+          if (lib_co_400_prefix_contest (game, word, input, room) == -1
+              && (me < 0 || obj_indirectly_in_room (game, object, room)))
+            me = object;
+        }
+    }
+
+  if (me < 0 || !list_ok || list.size () < 2)
     return FALSE;
 
-  for (index_ = 0; index_ < (scr_int) referenced.size (); index_++)
-    {
-      const scr_char *names[1 + 8];
-      scr_vartype_t vt_key[4];
-      scr_int alias_count, alias, count, name;
-
-      object = referenced[index_];
-
-      count = 0;
-      names[count++] = prop_get_indexed_string (bundle, "Objects",
-                                                object, "Short");
-      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
-      for (alias = 0; alias < alias_count && count < 1 + 8; alias++)
-        {
-          vt_key[3].integer = alias;
-          names[count++] = prop_get_string (bundle, "S<-sisi", vt_key);
-        }
-
-      for (name = 0; name < count; name++)
-        {
-          if (scr_strempty (names[name])
-              || !lib_co_contains (input, names[name]))
-            continue;
-          if (lib_co_400_namesake_count (game, referenced, names[name]) < 2)
-            continue;
-
-          lib_co_400_raise (game, names[name], referenced);
-          return TRUE;
-        }
-    }
-
-  return FALSE;
+  lib_co_400_raise (game, lib_drop_named_term_400 (game, me, input, TRUE),
+                    list);
+  return TRUE;
 }
 
 /*
@@ -6395,9 +6574,12 @@ lib_co_400_raise_for_contained_aliases (scr_gameref_t game)
  * ended on decides the word.  co() parks it as it walks (index/find.py -v
  * run400 46486C: the Which arm at 464560 stores arg_C when the prefix
  * contest 454454 returns -1), and the last park wins -- which is the keys,
- * index 3 and 4, over the trees at 0 and 1.  What is NOT modelled is why
- * the hut and the shed, walked last of all, park nothing; the alias test
- * here is the measured shape of the answer rather than that mechanism.
+ * index 3 and 4, over the trees at 0 and 1.  Why the hut and the shed,
+ * walked last of all, park nothing is 463640's index+2 quirk, and the
+ * unhandled-verb line now reads the pending object itself (see
+ * lib_co_400_raise_for_pending_tie()) and the examine line co()'s walk
+ * (lib_co_400_raise_for_references()); only the " with " split still takes
+ * this alias test, the measured shape of the answer.
  */
 static const scr_char *
 lib_co_400_scan_term_400 (scr_gameref_t game, const std::vector<scr_int> &tied,
@@ -6454,6 +6636,8 @@ lib_co_400_scan_term_400 (scr_gameref_t game, const std::vector<scr_int> &tied,
 
   return replacement;
 }
+
+static scr_bool lib_co_400_raise_for_pending_tie (scr_gameref_t game);
 
 static scr_bool
 lib_co_400_raise_for_short_tie (scr_gameref_t game,
@@ -7852,9 +8036,7 @@ pre400_take_done:
            * 2026-09-20) -- the knife is the crowd's first object, so the
            * stones never park a pending object.
            */
-          raised = lib_verb_object_resolve_400_string
-                     (game, run_get_dispatch_input (), &crowd, TRUE) == -1
-                   && lib_co_400_raise_for_short_tie (game, crowd);
+          raised = lib_co_400_raise_for_pending_tie (game);
         }
       if (raised)
         {
@@ -9060,7 +9242,8 @@ lib_list_object_state (scr_gameref_t game, scr_int object, scr_bool is_described
  *   pass B  456ED3  co(i, 0) over the marked: true when the word has
  *                   exactly one namesake (464853).  One true -> that
  *                   object.  More than one namesake takes the 454454/
- *                   "Which" arm at 464560, which is not modelled here.
+ *                   "Which" arm at 464560, modelled for the question it
+ *                   leaves by lib_co_400_raise_for_references(), not here.
  *   pass C  456F5D  over the marked, count the words of the Prefix found in
  *                   the line; a new best takes the object, an equal count
  *                   gives &HFE.  With no Prefix word anywhere the answer is
@@ -16868,6 +17051,66 @@ lib_drop_named_term_400 (scr_gameref_t game, scr_int object,
         break;
     }
   return term;
+}
+
+/*
+ * lib_co_400_raise_for_pending_tie()
+ *
+ * The unhandled-verb line's question, read off the pending object the way
+ * generaltasks reads it.  The 463640 walk at the top of the line (48A3F5,
+ * mode 0, and therest's own at 48862B) leaves Me(424) = MemVar_4941EC
+ * behind, and 48B6B1 asks only when that is an object: the term is its
+ * Short, replaced by the last of ITS aliases that is a whole word of the
+ * line (48B73C-48B78C), and the list is the walk's marks.  So which object
+ * the question is asked about is the tie arm's index+2 quirk (4633F0; see
+ * lib_name_object_resolve_400()), and p4CO's six cells fall out of it
+ * (run400 Adrift_co12/co13, 2026-09-20) -- red tree 0, blue tree 1, rock
+ * 2, mustang key 3 and truck key 4 (both aliased "keys"), hut 5 (aliased
+ * "shed"), shed 6, and a tree 7 in the other room:
+ *
+ *     chop tree hut         tie at 1 matches Short(0): pending 1; the hut
+ *                           is tested against Short(3)       Which tree.
+ *     chop shed tree        the same, the shed against Short(7)
+ *                                                            Which tree.
+ *     chop keys tree        after the tie at 1 the mustang key is tested
+ *                           against Short(3) -- itself: pending 3, whose
+ *                           alias the line holds             Which keys.
+ *     chop shed keys tree   pending 3 again; the hut and the shed are
+ *                           tested against Short(6), Short(7)  Which keys.
+ *     chop keys             the truck key against Short(3)   NO IDEA.
+ *     chop shed             the shed against Short(5)        NO IDEA.
+ *
+ * This replaces the model that read the term off the crowd's own names
+ * (lib_co_400_raise_for_short_tie(), still used for a " with " half),
+ * which could not say why the hut and the shed never park an object.
+ */
+static scr_bool
+lib_co_400_raise_for_pending_tie (scr_gameref_t game)
+{
+  const scr_char *input = run_get_dispatch_input ();
+  std::vector<scr_int> marked;
+  scr_int object, pending, last_tied, mark_count;
+
+  if (!input)
+    return FALSE;
+
+  /* An open question takes the element first; see
+     lib_co_400_raise_for_short_tie(). */
+  if (lib_co_400_question_pending ())
+    {
+      lib_co_400_note_refusal ();
+      return FALSE;
+    }
+
+  object = lib_name_object_resolve_400 (game, input, 0, &pending, &last_tied,
+                                        &marked, &mark_count);
+  if (object != -1 || pending < 0
+      || (scr_int) marked.size () != mark_count)
+    return FALSE;
+
+  lib_co_400_raise (game, lib_drop_named_term_400 (game, pending, input, TRUE),
+                    marked);
+  return TRUE;
 }
 
 /*
