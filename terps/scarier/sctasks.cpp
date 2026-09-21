@@ -2630,13 +2630,19 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
        * (run_loop_halt / scr_fatal_error), which previously leaked it past the
        * prepend-and-free.
        */
+      const scr_int printed_to = pf_printed_to (filter);
       scr_owned_string buffer (pf_transfer_buffer (filter));
       task_start_npc_walks (game, task);
       status |= task_run_task_actions (game, task);
 
-      /* Prepend the saved buffer data back onto the front of the filter. */
+      /* Prepend the saved buffer data back onto the front of the filter,
+         and with it where a ShowRoomDesc's exits began (run370's second
+         matcher pass, run_takes_second_pass_370()). */
       if (buffer)
-        pf_prepend_string (filter, buffer.get ());
+        {
+          pf_prepend_string (filter, buffer.get ());
+          pf_restore_printed_to (filter, printed_to);
+        }
     }
   else
     {

@@ -1,6 +1,6 @@
 """Does a task an EVENT ran suppress the pre-4.0 end-of-turn Which prompt?
 
-WINE-TRANSCRIPTS-TODO's "run380's event route to the task-ran flag" row.
+WINE-TRANSCRIPTS-TODO's "An event's task sets the task-ran flag from 3.80" entry.
 run380 clears `MemVar_44F12C` at the top of generaltasks (441A28), sets it in
 tasks() 44D0BA whenever a task actually runs, and at the end of the turn
 4431B0 tests `(MemVar_44F124 < 0) Or (CInt(MemVar_44F12C) = 1)` -- the second

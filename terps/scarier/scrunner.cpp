@@ -4505,9 +4505,15 @@ run_get_undo_text (void)
   return run_undo_text;
 }
 
+/* How many times run_note_task_ran() has noted a task; a caller compares two
+   readings to learn whether a pass ran anything, a task that had already run
+   for the line included. */
+static scr_int run_task_runs_noted = 0;
+
 static void
 run_note_task_ran (scr_gameref_t game, scr_int task)
 {
+  run_task_runs_noted++;
   run_co_task_claimed = TRUE;
   if (run_tasks_ran_this_command.size () != (size_t) gs_task_count (game))
     run_tasks_ran_this_command.assign (gs_task_count (game), FALSE);
@@ -5904,6 +5910,13 @@ run_restriction_cache_task_pick (scr_gameref_t game, const scr_char *string)
     }
 }
 
+
+/*
+ * Set while run_takes_second_pass_370() runs the matcher a second time for
+ * the same typed line, which the one-task-per-line rule below would refuse.
+ */
+static scr_bool run_matcher_second_pass = FALSE;
+
 static scr_bool
 run_game_commands_common (scr_gameref_t game, const scr_char *string,
                           scr_bool include_restrictions, scr_bool is_library,
@@ -5937,7 +5950,8 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
    * look-ups from inside the library handlers, which happen after the
    * dispatcher regardless.
    */
-  if (!is_library && run_any_task_ran_this_command ())
+  if (!is_library && !run_matcher_second_pass
+      && run_any_task_ran_this_command ())
     return FALSE;
 
   task_count = gs_task_count (game);
@@ -7444,6 +7458,61 @@ run_put_take_400 (scr_gameref_t game, const scr_char *string)
 
 
 /*
+ * run_takes_second_pass_370()
+ *
+ * run370 runs the task matcher TWICE on a take line that names an object.
+ * takes() hands the line to tasks(1) itself (see lib_takes_offers_tasks_370())
+ * and returns Empty, so generaltasks falls through to tasks(0) (43B972) and
+ * matches the same line again against the world the first task left behind.
+ * The two modes differ in what they do to the turn's string (00041B90): mode
+ * 1 appends the CompleteText, mode 0 REPLACES the string with it.  What the
+ * string holds by then is whatever was not printed yet -- a ShowRoomDesc's
+ * viewroom prints everything before its exits sentence there and then
+ * (@0003315C, pf_print_so_far()), which leaves only the exits in it; the
+ * filter's pf_printed_to() note marks where they start.
+ *
+ * arlo (alices_restaurant) `get out of bus` at the church: the first pass
+ * runs task 72 (`get out of *bus*`, Where the bus, Repeatable), which says
+ * "You're on foot.", shows room 0 and moves the player there; the second
+ * finds task 72's Where failing and task 107 -- the same five patterns,
+ * Where room 0 -- matching instead, and its "You are no longer in the bus."
+ * overwrites the exits.  So the Runner prints "... There is a mailbox here.
+ * You are no longer in the bus." with no exits sentence, on both of the
+ * walkthrough's visits (Adven_10.rtf, runner_transcripts/alices_restaurant).
+ * Where nothing matches the second time -- `get out of bus` at the Dump,
+ * `take garbage out of bus` -- the first task's text stands.
+ *
+ * Only the pass after a task ran is modelled.  A take line the library
+ * answers also reaches tasks(1) and tasks(0) after the take, and the all and
+ * and arms offer "get <Short>" per object; nothing measured tells those
+ * apart from one pass yet.
+ */
+static void
+run_takes_second_pass_370 (scr_gameref_t game, const scr_char *string,
+                           const scr_char *task_string, size_t task_mark)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  size_t clobber, mark;
+  scr_int noted, printed;
+
+  if (!lib_takes_offers_tasks_370 (game, string))
+    return;
+
+  printed = pf_printed_to (filter);
+  clobber = std::max (task_mark, printed < 0 ? (size_t) 0 : (size_t) printed);
+  mark = pf_buffer_length (filter);
+  noted = run_task_runs_noted;
+
+  run_matcher_second_pass = TRUE;
+  run_game_commands_in_parser_context (game, task_string, FALSE, TRUE);
+  run_matcher_second_pass = FALSE;
+
+  if (run_task_runs_noted != noted)
+    pf_erase (filter, clobber, mark);
+}
+
+
+/*
  * run_all_commands()
  * run_game_task_commands()
  *
@@ -7889,8 +7958,12 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   const size_t task_mark = pf_buffer_length (filter);
   const scr_bool claimed_before_tasks = status;
   if (!status && !refused)
-    status = run_game_commands_in_parser_context (game, task_string,
-                                                  FALSE, TRUE);
+    {
+      status = run_game_commands_in_parser_context (game, task_string,
+                                                    FALSE, TRUE);
+      if (run_any_task_ran_this_command ())
+        run_takes_second_pass_370 (game, string, task_string, task_mark);
+    }
   /*
    * The take and drop rows live in the priority table, not in the library
    * cascade below, and pre-4.0 takes() and drops() are entered on their verb

@@ -238,8 +238,8 @@ peak a couple of weeks ago there are still enough orange leaves on the trees
 to remind you of a New England post card.  On the east side of the church you
 can make out Alice's garden.  Your VW microbus is parked here on a road
 heading north.  You'll have to get back in the bus if you want to go that
-way.  It's too far to walk.  There is a mailbox here.  You can move north and
-east.
+way.  It's too far to walk.  There is a mailbox here.  You are no longer in
+the bus.
 
 > north
 You move north.
@@ -418,8 +418,8 @@ peak a couple of weeks ago there are still enough orange leaves on the trees
 to remind you of a New England post card.  On the east side of the church you
 can make out Alice's garden.  Your VW microbus is parked here on a road
 heading north.  You'll have to get back in the bus if you want to go that
-way.  It's too far to walk.  There is a mailbox here.  You can move north and
-east.
+way.  It's too far to walk.  There is a mailbox here.  You are no longer in
+the bus.
 
 > north
 You move north.

@@ -17,7 +17,7 @@ alchemist	alchemist.txt	driven:Adrift_128_alchemist_rt.txt	3.90	run390x.exe	1234
 alexis	alexis.txt	driven:Adrift_145_alexis_rt.txt	3.90	run390x.exe	1	0		SCR_SEED=1	yes	identical on every turn.
 alexis_worn_cube	alexis_worn_cube.txt	driven:Adrift_146_alexis_worn_cube_rt.txt	3.90	run390x.exe	2	0		SCR_SEED=2	yes	identical on every turn.
 aliasagent	aliasagent.txt	driven:Adrift_142_aliasagent_rt.txt	4.00	run400x.exe	1234	0	Player		yes	identical on every turn.
-alices_restaurant	alices_restaurant.rtf	driven:Adrift_302_alices_restaurant_rt.rtf+tail	3.70	run370x.exe	1234	0			yes	2 differing turn(s)
+alices_restaurant	alices_restaurant.rtf	driven:Adrift_302_alices_restaurant_rt.rtf+tail	3.70	run370x.exe	1234	0			yes	identical on every turn.
 allhallowseve	allhallowseve.txt	driven:Adrift_391_allhallowseve_rt.txt	4.00	run400x.exe	1234	8		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 amonkeytoomany	amonkeytoomany.txt	harvested-native-0-draws:Adrift_598_amonkeytoomany.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 amy	amy.txt	driven:Adrift_455_amy_rt.txt	4.00	run400x.exe	1234	0	Chris	SCR_SKIP_WAITKEY=1	yes	identical on every turn apart from whitespace.

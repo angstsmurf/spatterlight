@@ -134,6 +134,11 @@ typedef struct scr_filter_s
   /* Length of a prefix of the buffer the Runner has already printed, and so
      already filtered: no later filtering touches it.  See pf_print_so_far(). */
   size_t frozen;
+  /* Buffer length at the last pf_print_so_far(), where the Runner's own
+     string restarted; -1 otherwise.  Unlike frozen, it rides the task
+     running transfer-and-prepend round trip, shifted by the text put back in
+     front of it.  See pf_printed_to(). */
+  scr_int printed_to;
   /* Buffer length just after pf_buffer_reference() buffered one of the 4.0
      Runner's bracketed reference lines; -1 otherwise.  While the line is
      still the last thing buffered, pf_buffer_paragraph() leaves a leading
@@ -387,6 +392,7 @@ pf_create (void)
   filter->hard_break_at = -1;
   filter->hidden = 0;
   filter->frozen = 0;
+  filter->printed_to = -1;
   filter->reference_at = -1;
   filter->join_pending = FALSE;
 
@@ -1306,6 +1312,10 @@ pf_filter_buffer (scr_filterref_t filter,
   if (!filtered)
     return FALSE;
 
+  /* The note cannot say where its text went if filtering moved it. */
+  if (filter->printed_to > (scr_int) filter->frozen
+      && strlen (filtered) != filter->buffer.size () - filter->frozen)
+    filter->printed_to = -1;
   filter->buffer.replace (filter->frozen, std::string::npos, filtered);
   scr_free (filtered);
   return TRUE;
@@ -1341,6 +1351,7 @@ pf_flush (scr_filterref_t filter,
       filter->needs_filtering = FALSE;
     }
   filter->frozen = 0;
+  filter->printed_to = -1;
 
   /* Reset new sentence and mute flags. */
   filter->new_sentence = FALSE;
@@ -1475,6 +1486,7 @@ pf_print_so_far (scr_filterref_t filter,
     pf_filter_buffer (filter, vars, bundle);
   filter->needs_filtering = FALSE;
   filter->frozen = filter->buffer.size ();
+  filter->printed_to = (scr_int) filter->frozen;
   if (filter->auto_break_at > (scr_int) filter->frozen)
     filter->auto_break_at = -1;
 }
@@ -1585,6 +1597,7 @@ pf_transfer_buffer (scr_filterref_t filter)
       /* Clear all filter fields down to empty values. */
       filter->buffer.clear ();
       filter->frozen = 0;
+      filter->printed_to = -1;
       filter->new_sentence = FALSE;
       filter->is_muted = FALSE;
       filter->needs_filtering = FALSE;
@@ -1624,6 +1637,7 @@ pf_empty (scr_filterref_t filter)
   filter->hard_break_at = -1;
   filter->hidden = 0;
   filter->frozen = 0;
+  filter->printed_to = -1;
   filter->reference_at = -1;
   filter->join_pending = FALSE;
 }
@@ -1966,6 +1980,8 @@ pf_undo_auto_break (scr_filterref_t filter)
       filter->auto_break_at = -1;
       if (filter->frozen > filter->buffer.size ())
         filter->frozen = filter->buffer.size ();
+      if (filter->printed_to > (scr_int) filter->buffer.size ())
+        filter->printed_to = (scr_int) filter->buffer.size ();
       return TRUE;
     }
 
@@ -2314,6 +2330,8 @@ pf_buffer_join_open (scr_filterref_t filter)
         filter->hidden = filter->buffer.size ();
       if (filter->frozen > filter->buffer.size ())
         filter->frozen = filter->buffer.size ();
+      if (filter->printed_to > (scr_int) filter->buffer.size ())
+        filter->printed_to = (scr_int) filter->buffer.size ();
 
       if (!pf_text_ends_with_break (filter->buffer.c_str ())
           && !(filter->buffer.size () >= 2
@@ -2415,6 +2433,8 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
          trailing newline survives it -- including down the empty-buffer path
          below, which routes through pf_buffer_string() and would clear it. */
       const scr_int auto_break_at = filter->auto_break_at;
+      const scr_int printed_to = filter->printed_to;
+      const size_t length = filter->buffer.size ();
 
       if (!filter->buffer.empty ())
         {
@@ -2444,6 +2464,9 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
         pf_buffer_string (filter, string);
 
       filter->auto_break_at = auto_break_at;
+      filter->printed_to = printed_to < 0 ? -1
+                           : printed_to + (scr_int) (filter->buffer.size ()
+                                                     - length);
     }
 }
 
@@ -2490,6 +2513,7 @@ pf_hoist_tail (scr_filterref_t filter, size_t from)
       /* Unfiltered text now leads the buffer, which a prefix cannot keep
          apart; filter the lot again. */
       filter->frozen = 0;
+      filter->printed_to = -1;
       filter->needs_filtering = TRUE;
     }
 }
@@ -2521,6 +2545,8 @@ pf_truncate (scr_filterref_t filter, size_t length)
     filter->hidden = length;
   if (filter->frozen > length)
     filter->frozen = length;
+  if (filter->printed_to > (scr_int) length)
+    filter->printed_to = (scr_int) length;
   filter->new_sentence = FALSE;
   filter->join_pending = FALSE;
 }
@@ -2542,6 +2568,81 @@ pf_cut_tail (scr_filterref_t filter, size_t from)
   const std::string tail = filter->buffer.substr (from);
   pf_truncate (filter, from);
   return tail;
+}
+
+
+/*
+ * pf_printed_to()
+ * pf_erase()
+ *
+ * pf_printed_to() is the buffer offset of the last pf_print_so_far(), where
+ * the Runner's own string restarted after it printed the text before, or -1
+ * if there is none to trust.  Unlike the frozen prefix it survives a task's
+ * actions running with the buffer transferred out (pf_restore_printed_to()).
+ * pf_erase() cuts the span [FROM, TO) out of the buffer and keeps what
+ * follows it, for a caller that has to drop text the Runner overwrote while
+ * it was still in the turn's string.  Notes that pointed into the span go
+ * with it; notes past it move back with their text.
+ */
+scr_int
+pf_printed_to (scr_filterref_t filter)
+{
+  assert (pf_is_valid (filter));
+
+  return filter->printed_to;
+}
+
+/*
+ * pf_restore_printed_to()
+ *
+ * Hand back a note that pf_transfer_buffer() dropped, once the transferred
+ * text is prepended again: it leads the buffer, so the note's offset holds.
+ * A note set since, on text printed in between, is the later print, and so
+ * wins.
+ */
+void
+pf_restore_printed_to (scr_filterref_t filter, scr_int note)
+{
+  assert (pf_is_valid (filter));
+
+  if (filter->printed_to < 0
+      && note >= 0 && (size_t) note <= filter->buffer.size ())
+    filter->printed_to = note;
+}
+
+static void
+pf_erase_note (scr_int *note, size_t from, size_t to)
+{
+  if (*note < 0 || (size_t) *note <= from)
+    return;
+  *note = (size_t) *note >= to ? *note - (scr_int) (to - from) : -1;
+}
+
+static void
+pf_erase_prefix (size_t *prefix, size_t from, size_t to)
+{
+  if (*prefix <= from)
+    return;
+  *prefix = *prefix >= to ? *prefix - (to - from) : from;
+}
+
+void
+pf_erase (scr_filterref_t filter, size_t from, size_t to)
+{
+  assert (pf_is_valid (filter));
+
+  if (to > filter->buffer.size ())
+    to = filter->buffer.size ();
+  if (from >= to)
+    return;
+
+  filter->buffer.erase (from, to - from);
+  pf_erase_note (&filter->auto_break_at, from, to);
+  pf_erase_note (&filter->hard_break_at, from, to);
+  pf_erase_note (&filter->reference_at, from, to);
+  pf_erase_note (&filter->printed_to, from, to);
+  pf_erase_prefix (&filter->hidden, from, to);
+  pf_erase_prefix (&filter->frozen, from, to);
 }
 
 

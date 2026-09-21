@@ -40,8 +40,8 @@ Row comments and probe generators cite sections by title ("Ported
   the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py` (its README explains how);
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 389 identical on every turn, 25 identical apart from
-  whitespace, 13 with a report. Every differing row is classified under
+- **Manifest:** 390 identical on every turn, 25 identical apart from
+  whitespace, 12 with a report. Every differing row is classified under
   "Open leads" or "Nothing owed" -- and since the silent-task port
   (2026-09-20) none of them is an engine difference.
 - **Which transcript to cite.** For a wired row, cite
@@ -250,9 +250,9 @@ artefact; no corpus row differs by an engine rule.
 - Lost commands after an ending: thelasthour's last `wait` only (that row
   runs without SCR_SKIP_WAITKEY, so one ending "Press a key." swallows a
   solution line and the extra `wait` makes up for it).
-- Deliberate deviations by row: alices_restaurant (run370 double matcher
-  pass); sandy_meta_number and hero's closing `statusline` (SCARE
-  meta-commands; hero uses `statusline` on purpose to print the score).
+- Deliberate deviations by row: sandy_meta_number and hero's closing
+  `statusline` (SCARE meta-commands; hero uses `statusline` on purpose to
+  print the score).
 - Load failures from the 09-06/09-07 batches: six rows raised `evaluate
   error - Subscript out of range` mid-game; TheADRIFTProject crashed with
   run-time error 401 at command 92.
@@ -271,6 +271,20 @@ artefact; no corpus row differs by an engine rule.
     The red stone or the blue stone?", Scarier says "Wear what?" and ticks.
   - `eat red stone`, the stone not held and not edible: run400 "You can't
     eat the red stone.", Scarier "You are not holding the red stone."
+- **`both` right after a `Which <term>. <list>?` prompt.** 3.9 and 4.0
+  re-run the saved candidate list as the typed line (run400 48AE94, run390
+  43B4D5); unmeasured, and Scarier does not model it. A bare `both` with no
+  prompt is measured and ours: "I don't understand.", two turns (p39WITH
+  T25). Measure it at both versions before porting.
+
+### Engine, needs a probe (3.7)
+
+- **3.7 alias namesakes under an unknown verb.** In the p3xEVQ world where
+  the Shorts are "red hat"/"blue hat" and the shared Alias is "hat",
+  run370 answers `poke hat` with "I don't understand what you want me to
+  do with the red hat." where Scarier prints the end-of-turn `Which hat.`
+  prompt -- a 3.70 co()-term split (Short vs Alias), not chased further
+  (p37EVQ, Adrift_evq_p37EVQ.rtf, 2026-09-20).
 
 ---
 
@@ -288,26 +302,6 @@ artefact; no corpus row differs by an engine rule.
   behaviour is long-standing and no corpus row turns on it, so the pre-4.0
   put rows keep `drop` and `put down`; the `leave` port deliberately did
   not widen them.
-- **run370 double matcher pass** (arlo `get out of bus`).
-- **run380's event route to the task-ran flag.** PORTED 2026-09-21.
-  run380 sets `MemVar_44F12C` in tasks() 44D0BA for an event's task too
-  (checkevent 43A762 -> tasks(CByte(1)), events() 44317E before the guard
-  4431B0); run370 has no flag. `run_note_dispatched_task_ran()` now gates at
-  3.80. The flag uncovered three handler answers, ported with it:
-  takes()' "Take what?" (3.8 and 3.9) and 3.8 examines()' "Nothing
-  special." in `lib_disambiguate_object_common()`'s every-candidate-refused
-  path, and run380's therest staying silent for a crowded namesake
-  (`lib_verb_object_catch_all_pre390()` now asks co()'s crowded arm), so
-  `poke hat`/`put hat` leave the buffer empty, never tick and keep the
-  prompt. p37/p38/p39 EVQ2(+C) and p38EVQ(+C) are identical on every turn
-  (Adrift_p38EVQ2.rtf, Adrift_p39EVQ2.txt, Adrift_evq38.rtf); 428/428 v4
-  walkthroughs unchanged.
-- **3.7 alias namesakes under an unknown verb.** In the p3xEVQ world where
-  the Shorts are "red hat"/"blue hat" and the shared Alias is "hat",
-  run370 answers `poke hat` with "I don't understand what you want me to do
-  with the red hat." where Scarier prints the end-of-turn `Which hat.` 
-  prompt -- a 3.70 co()-term split (Short vs Alias) not chased further
-  (p37EVQ, Adrift_evq_p37EVQ.rtf, 2026-09-20).
 - **3.7/3.8 Runner crashes ("Run-time error '9': Subscript out of
   range", transcript lost):** `put all in <nothing>`, `put all on
   <nothing>` and `put everything in zzz` on run370x and run380x; bare `eat`
@@ -353,12 +347,9 @@ artefact; no corpus row differs by an engine rule.
 - **SCARE meta-commands** `wait N`, `hist N` and `redo N` exist in no
   Runner. Eleven more inventions are compiled out by
   `SCARIER_NO_ABBREVIATIONS`.
-- **Not ported (policy):** `both` right after a `Which <term>. <list>?`
-  prompt (3.9/4.0 re-run the saved candidate list as the typed line, run400
-  48AE94 / run390 43B4D5, unmeasured; a bare `both` with no prompt is
-  measured and ours: "I don't understand.", two turns, p39WITH T25); the
-  battle-disabled `status`/`statusline` fallback; the help/about/time/
-  version texts; `turns`/`version` version gates.
+- **Not ported (policy):** the battle-disabled `status`/`statusline`
+  fallback; the help/about/time/version texts; `turns`/`version` version
+  gates.
 - **4.0 `status`' table label junk.** run400's battle status table pads its
   labels with visible nonsense: the literals at 47DD0E/47DD67/47DDE1/
   47DEC0/47DF9F/47E07E (and their NPC twins from 47E144) are
@@ -1649,6 +1640,20 @@ transcript names are in the code comment next to the named function, in
   lines, where the bean-and-jar turn used to be the one open pre-4.0
   divergence in that table. Corpus 428/428 before and after, so the retry
   was dead code below 4.0 in practice.
+- **run370 runs the task matcher twice on a take line that names an
+  object.** takes() hands the typed line to tasks(1) at the first object,
+  in index order, whose Short or Alias it names (436CAD), then returns
+  Empty, so generaltasks runs tasks(0) on the same line (43B972). Mode 1
+  appends a CompleteText; mode 0 replaces the string, which by then holds
+  only what a ShowRoomDesc left unprinted: its exits sentence. arlo `get
+  out of bus` at the church: task 72 says "You're on foot." and shows room
+  0, then task 107 (same patterns, Where room 0) matches the second time,
+  and "You are no longer in the bus." replaces the exits (Adven_10_arlo.rtf,
+  runner_transcripts/alices_restaurant turns 37 and 64). `[3.7]` Only the
+  pass after a task ran is modelled; `all`/`and` lines and lines the
+  library answers are not measured. (`run_takes_second_pass_370`,
+  `lib_takes_offers_tasks_370`, `pf_printed_to`, 2026-09-21; the full
+  diagnosis is the alices_restaurant row comment and commit c1aa55cdd.)
 
 ### Nouns, scope and the seen model
 
@@ -3342,6 +3347,19 @@ transcript names are in the code comment next to the named function, in
 - **RNG parity.** `SCR_RNG=xoshiro` matches vbrng draw for draw, and it is
   the harness default (991a5f8d9, b150980c8). A death prints the end-game
   score summary. (5f20dd8ce)
+- **An event's task sets the task-ran flag from 3.80.** run380 sets
+  `MemVar_44F12C` in tasks() 44D0BA for an event's task too (checkevent
+  43A762 -> tasks(CByte(1)), events() 44317E before the guard 4431B0);
+  run370 has no flag. The flag uncovered three handler answers, ported
+  with it: takes()' "Take what?" (3.8 and 3.9) and 3.8 examines()'
+  "Nothing special." in `lib_disambiguate_object_common()`'s
+  every-candidate-refused path, and run380's therest staying silent for a
+  crowded namesake (`lib_verb_object_catch_all_pre390()` now asks co()'s
+  crowded arm), so `poke hat`/`put hat` leave the buffer empty, never tick
+  and keep the prompt. `[3.8+]` p37/p38/p39 EVQ2(+C) and p38EVQ(+C) are
+  identical on every turn (Adrift_p38EVQ2.rtf, Adrift_p39EVQ2.txt,
+  Adrift_evq38.rtf); 428/428 v4 walkthroughs unchanged.
+  (`run_note_dispatched_task_ran`, 2026-09-21)
 
 ### Output, wording and the room block
 

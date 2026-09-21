@@ -370,6 +370,9 @@ extern size_t pf_buffer_length (scr_filterref_t filter);
 extern void pf_hoist_tail (scr_filterref_t filter, size_t from);
 extern void pf_truncate (scr_filterref_t filter, size_t length);
 extern std::string pf_cut_tail (scr_filterref_t filter, size_t from);
+extern scr_int pf_printed_to (scr_filterref_t filter);
+extern void pf_restore_printed_to (scr_filterref_t filter, scr_int note);
+extern void pf_erase (scr_filterref_t filter, size_t from, size_t to);
 extern void pf_new_sentence (scr_filterref_t filter);
 extern void pf_mute (scr_filterref_t filter);
 extern void pf_clear_mute (scr_filterref_t filter);
@@ -722,6 +725,8 @@ extern scr_int lib_empty_rewrite_400 (scr_gameref_t game, const scr_char *string
 extern scr_bool lib_task_prematches_input (scr_gameref_t game,
                                            scr_int class_filter);
 extern scr_bool lib_drop_what_pre390 (scr_gameref_t game);
+extern scr_bool lib_takes_offers_tasks_370 (scr_gameref_t game,
+                                           const scr_char *line);
 extern scr_bool lib_take_scored_400 (scr_gameref_t game);
 extern scr_bool lib_take_names_dynamic_400 (scr_gameref_t game,
                                             const scr_char *string);

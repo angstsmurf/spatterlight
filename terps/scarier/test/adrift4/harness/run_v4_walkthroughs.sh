@@ -3681,10 +3681,9 @@ afdfr_solution.txt|AFDFR.taf|Life is good for Death.|SCR_SKIP_WAITKEY=1
 # Still open against the Runner, and not deviations these goldens claim to
 # settle: arlo's NPC walks.  run370 prints departure lines scarier omits
 # ("Rude Customer walks off.", "Alice walks off to ..."), which desynchronises
-# presence state by command 33, and `get out of bus` at the church ends with
-# the task's "You are no longer in the bus." and no exits list where scarier
-# prints the exits and drops the task line.  Six of arlo's 84 commands differ
-# for those two reasons alone.  See notes/WINE-TRANSCRIPTS-TODO.md.
+# presence state by command 33.  (`get out of bus` at the church, the other
+# difference counted here once, is ported: see the alices_restaurant row.)
+# See notes/WINE-TRANSCRIPTS-TODO.md.
 # Re-compared 2026-09-05 (`Adven_7_akron.rtf` against the engine as of
 # 9c7c1691): still 43/43 identical; no events in the game.
 akron_solution.txt|akron.taf|you brave adventurer, saved yourself
@@ -4117,8 +4116,8 @@ super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 #     > get out of bus                                    (at the church)
 #     run370:  You're on foot.  <room 0 description> ... There is a mailbox
 #              here.  You are no longer in the bus.        [one paragraph]
-#     scarier: You're on foot. / <room 0 description> ... There is a mailbox
-#              here. / <blank> / You can move north and east.
+#     scarier before the port: You're on foot. / <room 0 description> ...
+#              There is a mailbox here.  You can move north and east.
 #
 # The Runner runs the task matcher TWICE for this command.  takes() is entered
 # for anything containing get/take/pick without "from" (@00035D8C), and on the
@@ -4135,12 +4134,16 @@ super_liam_solution.txt|superliam.taf|congradulation you have defeated x1
 # CLOBBERS the buffer with its CompleteText (@00041C21).  The exits sentence
 # is destroyed before it is ever flushed.
 #
-# Not ported: scarier runs the matcher once, and the second pass would need
-# clobber-the-buffer semantics its filter has no equivalent for.  The
-# preconditions -- a take-family command naming an object, matching a
-# REPEATABLE task whose own effects make a DIFFERENT task match -- are hit by
-# no other game in this corpus.  Full write-up in
-# notes/WINE-TRANSCRIPTS-TODO.md, "the run370 double matcher pass".
+# PORTED 2026-09-21: run_takes_second_pass_370() in scrunner.cpp.  When a
+# task answers a 3.70 take line that lib_takes_offers_tasks_370() says
+# takes() hands to the matcher, the tasks run again on the same line, and if
+# one matches its text replaces everything after the last print-so-far
+# (pf_printed_to(), which rides the task-actions transfer and prepend) -- the
+# exits sentence here.  Turns 37 and 64 now read as the Runner's paragraph
+# (runner_transcripts/alices_restaurant.rtf lines 129 and 217); the other
+# 403 rows are unmoved.  The preconditions -- a take-family command naming
+# an object, matching a task whose own effects make a DIFFERENT task match
+# -- are hit by no other game in this corpus.
 # 3.7 is NOT affected by the 3.8 first-room player-move bug (cave.taf row):
 # run370's identical "If Var2 > 1" guard (tasks() 441E55) sits over an
 # encoding one higher, so it admits every room -- this game is the

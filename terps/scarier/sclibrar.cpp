@@ -5382,6 +5382,46 @@ lib_names_object_370 (scr_gameref_t game, const scr_char *line,
 }
 
 /*
+ * lib_takes_offers_tasks_370()
+ *
+ * TRUE when run370's takes() hands the typed line to the task matcher
+ * itself.  takes() is entered on c("get") Or c("take") Or c("pick") Or
+ * c(<the game's own take word>) And Not c("from") -- the And binds to the
+ * slot word alone (435E28).  With no "all" and no "and" on the line, its last
+ * loop (436B8D-436CC6) finds the first object, in index order and wherever it
+ * is, whose Short or Alias the line names, calls tasks(1) with the line as
+ * typed (436CAD) and leaves.  takes() then returns Empty -- it has no store
+ * to its result slot; the `takes = MemVar_4460E4` VB Decompiler prints at
+ * 436D17 is its ExitProc -- so generaltasks goes on to its own tasks(0) at
+ * 43B972 and the matcher runs again.  See run_takes_second_pass_370().
+ */
+scr_bool
+lib_takes_offers_tasks_370 (scr_gameref_t game, const scr_char *line)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int object;
+
+  if (prop_get_taf_version (bundle) != TAF_VERSION_370 || !line)
+    return FALSE;
+
+  const std::string slot = lib_command_slot_370 (bundle, 11);
+  if (!(lib_co_contains (line, "get") || lib_co_contains (line, "take")
+        || lib_co_contains (line, "pick")
+        || (lib_co_contains (line, slot.c_str ())
+            && !lib_co_contains (line, "from"))))
+    return FALSE;
+  if (lib_co_contains (line, "all") || lib_co_contains (line, "and"))
+    return FALSE;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (lib_names_object_370 (game, line, object))
+        return TRUE;
+    }
+  return FALSE;
+}
+
+/*
  * Reproduce the scan.  Returns TRUE when the Runner would prompt, with
  * *prompt_term the last flagged object's term, *list_term the term the list
  * was built from (the first ambiguous object's), and *present that first
