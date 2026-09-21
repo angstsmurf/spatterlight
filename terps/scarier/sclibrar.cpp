@@ -18235,6 +18235,14 @@ lib_wear_multiple_common (scr_gameref_t game, scr_bool is_except)
    * becomes "Wear what?" (463C19).  Measured beer turn 11 `wear jumper`,
    * the held woolly jumper tying the fountain's "several people" (alias
    * jumper).
+   *
+   * "Wear what?" is not the last word on a tie, though.  The line-start
+   * 463640 walk (48A3F5, mode 0) has already parked the pending object in
+   * Me(424) before wears() runs, and wears() only resets it after putting
+   * something on (463AC0), so the turn tail's question (48B6B1) replaces
+   * the refusal, no turn: p4WTIE `wear stone` with both stones on the
+   * floor is "Which stone.  The red stone or the blue stone?" (run400
+   * Adrift_it1, 2026-09-21).
    */
   if (!is_except && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     {
@@ -18246,6 +18254,8 @@ lib_wear_multiple_common (scr_gameref_t game, scr_bool is_except)
           && lib_verb_object_resolve_400_string (game, input, NULL, FALSE) < 0)
         {
           lib_question_prefix_from_line (game);
+          if (lib_co_400_raise_for_pending_tie (game))
+            return TRUE;
           return lib_what (game, "Wear");
         }
     }
@@ -27257,33 +27267,19 @@ lib_cmd_eat_object (scr_gameref_t game)
   if (object == -1)
     return is_ambiguous;
 
-  /* Check that we have the object to eat. */
-  if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
-    {
-      lib_print_response_object (game,
-                                 "You are not holding ",
-                                 "I am not holding ",
-                                 "%player% is not holding ",
-                                 object, ".\n");
-      return TRUE;
-    }
-
-  /* Check for static object moved to player by event. */
-  if (obj_is_static (game, object))
-    {
-      lib_print_response_object (game,
-                                 "You can't eat ",
-                                 "I can't eat ",
-                                 "%player% can't eat ",
-                                 object, ".\n");
-      return TRUE;
-    }
-
-  /* Is this object inedible? */
+  /*
+   * Every Runner asks whether the object is edible BEFORE whether it is
+   * held: an inedible one is "You can't eat X." wherever it is, and only
+   * an edible one gets the held test, whose refusal ends in "!" (run400
+   * 4888AF/488921/488993, run390 45D52E, run380 443D8B, run370 43D332).
+   * p4WTIE `eat red stone`, the stone on the floor: "You can't eat the red
+   * stone." (run400 Adrift_it1, 2026-09-21).
+   */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
   vt_key[2].string = "Edible";
-  edible = prop_get_boolean (bundle, "B<-sis", vt_key);
+  edible = !obj_is_static (game, object)
+           && prop_get_boolean (bundle, "B<-sis", vt_key);
   if (!edible)
     {
       lib_print_response_object (game,
@@ -27291,6 +27287,17 @@ lib_cmd_eat_object (scr_gameref_t game)
                                  "I can't eat ",
                                  "%player% can't eat ",
                                  object, ".\n");
+      return TRUE;
+    }
+
+  /* Check that we have the object to eat. */
+  if (gs_object_position (game, object) != OBJ_HELD_PLAYER)
+    {
+      lib_print_response_object (game,
+                                 "You are not holding ",
+                                 "I am not holding ",
+                                 "%player% is not holding ",
+                                 object, "!\n");
       return TRUE;
     }
 

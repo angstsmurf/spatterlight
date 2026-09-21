@@ -257,26 +257,6 @@ artefact; no corpus row differs by an engine rule.
   error - Subscript out of range` mid-game; TheADRIFTProject crashed with
   run-time error 401 at command 92.
 
-### Engine, needs a probe (4.0)
-
-- **Ambiguity prompts, what is left.** Which path parks 4941EC is solved
-  and ported (see "A 4.0 answer REBUILDS the typed line" and "The 4.0
-  examine question is co()'s walk" in the index), and so is the tick on a
-  task-answered tied line ("A task that runs clears the 4.0 pending
-  question") and the " with " line's question ("A 4.0 \" with \" line asks
-  openclose's question"), and the antecedent every arm hands 448C24 ("The
-  4.0 \"it\" is whatever 448C24 was handed LAST"). Still open, both from
-  p4WTIE's it1/it3 feeds:
-  - `wear stone` with two stones on the floor: run400 asks "Which stone.
-    The red stone or the blue stone?", Scarier says "Wear what?" and ticks.
-  - `eat red stone`, the stone not held and not edible: run400 "You can't
-    eat the red stone.", Scarier "You are not holding the red stone."
-- **`both` right after a `Which <term>. <list>?` prompt.** 3.9 and 4.0
-  re-run the saved candidate list as the typed line (run400 48AE94, run390
-  43B4D5); unmeasured, and Scarier does not model it. A bare `both` with no
-  prompt is measured and ours: "I don't understand.", two turns (p39WITH
-  T25). Measure it at both versions before porting.
-
 ### Engine, needs a probe (3.7)
 
 - **3.7 alias namesakes under an unknown verb.** In the p3xEVQ world where
@@ -290,6 +270,21 @@ artefact; no corpus row differs by an engine rule.
 
 ## Deliberate deviations (measured, not ported)
 
+- **`both` right after a `Which <term>. <list>?` prompt is not ported,
+  because the Runner's branch does nothing useful.** Only 3.9 and 4.0 have
+  it; the word is missing from the 3.7/3.8 string pools. run400 48AE94
+  reads `If cmd = "both" Then cmd = <saved>.field0` and re-enters the parser.
+  `<saved>.field0` is set at the end of every turn (48BB97) from
+  `Me(428)`/4941F0, the prompt's *display string*: the names joined with
+  ", " and " or ", with a trailing "?". run390 builds the same string at
+  43B4D5-43B54A. So `both` does not pick every candidate. It feeds the
+  parser a line like `the red ball or the blue ball?` as if the player had
+  typed it, and no verb matches that. Porting it would copy a dead branch
+  with no useful effect (6033124f5, 2026-09-07; the census write-up was
+  dropped in the prune at 07662f801). The branch was read in the
+  decompile, not measured after a live prompt. Measure that at both
+  versions before changing this. A bare `both` with no prompt is measured
+  and already matches: "I don't understand.", two turns (p39WITH T25).
 - **`drop X in Y` is not a put below 4.0.** MEASURED 2026-09-20, not
   ported. run390 answers `drop lamp in box`, `drop lamp on table` and the
   `leave` spellings of both with a flat "You drop the lamp.", and the lamp
@@ -2057,10 +2052,32 @@ transcript names are in the code comment next to the named function, in
   `lib_examine_referencedob_ex_400` (pass B's -2 hit) and
   `lib_cmd_examine_object`. Every p4WTIE/p4WTIE2/p4CO/p4CO2 feed is
   identical, 428/428 goldens, no runner_transcripts verdict moved; it2 is
-  identical, it1/it3 differ only by the two open leads below (`wear stone`,
-  `eat red stone`). `[4.0]` p4WTIE (`cmdfile_it1.txt`, `cmdfile_it2.txt`)
-  and p4WTIE3 (`make_400_withtieprobe.py --desc`, `cmdfile_it3.txt`),
-  Adrift_it1/2/3, 2026-09-21
+  identical, and it1/it3 are too since the two entries below. `[4.0]`
+  p4WTIE (`cmdfile_it1.txt`, `cmdfile_it2.txt`) and p4WTIE3
+  (`make_400_withtieprobe.py --desc`, `cmdfile_it3.txt`), Adrift_it1/2/3,
+  2026-09-21
+- **A 4.0 `wear` on a tie asks the pending object's question, not "Wear
+  what?".** wears() (463C30) marks only the 463640 winner of the whole
+  line, so a tie leaves its buffer at "Wear what?" (463C19). But the
+  line-start 463640 walk (48A3F5, mode 0) has already parked the pending
+  object in Me(424), wears() resets it only after putting something on
+  (463AC0), and the turn tail's question (48B6B1) replaces the refusal: no
+  turn. p4WTIE `wear stone`, both stones on the floor: "Which stone.  The
+  red stone or the blue stone?" where Scarier said "Wear what?" and
+  ticked. PORTED 2026-09-21: `lib_wear_multiple_common` raises
+  `lib_co_400_raise_for_pending_tie` ahead of "Wear what?" (the prefix
+  463C23 stores is still set). `[4.0]` p4WTIE (`cmdfile_it1.txt`,
+  `cmdfile_it3.txt` on p4WTIE3), Adrift_it1/it3, 2026-09-21
+- **`eat` tests edible BEFORE held, in every Runner.** An inedible object
+  is "You can't eat X." wherever it lies; only an edible one gets the held
+  test, and that refusal ends in "!": "You are not holding X!" (run400
+  therest 4888AF/488921/488993, run390 45D52E, run380 443D8B-443E74, run370
+  43D2C6-43D363). p4WTIE `eat red stone`, the stone on the floor and not
+  edible: "You can't eat the red stone." where Scarier said "You are not
+  holding the red stone.". PORTED 2026-09-21 in `lib_cmd_eat_object`,
+  every version (a static object counts as inedible). The edible-but-not-
+  held "!" is read off all four decompiles, not measured. `[4.0]` p4WTIE
+  (`cmdfile_it1.txt`), Adrift_it1, 2026-09-21
 - **A 4.0 turn SCARE does not count: a take's "Which" prompt is unanswerable
   and TICKS when the " with " half names an object.** `take stone with
   knife` prints "Which stone.  The red stone or the blue stone?" exactly as
