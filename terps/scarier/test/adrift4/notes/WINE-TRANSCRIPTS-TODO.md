@@ -334,41 +334,19 @@ artefact; no corpus row differs by an engine rule.
   put rows keep `drop` and `put down`; the `leave` port deliberately did
   not widen them.
 - **run370 double matcher pass** (arlo `get out of bus`).
-- **run380's event route to the task-ran flag.** MEASURED 2026-09-20, not
-  ported. run380 clears `MemVar_44F12C` at the top of generaltasks (441A28)
-  and sets it in tasks() 44D0BA whenever a task actually runs; the
-  end-of-turn guard 4431B0 is `(MemVar_44F124 < 0) Or (CInt(MemVar_44F12C) =
-  1)`, and the second disjunct is what stops the whole turn being replaced
-  by `Which <term>.  <list>?`. An event reaches it: generaltasks calls
-  characters() 443179 and events() 44317E BEFORE the guard, and checkevent
-  43A753 sets 44F0B0 to the affected task's command and dispatches
-  tasks(CByte(1)) at 43A762. run370 has no such flag -- its guard 43C8D3 is
-  `If (MemVar_446140 < 0)` alone -- and its two probe files are
-  byte-identical. p3xEVQ2 (`make_3738_eventflagprobe.py`: two hats both
-  Short "hat", the adjective the last word of the Prefix, plus an immediate
-  event that restarts every turn and runs a `zzev` task; each version built
-  twice, once with TaskAffected 0):
-
-  | line | run380 control | run380 + event | run370 control | run370 + event |
-  |---|---|---|---|---|
-  | `poke hat` | prompt | prompt | prompt | prompt |
-  | `x hat` | prompt | "Nothing special." + ev | own examine prompt | same + ev |
-  | `take hat` | prompt | "Take what?" + ev | "Take what?" | same + ev |
-  | `put hat` | prompt | prompt | prompt | prompt |
-
-  `poke hat` and `put hat` keep the prompt everywhere because they leave the
-  buffer empty, so 443160 substitutes DontUnderstand and never reaches
-  characters()/events() -- no tick, no flag. Gating
-  `run_note_dispatched_task_ran()` down to 3.80 on its own makes p38EVQ2
-  WORSE, 2/4 cells to 0/4, because suppressing the prompt uncovers three
-  answers Scarier does not have: 3.8 examines' "Nothing special.", takes'
-  "Take what?" (3.9 too -- run390 gives "Take what?  EVENT TASK RAN." where
-  Scarier gives only the event text), and run380's therest, which says
-  nothing at all for an ambiguous noun where Scarier says "I don't
-  understand what you want me to do with the red hat." All three live in
-  `lib_disambiguate_object_common()`'s `kept == 0` path, which returns -1
-  with `*is_ambiguous` set so the handler prints nothing; only `examine_390`
-  is exempted today. The flag belongs at 3.80; those three go first.
+- **run380's event route to the task-ran flag.** PORTED 2026-09-21.
+  run380 sets `MemVar_44F12C` in tasks() 44D0BA for an event's task too
+  (checkevent 43A762 -> tasks(CByte(1)), events() 44317E before the guard
+  4431B0); run370 has no flag. `run_note_dispatched_task_ran()` now gates at
+  3.80. The flag uncovered three handler answers, ported with it:
+  takes()' "Take what?" (3.8 and 3.9) and 3.8 examines()' "Nothing
+  special." in `lib_disambiguate_object_common()`'s every-candidate-refused
+  path, and run380's therest staying silent for a crowded namesake
+  (`lib_verb_object_catch_all_pre390()` now asks co()'s crowded arm), so
+  `poke hat`/`put hat` leave the buffer empty, never tick and keep the
+  prompt. p37/p38/p39 EVQ2(+C) and p38EVQ(+C) are identical on every turn
+  (Adrift_p38EVQ2.rtf, Adrift_p39EVQ2.txt, Adrift_evq38.rtf); 428/428 v4
+  walkthroughs unchanged.
 - **3.7 alias namesakes under an unknown verb.** In the p3xEVQ world where
   the Shorts are "red hat"/"blue hat" and the shared Alias is "hat",
   run370 answers `poke hat` with "I don't understand what you want me to do

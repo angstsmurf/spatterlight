@@ -7123,7 +7123,18 @@ lib_disambiguate_object_common (scr_gameref_t game, const scr_char *verb,
       if (kept == 0 && !examine_390
           && lib_runner_co_scan (game, line, NULL, NULL, NULL))
         {
-          /* Every candidate refused; the prompt is the turn's answer. */
+          /*
+           * Every candidate refused, so the handler's loop acted on
+           * nothing and it says so: takes() "Take what?" (3.8 and 3.9),
+           * 3.8 examines() "Nothing special.".  The end-of-turn prompt
+           * wipes that unless a task ran this turn -- an event's does
+           * (p38EVQ2/p39EVQ2, Adrift_p38EVQ2.rtf / Adrift_p39EVQ2.txt,
+           * 2026-09-20).
+           */
+          if (strcmp (verb, "take") == 0)
+            lib_what (game, "Take");
+          else if (strcmp (verb, "examine") == 0)
+            pf_buffer_string (gs_get_filter (game), "Nothing special.\n");
           if (is_ambiguous)
             *is_ambiguous = TRUE;
           return -1;
@@ -32089,6 +32100,18 @@ lib_verb_object_catch_all_pre390 (scr_gameref_t game)
     {
       if (!game->object_references[object]
           && !lib_catch_all_names_pre390 (game, object))
+        continue;
+
+      /*
+       * co()'s crowded arm refuses a present namesake whose Prefix's last
+       * word the line lacks, so `poke hat` beside a red and a blue hat
+       * walks nothing: the buffer stays empty, no tick runs, and the
+       * end-of-turn "Which hat." answers even when an event runs a task
+       * every turn (p38EVQ2, Adrift_p38EVQ2.rtf, 2026-09-20).
+       */
+      if (run_get_dispatch_input ()
+          && lib_catch_all_names_pre390 (game, object)
+          && !lib_co_pre400 (game, run_get_dispatch_input (), object, 0))
         continue;
 
       if (gs_object_seen (game, object))
