@@ -1,9 +1,13 @@
 
 
 north
-look
+north
+take catnip
+south
+west
+drop catnip
+east
 attack cat
-look
 attack cat
 eat cat
 take cat fur
@@ -16,13 +20,11 @@ wear cat fur
 push button
 open door
 west
-west
+look
+look
 attack human
-look
-look
 attack human
 eat human
 remove cat fur
-east
 north
 main course

@@ -874,12 +874,21 @@ jason_vs_salm_solution.txt|Jason Vs. Salm.taf|Good job then!|SCR_SEED=3
 # and died at T293 `west`.  With the blanks, run400x seed 133 is identical on
 # every turn through THE END.
 light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=133
-# Measured live in run400 under Wine (2026-08-24), full replay, Verbose ON.
-# The game is NOT winnable in the real Runner: "Cat sheepishly enters from
-# the east." never appears (the cat's walk has expired), so `attack cat` gets
-# "I don't understand what you mean!" and the closing `main course` command is
-# refused.  Win marker deliberately removed -- the walkthrough is kept for its
-# transcript, not for a win.
+# Re-derived 2026-09-21 as a WIN in run400x under Wine (runner_transcripts/maincourse.txt,
+# feed runner_transcripts_cmds/maincourse.txt, PRE=2, seed 17): identical on all 28 turns,
+# combat draws included.  The old route was a desync, not a win: the cat is NOT
+# a wanderer in the corridor.  It starts hidden (NPC 0, room -1) and only
+# appears when task 3 (`drop catnip` in the Cryo Stasis Room, catnip from the
+# Command Deck) moves it to Corridor Alpha and stops its walk, so the earlier
+# `north`, `look`, `attack cat` never met it -- "Cat sheepishly enters from the
+# east." never appears, `attack cat` is "I don't understand what you mean!" and
+# `eat human` gets no dead human.  Rerouted through the catnip; under
+# SCR_RNG=xoshiro seed 17 the first swipe at the cat misses and the second
+# kills it, and the woken human paces Corridor Alpha <-> Bathroom, so the route
+# meets him in the corridor (two `look`s until he runs back in) and lands two
+# hits on him.  The Runner's `eat human` opens "SoMorph can't see the dead
+# human." (therest's seen-but-absent clause: the task has already hidden the
+# body), which lib_cmd_verb_absent_400 now gives on an `eat *` row.
 # Re-blessed 2026-09-05 for the third-person de-conjugation (see herrdoktor's
 # block): this game is Perspective 2 and carries no ALRs at all, which is what
 # made it the clean probe.  A 33-command run400 probe
@@ -901,7 +910,7 @@ light_up_solution.txt|light_up_4summer_comp.taf|THE END|SCR_SEED=133
 # what you want to put things inside." is ported (container-first put,
 # lib_cmd_put_container_400; p4PUT/p4PUT2, Adrift_953/954).  Still identical
 # on every turn of Adrift_35_maincourse_probe.txt.
-maincourse_solution.txt|Main Course.taf||SCR_SEED=17
+maincourse_solution.txt|Main Course.taf|Congratulations! You're on your way home with just a little indigestion!|SCR_SEED=17
 # The 3.9 half of the walk-announcement rewrite was measured on this game --
 # run390 under Wine, Adrift_37_melbourne_beach.txt, 2026-08-24.  See the arlo block.
 # The same transcript then pinned two more pre-4.0 rules, and this walkthrough

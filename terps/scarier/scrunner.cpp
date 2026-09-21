@@ -1258,6 +1258,10 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"drink %object% *", lib_cmd_drink_object},
   {"drink %text%", lib_cmd_drink_other},
   {"drink", lib_cmd_drink_what},
+  /* therest()'s seen-but-absent clause comes before the eat arm, so a
+   * task that hides the noun first (Main Course `eat human`) is "can't see
+   * the dead human." and not eat_other's line; see lib_cmd_verb_absent_400(). */
+  {"eat *", lib_cmd_verb_absent_400},
   {"eat *", lib_cmd_eat_other},
   {"feed *", lib_cmd_feed},
   {"feel *", lib_cmd_feel},

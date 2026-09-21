@@ -2,12 +2,13 @@
 
 - **Author:** quantumsheep (2008).
 - **Engine:** ADRIFT 4 (Battle System present — the SoMorph kills the cat and the
-  pilot with it; each dies to **one landed hit**, though the RNG makes the first
-  swing at each miss under the current seed stream, so combat works as authored
-  and no combat-assist is needed).
-- **Result:** **WIN, deterministic. 0/0 (no score — the game has no `ChangeScore`
-  actions; the single ending is the victory).** Win marker:
+  pilot with it; each dies to a landed hit, so combat works as authored and no
+  combat-assist is needed).
+- **Result:** **WIN, deterministic under the seed. 0/0 (no score — the game has no
+  `ChangeScore` actions; the single ending is the victory).** Win marker:
   *"Congratulations! You're on your way home with just a little indigestion!"*
+  Wins in the real Runner too: `runner_transcripts/maincourse.txt` (run400x, seed
+  17) is identical to the golden on all 28 turns.
 - Solution file: `goldens/maincourse_solution.txt` (begins with two blank lines —
   the intro has two "press any key" prompts).
 
@@ -38,12 +39,17 @@ Deck, **west** = Cryo Stasis Room, **east** = Bathroom (door starts closed),
 ```
 <blank>                 <- "press any key to start"
 <blank>                 <- "press any key to continue"
-north                   <- Corridor Alpha (the cat is here but exits west)
-look                    <- the cat re-enters and takes a swipe at you
-attack cat              <- Mr. Jones dodges and slips out
-look                    <- the cat re-enters again
-attack cat              <- this swipe kills Mr. Jones
-eat cat                 <- "SoMorph eat cat"; this drops some cat fur here
+north                   <- Corridor Alpha
+north                   <- Command Deck
+take catnip
+south
+west                    <- Cryo Stasis Room
+drop catnip             <- a blur of fur rushes out of the flap on the cryo tube,
+                           eats the catnip and runs into the corridor
+east                    <- Corridor Alpha; the cat is here and attacks you (misses)
+attack cat              <- "hit Jones, but it doesn't seem to do any damage"
+attack cat              <- the second swipe kills Mr. Jones
+eat cat                 <- drops some cat fur here
 take cat fur
 open door               <- the bathroom door (east) starts closed
 east                    <- Bathroom
@@ -54,20 +60,20 @@ wear cat fur            <- disguise: now you look like the cat, not a scary alie
 push button             <- "Premature Ejection during Hyperspace!" opens the Cryo
                            Tube and wakes the frozen human, Alan Davies
 open door
-west                    <- Corridor
-west                    <- Cryo Stasis Room (the woken human is here)
-attack human            <- the disguise lets you land the blow; he flees east
-look
-look                    <- he runs screaming back into the dead-end Cryo room
+west                    <- Corridor Alpha; the human is here, then "runs screaming
+                           to the east" (into the bathroom)
+look                    <- empty corridor
+look                    <- "Human runs screaming from the east." — back in reach
+attack human            <- the cat disguise lets the blow land
 attack human            <- the second blow kills Alan Davies
 eat human               <- "SoMorph prepare for main course" — now you ARE human
 remove cat fur          <- take the cat disguise off so FRANK sees a human
-east                    <- Corridor
 north                   <- Command Deck
 main course             <- change course for home = WIN
 ```
 
-Run with `sh harness/play.sh "<…>/Main Course.taf" goldens/maincourse_solution.txt`.
+Run with `sh harness/play.sh "<…>/Main Course.taf" goldens/maincourse_solution.txt`
+(`SCR_RNG=xoshiro SCR_SEED=17`, as the regression row sets them).
 
 ## Why each step is needed (structural dump)
 
@@ -75,21 +81,28 @@ The win is task 8 (`* course *`, in the Command Deck), whose only restriction is
 **task 0 (`eat human`) complete**; its action is the type-6 EndGame victory.
 Working backwards:
 
+- **The cat only exists after the catnip.** Mr. Jones (NPC 0) starts hidden
+  (room -1). Task 3 (`drop * catnip *` in the Cryo Stasis Room — the catnip is on
+  the Command Deck) moves him to Corridor Alpha and stops his walk (the walk's
+  StoppingTask is that task), so he waits there to be killed. Nothing else
+  produces him: a route that just walks about the corridor never meets a cat,
+  and `attack cat` is "I don't understand what you mean!" (an unresolved NPC
+  falls through the grammar and does not advance the turn). This is why the
+  previous route (`north`, `look`, `attack cat`, …) was not a win.
 - **`eat human` (task 0)** needs the *dead human* object present. The human
   starts as a frozen body in the Cryo Tube; the **only** thing that frees it is
   the bathroom's **big red button** (task 10), and that button does nothing until
   **`use toilet` (task 2)** has been done. `use toilet` in turn requires the
   **toilet open** *and the bathroom door closed* (its two object-state
-  restrictions) plus the cat already eaten.
-- Pushing the button wakes the human as a **live, fleeing NPC**. He screams and
-  runs every turn, so you can't normally land a blow — unless you are **wearing
-  the cat fur** ("…hoping to fool the human into not fighting"), the disguise that
-  makes you appear as his pet cat. The fur is produced by **eating the cat**
-  (task 1's hidden action drops it) and can only be **worn after `use toilet`**
-  (task 6's restriction). With the disguise on, a landed swipe kills Alan Davies
-  (under the current seed the second swing is the one that lands — he dodges the
-  first and flees into the dead-end Cryo room, returning two turns later); his
-  death (task 7) reveals the dead-human object, which you then eat.
+  restrictions) plus the cat already eaten (**`eat cat`**, task 1, which needs the
+  dead cat present and drops the cat fur).
+- Pushing the button wakes the human as a **live, fleeing NPC** (walk 1 starts on
+  the tube opening). He screams and paces Corridor Alpha ↔ Bathroom, so you can't
+  normally land a blow — unless you are **wearing the cat fur** ("…hoping to fool
+  the human into not fighting back"). The fur can only be **worn after
+  `use toilet`** (task 6's restriction). With the disguise on, a landed swipe
+  hits him and a second kills Alan Davies; his death (task 7) reveals the
+  dead-human object, which you then eat.
 - Eating the human makes the SoMorph **appear human** — but only once the cat
   disguise is off, so **`remove cat fur`** before talking to FRANK, who otherwise
   refuses: *"I am only programmed to accept requests from humans. Disgusting
@@ -100,15 +113,18 @@ Working backwards:
 - **No score:** a full task dump (11 tasks) shows zero `ChangeScore` actions, so
   the game is 0/0; the sole ending is this victory (there are no lose/death
   endings either). Documented like the other 0/0-win games in this corpus.
-- The catnip in the Command Deck and the wandering "Cat sheepishly enters/exits"
-  lines are flavour/decoy — neither is needed for the win.
-- Combat is faithful (deterministic under the harness seed): both the cat and the
-  disguised-approach human die to a single *landed* hit; the route just has to
-  ride out one dodge each.
-- **Re-derived 2026-07-14** for the scarier engine: the banked solution had lost
-  its two leading waitkey blanks (the intro eats the first two input lines), and
-  the NPCs-before-events tick-order fix shifted the wandering cat's schedule and
-  the combat RNG stream, so the old "one swipe each" route desynced (`attack cat`
-  fired with the cat absent — an unresolved-NPC attack falls through the grammar
-  to "I don't understand", which does not advance the turn). The rewired route
-  above is a `run_v4_walkthroughs.sh` regression row with a blessed golden.
+- **Combat is seed-dependent.** Under `SCR_RNG=xoshiro SCR_SEED=17` (the Runner's
+  own draws, matched by run400x at `VBRNG_SEED=17`) the first swipe at the cat
+  misses and the second kills it; the human takes two landed hits, and his pacing
+  through the corridor decides how many turns to wait (`look` ×2). A different
+  seed reshuffles both — re-derive rather than assume. The old LCG-seed route
+  differed for exactly this reason.
+- `eat human` opens with the Runner's "SoMorph can't see the dead human." — the
+  task hides the body first and therest()'s seen-but-absent clause then speaks
+  (Scarier's `eat *` row → `lib_cmd_verb_absent_400`, added 2026-09-21 after this
+  route's Runner drive found it).
+- **Re-derived 2026-07-14** (NPCs-before-events tick order) and **again
+  2026-09-21**, rerouted through the catnip so the cat is caught before it can
+  wander off; the earlier route waited for the wandering cat to re-enter the corridor,
+  which the real Runner (run400, 2026-08-24) did not reproduce, so it was not a win there. The route is a `run_v4_walkthroughs.sh` regression row with a
+  win-marker and a blessed golden, and the Runner transcript twin agrees.

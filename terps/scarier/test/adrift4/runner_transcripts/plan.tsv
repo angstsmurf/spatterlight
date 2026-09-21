@@ -43,7 +43,7 @@ gateway	gateway.taf	3.90	run390x.exe	1234	0	Hero~male		THE END	273
 hyper_b_s	hyper_b_s.taf	4.00	run400x.exe	1234	0			The Flare Rat is dead! Mission complete!	32
 jason_vs_salm	Jason Vs. Salm.taf	4.00	run400x.exe	3	0		SCR_SEED=3	Good job then!	14
 light_up	light_up_4summer_comp.taf	4.00	run400x.exe	133	2		SCR_SEED=133	THE END	2316
-maincourse	Main Course.taf	4.00	run400x.exe	17	2		SCR_SEED=17		6
+maincourse	Main Course.taf	4.00	run400x.exe	17	2		SCR_SEED=17	Congratulations! You're on your way home with just a little indigestion!	57
 melbourne_beach	Melbourne Beach.taf	3.90	run390x.exe	1234	1			You successfully completed the original game Melbourne Beach	43
 orient_express	Orient_Express.taf	4.00	run400x.exe	1234	0			You successfully complete your assignment.	47
 screen_savers	The Screen Savers On Planet X.taf	3.90	run390x.exe	1234	0			You've managed to get everyone to the set!	900
