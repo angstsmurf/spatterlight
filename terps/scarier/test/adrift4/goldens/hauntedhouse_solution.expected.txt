@@ -24,9 +24,7 @@ outside. The swine!
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
 the owner in one corner and a series of doors leading off to the rest of the
-house.
-
-You can move south, up and southwest.
+house.  You can move south, up and southwest.
 
 > sw
 You move southwest.
@@ -35,9 +33,8 @@ Kitchen
 The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
 like he's cleaned up in here in a long, long time. Lying on the floor, lying
 very still, is what appears to be a dead body. Aside from that there's the
-usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
-
-You can move south, west and northeast.
+usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.  You
+can move south, west and northeast.
 
 > take knife
 Take what?
@@ -54,9 +51,7 @@ You move northeast.
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
 the owner in one corner and a series of doors leading off to the rest of the
-house.
-
-You can move south, up and southwest.
+house.  You can move south, up and southwest.
 
 > u
 As you make your way up the stairs, you see a hideous apparition appear out
@@ -83,9 +78,8 @@ Upstairs hallway
 This hallway winds around the entire second floor of Desther's floor.
 Overhead hangs a chandelier which has been set on fire. While you're not sure
 if this is a good idea or not, it does add some much needed light to a
-seriously gloomy location.  Also here is a meat cleaver.
-
-You can move west, down, southeast and northwest.
+seriously gloomy location.  Also here is a meat cleaver.  You can move west,
+down, southeast and northwest.
 
 > take cleaver
 You take the meat cleaver.
@@ -96,9 +90,7 @@ You move down.
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
 the owner in one corner and a series of doors leading off to the rest of the
-house.
-
-You can move south, up and southwest.
+house.  You can move south, up and southwest.
 
 > sw
 You move southwest.
@@ -107,9 +99,8 @@ Kitchen
 The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
 like he's cleaned up in here in a long, long time. Lying on the floor, lying
 very still, is what appears to be a dead body. Aside from that there's the
-usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
-
-You can move south, west and northeast.
+usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.  You
+can move south, west and northeast.
 
 > w
 You move west.
@@ -117,7 +108,6 @@ You move west.
 Back yard
 You find yourself on the back yard. It is enclosed by tall fences which look
 pretty much unclimbable. The yard extends to a small wood not far from here.
-
 You can move east and west.
 
 > w
@@ -126,7 +116,6 @@ You move west.
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
 much hidden from view and all you can see for a long, long way are trees.
-
 You can move east, southeast and southwest.
 
 > sw
@@ -135,7 +124,6 @@ You move southwest.
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
 much hidden from view and all you can see for a long, long way are trees.
-
 You can move south and northeast.
 
 > s
@@ -144,9 +132,7 @@ You move south.
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
 much hidden from view and all you can see for a long, long way are trees.
-Walter is here.
-
-You can move north and east.
+Walter is here.  You can move north and east.
 
 > give cleaver to walter
 "Ah, I'll soon deal with the swines with this!" Walter cries and takes a
@@ -178,7 +164,6 @@ You move north.
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
 much hidden from view and all you can see for a long, long way are trees.
-
 You can move south and northeast.
 
 > ne
@@ -187,7 +172,6 @@ You move northeast.
 Small wood
 You're wandering around in a very dark location indeed. The ground is pretty
 much hidden from view and all you can see for a long, long way are trees.
-
 You can move east, southeast and southwest.
 
 > e
@@ -196,7 +180,6 @@ You move east.
 Back yard
 You find yourself on the back yard. It is enclosed by tall fences which look
 pretty much unclimbable. The yard extends to a small wood not far from here.
-
 You can move east and west.
 
 > e
@@ -206,9 +189,8 @@ Kitchen
 The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
 like he's cleaned up in here in a long, long time. Lying on the floor, lying
 very still, is what appears to be a dead body. Aside from that there's the
-usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
-
-You can move south, west and northeast.
+usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.  You
+can move south, west and northeast.
 
 > ne
 You move northeast.
@@ -216,9 +198,7 @@ You move northeast.
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
 the owner in one corner and a series of doors leading off to the rest of the
-house.
-
-You can move south, up and southwest.
+house.  You can move south, up and southwest.
 
 > u
 You move up.
@@ -227,9 +207,7 @@ Upstairs hallway
 This hallway winds around the entire second floor of Desther's floor.
 Overhead hangs a chandelier which has been set on fire. While you're not sure
 if this is a good idea or not, it does add some much needed light to a
-seriously gloomy location.
-
-You can move west, down, southeast and northwest.
+seriously gloomy location.  You can move west, down, southeast and northwest.
 
 > nw
 You move northwest.
@@ -237,9 +215,7 @@ You move northwest.
 Desther's bedroom
 To say that Desther spends his nights here, his bedroom is surprisingly
 sparse. In fact, aside from the bed and a window overlooking the street there
-is nothing much here at all.  Cedrick is here.
-
-You can only move southeast.
+is nothing much here at all.  Cedrick is here.  You can only move southeast.
 
 > throw bomb
 The moment Cedrick sees the bomb he cries, "oh sh-" before being blown up.
@@ -256,9 +232,7 @@ Upstairs hallway
 This hallway winds around the entire second floor of Desther's floor.
 Overhead hangs a chandelier which has been set on fire. While you're not sure
 if this is a good idea or not, it does add some much needed light to a
-seriously gloomy location.
-
-You can move west, down, southeast and northwest.
+seriously gloomy location.  You can move west, down, southeast and northwest.
 
 > d
 You move down.
@@ -266,9 +240,7 @@ You move down.
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
 the owner in one corner and a series of doors leading off to the rest of the
-house.
-
-You can move south, up and southwest.
+house.  You can move south, up and southwest.
 
 > sw
 You move southwest.
@@ -277,18 +249,15 @@ Kitchen
 The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
 like he's cleaned up in here in a long, long time. Lying on the floor, lying
 very still, is what appears to be a dead body. Aside from that there's the
-usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
-
-You can move south, west and northeast.
+usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.  You
+can move south, west and northeast.
 
 > s
 You move south.
 
 Top of cellar steps
 You're standing at the top of a flight of steps which lead down into the
-darkness. At the side of you is a light switch.
-
-You can move north and down.
+darkness. At the side of you is a light switch.  You can move north and down.
 
 > d
 You move down.
@@ -298,9 +267,7 @@ The cellar of Desther's house is pretty much empty. Nothing in here at all.
 Not a thing.
 
 Oh, aside from the coffin standing on top of a marble pedestal in the middle
-of the room.
-
-You can only move up.
+of the room.  You can only move up.
 
 > x coffin
 Resting atop the pedestal, you fully expect to find a vampire inside. Alas,
@@ -318,9 +285,7 @@ You move up.
 
 Top of cellar steps
 You're standing at the top of a flight of steps which lead down into the
-darkness. At the side of you is a light switch.
-
-You can move north and down.
+darkness. At the side of you is a light switch.  You can move north and down.
 
 > n
 You move north.
@@ -329,9 +294,8 @@ Kitchen
 The kitchen of Desther's house is a pretty shoddy affair. It doesn't look
 like he's cleaned up in here in a long, long time. Lying on the floor, lying
 very still, is what appears to be a dead body. Aside from that there's the
-usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.
-
-You can move south, west and northeast.
+usual appliances you tend to find in a kitchen: oven, sink, fridge, etc.  You
+can move south, west and northeast.
 
 > ne
 You move northeast.
@@ -339,9 +303,7 @@ You move northeast.
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
 the owner in one corner and a series of doors leading off to the rest of the
-house.
-
-You can move south, up and southwest.
+house.  You can move south, up and southwest.
 
 > u
 You move up.
@@ -350,9 +312,7 @@ Upstairs hallway
 This hallway winds around the entire second floor of Desther's floor.
 Overhead hangs a chandelier which has been set on fire. While you're not sure
 if this is a good idea or not, it does add some much needed light to a
-seriously gloomy location.
-
-You can move west, down, southeast and northwest.
+seriously gloomy location.  You can move west, down, southeast and northwest.
 
 > w
 You move west.
@@ -362,7 +322,6 @@ Ugh! This place looks like it hasn't been cleaned in years! It also looks
 (don't read the next bit if you're at all squeamish) that Desther doesn't
 bother using the toilet - instead he just finds a nice dry spot and does his
 business there. As such, the smell is just too unbearable.  Claudia is here.
-
 You can only move east.
 
 > give comb to claudia
@@ -378,9 +337,7 @@ Upstairs hallway
 This hallway winds around the entire second floor of Desther's floor.
 Overhead hangs a chandelier which has been set on fire. While you're not sure
 if this is a good idea or not, it does add some much needed light to a
-seriously gloomy location.
-
-You can move west, down, southeast and northwest.
+seriously gloomy location.  You can move west, down, southeast and northwest.
 
 > d
 You move down.
@@ -388,18 +345,14 @@ You move down.
 Entrance
 You're in the entrance of Desther's house, a large open area with a statue of
 the owner in one corner and a series of doors leading off to the rest of the
-house.
-
-You can move south, up and southwest.
+house.  You can move south, up and southwest.
 
 > s
 Front porch
 The front porch of Desther's house is quite impressive. If you didn't know
 what a dump the inside was, you might well think someone with taste lived
-here.  Desther is here.
-
-You can only move north.  "Ah, well done," says Desther. "I see the ghosts
-have departed."
+here.  Desther is here.  You can only move north.  "Ah, well done," says
+Desther. "I see the ghosts have departed."
 
 "What about the severed head in the oven?" you ask.
 

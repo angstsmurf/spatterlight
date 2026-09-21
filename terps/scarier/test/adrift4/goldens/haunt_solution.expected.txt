@@ -29,9 +29,8 @@ You move up.
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
-and stairs behind you lead downstairs.
-
-You can move east, west and down.  The rain continues to batter down.
+and stairs behind you lead downstairs.  You can move east, west and down.
+The rain continues to batter down.
 
 > x portraits
 A particularly compelling gaze catches your eye in one of the portraits -
@@ -54,9 +53,7 @@ rumbles ominously.
 You move west.
 The master bedroom is dominated by a grand, four-poster bed. A proud family
 crest is displayed on the south wall. Beside the bed is a table with a
-fishtank on it.
-
-You can only move east.  The rain continues to batter down.
+fishtank on it.  You can only move east.  The rain continues to batter down.
 
 > use emerald with crest
 The crest, now completed, slowly slides back to reveal: nothing but a scrap
@@ -71,26 +68,23 @@ You move east.
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
-and stairs behind you lead downstairs.
-
-You can move east, west and down.  Thunder rumbles ominously.
+and stairs behind you lead downstairs.  You can move east, west and down.
+Thunder rumbles ominously.
 
 > e
 You move east.
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
 dominates most of the room, the books being on shelves on the walls.  Also
-here is black book.
-
-You can move south and west.  The rain continues to batter down.
+here is black book.  You can move south and west.  The rain continues to
+batter down.
 
 > s
 You move south.
 The guest bedroom has one large, four-poster bed and a small chest of
 drawers. A rung ladder leads up the east wall into a hole in the ceiling.   A
-door to the bathroom is locked from the other side.
-
-You can move north and up.  The wind howls and you shiver.
+door to the bathroom is locked from the other side.  You can move north and
+up.  The wind howls and you shiver.
 
 > open drawers
 You open chest of drawers.  Inside chest of drawers is packet of weedkiller.
@@ -105,52 +99,45 @@ You move north.
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
 dominates most of the room, the books being on shelves on the walls.  Also
-here is black book.
-
-You can move south and west.  The rain continues to batter down.
+here is black book.  You can move south and west.  The rain continues to
+batter down.
 
 > w
 You move west.
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
-and stairs behind you lead downstairs.
-
-You can move east, west and down.  The wind howls and you shiver.
+and stairs behind you lead downstairs.  You can move east, west and down.
+The wind howls and you shiver.
 
 > down
 You move down.
 You are in the hallway of this creepy house. There is little furniture but an
 umbrella stand and writing-desk. Portaits of long-dead residents of the house
 decorate the walls. You have the odd feeling that the eyes are watching
-you...
-
-You can move east, south and up.  A sudden crash of lightning makes you jump.
+you...  You can move east, south and up.  A sudden crash of lightning makes
+you jump.
 
 > e
 You move east.
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
-wall.
-
-You can move north and west.  Thunder rumbles ominously.
+wall.  You can move north and west.  Thunder rumbles ominously.
 
 > n
 You move north.
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
-windows you think you can see moving shapes - or is it your imagination?
-
-You can move north, south and west.  The rain continues to batter down.
+windows you think you can see moving shapes - or is it your imagination?  You
+can move north, south and west.  The rain continues to batter down.
 
 > n
 You move north.
 The back garden is fairly well kept. The light of a full moon gives allows
 you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
-vegetable patch with a water tank in the middle.
-
-You can move north, south and west.  The wind howls and you shiver.
+vegetable patch with a water tank in the middle.  You can move north, south
+and west.  The wind howls and you shiver.
 
 > put weedkiller in tank
 You pour the grey powder into the water tank and swish it in with your
@@ -163,9 +150,7 @@ You move north.
 The greenhouse is humid and steamy despite the cold of the night.  The
 greenhouse now has several broken windows. The plant lies brown and
 shrivelled, along with all the other plants in the greenhouse.  Also here is
-rusty key.
-
-You can only move south.  Thunder rumbles ominously.
+rusty key.  You can only move south.  Thunder rumbles ominously.
 
 > take rusty key
 You pick up rusty key.  The rain continues to batter down.
@@ -175,9 +160,8 @@ You move south.
 The back garden is fairly well kept. The light of a full moon gives allows
 you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
-vegetable patch with a water tank in the middle.
-
-You can move north, south and west.  The wind howls and you shiver.
+vegetable patch with a water tank in the middle.  You can move north, south
+and west.  The wind howls and you shiver.
 
 > open toolshed
 The toolshed door swings open. You discard the key.  A sudden crash of
@@ -186,9 +170,8 @@ lightning makes you jump.
 > e
 You move east.
 The tool shed is untidy and littered with all sorts of junk.  Also here is
-iron hammer and folding ladder.
-
-You can only move west.  Thunder rumbles ominously.
+iron hammer and folding ladder.  You can only move west.  Thunder rumbles
+ominously.
 
 > take hammer
 You pick up iron hammer.  The rain continues to batter down.
@@ -201,35 +184,28 @@ You move west.
 The back garden is fairly well kept. The light of a full moon gives allows
 you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
-vegetable patch with a water tank in the middle.
-
-You can move north, east, south and west.  A sudden crash of lightning makes
-you jump.
+vegetable patch with a water tank in the middle.  You can move north, east,
+south and west.  A sudden crash of lightning makes you jump.
 
 > s
 You move south.
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
-windows you think you can see moving shapes - or is it your imagination?
-
-You can move north, south and west.  Thunder rumbles ominously.
+windows you think you can see moving shapes - or is it your imagination?  You
+can move north, south and west.  Thunder rumbles ominously.
 
 > s
 You move south.
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
-wall.
-
-You can move north and west.  The rain continues to batter down.
+wall.  You can move north and west.  The rain continues to batter down.
 
 > w
 You move west.
 You are in the hallway of this creepy house. There is little furniture but an
 umbrella stand and writing-desk. Portaits of long-dead residents of the house
 decorate the walls. You have the odd feeling that the eyes are watching
-you...
-
-You can move east, south and up.  The wind howls and you shiver.
+you...  You can move east, south and up.  The wind howls and you shiver.
 
 > take ticket
 You take winning lottery ticket from the umbrella stand.  A sudden crash of
@@ -239,9 +215,7 @@ lightning makes you jump.
 You move south.
 The front garden is unkempt and overgrown. You shiver as you think of the
 wolves that drove you to this place. Above you, light is showing from the
-bathroom window.
-
-You can only move north.  Thunder rumbles ominously.
+bathroom window.  You can only move north.  Thunder rumbles ominously.
 
 > lean ladder against window
 You lean the ladder against the open bathroom window, enabling you to climb
@@ -253,9 +227,7 @@ You move up.
 The bathroom is colder than the rest of the house. There is a toilet, sink
 and bath, all white and well-scrubbed. The window is still open, the curtains
 flapping in the breeze. There is a door to the east, locked with a bolt on
-this side.
-
-You can only move down.  The wind howls and you shiver.
+this side.  You can only move down.  The wind howls and you shiver.
 
 > pull chain
 You pull the chain and the toilet flushes noisily. What fun! Wait... the
@@ -278,44 +250,37 @@ shiver.
 You move east.
 The guest bedroom has one large, four-poster bed and a small chest of
 drawers. A rung ladder leads up the east wall into a hole in the ceiling.
-The door to the bathroom is now open.
-
-You can move north, west and up.  A sudden crash of lightning makes you jump.
+The door to the bathroom is now open.  You can move north, west and up.  A
+sudden crash of lightning makes you jump.
 
 > n
 You move north.
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
 dominates most of the room, the books being on shelves on the walls.  Also
-here is black book.
-
-You can move south and west.  Thunder rumbles ominously.
+here is black book.  You can move south and west.  Thunder rumbles ominously.
 
 > w
 You move west.
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
-and stairs behind you lead downstairs.
-
-You can move east, west and down.  The rain continues to batter down.
+and stairs behind you lead downstairs.  You can move east, west and down.
+The rain continues to batter down.
 
 > down
 You move down.
 You are in the hallway of this creepy house. There is little furniture but an
 umbrella stand and writing-desk. Portaits of long-dead residents of the house
 decorate the walls. You have the odd feeling that the eyes are watching
-you...
-
-You can move east, south and up.  The wind howls and you shiver.
+you...  You can move east, south and up.  The wind howls and you shiver.
 
 > e
 You move east.
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
-wall.
-
-You can move north and west.  A sudden crash of lightning makes you jump.
+wall.  You can move north and west.  A sudden crash of lightning makes you
+jump.
 
 > unlock cabinet
 The drinks cabinet swings open. You discard the key.  Thunder rumbles
@@ -336,17 +301,14 @@ You pick up bottle of whisky.  A sudden crash of lightning makes you jump.
 You move north.
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
-windows you think you can see moving shapes - or is it your imagination?
-
-You can move north, south and west.  Thunder rumbles ominously.
+windows you think you can see moving shapes - or is it your imagination?  You
+can move north, south and west.  Thunder rumbles ominously.
 
 > w
 You move west.
 The kitchen is quite tidy and clean. A cupboard stands by the far wall, and a
 stove rests beside the window. You notice that one of the floortiles is
-loose.
-
-You can only move east.  The rain continues to batter down.
+loose.  You can only move east.  The rain continues to batter down.
 
 > open cupboard
 You open kitchen cupboard.  Inside kitchen cupboard is vial of liquid.  The
@@ -365,9 +327,7 @@ place is littered with sketches of the human body, some drawn horribly
 mangled yet still alive... A rung ladder leads back to the kitchen.  A green
 mixture bubbles merrily in a flask over a bunsen burner. It has been fixed to
 the spot by screws. Eggbert obviously wants it to stay put.  Also here is
-rusty cog.  Eggbert is here.
-
-You can only move up.
+rusty cog.  Eggbert is here.  You can only move up.
 
 > take cog
 You pick up rusty cog.
@@ -382,52 +342,42 @@ The kitchen is quite tidy and clean. A cupboard stands by the far wall, and a
 stove rests beside the window. You notice that one of the floortiles is
 loose.  The kitchen is quite tidy and clean. A cupboard stands by the far
 wall, and a stove rests beside the window. A hole in the ground leads down to
-the laboratory.
-
-You can move east and down.  A sudden crash of lightning makes you jump.
+the laboratory.  You can move east and down.  A sudden crash of lightning
+makes you jump.
 
 > e
 You move east.
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
-windows you think you can see moving shapes - or is it your imagination?
-
-You can move north, south and west.  Thunder rumbles ominously.
+windows you think you can see moving shapes - or is it your imagination?  You
+can move north, south and west.  Thunder rumbles ominously.
 
 > s
 You move south.
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
-wall.
-
-You can move north and west.  The rain continues to batter down.
+wall.  You can move north and west.  The rain continues to batter down.
 
 > w
 You move west.
 You are in the hallway of this creepy house. There is little furniture but an
 umbrella stand and writing-desk. Portaits of long-dead residents of the house
 decorate the walls. You have the odd feeling that the eyes are watching
-you...
-
-You can move east, south and up.  The wind howls and you shiver.
+you...  You can move east, south and up.  The wind howls and you shiver.
 
 > up
 You move up.
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
-and stairs behind you lead downstairs.
-
-You can move east, west and down.  A sudden crash of lightning makes you
-jump.
+and stairs behind you lead downstairs.  You can move east, west and down.  A
+sudden crash of lightning makes you jump.
 
 > w
 You move west.
 The master bedroom is dominated by a grand, four-poster bed. A proud family
 crest is displayed on the south wall. Beside the bed is a table with a
-fishtank on it.
-
-You can only move east.  Thunder rumbles ominously.
+fishtank on it.  You can only move east.  Thunder rumbles ominously.
 
 > pour liquid into fish tank
 You pour the purple liquid into the fish tank... suddenly the piranha
@@ -446,18 +396,16 @@ You move east.
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
-and stairs behind you lead downstairs.
-
-You can move east, west and down.  Thunder rumbles ominously.
+and stairs behind you lead downstairs.  You can move east, west and down.
+Thunder rumbles ominously.
 
 > e
 You move east.
 The library is well-stocked with many books, most of no interest. The ticking
 of a grandfather clock adds the to dusty, timeless atmosphere. A large table
 dominates most of the room, the books being on shelves on the walls.  Also
-here is black book.
-
-You can move south and west.  The rain continues to batter down.
+here is black book.  You can move south and west.  The rain continues to
+batter down.
 
 > put cog in clock
 The cog fits perfectly, and the hands of the clock switch to 12:00 midnight.
@@ -472,38 +420,33 @@ You move west.
 You are on the upstairs landing of the house. A chandelier above casts a
 creepy glow over the room,  which is decorated in peeling green wallpaper and
 holds more portraits of the previous owners. Doorways go in three directions
-and stairs behind you lead downstairs.
-
-You can move east, west and down.  A sudden crash of lightning makes you
-jump.  You hear the chiming of the grandfather clock.
+and stairs behind you lead downstairs.  You can move east, west and down.  A
+sudden crash of lightning makes you jump.  You hear the chiming of the
+grandfather clock.
 
 > down
 You move down.
 You are in the hallway of this creepy house. There is little furniture but an
 umbrella stand and writing-desk. Portaits of long-dead residents of the house
 decorate the walls. You have the odd feeling that the eyes are watching
-you...
-
-You can move east, south and up.  Thunder rumbles ominously.  You hear the
-chiming of the grandfather clock.
+you...  You can move east, south and up.  Thunder rumbles ominously.  You
+hear the chiming of the grandfather clock.
 
 > e
 You move east.
 You are in the living room. Two armchairs are facing a fireplace, reminiscent
 perhaps of when this house was inhabited. A drinks cabinet is on the west
-wall.  Eggbert is here.
-
-You can move north and west.  Eggbert runs off to the west.  The rain
-continues to batter down.  You hear the chiming of the grandfather clock.
+wall.  Eggbert is here.  You can move north and west.  Eggbert runs off to
+the west.  The rain continues to batter down.  You hear the chiming of the
+grandfather clock.
 
 > n
 You move north.
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
-windows you think you can see moving shapes - or is it your imagination?
-
-You can move north, south and west.  The wind howls and you shiver.  You hear
-the chiming of the grandfather clock.
+windows you think you can see moving shapes - or is it your imagination?  You
+can move north, south and west.  The wind howls and you shiver.  You hear the
+chiming of the grandfather clock.
 
 > w
 You move west.
@@ -511,10 +454,8 @@ The kitchen is quite tidy and clean. A cupboard stands by the far wall, and a
 stove rests beside the window. You notice that one of the floortiles is
 loose.  The kitchen is quite tidy and clean. A cupboard stands by the far
 wall, and a stove rests beside the window. A hole in the ground leads down to
-the laboratory.
-
-You can move east and down.  A sudden crash of lightning makes you jump.  You
-hear the chiming of the grandfather clock.
+the laboratory.  You can move east and down.  A sudden crash of lightning
+makes you jump.  You hear the chiming of the grandfather clock.
 
 > down
 You move down.
@@ -523,9 +464,8 @@ potions and strange diagrams. It is the testament to an obsessed mind. The
 place is littered with sketches of the human body, some drawn horribly
 mangled yet still alive... A rung ladder leads back to the kitchen.  A green
 mixture bubbles merrily in a flask over a bunsen burner. It has been fixed to
-the spot by screws. Eggbert obviously wants it to stay put.
-
-You can only move up.  You hear the chiming of the grandfather clock.
+the spot by screws. Eggbert obviously wants it to stay put.  You can only
+move up.  You hear the chiming of the grandfather clock.
 
 > pour potion into mixture
 Stealthily, you pour the blue potion into the green mixture. Your heart beats
@@ -540,37 +480,32 @@ The kitchen is quite tidy and clean. A cupboard stands by the far wall, and a
 stove rests beside the window. You notice that one of the floortiles is
 loose.  The kitchen is quite tidy and clean. A cupboard stands by the far
 wall, and a stove rests beside the window. A hole in the ground leads down to
-the laboratory.
-
-You can move east and down.  The wind howls and you shiver.  You hear the
-chiming of the grandfather clock.
+the laboratory.  You can move east and down.  The wind howls and you shiver.
+You hear the chiming of the grandfather clock.
 
 > e
 You move east.
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
-windows you think you can see moving shapes - or is it your imagination?
-
-You can move north, south and west.  Eggbert bumbles in from the south.  A
-sudden crash of lightning makes you jump.  You hear the chiming of the
-grandfather clock.
+windows you think you can see moving shapes - or is it your imagination?  You
+can move north, south and west.  Eggbert bumbles in from the south.  A sudden
+crash of lightning makes you jump.  You hear the chiming of the grandfather
+clock.
 
 > n
 You move north.
 The back garden is fairly well kept. The light of a full moon gives allows
 you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
-vegetable patch with a water tank in the middle.
-
-You can move north, east, south and west.  Thunder rumbles ominously.
+vegetable patch with a water tank in the middle.  You can move north, east,
+south and west.  Thunder rumbles ominously.
 
 > w
 You move west.
 The family graveyard is haunted by twisted trees. The wind is uncommonly
 cold. Rows of gravestones stand like broken teeth, glistening in the rain. A
-crow sits on the branch of a tree, fixing you with a beady eye.
-
-You can only move east.  The rain continues to batter down.
+crow sits on the branch of a tree, fixing you with a beady eye.  You can only
+move east.  The rain continues to batter down.
 
 > pour sludge on gravestone
 You pour the foul-smelling sludge onto Uncle Horace's grave. As it sinks in,
@@ -590,20 +525,16 @@ You move east.
 The back garden is fairly well kept. The light of a full moon gives allows
 you to see that to the east is a shed, and a greenhouse to the north. A gate
 to the west leads to the family graveyard. At one side of the garden is a
-vegetable patch with a water tank in the middle.
-
-You can move north, east, south and west.  Horace lurches in from the west.
-Thunder rumbles ominously.
+vegetable patch with a water tank in the middle.  You can move north, east,
+south and west.  Horace lurches in from the west.  Thunder rumbles ominously.
 
 > s
 You move south.
 You are in the conservatory, which looks out through glass doors to the
 garden. The rain patters on the tin roof above. Occasionally through the
-windows you think you can see moving shapes - or is it your imagination?
-
-You can move north, south and west.  Horace lurches in from the north.  The
-rain continues to batter down.  You hear the chiming of the grandfather
-clock.
+windows you think you can see moving shapes - or is it your imagination?  You
+can move north, south and west.  Horace lurches in from the north.  The rain
+continues to batter down.  You hear the chiming of the grandfather clock.
 
 > w
 You move west.
@@ -611,10 +542,9 @@ The kitchen is quite tidy and clean. A cupboard stands by the far wall, and a
 stove rests beside the window. You notice that one of the floortiles is
 loose.  The kitchen is quite tidy and clean. A cupboard stands by the far
 wall, and a stove rests beside the window. A hole in the ground leads down to
-the laboratory.
-
-You can move east and down.  Horace lurches in from the east.  The wind howls
-and you shiver.  You hear the chiming of the grandfather clock.
+the laboratory.  You can move east and down.  Horace lurches in from the
+east.  The wind howls and you shiver.  You hear the chiming of the
+grandfather clock.
 
 > score
 Your score is 84 out of a maximum of 84.  (100%)
@@ -629,8 +559,7 @@ place is littered with sketches of the human body, some drawn horribly
 mangled yet still alive... A rung ladder leads back to the kitchen.   The
 flask that once held Eggbert's prized potion is now empty. You pray he
 doesn't notice for a while.  Also here is bottle of whisky.  Eggbert is here.
-
-You can only move up.  Horace lurches in from above. You drop down into the
+ You can only move up.  Horace lurches in from above. You drop down into the
 laboratory, Horace following you. Eggbert freezes, then drops the test tube
 he was carrying. Uncle Horace fixes Eggbert with a blank gaze, then lurches
 toward him, hands outstretched. Eggbert shrinks back into the wall and tries

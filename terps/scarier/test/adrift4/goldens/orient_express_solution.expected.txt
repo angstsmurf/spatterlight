@@ -54,9 +54,7 @@ This is the section of train that the compartments are located in. The
 compartments are much nicer than berths. They also provide privacy. Doors
 line the corridor.  The doors are numbered A1-A20. You can see your
 compartment A3 to the west.  The walls appear as if they are being shook by a
-small earthquake.
-
-You can move north, south and west.
+small earthquake.  You can move north, south and west.
 
 > s
 You move south.
@@ -65,9 +63,7 @@ Compartment B
 This is another train car full of compartments. Doors line the corridor. The
 compartments are numbered B1-B20.  Maybe you should talk to the woman.  Also
 here is a bag and a note.  Ivanna Stiffdrink is here.  The walls appear as if
-they are being shook by a small earthquake.
-
-You can only move north.
+they are being shook by a small earthquake.  You can only move north.
 
 > take bag
 You take the bag.
@@ -83,9 +79,8 @@ You move south.
 Compartment C
 This car is full of berths. There are berths that line the corridor on both
 sides. The berths are small bunks with curtains to provide privacy.  The
-walls appear as if they are being shook by a small earthquake.
-
-You can move north, east, south, west and up.
+walls appear as if they are being shook by a small earthquake.  You can move
+north, east, south, west and up.
 
 > s
 You move south.
@@ -93,9 +88,7 @@ You move south.
 Lavatory Car
 This car provides bathrooms for the passengers. Doors line both sides of the
 corridor.  Also here is a sign.  The walls appear as if they are being shook
-by a small earthquake.
-
-You can move north, east, south and west.
+by a small earthquake.  You can move north, east, south and west.
 
 > e
 You move east.
@@ -103,9 +96,7 @@ You move east.
 Compartment A bathrooms
 This is a fairly large bathroom. It has all the usual features. A toilet,
 sink, mirror, and this one happens to have a shower.  The walls appear as if
-they are being shook by a small earthquake.
-
-You can move west and in.
+they are being shook by a small earthquake.  You can move west and in.
 
 > use toilet
 Ahhh! You feel much better now. You Quickly was your hands when you are
@@ -122,7 +113,6 @@ You move in.
 Compartment A shower
 It is a standard shower. There are knobs, a drain, a showerhead. What did you
 expect?  The walls appear as if they are being shook by a small earthquake.
-
 You can only move out.
 
 > take shower
@@ -138,9 +128,8 @@ You move out.
 Compartment A bathrooms
 This is a fairly large bathroom. It has all the usual features. A toilet,
 sink, mirror, and this one happens to have a shower.  The walls appear as if
-they are being shook by a small earthquake.
-
-You can move west and in.  You hear the trains whistle blow loudly.
+they are being shook by a small earthquake.  You can move west and in.  You
+hear the trains whistle blow loudly.
 
 > w
 You move west.
@@ -148,10 +137,8 @@ You move west.
 Lavatory Car
 This car provides bathrooms for the passengers. Doors line both sides of the
 corridor.  Also here is a sign.  The walls appear as if they are being shook
-by a small earthquake.
-
-You can move north, east, south and west.  You are thrown backward as the
-train begins to pull away from the station.
+by a small earthquake.  You can move north, east, south and west.  You are
+thrown backward as the train begins to pull away from the station.
 
 > s
 You move south.
@@ -161,10 +148,9 @@ This train car provides a relaxing place to enjoy a meal.  Small tables and a
 few booths take up the space in this room.  This car also has a kitchen built
 on top of it. The passengers do not have access to the kitchen. There is a
 booth with a large table.  The walls appear as if they are being shook by a
-small earthquake.
-
-You can only move north.  You feel the vibration of the train as it slowly
-picks up speed. A low rumble can be heard from the advancing train.
+small earthquake.  You can only move north.  You feel the vibration of the
+train as it slowly picks up speed. A low rumble can be heard from the
+advancing train.
 
 > read menu
 You gaze at the menu.
@@ -189,9 +175,8 @@ You move south.
 Lounge Car
 This is the lounge. Many passengers enjoy a drink or two here. There is a bar
 at the far end. There are many cocktail tables and chairs.  Igotta Bigbottom
-is here.
-
-You can only move north.  You manage to avoid the large man's attack.
+is here.  You can only move north.  You manage to avoid the large man's
+attack.
 
 > z
 Time passes...
@@ -232,11 +217,9 @@ This train car provides a relaxing place to enjoy a meal.  Small tables and a
 few booths take up the space in this room.  This car also has a kitchen built
 on top of it. The passengers do not have access to the kitchen. There is a
 booth with a large table.  The waiter saunters over.  You take a quick look
-out the window and see the station getting larger as you approach.
-
-You can move north and south.  Ivanna Stiffdrink walks towards you from the
-south.  The train whistle blows loudly, causing a slight ringing in your
-ears.
+out the window and see the station getting larger as you approach.  You can
+move north and south.  Ivanna Stiffdrink walks towards you from the south.
+The train whistle blows loudly, causing a slight ringing in your ears.
 
 > n
 You move north.
@@ -244,10 +227,9 @@ You move north.
 Lavatory Car
 This car provides bathrooms for the passengers. Doors line both sides of the
 corridor.  Also here is a sign.  Oddly Istink is here.  You take a quick look
-out the window and see the station getting larger as you approach.
-
-You can move north, east, south and west.  Ivanna Stiffdrink walks towards
-you from the south.
+out the window and see the station getting larger as you approach.  You can
+move north, east, south and west.  Ivanna Stiffdrink walks towards you from
+the south.
 
 > n
 You move north.
@@ -256,11 +238,9 @@ Compartment C
 This car is full of berths. There are berths that line the corridor on both
 sides. The berths are small bunks with curtains to provide privacy.  You take
 a quick look out the window and see the station getting larger as you
-approach.
-
-You can move north, east, south, west and up.  Ivanna Stiffdrink walks
-towards you from the south.  You lunge slightly to counteract the force of
-the train coming to a stop.
+approach.  You can move north, east, south, west and up.  Ivanna Stiffdrink
+walks towards you from the south.  You lunge slightly to counteract the force
+of the train coming to a stop.
 
 > n
 You move north.
@@ -268,10 +248,8 @@ You move north.
 Compartment B
 This is another train car full of compartments. Doors line the corridor. The
 compartments are numbered B1-B20.  The corridor is empty  Also here is a
-note.
-
-You can move north and south.  Ivanna Stiffdrink walks towards you from the
-south.
+note.  You can move north and south.  Ivanna Stiffdrink walks towards you
+from the south.
 
 > n
 You move north.
@@ -280,10 +258,8 @@ Compartment A
 This is the section of train that the compartments are located in. The
 compartments are much nicer than berths. They also provide privacy. Doors
 line the corridor.  The doors are numbered A1-A20. You can see your
-compartment A3 to the west.
-
-You can move north, south, west and out.  Ivanna Stiffdrink walks towards you
-from the south.
+compartment A3 to the west.  You can move north, south, west and out.  Ivanna
+Stiffdrink walks towards you from the south.
 
 > out
 You move out.
@@ -311,10 +287,8 @@ Up the Creek Road
 This is the seedy part of town. There are long been closed shops that line
 the street on both sides. Most are boarded up. You can't help but have the
 feeling that you are being watched. A trash can sits near one of the old,
-boarded up shops.
-
-You can move north and east.  Ivanna Stiffdrink walks towards you from the
-east.
+boarded up shops.  You can move north and east.  Ivanna Stiffdrink walks
+towards you from the east.
 
 > n
 You move north.
@@ -323,9 +297,8 @@ Booze Barn
 This is Ivanna's favorite place. It is a large red building that looks much
 like a country barn. There is walk up window. They had to close the doors to
 the public due the the rash of theft and robbery. This is the address on the
-card.  Habibo is here.
-
-You can only move south.  Ivanna Stiffdrink walks towards you from the south.
+card.  Habibo is here.  You can only move south.  Ivanna Stiffdrink walks
+towards you from the south.
 
 > give card to habibo
 You hand the card to Habibo. He looks you over and see's that you can be
@@ -356,7 +329,6 @@ This is the warehouse where you assume that the Big Boss does his business.
 It is dark and musty. Every now and then you can see something moving out of
 the corner of your eye. Shadows move across the room,  giving no indication
 of what is hiding there.  Thug , Ivill Getyou and Anita Fortune are here.
-
 You can only move east.  You manage to avoid Thug 's attack.  You manage to
 avoid BIG BOSS's attack.
 

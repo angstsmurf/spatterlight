@@ -61,7 +61,7 @@ cheap, and so are we!"
 
 SoMorph not impressed.
 
-SoMorph can only move north.
+  SoMorph can only move north.
 
 > north
 (Standing up first)
@@ -81,7 +81,7 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-SoMorph can move north, south and west.
+  SoMorph can move north, south and west.
 Somorph thinking that Brian did this.
 
 Brian not like Somorph. Brian rival for Somorph's job on home planet
@@ -105,7 +105,7 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-SoMorph can move north, south and west.
+  SoMorph can move north, south and west.
 Or maybe SoMorph got drunk?
 
 Somorph cannot remember much. Just in case, SoMorph will have words with
@@ -130,7 +130,7 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom, but door is closed.
 
-SoMorph can move north, south and west.
+  SoMorph can move north, south and west.
 
 > attack cat
 I don't understand what you mean!
@@ -168,7 +168,7 @@ SoMorph chuckles.
 
 SoMorph see bathroom door open. Corridor to West.
 
-SoMorph can only move west.
+  SoMorph can only move west.
 
 > close door
 SoMorph close the bathroom door.
@@ -205,7 +205,7 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom. SoMorph see bathroom door is open.
 
-SoMorph can move north, east, south and west.
+  SoMorph can move north, east, south and west.
 
 > west
 SoMorph moves west.
@@ -220,9 +220,7 @@ Room is empty. Only Cryo Tube here. So must be cryo stasis room.
 
 SoMorph think at least room is clean. Wish room was warmer.
 
-SoMorph see exit to East.
-
-SoMorph can only move east.
+SoMorph see exit to East.  SoMorph can only move east.
 
 > attack human
 I don't understand what you mean!
@@ -239,9 +237,7 @@ Room is empty. Only Cryo Tube here. So must be cryo stasis room.
 
 SoMorph think at least room is clean. Wish room was warmer.
 
-SoMorph see exit to East.
-
-SoMorph can only move east.
+SoMorph see exit to East.  SoMorph can only move east.
 
 > look
 
@@ -255,9 +251,7 @@ Room is empty. Only Cryo Tube here. So must be cryo stasis room.
 
 SoMorph think at least room is clean. Wish room was warmer.
 
-SoMorph see exit to East.
-
-SoMorph can only move east.
+SoMorph see exit to East.  SoMorph can only move east.
 
 > attack human
 I don't understand what you mean!
@@ -285,7 +279,7 @@ Corridor split into four. Exits to North, West and South.
 
 To east is bathroom. SoMorph see bathroom door is open.
 
-SoMorph can move north, east, south and west.
+  SoMorph can move north, east, south and west.
 
 > north
 SoMorph moves north.
@@ -305,9 +299,7 @@ he not seem very friendly to SoMorph.
 
 SoMorph can go South to corridor.
 
-  Also here is some catnip.  Frank is here.
-
-SoMorph can only move south.
+  Also here is some catnip.  Frank is here.  SoMorph can only move south.
 
 > main course
 "I'm sorry. I am only programmed to accept requests from humans. Disgusting

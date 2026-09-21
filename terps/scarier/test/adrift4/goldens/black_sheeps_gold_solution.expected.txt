@@ -31,9 +31,7 @@ animals.  There are shelves above the bed, and a chest of drawers beside it.
 A small window is set into the wall, between the shelves and above the bed,
 and its curtains are waving in the cool breeze.  My closet is to the south,
 and I can reach the second-floor hall by going west.  Before me lies an
-interactive fiction magazine.
-
-I can move south and west.
+interactive fiction magazine.  I can move south and west.
 
 > s
 I move south.
@@ -46,9 +44,7 @@ I have a walk-in-closet with lots of room for all my shoes, clothes, and
 whatnots.  Oddly enough, I never really keep my clothes in here.  Instead, I
 always put them in the chest of drawers in my room.  The closet serves other
 purposes, as it has many a use in my make-believes.  Before me lies a broom
-and a dustpan.
-
-I can only move north.
+and a dustpan.  I can only move north.
 
 > get all
 I take the broom and the dustpan.
@@ -67,9 +63,7 @@ animals.  There are shelves above the bed, and a chest of drawers beside it.
 A small window is set into the wall, between the shelves and above the bed,
 and its curtains are waving in the cool breeze.  My closet is to the south,
 and I can reach the second-floor hall by going west.  Before me lies an
-interactive fiction magazine.
-
-I can move south and west.
+interactive fiction magazine.  I can move south and west.
 
 > open drawers
 I open the chest of drawers.  My apron is inside the chest of drawers.
@@ -91,9 +85,7 @@ There are two rooms on the second floor, mine and my older brother's.  Stairs
 lead down from here, and another set leads up into the attic.  My brother's
 door is closed and locked, and a sign is taped to it.  He's always got his
 door closed.  Sometimes I wonder if he's making a bomb in there or something,
-because he's so secretive about things.
-
-I can move east, up and down.
+because he's so secretive about things.  I can move east, up and down.
 
 > d
 I move down.
@@ -109,9 +101,7 @@ well as a couch and a coffee table.  Stairs lead up from here to the upstairs
 hall.  The kitchen lies to the north of here, my parents' bedroom to the west
 (off-limits to me), and the bathroom is to the east.  A door leading to the
 outside is to the south, but I can't go that way yet.  Dad is here, lounging
-on the couch and smoking a cigarette.
-
-I can move north, east and up.
+on the couch and smoking a cigarette.  I can move north, east and up.
 
 > e
 I move east.
@@ -123,9 +113,7 @@ Bathroom
 The bathroom is rather simple.  It consists of a sink, a toilet, and a
 bathtub.  A medicine cabinet is built into the wall above the sink, and a
 drawer is built in underneath it.  A towel rack is tacked up next to the
-bathtub.
-
-I can only move west.
+bathtub.  I can only move west.
 
 > open drawer
 I open the sink drawer.  A light bulb is inside the sink drawer.
@@ -154,9 +142,7 @@ well as a couch and a coffee table.  Stairs lead up from here to the upstairs
 hall.  The kitchen lies to the north of here, my parents' bedroom to the west
 (off-limits to me), and the bathroom is to the east.  A door leading to the
 outside is to the south, but I can't go that way yet.  Dad is here, lounging
-on the couch and smoking a cigarette.
-
-I can move north, east and up.
+on the couch and smoking a cigarette.  I can move north, east and up.
 
 > u
 I move up.
@@ -169,9 +155,7 @@ There are two rooms on the second floor, mine and my older brother's.  Stairs
 lead down from here, and another set leads up into the attic.  My brother's
 door is closed and locked, and a sign is taped to it.  He's always got his
 door closed.  Sometimes I wonder if he's making a bomb in there or something,
-because he's so secretive about things.
-
-I can move east, up and down.
+because he's so secretive about things.  I can move east, up and down.
 
 > u
 I move up.
@@ -182,9 +166,8 @@ The Attic
 
 I can't see anything up here... perhaps because the overhead light fixture
 has no bulb in it.  I find that it might be necessary to replace the bulb
-before I can do anything up here besides stumble around in the dark.
-
-I can only move down.
+before I can do anything up here besides stumble around in the dark.  I can
+only move down.
 
 > replace bulb
 Ahh... that's much better.  I can see now.
@@ -200,9 +183,7 @@ upright from end to end, even in the more narrow corners.  It is also very
 dusty, and a thick layer of dirt covers the floor.  Cobwebs hang from the
 ceiling, many with their own little spider smack-dab in the middle.  A heavy
 chest sits in the eastern corner, and Christmas decorations are piled up
-against the western wall.
-
-I can only move down.
+against the western wall.  I can only move down.
 
 > clean attic
 
@@ -230,9 +211,7 @@ The attic is pretty big, its ceiling high enough that I could easily walk
 upright from end to end, even in the more narrow corners.  It looks very nice
 and cozy up here, with the possible reason being that it just received a good
 cleaning.  A heavy chest sits in the eastern corner, and Christmas
-decorations are piled up against the western wall.
-
-I can only move down.
+decorations are piled up against the western wall.  I can only move down.
 
 > open chest
 I'll have to say this right now...  This is probably the single most
@@ -288,9 +267,7 @@ The attic is pretty big, its ceiling high enough that I could easily walk
 upright from end to end, even in the more narrow corners.  It looks very nice
 and cozy up here, with the possible reason being that it just received a good
 cleaning.  A heavy chest sits in the eastern corner, and Christmas
-decorations are piled up against the western wall.
-
-I can only move down.
+decorations are piled up against the western wall.  I can only move down.
 
 > d
 I move down.
@@ -303,9 +280,7 @@ There are two rooms on the second floor, mine and my older brother's.  Stairs
 lead down from here, and another set leads up into the attic.  My brother's
 door is closed and locked, and a sign is taped to it.  He's always got his
 door closed.  Sometimes I wonder if he's making a bomb in there or something,
-because he's so secretive about things.
-
-I can move east, up and down.
+because he's so secretive about things.  I can move east, up and down.
 
 > d
 I move down.
@@ -321,9 +296,7 @@ well as a couch and coffee table.  Stairs lead up from here to the upstairs
 hall.  The kitchen lies to the north of here, my parents' bedroom to the west
 (off-limits to me), and the bathroom is to the east.  A door leading to the
 outside is to the south.  Dad is here, lounging on the couch and smoking a
-cigarette.
-
-I can move north, east, south and up.
+cigarette.  I can move north, east, south and up.
 
 > s
 I move south.
@@ -339,9 +312,7 @@ to the driveway, which on its southern end terminates at the fence.  My
 father's car is parked in the drive, as it is every weekend that he's off
 from work.  It is late summer... those lazy days before school starts back
 up, and I can hear the laughter of my neighborhood friends playing some game
-or the other off in the distance.
-
-I can move north and east.
+or the other off in the distance.  I can move north and east.
 
 > e
 I move east.
@@ -359,9 +330,7 @@ would lead me into Splintered Rock state park (a place where one can often
 find me).  After a short walk in a southerly direction, I can get to the town
 proper, where I would find Mystery's General Store and Adrift's Aquatic Pets.
  My house is to the west, and my friend Devon's house is to the east.  I can
-hear laughter coming from the south.
-
-I can move north, east, south and west.
+hear laughter coming from the south.  I can move north, east, south and west.
 
 > s
 I move south.
@@ -375,9 +344,8 @@ There are no houses on either side of the street, and there's plenty of room
 to play street hockey, football, and baseball.  The traffic isn't bad at all,
 so it's not very often that a game has to be interrupted to clear the road.
 Sally is here, playing catch.  Tony is here, a ball in his hand, ready to
-pitch to Sally.  Alice is here, drawing on the street with chalk.
-
-I can move north and south.
+pitch to Sally.  Alice is here, drawing on the street with chalk.  I can move
+north and south.
 
 > s
 I move south.
@@ -391,9 +359,7 @@ Aquatic Pets to the east, and Mystery's General Store to the west.  We don't
 have an arcade, we don't have a pool hall, and we don't have any clubs to go
 to (not that I'm old enough to go to clubs anyway.)  As you can see, this is
 a very boring little town.  To the south are more residences, but mom would
-skin me alive if I went further than this.
-
-I can move north, east and west.
+skin me alive if I went further than this.  I can move north, east and west.
 
 > w
 I move west.
@@ -404,9 +370,8 @@ This is where most people in town do their shopping.  You can get almost
 anything here, except for medicinal items, which one has to go all the way to
 Torncloth to buy.  There are several rows here stacked floor to ceiling with
 items.  While it's not exactly a Wal-mart, it is a pretty handy place to go
-when one needs something.  Mystery is here, standing behind the counter.
-
-I can only move east.
+when one needs something.  Mystery is here, standing behind the counter.  I
+can only move east.
 
 > talk to mystery
 "Oooh!  I've got such a splitting headache!"  Mystery says.  "I wish I hadn't
@@ -432,9 +397,7 @@ Aquatic Pets to the east, and Mystery's General Store to the west.  We don't
 have an arcade, we don't have a pool hall, and we don't have any clubs to go
 to (not that I'm old enough to go to clubs anyway.)  As you can see, this is
 a very boring little town.  To the south are more residences, but mom would
-skin me alive if I went further than this.
-
-I can move north, east and west.
+skin me alive if I went further than this.  I can move north, east and west.
 
 > e
 I move east.
@@ -447,9 +410,7 @@ from here, as a test to see if I was ready for taking care of a pet.  I
 failed that test miserably, and my poor little goldfish are probably swimming
 in the sewers right now... belly up.  I like the owner, though.  He lets me
 browse through the merchandise all the time.  Campbell is here, standing
-behind the counter.
-
-I can move east and west.
+behind the counter.  I can move east and west.
 
 > talk to campbell
 "Ahh, my child,"  Campbell says in his strange accent.  "I see that you are
@@ -469,9 +430,7 @@ This is the most ridiculously small bathroom I've ever seen.  There's no sink
 in here, just a toilet, and I dare say it looks rather... skuzzy.  I wonder
 if Campbell ever cleans up in here.  What am I doing in here, anyway?  I
 don't need to use the bathroom.  I hope Campbell doesn't get mad about me
-wandering in here without his permission.
-
-I can only move west.
+wandering in here without his permission.  I can only move west.
 
 > x toilet
 It's a really nasty looking toilet.  I'd be afraid to sit down on it, as my
@@ -495,9 +454,7 @@ from here, as a test to see if I was ready for taking care of a pet.  I
 failed that test miserably, and my poor little goldfish are probably swimming
 in the sewers right now... belly up.  I like the owner, though.  He lets me
 browse through the merchandise all the time.  Campbell is here, standing
-behind the counter.
-
-I can move east and west.
+behind the counter.  I can move east and west.
 
 > give salamander to campbell
 "Wonderful!" Campbell says.  "Where'd you find it?" ... "There?!!  What in
@@ -525,9 +482,7 @@ Aquatic Pets to the east, and Mystery's General Store to the west.  We don't
 have an arcade, we don't have a pool hall, and we don't have any clubs to go
 to (not that I'm old enough to go to clubs anyway.)  As you can see, this is
 a very boring little town.  To the south are more residences, but mom would
-skin me alive if I went further than this.
-
-I can move north, east and west.
+skin me alive if I went further than this.  I can move north, east and west.
 
 > n
 I move north.
@@ -541,9 +496,8 @@ There are no houses on either side of the street, and there's plenty of room
 to play street hockey, football, and baseball.  The traffic isn't bad at all,
 so it's not very often that a game has to be interrupted to clear the road.
 Sally is here, playing catch.  Tony is here, a ball in his hand, ready to
-pitch to Sally.  Alice is here, drawing on the street with chalk.
-
-I can move north and south.
+pitch to Sally.  Alice is here, drawing on the street with chalk.  I can move
+north and south.
 
 > n
 I move north.
@@ -561,9 +515,7 @@ would lead me into Splintered Rock state park (a place where one can often
 find me).  After a short walk in a southerly direction, I can get to the town
 proper, where I would find Mystery's General Store and Adrift's Aquatic Pets.
  My house is to the west, and my friend Devon's house is to the east.  I can
-hear laughter coming from the south.
-
-I can move north, east, south and west.
+hear laughter coming from the south.  I can move north, east, south and west.
 
 > e
 I move east.
@@ -578,9 +530,8 @@ and the mosquitoes to come out.  Then, protected by mosquito repellent, we
 rock back and forth on the porch swing and watch the mosquitoes get fried by
 the industrial sized bug zapper.  It's loads of fun when there is not much
 else to do, especially when one of the larger bugs makes it through the wire
-mesh of the zapper.  Devon is here, sitting on the swing.
-
-I can move south and west.
+mesh of the zapper.  Devon is here, sitting on the swing.  I can move south
+and west.
 
 > s
 I move south.
@@ -595,9 +546,7 @@ always looks nice.  Smack dab in the middle of the beautiful greenery is an
 ugly tool shed, where he keeps all his plumbing tools and supplies.  Because
 this is such a small town, there's not much of a chance that someone is going
 to steal his tools, so he usually keeps the shed unlocked and the door wide
-open.
-
-I can move north and in.
+open.  I can move north and in.
 
 > in
 I move in.
@@ -611,9 +560,7 @@ toolshed.  Every tool has its own place, and every nail, screw, staple, and
 washer has its own jar.  What's more, several of the tools look brand new...
 not because they are, but because Devon's father is so adamant about cleaning
 and polishing them after each use.  Before me lies a one-handed pickaxe and a
-zippo lighter.
-
-I can only move out.
+zippo lighter.  I can only move out.
 
 > get all
 I take the one-handed pickaxe and the zippo lighter.
@@ -631,9 +578,7 @@ always looks nice.  Smack dab in the middle of the beautiful greenery is an
 ugly tool shed, where he keeps all his plumbing tools and supplies.  Because
 this is such a small town, there's not much of a chance that someone is going
 to steal his tools, so he usually keeps the shed unlocked and the door wide
-open.
-
-I can move north and in.
+open.  I can move north and in.
 
 > n
 I move north.
@@ -648,9 +593,8 @@ and the mosquitoes to come out.  Then, protected by mosquito repellent, we
 rock back and forth on the porch swing and watch the mosquitoes get fried by
 the industrial sized bug zapper.  It's loads of fun when there is not much
 else to do, especially when one of the larger bugs makes it through the wire
-mesh of the zapper.  Devon is here, sitting on the swing.
-
-I can move south and west.
+mesh of the zapper.  Devon is here, sitting on the swing.  I can move south
+and west.
 
 > w
 I move west.
@@ -668,9 +612,7 @@ would lead me into Splintered Rock state park (a place where one can often
 find me).  After a short walk in a southerly direction, I can get to the town
 proper, where I would find Mystery's General Store and Adrift's Aquatic Pets.
  My house is to the west, and my friend Devon's house is to the east.  I can
-hear laughter coming from the south.
-
-I can move north, east, south and west.
+hear laughter coming from the south.  I can move north, east, south and west.
 
 > n
 I move north.
@@ -683,9 +625,7 @@ I'm at the city limits, which is how far my parents will allow me to walk
 alone.  That's excluding the State Park, which I can reach by walking east
 along the county road.  They (my mom and dad) think that it's good for
 someone my age to take an interest in the great outdoors, so naturally they
-support my wilderness activities.
-
-I can move east and south.
+support my wilderness activities.  I can move east and south.
 
 > e
 I move east.
@@ -698,9 +638,7 @@ It's a decent little trek to the entrance to the park, but once there it is
 not too far at all until I reach the nature trail.  The nature trail itself
 will lead right up to the Great Falls, the only waterfall this side of the
 county line.  Supposedly, that's where I'll find the cave entrance that the
-treasure map mentioned.
-
-I can move east and west.
+treasure map mentioned.  I can move east and west.
 
 > e
 I move east.
@@ -713,9 +651,7 @@ I'm almost to the park.  I can see the entrance not too far ahead of me, and
 in the distance I can hear park visitors talking amongst themselves as they
 enjoy the wildlife.  The road here is no longer paved, and the walk is a
 little more tiresome on the loose gravel, but I don't have that much longer
-to go.
-
-I can move east and west.
+to go.  I can move east and west.
 
 > e
 I move east.
@@ -727,9 +663,7 @@ Entrance
 The park trail leads north into the woods from here, and the county road ends
 in a gravel parking lot, where a few bicycles and a car are parked.  At the
 entrance to the park trail a wooden arch has been erected, and around the lot
-rotting railroad ties define the boundary.
-
-I can move north and west.
+rotting railroad ties define the boundary.  I can move north and west.
 
 > n
 I move north.
@@ -741,9 +675,7 @@ Park Trail
 I'm on the park trail.  I'm afraid that I'm not the only person that has been
 through here today, as some of the trash lying around looks like it's still
 fresh.  People around here seem to have no respect for the environment.  To
-the south is the entrance to the trail.
-
-I can move north and south.
+the south is the entrance to the trail.  I can move north and south.
 
 > n
 I move north.
@@ -758,9 +690,7 @@ there's a lovely view of the rest of the forest.  The land is slightly
 elevated here, and one can look down at all the trees below.  What's most
 remarkable about this spot, though, is that one can hear the roar of the
 nearby waterfall, which is just a hop, skip, and a jump away.  The path from
-here leads directly down to the falls.
-
-I can move south and down.
+here leads directly down to the falls.  I can move south and down.
 
 > d
 I move down.
@@ -774,9 +704,7 @@ down the rocky cliffs here.  The falls are beautiful, and I've been known to
 sit and watch them all day.  Just to the north, the path leads on deeper into
 the forest.  To the east, the Snake river heads to the north along the path.
 What I'm interested in, however, is the little rocky ledge that I can walk
-along to get behind the waterfall.
-
-I can move up and in.
+along to get behind the waterfall.  I can move up and in.
 
 > in
 I move in.
@@ -790,9 +718,7 @@ could have imagined what they look like from the inside.  One would have to
 see it to believe it, and I cannot describe in words what it's like to be
 behind a waterfall.  Of course, I can't stand around here enjoying the
 scenery all day, now can I?  Before me lies a pile of rocks that seem to be
-cemented into the cliff's wall.
-
-I can only move out.
+cemented into the cliff's wall.  I can only move out.
 
 > use pickaxe on wall
 
@@ -812,9 +738,7 @@ could have imagined what they look like from the inside.  One would have to
 see it to believe it, and I cannot describe in words what it's like to be
 behind a waterfall.  Of course, I can't stand around here enjoying the
 scenery all day, now can I?  Before me lies a pile of rubble and a nice
-little hole in the cliff wall.
-
-I can move in and out.
+little hole in the cliff wall.  I can move in and out.
 
 > in
 I move in.
@@ -827,9 +751,8 @@ I should have thought about it before, but it seems as if the problem I might
 have had with lighting is in no need of being taken care of.  A strange glow
 comes from some of the mushrooms that are scattered around the cave floor,
 giving me plenty of light to see by.  I'm curious as to what type of
-mushrooms these are, as I've never seen anything quite like them.
-
-I can move north, east, south and out.
+mushrooms these are, as I've never seen anything quite like them.  I can move
+north, east, south and out.
 
 > s
 I move south.
@@ -842,9 +765,7 @@ This cavern is huge!  It looks a lot like a theater, with the way the
 boulders are arranged.  A large, level rock formation on the eastern end of
 the room looks just like a stage.  I bet that if anyone so desired, they
 could rent this place out for plays and musicals.  Perhaps once I find the
-gold I'll tell my music teacher about it.
-
-I can move north and south.
+gold I'll tell my music teacher about it.  I can move north and south.
 
 > s
 I move south.
@@ -856,9 +777,7 @@ The Hall of Vines
 Vines in a cave?  I'm assuming their really the roots of the trees above, but
 they hang down all around this hallway just like vines.  Some of them are
 really long, some are really short, and some of them wrap all the way around
-the hall multiple times.
-
-I can move north and east.
+the hall multiple times.  I can move north and east.
 
 > e
 I move east.
@@ -871,9 +790,7 @@ This room branches off from the Hall of Vines, and it looks fairly
 unremarkable compared to some of the rooms I've seen so far.  There is a
 small wooden chair here, perhaps used by my great-grandfather himself those
 many years ago.  On the eastern wall there are more vines, but unlike the
-others they are brown and dried up.
-
-I can only move west.
+others they are brown and dried up.  I can only move west.
 
 > burn vines
 Striking up the lighter, I set the flame to the vines.
@@ -894,9 +811,7 @@ Small Room
 This room branches off from the Hall of Vines, and it looks fairly
 unremarkable compared to some of the rooms I've seen so far.  There is a
 small wooden chair here, perhaps used by my great-grandfather himself those
-many years ago.
-
-I can move east and west.
+many years ago.  I can move east and west.
 
 > e
 I move east.
@@ -909,9 +824,7 @@ I can hear the river in here, and it sounds like a freight train going
 through.  The walls of this cave amplify the sound in a way that is not found
 in any other part of these caverns.  The Snake River must be just above my
 head.  When I think about all that running water, it gives me the chills.
-Before me lies a sturdy rope.
-
-I can only move west.
+Before me lies a sturdy rope.  I can only move west.
 
 > get rope
 I take the sturdy rope.
@@ -926,9 +839,7 @@ Small Room
 This room branches off from the Hall of Vines, and it looks fairly
 unremarkable compared to some of the rooms I've seen so far.  There is a
 small wooden chair here, perhaps used by my great-grandfather himself those
-many years ago.  Before me lies a pile of ash.
-
-I can move east and west.
+many years ago.  Before me lies a pile of ash.  I can move east and west.
 
 > w
 I move west.
@@ -940,9 +851,7 @@ The Hall of Vines
 Vines in a cave?  I'm assuming their really the roots of the trees above, but
 they hang down all around this hallway just like vines.  Some of them are
 really long, some are really short, and some of them wrap all the way around
-the hall multiple times.
-
-I can move north and east.
+the hall multiple times.  I can move north and east.
 
 > n
 I move north.
@@ -955,9 +864,7 @@ This cavern is huge!  It looks a lot like a theater, with the way the
 boulders are arranged.  A large, level rock formation on the eastern end of
 the room looks just like a stage.  I bet that if anyone so desired, they
 could rent this place out for plays and musicals.  Perhaps once I find the
-gold I'll tell my music teacher about it.
-
-I can move north and south.
+gold I'll tell my music teacher about it.  I can move north and south.
 
 > n
 I move north.
@@ -970,9 +877,8 @@ I should have thought about it before, but it seems as if the problem I might
 have had with lighting is in no need of being taken care of.  A strange glow
 comes from some of the mushrooms that are scattered around the cave floor,
 giving me plenty of light to see by.  I'm curious as to what type of
-mushrooms these are, as I've never seen anything quite like them.
-
-I can move north, east, south and out.
+mushrooms these are, as I've never seen anything quite like them.  I can move
+north, east, south and out.
 
 > n
 I move north.
@@ -985,9 +891,7 @@ Ugh!  I can't believe that I squeezed myself into this place.  I've never
 been in a place so cramped.  I guess that's why you've got to have nerves of
 steel to be a cave explorer.  I could have never imagined!  Oh, but there's
 more of those weird mushrooms in here, and I can see quite well.  Before me
-lies an antique gold watch.
-
-I can only move south.
+lies an antique gold watch.  I can only move south.
 
 > get watch
 I take the antique gold watch.
@@ -1003,9 +907,8 @@ I should have thought about it before, but it seems as if the problem I might
 have had with lighting is in no need of being taken care of.  A strange glow
 comes from some of the mushrooms that are scattered around the cave floor,
 giving me plenty of light to see by.  I'm curious as to what type of
-mushrooms these are, as I've never seen anything quite like them.
-
-I can move north, east, south and out.
+mushrooms these are, as I've never seen anything quite like them.  I can move
+north, east, south and out.
 
 > e
 I move east.
@@ -1017,9 +920,7 @@ Maria's Hall
 This hall is so long and magnificent!  I shall name it Maria's Hall, after
 its discoverer.  It stretches for almost a football field's length east and
 west, and with indeed it is worthy of my name.  It seems this hall slopes
-downward as it travels east.
-
-I can move north, east, south and west.
+downward as it travels east.  I can move north, east, south and west.
 
 > s
 I move south.
@@ -1033,9 +934,7 @@ lurking in this room, but it could just be my mind playing tricks on me.
 Every time I turn my head, I catch a glimpse of something out of the corner
 of my eye.  I shall call this the "Cave of Evil," because that's a fitting
 name for it.  I really don't like the idea of staying here very long.  Before
-me lies an antique cross.
-
-I can only move north.
+me lies an antique cross.  I can only move north.
 
 > get cross
 I take the antique cross.
@@ -1050,9 +949,7 @@ Maria's Hall
 This hall is so long and magnificent!  I shall name it Maria's Hall, after
 its discoverer.  It stretches for almost a football field's length east and
 west, and with indeed it is worthy of my name.  It seems this hall slopes
-downward as it travels east.
-
-I can move north, east, south and west.
+downward as it travels east.  I can move north, east, south and west.
 
 > n
 I move north.
@@ -1066,9 +963,7 @@ hang from the ceiling, and stalagmites reach up from the floor.  I was taught
 in school to think of it this way.  A stalactite is hanging on "tite" for
 dear life.  A stalagmite is hoping that it "mite" reach all the way to the
 ceiling some day.  This room is filled with stalactites.  Before me lies an
-antique china plate.
-
-I can only move south.
+antique china plate.  I can only move south.
 
 > get plate
 I take the antique china plate.
@@ -1083,9 +978,7 @@ Maria's Hall
 This hall is so long and magnificent!  I shall name it Maria's Hall, after
 its discoverer.  It stretches for almost a football field's length east and
 west, and with indeed it is worthy of my name.  It seems this hall slopes
-downward as it travels east.
-
-I can move north, east, south and west.
+downward as it travels east.  I can move north, east, south and west.
 
 > e
 I move east.
@@ -1098,9 +991,7 @@ Holy cripes!  A big frickin' rattlesnake sits in the corner of this room!
 I'm too scared to go anywhere but the way I entered from.  I've got to get
 rid of it somehow!
 
-...  Before me lies the snake.
-
-I can only move west.
+...  Before me lies the snake.  I can only move west.
 
 > unleash the mongoose
 My precious little baby...  Campbell must have known I would need you, and I
@@ -1124,9 +1015,7 @@ Riki Tiki Cavern
 I now dub this room the Riki Tiki Cavern, in honor of the glorious battle
 that my mongoose fought.  I'm so proud of that little thing!  The rattlesnake
 is gone, and now I can explore further through the caves.  Before me lies the
-snake.
-
-I can move east and west.
+snake.  I can move east and west.
 
 > e
 I move east.
@@ -1140,9 +1029,8 @@ room there is a large pit, which looks like it goes down quite a ways.  Off
 to its side, there is a stalagmite, reaching up towards the ceiling.  There
 are no other rooms save the one I entered from.  I'm supposing that I need to
 descend into the pit to get any further, and to do that, I need some rope.  I
-could tie the rope to the stalagmite and throw it down into the pit.
-
-I can only move west.
+could tie the rope to the stalagmite and throw it down into the pit.  I can
+only move west.
 
 > tie the rope to the stalagmite
 
@@ -1163,9 +1051,7 @@ I shall call this room the pit, and I'll explain why.  In the center of the
 room there is a large pit, which looks like it goes down quite a ways.  Off
 to its side, there is a stalagmite, reaching up towards the ceiling.  My rope
 is tied to the stalagmite, and it is also hanging down into the pit, so now I
-can descend downward if I wish.
-
-I can move west and down.
+can descend downward if I wish.  I can move west and down.
 
 > d
 I move down.
@@ -1177,9 +1063,7 @@ Great Gramp's Hideout
 This has to have been my great-grandfather Rupert's hideout.  There's a chair
 here, and the petrified remains of a campfire.  There's also a treasure chest
 off to the side of the room, but it appears too small for the housing of
-three million dollars worth of gold.
-
-I can move east and up.
+three million dollars worth of gold.  I can move east and up.
 
 > open chest
 I open the treasure chest.  An antique compass is inside the treasure chest.
@@ -1200,9 +1084,7 @@ enough of a chance.  I can still escape, or I could always try to feed it
 something (besides myself).  Now what, besides little girls, do bears like to
 eat?
 
-...  Before me lies the hungry cave bear.
-
-I can only move west.
+...  Before me lies the hungry cave bear.  I can only move west.
 
 > feed the honey to the bear
 
@@ -1222,9 +1104,8 @@ The Bear's Lair
 In this room I narrowly escaped with my life, but I am now free to explore
 the rest of the cave.  The gold is near, I can feel it in my bones.  I'm just
 a little way away from becoming the richest kid in Splintered Rock!  I can't
-wait to find it!  Before me lies the hungry cave bear.
-
-I can move east and west.
+wait to find it!  Before me lies the hungry cave bear.  I can move east and
+west.
 
 > e
 I move east.
@@ -1364,9 +1245,8 @@ Closet
 
 The Trask boys live in a nasty house, and this is a nasty closet.  I can't
 believe that they actually expected me to stay in here the rest of my life!
-Well, I'm not about to give them that pleasure.  I'm getting out of here!
-
-I can only move west.
+Well, I'm not about to give them that pleasure.  I'm getting out of here!  I
+can only move west.
 
 > w
 I move west.
@@ -1381,9 +1261,7 @@ in the house, and there's no furniture!  I guess it makes a decent hideout,
 though.  I don't particularly care for it.  As a matter of fact, I like it
 just as much as I like my would-be captors, which is not at all.  I've made
 it this far, though, and I'm not planning on sticking around long enough for
-them to get back.
-
-I can move east and west.
+them to get back.  I can move east and west.
 
 > w
 I move west.
@@ -1394,9 +1272,8 @@ Main Street
 
 I'm in luck!  I can see the Police Station to the north of here.  The hated
 Trask house is to the east, and I'm in the clear.  Perhaps I should be
-getting to the police now.  I'm sure they'd love to hear my story.
-
-I can move north and east.
+getting to the police now.  I'm sure they'd love to hear my story.  I can
+move north and east.
 
 > n
 I move north.
@@ -1409,9 +1286,8 @@ The police station is to the east of me, and it looks like all the lights are
 blazing inside.  To my west, there's an antique shop, and it looks like it
 might be open as well.  I have no idea what time it is, but it's probably not
 after 10:00, as that's when most places close down in these smaller towns.
-As I stand here, in the street, I take deep breaths of free air.
-
-I can move east, south and west.
+As I stand here, in the street, I take deep breaths of free air.  I can move
+east, south and west.
 
 > w
 I move west.
@@ -1424,8 +1300,7 @@ of interesting items are scattered about the place, and the shopkeeper is a
 wise looking old man that doesn't seem as if he'll do me any harm.  Despite
 my situation, I probably wouldn't mind sticking around here for a little bit.
  Barlow is here, wishing someone might give him some antique items for trade.
-
-I can only move east.
+ I can only move east.
 
 > give watch to barlow
 "Oh, this?  Ooh, this is worth quite a bit!  I can't pay you now, but I can
@@ -1454,9 +1329,8 @@ The police station is to the east of me, and it looks like all the lights are
 blazing inside.  To my west, there's an antique shop, and it looks like it
 might be open as well.  I have no idea what time it is, but it's probably not
 after 10:00, as that's when most places close down in these smaller towns.
-As I stand here, in the street, I take deep breaths of free air.
-
-I can move east, south and west.
+As I stand here, in the street, I take deep breaths of free air.  I can move
+east, south and west.
 
 > e
 I move east.

@@ -34,9 +34,7 @@ plane. And you realise you have to get off. But How?
 > east
 You move east.
 It is a small passage, north is the cockpit south is the toilet. And in the
-corner is the boarding door.
-
-You can move north and west.
+corner is the boarding door.  You can move north and west.
 
 > north
 You move north.
@@ -50,9 +48,7 @@ and got shot in the leg as punishment. He must have refused again and that is
 where the two gunshots to the head came from. On the back of the pilot you
 notice a parachute. You notice a glimmer of red light in the corner.Oh
 Crap!!! you cry. It is a second bomb.  Also here is second bomb 2 and your
-parachute.
-
-You can only move south.
+parachute.  You can only move south.
 
 > take parachute
 You have taken the parachute.
@@ -60,9 +56,7 @@ You have taken the parachute.
 > south
 You move south.
 It is a small passage, north is the cockpit south is the toilet. And in the
-corner is the boarding door.
-
-You can move north and west.
+corner is the boarding door.  You can move north and west.
 
 > open door
 We need more force to open that door.

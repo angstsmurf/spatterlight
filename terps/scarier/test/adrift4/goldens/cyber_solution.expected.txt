@@ -7,17 +7,14 @@ You are in the the Coffee House you've been going to for as long as you can
 remember. All your friends are here, talking away as if there is not a care
 in the world. You also have heard that there was trouble by the BluDeath
 Mountains. This place is also under construction.  Lightning is practicing
-his electricity here.
-
-You can only move south.
+his electricity here.  You can only move south.
 
 > s
 You move south.
 
 Teleporter room
-You go into a large room with a teleporter in the center.
-
-You can only move north.
+You go into a large room with a teleporter in the center.  You can only move
+north.
 
 > open teleporter
 You open the teleporter.
@@ -27,18 +24,14 @@ you are teleported!
 
 BluDeath Mountains
 You are in extremely cold mountains, but you dont care! You are heated by
-your fire powers.
-
-You can move west and in.
+your fire powers.  You can move west and in.
 
 > out
 You move out.
 
 BluDeath Mountains
 You are in extremely cold mountains, but you dont care! You are heated by
-your fire powers.
-
-You can move west and in.
+your fire powers.  You can move west and in.
 
 > w
 You move west.
@@ -46,60 +39,50 @@ You move west.
 Cave
 You are in a cave in the mountains. You notice in the back of the cave is a
 strange portal. You remember hearing about these in class, it is a portal to
-a different demension, often called a Cyber Warp.
-
-You can only move east.
+a different demension, often called a Cyber Warp.  You can only move east.
 
 > enter warp
 you enter the cyber warp, but the amount of electricity is too much for
 Lightning! He is sucked in!
 
 Bisstonia
-Lightning was just sucked in. You must find him.
-
-You can only move northeast.
+Lightning was just sucked in. You must find him.  You can only move
+northeast.
 
 > ne
 You move northeast.
 
 Back Alley
-You are in a back alley of a resturant where they serve mice......
-
-You can move in and southwest.
+You are in a back alley of a resturant where they serve mice......  You can
+move in and southwest.
 
 > in
 You move in.
 
 Kitchen
 You are in the mice kitchen. There is a chef that is choppin' them up.  Mice
-Chef is here.
-
-You can move east and out.
+Chef is here.  You can move east and out.
 
 > e
 You move east.
 
 Dining Area
 You are in the dining area of the grose resturant, and there are people
-eating it........
-
-You can move east, west and out.
+eating it........  You can move east, west and out.
 
 > out
 You move out.
 
 Main Street
 You are on a main street. You can see a large building with high security.
-
 You can move north and in.
 
 > n
 You move north.
 
 Large Building
-You are in a large building, where two guards are.
-
-You can move north and south.
+You are in a large building, where two guards are.  You can move north and
+south.
 
 > use fireball
 You use fireball, and you kill the guards.
@@ -112,16 +95,14 @@ shoots ice at Lightning, and he is injured. You must carry him back.
 You move south.
 
 Large Building
-You are in a large building, where two guards are.
-
-You can move north and south.
+You are in a large building, where two guards are.  You can move north and
+south.
 
 > s
 You move south.
 
 Main Street
 You are on a main street. You can see a large building with high security.
-
 You can move north and in.
 
 > in
@@ -129,35 +110,28 @@ You move in.
 
 Dining Area
 You are in the dining area of the grose resturant, and there are people
-eating it........
-
-You can move east, west and out.
+eating it........  You can move east, west and out.
 
 > e
 You move east.
 
 Kitchen
 You are in the mice kitchen. There is a chef that is choppin' them up.  Mice
-Chef is here.
-
-You can move east and out.
+Chef is here.  You can move east and out.
 
 > out
 You move out.
 
 Back Alley
-You are in a back alley of a resturant where they serve mice......
-
-You can move in and southwest.
+You are in a back alley of a resturant where they serve mice......  You can
+move in and southwest.
 
 > sw
 You move southwest.
 
 Bisstonia
 Lightning was just sucked in. You must find him.  You must go back through
-the warp.
-
-You can only move northeast.
+the warp.  You can only move northeast.
 
 > enter back through warp
 You jump through the warp, and suddenly, before Lightning can enter, it

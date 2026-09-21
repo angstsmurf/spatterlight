@@ -11,9 +11,7 @@ What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
-here.
-
-You can move north, east, south and west.
+here.  You can move north, east, south and west.
 
 > e
 You move east.
@@ -21,9 +19,7 @@ You move east.
 Outside the Shack
 There's a shack here. It's made of bright blue wood and has a purple door.
 There are two lanterns hanging from each side of the door. There are pink
-flames illuminating them. Wonder what's inside?
-
-You can move west and in.
+flames illuminating them. Wonder what's inside?  You can move west and in.
 
 > in
 You move in.
@@ -33,9 +29,7 @@ It's a cramped and cluttered little shack with various trinkets lying all
 over the place. There is a wooden table with some things on it, and a
 bookshelf as well. Watch your step, or else you might hurt yourself on all of
 the junk. Through a little window you can see the sky, and the strange
-outside world.
-
-You can only move out.
+outside world.  You can only move out.
 
 > x wooden table
 It's just a plain old wooden table. It's got a bunch of junk on it.  A shiny
@@ -57,9 +51,7 @@ You move out.
 Outside the Shack
 There's a shack here. It's made of bright blue wood and has a purple door.
 There are two lanterns hanging from each side of the door. There are pink
-flames illuminating them. Wonder what's inside?
-
-You can move west and in.
+flames illuminating them. Wonder what's inside?  You can move west and in.
 
 > w
 You move west.
@@ -69,9 +61,7 @@ What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
-here.
-
-You can move north, east, south and west.
+here.  You can move north, east, south and west.
 
 > w
 You move west.
@@ -79,9 +69,8 @@ You move west.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.  Merchant is here.
-
-You can move east and west.
+the stand is a merchant wearing colorful clothes.  Merchant is here.  You can
+move east and west.
 
 > talk to merchant
 "You can ask me about these 'ere items, if you like."
@@ -96,9 +85,7 @@ You move west.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
-can't tell.  Old Man is here.
-
-You can move east and west.
+can't tell.  Old Man is here.  You can move east and west.
 
 > talk to old man
 As you approach the old man, you can hear him babbling to himself. "... back
@@ -114,9 +101,7 @@ You move west.
 
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
-not. It kind of smells.
-
-You can move east and in.
+not. It kind of smells.  You can move east and in.
 
 > in
 You move in.
@@ -124,9 +109,7 @@ You move in.
 Outhouse
 It's really cramped in here. And it smells. Do you really have to go to the
 bathroom that bad? There is a hole here for doing your business, and a lever
-to flush with.  Also here is some TP.
-
-You can only move out.
+to flush with.  Also here is some TP.  You can only move out.
 
 > take tp
 You pick up the TP.
@@ -143,18 +126,14 @@ You move out.
 
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
-not. It kind of smells.
-
-You can move east and in.
+not. It kind of smells.  You can move east and in.
 
 > e
 You move east.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
-can't tell.  Old Man is here.
-
-You can move east and west.
+can't tell.  Old Man is here.  You can move east and west.
 
 > e
 You move east.
@@ -162,9 +141,8 @@ You move east.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.  Merchant is here.
-
-You can move east and west.
+the stand is a merchant wearing colorful clothes.  Merchant is here.  You can
+move east and west.
 
 > e
 You move east.
@@ -174,17 +152,14 @@ What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
-here.
-
-You can move north, east, south and west.
+here.  You can move north, east, south and west.
 
 > s
 You move south.
 
 Tree
-There is a huge dead tree here.  Squirrel is here.
-
-You can move north and south.
+There is a huge dead tree here.  Squirrel is here.  You can move north and
+south.
 
 > talk to squirrel
 "Oh, man! I'm so hungry. So hungry I cant MOVE. I mean oh my GOD. Hey, you?
@@ -215,9 +190,8 @@ You move south.
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
 in what seems like the middle of nowhere. Looks like a good place to take a
-break. There is a sign here.  Also here is a tea cup.
-
-You can move north and south.  Squirrel scampers up from the north.
+break. There is a sign here.  Also here is a tea cup.  You can move north and
+south.  Squirrel scampers up from the north.
 
 > take cup
 You pick up the tea cup.
@@ -226,9 +200,8 @@ You pick up the tea cup.
 You move north.
 
 Tree
-There is a huge dead tree here.
-
-You can move north and south.  Squirrel scampers up from the south.
+There is a huge dead tree here.  You can move north and south.  Squirrel
+scampers up from the south.
 
 > n
 You move north.
@@ -238,10 +211,8 @@ What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
-here.
-
-You can move north, east, south and west.  Squirrel scampers up from the
-south.
+here.  You can move north, east, south and west.  Squirrel scampers up from
+the south.
 
 > n
 You move north.
@@ -250,9 +221,8 @@ Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
 scary! And I bet there are spiders in there, too. Yuck. Maybe if you had
-someone to help you enter the mansion you could get in.
-
-You can only move south.  Squirrel scampers up from the south.
+someone to help you enter the mansion you could get in.  You can only move
+south.  Squirrel scampers up from the south.
 
 > enter mansion
 The door is locked, but the squirrel senses your frustration and perks up.
@@ -267,9 +237,8 @@ You move west.
 Sewing Room
 This small, quarter-circular room was used for sewing. There is a chair, as
 well as a desk with a sewing machine and some tools on it, and some random
-clutter about the floor.
-
-You can only move east.  Squirrel scampers up from the east.
+clutter about the floor.  You can only move east.  Squirrel scampers up from
+the east.
 
 > x desk
 It is covered in dust. On the desk is a sewing machine and some scissors,
@@ -287,9 +256,8 @@ You move east.
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
-extravagent chandeleir, but it is not lit.
-
-You can move north, east, west and out.  Squirrel scampers up from the west.
+extravagent chandeleir, but it is not lit.  You can move north, east, west
+and out.  Squirrel scampers up from the west.
 
 > e
 You move east.
@@ -297,9 +265,8 @@ You move east.
 Tea Room
 This is a circular room where people have tea. There is a comfy chair, a
 sofa, and a little side table. Everything looks stiff and old. It doesn't
-seem like anything has been touched in ages.
-
-You can only move west.  Squirrel scampers up from the west.
+seem like anything has been touched in ages.  You can only move west.
+Squirrel scampers up from the west.
 
 > x table
 A very small polished oak table. Termites seem to have eaten holes in it, and
@@ -315,9 +282,8 @@ You move west.
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
-extravagent chandeleir, but it is not lit.
-
-You can move north, east, west and out.  Squirrel scampers up from the east.
+extravagent chandeleir, but it is not lit.  You can move north, east, west
+and out.  Squirrel scampers up from the east.
 
 > out
 You move out.
@@ -326,9 +292,8 @@ Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
 scary! And I bet there are spiders in there, too. Yuck. Maybe if you had
-someone to help you enter the mansion you could get in.
-
-You can only move south.  Squirrel scampers up from inside.
+someone to help you enter the mansion you could get in.  You can only move
+south.  Squirrel scampers up from inside.
 
 > s
 You move south.
@@ -338,18 +303,15 @@ What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
-here.
-
-You can move north, east, south and west.  Squirrel scampers up from the
-north.
+here.  You can move north, east, south and west.  Squirrel scampers up from
+the north.
 
 > s
 You move south.
 
 Tree
-There is a huge dead tree here.
-
-You can move north and south.  Squirrel scampers up from the north.
+There is a huge dead tree here.  You can move north and south.  Squirrel
+scampers up from the north.
 
 > s
 You move south.
@@ -357,9 +319,8 @@ You move south.
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
 in what seems like the middle of nowhere. Looks like a good place to take a
-break. There is a sign here.
-
-You can move north and south.  Squirrel scampers up from the north.
+break. There is a sign here.  You can move north and south.  Squirrel
+scampers up from the north.
 
 > prick finger
 You prick your finger over the tea pot and a drop falls in. The tea pot fills
@@ -383,9 +344,8 @@ You place the cup to your lips and drink the tea. Mm, tasty.
 You move north.
 
 Tree
-There is a huge dead tree here.
-
-You can move north and south.  Squirrel scampers up from the south.
+There is a huge dead tree here.  You can move north and south.  Squirrel
+scampers up from the south.
 
 > n
 You move north.
@@ -395,10 +355,8 @@ What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
-here.
-
-You can move north, east, south and west.  Squirrel scampers up from the
-south.
+here.  You can move north, east, south and west.  Squirrel scampers up from
+the south.
 
 > n
 You move north.
@@ -407,17 +365,15 @@ Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
 scary! And I bet there are spiders in there, too. Yuck. Maybe if you had
-someone to help you enter the mansion you could get in.
-
-You can only move south.  Squirrel scampers up from the south.
+someone to help you enter the mansion you could get in.  You can only move
+south.  Squirrel scampers up from the south.
 
 > enter mansion
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
-extravagent chandeleir, but it is not lit.
-
-You can move north, east, west and out.
+extravagent chandeleir, but it is not lit.  You can move north, east, west
+and out.
 
 > n
 You move north.
@@ -428,9 +384,7 @@ echoing. Kinda scary. OH MY GOD WHAT IS THAT?! ...Oh, heh, nothing. Anyway,
 people came here to dance. Once again, it is very dark and empty. Decorations
 have been hanging here for ages and ages. If you use your imagination you can
 almost see the people dancing. There is a peculiar mirror hanging on the
-wall.
-
-You can move north and south.  Squirrel scampers up from the south.
+wall.  You can move north and south.  Squirrel scampers up from the south.
 
 > use statue
 You show the star statue to the mirror and it brings you through to the other
@@ -457,9 +411,8 @@ You move south.
 
 Mirror Mansion Entrance
 Just like the real one, except that the door won't open. Guess you'll have to
-go back through to the other side to leave.
-
-You can move north, east and west.  Squirrel scampers up from the north.
+go back through to the other side to leave.  You can move north, east and
+west.  Squirrel scampers up from the north.
 
 > w
 You move west.
@@ -468,9 +421,8 @@ Music Room
 This is where people come to play or practice music. It is neater than most
 of the other rooms in the mansion and seems to be not so badly kept. There is
 a piano here, and some music stands, and some instruments. There doesn't seem
-to be any actual music here, though.  Also here is a flute.
-
-You can only move east.  Squirrel scampers up from the east.
+to be any actual music here, though.  Also here is a flute.  You can only
+move east.  Squirrel scampers up from the east.
 
 > take flute
 You pick up the flute.
@@ -480,9 +432,8 @@ You move east.
 
 Mirror Mansion Entrance
 Just like the real one, except that the door won't open. Guess you'll have to
-go back through to the other side to leave.
-
-You can move north, east and west.  Squirrel scampers up from the west.
+go back through to the other side to leave.  You can move north, east and
+west.  Squirrel scampers up from the west.
 
 > e
 You move east.
@@ -490,9 +441,8 @@ You move east.
 Library
 This is a library. It is full of books, what were you expecting? You don't
 have time to go digging through these books, so don't bother trying. There is
-a table over there. Maybe it has something useful on it.
-
-You can only move west.  Squirrel scampers up from the west.
+a table over there. Maybe it has something useful on it.  You can only move
+west.  Squirrel scampers up from the west.
 
 > x table
 Just a place to read your books.  A spellbook is on the table.
@@ -505,18 +455,16 @@ You move west.
 
 Mirror Mansion Entrance
 Just like the real one, except that the door won't open. Guess you'll have to
-go back through to the other side to leave.
-
-You can move north, east and west.  Squirrel scampers up from the east.
+go back through to the other side to leave.  You can move north, east and
+west.  Squirrel scampers up from the east.
 
 > n
 You move north.
 
 Mirror Ballroom
 How strange... It's just like the other ballroom, except creepier and
-backwards.  Vampy is here.
-
-You can move east and south.  Squirrel scampers up from the south.
+backwards.  Vampy is here.  You can move east and south.  Squirrel scampers
+up from the south.
 
 > e
 You move east.
@@ -524,7 +472,6 @@ You move east.
 Corridor
 This is a cold, narrow, dead-end corridor that the ghost likes to haunt. The
 walls and floor are made of stone and it is dark and lonely.  Ghost is here.
-
 You can only move west.  Squirrel scampers up from the west.
 
 > talk to ghost
@@ -544,9 +491,8 @@ You move west.
 
 Mirror Ballroom
 How strange... It's just like the other ballroom, except creepier and
-backwards.  Vampy is here.
-
-You can move east and south.  Squirrel scampers up from the east.
+backwards.  Vampy is here.  You can move east and south.  Squirrel scampers
+up from the east.
 
 > talk to vampy
 "You got rid of the ghost for me? Thank you! That was so helpful! Here, I'll
@@ -563,10 +509,9 @@ You move south.
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
-extravagent chandeleir, but it is not lit.
-
-You can move north, east, west and out.  Squirrel scampers up from the north.
- Vampy glides in from the north.
+extravagent chandeleir, but it is not lit.  You can move north, east, west
+and out.  Squirrel scampers up from the north.  Vampy glides in from the
+north.
 
 > out
 You move out.
@@ -575,10 +520,8 @@ Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
 scary! And I bet there are spiders in there, too. Yuck. Maybe if you had
-someone to help you enter the mansion you could get in.
-
-You can only move south.  Squirrel scampers up from inside.  Vampy glides in
-from inside.
+someone to help you enter the mansion you could get in.  You can only move
+south.  Squirrel scampers up from inside.  Vampy glides in from inside.
 
 > s
 You move south.
@@ -588,10 +531,8 @@ What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
-here.
-
-You can move north, east, south and west.  Squirrel scampers up from the
-north.  Vampy glides in from the north.
+here.  You can move north, east, south and west.  Squirrel scampers up from
+the north.  Vampy glides in from the north.
 
 > w
 You move west.
@@ -599,20 +540,17 @@ You move west.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.  Merchant is here.
-
-You can move east and west.  Squirrel scampers up from the east.  Vampy
-glides in from the east.
+the stand is a merchant wearing colorful clothes.  Merchant is here.  You can
+move east and west.  Squirrel scampers up from the east.  Vampy glides in
+from the east.
 
 > w
 You move west.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
-can't tell.  Old Man is here.
-
-You can move east and west.  Squirrel scampers up from the east.  Vampy
-glides in from the east.
+can't tell.  Old Man is here.  You can move east and west.  Squirrel scampers
+up from the east.  Vampy glides in from the east.
 
 > give walking stick to old man
 The old man sees your lame excuse for a walking stick and grins heartily. He
@@ -645,10 +583,9 @@ You move east.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.  Merchant is here.
-
-You can move east and west.  Squirrel scampers up from the west.  Vampy
-glides in from the west.  Old Man hobbles up from the west.
+the stand is a merchant wearing colorful clothes.  Merchant is here.  You can
+move east and west.  Squirrel scampers up from the west.  Vampy glides in
+from the west.  Old Man hobbles up from the west.
 
 > e
 You move east.
@@ -658,19 +595,16 @@ What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
-here.
-
-You can move north, east, south and west.  Squirrel scampers up from the
-west.  Vampy glides in from the west.  Old Man hobbles up from the west.
+here.  You can move north, east, south and west.  Squirrel scampers up from
+the west.  Vampy glides in from the west.  Old Man hobbles up from the west.
 
 > s
 You move south.
 
 Tree
-There is a huge dead tree here.
-
-You can move north and south.  Squirrel scampers up from the north.  Vampy
-glides in from the north.  Old Man hobbles up from the north.
+There is a huge dead tree here.  You can move north and south.  Squirrel
+scampers up from the north.  Vampy glides in from the north.  Old Man hobbles
+up from the north.
 
 > s
 You move south.
@@ -678,10 +612,9 @@ You move south.
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
 in what seems like the middle of nowhere. Looks like a good place to take a
-break. There is a sign here.
-
-You can move north and south.  Squirrel scampers up from the north.  Vampy
-glides in from the north.  Old Man hobbles up from the north.
+break. There is a sign here.  You can move north and south.  Squirrel
+scampers up from the north.  Vampy glides in from the north.  Old Man hobbles
+up from the north.
 
 > s
 The old man sees the lake and cries out with joy. He runs up to the purple
@@ -697,19 +630,17 @@ You move north.
 Tea Time
 There is a frilly pink table with two chairs and a pink tea pot, sitting out
 in what seems like the middle of nowhere. Looks like a good place to take a
-break. There is a sign here.
-
-You can move north and south.  Squirrel scampers up from the south.  Vampy
-glides in from the south.  Old Man hobbles up from the south.
+break. There is a sign here.  You can move north and south.  Squirrel
+scampers up from the south.  Vampy glides in from the south.  Old Man hobbles
+up from the south.
 
 > n
 You move north.
 
 Tree
-There is a huge dead tree here.
-
-You can move north and south.  Squirrel scampers up from the south.  Vampy
-glides in from the south.  Old Man hobbles up from the south.
+There is a huge dead tree here.  You can move north and south.  Squirrel
+scampers up from the south.  Vampy glides in from the south.  Old Man hobbles
+up from the south.
 
 > n
 You move north.
@@ -719,10 +650,9 @@ What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
-here.
-
-You can move north, east, south and west.  Squirrel scampers up from the
-south.  Vampy glides in from the south.  Old Man hobbles up from the south.
+here.  You can move north, east, south and west.  Squirrel scampers up from
+the south.  Vampy glides in from the south.  Old Man hobbles up from the
+south.
 
 > w
 You move west.
@@ -730,30 +660,25 @@ You move west.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.  Merchant is here.
-
-You can move east and west.  Squirrel scampers up from the east.  Vampy
-glides in from the east.  Old Man hobbles up from the east.
+the stand is a merchant wearing colorful clothes.  Merchant is here.  You can
+move east and west.  Squirrel scampers up from the east.  Vampy glides in
+from the east.  Old Man hobbles up from the east.
 
 > w
 You move west.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
-can't tell.
-
-You can move east and west.  Squirrel scampers up from the east.  Vampy
-glides in from the east.  Old Man hobbles up from the east.
+can't tell.  You can move east and west.  Squirrel scampers up from the east.
+ Vampy glides in from the east.  Old Man hobbles up from the east.
 
 > w
 You move west.
 
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
-not. It kind of smells.
-
-You can move east and in.  Squirrel scampers up from the east.  Vampy glides
-in from the east.  Old Man hobbles up from the east.
+not. It kind of smells.  You can move east and in.  Squirrel scampers up from
+the east.  Vampy glides in from the east.  Old Man hobbles up from the east.
 
 > in
 You move in.
@@ -761,10 +686,8 @@ You move in.
 Outhouse
 It's really cramped in here. And it smells. Do you really have to go to the
 bathroom that bad? There is a hole here for doing your business, and a lever
-to flush with.
-
-You can only move out.  Squirrel scampers up from outside.  Vampy glides in
-from outside.  Old Man hobbles up from outside.
+to flush with.  You can only move out.  Squirrel scampers up from outside.
+Vampy glides in from outside.  Old Man hobbles up from outside.
 
 > flush toilet
 You flush the toilet. Now maybe it won't smell so bad in here.
@@ -778,20 +701,16 @@ You move out.
 
 Outside the Outhouse
 Oh, how nice, an outhouse. Why don't you go inside and relieve yourself? Or
-not. It kind of smells.
-
-You can move east and in.  Squirrel scampers up from inside.  Vampy glides in
-from inside.  Old Man hobbles up from inside.
+not. It kind of smells.  You can move east and in.  Squirrel scampers up from
+inside.  Vampy glides in from inside.  Old Man hobbles up from inside.
 
 > e
 You move east.
 
 By the Banana Moon Statue
 There is a statue here of a big banana. Or maybe its a crescent moon. Hell, I
-can't tell.
-
-You can move east and west.  Squirrel scampers up from the west.  Vampy
-glides in from the west.  Old Man hobbles up from the west.
+can't tell.  You can move east and west.  Squirrel scampers up from the west.
+ Vampy glides in from the west.  Old Man hobbles up from the west.
 
 > e
 You move east.
@@ -799,10 +718,9 @@ You move east.
 Merchant's Stand
 In the vast land of checkerboards, you come to something of interest. There
 is a consession stand here with an array of items spread out on it. Behind
-the stand is a merchant wearing colorful clothes.  Merchant is here.
-
-You can move east and west.  Squirrel scampers up from the west.  Vampy
-glides in from the west.  Old Man hobbles up from the west.
+the stand is a merchant wearing colorful clothes.  Merchant is here.  You can
+move east and west.  Squirrel scampers up from the west.  Vampy glides in
+from the west.  Old Man hobbles up from the west.
 
 > e
 You move east.
@@ -812,10 +730,8 @@ What a weird place. It looks like you stepped right into another dimension!
 Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
-here.
-
-You can move north, east, south and west.  Squirrel scampers up from the
-west.  Vampy glides in from the west.  Old Man hobbles up from the west.
+here.  You can move north, east, south and west.  Squirrel scampers up from
+the west.  Vampy glides in from the west.  Old Man hobbles up from the west.
 
 > n
 You move north.
@@ -824,19 +740,16 @@ Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
 scary! And I bet there are spiders in there, too. Yuck. Maybe if you had
-someone to help you enter the mansion you could get in.
-
-You can only move south.  Squirrel scampers up from the south.  Vampy glides
-in from the south.  Old Man hobbles up from the south.
+someone to help you enter the mansion you could get in.  You can only move
+south.  Squirrel scampers up from the south.  Vampy glides in from the south.
+ Old Man hobbles up from the south.
 
 > enter mansion
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
-extravagent chandeleir, but it is not lit.
-
-You can move north, east, west and out.  Vampy glides in.  Old Man hobbles
-up.
+extravagent chandeleir, but it is not lit.  You can move north, east, west
+and out.  Vampy glides in.  Old Man hobbles up.
 
 > n
 You move north.
@@ -847,10 +760,8 @@ echoing. Kinda scary. OH MY GOD WHAT IS THAT?! ...Oh, heh, nothing. Anyway,
 people came here to dance. Once again, it is very dark and empty. Decorations
 have been hanging here for ages and ages. If you use your imagination you can
 almost see the people dancing. There is a peculiar mirror hanging on the
-wall.
-
-You can move north and south.  Squirrel scampers up from the south.  Vampy
-glides in from the south.  Old Man hobbles up from the south.
+wall.  You can move north and south.  Squirrel scampers up from the south.
+Vampy glides in from the south.  Old Man hobbles up from the south.
 
 > n
 You move north.
@@ -858,10 +769,9 @@ You move north.
 Garden
 You step outside into the moonlight and find yourself in a beautiful,
 mystifying garden. The flowers and plants all seem to be sparkling, and there
-is a beautiful fountain. There are some words engraved on the fountain.
-
-You can only move south.  Squirrel scampers up from the south.  Vampy glides
-in from the south.  Old Man hobbles up from the south.
+is a beautiful fountain. There are some words engraved on the fountain.  You
+can only move south.  Squirrel scampers up from the south.  Vampy glides in
+from the south.  Old Man hobbles up from the south.
 
 > use tp
 You pull out the red slip of paper and hold it out in front of the fountain.
@@ -891,11 +801,9 @@ echoing. Kinda scary. OH MY GOD WHAT IS THAT?! ...Oh, heh, nothing. Anyway,
 people came here to dance. Once again, it is very dark and empty. Decorations
 have been hanging here for ages and ages. If you use your imagination you can
 almost see the people dancing. There is a peculiar mirror hanging on the
-wall.
-
-You can move north and south.  Squirrel scampers up from the north.  Vampy
-glides in from the north.  Old Man hobbles up from the north.  Plant Lady
-prances along from the north.
+wall.  You can move north and south.  Squirrel scampers up from the north.
+Vampy glides in from the north.  Old Man hobbles up from the north.  Plant
+Lady prances along from the north.
 
 > s
 You move south.
@@ -903,11 +811,10 @@ You move south.
 Mansion Entrance
 Inside, it is very dark. There are cobwebs and dust everywhere. It is eerily
 quiet. The walls are blue-gray and the floors are black marble.  Above is an
-extravagent chandeleir, but it is not lit.
-
-You can move north, east, west and out.  Squirrel scampers up from the north.
- Vampy glides in from the north.  Old Man hobbles up from the north.  Plant
-Lady prances along from the north.
+extravagent chandeleir, but it is not lit.  You can move north, east, west
+and out.  Squirrel scampers up from the north.  Vampy glides in from the
+north.  Old Man hobbles up from the north.  Plant Lady prances along from the
+north.
 
 > out
 You move out.
@@ -916,11 +823,9 @@ Outside the Mansion
 There is a huge mansion before you, it is a dark violet color and looks very
 old and almost foreboding. Would you really wanna go inside? It looks really
 scary! And I bet there are spiders in there, too. Yuck. Maybe if you had
-someone to help you enter the mansion you could get in.
-
-You can only move south.  Squirrel scampers up from inside.  Vampy glides in
-from inside.  Old Man hobbles up from inside.  Plant Lady prances along from
-inside.
+someone to help you enter the mansion you could get in.  You can only move
+south.  Squirrel scampers up from inside.  Vampy glides in from inside.  Old
+Man hobbles up from inside.  Plant Lady prances along from inside.
 
 > s
 You move south.
@@ -931,11 +836,9 @@ Looking up, you find yourself staring straight into space. There are billions
 of stars in the sky and you can see the moon looming above. Looking down, you
 see that you are standing on a black and white checkerboard. There's a sign
 here.  Hey... there's a new area to the southwest. Why don't you try and go
-there?
-
-You can move north, east, south and west.  Squirrel scampers up from the
-north.  Vampy glides in from the north.  Old Man hobbles up from the north.
-Plant Lady prances along from the north.
+there?  You can move north, east, south and west.  Squirrel scampers up from
+the north.  Vampy glides in from the north.  Old Man hobbles up from the
+north.  Plant Lady prances along from the north.
 
 > sw
 You walk past the sign from the area you first arrived in. Suddenly, you are

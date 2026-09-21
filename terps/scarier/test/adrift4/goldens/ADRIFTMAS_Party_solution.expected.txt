@@ -58,9 +58,8 @@ light layer of snow covers each stair, and has small bushes to each side.
 You can hear party guests inside, along with some soft Christmas music.
 Though you can't see through the tall, arched windows, the colorful Christmas
 lights make you feel cheerful and bright.  Mystery is talking with some
-Drifters, making sure everyone is having a good time.
-
-You can only move north.
+Drifters, making sure everyone is having a good time.  You can only move
+north.
 
 > kiss mystery
 You lay a Happy Holidays kiss on Mystery.  Turns out that Mystery didn't
@@ -82,9 +81,8 @@ Covered Entry
 Tall pillars rise up on both sides of the covered entry.  Tall double doors
 mark the entrance to Campbell's magnificent home. Snow covered bushes
 decorate the landscape on either side of the front steps.  A large, hanging
-dome light provides ample lighting for the front area of the house.
-
-You can only move south.
+dome light provides ample lighting for the front area of the house.  You can
+only move south.
 
 > pee in snow
 You look around for a minute to make sure there isn't anyone looking.  You
@@ -109,9 +107,8 @@ leather chairs and a small table.  Also to the northeast is a small bathroom.
 large entry is two floor length mirrors, that adorn the sides of the hand
 carved double doors that lead to the outside.
 
-davidw is standing here looking for someone to antagonize.
-
-You can move north, east, south, west and out.
+davidw is standing here looking for someone to antagonize.  You can move
+north, east, south, west and out.
 
 > look under table
 Looking under the small table, you find a piece of chewed bubble gum and take
@@ -142,12 +139,10 @@ Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
 foyer.  Astridian is here, resting in the shadows.  Ds490 is here,
-socializing with some of the Drifters.
-
-You can move north, south, west, northeast, southeast and southwest.
-Astridian slips out to the south-west.  The Invisible Man sidles
-unobtrusively into the room from the south-west.  Nick Grimson wanders in
-from the south-west.
+socializing with some of the Drifters.  You can move north, south, west,
+northeast, southeast and southwest.  Astridian slips out to the south-west.
+The Invisible Man sidles unobtrusively into the room from the south-west.
+Nick Grimson wanders in from the south-west.
 
 > w
 You move west.
@@ -157,7 +152,6 @@ This modern kitchen is quite charming.  Granite countertops spread throughout
 the kitchen, and cover the island in the center also. A stove range and
 refrigerator are located in the northeastern part of the room, while the main
 counter, with cabinets above the sink is located in the southwest portion.
-
 You can move north, east, south and west.
 
 > s
@@ -170,9 +164,8 @@ laundry room, while the backdoor lies to the west.  The kitchen is to the
 north. (Be specific when referring to doors! You need to type in which door
 you are referring to. The bathroom door, the closet door, the laundry room
 door, or the back door?)  Cowboy is leaning on a nearby wall, taking in the
-scenery.  KF stands hunched, trying not to be noticed.
-
-You can move north and northwest.
+scenery.  KF stands hunched, trying not to be noticed.  You can move north
+and northwest.
 
 > open closet door
 You open the closet door.
@@ -184,9 +177,7 @@ Kitchen Hall Closet
 Being in this small closet reminds you of the time that the elves locked you
 in the woodshed for two days.  It wasn't worth the long days of cleaning out
 the reindeer stalls that they had to do for four months.    Also here is the
-broom and the bucket.
-
-You can only move north.
+broom and the bucket.  You can only move north.
 
 > get broom
 You take the broom.
@@ -206,9 +197,8 @@ is the bathroom, and a closet is to the south.  Back to the east is the
 laundry room, while the backdoor lies to the west.  The kitchen is to the
 north. (Be specific when referring to doors! You need to type in which door
 you are referring to. The bathroom door, the closet door, the laundry room
-door, or the back door?)  KF stands hunched, trying not to be noticed.
-
-You can move north, south and northwest.
+door, or the back door?)  KF stands hunched, trying not to be noticed.  You
+can move north, south and northwest.
 
 > n
 You move north.
@@ -218,7 +208,6 @@ This modern kitchen is quite charming.  Granite countertops spread throughout
 the kitchen, and cover the island in the center also. A stove range and
 refrigerator are located in the northeastern part of the room, while the main
 counter, with cabinets above the sink is located in the southwest portion.
-
 You can move north, east, south and west.
 
 > open cabinet
@@ -259,7 +248,6 @@ dartboard.  In the northwest corner of the room is a hanging chair, and is
 just to the right of the fireplace on the west wall. There is also a bar
 complete with fancy barstools.  Samantha is behind the bar making drinks.
 MileOut stands in the corner of the room, lip-synching with others present.
-
 You can move east, south and out.
 
 > ask samantha about shower
@@ -290,9 +278,8 @@ Upon entering the master bathroom, the first thing that catches your eye is
 the magnificent shower on the east wall, next to the raised platform bath in
 the southeast corner.  A towel bar is located near the shower and the tub.
 The walls are a beautiful mauve color, and fitted with brass and frosted
-crystal light fixtures, softening the mood of the room.
-
-You can move north, south, west, northeast and northwest.
+crystal light fixtures, softening the mood of the room.  You can move north,
+south, west, northeast and northwest.
 
 > nw
 You move northwest.
@@ -303,9 +290,8 @@ walls. Against the east wall is a modern looking bed accompanied by dual
 nightstands. A mirror hangs on the east wall while a couple of other pictures
 hang on the west wall, near a chest of drawers.  Plush carpet covers the
 floor-providing cushion underfoot.  A door leads west to the patio.  EdS is
-here, looking for more silverware to sneak into his pockets.
-
-You can move southeast and southwest.
+here, looking for more silverware to sneak into his pockets.  You can move
+southeast and southwest.
 
 > sw
 You move southwest.
@@ -313,9 +299,8 @@ You move southwest.
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
-foyer.
-
-You can move north, south, west, northeast, southeast and southwest.
+foyer.    You can move north, south, west, northeast, southeast and
+southwest.
 
 > n
 You move north.
@@ -330,9 +315,8 @@ west wall.  Astridian is here, resting in the shadows.  Ds490 is here,
 socializing with some of the Drifters.  The invisible man lurks nervously
 near an exit.
 Nick Grimson is here, standing somewhat separate from everyone else, lost
-deep in thought about how to finish his ADRIFT game.
-
-You can move south and west.
+deep in thought about how to finish his ADRIFT game.  You can move south and
+west.
 
 > take key
 You use the gum on the stick and carefully retrieve the key from the top of
@@ -348,7 +332,6 @@ dartboard.  In the northwest corner of the room is a hanging chair, and is
 just to the right of the fireplace on the west wall. There is also a bar
 complete with fancy barstools.  Samantha is behind the bar making drinks.
 MileOut stands in the corner of the room, lip-synching with others present.
-
 You can move east, south and out.  KF walks in from the south.
 
 > put nutmeg in absinthe
@@ -388,9 +371,7 @@ a state of the art stereo system, located in front of two tall, arched
 windows.  The highlight of the room is the tall ADRIFTmas tree filling up the
 west wall.  Astridian is here, resting in the shadows.  Woodfish, his spiky
 blue hair catching your attention, stands with his hands in his jeans
-pockets, looking comfortably around the room.
-
-You can move south and west.
+pockets, looking comfortably around the room.  You can move south and west.
 
 > s
 You move south.
@@ -398,9 +379,8 @@ You move south.
 Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
-foyer.
-
-You can move north, south, west, northeast, southeast and southwest.
+foyer.    You can move north, south, west, northeast, southeast and
+southwest.
 
 > se
 You move southeast.
@@ -413,9 +393,8 @@ Flytrap, near two arched windows on the south wall.  DuoDave is here.  davidw
 is standing here looking for someone to antagonize.  JJ Sonick is here, and
 seems to be distracted by thoughts of anime chracters battling sentient,
 philosophical kiwi fruits.  Mystery is talking with some Drifters, making
-sure everyone is having a good time.
-
-You can move west and northwest.  Davidw goes  to the north-west.
+sure everyone is having a good time.  You can move west and northwest.
+Davidw goes  to the north-west.
 
 > give money to dave
 You hand Dave the money and he begins doing his reading.  ...."Well, well,
@@ -440,10 +419,9 @@ Hall
 Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
 foyer.  davidw is standing here looking for someone to antagonize.  Lancer
-Sykera, Sky Samuri, is present in the area.
-
-You can move north, south, west, northeast, southeast and southwest.  Lancer
-Sykera floats away through the air to the west.
+Sykera, Sky Samuri, is present in the area.  You can move north, south, west,
+northeast, southeast and southwest.  Lancer Sykera floats away through the
+air to the west.
 
 > sw
 You move southwest.
@@ -454,9 +432,7 @@ surrounded by eight chairs.  Along the west wall, two paintings hang on
 either side of a large, ornate sideboard.  The hardwood floors shine as if
 freshly polished, adding to the refined decor.   Hanging down from the
 ceiling is a magnificent chandelier, which gives off subtle but atmospheric
-lighting to the beautiful room.
-
-You can move east and northeast.
+lighting to the beautiful room.  You can move east and northeast.
 
 > unlock right drawer with key
 You unlock the right drawer with the shiny key.
@@ -475,9 +451,8 @@ Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
 foyer.    DuoDave is here.  davidw is standing here looking for someone to
 antagonize.  Mystery is talking with some Drifters, making sure everyone is
-having a good time.
-
-You can move north, south, west, northeast, southeast and southwest.
+having a good time.  You can move north, south, west, northeast, southeast
+and southwest.
 
 > ne
 You move northeast.
@@ -489,9 +464,8 @@ nightstands. A mirror hangs on the east wall while a couple of other pictures
 hang on the west wall, near a chest of drawers.  Plush carpet covers the
 floor-providing cushion underfoot.  A door leads west to the patio.  The Mad
 Monk chats amiably with the other partygoers while strategically balancing
-five platefuls of food about his person.
-
-You can move southeast and southwest.
+five platefuls of food about his person.  You can move southeast and
+southwest.
 
 > se
 You move southeast.
@@ -501,9 +475,8 @@ Upon entering the master bathroom, the first thing that catches your eye is
 the magnificent shower on the east wall, next to the raised platform bath in
 the southeast corner.  A towel bar is located near the shower and the tub.
 The walls are a beautiful mauve color, and fitted with brass and frosted
-crystal light fixtures, softening the mood of the room.
-
-You can move north, south, west, northeast and northwest.
+crystal light fixtures, softening the mood of the room.  You can move north,
+south, west, northeast and northwest.
 
 > s
 You move south.
@@ -511,9 +484,8 @@ You move south.
 Second Master Closet
 The closet is quite large and has a large wraparound shelf that encompasses
 the room, until it meets a wardrobe on the west wall.  Beneath the shelf is
-long clothing rod, from which Campbell's clothing hangs.
-
-You can only move north.
+long clothing rod, from which Campbell's clothing hangs.  You can only move
+north.
 
 > open wardrobe
 You open the wardrobe.  A leather jacket and an assortment of shoes are
@@ -547,9 +519,8 @@ Upon entering the master bathroom, the first thing that catches your eye is
 the magnificent shower on the east wall, next to the raised platform bath in
 the southeast corner.  A towel bar is located near the shower and the tub.
 The walls are a beautiful mauve color, and fitted with brass and frosted
-crystal light fixtures, softening the mood of the room.
-
-You can move north, south, west, northeast and northwest.
+crystal light fixtures, softening the mood of the room.  You can move north,
+south, west, northeast and northwest.
 
 > nw
 You move northwest.
@@ -561,9 +532,8 @@ nightstands. A mirror hangs on the east wall while a couple of other pictures
 hang on the west wall, near a chest of drawers.  Plush carpet covers the
 floor-providing cushion underfoot.  A door leads west to the patio.  The Mad
 Monk chats amiably with the other partygoers while strategically balancing
-five platefuls of food about his person.
-
-You can move southeast and southwest.
+five platefuls of food about his person.  You can move southeast and
+southwest.
 
 > sw
 You move southwest.
@@ -573,9 +543,8 @@ Standing in the hall is the bust of Rob Roy MacGregor and a pink rug that
 lies on the floor.  The hall opens to the living room, dining room, and
 foyer.    DuoDave is here.  Woodfish, his spiky blue hair catching your
 attention, stands with his hands in his jeans pockets, looking comfortably
-around the room.
-
-You can move north, south, west, northeast, southeast and southwest.
+around the room.  You can move north, south, west, northeast, southeast and
+southwest.
 
 > s
 You move south.
@@ -589,7 +558,7 @@ leather chairs and a small table.  Also to the northeast is a small bathroom.
 large entry is two floor length mirrors, that adorn the sides of the hand
 carved double doors that lead to the outside.
 
-You can move north, east, south, west and out.
+  You can move north, east, south, west and out.
 
 > s
 You move south.
@@ -598,9 +567,8 @@ Covered Entry
 Tall pillars rise up on both sides of the covered entry.  Tall double doors
 mark the entrance to Campbell's magnificent home. Snow covered bushes
 decorate the landscape on either side of the front steps.  A large, hanging
-dome light provides ample lighting for the front area of the house.
-
-You can move north, south and in.
+dome light provides ample lighting for the front area of the house.  You can
+move north, south and in.
 
 > s
 You move south.
@@ -610,9 +578,7 @@ These stone steps lead up to a covered entry, just outside the front door. A
 light layer of snow covers each stair, and has small bushes to each side.
 You can hear party guests inside, along with some soft Christmas music.
 Though you can't see through the tall, arched windows, the colorful Christmas
-lights make you feel cheerful and bright.
-
-You can only move north.
+lights make you feel cheerful and bright.  You can only move north.
 
 > drop suitcase
 You drop the suitcase.

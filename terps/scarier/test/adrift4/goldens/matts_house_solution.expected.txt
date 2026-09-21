@@ -9,42 +9,33 @@ he does in an average day.
 You move north.
 
 Hallway
-The hallway  Dozer is here.
-
-You can move north, east, south and west.
+The hallway  Dozer is here.  You can move north, east, south and west.
 
 > e
 You move east.
 
 Hallway
-You are in your hallway.
-
-You can move north, east, south and west.
+You are in your hallway.  You can move north, east, south and west.
 
 > e
 You move east.
 
 Hallway
-You are in your hallway.
-
-You can move east, west and down.
+You are in your hallway.  You can move east, west and down.
 
 > d
 You move down.
 
 Downstairs Hallway
-Your hallway.
-
-You can move north, west, up and out.
+Your hallway.  You can move north, west, up and out.
 
 > n
 You move north.
 
 Kitchen
 You are in your kitchen. Wow!!! Look at all of the appliances! There is a
-refridgerator, an oven, a cupboard, and a water faucet
-
-You can move east, south, west, out and southeast.
+refridgerator, an oven, a cupboard, and a water faucet  You can move east,
+south, west, out and southeast.
 
 > open refridgerator
 You open the Refridgerator.  Inside the Refridgerator is a Root Beer, a

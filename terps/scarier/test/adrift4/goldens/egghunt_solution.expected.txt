@@ -16,17 +16,13 @@ Can you find all 3 trees that were made into various objects..
 AND can you find ALL 10 valuable Eggs?
 
 House
-  Also here is a door and a fire.
-
-You can only move north.
+  Also here is a door and a fire.  You can only move north.
 
 > n
 You move north.
 
 The Holy City
-  Also here is a Saphire Egg.
-
-You can move north, south and west.
+  Also here is a Saphire Egg.  You can move north, south and west.
 
 > get saphire
 You take the Saphire Egg.
@@ -37,7 +33,6 @@ You move north.
 Old Tombs
 Lots of dead people came to life from here on the same day that Jesus was
 raised from the dead ! (Matthew 27 verse 52)  Also here is a pair of Tongs.
-
 You can move north and south.
 
 > get tongs
@@ -47,9 +42,7 @@ You take the pair of Tongs.
 You move north.
 
 On a Road
-  Also here is a Crown.
-
-You can move north, east, south and west.
+  Also here is a Crown.  You can move north, east, south and west.
 
 > get crown
 You take the Crown.
@@ -58,9 +51,7 @@ You take the Crown.
 You move north.
 
 Golgotha (The Place of The Skull)
-  Also here is a sign and a crucifix.
-
-You can only move south.
+  Also here is a sign and a crucifix.  You can only move south.
 
 > get sign
 You take the sign.
@@ -79,32 +70,26 @@ If we thank him for doing this and seek him !!
 You move south.
 
 On a Road
-
-You can move north, east, south and west.
+  You can move north, east, south and west.
 
 > s
 You move south.
 
 Old Tombs
 Lots of dead people came to life from here on the same day that Jesus was
-raised from the dead ! (Matthew 27 verse 52)
-
-You can move north and south.
+raised from the dead ! (Matthew 27 verse 52)  You can move north and south.
 
 > s
 You move south.
 
 The Holy City
-
-You can move north, south and west.
+  You can move north, south and west.
 
 > w
 You move west.
 
 The Temple
-  Also here is a Crystal Egg.
-
-You can only move east.
+  Also here is a Crystal Egg.  You can only move east.
 
 > pull brick
 You have found a Ruby egg !
@@ -119,16 +104,13 @@ You take the Crystal Egg.
 You move east.
 
 The Holy City
-
-You can move north, south and west.
+  You can move north, south and west.
 
 > s
 You move south.
 
 House
-  Also here is a door and a fire.
-
-You can only move north.
+  Also here is a door and a fire.  You can only move north.
 
 > use tongs
 You manage to lift the Marble Egg from the fire.....it falls to the ground.
@@ -140,32 +122,26 @@ You take the Marble Egg.
 You move north.
 
 The Holy City
-
-You can move north, south and west.
+  You can move north, south and west.
 
 > n
 You move north.
 
 Old Tombs
 Lots of dead people came to life from here on the same day that Jesus was
-raised from the dead ! (Matthew 27 verse 52)
-
-You can move north and south.
+raised from the dead ! (Matthew 27 verse 52)  You can move north and south.
 
 > n
 You move north.
 
 On a Road
-
-You can move north, east, south and west.
+  You can move north, east, south and west.
 
 > w
 You move west.
 
 The Shore of Galilee
-  Also here is a Boat and a Net.  Thomas is here.
-
-You can only move east.
+  Also here is a Boat and a Net.  Thomas is here.  You can only move east.
 
 > look net
 It did have 100s of fish in it, but they are all gone now.... Something just
@@ -192,16 +168,13 @@ You now have the key to the upper room.
 You move east.
 
 On a Road
-
-You can move north, east, south and west.
+  You can move north, east, south and west.
 
 > e
 You move east.
 
 The Garden of Gethsemene
-  Angel is here.
-
-You can only move west.
+  Angel is here.  You can only move west.
 
 > give crown to angel
 The Angel opens the cave ...now you can go North. He hands you a Gold Egg.
@@ -210,9 +183,7 @@ The Angel opens the cave ...now you can go North. He hands you a Gold Egg.
 You move north.
 
 Cave
-  Also here is a Emerald Egg and a Burial Cloth.
-
-You can only move south.
+  Also here is a Emerald Egg and a Burial Cloth.  You can only move south.
 
 > get emerald
 You take the Emerald Egg.
@@ -240,40 +211,32 @@ You take the Silver Egg.
 You move south.
 
 The Garden of Gethsemene
-  Angel is here.
-
-You can move north and west.
+  Angel is here.  You can move north and west.
 
 > w
 You move west.
 
 On a Road
-
-You can move north, east, south and west.
+  You can move north, east, south and west.
 
 > s
 You move south.
 
 Old Tombs
 Lots of dead people came to life from here on the same day that Jesus was
-raised from the dead ! (Matthew 27 verse 52)
-
-You can move north and south.
+raised from the dead ! (Matthew 27 verse 52)  You can move north and south.
 
 > s
 You move south.
 
 The Holy City
-
-You can move north, south and west.
+  You can move north, south and west.
 
 > s
 You move south.
 
 House
-  Also here is a door and a fire.
-
-You can only move north.
+  Also here is a door and a fire.  You can only move north.
 
 > unlock door with key
 You unlock the door with the Key.
@@ -285,9 +248,7 @@ You open the door.
 You move up.
 
 The Upstairs Room
-  Also here is a door.  Jesus is here.
-
-You can only move down.
+  Also here is a door.  Jesus is here.  You can only move down.
 
 > look jesus
 He has holes in his hands !  Jesus says " If you want to complete the game

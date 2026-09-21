@@ -22,9 +22,8 @@ A large wooden sign informs me that I'm in the Enchanted Forest. What it
 doesn't tell me is how the hell I get out! Everywhere I look there are trees,
 trees, trees. This place definately has a 'tree' theme going. A clearly
 marked path leads south and west, whilst in every other direction are, well,
-trees.  An old pedlar is sitting on a log here, tending to his bunions.
-
-I can move north, east and south.
+trees.  An old pedlar is sitting on a log here, tending to his bunions.  I
+can move north, east and south.
 
 > s
 I move south.
@@ -33,9 +32,7 @@ On a path in the forest
 I'm on a path winding through the Enchanted Forest. The path winds it way
 from the north towards the west. In every other direction there are dark,
 sinister looking trees that wave their branches at me in an anthropomorphic
-kind of way. Ooh, I'm soooo scared!
-
-I can move north, east, south and west.
+kind of way. Ooh, I'm soooo scared!  I can move north, east, south and west.
 
 > w
 As I head off along the path a pathetic, mangey looking wolf jumps out from
@@ -50,9 +47,8 @@ of the crimson shawl must needs be elsewhere!' He darts back into the forest.
 At a fork in the path
 I'm at a fork in the path. Not the kind of fork you eat with, the sort where
 the path forks; you know, like a fork. To the north the path widens into a
-clearing. To the west it disappears into the forest.
-
-I can move north, east and west.
+clearing. To the west it disappears into the forest.  I can move north, east
+and west.
 
 > n
 I move north.
@@ -63,9 +59,7 @@ thatched roof and leaded windows. It's just like something out of a fairy
 tale, funnily enough, except for the large hand-painted sign designed to
 deter trespassers. Just to the north is the front porch. A little path lined
 by rows of white-painted stones leads around the side of the house to the
-west.
-
-I can move north, south and west.
+west.  I can move north, south and west.
 
 > n
 I move north.
@@ -75,9 +69,7 @@ I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door is closed. Just south of me is the clearing in the forest.  A
 battered old dustbin sits to one side of the porch.  I can also see an empty
-milkbottle.
-
-I can only move south.
+milkbottle.  I can only move south.
 
 > take bottle
 I take the empty milkbottle.
@@ -110,9 +102,7 @@ thatched roof and leaded windows. It's just like something out of a fairy
 tale, funnily enough, except for the large hand-painted sign designed to
 deter trespassers. Just to the north is the front porch. A little path lined
 by rows of white-painted stones leads around the side of the house to the
-west.
-
-I can move north, south and west.
+west.  I can move north, south and west.
 
 > w
 I move west.
@@ -123,9 +113,8 @@ sunny spot by the wall and on the other side of the garden a somewhat
 neglected ornamental pond. There's obviously been some attempt at landscaping
 but the effect is less Capability Brown and more incapable bruin. A
 ramshackle potting shed completes the image of horticultural incompetence. To
-the north, an overgrown pergola leads into a meadow.
-
-I can move north, east and in.
+the north, an overgrown pergola leads into a meadow.  I can move north, east
+and in.
 
 > take leaves
 I take hold of the leaves and give them a good yank. Something pops out of
@@ -147,9 +136,8 @@ sunny spot by the wall and on the other side of the garden a somewhat
 neglected ornamental pond. There's obviously been some attempt at landscaping
 but the effect is less Capability Brown and more incapable bruin. A
 ramshackle potting shed completes the image of horticultural incompetence. To
-the north, an overgrown pergola leads into a meadow.
-
-I can move north, east and in.
+the north, an overgrown pergola leads into a meadow.  I can move north, east
+and in.
 
 > x leaves
 I see no such thing.
@@ -174,9 +162,8 @@ together in five minutes some idle Sunday afternoon.  I didn't know bears had
 green fingers. In fact I didn't know they had fingers at all. Plant pots of
 all sizes are scattered about the shed untidily and the whole place is
 festooned with cobwebs.  In the corner is an old metal trunk marked 'FISHING
-TACKLE.'  I can also see a pair of secateurs and a ratty old paintbrush.
-
-I can only move out.
+TACKLE.'  I can also see a pair of secateurs and a ratty old paintbrush.  I
+can only move out.
 
 > x pots
 Plant pots of all different sizes are scattered about the floor of the shed.
@@ -198,9 +185,7 @@ together in five minutes some idle Sunday afternoon.  I didn't know bears had
 green fingers. In fact I didn't know they had fingers at all. Plant pots of
 all sizes are scattered about the shed untidily and the whole place is
 festooned with cobwebs.  In the corner is an old metal trunk marked 'FISHING
-TACKLE.'
-
-I can only move out.
+TACKLE.'  I can only move out.
 
 > get secateurs
 I am already carrying the pair of secateurs.
@@ -226,9 +211,8 @@ sunny spot by the wall and on the other side of the garden a somewhat
 neglected ornamental pond. There's obviously been some attempt at landscaping
 but the effect is less Capability Brown and more incapable bruin. A
 ramshackle potting shed completes the image of horticultural incompetence. To
-the north, an overgrown pergola leads into a meadow.
-
-I can move north, east and in.
+the north, an overgrown pergola leads into a meadow.  I can move north, east
+and in.
 
 > n
 I move north.
@@ -238,9 +222,7 @@ I'm in a small meadow at the back of the cottage, separated from the forest
 by a rickety fence. In the middle of the meadow is what appears to be a
 homemade wind turbine! To the south, through the tangled pergola, is the
 garden.  Daisy the cow is standing here, chewing disinterestedly on a
-mouthful of hay.
-
-I can only move south.
+mouthful of hay.  I can only move south.
 
 > give turnip to cow
 Daisy gobbles down the turnip excitedly before sidling over to me and
@@ -256,10 +238,8 @@ sunny spot by the wall and on the other side of the garden a somewhat
 neglected ornamental pond. There's obviously been some attempt at landscaping
 but the effect is less Capability Brown and more incapable bruin. A
 ramshackle potting shed completes the image of horticultural incompetence. To
-the north, an overgrown pergola leads into a meadow.
-
-I can move north, east and in.  Daisy the cow walks towards me from the
-north.
+the north, an overgrown pergola leads into a meadow.  I can move north, east
+and in.  Daisy the cow walks towards me from the north.
 
 > e
 I move east.
@@ -270,10 +250,8 @@ thatched roof and leaded windows. It's just like something out of a fairy
 tale, funnily enough, except for the large hand-painted sign designed to
 deter trespassers. Just to the north is the front porch. A little path lined
 by rows of white-painted stones leads around the side of the house to the
-west.
-
-I can move north, south and west.  Daisy the cow walks towards me from the
-west.
+west.  I can move north, south and west.  Daisy the cow walks towards me from
+the west.
 
 > s
 I move south.
@@ -281,10 +259,8 @@ I move south.
 At a fork in the path
 I'm at a fork in the path. Not the kind of fork you eat with, the sort where
 the path forks; you know, like a fork. To the north the path widens into a
-clearing. To the west it disappears into the forest.
-
-I can move north, east and west.  Daisy the cow walks towards me from the
-north.
+clearing. To the west it disappears into the forest.  I can move north, east
+and west.  Daisy the cow walks towards me from the north.
 
 > e
 I move east.
@@ -293,10 +269,8 @@ On a path in the forest
 I'm on a path winding through the Enchanted Forest. The path winds it way
 from the north towards the west. In every other direction there are dark,
 sinister looking trees that wave their branches at me in an anthropomorphic
-kind of way. Ooh, I'm soooo scared!
-
-I can move north, east, south and west.  Daisy the cow walks towards me from
-the west.
+kind of way. Ooh, I'm soooo scared!  I can move north, east, south and west.
+Daisy the cow walks towards me from the west.
 
 > n
 I move north.
@@ -306,9 +280,8 @@ A large wooden sign informs me that I'm in the Enchanted Forest. What it
 doesn't tell me is how the hell I get out! Everywhere I look there are trees,
 trees, trees. This place definately has a 'tree' theme going. A clearly
 marked path leads south and west, whilst in every other direction are, well,
-trees.  An old pedlar is sitting on a log here, tending to his bunions.
-
-I can move north, east and south.  Daisy the cow walks towards me from the
+trees.  An old pedlar is sitting on a log here, tending to his bunions.  I
+can move north, east and south.  Daisy the cow walks towards me from the
 south.
 
 'Ah, now there's a lovely specimen!' says the Pedlar, getting up from his log
@@ -323,9 +296,7 @@ On a path in the forest
 I'm on a path winding through the Enchanted Forest. The path winds it way
 from the north towards the west. In every other direction there are dark,
 sinister looking trees that wave their branches at me in an anthropomorphic
-kind of way. Ooh, I'm soooo scared!
-
-I can move north, east, south and west.
+kind of way. Ooh, I'm soooo scared!  I can move north, east, south and west.
 
 > w
 I move west.
@@ -333,9 +304,8 @@ I move west.
 At a fork in the path
 I'm at a fork in the path. Not the kind of fork you eat with, the sort where
 the path forks; you know, like a fork. To the north the path widens into a
-clearing. To the west it disappears into the forest.
-
-I can move north, east and west.
+clearing. To the west it disappears into the forest.  I can move north, east
+and west.
 
 > n
 I move north.
@@ -346,9 +316,7 @@ thatched roof and leaded windows. It's just like something out of a fairy
 tale, funnily enough, except for the large hand-painted sign designed to
 deter trespassers. Just to the north is the front porch. A little path lined
 by rows of white-painted stones leads around the side of the house to the
-west.
-
-I can move north, south and west.
+west.  I can move north, south and west.
 
 > w
 I move west.
@@ -359,9 +327,8 @@ sunny spot by the wall and on the other side of the garden a somewhat
 neglected ornamental pond. There's obviously been some attempt at landscaping
 but the effect is less Capability Brown and more incapable bruin. A
 ramshackle potting shed completes the image of horticultural incompetence. To
-the north, an overgrown pergola leads into a meadow.
-
-I can move north, east and in.
+the north, an overgrown pergola leads into a meadow.  I can move north, east
+and in.
 
 > fill bottle
 Okay, I filled the bottle with water from the pond. Yeeurrggh! My hand is
@@ -399,9 +366,7 @@ but the effect is less Capability Brown and more incapable bruin. A
 ramshackle potting shed completes the image of horticultural incompetence. To
 the north, an overgrown pergola leads into a meadow.  A gigantic beanstalk
 rises out of the vegetable plot and stops abruptly just above the level of
-the roof.
-
-I can move north, east and in.
+the roof.  I can move north, east and in.
 
 > climb beanstalk
 If Jack can do it, so can Goldilocks!
@@ -409,9 +374,8 @@ If Jack can do it, so can Goldilocks!
 At the top of the beanstalk
 I'm at the top of the beanstalk. I was under the impression that these giant
 beanstalks all had castles at the top of them, but not this scrawny specimin.
-However I can almost touch the roof of the cottage from here.
-
-I can only move down.
+However I can almost touch the roof of the cottage from here.  I can only
+move down.
 
 > jump to roof
 Okay... Oof! Fortunately for you I had a soft landing on the thatched roof of
@@ -435,9 +399,8 @@ I am in the bears' tiny kitchen, a cosy little room that could have come
 straight from the pages of Country Living. It's big on original features and
 totally lacking in "mod cons." A large dining table sits in the centre of the
 room and there is a dresser against the wall. Opposite the dresser is an
-enormous brick fireplace that seems to fill half the room.
-
-I can move north and east.
+enormous brick fireplace that seems to fill half the room.  I can move north
+and east.
 
 > drop note
 I drop the crumpled note.
@@ -498,9 +461,7 @@ I'm in the pantry, a small claustrophobic room which smells faintly of
 cinammon, honey and the mouse droppings that are liberally sprinkled across
 the tiled floor. There are some sturdy shelves on the wall and an upright
 freezer in the corner.  Over in the corner of the pantry, underneath the
-shelves is a mousetrap.
-
-I can only move south.
+shelves is a mousetrap.  I can only move south.
 
 > open freezer
 I open the freezer.  A packet of frozen pork chops is inside the freezer.
@@ -558,9 +519,7 @@ totally lacking in "mod cons." A large dining table sits in the centre of the
 room and there is a dresser against the wall. Opposite the dresser is an
 enormous brick fireplace that seems to fill half the room.  I can also see a
 spoon, a crumpled note, a broken bottle, a small packet, a gigantic bowl and
-a trowel.
-
-I can move north and east.
+a trowel.  I can move north and east.
 
 > e
 I move east.
@@ -569,9 +528,8 @@ In the hall
 I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
-bedroom. The front door is closed.  I can also see a bearskin rug.
-
-I can move north, west and up.
+bedroom. The front door is closed.  I can also see a bearskin rug.  I can
+move north, west and up.
 
 'Ding-Dong!' The doorbell rings. A booming voice can be heard from the
 direction of the front door: 'Little pigs, little pigs, LET ME IN, or I'll
@@ -611,9 +569,7 @@ From its floral carpet to its lovingly dusted knick-knacks, The Three Bears'
 sitting room is a chintzy abomination of taste, the sort of room that would
 make any sane bear want to go back and live in a cave. Three chairs are
 arranged around a small coffee table; a large chair, a  medium-sized chair
-and a tiny little chair.
-
-I can only move south.
+and a tiny little chair.  I can only move south.
 
 > drop rug
 I drop the bearskin rug.
@@ -646,9 +602,8 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.  The Big Bad Wolf is here.
-
-I can move north, west, up, down and out.
+an open trapdoor.  The Big Bad Wolf is here.  I can move north, west, up,
+down and out.
 
 > u
 I move up.
@@ -659,9 +614,7 @@ walls. They have the weirdest sleeping arrangements. There's a tiny little
 bed, a medium-sized bed and a huge bed. A narrow staircase leads down to the
 hall.  A tiny dormer window looks out onto the clearing.  For some
 unaccountable reason, Sleeping Beauty is lying fast asleep on the tiny little
-bed.
-
-I can only move down.
+bed.  I can only move down.
 
 > take blanket
 Wow! Now I understand why the huge bed felt so hard! What better way to
@@ -684,9 +637,8 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.  The Big Bad Wolf is here.
-
-I can move north, west, up, down and out.
+an open trapdoor.  The Big Bad Wolf is here.  I can move north, west, up,
+down and out.
 
 > w
 I move west.
@@ -698,9 +650,7 @@ totally lacking in "mod cons." A large dining table sits in the centre of the
 room and there is a dresser against the wall. Opposite the dresser is an
 enormous brick fireplace that seems to fill half the room.  I can also see a
 spoon, a crumpled note, a broken bottle, a small packet, a gigantic bowl and
-a trowel.
-
-I can move north and east.
+a trowel.  I can move north and east.
 
 > put firewood in fireplace
 I put the pile of firewood onto the fireplace.
@@ -726,9 +676,8 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.  The Big Bad Wolf is here.
-
-I can move north, west, up, down and out.
+an open trapdoor.  The Big Bad Wolf is here.  I can move north, west, up,
+down and out.
 
 > give chops to wolf
 The wolf grabs the packet of pork chops and tears off the wrapper, then rolls
@@ -745,9 +694,8 @@ On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
-forest.  A battered old dustbin sits to one side of the porch.
-
-I can move south and in.  The Big Bad Wolf walks towards me from inside.
+forest.  A battered old dustbin sits to one side of the porch.  I can move
+south and in.  The Big Bad Wolf walks towards me from inside.
 
 > s
 I move south.
@@ -758,10 +706,8 @@ thatched roof and leaded windows. It's just like something out of a fairy
 tale, funnily enough, except for the large hand-painted sign designed to
 deter trespassers. Just to the north is the front porch. A little path lined
 by rows of white-painted stones leads around the side of the house to the
-west.
-
-I can move north, south and west.  The Big Bad Wolf walks towards me from the
-north.
+west.  I can move north, south and west.  The Big Bad Wolf walks towards me
+from the north.
 
 > w
 I move west.
@@ -774,10 +720,8 @@ but the effect is less Capability Brown and more incapable bruin. A
 ramshackle potting shed completes the image of horticultural incompetence. To
 the north, an overgrown pergola leads into a meadow.  A gigantic beanstalk
 rises out of the vegetable plot and stops abruptly just above the level of
-the roof.
-
-I can move north, east and in.  The Big Bad Wolf walks towards me from the
-east.
+the roof.  I can move north, east and in.  The Big Bad Wolf walks towards me
+from the east.
 
 > n
 I move north.
@@ -786,9 +730,8 @@ In a small meadow
 I'm in a small meadow at the back of the cottage, separated from the forest
 by a rickety fence. In the middle of the meadow is what appears to be a
 homemade wind turbine! To the south, through the tangled pergola, is the
-garden.
-
-I can only move south.  The Big Bad Wolf walks towards me from the south.
+garden.  I can only move south.  The Big Bad Wolf walks towards me from the
+south.
 
 > ask wolf about turbine
 'Ah, so you wish to make use of my prodigious talents! Well never fear, I
@@ -825,9 +768,7 @@ but the effect is less Capability Brown and more incapable bruin. A
 ramshackle potting shed completes the image of horticultural incompetence. To
 the north, an overgrown pergola leads into a meadow.  A gigantic beanstalk
 rises out of the vegetable plot and stops abruptly just above the level of
-the roof.
-
-I can move north, east and in.
+the roof.  I can move north, east and in.
 
 > e
 I move east.
@@ -838,9 +779,7 @@ thatched roof and leaded windows. It's just like something out of a fairy
 tale, funnily enough, except for the large hand-painted sign designed to
 deter trespassers. Just to the north is the front porch. A little path lined
 by rows of white-painted stones leads around the side of the house to the
-west.
-
-I can move north, south and west.
+west.  I can move north, south and west.
 
 > n
 I move north.
@@ -849,9 +788,8 @@ On the porch
 I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
-forest.  A battered old dustbin sits to one side of the porch.
-
-I can move south and in.
+forest.  A battered old dustbin sits to one side of the porch.  I can move
+south and in.
 
 > in
 I move in.
@@ -861,9 +799,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > d
 I move down.
@@ -872,9 +808,7 @@ In the cellar
 I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
 the wall. Steps lead up to the trapdoor in the ceiling.  A battered old
-wardrobe stands against the western wall of the cellar.
-
-I can only move up.
+wardrobe stands against the western wall of the cellar.  I can only move up.
 
 > push switch b
 Okay, Switch B is in the OFF position.
@@ -900,9 +834,8 @@ painted above the arch!
 I move west.
 
 In a dark passage
-I'm in a dark passage carved into the rock. It curves around to the north.
-
-I can move north and east.
+I'm in a dark passage carved into the rock. It curves around to the north.  I
+can move north and east.
 
 > n
 I move north.
@@ -915,9 +848,7 @@ ancient stonework. Unfortunately the rotting skeleton manacled to the wall is
 only too real. A sign on the wall opposite the skeleton says 'When we say NO
 TRESPASSERS we mean NO TRESPASSERS!' Something for the bears' victims to
 think about while they languish in this dump. The passage leads south back to
-the cellar.
-
-I can only move south.
+the cellar.  I can only move south.
 
 > x skeleton
 It's wearing a red cape with a hood. I guess this must be the elusive Little
@@ -932,9 +863,8 @@ I've taken the poker in case it comes in useful.
 I move south.
 
 In a dark passage
-I'm in a dark passage carved into the rock. It curves around to the north.
-
-I can move north and east.
+I'm in a dark passage carved into the rock. It curves around to the north.  I
+can move north and east.
 
 > e
 I move east.
@@ -944,9 +874,8 @@ I'm in a dingy cellar with bare brick walls and the musty smell of a laundry
 room. There is an old upright washing machine in the corner and a fusebox on
 the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
 archway leading out of the cellar to the west. A battered old wardrobe stands
-close to the archway.  I can also see an old brass key.
-
-I can move west and up.
+close to the archway.  I can also see an old brass key.  I can move west and
+up.
 
 > open machine with poker
 I jam the poker in the door of the machine and give it a good hard push.
@@ -964,9 +893,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > n
 I move north.
@@ -978,9 +905,7 @@ make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
 There's a low-pitched hum coming from somewhere.  I can also see a bearskin
-rug and an antimacassar.
-
-I can only move south.
+rug and an antimacassar.  I can only move south.
 
 > cuit cable
 I don't understand what you want me to do with the electrodes.
@@ -997,9 +922,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > d
 I move down.
@@ -1010,8 +933,7 @@ room. There is an old upright washing machine in the corner and a fusebox on
 the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
 archway leading out of the cellar to the west. A battered old wardrobe stands
 close to the archway.  I can also see a set of dumbells and an old brass key.
-
-I can move west and up.
+ I can move west and up.
 
 > push switch b
 Okay, Switch B is in the ON position.
@@ -1024,9 +946,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > n
 I move north.
@@ -1038,9 +958,7 @@ make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
 There's a low-pitched hum coming from somewhere.  I can also see a bearskin
-rug and an antimacassar.
-
-I can only move south.
+rug and an antimacassar.  I can only move south.
 
 > sit on large chair
 Bloody hell! This has got to be the hardest chair I've ever sat in! I've only
@@ -1120,9 +1038,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 'Ding-Dong!' A bell rings somewhere.
 
 > out
@@ -1133,9 +1049,7 @@ I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
 forest.  A battered old dustbin sits to one side of the porch.  I can also
-see a package.
-
-I can move south and in.
+see a package.  I can move south and in.
 
 > open package
 I am not carrying the package!
@@ -1182,9 +1096,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > d
 I move down.
@@ -1195,8 +1107,7 @@ room. There is an old upright washing machine in the corner and a fusebox on
 the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
 archway leading out of the cellar to the west. A battered old wardrobe stands
 close to the archway.  I can also see a set of dumbells and an old brass key.
-
-I can move west and up.
+ I can move west and up.
 
 > push switch a
 Okay, Switch A is in the OFF position.
@@ -1209,9 +1120,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > n
 I move north.
@@ -1223,9 +1132,7 @@ make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
 There's a low-pitched hum coming from somewhere.  I can also see a bearskin
-rug and an antimacassar.
-
-I can only move south.
+rug and an antimacassar.  I can only move south.
 
 > sit on large chair
 Bloody hell! This has got to be the hardest chair I've ever sat in! I've only
@@ -1281,9 +1188,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > d
 I move down.
@@ -1294,8 +1199,7 @@ room. There is an old upright washing machine in the corner and a fusebox on
 the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
 archway leading out of the cellar to the west. A battered old wardrobe stands
 close to the archway.  I can also see a set of dumbells and an old brass key.
-
-I can move west and up.
+ I can move west and up.
 
 > push switch a
 Okay, Switch A is in the ON position. Down in the cave the toaster elements
@@ -1316,9 +1220,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > n
 I move north.
@@ -1330,9 +1232,7 @@ make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
 There's a low-pitched hum coming from somewhere.  I can also see a bearskin
-rug and an antimacassar.
-
-I can only move south.
+rug and an antimacassar.  I can only move south.
 
 > sit on large chair
 Bloody hell! This has got to be the hardest chair I've ever sat in! I've only
@@ -1351,9 +1251,7 @@ The cave has been completely devastated by the explosion! Where the door used
 to be there is now a gaping hole in the rock. The walls of the cave, melted
 by the intensive heat of my homemade atomic bomb are still glowing faintly.
 Of the television set there is no sign. The fridge is lying on its side,
-smoking slightly.  I can also see a TV remote control.
-
-I can only move west.
+smoking slightly.  I can also see a TV remote control.  I can only move west.
 
    The jolt threw me out of the chair - I guess the mechanism was designed
 for someone much heavier than me!
@@ -1366,9 +1264,7 @@ This must be where Papa Bear does all his D.I.Y. It's a small but tidy
 workshop with a bench and an old filing cabinet in the corner. Pinned to the
 walls are what appear to be the blueprints for various devices.  Sitting in
 the middle of the floor is a huge wooden crate, stencilled with the words:
-"DANGER: PROTOTYPE!"
-
-I can only move east.
+"DANGER: PROTOTYPE!"  I can only move east.
 
 > take wrench
 Take what?
@@ -1404,9 +1300,7 @@ The cave has been completely devastated by the explosion! Where the door used
 to be there is now a gaping hole in the rock. The walls of the cave, melted
 by the intensive heat of my homemade atomic bomb are still glowing faintly.
 Of the television set there is no sign. The fridge is lying on its side,
-smoking slightly.  I can also see a TV remote control.
-
-I can only move west.
+smoking slightly.  I can also see a TV remote control.  I can only move west.
 
 > sit on chair
 I sit down on the chair.
@@ -1426,9 +1320,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > out
 I move out.
@@ -1438,9 +1330,8 @@ I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
 forest.  A battered old dustbin sits to one side of the porch.  I can also
-see a package, an overripe pumpkin and a pair of gardening gloves.
-
-I can move south and in.
+see a package, an overripe pumpkin and a pair of gardening gloves.  I can
+move south and in.
 
 > s
 I move south.
@@ -1451,9 +1342,7 @@ thatched roof and leaded windows. It's just like something out of a fairy
 tale, funnily enough, except for the large hand-painted sign designed to
 deter trespassers. Just to the north is the front porch. A little path lined
 by rows of white-painted stones leads around the side of the house to the
-west.
-
-I can move north, south and west.
+west.  I can move north, south and west.
 
 > w
 I move west.
@@ -1466,9 +1355,7 @@ but the effect is less Capability Brown and more incapable bruin. A
 ramshackle potting shed completes the image of horticultural incompetence. To
 the north, an overgrown pergola leads into a meadow.  A gigantic beanstalk
 rises out of the vegetable plot and stops abruptly just above the level of
-the roof.
-
-I can move north, east and in.
+the roof.  I can move north, east and in.
 
 > throw ball in pond
 The ball lands in the pond with a dull plop. A few moments later a small
@@ -1487,9 +1374,7 @@ thatched roof and leaded windows. It's just like something out of a fairy
 tale, funnily enough, except for the large hand-painted sign designed to
 deter trespassers. Just to the north is the front porch. A little path lined
 by rows of white-painted stones leads around the side of the house to the
-west.
-
-I can move north, south and west.
+west.  I can move north, south and west.
 
 > n
 I move north.
@@ -1499,9 +1384,8 @@ I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
 forest.  A battered old dustbin sits to one side of the porch.  I can also
-see a package, an overripe pumpkin and a pair of gardening gloves.
-
-I can move south and in.
+see a package, an overripe pumpkin and a pair of gardening gloves.  I can
+move south and in.
 
 > in
 I move in.
@@ -1511,9 +1395,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > u
 I move up.
@@ -1524,9 +1406,7 @@ walls. They have the weirdest sleeping arrangements. There's a tiny little
 bed, a medium-sized bed and a full sized snooker table. A narrow staircase
 leads down to the hall.  A tiny dormer window looks out onto the clearing.  I
 can also see a rather thin blanket.  For some unaccountable reason, Sleeping
-Beauty is lying fast asleep on the tiny little bed.
-
-I can only move down.
+Beauty is lying fast asleep on the tiny little bed.  I can only move down.
 
 > kiss frog
 Yeeeuch! Actually he's not a bad smoocher, I've never kissed anyone before
@@ -1564,9 +1444,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > out
 I move out.
@@ -1576,9 +1454,8 @@ I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
 forest.  A battered old dustbin sits to one side of the porch.  I can also
-see a package, an overripe pumpkin and a pair of gardening gloves.
-
-I can move south and in.
+see a package, an overripe pumpkin and a pair of gardening gloves.  I can
+move south and in.
 
 > get puimpkin
 Take what?
@@ -1594,9 +1471,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > u
 I move up.
@@ -1606,9 +1481,8 @@ I'm in the Three Bears' bedroom, a small attic room with steeply sloping
 walls. They have the weirdest sleeping arrangements. There's a tiny little
 bed, a medium-sized bed and a full sized snooker table. A narrow staircase
 leads down to the hall.  A tiny dormer window looks out onto the clearing.  I
-can also see a rather thin blanket.  My Fairy Godmother is here.
-
-I can only move down.
+can also see a rather thin blanket.  My Fairy Godmother is here.  I can only
+move down.
 
 > give puimpkin to godmother
 Give what?
@@ -1663,9 +1537,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > n
 I move north.
@@ -1677,9 +1549,7 @@ make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
 There's a low-pitched hum coming from somewhere.  I can also see a bearskin
-rug and an antimacassar.
-
-I can only move south.
+rug and an antimacassar.  I can only move south.
 
 > sit on large chair
 Bloody hell! This has got to be the hardest chair I've ever sat in! I've only
@@ -1698,9 +1568,7 @@ The cave has been completely devastated by the explosion! Where the door used
 to be there is now a gaping hole in the rock. The walls of the cave, melted
 by the intensive heat of my homemade atomic bomb are still glowing faintly.
 Of the television set there is no sign. The fridge is lying on its side,
-smoking slightly.  I can also see a TV remote control.
-
-I can only move west.
+smoking slightly.  I can also see a TV remote control.  I can only move west.
 
    The jolt threw me out of the chair - I guess the mechanism was designed
 for someone much heavier than me!
@@ -1715,9 +1583,7 @@ walls are what appear to be the blueprints for various devices.  Sitting in
 the middle of the floor is a huge wooden crate, stencilled with the words:
 "DANGER: PROTOTYPE!"  Sitting amidst the wreckage of the crate is a magic
 porridge pot.  I can also see a blackened metal poker and a tin of gold
-paint.
-
-I can only move east.
+paint.  I can only move east.
 
 > wave wand at pot
 There is a bright flash and the magic porridge pot disappears in a puff of
@@ -1731,9 +1597,7 @@ The cave has been completely devastated by the explosion! Where the door used
 to be there is now a gaping hole in the rock. The walls of the cave, melted
 by the intensive heat of my homemade atomic bomb are still glowing faintly.
 Of the television set there is no sign. The fridge is lying on its side,
-smoking slightly.  I can also see a TV remote control.
-
-I can only move west.
+smoking slightly.  I can also see a TV remote control.  I can only move west.
 
 > sit on chair
 I sit down on the chair.
@@ -1753,9 +1617,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > d
 I move down.
@@ -1767,9 +1629,7 @@ the wall. Steps lead up to the trapdoor in the ceiling.  There's a gothic
 archway leading out of the cellar to the west. A battered old wardrobe stands
 close to the archway.  The magic porridge pot is sitting in the middle of the
 room.  I can also see a set of dumbells, an old brass key, a "distressed"
-Laura Ashley dress and my underwear.
-
-I can move west and up.
+Laura Ashley dress and my underwear.  I can move west and up.
 
 > alakazam
 'ALAKAZAM!'  Immediately the magic porridge pot begins to fill up with
@@ -1787,9 +1647,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > n
 I move north.
@@ -1801,9 +1659,7 @@ make any sane bear want to go back and live in a cave. Two chairs are
 arranged around small coffee table; a large chair and a medium-sized chair.
 There used to be a tiny little chair but I'd rather not talk about it.
 There's a low-pitched hum coming from somewhere.  I can also see a bearskin
-rug and an antimacassar.
-
-I can only move south.
+rug and an antimacassar.  I can only move south.
 
 > take rug
 I take the bearskin rug.
@@ -1816,9 +1672,7 @@ I'm in the entrance hall of the Three Bears' house. Hung around the walls are
 portraits of various members of the Bear clan, along with some highly
 disturbing hunting trophies. A narrow staircase leads up to the bears'
 bedroom. The front door has been wedged open. Just inside the front door is
-an open trapdoor.
-
-I can move north, west, up, down and out.
+an open trapdoor.  I can move north, west, up, down and out.
 
 > cover trapdoor
 Okay, I placed the rug over the trapdoor, so that it looks exactly as before
@@ -1839,9 +1693,8 @@ walls. They have the weirdest sleeping arrangements. There's a tiny little
 bed, a medium-sized bed and a full sized snooker table. A narrow staircase
 leads down to the hall.  A tiny dormer window looks out onto the clearing.
 Lying in the middle of the floor with all four legs pointing heavenward is a
-dead coach horse.  I can also see a rather thin blanket.
-
-I can only move down.
+dead coach horse.  I can also see a rather thin blanket.  I can only move
+down.
 
 > lie on tiny bed
 The tiny little bed is so comfortable that I fall into a deep sleep the

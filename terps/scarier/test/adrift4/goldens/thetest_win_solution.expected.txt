@@ -308,9 +308,7 @@ the door click open.  You walk through.
 The Room of Eternal Dialing
 You are in the room of eternal dialling.  There is a phone here.  It gives
 you the strange idea of using it to dial a number!  What a good idea!  There
-is another door to the east.  It's locked.
-
-You can only move west.
+is another door to the east.  It's locked.  You can only move west.
 
 > unlock door
 You can't do that here!
@@ -372,9 +370,8 @@ The Orange Room
 This room is orange thus becoming the orange room.  Orange paint is painted
 on all the surfaces of this room including the floor except a small gap in
 the west wall which leads to another room.  Scattered on the ground is a
-portable teleporter.  A Robot Guard is here.
-
-You can only move west.  A robot guard hits you with the robot's chain.
+portable teleporter.  A Robot Guard is here.  You can only move west.  A
+robot guard hits you with the robot's chain.
 
 > shout 1
 You shout one and the robot scurries off.
@@ -544,9 +541,7 @@ You move west.
 The Room of Eternal Dialing
 You are in the room of eternal dialling.  There is a phone here.  It gives
 you the strange idea of using it to dial a number!  What a good idea!  There
-is another door to the east.  It's locked.
-
-You can move east and west.
+is another door to the east.  It's locked.  You can move east and west.
 
 > teleport
 As I said, its broken.  The entire destination circuit has been broken off.
@@ -580,9 +575,8 @@ You move east.
 The Empty Room
 This room is completely empty and very plain.  Unless you count the dust, but
 even that is very plain.  Scattered on the ground is a piece of paper.  A
-Robot Guard is here.
-
-You can only move west.  Robot Guard stamps out to the west.
+Robot Guard is here.  You can only move west.  Robot Guard stamps out to the
+west.
 
 > push south
 You push the south wall, but instead of opening it swivels round, leaving yet

@@ -123,9 +123,8 @@ Lobby
 This is the lobby of the J. Edgar Hoover Building.  Video monitors and long
 benches remain from the days when they used to allow visitors to tour the
 building.  Several potted plants look like they need tended to.  Do you have
-your badge?  You might need it to get back in.
-
-You can move east, up and out.
+your badge?  You might need it to get back in.  You can move east, up and
+out.
 
 > e
 You move east.
@@ -135,7 +134,6 @@ This is the top level of the official FBI Parking Garage.  Some light filters
 in from the exits, but much of the area is illuminated by the neon lights
 that line the ceiling alone.  You usually park on this level when possible.
 Unfortunately, you didn't drive today.   A rat scurries across the floor.
-
 You can move west, down and out.
 
 > d
@@ -145,9 +143,8 @@ Parking Garage B
 This is the lower level of the official FBI Parking Garage.  The area is
 illuminated by the neon lights that line the ceiling alone.  It is somewhat
 dark, and smells of exhaust and cigarette smoke.  It may be unwise to pull a
-gun on this guy.  Cancer Man awaits you in the shadows.
-
-You can only move up.
+gun on this guy.  Cancer Man awaits you in the shadows.  You can only move
+up.
 
 > ask cancerman about 1
 You ask the man, "Who are you?  Who do you work for?"  The man smiles, "I'm a
@@ -172,10 +169,9 @@ Parking Garage B
 This is the lower level of the official FBI Parking Garage.  The area is
 illuminated by the neon lights that line the ceiling alone.  It is somewhat
 dark, and smells of exhaust and cigarette smoke.  It may be unwise to pull a
-gun on this guy.  Cancer Man awaits you in the shadows.
-
-You can move west and up.  Cancerman has receded into the shadows and is
-watching you.  Cancerman leaves.
+gun on this guy.  Cancer Man awaits you in the shadows.  You can move west
+and up.  Cancerman has receded into the shadows and is watching you.
+Cancerman leaves.
 
 > x Case File 10193
 This is the Bellefleur Case File, detailing your parents' first case together
@@ -202,7 +198,6 @@ This is the top level of the official FBI Parking Garage.  Some light filters
 in from the exits, but much of the area is illuminated by the neon lights
 that line the ceiling alone.  You usually park on this level when possible.
 Unfortunately, you didn't drive today.  You scan the shadows but see no one.
-
 You can move west, down and out.
 
 > out
@@ -212,9 +207,7 @@ In Front Of FBI HQ Parking Garage A - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building Parking
 Garage  in Washington, D.C.  Christmas lights line the buildings as snowfall
 gently continues to layer the streets.  Well kept during the tourist season,
-you wonder if you'll be able to hail a taxi.
-
-You can move west and in.
+you wonder if you'll be able to hail a taxi.  You can move west and in.
 
 > w
 You move west.
@@ -223,18 +216,16 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.  Volunteer is here.
-
-You can move north, east, south and in.
+wonder if you'll be able to hail a taxi.  Volunteer is here.  You can move
+north, east, south and in.
 
 > n
 You move north.
 
 Davis Storage Warehouse - Baltimore, MD
 You stand outside the garage that the warehouse key indicated.  Nothing seems
-out of place.  You left the key back in D.C., didn't you?
-
-You can only move south.
+out of place.  You left the key back in D.C., didn't you?  You can only move
+south.
 
 > use key
 The garage door begins to groan open as the key twists in the lock with a
@@ -256,9 +247,8 @@ on the other end of the phone.  "Try not to get too jolly, okay Mulder?"
 Garage 5
 The garage is empty.  It has been cleaned out recently.  Footprints in the
 inch-thick dust indicate that whoever did was in a hurry.  Take the knife
-with you.  It may come in handy.  Also here is Small Pocket Knife.
-
-You can only move out.
+with you.  It may come in handy.  Also here is Small Pocket Knife.  You can
+only move out.
 
 > take knife
 You take Small Pocket Knife.
@@ -268,9 +258,8 @@ You move out.
 
 Davis Storage Warehouse - Baltimore, MD
 You stand outside the garage that the warehouse key indicated.  Nothing seems
-out of place.  You left the key back in D.C., didn't you?
-
-You can move south and in.
+out of place.  You left the key back in D.C., didn't you?  You can move south
+and in.
 
 > s
 You move south.
@@ -279,9 +268,8 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.  Volunteer is here.
-
-You can move north, east, south and in.
+wonder if you'll be able to hail a taxi.  Volunteer is here.  You can move
+north, east, south and in.
 
 > examine nameplate
 Running your finger over the nameplate, you here a click and it comes off to
@@ -301,9 +289,8 @@ You stand on the sidewalk outside of the bar you live above.  It's in a nice
 section of town and it's only temporary until you find an apartment you can
 afford with your G-Man salary.  Some of your neighbor's kids must have built
 the bulky snowman that warmly greets passerby.  You're exactly the type of
-person they would want to stay away from, you dirty stripper.
-
-You can move north, west, up and in.
+person they would want to stay away from, you dirty stripper.  You can move
+north, west, up and in.
 
 > in
 You move in.
@@ -314,9 +301,7 @@ frequent with Ruth after work.  The owner and barkeep, Nick, always gives you
 drinks on the house in thanks for your rent.  The atmosphere here is always
 friendly, if somewhat darkly lit.  "What the hell are you doing in my
 establishment without any pants on?" Nick roars, "Get out of here!"  Also
-here is A Jukebox Machine.  Nick is here.
-
-You can move up and out.
+here is A Jukebox Machine.  Nick is here.  You can move up and out.
 
 > play jukebox
 You take a quarter from your pocket and pop it into the machine.  An old
@@ -331,9 +316,8 @@ Your Apartment
 This is your apartment.  Clothes are stewn about the floor.  Your couch, the
 best friend you have besides Ruth, looks inviting.  The light from your fish
 tank illuminates your computer desk and the coffee table.  A TV sits
-unplugged in one corner.  You're a rip snortin' hottie, woof!
-
-You can move down and out.
+unplugged in one corner.  You're a rip snortin' hottie, woof!  You can move
+down and out.
 
 > x Your Coffee Table
 This is your coffee table.  Rings mark places where you forgot to put
@@ -361,9 +345,8 @@ Your Apartment
 This is your apartment.  Clothes are stewn about the floor.  Your couch, the
 best friend you have besides Ruth, looks inviting.  The light from your fish
 tank illuminates your computer desk and the coffee table.  A TV sits
-unplugged in one corner.  You're a rip snortin' hottie, woof!
-
-You can move down and out.
+unplugged in one corner.  You're a rip snortin' hottie, woof!  You can move
+down and out.
 
 > d
 You move down.
@@ -374,9 +357,7 @@ frequent with Ruth after work.  The owner and barkeep, Nick, always gives you
 drinks on the house in thanks for your rent.  The atmosphere here is always
 friendly, if somewhat darkly lit.  "What the hell are you doing in my
 establishment without any pants on?" Nick roars, "Get out of here!"  Also
-here is A Jukebox Machine.  Nick is here.
-
-You can move up and out.
+here is A Jukebox Machine.  Nick is here.  You can move up and out.
 
 > out
 You move out.
@@ -386,9 +367,8 @@ You stand on the sidewalk outside of the bar you live above.  It's in a nice
 section of town and it's only temporary until you find an apartment you can
 afford with your G-Man salary.  Some of your neighbor's kids must have built
 the bulky snowman that warmly greets passerby.  You're exactly the type of
-person they would want to stay away from, you dirty stripper.
-
-You can move north, west, up and in.
+person they would want to stay away from, you dirty stripper.  You can move
+north, west, up and in.
 
 > n
 You move north.
@@ -397,9 +377,8 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.  Volunteer is here.
-
-You can move north, east, south, in and southwest.
+wonder if you'll be able to hail a taxi.  Volunteer is here.  You can move
+north, east, south, in and southwest.
 
 >
 Nope!
@@ -409,9 +388,8 @@ You move southwest.
 
 Outside John Doggett's House -  Falls Church, VA
 You stand on the sidewalk outside John Doggett's house.  Snow is still gently
-falling on the street.  The lights are on, so someone must be home.
-
-You can move east and northeast.
+falling on the street.  The lights are on, so someone must be home.  You can
+move east and northeast.
 
 > knock
 Hesitantly, you knock on the door.  After a moment's delay, John Doggett
@@ -429,9 +407,8 @@ You move out.
 Outside John Doggett's House -  Falls Church, VA
 You stand on the sidewalk outside John Doggett's house.  Snow is still gently
 falling on the street.  The lights are on, so someone must be home.  You're
-glad to know that you'll always have a safe haven with John Doggett.
-
-You can move north, east, in and northeast.
+glad to know that you'll always have a safe haven with John Doggett.  You can
+move north, east, in and northeast.
 
 > ne
 You move northeast.
@@ -440,9 +417,8 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.  Volunteer is here.
-
-You can move north, east, south, west, in and southwest.
+wonder if you'll be able to hail a taxi.  Volunteer is here.  You can move
+north, east, south, west, in and southwest.
 
 > w
 You move west.
@@ -452,9 +428,8 @@ You stand at the bottom of a stairway located inconspiciously next to a
 nicely kept suburban house.  A camera records your movement as you note how
 well worn the steps are.  The door looks innocent enough until you note that
 it has been tampered with to provide extra security.  Don't strip here, this
-isn't the type of place it seems.  Also here is VW Van.
-
-You can move east and south.
+isn't the type of place it seems.  Also here is VW Van.  You can move east
+and south.
 
 > look at camera
 Peering closely into the lens of the video camera above the doorway and
@@ -466,9 +441,7 @@ This is the private operating layer of the LGM News Service, printers of the
 infamous Magic Bullet Digest.  A network of computers fills the room.
 Shelves, boxes, and wires incorporate the rest.  The sight of their coffee
 machine gives you a nauseous feeling.  Byers, Frohike and Skinner are here.
-Langly is here.
-
-You can move up and out.
+Langly is here.   You can move up and out.
 
 > call ruth
 Thinking back on the events of the last few hours, you decide to call Ruth.
@@ -492,9 +465,8 @@ You stand at the bottom of a stairway located inconspiciously next to a
 nicely kept suburban house.  A camera records your movement as you note how
 well worn the steps are.  The door looks innocent enough until you note that
 it has been tampered with to provide extra security.  Don't strip here, this
-isn't the type of place it seems.  Also here is VW Van.
-
-You can move east, south and in.
+isn't the type of place it seems.  Also here is VW Van.  You can move east,
+south and in.
 
 > get in the van
 You open the door on the passenger side of the van, surprised to find it
@@ -529,9 +501,8 @@ In Front Of FBI HQ - Washington, D.C.
 You're standing on the sidewalk outside the J. Edgar Hoover Building in
 Washington, D.C.  Christmas lights line the buildings as snowfall gently
 continues to layer the streets.  Well kept during the tourist season, you
-wonder if you'll be able to hail a taxi.  Volunteer is here.
-
-You can move north, east, south, west, in and southwest.  Your legs are sore.
+wonder if you'll be able to hail a taxi.  Volunteer is here.  You can move
+north, east, south, west, in and southwest.  Your legs are sore.
 
 > n
 You move north.
@@ -541,10 +512,8 @@ Welcome to Bellefleur, Oregon, the place your parents worked their first and
 last case together as partners in the FBI X-Files Division.  This is main
 street.  The town is very old-fashioned.  Throughout town, there's a post
 office, a hardware store, and a small diner.  There's a sheriff office here
-as well.  Also here is VW Van.
-
-You can move east, south, west, northeast, southeast, southwest and
-northwest.
+as well.  Also here is VW Van.  You can move east, south, west, northeast,
+southeast, southwest and northwest.
 
 > in
 You can't go in that direction, but you can move east, south, west,
@@ -587,9 +556,7 @@ You move southeast.
 Outside Dean's Diner - Bellefleur, OR
 You stand outside of Dean's Diner, an ode to old times.  The place seems like
 something you've seen in old magazines.  You can see that this diner has been
-here for a very long time.
-
-You can move north, west, in and northwest.
+here for a very long time.    You can move north, west, in and northwest.
 
 > in
 You move in.
@@ -598,9 +565,7 @@ Dean's Diner
 This is Dean's Diner.  It's decorated with memorabilia from the mid-twentieth
 century.  There's a trendy checkered theme with the flooring and the
 furniture here.  You can hear and indistinct song from the era playing in the
-backround.  Also here is A Buzzer.
-
-You can only move out.
+backround.  Also here is A Buzzer.  You can only move out.
 
 > buzzer
 I don't understand what you want me to do with A Buzzer.
@@ -611,9 +576,7 @@ You move out.
 Outside Dean's Diner - Bellefleur, OR
 You stand outside of Dean's Diner, an ode to old times.  The place seems like
 something you've seen in old magazines.  You can see that this diner has been
-here for a very long time.
-
-You can move north, west, in and northwest.
+here for a very long time.    You can move north, west, in and northwest.
 
 > nw
 You move northwest.
@@ -623,10 +586,8 @@ Welcome to Bellefleur, Oregon, the place your parents worked their first and
 last case together as partners in the FBI X-Files Division.  This is main
 street.  The town is very old-fashioned.  Throughout town, there's a post
 office, a hardware store, and a small diner.  There's a sheriff office here
-as well.  Also here is VW Van.
-
-You can move east, south, west, northeast, southeast, southwest and
-northwest.
+as well.  Also here is VW Van.  You can move east, south, west, northeast,
+southeast, southwest and northwest.
 
 > ne
 You move northeast.
@@ -635,8 +596,7 @@ Outside Arroway Hardware Store - Bellefleur, OR
 You stand outside of the only legitimate shop left in Bellefleur and it seems
 to be doing remarkably well.  The newer concrete building seems to dwarf its
 forgotten neighbors.  Wheelbarrows lean against the outside of this building.
-
-You can move south, in and southwest.
+ You can move south, in and southwest.
 
 > in
 You move in.
@@ -668,9 +628,8 @@ You stand outside of the only legitimate shop left in Bellefleur and it seems
 to be doing remarkably well.  The newer concrete building seems to dwarf its
 forgotten neighbors.  Wheelbarrows lean against the outside of this building.
  Also here is VW Van.  Byers, Frohike and Skinner are here.  Langly is here.
- You notice a man sitting alone in a dark car.
-
-You can move south, in and southwest.
+ You notice a man sitting alone in a dark car.  You can move south, in and
+southwest.
 
 > climb in the van
 The man in the dark car watches you silently as you climb in the van.  Langly
@@ -693,12 +652,10 @@ You stand outside of the only legitimate shop left in Bellefleur and it seems
 to be doing remarkably well.  The newer concrete building seems to dwarf its
 forgotten neighbors.  Wheelbarrows lean against the outside of this building.
  Also here is VW Van.  Byers, Frohike and Skinner are here.  Langly is here.
- You notice a man sitting alone in a dark car.
-
-You can move south, in and southwest.  Frohike looks to you and your
-companions and you all get out of the van.  "Looks like we found the place,
-huh," Langly says aloud.  Byers is hugging himself.  "This is creepy," he
-says.  You draw your gun in agreement.
+ You notice a man sitting alone in a dark car.  You can move south, in and
+southwest.  Frohike looks to you and your companions and you all get out of
+the van.  "Looks like we found the place, huh," Langly says aloud.  Byers is
+hugging himself.  "This is creepy," he says.  You draw your gun in agreement.
 
 > enter the forest
 Without notifying the Gunmen, you draw your gun, turn on your flashlight, and

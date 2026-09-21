@@ -51,34 +51,29 @@ The Footpath
 You are standing on the footpath. It is very busy here. To the west of you is
 the Imperial Agency building, where the bomb is supposed to be planted.  A
 car speeds through a red light.  A man walks by and presses the traffic light
-button. There is a manhole here which leads in the sewers.
-
-You can move west and in.
+button. There is a manhole here which leads in the sewers.  You can move west
+and in.
 
 > w
 You move west.
 
 The Lobby
 You are standing in the lobby of the Imperial Agency building. People are
-walking all about the place. There is an elevator next to you.
-
-You can move east and in.
+walking all about the place. There is an elevator next to you.  You can move
+east and in.
 
 > in
 You move in.
 
 The Elevator - Ground Floor
 You are in the elevator on the ground floor. No one else is in here. You must
-go up to the 28th floor.
-
-You can move up and out.
+go up to the 28th floor.  You can move up and out.
 
 > up
 You move up.
 
 The Elevator - 28th Floor
 You are in the elevator on the 28th Floor. No one else is in the elevator.
-
 You can move down and out.
 
 > out
@@ -86,18 +81,14 @@ You move out.
 
 Corridor
 You are standing in a long corridor. There is a door to the north and the
-south.
-
-You can move north, south and in.
+south.  You can move north, south and in.
 
 > s
 You move south.
 
 Office Room
 This is a simple office room. You can see out of the windows, which is quite
-high up. There is a desk, a bin and a cabinet here.
-
-You can only move north.
+high up. There is a desk, a bin and a cabinet here.  You can only move north.
 
 > open desk
 You open the desk.  Inside the desk is a pen, a calculator and a key.
@@ -120,9 +111,7 @@ You move north.
 
 Corridor
 You are standing in a long corridor. There is a door to the north and the
-south.
-
-You can move north, south and in.
+south.  You can move north, south and in.
 
 > n
 You move north.
@@ -130,7 +119,6 @@ You move north.
 Confrence Room
 A large confrence room, no one is in it. There is a large table and some
 chairs here, and a projector and projector screen.  Also here is coffee mug.
-
 You can only move south.
 
 > x table
@@ -147,9 +135,7 @@ You move south.
 
 Corridor
 You are standing in a long corridor. There is a door to the north and the
-south.
-
-You can move north, south and in.
+south.  You can move north, south and in.
 
 > read magazine
 It has a lot of pictures of people doing tricks on BMX bikes. On page 72
@@ -163,7 +149,6 @@ You move in.
 
 The Elevator - 28th Floor
 You are in the elevator on the 28th Floor. No one else is in the elevator.
-
 You can move down and out.
 
 > press 3rd floor
@@ -175,18 +160,14 @@ You move out.
 
 Corridor
 This is another small corridor. There is a security clearance required at
-this door to enter, which is to the north.
-
-You can move north and in.
+this door to enter, which is to the north.  You can move north and in.
 
 > n
 You move north.
 
 Tool Room
 This is the tool room. There are lots of tools hanging on the racks around
-the room and a large workbench in the center.
-
-You can only move south.
+the room and a large workbench in the center.  You can only move south.
 
 > x tool racks
 There are lots of tool racks which each have a set of tools on them.  On tool
@@ -207,35 +188,29 @@ You move south.
 
 Corridor
 This is another small corridor. There is a security clearance required at
-this door to enter, which is to the north.
-
-You can move north and in.
+this door to enter, which is to the north.  You can move north and in.
 
 > in
 You move in.
 
 The Elevator - 3rd Floor
-You are in the elevator on the 3rd floor. No one is in it except you.
-
-You can move up, down and out.
+You are in the elevator on the 3rd floor. No one is in it except you.  You
+can move up, down and out.
 
 > down
 You move down.
 
 The Elevator - Ground Floor
 You are in the elevator on the ground floor. No one else is in here. You must
-go up to the 28th floor.
-
-You can move up and out.
+go up to the 28th floor.  You can move up and out.
 
 > out
 You move out.
 
 The Lobby
 You are standing in the lobby of the Imperial Agency building. People are
-walking all about the place. There is an elevator next to you.
-
-You can move east and in.
+walking all about the place. There is an elevator next to you.  You can move
+east and in.
 
 > e
 You move east.
@@ -245,17 +220,14 @@ You are standing on the footpath. It is very busy here. To the west of you is
 the Imperial Agency building, where the bomb is supposed to be planted.  A
 car brakes suddenly, and five cars behind it start honking there horns.  An
 old man walks down the footpath and trips over, nearly losing balance. There
-is a manhole here which leads in the sewers.
-
-You can move west, down and in.
+is a manhole here which leads in the sewers.  You can move west, down and in.
 
 > down
 You move down.
 
 The Sewers
-You are underground in a dark sewer. There is a package here.
-
-You can only move up.
+You are underground in a dark sewer. There is a package here.  You can only
+move up.
 
 > z
 Time passes...

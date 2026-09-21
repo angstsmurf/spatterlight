@@ -28,7 +28,7 @@ Row comments and probe generators cite sections by title ("Ported
 
 ---
 
-## Where things stand (2026-09-20)
+## Where things stand (2026-09-21)
 
 - **Goldens:** 428/428.
 - **`runner_transcripts/`** holds one Runner transcript per row except
@@ -40,7 +40,7 @@ Row comments and probe generators cite sections by title ("Ported
   the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py` (its README explains how);
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 383 identical on every turn, 31 identical apart from
+- **Manifest:** 389 identical on every turn, 25 identical apart from
   whitespace, 13 with a report. Every differing row is classified under
   "Open leads" or "Nothing owed" -- and since the silent-task port
   (2026-09-20) none of them is an engine difference.
@@ -225,9 +225,13 @@ artefact; no corpus row differs by an engine rule.
 - **Permanently unmeasurable:** `dreamquest` (run400 cannot load a task
   with an empty Command vector); the `to_hell_and_beyond` assisted rows
   (Scarier-only by design).
-- When reading `sweep_wine_breaks.py`, judge by `k1`: 5486 of the 5514
-  Scarier-only breaks are the `<centre>` blank-line artefact (`k2`), so the
-  total is a poor target on its own.
+- When reading `sweep_wine_breaks.py`, judge by `k1`: 4428 of the 4456
+  Scarier-only breaks are blank lines (`k2`), mostly the `<centre>`
+  artefact, so the total is a poor target on its own. Not all of `k2` is
+  artefact, though: 1058 of them were Scarier's break before the exits
+  sentence, a real difference (2026-09-21). A `k2` cluster on one
+  sentence shape is worth checking against an `.rtf`, which is the
+  scrollback itself.
 
 ### Nothing owed (capture and compare artefacts)
 
@@ -241,7 +245,7 @@ artefact; no corpus row differs by an engine rule.
   T99-101, where a bare Return after `s` is a real empty turn and the next
   blank answers the pause; the compare splits the turn differently, same
   text.
-- Whitespace-only joins or the trailing `[Press any key to end]`: the 31
+- Whitespace-only joins or the trailing `[Press any key to end]`: the 25
   "apart from whitespace" rows. Glum_Fiddle turn 0 is the startup echo.
 - Lost commands after an ending: thelasthour's last `wait` only (that row
   runs without SCR_SKIP_WAITKEY, so one ending "Press a key." swallows a
@@ -301,18 +305,6 @@ artefact; no corpus row differs by an engine rule.
   `give open box bob` cell cannot be reached without deciding what to do
   about the rest of OTHER (where, find, goto, go) -- still unmeasured. Cells
   6, 12, 14 and 20 of `cmdfile_p2give.txt`; cell 20 is downstream of 12.
-- **The exits sentence joins the room block, it does not start a
-  paragraph.** In the p3xORD/p4ORD probe worlds every Runner prints `A
-  bright room.  Also here is a coin and a box.  Bob is here.  You can only
-  move north.` as ONE line, two spaces before the exits; Scarier puts a
-  blank line in front of it. Cell 15 of `cmdfile_p2give.txt` at all four
-  versions (Adrift_269_3g37.rtf, 270_3g38.rtf, 271_3g39.txt,
-  272_3g40.txt, 2026-09-21). The corpus says the opposite is not happening
-  by accident -- volant's `... You can go west.  The security team follows
-  you from the south.` is green -- so the two cases differ by where the
-  exits sentence is appended, and nothing has read viewroom for it (the
-  room block is ONE pspace()-joined string; see the run400 `viewroom`
-  annotation). No corpus row shows the probe's shape, so the 428 stay green.
 - **Silent-task test scope, the unported rest.** run400 tests the whole
   turn buffer. Scarier counts anything a task's run adds (baroo) but still
   ignores text written before the dispatch. No corpus row is known.
@@ -3126,6 +3118,14 @@ transcript names are in the code comment next to the named function, in
   LookTexts with pspace(), a conditional two spaces. The heading is `"\n" +
   name + "\n"`. A leading `<br>` collapses only against Scarier's own
   break. perspectives, datewithdeath, Vagabond (a4d61a288, 5bd9ace04)
+- **The exits sentence joins the room block.** viewroom prints the saved
+  buffer & a literal `"  "` (run400 472C64), so ShowExits' "You can move
+  ..." runs on after the block's last sentence, and after a bare heading it
+  starts with two spaces. All four versions: p2give cell 15
+  (Adrift_269_3g37.rtf .. 272_3g40.txt), egghunt, adrift_maze. 70 goldens
+  re-blessed, all whitespace-only; Scarier-only breaks 5514 -> 4456; six
+  3.7/3.8 rows now identical on every turn (lib_print_room_exits,
+  2026-09-21)
 - **Executed tasks.** Executed-task CompleteText and every
   AdditionalMessage join the turn with pspace. `[4.0]` the_pk_girl T156
   (07bbd664d)

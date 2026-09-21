@@ -103,9 +103,7 @@ vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-
-You can move north, south, southeast and southwest.
+fancy ship.  You can move north, south, southeast and southwest.
 
 > s
 You move south.
@@ -120,8 +118,7 @@ like someone took a hacksaw to it, and it is clear that it isn’t fixable, at
 least from what you can tell.  It looks like the only thing in the room that
 is still intact is a battery charger in the ceiling. An open vent on the
 doors allows the ADRIFT-O-Sweep access to the CCC.
-
-You can move north and south.
+  You can move north and south.
 
 > stand on phone
 You stand on the DRIFT-O-Com.  DARWIN enters from the south.
@@ -144,9 +141,7 @@ vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-
-You can move north, south, southeast and southwest.
+fancy ship.  You can move north, south, southeast and southwest.
 
 > sw
 You move southwest.
@@ -160,9 +155,8 @@ away.  On the wall near the doorway is a lighted control panel that randomly
 flickers with bright colors. A larger window wraps its way around the outer
 perimeter of the Objectorium.  An open vent located near the door at ground
 level grabs your attention and has some writing just above it.  There is a
-black box firmly attached to the outside of a cabinet.
-
-You can only move northeast.
+black box firmly attached to the outside of a cabinet.  You can only move
+northeast.
 
 > x table
 Made out of some sort of heavy-duty crystal, the table looks as if it has
@@ -192,9 +186,8 @@ with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.  DARWIN is intently working on something, but you can't make out
 what it is. It turns away from you each time you approach.  It doesn't seem
-to be concerned at all about your presence.
-
-You can move north, south, southeast and southwest.
+to be concerned at all about your presence.  You can move north, south,
+southeast and southwest.
 
 > se
 You move southeast.
@@ -210,8 +203,7 @@ short room divider partially conceals a chrome toilet and wash basin, but
 still gives a nice view through the window.  A wardrobe built into the wall
 blends right in, and has a small vent beneath it with some writing just above
 it.
-
-You can only move northwest.
+  You can only move northwest.
 
 > open wardrobe
 You open the wardrobe.  A green Drift-O-Sphere and a piece of gum are inside
@@ -249,9 +241,8 @@ vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
-
-You can move north, south, southeast and southwest.
+fancy ship.  The ADRIFT-O-Sweep is zooming around the room.  You can move
+north, south, southeast and southwest.
 
 > sw
 You move southwest.
@@ -265,9 +256,8 @@ away.  On the wall near the doorway is a lighted control panel that randomly
 flickers with bright colors. A larger window wraps its way around the outer
 perimeter of the Objectorium.  An open vent located near the door at ground
 level grabs your attention and has some writing just above it.  There is a
-black box firmly attached to the outside of a cabinet.
-
-You can only move northeast.
+black box firmly attached to the outside of a cabinet.  You can only move
+northeast.
 
 > open box
 You can't open the black box as it is locked!
@@ -296,9 +286,8 @@ away.  On the wall near the doorway is a lighted control panel that randomly
 flickers with bright colors. A larger window wraps its way around the outer
 perimeter of the Objectorium.  An open vent located near the door at ground
 level grabs your attention and has some writing just above it.  There is a
-black box firmly attached to the outside of a cabinet.
-
-You can only move northeast.
+black box firmly attached to the outside of a cabinet.  You can only move
+northeast.
 
 > put battery in remote
 You put the small battery inside the remote control.
@@ -313,10 +302,8 @@ vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-
-You can move north, south, southeast and southwest.  ADRIFT-O-Sweep zooms in
-through the vent from the south-east.
+fancy ship.  You can move north, south, southeast and southwest.
+ADRIFT-O-Sweep zooms in through the vent from the south-east.
 
 > d
 You push the lever into the DOWN position and all of a sudden the spot right
@@ -332,9 +319,7 @@ The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-
-You can only move south.
+fancy ship.  You can only move south.
 
 > s
 You move south.
@@ -343,9 +328,8 @@ The Corridor
 
 This appears to be a corridor, paneled with lighting above.
 An open vent located near the doors, at ground level grabs your attention and
-has some writing just above it.
-
-You can move north and south.  DARWIN enters from the south.
+has some writing just above it.  You can move north and south.  DARWIN enters
+from the south.
 
 > s
 You move south.
@@ -358,9 +342,7 @@ ship parts, obviously torn apart by DARWIN.  The control panel in this room
 has also been destroyed, and the lever to the hatch has been bent so badly
 that it is doubtful it could open the hatch to expel the foul-smelling trash
 into space.  There is a little room left in the door for the ADRIFT-O-Sweep
-to continue dumping trash.
-
-You can only move north.
+to continue dumping trash.  You can only move north.
 
 > take pill
 Take what?
@@ -389,9 +371,7 @@ The Corridor
 
 This appears to be a corridor, paneled with lighting above.
 An open vent located near the doors, at ground level grabs your attention and
-has some writing just above it.
-
-You can move north and south.
+has some writing just above it.  You can move north and south.
 
 > n
 You move north.
@@ -402,9 +382,7 @@ The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-
-You can only move south.
+fancy ship.  You can only move south.
 
 > up
 You push the lever into the Up position and the ADRIFT-O-Lift begins to rise
@@ -422,9 +400,7 @@ The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-
-You can only move south.
+fancy ship.  You can only move south.
 
 > s
 You move south.
@@ -439,8 +415,7 @@ like someone took a hacksaw to it, and it is clear that it isn’t fixable, at
 least from what you can tell.  It looks like the only thing in the room that
 is still intact is a battery charger in the ceiling. An open vent on the
 doors allows the ADRIFT-O-Sweep access to the CCC.
-
-You can move north and south.
+  You can move north and south.
 
 > s
 You move south.
@@ -453,7 +428,6 @@ the wall with a hole at the top and a tray at the bottom.  A sign on the wall
 is located right next to it, along with a button and dark box with some
 writing on it. A small vent is located in the bottom of the door that leads
 north from here. There is also a control panel on the wall, near the door.
-
 You can only move north.
 
 > pour slime in box
@@ -539,7 +513,6 @@ the wall with a hole at the top and a tray at the bottom.  A sign on the wall
 is located right next to it, along with a button and dark box with some
 writing on it. A small vent is located in the bottom of the door that leads
 north from here. There is also a control panel on the wall, near the door.
-
 You can only move north.
 
 > twist green orb
@@ -565,8 +538,7 @@ like someone took a hacksaw to it, and it is clear that it isn’t fixable, at
 least from what you can tell.  It looks like the only thing in the room that
 is still intact is a battery charger in the ceiling. An open vent on the
 doors allows the ADRIFT-O-Sweep access to the CCC.
-
-You can move north and south.
+  You can move north and south.
 
 > n
 You move north.
@@ -580,9 +552,8 @@ with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
 fancy ship.  DARWIN is intently working on something, but you can't make out
 what it is. It turns away from you each time you approach.  It doesn't seem
-to be concerned at all about your presence.
-
-You can move north, south, southeast and southwest.
+to be concerned at all about your presence.  You can move north, south,
+southeast and southwest.
 
 "The bomb.....time must be getting short.  I wish it had a precise timer on
 it."
@@ -601,9 +572,8 @@ The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
-
-You can only move south.
+fancy ship.  The ADRIFT-O-Sweep is zooming around the room.  You can only
+move south.
 
 > n
 You can only move south.  ADRIFT-O-Sweep zooms out through the vent.
@@ -624,9 +594,7 @@ The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-
-You can only move south.
+fancy ship.  You can only move south.
 
 > where is sweeper
 ADRIFT-O-Sweep is
@@ -645,9 +613,7 @@ center, looking out to a sea of endless stars that are visible through the
 main screen.  Titanium walls encircle the bridge, and are embedded with
 several flat-screen control panels that flicker randomly.  The door to the
 ADRIFT-O-Lift is to the south, near a small vent that lies at ground level
-and appears to have some writing just above it.
-
-You can only move south.
+and appears to have some writing just above it.  You can only move south.
 
 > s
 You move south.
@@ -659,9 +625,8 @@ vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
-
-You can move north, south, southeast and southwest.
+fancy ship.  The ADRIFT-O-Sweep is zooming around the room.  You can move
+north, south, southeast and southwest.
 
 > push button
 You push the button and the ADRIFT-O-Sweep makes a strange noise then creates
@@ -762,9 +727,8 @@ vents located in the bottom of them lead to the north, south, southeast, and
 southwest.  There is a lever near a control panel on the wall that flickers
 with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.  The ADRIFT-O-Sweep is zooming around the room.
-
-You can move north, south, southeast and southwest.
+fancy ship.  The ADRIFT-O-Sweep is zooming around the room.  You can move
+north, south, southeast and southwest.
 
 > d
 You push the lever into the DOWN position and all of a sudden the spot right
@@ -780,9 +744,7 @@ The ADRIFT-O-Lift is the central hub for ship access.  A door leads south
 from here, and has an open vent in the bottom of it.  There is a lever near a
 control panel on the wall that flickers with multicolored lights.
 There is a lever on the wall, though it seems a little primative for such a
-fancy ship.
-
-You can only move south.
+fancy ship.  You can only move south.
 
 > s
 You move south.
@@ -794,9 +756,7 @@ the lighting.  One of the panels from the ceiling has busted and there seems
 to be a secret room up there.
 
 An open vent located near the doors, at ground level grabs your attention and
-has some writing just above it.
-
-You can move north and up.
+has some writing just above it.  You can move north and up.
 
 > x vent
 The vent is really more of a small open space for the ADRIFT-O-Sweep to gain
@@ -809,9 +769,7 @@ You move up.
 Secret DRIFT-O-Com
 
 The space is quite small here.  The only thing in here is a small screen with
-a little button on it.  An opening leads down.
-
-You can only move down.
+a little button on it.  An opening leads down.  You can only move down.
 
 > x screen
 It has an 8-inch screen with a button on it.

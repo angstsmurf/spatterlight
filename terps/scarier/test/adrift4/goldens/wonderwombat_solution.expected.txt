@@ -46,9 +46,8 @@ Thumpers House
 This is your flaming house, nothing but fires and burnt piles of wood. Oh
 crap! You left the beer inside!  To the west is Mull Road.  Also here is a
 gas mask.  Womby is here.  Stinky the Galah is pissing on the fire, trying to
-put it out.  Sir Heinreich Von Slutt is here, he looks pissed as hell.
-
-You can only move west.
+put it out.  Sir Heinreich Von Slutt is here, he looks pissed as hell.  You
+can only move west.
 
 > take mask
 You pick up the gas mask.
@@ -61,9 +60,7 @@ Mull Road
 You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
-Boozhouse.
-
-You can move north, east, south and west.
+Boozhouse.  You can move north, east, south and west.
 
 > w
 You move west.
@@ -73,9 +70,8 @@ You are in Bobs Boozhouse, the local bar. Drunk animals sit along the bar
 stools, drinking some grog. You could really go for a beer. To the northwest
 you can see the toilets.  Wendy the Wombat is sitting at a stool, looking at
 her mirror.  Bob the Butcherbird is wiping a glass with an old rag behind the
-counter.  Fry the Magpie is sitting on a stool, getting drunk.
-
-You can move east and northwest.
+counter.  Fry the Magpie is sitting on a stool, getting drunk.  You can move
+east and northwest.
 
 > nw
 You move northwest.
@@ -83,9 +79,7 @@ You move northwest.
 The Toilets (Bobs Boozhouse)
 You are in the toilets in Bobs Boozhouse, they stink like s#$t (what a
 suprise) and are old and dirty. There is a urinal on the wall. A message is
-scribbled on the wall in black marker.
-
-You can only move southeast.
+scribbled on the wall in black marker.  You can only move southeast.
 
 > piss in urinal
 You have a long piss in the toilet. It is such a relief.
@@ -98,9 +92,8 @@ You are in Bobs Boozhouse, the local bar. Drunk animals sit along the bar
 stools, drinking some grog. You could really go for a beer. To the northwest
 you can see the toilets.  Wendy the Wombat is sitting at a stool, looking at
 her mirror.  Bob the Butcherbird is wiping a glass with an old rag behind the
-counter.  Fry the Magpie is sitting on a stool, getting drunk.
-
-You can move east and northwest.
+counter.  Fry the Magpie is sitting on a stool, getting drunk.  You can move
+east and northwest.
 
 > e
 You move east.
@@ -110,9 +103,7 @@ Mull Road
 You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
-Boozhouse.
-
-You can move north, east, south and west.
+Boozhouse.  You can move north, east, south and west.
 
 > n
 You move north.
@@ -121,9 +112,8 @@ Mull Road
 You are standing in Mull Road. There is a phone booth here, which you can
 call people with. To the east of you is Swear 'O' Rama Stadium, and to the
 west is the Driving School. To the north is the Gunjaville park.  Cameron the
-Cat is standing around, looking out to trade something.
-
-You can move north, east, south, west and in.
+Cat is standing around, looking out to trade something.  You can move north,
+east, south, west and in.
 
 > in
 You move in.
@@ -131,9 +121,7 @@ You move in.
 Inside Phone Booth
 You are standing inside the phone booth. There is a phone in front of you,
 which takes 20 cent pieces. You wish you could somehow break open the phone
-and steal the money inside.
-
-You can only move out.
+and steal the money inside.  You can only move out.
 
 > x phone
 This is the phone, it only takes 20 cent coins. To dial someone type dial
@@ -155,9 +143,8 @@ Mull Road
 You are standing in Mull Road. There is a phone booth here, which you can
 call people with. To the east of you is Swear 'O' Rama Stadium, and to the
 west is the Driving School. To the north is the Gunjaville park.  Cameron the
-Cat is standing around, looking out to trade something.
-
-You can move north, east, south, west and in.
+Cat is standing around, looking out to trade something.  You can move north,
+east, south, west and in.
 
 > s
 You move south.
@@ -167,9 +154,7 @@ Mull Road
 You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
-Boozhouse.
-
-You can move north, east, south and west.
+Boozhouse.  You can move north, east, south and west.
 
 > s
 You move south.
@@ -177,9 +162,8 @@ You move south.
 Mull Road
 This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
-large skyscraper called Dark Baron enterprises.
-
-You can move north, east, south and west.
+large skyscraper called Dark Baron enterprises.  You can move north, east,
+south and west.
 
 > w
 You move west.
@@ -188,18 +172,15 @@ Bath House
 You are standing in the bath house, a steamy room with one gigantic spa in
 the middle of the room. There is a rack of towels next to the bath. You can
 see three hot bimbo koala babes in the spa.  Fred the Frog is sitting down,
-wearing some boardies.
-
-You can move east and in.
+wearing some boardies.  You can move east and in.
 
 > in
 You move in.
 
 In The Spa
 You are sitting in the spa, the water tingles all around you.  Three Hot
-Bimbo Koala Babes are sitting at the other end of the spa.
-
-You can only move out.  One of the bimbo's giggle.
+Bimbo Koala Babes are sitting at the other end of the spa.  You can only move
+out.  One of the bimbo's giggle.
 
 > out
 You move out.
@@ -208,9 +189,7 @@ Bath House
 You are standing in the bath house, a steamy room with one gigantic spa in
 the middle of the room. There is a rack of towels next to the bath. You can
 see three hot bimbo koala babes in the spa.  Fred the Frog is sitting down,
-wearing some boardies.
-
-You can move east and in.
+wearing some boardies.  You can move east and in.
 
 > e
 You move east.
@@ -218,9 +197,8 @@ You move east.
 Mull Road
 This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
-large skyscraper called Dark Baron enterprises.
-
-You can move north, east, south and west.  You fart.
+large skyscraper called Dark Baron enterprises.  You can move north, east,
+south and west.  You fart.
 
 > n
 You move north.
@@ -230,9 +208,7 @@ Mull Road
 You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
-Boozhouse.
-
-You can move north, east, south and west.
+Boozhouse.  You can move north, east, south and west.
 
 > w
 You move west.
@@ -242,9 +218,8 @@ You are in Bobs Boozhouse, the local bar. Drunk animals sit along the bar
 stools, drinking some grog. You could really go for a beer. To the northwest
 you can see the toilets.  Wendy the Wombat is sitting at a stool, looking at
 her mirror.  Bob the Butcherbird is wiping a glass with an old rag behind the
-counter.  Fry the Magpie is sitting on a stool, getting drunk.
-
-You can move east and northwest.
+counter.  Fry the Magpie is sitting on a stool, getting drunk.  You can move
+east and northwest.
 
 > buy wendy a beer
 "Hey Bob, can I've a beer," you say. "Sure thing Thumper," says Bob filling up an empty mug. You hand Bob $5 and then walk over to Wendy. "Here's your beer," you say handing the mug to Wendy. "Thanks Thumpy Wumpy," says Wendy drinking the beer. "I thought you said you
@@ -275,9 +250,7 @@ Mull Road
 You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
-Boozhouse.
-
-You can move north, east, south and west.
+Boozhouse.  You can move north, east, south and west.
 
 > n
 You move north.
@@ -286,9 +259,8 @@ Mull Road
 You are standing in Mull Road. There is a phone booth here, which you can
 call people with. To the east of you is Swear 'O' Rama Stadium, and to the
 west is the Driving School. To the north is the Gunjaville park.  Cameron the
-Cat is standing around, looking out to trade something.
-
-You can move north, east, south, west and in.
+Cat is standing around, looking out to trade something.  You can move north,
+east, south, west and in.
 
 > w
 You move west.
@@ -296,9 +268,7 @@ You move west.
 Driving School
 You are standing in the lobby of the Gunjaville driving school. It is
 airconditioned in here which is a relief from the bloody sun.  Ian the Iguana
-is at the counter.
-
-You can only move east.
+is at the counter.  You can only move east.
 
 > pay for lesson
 "I'd like a driving lesson," you say. "That'll be one hundred dollars," says Ian. You hand him $100. "Uh... I'm sorry but the thing that I forgot to mention is I don't know how
@@ -314,9 +284,8 @@ Mull Road
 You are standing in Mull Road. There is a phone booth here, which you can
 call people with. To the east of you is Swear 'O' Rama Stadium, and to the
 west is the Driving School. To the north is the Gunjaville park.  Cameron the
-Cat is standing around, looking out to trade something.
-
-You can move north, east, south, west and in.
+Cat is standing around, looking out to trade something.  You can move north,
+east, south, west and in.
 
 > n
 You move north.
@@ -325,7 +294,6 @@ Gunjaville Park
 You are standing on the path which goes north through Gunjaville Park. There
 are grass fields to either side of you. A path continues north towards a
 pond.  Beatrice and Donald are sitting on the park bench, feeding the birds.
-
 You can move north and south.
 
 > n
@@ -335,9 +303,8 @@ By The Pond
 You are standing by a small stone pond, there are a few fish swimming around
 it. In front of you is a large hedge maze, which looks rather large, you'd
 probably get lost. To the west of you is a long path, leaving the park.
-Roger the Rhino is here, admiring his maze.
-
-You can move north, south and west.
+Roger the Rhino is here, admiring his maze.  You can move north, south and
+west.
 
 > w
 You move west.
@@ -345,9 +312,8 @@ You move west.
 The Graveyard
 You are standing in an eerie graveyard, there are graves all around you. This
 places is creeping you out, so you might leave soon. There is a small shack
-to the north you, must be the grave keepers hut.
-
-You can move north and east.
+to the north you, must be the grave keepers hut.  You can move north and
+east.
 
 > n
 You move north.
@@ -356,9 +322,7 @@ Outside the Shack
 You are standing outside a small iron shack, it looks very old and has a
 large steel lock on the door, which'd take a very very large pair of bolt
 cutters to open. There is a doormat in front of the door. The path only goes
-south, back to the graveyard.
-
-You can only move south.
+south, back to the graveyard.  You can only move south.
 
 > x doormat
 This is a doormat, which has KARNISHNAR written on it. Hmm... wonder what
@@ -374,10 +338,8 @@ You move south.
 The Graveyard
 You are standing in an eerie graveyard, there are graves all around you. This
 places is creeping you out, so you might leave soon. There is a small shack
-to the north you, must be the grave keepers hut.
-
-You can move north and east.  You hear the sounds of chains being pulled
-along the ground.
+to the north you, must be the grave keepers hut.  You can move north and
+east.  You hear the sounds of chains being pulled along the ground.
 
 > e
 You move east.
@@ -386,9 +348,8 @@ By The Pond
 You are standing by a small stone pond, there are a few fish swimming around
 it. In front of you is a large hedge maze, which looks rather large, you'd
 probably get lost. To the west of you is a long path, leaving the park.
-Roger the Rhino is here, admiring his maze.
-
-You can move north, south and west.
+Roger the Rhino is here, admiring his maze.  You can move north, south and
+west.
 
 > s
 You move south.
@@ -397,7 +358,6 @@ Gunjaville Park
 You are standing on the path which goes north through Gunjaville Park. There
 are grass fields to either side of you. A path continues north towards a
 pond.  Beatrice and Donald are sitting on the park bench, feeding the birds.
-
 You can move north and south.
 
 > s
@@ -407,9 +367,8 @@ Mull Road
 You are standing in Mull Road. There is a phone booth here, which you can
 call people with. To the east of you is Swear 'O' Rama Stadium, and to the
 west is the Driving School. To the north is the Gunjaville park.  Cameron the
-Cat is standing around, looking out to trade something.
-
-You can move north, east, south, west and in.
+Cat is standing around, looking out to trade something.  You can move north,
+east, south, west and in.
 
 >
 Grunt.
@@ -424,9 +383,7 @@ cup. The grand prize is $5000. You must have a drivers license to get
 admitted. The main arena is to the east.  Also here is a swear 'o' rama
 application.  Kevin the Kangaroo is standing in front of the entrance.  Paul
 the Python is sitting behind the counter, handing out Swear 'O' Rama
-applications.
-
-You can only move west.
+applications.  You can only move west.
 
 > take application
 You pick up the swear 'o' rama application.
@@ -445,9 +402,7 @@ You move down.
 
 Swear 'O' Rama Main Arena
 You are standing in the main arena. There are crowds all around you,
-cheering.  Philip the Possum is here, ready to swear.
-
-You can only move up.
+cheering.  Philip the Possum is here, ready to swear.  You can only move up.
 
 > swearing on
 Swearing is now on.
@@ -462,9 +417,7 @@ You move down.
 
 Swear 'O' Rama Main Arena
 You are standing in the main arena. There are crowds all around you,
-cheering.  Philip the Possum is here, ready to swear.
-
-You can only move up.
+cheering.  Philip the Possum is here, ready to swear.  You can only move up.
 
 > karnishnar
 "Karnishnar!" you yell. "Oh! My ears! My virgin ears!" screams Philip as he falls on the ground. "And we have a winner!" booms over the speakers. "It's Thumper!". The croud
@@ -482,9 +435,7 @@ where animals swear at each other and try to win the Swear 'O' Rama world
 cup. The grand prize is $5000. You must have a drivers license to get
 admitted. The main arena is to the east.  Kevin the Kangaroo is standing in
 front of the entrance.  Paul the Python is sitting behind the counter,
-handing out Swear 'O' Rama applications.
-
-You can only move west.
+handing out Swear 'O' Rama applications.  You can only move west.
 
 > w
 You move west.
@@ -493,9 +444,8 @@ Mull Road
 You are standing in Mull Road. There is a phone booth here, which you can
 call people with. To the east of you is Swear 'O' Rama Stadium, and to the
 west is the Driving School. To the north is the Gunjaville park.  Cameron the
-Cat is standing around, looking out to trade something.
-
-You can move north, east, south, west and in.
+Cat is standing around, looking out to trade something.  You can move north,
+east, south, west and in.
 
 > s
 You move south.
@@ -505,9 +455,7 @@ Mull Road
 You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
-Boozhouse.
-
-You can move north, east, south and west.
+Boozhouse.  You can move north, east, south and west.
 
 > s
 You move south.
@@ -515,9 +463,8 @@ You move south.
 Mull Road
 This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
-large skyscraper called Dark Baron enterprises.
-
-You can move north, east, south and west.
+large skyscraper called Dark Baron enterprises.  You can move north, east,
+south and west.
 
 >
 Grunt.
@@ -529,10 +476,8 @@ The Alleyway
 This is a dark alleyway, heaps of rubbish lies on the ground next to a large
 dumpster. To the south is a nightclub called "The Pussycat", a women only
 club. To the north is Mull street.  Also here is an old lighter.  Steve the
-Snake is looking around eagerly, smoking a cigarette.
-
-You can move north and south.  "Hey, are you the guy who called me?" asks
-Steve. "Yeah, I want a good time," you say. "Did you bring the goods?" says Steve. "What goods?" you ask. "Y'know, the goods!" yells Steve. "I have no idea what the hell you are talking about," you say. "Look mother fucker, we had an arrangement, you give me the goods and I give
+Snake is looking around eagerly, smoking a cigarette.  You can move north and
+south.  "Hey, are you the guy who called me?" asks Steve. "Yeah, I want a good time," you say. "Did you bring the goods?" says Steve. "What goods?" you ask. "Y'know, the goods!" yells Steve. "I have no idea what the hell you are talking about," you say. "Look mother fucker, we had an arrangement, you give me the goods and I give
 you the cash!" yells Steve. "Look, I have no idea what the goods are, I just came here to have a good
 time," you yell. "You won't get a good time until you bringing me the mother fucking goods!"
 yells Steve. "Calm down man!" you say. "SHUT UP AND BRING ME THE GOODS!" screams Steve. "Look, what are the goods?" you ask. "The cocaine, boy!" yells Steve. "Nope, I don't have no cocaine on me," you say. "WHAT! NO COCAINE! You go and find me some cocaine and I'll give you the
@@ -587,9 +532,8 @@ The WoopWoop Tip
 You are standing in the middle of a disgusting rubbish tip, the WoopWoop tip.
 Nothing special here except for thousands of tonnes of garbage all around
 you. To the northeast you can see a small little office.   Also here is a
-small package.  A garbage truck is parked next to you.
-
-You can move in and northeast.
+small package.  A garbage truck is parked next to you.  You can move in and
+northeast.
 
 > x small package
 This is a small package titled "Gunjaville Pharmacy", it has already been
@@ -611,9 +555,7 @@ You move northeast.
 The Garbo's Office
 You are standing inside the garbo's office, a small little shack that looks
 out into the garbage.  Bert the Bull is sitting at his desk, drinking some
-coffee.
-
-You can only move southwest.
+coffee.  You can only move southwest.
 
 > open desk
 You open the desk.  The truck keys are inside the desk.
@@ -640,18 +582,15 @@ The WoopWoop Tip
 You are standing in the middle of a disgusting rubbish tip, the WoopWoop tip.
 Nothing special here except for thousands of tonnes of garbage all around
 you. To the northeast you can see a small little office.   Also here is a
-small package.  A garbage truck is parked next to you.
-
-You can move in and northeast.
+small package.  A garbage truck is parked next to you.  You can move in and
+northeast.
 
 > in
 You move in.
 
 Front of Garbage Truck
 You are sitting in the front seat of the garbage truck. Looking out of the
-front window you can see a lot of garbage.
-
-You can only move out.
+front window you can see a lot of garbage.  You can only move out.
 
 > start truck
 You insert the key and start the truck up. You grab hold of the wheel and
@@ -681,9 +620,8 @@ You move south.
 Mull Road
 This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
-large skyscraper called Dark Baron enterprises.
-
-You can move north, east, south and west.
+large skyscraper called Dark Baron enterprises.  You can move north, east,
+south and west.
 
 > w
 You move west.
@@ -692,18 +630,15 @@ Bath House
 You are standing in the bath house, a steamy room with one gigantic spa in
 the middle of the room. There is a rack of towels next to the bath. You can
 see three hot bimbo koala babes in the spa.  Fred the Frog is sitting down,
-wearing some boardies.
-
-You can move east and in.
+wearing some boardies.  You can move east and in.
 
 > in
 You move in.
 
 In The Spa
 You are sitting in the spa, the water tingles all around you.  Three Hot
-Bimbo Koala Babes are sitting at the other end of the spa.
-
-You can only move out.
+Bimbo Koala Babes are sitting at the other end of the spa.  You can only move
+out.
 
 > out
 You move out.
@@ -712,9 +647,7 @@ Bath House
 You are standing in the bath house, a steamy room with one gigantic spa in
 the middle of the room. There is a rack of towels next to the bath. You can
 see three hot bimbo koala babes in the spa.  Fred the Frog is sitting down,
-wearing some boardies.
-
-You can move east and in.
+wearing some boardies.  You can move east and in.
 
 > e
 You move east.
@@ -722,9 +655,8 @@ You move east.
 Mull Road
 This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
-large skyscraper called Dark Baron enterprises.
-
-You can move north, east, south and west.
+large skyscraper called Dark Baron enterprises.  You can move north, east,
+south and west.
 
 > remove mask
 You remove the gas mask.
@@ -742,9 +674,7 @@ like cow skins. This place is truely freaky. A large cardboard cut-out of a
 marrow sits against the wall. There is an elevator to the east of you.  Also
 here is a catalouge.  Sally the Secretary is sitting at the reception desk.
 Chris the Crocodile is wearing a cow suit.  Barry the Bear is wearing a cow
-suit.  Your eyes are spinning.
-
-You can move east and west.
+suit.  Your eyes are spinning.  You can move east and west.
 
 > e
 You move east.
@@ -752,9 +682,7 @@ You move east.
 The Elevator (floor 1)
 You are standing in the elevator. You can leave to the west. Looking at the
 button panel you notice there is only one button with the text "MATT'S
-OFFICE" written on it.
-
-You can only move west.
+OFFICE" written on it.  You can only move west.
 
 > press button
 You press the button and the elevator jolts to life. The elevator music turns
@@ -770,9 +698,7 @@ town of Gunjaville. The room is filled with obscure pieces of furniture and
 cow suits. There is a hole in the floor next to the desk, looking down it you
 can see that the hole goes straight down to the first floor.  Also here is an
 oodlekoff.  Matthew Hickford is sitting at his desk wearing a cow suit and
-holding a weird electronic device.
-
-You can only move east.
+holding a weird electronic device.  You can only move east.
 
 > ask matthew about hole
 You walk up to Matthew and push him down the hole in the floor. "Shhhhhhiiiiiiiiitttttttttttt!" he yells as he falls. You let out an evil laugh.
@@ -806,9 +732,7 @@ You move east.
 The Elevator (floor 1)
 You are standing in the elevator. You can leave to the west. Looking at the
 button panel you notice there is only one button with the text "MATT'S
-OFFICE" written on it.  Your spine is killing you.
-
-You can only move west.
+OFFICE" written on it.  Your spine is killing you.  You can only move west.
 
 > press button
 You press the button and the elevator jolts to life. The elevator music turns
@@ -824,9 +748,7 @@ town of Gunjaville. The room is filled with obscure pieces of furniture and
 cow suits. There is a hole in the floor next to the desk, looking down it you
 can see that the hole goes straight down to the first floor.  Also here is an
 oodlekoff.  Matthew Hickford is here, working at his desk.  Your spine is
-killing you.
-
-You can only move east.
+killing you.  You can only move east.
 
 > take syndrom pills
 You take a jar of chronic fooluffultitus syndrom pills from the desk.  You
@@ -848,7 +770,6 @@ Mull Road
 This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.  Your spine is killing you.
-
 You can move north, east, south and west.
 
 > n
@@ -860,9 +781,7 @@ You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
 Boozhouse.  A garbage truck is parked next to you.  Your spine is killing
-you.
-
-You can move north, east, south and west.
+you.  You can move north, east, south and west.
 
 > n
 You move north.
@@ -872,9 +791,7 @@ You are standing in Mull Road. There is a phone booth here, which you can
 call people with. To the east of you is Swear 'O' Rama Stadium, and to the
 west is the Driving School. To the north is the Gunjaville park.  Cameron the
 Cat is standing around, looking out to trade something.  Your spine is
-killing you.
-
-You can move north, east, south, west and in.
+killing you.  You can move north, east, south, west and in.
 
 > trade device with cameron
 "Want to trade this electronic device?" you ask. "Sure, I've got a mint condition fife," says Cameron. "A fife, in mint condition? How much is it worth?" you ask. "I dunno, but apparently it annoys the crap out of the dead," says Cameron. "Hmmm, interesting, I'll take it," you say, handing Cameron the electronic
@@ -892,9 +809,7 @@ Gunjaville Park
 You are standing on the path which goes north through Gunjaville Park. There
 are grass fields to either side of you. A path continues north towards a
 pond.  Beatrice and Donald are sitting on the park bench, feeding the birds.
-Your spine is killing you.
-
-You can move north and south.
+Your spine is killing you.  You can move north and south.
 
 > n
 You move north.
@@ -903,9 +818,8 @@ By The Pond
 You are standing by a small stone pond, there are a few fish swimming around
 it. In front of you is a large hedge maze, which looks rather large, you'd
 probably get lost. To the west of you is a long path, leaving the park.
-Roger the Rhino is here, admiring his maze.  Your spine is killing you.
-
-You can move north, south and west.
+Roger the Rhino is here, admiring his maze.  Your spine is killing you.  You
+can move north, south and west.
 
 >
 Grunt.
@@ -917,7 +831,6 @@ The Graveyard
 You are standing in an eerie graveyard, there are graves all around you. This
 places is creeping you out, so you might leave soon. There is a small shack
 to the north you, must be the grave keepers hut.  Your spine is killing you.
-
 You can move north and east.
 
 > blow horn
@@ -943,9 +856,8 @@ Outside the Shack
 You are standing outside a small iron shack, it looks very old and has a
 large steel lock on the door, which'd take a very very large pair of bolt
 cutters to open. There is a doormat in front of the door. The path only goes
-south, back to the graveyard.  Your spine is killing you.
-
-You can only move south.
+south, back to the graveyard.  Your spine is killing you.  You can only move
+south.
 
 > unlock door
 You grab the key and shove it into the lock. You twist is, and the lock falls
@@ -958,7 +870,6 @@ Inside the Shack
 You are standing inside the shack. A small lantern bolted to the wall lights
 the dark room. There is a small military cot to the north of you, and a small
 wooden shelf above it.  Also here is a spade.  Your spine is killing you.
-
 You can only move south.
 
 > x shelf
@@ -988,9 +899,8 @@ Outside the Shack
 You are standing outside a small iron shack, it looks very old and has a
 large steel lock on the door, which'd take a very very large pair of bolt
 cutters to open. There is a doormat in front of the door. The path only goes
-south, back to the graveyard.  Your spine is killing you.
-
-You can move north and south.
+south, back to the graveyard.  Your spine is killing you.  You can move north
+and south.
 
 > s
 You move south.
@@ -999,7 +909,6 @@ The Graveyard
 You are standing in an eerie graveyard, there are graves all around you. This
 places is creeping you out, so you might leave soon. There is a small shack
 to the north you, must be the grave keepers hut.  Your spine is killing you.
-
 You can move north and east.
 
 > e
@@ -1009,9 +918,8 @@ By The Pond
 You are standing by a small stone pond, there are a few fish swimming around
 it. In front of you is a large hedge maze, which looks rather large, you'd
 probably get lost. To the west of you is a long path, leaving the park.
-Roger the Rhino is here, admiring his maze.  Your spine is killing you.
-
-You can move north, south and west.
+Roger the Rhino is here, admiring his maze.  Your spine is killing you.  You
+can move north, south and west.
 
 > s
 You move south.
@@ -1020,9 +928,7 @@ Gunjaville Park
 You are standing on the path which goes north through Gunjaville Park. There
 are grass fields to either side of you. A path continues north towards a
 pond.  Beatrice and Donald are sitting on the park bench, feeding the birds.
-Your spine is killing you.
-
-You can move north and south.
+Your spine is killing you.  You can move north and south.
 
 > s
 You move south.
@@ -1032,9 +938,7 @@ You are standing in Mull Road. There is a phone booth here, which you can
 call people with. To the east of you is Swear 'O' Rama Stadium, and to the
 west is the Driving School. To the north is the Gunjaville park.  Cameron the
 Cat is standing around, looking out to trade something.  Your spine is
-killing you.
-
-You can move north, east, south, west and in.
+killing you.  You can move north, east, south, west and in.
 
 > s
 You move south.
@@ -1045,9 +949,7 @@ You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
 Boozhouse.  A garbage truck is parked next to you.  Your spine is killing
-you.
-
-You can move north, east, south and west.
+you.  You can move north, east, south and west.
 
 >
 Grunt.
@@ -1060,9 +962,8 @@ You are in Bobs Boozhouse, the local bar. Drunk animals sit along the bar
 stools, drinking some grog. You could really go for a beer. To the northwest
 you can see the toilets.  Also here is Wendy's purse.  Bob the Butcherbird is
 wiping a glass with an old rag behind the counter.  Fry the Magpie is sitting
-on a stool, getting drunk.  Your spine is killing you.
-
-You can move east and northwest.
+on a stool, getting drunk.  Your spine is killing you.  You can move east and
+northwest.
 
 > give fooluffultitus pills to fry
 "Hey Fry, look what I've got for you," you say. "What is it?" asks Fry gloomily. You hand the jar of pills to Fry. "Hey, thanks a lot buddy!" says Fry. "Your welcome," you say. "What can I do for you to reward you?" you ask. "Well, you can tell me where Dazza the Dingo is," you say. "No idea, anything else?" asks Fry. "How 'bout some cash?" you ask. "Sorry, I spent my last $5 on a beer, anything else?" asks Fry. "Uh... I dunno, what can you do for me?" you ask. "Well, I could tell you how to get to the black market," says Fry. "Sure that sounds fine," you say. "The black market is behind the pussycat nightclub, just knock on the metal
@@ -1078,9 +979,7 @@ You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
 Boozhouse.  A garbage truck is parked next to you.  Your spine is killing
-you.
-
-You can move north, east, south and west.  You burp.
+you.  You can move north, east, south and west.  You burp.
 
 > s
 You move south.
@@ -1089,7 +988,6 @@ Mull Road
 This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.  Your spine is killing you.
-
 You can move north, east, south and west.
 
 > s
@@ -1100,9 +998,7 @@ This is a dark alleyway, heaps of rubbish lies on the ground next to a large
 dumpster. To the south is a nightclub called "The Pussycat", a women only
 club. To the north is Mull street.  Also here is an old lighter.  Steve the
 Snake is looking around eagerly, smoking a cigarette.  Your spine is killing
-you.
-
-You can move north and south.
+you.  You can move north and south.
 
 > give cocaine to steve
 "Hey, I brought you the cocaine," you say. "Well fucking alright! Thanks man, here's ya reward," says Steve handing you
@@ -1118,7 +1014,6 @@ You are standing in an alley outside a small building. A neon light flashes
 "The Pussycat" nightclub, which is a women only nightclub. You can go back
 north along the alley. You can enter to the south.  Kristy the Cat is the
 bouncer, and is standing in front of the door.  Your spine is killing you.
-
 You can move north and south.
 
 > wear dress
@@ -1137,9 +1032,7 @@ The Dance Floor
 You are standing on the dance floor, hundreds of girls are all dancing around
 you to some disco music. There is a small door to the south of you.  Olivia
 the Orangatang is break dancing on the floor.  Pamela the Panda is dancing
-here.  Your spine is killing you.
-
-You can move north and south.
+here.  Your spine is killing you.  You can move north and south.
 
 > s
 You move south.
@@ -1149,9 +1042,7 @@ You are standing out the back of the pussycat nightclub, which is to the
 north. There is nothing out here except for a brick wall facing you
 surrounding you. There is a small metal door to the east of you.  Linda the
 Lizard is leaning against the brick wall, smoking a cigarette.  Your spine is
-killing you.
-
-You can only move north.
+killing you.  You can only move north.
 
 > knock on door
 You knock on the metal door. "What's the password," says a raspy voice from behind the door.
@@ -1173,9 +1064,7 @@ You are standing out the back of the pussycat nightclub, which is to the
 north. There is nothing out here except for a brick wall facing you
 surrounding you. There is a small metal door to the east of you.  Linda the
 Lizard is leaning against the brick wall, smoking a cigarette.  Your spine is
-killing you.
-
-You can only move north.
+killing you.  You can only move north.
 
 > n
 You move north.
@@ -1184,9 +1073,7 @@ The Dance Floor
 You are standing on the dance floor, hundreds of girls are all dancing around
 you to some disco music. There is a small door to the south of you.  Olivia
 the Orangatang is break dancing on the floor.  Pamela the Panda is dancing
-here.  Your spine is killing you.
-
-You can move north and south.
+here.  Your spine is killing you.  You can move north and south.
 
 > n
 You move north.
@@ -1195,9 +1082,7 @@ The Pussycat Nightclub
 You are standing in the pussycat nightclub, and dark little room filled with
 girls talking to each other. There is a dance floor to the south of you.
 Belinda the Bulldog is sitting at a table, drinking some vodka.  Your spine
-is killing you.
-
-You can move north and south.
+is killing you.  You can move north and south.
 
 > n
 You move north.
@@ -1207,7 +1092,6 @@ You are standing in an alley outside a small building. A neon light flashes
 "The Pussycat" nightclub, which is a women only nightclub. You can go back
 north along the alley. You can enter to the south.  Kristy the Cat is the
 bouncer, and is standing in front of the door.  Your spine is killing you.
-
 You can move north and south.
 
 > n
@@ -1217,9 +1101,7 @@ The Alleyway
 This is a dark alleyway, heaps of rubbish lies on the ground next to a large
 dumpster. To the south is a nightclub called "The Pussycat", a women only
 club. To the north is Mull street.  Also here is an old lighter.  Your spine
-is killing you.
-
-You can move north and south.
+is killing you.  You can move north and south.
 
 > n
 You move north.
@@ -1228,7 +1110,6 @@ Mull Road
 This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.  Your spine is killing you.
-
 You can move north, east, south and west.
 
 > n
@@ -1240,9 +1121,7 @@ You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
 Boozhouse.  A garbage truck is parked next to you.  Your spine is killing
-you.
-
-You can move north, east, south and west.
+you.  You can move north, east, south and west.
 
 >
 Grunt.
@@ -1255,9 +1134,7 @@ You are in Bobs Boozhouse, the local bar. Drunk animals sit along the bar
 stools, drinking some grog. You could really go for a beer. To the northwest
 you can see the toilets.  Also here is Wendy's purse.  Bob the Butcherbird is
 wiping a glass with an old rag behind the counter.  Your spine is killing
-you.
-
-You can move east and northwest.
+you.  You can move east and northwest.
 
 > remove dress
 You remove the old dress.
@@ -1311,9 +1188,8 @@ You move northwest.
 The Toilets (Bobs Boozhouse)
 You are in the toilets in Bobs Boozhouse, they stink like shit (what a
 suprise) and are old and dirty. There is a urinal on the wall. A message is
-scribbled on the wall in black marker.  Your spine is killing you.
-
-You can only move southeast.
+scribbled on the wall in black marker.  Your spine is killing you.  You can
+only move southeast.
 
 > piss in urinal
 You have a long piss in the toilet. It is such a relief.
@@ -1326,9 +1202,7 @@ You are in Bobs Boozhouse, the local bar. Drunk animals sit along the bar
 stools, drinking some grog. You could really go for a beer. To the northwest
 you can see the toilets.  Also here is Wendy's purse.  Bob the Butcherbird is
 wiping a glass with an old rag behind the counter.  Your spine is killing
-you.
-
-You can move east and northwest.
+you.  You can move east and northwest.
 
 > buy beer
 "Hey Bob, give us a beer," you yell. "Sure Thumper," says Bob. He grabs a mug and fills it to the top of beer,
@@ -1430,9 +1304,7 @@ You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
 Boozhouse.  A garbage truck is parked next to you.  Your spine is killing
-you.
-
-You can move north, east, south and west.
+you.  You can move north, east, south and west.
 
 > s
 You move south.
@@ -1441,7 +1313,6 @@ Mull Road
 This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.  Your spine is killing you.
-
 You can move north, east, south and west.
 
 > e
@@ -1454,9 +1325,8 @@ like cow skins. This place is truely freaky. A large cardboard cut-out of a
 marrow sits against the wall. There is an elevator to the east of you.  Also
 here is a catalouge.  Sally the Secretary is sitting at the reception desk.
 Chris the Crocodile is wearing a cow suit.  Barry the Bear is wearing a cow
-suit.  Your eyes are spinning.  Your spine is killing you.
-
-You can move east and west.
+suit.  Your eyes are spinning.  Your spine is killing you.  You can move east
+and west.
 
 > e
 You move east.
@@ -1464,9 +1334,7 @@ You move east.
 The Elevator (floor 1)
 You are standing in the elevator. You can leave to the west. Looking at the
 button panel you notice there is only one button with the text "MATT'S
-OFFICE" written on it.  Your spine is killing you.
-
-You can only move west.
+OFFICE" written on it.  Your spine is killing you.  You can only move west.
 
 > press button
 You press the button and the elevator jolts to life. The elevator music turns
@@ -1482,9 +1350,7 @@ town of Gunjaville. The room is filled with obscure pieces of furniture and
 cow suits. There is a hole in the floor next to the desk, looking down it you
 can see that the hole goes straight down to the first floor.  Also here is an
 oodlekoff.  Matthew Hickford is here, working at his desk.  Your spine is
-killing you.
-
-You can only move east.
+killing you.  You can only move east.
 
 > give component to matthew
 "Hey Matt, I got the Titus Component," you say handing him the small ball. "Really? Where did you get it from?" asks Matt taking the ball. "Same place you got the idea of making a weather device, while I was drunk,"
@@ -1510,9 +1376,8 @@ Mull Road
 This is the south of Mull Road. It is bloody hot. To the south is a dark
 alleyway. To the west of you is the Bath House and to the east of you is a
 large skyscraper called Dark Baron enterprises.  Matthew Hickford is dancing
-in the rain.  Your spine is killing you.  It is raining heavily.
-
-You can move north, east, south and west.
+in the rain.  Your spine is killing you.  It is raining heavily.  You can
+move north, east, south and west.
 
 > n
 You move north.
@@ -1523,9 +1388,7 @@ You are standing in Mull Road, a dry old stinky road. The sun is bloody hot
 and making you sweaty. To the east you can see your house, still on fire.
 Mull Road goes north and south from here. To the west you can see Bobs
 Boozhouse.  A garbage truck is parked next to you.  Your spine is killing
-you.  It is raining heavily.
-
-You can move north, east, south and west.
+you.  It is raining heavily.  You can move north, east, south and west.
 
 > n
 You move north.
@@ -1535,9 +1398,8 @@ You are standing in Mull Road. There is a phone booth here, which you can
 call people with. To the east of you is Swear 'O' Rama Stadium, and to the
 west is the Driving School. To the north is the Gunjaville park.  Cameron the
 Cat is standing around, looking out to trade something.  Your spine is
-killing you.  It is raining heavily.
-
-You can move north, east, south, west and in.
+killing you.  It is raining heavily.  You can move north, east, south, west
+and in.
 
 >
 Grunt.
@@ -1549,9 +1411,8 @@ Gunjaville Park
 You are standing on the path which goes north through Gunjaville Park. There
 are grass fields to either side of you. A path continues north towards a
 pond.  Beatrice and Donald are sitting on the park bench, feeding the birds.
-Your spine is killing you.  It is raining heavily.
-
-You can move north and south.
+Your spine is killing you.  It is raining heavily.  You can move north and
+south.
 
 > n
 You move north.
@@ -1561,9 +1422,7 @@ You are standing by a small stone pond, there are a few fish swimming around
 it. In front of you is a large hedge maze, which looks rather large, you'd
 probably get lost. To the west of you is a long path, leaving the park.
 Roger the Rhino is here, admiring his maze.  Your spine is killing you.  It
-is raining heavily.
-
-You can move north, south and west.
+is raining heavily.  You can move north, south and west.
 
 > n
 You move north.
@@ -1571,9 +1430,7 @@ You move north.
 Maze
 You are standing in the green hedge maze, there are pathways leading in all
 directions. You are a bit lost.  Your spine is killing you.  It is raining
-heavily.
-
-You can only move south.
+heavily.  You can only move south.
 
 > n
 You move along the maze, hoping to get out soon.
@@ -1593,9 +1450,7 @@ You move north.
 Maze
 You are standing in the green hedge maze, there are pathways leading in all
 directions. You are a bit lost.  Your spine is killing you.  It is raining
-heavily.
-
-You can only move south.
+heavily.  You can only move south.
 
 > n
 You move along the maze, hoping to get out soon.
@@ -1612,9 +1467,7 @@ You move north.
 Inside The Rainy Express
 You are standing in a large bus, there are seats everywhere, and a few
 animals occupy them.  Bob the Bull is sitting at the drivers seat.  Your
-spine is killing you.
-
-You can only move south.
+spine is killing you.  You can only move south.
 
 > n
 You can only move south.
@@ -1641,9 +1494,8 @@ You move west.
 Outside the a small shack
 You are standing outside a small shack which has a corrigated iron roof.
 There are a few plants in the front garden, mostly sunflowers. The front
-porch is to the north.  Your spine is killing you.
-
-You can move north and east.
+porch is to the north.  Your spine is killing you.  You can move north and
+east.
 
 > n
 You move north.
@@ -1651,9 +1503,7 @@ You move north.
 The Front Porch
 You are standing on the front porch of the house. There is a small flimsy
 wooden door in front of you. To the south is the front garden.  Your spine is
-killing you.
-
-You can move north and south.
+killing you.  You can move north and south.
 
 > kick door
 You kick down the front door, and it lands on the ground with a thud, dust

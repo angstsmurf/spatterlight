@@ -175,7 +175,7 @@ through the now bloodstained glass doors of the foyer and the door in front
 of you is bolted shut. Above you is a figure on a balcony that seems to be
 waving at you...
 
-You can only move south.
+  You can only move south.
 
 > closely examine figure
 You just barely discern an African American man holding a large bazooka-like
@@ -210,9 +210,7 @@ receptionist's opaque glass window, closed, with a filth covered sign next to
 it that reads "Ring the bell for Help". You also can't help but notice a
 young woman, blanketed in flowers of all kinds, sprawled out on a few of the
 chairs. Next to her is a table with magazines and a decorative journal on
-top.
-
-You can move north and south.
+top.   You can move north and south.
 
 > ring bell
 You ring the bell but nothing appears to happen.   From somewhere far off you
@@ -248,7 +246,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-You can move east, south and west.
+  You can move east, south and west.
 
 > summon scythe
 A black mist spirals out of your chest and jettisons towards your hand,
@@ -262,9 +260,7 @@ A large room of flat gray colors and stone. Littered about the floor are the
 cracked remnants and unsettling ruins of destroyed statues and idols that
 stare about the room with jubilant expressions conveying the joys of romance,
 youth, and vigor. In the center of the room is a peculiar fountain that
-sprays an iridescent sweet smelling fluid.
-
-You can only move east.
+sprays an iridescent sweet smelling fluid.   You can only move east.
 
 > drink water
       "Wes! Glad to see you made it out alive," Charity exclaims as she walks
@@ -397,7 +393,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-You can move east, south and west.
+  You can move east, south and west.
 
 > e
 You move east.
@@ -407,9 +403,7 @@ Cobwebs and thick dust coat every surface of the room and indicate that it
 has not seen much use. Statues of saints sit back in alcoves long forgotten
 and you can smell an unpleasantly dank odor rising from the pews. There is a
 moderate-sized wooden altar off to one side of the room, but overall this
-room holds little of interest.   Hope is here.
-
-You can only move west.
+room holds little of interest.   Hope is here.  You can only move west.
 
 > talk to hope
      "Oh my stars and garters," Hope says as she turns around to look you
@@ -529,7 +523,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-You can move east, south and west.
+  You can move east, south and west.
 
 > w
 You move west.
@@ -539,9 +533,7 @@ A large room of flat gray colors and stone. Littered about the floor are the
 cracked remnants and unsettling ruins of destroyed statues and idols that
 stare about the room with jubilant expressions conveying the joys of romance,
 youth, and vigor. In the center of the room is a peculiar fountain that
-sprays an iridescent sweet smelling fluid.
-
-You can only move east.
+sprays an iridescent sweet smelling fluid.   You can only move east.
 
 > give ring and candle to fountain
 The room trembles hard and white dust from the stones streaks into the air.
@@ -563,9 +555,8 @@ The stark whiteness of the room is unsettling. The walls are flat and
 scattered along them you see view screens of skeletons and bodies accompanied
 by enormous speakers. In the middle of the room there is a single chair.
 There is a sign high up above you that reads "Transmitting", but you're not
-sure what that pertains to.   Dr. Micheals is here and looking pensive.
-
-You can only move south.
+sure what that pertains to.   Dr. Micheals is here and looking pensive.  You
+can only move south.
 
 > talk to micheals
     Dr. Micheals nods in your direction and begins pacing back and forth as
@@ -633,9 +624,7 @@ A large room of flat gray colors and stone. Littered about the floor are the
 cracked remnants and unsettling ruins of destroyed statues and idols that
 stare about the room with jubilant expressions conveying the joys of romance,
 youth, and vigor. In the center of the room is a peculiar fountain that
-sprays an iridescent sweet smelling fluid.
-
-You can move north and east.
+sprays an iridescent sweet smelling fluid.   You can move north and east.
 
 > e
 You move east.
@@ -650,7 +639,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-You can move east, south and west.
+  You can move east, south and west.
 
 > slash dr micheals portrait
 You lift your scythe and then swing hard at the portrait. It cracks in two
@@ -679,9 +668,8 @@ capsules are more reminiscent of coffins than anything else. The entire
 northern face of the chamber is decorated by what appears to be a large
 monument of a woman's head and hands, the hands continuously pour water into
 the room while the head emits a moderate light. There is a door at the base
-of the figure.   Charity Bell is here and eyeing you with a smile.
-
-You can only move south.
+of the figure.   Charity Bell is here and eyeing you with a smile.  You can
+only move south.
 
 > talk to charity
      "Greetings, Wes," Charity nods her head in recognition, "your talk with
@@ -847,7 +835,6 @@ However, the normality of the hall is deeply undermined by what you hear
 coming from behind its closed doors. The sound of children pleading, crying,
 and pounding on their doors to be let out.  A letter is on the floor.  All of
 the doors in the hall have no knobs except for one at the end of the hall.
-
 You can only move south.
 
 > knock on door
@@ -870,9 +857,8 @@ capsules are more reminiscent of coffins than anything else. The entire
 northern face of the chamber is decorated by what appears to be a large
 monument of a woman's head and hands, the hands continuously pour water into
 the room while the head emits a moderate light. There is a door at the base
-of the figure.   Also here is La Virgencita key.
-
-You can move north and south.
+of the figure.   Also here is La Virgencita key.  You can move north and
+south.
 
 > take key
 You take La Virgencita key.
@@ -890,7 +876,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-You can move north, east, south and west.
+  You can move north, east, south and west.
 
 > w
 You move west.
@@ -900,9 +886,7 @@ A large room of flat gray colors and stone. Littered about the floor are the
 cracked remnants and unsettling ruins of destroyed statues and idols that
 stare about the room with jubilant expressions conveying the joys of romance,
 youth, and vigor. In the center of the room is a peculiar fountain that
-sprays an iridescent sweet smelling fluid.
-
-You can move north and east.
+sprays an iridescent sweet smelling fluid.   You can move north and east.
 
 > n
 You move north.
@@ -913,9 +897,7 @@ scattered along them you see view screens of skeletons and bodies accompanied
 by enormous speakers. In the middle of the room there is a single chair.
 There is a sign high up above you that reads "Transmitting", but you're not
 sure what that pertains to.   Also here is the Woebegotten scalpel.  Dr.
-Micheals is here and looking pensive.
-
-You can only move south.
+Micheals is here and looking pensive.  You can only move south.
 
 > take scalpel
 You take the Woebegotten scalpel.
@@ -928,9 +910,7 @@ A large room of flat gray colors and stone. Littered about the floor are the
 cracked remnants and unsettling ruins of destroyed statues and idols that
 stare about the room with jubilant expressions conveying the joys of romance,
 youth, and vigor. In the center of the room is a peculiar fountain that
-sprays an iridescent sweet smelling fluid.
-
-You can move north and east.
+sprays an iridescent sweet smelling fluid.   You can move north and east.
 
 > e
 You move east.
@@ -945,7 +925,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-You can move north, east, south and west.
+  You can move north, east, south and west.
 
 > n
 You move north.
@@ -957,9 +937,7 @@ capsules are more reminiscent of coffins than anything else. The entire
 northern face of the chamber is decorated by what appears to be a large
 monument of a woman's head and hands, the hands continuously pour water into
 the room while the head emits a moderate light. There is a door at the base
-of the figure.
-
-You can move north and south.
+of the figure.   You can move north and south.
 
 > n
 You move north.
@@ -973,7 +951,6 @@ However, the normality of the hall is deeply undermined by what you hear
 coming from behind its closed doors. The sound of children pleading, crying,
 and pounding on their doors to be let out.  A letter is on the floor.  All of
 the doors in the hall have no knobs except for one at the end of the hall.
-
 You can only move south.
 
 > unsummon scythe
@@ -1106,9 +1083,7 @@ capsules are more reminiscent of coffins than anything else. The entire
 northern face of the chamber is decorated by what appears to be a large
 monument of a woman's head and hands, the hands continuously pour water into
 the room while the head emits a moderate light. There is a door at the base
-of the figure.
-
-You can move north and south.
+of the figure.   You can move north and south.
 
 > s
 You move south.
@@ -1123,7 +1098,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-You can move north, east, south and west.
+  You can move north, east, south and west.
 
 > s
 You move south.
@@ -1139,9 +1114,7 @@ it that reads "Ring the bell for Help". You also can't help but notice a
 young woman, blanketed in flowers of all kinds, sprawled out on a few of the
 chairs. Next to her is a table with magazines and a decorative journal on
 top.   A vase of Sighing Prudence sits on the magazine table with an attached
-note.
-
-You can move north and south.
+note.   You can move north and south.
 
 > take prudence
 You take the Sighing Prudence.
@@ -1159,7 +1132,7 @@ fifty feet above you and covered by an elongated triangular glass structure.
 At one end of the hall there is surprisingly modern looking door with a
 strange contraption next to it.
 
-You can move north, east, south and west.
+  You can move north, east, south and west.
 
 > e
 You move east.
@@ -1169,9 +1142,7 @@ Cobwebs and thick dust coat every surface of the room and indicate that it
 has not seen much use. Statues of saints sit back in alcoves long forgotten
 and you can smell an unpleasantly dank odor rising from the pews. There is a
 moderate-sized wooden altar off to one side of the room.  A black shrine sits
-opposite the wooden altar.
-
-You can only move west.
+opposite the wooden altar.   You can only move west.
 
 > give sigh prudence to hope
      "Wha," Hope exclaims as she clutches her chest, "what is this?"

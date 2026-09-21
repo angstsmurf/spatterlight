@@ -31,16 +31,12 @@ COCKPIT- KEY CARD CODE 90238
 > north
 You move north.
 ON THE DOOR IS A CODE ENTER THINGY! AND YOU NEED TO KNOW THE CODE BEFORE YOU
-CAN ENTER!
-
-You can move east and south.
+CAN ENTER!   You can move east and south.
 
 > east
 You move east.
 WELL THERE'S NOT MUCH TO SAY ABOUT THE TOILETS... IT'S SMALL! AND WITH A
-TOILET INSIDE!
-
-You can only move west.
+TOILET INSIDE!  You can only move west.
 
 > use toilet
 WELL DONE! YOU RELIEVED YOUR SELF! PLEASE FLUSH IT!
@@ -52,9 +48,7 @@ sucked in
 > west
 You move west.
 ON THE DOOR IS A CODE ENTER THINGY! AND YOU NEED TO KNOW THE CODE BEFORE YOU
-CAN ENTER!
-
-You can move east and south.
+CAN ENTER!   You can move east and south.
 
 > 90238
 well done your in the cockpit!
@@ -63,9 +57,7 @@ well done your in the cockpit!
 You move down.
 100'S OF BAGS FILL THE STORAGE ROOM! I TRY TO FIND MY BAG.... OH, THERE IT
 IS! I RUN TO IT! "THANK GOD I FOUND THIS, IT'S GOT ALL MY GADGETS IN HERE!
-Also here is a brown suitcase.
-
-You can only move up.
+Also here is a brown suitcase.  You can only move up.
 
 > take bag
 You pick up the brown suitcase.
@@ -98,9 +90,8 @@ THIS THING! GOOD LUCK!
 > up
 You move up.
 THERE ARE NO PILOTS! OH IT'S ON AUTO-PILOT THANK GOD! I BETTER NOT PREES THAT
-BUTTON! & you can go downstairs to the storage room!
-
-You can move south and down.
+BUTTON! & you can go downstairs to the storage room!  You can move south and
+down.
 
 > fly
 (IT Q) WELL DONE! YOU ARE GOING STEADY, OK THE  LANDING SPOT IS ON YOUR

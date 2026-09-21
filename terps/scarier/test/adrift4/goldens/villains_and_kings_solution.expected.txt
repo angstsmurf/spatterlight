@@ -14,9 +14,8 @@ This is the waiting room, for people to stand in line to see the king about
 important things, and you just happen to be at the end of that line.  You
 cant even tell if the line ends.  The throne room is at the end of the hall.
 You notice all the people here are very tall except one little man three
-people ahead of you.  Yup, its still the first day.
-
-You can move north and south.
+people ahead of you.  Yup, its still the first day.  You can move north and
+south.
 
 >
 WTF, say somthing i can understand.
@@ -32,9 +31,7 @@ The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
-draft.  Yup, its still the first day.
-
-You can move north and south.
+draft.  Yup, its still the first day.  You can move north and south.
 
 > open window
 The window is broken and you can't seam to open the window in its present
@@ -49,7 +46,6 @@ is a door to the south, and a door to the west.  There is a fishy smell about
 this room.  Some maids and guards are standing about.  You see a plate of
 doughnuts on a table to your right.  Harry the King sits in his throne.
 Guido is here guarding the room to the west.  Yup, its still the first day.
-
 You can move south and west.
 
 > give note to king
@@ -65,9 +61,7 @@ The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
-draft.  Yup, its still the first day.
-
-You can move north and south.
+draft.  Yup, its still the first day.  You can move north and south.
 
 > s
 You move south.
@@ -78,9 +72,7 @@ important things, and you just happen to be at the end of that line.  You
 cant even tell if the line ends.  The throne room is at the end of the hall.
 You notice all the people here are very tall except one little man three
 people ahead of you.  This is the room where you found the note for the
-stupid king.  Yup, its still the first day.
-
-You can move north and south.
+stupid king.  Yup, its still the first day.  You can move north and south.
 
 > s
 You move south.
@@ -90,9 +82,7 @@ You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
 both sides of the stone road that leads to the gigantic door. To the east is
 a building with smoke pouring out of a chimmmany, To the west is a big ol
 fountain.  A locked gate is to the south.  The Dumb old guy stares at you.
-Yup, its still the first day.
-
-You can move north, east and west.
+Yup, its still the first day.  You can move north, east and west.
 
 > e
 You move east.
@@ -100,9 +90,8 @@ You move east.
 Armory
 Woo hoo, now you've entered the armory.  Shields and Weapons and crap
 decorate the walls.  A fiery forge is in the corner.  There is a weapon rack
-over there in the corner too.  Yup, its still the first day.
-
-You can move west and in.
+over there in the corner too.  Yup, its still the first day.  You can move
+west and in.
 
 > x Weapon Rack
 This Weapon rack holds a few weapons.  Big surprise.  Inside Weapon Rack is
@@ -122,9 +111,7 @@ You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
 both sides of the stone road that leads to the gigantic door. To the east is
 a building with smoke pouring out of a chimmmany, To the west is a big ol
 fountain.  A locked gate is to the south.  The Dumb old guy stares at you.
-Yup, its still the first day.
-
-You can move north, east and west.
+Yup, its still the first day.  You can move north, east and west.
 
 > n
 You move north.
@@ -135,9 +122,7 @@ important things, and you just happen to be at the end of that line.  You
 cant even tell if the line ends.  The throne room is at the end of the hall.
 You notice all the people here are very tall except one little man three
 people ahead of you.  This is the room where you found the note for the
-stupid king.  Yup, its still the first day.
-
-You can move north and south.
+stupid king.  Yup, its still the first day.  You can move north and south.
 
 > n
 You move north.
@@ -147,9 +132,7 @@ The hall leads far down.  At one end is the kings throne room, the other, the
 leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
-draft.  Yup, its still the first day.
-
-You can move north and south.
+draft.  Yup, its still the first day.  You can move north and south.
 
 > n
 You move north.
@@ -160,7 +143,6 @@ is a door to the south, and a door to the west.  There is a fishy smell about
 this room.  Some maids and guards are standing about.  You see a plate of
 doughnuts on a table to your right.  Harry the King sits in his throne.
 Guido is here guarding the room to the west.  Yup, its still the first day.
-
 You can move south and west.
 
 > w
@@ -169,9 +151,8 @@ You move west.
 Royal Shower Room
 This is where the king takes showers.  Unfortunately he hasnt taken one for
 quite some time.  You look in the shower and you see many tiles.  Some of the
-tiles in the corner look new.  Yup, its still the first day.
-
-You can only move east.
+tiles in the corner look new.  Yup, its still the first day.  You can only
+move east.
 
 > push tile
 You push the tile in.  Veeerry smart of you.  Now what.  So you pushed it in.
@@ -188,7 +169,6 @@ is a door to the south, and a door to the west.  There is a fishy smell about
 this room.  Some maids and guards are standing about.  You see a plate of
 doughnuts on a table to your right.  Harry the King sits in his throne.
 Guido is here guarding the room to the west.  Yup, its still the first day.
-
 You can move south and west.
 
 > s
@@ -200,7 +180,6 @@ leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
 draft.  Jackass Trying to Kill You is here.  Yup, its still the first day.
-
 You can move north and south.  The guy hits you, but it doesn't seem to do
 any damage.
 
@@ -225,7 +204,6 @@ is a door to the south, and a door to the west.  There is a fishy smell about
 this room.  Some maids and guards are standing about.  You see a plate of
 doughnuts on a table to your right.  Harry the King sits in his throne.
 Guido is here guarding the room to the west.  Yup, its still the first day.
-
 You can move south and west.
 
 > give the golden soap to king
@@ -243,9 +221,7 @@ leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
 draft.  Jackass Trying to Kill You (dead) is here.  Yup, its still the first
-day.
-
-You can move north and south.
+day.  You can move north and south.
 
 > x Cracked Broken Window
 Hey, this window is broken.  Who would do such a dastardly, dastardly deed?
@@ -267,9 +243,7 @@ You move north.
 Kings throne room.
 The king sees your soap on a rope and says, "give me that you bastard."
 Harry the King sits in his throne.  Guido is here guarding the room to the
-west.  Yup, its still the first day.
-
-You can move south and west.
+west.  Yup, its still the first day.  You can move south and west.
 
 > give soap on a rope to king
 You give the soap to the king and he gladly accepts it.  In fact he's jumping
@@ -289,9 +263,7 @@ leads to the waiting room for the king.  There are some great stained glass
 windows on all sides of you, bringing the room to look like a shining pillar
 of light.  There is a long red rug in the hall.  You also feal a slight
 draft.  Jackass Trying to Kill You (dead) is here.  Yup, its still the first
-day.
-
-You can move north and south.
+day.  You can move north and south.
 
 > s
 You move south.
@@ -303,7 +275,6 @@ cant even tell if the line ends.  The throne room is at the end of the hall.
 You notice all the people here are very tall except one little man three
 people ahead of you.  This is the room where you found the note for the
 stupid king.  The Dumb old guy stares at you.  Yup, its still the first day.
-
 You can move north and south.
 
 > s
@@ -313,9 +284,8 @@ Courtyard
 You're just south of the castle.  Trimmed, dolphin-shaped hedges abound on
 both sides of the stone road that leads to the gigantic door. To the east is
 a building with smoke pouring out of a chimmmany, To the west is a big ol
-fountain.  A locked gate is to the south.  Yup, its still the first day.
-
-You can move north, east and west.
+fountain.  A locked gate is to the south.  Yup, its still the first day.  You
+can move north, east and west.
 
 > w
 You move west.
@@ -324,9 +294,8 @@ Giant fountain
 There is a giant fountain here, it is big, and huge, both big AND huge.  Some
 servents busy around and spill things, and there is a slight strangeness
 about the fountain.  There is a sign here that says things on it.  There are
-2 guys slapping eachother in the corner.  Yup, its still the first day.
-
-You can move north and east.
+2 guys slapping eachother in the corner.  Yup, its still the first day.  You
+can move north and east.
 
 > n
 You move north.
@@ -334,9 +303,8 @@ You move north.
 Out side a BIIIIG house.
 You are outside a BIIIIG house.  You don't know who lives there, you don't
 know where they come from, you don't even know how they reproduce.  All you
-know is, is its kinda Spook-key-y.  Yup, its still the first day.
-
-You can move south and west.
+know is, is its kinda Spook-key-y.  Yup, its still the first day.  You can
+move south and west.
 
 > w
 You move west.
@@ -346,9 +314,8 @@ This is Sculpto's house, complete with sculpts, scultures, and sculpys.  This
 man is Cccrrrrraaaazy.  The room has 2 big sculptures on both sides of the
 room( that makes for  four(4) for you idiots).  There are some  lamps and
 torches hanging around.  A big table in the middle has a radio blaring disco
-music.  Wow!  Sculpto is here.  Yup, its still the first day.
-
-You can only move east.
+music.  Wow!  Sculpto is here.  Yup, its still the first day.  You can only
+move east.
 
 > use radio
 Whoa, you get some kind of stupid african music.  Wow!

@@ -12,9 +12,7 @@ The milatary car lot was directly above the lab so most of the cars and
 trucks are completely gone , or burned to the point where the engine is
 melted in . The ground is paved with black ashfalt and a fence souronds the
 area , not a very good fence.There is only one single truck that looks
-drivable .  Also here is a swade breifcase.
-
-You can move east and in.
+drivable .  Also here is a swade breifcase.  You can move east and in.
 
 > take case
 You pick up the swade breifcase.
@@ -39,17 +37,14 @@ as you drove to town .
 > east
 You move east.
 The street is paved and very black , there are no yellow lines along the
-middle . There is a building here , it looks like a bar or hotel .
-
-You can move east, west and in.
+middle . There is a building here , it looks like a bar or hotel .   You can
+move east, west and in.
 
 > in
 You move in.
 The bar has some people around it , there is a bar tender behind the bar ,
 and a couple of stools . The bar is very ill lit with one light in the middle
-of the room .  Gorge and Tom are here.
-
-You can only move out.
+of the room .  Gorge and Tom are here.  You can only move out.
 
 > order beer
 The bar tender doesn't even charge you , he might know who you are!!!!
@@ -68,33 +63,28 @@ him that he was using to contact suvivers . They would have killed you .
 > out
 You move out.
 The street is paved and very black , there are no yellow lines along the
-middle . There is a building here , it looks like a bar or hotel .
-
-You can move east, west and in.
+middle . There is a building here , it looks like a bar or hotel .   You can
+move east, west and in.
 
 > east
 You move east.
 The paved street has some lights on it , and the usual yellow lines . The
 road is black and there is a concrete building in the center , the center
-building appears to be a pavilion .
-
-You can move north, east, south, west and in.
+building appears to be a pavilion .  You can move north, east, south, west
+and in.
 
 > east
 You move east.
 The street ends here , there is a building here , it looks like a shop of
 some sort . The road is paved black , there are street lights near the road
-and the basic yellow markers .
-
-You can move west and in.
+and the basic yellow markers .  You can move west and in.
 
 > in
 You move in.
 The lock smith is standing behind the order table , there are lots of
 machines here . The lighting is provided by two 60 watts light bulbs . There
-is also a pop machine and a couch here.  Keymaker is here.
-
-You can only move out.
+is also a pop machine and a couch here.  Keymaker is here.  You can only move
+out.
 
 > ask keymaker about a key
 "I'll make you a key , but you've got to pay me in advance"
@@ -111,23 +101,19 @@ your key" and hands you the key .
 You move out.
 The street ends here , there is a building here , it looks like a shop of
 some sort . The road is paved black , there are street lights near the road
-and the basic yellow markers .
-
-You can move west and in.
+and the basic yellow markers .  You can move west and in.
 
 > west
 You move west.
 The paved street has some lights on it , and the usual yellow lines . The
 road is black and there is a concrete building in the center , the center
-building appears to be a pavilion .
-
-You can move north, east, south, west and in.
+building appears to be a pavilion .  You can move north, east, south, west
+and in.
 
 > north
 You move north.
-The airport has one concrete building and a paved strip for a runway .
-
-You can move south and in.
+The airport has one concrete building and a paved strip for a runway .   You
+can move south and in.
 
 > enter plane
 You enter the small by-plane and see all the controls , luckely there are
@@ -150,9 +136,7 @@ it .
 > west
 You move west.
 The entranceway is very clean and the red carpet is wonderous , there are a
-set of stairs leading to the commanders office .
-
-You can move east and up.
+set of stairs leading to the commanders office .  You can move east and up.
 
 > up
 you walk up the stairs. "hello tom , you did good work escaping from the town

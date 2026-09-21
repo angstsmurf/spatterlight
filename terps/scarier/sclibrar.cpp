@@ -2442,6 +2442,14 @@ lib_cmd_print_room_exits (scr_gameref_t game)
  * plain checkpoint left it to the flush's second ALR walk, which put
  * adrift_maze's "twisty" through its twist ALR twice and patched Qui a tue
  * Dana's "Vous vous deplacez in." to the "Vous entrez." run400 never prints.
+ *
+ * That "  " is a literal, not pspace(), so the exits sentence joins the room
+ * block on its line whatever ends it, and follows a bare heading with two
+ * leading spaces.  Every Runner shows it: `look` in the p2give probe world is
+ * "... Bob is here.  You can only move north." at all four versions
+ * (Adrift_269_3g37.rtf and 270_3g38.rtf are the scrollback itself), and
+ * egghunt's empty-Long rooms print "The Holy City" then "  You can move
+ * north, south and west." (runner_transcripts/egghunt.txt).
  */
 void
 lib_print_room_exits (scr_gameref_t game, scr_int room)
@@ -2452,8 +2460,9 @@ lib_print_room_exits (scr_gameref_t game, scr_int room)
   if (prop_get_global_boolean (bundle, "ShowExits")
       && lib_room_has_exits (game, room))
     {
+      pf_undo_auto_break (filter);
+      pf_buffer_string (filter, "  ");
       pf_print_so_far (filter, gs_get_vars (game), bundle);
-      pf_buffer_answer_break (filter);
       lib_print_exits_list (game, room);
     }
 }

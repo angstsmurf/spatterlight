@@ -3,9 +3,7 @@ Loading game...
 RON: TOXICALLY EARTH
 
 #1
-type down to continue!
-
-I can only move down.
+type down to continue!  I can only move down.
 
 > down
 I move down.
@@ -14,25 +12,19 @@ I move down.
 Hi, I am Hevlop, a friend of the Alien #, shit, I forgot his name.... ok, the
 blue planet has bad times now. Some poisened gases went around the world and
 now, it`s only an ill planet, maybe a dead planet soon.   press down to
-continue!
-
-I can only move down.
+continue!  I can only move down.
 
 > down
 I move down.
 
 #3
-press down to continue!
-
-I can only move down.
+press down to continue!  I can only move down.
 
 > down
 I move down.
 
 #4
-press down to continue!
-
-I can only move down.
+press down to continue!  I can only move down.
 
 > down
 I move down.

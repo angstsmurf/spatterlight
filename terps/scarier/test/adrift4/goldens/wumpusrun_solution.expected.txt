@@ -72,7 +72,6 @@ eastern wall (from some unknown source) allowing the wall to become slick
 with an odious slime (ugh!!).
 
 You can see a vellum scroll.
-
 Possible exits: north, west and southeast.
 
 There's an awful smell coming from somewhere close by.
@@ -121,7 +120,6 @@ eastern wall (from some unknown source) allowing the wall to become slick
 with an odious slime (ugh!!).
 
 You can see a vellum scroll.
-
 Possible exits: north, west and southeast.
 
 > southwest
@@ -135,7 +133,6 @@ This cave is quite small and cramped. A thick slime coats some of the
 surrounding walls.
 
 You can see a rope ladder.
-
 Possible exits: east, south and northwest.
 
 > climb ladder

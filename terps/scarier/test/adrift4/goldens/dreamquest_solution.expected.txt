@@ -16,9 +16,7 @@ Front Path
 This path is dark and forboding and has thorny bushes on each side of it. The
 ground is gravelly and you try to be careful not to make too much noise as
 loose stones crunch underfoot. There are twinkling lights coming from the
-north.
-
-You can move north and south.
+north.  You can move north and south.
 
 > examine ground
 The path is strewn with pebbles and assorted stones.  A small pebble is on
@@ -37,9 +35,8 @@ behind a tree trunk so that nobody notices you. A guard sits on a tree stump
 next to a bush. He looks sleepily around, picking his nose while sipping from
 a hip flask of brandy. There doesn't seem to be anyway around him. He grunts
 a little as though he has heard something, peering into the darkness in your
-direction "Who goes there?"  he barks..  Bert the guard is sitting here.
-
-You can only move south.
+direction "Who goes there?"  he barks..  Bert the guard is sitting here.  You
+can only move south.
 
 > throw pebble at bush
 The guard spits out his drink in surprise and lets rip a fart and almost
@@ -60,7 +57,6 @@ Village Centre (south)
 You have just entered a village centre. You can see a large fountain which
 appears to be a front piece which compliments the ornate front gate to the
 village. To the east is an alley and to the west there is a large oak tree.
-
 You can move north, east, south and west.
 
 > examine fountain
@@ -77,9 +73,8 @@ You move north.
 Village Centre
 You are standing in the middle of the village square. There is a finely
 carved statue in it's centre.  One of the eyes catches your attention.  Perry
-the Ferryman is here.
-
-You can move north, east, south and west.  You hear an owl
+the Ferryman is here.  You can move north, east, south and west.  You hear an
+owl
 
 > examine statue
 A finely carved statue of Saint Xion stands before you. The plaque explains
@@ -98,9 +93,8 @@ You move west.
 Cottage
 One of many fishing cottages that wasn't locked. It consists of one room up
 and one down. The sitting room is sparsely furnished with a table, chair and
-unlit fireplace. The room is not too comfortable and is quite drafty.
-
-You can move east, west and up.  A rat scurries past your feet!
+unlit fireplace. The room is not too comfortable and is quite drafty.  You
+can move east, west and up.  A rat scurries past your feet!
 
 > examine fireplace
 You notice that the fireplace is full of ashes.
@@ -116,9 +110,8 @@ You move west.
 Garden
 A quaint little garden is at the back of the cottage. It has herbs and
 vegetables growing that are ripe for picking. The garden is surrounded by a
-sturdy brick wall.  Also here is a well used spade and a long cane.
-
-You can only move east.
+sturdy brick wall.  Also here is a well used spade and a long cane.  You can
+only move east.
 
 > get spade
 You take the well used spade.
@@ -132,27 +125,24 @@ You move east.
 Cottage
 One of many fishing cottages that wasn't locked. It consists of one room up
 and one down. The sitting room is sparsely furnished with a table, chair and
-unlit fireplace. The room is not too comfortable and is quite drafty.
-
-You can move east, west and up.
+unlit fireplace. The room is not too comfortable and is quite drafty.  You
+can move east, west and up.
 
 > e
 You move east.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.  Perry the Ferryman is here.
-
-You can move north, east, south and west.
+carved statue in it's centre.  Perry the Ferryman is here.  You can move
+north, east, south and west.
 
 > n
 You move north.
 
 Village Centre (north)
 Just a small clearing here. To the east is a cemetery, to the west is an inn,
-and to the north is a gate.  Old Man Toomey is here.
-
-You can move north, east, south and west.
+and to the north is a gate.  Old Man Toomey is here.  You can move north,
+east, south and west.
 
 > w
 You move west.
@@ -163,9 +153,7 @@ bowls of steaming hot stew. The inn looks very hospitable, with a roaring
 fire and comfortable furnishings. Busty serving wenches bend over as they
 serve drinks, giving you an eyeful, but you really must concentrate on the
 quest at hand. The floor makes a hollow sound as you walk across to the bar.
-Oliver the Inn Keeper is here.
-
-You can only move east.
+Oliver the Inn Keeper is here.  You can only move east.
 
 > look
 
@@ -175,9 +163,7 @@ bowls of steaming hot stew. The inn looks very hospitable, with a roaring
 fire and comfortable furnishings. Busty serving wenches bend over as they
 serve drinks, giving you an eyeful, but you really must concentrate on the
 quest at hand. The floor makes a hollow sound as you walk across to the bar.
-Oliver the Inn Keeper is here.
-
-You can only move east.
+Oliver the Inn Keeper is here.  You can only move east.
 
 > turn tap
 Beer starts to flow on the floor soaking through the gaps in the planks. You
@@ -196,9 +182,8 @@ feet!
 Cellar
 You are in a damp cellar. Barrels of ale are stored here along with hundreds
 of bottles of spirits. You see that to the south-east there is a passageway.
-Also here is a bottle of brandy.
-
-You can move up and southeast.  A rat scurries past your feet!
+Also here is a bottle of brandy.  You can move up and southeast.  A rat
+scurries past your feet!
 
 > get brandy
 You take the bottle of brandy.
@@ -208,17 +193,13 @@ You move southeast.
 
 Cellar passage
 The passage is dimly lit and is freezing cold. This must be used to stock
-Mrs. So's basement..
-
-You can move southeast and northwest.
+Mrs. So's basement..  You can move southeast and northwest.
 
 > look
 
 Cellar passage
 The passage is dimly lit and is freezing cold. This must be used to stock
-Mrs. So's basement..
-
-You can move southeast and northwest.
+Mrs. So's basement..  You can move southeast and northwest.
 
 > se
 You move southeast.
@@ -227,9 +208,8 @@ Shop Basement
 Loads of supplies are stored here. You peer upwards through the trapdoor and
 see Mrs. So working on her accounts. You get a quick glimpse up her skirt in
 the bargain, but you quietly step backwards so as not to attract attention...
- Also here is a new saw and a brand new lantern.
-
-You can only move northwest.
+ Also here is a new saw and a brand new lantern.  You can only move
+northwest.
 
 > look
 
@@ -237,9 +217,8 @@ Shop Basement
 Loads of supplies are stored here. You peer upwards through the trapdoor and
 see Mrs. So working on her accounts. You get a quick glimpse up her skirt in
 the bargain, but you quietly step backwards so as not to attract attention...
- Also here is a new saw and a brand new lantern.
-
-You can only move northwest.
+ Also here is a new saw and a brand new lantern.  You can only move
+northwest.
 
 > get saw
 You take the new saw.
@@ -252,9 +231,7 @@ You move northwest.
 
 Cellar passage
 The passage is dimly lit and is freezing cold. This must be used to stock
-Mrs. So's basement..
-
-You can move southeast and northwest.
+Mrs. So's basement..  You can move southeast and northwest.
 
 > nw
 You move northwest.
@@ -262,7 +239,6 @@ You move northwest.
 Cellar
 You are in a damp cellar. Barrels of ale are stored here along with hundreds
 of bottles of spirits. You see that to the south-east there is a passageway.
-
 You can move up and southeast.
 
 > u
@@ -274,9 +250,7 @@ bowls of steaming hot stew. The inn looks very hospitable, with a roaring
 fire and comfortable furnishings. Busty serving wenches bend over as they
 serve drinks, giving you an eyeful, but you really must concentrate on the
 quest at hand. The floor makes a hollow sound as you walk across to the bar.
-Oliver the Inn Keeper is here.
-
-You can move east and down.
+Oliver the Inn Keeper is here.  You can move east and down.
 
 > cut cane with saw
 The cane is now shortened, with a very rung-like appearance.
@@ -298,18 +272,16 @@ You move east.
 
 Village Centre (north)
 Just a small clearing here. To the east is a cemetery, to the west is an inn,
-and to the north is a gate.  Old Man Toomey is here.
-
-You can move north, east, south and west.
+and to the north is a gate.  Old Man Toomey is here.  You can move north,
+east, south and west.
 
 > s
 You move south.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.  Perry the Ferryman is here.
-
-You can move north, east, south and west.  You hear an owl
+carved statue in it's centre.  Perry the Ferryman is here.  You can move
+north, east, south and west.  You hear an owl
 
 > s
 You move south.
@@ -318,7 +290,6 @@ Village Centre (south)
 You have just entered a village centre. You can see a large fountain which
 appears to be a front piece which compliments the ornate front gate to the
 village. To the east is an alley and to the west there is a large oak tree.
-
 You can move north, east, south and west.
 
 > s
@@ -326,9 +297,8 @@ You move south.
 
 Front Gate
 You are outside an ornate gate lit by two dim lanterns high on each side. The
-gate is topped with sharp spikes to stop intruders scaling it.
-
-You can move north and south.
+gate is topped with sharp spikes to stop intruders scaling it.  You can move
+north and south.
 
 > s
 You move south.
@@ -337,9 +307,7 @@ Front Path
 This path is dark and forboding and has thorny bushes on each side of it. The
 ground is gravelly and you try to be careful not to make too much noise as
 loose stones crunch underfoot. There are twinkling lights coming from the
-north.
-
-You can move north and south.
+north.  You can move north and south.
 
 > s
 You move south.
@@ -349,9 +317,7 @@ This is the pier that you landed on after you escaped from the prison
 galleon. The sea looks rough and perilous and the black waters don't look
 hospitable at all. The timbers of the pier are worn away from the constant
 battering of the sea. To the east you can see a dilapidated boat house and to
-the west there is a boat.
-
-You can move north, east and west.
+the west there is a boat.  You can move north, east and west.
 
 > e
 You move east.
@@ -359,9 +325,7 @@ You move east.
 Boat House
 This boat house has no lighting and wind howls through cracks in the roof.
 You can see a locker from the moonlight that streams through the small
-window.
-
-You can only move west.
+window.  You can only move west.
 
 > open locker
 You open the locker.  A mouldy beef sandwich and a fishing rod are inside the
@@ -382,9 +346,7 @@ This is the pier that you landed on after you escaped from the prison
 galleon. The sea looks rough and perilous and the black waters don't look
 hospitable at all. The timbers of the pier are worn away from the constant
 battering of the sea. To the east you can see a dilapidated boat house and to
-the west there is a boat.
-
-You can move north, east and west.
+the west there is a boat.  You can move north, east and west.
 
 > w
 You move west.
@@ -393,10 +355,8 @@ Ferry Boat
 This ferry boat has seen better days, it's rotting away and you fear sticking
 your foot through the floor of it, but amazingly it still floats. A small
 plaque says that this boat is owned by Perry the Ferryman.  The  ferry boat
-is moored and locked by a sturdy rusty lock and chains.
-
-You can only move east.  Black waves churn in the sea sending a fine mist
-into the air.
+is moored and locked by a sturdy rusty lock and chains.  You can only move
+east.  Black waves churn in the sea sending a fine mist into the air.
 
 > open lock with boat key
 The lock opens and the chains fall into the sea, freeing the boat. You leave
@@ -407,27 +367,23 @@ You move west.
 
 Stormy sea (Inside Ferry Boat)
 The dark waves crash against the side of the old boat and you are tossed
-about, but the boat stays afloat.
-
-You can move east and west.
+about, but the boat stays afloat.  You can move east and west.
 
 > w
 You move west.
 
 Outside Lighthouse
 You are standing on large craggy rocks which is constantly beaten by the
-waves from all angles. To the west there is a light house.
-
-You can move east and west.
+waves from all angles. To the west there is a light house.  You can move east
+and west.
 
 > w
 You move west.
 
 Inside Lighthouse
 This place is sparsely furnished and is freezing cold and damp. The room is
-partly lit from rays of light coming through the open exit above.
-
-You can move east and up.
+partly lit from rays of light coming through the open exit above.   You can
+move east and up.
 
 > u
 You move up.
@@ -435,18 +391,16 @@ You move up.
 Light Room
 This room is surrounded by glass and houses the powerful lamp. The lamp has a
 big reflector behind it that creates the beam. The light misty fog makes the
-beam stand out like a solid rod of light.   Also here is a can of oil.
-
-You can only move down.
+beam stand out like a solid rod of light.   Also here is a can of oil.  You
+can only move down.
 
 > look
 
 Light Room
 This room is surrounded by glass and houses the powerful lamp. The lamp has a
 big reflector behind it that creates the beam. The light misty fog makes the
-beam stand out like a solid rod of light.   Also here is a can of oil.
-
-You can only move down.
+beam stand out like a solid rod of light.   Also here is a can of oil.  You
+can only move down.
 
 > get oil
 You take the can of oil.  A rat scurries past your feet!
@@ -456,28 +410,23 @@ You move down.
 
 Inside Lighthouse
 This place is sparsely furnished and is freezing cold and damp. The room is
-partly lit from rays of light coming through the open exit above.
-
-You can move east and up.
+partly lit from rays of light coming through the open exit above.   You can
+move east and up.
 
 > e
 You move east.
 
 Outside Lighthouse
 You are standing on large craggy rocks which is constantly beaten by the
-waves from all angles. To the west there is a light house.
-
-You can move east and west.  Black waves churn in the sea sending a fine mist
-into the air.
+waves from all angles. To the west there is a light house.  You can move east
+and west.  Black waves churn in the sea sending a fine mist into the air.
 
 > e
 You move east.
 
 Stormy sea (Inside Ferry Boat)
 The dark waves crash against the side of the old boat and you are tossed
-about, but the boat stays afloat.
-
-You can move east and west.
+about, but the boat stays afloat.  You can move east and west.
 
 > e
 You move east.
@@ -485,9 +434,8 @@ You move east.
 Ferry Boat
 This ferry boat has seen better days, it's rotting away and you fear sticking
 your foot through the floor of it, but amazingly it still floats. A small
-plaque says that this boat is owned by Perry the Ferryman.
-
-You can move east and west.
+plaque says that this boat is owned by Perry the Ferryman.  You can move east
+and west.
 
 > fill lantern with oil
 You fill the lantern and flick the deluxe flint to ignite it. It shines nice
@@ -502,10 +450,8 @@ This is the pier that you landed on after you escaped from the prison
 galleon. The sea looks rough and perilous and the black waters don't look
 hospitable at all. The timbers of the pier are worn away from the constant
 battering of the sea. To the east you can see a dilapidated boat house and to
-the west there is a boat.
-
-You can move north, east and west.  Black waves churn in the sea sending a
-fine mist into the air.
+the west there is a boat.  You can move north, east and west.  Black waves
+churn in the sea sending a fine mist into the air.
 
 > n
 You move north.
@@ -514,18 +460,15 @@ Front Path
 This path is dark and forboding and has thorny bushes on each side of it. The
 ground is gravelly and you try to be careful not to make too much noise as
 loose stones crunch underfoot. There are twinkling lights coming from the
-north.
-
-You can move north and south.
+north.  You can move north and south.
 
 > n
 You move north.
 
 Front Gate
 You are outside an ornate gate lit by two dim lanterns high on each side. The
-gate is topped with sharp spikes to stop intruders scaling it.
-
-You can move north and south.
+gate is topped with sharp spikes to stop intruders scaling it.  You can move
+north and south.
 
 > n
 You move north.
@@ -534,7 +477,6 @@ Village Centre (south)
 You have just entered a village centre. You can see a large fountain which
 appears to be a front piece which compliments the ornate front gate to the
 village. To the east is an alley and to the west there is a large oak tree.
-
 You can move north, east, south and west.
 
 > e
@@ -543,9 +485,7 @@ You move east.
 Alley
 Nothing much here, just a bench for weary travellers. To the north-east there
 is a barn, to the east there is a shop. You see there is a poster here nailed
-to a wall.
-
-You can move east, west and northeast.
+to a wall.  You can move east, west and northeast.
 
 > ne
 You move northeast.
@@ -554,9 +494,8 @@ Village barn
 Horses look up while munching hay as you enter. The barn is surprisingly
 warm. You look around and see stacks of hay, saddles and various horsey
 things.   You notice on a shelf high up a handle sticking out, what it is
-exactly you don't know, but it may be worth finding out.
-
-You can only move southwest.
+exactly you don't know, but it may be worth finding out.  You can only move
+southwest.
 
 > look
 
@@ -564,9 +503,8 @@ Village barn
 Horses look up while munching hay as you enter. The barn is surprisingly
 warm. You look around and see stacks of hay, saddles and various horsey
 things.   You notice on a shelf high up a handle sticking out, what it is
-exactly you don't know, but it may be worth finding out.
-
-You can only move southwest.
+exactly you don't know, but it may be worth finding out.  You can only move
+southwest.
 
 > use rod on handle
 You extend your deluxe fishing rod and try to tip the handle towards you. The
@@ -582,9 +520,7 @@ You move southwest.
 Alley
 Nothing much here, just a bench for weary travellers. To the north-east there
 is a barn, to the east there is a shop. You see there is a poster here nailed
-to a wall.
-
-You can move east, west and northeast.
+to a wall.  You can move east, west and northeast.
 
 > w
 You move west.
@@ -593,7 +529,6 @@ Village Centre (south)
 You have just entered a village centre. You can see a large fountain which
 appears to be a front piece which compliments the ornate front gate to the
 village. To the east is an alley and to the west there is a large oak tree.
-
 You can move north, east, south and west.
 
 > w
@@ -604,9 +539,7 @@ This is a large oak tree that looks centuries old and something that the
 villagers treasure. There are various messages carved on the trunk of the
 tree. As you look up, you see thick branches above swaying in the breeze with
 a rope ladder hanging down from them. To the west you can see the village
-library.
-
-You can move east and west.  You hear an owl
+library.  You can move east and west.  You hear an owl
 
 > look
 
@@ -615,9 +548,7 @@ This is a large oak tree that looks centuries old and something that the
 villagers treasure. There are various messages carved on the trunk of the
 tree. As you look up, you see thick branches above swaying in the breeze with
 a rope ladder hanging down from them. To the west you can see the village
-library.
-
-You can move east and west.
+library.  You can move east and west.
 
 > use cane on ladder
 You insert the piece of cut cane into the rope ladder making a rung. You can
@@ -629,9 +560,7 @@ You move up.
 Top of the Great Oak
 The branches creak and groan in the wind. In the far distance towards the
 south-west you can see a lighthouse. There is a nest here on one of the
-branches.
-
-You can only move down.
+branches.  You can only move down.
 
 > examine nest
 The nest is a mass of intertwining twigs.  An injured sparrow is inside the
@@ -648,10 +577,8 @@ This is a large oak tree that looks centuries old and something that the
 villagers treasure. There are various messages carved on the trunk of the
 tree. As you look up, you see thick branches above swaying in the breeze with
 a rope ladder hanging down from them. To the west you can see the village
-library.
-
-You can move east, west and up.  You hear a clap of thunder. The mist around
-you glows briefly.  You hear an owl
+library.  You can move east, west and up.  You hear a clap of thunder. The
+mist around you glows briefly.  You hear an owl
 
 > e
 You move east.
@@ -660,7 +587,6 @@ Village Centre (south)
 You have just entered a village centre. You can see a large fountain which
 appears to be a front piece which compliments the ornate front gate to the
 village. To the east is an alley and to the west there is a large oak tree.
-
 You can move north, east, south and west.
 
 > n
@@ -668,9 +594,8 @@ You move north.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.  Perry the Ferryman is here.
-
-You can move north, east, south and west.
+carved statue in it's centre.  Perry the Ferryman is here.  You can move
+north, east, south and west.
 
 > w
 You move west.
@@ -678,26 +603,21 @@ You move west.
 Cottage
 One of many fishing cottages that wasn't locked. It consists of one room up
 and one down. The sitting room is sparsely furnished with a table, chair and
-unlit fireplace. The room is not too comfortable and is quite drafty.
-
-You can move east, west and up.  A rat scurries past your feet!
+unlit fireplace. The room is not too comfortable and is quite drafty.  You
+can move east, west and up.  A rat scurries past your feet!
 
 > u
 You move up.
 
 Cottage (Upstairs)
 The bedroom is as sparse as the living room. Only a bed, cupboard and drawers
-in here.
-
-You can only move down.
+in here.  You can only move down.
 
 > look
 
 Cottage (Upstairs)
 The bedroom is as sparse as the living room. Only a bed, cupboard and drawers
-in here.
-
-You can only move down.
+in here.  You can only move down.
 
 > open wardrobe
 You open the large wardrobe.  A fishing coat is inside the large wardrobe.
@@ -719,18 +639,16 @@ You move down.
 Cottage
 One of many fishing cottages that wasn't locked. It consists of one room up
 and one down. The sitting room is sparsely furnished with a table, chair and
-unlit fireplace. The room is not too comfortable and is quite drafty.
-
-You can move east, west and up.  A rat scurries past your feet!
+unlit fireplace. The room is not too comfortable and is quite drafty.  You
+can move east, west and up.  A rat scurries past your feet!
 
 > e
 You move east.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.  Perry the Ferryman is here.
-
-You can move north, east, south and west.
+carved statue in it's centre.  Perry the Ferryman is here.  You can move
+north, east, south and west.
 
 > e
 You move east.
@@ -738,18 +656,16 @@ You move east.
 Church
 The church is a  friendly looking place adorned in brightly coloured drapes.
 There is the usual altar at one end and a holy water basin. You see that some
-stairs spiral upwards to the steeple.  Gavin is here meditating.
-
-You can move west and up.
+stairs spiral upwards to the steeple.  Gavin is here meditating.  You can
+move west and up.
 
 > look
 
 Church
 The church is a  friendly looking place adorned in brightly coloured drapes.
 There is the usual altar at one end and a holy water basin. You see that some
-stairs spiral upwards to the steeple.  Gavin is here meditating.
-
-You can move west and up.
+stairs spiral upwards to the steeple.  Gavin is here meditating.  You can
+move west and up.
 
 > give sparrow to gavin
 Gavin looks at the sparrow in your hands "Oh my goodness, what have we here!"
@@ -764,9 +680,7 @@ Steeple
 The steeple is windy and you have a great view over the village. To the north
 you can see a dim light in the dark mountains. Who could possibly live there?
 you intend to find out, maybe they could help you in your quest to escape. A
-telescope is here pointing towards the mountains.
-
-You can only move down.
+telescope is here pointing towards the mountains.  You can only move down.
 
 > look
 
@@ -774,9 +688,7 @@ Steeple
 The steeple is windy and you have a great view over the village. To the north
 you can see a dim light in the dark mountains. Who could possibly live there?
 you intend to find out, maybe they could help you in your quest to escape. A
-telescope is here pointing towards the mountains.
-
-You can only move down.
+telescope is here pointing towards the mountains.  You can only move down.
 
 > examine telescope
 As you look through the telescope you see a light twinkling in the distance.
@@ -793,27 +705,24 @@ You move down.
 Church
 The church is a  friendly looking place adorned in brightly coloured drapes.
 There is the usual altar at one end and a holy water basin. You see that some
-stairs spiral upwards to the steeple.  Gavin is here meditating.
-
-You can move west and up.
+stairs spiral upwards to the steeple.  Gavin is here meditating.  You can
+move west and up.
 
 > w
 You move west.
 
 Village Centre
 You are standing in the middle of the village square. There is a finely
-carved statue in it's centre.  Perry the Ferryman is here.
-
-You can move north, east, south and west.
+carved statue in it's centre.  Perry the Ferryman is here.  You can move
+north, east, south and west.
 
 > n
 You move north.
 
 Village Centre (north)
 Just a small clearing here. To the east is a cemetery, to the west is an inn,
-and to the north is a gate.  Old Man Toomey is here.
-
-You can move north, east, south and west.
+and to the north is a gate.  Old Man Toomey is here.  You can move north,
+east, south and west.
 
 > e
 You move east.
@@ -823,9 +732,8 @@ The cemetery is surrounded by iron railings and has many crooked gravestones,
 some fresh and some so old the inscriptions cannot be seen any more. A fine
 mist covers the ground and glows in the light. There is one grave right in
 the middle. The stone is large and finely engraved with carvings of a sword
-and shield.
-
-You can only move west.  You hear an owl  A rat scurries past your feet!
+and shield.  You can only move west.  You hear an owl  A rat scurries past
+your feet!
 
 > look
 
@@ -834,10 +742,8 @@ The cemetery is surrounded by iron railings and has many crooked gravestones,
 some fresh and some so old the inscriptions cannot be seen any more. A fine
 mist covers the ground and glows in the light. There is one grave right in
 the middle. The stone is large and finely engraved with carvings of a sword
-and shield.
-
-You can only move west.  You hear a clap of thunder. The mist around you
-glows briefly.
+and shield.  You can only move west.  You hear a clap of thunder. The mist
+around you glows briefly.
 
 > dig grave with spade
 You start digging up the grave, stopping every now and again to wipe your
@@ -856,9 +762,7 @@ walls. You have accidentally broken through the lid of the coffin. The stench
 of the remains makes you gag. The remains, mostly bones,  of Sir Ronald lay
 before you. The laughing skull of the corpse stares up at you. You decide not
 to disturb the body any further in fear of being cursed.  Also here is a
-shiny shield.
-
-You can only move up.  A rat scurries past your feet!
+shiny shield.  You can only move up.  A rat scurries past your feet!
 
 > get shield
 You take the shiny shield.
@@ -872,27 +776,23 @@ some fresh and some so old the inscriptions cannot be seen any more. A fine
 mist covers the ground and glows in the light. There is one grave right in
 the middle. The stone is large and finely engraved with carvings of a sword
 and shield.  There is freshly dug grave in the middle of the cemetary. You
-can go down and enter the grave now.  Also here is a well used spade.
-
-You can move west and down.
+can go down and enter the grave now.  Also here is a well used spade.  You
+can move west and down.
 
 > w
 You move west.
 
 Village Centre (north)
 Just a small clearing here. To the east is a cemetery, to the west is an inn,
-and to the north is a gate.  Old Man Toomey is here.
-
-You can move north, east, south and west.  You hear an owl
+and to the north is a gate.  Old Man Toomey is here.  You can move north,
+east, south and west.  You hear an owl
 
 > n
 You move north.
 
 Back Gate
 You see the a bridge leading to the mountains beyond this gate.  A Dork is
-here on a long chain.
-
-You can only move south.
+here on a long chain.  You can only move south.
 
 > give sandwich to dork
 The Dork's ears prick up and it smells the tasty morsel in your hand. The
@@ -907,9 +807,7 @@ Bridge
 As you walk over the bridge, you nearly fall through a loose plank that
 pivots up towards you and nearly hits you on the forehead. The wobbly plank
 needs to be repaired in order for you to cross. Maybe you can fix it with
-some tools etc....
-
-You can only move south.
+some tools etc....  You can only move south.
 
 > fix bridge
 You aim the nail at one end of the wobbly plank and knock it all the way in
@@ -921,19 +819,15 @@ You move north.
 
 Middle of Mountain Path
 A plain mountain wall lies northwards covered with lichen. Soft snow crunches
-underfoot.
-
-You can move east, south and west.
+underfoot.  You can move east, south and west.
 
 > w
 You move west.
 
 Mountain Path (west)
 A plain mountain wall lies northwards covered with lichen. Soft snow crunches
-underfoot.
-
-You can move east and west.  Soft flakes of snow start to fall from the clear
-sky. The wind makes them dance around you.
+underfoot.  You can move east and west.  Soft flakes of snow start to fall
+from the clear sky. The wind makes them dance around you.
 
 > use monocle
 When you hold the monocle to your eye you see that red outline appears on the
@@ -945,9 +839,7 @@ You move north.
 
 Dark Passage
 This part of the cave is very dark indeed.  You can hear strange muffled
-noises from somewhere ahead.
-
-You can move north and south.
+noises from somewhere ahead.  You can move north and south.
 
 > n
 You move north.
@@ -955,9 +847,7 @@ You move north.
 Lava Cave
 The glow from the lava pool gives the cave a nice orange warm colour.  To the
 east you can hear strange low muffled voices. Orcs! You stay clear of the
-entrance until you are better equipped.
-
-You can move north and south.
+entrance until you are better equipped.  You can move north and south.
 
 > n
 You move north.
@@ -965,9 +855,7 @@ You move north.
 Orc Prison
 A horrible damp part of the cave that's used for the Orc's prisoners. You see
 one of the unfortunate residents, a skeleton, chained to one wall.  Also here
-is an iron bar.  Sara is here.
-
-You can only move south.
+is an iron bar.  Sara is here.  You can only move south.
 
 > get bar
 You take the iron bar.
@@ -978,9 +866,7 @@ You move south.
 Lava Cave
 The glow from the lava pool gives the cave a nice orange warm colour.  To the
 east you can hear strange low muffled voices. Orcs! You stay clear of the
-entrance until you are better equipped.
-
-You can move north and south.
+entrance until you are better equipped.  You can move north and south.
 
 > put bar in lava
 You tear off some cloth from the bottom of your shirt and wrap it around the
@@ -994,9 +880,7 @@ You move north.
 Orc Prison
 A horrible damp part of the cave that's used for the Orc's prisoners. You see
 one of the unfortunate residents, a skeleton, chained to one wall.  Sara is
-here.
-
-You can only move south.
+here.  You can only move south.
 
 > melt chains with bar
 You carefully place the bar in the middle of the chain and wait. The middle
@@ -1015,9 +899,8 @@ darkness.
 You move south.
 
 Lava Cave
-The glow from the lava pool gives the cave a nice orange warm colour.
-
-You can move north, east and south.
+The glow from the lava pool gives the cave a nice orange warm colour.  You
+can move north, east and south.
 
 > e
 You go eastwards..  As you walk into the room you  are greeted by an
@@ -1034,9 +917,7 @@ You move north.
 
 Orc Store
 Just looks like junk that the Orcs have stored over the years.  Also here is
-a horn.
-
-You can only move south.
+a horn.  You can only move south.
 
 > get horn
 You take the horn.
@@ -1045,16 +926,15 @@ You take the horn.
 You move south.
 
 Orc Entrance
-This is the Orc security post to the caves.
-
-You can move north, east and west.  As you walk into the room you  are
-greeted by an astonishing sight. Some Orcs start to charge towards you, but
-the bracelet starts to pulsate. Even in your pocket it emits a green shield
-like glow. Suddenly, a green bolt fires from your body and hits one of the
-Orcs. It then starts to hit the next, and the next, chaining them together
-and dragging them towards the ground like some huge green serpent. You see
-that they are actually sinking into the solid stone floor. As quickly as it
-started, it finishes, leaving only silence.
+This is the Orc security post to the caves.  You can move north, east and
+west.  As you walk into the room you  are greeted by an astonishing sight.
+Some Orcs start to charge towards you, but the bracelet starts to pulsate.
+Even in your pocket it emits a green shield like glow. Suddenly, a green bolt
+fires from your body and hits one of the Orcs. It then starts to hit the
+next, and the next, chaining them together and dragging them towards the
+ground like some huge green serpent. You see that they are actually sinking
+into the solid stone floor. As quickly as it started, it finishes, leaving
+only silence.
 
 > e
 You move east.
@@ -1062,9 +942,7 @@ You move east.
 Wolf Passage
 An icy passage is here with a carpet of soft snow. Giant icicles droop from
 little overhangs.  Mountain Wolves are here, staring at you while licking
-their chops.
-
-You can only move west.
+their chops.  You can only move west.
 
 > blow horn
 You blow the warrior's horn. The wolves stiffen with fear, then scatter in
@@ -1076,9 +954,8 @@ You move east.
 
 Outside Jeziah's House
 This is an icy opening that lays in front of a house to the east. The house
-is covered with snow and has smoke trickling from a small chimney.
-
-You can move east and west.
+is covered with snow and has smoke trickling from a small chimney.  You can
+move east and west.
 
 > e
 You move east.
@@ -1087,9 +964,8 @@ Jeziah's House
 'Welcome to Jeziah's house' is written on the dormat. The house looks very
 ordered, with shelves creaking from tomes that are neatly indexed. The house
 is warmed by a roaring fire and warms your bones from the harsh elements
-outside.  Jeziah The Wizard is here sitting by the fire.
-
-You can only move west.
+outside.  Jeziah The Wizard is here sitting by the fire.  You can only move
+west.
 
 > give ruby to jeziah
 Jeziah's eyes light up at seeing the Eye of Xion. He immediately inserts it
@@ -1108,9 +984,8 @@ You move west.
 
 Outside Jeziah's House
 This is an icy opening that lays in front of a house to the east. The house
-is covered with snow and has smoke trickling from a small chimney.
-
-You can move north, east and west.
+is covered with snow and has smoke trickling from a small chimney.  You can
+move north, east and west.
 
 > n
 You move north.
@@ -1119,9 +994,8 @@ Freezing Passage (south)
 The temperature here seems to drop ferociously. The air seems to cut the
 inside of your throat and every gulp of air burns your lungs. Your eyes sting
 with the cold and your feet start to go numb. Icicles seem to droop from
-every overhang that borders each side of the passage.
-
-You can move north and south.
+every overhang that borders each side of the passage.  You can move north and
+south.
 
 > n
 You move north.
@@ -1130,9 +1004,7 @@ Freezing Passage (north)
 The temperature here is extreme. Your breath blasts out in front of you in
 great plumes of misty air. Your teeth feel as though they are starting to
 freeze and your throat starts to go numb. You don't know how much longer you
-can go on.
-
-You can move north and south.
+can go on.  You can move north and south.
 
 > north
 You move north.
@@ -1142,9 +1014,7 @@ Lucky for you that you had warm clothing and some warming brandy inside you.
 You take a moment to rest and recover from the hellish journey through the
 freezing passage.  The bridge before you is slippery, but you cast a glance
 over the side and see that a deep ravine goes under the bridge. You cannot
-see the bottom, as an icy mist hovers inside.
-
-You can move north and south.
+see the bottom, as an icy mist hovers inside.  You can move north and south.
 
 > north
 A large crashing sound comes from behind you. The bridge has now totally
@@ -1167,9 +1037,7 @@ Castle Reception
 This room is obviously meant to be impressive, being a front showroom to the
 castle. Time has taken it's toll though, dust and cobwebs have taken the
 place of polish and finely coloured drapes. There is a large grandfather
-clock opposite the entrance.
-
-You can move north, east, south and west.
+clock opposite the entrance.  You can move north, east, south and west.
 
 > n
 You move north.
@@ -1178,9 +1046,8 @@ Courtyard
 This courtyard is now totally overgrown with weeds and is mostly buried in
 snow. You see a  stone crypt entrance in the middle with three stone dials,
 one round, one triangle and one square. There is also a stone button next to
-them. A strong looking crypt door has a large iron handle on it.
-
-You can move north, east, south and west.
+them. A strong looking crypt door has a large iron handle on it.  You can
+move north, east, south and west.
 
 > w
 You move west.
@@ -1188,9 +1055,7 @@ You move west.
 Music Room
 The music room has cobwebs stretching across objects and from the framed
 sheet music that hangs on the wall. You notice a piano standing in the middle
-of the room.
-
-You can move north, east, south and west.
+of the room.  You can move north, east, south and west.
 
 > w
 You move west.
@@ -1199,27 +1064,22 @@ Conservatory
 This must have been a plant room for guests to sit and enjoy the view of the
 mountains, while admiring the flowers and plants. Miraculously, the mostly
 glass construction is unbroken. Sadly, weeds have taken over the room and
-climb up the walls and glass.
-
-You can move east and west.
+climb up the walls and glass.  You can move east and west.
 
 > w
 You move west.
 
 Barracks
 The castle's barracks has been deserted for a long time. Snow covers training
-dummies and weapons racks.  You notice a large block of ice on the snow.
-
-You can move north, east, south and west.
+dummies and weapons racks.  You notice a large block of ice on the snow.  You
+can move north, east, south and west.
 
 > s
 You move south.
 
 Archery Range
 Just a few rotting targets are just about standing down one end of the range.
- Also here is an arrow shaft.
-
-You can only move north.
+ Also here is an arrow shaft.  You can only move north.
 
 > get arrow shaft
 You take the arrow shaft.
@@ -1229,9 +1089,8 @@ You move north.
 
 Barracks
 The castle's barracks has been deserted for a long time. Snow covers training
-dummies and weapons racks.  You notice a large block of ice on the snow.
-
-You can move north, east, south and west.
+dummies and weapons racks.  You notice a large block of ice on the snow.  You
+can move north, east, south and west.
 
 > use lens on ice
 You line the powerful lens up with the sun and then aim at the block of ice.
@@ -1246,9 +1105,7 @@ Conservatory
 This must have been a plant room for guests to sit and enjoy the view of the
 mountains, while admiring the flowers and plants. Miraculously, the mostly
 glass construction is unbroken. Sadly, weeds have taken over the room and
-climb up the walls and glass.
-
-You can move east and west.
+climb up the walls and glass.  You can move east and west.
 
 > e
 You move east.
@@ -1256,9 +1113,7 @@ You move east.
 Music Room
 The music room has cobwebs stretching across objects and from the framed
 sheet music that hangs on the wall. You notice a piano standing in the middle
-of the room.
-
-You can move north, east, south and west.
+of the room.  You can move north, east, south and west.
 
 > n
 You move north.
@@ -1266,9 +1121,7 @@ You move north.
 Games Room
 This games room has a chess table with dusty pieces on it that have been left
 mid game. There is also a cards table devoid of any cards. There is a pencil
-sharpener on one of the tables.
-
-You can move east and south.
+sharpener on one of the tables.  You can move east and south.
 
 > use arrow on sharpener
 You insert the shaft into the sharpener and turn the handle. Whirring away,
@@ -1281,9 +1134,8 @@ Smoking Room
 This room was used for (you guessed it) smoking, with ashtrays and a cigar
 box on one table. It looks more comfortable than the other rooms in the
 castle. There is a large painting dominating one wall. Some stairs spiral up
-to the next floor.  Also here is a cigar cutter.
-
-You can move east, south, west and up.
+to the next floor.  Also here is a cigar cutter.  You can move east, south,
+west and up.
 
 > get cutter
 You take the cigar cutter.
@@ -1294,18 +1146,16 @@ You move up.
 Bedroom
 The bedroom is drafty because of the broken window shutter, that bangs
 against the wall with the wind. The bed is large but the sheets have rotted
-away. An exit to the east leads to a washroom.
-
-You can move east, west and down.
+away. An exit to the east leads to a washroom.  You can move east, west and
+down.
 
 > e
 You move east.
 
 Washroom
 The washroom is tiled with beautifully coloured tiles with prints of
-different animals on them. A dog, cat, bear, wolf, and many more.
-
-You can move south and west.
+different animals on them. A dog, cat, bear, wolf, and many more.  You can
+move south and west.
 
 > press bear tile
 You realise the significance of the bear. The tile presses inwards and you
@@ -1319,9 +1169,7 @@ Bedroom
 The bedroom is drafty because of the broken window shutter, that bangs
 against the wall with the wind. The bed is large but the sheets have rotted
 away. An exit to the east leads to a washroom.  There is a dark exit to the
-south.
-
-You can move east, south, west and down.
+south.  You can move east, south, west and down.
 
 > d
 You move down.
@@ -1330,9 +1178,7 @@ Smoking Room
 This room was used for (you guessed it) smoking, with ashtrays and a cigar
 box on one table. It looks more comfortable than the other rooms in the
 castle. There is a large painting dominating one wall. Some stairs spiral up
-to the next floor.
-
-You can move east, south, west and up.
+to the next floor.  You can move east, south, west and up.
 
 > s
 You move south.
@@ -1341,9 +1187,8 @@ Courtyard
 This courtyard is now totally overgrown with weeds and is mostly buried in
 snow. You see a  stone crypt entrance in the middle with three stone dials,
 one round, one triangle and one square. There is also a stone button next to
-them. A strong looking crypt door has a large iron handle on it.
-
-You can move north, east, south and west.
+them. A strong looking crypt door has a large iron handle on it.  You can
+move north, east, south and west.
 
 > turn round dial
 Click! You turn the dial clockwise one notch.
@@ -1426,9 +1271,7 @@ You move west.
 Music Room
 The music room has cobwebs stretching across objects and from the framed
 sheet music that hangs on the wall. You notice a piano standing in the middle
-of the room.
-
-You can move north, east, south and west.
+of the room.  You can move north, east, south and west.
 
 > w
 You move west.
@@ -1437,18 +1280,15 @@ Conservatory
 This must have been a plant room for guests to sit and enjoy the view of the
 mountains, while admiring the flowers and plants. Miraculously, the mostly
 glass construction is unbroken. Sadly, weeds have taken over the room and
-climb up the walls and glass.
-
-You can move east and west.
+climb up the walls and glass.  You can move east and west.
 
 > w
 You move west.
 
 Barracks
 The castle's barracks has been deserted for a long time. Snow covers training
-dummies and weapons racks.  There is nothing else of interest here.
-
-You can move north, east, south and west.
+dummies and weapons racks.  There is nothing else of interest here.  You can
+move north, east, south and west.
 
 > n
 You move north.
@@ -1458,9 +1298,7 @@ The view from here is amazing, with a spectacular view of the mountains and
 the ocean to the north. You can just about see the whole outline of the
 island. A watchman must have had a perfect view of any incoming ships - you
 just make out the lighthouse to the south-west. The sky is clear and you can
-see Jeziah's house nested in the mountains.
-
-You can only move south.
+see Jeziah's house nested in the mountains.  You can only move south.
 
 > examine sun
 The sun is blindingly bright, but very little heat can be felt from it.
@@ -1485,9 +1323,8 @@ Jeziah's House
 'Welcome to Jeziah's house' is written on the dormat. The house looks very
 ordered, with shelves creaking from tomes that are neatly indexed. The house
 is warmed by a roaring fire and warms your bones from the harsh elements
-outside.  Jeziah The Wizard is here sitting by the fire.
-
-You can only move west.
+outside.  Jeziah The Wizard is here sitting by the fire.  You can only move
+west.
 
 > give finger to jeziah
 Jeziah smiles and slips the ring on his bony finger, chucking Victor's finger

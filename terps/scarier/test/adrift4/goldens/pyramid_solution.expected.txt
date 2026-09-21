@@ -36,9 +36,8 @@ shift slightly down and hear a strange almost clockwork sound coming from the
 wall.
 
 Short passage
-A short passageway south from the entrance chamber.
-
-You can move north and south.
+A short passageway south from the entrance chamber.  You can move north and
+south.
 
 > s
 You move south.
@@ -47,9 +46,7 @@ Golden Chamber
 By comparison with the early parts of this construction, this golden chamber
 makes your heart skip a beat as it was walls made from what appears to be
 gold, and are covered with an amazing array of scenes of hunting and Egyptian
-ceremonials.
-
-You can move north and east.
+ceremonials.  You can move north and east.
 
 > e
 You move east.
@@ -57,9 +54,8 @@ You move east.
 Side Chamber
 A small chamber, the walls are a slighly yellowed white, and again lined with
 many fine scenes, this time in red, gold and black. In the centre of the room
-is a raised platform on which stands a huge stone sarcophagos.
-
-You can only move west.
+is a raised platform on which stands a huge stone sarcophagos.  You can only
+move west.
 
 > open sarcophagos
 You open the magnificent sarcophagos.  The golden coffin and a golden beetle
@@ -75,17 +71,14 @@ Golden Chamber
 By comparison with the early parts of this construction, this golden chamber
 makes your heart skip a beat as it was walls made from what appears to be
 gold, and are covered with an amazing array of scenes of hunting and Egyptian
-ceremonials.
-
-You can move north and east.
+ceremonials.  You can move north and east.
 
 > n
 You move north.
 
 Short passage
-A short passageway south from the entrance chamber.
-
-You can move north and south.
+A short passageway south from the entrance chamber.  You can move north and
+south.
 
 > n
 You move north.
@@ -97,9 +90,7 @@ impression of the back of what looks like some sort of insect.  Looking
 around, by the light of the torch that you produced from your pocket, you
 find yourself in a narrow corridor sloping southwards from the way you
 entered.  At the southern end of the corridor is a stone wall with a carved
-scene depicting a man being beheaded.
-
-You can only move south.
+scene depicting a man being beheaded.  You can only move south.
 
 > put beetle in depression
 You put the golden beetle inside the depression.  The beetle presses home

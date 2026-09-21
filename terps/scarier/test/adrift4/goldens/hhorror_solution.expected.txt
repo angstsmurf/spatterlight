@@ -18,7 +18,6 @@ nick anything of value.
 
 Driveway
 A gravel covered driveway leads north to the house.  Also here is your car.
-
 You can only move north.
 
 > n
@@ -26,7 +25,6 @@ You move north.
 
 Porch
 A porch with ivy growing up the wooden lattice work. The front door is here.
-
 You can move north and south.
 
 > open door
@@ -51,42 +49,35 @@ Time passes...
 You move north.
 
 Entrance Hall
-It is pitch black.
-
-You can move north, east, south, west and up.  Zombie stumbles towards you
-from the north.
+It is pitch black.  You can move north, east, south, west and up.  Zombie
+stumbles towards you from the north.
 
 > u
 You move up.
 
 Landing
-Nothing can be seen without your torch.
-
-You can move north, east, west and down.
-
-> n
-You move north.
-
-Hallway
-Nothing can be seen without your torch.
-
-You can move north, east, south and west.
+Nothing can be seen without your torch.  You can move north, east, west and
+down.
 
 > n
 You move north.
 
 Hallway
-Nothing can be seen without your torch.
+Nothing can be seen without your torch.  You can move north, east, south and
+west.
 
-You can move north, east, south and west.
+> n
+You move north.
+
+Hallway
+Nothing can be seen without your torch.  You can move north, east, south and
+west.
 
 > n
 You move north.
 
 Master Bedroom
-It is pitch black.
-
-You can move east, south and west.
+It is pitch black.  You can move east, south and west.
 
 > wait
 Time passes...  Ghost disappears to the west.
@@ -95,9 +86,7 @@ Time passes...  Ghost disappears to the west.
 You move west.
 
 Walk in Closet
-It is too dark to see.
-
-You can only move east.
+It is too dark to see.  You can only move east.
 
 > wait
 Time passes...
@@ -109,41 +98,32 @@ Time passes...
 You move east.
 
 Master Bedroom
-It is pitch black.
-
-You can move east, south and west.
+It is pitch black.  You can move east, south and west.
 
 > s
 You move south.
 
 Hallway
-Nothing can be seen without your torch.
-
-You can move north, east, south and west.
+Nothing can be seen without your torch.  You can move north, east, south and
+west.
 
 > s
 You move south.
 
 Hallway
-It is dark.
-
-You can move north, east, south and west.
+It is dark.  You can move north, east, south and west.
 
 > n
 You move north.
 
 Hallway
-You cannot see.
-
-You can move north, east, south and west.
+You cannot see.  You can move north, east, south and west.
 
 > w
 You move west.
 
 Guest Room
-It is dark.
-
-You can move east and south.  You hear a creaking noise.
+It is dark.  You can move east and south.  You hear a creaking noise.
 
 > wait
 Time passes...
@@ -152,45 +132,36 @@ Time passes...
 You move east.
 
 Hallway
-Shadows and shapes loom in the darkness.
-
-You can move north, east, south and west.  You hear a strange, spine chilling
-groan.
+Shadows and shapes loom in the darkness.  You can move north, east, south and
+west.  You hear a strange, spine chilling groan.
 
 > s
 You move south.
 
 Hallway
-You cannot see.
-
-You can move north, east, south and west.
+You cannot see.  You can move north, east, south and west.
 
 > s
 You move south.
 
 Landing
-You cannot see.
-
-You can move north, east, west and down.  Ghost appears from the west.  A
-strange chill fills the air.  Zombie stumbles towards you from the west.  You
-hear a strange, spine chilling groan.
+You cannot see.  You can move north, east, west and down.  Ghost appears from
+the west.  A strange chill fills the air.  Zombie stumbles towards you from
+the west.  You hear a strange, spine chilling groan.
 
 > d
 You move down.
 
 Entrance Hall
-Shadows and shapes loom in the darkness.
-
-You can move north, east, south, west and up.
+Shadows and shapes loom in the darkness.  You can move north, east, south,
+west and up.
 
 > s
 You move south.
 
 Porch
 A porch with ivy growing up the wooden lattice work. The front door is here.
-Also here is a torch.
-
-You can move north and south.
+Also here is a torch.  You can move north and south.
 
 > take torch
 You pick up the torch.
@@ -202,26 +173,22 @@ Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
-bottle of vodka.
-
-You can move north, east, south, west and up.  A strange, moaning noise can
-be heard in the distance.
+bottle of vodka.  You can move north, east, south, west and up.  A strange,
+moaning noise can be heard in the distance.
 
 > n
 You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
-a hook, a bottle of bleach and the floorboards.
-
-You can move north, east, south and west.
+a hook, a bottle of bleach and the floorboards.  You can move north, east,
+south and west.
 
 > n
 You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.
 
 > e
@@ -230,9 +197,8 @@ You move east.
 Kitchen
 Cupboards with doors hanging off the hinges line the east and west walls.
 Work surfaces run around the room and a blackened stove stands pride of place
-in the centre.  Also here is a first aid kit.
-
-You can move north, south, west and down.
+in the centre.  Also here is a first aid kit.  You can move north, south,
+west and down.
 
 > take kit
 You pick up the first aid kit.
@@ -242,19 +208,15 @@ You move south.
 
 Dinning Room
 The splendor of a banquet is layed out upon a magnificent dinning table in
-all it's glory.
-
-You can move north, south and west.
+all it's glory.  You can move north, south and west.
 
 > s
 You move south.
 
 Lounge
 Large leather chairs sit lazily around a low coffee table. A stone fireplace
-is built into the west wall.  Also here is a diamond ring.
-
-You can move north and west.  A strange, moaning noise can be heard in the
-distance.
+is built into the west wall.  Also here is a diamond ring.  You can move
+north and west.  A strange, moaning noise can be heard in the distance.
 
 > say live
 As you say the word, a strange creaking sound comes from within the chimney,
@@ -270,9 +232,7 @@ Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
-bottle of vodka.
-
-You can move north, east, south, west and up.
+bottle of vodka.  You can move north, east, south, west and up.
 
 > u
 You move up.
@@ -280,21 +240,17 @@ You move up.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a bottle of
-poison and a table.
-
-You can move north, east, west and down.  Zombie stumbles towards you from
-the north.  The zombie has spotted you and attacks!  He thumps you with his
-clenched fists, causing you much pain.  You hear a strange, spine chilling
-groan.
+poison and a table.  You can move north, east, west and down.  Zombie
+stumbles towards you from the north.  The zombie has spotted you and attacks!
+ He thumps you with his clenched fists, causing you much pain.  You hear a
+strange, spine chilling groan.
 
 > w
 You move west.
 
 Games Room
 A snooker table made of oak resides here, with the balls scattered across it
-in the middle of a game.
-
-You can only move east.
+in the middle of a game.  You can only move east.
 
 > take ball
 You take a snooker ball from the table. (A red one, in case you where
@@ -309,9 +265,8 @@ You move east.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a bottle of
-poison and a table.
-
-You can move north, east, west and down.  You hear a creaking noise.
+poison and a table.  You can move north, east, west and down.  You hear a
+creaking noise.
 
 > d
 You move down.
@@ -320,19 +275,16 @@ Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
-bottle of vodka.
-
-You can move north, east, south, west and up.
+bottle of vodka.  You can move north, east, south, west and up.
 
 > n
 You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
-a hook, a bottle of bleach and the floorboards.
-
-You can move north, east, south and west.  Zombie stumbles towards you from
-the west.  You hear a creaking noise.
+a hook, a bottle of bleach and the floorboards.  You can move north, east,
+south and west.  Zombie stumbles towards you from the west.  You hear a
+creaking noise.
 
 > fire blunderbuss
 Summoning up all your courage, you approach the zombie and fire point blank.
@@ -354,9 +306,7 @@ Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
-bottle of vodka.
-
-You can move north, east, south, west and up.
+bottle of vodka.  You can move north, east, south, west and up.
 
 > u
 You move up.
@@ -364,9 +314,7 @@ You move up.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a bottle of
-poison and a table.
-
-You can move north, east, west and down.
+poison and a table.  You can move north, east, west and down.
 
 > take poison
 You pick up the bottle of poison.
@@ -378,9 +326,8 @@ Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
-bottle of vodka.
-
-You can move north, east, south, west and up.  Ghost appears from the east.
+bottle of vodka.  You can move north, east, south, west and up.  Ghost
+appears from the east.
 
 > n
 You move north.
@@ -388,16 +335,13 @@ You move north.
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
 a hook, a bottle of bleach, a blunderbuss, the floorboards and the dead
-zombie.
-
-You can move north, east, south and west.
+zombie.  You can move north, east, south and west.
 
 > n
 You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.  Zombie stumbles towards you from
 the north.
 
@@ -408,9 +352,7 @@ Library
 Finely built book cases cover the walls and hold a variety of dusty old tomes
 and writings. A table in the middle of the room has many different books
 piled on top of it. There is a door to the north.  Also here is a big chunk
-of cheese.
-
-You can move north and east.  You hear a creaking noise.
+of cheese.  You can move north and east.  You hear a creaking noise.
 
 > take cheese
 You pick up the big chunk of cheese.
@@ -423,7 +365,6 @@ You move east.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.
 
 > s
@@ -432,18 +373,15 @@ You move south.
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
 a hook, a bottle of bleach, a blunderbuss, the floorboards and the dead
-zombie.
-
-You can move north, east, south and west.
+zombie.  You can move north, east, south and west.
 
 > w
 You move west.
 
 Downstairs Toilet
 This small room contains a toilet and a sink. The floor and walls are covered
-in cracked white tiles.  The ghost is haunting this room.
-
-You can only move east.
+in cracked white tiles.  The ghost is haunting this room.  You can only move
+east.
 
 > turn tap
 You turn the tap and water pours out.
@@ -457,16 +395,13 @@ You move east.
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
 a hook, a bottle of bleach, a blunderbuss, the floorboards and the dead
-zombie.
-
-You can move north, east, south and west.
+zombie.  You can move north, east, south and west.
 
 > n
 You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.  Zombie stumbles towards you from
 the east.  The zombie has spotted you and attacks!  He thumps you with his
 clenched fists, causing you much pain.
@@ -486,9 +421,7 @@ You move east.
 Kitchen
 Cupboards with doors hanging off the hinges line the east and west walls.
 Work surfaces run around the room and a blackened stove stands pride of place
-in the centre.
-
-You can move north, south, west and down.
+in the centre.  You can move north, south, west and down.
 
 > n
 You move north.
@@ -496,9 +429,7 @@ You move north.
 Meat Locker
 Rotting carcasses of cows and sheep hang from rusty hooks in this cold,
 inhospitable room. Patches of frost cover the metal walls.  Also here is a
-can of weedkiller.
-
-You can only move south.  You hear a creaking noise.
+can of weedkiller.  You can only move south.  You hear a creaking noise.
 
 > take weedkiller
 You pick up the can of weedkiller.
@@ -509,19 +440,15 @@ You move south.
 Kitchen
 Cupboards with doors hanging off the hinges line the east and west walls.
 Work surfaces run around the room and a blackened stove stands pride of place
-in the centre.
-
-You can move north, south, west and down.  You hear a strange, spine chilling
-groan.
+in the centre.  You can move north, south, west and down.  You hear a
+strange, spine chilling groan.
 
 > w
 You move west.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-The ghost is haunting this room.
-
-You can move north, east, south and west.
+The ghost is haunting this room.  You can move north, east, south and west.
 
 > n
 You move north.
@@ -530,9 +457,8 @@ Conservatory
 Walls of glass paneling set in green painted wooden frames look out unto the
 stormy night. Plants of all kinds grow in pots and hanging baskets and the
 temperature is rather hot.  Also here is an iron key and a plunger.  A plant
-monster grows here.
-
-You can move north and south.  You hear a strange, spine chilling groan.
+monster grows here.  You can move north and south.  You hear a strange, spine
+chilling groan.
 
 > pour weedkiller on plant
 You pour the weedkiller all over it.
@@ -545,7 +471,6 @@ You move south.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.
 
 > e
@@ -554,10 +479,8 @@ You move east.
 Kitchen
 Cupboards with doors hanging off the hinges line the east and west walls.
 Work surfaces run around the room and a blackened stove stands pride of place
-in the centre.
-
-You can move north, south, west and down.  A strange, moaning noise can be
-heard in the distance.
+in the centre.  You can move north, south, west and down.  A strange, moaning
+noise can be heard in the distance.
 
 > d
 You move down.
@@ -566,9 +489,7 @@ Wine Cellar
 Racks and racks of wine fill the place, all covered in dust and cobwebs. A
 stone tiled floor has one paving missing, revealing the earthy ground. There
 is a door to the south.  Also here is a bundle of money.  Giant rats scurry
-all over the floor.
-
-You can move south and up.
+all over the floor.  You can move south and up.
 
 > give poisoned cheese to rats
 The rats eat the cheese in a feeding frenzy.  Ghost appears.
@@ -586,19 +507,15 @@ You move up.
 Kitchen
 Cupboards with doors hanging off the hinges line the east and west walls.
 Work surfaces run around the room and a blackened stove stands pride of place
-in the centre.
-
-You can move north, south, west and down.
+in the centre.  You can move north, south, west and down.
 
 > s
 You move south.
 
 Dinning Room
 The splendor of a banquet is layed out upon a magnificent dinning table in
-all it's glory.
-
-You can move north, south and west.  A strange, moaning noise can be heard in
-the distance.
+all it's glory.  You can move north, south and west.  A strange, moaning
+noise can be heard in the distance.
 
 > w
 You move west.
@@ -606,9 +523,7 @@ You move west.
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
 a hook, a bottle of bleach, a blunderbuss, the floorboards and the dead
-zombie.
-
-You can move north, east, south and west.
+zombie.  You can move north, east, south and west.
 
 > take hook
 You pick up the hook.
@@ -620,9 +535,7 @@ Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
-bottle of vodka.
-
-You can move north, east, south, west and up.
+bottle of vodka.  You can move north, east, south, west and up.
 
 > u
 You move up.
@@ -630,7 +543,6 @@ You move up.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
-
 You can move north, east, west and down.  Zombie stumbles towards you from
 the north.  You hear a strange, spine chilling groan.
 
@@ -639,9 +551,7 @@ You move north.
 
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
-from the walls.
-
-You can move north, east, south and west.
+from the walls.  You can move north, east, south and west.
 
 > n
 You move north.
@@ -649,10 +559,8 @@ You move north.
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
 from the walls. In the ceiling is a hatch door.  Also here are the
-bloodstains.
-
-You can move north, east, south and west.  You hear a strange, spine chilling
-groan.
+bloodstains.  You can move north, east, south and west.  You hear a strange,
+spine chilling groan.
 
 > open hatch
 You use the hook to open the hatch. A rope ladder drops down.
@@ -665,9 +573,7 @@ You move south.
 
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
-from the walls.
-
-You can move north, east, south and west.
+from the walls.  You can move north, east, south and west.
 
 > s
 You move south.
@@ -675,7 +581,6 @@ You move south.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
-
 You can move north, east, west and down.  You hear a creaking noise.
 
 > d
@@ -685,18 +590,15 @@ Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
-bottle of vodka.
-
-You can move north, east, south, west and up.
+bottle of vodka.  You can move north, east, south, west and up.
 
 > n
 You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
-a bottle of bleach, a blunderbuss, the floorboards and the dead zombie.
-
-You can move north, east, south and west.
+a bottle of bleach, a blunderbuss, the floorboards and the dead zombie.  You
+can move north, east, south and west.
 
 > take bleach
 You pick up the bottle of bleach.
@@ -708,9 +610,7 @@ Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
-bottle of vodka.
-
-You can move north, east, south, west and up.
+bottle of vodka.  You can move north, east, south, west and up.
 
 > u
 You move up.
@@ -718,7 +618,6 @@ You move up.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
-
 You can move north, east, west and down.
 
 > n
@@ -726,9 +625,7 @@ You move north.
 
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
-from the walls.
-
-You can move north, east, south and west.
+from the walls.  You can move north, east, south and west.
 
 > pour bleach on monster
 You spray the bleach all over the slimy monster.  The monster starts to
@@ -741,7 +638,6 @@ Bathroom
 A luxurious cast iron bath tub takes up half the room. A cracked sink stands
 to attention against the east wall, with a toilet sulking beside it.  Also
 here is a shovel and a dog whistle.  A oozing slime monster fills the room.
-
 You can move north and west.
 
 > take whistle
@@ -752,10 +648,8 @@ You move north.
 
 Spare Room
 The walls and floor are bare, and boxes piled high fill the room. Dust and
-grime covers everything.
-
-You can move south and west.  The monster melts into a puddle.  You hear a
-creaking noise.
+grime covers everything.  You can move south and west.  The monster melts
+into a puddle.  You hear a creaking noise.
 
 > w
 You move west.
@@ -763,9 +657,8 @@ You move west.
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
 from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
-from it.  Also here is a hook, a rope ladder and the bloodstains.
-
-You can move north, east, south, west and up.
+from it.  Also here is a hook, a rope ladder and the bloodstains.  You can
+move north, east, south, west and up.
 
 > u
 You move up.
@@ -774,9 +667,8 @@ Attic
 Huge bare beams arch up to each other high above you. The floorboards are
 covered in bat droppings that stink the place out. A small round window looks
 out into the dark night in the north wall, while a brick wall makes the
-south.  Also here is a brass key and a dish cloth.  Bats are here.
-
-You can only move down.
+south.  Also here is a brass key and a dish cloth.  Bats are here.  You can
+only move down.
 
 > blow whistle
 You blow as hard as you can into the whistle. It drives the bats into an
@@ -792,9 +684,8 @@ You move down.
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
 from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
-from it.  Also here is a hook, a rope ladder and the bloodstains.
-
-You can move north, east, south, west and up.
+from it.  Also here is a hook, a rope ladder and the bloodstains.  You can
+move north, east, south, west and up.
 
 > n
 You move north.
@@ -802,7 +693,6 @@ You move north.
 Master Bedroom
 The room is wide and luxurious. A huge oak bed sticks out into the room from
 the north wall and the bedding is the same shade as the cream painted walls.
-
 You can move east, south and west.
 
 > e
@@ -812,9 +702,7 @@ En Suite
 A sunken bath in the centre of the room is flanked by the sink and toilet.
 Tiles with mermaids and sunken galleon painted on them cover every flat
 surface. A window looks out over the garden in the north wall.  Also here is
-a gold braclet and a sledge hammer.
-
-You can only move west.
+a gold braclet and a sledge hammer.  You can only move west.
 
 > take hammer
 You pick up the sledge hammer.
@@ -825,7 +713,6 @@ You move west.
 Master Bedroom
 The room is wide and luxurious. A huge oak bed sticks out into the room from
 the north wall and the bedding is the same shade as the cream painted walls.
-
 You can move east, south and west.
 
 > s
@@ -834,9 +721,8 @@ You move south.
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
 from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
-from it.  Also here is a hook, a rope ladder and the bloodstains.
-
-You can move north, east, south, west and up.
+from it.  Also here is a hook, a rope ladder and the bloodstains.  You can
+move north, east, south, west and up.
 
 > u
 You move up.
@@ -845,9 +731,8 @@ Attic
 Huge bare beams arch up to each other high above you. The floorboards are
 covered in bat droppings that stink the place out. A small round window looks
 out into the dark night in the north wall, while a brick wall makes the
-south.  Also here is a brass key, a dish cloth and a dog whistle.
-
-You can only move down.
+south.  Also here is a brass key, a dish cloth and a dog whistle.  You can
+only move down.
 
 > break wall
 You smash the wall down with the sledge hammer. Behind it is revealed a door.
@@ -860,9 +745,8 @@ You move south.
 
 Hidden Room
 A small room with bare walls and a rotten floor. A skeleton is spread out on
-the floor.  Also here is a silver candlestick and a silver necklace.
-
-You can only move north.  You hear a creaking noise.
+the floor.  Also here is a silver candlestick and a silver necklace.  You can
+only move north.  You hear a creaking noise.
 
 > pour holy water on skeleton
 You pour the water onto the skeleton. The bones dimly glow and you hear a
@@ -879,9 +763,8 @@ Huge bare beams arch up to each other high above you. The floorboards are
 covered in bat droppings that stink the place out. A small round window looks
 out into the dark night in the north wall, while a brick wall makes the
 south.  The wall has a hole in it revealing a door.  Also here is a brass
-key, a sledge hammer, a dish cloth and a dog whistle.
-
-You can move south and down.
+key, a sledge hammer, a dish cloth and a dog whistle.  You can move south and
+down.
 
 > take dish cloth
 You pick up the dish cloth.  You hear a strange, spine chilling groan.
@@ -892,19 +775,16 @@ You move down.
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
 from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
-from it.  Also here is a hook, a rope ladder and the bloodstains.
-
-You can move north, east, south, west and up.
+from it.  Also here is a hook, a rope ladder and the bloodstains.  You can
+move north, east, south, west and up.
 
 > s
 You move south.
 
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
-from the walls.  The Zombie is here, trashing the place.
-
-You can move north, east, south and west.  Zombie Stumbles away from you to
-the east.
+from the walls.  The Zombie is here, trashing the place.  You can move north,
+east, south and west.  Zombie Stumbles away from you to the east.
 
 > s
 You move south.
@@ -912,7 +792,6 @@ You move south.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
-
 You can move north, east, west and down.
 
 > d
@@ -922,10 +801,8 @@ Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   Also here is a
-bottle of vodka.
-
-You can move north, east, south, west and up.  A strange, moaning noise can
-be heard in the distance.
+bottle of vodka.  You can move north, east, south, west and up.  A strange,
+moaning noise can be heard in the distance.
 
 > take vodka
 You pick up the bottle of vodka.
@@ -938,16 +815,14 @@ You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
-a blunderbuss, the floorboards and the dead zombie.
-
-You can move north, east, south and west.
+a blunderbuss, the floorboards and the dead zombie.  You can move north,
+east, south and west.
 
 > n
 You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.
 
 > e
@@ -956,9 +831,7 @@ You move east.
 Kitchen
 Cupboards with doors hanging off the hinges line the east and west walls.
 Work surfaces run around the room and a blackened stove stands pride of place
-in the centre.
-
-You can move north, south, west and down.
+in the centre.  You can move north, south, west and down.
 
 > light molotov
 Dangling the dish cloth down the side of a hob, you try the electric lighter.
@@ -970,9 +843,8 @@ You move south.
 
 Dinning Room
 The splendor of a banquet is layed out upon a magnificent dinning table in
-all it's glory.  The molotov cocktail is alight and burning.
-
-You can move north, south and west.
+all it's glory.  The molotov cocktail is alight and burning.  You can move
+north, south and west.
 
 > s
 You move south.
@@ -980,9 +852,7 @@ You move south.
 Lounge
 Large leather chairs sit lazily around a low coffee table. A stone fireplace
 is built into the west wall.  Also here is a diamond ring.  The molotov
-cocktail is alight and burning.
-
-You can move north and west.
+cocktail is alight and burning.  You can move north and west.
 
 > w
 You move west.
@@ -991,9 +861,8 @@ Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
 in the stagnant air. An impressive staircase glides upwards.   The molotov
-cocktail is alight and burning.
-
-You can move north, east, south, west and up.
+cocktail is alight and burning.  You can move north, east, south, west and
+up.
 
 > u
 You move up.
@@ -1001,10 +870,9 @@ You move up.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
-The molotov cocktail is alight and burning.
-
-You can move north, east, west and down.  Zombie stumbles towards you from
-the north.  You hear a strange, spine chilling groan.
+The molotov cocktail is alight and burning.  You can move north, east, west
+and down.  Zombie stumbles towards you from the north.  You hear a strange,
+spine chilling groan.
 
 > use kit
 You use the kit to nurse your injuries. Ah! you feel much better.  Zombie
@@ -1017,10 +885,8 @@ Toy Room
 Crayon drawings of demons and monsters cover the walls. The floor is littered
 with broken toys and play things.  The evil puppet is here, lurking in the
 shadows.  The Zombie is here, trashing the place.  The molotov cocktail is
-alight and burning.
-
-You can only move west.  Zombie Stumbles away from you to the west.  You hear
-a strange, spine chilling groan.
+alight and burning.  You can only move west.  Zombie Stumbles away from you
+to the west.  You hear a strange, spine chilling groan.
 
 > throw molotov
 You throw the lit molotov at the puppet.  The bottle explodes, spraying
@@ -1032,7 +898,6 @@ You move west.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
-
 You can move north, east, west and down.  You hear a creaking noise.
 
 > d
@@ -1041,26 +906,23 @@ You move down.
 Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
-in the stagnant air. An impressive staircase glides upwards.
-
-You can move north, east, south, west and up.
+in the stagnant air. An impressive staircase glides upwards.   You can move
+north, east, south, west and up.
 
 > n
 You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
-a blunderbuss, the floorboards and the dead zombie.
-
-You can move north, east, south and west.  Zombie stumbles towards you from
-the west.  You hear a creaking noise.
+a blunderbuss, the floorboards and the dead zombie.  You can move north,
+east, south and west.  Zombie stumbles towards you from the west.  You hear a
+creaking noise.
 
 > n
 You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.  Zombie stumbles towards you from
 the south.  The zombie has spotted you and attacks!  He thumps you with his
 clenched fists, causing you much pain.
@@ -1072,9 +934,8 @@ Conservatory
 Walls of glass paneling set in green painted wooden frames look out unto the
 stormy night. Plants of all kinds grow in pots and hanging baskets and the
 temperature is rather hot.  Also here is a plunger.  A plant monster grows
-here.
-
-You can move north and south.  Zombie stumbles towards you from the south.
+here.  You can move north and south.  Zombie stumbles towards you from the
+south.
 
 > take plunger
 You pick up the plunger.  Zombie Stumbles away from you to the north.
@@ -1084,7 +945,6 @@ You move south.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.
 
 > s
@@ -1092,9 +952,8 @@ You move south.
 
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
-a blunderbuss, the floorboards and the dead zombie.
-
-You can move north, east, south and west.
+a blunderbuss, the floorboards and the dead zombie.  You can move north,
+east, south and west.
 
 > s
 You move south.
@@ -1102,9 +961,8 @@ You move south.
 Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
-in the stagnant air. An impressive staircase glides upwards.
-
-You can move north, east, south, west and up.
+in the stagnant air. An impressive staircase glides upwards.   You can move
+north, east, south, west and up.
 
 > u
 You move up.
@@ -1112,7 +970,6 @@ You move up.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
-
 You can move north, east, west and down.
 
 > n
@@ -1120,9 +977,7 @@ You move north.
 
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
-from the walls.
-
-You can move north, east, south and west.
+from the walls.  You can move north, east, south and west.
 
 > e
 You move east.
@@ -1130,9 +985,7 @@ You move east.
 Bathroom
 A luxurious cast iron bath tub takes up half the room. A cracked sink stands
 to attention against the east wall, with a toilet sulking beside it.  Also
-here is a shovel and pool of slime.
-
-You can move north and west.
+here is a shovel and pool of slime.  You can move north and west.
 
 > unblock toilet
 You plunge away for several minutes, until you feel something shift and clunk
@@ -1149,9 +1002,7 @@ You move west.
 
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
-from the walls.
-
-You can move north, east, south and west.
+from the walls.  You can move north, east, south and west.
 
 > s
 You move south.
@@ -1159,7 +1010,6 @@ You move south.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
-
 You can move north, east, west and down.
 
 > d
@@ -1168,18 +1018,16 @@ You move down.
 Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
-in the stagnant air. An impressive staircase glides upwards.
-
-You can move north, east, south, west and up.
+in the stagnant air. An impressive staircase glides upwards.   You can move
+north, east, south, west and up.
 
 > e
 You move east.
 
 Lounge
 Large leather chairs sit lazily around a low coffee table. A stone fireplace
-is built into the west wall.  Also here is a diamond ring.
-
-You can move north and west.
+is built into the west wall.  Also here is a diamond ring.  You can move
+north and west.
 
 > take diamond ring
 You pick up the diamond ring.
@@ -1189,18 +1037,15 @@ You move north.
 
 Dinning Room
 The splendor of a banquet is layed out upon a magnificent dinning table in
-all it's glory.
-
-You can move north, south and west.
+all it's glory.  You can move north, south and west.
 
 > w
 You move west.
 
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is an emerald ring,
-a blunderbuss, the floorboards and the dead zombie.
-
-You can move north, east, south and west.
+a blunderbuss, the floorboards and the dead zombie.  You can move north,
+east, south and west.
 
 > take emerald ring
 You pick up the emerald ring.
@@ -1210,7 +1055,6 @@ You move north.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.
 
 > e
@@ -1219,9 +1063,7 @@ You move east.
 Kitchen
 Cupboards with doors hanging off the hinges line the east and west walls.
 Work surfaces run around the room and a blackened stove stands pride of place
-in the centre.
-
-You can move north, south, west and down.
+in the centre.  You can move north, south, west and down.
 
 > d
 You move down.
@@ -1230,9 +1072,7 @@ Wine Cellar
 Racks and racks of wine fill the place, all covered in dust and cobwebs. A
 stone tiled floor has one paving missing, revealing the earthy ground. There
 is a door to the south.  Also here is an iron key, a bundle of money and dead
-rats.
-
-You can move south and up.
+rats.  You can move south and up.
 
 > take money
 You pick up the bundle of money.  You hear a creaking noise.
@@ -1243,16 +1083,13 @@ You move up.
 Kitchen
 Cupboards with doors hanging off the hinges line the east and west walls.
 Work surfaces run around the room and a blackened stove stands pride of place
-in the centre.
-
-You can move north, south, west and down.
+in the centre.  You can move north, south, west and down.
 
 > w
 You move west.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.  You hear a strange, spine chilling
 groan.
 
@@ -1262,16 +1099,14 @@ You move north.
 Conservatory
 Walls of glass paneling set in green painted wooden frames look out unto the
 stormy night. Plants of all kinds grow in pots and hanging baskets and the
-temperature is rather hot.  A plant monster grows here.
-
-You can move north and south.
+temperature is rather hot.  A plant monster grows here.  You can move north
+and south.
 
 > n
 You move north.
 
 Garden
 A gentle breeze rustles the leaves on the trees that surround the garden.
-
 You can move east, south and west.
 
 > e
@@ -1279,9 +1114,8 @@ You move east.
 
 Vegetable Patch
 All manner of root vegetable grow here in nice, neat little rows. On the wall
-of the house is a nearby drain pipe.  Also here is a property deed.
-
-You can move west and up.
+of the house is a nearby drain pipe.  Also here is a property deed.  You can
+move west and up.
 
 > take deed
 You pick up the property deed.
@@ -1291,7 +1125,6 @@ You move west.
 
 Garden
 A gentle breeze rustles the leaves on the trees that surround the garden.
-
 You can move east, south and west.
 
 > s
@@ -1300,17 +1133,14 @@ You move south.
 Conservatory
 Walls of glass paneling set in green painted wooden frames look out unto the
 stormy night. Plants of all kinds grow in pots and hanging baskets and the
-temperature is rather hot.  A plant monster grows here.
-
-You can move north and south.  A strange, moaning noise can be heard in the
-distance.
+temperature is rather hot.  A plant monster grows here.  You can move north
+and south.  A strange, moaning noise can be heard in the distance.
 
 > s
 You move south.
 
 Hallway
 Rose motif wallpaper peels off from the walls..  Also here is holy bible.
-
 You can move north, east, south and west.
 
 > s
@@ -1318,9 +1148,8 @@ You move south.
 
 Hallway
 Rose motif wallpaper peels off from the walls.  Also here is a blunderbuss,
-the floorboards and the dead zombie.
-
-You can move north, east, south and west.
+the floorboards and the dead zombie.  You can move north, east, south and
+west.
 
 > s
 You move south.
@@ -1328,9 +1157,8 @@ You move south.
 Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
-in the stagnant air. An impressive staircase glides upwards.
-
-You can move north, east, south, west and up.
+in the stagnant air. An impressive staircase glides upwards.   You can move
+north, east, south, west and up.
 
 > u
 You move up.
@@ -1338,7 +1166,6 @@ You move up.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
-
 You can move north, east, west and down.
 
 > n
@@ -1346,9 +1173,7 @@ You move north.
 
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
-from the walls.
-
-You can move north, east, south and west.
+from the walls.  You can move north, east, south and west.
 
 > n
 You move north.
@@ -1356,10 +1181,9 @@ You move north.
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
 from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
-from it.  Also here is a hook, a rope ladder and the bloodstains.
-
-You can move north, east, south, west and up.  Zombie stumbles towards you
-from the north.  A strange, moaning noise can be heard in the distance.
+from it.  Also here is a hook, a rope ladder and the bloodstains.  You can
+move north, east, south, west and up.  Zombie stumbles towards you from the
+north.  A strange, moaning noise can be heard in the distance.
 
 > u
 You move up.
@@ -1369,9 +1193,7 @@ Huge bare beams arch up to each other high above you. The floorboards are
 covered in bat droppings that stink the place out. A small round window looks
 out into the dark night in the north wall, while a brick wall makes the
 south.  The wall has a hole in it revealing a door.  Also here is a brass
-key, a sledge hammer and a dog whistle.
-
-You can move south and down.
+key, a sledge hammer and a dog whistle.  You can move south and down.
 
 > s
 You move south.
@@ -1379,9 +1201,7 @@ You move south.
 Hidden Room
 A small room with bare walls and a rotten floor. A skeleton is spread out on
 the floor.  Also here is a silver candlestick, a silver necklace and a bottle
-of holy water.
-
-You can only move north.
+of holy water.  You can only move north.
 
 > take candlestick
 You pick up the silver candlestick.
@@ -1397,9 +1217,7 @@ Huge bare beams arch up to each other high above you. The floorboards are
 covered in bat droppings that stink the place out. A small round window looks
 out into the dark night in the north wall, while a brick wall makes the
 south.  The wall has a hole in it revealing a door.  Also here is a brass
-key, a sledge hammer and a dog whistle.
-
-You can move south and down.
+key, a sledge hammer and a dog whistle.  You can move south and down.
 
 > d
 You move down.
@@ -1407,10 +1225,9 @@ You move down.
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
 from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
-from it.  Also here is a hook, a rope ladder and the bloodstains.
-
-You can move north, east, south, west and up.  You hear a strange, spine
-chilling groan.
+from it.  Also here is a hook, a rope ladder and the bloodstains.  You can
+move north, east, south, west and up.  You hear a strange, spine chilling
+groan.
 
 > n
 You move north.
@@ -1418,7 +1235,6 @@ You move north.
 Master Bedroom
 The room is wide and luxurious. A huge oak bed sticks out into the room from
 the north wall and the bedding is the same shade as the cream painted walls.
-
 You can move east, south and west.
 
 > e
@@ -1428,9 +1244,7 @@ En Suite
 A sunken bath in the centre of the room is flanked by the sink and toilet.
 Tiles with mermaids and sunken galleon painted on them cover every flat
 surface. A window looks out over the garden in the north wall.  Also here is
-a gold braclet.
-
-You can only move west.  You hear a creaking noise.
+a gold braclet.  You can only move west.  You hear a creaking noise.
 
 > take braclet
 You pick up the gold braclet.
@@ -1441,7 +1255,6 @@ You move west.
 Master Bedroom
 The room is wide and luxurious. A huge oak bed sticks out into the room from
 the north wall and the bedding is the same shade as the cream painted walls.
-
 You can move east, south and west.  You hear a creaking noise.
 
 > s
@@ -1450,18 +1263,15 @@ You move south.
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
 from the walls. In the ceiling is a hatch door.  A rope ladder hangs down
-from it.  Also here is a hook, a rope ladder and the bloodstains.
-
-You can move north, east, south, west and up.
+from it.  Also here is a hook, a rope ladder and the bloodstains.  You can
+move north, east, south, west and up.
 
 > s
 You move south.
 
 Hallway
 Deep red carpet covers the floor. The warm barley paint cracks and flakes
-from the walls.
-
-You can move north, east, south and west.
+from the walls.  You can move north, east, south and west.
 
 > s
 You move south.
@@ -1469,7 +1279,6 @@ You move south.
 Landing
 A fine, deep red carpet covers the floor in luxury. Warm barley paint flakes
 off the walls. An impressive staircase glides down.  Also here is a table.
-
 You can move north, east, west and down.
 
 > d
@@ -1478,16 +1287,14 @@ You move down.
 Entrance Hall
 It is grand and spacious. Oil paintings of the family hang on the walls,
 covered in dust and cobwebs. High above you a crystal chandelier hangs still
-in the stagnant air. An impressive staircase glides upwards.
-
-You can move north, east, south, west and up.
+in the stagnant air. An impressive staircase glides upwards.   You can move
+north, east, south, west and up.
 
 > s
 You move south.
 
 Porch
 A porch with ivy growing up the wooden lattice work. The front door is here.
-
 You can move north and south.
 
 > s
@@ -1495,7 +1302,6 @@ You move south.
 
 Driveway
 A gravel covered driveway leads north to the house.  Also here is your car.
-
 You can only move north.
 
 > drive

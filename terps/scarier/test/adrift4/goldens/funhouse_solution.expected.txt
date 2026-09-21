@@ -12,9 +12,8 @@ You are in the parking lot of a very attractive carnival. The fall fair has
 hired this clean topnotch carnival group to entertain folks to go to the
 fair. You are excited! But you have to meet the kids at the main ticket
 office. Will you be able to catch them!  Also here is a wallet, a ten
-dollars, a five dollar bill, a five ones, a five twos and a lighter.
-
-You can only move south.
+dollars, a five dollar bill, a five ones, a five twos and a lighter.  You can
+only move south.
 
 > south
 You move south.
@@ -23,9 +22,7 @@ Main ticket booth
 What'll it be sir. The bracelet and strips of tickets are five dollars each.
 Hurry up now got a line forming here.  Also here is a hundred dollars, a
 drink and a ticket.  Ticket man and Your children 8) are here.  The tall man
-is pleasant.
-
-You can move north and east.  Mafia man .
+is pleasant.  You can move north and east.  Mafia man .
 
 > take hundred dollars
 You take the hundred dollars.
@@ -39,27 +36,21 @@ You move east.
 
 Enter Hall of Mirrors
 This room is full of mirrors. There is a door somewhere here. You have time,
-find it!  Brat Kid is here.
-
-You can move north, south and west.
+find it!  Brat Kid is here.  You can move north, south and west.
 
 > north
 You move north.
 
 Strobe light room
 blacklight posters, music, and strobe lights flashing rapidly are a feature
-of this room. It is giving me a headache.
-
-You can move east and south.
+of this room. It is giving me a headache.   You can move east and south.
 
 > east
 You move east.
 
 Vampire lair
 A coffin opens and closes as you walk past the wax figure of Dracula.
-Creepy......  Vampire is here.
-
-You can move east, south and west.
+Creepy......  Vampire is here.  You can move east, south and west.
 
 > east
 You move east.
@@ -67,27 +58,24 @@ You move east.
 Dark Room
 Feel your way around the walls. You cannot see anything. Find the door and
 leave this gosh awful room as quick as you can. It gives you the creeps!
-Also here is a kewbie doll.  Bumpy the clown is here.
-
-You can move north, east, south and west.
+Also here is a kewbie doll.  Bumpy the clown is here.  You can move north,
+east, south and west.
 
 > north
 You move north.
 
 Fun slide
 A feel along the wall reveals a slide you did not notice. Should you save
-some time and take the slide?  Also here is a diamond ring.
-
-You can only move south.
+some time and take the slide?  Also here is a diamond ring.  You can only
+move south.
 
 > take ring
 You pick up a beautiful ring.
 
 Fun slide
 A feel along the wall reveals a slide you did not notice. Should you save
-some time and take the slide?  Also here is a diamond ring.
-
-You can only move south.
+some time and take the slide?  Also here is a diamond ring.  You can only
+move south.
 
 > south
 You move south.
@@ -95,9 +83,8 @@ You move south.
 Dark Room
 Feel your way around the walls. You cannot see anything. Find the door and
 leave this gosh awful room as quick as you can. It gives you the creeps!
-Also here is a kewbie doll.  Bumpy the clown is here.
-
-You can move north, east, south and west.
+Also here is a kewbie doll.  Bumpy the clown is here.  You can move north,
+east, south and west.
 
 > take kewbie doll
 You take the kewbie doll.
@@ -110,27 +97,22 @@ You move west.
 
 Vampire lair
 A coffin opens and closes as you walk past the wax figure of Dracula.
-Creepy......  Vampire is here.
-
-You can move east, south and west.
+Creepy......  Vampire is here.  You can move east, south and west.
 
 > west
 You move west.
 
 Strobe light room
 blacklight posters, music, and strobe lights flashing rapidly are a feature
-of this room. It is giving me a headache.
-
-You can move east and south.
+of this room. It is giving me a headache.   You can move east and south.
 
 > south
 You move south.
 
 Enter Hall of Mirrors
 This room is full of mirrors. There is a door somewhere here. You have time,
-find it!  Brat Kid is here.
-
-You can move north, south and west.  You manage to avoid Brat Kid's attack.
+find it!  Brat Kid is here.  You can move north, south and west.  You manage
+to avoid Brat Kid's attack.
 
 > west
 You move west.
@@ -139,9 +121,8 @@ Main ticket booth
 What'll it be sir. The bracelet and strips of tickets are five dollars each.
 Hurry up now got a line forming here.  Also here is a drink and a ticket.
 Ticket man and Your children 8) are here.  The tall man is pleasant.  Violent
-mafia man is here looking for a cassette. He knows where to look!
-
-You can move north and east.
+mafia man is here looking for a cassette. He knows where to look!  You can
+move north and east.
 
 > score
 Your score is 310 out of a maximum of 410.  (75%)

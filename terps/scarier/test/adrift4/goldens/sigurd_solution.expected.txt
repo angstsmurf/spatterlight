@@ -27,8 +27,7 @@ Regin's Smithy
 The smithy is a place filled with iron items and soot. Regin is working by
 the anvil in his smithy. You visit him while your horse Grane is standing
 under a tree, waiting for you.  Regin talks to you about Fafner.
-
-You can move north and east.
+  You can move north and east.
 
 > ask regin about fafner
 Regin wants revenge. He has come to think of the sword you have inherited
@@ -49,8 +48,7 @@ The Plain
 The plain is a hot, dry place.  Fafner is lying here to brood on the
 treasure. He gets thirsty and winds away drink water in a lake east of the
 plain. The dragon carries the treasure with him.
-
-You can move east and south.
+  You can move east and south.
 
 > east
 You move east.
@@ -59,8 +57,7 @@ The Lake
 There is a small lake east of the plain. The animals of the plain come here
 to drink.  Fafner is coming down to the lake. You hide yourself in a cavity
 in the path. Grane stands hidden behind a rock. Now Fafner passes above you.
-
-You can move south and west.
+  You can move south and west.
 
 > kill dragon with the sword
 You kill the dragon with your sword. Fafner falls down dead and you take the
@@ -77,8 +74,7 @@ You move south.
 The Meadow with the Oak Tree
 You come to a green meadow with an oak tree standing in the middle of it.
 Bluebirds are sitting in the top of the tree, peacefully chirping.
-
-You can move north and west.
+  You can move north and west.
 
 > light fire
 You light a fire beneath the oak tree. The birds are chirping in the top of
@@ -106,8 +102,7 @@ dragon's heart?"
 
 You say: "Yes I have. But I also know that you have used me. You have planned
 to keep the gold for yourself. I will kill your for that!"
-
-You can move north and east.
+  You can move north and east.
 
 > kill regin
 You kill your deceitful stepfather. Regin falls dead over his anvil.

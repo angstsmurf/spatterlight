@@ -74,9 +74,8 @@ The Barn
 Other than an open space in front of the door, the barn is filled with small
 stalls, just like yours, containing other cramped and hungry cows.  The
 ceiling is high, and sometimes you watch the birds who live in the rafters
-with envy.  There are a few machines and tools against the walls.
-
-You can move north and south.
+with envy.  There are a few machines and tools against the walls.  You can
+move north and south.
 
 Amos opens the barn doors and comes inside, leaving the doors ajar.
 "Chelsie, what are you doing out?" he says, reaching toward you.
@@ -105,9 +104,8 @@ the Texas day wears on.  Though your jaws ache with the desire to rend flesh
 and bone, you see no one walking.
 
 The occasional trunk rumbles by, blaring Toby Keith.  The road's shoulder is
-littered with torn, fluttering trash and Coors cans.
-
-You can move north and southeast.
+littered with torn, fluttering trash and Coors cans.    You can move north
+and southeast.
 
 > southeast
 You move southeast.
@@ -118,9 +116,7 @@ front, manual - and they don't take no kinds of plastic cards.  If fact, the
 EZ Gas doesn't take plastic payment at all.  Use cash or get on down the
 road.  An old red Ford sits in front of one of the pumps, its redneck owner
 listening to the Rangers and spitting his Red Man toward the back tire at
-regular intervals while he fills up.
-
-You can only move east.
+regular intervals while he fills up.  You can only move east.
 
 > eat the redneck
 You run toward the redneck and take a large chunk out of his thigh.  He drops

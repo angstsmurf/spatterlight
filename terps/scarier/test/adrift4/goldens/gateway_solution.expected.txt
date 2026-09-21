@@ -38,8 +38,7 @@ boys silently clean and care for a couple horses. From the south the
 fragrance of blooming flowers wafts into the air and in that direction you
 can see a perfectly tended flowerbed. To your west towers the tall rounded
 gates of the temple leading out into the Panrian Woods.
-
-EXITS:  north, east, south and west.
+  EXITS:  north, east, south and west.
 A woman cries out in terror at your sudden appearance and rushes away into
 the building. A few other people in the court yard stare at you in confusion.
 
@@ -87,8 +86,7 @@ Bright Hall
 The hallway is extremely bright with the light of day cutting through the
 many skylights along the hall roof. The marble tile floor reflects the light
 off of its nearly white surface, reminding you of snow on a sunny day.
-
-EXITS:  north, east, south and west.
+  EXITS:  north, east, south and west.
 
 > south
 You move south.
@@ -98,8 +96,7 @@ The light of the hall beyond follows you through the doorway into the
 stairwell. It casts your shadow down the white spiral staircase leading to
 the first floor. North the second floor corridor leads to a few priest
 offices, the library, and a prayer room.
-
-EXITS:  north and down.
+  EXITS:  north and down.
 
 > down
 You move down.
@@ -110,8 +107,7 @@ hall leads into the heart of the first floor of the temple. To your left is
 the temple museum and up the spiralling white stairs is the second floor of
 the building.  Light pours down the stairwell from the day-lit second floor
 hallway.
-
-EXITS:  north, east and up.
+  EXITS:  north, east and up.
 
 > north
 You move north.
@@ -122,9 +118,7 @@ running passed. A light blue pillar stands on either side of the doors
 leading into a worship room to the east. You look down and see a huge rug on
 the floor depicting a large planet with stars all around it in a dark blue
 emptiness.
-  Here you can see the designed carpet.
-
-EXITS:  north, east, south and west.
+  Here you can see the designed carpet.  EXITS:  north, east, south and west.
 
 > west
 You move west.
@@ -136,8 +130,7 @@ boys silently clean and care for a couple horses. From the south the
 fragrance of blooming flowers wafts into the air and in that direction you
 can see a perfectly tended flowerbed. To your west towers the tall rounded
 gates of the temple leading out into the Panrian Woods.
-
-EXITS:  north, east, south and west.
+  EXITS:  north, east, south and west.
 
 > south
 You move south.
@@ -149,8 +142,7 @@ but their colours and leaves are different making them look strange.  Many of
 the flowers are blooming with their petals spread wide to the sky.
   Here you can see a purple flower.  The Temple Gardener is busy tending the
 gardens.
-
-EXIT:   north.
+  EXIT:   north.
 
 > pick flower
 You took the purple flower.
@@ -165,8 +157,7 @@ boys silently clean and care for a couple horses. From the south the
 fragrance of blooming flowers wafts into the air and in that direction you
 can see a perfectly tended flowerbed. To your west towers the tall rounded
 gates of the temple leading out into the Panrian Woods.
-
-EXITS:  north, east, south and west.
+  EXITS:  north, east, south and west.
 
 > east
 You move east.
@@ -177,9 +168,7 @@ running passed. A light blue pillar stands on either side of the doors
 leading into a worship room to the east. You look down and see a huge rug on
 the floor depicting a large planet with stars all around it in a dark blue
 emptiness.
-  Here you can see the designed carpet.
-
-EXITS:  north, east, south and west.
+  Here you can see the designed carpet.  EXITS:  north, east, south and west.
 
 > north
 You move north.
@@ -190,8 +179,7 @@ but less attractive, door leads into a stairwell. Candles are spread evenly
 along the left and right walls of this passage, splashing the corridor with
 wavering illumination. If not for the candles, the windowless hall would be
 completely dark.
-
-EXITS:  north, east and south.
+  EXITS:  north, east and south.
 
 > east
 You move east.
@@ -201,9 +189,7 @@ The room is small and painted with a peach colour to make it feel warm and
 welcoming. A short wood bench, for kneeling beside when praying, rests near
 the east wall.  On that same wall a giant stained glass window lets in
 sunlight to wash over the bench.
-An old Woman has knelt here and is praying.
-
-EXIT:   west.
+An old Woman has knelt here and is praying.  EXIT:   west.
 
 > get flower
 You took the purple flower.
@@ -217,8 +203,7 @@ but less attractive, door leads into a stairwell. Candles are spread evenly
 along the left and right walls of this passage, splashing the corridor with
 wavering illumination. If not for the candles, the windowless hall would be
 completely dark.
-
-EXITS:  north, east and south.
+  EXITS:  north, east and south.
 
 > north
 You move north.
@@ -229,8 +214,7 @@ stair case, this one white, spirals up to the second floor of the building.
 South, a candle lit hall leads down into the heart of the temple, to a prayer
 room and to the worship room.   Day light floods down from the top of the
 stairs leading up and washes the ground with fuzzy warmth.
-
-EXITS:  south, up and down.
+  EXITS:  south, up and down.
 
 > down
 You move down.
@@ -244,8 +228,7 @@ time. Torches placed in steel brackets easily light the stone room and its
 dirt floor.
   Here you can see a torch.  Kadfast is playing cards with her follow
 soldiers.
-
-EXITS:  south and up.
+  EXITS:  south and up.
 
 > get key
 "You take care of that key," Kadfast says as she hands the gold key to you.
@@ -261,8 +244,7 @@ Dark Hall
 You enter the cold room and close the door behind you at the command of the
 guards. You see three iron doors with a tiny barred window on each. Looking
 through the windows you can see that the doors each block off a jail cell.
-
-EXIT:   north.
+  EXIT:   north.
 
 > east
 Using the key, you walk through the door.
@@ -272,9 +254,7 @@ The room is extremely dark, cold, and damp. This is not at all a comfortable
 place to spend a long time in. Some moldy hay piled in a corner of the room
 is supposed to be a bed. You think you see a rat scurry out from under the
 hay and hide in a dark corner. Very cosy, you think darkly.
-  A Rapist is here.
-
-EXIT:   west.  An ugly rapist hits you with the rock.
+  A Rapist is here.  EXIT:   west.  An ugly rapist hits you with the rock.
 
 > get flower
 You get the purple flower.  An ugly rapist hits you with the rock.
@@ -286,8 +266,7 @@ Dark Hall
 You enter the cold room and close the door behind you at the command of the
 guards. You see three iron doors with a tiny barred window on each. Looking
 through the windows you can see that the doors each block off a jail cell.
-
-EXITS:  north and east.
+  EXITS:  north and east.
 
 > north
 You move north.
@@ -301,8 +280,7 @@ time. Torches placed in steel brackets easily light the stone room and its
 dirt floor.
   Here you can see a torch.  Kadfast is playing cards with her follow
 soldiers.
-
-EXITS:  south and up.
+  EXITS:  south and up.
 
 > up
 "Hold it there!" one of the silent cards speaks up. You turn around and see
@@ -320,8 +298,7 @@ stair case, this one white, spirals up to the second floor of the building.
 South, a candle lit hall leads down into the heart of the temple, to a prayer
 room and to the worship room.   Day light floods down from the top of the
 stairs leading up and washes the ground with fuzzy warmth.
-
-EXITS:  south, up and down.
+  EXITS:  south, up and down.
 
 > south
 You move south.
@@ -332,8 +309,7 @@ but less attractive, door leads into a stairwell. Candles are spread evenly
 along the left and right walls of this passage, splashing the corridor with
 wavering illumination. If not for the candles, the windowless hall would be
 completely dark.
-
-EXITS:  north, east and south.
+  EXITS:  north, east and south.
 
 > south
 You move south.
@@ -344,9 +320,7 @@ running passed. A light blue pillar stands on either side of the doors
 leading into a worship room to the east. You look down and see a huge rug on
 the floor depicting a large planet with stars all around it in a dark blue
 emptiness.
-  Here you can see the designed carpet.
-
-EXITS:  north, east, south and west.
+  Here you can see the designed carpet.  EXITS:  north, east, south and west.
 
 > west
 You move west.
@@ -358,8 +332,7 @@ boys silently clean and care for a couple horses. From the south the
 fragrance of blooming flowers wafts into the air and in that direction you
 can see a perfectly tended flowerbed. To your west towers the tall rounded
 gates of the temple leading out into the Panrian Woods.
-
-EXITS:  north, east, south and west.
+  EXITS:  north, east, south and west.
 
 > west
 You move west.
@@ -371,8 +344,7 @@ turns to disappear into the bushes.  A few colourful birds fly through the
 air and two black squirrels jump across the tree branches above you. The
 chattering squirrels disappear into the thickness of the tree tops as a
 shower of broken twigs and soft leaves fall upon your head.
-
-EXITS:  east and west.
+  EXITS:  east and west.
 
 > west
 You move west.
@@ -381,9 +353,7 @@ THE END
 Type End Game if you wish to quit now and win! Or head back East and continue
 exploring the temple.
 Note: This game is no where near completion. Only the temple zone is
-playable.
-
-EXIT:   east.
+playable.  EXIT:   east.
 
 > end game
 Thank you for playing Gateway: Guardian Child.
