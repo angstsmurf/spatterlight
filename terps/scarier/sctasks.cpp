@@ -2060,7 +2060,22 @@ task_run_change_battle_action (scr_gameref_t game,
     }
   else
     {
-      npc = (var2 == 1) ? var_get_ref_character (vars) : var2 - 2;
+      /*
+       * run390's max defence arm (45725D) indexes the NPC array with
+       * Var2 - 1 (push 1 at 45730F/457345) where every other arm uses
+       * Var2 - 2, so a 3.9 "max defence of NPC N" lands on NPC N+1.  Outside
+       * task 11 raises Joe's max defence by 30 and the Runner shows Joe at
+       * "Defense value: 80 (30)" afterwards -- the raise went to NPC 1, the
+       * first guard -- so Joe dies on `escape` (Wine Adrift_outside_statx).
+       * A target past the last NPC is skipped.
+       */
+      if (var2 == 1)
+        npc = var_get_ref_character (vars);
+      else if (var1 == 8
+               && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+        npc = var2 - 1;
+      else
+        npc = var2 - 2;
       if (npc < 0 || npc >= gs_npc_count (game))
         return;
     }

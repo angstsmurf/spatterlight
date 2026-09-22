@@ -4,9 +4,9 @@ weapon: 'pistle' method=shoot HitValue=30 Accuracy=0
 enemy : 'Debbie' Stamina=10 Str=0 Def=0 Acc=0 Agi=0
 default_weapon after wield = 17 (weapon obj = 17)
 --- fight (player attacks; stamina kept up so we can watch enemy fall) ---
-round  1: enemy stamina   10 ->    0  (dmg 10)  [ENEMY DEAD/REMOVED]
+round  1: enemy stamina   10 ->  -30  (dmg 40)  [ENEMY DEAD/REMOVED]
     | You shoot Debbie with fire pistle.
-RESULT: enemy stamina=0 location=0 after 1 rounds
+RESULT: enemy stamina=-30 location=0 after 1 rounds
 
 ==== Colony.taf ====
 player: Str=0 Acc=0 Def=0 Agi=0  playerStamina=100
@@ -14,9 +14,9 @@ weapon: 'colt 45' method=shoot HitValue=200 Accuracy=0
 enemy : 'An alien' Stamina=50 Str=0 Def=0 Acc=0 Agi=0
 default_weapon after wield = 6 (weapon obj = 6)
 --- fight (player attacks; stamina kept up so we can watch enemy fall) ---
-round  1: enemy stamina   50 ->    0  (dmg 50)  [ENEMY DEAD/REMOVED]
+round  1: enemy stamina   50 -> -175  (dmg 225)  [ENEMY DEAD/REMOVED]
     | You shoot an  avarage sized alien with the colt 45.
-RESULT: enemy stamina=0 location=0 after 1 rounds
+RESULT: enemy stamina=-175 location=0 after 1 rounds
 
 ==== light_up_4summer_comp.taf ====
 player: Str=30 Acc=30 Def=35 Agi=30  playerStamina=44

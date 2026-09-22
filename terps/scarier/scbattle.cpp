@@ -590,10 +590,12 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
       if (stamina <= 0
           && (npc >= 0 || !battle_is_legacy_version (game)))
         {
+          /* run390 keeps the NPC's stamina below zero, as the damage path
+           * does (battle_apply_damage). */
           if (npc < 0)
             gs_set_playerstamina (game, 0);
           else
-            gs_set_npc_stamina (game, npc, 0);
+            gs_set_npc_stamina (game, npc, battle_legacy ? stamina : 0);
           battle_kill (game, npc, TRUE);
           break;
         }
@@ -1259,12 +1261,18 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
   stamina = (npc < 0) ? gs_playerstamina (game) : gs_npc_stamina (game, npc);
   stamina -= damage;
 
+  /*
+   * run390 keeps a killed NPC's stamina below zero: Outside's Joe, killed on
+   * the road by the monster, shows "Stamina: -40 (150)" in 3.9 status (Wine
+   * Adrift_outside_statx).  Nothing reads it but status -- the corpse is out
+   * of play and 3.9 has no Recovery.
+   */
   if (stamina <= 0)
     {
       if (npc < 0)
         gs_set_playerstamina (game, 0);
       else
-        gs_set_npc_stamina (game, npc, 0);
+        gs_set_npc_stamina (game, npc, battle_legacy ? stamina : 0);
       battle_kill (game, npc, visible);
       return;
     }
@@ -1737,7 +1745,17 @@ void
 battle_attribute_report (scr_gameref_t game, scr_int npc, const scr_char *base,
                          scr_int *lo, scr_int *hi, scr_int *current)
 {
-  const scr_int weapon = battle_combatant_weapon (game, npc);
+  scr_int weapon = battle_combatant_weapon (game, npc);
+
+  /*
+   * run390's hitstrength (42B7EC) adds the best held weapon's HitValue for
+   * the player whether or not it is wielded, so 3.9 status counts a carried
+   * weapon before any attack sets the wield.  Outside, holding the shovel
+   * (HitValue 50) on arrival in the tunnel: "Hit strength: 100 (50)" in
+   * run390x (Wine Adrift_outside_statx), where the wield alone gave 50.
+   */
+  if (npc < 0 && weapon < 0 && battle_is_legacy_version (game))
+    weapon = battle_player_best_weapon (game);
 
   battle_attribute_range (game, npc, base, lo, hi);
 

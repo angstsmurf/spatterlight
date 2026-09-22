@@ -34,6 +34,9 @@
 # Re-blessed 2026-09-13 for 161c822d8 ("battle narration follows Perspective"),
 # which missed this one too: light_up is first person, so its six rounds now
 # read "I throw the lighter at Chip." -- a message change, and the intended one.
+# Re-blessed 2026-09-22: a 3.9 NPC killed by damage keeps its stamina below
+# zero, as run390 does (battle_apply_damage), so the two 3.9 games' kill
+# rounds log the raw result (10 -> -30, 50 -> -175) instead of 0.
 set -e
 
 HERE="$(cd "$(dirname "$0")" && pwd)"

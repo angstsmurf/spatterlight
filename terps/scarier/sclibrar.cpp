@@ -25765,38 +25765,89 @@ lib_battle_instr (const scr_char *input, const scr_char *word)
   return 0;
 }
 
+static scr_bool
+lib_battle_npc_is_target (scr_gameref_t game, scr_int npc,
+                          const scr_char *input, scr_int verb_index)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *name, *named_by;
+
+  name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+  named_by = NULL;
+  if (!scr_strempty (name) && lib_input_contains_word (input, name))
+    named_by = name;
+  else if (!lib_is_version_400 (game)
+           && lib_npc_named_in_line (game, npc, input))
+    {
+      scr_vartype_t vt_key[4];
+
+      named_by = lib_first_alias (bundle, vt_key, "NPCs", npc);
+    }
+  if (!named_by || !npc_in_room (game, npc, gs_playerroom (game)))
+    return FALSE;
+
+  return lib_battle_instr (input, LIB_BATTLE_VERBS[verb_index].verb)
+         < lib_battle_instr (input, named_by);
+}
+
 static std::vector<scr_int>
 lib_battle_named_targets (scr_gameref_t game, const scr_char *input,
                           scr_int verb_index)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_bool is_400 = lib_is_version_400 (game);
-  const scr_int verb_at = lib_battle_instr (input,
-                                            LIB_BATTLE_VERBS[verb_index].verb);
   std::vector<scr_int> targets;
   scr_int npc;
 
   for (npc = 0; npc < gs_npc_count (game); npc++)
     {
-      const scr_char *name, *named_by;
-
-      name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
-      named_by = NULL;
-      if (!scr_strempty (name) && lib_input_contains_word (input, name))
-        named_by = name;
-      else if (!is_400 && lib_npc_named_in_line (game, npc, input))
-        {
-          scr_vartype_t vt_key[4];
-
-          named_by = lib_first_alias (bundle, vt_key, "NPCs", npc);
-        }
-      if (!named_by || !npc_in_room (game, npc, gs_playerroom (game)))
-        continue;
-
-      if (verb_at < lib_battle_instr (input, named_by))
+      if (lib_battle_npc_is_target (game, npc, input, verb_index))
         targets.push_back (npc);
     }
   return targets;
+}
+
+/*
+ * lib_battle_killed_task_line()
+ *
+ * run390's killchar (42D344-42D40C) dispatches an NPC's KilledTask by text:
+ * when the record's task field (124) is set it stores the task's first
+ * Command in MemVar_468118, the typed line, and calls tasks(1) (42D3E6).
+ * dobattle's target loop reads that same variable for every NPC it tests
+ * (the Name and Alias c() tests at 44CC57/44CCC5, the verb InStr at 44CD44),
+ * so after a kill with a KilledTask the rest of the loop tests the task's
+ * command, not what the player typed.  Outside (3.90), `attack first guard`
+ * with both guards aliased "guard": the first guard dies, the line becomes
+ * "thefirstprisonguardisdead", and the second guard is left for Joe
+ * (runner_transcripts Adrift_outside_trapx, turn 11).  run400's killchar
+ * (44B0E5-44B0FD) runs the task by index and leaves the line alone.
+ *
+ * Returns the task's command when `npc` has just died with a KilledTask at
+ * 3.9, else NULL.
+ */
+static const scr_char *
+lib_battle_killed_task_line (scr_gameref_t game, scr_int npc)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[4], vt_rvalue;
+  scr_int task;
+
+  if (lib_is_version_400 (game) || !gs_npc_dead (game, npc))
+    return NULL;
+
+  vt_key[0].string = "NPCs";
+  vt_key[1].integer = npc;
+  vt_key[2].string = "Battle";
+  vt_key[3].string = "KilledTask";
+  if (!prop_get (bundle, "I<-siss", &vt_rvalue, vt_key))
+    return NULL;
+  task = vt_rvalue.integer - 1;
+  if (task < 0 || task >= gs_task_count (game))
+    return NULL;
+
+  vt_key[0].string = "Tasks";
+  vt_key[1].integer = task;
+  vt_key[2].string = "Command";
+  vt_key[3].integer = 0;
+  return prop_get_string (bundle, "S<-sisi", vt_key);
 }
 
 /*
@@ -26395,17 +26446,37 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
       scan = TRUE;
     }
 
+  /*
+   * The loop tests each NPC as it reaches it, against `line`: the typed line
+   * until a 3.9 kill swaps in its KilledTask's command
+   * (lib_battle_killed_task_line()), after which "with" and the weapons are
+   * read from that command too (44CD66, the co() walk at 44CDB0).
+   */
+  std::string line = input;
+  scr_bool replaced = FALSE;
+
   struck = FALSE;
   refused = FALSE;
-  for (index_ = 0; index_ < (scr_int) targets.size (); index_++)
+  for (index_ = 0; index_ < gs_npc_count (game); index_++)
     {
-      const scr_int npc = targets[index_];
+      const scr_int npc = index_;
       scr_int weapon;
+      const scr_char *killed_line;
+
+      if (!lib_battle_npc_is_target (game, npc, line.c_str (), verb_index))
+        continue;
+      if (replaced)
+        {
+          with_object = FALSE;
+          scan = lib_input_contains_word (line.c_str (), "with")
+                 && lib_battle_line_names_any_object (game, line.c_str ());
+        }
 
       if (with_object || scan)
         {
           if (scan)
-            weapon = lib_battle_scan_with (game, npc, input, &refused);
+            weapon = lib_battle_scan_with (game, npc, line.c_str (),
+                                           &refused);
           else if (!battle_is_weapon (game, object))
             {
               lib_battle_cant_attack (game, npc, object);
@@ -26450,6 +26521,13 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
       lib_battle_player_strike (game, npc, LIB_BATTLE_VERBS[verb_index].verb,
                                 LIB_BATTLE_VERBS[verb_index].method, weapon);
       struck = TRUE;
+
+      killed_line = lib_battle_killed_task_line (game, npc);
+      if (killed_line)
+        {
+          line = killed_line;
+          replaced = TRUE;
+        }
     }
 
   /* Only the question, and no blow: as for one target, not a turn. */
