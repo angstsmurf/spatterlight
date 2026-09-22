@@ -1,5 +1,8 @@
 # file	size	sha256	source	member	title	note
+1_axia.taf	1865	b2cbee6dac7a1dd4d15b662f02b45e9bc23c0cfd2448563b5f384ddba84586e6	https://www.adrift.co/files/games/1_axia.taf	-	Cumberbund	-
+1_Hotel_con_Fuego.taf	23790	770a3adef6090053357c82db8119ef2bb8cd602ed6596ed0ecc3f65de04e6a27	https://www.adrift.co/files/games/1_Hotel_con_Fuego.taf	-	Hotel con Fuego	-
 1HRGAME.taf	2978	7ba25806a5c1eeabd429cefce21bb2555f1003050fc45dc5358c9d8b91b12c95	https://www.adrift.co/files/games/1hourgamecomp.zip	1hourgamecomp/1HRGAME.taf	A Masochist's Heaven	-
+1st_time.taf	29101	b7495bae6013fa261d3298cd04c8bf923c64a6fbe173094690c3ca8aabd42256	https://web.archive.org/web/20160325035615id_/http://delron.org.uk/games/1st-time.zip	1st_time.taf	1st Time	-
 3 minutes1.0.taf	13232	5676ca45eb6f18407df1631b34c182c672fa2aef3cecf8050f47765fda6220d8	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/3 minutes1.0.taf	3 Minutes to Live	-
 3monkeys.taf	79286	82e99b478caae92ba6897407bb40d2a657923f0ddb041e28248ec5b65570a115	https://ifarchive.org/if-archive/games/adrift/3monkeys.taf	-	Three Monkeys, One Cage	-
 A Dream Come True.taf	191385	b9224213ea43895dd2a3508b4c3441cc0d61bff951225140a642c8650c9e863f	https://web.archive.org/web/20060502233425id_/http://newsletter.aifcommunity.org/minicomp.zip	Dream.zip|A Dream Come True.taf	A Dream Come True	-
@@ -7,71 +10,106 @@ A View to a Home.taf	9237	e646c7677aadbbee5ea79864ad7e712be82046ca1e982c0a05805c
 A Witch Tale.taf	15252	f3571b023d9bb3facda571101c0d1099318780b06163ddd88c453fc35aa82ad9	https://www.adrift.co/files/games/2_The_Odd_Competition.zip	A Witch Tale.taf	A Witch Tale	-
 A_Morning_with_a_Headache.taf	26973	2766f09e178f2f93f83db03ca87090e7cb07a37559ca45edaa65d35b8c9c0602	https://ifarchive.org/if-archive/games/adrift/A_Morning_with_a_Headache.taf	-	A Morning With A Headache	-
 A_Spot_of_Bother.taf	113076	f6833b94b623f66f48a2f888c484f49f704043d04c9a8ce5089d551f0c1dbb20	https://ifarchive.org/if-archive/games/adrift/A_Spot_of_Bother.taf	-	A Spot to Bother	-
+abduction.taf	55843	48532fa3206d418f4639f2119eac017db232a730e900c3fed0cb7e4eb54c9aa9	https://web.archive.org/web/20160325035845id_/http://delron.org.uk/games/abduction.zip	abduction.taf	Of Masters and Mistresses Part 1: Abduction	-
 ADayAtTheSeaside.taf	279480	7d6ceb5badf30e58355cab02e89337565111d278d4df28607183d798b65d93ab	https://ifarchive.org/if-archive/games/mini-comps/adrift/springcomp05.zip	ADayAtTheSeaside.taf	A Day at the Seaside	-
 ADRIFTMAS_Party.taf	3034048	b6650ddf5e8cbf17db02af105e0575b8db821970df61e47cfc4efc962e433f20	https://web.archive.org/web/20041226142333id_/http://shadowvault.net/adriftmasparty.taf	-	ADRIFTMAS Party	-
 ADRIFTMaze.taf	2224	d3f229137b315ef27516cc29390145b49b01cbca0001ba4931fec07da41e2d39	https://ifarchive.org/if-archive/games/mini-comps/adrift/onehourcomp4.zip	4th1hrComp/ADRIFTMaze.taf	Adrift Maze	-
 adriftorama.taf	46432	8fd64be96c7b53977f649e11f26aebff87a04d71edde9ac3ffae2939bde44ce1	https://web.archive.org/web/20041226142912id_/http://shadowvault.net/adriftorama.taf	-	ADRIFT-O-RAMA	-
+advent350b.taf	45400	2ab2194bd22f569b88515899850d5d8db3a87bdb84bb31834b402c5425a67121	https://www.adrift.co/files/games/advent350b.taf	-	Adventure (Colossal Cave)	-
+AdventStrikes.taf	3770	ae55de511bfd4c67fe490503adff19299c9d781d150a3b9dbed581c41d3851cd	https://www.adrift.co/files/games/AdventStrikes.taf	-	Adventure Strikes When You Least Expect It	-
 Aegis.taf	45755	dc5f26924705bf7f94dd542da8ec80df6883f2c582aff6739f7ff0e70b49f340	https://www.adrift.co/files/games/Aegis.zip	Aegis.taf	Aegis	-
 AFDFR.taf	96741	ffa7c9549cfe9668a2e8f67ea2d6df0792eb1e28e890c5f155498fe9e8413429	-	-	A Fine Day for Reaping	different release upstream: https://ifarchive.org/if-archive/games/adrift/AFDFR.zip#AFDFR.taf (sha256 65acf997e202eda5e25a664955ed2a2aef8b3f775832d078f06d7a80c06120c6)
+AFP.taf	79881	fa9f25871d3f16ac266641260e606e574a44f266c43440b322446f2ce6920875	https://web.archive.org/web/20110904135102id_/http://www.delron.org.uk/games/another_friday_party.zip	AFP.taf	Another Friday Party 2	-
 agent_4F[1].A.taf	3703	d797e0270b21e69e84f8a2588a8f2cd1703d584a0f5e1d5ffe20133c821a7d2e	https://www.adrift.co/files/games/agent_4F.taf	-	Agent 4-F from Mars	-
+AkarisStory.taf	31094	3098e5cbb1afea82fcae48059106fa98baa9e48d0dfbff591132680a4c9f75bc	https://web.archive.org/web/20060815025204id_/http://www.shadowvault.net:80/games/akari.zip	AkarisStory.taf	Akari's Story	-
 akron.taf	22258	f8a3771740819875c77735684dcd8f581a373bda9d0015dd04370fbf01b0904c	https://ifarchive.org/if-archive/games/adrift/akron.taf	-	Akron	-
 Albert is Lost! An Adventure in Real Life.taf	279251	fb074ecdd6e096c96b4f4838ae6b8234192ffcd34a6ecd13fc62a0c2e34b9b23	https://www.adrift.co/files/games/Lost_Albert.taf	-	Albert is Lost!: An Adventure in Real Life	-
 alchemist.taf	165297	1e83ac4cd397cd1e612bae5ff5def1adfdfc35b1e8fe083ad906d9a10fff3c82	https://web.archive.org/web/20171120065923id_/http://www.delron.org.uk/games/alchemist1.zip	alchemist.taf	The Alchemist	-
+alex.taf	29468	f9a5d785203e4449376dedab0aa86794162d8bb7b250425a81463d55f789aae2	https://web.archive.org/web/20070715095942id_/http://www.shadowvault.net:80/alex.taf	-	The Corruption of Alex	-
 ALEXIS.TAF	87229	3ff1b733e0e8940db7013748f05ee189b18af13aeacb484a3dfc6725a75f4108	https://web.archive.org/web/20060516072601id_/http://shadowvault.net/games/alexis.zip	ALEXIS.TAF	Alexis: Dalskee	-
 Alias Undercover Agent.taf	9213	c1e9e0a5528c81a5877d8ba9dee9c4d2f0160e1f16fe9e68ecd340fe8643d5f0	https://www.adrift.co/files/games/ampule.taf	-	Alias: Undercover Agent	-
 All Hallows Eve.taf	6707	4202cde4a012e466829cf5ec11f2c94398f38838384fed733e0f1bdcfcf0adbc	https://ifarchive.org/if-archive/games/mini-comps/adrift/Ectocomp-2010.zip	Ectocomp_2010/All Hallows Eve.taf	All Hallows Eve	-
+amnesiakid.taf	10268	b6c125f0998580e3952d07711b44c87fad73e45f65aed44aa627f567a31dcb44	https://www.adrift.co/files/games/amnesiakid.taf	-	Amnesia Kid	-
 amonkeytoomany.taf	5016	79a189f5a9eb34f0f8126f8bc6503c0a1346faebc639d185c7d10bcae29ed002	https://www.adrift.co/files/games/1hourgamecomp.zip	1hourgamecomp/amonkeytoomany.taf	A Monkey Too Many	-
 amy.taf	23957	c401406543f9dcb73abb47b54620b5e8d71f2d47c68dfecc6a6a2fc122b6d7f9	https://web.archive.org/web/20040524174950id_/http://aif.emsai.net/fetch.php?section=snarfbert&entry=amy&item=amy	amy/amy.taf	Amy And The Raging Hormones	-
 aparty.taf	39180	99adec71eff7e2d0d108504e3451cadedfb886738fa83265a748f2fff1455455	https://ifarchive.org/if-archive/games/competition2002/adrift/aparty/aparty.taf	-	A Party to Murder	-
 apokalupsis.taf	19822	4f112c3cfe759522b4386cc66d280f6cbcec93f58001e3b0cb496e6a0a449833	https://www.adrift.co/files/games/introcomp.zip	introcomp/apokalupsis.taf	Apokalupsis	-
+AquariusPart1Ver1.taf	13043	3f786135f19bbd432830203c706b78a241dbb9c9ceb0acf0eca53faf4f1ca65e	https://web.archive.org/web/20060516075441id_/http://www.shadowvault.net:80/games/aquarius.zip	AquariusPart1Ver1.taf	Doomed World of Aquarius (part 1)	-
+AquariusPart2Ver1.taf	18961	34770c27a7932d91f36c666a93ad95cb8b91af8c6e12a0e0daf1c6b1f298b1c9	https://web.archive.org/web/20060516075441id_/http://www.shadowvault.net:80/games/aquarius.zip	AquariusPart2Ver1.taf	Doomed World of Aquarius (part 2)	-
 Archie's Birthday V 1-2.taf	284319	6d3a5e18523f5654167755bd432e114f1fc103640657f43d4ac205e753810899	https://web.archive.org/web/20160325034602id_/http://delron.org.uk/games/archie.zip	Archie's Birthday V 1-2.taf	Archie's Birthday - Chapter 1: Reggie's Gift	-
 ARGH_sGreatEscape.taf	3608	c2413a0edf661697a6b2b2b013f33f80d549076edc064d727b457a16f3f9d865	https://web.archive.org/web/20151024184156id_/http://delron.org.uk/games/argh.zip	argh.taf	Argh's Great Escape	-
 arlo.taf	71734	3de9a3841e02fa12c5437b2d8bd4030fd9414ee506525df2a3a3bf0c888bfe23	-	-	Alice's Restaurant Anti-Massacree Adventure	no online source found
 as.taf	44503	f4ff8101bf92baf01c61b17ff2abfe2c381dbcbaae7f886a1cfb6777ebf67db7	https://www.adrift.co/files/games/as.taf	-	Asylum	-
 asdfa.taf	6440	927fb539d94d6a0aaf922d9ab83b947f07958fb886cf88abe9732a4f23c79872	https://www.adrift.co/files/games/onehourcomp3.zip	asdfa.taf	A Short Damn Fantasy Adventure	-
 asteroid_after.taf	5792	c613c9bbb4cedc8f35c68d30cd9c62f32255ff8f62210a5ac3b30ff98664f3e4	https://www.adrift.co/files/games/asteroid_after.taf	-	Asteroid Aftermath	-
+athylon.taf	6456	06c643fb71c629323eb78317957e42b3ac512dcbd5a0c86efc989cbbe4cfa26d	https://web.archive.org/web/20100228084118id_/http://www.shadowvault.net:80/games/athylon.taf	-	The Tunnels of Athylon	-
+average.taf	11350	5197b803bf62deb286df46f99dcc38c9c93edd5d9fdad25db2a12f898f3d1a43	https://web.archive.org/web/20110906140913id_/http://www.delron.org.uk/games/average.zip	average.taf	The Average Life	-
 awakening.taf	30966	2cde06f9e820cbfe4a46af732f30e09725b83127c6fb9a7816962ec268b8b652	https://web.archive.org/web/20160501040728id_/http://newsletter.aifcommunity.org/2008Minicomp.zip	2008 Minicomp Final/Sexual Awakening/awakening.taf	Sexual Awakening	-
 Back Home.taf	36350	42bb881256d51ce00ac6d3e05e7fc1e4310c96897a1c122637724a914dc6693f	https://www.adrift.co/files/games/BackHome.taf	-	Back Home	-
+bad day 2.1.taf	98539	9b436691e0e4d145770707722f345c654b71376641e49e09f25b8e9a52d5d9c7	https://ifarchive.org/if-archive/games/adrift/rachels-bad-day.zip	bad day 2.1.taf	Rachel Has a Bad Day	-
 Bandera.taf	8260541	72680177f8f64c93b74789748f5f9d8e4e4f42c39a508612b4e8ffe8d5b29c43	https://www.adrift.co/files/games/Bandera.taf	-	Bandera	-
 BarneysProblem.taf	66055	0cdc2ce79f71971be27325e7519e0d3fd9fd13258d8caeab26f38907b7037db5	https://ifarchive.org/if-archive/games/adrift/BarneysProblem.taf	-	Barney's Problem	-
 baroo.taf	46299	3b3371094b309744c9ec0b8ca69470b58d18ba2172199f7d4995d92e083545fa	https://www.adrift.co/files/games/Ba%27Roo.zip	ba'roo!.taf	Ba'Roo!	-
+BDW.taf	9723	d87c93e7e765dc162162a0500210535c411ff8464eb61bb23e1b6ac339e8e690	https://www.adrift.co/files/games/BDW.zip	BDW.taf	Brain Dead Weekend	-
 Beanstalk.taf	9837	a1d68c1d0ae4b372f418d089bb5d6bfd027b30b80f27e7d2e70ce06c3f0d14d5	https://ifarchive.org/if-archive/games/adrift/Beanstalk.taf	-	Beanstalk the and Jack	-
+bedlam.taf	21344	6812a2b6b3d240b8a5c4e918a2d2a42c35e292bcc4e65d34109445f4f3088439	https://web.archive.org/web/20080820073456id_/http://www.shadowvault.net/games/bedlam.taf	-	Bedlam	-
 beer.taf	14070	0f3c7ae0cad32fcbfb6e380d8d305e4428833852a4178e5f4597bca43657f2c2	https://ifarchive.org/if-archive/games/adrift/beer.taf	-	When Beer Isn't Enough	-
 Big City Laundry.taf	8088	761a56c7b4abf825eac5c527831c8a7e8fdbf6c0614d87a03aaa7dfd063cabd5	https://www.adrift.co/files/games/BCL.zip	BigCityLaundry.taf	Big City Laundry	-
+Big Stuff.taf	141374	d577fe0fc9d1f5426b7666f65482b32a0e3793ca95e47419735cee39f834f509	https://web.archive.org/web/20160325035257id_/http://delron.org.uk/games/bigstuff.zip	Big Stuff/Big Stuff.taf	Big Stuff	-
+bigspy1.taf	2051	e5179ca41183436879cc32c1b2a8b9c094015ca67bcf1b3b61c274a5a5172f82	https://www.adrift.co/files/games/The%20Big%20Spy%20Fiction-Comedy%20Mashup%20Game.zip	chapter 1.taf	The Big Spy Fiction: Comedy Mashup Game - Part I	-
+bigspy2.taf	1989	8699c92c2dfb9fd09bee955344c8fb439ed2e460fc2b9ccce15228e9d56a471c	https://www.adrift.co/files/games/The%20Big%20Spy%20Fiction-Comedy%20Mashup%20Game.zip	chapter 2.taf	The Big Spy Fiction: Comedy Mashup Game - Part II	-
+bigspy3.taf	2729	bbb89c086d8ab872cb035daa6e397df21c38fc2917ea62840825c9a03d5d8d6a	https://www.adrift.co/files/games/The%20Big%20Spy%20Fiction-Comedy%20Mashup%20Game.zip	chapter 3.taf	The Big Spy Fiction: Comedy Mashup Game - Part III	-
+Birthday.taf	4150329	4cfb6203e59cde51855d452a901f20735b202967fef90631ccfe1ec11aeb8c7f	https://web.archive.org/web/20110905222319id_/http://www.delron.org.uk/games/birthday.zip	Birthday/Birthday.taf	The Birthday	-
 BlackSheepsGold.taf	29293	ba14a8777c0033b55b39b34e5519d40270cea861150a07dad2befcad33a0b7d8	https://www.adrift.co/files/games/blacksheep.taf	-	Black Sheep's Gold	-
 blast.taf	3447	b66e1747be3a6bfebb8d2cdaf2d884528d96f697e82977da4fbd0443f7ebf6b6	https://ifarchive.org/if-archive/games/mini-comps/adrift/ectocomp-2008.zip	blast.taf	Blast	-
 blood.taf	100202	87f06fcad816e3eb5bb9da83f629c47848a6cf41aeb5b5efbe78161b066c369f	https://ifarchive.org/if-archive/games/adrift/blood.taf	-	Fire in the Blood	-
 Blood_Relatives.taf	81356	5c23dac9610e08661a23725d015b8c91f2aa956e3494c2cbe7c1ef1386d2ff72	https://ifarchive.org/if-archive/games/adrift/Blood_Relatives.taf	-	Blood Relatives	-
+bluesky.taf	30629	f6cdd1b73eea10e603ad250669ec05e04887db2187b3337e7be28486ae78e360	https://web.archive.org/web/20160325034645id_/http://delron.org.uk/games/bluesky.zip	Blue Sky/bluesky.taf	Blue Sky	-
 BobBobsly.taf	10310	93daddfeb2821e037489a1d39be65e45662143bf17c196913e1aa9d7772b6ede	https://web.archive.org/web/20060822063145id_/http://shadowvault.net/games/bobbobsly.zip	BobBobsly.taf	The Adventures of Bob Bobsly	-
 boiled eggs.taf	6423	9e6eaba7c55f0f8791fdd5c4053959efe7a5adae432fe7e93c77844e73e7e141	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/boiled eggs.taf	Boiled Eggs	-
 Bomb Threat.taf	17955	c5a1aa310a705b4abafc10d419c21bc72cc37edac7eb2d25aa852f74f53de2d7	https://www.adrift.co/files/games/bombthreat.zip	bomb threat.taf	Bomb Threat	-
+bountyhunter.taf	4057	3b18a82b5bc51c6a75a7740581ba4f3eeb2238d81739aa30ada5056a7006d267	https://web.archive.org/web/20041228203010id_/http://www.shadowvault.net:80/bountyhunter.taf	-	Bounty Hunter	-
+breakout.taf	24718	cae29751eef96c20f2b60f89a2c1d01287f079e19ba6cd40a700bc24867bdea3	https://web.archive.org/web/20110905034945id_/http://www.delron.org.uk/games/breakout.zip	breakout.taf	Breakout	-
 briefcase.taf	10872	3e2475444a24233eba2199621c4a43f1ea1fdc4fa1d68bca415751caa18df5f4	https://www.adrift.co/files/games/3hr_comp.zip	3hrComp/briefcase.taf	Briefcase	-
 British.Fox.and.the.Celebrity.Abductions.taf	220489	90efda225af9bbd6d074a955ce4d5935ba51bff91f24f2c9a4285c47b75862a6	https://web.archive.org/web/20171023051443id_/http://www.aifcommunity.org/games/adrift/Version_4.0/British.Fox.and.the.Celebrity.Abductions.taf	-	British Fox and the Celebrity Abductions	-
 BSG TWENTY TWO Final.taf	35681	9a18aa02b4f046404fd5cb59eec86fef1ff356abcbe57fd697cdcea561c54d89	https://web.archive.org/web/20160317095139id_/http://newsletter.aifcommunity.org/2009Minicomp.zip	BSG Twenty Two/BSG TWENTY TWO Final.taf	BSG: Twenty Two	-
+bta.taf	18602	2cbed77a86c4becb41fab0f9611304e93200a4fe607e593c35ce88908c08fb94	https://www.adrift.co/files/games/Beethro.zip	bta.taf	Beethro's Text Adventure	-
 Buffy Before the Date.taf	125581	2840472fa5be0904f3847709e4bac749a0f33f1a4e3c5f23ed2cc437b07bf482	https://web.archive.org/web/20120725113340id_/http://newsletter.aifcommunity.org/2011minicomp.zip	Buffy Before the Date by Archer/Buffy Before the Date.taf	Buffy: Before the Date	-
 buried.taf	11808	9bd3e802c1111ea73f6f39c2273d948b0ad3d4c668e210d5f00652d40b83f3a1	https://ifarchive.org/if-archive/games/adrift/Alive.taf	-	Buried Alive	-
 Business As Usual.taf	7235	7c75236d01bc684555adc81bedb00c43da157ad3b17cf55cb4e20f7078fc397a	https://ifarchive.org/if-archive/games/mini-comps/adrift/The_Odd_Competition_2008.zip	Business As Usual.taf	Business As Usual	-
+bz3_americans.taf	5402	26ff277d44d7a45fcb976ccdbe43ab0c7291ca6f4c55f57be7354c251a7150c0	https://www.adrift.co/files/games/battlezone3.zip	BATTLE ZONE 3/Americans  (easy)/BATTLE ZONE III.taf	Battle Zone III: Americans	-
+bz3_soviets.taf	4209	9154833c9fb5c60c423c87bbd9cd7a940a4087229b12e22cd81655b44f8b2bd1	https://www.adrift.co/files/games/battlezone3.zip	BATTLE ZONE 3/Soviets (medium)/Soviets.taf	Battle Zone III: Soviets	-
+cabin.taf	21823	c1af199c932761784d51c9d8a7a4b436731a73adc0b0deeac7ab68bbfdca8cf4	https://web.archive.org/web/20160325040319id_/http://delron.org.uk/games/cabin.zip	cabin.taf	The Cabin - Inspiration Does Not Come Standard	-
 CAH.taf	9808	f31d04537df9b0b7397b1ac571badbec863ea5e895957e0a077af7fe29c25c8d	https://web.archive.org/web/20081012002904id_/http://shadowvault.net/games/cah.taf	-	Cruel and Hilarious Punishment!	-
 Caida libre.taf	18926	8df1c3b080183d91f190ce880055d3727dd108d9d68b41417565a2103514758e	https://ifarchive.org/if-archive/games/adrift/spanish/caida_libre.zip	Caida libre.taf	Caida Libre	-
 Camelot 1,5.taf	54148	577e8e8c2b6d0afe0e14d5311adf1e1440867a241555ea734e22628e38425fb4	https://ifarchive.org/if-archive/games/adrift/Camelot.zip	Camelot 1,5.taf	Camelot	-
 Captive.taf	74568	04e228091dd9d62915606fdee90e0592728ba367e095bae2a085e7bf22d713d6	https://www.adrift.co/files/games/captive.zip	Captive.taf	Captive Universe	-
+casino.taf	114649	54b1af2d9c5c8e1c0f9aa09a5dc2a77e71d66dd5e1aa899d59a9113351e534a1	https://web.archive.org/web/20110906150725id_/http://www.delron.org.uk/games/casino.zip	casino.taf	Casino	-
 castle.taf	14686	06653790495203fbd093394330d1100602511ba9919caca66d8191738fecbc73	-	-	Castle Quest	no online source found
 cave.taf	85471	9365ffedef69a2c3ef3859aea7998452ab205c559fbfbeb5c975ceb250030160	https://ifarchive.org/if-archive/games/adrift/cave.taf	-	Cave of Wonders	-
 CBN.taf	7577	adb04e0c1be22bc2bc029d7e036a76429ecc3ce05cd4609e5c4a072dcd4774fa	https://ifarchive.org/if-archive/games/adrift/CBN1.taf	-	The Revenge of Clueless Bob Newbie!	-
 cbn2.taf	6137	6ef71a20fd7356b91883ccda0f6232c0d52f14798aff77acf3fb06258decf4ee	https://ifarchive.org/if-archive/games/adrift/CBN2.taf	-	The Revenge of Clueless Bob Newbie Part 2: This Time It's Personal	-
 CD.taf	6312	c6d50615e1772573cc3609647d49fad44838b850a67ba1fca854f5f8ae1309da	https://www.adrift.co/files/games/cd.zip	CD.taf	Crimson Detritus	-
+cell.taf	20800	0ca8e767c2b7efe0e57bf0610e9121dc22af7eb37bb326cfb426272c299d04da	https://www.adrift.co/files/games/cell.taf	-	The Cell	-
+cellpart1.taf	18439	77ae3c425c64ce155d1baf83538772eedab4a18575bace1fde9c6e8186ba0941	https://www.adrift.co/files/games/2_taf	-	Cell (Part I)	-
+ChasingTheRussian_noSound.taf	35967	828e8fe160b5d36c92059834d95ed6af9cda351e3d567932571fa527093365f4	https://www.adrift.co/files/games/ChasingTheRussian_noSound.taf	-	Chasing the Russian	-
 chicago.taf	19755	cd280da7048de4dee37fbf62d7b41ca145aae18954e96a72c0522063f2b5b160	https://www.adrift.co/files/games/chicago.taf	-	Chicago	-
 chicken.taf	5249	cf081cacafa4f7b835dce3ab6909886921544be0c38147e986d653cd98d171c8	https://www.adrift.co/files/games/1hourgamecomp.zip	1hourgamecomp/chicken.taf	The Evil Chicken of Doom!	-
 Choices.taf	84761	1e81024cf4279f41d2915d19b16be9fa647765e475ade244d05639bfc9895b9b	https://ifarchive.org/if-archive/games/adrift/Choices.taf	-	Choices	-
 Choose_Your_Own_Three_Hour_Adventure.taf	10332	d623fcd904d386ac3b2ca43b59e37f3e0c490207d8bd7f29d13d1279fb092735	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/Cyo3.taf	Choose Your Own Three Hour Adventure	-
 chooseyourown.taf	54869	1932b9fb4d549aad1a4ac0a742641466e7826aee333e40e6228ae297921706f3	https://web.archive.org/web/20110905140732id_/http://delron.org.uk/games/choose.zip	ChooseYourOwn.taf	Choose Your Own...	-
 Chosen.taf	23866	2075f4c37d6daa8ab9ac76dcbd17eaff10356fb7dacd6e95ee4ac7521bf7eb9d	https://web.archive.org/web/20060822130803id_/http://shadowvault.net/games/chosen.zip	Chosen.taf	Chosen	-
+christmas present 1.0.taf	26882	ea6bc4e9b6a0a9e502d6cf23f0d1f54d79c896b7135f83f7cb4fc907556e12a9	https://web.archive.org/web/20160325040216id_/http://delron.org.uk/games/christmaspresent.zip	christmas present 1.0.taf	Christmas Present	-
 CIBASS.taf	21705	e66aad02547962af962642677c2b5c941ca9a7e086688c93bb7d164b083b146a	https://www.adrift.co/files/games/SummerComp05.zip	SummerComp05/cibass/CIBASS.taf	Can It Be All So Simple?	-
 circus.taf	117017	2d9469d82741cc86b3b90a57873cfcd2c052c405d98e27528439949d20654c68	https://ifarchive.org/if-archive/games/adrift/circus.zip	circus.taf	Menagerie!	-
+CityInFear.taf	248088	090026134709627f03bbb51f8104ad9b18c824ba8a7b9a3e58cee9e0807d3e19	https://ifarchive.org/if-archive/games/adrift/CityInFear.taf	-	Scene Of The Crime 2: City In Fear	-
 cldone.taf	97018	4a0b11ac3e55281754bd9f1a1ba5c609e5f7910cb79be31ec13de16f0ff3cc29	https://web.archive.org/web/20060502233425id_/http://newsletter.aifcommunity.org/minicomp.zip	clairvoyant.zip|cldone.taf	The Clairvoyant	-
 cleft.taf	11820	3026f8061bb84eefdad9fc6fa41e5347f0625582618b5254f424e90084931508	https://www.adrift.co/files/games/cleft.taf	-	The Cleft in the Rock	-
+cloak.taf	4936	8ea45767a70e1d0ccbe7baffd4e1492047bd96cb5def33224d33e1637ecb1749	https://web.archive.org/web/20080820071451id_/http://www.shadowvault.net/games/cloak.taf	-	Cloak of Darkness	-
+clod_demo.taf	59848	c121e4d9b38b6608af3df45535ad54ffc0a51eacec1be9102df60fde16be4adf	https://www.adrift.co/files/games/CQDOZ_Demo.zip	clod_demo.taf	Clod's Quest: The Dungeons of Zivulda	-
 COBL.taf	22995	f18d147a4e0ff510daf8c6ab4b3cd82515fd752a0f566264328fa08c9e66c57c	https://www.adrift.co/files/games/4_COBL.zip	COBL.taf	Crazy Old Bag Lady	zip also carries COBL.alr, which SCARE does not read
 Colony.taf	14781	4296e5255e0448858fa0508e1812008c3c11aa35d62f0f606a48b28dc6f69dd0	https://web.archive.org/web/20210804162919id_/http://delron.org.uk/games/colony.zip	colony.taf	Colony	-
+community.taf	73874	75fc84671ea76c29a7e39a9fc9c734eb1e208f38b6bac34e8475e40c03e6c45b	https://web.archive.org/web/20160325040241id_/http://delron.org.uk/games/community.zip	community.taf	Community Policing	-
 competition2004__adrift__hero__hero.taf	164543	2bc5f94f2f98b0b06eabcf893dc1e967385e7d5c47728c4200e4debce26a1e9b	https://ifarchive.org/if-archive/games/competition2004/adrift/hero/hero.taf	-	A Day In The Life Of A Super Hero	-
 competition2006__adrift__ptgood__PTGOOD.taf	1971	ad41a86ff0bc7cdca2e85f6cbb73ff9e269e2e2a4873866c31147980aa66649f	https://ifarchive.org/if-archive/games/competition2006/adrift/ptgood/PTGOOD.taf	-	PTGOOD 8*10^23	-
 competition2006__adrift__requiem__requiem.taf	114759	0de74b5269009ab99f2b06544ebe2f3b411d13036de09b903dda35a3257f5591	https://ifarchive.org/if-archive/games/competition2006/adrift/requiem/requiem.taf	-	Requiem	-
@@ -79,89 +117,153 @@ competition2006__adrift__wumpusrun__wumpusRun.taf	858951	f8a1a7aee6ee05a5248aa73
 competition2007__adrift__mindofmaster__mind of master.taf	101898	6fc5221e76fd69ffab8b698392673d118ae73adc3d2efc460f8c16d1e940dc4e	https://ifarchive.org/if-archive/games/competition2007/adrift/mindofmaster/mind%20of%20master.taf	-	In The Mind Of The Master	-
 competition2011__adrift__powers__how suzy got her powers.taf	40676	c67b0ce063b1daf5e168093863a4317a6f768ecdb2d94d6e9dec899c7ea9a789	https://ifarchive.org/if-archive/games/competition2011/adrift/powers/how%20suzy%20got%20her%20powers.taf	-	How Suzy Got Her Powers	-
 Confession(1).taf	203757	2a24eeb5533b99e8edc072cc2feaffe86f05f0dd3cf87ccf8ad88b029eb71a8c	https://www.adrift.co/files/games/3hourcompetition.zip	3hrcomp/Confession(1).taf	The Murder of Jack Morely	-
+consequences.taf	542253	1c2ff332327664fda54d1164b982ebfafad0804b9b774bf0c0685176883cbe69	https://web.archive.org/web/20160325035629id_/http://delron.org.uk/games/consequences.zip	consequences.taf	Consequences	-
 CowboyBlues.taf	111835	9672ac6569b40422d9bdd90ef9c538218c37d901a6a929e2c38a2be2a17a645e	https://ifarchive.org/if-archive/games/adrift/CowboyBlues.taf	-	Cowboy Blues	-
+crashlite.taf	8106	0b90787f89243265dfdf08771f909cab1446ec865c030bfcaf70a28534d0901c	https://www.adrift.co/files/games/1_Twin_Comp.zip	crashland.zip|crashlite.taf	Crashland	-
 Crime_Adventure.taf	15073	711c5032302c6a4ccbff40efbc51e2d48ab461007e0762f3deb2b7a5ac85eaab	https://ifarchive.org/if-archive/games/adrift/Crime_Adventure.taf	-	Crime Adventure	-
+crimelife.taf	25642	594087972d29a03383f326434e02c29b4800b99a6bc6ab2a30ba74773ed08777	https://web.archive.org/web/20110905034951id_/http://www.delron.org.uk/games/crimelife.zip	crimelife.taf	Crime Life	-
 CRM.taf	15432	c29c750b15fcec2c7c98d356a7613482a77b2876fdac16a802678ef1432480d0	https://www.adrift.co/files/games/onehourcomp3.zip	CRM.taf	That Crazy Radioactive Monkey!	-
 croft.taf	148447	ab2e344bb2057adddaa6eeadc27f082fb14b1c03bc09bb7b7472ce8f37407ae2	https://www.adrift.co/files/games/croft.taf	-	Lara Croft: The Sun Obelisk	-
+Crossworlds Part 0.taf	184901	2d923b2961f040aad3e975785367bd75482a39094d91f67c5bd4e26067885a94	https://web.archive.org/web/20171023035719id_/http://www.aifcommunity.org/games/adrift/Version_3.9/Crossworlds_Part_0_-_The_Girl_Next_Door.zip	Crossworlds Part 0.taf	Crossworlds Part 0: The Girl Next Door	-
+Crossworlds Part 1.taf	110897	ba045485c2a8266eae8cdf60c8e571e8216f2c678ef7ccc434b50de18a7d109e	https://web.archive.org/web/20171023044952id_/http://www.aifcommunity.org/games/adrift/Version_3.9/Crossworlds_Part_1_-_Normville.zip	Crossworlds Part 1.taf	Crossworlds Part 1: Normville	-
+Crossworlds Part 2.taf	165825	64df4b0446bbc410a587aafad7b6b29956df83bf5d301c87ce01c4398ab5500f	https://web.archive.org/web/20171023062510id_/http://www.aifcommunity.org/games/adrift/Version_3.9/Crossworlds_Part_2_-_The_Flower_Opens.zip	Crossworlds Part 2.taf	Crossworlds Part 2: The Flower Opens	-
+Crossworlds Part 3.taf	220578	3bbd1184bc6fd9a44b05153263eea7dc842ddd3bd0edd202123109bc05e52ccf	https://web.archive.org/web/20171023060818id_/http://www.aifcommunity.org/games/adrift/Version_3.9/Crossworlds_Part_3_-_The_Final_Far_Far_Away_Frontier.zip	Crossworlds Part 3.taf	Crossworlds Part 3: The Final Far Far Away Frontier	-
+Crossworlds Part 4.taf	376908	c91d96b95b77940d55f110d583f104ab67333c2b13f5f6bec84d87db3f54a44f	https://web.archive.org/web/20171023071307id_/http://www.aifcommunity.org/games/adrift/Version_3.9/Crossworlds_Part_4_-_Scream_For_Me.zip	Crossworlds Part 4.taf	Crossworlds Part 4: Scream For Me	-
 cursed.taf	487990	8e0d7aeb02d245d0d1b9cf565db5c6b336035e2e476eb205fb18da481be345a0	https://ifarchive.org/if-archive/games/adrift/cursed.zip	cursed.taf	Cursed	-
 Cut_the_Red_Wire.taf	6102	d9198cd304748130c6b650ea5a93fd2fadbb8a5b76ce66c27209f2139a4388d2	https://ifarchive.org/if-archive/games/adrift/Cut_the_Red_Wire_No_the_Blue_Wire.taf	-	Cut the Red Wire! No, the Blue Wire!	-
 cyber.taf	1786	39429c74797fbb9e5976e0944a8efcb90dc2a50e32de0bfb21b10a6e0136c238	https://ifarchive.org/if-archive/games/adrift/cyber.zip	cyber.taf	Cyber Warp 1	-
 cyber2.taf	3384	7e7af94ce09194128cc6529eb8651a995c9885eb5dc1eb20578f502e8c7e98a7	https://ifarchive.org/if-archive/games/adrift/cyber.zip	cyber2.taf	Cyber Warp 2	-
 dancingevenhim.taf	4578	1d57cfa365ce88bbae3e50d86419d602939edfda0c9560899b517692274da4fd	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/dancing/dancingevenhim.taf	Dancing Even Him?	-
+darkfantasy.taf	29442	2732c81da5037edb1123ce4e10a0e6f23551dba486dc72e68a18e8ae5e36b886	https://web.archive.org/web/20160325040119id_/http://delron.org.uk/games/darkfantasy.zip	darkfantasy.taf	Dark Fantasy	-
 darkness.taf	25203	14fcb0f144b43bc563770a893f795deeec93ae29b334ae2959c8a01f230a8df7	https://ifarchive.org/if-archive/games/adrift/old/darkness-r1.zip	darkness.taf	Darkness	-
 DarkTower.taf	39485	bb14ffb7fce46c196cfbc3aeccbc6a6c9fc4b4c580986b266c08d29ee45a31dd	https://web.archive.org/web/20080820073256id_/http://shadowvault.net/games/darktower.taf	-	The Dark Tower	-
 datewithdeath.taf	180314	bd43bb39fa3f0f2f6060c08394726e4535f591d96bcde3ea8ddb69334076068c	https://ifarchive.org/if-archive/games/competition2008/adrift/datewithdeath/datewithdeath.taf	-	A Date With Death	-
 DayAtTheOffice.taf	13824	ba7dfc316af6a3ff43d3a07e144858ad074be879427895fbacc1fa4aa5ef6416	https://ifarchive.org/if-archive/games/adrift/DayAtTheOffice.taf	-	A Day at the Office	-
+dbaa!(intro).taf	37521	2e78ab74e4b33b87ece6ade5de52721539e62d18eabad874ab4e5fac06b74970	https://ifarchive.org/if-archive/games/mini-comps/adrift/introcomp2009.zip	introcomp/dbaa!(intro).taf	Dung Beetles Are Aliens!	-
+DC.taf	49377	672cdd611e35a443135a021cf564cfde8b4ce45c911df9eb994018b34a51c8c3	https://web.archive.org/web/20160325034726id_/http://delron.org.uk/games/devilchild.zip	D_C/DC.taf	Devil Child	-
+Deadly Climax 1.0 final.taf	823259	ea251d49f72c3eb02a9efa563c4324a2e49b60d732b29310d71aebc072157325	https://www.adrift.co/files/games/Adrift%204%20Deadly%20Climax%20%28version%201.0%29.zip	Deadly Climax 1.0 final.taf	Deadly Climax	-
+deadRace.taf	5311	921a8df0b2e7c85774fe6eba1403c693479d9fbe23a499be3fefdd20848c5bd0	https://ifarchive.org/if-archive/games/mini-comps/adrift/introcomp2009.zip	introcomp/deadRace.taf	Dead Race	-
 DeadReckoning.taf	82279	a2eb71b33781211147ea177299e06368d9cd9ea825e0e2e4ec858e3fbc9557e3	https://ifarchive.org/if-archive/games/adrift/DeadReckoning.taf	-	Dead Reckoning	-
 Dear Diary 2.taf	75243	bf66c66b86832641eeed894cdde3467c855d43ad4b26919d230533acadccd6af	https://web.archive.org/web/20110629203438id_/http://www.delron.org.uk/games/promnight.zip	Dear Diary 2.taf	Dear Diary 2: Prom Night	-
 Dear Diary.taf	71076	d28423ebc0e81626244064c0b9fe983c8dd11126398e89874019925829b2e62c	https://web.archive.org/web/20041101202059id_/http://aif.emsai.net/fetch.php?section=wotan-anubis&entry=dear_diary&item=dear_diary	Dear Diary/Dear Diary.taf	Dear Diary	-
+deathhouse.taf	18416	f401ee9c0e405fdb4cf41e8a30fd5ee27b8cbb218bc740f486e5678a96d1c734	https://www.adrift.co/files/games/deathhouse.zip	deathhouse.taf	House of Death	-
 deaths.taf	25058	e861a02a90d4302c08cc4cdecba7054a0a6ae5bf41c2462283e7063dac139861	https://web.archive.org/web/20060822032205id_/http://shadowvault.net/games/deathdoor.zip	deaths.taf	Death's Door	-
+decisions.taf	148913	0086d2229705badf56b2dff32f1586baf9e817b6cdc61fe317f77ea40d0c0ccc	https://web.archive.org/web/20160325040234id_/http://delron.org.uk/games/decisions.zip	decisions.taf	Decisions	-
 Del Sol.taf	6552	2375aabe9d779396341b2662bc4510f3b7421edb90669be69942162b1419a21e	https://www.adrift.co/files/games/Ectocomp_2008.zip	Del Sol.taf	DeL SoL MADNESS	-
 delight.taf	18705	2ccc613d1dbd34373592433ea33e5de0d49294e27fe2540e55deb9a624db49e0	https://ifarchive.org/if-archive/games/adrift/delight.taf	-	Crawler's Delight	-
 demonhunter.taf	4169	9ca3a6052f2778a4927978609a7e54a57f3d892efc9862f1f52c6fddb138a2b7	https://www.adrift.co/files/games/onehourcomp3.zip	demonhunter.taf	Apprentice of the Demonhunter	-
 DFU.taf	16443	67d2b0b5434d27765148b9622cd479711ff6224452c8eb28d26e4ba16eb7000d	https://www.adrift.co/files/games/onehourcomp.zip	DFU.taf	Dance Fever USA	-
 diarystrip.taf	43334	19722fb9ec8d2f7f1c756543f204e5445821e5f15c9964f07f50cec42bccf300	https://www.adrift.co/files/games/minicomp.zip	Minicomp/Diary of a Stripper by Christopher Cole/diarystrip.taf	Diary of a Stripper	-
+DickyNoodle.TAF	48044	526deb678317cb923e679c6bc8bb8200207353c3e9535cde0dcc78543246496d	https://www.adrift.co/files/games/dickynoodle.zip	DickyNoodle.TAF	Dicky Noodle	-
+dishduty_intro(3).taf	5753	536a3a020ef03248e61bb414a122c8308724bf9567c4b2a3d6e290b79013e6b6	https://ifarchive.org/if-archive/games/mini-comps/adrift/introcomp2009.zip	introcomp/dishduty_intro(3).taf	Dish Duty	-
+DOA_X_B_S.taf	286388	6d8a93afc3f56b5fcb2d6a71cba9fef76280913718a5618c9124ea6b6c6e0a58	https://web.archive.org/web/20160325034543id_/http://delron.org.uk/games/deadoralive.zip	DOA_X_B_S.taf	Dead or Alive Xtreme Beach Sex	-
 donuts_intro.taf	5201	effba58cd3a84bc05e0aa7f20140a3e4659337f9610bab65094bba0833fd4dab	https://www.adrift.co/files/games/introcomp.zip	introcomp/donuts_intro.taf	Donuts	-
 Door to Utopia, The.taf	15432	4a8f7e83698c539eac8233dd3b035460ea5d75e44492aac7929f4ffde458d0fa	https://ifarchive.org/if-archive/games/adrift/DoorToUtopia.zip	Door to Utopia, The.taf	The Door to Utopia	-
 door.taf	6363	857479510920ab7ae5851cf245499f3238a78a64fe593b11ba7479c36d40647c	https://www.adrift.co/files/games/SummerCompGames08.zip	games/door.taf	Door	-
 dr-who-vortex-lust.taf	166913	6cb1ee640e9fedb203cd3da104272ca34265eeef2302a136e61ca63b6960af24	https://ifarchive.org/if-archive/games/adrift/dr-who-vortex-lust.zip	dr-who-vortex-lust.taf	Doctor Who and the Vortex of Lust	-
+dragon sphere v2.0.taf	6421	9d53eb1b5cc6fa43786ef3a150ef88e10921158629f12d80efe347e379b0a526	https://web.archive.org/web/20210808032705id_/http://delron.org.uk/games/dragonsphere.zip	dragon sphere v2.0.taf	Dragonsphere	-
 DragonShrineR43.taf	636932	99f08b8565cca8105f819a56bf3175c763b2ca586b18fc3ba9ebd9507c1e218c	https://ifarchive.org/if-archive/games/adrift/DragonShrine.zip	DragonShrineR43.taf	The Curse of DragonShrine	-
 Dream Quest.taf	26175	2491d6cfb84cd6fb072478ccc23a32b37ebc850bac9405db01d57e666bba7abf	https://web.archive.org/web/20071221111256id_/http://www.shadowvault.net:80/games/dreamquest.taf	-	Dream Quest	-
 Dreams.taf	6508	6d68b59f058435ab75f88d731724e7bb7a016abe8e2ef388c491958479df4da1	https://www.adrift.co/files/games/oneroomcomp.zip	OneRoomComp/Dreams.taf	Dreamland	-
+drifting.taf	34637	026ce67a5b35eec9ae45106242a583b86fe09e2718b560e03fbc50a35eb0615c	https://www.adrift.co/files/games/drifting.taf	-	Drifting In...	-
 Drinks.taf	8458	5c27be270969bb1a6e8ca6c22fd4c67c97b49ee960377ef45fa550fdb06e2fe2	https://ifarchive.org/if-archive/games/mini-comps/adrift/ectocomp-2008.zip	Drinks.taf	Drinks With Lord Hansom	-
+Drone Academy.taf	50090	8763d8ea86132169d465b5cc71551b958c44653b31fe7b1421fc868205819db3	https://web.archive.org/web/20160325034451id_/http://delron.org.uk/games/droneacademy.zip	Drone Academy/Drone Academy.taf	Drone Academy: Building Tomorrow's Soldiers	-
 druggy_lane.taf	12028	3b9aa806312228c12cc9566e210ebdb38d5622a7bd3e88f9115d719aecebd841	https://web.archive.org/web/20060516082115id_/http://www.shadowvault.net:80/games/druggylane.zip	druggy_lane.taf	Druggy Lane	-
+Duchess of Desire.taf	150682	e3ea06cdbff7104b397ef2ebddbc18aa21e22c3d3013d6547c9a6126cd33df72	https://web.archive.org/web/20160325034631id_/http://delron.org.uk/games/duchess.zip	Duchess of Desire/Duchess of Desire.taf	Duchess of Desire	-
 duck.taf	7855	f1619ba2ead2f84ad6e9182d125ca5af025bdb74d9bce131387d3b7291544a49	-	-	Duck McCloud - The Fight Begins	no online source found
 dusk.taf	20725	14fe27bc4edfe911aca3b2b2a5c736db7f09c24c4150b5f2aba4449dbe59f201	https://ifarchive.org/if-archive/games/adrift/dusk.taf	-	A Walk At Dusk	-
 easter.taf	21295	f54c48096a1e309e746cef0b08671a6c1c678a23e8cc67bdb3e2d8f06e1ee9b5	https://web.archive.org/web/20160830161118id_/http://delron.org.uk/games/Easter.zip	easter.taf	It's Easter, Peeps	-
+ebonysworld.taf	25668	53bd60a1e4910a23a1d1b35bed8df22feb73e479cb6668cdd8d4c95df06fc359	https://web.archive.org/web/20081012001911id_/http://www.shadowvault.net/games/ebonysworld.taf	-	Ebony's World	-
 ECOD2.taf	17584	2c0cd1def1260847c2cc0aa253156499b3e2caa084b6182fc95206024d0776d2	https://www.adrift.co/files/games/onehourcomp3.zip	ECOD2.taf	The Curse of the Ghost of the Evil Chicken of Doom... Returns!	-
 ECOD3.taf	10870	882b44ce95a86d80786c67d9836c466d3785754e919159d3b8b0950885a439da	https://ifarchive.org/if-archive/games/mini-comps/adrift/onehourcomp4.zip	4th1hrComp/ECOD3.taf	An Evening with the Evil Chicken of Doom	-
 Egg_Hunt.taf	7575026	2b9c03f7cf332765be315508c3c1354a060c1bb256b9a49cf577c39d08b8a56a	https://www.adrift.co/files/games/Egg_Hunt.taf	-	Easter Egg Hunt	-
 El ascensor.taf	3219428	f9ed00ae07ec0e762104a08b2f8b5a21fb90988ea07fd6e3395e148ec3c50e59	https://ifarchive.org/if-archive/games/adrift/spanish/el_ascensor.zip	El ascensor.taf	El Ascensor	-
 enc1.taf	101668	4352ecc6aa698ffb9ba06bf7c359c681973412545c985b59ef6d574db1f32b76	https://ifarchive.org/if-archive/games/adrift/enc1.zip	enc1.taf	Encounter 1: Tim's Mom	-
 enc2.taf	120335	ea8243c03b72855c016324224dbae7963559b0ff291bca5e417b5e460d140671	https://ifarchive.org/if-archive/games/adrift/enc2.zip	enc2.taf	Encounter 2: The Study Group	-
+enc3.taf	77495	4a8935a3b62723b8f1c4154d898efef763aeaa2f2f8f0413fa620310c58a73f3	https://web.archive.org/web/20160325040436id_/http://delron.org.uk/games/enc3.zip	enc3.taf	Encounter 3: Lynn's Sleepover	-
+enc4.taf	86142	41085d00cf832fdb0be4a6241d09c6f61983450c4472977d2effcf145ac97f45	https://web.archive.org/web/20160325040107id_/http://delron.org.uk/games/enc4.zip	enc4.taf	Encounter 4: Mrs. Parker	-
 endgame.taf	4063	9735ff818d26d2be4c66c519cbef3f58bba384c9c50ebcb6ea07ac70f4452aee	https://www.adrift.co/files/games/1hourgamecomp.zip	1hourgamecomp/endgame.taf	The Game To End All Games	-
+enigma.taf	10627	e1cc2380a6b9a82c0208ff63c40962074d3d9d1b63328f70aa6062cfa66192f2	https://web.archive.org/web/20110904083304id_/http://www.delron.org.uk/games/enigma.zip	enigma.taf	Enigma Creature	-
 EnqueteAHautsRisques.taf	156919	02ec0b40b64ebc29a2dd0742300de9a954261980e8495d3feed9ea9c3285d964	-	-	Enquete a hauts risques	no online source found
+escape.taf	18156	17ddbbcd9e1f9915b7dff09336f1aa032d3f037b9f68b8797e5888a9c8913061	https://www.adrift.co/files/games/freedom.zip	escape.taf	Escape to Freedom	-
+Escape_from_Camelot.taf	240667	3dd6cc5fdfa46b958b983b8fb359f39d7d7b0432fc4b67cf9b02fca28caa127f	https://www.adrift.co/files/games/Escape_from_Camelot.taf	-	Escape From Camelot	-
+EscapePod.taf	709726	3a62f5de3eea0dc19d7e4dbdfcc8388c6d9d5f4070189d5f014cd86f930e2322	https://web.archive.org/web/20110906081251id_/http://www.delron.org.uk/games/escapepodex.zip	ESCAPE.TAF	Escape Pod	-
 EscapeToNewYork.taf	59531	facf88f245c2c3c206db5d664134b3a428df6fc16a3628e1475b5df2548e39a0	https://web.archive.org/web/20060822131025id_/http://shadowvault.net/ifcomp2005/escape.zip	escape/escape.taf	Escape to New York	-
+Eva's secret.taf	21100	ee38259923d4cb4f967eb434d17f43fbce3435539256e941e6ed6d3935e33028	https://web.archive.org/web/20230601235257id_/https://delron.org.uk/games/eva.zip	Eva's Secret/Eva's secret.taf	Eva's Secret	-
 everything.taf	20065	c4ccf3b56f87eae35c4490080fa75ac1653fa64a0989409ad43e60e2e5a9eb62	https://www.adrift.co/files/games/oneroomcomp.zip	OneRoomComp/everything.taf	Everything Emanuelle	-
 exercise.taf	6248	7f5a0814840ec369c2bc2d8d8b75e72fa8dbc17ba5674632b26fd0a9f028e0a9	https://ifarchive.org/if-archive/games/adrift/exercise.taf	-	Too Much Exercise	-
 Existence.taf	6370	722fb1995c0f725c564cb8ce6ade2ea4cc07de2ef5dafcc8579a42d4a03ddf9d	https://www.adrift.co/files/games/introcomp.zip	introcomp/Existence.taf	Existence	-
+fairscarenightmare.taf	8121	8f3fee929ee9c567896d8ffdf2fe5b409ee8757bb886efff51497e8270c7f481	https://web.archive.org/web/20060516084622id_/http://www.shadowvault.net:80/games/fairscarenightmare.taf	-	Fair Scare Nightmare	-
+Fairy Tails Remixed v1.5.taf	111015	feb0ab7e314a78acaf6ce7f7e0d85c2d408697bfc58c8c66d7c8a4161be62c98	https://web.archive.org/web/20110904151347id_/http://www.delron.org.uk/games/fairytails.zip	FairyTails Remixed v1.5/Fairy Tails Remixed v1.5.taf	Fairy Tails Remixed	-
+fantasy.taf	20187	92d3d179412561c3cd73ebd81ccc8bb7ee57546efd1531c9b343817c3b4f9b1e	https://web.archive.org/web/20110904014354id_/http://www.delron.org.uk/games/fantasy.zip	fantasy.taf	Fantasy	-
 fantasyworld.taf	250039	fcfc9769a3cf2b5b566c10f71c4d3d147339c194b7f3a01910d505360798903d	https://web.archive.org/web/20160325051248id_/http://delron.org.uk/games/thequest.zip	The Quest/fantasyworld.taf	The Quest (by Chlestron)	-
 FarFromHome.taf	42118	df74f136a3dec437e720c12797cb7de995c01dba3b7400b582e3205c72b0554a	https://ifarchive.org/if-archive/games/adrift/farfromhome.zip	Far From Home/FarFromHome.taf	Far From Home	-
+filthybill.taf	23849	6c66817cd3121936d608fb7b2108462f120af54b185cad1ba699402c54dc3c77	https://web.archive.org/web/20160325035431id_/http://delron.org.uk/games/filthybill.zip	filthybill.taf	Filthy Bill Does Everyone But His Mother	-
+findandy1.taf	27512645	4463a16f077944c1e275ec45a57703c84c863e960757d0f3b7662b5579b14842	https://www.adrift.co/files/games/findandy1.taf	-	Find Andy Part 1 (Little Britain)	-
 first.taf	12213	c9faa4eb1179d380ce8e80bd7bbd8844afdd33506d847fa089071587c764a54b	https://web.archive.org/web/20090710003331id_/http://delron.org.uk/games/first.zip	first.taf	The Book of Fistandantalus	-
+firstday.taf	13892	919020ba4d52fd7f3aace82d9cdc0a4155041477609ee145e6091a1e816294d1	https://web.archive.org/web/20110904154540id_/http://www.delron.org.uk/games/firstday.zip	firstday.taf	First Day	-
 For_Love_of_Digby.taf	48365	7c95e45066bc258d9cd89f5bc6f967fd1fe5e1506841aaa005c20bb2663899c8	https://ifarchive.org/if-archive/games/adrift/For_Love_of_Digby.taf	-	For Love of Digby	-
 forest.taf	8292	639adda7901b65b0c305aca8cb65f5a67eb09decbe5cdae729abc9b212e7cd35	https://web.archive.org/web/20060516081603id_/http://www.shadowvault.net:80/games/ronforest.zip	ronforest/forest.taf	Forest On The Norm	-
 ForestHouse3.taf	13492	b56f8f07026676eaf6eb4a459bb0379940e19b5f6faf418360e806612d146c06	https://ifarchive.org/if-archive/games/mini-comps/adrift/ectocomp-2008.zip	ForestHouse3.taf	Forest House 3: Sacrifice	-
 forum.taf	9005	dc681e1edee43f7ee22b4f293c623a9ef22cc09997e00fce43a1ae8498baea01	https://www.adrift.co/files/games/onehourcomp.zip	forum.taf	Forum	-
 forum2.taf	11185	43eaa4f37db0c672e8e05e7f207976bea01e6a699d0238bbe04631950ee4f053	https://www.adrift.co/files/games/onehourcomp3.zip	forum2.taf	Forum 2	-
+fox.taf	28216	10f8b52100a927304855073147db74461184581868eefd8f70b213dfdee51913	https://web.archive.org/web/20110904202724id_/http://www.delron.org.uk/games/fox.zip	fox.taf	The Fox	-
+freshman.taf	21733	df5ceea7f3451d9a0edf9ae75169fb440dae6b26f659dfbc4f8aa5641f7eeac0	https://web.archive.org/web/20081121163426id_/http://www.shadowvault.net/freshman.taf	-	Freshman Orientation	-
 frog.taf	2089	0d731e580b11292396d412dd03f2928e16f72e88066359ae9bf0c99a74b32790	https://www.adrift.co/files/games/1hourgamecomp.zip	1hourgamecomp/frog.taf	The Green Princess	-
 frustrated.taf	50578	08c5919894e2030639e9d57aff1315cf2b75f7b6eab7098a9f538916c593b0ac	https://ifarchive.org/if-archive/games/adrift/frustrated.taf	-	Frustrated Interviewee	-
 Fugitive.taf	184974	08fcb50411e31ab5701fe4c604c054770a26074b504aa9bf2c52d2b0a35cfed9	https://web.archive.org/web/20110905082050id_/http://delron.org.uk/games/fugitive.zip	Fugitive.taf	The Fugitive	-
 Full_Circle.taf	68233	cef9c93a7aa038618736f5e48d870a482e7cdebe31b2410babedce934a609e1a	https://ifarchive.org/if-archive/games/adrift/Full_Circle.taf	-	Full Circle	-
+fun town.taf	54419	a19a819dd45e8e3cfa33575cfa9b60ee152bf5969c3f01b127dd071823e4c760	https://web.archive.org/web/20160325040539id_/http://delron.org.uk/games/funtown.zip	fun town/fun town.taf	Fun Town	-
 FunHouse.taf	3585	748850ebcbc0a9524d56af906ebeb94623f3d7bd51bdcc35ea920e7a772e89ef	https://web.archive.org/web/20090630150855id_/http://shadowvault.net/funhouse.taf	-	FunHouse	-
+g7056.taf	9184	1bd376277f6fc2a7235db645cfdce717fa45fcdfddec2e2680ebd40262e4e29b	https://www.adrift.co/files/games/g7056.taf	-	G7056	-
 gamma.taf	277834	cec931d6ed96804c2198b335913f8517a223c20ffd4c507cb267672180f70e3a	https://ifarchive.org/if-archive/games/adrift/gamma.zip	gamma.taf	The Gamma Gals	-
 gateway.taf	81139	ad70ae58ea7a9e8f64341cbb09691ae4f0faa214bb15c14a5867bed6d7f42732	https://ifarchive.org/if-archive/games/adrift/gateway.taf	-	Gateway: Guardian Child	-
+Getting Even.taf	123102	bc4013b55df7e248a9325c38291bf3dc518cb94140de3b9e2bef7863866f8f2b	https://web.archive.org/web/20110904090412id_/http://www.delron.org.uk/games/gettingeven.zip	Getting Even/Getting Even.taf	Getting Even	-
 Ghost town v1,05.taf	30205645	50b5c944fa4c93f41294003893a2fbd720c1c2e1062821d03f44647b3bca6cd6	https://ifarchive.org/if-archive/games/adrift/GhostTown.zip	Ghost town v1,05.taf	Ghost Town	-
+ghost.taf	16022	17d0a81606505c710935aff1e0d4742dc015a9909b98ad97c8841d3494233e58	https://web.archive.org/web/20110905180635id_/http://www.delron.org.uk/games/ghost.zip	ghost.taf	Ghost Story	-
+ghoster.taf	8031	e7997990e6c07cf0e2cb5a169ea5d805127b0322c28ec3e0320d238e6045ad2d	https://web.archive.org/web/20060516074348id_/http://www.shadowvault.net:80/games/ghoster.taf	-	Ghoster	-
+ghostjustice.taf	94632	d5ed8b02c4436aa1296d5ea17bb81ec4639968d5c4fbb6cab062fb91d0373a6c	https://web.archive.org/web/20110904163409id_/http://www.delron.org.uk/games/ghostjustice.zip	ghostjustice.taf	Ghost Justice	-
+Ginger.taf	18471	10636eecea2018d0cfdd13af9d443f4e29cc3d5f112b17656dd3874d69b4bd03	https://web.archive.org/web/20160325034805id_/http://delron.org.uk/games/ginger.zip	Ginger/Ginger.taf	Ginger's Island	-
 Glum Fiddle.taf	23074	d629fa6475e92d617f6de603b90d1261a773a57d3f4c5e5f4b3ce98a5fdfc9ac	https://ifarchive.org/if-archive/games/adrift/Glum_Fiddle.taf	-	Glum Fiddle	-
 GMYLM_2010.taf	15194757	11bed55b4a1f9b069bb4e35f45bf9041088ec97089afe69f14d0fee90d08be5a	https://ifarchive.org/if-archive/games/adrift/GMYLM.zip	GMYLM_2010.taf	Give Me Your Lunch Money	-
+Go.taf	34724	a2a253270f24380f41b3e00b9de5adbea19baa0eadb2a308db67a399dfcab70e	https://www.adrift.co/files/games/Go.taf	-	Go!	-
 goblin.taf	186729	c5eb5ca0ae0180f4558607dd44999a1dd2586e80d050a0a4a180c4715fa846a2	https://web.archive.org/web/20160501085817id_/http://newsletter.aifcommunity.org/minicomp2007.zip	Goblins Life/goblin.taf	A Goblin's Life	-
 goblinhunt.taf	10891	91d455c39d00f92a9cc7ed95ab4c6dd56a069da286a162ec93b1dc07e187bb91	https://ifarchive.org/if-archive/games/adrift/GoblinHunt.taf	-	Goblin Hunt	-
+Gold_B_and_E_v1.2.taf	8398	d676f46115263d2476e8d00110e214cf662cabf48a1af45595cec8ad70e656a8	https://www.adrift.co/files/games/Gold_B_and_E_v1.2.taf	-	Goldilocks: Breaking & Entering	-
 goldilocks.taf	56572	d53be524ab9cca48038201ac5aa4d4a24f122c80894a4e2eda098910451d318b	https://www.adrift.co/files/games/goldilocks.taf	-	Goldilocks Is a FOX!	-
 gorxungula.taf	6777	16d1019e6017565ea778b4da2c8465920e9b15c7e571936375687bb653b6ae35	https://www.adrift.co/files/games/2_The_Odd_Competition.zip	gorxungula.taf	Gorxungula's Curse	-
+gosha.taf	5625	0d3de50c5e4597d11d5b38d750f30eb3af1422e9714abd55236cfb0b90464a95	https://web.archive.org/web/20060516072117id_/http://www.shadowvault.net:80/games/gosha.taf	-	Gosha Adventure	-
+gotcha.taf	44619	ed42aea41aa6ea34aadd81be9e5b69cea6e88f4c9bf0de8bf0cbe256c8dc88e8	https://web.archive.org/web/20070715100000id_/http://www.shadowvault.net:80/gotcha.taf	-	Gotcha	-
+graduation.taf	33789	52cf4296f3b59977cd5c805ca08e90a3709280632cc4b2bb94d87da05f5d8df3	https://web.archive.org/web/20160325035538id_/http://delron.org.uk/games/graduation.zip	graduation.taf	Graduation Night at the Brothel	-
+grandjourney.taf	85136	40638abcd4cdd5339a00c44586cd12aed53189fd7dcdae78448b8d6cf8c71f6c	https://web.archive.org/web/20060516083428id_/http://www.shadowvault.net:80/games/grandjourney.taf	-	Grand Journey	-
 great.taf	108994	8143c9b8e8521c3ed0397808d46ea43b9270a471556de84f9fc97c161a6764d8	https://www.adrift.co/files/games/great.taf	-	The Great Escape	-
 Greek School Adventure.taf	49664	c9b9a37e6a30b1620550f52e4d76ae2ec3613e7de62f240047adbac84026bcb6	https://www.adrift.co/files/games/2_Greek_School.taf	-	Greek School Adventure	-
 Griswold.taf	18992	013de5edcc67fd7df2cf2072348367bd1c6af5d01e5f9afd50982084914b951a	-	-	The Amazing Uncle Griswold	no online source found
+gross.taf	7131	0a8e589aa1aa77d91a4ac2513f425da99527619d9572c82294b2d2510bc55579	https://web.archive.org/web/20060516072144id_/http://www.shadowvault.net:80/games/gross.taf	-	Gross: The Game	-
 HalloweenHijinks.taf	68052	d12cf769dfd0132050c318fc9f739b660204cc11459322d22ec9690508a7c7d1	https://ifarchive.org/if-archive/games/adrift/HalloweenHijinks.taf	-	Halloween Hijinks	-
+hammurabi.taf	2960	c61fcc31c95e487b16ada5002de275b83de28d85d4306e031a8c9a2d340cf80c	https://www.adrift.co/files/games/hammurabi.taf	-	Hammurabi	-
 Hamper.taf	80183	43ab6abe7c7818b5202c1aa51dd74e98fd6e214d44a7a5a4412c17171f11adfa	https://ifarchive.org/if-archive/games/adrift/ToHellInAHamper.zip	To Hell in a Hamper/Hamper.taf	To Hell in a Hamper	-
+Handyman.taf	143698	69f672fa0b61b390b88f8b2f80e8d38cb6c64ed996acbedbaa001e2fcecd3d45	https://web.archive.org/web/20110904172506id_/http://www.delron.org.uk/games/handyman.zip	Handyman.taf	Handyman	-
 hangover.taf	33933	5eeda634821f08cc0bcd5fe33ab1244333b4c014cfa4dc6062b2ea4e8f909997	-	-	Hangover	no online source found
+harem prologue.taf	44993	9596d2cf09a7582885830ce2c017e0b286a6fc2cdba5620e22ed09165b8ac9c2	https://web.archive.org/web/20160325052129id_/http://delron.org.uk/games/haremprologue.zip	harem prologue.taf	The Tale of the Unlikely Harem Girl, Prologue	-
 haunt.taf	35974	99d2c6f29e0ceacc9e79a54dc965e37540077f4beb6d58fccd532bd18edbe5b7	https://ifarchive.org/if-archive/games/adrift/haunt.taf	-	House of the Damned	-
 haunted.taf	42874	fd3720b2b553d30b27efbb5da9ba500feb1c9a8c63d5128a79e6575f4f37eef9	https://www.adrift.co/files/games/haunted.taf	-	The Haunted House	-
 hauntedhouse.taf	6541	8703a94903778ea06a48c751adb0ac33f677dc7adce4aa307dad368e07df6cdb	https://ifarchive.org/if-archive/games/adrift/HauntedHouseOfHideousHorror.zip	Haunted House Of Hideous Horror, The.taf	The Haunted House of Hideous Horror	-
 hcw.taf	82659	ed848fd5ddb67bdeb938074f15a5cb80d2ea2caff1fe08edd3ccddcfe237a769	https://ifarchive.org/if-archive/games/adrift/howconquerworld.zip	hcw.taf	How to Conquer the World	-
+hdigit1.taf	2619	2a50d0cd64d2c1d91ba8c2c5d8639a3e54bf4b92baefd56d08f1aea14e4c533d	https://www.adrift.co/files/games/hdigit1.taf	-	How Did I Get Into This?	-
 headless.taf	6521	3b83971542f80f6d125307c014dd7cf35aa320984c4f696aedb7d472107d0cb7	https://www.adrift.co/files/games/headless.taf	-	I Was a Teenage Headless Experiment	-
+heist.taf	5161	912f7545fe1499e4770c018613597cfbb70853119ade13aa5ddc49e46418cf88	https://www.adrift.co/files/games/heist.taf	-	Can I do it?	-
 Helsing.taf	9776	970fa6bfe689ec20fa28ca8eb3ba12c543cb74cf77a509d16d26c20d92c3015d	https://ifarchive.org/if-archive/games/mini-comps/adrift/Ectocomp-2010.zip	Ectocomp_2010/Helsing.taf	Steve Van Helsing: Process Server	-
+heretoday.taf	4856	855c6d750cb7f9ec2d3629fd44c26ca8e201834481754ad94b33dae58d447df3	https://web.archive.org/web/20110904174255id_/http://www.delron.org.uk/games/heretoday.zip	heretoday.taf	Here Today, Tomorrow, Next Week!	-
+heroes.taf	5483	88fb15217426c8d657acdd4a67748e68bf87f1b6e47aa99f4e1fb8ef6161da6f	https://web.archive.org/web/20090630150905id_/http://www.shadowvault.net:80/heroes.taf	-	Heroes Are Interesting Things To Be	-
 herrdoktor.taf	4422	c674d10e1dcd86283f46206c3965edfbcd61169a058694864c700522195cb6cd	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/herrdoktor.taf	Herr Doktor von Nordlingendinkelsbuhlhundchen-am-Rhein	-
 hhorror.taf	51820	c86ba8a85d1dcd88a2c39cc492b9a1e6d0a722791e8338e2edca3262f4f281cf	https://www.adrift.co/files/games/hhorror.taf	-	House Of Horror	-
+Hidden Assets.taf	52253	e6dba7dc0ca612bf77399aeceedf70e5a3660fe8ef69e6dfce006017f021b172	https://web.archive.org/web/20160325034622id_/http://delron.org.uk/games/hiddenassets.zip	hidden assets/Hidden Assets.taf	Hidden Assets	-
 hiker.taf	4401	41ea8821431bd253f02d6c12bd4a1028b7d70213036b281f4eaeffae9a401273	https://ifarchive.org/if-archive/games/mini-comps/adrift/ectocomp-2008.zip	hiker.taf	Conversation with a Hitchhiker	-
+Home alone.taf	47360	88bbc204fbd5ca2a6f3e423942867b6d8257b742979c225dd969cb3ce5c46063	https://web.archive.org/web/20160325035342id_/http://delron.org.uk/games/homealone.zip	Home Alone/Home alone.taf	Home Alone	-
+home1-2.taf	11010	a295623d73300f48f2d0c19d98bc06c6f307aeaa116b59a06f88eb55005d8f9c	https://web.archive.org/web/20160325035920id_/http://delron.org.uk/games/home.zip	home1-2/home1-2.taf	Home	-
+Homeless Harry.taf	21880	7e996f30322b4154db8f0d65aa613b3421754fb9ea186e536fb27e4ff03c66a1	https://ifarchive.org/if-archive/games/mini-comps/adrift/Spring_Ting_2009.zip	Homeless_Harry.rar|Homeless Harry.taf	Homeless Harry	-
+Hotown1.taf	38135	c1f33d7f4cb8479f5066a2983ce4646a0a99467dbe6f2e4bf381ad8dc049e5a0	https://web.archive.org/web/20160325034853id_/http://delron.org.uk/games/hotown.zip	Hotown1.taf	Hoedown in Ho-Town	-
 House.taf	144023	2e21f7d2126df57da52cea7f6e7d5d7ba2835573dedfedb8e2245fc4ca756236	https://www.adrift.co/files/games/house.zip	House.taf	House	-
 howitstarted.taf	10528	4dc9f3838f7fd0d429a29462b073446e2e065f731d9054090854fda956aee07b	https://ifarchive.org/if-archive/games/adrift/howitstarted.taf	-	How It All Started	-
 hub.taf	24610	f34c0848a85c2a91b7da7a804e609ea49f327ce965f5792d24fce27973ed86b0	https://ifarchive.org/if-archive/games/mini-comps/adrift/springcomp05.zip	hub.taf	The House Husband	-
@@ -175,78 +277,140 @@ iachini.taf	19083	78d8c8843864cd6b4ee90945bffe6da2fd763a6ec3297bc058501d022c488c
 IceCream.taf	5039	e0460abc97e9755b74c217a729ea0cbed278787d06253155320cf745d5a09c58	https://ifarchive.org/if-archive/games/mini-comps/adrift/onehourcomp4.zip	4th1hrComp/IceCream.taf	Ice Cream	-
 igor.taf	1106051	a2ee5af77bfcf289b11068422dd8394827da4d8072e42fc61894411bd341dba8	https://ifarchive.org/if-archive/games/adrift/igor.taf	-	Igor	-
 Il Golem.taf	6372213	6c2852ea929d8c7d69d9647290055fd601ed072b67aa2ede5c8f5098a0910639	https://ifarchive.org/if-archive/games/adrift/italian/IlGolem.zip	Il Golem.taf	IL GOLEM	-
+illegalsocks.taf	202752	ad1d862748607340709fa04a635cfd4e89907cf5cf5fc0f82067138d0ce26e36	https://web.archive.org/web/20050101043651id_/http://www.shadowvault.net:80/illegalsocks.taf	-	Illegal Socks	-
 imagi.taf	9273	36280ce7435dd6cbb6c91740ec8f2043f008b3e8aaff3cb49490b71a770863c1	https://ifarchive.org/if-archive/games/adrift/compendium.zip	compendium/imagi.taf	The Woodfish Compendium: ImagiDroids	-
 Imagination.taf	3257	9479285feacd41711fd97a579ec725a8f6955aebc5627ee42ea25aac67a44ee1	https://www.adrift.co/files/games/onehourcomp3.zip	Imagination.taf	Just My Imagination-Musings of a Child	-
+imagings.taf	3335	66efb84a22a8bf76e564e7582428723d7c91314f0d082845f2cfb69ba26edc5a	https://www.adrift.co/files/games/imagings.zip	imagings.taf	Imagings	-
 impulso.taf	22214	472aa23e137fbe26c85153adcb63cb98ce9076234574dec7a4725670a49790a2	https://ifarchive.org/if-archive/games/competitions-spanish/xcomp2005/impulso.zip	xcomp.taf	Impulso	-
 In_the_Claws_of_Clueless_Bob.taf	35109	d67f3a1fb926e849fbfc35743ec331785257781f6f29437032edd8e76105bcb0	https://ifarchive.org/if-archive/games/adrift/In_the_Claws_of_Clueless_Bob.taf	-	In The Claws of Clueless Bob	-
 InMemory.taf	32093	ca35d0b4d43b6506bc9479ad451657b7c0c160675a2c516a850a33e4e6c5c761	https://www.adrift.co/files/games/InMemory.taf	-	In Memory	-
 Insane.taf	12660	6ab43acded1ed78e3da57d353c42ef27d4c33d9f2b818e4749d1c18d3780732f	https://www.adrift.co/files/games/oneroomcomp.zip	OneRoomComp/Insane.taf	Escape from Insanity	-
+insidejob.taf	20502	4105eaffae3f4a25045251620a677fcc99d64760140100a2f7461a56865f43ea	https://web.archive.org/web/20100110225936id_/http://www.shadowvault.net:80/games/insidejob.taf	-	Inside Job	-
 Invasion of the Second-Hand Shirts.taf	5335	fb83dcf42e153690f2e82e744ef02a45984f9d6d8a5962e8645c416057fa50ef	https://www.adrift.co/files/games/shirts.taf	-	Invasion of the Second-Hand Shirts	-
 inverness.taf	45957	eebad054960893877e76bab74fe95a92c0ee4a813e779d0169626c22bd1991f7	https://ifarchive.org/if-archive/games/adrift/inverness.taf	-	Inverness Castle	-
 iqsfot.taf	195059	a47d6525f17227f5bf64aab745371d92f005e02c3af2e1e419af6e624cad27e0	https://www.adrift.co/files/games/iqsfot.taf	-	Irvine Quik & The Search for the Fish of Traglea	-
+Ispace.taf	7834	b951200ee240f1d02fe4fc84e8634a374463b3522d8a6fea124a1ef643233b33	https://web.archive.org/web/20060516081056id_/http://www.shadowvault.net:80/games/infospace.zip	Ispace.taf	Info Space	-
+Jack.taf	3470	ae0bd8bd23acf8a0b63bd986c39c858ac0ae42bf4d1f05ddb482020d7d86952e	https://www.adrift.co/files/games/Jack.taf	-	Where Am I?	-
 jailbreakbob.taf	31064	90b728bb5bc30cd598ef012fb9970ab85ec07718ef81e412a87fb181a4795232	https://www.adrift.co/files/games/3hr_comp.zip	3hrComp/jailbreakbob.taf	Jailbreak Bob	-
+Janey's Diary.taf	33448	fe16b0c3e7ac1ea9d6c0809250aff600cafa0558d592804ee42ed2f63980d3a7	https://web.archive.org/web/20160316220447id_/http://www.delron.org.uk/games/janeydiary.zip	Janey's Diary.taf	Janey's Diary - Gold Edition	-
 Jason Vs. Salm.taf	2947	2973b6dabcf2982f7ee6e35d40ed7a12a5580d82e2e19087c2e5e1e303dca4e0	https://www.adrift.co/files/games/1hourgamecomp.zip	1hourgamecomp/jasonvssalm/Jason Vs. Salm.taf	Jason vs. Salm	-
+jason2.taf	21091	66edc00c1e7f9859d9c0e96d0ca642e754f27a997f7b82466bcfb74b65fce8a3	https://web.archive.org/web/20100110225956id_/http://www.shadowvault.net:80/games/jason2.taf	-	Jason Evans 2	-
+jason3.taf	12923	c2f412759e4fbbf6edee3d16f5c3e41bdd3df3750dc65e3e9e6359a4041df69d	https://web.archive.org/web/20100110230001id_/http://www.shadowvault.net:80/games/jason3.taf	-	Jason Evans 3	-
+Jason_4.taf	267043	056dd294893761fd9ed179399578f8ed119092c62ebdb229aec2c9aa2689e5ab	https://web.archive.org/web/20060516073131id_/http://www.shadowvault.net:80/games/jason4.zip	Jason_4.taf	Jason Evans 4	-
+jasonevans.taf	43165	e899da3ec1b1c23d1cdf6ae132be92f8e9a87bc9d4f32711e3ba5c3dfe9e5916	https://web.archive.org/web/20081121155056id_/http://www.shadowvault.net/games/jasonevans.taf	-	Jason Evans 1	-
 jb2000.taf	10845	a8c0a12a28fc2c8551aaaec851bfbe7a6f57bb8f1c0253f6559c75eabc273814	-	-	James Bond - Happy Landings	no online source found
 JGrim1.0.taf	42994	8ab4c2f2ef430a183614a714e53cc30147a456f70dbd4ef0ee7a876cbf131620	https://www.adrift.co/files/games/wcc.zip	Writing Challenges Comp/Jonathan Grim Space Tourist - Ren/JGrim1.0.taf	Jonathan Grimshaw: Space Tourist	-
 JimPond.taf	50551	bd9c7a8f9329b287cd3225d81354e32d9b54cc26167bfa0295172db723910dae	https://ifarchive.org/if-archive/games/adrift/JimPond.taf	-	Jim Pond & the Agents of F.A.R.T.	-
 JINXTRON.taf	2179	02004ebbd25c1b2888a6ba938b13a2230af1936411682d6e9a3969798bb71fa2	https://www.adrift.co/files/games/Jinx.taf	-	JINXTRON	-
 Journ2.taf	59124	601849770fb55647f9e735afae623b69c38d5adb7e80b67aff87c84a8849b68a	https://ifarchive.org/if-archive/games/adrift/journey.zip	journey2/Journ2.taf	The Long Journey Home	-
 Just Another Day.taf	2886	f358b828faae155f5dec417c096ce89186f4c0e6ac918273d6a98885b65d3644	https://ifarchive.org/if-archive/games/mini-comps/adrift/summer-comp-2010.zip	Just Another Day.taf	Just another day	-
+Kissing.taf	78767	d3237977ea1bd61d9d96ee1a4215f5147a8da4afe28221c69af07591b6827618	https://web.archive.org/web/20230601224545id_/https://delron.org.uk/games/kissing.zip	Kissing/Kissing.taf	Kissing Cousins	-
+laboratory.taf	3009	632fbca45b1eca519c81a671adf39a56211c1f37161ddef4a98ac190503a9057	https://web.archive.org/web/20050101043620id_/http://www.shadowvault.net:80/laboratory.taf	-	The Lab Experiment	-
+labrats.taf	7250	8081cd639475732d5f66c21beabefc304c072d13564f644de189e3058a2cc920	https://www.adrift.co/files/games/labrats.taf	-	Laboratory R.A.T.S.	-
+labyrinth.taf	19468	6eac9bdd1103038c1cf82d1d56b294eb19e4729ac9d311cd53bca2ee58085070	https://ifarchive.org/if-archive/games/adrift/labyrinth.taf	-	The Labyrinth	-
 Lair of the Vampire.taf	133689	1ef93d26b17ee03caa6efc42f09aeac68d4c4545dc0d76ac0fa32152aa58f592	https://ifarchive.org/if-archive/games/adrift/LairOfTheVampire.zip	Lair of the Vampire.taf	Lair of the Vampire	-
 lair-of-the-cybercow.taf	108209	f34c626c113c008b6fea8602ce11bc7fdd0752f2c7be36aa812a673333a3adc8	-	-	Lair of the Cybercrow	no online source found
 largo-winch.taf	282396	3e98346580741fa303dc04439afe311875b86adf86eedce021de976adac0a1ae	-	-	Largo Winch	no online source found
+Last_Knight.taf	1405	2466f0aef05f6d14db626fadb9bca28de9361934aea636daab1e8f4c3b1464af	https://www.adrift.co/files/games/Last_Knight.taf	-	Last Knight	-
+lasthurrah.taf	176101	f6219f931e10d8595dc066e2c4b617e9e0b445afb7b3f7f7f518bc60cdaca966	https://web.archive.org/web/20160325040057id_/http://delron.org.uk/games/lasthurrah.zip	lasthurrah/lasthurrah.taf	The Last Hurrah!	-
+LastWeek.taf	543750	7b851487b55a59fd2ee35175c0f727b6a947401d9f5853af66d6c9e49274c583	https://web.archive.org/web/20210125031212id_/http://delron.org.uk/games/LastWeek.zip	LastWeek.taf	Last Week Before the Wedding	-
+latework.taf	21281	44ee7ee80b0dfc7c0a07e63d5b61bf7760cfdc686c27fa2b570d0d3aab25e017	https://web.archive.org/web/20041021023027id_/http://www.shadowvault.net:80/latework.taf	-	Late Work	-
+lauren.taf	56493	93ad5215e82b36c2bccea3b09a6e28bef52db2f29afdd0e851d57463cfd88763	https://web.archive.org/web/20110905171854id_/http://www.delron.org.uk/games/lauren.zip	lauren.taf	Lauren's Awakening	-
+Legend of Akhbar.taf	100600	a8d66de064879a83c4065daa51be02d11c28c2645fd186a6118fe882f8f3737d	https://web.archive.org/web/20160325035030id_/http://delron.org.uk/games/legendof.zip	Legend of Akhbar/Legend of Akhbar.taf	Legends of Ahkbar	-
 Les Feux de l'enfer.taf	54162	0a7d4ad2985465cbc398a9b7ff1eecab58d76763d4a367b80dff12fb5a760671	-	-	Les Feux de l'enfer	no online source found
+lessons (part 1).taf	489426	48f34f8f6cfcfa89b05371286885494c059431c5642e7182abd1f67011be4927	https://web.archive.org/web/20110906141643id_/http://www.delron.org.uk/games/extralessons.zip	The Extra Lessons/lessons (part 1).taf	The Extra Lessons	-
+lessons (part 2).taf	499993	a8ddc6fce7e73c6a07928b4e0af055465cc7b13308cd2b835cd205876b5ca206	https://web.archive.org/web/20110906141643id_/http://www.delron.org.uk/games/extralessons.zip	The Extra Lessons/lessons (part 2).taf	The Extra Lessons	-
+lessons (part 3).taf	725795	2f89b577778e0cddc659c445378099f6781a2c01d93a46427ca47bbd8c9a5a66	https://web.archive.org/web/20110906141643id_/http://www.delron.org.uk/games/extralessons.zip	The Extra Lessons/lessons (part 3).taf	The Extra Lessons	-
+lessons (part 4).taf	717132	bf789804be45834616629275e29625a2a4e01cc2e0511ce1f3d5aec0a6cab83a	https://web.archive.org/web/20110906141643id_/http://www.delron.org.uk/games/extralessons.zip	The Extra Lessons/lessons (part 4).taf	The Extra Lessons	-
 life.taf	45737	216efdba048cfcf0ca31ef071cd2d742277f251cffe0f2c84ee73cacac4175eb	https://ifarchive.org/if-archive/games/adrift/life.taf	-	Life	-
 lifesimulation.taf	35886	ca69d0b07ac02c7a03afd215e109b6e1091280e5fdf7eff14f315f65ca203ccb	https://ifarchive.org/if-archive/games/adrift/lifesimulation.taf	-	Life Simulation	-
 light_up_4summer_comp.taf	28347	748e8ec86d91b7a209ac10ead5f338df9c827606d73847c9ded492496c3842b8	https://www.adrift.co/files/games/light_up_4summer_comp.taf	-	Light Up	-
 Lights_Camera_Action.taf	125378	cb18b28c234bdb9a5885d311a05e2a27c8a00b9d9b7a85c12fa09b5f006fbd12	https://ifarchive.org/if-archive/games/adrift/Lights_Camera_Action.taf	-	Lights, Camera, Action!	-
+lightsgoout.taf	16919	13fde260643abd261742020bc4cfd4b4e8ef9909323de73b4e9d49aaa04110d5	https://web.archive.org/web/20110904163429id_/http://www.delron.org.uk/games/lightsgoout.zip	lightsgoout.taf	When The Lights Go Out	-
+liqid.taf	49095	fb417e874708741b6707bcfa2d054f7a412a65b06a537b33dd470c029de942c4	https://www.adrift.co/files/games/liqid.taf	-	The Quest For More Hair	-
 lobster.taf	7186	f12dd0f3c65ac0c0a2d6a25e9b8450495f4f22c111414577457b8ae3644be4ab	https://www.adrift.co/files/games/lobster.taf	-	Attack of Doc Lobster's Mutant Menagerie of Horror	-
 Locked_door_with_water_trap.taf	37967	4699fdf8cc27c03a50e4a44b8002b6323a66e55fe6ca555665ecdb5c74cbbb8a	https://ifarchive.org/if-archive/games/adrift/Locked_door_with_water_trap.taf	-	Locked Door With Water Trap	-
+lockedout.taf	22292	3e7c70c2c0a482294a84745205c08a02bca05da9aebce6bb8b2e434cb6056242	https://www.adrift.co/files/games/lockedout.taf	-	Locked Out	-
+Locuras.taf	18755	f5c8efbf1c60516717ece87606e5248367aeebced3069f8effb7ffd746aa89ac	https://ifarchive.org/if-archive/games/adrift/spanish/Locura.zip	Locuras.taf	Locura: El Sentido de la Existencia	-
 longbarrow.taf	6211	e17e61df421d37cee679bfc5b671ec0787feaf877315731123d68f54e9f835ea	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/longbarrow.taf	The Long Barrow	-
 LOST.TAF	42596	1d84b57f4e8949958b41e6151fab35f9f834ac624d39af9d82b736f175bc6f2c	https://ifarchive.org/if-archive/games/adrift/lost.zip	LOST.TAF	Lost (by Eric Mayer)	-
 lostmines.taf	37088	f42a591a856c495fb5ff4755bb81e1fb8c734d7c9e0bb03b8204445bd0caadf7	https://www.adrift.co/files/games/lostmines.taf	-	The Lost Mines	-
 lostsouls.taf	16695	97d477bffe1660a87896177780519a50982981b5da0f323cf08de4d9d9822f00	https://www.adrift.co/files/games/3hr_comp.zip	3hrComp/lostsouls.taf	Lost Souls	-
 losttombv2.taf	56336	cecd119028567e0e84c1eccef36028bce4135b2f60c9f0fc96bba2d4e5539e4c	https://www.adrift.co/files/games/losttombv2.taf	-	The Lost Tomb	-
+LoveForReal.taf	54635	6e13dd15b1f4f9eeec4fefaf73c7466e3759b56b0a97ce15fd9627f2fa1ba900	https://ifarchive.org/if-archive/games/adrift/LoveForReal.taf	-	Love For Real	-
+Loving Family.taf	112064	189cfb09dfe4fdae50335d3b535a085a274406168e25a190cdeabe9fb72ca0b3	https://web.archive.org/web/20160325035633id_/http://delron.org.uk/games/loving_family.zip	Loving Family.taf	Loving Family	-
+mages.taf	56943	fe100bb51ba1f465d84dae056bbad7e68f4c2614e0b09e440935f21d92e202a1	https://web.archive.org/web/20110904131526id_/http://www.delron.org.uk/games/mages.zip	mages.taf	The Mages of Costrador	-
 magicshow.taf	104201	e48fcdbe3d1378b50ffdf94ee9a241dd3e4a52abe58a0eb4a5ecc693d6d62337	https://ifarchive.org/if-archive/games/adrift/magicshow.zip	magicshow.taf	The Magic Show	-
 Main Course.taf	7389	e93107d8309a7bc6f6217e1c8e6b7d88d9a408fa97d16a8c18311364eba1ec96	https://www.adrift.co/files/games/2_The_Odd_Competition.zip	Main Course.taf	Main Course	-
+makeshift-magician.taf	10862	00cd75cb362e4270bf7f29eac25555ea00e27cc7b35c65b58c9727642c2c9339	https://ifarchive.org/if-archive/games/adrift/makeshift-magician.taf	-	The Makeshift Magician	-
 MammothVacuum.taf	4290	37666b04e3479ef9c69914ab192371c98087b7436be210007175bef8a8e221ca	https://www.adrift.co/files/games/Mammoth%20Vacuum%20Button%20of%20Death.zip	Mammoth Vacuum Button of Death.taf	Mammoth Vacuum Button of Death	-
 man overboard.taf	14141	22bec328d7219be5169d48a4e830923dad1667f759cccfef2a768ac72860e111	https://www.adrift.co/files/games/wcc.zip	Writing Challenges Comp/Man Overboard - TonyB/man overboard.taf	Man Overboard!!!	-
 Mangiasaur.taf	28676	7afa09459144890bb2f3a5c3d26613a7e5e86d1fd02d0d73e954634ff7e7aaf6	https://www.adrift.co/files/games/Mangiasaur.taf	-	Mangiasaur	-
 manor.taf	31353	427a7d3c549a6cc8ee4c75ca534a93528e23d0f18d49a10eaab8d2b281bec24e	https://ifarchive.org/if-archive/games/adrift/albridgemanor.zip	manor.taf	Albridge Manor	-
 marika.taf	29687	f6a3f39abc0a51fd2b7c1c06ead9735cb872f0f87e813177259519bd7c2293ec	https://ifarchive.org/if-archive/games/adrift/marika.zip	marika.taf	Marika the Offering	-
 marlin_affair.taf	13192	a740529b269e0450119a02a4e21e796e057c45eac0f2c7f3bda6e0ba7b3e03c9	https://www.adrift.co/files/games/SummerCompGames08.zip	games/junepro.taf	The Marlin Affair: Prologue	-
+Marmalade_Skies.taf	15549	ca2b1112df2930375fb261cdcc24fb3b28113d0adb21e066ebec938b8ff3b880	https://www.adrift.co/files/games/Marmalade_Skies.taf	-	Marmalade Skies	-
 marooned.taf	50516	ac3fe5c417e6b610adb948c206a7a4bcb7af6ca40eba95e9bba7152386562b55	https://ifarchive.org/if-archive/games/adrift/marooned.taf	-	Marooned (by Bruce Davis)	-
 Matt's House.taf	33429	43b5f48ea37adffd57d5443fb76dcdd98903a7d8291da210db63c66623175a0e	https://www.adrift.co/files/games/myhouse.taf	-	Matt's House	-
+matt.taf	8912	60671bacc1e67394da591fa3162060d322bda184e2d5a84d0071447fc0359d07	https://web.archive.org/web/20110904163400id_/http://www.delron.org.uk/games/strange.zip	matt.taf	The Strange Adventure	-
+Melancholy Blood Act 1.taf	43845	9b8f05366f7c4bd0cd01ecbde4ef13440b4e900570d21f614c4d66b694404654	https://www.adrift.co/files/games/Twin_Comp.zip	Melancholy Blood Act 1.taf	Melancholy Blood - Act 1	-
 Melbourne Beach.taf	70579	6d31d76ca3a4553d2a50a962e858fe397f89938e549ef02e880cc379458603c6	https://www.adrift.co/files/games/daveshouse.zip	daveshouse.taf	Melbourne Beach	-
 Merry_Murders.taf	69489	5c782418ca04a3af44fa36f65a945820b969b6b3e0b706f67522c7fda91f32de	https://ifarchive.org/if-archive/games/adrift/Merry_Murders.taf	-	Merry Murders	-
 mhpquest.taf	17143	d6cf235caaac2a56f47e81f0c1ba491ec56ea05c167bb607bb6b7cec2630f5f1	https://web.archive.org/web/20110904195629id_/http://delron.org.uk/games/mhpquest.zip	mhpquest.taf	Quest for the Magic Healing Plant	-
 microbe_willie.taf	3538	f4a3cb11dfdd70e3d4f99ec7fd80b5a280f4f32daee2294f34661df17733a82a	https://www.adrift.co/files/games/1hourgamecomp.zip	1hourgamecomp/microbe_willie.taf	Microbe Willie vs. The Rat	-
 microwaveman.taf	5154	ae4783a36b5ea062da4ac771a9dc56c437a1eea30fcb4ae8ffbeb1eff40eab3c	-	-	Microwave Man!	no online source found
+midsomer bottom manor ver1.8.taf	57277	11ea3f65772f38824fd6675fd8f92ff5f4905344b94438a834f6a1cabb237583	https://web.archive.org/web/20160325040333id_/http://delron.org.uk/games/midsomer.zip	midsomer bottom manor ver1.8.taf	Midsomer Bottom Manor	-
 MikeDesert_SuburbanProdigy3.taf	2427725	af28c80720ab86250201d52525d04c2586ae30e124bbf6e269fccc14965ca44b	https://www.adrift.co/files/games/MikeDesert_SuburbanProdigy3.taf	-	Suburban Prodigy	-
 mikes.taf	18967	863d6b8585401e90337bd2e3b177a59b5e4c4ff5dc8da858f73de6e2f8fab5dd	-	-	The Life of Mike	no online source found
 mishmash.taf	68353	444658ba181a02ca56fd0311d6f815dba7c769eb5748228fb4b79903dd6cffe9	https://web.archive.org/web/20110904201248id_/http://delron.org.uk/games/mishmash.zip	mishmash.taf	My Mind's Mishmash	-
+MissingPerson.taf	63928	1c89e9e053a84c0be4e591f606d4679a36e56f0cf4a62ade8419348d9131d4a7	https://www.adrift.co/files/games/MissingPerson.zip	release/MissingPerson.taf	Missing Person	-
+Monster in the Mirror 2.taf	34133	7e2bc9fb08d179fc4c47fbc443b1a226a52455ddcfdb73701f3810dcc8d3fa4a	https://www.adrift.co/files/games/mm2&3.zip	Monster in the Mirror 2.taf	The Monster In The Mirror (Part 2)	-
+monster.taf	17950	5eab2f48c9adb5d8bb7a1bbab9d5752093f1c8d77fd43cc1afffff2c643a35d6	https://www.adrift.co/files/games/monster.taf	-	The Monster In The Mirror (Part 1)	-
+MonsterIsland.taf	887821	b744f448436733a46d7b85d4ea2bacd16a59fd1c472330fa710d08b6ad5eb778	https://www.adrift.co/files/games/MonsterIsland.taf	-	Monster Island	-
 Monsters_r2.taf	17168	38825365af25fd5e759238f6ded549b671ad295642e0f25aabc4542687542b9a	https://ifarchive.org/if-archive/games/adrift/Monsters.zip	Monsters_r2.taf	Monsters	-
 mortality.taf	94578	421f58a288e10759f6aac618858908e99d31e7d1ccc046e71ab7df0bdb7f332f	-	-	Mortality	different release upstream: https://www.adrift.co/files/games/mortality.zip#mortality.taf (sha256 56dd6ea3a875f3f3bcc4f8172f64bd2b4b48fc3de1c2e7e9999c7ffe8e340f9f)
 Motion.taf	11579	c2aebffd7cc86103cfc39806ec671e3779901534e24f2f06b0cc61280e6cae16	https://ifarchive.org/if-archive/games/mini-comps/adrift/summer-comp-2010.zip	Motion.taf	Motion	-
 mould.taf	124593	e0067fbff1c4c468f67c533d5bb6a757b5e3834071d5c4be5f6dd62f50fb5e27	https://ifarchive.org/if-archive/games/mini-comps/adrift/gameofyear06.zip	mould.taf	The Potter and the Mould	-
+mount.taf	453241	e8fab606859e8cab6be191f51db6dde742e7e751558cf90d7d91a744c5dadb0d	https://web.archive.org/web/20120724155325id_/http://ccole.aifcommunity.org/mv.zip	mount.taf	Mount Voluptuous	-
 Mr_Fluffykins_Most_Harrowing_Misadventure.taf	14541	1954781c89e9f13b711d2a493ae490184881612b779666d78e530f3926f94d12	https://ifarchive.org/if-archive/games/mini-comps/adrift/Spring_Ting_2009.zip	mrFluffy.taf	Mr. Fluffykin's Most Harrowing Misadventure	-
 ms_mobius.taf	23225	2b28b4ab7f5003f576e0d3aa579e908f81e150b11be05fda53dac1ab8e85557b	https://ifarchive.org/if-archive/games/adrift/Montahue_Scott_and_the_Mobius_Belt.taf	-	Montahue Scott and the Mobius Belt	-
 mudergreatfalls.taf	59896	ea5cd43f8f0786e9f1ca0d6479c967684c2dd24f756f7c476d5856080833a79b	https://www.adrift.co/files/games/mudergreatfalls.taf	-	Murder In Great Falls	-
 MurderMansionntro.taf	6793	a20787a4af12c6c51237e849eb04c48ba6d72dbac1def86cfe8a3d285d054d4e	https://www.adrift.co/files/games/introcomp05.zip	MurderMansionntro.taf	Murder Mansion	-
 mustescape.taf	17497	3391764956879957ce78ace3237601425dc1f447fa85b835a4de77347c8a68fd	https://ifarchive.org/if-archive/games/adrift/mustescape.taf	-	Must Escape!	-
 mutaydid.taf	513587	82daf16cc37464b10fbd6ac0d4e6f4a27d32b48e410c63d739b600a2cc2406f1	https://ifarchive.org/if-archive/games/mini-comps/adrift/EvenComp2009.zip	mutaydid.taf	Attack of the Mutaydid Meat Monsters	-
+mwf.taf	49765	e5c6cdbb9c5978817067ce6667f0428c43e0b86e27a15be4a0ad24f00370bdb2	https://web.archive.org/web/20171012183424id_/http://aifcommunity.org/games/adrift/MWF.taf	-	The Magic Wishing Fountain	-
+MysteryHouse.taf	4916	100aed585c5944bb084ab638b27dce158b44e9a5fb04ee3f4432705a95117928	https://www.adrift.co/files/games/MysteryHouse.taf	-	Mystery House	-
+mysterymanor.taf	24879	ea7c6a4e473d19c79213fe34e8f826fd1095d678cc76ad7ccdd107cb0a358c9d	https://web.archive.org/web/20110906062757id_/http://www.delron.org.uk/games/mysterymanor.zip	mysterymanor.taf	Mystery Manor	-
 mysteryofcaves.taf	27826	1c8cca35704c2e3a33f17f1278c0b4f53a854cec96afa8555a3ac1e25cb9eb00	https://ifarchive.org/if-archive/games/adrift/MysteryOfDarkhavenCaves.taf	-	The Mystery of the Darkhaven Caves	-
+Namiki'sDay.taf	22297	257932a1704d22fc0b543b2f5af2d9f4028c2623988025c6841c3fa68840938e	https://web.archive.org/web/20060516065353id_/http://www.shadowvault.net:80/games/namiki.zip	Namiki'sDay.taf	Namiki's Day	-
 neighbours.taf	13333	30d2648d56a2b19d3a721c87b5ea40c29f29e997f05f1b28fa4fe1ed90ab166a	https://www.adrift.co/files/games/minicomp.zip	Minicomp/Neighbours From Hell by Davidw/neighbours.taf	Neighbours From Hell	-
+nem.taf	21424	db17f7b13cc0e14a8c6b96aae74a39d1c7957b6145bddb6475f69b1840501926	https://web.archive.org/web/20060516070536id_/http://www.shadowvault.net:80/games/nem.taf	-	The Nem Rehsif	-
+newbie.taf	3644	1a37e999b1fbd5a5940e655d8252ff0b9a6751a0faadd1e99ab43c792476fe36	https://ifarchive.org/if-archive/games/adrift/newbie.taf	-	Newbie	-
 Newton.taf	1291	943a4bc22fd226bd8c15ef5be91f739ec1962a553b5f80cfc4e2c4690ab1d859	https://www.adrift.co/files/games/Newton.taf	-	Newton	-
+normvillehigh.taf	57226	8d8a03856fa85ea96fe9452e5bb545d46b949c4a7640842d5ae6f0d4195feb30	https://web.archive.org/web/20110906120220id_/http://www.delron.org.uk/games/normvillehigh.zip	normvillehigh.taf	Normville High	-
+Notebook2.taf	1861	ae4a5004d9c3460f4de1754a6d2572b8a5eadbe7de48c8062bb4185b9a82e7f1	https://www.adrift.co/files/games/Notebook2.taf	-	Night and Day	-
+Notice Me.taf	26977	bbd0a92ef3d4f2d0b196b9a97d1db2ef770497b1effe9a44ecd99cfee7f915d6	https://web.archive.org/web/20110905104209id_/http://www.delron.org.uk/games/noticeme.zip	Notice Me/Notice Me.taf	Notice Me	-
+noximion.taf	7321	cf02e7529e0b87c88b10fb458f4bb5b4b4c655acab43b4f647b647f550d03334	https://www.adrift.co/files/games/noximion.zip	noximion.taf	Noximion	-
+oakwood.taf	12558	031df01bcde2b275c1be4d311120e2c1f1c3c0bae4ca56f56af59fd0adeb8d26	https://web.archive.org/web/20160325035154id_/http://delron.org.uk/games/oakwood.zip	oakwood.taf	Oakwood School	-
+obsession.taf	6523	42cc40dccf980f74797c4655f6779ff15377f23a77040027154e981878c2a520	https://web.archive.org/web/20100816015357id_/http://www.shadowvault.net:80/games/obsession.taf	-	Sad Obsession	-
+officebreak.taf	7770	c10772e30ef2843cea56a61efd6134c99cbbdb1a959e865838c00835cc84c4e3	https://www.adrift.co/files/games/officebreak.taf	-	Office Breakout	-
 Oh_Human.taf	7392	88fb9e6ec775889f9b547f4719f8e29a80b571de7b2eb0da31a0e291dbdf9552	https://ifarchive.org/if-archive/games/mini-comps/adrift/The_Odd_Competition_2008.zip	Oh, Human.taf	Oh, Human	-
 ONNAFA.TAF	167339	e6ac4beffebfb87f48ece8c5b37d0e21105b211c6b0b86ab6514a1f823e822d3	https://ifarchive.org/if-archive/games/adrift/ONNAFA.zip	ONNAFA.TAF	Oh No Not Another Fantasy Adventure	-
+options.taf	302728	6ad3ea7640787fbc919566174f055334ed9d58da6616db7859ed7bddb667556f	https://web.archive.org/web/20160325034652id_/http://delron.org.uk/games/options.zip	options.taf	Options	-
 Orient_Express.taf	12651	a936b96f05e337b060ed409fbd30fd2330848edabcb81d37750c088c043c44a5	https://ifarchive.org/if-archive/games/adrift/Orient_Express.taf	-	Orient Express	-
 outline.taf	5724	12a509f1e029ef5acc3386841fbb44077330a4a6bf451954278a7ef232dfc14c	https://www.adrift.co/files/games/introcomp05.zip	outline.taf	Outline	-
+Outside.taf	53526	fa0ca28beb09c5851c0862b32bc07e2bb0a2296c84b39cdd8c6e7a92b9bf3885	https://web.archive.org/web/20060516074645id_/http://www.shadowvault.net:80/games/outside.zip	Outside.taf	Outside	-
+ovaloffice.taf	21350	aeb435a7fd2048bb636795bd58c6f6bd5893f4e58cd6837575b8cd91aa53dea0	https://web.archive.org/web/20160325034530id_/http://delron.org.uk/games/ovaloffice.zip	ovaloffice.taf	The Oval Office	-
 Over the Edge1.0.taf	8128	21f44433ada430c843c5f9322abc3c606db012d72e28cd8254d6c61c5c590b20	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/Over the Edge1.0.taf	Over the Edge	-
 P2P.taf	6491	c4bed9bd8bf9edf0760d462939b8363b9953575f9fb21bc48d47ffb0e3684ffe	https://www.adrift.co/files/games/introcomp05.zip	P2P.taf	Point 2 Point	-
 Paint.taf	76493	4084e74b0779bfa585b268878689eb3a9489292cce5de12fd6c1fe28ac166282	https://ifarchive.org/if-archive/games/mini-comps/adrift/gameofyear04.zip	games/Paint!!!.taf	Paint!!!	-
 panic.taf	198625	7be6b9e61556c2f6512c630e72950fc88b266479365f31e241e6c158a99a1618	https://web.archive.org/web/20090710083204id_/http://delron.org.uk/games/panic.zip	panic.taf	Panic	-
+Paradise_Hotel.taf	106930	400cb1d9fd7e53e86939988406796317795e8b5c077dff346fa146fa4ec68660	https://www.adrift.co/files/games/Paradise_Hotel.taf	-	Paradise Hotel	-
+party.taf	37197	e66eaf25115e2b7b83166fe6b8bde7ee89a32771fa69bbb9f671e6cbf84796a5	https://web.archive.org/web/20160325040045id_/http://delron.org.uk/games/dinnerparty.zip	dinnerparty/party.taf	The Dinner Party	-
+pathway.taf	20935	60c1df95b23c0e846ebc362d6802cd95ee9b845a3102cb489cc0d21b73bcb2f7	https://www.adrift.co/files/games/pathway.zip	pathway.taf	Pathway to Destruction	-
 Patient7.taf	15502	59e3a82e12d5900b674790931ca8b4befec922a589000f73ced7a4e6a3c65e50	https://ifarchive.org/if-archive/games/mini-comps/adrift/gameofyear09.zip	Patient7.taf	Patient 7	-
+Pay Back.taf	33884	f03a422ca5387df23ec90ddcf6bb5382782ede34af681b74e1487f36e51696dc	https://web.archive.org/web/20160325035936id_/http://delron.org.uk/games/payback.zip	Pay Back/Pay Back.taf	Pay Back	-
+PB.taf	23919	f0ed5ec55960649be589c875d70ced2de7037426f09bab33391ddd019fc6883b	https://web.archive.org/web/20160316224117id_/http://www.delron.org.uk/games/pizzaboy.zip	PB.taf	The Pizza Boy	-
 Percy.taf	5965	2ff979156e0b962acd99cc592275cebf7fe9c0c29cdc0bd386a0b523f91a0ee2	https://ifarchive.org/if-archive/games/adrift/PercyTheViking.taf	-	The Saga of Percy the Viking	-
 perspectives.taf	8043	6981e44328848d13e03ea3ff0cbf65f2eb4d8a6a34019a4917d5578708391fb4	https://ifarchive.org/if-archive/games/mini-comps/adrift/EvenComp2009.zip	perspectives.taf	Perspectives	-
 pestilence.taf	29021	3a26bda973bfa1f49d77a91695c95c987aa7764009ccaaf2a3dbd07fb28742f5	https://ifarchive.org/if-archive/games/adrift/pestilence.zip	pestilence.taf	Pestilence	-
@@ -257,11 +421,22 @@ Picture.taf	2257	e84b5278e11e7210c4757b4d1e7ffc29e3187140124a4e99c50dfc75db6c336
 Pieces of eden.taf	5741	d7f3f91790b81c98d975f3d91ef600be069ff06a4acf66b15cc311f74d562c9d	https://www.adrift.co/files/games/No_Name_Comp.zip	Adventure1.taf	Pieces of Eden	-
 Pilfers.taf	3727	733bceac6d934306623a2de62fb8bf0e7e09f717ea8984dff7194cdec7537bca	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/2020 3hour/2020 3hour.taf	Pilfers	-
 plains.taf	179884	c596d1993cc4be0f2f5babf66991f8cee319b184c62da9cc84644c3f34754e2b	https://web.archive.org/web/20160501085817id_/http://newsletter.aifcommunity.org/minicomp2007.zip	Plains of Passion/plains.taf	Plains of Passion	the .taf stores the title as "Plains of Fantasy"; the comp listing calls it Plains of Passion
+Plan69.taf	3754342	40917223c3c88ab27fc9b1dd9ae7b2affda8a6d53853901f3a277eabf63e5e6d	https://web.archive.org/web/20060516073305id_/http://www.shadowvault.net:80/games/plan69.zip	Plan69.taf	Plan 69	-
+Planescape-Encounters1.taf	53439	597729c9137c8b0479ef87d432c858ff23c31f454602468993a666c69b88020f	https://web.archive.org/web/20160325095154id_/http://delron.org.uk/games/planescape.zip	Planescape/Planescape-Encounters1.taf	Planescape - Encounters 1	-
 plunder_gargoyle.taf	17947	4f36384503cd362d43361a3ba6d4d585ef355ecbaf4e4e46e91a60bb183436d4	https://ifarchive.org/if-archive/games/adrift/plunder.zip	plunder_gargoyle.taf	Pirate's Plunder!	-
+Postman Matt.taf	6668	f41a9549d12f89dbe8d0f59fab35648e1081c83635270680db46a03789865dcc	https://www.adrift.co/files/games/Postman%20Matt.taf	-	The Adventures of Postman Matt	-
+power play 1.3c.taf	45308	a60239bfc242588668a64fc7cf6c13178956d940a84cd984ef26315db3a3d57c	https://web.archive.org/web/20160325052041id_/http://delron.org.uk/games/powerplay.zip	power play 1.3c.taf	Power Play	-
+practice policy.taf	62236	964b1e9bf45d60413fbda5cd1193976382ee300925813e553e8e41742122efbf	https://web.archive.org/web/20160325052050id_/http://delron.org.uk/games/policy.zip	practice policy.taf	Practice Policy	-
+practice-procedures-1.5_4.0.taf	27626	a9e03e39d395a6f5d8fcd26e5359d5abcbb495123dd63e8218853d3853b35195	https://web.archive.org/web/20160325052118id_/http://delron.org.uk/games/practice.zip	practice-procedures-1.5_4.0.taf	Practice Procedures	-
+praxis.taf	9977	ca8e6909922d59b158158a5b6c253ae3d862d90f6598d565c44ecade08ae6af1	https://web.archive.org/web/20110904113416id_/http://www.delron.org.uk/games/praxis.zip	praxis.taf	... from the Files of Sigmund Praxis, Guerrilla Therapist	-
 princess1.taf	7181	5b8c181e7ea92cb3046bc767945d9bfac38ad2a8cd7e52db8d98df32998a71aa	https://ifarchive.org/if-archive/games/adrift/PrincessInTheTower.zip	Princess in the Tower, The.taf	The Princess in the Tower	-
 Private Eye.taf	236323	4c02218568f1f5618491dfb6384a6203dd30591c83ae4a9bdc88f1c1dd28e014	https://ifarchive.org/if-archive/games/adrift/Private_Eye.taf	-	Private Eye	-
+Private Teacher.taf	23769	353bd99020f1248cbf40e5e86dfc46484a1dc988f64c720e03ab1313babceece	https://web.archive.org/web/20110904232236id_/http://www.delron.org.uk/games/private_teacher.zip	Private Teacher/Private Teacher.taf	Private Teacher	-
+Professional.taf	51657	8dac3a58663f2d5682eec6b55b5a6d85691b88c1fc5f4297b499501da95136f8	https://www.adrift.co/files/games/Professional.zip	Professional.taf	Professional	-
 Professor.taf	31253	beddd4fbf78a5ee6f4857700489a21b2c2c327d7b349bd51f648909b218ad69b	https://ifarchive.org/if-archive/games/adrift/Professor.zip	Professor.taf	Professor Von Witt's Fabulous Flying Machine	-
+prostitute.taf	8555	1ddb34802a4f74c542afacca5b26795e94a716aadc3f6a2c8863772f69354fb8	https://web.archive.org/web/20090630150921id_/http://www.shadowvault.net:80/prostitute.taf	-	The Prostitute	-
 provenance.taf	532278	27d0079f308e87843f3f3513716cd80a285eb787593545861124d17a7e6e1dcd	https://ifarchive.org/if-archive/games/adrift/provenance.zip	provenance.taf	Provenance	-
+pta5.taf	35815	c7cee8c833ef7a2c25d9a414c3c00d31af0baa6c82f663fe7371aca8cbfef31e	https://web.archive.org/web/20160325095733id_/http://delron.org.uk/games/pta.zip	pta5.taf	PTA Dance	-
 ptbad.taf	3349	8f4b266410b8387664ac89edb78da88591718959d7a5ee1c5e607c0fbef2b432	https://web.archive.org/web/20110904010356id_/http://delron.org.uk/games/ptbad65.zip	ptbad.taf	PTBAD6.5: The URL That Didn't Work	-
 puzzlebox.taf	19540	c538802f94deb38a6ad98a1d3f01a901385d217f11e6389be7fb6cea95cad7b7	https://www.adrift.co/files/games/CompGames2007.zip	puzzlebox.taf	The Puzzle Box	-
 pyramid.taf	1953	73a3c13f71b9deb820caf38bc663554190673b42b73227234b7b803f526e37c1	https://www.adrift.co/files/games/onehourcomp3.zip	pyramid.taf	The Pyramid of Hamaratum	-
@@ -269,9 +444,12 @@ QuestI.taf	2544	ff78a19262d5e87c27ebdb954da8fdccb10d6cfedd930643361a9659a2dff3dc
 QuiATueDana.taf	20034	e8a66d0c1b0034ebb99ceecc135d5253ea519e7cbfafa795279ca17537e7813a	-	-	Qui a tue Dana ?	no online source found
 R2DC.taf	8861	86720ddd177a9320d62a4eacbd53fd597c6d0a42eb42868d6e248f465513a2b4	https://ifarchive.org/if-archive/games/mini-comps/adrift/ectocomp-2008.zip	R2DC.taf	Return to Dracula's Castle II: Revenge of Dracula's Castle	-
 raccoon.taf	4534	65d0ccd67278599fb6c1c610bcf9d2463e3d8eee62a563def927daa5e9cbca16	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/raccoon.taf	Quest for Food	-
+raiders.taf	4729	caf1115abe20c441bb4f0c3f44c9ae75199cc3b7ddf22dfd0074ed19e0f71488	https://web.archive.org/web/20060516074808id_/http://www.shadowvault.net:80/games/raiders.taf	-	Raiders of Sheppey	-
 rain.taf	10512	65032129089c6e506e9d50b7d100394a39ae1dab1983bf302bc9ed90671f141b	https://ifarchive.org/if-archive/games/mini-comps/adrift/EvenComp2009.zip	rain.taf	Bringing the Rain	-
+rat.taf	25705	92ae2f784e1d9d0eb710c0a717aa8d0eefa332bfe8cfa4c8b3d35615c4ad3e82	https://web.archive.org/web/20100228070146id_/http://www.shadowvault.net:80/games/rat.taf	-	The Stainless Steel Rat	-
 reactor_1.taf	11380	d676e8337f213388d5e2829ebee643ffafcca88635743a5b03893cc2ed9091af	https://ifarchive.org/if-archive/games/mini-comps/adrift/Spring_Ting_2009.zip	reactor_1.taf	ESS Chance: Reactor 1	-
 Regrets.taf	10448	8b93e37134d29e43d5aa6203820522da561b22bf96ac057dabbf66c67e323009	https://www.adrift.co/files/games/SummerComp05.zip	SummerComp05/regrets/Regrets.taf	Regrets	-
+relatives.taf	46620	1e1735a7c0450fad673cc2c49e15ca18712e1542253b38b88f1edeae081eeadd	https://web.archive.org/web/20160325095312id_/http://delron.org.uk/games/relatives.zip	relatives.taf	Relatives	-
 relojero.taf	21775	ea1bc6957c0d02bd60d699f1af1bbe8dcc5f592e8eabc40323bb49b16ed16ae7	https://ifarchive.org/if-archive/games/adrift/spanish/relojero.zip	nano2.taf	La hija del relojero	-
 Renegade_Brainwave.taf	8346	ae4c78b9d5dc6e83a40219291331b3dba1a8ae56b232e10de2bb1c34fef8d4e8	https://www.adrift.co/files/games/Renegade_Brainwave.taf	-	Renegade Brainwave	-
 Renuntio.taf	48764	628db5a27100df8d29d54a39be9316b19a27732b5c1345019705bc49217fca8d	https://ifarchive.org/if-archive/games/adrift/spanish/renuntio.zip	Renuntio.taf	Renuntio	-
@@ -281,48 +459,85 @@ Riding_Home.taf	55650	b8979706af892e1ebd0a2e45794bf334aad2442b1eed59c3363c4730b4
 rift.taf	2606	4e6098f3df2a0b6393bbbec7049b1198d96e69a130f5dd58c807a288df4738a4	https://www.adrift.co/files/games/introcomp05.zip	rift.taf	Rift	-
 rking.taf	186477	86ad602c0dfe19ae7a44e0f1df5eac94a1fa11f55f9f5cdf897845078941d628	https://www.adrift.co/files/games/CompGames2007.zip	rking.taf	The Reluctant Resurrectee	-
 Rock Band.taf	43719	e06113844059f052643838064e0a7f51aa1d7039ec5359aa6c7f8d1783b36f8c	https://www.adrift.co/files/games/Rock%20Band.taf	-	Rock Band: Revenge of Gigantor!	-
+Rocky_Raccon_Game.taf	5530	35bfe3327b578366b79456a71ff83e8db0ff96327487ccc5cb719c714d2b0391	https://www.adrift.co/files/games/Rocky_Raccon_Game.taf	-	Rocky Raccoon	-
+RodneyandthePrincess40v3-1.taf	9910	a3d5b6519dc8e22aa43b8fb9d33cc0385dc3af8e6f0afac2dc1c6135ea4c3212	https://web.archive.org/web/20160325051013id_/http://delron.org.uk/games/rodneyandtheprincess.zip	RodneyandthePrincess40v3-1.taf	Rodney and the Princess	-
 rollingthedough.taf	3919	2bf22f4bde02c08cf3eefb09c6cfbf235de0421cb1553473005630a79bed8ba2	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/rollingthedough/rollingthedough.taf	Rolling the Dough	-
+ronweasley4.taf	334421	fcbe415571f43f9b0bfe2e72ea3f961edf8aa7b447daf027a003f69b364e4055	https://web.archive.org/web/20151024184101id_/http://www.delron.org.uk/games/ronweasley.zip	ronweasley4.taf	Ron Weasley and the Quest for Hermione	-
+S.E.R.E.taf	25956	1195b8632e526fa01539f3ffb2be8899b781844ede8a57ad610b1f831ceecc50	https://www.adrift.co/files/games/S.E.R.E.xmusic.zip	S.E.R.E/S.E.R.E.taf	SERE - Survive, Evade, Resist, Escape	-
 S_Tar_Dus.taf	42463	88c9fd2025abdc2e00ec940d229e4f876e690ae37d289ded884ce6fc0245ade3	https://ifarchive.org/if-archive/games/adrift/S_Tar_Dus.taf	-	S Tar Dus T	-
 sa.taf	536710	b4eb7100b0186620530b280bc7a5ec76d17bbab618827ae3e0f30f22d19b8f59	https://www.adrift.co/files/games/sa.taf	-	Sophie's Adventure	-
 saffire.taf	7489	00892d92d786c2b7587ce483f115cd057ca0e65c0938bc7193e3db2c1f24dee5	https://www.adrift.co/files/games/onehourcomp3.zip	saffire.taf	Saffire	-
 salutations.taf	5591	2e002b2fc3e5a03c5fec6dbc31ab5b428b3bfad0b1f0f6393944b042960ae4eb	https://www.adrift.co/files/games/Ectocomp_2008.zip	salutations.taf	Salutations	-
+salvation.taf	51557	eaa7886bbc3fd08487823999dd6315df3e97e1636c75908d62f1191822c7d07d	https://web.archive.org/web/20160325051226id_/http://delron.org.uk/games/salvation.zip	Salvation/salvation.taf	Salvation	-
 sandl.taf	27995	f5448bb302c3a1d9ead845d1fa33e2dbc8e0761bda9de0ee7fbb57e8326942bb	https://www.adrift.co/files/games/3hourcompetition.zip	3hrcomp/sandl.taf	Snakes and Ladders	-
 Sandy.taf	1286	26d3d562b8131bc7d3b8af1456f2591df8616ae2d975e36ff5312262a0df27c8	https://ifarchive.org/if-archive/games/mini-comps/adrift/Spring_Ting_2009.zip	Sandy.taf	Sandy's Lost Doll	-
+santababy.taf	48656	0778707d9c85feda6e2686e5229b10c45b2d148216f649d7dddf4fff07eaa1b4	https://web.archive.org/web/20160325052015id_/http://delron.org.uk/games/santababy.zip	santababy.taf	Santa Baby	-
+SBFT.taf	143564	4613ef48c1cb87a37ca7f2a14ec0983b2d247a8594400b37b5cba679bb6bd1ee	https://www.adrift.co/files/games/SBFT.taf	-	Stupid Bloody Fairytale	-
+sbwdII.taf	12712	e01507f9ea50b6c6ef97b9caf0c33d1c2b50bf2bd2430d0b810e067349db2f58	https://www.adrift.co/files/games/SBWD_II.zip	SBWD II/sbwdII.taf	The Adventures of Space Boy! Volume II	-
 Scandal.taf	86380	63bae776557c374860ee4b6e4a75539c0550862518fea1594fe688a050ad77bb	https://web.archive.org/web/20160501085817id_/http://newsletter.aifcommunity.org/minicomp2007.zip	Scandal/Scandal.taf	Scandal on the Seven Seas	-
+Scene of the Crime.taf	68054	8ba1f5aef626d2f5d2aa4d5f2ca0216809ddb9a6cb3e8e8c1294f2253359aec7	https://ifarchive.org/if-archive/games/adrift/SceneOfTheCrime.zip	Scene of the Crime.taf	Scene Of The Crime	-
+school plan 1.2.taf	39189	cd38779f399aa07f728c4be88f9e6d3c9a28303c3a11a419197fbde434577bc1	https://web.archive.org/web/20200407064530id_/http://www.delron.org.uk/games/makinggrade.zip	school plan 1.2.taf	Making the Grade	-
+SchoolDay.taf	119682	4e6b56eeff62b7d9571822754451d646f42b5b8caeca41946f80df1e454f002a	https://www.adrift.co/files/games/3_SchoolDay.zip	School Day/SchoolDay.taf	A Day at School	-
+score.taf	24186	89111cf9140da3b1d777fd8b63e37d909c9b4ebe66f61648b3639d09ac19fe53	https://web.archive.org/web/20081121165112id_/http://www.shadowvault.net/score.taf	-	To Score or Not To Score	-
 seciden_oddcomp.taf	8019	153102a4cd1182006451d1cdbb92972f6f79acb3126b81d781497af034779ec1	https://www.adrift.co/files/games/2_The_Odd_Competition.zip	seciden_oddcomp.taf	Return to the Forest House	-
 second chance.taf	139093	394b1acd79edb02a8f412cd9b4c5d2d66e84dd19ae1aaf4ec8c70ae11e0d6a85	https://www.adrift.co/files/games/SecondChance.zip	second chance.taf	Second Chance	-
 secret.taf	15407	d4f7356996e159a5a2608256553ca0c0e231fb1dd8583ea723bdc8691981d04a	https://www.adrift.co/files/games/secret.taf	-	Tom Ceader: Escape From the South	-
 SecretOfLostWorld.taf	49842	6eac0d43bb90c6bbd525a9becf559735dd22117565d347f2c306899202e94928	https://ifarchive.org/if-archive/games/adrift/SecretOfLostWorld.taf	-	The Secret of the Lost World	-
+seekandenjoybybackmasker.taf	9573160	fbdb52c0c3d53ffc73d2293e4ee68b3fa6324432ed108da41c8474c4fb7ef1f7	https://www.adrift.co/files/games/seekandenjoybybackmasker.taf	-	Seek and Enjoy	-
+SelmasWill.taf	55878	c405b6281fdbb81bbd40fb72feda135ceb6298b9822dc3559d60e5e198c3781c	https://www.adrift.co/files/games/mm2&3.zip	SelmasWill.taf.taf	Monster in the Mirror: Selma's Will	-
+sentor.taf	9787	de8a7ca47f7ba99f768821e1073926a392d2624c1d173138628d82146dea8d91	https://web.archive.org/web/20100816015403id_/http://www.shadowvault.net:80/games/sentor.taf	-	Sentor	-
 Sex is Mental.taf	8373	78dd3a67ad3829e96354f7d15984b96296bc5a0edde351ea88ec38f7cc04fe1d	https://web.archive.org/web/20160317095139id_/http://newsletter.aifcommunity.org/2009Minicomp.zip	Sex is Mental/Sex is Mental.taf	Sex Is Mental	-
+shablon.taf	21271	e114ba003a1ac9f6d98b26b882be3d3eaa871b22233b6b87e4db66fccfcf16e0	https://web.archive.org/web/20100817031528id_/http://www.shadowvault.net:80/games/shablon.taf	-	Shablon	-
 Shadow_Of_The_Past.taf	272030	8bceab9b33f203c06af2ac07b2344822535b7c8901ce23f36bffaf2c7a240f37	https://ifarchive.org/if-archive/games/adrift/Shadow_Of_The_Past.taf	-	Shadow of the Past	-
+shadowjack.taf	11606	38a6ca0aa06e7d652f7c87e41e05bf017c597691d700ea8965360e6c1a98d610	https://ifarchive.org/if-archive/games/mini-comps/adrift/finish-the-game-comp-2005.zip	Shadowjack - Arnold 'Ace' Rimmer/shadowjack.taf	Jack of Shadows	-
 Shadowpeak.taf	96190	fff354d350885e43cb5b4b6459e52bbde09ff5b611945738d116a23eaff7ede7	https://www.adrift.co/files/games/2_Shadowpeak.taf	-	Shadowpeak	-
 ShadricksTravels.taf	7456	94dfd90240b8dae80eddf5d09d20a25bd97cda637f564a91ba774c9b8d675c80	https://www.adrift.co/files/games/3hr_comp.zip	3hrComp/shadricktravel's.taf	Shadrick's Travels	-
 ShadricksUnderground.taf	113385	6fa6facea83740c9878a9f81a5fde65b4ce1727426d4d8dfcf3313d7ae6fc0eb	https://ifarchive.org/if-archive/games/mini-comps/adrift/gameofyear04.zip	games/ShadricksUnderground.taf	Shadrick's Underground Adventures	-
+shanilor.taf	6133	9a524a700c7d0ce0400a204412018c2f0932fcabce9b2b95888f20243723993c	https://web.archive.org/web/20100306044944id_/http://www.shadowvault.net:80/games/shanilor.taf	-	Shanilor's Tower	-
 shardsofmemory.taf	118604	fd7c19a2829799d59f33e0ade9ecedd6fcc3134eff7dcbbdbd491297b701fc7a	https://ifarchive.org/if-archive/games/adrift/shardsofmemory.taf	-	Shards of Memory	-
+shelter.taf	5198	4aacdf47b81f577a4cc98ed34bc06d8cf6cf30d3118f018360710b51cde2bf2c	https://www.adrift.co/files/games/The_hole.taf	-	Shelter	-
 shore.taf	4354	aa4b9a687544dff0c9fe0b10a033bf6d00c14e7358bb6c7d40b3c48937e723b4	https://www.adrift.co/files/games/onehourcomp3.zip	shore.taf	The Farthest Shore	-
+shortlived.taf	195	d835ff98b71af37fae577e5e0eb3dcf2064f5b3ff50411ebd8695ce4bf2cc7c8	https://www.adrift.co/files/games/shortlived.taf	-	Short-Lived	-
 Showtime_at_the_Gallows.taf	38073	570fc27201a176c2939894f55a3e3f674181bdc5123a4a77c9674bab43949235	https://ifarchive.org/if-archive/games/adrift/Showtime_at_the_Gallows.taf	-	Showtime at the Gallows	-
 shreddem.taf	1209	4d25e3736a8582c99ba41d5e442d1ff4bbfa7edbb8e9cdc0ffd3995762c3584b	https://ifarchive.org/if-archive/games/mini-comps/adrift/onehourcomp4.zip	4th1hrComp/shreddem.taf	Shred 'em	-
 sibling seduction.taf	53313	d25cb94cd462a5289c75d6561a78075c059a6938f30d0f994ec721f3ce147aa5	https://web.archive.org/web/20160317093954id_/http://newsletter.aifcommunity.org/2010_AIF_Mini-comp.zip	sibling seduction.taf	Sibling Seduction	-
 Sigurd_Fafnesbane.taf	53838	6d670ae2b2cc330f67393ea05802c02eb4271b5784fa80401961c36ee187e527	https://ifarchive.org/if-archive/games/adrift/Sigurd_Fafnesbane.taf	-	Sigurd Fafnesbane	-
 SILKNOIL.TAF	71345	91c72a9a7db700f1812c7fc7df128a6a74e545a79603b3449c9904765b0f0d62	https://www.adrift.co/files/games/sn_zip.zip	SILKNOIL.TAF	Silk Noil	-
+SilverWolf.taf	96342	7cafa034083bdf319df91de419929e01d2d5a228e2700be6dbb17a82932d883e	https://web.archive.org/web/20160325095551id_/http://delron.org.uk/games/silverwolf.zip	Silverwolf/SilverWolf.taf	Silverwolf	-
+sk8sponsorz.taf	8047	3916f78b82112f4ded134bb4446cede0b8101e12b077062ae5b3a6249c86b98c	https://web.archive.org/web/20060516083125id_/http://www.shadowvault.net:80/games/sk8sponsorz.taf	-	SK8 Sponsorz	-
 sleaze.taf	29811	adeaaf49928c55f9dacb33d55f338615648ca8535bb06311dbb7bef955b00554	https://www.adrift.co/files/games/sleaze.taf	-	Sleaze City	-
+Sleep Over.taf	59471	09c9d93e87aadbb1c1d239d75e74f24682c3295262ef0942ca5902cee8e2d2d0	https://web.archive.org/web/20110905173537id_/http://www.delron.org.uk/games/sleepover.zip	Sleep Over.taf	The Sleep Over	-
+smercenary.taf	51458	7cf601d1c877fa8329c7eaa053d0b228981830b9cd252ddddc9b3d8e22188caa	https://www.adrift.co/files/games/smercenary.taf	-	Space Mercenary	-
+Smoke Demo.taf	16601	d584d4ddb7b6c2784d8b205bcd9fd36884383d9730897323f776171297c0c990	https://web.archive.org/web/20160325095348id_/http://delron.org.uk/games/smokedemo.zip	smokedemo/Smoke Demo.taf	Smoke 2: Time of your life Demo 1	-
 smote.taf	1987	7596ec214d11a11bcb670961e7e9931b9d930a8e65f2393fc0d17c2bc92e07fe	https://www.adrift.co/files/games/Hourglass.zip	Hourglass/smote.taf	Smote	-
 sommeril.taf	400940	1b9621f39dbe1147df84a1dec524d31cd62e9f514ac0c92b72e57c28ca0ca844	https://ifarchive.org/if-archive/games/mini-comps/adrift/springcomp04.zip	games/sommeril.taf	Sommeril	-
 sophie.taf	531015	888e259613363b5d6a8eedf6b53ffa6c6562334df389c199a1e894eace204a44	-	-	Sophie's Adventure	no online source found
+sororityHouse.taf	20661	07d219741fbe4f95f17d6f25e563d361721a367676e4cd833b43448d6bc45eff	https://web.archive.org/web/20160325095446id_/http://delron.org.uk/games/SororityHouse.zip	sororityHouse.taf	Sorority House	-
 Space Boy's First Adventure.taf	3865279	c3389fddbb985bb19fe90b093ce4f63687735fc75db05831af095ef14c670bfa	https://web.archive.org/web/20060113083118id_/http://adrift.org.uk/ftp/games/s_First_Adventure_ver_2.0.zip	Space Boy's First Adventure.taf	Space Boy's First Adventure	-
+spacerun.taf	19501	f11d15b9eccf360bf72c0db560de5e008d8358155fd4aec00756fcac712c3246	https://web.archive.org/web/20110905074837id_/http://www.delron.org.uk/games/spacerun.zip	spacerun.taf	Space Run	-
 SPAM.taf	2807	cccd0941eafa1767d8b7c4aba758aaee23483e0858c964065d47d734c1b3aaaf	https://web.archive.org/web/20060323191847id_/http://shadowvault.net/games/questforspam.taf	-	SPAM	-
+Spooked2.taf	17320	a320ed9f7b460c525391ebd47f87e716094522e5090e8de41028a415295c2c23	https://www.adrift.co/files/games/2.zip	Spooked2.taf	Spooked! The Haunted Horror House	-
 Spooked_The_Wonders_of_Science.taf	9909	3d27eb975f91805c259ed81a9f6982fe8bfaf84efdd09717d28f357357a98fc1	https://ifarchive.org/if-archive/games/adrift/Spooked_The_Wonders_of_Science.taf	-	Spooked! The Wonders of Science	-
 SRSintro.taf	157833	ded280b0b8809c1c5c071e8744c8a1206b4e1d88662a8e62b85d727c12aa34c1	https://www.adrift.co/files/games/introcomp05.zip	SRSintro.taf	Silk Road Secrets: Samarkand to Lop Nor	-
 ss whore.taf	332720	06bdccc0c4c5f7414747cea20d0fc7902c2d7c7a924edd9da03c7563bde26d80	https://web.archive.org/web/20120725113340id_/http://newsletter.aifcommunity.org/2011minicomp.zip	SS Whore by Blue Satyr/ss whore.taf	SS Whore	-
 ssteacher.taf	48080	8d335e57a22f4db58ae81dd066b061de690adbb25df2e70b3ece5e7ffa5cab5f	https://www.adrift.co/files/games/ssteacher.taf	-	Shamlessly Slutty: Teacher	-
+stalker.taf	7934	5b8e674fa8ecad4542835fd5681b757e3c508e6a36d7f14f9217143cc14645fb	https://web.archive.org/web/20100819001531id_/http://www.shadowvault.net:80/games/stalker.taf	-	Stalker	-
 Station_XIII.taf	10823	235c014076903aee3b03515014d5d84b56f53a1fb87f94c03bc45ea87d01e7e8	https://ifarchive.org/if-archive/games/adrift/Station_XIII.taf	-	Station XIII	-
+stowaway.taf	14231	55e928b3f468ffe1bd55bbe6678e9d125492d9f3403bdfbfb1c21b5e26426519	https://ifarchive.org/if-archive/games/adrift/stowaway.zip	stowaway.taf	Stowaway	-
+studio.taf	118676	be759cac304755f8456967ba2d0ec5e42f4e35e319aacc1654e5dd42f83f9cc9	https://web.archive.org/web/20160325095526id_/http://delron.org.uk/games/studio.zip	studio.taf	The Studio	-
 Sun_Empire_Quest_For_The_Founders.taf	24355	9e30c6b9941913d0280282951e0a770f4bbf7d89f2a22bf30de82cfb0e6e4884	https://ifarchive.org/if-archive/games/adrift/Sun_Empire_Quest_For_The_Founders.taf	-	Sun Empire: Quest for the Founders	-
 superliam.taf	31324	af02370696ab84c05246cf15574b32bbca1ff0ffeb02ffbad5dd34e4df2b61c5	-	-	Super Liam	no online source found
+switchedit.taf	23189	cbc4d36ec63a4b7e51d932bab66dbb3f8542ca24a76b870d57e5a1ef38af234d	https://www.adrift.co/files/games/switchedit.taf	-	Cat Burglar	-
+T._M._M.taf	2573	ffb1e1e2ced36b7521c9ea507b095f253235e060601d326715ae0c49f876fac6	https://www.adrift.co/files/games/T._M._M.taf	-	The Manssion's Mistery: The First Chapter	-
 takeone.taf	9547	2cec7d5059ff4eb31e5942360b199721ef22b4772b3e406984f37126809f3541	https://ifarchive.org/if-archive/games/mini-comps/adrift/finish-the-game-comp-2005.zip	Take One - Robert Street/takeone.taf	Take One	-
+TAOT3.taf	11401	d786dfe05e8aada5c7cbffb5d37821c2a83a2a5d14ed09390019eed2a5ec3969	https://www.adrift.co/files/games/TAOT3.zip	TAOT3/TAOT3.taf	The Annihilation of Think.com 3	-
 target.taf	43024	b1a0d74f7ca42b2f019b59fdf45692e527b941be4bd9a452294753ee49065a9c	https://ifarchive.org/if-archive/games/adrift/target.zip	target.taf	Target	-
 tcom.taf	37422	178fad555b0006c40e199edec62c21d6a51f5603c4934c7b004a49bbea728672	-	-	The Cave of Morpheus - Part 1	no online source found
 Tear.taf	9436	d22b433fcd589ed0356cb648742df194dd7017379a0ca330c9d1ee2bac7a933e	https://ifarchive.org/if-archive/games/mini-comps/adrift/summercomp04.zip	competition/games/Tear.taf	Tears of a Tough Man	-
+TEAW_(introcomp).taf	1235834	7aec201d06d6b156e9d480d8e8bd16a2bc7cacacd0ae745977165611cdb49bc6	https://ifarchive.org/if-archive/games/mini-comps/adrift/introcomp2009.zip	introcomp/TEAW_(introcomp).taf	To End All Wars	-
+tempest7.taf	31369	981f9d7ece48aa2c94195f183456f4314e10f08ce4e1ae7e03a170bef72f2449	https://www.adrift.co/files/games/tempest7.taf	-	Storm Tossed	-
 Temple_Of_The_Sun.taf	18973	0f2014599998688d4d008a4481842d0bea3ccd7b5d2b2a791a054e5116df650a	https://ifarchive.org/if-archive/games/adrift/Temple_Of_The_Sun.taf	-	Temple Of The Sun	-
+temporfell_demo.taf	70045	ed68546eb9f87a2ea68c7de2ed118da894d6bcaef59c0efb4a6fa4453f266adc	https://www.adrift.co/files/games/temporfell_demo.taf	-	Temporfell	-
 TenebraeSemper.taf	9757	f45addb9f726c9c2126a3f274be3fac7d7ed4532eee518d280bb1c5bafa7c71f	https://ifarchive.org/if-archive/games/mini-comps/adrift/Ectocomp-2010.zip	Ectocomp_2010/TenebraeSemper.taf	Tenebrae Semper	-
 Terrified.taf	10488	255858fe135ce72571c263780546ba22166440406b312bc6d3f95ba2dafd5aa1	https://www.adrift.co/files/games/CompGames2007.zip	terrified.taf	Terrified	-
 Textident_Evil.taf	20652	e531caf507c6fa488a7f75090422f280e544920de04196a65914d87d78bda094	https://ifarchive.org/if-archive/games/adrift/Textident_Evil.taf	-	Textident Evil	-
@@ -333,15 +548,25 @@ The Dead Man.taf	16148	aa5011a410de8ec6a6de6a74c2fab2ad71548aeefa0af72a0dddce810
 The First To Arise Alone With A Pug.taf	13390	c0b410202ee5745d19eec052911e02eef09b542f8cc44fe0c0ddb1a94d9aab31	https://web.archive.org/web/20060516071649id_/http://www.shadowvault.net:80/games/alex2.taf	-	The First To Arise: Alone With A Pug	-
 The Fly Human.taf	4743	e42b6d639b1425011b2848c1d4bd37a86f20050c5ad2acbe4e1d88bddf6f381b	https://ifarchive.org/if-archive/games/mini-comps/adrift/Ectocomp-2010.zip	Ectocomp_2010/The Fly Human.taf	The Fly Human	-
 The Foggy Banana Adventure.taf	2745	4ab7e0cc2940b33faeabb70919ba0fa03226b956dc0ecc175ede4bd4505701f4	https://www.adrift.co/files/games/bananaaventure.taf	-	The Foggy Banana Adventure	-
+The Magician's Niece.taf	10801	fe0e78bb2cd94a959777d954db6feeb7e2d7ba4c899f80927640703910fac078	https://ifarchive.org/if-archive/games/mini-comps/adrift/introcomp2009.zip	introcomp/TMN.zip|The Magician's Niece.taf	The Magician's Niece	-
+The Merlin Bird of Prey - IntroComp.taf	3842	bbc4e2f1a342d104fbbc1ffa094da9cf17186e952c2804b45821e79fd38b2911	https://ifarchive.org/if-archive/games/mini-comps/adrift/introcomp2009.zip	introcomp/The Merlin Bird of Prey - IntroComp.taf	The Merlin Bird of Prey	-
+The new Superstud.taf	327258	ba015721d2f1e566bf71e549116de4da5a19da4706af391c37d6e12e753acb68	https://web.archive.org/web/20160325035103id_/http://delron.org.uk/games/superstud.zip	The new Superstud.taf	The New Superstud	-
 The Old Church.taf	40146	1d9598a3e24ff1eebb6cb32e0ea9b33ddc316f8a2cbf462f64aae9f54d039a50	https://www.adrift.co/files/games/Church.taf	-	The Old Church	-
 The Perfect Spy.taf	7988	4c9bd81517b0309c00d46be6b89dce402682625606040e2cc5071ad0f1b1ea70	https://www.adrift.co/files/games/No_Name_Comp.zip	perfectspy.taf	The Perfect Spy	-
 The Plague - Redux.taf	92327	d726162968a04097a9993b180fe6b72107ef105406f5d26f66452fe840615768	https://www.adrift.co/files/games/_Redux.zip	Cannibal - The Plague - Redux.taf	The Plague Redux	-
 The Screen Savers On Planet X.taf	80870	a57809cf2470520afbc86a01239b24aa9e5a6ae0a19e04014272eebe9a7a5f9e	https://www.adrift.co/files/games/screensavers.taf	-	The Screen Savers on Planet X	-
+The Search.taf	58597	60299cdace39be8722c3de4215fd5e2fd7c70b3564b6f8753be49c8131afca71	https://web.archive.org/web/20110906011420id_/http://www.delron.org.uk/games/thesearch.zip	The Search/The Search.taf	The Search	-
+The Silver Maiden.taf	11834	90f1896d1f65f058624fefb802e6c573abff95ce07c14da84423a497aa3b535b	https://web.archive.org/web/20160325095609id_/http://delron.org.uk/games/silvermaiden.zip	The Silver Maiden.taf	The Silver Maiden	-
 The Town Of Azra.taf	44145	14684c1d2cd8b92945a63ccc47f823e1e52d4d7fdab017e134a991560a483408	https://www.adrift.co/files/games/townofazra.taf	-	The Town of Azra	-
 The Vault.taf	4258	8f3f1fd3dc5bf380e18012b84b0a10781d723b7316d28ec192452015a904dafc	https://ifarchive.org/if-archive/games/mini-comps/adrift/Ectocomp-2010.zip	Ectocomp_2010/The Vault.taf	The Vault	-
+The Village of Love and Lust.taf	200650	1f18bad29464a8cbe0d1bd82c7deab131881e6077f735c2b9f64dc50346e05e3	https://web.archive.org/web/20160325095318id_/http://delron.org.uk/games/Village.zip	The Village of Love and Lust.taf	The Village of Love and Lust	-
 The White Singularity.taf	788034	632c276abc1701d8b92498f9f1e538c273ed64b63742c1f42e6bc3c01edaf2b6	https://www.adrift.co/files/games/White_Singularity.taf	-	The White Singularity	-
+the_burbs.taf	171239	0dae0f3a4406187f35306499cbba6f52183049b5ed69e1aba7772af65b09bb8a	https://web.archive.org/web/20160325040513id_/http://delron.org.uk/games/theburbs.zip	theburbs/the_burbs.taf	The Burbs	-
+The_Dark_River_1.4.taf	4158	8ccd383de47c552df01528d0a9d89886918bfdf5232d05fd53e20d8a0cddf4f3	https://www.adrift.co/files/games/The_Dark_River_1.4.taf	-	Physics Action #1: The Dark River	-
 The_Final_Question.taf	15555	d2094740248fa8291e0da41cae318d36808eb61bc1c83cd03aa253dec6f4738e	https://www.adrift.co/files/games/introcomp05.zip	Final Question, The.taf	The Final Question	-
 The_Hunter.taf	23531	d27113ec3bea7bfefb235b9f1ebfbb3f6ae346930d28f09626eb519c1ceff990	https://ifarchive.org/if-archive/games/mini-comps/adrift/finish-the-game-comp-2005.zip	Hunter, The - Red Assassin/The Hunter.taf	The Hunter	-
+The_Isle.taf	1436	9b58cc74a5c7970fc55eab070b9413b2463396c021eb8500bd0f39653ff51d2e	https://www.adrift.co/files/games/The_Isle.taf	-	The Isle	-
+The_Night_That_Dripped_Blood.taf	18637	38f15b52903b012a35eae167bf0927165b090358922917d451b81a3972ce61ee	https://ifarchive.org/if-archive/games/adrift/The_Night_That_Dripped_Blood.taf	-	The Night That Dripped Blood	-
 The_Nonsense_Machine_6000.taf	3590	af08fc42f68ec0a3b4d4360947c9d0ec940c8663313abeec9524c67674e55feb	https://ifarchive.org/if-archive/games/adrift/The_Nonsense_Machine_6000.taf	-	The Nonsense Machine 6000	-
 the_pk_girl.taf	1645515	41145d34d65d13fea1cc4f656e99a76785139fb5ea88ea7d44b6ecf4322e6375	https://ifarchive.org/if-archive/games/adrift/the_pk_girl.taf	-	The PK Girl	-
 The_Reluctant_Vampire.taf	199575	186868bd858a07aa41bf43aaaa3191af91d906cbd6df97d1d37deae4a9e555c5	https://ifarchive.org/if-archive/games/mini-comps/adrift/gameofyear06.zip	vampire.taf	The Reluctant Vampire	-
@@ -354,17 +579,26 @@ The_Skydiver.taf	7631	ea313d942ef699047535d1b4f5fb78a677cb42989d3687e655c76aa18f
 The_Spirits_Flight.taf	37670	1f611b8c1af1f3cb699ea7875dbdde23e2fc6623398e3c0c767a3ed04342ef46	https://ifarchive.org/if-archive/games/adrift/The_Spirits_Flight.taf	-	The Spirit's Flight	-
 The_Stowaway.taf	3785	0ff7493865365f60d2a0a1dd25435b3ce9d56a609121d8449492ce0236828e43	https://ifarchive.org/if-archive/games/mini-comps/adrift/ectocomp-2007.zip	Stowie.taf	The Stowaway	-
 The_Strange_Tale_of_Dr_Wilkins.taf	26532	02230797bf0c5c50ba7eb6184ec178a71d36e017cfb920787ef00c535ce09034	https://ifarchive.org/if-archive/games/adrift/The_Strange_Tale_of_Dr_Wilkins.taf	-	The Strange Tale of Dr Wilkins	-
+The_Successor.taf	32966	d73261e20bed89ecb0981a25b8eafe2457576569d7e0369fdaf7ea3a8526641f	https://www.adrift.co/files/games/The_Successor.taf	-	The Successor	-
 The_Town_Of_Azra.taf	13868	e40ec150e1531f49cc80fe81829a690d03df1eb1fe267dc100874c12c06dbc61	https://ifarchive.org/if-archive/games/adrift/The_Town_Of_Azra.taf	-	The Town of Azra	-
+the_view_is_better_here.taf	7720	0d7e1db521bd720966659bfa22a1086a6cd069b7f2977340cbf57d698d0e8cce	https://ifarchive.org/if-archive/games/adrift/the_view_is_better_here.taf	-	The View Is Better Here	-
+The_Will.taf	132602	34db462299b858a36aee779a7f473e24914057216ed25234138afa54308fc1aa	https://ifarchive.org/if-archive/games/adrift/The_Will.taf	-	The Will	-
+The_World_According_to_CBN.taf	23152	ca221bd147d32b314986dbcc46f715592da31a019102841ca70244079376f881	https://ifarchive.org/if-archive/games/adrift/The_World_According_to_CBN.taf	-	The World According To CBN	-
 The_X-Files_A_New_Beginning.taf	35739	4c9bd8f5679ef7ca22a09d1b73cea39913830dc7c250a934a24a3eca09c51ffa	https://ifarchive.org/if-archive/games/adrift/The_X-Files_A_New_Beginning.taf	-	The X-Files: A New Beginning	-
 TheADRIFTProject.taf	231594	305ec4ce4037f782a209c0b429d63e3bde9f32ab63ac987978f45d9d5ffc6b15	https://ifarchive.org/if-archive/games/mini-comps/adrift/summercomp04.zip	competition/games/TheADRIFTProject.taf	The ADRIFT Project	-
 TheAmulet.taf	5585	b34a9db330ae319e9c415af56f4260c7bb56df90cb25fe1632228c75b4f42304	https://www.adrift.co/files/games/3hr_comp.zip	3hrComp/TheAmulet.taf	The Amulet	-
 Theannihilationofthink2.taf	6303	a4e80e121399c828bf2933b9d0dbb475ffef2206cde21429a00bd22276494412	https://www.adrift.co/files/games/3hr_comp.zip	3hrComp/Theannihilationofthink2.taf	The Annihilation of Think.com	-
 TheCatintheTree.taf	6174	d07a89b5d18e38349106e17da9d53b8f0a59fb4ffda558a2d64ce03a908767bd	https://www.adrift.co/files/games/thecatinthetree.taf	-	The Cat in the Tree	-
 TheCellar.taf	24032	4e275265988f9cc07abdfb437ab5d9ffda789e5c949c678d4180dfecc3809ade	https://www.adrift.co/files/games/_The.taf	-	The Cellar	-
+thecrash.taf	4509	09bb1e9f34b3b93c9666a074c300be1aeddb0fde73f6f2d369e1aa538928c774	https://web.archive.org/web/20081006124911id_/http://www.shadowvault.net/games/thecrash.taf	-	The Crash	-
 TheDemonHunter.taf	18725	266770f2364eebc101d443621bbe150c5a8e4491c116140299622ca8fd959697	https://www.adrift.co/files/games/TheDemonHunter.zip	TheDemonHunter.taf	The Demon Hunter	-
 TheForestHouse_2.taf	9476	0570c4cf147f0cb951672fc95381f3b79f118ced0358c68c7c85a58aa4a8f4fa	https://www.adrift.co/files/games/TheForestHouse_2.taf	-	The Forest House	-
 thelasthour.taf	10658	98ec1b6b837b4fd09abd610aab8d8bec0d20aa9ab5a6e6671fef1f8bf79ab78f	https://ifarchive.org/if-archive/games/adrift/TheLastHour.zip	game/thelasthour.taf	The Last Hour	-
+thenightmoon.taf	52330	3cf3a1e1241d7faddd2bac9f35e9790d6a7fd41da83bf897e497475b7d50afa5	https://www.adrift.co/files/games/thenightmoon.taf	-	The Night That The Moon Shone Grey	-
+thepassages.taf	85728	75b28557be6a4848bab95dff96aab11747608bdd5f8a77ae5017c84cb0cb9a6f	https://www.adrift.co/files/games/thepassages.taf	-	The Passages	-
 TheSisters.taf	46836	ac2942fefd156cc75eebffed997f0d5404e721da64d5b8095c1dd76aae0a6e3c	https://www.adrift.co/files/games/TheSisters.zip	TheSisters-IFCompEd.taf	The Sisters	-
+thesorc.taf	22316	4eca5fbb15ca78d53b254c5b78b58ff07e7c39d66e6af0bef546dd7450e88495	https://www.adrift.co/files/games/thesorcerer.zip	The Sorcerer/thesorc.taf	The Sorcerer	-
+thestartrekchainreactionepisode1thehornetsnest.taf	20080	d49771fa8de6d830bbe21ff1d3530306d77df12872c82350b8a4452f4b9cd9cb	https://www.adrift.co/files/games/thestartrekchainreactionepisode1thehornetsnest.taf	-	The Hornets' Nest	-
 thetest.taf	22465	03394d6932e78b5687928e0c09c9096b15b6ccd24aa8083b3262b688b64c05c5	https://web.archive.org/web/20110906085453id_/http://delron.org.uk/games/thetest.zip	thetest.taf	The Test	-
 thewoods.taf	71216	0cc0189d875e4f5025139e11a49a8f6885e09efc97ac94e0ca447108842cd94a	https://ifarchive.org/if-archive/games/adrift/WoodsAreDark.zip	Cannibal - The Woods Are Dark.taf	The Woods Are Dark	-
 Thorn.taf	13887	915b69bcaae35da485ca378dc31656117c2b78e97322c7ebad800dcc3e12b2e7	https://www.adrift.co/files/games/minicomp.zip	Minicomp/Thorn by Eric Mayer/Thorn.taf	The Thorn	-
@@ -372,61 +606,89 @@ Through time.taf	42109	7b2d803517d2853636fe8ab9c3ecd6066402378ebc77ff98fe4761f7c
 Tic-Tac-Toe.taf	1790391	12aa88c2791aa0cb2d6f4780e140f70d95f0f8a5d5a501d343f17ff1865be466	https://www.adrift.co/files/games/tictactoe.taf	-	Tic-Tac-Toe	-
 ticket.taf	65083	337a003d4ee07f63df21168dc409ebb9efb94f197a61456202c56cea16414d5b	https://ifarchive.org/if-archive/games/mini-comps/adrift/summercomp04.zip	competition/games/ticket.taf	Ticket to No Where	-
 ticktick.taf	2055	9bf6f9b8b4202e23e3d6ac89d57112ccc38a514c8d104882feaf330aa10655f0	https://www.adrift.co/files/games/onehourcomp3.zip	ticktick.taf	Doom Cat!!!	-
+Time.taf	16585	c7ea4b7cf01509c43eff6b71d1bc8088a99e2ea0c551a1f04c276c5ec7da74c7	https://web.archive.org/web/20230601225437id_/https://delron.org.uk/games/time.zip	Time/Time.taf	Time	-
+timeadventure.taf	12353	c7188936fd436486a94b7eee17e9036bc5c6a26148e7d3165158d23331e60b7f	https://web.archive.org/web/20100817031928id_/http://www.shadowvault.net:80/games/timeadventure.taf	-	Time Adventure	-
+timemachine.taf	10540	24ab0b0ba241b6670e9be9c4fa5572a4601c6e0f0150ff9c4ee4ce27f46c8833	https://web.archive.org/web/20110906125140id_/http://www.delron.org.uk/games/timemachine.zip	timemachine.taf	The Time Machine	-
+To Be King v1.8.taf	103424	76329763dc367ef7789222a006eda24c2cea96ffff5368b5a19899fdf1e6727c	https://web.archive.org/web/20160325095440id_/http://delron.org.uk/games/tobeking.zip	To Be King v1.8/To Be King v1.8.taf	To Be King	-
 To_Hell_And_Beyond.taf	18080	ea5af6387345446eade1583d456ad7143b35044dc7f86a4e71acf76c592757f3	https://ifarchive.org/if-archive/games/adrift/To_Hell_And_Beyond.taf	-	To Hell and Beyond	-
 togetyou.taf	4496	369ebcc26ce8aa0049f0a766be9112dc84f61ccb55b5bc851d13734e55f7b571	https://www.adrift.co/files/games/3hourcompetition.zip	3hrcomp/togetyou/togetyou.taf	We Are Coming to Get You!	-
 topaz.taf	4839	9b09ef90f436979807dd2e90c1df54e88b3ffa84fca54b94f46b624bc29e4e99	https://ifarchive.org/if-archive/games/mini-comps/adrift/onehourcomp4.zip	4th1hrComp/topaz.taf	Topaz	-
 tophat.taf	12959	87b0517c3dafb3f3086b75c00436fd5a25a86154a55c6f242bf338c6053e953d	https://www.adrift.co/files/games/elfinthehat.taf	-	Top Hat	-
+toronto.taf	9420	48f08f1ac2414e28e1f33876550dbcfd4ca84f84fb6a5b198f7ea878be220f70	https://web.archive.org/web/20110905063600id_/http://www.delron.org.uk/games/toronto.zip	toronto.taf	a day in toronto	-
 Toxically_Earth.taf	51225	d760a5a9ebe900fec038fcff08512c7c611a4169d5f57fb2b80faadf7096d0b4	https://ifarchive.org/if-archive/games/adrift/Toxically_Earth.taf	-	Toxically Earth	-
 tq3.taf	22573	bedbc10d9d97828c41042b0c4624a215389f42d2b689a5322a37fc858a8225d4	https://web.archive.org/web/20060516070642id_/http://shadowvault.net/games/tq3.taf	-	The Quest (by Chris Moody)	-
 tra.taf	275724	bd29d5b797bbe20fc44b719baee71a379b184c0cda5da6b47e4a78fe3f5c985d	https://www.adrift.co/files/games/tra.taf	-	The Timmy Reid Adventure	-
 Trabula.taf	2224	ae2d79c7dde64daea518775cd89cc48edb747018c11f9223c7806935783ad4ee	https://ifarchive.org/if-archive/games/mini-comps/adrift/onehourcomp4.zip	4th1hrComp/Trabula.taf	Get Treasure for Trabula	-
+train1.taf	30230	92cf538c9db7df79f11be3419c03f9b542dda42695adedbd8a0833133ea1e9aa	https://web.archive.org/web/20160325095155id_/http://delron.org.uk/games/train1.zip	train1.taf	Train	-
+trappedwithagirl.taf	17235	73413ea6cd2acd57910b63cc58b4053b676745f5e435cc8acb33d9142a62c6a5	https://www.adrift.co/files/games/oneroomcomp.zip	OneRoomComp/trappedwithagirl.taf	Trapped With a Girl	-
 Trick or Treat.taf	66556	0a777fb79235946e4f4e078076e807d472c298dea8b0c3500cf20495225028c6	https://www.adrift.co/files/games/Trick%20or%20Treat.taf	-	Trick or Treat	-
 Troll.taf	68742	c47e173ad8d5de334f7fe7d426ec0b90b98325391e9c6b65869e2d8706c7d494	https://www.adrift.co/files/games/troll%21adventure.taf	-	Troll!	-
+truck.taf	9872	40339c66495047c465bc99a0e6d36ee547e47409d6c75bbe3c6e44296584ceab	https://web.archive.org/web/20041027184202id_/http://www.shadowvault.net:80/truck.taf	-	Truck	-
+Turnberry Manor.taf	438888	a1b5d0f4a758afed6b90c29cc0b9654f5084bee1a27d53960c188b8faa246d8f	https://web.archive.org/web/20160325095412id_/http://delron.org.uk/games/turnberry.zip	Turnberry Manor.taf	Turnberry Manor	-
+tvcaper.taf	6187	f5fb968f0f8a20f7b591084aad8c73e865e57a5d89b123aec5fce9be6c7c2366	https://web.archive.org/web/20081007030645id_/http://www.shadowvault.net/games/tvcaper.taf	-	Amazing TV Caper	-
+Twenty-one.taf	92778	3a84e0f187fe305221fabc270ce0f1773d6118ecd4a1108c101a7badfb20b11b	https://www.adrift.co/files/games/Twenty_one.zip	Twenty-one.taf	Twenty-One!	-
 twilight.taf	71377	486d34a82b15c6caf835791ac7127bd743d2598acae33d64730907ca68014d18	https://ifarchive.org/if-archive/games/adrift/twilight.taf	-	The Twilight	-
 unauthorized.taf	107316	c588a79e52af5463ac8276063d4ab6fb0b4bf274170d9a0c533d7e7a516cc445	https://www.adrift.co/files/games/unauthorized.zip	unauthorized.taf	Unauthorised Termination	-
 Undefined1.taf	2920	4f10fbcfb3dae75da606b5578cefc9d30aa6ebf60ecc72079c9cf8f2404a5d6e	https://web.archive.org/web/20100228054556id_/http://shadowvault.net/games/undefined.taf	-	Undefined	-
+Unexpected Proposal.taf	31902	d1e3d113259af617aa95103170e0d12983788d96d63ed3cf99798439339e5938	https://web.archive.org/web/20160325052007id_/http://delron.org.uk/games/unexpected.zip	unexpected_proposal/Unexpected Proposal.taf	Unexpected Proposal	-
 Unfortunately.taf	55438	b03d22ce18dac1483da7fd6dd655ead112ff2204fd85cdbb2993b53cb218bf44	https://ifarchive.org/if-archive/games/adrift/Unfortunately.taf	-	Back To Life... Unfortunately	-
 unravel.taf	44382	8413ad7a1ad97a2ac96e2b77fd4045af4f0f45693eda40025e8ac5fd5a338b39	-	-	Unraveling God	no online source found
+urbandragon.taf	30158	95aaa34c1e84f374e6360577f6cf6c9a67004d0e5a7b80d4fb2d0862ec492db7	https://www.adrift.co/files/games/urbandragon.taf	-	Urban Dragon	-
 Vagabond.taf	4762	811ace53a7a043e1ab304765d8611bfe3bd880c2933019744183f5785aaf3e27	https://ifarchive.org/if-archive/games/mini-comps/adrift/onehourcomp4.zip	4th1hrComp/Vagabond.taf	Vagabond	-
 vague.taf	122681	1be9cc3a12e4e5d489d86f8b4b01284e915325c55466b70cd9283b87fb5624dc	https://ifarchive.org/if-archive/games/adrift/vague.zip	vague.taf	Vague	-
 valley.taf	24938	20adafc05d96dfce8172740c0f5e181be447344db1a60bb9c13c1b1f18e1e1c6	https://www.adrift.co/files/games/SummerCompGames08.zip	games/valley.taf	Happy Valley	-
 Vampire.taf	63183	756f895d6366c6d64e75fa3f1342a716e57bbe88fb5920edf02a2f9b6f8f5e66	https://www.adrift.co/files/games/Vampire.taf	-	The Vampire With A Conscience	-
 Vardock Bates.taf	2928980	77360c675e7300e46d0ddc0a80e6e25d1e88a1c0d76be34b97aece1a7d19339a	https://ifarchive.org/if-archive/games/adrift/spanish/vardock_bates-.zip	Vardock Bates.taf	Vardock Bates	-
 Vendetta.taf	104909	3a0193d14633cd5543bfe0f28e1e4479fe3e44eb339f0241b4252baa71555b60	https://web.archive.org/web/20060516084120id_/http://shadowvault.net/ifcomp2005/vendetta.zip	Vendetta.taf	Vendetta	-
+Vengance.taf	27974	31eb1776acd24f89a6baefa21571de27469e21e4184fdd040f0261158796518a	https://web.archive.org/web/20160325095628id_/http://delron.org.uk/games/vengance.zip	Vengance.taf	Vengance	-
 veteran.taf	12043	948e1e7890f53065d685b55bd80cbdfc7fb897409e670e5984dce5d413f3be22	https://www.adrift.co/files/games/3hourcompetition.zip	3hrcomp/veteran.taf	Veteran Experience	-
 vetknow.taf	52248	198483034a6ba1bfc214c172c633a9dd59e0978e148b27a0e5060b9a5620b7ce	https://ifarchive.org/if-archive/games/adrift/vetknow.taf	-	Veteran Knowledge	-
 vetknow2.taf	52290	5f7c9e2804342e956739974fb0576b915af0ba4d5e80ea9e2d709d721d2cd745	https://www.adrift.co/files/games/vetknow.taf	-	Veteran Knowledge [Version 2]	-
+VGM1_3.taf	31268	0dc5d3dd16878b4da549f1c9a8c05278630d16ace6837700b8894645d3d4147e	https://web.archive.org/web/20160325040533id_/http://delron.org.uk/games/residentlust.zip	VGM1_3.taf	The GameMaster: Resident Lust	-
 Video_Tape_Decay.taf	10173	91cb6610cf2a6aac7fe41a294ed520cf29662ba73b90228c1ab5ff19ebac38c2	https://www.adrift.co/files/games/CompGames2007.zip	video_tape_decay.taf	Video.Tape / Decay	-
 Villains_And_Kings.taf	23938	76229578a6e21262ba2b653f841f954c00497bbc85ba0a218daf06c6505e76c9	https://ifarchive.org/if-archive/games/adrift/Villains_And_Kings.taf	-	Villains and Kings	-
+Virgin.taf	66260	49944bc817d9a8411c6d96db4acf1a332eb6ccbe4291325fd2cbaf893023b58d	https://web.archive.org/web/20160325052011id_/http://delron.org.uk/games/virgin.zip	virgin/Virgin.taf	Virgin	-
+virtual.taf	6168	61f1628d6578a96d9a8c5ae79d94c1290f46cf98a712b2de71e1ad1428d0409a	https://ifarchive.org/if-archive/games/adrift/VirtualHuman.zip	virtual.taf	the virtual human	-
 volant.taf	64718	56a0840fe20fe2d6a26ca3dd876cf0756cfb48a4060ef5f112214411d69a3c16	https://ifarchive.org/if-archive/games/springthing/2007/volant.zip	volant.taf	Starship Volant: Stowaway	-
 warlock.taf	43722	8c287d76320a2c85296c14ac03bd5a9ac2887893b52ff5e6e5fedec7df86dd68	https://web.archive.org/web/20060502233425id_/http://newsletter.aifcommunity.org/minicomp.zip	warlock.zip|warlock.taf	Warlock	-
 warlord.taf	217096	fb88d4034ca677bbcd6942c814e450ab14f28b4c6c69154fd8306e0f9c822819	https://ifarchive.org/if-archive/games/mini-comps/adrift/gameofyear06.zip	warlord.taf	The Warlord, The Princess & The Bulldog	-
+wasteland.taf	5383	1d5739ee10b3361b7a2a33d47e1af282d0e8d611527cc6b56586207e9b62211e	https://www.adrift.co/files/games/wasteland.taf	-	Wasteland	-
 wax_worx.taf	37542	91308866f1c8b53e3171b6e3f0244acc16b070ddb7f9d974ac9b2cc051f0863f	https://ifarchive.org/if-archive/games/mini-comps/adrift/springcomp04.zip	games/wax_worx.taf	Wax Worx	-
 Way Out.taf	4598	060590e9417525aaa33880de5f31c7002d2bc95234adaac6f510a274082f6369	https://www.adrift.co/files/games/Way%20Out.taf	-	Way Out	-
+weirdstuff2.taf	27589	2f97af0e2934d242fa36e2e37dc292ec1e3bd742fa9b6b35041f71ba2453cc7b	https://www.adrift.co/files/games/weirdstuff2.taf	-	And Then the Weird Stuff Started...	-
 WesGHN.taf	3559268	67aec53886276fa3b3f9dc219fc3a48d068a641c41c77477fa4f26c45509a038	https://www.adrift.co/files/games/WGHN.zip	WGHN/WesGHN.taf	Wes Garden's Halting Nightmare	-
 Whatever_Happened_to_Uncle_Grumble.taf	110122	c2d462239bd5d248c4ecdb2d110cbc6e6a45196e0cdd66cac8709c1913037a6c	https://ifarchive.org/if-archive/games/adrift/Whatever_Happened_to_Uncle_Grumble.taf	-	Whatever Happened To Uncle Grumble?	-
 Wheel105.taf	44666	a152e1965b5d2f3e263272f8f812a6603e482342ea05c69c349455a1aa79a8ea	https://www.adrift.co/files/games/zip_w105.zip	Wheel105.taf	The Wheels Must Turn	-
 WhereAreMyKeys.taf	40864	4e04ba72e8ea4c4bc11416c56b1e67350f4f6906334396144b44d1553a9cfa5c	https://www.adrift.co/files/games/keys.zip	keys.taf	Where Are My Keys?	-
 whitterscap.taf	7604	2d869f53ae17a99f8f474b2d90022b6cad386a84adb064e757a06c801bb2d793	https://www.adrift.co/files/games/whitterscap.taf	-	Whitterscap's Key	-
 Will.taf	19559	8e3e9fe51ce6523617476956b4281f5d09d6e4281a9f921916267304d1111b69	https://ifarchive.org/if-archive/games/adrift/SelmasWill.zip	Will.taf	Selma's Will	-
+windy-2005.taf	115119	50efa29cf6644cf89311e6809a153dfdef9cf38c958299cfc953480a6537742c	https://web.archive.org/web/20160325034745id_/http://delron.org.uk/games/windy1.zip	windy.taf	Camp Windy Lake	-
 windy.taf	114698	c757c9f6375a0616460a0c70106dcd6f7e5dd6044d5e2f54caeaa71c4801915b	https://ifarchive.org/if-archive/games/adrift/windy.zip	windy.taf	Camp Windy Lake	-
 windy2.taf	191548	d1a790a5aa9035bd9cec6034c077f21d5fd35eb82587c806803a06b598871267	https://web.archive.org/web/20160325040100id_/http://www.delron.org.uk/games/windy2.zip	windy2.taf	Camp Windy Lake: Part 2	-
 wingman1.taf	33734	1da7857783b521f75ba4624c99c54e84501fde1eefa34cdcec8e7410b84c9f49	https://web.archive.org/web/20120725113340id_/http://newsletter.aifcommunity.org/2011minicomp.zip	The Wingman by Dark Horse/wingman1.taf	The Wingman	-
 WithoutAClue.taf	117288	72fedcd74b9f536ba347c27a9d9b0db7b0a1c1a821693836231525ca9b3e21a7	https://ifarchive.org/if-archive/games/springthing/2008/WithoutAClue.taf	-	Without a Clue	-
 Witness_Demon_vs_Vampire.taf	3849	145044221948324fc254643f54947ac2c9edc21c8aeac653f48d7af9e8faac99	https://ifarchive.org/if-archive/games/mini-comps/adrift/ectocomp-2007.zip	witness.taf	Witness: Demon vs Vampire	-
+Wizards_Playground.taf	18585	a860259ffd244a5a3dfca5a60b3763b5ed1a3e75431b77e882419a264f75a6f7	https://www.adrift.co/files/games/Wizards_Playground.taf	-	Wizard's Playground	-
 Wolves_at_the_Door.taf	19126	7687010cf81f00d592593cde98eab5db9519a7e008f9cf0b841a2eb724d6c4be	https://www.adrift.co/files/games/SummerCompGames08.zip	games/wolvesatthedoor.taf	Wolves at the Door	-
+wonderland.taf	7381	1074476db561be52c279dc322277a7e9cb9c3e17490f42f593f8543808f9d228	https://web.archive.org/web/20060516082624id_/http://www.shadowvault.net:80/games/wonderland.taf	-	Welcome To Wonderland	-
 wonderwombat.taf	107200	e15b00cfc61a01b55c3afc23bb09e697ee14f6d4673b213754799c17265a099b	https://www.adrift.co/files/games/wonderwombat14.zip	wonderwombat.taf	Adventures of Thumper - Wonder Wombat	-
 Woof.taf	1712	a4f35775e821600bf3964f2d659a2ebb5876e042d4a79278c63afbb32d163303	https://ifarchive.org/if-archive/games/mini-comps/adrift/onehourcomp4.zip	4th1hrComp/Woof.taf	Woof	-
 WorstGameInTheWorld.taf	9858	9670f7f97d559e223c362b2e222e0cb9e5a3c5355aee227701429156d64e641d	https://ifarchive.org/if-archive/games/adrift/WorstGameInTheWorld.taf	-	The Worst Game in the World... Ever!!!	-
 Wreckage.taf	4487	b9fab177f6a4f8f1ea41551e4cfa8df44bf919d0727eba2dff4bd482ecbc12d6	https://ifarchive.org/if-archive/games/mini-comps/adrift/onehourcomp4.zip	4th1hrComp/Wreckage.taf	SE: Wreckage	-
 wrecked.taf	88550	166ac310de4d20952c2a7f207ef217262f493e30172b87e3511e722669f43cbe	https://ifarchive.org/if-archive/games/adrift/wrecked.taf	-	Wrecked	-
+x-men.taf	102540	ca64f48c0b265252c357d0c845b4f34d886caaea96ee5eab50c8283d1eaa43bc	https://web.archive.org/web/20160325095305id_/http://delron.org.uk/games/xmen.zip	x-men.taf	X-Men Evolution: Jean's quest for rogue's nookie	-
+xclue1.0a.taf	88758	bd10239c3306f5bc7913cc69254f1a6fba7df0cb44daf45decf963bf7b4e20ac	https://web.archive.org/web/20160325095143id_/http://delron.org.uk/games/xclue.zip	xclue/xclue1.0a.taf	XClue	-
+xmen.taf	2766567	8f4394851edf02deda2d97de982ce7c58a14394796708e56a68c4a446bc41e8c	https://web.archive.org/web/20110906081202id_/http://www.delron.org.uk/games/X-Men_Institute.zip	xmen.taf	X-Men: First Day at the Institute	-
 xycanthus.taf	116322	efafc23d30acf29f517b3d3f38512a48c588a02f826379754acb1d7bff880163	https://ifarchive.org/if-archive/games/adrift/xycanthus.taf	-	Doomed Xycanthus	-
 YADFA.TAF	77880	b834b4ee3a2484c143e6c332ff16afba490a34ef505a2282f7f033e00b52e074	https://ifarchive.org/if-archive/games/adrift/YADFA.zip	YADFA.TAF	Yet Another Damn Fantasy Adventure	-
 yak_shaving.taf	9716	4beee5c88e0e5cfde03caec05a1785272b7322a18f5131a92a2abdb719c30eb4	https://www.adrift.co/files/games/2_The_Odd_Competition.zip	YakShaving12.taf	Yak Shaving for Kicks and Giggles!	-
 yeh.taf	22322	77349de823f45250462cdcbbfa87c826c7986407908f0cd5dd543342b453bb6f	https://web.archive.org/web/20100306051433id_/http://shadowvault.net/games/yeh.taf	-	The Quest (by BoyBiz)	-
 YNKaboom.taf	24494	961f6b3686addc69807b7ccefb5d2b68c3bb707d90034146f1015112a7da7b43	https://ifarchive.org/if-archive/games/competition2009/adrift/ynkaboom/YNKaboom.taf	-	The Ascot	-
 yonastoundingcastle.taf	2320881	40ba4f94b68423dca12c8952dfaf86916a8dd53bb009fc7801d354afb111879e	https://ifarchive.org/if-archive/games/adrift/yonastoundingcastle.taf	-	Yon Astounding Castle! of Some Sort	-
+yoncastle_intro.taf	9814	63df35d0ed53d232ff4263a852e24d25922f259d0926ffd8cd4959e49c660a29	https://ifarchive.org/if-archive/games/mini-comps/adrift/gameofyear09.zip	yoncastle_intro.taf	Ye Intro for Yon Astounding Castle! of Some Sort	-
 ZAC.taf	13692	c645bf82672835e973c21f88e1070478f05f8dc1aad689f8a0045a7bce5c39a5	https://www.adrift.co/files/games/3hourcompetition.zip	3hrcomp/ZAC.taf	Zombies Are Cool, But Not So Cool When They're Eating Your Head	-
 zacksmackfoot.taf	6374	90b75848e8bc6204933afa6732ac2005cbf7d849802a673a2f50ce7278667df1	https://www.adrift.co/files/games/introcomp05.zip	zacksmackfoot.taf	Zack Smackfoot	-
+zara.taf	84268	fbc30cbef6de0263d46bf578e025421daccbe3f9ccb8f706f2f4553e63b64db8	https://web.archive.org/web/20160325095442id_/http://delron.org.uk/games/zara.zip	zara.taf	Zara's mansion	-
 zelda.taf	37003	6c9dde8e9310024d409ec83295e961f71a134a9b86550d98a2d1e5d0e5f464d8	https://www.adrift.co/files/games/zelda.taf	-	Legacy of a Princess	-
+Ziva.taf	5329	0b141a29791b33f3e9a40ff97f775378c1849332a70f907a099f9039825f47cb	https://web.archive.org/web/20160325095434id_/http://delron.org.uk/games/Ziva.zip	Ziva.taf	Ziva	-
 zombiecow.taf	5193	eb389ca0d01ff86862153047f3d906eb5df798746640ea4111f34f2f2fe375c6	https://www.adrift.co/files/games/3hr_comp.zip	3hrComp/zombiecow.taf	Zombie Cow!	-

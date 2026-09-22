@@ -114,7 +114,10 @@ extract() {
              _n=$((_n + 1)); _out="$_dst.nest$_n" ;;
       *)     _inner=""; _out="$_dst" ;;
     esac
-    if unzip -p "$_arc" "$_mem" > "$_out" 2>/dev/null < /dev/null && [ -s "$_out" ]
+    # unzip first; bsdtar (libarchive) also reads the few .rar/.7z bundles
+    if { unzip -p "$_arc" "$_mem" > "$_out" 2>/dev/null < /dev/null && [ -s "$_out" ]; } ||
+       { command -v bsdtar > /dev/null &&
+         bsdtar -xOf "$_arc" "$_mem" > "$_out" 2>/dev/null < /dev/null && [ -s "$_out" ]; }
     then
       # Safe to drop the enclosing archive now that unzip has finished reading it
       [ -n "$_prev" ] && rm -f "$_prev"
