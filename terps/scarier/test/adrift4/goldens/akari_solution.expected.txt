@@ -1,0 +1,801 @@
+Loading game...
+
+A Day In The Life 3: Akari's Story
+Hi, everybody. My name's Akari Yorie, your overall tough and easy girl. I
+hear I'm supposed to be some sort of "tomboy"  - well, call me this and we'll
+see how much you like my fist in your face. I do the 400 meters and the high
+jump, so if you think you can run away from me, think again.
+
+Now, where was I? Oh yes. I'm supposed to let you "look over my shoulder" in
+a typical day in my life. Too bad, though - I'm a schoolgirl and school
+starts again tomorrow. Looks like you'll get a day in Akari's holiday life.
+Too bad. I'm also supposed to do what you tell me. Fair enough. Just don't
+expect me to do anything stupid. Or something that's arousing you.
+
+Damn perverts.
+
+Bedroom
+My bedroom. Lots of stuff is lying around everywhere and the walls are
+covered with the posters of rock bands. In a corner is my bed, in the corner
+next to it is my stereo system. On the other side of the room is a table
+where most of my cool things are, right next to my TV. Somewhere next to it,
+my DVDs are piled. My desk is near the rear window. To the north-west is the
+door that leads into our living room.  Also here is a metal album, a hard
+rock album, a j-rock album, an anime soundtrack sampler and my sweatshirt.
+
+> look at me
+17 years old, 5'6", spiky light-blue hair; quite the sporty type. I could
+need a shower.  I am lying down.  I am wearing my sleepshirt.
+
+> stand up
+I stand up.
+
+> turn on tv
+I turn it on... and hear something fizzle, then a pop from inside the TV...
+then... nothing?! Oh crap - this thing just died! Great...
+
+> unplug ps2
+I unplug it. With the TV broken, it's no use leaving it plugged in anyway.
+
+> x table
+A table... well, actually a former desk, but I don't use it for writing but
+for storage. It has a drawer.  On the table is my PS2, my black jeans and my
+DVDs.
+
+> take metal album
+I pick up the metal album.
+
+> open stereo
+The lid is now open.
+
+> put metal album in stereo
+I put the metal album inside my stereo system.
+
+> close stereo
+I close my stereo system.
+
+> turn on stereo
+Yay. It is now on and music is playing.
+
+> open drawer
+I open the drawer.  Inside the drawer is my wristwatch, a photograph and a
+ball pen.
+
+> look in drawer
+A drawer. It part of my table.  The drawer is open.  Inside the drawer is my
+wristwatch, a photograph and a ball pen.
+
+> look at photo
+It's a, old photograph showing me, age 12, with both my parents in the
+background. These were... happier times back then.
+
+> take watch
+I take my wristwatch from the drawer.
+
+> take pen
+I take a ball pen from the drawer.
+
+> remove sleepshirt
+I remove my sleepshirt.
+
+> drop sleepshirt
+I drop my sleepshirt.
+
+> drop all
+I drop my wristwatch and the ball pen.
+
+> nw
+I move northwest.
+
+Living room
+Our living room. Not too spacious, I'm afraid. There's a table and two
+chairs, plus a small wardrobe next to the exit, which is to the west. Our
+kitchen is to the north, the bathroom is to the east, my bedroom to the
+south-east and my dad's room is to the south. To the north-east is our store
+room.
+
+> e
+I move east.
+
+Bathroom
+Our bathroom. It is very small and only has a sink and a shower cabin.
+
+> take shower
+I put down what I'm carrying and turn on the water. Aaaaaaaaah. Refreshing,
+very refreshing. There's nothing like showering to get wide awake.
+
+> w
+I move west.
+
+Living room
+Our living room. Not too spacious, I'm afraid. There's a table and two
+chairs, plus a small wardrobe next to the exit, which is to the west. Our
+kitchen is to the north, the bathroom is to the east, my bedroom to the
+south-east and my dad's room is to the south. To the north-east is our store
+room.
+
+> se
+I move southeast.
+
+Bedroom
+My bedroom. Lots of stuff is lying around everywhere and the walls are
+covered with the posters of rock bands. In a corner is my bed, in the corner
+next to it is my stereo system. On the other side of the room is a table
+where most of my cool things are, right next to my TV. Somewhere next to it,
+my DVDs are piled. My desk is near the rear window. To the north-west is the
+door that leads into our living room.  Cool music is playing.  Also here is a
+hard rock album, a j-rock album, an anime soundtrack sampler, my sleepshirt,
+my sweatshirt, my wristwatch and a ball pen.
+
+> take jeans
+I take my black jeans from the table.
+
+> wear jeans
+I put on my black jeans.
+
+> take sweatshirt
+I pick up my sweatshirt.
+
+> wear sweatshirt
+I put on my sweatshirt.
+
+> take ps2
+I pick up the PS2.
+
+> take watch
+I pick up my wristwatch.
+
+> take pen
+I pick up the ball pen.
+
+> wear watch
+I put on my wristwatch.
+
+> nw
+I move northwest.
+
+Living room
+Our living room. Not too spacious, I'm afraid. There's a table and two
+chairs, plus a small wardrobe next to the exit, which is to the west. Our
+kitchen is to the north, the bathroom is to the east, my bedroom to the
+south-east and my dad's room is to the south. To the north-east is our store
+room.
+
+> n
+I move north.
+
+Kitchen
+Our little kitchen. There is a microwave oven, a fridge, our sink and a
+cupboard here. Our living room is to the south.
+
+> open cupboard
+I open the cupboard.  Inside the cupboard is the dishes, my tea mug and a bag
+of green tea.
+
+> look in cupboard
+A simple cupboard.  The cupboard is open.  Inside the cupboard is the dishes,
+my tea mug and a bag of green tea.
+
+> take mug
+I take my tea mug from the cupboard.
+
+> take teabag
+I take a bag of green tea from the cupboard.
+
+> fill mug with water
+I fill the mug with water... water that will hopefully become tea soon!
+
+> put mug in microwave
+I put the mug of water inside our microwave oven.
+
+> boil water
+I turn on the microwave until the water is boiling.
+
+> take mug
+I take a mug of hot water from our microwave oven.
+
+> make tea
+I put the teabag into the hot water and smile as the room fills with the
+smell of fresh tea.
+
+> drink tea
+Total relaxation flows through me. Just what I needed.
+
+> s
+I move south.
+
+Living room
+Our living room. Not too spacious, I'm afraid. There's a table and two
+chairs, plus a small wardrobe next to the exit, which is to the west. Our
+kitchen is to the north, the bathroom is to the east, my bedroom to the
+south-east and my dad's room is to the south. To the north-east is our store
+room.
+
+> look in wardrobe
+A wardrobe for coats and stuff.  Inside the wardrobe is my school uniform, a
+coathanger and my denim jacket.
+
+> take jacket
+I take my denim jacket from the wardrobe.
+
+> look in jacket
+A denim jacket I often wear. One of my favorite pieces of clothing.  My
+wallet and my house key are inside my denim jacket.
+
+> take key
+I take my house key from my denim jacket.
+
+> take coathanger
+I take a coathanger from the wardrobe.
+
+> wear jacket
+I put on my denim jacket.
+
+> look in jacket
+A denim jacket I often wear. One of my favorite pieces of clothing.  My
+wallet is inside my denim jacket.
+
+> ne
+I move northeast.
+
+Store room
+Our store room, very small and mostly filled with our washing machine and a
+laundry basket. We also have a board for supplies here.  Our washing machine
+is running. I'd better catch it. (Ha, ha.)
+
+> z
+Time passes...
+
+> z
+Time passes...
+Our washing machine has finished; the laundry is now clean.
+
+> look in machine
+Our washing machine. Old, but it works.  Some wet clothes are inside our
+washing machine.
+
+> take clothes
+I take some wet clothes from our washing machine.
+
+> sw
+I move southwest.
+
+Living room
+Our living room. Not too spacious, I'm afraid. There's a table and two
+chairs, plus a small wardrobe next to the exit, which is to the west. Our
+kitchen is to the north, the bathroom is to the east, my bedroom to the
+south-east and my dad's room is to the south. To the north-east is our store
+room.
+
+> w
+Staircase, second floor
+I'm in the staircase of our house on the second floor, right in front of our
+apartment which is to the east. Our shoe box is right next to me. Stairs lead
+up and down.
+
+> u
+I move up.
+
+Staircase, third floor
+The third floor of our house. To the east is the entrance to the Miyazawa
+apartment. Stairs lead up to the roof and down.
+
+> u
+I move up.
+
+Roof
+The roof of our house. I have a beautiful view over Wakayama from here. (Not
+that Wakayama is that beautiful...) Our clothesline is also up here.
+
+> hang clothes
+I hang the clothes on the clothesline. Hopefully, they'll have dried until
+this evening.
+
+> d
+I move down.
+
+Staircase, third floor
+The third floor of our house. To the east is the entrance to the Miyazawa
+apartment. Stairs lead up to the roof and down.
+
+> d
+I move down.
+
+Staircase, second floor
+I'm in the staircase of our house on the second floor, right in front of our
+apartment which is to the east. Our shoe box is right next to me. Stairs lead
+up and down.
+
+> look in shoe box
+Our shoe box that contains our shoes.  My sneakers are inside our shoe box.
+
+> take sneakers
+I take my sneakers from our shoe box.
+
+> wear sneakers
+I put on my sneakers.
+
+> d
+I move down.
+
+Staircase, first floor
+The first floor of our house. The apartment of the Arimas is to the east.
+Stairs lead up and down.
+
+> d
+I move down.
+
+Staircase, ground floor
+The ground floor of our house. The exit is to the north. To the east is the
+entrance to the Honoda apartment, and stairs lead up to the first floor.
+
+> n
+In front of our house
+I'm standing in front of our house. The entrance is to the south. The road
+continues to the east and west.
+
+> e
+I move east.
+
+Main road
+I am on the main road through our part of town which is running from the east
+to the west. To the north is a path to the sports field. To the south is
+another apartment block.
+
+> e
+I move east.
+
+Main road
+I am on the main road leading from the east to the west through our part of
+town. To the south is my Dad's collision shop. I can see my school to the
+east. To the north is a path to the station.
+
+> s
+I move south.
+
+Collision shop
+My Dad's collision shop where he works during the day. His large toolbox is
+in front of the store. To the north runs the main road.  Dad is here.
+
+> look in toolbox
+A large toolbox Dad uses to keep his tools.  A pair of pincers is inside the
+toolbox.
+
+> take pincers
+I take a pair of pincers from the toolbox.
+
+> make lockpick
+I use the pincers to cut the wire coathanger to the right length then bend it
+so that it becomes a makeshift key. Now I have a simple but sturdy lockpick.
+
+> ask dad about tv
+"What... broken?" His face turns serious. "Too bad, Akari. I don't think we
+can afford a new TV before the end of the month."
+
+> ask dad about food
+"Hm, nothing left in the house, eh? Why don't you take a train into town and
+grab a bite at a restaurant or something?"
+
+> n
+I move north.
+
+Main road
+I am on the main road leading from the east to the west through our part of
+town. To the south is my Dad's collision shop. I can see my school to the
+east. To the north is a path to the station.
+
+> n
+I move north.
+
+Station
+The station where the commuter trains into town come in. (And go off, of
+course.) The tickets are sold at a ticket machine. To the south is the main
+road through our part of town.
+
+> buy ticket
+I put in 300 yen and receive a train ticket.
+
+> get on train
+I check in my ticket and enter a train to downtown Wakayama. It's only a
+short ride before I arrive and get off the train.
+
+Wakayama city station
+The main station of Wakayama city. It's buzzing with people. There are ticket
+machines here where train tickets home are sold. A mailbox also stands
+nearby. The exit is to the north.
+
+> n
+I move north.
+
+In front of Wakayama mall
+I'm standing in front of the Wakayama mall. Inside is everything a girl could
+ever wish for... okay, and some stuff I also find cool. Before it is a small
+booth where Ramen are sold. To the south, I can see Wakayama station.
+
+> buy ramen
+I choose a bowl of ramen with chicken curry flavor.
+
+> eat ramen
+I eat the bowl of ramen.  Not bad, but it could do with a pinch of salt!
+
+> in
+Yay! SHOPPING SPREE! I zip from store to store and buy to my heart's desire.
+Okay... maybe a LITTLE more than my heart desires... what is this all in the
+shopping bag?!
+
+In front of Wakayama mall
+I'm standing in front of the Wakayama mall. Inside is everything a girl could
+ever wish for... okay, and some stuff I also find cool. Before it is a small
+booth where Ramen are sold. To the south, I can see Wakayama station.
+
+> fill ad
+I write my name and address on this lottery thingy. New TV, here I come!
+
+> s
+I move south.
+
+Wakayama city station
+The main station of Wakayama city. It's buzzing with people. There are ticket
+machines here where train tickets home are sold. A mailbox also stands
+nearby. The exit is to the north.
+
+> mail ad
+Off it goes. I'm DEFINITELY feeling lucky today!
+
+> buy ticket
+I put in 300 yen and receive a train ticket.
+
+> get on train
+I check in my ticket and enter a train to the suburbs where I live. It's only
+a short ride before I arrive and get off the train.
+
+Station
+The station where the commuter trains into town come in. (And go off, of
+course.) The tickets are sold at a ticket machine. To the south is the main
+road through our part of town.
+
+> s
+I move south.
+
+Main road
+I am on the main road leading from the east to the west through our part of
+town. To the south is my Dad's collision shop. I can see my school to the
+east. To the north is a path to the station.
+
+> w
+I move west.
+
+Main road
+I am on the main road through our part of town which is running from the east
+to the west. To the north is a path to the sports field. To the south is
+another apartment block.
+
+> n
+I move north.
+
+Sports field
+The sports field. I often use it for the running track that goes around it. A
+path to the south leads to the main road, and an equipment shed is in the
+north-east.  Jogger is here.
+
+> run
+"I'm sorry, young lady, but I'm already using this track", the jogger scolds
+me. "And I like to have the track for myself. Play somewhere else and show
+respect to older people!"
+
+> ne
+I move northeast.
+
+Shed
+I am in front of a small shed containing sports equipment. In the north-west
+is the sports field.
+
+> open shed
+The lockpick fits and I open the shed.
+
+> look in shed
+It's a small shed where sporting equipment is kept. It has a simple lock.
+The shed is open.  A skipping rope is inside the shed.
+
+> take rope
+I take a skipping rope from the shed.
+
+> sw
+I move southwest.
+
+Sports field
+The sports field. I often use it for the running track that goes around it. A
+path to the south leads to the main road, and an equipment shed is in the
+north-east.  Jogger is here.
+
+> give rope to jogger
+I hand her the rope telling her that this is just the right exercise for trim
+hips. She skeptically looks at the rope but then starts using it.
+
+> run
+I run off and practise my 400 meters. Yup, daily exercise keeps a girl
+healthy.
+
+> s
+I move south.
+
+Main road
+I am on the main road through our part of town which is running from the east
+to the west. To the north is a path to the sports field. To the south is
+another apartment block.
+
+> s
+I move south.
+
+Apartment block, ground floor
+This is the ground floor of the apartment block where my friend Kenichi
+lives. The exit is to the north; to the east is the entrance to the apartment
+where Kenichi and his parents live. Stairs lead up, but no one of any
+interest lives up there.
+
+> score
+My score is 9 out of a maximum of 13.  (69%)
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+It is now noon.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+It is late afternoon. I should be home in an hour.
+
+> z
+Time passes...
+Kenichi walks towards you from the north.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> ask kenichi about tv
+"Er... this is a little embarassing, Akari", he stutters, "I think I forgot
+my keys inside the house when I left today. Do you think you could help me in
+any way?"
+
+> pick lock
+Ta-dah! My makeshift lockpick fits nicely, and Kenichi's eyes turn big.
+"Wow... I really need to convince my parents to change that lock. Anyway,
+thank you for helping me out, Akari!" He disappears into his apartment. "Feel
+free to come in", he says.
+
+> e
+Kenichi's apartment
+The apartment where Kenichi lives with his parents. They are rather well-off
+- they even have a TV in the living room! The exit is to the west.  Kenichi
+is here.
+
+> plug ps2 in tv
+Finally! GAMING TIME!!! Kenichi and I spend the rest of the evening playing
+games. Is that living, or what?  Yay! This was a really cool day. I think I
+can say I've had quite a bit of fun!
+You scored 13 out of the maximum 13!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

@@ -1,0 +1,1057 @@
+Loading game...
+
+Escape to Freedom
+
+Escape to Freedom version 2.00
+Written and designed by Mario Moeller Copyright 1989 (c),
+
+Ported to Adrift by Richard Otter in 2005 to ADRIFT version 4.00 Release 46.
+Ported version 1.1.
+
+1. Play the game
+
+2. Read the original intro
+
+3. Read the plot
+
+4. Read the original help
+
+At any time during the game you can type Intro, credits or details for more
+information.
+If you get stuck you could try hints which should give you a clue.
+
+This is a traditional text adventure so you are advised to save, save, save.
+
+> 1
+
+Hayloft
+You're standing in the hayloft. It's moments like these, you think, that you
+could just forget about all of your troubles by jumping into the hay and
+falling to sleep. The only problem is that you're in the heart of the enemy
+country and that you could be captured at any moment. Really makes you wonder
+sometimes, doesn't it? Down takes you to the bottom of the barn.
+
+> down
+You move down.
+
+Barn
+You seem to be standing in what can supposedly be referred to as "a barn".
+Not that it looks like one, though. Far from it. This place is in a real
+mess, probably abandoned some time ago. Up is the hayloft, while east leads
+outside to your stranded plane.
+
+> get bullet
+Done.
+
+> drop paper
+You drop the piece of paper.
+
+> eat bullet
+You have just swallowed a bullet. A BULLET. No comment whatsoever.
+
+> east
+You move east.
+
+Wreck
+This plane sure is a wreck. Even though the fire is out now, the plane still
+feels quite hot. Visible inside the musty cockpit is the usual array of items
+you might happen to find in a plane; but, sticking to simplicity, I'll narrow
+those items down to the controls and the seat. There are roads leading out
+into the open countryside in most directions, and the barn looms to the west.
+
+> x seat
+Strapped to the back of the seat is the emergency rations pack.
+
+> get food
+You take the packet of rations.
+
+> north
+You move north.
+Not a very good choice of directions, I must say. Sure, just waltz out into
+the open enemy country side, in the clothes that you are wearing. You manage
+roughly 100 metres before you are spotted, and it WASN'T that hard to spot
+you. You're caught.
+
+Back of Truck
+You're sitting in the back of a bumpy truck, soldiers all around you (most of
+them sleeping). The back of the truck is open, and you're sitting on a bench
+waiting to be taken to some unknown destination.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+It looks like you've arrived. You are marched away at gunpoint to your hut,
+where you will remain. Unless...
+
+"ANY ATTEMPTS TO ESCAPE VILL NOT BE TOLERATED" you are advised by a general
+before you are left on your own.
+
+[Press ENTER to continue]
+
+In Your Hut
+You're standing in your hut. It's quite small, but it's good enough; there's
+a bed and the usual fittings. South takes you to the courtyard.
+
+> south
+You move south.
+
+Central part of the court- yard
+You're in the central part of the court-yard, with your hut stationed to the
+north, while the courtyard stretches off to the east and west. Directly south
+is a gate which leads to the exercise yard.
+
+> west
+You move west.
+
+Open Courtyard
+You're in an open courtyard, with a hut to the north, and a gate set into the
+fence to the west. The courtyard expands to the east.
+
+> west
+You move west.
+
+At a Gate
+You're at a gate. To the north are the bathrooms and east takes you to the
+courtyard.
+
+> north
+You move north.
+
+Shower
+You're standing in a shower; the only fittings being a cold tap (WHAT! No hot
+water?) and the usual shower head which is quite long as it is suspended from
+the far wall. The toilets are to the west, while south will take you back to
+the courtyard via a gate.
+
+> get head
+Done.
+
+> south
+You move south.
+
+At a Gate
+You're at a gate. To the north are the bathrooms and east takes you to the
+courtyard.
+
+> east
+You move east.
+
+Open Courtyard
+You're in an open courtyard, with a hut to the north, and a gate set into the
+fence to the west. The courtyard expands to the east.
+
+> north
+You move north.
+
+Storage Hut
+You seem to be in a storage hut. Here supplies are kept tucked away in
+several crates subtly stencilled with the word "VERBOTEN" all over them.
+South will take you back to the courtyard.
+
+> open crate
+Using the shower head, you quickly pry open one of the crates. Inside is a
+single item: a pair of wire cutters!
+
+> exam crate
+The crates have the word "VERBOTEN" all over them.  The crate is open.  A
+pair of wire cutters is inside the crate.
+
+> get cutters
+You take the pair of wire cutters from the crate.
+
+> drop head
+You drop the shower head.
+
+> south
+You move south.
+
+Open Courtyard
+You're in an open courtyard, with a hut to the north, and a gate set into the
+fence to the west. The courtyard expands to the east.
+
+> east
+You move east.
+
+Central part of the court- yard
+You're in the central part of the court-yard, with your hut stationed to the
+north, while the courtyard stretches off to the east and west. Directly south
+is a gate which leads to the exercise yard.
+
+> east
+You move east.
+
+Far right end of the courtyard
+You're at the far right end of the courtyard. The dining hut is to the
+immediate north, while the courtyard stretches back off to the west.
+
+> north
+You move north.
+
+Dining Hut
+You're in the dining hut. It's here where the prisoners have their regular
+meals, on a huge table, nearly spanning the whole hut. South takes you to the
+courtyard.
+
+> exam table
+On the table there is some cutlery.
+
+> get knife
+You take the knife from the table .
+
+> south
+You move south.
+
+Far right end of the courtyard
+You're at the far right end of the courtyard. The dining hut is to the
+immediate north, while the courtyard stretches back off to the west.
+
+> west
+You move west.
+
+Central part of the court- yard
+You're in the central part of the court-yard, with your hut stationed to the
+north, while the courtyard stretches off to the east and west. Directly south
+is a gate which leads to the exercise yard.
+
+> north
+You move north.
+
+In Your Hut
+You're standing in your hut. It's quite small, but it's good enough; there's
+a bed and the usual fittings. South takes you to the courtyard.
+
+> move bed
+You move the bed to one side of the room to find ..... floorboards!
+
+> get floorboards with knife
+Using the knife you quickly lever out the floorboards to find a dark hole
+leading down.
+
+NOTE: For the purpose of simplicity in this adventure, it is NOT necessary to
+have a source of light for the hole. You will be able to see well enough
+without one.
+
+> drop knife
+You drop the knife.
+
+> down
+You move down.
+
+Tunnel
+You are at a t-intersection in the long tunnel which ends at corners to the
+north, west and south. Above you can make out the inside of your hut.
+
+> north
+You move north.
+
+Tunnel
+You are in a tunnel that stretches off to the east and south. There is a
+small hole above.
+
+> east
+You move east.
+
+Tunnel
+You are in a tunnel that stretches off to the west and ends at a tower to the
+east. There is a hole leading up.
+
+> up
+You move up.
+You crawl up into the second cooler cell.
+
+Musty Cell
+You're in a musty cell. The only way out is back down.  In the corner sits a
+ragged man, probably dying of starvation. He'll probably spend the rest of
+his days here by the looks of it.
+
+The sight of the old man makes you throw up, bullet and all.
+
+> get bullet
+You take the bullet.
+
+> talk to man
+Choose one of the following choices:
+
+1) What is your name?
+2) Can you help me to escape?
+
+> 1
+My name is Herbert Von Schlossenberg. I've been sitting here for years now,
+and I fear that I haven't got very much time left to live.
+
+> talk to man
+Choose one of the following choices:
+
+1) What is your name?
+2) Can you help me to escape?
+
+> 2
+I wish I could.
+
+> give food to man
+The old man's eyes light up when he sees the food.
+
+"Thank you, son. You have done a very kind thing giving your emergency food
+supply to a dying person such as I. I vill reward you vith this wonderful
+lighter."
+
+The old man pulls out an old lighter, and presses it into your hand.
+
+> down
+You move down.
+
+Tunnel
+You are in a tunnel that stretches off to the east and south. There is a
+small hole above.
+
+> south
+You move south.
+
+Tunnel
+You are at a t-intersection in the long tunnel which ends at corners to the
+north, west and south. Above you can make out the inside of your hut.
+
+The sun rises.
+
+> west
+You move west.
+
+Tunnel
+You are at a corner in the tunnel which stretches north and east.
+
+> north
+You move north.
+
+Tunnel
+You are in the middle of a north-south tunnel.
+
+> north
+You move north.
+
+Tunnel
+You are in a tunnel ending at a guard tower to the west. The tunnel stretches
+off to the south.
+
+> west
+You move west.
+
+Bottom of Guard Tower
+You are at the bottom of a guard tower. The tunnel is back to the east.  You
+can also see a silencer.
+
+> get silencer
+You take the silencer.
+
+> east
+You move east.
+
+Tunnel
+You are in a tunnel ending at a guard tower to the west. The tunnel stretches
+off to the south.
+
+> south
+You move south.
+
+Tunnel
+You are in the middle of a north-south tunnel.
+
+> south
+You move south.
+
+Tunnel
+You are at a corner in the tunnel which stretches north and east.
+
+> east
+You move east.
+
+Tunnel
+You are at a t-intersection in the long tunnel which ends at corners to the
+north, west and south. Above you can make out the inside of your hut.
+
+> up
+You move up.
+
+In Your Hut
+You're standing in your hut. It's quite small, but it's good enough; there's
+a bed and the usual fittings. South takes you to the courtyard.
+There is also a dark hole leading down.  You can also see a knife.
+
+> south
+You move south.
+
+Central part of the court- yard
+You're in the central part of the court-yard, with your hut stationed to the
+north, while the courtyard stretches off to the east and west. Directly south
+is a gate which leads to the exercise yard.
+
+> south
+You move south.
+
+Between two fences
+You're standing in between two fences at a gate set into the south fence.
+This is what is referred to as a "double gate", which maximises security. The
+exercise yard is to the south, while north takes you to the confined
+courtyard.
+
+> south
+You move south.
+
+Northern end of the exercise yard
+You're at the northern end of the exercise yard, standing directly in front
+of a gate set into the fence.
+
+> south
+You move south.
+
+Southern end of the exercise yard
+You're at the southern end of the exercise yard.
+
+> west
+You move west.
+
+South-west corner of the exercise yard
+You're at the south-west corner of the exercise yard, in front of the camp's
+flagpole, which proudly bears the enemy insignia.
+
+> light flag
+You light the flag and it burns well. If you thought that you could just burn
+up the enemy flag in the middle of the yard then I don't know... But anyway,
+there is a whole crowd of people running towards the burning spectacle from
+all  parts of the camp, and the soldiers are having a fun time keeping
+everyone back. What a commotion!
+
+> north
+You move north.
+
+North-west corner of the exercise yard
+You're at the north-west corner of the exercise yard.
+
+> east
+You move east.
+
+Northern end of the exercise yard
+You're at the northern end of the exercise yard, standing directly in front
+of a gate set into the fence.
+
+> east
+You move east.
+
+North-eastern corner of the exercise yard
+You're at the north-eastern corner of the exercise yard, cornered off by a
+barbed wire fence.
+
+> cut wire
+I cut a small little hole in the fence using the wire cutters.
+
+> drop wire cutters
+You drop the pair of wire cutters.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+Night falls.
+
+> east
+You move east.
+
+Between two fences
+You're standing between two fences. A hole cut in the fence is to the west,
+and an open gate is set into the east fence. To the north is a corner and to
+the south is a corner. Both you cannot see past.
+
+> east
+You move east.
+
+Dorm
+Lucky for you that you picked the right time of day! You're in a dorm full of
+snoring guards. A very potent cigarette smell pervades the cool, night air.
+In the centre of the room, on a table, there are a pile of cigarettes, just
+waiting to be smoked. The fence is west.
+
+> exam table
+A packet of cigarettes is on the table .
+
+> get cigarettes
+You take the packet of cigarettes from the table .
+
+> west
+You move west.
+
+Between two fences
+You're standing between two fences. A hole cut in the fence is to the west,
+and an open gate is set into the east fence. To the north is a corner and to
+the south is a corner. Both you cannot see past.
+
+> west
+You move west.
+
+North-eastern corner of the exercise yard
+You're at the north-eastern corner of the exercise yard, cornered off by a
+barbed wire fence.
+
+There is a small hole cut into the fence to the east.  You can also see a
+pair of wire cutters.
+
+> south
+You move south.
+
+South-east corner of the exercise yard
+You're at the south-east corner of the exercise yard.   A man is here,
+sitting down and having a rest.
+
+> give cigarettes to man
+Ah! Cigarettes! The man knows his way around. Thank you dear fellow. In
+return I will grant you a free identification process. The man takes a photo
+of you, sticks it on a card and hands the card to you. "This is your ticket
+out of here, he says."
+
+> north
+You move north.
+
+North-eastern corner of the exercise yard
+You're at the north-eastern corner of the exercise yard, cornered off by a
+barbed wire fence.
+
+There is a small hole cut into the fence to the east.  You can also see a
+pair of wire cutters.
+
+> west
+You move west.
+
+Northern end of the exercise yard
+You're at the northern end of the exercise yard, standing directly in front
+of a gate set into the fence.
+
+> north
+You move north.
+
+Between two fences
+You're standing in between two fences at a gate set into the south fence.
+This is what is referred to as a "double gate", which maximises security. The
+exercise yard is to the south, while north takes you to the confined
+courtyard.
+
+> north
+You move north.
+
+Central part of the court- yard
+You're in the central part of the court-yard, with your hut stationed to the
+north, while the courtyard stretches off to the east and west. Directly south
+is a gate which leads to the exercise yard.
+
+> east
+You move east.
+
+Far right end of the courtyard
+You're at the far right end of the courtyard. The dining hut is to the
+immediate north, while the courtyard stretches back off to the west.
+
+> north
+You move north.
+
+Dining Hut
+You're in the dining hut. It's here where the prisoners have their regular
+meals, on a huge table, nearly spanning the whole hut. South takes you to the
+courtyard.
+
+> get spoon
+You take the spoon from the table .
+
+> south
+You move south.
+
+Far right end of the courtyard
+You're at the far right end of the courtyard. The dining hut is to the
+immediate north, while the courtyard stretches back off to the west.
+
+> west
+You move west.
+
+Central part of the court- yard
+You're in the central part of the court-yard, with your hut stationed to the
+north, while the courtyard stretches off to the east and west. Directly south
+is a gate which leads to the exercise yard.
+
+> north
+You move north.
+
+In Your Hut
+You're standing in your hut. It's quite small, but it's good enough; there's
+a bed and the usual fittings. South takes you to the courtyard.
+There is also a dark hole leading down.  You can also see a knife.
+
+> down
+You move down.
+
+Tunnel
+You are at a t-intersection in the long tunnel which ends at corners to the
+north, west and south. Above you can make out the inside of your hut.
+
+> south
+You move south.
+
+Tunnel
+You are at a corner of the tunnel, which stretches off to the north and east.
+To the west is a small hole leading up.
+
+> east
+You move east.
+
+Tunnel
+You are at a corner in the tunnel which turns to the west and south. To the
+east is a small hole leading up.
+
+> south
+You move south.
+
+Tunnel
+You are in a tunnel stretching north and south. To the west is a large hole
+leading to another section of the huge tunnel.
+
+> south
+You move south.
+
+Tunnel
+You are at a corner in the tunnel which turns to the north and west. To the
+east is a small dark hole.
+
+> west
+You move west.
+
+Tunnel
+You are in a tunnel leading east to a corner, south to a north-south passage,
+and west to the surface via a neatly rounded hole.
+
+> south
+You move south.
+
+Tunnel
+You are in a tunnel leading north, south and east.
+
+> south
+You move south.
+
+Tunnel
+You are at a corner in a tunnel which stretches of to the north and which
+ends to the west at a dead-end. To the east is a small tunnel with light
+coming from the other end.
+
+> west
+You move west.
+
+Tunnel
+You are at a dead end in the tunnel. To the west is a huge pile of soil which
+seems to block your way out. To the east are more exciting tunnel locations.
+
+> dig
+Using your spoon (!), you quickly dig away the soil to discover a tunnel
+leading to the west.
+
+> west
+You move west.
+
+The tunnel caves in behind you.
+
+Small Clearing
+You are in a small clearing in a huge forest. A solidly sealed tunnel is all
+that is of interest here. You can spot a road to the east.
+
+> drop spoon
+You drop the spoon.
+
+> east
+You move east.
+
+Main Drive
+You are on the main drive to the camp. The drive leads north and south, and
+accessible forest is to the east and west.
+
+> east
+You move east.
+
+In a Forest
+You are SOMEWHERE in a forest.
+
+> east
+You move east.
+
+In a Forest
+You are SOMEWHERE in a forest.
+
+> east
+You move east.
+
+Deep in a Forest
+You are deep in a forest.  There is a soldier here, attending the call of
+nature. His back is turned to you.
+
+> kill soldier
+You give 'im a good bash on the old head, and very kindly relieve him of his
+pistol, which is unfortunately very empty.
+
+> put silencer on pistol
+You now have a pistol with a silencer.
+
+> east
+You move east.
+
+In a Forest
+You are SOMEWHERE in a forest.
+
+> west
+You move west.
+
+In a Forest
+You are SOMEWHERE in a forest.
+
+> west
+You move west.
+
+Main Drive
+You are on the main drive to the camp. The drive leads north and south, and
+accessible forest is to the east and west.
+
+> north
+You move north.
+
+Main Drive to the Camp
+You are on the main drive to the camp. The drive ends at a gate to the
+immediate north, and continues through a forest to the south.  A drive winds
+off to the west, and a clear area is directly to the east. There is a sign
+post pointing towards the east.
+
+> west
+You move west.
+
+Front of the Camp
+You are standing on a drive near a forest to the front of the camp. To the
+west, an empty road winds its way into the hills, while the main drive is
+directly to the east.  There is a patrolling soldier here, his back turned to
+you.
+
+> kill soldier
+You shoot the soldier quickly and silently without anyone noticing. As
+soldier seems to be a very high rank, you decide to quickly exchange clothes
+with the soldier. You then hide him in the bushes.
+
+> east
+You move east.
+
+Main Drive
+You are on the main drive to the camp. The drive leads north and south, and
+accessible forest is to the east and west.
+
+> north
+You move north.
+
+Main Drive to the Camp
+You are on the main drive to the camp. The drive ends at a gate to the
+immediate north, and continues through a forest to the south.  A drive winds
+off to the west, and a clear area is directly to the east. There is a sign
+post pointing towards the east.
+
+> north
+You move north.
+
+Main Gate
+You are at the main gate. You may leave the camp by going south, or you may
+enter the camp proper by going north.
+
+You are granted clearance and you are allowed to proceed either north or
+south.
+
+> north
+You move north.
+
+Main Drive
+You are on the main drive, ending to the north at offices, and to the east at
+a workshop. The main gate is immediately south.
+
+> north
+You move north.
+
+Empty Office
+You are in an empty office. An office is to the west and a gallery is to the
+east. The drive spans out to the south.
+
+> west
+You move west.
+
+Small Office
+You're in a small, lavishly decorated office. Boy, do those soldiers have THE
+life. There is a desk here, and an exit to the east to another office.  You
+can also see a desk.
+
+> exam desk
+The desk has a drawer, which is very empty.
+
+> get drawer
+You remove the drawer from the desk.
+
+> exam drawer
+It is empty.
+
+The sun rises.
+
+> east
+You move east.
+
+Empty Office
+You are in an empty office. An office is to the west and a gallery is to the
+east. The drive spans out to the south.
+
+> east
+You move east.
+
+Room of Paintings
+You are in a room decorated with many beautiful paintings. Like a
+mini-gallery actually. An office is to the west.
+
+> move picture
+Behind one of the paintings you discover a wall safe.
+
+> type 1236
+The safe is open.
+
+> exam safe
+The safe is a standard issue combination lock type safe. Enter the
+combination number, and if you get the correct number the safe will open.
+The wall safe is open.  A grenade is inside the wall safe.
+
+> get grenade
+You take the grenade from the wall safe.
+
+> west
+You move west.
+
+Empty Office
+You are in an empty office. An office is to the west and a gallery is to the
+east. The drive spans out to the south.
+
+> south
+You move south.
+
+Main Drive
+You are on the main drive, ending to the north at offices, and to the east at
+a workshop. The main gate is immediately south.
+
+> east
+You move east.
+
+Workshop
+You are in a workshop. Here all sorts of contraptions are built. The exit is
+directly to the west.  You can also see a jeep.
+
+> get jeep
+Done.
+You are driving a jeep.
+
+> west
+You move west.
+
+Main Drive
+You are on the main drive, ending to the north at offices, and to the east at
+a workshop. The main gate is immediately south.
+You are driving a jeep.
+
+> south
+You move south.
+
+Main Gate
+You are at the main gate. You may leave the camp by going south, or you may
+enter the camp proper by going north.
+You are driving a jeep.
+
+You are granted clearance and you are allowed to proceed either north or
+south.
+
+> south
+You move south.
+
+Main Drive to the Camp
+You are on the main drive to the camp. The drive ends at a gate to the
+immediate north, and continues through a forest to the south.  A drive winds
+off to the west, and a clear area is directly to the east. There is a sign
+post pointing towards the east.
+You are driving a jeep.
+
+> south
+You move south.
+
+Main Drive
+You are on the main drive to the camp. The drive leads north and south, and
+accessible forest is to the east and west.
+You are driving a jeep.
+
+> south
+You move south.
+
+On a Road
+You are on a road leading north to the camp and south to a checkpoint.
+You are driving a jeep.
+
+> south
+You put the jeep in fifth gear and roar straight through the checkpoint,
+having a fun time smashing any obstructions. The bewildered soldiers can do
+nothing more but stare at you as you drive down the road, shouting things
+like "Mein Gott!" and "Um Himmel's willen!" As soon as they have composed
+themselves, they quickly get onto HQ pronto, which means that you had better
+get out of  here fast.
+
+On Highway
+You are speeding down a north-south highway, in hot pursuit by an angry mob
+of soldiers in jeeps. Gunshots are fired frantically, but never seem to hit
+you.
+You are driving a jeep.
+
+> south
+You move south.
+
+On Highway
+You are further down the north-south highway, still being pursued quite
+relentlessly.
+You are driving a jeep.
+
+There is a huge tank blocking the road to the south, its gun slowly aiming at
+you.
+
+> throw grenade
+You throw the hand grenade at the tank. My, what a shot! The tank explodes
+into a huge fireball, and, putting the jeep into tenth gear, you race through
+the fire as if nothing had ever happened.
+
+At the Airport
+You're at the entrance to the airport, a waiting plane stationed to the
+south.
+You are driving a jeep.
+
+> south
+You move south.
+
+Outside Waiting Plane
+You're outside a waiting plane, ready for takeoff. Stairs lead up into the
+cockpit.
+You are driving a jeep.
+
+> drop jeep
+Done.
+
+> up
+You move up.
+
+Sitting in Cockpit
+You are sitting in the cockpit of a plane ready for takeoff. In front of you
+are the controls. You notice the enemy running around the plane shouting
+inane phrases at you.
+
+> press blue
+
+Yay! Takeoff!
+
+In the Air
+You are in the air. Gazing out of the window, you cannot help noticing the
+massive anti-aircraft gun that is being erected. Better think of something,
+and fast.
+
+> press yellow
+Bombz avay! You drop a bomb right smack bang into the middle of the military
+airport, destroying everything that you were gazing at.
+
+In the Air
+You are in the air, approaching the allied HQ. The radio looks like it could
+be of use here...
+
+> use radio
+Enter the number (100 to 120) of the channel you would like to tune the radio
+to (just type the number).
+
+> 105
+"This is the allied HQ speaking. Please identify yourself."
+
+> henry
+
+"You are cleared for landing."
+
+You notice a runway directly underneath you. You slowly but surely land the
+plane.
+
+When you eventually tell your story to everyone, people are amazed at what
+you have been through. You talk for what
+seems like an eternity, before you finally get some sleep.
+
+The next morning, a newspaper is brought in for you to read. In it you notice
+a very interesting article.
+
+[Press ENTER to continue]
+
+******************************************************************************
+*******************************
+         WARPLANE STOLEN FROM ENEMY
+******************************************************************************
+*******************************
+
+It is reported that a brand new top secret war plane was 'borrowed' by one
+certain allied member.
+
+It is believed that this was a brand new plane, which had sophisticated
+weaponry and stealth capabilities. The warplane is believed to be a B 2.341
+class bomber, which will greatly contribute to the allied forces arsenal once
+it is built.
+
+******************************************************************************
+*******************************
+                   NEW DOG FOOD
+******************************************************************************
+*******************************
+Have you been treating your dog with a healthy meal? If not, then try the NEW
+
+[Press ENTER to continue]
+
+Guess what. You've come through! You have solved the adventure.
+
+I would like to congratulate you on your achievement; you've done well!
+
+To prove that you have finished this adventure, remember this password: "YFN"
+
+Congratulations once more, and we all hope that you look forward to the next
+gripping adventure from Mario Moeller.
+
+Final score: 100% COMPLETED.
+Final rank : ADVENTURE MASTER.
+
+ZE END!
+
+Feel free to report any bugs, send praise or give general feedback to
+richardo@delron.org.uk
+
+[Press any key to end]

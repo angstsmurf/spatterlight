@@ -1,0 +1,186 @@
+look at me
+stand up
+turn on tv
+unplug ps2
+x table
+take metal album
+open stereo
+put metal album in stereo
+close stereo
+turn on stereo
+open drawer
+look in drawer
+look at photo
+take watch
+take pen
+remove sleepshirt
+drop sleepshirt
+drop all
+nw
+e
+take shower
+w
+se
+take jeans
+wear jeans
+take sweatshirt
+wear sweatshirt
+take ps2
+take watch
+take pen
+wear watch
+nw
+n
+open cupboard
+look in cupboard
+take mug
+take teabag
+fill mug with water
+put mug in microwave
+boil water
+take mug
+make tea
+drink tea
+s
+look in wardrobe
+take jacket
+look in jacket
+take key
+take coathanger
+wear jacket
+look in jacket
+ne
+z
+z
+look in machine
+take clothes
+sw
+w
+u
+u
+hang clothes
+d
+d
+look in shoe box
+take sneakers
+wear sneakers
+d
+d
+n
+e
+e
+s
+look in toolbox
+take pincers
+make lockpick
+ask dad about tv
+ask dad about food
+n
+n
+buy ticket
+get on train
+n
+buy ramen
+eat ramen
+in
+fill ad
+s
+mail ad
+buy ticket
+get on train
+s
+w
+n
+run
+ne
+open shed
+look in shed
+take rope
+sw
+give rope to jogger
+run
+s
+s
+score
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+z
+ask kenichi about tv
+pick lock
+e
+plug ps2 in tv

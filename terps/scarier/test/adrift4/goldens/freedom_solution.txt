@@ -1,0 +1,155 @@
+1
+down
+get bullet
+drop paper
+eat bullet
+east
+x seat
+get food
+north
+wait
+wait
+south
+west
+west
+north
+get head
+south
+east
+north
+open crate
+exam crate
+get cutters
+drop head
+south
+east
+east
+north
+exam table
+get knife
+south
+west
+north
+move bed
+get floorboards with knife
+drop knife
+down
+north
+east
+up
+get bullet
+talk to man
+1
+talk to man
+2
+give food to man
+down
+south
+west
+north
+north
+west
+get silencer
+east
+south
+south
+east
+up
+south
+south
+south
+south
+west
+light flag
+north
+east
+east
+cut wire
+drop wire cutters
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+east
+east
+exam table
+get cigarettes
+west
+west
+south
+give cigarettes to man
+north
+west
+north
+north
+east
+north
+get spoon
+south
+west
+north
+down
+south
+east
+south
+south
+west
+south
+south
+west
+dig
+west
+drop spoon
+east
+east
+east
+east
+kill soldier
+put silencer on pistol
+east
+west
+west
+north
+west
+kill soldier
+east
+north
+north
+north
+north
+west
+exam desk
+get drawer
+exam drawer
+east
+east
+move picture
+type 1236
+exam safe
+get grenade
+west
+south
+east
+get jeep
+west
+south
+south
+south
+south
+south
+south
+throw grenade
+south
+drop jeep
+up
+press blue
+press yellow
+use radio
+105
+henry

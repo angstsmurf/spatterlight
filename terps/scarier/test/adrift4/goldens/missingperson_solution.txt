@@ -1,0 +1,119 @@
+look
+examine waiter
+ask waiter about coffee
+order
+sit on chair
+get coffee
+drink coffee
+examine jimmy
+ask jimmy about staring
+ask jimmy about past
+examine paper
+ask jimmy about paper
+get paper from jimmy
+read paper
+examine table
+get key
+east
+examine desk
+get yellow page
+look yellow page
+look milly up from yellow page
+east
+south
+south
+east
+examine counter
+get newspaper
+read newspaper
+examine sam
+ask sam about name
+ask sam about pool
+ask sam about BlindPig
+in
+touch the pictures
+examine wall
+examine pic1
+ask sam about the interested man
+ask sam about friend
+ask sam about funeral
+ask sam about bates
+ask sam about pic1
+wait
+west
+examine board
+read board
+in
+examine micky
+examine ann
+ask ann about micky
+ask ann about old photos
+ask ann about pic1
+wait
+bless bates
+wait
+out
+north
+north
+knock the door
+examine cabinet
+open cabinet
+get box
+open box
+get pic2
+examine pic2
+ask ann about andrew
+ask ann about fled
+ask ann about joel
+ask ann about clare
+more about castle
+unlock drawer
+open drawer
+turn lamp on
+search old files by fled
+examine bookshelf
+get map
+examine map
+close drawer
+lock drawer
+east
+north
+in
+examine gardener
+show gardener pic1
+show gardener pic2
+ask gardener about full name
+ask gardener about fled
+out
+west
+west
+west
+west
+look
+go in front of the picture
+examine picture
+examine waiter
+ask waiter about picture
+ask waiter about photographer
+ask waiter about magzine
+i promise
+examine magzine
+ask waiter about clare
+ask waiter about other pictures
+see other pictures
+examine envelope
+examine pic5
+examine pic6
+unlock drawer
+open drawer
+search old files by clare
+knock the door
+ask marry about clare
+ask marry about 1932
+ask marry about mail
+see the mail
+read mail
+ask marry about apartment
+wait
+see the bedroom
+wait

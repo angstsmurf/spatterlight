@@ -145,3 +145,12 @@
 /runner_transcripts/**/magicshow.*
 /runner_transcripts/**/goblin.*
 /runner_transcripts/**/sswhore.*
+
+# Crossworlds Part 2 and Part 4 (AIF): explicit text, deliberately not
+# committed.
+/goldens/crossworlds2_solution.txt
+/goldens/crossworlds2_solution.expected.txt
+/goldens/crossworlds4_solution.txt
+/goldens/crossworlds4_solution.expected.txt
+/runner_transcripts/**/crossworlds2.*
+/runner_transcripts/**/crossworlds4.*

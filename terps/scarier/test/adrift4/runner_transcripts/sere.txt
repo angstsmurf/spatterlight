@@ -1,0 +1,236 @@
+
+> 1
+S.E.R.E
+
+	You always thought you would be ready, that you would know what to do.  On late nights, drinking with your buddies, you boasted about how you would react in a situation such as this.  Cool, calm, collected, your training would kick in and you would know exactly what to do.  Somewhere, deep in the recesses of your mind, for just a split second, a scared voice screams "bullshit!".
+
+
+	You never saw what hit you.  Your first thought was that your pilots were flying too low, too fast and struck a tree or a mountain top.  Then you heard the pilots screaming "SAM, SAM, we're hit!"  Shock, fear, panic.  Not one of your drunken boastings ever included peeing in your pants but thats between you and God if you don't make it out of this.
+
+
+	The aft cabin is a blazing inferno, the heat is tremendous.  As your pilots struggle to keep the flailing beast airborne you have the presence of mind to get to a seat and strap in.  The internal communication system has failed, or maybe your cord just became unplugged from your helmet, either way, you can't hear whats happening in the cockpit anymore.  You close your eyes and put your head between your legs and prepare to, as the saying goes, "Kiss your ass goodbye."  
+   
+
+	The impact is incredible.  You feel as though you're going to be bent in half and rended in two.  Again, and again, bouncing, jarring every bone in your body.  Then the aircraft tips to one side and the airframe shudders violently as the rotor blades bite into the earth.  The hearing protection in your helmet doesn't even begin to dampen the roar of the aircraft, the horrible sounds of solid metal buckling and being wrenched apart.  It also doesn't block out your screams.
+
+
+	Then it all stops, stillness, silence.  As your senses slowly return you make out popping, crackling sounds, the fire!  You frantically examine for the buckle to your harness, find it and release it.  You fall nearly five feet across the cabin and slam into the seats on the opposite bulkhead.  The aircraft must be resting on it's side.  Smoke rapidly fills the cabin, choking you and obscurring your vision.  Disoriented in this unfamiliar enviroment, you grope around blindly for a reference point, an exit.  Your hand brushes up against smooth plastic, a window.  You examine around the frame until you find the emergency release handle and you turn it releasing the hatch and allowing the window and frame to fall into the cabin at your feet.  You reach up and grasp the edges of the large opening and pull with all your strength.  It's awkward and difficult with all the gear you're wearing, but you eventually struggle out of the blazing cabin and into fresh air.  Smoke billows from the open hatch as you pull your lower body out and slide down the side of the fuselage to the ground.  You immediately fall to your knees, but mustering your remaining strength you rise to your feet once again and stagger away from the  intense heat of the fiery wreckage.
+
+
+
+The Crash Site
+		You're standing near the wreckage of what used to be your aircraft.  You stare in disbelief at the carnage laid out before you.  Debris is strewn hundreds of feet in all directions, ripped from the thrashing aircraft and hurled through the air during the crash.  The crash site it'self is probably the only reason you're still alive.  Surrounded by thick forest, the pilots managed to find a small break in the trees and willed the aircraft into the clearing.  The earth around you has been chewed up leaving deep ruts and piles of freshly dug earth.  Scanning the surrounding terrain, you find yourself in a large valley.  Distant mountain ranges flank you to the east and west with a low ridgeline a good distance to the north.  As far as your immediate surroundings, you're in a small clearing with steep rocky terrain to your west and a dense forest of pine trees in all other directions. 
+	
+	You decide that your first course of action should be to inventory your survival gear and then use your radio to contact Search and Rescue.  The sooner they get the rescue birds turning, the sooner you'll be out of here.
+
+> east
+You move east.
+Eastern Pine Forest
+	The eastern half of the forest is dense with large trees and vegetation.  A layer of fallen pine straw and scattered pine cones cover the forest floor and the terrain is less difficult to move over as it flattens out into the valley floor.  There is a burnt smell in the air and an eerie silence.  You are completely surrounded by forest and the crash site is to the west.
+
+
+> south
+You move south.
+Bombed Out Forest
+	The south-eastern half of the forest is a scene of total destruction.  It appears as though this entire area was the recipient of an airstrike or artillery bombardment.  There isn't a tree left standing over ten feet and large rocks look as though they simply shattered.  The ground is covered in a thick deposit of black and gray ash and small bit's of debris are strewn everywhere.
+
+> south
+You move south.
+Bombed Out Camp
+	This section of the forest looks as if it used to be a camp of some kind, unfortunately this entire site was the target of an airstrike or possibly an artillery bombardment.  There is very little left standing, all the trees and vegetation have been reduced to nothing leaving charred trunks and exposed roots jutting from the blackened landscape.  There are bit's of equipment and debris scattered around, possibly weapons, or gear, maybe an old tent.  The pieces of debris are unidentifiable.  The only object that appears to not be completely obliterated is the hulk of a large truck.  	
+	A single shot suddenly rings out, echoing across the valley.  You hear a loud snap as a bullet slices through the air dangerously close to you.  It must be sniper, but luckily not a very good one.
+
+> in
+You move in.
+Inside the Truck Bed
+	The bed of the large transport truck is very cramped with rows of metal seats lining either side.  You doubt a truck like this could carry more than ten men, hopefully all ten of them are ash on the forest floor.
+
+> take RPG
+	You pick up the rocket propelled grenade.  Someone must have dropped it in a hurry and made a run for it during the assault here.
+
+> out
+You move out.
+Bombed Out Camp
+	This section of the forest looks as if it used to be a camp of some kind, unfortunately this entire site was the target of an airstrike or possibly an artillery bombardment.  There is very little left standing, all the trees and vegetation have been reduced to nothing leaving charred trunks and exposed roots jutting from the blackened landscape.  There are bit's of equipment and debris scattered around, possibly weapons, or gear, maybe an old tent.  The pieces of debris are unidentifiable.  The only object that appears to not be completely obliterated is the hulk of a large truck.
+
+> north
+You move north.
+Bombed Out Forest
+	The south-eastern half of the forest is a scene of total destruction.  It appears as though this entire area was the recipient of an airstrike or artillery bombardment.  There isn't a tree left standing over ten feet and large rocks look as though they simply shattered.  The ground is covered in a thick deposit of black and gray ash and small bit's of debris are strewn everywhere.
+
+> east
+You move east.
+South-West Lake Shore
+	You're on the shore line of a small lake roughly 200 yards wide and 400 yards in length.  The water does not appear to be very deep or very clean.  The shore extends to the north to a large hill.  To the west is the forest and to the south east is a small marsh.  	
+	You start to see rays of sunlight piercing the thick gray clouds.  The overcast sky seems to be clearing up slightly with the occasional hint of blue skies between breaks in the dark veil.  You're not sure but you think you just heard the low roar of an aircraft engine but it disappears and you're not  really sure it was ever there.  
+	You hear the sound again.  This time there is no doubt, there is an aircraft near your position but you can't see anything yet.
+
+> north
+You move north.
+North-West Lake Shore
+	You're on the shore line of a small lake roughly 200 yards wide and 400 yards in length.  The water does not appear to be very deep or very clean.  The shore extends farther south and north of your current postion stands a large hill.  To the west is the pine forest and to the east, across the lake, is a small village.  An old wooden boat is sitting on the ground where it had previously been concealed.  Small clumps bushes and shrubs line the edge of the forest.
+
+> take boat
+You take the old boat.  
+	The drone of the approaching aircraft is getting louder as the seconds pass.  Then you see it, a small reconnaissance aircraft skimming the bottom of the broken cloud layer.  You frantically dig for your pen flare wasting valuable time when you drop a flare cartridge on the ground.  Suddenly a loud blast erupts from the northern end of the valley.  You watch in horror as a missle streaks up from the valley floor and races towards the friendly aircraft.  Luckily the pilot skillfully dodges the threat while deploying decoy flares to confuse the missile.  The SAM arcs aimlessly into the sky with out a target and disappears into the clouds.  
+
+> south
+You move south.
+South-West Lake Shore
+	You're on the shore line of a small lake roughly 200 yards wide and 400 yards in length.  The water does not appear to be very deep or very clean.  The shore extends to the north to a large hill.  To the west is the forest and to the south east is a small marsh.  
+	The reconnaissance aircraft doesn't attempt to make another pass through the valley.  It aggressively pulls up into the clouds and disappears and the low roar turn into a hum and then disappears all together.  Just as abruptly the clouds begin to thicken and gradually blanket the valley once more.
+
+> southeast
+You move southeast.
+Marsh
+	You're standing knee deep in a small marsh at the southern edge of the lake.  The water is murky and the bottom is covered in thick mud.  Reeds and other vegetation are growing up out of the water in large green clumps.  The water appears to get deeper as it merges with a swamp to the east.  To the north west lies the lake shore.
+
+> drop boat
+You drop the old boat.  
+
+> sit in boat
+You sit down on the old boat.
+
+> e
+	You paddle the boat through the water with your hands, slowly making your way through a swamp.  When you beach the boat on the other side you can see a structure of some sort to the north.
+
+> n
+(Getting off the old boat first)
+You move north.
+Small Barn
+	You're hiding in the treeline of a clearing in which sit's a small barn like structure.  West of the barn is the lake and east of the barn is a steep mountain range.  To the north is a small village and south will take you back into the swamp.
+
+> stab soldier
+	Knife in hand, you stealthily move towards the unsuspecting guard.  You freeze as he stirs in his sleep but he quickly returns to his peaceful slumber.  As soon as he is within reach you grab his hair and yank his head back violently.  His eyes pop open, wide with shock, staring at you, unable to react.  You savagely plunge the blade into his waiting neck, just below the jaw line.  He immediately begins to struggle and vainly attempts to cry out for help, emitting instead rasping and gurgling sounds.  He grasps for his rifle but you let go of his hair and snatch the AK-47 from his reach.  You then turn the knife in the wound and quickly pull it out allowing torrents of blood to spurt and drain from the gaping hole in his throat.  The life drains from him before your very eyes and he crumples to the ground in a rapidly expanding pool of blood.  You wipe your knife off on his dirty fatigues and place it back in your vest.
+
+> x soldier
+	It's the body of the soldier who's throat you slit.  His eyes are still wide open in shock.  The ragged wound in his throat slowly drips rivulets of blood.  You quickly pat down his filthy uniform for anything useful.  There is a single large caliber bullet in one of the gaurds pockets.
+
+> take bullet
+You take the bullet from dead soldier.
+
+> in
+You move in.
+Inside the Barn
+You're standing inside the small barn south of the village.  It appears to be empty, as far as the things you would expect to find in a barn.  Instead you see a large table and several chairs.  In the corner of the barn is a small pile of hay.
+
+> ex hay
+	Its a small pile of brown straw pushed into a corner of the barn.  Someone probably sleeps on it.  Theres nothing special about it.  What is special about the hay,  though, is the large sniper rifle half buried underneath
+
+> take sniper rifle
+	You pull the sniper rifle out of the pile of hay.
+
+> load sniper rifle
+	You insert the bullet into the chamber of the sniper rifle.
+
+> out
+You move out.
+Small Barn
+	You're hiding in the treeline of a clearing in which sit's a small barn like structure.  West of the barn is the lake and east of the barn is a steep mountain range.  To the north is a small village and south will take you back into the swamp.  On the ground lies the body of a dead soldier
+
+> south
+You move south.
+Swamp
+	You're in a swamp that is a small ,shallow extension of the lake.  Large clumps a reeds and other plant life are in abundance in the murky water.  The swamp leads west into the marsh and ends to the north at a small clearing.  Also here is an old boat.
+
+> sit in boat
+You sit down on the old boat.
+
+> west
+	You slowly paddle you way back to the marsh.	  	Another rifle shot pierces the air.  This time the round impacts in the ground near you sending up a geyser of dirt.  If the sniper keeps it up hes going to get lucky eventually.  You had better find a way to deal with him.
+
+> northwest
+(Getting off the old boat first)
+You move northwest.
+South-West Lake Shore
+	You're on the shore line of a small lake roughly 200 yards wide and 400 yards in length.  The water does not appear to be very deep or very clean.  The shore extends to the north to a large hill.  To the west is the forest and to the south east is a small marsh.
+
+> north
+You move north.
+North-West Lake Shore
+	You're on the shore line of a small lake roughly 200 yards wide and 400 yards in length.  The water does not appear to be very deep or very clean.  The shore extends farther south and north of your current postion stands a large hill.  To the west is the pine forest and to the east, across the lake, is a small village.  Small clumps bushes and shrubs line the edge of the forest.
+
+> north
+You move north.
+Rocky Hill
+	You're at the top of a large hill positioned in the middle of the valley.  Though not as high as the mountains to the east and west, you do have an excellent field of view of the northern ridgeline as well as most of the valley.  There are plenty of rocks and small vegetation providing outstanding concealment.  To the west and south west lies the forest.  To the east is a large field and beyond that a village.  South east of your position is a small body of water and due south is the shore.    Something in the rocks on the ridge shimmers momentarily then vanishes.  
+
+> look through scope
+	You get into a comfortable position on the rocky hill.  Once you feel stable you bring the sniper rifle into the pocket of your shoulder,  press your cheek firmly against the stock and peer down the scope.
+
+> north
+You move north.
+Ridgeline
+	You shift your scan to the north end of the valley towards the ridgeline.  You can see where two passes, one large, the other small, merge at the summit of the ridge and descend down the other side.  As you examine tha area you see the odd glimmer of light again.
+
+> fire at sniper
+	You slowly relax your entire body, controlling every movement, every breath.  You shift your arms and torso until you find your natural point of aim, then you take a deep breath.  Slowly you exhale and open your eyes, your cross hairs are dead on target.  With a slow steady squeeze you pull the trigger back, easy, easy.
+	The rifle bucks in your hands and a deafening report echos across the valley.  Before the sound even dies away you're back on target for a second shot.  You then remember that you only had a single bullet, but it's of little consequence.  Through the scope you can see the sniper.  Single shot to the head, or what was a head.
+	Without anymore ammunition  you discard the sniper rifle and rise from the prone position.
+
+> east
+You move east.
+Field
+You're standing in a large open field with tall plants growing all around you.  You feel a little uneasy out in the open like this.  To the north you can see a wide trail winding it's way up the northern slope and to the west is a hill.  South of here is a small village.
+
+> north
+You move north.
+Wide Trail
+You're moving along a wide trail working it's way up the steady slop of the northern ridgeline.  The trail looks frequently used by vehicles, two deep ruts run parallel up the path. 
+
+> northwest
+You move northwest.
+Wide Mountain Pass
+	You're now slowly moving through a wide pass carved through the rocky terrain.  It winds back and forth up the mountain to allow vehicles to negotiate the steep terrain.  In some areas the road runs dangerously close to ledges that drop off hundreds of feet down the face of the ridge.  To the north is the top of the ridge and to the south east is a trail leading down the slope.
+
+> north
+You move north.
+The Ridge
+	You have reached the top of the north ridge.  The northern and southern valleys lie spread out before you.  From your vantage point you can see every aspect of the area and trace your journey from the crash to your present position.  You glance around for the body of the dead sniper but you cannot locate him, he won't be bothering you anyway.  To the north is a low grassy valley.  To the south and south west are the mountain passes leading down to the southern valley.
+
+> southwest
+You move southwest.
+Narrow Mountain Pass
+	You're on a narrow mountain pass literally carved into the terrain.  On one side is the steep face of the mountain and on the other side a sheer cliff dropping down to the valley below.     As you look below  your heart skips a beat.  In a small clearing you see men moving around, but it's not the men that your eyes are glued to.  Amidst the commotion sit's a large green tank.  This is not just any tank though, where a turret and cannon would usually sit rests a large radar array and multiple rail launched missles.  You examine your memory, what you are looking at is an SA-13 SAM system mounted on an MTL-B chasis, a lethal surface to air weapon system simply refered to with the NATO designator "Gopher". 
+
+> fire rpg at SA-13
+	You've never handled an RPG before but when you heft it up on your shoulder it all seems self explanatory.  No wonder third world countries use them so much, a child could use it effectively.  You line up the crude sights with the SA-13.  In your peripheral vision you can see that the soldiers are still going about their business, completely oblivious to you and whats about to take place.
+	You squeeze the trigger and the propellant ignites with a deafening blast sending the projectile streaking towards it's desitnation, a trail of thin, grey smoke in it's wake.  The grenade impacts the Gopher just below the rail system and radar array exploding into a dark cloud of smoke and debris.  The initail blast is impressive, but the secondary detonations from the remaining missiles are devastating.  The enitre clearing is consumed in a giant fireball, the concussion from the blast knocking you to the ground.  A dark black cloud boils into the air and wreckage begins raining down all over the forest. 
+	The SAM site has been neutralized.  You need to notify SAR so they con send in the rescue aircraft.
+
+> northeast
+You move northeast.
+The Ridge
+	You have reached the top of the north ridge.  The northern and southern valleys lie spread out before you.  From your vantage point you can see every aspect of the area and trace your journey from the crash to your present position.  You glance around for the body of the dead sniper but you cannot locate him, he won't be bothering you anyway.  To the north is a low grassy valley.  To the south and south west are the mountain passes leading down to the southern valley.
+
+> turn on radio
+You turn on the survival radio.
+
+> contact sar
+You raise the SAR Command Center once more to notify them about the fate of the SAM site.  They seem to have a lot of questions about how exactly that happened, but you dodge their inquiries and request an immediate extract.  SAR notifies you that birds will be in the air within the next 5 minutes and that you should be standing by in the pre-arranged safe zone ready to signal them.
+
+
+
+> north
+You move north.
+Grassy Valley
+Your standing in the middle of a large, open valley.  Waist high grass covers the entire landscape, swaying in unison like an rolling green sea.  The valley extends out  to steep mountain ranges on all sides and south will take you back up the ridgline.  You wait a short period of time, then you hear the low rumble echoing through the valley.  You can see two specks winding through the valley, the rescue aircraft are inbound.  You had better go ahead and signal them.
+
+> load pen flare
+You insert a pen flare cartridge into the pen flare. 
+
+> fire pen flare
+You fire the pen flare into the air with a sharp pop.  The bright flare streaks up into the sky and bursts into brilliant star white cluster.
+
+
+
+	The SAR aircraft react immediatly to the signaling flare, turning sharply towards the valley.  The transport helo slowly lumbers in to the landing zone as the escort gunships dart by on either flank, ensuring the area is clear.  As the SAR bird flares to land the tall grass begins whipping back and forth around you.  You shield your eyes from the swirling debris being kicked up and brace yourself against the the intense force of the rotor wash.  The big aircraft finally settles on the deck and aft ramp begins to drop.
+  
+	Friendlies spill out of the back of the cabin and form a tight perimeter around the LZ while an aircrewman and a medic rush to you with a casualty litter.  You gesture them away and simply walk into the back of the aircraft and take a seat.  The troops break down their perimeter one by one and file back into plane and strap into their seats.  One of the pilots looks over his shoulder at you with a big grin and give you an enthusiastic thumbs up.  You smile weakly and close your eyes, allowing your body to relax and sink back into the uncomfortable seat.
+
+	You hear the engines spool up and the aircraft  begins to lift.  You feel a lump form in your throat and a chill shoots up your spine as the beast breaks contact with the earth and pounds it's way into the air.  After that, the aircraft settles into a rythmic shuffle and as the plane rocks you, the drone of the engines sing you into a deep sleep. 
+You scored 140 out of the maximum 260!
+That is 53% of the game!
+You finished 120 points short.
+
+[Press any key to end]

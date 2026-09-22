@@ -9301,6 +9301,135 @@ ilgolem_solution.txt|Il Golem.taf|Complimenti, hai completato l'avventura!|SCR_S
 # as in Adrift_325_ghosttown.txt:207-216 -- the T31/T32 lamp class above is
 # gone.  The tumbleweed hunks after it are the RNG moving one tick.
 ghosttown_solution.txt|Ghost town v1,05.taf|Slowly two figures are seen shimmering in the air. One of a pretty young girl|SCR_SKIP_WAITKEY=1
+# SERE - Survive, Evade, Resist, Escape (ADRIFT 4).  Solution: the author's
+# walkthrough bundled in S.E.R.E.xmusic.zip (downloaded/SERE_walkthrough.txt),
+# "the minimum tasks required to complete the game", so the win scores
+# 130 of 260: the hiding places, the barn documents and maps, the boat
+# under the bushes and the sniper duel are all optional points.
+# Departures from the walkthrough:
+#   - a leading "1" answers the title menu (SCR_SKIP_WAITKEY=1 so the
+#     menu's <waitkey> does not eat it);
+#   - "south east", "north west" etc. are typed as one word.  run400 knows no
+#     spaced two-word direction (Proc_19_29_475638, run400.bas ~63400), so
+#     "south east" falls to the anywhere-task `* east *` (task 31, "open
+#     water") in the river rooms instead of taking the exit.
+sere_solution.txt|S.E.R.E.taf|You scored 130 out of the maximum 260!|SCR_SKIP_WAITKEY=1
+# Escape to Freedom (Richard Otter's 2005 port of Mario Moeller's 1989 game).
+# Solution: the walkthrough bundled in freedom.zip
+# (downloaded/EscapeToFreedom_walkthrough.txt).  Departures:
+#   - a leading "1" picks "Play the game" from the title menu;
+#   - the walkthrough's "(wait until dark)" is ten `wait`s after `drop wire
+#     cutters`: task 13 ("Night falls.") fires once var 13 passes 50, and
+#     walking east into the barracks by day lands you in the Cooler;
+#   - its "move" / "picture" (split across two lines) is `move picture`.
+# SCR_SKIP_WAITKEY=1: the truck ride's and the Cooler's "[Press ENTER to
+# continue]" would otherwise each eat the next scripted command.
+freedom_solution.txt|escape.taf|Final score: 100% COMPLETED.|SCR_SKIP_WAITKEY=1
+# Pathway to Destruction v1.2 (Richard Otter, Finish The Game Comp 2005), the
+# ADRIFT 4.00 original; the later ADRIFT 5 release is a separate row in
+# adrift5/ (PathwayToDestruction.blorb).
+# Solution: the walkthrough bundled in pathway.zip
+# (downloaded/PathwayToDestruction_walkthrough.txt), verbatim after two
+# leading answers: "male" for the gender prompt (the hero is John) and "1"
+# for "Play the game" on the title menu.  The game keeps no score; the
+# marker is Colin's question in the closing scene.  SCR_SKIP_WAITKEY=1: the
+# title menu's and the ending's <waitkey>s otherwise eat scripted lines.
+pathway_solution.txt|pathway.taf|and stop the test. Do you remember anything?|SCR_SKIP_WAITKEY=1
+# Missing Person (Yingying Wu).  Solution: the author's walkthrough
+# (downloaded/MissingPerson_walkthrough.txt), which offers two ways through
+# most steps; this takes way 1 each time (the yellow pages for Sam, the
+# funeral for Micky, the castle then the pub, Clare's file for the
+# apartment), with the "....." try-other-things lines and comments dropped.
+# Other departures:
+#   - `turn lamp on` before `search old files by fled`: the walkthrough only
+#     lights it in its way-2 branch, and the files are "too dark to read"
+#     without it (that search is what places the castle);
+#   - the newspaper boy's three lines are left out -- the walkthrough says
+#     you "may" meet him, and on this route he is not there.
+# No score; the marker is the closing paragraph.
+missingperson_solution.txt|MissingPerson.taf|sadness of the little girl?|
+# Outside (3.90) is UNFINISHABLE as shipped -- the author's guide admits the
+# game skipped testing -- so this row is a maximal reachable run, not a win.
+# Solution: the author's guide bundled in outside.zip
+# (downloaded/Outside_guide.txt), with its "***kill the guards***"-style
+# notes played out: `attack first guard` (Joe finishes the second),
+# `wear first guards uniform` (its "put on" is "You can't do that!"),
+# `attack third guard`, `escape` from the road monster, the bus-depot quiz
+# answers typed bare, and four `wait`s for the bus (NPC 14 walks 4 turns
+# each way).
+# The two dead ends, both the author's:
+#   - Alexes house: tasks 72 and 73 both claim `ne`/`go* alex*` in Phureo;
+#     72 ("The door to Alexes house is locked.") has no restrictions and
+#     comes first, so 73 (gated on `*unlock*`, task 74) can never run.
+#     Verified in the real run390 under Wine (VBRNG=xoshiro,
+#     Adrift_outside_ne.txt): `unlock` then `ne` / `go to alexes house`
+#     both print the locked line.
+#   - Roses house: its only way out, `se` (task 79), prints "You have 30
+#     turns before you will be recaptured." and has no move action; it is
+#     not repeatable, so every later `se` / `goto phureo` is "You have
+#     already done that."  So the route unlocks first, then reads the diary.
+# Joe dies on the road (`escape`): Outside's task 11 raises "max defence of
+# Joe" by 30, but run390's max-defence arm indexes NPC Var2-1 and raises
+# the dead first guard instead (task_run_change_battle_action).  The Runner
+# transcript (runner_transcripts/outside.txt) matches Scarier on every turn;
+# the compare only flags the goto walks, which run390 echoes as one turn.
+outside_solution.txt|Outside.taf|There is no more. What did she do?|
+# Melancholy Blood - Act 1 (3.90).  Solution: the author's walkthrough
+# (downloaded/MelancholyBlood1_walkthrough.txt), vampire side.  It gives only
+# the task commands and where to type them; the walking between rooms, the
+# name answer and the stake pickup are added here.  The stake is taken from the
+# teacher's desk after "examine blood splatters" ("take wooden stake": the desk
+# has no plain "desk" alias), which makes the first Shindo fight the fixed win
+# (task 10) instead of the random tasks 8/9.  "Stop" runs by itself on
+# reaching Setsuna's house, so it is left out.
+melancholy1_solution.txt|Melancholy Blood Act 1.taf|Well, that's the end of Act 1.|
+# The Professional (The Dominant Species, 2006).  Solution: the author's full
+# walkthrough transcript (downloaded/Professional_walkthrough_full.txt), typed
+# verbatim after "1" at the title menu.  The intro's two keypress waits would
+# swallow the menu answer and the first command, hence SCR_SKIP_WAITKEY.
+professional_solution.txt|Professional.taf|Look forward to The Professional 2|SCR_SKIP_WAITKEY=1
+# A Day In The Life 2: Namiki (3.90).  Solution: the author's prose
+# walkthrough (downloaded/NamikisDay_walkthrough.txt), second approach plus
+# the three bonus points, turned into commands on the dumped map, 8 of 8.
+#   - "open tatami mat" (task 17) has no completion text, so run390 answers
+#     "I don't understand what you mean!" although the task ran; its point
+#     is scored all the same.
+#   - The CD, the jewelry and the boots are unseen until their shelf / box
+#     is examined, and `take cd` before that is "Take what?" in run390 too
+#     (run390x, Adrift_namiki_take2.txt, 2026-09-22), hence the x lines.
+namiki_solution.txt|Namiki'sDay.taf|You scored 8 out of the maximum 8!|
+# Akari's Story (3.90).  Solution: the author's walkthrough plus bonus-point
+# list (downloaded/AkarisStory_walkthrough.txt) turned into commands on the
+# dumped map, 13 of 13.  The day is a clock: the washing machine finishes
+# after 60 turns (hence the two z in the store room), Kenichi reaches his
+# apartment block only late in the afternoon (hence the run of z there) and
+# the day ends some twenty turns after that.  The ramen comes before the mall,
+# which spends all but 300 yen, just enough for the ticket home.  The rope is
+# unseen until "look in shed".
+akari_solution.txt|AkarisStory.taf|You scored 13 out of the maximum 13!|
+# Crossworlds Part 2 - The Flower Opens (BBBen).  Solution: the author's own
+# walkthrough, archived at bbben.aifcommunity.org/CW2%20walkthrough.txt
+# (note lowercase "w"; the capitalised link text on the games.htm index page
+# 404s in the Wayback Machine).  A leading "Player" line answers the
+# name prompt -- a blank line there gets re-prompted (empty names are
+# rejected) and an *unanswered* prompt silently eats the walkthrough's first
+# "east", which skips the Field-Far-East encounter with Debbie. That leaves
+# TASK 0's "girls found" counter at 1 instead of 2, so "talk to janey" only
+# ever prints "Please hurry" and the orc-ambush cutscene (which teleports the
+# party to Field-North) never fires -- every "north"/"x janey"/"kiss janey"
+# command downstream then fails on a room mismatch. With the name answered,
+# the literal walkthrough plays clean start to finish: 75/75, 100%.
+crossworlds2_solution.txt|Crossworlds Part 2.taf|You scored 75 out of the maximum 75!|SCR_SKIP_WAITKEY=1
+# Crossworlds Part 4 - Scream For Me (BBBen).  Solution: the author's own
+# walkthrough (AIF community archive).  Slash-alternatives in the source
+# ("rub/lick X's tits", "X rub tits/ass/pussy") are expanded into separate
+# commands; typographic apostrophes normalised to "'".  Needs
+# SCR_SKIP_WAITKEY=1 -- the intro ends on a "[Press any key to continue.]"
+# prompt that otherwise eats the walkthrough's first real command line (same
+# family of bug as the CW2 name-prompt trap above, just a keypress instead of
+# a name).  With that flag, the literal walkthrough plays clean start to
+# finish: 100/100, 100%.
+crossworlds4_solution.txt|Crossworlds Part 4.taf|You scored 100 out of the maximum 100!|SCR_SKIP_WAITKEY=1
 EOF
 }
 

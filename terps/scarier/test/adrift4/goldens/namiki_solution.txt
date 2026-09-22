@@ -1,0 +1,112 @@
+fold up futon
+open tatami mat
+x mat
+x shelf
+take cd
+open stereo
+put cd in stereo
+close stereo
+turn on stereo
+score
+open chest
+remove nightgown
+drop nightgown
+take kimono
+wear kimono
+take hairpins
+wear hairpins
+open dresser
+take handbag
+take makeup kit
+look in handbag
+e
+n
+n
+wash
+use makeup
+use lipstick
+s
+w
+n
+x mother
+s
+e
+s
+s
+s
+make tea
+take tea
+n
+n
+n
+w
+n
+give tea to mother
+s
+w
+s
+s
+s
+open container
+put bowl in container
+look in container
+take bag
+close container
+x board
+take incense
+score
+n
+e
+e
+n
+e
+e
+pray
+w
+w
+w
+take blouse
+take belt
+take jacket
+take skirt
+take bandana
+take perfume
+x jewelry box
+take jewelry
+open tennis bag
+put blouse in bag
+put belt in bag
+put jacket in bag
+put skirt in bag
+put bandana in bag
+put jewelry in bag
+put perfume in bag
+close bag
+e
+n
+w
+w
+s
+w
+ask for permission
+w
+open bag
+take all from bag
+remove kimono
+remove hairpins
+put kimono in bag
+put hairpins in bag
+wear blouse
+wear skirt
+wear belt
+wear jacket
+wear bandana
+wear jewelry
+use perfume
+x shoe shelf
+take boots
+wear boots
+i
+score
+w
+w

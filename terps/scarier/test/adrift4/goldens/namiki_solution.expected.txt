@@ -1,0 +1,570 @@
+Loading game...
+
+A Day In The Life 2: Namiki
+My name is Namiki Imagawa, age 17. I am the daughter of a noble house with a
+great tradition... well, so I am told every day by my grandfather.
+Unfortunately, he's the one who makes the rules inside the house.
+
+Tomorrow will be the first day of my second year in Wakayama High School.
+Only one more day to enjoy the holidays. If I can leave the house, that is.
+My grandfather is very restrictive.
+
+Bedroom
+This is my bedroom. It has the size of eight tatami mats, which is very
+spacious. All furniture here is made from hand-crafted cherry wood and lushly
+decorated with etchings. Several calligraphies I wrote are on the walls, and
+a painting showing a flying crane is directly opposite the door to the east.
+A 40 inch plasma screen TV with attached DVD player stands at the northern
+wall, next to my stereo. My wardrobe containing my clothing stands on the
+southern wall, flanked by a large basket box containing old things I don't
+wear any longer and a lacquered chest with my traditional attire. On a nearby
+shelf are my CDs and DVDs.
+
+> fold up futon
+I roll up the futon and stand it against the wall.
+
+> open tatami mat
+I don't understand what you mean!
+
+> x mat
+One of the tatami mats is loose. That's because I keep... special things
+under it.  The tatami mat is open.  My poetry collection is inside the loose
+tatami mat.
+
+> x shelf
+The shelf where I keep my CDs and DVDs. Most of the stuff here isn't too
+interesting - classical music and every single CD ever published by
+L'Arc~en~Ciel. There is also an unopened DVD collection of Akira Kurosawa's
+movies I'm certainly not going to open - I've seen them all, and if I ever
+want to sell them, it's better if they are unopened.  My favourite CD is on
+the shelf.
+
+> take cd
+I take my favourite CD from the shelf.
+
+> open stereo
+I open the stereo set.
+
+> put cd in stereo
+I put my favourite CD inside the stereo set.
+
+> close stereo
+I close the stereo set.
+
+> turn on stereo
+My favourite music fills the room.
+
+> score
+My score is 3 out of a maximum of 8.  (37%)
+
+> open chest
+I open the lacquered chest.  Inside the lacquered chest is a kimono, a
+yukata, a ceremonial dress and my hairpins.
+
+> remove nightgown
+I remove the nightgown.
+
+> drop nightgown
+I drop the nightgown.
+
+> take kimono
+I take a kimono from the lacquered chest.
+
+> wear kimono
+I put on the kimono.
+
+> take hairpins
+I take my hairpins from the lacquered chest.
+
+> wear hairpins
+I put on my hairpins.
+
+> open dresser
+I open the dresser.  Inside the dresser is my bandana, my Yamamoto blouse, my
+Prada belt, my Gucci handbag, a perfume flask, a makeup kit, a Kenzo jacket,
+a Dior skirt and a jewelry box.
+
+> take handbag
+I take my Gucci handbag from the dresser.
+
+> take makeup kit
+I take a makeup kit from the dresser.
+
+> look in handbag
+A small handbag by Gucci. Just enough room for my credit cards and lipstick.
+My credit card and my lipstick are inside my Gucci handbag.
+
+> e
+(Standing up first)
+I move east.
+
+Hall
+This is the main hall of our house. My bedroom is to the west; to the east
+are our gardens. The hall continues to the north and south.  Mai is here.
+Mai walks off to the north.
+
+> n
+I move north.
+
+Hall
+This is the main hall. It continues to the south and west. A door to the
+north leads into the bathroom.  Mai is here.  Mai walks off to the west.
+
+> n
+I move north.
+
+Bathroom
+This is our spacious bathroom. It features a sink, a full-size mirror and a
+huge hot tub.  Also here is a mirror.
+
+> wash
+I rinse off the dust of the night.
+
+> use makeup
+I put on some makeup.
+
+> use lipstick
+I put on some lipstick. Much better.
+
+> s
+I move south.
+
+Hall
+This is the main hall. It continues to the south and west. A door to the
+north leads into the bathroom.
+
+> w
+I move west.
+
+Hall
+This is the main hall. It continues to the east and west. To the north is my
+mother's room.
+
+> n
+I move north.
+
+Mother's room
+This is my mother's room, a spacious, traditional bedroom very much like
+mine.  Tomiko Imagawa is here.
+
+> x mother
+My mother, a woman in her late 30s but still very attractive. She definitely
+looks as though she could use a cup of tea.
+
+> s
+I move south.
+
+Hall
+This is the main hall. It continues to the east and west. To the north is my
+mother's room.
+
+> e
+I move east.
+
+Hall
+This is the main hall. It continues to the south and west. A door to the
+north leads into the bathroom.
+
+> s
+I move south.
+
+Hall
+This is the main hall of our house. My bedroom is to the west; to the east
+are our gardens. The hall continues to the north and south.
+
+> s
+I move south.
+
+Hall
+This is the main hall. It continues to the north and west. To the south is a
+room for tea ceremonies,
+
+> s
+I move south.
+
+Tea room
+A room for tea ceremonies. A large boiler always holding water at exactly 75°
+centigrade is the most prominent item here. Next to it is a huge tin can
+containing green matcha tea. The exit is to the north.  Also here is an empty
+tea bowl.
+
+> make tea
+I fill a bowl with tea powder and hot water and stir it up with a small
+bamboo broom called chasen that was in the tea can. Now a bowl of tea is
+standing before me. (Yes, I've held a few hundred tea ceremonies in my life.
+Don't ask.)  Mai walks towards you from the north.
+
+> take tea
+I pick up the bowl of green tea.
+
+> n
+I move north.
+
+Hall
+This is the main hall. It continues to the north and west. To the south is a
+room for tea ceremonies,  Mai walks towards you from the south.
+
+> n
+I move north.
+
+Hall
+This is the main hall of our house. My bedroom is to the west; to the east
+are our gardens. The hall continues to the north and south.  Mai walks
+towards you from the south.
+
+> n
+I move north.
+
+Hall
+This is the main hall. It continues to the south and west. A door to the
+north leads into the bathroom.  Mai walks towards you from the south.
+
+> w
+I move west.
+
+Hall
+This is the main hall. It continues to the east and west. To the north is my
+mother's room.  Mai walks towards you from the east.
+
+> n
+I move north.
+
+Mother's room
+This is my mother's room, a spacious, traditional bedroom very much like
+mine.  Tomiko Imagawa is here.
+
+> give tea to mother
+Mother smiles and thanks me before drinking the tea. She really needed it, I
+think. Then she hands back the bowl to me: "That bowl has a very slight crack
+here," she says. "We cannot offer it to guests any longer. Please put it into
+the metal container in our storeroom. Here is the key." She hands me a small
+key as well.
+
+> s
+I move south.
+
+Hall
+This is the main hall. It continues to the east and west. To the north is my
+mother's room.
+
+> w
+I move west.
+
+Hall
+This is the main hall. It continues to the south and east. To the north is
+the laundry.
+
+> s
+I move south.
+
+Hall
+This is the main hall. It continues to the south and north. To the west is
+the entrance to our living room.
+
+> s
+I move south.
+
+Hall
+This is the main hall. It continues to the north and east. To the south is a
+small storeroom.
+
+> s
+I move south.
+
+Storeroom
+A room used for storing most of our possessions. A large board keeps most of
+the stuff here and a big metal container is in the middle of the room. The
+exit is to the north.
+
+> open container
+I unlock it and open the lid.  Mai walks towards you from the north.
+
+> put bowl in container
+I put the empty tea bowl inside the metal container.
+
+> look in container
+A large metal container for household items.  The metal container is open.
+An empty tea bowl and a tennis bag are inside the metal container.
+
+> take bag
+I take a tennis bag from the metal container.  Mai walks off to the north.
+
+> close container
+I close the metal container.
+
+> x board
+A board used for storing items.  Some incense sticks are on the storage
+board.
+
+> take incense
+I take some incense sticks from the storage board.
+
+> score
+My score is 3 out of a maximum of 8.  (37%)
+
+> n
+I move north.
+
+Hall
+This is the main hall. It continues to the north and east. To the south is a
+small storeroom.
+
+> e
+I move east.
+
+Hall
+This is the main hall. It continues to the east and west. To the south is a
+room for guests.
+
+> e
+I move east.
+
+Hall
+This is the main hall. It continues to the north and west. To the south is a
+room for tea ceremonies,  Mai is here.  Mai walks off to the north.
+
+> n
+I move north.
+
+Hall
+This is the main hall of our house. My bedroom is to the west; to the east
+are our gardens. The hall continues to the north and south.  Mai is here.
+Mai walks off to the north.
+
+> e
+I move east.
+
+Garden
+This is the garden of our estate, a beautiful and tranquil place. The cherry
+trees are blossoming, and I can hear the carps jumping in their pond to the
+north. Our ancestral shrine is to the east, and my kendo dojo is to the
+south. The entrance to our main house is to the west.
+
+> e
+I move east.
+
+Shrine
+Our ancestral shrine where the ashes of my grandmother are contained. Her
+picture is etched into a large stone here.
+
+> pray
+I light the incense and pray to the spirit of my grandmother for guidance.
+And for patience with my grandfather. She always had some. And while I'm
+praying, I think I hear the words... "If he doesn't see it, it doesn't
+concern him." Was that my grandmother speaking?!
+
+> w
+I move west.
+
+Garden
+This is the garden of our estate, a beautiful and tranquil place. The cherry
+trees are blossoming, and I can hear the carps jumping in their pond to the
+north. Our ancestral shrine is to the east, and my kendo dojo is to the
+south. The entrance to our main house is to the west.
+
+> w
+I move west.
+
+Hall
+This is the main hall of our house. My bedroom is to the west; to the east
+are our gardens. The hall continues to the north and south.
+
+> w
+I move west.
+
+Bedroom
+This is my bedroom. It has the size of eight tatami mats, which is very
+spacious. All furniture here is made from hand-crafted cherry wood and lushly
+decorated with etchings. Several calligraphies I wrote are on the walls, and
+a painting showing a flying crane is directly opposite the door to the east.
+A 40 inch plasma screen TV with attached DVD player stands at the northern
+wall, next to my stereo. My wardrobe containing my clothing stands on the
+southern wall, flanked by a large basket box containing old things I don't
+wear any longer and a lacquered chest with my traditional attire. On a nearby
+shelf are my CDs and DVDs.  My favorite L'Arc~en~ciel CD is playing.  Also
+here is a nightgown.
+
+> take blouse
+I take my Yamamoto blouse from the dresser.
+
+> take belt
+I take my Prada belt from the dresser.
+
+> take jacket
+I take a Kenzo jacket from the dresser.
+
+> take skirt
+I take a Dior skirt from the dresser.
+
+> take bandana
+I take my bandana from the dresser.
+
+> take perfume
+I take a perfume flask from the dresser.
+
+> x jewelry box
+A jewelry box. It contains my precious little things.  My jewelry is inside
+the jewelry box.
+
+> take jewelry
+I take my jewelry from the jewelry box.
+
+> open tennis bag
+I open the tennis bag.
+
+> put blouse in bag
+I put my Yamamoto blouse inside the tennis bag.
+
+> put belt in bag
+I put my Prada belt inside the tennis bag.
+
+> put jacket in bag
+I put the Kenzo jacket inside the tennis bag.
+
+> put skirt in bag
+I put the Dior skirt inside the tennis bag.
+
+> put bandana in bag
+I put my bandana inside the tennis bag.
+
+> put jewelry in bag
+I put my jewelry inside the tennis bag.
+
+> put perfume in bag
+I put the perfume flask inside the tennis bag.
+
+> close bag
+I close the tennis bag.
+
+> e
+I move east.
+
+Hall
+This is the main hall of our house. My bedroom is to the west; to the east
+are our gardens. The hall continues to the north and south.
+
+> n
+I move north.
+
+Hall
+This is the main hall. It continues to the south and west. A door to the
+north leads into the bathroom.
+
+> w
+I move west.
+
+Hall
+This is the main hall. It continues to the east and west. To the north is my
+mother's room.
+
+> w
+I move west.
+
+Hall
+This is the main hall. It continues to the south and east. To the north is
+the laundry.
+
+> s
+I move south.
+
+Hall
+This is the main hall. It continues to the south and north. To the west is
+the entrance to our living room.
+
+> w
+I move west.
+
+Living room
+I am in our living room. It is almost empty except for a large table in the
+center, very traditional.  Kouzou Imagawa is here.
+
+> ask for permission
+Grandfather nods. "You look like a proper girl. Feel free to leave the
+house." Then he goes off into his room.
+
+> w
+I move west.
+
+Antechambers
+The room directly next to our main entrance. The shoe shelf containing my
+shoes is here.
+
+> open bag
+I open the tennis bag.  Inside the tennis bag is my bandana, my Yamamoto
+blouse, my Prada belt, a perfume flask, a Kenzo jacket, a Dior skirt and my
+jewelry.
+
+> take all from bag
+I take my bandana, my Yamamoto blouse, my Prada belt, the perfume flask, the
+Kenzo jacket, the Dior skirt and my jewelry from the tennis bag.
+
+> remove kimono
+I remove the kimono.
+
+> remove hairpins
+I remove my hairpins.
+
+> put kimono in bag
+I put the kimono inside the tennis bag.
+
+> put hairpins in bag
+I put my hairpins inside the tennis bag.
+
+> wear blouse
+I put on my Yamamoto blouse.
+
+> wear skirt
+I put on the Dior skirt.
+
+> wear belt
+I put on my Prada belt.
+
+> wear jacket
+I put on the Kenzo jacket.
+
+> wear bandana
+I put on my bandana.
+
+> wear jewelry
+I put on my jewelry.
+
+> use perfume
+I sprinkle a few drops of perfume at my neck. The sweet smell of Chanel
+surrounds me.
+
+> x shoe shelf
+The shelf where all shoes are kept. Of course, you never wear them inside the
+house.  My plateau boots and my getas are on the shoe shelf.
+
+> take boots
+I take my plateau boots from the shoe shelf.
+
+> wear boots
+I put on my plateau boots.
+
+> i
+I am wearing my bandana, my Yamamoto blouse, my Prada belt, a Kenzo jacket, a
+Dior skirt, my jewelry and my plateau boots, and I am carrying my Gucci
+handbag, a perfume flask, a makeup kit, a small key and a tennis bag.  My
+credit card and my lipstick are inside my Gucci handbag.  A kimono and my
+hairpins are inside the tennis bag.
+
+> score
+My score is 3 out of a maximum of 8.  (37%)
+
+> w
+I move west.
+
+Main gate
+The main gate of our estate is to the west. Behind it lies liberty. To the
+north is the garage.
+
+> w
+I leave through the main gates.  I've finally managed to leave our house in
+style. My personal driver will take me to town. Looks like this day is going
+to be fun after all.
+You scored 8 out of the maximum 8!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

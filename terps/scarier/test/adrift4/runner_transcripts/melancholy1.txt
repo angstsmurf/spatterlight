@@ -1,0 +1,489 @@
+
+> out
+I move out.
+Corridor
+  I can move east and in.
+
+> e
+I move east.
+Corridor
+  I can move east and west.
+
+> e
+I move east.
+Corridor
+  Also here is a Vending Machine.  I can only move west.
+
+> use vending machine
+The lights in the corridors suddenly go out.
+"Ugh, it's so hard to see", I comment to myself.
+Suddenly a dark shadow passes in front of me. I quickly step back as I hear heavy breathing heading away from me, in the direction I just came from.
+"What the hell was that?", I whisper, quite shaken by the encounter. Just as I utter the last word, a loud bang and a yell can be heard coming from the direction of my classroom. I spin around to look at the direction of my classroom.
+"What the hell was THAT?", I say shakily, no longer able to keep my voice in check.
+"It...... came from my classroom.... the teacher might have got hurt, I'd better go check".
+
+> w
+I move west.
+Corridor
+  I can move east and west.
+
+> w
+I move west.
+Corridor
+  I can move east and in.
+
+> in
+I move in.
+Classroom
+  Also here is a Blood Splatters.  I can only move out.
+
+> examine blood splatters
+"What the.....", I start to whisper but don't finish.
+I cautiously walk towards the blackboard, which is covered in blood.
+"....SIR?", I shout.
+I jump as the door is slammed behind me. I wheel around as I spot the dark shadow of the person.... or thing.... that passed me in the corridor.
+"W....who is it?", I stutter.
+The shadow starts advancing towards me, walking with it's back stooped. It snarls as it advances.
+"St... STAY BACK!", I yell.
+The shadow breaks into a run. I frantically step backwards and stumble, the shadow quickly closing in. Another loud bang echoes through the classroom as the door slams again. Another shadow has entered the room, this one being built bigger in the upper body.
+"KID, GET DOWN!", the second shadow yells.
+Without giving it a second thought, I dive behind the teacher's desk. I flinch back as I hear a loud bang, close to an explosion. A shrill shriek then pierces the air, causing my head to feel like it would burst. I groan at the pain as I see the first shadow, the one coming after me, spin around, presumably looking at the second shadow. It then runs in the direction of the second shadow. A few seconds later, I hear the door bang. And the door bangs again. I peer over the top of the desk, my head and heart pounding. Neither of the shadows are in the room. I'm alone again. I breathe heavily as I put my head into my hands. My mind races, trying to figure out what happened. The only thing I can think of properly, that makes sense is two words. Two simple words.
+Get Out
+I heed the only coherent sentence my mind makes and I make a dash for the door. I open it and dive out, prepared to run for my life, out of the school. I figure it'd be best to run home and sleep. I can't think straight right now.
+
+> in
+I move in.
+Classroom
+  Also here is a Blood Splatters.  I can only move out.
+
+> take wooden stake
+I take a Wooden Stake from the Teacher's Desk.
+
+> out
+I move out.
+Corridor
+  I can move east and in.
+
+> e
+I move east.
+Corridor
+  I can move east and west.
+
+> e
+I move east.
+Corridor
+  Also here is a Vending Machine.  I can move west and out.
+
+> out
+I move out.
+Outside School
+The school building looms overhead. A big stone path leading up to the entrance, lawns of grass on either side of the path. Flower gardens run around the school building. The gates to the south, leading to the street look inviting.  I can move south and in.
+
+> s
+I move south.
+Street
+The street just outside the school. A line of houses take up the otherside of the road. A sole bus stop stands outside the school gates. The school fence stretches into the horizon on both sides. My home is to the west.  I can move north, east and west.
+
+> w
+I move west.
+Street
+A plain street, just like the previous. My house is on the north side of the road.  I can move north and east.
+
+> n
+I move north.
+Home
+My cosy home. A 3 bedroomed house with bathrooms both upstairs and downstairs. The living room has one of the smallest TV's I've seen. It's old as hell. My bedroom is my favourite spot. A comfy double bed, walls furnished with posters of my favourite pop idols and my desk with some of my favourite books in.  I can only move south.
+
+> sleep
+I get changed into some shorts and then get in bed. I lay there, thinking about what happened.
+"I should probably phone the police..... but then, what'll I tell them? I'm not sure what happened myself. All I know is something was there...... and it wasn't friendly", I mutter.
+"Ugh, no use worrying about it too much. At least, not until I find out more", I sigh.
+I roll over and then go to sleep.
+
+Day 2 (Thursday)
+
+When I walked into the classroom this morning, it was strange. It looked like last night's events hadn't taken place. No blood splatter on the wall. I just shrugged it off and sat in my place. My seat is in the back row, middle stool. The classroom door slams. I look up as a man walks up to the front of the classroom carrying a fairly large bag. He slams it on the teacher's desk. That's when I notice he's got a big fat cigar in his mouth, the smoke unfurling above it. He takes it out and blows smoke.
+"Yar usual teacher had an unfortunate accident yesterday. He fell down a flight of stairs and ended up in hospital. I'll be yar substitute from taday. Ya can call me Shindo", he says.
+"What hospital is our teacher in?", a girl asks.
+Shindo looks to think for a few seconds.
+"I'm not authorized ta give out that information, moving on, it's time ta take attendance", he replies.
+Shindo starts going through the list of names.
+"Player", he says.
+ "Here!", I say, fairly energetically.
+"Which reminds me, I need ta see ya after class Player", he exclaims.
+"What the... what did I do?", I ask.
+"Oh nothing, I'd just like ta chat with ya that's all", Shindo explains.
+ For some reason, that still doesn't make me feel any better. Class starts and the day runs through like every other, except with a new teacher. The lessons being the same boring stuff our old teacher taught us. After last night's events, it was a bit of a disappointment. Class finally ends as the school bell rings. Everyone starts packing up and leaving. Shindo wanted to talk with me, so I'd better go speak to him.
+
+> look
+Classroom
+  Shindo is here.  I can only move out.
+
+> speak to shindo
+"What did you want me for Sir?", I inquire.
+He turns to me, staring at me. I feel like his eyes are seeing right through me, seeing what I'm thinking. Like they're burrowing into my brain.
+"Last night. Did ya get bitten?", he asks.
+"What?", I say, surprised.
+"When ya wa here last night. Did. Ya. Get. Bitten?", he growls.
+I'm fairly confused to what Shindo means. Bitten by what? Was there anything to get bitten by? I decided to ask about it.
+"....no.... bitten by what?", I ask uncertainly.
+"Flippin' vampires man", he quickly says.
+Now I'm even more confused. Vampires don't exist. They're things of myth, of legend. There's no way I could have been bitten by what doesn't exist.
+"They're flippin' blood-sucking freaks'a nature. Right here in this school, attend class right under ya nose an' everything", he says wildly.
+He seems to really believe all this. That decided it. He's a nutcase. I mean, come on, if vampires even DID exist, they couldn't attend classes. Everyone knows the sun fries them.
+"You're crazy", I mutter.
+Shindo seems to calm down from his ecstatic take on talking about them.
+"Huh. And here I thought ya'd believe me, considering ya've already seen one", he calmly says.
+He got me intrigued there. apparently I'd already seen one. I'd like to know where this "vampire" was that I saw.
+"I've seen one?", I ask curiously.
+"Yeah, that thing I chased off last night was one", he says.
+Oh. So that second shadow would have been him. Making the first shadow, the one that came after me, the vampire. An icy chill runs down my spine and I shudder.
+"....you know, it's not nice trying to scare people", I tell him.
+He grins.
+"If yar scared then that's good. Ya'll be more wary of them. Don't get bitten. If ya do. I'll flippin' kill ya", he explains.
+He just said all that while grinning. He's totally serious. I figure I'd better get out of there really quick, being alone with that psycho can't be a good thing.
+"Well..... it's been nice meeting you Shindo...... I, umm, have to run home now, I promised mum I wouldn't be home late", I quickly say.
+It's a lie. A blatant lie. But he doesn't know that does he? I should use this chance to get home and have a good think about what's been happening.
+
+> out
+I move out.
+Corridor
+  I can move east and in.
+
+> e
+I move east.
+Corridor
+  I can move east and west.
+
+> e
+I move east.
+Corridor
+  Also here is a Vending Machine.  I can move west and out.
+
+> out
+I move out.
+Outside School
+The school building looms overhead. A big stone path leading up to the entrance, lawns of grass on either side of the path. Flower gardens run around the school building. The gates to the south, leading to the street look inviting.  I can move south and in.
+
+> s
+I move south.
+Street
+The street just outside the school. A line of houses take up the otherside of the road. A sole bus stop stands outside the school gates. The school fence stretches into the horizon on both sides. My home is to the west.  I can move north, east and west.
+
+> w
+I move west.
+Street
+A plain street, just like the previous. My house is on the north side of the road.  I can move north and east.
+
+> n
+I move north.
+Home
+My cosy home. A 3 bedroomed house with bathrooms both upstairs and downstairs. The living room has one of the smallest TV's I've seen. It's old as hell. My bedroom is my favourite spot. A comfy double bed, walls furnished with posters of my favourite pop idols and my desk with some of my favourite books in.  I can only move south.
+
+> think
+I quickly run up to my room and sit on the end of my bed. I breathe heavily from running all the way home.
+That was scary. He's definitely crazy. Although, the thing that scares me isn't that. It's the feeling I'm getting there was truth behind his words.
+It was undeniable that what I saw was real. Blood splatters all over the walls. The teacher suddenly going missing. The worst part.... something, someone, came for me. Shindo scared them off but.... what if he hadn't?
+Ugh..... just thinking about this is gonna drive me crazy. I can't believe I'm even considering this, but I feel it's in my best interests to go back to school at night and search the classroom.
+Night
+
+> look
+Home
+My cosy home. A 3 bedroomed house with bathrooms both upstairs and downstairs. The living room has one of the smallest TV's I've seen. It's old as hell. My bedroom is my favourite spot. A comfy double bed, walls furnished with posters of my favourite pop idols and my desk with some of my favourite books in.  I can only move south.
+
+> s
+I move south.
+Street
+A plain street, just like the previous. My house is on the north side of the road.  I can move north and east.
+
+> e
+I move east.
+Street
+The street just outside the school. A line of houses take up the otherside of the road. A sole bus stop stands outside the school gates. The school fence stretches into the horizon on both sides. My home is to the west.  I can move north, east and west.
+
+> n
+I move north.
+Outside School
+The school building looms overhead. A big stone path leading up to the entrance, lawns of grass on either side of the path. Flower gardens run around the school building. The gates to the south, leading to the street look inviting.  I can move south and in.
+
+> in
+I move in.
+Corridor
+  Also here is a Vending Machine.  I can move west and out.
+
+> w
+I move west.
+Corridor
+  I can move east and west.
+
+> w
+I move west.
+Corridor
+  I can move east and in.
+
+> in
+I move in.
+Classroom
+  I can only move out.
+
+> search
+I get to work looking through the classroom. Hoping for any clue. I go through the other student's desks, finding nothing but paper and writing stationary.
+A scream pierces the air. A girl's scream. It came from outside. I quickly stop searching and set off running, to get outside the school and look around.
+
+> out
+I move out.
+Corridor
+  I can move east and in.
+
+> e
+I move east.
+Corridor
+  I can move east and west.
+
+> e
+I move east.
+Corridor
+  Also here is a Vending Machine.  I can move west and out.
+
+> out
+I move out.
+Outside School
+The school building looms overhead. A big stone path leading up to the entrance, lawns of grass on either side of the path. Flower gardens run around the school building. The gates to the south, leading to the street look inviting.  I can move south and in.
+
+> look around
+I arrive outside and quickly scan the surrounding area. Another scream pierces the air along with the girl's voice shouting for help. I turn towards the source of the shouting and see a girl in my school uniform running. It's hard to see but I think tears are streaming down her cheeks. Bushes near her rustle and then Shindo comes launching out of them at her.
+"GET BACK HERE WITCH OF THE NIGHT", he yells.
+Oh great. What the hell is he doing chasing a poor girl like that. That's when I notice something I hadn't at first. He's holding a large toy gun and he's pointing it at her. He fires and she makes a quick turn. Something skims past her and rams itself into a tree. From where I'm standing, I can see that it's a wooden stake. Unfortunately the quick turn the girl made was a mistake, it's forced her into a corner of the school fence. She spins around to see Shindo slowly walking towards her, aiming the gun at her chest. As she looks around for a way to escape, her eyes meet with mine, pleading for help.
+"Player help! He's going to kill me!", she yells.
+ Shindo looks back over his shoulder at me and then turns back to her.
+"Don't do it kid! She's one of those friggin' blood-suckers!", he shouts.
+My mind races, what should I do? Should I help the girl? Or help Shindo?
+
+> help girl
+Without thinking, I run and push my way between Shindo and the girl.
+"Get out of my way, I'm doing this for the good of the world", Shindo snarls.
+Shindo raises the gun and points it my head. Great. I'm making a madman my enemy and he's got a gun. Why did I have to choose this? I guess my heart is in the right place at least.
+"N.... No way, I'm not letting you hurt her", I stammer.
+There, I said it. There's not turning back now. If he chooses to continue, I may die. However, I'll die knowing that I'm not scum who will hurt an innocent girl.
+"Then get ready, because I'll take ya down and then kill her too", he roars.
+That's it, the die has been cast. Looks like I'll have to fight Shindo for not only her life, but mine too. I hope I make my saving throw.
+
+> fight shindo
+I quickly charge Shindo, hitting him in the stomach, he staggers backwards. I make a move to punch him while he's down but he sidesteps it and brings the gun up, smacking me in the face. I stagger backwards, holding my now bleeding nose. I don't have time to react as Shindo fires his gun. I feel a searing pain in my left arm. My right hand shoots up to it, a wooden stake is now embedded in my arm. I rip it out and attempt to stop the blood flow by applying pressure. I pant heavily as I lose blood. Shindo aims at me again. I flinch back as his finger starts to pull the trigger. Suddenly he drops to his knees and drops his gun. I take the chance and quickly move over there and kick his gun away from him. I look up and see the girl standing behind him, holding a thick looking tree branch. She must have hit him. I look back down just in time to see Shindo scamper away.
+"I'll be back to get ya!", he shouts.
+Shindo then runs out of the school gate and out of sight. I shake a bit then burst out laughing. I managed to survive. Not only that but the girl is safe too. I really did make my saving throw, hers too. She looks down, starting to blush abit.
+"T-thank you. I thought he would have killed me!", she whispers.
+She really does look shaken up.
+"It's no problem. He's a little whacked in the head, so be more careful around him.....? Umm, it occurs to me I don't even know your name", I say to her.
+"It's Setsuna", she says quietly.
+I smile at her.
+"That's a nice name. Umm.... would you like me to walk you home?", I ask politely.
+She blushes harder.
+"I.... I'd like that..... thanks", she murmurs.
+I start walking and Setsuna follows. I should go drop her off at her house, which is down the street on the east.
+
+> s
+I move south.
+Street
+The street just outside the school. A line of houses take up the otherside of the road. A sole bus stop stands outside the school gates. The school fence stretches into the horizon on both sides. My home is to the west.  I can move north, east and west.
+
+> e
+I move east.
+Street
+A plain street, just like the previous.  I can move north and west.
+
+> n
+I move north.
+Outside Setsuna's House
+A fairly average building with a nice garden. Many types of flowers make the lawn colorful while the grass is a lush shade of green.  Mitsuki is here.  I can only move south.
+
+> drop setsuna off
+I let Setsuna go through her gate first and then I go and stand just inside with her.
+"Well, we're here, thanks for walking me", Setsuna says.
+I grin.
+"You're welcome", I reply.
+ She starts blushing again.
+"I'll.... see you at school tomorrow then right?", she asks.
+"Definitely", I quickly reply.
+Setsuna smiles. She really does look cute when she smiles. I watch as she walks up to her front door and turns around to wave at me. I see her face drop in horror.
+"Mit.... Mitsuki! What are you doing back here already?", she stammers.
+"Heh, I got bored", a girl's voice behind me says sweetly.
+I whirl around and come face to face with a girl a bit taller than me. She has long black hair and is wearing a low cut black dress. She puts her hand on my shoulder. I get a chill down my spine.
+"Mitsuki! Leave him alone!", Setsuna shouts at her, suddenly growing bold.
+Mitsuki looks down at me devilishly. Then back up at Setsuna.
+"My my.... why should I leave him when he's right here.... ready for the taking?", she whispers, close to my ear.
+I get a shiver down my spine. This time it's not a bad feeling. In fact, if anything, I'd say I liked it. I look between Mitsuki and Setsuna.
+"Mitsuki, he protected me. Shindo tried killing me", Setsuna admits.
+"Shindo again! That moron! What the hell is he doing around here?", she rages.
+"He's the new substitute teacher for my class", I interrupt.
+"Yeah, he says our usual teacher fell down the stairs..... but with him being here.... I think it was them", Setsuna explains.
+"Figures, those morons gave us a bad name and because of that we get persecuted", Mitsuki complains.
+Mitsuki turns to me as I look between her and Setsuna, confused.
+"This little shrimp stood up to Shindo for you? What's his name?", Mitsuki asks before looking questioningly at Setsuna.
+Setsuna looks down at the ground.
+"He did. And he's called Player", Setsuna murmurs.
+"I couldn't just let Shindo kill her, he's a frigging lunatic", I say, feeling kind of proud.
+Mitsuki looks up at Setsuna questioningly again. Setsuna just shakes her head. Mitsuki nods and seems to understand the meaning.
+"Well, I think, since you saved my little sister, you should be rewarded", Mitsuki whispers to me.
+She leans down close to my neck and kisses it. I feel a sharp prick, like a pin prick on my neck where she kisses. She then straightens up and looks back at Setsuna. I rub my neck where she kissed and checked my hand, a little bit of blood had wiped off onto it.
+"MITSUKI! Why'd you do that?", Setsuna screams at her.
+My head starts to bang. It's fairly painful.
+"He stood up to him. You should know Shindo will now hunt him down and kill him. Along with us", Mitsuki answers.
+The pain increases, I have trouble hearing what they're talking about.
+"He didn't have to be involved", Setsuna says quietly.
+Now my vision starts to go blurry, I can barely make out the shapes of Setsuna and Mitsuki.
+"He got involved when he protected you. The least we can do is give him a chance to protect himself", Mitsuki explains.
+I drop to my knees. The pain now unbearable. My voice won't cry out for help.
+"Player, I'm sorry", Setsuna whispers.
+That's all I can take. The pain makes me black out.
+
+Day 3 (Friday)
+
+I wake up in my own bed to sunlight streaming in through my window. My head hurts like hell. I sit up, my mind a little fuzzy. I try to recall the events of last night. I can only remember protecting Setsuna then walking her home. After that.... nothing. I look at my left arm, where Shindo shot me with his stake launcher. My pale arm just looks like normal, no wound. I frown at it as I try figure it out before I turn to look at the clock. I curse as I see the time, almost late for school. I scramble out of bed and start getting ready. After getting changed I'd better head to school and greet Setsuna at the gates. I wonder if I should just greet her or whether I should greet her happily.
+
+> s
+I move south.
+Street
+A plain street, just like the previous.  I can move north and west.
+
+> w
+I move west.
+Street
+The street just outside the school. A line of houses take up the otherside of the road. A sole bus stop stands outside the school gates. The school fence stretches into the horizon on both sides. My home is to the west.  I can move north, east and west.
+
+> n
+I move north.
+Outside School
+The school building looms overhead. A big stone path leading up to the entrance, lawns of grass on either side of the path. Flower gardens run around the school building. The gates to the south, leading to the street look inviting.  Setsuna is here.  I can move south and in.
+
+> greet setsuna
+Setsuna pulls me to the side, out of everyone else's way.
+"Good morning Player!", she chirrups happily.
+"Huh, morning Setsuna", I say.
+She cocks her head to the side as she looks at me.
+"About yesterday..... thanks", she whispers.
+"You don't have to keep thanking me for it. It wasn't that big a deal", I tell her.
+She stomps her foot on the ground and looks mildly angry.
+"It was a big deal! You saved my life!", she announces.
+Well, I can't argue with that. It is her life so it would be a big deal to her.
+"Well, let's not argue about it. We gotta get into our classes", I sigh.
+"Huh? Classes? I'm in the same class as you!", she exclaims.
+Odd, I'd never noticed before.
+"Yeah, I sit two seats in front of you, middle seat, front row. And you're right, we'd better get going", she explains.
+I nod and we both set off to our class, walking through the big school door. We'd better get there quick and take our seats.
+
+> in
+I move in.
+Corridor
+  Also here is a Vending Machine.  I can move west and out.
+
+> w
+I move west.
+Corridor
+  I can move east and west.
+
+> w
+I move west.
+Corridor
+  I can move east and in.
+
+> in
+I move in.
+Classroom
+  I can only move out.
+
+> take seats
+We arrive in class and we quickly take our seats. It's no joke, she sits two seats in front of me. Shows how much attention I pay to the rest of the class. The door slams as Shindo enters. I groan as I see he's smoking another cigar and he's looking very angry. He literally slams his bag onto the teacher's desk in a rage.
+"I've had a bad flippin' night, now I want ya all, ta shut up and don't flippin' bother me", he growls.
+The rest of the class seem to be shocked by what he just said. It didn't really surprise me, considering what he's like. I watch as he just sits on the chair, puffing his cigar, looking around the class moodily. I sigh and then just put my head onto my table, suddenly feeling sleepy. Pretty soon, I drift off to sleep.
+
+I wake up as Shindo shakes me. I look up and see him standing over me, holding a wooden stake in his hand. I recoil in fear.
+"Yar little witch of a friend has got ya in a heap of rubbish", he growls.
+"What do you mean?", I ask shakily.
+"She's a vampire man. A FLIPPIN' BLOODSUCKER. And now ya one'a them", he yells.
+"Not again, you're a frigging lunatic!", I yell back.
+"I'm gonna hafta kill ya!", he growls.
+He lunges straight at me. I quickly dive to the side, avoiding his wooden stake. I scramble to my feet and bolt out of the door. My feet thunder along the corridors of the school as I run for my life from a maniac.
+
+I burst out from the school, into the light of the setting sun. Setsuna's stood to the side of the door.
+"Hey Player", she greets.
+"Not time to talk, time to run. Shindo's flipped", I pant breathlessly.
+I grab her hand and start pulling her into a run. As we reach the school gate, the school doors fly open as Shindo comes running out.
+"GET THE FLIP BACK HERE!", he screams.
+I run with Setsuna, getting the feeling we should be going to her house.
+
+> e
+I move east.
+Street
+A plain street, just like the previous.  I can move north and west.
+
+> n
+I move north.
+Outside Setsuna's House
+A fairly average building with a nice garden. Many types of flowers make the lawn colorful while the grass is a lush shade of green.  I can only move south.  I run into Setsuna's garden with Setsuna behind me. We both stop and pant for breath.
+"Why the hell.... does he want to kill us?", I ask.
+Setsuna looks away from me.
+"I.... don't know", she answers.
+I look up as Mitsuki walks into the garden from the house. She stops and looks surprised.
+"Oh, hello!", she says sweetly.
+"Mitsuki!", Setsuna happily greets.
+I look up at Mitsuki, thinking for a moment.
+"You look like you have something to say, Player", Mitsuki exclaims with a grin.
+"I.... know you?", I ask, unsure.
+Mitsuki smiles sweetly and slowly walks over to me.
+"Yes, we met last night. I rewarded you for protecting my lovely little sister", she whispers, leaning down to whisper the last sentence in my ear.
+A chill runs down my spine.
+"I.... I... don't remember that", I admit.
+Mitsuki smiles, but this time, it's no ordinary smile. It's a smile that tells me she's hiding something.
+"Oh. That's a shame", she whispers before winking.
+"Mitsuki, don't go any further than that", Setsuna warns.
+I look between Mitsuki and Setsuna, confused. I know something is up, but I have no clue to what it is.
+"Go any further than what?", I venture.
+"Player, please, just let it go", Setsuna pleads.
+"But I.....", I protest.
+Setsuna shakes her head, denying me the knowledge of the situation.
+"I KNOW YAR CLOSE. GET THE HELL OUT HERE!", Shindo shouts from the other side of Setsuna's garden wall.
+"No! Shindo followed us!", Setsuna groans.
+I ball my hands into fists. Shindo's got on my nerves too much so far. He not only attacked an innocent girl and tried to kill her, now he's trying to kill me too. I decide I have to stop him.
+"Setsuna, get inside", I order.
+"No! You can't stay out here alone!", she protests.
+I turn to Mitsuki this time.
+"Mitsuki, get her indoors, don't let her get hurt", I say.
+"I'd be better out here. I know Shindo more than you two", she says defensively.
+"Mitsuki. DO IT!", I yell.
+She flinches back and then nods. She grabs Setsuna's hand and pulls her indoors, just as Shindo walks in through the gate.
+"Ahhh. There ya are Player. Flippin' bloodsucker scum", he snarls.
+"Take a hike Shindo, I'm not in the mood for your idiocy", I retort.
+He raises his stake launcher and points it at me.
+"Awww...... that's too flippin' bad. I'll kill ya and then that witch you hang around with will be killed afta!", he laughs maniacally.
+It looks like I have no other choice. I have to fight Shindo.
+
+> fight shindo
+I charge at Shindo. He retaliates by firing a shot at me. I'd already guessed he'd do that and hard started moving to the side as he pulled the trigger. The stake skims past my cheek, cutting it open. He quickly fires another shot, at my new location. I dodge to the side, unbalancing myself. Shindo simply brings his foot up and roundhouse kicks me to the side of the face. I get knocked aside, to the floor. As I lay on the ground, trying to regain my senses, Shindo walks over and boots me in the ribs. It takes the wind right out of me. I should have known better, fighting with Shindo was a bad idea. He's much bigger and stronger. He pulls back his foot and kicks me in the face. I cough up blood onto the ground. My head is spinning, my heart feels like it's on fire. I don't know if I can hold out much longer. I roll over, onto my hands and knees and try crawling away. Shindo just leans down and grabs the back of my head, slamming it into the ground. Part of me tells me I should just give up, because it's futile. Another part however, tells me to get up. To fight back. This part starts to overpower the other, I feel something coursing through my body. Something I've never felt before. It's giving me strength. Shindo raises my head up again, ready to slam it back down. I bring my elbow back, smacking him hard in the gut. I feel his grip on my head loosen as he stumbles back. Using this chance, I scramble to my feet, standing in front of him defiantly. I won't just roll over and die for him. I'll fight back, to protect my life and my friends. For this reason, I won't let him win.
+
+> fight back
+Shindo moves backwards at a quick pace. He raises his stake launcher again and fires. I easily sidestep it as I start running towards him. For some reason, my senses have been heightened, I can see and hear clearer. My legs feel as light as a feather. Shindo fires another stake. I duck under this one, without breaking my pace. I can see Shindo's face, he's panicing. Shindo fires another stake, I backhand it out of the air, knocking it to the floor. Shindo's eyes widen in shock as I reach him, throwing a punch with my full momentum behind it. It hits him in the stomach and sends him flying backwards. He hits the floor and rolls a few times before stopping. I can hear him breathing heavily. He slowly climbs to his feet. He looks a little unsteady. He charges at me. I prepare to strike him down again. To my surprise, he runs straight past me and out the gate.
+"I'LL FLIPPIN' GET YA!", he yells as he leaves.
+I laugh as I realize I've just survived again. And so has Setsuna. I look down at my hands, trying to think where that sudden strength had come from. They look odd.... like the finger nails have become claws. I look up as Setsuna comes running out of the house.
+"Player!", she shouts.
+"Setsuna.... what's happened to me?", I ask.
+"It... was yesterday. Mitsuki bit you. We're...... we're vampires", she whispers.
+Oh great. They're vampires. I've been bitten. So now I'm a frigging vampire too. Great news.
+"So that lunatic was right?", I ask.
+She looks down at the floor.
+"Yeah.... I'm sorry", she whispers.
+She's sorry? Sorry?: Sorry doesn't cut it. Now my life has been completely screwed up.
+"So now I'm stuck having to drink the blood of people and avoid daylight. All because I stopped some crazy vampire hunter from killing you, a vampire. Frigging lovely", I angrily say.
+Setsuna bursts out crying.
+"I'm sorry!", she cries.
+"Save it, it's too frigging late now, I'm a frigging blood sucker", I rage.
+ I walk out of the garden, leaving Setsuna alone, crying. My foul mood follows me all the way home. How could I not be angry? I protected her. Look how I got repaid! I didn't ask for this! I grumble about the past few day's events as I fall into a dreamless sleep.   Well, that's the end of Act 1. Whether you followed the path of the vampires, or the vampire hunters. I hope you enjoyed it. As you can probably tell from the Act 1, this isn't the end. I will probably be updating this sometime in the near future. Namely with Act 1.5, a side arc that is optional. And if I've done the script for Act 2 before then, I'll add that in too. Graphics is a possibility if I can be bothered to do them.
+
+So for now, hope you enjoyed the story so far. Any criticisms would be majorly helpful in improving for the future.
+
+Thanks For Playing~
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+Well done - you scored maximum points!
+
+[Press any key to end]

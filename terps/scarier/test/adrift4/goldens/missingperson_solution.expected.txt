@@ -1,0 +1,662 @@
+Loading game...
+
+Missing Person
+That was the autumn of 1940. I have been working in a private detective's
+office for eight years. My boss Jimmy was going to retire.
+Eight years ago, there was one day, when Jimmy came to me and said:
+You can work in my office although you have lost your memory.
+Your name is Guy Roland from now on.
+
+> look
+
+Coffee Shop
+That is a common coffee shop around the corner of the street. It's to the
+left of your detective's office, and you are a returned customer here.  You
+stand at the door for a while to get used to the darkness inside.  You see
+Jimmy sitting in the dark.  The waiter gives you a smile.
+
+> examine waiter
+The waiter is a young and active man. He smiles at you. You can ask him for
+some coffee.
+
+> ask waiter about coffee
+Hey Guy, why not sit down? so, you are ready to order? I bet I know what you
+want.
+
+> order
+The waiter comes over and put your coffee on the table. You may want to sit
+down and taste it now.
+
+> sit on chair
+I sit down on the chair.
+
+> get coffee
+I take the coffee from the table.
+
+> drink coffee
+You drank all the coffee and put the cup down. Jimmy keeps silent when you
+are drinking the coffee. Now he looks up and seems ready to tell you
+something.
+
+> examine jimmy
+Jimmy is now staring at the table.  Jimmy is carrying a piece of paper.
+
+> ask jimmy about staring
+I am just thinking of you. Will you still be in the detective's office?
+Or......you still want to find your past?
+
+> ask jimmy about past
+I still believe that future is what's important. I know you have different
+opinions. So, if that's your decision.......I actually have some information.
+Look at this paper.
+
+> examine paper
+A small piece of paper with some useful information. You may need to ask
+Jimmy about the paper.
+
+> ask jimmy about paper
+Listen, Guy. This may be the only clue to your past. Someone called Sam, whom
+i happened to know when i was in the restaurant MILLY. He saw a photo of our
+two, and told me that he must have seen you somewhere before. Take the paper
+with you (get paper from jimmy).
+
+> get paper from jimmy
+You have got the paper from Jimmy. You feel a little bit nervous once you
+reliazed that it's the only clue to the past. You need to keep it with you
+and find some way to contact this man called Sam.
+
+Suddenly, it starts to rain. Who am I? I feel that i am a phantom in the
+coffee shop on this autumn day. My past is in the fog.
+
+> read paper
+Sam Belanger, 52 years old, manager of Milly restaurant. Yellow hair and grey
+eyes.
+
+> examine table
+That is a common oak table.  A key is on the table.
+Jimmy stands up and hand you goodbye. "Let's keep contact, Guy. " Jimmy
+quickly walk to the door. He turned back and smiled. It makes me sad. In a
+second, he disappears at the door.
+
+> get key
+I take the key from the table.
+
+> east
+(Getting off the chair first)
+I move east.
+
+Detective's Office
+You are in Jimmy's detective's office. You have been working here for eight
+years. It's a small but neat room with a huge dark-color wood bookshelf
+standing behind. There is also a large desk with piles of documents on it.
+
+> examine desk
+An old wooden desk with a drawer.   A lamp and the yellow page are on the
+desk.
+
+> get yellow page
+I take the yellow page from the desk.
+
+> look yellow page
+The telephone directory of businesses, categorized according to the product
+or service provided. You can do look * up from yellow page to find a
+telephone number.
+
+> look milly up from yellow page
+You get the telephone number for Milly restaurant. You called and asked if
+there is anyone called Sam Belanger. Yes there is.   You then make an
+appointment with Sam in Milly restaurant tomorrow.
+
+> east
+I move east.
+
+The 5th Ave I
+The 5th Ave. is the main avenue of this city. It is crowded with people
+coming and going. To the west is Jimmy's detective's office. And you can
+follow the avenue to the south.  A boy was selling newspapers in the street.
+
+> south
+I move south.
+
+The 5th Ave II
+The 5th Ave. is the main avenue of this city. It is crowded with people
+coming and going. You can follow the avenue to the south.
+
+> south
+I move south.
+
+The 5th Ave III
+The 5th Ave. is the main avenue of this city. It is crowded with people
+coming and going. To the east is the Milly restaurant, and to the west the
+church of Saint Simon.
+
+> east
+I move east.
+
+Milly restaurant
+You are now in the Milly restaurant.   Also here is the counter.  Amy and Sam
+are here.
+
+> examine counter
+A common counter seems old.  The newspaper is on the counter.
+
+> get newspaper
+I take the newspaper from the counter.
+
+> read newspaper
+Something attracts your eyes:
+Bates, Patrick, a famous artist, died yesterday. And his funeral will be held
+tomorrow afternoon, 5pm, at the church of Saint Simon.
+
+> examine sam
+I thought Sam was examing my face with interest. I stared at his eyes and in
+hopes that he can suddenly shout out my real name. But he just smiled, and
+murmured: "Yeah..I must have seen you somewhere....but where, I cannot
+remember now...maybe it was at the pool house....."
+
+> ask sam about name
+"Your name? Don't be kidding, Guy. How can you don't know your name? You used
+that to make the appointment...You are still this funny...." Sam seems to
+forget my old name at all....
+
+> ask sam about pool
+You know Guy, I really love playing pool. I was going to the pool house every
+evening about 10 years ago. I still remember that there was a pool house
+called BlindPig around the corner at that time.
+
+> ask sam about BlindPig
+That was a wonderful place. It actually runned by my boss 10 years ago. And
+then he quit and start Milly restaurant. You can still find some old photos
+about the pool house on the wall if you go inside the lobby. Good old time,
+that's what people say.......I will be with you later in the lobby to show
+you the pictures.
+
+> in
+I move in.
+
+Milly restaurant lobby
+It's an empty place with echos of people's voices from outside. You look
+around and see some old pictures on the wall. You cannot help to touch the
+pictures..
+
+> touch the pictures
+I can really feel the time when I touched those old, yellowed pictures. I
+closed my eyes and try to remember, but nothing came to my mind. I sighed and
+opend my eyes again, and suddenly, I am attracted by the pic1 on the wall.
+Sam enters from outside.
+
+> examine wall
+That's a flat white wall full of pictures.  The pic1 is on the wall.
+
+> examine pic1
+Suddenly one picture captures your eye. There is a tall man who has grey
+hairs in this picture. He was benting to talk to another man. He is at the
+back, and you can only see his profile. You may ask Sam about the interested
+man and pic1.
+
+> ask sam about the interested man
+"Do you think he looks like me?" I asked. Sam examing the pic for a while and
+said: "Maybe. It looks like you, but I am not so sure." But I guess I know
+the man he is talking to. Isn't him your friend?
+
+> ask sam about friend
+Oh you dont have contact with him now? You were always together in the pool
+house at that time. Don't know if he will attend tomorrow's funeral...
+
+> ask sam about funeral
+The funeral for Mr. Bates will be held tomorrow......
+
+> ask sam about bates
+He is really a nice guy....I feel sorry for him. I haven't seen him for a
+long time. I thought your friend knew him well.
+
+> ask sam about pic1
+Yes, you can have it if you want, my friend. See the man in the front? That's
+Mr. Bates. I was shocked when i read today's newspaper.
+
+> wait
+Time passes...
+I looked at the pic1 again, and felt that I may be that man with grey hairs
+in the pic1. Then I put the pic1 into my pocket carefully....I need to get
+contact to that man who is supposed to be my friend....
+I handed Sam goodbye and left.
+
+> west
+I move west.
+
+Church of Saint Simon
+A small but solumn church. It's quite quiet here.  Also here is a board.
+
+> examine board
+It's a wooden board. You can read it about the events in the church.
+
+> read board
+The graveyard will open to public for Mr. Bates, Patrick's funeral at 5pm,
+Nov 3rd. You can go straight in to attend the funeral.
+
+> in
+I move in.
+
+Graveyard
+It's a quite graveyard, and Mr. Bates is resting here.
+
+There are many people standing in front of Bate's grave. The priest had
+finished his talking. Everyone looked solumn and sad.
+
+Among them I noticed that old man with a young girl. I waited until they
+turned around and about to leave. I came to them and said: "Hello Micky."
+
+Micky didn't respond. He looked at me for a while and passed by. The girl
+with him smiled at me and said:"Sorry Sir, my father suffers from Alzheimer's
+dementia, and cannot remember many old friends now....My name is Ann."
+You may want to start conversation with Ann now. Maybe you can show ann pic1.
+
+> examine micky
+Micky is very tall, and old. He stared at the floor with his blank eyes. He
+seemed to be sank in his own world.
+
+> examine ann
+A young girl with Micky. They look alike, and she is Micky's daughter.
+
+> ask ann about micky
+My poor father can seldom make conversations now. He always sits at home
+looks at those old photos......He seems to be in his own world, and has no
+relation to this real world.......
+
+> ask ann about old photos
+Yes my father kept many old photos at home. He wrote the names for everyone
+in the photo on the back of the photo.....I guess that he may know that his
+memory would get worse even at that time....You can come over if you are
+interested in those photos.
+
+> ask ann about pic1
+I took out pic1 and showed Ann the man in the back. "Do you think he looks
+like me?" I asked. Ann examined the pic for a while and said: "Yeah it looks
+like you ....Maybe." I think i have seen this man somewhere in the old photos
+kept by my father.
+
+> wait
+Time passes...
+Ann waived me goodbye and left with her father slowly.  People went over to
+the grave to show their sadness. Many of them put flowers in front of the
+grave. I followed the line and was in front of the grave when the priest
+indicated that I may bless Bates now.
+
+> bless bates
+I closed my eyes and tried to remember Bates.....I felt weird that I cannot
+even remember my old friend on his funeral. It made me feel sad.
+
+> wait
+Time passes...
+
+> out
+I move out.
+
+Church of Saint Simon
+A small but solumn church. It's quite quiet here.  Also here is a board.
+
+> north
+I move north.
+
+The 4th Avenue II
+The 4th Ave. is the main avenue of this city. It is crowded with people
+coming and going. To the west is Mike's house. You can knock the door.
+
+> north
+I move north.
+
+The 4th Avenue I
+The 4th Ave. is the main avenue of this city. It is crowded with people
+coming and going. To the west is Micky's house. You can knock the door.
+
+> knock the door
+The door is opened. Ann smiled at you and lead you into the house.
+
+Micky's
+Micky's house is not very large, but quite neat. There is a cabinet standing
+by the window. Micky kept silent and sat at the window.....Ann seemed ready
+to start conversation.
+
+> examine cabinet
+A common wooden cabinet with lots of old photos.   The cabinet is closed.
+
+> open cabinet
+I open the cabinet.  The photo box is inside the cabinet.
+
+> get box
+I take the photo box from the cabinet.
+
+> open box
+I open the photo box.  Inside the photo box is the pic2, the pic3 and the
+pic4.
+
+> get pic2
+I take the pic2 from the photo box.
+
+> examine pic2
+There are three men and a girl in this picture. They were very young. The
+left most man has red hairs and blue eyes. The other two men all have grey
+hairs and grey eyes. They look a little bit alike. The girl is pretty, and
+looks familiar with me.
+ If you go to the other side of the pic, you can find the names of each
+person. From left to right: Andrew, Fled, Joel, Clare......
+Maybe you can ask Ann if she knows these guys.
+
+> ask ann about andrew
+I dont know this guy at all...
+
+> ask ann about fled
+I am sure that this man should be the one in the previous
+picture.....So....his name is Fled...ummm, my father had once mentioned that
+Fled owns a castle somewhere...You may want to know more about castle ...
+
+> ask ann about joel
+Hey Guy, this man called joel also looks like you, isn't he?
+
+> ask ann about clare
+"She is quite beautiful....." Ann said....Suddenly I remembered a scene that
+I was with Clare in a pub.......I may ask Ann more about pub.
+
+> more about castle
+"I don't know where the castle is..."Ann said. I thanked her and left Micky's
+house. Micky kept staring at the floor there. I sighed and closed the door. I
+guess I can find out where the castle is by searching the old files about
+Fled...
+Am I Fled? Who I am indeed.....With the questions, I went back to the
+detective's office.
+
+Detective's Office
+You are in Jimmy's detective's office. You have been working here for eight
+years. It's a small but neat room with a huge dark-color wood bookshelf
+standing behind. There is also a large desk with piles of documents on it.
+
+> unlock drawer
+I unlock the drawer with the key.
+
+> open drawer
+I open the drawer.  The old files are inside the drawer.
+
+> turn lamp on
+The lamp is on now........I can now see clearly...
+
+> search old files by fled
+You can not find any information about this guy after 1935. He used to own a
+castle which is located at 1st, the 5th ave. And you can find the way to it
+by examing the city map.
+
+> examine bookshelf
+A huge dark-color wood bookshelf with a lot of books on it.  Inside the
+bookshelf is a city map, a book titled missing person and the picture.
+
+> get map
+I take the city map from the bookshelf.
+
+> examine map
+The city map. You may need it for directions.
+
+> close drawer
+I close the drawer.
+
+> lock drawer
+I lock the drawer with the key.
+
+> east
+I move east.
+
+The 5th Ave I
+The 5th Ave. is the main avenue of this city. It is crowded with people
+coming and going. To the west is Jimmy's detective's office. And you can
+follow the avenue to the south.  A boy was selling newspapers in the street.
+
+> north
+I move north.
+
+Fled's castle
+I am now in Fled's castle. It should has been a beautiful place, but seems
+deserted for a long time. I can go into the cabin .
+I passed the grass and thought: "Is this castle where I spent my childhood?"
+I stood in front of a swing and imagined the old times I may had spent here.
+I may have spent the best time of my life in this old castle.
+
+> in
+I move in.
+
+Cabin
+  A gardener is here.
+
+> examine gardener
+The gardener saw me and shouted: "Oh my god, you are Fled's friend!....How
+many years since I saw you last time, sir?"  He looked at me and smiled:''We
+all get old, sir." You may want to show the gardener picname now.
+
+> show gardener pic1
+I took out pic1 and showed the gardener....."Oh sir, where you get this? That
+was in the old pool house. You see Fled here?" He pointed at Fled in the
+picture.
+
+> show gardener pic2
+I took out pic2 and showed the gardener....."Yes, you four are always
+together at that time. Fled, Andrew, you and your girl......"
+............I was not whom I thought I am...I am the one beside
+Fled.....so....My name is Joel?......And Clare is my girlfriend?...Then,
+what's my full name?
+
+> ask gardener about full name
+How can I remember your full name sir?....No..I don't remember that...I am
+old now...
+
+> ask gardener about fled
+Even I haven't heard from Fled for many years.....It should be 5 years ago,
+Fled sent me a letter and told me he would go on a voyage. No further news
+about him later. I am afaid that he may not be in this world now...
+
+> out
+I move out.
+
+Fled's castle
+I am now in Fled's castle. It should has been a beautiful place, but seems
+deserted for a long time. I can go into the cabin .  Andrew is here.
+
+Andrew ran to me and huged me tightly. "Hey Joel, how are you?"
+The hug actually reminds me of the old times. Yes...We were together...We
+four went to BlindPig nearly every evening around 1930. Clare was so good at
+pool, and none of us three men can ever beat her. I felt Clare's face is in
+front of me now......At this moment the only way to know more about Clare is
+to go to the pub. That's the place where she was born...
+
+> west
+I move west.
+
+Modiano Str. III
+The Modiano Str. is a narrow but quiet. To the south is the detective's
+office.
+
+> west
+I move west.
+
+Modiano Str. II
+The Modiano Str. is a narrow but quiet. To the north is the old apartment.
+You can knock the door.
+
+> west
+I move west.
+
+Modiano Str. I
+The Modiano Str. is a narrow but quiet . To the left is the pub.
+
+> west
+I move west.
+
+Pub
+I am now in the Pub. I look around and there are many pictures about young
+girls hanged on the wall. It's very noise here. People are drinking and
+talking in several different languages.   The waiter is busy serving.
+I am attracted by one of the picture on the wall....That was Clare. I cannot
+help to go in front of the picture.
+
+> look
+
+Pub
+I am now in the Pub. I look around and there are many pictures about young
+girls hanged on the wall. It's very noise here. People are drinking and
+talking in several different languages.   The waiter is busy serving.
+I am attracted by one of the picture on the wall....That was Clare. I cannot
+help to go in front of the picture.
+
+> go in front of the picture
+I stood in front of it still for five or six minutes. Memories flashed back
+from void, and then went back to the void after the flashes....
+
+> examine picture
+That's a large picture of Clare. She looked very young and very beautiful in
+the picture. You may want to ask the waiter about this picture.
+
+> examine waiter
+The waiter stood with you in front of Clare's picture, and seemed happy to
+share information of Clare with you.
+
+> ask waiter about picture
+You like this picture sir? Me too. Clare was 18 at that time. This picture
+was taken by a famous photographer...This picture was also on a magzine and I
+still kept the magzine.....How many years have passed since then...
+
+> ask waiter about photographer
+His name should be Mike Hyde...
+
+> ask waiter about magzine
+You wanna see the magzine? Sure I can lent it to you. But you should promise
+that you will give it back to me. (I promise)
+
+> i promise
+The waiter left me and went back with the magzine in a minute. He handed the
+magzine to me and said:"Dont' forget your promise, sir."
+
+> examine magzine
+An old magzine with Clare's photo on it. The photo was taken on 1924, by Mike
+Hyde.
+
+> ask waiter about clare
+She is the ex owner's daughter...Are you her friend? I have been here for
+more then fifty years. I actually saw her grow up. It has been long time
+since I got news from her. Hey I actually have some other pictures of her.
+
+> ask waiter about other pictures
+So, you want to see other pictures, sir?
+
+> see other pictures
+The waiter left me and went back with an envelope in a minute. He handed it
+to me and said:"The pictures are inside. You can keep them sir."  The waiter
+handed me goodbye.
+
+On my way back to the detective's office, I remembered clearly that there was
+one night, I came to the pub and saw Clare playing with pool in the pub.
+That's the first time we saw each other....then we went to Blindpig often
+together with Fled and another guy called Andrew...and my real name is Joel
+Guass..
+
+There was also a faint memory that I was living with Clare for a while in an
+old apartment.....How can I find the address of the old apartment?....
+
+Detective's Office
+You are in Jimmy's detective's office. You have been working here for eight
+years. It's a small but neat room with a huge dark-color wood bookshelf
+standing behind. There is also a large desk with piles of documents on it.
+
+> examine envelope
+A yellow envelope full of pictures of Clare.  A pic5 and a pic6 are inside
+the envelope.
+
+> examine pic5
+In this picture, Clare was a little girl with her mother.
+
+> examine pic6
+In this picture, Clare was playing the pool
+
+> unlock drawer
+I unlock the drawer with the key.
+
+> open drawer
+I open the drawer.  The old files are inside the drawer.
+
+> search old files by clare
+"She is the pub owner's daughter. Between1930-1932, she once live in an old
+apartment located 2nd, Midiano Str. No information about this girl after
+1932."
+
+Modiano Str. II
+The Modiano Str. is a narrow but quiet. To the north is the old apartment.
+You can knock the door.
+
+> knock the door
+The door is opened. Marry looks surperising at the door. "My god, Joel? Come
+in please. This apartment always welcome you back."
+
+Old apartment
+  Marry is here.
+
+> ask marry about clare
+I haven't received any mails from her after 1932. It's so good to see you
+after 8 years Joel.
+
+> ask marry about 1932
+Clare and you left here at that time.....I got a mail from Clare and said
+that you were going to across the cordon and steal into French.  She said she
+would let me use the apartment. Seriously, what happened?
+
+> ask marry about mail
+I think I still keep that mail. You want to see the mail?
+
+> see the mail
+Marry found the mail and handed to me.
+
+> read mail
+"Dear Marry,
+How are you? Joel and I had left our old apartment, and you can use it as you
+like. We decided to across the cordon and steal into French from Germany
+after a week. I will mail you later when I get there. We are very happy.
+Don't worry.
+Yours Clare
+autumn of 1932"
+
+> ask marry about apartment
+I have been living in this apartment for about 8 years, since Clare and you
+left here. I haven't changed much here. The furnitures should seem familar
+with you....You want to see the bedroom? Make yourself at home.
+
+> wait
+Time passes...
+Marry smiled and said:"I have been living in this apartment for about 8
+years, since Clare and you left here. I haven't changed much here. The
+furnitures should seem familar with you....You want to see the bedroom? Make
+yourself at home."
+
+> see the bedroom
+I asked Marry to give me some time alone, and then went into the bedroom.
+
+Bedroom
+A simple bedroom with a king-size bed, and a small desk in front of the
+window.
+
+> wait
+Time passes...
+In this bedroom, I now remembered everything.....
+On that day we two first followed two guides to steal into French. On the way
+the guides sugested that we seperate and meet later after we across the
+cordon. I hugged Clare and followed one guide respectively. That was the last
+time we saw each other. I should never had apart from Clare at that time.
+I followed my guide for a while, and then be attacked by the guide. And I
+lost my memory from then on.....
+I went out of the bedroom. Marry was sleeping in the chair. I left quietly.
+
+I walked on the Modiano's Street home and felt that I was walking in a dream.
+I had already lived my whole life, and was like a ghost wandering in the cold
+and dry airs. How many times had I been in this street? Maybe I steped my old
+footprints without notice.
+
+I took the pic5 out and saw Clare again. I didn't notice that she was crying
+in the picture. The little girl was going back home from the beach with her
+mother. She cried with no reason, and maybe she just wanted to play for a
+little bit longer at the beach...She went away, and disappeared at the
+corner. Will our life just disappear in this autumn evening, just like the
+sadness of the little girl?
+[Press any key to end]

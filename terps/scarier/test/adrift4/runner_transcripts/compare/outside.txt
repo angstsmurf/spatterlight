@@ -1,0 +1,40 @@
+feed        43 commands
+runner      43 turns echoed
+scarier     49 turns, feed[0] is scarier turn 1
+
+RULE 2 -- every feed command was echoed.
+
+turn 0  stand on the toilet -- streams re-synchronised, scarier turn -1
+
+turn 7  goto tunnel
+  run400   Moving to the tunnel... > East You move east. The Tunnel Joe built this tunnel to lead straight to the entrance of the prison, how he managed it is anyones guess. He gets credit for it though, it is supebly construted, with wooden supports. It makes it even more baffling how he did it! First prison guard and Second prison guard are here. Joe hits the second guard. The first guard hits you. The second guard hits Joe. Arrived the tunnel.
+  scarier  Moving to the tunnel...
+
+turn 8  attack first guard -- streams re-synchronised, scarier turn +1
+
+turn 20  goto your house
+  run400   Moving to your house (dalto)... > NorthEast You walk in to your house. Its exactly how you left it, all those months ago. Arrived your house (dalto).
+  scarier  Moving to your house (dalto)...
+
+turn 21  move the bookshelf -- streams re-synchronised, scarier turn +1
+
+turn 22  goto the road
+  run400   Moving to the road... > North You move north. The Road Leads from Dalto to Winica. And back again. The two towns have been rivals for centuries, over what started as a petty quarrel. The only person in Dalto that knows about this route is you, you had no choice but to construct it when King Alfred III cut off Dalto from Winica completely. You can see some buildings Police station Weapon shop Wise mans house The bus depot A huge monster appears from nowhere, you could fight it, but there is just enough time to escape. A huge monster is here. Joe hits the scary looking monster. The scary looking monster hits Joe. Arrived the road.
+  scarier  Moving to the road...
+
+turn 23  escape -- streams re-synchronised, scarier turn +1
+
+turn 24  goto the bus depot
+  run400   Moving to the bus depot (winica)... > NorthWest You move northwest. The Bus Depot (Winica) The bus depot is empty, missing even a bus. It will surely arrive soon. The conductor is here. An old looking man is sitting on a bench. Arrived the bus depot (winica).
+  scarier  Moving to the bus depot (winica)...
+
+turn 25  1258 -- streams re-synchronised, scarier turn +1
+
+turn 36  goto roses house
+  run400   Moving to roses house (phureo)... > NorthWest You move northwest. Roses House (Phureo) The whole place is covered in dust, in some places it is inches thick. Alex is here. Arrived roses house (phureo).
+  scarier  Moving to roses house (phureo)...
+
+turn 37  blow away the dust -- streams re-synchronised, scarier turn +1
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

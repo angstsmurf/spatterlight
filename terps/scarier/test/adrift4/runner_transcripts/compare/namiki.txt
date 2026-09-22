@@ -1,0 +1,12 @@
+feed        112 commands
+runner      112 turns echoed
+scarier     112 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 93  take all from bag
+  run400   I take my bandana, my Yamamoto blouse, my Prada belt, the perfume flask and the Kenzo jacket from the tennis bag.the Dior skirtmy jewelry
+  scarier  I take my bandana, my Yamamoto blouse, my Prada belt, the perfume flask, the Kenzo jacket, the Dior skirt and my jewelry from the tennis bag.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

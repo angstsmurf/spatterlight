@@ -1684,6 +1684,16 @@ JacarandaJim|JacarandaJim.blorb|99|0
 JacarandaJim2011|JacarandaJim_2011.blorb|37|0
 SixSilverBullets|SixSilverBullets.blorb|18|0
 SixSilverBulletsTruth|SixSilverBullets.blorb|111|0
+# Pathway to Destruction: this .blorb is a mechanical ADRIFT 4 -> 5
+# conversion (every item stamped 2020-12-27, "lever%lever%" left in the text),
+# and it cannot be won.  With the power off, the lever tasks (Task81/Task82)
+# require `Object73 Must BeInState Beam`, but the lever's states are
+# "Beam locked" / "Beam unlocked", so the restriction never passes.  Task80
+# needs power on, so "pull lever" falls to the library's "nothing happens".
+# The script therefore ends on the BAD ending (you "blink out of existence")
+# under the converted "*** You have won ***" banner.  FrankenDrift agrees.
+# The same 55 commands win the ADRIFT 4.00 original: see pathway_solution.txt
+# in test/adrift4/harness/run_v4_walkthroughs.sh.
 PathwayToDestruction|PathwayToDestruction.blorb|0|0
 CallOfTheShaman|TheCallOfTheShaman.blorb|0|0
 ThingsThatGoBumpInTheNight|TBN v.2.blorb|0|0

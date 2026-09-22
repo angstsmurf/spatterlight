@@ -1,0 +1,111 @@
+
+> 1
+Get ready.
+
+Carcasses bleed at the sight of the murderer.
+Robert Burton
+
+
+Blood hath been shed ere now, i' th' olden time,
+  Ere humane stature purged the gentle weal;
+    Ay, and since too, murders have been performed
+      Too terrible for the ear. The time has been
+        That, when the brains were out, the man would die,
+          And there an end. But now they rise again,
+            With twenty mortal murders on their crowns,
+              And push us from our stools. This is more strange
+                Than such a murder is.
+
+William Shakespeare
+
+
+Murder, murder, murder was the case,
+Of a hitman,
+Whose heart was erased,
+Revenge to him,
+Is gettin' paid,
+Murder, murder, murder was the case
+
+Me
+
+
+
+{Press any key to continue}
+You are...
+
+
+THE PROFFESIONAL
+
+by critically acclaimed author The Dominant Species! Creator of many other works of art. Of course I don't make games. I make art. Remember that. This is a piece of artwork. A set piece, if you will. If you don't have fun playing it, you suck at adventures.
+
+[Tap a key to begin this intricate adventure.]
+  
+
+
+
+
+
+~~~Room~~~
+
+
+You are in a room. It belongs to the guy you're supposed to kill. You look around and see a desk, window, and painting. You sigh as you realize the man isn't coming until later on. Maybe this is a good time to look at his stuff.
+
+> x desk
+
+
+
+The desk is made of oak.  The desk is closed.
+
+> open it
+(the desk)
+You open the desk.  A key is inside the desk.
+
+> take key
+You take the key from the desk.
+
+> x painting
+You move the painting and find a safe behind it!
+
+> unlock safe
+You unlock the safe with the key.
+
+> open safe
+You open the safe.  A letter is inside the safe.
+
+> take letter
+You take the letter from the safe.
+
+> read letter
+
+
+
+
+
+
+
+the letter says ----
+
+I swear for the last five days I've felt like someone has been following me; I also feel like someone wants me to die, this feeling is unwarranted; I heard a man talking about killing me with a coworker this morning -- I'm gonna get otta here!
+
+Uh Oh.
+
+> l
+
+
+
+
+
+~~~Room~~~
+
+
+You are in a room. It belongs to the guy you're supposed to kill. You look around and see a desk, window, and painting. You sigh as you realize the man isn't coming until later on. Maybe this is a good time to look at his stuff.  You should look outside.
+
+> look outside
+You look outside and see a man walking to his car. Wait a minute! That's the guy you're supposed to kill. You take your gun and fire on the car and it blows up and the guy is set on fire. Sweeeeet! Mission accomplished.
+
+
+[Continue By Pressing A Key]
+
+I hope you enjoyed this game -- no, I know you enjoyed this game. Because it's the best thing ever made. Look forward to The Professional 2: The Return coming September 19, 2006.
+
+Press to go to next screen

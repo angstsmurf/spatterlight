@@ -1,0 +1,289 @@
+Loading game...
+
+Outside
+You are Zene, a 23 year old guy, who had a life before all this happened...
+
+ROSE  -  What are you doing, Alex?
+ALEX    -  I'm doing what I should have done months ago.
+ROSE  -  Alex....
+
+You awake screaming from the same dream that you've had for the past few
+months. You see the murder as clear as day, and have a clear image of the
+offender in your head. Assuming it means something. Being on death row
+though, it is hard to do anything about it. You go over, again and again in
+your mind, how you came to be here, framed for a murder you didn't commit, by
+people you don't even know.
+
+You realise time is running out for you. There is only one way to save your
+life now. You need to clear your name. Before you have time to think, there
+is a loud banging on the door of your cell, it's time to get up.
+
+> stand on the toilet
+You stand on the toilet.
+
+> look out the window
+You can see Dalto far into the distance, you can't help but think about Sara.
+Just then, you are distracted by something glinting on the windowsill.
+
+> get small key
+You take the small key from the window sill.
+
+> get off toilet
+You get off the toilet.
+
+> unlock chest
+You unlock the chest.
+
+> open chest
+You open the chest.
+
+> get spade
+You take the spade from the chest, there is only one thing this could have
+been used for, and moving Joes bed confirms your suspicion. How he did this
+with no-one noticing is a mystery. The path to the tunnel is now open.
+
+> goto tunnel
+Moving to the tunnel...
+
+> East
+You move east.
+
+The Tunnel
+Joe built this tunnel to lead straight to the entrance of the prison, how he
+managed it is anyones guess. He gets credit for it though, it is supebly
+construted, with wooden supports. It makes it even more baffling how he did
+it!  First prison guard and Second prison guard are here.  Joe hits the
+second guard.  The first guard hits you.  The second guard hits Joe.
+Arrived the tunnel.
+
+> attack first guard
+You hit the first guard with the shovel.  The first prison guard drops to the
+floor. YOU MOVE UP A LEVEL. Max HP/Attack/Defence go up 20pts.  Joe hits the
+second guard.  The second prison guard falls.
+
+> get first guards uniform
+You pick up the first guards uniform.
+
+> wear first guards uniform
+You put on the first guards uniform.
+
+> goto entrance
+You arrive at the prison entrance.
+
+Prison Entrance
+The rception desk is to one side of the area, and guards are about
+everywhere.  Third prison guard is here.
+
+You make for the gates to freedom, when the receptionist calls you back, 'can
+you clock out please?' She asks. You are not sure what to do, which arouses
+suspicions, and another guard recognizes you, and attacks you.  Joe hits the
+third guard.  The third guard hits you.
+
+> attack third guard
+You hit the third guard with the shovel.  The third prison guard dies in
+front of you. YOU MOVE TO LEVEL 3. HP/Attack/Defence go up 30pts.  The
+receptionist set off the alarm, and you see guards heading toward you. The
+only safe stategy would be to run for the prison entrance.
+
+> run
+You run out of the prison grounds, you are now involved in a man hunt.
+
+> catch the train
+You hop on the train, and it takes you to the outskirts of Dalto. You wander
+in to the town square.
+
+Town Square (Dalto)
+There is a large fountain in the middle of the square, and it has a mermaid
+spitting water. There are many buildings around.
+
+Your House
+Saras house
+A house
+Inn
+Item shop
+Old mans house
+
+There is a small boy and girl playing with each other.
+
+> knock on saras door
+You knock on the door, and see the curtains twich in the window. There is
+some commotion inside so you burst in.
+SARA : Zene! What are you doing here?!
+ZENE : Are you ok? I heard some banging.
+SARA : Nothings up...how did you get out?
+
+> say you escaped
+SARA : YOU ESCAPED?!
+ZENE : Thats about the size of it, I need to clear my name.
+SARA : Escaping just makes you look even more guilty.
+ZENE : I know, but I intend to prove my innocence while I'm out...
+
+You begin to tell Sara about the dream you've been having, It may not have
+anything to do with anything, but it sure does freak you out.
+
+Saras House (Dalto)
+A large cupboard stands in the corner of this one room building. It is
+spotless.  Joe and Sara are here.
+
+> open cupboard doors
+You fling open the doors to the cupboard, to reveal what must've been the
+cause of all the fuss you heard from outside. A half naked man runs from the
+cupboard, and straight out into the street.'I didn't know you were coming...'
+Sara says. 'Perhaps you should leave'
+
+> get the set of keys
+You take a set of keys from the cupboard.
+
+> leave
+You leave Saras house, and look around the square, but the man has vanished
+already. It looks like the very end for you and Sara, you think, as you shed
+a small tear.
+
+> goto your house
+Moving to your house (dalto)...
+
+> NorthEast
+You walk in to your house. Its exactly how you left it, all those months ago.
+Arrived your house (dalto).
+
+> move the bookshelf
+You push the bookshelf out of the way to reveal a small hole in the wall, its
+big enough for you to fit through. The path to the road is now open.
+
+> goto the road
+Moving to the road...
+
+> North
+You move north.
+
+The Road
+Leads from Dalto to Winica. And back again. The two towns have been rivals
+for centuries, over what started as a petty quarrel. The only person in Dalto
+that knows about this route is you, you had no choice but to construct it
+when King Alfred III cut off Dalto from Winica completely. You can see some
+buildings
+
+Police station
+Weapon shop
+Wise mans house
+The bus depot
+
+  A huge monster appears from nowhere, you could fight it, but there is just
+enough time to escape.  A huge monster is here.  Joe hits the scary looking
+monster.  The scary looking monster hits Joe.
+Arrived the road.
+
+> escape
+You run away from the monster, and end up in the police station in Winica.
+Joe hits the scary looking monster.  The scary looking monster hits Joe.  One
+of the best friends you ever had got killed in the battle, you will have to
+go it alone from now.
+
+> goto the bus depot
+Moving to the bus depot (winica)...
+
+> NorthWest
+You move northwest.
+
+The Bus Depot (Winica)
+The bus depot is empty,  missing even a bus. It will surely arrive soon.  The
+conductor is here.  An old looking man is sitting on a bench.
+Arrived the bus depot (winica).
+
+> 1258
+'CORRECT! Now heres question 2, what is the name of the president of Phureo?'
+
+> Arthur Dearling
+'RIGHT AGAIN! Question 3 is, what age was Arthur when he took control of the
+country?'
+
+> 39
+'YES! Only one question left to answer, which Dalton man famously was
+convicted of the murder of Rose Fertly?
+
+> Zene
+'Ok, you can pass through to Phureo. You will have to wait for the bus to
+arrive.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...  The Bus drives into the station.
+
+> catch the bus
+You hop on the bus, and it takes you to Phureo.
+
+Town Square (Dalto)
+There is a large fountain in the middle of the square, and it has a mermaid
+spitting water. There are many buildings around.
+
+Your House
+Saras house
+A house
+Inn
+Item shop
+Old mans house
+
+There is a small boy and girl playing with each other.
+
+> unlock the doors of Alexes house
+You unlock the door to Alexes house with the keys you found in Saras.
+Suddenly it all clicks into place.
+
+> goto alexes house
+The door to Alexes house is locked.
+
+> goto roses house
+Moving to roses house (phureo)...
+
+> NorthWest
+You move northwest.
+
+Roses House (Phureo)
+The whole place is covered in dust, in some places it is inches thick.  Alex
+is here.
+Arrived roses house (phureo).
+
+> blow away the dust
+You open the windows to let a breeze through, and start to blow some of the
+thick dust away, you can see a table in the corner.
+
+> get book
+You take a diary from the table.
+
+> read diary
+Thursday 24th:
+I'm not sure whats happened to Alex, he is acting really weird lately. but he
+does make me laugh, he told me today that he wrote the secret code for his
+back room down, behind a painting of a deer on his wall!
+
+Friday 25th:
+Alex went mad at me today, I asked him if he was having an affair and he went
+quiet, then he started yelling at me.
+
+Saturday 26th:
+I'm really scared of what Alex might do, He just found out what I did and
+he's dissapeared, I hope we can work this out.
+
+...
+
+There is no more. What did she do? The rest of the pages are missing.
+
+> se
+You have 30 turns before you will be recaptured.
+
+> se
+You have already done that.
+
+> goto phureo
+You have already done that.
+
+> quit
+Do you really want to quit? [Y/N]

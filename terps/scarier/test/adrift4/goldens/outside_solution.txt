@@ -1,0 +1,43 @@
+stand on the toilet
+look out the window
+get small key
+get off toilet
+unlock chest
+open chest
+get spade
+goto tunnel
+attack first guard
+get first guards uniform
+wear first guards uniform
+goto entrance
+attack third guard
+run
+catch the train
+knock on saras door
+say you escaped
+open cupboard doors
+get the set of keys
+leave
+goto your house
+move the bookshelf
+goto the road
+escape
+goto the bus depot
+1258
+Arthur Dearling
+39
+Zene
+wait
+wait
+wait
+wait
+catch the bus
+unlock the doors of Alexes house
+goto alexes house
+goto roses house
+blow away the dust
+get book
+read diary
+se
+se
+goto phureo

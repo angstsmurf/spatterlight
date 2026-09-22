@@ -1,0 +1,11 @@
+1
+x desk
+open it
+take key
+x painting
+unlock safe
+open safe
+take letter
+read letter
+l
+look outside

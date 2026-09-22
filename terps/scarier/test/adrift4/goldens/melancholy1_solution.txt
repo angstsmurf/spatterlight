@@ -1,0 +1,62 @@
+Player
+out
+e
+e
+use vending machine
+w
+w
+in
+examine blood splatters
+in
+take wooden stake
+out
+e
+e
+out
+s
+w
+n
+sleep
+look
+speak to shindo
+out
+e
+e
+out
+s
+w
+n
+think
+look
+s
+e
+n
+in
+w
+w
+in
+search
+out
+e
+e
+out
+look around
+help girl
+fight shindo
+s
+e
+n
+drop setsuna off
+s
+w
+n
+greet setsuna
+in
+w
+w
+in
+take seats
+e
+n
+fight shindo
+fight back
