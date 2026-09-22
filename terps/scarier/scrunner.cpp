@@ -6808,6 +6808,32 @@ run_task_has_catchall_command (scr_gameref_t game, scr_int task)
 }
 
 /*
+ * Optional "repeat assist" mode (opt-in, off by default; sibling of the
+ * combat and move assists).  The pre-4.0 spent-task claim below is the
+ * Runner's, measured, but in a few 3.90 games it sits on the critical path:
+ * a finished, non-repeatable task whose command is an exit (Vampire's T61
+ * `e` out of the Bozo backyard, Merry Murders' T46 `n` into the archives)
+ * answers every later use of that exit with its RepeatText, so the player
+ * can never leave and the game walls (70/100, 120/135).  With the assist on
+ * the claim is skipped, and the line goes on to the handlers below tasks(0)
+ * -- movement, look, examine -- as it did before the claim was ported.
+ * Strictly opt-in, as it deliberately diverges from run390.
+ */
+static scr_bool run_repeat_assist = FALSE;
+
+void
+run_set_repeat_assist (scr_bool flag)
+{
+  run_repeat_assist = flag;
+}
+
+scr_bool
+run_get_repeat_assist (void)
+{
+  return run_repeat_assist;
+}
+
+/*
  * run_spent_task_390()
  *
  * The pre-4.0 task dispatcher's claim, read off run390's checktask
@@ -7654,7 +7680,8 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * answer; they are a turn either way.  Matched on the line as typed: the
    * give and ask/talk rewrites are further down generaltasks.
    */
-  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
+  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && !run_repeat_assist)
     {
       const scr_char *message;
       const scr_int spent = run_spent_task_390 (game, string, &message);
@@ -8205,7 +8232,13 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
        * the note on run_task_refusal().  The room half still runs after it.
        */
       if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
-        status = run_task_refusal (game, library_string, REFUSAL_PASS_PRE);
+        {
+          /* With the repeat assist on, the already-done answer waits for
+             the post-library pass, after movement and the library. */
+          if (!run_repeat_assist)
+            status = run_task_refusal (game, library_string,
+                                       REFUSAL_PASS_PRE);
+        }
       else if (repeat_pending)
         {
           /*

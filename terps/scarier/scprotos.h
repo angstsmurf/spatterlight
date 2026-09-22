@@ -1137,6 +1137,8 @@ extern scr_int run_get_restart_count (void);
 extern scr_bool run_has_completed (scr_gameref_t game);
 extern void run_set_end_keyprompt (scr_bool flag);
 extern scr_bool run_get_end_keyprompt (void);
+extern void run_set_repeat_assist (scr_bool flag);
+extern scr_bool run_get_repeat_assist (void);
 extern scr_bool run_is_undo_available (scr_gameref_t game);
 extern void run_debug_trace (scr_bool flag);
 extern void run_get_attributes (scr_gameref_t game,
@@ -1199,6 +1201,8 @@ extern void task_print_end_keyprompt (scr_gameref_t game);
 extern void task_debug_trace (scr_bool flag);
 extern void task_set_move_assist (scr_bool flag);
 extern scr_bool task_get_move_assist (void);
+extern void task_set_room_assist (scr_bool flag);
+extern scr_bool task_get_room_assist (void);
 
 /* Task restriction functions. */
 extern scr_bool restr_object_in_state (scr_gameref_t game,

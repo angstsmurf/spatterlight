@@ -2350,6 +2350,12 @@ mishmash_solution.txt|mishmash.taf|You have lived up to your name and survived a
 # there; Scarier falls through to the library open.  Same score either
 # way -- deliberate deviation (the silent-task half; the spent-task half of
 # the same family was ported 2026-09-13, see journ2).
+# SCR_ASSUME_ROOMS=1 ("glk roomassist on", 2026-09-21) lets both Where=0
+# tasks run, and the doctor's fries score 6/7 -- but no row, because it is
+# still no win: T10's text hands over "the second approval form", yet its
+# actions only move the keys; that form (object 16) stays with the doctor,
+# and T14 needs all three.  With SCR_ASSUME_REPEATS=1 too, a second `open
+# cabinet` gets the first form out of the filing cabinet.
 the_hangover_solution.txt|hangover.taf|Your score is 5 out of a maximum of 7.
 # Troll! is WINNABLE and this route reaches the ending with zero parser errors,
 # but its ceiling is 185/190, not 190.  The game has 38 scoring tasks worth 5
@@ -5363,6 +5369,11 @@ murder_great_falls_solution.txt|mudergreatfalls.taf|Ken is found guilty of tripl
 # to the wall matched turn-for-turn except two RNG schedule items (the
 # green-porche event, Simonsen's arrival one turn apart).
 vampire_solution.txt|Vampire.taf|Your score is 70 out of a maximum of 100.|SCR_SKIP_WAITKEY=1
+# The same game with SCR_ASSUME_REPEATS=1 ("glk repeatassist on", added
+# 2026-09-21): the pre-4.0 spent-task claim is skipped, T61's `e` walks out of
+# the backyard again, and the pre-2026-09-13 route wins 100/100.  Non-faithful
+# by design; the row above is the Runner's.
+vampire_repeatassist_solution.txt|Vampire.taf|You scored 100 out of the maximum 100!|SCR_ASSUME_REPEATS=1 SCR_SKIP_WAITKEY=1
 
 # The Merry Murders -- ADRIFT 3.90, 69,489 bytes, December 16 2003.  A seven-act
 # locked-floor whodunit at the SynTex Christmas party: every act ends with one
@@ -5387,6 +5398,11 @@ vampire_solution.txt|Vampire.taf|Your score is 70 out of a maximum of 100.|SCR_S
 # that.") at 120/135.  PORTED 2026-09-13 (run_spent_task_390()): the route now
 # ends `n`, `n`, `score` at that wall and the marker is the score line.
 merry_murders_solution.txt|Merry_Murders.taf|My score is 120 out of a maximum of 135.|SCR_SKIP_WAITKEY=1
+# The same game with SCR_ASSUME_REPEATS=1 ("glk repeatassist on", added
+# 2026-09-21): the spent T46 no longer claims the second archives `n`, the
+# player walks in, and the pre-2026-09-13 route wins 135/135.  Non-faithful
+# by design; the row above is the Runner's.
+merry_murders_repeatassist_solution.txt|Merry_Murders.taf|You scored 135 out of the maximum 135!|SCR_ASSUME_REPEATS=1 SCR_SKIP_WAITKEY=1
 
 # The Woods Are Dark -- ADRIFT 3.90, 71,216 bytes, Cannibal 2003.  A haunted
 # cottage in Black Hill: 23 rooms, 82 tasks, no events and no clocks, so the

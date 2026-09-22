@@ -196,6 +196,10 @@ extern void scr_set_combat_assist (scr_bool flag);
 extern scr_bool scr_get_combat_assist (void);
 extern void scr_set_move_assist (scr_bool flag);
 extern scr_bool scr_get_move_assist (void);
+extern void scr_set_repeat_assist (scr_bool flag);
+extern scr_bool scr_get_repeat_assist (void);
+extern void scr_set_room_assist (scr_bool flag);
+extern scr_bool scr_get_room_assist (void);
 
 /* Locale control and query functions. */
 extern scr_bool scr_set_locale (const scr_char *name);

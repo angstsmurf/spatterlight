@@ -99,6 +99,32 @@ task_get_move_assist (void)
 
 
 /*
+ * Optional "room assist" mode (opt-in, off by default).  A task whose Where
+ * room list is ROOMLIST_NO_ROOMS can never run: every Runner answers its
+ * command with the wrong-room refusal, and Scarier does the same.  In a few
+ * games the author left that setting on a critical-path task, most likely
+ * meaning "anywhere" -- The Hangover's T10 (the doctor's fries) and T14 (the
+ * winning `give approval notes to platypus`), so it walls at 5 of 7.  With
+ * the assist on such a task is treated as runnable in every room.  Not safe
+ * as a global default: other games (e.g. The Plague) park tasks there on
+ * purpose.  Strictly opt-in, as it deliberately diverges from the Runner.
+ */
+static scr_bool task_room_assist = FALSE;
+
+void
+task_set_room_assist (scr_bool flag)
+{
+  task_room_assist = flag;
+}
+
+scr_bool
+task_get_room_assist (void)
+{
+  return task_room_assist;
+}
+
+
+/*
  * task_get_hint_common()
  * task_get_hint_question()
  * task_get_hint_subtle()
@@ -335,7 +361,7 @@ task_where_allows_run (scr_gameref_t game, scr_int task)
   switch (type)
     {
     case ROOMLIST_NO_ROOMS:
-      return FALSE;
+      return task_room_assist;
     case ROOMLIST_ALL_ROOMS:
       return TRUE;
 

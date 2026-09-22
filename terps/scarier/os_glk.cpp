@@ -4276,6 +4276,52 @@ gsc_command_move_assist (const char *argument)
 
 
 /*
+ * gsc_command_repeat_assist()
+ *
+ * Turn the optional repeat assist on and off.  This is a deliberately
+ * non-faithful aid for pre-4.0 games where a finished task claims a command
+ * the player needs again: the Runner answers "You have already done that."
+ * (or the task's RepeatText) ahead of movement and the library, which in e.g.
+ * The Vampire With A Conscience and The Merry Murders blocks the only way
+ * on.  When on, those commands go on to the ordinary handlers.  Off by
+ * default; 4.0 games are unaffected.
+ */
+static void
+gsc_command_repeat_assist (const char *argument)
+{
+  gsc_command_toggle (argument, "repeatassist", "Glk repeat assist is",
+                      scr_get_repeat_assist (), scr_set_repeat_assist,
+                      ".  Note this deviates from the original ADRIFT Runner"
+                      " and is intended only for pre-4.0 games where a"
+                      " finished task blocks a command, such as an exit, that"
+                      " the game needs again.\n",
+                      "; finished tasks behave as in the original ADRIFT"
+                      " Runner.\n", FALSE);
+}
+
+
+/*
+ * gsc_command_room_assist()
+ *
+ * Turn the optional room assist on and off.  This is a deliberately
+ * non-faithful aid for games with a task whose Where room list was left set
+ * to no rooms at all, which the Runner can never run ("You can't do that
+ * here!").  When on, such tasks may run in every room.  Off by default.
+ */
+static void
+gsc_command_room_assist (const char *argument)
+{
+  gsc_command_toggle (argument, "roomassist", "Glk room assist is",
+                      scr_get_room_assist (), scr_set_room_assist,
+                      ".  Note this deviates from the original ADRIFT Runner"
+                      " and is intended only for games with a task that was"
+                      " left set to run in no room at all.\n",
+                      "; tasks run only where the original ADRIFT Runner"
+                      " runs them.\n", FALSE);
+}
+
+
+/*
  * gsc_command_verbose()
  *
  * Turn the game's verbose room descriptions on and off.  This mirrors the
@@ -4997,7 +5043,8 @@ static void gsc_command_zoom (const char *argument);
 
 /* Commands flagged FALSE for in_adrift5 are ADRIFT <=4 engine specifics:
    abbreviations (the ADRIFT 5 standard library already defines x/l/i/z...),
-   capacity, combatassist, moveassist (4.0 Battle System / task quirks), and
+   capacity, combatassist, moveassist, repeatassist, roomassist (4.0 Battle
+   System / task quirks), and
    verbose (a 4.0 room-description mode; ADRIFT 5 leaves this to the game).
 
    Entries flagged is_alias are alternative names for a command listed above
@@ -5023,6 +5070,10 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
    "combat assist",               GSC_USAGE_ONOFF},
   {"moveassist",     gsc_command_move_assist,    TRUE,  FALSE, FALSE,
    "move assist",                 GSC_USAGE_ONOFF},
+  {"repeatassist",   gsc_command_repeat_assist,  TRUE,  FALSE, FALSE,
+   "repeat assist",               GSC_USAGE_ONOFF},
+  {"roomassist",     gsc_command_room_assist,    TRUE,  FALSE, FALSE,
+   "room assist",                 GSC_USAGE_ONOFF},
   {"verbose",        gsc_command_verbose,        TRUE,  FALSE, FALSE,
    "verbose descriptions",        GSC_USAGE_ONOFF},
   {"version",        gsc_command_version,        FALSE, TRUE,  FALSE,
@@ -5484,6 +5535,38 @@ gsc_command_help (const char *command)
                          " original ADRIFT Runner.  For a few games known to"
                          " be uncompletable without it, the assist is switched"
                          " on automatically at startup.\n");
+    }
+
+  else if (matched->handler == gsc_command_repeat_assist)
+    {
+      gsc_normal_string ("Helps with a finished task that blocks the way.\n\n"
+                         "In games made with ADRIFT 3.9 or earlier, a task"
+                         " that has been done answers every later command"
+                         " that matches it with \"You have already done"
+                         " that.\", even when that command is a move the"
+                         " game needs again, which can make the game"
+                         " impossible to finish.  Use ");
+      gsc_standout_string ("glk repeatassist on");
+      gsc_normal_string (" to let such commands through to movement and the"
+                         " other built-in commands, and ");
+      gsc_standout_string ("glk repeatassist off");
+      gsc_normal_string (" to turn it off.  This deliberately deviates from"
+                         " the original ADRIFT Runner, and does nothing in a"
+                         " 4.0 game.\n");
+    }
+
+  else if (matched->handler == gsc_command_room_assist)
+    {
+      gsc_normal_string ("Helps with a task that can never run.\n\nA few games"
+                         " were authored with a task set to run in no room at"
+                         " all; the original ADRIFT Runner answers it with"
+                         " \"You can't do that here!\" wherever you are, which"
+                         " can make the game impossible to finish.  Use ");
+      gsc_standout_string ("glk roomassist on");
+      gsc_normal_string (" to let such tasks run in every room, and ");
+      gsc_standout_string ("glk roomassist off");
+      gsc_normal_string (" to turn it off.  This deliberately deviates from"
+                         " the original ADRIFT Runner.\n");
     }
 
   else if (matched->handler == gsc_command_verbose)

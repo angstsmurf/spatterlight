@@ -1673,3 +1673,63 @@ scr_get_move_assist (void)
 {
   return task_get_move_assist ();
 }
+
+
+/*
+ * scr_set_repeat_assist()
+ *
+ * Enable or disable the optional "repeat assist" mode.  Pre-4.0 Runners let a
+ * finished, non-repeatable task claim every later command that matches it,
+ * answering with its RepeatText ("You have already done that.") before any
+ * movement or library handler runs.  Where that task's command is an exit the
+ * player needs again (e.g. Vampire, Merry Murders), the game is left
+ * unwinnable.  When on, the claim is skipped and such commands fall through
+ * to the ordinary handlers.  Off by default; opt-in only, as it deliberately
+ * diverges from the Runner.  4.0 games are unaffected.
+ */
+void
+scr_set_repeat_assist (scr_bool flag)
+{
+  run_set_repeat_assist (flag);
+}
+
+
+/*
+ * scr_get_repeat_assist()
+ *
+ * Return the current repeat-assist setting (see scr_set_repeat_assist()).
+ */
+scr_bool
+scr_get_repeat_assist (void)
+{
+  return run_get_repeat_assist ();
+}
+
+
+/*
+ * scr_set_room_assist()
+ *
+ * Enable or disable the optional "room assist" mode.  A task whose Where room
+ * list is set to no rooms at all can never run in the Runner, which answers
+ * its command with "You can't do that here!".  Where an author left that
+ * setting on a task the game needs (e.g. The Hangover's ending), the game is
+ * unwinnable.  When on, such tasks may run in every room.  Off by default;
+ * opt-in only, as it deliberately diverges from the Runner.
+ */
+void
+scr_set_room_assist (scr_bool flag)
+{
+  task_set_room_assist (flag);
+}
+
+
+/*
+ * scr_get_room_assist()
+ *
+ * Return the current room-assist setting (see scr_set_room_assist()).
+ */
+scr_bool
+scr_get_room_assist (void)
+{
+  return task_get_room_assist ();
+}
