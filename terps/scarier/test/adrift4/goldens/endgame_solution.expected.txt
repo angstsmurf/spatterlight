@@ -167,7 +167,7 @@ of clean floor is underneath the desk which dominates the room. This desk
 holds the one peice of equipment that makes your life worth living - your PC.
 A door leads north, out to your hallway.
 
-> quit
+>
 You stare in horror, as the last few minutes events replay on screen... what
 type of a game is this?
 

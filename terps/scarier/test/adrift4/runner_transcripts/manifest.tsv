@@ -152,7 +152,7 @@ ecod3	ecod3.txt	driven:Adrift_203_ecod3_rt.txt	3.90	run390x.exe	1234	0			yes	ide
 egghunt	egghunt.txt	driven:Adrift_147_egghunt_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 elascensor	elascensor.txt	driven:Adrift_508_elascensor_rt.txt	4.00	run400x.exe	1234	4		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 elmstreet	elmstreet.txt	driven:Adrift_286_elmstreet_rt.txt	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-endgame	endgame.txt	driven:Adrift_232_endgame_rt.txt	4.00	run400x.exe	1234	0			no	1 differing turn(s)
+endgame	endgame.txt	driven:Adrift_282_endgame_rt.txt	4.00	run400x.exe	1234	0			yes	identical on every turn.
 enigma	enigma.txt	driven:Adrift_312_enigma_rt.txt	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1	yes	10+ differing turn(s)
 enquete_a_hauts_risques	enquete_a_hauts_risques.txt	driven:Adrift_268_enquete_a_hauts_risques_rt.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.
 escape_from_insanity	escape_from_insanity.txt	harvested-native-0-draws:Adrift_694_escape_from_insanity.txt	3.90	run390x.exe	1234	0			yes	identical on every turn.

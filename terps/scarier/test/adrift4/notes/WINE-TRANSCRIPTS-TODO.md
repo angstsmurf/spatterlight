@@ -237,7 +237,10 @@ below as not yet ported.
 ### Nothing owed (capture and compare artefacts)
 
 - Epilogue or pause text one turn late or cut at the final keypress:
-  endgame T9, mortality T29/T32, iqsfot T41-42.
+  mortality T29/T32, iqsfot T41-42. (endgame T9 was the same thing: its
+  closing text has a `<waitkey>` after the first "The End." and the feed
+  ended at `z`, so the Runner sat at the pause. With a trailing blank line
+  in the solution it is identical, Adrift_282_endgame_rt, 2026-09-24.)
 - motion T257-258: the Runner's echo for T258 landed one room block early;
   with whitespace stripped both sides show the same frames in the same
   order. The other reported turns are Scarier's 80-column wrap on long

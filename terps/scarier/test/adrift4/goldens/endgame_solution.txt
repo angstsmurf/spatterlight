@@ -17,6 +17,9 @@
 # holding the crystal) is what teleports you into room 3 (ADRIFT Main Site);
 # TASKs 1/2/3/5 chain the remaining teleports, and TASK 6 (cmd=[*] in room 6)
 # re-executes TASK 5 so the PC switches itself back on no matter what you type.
+#
+# The closing ending text has its own <waitkey> after the first "The End.";
+# the trailing blank answers it, so the Runner prints the rest too.
 n
 n
 take crystal
@@ -30,3 +33,4 @@ search for unmasking the bold
 turn on pc
 
 z
+
