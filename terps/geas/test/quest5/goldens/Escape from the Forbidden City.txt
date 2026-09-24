@@ -1,0 +1,723 @@
+ ESCAPE FROM THE FORBIDDEN CITY.
+An intrepid explorer, you found it surprisingly easy to enter the Forbidden City.
+
+Within but a few minutes you felt dizzy. You passed out, and when you recovered...
+
+You are in a cell.
+A small bare room with a grill in the southern wall.
+You can see a piece of paper.
+You can go north.
+> north
+
+> north
+
+You are in a street.
+The quiet street runs east-west. There is a bare cell to the south.
+You can go west, east or south.
+> east
+
+> east
+
+You are at a junction.
+The street runs east-west. A road to the north seems to lead to a shopping area.
+You can go east, west or north.
+> east
+
+> east
+
+You are at a junction.
+You can see an imposing building up the road to the north.
+You can go east, north or west.
+> east
+
+> east
+
+You are at a corner.
+There is a shop some way along the street to the north.
+You can go north or west.
+> north
+
+> north
+
+You are halfway along a street..
+An open hardware store stands on the west side of the street.
+You can go south, in or north.
+> in
+
+> in
+
+You are in a hardware shop.
+Well-stocked shelves run round it.
+You can go out.
+> look at shelf
+
+> look at shelf
+You see a pair of gloves
+> take gloves
+
+> take gloves
+You pick them up.
+> wear gloves
+
+> wear gloves
+You put on the gloves
+> out
+
+> out
+
+You are halfway along a street..
+An open hardware store stands on the west side of the street.
+You can go south, in or north.
+> north
+
+> north
+
+You are at a corner.
+Down the street to the south, you can make out a shop.
+You can go south or west.
+> west
+
+> west
+
+You are at a junction.
+The deserted road runs east-west. In the distance, down a road to the south, you can see an imposing building.
+You can go west, south or east.
+> west
+
+> west
+
+You are at a crossroads.
+There seem to be some shops down the road to the south. A narrow street leads north.
+You can go north, west, east or south.
+> west
+
+> west
+
+You are at a corner.
+To the north, imposing wrought-iron gates stand open.
+You can go east, north or south.
+> north
+
+> north
+
+You are in The Park of Tranquility.
+This was once a haven of peace. Now it is overgrown with stinging nettles.
+You can go south or north.
+> search nettles
+
+> search nettles
+You find a brick
+> take brick
+
+> take brick
+You take the brick
+You find a key under the brick
+> take key
+
+> take key
+You pick it up.
+> south
+
+> south
+
+You are at a corner.
+To the north, imposing wrought-iron gates stand open.
+You can go east, north or south.
+> east
+
+> east
+
+You are at a crossroads.
+There seem to be some shops down the road to the south. A narrow street leads north.
+You can go north, west, east or south.
+> north
+
+> north
+
+You are at the south end of Well Street.
+You can go north or south.
+> north
+
+> north
+
+You are at the north end of Well Street.
+There is a small building here with an old wooden door
+You can go south.
+> kick old wooden door
+
+> kick old wooden door
+The lock bursts and the door falls open. You can go in.
+> in
+
+> in
+
+You are in the Well Room.
+In the centre stands a well surrounded by a low wall.
+You can see a coil of rope.
+You can go out.
+> push coil of rope
+
+> push coil of rope
+You push the rope into the well. It dangles in the water.
+> enter well
+
+> enter well
+You climb the wall...
+
+You are in the well.
+You can see a dangling rope.
+
+You sink like a stone...
+
+You are at the bottom of the well.
+You can see a jewel.
+> take jewel
+
+> take jewel
+You pick it up.
+> drop brick
+
+> drop brick
+You drop it.
+You float to the surface.
+
+You are in the well.
+You can see a dangling rope.
+> climb rope
+
+> climb rope
+You grasp the rope and climb upwards
+
+You are in the Well Room.
+In the centre stands a well surrounded by a low wall.
+You can go out.
+> out
+
+> out
+
+You are at the north end of Well Street.
+There is a small building here with an old wooden door which hangs drunkenly open.
+You can go south or in.
+> south
+
+> south
+
+You are at the south end of Well Street.
+You can go north or south.
+> south
+
+> south
+
+You are at a crossroads.
+There seem to be some shops down the road to the south. A narrow street leads north.
+You can go north, west, east or south.
+> east
+
+> east
+
+You are at a junction.
+The deserted road runs east-west. In the distance, down a road to the south, you can see an imposing building.
+You can go west, south or east.
+> south
+
+> south
+
+You are at the north end of Temple Road.
+You can go north or south.
+> south
+
+> south
+
+You are at the south end of Temple Road.
+To the west stand the great doors of a temple.
+You can go north or south.
+> unlock temple doors
+
+> unlock temple doors
+Unlocked.
+The great doors swing ponderously open.
+> in
+
+> in
+
+You are in a temple.
+A magnificent building. In the centre stands a great stone statue to some god or other.
+You can go out.
+> put jewel in socket
+
+> put jewel in socket
+Done.
+
+The ruby snaps into place firmly.
+
+A piece of paper flutters to the ground.
+
+Somewhere in the distance, a hawk screams...
+> out
+
+> out
+
+You are at the south end of Temple Road.
+To the west stand the great doors of a temple.
+You can go north, south or in.
+> north
+
+> north
+
+You are at the north end of Temple Road.
+You can go north or south.
+> north
+
+> north
+
+You are at a junction.
+The deserted road runs east-west. In the distance, down a road to the south, you can see an imposing building.
+You can go west, south or east.
+> west
+
+> west
+
+You are at a crossroads.
+There seem to be some shops down the road to the south. A narrow street leads north.
+You can go north, west, east or south.
+> west
+
+> west
+
+You are at a corner.
+To the north, imposing wrought-iron gates stand open.
+You can go east, north or south.
+> north
+
+> north
+
+You are in The Park of Tranquility.
+This was once a haven of peace. Now it is overgrown with stinging nettles.
+You can go south or north.
+> north
+
+> north
+
+You are to the south of a bridge.
+You can go south or north.
+> north
+
+> north
+
+You are to the north of a bridge.
+You can go south or north.
+> north
+
+> north
+
+You are in a clearing.
+You can see a fountain.
+You can go south, east, west or north.
+> look at fountain
+
+> look at fountain
+Still working, though showing signs of neglect.
+It contains a gold coin.
+> take gold coin
+
+> take gold coin
+You pick it up.
+> west
+
+> west
+
+You are in a wooded area.
+You see many trees of different species and wonderful appearance.
+You can go east or west.
+> climb rugbug
+
+> climb rugbug
+
+You are at the a top of the Rugbug tree.
+You can see a nest.
+You can go down.
+> down
+
+> down
+
+You are in a wooded area.
+You see many trees of different species and wonderful appearance.
+You can see a piece of bark.
+You can go east or west.
+> take bark
+
+> take bark
+You pick it up.
+> chew bark
+
+> chew bark
+Everything around you appears to grow larger. Suddenly you realise that you have shrunk!
+
+You spit out the chewed remains of the bark.
+> west
+
+> west
+
+You are in a gloomy corner of the wood.
+It is dominated by an old and mis-shapen beech.
+You can go east.
+> feel in hole
+
+> feel in hole
+You feel an object. You grip it and pull it out. You have just got it clear when you feel yourself growing back to normal size.
+> east
+
+> east
+
+You are in a wooded area.
+You see many trees of different species and wonderful appearance.
+You can go east or west.
+> east
+
+> east
+
+You are in a clearing.
+You can see a fountain.
+You can go south, east, west or north.
+> east
+
+> east
+
+You are in a clearing near a hut.
+A bonfire is smouldering in a corner. To one side stands a fairly decrepit shed, not so much lean-to as lean over!
+You can go west or in.
+> burn talisman
+
+> burn talisman
+You throw the talisman onto the bonfire. Oily green smoke coils up, the flames glow a lurid red. After a short period, the smoke dissipates and the flames change to a healthier bright appearance. Even the air seems to smell sweeter. A sense of peace and tranquility pervades the atmosphere. You feel that all is well...
+
+The gardener appears, and hands you a piece of paper before disappearing back into his shed, presumably to find his gardening tools again!
+
+You hear a grating noise far away to the south.
+> west
+
+> west
+
+You are in a clearing.
+You can see a fountain.
+You can go south, east, west or north.
+> south
+
+> south
+
+You are to the north of a bridge.
+You can go south or north.
+> south
+
+> south
+
+You are to the south of a bridge.
+You can go south or north.
+> south
+
+> south
+
+You are in The Park of Tranquility.
+This was once a haven of peace. Now it is overgrown with stinging nettles.
+You can go south or north.
+> south
+
+> south
+
+You are at a corner.
+To the north, imposing wrought-iron gates stand open.
+You can go east, north or south.
+> east
+
+> east
+
+You are at a crossroads.
+There seem to be some shops down the road to the south. A narrow street leads north.
+You can go north, west, east or south.
+> south
+
+> south
+
+You are in a shopping area..
+The only shop open is an apothecary's to the east.
+You can go south, north or in.
+> in
+
+> in
+
+You are in an apothecary shop.
+An old-fashioned apothecary's shop, dimly lit. The apothecary stands behind the counter, upon which stands a box.
+You can go out.
+> open box
+
+> open box
+You open it.
+It contains some flee poudre, some ratte poyson and a wyrm pill.
+> buy wyrm pill
+
+> buy wyrm pill
+The apothecary says "That will cost thee 1 gold coin"
+You pay the man and take the pill
+> out
+
+> out
+
+You are in a shopping area..
+The only shop open is an apothecary's to the east.
+You can go south, north or in.
+> south
+
+> south
+
+You are at a junction.
+The street runs east-west. A road to the north seems to lead to a shopping area.
+You can go east, west or north.
+> west
+
+> west
+
+You are in a street.
+The quiet street runs east-west. There is a bare cell to the south.
+You can go west, east or south.
+> south
+
+> south
+
+You are in a cell.
+A small bare room with a grill in the southern wall.
+A door has opened below the grill.
+You can see a piece of paper.
+You can go north or south.
+> south
+
+> south
+
+You are on a shore.
+There is a mighty lake to the south. In the distance you can see a rock. To the north are the city walls and some scrawny trees.
+You can go north, west, east or south.
+> west
+
+> west
+
+You are on a stony beach.
+You can see a beach.
+You can go east, west or south.
+> search stones
+
+> search stones
+Amongst the pebbles, you find a sharp flint.
+> take flint
+
+> take flint
+You pick it up.
+> east
+
+> east
+
+You are on a shore.
+There is a mighty lake to the south. In the distance you can see a rock. To the north are the city walls and some scrawny trees.
+You can go north, west, east or south.
+> east
+
+> east
+
+You are on a sandy beach.
+You can go west, east or south.
+> east
+
+> east
+
+You are on a sandy beach.
+You can see a boat.
+You can go west or south.
+> cut knot
+
+> cut knot
+You slice through the rope - and the boat drifts away!
+> west
+
+> west
+
+You are on a sandy beach.
+You can go west, east or south.
+> west
+
+> west
+
+You are on a shore.
+There is a mighty lake to the south. In the distance you can see a rock. To the north are the city walls and some scrawny trees.
+You can go north, west, east or south.
+> west
+
+> west
+
+You are on a stony beach.
+You can see a beach.
+You can go east, west or south.
+> west
+
+> west
+
+You are at a pier.
+You can see a boat.
+You can go east or south.
+> enter boat
+
+> enter boat
+You climb aboard
+> south
+
+> south
+
+You are at sea.
+You can go south or north.
+> south
+
+> south
+
+You are at sea.
+You can go south or north.
+> south
+
+> south
+
+You are on a rocky shore.
+To the south you can see a waterfall. The lake lies to the north.
+You can go north or south.
+> leave boat
+
+> leave boat
+You climb out.
+> south
+
+> south
+
+You are near a waterfall.
+You can go north.
+> look at waterfall
+
+> look at waterfall
+You discover a cave behind the waterfall to the south.
+> south
+
+> south
+
+You are in an a cave behind the waterfall..
+You can go north, east or west.
+> east
+
+> east
+
+You are at a dead end.
+You can see a blowpipe.
+You can go west.
+> take blowpipe
+
+> take blowpipe
+You pick it up.
+> put wyrm pill in blowpipe
+
+> put wyrm pill in blowpipe
+Done.
+> west
+
+> west
+
+You are in an a cave behind the waterfall..
+You can go north, east or west.
+> west
+
+> west
+
+You are at a junction.
+You can go east, west, north or south.
+> north
+
+> north
+
+You are at a dead end.
+You can see a hairpin.
+You can go south.
+> take hairpin
+
+> take hairpin
+You pick it up.
+> south
+
+> south
+
+You are at a junction.
+You can go east, west, north or south.
+> west
+
+> west
+
+You are in a cave.
+You can see a sleeping dragon.
+You can go east.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+The dragon stirs. Its mouth gapes in a cavernous yawn - or maybe it's taking a deep breath!
+> blow blowpipe
+
+> blow blowpipe
+The pill flies into the dragon's mouth. The dragon gulps, looks surprised - and keels over, stone dead!
+> south
+
+> south
+
+You are in a dungeon.
+Cold and damp.
+You can see a girl chained to the wall.
+You can go north or south.
+> pick lock
+
+> pick lock
+You pick the lock with the hairpin - and the princess is free!
+
+"Thank you," she whispers, "but I feel very weak. I don't think I'm strong enough to walk..."
+> take princess
+
+> take princess
+You carefully lift her.
+> south
+
+> south
+
+You are in a cavern.
+You can go north.
+> push slab
+
+> push slab
+A section of the southern wall slides back.
+> south
+
+> south
+
+You are in a tunnel.
+You can go south or north.
+> south
+
+> south
+
+You are by a beautiful lake.
+You can go north.
+You are met by an immensely grateful king and citizens. The princess runs joyfully to her father...
+
+ ...who offers you the usual rewards - half his kingdom etc - but you do not feel ready to settle down yet. There's a lot of world still to explore. Some meagre supplies, perhaps, and a boat to cross the lake...
+Loaded with provisions and treasures, you go on to fresh woods and pastures new...
+[state=Finished]

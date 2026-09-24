@@ -1,0 +1,1041 @@
+Twisted Tales
+The Crimson Path
+By Craig Dutton (c) 2013
+
+Winter walks its bitter path across the land as the small village of Darkmoor shivers for a different reason this night.
+
+Every year a sacrifice has to be made.  At the Offering Ground, one person volunteers to sacrifice them self to the terrifying resident of the Dark Forest.
+
+In 1750, the village was founded by your grandfather, Elric Darkmoor. At the turn of the new century the werewolf came and killed the Anderson family. A deal was made between the villagers and the creature.  Only one person should be sacrificed each year otherwise all the villagers would be killed. Nothing has changed and no one has every tried to find and kill the beast...
+
+Tomorrow is your birthday and your brother Klaus volunteers to be an offering. Celebration is the furthest thing from your mind.
+
+Your name is Katherine Darkmoor, descendent of Elric Darkmoor. Your vociferous protests fall on deaf ears as your brother is led to the Offering Ground. Tonight is a full moon. You are taken back to your home and sit in the darkness... waiting.
+
+The howl of a wolf emanates from beyond the forest depths and you jump out of your skin. You can't wait any longer and rush to the Offering Ground.  Only a single shoe and a splatter of fresh blood greet you. You feel sick and alone.
+
+Whatever it takes to avenge your brother you will do it!
+
+However, you need knowledge. How do you kill a werewolf? You have heard of a book belonging to the Notary that could tell you. But he's dead and his house is all locked up. But isn't Father Abanon the keeper of the Notary's house key? He won't give it to you easily.
+
+As the early rays of the sun peer over the snow-laden trees you wrap yourself tightly in your red hooded cloak.  The cold morning air bites your bones and you start to shiver. If Death shadows you this day then let him fall at your feet so you may step over his even colder bones...
+
+Offering Ground
+You can go southwest or north.
+A blood-stained dais lies before you as each year the stain gets bigger. A faint daytime moon can be seen in the sky.
+You can see a shoe and some blood splatter.
+> take shoe
+
+> take shoe
+You pick it up.
+> southwest
+
+> southwest
+
+Edge of the Forest
+You can go south, in, west or northeast.
+The snow covering the pines glisten in the sun as you as you shiver in the cold. Your Grandmother's house is close by. With snow on the roof and rustic brickwork it looks very picturesque on this cold day.
+> south
+
+> south
+
+Gate
+You can go south or north.
+Since the werewolf came to the forest, a large stone wall was erected around the village with a sturdy oak gate.
+> south
+
+> south
+
+Village Square
+You can go west, north or east.
+A large square area with your house to the west and the village well to the east. The gate and beyond lies to the north. The snow underfoot is soft and the air is bitterly cold.
+> west
+
+> west
+
+Your House
+You can go east or up.
+You were born in this small rustic place with minimal decor 18 years ago to this day. Your father, mother and brother are no more. You feel alone.
+You can see a cupboard.
+> open cupboard
+
+> open cupboard
+You open it.
+It contains a bottle of wine.
+> take bottle of wine
+
+> take bottle of wine
+You pick it up.
+> east
+
+> east
+
+Village Square
+You can go west, north or east.
+A large square area with your house to the west and the village well to the east. The gate and beyond lies to the north. The snow underfoot is soft and the air is bitterly cold.
+> east
+
+> east
+
+Well
+You can go west, south, northeast or east.
+A small stone well that keeps the villagers away from thirst. The Notary's house lies to the south, the church to the east and the forge to the northeast.
+> east
+
+> east
+
+Church
+You can go west.
+A small place of worship with a few pews and a wooden cross on the wall.
+You can see Father Abanon.
+> give bottle of wine to Father Abanon
+
+> give bottle of wine to Father Abanon
+His eyes light up when he sees it and takes it from you. He takes a large gulp.
+'For medicinal purposes, my child.' he hiccups, 'You know there's a book inside the Notary's chest that holds the secret to killing the werewolf. I... I'm looking after it, you know!'
+He slumps to the ground.
+'What's the combination, again? It's... it's the current year, I think.' he slurs.
+Eventually you watch him fall unconscious. He drops a key.
+> take copper key
+
+> take copper key
+You pick it up.
+> west
+
+> west
+
+Well
+You can go west, south, northeast or east.
+A small stone well that keeps the villagers away from thirst. The Notary's house lies to the south, the church to the east and the forge to the northeast.
+> unlock notary's door
+
+> unlock notary's door
+Unlocked with the copper key.
+> open notary's door
+
+> open notary's door
+You open it.
+> south
+
+> south
+
+Notary's House
+You can go north.
+A small dark, dusty room full of papers on uneven shelves. A smell of alcohol hangs in the air.
+You can see a wooden chest.
+> use padlock
+
+> use padlock
+What is the combinaton?
+> 1818
+The chest unlocks.
+> open wooden chest
+
+> open wooden chest
+You open the chest.
+> look at wooden chest
+
+> look at wooden chest
+An oak chest with a combination padlock.
+It contains a book.
+> take book
+
+> take book
+You pick it up.
+> read book
+
+> read book
+You read the more important references.
+
+The village was founded in 1750 by Elric Darkmoor, your grandfather. The werewolf killed the Anderson family in 1800. In 1801, your father, Thomas Darkmoor, was the first one to be sacrificed to the werewolf. Your mother told you he died in a hunting accident. I guess she was trying to protect you and Klaus. The only thing that can kill a werewolf is a silver weapon with the blade coated in wolfsbane; a flowering plant and extremely poisonous. Mostly found in moisture-ridden areas.
+> drop copper key
+
+> drop copper key
+You drop it.
+> drop book
+
+> drop book
+You drop it.
+> north
+
+> north
+
+Well
+You can go west, south, northeast or east.
+A small stone well that keeps the villagers away from thirst. The Notary's house lies to the south, the church to the east and the forge to the northeast.
+> west
+
+> west
+
+Village Square
+You can go west, north or east.
+A large square area with your house to the west and the village well to the east. The gate and beyond lies to the north. The snow underfoot is soft and the air is bitterly cold.
+> north
+
+> north
+
+Gate
+You can go south or north.
+Since the werewolf came to the forest, a large stone wall was erected around the village with a sturdy oak gate.
+> north
+
+> north
+
+Edge of the Forest
+You can go south, in, west or northeast.
+The snow covering the pines glisten in the sun as you as you shiver in the cold. Your Grandmother's house is close by. With snow on the roof and rustic brickwork it looks very picturesque on this cold day.
+> west
+
+> west
+
+Frozen Field
+You can go east or in.
+The ground is frozen solid as you look up at the large derelict windmill towering over you. The Miller and many other families over the years have left Darkmoor, never to return.
+> in
+
+> in
+
+Windmill
+You can go out.
+A dark and dingy place with flour covering the floor and cobwebs everywhere.
+You can see a millstone.
+> look at millstone
+
+> look at millstone
+It is broken.
+You find a coil of rope.
+> take coil of rope
+
+> take coil of rope
+You pick it up.
+> out
+
+> out
+
+Frozen Field
+You can go east or in.
+The ground is frozen solid as you look up at the large derelict windmill towering over you. The Miller and many other families over the years have left Darkmoor, never to return.
+> east
+
+> east
+
+Edge of the Forest
+You can go south, in, west or northeast.
+The snow covering the pines glisten in the sun as you as you shiver in the cold. Your Grandmother's house is close by. With snow on the roof and rustic brickwork it looks very picturesque on this cold day.
+> northeast
+
+> northeast
+
+Offering Ground
+You can go southwest or north.
+A blood-stained dais lies before you as each year the stain gets bigger. A faint daytime moon can be seen in the sky.
+You can see some blood splatter.
+> north
+
+> north
+
+Dark Forest
+You can go south, west or northeast.
+Huge trees dwarf you as you make your way through the bare forest.
+> northeast
+
+> northeast
+
+Frozen Pond
+You can go southwest, west or north.
+In the middle of a large frozen pond. Thick in places and thin in others.
+You can see a black dog.
+> take black dog
+
+> take black dog
+The dog runs around you, playing, when suddenly the ice breaks beneath your feet and you plunge into the icy depths. You lose your breath instantly. The dog tries to help you out but he can't get a good grip on you. As your body loses all feeling you start to drown. You don't have long to live! The dog stares back at you, whimpering.
+> give coil of rope to black dog
+
+> give coil of rope to black dog
+You hand over the rope to the dog who grabs one end in his teeth. You hold on to dear life at the other end and the poor things drags you out of the frozen pond with all of his might. The dog leads you north and you take your time warming yourself by the fire. You have gained a new friend.
+
+Campfire
+You can go south or in.
+A small copse in the forest opens up to a canvas tent with a burning fire nearby.
+> take black dog
+
+> take black dog
+You pick him up.
+> drop coil of rope
+
+> drop coil of rope
+You drop it.
+> south
+
+> south
+
+Frozen Pond
+You can go southwest, west or north.
+In the middle of a large frozen pond. Thick in places and thin in others.
+> southwest
+
+> southwest
+
+Dark Forest
+You can go south, west or northeast.
+Huge trees dwarf you as you make your way through the bare forest.
+> south
+
+> south
+
+Offering Ground
+You can go southwest or north.
+A blood-stained dais lies before you as each year the stain gets bigger. A faint daytime moon can be seen in the sky.
+You can see some blood splatter.
+> southwest
+
+> southwest
+
+Edge of the Forest
+You can go south, in, west or northeast.
+The snow covering the pines glisten in the sun as you as you shiver in the cold. Your Grandmother's house is close by. With snow on the roof and rustic brickwork it looks very picturesque on this cold day.
+> south
+
+> south
+
+Gate
+You can go south or north.
+Since the werewolf came to the forest, a large stone wall was erected around the village with a sturdy oak gate.
+> south
+
+> south
+
+Village Square
+You can go west, north or east.
+A large square area with your house to the west and the village well to the east. The gate and beyond lies to the north. The snow underfoot is soft and the air is bitterly cold.
+> east
+
+> east
+
+Well
+You can go west, south, northeast or east.
+A small stone well that keeps the villagers away from thirst. The Notary's house lies to the south, the church to the east and the forge to the northeast.
+> northeast
+
+> northeast
+
+Blacksmith's Forge
+You can go southwest.
+Surprisingly, it would normally be hot with the forge blazing away. But out of respect for your brother, who worked here, the forge lies cold.
+You can see Tamris the Blacksmith.
+> give black dog to Tamris the Blacksmith
+
+> give black dog to Tamris the Blacksmith
+The Blacksmith loves his new pet and offers you a simple gift of a candle as he has nothing of value.
+> take candle
+
+> take candle
+You pick it up.
+> southwest
+
+> southwest
+
+Well
+You can go west, south, northeast or east.
+A small stone well that keeps the villagers away from thirst. The Notary's house lies to the south, the church to the east and the forge to the northeast.
+> west
+
+> west
+
+Village Square
+You can go west, north or east.
+A large square area with your house to the west and the village well to the east. The gate and beyond lies to the north. The snow underfoot is soft and the air is bitterly cold.
+> north
+
+> north
+
+Gate
+You can go south or north.
+Since the werewolf came to the forest, a large stone wall was erected around the village with a sturdy oak gate.
+> north
+
+> north
+
+Edge of the Forest
+You can go south, in, west or northeast.
+The snow covering the pines glisten in the sun as you as you shiver in the cold. Your Grandmother's house is close by. With snow on the roof and rustic brickwork it looks very picturesque on this cold day.
+> northeast
+
+> northeast
+
+Offering Ground
+You can go southwest or north.
+A blood-stained dais lies before you as each year the stain gets bigger. A faint daytime moon can be seen in the sky.
+You can see some blood splatter.
+> north
+
+> north
+
+Dark Forest
+You can go south, west or northeast.
+Huge trees dwarf you as you make your way through the bare forest.
+> northeast
+
+> northeast
+
+Frozen Pond
+You can go southwest, west or north.
+In the middle of a large frozen pond. Thick in places and thin in others.
+> north
+
+> north
+
+Campfire
+You can go south or in.
+A small copse in the forest opens up to a canvas tent with a burning fire nearby.
+You can see a coil of rope.
+> light candle
+
+> light candle
+You light the candle with the fire.
+> south
+
+> south
+
+Frozen Pond
+You can go southwest, west or north.
+In the middle of a large frozen pond. Thick in places and thin in others.
+> west
+
+> west
+
+Clearing
+You can go southwest or east.
+A small open area with evergreens around you.
+> southwest
+
+> southwest
+
+Dark Forest
+You can go east, northeast or northwest.
+Huge trees dwarf you as you make your way through the leafless forest.
+> northwest
+
+> northwest
+
+Cluster of Pines
+You can go southeast, north, northeast or southwest.
+A large clearing with snow covering the pines.
+You can see a wintergreen shrub (on which there are some berries).
+> pull wintergreen shrub
+
+> pull wintergreen shrub
+You pull the shrub up from its roots revealing a trapdoor. You discard the wintergreen.
+> open trapdoor
+
+> open trapdoor
+You open the trapdoor.
+> look at recess
+
+> look at recess
+A small hole in the ground.
+It contains a silver key.
+> take silver key
+
+> take silver key
+You pick it up.
+> north
+
+> north
+
+Outside the Dark Tower
+You can go south or in.
+A tall, dark building rising up to the winter sky. It's been here long before Darkmoor was founded and has always been a mystery. Your mother told you never to go near it. But you did, on occasion, as a dare.
+> unlock tower door
+
+> unlock tower door
+Unlocked with the silver key.
+> open tower door
+
+> open tower door
+You open it.
+> in
+
+> in
+
+Bottom of the Tower
+You can go out or up.
+Stone steps spiral upwards.
+> up
+
+> up
+
+Tower Room
+You can go down or up.
+A large round room with a dusty bed and faded sheets. A mirror hangs on the wall.
+You can see Lich Queen, a portrait and a hairbrush.
+> turn mirror
+
+> turn mirror
+As you turn the mirror around to face the wall the Lich Queen stops brushing her hair. A look of dread falls upon her grey face. Suddenly she drops the brush and crumbles to dust. You broke her curse and time caught up with her!
+> drop silver key
+
+> drop silver key
+You drop it.
+> take hairbrush
+
+> take hairbrush
+You pick it up.
+> up
+
+> up
+
+Tower Roof
+You can go down.
+A wonderous view of the Dark Forest and the hills beyond.
+You can see a stone statue.
+> push stone statue
+
+> push stone statue
+You push the statue over and it smashes into hundreds of pieces. Amongst the rubble you find something!
+> take metal sphere
+
+> take metal sphere
+You pick it up.
+> down
+
+> down
+
+Tower Room
+You can go down or up.
+A large round room with a dusty bed and faded sheets. A mirror hangs on the wall.
+You can see a portrait and a silver key.
+> down
+
+> down
+
+Bottom of the Tower
+You can go out or up.
+Stone steps spiral upwards.
+> out
+
+> out
+
+Outside the Dark Tower
+You can go south or in.
+A tall, dark building rising up to the winter sky. It's been here long before Darkmoor was founded and has always been a mystery. Your mother told you never to go near it. But you did, on occasion, as a dare.
+> south
+
+> south
+
+Cluster of Pines
+You can go southeast, north, northeast or southwest.
+A large clearing with snow covering the pines.
+You can see a trapdoor and a recess.
+> northeast
+
+> northeast
+
+Snowdrift
+You can go southwest.
+A large blockage of fallen snow hinders your way.
+> use hairbrush on snowdrift
+
+> use hairbrush on snowdrift
+You scrape the snow away with the hairbrush. The strong bristles start to reveal a large hole in a stone wall and you create a new path to the north.
+> drop hairbrush
+
+> drop hairbrush
+You drop it.
+> southwest
+
+> southwest
+
+Cluster of Pines
+You can go southeast, north, northeast or southwest.
+A large clearing with snow covering the pines.
+You can see a trapdoor and a recess.
+> southeast
+
+> southeast
+
+Dark Forest
+You can go east, northeast or northwest.
+Huge trees dwarf you as you make your way through the leafless forest.
+> east
+
+> east
+
+Dark Forest
+You can go south, west or northeast.
+Huge trees dwarf you as you make your way through the bare forest.
+> south
+
+> south
+
+Offering Ground
+You can go southwest or north.
+A blood-stained dais lies before you as each year the stain gets bigger. A faint daytime moon can be seen in the sky.
+You can see some blood splatter.
+> southwest
+
+> southwest
+
+Edge of the Forest
+You can go south, in, west or northeast.
+The snow covering the pines glisten in the sun as you as you shiver in the cold. Your Grandmother's house is close by. With snow on the roof and rustic brickwork it looks very picturesque on this cold day.
+> in
+
+> in
+
+Grandmother's House
+You can go out.
+A single room with quaint furnishings.
+You can see Grandmother.
+> speak to Grandmother
+
+> speak to Grandmother
+'Oh, my child. I'm so sorry about Klaus.' she sobs.
+You tell her about your mission and her face changes to anger.
+'Silly girl, it's far too dangerous! If that's your fate then you're going to get yourself killed!'
+She calms down a little.
+'You never knew your Grandfather. Shortly after the werewolf killed the Anderson family a search party, led by your Grandfather, went out to hunt the beast down. They never found it but they found the youngest Anderson son still alive. He was raised by Father Abanon's sister in Kelbury. When he came of age he vanished without a word to anyone.
+'A Gypsy had made a bargain with the creature and a compromise had been reached. Only one person would be sacrificed a year otherwise it would kill all the villagers. It's time to go, dear and trust no one.'
+> out
+
+> out
+
+Edge of the Forest
+You can go south, in, west or northeast.
+The snow covering the pines glisten in the sun as you as you shiver in the cold. Your Grandmother's house is close by. With snow on the roof and rustic brickwork it looks very picturesque on this cold day.
+> northeast
+
+> northeast
+
+Offering Ground
+You can go southwest or north.
+A blood-stained dais lies before you as each year the stain gets bigger. A faint daytime moon can be seen in the sky.
+You can see some blood splatter.
+> north
+
+> north
+
+Dark Forest
+You can go south, west or northeast.
+Huge trees dwarf you as you make your way through the bare forest.
+> west
+
+> west
+
+Dark Forest
+You can go east, northeast or northwest.
+Huge trees dwarf you as you make your way through the leafless forest.
+> northeast
+
+> northeast
+
+Clearing
+You can go southwest or east.
+A small open area with evergreens around you.
+You can see the Huntsman.
+> speak to Huntsman
+
+> speak to Huntsman
+'Go home, little girl!' he scowls, 'This is not a place for games. The creature is no match for you. Go before it's too late.'
+He leaves you to your angry thoughts.
+> southwest
+
+> southwest
+
+Dark Forest
+You can go east, northeast or northwest.
+Huge trees dwarf you as you make your way through the leafless forest.
+> east
+
+> east
+
+Dark Forest
+You can go south, west or northeast.
+Huge trees dwarf you as you make your way through the bare forest.
+> south
+
+> south
+
+Offering Ground
+You can go southwest or north.
+A blood-stained dais lies before you as each year the stain gets bigger. A faint daytime moon can be seen in the sky.
+You can see some blood splatter.
+> southwest
+
+> southwest
+
+Edge of the Forest
+You can go south, in, west or northeast.
+The snow covering the pines glisten in the sun as you as you shiver in the cold. Your Grandmother's house is close by. With snow on the roof and rustic brickwork it looks very picturesque on this cold day.
+> in
+
+> in
+
+Grandmother's House
+You can go out.
+A single room with quaint furnishings.
+You can see Grandmother.
+
+You are in shock to find your Grandmother dead on the floor. Her neck is broken. She has been murdered!
+> move Grandmother
+
+> move Grandmother
+You move her to one side and find something!
+> take metal wolf's head
+
+> take metal wolf's head
+You pick it up.
+> out
+
+> out
+
+Edge of the Forest
+You can go south, in, west or northeast.
+The snow covering the pines glisten in the sun as you as you shiver in the cold. Your Grandmother's house is close by. With snow on the roof and rustic brickwork it looks very picturesque on this cold day.
+> northeast
+
+> northeast
+
+Offering Ground
+You can go southwest or north.
+A blood-stained dais lies before you as each year the stain gets bigger. A faint daytime moon can be seen in the sky.
+You can see some blood splatter.
+> north
+
+> north
+
+Dark Forest
+You can go south, west or northeast.
+Huge trees dwarf you as you make your way through the bare forest.
+> west
+
+> west
+
+Dark Forest
+You can go east, northeast or northwest.
+Huge trees dwarf you as you make your way through the leafless forest.
+> northwest
+
+> northwest
+
+Cluster of Pines
+You can go southeast, north, northeast or southwest.
+A large clearing with snow covering the pines.
+You can see a trapdoor and a recess.
+> northeast
+
+> northeast
+
+Snowdrift
+You can go southwest or north.
+A large blockage of fallen snow hinders your way.
+You can see a hairbrush.
+> north
+
+> north
+
+Narrow Gorge
+You can go south or northeast.
+A tight passage between two huge rocks.
+> northeast
+
+> northeast
+
+Hillock
+You can go in or southwest.
+A small hill with a stone door set in to it.
+You can see a stone door.
+> use metal wolf's head on indent
+
+> use metal wolf's head on indent
+As you place the metal wolf's head in the indent there is a rumble and the stone door opens and disappears into the hillock.
+> in
+
+> in
+
+Tunnel
+You can go out, east or north.
+A dark and low tunnel.
+> east
+
+> east
+
+Stone Chamber
+You can go west.
+A small chamber with moss everywhere.
+You can see a panel.
+> use metal sphere on panel
+
+> use metal sphere on panel
+You hit the panel with the sphere and it starts to crack. You try harder and it crumbles before you revealing a recess.
+> west
+
+> west
+
+Tunnel
+You can go out, east or north.
+A dark and low tunnel.
+> north
+
+> north
+
+Cavern
+You can go south or northwest.
+A large, natural underground space with stalactites and stalagmites.
+> northwest
+
+> northwest
+
+Square Chamber
+You can go southeast.
+A dark chamber with rocky walls.
+You can see an altar.
+> put shoe on altar
+
+> put shoe on altar
+Done.
+A shimmering appears in front of you and the ghost of your brother Klaus smiles back at you. Your eyes start to water.
+
+'Sister, don't mourn for me on such a crimson path.' he smiles, 'Mother sends her love and father too. Trust no one. The weapon you seek is now available to you. Use your wits and let fate decide.'
+
+He starts to fade and you wipe away your tears.
+> southeast
+
+> southeast
+
+Cavern
+You can go south, northwest or northeast.
+A large, natural underground space with stalactites and stalagmites.
+> northeast
+
+> northeast
+
+Columned Hall
+You can go southwest.
+Six stone columns hold up the ceiling. On the opposite side to the exit are seven colourful tumblers from left to right: crimson, peridot, cerulean, ochre, amaranth, maroon and olive. They can all rotate showing a letter on each of their four sides.
+> rotate crimson tumbler
+
+> rotate crimson tumbler
+You rotate the crimson tumbler.
+> rotate crimson tumbler
+
+> rotate crimson tumbler
+You rotate the crimson tumbler.
+> rotate crimson tumbler
+
+> rotate crimson tumbler
+You rotate the crimson tumbler.
+> rotate peridot tumbler
+
+> rotate peridot tumbler
+You rotate the peridot tumbler.
+> rotate cerulean tumbler
+
+> rotate cerulean tumbler
+You rotate the cerulean tumbler.
+> rotate cerulean tumbler
+
+> rotate cerulean tumbler
+You rotate the cerulean tumbler.
+> rotate cerulean tumbler
+
+> rotate cerulean tumbler
+You rotate the cerulean tumbler.
+> rotate ochre tumbler
+
+> rotate ochre tumbler
+You rotate the ochre tumbler.
+> rotate ochre tumbler
+
+> rotate ochre tumbler
+You rotate the ochre tumbler.
+> rotate amaranth tumbler
+
+> rotate amaranth tumbler
+You rotate the amaranth tumbler.
+> rotate amaranth tumbler
+
+> rotate amaranth tumbler
+You rotate the amaranth tumbler.
+> rotate amaranth tumbler
+
+> rotate amaranth tumbler
+You rotate the amaranth tumbler.
+> rotate maroon tumbler
+
+> rotate maroon tumbler
+You rotate the maroon tumbler.
+> rotate olive tumbler
+
+> rotate olive tumbler
+You rotate the olive tumbler.
+You hear a loud click and a secret recess opens.
+> look at recess
+
+> look at recess
+A wide hole in the wall.
+It contains a silver sword.
+> take silver sword
+
+> take silver sword
+You pick it up.
+> southwest
+
+> southwest
+
+Cavern
+You can go south, northwest or northeast.
+A large, natural underground space with stalactites and stalagmites.
+> south
+
+> south
+
+Tunnel
+You can go out, east or north.
+A dark and low tunnel.
+> out
+
+> out
+
+Hillock
+You can go in or southwest.
+A small hill with a stone door set in to it.
+> southwest
+
+> southwest
+
+Narrow Gorge
+You can go south or northeast.
+A tight passage between two huge rocks.
+> south
+
+> south
+
+Snowdrift
+You can go southwest or north.
+A large blockage of fallen snow hinders your way.
+You can see a hairbrush.
+> southwest
+
+> southwest
+
+Cluster of Pines
+You can go southeast, north, northeast or southwest.
+A large clearing with snow covering the pines.
+You can see a trapdoor and a recess.
+> southwest
+
+> southwest
+
+Marsh
+You can go northeast, south or west.
+The water is deep here and a south path leads to a graveyard.
+> west
+
+> west
+
+Marsh
+You can go east or north.
+The water is deep here and a north path leads to a large hill.
+> north
+
+> north
+
+Bottom of the Hill
+You can go south, in or up.
+This hill is known as Wolf's Peak. It was named long before the creature came to the forest. A small cave entrance leads into the hill.
+> up
+
+> up
+
+Top of the Hill
+You can go down.
+Wolf's Peak gives you a splendid view of the surrounding forest and eastwards you spy the Dark Tower.
+You can see a wolfsbane.
+> take wolfsbane
+
+> take wolfsbane
+You pick it up.
+> use wolfsbane on silver sword
+
+> use wolfsbane on silver sword
+You smear the wolfsbane on the blade.
+> down
+
+> down
+
+Bottom of the Hill
+You can go south, in or up.
+This hill is known as Wolf's Peak. It was named long before the creature came to the forest. A small cave entrance leads into the hill.
+> south
+
+> south
+
+Marsh
+You can go east or north.
+The water is deep here and a north path leads to a large hill.
+> east
+
+> east
+
+Marsh
+You can go northeast, south or west.
+The water is deep here and a south path leads to a graveyard.
+> northeast
+
+> northeast
+
+Cluster of Pines
+You can go southeast, north, northeast or southwest.
+A large clearing with snow covering the pines.
+You can see a trapdoor and a recess.
+> southeast
+
+> southeast
+
+Dark Forest
+You can go east, northeast or northwest.
+Huge trees dwarf you as you make your way through the leafless forest.
+> east
+
+> east
+
+Dark Forest
+You can go south, west or northeast.
+Huge trees dwarf you as you make your way through the bare forest.
+> south
+
+> south
+
+Offering Ground
+You can go southwest or north.
+A blood-stained dais lies before you as each year the stain gets bigger. A faint daytime moon can be seen in the sky.
+You can see some blood splatter and the Werewolf.
+> kill Werewolf
+
+> kill Werewolf
+As the beast attempts to rip your throat out you swing the silver sword and slash it across its chest. He howls in agony as his flesh starts to burn. He falls to the ground and starts to change. He loses the features of a wolf and before you sits a sad-looking and quite naked old man.
+
+Suddenly from the undergrowth the Huntsman appears wielding a silver-bladed axe. As he makes his swing to dispatch the old man you move in his way. He stops suddenly inches from your skull.
+
+'Get out of my way, you silly girl!' he shouts but you manage to calm him down. You want to know who this old man is?
+
+'My name is Elric Darkmoor, your grandfather.' shivers the old man, 'When I was young I met your grandmother and we got married. However, I had an affair with another woman; Father Abanon's sister in Kelbury and she found out. I didn't know she was a witch and she cursed me. I became the werewolf. My bloodlust was uncontrollable and I killed the Anderson family. The next day, on a search party, I found young Samuel Anderson hidden nearby his house. I took him to Elsa, Abanon's sister and she raised him. When he came of age he left and learned the ways of the forest and fighting. He stands before you now.'
+
+You look at the Huntsman and tears fill his eyes.
+
+'I'm sorry, Samuel. You have a right to end this and I will not stop you.' says Elric and closes his eyes. You intervene but Samuel doesn't make any attempt to kill Elric.
+
+'I too have killed. I'm sorry but I knew the truth about your grandmother and it was either her or me. She wasn't the person you though she was, I'm sorry.' weeps Samuel.
+
+You can't believe what you're hearing. Your whole life was a lie.
+
+'Don't blame your mother, she didn't know. I told your father and he told Klaus.' says Elric, 'They did it for your protection.'
+
+Samuel decided not to kill your grandfather and left the forest forever. Your grandfather, due to his unique condition, lived in the forest until his 118th year.
+
+You continued to live at Darkmoor and married a Miller called Jonas. You had twins, a boy named Klaus and a girl named Helga.
+
+Peace came to Darkmoor at last. In fact, you could say, you lived happily ever after...
+
+[state=Finished]

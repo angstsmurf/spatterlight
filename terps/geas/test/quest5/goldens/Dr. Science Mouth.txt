@@ -1,0 +1,294 @@
+Dr. Science Mouth
+
+by Farley Sweet
+
+Street Corner
+You can see your friends and the Sampton Warehouse in the distance.
+You can go north.
+
+It was Halloween night and the town was finally quieting down. The parade was over, children had returned to their homes with their spoils, and only the occasional snicker or cheer could be heard in the distant before the patrolling police cars scared any stragglers off.
+
+One of those left over groups was you and your friends. They were ready to conclude the night with a movie but not you. You stood at the street corner, leaf sprinkled field ahead of you with your destination in view—the Sampton Warehouse.
+
+> north
+
+> north
+
+Field
+You can see a black cat and the Sampton Warehouse just ahead.
+You can go northwest.
+You cross the road into the field.
+
+“Oh my God, they’re actually going for it,” your friend in the vampire costume says.
+
+“Should we stah—” was all your friend in the stupid meme costume had time to say before being interrupted.
+
+“Before the cops show, let’s cheese it!” Your friend with the fake cat ears said before the whole group rushed off around the corner.
+
+The sound of leafs crushing under your feet stopped when a black cat came out of nowhere to confront you on your path to the warehouse.
+
+> ignore cat
+
+> ignore cat
+Not moving a muscle the cat catches on and finally decides to continue on. It crosses your path and disappears silently into the night.
+> northwest
+
+> northwest
+
+Parking Lot
+You can see some bushes and a rusted door.
+You can go in.
+The pavement is cracked and aged just like the grey walls of the warehouse below the blinking Christmas lights. There are no cars but rather oil stains where cars once sat.
+
+Your breath has become visible as the air chills around your ominous destination.
+
+> pull rusted door
+
+> pull rusted door
+You feel nothing but the warmth of your hand pulled into the cold iron handle of the door. It creaks open and the warehouse is ready to enter.
+> in
+
+> in
+
+Cluttered Hall
+You can see a battery, a bowl of candy and an oil barrel.
+You can go west or north.
+The floor and walls are made of lifeless stone. The way is narrowed by a makeshift wall of boxes going down the long way in the middle. The next door is made unnecessarily longer because of the boxes.
+
+You feel a slight sense of unease coming this far and the scent of plastic and sweat hits you hard.
+> north
+
+> north
+
+Waiting Room
+You can see a lounge, a desk, a china cabinet, a portrait and Nurse Namanda.
+You can go north or west.
+The room is warm with moisture in the air. The back wall is dripping. In the middle a simple lounge and in the corner a metal desk and chair.
+> north
+
+> north
+
+Fancy Hall
+You can see a red knight, a green knight and a large man.
+You can go south or west.
+This spacious hallway puts the waiting room to shame. The wooden walls are brilliantly crafted and well designed  and the red carpet rolls all the way down to the white door at the end—however a large man in a red coat stands at the other end.
+“Ho ho, something tender this ways comes, eh?” The man at the end booms his honeyed voice out towards you, “come over and give me a hug!”
+> hug large man
+
+> hug large man
+You allow the hug and just as you he’s wearing a Santa Claus coat he pulls you in and squeezes—hard. You underestimated his strength and size. He must be seven feet tall.
+
+“There’s nothing more jolly golly than a god damned hug! Ha!” You swear something it about to break but he releases you, “I am Dr. Science Mouth and I humbly welcome you to my domain.” The odd man walks off the way you came, “I’ll be with you in a moment, friend. Set yourself up at the end of the hall.”
+> west
+
+> west
+
+Dental Room
+You can see a dentist chair, a skeleton and a cabinet.
+Here there are light blue walls and a white tiled floor. There are curtains to a window with bricks covering the outside. Between a grey cabinet and a countered sink is a dentist chair.
+> sit on dentist chair
+
+> sit on dentist chair
+You lie down in the chair and a moment later a dozen claps of iron swing across it and lock you tightly into it. You struggle but it’s no use—until Nurse Namanda enters the room.
+
+“I shouldn’t have let you even come this far,” she says with tears in her eyes, “you should have never of come here. You don’t know who…what he is.” The nurse activates something behind the chair and the claps return. You’re free!
+
+“NAMANDA!” Dr. Science Mouth’s voice calls out from down the hall.
+
+“Don’t fall for his tricks and traps. Get out of here as soon as you can,” Namanda clicks something and you feel the room ascend. She rolls out the door and you see her drop down into the fancy hall—you’ve elevated away from the first floor.
+
+Elevated Dental Room
+You can go east.
+There are curtains to a window with an opening to the outside. Between a grey cabinet and a countered sink is a dentist chair.
+
+You cannot deny the danger now. You’ve entered a madman’s kingdom.
+> east
+
+> east
+
+Laboratory
+You can see a microscope, a monitor and a cage.
+You can go west, south or east.
+The room is bright and lights on the ceiling are reflected on the floor. Multiple tables contain colorful, chemical sets and cogs and gears to devices in the making. Corners opposite of one another have emergency sinks and a long screen computer monitor silently runs dental data.
+
+Although muffled you can hear some sort of nursery rhyme playing in another room.
+> east
+
+> east
+
+X-Ray Room
+You can see a record player and some filing cabinets.
+You can go west, north, east or south.
+Strings cross over one another from one end of this dark room to the other. X-Ray photographs hang from them showing jaws and teeth from their sides and the front. File cabinets are placed on the sides of each door in the room.
+
+The source of the childish music is found in the record playing to the side of the room.
+
+“Daddy finger, daddy finger, where are you?
+Here I am, here I am. How do you do?
+
+“Mommy finger, Mommy finger, where are you?
+Here I am, here I am. How do you do?”
+
+The song goes on with little changed.
+> south
+
+> south
+
+Construction Room
+You can see a wire, a step ladder and Dr. Science Mouth.
+You can go north or southeast.
+The room is long with the walls on one side revealing pink insulation and the other covered with silly, clown wallpaper with various black brush markings. From the ceiling water drips down into a puddle.
+
+“There you are!” Dr. Science Mouth barges into the room from the other end the same moment you enter! He’s coming your way and he’s brought a hockey stick with nails protruding out of it!
+> throw wire
+
+> throw wire
+Acting quickly you toss the opened wire onto the puddle just in time for Dr. Science Mouth to step on it, “FUUUCHK,” he yelps as sparks travel down the puddle and up his hockey stick.
+
+Dr. Science Mouth slips back and bumps into and off the wall before falling unconscious.
+> southeast
+
+> southeast
+
+Narrow Hallway
+You can see a door.
+You can go northwest, southwest or south.
+A flashing glow of colors can be seen from the windows of this hall.
+> southwest
+
+> southwest
+
+Museum
+You can see a display case, an alien body, a fleshy shell and a tyrannosaurus skull.
+You can go south, northeast or west.
+Display cases and window exhibits house many bizarre items in this room.
+
+At this point you're not sure if you should even feel surprised or not by the artifacts here.
+> west
+
+> west
+
+Bedroom
+You can see a bed, a desk and a wonder ball on the night stand.
+You can go east or west.
+A heart shaped bed takes up half the room and a glamorous Hollywood mirror eats up a portion of the wall. By the bed is a desk and a night stand.
+
+You hear a thump and Dr. Science Mouth yell from another room, “come out to play-ee-ay!”
+> investigate desk
+
+> investigate desk
+You rummage through the desk and find a key and diary. You set the diary on the desk and take the key.
+> east
+
+> east
+
+Museum
+You can see a display case, an alien body, a fleshy shell and a tyrannosaurus skull.
+You can go south, northeast or west.
+Display cases and window exhibits house many bizarre items in this room.
+> northeast
+
+> northeast
+
+Narrow Hallway
+You can see a door.
+You can go northwest, southwest or south.
+A flashing glow of colors can be seen from the windows of this hall.
+> unlock door
+
+> unlock door
+You use the key to unlock the door.
+You’re quite aware that keys unlock doors.
+> south
+
+> south
+
+Library Balcony
+You can see bookshelves, a green book and a Christmas tree.
+You can go north or down.
+This grand room smells of paper and pine. The balcony you stand on goes down until it curves into a staircase. Along this path are many bookshelves and over the railing bars you see a tall Christmas tree with many blinking lights.
+> down
+
+> down
+
+Library
+You can see a Christmas tree, a cage, a fireplace and a painting.
+You can go up or east.
+The library has bookshelves along the wall below the balcony along with a sizeable animal cage. The Christmas tree dominates the middle with a leather lounge next to it and a fireplace adjacent to it. Tall windows too dark to actually see through ride up the walls away from the balcony.
+> east
+
+> east
+
+Dining Room
+You can see a poker table, a mini fridge and a microwave.
+You can go west, north or east.
+The pipes running from one end of the ceiling to the other gives the room a notable hum. There’s a poker table and a mini fridge with a microwave on top of it.
+> east
+
+> east
+
+Smoky Room Entrance
+You can go west, northeast, east or southeast.
+The walls are dirty and padded and all around you swimming and swirling in the eye is white smoke.
+> east
+
+> east
+
+Smoky Room
+You can see a machine.
+You can go west, north, south, southeast or northeast.
+The room is smoky and difficult to see in. You are able to spot the shape of a machine though.
+> southeast
+
+> southeast
+
+Smoky Room
+You can go west, northwest, north or east.
+The room is smoky and difficult to see in.
+> east
+
+> east
+
+Surgery Room
+You can see a surgery table, a desk, a cabinet, a bench, a broken window and a door.
+You can go north.
+In the center of the room is a table with several mechanical devices above it meant to assist with surgery. Every other inch of the walls are covered with either some form of furniture, diagram, or window.
+You’re able to escape the smoky room but a broom hidden by the smoke is knocked over as you enter the next room, “I HEAR YOU,” Dr. Science Mouth’s voice roars out.
+
+The sound of his footsteps can be heard!
+
+> jump from broken window
+
+> jump from broken window
+You take your leap of faith just as Dr. Science Mouth finds his way into the room.
+
+Parking Lot
+You can go southeast.
+The deathly shrubs below break your fall enough to not kill you but a pain shoots up your leg—you think the fall may have sprained your ankle, “STOP! WE HAVEN’T EVEN BEGUN YOUR CHECK UP!” Dr. Science Mouth yells down to you.
+> southeast
+
+> southeast
+
+Field
+You can see Dr. Science Mouth.
+You can go south.
+There’s no doubt something’s wrong with your leg. You feel like you have to drag yourself just to reach half your normal running speed. The danger was renewed when you hear a rumble and looked back to see Dr. Science Mouth already leaving the warehouse—and he’s coming with a chainsaw!
+> south
+
+> south
+
+Street Corner2
+You can see an officer, Dr. Science Mouth, Sampton Warehouse and a vehicle.
+A police car pulls up to you, slamming on the brakes. You fall onto the hood in distress, inching your way around it as the black officer steps out.
+
+The officer has his hand on his gun and raises up the other to you, “What’s going on? Are you in—” his eyes flicker from you to the now dangerously close Dr. Science Mouth, “Drop the weapon!” Dr. Science Mouth reaches the home stretch to the street you’re on, “I SAID DROP THE—” a warning shot is sent into Dr. Science Mouth’s shoulder but does nothing to impede him!
+
+“FEEEYYYAOOORRR!” Dr. Science Mouth yells while the officer unloads several more shots into his chest—none doing any true damage bar the one that hit his wrist and sent his own chainsaw into his own neck! “Geaghthh!” Dr. Science Mouth falls to his knees with blood spraying from his neck, his chainsaw falls to the blacktop, and the officer lowers his gun—out of ammo.
+
+A final moment goes by with nothing but the sound of the wind passing by before more silence. It’s over. Dr. Science Mouth has bled out on the ground and the officer opens the backdoor to his vehicle to you, “why don’t you wait in the back before I get some backup to arrive.”
+
+> enter vehicle
+
+> enter vehicle
+Shortly after the next two police cars pulled up you know that the nightmare has ended and that you have survived a truly frightening Halloween.
+[state=Finished]

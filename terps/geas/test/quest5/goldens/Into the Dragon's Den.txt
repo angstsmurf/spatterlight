@@ -1,0 +1,575 @@
+Into the Dragon's Den
+Join the Thieves
+
+by XanMag
+
+An introductory room
+
+Do pardon me if rude this sounds,
+a challenge to me has been found,
+I have been told to make a game,
+where prose, alas, is such a shame.
+
+So, this adventure is a quest,
+to join a band of thieves, oh yes.
+So go out - deceive, kill, and steal,
+because that's what will make you feel
+like a winner at this game's end.
+Tricks to play and rules you will bend
+Perhaps the author is cuckoo,
+your adventure, it now ensues.
+
+Please type 'leave' now to fly away,
+into a game in such decay.
+
+> leave
+
+> leave
+A giant albatross swoops down
+and scoops you right up off the ground.
+She flies away with dreadful grace
+and plops you in a dreadful place.
+
+A Thieves Den
+You can see Wilfred, a dresser, a brown chest, a green chest, a red chest, a black chest, a yellow chest and a Thieves Door.
+
+You have arrived into the den.
+A starting place, a chance to win
+despite morals and ethics be,
+none are here, in this game, you see.
+
+Talk to thieves and robbers alike
+for clues you need to be alright.
+Start with Wilfred in the corner,
+he looks tough so let me warn ya,
+
+He does not like you men in tights,
+and if he sees you he will fight.
+You may just want to change your gear
+if it is your death you fear.
+
+> open dresser
+
+> open dresser
+You open it.
+You open one by one the drawers
+and and find so little in that store,
+but what is this that you now see?
+You guessed it!  You have found... a key.
+> take key
+
+> take key
+As you remove the dresser's key,
+the dresser *poofs*, oh my, dear me.
+And when you look to it once more,
+it has vanished with the drawers!
+> use key on black chest
+
+> use key on black chest
+You use the key on the black box.
+You are as clever as a fox.
+The clue of guns and skulls you've found,
+the skelly key, you smart blood hound!
+
+The box, it opens with a pop.
+And in this chest your eyes do shop
+for something useful you do see.
+Oh my GOD, it's another key!
+With the success you now achieved,
+all those bad chests can now be freed.
+
+Evaporate the chests have done,
+now, be honest, it's so much fun?
+
+And wow! What are these things you see?
+A monk, a notch, a mouth? Is there
+some magic stored within this room?
+Perhaps the thieves are riding brooms?
+
+> use another key on cavity
+
+> use another key on cavity
+You wish to jab the cavity?
+Into THIS wretched mouth?  Oh gee.
+With care you reach at that black hole.
+The key, it trembles well and full.
+
+But, with some luck you manage it,
+The key, it clicks - it does, it fits!
+In that moment the mouth it howls,
+It quivers so along it jowels.
+
+Just when you think it's gone and dead,
+the mouth screams loud, it hurts your head!
+Gone as quickly as it started,
+the mouth blubbers like it fake farted.
+
+Sounds have quieted, it's okay.
+A brand new door appears.  Hooray!
+Now if you're ready for the test,
+go through that door and be the best!
+> east
+
+> east
+
+A break room
+You can see a chair (on which there are pants and Sly Shay).
+
+Your eyes amazed, the light they take,
+a room for thieves who need a break.
+
+In a large chair she sits Sly Shay,
+she looks quite mean and likes to play.
+> talk to sly shay
+
+> talk to sly shay
+"You dare speak at me young buck?
+Do you think I care?  No luck!
+I should now beat you to your end,
+but just for you, the rules I'll bend.
+
+You'll get a chance to answer riddles.
+They're as easy as playing fiddles.
+The first one, nay, it isn't much,
+It's about music, songs, and such.
+
+You'll say yes and I'll say no!
+Oh say that this isn't so.
+You'll want me to stop,
+but I'll say no.
+
+My words continue, right or wrong,
+which eludes me to this song.
+Answer now or say goodbye.
+Answer wrong, your death is nigh."
+
+Oh dear, this is a fright!
+Answer now or death tonight!
+> hello, goodbye
+"Quite right you are, young lad, Hooray.
+I must beat you another day."
+
+Sly Shay storms out from the break room.
+It appears that you have escaped doom.
+> take pants
+
+> take pants
+You take the pants from the chair back.
+These should do well covering your crack.
+> wear pants
+
+> wear pants
+You peel away your ugly tights
+and put on pants.  They fit just right!
+> west
+
+> west
+
+A Thieves Den
+You can see Wilfred, a door and a Thieves Door.
+
+Wilfred there, he waits for you.
+Piss him off I would not do,
+but caution in your dress I've told
+or you'll end up up his bitch and sold.
+> talk to wilfred
+
+> talk to wilfred
+In your new garb you do encroach
+the man who watches your approach.
+He stands tall, you start to cower,
+he desparately needs to shower.
+A yellow foul runs down your thigh,
+but you still manage to say, "Hi!"
+with ignorance he has mistook
+your speech to him as a wee nook
+or cranny that you are a crook.
+Or, nay, perhaps it is, perchance,
+that you are wearing your new pants?
+
+He tells you, "Punk!  Go prove your worth!
+The door is open to the north.
+Go, return with proof of mettle,
+your worth I will just have to settle."
+
+The door northward is now open.
+If that is what you were hopin'.
+> north
+
+> north
+
+When you walk through beyond this door
+you look back and it is no more!
+I fear you cannot go back in
+unless this game you go and win!
+
+A forest room
+
+This is a room shrouded in trees.
+There are three directions, if you please.
+
+Go northward if you do not scare
+into a cave, the home of bear.
+
+Or do go west if you so choose
+into the land that's filled with booze.
+
+Or maybe east is what is sought,
+the lands of dragons to be fought!
+> west
+
+> west
+You take a peek into the bar,
+and your eyes do not stray far
+before you see an awful sight
+drunks and thugs prepared to fight.
+
+Do you wish to walk on through,
+or do you want a plan perused?
+Going in without a plan
+may equate to one dead man.
+
+It is your choice.  It is your day.
+Yes or no, what do you say?
+> yes
+You step inside the rough saloon.
+The patrons glare at the new bafoon.
+They whisper in such soft mumbles,
+Their voices rise, a million bumbles.
+
+You continue on like you have a pair,
+but there's anxiousness up in the air.
+You grab a seat upon a stool,
+you're near the bar.  Let's see it fool.
+
+A saloon
+You can see a bartender, patrons and an empty chair.
+
+You are now in a small saloon,
+hanging with a bunch of buffoons.
+Make them angry and you will pay
+and this will be your final stay.
+
+You are sitting at a short bar,
+the bartender is not too far.
+A simple shout unto his ear
+will probably bring him over here.
+
+There are not many ways to go,
+but just for you I plan to show.
+Back up east to the forest find,
+and north to go wipe your behind.
+> north
+
+> north
+
+A loo
+You can see a john.
+
+Bathroom, restroom, or the loo,
+The name's the same, it's just for you.
+On the wall, a john is mounted.
+It's contents really should not be counted.
+> look at john
+
+> look at john
+You look inside the stinky john.
+What is this mess?  Is this a con?
+Who threw away that good money?
+It's not milk and is not honey!
+
+This gross toilet will sure not flush,
+just looking in it makes you blush.
+But, hey, money is money, right?
+Just hold your nose and pinch it tight!
+It contains money.
+> take money
+
+> take money
+You reach down deep and rummage 'round,
+Oh my, what's this?  What have you found?
+Amongst the filth you search still.
+It is, it's true!  You've found a bill!
+> south
+
+> south
+
+A saloon
+You can see a bartender, patrons and an empty chair.
+
+You are now in a small saloon,
+hanging with a bunch of buffoons.
+Make them angry and you will pay
+and this will be your final stay.
+
+You are sitting at a short bar,
+the bartender is not too far.
+A simple shout unto his ear
+will probably bring him over here.
+
+There are not many ways to go,
+but just for you I plan to show.
+Back up east to the forest find,
+and north to go wipe your behind.
+> shout at bartender
+
+> shout at bartender
+The bartender, he waddles down
+and looks at you with a long frown.
+His frown is deepened when he eyes your bill
+but he takes it and produces your swill.
+> drink swill
+
+> drink swill
+With disgust you tip it on back,
+you cough, you stifle, and you hack.
+The swill goes down with such poor taste,
+patrons eye you with less distaste.
+> sit in chair
+
+> sit in chair
+You saddle up upon the chair,
+the men around don't seem to care.
+When you sit down to play the game
+the chairs slides oddly with no shame.
+It's like you're sliding right on oil,
+Is something on the floor?  Oh toil!
+Either way, you are in your seat.
+Go talk to them, they'd like to meet.
+> look at floor
+
+> look at floor
+As you're sitting on this here seat,
+you eye the floor.  It's contents neat.
+The card you grab beneath the chair.
+Check your inventory.  It's there!
+> talk to patrons
+
+> talk to patrons
+You say,"Hi," to this gang's leader.
+He nods and asks, "You played 'Teeter'?"
+You say, "No, sir," then he proclaims,
+"This is a game for those of fame!
+
+"It's simple, see, as he goes in
+I deal one all and high card wins.
+So, you ready to try it out?
+If yes, say 'Yes'.  We'll start the bout!"
+
+They sit around and wait on you?
+It's 'yes' or 'no', what do you do?
+> yes
+The dealer's dealing and you wait.
+The card you hide, you know is great.
+Leader turns and shows King on face.
+It's now your chance, you flip your Ace!
+
+He stammers, stutters, he can't talk,
+He glares at you to call your balk,
+but you hold firm, his looks don't cut.
+Matt comes around and serves it up...
+
+The gang you've beaten ain't too smart,
+they've won forever, it's their art.
+They start to fight 'mongst each other.
+Fist to face, brother on brother.
+
+Barkeep chases them to the street,
+but you do not go beat your feet.
+They file out and in their wake,
+they've forgotten to take their steak!
+
+> take steak
+
+> take steak
+As ugly as this steak may be, it is quite soft but not for me.
+> east
+
+> east
+
+A forest room
+
+This is a room shrouded in trees.
+There are three directions, if you please.
+
+Go northward if you do not scare
+into a cave, the home of bear.
+
+Or do go west if you so choose
+into the land that's filled with booze.
+
+Or maybe east is what is sought,
+the lands of dragons to be fought!
+You return to the trees with steak.
+New item you have but, hey, just wait!
+Something new you do see near.
+There is a rock that has appeared!
+> take rock
+
+> take rock
+You grab the rock, your pride doth grow.  Now where it be that you should stow?
+> use rock on steak
+
+> use rock on steak
+You stuff the rock down in the steak,
+chew on this, you might not wake.
+Now you wonder just what comes next.
+Your mind is puzzled.  You are vexed.
+> north
+
+> north
+
+You take a step into the cave
+with full intent to just behave.
+A bear you spy before it you.
+It is your choice, what will you do?
+
+You can, if you so desire,
+to run away from this here fire.
+Do you proceed with plan in mind?
+If not, who knows just what you'll find?
+
+So 'yes' or 'no', what you say goes.
+I truly, truly wants to knows!
+> yes
+
+With brave intent you step with bounce,
+into that cave ready to pounce.
+From man to bear you're prepped to die,
+if truth be told, you want to cry.
+
+A cave
+You can see a bear.
+
+So, in this cave your quest has led,
+but this may be your own death bed.
+The bear you see here looks too tough,
+and you no doubt are not that buff.
+> give steak to bear
+
+> give steak to bear
+You toss the steak at beast of fur.
+You think this'll work but are you sure?
+The bear deciding what to eat:
+the steak or you?  You hope THAT meat.
+
+He snatches it up with his great paw
+and shoves it right into his maw.
+When he bites down, boy he does yelp!
+It looks like he could use some help.
+
+Before he flails and falls down there,
+you see his tooth fly through the air.
+It comes to rest down by your feet.
+You should pick it up!  Boy, that's sweet!
+> take golden tooth
+
+> take golden tooth
+Lo and behold, you take the gold.
+> south
+
+> south
+
+A forest room
+
+This is a room shrouded in trees.
+There are three directions, if you please.
+
+Go northward if you do not scare
+into a cave, the home of bear.
+
+Or do go west if you so choose
+into the land that's filled with booze.
+
+Or maybe east is what is sought,
+the lands of dragons to be fought!
+What is this that you now see?
+The suns reflection you do see.
+Over there in that there glade?
+An old sword, it's elven made.
+There is just one place left to go,
+I think the answer you do know.
+Go forth and try and get the treasure,
+then your weight Wilfred will measure!
+> take sword
+
+> take sword
+You take the blade from a nearby glade.
+> east
+
+> east
+
+A dragon's porch
+
+You now enter the dragon's porch.
+Beware inside, you might get scorched.
+Just go north to enter the den.
+To my surprise you might just win.
+
+What's this here?  A group of adders!
+Can this game get much more badder?
+In order to pass untattered
+you'll need to make these snakes scatter.
+> use sword on adders
+
+> use sword on adders
+You swing the sword like Babe at bat,
+but you don't wear a baseball hat.
+The sword connects and sends heads flying.
+The snakes shriek and start a-dying.
+
+Their poison spilled upon the hearth,
+you finally have shown your worth.
+Good luck to you and you shall pass
+into the room of sulfrous gas.
+> use golden tooth on pool of venom
+
+> use golden tooth on pool of venom
+The venom on the floor you dip
+the golden tooth and it does sip
+up all the poison from the stoop
+Go forth into the dragon's coop.
+> north
+
+> north
+
+A dragons den
+You can see a dragon and gold.
+
+This room's smoky, this room is hot,
+You think you're safe in here?  You're not!
+A pile of gold your eyes do stare,
+but there's a dragon up in here.
+
+He lies so calmly on this pile
+waiting with a smile so vile.
+What is it now you think to do?
+Become a treat for him to chew?
+> sing
+
+> sing
+You sing a lullaby out loud,
+you sing it very loud and proud.
+The Dragon takes three long blinks
+before his eyes no longer wink.
+> use golden tooth on dragon
+
+> use golden tooth on dragon
+You take this chance to crawl and creep,
+Be forewarned, you're in neck deep.
+You're close enough to his weak spot.
+Are you a chicken?  No, you are not!
+
+With all your force and all your might,
+You strike so fast and hard this night!
+The dragon roars and screams in pain.
+He bursts in flames, his ashes rain.
+
+You, however, no worse for wear,
+You've beat the beast.  Well done, my dear.
+Now go and carry all that gold
+Your bravery will oft be told.
+
+Congrats to you, you're a winner.
+Now it's time for dragon dinner!
+[state=Finished]

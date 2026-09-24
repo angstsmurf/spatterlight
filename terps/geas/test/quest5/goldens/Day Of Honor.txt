@@ -1,0 +1,231 @@
+Day Of Honor
+Micro-Fiction Quest Challenge
+
+by Evan Williams, a Triangle Games production
+
+Day Of Honor
+
+A Micro-Fiction
+Quest Challenge
+You have always been looked down on and mistrusted by your village (except your loving parents), mainly because you were not born in the village. Your mother, unable to bear children, found you in the wilderness. The other reason is that when your mother found you, you were successfully using a hand-made wooden trowel to defend yourself from a badger, showing an intelligence and tenacity unnatural to a child of only a few months old. Today, you have the chance to finally become accepted by proving loyal to village traditions. You have reached the age of adulthood, and tonight there will be a celebration in your honor! That is, of course, if you survive the Temple Trials...
+
+No one knows how old the temple is, who built it, or even what its original purpose was, but it is filled with strange symbols, dangerous traps, and ferocious creatures, or so you've heard. Supposedly, your people found it abandoned close to three centuries ago, and they've been using it for "tests of bravery" ever since. Today is your day to venture through the temple. Your parents and the village elder take you down an old path through the forest, until at last you reach the entrance. Your mother and father hug you and wish you luck before leaving you to your task. The elder remains nearby to see that you enter the temple.
+You are outside the temple.
+You stand in a small clearing before the large open gate of the temple. There are three carved statues on each side which line up along the clearing from the temple to the path where the elder stands watching. There are a lot of trees around the clearing as well.
+You can see the temple, some statues and the elder.
+You can go in.
+
+> look
+
+> look
+You are outside the temple.
+You stand in a small clearing before the large open gate of the temple. There are three carved statues on each side which line up along the clearing from the temple to the path where the elder stands watching. There are a lot of trees around the clearing as well.
+You can see the temple, some statues and the elder.
+You can go in.
+
+> in
+
+> in
+
+You are in the entrance hall of the temple.
+The entry hall makes it even more obvious that the temple was once much larger and grander. On either side, there are what look to have once been hallways that are now thoroughly blocked by debris. There is an unblocked hallway leading straight back which has a large hole in one wall that seems to simply enter into darkness. There is also a great deal of rubble all over the area.
+You can see rubble, debris and a large hole.
+You can go out or north.
+
+> search rubble
+
+> search rubble
+You take your time and carefully search through the rubble for anything you might be able to use. Eventually, you discover a few odds and ends that are of interest to you, including a broken smoker, a particularly round rock, a shard, and a sharp chunk of smoothstone.
+> take smoker
+
+> take smoker
+You pick it up.
+> take shard
+
+> take shard
+You pick it up.
+> north
+
+> north
+
+You are in a storage room.
+You are in a large storage room that is sparsely lit by cracks and holes in the ceiling. There are tall, wide, wooden shelves all over the room, many of which have fallen over spilling their contents on the floor. Navigating the mess of blocked pathways between shelves almost feels like being in a maze.
+You can see a maze of shelves.
+You can go south.
+
+> explore shelves
+
+> explore shelves
+With a little effort, you manage to find a path through the maze of shelves. As you come out near the other side, you see a corridor with bright light down it. It looks like the exit of the temple! Unfortunately, there is a green foamthycik standing in the threshold.
+You also notice a lot of blocks on the shelves that still stand, and even more planks laying on the floor.
+> load smoker with shard
+
+> load smoker with shard
+You put the shard of crystal into the pipe.
+> blow smoker
+
+> blow smoker
+At what?
+1: maze of shelves
+2: green foamthycik
+3: me
+> 2
+After a childhood of daily hunting practice and beast studies, you are well prepared for this moment. You take careful aim at the "head" of the foamthycik and blow sharply on the pipe. The crystal shard flies out like a dart and pops the foamthycik's head bubble, spilling its brain on the floor and making it lose control of its body. It begins to thrash and wail in the throes of death. Before it finally surrenders, it slams a pseudopod into the ceiling of the corridor, causing it to cave in. The foamthycik is buried under the rubble and destroyed. Unfortunately, so is your way out!
+
+As you sullenly look around by the ruins of your escape route, you notice a
+human skeleton near the blocked doorway.
+> look at skeleton
+
+> look at skeleton
+The top half of a human skeleton sticks out from under a fallen shelf. While most of its body has decayed into dust, and even the bones themselves appear fragile, you notice that the skin of its hands have somehow dried and leathered intact.
+It has hand skins and an odd stone.
+> take hand skins
+
+> take hand skins
+You pick it up.
+> take odd stone
+
+> take odd stone
+You pick it up.
+> wear hand skins
+
+> wear hand skins
+It's a bit disgusting to think you are wearing the remains of another human being's hands, but you slip them on over your own. They seem to fit perfectly, and offer you a bit of protection.
+> south
+
+> south
+
+You are in the entrance hall of the temple.
+The entry hall makes it even more obvious that the temple was once much larger and grander. On either side, there are what look to have once been hallways that are now thoroughly blocked by debris. There is an unblocked hallway leading straight back which has a large hole in one wall that seems to simply enter into darkness. There is also a great deal of rubble all over the area.
+You can see rubble (with a very round rock and a chunk of smoothstone), debris and a large hole.
+You can go out or north.
+
+> look at hole
+
+> look at hole
+This large square hole in the wall does not appear to be a part of the damage but rather like an entrance of some kind. In fact, you notice now that there is a similar structure on the opposite side of the hall, but it is blocked by two large panels of smoothstone. Taking a peek inside, you realize that it is actually a large vertical shaft with two thick ropes hanging down it. It is quite dark, and you cannot see the top or bottom of the shaft.
+Inside are two ropes.
+> climb ropes
+
+> climb ropes
+Climb which way?
+1: up
+2: down
+> 2
+As you climb down the long dark shaft, you pass by another opening that is rather dark. You finish exploring down but find only the floor of the shaft where the ropes are attached to a strange device. After a brief rest, you go back up to the new passageway.
+
+You are in a cold, dark room.
+The area is buried in darkness. As you carefully make your way around with arms outstretched, you observe that everything here seems to be made of smoothstone. Across the room, you see some feint colored lights pulsating.
+You can see pulsating lights.
+You can go up.
+
+> look at pulsating lights
+
+> look at pulsating lights
+Embedded into the side of an angled smoothstone block, there is a crystal surface with ancient writing glowing on it in a mystical green light. At the end of the writing is a small line which blinks on and off. Above the crystal is a red circle which also slowly blinks.
+Nearby is a red circle.
+> touch red circle
+
+> touch red circle
+As you touch the red circle, you notice that it depresses inward. You push it down as far as it goes, and it stops flashing. The crystal immediately begins to flash with writing that swiftly slides across the surface like a rushing waterfall. A moment later, you hear a low hum that seems to come from all around you. The hum slowly grows into a loud rumbling sound, and just as it settles back down again the room fills with light! The sudden brightness blinds you, but you recover quickly. You can now look around the room freely.
+> look at smoothstone blocks
+
+> look at smoothstone blocks
+The blocks are angled on the sides that face their thrones, presumably so that the crystal displays can be easily seen while seated. Under the displays are panels of little squares covered in ancient symbols which seem to match those on the displays. Many of the blocks are cracked and don't seem to work. Some of them have helmets resting on top that are connected by strange, unnatural vines or ropes. You find one block that seems to be in perfect condition, complete with a throne and a helmet.
+> sit on throne
+
+> sit on throne
+You sit in the padded throne. It is the most comfortable thing you have ever felt in your life! You lean back into it, and the back moves with you into a reclined position. You feel you could sleep here quite easily.
+> put on helmet
+
+> put on helmet
+You sit in the very comfy throne and place the helmet onto your head. After a short wait, you begin to hear strange noises that seem to come from inside your own head! At first, it's nothing but garbled sounds, but they gradually start to form into words that you can understand. All at once they form into solid language, and a soothing female voice speaks to you, "Unrecognized language pattern resolved. Translation added to database. Welcome to the Feynman ECoG Education System. Electrocorticographic feedback shows that you are missing a portion of standard educational protocol. Recommend instructional procedure mark K12. Initialize?"
+Initialize?
+1: Yes
+2: No
+> 1
+
+You feel a warm energy in your head as a torrent of information floods into your mind. You lay back in the comfy throne ... computer chair as you feel slightly nauseated. For the next hour or so you feel too dizzy to move, and you slip into a restful half-asleep state. Eventually, the process finishes, and the information it has been feeding you all falls into place. You now have the equivalent of a twelfth grade education, circa 2135 AD. Apparently, the world suffered some kind of catastrophic global disaster. Unfortunately, there was no one left to update the databanks with an explanation of exactly what happened. Based on what you've just learned, your best guess is interstellar war between a race of extraterrestrials known as Primorigens and the United Earth Government which was struggling to resolve strained relations with them reminiscent of the Cold War in the latter half of the twentieth century.
+> up
+
+> up
+
+You are in the entrance hall of the temple.
+The entry hall is a disaster.. On either side, there are what look to have once been hallways that are now thoroughly blocked by debris. There is an unblocked hallway leading straight back which has a large hole in one wall that seems to simply enter into darkness. There is also a great deal of rubble all over the area.
+You can see rubble (with a bullet and a chunk of metal), debris, an elevator shaft (containing elevator cables) and a sealed elevator.
+You can go out, north or down.
+
+> out
+
+> out
+
+You are outside of the library.
+You stand in a small clearing before the large open gate of the library. There are three energy recharge stations on each side which line up along the clearing from the library to the path where the elder stands watching. There are a lot of trees around the clearing as well.
+You can see the library, some broken charge stations and the elder.
+You can go in.
+
+> look at broken charge stations
+
+> look at broken charge stations
+The charge stations are designed after the same ones used for early electric cars, but these models work with most electronic devices. All but one of them are broken.
+There is a charge station.
+> use ID card on charge station
+
+> use ID card on charge station
+The activation light on the charging station comes on red as soon as the card gets near it. The charge level meter slowly rises up to full. When it's finished, the activation light flashes green twice and goes out.
+> in
+
+> in
+
+You are in the entrance hall of the temple.
+The entry hall is a disaster.. On either side, there are what look to have once been hallways that are now thoroughly blocked by debris. There is an unblocked hallway leading straight back which has a large hole in one wall that seems to simply enter into darkness. There is also a great deal of rubble all over the area.
+You can see rubble (with a bullet and a chunk of metal), debris, an elevator shaft (containing elevator cables) and a sealed elevator.
+You can go out, north or down.
+
+> down
+
+> down
+
+You are in a computer center.
+The area is filled with computer stations. There are recliners resting in front of some of them, as well as a few that have fallen over. There are helmets on some of the blocks, as well as scattered about on the floor.
+You can see primary station (near which is an emergency power button), computer stations, a door and a Feynman ECoG Educational System (with a computer chair and a helmet).
+You can go up.
+
+> use ID card on primary station
+
+> use ID card on primary station
+You put the identification card into the card slot, and the computer responds automatically.
+"UNFORMATTED ID CARD IN DRIVE
+PLEASE SET IDENTIFICATION AND SECURITY ACCESS"
+Either the library has very lax security on their computer system, or the protocols are released do to the emergency situation. Whatever the case, it's allowing you full control. You quickly navigate the computer's menus to create an identity for yourself and grant the card janitorial access to the library.
+> unlock door
+
+> unlock door
+You hold out the card, and the door slides away into the wall.
+> north
+
+> north
+
+You are in an administrative offices hall.
+It's a simple hallway, maybe a hundred feet long, with office doors lining both walls. At the far end is an elevator which leads up to the parking area.
+You can see office doors and an elevator.
+You can go south.
+
+> use elevator
+
+> use elevator
+With the power restored, this elevator seems to be working! You wave your ID card at it, and a moment later the doors open. There's only one other destination, so you push the button for the parking level and you're on your way...
+ . . . creak . . .
+ . . . whine . . .
+ . . . strain . . .
+The elevator opens up at the ground level. If the elevator was any taller, it probably would've been destroyed. There's not much to look at besides a few rusted old hover cars. You step out and quickly find the path back to your village. As you walk home, you ponder the implications of what you alone know to be the history of your world's advancement and destruction...
+You are welcomed back to your village like a hero. There's a pig roasting on a spit, and people are dancing and singing. After your parents dote on you for a few minutes, you are lead over to the elder and bestowed with a wreath of holly. The elder than presents you to the admiring crowd and declares you a hunter. Everyone cheers, and your parents watch you with pride. It seems you are finally going to be accepted by the tribe. The elder turns to you and says, "tell us about your experience today." The entire tribe grows quiet and waits to hear your answer...
+What will you say?
+1: I killed a green foamthycik and found a room with magical ancient writings
+2: I've learned a horrible truth...
+> 1
+THE HERO RETURNS
+Ending 3 of 4
+
+Everyone is in awe for a moment, then they applaud vigorously. You have a wonderful party, and everyone treats you like one of the tribe at last. When the night is over, you lay in your pile of straw and secretly plan to go back to the library, knowing that after a 14 day rest, the education system will let you learn more advanced knowledge. You fall asleep trying to decide what to learn next. Astrophysics maybe?
+[state=Finished]
