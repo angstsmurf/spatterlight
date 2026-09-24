@@ -9854,6 +9854,62 @@ akron_rus_solution.txt|akron_rus.taf|78%|SCR_SKIP_WAITKEY=1
 elmstreet_solution.txt|A Nightmare on Elm Street.taf|100%|SCR_SKIP_WAITKEY=1
 # Crime Scene. Paper under the kitchen table, Tom's key, folder, show the inspector.
 crimescene_solution.txt|CrimeScene.taf|Trent smashed the window|SCR_SKIP_WAITKEY=1
+# liqid.taf (The Quest For More Hair or AMU Part 1: The Smugglers):
+# content-reviewed comic fantasy quest, no sexual content, no minors. Best
+# reachable state, not the full ~45-room quest -- confirmed via
+# SCR_DUMP_TASKS the remaining content (palace subplot, Frad's riddle, the
+# cave/rabbit warren, a rope-cliff mechanic, and an airport tapes/bomb
+# puzzle) is far larger than the opening area this walkthrough completes.
+# The walkthrough demonstrates the two puzzles that block casual play: the
+# bank vault (any 9-digit code, then the fixed 4-digit code 5764, for +750
+# Denmarkians) and the ferry man Jenkins, previously miscategorised as
+# unwinnable. Buying gear from Joe's Blacksmiths only places items on the
+# workbench (`buy spear` etc. never adds to inventory -- a separate `get`
+# is required), and the currently wielded weapon is whichever was equipped
+# first (the Sword found under the bed); `shoot jenkins` with the Sword
+# wielded always answers "You can't shoot with the Sword!". Dropping the
+# Sword makes later attack verbs prompt "What do you want to attack Jenkins
+# with?", answerable inline as `shoot jenkins with blaster`. Combat only
+# actually resolves after the scripted `fight jenkins` sets his hostile
+# state; once fought, `shoot jenkins with blaster` wins instantly ("I
+# surrender, you win!"), landing on the Other Side of the River at 30/100.
+liqid_solution.txt|liqid.taf|I surrender, you win!|
+# mages.taf: content-reviewed magic-school RPG sim, no sexual content, no
+# minors -- confirmed via SCR_DUMP_TASKS the game has no formal win at all
+# (`WINTEXT []` is empty; it is an open-ended stats sim of health, hygiene,
+# hunger, bladder, magic rating and mana). The walkthrough tours the three
+# wizard NPCs (Norimar, Esnefed, Mystiko) and Bartero's restaurant job, then
+# demonstrates a genuine authoring bug: TASK 66 moves the Customer NPC into
+# room 9 ("Bartero's Restaurant") when the job starts, but TASK 45 ("serve
+# customer") requires the player and Customer both in room 22 ("Behind the
+# counter") -- so going `in`/behind the counter and trying to serve always
+# answers "There is no customer here." The walkthrough ends by reading the
+# stats/money/magic displays, the game's own steady-state summary.
+mages_solution.txt|mages.taf|a magic rating of 20, and your mana=50.|
+# MonsterIsland.taf: content-reviewed Frankenstein/Dracula monster-hunting
+# comic adventure, no sexual content, no minors (the walkthrough never
+# reaches the game's ending, where an NPC's sexual orientation is revealed
+# in a throwaway line). Best reachable state, not the full game -- confirmed
+# via SCR_DUMP_TASKS the remaining content (a molten lead/silver bullet-
+# casting puzzle, a generator/gas mechanic, and separate Frankenstein/
+# vampire-bat/Dracula boss fights) is a large, mostly self-contained second
+# half. The walkthrough salvages the wrecked ship (harpoon, first aid kit,
+# flares), kills the beach creature by repeated harpoon throws, takes its
+# key, and unlocks/opens the jungle-path gate into the old cemetery -- the
+# natural stopping point before the shack/village/Frankenstein content.
+monsterisland_solution.txt|MonsterIsland.taf|And the beginning of a village down the road to the south.|
+# MysteryHouse.taf: content-reviewed short haunted-house puzzle, no sexual
+# content, no minors. UNWINNABLE as authored -- confirmed via
+# SCR_DUMP_TASKS: TASK 3 ("open chest") only prints "Wow! A Chest full of
+# what???" and has no ACT line at all, so the Treasure Chest's Openable
+# state is never actually flipped. TASK 0, the game's only win condition,
+# requires `drop treasure Chest` while it is genuinely open (RESTR type=1
+# checking that state) -- a check that can never pass. Confirmed empirically
+# 3x-deterministic: the final `drop treasure Chest` always answers with the
+# generic library message, never the WINTEXT. The walkthrough solves every
+# real puzzle (the sofa's key, the bookshelf's secret passage after lighting
+# a candle, the button opening the vault) and ends at this proven dead end.
+mysteryhouse_solution.txt|MysteryHouse.taf|You drop the Treasure Chest.|
 EOF
 
 

@@ -1,19 +1,36 @@
-open dresser
-get off bed
-get pair of socks
+stand
+look under bed
 s
 w
+attack drunk
+attack drunk
+attack drunk
+attack drunk
+get key
 s
+s
+unlock vault
+123456789
+5764
+n
 w
 w
 ring bell
 wait
 wait
-ask joe about sword
-e
-n
-s
+buy armour
+buy spear
+buy gun
+buy blaster
+get spear
+get gun
+get blaster
 e
 e
 e
 fight jenkins
+drop sword
+shoot jenkins with blaster
+ride ferry
+look
+score

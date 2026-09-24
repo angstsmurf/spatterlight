@@ -2,9 +2,31 @@ lie down
 sleep
 d
 s
-look
-exits
-i
+w
+chat with norimar
+e
+s
+w
+chat with esnefed
+nw
+chat with mystiko
+e
+e
+e
+w
+s
+s
+e
+w
+w
+w
+chat with bartero
+work for bartero
+e
+wait
+in
+serve customer
+out
 stats
 money
 magic

@@ -1,0 +1,212 @@
+Loading game...
+
+'!NameOfGame!'
+This is a recreation of my first ever text adventure, my brother actually
+started writing it, but being worse than me at finsihing things gave up,
+however i felt obliged to complete it...
+
+I have added footnotes to make it more interesting.
+
+You are bald adventurer called Liqid who has decided that you must leave at
+once for a quest for more hair.
+
+There is a competetion to get rid of your clothes. Please e-mail me how you
+did it.
+
+Bedroom
+You are in your bedroom, the exits is to the south. Obviously your bed is
+here, and also here is a dresser.
+
+> stand
+You stand up from the Bed.
+
+> look under bed
+You look under your bed, and find your sword, you pick it up make dramatic
+poses with it. (Yes, typical game) (footnote 1).
+
+> s
+You move south.
+
+Kitchen
+You are in your kitchen, you can see your food stacked cupboard. You can
+leave the house to the west.
+
+> w
+You move west.
+
+Just Outside Your House
+You are just outside your house. You can return to it to the east or go south
+to the village square.  Drunk is here.  Drunk hits you.
+
+> attack drunk
+You cut Drunk with the Sword.  Drunk hits you.
+
+> attack drunk
+You cut Drunk with the Sword.  Drunk hits you.
+
+> attack drunk
+You cut Drunk with the Sword.  Drunk hits you.
+
+> attack drunk
+You cut Drunk with the Sword.  You finish off the drunk, and his body lies on
+the ground. You bend down to inspect it but it vanishes in a puff of smoke
+leaving only the key which the drunk has been holding behind.
+
+Just Outside Your House
+You are just outside your house. You can return to it to the east or go south
+to the village square.  There is no sign of the drunk's body.  You can also
+see a Key.  Drunk is here.
+
+> get key
+You take the Key.
+
+> s
+You move south.
+
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your
+house, to the east the stream, the south the bank and to the west the newly
+installed ultra modern shopping centre.
+
+> s
+You move south.
+
+Bank
+You are in the bank and it was somewhat very deserted until I put in the
+receptionist and the desk. But the vault is still here. You can return to the
+square by going north.  The Receptionist is here.
+
+> unlock vault
+You insert the key into the vault and turn it. The vault springs open but
+there is a nine-digit number code thing.
+
+> 123456789
+You type in 123456789, and it is accepted, however it now wants a four digit
+number.
+
+> 5764
+You type in 5764 and the vault springs to life, it whizzes, fizzes, hums,
+makes beep noises, they quotes some Shakespear (footnote 2) before finnally
+giving you some more Denmarkians.
+
+> n
+You move north.
+
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your
+house, to the east the stream, the south the bank and to the west the newly
+installed ultra modern shopping centre.
+
+> w
+You move west.
+
+Precinct
+You are in the town's newly installed shopping precinct. There is a
+blacksmiths to the west, a goosebury brothers™ to the north and a pit of
+eternal doom™ to the south.  There is a sign on the door of the Goosebury
+Brothers.
+
+> w
+You move west.
+
+Blacksmith's
+You are in the local black smiths, there are various bits of equipment round
+and about and smoke is wisping from the doorway to the west were Joe's
+workroom is. You aren't aloud the there, and you know it (by the way). Oh yes
+I almost forgot, there is Joe's old workbench whatamacallit in the middle of
+the room. You can leave to the east but not the west.
+
+> ring bell
+You ring the bell but nothing happens.
+
+> wait
+Time passes...
+
+> wait
+Time passes...  Joe walks towards you from the west.  You here footsteps from
+behind, so you turn around, its Joe. He picks you up by the neck then brings
+you (and himself) back to the Blacksmiths. He stares at you, staying strong
+and silent but gives you a look thats say quite clearly, "Why did you do
+that?".
+
+> buy armour
+You buy some armour.
+
+> buy spear
+You buy a spear. Joe puts it on the bench.
+
+> buy gun
+You buy a gun. Joe puts it on the bench.
+
+> buy blaster
+You buy the super, mega atomic blaster. Joe puts it on the bench.
+
+> get spear
+You take a Spear from the Old Workbench.
+
+> get gun
+You take a Gun from the Old Workbench.
+
+> get blaster
+You take a Super Atomic Blaster from the Old Workbench.
+
+> e
+You move east.
+
+Precinct
+You are in the town's newly installed shopping precinct. There is a
+blacksmiths to the west, a goosebury brothers™ to the north and a pit of
+eternal doom™ to the south.  There is a sign on the door of the Goosebury
+Brothers.
+
+> e
+You move east.
+
+Ye Olde Village Square
+You are in the old village square. To the north is the directions of your
+house, to the east the stream, the south the bank and to the west the newly
+installed ultra modern shopping centre.
+
+> e
+You move east.
+
+River Bank
+You are on the west bank of the river which is flowing north to south. It is
+uninterupted and  there is no bridge but there is a ferry man. You can return
+to the west or cross to the other side to the east via the ferry.  The ferry
+man will not allow you across unless you fight him.  Jenkins is here.
+
+> fight jenkins
+The ferry man rises and says, "Arggg! Prepare to die a long death! Arggg!"
+The ferry man cuts you with the Schmitar.
+
+> drop sword
+You drop the Sword.  The ferry man cuts you with the Schmitar.
+
+> shoot jenkins with blaster
+You shoot the ferry man with the Super Atomic Blaster.  The ferry man looks
+at you then says, "I surrender, you win!" He means that you have won and that
+he will be aloud across to the other side of the river.
+
+> ride ferry
+You hop onto the ferry and the ferry man eagerly rows you across to the other
+side.
+
+Other Side of the River
+You are on the other side of the river. You go west via the ferry to the
+other side of the river or go to the North of East into the depths of a
+forest. A huge cliff blocks the country to the south.  You are now on the
+other side of the river.
+
+> look
+
+Other Side of the River
+You are on the other side of the river. You go west via the ferry to the
+other side of the river or go to the North of East into the depths of a
+forest. A huge cliff blocks the country to the south.
+
+> score
+Your score is 30 out of a maximum of 100.  (30%)
+
+> quit
+Do you really want to quit? [Y/N]

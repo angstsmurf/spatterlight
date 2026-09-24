@@ -1,0 +1,264 @@
+Loading game...
+
+The Mages of Costrador
+Welcome to the Mages of Costrador.
+Your name is Killarmius the Dragonslayer.  You are living in a war-torn world
+of dragons and domination.  Your quest is to find the ancient, magic, Sword
+of the Dragons and bring peace to the land. You use this sword to banish all
+of the evil dragons back to their native land of Millikari, from which they
+escaped.  You will learn more of this as your quest continues.  To find your
+total wealth, type "money", to find your magic rating and mana, type "magic",
+to find your stats, such as health, hygiene, and hunger, type "stats", and to
+carry on a conversation, use the format, "chat with (person)" and they will
+give you important information in your quest.  When you kill wild animals and
+monsters, you automatically pick up the carcass of the small ones.  You are
+also helped in your quest by a loyal friend named Rowep.  He will follow you
+anywhere and will help you in any fight you get into.  If there are big
+monsters, you can just look at their bodies.  Good luck, and safe tidings,
+hero.
+
+Your Bedroom
+You are standing in your bedroom, surrounded by familiar things and pictures.
+ Take a good, long look, because it is probably the last time you will see it
+in a great long while.  There is a chamberpot, which you can use to relieve
+yourself, and a washbasin to improve your hygiene after using the chamberpot.
+ From here, you can go down to the Front Hall.
+
+> lie down
+You lie down on the ground.
+When you have weapons, you can go out and look for a quest either at the Town
+Council or the Hero's Guild.  You pass out onto the ground and wake up in
+your own home.  You realize that you have not had sleep in a long time, and
+you were very tired.  You need to sleep right now.
+
+> sleep
+You fall asleep on your bed and wake up a few hours later.
+
+> d
+(Getting off your small bed first)
+You move down.
+
+Your Front Hall
+The Front Hall, where you entertain guests and go to rest after the day is
+done.  From here, you can go up to your bedroom and south to a small path.
+
+> s
+You move south.
+
+A small path
+The small path that runs across the front of your house.  You can go into
+your house, or continue to the west  and east to the Battle Shop and Council
+Hall, or you can go south to the the town garden where you can go to relax
+and have a good time.
+
+> w
+You move west.
+
+The Battle Shop
+A shop that deals in magical and mystical swords.  There is a sign here
+telling all of the items on sale, but to find the prices, type "ask Norimar
+about prices."  From here, you can go to the to a small path, or go to the
+south to the connecting Shield Shop.  You can also move west to the town's
+magic shop, owned by Mystiko.  Norimar is here.
+
+> chat with norimar
+"Hello, Norimar," you say.  Norimar replies, "Would you like to buy something
+today?"  "To find what is on sale, look at the sign here.  To find the prices
+for each of those items, ask me about them."
+
+> e
+You move east.
+
+A small path
+The small path that runs across the front of your house.  You can go into
+your house, or continue to the west  and east to the Battle Shop and Council
+Hall, or you can go south to the the town garden where you can go to relax
+and have a good time.
+
+> s
+You move south.
+
+Town Garden
+The garden that connects the small path and the busy street.  It is quite
+beautiful here, and many people come here for different reasons.  It is a fun
+place for kids, a romantic place for lovers, and a good place to go to read
+and sleep on a bench.  To the east is the edge of a dangerous wood that no
+one dares go near.  To the west, the town Defense Shop, and to the south is a
+busy street.  To the north, a small path that runs in front of your house.
+
+> w
+You move west.
+
+The Defense Shop
+A store that deals in armor, shields, and defensive magic.  You can go to the
+north from here.  Esnefed is here.
+
+> chat with esnefed
+"Hello, Esnefed," you say.  "Hello, Killarmius.  To find the prices of armor,
+read the armor sign, and to find prices of shields, read the shield sign."
+
+> nw
+You move northwest.
+
+Mystiko's Magic Shop
+A magic store full of mysterious spells and potions very dangerous to the
+untrained user.  You will have to meet a few requirements to buy any of the
+items in here.  To see the basic list of items, type "read basic" and to see
+the middle class of spells, type "read middle".  To find the highest level (
+and most expensive), type "read high".  Be careful with all the items you
+choose to buy.  Mystiko is standing behind the counter.
+
+> chat with mystiko
+The mystical vendor of all things magical says, "Would you like to buy
+something today, Killiarmus?"  You respond, "Maybe, Mystiko, just maybe."
+
+> e
+You move east.
+
+The Battle Shop
+A shop that deals in magical and mystical swords.  There is a sign here
+telling all of the items on sale, but to find the prices, type "ask Norimar
+about prices."  From here, you can go to the to a small path, or go to the
+south to the connecting Shield Shop.  You can also move west to the town's
+magic shop, owned by Mystiko.  Norimar is here.
+
+> e
+You move east.
+
+A small path
+The small path that runs across the front of your house.  You can go into
+your house, or continue to the west  and east to the Battle Shop and Council
+Hall, or you can go south to the the town garden where you can go to relax
+and have a good time.
+
+> e
+You move east.
+
+Inside Town Council Building
+You are standing in the large Town Council meeting room.  Here, the leaders
+of Costrador make many important decisions about the life and people of
+Costrador.  Bellisarimus is here.
+
+> w
+You move west.
+
+A small path
+The small path that runs across the front of your house.  You can go into
+your house, or continue to the west  and east to the Battle Shop and Council
+Hall, or you can go south to the the town garden where you can go to relax
+and have a good time.
+
+> s
+You move south.
+
+Town Garden
+The garden that connects the small path and the busy street.  It is quite
+beautiful here, and many people come here for different reasons.  It is a fun
+place for kids, a romantic place for lovers, and a good place to go to read
+and sleep on a bench.  To the east is the edge of a dangerous wood that no
+one dares go near.  To the west, the town Defense Shop, and to the south is a
+busy street.  To the north, a small path that runs in front of your house.
+
+> s
+You move south.
+
+Busy Street
+A crowded street with a lot of shops and people going into and leaving.
+There is a lot of money floating around here and you should be able to profit
+from it.  From here, you can either go to the Heroes Guild, to the east, or
+to Bartero's Restaurant.
+
+> e
+You move east.
+
+Heroes Guild
+A Guild which specializes in helping new heroes with quests and continuing
+the study of Intermediate heroes.  You can read the sign here and see which
+quests are still open.  To go on one of these quests, you must join the
+Guild.  It costs a little bit of money, but it is worth it when you are
+honing your skills as a Warrior, Thief or a Mage.  To see the information on
+joining the Guild, read the Guild Sign.  The other one is the Quest Sign.
+
+> w
+You move west.
+
+Busy Street
+A crowded street with a lot of shops and people going into and leaving.
+There is a lot of money floating around here and you should be able to profit
+from it.  From here, you can either go to the Heroes Guild, to the east, or
+to Bartero's Restaurant.
+
+> w
+You move west.
+
+Bartero's Restaurant
+A restaurant where you can get a bite to eat or a job, if you need any money.
+ You can either go east to a busy street, or west to the office, where the
+manager is waiting.
+
+> w
+You move west.
+
+Back Office
+This is the back office of Bartero's Restaurant, where the manager does all
+of his paperwork.  Bartero is here.
+
+> chat with bartero
+"Hello, boy," the grouchy old shopkeep says as you enter his office.  "Hello,
+sir, I was wondering if I could have a job here."  The old man replies, "Just
+ask me about getting a job, kid."
+
+> work for bartero
+You get the job for Bartero and recieve a hat and an apron, which you put on
+immediately.  Every hour, Bartero will take fifty dollars from you to keep
+himself in buisness and not let all the profits go straight to you.  You had
+better work to make that fifty, or else you will be in debt.
+
+> e
+You move east.
+
+Bartero's Restaurant
+A restaurant where you can get a bite to eat or a job, if you need any money.
+ You can either go east to a busy street, or west to the office, where the
+manager is waiting.  .To go behind the counter to serve customers, type "i"
+or "in".
+
+> wait
+Time passes...
+There is a customer here that you have to serve.
+
+> in
+You move in.
+
+Behind the counter
+You are standing behind the large counter at Bartero's Restaurant.  You can
+serve customers here.
+
+> serve customer
+There is no customer here.
+
+> out
+You move out.
+
+Bartero's Restaurant
+A restaurant where you can get a bite to eat or a job, if you need any money.
+ You can either go east to a busy street, or west to the office, where the
+manager is waiting.  .To go behind the counter to serve customers, type "i"
+or "in".  Customer is here.  There is a customer here that you have to serve.
+
+> stats
+You have:
+90 health
+70 hygiene,
+70 hunger,
+ and bladder 20   There is a customer here that you have to serve.
+
+> money
+You currently have 0 gold.
+
+> magic
+You currently have a magic rating of 20, and your mana=50.   Keep working on
+it!  There is a customer here that you have to serve.
+
+> quit
+Do you really want to quit? [Y/N]
