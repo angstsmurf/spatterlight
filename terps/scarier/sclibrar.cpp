@@ -33965,6 +33965,61 @@ lib_cmd_put_container_400 (scr_gameref_t game)
 }
 
 /*
+ * lib_put_container_fits_400()
+ *
+ * TRUE when name_object's container look-up above (46DD34-46DD65) names a
+ * container for an " in " line or a surface for an " on " line.  run400
+ * resolves the container with its noun scorer, which is indifferent to
+ * words that belong to no object, so `put my homework on my desk` puts the
+ * homework on "your school desk" (Prefix "your school") ahead of every
+ * task -- schoolday T9, where TASK 10 `*homework*desk*` would have run
+ * (runner_transcripts/schoolday.txt).  Scarier's put rows bind their
+ * %object% in place, and "my desk" is not a spelling of the desk, so
+ * run_is_put_command() asks this before it retries them by containment.
+ */
+scr_bool
+lib_put_container_fits_400 (scr_gameref_t game, const scr_char *input)
+{
+  std::string line, phrase;
+  std::string::size_type split, in_at, on_at;
+  scr_int container;
+  scr_bool inside;
+
+  if (!lib_is_version_400 (game) || !input)
+    return FALSE;
+  line = run_normalise_put_line (input);
+  if (line.empty () || !lib_phrase_has_word (line, "put"))
+    return FALSE;
+  split = lib_put_split_400 (game, line, lib_phrase_has_word (line, "all"),
+                             TRUE, NULL);
+  if (split == std::string::npos
+      || line.find (" and ", split) != std::string::npos)
+    return FALSE;
+
+  in_at = line.find (" in ", split);
+  on_at = line.find (" on ", split);
+  if (in_at != std::string::npos)
+    {
+      inside = TRUE;
+      phrase = line.substr (in_at + 4);
+    }
+  else if (on_at != std::string::npos)
+    {
+      inside = FALSE;
+      phrase = line.substr (on_at + 4);
+    }
+  else
+    return FALSE;
+
+  container = lib_verb_object_resolve_400_string (game, phrase.c_str (), NULL,
+                                                 TRUE);
+  if (container < 0)
+    return FALSE;
+  return inside ? obj_is_container (game, container)
+                : obj_is_surface (game, container);
+}
+
+/*
  * lib_cmd_verb_object()
  * lib_cmd_verb_character()
  *

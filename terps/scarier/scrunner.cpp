@@ -1746,6 +1746,35 @@ run_is_put_command (scr_gameref_t game, const scr_char *string)
 }
 
 /*
+ * run_is_put_command_400()
+ *
+ * run_is_put_command(), and at 4.0 a second look by whole-word containment
+ * when the container phrase names a fitting container or surface to run400's
+ * scorer but the put rows' positional %object% does not -- `put my homework
+ * on my desk`, the desk's Prefix being "your school"; see
+ * lib_put_container_fits_400().  *CONTAINED says the put rows need that
+ * containment again when they run.
+ */
+static scr_bool
+run_is_put_command_400 (scr_gameref_t game, const scr_char *string,
+                        scr_bool *contained)
+{
+  scr_bool is_put;
+
+  *contained = FALSE;
+  if (run_is_put_command (game, string))
+    return TRUE;
+  if (!lib_put_container_fits_400 (game, string))
+    return FALSE;
+
+  uip_set_containment (TRUE);
+  is_put = run_is_put_command (game, string);
+  uip_set_containment (FALSE);
+  *contained = is_put;
+  return is_put;
+}
+
+/*
  * run_is_inventory_command()
  *
  * TRUE for the lines run400's inventory handler answers.  That handler,
@@ -7668,7 +7697,7 @@ static scr_bool
 run_all_commands (scr_gameref_t game, const scr_char *string)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  scr_bool status, ask_echo, put_first, refused;
+  scr_bool status, ask_echo, put_first, put_contained, refused;
   std::vector<std::string> put_clauses;
   scr_bool repeat_found, repeat_pending, inv_listed;
   const scr_char *task_string;
@@ -7902,11 +7931,14 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && !repeat_pending)
     lib_put_clauses_400 (game, put_line, put_clauses);
-  put_first = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
-              && !repeat_pending
-              && run_is_put_command (game, put_clauses.empty ()
-                                           ? put_line
-                                           : put_clauses[0].c_str ());
+  put_contained = FALSE;
+  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      || repeat_pending)
+    put_first = FALSE;
+  else if (put_clauses.empty ())
+    put_first = run_is_put_command_400 (game, put_line, &put_contained);
+  else
+    put_first = run_is_put_command (game, put_clauses[0].c_str ());
   struct put_class_guard
   {
     explicit put_class_guard (scr_bool on) { run_put_class_only = on; }
@@ -8006,7 +8038,9 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
       else
         {
           run_dispatch_input = put_line;
+          uip_set_containment (put_contained);
           status = run_priority_commands (game, put_line);
+          uip_set_containment (FALSE);
           run_dispatch_input = string;
           refused = !status && run_priority_refused;
           if (refused)

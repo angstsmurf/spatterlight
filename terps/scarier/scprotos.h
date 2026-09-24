@@ -1020,6 +1020,8 @@ extern scr_bool lib_put_held_unsplit_400 (scr_gameref_t game,
                                           const scr_char *input);
 extern scr_bool lib_put_task_tie_400 (scr_gameref_t game,
                                      const scr_char *input);
+extern scr_bool lib_put_container_fits_400 (scr_gameref_t game,
+                                           const scr_char *input);
 extern scr_bool lib_put_clauses_400 (scr_gameref_t game,
                                     const scr_char *input,
                                     std::vector<std::string> &clauses);
