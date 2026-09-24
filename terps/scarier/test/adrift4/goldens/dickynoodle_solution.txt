@@ -1,6 +1,55 @@
-look
 n
-get key
+take key
 s
 ne
 ne
+n
+n
+n
+n
+take gun
+s
+e
+take crucifix
+w
+w
+break window
+e
+e
+n
+u
+kill agatha
+take map
+d
+s
+e
+n
+in
+take candle
+s
+drop key
+drop map
+drop candle
+take a pile of ones
+take a pile of fives
+take a pile of fifties
+take a pile of hundreds
+take a pile of five hundreds
+n
+n
+buy room
+take remote
+sit stool
+buy food
+eat food
+n
+n
+drive north
+drive east
+n
+take syringe
+in
+d
+n
+follow trail
+untie uncle

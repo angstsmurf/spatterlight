@@ -1,5 +1,59 @@
-look
-exits
+
+m
+1
+x
+x
+a
+3
+x
+x
+w
+this is doctor fitzwold recording a test message
+x
+intro
+u
+t
+t
+x
+v
+verb
+x
+h
+001
+x
+x
+n
+n
+2
+x
+d
+x
+x
+d
+d
+x
+f
+
+l
+x
+s
+
+x
+e
+
+x
+look at specimen table
+get flashlight
+get geiger counter
 i
 n
 u
+open door
+out
+south
+examine slug
+talk to slug
+2
+x
+give flashlight to slug
+in

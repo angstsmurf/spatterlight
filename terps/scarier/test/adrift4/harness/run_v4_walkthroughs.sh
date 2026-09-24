@@ -9845,6 +9845,92 @@ huntingground_solution.txt|Hunting Ground.taf|too much upon his pistol|SCR_SKIP_
 go_solution.txt|Go.taf|adventures are behind|SCR_SKIP_WAITKEY=1
 # ??????? ???????? demo. Stove basket, pies, hat in the apple tree, out the gate.
 demoshapka_solution.txt|DemoShapka.taf|66%|SCR_SKIP_WAITKEY=1
+# bedlam.taf (Bedlam): a short 1/4-finished preview build. UNWINNABLE as
+# authored -- confirmed via SCR_DUMP_TASKS -- Task 37 ("ask barbara about
+# keys") narrates handing the player the car keys but contains zero ACT
+# lines, so object 30 ("your car keys") stays permanently Hidden/Not seen
+# (verified with the debugger's `objects 29 30`) and Task 38's `start car`
+# restriction requiring it can never pass. The walkthrough explores every
+# reachable room/object (clock, pill bottle, magnifying glass, burning the
+# phone cord, the washing machine and clothes) and ends at the true dead end:
+# opening and sitting in the car, then trying to start it without keys.
+bedlam_solution.txt|bedlam.taf|These type of vehicles usually require keys to operate|
+# crimelife.taf (Crime Life): content-reviewed dark-comedy crime sim, no
+# sexual content, no minors targeted (the walkthrough never interacts with
+# the "Punk Kid"/"Old Woman" NPCs even though the game itself lets you). Every
+# one of the game's 21 implemented endings is `ACT type=6 v1=3` ("you're
+# dead") -- confirmed via SCR_DUMP_TASKS -- so there is no winning/surviving
+# ending to reach; the walkthrough instead demonstrates a representative
+# slice: flushing the toilet reveals a hidden pistol (+100), taking the 9mm
+# clip loads it, shooting the landlord in the 5th-floor hallway (+100) and
+# looting his rent box (+$90), a short tour up to the murdered neighbor's
+# Crime Scene room for a keepsake picture (+10), then down to the fixed-
+# location NPC Mofo on the 3rd floor, where an unarmed `attack` draws his gun
+# first for a one-line death -- the game's own definitive endpoint.
+crimelife_solution.txt|crimelife.taf|You just got waxed by a punk gangsta|
+# dbaa!(intro).taf (Dung Beetles Are Aliens!, IntroComp 2009): a demo/preview
+# build of a comic sci-fi ADRIFT 3.90 game (MAWINDEX computer-terminal menu
+# system plus a small physical world). UNWINNABLE in this intro build --
+# confirmed via SCR_DUMP_TASKS: only 15 restrictions/actions ever reference
+# obj0 (the Zegathean war slug blocking the doorstep's south exit), and every
+# one of them gates on state 3 ("demanding tribute"); no task anywhere
+# transitions that state via `give`/`talk`/`pay tribute` -- TASK 383, the
+# catch-all "give X to slug" handler, always refuses with "Bring me something
+# else!" regardless of the object offered, and the "get slug" tasks are
+# hard-wired to "To do so would be suicide!". The Mayor's auto-reply mail
+# ("You are a kook!... deal with them as personal or private matters")
+# confirms this is deliberate in-fiction stonewalling, not a bug, but with no
+# accepted tribute item present in this intro's content, the meadow south of
+# the doorstep is exactly as unreachable as the explicitly-stubbed north/up
+# exits from the Laboratory ("this room is not available in the intro
+# version"). No minors, no sexual content -- comic sci-fi. The walkthrough
+# tours every MAWINDEX submenu (mailbox, archives, word processor, tutorial/
+# verb-list/hint-matrix, network news, all four domestic tasks, the
+# error-terminated Energize option), then the physical Laboratory/Doorstep
+# (taking the flashlight and Geiger counter, both blocked interior exits,
+# the slug's dialogue tree, and the refused tribute) before the true dead
+# end.
+dbaa_solution.txt|dbaa!(intro).taf|Bring me something else!|
+# DickyNoodle.TAF (Dicky Noodle 2002): a sprawling, crude comic parody
+# adventure (P.I. Dicky Noodle hunts his kidnapped uncle through a
+# Clicker's-Candy-Store/haunted-mansion opening, then a casino-town/TVLand
+# gauntlet parodying "Alice", Knight Rider and a hospital). Content-reviewed:
+# raw profanity and gross-out/crude-sexual-innuendo humor throughout (an
+# elderly NPC described nude, dialogue referencing sex shops and lubricant)
+# but no depicted sexual content and no minors. WINNABLE, and deliberately
+# speedrunnable: the game's own ending text calls out this exact shortcut
+# ("you did all of this WITHOUT even having to go through the hideous and
+# painful task of having to play through the many extra levels"). The
+# walkthrough takes the door key and gun/crucifix through the Clicker's
+# basement and Agatha's house (killing Agatha nets a map), falls through the
+# old man's shack candle trapdoor into the underground casino (grabbing 5 of
+# the Moolah Room's 7 safe cash piles -- the "pile of twenties" is the one
+# always-lethal pile), buys the penthouse room, and takes its remote --
+# which one-shots the player into "TVLand" at Mel's Diner. From there it's a
+# straight line: sit/order/eat at the diner, ride KITT two Drive-commands
+# north then east (a scripted detour dumping the player at a hospital
+# discharge room), north to the hallway, in and down to the underground
+# parking, one more north to find the trail of cheese, and `follow trail`
+# jumps straight to the Victory room to `untie uncle` and win at 67/120.
+dickynoodle_solution.txt|DickyNoodle.TAF|You untie your loving Uncle Noodle|
+# dishduty_intro(3).taf (Dish Duty, IntroComp 2009): a domestic-horror/glitch
+# teaser -- the player's spouse asks them to wash the dishes, and the scene
+# steadily unravels ("Something is wrong. You can't concentrate. Nothing
+# makes sense.", garbled/corrupted object and NPC names). Content-reviewed:
+# unsettling psychological-horror atmosphere but no sexual content and no
+# minors. UNWINNABLE by design in this preview build -- confirmed via
+# SCR_DUMP_TASKS=1: the "wash dishes" success task (30, "Okay, you wash the
+# dishes.") requires marker task 28 ("---A SECRET?---", an untypable
+# placeholder command) to be done, but no task or restriction anywhere in the
+# dump ever completes task 28, so only the failure task (29, "You can't wash
+# that.") ever fires, forever -- matching dbaa's identical deliberately-stubbed
+# IntroComp pattern. The walkthrough answers "n" to the spouse's question
+# (triggering an argument beat), tries "wash dishes" twice (the second attempt
+# triggers a scripted event where the spouse flees and locks the door),
+# confirms both exits are now locked, waits for the spouse to return with
+# unsettling "stepford" dialogue, and tries "wash dishes" once more to show
+# the fail message persists even after the reset.
+dishduty_solution.txt|dishduty_intro(3).taf|You can't wash that.|
 # ?????. Feed the dog, eat the apple, move the weight, take the key, leave.
 # Win marker on the proba row is cp1251, matching the transcript.
 proba_solution.txt|proba.taf|вышли из этой квартиры|SCR_SKIP_WAITKEY=1

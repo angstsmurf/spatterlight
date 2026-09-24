@@ -3,3 +3,9 @@ male
 look
 n
 wash dishes
+wash dishes
+north
+west
+wait
+wait
+wash dishes
