@@ -231,7 +231,11 @@ below as not yet ported.
   turn; this matters only for a re-drive.
 - **Permanently unmeasurable:** `dreamquest` (run400 cannot load a task
   with an empty Command vector); the `to_hell_and_beyond` assisted rows
-  (Scarier-only by design).
+  (Scarier-only by design). `raiders` (2026-09-24) hits the same class of
+  load-time crash as dreamquest: run400x dialogs `Error loading adventure
+  - [Subscript out of range,9,10]` and never opens a titled window, on
+  every drive attempt. Not chased -- looks like the same real-Runner
+  authoring defect, not a Wine/harness issue.
 - **cloddemo** (2026-09-24): its whole walkthrough is driven through a
   single-keystroke `'`/`\`/`1`/`2` menu (a CYOA-style control scheme), and
   the Wine keystroke injection loses or doubles several of those
