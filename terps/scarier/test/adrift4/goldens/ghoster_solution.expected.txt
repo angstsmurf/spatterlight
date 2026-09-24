@@ -178,7 +178,7 @@ You now occupy the body of Hendar.
 
 Hendar manages to avoid Alien Robot's attack.
 
-> kill attack robot
+> attack attack robot
 You hit Alien Robot with the crowbar.
 With the robot destroyed, and the subconscious mind and body of Hendar at
 your disposal, you send a message to all ships to abandon the assault and

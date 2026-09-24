@@ -186,7 +186,7 @@ g7056	g7056.txt	driven:Adrift_309_g7056_rt.txt	4.00	run400x.exe	1234	0		SCR_ASSU
 gamma	gamma.txt	harvested-native-0-draws:Adrift_735_gamma.txt	3.90	run390x.exe	1234	0	Sam		yes	identical on every turn.
 gateway	gateway.txt	driven:Adrift_163_gateway_rt.txt	3.90	run390x.exe	1234	0	Hero~male		yes	identical on every turn.
 ghost	ghost.txt	driven:Adrift_336_ghost_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
-ghoster	ghoster.txt	driven:Adrift_314_ghoster_rt.txt	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1	no	1 differing turn(s)
+ghoster	ghoster.txt	driven:Adrift_282_ghoster_rt.txt	4.00	run400x.exe	1234	0		SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 ghosttown	ghosttown.txt	driven:Adrift_516_ghosttown_rt.txt	4.00	run400x.exe	1234	1		SCR_SKIP_WAITKEY=1	yes	identical on every turn.
 ginger	ginger.txt	driven:Adrift_338_ginger_rt.txt	4.00	run400x.exe	1234	0		SCR_SKIP_WAITKEY=1	no	identical on every turn.
 gmylm	gmylm.txt	harvested-xoshiro:Adrift_128_gmylm_x.txt	4.00	run400x.exe	1234	3		SCR_SKIP_WAITKEY=1	yes	identical on every turn.

@@ -358,10 +358,12 @@ is now ported; the row is identical on every turn.
   port regressed two rows, so it was reverted: alex (the syringe's
   Prefix matched) and mm2 (dresser vs drawer). The role of var_D2 in that
   loop is still open.
-- **ghoster T21** `kill attack robot`: dobattle needs InStr(verb) <
-  InStr(Name) (47EBC2), so the Runner asks "Who do you want to attack?".
-  To port it, change the walkthrough and feed to `attack attack robot`
-  and re-drive in Wine.
+- **ghoster T21** `kill attack robot`: FIXED 2026-09-24. The one-target
+  %character% path (lib_battle_unnamed_target) now also requires
+  InStr(var_90) < InStr(Name) (47EBC2); the robot is Named "Attack Robot",
+  so var_90 is "attack" and the Runner asks "Who do you want to attack?".
+  Identical against the old capture; the walkthrough now ends `attack
+  attack robot` (Scarier golden wins) and the row was re-driven in Wine.
 - **matt** (3.9): checktask 44B4B2 claims a reverse command without a
   room check. Porting this makes matt unwinnable on the Runner route.
 - **crossworlds4** (3.9): FIXED 2026-09-24. The "it" antecedent is now

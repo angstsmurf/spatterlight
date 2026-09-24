@@ -19,4 +19,4 @@ drop body
 return
 ghost
 occupy captain
-kill attack robot
+attack attack robot

@@ -25712,22 +25712,42 @@ lib_attack_absent_npc (scr_gameref_t game)
  * "Who do you want to attack?  Seeker hums!" -- the walker's line proves the
  * tick -- where Scarier bound the alias and killed the cat.
  *
+ * Being named is not enough: the NPC is struck only when var_90 -- the
+ * FIRST of dobattle's verbs, in its own order, that is a whole word of the
+ * line -- comes before the name (run400 47EBC2-47EBC9, run390 44CD44), and
+ * otherwise var_8A stays 0 and the same question follows, with its
+ * continuation (47F025).  Ghoster's robot is Named "Attack Robot", so `kill
+ * attack robot` takes "attack" as the verb, at the name's own position, and
+ * the Runner answers "Who do you want to attack?" (runner_transcripts
+ * ghoster turn 21); `attack attack robot` strikes.
+ *
  * Returns TRUE having printed, when the Battle System is on at 3.90+ and the
- * NPC the grammar resolved is not one dobattle would name.
+ * NPC the grammar resolved is not one dobattle would strike.
  */
+static void lib_battle_who_raise (scr_gameref_t game, const scr_char *input,
+                                  const scr_char *verb);
+static scr_int lib_battle_line_verb_index (const scr_char *input);
+static scr_bool lib_battle_npc_is_target (scr_gameref_t game, scr_int npc,
+                                          const scr_char *input,
+                                          scr_int verb_index);
+
 static scr_bool
 lib_battle_unnamed_target (scr_gameref_t game, scr_int npc)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *input = run_get_dispatch_input ();
   const scr_char *name;
+  scr_int verb_index;
   scr_bool named;
 
   if (prop_get_taf_version (bundle) < TAF_VERSION_390
       || !battle_is_enabled (game) || !input)
     return FALSE;
 
-  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
+  verb_index = lib_battle_line_verb_index (input);
+  if (verb_index >= 0)
+    named = lib_battle_npc_is_target (game, npc, input, verb_index);
+  else if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
     {
       name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
       named = name && name[0] != NUL && lib_input_contains_word (input, name);
@@ -25737,6 +25757,8 @@ lib_battle_unnamed_target (scr_gameref_t game, scr_int npc)
   if (named)
     return FALSE;
 
+  if (verb_index >= 0)
+    lib_battle_who_raise (game, input, lib_battle_line_verb (game, input));
   pf_buffer_string (gs_get_filter (game), "Who do you want to attack?\n");
   return TRUE;
 }
@@ -26047,6 +26069,20 @@ static const struct
   {"chop", 0}, {"cut", 1}, {"hit", 2}, {"shoot", 3}, {"stab", 4},
   {"throw", 5}, {NULL, 0}
 };
+
+/* var_90's index in LIB_BATTLE_VERBS, or -1 when the line holds none. */
+static scr_int
+lib_battle_line_verb_index (const scr_char *input)
+{
+  scr_int verb_index;
+
+  for (verb_index = 0; LIB_BATTLE_VERBS[verb_index].verb; verb_index++)
+    {
+      if (lib_input_contains_word (input, LIB_BATTLE_VERBS[verb_index].verb))
+        return verb_index;
+    }
+  return -1;
+}
 
 /* Case-insensitive InStr, 1-based, 0 for no hit. */
 static scr_int

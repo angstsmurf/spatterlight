@@ -120,5 +120,23 @@ You now occupy the body of Hendar.
 
 Hendar manages to avoid Alien Robot's attack.
 
-> kill attack robot
-Who do you want to attack?  You manage to avoid Alien Robot's attack.
+> attack attack robot
+You hit Alien Robot with the crowbar.  
+With the robot destroyed, and the subconscious mind and body of Hendar at your disposal, you send a message to all ships to abandon the assault and return all captured.
+
+They obey without question.
+
+You go to cell and remove Olan and place Hendar's body inside and return to your own.
+
+This might not be the end of the fight, you feel.
+
+But it is at least a victory.  
+
+You begin transporting yourself and all survivors back to the town.
+
+It is a bitter sweet time as you celebrate the victory and mourn those who were lost in the attack.
+
+Olan says to you: "You can mourn now.  But you must be ready to fight again soon.
+
+The End?
+[Press any key to end]
