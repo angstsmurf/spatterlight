@@ -1,0 +1,176 @@
+
+> n
+You move north.
+Lounge
+Some things never change so the first thing that grabs your attention is a small bar in the centre of the room. Tables and chairs are dotted about the place and a large ceiling fan circulates some welcoming cool air. A doorway leads back south to the hotel lobby. The other thing that grabs your attention is the woman trying vainly to hide behind a pot plant.  A bar tender is methodically wiping glasses behind the bar.
+
+> look at woman
+When she sees that you have noticed her, she gives a quick glance around the room then marches forward and hisses, "You took your time. I've been waiting here almost all day." Noticing the completely blank look that crosses your face she sighs. "It's me, Donna.  What happened? Did you get blitzed last night? Never mind. The less I know about your sordid little life the better. I got the stuff you asked me to keep for you."
+
+> buy drink
+You wander up to the bar and look pathetically at the bar tender while patting your pockets.  Kat says, "It's your lucky day.  We're serving complimentarily cocktails until midnight".  She hands you a glass that seems to be more fruit salad than liquid.
+
+> give drink to donna
+You put on a winning smile and hand the drink to Donna.
+
+She says, "thanks", and throws the contents of the glass in your face.
+
+"That's for last night.  I'm out of here and I won't be sorry if I never see you or your friend again.  Don't bother counting the money.  I've only taken my fair share.  Oh, and by the way, there are a lot of innocent people in this hotel.  If I were you I'd warn them about the bomb".
+
+And with that she thrusts the package at you and walks out leaving you still mouthing the word 'bomb'.
+
+What bomb?
+
+> open package
+You untie the string and open the package.  Inside are an assortment of objects but you ignore them and fasten your gaze upon the large wad of bank notes.
+
+> read letter
+It's written in your own handwriting.  Now that is weird.
+
+ If you're reading this things didn't quite go as planned.  I don't have time right now to tell you all the details nor do I think it a good idea to disclose much to you at this time.  Suffice it to say things have gotten really weird. In this package you should find the room key along with other useful items, including enough cash to get you where you need to go.  I can't say much more, I'm afraid this letter may be intercepted. I know by the time you read this you will not remember a thing of the events last night, but it is important you meet with Duffy. He may be able to help.
+
+P.S. I think D.M. may be on their side.
+
+> s
+You move south.
+Hotel Lobby
+The lobby is rather large, and actually quite posh; certainly not the kind of place where you would expect Duffy to stay. Surely it must be beyond his price range. Vibrant red carpeting stretches across the floor in all directions. Along one wall is a registration desk; a clerk wearing a hotel uniform stands behind the desk looking rather bored. There are chairs in the central part of the lobby with a few end tables covered with magazines and empty glasses. It looks like there is a lounge to the north and a flight of stairs lead up to the next floor of the hotel. The elevators are to the east and the front doors are back to the west.  Also here is a writers notebook.  A clerk is here.
+
+> ask clerk about room
+You ask the clerk for Duffy's room number. It's possible he just hasn't come down to meet you yet. The clerk eyes you momentarily, in a bored kind of way, before checking the room number.
+
+"Mr. Duffy is on the 14th floor, in room number 1436, sir."   
+
+Laughing to themselves, a few guests hover around the lobby.
+
+> open elevator
+The doors won't open by force. Oh wait, what's this? A call button is fixed to the wall, beside them!
+
+> press button
+You press the call button, which glows a bright jade.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+
+Keeping together, a band of guests pass you.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> look
+Hotel Lobby
+The lobby is rather large, and actually quite posh; certainly not the kind of place where you would expect Duffy to stay. Surely it must be beyond his price range. Vibrant red carpeting stretches across the floor in all directions. Along one wall is a registration desk; a clerk wearing a hotel uniform stands behind the desk looking rather bored. There are chairs in the central part of the lobby with a few end tables covered with magazines and empty glasses. It looks like there is a lounge to the north and a flight of stairs lead up to the next floor of the hotel. The elevators are to the east and the front doors are back to the west.  Also here is a writers notebook.  A clerk is here.  
+
+You hear a faint "DING" as the elevator doors slide silently open.  
+
+> e
+You step inside the elevator.
+
+Inside the Elevator, Lobby
+The red carpet of the elevator mirrors that of the lobby, which the doors lead out to, west. Along one wall the are the elevator buttons marked B, L and then 1 through 14.
+
+> push 14
+The button marked "14" glows a soft pink as you push it. Then the steel doors slowly close, and the elevator lurches with a faint whir.
+
+> wait
+Time passes...
+
+
+You can't help but grin as you recognize the Muzak version of "Rocky Racoon" being piped in from a hidden speaker.
+
+> wait
+Time passes...
+
+
+Either the numbers are changing very slowly or you're more than a little nervous.
+
+> wait
+Time passes...
+
+
+Suddenly the the car comes to a halt, again with a "DING" and the doors slide open.  
+
+> look
+Inside the Elevator, 14th Floor
+The red carpet of the elevator mirrors that of the lobby. The elevator doors are open, showing you the corridor of the fourteenth floor. Along one wall the are the elevator buttons marked B, L and then 1 through 14.
+
+> w
+You move west.
+Corridor
+You find yourself in a long, empty corridor on the fourteenth floor of the hotel. Guests scurry past you, none of them saying a word or paying any attention to your existence at all. It makes you feel as if you are moving in a dream. Doors line the sides of the corridor, all of them closed. None of them look at all familiar. A flight of stairs lead down to the lobby. There is a sign on the wall facing the elevators, which are to the east.  Sitting by the doors of the elevator on a small wooden table is a potted plant; a cheese plant, all glossy leaves and holes.
+
+> wait
+Time passes...
+
+> s
+You move south.
+Corridor, South
+This is a long and empty corridor on the fourteenth floor of the hotel. Closed doors line the sides of the corridor, all bearing number placards. A white door with the number '1436' on stands near you, and you find yourself tense with excitement at what the room may contain.  Also here is a fire bucket.
+
+> unlock door with key
+Using the key you obtained from Donna, you unlock the door. The room beyond is hidden in inky shadows though something - a latent sixth sense? - tells you that there is someone in there.
+
+> open door
+You open the room 1436.
+
+> in
+You walk into the room.
+
+Room 1436. The last place anyone saw hide or hair of your missing friend, Duffy. From the look of the room - the overturned chair, the table with a dent in the centre, the bedsheets scattered across the floor - you're guessing a struggle took place here not long ago. A window in the north wall overlooks a patch of waste ground behind the hotel that you find ominous for reasons you can't place right now. The air in the room is tense. Something bad happened here, and not long ago by your reckoning. Viveka is here.
+
+"So, you made your way here, did you?" says Viveka. "They said you would. If I waited long enough, you'd fall right into my trap."
+   "They?" you ask, all the time wondering about her final word.
+   Viveka cocks her head to one side coquettishly. "They?" she mimicks. "Oh, you'll be meeting them before long. They're eager to meet you in fact. But for now-"
+   Her hands flashes and you feel a sudden pain in your neck. Reaching up, you find a dart there, embedded in the soft flesh. You tug it out but already you can feel the venom on the dart's tip taking effect.
+   "You really were a fool coming here unprepared," Viveka says as you sink to your knees. "Now, just lie there while I call for the extraction squad..."
+   In your present state, you're unable to do anything else.
+
+...press any key...
+
+
+
+You open your eyes, slowly, wondering where on Mars you are...
+
+
+Cell
+A small, dank and dismal cell. The floor is cold stone and icy to the touch; it is cracked and broken but none of the cracks are large enough to wriggle through. A door - of steel and (unsurprisingly) locked - is set in the eastern wall of this little place and the light which creeps beneath it is your only source of illumination. In the shadows, of which the cell has many, you hear the movement of small vermin, undoubtedly rats.
+
+> examine ledge
+The ledge protrudes out of one of the walls in the eastern corner of the room, above the door. A black object is visible to be resting on it.
+
+> examine object
+You can only make out part of the object resting on the ledge, but whatever it is, is fairly small and darkly coloured.
+
+> take object
+The ledge is too high up to reach.
+
+> examine crack
+The gaping cracks run the length of the walls, rubble and stones ripped away from the wall surface. There is one jagged cut in the wall in particular that forms a sort of ledge in the top hand corner of the room.
+
+> examine gap
+Crouching down, so that you are level with the floor, you see the dark form of a long nail highlighted against the light beyond the door.
+
+> get nail
+You bend down again, and withdraw the nail from underneath the door. It seems to be as good as new, apart from being a bit rusty - presumabley it fell off from the other side of the door.
+
+> examine gap
+There is a bright ray of light shining in from beyond the door.
+
+> pick lock with nail
+The nail is too big to fit into the lock.
+
+> climb wall
+The rugged surface is far too broken to climb.
+
+> open door
+The iron door swings open.

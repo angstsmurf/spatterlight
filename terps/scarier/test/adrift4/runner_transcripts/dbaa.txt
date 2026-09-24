@@ -1,0 +1,1155 @@
+
+> m
+
+
+
+
+
+
+
+Loading Mailbox	
+
+
+
+
+
+		Welcome to MAWINDEX mailbox.
+		You have 5/5 unread message(s) in your inbox.
+
+		Please enter the number of the message you wish to read.
+		_____________________________
+
+	#		Subject				Sender		
+
+	<1> Re: Slug attacks               		[sender: Mayor Frimshed]_unread
+
+	<2> House Condemnation Notice		[sender: George Canning, City Hall]_unread
+
+	<3> News Article Updates			[sender: MAWINDEX Updater]_unread
+
+	<4> Free gazebos must go now!		[sender: Hank]_unread
+
+	<5> Check out my gazebo ;-)			[sender: Mary (your friend)]_unread
+
+		
+		[NOTICE: Your mailbox is currently full.]
+		_____________________________
+
+		Enter X to return to the main menu.  
+
+> 1
+
+
+
+
+	Inbox Message 1 is as follows:
+	___________________________________________
+
+            To:            Doctor Malcolm Fitzwold
+            From:            Mayor Frimshed
+            Dated:            9/14/85
+            Message:
+
+You are a kook!  Under my management, no harm can ever come to Sarkalouga.  You have my assurance that all is well.  Any problems you may be experiencing are not those of the city.  We ask that you deal with them as personal or private matters.
+
+Please refer all complaints to the Complaints Box in the City Hall.
+
+            Sincerely,
+                        Mayor Frimshed
+
+This message is an automated response.  Dictated, but not read.
+
+
+	___________________________________________
+
+	This message will automatically be deleted in 7 day(s).
+	Enter D to delete this message or enter A to save it in the archives.  Enter X to return to the mailbox.
+
+
+> x
+
+
+
+
+
+		Welcome to MAWINDEX mailbox.
+		You have 4/5 unread message(s) in your inbox.
+
+		Please enter the number of the message you wish to read.
+		_____________________________
+
+	<1> Re: Slug attacks               		[sender: Mayor Frimshed]_read
+
+	<2> House Condemnation Notice		[sender: George Canning, City Hall]_unread
+
+	<3> News Article Updates			[sender: MAWINDEX Updater]_unread
+
+	<4> Free gazebos must go now!		[sender: Hank]_unread
+
+	<5> Check out my gazebo ;-)			[sender: Mary (your friend)]_unread
+
+
+		[NOTICE: Your mailbox is currently full.]
+		_____________________________
+
+		Enter X to return to the main menu.  
+
+> x
+
+
+
+
+
+
+
+Loading Main Menu
+
+
+
+
+
+
+Welcome to MAWINDEX main menu.
+
+Greetings, Doctor Fitzwold!  Today's date is 09/14/1985.
+_____________________________
+
+				<M>AILBOX.
+				<A>RCHIVES.
+				<W>ORD PROCESSOR.
+				<I>NTRODUCTION/INFORMATION.
+				<N>ETWORK ACCESS.
+				<D>OMESTIC TASKS.
+				<E>NERGIZE UFO LASER DEFENCE UNIT.
+				E<X>IT.
+
+_____________________________
+
+				To select an option, please enter the letter of the path and press the return key.  
+
+> a
+
+
+
+
+
+
+
+Loading Archives
+
+
+
+
+
+Welcome to MAWINDEX information archive.
+	Please enter the number of the archived file you wish to view.
+	______________________________________
+
+		<1> Message from your Local Aether Matrix Provider
+		  (archived 9/13/85)
+
+		<2> INSECT RESEARCH LOG
+		  (archived 8/31/85)
+
+		<3> Record of Anatomical & Behavioural Mutations in Sarkalouga's Local Apiform Life
+		  (archived 7/28/78)
+
+		<4> (empty slot)
+		
+
+		<5> (empty slot)
+		
+
+	______________________________________
+
+	Enter X to return to the main menu.  
+
+> 3
+
+
+
+
+
+Retrieving Archived Message
+
+
+
+
+
+Archive Message 3 reads as follows:
+	_____________________________
+
+	"A Record of Anatomical & Behavioural Mutations in Local Apiform Life"
+            Dr. Malcolm J. Fitzwold, Sarkalouga University
+
+            This study addresses an indigenous species of bee, the Common Sarkalougan (Apis Sarkalougous Mellifera, bred at the university) and its hybrid with an exogenous species, the Africanized Honey Bee or "Killer Bee"(Apis  Millifera Scutellata, imported from Brasil).  These species have been crossbreeding since the early days of Sarkalouga University's establishment,  and have produced normal offspring with two eyes & six legs.  Notable amongst samples of both species at the university is the relatively high rate of giganticism.  The anomaly is noteworthy; non-behaviourally affective & harmless by itself in original bee species as well as subsequent hybrids, the presence of certain pollutants may otherwise explain the strange behaviour recorded in my previously published article (see Apiary Chronicle, Issue 42, Vol. IV) .
+
+            To summarise the previous article, a series of events introducing trace amounts of klarthotium into the local atmosphere & soil have produced three distinct mutations in local apiform life.  The first in 1972 caused larvae to develop a third compound eye as they entered adulthood.  The second in 1974 caused larvae to develop only two hind legs and a pair of pincers mounted on the abdomen.  In 1975, a mutation created three-eyed,  two-legged bees (whereas previous mating of three-eyed bees with two-legged bees had not been able to produce viable offspring).  Exposure to klarthotium appears to have incited aggression and hostility by conjectured mechanism of klarthotium on stem cell development in larvae and influences on neurotransmitter activity in adulthood.  
+
+            EMERGENCY.  Experiment cannot continue… mass contamination, all specimens affected… bees have revolted!  The KING OF ALL EVIL has led the mutants into the old salt mines-- for fear of my life I dare not follow-- yet it is only a matter of time before they rise up and seek their revenge!
+
+	_____________________________
+
+	Enter D to delete this message from the archives or enter X to return to the main menu.
+
+
+> x
+
+
+
+
+
+Welcome to the MAWINDEX information archive.
+	Please enter the number of the archived file you wish to view.
+	______________________________________
+
+		<1> Message from your Local Aether Matrix Provider
+		  (archived 9/13/85)
+
+		<2> INSECT RESEARCH LOG
+		  (archived 8/31/85)
+
+		<3> Record of Anatomical & Behavioural Mutations in Sarkalouga's Local Apiform Life
+		  (archived 7/28/78)
+
+		<4> (empty slot)
+		
+
+		<5> (empty slot)
+		
+
+	______________________________________
+
+	Enter X to return to the main menu.
+  
+
+> x
+
+
+
+
+
+
+
+Loading Main Menu
+
+
+
+
+
+
+Welcome to MAWINDEX main menu.
+
+Greetings, Doctor Fitzwold!  Today's date is 09/14/1985.
+_____________________________
+
+				<M>AILBOX.
+				<A>RCHIVES.
+				<W>ORD PROCESSOR.
+				<I>NTRODUCTION/INFORMATION.
+				<N>ETWORK ACCESS.
+				<D>OMESTIC TASKS.
+				<E>NERGIZE UFO LASER DEFENCE UNIT.
+				E<X>IT.
+
+_____________________________
+
+				To select an option, please enter the letter of the path and press the return key.  
+
+> w
+
+
+
+
+
+
+
+Loading Word Processor	
+
+
+
+
+		Welcome to MAWINDEX word processor.
+
+		_____________________________
+
+		Please feel free to type at your leisure.
+		AVOID: capital letters & punctuation marks.
+		Upon saving, your machine will connect to
+		  your Local Aether Matrix Provider & run
+		  your message through punctuation input
+		  & orthographical correction algorithms
+		  [PIOCA] for your continued convenience.
+		Please do not save drafts to archives if you are
+		  experiencing difficulty connecting to your
+		  Local Aether Matrix, as it could damage
+		  your machine.
+
+		_____________________________
+
+		Enter X to return to the main menu.  
+
+> this is doctor fitzwold recording a test message
+
+
+File preview:
+_____________________________
+
+this is me recording a test message
+
+_____________________________
+
+To save this file in the Archives, enter A.  Start a new draft, enter N.  Enter X to return to the main menu.  
+
+> x
+
+
+
+
+
+
+
+Loading Main Menu
+
+
+
+
+
+
+Welcome to MAWINDEX main menu.
+
+Greetings, Doctor Fitzwold!  Today's date is 09/14/1985.
+_____________________________
+
+				<M>AILBOX.
+				<A>RCHIVES.
+				<W>ORD PROCESSOR.
+				<I>NTRODUCTION/INFORMATION.
+				<N>ETWORK ACCESS.
+				<D>OMESTIC TASKS.
+				<E>NERGIZE UFO LASER DEFENCE UNIT.
+				E<X>IT.
+
+_____________________________
+
+				To select an option, please enter the letter of the path and press the return key.  
+
+> intro
+
+
+
+
+
+
+
+Loading Introduction/Information
+
+
+
+
+
+	Welcome to MAWINDEX introduction/information menu.
+	What assistance do you require?
+	________________________________
+
+	<U>seful advice & Tutorial information
+	<V>erb list
+	<H>int decryption matrix
+	________________________________
+
+	Enter X to return to the main menu.
+	  
+
+> u
+	
+	Useful Advice
+	_______________________________
+
+	_ Dung Beetles Are Aliens! is best viewed in a full-screen window with the in-game map on the screen.  To activate the map, open the "Options" tab at the top of ADRIFT Runner's main window and select "Display & Media."  From the "Layout" tab of the "Display & Media" window, choose a screen layout with a map feature.  Dung Beetles Are Aliens! does not use the graphics window.  For ideal results, choose the screen layout with the map on the right-hand side.  If text in the MAWINDEX Mainframe appears lopsided, adjust the window at right by clicking and sliding the edge of the frame.
+
+	_In core gameplay (when logged off MAWINDEX), try to make sure you examine all of your surroundings.  You may wish to type the shortcuts "z" or "x" instead of "examine," or you may press F1 to bring up the handy-dandy control panel, which accomodates a mouse.  However, it may be impossible to beat the game solely using the control panel.  You cannot interact with MAWINDEX Mainframe using the control panel.
+
+	_You can ease typing strain by using the term "it" to refer to the object you have most recently referred to and by using "all" to avoid  typing long lists (i.e. "take all from table").  Also remember that you must be holding most objects in order to interact with them.
+
+	_You may find it helpful to view the verb list in MAWINDEX's help menu.
+
+	_Activating the map display could help you immensely.
+
+	_Don't pick a fight with a Zegathean war slug.
+	
+	_Read.
+
+	_______________________________
+
+	IN-GAME TUTORIAL INFORMATION IS: ON
+	_______________________________
+
+	Enter T to toggle tutorial information ON/OFF, or enter X to return to the introduction/information menu.  
+
+> t
+	
+	Useful Advice
+	_______________________________
+
+	_ Dung Beetles Are Aliens! is best viewed in a full-screen window with the in-game map on the screen.  To activate the map, open the "Options" tab at the top of ADRIFT Runner's main window and select "Display & Media."  From the "Layout" tab of the "Display & Media" window, choose a screen layout with a map feature.  Dung Beetles Are Aliens! does not use the graphics window.  For ideal results, choose the screen layout with the map on the right-hand side.  If text in the MAWINDEX Mainframe appears lopsided, adjust the window at right by clicking and sliding the edge of the frame.
+
+	_In core gameplay (when logged off MAWINDEX), try to make sure you examine all of your surroundings.  You may wish to type the shortcuts "z" or "x" instead of "examine," or you may press F1 to bring up the handy-dandy control panel, which accomodates a mouse.  However, it may be impossible to beat the game solely using the control panel.  You cannot interact with MAWINDEX Mainframe using the control panel.
+
+	_You can ease typing strain by using the term "it" to refer to the object you have most recently referred to and by using "all" to avoid typing long lists (i.e. "take all from table").  Also remember that you must be holding most objects in order to interact with them.
+
+	_You may find it helpful to view the verb list in MAWINDEX's help menu.
+
+	_Activating the map display could help you immensely.
+
+	_Don't pick a fight with a Zegathean war slug.
+	
+	_Read.
+
+	_______________________________
+
+	IN-GAME TUTORIAL INFORMATION IS: OFF
+	_______________________________
+
+	Enter T to toggle tutorial information ON/OFF, or enter X to return to the introduction/information menu.  
+
+> t
+	
+	Useful Advice
+	_______________________________
+
+	_ Dung Beetles Are Aliens! is best viewed in a full-screen window with the in-game map on the screen.  To activate the map, open the "Options" tab at the top of ADRIFT Runner's main window and select "Display & Media."  From the "Layout" tab of the "Display & Media" window, choose a screen layout with a map feature.  Dung Beetles Are Aliens! does not use the graphics window.  For ideal results, choose the screen layout with the map on the right-hand side.  If text in the MAWINDEX Mainframe appears lopsided, adjust the window at right by clicking and sliding the edge of the frame.
+
+	_In core gameplay (when logged off MAWINDEX), try to make sure you examine all of your surroundings.  You may wish to type the shortcuts "z" or "x" instead of "examine," or you may press F1 to bring up the handy-dandy control panel, which accomodates a mouse.  However, it may be impossible to beat the game solely using the control panel.  You cannot interact with MAWINDEX Mainframe using the control panel.
+
+	_You can ease typing strain by using the term "it" to refer to the object you have most recently referred to and by using "all" to avoid typing long lists (i.e. "take all from table").  Also remember that you must be holding most objects in order to interact with them.
+
+	_You may find it helpful to view the verb list in MAWINDEX's help menu.
+
+	_Activating the map display could help you immensely.
+
+	_Don't pick a fight with a Zegathean war slug.
+	
+	_Read.
+
+	_______________________________
+
+	IN-GAME TUTORIAL INFORMATION IS: ON
+	_______________________________
+
+	Enter T to toggle tutorial information ON/OFF, or enter X to return to the introduction/information menu.  
+
+> x
+
+	
+
+
+
+	Welcome to the MAWINDEX introduction/information menu.
+	What assistance do you require?
+	________________________________
+
+	<U>seful advice & Tutorial information
+	<V>erb list
+	<H>int decryption matrix
+	________________________________
+
+	Enter X to return to the main menu.
+	  
+
+> v
+
+
+	Displaying Dung Beetles Are Aliens! verb list.
+	_________________________
+
+	GET		TAKE		PICK UP
+	CLIMB		OPEN		CLOSE
+	NORTH	WEST		SOUTH
+	EAST		UP		DOWN
+	IN		OUT		READ
+	LOOK		EXAMINE	HIDE
+	SHOOT	SIT		STAND
+	LAY ON	TURN ON	TURN OFF
+	WEAR		REMOVE	PUT
+	RESTART	END		RESTORE
+	TALK		PRESS		PUSH
+	PULL		SWAT		EAT
+	DRINK		FEED		JUMP
+	DROP		THROW	GIVE 
+	LOCK		UNLOCK	INVENTORY
+	SAVE		WAIT		FLICK
+
+These are just some of the verbs you may use while playing Dung Beetles Are Aliens!.  Some other verbs will be hinted at contextually.  There may be other verbs you can discover through your own experimentation.  To discover the use of a verb from the verb list, please enter the name of the verb as it appears and press the enter key.  To re-display the verb list, type "verb" or "v" and press enter.
+
+Please note: the listed verb functions only work outside of the MAWINDEX portion of the game.
+	_________________________
+
+	Enter X to return to the introduction/information menu.  
+
+> verb
+
+
+	Displaying Dung Beetles Are Aliens! verb list.
+	_________________________
+
+	GET		TAKE		PICK UP
+	CLIMB		OPEN		CLOSE
+	NORTH	WEST		SOUTH
+	EAST		UP		DOWN
+	IN		OUT		READ
+	LOOK		EXAMINE	HIDE
+	SHOOT	SIT		STAND
+	LAY ON	TURN ON	TURN OFF
+	WEAR		REMOVE	PUT
+	RESTART	END		RESTORE
+	TALK		PRESS		PUSH
+	PULL		SWAT		EAT
+	DRINK		FEED		JUMP
+	DROP		THROW	GIVE 
+	LOCK		UNLOCK	INVENTORY
+	SAVE		WAIT		FLICK
+
+These are just some of the verbs you may use while playing Dung Beetles Are Aliens!.  Some other verbs will be hinted at contextually.  There may be other verbs you can discover through your own experimentation.  To discover the use of a verb from the verb list, please enter the name of the verb as it appears and press the enter key.  To re-display the verb list, type "verb" or "v" and press enter.
+
+Please note: the listed verb functions only work outside of the MAWINDEX portion of the game.
+	_________________________
+
+	Enter X to return to the introduction/information menu.  
+
+> x
+
+
+
+
+
+	Welcome to the MAWINDEX Introduction/Information.
+	What assistance do you require?
+	________________________________
+
+	<U>seful advice & Tutorial information
+	<V>erb list
+	<H>int decryption matrix
+	________________________________
+
+	Enter X to return to the main menu.
+	  
+
+> h
+
+
+	Welcome to MAWINDEX Hint Decryption Matrix!
+		Please enter the first three digits of the hint you wish to view.
+	________________________________________________
+	
+	001> /0926)(^%!#ggue_-
+	
+	002> AD00_%(@mu7141;
+
+	________________________________________________
+
+	Enter X to return to the introduction/information menu.  
+
+> 001
+Hint 001 has not yet been decoded.  
+
+> x
+
+
+
+
+
+	Welcome to the MAWINDEX introduction/information menu.
+	What assistance do you require?
+	________________________________
+
+	<U>seful advice & Tutorial information
+	<V>erb list
+	<H>int decryption matrix
+	________________________________
+
+	Enter X to return to the main menu.
+	  
+
+> x
+
+
+
+
+
+
+
+Loading Main Menu
+
+
+
+
+
+
+Welcome to MAWINDEX main menu.
+
+Greetings, Doctor Fitzwold!  Today's date is 09/14/1985.
+_____________________________
+
+				<M>AILBOX.
+				<A>RCHIVES.
+				<W>ORD PROCESSOR.
+				<I>NTRODUCTION/INFORMATION.
+				<N>ETWORK ACCESS.
+				<D>OMESTIC TASKS.
+				<E>NERGIZE UFO LASER DEFENCE UNIT.
+				E<X>IT.
+
+_____________________________
+
+				To select an option, please enter the letter of the path and press the return key.  
+
+> n
+
+
+
+
+
+
+
+Loading Network Access
+
+
+
+
+
+Welcome to your local MAWINDEX Network.
+
+[WARNING: Your Mainframe is currently quarantined from the Local Aether Matrix.   News Articles available-- other Matrix functions disabled while under quarantine.  For assistance, please contact your Local Aether Matrix Provider.]
+	______________________________________
+
+	<N>EWS ARTICLES.
+
+	<D>ETAIL DISABLED FUNCTION(S).
+
+	______________________________________
+
+	Enter X to return to the main menu.  
+
+> n
+
+
+
+
+
+
+
+Loading News Articles
+
+
+
+
+
+Welcome to MAWINDEX News Updater.
+Doctor Fitzwold, there are currently 2 news articles that match your preferences.
+
+Please enter the number of the article you wish to read.
+	______________________________________
+
+	<1> "Dung Beetles Are Aliens!"
+
+	<2> "Unidentified Object Lands in Mountains South of Sarkalouga!"
+
+	______________________________________
+
+	Enter X to return to the network access menu.  
+
+> 2
+
+
+	News Article #2 is as follows:
+	___________________________________________
+	Publication:		The Atmospheric Observer
+	Article:			"Unidentified Objects Lands in the Mountains South of Sarkalouga!"
+	Author: 		Joachim Hakim.
+	Release Date:		09/14/85
+
+     Astronomers observed a large object falling through the atmosphere last night at 6:05 AM, Eastern Standard Time.
+     Astronomers say the object is massive enough and sustained little enough damage during re-entry that search parties should find it intact just south of the mountains surrounding  Sarkalouga, Georgia.  The object remains, as yet, unidentified. 
+     A majority of astronomers interviewed support the prevailing skeptical claim that it was likely some form of meteorite.
+     "I was actually the first one to catch sight of it," says Dr. Philton Begelski. "I'm not entirely sure how no-one else at the station saw it, but these things happen." 
+     According to Begelski, the object could not have been an alien craft, as it "didn't have the right shape."  He also added: "I deal with this sort of thing everyday.  I'm far past the point of getting excited every time I see something fall down to the Earth.  I wish this sort of thing got less publicity so I could[…] quit getting hassled about little, green men every five minutes."  
+     Some groups, however, reject Begelski's meteor and insist on the UFO theory.
+     "This supposed meteor traveled the entire distance through our atmosphere without sustaining any  damage," says John Colland, a member of Aliens Are Among Us.  "Terrestrial metals don't have that kind of structural integrity.  What we are dealing with is not a random cluster of rocks-- this object has to have been intelligently crafted, and that can only mean that it is a craft of some alien origin."
+     Begelski insists that this is "screwy logic."
+     Although many are eager to begin inspection of the object's landing site, the debris thrown up by the object's planetfall has obstructed paths into the mountains.  Sarkalouga police have barricaded all but main entrances into the mountains for security reasons while police decide how to  handle this situation.     
+     Local construction crews hope to have the debris cleared away within a week.
+	
+     	___________________________________________
+	
+	Enter A to archive this page or enter X to return to the news menu, 	
+
+
+> x
+
+
+
+
+
+Welcome to MAWINDEX News Updater.
+Doctor Fitzwold, there are currently 2 news articles that match your preferences.
+
+Please enter the number of the article you wish to read.
+	______________________________________
+
+	<1> "Dung Beetles Are Aliens!" 
+
+	<2> "Unidentified Object Lands in Mountains South of Sarkalouga!"
+
+	______________________________________
+
+	Enter X to return to the network access menu.  
+
+> d
+You can't go in any direction!  
+
+> x
+
+
+
+
+
+
+
+Loading Network Access
+
+
+
+
+
+Welcome to your local MAWINDEX Network.
+
+[WARNING: Your Mainframe is currently quarantined from the Local Aether Matrix.   News Articles available-- other Matrix functions disabled while under quarantine.  For assistance, please contact your Local Aether Matrix Provider.]
+	______________________________________
+
+	<N>EWS ARTICLES.
+
+	<D>ETAIL DISABLED FUNCTION(S).
+
+	______________________________________
+
+	Enter X to return to the main menu.  
+
+> x
+
+
+
+
+
+
+
+Loading Main Menu
+
+
+
+
+
+
+Welcome to MAWINDEX main menu.
+
+Greetings, Doctor Fitzwold!  Today's date is 09/14/1985.
+_____________________________
+
+				<M>AILBOX.
+				<A>RCHIVES.
+				<W>ORD PROCESSOR.
+				<I>NTRODUCTION/INFORMATION.
+				<N>ETWORK ACCESS.
+				<D>OMESTIC TASKS.
+				<E>NERGIZE UFO LASER DEFENCE UNIT.
+				E<X>IT.
+
+_____________________________
+
+				To select an option, please enter the letter of the path and press the return key.  
+
+> d
+
+
+
+
+
+
+
+Loading Domestic Tasks
+
+
+
+
+
+Which tasks would you like to have performed?
+		_____________________________
+
+		   <D>ump trash contents.
+		   <F>an operation.
+		   <L>ock/unlock entrances.
+		   <S>terilize refrigerator.
+
+		_____________________________
+
+		Enter X to return to the main menu.  
+
+> d
+
+
+
+
+
+
+Please enter the name of the object(s) inside of the dust bin which you wish to send to the dump, or enter X to return to the main domestic tasks menu.
+	________________________________________
+
+	NOTICE: Bin is empty.
+
+
+
+
+> x
+
+
+
+
+
+Which tasks would you like to have performed?
+		_____________________________
+
+		   <D>ump trash contents.
+		   <F>an operation.
+		   <L>ock/unlock entrances.
+		   <S>terilize refrigerator.
+
+		_____________________________
+
+		Enter X to return to the main menu.  
+
+> f
+
+	
+	
+
+
+
+
+Checking Fan Status...
+
+Fans are now: 
+ACTIVATED.
+	
+Press any key to return to the domestic task menu.
+
+
+
+
+
+
+Which tasks would you like to have performed?
+		_____________________________
+
+		   <D>ump trash contents.
+		   <F>an operation.
+		   <L>ock/unlock entrances.
+		   <S>terilize refrigerator.
+
+		_____________________________
+
+		Enter X to return to the main menu.  
+
+> l
+
+
+
+Which entrances do you wish to lock or unlock?
+
+	______________________________________
+
+	<F>ront door.
+	<B>ack door.
+	<U>pstairs window.
+
+	______________________________________
+
+	Notice: Entrances to be locked/unlocked must be closed or system will encounter error 09817J.
+	Enter X to return to the main menu.  
+
+> x
+
+
+
+
+
+Which tasks would you like to have performed?
+		_____________________________
+
+		   <D>ump trash contents.
+		   <F>an operation.
+		   <L>ock/unlock entrances.
+		   <S>terilize refrigerator.
+
+		_____________________________
+
+		Enter X to return to the main menu.  
+
+> s
+
+	
+	
+
+
+
+
+Sterilizing Refrigerator...
+
+Your refrigerator is now free of bacterial and/or viral contaminants. 
+
+	
+Press any key to return to the domestic task menu.
+
+
+
+
+
+
+Which tasks would you like to have performed?
+		_____________________________
+
+		   <D>ump trash contents.
+		   <F>an operation.
+		   <L>ock/unlock entrances.
+		   <S>terilize refrigerator.
+
+		_____________________________
+
+		Enter X to return to the main menu.  
+
+> x
+
+
+
+
+
+
+
+Loading Main Menu
+
+
+
+
+
+
+Welcome to MAWINDEX main menu.
+
+Greetings, Doctor Fitzwold!  Today's date is 09/14/1985.
+_____________________________
+
+				<M>AILBOX.
+				<A>RCHIVES.
+				<W>ORD PROCESSOR.
+				<I>NTRODUCTION/INFORMATION.
+				<N>ETWORK ACCESS.
+				<D>OMESTIC TASKS.
+				<E>NERGIZE UFO LASER DEFENCE UNIT.
+				E<X>IT.
+
+_____________________________
+
+				To select an option, please enter the letter of the path and press the return key.  
+
+> e
+
+
+
+
+
+
+
+Energizing UFO Laser Defence Unit...
+
+
+
+ERROR!
+ENCOUNTERED ERROR C1148Z WHILE ATTEMPTING TO ENERGIZE UFO LASER DEFENCE UNIT.  PLEASE MAKE SURE UFO LASER DEFENCE UNIT IS TURNED ON & PROPERLY SUPPLIED WITH POWER STORAGE UNIT.  PLEASE ENSURE THAT THE RECEIVER IS PLACED FIRMLY ATOP YOUR MAWINDEX MAINFRAME.
+
+Press any key to return to the main menu.
+
+
+
+
+
+
+
+Welcome to MAWINDEX main menu.
+
+Greetings, Doctor Fitzwold!  Today's date is 09/14/1985.
+_____________________________
+
+				<M>AILBOX.
+				<A>RCHIVES.
+				<W>ORD PROCESSOR.
+				<I>NTRODUCTION/INFORMATION.
+				<N>ETWORK ACCESS.
+				<D>OMESTIC TASKS.
+				<E>NERGIZE UFO LASER DEFENCE UNIT.
+				E<X>IT.
+
+_____________________________
+
+				To select an option, please enter the letter of the path and press the return key.  
+
+> x
+
+
+
+
+
+
+
+Logging Off...
+
+
+
+The Laboratory
+You have spent the past eleven years in this room, studying insects for the SETI program.  The specimen table dominates the main area of the laboratory.  Across the wall behind it sprawl the several tin boxes that make up your MAWINDEX computer mainframe.  The sputtering and whirring of the fan overhead buffets the room's eternal staleness.  The back room of your abode is to the north, and a flight of stairs leads up to your personal chambers.  The front door of your abode leads out from here, and it is closed.
+
+_____________________________
+
+YOU HAVE NOW ENTERED CORE GAMEPLAY
+
+Use the names of cardinal directions or "up", "down", "in", or "out" to move your character.  Reading the room description will help you determine where you can move, as will activating the map function on your ADRIFT Runner.
+
+Use "look"  followed by an object to gain further description of an object, or use "look" by itself to re-display the room description.
+
+You won't get anywhere without picking up or taking a few things, but your inventory space is limited.  Therefore, it is not necessary to take everything.  Type "inventory" or "i" to display your inventory.
+
+I see you've already had a look at the verb list.
+
+Tutorial messages such as this will only be shown once.  To turn off tutorial descriptions, deactivate the tutorial, listed under the MAWINDEX's introduction/information menu.  To see them again, re-activate tutorial information in the same manner.
+_____________________________  
+
+> look at specimen table
+Its black, once sleek and polished surface is now covered with the graffiti of age and experiment.  On the specimen table is a specimen cage, a Geiger counter, a pair of gas goggles, a flashlight and a bug translating helmet.  
+
+> get flashlight
+You take the flashlight from the specimen table.  
+
+> get geiger counter
+You take the Geiger counter from the specimen table.  
+
+> i
+You are wearing your everyday clothes and your lab coat, and you are carrying a Geiger counter and a flashlight.  
+
+> n
+[[That would lead to the back room, where you keep your refrigerator, and from whence the UFO laser defence unit & the woodland trail to your old research project can be reached.  Unfortunately, this room is not available in the intro version.]]  
+
+> u
+[[That would lead to your bedroom, where you keep your moths.  Unfortunately, this room is not available in the intro version.]]  
+
+> open door
+You open the front door.  
+
+> out
+You move out.
+The Doorstep
+Your doorstep is in relatively good shape, compared to the building it leads into.  The front door of your laboratory is here, open.  A secluded meadow spreads itself across the reaches to the south.  Also here is a Zegathean war slug.  
+
+The Zegathean war slug demands proper tribute before allowing you to leave your domicile.  
+
+"Pathetic human-creature!" bellows the slug.  "The Empire will not be trifled with!"  
+
+> south
+The Zegathean war slug waves its death ray gun about and shouts, "Inferior vertebrate slime! You shall not pass!"  
+
+> examine slug
+
+          _     _
+           \   /
+           _\_/_
+          /      \
+         ( \ /    )
+         (O   O   )
+          \      /
+ <((___}   \M   /
+       \   /    \
+          /      \_________
+          \                \
+           \________________\
+
+
+35 millimetres of mucous-slick terror!  The Zegathean war slug looks short-tempered and brandishes a death ray gun.  
+
+> talk to slug
+
+          _     _
+           \   /
+           _\_/_
+          /      \
+         ( \ /    )   "Miserable human life form!
+         (O   O   )    Mucusless vacuum-head!
+          \      /     We don't like you."
+ <((___}   \M   /  /
+       \   /    \
+          /      \_________
+          \                \
+           \________________\
+
+
+The Zegathean war slug says a few not-so-nice things about Earthlings, and carries on demanding tribute for its superiors.
+
+*	*	*
+
+You say:	
+		1)  What are you doing on my doorstep?
+		2)  What sort of tribute are you looking for?
+		3)  That's a nice-looking ray gun you've got, there.
+		4)  I'm confused.  How can I beat this intro?
+
+Enter the number of the dialog option you wish to choose, or enter X to exit dialog.  
+
+> 2
+
+          _     _
+           \   /
+           _\_/_
+          /      \
+         ( \ /    )	"Zegathea requires you
+         (^   ^   )	 surrender your weapons, or
+          \      /	 produce an enemy corpse."
+ <((___}   \M   /  /
+       \   /    \
+          /      \_________
+          \                \
+           \________________\
+
+
+  
+
+*	*	*
+
+You say:	
+		1)  What are you doing on my doorstep?
+		2)  What manner of corpse would suffice?
+		3)  That's a nice-looking ray gun you've got, there.
+		4)  I'm confused.  How can I beat this intro?
+
+Enter the number of the dialog option you wish to choose, or enter X to exit dialog.  
+
+> x
+
+
+You stop talking to the Zegathean war slug.
+
+The Doorstep
+Your doorstep is in relatively good shape, compared to the building it leads into.  The front door of your laboratory is here, open.  A secluded meadow spreads itself across the reaches to the south.  Also here is a Zegathean war slug.  
+
+"Destruction!"  
+
+> give flashlight to slug
+The Zegathean war slug scoffs at your offering.  "Cease your impudence, you inferior life form!  This is not an acceptable tribute to the Zegathean Empire.  Bring me something else!"  
+
+> in
+You move in.
+The Laboratory
+You have spent the past eleven years in this room, studying insects for the SETI program.  The specimen table dominates the main area of the laboratory.  Across the wall behind it sprawl the several tin boxes that make up your MAWINDEX computer mainframe.  The stillness of the ceiling fan reinforces the quiet of the surrounding wilderness.  The back room of your abode is to the north, and a flight of stairs leads up to your personal chambers.  The front door of your abode leads out from here, and it is open.  

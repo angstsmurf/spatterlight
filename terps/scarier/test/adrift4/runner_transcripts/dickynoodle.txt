@@ -1,0 +1,240 @@
+
+> n
+You move north.
+The guardhouse
+You enter a dark, and hideously smelling guardhouse. There's a dead guard lying slumped on the floor. You wonder why someone didn't call 911.  Also here is a skeleton key.  You can only move south.
+
+> take key
+You take the key.
+
+> s
+You move south.
+A field before a large castle
+You stand on a field of freshly mown grass, in front of a massive stone structure. Within it's walls dwells the Mayor Of Noodleville (aka your uncle). He's a noble man but a lonely one. There's a very big door in front of you.  You can move north and northeast.
+
+> ne
+You move northeast.
+A road to Noodleville
+A long and winding road (please Paul don't sue) to the succulent town of Noodleville. Population : 375  You can move northeast and southwest.
+
+> ne
+You move northeast.
+Noodleville's Town Square
+You step in the grandest of grands and the holiest of holies. This is the sumptuous Noodleville Town Square. The street ahead of you is blocked off by several sawhorses, and flashing emergency lights. It looks as if a lot of the townfolks left the town in a blast of panic and an orgy of violence. You shudder at the thought of normal folks suddenly going completely fucking bonkers.  You can move north and southwest.
+
+> n
+You move north.
+"Clicker's Candy & Cookie Store"
+You enter "Cicker's Candy & Cookie Store". Your senses are flooded with a host of luxeriant smells, and memories of your childhood roar through your head. The owner "Clicker" doesn't appear to be around.  You can move north and south.
+
+> n
+You move north.
+Behind the "Clicker's" counter
+You are standing behind the counter of "Clicker's".  You can move north and south.
+
+> n
+You move north.
+The "Clicker's" store basement
+You descend a set of steep steps and you find yourself at the beginning of a rather intricate maze of rooms. In one direction is the kitchen, in another a storage room, and in yet another a bathroom. It's unlit, and it smells like someone's been feasting on the living down here.  You can move north, east, south and west.
+
+> n
+You move north.
+The kitchen in "Clicker's" basement
+You enter the kitchen and what you see before your eyes is absolutely horrific. Between two very large ovens, a dead woman is tied to a chair. Or at least you think she's a woman because her head is half eaten off. Yuck !. There's a gun at her feet and, despite the fact this is a very non-violent game, that darn gun might come in handy in order for you to make it to the end alive.  Also here is a gun.  You can only move south.
+
+> take gun
+You pick up the gun, and twirl it around like a regular Clint Eastwood / John Wayne type cowboy. Boy i bet you feel like a big man now dontcha ?.
+
+> s
+You move south.
+The "Clicker's" store basement
+You descend a set of steep steps and you find yourself at the beginning of a rather intricate maze of rooms. In one direction is the kitchen, in another a storage room, and in yet another a bathroom. It's unlit, and it smells like someone's been feasting on the living down here.  You can move north, east, south and west.
+
+> e
+You move east.
+The bathroom in "Clicker's" basement
+It's a regular ordinary bathroom. Move along folks nothing to see here.  Also here is a crucifix.  You can only move west.
+
+> take crucifix
+You scoop up the crucifix and you're immediately filled with peace and love and the urge to hug someone ... awwwwwwwww.
+
+> w
+You move west.
+The "Clicker's" store basement
+You descend a set of steep steps and you find yourself at the beginning of a rather intricate maze of rooms. In one direction is the kitchen, in another a storage room, and in yet another a bathroom. It's unlit, and it smells like someone's been feasting on the living down here.  You can move north, east, south and west.
+
+> w
+You move west.
+The storage room in "Clicker's" basement.
+This is a very large room containing several large boxes full of all sorts of (probably rotten with age) goodies. There's a small window up above a huge pile of boxes. You walk deeper into the room and, mysteriously, the door behind you slam's shut and locks itself tighter than Toby's arse. Woops !.  Also here is a window.
+
+> break window
+You climb the boxes, and smash the window inwards.  
+A back alley behind "Clicker's"
+You crawl through the window, and into a deep, and dark alleyway.  You can only move east.
+
+> e
+You move east.
+Washington St.
+It's a street which branches off into several avenues, more streets, and a few fancy boulevards.  You can move east and west.
+
+> e
+You move east.
+A crooked house - front door
+You land on the front step of a very strange little home. You look at the plaque above the mailbox : "504 Washington St. - Agatha Thornblatt". Oh my it's the home of your uncle's supposed mistress. Oh imagine that !. IF you found the key you should be able to just walk NORTH into the house. If not ... tough titty.  You can move north, east and west.
+
+> n
+You move north.
+Agatha's Livingroom
+You're standing in your uncle's sluts livingroom. It smells of perfume and interestingly enough of some type of flavored sexual lubricant. There are rooms in all directions, an upstairs, and a downstairs.  You can move south and up.
+
+> u
+You move up.
+Upstairs Hallway - Agatha's House
+It's a hallway ring-a-ding-ding.  You climb up the stairs into the hallway. Agatha is standing there winking at you seductively. She's 68 years old and completely buck naked *shudder*. "Oh you bad bad boy .... you're looking for your uncle .... aren't you ? ... so's half the town i'm afraid that's why this goddamn place is suddenly deserted ... half the people are hunting for that prick uncle of yours and the other half have just gone fucking mad !"  You can only move down.
+
+> kill agatha
+You raise the pistol and blow a hole through Agatha's face. She slumps to the rug.
+
+> take map
+You scoop up the map.
+
+> d
+You move down.
+Agatha's Livingroom
+You're standing in your uncle's sluts livingroom. It smells of perfume and interestingly enough of some type of flavored sexual lubricant. There are rooms in all directions, an upstairs, and a downstairs.  You can move south and up.
+
+> s
+You move south.
+A crooked house - front door
+You land on the front step of a very strange little home. You look at the plaque above the mailbox : "504 Washington St. - Agatha Thornblatt". Oh my it's the home of your uncle's supposed mistress. Oh imagine that !. IF you found the key you should be able to just walk NORTH into the house. If not ... tough titty.  You can move north, east and west.
+
+> e
+You move east.
+The road to the old fart's ...
+You begin on the path toward the next piece of the puzzle. It's long, full of ruts, and a cold wind seems to have contained itself on this long an lonely stretch.  You can move north and west.
+
+> n
+You move north.
+A road to the old man's shack
+You continue on your path to adventure and to wonder, suddenly, stumbling upon a leaning and dilapitaed old shack. There's large amounts of overgrowth, and stink surrounding this sad building and you get the sense that much suffering has taken place in it's walls.  You can move south, in and southeast.
+
+> in
+You move in.
+Inside the one room shack
+You step into the one room shack, and you're overwhelmed with the stench of animal feces. There's a rotten and usless cot in one corner, a broken down stove in the other, and in the middle of it all a bare table.  It's the nicest part of the entire pathetic place.  Also here is a candle.  You can only move out.
+
+> take candle
+Well played old chap !!. Bravisimo !!. You've found the FIRST of many, many hidden areas in the game. The moment you grabbed the candle stick, you activivated the trapdoor causing you to tumble downward in the dark. As  you did you let out a sissy-rific scream of horror. Not to worry though it was a short trip and a completely safe one at that. You *SLAMMED* into a cold stone floor and though slightly dazed you manage to adjust your eyes to the dim candlelight that lines the anicent stone walls.  There are many exciting and some deadly rooms in all directions. Where will you go now dear boy ?
+
+> s
+You move south.
+The Moolah Room !! --- MONEY !!! MONEY !!! MONEY !!!
+You enter the rockingest, the rollingest, and the raunchiest room on planet earth. There's fucking money everywhere.  Wow ! ... oh but one thing ... every pile of bills is safe to take except for one. THAT one dangerous pile of bills will kill you the moment you take it. The rest are fine and can be used for a variety of purchases in "Underground Town". If you're lucky you can pick up 7 of 8 piles without getting the deadly pile. Good Luck !.  Also here is a pile of twenties, a pile of ones, a pile of fives, a pile of fifties, a pile of hundreds, a pile of five hundreds and a pile of thousands.  You can only move north.
+
+> drop key
+You drop the skeleton key.
+
+> drop map
+You drop the map.
+
+> drop candle
+You drop the candle.
+
+> take a pile of ones
+You pick up the pile of ones.
+
+> take a pile of fives
+You pick up the pile of fives.
+
+> take a pile of fifties
+You pick up the pile of fifties.
+
+> take a pile of hundreds
+You pick up the pile of hundreds.
+
+> take a pile of five hundreds
+You pick up the pile of five hundreds.
+
+> n
+You move north.
+Secret Area #1
+Many exits. Some to fun and some to death .... wooohoo !! (oh i hope at this point you have the gun)  You can move north and south.
+
+> n
+You move north.
+"UNDERGROUND TOWN !" Front Desk
+You approach the front desk of what's either a hotel or a town. Well okay it's a town but who the hell cares right ?. There's a very nice young lady standing behind a long wooden desk waiting to give you entrance to the town she's head chick of.  You can only move south.
+
+> buy room
+You buy the best and only the best room in "Underground Town" !  
+"Underground Town" Penthouse !
+You're standing in a luxerious room that inspires thoughts of wealth and pleasure. Everything is marble, and  gold and the absolute finest of cloths from the Orient. Excellent room choice if you ask me. There's a balcony, a bathroom, a closet, a television set, and of course there's a closet.  Also here is a television and a remote.
+
+> take remote
+You take the remote, and turn on the giant television in front of you. You suddenly realize that something is not right. The room changes around you and oopsies you're suddenly in an entirely different time and place. It's TVLand ! And guess what ? ... we'll be starting our journey through TV's Greatest Hits at "Mel's Diner"
+
+> sit stool
+Ahhhhh .... finally a chance for a seat.
+
+> buy food
+You pick up a menu, order a "Sloppy Mel" (i wonder if you can get "Sloppy Seconds" ?). Flo drops it down in front of you with a wink and a smile. "It's on the house cutie".
+
+> eat food
+You gobble down your dinner, and suddenly you hear a very, very strange and upsetting sound coming from behind the diner (for the learning impaired gamer that would be 2 north). You panic .... what to do ?! what to do ?!. Of course the waitresses don't panic because they are professional television personalities and professional television personalities NEVER panic.
+
+> n
+(Getting off that first)
+You move north.
+Mel's kitchen
+It's Mel's and it's a kitchen.  You can move north and south.
+
+> n
+You move north.
+KITT's front seat
+You're sitting in the front seat of that classic talking car ... KITT ... i wonder where David Hasselhoff is ? ... and I wonder how KITT feels about being ridden by a new man ? From now on (as long as you're inside KITT) you must DRIVE in each direction.Typing "North" "South" "East" or "West" whilst behind the wheel won't take you anywhere. (I.E. : Drive North, etc.). From here you can "Drive North"
+
+> drive north
+You drive KITT North to North St.
+
+> drive east
+You drive east, and well unfortunately you end up driving directly into a carload of nuns (boy is YOUR face red). But fear not for even though the nuns are all dead you have been swiftly taken into the loving arms of the cast of "ER".  Now at the point you're probably wondering "wait aren't i supposed to be looking for my uncle?"... well yes you are. Consider THIS the scenic route. Besides ... you can pick up some helpful objects that will make finding your uncle MUCH easier. For example there are a few items on the route out of the hospital that will assist you when you get ripped from TVLand ! and dumped at the BACKDOOR of haunted mineshaft (you would've been able to go through the front door a LOT earlier had you explored more so basically the game has just became a whole hell of a lot harder). So you're still en route to finding Uncle Noodle but patience young man and you truly will be rewarded greatly.
+
+> n
+You move north.
+Hospital Hallway
+This is the hallway of that famous hospital. There's an empty nurses station and there's an elevator.  Also here is a syringe.  You can move south and in.
+
+> take syringe
+You pick up the syringe.
+
+> in
+You move in.
+Hospital Elevator
+It's an elevator ... in a hospital ... it's a hospital elevator.  You can move down and out.
+
+> d
+You move down.
+Hospital Underground Parking
+It's dark, it's skanky,  and you don't feel very safe in this place.  Junkie is here.  You can move north and up.
+
+> n
+You move north.
+Deeper into the underground parking area
+You're deeper in the underground parking area. Perhaps you should follow this trail ??  Also here is a trail of cheese.  You can only move south.
+
+> follow trail
+You follow the trail to ....
+
+> untie uncle
+You untie your loving Uncle Noodle and you embrace in a (very manly) hug.  That's it !. Bravo you did it ! ... hehehe ... anyhow this is my 1st attempt at a text game and i hope you enjoyed ... coming next year .... THE SEQUEL ! .... bigger ... better .... bolder ... and plenty of sex ! .... i hope you enjoyed this game and you can contact me via email at studio504manitoba@hotmail.com with comments for this game or suggestions for the SEQUEL :)  Oh Good Job !. And you did all of this WITHOUT even having to go through the hideous and painful task of having to play through the many extra levels too  ! (you'll have to play again to find THOSE). Oh well you did it !!!. Oh Heaven's to Betsy you ARE a genius.
+
+You're uncle is now FREE and BACK to his job as Mayor Of Noodleville.
+Congratulations Player !!.
+
+Coming Soon ..... more adventures with Dicky Noodle :-)
+You scored 67 out of the maximum 120!
+That is 55% of the game!
+You finished 53 points short.
+
+[Press any key to end]

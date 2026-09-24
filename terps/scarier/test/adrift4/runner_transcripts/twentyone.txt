@@ -1,0 +1,271 @@
+
+> 1
+This is Al Fornio's By The Bay, a five-star Italian seafood restaurant often praised in local food guides and social circles. Although the ambience and lighting are subtle, the same can not be said for the prices. It is the type of eatery that doesn't have a children's menu.
+
+
+
+> pay bill
+You've wasted enough time in this dive. You approach the manager, who looks at you like you took your sweet time, and hand him your credit card. One hundred and nineteen dollars!
+
+"Don't expect a tip." you tell him, just in case there was any doubt.
+
+The manager hands your card back. "Naturally," he replies.
+
+> s
+Having paid the ridiculous bill, you leave the restaurant.
+
+Ocean Bay Ave.
+The traffic has thinned out considerably since you first arrived at Al Fornio's. The avenue is lit by street lights built to look like old gas lamps. The door to the restaurant lies north. You can see an alleyway to the northeast.  Also here is a walking cane.  
+There's a street hustler standing by the alleyway, running a game of 3-card monte. He appears to be silently mocking your troubles with a stupid grin on his face.   
+
+Samantha grudgingly follows you from the restaurant, appearing more than a little agitated by tonight's events. Just as you are about to ask her a stupid question, she hastens over to the curb and begins hailing a taxi.
+
+If you have any plans to salvage this night, you better do it quick. On the other hand, perhaps Samantha has overestimated her importance to you. The moonless night sky offers no comfort either way.
+
+> apologize to samantha
+
+After the way you acted tonight, it's the least you can do. You sincerely apologize for the way you behaved tonight. Samantha turns to look at you, those sad eyes sending signals of pain directly into your heart.
+
+"You're such a jerk." she says, but without the resentment she displayed earlier. The silent minute between both of you lasts for hours, until she reaches into her purse and pulls out a small, golden gift box.
+
+"Happy Birthday." she states flatly as she hands it you. She seals her gift with a light peck on the cheek before turning away. Stunned, you stare at the gift, and by the time you raise your head, you can only watch as Samantha drives off in a taxi before you can thank her.
+
+You were planning on thanking her, right?
+
+> open box
+
+You pull off the lid to the gift box. Inside, lined with white cotton, is a silver flask, the kind you store alcohol in. The entire front face is decorated with a Celtic knot in gold gilt. It's quite beautiful and very thoughtful of Samantha, as she knew your family lineage traces back to Celtic ties.
+
+The body of it is hand-hammered and looks to have been crafted by a master. Samantha always knew how to pick the best gift. Now the memory of receiving it will always be dampened by the scene you caused in the restaurant.
+
+The inside of your jacket has the perfect pocket for it, right over your bitter heart. You slide it in and vow to get through the rest of this night without further drama.
+
+> n
+You re-enter the restaurant.  The waiter comes rushing up to you. "Sir, did you leave these on the table?"
+
+He holds out your reading glasses. You totally forgot about them.
+
+"The busboy noticed them while he was cleaning up." he recounts while handing them to you. You manage to mumble a stilted 'thank you' before accepting them. The waiter moves off into the kitchen.
+
+> wear glasses
+You put on your glasses.
+
+> s
+You leave the restaurant.  
+Ocean Bay Ave.
+The traffic has thinned out considerably since you first arrived at Al Fornio's. The avenue is lit by street lights built to look like old gas lamps. The door to the restaurant lies north. You can see an alleyway to the northeast.  Also here is a walking cane.  
+There's a street hustler standing by the alleyway, running a game of 3-card monte. He appears to be silently mocking your troubles with a stupid grin on his face. 
+
+> play monte
+
+"All right, all right!" the hustler exclaims as he picks up his three cards and begins shuffling them between hands. "New playa!"
+He lays them all down, face up. You see a king of spades, nine of diamonds, and a queen of hearts.
+"Pick the lady, that's all." He flips the three cards over in place, then places one card slowly on top of the other so your eyes can follow. As far as you know, the queen is on top.
+"Now pay attention," he says, carefully picking up the top two cards with one hand, the third card with the other. He twirls his hands in front of him like an eggbeater, then drops the cards one two three, side by side.
+The hustler raises his hands in front of you, open palmed to show no obvious acts of trickery. "Lay yo' twenty on the ho, win some dough!" You are certain the queen is the right card."
+
+> pick the middle card
+You lay your twenty on the middle card. The hustler matches your twenty with one of his own on top of it.
+
+The hustler turns the card over.
+
+Ha! You got it. The hustler looks stupefied by your correct guess. You scoop up both twenties.
+"All right, no prob. I'll get you next time, lucky muthafucka."
+
+> play monte
+
+"Another game for the dateless gentleman," the hustler jokes, raising your temper. He proceeds to lay the three cards face up. You see the queen of hearts, king of spades, and nine of diamonds. He flips them back over in place, then stacks them on top of each other.
+"Here we go!" the hustler states but you don't look at him. Your eyes are fixed on his whirling hands, moving just slow enough to be sure where that queen is. The cards get dropped one by one, side by side. You are positive this time that the queen is the right card.
+"Lay a Jackson on the queen, win some green!"
+
+> pick the middle card
+You lay your twenty on the middle card. The hustler matches your twenty with one of his own on top of it.
+
+The hustler flips the card over. Bingo! There's the queen!
+"Goddamn it!" shouts the hustler, annoyed that you guessed correctly. You don't wait for his approval and snatch up the two twenties.
+
+> play monte
+
+"Yes sir, yes sir!" The hustler says while picking up his cards. You watch more carefully this time, making sure he hasn't been performing some deceitful slight-of-hand. As far as you can tell, he isn't, or if he is, he's very good at it. At the end of his little act, the three cards are in front of you. There is no doubt in your mind that the queen is the right card. 
+
+> pick the middle card
+You lay your twenty on the middle card. The hustler matches your twenty with one of his own on top of it.
+
+Can you be right? The hustler flips the card, revealing the queen of hearts! While the hustler curses to himself under his breath, you eagerly retrieve both bills.  
+
+"Fuck this! Fuck this!" the hustler shouts. You revel in his misery, knowing you beat the con artist at his own game.
+
+The punk paces back and forth for a second, as if contemplating a retalitory attack to get his money back.
+
+"Bullshit!" he interjects, then storms off in anger down the alleyway.
+
+After all the other unwelcome events that happened tonight, at least something went your way. And hey, look at that! The punk forgot his walking cane!
+
+> get cane
+The walking cane is now in your posession.
+
+> ne
+You move northeast.
+Alleyway
+This narrow corridor borders Al Fornio's and the bakery. There are two small windows next to each other up high on the wall of the restaurant. To the north is the back alley, and south is Ocean Bay Ave.
+
+> n
+You move north.
+17th Street Back Alley
+The back of the restaurant is nowhere near as clean as the front. They obviously don't expect customers to venture here. An exit to the fish market is west of here. Entrance to Al Fornio's is only possible from Ocean Bay Ave to the south.  
+
+Your car is here.
+
+> unlock car
+You open the car door with the key.  
+
+From the direction of the alley you walked through you hear the steady tread of heavy footsteps. You turn around to see who it is...and every nerve ending in your body freezes.
+
+Someone, you've never seen him before, is lurching towards you. You see his lips mumbling something.
+
+"Twenty...one...".
+
+Twenty-one? What the hell does he mean? You squint your eyes and try to get a better glimpse of the man, but the darkness of the alley gives you no good description. But his outline, his size, and his menacing gait clearly indicate his intention to harm you. 
+
+The stranger raises his arm towards you, and there is something shiny in his hand. Lumbering ever closer, he gasps quite loudly, "Twenty...ONE!"
+
+He's pointing a knife at YOU!
+
+The lunatic springs at you and your world stops! The knife leads his thrust as his arm slams down into your chest!
+(cont.)
+
+Your heart skips a beat as the sharp pain from impact wracks your whole chest. You hear the tinkling of a metal blade strike the ground and you look down.
+
+The point of the blade has broken!
+
+It must have struck the silver flask! Samantha's gift...right over your heart. It saved your life!
+
+The maniac is stunned as he looks at the broken knife in his hand. He's distracted!
+
+RUN!
+
+> w
+
+You run for your life to the west.
+
+Lucky, so incredibly lucky to have gotten Samantha's gift. Lucky to have kept it inside your jacket, protecting your selfish heart from an early demise.
+
+How long can your luck last? Surely there is someone around? You call for help, but no one responds. A cop is never around when you need one. Figures. That maniac is sure to follow you, and you'll never be able to get in your car and drive to safety.
+
+What was that? You can hear his heavy footsteps, but you don't see him. Is this a joke? Why would anyone want to kill you? OK, you've pissed more than a few people off in your life, but never bad enough to want you dead!
+
+Twenty-one... What did he mean by that? Did it have any meaning at all, or was it the ramblings of an insane mind? Whatever the reason, you must keep running away from him until you reach safety!
+
+It's either that...or jump in the ocean and drown!
+
+
+
+> w
+
+You escape the maniac by running west.
+
+As your feet move quickly without guidance from your mind, you turn to look behind you. How close is he?! Do you see him? You stumble into garbage cans and fall to the ground, badly banging your knee in the process. The pain energizes your body, giving you time to focus...
+
+You're mind returns to the present. That's how the evening went before this all happened. You weren't exactly having the time of your life, but at least you weren't fighting for it! The night has swallowed civilization. You feel deserted, helpless...and now you can't run as fast.
+
+Somewhere up ahead lies the safety of others. You see boats tied up in the marina.  
+
+> w
+
+You stumble off westward, away from the oncoming menace.
+
+Tired...so tired of running. Do these alleyways ever end? You feel like a rabbit being chased down his own hole, hoping you have another exit on the other side. Far, far away you can see faint lights.
+
+The boardwalk! You remember now. It's just up ahead, past the park. If only you can make it. You notice the street sign.
+
+20th St.
+
+Huh...
+
+No, it can't be that easy. Is he playing a game with you? You can't question it, it's all you have. He's letting you run to 21st Street! If you make it there, he'll leave you alone! He'll find someone else to kill and you'll be safe!
+
+The alley narrows just ahead. Looks like the street was never actually finished, or maybe it was forgotten. Trash is thick here and the local homeless population have claimed it as their own. A maze of cardboard hovels lie in front of you.  
+
+> w
+
+You can barely make your way west, the heaviness is too great in your chest. Oh God, are you having a heart attack?
+
+The park! You've reached it! You can see the street sign.
+
+21st. St.
+
+You race through the little garden annex, tripping and picking yourself up. But this time you hear the heavy tread of footsteps too closely. You spin your head around...and see the maniac getting closer!
+
+NO! It's not fair!
+
+"I made it you bastard!" you spit out. "I made it!"
+
+Not looking where you are going, you ram into the corner of a newstand that has closed for the evening. You spin around screaming, and fall over a newspaper vending machine. You both fall crashing to the ground, the glass breaking and spilling the contents of today's edition.
+
+"AGH!" you cry as you realize you've broken your leg. You lay there, a heap on the pile of papers as the maniac saunters over to you.
+
+"No, I made it!" you shout, pointing to the street sign. "You lost! You...ha ha ha." You're losing your mind. You won. He won't kill you know.
+
+For the first time tonight, the maniac voluntarily stops, then looks at the street sign.
+
+"I won you sonovabitch! I won."
+
+The maniac turns to look at you.
+
+"Twenty...one..." He slowly walks toward you, raising the machete.
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+This is it! You're out of time!
+
+> z
+Time passes...
+
+
+"NO PLEASE NO!" You scream as the maniac towers above you. Through your eyeglasses, you can make out his face, and his intention, so clearly.
+
+"Twenty-one..."
+
+"But...I won..." you whine. It's not fair. He made the rules and now he's breaking them. Unless...unless it was you who were making the rules. It was a game you made, to give yourself hope. It let you get this far, and now the game is over.
+
+The machete is raised with both hands.
+
+"No...no no no..." If only you had protection.
+
+The walking cane! You clench it tightly with both hands and move it in front of your chest!
+
+"TWENTY...ONE!" The hands drop down.
+
+CRACK!
+
+Oh GOD it hurts so bad. Alarms ring throughout your body. You're shaking all over. The cane snapped in half, but it stopped the blade from sticking into you! Instinctively, supernaturally, you continue to move backwards, sliding on the pile of papers. You turn over, coughing up blood, desperate to crawl away like a dying animal. The newspapers make it impossible to make any progress, slipping under your weight.
+
+"It's not fair." you cry again. "I beat you. I beat you!"
+
+And then...your eyes focus on the headlines twisted and blood-smeared all around you. (cont.)
+
+No. NO! NOOOOOOOOOOO! (cont.)
+KILLER CLAIMS TWENTIETH VICTIM
+
+It's so obvious, you laugh. You start laughing and you can't stop. Blood chokes your throat, and you still can't stop laughing. You're still laughing as the killer reaches down, grabs your head, and twists it.
+
+A peace blankets you. The world ahead is canted, the welcoming lights of the boardwalk far ahead forever denying you safety. Up ahead, you see movement.
+
+A couple...a man and a woman...are walking together in the park.
+
+From above, you hear a familiar voice.
+
+"Twenty...two..."
+
+The maniac has stepped over you, walking towards them. A bloody machete weighs heavy in his hand. The blackness envelops your vision, leaving the killer centered until at last the darkness claims you.
+
+You've done it. You've survived long enough to get the best ending and learn the secret of...Twenty-One!
+[Press any key to end]

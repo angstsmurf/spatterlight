@@ -1,0 +1,24 @@
+feed        32 commands
+runner      32 turns echoed
+scarier     33 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 0  lie down
+  run400   You lie down on the ground. When you have weapons, you can go out and look for a quest either at the Town Council or the Hero's Guild.
+  scarier  You lie down on the ground. When you have weapons, you can go out and look for a quest either at the Town Council or the Hero's Guild. You pass out onto the ground and wake up in your own home. You realize that you have not had sleep in a long time, and you were very tired. You need to sleep right now.
+
+turn 1  sleep
+  run400   You are not in the right place to do that.
+  scarier  You fall asleep on your bed and wake up a few hours later.
+
+turn 2  d
+  run400   (Standing up first) You move down. Your Front Hall The Front Hall, where you entertain guests and go to rest after the day is done. From here, you can go up to your bedroom and south to a small path.
+  scarier  (Getting off your small bed first) You move down. Your Front Hall The Front Hall, where you entertain guests and go to rest after the day is done. From here, you can go up to your bedroom and south to a small path.
+
+turn 29  stats
+  run400   You have: 100 health 70 hygiene, 70 hunger, and bladder 20 There is a customer here that you have to serve.
+  scarier  You have: 90 health 70 hygiene, 70 hunger, and bladder 20 There is a customer here that you have to serve.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

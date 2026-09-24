@@ -565,3 +565,25 @@ proba	proba.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	âûøëè èç ýò
 akron_rus	akron_rus.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	78%	0
 elmstreet	A Nightmare on Elm Street.taf	3.90	run390x.exe	1234	1		SCR_SKIP_WAITKEY=1	100%	212
 crimescene	CrimeScene.taf	3.90	run390x.exe	1234	0		SCR_SKIP_WAITKEY=1	Trent smashed the window	0
+bedlam	bedlam.taf	3.90	run390x.exe	1234	0			These type of vehicles usually require keys to operate	0
+crimelife	crimelife.taf	4.00	run400x.exe	1234	0	Petter~male		You just got waxed by a punk gangsta	22
+dbaa	dbaa!(intro).taf	4.00	run400x.exe	1234	1			Bring me something else!	1585
+dickynoodle	DickyNoodle.TAF	3.90	run390x.exe	1234	0			You untie your loving Uncle Noodle	0
+dishduty	dishduty_intro(3).taf	4.00	run400x.exe	1234	0	Petter~male		You can't wash that.	19
+illegalsocks	illegalsocks.taf	4.00	run400x.exe	1234	0	Petter~male		Your score is 745 out of a maximum of 2155.	720
+ebonysworld	ebonysworld.taf	3.90	run390x.exe	1234	0			Your score is 1450 out of a maximum of 0.	0
+liqid	liqid.taf	3.90	run390x.exe	1234	0			I surrender, you win!	6
+mages	mages.taf	3.90	run390x.exe	1234	0			a magic rating of 20, and your mana=50.	279
+monsterisland	MonsterIsland.taf	4.00	run400x.exe	1234	0			And the beginning of a village down the road to the south.	239
+mysteryhouse	MysteryHouse.taf	3.90	run390x.exe	1234	0			You drop the Treasure Chest.	0
+newbie	newbie.taf	3.90	run390x.exe	1234	0			You go throo the wall	0
+hotelconfuego	1_Hotel_con_Fuego.taf	4.00	run400x.exe	1234	5			Well, that's the end of the demo.	53
+teaw	TEAW_(introcomp).taf	4.00	run400x.exe	1234	2	Player		YOU ARE GOING TO DIE	23
+cloddemo	clod_demo.taf	4.00	run400x.exe	1234	0				107
+night	The_Night_That_Dripped_Blood.taf	4.00	run400x.exe	1234	0	Petter~male		You scored 100 out of the maximum 100!	1
+thewill	The_Will.taf	3.90	run390x.exe	1234	0				324
+twentyone	Twenty-one.taf	4.00	run400x.exe	1234	0			survived long enough to get the best ending	17
+weirdstuff2	weirdstuff2.taf	4.00	run400x.exe	1234	0				47
+filthybill	filthybill.taf	3.90	run390x.exe	1234	0			studded cocks	0
+temporfell	temporfell_demo.taf	4.00	run400x.exe	1234	0		SCR_RNG=xoshiro	Thanks for testing	346
+thenightmoon	thenightmoon.taf	3.90	run390x.exe	1234	0	Petter~male	SCR_RNG=xoshiro	That is 30% of the game	633

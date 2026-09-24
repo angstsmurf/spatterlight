@@ -1,0 +1,828 @@
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+Out of the corner of your eye, you catch something very large swimming in the shallow waters.  
+
+> z
+Time passes...
+
+
+The large creature you noticed earlier lifts his head up out the water to reveal itself as a very large wide-mouthed fish.  The fish looks you dead in the eye and says, 'Parker'.
+This doesn't surprise you one bit.  
+
+> z
+Time passes...
+
+> z
+Time passes...
+
+
+The large fish, apparently feeling the need to gain your attention, clammers up onto the beach and stares at you.  You get the impression he is getting concerned for you.  Again, he says, 'Parker,' with a slightly more determined voice.  
+
+> z
+Time passes...
+
+
+The fish seems to be getting very angry now.  Looking at you sternly, he starts jumping up and down at your feet waving his fins yelling, 'Parker....Parker!  PARKER!,'  At the top of his lungs.  Suddenly the fish seems very very large to you.  Almost twice your size.  'PARKER!  PARKER!,' he keeps yelling until he is so large that you can no longer see anything else but the fish.  The beach, the beautiful people, the water, the castle, the sun are all gone replaced with this giant, irate fish screaming in your face......   You are starting to feel very uncomfortable.  'PARKER!  P-AAAAAAAARRRRR-KER!  
+ 
+THWACK!!  
+ 
+  You smack your head on the bunk above you waking up.  
+ 
+
+Sleeping Quarters
+Your all too familiar quarters.  For sleeping quarters, this room isn't very big.  Along with your bunk, there are five other bunks here, one on top of yours and two more pairs along the walls.  Currently no one is here, but usually this tiny room is bustling with your fellow bunkmates doing everything but sleeping.  Looking up, the florescent lighting greets you with a buzz.  Aside of your bunk, attached to the wall is a telecom.  The only exit is south out into the corridor.  
+ 
+Blaring from across the room, someone is yelling, 'Parker!  Get your ass out of bed!  P-AAARRR-KER!'  It seems to be coming out of your telecom speaker.  
+
+> z
+Time passes...
+
+> use telecom
+You activate the telecom and barely get out a single syllable when the captain's voice nearly blows your eardrum straight into your nose --
+
+'DAMMIT, Parker this is the third time this month you've overslept on a mission.  This is your first ship, you've been assigned to, right?  Well don't expect a good report from me.  You're going to continue to be a gofer for the rest of your career if you don't shape up here.'  You hear the captain sigh on the other end.
+'Now put your suit on and get out here.  We're right outside the airlock and I got some work for you to do.  Not that it's important.....'  The captain mumbles softly to himself complaining of this and that until the line cuts him off.  
+
+> s
+You take one step through the doorway - 
+
+'Parker,' you hear from the speaker.  This time in a much softer voice and in a more reasonable tone.  
+
+'Parker, if you're still there, we need you to grab a bee-six container from the minilab before you come out.  Fletcher forgot to tell you.'  The voice on the other end was Sci-Officer Price, second in command on this mission.  'To get to it, you'll need a code--'  She's cut off suddenly by the computer issuing a voice automated severe storm warning.  
+
+'Oh no, you should hurry, Sam.  We need this sample.  Oh and Parker?  Don't worry about the captain.....he's just having a bad day.'  You can almost hear her smiling.
+
+The captain and her together act a lot like parental figures to you on this mission.  Captain Fletcher is always reaming you for something or other and Price is always backing you up or digging you out of trouble.  But you can't help but notice that the both of them have taken a liking to you.  'OH!  Sam, if you are having trouble,' Price continues, 'please come out and ask me anything you need.  The captain and I are right outside the airlock collecting readings.  Price out.'  
+
+> s
+(Getting off your bunk first)
+You move south.
+Quarters Corridor
+A short, dull north-south corridor stretching from the crews quarters to the ship's main corridor.  Painted on the floor is a faded brown stripe running the length of the hallway.  You can walk north from here back into your quarters or south into the ship's main corridor.  A doorway lies east.  Strange banging noises are coming from the west wall.  You look the wall up and down and notice a pair of legs here protruding from it.  
+
+> s
+You move south.
+Main Corridor Hub
+The main hub that connects all corridors throughout the ship.  Painted on the floor here in the middle of the room is a faded blue circle with different colored bars extending from it in all four directions.  Brown to the north, white to the east, aqua and yellow to the west and red, purple, and grey to the south.  Words are painted over each of the bars closest to the circle.  There are doorways north, south, east and west.  The south door is closed.  
+
+> e
+You move east.
+Airlock Corridor
+A dimly lit corridor spanning from the main corridor hub to the airlock's equipment storage room to the east and then on to the airlock.  There is a painted white bar on the floor here.  You can go east towards the airlock or west back towards the ship's hub.  
+
+> e
+You move east.
+Airlock Equipment Room
+This is the equipment storage room that contains a lot of the equipment used on missions.  Some random equipment lays about the room that wasn't put back in its place.  The remainder of the equipment is stored in lockers, one of which (with your name on it)is against the south wall.  Along the east wall is the inner airlock door.  
+
+> open locker
+You open your equipment locker.  Your helmet and your atmosphere suit are inside your equipment locker.  
+
+> take suit
+You take your atmosphere suit from your equipment locker.  
+
+> take helmet
+You take your helmet from your equipment locker.  
+
+> wear suit
+You put on your atmosphere suit.  
+
+> wear helmet
+You put on your helmet, fastening the latches to your suit at your neck.  It is now air tight and you start to breath oxygen from the tanks.  
+
+> e
+You move east.
+Shuttle AirLock
+Landing shuttle airlock.  This airlock is the ships sole exit to the outside.  On normal missions (or any mission more exciting than this one), there is usually a small docking ship parked here.  For reasons unknown to you, there isn't one here now and the airlock is pretty much empty.    There are heavy multi-layer doors to your north and west.  The north door is closed, while the west door is open.  On the west wall is a large flat, glowing button with a tiny light next to it.  
+
+> press button
+You touch the button which illuminates under your fingers.  The light next to it turns green and the large airlock door to the west hulks slowly closed.  After a moment, the door to the north opens slowly, the light next to the button again turns red.  
+
+> n
+You walk out the airlock door onto the planet's surface.  Dust whips around you sometimes making it hard to keep your balance.
+
+'Parker!  It's about time.'  You see the captain kneeling on the ground a few feet away, he doesn't look up.  
+
+'Price needs you to get a sample for us.'  He looks as through he's about to say something more then stops.  There's an uneasy pause for a moment as he looks up at you.  'She can explain it better.  Go talk to her, she's a bit to the west analyzing a big.... dead tree.'  
+
+> look
+Planet Surface (Outside Airlock)
+You are outside of the airlock on the surface of the planet.  Visibility is only a few hundred feet due to the whipping winds kicking up dust from all around you.  A hazy orange sky caps off the storm in every direction.  No visible sun can be seen.  Not too far to your east and north, just before being obscured by the persistant dust storm, is an impressive crescent of large impassable rocks.  To your south is the airlock entrance to your all too familiar ship while farther west, peaking out from above the dust storm, you can make out what looks like a large, dark claw reaching up towards the sky.  Fletcher is here searching for samples.  
+
+> exits
+You can move south and west.  
+
+> w
+Planet Surface (Near Dead Tree)
+From here, you can barely make out the back end of the ship to your southeast.  Stretching up into the sky here is a large ominous dead tree that gives you a feeling of great strength and power.  It must be centuries old.  It's roots, sticking out of the steep embankment to the west and south refusing to give way to erosion.  Visibility to your north and west is obscured by the raging dust.  Price is here gathering readings from the large dead tree.  
+'Parker, did you get the B6 container?  No?  Please hurry if you can.'  Her voice sounds a little nervous.  'There are plenty in the minilab.  I don't remember offhand which door they are in, but just read the labels and you find the right one.'  She goes back to gathering data from the tree.  
+
+> look
+Planet Surface (Near Dead Tree)
+From here, you can barely make out the back end of the ship to your southeast.  Stretching up into the sky here is a large ominous dead tree that gives you a feeling of great strength and power.  It must be centuries old.  It's roots, sticking out of the steep embankment to the west and south refusing to give way to erosion.  Visibility to your north and west is obscured by the raging dust.  Price is here gathering readings from the large dead tree.  
+
+> exits
+You can move north and east.  
+
+> talk to price
+Use the format "ask Price about [subject]".  
+
+> e
+You move east.
+Planet Surface (Outside Airlock)
+You are outside of the airlock on the surface of the planet.  Visibility is only a few hundred feet due to the whipping winds kicking up dust from all around you.  A hazy orange sky caps off the storm in every direction.  No visible sun can be seen.  Not too far to your east and north, just before being obscured by the persistant dust storm, is an impressive crescent of large impassable rocks.  To your south is the airlock entrance to your all too familiar ship while farther west, peaking out from above the dust storm, you can make out what looks like a large, dark claw reaching up towards the sky.  Fletcher is here searching for samples.  
+
+> s
+You move south.
+Shuttle AirLock
+Landing shuttle airlock.  This airlock is the ships sole exit to the outside.  On normal missions (or any mission more exciting than this one), there is usually a small docking ship parked here.  For reasons unknown to you, there isn't one here now and the airlock is pretty much empty.    There are heavy multi-layer doors to your north and west.  The west door is closed, while the north door is open.  On the west wall is a large flat, glowing button with a tiny light next to it.  
+
+> s
+You can only move north.  
+
+> press button
+You touch the button which illuminates under your fingers.  The light next to it turns green and the large airlock door to the north hulks slowly closed.  After a moment, the door to the west opens again, the light next to the button again turns red.  
+
+> w
+You move west.
+Airlock Equipment Room
+This is the equipment storage room that contains a lot of the equipment used on missions.  Some random equipment lays about the room that wasn't put back in its place.  The remainder of the equipment is stored in lockers, one of which (with your name on it)is against the south wall.  Along the east wall is the inner airlock door.  
+
+> w
+You move west.
+Airlock Corridor
+A dimly lit corridor spanning from the main corridor hub to the airlock's equipment storage room to the east and then on to the airlock.  There is a painted white bar on the floor here.  You can go east towards the airlock or west back towards the ship's hub.  
+
+> w
+You move west.
+Main Corridor Hub
+The main hub that connects all corridors throughout the ship.  Painted on the floor here in the middle of the room is a faded blue circle with different colored bars extending from it in all four directions.  Brown to the north, white to the east, aqua and yellow to the west and red, purple, and grey to the south.  Words are painted over each of the bars closest to the circle.  There are doorways north, south, east and west.  The south door is closed.  
+
+> look
+Main Corridor Hub
+The main hub that connects all corridors throughout the ship.  Painted on the floor here in the middle of the room is a faded blue circle with different colored bars extending from it in all four directions.  Brown to the north, white to the east, aqua and yellow to the west and red, purple, and grey to the south.  Words are painted over each of the bars closest to the circle.  There are doorways north, south, east and west.  The south door is closed.  
+
+> exits
+You can move north, east and west.  
+
+> w
+As you walk down the corridor, two crewmembers holding container samples walk ahead of you into the hydroponics door to the north.  You overhear them discussing a storm front on the way.  The door shuts behind them.  
+
+Research Corridor
+This corridor bridges the gap between the ship's main hub and the minilab.  There is a closed door to your north that leads to hydroponics.  On the floor here is a painted aqua bar running the length of the corridor and a yellow painted bar that comes from the east and makes an abrupt right turn to the north under the closed door.  From here you can walk west to the minilab or east to the main hub.  
+
+> w
+You move west.
+Minilab
+This is the secondary lab on the ship.  The primary, and much larger lab, is in hydroponics.  You've never actually seen any of the Sci-Officers working in this lab.  Although, it's probably still set up to do research here, right now it acts like more of a storage room than anything.  Small containers, each labeled separately are stacked on top of each other on counters along the south and west walls.  To the north is a large glass security door with a keypad to the right of it.  The only exit is east back into the corridor.  A clipboard is attached here to the wall.  
+
+> look
+Minilab
+This is the secondary lab on the ship.  The primary, and much larger lab, is in hydroponics.  You've never actually seen any of the Sci-Officers working in this lab.  Although, it's probably still set up to do research here, right now it acts like more of a storage room than anything.  Small containers, each labeled separately are stacked on top of each other on counters along the south and west walls.  To the north is a large glass security door with a keypad to the right of it.  The only exit is east back into the corridor.  A clipboard is attached here to the wall.  
+
+> exits
+You can only move east.  
+
+> read clipboard
+Current listing of crewmembers with access to Minilab Cooling Closet:
+
+Fletcher, David
+Price, Amanda
+Wolf, Gregory
+Beuhler, Katie
+Yeh, Karen
+
+If any unauthorized crewmember is found accessing the minilab's cooling closet, they will be tossed off the ship without a helmet.
+
+--  The Captain
+
+
+
+> examine containers
+Which containers.  The cooled V-Unit container or the containers?
+
+> examine keypad
+Your typical keypad from zero to nine.  A 'clear' key is in the bottom left and a 'pound' key in the bottom right.  Along the top is a display.
+_____
+| _ _ _ _ |
+/  *     *  \
+|  1  2  3  |
+|  4  5  6  |
+|  7  8  9  |
+|  c  0  #  |
+------------
+  
+
+> examine door
+A large glass security door.  Through it, you can see three large refridgerating units holding a bunch of containers.  The glass security door is closed.  
+
+> press 3
+You press 3 on the keypad and the small display changes.
+_____
+| 3 _ _ _ |
+/  *     *  \
+|  1  2  3  |
+|  4  5  6  |
+|  7  8  9  |
+|  c  0  #  |
+------------
+  
+
+> press 5
+You press 5 on the keypad and the small display changes.
+_____
+| 3 5 _ _ |
+/  *     *  \
+|  1  2  3  |
+|  4  5  6  |
+|  7  8  9  |
+|  c  0  #  |
+------------
+  
+
+> press 6
+You press 6 on the keypad and the small display changes.
+_____
+| 3 5 6 _ |
+/  *     *  \
+|  1  2  3  |
+|  4  5  6  |
+|  7  8  9  |
+|  c  0  #  |
+------------
+  
+
+> press 1
+You press 1 on the keypad and the small display changes.
+_____
+| 3 5 6 1 |
+/  *     *  \
+|  1  2  3  |
+|  4  5  6  |
+|  7  8  9  |
+|  c  0  #  |
+------------
+  
+
+> press pound
+You press the pound key.  The green light comes on, the small display resets and you hear the magnetic lock release on the glass door to your left.
+_____
+| _ _ _ _ |
+/  *     *  \
+|  1  2  3  |
+|  4  5  6  |
+|  7  8  9  |
+|  c  0  #  |
+------------
+  
+
+> n
+You move north.
+Minilab Cooling Closet
+A small walk-in refrigerated room that contains everything that needs to be kept cold.  In the east wall, stretching the length of it is a great refrigerating unit with three glass doors.  On each door is a is a label describing what is stored within each unit.   The only exit is south through the open glass security door.  
+
+> look
+Minilab Cooling Closet
+A small walk-in refrigerated room that contains everything that needs to be kept cold.  In the east wall, stretching the length of it is a great refrigerating unit with three glass doors.  On each door is a is a label describing what is stored within each unit.   The only exit is south through the open glass security door.  
+
+> exits
+You can only move south.  
+
+> examine labels
+Please be more specific.  There is a right label, a middle label and a left label.  
+
+> examine unit
+Which unit.  The left door, the middle door or the right door?
+
+> open door
+Which door.  The left door, the middle door, the right door or the glass, security door?
+
+> examine right label
+TOP SHELF:
+Cooling B6 Containers
+
+MIDDLE SHELF:
+Op-Prime Units
+
+BOTTOM SHELF:
+Dampen-HK Units  
+
+> open right door
+You open the right door.  
+
+> take b6 container
+You take the B6 container.  
+
+> examine b6 container
+This is a B6 containment unit.  Its a little larger than an old paint can and has its own cooling system built in and can keep a sample at a constant temperature anywhere from negative 124 degrees celsius to positive 32 degrees celsius.  It looks a lot like all of the other containers in the minilab.  
+
+> inventory
+
+> s
+You move south.
+Minilab
+This is the secondary lab on the ship.  The primary, and much larger lab, is in hydroponics.  You've never actually seen any of the Sci-Officers working in this lab.  Although, it's probably still set up to do research here, right now it acts like more of a storage room than anything.  Small containers, each labeled separately are stacked on top of each other on counters along the south and west walls.  To the north is a large glass security door with a keypad to the right of it.  The only exit is east back into the corridor.  A clipboard is attached here to the wall.
+
+> s
+You can't go in that direction, but you can move north and east.
+
+> e
+You move east.
+Research Corridor
+This corridor bridges the gap between the ship's main hub and the minilab.  There is a closed door to your north that leads to hydroponics.  On the floor here is a painted aqua bar running the length of the corridor and a yellow painted bar that comes from the east and makes an abrupt right turn to the north under the closed door.  From here you can walk west to the minilab or east to the main hub.
+
+> e
+You move east.
+Main Corridor Hub
+The main hub that connects all corridors throughout the ship.  Painted on the floor here in the middle of the room is a faded blue circle with different colored bars extending from it in all four directions.  Brown to the north, white to the east, aqua and yellow to the west and red, purple, and grey to the south.  Words are painted over each of the bars closest to the circle.  There are doorways north, south, east and west.  The south door is closed.
+
+> e
+You move east.
+Airlock Corridor
+A dimly lit corridor spanning from the main corridor hub to the airlock's equipment storage room to the east and then on to the airlock.  There is a painted white bar on the floor here.  You can go east towards the airlock or west back towards the ship's hub.
+
+> e
+You move east.
+Airlock Equipment Room
+This is the equipment storage room that contains a lot of the equipment used on missions.  Some random equipment lays about the room that wasn't put back in its place.  The remainder of the equipment is stored in lockers, one of which (with your name on it)is against the south wall.  Along the east wall is the inner airlock door.
+
+> e
+You move east.
+Shuttle AirLock
+Landing shuttle airlock.  This airlock is the ships sole exit to the outside.  On normal missions (or any mission more exciting than this one), there is usually a small docking ship parked here.  For reasons unknown to you, there isn't one here now and the airlock is pretty much empty.    There are heavy multi-layer doors to your north and west.  The north door is closed, while the west door is open.  On the west wall is a large flat, glowing button with a tiny light next to it.
+
+> press button
+You touch the button which illuminates under your fingers.  The light next to it turns green and the large airlock door to the west hulks slowly closed.  After a moment, the door to the north opens slowly, the light next to the button again turns red.
+
+> n
+You move north.
+Planet Surface (Outside Airlock)
+You are outside of the airlock on the surface of the planet.  Visibility is only a few hundred feet due to the whipping winds kicking up dust from all around you.  A hazy orange sky caps off the storm in every direction.  No visible sun can be seen.  Not too far to your east and north, just before being obscured by the persistant dust storm, is an impressive crescent of large impassable rocks.  To your south is the airlock entrance to your all too familiar ship while farther west, peaking out from above the dust storm, you can make out what looks like a large, dark claw reaching up towards the sky.  Fletcher is here searching for samples.
+
+> w
+Planet Surface (Near Dead Tree)
+From here, you can barely make out the back end of the ship to your southeast.  Stretching up into the sky here is a large ominous dead tree that gives you a feeling of great strength and power.  It must be centuries old.  It's roots, sticking out of the steep embankment to the west and south refusing to give way to erosion.  Visibility to your north and west is obscured by the raging dust.  Price is here gathering readings from the large dead tree.  
+'Parker, we must hurry,' Price says as she approaches you.  'Radar reports a very large storm coming our way.  But the weird thing is that there is no electrical activity.  We dont even read any great temperature or pressure changes.  It's just a ......a fog.  Like a blanket of humidity stretching out from the upper pole.'  You can tell she's excited, but there's still a quiver in her voice.  'I can't really explain it, because I'm not sure I quite understand it yet.  It might be something like we've never recorded before and we can't take any chances when it gets here.'
+
+The wind kicks up for a moment and she starts to raise her voice.  'What I need you to do is take that container and go north from here about a quarter mile.  There you'll find a patch of what will look like green baubles along a cliff face.  They are actually frozen samples of something we haven't determined yet.  Anyway, the previous sample's container failed and the samples evaporated so we need you to collect that sample before this storm hits us.'  She goes back to the base of the tree looking back at you occasionally.
+
+> give container to price
+Price doesn't seem interested in the cooling B6 container.
+
+> n
+You travel north through the blinding dust.  A tremor suddenly shakes the ground almost knocking you off your feet.  Your hear a large cracking noise to your north and then the deep sound of large rocks falling.
+
+
+Planet Surface (North Of Tree)
+You can make out the large tree to your south and the steep embankment to your west.  To your east is a wall of large rocks making travel in that direction impossible.  Fading into view to the north is the looming cliff face Price talked about.
+
+> look
+Planet Surface (North Of Tree)
+You can make out the large tree to your south and the steep embankment to your west.  To your east is a wall of large rocks making travel in that direction impossible.  Fading into view to the north is the looming cliff face Price talked about.
+
+> exits
+You can move north and south.
+
+> n
+You move north.
+Planet Surface (Near Cliff Face)
+This is the place Price had mentioned.  The cliff face is here standing north of you.  A fresh crack in the ground is here standing between you and the base of the cliff, steaming like a freshly baked pie.  From this side, you can clearly see the patch of shining green baubles a few feet in front of you at the base of the cliff.
+
+> look
+Planet Surface (Near Cliff Face)
+This is the place Price had mentioned.  The cliff face is here standing north of you.  A fresh crack in the ground is here standing between you and the base of the cliff, steaming like a freshly baked pie.  From this side, you can clearly see the patch of shining green baubles a few feet in front of you at the base of the cliff.
+
+> exits
+You can only move south.
+
+> examine crack
+It looks fresh and thick steam is pouring from it.  The gap is about three or four feet, but you think you can easily jump over it.
+
+> examine baubles
+A small patch of sparking green baubles.  These are the samples that Price needs you to collect.  Each bauble ranges in size from a small pea to the size of a golfball.
+
+> examine cliff
+You see no such thing.
+
+> jump crack
+Wheee-boinng.
+
+> take baubles
+You leap over the crevice in the ground.  Just as your second foot comes to rest, the ground shakes again causing you to lose your balance.  The ground is pulling away from you!
+
+> wait
+It's no use.  You completely lose your balance and fall backwards into the crevice flinging the B6 container up into the air.  
+
+You land with a thud and everything goes.......
+
+
+' --ou hear me!  ...........  PARKER!'.  The black starts to fade to a cloudy orange.
+'Stay put, Parker!  We're coming for you.  Just hang on.'  You hear the captain panting through your helmet's telecom.
+
+
+Bottom Of The Crevice
+Orange light streams in from the crack's mouth about fifteen feet above you.  Enough light for you to see that what you are in is a perfect sphere just large enough for you to stand in.  Above your head is the opening of the sphere from which you fell through.  You stomp your foot on the floor and a metallic sound echos around you.
+
+> wait
+Time passes...
+
+
+Through your helmet's telecom, you hear the captain yelling to Price to follow him.
+
+'Stay put Parker, we're coming to get you!  Don't move!' Price says trying to stay calm.
+
+'Always screwing something up, Price, always.  We will be lucky to get out of here alive now,' the Captain pants between breaths.
+
+'Oh knock it off David, you were the same way when you first started,' pants Price, 'I seem to remember bailing you out of trouble more than once....'
+
+Just then, the captain appears over the crevice above him followed by Price.  Both of them out of breath.
+
+<press any key>
+
+
+'Ok!  Give me your hand, Parker!' the captain reaches his arm down the side of the crevice.  Strong wind blows dust up around them as they struggle to keep from falling in with you.
+
+You reach up your hand falling short of the Captain's by about two feet.
+
+'Jump Parker, hurry!  I can see the fog on the horizon!'
+
+You bend your knees as you get ready to make the most important leap of your life.  You look up to the Captain to aim your jump as a blanket of white washes over the both of them.  Your reflexes take over as you leap upwards reaching for the hand of the Captain.  Within a blink of an eye thier horrified faces turn from flesh to bone to pure white as you grasp nothing but air.
+
+<press any key>
+
+
+You land with a thud just as your vision goes......
+
+
+
+AM I DEAD?AM I DEAD?AM I DEAD?AM I DEAD?AM I DEAD?WHERE AM I?WHERE AM I?WHERE AM I?WHERE AM I?WHERE AM I?WHAT'S GOING ON?WHAT'S GOING ON?WHAT'S GOING ON?WHAT'S GOING ON?WHAT'S GOING ON?You open your eyes for what seems like the one hundreth time today to a beautiful bright blue sky....
+
+You've got to stop sleeping so much.  It's really confusing you as to whether you are dreaming or awake now.  If it wasn't for this bulky suit, you would pinch yourself to settle it once and for all.  For now, you decide to take things as they come, stand up and take a look around.
+
+You are on a round metal platform inside some sort of large hole in the ground.  Towering walls of earth surround you in every direction.  Several unidentified metal tools are half buried in the dirt around you.  Set up against the bank to your south is a tall metal apparatus that stretches the full height of the bank.  Something glinting on the ground catches your eye.
+
+> 
+I don't understand what you're trying to do.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> look
+Inside Crater
+You are on a round metal plaform inside some sort of large hole in the ground.  Towering walls of earth surround you in every direction.  Several unidentified metal tools are half buried in the dirt around you.  Set up against the bank to your south is a tall metal apparatus that stretches the full height of the bank.  Also here is a glass magnifying lens.
+
+> take lens
+You pick up the tiny magnifying lens.
+
+> climb apparatus
+You climb the strange ladder.  
+Edge of Crater
+You are standing above the large crater you climbed out of.  From this view you can see that the crater was not made naturally and looks to be some sort of excavation site.  A sharp embankment leading into a very deep canyon is to your west and an impressive crescent of large, purple rocks lies to your east.  To your south, the land opens up into a field of tall yellow grass.
+
+> s
+You move south.
+Grass Field (Near Tree)
+You are standing in the shadow of a towering, leafy tree in the middle of a sea of yellow grass.  The thick leaved branches shade the sun which make it much cooler here.  To the west and south, the ground slopes slightly upwards and then sharply cuts off into a deep ravine.  To the north and east, the sea of grass continues.
+
+> e
+You move east.
+Grass Field (Where Ship Was)
+Thick yellow grass stretches out hundreds of feet in every direction.  Far to your west, you can see a towering, lone tree.  To your east and north is an impressive crescent of large, purple rocks.  Between two of the rocks to your east is a gap.  Far above that, on a hill you can see something glinting in the sun.
+
+You are certain this is where your ship had landed a few days ago.  You are also certain that there was nothing living on this planet when you got here.  But right now................ you really aren't certain of anything anymore.  
+
+> e
+You move east.
+Rocky Path
+The ground slopes upwards making it a struggle to stay on your feet as vine covered rocks eclipse most of the light here both to your north and south.  At the top of the slope, you can make out something black shining on the side of the mountain.  A dense growth of dry brush sits here at the base of the rocks.
+
+> take brush
+You pick some brush from a nearby patch.
+
+> use lens on brush
+You position the lens to catch the sunlight and direct it onto the dry brush.  After a few minutes, the brush begins to smoke.  You blow on the embers until one end of the brush catches aflame.  You have made fire!
+
+> e
+You move east.
+Structure Entrance
+You are standing on a black rock platform overlooking the field of tall yellow grass.  From here the view is astonishing and the visibility is the same.  Far to the east many miles off you can see snow capped mountain tops peaking over yellow rolling hills.  The view reminds you a lot of the backdrop from you vacation on Grendia Three.  Down the bank to your east, the sole massive tree stands guard over the field.  To your south is a humungous, sphere-like metal structure built within the side of the rock face.   At the mouth of the structure is a large entranceway sealed by two enormous black metal slabs that form a door.  The door is closed.  To the right of the entranceway is a small dark blue panel with a light above it that will glow dimly for a moment, then go dark then glow dim again.
+
+> put brush on panel
+You hold up the burning bush to let the flames lick the side of the panel.  Almost immediatly the light comes full on and a great motor starts up somewhere behind the wall.  With a great rumble, the two slabs of metal slide apart making an entranceway into the structure.  The doors haven't opened far and they don't seem like they want to stay open as they jitter back and forth in place.  You drop the burning bush to the ground and let it burn out.
+
+> s
+You walk into the pitch black just as the huge metal door closes behind you.
+
+> look
+Darkness
+You see nothing but pitch black.  In the complete darkness, you can feel yourself breathing heavily.
+
+> e
+You can't go in any direction!  
+
+Your eyes adjust to the darkness.
+
+You are standing in a spacious entranceway.  Your eyes have adjusted slightly, but it's still very dark here making it hard to find anything but the floor and the walls on either side.  It gets a little brighter down the hall at a bend that goes east.
+
+> e
+You move east.
+Dim Hallway
+The hallway gets a bit brighter here as you think you are getting closer to the light source.  Above your head, crawls a great network of piping and tubes.  Darkness envelops everything above the pipes which makes it impossible to tell how high the ceiling is.  A faint scratching noise is coming from the blackness somewhere above your head.  Darkness leads west, while the light gets even brighter down the hallway to your south.
+
+> s
+You move south.
+Bright Hallway
+The source of the light.  Two tubes of white gas mounted to the opposing walls illuminate this hallway very brightly.  The network of tubes and piping continue to run along the ceiling here extending north and south.  A dim hallway leads north, while the passageway opens up to the south.
+
+> s
+You move south.
+Dusty Lobby
+A dusty lobby with two counters facing you as you come in.  All along the walls are large screens which are all currently not functioning.  To your north is the bright hallway, to your south lies a large passageway and there are doorways to your east and west.  Bolted to the wall directly above the western doorframe is a plate which seems to be glowing purple.  The west door is closed.
+
+> w
+You barely take a look around when...
+
+BAM
+
+...from behind the first counter, a cloud of dust explodes into the air.
+
+Franticly, you scan the room for the reason for the sudden movement.  Your eyes move towards the counter as strange gurgling noises come from the unsettled dust cloud.  The gurgling noises shift into a more melodic human voice which you cannot understand.  Then the voice shifts rapidly from many forms of what seems like different languages.  Suddenly, you feel very frightened as two glowing eyes form from within the dust cloud.
+
+The eyes get closer and closer as the voices get louder and more rapid.  Then, as if a large spike penetrated your forehead, you feel an uncomfortable sensation as if something was rumaging around in your brain.  You grab your head when the dust begins to settle.
+
+'It's about time!' an irritated voice says.
+
+The dust starts to settle a bit and you notice a floating humanoid metal head form around the glowing eyes.
+
+'I've only sent for one of you, oh... over five hunderd years ago!' the voice continues.  It seems to be coming from the floating head.
+
+Standing, or I should say floating, before you is a robotic humanoid head with screen displays for eyes and a mouth.  Currently, the eye screens display what seems to be a representation of human eyes that look very irritated while the mouth displays pursed lips.  Imbedded on the forehead of the bot is a glowing purple circle. 
+
+'C'mon!  Let's get started here, bukco,' the head screams in your face.  'Follow me this way, we need to get moving here.'  The head presses its forehead up against a glowing plate located above the western doorway.  The plate makes a strange audible noise, a white light beams on and the door slides slowly into the wall.  The head glances in your direction, motions you to follow and floats away rapidly through the open doorway to the west.
+
+> look
+Dusty Lobby
+A dusty lobby with two counters facing you as you come in.  All along the walls are large screens which are all currently not functioning.  To your north is the bright hallway, to your south lies a large passageway and there are doorways to your east and west.  Bolted to the wall directly above the western doorframe is a plate which seems to be glowing purple.
+
+> exits
+You can move north, east, south and west.
+
+> w
+You move west to pursue the bot.  
+Blue Walkway
+This is a long curved corridor with a few scattered tables along the painted blue walls. Running the length of the corridor along the wall, is a moving walkway which is not functioning.  The walkway comes to an end to the south at a doorway opening up into a what looks like a large waiting room.  To the east is the main lobby.  The floating head is here looking impatient.
+
+'Took you long enough, this way.'  The head floats south.
+
+> look
+Blue Walkway
+This is a long curved corridor with a few scattered tables along the painted blue walls. Running the length of the corridor along the wall, is a moving walkway which is not functioning.  The walkway comes to an end to the south at a doorway opening up into a what looks like a large waiting room.  To the east is the main lobby.
+
+> exits
+You can move east and south.
+
+> s
+You move south to pursue the bot.  
+Blue Waiting Area
+Rows of blue painted chairs and benches occupy this room much similar to how a commercial Spaceport terminal is set up.  You can only assume this room is used as a waiting terminal of some sort.  Along the walls are signs and posters showing pictures of everything from golden beaches to great stone castles.  You notice a small exit to the south half hidden by piled up benches while a large open doorway leads west.  The floating head is here looking impatient.
+
+'Ok good, almost there.'  The head floats away to the west.
+
+> look
+Blue Waiting Area
+Rows of blue painted chairs and benches occupy this room much similar to how a commercial Spaceport terminal is set up.  You can only assume this room is used as a waiting terminal of some sort.  Along the walls are signs and posters showing pictures of everything from golden beaches to great stone castles.  You notice a small exit to the south half hidden by piled up benches while a large open doorway leads west.
+
+> exits
+You can move north, south and west.
+
+> w
+You move west to pursue the bot.  
+West Machine Room
+A poorly lit, yellow hexagonal room.  The architecture here stands out to you as it's much more angular than the round style you are used to seeing around here.  Machines line every wall that you think are some sort of computers.  All of the lights on the machines are dark.  One of the computer's panels on the north wall has been broken off and there is a slight green glow coming from it.  There is a raised platform on the south end of the room.  Node inspects some dust.  The head is here floating next to the open panel.
+
+'This is it here,' the head says motioning towards the open panel.  'The first thing we need you to do here is fix this.  It seems like one of the boards was taken and never returned.  I hope you brought a replacement with you....'  The head rolls its eyes.  'Otherwise, we might be out of luck here.'
+
+'Oh by the way, you can refer to me as Node,' the head suddenly says cheerily.  'Now get to work!'
+
+> look
+West Machine Room
+A poorly lit, yellow hexagonal room.  The architecture here stands out to you as it's much more angular than the round style you are used to seeing around here.  Machines line every wall that you think are some sort of computers.  All of the lights on the machines are dark.  One of the computer's panels on the north wall has been broken off and there is a slight green glow coming from it.  There is a raised platform on the south end of the room.  Node is here.
+
+> exits
+You can move east and south.
+
+> e
+You move east.
+Blue Waiting Area
+Rows of blue painted chairs and benches occupy this room much similar to how a commercial Spaceport terminal is set up.  You can only assume this room is used as a waiting terminal of some sort.  Along the walls are signs and posters showing pictures of everything from golden beaches to great stone castles.  You notice a small exit to the south half hidden by piled up benches while a large open doorway leads west.  Node floats into the room from the west.
+
+> n
+You move north.
+Blue Walkway
+This is a long curved corridor with a few scattered tables along the painted blue walls. Running the length of the corridor along the wall, is a moving walkway which is not functioning.  The walkway comes to an end to the south at a doorway opening up into a what looks like a large waiting room.  To the east is the main lobby.  Node floats into the room from the south.  Node inspects some dust.  
+
+> e
+You move east.
+Dusty Lobby
+A dusty lobby with two counters facing you as you come in.  All along the walls are large screens which are all currently not functioning.  To your north is the bright hallway, to your south lies a large passageway and there are doorways to your east and west.  Bolted to the wall directly above the western doorframe is a plate which seems to be glowing purple.  Node floats into the room from the west.
+
+> e
+You move east.
+Green Walkway
+This is a long curved corridor with signs posted along the green painted walls.  Running the length of the corridor along the wall, is a moving walkway which is not functioning.  The walkway comes to an end to the south at a doorway opening up into a what looks like a large waiting room.  To the west is the main lobby.  Node floats into the room from the west.
+
+> s
+You move south.
+Green Waiting Area
+Rows of green painted chairs and benches occupy this room much similar to how a commercial Spaceport terminal is set up.  You can only assume this room is used as a waiting terminal of some sort.  Along the walls are signs and posters showing pictures of everything from snowy landscapes to incredible alien city skylines.  A non-working moving walkway starts here and heads north, a large open doorway leads east, and a small nondescript doorway is at the south end of the room.  Bolted to the wall directly above the  doorframe to the south, is a plate which seems to be glowing purple.  Node floats into the room from the north.
+
+> e
+Node suddenly buzzes directly in your face and exclaims, 'OH!  By the way.......These purple glowing plates that you see on the the top of certain doorways are emergency access panels for bots.  Bot Buttons, I guess you could call them,' he snorts.
+
+'But anyway, if you see any more of these and you can't get the door open yourself, I can open them by accessing these purple plates.  Here, I'll open this one for you now.'  Node floats up the to plate and presses his forhead against it.  The plate makes a sound, a white light comes on and the door slides open.
+
+'This one was free, but the next one might cost you,' he laughs to himself.
+
+> s
+You move south.
+Bridge to Stairs
+Node floats into the room from the north.
+
+> s
+You move south.
+Stairwell Top
+Node floats into the room from the north.
+
+> d
+You move down.
+Stairwell Bottom
+!*!  Bottom of the stairs.  You can go up and north.  Node floats into the room from above.
+
+> e
+You move east.
+Triangular Hallway West
+|*| A triangular shaped hallway.  There are closed doors to your north and south, the bottom of the stairwell lies west and the hallway continues east.  Node floats into the room from the west.
+
+> e
+You move east.
+Triangular Hallway East
+|*| A triangular shaped hallway.  There are closed doors to your north and east, an open doorway to your south, and the hallway continues east.  Node floats into the room from the west.
+
+> s
+You move south.
+Empty Angled Office
+The floor of this small office is not flat, but slopes slightly at a very odd angle.  There are bolts in the floor that look as though they once held furniture of some kind in place, but now the room is entirely empty.  A large folding partition spans the entire western wall which is closed.  Node floats into the room from the north.
+
+> w
+You move west.
+Cluttered Angled Office
+The floor of this small office is not flat, but slopes slightly at a very odd angle.  A lot of the room's detials are hard to make out due to hundreds of papers haphazardly piled and scattered upon every available flat surface.  All of the furniture (which is level at the top) angle at their feet to rest on the slanted floor.  Sitting amongst a particularly tall stack of papers on a nearby desk is a small cabinet with drawers.  There is a closed door to the north and a large folding partition spanning the entire eastern wall which is also closed.  Node floats into the room from the east.
+
+> open cabinet
+You open the small cabinet.  Inside the cabinet sitting atop another stack of papers is a small grey device emitting a faint blue light and a small blue disc.  
+
+Node flies up behind you, peeks over your shoulder and says, 'Oh hey, lookie there.  That there is what they call a Remote Command Device.  It's used to command bots just like me for making us do things we may not normally be willing to do.  I'm not a big fan of the device myself,' Node smiles.  'But hey, what can you do.'
+
+'That screen there displays the instructions on using it.  It says to start controlling a bot, 'activate remote'.  Then when you want to stop using it, 'deactivate remote'.  Oh here, let me fix it so you can read the interface.'  Node flies into the cabinet drawer and presses his head up against the device.  After a moment, he returns.
+
+'Ok, all set.  Go ahead and give it a whirl if you like.  Just don't make me do anything you'll regret!'  he cocks his mouth nervously.
+
+> look in cabinet
+The small cabinet is open.  A small blue disc and a remote command device are inside the small cabinet.
+
+> take device
+You take the remote command device from the small cabinet.
+
+> e
+You move east.
+Empty Angled Office
+The floor of this small office is not flat, but slopes slightly at a very odd angle.  There are bolts in the floor that look as though they once held furniture of some kind in place, but now the room is entirely empty.  A large folding partition spans the entire western wall which is closed.  Node floats into the room from the west.
+
+> n
+You move north.
+Triangular Hallway East
+|*| A triangular shaped hallway.  There are closed doors to your north and east, an open doorway to your south, and the hallway continues east.  Node floats into the room from the south.
+
+> w
+You move west.
+Triangular Hallway West
+|*| A triangular shaped hallway.  There are closed doors to your north and south, the bottom of the stairwell lies west and the hallway continues east.  Node floats into the room from the east.
+
+> w
+You move west.
+Stairwell Bottom
+!*!  Bottom of the stairs.  You can go up and north.  Node floats into the room from the east.
+
+> u
+You move up.
+Stairwell Top
+Node floats into the room from below.
+
+> n
+You move north.
+Bridge to Stairs
+Node floats into the room from the south.  
+
+> n
+You move north.
+Green Waiting Area
+Rows of green painted chairs and benches occupy this room much similar to how a commercial Spaceport terminal is set up.  You can only assume this room is used as a waiting terminal of some sort.  Along the walls are signs and posters showing pictures of everything from snowy landscapes to incredible alien city skylines.  A non-working moving walkway starts here and heads north, a large open doorway leads east, and a small nondescript doorway is at the south end of the room.  Bolted to the wall directly above the  doorframe to the south, is a plate which seems to be glowing purple.  Node floats into the room from the south.
+
+> n
+You move north.
+Green Walkway
+This is a long curved corridor with signs posted along the green painted walls.  Running the length of the corridor along the wall, is a moving walkway which is not functioning.  The walkway comes to an end to the south at a doorway opening up into a what looks like a large waiting room.  To the west is the main lobby.
+
+> w
+You move west.
+Dusty Lobby
+A dusty lobby with two counters facing you as you come in.  All along the walls are large screens which are all currently not functioning.  To your north is the bright hallway, to your south lies a large passageway and there are doorways to your east and west.  Bolted to the wall directly above the western doorframe is a plate which seems to be glowing purple.
+
+> w
+You move west.
+Blue Walkway
+This is a long curved corridor with a few scattered tables along the painted blue walls. Running the length of the corridor along the wall, is a moving walkway which is not functioning.  The walkway comes to an end to the south at a doorway opening up into a what looks like a large waiting room.  To the east is the main lobby.
+
+> s
+You move south.
+Blue Waiting Area
+Rows of blue painted chairs and benches occupy this room much similar to how a commercial Spaceport terminal is set up.  You can only assume this room is used as a waiting terminal of some sort.  Along the walls are signs and posters showing pictures of everything from golden beaches to great stone castles.  You notice a small exit to the south half hidden by piled up benches while a large open doorway leads west.
+
+> w
+You move west.
+West Machine Room
+A poorly lit, yellow hexagonal room.  The architecture here stands out to you as it's much more angular than the round style you are used to seeing around here.  Machines line every wall that you think are some sort of computers.  All of the lights on the machines are dark.  One of the computer's panels on the north wall has been broken off and there is a slight green glow coming from it.  There is a raised platform on the south end of the room.
+
+> e
+You move east.
+Blue Waiting Area
+Rows of blue painted chairs and benches occupy this room much similar to how a commercial Spaceport terminal is set up.  You can only assume this room is used as a waiting terminal of some sort.  Along the walls are signs and posters showing pictures of everything from golden beaches to great stone castles.  You notice a small exit to the south half hidden by piled up benches while a large open doorway leads west.
+
+> s
+You move south.
+Security Station
+!*!  Security, blah blah.  To the north, the room opens up into a larger terminal.  There is an escalator here starting in the middle of the room leading down.
+
+> d
+You move down.
+Long Escalator
+The middle of a long escalator.  You can go up or down.
+
+> d
+You move down.
+Archive Chamber
+You are standing in an immense chamber with towering rectangular columns that rise from the floor way up into darkness.  About fifteen feet up from the floor, each column transitions from its metal base into glass containing millions and millions of tiny reflective discs.  At the base of each column are small video monitors which are dark.  You see no light sources, but the rooms ambient light level is enough for you to see that the chamber is many hundred feet across.  One of the glass cases above you is shattered and has exposed the discs.  You notice at the base of one close column is a terminal with a glowing screen.
+
+To the far south is a large metal door which is closed.  To the east, between two columns is an open grating providing passage into that looks like some sort of duct.  You can also use the escalator stairs to go up.
+
+> e
+You move east.
+Wire-Ridden Duct
+You cannot see the walls or ceiling behind the mass collection of wires and pipes along this hallway.  The hallway (along with the massive wires) continues to the south and an open grating lies west to the archive room.
+
+> s
+You move south.
+Wire Cluster Junction
+The mass cluster of wires that amassed from the north duct all head through the wall to the south over a doorway.  Along side the door is a panel with a single hole in it colored purple.  The duct continues north.  To the west, the duct opens up into a stark white hallway.  The door to the south is closed.  
+
+> w
+You move west.
+Bleach White Hall
+A featureless white hallway with no furniture or wall hangings visible.  It is amazingly immaculate.  The hallway continues west and a large closed metal door is to the north.  A grating is missing from a some sort of large duct on the east wall leading to a wire-ridden passage.
+
+> w
+Bleach White Reception
+A small white room with a single square white desk.  Everything here is immaculately white and featureless except the south wall.  There is a large glass window spanning the entire length of the wall save a small corner for a doorway sealed by a shite door.  Through the glass to the south, you can make out a dim room with counters along the walls.  Mounted on the far wall of the room through the glass you see a large round mirror.  To the east is an equally immaculate hallway.  
+
+> activate remote
+You activate the remote command device and take over control from Node.  The screen blinks and you see Node's current location through his eyes.  The screen displays the room:  Stairwell Top.
+
+You are now controling Node and seeing what he sees.
+(To stop controlling Node, you must 'deactivate remote'.)  
+
+> south
+You can't go in that direction, but you can move north and down.
+
+> west
+You can't go in that direction, but you can move north and down.
+
+> south
+You can't go in that direction, but you can move north and down.
+
+> west
+You can't go in that direction, but you can move north and down.

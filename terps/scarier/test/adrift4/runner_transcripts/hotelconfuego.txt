@@ -1,0 +1,195 @@
+
+> e
+Joe goes east down the hallway.  It is lined with mirrors and paintings of birds.  Joe hates being surrounded by mirrors.  At the end of the hall is the doorway that leads into the Cabaret Theater.  On one side of the doorway is a ticket booth, on the other a concession stand.  The doorway itself is closed. 
+  
+Theater Entrance
+For such a luxurious resort, the owner, Mr. Flick, books some really horrible acts in the theater.  A sandwich board by the ticket booth reads "Appearing tonight . . .  Haldo the Magnificent!!!  Hypnotist extraordinaire!"  Any intelligent person would find this unbearably trite, but Joe loves garbage like that!  He sees Millie standing all alone behind the quiet ticket counter.  The doors lead north into the theater.  The hallway goes west to the lobby.  Calypso music plays in the background.
+
+> get ticket
+Joe wants to buy a ticket for the show, but in checking all his pockets but he finds he doesn't have a dime on him.  Millie smiles at him and secretly slips a ticket into his hand.  For a moment their hands touch and Joe's heart nearly leaps through his chest.  “This'll be our little secret, ok?” Millie says.  Joe can't think enough to put two words together.  So instead he takes the ticket and politely runs away! 
+Press any key
+When Joe gets outside to the sidewalk he tries his level best to shove his fist down his throat and shout at the same time.  How could he just run away like that?  What a JERK!  Millie must think he's a freak.
+Just then he sees the evening bell hop, Stu Flick (the owners snot faced son) walking in.  Joe tries to wave and say "Hello," but his fist gets stuck behind his teeth and rabid drooling is the only result.  Stu, a carbon copy of his father, doesnt even take the time to make eye contact with Joe.
+Press any key
+The arrival of Stu means that Joe's shift is up.  His first thought (after removing his slobbered hand from his mouth) is to tear up the ticket and go home.  But he his so depressed right now that not even the prospect of gluing the last hundred or so matches to his Lusitania model will cheer him up.  So he decides instead to go calm his nerves.  
+Press any key
+Going eastward along the sidewalk Joe comes to the entrance of the Hotel con Fuego Piano Lounge Bar and Grill.  His good friend Pablo is the bartender there.  
+Piano Lounge Entrance
+To the north, up a small flight of stairs, is the Hotel con Fuego Piano Lounge Bar and Grill.  The sidewalk continues east and west.  Calypso music plays in the background.
+
+> n
+Joe moves north.
+Piano Lounge
+This is exactly the sort of place that Joe would usually avoid like the plague.  But recently he's been feeling more down and out than usual.  And after his embarrassing experience with Millie, a drink is what he needs.  Through the low smoky haze Joe can see a man playing a piano in the corner.  There is a fat lady in a sequined dress singing songs that no one is listening to.  The lights are dim but all the small tables have candles on them to create the "mood".  There are a few people at the tables, and a few more by the bar to the north.  The exit is south.  Calypso music plays in the background.
+
+> n
+Joe moves north.
+Bar
+Joe recognizes some of the guests that are sitting at the bar since he helped most of them with their luggage when they arrived at the hotel.  Pablo is behind the bar cleaning some glasses.  The rest of the lounge is to the south.  Calypso music plays in the background.
+
+> buy beer
+Joe sits down at the bar and, to Pablo's surprise, he asks for a beer.  Pablo knows Joe can't pay for it, but he looks like he needs it.  He pours a glass and hands it to Joe, but before Pablo can say cheers, the glass is empty.
+
+> buy beer
+The first beer went down pretty quick, so Joe orders another to chase it.  It disappears just as quickly.
+
+> buy beer
+Joe is starting to feel a bit tipsy, but he orders another beer anyway.  GULP!
+A woman sitting near Joe gets up to leave.  Once she is out the door, Joe sees that she has left her purse behind.
+
+
+> open purse
+Do you think Joe would really look in someone else's purse?
+
+> open purse
+Really now!  I don't think Joe is that kind of person . . .
+
+> open purse
+Well, maybe Joe IS that kind of person.  But only when he's been drinking, mind.  Joe opens the purse and finds nothing but a tube of lipstick and a mirror.
+
+> take mirror
+Joe take the small mirror from the purse.
+
+> s
+Joe moves south.
+Piano Lounge
+This is exactly the sort of place that Joe would usually avoid like the plague.  But recently he's been feeling more down and out than usual.  And after his embarrassing experience with Millie, a drink is what he needs.  Through the low smoky haze Joe can see a man playing a piano in the corner.  There is a fat lady in a sequined dress singing songs that no one is listening to.  The lights are dim but all the small tables have candles on them to create the "mood".  There are a few people at the tables, and a few more by the bar to the north.  The exit is south.  Calypso music plays in the background.
+
+> s
+Joe moves south.
+Piano Lounge Entrance
+To the north, up a small flight of stairs, is the Hotel con Fuego Piano Lounge Bar and Grill.  The sidewalk continues east and west.  Calypso music plays in the background.
+
+> w
+Joe moves west.
+Sidewalk
+The wide curb in front of the hotel is covered by an awning to keep the hot rays of the tropic sun from turning the lobby into a greenhouse during the day.  Lush vegetation grows everywhere.  George, the valet, is leaning quietly on his small stand doing a crossword puzzle.  The lobby is to the north through the glass doors.  The private hotel drive continues east and west with a sidewalk running along it.  Night is falling and the heat of the day has passed.  Calypso music plays in the background.
+
+> n
+Joe approaches the doors slowly.  He never trusted those automatic doors.  They open without incident and he walks into the lobby.
+
+> e
+Joe moves east.
+Theater Entrance
+There is now a small crowd of guests milling about the concession stand.  The show is bout to begin so they start handing their tickets to Millie and head into the theater.  The theater doors to the north are now wide open.  Calypso music plays in the background.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+The effects of the alcohol are slowly wearing off.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+Joe suddenly realizes that the show is about to start.  He'd better get to the theater before it's too late.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+Joe has unfortunately sobered up.
+
+> give ticket to millie
+Joe fumbles around in his pocket until he finds the ticket.  He puts it in Millie's hand, making sure their fingers touch in the process, and he winks at her.  "You're a good kid," he manages to say, "And don't you forget that!"  He stumbles into the theater to find his seat.      
+Cabaret Theater
+The Cabaret is small and dimly lit.  It is exactly the sort of place where rich folks with horrible taste can come to experience the magic of theater (minus the magic and plus the outrageous ticket price.)  It was designed to look very hip and informal, with small round tables and chairs instead of traditional theater seats.  About  a third of the seats are full.  There is a door off to the side of the stage labeled "Back Stage: Do Not Enter."  Calypso music plays in the background.  Joe finds the nearest open seat and takes it.
+
+> n
+(Getting off the chair first)
+Joe moves north.
+Back Stage
+This is the back stage area.  It is very dark back here so it takes Joe a moment to adjust.  When he can see, he finds that there is a mysterious looking man standing alone in the dark.  The stage door leads south to the theater.  To the west is the stage where Haldo is still performing his act.  To the east is Haldo's dressing room which is beig guarded by the mysterious man.  To the north Joe can just make out what looks like another door.  It is the prop room.  Calypso music plays in the background.
+
+> n
+Joe moves north.
+Prop Room
+It is totally dark.
+
+> open ladder
+Joe grabs the ladder and opens it up.  It is a bit crowded in the prop room, but he manages to find room for the ladder.
+
+> walk under ladder
+When Joe stands under the ladder the cat begins to howl louwdly and wave it's claws in the air.
+
+> give mirror to cat
+As it turns out, the small black cat is terribly superstitious.  The fact that Joe is standing beneath a ladder is already a lot for it to handle, but when Joe shows the cat it's reflection in the mirror, it's extreme fear of black cats sends it hurtling five feet into the air.  In doing so it knocks the mirror from Joe's hand, which hit's a rung of the ladder and breaks into several shards.  This is the last straw.  This bad luck overload sends the cat fleeing from the room.
+
+> s
+Joe returns to the back stage ares.  He finds thet the mysterious man is no longer guarding the door to the dressing room.  He is busy trying to get at the cat who has stolen his fish and jumped up on a high ledge to eat it in peace.  The mysterious man is wildly waving his arms and mumbling something that sounds like some kind of curse.
+
+> e
+Now that the mysterious man is not paying attention, Joe can sneak  into Haldo's dressing room.  
+Dressing Room
+The first thing Joe notices about Haldo's dressing room is the smell.  Apparently Haldo is also very fond of tuna, as there are several half eaten fish lying around.  He also notices that there is a large trunk in the corner.  Calypso music plays in the background.
+
+> x trunk
+Curiosity gets the better of him and Joe decides to have a look in the trunk.  It is the sort of trunk that stands on end and opens sideways.  As soon as he pulls it open slightly, a FOOT falls out of the trunk, as if someone were hiding in the there.  Joe leaps back in shock, but the foot is motionless.
+Press any key
+Just then Joe hears a voice from behind him.  “Hey, you can no be in here!”  Joe reels around to see the mysterious man holding a very irritated cat under one arm.  With his free hand the mysterious man removes his right eye, which is glass, and stares at Joe.  Suddenly, Joe begins to feel light headed.  “You vill sleep now,” the man says, and instantly Joe is unconscious.
+Press any key
+The next thing Joe is aware of is being on his bicycle ridding home.  He doesn't recall leaving the hotel at all.  He feels slightly disoriented and he stops for a moment to look around.  It is dark now and the road is deserted.  He can see that he is only a few blocks from his house.  How had he gotten here?
+Press any key
+When Joe gets home he heads right to bed.  He is too exhausted to even begin thinking about what happened to him.  But later that night Joe is woken up by a cryptic phone call.  There is no voice to be heard on the other end, but Joe can hear strange breathing.  Just before he is about to hang up on the prankster, Joe hears a bell ring over the phone.  It sounds like the bell the desk clerks use to summon him.
+Press any key    
+Instantly he is gripped with fear.  That bell did something to him.  He receives a premonition that the Hotel con Fuego will go up in a ball of flame before three pm the next day.  He is so shaken by this that he cannot get back to sleep.  Somehow he knows that it was up to him to discover how, and WHY, the hotel will soon be destroyed and, if he could, to put a stop to it.  And just who made that phone call.
+Press any key to begin!
+The next morning Joe leaves for work early.  He knows that this will not be an ordinary day at work.  Still, he mounts his rusty ten speed bicycle and rides the three miles to the hotel.  When he finally gets to the lobby he notices . . . nothing at all.  No one is in a panic, no one seems concerned.  He seems to be the only one who is aware of the impending doom.  It's time to start getting to the bottom of things.
+Press any key
+Can Joe solve the mystery?  Will he discover who is responsible for his strange vision?  Will he make it through the day without suffering a massive heart attack?  . . . . Probably not, but that's life!
+  Well, that's the end of the demo.  It is still rough, but the story is there and the charectars are in place.  Please send me any errors, typos, excessive GTV's (guess the verb), and any other advive or comments that you may have.  Thanks for playing!
+
+Magic Dave
+magic@eden.rutgers.edu 

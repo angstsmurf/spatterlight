@@ -1,0 +1,40 @@
+
+> look
+The Kitchen
+The radiance of a midsummer day streams through the art deco windows over the sink, reflecting off the surfaces of your kitchen.  The table & checkered linoleum floor sport a recent coat of polish, thanks to your wife's tireless fastidiousness (which also vacuumed the den to the west).  The sliding great door to the north, slightly open, looks out on a well-manicured lawn and a picket fence ("north").  By contrast, the stack of dirty dishes in the sink seem the only blemish on the otherwise pastoral scene.  Your loving wife is here.  
+
+Your wife gives you a look and asks, "Something wrong with the dishes?"  (Y/N)  
+
+> n
+"Being negative won't help here," says your wife.
+
+Uh-oh... something tells you that sentence could spell the beginnings of an argument.  
+
+"Honey?  Your eyes keep wandering around ("look"), like you're lost or something."
+
+> wash dishes
+You can't wash that.  
+
+"Can't you wash the dishes?"  
+
+> wash dishes
+You can't wash that.  
+
+Your wife goes pale and rushes out the room through the door to the north, locking the door behind.
+
+You briefly consider that your wife tends to overact and sometimes behaves strangely.
+
+> north
+You try, but the great door is locked.
+
+> west
+You try, but find that the door is locked (if there even is one).
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wash dishes
+You can't wash that.

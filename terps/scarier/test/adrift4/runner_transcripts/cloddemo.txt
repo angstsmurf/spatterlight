@@ -1,0 +1,663 @@
+
+> \
+Clod's Quest: The Dungeons of Zivulda
+
+
+Clod's Quest:
+The Dungeons of Zivulda
+***********************************************************
+Written using ADRIFT, (c) Campbell Wild, 1998-2008.
+Written by Duncan Bowsman-- a fantasy adventure.
+Demo v1.00: March 2009.
+
+
+        INTRODUCTION
+> START  
+   OPTIONS
+
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) LEARN how to play.
+~~~~~~~~~~~~~~~~~~~~~~~
+Please enter ' \ 1 or 2 on your keyboard and press enter, as per the guide above.  
+
+> 1
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Lift the iron portcullis >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 
+Please type appropriate control symbol ('  \  1 or 2) and press enter.  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach for the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 11
+One command at a time, please.  
+
+> 2
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		    CHEESE & PICKLE SANDWICH
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    POTION OF STRENGTH
+		    CHEESE & PICKLE SANDWICH
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > POTION OF STRENGTH  Bulk up with this P.o.S.!
+		    CHEESE & PICKLE SANDWICH
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		   > CHEESE & PICKLE SANDWICH  Your only rations.
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You leisurely devour the cheese & pickle sandwich.
+
+[press enter to continue]
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    POTION OF STRENGTH
+		    
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		   > MAGNIFYING GLASS  For thorough examination.
+		    POTION OF STRENGTH
+		    
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		    SWORD
+		    MAGNIFYING GLASS
+		   > POTION OF STRENGTH  Bulk up with this P.o.S.!
+		    
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 1
+You drink the potion and feel Herculean strength course through your veins!
+
+[press enter to continue]
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+
+		   INVENTORY
+
+		   > SWORD  Be careful with this thing!
+		    MAGNIFYING GLASS
+		    
+		    
+		    
+		   _________
+
+		   
+		   You have 0 save(s).
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) USE or EQUIP item.
+(2) RETURN to Dungeon Screen.
+~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+> 2
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach for the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 11
+One command at a time, please.  
+
+> 
+Please type appropriate control symbol ('  \  1 or 2) and press enter.  
+
+> 1
+You stand on tip-toe and stretch your arms as far as you can, but the dragon's head statue is still out of reach and it remains just short of your grasp when you jump.
+
+[press enter to continue]  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach for the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach into the dead bush >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 11
+One command at a time, please.  
+
+> 
+Please type appropriate control symbol ('  \  1 or 2) and press enter.  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Lift the iron portcullis >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 11
+One command at a time, please.  
+
+> 
+Please type appropriate control symbol ('  \  1 or 2) and press enter.  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach for the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \\
+One command at a time, please.  
+
+> 1
+You stand on tip-toe and stretch your arms as far as you can, but the dragon's head statue is still out of reach and it remains just short of your grasp when you jump.
+
+[press enter to continue]  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach for the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach into the dead bush >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \\
+One command at a time, please.  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Lift the iron portcullis >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 11
+One command at a time, please.  
+
+> 
+Please type appropriate control symbol ('  \  1 or 2) and press enter.  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach for the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> 11
+One command at a time, please.  
+
+> 
+Please type appropriate control symbol ('  \  1 or 2) and press enter.  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach into the dead bush >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \\
+One command at a time, please.  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Lift the iron portcullis >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \\
+One command at a time, please.  
+
+> \
+  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach for the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> \\
+One command at a time, please.  
+
+> 1
+You stand on tip-toe and stretch your arms as far as you can, but the dragon's head statue is still out of reach and it remains just short of your grasp when you jump.
+
+[press enter to continue]  
+Dungeon Entrance
+--------------------
+HEALTH: @@@
+LIVES:  @@@
+EQUIPPED: NOTHING
+--------------------
+LOCATION: DUNGEON ENTRANCE
+
+You stand at the foot of the imposingly sheer monolith of black rock that is Mount Gravinwort-- the entrance to Zivulda's dungeon lies before you.  An acrid, foul smell wafts up from the entrance, which is blocked by an iron portcullis.  Above the iron portcullis, a dragon's head statue broods over your predicament.  You must find a way inside.  Off to the side of the iron portcullis is a dead bush.
+
+  What do you do?
+  < Reach for the dragon's head statue >
+
+
+~~~~~~~~~~~~~~~~~~~~~~~
+(' or \) CHANGE selection.
+(1) CHOOSE selection.
+(2) INVENTORY.
+~~~~~~~~~~~~~~~~~~~~~~~
+  
+
+> quit
+
+> 
+Please type appropriate control symbol ('  \  1 or 2) and press enter.  

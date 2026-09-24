@@ -40,10 +40,15 @@ Row comments and probe generators cite sections by title ("Ported
   the report for a row that differs. Regenerate with
   `harness/runner_transcripts.py` (its README explains how);
   `recompare <tag>` refreshes one row after an engine change.
-- **Manifest:** 390 identical on every turn, 25 identical apart from
-  whitespace, 12 with a report. Every differing row is classified under
-  "Open leads" or "Nothing owed" -- and since the silent-task port
-  (2026-09-20) none of them is an engine difference.
+- **Manifest:** 536 identical on every turn, 32 identical apart from
+  whitespace, 18 with a report. Every differing row is classified under
+  "Open leads" or "Nothing owed", except five rows added with the
+  2026-09-24 batch of 22 newly-wired walkthroughs (mages, hotelconfuego,
+  night, thewill, thenightmoon) whose reports are genuine-looking but
+  not yet diagnosed -- see "New-row leads, not chased" below -- and two
+  more from the same batch (cloddemo, temporfell) whose reports are
+  capture artefacts from the Wine keystroke drive, not engine
+  differences.
 - **Which transcript to cite.** For a wired row, cite
   `runner_transcripts/<tag>.txt` (`.rtf` for 3.7/3.8), never the
   `Adrift_<N>_<tag>` file a drive left in the prefix. The manifest's `source`
@@ -227,6 +232,19 @@ below as not yet ported.
 - **Permanently unmeasurable:** `dreamquest` (run400 cannot load a task
   with an empty Command vector); the `to_hell_and_beyond` assisted rows
   (Scarier-only by design).
+- **cloddemo** (2026-09-24): its whole walkthrough is driven through a
+  single-keystroke `'`/`\`/`1`/`2` menu (a CYOA-style control scheme), and
+  the Wine keystroke injection loses or doubles several of those
+  keypresses -- 6 lost commands on one drive, 11 on a re-drive at
+  `maxpar 1`, so it is not a parallel-drive artefact but a property of
+  this game's own input style. Not comparable past its first lost
+  command (feed[17]); no engine claim.
+- **temporfell** (2026-09-24): feed[88] `wait` is lost on every drive
+  (parallel and serial alike). It lands inside a heavily `<press any
+  key>`-gated cutscene (T83, three prompts in one task's text) right
+  after a `wait`; the pause-clearing logic in the drive appears to
+  consume the next feed line as a keypress instead of echoing it. Not
+  comparable past T83; no engine claim.
 - When reading `sweep_wine_breaks.py`, judge by `k1`: 4428 of the 4456
   Scarier-only breaks are blank lines (`k2`), mostly the `<centre>`
   artefact, so the total is a poor target on its own. Not all of `k2` is
@@ -430,6 +448,71 @@ taken up).
   do with the red hat." where Scarier prints the end-of-turn `Which hat.`
   prompt -- a 3.70 co()-term split (Short vs Alias), not chased further
   (p37EVQ, Adrift_evq_p37EVQ.rtf, 2026-09-20).
+
+### New-row leads, not chased (2026-09-24)
+
+Five of the 22 walkthroughs wired up on 2026-09-24 (liqid, mages,
+monsterisland, mysteryhouse, bedlam, crimelife, dbaa, dickynoodle,
+dishduty, ebonysworld, filthybill, hotelconfuego, illegalsocks, newbie,
+teaw, temporfell, thenightmoon, cloddemo, night, thewill, twentyone,
+weirdstuff2 -- the other 17 are identical) drove clean against the real
+Runner but disagree with it. Each looks genuine, not a capture artefact
+(RULE 2 says every feed command was echoed, or -- thewill -- the report
+was re-driven clean after an unrelated lost-command re-drive). None is
+chased further here; the game text and Runner-side function citations
+below are a running start for whoever picks one up.
+
+- **mages T0-2, T29** (3.90): `lie down` and `sleep` -- the game keys a
+  "pass out" event off a tiredness stat, task command `#pass out`
+  (CompleteText "You pass out onto the ground and wake up in your own
+  home...", `games/mages.taf`). Scarier's `lie down` (T0) appends that
+  CompleteText to the plain lie-down response one turn early, and the
+  next `sleep` (T1) then succeeds ("You fall asleep on your bed...")
+  where run390 refuses with the `sleep*` task's restriction message
+  "You are not in the right place to do that." The stat divergence
+  persists to T29's `stats` (90 vs 100 health). Looks like a
+  tiredness-variable or location-restriction check firing on the wrong
+  turn; not traced into scvars.cpp/scrunner.cpp's restriction evaluator.
+- **night T86** (4.00, `The_Night_That_Dripped_Blood.taf`), `kiss
+  rachel`: run400 prefixes the scene with "I'm not sure she would
+  appreciate that!" (the library's generic kiss/hug/touch fallback,
+  `sclibrar.cpp` ~27520-27599) before still running the scene text;
+  Scarier runs only the scene text. This is the same library callback
+  already fixed for House's `kiss cathy` (see
+  `run_game_commands_common`'s one-task-per-line doc comment,
+  `scrunner.cpp` ~6000-6018) but with the opposite polarity -- here the
+  real Runner keeps printing the library fallback on a LATER kiss where
+  Scarier has apparently already retired it. Whether this is the same
+  gate misfiring the other way, or a second, independent issue, needs a
+  probe.
+- **hotelconfuego T39** (4.00), bare `n`: Scarier answers with task
+  882's `[open/enter] {the} [back stage] {door}` CompleteText ("Joe
+  stealthily creeps over to the Back Stage Door...", `games/
+  1_Hotel_con_Fuego.taf`) instead of a plain room move; run400 does the
+  plain move (the back-stage entry apparently already happened on an
+  earlier turn on the Runner's side). Looks like a task-vs-movement
+  ordering slip a turn or more upstream of T39; not traced.
+- **thewill T8-19** (3.90, `The_Will.taf`): after `u`/`n`/`open door`,
+  Scarier's Hallway description adds "A titanium pocket watch is
+  visible inside the open grandfather clock." and the Inside Shack
+  description likewise adds contents sentences for the cabinet/drawer,
+  even though the clock is never opened anywhere in the walkthrough;
+  run400 shows neither sentence and takes a different (unopened-door)
+  branch through the same rooms. The markers are `%in_clock%` /
+  `%on_cabinet%` / `%in_drawer%` (room Long/LastDesc text). Traced
+  `var_list_in_object`/`var_list_on_object`/`var_list_at_object`
+  (scvars.cpp ~560-784) and the library's parallel
+  `lib_list_in_object_*` family (sclibrar.cpp ~8965-9180) end to end;
+  neither's literal templates ("Inside X is Y.", "X is inside Y.")
+  match the observed wording ("is visible inside the open X"), so the
+  string comes from somewhere else not yet found. Re-driven clean
+  2026-09-24 (no lost commands) to rule out a capture artefact.
+- **thenightmoon T23-58** (3.90): combat wording/state divergences
+  against a dark elf and a skeleton guard (e.g. run400 "Guard isn't
+  here! Skeleton guard isn't here!" where Scarier still runs the attack
+  and lands or misses hits) -- likely in the same battle/dobattle family
+  as the already-ported type-7 and multi-target rules (see "NPCs, walks
+  and battle" below), but not diagnosed against this specific fight.
 
 ---
 
@@ -2867,6 +2950,18 @@ transcript names are in the code comment next to the named function, in
 
 ### Put and take-from
 
+- **4.0 put container named by the scorer, not in place.** run400's
+  put_drop_list gets every put line ahead of the task dispatcher, and
+  name_object resolves the text after " on "/" in " with the noun scorer
+  (46DD65), which ignores words that belong to no object. So `put my
+  homework on my desk`, whose desk has Prefix "your school", is the library
+  put ("You put your homework onto your school desk.") and TASK 10
+  `*homework*desk*` never runs. Scarier's put rows bind %object% in place,
+  "my desk" missed, and the task claimed the line (+2 score, tasks 9/11/17
+  out of step). When the container phrase names a fitting container or
+  surface, the put rows are now retried by whole-word containment ahead of
+  the tasks. `[4.0]` schoolday T9, identical on every turn after
+  (lib_put_container_fits_400, run_is_put_command_400, 2026-09-24)
 - **Pre-4.0 take "and" with nothing takeable.** When none of the named
   objects is a candidate: "You can't get any of them."; 3.9 says "either of
   them." for exactly two. A candidate is a dynamic object loose in the

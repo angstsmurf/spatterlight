@@ -1,0 +1,125 @@
+
+> d
+I move down.
+
+The main cabin
+This was the main cabin of my boat.  Much of it was destroyed in the storm.  Also here is a supply chest.  I can only move up.
+
+> x chest
+A large wooden chest that I keep my fishing supplies in.  The supply chest is open.  Inside the supply chest is an emergency kit, a long harpoon and some fishing weights.
+
+> get harpoon
+I take the long harpoon from the supply chest.
+
+> get kit
+I take the emergency kit from the supply chest.
+
+> open kit
+The kit is opened.
+
+> get flares
+Take what?
+
+> u
+I move up.
+
+The deck of my fishing boat
+Most of my boat is washed up on the shore.  The outboard motor is still intact.  To the east is the lagoon.  The main cabin is below deck.  I can move east and down.
+
+> e
+I move east.
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.  There's an opening in a rock wall and a path to the east.  
+
+The Creature is here!
+
+  I can move north, east, west and in.
+
+> look
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.  There's an opening in a rock wall and a path to the east.  
+
+The Creature is here!
+
+  I can move north, east, west and in.  The Creature scurried away to the east.
+
+> throw harpoon at the creature
+The creature isn't here.
+
+> look
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.  There's an opening in a rock wall and a path to the east.  I can move north, east, west and in.
+
+> throw harpoon at the creature
+The creature isn't here.  The Creature scurried in from the east.
+
+> look
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.  There's an opening in a rock wall and a path to the east.  
+
+The Creature is here!
+
+  I can move north, east, west and in.
+
+> throw harpoon at the creature
+Okay, I killed the creature.
+
+> look
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.  There's an opening in a rock wall and a path to the east.  Also here is a dead creature.  I can move north, east, west and in.
+
+> throw harpoon at the creature
+The creature isn't here.
+
+> look
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.  There's an opening in a rock wall and a path to the east.  Also here is a dead creature.  I can move north, east, west and in.
+
+> throw harpoon at the creature
+The creature isn't here.
+
+> look
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.  There's an opening in a rock wall and a path to the east.  Also here is a dead creature.  I can move north, east, west and in.
+
+> throw harpoon at the creature
+The creature isn't here.
+
+> look
+
+Lagoon
+I am at a black lagoon.  My ship is wrecked on the rocks to the west.  There's an opening in a rock wall and a path to the east.  Also here is a dead creature.  I can move north, east, west and in.
+
+> x creature
+Fishboy ain't getting up.  A long harpoon and a skeleton key are on the dead creature.
+
+> get key
+I take the skeleton key from the dead creature.
+
+> e
+I move east.
+
+A path through the jungle
+I am in a jungle on an east-west path running paralllel to the shore.  There are many palm trees and plants around.  To the south is a locked gate of a cementary.  Also here is a ripe banana.  I can only move west.
+
+> unlock gate
+The gate is now unlocked.
+
+> open gate
+Okay, the gate is opened.
+
+> get banana
+I take the ripe banana.
+
+> s
+I move south.
+
+Old cementary
+I am in a medium sized cementary that's several hundreds of years old.  Most of the names on the graves have been worn off.  Some of these graves have been dug up.  Piles of dirt and caskets lie about.  There's an old shack to the east.  And the beginning of a village down the road to the south.  I can move north, east and south.

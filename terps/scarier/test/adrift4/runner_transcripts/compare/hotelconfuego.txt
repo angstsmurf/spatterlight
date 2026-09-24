@@ -1,0 +1,12 @@
+feed        47 commands
+runner      47 turns echoed
+scarier     48 turns, feed[0] is scarier turn 0
+
+RULE 2 -- every feed command was echoed.
+
+turn 39  n
+  run400   (Getting off the chair first) Joe moves north. Back Stage This is the back stage area. It is very dark back here so it takes Joe a moment to adjust. When he can see, he finds that there is a mysterious looking man standing alone in the dark. The stage door leads south to the theater. To the west is the stage where Haldo is still performing his act. To the east is Haldo's dressing room which is beig guarded by the mysterious man. To the north Joe can just make out what looks like another door. It is the prop room. Calypso music plays in the background.
+  scarier  Joe stealthily creeps over to the Back Stage Door. Using his master key he quietly unlocks it and goes back stage.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

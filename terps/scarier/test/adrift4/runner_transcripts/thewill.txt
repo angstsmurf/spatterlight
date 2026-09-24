@@ -1,0 +1,168 @@
+
+> w
+You move west.
+Southwest Corner of Yard
+A break in the hedges here reveals a dirt path leading south. The yard continues between the fence and the hedgerow to the north and east. You can see what looks like a small flower garden through the fence.  
+
+> n
+You move north.
+Northwest Corner of Yard
+The yard turns from east to south at this point. The hedges here are even taller than the others you have seen. You can just make out what might be an arboretum beyond the fence.  Out of the corner of your eye you spot a glint of silver deep in the hedges.  
+
+> search hedges
+You feel around in the hedges...
+You grab hold of an object and pull it out.
+It looks like an oilcan.  
+
+> s
+You move south.
+Southwest Corner of Yard
+A break in the hedges here reveals a dirt path leading south. The yard continues between the fence and the hedgerow to the north and east. You can see what looks like a small flower garden through the fence.  
+
+> e
+You move east.
+Front Gate
+You are standing before the front gate of your late uncle's house. A tall wrought-iron fence, to which the gate is attached, encloses the house in both directions, and a thick hedgerow behind you marks the boundary of the property. The lawn continues between the fence and the hedges to the east and west.  Through the closed gate you see an overgrown courtyard.  
+
+> unlock gate
+You insert the oddly shaped key into the keyhole and turn it. You hear the lock click just before the key breaks off in the keyhole.  
+
+> oil gate
+Your pour the last of the oil from the can onto the rusty door hinge.  
+
+> open gate
+You push hard against the gate and it finally swings open with a creak.  
+Front Gate
+You are standing before the front gate of your late uncle's house. A tall wrought-iron fence, to which the gate is attached, encloses the house in both directions, and a thick hedgerow behind you marks the boundary of the property. The lawn continues between the fence and the hedges to the east and west.  An open gate allows a short walk up a hill to a courtyard.  
+
+> u
+You move up.
+Courtyard
+This courtyard must have once been an impressive sight to visitors. Now its flagstone walkway is broken and uneven,  and its fountain dry.  The front gate is back down the hill. To the north you can see the front porch of the house. The walkway leads to the east and west.  
+
+> n
+You move north.
+Front Porch
+The front porch runs across the entire length of the house. Next to the front door is a  mailbox.   The front door is closed at present.  
+
+> open door
+You open the door.  
+
+> n
+You move north.
+Hallway
+This dimly lit hallway leads from the front porch to the interior of the house. The eerie silence of the house is broken by the irregular ticking of a grandfather clock sitting in one corner of the hallway.   
+
+> n
+You move north.
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand staircase, its bannister ending at a newel with a small statue on top, ascends up into the darkness.   Hallways lead south, east and north.  
+
+> move statue
+As you move the statue you hear a grinding sound from the west.  You turn towards the sound and see that a passage has opened up under the staircase.  
+
+> n
+You move north.
+Gallery
+This gallery must have been built for the exhibition of  your late uncle's attempts at art. The walls are lined with drawings and collages, none of which appeal to your taste. Arched doorways lead east and south and a picture window provides a view of the back gate.   
+
+An oriental rug covers the center of the floor.  Sitting to one side of the rug is a pedestal on which a marble sculpture is prominently displayed.  
+
+> open window
+The window opens, disappearing as it does, leaving a large opening in the rear wall. Handily, the rear gate swings open as well.  
+
+> s
+You move south.
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand staircase, its bannister ending at a newel with a small statue on top, ascends up into the darkness.   Hallways lead south, east and north and a low opening is visible to the west.  
+
+> e
+You move east.
+Living Room
+This once formal living room now holds only a pillow-laden sofa and a small coffee table.  You can see other rooms to the north and west.   
+
+> move pillows
+You manage to slide your hand under the surprising heavy pillows and find a matchbook which you pick up.  
+
+> w
+You move west.
+Foyer
+This spacious foyer once warmly received visitors to the house.  A grand staircase, its bannister ending at a newel with a small statue on top, ascends up into the darkness.   Hallways lead south, east and north and a low opening is visible to the west.  
+
+> s
+You move south.
+Hallway
+This dimly lit hallway leads from the front porch to the interior of the house. The eerie silence of the house is broken by the irregular ticking of a grandfather clock sitting in one corner of the hallway.   
+
+> s
+You move south.
+Front Porch
+The front porch runs across the entire length of the house. Next to the front door is a  mailbox.   The front door stands open.  
+
+> s
+You move south.
+Courtyard
+This courtyard must have once been an impressive sight to visitors. Now its flagstone walkway is broken and uneven,  and its fountain dry.  The front gate is back down the hill. To the north you can see the front porch of the house. The walkway leads to the east and west.  
+
+> d
+You move down.
+Front Gate
+You are standing before the front gate of your late uncle's house. A tall wrought-iron fence, to which the gate is attached, encloses the house in both directions, and a thick hedgerow behind you marks the boundary of the property. The lawn continues between the fence and the hedges to the east and west.  An open gate allows a short walk up a hill to a courtyard.  
+
+> w
+You move west.
+Southwest Corner of Yard
+A break in the hedges here reveals a dirt path leading south. The yard continues between the fence and the hedgerow to the north and east. You can see what looks like a small flower garden through the fence.  
+
+> s
+You move south.
+Dirt Path
+From a break in the hedges to the north, the dirt path leads toward a grove of trees to the south. Just off the side of the path, nearly hidden by weeds, stands a small doghouse. An ivory dogbone is visible inside the open doghouse.  A puppy, its fur matted with leaves, its bones showing through it's skin, stands guard outside the doghouse.  
+
+> s
+You move south.
+West Edge of Wood
+The path from the north turns east at a stand of trees which grows into a proper forest further to the east.  Just west of here a wooden shack is nestled under one of the taller trees.  
+
+> w
+You move west.
+Inside Shack
+The shack has just this one room and  houses only a small single-drawer metal cabinet which is leaning to one side. A crowbar is in plain view on the cabinet.   
+
+> level cabinet with matchbook
+You position the matchbook under the missing foot leveling the cabinet.  
+
+> open drawer
+The drawer slides open.  A battery charger is visible inside the open cabinet drawer.  
+
+> e
+You move east.
+West Edge of Wood
+The path from the north turns east at a stand of trees which grows into a proper forest further to the east.  Just west of here a wooden shack is nestled under one of the taller trees.  
+
+> e
+You move east.
+Deep in Woods
+Tall trees of various types nearly block out the sunlight here. The forest is impenitrable to the south, but spaces between the trees allow you to continue along the east-west path. To the north the trees end suddenly.  Lying nearby you can also see a small pile of ashes.  
+
+> e
+You move east.
+East Edge of Wood
+The trees are more widely spaced in this area of the woods letting in more sunlight.  The east-west path curves to go around a large oak.  
+
+> climb tree
+You move up.
+
+Up a Tree
+You have climbed only about 1/3 of the way up the tree, but you dare climb no further. The heavily leaved branches block all view of the surrounding landscape. An emerald egg is perched at the end of one of the branches.  
+
+> shake branches
+You throw your weigh into it and voila. The egg drops out of the branches to the ground below.  
+
+> d
+You move down.
+East Edge of Wood
+The trees are more widely spaced in this area of the woods letting in more sunlight.  The east-west path curves to go around a large oak.  Lying nearby you can also see an emerald egg.  
+
+> get emerald
+You take the emerald egg.  

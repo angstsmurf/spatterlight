@@ -1,0 +1,118 @@
+
+> look at dresser
+Its just a tiny bedside dresser with one drawer. It has a faint chemical odor you can't quite place.   An alarm clock is on the tiny wooden dresser.
+
+> get alarm clock
+You take an alarm clock from the tiny wooden dresser.
+
+> look under bed
+Oh, God! How cliche! "Look under the bed." Can there be just one bed in any text adventure that dosen't contain important items underneath? Apparently not. You find a baseball bat.
+
+> hit clock with bat
+One swing of the bat effectively shatters the bat into smithereens. You hear the voice of your wife, Barbara, from down the hall. "I hope you didn't smash the alarm clock with a baseball bat."
+
+  With the ringing gone from your ears you can finally think straight. You remember that the big Spike Tyler-Ethan Holigram Boxing Match is on later today. And the only place to watch that is at Phil's bar under the heavy influence of alcohol. Well, it looks like you have a busy day ahead of you. But first you need to find your car keys and rid yourself of this nasty hangover. Get to it!
+
+> stand
+You wobble a bit as you try and maintain balance on two feet. The raging hangover tells you that you were really knocking 'em down last night. You get off the bed.
+
+> s
+You move south.
+Hallway
+A short hallway extends from here to the east. Your room is to the north. The hellhole that is tony's room is to the west. Loud music blares from that direction. There is a bathroom to the south.  You can move north, east, south and west.
+
+> s
+You move south.
+Bathroom
+The bathroom smells strongly of soap. Blue and green tiles cover the floor. A bath, toilet and sink are wedged into this tiny place. Above the sink is a medicine cabinet which is closed.  You can only move north.
+
+> open cabinet
+You open the medicine cabinet, revealing a bottle of pills.
+
+> x cabinet
+You can't see inside, since it is closed.  The cabinet is open.  A bottle of pills is inside the medicine cabinet.
+
+> get bottle of pills
+You take a bottle of pills from the medicine cabinet.
+
+> n
+You move north.
+Hallway
+A short hallway extends from here to the east. Your room is to the north. The hellhole that is tony's room is to the west. Loud music blares from that direction. There is a bathroom to the south.  You can move north, east, south and west.
+
+> e
+You move east.
+Living Room
+Kitsch is the word to describe the tasteless decor of the living room. The walls are painted with garish pastels and the curtains are a bright plaid. Plastic covers all the furniture. A hallway heads to the west. There is an archway onto the northwall which leads into the kitchen. You can leave the house to the south. A television set sits in the centre of the room.  Barbara is here.  You can move north and west.
+
+> n
+You move north.
+Kitchen
+The walls, floor, and appliances of this kitchen are all various shades of off-white, creating a slight disorientating effect. The ceiling above the oven has been smoked black due to a small number of cooking mishaps, all of them having occurred when Barbara made the mistake of letting you cook. A refrigerator is next to the door to the garage, which goes southeast. You can either pass south through an archway to the living room or go outside to the north.  You can move north, south and southeast.
+
+> n
+You move north.
+Patio
+The back yard hasn't been mowed in quite some time. The grass is long enough for even the most intrepid explorers to get lost in. A brick patio near the back door (which you are standing on) provides some refuge from the greenery. You can enter the house from the south.
+
+Tony sits next to an anthill, frying ants with a magnifying glass. He takes one look at you and breaks out in a fit of uncontrollable laughter.  Also here is a magnifying glass.  Tony is here.  You can only move south.
+
+> get magnifying glass
+You pick up the magnifying glass.
+
+> s
+You move south.
+Kitchen
+The walls, floor, and appliances of this kitchen are all various shades of off-white, creating a slight disorientating effect. The ceiling above the oven has been smoked black due to a small number of cooking mishaps, all of them having occurred when Barbara made the mistake of letting you cook. A refrigerator is next to the door to the garage, which goes southeast. You can either pass south through an archway to the living room or go outside to the north.  You can move north, south and southeast.
+
+> s
+You move south.
+Living Room
+Kitsch is the word to describe the tasteless decor of the living room. The walls are painted with garish pastels and the curtains are a bright plaid. Plastic covers all the furniture. A hallway heads to the west. There is an archway onto the northwall which leads into the kitchen. You can leave the house to the south. A television set sits in the centre of the room.  Barbara is here.  You can move north and west.
+
+> open curtains
+You open the curtains, allowing sunlight to fill the room. Barbara is too engrossed in her show to notice.
+
+> burn cord with glass
+You hold the magnifying glass over the cord. It seems to be taking forever to burn.
+
+> burn cord with glass
+You channel the sunlight through a magnifying glass into an intense laser which sears the cord. The TV shuts off. Barbara asks you, "Is there any particular reason why you just ruined our television set?"
+
+Uh oh. She sounds mad this time.
+
+> ask barbara about keys
+"Is that what this is about? Your stupid keys? For the love of God..." She gets up and disappears. She returns with the car keys and throws them at you. She then picks up the phone and calls the television repairman to come repair the damage you just did. Screaming various nasty comments about your parents, Barbara sits back down in a huff.
+
+> n
+You move north.
+Kitchen
+The walls, floor, and appliances of this kitchen are all various shades of off-white, creating a slight disorientating effect. The ceiling above the oven has been smoked black due to a small number of cooking mishaps, all of them having occurred when Barbara made the mistake of letting you cook. A refrigerator is next to the door to the garage, which goes southeast. You can either pass south through an archway to the living room or go outside to the north.  You can move north, south and southeast.
+
+> se
+You move southeast.
+Garage
+The garage smells strongly of exhaust fumes. The walls are painted with oil and grease. Not the cleanest of garages but it has always provided your car with sweet, sweet sanctuary. A door to the northwest goes back into the house, or you can go outside by heading due south.
+
+You beautiful red car sits in the middle of the garage.You can also see a washing machine here.  You can move south and northwest.
+
+> open washing machine
+You open the washing machine, revealing your clothes
+
+> x washing machine
+You can't see inside, since it is closed.  The washing machine is open.  Your clothes are inside the washing machine.
+
+> get clothes
+You take your clothes from the washing machine.
+
+> wear clothes
+You put on tattered and mildewy clothes.
+
+> open car
+You open your car.
+
+> sit on car
+You sit down on your car.
+
+> start car
+These type of vehicles usually require keys to operate. And since you don't know how to hotwire...

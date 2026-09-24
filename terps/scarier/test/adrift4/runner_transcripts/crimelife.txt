@@ -1,0 +1,89 @@
+
+> e
+You move east.
+Bathroom
+Its your bathroom,  It suits you well. Its filthy, the sink, the bathtub and the toilet are all clogged. You never did shower much and you've recently taken to pissing out of the window. The smell is enough to make anyone puke, you're used to it.  There is a toilet in the corner,  a sink,  and a bathtub against the wall.  You can only move west.  
+
+> flush the toilet
+You flush the toilet. It immediately begins to over flow. As the thick layer of crap breaks apart and spills over you can see down into the toilet. Theres something in there.  
+
+> get the pistol
+You take the pistol from the toilet.  
+
+> get the clip
+You take the 9mm clip. It only has 10 bullets  
+
+> w
+You move west.
+Your Apartment
+You are inside your dingy apartment, a small one room studio with a tiny kitchen and a bathroom. The paint on the walls and ceiling is cracking, leaving flakes all over your floor. The room smells like piss and shit, a cross between your own hygiene, the rats in the walls and the city outside. There are empty bottles of cheap malt liqueur sitting on every flat surface including the floor.  There is water all over the floor. It seems to be coming from the bathroom.  There is a table next to your bed,   a mattress in the corner of the room,  and a refridgerator in the kitchen.  You can move north and east.  
+
+> n
+You move north.
+Hallway 5ht Flr
+You're outside your room in the hallway. The few lights that actually work are flickering on and off. Its smell like your bathroom out here. The doors that line the hallway on either side are all closed. The security in this joint is pretty decent, the doors are equipped with chains and multiple deadbolts.  You're Landlord is coming down the hall towards you, he doesn't look happy. Hes holding his rent box, he's probably coming for your rent.   Your Landlord is here.  You can move east and south.  
+
+> shoot landlord
+You pull out your piece and put a bullet in your landlords fat face. The back of his skull explodes and he flails backwards with a shocked look on his face. He crumples to the floor, a halo of blood extends around his head.  
+
+> take rent box
+You take the rent box.  
+
+> take cash
+You take the money out of the rent box. You just got $90.  
+
+> e
+You move east.
+Stairwell 5th Flr
+You're on a stairwell that leads up and down. There is litter everywhere.  You can move west, up and down.  
+
+> u
+You move up.
+Stairwell 6th Flr
+You're in a stairwell that leads down. You are on the top floor of your building.  You can move west and down.  
+
+> w
+You move west.
+Hallway 6th Flr
+You're on the top floor of your building. This floor is just like yours, smells worse though. One of the doors is open, looks like its been kicked in. Police barrier tape is strung across the door.  You can move north and east.  
+
+> n
+You move north.
+Crime Scene
+Your inside a room where it appears a murder has taken place recently. There are chalk outlines on the floor of a man and a dog. There are blood spatter marks on the walls, ceiling and floor. There room is completely trashed. There are belongings everywhere, his bed is overturned, all the drawers in his dresser are open, and dishes are strewn all over the kitchen.  There is a picture hanging on the wall.  You can move east and south.  
+
+> take the picture
+you remove the picture and toss it into the pile of shit on the floor. There is a hole in the wall behind it.  
+
+> s
+You move south.
+Hallway 6th Flr
+You're on the top floor of your building. This floor is just like yours, smells worse though. One of the doors is open, looks like its been kicked in. Police barrier tape is strung across the door.  You can move north and east.  
+
+> e
+You move east.
+Stairwell 6th Flr
+You're in a stairwell that leads down. You are on the top floor of your building.  You can move west and down.  
+
+> d
+You move down.
+Stairwell 5th Flr
+You're on a stairwell that leads up and down. There is litter everywhere.  You can move west, up and down.  
+
+> d
+You move down.
+Stairwell 4th Flr
+Your in a stairwell leading up and down.  There is a bootle of liquer on the floor.  You can move west, up and down.  
+
+> d
+You move down.
+Stairwell 3rd Flr
+You're in a stairwell leading up and down.  You can move west, up and down.  
+
+> w
+You move west.
+Hallway 3rd Flr
+You're in another hallway. All of the doors are closed and locked.   Mofo is here.  You can only move east.  
+
+> attack mofo
+You take a swing at Mofo. He responds by whipping out a gun and blowing your head off. You just got waxed by a punk gangsta. You are dead.
