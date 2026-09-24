@@ -10192,6 +10192,25 @@ twentyone_solution.txt|Twenty-one.taf|survived long enough to get the best endin
 # empty; entering room 1436 is an unavoidable trap into a Cell with zero
 # EXIT entries (genuine engine dead end). See notes/Weirdstuff2_walkthrough.md.
 weirdstuff2_solution.txt|weirdstuff2.taf||
+# 2026-09-25 batch: derived walkthroughs for content-clean unwired games
+# (notes/<Game>_walkthrough.md for each). zanoza: WIN 28/29, marker is the
+# cp1251 task-91 win text.
+zanoza_solution.txt|zanoza.taf|Поздравляю с победой|SCR_SKIP_WAITKEY=1
+# Storm Tossed: WIN 305/305 (EndGame WINTEXT).
+tempest7_solution.txt|tempest7.taf|Congratulations, you have won!|SCR_RNG=xoshiro
+# Imagings: demo, no score/ending; deepest point Church Road.
+imagings_solution.txt|imagings.taf||
+# Welcome to Wonderland: WIN 215 (declared MaxScore 10 is an authoring slip,
+# so the marker is the closing text).
+wonderland_solution.txt|wonderland.taf|The Tempest has put you someplace different|SCR_ASSUME_COMBAT=1
+# Short-lived: unwinnable by design, MaxScore 0.
+shortlived_solution.txt|shortlived.taf||
+# The Monster in the Mirror: WIN 100/100.
+monstermirror_solution.txt|monster.taf|So you figured it out|
+# The Annihilation of Think.com 3: 0/1, the only win (task 22) is unreachable.
+taot3_solution.txt|TAOT3.taf||
+# Last Knight: abandoned opening, no tasks; answers the name prompt only.
+lastknight_solution.txt|Last_Knight.taf||
 EOF
 
 

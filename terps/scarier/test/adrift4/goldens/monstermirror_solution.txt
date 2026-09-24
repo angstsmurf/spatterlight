@@ -1,0 +1,51 @@
+# The Monster in the Mirror (monstermirror / monster.taf) -- ADRIFT 3.90, by
+# Mystery. Tree ladder, cottage cellar and riddle book, then the pump whisks
+# you to a town: pass card, control-room buttons, the whistle in the fountain
+# spout, and the hammer on your nightstand smashes the mirror. WIN 100/100.
+search grass
+n
+get nails
+w
+x wood
+get planks
+e
+s
+nail planks to tree with hammer
+u
+x hole
+take key
+d
+n
+w
+in
+unlock trap door
+d
+get magnifying glass
+u
+u
+x shelf
+get book
+read book with magnifying glass
+d
+out
+turn handle
+w
+look under stone
+e
+put card in slot
+u
+press green button
+press yellow button
+get paper
+read paper
+d
+w
+w
+w
+x spout
+get whistle
+blow whistle
+x stand
+get hammer
+x mirror
+hit mirror with hammer

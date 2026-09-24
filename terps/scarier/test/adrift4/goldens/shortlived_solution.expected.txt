@@ -1,0 +1,18 @@
+Loading game...
+
+Short-lived
+
+Please enter your name:
+
+> Player
+Please choose the player's gender (male or female):
+
+> male
+
+> look
+
+I'm afraid you are dead!
+You scored 0 out of the maximum 0!
+That is 100% of the game!
+
+[Press any key to end]

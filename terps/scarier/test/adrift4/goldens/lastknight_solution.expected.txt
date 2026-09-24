@@ -1,0 +1,69 @@
+Loading game...
+
+Untitled
+Lancelot and Galahad.
+
+Gone forever
+
+Gawain and Percival.
+
+Lost
+
+Even Timothy, Bertram and Dennis.
+
+Dead
+
+All the knights are gone, save one.
+
+You
+
+Last Knight
+
+Morgana the Fey lives in the fortress atop the hill above the town. A dark
+sorceress, she's been terrorising the land for as long as you've lived. She
+killed all the knights, their squires, all the King's horses and all the
+King's men. She killed your parents too, a long, long time ago.
+
+Now you're all that's left. Half-trained and seventeen, the only hope of the
+whole kingdom.
+
+The King's Castle awaits you.
+Please enter your name:
+
+> Player
+
+Your Room
+Your Room
+A wide chamber bedecked with the finest furs and the furniture of your
+ancestors. That is but a hazy memory, a rumoured dream from the distant past.
+
+A bare room with cracked flagstones and a pile of hay in the corner that
+serves as your bed. A weapon rack hangs over the front door, to the east.
+Your sister's room lies westward.
+
+> look
+
+Your Room
+Your Room
+A wide chamber bedecked with the finest furs and the furniture of your
+ancestors. That is but a hazy memory, a rumoured dream from the distant past.
+
+A bare room with cracked flagstones and a pile of hay in the corner that
+serves as your bed. A weapon rack hangs over the front door, to the east.
+Your sister's room lies westward.
+
+> x me
+A half-trained squire with a rusting suit of armour. What you lack in muscle
+and skill you make up for with determination and bravery.
+
+> inventory
+You are carrying nothing.
+
+> e
+You can't go in any direction!
+
+> w
+You can't go in any direction!
+
+> quit
+Do you really want to quit? [Y/N]

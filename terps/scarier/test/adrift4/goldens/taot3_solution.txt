@@ -1,0 +1,40 @@
+# The Annihilation of Think.com 3 (taot3 / TAOT3.taf) -- ADRIFT 3.90. A
+# numbered-choice chase after Nexus. The only +1 (and the only win) is TASK
+# 22 in room 18 "Small cache", which no exit and no task leads to, so the
+# game ends at the FINAL RESTING PLACE after choosing 1 then B. Blank lines
+# eat <waitkey>s (2 in `x emma`, 1 at the altar, 1 at the body, 4 in `A`,
+# 1 in the Cemetary room text).
+examine girl
+x emma
+
+
+2
+put ring on altar
+
+n
+n
+n
+n
+w
+search body
+
+e
+swipe card
+n
+n
+n
+n
+examine nexus
+1
+A
+
+
+
+
+look
+e
+
+d
+n
+1
+B

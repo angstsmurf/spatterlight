@@ -1,0 +1,10 @@
+# Last Knight (lastknight / Last_Knight.taf) -- ADRIFT 3.90, 2005. An
+# abandoned opening: an intro, one room ("Your Room") with no exits, no
+# tasks, no objects, MaxScore 0. Nothing to win; this tours what exists.
+# Line 1 answers the 3.90 name prompt (the authored PlayerName is empty).
+Player
+look
+x me
+inventory
+e
+w

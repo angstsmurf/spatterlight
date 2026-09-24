@@ -1,0 +1,82 @@
+# Welcome to Wonderland (wonderland / wonderland.taf) -- ADRIFT 4.00. Alice
+# in a nightmare Wonderland: gnome mines, drill, Red Queen. Every character
+# has Accuracy and Agility 0, so every blow misses without SCR_ASSUME_COMBAT=1;
+# the Red Queen holds the iron key to the last room. WIN 215 (MaxScore says 10).
+get knife
+get note
+read note
+n
+get message
+read message
+e
+attack card guard with knife
+attack card guard with knife
+attack card guard with knife
+attack card guard with knife
+look
+get all
+read letter
+unlock door with key
+e
+e
+press down button
+e
+get mine key
+w
+press up button
+w
+n
+unlock door with mine key
+n
+attack card guard with knife
+attack card guard with knife
+attack card guard with knife
+attack card guard with knife
+look
+get all
+read parchment
+n
+enter 25 17 38
+n
+get blade cards
+s
+s
+e
+n
+n
+pull lever
+s
+s
+w
+w
+n
+n
+pull switch
+n
+e
+press forward
+n
+attack red pawn with knife
+attack red pawn with knife
+nw
+push portrait
+e
+get all
+wear shield
+w
+ne
+n
+eat mushroom
+attack red queen with knife
+attack red queen with knife
+attack red queen with knife
+attack red queen with knife
+attack red queen with knife
+attack red queen with knife
+attack red queen with knife
+attack red queen with knife
+look
+get all
+unlock door with iron key
+e
+push button

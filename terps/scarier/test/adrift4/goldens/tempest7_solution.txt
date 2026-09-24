@@ -1,0 +1,143 @@
+
+
+look
+open window
+out
+get key
+in
+unlock door
+open door
+get cask
+open cask
+pour wine
+w
+n
+get dagger
+get sword
+s
+w
+jump overboard
+i
+throw dagger at shark
+e
+s
+s
+e
+se
+
+drop pouch
+se
+w
+sw
+get twigs
+ne
+e
+nw
+z
+get sword
+se
+w
+se
+cut vines with sword
+get vines
+e
+s
+se
+drop cask
+drop vines
+drop sword
+nw
+nw
+u
+n
+nw
+get plank
+se
+w
+se
+e
+s
+se
+tie plank to cask with vines
+get sword
+nw
+n
+n
+e
+kill snake with sword
+sw
+put twigs in fire
+w
+s
+se
+south
+s
+u
+x nest
+get gloves
+d
+e
+ne
+u
+u
+n
+e
+wear gloves
+turn dragon
+in
+lift tapestry
+x desk
+get globe
+open drawer
+get key
+s
+put key in retort
+light burner
+light burner
+x table
+x retort
+get golden key
+unlock bottom drawer with key
+open bottom drawer
+get vial
+pour fluid
+open vial
+get silver key
+n
+unlock book with silver key
+open book
+read book
+s
+w
+get spell
+s
+u
+u
+out
+w
+n
+n
+e
+pick flowers
+cast spell on flowers
+get enchanted flowers
+s
+s
+d
+d
+se
+w
+n
+n
+nw
+n
+ask girl her name
+ask girl her name
+ask girl her name
+ask girl her name
+ask girl her name
+ask girl her name
+ask girl her name
+ask girl her name
+ask girl her name
+give flowers to girl

@@ -1,0 +1,7 @@
+# Short-lived (shortlived / shortlived.taf) -- ADRIFT 4.00, Duncan Bowsman,
+# 2008. A 195-byte joke: no rooms worth the name, one task `*` that matches
+# any command and ends the game with "I'm afraid you are dead!". Unwinnable
+# by design (MaxScore 0). Lines 1-2 answer the 4.00 name and gender prompts.
+Player
+male
+look

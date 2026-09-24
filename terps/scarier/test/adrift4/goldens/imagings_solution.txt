@@ -1,0 +1,22 @@
+# Imagings (imagings / imagings.taf) -- ADRIFT 4.00. A six-room dream demo:
+# read '865' off the hotel window, fill the pill bottle at the Prescription
+# Machine, give the pills to the girl for the brass key, unlock the lobby
+# door. Church Road (a dead end, no tasks) is the last room. No score, no end.
+n
+w
+open window
+get bottle
+e
+d
+put bottle in machine
+865
+get bottle
+u
+e
+give bottle to girl
+get key
+w
+d
+unlock door with key
+n
+look
