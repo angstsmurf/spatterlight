@@ -1,0 +1,71 @@
+
+> up
+You move up.
+Bedroom
+This is where you do all your work and stuff.  Your homework is still on the desk.  Also here is your backpack.
+
+> examine desk
+Your homework is here.  You should take it to school.  Your homework is on your bedroom desk.
+
+> take homework
+You take your homework from your bedroom desk.
+
+> take backpack
+You take your backpack.
+
+> put homework in backpack
+You put your homework inside your backpack.  
+
+> down
+You move down.
+Home
+This is your home.  I recommend that your go to school but you can skip school if you want.  To get to your bedroom type up.
+
+> go to school
+Ok, you arrive at school for your torture (education)!!!  
+School
+Where you go for torture (education).  You can GO TO your CLASSROOM or you can SKIP CLASS.  Eric the bully is here.  Charlie is at school today.
+
+> go to classroom
+You are at your class now.  
+Classroom
+This is where they torture you with math and english and other stuff.  "Ring, ring, ring.  Class is now in session"  you should sit at your school desk before the teacher comes.
+
+> sit at desk
+You are at your desk.  The teacher walks through the door.                                                                                Teacher: "Take out your homework and put it on your desk."If you don't have your homework you're screwed.  If you are Charlie's friend, you can ask him for a copy.
+
+> put my homework on my desk
+You put your homework onto your school desk.  
+
+> 3.141592653
+What do you want to do?!?
+
+> wait
+Time passes...
+
+> go to recess
+Time for recess beware the bully...  It's Eric the big, bad bully.  You might want to run away (if you want to live).  You might also think about: Kicking Him, Punching him, Insulting him, maybe shooting him with a random gun that appears in you hand.
+
+> run
+You ran away from Eric and were not killed.  Great job!  The bell rings and recess is over.  Go back to class.
+
+> go to class
+It's time for class again.  Class is starting again sit at your seat.
+
+> sit at desk
+You're sitting at your desk again.  We are having another test today:                                                                                                    Question: What is 5 factorial (5!) ?
+
+> 120
+Yay! You got it correct!! One point for you.  The test is over.  Time to learn, again...  this will take a while.  Just wait until class finishes.
+
+> go
+You are now in the main hall.
+
+> go home
+Youw win!!!
+Yay!!! you survived school with the bullies, and the tests, and the classmates, and and and and...  Anyways...  YOU WIN!!!!!
+You scored 1 out of the maximum 6!
+That is 16% of the game!
+You finished 5 points short.
+
+[Press any key to end]

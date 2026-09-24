@@ -1,0 +1,19 @@
+up
+examine desk
+take homework
+take backpack
+put homework in backpack
+down
+go to school
+go to classroom
+sit at desk
+put my homework on my desk
+3.141592653
+wait
+go to recess
+run
+go to class
+sit at desk
+120
+go
+go home

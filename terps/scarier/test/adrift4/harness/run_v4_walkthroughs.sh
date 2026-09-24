@@ -9845,6 +9845,12 @@ huntingground_solution.txt|Hunting Ground.taf|too much upon his pistol|SCR_SKIP_
 go_solution.txt|Go.taf|adventures are behind|SCR_SKIP_WAITKEY=1
 # ??????? ???????? demo. Stove basket, pies, hat in the apple tree, out the gate.
 demoshapka_solution.txt|DemoShapka.taf|66%|SCR_SKIP_WAITKEY=1
+# A Day at School (SchoolDay): comedic, non-sexual school-survival game -- no
+# romantic/sexual content anywhere in the TAF text. Homework to bedroom desk
+# and backpack, deliver+answer both classroom tests (pi digits, 5!), run from
+# Eric at recess, go to the main hall, go home. Ends 3/6 -- the alternate
+# fight/befriend-Charlie branches are unneeded for the win.
+schoolday_solution.txt|SchoolDay.taf|YOU WIN!!!!!|SCR_SKIP_WAITKEY=1
 # bedlam.taf (Bedlam): a short 1/4-finished preview build. UNWINNABLE as
 # authored -- confirmed via SCR_DUMP_TASKS -- Task 37 ("ask barbara about
 # keys") narrates handing the player the car keys but contains zero ACT
