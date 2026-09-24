@@ -1,0 +1,97 @@
+Loading game...
+
+To End All Wars
+
+"The First World War was undoubtedly the most horrible war ever fought,
+the most senseless, the most unimaginative in strategy, and,
+for the men who found themselves in the trenches,
+the most hopeless."
+
+-Wolff, Leon.  In Flanders Fields: The 1917 Campaign.
+New York: Ballantine Books, 1958.
+Page 1, paragraph 1.
+
+[press enter to continue]
+
+WARNING:
+
+This game contains scenes of strong, graphic violence & some coarse
+language--
+therefore it is not recommended for children.
+
+[press enter to begin]
+
+For information on how to play, type "help" and press enter.  For assistance
+with puzzles, type "hint" and press enter.  For information about the game,
+type "credits" and press enter.
+Please enter your name:
+
+> Player
+
+SUICIDE DITCH.
+The walls of front line trench will never feel high enough for comfort, the
+sandbags never thick enough to cease your consideration of your helmet ("i").
+   The constant rain of water and bombs has melted the earth into a deformed
+wasteland ("x no man's land").  Rot warps the planks of the duckboard track
+under your boots into a hazardous maze.  A solitary rat haltingly skitters
+across the casings of dead bullets scattered and buried throughout the
+trench.   Everything seems to come from everywhere all at once in dizzying
+alarm.  The corridors of the trench-- the Lewis gunners to one side, your
+section's Vickers in front-- have ceased, somehow, to make sense, drowned out
+by voice-noises and danger.  The door over the dug-out is closed secure and
+the fire-step, empty, mocks you slightly ("stand on firestep").  Private
+Smythe cowers next to you ("assist smythe").  Corporal Butcher mans the
+Vickers gun, shouting curses in rhythm with short bursts of gunfire.
+
+> wait
+Time passes...
+
+Tremendous explosions beat the earth into sludge & spit up horrifying plumes
+of smoke, fire, and debris.  In pauses between certain flashes, there is no
+light.  At other times, feeble explosions in the air cast haunting,
+miscoloured glimpses of No Man's Land.
+
+Corporal Butcher shouts, "Die, damn you, die!"
+
+> wait
+Time passes...
+
+Death comes whistling down from the night skies over your trench, everywhere
+blowing new grave pits into the ground.
+
+A shell explodes in a fireball nearby, throwing you flat onto your stomach &
+blasting away your perception that Smythe was once a single, solid, and
+living thing.  Shrapnel drums on your helmet.
+
+Corporal Butcher shouts, "Why-- won't-- you-- die!?"
+
+> wait
+Time passes...
+
+The seeming last of the salvo ceases... and a hush falls over the trench.
+
+> wait
+Time passes...
+
+A minute, two, three of silence drags on in tense breaths until blare of the
+gas horn fills the trenches.
+
+The noise stuns you & your mind blanks.  Where is your gas mask?  Panic sets
+in and all you can think is you don't have it, you don't have it.
+
+Your gas mask is GONE and YOU ARE GOING TO DIE...
+
+[press any key to continue]
+
+To End All Wars
+Written using ADRIFT, (c) Campbell Wild, 1998-2008.
+Written by Duncan Bowsman-- a historical fiction.
+Intro Version: 31 May 2009.
+
+[DISCLAIMER: Any resemblance to real persons, living or dead, is purely
+coincidental.  All works included incidentally are creations of their
+respective authors.  For more information, type "credits".]
+
+Press any key to begin.
+
+>

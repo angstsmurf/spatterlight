@@ -1,3 +1,158 @@
-stand
+z
+z
+z
+z
+z
+z
+z
+use telecom
+s
+s
+s
+e
+e
+open locker
+take suit
+take helmet
+wear suit
+wear helmet
+e
+press button
+n
 look
 exits
+w
+look
+exits
+talk to price
+e
+s
+s
+press button
+w
+w
+w
+look
+exits
+w
+w
+look
+exits
+read clipboard
+examine containers
+examine keypad
+examine door
+press 3
+press 5
+press 6
+press 1
+press pound
+n
+look
+exits
+examine labels
+examine unit
+open door
+examine right label
+open right door
+take b6 container
+examine b6 container
+inventory
+s
+s
+e
+e
+e
+e
+e
+press button
+n
+w
+give container to price
+n
+look
+exits
+n
+look
+exits
+examine crack
+examine baubles
+examine cliff
+jump crack
+take baubles
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+look
+take lens
+climb apparatus
+s
+e
+e
+take brush
+use lens on brush
+e
+put brush on panel
+s
+look
+e
+e
+s
+s
+w
+look
+exits
+w
+look
+exits
+s
+look
+exits
+w
+look
+exits
+e
+n
+e
+e
+s
+e
+s
+s
+d
+e
+e
+s
+w
+open cabinet
+look in cabinet
+take device
+e
+n
+w
+w
+u
+n
+n
+n
+w
+w
+s
+w
+e
+s
+d
+d
+e
+s
+w
+w
+activate remote
+south
+west
+south
+west

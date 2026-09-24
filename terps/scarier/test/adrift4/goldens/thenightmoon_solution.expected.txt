@@ -1,0 +1,511 @@
+Loading game...
+
+The Night The Moon Shone Grey
+You have been travelling for ages, there have been few distractions though
+and the journey has been pleasant. You have now arrived at a small thorp at
+night time. It is already dark and you are relived that you might not have to
+sleep out rough tonight.
+
+Please enter your name:
+
+> Petter
+Please choose the player's gender (male or female):
+
+> male
+
+Northern village gates
+This area of the village is just the in and out northern gates. This part of
+the country is very quiet though and you would expect an open farming
+comunity instead of a protected hamlet. There is a large signboard swinging
+in the breeze just above you which states the village's name, there is also a
+cobbled stone path leading south-eastwards towards the village centre and a
+small dirt path running around the southern wall surrounding the village.  a
+guard is here.  You can move south and southeast.
+
+> se
+You move southeast.
+
+Village path
+This is the long path that leads through the village, it leads to many
+places; you can go north to the inn, south to the residential area of the
+village, east to the main street and north west to the northern gates.  You
+can move north, east, south and northwest.
+
+> e
+You move east.
+
+Village street
+This main street is the main path through the thorp, it runs south-east to
+west from one gate to the other. There are some ruined houses to the north of
+here and to the south there is a shop which is probably just about to close.
+You can move north, south, west and southeast.
+
+> n
+You move north.
+
+Ruined houses
+The rubble around here looks as if it were once a collection houses, now it
+is just a charred husk. You can hear squeaking coming from the rubble which
+is most likely rats. A few puddles have formed in pot holes around the walls
+of the derilict buildings.  a giant rat is here.  You can only move south.  A
+giant rat hits you.
+
+> attack rat with longsword
+You hit a giant rat with your longsword.
+
+> take rat
+You pick up the dead, giant rat.
+
+> s
+You move south.
+
+Village street
+This main street is the main path through the thorp, it runs south-east to
+west from one gate to the other. There are some ruined houses to the north of
+here and to the south there is a shop which is probably just about to close.
+You can move north, south, west and southeast.
+
+> s
+You move south.
+
+Outside weapons smith's
+You are standing out side a weapons smiths, the lights in the smithy are
+almost out apart from one in the shop window, you cannot see much from here
+though.  The weapon smith's is open.  You can move north and in.
+
+> in
+You move in.
+
+Inside smithy
+This room is well decorated with shelves and racks of weapons, shields and
+metal ware. The low cieling is blackened from the heat coming out of the
+large kiln in the corner. There is a small door leading outside from here.  a
+well built man is here.  You can only move out.
+
+> give dead giant rat to smith
+You hand over the rat and wait for the smith to give you somthing in return.
+"A rat?" This one's bigger than a sheep!" He examines it closely. "I'm sure
+it has many uses... er, like feeding my kiln." He opens it's mouth and
+recoils as the stench envelops him. "Phew! Okay, now I can go to those ruined
+houses to the north. There's stuff there I can scavenge for materials. Here,
+have this for your troubles..." He unlocks a secret compartment in the floor
+and hands over a silver stake. "This could be usefull if your going south."
+He smiles. "Closing time... goodnight Petter." He ushers you outside and
+closes the door.
+
+> out
+You can't go in that direction, but you can move north and in.
+
+> n
+You move north.
+
+Village street
+This main street is the main path through the thorp, it runs south-east to
+west from one gate to the other. There are some ruined houses to the north of
+here and to the south there is a shop which is probably just about to close.
+You can move north, south, west and southeast.
+
+> se
+You move southeast.
+
+Southern gates
+This is the southern gate to the village, there is a sign post here instead
+of a board and this gate doesn't look so cheery as the northern one. There
+are three paths leading from here: a southern one leading up a hill, a
+southwest path leading around the edge of the village walls and a
+northwestern path leading into the village.  a strong looking woman is on
+duty here.  You can move south, southwest and northwest.
+
+> s
+You move south.
+
+Forest entrance
+You are standing outside the small woods on the border of the village. There
+are no bird calls on this night and you are put on edge from the silence. You
+can hear a river tumbling through the trees a little further south and there
+is an unused path to the west.  You can move north, south and west.
+
+> w
+You move west.
+
+Western forest path
+This path runs by a slow moving river. You can see little fish darting in and
+out of the rocks from your position and think how it would be very easy to
+wade across to the other bank from here. The path continues east to west.
+You can move east, south and west.
+
+> w
+You move west.
+
+Outside hermit's hut
+You are standing outside a small bracken hut. It has a little door in the
+front that is held open by a catch from inside. There is an almost invisible
+path northwards to the town gates and a forest path eastwards. There is also
+a worn path through the yellowing grasses to the south.  You can move east,
+south and in.
+
+> in
+You move in.
+
+Hermit's hut
+This hut is small and cozy, it has a warm glow about it and the fire place is
+burning merrily on. There is a small bed and a table in here with two chairs
+surrounding the table. An ornate rug covers most of the floor in this little
+circular hut.   an old hermit is here.  You can only move out.
+
+> ask hermit about secret entrance
+You enquire the hermit about the secret entrance into the mansion and he gets
+up, grabbing his staff and walking out of the door. "The best way is to show
+you!" The hermit leads you down an animal track into a smal field which was
+probably used for grazing before the mansion was built. You reach the western
+wall of the mansion and the hermit stops, "'Open the secret door' and you can
+get into the mansion's guard room. There is a camoflauged pull ring in the
+wall there," He points to the wall with his staff and you just notice it in
+the moonlight. "I shall leave you here. I trust you will win against the evil
+that has been plauging us for so long. Good luck, Petter." He walks away and
+you ponder on how he knows your name...
+
+> open secret door
+You pull on the previously camoflauged pull ring and hear the door shift. The
+sound of grating stone creaks throughout the quiet night, disturbing
+creatures that had previously been asleep. Then, you see a heavy curtain
+where the door had been, As you lift it, you find yourself standing in a
+guard room.
+
+Guard room
+This room has a terrible draft running through it, huge drapes hang off the
+walls and they blow in an unseen breeze. A small, round table sits in the
+middle of the room and a wooden stool lays knocked over on the ground.  The
+secret door is open here and you can go outside into the fields.  You can
+only move south.
+
+> s
+You move south.
+
+Hallway
+This hallway leads deeper and deeper into the mansion, a long red carpet runs
+to the far end of the corridor. The hall ends to the east, there is a guard
+room to the north and a stairway to the northwest.  You can move north, east
+and northwest.
+
+> e
+You move east.
+
+Hall
+This hall is lavishly decorated. The polished marble floor reflects the torch
+light. There are many passageways leading from here; two mighty double doors
+lead outside to the courtyard, the hall itself moves further west to the
+hallway, a northern doorway leads into a dining hall and southwards leads
+into a luxurious library.  You can move north, south and west.
+
+> s
+You move south.
+
+Library
+This room is crammed with books, mountains of books, valleys of books, oceans
+of books. The knowledge in this room is almost unstable. An enourmous window
+stretches from the cieling to the floor in here and moonlight falls upon the
+books in an eerie macabre of understanding. You briefly ponder who would have
+enough time to read all these books!  You can only move north.
+
+> search bookcase
+You rummage through the bookcase quickly looking for a title that you
+understand let alone think is important... then a shadowy voice utters from
+the shadows, "Knowledge is only gained by the learned." Suddenly a dark elf,
+robed in black cloth leaps from the shadows into the moonlight, preparing to
+fight you!   A dark elf hits you with bastard sword.
+
+> attack elf with longsword
+You hit a dark elf with your longsword.  A dark elf hits you with bastard
+sword.
+
+> attack elf with longsword
+You hit a dark elf with your longsword.  The dark elf stumbles backwards into
+one of the comfortable reading chairs, it's robes hang losely from it's body
+and you can now see it is a he. "Uurgh..." the drow coughs up blood and tries
+to pull himself up but fails. "Well... done..." he struggles with the human
+words. "I am beaten... the least I can do is answer your questions about this
+place before I pass into the next... world." He sits, waiting for you.  The
+drow is dying...
+
+> move rug
+You heave the carpet aside and open the trapdoor underneath, this could be
+interesting!
+
+> n
+You move north.
+
+Hall
+This hall is lavishly decorated. The polished marble floor reflects the torch
+light. There are many passageways leading from here; two mighty double doors
+lead outside to the courtyard, the hall itself moves further west to the
+hallway, a northern doorway leads into a dining hall and southwards leads
+into a luxurious library.  You can move north, south and west.
+
+> w
+You move west.
+
+Hallway
+This hallway leads deeper and deeper into the mansion, a long red carpet runs
+to the far end of the corridor. The hall ends to the east, there is a guard
+room to the north and a stairway to the northwest.  You can move north, east
+and northwest.
+
+> nw
+You move northwest.
+
+Stairway
+You are standing at the bottom of a flight of stairs... what is up there you
+do not know!  You can move up and southeast.
+
+> u
+You move up.
+
+Landing
+The stairs that lead down from this landing are long and you remember the
+tiring climb.  You can move east and down.
+
+> e
+You move east.
+
+Upper hallway
+You stand on a hall way lit by the pale moon. There is a landing to the west,
+a smelly room to the south lets out the most vile stench imaginable, to the
+north is a set of stairs and there is a door you could go in if you had the
+key from here. A large round window on the eastern wall almost glows with the
+moonlight passing through it.   You can move north, south and west.
+
+> n
+You move north.
+
+Flight of stairs
+This flight of stairs leads up to a drafty tower of somesort but you cannot
+see because it is a spiral staircase. To the south is the upper hallway.  You
+can move south and up.
+
+> u
+You move up.
+
+Tower room
+This tower is small but cozy, the wind rocks it from side to side and you can
+feel the foundations moving gently with the air currents. A small,
+rectangular table stands against one wall and four small windows line the
+cieling, looking out into the vast expanse that is the night sky. A small
+chair sits at the table.  You can only move down.
+
+> examine table
+This table is covered in ink stains and imprints of pen marks.  Some healing
+powder is on the rectangular table.
+
+> take healing powder
+You take some healing powder from the rectangular table.
+
+> d
+You move down.
+
+Flight of stairs
+This flight of stairs leads up to a drafty tower of somesort but you cannot
+see because it is a spiral staircase. To the south is the upper hallway.  You
+can move south and up.
+
+> s
+You move south.
+
+Upper hallway
+You stand on a hall way lit by the pale moon. There is a landing to the west,
+a smelly room to the south lets out the most vile stench imaginable, to the
+north is a set of stairs and there is a door you could go in if you had the
+key from here. A large round window on the eastern wall almost glows with the
+moonlight passing through it.   You can move north, south and west.
+
+> s
+You move south.
+
+Coffin room
+This room stinks of death and malice, it is unwelcoming without the stench!
+There are several coffins lying on the dirty ground here and each one smells
+putrid!  You can only move north.
+
+> open box
+You open the brown box.  A dead man is inside the brown box.
+
+> look in box
+This box is similar to a coffin.  The box is open.  A dead man is inside the
+brown box.
+
+> examine man
+This corpse is rotten and smells of something out of a nightmare!  A small
+key is inside the dead man.
+
+> take key
+You take a small key from the dead man.
+
+> n
+You move north.
+
+Upper hallway
+You stand on a hall way lit by the pale moon. There is a landing to the west,
+a smelly room to the south lets out the most vile stench imaginable, to the
+north is a set of stairs and there is a door you could go in if you had the
+key from here. A large round window on the eastern wall almost glows with the
+moonlight passing through it.   You can move north, south and west.
+
+> w
+You move west.
+
+Landing
+The stairs that lead down from this landing are long and you remember the
+tiring climb.  You can move east and down.
+
+> d
+You move down.
+
+Stairway
+You are standing at the bottom of a flight of stairs... what is up there you
+do not know!  You can move up and southeast.
+
+> se
+You move southeast.
+
+Hallway
+This hallway leads deeper and deeper into the mansion, a long red carpet runs
+to the far end of the corridor. The hall ends to the east, there is a guard
+room to the north and a stairway to the northwest.  You can move north, east
+and northwest.
+
+> e
+You move east.
+
+Hall
+This hall is lavishly decorated. The polished marble floor reflects the torch
+light. There are many passageways leading from here; two mighty double doors
+lead outside to the courtyard, the hall itself moves further west to the
+hallway, a northern doorway leads into a dining hall and southwards leads
+into a luxurious library.  You can move north, south and west.
+
+> s
+You move south.
+
+Library
+This room is crammed with books, mountains of books, valleys of books, oceans
+of books. The knowledge in this room is almost unstable. An enourmous window
+stretches from the cieling to the floor in here and moonlight falls upon the
+books in an eerie macabre of understanding. You briefly ponder who would have
+enough time to read all these books!  Also here is bastard sword, healing
+potion and dead dark elf.  You can move north and down.
+
+> take potion
+You pick up healing potion.
+
+> drink healing potion
+You drink the potion down in one gulp and feel your wounds close almost
+immedialtley.
+
+> d
+You move down.
+
+Prison
+This place reeks! Yeuch! There is a cell door here, a small stool and some
+steps leading upwards to the library.  a skeleton guard is here.  You can
+only move up.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> eat healing powder
+You instantly feel your wounds heal...
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.
+
+> attack skeleton guard with longsword
+As you strike Skeleton guard, they realise you are not as friendly as you
+might have been.  The skeleton cuts you with the nasty looking rapier.
+
+I'm afraid you are dead!
+You scored 120 out of the maximum 400!
+That is 30% of the game!
+
+[Press any key to end]

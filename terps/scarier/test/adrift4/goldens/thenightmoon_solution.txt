@@ -1,9 +1,76 @@
 Petter
 male
 se
+e
 n
+attack rat with longsword
+take rat
+s
+s
 in
-sit on stool
-ask Astrania about village
-look
+give dead giant rat to smith
 out
+n
+se
+s
+w
+w
+in
+ask hermit about secret entrance
+open secret door
+s
+e
+s
+search bookcase
+attack elf with longsword
+attack elf with longsword
+move rug
+n
+w
+nw
+u
+e
+n
+u
+examine table
+take healing powder
+d
+s
+s
+open box
+look in box
+examine man
+take key
+n
+w
+d
+se
+e
+s
+take potion
+drink healing potion
+d
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+eat healing powder
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword
+attack skeleton guard with longsword

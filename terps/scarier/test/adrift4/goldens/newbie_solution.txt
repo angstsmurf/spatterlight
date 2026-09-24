@@ -1,5 +1,3 @@
 press button
-w
-w
-quit
-y
+west
+west

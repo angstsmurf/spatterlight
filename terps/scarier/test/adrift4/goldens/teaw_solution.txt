@@ -1,3 +1,7 @@
-look
-exits
-i
+
+
+Player
+wait
+wait
+wait
+wait

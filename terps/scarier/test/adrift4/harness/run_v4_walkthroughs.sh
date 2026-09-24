@@ -10044,6 +10044,12 @@ monsterisland_solution.txt|MonsterIsland.taf|And the beginning of a village down
 # real puzzle (the sofa's key, the bookshelf's secret passage after lighting
 # a candle, the button opening the vault) and ends at this proven dead end.
 mysteryhouse_solution.txt|MysteryHouse.taf|You drop the Treasure Chest.|
+# Newbie.taf: comedic two-room parody of bad amateur game design, no score
+# (0 of 0, "Well done - you scored maximum points!"). WON: press the secret
+# button, then walk west twice. The room's own exit-refusal ("You can only
+# move east.") intercepts the abbreviation "w" for the ending task, which
+# only matches the literal word "west" -- confirmed via SCR_TRACE_TASKS.
+newbie_solution.txt|newbie.taf|You go throo the wall|
 # 1_Hotel_con_Fuego.taf (Hotel con Fuego): content-reviewed comic mystery
 # demo, no sexual content, no minors. WON the demo's full designed arc:
 # get the theater ticket, get drunk at the bar (3x buy beer unlocks a
@@ -10057,6 +10063,15 @@ mysteryhouse_solution.txt|MysteryHouse.taf|You drop the Treasure Chest.|
 # the dressing room, and examine the trunk to trigger the ending cutscene,
 # which the game itself announces as "the end of the demo."
 hotelconfuego_solution.txt|1_Hotel_con_Fuego.taf|Well, that's the end of the demo.|
+# TEAW_(introcomp).taf ("To End All Wars"): a WWI-trenches IntroComp entry --
+# only the opening scene of an unfinished larger game, one room, no score.
+# No win condition exists: the scripted TRENCH_TURNS event sequence always
+# kills the player by poison gas a fixed few turns after the name prompt,
+# regardless of any action taken (confirmed empirically: standing on the
+# fire-step, assisting Smythe, and idly waiting all converge on the same
+# "Your gas mask is GONE and YOU ARE GOING TO DIE..." text). Wired as the
+# unavoidable ending of the intro demo.
+teaw_solution.txt|TEAW_(introcomp).taf|YOU ARE GOING TO DIE|
 # Filthy Bill Does Everyone But His Mother (filthybill.taf, AIF/adult, all
 # named characters textually adult -- Amanda explicitly "18 year old
 # daughter", Chelsea "middle aged hooker", Marlene a police officer, Tanya
@@ -10078,6 +10093,56 @@ hotelconfuego_solution.txt|1_Hotel_con_Fuego.taf|Well, that's the end of the dem
 # task's all-six-conquests restriction can never be satisfied. Same class
 # of authoring dead end as ebonysworld/illegalsocks in this same batch.
 filthybill_solution.txt|filthybill.taf|studded cocks|
+# Temporfell, a demo (temporfell_demo.taf): sci-fi tech-demo ending in a
+# "Thanks for testing!" screen, not a scored win. Full walkthrough: suit up,
+# navigate to Node and complete the panel-fix side quest (optional, left in
+# as the validated route), then detour via the purple-plate corridor to a
+# cabinet in the Cluttered Angled Office (room 68) -- `open cabinet` then
+# `look in cabinet` is required before `take device` will parse the
+# contents by name, even though the object is already correctly parented;
+# apparently `look in` is what puts a container's contents in scope for the
+# dynamic vocabulary. Return to the West Machine Room and take the
+# escalator/archive/duct/junction route to Bleach White Reception (room 78),
+# which a locked door (obj184) seals off from the win room (White Lab East,
+# room 79). `activate remote` (holding the device) takes over the NPC Node,
+# left behind in Bleach White Hall; walk Node `west` to rejoin the player,
+# then `south` fires the "fly Node up and through the open glass pane" task,
+# which bypasses the door and moves the PLAYER into room 79. A final `west`
+# there fires the unconditional demo-end task. SCR_RNG=xoshiro for determinism.
+temporfell_solution.txt|temporfell_demo.taf|Thanks for testing|SCR_RNG=xoshiro
+# The Night That The Moon Shone Grey (thenightmoon.taf): vampire-hunter quest,
+# ~400 points. Best-reachable, blocked at a seemingly unwinnable fight -- see
+# below. Route: kill the Giant rat, then `give dead giant rat to smith` is
+# the ONLY working phrasing for the reward task (confirmed via
+# SCR_TRACE_TASKS: the task's ALTCMD requires the literal 2-adjective object
+# phrase "dead giant rat" together with "smith", not "adrian" -- every
+# rat/adrian combination silently falls through to the generic library
+# fallback "Adrian doesn't seem interested..." without the task ever being
+# attempted). Ask the hermit about the secret entrance, open the secret
+# door, fight the Dark elf in the Library (dies scripted in 2 hits), move
+# the rug to open the Prison trapdoor. Detour via the Landing/Upper hallway
+# to the Tower room -- the healing powder there is invisible until
+# `examine table` reveals it -- and to the Coffin room, where `open box`,
+# `look in box`, `examine man` are all required in sequence before `take
+# key` will parse the small key inside the dead man. Back in the Library,
+# take and drink the healing potion the dead elf drops (also not in scope
+# until some turns after the kill). Then fight the Skeleton guard in the
+# Prison: its bare alias "skeleton" resolves to the wrong, absent NPC (a
+# different "Skeleton" elsewhere), so `attack skeleton guard with
+# longsword` (the full name) is required just to target it at all. Even at
+# full stamina, with both the potion and the powder used mid-fight for two
+# full heals, the fight cannot be won: `attack %character% with %object%`
+# is one single generic library task (TASK 5, ACT type=7 changing NPC
+# battle attribute 0 by 2) shared by every enemy in the game, while
+# "skeleton's death" (TASK 11) never once fires in SCR_TRACE_TASKS output
+# no matter how many hits land -- 22 attacks land safely, 23 is fatal to the
+# player, and the Skeleton guard never shows any sign of dying. Tested
+# without success: fully healed entry, SCR_ASSUME_COMBAT=1, wearing the
+# village-gate armour/shield (both actually unobtainable -- "Take what?"),
+# and bypassing the fight entirely (`take keys` without fighting: "Take
+# what?", and the NPC attacks unprovoked regardless). Wired as the
+# deepest deterministic reach; ends on the death screen. SCR_RNG=xoshiro.
+thenightmoon_solution.txt|thenightmoon.taf|That is 30% of the game|SCR_RNG=xoshiro
 EOF
 
 
