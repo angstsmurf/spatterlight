@@ -1,0 +1,1882 @@
+Dragon
+
+By Craig Dutton (c) 2012
+
+You are on a mission to find the Dragon who is residing somewhere hidden in this kingdom.  The hoard of treasure it protects would bring prosperity to anyone brave enough to confront and defeat this creature.
+
+Good luck!
+
+Press a key to play
+You are outside a stone building.
+You can go in or south.
+The building is a bit worse for wear as cracks are starting to show in the walls. A single open doorway leads inside.
+> in
+> in
+You are inside a stone building.
+You can see a pile of rubble.
+You can go out.
+The building is ancient as cracks start to show in the walls. The only light coming in is through the open doorway and a hole in the roof.
+> push rubble
+> push rubble
+You push a few stones out of the way and find a small dagger.
+> take dagger
+> take dagger
+You pick it up.
+> out
+> out
+You are outside a stone building.
+You can go in or south.
+The building is a bit worse for wear as cracks are starting to show in the walls. A single open doorway leads inside.
+> south
+> south
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> southwest
+> southwest
+You are in a wood.
+You can go northeast, north or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> west
+> west
+You are outside a tall tower.
+You can go in, east or north.
+A large ominous tower stands before you. You feel a sense of dread about this place but it's probably just your imagination.
+> north
+> north
+You are on a grassy plain.
+You can go north or south.
+The vast expanse of green lies all around you.
+> north
+> north
+You are on a grassy plain.
+You can see a block of stone.
+You can go west or south.
+The vast expanse of green lies all around you. A large lake can be seen to the west.
+> south
+> south
+You are on a grassy plain.
+You can go north or south.
+The vast expanse of green lies all around you.
+> south
+> south
+You are outside a tall tower.
+You can go in, east or north.
+A large ominous tower stands before you. You feel a sense of dread about this place but it's probably just your imagination.
+> east
+> east
+You are in a wood.
+You can go northeast, north or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> north
+> north
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> north
+> north
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> northwest
+> northwest
+You are on a moor.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> north
+> north
+You are on a moor.
+You can see a broken cart.
+You can go south or east.
+A few large stones are scattered across the desolate landscape.
+> pull axle
+> pull axle
+You pull the rod free.
+> take rod
+> take rod
+You pick it up.
+> south
+> south
+You are on a moor.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> southeast
+> southeast
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> south
+> south
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> use rod on nest
+> use rod on nest
+You knock the nest out of the tree.
+> north
+> north
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> northwest
+> northwest
+You are on a moor.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> north
+> north
+You are on a moor.
+You can see a broken cart.
+You can go south or east.
+A few large stones are scattered across the desolate landscape.
+> east
+> east
+You are on a moor.
+You can go west or north.
+A few large stones are scattered across the desolate landscape.
+> north
+> north
+You are on a grassy plain.
+You can go northeast or south.
+The land is more fertile here and a castle lies over the hill to the northeast.
+> northeast
+> northeast
+You are by the castle gates.
+You can go southwest or in.
+The huge wooden gates are slightly ajar and unguarded.
+> in
+> in
+You are in a courtyard.
+You can go up, east, west, north or out.
+The large courtyard has exits all around and you see stone steps leading up to a round tower.
+> west
+> west
+You are in a kitchen.
+You can see a stove and a kitchen table.
+You can go east.
+The kitchen is of minimal decor with a large table and a stove in the corner.
+> open stove
+> open stove
+You open it.
+It contains a fish.
+> take fish
+> take fish
+You pick it up.
+> x table
+> x table
+A small oak table.
+It contains a dead mouse.
+> take mouse
+> take mouse
+You pick it up.
+> east
+> east
+You are in a courtyard.
+You can go up, east, west, north or out.
+The large courtyard has exits all around and you see stone steps leading up to a round tower.
+> east
+> east
+You are in a banquet hall.
+You can see a dining table.
+You can go west.
+The dining table stands in the centre of the hall with the odd tapestry hanging from the walls.
+> x table
+> x table
+A long mahogany table.
+It contains a bottle of wine.
+> take wine
+> take wine
+You pick it up.
+> west
+> west
+You are in a courtyard.
+You can go up, east, west, north or out.
+The large courtyard has exits all around and you see stone steps leading up to a round tower.
+> out
+> out
+You are by the castle gates.
+You can go southwest or in.
+The huge wooden gates are slightly ajar and unguarded.
+> southwest
+> southwest
+You are on a grassy plain.
+You can go northeast or south.
+The land is more fertile here and a castle lies over the hill to the northeast.
+> south
+> south
+You are on a moor.
+You can go west or north.
+A few large stones are scattered across the desolate landscape.
+> west
+> west
+You are on a moor.
+You can see a broken cart.
+You can go south or east.
+A few large stones are scattered across the desolate landscape.
+> south
+> south
+You are on a moor.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> southeast
+> southeast
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> south
+> south
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+A large brown bear enters and starts eating the honey.
+> south
+> south
+You are in a wood.
+You can go northeast, north or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> north
+> north
+You are in a wood.
+You can see a bee's nest and a Bear.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> give fish to bear
+> give fish to bear
+You give the bear the fish and it takes it north.
+> north
+> north
+You are in a gorge.
+You can see a Bear.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+The bear lumbers northwest.
+> northwest
+> northwest
+You are on a moor.
+You can see a Bear.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+The bear starts sniffing around some soft ground then leaves.
+> southeast
+> southeast
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> northeast
+> northeast
+You are on the west side of a chasm.
+You can see a wooden bridge.
+You can go southwest.
+The chasm is wide and deep and the old wooden bridge creaks in the wind.
+> cross bridge
+> cross bridge
+You cross over to the other side.
+You are on the east side of a chasm.
+You can see a wooden bridge.
+You can go east or north.
+The chasm is wide and deep and the old wooden bridge creaks in the wind. A stone temple lies to the east.
+> north
+> north
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> west
+> west
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> north
+> north
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> west
+> west
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans around you.
+> south
+> south
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> south
+> south
+You are by some ruins.
+You can see a skeleton.
+You can go northwest or north.
+You're not sure if the ruins were once a temple or a place of residence.
+> x skeleton
+> x skeleton
+You find a shovel.
+> take shovel
+> take shovel
+You pick it up.
+> north
+> north
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> north
+> north
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans around you.
+> east
+> east
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> south
+> south
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> east
+> east
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> south
+> south
+You are on the east side of a chasm.
+You can see a wooden bridge.
+You can go east or north.
+The chasm is wide and deep and the old wooden bridge creaks in the wind. A stone temple lies to the east.
+> cross bridge
+> cross bridge
+You cross over to the other side.
+You are on the west side of a chasm.
+You can see a wooden bridge.
+You can go southwest.
+The chasm is wide and deep and the old wooden bridge creaks in the wind.
+> southwest
+> southwest
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> northwest
+> northwest
+You are on a moor.
+You can see some soft ground.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> use shovel on soft ground
+> use shovel on soft ground
+You dig up a wooden chest.
+> open chest
+> open chest
+You open it.
+It contains a sceptre.
+> take sceptre
+> take sceptre
+You pick it up.
+> southeast
+> southeast
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> south
+> south
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> east
+> east
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> east
+> east
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> southeast
+> southeast
+You are on a mountain range.
+You can go northwest, west or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> east
+> east
+You are on a mountain range.
+You can go west, north or northeast.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians. A stone obelisk lies to the north and a winter-laden landscape lies to the northeast.
+> northeast
+> northeast
+You are on a snow plain.
+You can go southwest or up.
+The snow underfoot is freezing your toes and the cold wind cuts through you like a knife.
+> up
+> up
+You are by some snowy mountains.
+You can go down or east.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> east
+> east
+You are by some snowy mountains.
+You can go west, northeast or southeast.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> southeast
+> southeast
+You are by an ice arch.
+You can go northwest or in.
+The arch seems to be made from solid ice and an illuminous glow eminates from within the darkened entrance.
+> in
+> in
+You are in the ice caves.
+You can go out, south, southeast or down.
+The walls and tunnels are carved from solid ice to make way into various parts of this underground complex.
+> down
+> down
+You are in the ice dungeon.
+You can see the Jailer.
+You can go up or east.
+The place is cold and dark and the dripping sound of water from the ceiling breaks the eerie silence.
+> give wine to Jailer
+> give wine to Jailer
+He takes your wine and drinks it in one go.  He falls down drunk.
+> lift Jailer
+> lift Jailer
+You find a key underneath him.
+> take crystal key
+> take crystal key
+You pick it up.
+> unlock door
+> unlock door
+Unlocked.
+> open door
+> open door
+You open it.
+> east
+> east
+You are in an ice cell.
+You can see a Jester.
+You can go west.
+A small cell made from strange ice crystals you've never encounted before surround a large ice bed sitting in the corner.
+> x bed
+> x bed
+Icy and uncomfortable.
+It contains a pillow.
+> take pillow
+> take pillow
+You pick it up.
+> use dagger on pillow
+> use dagger on pillow
+You cut the pillow to shreds and find a coin hidden inside.
+> i
+> i
+You are carrying a dagger, a metal rod, a dead mouse, a shovel, a sceptre, a crystal key and a coin.
+> west
+> west
+You are in the ice dungeon.
+You can see the Jailer.
+You can go up or east.
+The place is cold and dark and the dripping sound of water from the ceiling breaks the eerie silence.
+> up
+> up
+You are in the ice caves.
+You can go out, south, southeast or down.
+The walls and tunnels are carved from solid ice to make way into various parts of this underground complex.
+> southeast
+> southeast
+You are in the Ice King's throne room.
+You can see the Ice King.
+You can go northwest.
+The large crystal throne stands on an ice dais before you and is about twelve feet high by five feet wide. The Ice King is a Frost Giant who has lived here for centuries and doesn't suffer fools gladly.
+> give sceptre to Ice King
+> give sceptre to Ice King
+'Thank you for finding my sceptre. My Jester stole it and he will be punished.' he says and leaves.  A few moments later you hear a distant blood-curdling scream!
+> take fire crystal
+> take fire crystal
+You pick it up.
+> northwest
+> northwest
+You are in the ice caves.
+You can go out, south, southeast or down.
+The walls and tunnels are carved from solid ice to make way into various parts of this underground complex.
+> out
+> out
+You are by an ice arch.
+You can go northwest or in.
+The arch seems to be made from solid ice and an illuminous glow eminates from within the darkened entrance.
+> northwest
+> northwest
+You are by some snowy mountains.
+You can go west, northeast or southeast.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> west
+> west
+You are by some snowy mountains.
+You can go down or east.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> down
+> down
+You are on a snow plain.
+You can go southwest or up.
+The snow underfoot is freezing your toes and the cold wind cuts through you like a knife.
+> southwest
+> southwest
+You are on a mountain range.
+You can go west, north or northeast.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians. A stone obelisk lies to the north and a winter-laden landscape lies to the northeast.
+> west
+> west
+You are on a mountain range.
+You can go northwest, west or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> northwest
+> northwest
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> west
+> west
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> southwest
+> southwest
+You are in a wood.
+You can go northeast, north or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> west
+> west
+You are outside a tall tower.
+You can go in, east or north.
+A large ominous tower stands before you. You feel a sense of dread about this place but it's probably just your imagination.
+> north
+> north
+You are on a grassy plain.
+You can go north or south.
+The vast expanse of green lies all around you.
+> north
+> north
+You are on a grassy plain.
+You can see a block of stone.
+You can go west or south.
+The vast expanse of green lies all around you. A large lake can be seen to the west.
+> use dagger on block
+> use dagger on block
+You insert the dagger in the slot and wiggle it about.  Oops, as the stone cracks open the dagger breaks and becomes useless.  However, inside the stone is a ruby.
+> take ruby
+> take ruby
+You pick it up.
+> south
+> south
+You are on a grassy plain.
+You can go north or south.
+The vast expanse of green lies all around you.
+> south
+> south
+You are outside a tall tower.
+You can go in, east or north.
+A large ominous tower stands before you. You feel a sense of dread about this place but it's probably just your imagination.
+> east
+> east
+You are in a wood.
+You can go northeast, north or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> north
+> north
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> east
+> east
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> east
+> east
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> northeast
+> northeast
+You are on a mountain range.
+You can go southwest or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> east
+> east
+You are by a cave entrance.
+You can go west or in.
+The large cave entrance enters the mountainside as an eerie illuminance light up the walls from within.
+> in
+> in
+You are in a cave.
+You can go out, northwest or northeast.
+The walls of this cave are illuminous with a strange moss.
+> northwest
+> northwest
+You are in a tunnel.
+You can go southeast or west.
+The dark narrow tunnel is cold and a scurrying of tiny feet makes you realize you're not alone.
+> west
+> west
+You are in a rocky room.
+You can see a Dwarf.
+You can go east or northwest.
+The large room is made from solid rock and probably been built using ancient magic.
+> give ruby to dwarf
+> give ruby to dwarf
+The dwarf takes it and allows you to pass.
+> northwest
+> northwest
+You are in a columned hall.
+You can see a whistle.
+You can go north or southeast.
+This large hall seems to have once been used as a meeting place but has been left dormant for years.
+> take whistle
+> take whistle
+You pick it up.
+> southeast
+> southeast
+You are in a rocky room.
+You can see a Dwarf.
+You can go east or northwest.
+The large room is made from solid rock and probably been built using ancient magic.
+> blow whistle
+> blow whistle
+He clutches his ears and drops his hammer.
+> take hammer
+> take hammer
+You pick it up.
+> east
+> east
+You are in a tunnel.
+You can go southeast or west.
+The dark narrow tunnel is cold and a scurrying of tiny feet makes you realize you're not alone.
+> southeast
+> southeast
+You are in a cave.
+You can go out, northwest or northeast.
+The walls of this cave are illuminous with a strange moss.
+> out
+> out
+You are by a cave entrance.
+You can go west or in.
+The large cave entrance enters the mountainside as an eerie illuminance light up the walls from within.
+> west
+> west
+You are on a mountain range.
+You can go southwest or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> southwest
+> southwest
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> southeast
+> southeast
+You are on a mountain range.
+You can go northwest, west or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> east
+> east
+You are on a mountain range.
+You can go west, north or northeast.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians. A stone obelisk lies to the north and a winter-laden landscape lies to the northeast.
+> northeast
+> northeast
+You are on a snow plain.
+You can go southwest or up.
+The snow underfoot is freezing your toes and the cold wind cuts through you like a knife.
+> up
+> up
+You are by some snowy mountains.
+You can go down or east.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> east
+> east
+You are by some snowy mountains.
+You can go west, northeast or southeast.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> southeast
+> southeast
+You are by an ice arch.
+You can go northwest or in.
+The arch seems to be made from solid ice and an illuminous glow eminates from within the darkened entrance.
+> in
+> in
+You are in the ice caves.
+You can go out, south, southeast or down.
+The walls and tunnels are carved from solid ice to make way into various parts of this underground complex.
+> south
+> south
+You are in the ice hall.
+You can see an urn.
+You can go north.
+The hall is huge as crystal columns hold up the high ceiling. A circular window allows a bitter-cold wind to blow inside.
+> use hammer on urn
+> use hammer on urn
+You smash open the urn and snow spills out!
+> x snow
+> x snow
+Hidden in the snow is an iron key.
+> take iron key
+> take iron key
+You pick it up.
+> i
+> i
+You are carrying a metal rod, a dead mouse, a shovel, a sceptre, a crystal key, a coin, a fire crystal, a whistle, a hammer and an iron key.
+> north
+> north
+You are in the ice caves.
+You can go out, south, southeast or down.
+The walls and tunnels are carved from solid ice to make way into various parts of this underground complex.
+> out
+> out
+You are by an ice arch.
+You can go northwest or in.
+The arch seems to be made from solid ice and an illuminous glow eminates from within the darkened entrance.
+> northwest
+> northwest
+You are by some snowy mountains.
+You can go west, northeast or southeast.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> west
+> west
+You are by some snowy mountains.
+You can go down or east.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> down
+> down
+You are on a snow plain.
+You can go southwest or up.
+The snow underfoot is freezing your toes and the cold wind cuts through you like a knife.
+> southwest
+> southwest
+You are on a mountain range.
+You can go west, north or northeast.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians. A stone obelisk lies to the north and a winter-laden landscape lies to the northeast.
+> north
+> north
+You are standing near a stone obelisk.
+You can go south.
+The stone obelisk near its base is covered in ancient symbols.
+> read symbols
+> read symbols
+You don't know what they mean!
+> south
+> south
+You are on a mountain range.
+You can go west, north or northeast.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians. A stone obelisk lies to the north and a winter-laden landscape lies to the northeast.
+> west
+> west
+You are on a mountain range.
+You can go northwest, west or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> northwest
+> northwest
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> west
+> west
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> west
+> west
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> north
+> north
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> northwest
+> northwest
+You are on a moor.
+You can see some soft ground and a chest.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> north
+> north
+You are on a moor.
+You can see a broken cart.
+You can go south or east.
+A few large stones are scattered across the desolate landscape.
+> east
+> east
+You are on a moor.
+You can go west or north.
+A few large stones are scattered across the desolate landscape.
+> north
+> north
+You are on a grassy plain.
+You can go northeast or south.
+The land is more fertile here and a castle lies over the hill to the northeast.
+> northeast
+> northeast
+You are by the castle gates.
+You can go southwest or in.
+The huge wooden gates are slightly ajar and unguarded.
+> in
+> in
+You are in a courtyard.
+You can go up, east, west, north or out.
+The large courtyard has exits all around and you see stone steps leading up to a round tower.
+> north
+> north
+You are in a gallery.
+You can go south or west.
+The pictures hanging on the walls depict scenes of the surrounding countryside.
+> west
+> west
+You are in a library.
+You can see a pedestal.
+You can go east.
+The library houses many books on all sorts of subjects. Considering the layers of dust covering them not many others appreciate a good text.
+> read books
+> read books
+You find a book on languages that translate the symbols found on the obelisk.  After a few hours you get a basic understanding of them.
+> east
+> east
+You are in a gallery.
+You can go south or west.
+The pictures hanging on the walls depict scenes of the surrounding countryside.
+> south
+> south
+You are in a courtyard.
+You can go up, east, west, north or out.
+The large courtyard has exits all around and you see stone steps leading up to a round tower.
+> out
+> out
+You are by the castle gates.
+You can go southwest or in.
+The huge wooden gates are slightly ajar and unguarded.
+> southwest
+> southwest
+You are on a grassy plain.
+You can go northeast or south.
+The land is more fertile here and a castle lies over the hill to the northeast.
+> south
+> south
+You are on a moor.
+You can go west or north.
+A few large stones are scattered across the desolate landscape.
+> west
+> west
+You are on a moor.
+You can see a broken cart.
+You can go south or east.
+A few large stones are scattered across the desolate landscape.
+> south
+> south
+You are on a moor.
+You can see some soft ground and a chest.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> southeast
+> southeast
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> south
+> south
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> east
+> east
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> east
+> east
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> southeast
+> southeast
+You are on a mountain range.
+You can go northwest, west or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> east
+> east
+You are on a mountain range.
+You can go west, north or northeast.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians. A stone obelisk lies to the north and a winter-laden landscape lies to the northeast.
+> north
+> north
+You are standing near a stone obelisk.
+You can go south.
+The stone obelisk near its base is covered in ancient symbols.
+> push symbols
+> push symbols
+You push a few symbols and a secret drawer is revealed.
+> open drawer
+> open drawer
+You open it.
+It contains an emerald and a cog.
+> take cog
+> take cog
+You pick it up.
+> take emerald
+> take emerald
+You pick it up.
+> south
+> south
+You are on a mountain range.
+You can go west, north or northeast.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians. A stone obelisk lies to the north and a winter-laden landscape lies to the northeast.
+> west
+> west
+You are on a mountain range.
+You can go northwest, west or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> northwest
+> northwest
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> west
+> west
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> west
+> west
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> north
+> north
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> northwest
+> northwest
+You are on a moor.
+You can see some soft ground and a chest.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> north
+> north
+You are on a moor.
+You can see a broken cart.
+You can go south or east.
+A few large stones are scattered across the desolate landscape.
+> east
+> east
+You are on a moor.
+You can go west or north.
+A few large stones are scattered across the desolate landscape.
+> north
+> north
+You are on a grassy plain.
+You can go northeast or south.
+The land is more fertile here and a castle lies over the hill to the northeast.
+> northeast
+> northeast
+You are by the castle gates.
+You can go southwest or in.
+The huge wooden gates are slightly ajar and unguarded.
+> in
+> in
+You are in a courtyard.
+You can go up, east, west, north or out.
+The large courtyard has exits all around and you see stone steps leading up to a round tower.
+> up
+> up
+You are in the Princess' chamber.
+You can see the Princess, a portrait and a four poster bed.
+You can go down.
+A portrait of the Princess hangs on the wall overlooking a four-poster bed.
+> give emerald to Princess
+> give emerald to Princess
+'Oooh, pretty!' she grabs it off you and drops a silver key.
+> take silver key
+> take silver key
+You pick it up.
+> give mouse to Princess
+> give mouse to Princess
+She takes one look at the mouse and runs for the hills.
+> lift portrait
+> lift portrait
+Hidden behind the portrait a piece of old parchment falls to the floor.
+> take parchment
+> take parchment
+You pick it up.
+> down
+> down
+You are in a courtyard.
+You can go up, east, west, north or out.
+The large courtyard has exits all around and you see stone steps leading up to a round tower.
+> out
+> out
+You are by the castle gates.
+You can go southwest or in.
+The huge wooden gates are slightly ajar and unguarded.
+> southwest
+> southwest
+You are on a grassy plain.
+You can go northeast or south.
+The land is more fertile here and a castle lies over the hill to the northeast.
+> south
+> south
+You are on a moor.
+You can go west or north.
+A few large stones are scattered across the desolate landscape.
+> west
+> west
+You are on a moor.
+You can see a broken cart.
+You can go south or east.
+A few large stones are scattered across the desolate landscape.
+> south
+> south
+You are on a moor.
+You can see some soft ground and a chest.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> southeast
+> southeast
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> south
+> south
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> south
+> south
+You are in a wood.
+You can go northeast, north or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> west
+> west
+You are outside a tall tower.
+You can go in, east or north.
+A large ominous tower stands before you. You feel a sense of dread about this place but it's probably just your imagination.
+> unlock door
+> unlock door
+Unlocked.
+> open door
+> open door
+You open it.
+> in
+> in
+You are at the bottom of the tower.
+You can go up or out.
+The dark stone steps wind up into a tower room above.
+> up
+> up
+You are in a tower room.
+You can see a cauldron, a lamp and a hourglass.
+You can go down.
+The room is sparsely decorated with a various items that certainly seem to indicate sorcery is in attendance here.
+> turn hourglass
+> turn hourglass
+As soon as you turn it a magic wand suddenly appears beside you.
+> take wand
+> take wand
+You pick it up.
+> take lamp
+> take lamp
+You pick it up.
+> wave wand
+> wave wand
+You hear a pop and the barrier vanishes.
+> down
+> down
+You are at the bottom of the tower.
+You can go up or out.
+The dark stone steps wind up into a tower room above.
+> out
+> out
+You are outside a tall tower.
+You can go in, east or north.
+A large ominous tower stands before you. You feel a sense of dread about this place but it's probably just your imagination.
+> east
+> east
+You are in a wood.
+You can go northeast, north or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> northeast
+> northeast
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> southeast
+> southeast
+You are in a wood.
+You can see a Elf.
+You can go northwest or east.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> wave wand
+> wave wand
+The Elf transforms into the Witch.
+> use hammer on Witch
+> use hammer on Witch
+You bash her over the head with the hammer and she dies instantly. You find something.
+> take pearl
+> take pearl
+You pick it up.
+> drop hammer
+> drop hammer
+You drop it.
+> northwest
+> northwest
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> east
+> east
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> northeast
+> northeast
+You are on a mountain range.
+You can go southwest or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> east
+> east
+You are by a cave entrance.
+You can go west or in.
+The large cave entrance enters the mountainside as an eerie illuminance light up the walls from within.
+> in
+> in
+You are in a cave.
+You can go out, northwest or northeast.
+The walls of this cave are illuminous with a strange moss.
+> northwest
+> northwest
+You are in a tunnel.
+You can go southeast or west.
+The dark narrow tunnel is cold and a scurrying of tiny feet makes you realize you're not alone.
+> west
+> west
+You are in a rocky room.
+You can see a Dwarf.
+You can go east or northwest.
+The large room is made from solid rock and probably been built using ancient magic.
+> northwest
+> northwest
+You are in a columned hall.
+You can go north or southeast.
+This large hall seems to have once been used as a meeting place but has been left dormant for years.
+> north
+> north
+You are in an anteroom.
+You can go south or north.
+This small room is home to a large iron door in the north wall.
+> unlock door
+> unlock door
+Unlocked.
+> open door
+> open door
+You open it.
+> north
+> north
+You are in the Liche Queen's sanctum.
+You can see the Liche-Queen.
+You can go south.
+The Liche Queen was once a mighty ruler of the overworld until the Dragon King ruler of the underworld defeated her in battle. Defeating death with magic she now lives a weary life in this cold and dirty sanctum, long forgotten.
+> give pearl to liche queen
+> give pearl to liche queen
+'What a beautiful jewel.  I want it!' she relishes and grabs it off you.  She drops her sword.
+> take sword
+> take sword
+You pick it up.
+> i
+> i
+You are carrying a metal rod, a dead mouse, a shovel, a sceptre, a crystal key, a coin, a fire crystal, a whistle, an iron key, a cog, a silver key, a parchment, a wand, a lamp and a sword.
+> south
+> south
+You are in an anteroom.
+You can go south or north.
+This small room is home to a large iron door in the north wall.
+> south
+> south
+You are in a columned hall.
+You can go north or southeast.
+This large hall seems to have once been used as a meeting place but has been left dormant for years.
+> southeast
+> southeast
+You are in a rocky room.
+You can see a Dwarf.
+You can go east or northwest.
+The large room is made from solid rock and probably been built using ancient magic.
+> east
+> east
+You are in a tunnel.
+You can go southeast or west.
+The dark narrow tunnel is cold and a scurrying of tiny feet makes you realize you're not alone.
+> southeast
+> southeast
+You are in a cave.
+You can go out, northwest or northeast.
+The walls of this cave are illuminous with a strange moss.
+> out
+> out
+You are by a cave entrance.
+You can go west or in.
+The large cave entrance enters the mountainside as an eerie illuminance light up the walls from within.
+> west
+> west
+You are on a mountain range.
+You can go southwest or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> southwest
+> southwest
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> west
+> west
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> southeast
+> southeast
+You are in a wood.
+You can see the Witch and a hammer.
+You can go northwest or east.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> take hammer
+> take hammer
+You pick it up.
+> east
+> east
+You are on a mountain range.
+You can go northwest, west or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> east
+> east
+You are on a mountain range.
+You can go west, north or northeast.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians. A stone obelisk lies to the north and a winter-laden landscape lies to the northeast.
+> northeast
+> northeast
+You are on a snow plain.
+You can go southwest or up.
+The snow underfoot is freezing your toes and the cold wind cuts through you like a knife.
+> up
+> up
+You are by some snowy mountains.
+You can go down or east.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> east
+> east
+You are by some snowy mountains.
+You can go west, northeast or southeast.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> northeast
+> northeast
+You are on a snowy plateau.
+You can see some shoots.
+You can go southwest.
+The cold vastness of the landscape takes your breath away but freezes it as soon as it leaves your shivering body.
+> use parchment on shoots
+> use parchment on shoots
+As you cast the spell the shoots grow into a beautiful orchid.
+> take orchid
+> take orchid
+You pick it up.
+> southwest
+> southwest
+You are by some snowy mountains.
+You can go west, northeast or southeast.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> west
+> west
+You are by some snowy mountains.
+You can go down or east.
+The cold white mountains might look spectacular but the harsh winter climate freezes your bones.
+> down
+> down
+You are on a snow plain.
+You can go southwest or up.
+The snow underfoot is freezing your toes and the cold wind cuts through you like a knife.
+> southwest
+> southwest
+You are on a mountain range.
+You can go west, north or northeast.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians. A stone obelisk lies to the north and a winter-laden landscape lies to the northeast.
+> west
+> west
+You are on a mountain range.
+You can go northwest, west or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> northwest
+> northwest
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> west
+> west
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> west
+> west
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> north
+> north
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> northeast
+> northeast
+You are on the west side of a chasm.
+You can see a wooden bridge.
+You can go southwest.
+The chasm is wide and deep and the old wooden bridge creaks in the wind.
+> cross bridge
+> cross bridge
+You cross over to the other side.
+You are on the east side of a chasm.
+You can see a wooden bridge.
+You can go east or north.
+The chasm is wide and deep and the old wooden bridge creaks in the wind. A stone temple lies to the east.
+> north
+> north
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> west
+> west
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> north
+> north
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> west
+> west
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans around you.
+> south
+> south
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> south
+> south
+You are by some ruins.
+You can see a skeleton.
+You can go northwest or north.
+You're not sure if the ruins were once a temple or a place of residence.
+> northwest
+> northwest
+You are by a tomb entrance.
+You can go southeast or down.
+The stone slab used to cover the tomb entrance looks heavy and old.
+> use rod on slab
+> use rod on slab
+You lever the rod under the slab and it moves to reveal an entrance.
+> down
+> down
+You are in an anteroom.
+You can go up or north.
+The empty stone room has steps leading down from above to an open doorway to the north.
+> north
+> north
+You are in a stone hall.
+You can go south, east or west.
+This small hall is bereft of any decoration and has exits on all sides.
+> west
+> west
+You are in a tomb.
+You can see a sarcophagus.
+You can go east.
+This is the tomb of the mighty Dragon King, ruler of the underworld and master of the dragons. He died soon after a war with the Liche Queen under mysterious circumstances. He was mummified and buried here.
+> open sarcophagus
+> open sarcophagus
+You open it.
+A mummy lumbers out of the sarcophagus and starts to groan.
+> use fire crystal on Mummy
+> use fire crystal on Mummy
+The power of the crystal burns the Mummy into charcoal.
+> take gold key
+> take gold key
+You pick it up.
+> east
+> east
+You are in a stone hall.
+You can go south, east or west.
+This small hall is bereft of any decoration and has exits on all sides.
+> east
+> east
+You are in the blood chamber.
+You can see a pool of blood.
+You can go west.
+The pool of blood is rumoured to be a source of either life or death. No one knows for sure as the Dragon King who created it kept the secret of it to his grave.
+> use lamp on pool
+> use lamp on pool
+You fill the lamp with blood.
+> use orchid on pool
+> use orchid on pool
+The white orchids changes into blood red.
+> i
+> i
+You are carrying a metal rod, a dead mouse, a shovel, a sceptre, a crystal key, a coin, a fire crystal, a whistle, an iron key, a cog, a silver key, a parchment, a wand, a lamp, a sword, a hammer, an orchid and a gold key.
+> west
+> west
+You are in a stone hall.
+You can go south, east or west.
+This small hall is bereft of any decoration and has exits on all sides.
+> south
+> south
+You are in an anteroom.
+You can go up or north.
+The empty stone room has steps leading down from above to an open doorway to the north.
+> up
+> up
+You are by a tomb entrance.
+You can go southeast or down.
+The stone slab used to cover the tomb entrance looks heavy and old.
+> southeast
+> southeast
+You are by some ruins.
+You can see a skeleton.
+You can go northwest or north.
+You're not sure if the ruins were once a temple or a place of residence.
+> north
+> north
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> north
+> north
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans around you.
+> east
+> east
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> south
+> south
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> east
+> east
+You are in a desert.
+You can go north, south, east or west.
+The hot sun bakes down upon you and the desolate wasteland spans all around.
+> south
+> south
+You are on the east side of a chasm.
+You can see a wooden bridge.
+You can go east or north.
+The chasm is wide and deep and the old wooden bridge creaks in the wind. A stone temple lies to the east.
+> cross bridge
+> cross bridge
+You cross over to the other side.
+You are on the west side of a chasm.
+You can see a wooden bridge.
+You can go southwest.
+The chasm is wide and deep and the old wooden bridge creaks in the wind.
+> southwest
+> southwest
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> south
+> south
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> east
+> east
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> east
+> east
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> northeast
+> northeast
+You are on a mountain range.
+You can go southwest or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> east
+> east
+You are by a cave entrance.
+You can go west or in.
+The large cave entrance enters the mountainside as an eerie illuminance light up the walls from within.
+> in
+> in
+You are in a cave.
+You can go out, northwest or northeast.
+The walls of this cave are illuminous with a strange moss.
+> northeast
+> northeast
+You are in a tunnel.
+You can go southwest or north.
+The dark narrow tunnel is cold and a scurrying of tiny feet makes you realize you're not alone.
+> north
+> north
+You are by an abyss.
+You can go south.
+The black void seems to be endless. You can't see the other side of this vast cavern and you wonder what lies beyond. You do however, get the feeling of a supernatural presence.
+> use fire crystal on lamp
+> use fire crystal on lamp
+The lamp burns a hot red supernatural flame.
+> drop lamp
+> drop lamp
+You drop it.
+As soon as you drop the lit lamp smoke appears from it and a Genie forms before you.
+> give orchid to Genie
+> give orchid to Genie
+The Genie exchanges the orchid with a gold orb.  He casts an enchantment over the orchid and is now free of the lamp.  'See ya!' he says as he leaves and waves goodbye.
+> take orb
+> take orb
+You pick it up.
+> south
+> south
+You are in a tunnel.
+You can go southwest or north.
+The dark narrow tunnel is cold and a scurrying of tiny feet makes you realize you're not alone.
+> southwest
+> southwest
+You are in a cave.
+You can go out, northwest or northeast.
+The walls of this cave are illuminous with a strange moss.
+> out
+> out
+You are by a cave entrance.
+You can go west or in.
+The large cave entrance enters the mountainside as an eerie illuminance light up the walls from within.
+> west
+> west
+You are on a mountain range.
+You can go southwest or east.
+The sparse and rugged mountains tower over you and watch you like silent stone guardians.
+> southwest
+> southwest
+You are by a stone circle.
+You can go west, northeast or southeast.
+An ancient circle of stone monoliths surrounding a stone altar.
+> west
+> west
+You are in a wood.
+You can go north, east, southeast, southwest or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> west
+> west
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> north
+> north
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> northwest
+> northwest
+You are on a moor.
+You can see some soft ground and a chest.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> north
+> north
+You are on a moor.
+You can see a broken cart.
+You can go south or east.
+A few large stones are scattered across the desolate landscape.
+> east
+> east
+You are on a moor.
+You can go west or north.
+A few large stones are scattered across the desolate landscape.
+> north
+> north
+You are on a grassy plain.
+You can go northeast or south.
+The land is more fertile here and a castle lies over the hill to the northeast.
+> northeast
+> northeast
+You are by the castle gates.
+You can go southwest or in.
+The huge wooden gates are slightly ajar and unguarded.
+> in
+> in
+You are in a courtyard.
+You can go up, east, west, north or out.
+The large courtyard has exits all around and you see stone steps leading up to a round tower.
+> north
+> north
+You are in a gallery.
+You can go south or west.
+The pictures hanging on the walls depict scenes of the surrounding countryside.
+> west
+> west
+You are in a library.
+You can see a pedestal.
+You can go east.
+The library houses many books on all sorts of subjects. Considering the layers of dust covering them not many others appreciate a good text.
+> use orb on pedestal
+> use orb on pedestal
+As you place the orb in the holder of the pedestal a secret door opens behind the bookcase.
+> north
+> north
+You are in the royal vault.
+You can see a roots.
+You can go up.
+This old vault must have been sealed up for years considering the amount of dust on the floor.
+> use fire crystal on roots
+> use fire crystal on roots
+The roots opens up to reveal a battlehorn.
+> take battlehorn
+> take battlehorn
+You pick it up.
+> up
+> up
+You are in a library.
+You can see a pedestal.
+You can go east or north.
+The library houses many books on all sorts of subjects. Considering the layers of dust covering them not many others appreciate a good text.
+> east
+> east
+You are in a gallery.
+You can go south or west.
+The pictures hanging on the walls depict scenes of the surrounding countryside.
+> south
+> south
+You are in a courtyard.
+You can go up, east, west, north or out.
+The large courtyard has exits all around and you see stone steps leading up to a round tower.
+> out
+> out
+You are by the castle gates.
+You can go southwest or in.
+The huge wooden gates are slightly ajar and unguarded.
+> southwest
+> southwest
+You are on a grassy plain.
+You can go northeast or south.
+The land is more fertile here and a castle lies over the hill to the northeast.
+> south
+> south
+You are on a moor.
+You can go west or north.
+A few large stones are scattered across the desolate landscape.
+> west
+> west
+You are on a moor.
+You can see a broken cart.
+You can go south or east.
+A few large stones are scattered across the desolate landscape.
+> south
+> south
+You are on a moor.
+You can see some soft ground and a chest.
+You can go southeast or north.
+A few large stones are scattered across the desolate landscape.
+> southeast
+> southeast
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> south
+> south
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> north
+> north
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> northeast
+> northeast
+You are on the west side of a chasm.
+You can see a wooden bridge.
+You can go southwest.
+The chasm is wide and deep and the old wooden bridge creaks in the wind.
+> cross bridge
+> cross bridge
+You cross over to the other side.
+You are on the east side of a chasm.
+You can see a wooden bridge.
+You can go east or north.
+The chasm is wide and deep and the old wooden bridge creaks in the wind. A stone temple lies to the east.
+> east
+> east
+You are outside a temple.
+You can go west or in.
+This temple looks relatively new with stone columns and the triangular arch surrounding the only entrance inside.
+> in
+> in
+You are inside a temple.
+You can see a grille.
+You can go out.
+A large strange golden cube greets you as you step inside. The temple is very clean with a very polished floor.
+> use coin on grille
+> use coin on grille
+You unscrew the grille with the coin.
+> unlock cube
+> unlock cube
+Unlocked.
+> open cube
+> open cube
+You open it.
+It contains a mechanism.
+> use cog on mechanism
+> use cog on mechanism
+You insert the cog and it fits perfectly.
+> pull lever
+> pull lever
+A secret door opens in the east wall.
+> east
+> east
+You are in a secret repository.
+You can see a shield.
+You can go west.
+The room is small and sparse with dust lining the walls and floor.
+> take shield
+> take shield
+You pick it up.
+> i
+> i
+You are carrying a metal rod, a dead mouse, a shovel, a sceptre, a crystal key, a coin, a fire crystal, a whistle, an iron key, a silver key, a parchment, a wand, a sword, a hammer, a gold key, an orb, a battlehorn and a shield.
+> west
+> west
+You are inside a temple.
+You can see a grille and a lever.
+You can go out or east.
+A large strange golden cube greets you as you step inside. The temple is very clean with a very polished floor.
+> out
+> out
+You are outside a temple.
+You can go west or in.
+This temple looks relatively new with stone columns and the triangular arch surrounding the only entrance inside.
+> west
+> west
+You are on the east side of a chasm.
+You can see a wooden bridge.
+You can go east or north.
+The chasm is wide and deep and the old wooden bridge creaks in the wind. A stone temple lies to the east.
+> cross bridge
+> cross bridge
+You cross over to the other side.
+You are on the west side of a chasm.
+You can see a wooden bridge.
+You can go southwest.
+The chasm is wide and deep and the old wooden bridge creaks in the wind.
+> southwest
+> southwest
+You are in a gorge.
+You can go south, northeast or northwest.
+The narrow gorge cut from years of wear splits into the three paths before you.
+> south
+> south
+You are in a wood.
+You can see a bee's nest.
+You can go east, south or north.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence. The wood thins out more to the north.
+> south
+> south
+You are in a wood.
+You can go northeast, north or west.
+The wood is full of old oak trees. A gentle wind blows through the branches allowing the odd creak of wood to break the silence.
+> west
+> west
+You are outside a tall tower.
+You can go in, east or north.
+A large ominous tower stands before you. You feel a sense of dread about this place but it's probably just your imagination.
+> north
+> north
+You are on a grassy plain.
+You can go north or south.
+The vast expanse of green lies all around you.
+> north
+> north
+You are on a grassy plain.
+You can see a block of stone.
+You can go west or south.
+The vast expanse of green lies all around you. A large lake can be seen to the west.
+> west
+> west
+You are by a lake.
+You can go east.
+As you stand on the shore of this vast lake you can just make out an island in the centre of it.
+> blow battlehorn
+> blow battlehorn
+A water elemental from the lake appears and carries you off to the island.
+You are on an island shore by the lake.
+You can go north.
+The mist hanging heavily across the lake makes it difficult to see the mainland.
+> north
+> north
+You are on a marsh.
+You can go south or northeast.
+The fog is heavy and cold and the soggy ground goes up to your waist in some places.
+> northeast
+> northeast
+You are on a marsh.
+You can go north or southwest.
+The fog is heavy and cold and the soggy ground goes up to your waist in some places.
+> north
+> north
+You are by a cave entrance.
+You can go south or in.
+The fog is heavy and cold and the soggy ground goes up to your waist in some places. The large cave entrance looks dark and ominous.
+> in
+> in
+You are in a tunnel.
+You can go out or north.
+The tunnel walls are covered in slime and water drips from the ceiling.
+> north
+> north
+You are on the south side of a rope bridge.
+You can see a rope bridge.
+You can go south.
+The deep chasm below seems to be bottomless and the bridge looks old and uncertain.
+> use hammer on nails
+> use hammer on nails
+You hammer the nails and fix the bridge.
+> cross bridge
+> cross bridge
+You cross to the other side.
+You are on the north side of a rope bridge.
+You can see a rope bridge.
+You can go north.
+The deep chasm below seems to be bottomless and the bridge looks old and uncertain.
+> north
+> north
+You are in the Dragon's lair.
+You can see the Dragon.
+You can go south.
+The large cavern houses pools of flammable liquid that burns with dragonfire provided by its resident: the Dragon.
+As soon as you enter, the dragon releases a breath of fire in your direction.  Luckily the shield protects you.
+> use sword on Dragon
+> use sword on Dragon
+You slay the mighty dragon with the sword and it lies dead at your feet.
+> take treasure hoard
+> take treasure hoard
+There is a lot to take but it's all yours. There are gold and silver coins, rubies, emeralds, diamonds, sapphires, amethysts, crowns, tiaras, pearl necklaces, gold sceptres, orbs, treasure chests full of more gold ingots, garnets, silver brooches, amulets, medallions, trinkets and much, much, more...
+
+You are rich beyond your wildest dreams.
+Congratulations!  You have completed the game.
+[state=Finished]

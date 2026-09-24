@@ -1,0 +1,26 @@
+Where... am I?
+A... library? It's huge.
+You are in the The Aef Library.
+You can see a Computer, a Blue Holobook, a Red Holobook and a Green Holobook.
+You can go south.
+It's massive, full of bookshelves with glowing holobooks. There's also a computer and a few holobooks over in the corner.
+> s
+You are in The Aef Foyer.
+You can see a Golden Key.
+You can go north or south.
+It's a grand foyer. With a grand entrance. There's also a red rug.
+> s
+You are in The Portal Room.
+You can go north, southwest or southeast.
+There's two portals, and they're both active.
+> southeast
+You are in " Portal 2 ".
+You can see a Chest and a Door.
+You can go north or south.
+I'm in Maytrania. The room is dark, and the only other dooris locked. There's a chest in the corner.
+> enter door
+It's a catwalk around a massive crystal not unlike the one in the key. There's a ladder nearby that can take me to a higher or lower catwalk.
+Congratulations! You have beat the game as it is so far. I plan to add much more, if you have any ideas, please email me at mocha2007andcoco@gmail.com!
+You entered the generator room.
+> quit
+[state=Finished]

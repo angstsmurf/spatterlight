@@ -1,0 +1,203 @@
+The Interlopers
+
+by Saki
+
+> look at Ulrich von Gradwitz
+
+> look at Ulrich von Gradwitz
+(#1)
+"In a forest of mixed growth somewhere on the eastern spurs of the Karpathians, a man stood one winter night watching and listening, as though he waited for some beast of the woods to come within the range of his vision, and, later, of his rifle.  But the game for whose presence he kept so keen an outlook was none that figured in the sportsman’s calendar as lawful and proper for the chase; Ulrich von Gradwitz patrolled the dark forest in quest of a human enemy."
+> read Narrative
+
+> read Narrative
+(#2)
+"The forest lands of Gradwitz were of wide extent and well stocked with game; the narrow strip of precipitous woodland that lay on its outskirt was not remarkable for the game it harboured or the shooting it afforded, but it was the most jealously guarded of all its owner’s territorial possessions.  A famous law suit, in the days of his grandfather, had wrested it from the illegal possession of a neighbouring family of petty landowners; the dispossessed party had never acquiesced in the judgment of the Courts, and a long series of poaching affrays and similar scandals had embittered the relationships between the families for three generations.  The neighbour feud had grown into a personal one since Ulrich had come to be head of his family; if there was a man in the world whom he detested and wished ill to it was Georg Znaeym, the inheritor of the quarrel and the tireless game-snatcher and raider of the disputed border-forest.  The feud might, perhaps, have died down or been compromised if the personal ill-will of the two men had not stood in the way; as boys they had thirsted for one another’s blood, as men each prayed that misfortune might fall on the other,..."
+> look at foresters
+
+> look at foresters
+(#3)
+"and this wind-scourged winter night Ulrich had banded together his foresters to watch the dark forest, not in quest of four-footed quarry, but to keep a look-out for the prowling thieves whom he suspected of being afoot from across the land boundary."
+> look at animals
+
+> look at animals
+(#4)
+"The roebuck, which usually kept in the sheltered hollows during a storm-wind, were running like driven things to-night, and there was movement and unrest among the creatures that were wont to sleep through the dark hours.  Assuredly there was a disturbing element in the forest, and Ulrich could guess the quarter from whence it came."
+> go Steep slopes
+
+> go Steep slopes
+(#5)
+"He strayed away by himself from the watchers whom he had placed in ambush on the crest of the hill, and wandered far down the steep slopes amid the wild tangle of undergrowth, peering through the tree trunks and listening through the whistling and skirling of the wind and the restless beating of the branches for sight and sound of the marauders."
+> look at Ulrich von Gradwitz
+
+> look at Ulrich von Gradwitz
+(#6)
+"If only on this wild night, in this dark, lone spot, he might come across Georg Znaeym, man to man, with none to witness—that was the wish that was uppermost in his thoughts."
+> go Beneath beech tree
+
+> go Beneath beech tree
+(#7)
+"And as he stepped round the trunk of a huge beech he came face to face with the man he sought."
+> look at Ulrich von Gradwitz
+
+> look at Ulrich von Gradwitz
+(#8)
+"The two enemies stood glaring at one another for a long silent moment.  Each had a rifle in his hand, each had hate in his heart and murder uppermost in his mind.  The chance had come to give full play to the passions of a lifetime.  But a man who has been brought up under the code of a restraining civilisation cannot easily nerve himself to shoot down his neighbour in cold blood and without word spoken, except for an offence against his hearth and honour.  And before the moment of hesitation had given way to action..."
+> storm Nature
+
+> storm Nature
+(#9)
+"a deed of Nature’s own violence overwhelmed them both.  A fierce shriek of the storm had been answered by a splitting crash over their heads, and ere they could leap aside a mass of falling beech tree had thundered down on them."
+> look at Ulrich von Gradwitz
+
+> look at Ulrich von Gradwitz
+(#10)
+"Ulrich von Gradwitz found himself stretched on the ground, one arm numb beneath him and the other held almost as helplessly in a tight tangle of forked branches, while both legs were pinned beneath the fallen mass.  His heavy shooting-boots had saved his feet from being crushed to pieces, but if his fractures were not as serious as they might have been, at least it was evident that he could not move from his present position till some one came to release him.  The descending twig had slashed the skin of his face, and he had to wink away some drops of blood from his eyelashes before he could take in a general view of the disaster.  At his side, so near that under ordinary circumstances he could almost have touched him, lay..."
+> look at Georg Znaeym
+
+> look at Georg Znaeym
+(#11)
+"Georg Znaeym, alive and struggling, but obviously as helplessly pinioned down as himself.  All round them lay a thick-strewn wreckage of splintered branches and broken twigs."
+> look at Ulrich von Gradwitz
+
+> look at Ulrich von Gradwitz
+(#12)
+"Relief at being alive and exasperation at his captive plight brought a strange medley of pious thank-offerings and sharp curses to Ulrich’s lips."
+> dialog Georg Znaeym
+
+> dialog Georg Znaeym
+(#13)
+"Georg, who was nearly blinded with the blood which trickled across his eyes, stopped his struggling for a moment to listen, and then gave a short, snarling laugh.
+'So you’re not killed, as you ought to be, but you’re caught, anyway,' he cried; 'caught fast.  Ho, what a jest, Ulrich von Gradwitz snared in his stolen forest.  There’s real justice for you!'
+And he laughed again, mockingly and savagely."
+> dialog Ulrich von Gradwitz
+
+> dialog Ulrich von Gradwitz
+(#14)
+" 'I’m caught in my own forest-land,' retorted Ulrich.  'When my men come to release us you will wish, perhaps, that you were in a better plight than caught poaching on a neighbour’s land, shame on you.' "
+> dialog Georg Znaeym
+
+> dialog Georg Znaeym
+(#15)
+"Georg was silent for a moment; then he answered quietly:
+'Are you sure that your men will find much to release?  I have men, too, in the forest to-night, close behind me, and they will be here first and do the releasing.  When they drag me out from under these damned branches it won’t need much clumsiness on their part to roll this mass of trunk right over on the top of you.  Your men will find you dead under a fallen beech tree.  For form’s sake I shall send my condolences to your family.' "
+> dialog Ulrich von Gradwitz
+
+> dialog Ulrich von Gradwitz
+(#16)
+" 'It is a useful hint,' said Ulrich fiercely.  'My men had orders to follow in ten minutes time, seven of which must have gone by already, and when they get me out—I will remember the hint.  Only as you will have met your death poaching on my lands I don’t think I can decently send any message of condolence to your family.' "
+> dialog Georg Znaeym
+
+> dialog Georg Znaeym
+(#17)
+" 'Good,' snarled Georg, 'good.  We fight this quarrel out to the death, you and I and our foresters, with no cursed interlopers to come between us.  Death and damnation to you, Ulrich von Gradwitz.' "
+> dialog Ulrich von Gradwitz
+
+> dialog Ulrich von Gradwitz
+(#18)
+" 'The same to you, Georg Znaeym, forest-thief, game-snatcher.' "
+> read Narrative
+
+> read Narrative
+(#19)
+"Both men spoke with the bitterness of possible defeat before them, for each knew that it might be long before his men would seek him out or find him; it was a bare matter of chance which party would arrive first on the scene.
+Both had now given up the useless struggle to free themselves from the mass of wood that held them down;..."
+> reach in pocket outer coat of Ulrich von Gradwitz
+
+> reach in pocket outer coat of Ulrich von Gradwitz
+(#20)
+"Ulrich limited his endeavours to an effort to bring his one partially free arm near enough to his outer coat-pocket to draw out his wine-flask.  Even when he had accomplished that operation..."
+> unscrew stopper wine flask
+
+> unscrew stopper wine flask
+(#21)
+"it was long before he could manage the unscrewing of the stopper..."
+> drink wine flask
+
+> drink wine flask
+(#22)
+"or get any of the liquid down his throat.  But what a Heaven-sent draught it seemed!  It was an open winter, and little snow had fallen as yet, hence the captives suffered less from the cold than might have been the case at that season of the year; nevertheless, the wine was warming and reviving to the wounded man,..."
+> look at Ulrich von Gradwitz
+
+> look at Ulrich von Gradwitz
+Please choose which 'ulrich von gradwitz' you mean:
+1: Ulrich von Gradwitz pinned under tree
+2: outer coat of Ulrich von Gradwitz
+> 1
+(#23)
+"and he looked across with something like a throb of pity to where his enemy lay, just keeping the groans of pain and weariness from crossing his lips."
+> dialog Ulrich von Gradwitz
+
+> dialog Ulrich von Gradwitz
+Please choose which 'ulrich von gradwitz' you mean:
+1: Ulrich von Gradwitz pinned under tree
+2: outer coat of Ulrich von Gradwitz
+> 1
+(#24)
+" 'Could you reach this flask if I threw it over to you?' asked Ulrich suddenly; 'there is good wine in it, and one may as well be as comfortable as one can.  Let us drink, even if to-night one of us dies.' "
+> dialog Georg Znaeym
+
+> dialog Georg Znaeym
+(#25)
+" 'No, I can scarcely see anything; there is so much blood caked round my eyes,' said Georg, 'and in any case I don’t drink wine with an enemy.' "
+> look at Ulrich von Gradwitz
+
+> look at Ulrich von Gradwitz
+Please choose which 'ulrich von gradwitz' you mean:
+1: Ulrich von Gradwitz pinned under tree
+2: outer coat of Ulrich von Gradwitz
+> 1
+(#26)
+"Ulrich was silent for a few minutes, and lay listening to the weary screeching of the wind.  An idea was slowly forming and growing in his brain, an idea that gained strength every time that he looked across at the man who was fighting so grimly against pain and exhaustion.  In the pain and languor that Ulrich himself was feeling the old fierce hatred seemed to be dying down."
+> dialog Ulrich von Gradwitz
+
+> dialog Ulrich von Gradwitz
+Please choose which 'ulrich von gradwitz' you mean:
+1: Ulrich von Gradwitz pinned under tree
+2: outer coat of Ulrich von Gradwitz
+> 1
+(#27)
+" 'Neighbour,' he said presently, 'do as you please if your men come first.  It was a fair compact.  But as for me, I’ve changed my mind.  If my men are the first to come you shall be the first to be helped, as though you were my guest.  We have quarrelled like devils all our lives over this stupid strip of forest, where the trees can’t even stand upright in a breath of wind.  Lying here to-night thinking I’ve come to think we’ve been rather fools; there are better things in life than getting the better of a boundary dispute.  Neighbour, if you will help me to bury the old quarrel I—I will ask you to be my friend.' "
+> dialog Georg Znaeym
+
+> dialog Georg Znaeym
+(#28)
+"Georg Znaeym was silent for so long that Ulrich thought, perhaps, he had fainted with the pain of his injuries.  Then he spoke slowly and in jerks.
+'How the whole region would stare and gabble if we rode into the market-square together.  No one living can remember seeing a Znaeym and a von Gradwitz talking to one another in friendship.  And what peace there would be among the forester folk if we ended our feud to-night.  And if we choose to make peace among our people there is none other to interfere, no interlopers from outside … You would come and keep the Sylvester night beneath my roof, and I would come and feast on some high day at your castle … I would never fire a shot on your land, save when you invited me as a guest; and you should come and shoot with me down in the marshes where the wildfowl are.  In all the countryside there are none that could hinder if we willed to make peace.  I never thought to have wanted to do other than hate you all my life, but I think I have changed my mind about things too, this last half-hour.  And you offered me your wine-flask …   Ulrich von Gradwitz, I will be your friend.' "
+> read Narrative
+
+> read Narrative
+(#29)
+"For a space both men were silent, turning over in their minds the wonderful changes that this dramatic reconciliation would bring about.  In the cold, gloomy forest, with the wind tearing in fitful gusts through the naked branches and whistling round the tree-trunks, they lay and waited for the help that would now bring release and succour to both parties.  And each prayed a private prayer that his men might be the first to arrive, so that he might be the first to show honourable attention to the enemy that had become a friend."
+> together Call for help
+
+> together Call for help
+(#30)
+"Presently, as the wind dropped for a moment, Ulrich broke silence.
+'Let’s shout for help,' he said; 'in this lull our voices may carry a little way.'
+'They won’t carry far through the trees and undergrowth,' said Georg, 'but we can try.  Together, then.'
+The two raised their voices in a prolonged hunting call."
+> together Call for help
+
+> together Call for help
+(#31)
+" 'Together again,' said Ulrich a few minutes later, after listening in vain for an answering halloo.
+'I heard nothing but the pestilential wind,' said Georg hoarsely.
+There was silence again for some minutes, and then Ulrich gave a joyful cry.
+'I can see figures coming through the wood.  They are following in the way I came down the hillside.'
+Both men raised their voices in as loud a shout as they could muster."
+> reveal Final scene
+
+> reveal Final scene
+(#32)
+" 'They hear us!  They’ve stopped.  Now they see us.  They’re running down the hill towards us,' cried Ulrich.
+'How many of them are there?' asked Georg.
+'I can’t see distinctly,' said Ulrich; 'nine or ten,'
+'Then they are yours,' said Georg; 'I had only seven out with me.'
+'They are making all the speed they can, brave lads,' said Ulrich gladly.
+'Are they your men?' asked Georg.  'Are they your men?' he repeated impatiently as Ulrich did not answer.
+'No,' said Ulrich with a laugh, the idiotic chattering laugh of a man unstrung with hideous fear.
+'Who are they?' asked Georg quickly, straining his eyes to see what the other would gladly not have seen.
+'Wolves.' "
+
+Press any key to finish the story.
+[state=Finished]

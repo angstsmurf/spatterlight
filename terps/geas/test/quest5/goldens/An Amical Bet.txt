@@ -1,0 +1,197 @@
+An Amical Bet
+
+by Eve Cabanié
+
+You are Svetlana, a famous thief. After a good burglary in Rome with your friend Jodie, you both decide to chill a little at a classy party in an antique italian villa. But despite your drunkenness, boredom is never far away, so she decides to spice up the party with a original bet. You have to steal something shiny, something useful and something unexpected before her to win. Are you up to the challenge ?
+
+You are in a hall.
+It's a somptuous hall, where the party takes place. The waiters swarm around fancy guests.
+
+You can see Jodie, some waiters and other guests.
+
+You can go up, west, east or south.
+
+> w
+
+> w
+
+You are in a living room.
+Unlike the hall, this room is nearly empty.
+
+You can see a busy waitress . Maybe you shouldn't disturb her.
+
+You can go east or west.
+
+> w
+
+> w
+
+You are in a kitchen.
+A huge modern kitchen. A bit odd in an antique villa but, eh, who are you to judge ?...
+Just kidding. You're Svetlana Asimov, you can judge whatever you want.
+
+You can see some chefs, a spoon and a tiramisu.
+
+You can go east.
+
+> take spoon
+
+> take spoon
+You take the spoon.
+> e
+
+> e
+
+You are in a living room.
+Unlike the hall, this room is nearly empty.
+
+You can see a busy waitress . Maybe you shouldn't disturb her.
+
+You can go east or west.
+
+> e
+
+> e
+
+You are in a hall.
+It's a somptuous hall, where the party takes place. The waiters swarm around fancy guests.
+
+You can see Jodie, some waiters and other guests.
+
+You can go up, west, east or south.
+
+> u
+
+> u
+
+You are in an italian staircase.
+Marble stairs, brighter than every single guest in this villa. Except you and Jodie of course. Duh.
+
+You can see a painting.
+
+You can go down, north, east or west.
+
+> n
+
+> n
+
+You are in a library.
+It's huge. You sneeze. Classy.
+
+You can see bookshelves, lots of books and a tiny book.
+
+You can go south or east.
+
+> take tiny book
+
+> take tiny book
+You take the book.
+> s
+
+> s
+
+You are in an italian staircase.
+Marble stairs, brighter than every single guest in this villa. Except you and Jodie of course. Duh.
+
+You can see a painting.
+
+You can go down, north, east or west.
+
+> e
+
+> e
+
+You are in a crossing.
+The corridor is fastuous.
+
+You can see paintings.
+
+You can go west, north or east.
+
+> e
+
+> e
+
+You are in the main bedroom.
+It's magnificent.
+
+You can see a bed and an antique vase.
+
+You can go west, south or north.
+
+> n
+
+> n
+
+You are in a main bathroom.
+Now that's a bathroom. Luxurious, elegant...
+"Next time, I'll bring sunglasses."
+
+You can see bathroom stuff, jewelry and a mirror.
+
+You can go south.
+
+> take jewelry
+
+> take jewelry
+You take the necklace.
+> s
+
+> s
+
+You are in the main bedroom.
+It's magnificent.
+
+You can see a bed and an antique vase.
+
+You can go west, south or north.
+
+> w
+
+> w
+
+You are in a crossing.
+The corridor is fastuous.
+
+You can see paintings.
+
+You can go west, north or east.
+
+> w
+
+> w
+
+You are in an italian staircase.
+Marble stairs, brighter than every single guest in this villa. Except you and Jodie of course. Duh.
+
+You can see a painting.
+
+You can go down, north, east or west.
+
+> d
+
+> d
+
+You are in a hall.
+It's a somptuous hall, where the party takes place. The waiters swarm around fancy guests.
+
+You can see Jodie, some waiters and other guests.
+
+You can go up, west, east or south.
+
+> talk to jodie
+
+> talk to jodie
+"So, what do we got ? A spoon, useful indeed. A book to learn italian ? Ok, guess that's unexpected. Wow... That necklace is so shiny, I love it."
+
+She looks at you, beaming.
+
+"Amazing Lana. But... It looks like I've outsmarted you.".
+She searches in her poket and shows you your phone : shiny, useful AND unexpected.
+
+"What ?? That's cheating Jodie." you say, irritated.
+"Well, I didn't say it had to be three different items. You've still got a lot to learn sweetheart. Now for the reward..." she smirks with a lustful stare.
+You shake your head but you laugh, following her in the garden.
+
+THE END.
+[state=Finished]

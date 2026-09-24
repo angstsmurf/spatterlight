@@ -1,0 +1,84 @@
+ Starter Screen.
+You can exit out.
+Welcome to the Azure Realm. A realm known for it’s rolling mountains, deeps gales, flush forests, wealth and prosperity. All in all - it isn’t a bad place to be.
+
+Your name is Billizaerrnilallia (though you would insist people just called you “Bill”).
+
+You are currently the Princess of this wonderful land that is the Azure Realm (though you would much rather be a Knight - this Princess business is far to frou-frou for your liking).
+
+The Azure Realm is ruled by your older and only brother, Joseph. While you do love your brother dearly, you do know he is a nit-wit pretty-boy with a pension for blonds and narcotics. It’s no secret. He has been ruling the Realm under his flighty wrist since the King and Queen had tragically passed three years ago. Needless to say, he’s a not a very good, or competent king, however ruling a kingdom is a dirty job and someone has to do it.
+
+Three weeks ago King Joseph wondered off in a transfixed, psychedelic haze and hasn’t been seen since. The Realm Advisers all believe that he has been lured and imprisoned by the evil Marsh Witch (a blond) - and that someone, anyone, who had the strength of heart and courage was needed to go rescue him. Many brave Knights of the Realm have stepped forward - none have returned. With the Realm's best Knights disappearing into the depths the the Dark Marsh in pursuit of their King, you - our find player and reluctant Princess - find yourself faced with two options: rule the realm yourself or retrieve and return your brother to his rightful place on the throne of the Azure Realm
+
+You would much rather be a Knight.
+
+So your journey begins...
+> out
+You are at Outside Kingdom Walls Outside Kingdom Walls.
+You can see Book in the tall grass.
+You can go Sweltering Desert or Crossroad.
+You are saddled and equip for your journey into the Dark Marsh and whatever dangerous feats come your way. First you will need to pass through the Lostness Forest. Currently, you are standing outside the Castle walls when you see a BOOK in the tall grass. It appears to be a book of instructions - probably best to hang onto it.
+> e
+You are in a Sweltering Desert.
+You can see a Leper.
+You can go Outside Kingdom Walls.
+You ride East until you come to the edge of a sweltering desert. This doesn’t look right. You went the wrong way. You see a lone Leper sitting by himself, baking in the sun. He has an uneasy stare that makes you nervous.
+> talk to leper
+ “My lady - you need to head to the CROSSROAD.  However it will be dangerous.  Please take this item to safe guard yourself.  Lest you wind up like me,” the Leper replies with a toothless grin.
+He holds out a GOLDEN SPOON in his bare hand.  You can TAKE the spoon or LEAVE it. He’s so shifty-looking (though that could be one of his legs has fallen off at the kneecap), you are skeptical about his directions.  You can return to CASTLE WALLS to re-orientate yourself.
+> take golden spoon
+You pick it up.
+> w
+You are at Outside Kingdom Walls Outside Kingdom Walls.
+You can see Book in the tall grass.
+You can go Sweltering Desert or Crossroad.
+You are saddled and equip for your journey into the Dark Marsh and whatever dangerous feats come your way. First you will need to pass through the Lostness Forest. Currently, you are standing outside the Castle walls when you see a BOOK in the tall grass. It appears to be a book of instructions - probably best to hang onto it.
+> w
+You are in a Crossroad.
+You can see a Old Hag.
+You can go Outside Kingdom Walls, Forest of Lostness, Dark Marsh or Dung House.
+You find yourself at a crossroad. Standing at the fork is an old hag.
+> go to dark marsh
+You are in a Dark Marsh.
+You can go Crossroad, Front Gate, Window or Back Door.
+You are now in the Dark Marsh outside the Witch’s castle. It’s an awful and gloomy place. You are soaked to the bone, caked in mud, and pretty cranky. But onward you go. You can GO THROUGH FRONT GATE, THROUGH THE WINDOW, or THROUGH BACK DOOR.
+> go to back door
+You are in a Back Door.
+You can see a Black Knight.
+You can go Long Hallway or Dark Marsh.
+You sneak around the castle to a small entrance at the back. It seems abandoned except for a shady-looking guard leaning outside the door.
+> smelt of elderberries black knight
+"You answered correctly!" You see the black knight step aside and open the paths to both rooms.
+> go to long hallway
+You are in a Long Hallway.
+You can go Left Room, Right Room or Back Door.
+The hallway is dark and dusty. Grey stone and dim torchlight add the the gloom. It is just downright spooky.
+> go to right room
+You are in a Right Room.
+You can see a Marsh Witch.
+You can go Long Hallway or Left Room.
+You can hear sobs from the other side of the door. But you don’t go in unprepared. You carefully open the door with your sword drawn. The room is huge - there is a large chair in the middle surrounded by candles with Marsh Witch herself slouched n the middle of it.
+> talk to marsh witch
+Oh he’s terrible, my Lady!  Terrible!  I though he would be some triped little play-thing I could use and abuse for my own amusement but he is a lout!  Such a rotten, selfish, awful man!  He’s even bewitched my own Harem!
+Can you believe that!  Some pretty boy coming in here and taking over my very own love slaves!  I won’t have it.  Just take him and go - before I throw him in the swamp myself.
+She gives you the POTION OF RESPONSIBILITY.
+> take potion
+You pick it up.
+> go to left room
+You are in a Left Room.
+You can see a Joseph, a Half Naked Girl Jessica and a Half Naked Girl Jasmine.
+You can go Long Hallway, Right Room or up.
+You can hear muffled cries from the door on the left. It sound like someone is in pain! This is your moment. You kick through the door with you sword drawn, ready to anything. The room is small, draped in rich fabric and smell of fine, expensive, and probably illegally procured incense. In the middle of the room is a pile of pillows, blankets, scantly-clad (if that) girls, and Joseph. Except for the tussled hair and a few scratches - he looks unharmed, and like he’s having the time of his life.
+> Physically remove him joseph
+You are sick of Joseph’s spoiled attitude!  You risked grave danger to retrieve him and dammit you will prevail!!  You grab him by his tussled hair and try to pull him out of the nest of half naked women.  However- he’s not going anywhere.  The girls shriek, “don’t leave us!”  Before your eyes the girls transform into vicious, blood-thirst Harpies and grab hold of Joseph with their sharp talons ready to tear him limb from limb.  You can FIGHT or RUN AWAY.
+You can’t allow a these vile creatures to treat your brother apart and desecrate his remains in unspeakable ways!  Absolutely not!  However this is no average cat fight. You will need to whip something special out!
+> use golden spoon on harpy jessica
+ You dramatically point the GOLDEN SPOON at the Harpies and a beam of light explodes from the spoon.  The Harpies scream and melt before your very eyes, leaving your brother a little bloody and very confused.
+> use potion on confused joseph
+You hand him the unmarked bottle containing the POTION OF RESPONSIBILITY.  “Now that you mention it - I am!  Thank you my dear sister!”.  He snatches the potion from your hands and gulps it down.
+His face changes suddenly as he is overcome with crushing guilt. He agrees to leave with you and come home to the throne without a fight or any more fussing.  GO BACK TO CASTLE
+> u
+You are in a Back to the Castle.
+It is a long ride back to the castle.  Your mule cannot handle both of you so you have to take turns walking.  However, the entire Kingdom rejoices at your brave and victorious. With your brother off the sauce and ruling the kingdom like the King he was meant to be - you live Happily Ever After as an official Knight of the Concave Polygon Table.
+The End.
+[state=Finished]

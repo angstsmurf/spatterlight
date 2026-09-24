@@ -1,0 +1,26 @@
+A UFO lands in your garden.
+You get your family out of bed.
+You phone the police.
+> Page11
+You wake up your family.
+You decide to run away.
+You decide to go outside and look at the UFO.
+> Page4
+A door in the UFO opens.
+You run away.
+You walk up to it.
+> Page7
+A robot comes out of the open door.
+You run towards the forest.
+You stand very still and wait.
+> Page2
+The robot stops of front of you.
+You run away from it.
+You hold up your hands  and say ‘Hello!’.
+> Page6
+The robot materialises a flat metal box.
+You go back and run away.
+You stand very still and wait.
+> Page20
+The robot speaks to you, "Hello, I am the delivery robot from Galactic Pizza House. Did you make an order?"
+[state=Running]

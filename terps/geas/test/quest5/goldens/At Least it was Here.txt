@@ -1,0 +1,117 @@
+The massive wrought iron gate of your late uncle's estate looms over you in the waning hours of the day. Looking up at the home, you take in details that you’re sure weren’t there when you were last here as a youngling all those years ago.The house stands two stories tall, a dark reddish wood interspersed with polished stone combine to create a very handsome home, a rare in this tiny town.
+
+An elegant home, a building many a nobleman in Riverrun would kill to have... and may have, you reflect darkly. Well, I might as well get this over with and find out what Caddor needed my help with.
+
+You are so caught up in your thoughts you are actually startled when a gruff attempt at a polite cough breaks you from your revere. A rough, monster of a man stands inside the gate, having apparently just approached. Six and a half feet tall if he’s an inch, he stands, arms crossed over a chainmail hubrick that barely contains his massive, thoroughly muscled chest, glaring at you with contempt.
+
+“What is your business here?”
+
+He casually places a hand on the pommel of an absurdly long sword, resting in its scabbard on his hip.
+
+“Well out with it! or I’ll decide you’re attempting to break in.”
+-Type continue to proceed-
+> continue
+“Caddor summoned me, he told me Uncle Adjur has been killed and he needed my assistance.”
+
+“Well I'll be damned, it is you, why didn't you mention, eh? Come on in.”
+
+He makes a few short gestures with his right hand, communicating with someone off to your left side, and the gate begins to slowly but smoothly slide open. He beckons you forward, one hand still resting on the pommel of his sword, seemingly more a gesture of habit than actual threat, but you're not entirely sure, He seems like a man ready for anything.
+
+As you pass through the gate, he turns and begins walking toward the house. Once through the gate begins to shut again. Kard continues talking to you over his shoulder as he heads toward the manor.
+
+“I’ll take you to see Caddor. M’name’s Kard incase you've forgotten, it has been twenty some odd years.”
+
+"Well I'm glad to see you're charming as ever Kard, apparently not as much has changed as I had thought."
+
+"More than you'd think, actually..." Kard mumbles, seemingly more to himself than to you.
+
+As you approach the house, you can't help being a little awed at its size.
+
+It's more like an estate really, this place is massive, even for this part of town.
+> n
+You follow Kard the guard up the cobblestone steps, through a lush but orderly garden and into the foyer of your uncle’s house.
+The wood and stone of the exterior gives way to marble as you enter the foyer, the smoothed floor glittering with veins of gold. A gorgeous marble staircase curves gently up to a balcony that presumably opens into the second floor. Directly ahead handsome mahogany double doors stand barring entry into a room beyond.
+"The dining room, kitchen and servent rooms are that way, but you'll have time to poke around later." Karl says as he walks across the floor and heads up the marble staircase.
+> u
+The balcony overlooks the foyer below, the marble steps end as apair of beautiful wood and iron double doors comes into view.
+> n
+Looking around, you see the room is a combination of study and library. To your left a number of comfy looking chairs are surrounded on all sides by floor to ceiling bookshelves. Tall stained glass windows give obscured views of the surrounding city-scape at regular intervals along the walls, small half circle tables in front of them, upon which lanterns glow dimly, placed no doubt by servants whenever sunlight is no longer sufficient to light the large room. To your right the room continues down two steps into a kind of sitting area that curves out of sight to the left, a fireplace, embers from the night before radiate light and heat, barely holding back the shadows attempting to claim the sitting area for themselves, beyond the fireplace the wall is mostly sliding glass leading out onto a balcony, though too dark to see your sense of direction tells you that it looks over the east portion of the gold district.
+A man of some forty years paces in the study as Kard leads you through the doors from the balcony. He is average in height and rather portly, with disheveled straw-blond hair of medium length. He has a rather stubby nose and laugh lines around his eyes and mouth, though his face is currently drawn in a frown, as he walks back and forth in front of the windows and bookshelves, mumbling worriedly.
+
+He looks up as you enter and before you can even respond he gasps, bounds toward you and grabs you in a great bear hug squeezing hard enough that you have trouble drawing breath.
+
+“You came! Oh thank the divines!” he exclaims, releasing you, albeit somewhat reluctantly.
+
+“I’m so glad you’re here, this whole terrible business has been unbearable. It is so very fortunate you were in town, the captain of the city guard had few helpful insights and we’re at a loss to explain how it happened and who might be responsible!”
+
+“Well,” you begin still catching your breath from the vice-like hug, “I’ll certainly do what I can, I owed Uncle Adjur that much, at least. He was a kind man.”
+
+“Yes, any help is very much appreciated.” Caddor continues, “Well, I suppose you'll want to see the b- bod-” he shudders “I'll leave you to it, then.” With a retching, lurching motion, Caddor dashes out the doors and down the stairs.
+
+Poor man, I hope he makes it through this, he was always nice to me.
+> go to bedroom
+As you round the corner in the sitting room, the bed is the first thing you notice. It’s almost comically large, and well appointed, silk sheets glimmering in the dying flame of the lanterns in this room.
+
+The servants must not have been comfortable coming in here to refresh the lamps.
+
+Paintings and display cases dominate the walls in this room, leaving space only for the windows, mirroring the layout of the study.
+
+Uncle Adjur lies doubled over, half on half off the bed, glassy eyes staring up at nothing, head curiously propped up by the bed looking toward the ceiling near the entrance, as if he’d been talking to someone looming over him right before he died. His expression is disconcerting, pained, but not in the manner you would expect with a violent death, he seems more sad than anything else, as he lays there, cold.
+
+Blood, shining in the weak lamplight, lies congealed in a three inch long wound on his chest and pools around him. Three boot prints are clearly visible in the pool of blood, two of a right boot and one left, the print closest to the body is most clearly visible.You also notice swaths of blood, like liquid velvet, shimmering on the bare wall across the room from the bed, as well as and on the bed posts.
+> x boot print
+You deduce the killer placed a great deal of weight on their foot to leave this boot print, grinding the blood into the floorboard there, on closer inspection you see something mixed with the congeled blood of the boot-print, it appears to be ash, you feel confident guessing.
+> x kard
+Kard is visibly upset at being in the prescence of UncleAdjur's corpse, after staring down at Adjur for several moments, he walks back past the entrance to the study and begins pacing by the window on the far wall. You notice for the first time that though most of his clothing has a coat of dust and grime, clearly from several days without being cleaned, his boots are oddly almosty shinny in their cleanliness.
+> ask kard about adjur
+"He was a good man, a great friend."
+
+Kard's voice seems to fail him for a moment, he begins pacing with renewed vigor.
+
+"Lady Kara should still be downstairs in the dinning hall, I think I'll go and make sure she's ok."
+
+Before he even finishes the thought, he has already heading back out into the study.
+> go to study
+Looking around, you see the room is a combination of study and library. To your left a number of comfy looking chairs are surrounded on all sides by floor to ceiling bookshelves. Tall stained glass windows give obscured views of the surrounding city-scape at regular intervals along the walls, small half circle tables in front of them, upon which lanterns glow dimly, placed no doubt by servants whenever sunlight is no longer sufficient to light the large room. To your right the room continues down two steps into a kind of sitting area that curves out of sight to the left, a fireplace, embers from the night before radiate light and heat, barely holding back the shadows attempting to claim the sitting area for themselves, beyond the fireplace the wall is mostly sliding glass leading out onto a balcony, though too dark to see your sense of direction tells you that it looks over the east portion of the gold district.
+> s
+The balcony overlooks the foyer below, the marble steps end as apair of beautiful wood and iron double doors comes into view.
+> d
+The wood and stone of the exterior gives way to marble as you enter the foyer, the smoothed floor glittering with veins of gold. A gorgeous marble staircase curves gently up to a balcony that presumably opens into the second floor. Directly ahead handsome mahogany double doors stand barring entry into a room beyond.
+> n
+A very well appointed dining hall. Tapestries break up the wallspace a coat of arms hangs on the wall behind the chair at the head of the table, which is itself stylishly ornate, crafted out of a dark wood smoothed to a mirror shine.
+You notice Lady Kara sitting at the table, visibly upset.
+> accuse Kard
+"So Kard, tell me, why is it your boots are so clean, and yet the rest of you is not?"
+
+He stammers, "Um are they oh well uh.."
+
+"I think you killed Adjur, Kard. What I don't know is why."
+
+"That is preposterous I would neve-"
+
+You interupt his stammering defence, "your boot print is in his blood Kard, he was clearly killed with a sword, probably the one on your hip as we speak! Now out with it! why did you kill him?"
+
+"Alright fine I did it! I killed him! he kept saying he'd leave her, that we'd run away together, but he never did, he was never really going to he was just toying with me, stringing me along! Well I don't appreciate being lead on, after all these years, all I've done for him. I couldn't stand it any longer!  And I'll die before they send me to prison!  "
+
+He shoves past you, sprinting through the doors and out into the rooms beyond!
+> chase Kard
+You quickly run after him, chasing him out into the foyer, he dodges left and right-
+
+He's still on the rug, quick pull the rug out from under him!
+> Pull the rug out from under him
+As you give a mighty heave on the rug, Kard stumbles and falls face first onto the marble floor.
+
+The guard by the door is stunned, staring at the two of you in dis-belief.
+
+"He killed Adjur!" You say, holding a stitch in your side while catching your breath.
+The guard takes Kards weapon and helps you bind him.
+
+Some time later, the head of the town guard arrives, to fetch Kard. After briefly discussing the evidence against Kard he is taken away.
+
+You look off down the lawn, at the setting sun, setting the sky on fire in golds and reds.
+
+"Well, Uncle Adjur,"  you say into the breeze "I hope you find a little peace now that your killer has been aprehended."
+
+You give your head a shake, and head back into the house.
+The End
+[state=Finished]

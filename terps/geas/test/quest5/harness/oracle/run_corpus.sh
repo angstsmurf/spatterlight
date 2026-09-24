@@ -32,6 +32,7 @@ while IFS=$'\t' read -r game wt mode preamble; do
     skip=$((skip+1)); continue
   fi
   q="$GAMES/$game.quest"
+  if [ ! -f "$q" ] && [ -f "$GAMES/$game.aslx" ]; then q="$GAMES/$game.aslx"; fi
   src="$WALKS/$wt"
   if [ ! -f "$q" ];   then printf "%-52s  (game file missing)\n" "$game"; bad=$((bad+1)); continue; fi
   # wt="-" marks an override-only row: no source walkthrough exists anywhere

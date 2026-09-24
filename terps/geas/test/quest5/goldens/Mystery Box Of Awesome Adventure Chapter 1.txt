@@ -1,0 +1,137 @@
+Hello! I'm Kurt Muller and this is my first choose your own adventure game. I hope you enjoy it, because if you do, then I might bother to finish making the rest of the game! :D Also, If you lose, you have to start from the beginning. Sorry, but life only gives you one chance, like those retarded morons say, YOLO!
+Start your adventure
+> Page1
+
+It's late at night. You've just silently slipped into the garage through the little back door, to get a look at what's inside the strange box dad brought home earlier. He told everyone to stay away from it, because it needs to be taken to his boss tomorrow. You seem to be the curious one who can't help themself though....
+Continue...
+> Page2
+
+The box stands before you, waiting to be opened. You could swear that it's slightly shaking with anticipation. Suddenly, the garage door starts opening. It could be dad, coming to make the early morning delivery, but it might not be.
+Wait and see who it is
+Open the box!
+Wait until Dad enters the garage, then sneak out
+> Page4
+
+You quickly grab the door of the box and yank it open and throw yourself through, Pulling the door shut behind you. This box....it's bigger on the inside. It kinda reminds you of a sci-fi television program you sometimes watch. You look around. You're in a little room, and it looks a bit like a basement. You see two ways out. A normal enough looking wooden door, and a small window with a crate beneath it you could stand on.
+Go through the door
+Try to climb out the window
+Go back through the box to the garage
+> window
+
+You climb on top of the crate and reach up to the window. It's propped open by a small piece of wood. you push it open and clamber out. Unfortunately, the piece of wood falls in and the window shuts behind you. You hear a lock click. You're standing outside the building. It seems you actually WERE in a basement! You look away from the building and see a forest not too far away. You decide it's your next destination.
+(Continue)
+> chapter1break
+
+As you walk through the forest, you see glimmers of light from the corners of your eyes. Whenever you turn your head, however, they dissapear.
+
+Try to find the source
+Keep moving along the path, I don't want to risk getting lost
+Demand that the glimmers of light show themselves
+> keepgoing
+
+You decide that the glimmers of light can be ignored for now; you need to find a way home.
+(Continue)
+> walkingthroughglimmerforest
+
+You're walking through the forest when you start to hear a giggling. The glimmers are getting brighter, and it's hurting your eyes. You're starting to get a headache. You feel very tired, and something tells you that getting some sleep will help you feel better.
+Fight the urge to sleep, I'm too busy
+Let the urge to sleep take you
+> gotosleep
+
+You fall, but you never feel the impact with the ground because you were already asleep. When you wake up, you hear a voice call out "It's awake!". Suddenly you're surrounded by strange people with transparent wings. They all have pale skin, and their skin seems to have a slight glow. They look friendly, and they're smiling.
+Go back to sleep, I'm still kinda tired
+Ask these people where you are
+> askelves
+
+You ask one of them where you are, and he greets you. "Welcome to our village!" He says calmly but powerfully. "Allow me to take you to our empress..." The strange winged people help you to your feet and escort you to a majestic looking hall within a massive tree. These people seem to love making things look snowy and magic at the same time. It's white, sparkly, and....amazing.
+
+(Continue)
+> empress
+
+You are presented to a royal looking woman whose wings sparkle with magic more than any other pair of wings you've seen so far. She asks you who you are and what you were doing in the forest. You tell her your name and explain that you've been trying to find a way home. She seems magical, in the sense that you feel like you could tell her anything, which is why you tell her every detail you can recall about your adventure so far. She appears to be interested in every detail, not breaking eye contact with you, and for some reason, you can't look away.  Later you are staying in the home of Shale, a friendly one of the people. The empress told him to provide hospitality to you for as long as you needed it, as long as you don't take advantage of it.
+(Continue)
+> shalequestioning
+
+Yourself and Shale are sitting at a wooden table in Shale's house in a tree, eating dinner. The food is wonderful, and unlike anything you've ever eaten before. Shale asks you if there's anything you want to know.
+Ask what these people are
+Ask about the forest
+Ask how you could get home
+> askaboutgettinghome
+
+"Do you know how I could get home?" You ask.
+
+"Hmmm...." Shale sighs. "I suppose you could go see the wizard Greynog in his tower, to the northeast...You'd have to go through the forest though, and it can be quite dangerous without a guide to help you get through safely." He tells you. "But, if you insist, I guess the empress might lend you a guide..."
+Go see the empress
+> empress2
+
+You wake up, and notice that the elves of the village have already woken up and are taking part in the day's activities. As you head for the empress' chamber, you notice some of the elves that didn't know of your presence earlier pointing at you and whispering. You reach the empress and tell her about your conversation with Shale. She calls out to "Fabi", asking for it's presence. A tiny person, small enough to fit in your grasp shows up. It has transparent wings, like the elves. The empress turns to you. "This is Fabi, a pixie. Pixies are genderless, but their voices usually sound distinctly male or female. Sometimes one person hears the voice of a pixie to be male, while someone else will hear it to be female. They're very mysterious; there are things that not even they know about themselves." The empress tells you that Fabi will be your guide through the forest and will accompany you on your journey to find a way home.
+(Continue)
+> tothetower
+
+Yourself and Fabi have now been walking through the forest for a while now. Fabi has been telling you about some of the dangers of the forest, and that if you hear something, you should hide. Fabi is only a novice in guiding, so it hasn't learned to distinguish precisely between the various sounds of the forest yet. As you walk, you hear a noise. It sounds a bit like a horse, but you also hear snarling. Fabi urges you to make a choice.
+I quickly hide behind some bushes!
+I wait, it could be something good
+> hide
+
+You dive behind some bushes just as the creature bursts out of the bushes on the other side of the path. Fabi quickly tears open a nearby berry, and a weak smell drifts out of it. Fabi whispers to you "That thing is called a Hogrin - it has a strong dislike for the smell of Fungleberries. It can smell Fungleberries far more sensitively than any other creature in this forest. That's why some people carry Fungleberries with them when travelling through here. You should take some!" So, you put some fungleberries in your pocket, and you start walking along the path again, the Hogrin chased away by the Fungleberry smell.
+(Continue)
+> keepwalking
+
+You and Fabi keep walking. You recall the appearance of the Hogrin and realise that it had hooves, like a horse, a head like a lion (but with tusks), and a body like a wild boar. Except it didn't really look like any of those things. You are suddenly torn away from your thoughts when you hear another noise, like a person running, but you can't be sure. Quick, you need to make a choice!
+Wait and see what it is
+Hide again!
+> waitforrunning
+
+You wait in the middle of the path waiting for the running sound, when suddenly a man who appears to be human crashes through the bushes. He sees you and shouts out "FUNGLEBERRIES!" You stand still, stunned. Fabi dives into your pocket and pulls out a Fungleberry and rips it open. There is suddenly a roar from behind the bushes, and you hear the sound of a Hogrin fleeing. "Thank you!" the man says, panting. "I was trying to get through the forest to deliver a letter, but I was found by a Hogrin. I couldn't find any Fungleberries."
+
+"What is the letter about?" You ask.
+
+"I don't know, but it's for a wizard in Greynog's tower."
+
+"That's where i'm going!"
+
+"We can travel together then. Safety in numbers and all that?"
+
+So you set off.
+
+(Continue)
+> almostthere
+
+You reach the wizard's tower and are greeted by a wizard who says nothing, but just helps some other wizards carry him to a room of healing, where the wizards start chanting. The wound starts closing, and magical symbols form around the wound. The wizards bandage the wound. You take the letter from the man's satchel and hand it to one of the wizards. "We've been waiting for this." The wizard says, and leaves the room.
+
+(continue)
+> manhealing
+
+"Will he be alright?" You ask the wizard in charge of medicinal magic. "Yes, he should regaine conciousness whithin the hour now." The man suddenly wakes up, as if on cue.
+
+"Wh....where am I?" He asks groggily.
+
+"You're in the wizard's tower. In fact, if it wasn't for this traveller, you'd be dead, most likely eaten by a Hogrin by now."
+
+"Oh...thank you...since the letter has reached this place safely....more or less, I don't have anything else left to do...Can I join you?"
+
+This question catches you off guard. You didn't expect him to want to join you for the duration of your adventure.
+
+"Erm...sure." You say. Fabi nods in approval.
+
+(Continue)
+> greynog
+
+It has been a few days since you got to the tower, and the man has healed. He says his name is Doni. You would have spoken to Greynog before Doni had finished healing, but Greynog had been out searching for powerful reagents to craft various magical solutions with. You and Doni travel to the head chamber at the top of the tower, and enter. A man in a long robe stands facing away from you, looking out the window. You approach. "Um....Excuse me?"
+
+No reply.
+
+"Excuse me? Greynog?"
+
+Doni steps forward. "Listen to us old man, we need your help."
+
+"Old man? You would call me old man?" The man says loudly.
+
+He turns around. He looks incredibly old, yet he looks very wise as well. he has a long beard. "I am Greynog! One of the most powerful wizards alive today! ...You shall recieve your help, but you will have to accomplish a task for me first!"
+
+"We'll do our best." You say.
+(continue)
+> end
+
+Congratulations! You've just completed the first chapter of Mystery Box Of Awesome Adventure :D
+[state=Running]

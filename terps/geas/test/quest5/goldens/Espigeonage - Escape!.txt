@@ -1,0 +1,174 @@
+Espigeonage - Escape!
+
+by Marcus Corby, Ethan Tobey, Ethan Tan, Cameron Celebuski
+
+You, America’s #1 spy pigeon, were assigned a secret mission to gather classified Soviet Union data. You have been captured! Now you must find a way to escape the confinement of the Soviets.
+
+You’re stuck in a cold, damp, cramped prison cell. The Cage Bars are barely wide enough to stick a human arm through. How will you escape?
+
+> out
+
+> out
+Your skinny bird body slips between the cage bars. You're out!
+
+You enter into a small prison block lined with neighboring cells.
+
+You see three other inmates occupying cells near yours, who you nickname Grumpy, Sneezy, and Sneaky
+
+You notice an Upper Platform where the prison guards oversee the prison block. There is also a locked door leading to a guard room on the upper level, but it’s completely inaccessible from the ground.
+> speak to sneaky
+
+> speak to sneaky
+"Pssst!" Sneaky whispers to you. "Let me tell you a secret. I'm a spy too!"
+
+Sneaky glances around to see if anyone is listening. He then leans in close to whisper in your ear.
+
+"I learned an important piece of Soviet intel, but it's only one part of a larger scheme. The code word I found was PIGEONS"
+
+"Also, on your way out, try to look around to see if you can find any other information."
+
+> fly upper platform
+
+> fly upper platform
+You fly up to a platform on the second level of the prison block.
+
+You are now on the upper level of the prison block.
+
+A Locked Door sits in front of you, with an old fashioned Lock. You remember that you passed through a guardroom, and two other rooms when you were initially brought into the prison block.
+
+> peck lock
+
+> peck lock
+You deftly peck the lock, and the door cracks open. You can now go out of the prison block.
+
+> out
+
+> out
+You gently crack open the door and slip through.
+
+There is a Desk with a classified Stack of Documents and a steaming Cup of Coffee.
+
+You see a Door at the end of the room. It seems like pecking wont work here.
+
+To the left of the door, you see a Tall Cabinet, with its doors locked shut.
+
+There is a wall of security monitors behind the desk. In one of the monitors, you see a burly Prison Guard walking towards the room.
+
+You can risk investigating the room or find a way to hide.
+
+> read stack of documents
+
+> read stack of documents
+You quickly scan the documents. On the front, you see the code word "THREAT"
+> spill coffee
+
+> spill coffee
+The coffee spills all over the desk.
+
+> fly tall cabinet
+
+> fly tall cabinet
+You fly up on top of the cabinet. In the shadows, you are near invisible.
+
+You can hear the guard's footsteps as he approaches the room. Hide quickly!
+
+The Guard enters the room
+
+You successfully hide from the guard.
+
+The Guard sees the spilled coffee, curses, and goes to start cleaning up. He leaves the door open behind him.
+
+> fly down from tall cabinet
+
+> fly down from tall cabinet
+If you do that, the guard will see you.
+
+> pass through door
+
+> pass through door
+You sneak past the guard and slip through the door.
+
+You enter a hallway.
+
+ In the top corner of the hallway, you can see a Security Camera facing away from you, this must be the camera you could see the guard in from the last room.
+
+Below the Security Camera next to you, there is a Trash Can, you did not see this in the camera when you were in the guard room.
+
+Along the walls of the hallway there are some visible Windows. You'd need to cross the room to see these better.
+
+At the end of the hallway there is a Door, which is probably locked.
+
+> peck security camera
+
+> peck security camera
+You peck the wire of the security camera, disabling it.
+
+> look inside trash can
+
+> look inside trash can
+You look inside the trash can, inside there are some Papers. They are a bit crumpled but they seem readable.
+> read papers
+
+> read papers
+You quickly read the papers. Clearly visible on them is the word "FAILURES."
+> x door
+
+> x door
+You cross the room for a closer look at the door. It is a generic looking locked prison door, with an old fashioned Lock.
+> peck lock
+
+> peck lock
+You deftly peck the lock, and the door opens. You can now go into The Foyer.
+
+> n
+
+> n
+
+You enter into the Foyer.
+
+Against a wall, you can see locked Cabinet.
+
+On the far wall, there is a Door, which is locked with a retinal scanner. This might be hard to get through.
+
+Along the walls, there are four windows: Window 1, Window 2, Window 3, and Window 4. To your bird eyes, they all appear as gaping holes to the outside.
+
+You feel a light breeze ruffle your feathers. There must be a way out of here!
+
+Maybe one of these four windows are open...
+
+> fly cabinet
+
+> fly cabinet
+You fly up on top of the cabinet. There is a dusty stack of Documents sitting up there.
+
+> read documents
+
+> read documents
+You take a look at the documents. On the first page, it says "FALCONS."
+> peck cabinet
+
+> peck cabinet
+You peck the lock on the cabinet, and its doors spring open. Inside, you can see a Paint bucket.
+
+> take paint
+
+> take paint
+You dip your claw in the paint bucket.
+> fly window 2
+
+> fly window 2
+You flap towards the second window, and slip out with no trouble. You're free!
+
+You collected 4/4 code words! Im-peck-able!
+
+You Win!
+
+Since you have all the code words, you were able to piece together a Soviet plot! The documents were chronicling the Russians’ attempts to stop you and your spy pigeon friends. That must be what the “pigeon” codeword meant!
+
+The “threat” codeword probably was talking about the threat that you pose to the Soviets. After all, they have no way of telling you apart from regular pigeons, and even when they offered a cash reward for pigeons to report their suspicious peers they still couldn’t find you.
+
+By that logic, “failures” probably references all the failed attempts to catch you. They almost got you with a robotic arm last year, but you escaped by landing on Comrade Gorbachev’s head and confusing the targeting systems, leaving him with a nasty scar. And you still have nightmares about the nuclear-powered net they used in Chernobyl.
+
+But what does “falcon” mean? Wait, you got captured because a falcon grabbed you! You thought that was just bad luck, but what if the falcon was a Russian spy? You have to get this info to the CIA right away!
+
+[state=Finished]

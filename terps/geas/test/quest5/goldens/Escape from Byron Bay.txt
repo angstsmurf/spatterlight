@@ -1,0 +1,145 @@
+You are in  a Car Park.
+You can see a car.
+You can go north.
+The shadow of the Bryneli-Med complex casts deep across the car park.There's an almost golden glow over the suburb as the sun sets on Byron Bay. Normally a thriving area with bustling streets, packed with tourists weaving in and out of the shops and avoiding street sellers peddling their wares. The constant toot of moped horns usually fills the air as a mixture of local commuters and playful revellers dash to their destinations. An array of musical delights can often be heard in the distance as the terraced restaurants play to their customers, the vibrant smell of middle eastern food tempting passers by to take a load off.
+
+But not today.....
+
+Today began that way. Now?
+
+The shop doors are still open, music can still be heard, but it plays to a silent audience. The streets are still filled with people. Dead, rotting, stinking people. Their faces twisted and petrified with grotesque horror. Moans fill the air from those that managed to escape, poor souls, they may as well be dead.
+
+Looking at the carnage out here you wonder why you left the office, things were getting a little scary in there though. You look ok, you feel ok, terrified, but ok all the same. Jeez! Theres one right there in front of you about fourty feet away. Well what the hell are you waiting for? It's now 30 feet away and closing fast, get the hell out of here!
+> look under car
+> look under car
+Looking under objects can often reveal something you wouldn't normally find. Don't expect to be given the clue every time but a word of advice LOOK UNDER EVRYTHING! In this instance your inquisitive nature has rewarded you, looking under the car reveals a keyfob with a round barrel key and a fob with the initials BM in shiny heavy pewter.
+> take keyfob
+> take keyfob
+You have taken the heavy keyfob and placed it in your jeans pocket.
+> n
+> n
+You have entered the main security centre of Bryneli-Med. The floor is covered in dotted steel panels, you can see through them and observe the vast wiring that runs through the complex. The walls are standard plain grey in colour, the lighting seems ok but it is flickering now and again. To your left is a computer as well as an array of other electronic equipment, and large bank of security monitors, some are labelled, "Car Park", "Laboratory", "Escape Hatch", Heli Pad", some appear to be offline, they have probably been knocked out. To your right there is a large 2 door steel locker and what appears to be a very thick glass door which leads to a laboratory. Straight ahead you can see a sign on a door saying
+
+"NO ENTRY!"
+> unlock steel locker
+> unlock steel locker
+A loud CLUNK is heard as the large bolts unpin themselves from the locker's heavy inner frame
+You open it.
+In the steel locker there is  a notepad and a key.
+> take key
+> take key
+You pick it up.
+> take notepad
+> take notepad
+You take the notepad and stuff it in your pocket.
+> look at notepad
+> look at notepad
+Just a normal A5 spiral notepad, there appears to be a message scribbled on it.
+It contains  a message.
+> look at message
+> look at message
+It appears to be a message jotted down in red ink from one of the employees, it reads:
+> s
+> s
+You are in  a Car Park.
+You can see a car.
+You can go north.
+The shadow of the Bryneli-Med complex casts deep across the car park.There's an almost golden glow over the suburb as the sun sets on Byron Bay. Normally a thriving area with bustling streets, packed with tourists weaving in and out of the shops and avoiding street sellers peddling their wares. The constant toot of moped horns usually fills the air as a mixture of local commuters and playful revellers dash to their destinations. An array of musical delights can often be heard in the distance as the terraced restaurants play to their customers, the vibrant smell of middle eastern food tempting passers by to take a load off.
+
+But not today.....
+
+Today began that way. Now?
+
+The shop doors are still open, music can still be heard, but it plays to a silent audience. The streets are still filled with people. Dead, rotting, stinking people. Their faces twisted and petrified with grotesque horror. Moans fill the air from those that managed to escape, poor souls, they may as well be dead.
+
+Looking at the carnage out here you wonder why you left the office, things were getting a little scary in there though. You look ok, you feel ok, terrified, but ok all the same. Jeez! Theres one right there in front of you about fourty feet away. Well what the hell are you waiting for? It's now 30 feet away and closing fast, get the hell out of here!
+> unlock car
+> unlock car
+Beep Beep. The lock pops and the car door slowly swings open. You thought the feature was a little extravagant in the showroom but thought what the hell. At times like these, every second counts.
+
+> enter car
+> enter car
+You are in a car.
+You can see a Glove Box.
+You can go out.
+The interior of your car, just as you remember, minus the blood spatters all over the windscreen. Luckily, the blacked out windows have disguised you for the time being. The figure outside is getting closer, looks like a tourist, appears to lack direction or focus, could you take him? You might not need to, he appears to be weakening. THUD! The half eaten soul has chosen the bonnet of your car as his final resting place.
+
+Let us pray for him...screw that, pray for yourself, you've got to get out of this hell hole yet.
+> open glove box
+> open glove box
+You open the glove box to reveal a solitary brushed metal usb stick.
+> take USB stick
+> take USB stick
+You pick it up.
+> out
+> out
+You are in  a Car Park.
+You can see a car.
+You can go north.
+The shadow of the Bryneli-Med complex casts deep across the car park.There's an almost golden glow over the suburb as the sun sets on Byron Bay. Normally a thriving area with bustling streets, packed with tourists weaving in and out of the shops and avoiding street sellers peddling their wares. The constant toot of moped horns usually fills the air as a mixture of local commuters and playful revellers dash to their destinations. An array of musical delights can often be heard in the distance as the terraced restaurants play to their customers, the vibrant smell of middle eastern food tempting passers by to take a load off.
+
+But not today.....
+
+Today began that way. Now?
+
+The shop doors are still open, music can still be heard, but it plays to a silent audience. The streets are still filled with people. Dead, rotting, stinking people. Their faces twisted and petrified with grotesque horror. Moans fill the air from those that managed to escape, poor souls, they may as well be dead.
+
+Looking at the carnage out here you wonder why you left the office, things were getting a little scary in there though. You look ok, you feel ok, terrified, but ok all the same. Jeez! Theres one right there in front of you about fourty feet away. Well what the hell are you waiting for? It's now 30 feet away and closing fast, get the hell out of here!
+> n
+> n
+You have entered the main security centre of Bryneli-Med. The floor is covered in dotted steel panels, you can see through them and observe the vast wiring that runs through the complex. The walls are standard plain grey in colour, the lighting seems ok but it is flickering now and again. To your left is a computer as well as an array of other electronic equipment, and large bank of security monitors, some are labelled, "Car Park", "Laboratory", "Escape Hatch", Heli Pad", some appear to be offline, they have probably been knocked out. To your right there is a large 2 door steel locker and what appears to be a very thick glass door which leads to a laboratory. Straight ahead you can see a sign on a door saying
+
+"NO ENTRY!"
+> use USB stick on computer
+> use USB stick on computer
+As soon as you plug in the USB stick, the green screen is activated and displays a message:
+
+Bryneli-Med Security
+
+ACCESS GRANTED
+
+Passcode sequence initiated......
+
+Date....Month....Year......Applying algorithm.....
+
+Code generation in progress.....
+
+36789
+> e
+> e
+The lab is impecably clean and clear of clutter. There is a central worktop with recesses next to cupboards. It smells of chemicals. You can hear a thudding in the distance, like a constant banging and thrashing, as if someone is locked in somewhere.
+> look under worktop
+> look under worktop
+There is some text scrawled on the underside of the worktop, it reads OMEGA249
+> n
+> n
+A plain white room, with a few empty cupboards. There is an access pad on the wall, probably used for gaining entry/exit. There is one single red LED blinking on the pad. Must mean power is still getting to it.
+> use access pad
+> use access pad
+In emergency situations, this pad can provide access to the Heli-Pad. If you wish to gain access, ENTER ACCESS CODE NOW (be sure to get the THREE PART CODE in the right order)
+> JYF2K36789OMEGA249
+Access granted. Ceiling Hatch now open. Climb through to access the Heli-Pad
+> climb through ceiling hatch
+> climb through ceiling hatch
+You are on  a Heli Pad.
+You can see a helicopter.
+You can go south.
+You are standing on the raised Heli-Pad of Bryneli-Med, the helicopter stands in its usual position.
+> get in helicopter
+> get in helicopter
+You are finally sat in the helicopter. With a bit of luck it will be the last time you have to see this wretched place. Almost there, now get out of here.
+You are in the cockpit of the helicopter.
+> press big red button
+> press big red button
+The blades start whirring up to full speed, you then ease the chopper off the ground. As your altitude increase, the scale of the devastation below becomes clear. Byron Bay is finished thats for sure, flying higher you start to navigate towards your hometown, hopefully things will be ok there right now.
+
+And even if they're not, a man of your problem solving ability will no doubt find a way to get you and your family to safety.
+
+Well done gamer, you escaped Byron Bay!
+
+Thanks for playing ;)
+
+Please send feedback to @MrAHeard on Twitter
+> quit
+> quit
+[state=Finished]

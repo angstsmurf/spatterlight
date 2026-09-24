@@ -1,0 +1,536 @@
+A campsite
+At the end of chapter 1 you lost your only friend David and met the Princess of the woods, Isril. You defeated a blue knight and now have a powerful shield and proper sword.
+
+You finish burying David.
+
+Isril: "I believe I must leave you sir."
+
+You: "Why? I need your help getting to the river. I need to figure out who I am."
+
+Isril: "I will help but I know going to the river will not answer your question."
+
+You: "I don't understand what you mean princess."
+
+Isril: "I can read minds and yours is blank. No physical damage can erase a mind completely. So.."
+
+You hold up your hand to stop her from completing her sentence.
+
+You: "Magic. Well what am I to do then?"
+
+Isril: "We need to go visit my father. He is a powerful warlock and might know a spell to return your memories."
+
+You: "Very well. How far is the journey?"
+
+Isril: "It will be a long one sir. But I really should travel alone. The forest people are not welcoming to outsiders. So its your decision to stay here or come with? However, I advise you wait for me to return."
+
+You can go Go With or Stay Here.
+> go Stay Here
+> go Stay Here
+A Stay Here
+Isril: "Deciding to stay here. Thats probably best for your safety."
+
+Before you can respond you hear shouts coming from a few yards ahead.
+
+Voice 1: "ahh"
+
+Voice 2: "Men prepare yourselves for battle."
+
+You: "Isril. Isril."
+
+Isril: "I know that voice, its Commander Vergun."
+
+Isril takes off running towards the shouts. You chase after her but find yourself a few steps behind. Before she can expose herself to the potential threat you manage to reach out and pull her down.
+
+You: "Isril do not simply throw yourself out there. Lets see whats going on first."
+
+Isril: "Commander Vegun is a close family friend and a great warrior. No bandits could defeat him."
+
+You: "Lets just take a peek."
+
+She reluctantly follows your idea.
+
+You look over and see 15 to 20 of the blue knights fighting 30 woodland people. A thin, tall, and dark haired woodland man carrying a glamorous golden blade, must be Commander Vegun, stands on a small hill giving commands to his soldiers. These blue knights all have halberds. The blue knights are in a tight formation and the woodland people are scattered and sporadic with their attacks. The woodland people are using short swords and are unsuccessful with landing attacks on the blue knight pack.
+
+Isril: "I must help them."
+
+You: "No, your magic will be useless against their armor. Remember how tough one of these knights were."
+
+Isril: "These knights are from Count Carlon's lands. This must be a formal declaration of war. I need to talk with my father."
+
+You: "Lets focus on this first."
+
+One blue knight thrust his halberd fowards into the gut of a woodland soldier. The soldier slumps down then collapses. Another blue knight slams his halberd down on the head of a woodland soldier. The soldier's head appears to explode from the impact and blood showers the knight's halberd.
+
+You must think of what to do the knight's are too powerful for these woodland soldiers.
+
+You can go Shout, Show yourself or Stay down.
+> go Shout
+> go Shout
+A Shout
+You decide it is best to shout. This way you can distract the blue knights without them seeing that your so few in numbers.
+
+You: "AHHHHHH"
+
+One blue knight turns to guard the side the yelling came from. However, six woodland soldiers turn your way and suffer a fatal blow from the undistracted blue knights.
+
+The plan backfired and Isril's face is of pure displeasure.
+
+Isril: "I told you we must help...Not yell...Fool."
+
+You are enraged by the displeasure you've caused the lovely Isril so you stand up and draw your sword. One blue knight notices the shield you have in his direction.
+
+Blue knight: "He has killed one of our brothers. Aggressive formation!"
+
+The blue knights drop the halberds and pull out their side swords. The knight who gave the command comes towards you and Isril. You block the blue knights first attack with your shield. He then kicks you down. Your head slams into a rock. Stunned you prepare for the sharp pain of his blade. However, Isril has distracted the knight. Unfortunately you begin to pass out. Right before the world goes black you notice Commander Vergun has been surrounded by three blue knights. Then you see nothing but darkness.
+You can go DarkRoom.
+> go DarkRoom
+> go DarkRoom
+A DarkRoom
+A dim light hits your barely open eyes. Both your arms and legs are chained to the wall. You look around the barely lit brick box you are now trapped in. The only thing that stands out is the small figure chained on the wall in the corner across from you.
+
+You: "Hello....Hello"
+
+Your voice is broken and weak but the empty room carries it for a decent distance.
+
+Figure: "Who are you?"
+
+The voice is much deeper than you imagined the small figure would have.
+
+You: "I'm not sure."
+
+Figure: "Hit you that hard, eh?"
+
+You: "No..." You explain your story to the small man.
+
+Figure: "Interesting. Do you know anything of the land you currently live in?"
+
+You: "No sir. Who are you by the way?"
+
+Figure: "Who? Or what? (small chuckle) I am a dwelve from the southern kingdoms."
+
+You: "A Dwelve! Your a fiend."
+
+Dwelve: "No, I'm Jurr. I am a nobleman from the Kingdom of Kye. One of the four great fallen kingdoms of the south. The current king launched a serious attack on the south a few years back. The southern kingdoms allied and launched a dignified counter attack. Unfortunately the Northern Kingdom of Drallon, a powerful ally of the south, was unable to recieve notice of the counter attack. This delay allowed the king to crush two kingdoms quickly. He then lied and forced the last two kingdoms into a treaty. The treaty was suppose to return the lands back to normal but the king burned the wealth of the south and turned the region into a wasteland."
+
+You: "What about the Drallon?"
+
+Jurr: "The king is no fool. Cruel but not a fool. He knew if he attacked the Drallon's elite forces in their mountains he would lose every soldier he had. So the Kingdom of Drallon was pretty much untouched. Their new lord even swore loyalty to the king. Thus, the hundred thousand strong men of the large Kingdom of Drallon are at his disposal. Although, most believe they truly only follow their lords commands."
+
+You: "Are we in the king's dungeon?"
+
+Jurr: "No. We are in Count Carlon's dungeon. He is a fierce warrior and from your story I'm afraid your friends are dead."
+
+You: "No way would he kill Princess Isril while at war with the Woodland's?"
+
+Jurr: "Perhaps, but Carlon is known to be quite cruel. Death is not the worst thing that can happen to a woman when captured."
+
+Your mind races. Thoughts of Isril being...touched...fill your heart with fire.
+
+You: "Can you help me escape?"
+
+Jurr: "Why would you assume a prisoner could help you escape?"
+
+You: "Well..."
+
+Jurr: "I'm kidding, I have been waiting here just for you."
+
+You: "You know me?"
+
+Jurr: "No, but I have orders to bring you to the south and so I will. I forgot to mention, many people from the south have entered the north region and many have been instructed to help you. When you get to the south, you will learn who you are."
+
+You: "How do you know I'm the right person?"
+
+Jurr: "Not many people have their minds magically erased. Especially when death is an easier solution to silence a man."
+
+You realize that the story of your memory loss will come in handy to finding allies among the enemies.
+
+Jurr picks his locks and walks towards you. He starts to pick your lock. Sound of footsteps head your way. Jurr rushes back to the corner and acts asleep. Two guards come in.
+
+Guard: "Stand up."
+
+He points at you. You struggle to get up. The other guard comes over and unchains you. Keeping a firm grip on you, he walks you towards the door.
+
+Guard: "Count Carlon wants to see you."
+
+You can go CarlonThrone.
+> go CarlonThrone
+> go CarlonThrone
+A CarlonThrone
+The two guards drag you into a large room lit by many candles. In front of you is a sizable man sitting in a metal throne. The man is muscular with a decent size belly. Standing up you imagine he would be a head over the average man. Next to him sits a large warhammer. The hammer must weigh fifty pounds. A normal man would not be capable of using such a weapon in a fight. Standing next to him is a man of average size. The man is wearing the knights blue armor but on his side is a fancy sword. The sword is strangely familar to Commander Vergun's sword. Also there are four blue knights next to a front door, six men in robes, and several servents of both the female and male gender in the room.
+
+Man on Throne: "I am Count Carlon. Next to me is my right hand man Berius. What were you doing aiding the forest grunts in a fight against my men?"
+
+You: "Well Count Carlon, I was on a mission to discover who I am. Aiding me on this mission was Princess Isril. So by default, her enemies would be my enemies until our mission is complete."
+
+Count Carlon: "Princess. (he laughs loudly) She is a forest grunt. They have no kingdom. Therefore, they have no royal titles and we show them no special treatment."
+
+Your mind races wondering what he means by no special treatment.
+
+You: "Where is she?"
+
+Count Carlon: "You value this Isril grunt?"
+
+You: "Yes"
+
+Count Carlon: "Very well, bring her out. (he laughs)"
+
+One of the robed men goes into another room.
+
+Count Carlon: "You should think of something to say so I can find a reason not to execute you."
+
+You try to think of something clever to say. As you stand there thinking the robe man walks back in the room.
+
+Robe man: "Bring her in guys."
+
+Two cloaked men drag her in. She has a considerable bruise on her cheek and her cloths are torn.
+
+Isril: "Your alive."
+
+She looks at you.
+
+Count Carlon: "For now. Are you two lovers? I thought the woman a lying whore?"
+
+You: "We are not lovers, just companions."
+
+Your voice can't hide the anger you feel about the multitude of things you imagine they did to Isril.
+
+Isril: "My father will know what you've done here Carlon. You will pay for this!"
+
+Count Carlon looks at one of the cloaked men. The man slaps Isril hard on the face. Clearly this is how her face got bruised.
+
+Count Carlon: "I know who your father is. Did you know he is sick and dying? The only thing that might save your father from my hammer is him dying of illness before we can catch him. Enough talking someone go fetch the executioner."
+
+Another one of the men in a robe leaves.
+
+Isril: "Where is Commander Vergun?"
+
+Isril recieves another smack on the face.
+
+Count Carlon: "You want to see your friend? Very well, Barius go get the forest grunt."
+
+Barius smiles and leaves the room.
+
+A few minutes pass by and you still haven't a clue of what you could say to save your lives. However, the thought of Isril being abused here haunts you more than the thought of dying.
+
+The cloaked man comes back in with a man carrying a large axe. This is clearly the executioner. The two men walk over to a stone slate in the middle of the room. The two guards holding you carry you to the stone slate and hold your head down on it.
+
+Count Carlon: "Not yet, wait for Barius to return. He always loves watching these."
+
+Barius enters the room with a spear in hand. On the tip of the spear is the head of Commander Vergun. Isril's eyes open wide upon seeing the gruesome sight. She then starts crying and looks towards the ground.
+
+What are you going to say?
+You can go LetUsFightToTheDeath or BegForYourLife.
+> go LetUsFightToTheDeath
+> go LetUsFightToTheDeath
+A LetUsFightToTheDeath
+You: "How about you match me against one of your men. We will fight to the death. If I win then I can leave with Isril."
+
+Count Carlon: "Very well. You will fight Barius."
+
+Barius grabs a sword from the wall and throws it to you. The two guards once holding you up let go. It takes you a couple of seconds to stand up properly and feel as though you could walk. You bend down and grab the sword.
+
+Barius: "Your a fool to fight me sir. I will kill you and your death will not be as quick as the axe."
+
+You: "Perhaps. Then again maybe I will kill you and death won't even become me."
+
+You smile at your arrogant response to the confident soldier.
+
+Barius closes the distance between you and him. He jabs the blade towards you. You barely manage to dodge the attack. He quickly slashes you on the leg. He could have landed a deadly blow. You swing back. Barius easily dodges the atttack and pushes you down. Count Carlon laughs.
+
+You struggle to a knee. Grab the sword and return to your feet.
+
+Bang! The door which you came through opens. Standing in the doorway is Jurr. He is now in silver armor with white trim. He is carrying a double blade.
+
+Count Carlon: "How did you escape?"
+
+Barius: "Guards draw your swords."
+
+The now six guards in the room face off towards Jurr.
+
+Jurr: "Men of the south. That man who fights Barius is the lost minded one. Do your duty."
+
+Two men in cloaks drop their hoods. Pull out swords and backstab two of the guards. They then quickly step back and are engaged in a fight with two more guards. Then two male servents pull out small knives and enter combat with the other guards. The rest of the servents and cloaked men flee the room.
+
+Count Carlon: "How dare you betray me."
+
+Count Carlon stands up and grabs his warhammer. Jurr grabs you arm.
+
+Jurr: "Time to leave. He points towards a man standing by the front door."
+
+The man waves you his way.
+
+Jurr: "Go now!"
+
+You: "Come with me."
+
+Jurr: "I will be right behind you."
+
+Barius engages Jurr in combat as you flee towards the door. The two cloaked men have killed the guards and are both standing between you and the fighting. Jurr and Barius are in serious combat. Barius swings. Jurr blocks and swings back. You can tell Barius is no longer playing around. Jurr is a quick and experienced fighter.
+
+You: "Save Jurr you point to the two men in front of you."
+
+They look back at you and one grabs your arm.
+
+Man: "We need to leave now!"
+
+The other man puts Isril on his shoulder and carries her out the door. The last thing you saw was Jurr and the two servents wielding daggers in combat against Barius and the guards. Count Carlon also was about to enter the fight.
+
+You walk out the door. The three men around you have positioned themselves with the man waiting by the door leading the way. The man with Isril on his shoulder right behind and the last man behind you. The path your taking is avoiding the roaming guards and soon you are in the town surrounding the keep.
+
+The front man: "Which way should we go sir?"
+
+He is looking in your eyes. He points to the main road or a side road.
+
+You: "I'm not sure."
+
+The front man: "Both lead out of here but you must make the decision to take the fast busy road or the longer backroad."
+
+The backroad will take longer but you are less likely to run into trouble. However, the main road is much faster and speed will be important (You are not sure how long Jurr can keep both Barius and Carlon at bay).
+You can go Backroad or Mainroad.
+> go Mainroad
+> go Mainroad
+A Mainroad
+The main road it is. This road will be deadly and crowded but you can move quickly and will be out of the town in no time.
+
+You all keep a quick pace. The road is filled with townsfolk and guards. The guards can't see you easily through the crowd.
+
+Front man: "Stop here guys, look."
+
+He points to a guard line not letting anyone pass. At least 20 guards form this line.
+
+You: "Well if we are to die here. I would at least like to know your names."
+
+Front man: "I am Uldorn. Knight of the South."
+
+Second man: "I'm known as Sword Master Frances but you can call me Frank."
+
+You look at the third man but he just shrugs.
+
+Uldorn: "That is Elric. He was a blacksmith."
+
+You: "Well how do we go about getting passed the 20 guards?"
+
+Uldorn: "Follow me."
+
+Uldorn runs off the road. You guys follow right behind.
+
+Uldorn: "Horses."
+
+He points to 2 horses tied to a pillar.
+
+You: "It's too few to all ride out of here."
+
+Uldorn: "Yes but it is plenty to create a distraction and for the rest of us to flee out the front gate."
+
+Frank: "It's suicide. (he smiles) I'm in."
+
+Elric: "I will ride one of the horses west."
+
+Uldorn and Frank nod to Elric.
+
+Uldorn: "I will ride the other."
+
+Frank: "No they will need you in the south. I will ride the other."
+
+Uldorn reluctantly agrees. Elric and Frank jump on the horses. Isril regains her stable footing and is able to walk by herself. The time is now.
+
+Elric rides through the guard line. The guards shout at him and chase him. Frank rides by east side of the guard line. The shouting catches the eye of Carlon who is sitting by the gate. Carlon stands up with his warhammer in hand. The three of you run out the gate as quickly as possible while the guards and Carlon are fighting with Frank and Elric. One guard notices you and throws a dagger at you. It digs itself about two inches into shoulder. Uldorn turns and engages the oncoming man. He quickly blocks the guard's swing and cuts him down. The three of you escape.
+
+Two other guards pull out crossbows.
+
+Frank: "Elric watch out!"
+
+The crossbow's bolts strike Elric in the chest and the other hits his horse. The horse falls over and Elric lays half covered by the horse.
+Elric: "Frank leave now! They need you!"
+
+Unable to move Carlon walks over and slams his warhammer down on Elrics head. Elric's head explodes from the immense force. Blood and brain clings to the warhammer and slowly drips off as Carlon lifts his warhammer up.
+
+Frank turns his horse around and rides. He looks back and sees the crossbow's aimed his way. He leaps off of the horse. Two bolts strike the horse. The horse crys out and falls over dead. Frank quickly gets on his feet and takes off to meet up with the others on a small dirt road leading south in the forrest.
+
+Carlon: "I will send Barius to bring me your heads!." (Carlon laughs loudly)
+
+Frank catches up to you guys.
+
+You: "Elric is he dead?"
+
+Frank: "Yes, Carlon made sure of that. We must leave now. Carlon said he was going to send Barius after us."
+
+You can go SmallForrestRoadHeadingSouth.
+> go SmallForrestRoadHeadingSouth
+> go SmallForrestRoadHeadingSouth
+A SmallForrestRoadHeadingSouth
+The four of you keep walking for hours. Soon it begins to get dark.
+
+Uldorn: "We will need to make camp. It will get very cold tonight and we will risk getting sick if we don't make a fire. However, making a fire could give away our position."
+
+You: "Indeed. What do you think Isril...Frank?"
+
+Isril just seems to go into deep thought.
+
+Frank: "We will need a fire. We will just need to make it small and be well hidden in the trees."
+
+Uldorn: "These are not Isril's woods. These woods can be very dangerous. I think it would be best to find a shelter or make one."
+
+Isril: "Let's make a fire and stick to the road. Many people make fires and we have walked pretty far. Even Barius can not see in the dark."
+
+You can go FireinWoods, FireOnRoad or BuildShelter.
+> go FireOnRoad
+> go FireOnRoad
+A FireOnRoad
+You: "Let us just follow the crowd and make a fire on the road. Barius would expect us to try and hide."
+
+Isril smiles at you for taking her advice over the other men. Its been a while since you've noticed but she is still very beautiful regardless of her now torn cloths and dirt covered face.
+
+Frank: "I'll get some wood and start a fire."
+
+Frank leaves and soon returns with logs. He then builds a fire using the bow and drill method. Soon the four of you are exchanging stories. Although you don't have much input, you enjoy just relaxing and talking with friends. Soon the four of you are asleep with Uldorn, Frank, and yourself taking turns on watch.
+
+The cold wind punishes your body as you sleep. This was a more painful than restful night.
+You can go BorderIntoTheSouth.
+> go BorderIntoTheSouth
+> go BorderIntoTheSouth
+A BorderIntoTheSouth
+You had imagined the border to be some grandiose structure but it was nothing more than an empty field slowly turning into desert. You also figured your journey to the southern city would be tedious and filled with battle. However, it seems you have either out ran your pursuers or they have given up.
+
+A few hours of walking pass by. Soon you begin to approach a castle. The castle is broken in many places and has lost much of its glamour. Your imagination allows you to invision the castle complete which puts you in a state of awe.
+
+Uldorn: "Come on we're almost there."
+
+You nod and everyone follows him down to an old rusty gate. Two guards are standing in front both armed with short spears.
+
+Uldorn nods at them. They clearly recognize him and allow us to pass. You walk into a great hall. The room is filled with tattered tapestries and broken statues of muscular men and naked women. Soon you focus on a large throne where an old man is sitting. Next to him is a younger man with black hair and shiny silver armor.
+
+Old man: "Welcome. Who are you?"
+
+You: "I... I don't know. I was hoping you or someone here would know since you sent your men to save me."
+
+The old man looks up and instantly his eyes widen.
+
+Old man: "It...it can't...he..."
+
+Black haired man: "Grandfather what is it?"
+
+The old man Struggles but he gets to his feet.
+
+Old man: "Doran. Bring me Articulous' sword."
+
+The black haired man nods.
+
+Uldorn: "Why would you request that item King Kalron?"
+
+King Kalron: "You fools. You have no idea who this man (he giggles as he says man) is. Do you?"
+
+Your party looks at each other all in awe. Only you and Isril seem to not understand the notion the king is making about you.
+
+You: "I'm sorry King Kalron, but I'm confused."
+
+King Kalron: "I knew your brother, Articulous. When I was but 18 years old I met him in the field of battle. He and I grew up to be friends until about 20 years when ago he vanished."
+
+Your mind races. How can he know a brother of mine and for my brother to be so much older than myself. You know this man can be no younger then 70 years old.
+
+King Kalron: "Your brother did not tell me what his brother looked like, only that he would be a man without a memory and when he touched his sword all would be answered. He made me promise to expend all my resources possible to find and save this man. It was then that I figured he went looking for his brother himself."
+
+You: "How old would my brother be?"
+
+King Kalron laughs.
+
+King Kalron: "You have no memory of your past do you?"
+
+You gesture that you agree.
+
+Just as the King is about to continue, Doran walks into the room holding a golden sword. The blade looks magnificent, not a single scratch or dent. How could this blade have been in battle.
+
+King Kalron: "Come sir, come and grab your sword. So we can all be sure you are who I believe you to be."
+
+Uldorn: "Wait, you said if the wrong man were to grab the handle he would surely die. Can we let this man risk this just for a hope?"
+
+Ignoring Uldorn's concerns, you slowly walk towards Doran. You look back at Isril. Her now rugged look and bruised body fills you with the anger you need to just grab the blade and forget Uldorn's concerns. Afterall, how could you hope to avenge this woman if you cannot even figure out who you really are.
+You can go Grab Sword.
+> go Grab Sword
+> go Grab Sword
+A Grab Sword
+You reach out your hand and grab the handle. Instantly you feel a strange tingling feeling. You begin to worry that this was a hasty action done without much thought. Then your whole body begins to surge. It begins to feel as though you are weightless. Your aches and pains diminish and your mind begins to clear.
+
+Soon you see nothing but white light. Suddenly you begin to see a man coming towards you from the white light. His hair is long blonde and his face looks strangely familiar.
+
+Man: "Brother. It is I Marl. I see that you have found Articulous' sword. It is time for you to awaken from the dark dream. It is time for you to know your name. Upon hearing your name, your power will be restored and your mind refreshed. You name is on the end of the blade, you must have a person capable of magic read your name. It is in a language too difficult for any other to understand. Do you understand?"
+
+You wonder why Marl can't just say it, but before you can ask, you snap back to reality. You wonder if it was all a dream. You quickly look at the bottom of the blade. In weird symbols a name, your figure, is inscribed.
+
+You: "Isril. Come try to read this word."
+
+King Kalron looks stunned as you request the help.
+
+Uldorn: "It is him..."
+
+Isril walks over and looks at the bottom of the blade. She studies the word for quite some time.
+
+Isril: "Ma...Ma..li.."
+
+She begins studying again. The word must be really difficult to understand.
+
+Isril: "Ahh yes... Malich."
+
+A white light beams down on you. You feel empowered. Your mind refreshed.
+
+You: "I remember who I am. I know what I am. I am the Demon Lord Malich."
+
+Demon Lord Malich: "Hahahaha. You have all aided me in aquiring my power. Foolish humans, how you easily can be tricked and confused."
+
+King Kalron: "It can't be... your suppose to be..."
+
+Demon Lord Malich: "I know who you had hoped for, but I killed the last Arch Angel Articulous' fifty years ago. In his last ditch effort he trapped me in this sword and told you not to let anyone touch it. I then used my last ounce of power to fill your mind with a small deception of a brother. Knowing your friendship was so strong, I knew you would help me find my power. Haha"
+
+Uldorn charges you sword drawn and Frank does the same. You quickly smite down Uldorn cutting him and his sword in half in one quick swipe of your blade. You then blast Frank into dust with a fireball from your other hand. Isril begins to back up looking terrified. Doran begins to draw his sword when King Kalron grabs his arm.
+
+King Kalron: "You must find the demonic crystal. If the demon was trapped in the sword than Articulous must be trapped in the demon's crystal."
+
+Doran: "But he said he killed him."
+
+King Kalron: "Demon's are liers grandson."
+
+Malich: "Don't listen to him Doran. I have killed Articulous. You can serve me if you wish Doran. Isril will serve me."
+
+Malich touches Isril and instantly she enters a trance. Her eyes go empty but she follows Malich without complaint. Malich then gives her a wand crafted from a quick spell.
+
+Malich: "Kill the King Isril."
+
+Isril blast the purple beam spell. The same one that killed the blue knight.
+
+King Kalron: "Sorry...."
+
+Doran: "NO!!!"
+
+The front doors of the great keep burst open. An old man walks in with a pointy hat and robe.
+
+The man begins to blast a current of lightning at Malich. Clearly hurt by the spell Malich disappears with Isril.
+
+Doran: "Who are you sir?"
+
+The man pulls back his hat and takes off his robe reveiling golden armor and pure white hair.
+
+Golden Armor man: "I am Osalith, wizard trained in the arts of the gods. Articulous had planned for Malich to return in his fall. Doran you must help me to get the Demon Crystal."
+
+Doran: "Is Articulous trapped inside?"
+
+Osalith: "No, but if Malich finds it then his power will return to full. He will be immortal."
+
+Doran nods okay.
+
+From here on you will follow from the eyes of Doran, a skilled swordsman.
+You can go End Chapter 2.
+> go End Chapter 2
+> go End Chapter 2
+A End Chapter 2
+You made the correct decision and have brought the demon Malich back from the otherworld. Can you undo your mistake in the next chaprter?
+Health:
+
+70-100- Did anyone almost save the world?
+50-70- Good decision making...for the demon!
+30-50- You tied to save the world...right
+1-30- You almost accidently saved the world!
+
+If you enjoyed the story I will be releasing more chapters which will purhaps answer some curiosities you have about the story. (Twisted? Perhaps? But I'm sure you will enjoy the direction the story is headed, but be prepared because now your against Malich and all future chapters will be much more difficult.)
+> quit
+> quit
+[state=Finished]

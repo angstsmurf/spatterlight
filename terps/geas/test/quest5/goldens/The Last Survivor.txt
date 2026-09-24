@@ -1,0 +1,89 @@
+You wake up in an Office.
+You are in an office.
+You can see a chair and a desk.
+You can go east.
+The Office is a very sparse location. In front of you is an empty chair where the business warehouse manager would have once over seen the operations of 30 employees hard at work.
+You can't remember who you are or how you got there.
+You just know you need to get out...
+...FAST!
+
+Press any key to begin
+> open desk
+> open desk
+You open it.
+In the desk is an ipad and a notepad.
+> take notepad
+> take notepad
+A good idea but maybe you want to open it too?
+> open notepad
+> open notepad
+There appears to be some message written. It seems quite hard to make out. Probably needs a closer look
+Inside is a Post-It with a message.
+> take message
+> take message
+You pick it up.
+> read message
+> read message
+You take the message and bring it closer to your eyes.
+You can make out a series of words. They all appear to be variations on the same word:
+Perins, per1ns, Per1ns, Per!n5
+Hope this helps, John
+What on earth are they for?
+> e
+> e
+You are in a warehouse.
+You can see a box A and a box B.
+You can go west or north.
+Cold, damp, cavernous and eerily quiet. You can make out two similar sized containers in the corner of the room.
+> look at box B
+> look at box B
+A large metallic box with a very sophisticated keypad lock on the front. The side of the box has writing on it that appears to say "DIE INKEYS"
+Might this help..?
+It appears you can only open it by entering some sort of password as flashing below are the words...
+
+Please enter code below:
+> Per!n5
+The display message flickers to life and now displays the message "Correct Code Entry".
+You hear a sharp clicking noise as the box is automatically unlocked
+Should you open the box?
+> open box B
+> open box B
+Unlocked, the password was right after all.
+You open it.
+It contains a a swipe card.
+> take swipe card
+> take swipe card
+Do not lose this
+> n
+> n
+You are in a lift.
+You can see a control panel.
+You can go south.
+The doors are open and welcoming. A locked control panel is just inside on the right. A green light is flashing intermittently.
+> use swipe card on control panel
+> use swipe card on control panel
+Of course... the swipe card.
+You fumble in your pockets for the card and with sweaty hands carefully run the magnetic stripe across the control panel.....
+Nothing seems to happen at first but...
+...All of a sudden there is a high pitched beeping noise.
+The key pad jumps to life and a single message appears on the screen....."Press 0 to start"
+Underneath the now unlocked control panel, the three buttons light up.
+The question is, which one do you choose?
+Time to open the panel
+> open control panel
+> open control panel
+You open it.
+It contains a button W, a button G and a button S.
+> press button S
+> press button S
+You press the button and the mechanism slowly grinds to life.
+Slowly the lift ascends
+The climb is painfully slow but eventually the lift halts
+A voice can just be heard through a tinny speaker announcing "Safe Zone"
+The doors slowly open.....
+..and thank heavens, you have made the correct choice
+In front of you are literaly hundreds and hundreds of people, all religions, ages, gender, profession and social class.
+They turn round, one by one to look at you ...and begin applauding a new survivor
+You are not the Last Survivor...
+There is still hope for civilisation
+[state=Finished]

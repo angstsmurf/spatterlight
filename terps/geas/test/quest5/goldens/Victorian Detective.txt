@@ -1,0 +1,710 @@
+Victorian Detective
+The Shakespearean Bomber
+
+Peter Carlson
+
+Morning sunlight lazily struggles through the opaque smog of London. You crouch over a dead body in the alleyway of Lilt Street, thumbnail between your teeth in thought.
+
+There's a half-smoked cigarette beside the corpse. Interesting...
+
+"Looks like a random mugging," says your partner, Mardler. You're both detectives for Scotland Yard. "No identification on the victim. He was shot point blank, and his wallet was stolen. He was just in the wrong place at the wrong time."
+
+"It wasn't a random mugging," you reply.
+
+"You just want this to be exciting because the chief took you off the mystery bomber case," laughs Mardler.
+
+You need some evidence to show Mardler that this wasn't random, how about the fact that the corpse was...
+
+...once a chemist
+
+...smoking a cigarette
+
+...familiar with combat
+
+> alleychemist
+...once a chemist
+
+Deductive Reasoning Fail
+
+"The victim has chemical burns on his hands, sulfur under his fingernails, and goggle marks on his face. Our victim was definitely a chemist," you say.
+
+"Okay," says Mardler. "But how does that prove this wasn't a random mugging?"
+
+You scratch your chin in thought. You realize being a chemist does not make you exempt from being randomly mugged.
+
+"But look here," says Mardler. He examines the cigarette ash on the ground. "There are two piles of ash, which means he was here for a relatively long time. I think you're right that this wasn't a random victim, and he knew his attacker. He probably comfortably conversed with him."
+
+Good point...
+
+Mardler scratches his chin. "We still don't know who he is, or why he was killed."
+
+"Well there is something distinct about the victim," you say. "Maybe it can help identify him."
+
+You should point out the uniqueness of...
+
+...the chemicals under his fingernails
+
+...his scar
+
+...his cigarette
+
+...his clothes
+
+> identitychemicals
+...the chemicals under his fingernails
+
+Deductive Reasoning Fail
+
+"The victim was clearly a chemist, and we can determine the chemicals under his fingernails and deduce where he acquired them," you say. "So far I've found traces of sulfur and charcoal."
+
+"Those are pretty generic substances," says Mardler. "Sounds tedious."
+
+Mardler looks at the body again. "This is some pretty weird rolling paper, red argyle," he says.
+
+You catch a whiff of the tobacco. Your keen nose identifies it as thuoc lao, a potent Vietnamese strand. "That's a rare strand of tobacco as well, called thuoc lao."
+
+"I bet only a handful of smoke shops carry both thuoc lao and red argyle rolling paper," says Mardler. "We should check out some exotic smoke shops and see if we can find the one our victim frequented."
+
+continue
+
+> smoke
+continue
+
+You and Mardler find yourselves at the Gentleman's Flame, an exotic smoke shop in the Balham district. You see they sell both thuoc lao and red argyle rolling paper.
+
+Browsing different pipes and strands of tobacco you see a beautiful young woman. She has long almond hair and a set of pearly white teeth.
+
+Behind the counter you see the store owner arguing with his wife. She's fuming mad, ranting about missing profit from last month and his regular absence from home.
+
+"How can I help you, gentlemen?" asks the man as he pushes his wife away. He fans the room's thick air with a weathered top hat, revealing a head of diminishing wispy white hairs.
+
+"Have you sold any thuoc lao recently?" asks Mardler as he puts his hand down on the counter. "It's part of an investigation."
+
+"Hmmm, I don't recall off the top of my head," chuckles the man, grinning a crooked smile of white teeth and rapping his fingers on the counter expectantly.
+
+What to do?
+
+Threaten that you'll tell his wife about his affair
+
+Tell him you know he's a murderer
+
+> smokekill
+Tell him you know he's a murderer
+
+Deductive Reasoning Fail
+
+"I know you killed a man last night," you say. "Where were you between the hours of 10 pm and 1 am?"
+
+"You've got it all wrong!" cries the man. He pulls you and Mardler in close and whispers. "Don't tell my wife, but I was with that woman in the corner last night. She'll back my story up."
+
+Mardler checks with the woman's story and comes back as she leaves the store, embarrassed and angry. "That woman vouched for him," he says.
+
+The man grins, smug and feeling accomplished.
+
+"Well tell us what we want to know about the thuoc lao," says Mardler, "or your wife might just find out about that woman. Have you sold thuoc lao and red argyle rolling papers to someone recently?"
+
+You feel the need to interject. Of course he knew the victim, in fact...
+
+...he has the victim's hat
+
+...his mistress was having an affair with the victim
+
+...the victim was his best friend
+
+> interjecthat
+...he has the victim's hat
+
++1 Deductive Reasoning
+
+"You're wearing the victim's hat right now," you say. You reach out and grab the nervous man's hat and spin it around. "Observe the thuoc lao stain on the rim and scratches on the rim from glasses. The victim wore glasses and smoked thuoc lao. There are small black hairs in the hat, and we know the victim recently cut his hair. The hat even smells like peaches, just like the victim's hair gel."
+
+"So how'd you get the victim's hat?" barks Mardler. "You have some explaining to do."
+
+"He was short on money the other day so he traded it for tobacco!" cries the store owner. "I swear!"
+
+"Do you have a name?" asks Mardler.
+
+"His name is Gaubert Bouvier," says the store owner.
+
+continue
+
+> bouvier
+continue
+
+Mardler turns to you and speaks in a hushed tone. "I don't trust this guy," he says. "He shows up with Bouvier's hat the day after he dies."
+
+arrest the store owner
+
+don't arrest the store owner
+
+> bouvierarrest
+arrest the store owner
+
+You decide to toss the store owner, Arthur Trap, in jail for a few days. Bouvier's hat and his questionable absence last night are enough to keep him locked up temporarily.
+
+Apparently Gaubert Bouvier often isolated himself at home. Arthur Trap tells you that he had ordered a thuoc lao delivery before, so he knows the address. 313 Helmsman Way. You and Mardler venture to Bouvier's house.
+
+No one answers the door, so Mardler looks the other way while you pick the lock. Looks like someone else already tried to break in. You hear a satisfying click and push the door open to find a trashed home. Someone tore the place up looking for something.
+
+continue
+
+> bouvier2
+continue
+
+You sniff the air, your hound-like nose picking up a variety of scents.
+
+Mardler walks around the room, stepping over notebooks and toppled furniture. His foot crunches down on a discarded bottle of vodka. The house has been turned upside down.
+
+There's a crooked painting on the wall of Claude Louis Berthollet, a French chemist from the mid 1700s. Bouvier really liked chemistry.
+
+There's a bookshelf in the corner of the room that is missing several volumes. They're scattered across the floor.
+
+Bouvier was hiding something. Where do you investigate?
+
+the bookshelf
+
+the painting
+
+> bouviershelf
+the bookshelf
+
++1 Deductive Reasoning
+
+"Bouvier's been moving his bookshelf," you say as you point to the grooves in the floor beside it. "Something's hidden behind it."
+
+You and Mardler push the shelf to the side and reveal a small hidden door. You fiddle with the lock for a minute before it clicks open. Down a narrow flight of stairs you find yourself in a secret laboratory.
+
+"It appears whoever broke into this house and roughed it up missed this room," you say.
+
+Mardler begins rifling through notes and blueprints. "Bouvier's been making bombs," he says.
+
+You look through Bouvier's notes as well. You immediately recognize the composition of Bouvier's explosives. Bouvier was deeply involved in the terrorist bombing case that you were taken off of.
+
+continue
+
+> bouviernote
+continue
+
+You pick up an envelope off of Bouvier's desk. It looks important, as other notebooks and beakers have been pushed away from it.
+
+You flip open the envelope and pull out a letter written in black ink. It reads...
+
+May 5
+GB
+Urgent. Change of plans. Meet at alleyway off Lilt Street on Tuesday, May 19, midnight. Burn all previous letters.
+Shakespeare
+
+You look closely and see subtle scratches on the envelope, as if someone had written something else on a paper on top of it. The nearly invisible scratches read, "51.28 2.87."
+
+Time to make some deductions about this note and it's sender...
+
+the note was written on a train
+
+the note was written under duress
+
+the note was written on a boat
+
+> notetrain
+the note was written on a train
+
+Deductive Reasoning Fail
+
+Wrong! That's not really apparent. More like it was written on a boat, because of the saltwater damage and jerking motion in the handwriting from waves.
+
+But there are more clues you can draw from it. What is probably true?
+
+the note was written off the coast of England
+
+the note was written off the coast of France
+
+the note was written off the coast of Belgium
+
+> notelondon
+the note was written off the coast of England
+
+Deductive Reasoning Fail
+
+This was a tricky one. The numbers scratched on the letter were latitude and longitude coordinates that point to the North Sea beside Belgium. Someone was calculating location right before or after writing the note.
+
+Now it's becoming more guesswork...
+
+the note was written by the captain
+
+the note was written by the navigator
+
+the note was written by the master gunner
+
+> notecaptain
+the note was written by the captain
+
+Deductive Reasoning Fail
+
+Incorrect!
+
+You turn to Mardler. "Take a look at this letter," you say. "It can help us identify who killed Bouvier."
+
+Mardler holds the letter and studies it. "What do you think of it?"
+
+"Well it was written on a whaling ship, probably off of Belgium and probably by the navigator," you explain. "Look at how the handwriting is jerked to the side at certain parts and the letter is damaged by saltwater. That means it was probably written on a rocking boat. The envelope was sealed with spermaceti, which is uncommon for a common Londoner, yet abundant for a whaler. If you look carefully you can see coordinates imprinted on the letter, 51.28 2.87. They're longitude and latitude calculations, and they pinpoint the ship in the North Sea off the coast of Belgium, a common whaling ground. Because they're carefully calculated coordinates, I assume they were written by the navigator of the ship. The author of this letter wouldn't leave it just anywhere, so whoever wrote this is also the one that wrote those coordinates."
+
+"Interesting theory," remarks Mardler.
+
+"We can investigate recent ledgers at the docks and find out if any whaling ships have taken trips to Belgium," you say.
+
+continue
+
+> notecontinue
+continue
+
+Mardler flips through another notebook. His eyes grow wide. "There's another bomb set," he says. "We have to do something immediately! I'll go to the station and get some explosive experts right now! There's a bomb due to explode in an hour at Aldous Theater!"
+
+Mardler heads off to the police station to recruit some more officers for disarming the bomb while you get a start towards Aldous Theater. Londoners will soon arrive for seating for the play Othello as late afternoon light glows through the thick fog of the city.
+
+You push past two thick bearded Russians leaving the theater as you enter. The smell of alcohol and horseradish hits your nose. At first you pay it no mind, but you see someone has just discarded a bottle outside the theater exactly like the one Mardler stepped on at Bouvier's house.
+
+The hrenovuha drinking Russians have disappeared into the winding streets of London, but you have a nagging feeling that they're involved in the case. You'll have to check back to that later.
+
+continue
+
+> urgentbomb
+continue
+
+You enter the theater, flashing your badge to gain quick access. The workers on set are running through some preliminary artificial smoke tests, creating a thick fog in the theater to set the mood for Othello.
+
+You recall the careful position of the bomb as described in Bouvier's notes, and find it hidden under a seat. Your main concern is the ethyl azide primary explosive, used to detonate bulk of the bomb.
+
+You call for the theater to be evacuated, careful not to touch the bomb. But there's the problem of controlling the heat of the ethyl azide.
+
+extinguish the lights
+
+utilize the source of the artificial fog
+
+> urgentlights
+extinguish the lights
+
+Deductive Reasoning Fail
+
+You decide to put out all the candles in the theater to make it cooler. You get the stage hands to put out the lights, but you realize that now it's dangerously dark to handle the bomb and not significantly colder.
+
+About ten minutes later you see Mardler and a squad of officers enter the theater. They come over to the bomb and you and Mardler retreat to safety as they handle the explosive.
+
+Something goes wrong in the dimly lit theater, and to your horror the bomb activates. One officer dies immediately and another cries out in agony as an ambulance rushes him to a hospital.
+
+Mardler and you leave the theater, his head hung low. "We did all we could," he says. "That seat was intended for Sir Joseph Swan. It might have been random, but maybe he was being targeted."
+
+continue
+
+> urgentcontinue
+continue
+
+You interview Sir Joseph Swan about the possible assassination attempt. He's very rattled. He explains that the first terrorist bomb from a few weeks ago killed one of his fellow scientists working on a way to utilize electric light.
+
+Intriguing...
+
+Night begins to fall on London as you catch the harbormaster before he leaves for the night. You question him about a whaling ship that's recently arrived in London from Belgium, and was off the coast of Belgium on May 5.
+
+The Zoet Dame, a small whaling ship, matches your description. You and Mardler board the vessel to investigate. You make your way to the navigator's cabin and look through his notes. The handwriting matches Shakespeare's and you see a copy of Macbeth and Hamlet on the desk.
+
+The harbormaster has the address of the ship captain and gladly hands it over to you.
+
+"We can ask the captain about the navigator and find out where he lives," says Mardler. "It looks like you were right about the navigator of the Zoet Dame writing that note to Bouvier."
+
+continue
+
+> zoetcaptain
+continue
+
+You arrive at the home of the Zoet Dame's captain, Jake Blakely. Mardler raps on the door. Blakely answers the door, disoriented and tired. His eyes grow wide as he sees you.
+
+"We'd like to ask you a few questions, Mr. Blakely," says Mardler.
+
+Blakely panics and turns to run, tipping over a bookshelf in his wake to slow you down. You and Mardler give chase, racing after the captain as he bursts through his backdoor and runs out into the streets of London.
+
+Blakely darts across the street in front of a speeding carriage drawn by horses. The driver yells at him but doesn't see you!
+
+sprint past the front of the carriage, you can make it
+
+slow down and go around the carriage, it's too risky
+
+> zoethorse
+sprint past the front of the carriage, you can make it
+
+Dynamic Action Fail
+
+You miscalculate the speed of the carriage, and you're clipped as you go by it, knocking you onto the ground. The carriage speeds off as you climb back onto your feet and continue chasing Blakely, Mardler beside you.
+
+Blakely runs into a narrow alley, shoving through a crowd of people leaving the local bar. Again you're on his tail.
+
+push through the Londoners
+
+climb across the cargo crates pressed up against he alley wall
+
+> zoetpeople
+push through the Londoners
+
+Dynamic Action Fail
+
+People are already toppling over as you try to shove through them, but they only hinder you! You struggle to push through the clumsy Londoners and get back to Blakely.
+
+"I'll go around to cut him off!" barks Mardler as he splits off and runs down another alley.
+
+Blakely runs towards the docks.
+
+draw your revolver and demand that he stops running
+
+continue chasing him
+
+> zoetchase
+continue chasing him
+
++1 Dynamic Action
+
+You begin gaining on Blakely and he looks back, startled and afraid. He slips on the wet docks and crashes down as you tackle him to the ground. You restrain Blakely as Mardler rounds the corner and meets you.
+
+"Why were you running from us?!" Mardler demands.
+
+Of course it's because...
+
+Blakely was smuggling opium
+
+Blakely was plotting the bombings with Shakespeare
+
+Blakely accidentally killed Shakespeare
+
+The Zoet Dame is a pirate ship
+
+> zoetopium
+Blakely was smuggling opium
+
++1 Deductive Reasoning
+
+"You've been smuggling opium on the Zoet Dame, correct?" you say.
+
+"How did you know?" Blakely stutters. "How long have you been investigating me?"
+
+"I had a theory when I boarded your ship twenty minutes ago," you answer. "Your logs have unexplained profits and cargo weight, and your cabin smells like papaver somniferum, the plant that opium is derived from. When you answered your door I saw your eyes and nose were irritated and you had lost weight recently as evident from your loose clothes and holes in your belt. These are common symptoms of opium addiction."
+
+Blakely stares down at the ground, defeated.
+
+"But what I really want to know, is who and where is the navigator of the Zoet Dame?"
+
+continue
+
+> zoetnavigator
+continue
+
+"My navigator is quiet guy," says Blakely. "He always keeps to himself, but he's a damn genius. The guy is brilliant at repairing the ship and inventing tools to keep us going. He's a little French guy with a long jagged scar under his eye. Used to be in the military, I think. His name is Yorick Rosencrantz."
+
+"Do you have an address for this guy?" asks Mardler. "Friends and family?"
+
+"He always isolated himself," says Blakely. "That's all I know."
+
+"That's a fake name obviously," you say.
+
+Yorick and Rosencrantz are characters in William Shakespeare's play...
+
+...Macbeth
+
+...Hamlet
+
+...Othello
+
+> zoetmacbeth
+...Macbeth
+
+Deductive Reasoning Fail
+
+Erm... I think you mean Hamlet.
+
+Blakely doesn't know anything else about his mysterious French navigator so you send him away to be questioned further at Scotland Yard.
+
+Night has fallen over your industrial metropolis, the thick clouds of smoke blending with the darkness. The twinkling of stars is a thing of the past as heavy fumes obscure the sky. You sit in your lonesome apartment, reflecting on the case.
+
+continue
+
+> morningcontinue
+continue
+
+Morning warms the London streets as you and Mardler go over evidence from the case at Scotland Yard. You bite your nail in thought as you try to piece together the mystery. Who is the mysterious bomber, Shakespeare, and where is he? What's his motive?
+
+You think back to the two Russian brothers you saw leaving the theater before you entered to handle the bomb. They had the same homemade vodka that was left as Bouvier's destroyed house. Surely they're connected to the case. They must be hired goons for Shakespeare.
+
+What are their professions?
+
+they're carpenters
+
+they're fishermen
+
+they're gardeners
+
+> morningfishermen
+they're fishermen
+
+Deductive Reasoning Fail
+
+Oops, wrong!
+
+You can't seem to figure out who these Russians are, or where they are. They're long gone. Better to focus on the leader of the bombings instead of his goons.
+
+continue
+
+> frenchcontinue
+continue
+
+Who is Yorick Rosencrantz (aka Shakespeare)?
+
+You decide to rethink the case, retracing your steps. What is the connection between Yorick Rosencrantz and Gaubert Bouvier? Obviously Bouvier was hired to build bombs for Rosencrantz, but that's such a specific skill. Where did they meet?
+
+You reflect.
+
+Rosencrantz and Bouvier were both whalers
+
+Rosencrantz and Bouvier were both chemists
+
+Rosencrantz and Bouvier were both soldiers
+
+> frenchwhaler
+Rosencrantz and Bouvier were both whalers
+
+Deductive Reasoning Fail
+
+Yorick Rosencrantz was obviously a master navigator and a whaler, but you have no reason to believe that Bouvier was also involved in the whaling business.
+
+You sit in thought for several minutes more until the intuition fairy blesses you with a spark of instinct.
+
+Bouvier and Rosencrantz were both soldiers... of course!
+
+But where did they meet?
+
+Vietnam
+
+London
+
+Belgium
+
+> frenchvietnam
+Vietnam
+
++1 Deductive Reasoning
+
+Yes, of course!
+
+That's where Bouvier picked up his addiction for thuoc lao. It's too rare and potent to randomly start smoking in London. He must have been a soldier in the French colonization of Vietnam. Bouvier undoubtedly specialized in demolition, explaining his expertise with explosives. That's how Rosencrantz knew Bouvier was a skilled bomb maker.
+
+continue
+
+> frenchhistory
+continue
+
+You travel across London to visit an old friend, one of your only friends, Julian Ashworth. He's a dedicated military historian that's bound to have specific knowledge about the French colonization of Vietnam. You find him browsing old volumes at his large bookstore.
+
+You tell Ashworth about your inquiry and he reveals a mound of records about the French colonization of Vietnam. He always likes to stay up to date with military information. You start rifling through the files, searching for information about Bouvier's platoon and section.
+
+After hours of research you come across a file about Bouvier's section. You see him sitting in a photo of French soldiers. Beside him there's a soldier with a jagged scar under his left eye.
+
+Yorick Rosencrantz. Apparently his real name is Renard Voclain.
+
+continue
+
+> frenchvoclain
+continue
+
+You hold the photograph close. You've seen Voclain's face before, recently. The face is burning in your mind as you struggle to remember where you saw him.
+
+The Gentleman's Flame smoke shop
+
+The Aldous Theater
+
+The London docks near the bars
+
+> frenchbars
+The London docks near the bars
+
++1 Deductive Reasoning
+
+Eureka!
+
+You were so close to him! You brushed past him as you were chasing Blakely through the streets. He was no more than a face in the crowd at the time, blending with the thick London masses.
+
+You focus your mind and try to recall details about Voclain. Your eidetic memory rebuilds an image of the chase in your mind's eye. You only saw Voclain for a second, but you know it was him.
+
+But you still don't know where he is now. You decide to focus your mind on his...
+
+...recent fishing
+
+...finger burns
+
+...close encounters with many cats
+
+> frenchfishing
+...recent fishing
+
+Deductive Reasoning Fail
+
+You try to think of the most likely place Voclain was fishing for haddock. Perhaps you can visualize the type of hook that cut him from the shape of the cut, and maybe track down the manufacturer. There are too many variables and possibilities.
+
+It's too hard. You decide to approach the problem from another angle.
+
+Renard Voclain was probably feeding local cats in the Brentwood neighborhood. The fishhook cut and smell of haddock suggest he's been fishing recently, and the abundance of varied cat hair on his ankles guide you to think that he's been feeding the fish to cats.
+
+It's a long shot, but you don't have much else to go off of.
+
+continue
+
+> cat
+continue
+
+It's dusk in London as you pursue the stray cat theory. You wander the Brentwood district, asking locals if anyone in the neighborhood is especially fond of cats. A young woman tells you about a man living down the street that feeds the local cats fish scraps each night.
+
+You follow the sound of meows and see British Shorthairs darting across the road. The scent of haddock hits your nose as you peer through a house window. This could very well be Renard Voclain's house.
+
+No one answers when you knock, so you go ahead and pick the lock. The door clicks open and you creep inside.
+
+A shadow moves across the wall towards as someone approaches...
+
+draw your gun and jump out to surprise
+
+hide behind the table
+
+> catgun
+draw your gun and jump out to surprise
+
+Dynamic Action Fail
+
+You jump out and draw your weapon, only to see it's no more than a stray cat. The cat jumps and bolts the other way. Hopefully you didn't alert Voclain of your presence.
+
+You keep sneaking through the house, looking for Voclain. There are notes scattered across his tables and bookshelves. It looks like he was attempting to make electrically powered lights, much like Sir Joseph Swan, the target at the theater.
+
+He must have been killing off other scientists pursuing electrical light so he could have a monopoly on the idea. He realized the genius of the invention and wanted to reap all the profits himself!
+
+continue
+
+> catstudy
+continue
+
+You stealth your way through the house and towards the study. Peering inside you see Renard Voclain, his scar visible in the candlelight, working at his desk. He's furiously going through notes.
+
+You stand in the doorway and draw your revolver.
+
+"Renard Voclain," you shout, "you're under arrest!"
+
+Voclain looks up from his work and his face grows pale. He's faster than you expect, and reaches down to grab a pistol of his own.
+
+shoot him
+
+take cover
+
+> catcover
+take cover
+
+You roll behind the door and duck down as Voclain draws his pistol.
+
+"Drop the gun!" you yell.
+
+BANG BANG BANG
+
+Voclain's bullets tear through the wall, narrowly missing you.
+
+"I know you're Shakespeare, mastermind behind the terrorist bombings," you say from behind your hiding place. "You were posing the attacks are random bombings while you discreetly targeted scientists that were working on making electrical light, just like you're trying to do. You're afraid of the competition, because you're just not that smart."
+
+BANG
+
+Another bullet rips through the wall, inches from your shoulder.
+
+continue
+
+> catcount
+continue
+
+"These bullets were for Swan," shouts Voclain. "I had no idea I'd be using them on some bum detective!"
+
+BANG
+
+The bullet glances your arm, cutting your shirt.
+
+Is Voclain out of bullets?
+
+jump out and attack before he has a chance to reload
+
+wait for him to use all his bullets
+
+> catwait
+wait for him to use all his bullets
+
++1 Dynamic Action
+
+You take off your jacket and throw it in the path of the doorway as a distraction. Voclain fires at the flying jacket instinctively, using his last bullet. You jump out and subdue him before he can reload.
+
+Got him.
+
+continue
+
+> catcatch
+continue
+
+You bring Renard Voclain to Scotland Yard in cuffs. There's one less maniac on the streets of London. You and rest of the police force search his house and find more than enough evidence to send him away to prison. Plus, he fired at a detective.
+
+"Great work," says Mardler as you bask in your success.
+
+"I couldn't have done it without you."
+
+"Elementary, my dear Mardler."
+
+> catelementary
+"Elementary, my dear Mardler."
+
+You're the greatest detective in London.
+
+the end
+
+> end
+the end
+
+Deductive Reasoning Score = 5
+
+Dynamic Action Score = 2
+
+Congratulations, you've completed...
+
+Victorian Detective : The Shakespearean Bomber
+
+Throughout the game you had the chance to accumulate Deductive Reasoning points and Dynamic Action points. How effective were you during the investigation?
+
+Deductive Reasoning Score
+
+[0-4] Bumbling Sidekick
+Mardler undoubtedly took the lead on this case. You had a few moments of intuitive luck but you were far from spectacular. No wonder the chief took you off the bomber case in the beginning. All that knowledge but no logic.
+
+[5-8] Mediocre Analyst
+You did alright, but you have the potential to do so much more.
+
+[9-12] Bloodhound
+You solved the case fair and square, but you needed some help along the way. Your sharp instincts and partner guided you. You're not ready for a solo investigation.
+
+[13-14] Brilliant Observer
+Your skills of deduction are impressive. You have a knack for stringing together clues and focusing on details. You made Scotland Yard proud.
+
+[15-16] Sleuth Magnificent
+Your perceptive ability and mental strength is very powerful. You're just shy of perfection when it comes to analytic acuity. There are few detectives that can match your intelligence.
+
+[17] Deductionist
+Your detective work is flawless. Clues beautifully piece together in your mind. No criminal is safe from you. You're a genius of your time.
+
+Dynamic Action Score
+
+[0-2] Clumsy Fool
+You're bad at handling physical situations because of your poor reflexes. You're no athlete, perhaps better suited behind a desk where you can't hurt yourself or anyone else with your awkwardness.
+
+[3-4] Agile Acrobat
+Your athletic abilities are above par. You were probably good at sports when you were a teenager going to school.
+
+[5-6] Vigorous Athlete
+High intensity situations are no problem for you. You're strong and fast, capable of making quick decisions and executing confident moves.
+
+How did you do in your investigation? Did you track down the Russian brothers? Did you catch the Shakespearean Bomber? Did you catch him alive?
+
+Post your scores and review!
+
+If you enjoyed this game, be sure to check out Victorian Detective 2 and Victorian Detective 3!
+
+[state=Running]

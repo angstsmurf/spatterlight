@@ -1,0 +1,64 @@
+My name's Walter...
+An hour ago, I was happily, pottering around the garden, digging, weeding, hoeing... in fact,  just generally tidying up, behind the old cludgie whilst the spring weather was still fine and before the onset of the Great British rainy season.
+Through a hole in the hedge, I could see next door's little lad, Willy, an evil, six year old, mini thug, nonchalantly stabbing a bright, silvery object into the eye of a little, pink, teddy bear. He paused when he noticed me looking... grinned and waved a grubby, little hand at me. Despite the heat of the afternoon, I felt an ice-cold chill run down my spine.
+Way down the other end of the garden, I could see my Vera, making her way, slowly, towards the shade of the old, blossom laden, apple tree... within minutes she was asleep and snoring gently. I suppose we're both beginning to feel the weight of our years.
+Eventually, with the heat of the afternoon sun and with a good lunch inside me, I felt I deserved a bit of a respite too... so, knocking the loose mulch from my hands, I picked up the newspaper from the top of the coldframe and headed for the cludgie. I unlocked the door and stepped inside, leaving it slightly ajar to enjoy the shade and, hopefully, the benefit of any passing breeze.
+I settled down, and... lulled by the warm, early afternoon, sunshine and the soft, hypnotic, buzzing of the bees outside the door, I soon dozed off...
+
+Press any key...
+
+The sound of the door, slamming and the key turning, snapped me wide awake...
+
+Somebody had locked the cludgie!!!
+
+A shadow fell across the narrow gap, beneath the door, and my blood ran cold as I heard...
+
+...the malevolent, raucous cackle of that six year old, psychopath, from number 13...
+
+WILLY...!!!
+
+Press any key...
+
+The cludgie consists of a roof, three walls and a door, all constructed of solid oak and secured onto a concrete floor. The inner walls and door are white-washed and a small remnant of neatly fitted, black and white, chequered linoleom covers the floor. The toilet bowl is ancient and chipped and the varnish on the old, wooden seat is beginning to flake. Above the toilet, about head-height, the water cistern is fixed firmly to the back wall. The only light source is via a narrow gap, above the door and another, even narrower one, below.
+I am locked in the cludgie at the bottom of the garden. .
+In the subdued light I can see a door and the floor.
+> stand
+I stand... I can now see the cistern and the gap, above the door, more clearly.
+> look at cistern
+The cistern sits upon two, black-enamelled, cast-iron brackets which are securely screwed to the back wall. The black, bakelite cistern has dulled with age and is festooned with dust encrusted cobwebs.
+Hanging from the cistern is a short length of hosepipe and a rusty chain.
+> take hose
+Reaching up, I twist and pull the hose from the overflow.
+> open newspaper
+I open up the newspaper to the centre pages.
+> slide newspaper under door
+Leaning down, I carefully slide the open newspaper, beneath the door...
+Immediately, a dark shadow falls across the sunlit gap and I hear Willy's cry of triumph...
+I quickly snatch back the paper as two grubby hands attempt to wrench it from my grasp...
+
+Outside... something metallic drops to the ground, rolls under the door and across the floor of the cludgie... Willy stamps a foot in frustration.
+> take whistle
+Reaching down, I pick up the whistle.
+> use whistle on hose
+With a little twisting and pushing, I insert the whistle into one end of the hose.
+> put hose in gap
+
+Reaching up, I feed the hose, whistle end first, through the gap above the door...
+
+Then, putting the other end of the hose to my lips, I give a sharp blast...
+
+Awakened by the sharp, whistle blast and seeing her mortal enemy, Willy, on her territory, Vera charges down the garden path, barking fiercely and chases him back through the hole in the hedge...
+
+Good girl, Vera!!!
+> slide newspaper under door
+Leaning down, I carefully slide the open newspaper, beneath the door, again...
+I wait...
+The newspaper remains in place.
+> take newspaper
+I slowly draw the newspaper towards me...
+Lying in the centre of the newspaper... is the key!!!
+> take key
+I snatch up the key and jam it into the lock.
+Shielding my eyes against the late, afternoon sunshine... I step out of the cludgie.
+You completed the game in 10 moves.
+[state=Finished]

@@ -1,0 +1,40 @@
+Hello there little pony. Dont be shy.
+My name is Discord, and we are going to have lots of fun together.
+If you can beat my game, I will give you a wonderful reward.
+If you can't... well... you will find out soon enough.
+Let the games begin!
+You are in a a dark room.
+You can go west, south or up.
+> w
+> w
+You are in a cold room.
+You can see a box.
+You can go east.
+The room is freezing cold. There is a faint light on the ceiling, and mist. Several equine bodies are suspended off the ground by large blood stained hooks. Most of the bodies have skin torn off, and missing limbs. A lavender pony at the end of the dim room catches your eye. An object is protruding from the lifeless mare's left hind leg.
+> open box
+> open box
+The box creaks as it opens reluctantly. The box contains several bloodstained hooks, a surplus of rope, and a lighter.
+> look at box
+> look at box
+A metal box full of objects.
+> take lighter
+> take lighter
+You obtain a lighter. Now you can create fire.
+> look at pony
+> look at pony
+A knife is stuck in the mare's left hind leg. Maybe it can be pulled out if thawed.
+> use lighter on pony
+> use lighter on pony
+You thaw the leg, and take the knife.
+> use knife on apple
+> use knife on apple
+You carve the apple with your knife, revealing a key.
+> e
+> e
+You are in a a dark room.
+You can go west, south or up.
+You unlock the trap door with your key.
+> u
+> u
+Congratulations! You completed the demo!
+[state=Finished]

@@ -1,0 +1,96 @@
+RandomCats
+
+You are one of the RandomCats, a group of cats and kittens that live in a nice little town in the forest. Your leader has just been killed and it is up to you to find out who did it.
+
+You only have a few suspects; your friends Cremia(you 're staying with her until your house is repaired), Malon, and Romani, or Sprinkles, Rolo and Lasagna. One of them must be the culprit!
+Cremia's House
+You can see Cremia, a Coffee Cup and a Newspaper.
+You can go south.
+This is the house where Cremia lives. You are staying here until your house is repaired.
+> south
+
+> south
+
+Neighborhood of Clouds
+You can see Sprinkles.
+You can go north, south, west, east, northwest or southwest.
+This is the only neighborhood left after the great fire tornado of last century. Now the community is pretty small...
+> accuse sprinkles
+
+> accuse sprinkles
+"I love how you don't have any evidence, yet you insist on accusing me of wrongdoing."
+
+You stare at each other for a while.
+
+"Could you bury this teddy bear with the blue grave?"
+
+> northwest
+
+> northwest
+
+Cemetery
+You can see a Red Grave, a Yellow Grave, a Green Grave, a Blue Grave and a Pink Grave.
+You can go southeast.
+This is the cemetery, where a lot of the fire tornado victims lay at rest...
+> bury bear in blue grave
+
+> bury bear in blue grave
+With which object?
+1: Teddy Bear
+2: Red Grave
+3: Yellow Grave
+4: Green Grave
+5: Pink Grave
+> 1
+You dig up this grave and bury the creepy teddy bear in it. As you cover it back up, a red message appears on the grave and disappears. It reads:
+
+SPRINKLES DID THIS TO MEEEEEE
+
+...okaaaayyy...
+
+Maybe you should go speak to Sprinkles.
+> southeast
+
+> southeast
+
+Neighborhood of Clouds
+You can see Sprinkles and Rolo.
+You can go north, south, west, east, northwest or southwest.
+This is the only neighborhood left after the great fire tornado of last century. Now the community is pretty small...
+> speak to rolo
+
+> speak to rolo
+"Hi. Sprinkles invited me here. Sprinkles says that we should meet up tomorrow at midnight to bury something. That's strange. But, oh well! By the way...have you looked at yourself lately?"
+> southwest
+
+> southwest
+
+Police Office
+You can see an Officer.
+You can go northeast.
+This is the police office, where the police are supposed to be. But only one is here today.
+> turn self in to officer
+
+> turn self in to officer
+"AHA! SO IT WAS YOU ALL ALONG!" The officer shouts.
+
+Sprinkles jumps into the room and points at you.
+
+"AHA! YES! It wasn't me, of course!" Sprinkles tells you.
+
+"But...what about how you were gonna bury something at midnight with Rolo?!"
+
+"YOU FOOL! I was just gonna bury my teddy bear with that blue grave! Thanks for doing it for me..."
+
+"And what about the red message?! And the blue feather?"
+
+"The mayor was my best friend. We had a party the night before he died. And my dad was a real weirdo. He has always believed that I killed him, but really, it was the Fire Tornado. How could you kill the mayor like that?"
+
+"Uh... wait, what? Your dad believed you killed him?"
+
+"Take em' away, officer!"
+
+The officer stares at you blankly. Then he puts some handcuffs on you and leads you away.
+
+Sprinkles waves goodbye. The last glimpse you get of him is of him pulling a knife out of his bag.
+[state=Finished]

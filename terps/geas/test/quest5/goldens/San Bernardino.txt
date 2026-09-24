@@ -1,0 +1,65 @@
+San Bernardino
+1996 Panama Prison Riot
+
+by Sandman Studios
+
+You are in a Cellblock 6.
+You can see an Officer cap, a Keys, a Food container, a Makeshift blade and a Cellphone.
+You can go up or down.
+This is cellblock 6. You woke up here, you get an uneasy feeling.
+> d
+
+> d
+
+You are in a Cellblock 5.
+You can see a Ramen.
+You can go up or down.
+This is cellblock 5.
+> d
+
+> d
+
+You are in a Cellblock 4.
+You can go up or down.
+This is cellblock 4.
+> d
+
+> d
+
+You are in a Cellblock 3.
+You can go up or down.
+This is cellblock 3.
+> d
+
+> d
+
+You are in a Cellblock 2.
+You can see a Satanic bible.
+You can go up or down.
+This is cellblock 2.
+> d
+
+> d
+
+You are in a Cellblock 1.
+You can go up or down.
+This is cellblock 1, while you went down the stairs, you saw a silhouette.
+> d
+
+> d
+
+You are in a Ground floor.
+You can go up or south.
+This is the ground floor. You wanna go outside and leave this place.
+> s
+
+> s
+
+You are in an Outside.
+You can see a Note.
+You can go north.
+You walk outside, you are leaving this place.
+> quit
+
+> quit
+[state=Finished]

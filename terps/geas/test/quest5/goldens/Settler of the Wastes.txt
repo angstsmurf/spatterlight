@@ -1,0 +1,102 @@
+It's been 1 year since we heard the sirens sounded and the bombs dropped... This cellar has been my home, my protection all this time. I wonder what's out there? Yesterday I ate the last of my food, so I guess it's time to find out...
+You are in a shelter.
+You can see an old toolbox, a water bottle, an army cot, a lantern and a big rat.
+You can go up.
+The cold, dark cellar...it may have protected me from heaven knows what but that doesn't mean I have to like it. Everyday the bricks felt like they were getting closer and closer...
+> open toolbox
+You dig through the old tool box
+"In the old tool box you find" a hammer and a tire iron.
+> take hammer
+You pick it up.
+> take tire iron
+> kill rat
+you killed the rat...now you have to eat...
+> eat rat
+you eat the rat....now you have the strength to go exploring
+> u
+You are in a living room.
+You can see door braces, a coffee table and a radio.
+You can go down, out or south.
+> use hammer on door braces
+I pried the wood from the door, now I can get outta here
+> out
+You are in a front yard.
+You can see a truck.
+You can go in, east or south.
+A little bland. Ever since Evelynn left there hasn't even been a splash of color in the yard. The road runs east to west in front of your house, weaving through the surrounding forest. About 15 miles East along Hwy 44 is Camerton, West there's nothing but the Steel Mill.
+> s
+You are in a back yard.
+You can see tire swing, a garden gnome and a bird feeder.
+You can go north or in.
+> in
+You are in a kitchen.
+You can see a drawer, a table (on which there is a molded pot pie) and a trash bin.
+You can go north or out.
+Should've really updated this room. Old pink tiles and a rooster themed border on the walls.....tacky doesn't even begin to describe it.
+> take molded pot pie
+You pick it up.
+> open trash bin
+You open it.
+It contains a banana peel, a coffee grounds, an apple core and a carrot tops.
+> take banana peel
+You pick it up.
+> take coffee grounds
+You pick it up.
+> take apple core
+You pick it up.
+> take carrot tops
+You pick it up.
+> out
+You are in a back yard.
+You can see tire swing, a garden gnome and a bird feeder.
+You can go north or in.
+> n
+You are in a front yard.
+You can see a truck.
+You can go in, east or south.
+A little bland. Ever since Evelynn left there hasn't even been a splash of color in the yard. The road runs east to west in front of your house, weaving through the surrounding forest. About 15 miles East along Hwy 44 is Camerton, West there's nothing but the Steel Mill.
+> e
+You are in a East Towards 44.
+You can see a note nailed to tree.
+You can go west or east.
+> read note
+TO ANY SURVIVORS OF THE TRIALS: If you have any usable skills or supplies and are willing to work and pull your share, come to the New Thomas Ranch off highway 44 and ask for Foreman Devlin Unrick. Please do not travel unarmed. Bandits and eaters have taken the road.
+> e
+You are on the 44.
+You can see a bandit.
+You can go north or west.
+the loooong 44....
+A bandit attacks you!!! He swings a baseball bat at you but misses...
+> attack bandit
+You attack the bandit and land a hit! He falls back and drops his weapon, snarling he runs away.
+> n
+You are in a New Thomas South.
+You can see Devlin Unrick.
+You can go south, north, northeast or northwest.
+> Ask About Work foreman
+" well you look fit enough and we got a spare bunk over in the commons, you bring somin' to the table so's I know you're in it for the long haul and I'll let you stay. Head Northwest of here up to the farms, Ronnie Pillner's our head planter, he'll have a job for ya. Take this farm work visa and give it to 'im. Farms locked down real tight, what with raiders n' all. Won't let you in without it. And I'm gonna have to ask that you stick between here and the Farms til I say otherwise. Can't be too careful with strangers"
+> nw
+You are in a new thomas farms.
+You can see Ronnie Pillner.
+You can go southeast, northeast or east.
+> give farm work visa to ronnie
+"So you're the new blood Unrick's bringin' in ay? 'Bout time I got some help. You wanna make yourself useful, go out and bring me back a few pieces of rotten food, need it for compost. Soils trash out here, nothin' will grow worth a flip unless we beef it up a little. Good foods too valuable to waste on the compost heap and we don't let even a shred of what we've got spoil so you'll need to find some outside these gates. You do this for me and I'll let Unrick know you're a keeper, ay? Here. Here's a Composter Box, you fill this with 5 peices of old food and bring it back. Then we'll talk."
+> give banana peel to composter
+one down 4 to go!!
+> give coffee grounds to composter
+2 down 3 to go!!
+> give apple core to composter
+3 down 2 to go!!
+> give carrot tops to composter
+4 down just 1 to go!!!
+> use molded pot pie on composter
+> give composter to ronnie
+Hey!! You actually came through for me. Give that baby a couple weeks and she'll give us some fine potting soil for the gardens. Take this blank settlers pass over to the foreman. He'll get your name put on it and make it all official. Thanks again!
+> se
+You are in a New Thomas South.
+You can see Devlin Unrick.
+You can go south, north, northeast or northwest.
+> use settlers pass on foreman
+Good work. Seemed like a small deed but you helped out alot as Ronnie tells it. Now we can start planting more vegetables. The settlement is now fully open to you. You may come and go as you please.
+You have completed the demo!!! I know it's short. This is my first attempt at a text based game and is a very rough draft.  I would LOVE to hear your comments critiques and feedback! Not alot of meat on the bone yet but I'm working to add in a monetary system, plenty of quests, and a customizable dwelling. Really wanted some feedback as to whether I'm on the right track or if the stroy is engaging enough so far....
+[state=Finished]

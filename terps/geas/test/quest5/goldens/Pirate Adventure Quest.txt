@@ -1,0 +1,307 @@
+Pirate Adventure Quest
+
+Arrrrrr!  Your dream of being the captain of your own pirate ship is about to come true!  You will be free to hunt treasure and plunder all the swag there is!
+You are on board a pirate ship. The captain and the other crew went on shore to secure supplies.  You were trusted to guard the ship along with your trusty pet monkey. You know the captain has a treasure map and you just know it has to lead to some vast fortune.  Now is your chance to get it all for yourself!  Find the map and steal the ship while they are away.  Hurry before they come back!
+It would be useful to keep a map as you explore an island.
+Try typing these helpful commands:
+     help  .....  for help with commands
+     talk to monkey .... he will advise you if you need help.
+You are   Below Deck.
+You can see a chest and a rat.
+You can go up.
+It is dark and dirty below deck. There is a hammock used for sleeping and a wooden chest secured to the hull. Leading above deck is a wooden staircase.
+
+> look
+You are   Below Deck.
+You can see a chest and a rat.
+You can go up.
+It is dark and dirty below deck. There is a hammock used for sleeping and a wooden chest secured to the hull. Leading above deck is a wooden staircase.
+
+> open chest
+You open it.
+It contains a lockpick and a sword.
+> take all
+chest: You can't take it.
+lockpick: You pick it up.
+sword: You pick it up.
+rat: You can't take it.
+> kill rat
+You slay the rat.  It is dead.
+> up
+You are on the  Ship Bow.
+You can see a port cannon, a starboard cannon and cannon balls.
+You can go down or south.
+There is a staircase leading down below deck and a cannon on either side of the ship. A stack of cannon balls stands ready.
+> south
+You are on the Ship Stern.
+You can see a helm.
+You can go in or north.
+On the stern of the vessel is mounted the wheel to control the rudder. You also see a door leading in to the captains cabin.
+> in
+You are in the Captains Cabin.
+You can see a trunk.
+You can go out.
+The cabin is a small personal room for the captain. There is a table on one side of the room, a trunk beneath it and a bed on the other side. On the wall is a painting of a pirate ship blasting a privateer to smithereens.
+On the table is a map.
+> open trunk
+You do not have the key, but deftly pick the lock with your lockpick.
+You open it.
+It contains a silver key, a doubloon and matches.
+> take all
+treasure map: You pick it up.
+trunk: You can't take it.
+silver key: You pick it up.
+doubloon: You pick it up.
+matches: You pick them up.
+> look map
+A map is drawn on browned parchment in colorful inks. There is a broad X drawn on an island in the North.
+> out
+You are on the Ship Stern.
+You can see a helm.
+You can go in or north.
+On the stern of the vessel is mounted the wheel to control the rudder. You also see a door leading in to the captains cabin.
+> use helm
+Ahhh! You love the feel of wind in your face, and salt on your lips. The ocean is freedom!
+You are now navigating the pirate ship in open sea.
+You are in the Open Sea.
+You can go east, south, west or north.
+You are in open waters
+> west
+You are in the Open Sea.
+You can go east, north, west or south.
+the water stretches as far as you can see, from horizon to horizon
+> north
+You are in the Open Sea.
+You can see an island and a dingy.
+You can go east, south or north.
+You see an island
+> land dingy
+You set anchor, climb in your dingy and row to shore.
+You are in Shipwreck Bay.
+You can see floating debris, a shipwreck and a dingy.
+You can go east or north.
+The calm waters of the bay hide treacherous rocks, waiting for ships seeking safe harbor. You can see one ship submerged with only part of the mast sticking above water. Your trusty dingy is too shallow to be worried about such rocks and is secured on the sandy beach.
+> take debris
+You wade out in the water and sort through the floating debris.  You find a net that may be useful.
+> east
+You are on Turtle Beach.
+You can see a ball, a turtle nest and a boy.
+You can go west.
+You are on a tropical sandy beach. You can see evidence that turtles have been on the beach.
+A beach boy is playing around with a shovel in the sand.
+> give doubloon to boy
+Wow! Treasure!  Yo Ho Ho! Thanks you can have the shovel!
+> dig nest
+You carefully shovel away the sand from the turtle nest and uncover a turtle egg.
+> take egg
+You pick it up.
+> west
+You are in Shipwreck Bay.
+You can see a shipwreck and a dingy.
+You can go east or north.
+The calm waters of the bay hide treacherous rocks, waiting for ships seeking safe harbor. You can see one ship submerged with only part of the mast sticking above water. Your trusty dingy is too shallow to be worried about such rocks and is secured on the sandy beach.
+> north
+You are on  a Jungle Boardwalk.
+You can see a parrot and a gate.
+You can go south or north.
+A boardwalk extends from the bay to a gate in a stockade fence. All around the boardwalk is lush jungle vegetation.
+> give egg to parrot
+The parrot whistles a tune and sings:
+Yo Ho Ho and a bottle of rum!
+> Yo Ho Ho and a bottle of rum
+The gate opens and a voice from behind the gate starts the next verse to the sea shanty.
+> north
+You are in a Pirate Hideout.
+You can see a drunk and a saucy wench.
+You can go south or north.
+Inside the stockade is a pirate hideout. The gate is to the South and toward the North you see a gorge. A saucy looking wench can be heard singing slightly out of tune.
+There is a drunk sitting in the dirt against the stockade wall.
+The drunk motions you over to talk.
+> ask wench about rum
+The saucy wench says, "There is plenty of rum around here." She hands you some rum. "If you want more just ask. Just be warned if you give that drunk anymore he is liable to pass out!"
+> north
+You are on the  Gorge Rim.
+You can see a post.
+You can go south or down.
+You are on the rim of a gorge overlooking the jungle below.There is a warning sign post driven into the ground before the ledge. To the South is the stockaded hideout.
+> use net on post
+You attach one end to the post and drop the other over the side of the gorge.  You can now go down.
+> down
+You are near a Savage Tribe.
+You can see a chieftan and a village.
+You can go up or west.
+You are on the valley floor. You can see the natives have a village beyond and standing before you is the savage chieftan.
+> give rum to chieftan
+The chieftan accepts your offering. You may pass in peace
+> west
+You are in a Jungle.
+You can see a witch.
+You can go east or west.
+You are in the jungle, the mighty jungle. It is hot, humid and lush tropical plants are all around.
+As you travel through the jungle you spot a witch!  She looks at you with a sinister glare.
+> west
+You are on Lookout Point.
+You can go east, south or up.
+You are on a rocky outcropping separating the savage jungle and the boundless ocean. Near the edge of the jungle you can see a treehouse up in a giant tree.
+> up
+You are in a Treehouse.
+You can see a spyglass.
+You can go down.
+The treehouse is a single room with the great tree growing all around it.
+There is a spyglass attached near the window.
+> use lockpick on spyglass
+You use your lockpick to loosen a lens from the spyglass.
+> down
+You are on Lookout Point.
+You can go east, south or up.
+You are on a rocky outcropping separating the savage jungle and the boundless ocean. Near the edge of the jungle you can see a treehouse up in a giant tree.
+> east
+You are in a Jungle.
+You can see a witch.
+You can go east or west.
+You are in the jungle, the mighty jungle. It is hot, humid and lush tropical plants are all around.
+As you travel through the jungle you spot a witch!  She looks at you with a sinister glare.
+> east
+You are near a Savage Tribe.
+You can see a chieftan and a village.
+You can go up or west.
+You are on the valley floor. You can see the natives have a village beyond and standing before you is the savage chieftan.
+> up
+You are on the  Gorge Rim.
+You can see a post.
+You can go south or down.
+You are on the rim of a gorge overlooking the jungle below.There is a warning sign post driven into the ground before the ledge. To the South is the stockaded hideout.
+> south
+You are in a Pirate Hideout.
+You can see a drunk and a saucy wench.
+You can go south or north.
+Inside the stockade is a pirate hideout. The gate is to the South and toward the North you see a gorge. A saucy looking wench can be heard singing slightly out of tune.
+There is a drunk sitting in the dirt against the stockade wall.
+The drunk motions you over to talk.
+> south
+You are on  a Jungle Boardwalk.
+You can see a parrot and a gate.
+You can go south or north.
+A boardwalk extends from the bay to a gate in a stockade fence. All around the boardwalk is lush jungle vegetation.
+> south
+You are in Shipwreck Bay.
+You can see a shipwreck and a dingy.
+You can go east or north.
+The calm waters of the bay hide treacherous rocks, waiting for ships seeking safe harbor. You can see one ship submerged with only part of the mast sticking above water. Your trusty dingy is too shallow to be worried about such rocks and is secured on the sandy beach.
+> use dingy
+You are on the Ship Stern.
+You can see a helm.
+You can go in or north.
+On the stern of the vessel is mounted the wheel to control the rudder. You also see a door leading in to the captains cabin.
+You row back to your ship.
+> use helm
+Ahhh! You love the feel of wind in your face, and salt on your lips. The ocean is freedom!
+You are now navigating the pirate ship in open sea.
+You are in the Open Sea.
+You can see an island and a dingy.
+You can go east, south or north.
+You see an island
+> north
+You are in the Open Sea.
+You can go east, south, north or west.
+the water stretches as far as you can see, from horizon to horizon
+> north
+You are in the Open Sea.
+You can go south, north, east or west.
+the water stretches as far as you can see, from horizon to horizon
+
+> north
+You are in the Open Sea.
+You can go east, south, west or north.
+the water stretches as far as you can see, from horizon to horizon
+> east
+You are in the Open Sea.
+You can see a dingy and an island.
+You can go south, west or east.
+Land ho! An island lies before you. In all other directions is the vast openess of the sea. Seagulls circle and cry in the sky.
+
+'land dingy' to go explore it.
+> land dingy
+You are on the Island Beach.
+You can see a dingy.
+You can go west, east or north.
+The island before you looks harsh and inhospitable. The rocky beach extends east and west. To the north is a sandy path that winds through craggy rocks. The ocean is at your back where your ship can be seen gently rocking with the calm waves. Your dingy is secure on the beach.
+You set anchor, climb in your dingy and row to shore.  Dont forget where you parked!
+> west
+You are on Rocky Beach West.
+You can see a driftwood.
+You can go east.
+The beach becomes more rocky and impassable beyond here. There is a smell of saltwater in the air.
+You see a piece of driftwood laying on the beach
+> take driftwood
+You pick it up.
+> east
+You are on the Island Beach.
+You can see a dingy.
+You can go west, east or north.
+The island before you looks harsh and inhospitable. The rocky beach extends east and west. To the north is a sandy path that winds through craggy rocks. The ocean is at your back where your ship can be seen gently rocking with the calm waves. Your dingy is secure on the beach.
+> east
+You are on Rocky Beach East.
+You can see a bottle.
+You can go west or east.
+The beach is rocky and footing is tough.
+You see a glass bottle bobbing in the tide
+> east
+You are on Dead Tree Beach.
+You can see a dead man and a rope.
+You can go west.
+You see a dead tree at the end of the beach. Beyond here the beach disappears and the rocks get too high to climb.
+There is a dead man with a noose around his neck hanging from the tree.  He swings gently in the breeze coming off the ocean.
+> take rope
+You pick it up.
+You untie the rope and let the corpse fall to the ground.
+> west
+You are on Rocky Beach East.
+You can see a bottle.
+You can go west or east.
+The beach is rocky and footing is tough.
+You see a glass bottle bobbing in the tide
+> west
+You are on the Island Beach.
+You can see a dingy.
+You can go west, east or north.
+The island before you looks harsh and inhospitable. The rocky beach extends east and west. To the north is a sandy path that winds through craggy rocks. The ocean is at your back where your ship can be seen gently rocking with the calm waves. Your dingy is secure on the beach.
+> north
+You are on a Sandy Path.
+You can go south or north.
+The sandy path runs north - south between the rocks. The path meanders around rocks in an uphill manner as it moves inland.
+> north
+You are on Sandy Path North.
+You can see a tree.
+You can go south or north.
+The sandy path continues running North - South. The farther inland the path progresses the more vegetation is seen.
+> drop driftwood
+You drop it.
+You lay the driftwood across the surface of the quicksand.  After taking a tentative step on it you realize its not sinking and are able to use this as a bridge to cross.
+> north
+You are at a  Crystal Spring.
+You can see a spring.
+You can go south, east or west.
+A spring of crystal clear water lies before you. The water wells up and runs to the east. There is a path alongside the flowing stream. All around you are now surrounded by tropical vegetation.
+> east
+You are at an  Abandoned Hut.
+You can see a hut and a staff.
+You can go west, east or in.
+The path follows the stream which cuts through the tropical vegetation forming an opening eastward. On the bank of the stream is a hut made of wood and dried leaves.
+> east
+You are at the  Top of Waterfall.
+You can go west.
+The stream rushes past and falls into the ocean in a dramatic display of natural beauty. Spray is caught in the breeze forming a rainbow across the falls.
+> use lens
+You hold the lens up to the sunlight and it catches the rays perfectly shining them into the rainbow.  When you do the rainbow becomes firm and forms a bridge.  You follow the rainbow into a hidden chamber in the opposite cliff.
+You are in the Secret Hideout.
+You can go out.
+You are in a spacious secret hideout of unlimited luxury. Your every desire is anticipated and taken care of as if by magic.The room is filled with enough treasure to make a king envious. All forms of entertainment imaginable are provided and there is a doorway that leads to wherever you want to go.You could spend a very long life here and be very happy.
+
+On the wall is a plaque that says:
+
+Thank you for playing.
+Designed and created by Matt Woloszyn 2012
+
+> quit
+[state=Finished]

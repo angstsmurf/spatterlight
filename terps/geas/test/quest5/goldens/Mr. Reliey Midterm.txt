@@ -1,0 +1,57 @@
+You have just been called by your boss into his office. He claims he has an important task for you to complete. Unfortunately you have to comply with his request. You walk towards his office.
+You are in  a Office.
+You can see a The Boss Man, a Door and a Portrait.
+You can go south.
+This is a high class office with some fancy furnishings floating around. There is some high muckety muck sitting in a swivel chair looking a little like Emperor Palpatine but your not sure. There is a self portrait of himself above his chair. He is staring at you intently and motions for you to come closer. You should probably talk to him.
+> talk to boss
+As you start to speak the Boss Man looks at you intently for a few seconds before hushing you.  He then begins to speak.  "The company has decided to give you a very great task that must be completed as soon as possible.  You are to figure out how entertainment affects the local, US, and world economy.  I want you to specifically focus on movies and entertainment.  You can use any resources we have at the company and can do whatever you see necessary to complete this task.  Here this may be of some use to you."  The Boss Man shoves a note into your hand.  "We are all counting on you.  Go the clock is already ticking as I need this ASAP!"
+> s
+You are in a Hallway.
+You can see a Rug.
+You can go west, east, south or north.
+The hallway is very long with various doors to the right and left of you.
+> w
+You are in a Office.
+You can see a Desk (on which there is a Golden Paper).
+You can go east, south or west.
+You are in a small room of some sort. It is an office of some sort. With a persons desk there
+> take golden paper
+You pick it up.
+> rip golden paper
+The paper is now ripped in half and I also heard a clicking sound.
+> s
+You are in a Room.
+You can see a Door.
+You can go south or north.
+Its a blank room!
+> s
+You are in a Secret Room.
+You can see a Yoda.
+You can go north.
+You are in a dimly lit room.You instantly see a figure in the shadows who greats you with, "You who are?" As soon as he says that you know who he is. Its Master Yoda! If anybody can help you solve this puzzle, it is Master Yoda you should talk to him.
+> ask yoda about finish
+"Hmm simple question you ask.  Go to your boss you will and tell him these exact words you must.  "Tell boss man about finished task".  Only then complete this game you will.
+> n
+You are in a Room.
+You can see a Door.
+You can go south or north.
+Its a blank room!
+> n
+You are in a Office.
+You can see a Desk.
+You can go east, south or west.
+You are in a small room of some sort. It is an office of some sort. With a persons desk there
+> e
+You are in a Hallway.
+You can see a Rug.
+You can go west, east, south or north.
+The hallway is very long with various doors to the right and left of you.
+> n
+You are in  a Office.
+You can see a The Boss Man, a Door and a Portrait.
+You can go south.
+This is a high class office with some fancy furnishings floating around. There is some high muckety muck sitting in a swivel chair looking a little like Emperor Palpatine but your not sure. There is a self portrait of himself above his chair. He is staring at you intently and motions for you to come closer. You should probably talk to him.
+> tell boss about finished task
+Okay well done I expect a complete essay on my desk in one week.
+You have won! Well done!
+[state=Finished]

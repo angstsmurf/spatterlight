@@ -1,0 +1,264 @@
+Ten Pin Panic
+Escape This Podcast (Season3, Episode 8)
+
+by Dani Siller (adapted by DavyB with James Spaid)
+
+Sound effects have been switched off. Type SOUND to switch them on again.
+INTRODUCTION.
+People laughed at you when you told them you wanted to be a professional sports star. You don't have the tenacity, they told you. The discipline. You're not in the gym ten hours a day and you've never gotten up at four AM.
+
+Then, you told them you were going to be a professional gamer, and they didn't laugh. Well, not exactly. They kind of didn't know that was a thing, it being in the years before pro gaming was a big deal.
+
+Finally, you met them in the middle. You combined your two loves, sports and games, and you announced to the world that you would be the world's greatest tenpin bowler. And yes, initially, when they heard that your family put their heads in their hands for a little while and wondered where they went wrong, but nobody's wondering now. And nobody’s laughing, either. Because you're doing it.
+
+You're almost there. In fact, if you win tonight's Grand Ultimate League Championship, you’ll be jet-setting to Detroit, the bowling capital of the world. (Don't listen to any of those other cities who say it's changed.) The only thing standing in your way is Bradley.
+
+You can't stand Bradley. He grew up with bowling privilege: his father and uncle own their own alley, so he’s been practising since he was born. His game average is the same as yours, and you share a local record for most consecutive strikes in one night. But you’ve got him tonight: you've heard he injured his index finger and hasn't been able to practise for a whole week. He’s finished!
+
+A couple of hours before you're supposed to arrive at the Championship, you start driving, but then you remember they don't allow warm-up time. You'll need to stop in at another alley beforehand to get your arm limber. Your GPS directs you to the nearest place that’s still open... and to your dismay, it's Bradley's family's. Well, you don't have much choice. And maybe he won't be there.
+
+You enter and look around. And standing right by the pinball machine is Bradley.
+
+You aren't sure how it happens. One minute, he’s reaching forward for a friendly-looking handshake; next minute, powerful hands have shoved you from behind and you see black as your head hits the floor. You feel hands rummaging through your pockets, grabbing your wallet and phone. You hear voices you recognise – Bradley's team mates for non-solo competitions. Nobody's coming to your aid. That's what you get for stepping onto your rival’s home ground. By the time you open your eyes and make it to your feet, there’s absolutely nobody left in the building, and the door is locked behind you.
+
+Was this a set-up? But how? How could they have possibly known you'd... unless they were the only bowling alley still open in the area, and they knew you'd need to warm up... and now your locked in, and that trip to Detroit is as good as Bradley's. Well, you're not going to let that happen. There must be a way out.
+
+The Bowling Alley
+With trepidation, you examine your surroundings...
+
+The front door is in the south-east corner on the south wall. To your left are two arcade games, a pinball machine and a claw crane. Beyond that is a long counter, behind which is a rental area full of shoes. The north half of the room consists of the bowling lanes: four of them, each set up with its pins, chairs, ball return machine and computer. Against the west wall is a prize machine that presumably goes with the arcade games. By the east wall is a food counter, and hanging from this wall is a league board, a big placard with names on it. In the middle of the floor is a large rack of usable bowling balls.
+
+ [Type help for information about the game and how to play it]
+> look above league board
+
+> look above league board
+You run one hand very carefully along the top edge of the league board. You'd never have noticed were you not specifically looking for it, but since you are, you feel something. It's covered by smooth tape, which you pick back – and you find a little key.
+Gained Item: small key.
+> use small key on front door
+
+> use small key on front door
+You try the key on the small lock and it opens! But the door itself doesn't. There's still a second lock to worry about. But as you open the small lock, something flutters out and down to the floor. There was a piece of paper stuck in there, as if it had caught while someone was leaving. You pick it up.
+Gained Item: piece of paper.
+> x paper
+
+> x paper
+It's a receipt saying: “2x Chaos, Size 8 white & 10 seafoam blue, medium-firm grip.” And at the bottom, you recognise Bradley's signature.
+> search rental area
+
+> search rental area
+It takes a while to search through the piles and piles of shoes, but you do find two pairs packed beside each other that match the receipt, with a post-it on them saying, “In for repairs – laces”. Ha, his shoes had to be repaired, tonight of all nights? Pretty bad luck for him.
+Gained Item: Bradley's shoes.
+> x bradley's shoes
+
+> x bradley's shoes
+It doesn't take you long to spot the problem. On most of the bowling shoes here, the laces are knotted in a particular way so that they can't be pulled out without a special tool. These ones, though, have been unknotted. Three of the shoes' laces, anyway. So if you wanted, you could have three long pieces of lace, and sabotage Bradley's shoes in the meantime.
+Gained Item: laces.
+> x laces
+
+> x laces
+You have removed three of the four laces in Bradley's shoes. Looking closely at them, you actually think you see something written on the aglets (the plastic caps at the ends). On the knotted lace, you see the teeny tiny words, “What does it look like?” One of the loose laces says, “Chair-door”. One says, “People-chair”. And one says, “Door-people”. Someone went to a lot of effort to inscribe this.
+> search bowling balls
+
+> search bowling balls
+You lift one or two of the balls and they feel relatively normal. Not quite as well-weighted as your own, but not bad. That is, until you get to one, a heavy one with a green, swirly colour pattern and extra-large finger holes: there's something inside. You can hear it moving around. You tip the ball upside down and shake it a bit, and a few coins fall out.
+Gained Item: coins.
+> use coins on crane game
+
+> use coins on crane game
+You put in a coin and the game lights up. With the lights, you can now see that the interior is set up like a 6x6 square grid, with the claw in the bottom left corner and the prize in the top right. Each little square is labelled with coordinates, A-F going across, 1-6 going down (ie. Your claw is in A6 and the prize is in F1).
+
+You give the claw a test, and find that it only moves like a knight does in chess: in the diagram above, it may move two squares vertically and one square horizontally, or two squares horizontally and one square vertically. If the claw isn't over the prize after 6 moves, you lose.
+> move claw
+
+> move claw
+Where would you like to move the claw:
+(Type the location below )
+> C5
+
+You enter "C5".
+
+The claw moves to C5. You have had one turn.
+> move claw
+
+> move claw
+Where would you like to move the claw:
+(Type the location below )
+> B3
+
+You enter "B3".
+
+The claw moves to B3. You have had two turns.
+> move claw
+
+> move claw
+Where would you like to move the claw:
+(Type the location below )
+> D2
+
+You enter "D2".
+
+The claw moves to D2. You have had three turns.
+> move claw
+
+> move claw
+Where would you like to move the claw:
+(Type the location below )
+> F1
+
+You enter "F1".
+
+The claw moves to F1. You have had four turns.
+> push button
+
+> push button
+You did it! The claw drops, picks up the prize and puts it into the exit chute.
+Gained Item: prize.
+
+The claw returns to its starting position and the crane game shuts down.
+> x prize
+
+> x prize
+You realise you're holding a small, plush computer keyboard. What kind of a toy is that? Some of the keys on it are pressed down like an invisible person is typing: in order from the top left, they're the E, R, T, Y, U and K keys.
+> use computers
+
+> use computers
+You switch on one of the computers and see the prompt:
+
+PASSWORD:
+(Type it below )
+> TURKEY
+
+You enter "TURKEY".
+
+It works! A 'loading' screen pops up showing two icons, one with the label 'lane' and one saying 'bumpers'. Trying the other lanes' computers, you see they all have the same password and loading screens.
+> click on lane icon
+
+> click on lane icon
+With a whirring noise, the ball return machine's conveyor belt starts rolling and the pin controller lights up. You decide to activate all the ball returns.
+> click on bumpers icon
+
+> click on bumpers icon
+A noise comes from the lane, and two bumpers pop out from the sides. You do the same for the other lanes. No gutter balls for you. Not that you need the help.
+> x bumpers
+
+> x bumpers
+The bumpers on all four lanes are black and white, but by that, you don't mean they're identically striped. No; the left bumper on Lane 1 is totally black, and the right one is totally white. But then on Lane 2, the left and right are both white. On Lane 3, the left is black and the right is white, and on Lane 4 the left is white and the right is black.
+> use coins on pinball machine
+
+> use coins on pinball machine
+You put in a coin and get playing. But whoa, this is no ordinary pinball game. This is hard. Why is it going so fast? Why isn't your score going up? Before you know it, the ball has dropped down the centre and you've lost. An electric message flashes across the top of the machine: YOU LOSE. HIT BUMPERS IN ORDER TO ADVANCE. You look at the bumpers in the game. There's one black one, one white one. You're sure you hit them when you were playing. What's the order you're supposed to hit them in?
+> hit black bumper
+
+> hit black bumper
+Yea, that works!
+> hit white bumper
+
+> hit white bumper
+Yea, that works!
+> hit white bumper
+
+> hit white bumper
+Yea, that works!
+> hit white bumper
+
+> hit white bumper
+Yea, that works!
+> hit black bumper
+
+> hit black bumper
+Yea, that works!
+> hit white bumper
+
+> hit white bumper
+Yea, that works!
+> hit white bumper
+
+> hit white bumper
+Yea, that works!
+> hit black bumper
+
+> hit black bumper
+You did it! The pinball machine lights up, the word ADVANCE! flashes across it, and near your right hand, five prize tickets emerge from a little hole. You're welcome to keep playing, but it's only going to get harder and is most certainly beyond your ability. Plus, you shouldn't over-exert your precious bowler's hands.
+Gained Item: prize tickets.
+> use prize tickets on prize machine
+
+> use prize tickets on prize machine
+The machine shakes, and a prize pops out. It's a rolled-up piece of paper.
+Gained Item: piece of paper.
+> x paper
+
+> x paper
+When you unfurl the paper you find yourself looking at a map of the bowling alley. Well, sort of. It looks like a child's version. Instead of a modest wood colour, the floor is bright yellow. The balls are just lying all over the floor, and they're just red circles. The number of lanes isn't right, and there are stick figure people playing on one of them, which isn't something normally included on a map. This is... a strange prize.
+
+You feel there is something familiar about the map but can't explain what it is just yet.
+> use laces on map
+
+> use laces on map
+As you lay the laces over the map, following the directions on the aglets, you find they form a downward-pointing triangle. Inside the triangle are several of the red bowling balls, on top of the bright yellow floor.
+> x food counter
+
+> x food counter
+There's a broad selection here. Shelves, fridges, freezers, soft drinks on tap, even a couple of hard drinks in a childproof cabinet. Despite Bradley’s behaviour, you happen to know his family aren't bad people; you don't want to steal food from them unless it somehow turns out to be necessary.
+> use food
+
+> use food
+What food are you looking for?
+(Type it below)
+> pizza
+
+You enter "pizza".
+
+Recognising that the laces mark out what appears to be a slice of pepperoni pizza, you open the freezer and search through the frozen party food. And yes, there are some pizza boxes! Lots of flavours to choose from, but you pick the pepperoni; the picture on its box looks most like the pizza in the kid's map.
+Gained Item: pizza box.
+> open pizza box
+
+> open pizza box
+You open the box. Inside the pizza is sitting on a cardboard base. You lift the pizza… and stuck between it and the base are ten prize tickets!
+Gained Item: prize tickets.
+> x long counter
+
+> x long counter
+You walk behind the counter and immediately whack your hip against something. What the – that shouldn't be here! There's a kid ramp, one of those small ramps children use when bowling to help them with their aim and momentum. Shaking off the pain, you return to your examination of the counter.
+
+You look at the counter above and below. There's nothing strange here. Most stuff has been put away for the night. The only thing you find – and it gives you a bit of a pang to see it – is a poster advertising the league championship game you're supposed to be attending. There's a bowling ball with a big smile gracing the page, along with the words, “Are you a winner? How about the person beside you? Look in every direction for a champion!”
+> drag kid ramp
+
+> drag kid ramp
+Where do you wish to move the kid ramp?
+Just type the name below.
+> bowling lanes
+
+> move kid ramp to bowling lanes
+You drag the kid ramp from behind the counter over to the bowling lanes, where it would be more useful.
+> look under chairs
+
+> look under chairs
+There's writing under some of these chairs. Under a Lane 1 chair there are the words 'HIT LANE'. Under a Lane 2 chair you see the number '4'. Under a Lane 3 chair it's the word 'PINS'. And under a Lane 4 chair it says '7 & 10'.
+> use bowling balls
+
+> use bowling balls
+Using the kid ramp, you eventually hit the two pins perfectly, without even touching the others, and the machine up the end gets to work replacing them. In the meantime, the ball returns machine whirs, and the ball you threw comes rolling back up to you. You pick it up, and to your surprise, there's something stuck to it. Ten prize tickets!
+Gained Item: prize tickets.
+> use prize tickets on prize machine
+
+> use prize tickets on prize machine
+The machine shakes and vibrates, and a prize pops out. It's smaller than you'd expect for a Major Prize, but for what it is, it's actually quite large: it's a big, fancy key.
+Gained Item: large key.
+> use front door
+
+> use front door
+Now that you have both keys you open the small lock and large lock in turn.
+
+Congratulations! You've made it!!
+With both locks open, you wrench the door inward and storm out – but you carefully close it behind you again; you don't want Bradley's family's business getting robbed. Your car is still in place, and mercifully, you still have your car keys. And – hey, that's your wallet and phone lying on the asphalt by your front tyre! That was oddly polite of him. Either that or he didn't want any evidence of theft on his person.
+
+That's okay; you don't want him arrested. You just want to destroy him on the alley and crush his every last hope and dream, in front of the family that probably put a lot of pressure on him growing up to be a great bowler. Yeah. That's what you want. Detroit will be yours.
+
+Summary
+Wow, you completed the game in less than a minute without using any hints! Clearly, you are not a person to mess with!!
+
+THE END...?
+
+Season 5, Episode 1:
+Now You See Me
+[state=Finished]

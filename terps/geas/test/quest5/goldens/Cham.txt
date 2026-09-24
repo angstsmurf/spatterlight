@@ -1,0 +1,293 @@
+Cham
+Chapter One: The Black Tower
+
+by mick green
+
+Use just 2 word instructions.
+
+Cham is from the kingdom of Sag. All was peaceful much of the time but for once every few years when an enormous black tower materialised out of thin air, bringing with it an army of foul beasts from goblins to dragons. They plundered all the wealth they could and then vanished back away to whatever place they dwelt.
+One day while walking along, a mermaid jumped into Cham's arms (Cham was the one walking) and offered to fulfill any wish if Cham would deposit her back in the sea.
+"Aye!" Cham did sayeth, "And you will fullfill my wish by depositing me wherever be the black tower, and I will crush every stone thereof and all the black hearts therein!"
+So this the mermaid did...
+
+You are by a winding stream.
+You stand with your feet buried in strong, twisty grass, listening to the gentle rush of fresh running water.
+To the west you can see into the distance, the landscape changing form as the vibrant greens ebb away so that the ground becomes a strangely congenial and remarkably flat carpet of moss. The stream continues its meander south. Apart from that, the only direction that doesn't deter you with an uncomfortable climb is northeast.
+> look
+
+> look
+You are by a winding stream.
+You stand with your feet buried in strong, twisty grass, listening to the gentle rush of fresh running water.
+To the west you can see into the distance, the landscape changing form as the vibrant greens ebb away so that the ground becomes a strangely congenial and remarkably flat carpet of moss. The stream continues its meander south. Apart from that, the only direction that doesn't deter you with an uncomfortable climb is northeast.
+> west
+
+> west
+
+You are on a tranquil moor.
+Under your feet is a soft, flat carpet of moss.
+To the east is rich greenery. northward  looks to be the edge of a forest, where the land begins to slope rather steeply downwards towards the trees.
+There is another way northwest.
+> north
+
+> north
+
+You are in the beginnings of a deliciously green forest.
+You are on  a hillside that is north-facing, among scattered trees at the edge of the forest.
+The deeper forest directly north looks beautifully inviting. You notice a wooden shack nearby with a rickety door leading in.
+There is another way south.
+> in
+
+> in
+
+You are in a wooden shack.
+You stand in the middle of the dusty floor, niggled at by the low, web-laden ceiling.
+Behind you, a curling, flappy door leads out.
+You can see a shabby broom, a golden potion, a clear potion and a dark brown potion.
+> take all
+
+> take all
+shabby broom: You pick it up.
+golden potion: You pick it up.
+clear potion: You pick it up.
+dark brown potion: You pick it up.
+> sweep floor
+
+> sweep floor
+Did you hear a tinkling sound?
+The floor looks no better at all!
+> take coin
+
+> take coin
+You pick the coin up and polish it to make it shine.
+> out
+
+> out
+
+You are in the beginnings of a deliciously green forest.
+You are on  a hillside that is north-facing, among scattered trees at the edge of the forest.
+The deeper forest directly north looks beautifully inviting. You notice a wooden shack nearby with a rickety door leading in.
+There is another way south.
+> north
+
+> north
+
+You are in the deep green forest..
+Thick foliage huddles at the feet of tall robust trees of Fir and Beech. The way slopes down to the north. You can hear the loud rumble of a waterfall.
+There is another way south.
+You can see an ancient well.
+> flip coin
+
+> flip coin
+You miss flip the coin! You try to catch it but instead punch it into the well... you hear nothing for a while until there is an almighty crash and a rumble that sends tremors through the ground!
+> south
+
+> south
+
+You are in the beginnings of a deliciously green forest.
+You are on  a hillside that is north-facing, among scattered trees at the edge of the forest.
+The deeper forest directly north looks beautifully inviting. You notice a wooden shack nearby with a rickety door leading in.
+There is another way south.
+> south
+
+> south
+
+You are on a tranquil moor.
+Under your feet is a soft, flat carpet of moss.
+To the east is rich greenery. northward  looks to be the edge of a forest, where the land begins to slope rather steeply downwards towards the trees.
+There is another way northwest.
+> east
+
+> east
+
+You are by a winding stream.
+You stand with your feet buried in strong, twisty grass, listening to the gentle rush of fresh running water.
+To the west you can see into the distance, the landscape changing form as the vibrant greens ebb away so that the ground becomes a strangely congenial and remarkably flat carpet of moss. The stream continues its meander south. Apart from that, the only direction that doesn't deter you with an uncomfortable climb is northeast.
+> pour brown
+
+> pour brown
+You pour the dark brown liquid into the stream...
+> south
+
+> south
+
+You are on a riverbank.
+The river runs from the north and carries on south. There is a cave entrance to the west.
+You can see a group of wooden goblins.
+> quaff clear
+
+> quaff clear
+You quaff the clear potion...
+All of a sudden the wooden goblins come to life! They quickly surround you, apparently unaware of their temporary departure from existence and overpower you!
+
+You are in a desolate dungeon.
+You are chained to a stone column of square shape, with your back against it, your legs loosely stretched out on a dusty dry floor. You look around... it is immense! You look up, the height is tremendous! How did you get here?
+> lick dust
+
+> lick dust
+I suppose you might as well...
+As the agonizing hours pass and turn into days you start to waste away... You realize though that some of this wasting away is actually a physical shrinking! You wonder whether you are going insane as you are now at the point where you can almost slip your hands out of the shackles... That's the last thing you remember.
+
+You are in a comfortable little lounge. A man in flowing robes and wearing a monocle is talking to you.
+"Well done for availing yourself of my shrinking dust! Unfortunately I had to carry you here in my pocket - sorry about that."
+
+You are on a riverbank.
+The river runs from the north and carries on south. There is a cave entrance to the west.
+You can see several dead goblins, strewn across the ground and a clear potion.
+looking up you are sure the clouds form the words - 'LICK CLOUDS'. No that can't be right.
+> take clear
+
+> take clear
+You pick it up.
+> west
+
+> west
+
+You are in a cave.
+It seems you are on the threshold of a very long tunnel, setting off northwest and turning to the north. The riverbank is east.
+You can see a heavily fortified chest.
+> northwest
+
+> northwest
+Rays of daylight stream down from high above.
+
+You are in a long curving tunnel.
+The smooth, rock-lined passage worms its way from the cave entrance (southeast), and ends where you stand.
+You can see some neatly painted words and a hole.
+If you wish you can go down the hole.
+> down
+
+> down
+
+You are in the goblin chief's quarters.
+What was once a goblin's place of solace is now a pit full of rubble. You can climb back up to the tunnel.
+You can see some crushed goblin, a square tassled rug, a heavily fortified chest and a portrait of a goblin.
+> take rug
+
+> take rug
+You pick it up.
+> open chest
+
+> open chest
+You open it... It's full of weapons that you don't think amount to much, apart from a pearl handled machete which you like! You also find a large iron key sitting on the top.
+> take all
+
+> take all
+crushed goblin: You can't take it.
+heavily fortified chest: You can't take it.
+portrait of a goblin: You pick it up.
+pearl handled machete: You pick it up.
+master key: You pick it up.
+> up
+
+> up
+Rays of daylight stream down from high above.
+
+You are in a long curving tunnel.
+The smooth, rock-lined passage worms its way from the cave entrance (southeast), and ends where you stand.
+You can see some neatly painted words and a hole.
+If you wish you can go down the hole.
+> southeast
+
+> southeast
+
+You are in a cave.
+It seems you are on the threshold of a very long tunnel, setting off northwest and turning to the north. The riverbank is east.
+You can see a heavily fortified chest.
+> east
+
+> east
+
+You are on a riverbank.
+The river runs from the north and carries on south. There is a cave entrance to the west.
+You can see several dead goblins, strewn across the ground.
+> north
+
+> north
+
+You are by a winding stream.
+You stand with your feet buried in strong, twisty grass, listening to the gentle rush of fresh running water.
+To the west you can see into the distance, the landscape changing form as the vibrant greens ebb away so that the ground becomes a strangely congenial and remarkably flat carpet of moss. The stream continues its meander south. Apart from that, the only direction that doesn't deter you with an uncomfortable climb is northeast.
+> west
+
+> west
+
+You are on a tranquil moor.
+Under your feet is a soft, flat carpet of moss.
+To the east is rich greenery. northward  looks to be the edge of a forest, where the land begins to slope rather steeply downwards towards the trees.
+There is another way northwest.
+> northwest
+
+> northwest
+
+You are in an enchanting heath.
+You behold a rolling patchwork of colorful grass and moss.
+The base of the monstrous black tower is here, it's trunk climbing endlessly into the sky.
+There is a way southeast.
+You can see a horse.
+> pour brown
+
+> pour brown
+You pour out the potion on the ground...
+> take wooden horse
+
+> take wooden horse
+You pick it up.
+> southeast
+
+> southeast
+
+You are on a tranquil moor.
+Under your feet is a soft, flat carpet of moss.
+To the east is rich greenery. northward  looks to be the edge of a forest, where the land begins to slope rather steeply downwards towards the trees.
+There is another way northwest.
+> east
+
+> east
+
+You are by a winding stream.
+You stand with your feet buried in strong, twisty grass, listening to the gentle rush of fresh running water.
+To the west you can see into the distance, the landscape changing form as the vibrant greens ebb away so that the ground becomes a strangely congenial and remarkably flat carpet of moss. The stream continues its meander south. Apart from that, the only direction that doesn't deter you with an uncomfortable climb is northeast.
+> northeast
+
+> northeast
+
+You are in a dusky glade.
+This place has a grimness that sends a chill running through you.
+Though a treeless space, it is roofed with branches and little light is able to enter. There is a way down to the south of you. There is a steady ascent to the north.
+> north
+
+> north
+
+You are in a windy field.
+The field is darkened and cool, under shade somehow and in the shadow of a tall white tower.
+A wooden door leads into the tower. To the south is back the way you came.
+> in
+
+> in
+
+You are in the white tower.
+You are at the bottom of a winding staircase leading up.
+Another way leads out.
+> up
+
+> up
+An eternity of endless staircase leaves you breathless!
+
+You are in the top of the white tower.
+A winding staircase leads down. There is a window here, through which can be seen the top of the black tower.
+You can see some writing on the wall and a wooden man.
+> quaff clear
+
+> quaff clear
+You quaff the clear potion...
+You have to drop the horse!
+The horse is no longer wooden!
+You quaff the clear potion...
+The wooden man comes to life!
+The strange, monocled man clicks his fingers - click! -  and you find yourself in a different place entirely...
+
+END OF CHAPTER ONE
+
+Thanks for playing to the end!
+your score =82points.
+[state=Finished]

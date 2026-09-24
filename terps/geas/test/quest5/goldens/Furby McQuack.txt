@@ -1,0 +1,309 @@
+Furby McQuack
+Rain on Furby's Parade
+
+by Xanadu Magoo
+
+You are in a living room.
+You can see a southern window, a western window, an eastern window, a table (on which there is an old phone) and a front door.
+This is a very bare living room.  There is a squat table here - that is it.  The front door to your home is to the north and each wall has a window at its center.  The west window looks out at your neighbor's home.  The south window looks into your backyard.  The east window looks out onto the busy road.
+> x eastern window
+
+> x eastern window
+You glance out the window and into what is usually a busy street.  Odd... there doesn't seem to be any traffic and several people are sitting in lawn chair along the side of the road.  You wonder if they are expecting something?
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+You hear some clattering coming from the mail slot at your front door followed by a thunk.  It appears that the newspaper has been delivered.
+> wait
+
+> wait
+Time passes.
+> take newspaper
+
+> take newspaper
+You pick it up.
+> read newspaper
+
+> read newspaper
+You pick up the paper and give it a quick read.  An article catches your eye.  Evidently there is a parade today that is marching down Main Street - YOUR street!!
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+You hear the sounds of a marching band outside your home.
+> wait
+
+> wait
+Time passes.
+> x eastern window
+
+> x eastern window
+You look out the eastern window with the eager anticipation of an eight year old girl.  You wait and you see the beginning of the parade.  The band leading the way is huge and awesome!  Just behind that are circus performers involved in some hilarious skit.  Then, the Miss America Contestants sashay by modeling their bikinis!  Funny clowns follow tossing out delicious looking candies!  And... and... and... the parade of sheer awesomeness continues, one bodacious act after another!
+> x eastern window
+
+> x eastern window
+The stream of gorgeous people, funny people, bands, dancers, candy throwers, and everything else that is awesome continues down the street outside your house.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+The cacophony of parade music and laughter trails off down the street.
+> wait
+
+> wait
+Time passes.
+> x eastern window
+
+> x eastern window
+You look out the eastern window toward the road.  The silence out there is heartbreaking.  Trash tumbles down the road in the cool breeze.  The Parade of Greatness has departed.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+The silence in your one room house is deafening, but you hear a *haa-eck* of metal against metal followed by a clang.  That is the sound of your mail being delivered.
+> wait
+
+> wait
+Time passes.
+> x front door
+
+> x front door
+The sound of your mail being delivered has gotten you curious.  You glance out the window of your front door and see some mail wedged in your partially closed mailbox.  You've never seen that letterhead before.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+Your mind wanders back to that letter in your mailbox.  It looked pretty important.  Maybe you should look out there again?
+> wait
+
+> wait
+Time passes.
+> x front door
+
+> x front door
+You go back to the little window in your door and peer out toward your mailbox again... that letter.  You squint hard and can make out the first couple lines on the letter.... "CONGRATULATIONS!  YOU HAVE WON $1,000,000!  Just be the first to take this letter to your neighbor's house to collect your winnings!"
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+You hear some heavy footsteps on your front porch!  Perhaps you should see who is there?
+> wait
+
+> wait
+Time passes.
+> x front door
+
+> x front door
+You're concerned about the winnings you stand to lose so you race back to the front door to see who or what is out there.  All you see is a very large man, dressed in a heavy black leather coat, walk off your porch and head to the west... toward your neighbor's house!!  You glance at your mailbox and it is...
+
+EMPTY!!!
+
+NOOOOO!!!
+
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+Your phone is ringing...
+> answer phone
+
+> answer phone
+You pick up the phone and say "Hello."
+
+"Hi, neighbor," a voice shouts over some loud conversation in the background.  "Come over to our house and join the party!  It starts in about three minutes!"  It's hard to hear over the growing noise.  Someone has turned some music on next door.  "There will be free beer, free food, and best of all... FREE MONEY!!  We won the mega-million lottery! Come join the fun!"
+
+Before you can respond to your neighbor, you hear the unmistakable click and silence that can only mean your neighbor has hung up.
+
+The sounds next door are growing louder.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+The party next door really seems to be cranking up!
+> wait
+
+> wait
+Time passes.
+> x western window
+
+> x western window
+You look out the western window toward your neighbor's house.  What you see is almost inexplicable... In the house you see hundreds of people pulsating under a strobe light to some window rattling techno music.  Drinks are free flowing and people are going in and out of the money tornado-phone booth thing, each "contestant" walking out with fist fulls of one-hundred dollar bills.  Outside of the house you see scantily clad party-goers, some in the neighbor's pool, some playing poker at an outdoor table, others dancing to the music.  That party is awesome!!
+
+And... here you are, trapped in your one room house.  This STINKS!
+> wait
+
+> wait
+Time passes.
+
+You're not sure if it is your life that stinks this bad, but you certainly are catching a whiff of something repulsive.  It is carried in through a drafty window overlooking your backyard.
+> wait
+
+> wait
+Time passes.
+> x southern window
+
+> x southern window
+Traipsing around on your beautiful lawn is the largest and mangiest looking mutt you have ever seen.  Somehow, the neighbor's party-goers and trash haven't infiltrated your lawn, but this dog sure has.  It stalks the yard, stopping to sniff here and there.  You've watched the Animal Channel before.  It is looking for a place to "soil" your lawn!!
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+A blast of thunder ushered by a strong blowing eastward wind rattles the windows.  Heavy raindrops fall briefly, but soon retreat.  A few seconds of silence pass and you hear sirens escalating in the distance.
+
+Despite the now calm weather, a wretched stench fills your house.  You can almost see the putrid gas circling in through the drafty southern window.
+> wait
+
+> wait
+Time passes.
+> x southern window
+
+> x southern window
+That smell can only mean one thing!!  You race to the window and peer out into your backyard.  That disgusting and large dog is facing you (and appears to be smiling) and is in the process of dropping a hot steamy mess right in the middle of your yard!  Damn dog!
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+You hear the yammering of a dog far off in the distance.  Damn thing must have gone to shat in another yard.  Good.
+
+> wait
+
+> wait
+Time passes.
+> x southern window
+
+> x southern window
+The dog is nowhere to be found but he certainly left evidence that he was here.  A mountain of dog shit is piled in the middle of your backyard.  On this cold evening, you can see the steam rising from it into the air...  Argh!
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+
+Your phone is ringing...
+> answer phone
+
+> answer phone
+You reluctantly pick up your phone.  "Yes?" you say dejectedly.
+
+"Furby?" a mysterious voice asks.
+
+You hesitate and eventually say, "Yes?"
+
+"Furby McQuack?"
+
+"Yes, this is Furby McQuack."  Anger and sadness best describe your intonation.
+
+"This is the Dungville Police Department.  We've had several complaints about your residence tonight.  Your little party has disrupted the whole neighborhood, not to mention breaking a slew of health code violations.  We are on our way to arrest you.  Do not leave your home."
+
+"Wha...?" you begin to protest but are cut short by the click of a hung up phone.  The sirens are growing louder.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+Your stomach turns at the thought of going to prison.  If this is a dream (or more accurately a nightmare), you sure wish you would wake up now!
+> wait
+
+> wait
+Time passes.
+> wake
+
+> wake
+You sit up, startled from your sleep.  You look around and realize you are safe and sound in your bed.  You get up and, with great hesitation look out your window.  Your backyard grass is green, manicured, and stink free.  Your front porch looks clean and your mailbox full.  Your neighbor's house looks nice, but deserted.  Your street and the traffic on it look normal.
+
+"Ahhh," you sigh.  "Today will be a great day!"
+
+...
+
+Wait...
+
+Oh no...!
+[state=Finished]

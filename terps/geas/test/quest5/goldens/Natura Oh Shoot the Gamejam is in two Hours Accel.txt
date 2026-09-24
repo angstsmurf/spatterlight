@@ -1,0 +1,63 @@
+Natura Oh Shoot the Gamejam is in two Hours Accel
+
+ACottontail
+
+Introducing the Grand Summer Gamejam!  Hone your gamemaking skills this summer.  The winner gets a can of beans.
+
+"Hmm, sounds interesting." you mutter to yourself.  You always did want to become a famous game developer.  Just like how you always wanted to be a pirate.
+
+You are Corn Gun Guy, the immortal lord of dying repetitively to the first level, the grim reaper, and overall cool guy.
+
+The deadline was in a week.  Surely enough time for a legendary league match.
+
+...
+
+You look at the time.  It was 4 hours before the deadline.  With so little time left you need to make a game, and fast.  What should Corn Gun Guy do?
+
+Use the Computer
+
+Ask your Son for Help
+
+Bribe the Judge
+
+Ask for Help at the Showcase
+
+Touch Grass
+
+> Bribe Son
+Ask your Son for Help
+
+Your Son is The Best.  Both in name, and because he's the best.  Surely, he knew something about this blooming videogame technology.
+
+You open the door to his room, "Are you winning son?"
+
+You catch him in the middle of a match of Massive Crossover Shooter 2017.
+
+Your son throws his controller, "The Snipers, every single time!"  He huffs then looks at you.  "Hey dad, ready to join me?"
+
+"Well son, I have something cooler.  How do you feel about entering a gamejam?"
+
+The Best let out a sigh, "Oh course you forgot your promise..."
+
+Guilt hit you in your heart.  You promised you play with The Best later, didn't you?  He's your son!  It would be criminal to break your promise to him!
+
+What will you do?
+
+Be a Good Father and Spend some Time with your Son
+
+Back Away Slowly
+
+> The Best
+Be a Good Father and Spend some Time with your Son
+
+As much as you wanted to enter the gamejam, some things in life were more important.
+
+"Heh heh, I was just joking about the gamejam.  Can you pass me a controller son?"
+
+The Best's eyes light up.
+
+You spend the rest of the day losing horribly in Massive Crossover Shooter 2017.  You were so bad you didn't win a single match.  But that didn't matter.  What really matters is that you got to spend some quality time with your son.
+
+Why are you Wondering if Things could've Gone Differently?  Stop Eyeing that (Try Again) Button.  What could be Better than Spending Time with your Son!
+
+[state=Running]
