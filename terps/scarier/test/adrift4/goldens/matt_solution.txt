@@ -11,7 +11,7 @@ n
 wear armor
 s
 d
-out
+go out
 kill thief
 w
 buy box
@@ -19,13 +19,13 @@ in
 u
 kill snake
 d
-out
+go out
 e
 in
 d
 kill killer
 u
-out
+go out
 n
 trade with ghost
 room a

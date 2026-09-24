@@ -1,0 +1,27 @@
+probe
+out
+look
+unzap
+unpoke
+jump
+jump
+skip
+dance
+undance
+undance
+e
+out
+enter box
+out
+look
+e
+out
+unpoke
+poke
+unpoke
+w
+leave box
+zap
+unzap
+unzap
+look

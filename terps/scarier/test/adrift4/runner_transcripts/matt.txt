@@ -51,42 +51,56 @@ You move down.
 Downstairs Hallway
 You see some odd pictures on the wall.......  You can move up, down and out.
 
-> out
-You have already done that.
+> go out
+You move out.
+Front Yard
+Your front yard. There is a thief near your mailbox! Look! That thing across the street almost looks like a temple!  Thief is here.  You can move north, west and in.  Thief hits you, but it doesn't seem to do any damage.
 
 > kill thief
-You can't do that here!
+You have killed the thief. You found a bag of money!  
+Front Yard
+Your front yard. There is a thief near your mailbox! Look! That thing across the street almost looks like a temple!  Your front yard.  Thief is here.  You can move north, west and in.  Thief hits you, but it doesn't seem to do any damage.
 
 > w
-You can't go in that direction, but you can move up, down and out.
+You move west.
+Neighbor's Front Yard
+Your Neighbor's front yard  Salesman is here.  You can move east and in.
 
 > buy box
-You can't do that here!
+You bought the box from the Salesman! Inside is some candy!
 
 > in
-You can't go in that direction, but you can move up, down and out.
+You move in.
+Neighbor's House
+Your neighbor's house.  You can move up and out.
 
 > u
 You move up.
-Hallway
-You are in your hallway.  Black Cat is here.  You can move north, east, south, west and down.  Black Cat hits you, but it doesn't seem to do any damage.
+Upstairs
+Kind of creepy.....  Snake is here.  You can only move down.  Snake hits you, but it doesn't seem to do any damage.
 
 > kill snake
-You can't do that here!  Black Cat hits you, but it doesn't seem to do any damage.
+You've killed the snake! You picked up the Poison Amulet and 10 points!  Snake hits you, but it doesn't seem to do any damage.
 
 > d
 You move down.
-Downstairs Hallway
-You see some odd pictures on the wall.......  You can move up, down and out.
+Neighbor's House
+Your neighbor's house.  You can move up and out.
 
-> out
-You have already done that.
+> go out
+You move out.
+Neighbor's Front Yard
+Your Neighbor's front yard  Salesman is here.  You can move east and in.
 
 > e
-You can't go in that direction, but you can move up, down and out.
+You move east.
+Front Yard
+Your front yard. There is a thief near your mailbox! Look! That thing across the street almost looks like a temple!  Your front yard.  Thief is here.  You can move north, west and in.  Thief hits you, but it doesn't seem to do any damage.
 
 > in
-You can't go in that direction, but you can move up, down and out.
+You move in.
+Downstairs Hallway
+You see some odd pictures on the wall.......  You can move up, down and out.
 
 > d
 You move down.
@@ -94,51 +108,63 @@ Basement
 Your basement. Look! A killer!  Killer is here.  You can only move up.  Killer shoots you with the Gun.
 
 > kill killer
-You stab Killer with the Knife.
+Congrats! You've killed the killer!  
+Basement
+Your basement. Look! A killer!  Killer is here.  You can only move up.  Nothing much here!  Killer hits you, but it doesn't seem to do any damage.
 
 > u
 You move up.
 Downstairs Hallway
 You see some odd pictures on the wall.......  You can move up, down and out.
 
-> out
-You have already done that.
+> go out
+You move out.
+Front Yard
+Your front yard. There is a thief near your mailbox! Look! That thing across the street almost looks like a temple!  Your front yard.  Thief is here.  You can move north, west and in.  Thief hits you, but it doesn't seem to do any damage.
 
 > n
-You can't go in that direction, but you can move up, down and out.
+You move north.
+Temple
+An odd place with something engraved on the ceiling........  Ghost is here.  You can only move south.
 
 > trade with ghost
-You can't do that here!
+You traded your box for the Key!  
+Temple
+An odd place with something engraved on the ceiling........  Ghost is here.  You can only move south.  The main room of the temple.
 
 > room a
-You can't do that here!
+You've entered the first room in the temple.....Look!  Giant Rat hits you, but it doesn't seem to do any damage.
 
 > kill rat
-Who do you want to attack?
+You killed the rat! you picked up his medallion!  Giant Rat hits you, but it doesn't seem to do any damage.
 
 > s
-You can't go in that direction, but you can move up, down and out.
+You move south.
+Temple
+An odd place with something engraved on the ceiling........  Ghost is here.  You can only move south.
 
 > room b
-You can't do that here!
+You are in Room B. 
 
 > trade with stranger
-You can't do that here!
+You've traded your Key for the Boss key and for the Sword! You wear the Boss Key!
 
 > look
-Downstairs Hallway
-You see some odd pictures on the wall.......  You can move up, down and out.
+Room B
+The second room in the temple......The Stranger is here!!!!  You can only move east.
 
 > e
-You can't go in that direction, but you can move up, down and out.
+You move east.
+Temple
+An odd place with something engraved on the ceiling........  Ghost is here.  You can only move south.
 
 > boss
-You can't do that here!
+You are now in the Boss Room. Look! the dragon!  Dragon hits you.
 
 > get dragon killed go!
-Take what?
+Congrats! You've killed the Temple's Boss! You beat the game! You also got 100 points!  
+You scored 161 out of the maximum 161!
+That is 100% of the game!
+Well done - you scored maximum points!
 
-> quit
-
-> y
-What the heck do you wanna do????
+[Press any key to end]

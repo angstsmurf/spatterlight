@@ -75,7 +75,7 @@ You move down.
 Downstairs Hallway
 You see some odd pictures on the wall.......  You can move up, down and out.
 
-> out
+> go out
 You move out.
 
 Front Yard
@@ -124,7 +124,7 @@ You move down.
 Neighbor's House
 Your neighbor's house.  You can move up and out.
 
-> out
+> go out
 You move out.
 
 Neighbor's Front Yard
@@ -165,7 +165,7 @@ You move up.
 Downstairs Hallway
 You see some odd pictures on the wall.......  You can move up, down and out.
 
-> out
+> go out
 You move out.
 
 Front Yard
@@ -189,7 +189,8 @@ An odd place with something engraved on the ceiling........  Ghost is here.
 You can only move south.  The main room of the temple.
 
 > room a
-You've entered the first room in the temple.....Look!  Giant Rat hits you.
+You've entered the first room in the temple.....Look!  Giant Rat hits you,
+but it doesn't seem to do any damage.
 
 > kill rat
 You killed the rat! you picked up his medallion!  Giant Rat hits you, but it
@@ -229,7 +230,7 @@ You are now in the Boss Room. Look! the dragon!  Dragon hits you.
 Congrats! You've killed the Temple's Boss! You beat the game! You also got
 100 points!
 You scored 161 out of the maximum 161!
-That is 99% of the game!
+That is 100% of the game!
 Well done - you scored maximum points!
 
 [Press any key to end]

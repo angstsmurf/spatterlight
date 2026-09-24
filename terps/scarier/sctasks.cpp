@@ -326,6 +326,15 @@ task_state_allows_run (scr_gameref_t game, scr_int task, scr_bool forwards)
         }
       if (cached->reversible == TASK_CACHE_FALSE)
         return FALSE;
+
+      /*
+       * run390 reverses a task only when it is done or repeatable (checktask
+       * 44B474); a reverse command of any other task claims the line with
+       * its RepeatText instead, see run_spent_task_390().
+       */
+      if (prop_get_taf_version (bundle) == TAF_VERSION_390
+          && !gs_task_done (game, task) && !task_is_repeatable (game, task))
+        return FALSE;
     }
 
   return TRUE;
@@ -436,6 +445,25 @@ task_can_run_task_directional (scr_gameref_t game,
 
   return task_state_allows_run (game, task, forwards)
          && task_where_allows_run (game, task);
+}
+
+
+/*
+ * task_is_reverse_refused_390()
+ *
+ * TRUE for a 3.90 task whose reverse command run390 answers with the task's
+ * RepeatText rather than a reversal: reversible, but neither done nor
+ * repeatable (checktask 44B4B2).  See run_spent_task_390() in scrunner.c.
+ */
+scr_bool
+task_is_reverse_refused_390 (scr_gameref_t game, scr_int task)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+
+  return prop_get_taf_version (bundle) == TAF_VERSION_390
+         && prop_get_indexed_boolean (bundle, "Tasks", task, "Reversible")
+         && !gs_task_done (game, task)
+         && !task_is_repeatable (game, task);
 }
 
 
@@ -1597,6 +1625,78 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
 
 
 /*
+ * task_percent_x87()
+ *
+ * The Runners' Int(score * (100 / MaxScore)) (run390 43F22E), as the VB6
+ * runtime evaluates it: on the x87 with a 64-bit mantissa, each of the
+ * divide and the multiply rounded to nearest-even.  IEEE doubles disagree:
+ * 161 out of 161 is 100% on run390 (matt) where doubles give 99.99999999999999,
+ * and 149/149 is 99% where doubles give exactly 100.  Measured with
+ * make_39_endprobe.py --max/--score on run390x (2026-09-24): 97/97 99%,
+ * 21/35 59%, 149/149 99% -- none of them what exact arithmetic says either.
+ * AArch64 has no 80-bit long double, so the two roundings are done here in
+ * integers.  max_score is positive.
+ */
+static scr_int
+task_percent_x87 (scr_int score, scr_int max_score)
+{
+  typedef unsigned __int128 u128;
+  const scr_bool negative = score < 0;
+  const unsigned long long magnitude = negative ? -(unsigned long long) score
+                                                : (unsigned long long) score;
+  u128 numerator, quotient, remainder, product, half, low;
+  int k, bits, shift, exponent;
+  unsigned long long mantissa, whole;
+
+  if (magnitude == 0)
+    return 0;
+
+  /* q = 100 / max_score as mantissa * 2^-k, mantissa in [2^63, 2^64). */
+  k = 0;
+  while (((u128) 100 << k) / (u128) max_score < ((u128) 1 << 63))
+    k++;
+  numerator = (u128) 100 << k;
+  quotient = numerator / (u128) max_score;
+  remainder = numerator % (u128) max_score;
+  if (2 * remainder > (u128) max_score
+      || (2 * remainder == (u128) max_score && (quotient & 1)))
+    quotient++;
+  if (quotient >> 64)
+    {
+      quotient >>= 1;
+      k--;
+    }
+  mantissa = (unsigned long long) quotient;
+
+  /* |score| * q, rounded back to a 64-bit mantissa. */
+  product = (u128) magnitude * mantissa;
+  for (bits = 0; bits < 128 && (product >> bits) != 0; bits++)
+    ;
+  shift = bits > 64 ? bits - 64 : 0;
+  if (shift > 0)
+    {
+      half = (u128) 1 << (shift - 1);
+      low = product & (((u128) 1 << shift) - 1);
+      product >>= shift;
+      if (low > half || (low == half && (product & 1)))
+        product++;
+    }
+
+  /* Int() floors: toward zero for a positive value, away for a negative. */
+  exponent = shift - k;
+  if (exponent >= 0)
+    return (scr_int) (negative ? -(long long) (product << exponent)
+                               : (long long) (product << exponent));
+  whole = (unsigned long long) (product >> -exponent);
+  if (!negative)
+    return (scr_int) whole;
+  if ((product & (((u128) 1 << -exponent) - 1)) != 0)
+    whole++;
+  return -(scr_int) whole;
+}
+
+
+/*
  * task_print_end_game_summary()
  *
  * Print the Runner's end-of-game score summary.  Form1.endmessage builds it as
@@ -1616,7 +1716,8 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
  * VB's Str() prepends a space for a non-negative number, which is where the
  * single spaces around the two figures come from; CStr() does not, hence the
  * literal trailing space in "You finished ".  The percentage divides in
- * floating point and truncates with Int(), so 3 out of 8 is 37%, not 38 -- the
+ * x87 floating point and truncates with Int() (see task_percent_x87()), so 3
+ * out of 8 is 37%, not 38 -- the
  * `score` command's integer (score * 100) / MaxScore agrees here but is not the
  * same expression, so keep this one as written.
  *
@@ -1679,7 +1780,7 @@ task_print_end_game_summary (scr_gameref_t game, scr_bool is_win,
       percent = 100;
     }
   else
-    percent = (scr_int) floor (game->score * (100.0 / max_score));
+    percent = task_percent_x87 (game->score, max_score);
 
   pf_buffer_string (filter, "You scored ");
   snprintf (buffer, sizeof (buffer), "%ld", game->score);
@@ -2506,8 +2607,14 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
     {
       const scr_char *reversemessage;
 
-      /* If not yet done, we can hardly reverse it. */
-      if (gs_task_done (game, task))
+      /*
+       * If not yet done, we can hardly reverse it -- except that run390's
+       * reverse_task (4283C8) has no such test, and its checktask hands it a
+       * repeatable task whether done or not (probe p39REV `unpoke`).
+       */
+      if (gs_task_done (game, task)
+          || (prop_get_taf_version (bundle) == TAF_VERSION_390
+              && task_is_repeatable (game, task)))
         {
           reversemessage = prop_get_indexed_string (bundle, "Tasks", task,
                                                     "ReverseMessage");

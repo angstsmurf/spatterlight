@@ -364,8 +364,22 @@ is now ported; the row is identical on every turn.
   so var_90 is "attack" and the Runner asks "Who do you want to attack?".
   Identical against the old capture; the walkthrough now ends `attack
   attack robot` (Scarier golden wins) and the row was re-driven in Wine.
-- **matt** (3.9): checktask 44B4B2 claims a reverse command without a
-  room check. Porting this makes matt unwinnable on the Runner route.
+- **matt** (3.9): FIXED 2026-09-24. checktask's reverse pass (44B1B9-
+  44B4D7) gives a matched reverse command of an undone, unrepeatable task
+  its RepeatText, with no room test (44B4B2), so `out` in the Downstairs
+  Hallway says "You have already done that." A repeatable task reverses
+  undone (reverse_task 4283C8 has no done check), and 44B66F's
+  out-of-room flag is forward-only. Probe: harness/make_39_reverseprobe.py
+  (p39REV, 27/27 identical). The route now types `go out` (three places)
+  and the Runner wins 161/161 (Adrift_282_matt_rt). Two more ports came
+  with the re-drive:
+  - The ending percentage is Int(score * (100 / Max)) on the x87 (43F22E):
+    161/161 gives 100%, and 97/97 or 149/149 give 99%. See
+    task_percent_x87() and `make_39_endprobe.py --max/--score`.
+  - Worn armour adds its ProtectionValue only when it is > -1 (run390
+    armourstrength 42DB6C, run400 4502D4). matt's -1 object had cost 1
+    defence, so the Giant Rat hit on `room a`.
+  Identical on every turn.
 - **crossworlds4** (3.9): FIXED 2026-09-24. The "it" antecedent is now
   co()'s pre-pass (last present, seen, unshadowed object named on the
   line, "the X"), overwritten in mode 1 by take/drop/wear/remove/examine/

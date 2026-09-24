@@ -784,6 +784,36 @@ battle_object_worn_by (scr_gameref_t game, scr_int object, scr_int npc)
 }
 
 /*
+ * battle_worn_protection()
+ *
+ * Sum the ProtectionValue of the armour worn by the player (npc < 0) or an
+ * NPC.  An object adds its value only when it is > -1: the Generator stores
+ * -1 on objects that are not armour, and both Runners skip it -- run390
+ * armourstrength 42DB6C, run400 4502D4 (4501EC/4501FA player, 450294/4502AC
+ * NPC).  matt wears a -1 object beside its Protection-5 armour, so its Giant
+ * Rat (Strength 5) lands no damage (run390x, runner_transcripts/matt.txt,
+ * `room a`).
+ */
+static scr_int
+battle_worn_protection (scr_gameref_t game, scr_int npc)
+{
+  scr_int object, value = 0;
+
+  for (object = 0; object < gs_object_count (game); object++)
+    {
+      if (battle_object_worn_by (game, object, npc))
+        {
+          const scr_int protection
+            = battle_object_battle (game, object, "ProtectionValue");
+
+          if (protection > -1)
+            value += protection;
+        }
+    }
+  return value;
+}
+
+/*
  * battle_best_weapon()
  *
  * Return the object index of the best weapon wielded by the player (npc < 0)
@@ -877,16 +907,11 @@ battle_eff_agility (scr_gameref_t game, scr_int npc)
 static scr_int
 battle_eff_defence (scr_gameref_t game, scr_int npc)
 {
-  scr_int lo, hi, value, object;
+  scr_int lo, hi, value;
 
   battle_attribute_range (game, npc, "Defense", &lo, &hi);
   value = battle_roll (lo, hi);
-  for (object = 0; object < gs_object_count (game); object++)
-    {
-      if (battle_object_worn_by (game, object, npc))
-        value += battle_object_battle (game, object, "ProtectionValue");
-    }
-  return value;
+  return value + battle_worn_protection (game, npc);
 }
 
 /*
@@ -1790,16 +1815,7 @@ battle_attribute_bonus (scr_gameref_t game, scr_int npc, const scr_char *base)
   if (strcmp (base, "Accuracy") == 0)
     return (weapon >= 0) ? battle_object_battle (game, weapon, "Accuracy") : 0;
   if (strcmp (base, "Defense") == 0)
-    {
-      scr_int object, value = 0;
-
-      for (object = 0; object < gs_object_count (game); object++)
-        {
-          if (battle_object_worn_by (game, object, npc))
-            value += battle_object_battle (game, object, "ProtectionValue");
-        }
-      return value;
-    }
+    return battle_worn_protection (game, npc);
   return 0;
 }
 

@@ -6974,14 +6974,31 @@ run_spent_task_390 (scr_gameref_t game, const scr_char *string,
       scr_bool pass;
       const scr_char *fail_message;
 
+      /*
+       * run390's reverse pass (44B1B9-44B4D7), skipped when a forward
+       * command matched a task that is not done (44B18F).  A reverse command
+       * of a done or repeatable task is checktask's -2 in the task's rooms
+       * (44B4A4 / 44B64D) -- the reversal runs, and the task passes below
+       * handle it -- and nothing elsewhere.  A reverse command of any other
+       * task writes its RepeatText into an EMPTY buffer (44B4B2), with no
+       * room test: matt's `out` is "You have already done that." everywhere
+       * until the boss room is entered (probe p39REV, run390x
+       * Adrift_p39rev.txt, 2026-09-24).
+       */
+      if (!buffer
+          && task_is_reverse_refused_390 (game, task)
+          && !run_match_task_commands (game, task, string, TRUE, FALSE)
+          && run_match_task_commands (game, task, string, FALSE, FALSE))
+        {
+          buffer = prop_get_indexed_string (gs_get_bundle (game), "Tasks",
+                                            task, "RepeatText");
+          spent = task;
+          continue;
+        }
+
       if (!task_where_allows_run (game, task))
         continue;
 
-      /*
-       * A reversible task matched by its reverse command is checktask's -2
-       * (44B4A4 / 44B64D): the reversal runs, and the task passes below
-       * handle it.
-       */
       if (task_can_run_task_directional (game, task, FALSE)
           && run_match_task_commands (game, task, string, FALSE, FALSE))
         return -1;
@@ -7292,6 +7309,14 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
           for (direction = 0; direction < 2; direction++)
             {
               const scr_bool is_forwards = !direction;
+
+              /*
+               * run390 raises the flag for a forward match only (44B66F);
+               * an out-of-room reverse command is not understood (probe
+               * p39REV `unpoke`).
+               */
+              if (!is_forwards && version == TAF_VERSION_390)
+                continue;
 
               if (task_is_room_refused (game, task, is_forwards)
                   && run_match_task_commands (game, task, string,

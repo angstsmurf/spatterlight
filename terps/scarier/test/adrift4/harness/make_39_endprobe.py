@@ -26,9 +26,27 @@ Suggested session -- ONE ending per Runner launch:
 
     scpoint / score / scwin        (and again with sclose, scdead, scend)
 
-Usage: python3 make_39_endprobe.py [out.taf]
+--max M --score S sets MaxScore and what every ending task scores, for the
+percentage's rounding: run390 computes Int(score * (100 / MaxScore)) (43F22E),
+and the Runner's answer for 161 out of 161 is 100% (matt) where IEEE doubles
+give 99.99999999999999.  The x87 at 64-bit precision and exact arithmetic
+both say 100 there; 97/97 (x87 99, exact 100), 21/35 (x87 59, exact 60) and
+149/149 (x87 99, double 100) tell them apart.
+
+Usage: python3 make_39_endprobe.py [--max M --score S] [out.taf]
 """
 import sys
+
+def opt(name, default):
+    if name in sys.argv:
+        i = sys.argv.index(name)
+        v = int(sys.argv[i + 1])
+        del sys.argv[i:i + 2]
+        return v
+    return default
+
+MAX_SCORE = opt("--max", 8)
+SCORE = opt("--score", 3)
 
 L = []
 def s(x): L.append(str(x))
@@ -47,7 +65,7 @@ s(0)                     # ShowExits
 s(0)                     # WaitTurns
 s(1)                     # DispFirstRoom
 s(0)                     # BattleSystem
-s(8)                     # MaxScore
+s(MAX_SCORE)             # MaxScore
 s("Player")              # PlayerName
 s(0)                     # PromptName
 s("A test player.")      # PlayerDesc
@@ -106,7 +124,7 @@ def task(cmd, complete, actions):
     for a in actions:
         for f in a: s(f)
 
-SCORE3 = (4, 3)          # type 4: score + 3
+SCORE3 = (4, SCORE)      # type 4: score + SCORE (3 by default)
 s(5)
 task("scpoint", "END scpoint.", [SCORE3])
 task("scwin",   "END scwin.",   [SCORE3, (5, 0)])
