@@ -1,0 +1,690 @@
+Washed Ashore...
+A Desert Island Adventure
+
+by Janoniman
+
+Please allow your browser to play audio for this website.
+
+Save your progress regularly by clicking  the 'save' button.
+
+Both mouse and keyboard input are available.
+There was a storm...
+The ship was lost...
+You washed ashore...
+You are on a beach.
+
+You see sand all around.
+
+You can go east or north.
+
+You lost everything but your pants.
+> x sand
+
+> x sand
+It is a lot of sand.
+You see  a shell.
+> take shell
+
+> take shell
+You take the shell.
+> e
+
+> e
+You are on a rocky slope.
+
+You see a pile of large rocks.
+
+You can go west or east.
+
+You are carrying some items.
+
+> x rocks
+
+> x rocks
+Large rocks and boulders.
+You find  a stone.
+> take stone
+
+> take stone
+You take the stone.
+> w
+
+> w
+You are on a beach.
+
+You see sand all around.
+
+You can go east or north.
+
+You are carrying some items.
+
+> n
+
+> n
+You are in an oasis.
+
+You can see a pond.
+
+You can go south or north.
+
+You are carrying some items.
+
+> n
+
+> n
+You are at an overgrown ridge.
+
+You can see ferns, vines and deadwood.
+
+You can go south.
+
+You are carrying some items.
+
+> use shell on ferns
+
+> use shell on ferns
+You slice away some of the ferns with the sharp shell.
+
+You found a way east.
+> e
+
+> e
+You are on a grassy  knoll.
+
+You can see a plant.
+
+You can go west, east or south.
+
+You are carrying some items.
+
+> x plant
+
+> x plant
+You find some fresh peanuts.
+> take peanuts
+
+> take peanuts
+You take some peanuts.
+> e
+
+> e
+You are on a mountain top.
+
+You can see a pile of heavy logs.
+
+You can go west or south.
+
+You are carrying some items.
+
+> s
+
+> s
+You are in a swamp.
+
+You can see bamboo bushes.
+
+You can go north.
+
+You are carrying some items.
+
+> x bushes
+
+> x bushes
+Lots of bamboo.
+You see  a loose stick.
+> take stick
+
+> take stick
+You take a bamboo stick.
+> use shell on stick
+
+> use shell on stick
+You sharpened the stick.
+> n
+
+> n
+You are on a mountain top.
+
+You can see a pile of heavy logs.
+
+You can go west or south.
+
+You are carrying some items.
+
+> w
+
+> w
+You are on a grassy  knoll.
+
+You can see a plant.
+
+You can go west, east or south.
+
+You are carrying some items.
+
+> s
+
+> s
+You are in a jungle .
+
+You can see some colorful birds.
+
+You can go north.
+
+You are carrying some items.
+
+> x birds
+
+> x birds
+They fly around playfully.
+There is a parrot nearby.
+> n
+
+> n
+You are on a grassy  knoll.
+
+You can see a plant.
+
+You can go west, east or south.
+
+You are carrying some items.
+
+> w
+
+> w
+You are at an overgrown ridge.
+
+You can see vines and deadwood.
+
+You can go south or east.
+
+You are carrying some items.
+
+> use shell on deadwood
+
+> use shell on deadwood
+You cut a path through the deadwood with the sharp shell.
+
+You found a way west.
+(and broke the shell)
+> pull vines
+
+> pull vines
+You pull at the vines.
+
+> pull vines
+
+> pull vines
+You pull hard at the vines.
+
+> pull vines
+
+> pull vines
+You pull harder at  the vines.
+
+> pull vines
+
+> pull vines
+You manage to pull aside the vines.
+
+You uncovered a cave entrance.
+
+You can go in.
+> s
+
+> s
+You are in an oasis.
+
+You can see a pond.
+
+You can go south or north.
+
+You are carrying some items.
+
+You are weakening...
+> x pond
+
+> x pond
+A clear water pond.
+It contains a fish.
+> use spear on fish
+
+> use spear on fish
+You caught a fish.
+> drink pond
+
+> drink pond
+You drink some water.
+You feel much better now.
+> n
+
+> n
+You are at an overgrown ridge.
+
+You can see a cave.
+
+You can go south, east, west or in.
+
+You are carrying some items.
+
+> e
+
+> e
+You are on a grassy  knoll.
+
+You can see a plant.
+
+You can go west, east or south.
+
+You are carrying some items.
+
+> s
+
+> s
+You are in a jungle .
+
+You can see some colorful birds (including a parrot nearby).
+
+You can go north.
+
+You are carrying some items.
+
+> give fish to parrot
+
+> give fish to parrot
+The parrot eats the fish.
+and flies away.
+> n
+
+> n
+You are on a grassy  knoll.
+
+You can see a plant.
+
+You can go west, east or south.
+
+You are carrying some items.
+
+> w
+
+> w
+You are at an overgrown ridge.
+
+You can see a cave.
+
+You can go south, east, west or in.
+
+You are carrying some items.
+
+> s
+
+> s
+You are in an oasis.
+
+You can see a pond (in which there is a fish).
+
+You can go south or north.
+
+You are carrying some items.
+
+> x pond
+
+> x pond
+A clear water pond.
+It contains a fish.
+> use spear on fish
+
+> use spear on fish
+You caught a fish.
+> drink pond
+
+> drink pond
+You drink some water.
+You feel much better now.
+> n
+
+> n
+You are at an overgrown ridge.
+
+You can see a cave.
+
+You can go south, east, west or in.
+
+You are carrying some items.
+
+> e
+
+> e
+You are on a grassy  knoll.
+
+You can see a plant.
+
+You can go west, east or south.
+
+You are carrying some items.
+
+> e
+
+> e
+You are on a mountain top.
+
+You can see a pile of heavy logs and a parrot nearby.
+
+You can go west or south.
+
+You are carrying some items.
+
+> give fish to parrot
+
+> give fish to parrot
+The parrot eats the fish
+and flies away again.
+> w
+
+> w
+You are on a grassy  knoll.
+
+You can see a plant.
+
+You can go west, east or south.
+
+You are carrying some items.
+
+> w
+
+> w
+You are at an overgrown ridge.
+
+You can see a cave.
+
+You can go south, east, west or in.
+
+You are carrying some items.
+
+> in
+
+> in
+You are in a cave.
+
+You can see a bed of leaves.
+
+You can go out.
+
+You are carrying some items.
+
+You do not give up...
+> use bed
+
+> use bed
+You sleep a long time.
+
+The parrot wakes you up.
+It says: SHIP AHOY!
+And then it flies away again.
+
+You feel refreshed.
+
+> out
+
+> out
+You are at an overgrown ridge.
+
+You can see a cave.
+
+You can go south, east, west or in.
+
+You are carrying some items.
+
+> w
+
+> w
+You are at a sandbank.
+
+You can see gravel and a stranded boat.
+
+You can go east or south.
+
+You are carrying some items.
+
+> s
+
+> s
+You are in a forest.
+
+You can see palm  trees.
+
+You can go north or south.
+
+You are carrying some items.
+
+> x trees
+
+> x trees
+A lot of palm trees.
+You see dry twigs.
+> take twigs
+
+> take twigs
+You take the twigs.
+> n
+
+> n
+You are at a sandbank.
+
+You can see gravel and a stranded boat.
+
+You can go east or south.
+
+You are carrying some items.
+
+You do not give up...
+> drop twigs
+
+> drop twigs
+You drop the twigs.
+> x gravel
+
+> x gravel
+It looks a lot like sand.
+You see  a rusty anchor.
+> use stone on anchor
+
+> use stone on anchor
+A spark sets the twigs on fire...
+The twigs set the boat on fire...
+Nothing but smuldering wood remains.
+> s
+
+> s
+You are in a forest.
+
+You can see palm  trees.
+
+You can go north or south.
+
+You are carrying some items.
+
+> s
+
+> s
+You are at a quicksand.
+
+You can see sand, a skeleton and a bag.
+
+You can go north.
+
+You are carrying some items.
+
+> x sand
+
+> x sand
+Dry sand surrounding the mud.
+You see a spyglass.
+> take spyglass
+
+> take spyglass
+You pick it up.
+> use spear on bag
+
+> use spear on bag
+You use the spear to lift the bag.
+> n
+
+> n
+You are in a forest.
+
+You can see palm  trees.
+
+You can go north or south.
+
+You are carrying some items.
+
+> n
+
+> n
+You are at a sandbank.
+
+You can see gravel (in which there is a rusty anchor) and hot glowing coals.
+
+You can go east or south.
+
+You are carrying some items.
+
+> use bag on coals
+
+> use bag on coals
+You pick up the coals with the bag.
+> eat peanuts
+
+> eat peanuts
+You eat some peanuts.
+You feel better.
+> e
+
+> e
+You are at an overgrown ridge.
+
+You can see a cave.
+
+You can go south, east, west or in.
+
+You are carrying some items.
+
+> e
+
+> e
+You are on a grassy  knoll.
+
+You can see a plant (with some peanuts).
+
+You can go west, east or south.
+
+You are carrying some items.
+
+> e
+
+> e
+You are on a mountain top.
+
+You can see a pile of heavy logs and a parrot nearby.
+
+You can go west or south.
+
+You are carrying some items.
+
+> use spyglass
+
+> use spyglass
+You see a ship, slowly passing by...
+
+> use coals on logs
+
+> use coals on logs
+You start a large fire.
+Now what?
+> x parrot
+
+> x parrot
+The parrot says: BEACH !
+And it flies away again.
+> w
+
+> w
+You are on a grassy  knoll.
+
+You can see a plant (with some peanuts).
+
+You can go west, east or south.
+
+You are carrying some items.
+
+> w
+
+> w
+You are at an overgrown ridge.
+
+You can see a cave.
+
+You can go south, east, west or in.
+
+You are carrying some items.
+
+> s
+
+> s
+You are in an oasis.
+
+You can see a pond.
+
+You can go south or north.
+
+You are carrying some items.
+
+> s
+
+> s
+You are on a beach.
+
+You see sand all around and a parrot nearby.
+
+You can go east or north.
+
+You are carrying some items.
+
+> x parrot
+
+> x parrot
+The parrot looks at you in a peculiar manner...
+
+and flies off into the distance...
+> wait
+
+> wait
+You wait anxiously...
+
+A large ship appears !
+"A fire caught our attention. And your lovely parrot informed us about your location.
+
+It seems to be your lucky day! Welcome aboard!"
+
+"Oh, and while you tell me all about your adventures, might I perhaps take a closer look at that amazing telescope of yours?"
+
+You are carrying some items.
+
+There was a storm,
+The ship was lost.
+You washed ashore,
+You were alone
+
+A bird appeared,
+A fish was caught.
+A fire burned—
+You're going home!
+
+THE END
+
+You discovered a bonus soundtrack!
+(the song lyrics can be found throughout the game)
+
+https://loslaten.janduivenvoorden.nl
+[state=Finished]

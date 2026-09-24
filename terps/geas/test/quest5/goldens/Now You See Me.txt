@@ -1,0 +1,367 @@
+Now You See Me
+Escape This Podcast (Season 5, Episode 1)
+
+by Dani Siller (adapted by DavyB with James Spaid)
+
+Sound effects have been switched off. Type SOUND to switch them on again.
+INTRODUCTION.
+Even though it's your twentieth time in the audience of the Duchess Theatre, you're watching the man on stage with bated breath, not daring to move a muscle, not even blinking. You don't want to miss even a second of Tony Stein, the best, most awe-inspiring magician in the country. Maybe the world.
+
+It's almost the end of the first half of the show, and you've been mouthing along with his pre-trick speeches and jokes the whole time. But although you know his words, no matter how many times you watch him, you still can't figure out Tony's tricks. You're a bit of an amateur magician yourself, so if anyone could spot the sleight of hand and the subtle misdirection, it would be you. But no such luck. You're burning with curiosity. You have been for years.
+
+That's why tonight, you've got an idea.
+
+See, Tony Stein's son Oliver used to be his apprentice, but has decided to move on to another career. And even though before Olly, Tony had never ever taken on an apprentice before... maybe he's feeling a bit lonely. Maybe he needs someone to share all his secrets with.
+
+The intermission begins, and you make your way into the foyer with the crowd. But instead of following them to the bathrooms and concession stands, you slip your way past the ushers into the corridor backstage. You tiptoe up a stairwell and soon find yourself at Tony Stein's door. Here goes nothing. You knock, noticing as you do, that there is a small dog sitting by the door.
+
+Suddenly, everything goes black.
+
+From somewhere around you, you hear a voice. The amazing Tony's voice. “I've seen you here before.”
+
+He sounds a lot more menacing than he does on stage.
+
+“You're trying to steal my tricks. You work for my competition? Well, I'm not going to let that happen. If you think you can figure out my secrets, try to figure your way out of this!”
+
+The darkness vanishes. Tony Stein is nowhere in sight…and neither is the door you knocked on. Or the hallway. Or the stairs. You're now inside a room with no obvious way out.
+
+Ahead you see a box of the type magicians use when sawing someone in half. This one is unusually small. Trapped inside is the dog that you saw at the door. It seems uncomfortable and is shifting around restlessly. Maybe Tony Stein isn't so whimsical and wonderful after all. Maybe you need to get yourself and the dog out of here!
+
+The Magician's Studio
+With trepidation, you examine your surroundings...
+
+The halving box is in the south-east corner of the room. Against the east wall you can see a big, broad chest of drawers, and over in the north-east corner is a large tank full of water. The north wall has a mirror built into it. In the north-west corner there's a small table. There are hooks attached to the south wall, towards the west corner. And finally, by the west wall, there's a birdcage.
+
+Okay. How is that going to get the dog out of the halving box and both of you out of a room with no door? Maybe you'll need a bit of magical help to escape!
+
+ [Type help for information about the game and how to play it]
+> x box
+
+> x box
+This is the box for the sawing-in-half trick. On one side you can see a colour-coded keypad.
+ Sitting on top of the box is the saw used in the trick.
+ Trapped inside is the dog, with its head sticking out the top, and its hind paws poking out the bottom.
+ The box is clearly still in one piece now. You can't find a way to just pull the thing open.
+> take saw
+
+> take saw
+You pick it up.
+Gained Item: saw.
+> x saw
+
+> x saw
+This is the saw used in the sawing-in-half trick.
+The saw blade wobbles from side to side, but that doesn't mean it won't get the job done. That said, you feel very strongly that sawing your way out of this room is not a solution here. Perhaps the saw will break if it saws through anything but really thin wood. Let's go with that.
+On the handle, you can see a sticker.
+> x sticker
+
+> x sticker
+The sticker has a hand-written message on it. It says, "Anyone hits Tom, she'll zap you."
+> x hooks
+
+> x hooks
+There are three hooks on the wall: a left hook, a middle hook and a right hook. They are old but still do what they need to.
+ You notice there is something attached to each one.
+> x left hook
+
+> x left hook
+It is the leftmost of three hooks on the wall.
+Hanging from the hook is a black umbrella.
+> take umbrella
+
+> take umbrella
+You pick it up.
+Gained Item: black umbrella.
+> open umbrella
+
+> open umbrella
+You open it.
+> x birdcage
+
+> x birdcage
+It's a free-standing birdcage. You can’t see a way of opening it, so you can't release what's inside. And what's inside is...
+well, first there's a lot of lightly shredded paper lining the bottom of the cage, and on top of that is
+a top hat
+ open side up.
+On the cage you see a small sign: “Ssh! I may be a dove, but I'm a night owl.”
+> use umbrella on birdcage
+
+> use umbrella on birdcage
+You balance the open umbrella on top of the birdcage, shrouding it in darkness. If you duck down, you can still peek underneath.
+ Nothing happens for almost a minute, but then from inside the top hat, you hear a stirring. And then the little white head of a dove pops out the top. It looks quite comfortable in there.
+> x chest
+
+> x chest
+There are two drawers in this chest, a top drawer and a bottom drawer, both of them quite broad.
+> x top drawer
+
+> x top drawer
+The top drawer is held shut with an incredibly flimsy-looking wooden lock. Almost flimsy enough that you could break it by hand, but not quite.
+> use saw on lock
+
+> use saw on lock
+The saw slices through the little wooden lock and the top drawer slides open easily. Inside, you see two things: the first is a long, shimmering cloak neatly folded up; and the second is a metal ring. You pick up both and close the drawer.
+ Interesting!
+Gained Item: ring from drawer.
+Gained Item: cloak.
+> wear cloak
+
+> wear cloak
+The cloak looks like your size, so you try it on.
+
+Ha! So much for nothing up the sleeves. You feel a soft lump around the wrist area of the left arm. You shove it, and out pours a whole string of coloured handkerchiefs. First a red one, then a green one, then another red one – and they just keep coming! A blue, yet another red and finally a black.
+Gained Item: handkerchiefs.
+> x keypad
+
+> x keypad
+The keypad has four coloured buttons: blue, green, red and black.
+> press red button
+
+> press red button
+Yes, that looks right.
+> press green button
+
+> press green button
+Yes, that looks right.
+> press red button
+
+> press red button
+Yes, that looks right.
+> press blue button
+
+> press blue button
+Yes, that looks right.
+> press red button
+
+> press red button
+Yes, that looks right.
+> press black button
+
+> press black button
+As soon as you press the black button you hear a click, and the halving box springs open. Out jumps the dog who runs to sit at your feet, clearly pleased to be free.
+> x dog
+
+> x dog
+It's a black and white terrier with a black patch over one eye.
+ You try a few names and, unsurprisingly, 'Patch' produces a reaction!
+> use saw on box
+
+> use saw on box
+You cut through the box at the normal position
+and suddenly hear a 'ping' as you cut.
+ Looking inside the box you find a metal ring, which explains why Patch looked so uncomfortable.
+ The ring is identical to the first one you found. This is becoming a collection! There are usually five in a set.
+Gained Item: ring from halving box.
+> x small table
+
+> x small table
+The table is small and simple, no drawers or shelves or anything.
+On the table, you see a deck of cards and a metal ring.
+> take ring
+
+> take ring
+You pick it up.
+ That's another ring for the collection.
+Gained Item: ring from table.
+> x small table
+
+> x small table
+The table is small and simple, no drawers or shelves or anything.
+ Looking more closely, you see there's something written under the table in permanent marker! You read, "That's not a cane."
+On the table, you see a deck of cards.
+> x middle hook
+
+> x middle hook
+It is the middle hook of three on the wall.
+On the hook is a cane.
+> take cane
+
+> take cane
+You pick it up.
+Gained Item: cane.
+> x cane
+
+> x cane
+The cane looks like wood that's been painted black, but it doesn't feel like wood. When you tap it against the floor, it makes a rather echoey sound. More like metal.
+> bend cane
+
+> bend cane
+It doesn't look like it should work, but you give the cane an experimental tug at the ends to see if it bends. It does – better than you could have expected. You lean into it, and like it wanted to be in this position all along, the whole thing snaps into a metal ring.
+ That's another ring for the collection.
+Gained Item: ring from cane.
+> x tank
+
+> x tank
+The tank is about six feet tall, so you can reach the top but not easily reach inside, even though there’s no lid. You're not sure if you want to, anyway: swimming around inside is a pretty little electric eel. A label on the bottom of the tank says it's a girl eel named Tom.
+And while you're looking at the bottom, you see, on the floor of the inside of the tank, sitting pressed up against the glass is a big metal ring.
+> x right hook
+
+> x right hook
+It is the rightmost of three hooks on the wall.
+Balanced rather precariously on the right hook is a magic wand.
+> take wand
+
+> take wand
+You pick it up.
+Gained Item: magic wand.
+> use wand on metal ring
+
+> use wand on metal ring
+Moving the wand close to the ring you realise the end is magnetic!
+The magnet in the wand is strong enough to reach the ring through the glass of the tank. The ring clinks against the glass, and as you raise the wand tip, it follows. You lift it all the way up, up... until it's no longer in the water at all and you can reach up and grab it. Success!
+ That's the full set of five rings. There must be something interesting you can do with them?
+Gained Item: ring from tank.
+> take cards
+
+> take cards
+You pick it up.
+Gained Item: deck of cards.
+> x cards
+
+> x cards
+You flick through the deck of cards.
+You count all 52, no jokers, and then a few extra cards at the back. They appear to be instructions for a few magic card tricks. You've never heard of any of these. What's 'The Invisible King'? Or 'Six Prince'? 'Two, Three and Dupree'? You take another look at the playing cards, and give a start.
+You didn't notice on your first cursory glance, but now you realise: these cards are marked. Every single one of them has a little letter drawn on it.
+
+> x six prince card
+
+> x six prince card
+These instructions aren't so much about how to perform the trick as how you need to set up the trick. There are a whopping eight instructions, starting easy, then getting gradually more complicated.
+1. No red queens.
+2. In fact, no hearts at all.
+3. Aces are low (i.e., Ace = 1).
+4. Deal odd spades in order.
+5. Even clubs in order.
+6. The first 6 diamonds backwards.
+7. Rest of clubs backwards.
+8. Rest of diamonds and spades interspersed evenly.
+> combine rings
+
+> combine rings
+Now, you wouldn't say you're an expert or anything, but the magic rings is a trick you're pretty confident with. You rub your hands together, pick up the rings, and in a flash of invisible dexterity, they are now connected. You could do this a million times if you needed to.
+..so you connect all of the rings into a chain.
+
+> use rings on middle hook
+
+> use rings on middle hook
+Laying out the playing cards for the Six Prince game, you now know to stand in the middle of the room and aim at the middle hook on the wall.
+ You don't like to brag, but you have pretty good aim.
+ You stand at what you think is the very centre of the room and start swinging your chain of rings over your head like it's a lasso. You wait until the right moment, and release! With a loud clang, the end ring reaches its target, hooking over the... hook. You give it a pull –
+and the floor underneath your feet vanishes! It's a trapdoor!
+
+The Void
+You're falling. It's probably only for a second but it feels like ages...then you land, flat on your back, on a mattress. Ow, it isn’t your regular cushioned mattress, though. It feels like a bean bag if all the beans had hardened with age. You look around wildly, but it's kind of dark down here, so you can't make out much.
+
+Above you, is the trapdoor through which you fell. It has closed again and is out of reach anyway.
+> x mattress
+
+> x mattress
+You find a zipper that opens up the mattress, and sure enough, there aren’t feathers or soft fabrics in here. Instead there are bags upon bags of birdseed. Who’d want to fall and land on that?!
+
+On a different note, while you’ve been rummaging, you seem to have slid the mattress across the floor a little bit... which is a good thing, because now, on the floor by your feet, you can see a previously concealed button.
+> take birdseed
+
+> take birdseed
+You decide to take one of the bags.
+Gained Item: bag of birdseed.
+> press button
+
+> press button
+You put your foot on the button. Immediately, you hear a grinding noise behind you.
+When you turn, you see a section of west wall has disappeared! In its place is a staircase going up.
+> climb stairs
+
+> climb stairs
+
+Top of Staircase
+You head up the stairs and come face to face with a dead end – or is it? Ahead is a mirror, exactly the same size as the one back in the room. Only instead of fingerprints, there are two very visible handprints.
+To the east is the space under the floor of the Magician's Studio.
+> x mirror
+
+> x mirror
+This is a mirror that seems to be exactly the same size as the one back in the Magician's Studio. This time, however, instead of fingerprints, there are two very visible handprints.
+> speak to dog
+
+> speak to dog
+You whistle, and hear Patch first bark, then put its paws up against the mirror.
+> push mirror
+
+> push mirror
+You press your hands into the greasy markings and push.
+The mirror doesn't budge initially but with Patch pushing from the other side, it suddenly moves under your combined weight! It's not just a double-sided mirror; it's a hidden door! You fall through, and suddenly you're back in the room. You hear the mirror click back into place, and when you turn around, it's like nothing ever happened.
+
+The Magician's Studio
+ You certainly can't tell the mirror is a door from here. The only thing that's different is that, because you swung the mirror around 180 degrees, you can no longer see the six fingerprints from before. Instead, on this side, you've got the handprints – as well as some writing up the top you didn't see from the other side. It says, “MY NAME IS 14-15-20-19-1-13.”
+
+The halving box is in the south-east corner of the room. Against the east wall you can see a big, broad chest of drawers, and over in the north-east corner is a large tank full of water. The north wall has a mirror built into it. In the north-west corner there's a small table. There are hooks attached to the south wall, towards the west corner. And finally, by the west wall, there's a birdcage.
+> use birdseed on birdcage
+
+> use birdseed on birdcage
+You scatter the bag of birdseed through the bars and it covers the bottom of the cage.
+
+The dove watches with keen interest. Without warning, it leaps out of the top hat, flapping its wings excitedly as it scrambles to grab as many seeds as it can.
+It's wild with happiness; all the paper scraps come flying out of the cage, fluttering to the floor. The top hat tips over and rolls on its side. You hope you haven't overstimulated the poor animal.
+> take shredded paper
+
+> take shredded paper
+In the interest of being tidy, you think about sliding the scraps of paper back into the birdcage. Before you do, however, you happen to see what's on one of the pieces. It's a diagram – a labelled diagram of a magic trick. You look at another piece, and another. When you stick a few together, you find yourself reading detailed instructions of some of Tony Stein's most famous tricks. This is incredible. You've found his secrets. Well, you can't possibly put them back in the birdcage now. You put them in your pocket for later.
+Gained Item: shredded paper.
+> x shredded paper
+
+> x shredded paper
+It's instructions for some of tony Stein's most famous tricks.
+> x top hat
+
+> x top hat
+You look at the top hat, but there's no way you can get it upright again. You hope the dove likes it this way now. Though what's that? There's something taped to the top of the top hat – a piece of paper. You come in close to read what it says. “My name? You saw it!”
+> l
+
+> l
+
+The Magician's Studio
+The halving box is in the south-east corner of the room. Against the east wall you can see a big, broad chest of drawers, and over in the north-east corner is a large tank full of water. The north wall has a mirror built into it. In the north-west corner there's a small table. There are hooks attached to the south wall, towards the west corner. And finally, by the west wall, there's a birdcage.
+> x bottom drawer
+
+> x bottom drawer
+The drawer is closed.
+It has an electronic lock.
+> use electronic lock
+
+> use electronic lock
+Using the keypad on the electronic lock you enter:
+(Type the six letters required below )
+> shazam
+
+You enter "shazam".
+
+Congratulations! You've made it!!
+With some difficulty you wrench the drawer all the way open and look at what's inside. At the bottom of the drawer is... not the bottom of a drawer. Instead there's a hole, and a ladder heading downwards. Another secret passage through the floor. Only, from this one, in the far-off distance, you can hear the sound of audience applause. The theatre!
+
+You clamber down the ladder, sprint down a dark hallway, and when you finally see a light you rush towards it. You shove past a heavy curtain... and find yourself tumbling on stage, mere feet away from Tony Stein, a huge crowd staring at you.
+
+Tony Stein looks shocked. The audience looks baffled. What do you do? This man was your hero, and he basically kidnapped you. And you have in your possession all the secrets of his every magic trick. You could tell everyone. You could ruin him right here, right now.
+
+"Are you going to reveal Tony's magic tricks?"
+1: Yes
+2: No
+> 2
+Revenge is sweet, but not this kind of revenge. You can't do it. If nothing else, you still have respect for the magician's profession, and the magician's code. No revealing secrets. In fact... you step towards Tony Stein and take the scraps of paper out of your pocket.
+
+“Here,” you say. “These belong to you.”
+
+As you prepare to take your high road offstage, you see Tony Stein look down at the papers, then back up at you. And slowly, a smile begins to spread across his face.
+
+“My friend,” he says, positively beaming. “You did it. You've won!”
+
+And the audience erupts into cheers.
+
+Tony Stein seizes his microphone from its stand and proclaims loudly, “Ladies and gentlemen, this person has just undertaken the most stressful challenge of their lives. Not only did they need to prove their skills to succeed, they had to do so while believing they had been betrayed by somebody they admired. But I am happy to tell you, they have done it. They have overcome all obstacles. And now – the only fitting reward is that I take them on as my apprentice, and lead them along the path to becoming an even better magician than I am!”
+
+Summary
+Wow, you completed the game in less than a minute without using any hints! Clearly, you are not a person to mess with!!
+
+THE END...?
+
+Series 1, Episode 1:
+Alex's Bathroom
+[state=Finished]

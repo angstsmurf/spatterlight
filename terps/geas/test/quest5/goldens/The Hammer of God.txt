@@ -1,0 +1,737 @@
+The Hammer of God
+
+by Gilbert Keith Chesterton
+
+(#1)
+"The little village of Bohun Beacon was perched on a hill so steep that the tall spire of its church seemed only like the peak of a small mountain. At the foot of the church stood a smithy, generally red with fires and always littered with hammers and scraps of iron; opposite to this, over a rude cross of cobbled paths, was "The Blue Boar," the only inn of the place. It was upon this crossway, in the lifting of a leaden and silver daybreak, that two brothers met in the street and spoke; though one was beginning the day and the other finishing it."
+> x Reverend Wilfred Bohun
+
+> x Reverend Wilfred Bohun
+(#2)
+"The Rev. and Hon. Wilfred Bohun was very devout, and was making his way to some austere exercises of prayer or contemplation at dawn."
+> x Colonel Norman Bohun
+
+> x Colonel Norman Bohun
+(#3)
+"Colonel the Hon. Norman Bohun, his elder brother, was by no means devout, and was sitting in evening dress on the bench outside 'The Blue Boar,' drinking what the philosophic observer was free to regard either as his last glass on Tuesday or his first on Wednesday. The colonel was not particular."
+> read narrative
+
+> read narrative
+(#4)
+"The Bohuns were one of the very few aristocratic families really dating from the Middle Ages, and their pennon had actually seen Palestine. But it is a great mistake to suppose that such houses stand high in chivalric tradition. Few except the poor preserve traditions. Aristocrats live not in traditions but in fashions. The Bohuns had been Mohocks under Queen Anne and Mashers under Queen Victoria. But like more than one of the really ancient houses, they had rotted in the last two centuries into mere drunkards and dandy degenerates, till there had even come a whisper of insanity."
+> x Colonel Norman Bohun
+
+> x Colonel Norman Bohun
+(#5)
+"Certainly there was something hardly human about the colonel's wolfish pursuit of pleasure, and his chronic resolution not to go home till morning had a touch of the hideous clarity of insomnia. He was a tall, fine animal, elderly, but with hair still startlingly yellow. He would have looked merely blonde and leonine, but his blue eyes were sunk so deep in his face that they looked black. They were a little too close together. He had very long yellow moustaches; on each side of them a fold or furrow from nostril to jaw, so that a sneer seemed cut into his face. Over his evening clothes he wore a curious pale yellow coat that looked more like a very light dressing gown than an overcoat, and on the back of his head was stuck an extraordinary broad-brimmed hat of a bright green colour, evidently some oriental curiosity caught up at random. He was proud of appearing in such incongruous attires—proud of the fact that he always made them look congruous."
+> x Reverend Wilfred Bohun
+
+> x Reverend Wilfred Bohun
+(#6)
+"His brother the curate had also the yellow hair and the elegance, but he was buttoned up to the chin in black, and his face was clean-shaven, cultivated, and a little nervous. He seemed to live for nothing but his religion; but there were some who said (notably the blacksmith, who was a Presbyterian) that it was a love of Gothic architecture rather than of God, and that his haunting of the church like a ghost was only another and purer turn of the almost morbid thirst for beauty which sent his brother raging after women and wine. This charge was doubtful, while the man's practical piety was indubitable. Indeed, the charge was mostly an ignorant misunderstanding of the love of solitude and secret prayer, and was founded on his being often found kneeling, not before the altar, but in peculiar places, in the crypts or gallery, or even in the belfry. He was at the moment about to enter the church through the yard of the smithy, but stopped and frowned a little as he saw his brother's cavernous eyes staring in the same direction. On the hypothesis that the colonel was interested in the church he did not waste any speculations. There only remained the blacksmith's shop, and though the blacksmith was a Puritan and none of his people, Wilfred Bohun had heard some scandals about a beautiful and rather celebrated wife. He flung a suspicious look across the shed, and the colonel stood up laughing to speak to him."
+> dialog Colonel Norman Bohun
+
+> dialog Colonel Norman Bohun
+(#7)
+" 'Good morning, Wilfred," he said. 'Like a good landlord I am watching sleeplessly over my people. I am going to call on the blacksmith.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#8)
+"Wilfred looked at the ground, and said: 'The blacksmith is out. He is over at Greenford.' "
+> dialog Colonel Norman Bohun
+
+> dialog Colonel Norman Bohun
+(#9)
+" 'I know,' answered the other with silent laughter; 'that is why I am calling on him.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#10)
+" 'Norman,' said the cleric, with his eye on a pebble in the road, 'are you ever afraid of thunderbolts?' "
+> dialog Colonel Norman Bohun
+
+> dialog Colonel Norman Bohun
+(#11)
+" 'What do you mean?' asked the colonel. 'Is your hobby meteorology?' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#12)
+" 'I mean,' said Wilfred, without looking up, 'do you ever think that God might strike you in the street?' "
+> dialog Colonel Norman Bohun
+
+> dialog Colonel Norman Bohun
+(#13)
+" 'I beg your pardon,' said the colonel; 'I see your hobby is folk-lore.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#14)
+" 'I know your hobby is blasphemy,' retorted the religious man, stung in the one live place of his nature. 'But if you do not fear God, you have good reason to fear man.' "
+> dialog Colonel Norman Bohun
+
+> dialog Colonel Norman Bohun
+(#15)
+"The elder raised his eyebrows politely. 'Fear man?' he said."
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#16)
+" 'Barnes the blacksmith is the biggest and strongest man for forty miles round,' said the clergyman sternly.'I know you are no coward or weakling, but he could throw you over the wall.' "
+> dialog Colonel Norman Bohun
+
+> dialog Colonel Norman Bohun
+(#17)
+"This struck home, being true, and the lowering line by mouth and nostril darkened and deepened. For a moment he stood with the heavy sneer on his face. But in an instant Colonel Bohun had recovered his own cruel good humour and laughed, showing two dog-like front teeth under his yellow moustache. 'In that case, my dear Wilfred,' he said quite carelessly, 'it was wise for the last of the Bohuns to come out partially in armour.' "
+> x Colonel Norman Bohun
+
+> x Colonel Norman Bohun
+(#18)
+"And he took off the queer round hat covered with green, showing that it was lined within with steel. Wilfred recognised it indeed as a light Japanese or Chinese helmet torn down from a trophy that hung in the old family hall."
+> dialog Colonel Norman Bohun
+
+> dialog Colonel Norman Bohun
+(#19)
+" 'It was the first hat to hand,' explained his brother airily; 'always the nearest hat—and the nearest woman.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#20)
+" 'The blacksmith is away at Greenford,' said Wilfred quietly; 'the time of his return is unsettled.' "
+> go to Yard of the Smithy
+
+> go to Yard of the Smithy
+> go to Church
+
+> go to Church
+(#21)
+"And with that he turned and went into the church with bowed head, crossing himself like one who wishes to be quit of an unclean spirit. He was anxious to forget such grossness in the cool twilight of his tall Gothic cloisters; but on that morning it was fated that his still round of religious exercises should be everywhere arrested by small shocks."
+> x Reverend Wilfred Bohun
+
+> x Reverend Wilfred Bohun
+(#22)
+"As he entered the church, hitherto always empty at that hour, a kneeling figure rose hastily to its feet and came towards the full daylight of the doorway. When the curate saw it he stood still with surprise."
+> x Mad Joe
+
+> x Mad Joe
+(#23)
+"For the early worshipper was none other than the village idiot, a nephew of the blacksmith, one who neither would nor could care for the church or for anything else. He was always called 'Mad Joe,' and seemed to have no other name; he was a dark, strong, slouching lad, with a heavy white face, dark straight hair, and a mouth always open. As he passed the priest, his moon-calf countenance gave no hint of what he had been doing or thinking of. He had never been known to pray before. What sort of prayers was he saying now? Extraordinary prayers surely."
+> x Reverend Wilfred Bohun
+
+> x Reverend Wilfred Bohun
+(#24)
+"Wilfred Bohun stood rooted to the spot long enough to see the idiot go out into the sunshine, and even to see his dissolute brother hail him with a sort of avuncular jocularity. The last thing he saw was the colonel throwing pennies at the open mouth of Joe, with the serious appearance of trying to hit it."
+
+"This ugly sunlit picture of the stupidity and cruelty of the earth sent the ascetic finally to his prayers for purification and new thoughts."
+> go to Gallery
+
+> go to Gallery
+(#25)
+"He went up to a pew in the gallery,..."
+> x Window
+
+> x Window
+(#26)
+"which brought him under a coloured window which he loved and always quieted his spirit; a blue window with an angel carrying lilies."
+> x Reverend Wilfred Bohun
+
+> x Reverend Wilfred Bohun
+(#27)
+"There he began to think less about the half-wit, with his livid face and mouth like a fish. He began to think less of his evil brother, pacing like a lean lion in his horrible hunger. He sank deeper and deeper into those cold and sweet colours of silver blossoms and sapphire sky."
+> read narrative
+
+> read narrative
+(#28)
+"In this place half an hour afterwards he was found by Gibbs, the village cobbler, who had been sent for him in some haste. He got to his feet with promptitude, for he knew that no small matter would have brought Gibbs into such a place at all. The cobbler was, as in many villages, an atheist, and his appearance in church was a shade more extraordinary than Mad Joe's. It was a morning of theological enigmas."
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#29)
+" 'What is it?' asked Wilfred Bohun rather stiffly, but putting out a trembling hand for his hat."
+> dialog Gibbs
+
+> dialog Gibbs
+(#30)
+"The atheist spoke in a tone that, coming from him, was quite startlingly respectful, and even, as it were, huskily sympathetic.
+'You must excuse me, sir,' he said in a hoarse whisper, 'but we didn't think it right not to let you know at once. I'm afraid a rather dreadful thing has happened, sir. I'm afraid your brother—' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#31)
+"Wilfred clenched his frail hands. 'What devilry has he done now?' he cried in voluntary passion."
+> dialog Gibbs
+
+> dialog Gibbs
+(#32)
+" 'Why, sir,' said the cobbler, coughing, 'I'm afraid he's done nothing, and won't do anything. I'm afraid he's done for. You had really better come down, sir.' "
+> go to winding stairs
+
+> go to winding stairs
+(#33)
+"The curate followed the cobbler down a short winding stair..."
+> go to Elevated entrance
+
+> go to Elevated entrance
+(#34)
+"which brought them out at an entrance rather higher than the street."
+> read narrative
+
+> read narrative
+(#35)
+"Bohun saw the tragedy in one glance, flat underneath him like a plan. In the yard of the smithy were standing five or six men mostly in black, one in an inspector's uniform. They included the doctor, the Presbyterian minister, and the priest from the Roman Catholic chapel, to which the blacksmith's wife belonged. The latter was speaking to her, indeed, very rapidly, in an undertone, as she, a magnificent woman with red-gold hair, was sobbing blindly on a bench. Between these two groups, and just clear of the main heap of hammers, lay a man in evening dress, spread-eagled and flat on his face. From the height above Wilfred could have sworn to every item of his costume and appearance, down to the Bohun rings upon his fingers; but the skull was only a hideous splash, like a star of blackness and blood."
+> x Reverend Wilfred Bohun
+
+> x Reverend Wilfred Bohun
+(#36)
+"Wilfred Bohun gave but one glance, and ran down the steps into the yard."
+> go to stairs
+
+> go to stairs
+> go to Yard of the Smithy
+
+> go to Yard of the Smithy
+(#37)
+"The doctor, who was the family physician, saluted him, but he scarcely took any notice."
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#38)
+"He could only stammer out: 'My brother is dead. What does it mean? What is this horrible mystery?' "
+> dialog Gibbs
+
+> dialog Gibbs
+(#39)
+"There was an unhappy silence; and then the cobbler, the most outspoken man present, answered: 'Plenty of horror, sir,' he said; 'but not much mystery.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#40)
+" 'What do you mean?' asked Wilfred, with a white face."
+> dialog Gibbs
+
+> dialog Gibbs
+(#41)
+" 'It's plain enough,' answered Gibbs. 'There is only one man for forty miles round that could have struck such a blow as that, and he's the man that had most reason to.' "
+> dialog Doctor
+
+> dialog Doctor
+(#42)
+" 'We must not prejudge anything,' put in the doctor, a tall, black-bearded man, rather nervously; 'but it is competent for me to corroborate what Mr. Gibbs says about the nature of the blow, sir; it is an incredible blow. Mr. Gibbs says that only one man in this district could have done it. I should have said myself that nobody could have done it.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#43)
+"A shudder of superstition went through the slight figure of the curate. 'I can hardly understand,' he said."
+> dialog Doctor
+
+> dialog Doctor
+(#44)
+" 'Mr. Bohun,' said the doctor in a low voice, 'metaphors literally fail me. It is inadequate to say that the skull was smashed to bits like an eggshell. Fragments of bone were driven into the body and the ground like bullets into a mud wall. It was the hand of a giant.'
+
+He was silent a moment, looking grimly through his glasses; then he added: 'The thing has one advantage—that it clears most people of suspicion at one stroke. If you or I or any normally made man in the country were accused of this crime, we should be acquitted as an infant would be acquitted of stealing the Nelson column.' "
+> dialog Gibbs
+
+> dialog Gibbs
+(#45)
+" 'That's what I say,' repeated the cobbler obstinately; 'there's only one man that could have done it, and he's the man that would have done it. Where's Simeon Barnes, the blacksmith?' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#46)
+" 'He's over at Greenford,' faltered the curate."
+> dialog Gibbs
+
+> dialog Gibbs
+(#47)
+" 'More likely over in France,' muttered the cobbler."
+> dialog Catholic priest
+
+> dialog Catholic priest
+(#48)
+" 'No; he is in neither of those places,' said a small and colourless voice, which came from the little Roman priest who had joined the group. 'As a matter of fact, he is coming up the road at this moment.' "
+> x Catholic priest
+
+> x Catholic priest
+(#49)
+"The little priest was not an interesting man to look at, having stubbly brown hair and a round and stolid face. But if he had been as splendid as Apollo no one would have looked at him at that moment."
+> read narrative
+
+> read narrative
+(#50)
+"Everyone turned round and peered at the pathway which wound across the plain below, along which was indeed walking, at his own huge stride and with a hammer on his shoulder, Simeon the smith. He was a bony and gigantic man, with deep, dark, sinister eyes and a dark chin beard. He was walking and talking quietly with two other men; and though he was never specially cheerful, he seemed quite at his ease."
+> dialog Gibbs
+
+> dialog Gibbs
+(#51)
+" 'My God!' cried the atheistic cobbler, 'and there's the hammer he did it with.' "
+> dialog Inspector
+
+> dialog Inspector
+(#52)
+" 'No,' said the inspector, a sensible-looking man with a sandy moustache, speaking for the first time. 'There's the hammer he did it with over there by the church wall. We have left it and the body exactly as they are.' "
+> read narrative
+
+> read narrative
+(#53)
+"All glanced round and the short priest went across and looked down in silence at the tool where it lay. It was one of the smallest and the lightest of the hammers, and would not have caught the eye among the rest; but on the iron edge of it were blood and yellow hair."
+> dialog Catholic priest
+
+> dialog Catholic priest
+(#54)
+"After a silence the short priest spoke without looking up, and there was a new note in his dull voice. 'Mr. Gibbs was hardly right,' he said, 'in saying that there is no mystery. There is at least the mystery of why so big a man should attempt so big a blow with so little a hammer.' "
+> dialog Gibbs
+
+> dialog Gibbs
+(#55)
+" 'Oh, never mind that,' cried Gibbs, in a fever. 'What are we to do with Simeon Barnes?' "
+> dialog Catholic priest
+
+> dialog Catholic priest
+(#56)
+" 'Leave him alone,' said the priest quietly. 'He is coming here of himself. I know those two men with him. They are very good fellows from Greenford, and they have come over about the Presbyterian chapel.' "
+> read narrative
+
+> read narrative
+(#57)
+"Even as he spoke the tall smith swung round the corner of the church, and strode into his own yard. Then he stood there quite still, and the hammer fell from his hand. The inspector, who had preserved impenetrable propriety, immediately went up to him."
+> dialog Inspector
+
+> dialog Inspector
+(#58)
+" 'I won't ask you, Mr. Barnes,' he said, 'whether you know anything about what has happened here. You are not bound to say. I hope you don't know, and that you will be able to prove it. But I must go through the form of arresting you in the King's name for the murder of Colonel Norman Bohun.' "
+> dialog Gibbs
+
+> dialog Gibbs
+(#59)
+" 'You are not bound to say anything,' said the cobbler in officious excitement. 'They've got to prove everything. They haven't proved yet that it is Colonel Bohun, with the head all smashed up like that.' "
+> dialog Doctor
+
+> dialog Doctor
+(#60)
+" 'That won't wash,' said the doctor aside to the priest. 'That's out of the detective stories. I was the colonel's medical man, and I knew his body better than he did. He had very fine hands, but quite peculiar ones. The second and third fingers were the same length. Oh, that's the colonel right enough.' "
+> read narrative
+
+> read narrative
+(#61)
+"As he glanced at the brained corpse upon the ground the iron eyes of the motionless blacksmith followed them and rested there also."
+> dialog Blacksmith
+
+> dialog Blacksmith
+(#62)
+" 'Is Colonel Bohun dead?' said the smith quite calmly. 'Then he's damned.' "
+> dialog Gibbs
+
+> dialog Gibbs
+(#63)
+" 'Don't say anything! Oh, don't say anything,' cried the atheist cobbler, dancing about in an ecstasy of admiration of the English legal system. For no man is such a legalist as the good Secularist."
+> dialog Blacksmith
+
+> dialog Blacksmith
+(#64)
+"The blacksmith turned on him over his shoulder the august face of a fanatic.
+'It's well for you infidels to dodge like foxes because the world's law favours you,' he said; 'but God guards His own in His pocket, as you shall see this day.'
+Then he pointed to the colonel and said: 'When did this dog die in his sins?' "
+> dialog Doctor
+
+> dialog Doctor
+(#65)
+" 'Moderate your language,' said the doctor."
+> dialog Blacksmith
+
+> dialog Blacksmith
+(#66)
+" 'Moderate the Bible's language, and I'll moderate mine. When did he die?' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#67)
+" 'I saw him alive at six o'clock this morning,' stammered Wilfred Bohun."
+> dialog Blacksmith
+
+> dialog Blacksmith
+(#68)
+" 'God is good,' said the smith. 'Mr. Inspector, I have not the slightest objection to being arrested. It is you who may object to arresting me. I don't mind leaving the court without a stain on my character. You do mind perhaps leaving the court with a bad set-back in your career.' "
+> read narrative
+
+> read narrative
+(#69)
+"The solid inspector for the first time looked at the blacksmith with a lively eye; as did everybody else, except the short, strange priest, who was still looking down at the little hammer that had dealt the dreadful blow."
+> dialog Blacksmith
+
+> dialog Blacksmith
+(#70)
+" 'There are two men standing outside this shop,' went on the blacksmith with ponderous lucidity, 'good tradesmen in Greenford whom you all know, who will swear that they saw me from before midnight till daybreak and long after in the committee room of our Revival Mission, which sits all night, we save souls so fast. In Greenford itself twenty people could swear to me for all that time. If I were a heathen, Mr. Inspector, I would let you walk on to your downfall. But as a Christian man I feel bound to give you your chance, and ask you whether you will hear my alibi now or in court.' "
+> dialog Inspector
+
+> dialog Inspector
+(#71)
+"The inspector seemed for the first time disturbed, and said, 'Of course I should be glad to clear you altogether now.' "
+> read narrative
+
+> read narrative
+(#72)
+"The smith walked out of his yard with the same long and easy stride, and returned to his two friends from Greenford, who were indeed friends of nearly everyone present. Each of them said a few words which no one ever thought of disbelieving. When they had spoken, the innocence of Simeon stood up as solid as the great church above them.
+One of those silences struck the group which are more strange and insufferable than any speech."
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#73)
+"Madly, in order to make conversation, the curate said to the Catholic priest:
+'You seem very much interested in that hammer, Father Brown.' "
+> dialog Father Brown
+
+> dialog Father Brown
+(#74)
+" 'Yes, I am,' said Father Brown; 'why is it such a small hammer?' "
+> dialog Doctor
+
+> dialog Doctor
+(#75)
+"The doctor swung round on him.
+'By George, that's true,' he cried; 'who would use a little hammer with ten larger hammers lying about?'
+Then he lowered his voice in the curate's ear and said: 'Only the kind of person that can't lift a large hammer. It is not a question of force or courage between the sexes. It's a question of lifting power in the shoulders. A bold woman could commit ten murders with a light hammer and never turn a hair. She could not kill a beetle with a heavy one.' "
+
+"Wilfred Bohun was staring at him with a sort of hypnotised horror, while Father Brown listened with his head a little on one side, really interested and attentive. The doctor went on with more hissing emphasis:
+'Why do these idiots always assume that the only person who hates the wife's lover is the wife's husband? Nine times out of ten the person who most hates the wife's lover is the wife. Who knows what insolence or treachery he had shown her—look there!'
+He made a momentary gesture towards the red-haired woman on the bench. "
+> x Blacksmith wife
+
+> x Blacksmith wife
+(#76)
+"She had lifted her head at last and the tears were drying on her splendid face. But the eyes were fixed on the corpse with an electric glare that had in it something of idiocy."
+> x Reverend Wilfred Bohun
+
+> x Reverend Wilfred Bohun
+(#77)
+"The Rev. Wilfred Bohun made a limp gesture as if waving away all desire to know;..."
+> dialog Father Brown
+
+> dialog Father Brown
+(#78)
+"but Father Brown, dusting off his sleeve some ashes blown from the furnace, spoke in his indifferent way.
+'You are like so many doctors,' he said; 'your mental science is really suggestive. It is your physical science that is utterly impossible. I agree that the woman wants to kill the co-respondent much more than the petitioner does. And I agree that a woman will always pick up a small hammer instead of a big one. But the difficulty is one of physical impossibility. No woman ever born could have smashed a man's skull out flat like that.' Then he added reflectively, after a pause: 'These people haven't grasped the whole of it. The man was actually wearing an iron helmet, and the blow scattered it like broken glass. Look at that woman. Look at her arms.' "
+> dialog Doctor
+
+> dialog Doctor
+(#79)
+"Silence held them all up again, and then the doctor said rather sulkily: 'Well, I may be wrong; there are objections to everything. But I stick to the main point. No man but an idiot would pick up that little hammer if he could use a big hammer.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#80)
+"With that the lean and quivering hands of Wilfred Bohun went up to his head and seemed to clutch his scanty yellow hair. After an instant they dropped, and he cried: 'That was the word I wanted; you have said the word.'
+Then he continued, mastering his discomposure: 'The words you said were, "No man but an idiot would pick up the small hammer." ' "
+> dialog Doctor
+
+> dialog Doctor
+(#81)
+" 'Yes,' said the doctor. 'Well?' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#82)
+" 'Well,' said the curate, 'no man but an idiot did.' The rest stared at him with eyes arrested and riveted, and he went on in a febrile and feminine agitation.
+'I am a priest,' he cried unsteadily, 'and a priest should be no shedder of blood. I—I mean that he should bring no one to the gallows. And I thank God that I see the criminal clearly now—because he is a criminal who cannot be brought to the gallows.' "
+> dialog Doctor
+
+> dialog Doctor
+(#83)
+" 'You will not denounce him?' inquired the doctor."
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#84)
+" 'He would not be hanged if I did denounce him,' answered Wilfred with a wild but curiously happy smile. 'When I went into the church this morning I found a madman praying there—that poor Joe, who has been wrong all his life. God knows what he prayed; but with such strange folk it is not incredible to suppose that their prayers are all upside down. Very likely a lunatic would pray before killing a man. When I last saw poor Joe he was with my brother. My brother was mocking him.' "
+> dialog Doctor
+
+> dialog Doctor
+(#85)
+" 'By Jove!' cried the doctor, 'this is talking at last. But how do you explain—' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#86)
+"The Rev. Wilfred was almost trembling with the excitement of his own glimpse of the truth. 'Don't you see; don't you see,' he cried feverishly; 'that is the only theory that covers both the queer things, that answers both the riddles. The two riddles are the little hammer and the big blow. The smith might have struck the big blow, but would not have chosen the little hammer. His wife would have chosen the little hammer, but she could not have struck the big blow. But the madman might have done both. As for the little hammer—why, he was mad and might have picked up anything. And for the big blow, have you never heard, doctor, that a maniac in his paroxysm may have the strength of ten men?' "
+> dialog Doctor
+
+> dialog Doctor
+(#87)
+"The doctor drew a deep breath and then said, 'By golly, I believe you've got it.' "
+> dialog Father Brown
+
+> dialog Father Brown
+(#88)
+"Father Brown had fixed his eyes on the speaker so long and steadily as to prove that his large grey, ox-like eyes were not quite so insignificant as the rest of his face. When silence had fallen he said with marked respect: 'Mr. Bohun, yours is the only theory yet propounded which holds water every way and is essentially unassailable. I think, therefore, that you deserve to be told, on my positive knowledge, that it is not the true one.' And with that the old little man walked away and stared again at the hammer."
+> dialog Doctor
+
+> dialog Doctor
+(#89)
+" 'That fellow seems to know more than he ought to,' whispered the doctor peevishly to Wilfred. 'Those popish priests are deucedly sly.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#90)
+" 'No, no,' said Bohun, with a sort of wild fatigue. 'It was the lunatic. It was the lunatic.' "
+> read narrative
+
+> read narrative
+(#91)
+"The group of the two clerics and the doctor had fallen away from the more official group containing the inspector and the man he had arrested. Now, however, that their own party had broken up, they heard voices from the others. The priest looked up quietly and then looked down again as he heard the blacksmith say in a loud voice:..."
+> dialog Blacksmith
+
+> dialog Blacksmith
+(#92)
+" 'I hope I've convinced you, Mr. Inspector. I'm a strong man, as you say, but I couldn't have flung my hammer bang here from Greenford. My hammer hasn't got wings that it should come flying half a mile over hedges and fields.' "
+> dialog Inspector
+
+> dialog Inspector
+(#93)
+"The inspector laughed amicably and said:'"No, I think you can be considered out of it, though it's one of the rummiest coincidences I ever saw. I can only ask you to give us all the assistance you can in finding a man as big and strong as yourself. By George! you might be useful, if only to hold him! I suppose you yourself have no guess at the man?' "
+> dialog Blacksmith
+
+> dialog Blacksmith
+(#94)
+" 'I may have a guess,' said the pale smith, 'but it is not at a man.' Then, seeing the scared eyes turn towards his wife on the bench, he put his huge hand on her shoulder and said: 'Nor a woman either.' "
+> dialog Inspector
+
+> dialog Inspector
+(#95)
+" 'What do you mean?' asked the inspector jocularly. 'You don't think cows use hammers, do you?' "
+> dialog Blacksmith
+
+> dialog Blacksmith
+(#96)
+" 'I think no thing of flesh held that hammer,' said the blacksmith in a stifled voice; 'mortally speaking, I think the man died alone.' "
+> x Reverend Wilfred Bohun
+
+> x Reverend Wilfred Bohun
+(#97)
+"Wilfred made a sudden forward movement and peered at him with burning eyes."
+> dialog Gibbs
+
+> dialog Gibbs
+(#98)
+" 'Do you mean to say, Barnes,' came the sharp voice of the cobbler, 'that the hammer jumped up of itself and knocked the man down?' "
+> dialog Blacksmith
+
+> dialog Blacksmith
+(#99)
+" 'Oh, you gentlemen may stare and snigger,' cried Simeon; 'you clergymen who tell us on Sunday in what a stillness the Lord smote Sennacherib. I believe that One who walks invisible in every house defended the honour of mine, and laid the defiler dead before the door of it. I believe the force in that blow was just the force there is in earthquakes, and no force less.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#100)
+"Wilfred said, with a voice utterly undescribable: 'I told Norman myself to beware of the thunderbolt.' "
+> dialog Inspector
+
+> dialog Inspector
+(#101)
+" 'That agent is outside my jurisdiction,' said the inspector with a slight smile."
+> dialog Blacksmith
+
+> dialog Blacksmith
+(#102)
+" 'You are not outside His,' answered the smith; 'see you to it,' and, turning his broad back, he went into the house."
+> dialog Father Brown
+
+> dialog Father Brown
+(#103)
+"The shaken Wilfred was led away by Father Brown, who had an easy and friendly way with him. 'Let us get out of this horrid place, Mr. Bohun,' he said. 'May I look inside your church? I hear it's one of the oldest in England. We take some interest, you know,' he added with a comical grimace, 'in old English churches.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#104)
+"Wilfred Bohun did not smile, for humour was never his strong point. But he nodded rather eagerly, being only too ready to explain the Gothic splendours to someone more likely to be sympathetic than the Presbyterian blacksmith or the atheist cobbler.
+'By all means,' he said; 'let us go in at this side.' "
+> read narrative
+
+> read narrative
+(#105)
+"And he led the way into the high side entrance at the top of the flight of steps. Father Brown was mounting the first step to follow him when he felt a hand on his shoulder, and turned to behold the dark, thin figure of the doctor, his face darker yet with suspicion."
+> dialog Doctor
+
+> dialog Doctor
+(#106)
+" 'Sir,' said the physician harshly, 'you appear to know some secrets in this black business. May I ask if you are going to keep them to yourself?' "
+> dialog Father Brown
+
+> dialog Father Brown
+(#107)
+" 'Why, doctor,' answered the priest, smiling quite pleasantly, 'there is one very good reason why a man of my trade should keep things to himself when he is not sure of them, and that is that it is so constantly his duty to keep them to himself when he is sure of them. But if you think I have been discourteously reticent with you or anyone, I will go to the extreme limit of my custom. I will give you two very large hints.' "
+> dialog Doctor
+
+> dialog Doctor
+(#108)
+" 'Well, sir?' said the doctor gloomily."
+> dialog Father Brown
+
+> dialog Father Brown
+(#109)
+" 'First,' said Father Brown quietly, 'the thing is quite in your own province. It is a matter of physical science. The blacksmith is mistaken, not perhaps in saying that the blow was divine, but certainly in saying that it came by a miracle. It was no miracle, doctor, except in so far as man is himself a miracle, with his strange and wicked and yet half-heroic heart. The force that smashed that skull was a force well known to scientists—one of the most frequently debated of the laws of nature.' "
+> dialog Doctor
+
+> dialog Doctor
+(#110)
+"The doctor, who was looking at him with frowning intentness, only said: 'And the other hint?' "
+> dialog Father Brown
+
+> dialog Father Brown
+(#111)
+" 'The other hint is this,' said the priest. 'Do you remember the blacksmith, though he believes in miracles, talking scornfully of the impossible fairy tale that his hammer had wings and flew half a mile across country?' "
+> dialog Doctor
+
+> dialog Doctor
+(#112)
+" 'Yes,' said the doctor, 'I remember that.' "
+> dialog Father Brown
+
+> dialog Father Brown
+(#113)
+" 'Well,' added Father Brown, with a broad smile, 'that fairy tale was the nearest thing to the real truth that has been said today.' And with that he turned his back and stumped up the steps after the curate."
+> go to stairs
+
+> go to stairs
+> go to Elevated entrance
+
+> go to Elevated entrance
+> go to winding stairs
+
+> go to winding stairs
+> go to Gallery
+
+> go to Gallery
+> read narrative
+
+> read narrative
+(#114)
+"The Reverend Wilfred, who had been waiting for him, pale and impatient, as if this little delay were the last straw for his nerves, led him immediately to his favourite corner of the church, that part of the gallery closest to the carved roof and lit by the wonderful window with the angel. The little Latin priest explored and admired everything exhaustively, talking cheerfully but in a low voice all the time."
+> read narrative
+
+> read narrative
+(#115)
+"When in the course of his investigation he found the side exit and the winding stair down which Wilfred had rushed to find his brother dead, Father Brown ran not down but up, with the agility of a monkey, and his clear voice came from an outer platform above.
+
+'Come up here, Mr. Bohun,' he called. 'The air will do you good.' "
+> go to winding stairs
+
+> go to winding stairs
+> go to Stone balcony
+
+> go to Stone balcony
+(#116)
+"Bohun followed him, and came out on a kind of stone gallery or balcony outside the building, from which one could see the illimitable plain in which their small hill stood, wooded away to the purple horizon and dotted with villages and farms. Clear and square, but quite small beneath them, was the blacksmith's yard, where the inspector still stood taking notes and the corpse still lay like a smashed fly."
+> dialog Father Brown
+
+> dialog Father Brown
+(#117)
+" 'Might be the map of the world, mightn't it?' said Father Brown."
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#118)
+" 'Yes,' said Bohun very gravely, and nodded his head."
+> read narrative
+
+> read narrative
+(#119)
+"Immediately beneath and about them the lines of the Gothic building plunged outwards into the void with a sickening swiftness akin to suicide. There is that element of Titan energy in the architecture of the Middle Ages that, from whatever aspect it be seen, it always seems to be rushing away, like the strong back of some maddened horse. This church was hewn out of ancient and silent stone, bearded with old fungoids and stained with the nests of birds. And yet, when they saw it from below, it sprang like a fountain at the stars; and when they saw it, as now, from above, it poured like a cataract into a voiceless pit. For these two men on the tower were left alone with the most terrible aspect of Gothic; the monstrous foreshortening and disproportion, the dizzy perspectives, the glimpses of great things small and small things great; a topsy-turvydom of stone in the mid-air. Details of stone, enormous by their proximity, were relieved against a pattern of fields and farms, pygmy in their distance. A carved bird or beast at a corner seemed like some vast walking or flying dragon wasting the pastures and villages below. The whole atmosphere was dizzy and dangerous, as if men were upheld in air amid the gyrating wings of colossal genii; and the whole of that old church, as tall and rich as a cathedral, seemed to sit upon the sunlit country like a cloudburst."
+> dialog Father Brown
+
+> dialog Father Brown
+(#120)
+" 'I think there is something rather dangerous about standing on these high places even to pray,' said Father Brown. 'Heights were made to be looked at, not to be looked from.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#121)
+" 'Do you mean that one may fall over,' asked Wilfred."
+> dialog Father Brown
+
+> dialog Father Brown
+(#122)
+" 'I mean that one's soul may fall if one's body doesn't,' said the other priest."
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#123)
+" 'I scarcely understand you,' remarked Bohun indistinctly."
+> dialog Father Brown
+
+> dialog Father Brown
+(#124)
+" 'Look at that blacksmith, for instance,' went on Father Brown calmly; 'a good man, but not a Christian—hard, imperious, unforgiving. Well, his Scotch religion was made up by men who prayed on hills and high crags, and learnt to look down on the world more than to look up at heaven. Humility is the mother of giants. One sees great things from the valley; only small things from the peak.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#125)
+" 'But he—he didn't do it,' said Bohun tremulously."
+> dialog Father Brown
+
+> dialog Father Brown
+(#126)
+" 'No,' said the other in an odd voice; 'we know he didn't do it.'
+After a moment he resumed, looking tranquilly out over the plain with his pale grey eyes. 'I knew a man,' he said, 'who began by worshipping with others before the altar, but who grew fond of high and lonely places to pray from, corners or niches in the belfry or the spire. And once in one of those dizzy places, where the whole world seemed to turn under him like a wheel, his brain turned also, and he fancied he was God. So that, though he was a good man, he committed a great crime.'
+Wilfred's face was turned away, but his bony hands turned blue and white as they tightened on the parapet of stone.
+'He thought it was given to him to judge the world and strike down the sinner. He would never have had such a thought if he had been kneeling with other men upon a floor. But he saw all men walking about like insects. He saw one especially strutting just below him, insolent and evident by a bright green hat—a poisonous insect.'
+Rooks cawed round the corners of the belfry; but there was no other sound till Father Brown went on.
+'This also tempted him, that he had in his hand one of the most awful engines of nature; I mean gravitation, that mad and quickening rush by which all earth's creatures fly back to her heart when released. See, the inspector is strutting just below us in the smithy. If I were to toss a pebble over this parapet it would be something like a bullet by the time it struck him. If I were to drop a hammer—even a small hammer—' "
+> x Reverend Wilfred Bohun
+
+> x Reverend Wilfred Bohun
+(#127)
+"Wilfred Bohun threw one leg over the parapet, and Father Brown had him in a minute by the collar."
+> dialog Father Brown
+
+> dialog Father Brown
+(#128)
+" 'Not by that door,' he said quite gently; 'that door leads to hell.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#129)
+"Bohun staggered back against the wall, and stared at him with frightful eyes.
+'How do you know all this?' he cried. 'Are you a devil?' "
+> dialog Father Brown
+
+> dialog Father Brown
+(#130)
+" 'I am a man,' answered Father Brown gravely; 'and therefore have all devils in my heart. Listen to me,' he said after a short pause. 'I know what you did—at least, I can guess the great part of it. When you left your brother you were racked with no unrighteous rage, to the extent even that you snatched up a small hammer, half inclined to kill him with his foulness on his mouth. Recoiling, you thrust it under your buttoned coat instead, and rushed into the church. You pray wildly in many places, under the angel window, upon the platform above, and a higher platform still, from which you could see the colonel's Eastern hat like the back of a green beetle crawling about. Then something snapped in your soul, and you let God's thunderbolt fall.' "
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#131)
+"Wilfred put a weak hand to his head, and asked in a low voice: 'How did you know that his hat looked like a green beetle?' "
+> dialog Father Brown
+
+> dialog Father Brown
+(#132)
+" 'Oh, that,' said the other with the shadow of a smile, 'that was common sense. But hear me further. I say I know all this; but no one else shall know it. The next step is for you; I shall take no more steps; I will seal this with the seal of confession. If you ask me why, there are many reasons, and only one that concerns you. I leave things to you because you have not yet gone very far wrong, as assassins go. You did not help to fix the crime on the smith when it was easy; or on his wife, when that was easy. You tried to fix it on the imbecile because you knew that he could not suffer. That was one of the gleams that it is my business to find in assassins. And now come down into the village, and go your own way as free as the wind; for I have said my last word.' "
+> go to winding stairs
+
+> go to winding stairs
+> go to Gallery
+
+> go to Gallery
+> go to winding stairs
+
+> go to winding stairs
+> go to Elevated entrance
+
+> go to Elevated entrance
+> go to stairs
+
+> go to stairs
+> go to Yard of the Smithy
+
+> go to Yard of the Smithy
+(#133)
+"They went down the winding stairs in utter silence, and came out into the sunlight by the smithy."
+> dialog Reverend Wilfred Bohun
+
+> dialog Reverend Wilfred Bohun
+(#134)
+"Wilfred Bohun carefully unlatched the wooden gate of the yard, and going up to the inspector, said: 'I wish to give myself up; I have killed my brother.' "
+
+Press any key to finish the story.
+[state=Finished]

@@ -1,0 +1,334 @@
+Sea Lion Caves
+Escape the Cave that You Get Stuck in Near the End of the Game
+
+by Ryan Thompson
+
+You are in an old parking lot, there is only one car in the lot. The car is quite rusty, and likely doesn't work anymore. With a quick look over, you conclude that to be true, but You see a loose screw that could be of use.
+
+There is a road branching off the lot to the north.
+
+A building to the west.
+> take rusty screw
+
+> take rusty screw
+You carefully unscrew the screw, and put it into your pocket.
+> w
+
+> w
+
+You enter a disheveled room, that had a sign that said "Visitor Center." Looking around you see almost entirely sea lion merchandise and bigfoot related products, including A well made bigfoot figurine.
+
+There is an exit to the west, that goes out to a platform.
+
+There is also an exit out to the parking lot to the east.
+
+> take bigfoot figurine
+
+> take bigfoot figurine
+You pick it up.
+> w
+
+> w
+
+You walk onto a concrete platform, with a statue in the middle of it. The platform seems to be the main hub of the area.
+
+There is a building to the east.
+
+A dirt path is to the south, and a paved path to the north.
+
+Another wooden platform is to the west.
+> s
+
+> s
+
+You walk along a simple, dirt path. It's surprising the grass has hardly interfered with the path.You can see a surprisingly large stone compared to everything else on the path. The stone could be of use.
+
+The path leads north to a concrete platform and south to a wooden one.
+> take stone
+
+> take stone
+You pick it up.
+> n
+
+> n
+
+You walk onto a concrete platform, with a statue in the middle of it.
+
+There is a building to the east.
+
+A dirt path is to the south, and a paved path to the north.
+
+Another wooden platform is to the west.
+> e
+
+> e
+
+A well made bigfoot figurine.
+
+There is an exit to the west, that goes out to a platform.
+
+There is also an exit out to the parking lot to the east.
+
+> e
+
+> e
+
+You see a loose screw that could be of use.
+
+There is a road branching off the lot to the north.
+
+A building to the west.
+> n
+
+> n
+
+Just by looking around you can tell that this road is quite old, and used fairly often, but not taken care of very well. You can see a dull, red truck driving down the road a ways. If you had a good object to throw, you could likely hit the truck. Attacking the truck without an object would likely not end well.
+
+A parking lot is to the south.
+
+> attack truck
+
+> attack truck
+You threw the stone at the truck, causing it to crash.
+> in
+
+> in
+
+You inter the truck. The inside seems somewhat shabby but in an okay state. The man who was driving the truck appears to be unconscious, but other than that, fine. When you check the glovebox, You notice a pair of pliers that could come in handy.
+
+You can go out of the truck into the road.
+> take pliers
+
+> take pliers
+You pick it up.
+> out
+
+> out
+
+If you had a good object to throw, you could likely hit the truck. Attacking the truck without an object would likely not end well.
+
+A parking lot is to the south.
+
+> s
+
+> s
+
+You see a loose screw that could be of use.
+
+There is a road branching off the lot to the north.
+
+A building to the west.
+> w
+
+> w
+
+A well made bigfoot figurine.
+
+There is an exit to the west, that goes out to a platform.
+
+There is also an exit out to the parking lot to the east.
+
+> w
+
+> w
+
+You walk onto a concrete platform, with a statue in the middle of it.
+
+There is a building to the east.
+
+A dirt path is to the south, and a paved path to the north.
+
+Another wooden platform is to the west.
+> s
+
+> s
+
+You can see a surprisingly large stone compared to everything else on the path. The stone could be of use.
+
+The path leads north to a concrete platform and south to a wooden one.
+> s
+
+> s
+
+You walk onto a wooden platform labeled "Viewing Platform 2."
+
+There is a dirt path of to the north.
+
+What appears to be hole in the ground is to the east.
+
+A sheer cliff to the west.
+
+Climbing down seems to be a bad idea.
+> e
+
+> e
+
+You step off the platform and into the grass and walk over to the hole you saw. A wooden ladder is poking out of the hole a bit. Torch light is coming from the inside.
+
+You can go west to the Viewing Platform.
+
+You can also climb down into the hole.
+> d
+
+> d
+
+You climb down the ladder into a hole. You see a scruffy old man sitting on the ground.
+
+You can leave the hole by climbing back up the ladder.
+> give rusty screw to old man
+
+> give rusty screw to old man
+Ahh, I've been wanting one of these for a while. Here, have my old lamp.
+> u
+
+> u
+
+You can go west to the Viewing Platform.
+
+You can also climb down into the hole.
+> w
+
+> w
+
+There is a dirt path of to the north.
+
+What appears to be hole in the ground is to the east.
+
+A sheer cliff to the west.
+
+Climbing down seems to be a bad idea.
+> n
+
+> n
+
+You can see a surprisingly large stone compared to everything else on the path. The stone could be of use.
+
+The path leads north to a concrete platform and south to a wooden one.
+> n
+
+> n
+
+You walk onto a concrete platform, with a statue in the middle of it.
+
+There is a building to the east.
+
+A dirt path is to the south, and a paved path to the north.
+
+Another wooden platform is to the west.
+> n
+
+> n
+
+You walk along a paved path.While the path is intact,  it's nothing special. The path is of decent quality.
+
+It makes it's way over to a small building to the north.
+
+It also leads to a concrete platform to the south.
+> n
+
+> n
+
+When you arrive at the building, you see a sign that says "Elevator." There is a button with a down arrow on it, that very well may work. A screw is missing from the control panel.
+
+The elevator has a paved path branching off to the south.
+
+An old, wooden staircase windes down on the south.
+> n
+
+> n
+
+You step onto an old, wooden staircase. The rails seem weak, so a misstep could be catastrophic.
+
+You can go south to the elevator.
+
+You can also follow the stairs to the east.
+> e
+
+> e
+
+The path winds to the west and north.
+> n
+
+> n
+
+The path winds to the south and west.
+> w
+
+> w
+
+The path winds to the east and west.
+> w
+
+> w
+
+The path winds to the east and west.
+> w
+
+> w
+
+The path winds to the east and south.
+> s
+
+> s
+
+The path winds to the north and south.
+> s
+
+> s
+
+You are just outside of a cave. The cave entrance seems to have an unstable roof.
+
+You could go into the cave to the south.
+
+There is also an old staircase to the north.
+> s
+
+> s
+
+You enter a viewing area. There are screens and plaques around the room.
+
+A tunnel branches off to the east.
+
+There is an iron gate to the south. The other side of a gate is very dark.
+
+It looks like you could go south if you could cut the gate.
+After entering the cave, the entrance behind you collapses, now you need to find a good way out.
+> cut iron gate
+
+> cut iron gate
+You cut a few bars off of the gate.
+> s
+
+> s
+
+You step through the gate, but can't see anything.
+> d
+
+> d
+
+You climb down to a rocky area covered in sea lions. The ground is slick from the ocean water. There are at least twenty sea lions around the rocks.
+
+You could climb back up from the rocks. There is also water to the south.
+
+You could probably befriend one of the sea lions if you had an item.
+> befriend sea lion
+
+> befriend sea lion
+The sea lion accepts your bigfoot figurine, and joins you. You could probably ride it.
+> s
+
+> s
+
+You ride across the water. It has a nice, see through look to it, but a few feet down it becomes very murky.
+
+You could head back to the sea lion rocks from here.
+
+You can also exit the cave to the south.
+> s
+
+> s
+
+You manage to reach the exit by riding the sea lion. It was a great adventure, but you are glad to be out. You head to the shore, thank the sea lion, and make your way back home.
+
+YOU WIN
+[state=Finished]

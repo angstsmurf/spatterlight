@@ -1,0 +1,812 @@
+The Piskie
+A Country Walk
+
+by peter edwards
+
+ THE PISKIE.
+It's a lovely day for a walk in the country. Fluffy white clouds sail in a blue sky full of the song of a skylark and the air is redolent with the scent of freshly cropped grass.
+
+You are in a country lane running north and south.
+There is a field to the west, blocked by a closed gate.
+> n
+
+> n
+
+You are at a fork in the lane.
+You can go northwest, north or south.
+> n
+
+> n
+
+You are at the meeting of four lanes.
+You can go south, west, north or east.
+> w
+
+> w
+
+You are in School Lane.
+There are school gates to the north.
+You can go west, southeast or east.
+> x stones
+
+> x stones
+You examine the wall.
+You see a crevice between the stones
+> x crevice
+
+> x crevice
+Nothing out of the ordinary.
+It contains a brass key.
+> take brass key
+
+> take brass key
+You pick it up.
+> unlock school gates
+
+> unlock school gates
+Unlocked.
+> open school gates
+
+> open school gates
+You open them.
+> in
+
+> in
+
+You are in a playground.
+The school building stands here.
+You can go south.
+> look under netball stand
+
+> look under netball stand
+You find a small key underneath it.
+> take small key
+
+> take small key
+You pick it up.
+> unlock door
+
+> unlock door
+Unlocked.
+> open door
+
+> open door
+You open it.
+> in
+
+> in
+
+You are in a schoolroom.
+A large room sparcely furnished with several desks and a teacher's table. There is a blackboard and easel.
+You can go out.
+> x blackboard
+
+> x blackboard
+A good old-fashioned blackboard and easel, with a ledge under it.
+> x ledge
+
+> x ledge
+Nothing out of the ordinary.
+On it you can see a piece of chalk and a blackboard eraser.
+> take chalk
+
+> take chalk
+You pick it up.
+> take eraser
+
+> take eraser
+You pick it up.
+> write on blackboard
+
+> write on blackboard
+Using the last of the chalk, you doodle somewhat aimlessly on the board.
+> wipe blackboard
+
+> wipe blackboard
+You wipe the board clean.
+> bang eraser
+
+> bang eraser
+You bang the eraser.
+Some chalk dust falls to the ground.
+> take chalk dust
+
+> take chalk dust
+You pick it up.
+> out
+
+> out
+
+You are in a playground.
+The school building stands here.
+You can go south or in.
+> s
+
+> s
+
+You are in School Lane.
+There are school gates to the north.
+You can go west, southeast, east or in.
+> w
+
+> w
+
+You are in School Lane.
+You can see a gate.
+You can go east or west.
+> w
+
+> w
+
+You are at the corner of Chapel Lane.
+The road surface is well worn by the passage of cars. A gate to the south leads in to a field.
+You can go east, south or north.
+> x lane
+
+> x lane
+You see a little squashed toad.
+> take squashed toad
+
+> take squashed toad
+You pick it up.
+> n
+
+> n
+
+You are outside a graveyard.
+You can go south or in.
+> in
+
+> in
+
+You are in a graveyard.
+Old gravestones stand forlornly above the damp earth.
+You can go out.
+> take earth
+
+> take earth
+You pick up some earth.
+> out
+
+> out
+
+You are outside a graveyard.
+You can go south or in.
+> s
+
+> s
+
+You are at the corner of Chapel Lane.
+The road surface is well worn by the passage of cars. A gate to the south leads in to a field.
+You can go east, south or north.
+> e
+
+> e
+
+You are in School Lane.
+You can see a gate.
+You can go east or west.
+> open gate
+
+> open gate
+You open it.
+> s
+
+> s
+
+You are in a muddy corner of an onion field.
+You can see a gate.
+You can go south, north or west.
+> s
+
+> s
+
+You are in a field of onions.
+You can see a gate.
+You can go north or south.
+> s
+
+> s
+
+You are in a shady corner.
+A shadowy spot at the edge of a wood.
+You can go west or north.
+> w
+
+> w
+
+You are at Oggy Gap - a gap in the hedge between two fields.
+Far to the south you can see a small copse.
+You can go west, east or south.
+> s
+
+> s
+
+You are in a carrot field.
+To the south you can see a small copse.
+A sudden unaccountable feeling of terror is stopping you going south...
+You can go north.
+> x carrots
+
+> x carrots
+Appetising, but you know better than to pick one!
+However, you can see a mouldy carrot lying on the ground. No harm in taking that!
+> take mouldy carrot
+
+> take mouldy carrot
+You pick it up.
+> n
+
+> n
+
+You are at Oggy Gap - a gap in the hedge between two fields.
+Far to the south you can see a small copse.
+You can go west, east or south.
+> w
+
+> w
+
+You are standing in long grass under a lone pine.
+You can go west or east.
+> search grass
+
+> search grass
+You see a pine cone.
+> take pine cone
+
+> take pine cone
+You pick it up.
+> w
+
+> w
+
+You are in a draughty corner.
+A windy part of the field. Various small broken branches have blown here.
+You can go north or east.
+> look under small branch
+
+> look under small branch
+You see a slow-worm
+> take slow-worm
+
+> take slow-worm
+You pick it up.
+The slow-worm wriggles free and drops to the ground, leaving its tail in your hand, a common feature of lizards. It moves quickly away, presumably to grow a new tail!
+> e
+
+> e
+
+You are standing in long grass under a lone pine.
+You can go west or east.
+> e
+
+> e
+
+You are at Oggy Gap - a gap in the hedge between two fields.
+Far to the south you can see a small copse.
+You can go west, east or south.
+> e
+
+> e
+
+You are in a shady corner.
+A shadowy spot at the edge of a wood.
+You can go west or north.
+> throw pine cone
+
+> throw pine cone
+The pine cone flies through the air into the wood.
+
+A few seconds later, a squirrel jumps out of the wood and balances on the barbed wire fence. It chatters at you before whisking round and disappearing back into the trees.
+> x barbed wire fence
+
+> x barbed wire fence
+You find a hair caught on the barbed wire.
+> take hair
+
+> take hair
+You carefully take the hair.
+> x shadows
+
+> x shadows
+You see a tiny spark.
+> x spark
+
+> x spark
+You see that it is, in fact, a little glow-worm.
+> take glow-worm
+
+> take glow-worm
+You pick it up.
+> n
+
+> n
+
+You are in a field of onions.
+You can see a gate.
+You can go north or south.
+> n
+
+> n
+
+You are in a muddy corner of an onion field.
+You can see a gate.
+You can go south, north or west.
+> n
+
+> n
+
+You are in School Lane.
+You can see a gate.
+You can go south, east or west.
+> e
+
+> e
+
+You are in School Lane.
+There are school gates to the north.
+You can go west, southeast, east or in.
+> e
+
+> e
+
+You are at the meeting of four lanes.
+You can go south, west, north or east.
+> s
+
+> s
+
+You are at a fork in the lane.
+You can go northwest, north or south.
+> s
+
+> s
+
+You are in a country lane running north and south.
+There is a field to the west, blocked by a closed gate.
+> climb gate
+
+> climb gate
+You climb over the gate
+
+You are in the corner of a grassy field.
+There is a lane to the east, blocked by a closed gate.
+You can see a hole in the bank behind the gate.
+You can go north, west or northwest to the middle of the field.
+You hear the sound of bleating sheep in the distance.
+> look
+
+> look
+You are in the corner of a grassy field.
+There is a lane to the east, blocked by a closed gate.
+You can see a hole in the bank behind the gate.
+You can go north, west or northwest to the middle of the field.
+> drop mouldy carrot
+
+> drop mouldy carrot
+You drop it.
+
+To your astonishment, a little man, about six inches tall, appears instead of the rabbit which you had half expected!
+He bows deeply and picks up the carrot.
+"Thank 'ee kindly friend," he says. "I'll make sure Mr Rabbit gets this. It will go a long way towards paying the rent for my place in the burrow."
+
+> ask piskie about piskies
+
+> ask piskie about piskies
+"I'm a Cornish Piskie. We're like ordinary pixies, but we tend to drink a lot!" he says. After looking quizzically at you, he continues,  "You look like a kind sort of person. Would you be prepared to help me?"
+
+You think about it, and then, feeling that it might be interesting, agree to help him.
+
+"Well, my friend," the piskie continues, "it's like this. My brother, admittedly a most irritating person even by piskie standards, eventually teased the local witch once too many times. She cast a spell on him, and he now lies down below in a deep coma.
+
+"The spell to free him may well be found in her cottage. She herself is away on holiday, so the coast should be clear. If you could find the antidote and bring it here, you would earn the friendship of all us Cornish Piskies.
+
+"Oh yes, and I've opened the way for you..."
+
+Before you can ask him any questions, he says something that that you think sounded a bit like "blackberry", bows deeply and, clutching his carrot firmly, disappears into the hole.
+> w
+
+> w
+
+You are near a hedge.
+You can go east, north or northeast to the middle of the field.
+> x elder
+
+> x elder
+It bears elderberries.
+> take berries
+
+> take berries
+You take them.
+> e
+
+> e
+
+You are in the corner of a grassy field.
+There is a lane to the east, blocked by a closed gate.
+You can see a hole in the bank behind the gate.
+You can go north, west or northwest to the middle of the field.
+> climb gate
+
+> climb gate
+You climb over the gate
+
+You are in a country lane running north and south.
+There is a field to the west, blocked by a closed gate.
+> n
+
+> n
+
+You are at a fork in the lane.
+You can go northwest, north or south.
+> n
+
+> n
+
+You are at the meeting of four lanes.
+You can go south, west, north or east.
+> w
+
+> w
+
+You are in School Lane.
+There are school gates to the north.
+You can go west, southeast, east or in.
+> w
+
+> w
+
+You are in School Lane.
+You can see a gate.
+You can go south, east or west.
+> open gate
+
+> open gate
+It is already open.
+> s
+
+> s
+
+You are in a muddy corner of an onion field.
+You can see a gate.
+You can go south, north or west.
+> s
+
+> s
+
+You are in a field of onions.
+You can see a gate.
+You can go north or south.
+> s
+
+> s
+
+You are in a shady corner.
+A shadowy spot at the edge of a wood.
+You can go west or north.
+> w
+
+> w
+
+You are at Oggy Gap - a gap in the hedge between two fields.
+Far to the south you can see a small copse.
+You can go west, east or south.
+> s
+
+> s
+
+You are in a carrot field.
+To the south you can see a small copse.
+You can go north or south.
+> s
+
+> s
+
+You are in the Nine Oak Stand.
+A small copse of nine oaks.
+You can see a compost heap.
+You can go north, south or east.
+It is a dim and mysterious place.
+For no apparent reason, a transient thought of black berries passes through your mind...
+> eat berries
+
+> eat berries
+You eat the last of the berries. You experience a very odd sensation, as if scales had fallen from your eyes. Suddenly everything looks much clearer than before!
+> x compost heap
+
+> x compost heap
+You suddenly realise that what you thought was a compost heap was, in fact, the thatched roof of an old cottage.
+> x cottage
+
+> x cottage
+A small and neat thatched cottage, with sparklingly clean windows. Only the crooked chimneys and black cat door knocker tells you that this is a witch's cottage. That, and the cunning way it was disguised as a compost heap! And of course, the bat motif curtains and the witch-on-a-broomstick weather-vane.
+The door is ajar. Evidently the owner feels that no burglar in his right mind would dare...
+> in
+
+> in
+
+You are in a small living room.
+Everything is tidy and spotlessly clean. There is an enormous open fireplace. A shelf runs round the wall and a narrow wooden staircase leads upstairs.
+You can go out or up.
+> x shelf
+
+> x shelf
+Nothing out of the ordinary.
+On it you see a box of matches, a jug and a book.
+> take jug
+
+> take jug
+You pick it up.
+> take box of matches
+
+> take box of matches
+You pick it up.
+> take book
+
+> take book
+You pick it up.
+> out
+
+> out
+
+You are in the Nine Oak Stand.
+A small copse of nine oaks.
+You can see a cottage.
+You can go north, in, south or east.
+> e
+
+> e
+
+You are outside a wood.
+You can see a gate.
+You can go west.
+> say aperi
+
+> say aperi
+You say "aperi", and the gate swings open!
+Your way to the north is now clear.
+> n
+
+> n
+
+You are in the Dark Wood.
+The wood is dark and deep with trees covered with creeping plants like convolvulus, ivy and honeysuckle
+You can see a gate.
+You can go south.
+> take bindweed
+
+> take bindweed
+You pick it up.
+> s
+
+> s
+
+The gate swings shut behind you.
+
+You are outside a wood.
+You can see a gate.
+You can go west.
+> w
+
+> w
+
+You are in the Nine Oak Stand.
+A small copse of nine oaks.
+You can see a cottage.
+You can go north, in, south or east.
+> s
+
+> s
+
+You are by a spring.
+Clear water gushes out of a rocky bank and runs off as a small stream to the east.
+You can go north or east.
+> e
+
+> e
+
+You are by a pool.
+A pool of clear water. Several long-legged white birds are wading up and down.
+You can go west.
+> fill jug
+
+> fill jug
+You fill the jug with water from the pool.
+> w
+
+> w
+
+You are by a spring.
+Clear water gushes out of a rocky bank and runs off as a small stream to the east.
+You can see spring water.
+You can go north or east.
+> n
+
+> n
+
+You are in the Nine Oak Stand.
+A small copse of nine oaks.
+You can see a cottage.
+You can go north, in, south or east.
+> in
+
+> in
+
+You are in a small living room.
+Everything is tidy and spotlessly clean. There is an enormous open fireplace. A shelf runs round the wall and a narrow wooden staircase leads upstairs.
+You can go out or up.
+> empty jug
+
+> empty jug
+You pour the water into the cauldron.
+> put squashed toad in cauldron
+
+> put squashed toad in cauldron
+Done.
+> put hair in cauldron
+
+> put hair in cauldron
+Done.
+> put slow-worm's tail in cauldron
+
+> put slow-worm's tail in cauldron
+Done.
+> put dust in cauldron
+
+> put dust in cauldron
+Done.
+> drop earth
+
+> drop earth
+
+You put the earth into the cauldron.
+> put bindweed in cauldron
+
+> put bindweed in cauldron
+Done.
+> put glow-worm in cauldron
+
+> put glow-worm in cauldron
+Done.
+The glow from the glow-worm hovers in the cauldron. Meanwhile, on the cottage floor a little glow-worm crawls away to find a new glimmer!
+> light fireplace
+
+> light fireplace
+You light the fire.
+
+The mixture comes to the boil, simmers for a while and then suddenly erupts in a great cloud of blue smoke.
+
+When the smoke clears you see that the cauldron is full of a blue liquid.
+> look
+
+> look
+You are in a small living room.
+Everything is tidy and spotlessly clean. There is an enormous open fireplace. A shelf runs round the wall and a narrow wooden staircase leads upstairs.
+You can go out or up.
+> look
+
+> look
+You are in a small living room.
+Everything is tidy and spotlessly clean. There is an enormous open fireplace. A shelf runs round the wall and a narrow wooden staircase leads upstairs.
+You can go out or up.
+> look
+
+> look
+You are in a small living room.
+Everything is tidy and spotlessly clean. There is an enormous open fireplace. A shelf runs round the wall and a narrow wooden staircase leads upstairs.
+You can go out or up.
+> fill jug
+
+> fill jug
+You carefully fill the jug with blue liquid from the cauldron.
+> out
+
+> out
+
+You are in the Nine Oak Stand.
+A small copse of nine oaks.
+You can see a cottage.
+You can go north, in, south or east.
+> n
+
+> n
+
+You are in a carrot field.
+To the south you can see a small copse.
+You can go north or south.
+> n
+
+> n
+
+You are at Oggy Gap - a gap in the hedge between two fields.
+Far to the south you can see a small copse.
+You can go west, east or south.
+> e
+
+> e
+
+You are in a shady corner.
+A shadowy spot at the edge of a wood.
+You can go west or north.
+> n
+
+> n
+
+You are in a field of onions.
+You can see a gate.
+You can go north or south.
+> n
+
+> n
+
+You are in a muddy corner of an onion field.
+You can see a gate.
+You can go south, north or west.
+> n
+
+> n
+
+You are in School Lane.
+You can see a gate.
+You can go south, east or west.
+> e
+
+> e
+
+You are in School Lane.
+There are school gates to the north.
+You can go west, southeast, east or in.
+> e
+
+> e
+
+You are at the meeting of four lanes.
+You can go south, west, north or east.
+> s
+
+> s
+
+You are at a fork in the lane.
+You can go northwest, north or south.
+> s
+
+> s
+
+You are in a country lane running north and south.
+There is a field to the west, blocked by a closed gate.
+> climb gate
+
+> climb gate
+You climb over the gate
+
+You are in the corner of a grassy field.
+There is a lane to the east, blocked by a closed gate.
+You can see a hole in the bank behind the gate.
+You can go north, west or northwest to the middle of the field.
+> look
+
+> look
+You are in the corner of a grassy field.
+There is a lane to the east, blocked by a closed gate.
+You can see a hole in the bank behind the gate.
+You can go north, west or northwest to the middle of the field.
+> drop jug
+
+> drop jug
+You drop it.
+
+As you drop the jug, blue smoke rises from it and wafts lazily into the rabbit hole. You imagine it drifting along the dark tunnels of the warren.
+
+Obviously attracted by the aromatic smell emanating from the jug, the piskie appears at the entrance to the hole. Seeing the blue potion, his eyes light up. He grabs the jug eagerly.
+
+"Thank you, thank you kind stranger," he cries, "But I must be honest with you, much though it do go against the grain of the Cornish Piskie. In fact, the spell cast on my brother was only temporary. It wears off tonight. What you've brought us is the infamous 'Piskie Reviver' - an amazing drink which guarantees a great party. And that's what we mean to have tonight to welcome my brother back.
+
+"You may be sure that we'll not forget to drink your health!"
+
+So saying, he scurries back into the hole.
+Later that evening, before retiring, you decide to take a last stroll. As you pass the gate, you hear the sounds of merriment coming from somewhere underground.
+
+Smiling, you head for home, and bed...
+
+The End
+[state=Finished]

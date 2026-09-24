@@ -51,6 +51,7 @@ check_one() {  # $1 = golden .cmd path; prints one "STATUS<TAB>game<TAB>detail" 
   local cmd="$1" game q gold got
   game="$(basename "$cmd" .cmd)"
   q="$GAMES/$game.quest"; gold="$GOLDEN/$game.txt"
+  if [ ! -f "$q" ] && [ -f "$GAMES/$game.aslx" ]; then q="$GAMES/$game.aslx"; fi
   [ -f "$q" ]    || { printf 'MISS\t%s\tgame file missing\n' "$game"; return; }
   [ -f "$gold" ] || { printf 'MISS\t%s\tno golden .txt\n' "$game";    return; }
   got="$WORK/$game.golden-check.txt"

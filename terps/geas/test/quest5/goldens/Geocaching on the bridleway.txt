@@ -1,0 +1,1155 @@
+Geocaching on the bridleway
+
+Your car bounces across the pot holes and comes to a rest, alone, in the isolated car park. You see the bridleway through a gap in the trees. The sun is shining and there are fluffy clouds in the blue sky. The birds are singing and you take a deep breath of cool fresh air.
+
+You climb out and check you've got your GPS and the stage 1 coordinates. You lock your car and look about. It's a beautiful day, and you're ready for a walk.
+
+This is a 5 stage geocache. Good luck!
+
+You are in a car park.
+It is a small, unpaved and potholed clearing with just one car in it - yours.
+You can go west to a bridleway.
+> unlock car
+
+> unlock car
+*Beep Boop*
+> open car
+
+> open car
+You pop open the boot of the car.
+It contains a pair of boots, a cloth and a rope.
+> take cloth
+
+> take cloth
+You gingerly reach over and retrieve the crusty rag.
+> take rope
+
+> take rope
+You retrieve the rope.
+> take boots
+
+> take boots
+You retrieve your boots from the boot.
+> wear boots
+
+> wear boots
+You shake out any stray spiders, then put them on, one at a time.
+> tie stopper knot
+
+> tie stopper knot
+You twist and manipulate the rope near the end, tying it into a strong stopper knot. You have turned your rope into a throwline. Well done!
+> w
+
+> w
+You remember to lock the car. *Beep Boop*
+You leave behind the crunchy gravel.
+
+You are on a path.
+The bridleway stretches out in front of you. The path is bordered by a hedgerow on both sides.
+You can go east or north.
+> n
+
+> n
+There is a flash of brown, either a dunnock or sparrow. You can't be certain.
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+You hear the characteristic sounds of a bird turning over leaves in the hedgerow. As you approach it flies away calling out.
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right. In the field to the east, there is an electricity pylon.
+You can go south or north.
+> n
+
+> n
+You see a flash of blue and yellow as a blue tit is disturbed ahead on the path.
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south, north or east.
+> e
+
+> e
+
+You are on a riverbank.
+You are walking alongside a gentle river with lush plants growing on the banks.
+You can go east or west.
+> e
+
+> e
+
+You are on a riverbank.
+You are next to a river with lush plants growing on the banks. There is a small wooden bridge.
+You can go north onto the bridge, west or down to the river.
+> d
+
+> d
+
+You are standing next to a bridge.
+You see the wooden beams, and can see that sunlight is shining through gaps in the planking onto the river below.
+You can go north up the bank, south up the bank or down into the river.
+> d
+
+> d
+You stride out into the river, glad you remembered to bring your wellies.
+
+You are under a bridge standing on a rock.
+You struggle not to be pushed off the rock by the strong current. From here you have a perfect view of the underside of the bridge.
+You can go up or west.
+> look up
+
+> look up
+You see the wooden planks, and the sunlight shining through gaps in the planking. It is slightly dazzling.
+> take cache
+
+> take cache
+You reach up and take it. There's a little door on the back.
+Inside the small cavity you find a slip of laminated paper that reads 'I love lamp.', and the next set of co-ordinates. You enter them into your GPS.
+> replace cache
+
+> replace cache
+You stuff the rock back in its nook.
+> up
+
+> up
+
+You are standing next to a bridge.
+You see the wooden beams, and can see that sunlight is shining through gaps in the planking onto the river below.
+You can go north up the bank, south up the bank or down into the river.
+> n
+
+> n
+
+You are on a riverbank.
+You are next to a river with lush plants growing on the banks. There is a small wooden bridge.
+You can go west, south onto the bridge or down to the river.
+> w
+
+> w
+
+You are on a riverbank.
+You are walking alongside a gentle river with lush plants growing on the banks.
+You can go west or east.
+> w
+
+> w
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south, north or east.
+> n
+
+> n
+A flash of blue and pink catches your eye. It was probably a disturbed chaffinch.
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+A flash of blue and pink catches your eye. It was probably a disturbed chaffinch.
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south, north or east.
+> n
+
+> n
+You hear the characteristic sounds of a bird turning over leaves in the hedgerow. As you approach it flies away calling out.
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to one side, and a rangers' station on the other.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+There is a flash of brown, as a dunnock or sparrow is disturbed from it's perch on top of an old wooden pole sticking out of the undergrowth.
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+You can go south or north.
+> take sign
+
+> take sign
+You dig it out of the undergrowth.
+> fix sign
+
+> fix sign
+You scrabble around a bit and find the old post hole. The broken base is still inside, covered with snails. You work out which way the sign needs to point by examining the splintering on both sides of the break, then you remove the broken end and plant the sign in the hole. It sinks down and comes to rest - a little wobbly - but steady enough. The sign stands a little short, but it's pointing in the right direction.
+> e
+
+> e
+You push your way through the overgrown path, uncertain whether it is indeed a path, until you spot a section of mossy tarmac ahead.
+
+You are walking down a cut-through.
+On each side of you there are houses and garden fences.
+You can go west or east.
+> e
+
+> e
+
+You are walking down a road.
+On each side of you there are houses and gardens. You are on a long road that stretches away to the horizon.
+You can go west, north or south.
+> n
+
+> n
+
+You are walking down a road.
+On each side of you there are houses and gardens. You are on a long road that stretches away to the horizon.
+You can go south, north or east.
+> e
+
+> e
+
+You are walking down a cut-through.
+On each side of you there are houses and garden walls.
+You can go west or east.
+> e
+
+> e
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants.
+You can go north, west or south.
+> n
+
+> n
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants. There is a bridge in the distance.
+You can go north or south.
+> n
+
+> n
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants. There is a bridge further ahead.
+You can go north or south.
+> n
+
+> n
+
+You are on a tow path.
+You are walking on cobbles beneath an old brick bridge, next to the canal.
+You can go north or south.
+> x bridge
+
+> x bridge
+The bridge spans across the canal. The barrel wall rises to one side and high above you. The red bricks are worn and look damp.
+> x bricks
+
+> x bricks
+The bricks that form of the barrel of the arch are all uniformly worn and damp, except for one.... You see a fake brick.
+> open fake brick
+
+> open fake brick
+You pull and tug at the brick with your bare hands. It's not moving. You examine the edge and discover a small crack, large enough for a credit card, but not fingers.
+You think you have a penknife in your car...
+> plugh
+
+> plugh
+
+You are in a car park.
+It is a small, unpaved and potholed clearing with just one car in it - yours.
+You can go west to a bridleway.
+> unlock car
+
+> unlock car
+*Beep Boop*
+> open car
+
+> open car
+You pop open the boot of the car.
+It contains a penknife.
+> take penknife
+
+> take penknife
+You fish around in the dark corners of the boot for the small knife you know is in here, and pocket it.
+> w
+
+> w
+You remember to lock the car. *Beep Boop*
+You leave behind the crunchy gravel.
+
+You are on a path.
+It is bordered by a hedgerow on both sides.
+You can go east or north.
+> n
+
+> n
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right. In the field to the east, there is an electricity pylon.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+You can go south, north or east.
+> n
+
+> n
+
+You are on a path that crosses a bridge.
+You can hear but not see the water below you. The trees and shrubs grow thick on either side of the bank, blocking your view.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south, north or east.
+> n
+
+> n
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+You see a flash of blue and yellow as a blue tit is disturbed ahead on the path.
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+You can go south, north or east.
+> n
+
+> n
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+You can go south or north.
+> n
+
+> n
+You see a flash of blue and yellow as a blue tit is disturbed ahead on the path.
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The path is bordered by a hedgerow on one side, and a rangers' station on the other.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+ There is a path to the east.
+You can see a sign.
+You can go south, north or east.
+> e
+
+> e
+You push your way through the overgrown path, uncertain whether it is indeed a path, until you spot a section of mossy tarmac ahead.
+
+You are walking down a cut-through.
+On each side of you there are houses and garden fences.
+You can go west or east.
+> e
+
+> e
+You hear the 'chiddik-chiddick' of a house sparrow.
+
+You are walking down a road.
+On each side of you there are houses and gardens. You are on a long road that stretches away to the horizon.
+You can go west, north or south.
+> n
+
+> n
+
+You are walking down a road.
+On each side of you there are houses and gardens. You are on a long road that stretches away to the horizon.
+You can go south, north or east.
+> e
+
+> e
+You hear the 'chiddik-chiddick' of a house sparrow.
+
+You are walking down a cut-through.
+On each side of you there are houses and garden walls.
+You can go west or east.
+> e
+
+> e
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants.
+You can go north, west or south.
+> n
+
+> n
+You see a flash of blue. Was that a kingfisher? You can't be sure.
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants. There is a bridge in the distance.
+You can go north or south.
+> n
+
+> n
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants. There is a bridge further ahead.
+You can go north or south.
+> n
+
+> n
+
+You are on a tow path.
+You are walking on cobbles beneath an old brick bridge, next to the canal.
+You can go north or south.
+> open fake brick
+
+> open fake brick
+You slide the knife gently around the edge of the fake brick, feeling for a latch or something to prise it open...
+You find it, near the bottom. You gently wiggle the knife where you feel resistance...
+wiggle wiggle
+Suddenly! Without warning, the front of the brick releases as though on a spring. Your knife slips and the blade slides into the flesh of your hand! You're bleeding.
+drip drip
+The blood drips down your hand. This is a nasty cut...
+You remember that there is a first aid kit in your car. You close the cache and make the long journey back to the car.
+
+You open the car and fish around for the first aid kit...
+After cleaning the wound and applying ointment, you dress the wound in a plaster. It matches your skin tone perfectly! Wonderful. Now you can continue your quest.
+
+You are in a car park.
+It is a small, unpaved and potholed clearing with just one car in it - yours.
+You can go west to a bridleway.
+> w
+
+> w
+You remember to lock the car. *Beep Boop*
+Crunch, crunch, crunch,
+
+You are on a path.
+It is bordered by a hedgerow on both sides.
+You can go east or north.
+> n
+
+> n
+A flash of blue and pink catches your eye. It was probably a disturbed chaffinch.
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south or north.
+> n
+
+> n
+There is a flash of brown, either a dunnock or sparrow. You can't be certain.
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side. In the field to the east, there is an electricity pylon.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south, north or east.
+> n
+
+> n
+
+You are on a path that crosses a bridge.
+You can hear but not see the water below you. The trees and shrubs grow thick on either side of the bank, blocking your view.
+You can go south or north.
+> n
+
+> n
+There is a flash of brown, either a dunnock or sparrow. You can't be certain.
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south, north or east.
+> n
+
+> n
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+You see a flash of blue and yellow as a blue tit is disturbed ahead on the path.
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south, north or east.
+> n
+
+> n
+You see a flash of blue and yellow as a blue tit is disturbed ahead on the path.
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to one side, and a rangers' station on the other.
+You can go south or north.
+> n
+
+> n
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+You can go south or north.
+> n
+
+> n
+You see a flash of blue and yellow as a blue tit is disturbed ahead on the path.
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+ There is a path to the east.
+You can see a sign.
+You can go south, north or east.
+> e
+
+> e
+You push your way through the overgrown path, uncertain whether it is indeed a path, until you spot a section of mossy tarmac ahead.
+
+You are walking down a cut-through.
+On each side of you there are houses and garden fences.
+You can go west or east.
+> e
+
+> e
+
+You are walking down a road.
+On each side of you there are houses and gardens. You are on a long road that stretches away to the horizon.
+You can go west, north or south.
+> n
+
+> n
+
+You are walking down a road.
+On each side of you there are houses and gardens. You are on a long road that stretches away to the horizon.
+You can go south, north or east.
+> e
+
+> e
+You hear the wolf whistle of a starling.
+
+You are walking down a cut-through.
+On each side of you there are houses and garden walls.
+You can go west or east.
+> e
+
+> e
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants.
+You can go north, west or south.
+> n
+
+> n
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants. There is a bridge in the distance.
+You can go north or south.
+> n
+
+> n
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants. There is a bridge further ahead.
+You can go north or south.
+> n
+
+> n
+
+You are on a tow path.
+You are walking on cobbles beneath an old brick bridge, next to the canal.
+You can go north or south.
+> open fake brick
+
+> open fake brick
+This time, you're a lot more careful. You find the catch and give it a gentle flick with the tip of the penknife. It springs open to reveal a small cavity.
+Inside, you find the next set of co-ordinates. You enter them into your GPS. You also see the word 'HOLLOW' scrawled on the inside of the cavity.
+> s
+
+> s
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants. There is a bridge further ahead.
+You can go north or south.
+> s
+
+> s
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants. There is a bridge in the distance.
+You can go north or south.
+> s
+
+> s
+You see a flash of blue. Was that a kingfisher? You can't be sure.
+
+You are on a tow path.
+You are walking along a narrow dirt track next to a canal. On one side is the canal, and on the other is a lush verge of plants.
+You can go north, west or south.
+> w
+
+> w
+
+You are walking down a cut-through.
+On each side of you there are houses and garden walls.
+You can go west or east.
+> w
+
+> w
+
+You are walking down a road.
+On each side of you there are houses and gardens. You are on a long road that stretches away to the horizon.
+You can go south, north or east.
+> s
+
+> s
+
+You are walking down a road.
+On each side of you there are houses and gardens. You are on a long road that stretches away to the horizon.
+You can go west, north or south.
+> w
+
+> w
+
+You are walking down a cut-through.
+On each side of you there are houses and garden fences.
+You can go west or east.
+> w
+
+> w
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+ There is a path to the east.
+You can see a sign.
+You can go south, north or east.
+> n
+
+> n
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south or north towards a bridge.
+> n
+
+> n
+
+You are on a path.
+An old railway bridge crosses the bridleway. The bricks are stained black from the soot of steam engines that used to use this line. Now it is a modern track for electric and diesel engines. You can just about see the over-head lines.
+You can go south, north or just past the bridge and west into a field.
+> w
+
+> w
+
+You are in a field.
+You can see a sea of green wheat in all directions. There is a narrow track through the crop, and a big tree in the distance.
+You can go northwest or east towards a bridge.
+> northwest
+
+> northwest
+
+You are in a field.
+You can see a sea of green wheat in all directions. There is a narrow track through the crop, and a big tree just ahead.
+You can go southeast or west.
+> w
+
+> w
+
+You are in a field.
+You can see a sea of green wheat in all directions. There is a narrow track through the crop. You are standing under a big tree.
+You can go east or northeast.
+> x big tree
+
+> x big tree
+You pace around this impressive oak, noting the lobed leaves which are attached to the branches with almost no stem. The circumference is approximately 4m, making this English oak just over 300 years old. On closer inspection, you notice a small hollow just above head height.
+> x hollow
+
+> x hollow
+You're not tall enough to peer into the hollow. Either it's too high off the ground, or you are too short... There is a strong branch above. It looks like it could comfortably bear your weight.
+> x branch
+
+> x branch
+A strong branch. It is twice your height above the ground and would make a perfect anchor for a rope.
+> heave rope
+
+> heave rope
+You throw the rope into the air. The heavy knot sails over the limb and pulls the rope after it. If you hold onto both halves, you should be able to pull yourself up.
+> climb rope
+
+> climb rope
+You grab the rope with both hands and haul yourself up.
+
+You are in a tree.
+You hold onto the rope tightly.
+> x hollow
+
+> x hollow
+You look down into the small dirty cavity.
+It contains a cache.
+> take cache
+
+> take cache
+You pick it up.
+> drop cache
+
+> drop cache
+You drop it.
+It falls to the ground with a gentle thud.
+> climb down
+
+> climb down
+You lower yourself down slowly.
+
+You are in a field.
+You can see a sea of green wheat in all directions. There is a narrow track through the crop. You are standing under a big tree.
+You can see a cache.
+You can go east or northeast.
+> open cache
+
+> open cache
+You open it.
+Inside the small box you find a picture of a zebra, and the next set of co-ordinates. You enter them into your GPS.
+> replace cache
+
+> replace cache
+You jump up and throw the cache back into the hollow. Success!
+> retrieve rope
+
+> retrieve rope
+You pull on one end of the rope. It unwraps from the branch and the knot thuds to the floor. You pick it up.
+> e
+
+> e
+
+You are in a field.
+You can see a sea of green wheat in all directions. There is a narrow track through the crop, and a big tree just ahead.
+You can go southeast or west.
+> southeast
+
+> southeast
+
+You are in a field.
+You can see a sea of green wheat in all directions. There is a narrow track through the crop, and a big tree in the distance.
+You can go northwest or east towards a bridge.
+> e
+
+> e
+
+You are on a path.
+An old railway bridge crosses the bridleway. The bricks are stained black from the soot of steam engines that used to use this line. Now it is a modern track for electric and diesel engines. You can just about see the over-head lines.
+You can go south, north or just past the bridge and west into a field.
+> s
+
+> s
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north towards a bridge.
+> s
+
+> s
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+ There is a path to the east.
+You can see a sign.
+You can go south, north or east.
+> s
+
+> s
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> s
+
+> s
+
+You are on a path.
+The bridleway is bordered by a hedgerow on one side, and a rangers' station on the other.
+You can go south or north.
+> x map
+
+> x map
+I can't see that.
+> clean barcode
+
+> clean barcode
+You gingerly pluck the crusty rag out of your pocket and rub the dirt off the barcode. It's hard going... You're trying to rub dirt away, using a rag covered in bird poo! Eventually you make progress and reveal the numbers on the barcode.
+> x barcode
+
+> x barcode
+You study the numbers on the barcode, and see the outline of an inverted triangle either side of a set of co-ordinates! Very sneaky! You enter them into your GPS.
+> s
+
+> s
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south or north.
+> s
+
+> s
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south or north.
+> s
+
+> s
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south, north or east.
+> s
+
+> s
+You hear the characteristic sounds of a bird turning over leaves in the hedgerow. As you approach it flies away calling out.
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south or north.
+> s
+
+> s
+A flash of blue and pink catches your eye. It was probably a disturbed chaffinch.
+
+You are on a path.
+The bridleway is bordered by a hedgerow on either side.
+You can go south, north or east.
+> s
+
+> s
+There is a flash of brown, either a dunnock or sparrow. You can't be certain.
+
+You are on a path that crosses a bridge.
+You can hear but not see the water below you. The trees and shrubs grow thick on either side of the bank, blocking your view.
+You can go south or north.
+> s
+
+> s
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south, north or east.
+> e
+
+> e
+
+You are on a riverbank.
+You are walking alongside a gentle river with lush plants growing on the banks.
+You can go east or west.
+> e
+
+> e
+
+You are on a riverbank.
+You are next to a river with lush plants growing on the banks. There is a small wooden bridge.
+You can go north onto the bridge, west or down to the river.
+> d
+
+> d
+
+You are standing next to a bridge.
+You see the wooden beams, and can see that sunlight is shining through gaps in the planking onto the river below.
+You can go north up the bank, south up the bank or down into the river.
+> d
+
+> d
+You stride out into the river, glad you remembered to bring your wellies.
+
+You are under a bridge standing on a rock.
+You struggle not to be pushed off the rock by the strong current. From here you have a perfect view of the underside of the bridge.
+You can go up or west.
+> w
+
+> w
+The current pushes you onwards. You hope there's a way out further downstream, because you don't think you could make it back this way.
+
+You are wading in a river.
+You crunch through the gravel riverbed, trying to keep your balance against the strong current.
+You can go west.
+> w
+
+> w
+The current pushes you onwards. There's no chance you can come back this way - the river is too deep and fast!
+
+You are wading in a river.
+You struggle through the strong current towards a low bridge.
+
+You duck slightly so as not to hit your head on the underside of this dark bridge. The sound of the water is amplified. It's a little scary.
+You can go west.
+> w
+
+> w
+The banks of the river are steep and treacherous. You can't climb out yet, and you can't go back. You grit your teeth and continue.
+
+You are wading in a river.
+You crunch through the gravel riverbed, trying to keep your balance against the strong current.
+You can go west.
+> w
+
+> w
+The current pushes you onwards. There's no chance you can come back this way - the river is too deep and fast!
+
+You are beneath an unusual stone bridge.
+You recognise it as an ancient packhorse bridge, probably dating back to the eighteenth century.
+You can go up the riverbank.
+> u
+
+> u
+You scramble up the bank.
+
+You are in the woods.
+This is an old oak wood. The canopy is thick above you. The dappled ground below is home to a variety of plants and animals. There are several ancient and veteran trees here.
+You can go south, northwest or down.
+> northwest
+
+> northwest
+
+You are in the woods.
+This is an old oak wood. The canopy is thick above you. The dappled ground below is home to a variety of plants, animals and fungi. There are several ancient and veteran trees here.
+You can go southeast or northwest.
+> northwest
+
+> northwest
+
+You are in the woods.
+This is an old oak wood which is home to a variety of plants and animals. There are several ancient and veteran trees here.
+You can go southeast or northeast.
+> northeast
+
+> northeast
+
+You are in the woods.
+This is an old oak wood which is home to a variety of plants, animals and fungi. There are several ancient and veteran trees here.
+You can go southwest or northwest.
+> northwest
+
+> northwest
+
+You are in the woods.
+You are in a maze of trees. The canopy is thick above you. The dappled ground below is home to a variety of plants, animals and fungi. There are several ancient and veteran trees here.
+You can go north.
+> n
+
+> n
+You look up and see a pair of yellow eyes watching you from a high branch. It is a little owl. It calls with a distinctive 'kiew kiew' before flying away deeper into the woods.
+
+You are in the woods.
+You are in a maze of trees. The canopy is thick above you. The dappled ground below is home to a variety of plants and animals. There are several ancient and veteran trees here.
+You can go northeast.
+> northeast
+
+> northeast
+
+You are in the woods.
+You are in a maze of trees which is home to a variety of plants, animals and fungi. There are several ancient and veteran trees here.
+You can go north.
+> n
+
+> n
+
+You are in the woods.
+You are in a maze of trees. The canopy is thick above you. The dappled ground below is home to a variety of plants and animals. You can see large stones with ruts etched into them.
+You can go east or north.
+> e
+
+> e
+
+You are in the woods.
+You are in a maze of trees. The canopy is thick above you. The dappled ground below is home to a variety of plants, animals and fungi. There are several ancient and veteran trees here, as well as a small squat stone.
+You can go south.
+> s
+
+> s
+
+You are in the woods.
+You are in a maze of trees. The canopy is thick above you. The dappled ground below is home to a variety of plants, animals and fungi.
+You can go southwest or west.
+> southwest
+
+> southwest
+
+You are in the woods.
+This is an old oak wood. The canopy is thick above you. The dappled ground below is home to a variety of plants, animals and fungi. There are several ancient and veteran trees here, as well as a lonely set of stone steps.
+You can go northwest or south back towards the car.
+> l
+
+> l
+You are in the woods.
+This is an old oak wood which is home to a variety of plants, animals and fungi. There are several ancient and veteran trees here, as well as a lonely set of stone steps.
+You can go northwest or south back towards the car.
+> x stone steps
+
+> x stone steps
+These worn stone steps allow you to climb up to roughly hip height, where there is a flat platform. The steps are constructed of irregular blocks, leaving gaps where some have crumbled away. You think this might be an old mounting block.
+The dappled light glints off something metallic deep inside one of the cavities.
+> x cavity
+
+> x cavity
+You do a fingertip search of all the nooks and crannies in and around the stone steps. After disturbing a nest of snails, and several large spiders, you push aside a fake block and reach deep inside...
+.
+..
+...
+.....
+
+You've found the cache!
+
+You pull out an old metal ammo box and pop the lid. Inside, there are trickets and small plastic toys, a log book and a laminated message that reads:
+
+Well done! You've found the cache. Please replace as found and write a log online.
+
+What is the code for the real-life geocache? e.g. GC12345
+> GC9R3T0
+You flip over the laminated card and find a set of co-ordinates. You make a note of them, telling yourself that you'll take a closer look when you get back to the car.
+
+You sign your name and replace the cache container exactly as you found it. You're tired but happy. It's time to go home. Unfortunately, you're a little lost in these woods.
+> s
+
+> s
+You push your way through the thick undergrowth and come out further south than you imagined you would.
+
+You are on a path.
+The long bridleway stretches out ahead of you and behind you, a hedgerow to the left and right.
+You can go south or north.
+> s
+
+> s
+
+You are on a path.
+The path is bordered by a hedgerow on both sides.
+You can go south or north.
+> s
+
+> s
+
+You are on a path.
+It is bordered by a hedgerow on both sides.
+You can go east or north.
+> e
+
+> e
+
+You are in a car park.
+It is a small, unpaved and potholed clearing with just one car in it - yours.
+You can go west to a bridleway.
+
+You pull out your notebook and look back at everything you achieved today. Type LOG to see this information.
+
+> go home
+
+> go home
+You climb in, tired but happy to have found another geocache. You start the engine and drive home.
+
+Well done for completing the game!
+
+[state=Finished]

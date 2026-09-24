@@ -1,0 +1,889 @@
+Thyme
+
+by Father Thyme (with DavyB)
+
+You have received a strange email from your mysterious Uncle Barry. His computer was programmed to send it after he had not  logged on for a month.
+
+He says that he needs help "to return," but from where he does not say. He reveals nothing else except that a full explanation will be in an envelope in the kitchen cupboard  of the  secluded cottage he moved into after his bereavement (his wife was trampled by a rhino on holiday in Africa).
+
+He always spoke about a great discovery, but would never say what it was. You feel that this is the cause of his disappearance.  You decide to go and find him.
+
+On the bus
+You seem to be the only passenger on this battered old bus. It has trundled to a halt beside a small thatched cottage in a narrow lane.
+
+You can see the bus driver.
+You can go out of the bus into the lane.
+> out
+
+> out
+As you leave the bus the door slams behind you and the bus then roars off down the lane in a great cloud of dust. The driver obviously has no desire to hang around here.
+
+An east-west lane
+The narrow lane is bordered by high hedges. A thatched cottage lurks to the north, behind an overgrown front garden. There is a track to the south, where you can see a pub in the distance.
+
+You can go east along the lane, west along the lane, south towards the pub or north towards the cottage.
+> s
+
+> s
+The  track opens out into what once must have been a narrow road. Weeds and small bushes seem to have taken over.
+
+Outside a pub
+You are outside an old pub. It has clearly been closed down and boarded up for some time.
+
+You can see an sign creaking overhead and a large tangle of bramble bushes.
+You can go north back towards the cottage, southeast to the back of the pub or east into the pub.
+> se
+
+> se
+You pick your way through weeds and small shrubs to the car park at the back of the pub.
+
+A pub car park
+You are in a rubbish-strewn car park at the rear of the pub. You can see no way in.
+
+You can see rubbish and a large tangle of bramble bushes.
+You can go northwest to the front of the pub.
+> x rubbish
+
+> x rubbish
+There is rubbish everywhere.
+Among it you see a brick.
+> take brick
+
+> take brick
+You pick up the brick, thereby depriving several insects of their homes.
+> nw
+
+> nw
+
+Outside a pub
+You are outside an old pub. It has clearly been closed down and boarded up for some time.
+
+You can see an sign creaking overhead and a large tangle of bramble bushes.
+You can go north back towards the cottage, southeast to the back of the pub or east into the pub.
+> n
+
+> n
+
+An east-west lane
+The narrow lane is bordered by high hedges. A thatched cottage lurks to the north, behind an overgrown front garden. There is a track to the south, where you can see a pub in the distance.
+
+You can go east along the lane, west along the lane, south towards the pub or north towards the cottage.
+> n
+
+> n
+
+Outside a cottage
+A sign hanging by one screw proclaims that this is THYME COTTAGE, your destination.
+Several boards have fallen from the porch roof revealing a strange globe.
+
+You can see a globe of black glass hanging in the porch roof.
+You can go south back to the lane or north to the porch.
+
+You feel a horror of entering the cottage. You cannot understand why. An unnerving humming fills the air. Your legs begin to shake. Strange flickering shadows move on the edge of your vision. The hairs rise at the back of your neck.
+> throw brick
+
+> throw brick
+The brick hits the globe. It shatters with a bright blue flash. The humming and  feeling of dread have gone. You realise that the machine must have been tampering with your mind. You assume you weren't supposed to see the device as that was only possible because the porch was in such a bad state of repair.
+> n
+
+> n
+
+A wooden porch
+Your are in the porch. You walk carefully as the ground is littered with broken brick and glass.
+
+You can see a device in the porch roof and the cottage door.
+You can go south away from the cottage or north into the cottage.
+> n
+
+> n
+The front door is not locked (not surprising really, with that weird device over the door). The door screeches open in traditional gothic horror manner. You almost expect a sinister butler but are disappointed.
+
+A rather shabby lounge
+This is quite a large room. Apart from a sofa there is no furniture. Exposed beams and crumbling plaster are festooned with cobwebs (some with mortgages). The place looks and smells unlived in. The back door into the garden is ajar which may explain the strong smell of cats.
+
+You can see a rather battered sofa, a picture on the wall and a fireplace.
+You can go south back to the porch, west to the bedroom, east to the kitchen or north to the garden.
+> w
+
+> w
+
+A small bedroom
+You are in a sparsely furnished bedroom.
+
+You can see a wooden bed.
+You can go east back to the lounge.
+> x bed
+
+> x bed
+The bed looks unused. There is no bedding. It seems as if this house is not lived in.
+Lying on the bed is  a book.
+> take book
+
+> take book
+You pick it up.
+> e
+
+> e
+
+A rather shabby lounge
+This is quite a large room. Apart from a sofa there is no furniture. Exposed beams and crumbling plaster are festooned with cobwebs (some with mortgages). The place looks and smells unlived in. The back door into the garden is ajar which may explain the strong smell of cats.
+
+You can see a rather battered sofa, a picture on the wall and a fireplace.
+You can go south back to the porch, west to the bedroom, east to the kitchen or north to the garden.
+> sit on sofa
+
+> sit on sofa
+You sit down. Ooh! You jump up. Something jabbed you. Stuck between the cushions is a swatter for flies and other pests.
+> take swatter
+
+> take swatter
+You pick it up.
+> x fireplace
+
+> x fireplace
+A stone fireplace that is boarded up. It has a broad oak mantel shelf.
+On it is  a vase.
+> x vase
+
+> x vase
+The most tasteless vase you ever saw in your life.
+Inside it you see a pink card.
+> take pink card
+
+> take pink card
+You pick it up.
+> e
+
+> e
+BZZZZ ZZZZ BZTT BZZ BZTT  BUZZZZ ZZZZZZBZZZ BTZZZ BUZZ BUZZZT!
+
+A dusty but fairly modern kitchen
+A rather more modern part of the cottage. The kitchen seems to have been added on in the last twenty years or so. There is another room to the north.
+
+You can see an annoying fly, a cupboard and a north door.
+You can go west back to the lounge or north to the adjoining room.
+> use swatter
+
+> use swatter
+You take a wild swing. The old brittle plastic swatter connects with an overhead beam and shatters. Various abandoned items clatter down from the beam, including a small brass key. This you catch it in mid-air more by luck than judgement. The fly floats around near the ceiling in a leisurely manner, not at all worried, and then flies out of the door.
+> unlock cupboard
+
+> unlock cupboard
+Using the brass key you unlock the cupboard.
+
+Inside is a mouse's nest and an aerosol can.
+> open cupboard
+
+> open cupboard
+It is already open.
+> take aerosol
+
+> take aerosol
+You pick it up.
+> w
+
+> w
+
+A rather shabby lounge
+This is quite a large room. Apart from a sofa there is no furniture. Exposed beams and crumbling plaster are festooned with cobwebs (some with mortgages). The place looks and smells unlived in. The back door into the garden is ajar which may explain the strong smell of cats.
+
+You can see a rather battered sofa, a picture on the wall and a fireplace (on which there is a vase).
+You can go south back to the porch, west to the bedroom, east to the kitchen or north to the garden.
+> w
+
+> w
+
+A small bedroom
+You are in a sparsely furnished bedroom.
+
+You can see a wooden bed and an annoying fly.
+You can go east back to the lounge.
+
+The fly is sitting in mid air, with its wings folded. It seems not to have heard of gravity. Very odd. It is walking on something that is not there.
+> use aerosol on fly
+
+> use aerosol on fly
+PSSSST! The fly easily avoids the spray cloud and wisely flies out of the door. Hang on! This is not fly spray. It's red spray paint. You are amazed to see the reddish ghostly outline of a huge metal box appear in the room. The can splutters as the paint runs out. You throw the can in the corner.
+> open door
+
+> open door
+The metal door creaks open on stiff hinges. There is a terrible smell but you enter the box anyway.
+
+A metal room
+Walls, ceiling and floor are painted steel. A screen shows today's date in large letters. There is a card slot beside it. The walls seem to fade strangely in irregular pulses.
+
+You can see a notice, a card slot, a screen, a waste bin and a door.
+
+The droppings of some small animal scatter the floor.
+> take bin
+
+> take bin
+You pick up the bin and its contents, wondering what on earth you are going to do with it. After wondering, you are just as wise.
+> put pink card in slot
+
+> put pink card in slot
+You
+put the pink card into the slot.
+There is a strange screetching sound. It grates on the nerves. You feel dizzy. It passes but you feel very disorientated. The walls pulse alarmingly. The screen flickers. It shows 15th January 1612AD.
+> open door
+
+> open door
+
+A small  bedroom
+You just about recognise that you are back in Barry's bedroom but it is completely different. The bed has vanished and the flagstone floor is covered with straw. The room is  cold and bare.
+
+You can see a metal box (in which there is a door).
+You can go east.
+> e
+
+> e
+
+A bare room
+The lounge has also changed. The kitchen door is not there, nor the back door. The sofa has gone. The flagstone floor is bare. There is no furniture whatsoever in here. Not even a stool.
+
+You can go west back to the bedroom or south out of the cottage.
+> s
+
+> s
+
+A small open area
+The door opens into an icy blast of snow. There is no sign of the porch, garden and lane. The cottage now faces directly onto the woods. You are in a small clearing in front of Thyme Cottage. A narrow track leads south through deep snowdrifts.
+
+You can go north into the cottage or south along the track.
+> s
+
+> s
+
+A narrow track
+You are on a track between thick bushes loaded down with snow. You trudge through deep drifts.
+
+You can go north back towards the cottage or south along the track.
+> s
+
+> s
+
+A narrow track
+You are on a track between thick bushes loaded down with snow. You trudge through deep drifts. You can see a building to the south. It looks like the pub.
+
+You can go north back towards the cottage or south towards the pub.
+> s
+
+> s
+
+Outside the pub
+You are standing in the snow outside the pub, which by contrast looks warm and welcoming. The windows are no longer boarded. Through them you see a blazing fire and flickering candles in wall sconces. The entrance faces you to the east. A sign creaks high above in the icy wind. Smoke rises from the chimney.
+
+You can see a sign.
+You can go in to the pub or north back towards the cottage.
+> in
+
+> in
+
+Inside the pub
+You are in a large warm room with a blazing fire.
+
+The barman, a stout florid young man greets you. He gives his name as Tom Shakespeare. He  supplies you with a foaming tankard of ale. Tom takes your ten pence piece without comment (after all it does have a picture of  Queen  Elizabeth  on it). He  gives you nine pence change. He shows you to a wooden armchair by the fire.
+
+You can see Tom.
+You can go west out of the pub.
+> ask tom about toilet
+
+> ask tom about toilet
+"Eh! What sey thou. Ah! The cludgey ye mean? That be in thu back room yonder, ter yer right hand. He waves vaguely east at a small door. I thought mebbe I told yer.  Mebbe not."
+> e
+
+> e
+In discomfort, you rush to the back room.
+
+The back room
+You are in a small back room, with doors leading east and south. The south door smells like a farmyard.
+
+You can see an east door and a south door.
+You can go west, south or east.
+> s
+
+> s
+
+The cludgey
+This room puts you off toilets for life. The 'facilities' consist  of an enormous earthenware pot. How they empty it, God knows. Perhaps they don't.
+
+You do what is needed, as quickly as possible, while holding your breath.
+
+You can go north towards fresh air.
+> n
+
+> n
+
+The back room
+You are in a small back room, with doors leading east and south. The south door smells like a farmyard.
+
+You can see an east door and a south door.
+You can go west, south or east.
+> e
+
+> e
+
+A study
+The room is dominated by a large desk. The fireplace is choked with paper ash and has gone out. A black splatter on the plaster wall and small pieces of glass indicate that someone has thrown an ink bottle. The smell of cheap brandy is overpowering. A man is sprawled across the desk. You realise that this can only be Will Shakespeare, the bard himself!
+
+You can see William Shakespeare, a crumpled piece of paper and a wall.
+You can go west.
+> drop book
+
+> drop book
+You shake Will's shoulder. He sits up and regards you blearily. You place the book on the desk. He groans and collapses on top of it.
+> w
+
+> w
+
+The back room
+You are in a small back room, with doors leading east and south. The south door smells like a farmyard.
+
+You can see an east door and a south door.
+You can go west, south or east.
+> w
+
+> w
+
+Inside the pub
+You are in a large warm room with a blazing fire.
+
+You can see Tom.
+You can go west out of the pub or east to the back room.
+> w
+
+> w
+With reluctance, you leave the warmth of the roaring fire.
+
+Outside the pub
+You are standing in the snow outside the pub, which by contrast looks warm and welcoming.
+
+You can see a sign.
+You can go in to the pub or north back towards the cottage.
+> n
+
+> n
+
+A narrow track
+You are on a track between thick bushes loaded down with snow.
+
+You can go north back towards the cottage or south towards the pub.
+> n
+
+> n
+
+A narrow track
+You are on a track between thick bushes loaded down with snow.
+
+You can go north back towards the cottage or south along the track.
+> n
+
+> n
+
+A small open area
+You are in a small clearing in front of Thyme Cottage. A narrow track leads south through deep snowdrifts.
+
+You can go north into the cottage or south along the track.
+> n
+
+> n
+
+A bare room
+There is no furniture whatsoever in here. Not even a stool.
+
+You can go west back to the bedroom or south out of the cottage.
+> w
+
+> w
+
+A small  bedroom
+The room is  cold and bare.
+
+You can see a metal box (in which there is a door).
+You can go east.
+> open door
+
+> open door
+The metal door creaks open on stiff hinges. There is a terrible smell but you enter the box anyway.
+
+A metal room
+Walls, ceiling and floor are painted steel. A screen shows 15th January 1612AD in large letters. There is a card slot beside it. The walls seem to fade strangely in irregular pulses.
+
+You can see a notice, a card slot (in which there is a pink card), a screen and a door.
+> take pink card
+
+> take pink card
+There is a strange screetching sound. It grates on the nerves. You feel dizzy. It passes but you feel very disorientated. The walls pulse alarmingly. The screen flickers. It shows today's date.
+> open door
+
+> open door
+
+A small bedroom
+You are in a sparsely furnished bedroom.
+
+You can see a wooden bed, an aerosol can and a metal box (in which there is a door).
+You can go east back to the lounge.
+> e
+
+> e
+
+A rather shabby lounge
+This is quite a large room. Apart from a sofa there is no furniture. Exposed beams and crumbling plaster are festooned with cobwebs (some with mortgages). The place looks and smells unlived in. The back door into the garden is ajar which may explain the strong smell of cats.
+
+You can see a rather battered sofa, a picture on the wall and a fireplace (on which there is a vase).
+You can go south back to the porch, west to the bedroom, east to the kitchen or north to the garden.
+> e
+
+> e
+
+A dusty but fairly modern kitchen
+A rather more modern part of the cottage. The kitchen seems to have been added on in the last twenty years or so. There is another room to the north.
+
+You can see a cupboard (containing a mouse's nest) and a north door.
+You can go west back to the lounge or north to the adjoining room.
+> n
+
+> n
+You turn the handle, open the door, and go into the study.
+
+A study
+A large safe stands beside the door. A bookshelf has collapsed above it.
+
+You can see a safe and a bookshelf.
+You can go south.
+> x safe
+
+> x safe
+The safe is a Chatsworth 67 lever multi combination, a totally impregnable wonder of the locksmith's art.
+
+The door is wide open. It is completely empty.
+On top of it is a blue card and a book.
+> take blue card
+
+> take blue card
+You pick it up.
+> s
+
+> s
+
+A dusty but fairly modern kitchen
+A rather more modern part of the cottage. The kitchen seems to have been added on in the last twenty years or so. There is another room to the north.
+
+You can see a cupboard (containing a mouse's nest) and a north door.
+You can go west back to the lounge or north to the adjoining room.
+> w
+
+> w
+
+A rather shabby lounge
+This is quite a large room. Apart from a sofa there is no furniture. Exposed beams and crumbling plaster are festooned with cobwebs (some with mortgages). The place looks and smells unlived in. The back door into the garden is ajar which may explain the strong smell of cats.
+
+You can see a rather battered sofa, a picture on the wall and a fireplace (on which there is a vase).
+You can go south back to the porch, west to the bedroom, east to the kitchen or north to the garden.
+> w
+
+> w
+
+A small bedroom
+You are in a sparsely furnished bedroom.
+
+You can see a wooden bed, an aerosol can and a metal box (in which there is a door).
+You can go east back to the lounge.
+> open door
+
+> open door
+The metal door creaks open on stiff hinges. There is a terrible smell but you enter the box anyway.
+
+A metal room
+Walls, ceiling and floor are painted steel. A screen shows today's date in large letters. There is a card slot beside it. The walls seem to fade strangely in irregular pulses.
+
+You can see a notice, a card slot, a screen and a door.
+> put blue card in slot
+
+> put blue card in slot
+You
+put the blue card into the slot.
+There is a strange screetching sound. It grates on the nerves. You feel dizzy. It passes but you feel very disorientated. The walls pulse alarmingly. The screen flickers. It shows 11th August 537AD.
+> open door
+
+> open door
+
+Forest
+You are in a clearing. There is no sign of the cottage. The metal box is banked with earth and tree branches. If you didn't know of it you would never spot it.
+
+The surrounding undergrowth is so thick that the only way you can move is east. With some difficulty at that. The weather seems  very hot despite the shade of the trees.
+
+You can see a metal box (in which there is a door).
+You can go east.
+> e
+
+> e
+You come out of the undergrowth onto a well worn north-south track. You hear men and horses approaching from the south. You step back into the bushes.
+
+A troop of rough looking men in bearskin coats and mismatched  armour pass by on small shaggy ponies. Their leader a tall burly man in a dented roman officers helmet has a long sword strapped across his back. He seems to be the only man to own one. They depart in a northerly direction shouting and swearing.
+
+You step back onto the track.
+
+A north-south track
+You are at the north end of a north-south track.
+
+You can go west or south.
+> s
+
+> s
+
+A north-south track
+You are on a north-south track. You can see a stockade ahead.
+
+You can go north back up the track or south.
+> s
+
+> s
+You see a rough wall of logs appear as you emerge from the trees. There is an open gate here. There also seems to be a gatekeeper. He has a long spear. He is also very tall and thin.  Bearing that in mind you decide to call him Lance.
+
+A log stockade
+You are standing in front of a crude log stockade. Through the gate you see several round huts and a much bigger log building.
+
+You can see Lance (carrying a spear).
+You can go north back up the track or south through the gate.
+> give bin to lance
+
+> give bin to lance
+"That be a poor helmet. I need it not."
+
+His mood changes, however, when he sees what's in the bin.
+
+"Mikki!!! Thou art returned. Mother! Mother! My pet Mikki has returned. He be dead but I have he back." Lance snatches the rat and bounds off into the huts shouting.
+
+A female voice  screams. "Lancelot! Shut thy trap. Thou were well rid o' that animal!"
+> s
+
+> s
+You pass through the gateway into a muddy yard.  Several huge wolfhounds rise to their feet near the huts and eye you. You decide that the only prudent moves are either into the large building or back out of the gate.
+
+An open area inside the stockade
+You are inside the stockade. South of you lies a large wooden building.  The stockade gate is north. There are several small round huts.
+
+You can go south into the wooden building or north back to the stockade gate.
+> s
+
+> s
+You enter a big gloomy hall. High above you the roof beams are adorned with deer antlers, animal skulls, tattered banners and a roman eagle standard, all festooned with cobwebs. In pride of place, high over the fireplace, is a large piece of cardboard  from a box, printed:
+
+IKEA
+MÖRBYLÅNGA CIRCULAR TABLE
+SOLD
+
+There is also a  large dragon  crudely drawn in felt-tipped pen.
+
+The great hall
+This is the main hall of the fortress. Doors lead west and east.
+
+You can see a round table, an east door and a west door.
+You can go north to the castle yard, east or west.
+> w
+
+> w
+You open the door and walk into the room beyond.
+
+A bedchamber
+A bedroom. The walls are hung with animal hides. The flagstone floor is laid with lavender branches.
+
+You can see a bed and a shelf.
+You can go east to the hall.
+> x bed
+
+> x bed
+The bed is of built of rough hewn timber. The names Arthur and Guinevere are burned into the headboard with a hot iron. The bedding consists of wolf and bear skins over a straw mattress.
+In the bed is  someone sleeping heavily.
+> x shelf
+
+> x shelf
+A rough wooden shelf level with the bed.
+On it is a large pile of walnut shells.
+> x shells
+
+> x shells
+A large pile of walnut shells.
+They contain a hammer.
+> take hammer
+
+> take hammer
+You pick the hammer out of the nut shells.
+> e
+
+> e
+
+The great hall
+This is the main hall of the fortress. Doors lead west and east.
+
+You can see a round table, an east door and a west door.
+You can go north to the castle yard, east or west.
+> x east door
+
+> x east door
+A heavy oak door.
+Across it is a wooden bar (in which there is a metal spike).
+> x bar
+
+> x bar
+A bar is used to lock the door.
+The bar is fixed in place with a metal spike.
+> use hammer on spike
+
+> use hammer on spike
+You  hammer the side of the spike a few times. You may have loosened it.
+> take spike
+
+> take spike
+You pull at the spike. After wiggling it back and forth a few times it finally comes out.
+> drop hammer
+
+> drop hammer
+You drop it.
+> e
+
+> e
+You raise the bar, open the door, and walk into the room beyond.
+
+A cluttered room
+You are in an empty room. It looks as if someone (Barry?) has been imprisoned here. The door barred on the outside points to this. Also you can detect traces of the disgusting aftershave Barry always carried about with him. How did he escape?
+
+You can see marks on the wall, a conjuring outfit and an oak door.
+You can go west.
+
+Ominously, you hear the bar on the door fall back into place.
+> take outfit
+
+> take outfit
+As you start to take the box you discover a hole underneath it.
+> drop spike
+
+> drop spike
+You drop it.
+> drop bin
+
+> drop bin
+You set it down.
+> use hole
+
+> use hole
+You take a few deep breaths to pluck up courage to enter the tunnel. It is narrow but you can see light at the end. Going in head first you crawl forward quickly using your elbows, eventually emerging outside the stockade.
+
+A log stockade
+You are standing in front of a crude log stockade. Through the gate you see several round huts and a much bigger log building.
+
+You can go north back up the track or south through the gate.
+
+You run into Lance again. He seems glad to see you and hands you a green plastic card. "Twisted up in is fur it were. I’ll have no dealins wi magics. Take the cursed thing an begone!" With that, he rushes off into a hut.
+
+Now it all makes sense! The rat must have found its way into the metal box and taken the green card when Uncle Barry was outside. It was probably just looking for food and then presumably died while removing the card (electrocution?), falling into the bin below. The metal box  would have immediately returned to the present day leaving Barry stranded.
+
+Using the green card should take you straight to Barry's location on the day he left!
+> s
+
+> s
+
+An open area inside the stockade
+You are inside the stockade. South of you lies a large wooden building.  The stockade gate is north. There are several small round huts.
+
+You can go south into the wooden building or north back to the stockade gate.
+> s
+
+> s
+
+The great hall
+This is the main hall of the fortress. Doors lead west and east.
+
+You can see a round table, an east door (across which is a wooden bar), a west door and a hammer.
+You can go north to the castle yard, east or west.
+> take hammer
+
+> take hammer
+You pick it up.
+> n
+
+> n
+
+An open area inside the stockade
+You are inside the stockade. South of you lies a large wooden building.  The stockade gate is north. There are several small round huts.
+
+You can go south into the wooden building or north back to the stockade gate.
+> n
+
+> n
+
+A log stockade
+You are standing in front of a crude log stockade. Through the gate you see several round huts and a much bigger log building.
+
+You can go north back up the track or south through the gate.
+> n
+
+> n
+
+A north-south track
+You are on a north-south track. You can see a stockade ahead.
+
+You can go north back up the track or south.
+> n
+
+> n
+
+A north-south track
+You are at the north end of a north-south track.
+
+You can go west or south.
+> w
+
+> w
+
+Forest
+You are in a clearing. The metal box is banked with earth and tree branches. If you didn't know of it you would never spot it.
+
+The surrounding undergrowth is so thick that the only way you can move is east.
+
+You can see a metal box (in which there is a door).
+You can go east.
+> open door
+
+> open door
+The metal door creaks open on stiff hinges. There is a terrible smell but you enter the box anyway.
+
+A metal room
+Walls, ceiling and floor are painted steel. A screen shows 11th August 537AD in large letters. There is a card slot beside it. The walls seem to fade strangely in irregular pulses.
+
+You can see a notice, a card slot (in which there is a blue card), a screen and a door.
+> take blue card
+
+> take blue card
+There is a strange screetching sound. It grates on the nerves. You feel dizzy. It passes but you feel very disorientated. The walls pulse alarmingly. The screen flickers. It shows today's date.
+> put green card in slot
+
+> put green card in slot
+You
+put the green card into the slot.
+There is a strange screetching sound. It grates on the nerves. You feel dizzy. It passes but you feel very disorientated. The walls pulse alarmingly. The screen flickers. It shows 1st January 3000AD.
+> open door
+
+> open door
+As you step out of the box you are dazzled by the sunlight and surprised at the heat. Looking around there is no sign of Barry's cottage. This feels more like Africa than the middle of England. All you can see is scrubland.
+
+Scrubland
+The rough scrubland stretches for miles in all directions.
+
+You can see thorn bushes and a metal box (in which there is a door).
+You can go north, west, east or south.
+> e
+
+> e
+After a short walk you come to a well worn north-south track.
+
+A north-south track
+You are at the north end of a north-south track. It seems to run along a riverbed.
+
+You can see rough rocks and thorn bushes.
+You can go west back to the metal box or south along the track.
+> s
+
+> s
+
+A north-south track
+You are on a north-south track running along a riverbed.
+
+You can see rough rocks and thorn bushes.
+You can go north back to the metal box or south along the track.
+> s
+
+> s
+
+A north-south track
+You are on a north-south track running along a riverbed. Ahead you can see something out of place.
+
+You can see thorn bushes and rough rocks.
+You can go south along the track or north back along the track.
+> s
+
+> s
+You push south threading your way between high thorn bushes. You are at the bottom of a dried out river bed.
+
+A north-south track
+On the dusty dirt track stands a mysterious object. Further ahead you see a watering hole.
+
+You can see a large mysterious object, thorn bushes and rough rocks.
+You can go north back up the track or south towards the watering hole.
+> x object
+
+> x object
+This appears to be some type of futuristic vehicle. It is black, shiny and perfectly smooth all over, apart from a break in the surface caused by an open door. If the door were closed, you would probably not notice it was there. It seems to be 'parked' as there is no sound from it. It is, however, sitting two feet off the ground!
+> in
+
+> in
+You climb into the front of the vehicle.
+
+Vehicle front seat
+There is a single driver seat but no sign of a windscreen or controls, apart from a single card slot. There is a box on either side of the seat.
+
+You can see a red box, a driver seat, a black box, a card slot and a connecting door.
+You can go out of the vehicle or in to the back of the vehicle.
+> unlock red box
+
+> unlock red box
+Unlocked.
+You open it.
+It contains a flare pistol.
+> take flare pistol
+
+> take flare pistol
+You pick up the flare pistol.
+> out
+
+> out
+
+A north-south track
+On the dusty dirt track stands a futuristic vehicle. Further ahead you see a watering hole.
+
+You can see a large futuristic vehicle (with an open door), thorn bushes and rough rocks.
+You can go north back up the track, south towards the watering hole or in to the front seat of the vehicle.
+> s
+
+> s
+
+A watering hole
+Beside the watering hole is a large Acacia tree. It is being attacked by a rhinoceros.
+
+You can see a rhino and an Acacia tree.
+You can go north.
+> fire flare pistol
+
+> fire flare pistol
+You fire the pistol at the rhino, the flare bursts in front of its nose. The huge creature looks at you in astonishment then ambles off into the bushes.
+
+Still shaking Barry climbs down the tree. Seeing you, he begins to shake even more. "How did you get here," he blurts out, temporarily forgetting to thank you for saving his life.
+
+You tell him the story and agree to celebrate your escapade in Tom Shakespeare's tavern. After all, you still have nine Elizabethan pennies to spend.
+
+You then ask him about the black vehicle  further up the track but he knows nothing about it.
+
+As you are about to head out you hear a strange buzzing noise behind you. Turning, you see a tall thin man in a woollen cloak and crudely hammered iron helmet. Strangely clashing with his period costume he carries a gleaming and efficient looking pistol in his right hand. With the other he displays an ornately engraved badge in a plastic case.
+
+"TDCI Hark Jolfston of the Patrol," he announces in a strange accent. "I've been waiting to catch you together. You are both arrested for illegal use of a temporal displacement device, causing tempic anomalies and possible future displacements. You are not obliged to utter but anything you do say may prejudice your defence if you self contradict under hypnointerrogation."
+
+"I could also add unauthorised entry to a police vehicle and unlawful use of police equipment but you've caught me on a good day."
+
+Time suddenly begins to pass very quickly and turns into a blur. You rapidly lose consciousness.
+
+On the laptop
+You are sitting at home on your laptop. You seem to remember getting an emergency email from Uncle Barry but now can't find it.
+
+You phone him to check and all seems fine. Coincidently, he is also struggling with a vague memory. He feels he may have made a technological breakthrough but now can't even recall what it was about!
+
+Your brain is also telling you that you  met William Shakespeare and Queen Guinevere recently, both with a drinking problem.
+
+Surely that must have been a dream?
+
+What other explanation could there be?
+
+THE END
+
+Epilogue: You and your Uncle Barry are about to take a holiday together. He was easy to please, just grunting "Anywhere but Africa." It should also be 'free', thanks to a mysterious gold nugget you found among some old clothes. You spent weeks trying to find an owner but everyone you spoke to knew nothing about it.
+[state=Finished]

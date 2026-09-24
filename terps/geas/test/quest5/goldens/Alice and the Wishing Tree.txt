@@ -1,0 +1,1410 @@
+You are Alice and little did you know that you were soon to return to Wonderland and help the characters that live there with something important. But first you must find a way back into Wonderland!
+You are in your garden.
+You can see a fountain (containing some water).
+It is early afternoon on a late summer's day. It is gloriously sunny with beautiful flowers in full bloom bordering the high garden hedges. Birds sing and fly to and fro from branches in nearby trees. A large ornate fountain stands in the centre of the garden.
+
+Type 'HELP' for a list of useful commands.
+> x me
+
+>x me
+You are wearing your blue dress with a white pinafore.
+The pinafore has a pocket.
+> x pocket
+
+>x pocket
+A small pocket in your dress.
+You find a farthing in your pocket.
+> x fountain
+
+>x fountain
+A round, stone fountain full of sparkling water. Four stone cherubs have water cascading from each of their whimsical mouths.
+> throw farthing
+
+>throw farthing
+
+You throw the farthing into the water. 'Now what sort of wish should I make?' you wonder.
+> make wish
+
+>make wish
+Before you even think of Wonderland you are sucked into the water of the fountain and a swirling vortex surrounds you.
+'I am sure to drown!' you think to yourself, 'And yet I can breathe as well as if I were back in my garden.'
+Unceremoniously, with a bump, you land on a cold, hard floor.
+
+You are in the hall.
+You can see a hall door and a table.
+You can go north.
+A long, low hall lit by lamps from the roof with rows of marble pillars holding it aloft. A solid oak door lies in the north wall and a small mahogany table rests by the west wall.
+
+'This all looks quite familiar.' you muse.
+> x table
+
+>x table
+A small mahogany table.
+It contains a small key.
+> get small key
+
+>get small key
+You pick it up.
+> drop small key
+
+>drop small key
+You drop it.
+The key changes into a small cake.
+> get cake
+
+>get cake
+You pick it up.
+> eat cake
+
+>eat cake
+As you were about to bite into the soft sponge you hurt your teeth on something hard. Looking inside the cake you find a silver key. Not wanting to waste food you soon gobble up the cake.
+> unlock door
+
+>unlock door
+Unlocked with the silver key.
+> open door
+
+>open door
+You open it.
+> n
+
+>n
+As you step through the door the hall fades away behind you.
+
+You are in the wood.
+You can see a dead tree.
+You can go northwest or northeast.
+The wood is dark in places and quite foreboding. You hear noises coming from deep within the wood and feel you are being watched. This part of the wood is very scary.
+
+'Oh, what a poorly tree!" you say with sadness.
+> x dead tree
+
+>x dead tree
+'Poor thing!' you cry, 'If only I was an arboriculturist.'
+> nw
+
+>nw
+
+You are in the copse.
+You can see the Cheshire Cat.
+You can go southeast, west or north.
+You are surrounded by oak trees with low boughs and small bushes with blue flowers in the shape of feline faces grinning at you intensely.
+
+'Why, if it isn't the Cheshire Cat perched on that tree bough.' you squeal with delight.
+> speak to cheshire cat
+
+>speak to cheshire cat
+'Hello, Cheshire Puss.' you exclaim, 'Remember me?'
+'Remembering is for elephants.' grins the Cheshire Cat.
+'Do you know why I have returned to Wonderland?'
+'I didn't know you had even left. If you don't know why, you will certainly know soon.'
+'How?' you wonder.
+'By asking the right question.' sighs the Cheshire Cat.
+'But I've already asked why I have returned.'
+'That's not the right question.'
+'What is it then?'
+He pauses for dramatic effect, 'When will I leave Wonderland?'
+'And when will that be?' you demand.
+'When you have saved the Wishing Tree!'
+'Is that the poor tree I first saw in the wood?'
+'If it's dead, then yes it is.'
+'What can I do to help it?'
+'Make it grant wishes again.'
+'How do I do that?'
+'By wishful thinking, of course.' grins the Cheshire Cat even wider.
+'I'll try my best.'
+'Try your best, try your worse. It's all the same to me and different to anybody else.'
+The Cheshire Cat suddenly fades away to nothing in front of you.
+> w
+
+>w
+
+You are by the river bank.
+You can see a pair of oars and a boat.
+You can go east.
+This is the east side of a calm river with a wooden jetty stretching out across the water.
+> get oars
+
+>get oars
+You pick them up.
+> row boat
+
+>row boat
+You row the boat to the west side of the river.
+
+You are by the river bank.
+You can see a boat.
+You can go northwest.
+This is the west side of a calm river with a wooden jetty stretching out across the water.
+> nw
+
+>nw
+
+You are in the village square.
+You can see Tweedledum and Tweedledee and a bone.
+You can go southeast, northwest, in or west.
+You see a small shop with a sign above it that reads 'Ye Olde Shoppe' and an immense round tower stands to the west.
+> in
+
+>in
+
+You are in the shop.
+You can see the Wyvern.
+You can go out.
+A small shop packed with a myriad of merchandise you could possibly ever want. A counter lies in one corner with a small cash-till upon it.
+
+'I hope she doesn't breathe fire over me?' you whisper nervously.
+> speak to wyvern
+
+>speak to wyvern
+'Good day, young lady. How may I help you?' asks the Wyvern as she stretches out her wings.
+Nervously you hope she has already eaten or at least has no appetite for small children.
+'You have a wonderful shop but I don't have any money.' you state.
+'Don't worry, child. Perhaps if you could do something for me you may be rewarded with anything in my shop.' she smiles showing her long fangs.
+'What would you like me to do, madam?' you ask.
+'Can you deliver this red box to the Wizard in the tower over yonder. However, unless otherwise stated do not open the box.' she says staring at you with her piercing eyes.
+'Yes, Madam. I promise.' you reply slightly shaking.
+She shows you a small red square box and places it on the counter for you.
+> get red box
+
+>get red box
+You pick it up.
+> out
+
+>out
+
+You are in the village square.
+You can see Tweedledum and Tweedledee and a bone.
+You can go southeast, northwest, in or west.
+You see a small shop with a sign above it that reads 'Ye Olde Shoppe' and an immense round tower stands to the west.
+> se
+
+>se
+
+You are by the river bank.
+You can see a boat.
+You can go northwest.
+This is the west side of a calm river with a wooden jetty stretching out across the water.
+> row boat
+
+>row boat
+You row the boat to the east side of the river.
+
+You are by the river bank.
+You can see a boat.
+You can go east.
+This is the east side of a calm river with a wooden jetty stretching out across the water.
+> e
+
+>e
+
+You are in the copse.
+You can go southeast, west or north.
+You are surrounded by oak trees with low boughs and small bushes with blue flowers in the shape of feline faces grinning at you intensely.
+> se
+
+>se
+
+You are in the wood.
+You can see a dead tree.
+You can go northwest or northeast.
+The wood is dark in places and quite foreboding. You hear noises coming from deep within the wood and feel you are being watched. This part of the wood is very scary.
+> ne
+
+>ne
+
+You are by the Palace gates.
+You can see the Dusty Old Knight.
+You can go in or southwest.
+Two huge golden gates with diamond-shaped motifs set into them lie before you to the entrance of the Palace grounds.
+
+'What a funny-looking knight.' you laugh, 'I don't think he'll last long as a guard if he carries on sleeping on duty.'
+> push knight
+
+>push knight
+The Old Knight shifts slightly and drops his pair of spectacles.
+> get spectacles
+
+>get spectacles
+You pick them up.
+> use spectacles with red box
+
+>use spectacles with red box
+'I can just about read the writing now with these spectacles. It reads "THIS BOX CAN ONLY BE UNLOCKED BY NOBODY." Curiouser and curiouser?' you say.
+> drop spectacles
+
+>drop spectacles
+You drop them.
+> in
+
+>in
+
+You are in the Palace garden.
+You can see the White Rabbit and a pot.
+You can go out, east or in.
+A large garden with flowers of all descriptions, except roses, border the Palace walls.
+
+'Oh my, it's the White Rabbit. He's still fretting about something, I see.' you smile.
+> in
+
+>in
+
+You are in the Palace hall.
+You can see a Door with a Face.
+You can go out, north, west or east.
+A large magnificent hall with paintings and portraits lining the golden walls. Marble pillars hold up the silver roof while a strange door with a carved wooden face lies to the north.
+
+'Should I knock on that door or speak to the face?' you ponder.
+> knock on door
+
+>knock on door
+As you were about to knock the face comes alive.
+'It's more polite to knock second and ask permission first.' he booms.
+'May I enter?' you ask.
+'No! Only when you have answered my question.'
+'What is the question?' you ask.
+
+'My first is in bat but not in ball,
+My second is in jump but not in fall.
+My third is in drum and also in ear,
+My fourth is in terror but not in fear.
+My fifth is in flag and also in pole,
+My last is in grate but not in coal.
+What am I?'
+
+'I guess I should state the answer.' you say to yourself.
+> say turtle
+
+>say turtle
+'Turtle.' you say.
+'Correct!' booms the Face and the door unlocks.
+> open door
+
+>open door
+You open it.
+> give red box to face
+
+>give red box to face
+The Face looks down at the box, rolls his eyes and booms: "OPEN SESAME". The box unlocks.
+> open red box
+
+>open red box
+You open it.
+It contains a bottle of perfume.
+> get perfume
+
+>get perfume
+You pick it up.
+> w
+
+>w
+
+You are in the kitchen.
+You can go east or north.
+A small, white-washed kitchen with a black stove and an oak table in the centre.
+> n
+
+>n
+
+You are in the laundry room.
+You can see a basket.
+You can go south.
+The room is filled with various states of unclean linen and clothes.
+
+'Oh, it smells terrible in here.' you recoil.
+> open basket
+
+>open basket
+You open it.
+It contains some bed sheets.
+> move sheets
+
+>move sheets
+You find a smell sock underneath.
+> use perfume on sock
+
+>use perfume on sock
+Holding your nose you sprinkle a good dose of perfume over the sock until the ghastly odour disappears.
+> drop perfume
+
+>drop perfume
+You drop it.
+> get sock
+
+>get sock
+You pick it up.
+> move basket
+
+>move basket
+You move the basket to one side and find a very large blanket underneath it.
+> drop silver key
+
+>drop silver key
+You drop it.
+> get blanket
+
+>get blanket
+You pick it up.
+> s
+
+>s
+
+You are in the kitchen.
+You can go east or north.
+A small, white-washed kitchen with a black stove and an oak table in the centre.
+> e
+
+>e
+
+You are in the Palace hall.
+You can see a Door with a Face.
+You can go out, north, west or east.
+A large magnificent hall with paintings and portraits lining the golden walls. Marble pillars hold up the silver roof while a strange door with a carved wooden face lies to the north.
+> out
+
+>out
+
+You are in the Palace garden.
+You can see the White Rabbit and a pot.
+You can go out, east or in.
+A large garden with flowers of all descriptions, except roses, border the Palace walls.
+> out
+
+>out
+
+You are by the Palace gates.
+You can see the Dusty Old Knight and a pair of spectacles.
+You can go in or southwest.
+Two huge golden gates with diamond-shaped motifs set into them lie before you to the entrance of the Palace grounds.
+> sw
+
+>sw
+
+You are in the wood.
+You can see a dead tree.
+You can go northwest or northeast.
+The wood is dark in places and quite foreboding. You hear noises coming from deep within the wood and feel you are being watched. This part of the wood is very scary.
+> nw
+
+>nw
+
+You are in the copse.
+You can go southeast, west or north.
+You are surrounded by oak trees with low boughs and small bushes with blue flowers in the shape of feline faces grinning at you intensely.
+> w
+
+>w
+
+You are by the river bank.
+You can see a boat.
+You can go east.
+This is the east side of a calm river with a wooden jetty stretching out across the water.
+> row boat
+
+>row boat
+You row the boat to the west side of the river.
+
+You are by the river bank.
+You can see a boat.
+You can go northwest.
+This is the west side of a calm river with a wooden jetty stretching out across the water.
+> nw
+
+>nw
+
+You are in the village square.
+You can see Tweedledum and Tweedledee and a bone.
+You can go southeast, northwest, in or west.
+You see a small shop with a sign above it that reads 'Ye Olde Shoppe' and an immense round tower stands to the west.
+> drop oars
+
+>drop oars
+You drop them.
+> drop red box
+
+>drop red box
+You drop it.
+> get oars
+
+>get oars
+You pick them up.
+> se
+
+>se
+
+You are by the river bank.
+You can see a boat.
+You can go northwest.
+This is the west side of a calm river with a wooden jetty stretching out across the water.
+> row boat
+
+>row boat
+You row the boat to the east side of the river.
+
+You are by the river bank.
+You can see a boat.
+You can go east.
+This is the east side of a calm river with a wooden jetty stretching out across the water.
+> e
+
+>e
+
+You are in the copse.
+You can go southeast, west or north.
+You are surrounded by oak trees with low boughs and small bushes with blue flowers in the shape of feline faces grinning at you intensely.
+> n
+
+>n
+
+You are in the field.
+You can see the Sly Fox.
+You can go south or northwest.
+The grassy field has hedges all around it and a small birch tree stands in one corner.
+
+'Here is someone I've never met before.' you say.
+> nw
+
+>nw
+
+You are on the grassy plain.
+You can see the Huntsman and the Hounds.
+You can go southeast or in.
+A vast expanse of grassland that stops at the mouth of a cave going deep inside a tall rocky mountain.
+
+'I don't like the look of that Huntsman.' you think to yourself.
+> give sock to hounds
+
+>give sock to hounds
+The Hounds sniff the sock, look confused and take chase in the opposite direction to where the Fox lies. The Huntsman rides off after his Hounds.
+> drop sock
+
+>drop sock
+You drop it.
+> s
+
+>s
+
+You are in the field.
+You can see the Sly Fox.
+You can go south or northwest.
+The grassy field has hedges all around it and a small birch tree stands in one corner.
+> speak to fox
+
+>speak to fox
+'Hello, Mr Fox.' you smile.
+'Good day, my dear. May I introduce myself. I am Ferdinand Fortisque Fox the Third, at  your service.'
+You feel obliged to curtsey even though it is quite unnecessary.
+'It is a fine day.' you state generally.
+'It depends on the day and the finer points of it.' sighs the Fox. 'Although in my circumstance the finer points have turned into duller ones. I am being pursued by the Huntsman and his tedious Hounds. I am sure they are nearby and I am growing weary. What am I to do?'
+'If I meet them I shall point them in the wrong direction.' you reply.
+'Thank you, child. I feel a woeful verse arriving upon my lips.'
+He coughs and begins.
+
+'The Jester be told, is a fool, oh so bold,
+Could make a sad King laugh out loud,
+The Jester would ask, as he set out his task,
+Would make a poor fool please a crowd.
+
+The Maid-servant said, as she made up the bed,
+Could make a sad King sleep so sound,
+The Maid-servant cried, as her eyes opened wide,
+Would make a poor Maid run around.
+
+The Gardener for sure, as he opened the door,
+Could make a sad King smell a rose,
+The Gardener could tell, in which any sweet smell,
+Would make a poor man use his nose.
+
+The Soldier so brave, is so close to the grave,
+Could make a sad King fight the dire,
+The Soldier would fight, with his heart full of might,
+Would make a poor guard fear his sire.
+
+The Chamberlain saw, as he kept to the law,
+Could make a sad King start a war,
+The Chamberlain grinned, as his honesty thinned,
+Would make a sad king be less poor.
+
+Prince Regent at last, when a thought well surpassed,
+Could make a sad King abdicate,
+Prince Regent did smile, as his thoughts stretched a mile,
+Would make a poor Prince lapidate.
+
+Queen Bluebell did grieve, as she started to heave,
+Could make a sad King lose his breath,
+Queen Bluebell's lament, was a sorrow well spent,
+Would make a poor Queen think of death.
+
+King Gustus the First, as he felt at his worst,
+Could make himself look like a fool,
+King Gustus the last, as the mourners had passed,
+Had drowned when he fell in the pool.'
+
+> speak to fox
+
+>speak to fox
+'I sent the Hounds on a wild-fox chase in the opposite direction.' you state.
+'Thank you, child. I'll be able to go home now.' sighs Ferdinand, 'Here have this key I found in the wood.'
+He drops a bronze key at your feet and disappears through the hedge.
+> get bronze key
+
+>get bronze key
+You pick it up.
+> s
+
+>s
+
+You are in the copse.
+You can go southeast, west or north.
+You are surrounded by oak trees with low boughs and small bushes with blue flowers in the shape of feline faces grinning at you intensely.
+> w
+
+>w
+
+You are by the river bank.
+You can see a boat.
+You can go east.
+This is the east side of a calm river with a wooden jetty stretching out across the water.
+> row boat
+
+>row boat
+You row the boat to the west side of the river.
+
+You are by the river bank.
+You can see a boat.
+You can go northwest.
+This is the west side of a calm river with a wooden jetty stretching out across the water.
+> nw
+
+>nw
+
+You are in the village square.
+You can see Tweedledum and Tweedledee, a bone and a red box.
+You can go southeast, northwest, in or west.
+You see a small shop with a sign above it that reads 'Ye Olde Shoppe' and an immense round tower stands to the west.
+> drop blanket
+
+>drop blanket
+You drop it.
+> drop oars
+
+>drop oars
+You drop them.
+> get red box
+
+>get red box
+You pick it up.
+> w
+
+>w
+
+You are outside the tower.
+You can see a tower door.
+You can go east or in.
+The large round stone tower which is as wide as a house looks to have at least a bottom and a top floor.
+> unlock door
+
+>unlock door
+Unlocked with the bronze key.
+> open door
+
+>open door
+You open it.
+> in
+
+>in
+
+You are at the bottom of the tower.
+You can go out or up.
+Stone steps wind around the inside of the tower ascending to the top floor.
+> up
+
+>up
+
+You are in the tower room.
+You can see the Wizard.
+You can go down.
+This room is more of a living quarters for someone who studies a wide-range of subjects. You find a rack of test tubes with pungent chemicals in them, a large free-standing globe of the Earth and a bookshelf holding numerous books.
+
+'He looks scary but he has a kind face.' you observe.
+> speak to wizard
+
+>speak to wizard
+'I see I have a visitor.' he smiles and intimidates at the same time.
+'Forgive me, sir. I'm sorry to disturb you but I've never met a Wizard before today.' you whimper.
+'Don't worry, child. I might be a Thaumaturgist but I won't bite.' he smiles even wider.
+He takes out a pipe and a small leather pouch, full of tobacco, and fills his pipe. As he place the pipe into his mouth it magically lights. He starts creating smoke rings, triangles and squares. He stares at you and you feel he is expecting something from you.
+> give red box to wizard
+
+>give red box to wizard
+'I don't need it now, do I?' smiles the Wizard. 'I like those who have curious minds, though. It allows us not to break the rules, just amend them. Take this I have no need for it.' He offers you a small ruby. 'I must go now, errands to complete.' And with that he vanishes in a puff of smoke.
+> drop red box
+
+>drop red box
+You drop it.
+> get ruby
+
+>get ruby
+You pick it up.
+> down
+
+>down
+
+You are at the bottom of the tower.
+You can go out or up.
+Stone steps wind around the inside of the tower ascending to the top floor.
+> out
+
+>out
+
+You are outside the tower.
+You can see a tower door.
+You can go east or in.
+The large round stone tower which is as wide as a house looks to have at least a bottom and a top floor.
+> e
+
+>e
+
+You are in the village square.
+You can see Tweedledum and Tweedledee, a bone, a blanket and a pair of oars.
+You can go southeast, northwest, in or west.
+You see a small shop with a sign above it that reads 'Ye Olde Shoppe' and an immense round tower stands to the west.
+> drop bronze key
+
+>drop bronze key
+You drop it.
+> get oars
+
+>get oars
+You pick them up.
+> get blanket
+
+>get blanket
+You pick it up.
+> se
+
+>se
+
+You are by the river bank.
+You can see a boat.
+You can go northwest.
+This is the west side of a calm river with a wooden jetty stretching out across the water.
+> row boat
+
+>row boat
+You row the boat to the east side of the river.
+
+You are by the river bank.
+You can see a boat.
+You can go east.
+This is the east side of a calm river with a wooden jetty stretching out across the water.
+> e
+
+>e
+
+You are in the copse.
+You can go southeast, west or north.
+You are surrounded by oak trees with low boughs and small bushes with blue flowers in the shape of feline faces grinning at you intensely.
+> n
+
+>n
+
+You are in the field.
+You can go south or northwest.
+The grassy field has hedges all around it and a small birch tree stands in one corner.
+> nw
+
+>nw
+
+You are on the grassy plain.
+You can see a sock.
+You can go southeast or in.
+A vast expanse of grassland that stops at the mouth of a cave going deep inside a tall rocky mountain.
+> in
+
+>in
+
+You are in the cavern.
+You can see the Giant.
+You can go out.
+The vast cavern has stalactites hanging down from the high ceiling and darkness from the shadows make you feel uneasy.
+
+'The Giant looks sad.' you frown.
+> give blanket to giant
+
+>give blanket to giant
+'Oh my!' cries the Giant with delight, 'You've found my handkerchief. Where was it?'
+'In the laundry room of the Palace.' you reply.
+'Of course, now I remember and I did a job for a maid in the Palace last week and she offered to wash it.' he laughs, 'I can only reward you with this.'
+He shows you a piece of string.
+'Thank you, Mr Giant. I'm sure I'll find a use for it.'
+He disappears into the darkness of the cavern, to his bed, sneezing into his handkerchief.
+> get string
+
+>get string
+You pick it up.
+> out
+
+>out
+
+You are on the grassy plain.
+You can see a sock.
+You can go southeast or in.
+A vast expanse of grassland that stops at the mouth of a cave going deep inside a tall rocky mountain.
+> se
+
+>se
+
+You are in the field.
+You can go south or northwest.
+The grassy field has hedges all around it and a small birch tree stands in one corner.
+> s
+
+>s
+
+You are in the copse.
+You can go southeast, west or north.
+You are surrounded by oak trees with low boughs and small bushes with blue flowers in the shape of feline faces grinning at you intensely.
+> w
+
+>w
+
+You are by the river bank.
+You can see a boat.
+You can go east.
+This is the east side of a calm river with a wooden jetty stretching out across the water.
+> row boat
+
+>row boat
+You row the boat to the west side of the river.
+
+You are by the river bank.
+You can see a boat.
+You can go northwest.
+This is the west side of a calm river with a wooden jetty stretching out across the water.
+> nw
+
+>nw
+
+You are in the village square.
+You can see Tweedledum and Tweedledee, a bone and a bronze key.
+You can go southeast, northwest, in or west.
+You see a small shop with a sign above it that reads 'Ye Olde Shoppe' and an immense round tower stands to the west.
+> drop oars
+
+>drop oars
+You drop them.
+> in
+
+>in
+
+You are in the shop.
+You can see the Wyvern.
+You can go out.
+A small shop packed with a myriad of merchandise you could possibly ever want. A counter lies in one corner with a small cash-till upon it.
+> give ruby to wyvern
+
+>give ruby to wyvern
+She takes it off you and looks at it closely with her piercing eyes.
+'You can exchange it for either a Plum Cake or an Emerald Brooch. Take only one.' she smiles.
+> get cake
+
+>get cake
+You pick it up.
+As you take the cake the brooch vanishes in front of your eyes.
+> out
+
+>out
+
+You are in the village square.
+You can see Tweedledum and Tweedledee, a bone, a bronze key and a pair of oars.
+You can go southeast, northwest, in or west.
+You see a small shop with a sign above it that reads 'Ye Olde Shoppe' and an immense round tower stands to the west.
+> get oars
+
+>get oars
+You pick them up.
+> se
+
+>se
+
+You are by the river bank.
+You can see a boat.
+You can go northwest.
+This is the west side of a calm river with a wooden jetty stretching out across the water.
+> row boat
+
+>row boat
+You row the boat to the east side of the river.
+
+You are by the river bank.
+You can see a boat.
+You can go east.
+This is the east side of a calm river with a wooden jetty stretching out across the water.
+> e
+
+>e
+
+You are in the copse.
+You can go southeast, west or north.
+You are surrounded by oak trees with low boughs and small bushes with blue flowers in the shape of feline faces grinning at you intensely.
+> drop oars
+
+>drop oars
+You drop them.
+> se
+
+>se
+
+You are in the wood.
+You can see a dead tree.
+You can go northwest or northeast.
+The wood is dark in places and quite foreboding. You hear noises coming from deep within the wood and feel you are being watched. This part of the wood is very scary.
+> ne
+
+>ne
+
+You are by the Palace gates.
+You can see the Dusty Old Knight and a pair of spectacles.
+You can go in or southwest.
+Two huge golden gates with diamond-shaped motifs set into them lie before you to the entrance of the Palace grounds.
+> in
+
+>in
+
+You are in the Palace garden.
+You can see the White Rabbit and a pot.
+You can go out, east or in.
+A large garden with flowers of all descriptions, except roses, border the Palace walls.
+> e
+
+>e
+
+You are by the garden pond.
+You can see the Goldfish.
+You can go west.
+A small square pond with a silver orb centrepiece standing in the middle of it. Hedges surround you from all sides creating shaded corners.
+
+'What a pretty fish.' you exclaim.
+> tie string
+
+>tie string
+'I'll tie a big knot in the centre. I'm sure it will remind me to do something later on.' you think to yourself.
+> give string to goldfish
+
+>give string to goldfish
+'That reminds me, child. The Hatter was here the other day playing with a large jewel. He got distracted by his picnic and dropped the jewel into my pond. He soon forgot about it.' remembers the Goldfish.
+> drop string
+
+>drop string
+You drop it.
+> w
+
+>w
+
+You are in the Palace garden.
+You can see the White Rabbit and a pot.
+You can go out, east or in.
+A large garden with flowers of all descriptions, except roses, border the Palace walls.
+> in
+
+>in
+
+You are in the Palace hall.
+You can see a Door with a Face.
+You can go out, north, west or east.
+A large magnificent hall with paintings and portraits lining the golden walls. Marble pillars hold up the silver roof while a strange door with a carved wooden face lies to the north.
+> n
+
+>n
+
+You are in the cell.
+You can see the Hatter.
+You can go south.
+The cell is dark and dingy with straw on the floor.
+
+'Oh dear, the poor Hatter!' you cry.
+> give cake to hatter
+
+>give cake to hatter
+'I say!' the Hatter's eyes widen, 'Shame it isn't a raspberry sponge but that will do nicely.'
+He snatches it off you and gobbles it all up. He doesn't notice he has dropped his watch.
+> get watch
+
+>get watch
+You pick it up.
+> open watch
+
+>open watch
+You open it.
+It contains a gold key.
+> get gold key
+
+>get gold key
+You pick it up.
+> drop watch
+
+>drop watch
+You drop it.
+> s
+
+>s
+
+You are in the Palace hall.
+You can see a Door with a Face.
+You can go out, north, west or east.
+A large magnificent hall with paintings and portraits lining the golden walls. Marble pillars hold up the silver roof while a strange door with a carved wooden face lies to the north.
+> out
+
+>out
+
+You are in the Palace garden.
+You can see the White Rabbit and a pot.
+You can go out, east or in.
+A large garden with flowers of all descriptions, except roses, border the Palace walls.
+> out
+
+>out
+
+You are by the Palace gates.
+You can see the Dusty Old Knight and a pair of spectacles.
+You can go in or southwest.
+Two huge golden gates with diamond-shaped motifs set into them lie before you to the entrance of the Palace grounds.
+> sw
+
+>sw
+
+You are in the wood.
+You can see a dead tree.
+You can go northwest or northeast.
+The wood is dark in places and quite foreboding. You hear noises coming from deep within the wood and feel you are being watched. This part of the wood is very scary.
+> nw
+
+>nw
+
+You are in the copse.
+You can see a pair of oars.
+You can go southeast, west or north.
+You are surrounded by oak trees with low boughs and small bushes with blue flowers in the shape of feline faces grinning at you intensely.
+> get oars
+
+>get oars
+You pick them up.
+> w
+
+>w
+
+You are by the river bank.
+You can see a boat.
+You can go east.
+This is the east side of a calm river with a wooden jetty stretching out across the water.
+> row boat
+
+>row boat
+You row the boat to the west side of the river.
+
+You are by the river bank.
+You can see a boat.
+You can go northwest.
+This is the west side of a calm river with a wooden jetty stretching out across the water.
+> nw
+
+>nw
+
+You are in the village square.
+You can see Tweedledum and Tweedledee, a bone and a bronze key.
+You can go southeast, northwest, in or west.
+You see a small shop with a sign above it that reads 'Ye Olde Shoppe' and an immense round tower stands to the west.
+> drop oars
+
+>drop oars
+You drop them.
+> w
+
+>w
+
+You are outside the tower.
+You can see a tower door.
+You can go east or in.
+The large round stone tower which is as wide as a house looks to have at least a bottom and a top floor.
+> in
+
+>in
+
+You are at the bottom of the tower.
+You can go out or up.
+Stone steps wind around the inside of the tower ascending to the top floor.
+> up
+
+>up
+
+You are in the tower room.
+You can see a casket and a red box.
+You can go down.
+This room is more of a living quarters for someone who studies a wide-range of subjects. You find a rack of test tubes with pungent chemicals in them, a large free-standing globe of the Earth and a bookshelf holding numerous books.
+> unlock casket
+
+>unlock casket
+Unlocked with the gold key.
+> open casket
+
+>open casket
+You open it.
+It contains a bottle of blue liquid.
+> get blue liquid
+
+>get blue liquid
+You pick it up.
+> drink blue liquid
+
+>drink blue liquid
+'I hope it isn't poisonous.' you wonder and swallow the contents anyway. 'Oh my, I feel an acute sense of awareness all of a sudden.' you exclaim.
+> x globe
+
+>x globe
+It's a globe of the Earth.
+'I've just noticed a small button where England should be!' you discover.
+> push button
+
+>push button
+You press the button and hear a click.
+> open globe
+
+>open globe
+You open it.
+It contains a rattle.
+> get rattle
+
+>get rattle
+You pick it up.
+> x rattle
+
+>x rattle
+A wooden rattle.
+'Oh my, it seems to be broken.' you observe.
+> down
+
+>down
+
+You are at the bottom of the tower.
+You can go out or up.
+Stone steps wind around the inside of the tower ascending to the top floor.
+> out
+
+>out
+
+You are outside the tower.
+You can see a tower door.
+You can go east or in.
+The large round stone tower which is as wide as a house looks to have at least a bottom and a top floor.
+> e
+
+>e
+
+You are in the village square.
+You can see Tweedledum and Tweedledee, a bone, a bronze key and a pair of oars.
+You can go southeast, northwest, in or west.
+You see a small shop with a sign above it that reads 'Ye Olde Shoppe' and an immense round tower stands to the west.
+> get oars
+
+>get oars
+You pick them up.
+> nw
+
+>nw
+
+You are by the well.
+You can see an iron handle, a rod and a rope.
+You can go southeast.
+The path ends abruptly with a stone well standing before you. It has an iron handle on one side attached to a thick wooden rod that winds up the rope tied to it. Looking down the well it's very dark and strangely smells quite sweet.
+
+'I wonder what sort of well is this?' you ponder.
+> turn handle
+
+>turn handle
+You turn the handle and the rope lifts up a bucket.
+> x bucket
+
+>x bucket
+Made of oak and tied to one end of the rope.
+It contains some treacle.
+> use rattle on treacle
+
+>use rattle on treacle
+'I guess it's very strong treacle.' you observe as it bonds the broken pieces of the rattle together.
+> se
+
+>se
+
+You are in the village square.
+You can see Tweedledum and Tweedledee, a bone and a bronze key.
+You can go southeast, northwest, in or west.
+You see a small shop with a sign above it that reads 'Ye Olde Shoppe' and an immense round tower stands to the west.
+> drop oars
+
+>drop oars
+You drop them.
+> shake rattle
+
+>shake rattle
+You wave the rattle and make a dreadful noise. Tweedledum and Tweedledee stop fighting immediately.
+'We will stop fighting on one condition, now how.' exclaims Tweedledum.
+'If you give us back out rattle, contrariwise.' states Tweedledee.
+You agree and give them their rattle. They in turn offer you a small fishing net. They leave the square happy with their rattle.
+> get fishing net
+
+>get fishing net
+You pick it up.
+> get oars
+
+>get oars
+You pick them up.
+> se
+
+>se
+
+You are by the river bank.
+You can see a boat.
+You can go northwest.
+This is the west side of a calm river with a wooden jetty stretching out across the water.
+> row boat
+
+>row boat
+You row the boat to the east side of the river.
+
+You are by the river bank.
+You can see a boat.
+You can go east.
+This is the east side of a calm river with a wooden jetty stretching out across the water.
+> e
+
+>e
+
+You are in the copse.
+You can go southeast, west or north.
+You are surrounded by oak trees with low boughs and small bushes with blue flowers in the shape of feline faces grinning at you intensely.
+> drop oars
+
+>drop oars
+You drop them.
+> se
+
+>se
+
+You are in the wood.
+You can see a dead tree.
+You can go northwest or northeast.
+The wood is dark in places and quite foreboding. You hear noises coming from deep within the wood and feel you are being watched. This part of the wood is very scary.
+> ne
+
+>ne
+
+You are by the Palace gates.
+You can see the Dusty Old Knight and a pair of spectacles.
+You can go in or southwest.
+Two huge golden gates with diamond-shaped motifs set into them lie before you to the entrance of the Palace grounds.
+> in
+
+>in
+
+You are in the Palace garden.
+You can see the White Rabbit and a pot.
+You can go out, east or in.
+A large garden with flowers of all descriptions, except roses, border the Palace walls.
+> e
+
+>e
+
+You are by the garden pond.
+You can see the Goldfish and a piece of string.
+You can go west.
+A small square pond with a silver orb centrepiece standing in the middle of it. Hedges surround you from all sides creating shaded corners.
+> use fishing net on pond
+
+>use fishing net on pond
+'I've caught a rose-tinted "fish".' you rejoice.
+> drop fishing net
+
+>drop fishing net
+You drop it.
+> get diamond
+
+>get diamond
+You pick it up.
+> w
+
+>w
+
+You are in the Palace garden.
+You can see the White Rabbit and a pot.
+You can go out, east or in.
+A large garden with flowers of all descriptions, except roses, border the Palace walls.
+> speak to white rabbit
+
+>speak to white rabbit
+Before you can speak the White Rabbit addresses you quite abruptly.
+'Mary-Ann, what are you doing here? Haven't you got chores to complete? A chimney to sweep or a floor to clean? Be off with you before the new Queen catches you!' he shouts.
+'New Queen?' you enquire, 'Who might that be?'
+'Impertinence, Mary-Ann!' he snaps back. 'The Queen of Diamonds as you well know. The late Queen of Hearts' daughter.'
+You are shocked at the news of the Queen of Hearts' death.
+'Oh my ears and whiskers,' he exclaims, 'She'll chop off my head and toes if I'm late.'
+And with that he scuttles off into the Palace.
+> in
+
+>in
+
+You are in the Palace hall.
+You can see a Door with a Face.
+You can go out, north, west or east.
+A large magnificent hall with paintings and portraits lining the golden walls. Marble pillars hold up the silver roof while a strange door with a carved wooden face lies to the north.
+> e
+
+>e
+
+You are in the throne room.
+You can see the Queen of Diamonds, a throne and the White Rabbit.
+You can go west.
+A huge, vaulted hall with a golden throne standing underneath three tall stained-glass windows. The floor is chequered with blue and white marble tiles and a large portrait of a queen, with red diamonds patterning her dress, towers over you. She looks rather similar to the Queen of Hearts but quite different in other ways.
+> give diamond to queen
+
+>give diamond to queen
+'I have found your diamond, Ma'am.' you curtsey and hand over the diamond.
+'Well done, child. I declare the Hatter is now free. You may go, I have duties to perform.' she orders. She nods to the White Rabbit who presents you a single rose as a reward. She leaves you with the White Rabbit following closely behind.
+> get rose
+
+>get rose
+You pick it up.
+> w
+
+>w
+
+You are in the Palace hall.
+You can see a Door with a Face.
+You can go out, north, west or east.
+A large magnificent hall with paintings and portraits lining the golden walls. Marble pillars hold up the silver roof while a strange door with a carved wooden face lies to the north.
+> open door
+
+>open door
+He is already open.
+> n
+
+>n
+
+You are in the cell.
+You can see the Hatter and a watch.
+You can go south.
+The cell is dark and dingy with straw on the floor.
+> speak to hatter
+
+>speak to hatter
+'Mr Hatter, it is me Alice. I'm sorry to see you imprisoned like this.' you say concerned.
+'It's not my fault.' cries the Hatter, 'I didn't steal it, it stole itself or at least was stolen by someone other than myself. The Queen's diamond. She said I stole it but I didn't do it. Well I don't remember. Perhaps I did? No, it's a Tuesday, a day for tea and fruit cake not a day for stealing, that's on a Friday. No, wait it's a Wednesday. What am I to do?'
+He starts scratching all over.
+'Perhaps he has fleas?' you think to yourself. He continues to babble.
+'When I saw it last I had kept one eye upon it and the other eye elsewhere. But when both of my eyes were distracted by a nice raspberry sponge I looked back and it had gone. She is going to chop off my head and toes.' he sobs.
+He starts to mutter to himself about 'ravens' and 'writing-desks.'
+'Maybe I could find it for you and return it to the Queen.' you suggest.
+'Would you?' he smiles, 'Do you know why a raven is like a writing-desk?'
+'No, Mr Hatter. I still don't know.'
+'Never mind.' he sighs and clears his throat as he recites a small rhyme.
+
+'Tweedledum and Tweedledee,
+Agreed to start a scuffle,
+Contention, hubbub, brawl and broil,
+Rixation, dispute, tussle.
+
+The Wizard in the tower cried,
+"Stop this mighty battle,
+Tweedledum and Tweedledee,
+I'll stop you with your rattle!"
+
+The Hatter sits silently muttering about 'treacle' and 'wells'.
+> speak to hatter
+
+>speak to hatter
+'You're a free man, sir. The Queen has pardoned you.' you announce.
+'I am?' he says and jumps for joy, 'Thank you, child.'
+He straightens his hat and runs out of the cell.
+> move mattress
+
+>move mattress
+You find something underneath it.
+> get secateurs
+
+>get secateurs
+You pick them up.
+> s
+
+>s
+
+You are in the Palace hall.
+You can see a Door with a Face.
+You can go out, north, west or east.
+A large magnificent hall with paintings and portraits lining the golden walls. Marble pillars hold up the silver roof while a strange door with a carved wooden face lies to the north.
+> out
+
+>out
+
+You are in the Palace garden.
+You can see a pot.
+You can go out, east or in.
+A large garden with flowers of all descriptions, except roses, border the Palace walls.
+> use rose with pot
+
+>use rose with pot
+As soon as you plant the rose it magically grows into a rosebush.
+> x rosebush
+
+>x rosebush
+'Oh, it has both red and white roses blooming from it.' you cry with delight, 'The Queen of Hearts I'm sure would of approved.' After a pause for thought you shake your head.
+
+Suddenly, the Cheshire Cat appears.
+> speak to cheshire cat
+
+>speak to cheshire cat
+'Hello again, Cheshire Puss.' you smile.
+'Hello, child.' he grins, 'It's time for you to leave soon. The Wishing Tree is now better thanks to you.'
+'What did I do?' you enquire.
+'It's a matter of what you didn't do.' replies the Cheshire Cat.
+'What didn't I do?' you ask.
+'Ignore the needs of others. They wished for help and you gave it. Wishful thinking, see.' grins the Cheshire Cat even wider.
+He fades into nothing leaving his head and a wide grin floating in mid-air. After a short while he vanishes completely.
+> out
+
+>out
+
+You are by the Palace gates.
+You can see the Dusty Old Knight and a pair of spectacles.
+You can go in or southwest.
+Two huge golden gates with diamond-shaped motifs set into them lie before you to the entrance of the Palace grounds.
+> sw
+
+>sw
+
+You are in the wood.
+You can see the Wishing Tree.
+You can go northwest or northeast.
+The wood is dark in places and quite foreboding. You hear noises coming from deep within the wood and feel you are being watched. This part of the wood is very scary.
+> x wishing tree
+
+>x wishing tree
+A glorious-looking tree. A sense of wonder emanates from it.
+It contains a blue fruit.
+> use secateurs on fruit
+
+>use secateurs on fruit
+You cut the fruit off the tree.
+> get fruit
+
+>get fruit
+You pick it up.
+> eat fruit
+
+>eat fruit
+You take a bite out of the fruit.
+'I wish to go home.' you shout and with that the world around you swirls around... You find yourself back in your garden.
+'Oh, what a wonderful dream.' you rejoice, 'I wish to never wake up, if I ever return.'
+As the sun appears behind a cloud you are sure you spot a familiar face grinning down upon you.
+
+The End
+[state=Finished]

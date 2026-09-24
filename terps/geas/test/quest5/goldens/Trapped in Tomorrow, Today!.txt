@@ -1,0 +1,373 @@
+Trapped in Tomorrow, Today!
+Escape This Podcast (Season 1, Episode 10)
+
+by Dani Siller (adapted by DavyB with James Spaid)
+
+Sound effects have been switched off. Type SOUND to switch them on again.
+INTRODUCTION.
+It's a tragic day for your quaint little town. Your favourite childhood attraction, the Earth of the Future Exhibition, is being torn down. Yes, it's just a single convention hall full of flashing lights, shabby robots and inventions that seemed cool and futuristic in about 1985, but you loved it and are crushed that it's going to be demolished. Those behind it, led by the eccentric Professor Patrick Pending, had tried to find support but with his untimely death, about a year ago, that had come to nothing.
+
+The day before the exhibition is due to go down, you call them and ask if there's any chance you can go in for a last-minute private walk through. To say goodbye.
+
+They say yes.
+
+You arrive in the early evening and walk into the building and towards the exhibition hall, writing a eulogy for the place in your head as you go. You enter through an automatic door at the south end of the room, slightly left of centre. As soon as you do, your feet land on a travelator, a moving walkway. It slowly moves you around the room, rolling you past the exhibits on your left and right.
+
+A heavy sense of loss settles into your stomach. Okay, the entertainment value isn't great when you look at it with objective eyes, but some of the technology is amazing. The creators have some incredible talent. It's crazy that they've gone so broke the place has to be destroyed. There must be something, something, that's worth the world's attention. Something life-changing. Something that can save this place, and the livelihoods of its designers.
+
+You think about it as the travelator conveys you towards the exit, when suddenly, the whole thing jerks to a halt. You almost lose your footing. Once you've stabilised yourself, you roll your eyes – well, at least it waited until you were finished to break down! Guess you have to use your feet to get to the door. You walk up to it... but it doesn't open. You try the other door, the entrance one; again, it doesn't open. Well, this is frustrating. You glance up at the security cameras – five of them, interspersed along the ceiling between exhibits – and give them an urgent wave, trying to get a staff member's attention, but after several minutes nobody has come to your aid.
+
+Look, in all likelihood, some janitor somewhere will come in here and find you. But you have no idea how long that will take. And this exhibition is being shut down, demolished tomorrow... maybe there aren't any janitors working here anymore. You should probably find a way to get those doors working yourself – it may be the only way to 100% guarantee your safety!
+
+Exhibition Hall
+With trepidation, you examine your surroundings...
+
+To the left of the door through which you entered is an exhibit labelled 'The Family of the Present', with half a dozen statues in it representing, you guessed it, a modernish family of today. Then, on the west wall, there are two exhibits displaying two different time periods of the past, showing off their greatest achievements and inventions. The first is an 1800s exhibit, and the second is 1900s. The entire north wall is covered in a mural. The right side of the room is a mirror image of the left, only with different exhibits. Against the right wall are exhibits for the 2000s and the 2100s, containing models of the designers' predictions for what great inventions will come in the future.
+
+In the centre of the room is a huge square exhibit that's been split into four sections. On one side are the Bedroom of the Future and Kitchen of the Future. On the other side are the Sports of the Future and School of the Future. On the south wall, to the right of the entrance, is the automatic door through which you were expecting to exit, and beside it another exhibit, this one labelled 'The Family of the Future'.
+
+Around the ceiling there are five security cameras.
+
+ [Type help for information about the game and how to play it]
+> x bedroom
+
+> x bedroom
+There's a cheap bed, quite dull and obviously just part of the backdrop for the feature item: the Wardrobe of the Future.
+> x bed
+
+> x bed
+As far as you can tell it is just ordinary bed being used to decorate the bedroom of the future.
+> look under bed
+
+> look under bed
+Underneath the bed you spot a folded piece of paper and pick it up.
+Gained Item: folded piece of paper.
+> x note
+
+> x note
+You open the folded paper and find it is a letter sent to Professor Pending over a year ago.
+It reads:
+
+Dear Professor Pending,
+Thank you for your proposal, which we have studied with interest. Unfortunately we are not yet ready to offer you funding. Your ideas are certainly revolutionary. If correct, they should lead to substantial energy savings, and so provide a healthy return for any investor. However, we need some reasonable proof-of-concept before becoming involved. We recommend that you conduct a large-scale experiment to strengthen your case and contact us again when the results are known.
+
+Until then,
+Sincerely,
+Morgan, Karlsen & Leonidas
+Solicitors for Venture Angels Inc.
+> x travelator
+
+> x travelator
+The travelator is a conveyor belt that carries visitors around the exhibition.
+When it was moving, it seemed to float silently over the ground.
+
+Looking closely, you see why the travelator stopped. Jammed in its mechanism is a long device, looking like a lacrosse stick with a tennis ball sitting in it. It must have fallen from one of the exhibition stands.
+> take long device
+
+> take long device
+The long device seems trapped in the travelator mechanism but you persevere, and eventually are able to pull it out. Unfortunately, the travelator doesn't restart.
+Gained Item: long device.
+> x long device
+
+> x long device
+After a bit of head scratching, you eventually realise that this is a ball launcher. The handle contains electronics. What could that be for?
+> use ball launcher
+
+> use ball launcher
+ You think initially of trying it out by hurling the ball as far as you can across the room. With no dog to bring it back, however, you settle for bouncing it off a nearby wall. The release is exceptionally smooth and you feel that you could direct the ball as if throwing a dart.
+> x mural
+
+> x mural
+The mural is an enormous cityscape, a Vision of the Future. The entire thing is a visual ode to solar power; buildings are coated in panels, the image of the sun in the top corner has a huge, happy smile painted on it, and all the painted people are staring happily up at it, almost in praise. In fact, on the right there's a rolling hill with a family picnicking on it, and they're literally lifting their glasses and saying (in a little speech bubble), “To the sun!”
+> x 2000s
+
+> x 2000s
+This display is where they stop focusing on achievements that definitely had a profound impact, and start to take some guesses. Like, they've got a humanoid robot on display at one end.
+ At the other end they've got a pair of glasses on a pedestal.
+> x glasses
+
+> x glasses
+They don't look world-changing, but are cooler than normal glasses. They seem too large for most people to use.
+> take glasses
+
+> take glasses
+You pick them up carefully.
+Gained Item: glasses.
+> wear glasses
+
+> wear glasses
+You put on the glasses and they autoadjust to your head size to give a perfect fit.
+Wow, that's amazing! You also notice that by moving your eyes you can bring up a menu. Blinking makes a selection. One choice is to set the colour of the lenses, perhaps to match your mood or outfit?
+> x 1900s
+
+> x 1900s
+The great feats of the 1900s represented here are computers and space travel. On one side is a personal computer, which is somehow both dated and completely novel to you – like it was made by someone who'd done no research whatsoever into what early PCs were like. On the other side is an impressive model rocket that stands about twice as tall as you.
+> x rocket
+
+> x rocket
+It's extremely tall and covered in lights that look like they belong on a Christmas tree. None of them is on, though. Running up the front is a line of several buttons; beside them the words, “What's your destination?” are painted.
+> use buttons
+
+> use buttons
+The rocket rumbles for a moment and makes a blast-off noise, then the whole thing lights up an appropriate colour for the planet you have chosen. The closer you get to the sun, the brighter the lights become.
+> use ball launcher on sun button
+
+> use ball launcher on sun button
+With the help of the glasses, you feel you could hit any button you choose. You stare at the sun button as you use the ball launcher. You hit it first time! The rocket rumbles for a moment and makes a blast-off noise, then the whole thing starts flashing, a blinding white light. To represent being on the sun, you suppose.  It fills the entire room. You have to shield your eyes, and as you do, you notice something going on in the exhibit against the opposite wall, the 2000s one. It's the robot – it's started moving! The flashing light must have turned it on.
+> x school
+
+> x school
+The classroom itself doesn't look very futuristic, but then you get a good look at the dummy students sitting at the desks.
+> x dummy students
+
+> x dummy students
+There's something attached to the head of each dummy, right above the ear, something silver. You take a look at the sign beside this exhibit and read: "Knowledge chips – no teacher required!"
+> x knowledge chips
+
+> x knowledge chips
+The chips are screwed tightly into the dummy students' spherical heads. Each chip is a perfect M-shape sitting just over the student's ear, kind of like the original design of Homer Simpson's hair.
+> take knowledge chips
+
+> take knowledge chips
+You try to work the knowledge chips loose but they are all too tight. Pulling on one of them, the dummy's head comes off instead! You decide to hold on to it in case you find a screwdriver.
+Gained Item: student head.
+> give head to robot
+
+> give head to robot
+The head fits in the robot's hands perfectly, and its gears all get to work. It rotates the head until the knowledge chip is pressed into one of its palms, and the palm locks onto it like there's a magnet in there. Then, it starts rotating, rotating, until the chip has been completely removed from the head. You pick up the chip and set the head to one side.
+Gained Item: knowledge chip.
+> x computer
+
+> x computer
+The computer is on, but the screen is totally blank, like nothing whatsoever has been installed. There's also no mouse or keyboard. It must have a touchscreen. On the tower, you see some funny-shaped slots where unusual chips or not-so-universal USBs might fit. The slots look letter-shaped: they resemble A, F, L, R and W. From the computer is a cable running towards the 1800s exhibit.
+> use knowledge chip on computer
+
+> use knowledge chip on computer
+Select the slot where you want to put the chip:
+1: A-shaped slot
+2: F-shaped slot
+3: L-shaped slot
+4: R-shaped slot
+5: W-shaped slot
+> 5
+You insert the M-shaped knowledge chip upside-down into the W-shaped slot: It fits in perfectly, and words start popping up on the screen. There are two icons that appear selectable: one says “Generator” and the other “Camera.”
+> use camera icon
+
+> use camera icon
+You touch the 'Camera' icon. At first, this looks really promising. Five separate icons show, one for each camera. The cameras have been given names. Camera 1 is called VAMP, Camera 2 PAIL, Camera 3 TRICKLE, Camera 4 HOUSE, and Camera 5 SPRINT. However, you are immediately prompted to input a five-letter password and a screen keyboard appears. There is a password hint available: it says, “Remove the unnecessary.”
+PASSWORD:
+(Type it below )
+> VIRUS
+
+You enter "VIRUS".
+
+The camera footage starts loading. In the first lot of footage, you don't see much of interest. Just several minutes of guests walking through and pointing at the exhibits. You swap to the next video, which is much the same, as are the next two. The final one, though, shows footage of a maintenance worker going about his business after the exhibit has closed. As he tidies you suddenly notice an electrical box on the wall between the 2000s and 2100s exhibits that you had missed!
+> x electrical box
+
+> x electrical box
+The electrical box has been painted the same colour as the wall so you are not surprised you missed it first time around.
+
+On the box you see a warning:
+
+DANGER HIGH VOLTAGE
+Use Suitable Protective Equipment (PPE)
+The warning reminds you that the death notice for Professor Pending mentioned an electrocution accident. Could he have died here?
+
+The box can be opened by entering an alphanumeric code on a small keypad. It is currently closed.
+> x wardrobe
+
+> x wardrobe
+The wardrobe has an opening at each end. Clothes are put in on the left and removed from the right. A touchscreen in the middle is used to identify items to be retrieved.
+> search wardrobe
+
+> search wardrobe
+What item do you want to take from the wardrobe?
+(Type its name below)
+> ppe
+
+Using the touchscreen you enter: ppe.
+
+You hear movement within the wardrobe and eventually the item you requested appears on the right. You pick it up.
+Gained Item: PPE.
+> wear ppe
+
+> wear ppe
+You put it on.
+> x family of the future
+
+> x family of the future
+The family of the future consists of four beaming people, two adults and two children. It's clear that they're meant to all be happy and homogeneous, posing in a line as if for a family photo, with their grinning faces and identical, futuristic jumpsuit-uniforms – the only difference you can see between them is the name sewn into their breast pockets. One says 'Mary Ellen', another 'Aaron Luke', and the third 'Kelly' –
+but there's a glaring problem with that pretty picture: the final family member, the father, has been completely stripped of his clothes! How embarrassing.
+> x 2100s
+
+> x 2100s
+There's only one thing in this display, and it's a pretty ambitious prediction: it's a teleportation machine.
+> x teleporter
+
+> x teleporter
+This teleporter looks to be made up of two separate chambers – you walk in one and pop out the other – but when you get up close, you see that obviously it's not real. With a bit of fancy curtain and a mirror, they've concealed a narrow passageway that connects the two chambers. A person could just walk through it like any ordinary hallway.
+> use teleporter
+
+> use teleporter
+Maybe this looks really cool to people watching you from the outside, but from your perspective, you're just walking through a short, dark hallway. Right before you come out the other side, your feet get tangled in some clothing. You bend down to grab it, and once you get back into the light, you take a look.
+Gained Item: clothing.
+> x clothing
+
+> x clothing
+It's a uniform jumpsuit, blue-grey, with a name sewn into the breast pocket: Tom Edward Nathan.
+> use jumpsuit on father
+
+> use jumpsuit on father
+You slip the jumpsuit back onto the naked figure in the Family of the Future display and step back to admire your work. That's much better!
+> x kitchen
+
+> x kitchen
+There are two items featured here: the Microwave of the Future and the Sink of the Future.
+> x microwave
+
+> x microwave
+This is a device that looks like a cross between a microwave and a vending machine.
+> use microwave
+
+> use microwave
+As soon as you approach the device a prompt appears, looking for a letter and two digits.
+Meal:
+(Type meal code below )
+> K10
+
+You enter "K10".
+
+As soon as you've entered the final digit, the device whirs, and spits out a meal triumphantly. You pick it up.
+Gained Item: K10 meal.
+> x meal
+
+> x meal
+Is that food? It is bright green, with the texture of mashed potato, and has a strange smell. Whatever it is, it is in a foil container covered with a transparent film.
+
+You can see an expiration date on the film. One that's waaay in the past. Also, you see the instruction, “Please dispose of this product once expiration date has passed.”
+> x sink
+
+> x sink
+There's a small display screen built into the sink and a switch to operate the garbage disposal.
+> put meal in sink
+
+> put meal in sink
+You put the K10 meal into the garbage disposal.
+> use switch
+
+> use switch
+The computerised display flashes the word 'Processing' and a percentage bar telling you how much progress it's made. When it reaches 100%, more words pop up:
+Disposal Complete. Please Retrieve Recyclable Material.
+> x foil tray
+
+> x foil tray
+This is the foil tray left behind by the garbage disposal unit.
+You pick it up to have a close look at it.
+It is completely clean! You can even see the name of the maker imprinted on the base: SOYLENT.
+> open electrical box
+
+> open electrical box
+Using the keypad you enter the code to open the box:
+(Type the code below )
+> soylent
+
+You enter "soylent".
+
+The box opens and inside you find a circuit board.
+> x circuit board
+
+> x circuit board
+There are six coloured sockets on the board. These can be connected. Conveniently, you find three lengths of wire lying in the electrical box. They seem to have been there for some time. Each length is heavily insulated in the middle but bare at both ends for connection between two sockets.
+Gained Item: lengths of wire.
+> x family of the present
+
+> x family of the present
+The family of the present is designed to look bothered and unharmonious,  so the family of the future looks better by comparison. It's two kids, two parents and two grandparents, one male and one female of each. They're all wearing unhappy expressions and clothes which clash with one another. The father is in black and the mother in blue; the girl child is wearing red, the boy yellow; and the grandfather is in white and the grandmother in orange.
+> x sports
+
+> x sports
+This exhibit's pretty cool – the theme of it is essentially sports without needing all that expensive equipment; there are models of kids in sports uniforms, holding out their arms as if handling baseball bats, but the bats themselves are not physically there – they're holograms! In fact, apart from the people, everything about the baseball field is a hologram. Bases, ball, a big scoreboard.
+.. it's all very impressive...though the scoreboard is not very clear.
+> colourise glasses
+
+> colourise glasses
+With a few deft eye movements you quickly bring up a colour selection menu.
+Select a colour:
+1: Strawberry Red
+2: Bitter Orange
+3: Sunny Yellow
+4: Lime Green
+5: Cool Blue
+6: Midnight Black
+7: None
+> 4
+
+As soon as you blink for "Lime Green" the lenses change to match. That's impressive!
+
+With the lenses set to Lime Green the scoreboard in the Sports of the Future exhibit seems clearer.
+> x scoreboard
+
+> x scoreboard
+The scoreboard is a holographic projection.
+ The green lenses in the glasses are allowing you to see new details. You now read, “The ref has called it! 106 to 58!”
+> x computer
+
+> x computer
+The computer has been activated and you can see a "Generator icon" and a "Camera icon".
+> touch generator icon
+
+> touch generator icon
+You touch the 'Generator' icon. Over in the 1800s exhibit, you hear the generator start rumbling.
+> x 1800s
+
+> x 1800s
+The triumphs of the 1800s are proudly on show here. The two things they've decided to focus on are electricity and the telephone; on one side there's an enormous electrical generator, and on the other a very old-fashioned phone sitting on a table.
+> use telephone
+
+> use telephone
+You hear a voice asking "What number do you require?":
+(Type it below )
+> 106258
+
+You enter "106258".
+
+It rings only once before you hear a voice speaking. They aren't speaking to you, however; it sounds like a recording. At first it's a woman's voice you hear, and it says, “Mother to son, hello.” But then there's a pause, and a man's voice speaks. “Father to grandfather, hello.” Another pause, then a girl's voice says, “Daughter to grandmother, hello.”
+> repair circuit board
+
+> repair circuit board
+Despite the risks, you now feel ready to try fixing the circuit board.
+
+You attach the end of the first wire to the red socket. Where would like the other end connected:
+1: white socket
+2: yellow socket
+3: orange socket
+> 3
+Nothing happens when you connect the red socket to the orange socket, so you decide to keep going.
+
+You attach the second wire to the blue socket. Where would like the other end connected:
+1: white socket
+2: yellow socket
+> 2
+Nothing happens when you attach the blue socket to the yellow socket, so you connect the final wire between the black socket and white socket.
+
+As soon as you make the final connection, you hear the sound of mechanical structures shuddering to life. Behind you, you see the conveyor belt floor is moving once again! Strangely, it's noisier than you remember?
+> take wire
+
+> take wire
+Suspecting that the travelator might be a perpetual motion machine, you take back all three lengths of wire. Magically, wonderfully, the only effect is to reduce the noise level. The travelator has continued to operate! Now started, it should continue to move without power unless something else blocks its progress. With that knowledge you are finally ready to leave the exhibition.
+> use travelator
+
+> use travelator
+You step onto the travelator and it carries you to the exit. The doors open in front of you.
+
+Congratulations! You've made it!!
+You take a deep breath of fresh air, and then run to find a phone so you can start to tell the world what you've found in here. The successful operation of the travelator for the past year should be enough to convince any sceptical funders. You've saved the exhibition for sure. Maybe you can expect a nice cut of those handsome perpetual motion profits!
+
+Summary
+Wow, you completed the game in less than a minute without using any hints! Clearly, you are not a person to mess with!!
+
+THE END...?
+
+Series 3, Episode 8:
+Ten Pin Panic
+[state=Finished]

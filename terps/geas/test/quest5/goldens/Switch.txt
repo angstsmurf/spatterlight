@@ -1,0 +1,246 @@
+Switch
+
+by mick green
+
+IMPORTANT - type "switch" freely throughout the game. Also "score" and if your new (or rusty) "help". Type "hint" not if but WHEN you get stuck."About" will give you a little bit of info.
+
+................................................................................................................
+
+Free hint - your view will be clearer from a higher point.
+
+You are in a strange dimension.
+A plane of tight green grass extends infinitely in every direction.
+There is a picture hanging from the wall here.
+
+> roll picture
+
+> roll picture
+
+1 point bonus
+
+You are now standing on the top of the mountain.
+> crack mountain
+
+> crack mountain
+
+1 point bonus
+
+You roll the dice.
+> shave dice
+
+> shave dice
+You smell it's sweet scent...
+
+1 point bonus
+
+> x wall
+
+> x wall
+You take the orange.
+> smell wall
+
+> smell wall
+You peel the orange.
+
+1 point bonus
+
+> x grass
+
+> x grass
+You take the egg (gently, so it doesn't roll and crack).
+> take Richard Beaumont
+
+> take Richard Beaumont
+You gulp down some brandy.
+
+1 point bonus
+
+> turn head
+
+> turn head
+You turn your head away from the picture - as you turn your head a door turns on its hinge - you find yourself looking through the door into the other part of the gallery.
+
+You are in an art gallery.
+You can go west.
+You can see an immaculately crafted oak door and a picture.
+
+2 point bonus
+
+> w
+
+> w
+
+You are in a huge empty space.
+It's as black as night in a cave - you can't see a single thing. The light coming in through the door reveals a bare concrete floor that goes on and on as far as you can see.
+In the breeze you get an unpleasant whiff of your own body odour
+You can go east.
+> relocate grass
+
+> relocate grass
+You feel around yourself, looking for something you thought you had... You find the egg!
+You crack the egg!
+You hear a smash to the north!
+Inside the egg you find The Cure.
+A plane of tight green grass extends infinitely in every direction.
+
+2 point bonus
+
+> switch
+
+> switch
+You are in an office.
+You can see a desk, a light bulb, a picture frame, a door and an open window.
+> x desk
+
+> x desk
+The desk has a letter on it's surface and a drawer in front.
+There is also a mug, a kettle, some tea and coffee.
+> take note
+
+> take note
+You take the letter.
+> frame note
+
+> frame note
+Done.
+> touch light bulb
+
+> touch light bulb
+The light goes out; the room is dark.
+The only thing you can see is a bright EXIT.
+
+1 point bonus
+
+> use EXIT
+
+> use EXIT
+
+You are in a square landing.
+A clanky metal stair leads down to the street.
+Exits:  down or in.
+> switch
+
+> switch
+You are in a huge empty space.
+In the breeze you get an unpleasant whiff of your own body odour
+A plane of tight green grass extends infinitely in every direction.
+You can go north or east.
+> n
+
+> n
+
+You are in a dead end.
+You can go north.
+You can see a puddle, some orange bricks and a metal door.
+> n
+
+> n
+
+You are in a street.
+You can go in through a weather-worn door or down an alleyway.
+Exits:  in or south.
+> in
+
+> in
+
+You are in a vestibule.
+A clanky stair climbs up to a landing. A weathered and withering door leads out.
+Exits:  out or up.
+> drop Cure
+
+> drop Cure
+You drop it.
+> out
+
+> out
+
+You are in a street.
+You can go in through a weather-worn door or down an alleyway.
+Exits:  in or south.
+> s
+
+> s
+
+You are in a dead end.
+You can go north.
+You can see a puddle, some orange bricks and a metal door.
+> switch
+
+> switch
+You are in a square landing.
+A clanky metal stair leads down to the street.
+Exits:  down or in.
+> down
+
+> down
+
+You are in a vestibule.
+A clanky stair climbs up to a landing. A weathered and withering door leads out.
+Exits:  out or up.
+You can see The Cure.
+> take Cure
+
+> take Cure
+You pick it up.
+> up
+
+> up
+
+You are in a square landing.
+A clanky metal stair leads down to the street.
+Exits:  down or in.
+> in
+
+> in
+
+You are in an office.
+You can see a light bulb, an EXIT, an open window and a mug.
+> touch light bulb
+
+> touch light bulb
+The light flickers on; the room is bright again.
+> put Cure in mug
+
+> put Cure in mug
+You have now done that.
+> make tea
+
+> make tea
+You now have a mug of tea.
+> drink tea
+
+> drink tea
+You drink some tea.
+YOU ARE CURED!
+
+3 point bonus
+
+> down
+
+> down
+
+You are in a street.
+You can go in through a weather-worn door or down an alleyway.
+Exits:  in or south.
+
+"You're a time traveller!" Richard states bluntly.
+"Not any more, my time travelling days are over," Veronica sighs and adopts a contemplative gaze.
+"Was this your last assignment?"
+"No one ever told me that... I didn't decide that but... well, let's put it this way, the future that I come from has been altered so tremendously by what I did in making sure that little old you remained little old you, that I'm pretty sure I don't belong there anymore."
+"But, what do you mean?  you're not going back?"
+"The door that would normally take me home - I'm pretty sure it won't lead there this time. Do you think they'll risk me bringing something of you back with me? No. I know them. You could say I've been quarantined - for ever!"
+"But how can you be sure? That means you'd have to stay here forever, well, I mean till you die."
+"There wouldn't be anything there for me anyway; the world that made me never existed, the block I grew up in never needed to be built, the government department that sent me here never needed to be created. I could go on. I'm homeless, jobless and have no family."
+Richard absorbed Veronica's words and his face candidly mirrored the devastating shock he felt inside.
+"You've... sacrificed everything... and it seams it's all my fault."
+"I've FIXED everything. And you HELPED me, remember?"
+"Well then.. I suppose I'd better buy you a coffee."
+"You're damn right you had!" Veronica smiles and they both head off together.
+
+Complete the game in less than 31 moves to recieve an 1 point bonus for every turn under 31 (You may have to sacrifice some other points to make a real difference.)
+You scored 13 points out of a possible 20 and you took 32 turns.
+*******************************************************************
+
+GAME OVER
+
+[state=Finished]

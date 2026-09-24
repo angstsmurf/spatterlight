@@ -48,6 +48,7 @@ See `~/Downloads/Quest 5 walkthroughs/README.md` for sources, the Wayback workar
 
 | Game | Author | ASL | MB |
 |---|---|---|---|
+| Alice and the Wishing Tree | Craig Dutton | 550 | 1.6 |
 | All Visitors Welcome | Bitter Karella | 550 | 0.1 |
 | ARC II | Daniel Gao | 580 | 16.5 |
 | Attack On Frightside | Farley Sweet | 550 | 0.0 |
@@ -66,7 +67,9 @@ See `~/Downloads/Quest 5 walkthroughs/README.md` for sources, the Wayback workar
 | First Times | Hero Robb | 520 | 9.8 |
 | Fountain of Eternal Youth v1.3 | anonymous | 580 | 5.1 |
 | Frankenstein's Tomb | Craig Dutton | 550 | 3.2 |
+| Geocaching on the bridleway | ? | 580 | 0.1 |
 | Gilleholmen | Joachim Parrow | 580 | 89.1 |
+| Good Night | XanMag | 550 | 7.0 |
 | Great Depression Man (Middle Class) | ? (school history project) | 580 | 0.7 |
 | HMS Victory | Peter Edwards | 550 | 6.4 |
 | Iron John | Θανάσης Χρυσού | 580 | 0.2 |
@@ -79,30 +82,39 @@ See `~/Downloads/Quest 5 walkthroughs/README.md` for sources, the Wayback workar
 | Moquette | Alex Warren | 550 | 0.7 |
 | MOUNTAIN SKI 2.0 | Patricia | 580 | 15.8 |
 | Nearco II (Remake) - La perdición de la Ninfa - Vr Offline | Jhames | 500 | 7.5 |
+| Now You See Me | Dani Siller (adapted by DavyB with James Spaid) | 580 | 6.3 |
 | Oracle Feels Confused | ratakim | 580 | 5.9 |
 | Quest for Loot and Something Else | Mugi4ok | 550 | 1.3 |
 | Santa Carcossa Nights | Bitter Karella | 580 | 4.0 |
+| Sea Lion Caves | Ryan Thompson | 550 | 0.1 |
 | Signos | M4u | 520 | 2.2 |
 | spondre | Jay Nabonne | 550 | 1.1 |
 | Sueña un pequeño sueño | Juan Cristóbal Aedo Olivares | 540 | 0.0 |
+| Switch | mick green | 550 | 0.6 |
 | Sword and Spell | Caleb Wilson | 550 | 0.1 |
 | Texture | Ralf Thissen | 550 | 0.4 |
 | The Acreage | ? | 580 | 0.4 |
 | The Acreage (pub 6.29 revision) | ? | 580 | 0.4 |
 | The Eye of Mandival | Father Thyme | 580 | 0.3 |
 | The Gift of the Magi | O. Henry | 550 | 0.1 |
+| The Hammer of God | Gilbert Keith Chesterton | 550 | 0.1 |
 | The Last Hero | Wayde Bairstow | 550 | 0.1 |
 | The Legend of Robin Hood | Craig Dutton | 540 | 0.2 |
 | The Lunastone | Craig Dutton | 550 | 12.2 |
+| The Piskie | peter edwards | 550 | 3.3 |
 | The Shack | Mat Cooper / System Masters | 580 | 18.8 |
 | The Tree | Father Thyme | 580 | 1.6 |
+| The Yellow Wallpaper | Charlotte Perkins Gilman | 550 | 0.6 |
 | The Zen Garden | Privateer | 530 | 7.2 |
+| Thyme | Father Thyme (with DavyB) | 580 | 4.2 |
 | To Kindle A Light | J. Vasilevic | 550 | 0.8 |
 | Tombs and Mummies | Matthew Warner | 580 | 0.9 |
 | Train2019 | anonymous | 550 | 0.1 |
+| Trapped in Tomorrow, Today! | Dani Siller (adapted by DavyB with James Spaid) | 580 | 7.0 |
 | Treasure of the Ghost-King | Craig Dutton | 550 | 0.6 |
 | WAKE | Timothy Sibiski ("Asyranok") | 540 | 5.4 |
 | Warriors | anonymous (Warrior Cats fan game) | 550 | 9.2 |
+| Washed Ashore... | Janoniman | 580 | 7.9 |
 | Welcome to Pineview | Filthy & Free Publishing | 550 | 17.0 |
 | Welcome to the Paris Hotel! | CentaurOfAttn | 550 | 0.5 |
 | Woo Rebooted 3.6 | Longshot & DavyB | 580 | 7.2 |
